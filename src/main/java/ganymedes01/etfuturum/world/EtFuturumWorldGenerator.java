@@ -18,11 +18,14 @@ import net.minecraftforge.common.util.ForgeDirection;
 public class EtFuturumWorldGenerator implements IWorldGenerator {
 
 	private final List<WorldGenMinable> generators = new LinkedList<WorldGenMinable>();
+	private final List<WorldGenMinable> netherGen = new LinkedList<WorldGenMinable>();
 
 	public EtFuturumWorldGenerator() {
 		generators.add(new WorldGenMinable(ModBlocks.stone, 1, EtFuturum.maxStonesPerCluster, Blocks.stone));
 		generators.add(new WorldGenMinable(ModBlocks.stone, 3, EtFuturum.maxStonesPerCluster, Blocks.stone));
 		generators.add(new WorldGenMinable(ModBlocks.stone, 5, EtFuturum.maxStonesPerCluster, Blocks.stone));
+		
+		netherGen.add(new WorldGenMinable(ModBlocks.magma, 5, EtFuturum.maxStonesPerCluster, Blocks.netherrack));
 	}
 
 	@Override
@@ -45,6 +48,20 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 					generator.generate(world, rand, x, y, z);
 				}
 			}
+		
+		 //TODO
+		if (EtFuturum.enableNetherBlocks && EtFuturum.maxStonesPerCluster > 0 && world.provider.dimensionId == -1)
+			for (Iterator<WorldGenMinable> iterator = netherGen.iterator(); iterator.hasNext();) {
+				WorldGenMinable netherGen = iterator.next();
+				for (int i = 0; i < 5; i++) {
+					int x = chunkX * 16 + rand.nextInt(16);
+					int y = 23 + rand.nextInt(14);
+					int z = chunkZ * 16 + rand.nextInt(16);
+
+					netherGen.generate(world, rand, x, y, z);
+				}
+			}
+		
 
 		if (EtFuturum.enablePrismarine && world.provider.dimensionId != -1 && world.provider.dimensionId != 1)
 			if (OceanMonument.canSpawnAt(world, chunkX, chunkZ)) {

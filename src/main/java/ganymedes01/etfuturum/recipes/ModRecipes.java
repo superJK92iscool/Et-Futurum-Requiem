@@ -5,7 +5,9 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
+import ganymedes01.etfuturum.blocks.ConcreteRegistry;
 import ganymedes01.etfuturum.blocks.Stone;
+import ganymedes01.etfuturum.core.utils.EnumDyeColor;
 import ganymedes01.etfuturum.lib.EnumColour;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
@@ -24,7 +26,9 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 public class ModRecipes {
 
 	public static String[] dyes = new String[] { "dyeBlack", "dyeRed", "dyeGreen", "dyeBrown", "dyeBlue", "dyePurple", "dyeCyan", "dyeLightGray", "dyeGray", "dyePink", "dyeLime", "dyeYellow", "dyeLightBlue", "dyeMagenta", "dyeOrange", "dyeWhite" };
-
+	private static final ItemStack _SAND_ = new ItemStack(Blocks.sand), _GRAVEL_ = new ItemStack(Blocks.gravel);
+	
+	
 	public static void init() {
 		if (EtFuturum.enableBanners) {
 			RecipeSorter.register(Reference.MOD_ID + ".RecipeDuplicatePattern", RecipeDuplicatePattern.class, Category.SHAPELESS, "after:minecraft:shapeless");
@@ -255,6 +259,24 @@ public class ModRecipes {
 		        addShapedRecipe(new ItemStack(ModBlocks.daylight_sensor), "GGG", "QQQ", "WWW", 'G', Blocks.glass, 'Q', Items.quartz, 'W', Blocks.wooden_slab);
 				addShapelessRecipe(new ItemStack(ModBlocks.daylight_sensor), Blocks.daylight_detector);
 				addShapelessRecipe(new ItemStack(Blocks.daylight_detector), ModBlocks.daylight_sensor);
+			}
+		}
+		
+		if (EtFuturum.enableNetherBlocks) {
+			addShapedRecipe(new ItemStack(ModBlocks.magma), "xx", "xx", 'x', new ItemStack(Items.magma_cream) );
+			addShapedRecipe(new ItemStack(ModBlocks.redNB), "wb", "bw", 'b', Items.netherbrick, 'w', Items.nether_wart  );
+			
+			addShapedRecipe(new ItemStack(ModBlocks.netherwart), "xxx", "xxx", "xxx", 'x', Items.nether_wart);
+			addShapelessRecipe(new ItemStack(Items.nether_wart, 9), ModBlocks.netherwart);
+			
+		}
+		if (EtFuturum.enableBoneBlock) {
+			addShapedRecipe(new ItemStack(ModBlocks.bone), "xxx", "xxx", "xxx", 'x', new ItemStack(Items.dye,1,15) );
+		}
+		
+		if (EtFuturum.enableConcrete) {
+			for(EnumDyeColor dye : EnumDyeColor.values()){
+				GameRegistry.addShapelessRecipe(new ItemStack(ConcreteRegistry.getPowderFromDye(dye), 8), _SAND_, _SAND_, _SAND_, _SAND_, _GRAVEL_, _GRAVEL_, _GRAVEL_, _GRAVEL_, new ItemStack(Items.dye, 1, dye.getDyeDamage()));
 			}
 		}
 
