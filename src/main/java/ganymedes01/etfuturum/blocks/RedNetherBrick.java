@@ -14,6 +14,7 @@ public class RedNetherBrick extends Block implements IConfigurable {
 		setHardness(2F);
 		setResistance(10F);
 		setStepSound(soundTypePiston);
+		this.setHarvestLevel("pickaxe", 0);
 		setBlockTextureName("red_nether_brick");
 		setBlockName(Utils.getUnlocalisedName("red_netherbrick"));
 		setCreativeTab(EtFuturum.enableNetherBlocks ? EtFuturum.creativeTab : null);

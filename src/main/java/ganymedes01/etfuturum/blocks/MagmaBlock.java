@@ -22,6 +22,7 @@ public class MagmaBlock extends Block implements IConfigurable{
 		setHardness(0.5F);
 		setResistance(0.5F);
 		setBlockTextureName("magma");
+		this.setHarvestLevel("pickaxe", 0);
 		setLightLevel(0.2F);
 		setTickRandomly(true);
 		setBlockName(Utils.getUnlocalisedName("magma"));

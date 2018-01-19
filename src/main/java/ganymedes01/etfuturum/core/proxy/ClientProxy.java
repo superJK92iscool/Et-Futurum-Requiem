@@ -18,11 +18,13 @@ import ganymedes01.etfuturum.client.renderer.block.BlockEndRodRender;
 import ganymedes01.etfuturum.client.renderer.block.BlockSlimeBlockRender;
 import ganymedes01.etfuturum.client.renderer.entity.ArmourStandRenderer;
 import ganymedes01.etfuturum.client.renderer.entity.EndermiteRenderer;
+import ganymedes01.etfuturum.client.renderer.entity.HuskRenderer;
 import ganymedes01.etfuturum.client.renderer.entity.LingeringEffectRenderer;
 import ganymedes01.etfuturum.client.renderer.entity.LingeringPotionRenderer;
 import ganymedes01.etfuturum.client.renderer.entity.NewSnowGolemRenderer;
 import ganymedes01.etfuturum.client.renderer.entity.PlacedEndCrystalRenderer;
 import ganymedes01.etfuturum.client.renderer.entity.RabbitRenderer;
+import ganymedes01.etfuturum.client.renderer.entity.StrayRenderer;
 import ganymedes01.etfuturum.client.renderer.entity.VillagerZombieRenderer;
 import ganymedes01.etfuturum.client.renderer.item.ItemBannerRenderer;
 import ganymedes01.etfuturum.client.renderer.item.ItemBowRenderer;
@@ -36,11 +38,13 @@ import ganymedes01.etfuturum.client.skins.NewSkinManager;
 import ganymedes01.etfuturum.core.handlers.ClientEventHandler;
 import ganymedes01.etfuturum.entities.EntityArmourStand;
 import ganymedes01.etfuturum.entities.EntityEndermite;
+import ganymedes01.etfuturum.entities.EntityHusk;
 import ganymedes01.etfuturum.entities.EntityLingeringEffect;
 import ganymedes01.etfuturum.entities.EntityLingeringPotion;
 import ganymedes01.etfuturum.entities.EntityNewSnowGolem;
 import ganymedes01.etfuturum.entities.EntityPlacedEndCrystal;
 import ganymedes01.etfuturum.entities.EntityRabbit;
+import ganymedes01.etfuturum.entities.EntityStray;
 import ganymedes01.etfuturum.entities.EntityZombieVillager;
 import ganymedes01.etfuturum.tileentities.TileEntityBanner;
 import ganymedes01.etfuturum.tileentities.TileEntityEndRod;
@@ -114,6 +118,12 @@ public class ClientProxy extends CommonProxy {
 			RenderingRegistry.registerEntityRenderingHandler(EntityEndermite.class, new EndermiteRenderer());
 		if (EtFuturum.enableRabbit)
 			RenderingRegistry.registerEntityRenderingHandler(EntityRabbit.class, new RabbitRenderer());
+		
+		if (EtFuturum.enableHusk)
+			RenderingRegistry.registerEntityRenderingHandler(EntityHusk.class, new HuskRenderer());
+		if (EtFuturum.enableStray)	
+			RenderingRegistry.registerEntityRenderingHandler(EntityStray.class, new StrayRenderer());
+		
 		if (EtFuturum.enableLingeringPotions) {
 			RenderingRegistry.registerEntityRenderingHandler(EntityLingeringPotion.class, new LingeringPotionRenderer());
 			RenderingRegistry.registerEntityRenderingHandler(EntityLingeringEffect.class, new LingeringEffectRenderer());

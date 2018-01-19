@@ -16,9 +16,9 @@ public class BlockConcrete extends Block {
 		this.color = color;
 		this.setBlockName("etfuturum.concrete_" + this.color);
 		this.setCreativeTab(EtFuturum.enableConcrete ? EtFuturum.creativeTab : null);
-		this.setHardness(1.5F);
+		this.setHardness(1.8F);
 		this.setHarvestLevel("pickaxe", 0);
-		this.setResistance(10.0F);
+		this.setResistance(9.0F);
 		this.setBlockTextureName("concrete_" + this.color.getName());
 	}
 	

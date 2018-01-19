@@ -117,7 +117,8 @@ public class EtFuturum {
 	public static boolean enableBoneBlock = true;
 	public static boolean enableConcrete = true;
 	
-	
+	public static boolean enableHusk = true;
+	public static boolean enableStray = true;
 	
 	
 	public static boolean enableTileReplacement = false;
@@ -143,6 +144,9 @@ public class EtFuturum {
 		networkWrapper.registerMessage(ArmourStandInteractHandler.class, ArmourStandInteractMessage.class, 0, Side.SERVER);
 		networkWrapper.registerMessage(BlackHeartParticlesHandler.class, BlackHeartParticlesMessage.class, 1, Side.CLIENT);
 		networkWrapper.registerMessage(SetPlayerModelHandler.class, SetPlayerModelMessage.class, 2, Side.CLIENT);
+		
+	
+		
 	}
 
 	@EventHandler

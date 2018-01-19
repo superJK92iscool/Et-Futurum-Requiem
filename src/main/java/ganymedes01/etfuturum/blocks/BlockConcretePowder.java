@@ -18,11 +18,13 @@ public class BlockConcretePowder extends BlockFalling {
 	private EnumDyeColor color;
 	
 	public BlockConcretePowder(EnumDyeColor color) {
+		super(Material.sand);
 		this.color = color;
 		this.setBlockName("etfuturum.concrete_powder_" + this.color);
 		this.setStepSound(soundTypeSand);
 		this.setCreativeTab(EtFuturum.enableConcrete ? EtFuturum.creativeTab : null);
 		this.setHardness(0.5F);
+		this.setResistance(2.5F);
 		this.setBlockTextureName("concrete_powder_" + this.color.getName());
 	}
 	

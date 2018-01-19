@@ -118,6 +118,9 @@ public class ConfigurationHandler {
 		EtFuturum.enableBoneBlock = configBoolean("Enable bone block", true, EtFuturum.enableBoneBlock);
 		EtFuturum.enableConcrete = configBoolean("Enable concrete", true, EtFuturum.enableConcrete);
 		
+		EtFuturum.enableHusk = configBoolean("Husks", true, EtFuturum.enableConcrete);
+		EtFuturum.enableStray = configBoolean("Strays", true, EtFuturum.enableConcrete);
+		
 		if (configFile.hasChanged())
 			configFile.save();
 	}

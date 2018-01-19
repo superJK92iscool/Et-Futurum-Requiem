@@ -28,10 +28,11 @@ public class EntityFallingConcrete extends EntityFallingBlock {
 	public void onUpdate() {
 		super.onUpdate();
 		if(this.worldObj.getBlock((int)this.posX, (int)this.posY, (int)this.posZ).getMaterial() == Material.water
-		|| this.worldObj.getBlock((int)this.posX + 1, (int)this.posY, (int)this.posZ).getMaterial() == Material.water
-		|| this.worldObj.getBlock((int)this.posX - 1, (int)this.posY, (int)this.posZ).getMaterial() == Material.water
-		|| this.worldObj.getBlock((int)this.posX, (int)this.posY, (int)this.posZ + 1).getMaterial() == Material.water
-		|| this.worldObj.getBlock((int)this.posX, (int)this.posY, (int)this.posZ - 1).getMaterial() == Material.water 
+		//|| this.worldObj.getBlock((int)this.posX + 1, (int)this.posY, (int)this.posZ).getMaterial() == Material.water
+		//|| this.worldObj.getBlock((int)this.posX - 1, (int)this.posY, (int)this.posZ).getMaterial() == Material.water
+		//|| this.worldObj.getBlock((int)this.posX, (int)this.posY, (int)this.posZ + 1).getMaterial() == Material.water
+		//|| this.worldObj.getBlock((int)this.posX, (int)this.posY, (int)this.posZ - 1).getMaterial() == Material.water
+		|| this.worldObj.getBlock((int)this.posX-1, (int)this.posY, (int)this.posZ - 1).getMaterial() == Material.water 
 				) {
 			this.worldObj.setBlock((int)this.posX-1, (int)this.posY, (int)this.posZ-1, this.fallTile, this.meta, 3);
 			this.setDead();
