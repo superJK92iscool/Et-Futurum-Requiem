@@ -24,6 +24,7 @@ import ganymedes01.etfuturum.client.renderer.entity.LingeringPotionRenderer;
 import ganymedes01.etfuturum.client.renderer.entity.NewSnowGolemRenderer;
 import ganymedes01.etfuturum.client.renderer.entity.PlacedEndCrystalRenderer;
 import ganymedes01.etfuturum.client.renderer.entity.RabbitRenderer;
+import ganymedes01.etfuturum.client.renderer.entity.StrayOverlayRenderer;
 import ganymedes01.etfuturum.client.renderer.entity.StrayRenderer;
 import ganymedes01.etfuturum.client.renderer.entity.VillagerZombieRenderer;
 import ganymedes01.etfuturum.client.renderer.item.ItemBannerRenderer;
@@ -121,8 +122,10 @@ public class ClientProxy extends CommonProxy {
 		
 		if (EtFuturum.enableHusk)
 			RenderingRegistry.registerEntityRenderingHandler(EntityHusk.class, new HuskRenderer());
-		if (EtFuturum.enableStray)	
+		if (EtFuturum.enableStray) {
 			RenderingRegistry.registerEntityRenderingHandler(EntityStray.class, new StrayRenderer());
+			RenderingRegistry.registerEntityRenderingHandler(EntityStray.class, new StrayOverlayRenderer());
+		}
 		
 		if (EtFuturum.enableLingeringPotions) {
 			RenderingRegistry.registerEntityRenderingHandler(EntityLingeringPotion.class, new LingeringPotionRenderer());

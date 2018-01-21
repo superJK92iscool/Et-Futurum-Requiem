@@ -33,6 +33,7 @@ import net.minecraft.item.ItemStack;
 public class EntityStray extends EntitySkeleton {
 	
 	private EntityAIArrowAttack aiArrowAttack = new EntityAIArrowAttack(this, 1.0D, 20, 60, 15.0F);
+	private EntityAIAttackOnCollide aiAttackOnCollide = new EntityAIAttackOnCollide(this, EntityPlayer.class, 1.2D, false);
 	
     public EntityStray(final World p_i1741_1_) {
     	super(p_i1741_1_);
@@ -52,10 +53,26 @@ public class EntityStray extends EntitySkeleton {
     public IEntityLivingData onSpawnWithEgg(IEntityLivingData p_110161_1_)
     {
         p_110161_1_ = super.onSpawnWithEgg(p_110161_1_);
-
+        
+        if (this.getRNG().nextInt(4) > 3) //20% chance
+        {
+            this.tasks.addTask(4, this.aiAttackOnCollide);
+            this.setCurrentItemOrArmor(0, new ItemStack(Items.stone_sword));
+            this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(4.0D); //wither skel values
+            this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.27D); //0.25D default
+        }
+        else
+        {
+            this.tasks.addTask(4, this.aiArrowAttack);
+            this.addRandomArmor();
+            this.enchantEquipment();
+        }
+        
+        /*
         this.tasks.addTask(4, this.aiArrowAttack );
         this.addRandomArmor();
         this.enchantEquipment();
+        */
 
         this.setCanPickUpLoot(this.rand.nextFloat() < 0.55F * this.worldObj.func_147462_b(this.posX, this.posY, this.posZ));
 
