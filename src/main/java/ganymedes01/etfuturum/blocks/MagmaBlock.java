@@ -3,9 +3,9 @@ package ganymedes01.etfuturum.blocks;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.ModBlocks;
+import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
-import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -26,7 +26,7 @@ public class MagmaBlock extends Block implements IConfigurable{
 		setLightLevel(0.2F);
 		setTickRandomly(true);
 		setBlockName(Utils.getUnlocalisedName("magma"));
-		setCreativeTab(EtFuturum.enableNetherBlocks ? EtFuturum.creativeTab : null);
+		setCreativeTab(ConfigurationHandler.enableNetherBlocks ? EtFuturum.creativeTab : null);
 	}
 	
 	public static final DamageSource HOT_FLOOR = (new DamageSource("hotFloor")).setFireDamage();
@@ -45,7 +45,7 @@ public class MagmaBlock extends Block implements IConfigurable{
 
 	@Override
 	public boolean isEnabled() {
-		return EtFuturum.enableNetherBlocks;
+		return ConfigurationHandler.enableNetherBlocks;
 	}
 	
 	public boolean isFireSource(World world, int x, int y, int z, ForgeDirection side) {

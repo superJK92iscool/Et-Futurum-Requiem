@@ -10,7 +10,6 @@ import ganymedes01.etfuturum.blocks.BoneBlock;
 import ganymedes01.etfuturum.blocks.ChorusFlower;
 import ganymedes01.etfuturum.blocks.ChorusPlant;
 import ganymedes01.etfuturum.blocks.CoarseDirt;
-import ganymedes01.etfuturum.blocks.ConcreteBlock;
 import ganymedes01.etfuturum.blocks.ConcreteRegistry;
 import ganymedes01.etfuturum.blocks.CryingObsidian;
 import ganymedes01.etfuturum.blocks.EndBricks;
@@ -20,6 +19,7 @@ import ganymedes01.etfuturum.blocks.GrassPath;
 import ganymedes01.etfuturum.blocks.InvertedDaylightDetector;
 import ganymedes01.etfuturum.blocks.IronTrapdoor;
 import ganymedes01.etfuturum.blocks.MagmaBlock;
+import ganymedes01.etfuturum.blocks.NetherwartBlock;
 import ganymedes01.etfuturum.blocks.NewAnvil;
 import ganymedes01.etfuturum.blocks.NewBeacon;
 import ganymedes01.etfuturum.blocks.NewBrewingStand;
@@ -33,7 +33,6 @@ import ganymedes01.etfuturum.blocks.PurpurPillar;
 import ganymedes01.etfuturum.blocks.PurpurSlab;
 import ganymedes01.etfuturum.blocks.PurpurStairs;
 import ganymedes01.etfuturum.blocks.RedNetherBrick;
-import ganymedes01.etfuturum.blocks.NetherwartBlock;
 import ganymedes01.etfuturum.blocks.RedSandstone;
 import ganymedes01.etfuturum.blocks.RedSandstoneSlab;
 import ganymedes01.etfuturum.blocks.RedSandstoneStairs;
@@ -41,6 +40,7 @@ import ganymedes01.etfuturum.blocks.SeaLantern;
 import ganymedes01.etfuturum.blocks.SlimeBlock;
 import ganymedes01.etfuturum.blocks.Sponge;
 import ganymedes01.etfuturum.blocks.Stone;
+import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 
 import java.lang.reflect.Field;
 
@@ -110,7 +110,7 @@ public class ModBlocks {
 	}
 
 	public static void init() {
-		if (EtFuturum.enableConcrete) {
+		if (ConfigurationHandler.enableConcrete) {
 			ConcreteRegistry.init();
 		}
 		

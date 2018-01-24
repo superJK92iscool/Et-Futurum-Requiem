@@ -98,6 +98,14 @@
 	  "mob/stray/step4"
     ]
   },
+  
+  "item.totem_use": {
+    "category": "master",
+    "sounds": [
+      "item/totem_use"
+    ]
+  },
+  
   "block.brewing_stand.brew": {
     "category": "block",
     "sounds": [

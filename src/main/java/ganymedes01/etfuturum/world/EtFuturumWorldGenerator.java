@@ -1,19 +1,21 @@
 package ganymedes01.etfuturum.world;
 
+import ganymedes01.etfuturum.EtFuturum;
+import ganymedes01.etfuturum.ModBlocks;
+import ganymedes01.etfuturum.blocks.ChorusFlower;
+import ganymedes01.etfuturum.configuration.ConfigurationHandler;
+
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-import cpw.mods.fml.common.IWorldGenerator;
-import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.blocks.ChorusFlower;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraftforge.common.util.ForgeDirection;
+import cpw.mods.fml.common.IWorldGenerator;
 
 public class EtFuturumWorldGenerator implements IWorldGenerator {
 
@@ -21,23 +23,23 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 	private final List<WorldGenMinable> netherGen = new LinkedList<WorldGenMinable>();
 
 	public EtFuturumWorldGenerator() {
-		generators.add(new WorldGenMinable(ModBlocks.stone, 1, EtFuturum.maxStonesPerCluster, Blocks.stone));
-		generators.add(new WorldGenMinable(ModBlocks.stone, 3, EtFuturum.maxStonesPerCluster, Blocks.stone));
-		generators.add(new WorldGenMinable(ModBlocks.stone, 5, EtFuturum.maxStonesPerCluster, Blocks.stone));
+		generators.add(new WorldGenMinable(ModBlocks.stone, 1, ConfigurationHandler.maxStonesPerCluster, Blocks.stone));
+		generators.add(new WorldGenMinable(ModBlocks.stone, 3, ConfigurationHandler.maxStonesPerCluster, Blocks.stone));
+		generators.add(new WorldGenMinable(ModBlocks.stone, 5, ConfigurationHandler.maxStonesPerCluster, Blocks.stone));
 		
-		netherGen.add(new WorldGenMinable(ModBlocks.magma, 5, EtFuturum.maxStonesPerCluster, Blocks.netherrack));
+		netherGen.add(new WorldGenMinable(ModBlocks.magma, 5, ConfigurationHandler.maxStonesPerCluster, Blocks.netherrack));
 	}
 
 	@Override
 	public void generate(Random rand, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
-		if (EtFuturum.enableCoarseDirt && world.provider.dimensionId != -1 && world.provider.dimensionId != 1)
+		if (ConfigurationHandler.enableCoarseDirt && world.provider.dimensionId != -1 && world.provider.dimensionId != 1)
 			for (int x = chunkX * 16; x < chunkX * 16 + 16; x++)
 				for (int z = chunkZ * 16; z < chunkZ * 16 + 16; z++)
 					for (int y = 0; y < world.getActualHeight(); y++)
 						if (world.getBlock(x, y, z) == Blocks.dirt && world.getBlockMetadata(x, y, z) == 1)
 							world.setBlock(x, y, z, ModBlocks.coarse_dirt, 0, 2);
 
-		if (EtFuturum.enableStones && EtFuturum.maxStonesPerCluster > 0 && world.provider.dimensionId != -1 && world.provider.dimensionId != 1)
+		if (ConfigurationHandler.enableStones && ConfigurationHandler.maxStonesPerCluster > 0 && world.provider.dimensionId != -1 && world.provider.dimensionId != 1)
 			for (Iterator<WorldGenMinable> iterator = generators.iterator(); iterator.hasNext();) {
 				WorldGenMinable generator = iterator.next();
 				for (int i = 0; i < 10; i++) {
@@ -50,7 +52,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 			}
 		
 		 //TODO
-		if (EtFuturum.enableNetherBlocks && EtFuturum.maxStonesPerCluster > 0 && world.provider.dimensionId == -1)
+		if (ConfigurationHandler.enableNetherBlocks && ConfigurationHandler.maxStonesPerCluster > 0 && world.provider.dimensionId == -1)
 			for (Iterator<WorldGenMinable> iterator = netherGen.iterator(); iterator.hasNext();) {
 				WorldGenMinable netherGen = iterator.next();
 				for (int i = 0; i < 5; i++) {
@@ -63,7 +65,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 			}
 		
 
-		if (EtFuturum.enablePrismarine && world.provider.dimensionId != -1 && world.provider.dimensionId != 1)
+		if (ConfigurationHandler.enablePrismarine && world.provider.dimensionId != -1 && world.provider.dimensionId != 1)
 			if (OceanMonument.canSpawnAt(world, chunkX, chunkZ)) {
 				int x = chunkX * 16 + rand.nextInt(16);
 				int y = 256;
@@ -76,7 +78,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 				return;
 			}
 
-		if (EtFuturum.enableChorusFruit && world.provider.dimensionId == 1) {
+		if (ConfigurationHandler.enableChorusFruit && world.provider.dimensionId == 1) {
 			int x = chunkX * 16 + rand.nextInt(16);
 			int y = 256;
 			int z = chunkZ * 16 + rand.nextInt(16);

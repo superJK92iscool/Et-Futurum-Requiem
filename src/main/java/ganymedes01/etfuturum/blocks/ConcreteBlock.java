@@ -3,7 +3,7 @@ package ganymedes01.etfuturum.blocks;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.ModBlocks.ISubBlocksBlock;
-import ganymedes01.etfuturum.core.utils.Utils;
+import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.items.block.ItemBlockGeneric;
 import net.minecraft.block.BlockColored;
 import net.minecraft.block.material.Material;
@@ -20,12 +20,12 @@ public class ConcreteBlock extends BlockColored implements IConfigurable, ISubBl
 		setHarvestLevel("pickaxe", 0);
 		setBlockTextureName("concrete");
 		setBlockName("etfuturum.concrete");
-		setCreativeTab(EtFuturum.enableConcrete ? EtFuturum.creativeTab : null);
+		setCreativeTab(ConfigurationHandler.enableConcrete ? EtFuturum.creativeTab : null);
 	}
 	
 	@Override
 	public boolean isEnabled() {
-		return EtFuturum.enableConcrete;
+		return ConfigurationHandler.enableConcrete;
 	}
 	
 	@Override

@@ -1,11 +1,10 @@
 package ganymedes01.etfuturum.blocks;
 
 import ganymedes01.etfuturum.EtFuturum;
+import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.utils.EnumDyeColor;
 import net.minecraft.block.Block;
-import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
 
 public class BlockConcrete extends Block {
 
@@ -15,7 +14,7 @@ public class BlockConcrete extends Block {
 		super(Material.rock);
 		this.color = color;
 		this.setBlockName("etfuturum.concrete_" + this.color);
-		this.setCreativeTab(EtFuturum.enableConcrete ? EtFuturum.creativeTab : null);
+		this.setCreativeTab(ConfigurationHandler.enableConcrete ? EtFuturum.creativeTab : null);
 		this.setHardness(1.8F);
 		this.setHarvestLevel("pickaxe", 0);
 		this.setResistance(9.0F);

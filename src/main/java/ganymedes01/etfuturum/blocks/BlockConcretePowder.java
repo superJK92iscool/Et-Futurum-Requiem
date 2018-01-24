@@ -1,10 +1,12 @@
 package ganymedes01.etfuturum.blocks;
 
-import java.util.Random;
-
 import ganymedes01.etfuturum.EtFuturum;
+import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.utils.EnumDyeColor;
 import ganymedes01.etfuturum.entities.EntityFallingConcrete;
+
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.block.material.Material;
@@ -22,7 +24,7 @@ public class BlockConcretePowder extends BlockFalling {
 		this.color = color;
 		this.setBlockName("etfuturum.concrete_powder_" + this.color);
 		this.setStepSound(soundTypeSand);
-		this.setCreativeTab(EtFuturum.enableConcrete ? EtFuturum.creativeTab : null);
+		this.setCreativeTab(ConfigurationHandler.enableConcrete ? EtFuturum.creativeTab : null);
 		this.setHardness(0.5F);
 		this.setResistance(2.5F);
 		this.setBlockTextureName("concrete_powder_" + this.color.getName());

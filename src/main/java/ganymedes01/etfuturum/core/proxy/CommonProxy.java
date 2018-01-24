@@ -1,12 +1,5 @@
 package ganymedes01.etfuturum.core.proxy;
 
-import java.util.LinkedList;
-import java.util.List;
-
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.network.IGuiHandler;
-import cpw.mods.fml.common.registry.EntityRegistry;
-import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.client.gui.inventory.GuiAnvil;
 import ganymedes01.etfuturum.client.gui.inventory.GuiEnchantment;
@@ -36,18 +29,29 @@ import ganymedes01.etfuturum.tileentities.TileEntityBanner;
 import ganymedes01.etfuturum.tileentities.TileEntityEndRod;
 import ganymedes01.etfuturum.tileentities.TileEntityNewBeacon;
 import ganymedes01.etfuturum.tileentities.TileEntityNewBrewingStand;
+
+import java.util.LinkedList;
+import java.util.List;
+
 import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.entity.monster.EntityEnderman;
+import net.minecraft.entity.monster.EntityMagmaCube;
 import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.biome.BiomeGenBase.SpawnListEntry;
 import net.minecraftforge.common.MinecraftForge;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.network.IGuiHandler;
+import cpw.mods.fml.common.registry.EntityRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 public class CommonProxy implements IGuiHandler {
 
 	public void registerEvents() {
-		if (EtFuturum.enableTileReplacement) {
+		if (ConfigurationHandler.enableTileReplacement) {
 			FMLCommonHandler.instance().bus().register(new WorldTickEventHandler());
 		}
 		FMLCommonHandler.instance().bus().register(ConfigurationHandler.INSTANCE);
@@ -58,22 +62,22 @@ public class CommonProxy implements IGuiHandler {
 	public void registerEntities() {
 		int id = 0;
 		
-		if (EtFuturum.enableBanners)
+		if (ConfigurationHandler.enableBanners)
 			GameRegistry.registerTileEntity(TileEntityBanner.class, Utils.getUnlocalisedName("banner"));
-		if (EtFuturum.enableArmourStand)
+		if (ConfigurationHandler.enableArmourStand)
 			ModEntityList.registerEntity(EntityArmourStand.class, "wooden_armorstand", id++, EtFuturum.instance, 64, 1, true);
-		if (EtFuturum.enableEndermite)
+		if (ConfigurationHandler.enableEndermite)
 			ModEntityList.registerEntity(EntityEndermite.class, "endermite", id++, EtFuturum.instance, 64, 1, true, 1447446, 7237230);
-		if (EtFuturum.enableChorusFruit)
+		if (ConfigurationHandler.enableChorusFruit)
 			GameRegistry.registerTileEntity(TileEntityEndRod.class, Utils.getUnlocalisedName("end_rod"));
-		if (EtFuturum.enableTippedArrows)
+		if (ConfigurationHandler.enableTippedArrows)
 			ModEntityList.registerEntity(EntityTippedArrow.class, "tipped_arrow", id++, EtFuturum.instance, 64, 20, true);
-		if (EtFuturum.enableBrewingStands)
+		if (ConfigurationHandler.enableBrewingStands)
 			GameRegistry.registerTileEntity(TileEntityNewBrewingStand.class, Utils.getUnlocalisedName("brewing_stand"));
-		if (EtFuturum.enableColourfulBeacons)
+		if (ConfigurationHandler.enableColourfulBeacons)
 			GameRegistry.registerTileEntity(TileEntityNewBeacon.class, Utils.getUnlocalisedName("beacon"));
 
-		if (EtFuturum.enableRabbit) {
+		if (ConfigurationHandler.enableRabbit) {
 			ModEntityList.registerEntity(EntityRabbit.class, "rabbit", id++, EtFuturum.instance, 80, 3, true, 10051392, 7555121);
 
 			List<BiomeGenBase> biomes = new LinkedList<BiomeGenBase>();
@@ -91,40 +95,41 @@ public class CommonProxy implements IGuiHandler {
 			EntityRegistry.addSpawn(EntityRabbit.class, 10, 3, 3, EnumCreatureType.creature, biomes.toArray(new BiomeGenBase[biomes.size()]));
 		}
 		
-		
-		//14735761/7828833
-		
-		//15133418/6387576
-		if (EtFuturum.enableHusk) {
+		if (ConfigurationHandler.enableHusk) {
 			ModEntityList.registerEntity(EntityHusk.class, "husk", id++, EtFuturum.instance, 80, 3, true, 7828833, 14735761);
 			
-			EntityRegistry.addSpawn(EntityHusk.class, 40, 4, 4, EnumCreatureType.monster, new BiomeGenBase[] { BiomeGenBase.desert });
-		    EntityRegistry.addSpawn(EntityHusk.class, 40, 4, 4, EnumCreatureType.creature, new BiomeGenBase[] { BiomeGenBase.desertHills });
+			EntityRegistry.addSpawn(EntityHusk.class, 80, 4, 4, EnumCreatureType.monster, new BiomeGenBase[] { BiomeGenBase.desert });
+		    EntityRegistry.addSpawn(EntityHusk.class, 80, 4, 4, EnumCreatureType.monster, new BiomeGenBase[] { BiomeGenBase.desertHills });
 		}
-		if (EtFuturum.enableStray) {
+		if (ConfigurationHandler.enableStray) {
 			ModEntityList.registerEntity(EntityStray.class, "stray", id++, EtFuturum.instance, 80, 3, true, 6387576, 15133418);
 			
-			EntityRegistry.addSpawn((Class)EntityStray.class, 40, 4, 4, EnumCreatureType.monster, new BiomeGenBase[] { BiomeGenBase.icePlains });
-	        EntityRegistry.addSpawn((Class)EntityStray.class, 40, 4, 4, EnumCreatureType.creature, new BiomeGenBase[] { BiomeGenBase.iceMountains });
+			EntityRegistry.addSpawn(EntityStray.class, 80, 4, 4, EnumCreatureType.monster, new BiomeGenBase[] { BiomeGenBase.icePlains });
+	        EntityRegistry.addSpawn(EntityStray.class, 80, 4, 4, EnumCreatureType.monster, new BiomeGenBase[] { BiomeGenBase.iceMountains });
+		}
+		if (ConfigurationHandler.enableNetherEndermen) {
+			EntityRegistry.addSpawn(EntityEnderman.class, 1, 4, 4, EnumCreatureType.monster, new BiomeGenBase[] { BiomeGenBase.hell });
+			EntityEnderman.setCarriable(Blocks.netherrack, true);
 		}
 		
-		
-		
-		if (EtFuturum.enableLingeringPotions) {
+		if (ConfigurationHandler.enableLingeringPotions) {
 			ModEntityList.registerEntity(EntityLingeringPotion.class, "lingering_potion", id++, EtFuturum.instance, 64, 10, true);
 			ModEntityList.registerEntity(EntityLingeringEffect.class, "lingering_effect", id++, EtFuturum.instance, 64, 1, true);
 		}
 
-		if (EtFuturum.enableVillagerZombies)
+		if (ConfigurationHandler.enableVillagerZombies)
 			ModEntityList.registerEntity(EntityZombieVillager.class, "villager_zombie", id++, EtFuturum.instance, 80, 3, true, 44975, 7969893);
 
-		if (EtFuturum.enableDragonRespawn) {
+		if (ConfigurationHandler.enableDragonRespawn) {
 			ModEntityList.registerEntity(EntityPlacedEndCrystal.class, "end_crystal", id++, EtFuturum.instance, 256, Integer.MAX_VALUE, false);
 			ModEntityList.registerEntity(EntityRespawnedDragon.class, "ender_dragon", id++, EtFuturum.instance, 160, 3, true);
 		}
 
-		if (EtFuturum.enableShearableGolems)
+		if (ConfigurationHandler.enableShearableGolems)
 			ModEntityList.registerEntity(EntityNewSnowGolem.class, "snow_golem", id++, EtFuturum.instance, 80, 3, true);
+		
+		//make magmas slightly more common, hopefully. not sure if this will overwrite existing or add to it. only small dif either way
+		EntityRegistry.addSpawn(EntityMagmaCube.class, 2, 4, 4, EnumCreatureType.monster, new BiomeGenBase[] { BiomeGenBase.hell });
 	}
 
 	public void registerRenderers() {

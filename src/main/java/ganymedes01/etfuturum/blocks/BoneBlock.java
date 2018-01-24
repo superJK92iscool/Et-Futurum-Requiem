@@ -1,18 +1,15 @@
 package ganymedes01.etfuturum.blocks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
+import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.BlockRotatedPillar;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.IIcon;
-import net.minecraft.world.World;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class BoneBlock extends BlockRotatedPillar implements IConfigurable{
 	
@@ -23,12 +20,12 @@ public class BoneBlock extends BlockRotatedPillar implements IConfigurable{
 		setStepSound(soundTypeStone);
 		setBlockTextureName("bone_block");
 		setBlockName(Utils.getUnlocalisedName("bone"));
-		setCreativeTab(EtFuturum.enableBoneBlock ? EtFuturum.creativeTab : null);
+		setCreativeTab(ConfigurationHandler.enableBoneBlock ? EtFuturum.creativeTab : null);
 	}
 
 	@Override
 	public boolean isEnabled() {
-		return EtFuturum.enableBoneBlock;
+		return ConfigurationHandler.enableBoneBlock;
 	}
 
 	@Override
