@@ -194,7 +194,7 @@ color.black=Black
 #tile.shulkerBoxRed.name=Red Shulker Box
 #tile.shulkerBoxBlack.name=Black Shulker Box
 
-util.totemBreak=§oYour Totem of Undying shatters...
+util.totemBreak=§a§oYour Totem of Undying shatters...
 
 death.attack.hotFloor=%1$s discovered floor was lava
 death.attack.hotFloor.player=%1$s walked into danger zone due to %2$s
