@@ -324,7 +324,6 @@ public class ServerEventHandler {
 		NewAnvil.onPlayerInteract(event);
 		GrassPath.onPlayerInteract(event);
 		
-		//TODO insert stripped logs here
 		BlockStrippedOldLog.onPlayerInteract(event);
 		BlockStrippedNewLog.onPlayerInteract(event);
 	}

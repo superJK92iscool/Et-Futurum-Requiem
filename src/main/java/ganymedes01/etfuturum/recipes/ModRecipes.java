@@ -306,7 +306,6 @@ public class ModRecipes {
 		}
 		
 		if (ConfigurationHandler.enableWoodRedstone) {
-			//TODO 
 			for (int i = 0; i < ModBlocks.buttons.length; i++)
 				addShapedRecipe(new ItemStack(ModBlocks.buttons[i], 1), "x", 'x', new ItemStack(Blocks.planks, 1, i + 1));
 			addShapedRecipe(new ItemStack(Blocks.wooden_button, 1), "x", 'x', "plankWood");

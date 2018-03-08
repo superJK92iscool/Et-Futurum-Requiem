@@ -17,7 +17,7 @@ buildscript {
 
 apply plugin: 'forge'
 
-version = "1.7.0-K"
+version = "1.7.1-K"
 group = "ganymedes01.etfuturum"
 archivesBaseName = "Et Futurum"
 
