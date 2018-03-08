@@ -76,6 +76,10 @@ public class ConfigurationHandler {
 	public static boolean enableTotemUndying;
 	public static boolean enableRecipeForTotem;
 	
+	public static boolean enableWoodRedstone;
+	public static boolean enableStrippedLogs;
+	public static boolean enableBarkLogs;
+	
 	public static boolean enableTileReplacement;
 
 	public static int maxStonesPerCluster = 33;
@@ -135,6 +139,10 @@ public class ConfigurationHandler {
 		enableNetherBlocks = cfg.getBoolean("enableNetherBlocks", "blocks", true, "Enables magma/netherwart blocks and red netherbrick");//configBoolean("Enable magma/netherwart blocks and red netherbrick", true, EtFuturum.enableNetherBlocks);
 		enableBoneBlock = cfg.getBoolean("enableBoneBlock", "blocks", true, "");//configBoolean("Enable bone block", true, EtFuturum.enableBoneBlock);
 		enableConcrete = cfg.getBoolean("enableConcrete", "blocks", true, "");//configBoolean("Enable concrete", true, EtFuturum.enableConcrete);
+		
+		enableWoodRedstone = cfg.getBoolean("enableWoodRedstone", "blocks", true, "Enables wood variant buttons and pressure plates");//
+		enableStrippedLogs = cfg.getBoolean("enableStrippedLogs", "blocks", true, "Enables stripped log blocks");//
+		enableBarkLogs = cfg.getBoolean("enableBarkLogs", "blocks", true, "Enables log blocks with bark on all sides");//
 		
 		//items
 		enableMutton = cfg.getBoolean("enableMutton", "items", true, "");//configBoolean("Mutton", true, EtFuturum.enableMutton);

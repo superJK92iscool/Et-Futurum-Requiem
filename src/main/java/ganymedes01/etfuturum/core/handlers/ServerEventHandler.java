@@ -4,6 +4,8 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModEnchantments;
 import ganymedes01.etfuturum.ModItems;
+import ganymedes01.etfuturum.blocks.BlockStrippedNewLog;
+import ganymedes01.etfuturum.blocks.BlockStrippedOldLog;
 import ganymedes01.etfuturum.blocks.CoarseDirt;
 import ganymedes01.etfuturum.blocks.GrassPath;
 import ganymedes01.etfuturum.blocks.NewAnvil;
@@ -321,6 +323,10 @@ public class ServerEventHandler {
 	public void onPlayerInteract(PlayerInteractEvent event) {
 		NewAnvil.onPlayerInteract(event);
 		GrassPath.onPlayerInteract(event);
+		
+		//TODO insert stripped logs here
+		BlockStrippedOldLog.onPlayerInteract(event);
+		BlockStrippedNewLog.onPlayerInteract(event);
 	}
 
 	@SubscribeEvent

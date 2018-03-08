@@ -47,6 +47,7 @@ public class ModRecipes {
 			Items.iron_door.setMaxStackSize(64);
 			removeFirstRecipeFor(Items.wooden_door);
 			removeFirstRecipeFor(Items.iron_door);
+			removeFirstRecipeFor(Blocks.trapdoor);
 		}
 
 		if (ConfigurationHandler.enableFences) {
@@ -61,11 +62,18 @@ public class ModRecipes {
 			Blocks.fire.setFireInfo(Blocks.fence, 5, 20);
 			Blocks.fire.setFireInfo(Blocks.deadbush, 60, 100);
 		}
+		
+		if (ConfigurationHandler.enableWoodRedstone) {
+			removeFirstRecipeFor(Blocks.wooden_button);
+			removeFirstRecipeFor(Blocks.wooden_pressure_plate);
+		}
 	}
 
 	private static void registerOreDictionary() {
 		OreDictionary.registerOre("chestWood", new ItemStack(Blocks.chest));
 		OreDictionary.registerOre("trapdoorWood", Blocks.trapdoor);
+		for (int i=0;i<5;i++)
+			OreDictionary.registerOre("trapdoorWood", ModBlocks.trapdoors[i]);
 
 		if (ConfigurationHandler.enablePrismarine) {
 			OreDictionary.registerOre("shardPrismarine", new ItemStack(ModItems.prismarine_shard));
@@ -139,6 +147,14 @@ public class ModRecipes {
 			addShapedRecipe(new ItemStack(ModBlocks.prismarine, 1, BRICKS), "xxx", "xxx", "xxx", 'x', "shardPrismarine");
 			addShapedRecipe(new ItemStack(ModBlocks.sea_lantern), "xyx", "yyy", "xyx", 'x', "shardPrismarine", 'y', "crystalPrismarine");
 
+			addShapedRecipe(new ItemStack(ModBlocks.prismarineStairsRough, 4), "x  ", "xx ", "xxx", 'x', new ItemStack(ModBlocks.prismarine, 1, PLAIN));
+			addShapedRecipe(new ItemStack(ModBlocks.prismarineStairsBrick, 4), "x  ", "xx ", "xxx", 'x', new ItemStack(ModBlocks.prismarine, 1, BRICKS));
+			addShapedRecipe(new ItemStack(ModBlocks.prismarineStairsDark, 4), "x  ", "xx ", "xxx", 'x', new ItemStack(ModBlocks.prismarine, 1, DARK));
+			
+			addShapedRecipe(new ItemStack(ModBlocks.prismarineSlabRough, 6), "xxx", 'x', new ItemStack(ModBlocks.prismarine, 1, PLAIN));
+			addShapedRecipe(new ItemStack(ModBlocks.prismarineSlabBrick, 6), "xxx", 'x', new ItemStack(ModBlocks.prismarine, 1, BRICKS));
+			addShapedRecipe(new ItemStack(ModBlocks.prismarineSlabDark, 6), "xxx", 'x', new ItemStack(ModBlocks.prismarine, 1, DARK));
+			
 			if (ConfigurationHandler.enableRecipeForPrismarine && !Loader.isModLoaded("Botania")) {
 				addShapedRecipe(new ItemStack(ModItems.prismarine_shard, 4), "xy", "zx", 'x', "gemQuartz", 'y', "dyeBlue", 'z', "dyeGreen");
 				addShapedRecipe(new ItemStack(ModItems.prismarine_crystals, 4), "xy", "yx", 'x', "gemQuartz", 'y', "dustGlowstone");
@@ -150,6 +166,10 @@ public class ModRecipes {
 				addShapedRecipe(new ItemStack(ModBlocks.doors[i], 3), "xx", "xx", "xx", 'x', new ItemStack(Blocks.planks, 1, i + 1));
 			addShapedRecipe(new ItemStack(Items.wooden_door, 3), "xx", "xx", "xx", 'x', "plankWood");
 			addShapedRecipe(new ItemStack(Items.iron_door, 3), "xx", "xx", "xx", 'x', "ingotIron");
+			
+			for (int i = 0; i < ModBlocks.trapdoors.length; i++)
+				addShapedRecipe(new ItemStack(ModBlocks.trapdoors[i], 2), "xxx", "xxx", 'x', new ItemStack(Blocks.planks, 1, i + 1));
+			addShapedRecipe(new ItemStack(Blocks.trapdoor, 2), "xxx", "xxx", 'x', "plankWood");
 		}
 
 		if (ConfigurationHandler.enableRedSandstone) {
@@ -283,6 +303,42 @@ public class ModRecipes {
 		
 		if (ConfigurationHandler.enableRecipeForTotem) {
 			addShapedRecipe(new ItemStack(ModItems.totem), "EBE", "GBG", " G ", 'E', new ItemStack(Items.emerald), 'G', new ItemStack(Items.gold_ingot), 'B', new ItemStack(Blocks.gold_block) );
+		}
+		
+		if (ConfigurationHandler.enableWoodRedstone) {
+			//TODO 
+			for (int i = 0; i < ModBlocks.buttons.length; i++)
+				addShapedRecipe(new ItemStack(ModBlocks.buttons[i], 1), "x", 'x', new ItemStack(Blocks.planks, 1, i + 1));
+			addShapedRecipe(new ItemStack(Blocks.wooden_button, 1), "x", 'x', "plankWood");
+			
+			for (int i = 0; i < ModBlocks.pressurePlates.length; i++)
+				addShapedRecipe(new ItemStack(ModBlocks.pressurePlates[i], 1), "xx", 'x', new ItemStack(Blocks.planks, 1, i + 1));
+			addShapedRecipe(new ItemStack(Blocks.wooden_pressure_plate, 1), "xx", 'x', "plankWood");
+		}
+		
+		if (ConfigurationHandler.enableStrippedLogs) {
+			addShapedRecipe(new ItemStack(Blocks.planks, 4, 0), "x", 'x', new ItemStack(ModBlocks.log_stripped, 1, 0));
+			addShapedRecipe(new ItemStack(Blocks.planks, 4, 1), "x", 'x', new ItemStack(ModBlocks.log_stripped, 1, 1));
+			addShapedRecipe(new ItemStack(Blocks.planks, 4, 2), "x", 'x', new ItemStack(ModBlocks.log_stripped, 1, 2));
+			addShapedRecipe(new ItemStack(Blocks.planks, 4, 3), "x", 'x', new ItemStack(ModBlocks.log_stripped, 1, 3));
+			addShapedRecipe(new ItemStack(Blocks.planks, 4, 4), "x", 'x', new ItemStack(ModBlocks.log2_stripped, 1, 0));
+			addShapedRecipe(new ItemStack(Blocks.planks, 4, 5), "x", 'x', new ItemStack(ModBlocks.log2_stripped, 1, 1));
+		}
+		
+		if (ConfigurationHandler.enableBarkLogs) {
+			addShapedRecipe(new ItemStack(ModBlocks.log_bark, 3, 0), "xx", "xx", 'x', new ItemStack(Blocks.log,1,0) );
+			addShapedRecipe(new ItemStack(ModBlocks.log_bark, 3, 1), "xx", "xx", 'x', new ItemStack(Blocks.log,1,1) );
+			addShapedRecipe(new ItemStack(ModBlocks.log_bark, 3, 2), "xx", "xx", 'x', new ItemStack(Blocks.log,1,2) );
+			addShapedRecipe(new ItemStack(ModBlocks.log_bark, 3, 3), "xx", "xx", 'x', new ItemStack(Blocks.log,1,3) );
+			addShapedRecipe(new ItemStack(ModBlocks.log_bark, 3, 4), "xx", "xx", 'x', new ItemStack(Blocks.log2,1,0) );
+			addShapedRecipe(new ItemStack(ModBlocks.log_bark, 3, 5), "xx", "xx", 'x', new ItemStack(Blocks.log2,1,1) );
+			
+			addShapedRecipe(new ItemStack(Blocks.planks, 4, 0), "x", 'x', new ItemStack(ModBlocks.log_bark, 1, 0));
+			addShapedRecipe(new ItemStack(Blocks.planks, 4, 1), "x", 'x', new ItemStack(ModBlocks.log_bark, 1, 1));
+			addShapedRecipe(new ItemStack(Blocks.planks, 4, 2), "x", 'x', new ItemStack(ModBlocks.log_bark, 1, 2));
+			addShapedRecipe(new ItemStack(Blocks.planks, 4, 3), "x", 'x', new ItemStack(ModBlocks.log_bark, 1, 3));
+			addShapedRecipe(new ItemStack(Blocks.planks, 4, 4), "x", 'x', new ItemStack(ModBlocks.log_bark, 1, 4));
+			addShapedRecipe(new ItemStack(Blocks.planks, 4, 5), "x", 'x', new ItemStack(ModBlocks.log_bark, 1, 5));
 		}
 
 	}

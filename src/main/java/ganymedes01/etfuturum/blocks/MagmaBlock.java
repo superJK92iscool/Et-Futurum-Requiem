@@ -77,6 +77,13 @@ public class MagmaBlock extends Block implements IConfigurable{
 			}*/
 		}
 		
+		if ( block1 == Blocks.ice ) {
+			world.setBlock(x, y+1, z, Blocks.water, 0, 2);
+			//world.playSound((double)((float)x + 0.5F), (double)((float)y + 0.5F), (double)((float)z + 0.5F), "random.fizz", 1.0F + rand.nextFloat(), rand.nextFloat() * 0.7F + 0.3F, false);
+			world.playSoundEffect((double)x + 0.5D, (double)y + 0.5D, (double)z + 0.5D, "random.splash", 0.3F, 0.6F);
+			
+		}
+		
 		
 	}
 	
