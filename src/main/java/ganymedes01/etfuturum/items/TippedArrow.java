@@ -8,18 +8,31 @@ import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.dispenser.DispenserBehaviourTippedArrow;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import com.google.common.collect.HashMultimap;
 
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.IAttribute;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionHelper;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.util.Constants;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -46,12 +59,12 @@ public class TippedArrow extends Item implements IConfigurable {
 		return null;
 	}
 
-	public static ItemStack setEffect(ItemStack stack, Potion potion, int duration) {
+	public static ItemStack setEffect(ItemStack stack, Potion potion, int duration, int potency) {
 		stack.setTagCompound(new NBTTagCompound());
 		NBTTagCompound nbt = new NBTTagCompound();
 		stack.getTagCompound().setTag("Potion", nbt);
 
-		PotionEffect effect = new PotionEffect(potion.getId(), potion.isInstant() ? 1 : duration);
+		PotionEffect effect = new PotionEffect(potion.getId(), potion.isInstant() ? 1 : duration, potency);
 		effect.writeCustomPotionEffectToNBT(nbt);
 
 		return stack;
@@ -67,7 +80,7 @@ public class TippedArrow extends Item implements IConfigurable {
 			List<PotionEffect> effects = PotionHelper.getPotionEffects(potion.getItemDamage(), false);
 			if (effects != null && !effects.isEmpty())
 				for (PotionEffect effect : effects)
-					list.add(setEffect(new ItemStack(this), Potion.potionTypes[effect.getPotionID()], effect.getDuration() / 2));
+					list.add(setEffect(new ItemStack(this), Potion.potionTypes[effect.getPotionID()], effect.getDuration() / 2, effect.getAmplifier()) );
 		}
 	}
 
@@ -113,4 +126,64 @@ public class TippedArrow extends Item implements IConfigurable {
 	public boolean isEnabled() {
 		return ConfigurationHandler.enableTippedArrows;
 	}
+	
+	
+	
+	
+	@SideOnly(Side.CLIENT)
+    public void addInformation(ItemStack stack, EntityPlayer p_77624_2_, List p_77624_3_, boolean p_77624_4_)
+    {
+        if (stack.getItemDamage() == 0)
+        {
+        	/*
+            List list1 = ModItems.tipped_arrow.getEffects(stack);
+            HashMultimap hashmultimap = HashMultimap.create();
+            Iterator iterator1;
+
+            if (list1 != null && !list1.isEmpty())
+            {
+                iterator1 = list1.iterator();
+
+                while (iterator1.hasNext())
+                {	*/
+                    //PotionEffect potioneffect = (PotionEffect)iterator1.next();
+        			PotionEffect potioneffect = ((TippedArrow) ModItems.tipped_arrow).getEffect(stack);
+        			String s1 = StatCollector.translateToLocal(potioneffect.getEffectName()).trim();
+                    Potion potion = Potion.potionTypes[potioneffect.getPotionID()];
+                    Map map = potion.func_111186_k();
+
+                    if (map != null && map.size() > 0)
+                    {
+                        Iterator iterator = map.entrySet().iterator();
+
+                        while (iterator.hasNext())
+                        {
+                            Entry entry = (Entry)iterator.next();
+                            AttributeModifier attributemodifier = (AttributeModifier)entry.getValue();
+                            AttributeModifier attributemodifier1 = new AttributeModifier(attributemodifier.getName(), potion.func_111183_a(potioneffect.getAmplifier(), attributemodifier), attributemodifier.getOperation());
+                            //hashmultimap.put(((IAttribute)entry.getKey()).getAttributeUnlocalizedName(), attributemodifier1);
+                        }
+                    }
+
+                    if (potioneffect.getAmplifier() > 0)
+                    {
+                        s1 = s1 + " " + StatCollector.translateToLocal("potion.potency." + potioneffect.getAmplifier()).trim();
+                    }
+
+                    if (potioneffect.getDuration() > 20)
+                    {
+                        s1 = s1 + " (" + Potion.getDurationString(potioneffect) + ")";
+                    }
+
+                    if (potion.isBadEffect())
+                    {
+                        p_77624_3_.add(EnumChatFormatting.RED + s1);
+                    }
+                    else
+                    {
+                        p_77624_3_.add(EnumChatFormatting.GRAY + s1);
+                    }
+                }
+            }
+	
 }

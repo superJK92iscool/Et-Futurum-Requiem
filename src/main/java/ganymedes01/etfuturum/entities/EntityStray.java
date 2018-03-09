@@ -1,8 +1,13 @@
 package ganymedes01.etfuturum.entities;
 
+import ganymedes01.etfuturum.ModItems;
+import ganymedes01.etfuturum.items.TippedArrow;
+
 import java.util.Calendar;
 
 import net.minecraft.block.Block;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.ai.EntityAIArrowAttack;
 import net.minecraft.entity.ai.EntityAIAttackOnCollide;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
@@ -10,6 +15,7 @@ import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIFleeSun;
 import net.minecraft.entity.Entity;
@@ -108,6 +114,36 @@ public class EntityStray extends EntitySkeleton {
         return flag;
     }
     
+    @Override
+    public void attackEntityWithRangedAttack(EntityLivingBase p_82196_1_, float p_82196_2_)
+    {
+        EntityTippedArrow entityarrow = new EntityTippedArrow(this.worldObj, this, p_82196_1_, 1.6F, (float)(14 - this.worldObj.difficultySetting.getDifficultyId() * 4));
+        int i = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, this.getHeldItem());
+        int j = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, this.getHeldItem());
+        entityarrow.setDamage((double)(p_82196_2_ * 2.0F) + this.rand.nextGaussian() * 0.25D + (double)((float)this.worldObj.difficultySetting.getDifficultyId() * 0.11F));
+        
+        final int diff = this.worldObj.difficultySetting.getDifficultyId();
+        entityarrow.setEffect(new PotionEffect(Potion.moveSlowdown.getId(), 600, 0) );
+        
+        if (i > 0)
+        {
+            entityarrow.setDamage(entityarrow.getDamage() + (double)i * 0.5D + 0.5D);
+        }
+
+        if (j > 0)
+        {
+            entityarrow.setKnockbackStrength(j);
+        }
+
+        if (EnchantmentHelper.getEnchantmentLevel(Enchantment.flame.effectId, this.getHeldItem()) > 0 || this.getSkeletonType() == 1)
+        {
+            entityarrow.setFire(100);
+        }
+
+        this.playSound("random.bow", 1.0F, 1.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
+        this.worldObj.spawnEntityInWorld(entityarrow);
+    }
+    
     protected void dropFewItems(boolean p_70628_1_, int p_70628_2_) {
         int j;
         int k;
@@ -120,6 +156,11 @@ public class EntityStray extends EntitySkeleton {
         for (k = 0; k < j; ++k) {
             this.dropItem(Items.bone, 1);
         }
+        /*//doesn't work, don't know why yet
+        for (k = 0; k < j; ++k) {
+        	
+            this.dropItem(TippedArrow.setEffect(new ItemStack(ModItems.tipped_arrow), Potion.potionTypes[Potion.moveSlowdown.getId()], 20*45, 0 ).getItem(), 1); 
+        }*/
     }
     
     protected String getLivingSound() {
