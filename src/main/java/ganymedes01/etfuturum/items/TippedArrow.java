@@ -116,7 +116,8 @@ public class TippedArrow extends Item implements IConfigurable {
 	public String getUnlocalizedName(ItemStack stack) {
 		PotionEffect effect = getEffect(stack);
 		if (effect == null || effect.getPotionID() < 0 || effect.getPotionID() >= Potion.potionTypes.length)
-			return super.getUnlocalizedName(stack);
+			//return super.getUnlocalizedName(stack); 
+			return "tipped_arrow.effect.empty";
 
 		Potion potion = Potion.potionTypes[effect.getPotionID()];
 		return "tipped_arrow." + potion.getName();
@@ -131,10 +132,15 @@ public class TippedArrow extends Item implements IConfigurable {
 	
 	
 	@SideOnly(Side.CLIENT)
-    public void addInformation(ItemStack stack, EntityPlayer p_77624_2_, List p_77624_3_, boolean p_77624_4_)
+    public void addInformation(ItemStack stack, EntityPlayer p_77624_2_, List list, boolean p_77624_4_)
     {
         if (stack.getItemDamage() == 0)
         {
+        	
+        	PotionEffect effect = ((TippedArrow) ModItems.tipped_arrow).getEffect(stack);
+        	if (effect != null) {
+        		
+        	
         	/*
             List list1 = ModItems.tipped_arrow.getEffects(stack);
             HashMultimap hashmultimap = HashMultimap.create();
@@ -177,13 +183,14 @@ public class TippedArrow extends Item implements IConfigurable {
 
                     if (potion.isBadEffect())
                     {
-                        p_77624_3_.add(EnumChatFormatting.RED + s1);
+                        list.add(EnumChatFormatting.RED + s1);
                     }
                     else
                     {
-                        p_77624_3_.add(EnumChatFormatting.GRAY + s1);
+                        list.add(EnumChatFormatting.GRAY + s1);
                     }
-                }
             }
+        }
+    }
 	
 }

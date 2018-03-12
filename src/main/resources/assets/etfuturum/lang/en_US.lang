@@ -57,6 +57,7 @@ item.etfuturum.totem_of_undying.name=Totem of Undying
 
 # Arrows
 item.etfuturum.tipped_arrow.name=Tipped Arrow
+tipped_arrow.effect.empty.name=Uncraftable Tipped Arrow
 tipped_arrow.potion.nightVision.name=Arrow of Night Vision
 tipped_arrow.potion.invisibility.name=Arrow of Invisibility
 tipped_arrow.potion.jump.name=Arrow of Leaping
@@ -70,6 +71,7 @@ tipped_arrow.potion.poison.name=Arrow of Poison
 tipped_arrow.potion.regeneration.name=Arrow of Regeneration
 tipped_arrow.potion.damageBoost.name=Arrow of Strength
 tipped_arrow.potion.weakness.name=Arrow of Weakness
+
 
 # Blocks
 tile.etfuturum.stone_granite.name=Granite
