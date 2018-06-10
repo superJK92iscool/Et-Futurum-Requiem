@@ -1,7 +1,7 @@
 package ganymedes01.etfuturum.core.utils;
 
 /**
- * Litteraly copied from vanilla 1.10.2
+ * Literally copied from vanilla 1.10.2
  */
 
 public enum EnumDyeColor {

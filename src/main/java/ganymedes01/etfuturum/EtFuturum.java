@@ -45,18 +45,25 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.oredict.OreDictionary;
 
-@Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.VERSION_NUMBER, dependencies = Reference.DEPENDENCIES, guiFactory = Reference.GUI_FACTORY_CLASS)
+@Mod(
+		modid = "etfuturum", 
+		name = "Et Futurum", 
+		version = "@VERSION@", 
+		dependencies = "required-after:Forge@[10.13.4.1558,);after:Thaumcraft@[4.2.3.5,);", 
+		guiFactory = "ganymedes01.etfuturum.configuration.ConfigGuiFactory"
+	)
+
 public class EtFuturum {
 
-	@Instance(Reference.MOD_ID)
+	@Instance("etfuturum")
 	public static EtFuturum instance;
 
-	@SidedProxy(clientSide = Reference.CLIENT_PROXY_CLASS, serverSide = Reference.SERVER_PROXY_CLASS)
+	@SidedProxy(clientSide = "ganymedes01.etfuturum.core.proxy.ClientProxy", serverSide = "ganymedes01.etfuturum.core.proxy.CommonProxy")
 	public static CommonProxy proxy;
 
 	public static SimpleNetworkWrapper networkWrapper;
 
-	public static CreativeTabs creativeTab = new CreativeTabs(Reference.MOD_ID) {
+	public static CreativeTabs creativeTab = new CreativeTabs("etfuturum") {
 		@Override
 		public Item getTabIconItem() {
 			return ConfigurationHandler.enablePrismarine ? ModItems.prismarine_shard : Items.skull;
@@ -122,6 +129,10 @@ public class EtFuturum {
 			Blocks.packed_ice.setHarvestLevel("pickaxe", 0);
 			Blocks.ladder.setHarvestLevel("axe", 0);
 			Blocks.melon_block.setHarvestLevel("axe", 0);
+		}
+		
+		if (Loader.isModLoaded("Thaumcraft")) {
+			CompatTC.doAspects();
 		}
 	}
 

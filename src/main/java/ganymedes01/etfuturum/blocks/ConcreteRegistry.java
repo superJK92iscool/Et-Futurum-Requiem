@@ -9,8 +9,8 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 public class ConcreteRegistry {
 
-	private static HashMap<EnumDyeColor, BlockConcretePowder> concretePowders = new HashMap<EnumDyeColor, BlockConcretePowder>();
-	private static HashMap<EnumDyeColor, BlockConcrete> concretes = new HashMap<EnumDyeColor, BlockConcrete>();
+	public static HashMap<EnumDyeColor, BlockConcretePowder> concretePowders = new HashMap<EnumDyeColor, BlockConcretePowder>();
+	public static HashMap<EnumDyeColor, BlockConcrete> concretes = new HashMap<EnumDyeColor, BlockConcrete>();
 	
 	public static void init(){
 		for(EnumDyeColor color : EnumDyeColor.values()){
