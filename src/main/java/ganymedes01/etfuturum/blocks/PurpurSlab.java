@@ -11,21 +11,21 @@ import net.minecraft.world.IBlockAccess;
 
 public class PurpurSlab extends GenericSlab {
 
-	public PurpurSlab() {
-		super(Material.rock, ModBlocks.purpur_block);
-		setResistance(30);
-		setHardness(2.0F);
-		setBlockName(Utils.getUnlocalisedName("purpur_slab"));
-		setCreativeTab(ConfigurationHandler.enableChorusFruit ? EtFuturum.creativeTab : null);
-	}
+    public PurpurSlab() {
+        super(Material.rock, ModBlocks.purpur_block);
+        setResistance(30);
+        setHardness(2.0F);
+        setBlockName(Utils.getUnlocalisedName("purpur_slab"));
+        setCreativeTab(ConfigurationHandler.enableChorusFruit ? EtFuturum.creativeTab : null);
+    }
 
-	@Override
-	public boolean canEntityDestroy(IBlockAccess world, int x, int y, int z, Entity entity) {
-		return !(entity instanceof EntityDragon);
-	}
+    @Override
+    public boolean canEntityDestroy(IBlockAccess world, int x, int y, int z, Entity entity) {
+        return !(entity instanceof EntityDragon);
+    }
 
-	@Override
-	public boolean isEnabled() {
-		return ConfigurationHandler.enableChorusFruit;
-	}
+    @Override
+    public boolean isEnabled() {
+        return ConfigurationHandler.enableChorusFruit;
+    }
 }

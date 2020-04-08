@@ -16,17 +16,17 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.util.IIcon;
 
 public class BlockWoodBark extends BlockWood implements IConfigurable, ISubBlocksBlock{
-	
-	public BlockWoodBark()
+    
+    public BlockWoodBark()
     {
-		setCreativeTab(ConfigurationHandler.enableBarkLogs ? EtFuturum.creativeTab : null);
+        setCreativeTab(ConfigurationHandler.enableBarkLogs ? EtFuturum.creativeTab : null);
         this.setBlockTextureName("log");
         setBlockName(Utils.getUnlocalisedName("bark"));
     }
-	
-	private IIcon[] field_150095_b;
-	
-	@SideOnly(Side.CLIENT)
+    
+    private IIcon[] field_150095_b;
+    
+    @SideOnly(Side.CLIENT)
     public IIcon getIcon(int p_149691_1_, int p_149691_2_)
     {
         if (p_149691_2_ < 0 || p_149691_2_ >= this.field_150095_b.length)
@@ -36,8 +36,8 @@ public class BlockWoodBark extends BlockWood implements IConfigurable, ISubBlock
 
         return this.field_150095_b[p_149691_2_];
     }
-	
-	@SideOnly(Side.CLIENT)
+    
+    @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister p_149651_1_)
     {
         this.field_150095_b = new IIcon[field_150096_a.length];
@@ -47,15 +47,15 @@ public class BlockWoodBark extends BlockWood implements IConfigurable, ISubBlock
             this.field_150095_b[i] = p_149651_1_.registerIcon(this.getTextureName() + "_" + field_150096_a[i]);
         }
     }
-	
-	@Override
-	public boolean isEnabled() {
-		return ConfigurationHandler.enableBarkLogs;
-	}
-	
-	@Override
-	public Class<? extends ItemBlock> getItemBlockClass() {
-		return ItemBlockGeneric.class;
-	}
+    
+    @Override
+    public boolean isEnabled() {
+        return ConfigurationHandler.enableBarkLogs;
+    }
+    
+    @Override
+    public Class<? extends ItemBlock> getItemBlockClass() {
+        return ItemBlockGeneric.class;
+    }
 
 }

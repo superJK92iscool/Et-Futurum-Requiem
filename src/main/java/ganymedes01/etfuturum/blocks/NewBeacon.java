@@ -19,35 +19,35 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class NewBeacon extends BlockBeacon implements IConfigurable {
 
-	public NewBeacon() {
-		setLightLevel(1.0F);
-		setBlockTextureName("beacon");
-		setBlockName(Utils.getUnlocalisedName("beacon"));
-		setCreativeTab(ConfigurationHandler.enableColourfulBeacons ? EtFuturum.creativeTab : null);
-	}
+    public NewBeacon() {
+        setLightLevel(1.0F);
+        setBlockTextureName("beacon");
+        setBlockName(Utils.getUnlocalisedName("beacon"));
+        setCreativeTab(ConfigurationHandler.enableColourfulBeacons ? EtFuturum.creativeTab : null);
+    }
 
-	@Override
-	public Item getItemDropped(int meta, Random rand, int fortune) {
-		if (!ConfigurationHandler.enableTileReplacement)
-			return Item.getItemFromBlock(ModBlocks.beacon);
-		return Item.getItemFromBlock(Blocks.beacon);
-	}
+    @Override
+    public Item getItemDropped(int meta, Random rand, int fortune) {
+        if (!ConfigurationHandler.enableTileReplacement)
+            return Item.getItemFromBlock(ModBlocks.beacon);
+        return Item.getItemFromBlock(Blocks.beacon);
+    }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public Item getItem(World world, int x, int y, int z) {
-		if (!ConfigurationHandler.enableTileReplacement)
-			return Item.getItemFromBlock(ModBlocks.beacon);
-		return Item.getItemFromBlock(Blocks.beacon);
-	}
+    @Override
+    @SideOnly(Side.CLIENT)
+    public Item getItem(World world, int x, int y, int z) {
+        if (!ConfigurationHandler.enableTileReplacement)
+            return Item.getItemFromBlock(ModBlocks.beacon);
+        return Item.getItemFromBlock(Blocks.beacon);
+    }
 
-	@Override
-	public TileEntity createNewTileEntity(World world, int meta) {
-		return new TileEntityNewBeacon();
-	}
+    @Override
+    public TileEntity createNewTileEntity(World world, int meta) {
+        return new TileEntityNewBeacon();
+    }
 
-	@Override
-	public boolean isEnabled() {
-		return ConfigurationHandler.enableColourfulBeacons;
-	}
+    @Override
+    public boolean isEnabled() {
+        return ConfigurationHandler.enableColourfulBeacons;
+    }
 }

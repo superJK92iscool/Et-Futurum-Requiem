@@ -37,23 +37,23 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
 public class EntityStray extends EntitySkeleton {
-	
-	private EntityAIArrowAttack aiArrowAttack = new EntityAIArrowAttack(this, 1.0D, 20, 60, 15.0F);
-	private EntityAIAttackOnCollide aiAttackOnCollide = new EntityAIAttackOnCollide(this, EntityPlayer.class, 1.2D, false);
-	
+    
+    private EntityAIArrowAttack aiArrowAttack = new EntityAIArrowAttack(this, 1.0D, 20, 60, 15.0F);
+    private EntityAIAttackOnCollide aiAttackOnCollide = new EntityAIAttackOnCollide(this, EntityPlayer.class, 1.2D, false);
+    
     public EntityStray(final World p_i1741_1_) {
-    	super(p_i1741_1_);
-    	this.tasks.addTask(1, new EntityAISwimming(this));
-    	this.tasks.addTask(2, new EntityAIRestrictSun(this));
-    	this.tasks.addTask(3, new EntityAIFleeSun(this, 1.0D));
-    	this.tasks.addTask(5, new EntityAIWander(this, 1.0D));
-    	this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-    	this.tasks.addTask(6, new EntityAILookIdle(this));
-    	this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-    	this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, 0, true));
-    	if ((p_i1741_1_ != null) && (!p_i1741_1_.isRemote)) {
-    		setCombatTask();
-    	}
+        super(p_i1741_1_);
+        this.tasks.addTask(1, new EntityAISwimming(this));
+        this.tasks.addTask(2, new EntityAIRestrictSun(this));
+        this.tasks.addTask(3, new EntityAIFleeSun(this, 1.0D));
+        this.tasks.addTask(5, new EntityAIWander(this, 1.0D));
+        this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+        this.tasks.addTask(6, new EntityAILookIdle(this));
+        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, 0, true));
+        if ((p_i1741_1_ != null) && (!p_i1741_1_.isRemote)) {
+            setCombatTask();
+        }
     }
     
     public IEntityLivingData onSpawnWithEgg(IEntityLivingData p_110161_1_)
@@ -158,7 +158,7 @@ public class EntityStray extends EntitySkeleton {
         }
         /*//doesn't work, don't know why yet
         for (k = 0; k < j; ++k) {
-        	
+            
             this.dropItem(TippedArrow.setEffect(new ItemStack(ModItems.tipped_arrow), Potion.potionTypes[Potion.moveSlowdown.getId()], 20*45, 0 ).getItem(), 1); 
         }*/
     }

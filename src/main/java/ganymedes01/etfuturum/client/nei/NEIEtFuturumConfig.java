@@ -10,24 +10,24 @@ import net.minecraft.item.ItemStack;
 
 public class NEIEtFuturumConfig implements IConfigureNEI {
 
-	@Override
-	public void loadConfig() {
-		if (ConfigurationHandler.enableBanners) {
-			API.registerRecipeHandler(new BannerPatternHandler());
-			API.registerUsageHandler(new BannerPatternHandler());
-		}
+    @Override
+    public void loadConfig() {
+        if (ConfigurationHandler.enableBanners) {
+            API.registerRecipeHandler(new BannerPatternHandler());
+            API.registerUsageHandler(new BannerPatternHandler());
+        }
 
-		if (ConfigurationHandler.enableBeetroot)
-			API.hideItem(new ItemStack(ModBlocks.beetroot));
-	}
+        if (ConfigurationHandler.enableBeetroot)
+            API.hideItem(new ItemStack(ModBlocks.beetroot));
+    }
 
-	@Override
-	public String getName() {
-		return Reference.MOD_NAME;
-	}
+    @Override
+    public String getName() {
+        return Reference.MOD_NAME;
+    }
 
-	@Override
-	public String getVersion() {
-		return Reference.VERSION_NUMBER;
-	}
+    @Override
+    public String getVersion() {
+        return Reference.VERSION_NUMBER;
+    }
 }

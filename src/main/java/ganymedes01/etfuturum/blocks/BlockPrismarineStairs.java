@@ -33,8 +33,8 @@ public class BlockPrismarineStairs extends BlockStairs implements IConfigurable
     }
     
     @Override
-	public boolean isEnabled() {
-		return ConfigurationHandler.enablePrismarine;
-	}
+    public boolean isEnabled() {
+        return ConfigurationHandler.enablePrismarine;
+    }
 
 }

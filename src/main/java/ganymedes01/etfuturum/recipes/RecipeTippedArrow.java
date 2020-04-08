@@ -13,21 +13,21 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 
 public class RecipeTippedArrow extends ShapedOreRecipe {
 
-	public RecipeTippedArrow(ItemStack result, Object... recipe) {
-		super(result, recipe);
-	}
+    public RecipeTippedArrow(ItemStack result, Object... recipe) {
+        super(result, recipe);
+    }
 
-	@Override
-	public ItemStack getCraftingResult(InventoryCrafting grid) {
-		ItemStack potion = grid.getStackInRowAndColumn(1, 1);
-		List<PotionEffect> effects = ((LingeringPotion) ModItems.lingering_potion).getEffects(potion);
+    @Override
+    public ItemStack getCraftingResult(InventoryCrafting grid) {
+        ItemStack potion = grid.getStackInRowAndColumn(1, 1);
+        List<PotionEffect> effects = ((LingeringPotion) ModItems.lingering_potion).getEffects(potion);
 
-		ItemStack stack = new ItemStack(ModItems.tipped_arrow, 8);
-		if (!effects.isEmpty()) {
-			PotionEffect effect = effects.get(0);
-			TippedArrow.setEffect(stack, Potion.potionTypes[effect.getPotionID()], effect.getDuration(), effect.getAmplifier() );
-		}
+        ItemStack stack = new ItemStack(ModItems.tipped_arrow, 8);
+        if (!effects.isEmpty()) {
+            PotionEffect effect = effects.get(0);
+            TippedArrow.setEffect(stack, Potion.potionTypes[effect.getPotionID()], effect.getDuration(), effect.getAmplifier() );
+        }
 
-		return stack;
-	}
+        return stack;
+    }
 }

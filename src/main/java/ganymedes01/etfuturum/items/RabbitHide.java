@@ -8,14 +8,14 @@ import net.minecraft.item.Item;
 
 public class RabbitHide extends Item implements IConfigurable {
 
-	public RabbitHide() {
-		setTextureName("rabbit_hide");
-		setUnlocalizedName(Utils.getUnlocalisedName("rabbit_hide"));
-		setCreativeTab(ConfigurationHandler.enableRabbit ? EtFuturum.creativeTab : null);
-	}
+    public RabbitHide() {
+        setTextureName("rabbit_hide");
+        setUnlocalizedName(Utils.getUnlocalisedName("rabbit_hide"));
+        setCreativeTab(ConfigurationHandler.enableRabbit ? EtFuturum.creativeTab : null);
+    }
 
-	@Override
-	public boolean isEnabled() {
-		return ConfigurationHandler.enableRabbit;
-	}
+    @Override
+    public boolean isEnabled() {
+        return ConfigurationHandler.enableRabbit;
+    }
 }

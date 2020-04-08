@@ -9,16 +9,16 @@ import net.minecraft.item.ItemSoup;
 
 public class BeetrootSoup extends ItemSoup implements IConfigurable {
 
-	public BeetrootSoup() {
-		super(6);
-		setContainerItem(Items.bowl);
-		setTextureName("beetroot_soup");
-		setUnlocalizedName(Utils.getUnlocalisedName("beetroot_soup"));
-		setCreativeTab(ConfigurationHandler.enableBeetroot ? EtFuturum.creativeTab : null);
-	}
+    public BeetrootSoup() {
+        super(6);
+        setContainerItem(Items.bowl);
+        setTextureName("beetroot_soup");
+        setUnlocalizedName(Utils.getUnlocalisedName("beetroot_soup"));
+        setCreativeTab(ConfigurationHandler.enableBeetroot ? EtFuturum.creativeTab : null);
+    }
 
-	@Override
-	public boolean isEnabled() {
-		return ConfigurationHandler.enableBeetroot;
-	}
+    @Override
+    public boolean isEnabled() {
+        return ConfigurationHandler.enableBeetroot;
+    }
 }

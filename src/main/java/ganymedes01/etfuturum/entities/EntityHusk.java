@@ -35,7 +35,7 @@ import net.minecraftforge.event.entity.living.ZombieEvent.SummonAidEvent;
 public class EntityHusk extends EntityZombie
 {
     public EntityHusk(final World p_i1745_1_) {
-    	super(p_i1745_1_);
+        super(p_i1745_1_);
         getNavigator().setBreakDoors(true);
         this.tasks.addTask(0, new EntityAISwimming(this));
         this.tasks.addTask(2, new EntityAIAttackOnCollide(this, EntityPlayer.class, 1.0D, false));

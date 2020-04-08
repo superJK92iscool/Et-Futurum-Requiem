@@ -11,22 +11,22 @@ import net.minecraft.world.IBlockAccess;
 @SideOnly(Side.CLIENT)
 public class BlockChestRenderer implements ISimpleBlockRenderingHandler {
 
-	@Override
-	public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
-	}
+    @Override
+    public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
+    }
 
-	@Override
-	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
-		return renderer.hasOverrideBlockTexture() && renderer.renderStandardBlock(block, x, y, z);
-	}
+    @Override
+    public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
+        return renderer.hasOverrideBlockTexture() && renderer.renderStandardBlock(block, x, y, z);
+    }
 
-	@Override
-	public boolean shouldRender3DInInventory(int modelId) {
-		return false;
-	}
+    @Override
+    public boolean shouldRender3DInInventory(int modelId) {
+        return false;
+    }
 
-	@Override
-	public int getRenderId() {
-		return Blocks.chest.getRenderType();
-	}
+    @Override
+    public int getRenderId() {
+        return Blocks.chest.getRenderType();
+    }
 }

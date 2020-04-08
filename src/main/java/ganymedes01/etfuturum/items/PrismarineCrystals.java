@@ -8,14 +8,14 @@ import net.minecraft.item.Item;
 
 public class PrismarineCrystals extends Item implements IConfigurable {
 
-	public PrismarineCrystals() {
-		setTextureName("prismarine_crystals");
-		setUnlocalizedName(Utils.getUnlocalisedName("prismarine_crystals"));
-		setCreativeTab(ConfigurationHandler.enablePrismarine ? EtFuturum.creativeTab : null);
-	}
+    public PrismarineCrystals() {
+        setTextureName("prismarine_crystals");
+        setUnlocalizedName(Utils.getUnlocalisedName("prismarine_crystals"));
+        setCreativeTab(ConfigurationHandler.enablePrismarine ? EtFuturum.creativeTab : null);
+    }
 
-	@Override
-	public boolean isEnabled() {
-		return ConfigurationHandler.enablePrismarine;
-	}
+    @Override
+    public boolean isEnabled() {
+        return ConfigurationHandler.enablePrismarine;
+    }
 }

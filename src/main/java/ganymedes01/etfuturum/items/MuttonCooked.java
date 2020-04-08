@@ -8,15 +8,15 @@ import net.minecraft.item.ItemFood;
 
 public class MuttonCooked extends ItemFood implements IConfigurable {
 
-	public MuttonCooked() {
-		super(6, 0.8F, true);
-		setTextureName("mutton_cooked");
-		setUnlocalizedName(Utils.getUnlocalisedName("mutton_cooked"));
-		setCreativeTab(ConfigurationHandler.enableMutton ? EtFuturum.creativeTab : null);
-	}
+    public MuttonCooked() {
+        super(6, 0.8F, true);
+        setTextureName("mutton_cooked");
+        setUnlocalizedName(Utils.getUnlocalisedName("mutton_cooked"));
+        setCreativeTab(ConfigurationHandler.enableMutton ? EtFuturum.creativeTab : null);
+    }
 
-	@Override
-	public boolean isEnabled() {
-		return ConfigurationHandler.enableMutton;
-	}
+    @Override
+    public boolean isEnabled() {
+        return ConfigurationHandler.enableMutton;
+    }
 }

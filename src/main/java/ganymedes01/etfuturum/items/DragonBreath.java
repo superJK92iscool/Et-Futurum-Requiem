@@ -9,16 +9,16 @@ import net.minecraft.item.Item;
 
 public class DragonBreath extends Item implements IConfigurable {
 
-	public DragonBreath() {
-		setPotionEffect("-14+13");
-		setTextureName("dragon_breath");
-		setContainerItem(Items.glass_bottle);
-		setUnlocalizedName(Utils.getUnlocalisedName("dragon_breath"));
-		setCreativeTab(ConfigurationHandler.enableLingeringPotions ? EtFuturum.creativeTab : null);
-	}
+    public DragonBreath() {
+        setPotionEffect("-14+13");
+        setTextureName("dragon_breath");
+        setContainerItem(Items.glass_bottle);
+        setUnlocalizedName(Utils.getUnlocalisedName("dragon_breath"));
+        setCreativeTab(ConfigurationHandler.enableLingeringPotions ? EtFuturum.creativeTab : null);
+    }
 
-	@Override
-	public boolean isEnabled() {
-		return ConfigurationHandler.enableLingeringPotions;
-	}
+    @Override
+    public boolean isEnabled() {
+        return ConfigurationHandler.enableLingeringPotions;
+    }
 }

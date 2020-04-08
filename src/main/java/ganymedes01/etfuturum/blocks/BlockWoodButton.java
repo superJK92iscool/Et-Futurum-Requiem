@@ -15,24 +15,24 @@ import net.minecraft.util.IIcon;
 
 public class BlockWoodButton extends BlockButtonWood implements IBurnableBlock, IConfigurable {
 
-	private final int meta;
+    private final int meta;
 
-	public BlockWoodButton(int meta) {
-		this.meta = meta;
-		setBlockName(Utils.getUnlocalisedName("button_" + BlockWoodDoor.names[meta]));
-		setCreativeTab(ConfigurationHandler.enableWoodRedstone ? EtFuturum.creativeTab : null);
-		
-	}
+    public BlockWoodButton(int meta) {
+        this.meta = meta;
+        setBlockName(Utils.getUnlocalisedName("button_" + BlockWoodDoor.names[meta]));
+        setCreativeTab(ConfigurationHandler.enableWoodRedstone ? EtFuturum.creativeTab : null);
+        
+    }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(int side, int meta) {
-		return Blocks.planks.getIcon(side, this.meta);
-	}
-	
-	@Override
-	public boolean isEnabled() {
-		return ConfigurationHandler.enableWoodRedstone;
-	}
+    @Override
+    @SideOnly(Side.CLIENT)
+    public IIcon getIcon(int side, int meta) {
+        return Blocks.planks.getIcon(side, this.meta);
+    }
+    
+    @Override
+    public boolean isEnabled() {
+        return ConfigurationHandler.enableWoodRedstone;
+    }
 
 }

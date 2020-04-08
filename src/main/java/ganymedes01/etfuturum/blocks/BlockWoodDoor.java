@@ -20,49 +20,49 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockWoodDoor extends BlockDoor implements ISubBlocksBlock, IConfigurable {
 
-	public static final String[] names = new String[] { "oak", "spruce", "birch", "jungle", "acacia", "dark_oak" };
+    public static final String[] names = new String[] { "oak", "spruce", "birch", "jungle", "acacia", "dark_oak" };
 
-	public BlockWoodDoor(int meta) {
-		super(Material.wood);
-		String name = names[meta];
+    public BlockWoodDoor(int meta) {
+        super(Material.wood);
+        String name = names[meta];
 
-		disableStats();
-		setHardness(3.0F);
-		setStepSound(soundTypeWood);
-		setBlockTextureName("door_" + name);
-		setBlockName(Utils.getUnlocalisedName("door_" + name));
-		setCreativeTab(ConfigurationHandler.enableDoors ? EtFuturum.creativeTab : null);
-	}
+        disableStats();
+        setHardness(3.0F);
+        setStepSound(soundTypeWood);
+        setBlockTextureName("door_" + name);
+        setBlockName(Utils.getUnlocalisedName("door_" + name));
+        setCreativeTab(ConfigurationHandler.enableDoors ? EtFuturum.creativeTab : null);
+    }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public Item getItem(World world, int x, int y, int z) {
-		return Item.getItemFromBlock(this);
-	}
+    @Override
+    @SideOnly(Side.CLIENT)
+    public Item getItem(World world, int x, int y, int z) {
+        return Item.getItemFromBlock(this);
+    }
 
-	@Override
-	public Item getItemDropped(int meta, Random rand, int fortune) {
-		return (meta & 8) != 0 ? null : Item.getItemFromBlock(this);
-	}
+    @Override
+    public Item getItemDropped(int meta, Random rand, int fortune) {
+        return (meta & 8) != 0 ? null : Item.getItemFromBlock(this);
+    }
 
-	@Override
-	public int getRenderType() {
-		return RenderIDs.DOOR;
-	}
+    @Override
+    public int getRenderType() {
+        return RenderIDs.DOOR;
+    }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public String getItemIconName() {
-		return getTextureName();
-	}
+    @Override
+    @SideOnly(Side.CLIENT)
+    public String getItemIconName() {
+        return getTextureName();
+    }
 
-	@Override
-	public Class<? extends ItemBlock> getItemBlockClass() {
-		return ItemWoodDoor.class;
-	}
+    @Override
+    public Class<? extends ItemBlock> getItemBlockClass() {
+        return ItemWoodDoor.class;
+    }
 
-	@Override
-	public boolean isEnabled() {
-		return ConfigurationHandler.enableDoors;
-	}
+    @Override
+    public boolean isEnabled() {
+        return ConfigurationHandler.enableDoors;
+    }
 }

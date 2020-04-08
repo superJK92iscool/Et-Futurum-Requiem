@@ -12,23 +12,23 @@ import net.minecraft.world.IBlockAccess;
 
 public class EndBricks extends Block implements IConfigurable {
 
-	public EndBricks() {
-		super(Material.rock);
-		setHardness(3.0F);
-		setResistance(15.0F);
-		setStepSound(soundTypePiston);
-		setBlockTextureName("end_bricks");
-		setBlockName(Utils.getUnlocalisedName("end_bricks"));
-		setCreativeTab(ConfigurationHandler.enableChorusFruit ? EtFuturum.creativeTab : null);
-	}
+    public EndBricks() {
+        super(Material.rock);
+        setHardness(3.0F);
+        setResistance(15.0F);
+        setStepSound(soundTypePiston);
+        setBlockTextureName("end_bricks");
+        setBlockName(Utils.getUnlocalisedName("end_bricks"));
+        setCreativeTab(ConfigurationHandler.enableChorusFruit ? EtFuturum.creativeTab : null);
+    }
 
-	@Override
-	public boolean canEntityDestroy(IBlockAccess world, int x, int y, int z, Entity entity) {
-		return !(entity instanceof EntityDragon);
-	}
+    @Override
+    public boolean canEntityDestroy(IBlockAccess world, int x, int y, int z, Entity entity) {
+        return !(entity instanceof EntityDragon);
+    }
 
-	@Override
-	public boolean isEnabled() {
-		return ConfigurationHandler.enableChorusFruit;
-	}
+    @Override
+    public boolean isEnabled() {
+        return ConfigurationHandler.enableChorusFruit;
+    }
 }

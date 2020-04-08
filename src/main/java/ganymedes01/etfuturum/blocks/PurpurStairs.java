@@ -12,21 +12,21 @@ import net.minecraft.world.IBlockAccess;
 
 public class PurpurStairs extends BlockStairs implements IConfigurable {
 
-	public PurpurStairs() {
-		super(ModBlocks.purpur_block, 0);
-		setHardness(0.8F);
-		setLightOpacity(0);
-		setBlockName(Utils.getUnlocalisedName("purpur_stairs"));
-		setCreativeTab(ConfigurationHandler.enableChorusFruit ? EtFuturum.creativeTab : null);
-	}
+    public PurpurStairs() {
+        super(ModBlocks.purpur_block, 0);
+        setHardness(0.8F);
+        setLightOpacity(0);
+        setBlockName(Utils.getUnlocalisedName("purpur_stairs"));
+        setCreativeTab(ConfigurationHandler.enableChorusFruit ? EtFuturum.creativeTab : null);
+    }
 
-	@Override
-	public boolean canEntityDestroy(IBlockAccess world, int x, int y, int z, Entity entity) {
-		return !(entity instanceof EntityDragon);
-	}
+    @Override
+    public boolean canEntityDestroy(IBlockAccess world, int x, int y, int z, Entity entity) {
+        return !(entity instanceof EntityDragon);
+    }
 
-	@Override
-	public boolean isEnabled() {
-		return ConfigurationHandler.enableChorusFruit;
-	}
+    @Override
+    public boolean isEnabled() {
+        return ConfigurationHandler.enableChorusFruit;
+    }
 }

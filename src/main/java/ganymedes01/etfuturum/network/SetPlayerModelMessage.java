@@ -7,26 +7,26 @@ import net.minecraft.entity.player.EntityPlayer;
 
 public class SetPlayerModelMessage implements IMessage {
 
-	public String playerName;
-	public boolean isAlex;
+    public String playerName;
+    public boolean isAlex;
 
-	public SetPlayerModelMessage() {
-	}
+    public SetPlayerModelMessage() {
+    }
 
-	public SetPlayerModelMessage(EntityPlayer player, boolean isAlex) {
-		playerName = player.getCommandSenderName();
-		this.isAlex = isAlex;
-	}
+    public SetPlayerModelMessage(EntityPlayer player, boolean isAlex) {
+        playerName = player.getCommandSenderName();
+        this.isAlex = isAlex;
+    }
 
-	@Override
-	public void fromBytes(ByteBuf buf) {
-		playerName = ByteBufUtils.readUTF8String(buf);
-		isAlex = buf.readBoolean();
-	}
+    @Override
+    public void fromBytes(ByteBuf buf) {
+        playerName = ByteBufUtils.readUTF8String(buf);
+        isAlex = buf.readBoolean();
+    }
 
-	@Override
-	public void toBytes(ByteBuf buf) {
-		ByteBufUtils.writeUTF8String(buf, playerName);
-		buf.writeBoolean(isAlex);
-	}
+    @Override
+    public void toBytes(ByteBuf buf) {
+        ByteBufUtils.writeUTF8String(buf, playerName);
+        buf.writeBoolean(isAlex);
+    }
 }

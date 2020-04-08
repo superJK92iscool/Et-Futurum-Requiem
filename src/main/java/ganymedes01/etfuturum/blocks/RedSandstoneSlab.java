@@ -8,16 +8,16 @@ import net.minecraft.block.material.Material;
 
 public class RedSandstoneSlab extends GenericSlab {
 
-	public RedSandstoneSlab() {
-		super(Material.rock, ModBlocks.red_sandstone);
-		setResistance(30);
-		setHardness(2.0F);
-		setBlockName(Utils.getUnlocalisedName("red_sandstone_slab"));
-		setCreativeTab(ConfigurationHandler.enableRedSandstone ? EtFuturum.creativeTab : null);
-	}
+    public RedSandstoneSlab() {
+        super(Material.rock, ModBlocks.red_sandstone);
+        setResistance(30);
+        setHardness(2.0F);
+        setBlockName(Utils.getUnlocalisedName("red_sandstone_slab"));
+        setCreativeTab(ConfigurationHandler.enableRedSandstone ? EtFuturum.creativeTab : null);
+    }
 
-	@Override
-	public boolean isEnabled() {
-		return ConfigurationHandler.enableRedSandstone;
-	}
+    @Override
+    public boolean isEnabled() {
+        return ConfigurationHandler.enableRedSandstone;
+    }
 }

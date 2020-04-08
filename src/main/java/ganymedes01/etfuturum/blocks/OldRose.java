@@ -19,36 +19,36 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class OldRose extends BlockFlower implements IConfigurable {
 
-	public OldRose() {
-		super(1);
-		setHardness(0.0F);
-		setStepSound(soundTypeGrass);
-		setBlockName(Utils.getUnlocalisedName("rose"));
-		setBlockTextureName(Reference.MOD_ID + ":flower_rose");
-		setCreativeTab(ConfigurationHandler.enableRoses ? EtFuturum.creativeTab : null);
-	}
+    public OldRose() {
+        super(1);
+        setHardness(0.0F);
+        setStepSound(soundTypeGrass);
+        setBlockName(Utils.getUnlocalisedName("rose"));
+        setBlockTextureName(Reference.MOD_ID + ":flower_rose");
+        setCreativeTab(ConfigurationHandler.enableRoses ? EtFuturum.creativeTab : null);
+    }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(int side, int meta) {
-		return blockIcon;
-	}
+    @Override
+    @SideOnly(Side.CLIENT)
+    public IIcon getIcon(int side, int meta) {
+        return blockIcon;
+    }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public void getSubBlocks(Item item, CreativeTabs tab, List list) {
-		list.add(new ItemStack(item));
-	}
+    @Override
+    @SideOnly(Side.CLIENT)
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    public void getSubBlocks(Item item, CreativeTabs tab, List list) {
+        list.add(new ItemStack(item));
+    }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister reg) {
-		blockIcon = reg.registerIcon(getTextureName());
-	}
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void registerBlockIcons(IIconRegister reg) {
+        blockIcon = reg.registerIcon(getTextureName());
+    }
 
-	@Override
-	public boolean isEnabled() {
-		return ConfigurationHandler.enableRoses;
-	}
+    @Override
+    public boolean isEnabled() {
+        return ConfigurationHandler.enableRoses;
+    }
 }

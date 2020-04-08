@@ -21,70 +21,70 @@ import cpw.mods.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class NewRenderPlayer extends RenderPlayer {
 
-	public static final ResourceLocation STEVE_SKIN = new ResourceLocation(Reference.MOD_ID, "textures/steve.png");
-	private static final ModelBase STEVE = new ModelPlayer(0.0F, false);
-	private static final ModelBase ALEX = new ModelPlayer(0.0F, true);
+    public static final ResourceLocation STEVE_SKIN = new ResourceLocation(Reference.MOD_ID, "textures/steve.png");
+    private static final ModelBase STEVE = new ModelPlayer(0.0F, false);
+    private static final ModelBase ALEX = new ModelPlayer(0.0F, true);
 
-	public NewRenderPlayer() {
-		renderManager = RenderManager.instance;
-		mainModel = STEVE;
-		modelBipedMain = (ModelBiped) mainModel;
-	}
+    public NewRenderPlayer() {
+        renderManager = RenderManager.instance;
+        mainModel = STEVE;
+        modelBipedMain = (ModelBiped) mainModel;
+    }
 
-	private void setModel(EntityPlayer player) {
-		boolean isAlex;
+    private void setModel(EntityPlayer player) {
+        boolean isAlex;
 
-		NBTTagCompound nbt = player.getEntityData();
-		if (nbt.hasKey(SetPlayerModelCommand.MODEL_KEY, Constants.NBT.TAG_BYTE))
-			isAlex = nbt.getBoolean(SetPlayerModelCommand.MODEL_KEY);
-		else
-			isAlex = PlayerModelManager.isPlayerModelAlex(getEntityTexture(player));
+        NBTTagCompound nbt = player.getEntityData();
+        if (nbt.hasKey(SetPlayerModelCommand.MODEL_KEY, Constants.NBT.TAG_BYTE))
+            isAlex = nbt.getBoolean(SetPlayerModelCommand.MODEL_KEY);
+        else
+            isAlex = PlayerModelManager.isPlayerModelAlex(getEntityTexture(player));
 
-		mainModel = isAlex ? ALEX : STEVE;
-		modelBipedMain = (ModelBiped) mainModel;
-	}
+        mainModel = isAlex ? ALEX : STEVE;
+        modelBipedMain = (ModelBiped) mainModel;
+    }
 
-	@Override
-	protected int shouldRenderPass(AbstractClientPlayer player, int pass, float partialTickTime) {
-		setModel(player);
-		return super.shouldRenderPass(player, pass, partialTickTime);
-	}
+    @Override
+    protected int shouldRenderPass(AbstractClientPlayer player, int pass, float partialTickTime) {
+        setModel(player);
+        return super.shouldRenderPass(player, pass, partialTickTime);
+    }
 
-	@Override
-	public void doRender(AbstractClientPlayer player, double x, double y, double z, float someFloat, float partialTickTime) {
-		setModel(player);
-		super.doRender(player, x, y, z, someFloat, partialTickTime);
-	}
+    @Override
+    public void doRender(AbstractClientPlayer player, double x, double y, double z, float someFloat, float partialTickTime) {
+        setModel(player);
+        super.doRender(player, x, y, z, someFloat, partialTickTime);
+    }
 
-	@Override
-	protected void renderEquippedItems(AbstractClientPlayer player, float partialTickTime) {
-		setModel(player);
-		super.renderEquippedItems(player, partialTickTime);
-	}
+    @Override
+    protected void renderEquippedItems(AbstractClientPlayer player, float partialTickTime) {
+        setModel(player);
+        super.renderEquippedItems(player, partialTickTime);
+    }
 
-	@Override
-	protected ResourceLocation getEntityTexture(AbstractClientPlayer player) {
-		if (!ConfigurationHandler.enablePlayerSkinOverlay || player.getLocationSkin() == null)
-			return super.getEntityTexture(player);
-		return new ResourceLocation(Reference.MOD_ID, player.getLocationSkin().getResourcePath());
-	}
+    @Override
+    protected ResourceLocation getEntityTexture(AbstractClientPlayer player) {
+        if (!ConfigurationHandler.enablePlayerSkinOverlay || player.getLocationSkin() == null)
+            return super.getEntityTexture(player);
+        return new ResourceLocation(Reference.MOD_ID, player.getLocationSkin().getResourcePath());
+    }
 
-	@Override
-	protected boolean func_110813_b(EntityLivingBase entity) {
-		boolean isGUiEnabled = Minecraft.isGuiEnabled();
-		boolean isPlayer = entity != renderManager.livingPlayer;
-		boolean isInvisible = !entity.isInvisibleToPlayer(Minecraft.getMinecraft().thePlayer);
-		boolean isBeingRidden = entity.riddenByEntity == null;
+    @Override
+    protected boolean func_110813_b(EntityLivingBase entity) {
+        boolean isGUiEnabled = Minecraft.isGuiEnabled();
+        boolean isPlayer = entity != renderManager.livingPlayer;
+        boolean isInvisible = !entity.isInvisibleToPlayer(Minecraft.getMinecraft().thePlayer);
+        boolean isBeingRidden = entity.riddenByEntity == null;
 
-		return isGUiEnabled && isPlayer && isInvisible && isBeingRidden;
-	}
+        return isGUiEnabled && isPlayer && isInvisible && isBeingRidden;
+    }
 
-	@Override
-	public void renderFirstPersonArm(EntityPlayer player) {
-		setModel(player);
-		Minecraft.getMinecraft().getTextureManager().bindTexture(getEntityTexture(player));
+    @Override
+    public void renderFirstPersonArm(EntityPlayer player) {
+        setModel(player);
+        Minecraft.getMinecraft().getTextureManager().bindTexture(getEntityTexture(player));
 
-		super.renderFirstPersonArm(player);
-		((ModelPlayer) modelBipedMain).bipedRightArmwear.render(0.0625F);
-	}
+        super.renderFirstPersonArm(player);
+        ((ModelPlayer) modelBipedMain).bipedRightArmwear.render(0.0625F);
+    }
 }

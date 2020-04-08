@@ -8,15 +8,15 @@ import net.minecraft.item.ItemFood;
 
 public class Beetroot extends ItemFood implements IConfigurable {
 
-	public Beetroot() {
-		super(1, 0.6F, false);
-		setTextureName("beetroot");
-		setUnlocalizedName(Utils.getUnlocalisedName("beetroot"));
-		setCreativeTab(ConfigurationHandler.enableBeetroot ? EtFuturum.creativeTab : null);
-	}
+    public Beetroot() {
+        super(1, 0.6F, false);
+        setTextureName("beetroot");
+        setUnlocalizedName(Utils.getUnlocalisedName("beetroot"));
+        setCreativeTab(ConfigurationHandler.enableBeetroot ? EtFuturum.creativeTab : null);
+    }
 
-	@Override
-	public boolean isEnabled() {
-		return ConfigurationHandler.enableBeetroot;
-	}
+    @Override
+    public boolean isEnabled() {
+        return ConfigurationHandler.enableBeetroot;
+    }
 }

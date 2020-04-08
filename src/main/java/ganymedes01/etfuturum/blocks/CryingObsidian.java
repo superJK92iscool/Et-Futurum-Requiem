@@ -8,18 +8,18 @@ import net.minecraft.block.BlockObsidian;
 
 public class CryingObsidian extends BlockObsidian implements IConfigurable {
 
-	public CryingObsidian() {
-		setHardness(50.0F);
-		setResistance(2000.0F);
-		setStepSound(soundTypePiston);
-		setHarvestLevel("pickaxe", 3);
-		setBlockTextureName("crying_obsidian");
-		setBlockName(Utils.getUnlocalisedName("crying_obsidian"));
-		setCreativeTab(ConfigurationHandler.enableCryingObsidian ? EtFuturum.creativeTab : null);
-	}
+    public CryingObsidian() {
+        setHardness(50.0F);
+        setResistance(2000.0F);
+        setStepSound(soundTypePiston);
+        setHarvestLevel("pickaxe", 3);
+        setBlockTextureName("crying_obsidian");
+        setBlockName(Utils.getUnlocalisedName("crying_obsidian"));
+        setCreativeTab(ConfigurationHandler.enableCryingObsidian ? EtFuturum.creativeTab : null);
+    }
 
-	@Override
-	public boolean isEnabled() {
-		return ConfigurationHandler.enableCryingObsidian;
-	}
+    @Override
+    public boolean isEnabled() {
+        return ConfigurationHandler.enableCryingObsidian;
+    }
 }

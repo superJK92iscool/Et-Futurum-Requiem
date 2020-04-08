@@ -22,9 +22,9 @@ public class HuskRenderer extends RenderBiped
     }
     
     protected void preRenderCallback(EntityLivingBase par1EntityLiving, float par2) {
-    	if ((par1EntityLiving instanceof EntityHusk)) {
-    		GL11.glScalef(this.scale, this.scale, this.scale);
-    	}
+        if ((par1EntityLiving instanceof EntityHusk)) {
+            GL11.glScalef(this.scale, this.scale, this.scale);
+        }
     }
     
     protected ResourceLocation getEntityTexture(final Entity p_110775_1_) {

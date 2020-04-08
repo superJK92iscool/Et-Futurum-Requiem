@@ -20,52 +20,52 @@ import cpw.mods.fml.relauncher.Side;
 
 public class WorldTickEventHandler {
 
-	private static Map<Block, Block> replacements;
-	private boolean isReplacing = false;
+    private static Map<Block, Block> replacements;
+    private boolean isReplacing = false;
 
-	@SubscribeEvent
-	public void tick(WorldTickEvent event) {
-		if (event.side != Side.SERVER || event.phase != Phase.END || isReplacing)
-			return;
+    @SubscribeEvent
+    public void tick(WorldTickEvent event) {
+        if (event.side != Side.SERVER || event.phase != Phase.END || isReplacing)
+            return;
 
-		if (replacements == null) {
-			replacements = new HashMap<Block, Block>();
-			if (ConfigurationHandler.enableBrewingStands)
-				replacements.put(Blocks.brewing_stand, ModBlocks.brewing_stand);
-			if (ConfigurationHandler.enableColourfulBeacons)
-				replacements.put(Blocks.beacon, ModBlocks.beacon);
-			if (ConfigurationHandler.enableEnchants)
-				replacements.put(Blocks.enchanting_table, ModBlocks.enchantment_table);
-			if (ConfigurationHandler.enableInvertedDaylightSensor)
-				replacements.put(Blocks.daylight_detector, ModBlocks.daylight_sensor);
-		}
+        if (replacements == null) {
+            replacements = new HashMap<Block, Block>();
+            if (ConfigurationHandler.enableBrewingStands)
+                replacements.put(Blocks.brewing_stand, ModBlocks.brewing_stand);
+            if (ConfigurationHandler.enableColourfulBeacons)
+                replacements.put(Blocks.beacon, ModBlocks.beacon);
+            if (ConfigurationHandler.enableEnchants)
+                replacements.put(Blocks.enchanting_table, ModBlocks.enchantment_table);
+            if (ConfigurationHandler.enableInvertedDaylightSensor)
+                replacements.put(Blocks.daylight_detector, ModBlocks.daylight_sensor);
+        }
 
-		if (replacements.isEmpty())
-			return;
+        if (replacements.isEmpty())
+            return;
 
-		isReplacing = true;
-		World world = event.world;
+        isReplacing = true;
+        World world = event.world;
 
-		for (int i = 0; i < world.loadedTileEntityList.size(); i++) {
-			TileEntity tile = (TileEntity) world.loadedTileEntityList.get(i);
-			int x = tile.xCoord;
-			int y = tile.yCoord;
-			int z = tile.zCoord;
-			Block replacement = replacements.get(world.getBlock(x, y, z));
-			if (replacement != null && ((IConfigurable) replacement).isEnabled()) {
-				NBTTagCompound nbt = new NBTTagCompound();
-				tile.writeToNBT(nbt);
-				if (tile instanceof IInventory) {
-					IInventory invt = (IInventory) tile;
-					for (int j = 0; j < invt.getSizeInventory(); j++)
-						invt.setInventorySlotContents(j, null);
-				}
-				world.setBlock(x, y, z, replacement);
-				TileEntity newTile = world.getTileEntity(x, y, z);
-				newTile.readFromNBT(nbt);
-				break;
-			}
-		}
-		isReplacing = false;
-	}
+        for (int i = 0; i < world.loadedTileEntityList.size(); i++) {
+            TileEntity tile = (TileEntity) world.loadedTileEntityList.get(i);
+            int x = tile.xCoord;
+            int y = tile.yCoord;
+            int z = tile.zCoord;
+            Block replacement = replacements.get(world.getBlock(x, y, z));
+            if (replacement != null && ((IConfigurable) replacement).isEnabled()) {
+                NBTTagCompound nbt = new NBTTagCompound();
+                tile.writeToNBT(nbt);
+                if (tile instanceof IInventory) {
+                    IInventory invt = (IInventory) tile;
+                    for (int j = 0; j < invt.getSizeInventory(); j++)
+                        invt.setInventorySlotContents(j, null);
+                }
+                world.setBlock(x, y, z, replacement);
+                TileEntity newTile = world.getTileEntity(x, y, z);
+                newTile.readFromNBT(nbt);
+                break;
+            }
+        }
+        isReplacing = false;
+    }
 }

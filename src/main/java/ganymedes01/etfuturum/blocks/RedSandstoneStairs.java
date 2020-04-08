@@ -9,16 +9,16 @@ import net.minecraft.block.BlockStairs;
 
 public class RedSandstoneStairs extends BlockStairs implements IConfigurable {
 
-	public RedSandstoneStairs() {
-		super(ModBlocks.red_sandstone, 0);
-		setHardness(0.8F);
-		setLightOpacity(0);
-		setBlockName(Utils.getUnlocalisedName("red_sandstone_stairs"));
-		setCreativeTab(ConfigurationHandler.enableRedSandstone ? EtFuturum.creativeTab : null);
-	}
+    public RedSandstoneStairs() {
+        super(ModBlocks.red_sandstone, 0);
+        setHardness(0.8F);
+        setLightOpacity(0);
+        setBlockName(Utils.getUnlocalisedName("red_sandstone_stairs"));
+        setCreativeTab(ConfigurationHandler.enableRedSandstone ? EtFuturum.creativeTab : null);
+    }
 
-	@Override
-	public boolean isEnabled() {
-		return ConfigurationHandler.enableRedSandstone;
-	}
+    @Override
+    public boolean isEnabled() {
+        return ConfigurationHandler.enableRedSandstone;
+    }
 }

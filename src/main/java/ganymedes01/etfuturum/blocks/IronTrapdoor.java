@@ -11,22 +11,22 @@ import net.minecraft.world.World;
 
 public class IronTrapdoor extends BlockTrapDoor implements IConfigurable {
 
-	public IronTrapdoor() {
-		super(Material.iron);
-		setHardness(5.0F);
-		setStepSound(soundTypeMetal);
-		setBlockTextureName("iron_trapdoor");
-		setBlockName(Utils.getUnlocalisedName("iron_trapdoor"));
-		setCreativeTab(ConfigurationHandler.enableIronTrapdoor ? EtFuturum.creativeTab : null);
-	}
+    public IronTrapdoor() {
+        super(Material.iron);
+        setHardness(5.0F);
+        setStepSound(soundTypeMetal);
+        setBlockTextureName("iron_trapdoor");
+        setBlockName(Utils.getUnlocalisedName("iron_trapdoor"));
+        setCreativeTab(ConfigurationHandler.enableIronTrapdoor ? EtFuturum.creativeTab : null);
+    }
 
-	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
-		return false;
-	}
+    @Override
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
+        return false;
+    }
 
-	@Override
-	public boolean isEnabled() {
-		return ConfigurationHandler.enableIronTrapdoor;
-	}
+    @Override
+    public boolean isEnabled() {
+        return ConfigurationHandler.enableIronTrapdoor;
+    }
 }

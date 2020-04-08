@@ -17,34 +17,34 @@ import cpw.mods.fml.common.eventhandler.Event.Result;
 
 public class CoarseDirt extends Block implements IConfigurable {
 
-	public CoarseDirt() {
-		super(Material.ground);
-		setHardness(0.5F);
-		setHarvestLevel("shovel", 0);
-		setStepSound(soundTypeGravel);
-		setBlockTextureName("coarse_dirt");
-		setBlockName(Utils.getUnlocalisedName("coarse_dirt"));
-		setCreativeTab(ConfigurationHandler.enableCoarseDirt ? EtFuturum.creativeTab : null);
-	}
+    public CoarseDirt() {
+        super(Material.ground);
+        setHardness(0.5F);
+        setHarvestLevel("shovel", 0);
+        setStepSound(soundTypeGravel);
+        setBlockTextureName("coarse_dirt");
+        setBlockName(Utils.getUnlocalisedName("coarse_dirt"));
+        setCreativeTab(ConfigurationHandler.enableCoarseDirt ? EtFuturum.creativeTab : null);
+    }
 
-	@Override
-	public boolean canSustainPlant(IBlockAccess world, int x, int y, int z, ForgeDirection direction, IPlantable plant) {
-		return Blocks.dirt.canSustainPlant(world, x, y, z, direction, plant);
-	}
+    @Override
+    public boolean canSustainPlant(IBlockAccess world, int x, int y, int z, ForgeDirection direction, IPlantable plant) {
+        return Blocks.dirt.canSustainPlant(world, x, y, z, direction, plant);
+    }
 
-	@Override
-	public boolean isEnabled() {
-		return ConfigurationHandler.enableCoarseDirt;
-	}
+    @Override
+    public boolean isEnabled() {
+        return ConfigurationHandler.enableCoarseDirt;
+    }
 
-	public static void onHoeEvent(UseHoeEvent event) {
-		if (ConfigurationHandler.enableCoarseDirt) {
-			World world = event.world;
-			if (world.getBlock(event.x, event.y, event.z) == ModBlocks.coarse_dirt) {
-				world.setBlock(event.x, event.y, event.z, Blocks.dirt);
-				world.playSoundEffect(event.x + 0.5F, event.y + 0.5F, event.z + 0.5F, Block.soundTypeGravel.getStepResourcePath(), 1.0F, 0.8F);
-				event.setResult(Result.ALLOW);
-			}
-		}
-	}
+    public static void onHoeEvent(UseHoeEvent event) {
+        if (ConfigurationHandler.enableCoarseDirt) {
+            World world = event.world;
+            if (world.getBlock(event.x, event.y, event.z) == ModBlocks.coarse_dirt) {
+                world.setBlock(event.x, event.y, event.z, Blocks.dirt);
+                world.playSoundEffect(event.x + 0.5F, event.y + 0.5F, event.z + 0.5F, Block.soundTypeGravel.getStepResourcePath(), 1.0F, 0.8F);
+                event.setResult(Result.ALLOW);
+            }
+        }
+    }
 }

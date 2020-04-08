@@ -12,38 +12,38 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class PrismarineBlocks extends BlockGeneric implements IConfigurable {
 
-	public PrismarineBlocks() {
-		super(Material.rock, "rough", "bricks", "dark");
-		setHardness(1.5F);
-		setResistance(10.0F);
-		setBlockTextureName("prismarine");
-		setBlockName(Utils.getUnlocalisedName("prismarine_block"));
-		setCreativeTab(ConfigurationHandler.enablePrismarine ? EtFuturum.creativeTab : null);
-	}
+    public PrismarineBlocks() {
+        super(Material.rock, "rough", "bricks", "dark");
+        setHardness(1.5F);
+        setResistance(10.0F);
+        setBlockTextureName("prismarine");
+        setBlockName(Utils.getUnlocalisedName("prismarine_block"));
+        setCreativeTab(ConfigurationHandler.enablePrismarine ? EtFuturum.creativeTab : null);
+    }
 
-	@SideOnly(Side.CLIENT)
-	public void setIcon(int index, IIcon icon) {
-		if (icons == null)
-			icons = new IIcon[types.length];
+    @SideOnly(Side.CLIENT)
+    public void setIcon(int index, IIcon icon) {
+        if (icons == null)
+            icons = new IIcon[types.length];
 
-		icons[index] = icon;
-	}
+        icons[index] = icon;
+    }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister reg) {
-		if (icons == null)
-			icons = new IIcon[types.length];
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void registerBlockIcons(IIconRegister reg) {
+        if (icons == null)
+            icons = new IIcon[types.length];
 
-		for (int i = 1; i < types.length; i++)
-			if ("".equals(types[i]))
-				icons[i] = reg.registerIcon(getTextureName());
-			else
-				icons[i] = reg.registerIcon(getTextureName() + "_" + types[i]);
-	}
+        for (int i = 1; i < types.length; i++)
+            if ("".equals(types[i]))
+                icons[i] = reg.registerIcon(getTextureName());
+            else
+                icons[i] = reg.registerIcon(getTextureName() + "_" + types[i]);
+    }
 
-	@Override
-	public boolean isEnabled() {
-		return ConfigurationHandler.enablePrismarine;
-	}
+    @Override
+    public boolean isEnabled() {
+        return ConfigurationHandler.enablePrismarine;
+    }
 }

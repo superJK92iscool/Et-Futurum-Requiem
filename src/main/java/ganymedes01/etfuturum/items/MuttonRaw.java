@@ -7,10 +7,10 @@ import net.minecraft.item.ItemFood;
 
 public class MuttonRaw extends ItemFood {
 
-	public MuttonRaw() {
-		super(2, 0.3F, true);
-		setTextureName("mutton_raw");
-		setUnlocalizedName(Utils.getUnlocalisedName("mutton_raw"));
-		setCreativeTab(ConfigurationHandler.enableMutton ? EtFuturum.creativeTab : null);
-	}
+    public MuttonRaw() {
+        super(2, 0.3F, true);
+        setTextureName("mutton_raw");
+        setUnlocalizedName(Utils.getUnlocalisedName("mutton_raw"));
+        setCreativeTab(ConfigurationHandler.enableMutton ? EtFuturum.creativeTab : null);
+    }
 }

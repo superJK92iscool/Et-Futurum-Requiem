@@ -8,15 +8,15 @@ import net.minecraft.item.ItemFood;
 
 public class RabbitRaw extends ItemFood implements IConfigurable {
 
-	public RabbitRaw() {
-		super(3, 0.3F, true);
-		setTextureName("rabbit_raw");
-		setUnlocalizedName(Utils.getUnlocalisedName("rabbit_raw"));
-		setCreativeTab(ConfigurationHandler.enableRabbit ? EtFuturum.creativeTab : null);
-	}
+    public RabbitRaw() {
+        super(3, 0.3F, true);
+        setTextureName("rabbit_raw");
+        setUnlocalizedName(Utils.getUnlocalisedName("rabbit_raw"));
+        setCreativeTab(ConfigurationHandler.enableRabbit ? EtFuturum.creativeTab : null);
+    }
 
-	@Override
-	public boolean isEnabled() {
-		return ConfigurationHandler.enableRabbit;
-	}
+    @Override
+    public boolean isEnabled() {
+        return ConfigurationHandler.enableRabbit;
+    }
 }

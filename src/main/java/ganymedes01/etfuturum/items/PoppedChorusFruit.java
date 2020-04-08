@@ -8,14 +8,14 @@ import net.minecraft.item.Item;
 
 public class PoppedChorusFruit extends Item implements IConfigurable {
 
-	public PoppedChorusFruit() {
-		setTextureName("chorus_fruit_popped");
-		setUnlocalizedName(Utils.getUnlocalisedName("chorus_fruit_popped"));
-		setCreativeTab(ConfigurationHandler.enableChorusFruit ? EtFuturum.creativeTab : null);
-	}
+    public PoppedChorusFruit() {
+        setTextureName("chorus_fruit_popped");
+        setUnlocalizedName(Utils.getUnlocalisedName("chorus_fruit_popped"));
+        setCreativeTab(ConfigurationHandler.enableChorusFruit ? EtFuturum.creativeTab : null);
+    }
 
-	@Override
-	public boolean isEnabled() {
-		return ConfigurationHandler.enableChorusFruit;
-	}
+    @Override
+    public boolean isEnabled() {
+        return ConfigurationHandler.enableChorusFruit;
+    }
 }
