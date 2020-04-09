@@ -17,20 +17,18 @@ import net.minecraft.util.IIcon;
 
 public class BlockWoodBark extends BlockWood implements IConfigurable, ISubBlocksBlock{
     
-    public BlockWoodBark()
-    {
+    public BlockWoodBark() {
         setCreativeTab(ConfigurationHandler.enableBarkLogs ? EtFuturum.creativeTab : null);
         this.setBlockTextureName("log");
+        this.setStepSound(soundTypeWood);
         setBlockName(Utils.getUnlocalisedName("bark"));
     }
     
     private IIcon[] field_150095_b;
     
     @SideOnly(Side.CLIENT)
-    public IIcon getIcon(int p_149691_1_, int p_149691_2_)
-    {
-        if (p_149691_2_ < 0 || p_149691_2_ >= this.field_150095_b.length)
-        {
+    public IIcon getIcon(int p_149691_1_, int p_149691_2_) {
+        if (p_149691_2_ < 0 || p_149691_2_ >= this.field_150095_b.length) {
             p_149691_2_ = 0;
         }
 
@@ -38,12 +36,10 @@ public class BlockWoodBark extends BlockWood implements IConfigurable, ISubBlock
     }
     
     @SideOnly(Side.CLIENT)
-    public void registerBlockIcons(IIconRegister p_149651_1_)
-    {
+    public void registerBlockIcons(IIconRegister p_149651_1_) {
         this.field_150095_b = new IIcon[field_150096_a.length];
 
-        for (int i = 0; i < this.field_150095_b.length; ++i)
-        {
+        for (int i = 0; i < this.field_150095_b.length; ++i) {
             this.field_150095_b[i] = p_149651_1_.registerIcon(this.getTextureName() + "_" + field_150096_a[i]);
         }
     }
