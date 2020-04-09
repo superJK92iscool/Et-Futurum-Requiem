@@ -71,14 +71,44 @@ public class ModRecipes {
 
     private static void registerOreDictionary() {
         OreDictionary.registerOre("chestWood", new ItemStack(Blocks.chest));
+        OreDictionary.registerOre("bookshelfWood", new ItemStack(Blocks.bookshelf));
+        OreDictionary.registerOre("doorWood", new ItemStack(Blocks.wooden_door));
         OreDictionary.registerOre("trapdoorWood", Blocks.trapdoor);
-        for (int i=0;i<5;i++)
-            OreDictionary.registerOre("trapdoorWood", ModBlocks.trapdoors[i]);
+        OreDictionary.registerOre("fenceWood", new ItemStack(Blocks.fence));
+        OreDictionary.registerOre("fenceGateWood", new ItemStack(Blocks.fence_gate));
+        OreDictionary.registerOre("buttonWood", new ItemStack(Blocks.wooden_button));
+        OreDictionary.registerOre("pressurePlateWood", new ItemStack(Blocks.wooden_pressure_plate));
+        OreDictionary.registerOre("doorIron", new ItemStack(Items.iron_door));
+        OreDictionary.registerOre("buttonStone", new ItemStack(Blocks.stone_button));
+        OreDictionary.registerOre("pressurePlateStone", new ItemStack(Blocks.stone_pressure_plate));
+        OreDictionary.registerOre("pressurePlateIron", new ItemStack(Blocks.heavy_weighted_pressure_plate));
+        OreDictionary.registerOre("pressurePlateGold", new ItemStack(Blocks.light_weighted_pressure_plate));
 
         if (ConfigurationHandler.enablePrismarine) {
             OreDictionary.registerOre("shardPrismarine", new ItemStack(ModItems.prismarine_shard));
             OreDictionary.registerOre("crystalPrismarine", new ItemStack(ModItems.prismarine_crystals));
             OreDictionary.registerOre("blockPrismarine", new ItemStack(ModBlocks.prismarine, 1, OreDictionary.WILDCARD_VALUE));
+        }
+
+        if (ConfigurationHandler.enableDoors) {
+            for (int i=0;i<5;i++)
+                OreDictionary.registerOre("doorWood", new ItemStack(ModBlocks.doors[i]));
+            for (int i=0;i<5;i++)
+                OreDictionary.registerOre("trapdoorWood", ModBlocks.trapdoors[i]);
+        }
+
+        if (ConfigurationHandler.enableFences) {
+            for (int i = 0; i < ModBlocks.fences.length; i++)
+                OreDictionary.registerOre("fenceWood", new ItemStack(ModBlocks.fences[i]));
+            for (int i = 0; i < ModBlocks.gates.length; i++)
+                OreDictionary.registerOre("fenceGateWood", new ItemStack(ModBlocks.gates[i]));
+        }
+
+        if (ConfigurationHandler.enableWoodRedstone) {
+            for (int i = 0; i < ModBlocks.buttons.length; i++)
+                OreDictionary.registerOre("buttonWood", new ItemStack(ModBlocks.buttons[i]));
+            for (int i = 0; i < ModBlocks.pressurePlates.length; i++)
+                OreDictionary.registerOre("pressurePlateWood", new ItemStack(ModBlocks.pressurePlates[i]));
         }
 
         if (ConfigurationHandler.enableStones) {
@@ -264,21 +294,21 @@ public class ModRecipes {
     
             if (ConfigurationHandler.enableEnchants) {
                 removeFirstRecipeFor(Blocks.enchanting_table); // Remove recipe for Minecrafts Enchanting Table
-                addShapedRecipe(new ItemStack(ModBlocks.enchantment_table), " B ", "D#D", "###", '#', Blocks.obsidian, 'B', Items.book, 'D', Items.diamond);
+                addShapedRecipe(new ItemStack(ModBlocks.enchantment_table), " B ", "D#D", "###", '#', Blocks.obsidian, 'B', Items.book, 'D', "genDiamond");
                 addShapelessRecipe(new ItemStack(ModBlocks.enchantment_table), Blocks.enchanting_table); // Minecraft Enchanting Table -> EtFuturum Enchanting Table (For any old leftovers)
                 addShapelessRecipe(new ItemStack(Blocks.enchanting_table), ModBlocks.enchantment_table); // EtFuturum Enchanting Table -> Minecraft Enchanting Table (For when you need to to craft something that has it as a component (ChickenChunks))
             }
     
             if (ConfigurationHandler.enableInvertedDaylightSensor) {
                 removeFirstRecipeFor(Blocks.daylight_detector); // Remove recipe for Minecrafts Daylight Sensor
-                addShapedRecipe(new ItemStack(ModBlocks.daylight_sensor), "GGG", "QQQ", "WWW", 'G', Blocks.glass, 'Q', Items.quartz, 'W', Blocks.wooden_slab);
+                addShapedRecipe(new ItemStack(ModBlocks.daylight_sensor), "GGG", "QQQ", "WWW", 'G', Blocks.glass, 'Q', "gemQuartz", 'W', "slabWood");
                 addShapelessRecipe(new ItemStack(ModBlocks.daylight_sensor), Blocks.daylight_detector);
                 addShapelessRecipe(new ItemStack(Blocks.daylight_detector), ModBlocks.daylight_sensor);
             }
             
             if (ConfigurationHandler.enableBrewingStands) {
                 removeFirstRecipeFor(Items.brewing_stand); //gany pls, Blocks.brewing_stand is invalid
-                addShapedRecipe(new ItemStack(ModBlocks.brewing_stand), " i ", "xxx", 'i', Items.blaze_rod, 'x', Blocks.cobblestone);
+                addShapedRecipe(new ItemStack(ModBlocks.brewing_stand), " i ", "xxx", 'i', Items.blaze_rod, 'x', "cobblestone");
                 addShapelessRecipe(new ItemStack(ModBlocks.brewing_stand), Items.brewing_stand); //vanilla brew > EtF brew
             }
         }
@@ -302,7 +332,7 @@ public class ModRecipes {
         }
         
         if (ConfigurationHandler.enableRecipeForTotem) {
-            addShapedRecipe(new ItemStack(ModItems.totem), "EBE", "GBG", " G ", 'E', new ItemStack(Items.emerald), 'G', new ItemStack(Items.gold_ingot), 'B', new ItemStack(Blocks.gold_block) );
+            addShapedRecipe(new ItemStack(ModItems.totem), "EBE", "GBG", " G ", 'E', "gemEmerald", 'G', "ingotGold", 'B', "blockGold" );
         }
         
         if (ConfigurationHandler.enableWoodRedstone) {
