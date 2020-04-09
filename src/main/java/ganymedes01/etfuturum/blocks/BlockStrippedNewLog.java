@@ -9,6 +9,7 @@ import ganymedes01.etfuturum.ModBlocks.ISubBlocksBlock;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.items.block.ItemBlockGeneric;
+import ganymedes01.etfuturum.lib.Reference;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -32,22 +33,18 @@ public class BlockStrippedNewLog extends BlockNewLog implements IConfigurable, I
     
     public static final String[] field_150169_M = new String[] {"acacia", "dark_oak"};
     
-    public BlockStrippedNewLog()
-    {
+    public BlockStrippedNewLog() {
         setBlockName(Utils.getUnlocalisedName("log2_stripped"));
-        //this.setCreativeTab(CreativeTabs.tabBlock);
         setCreativeTab(ConfigurationHandler.enableStrippedLogs ? EtFuturum.creativeTab : null);
         
     }
     
     @SideOnly(Side.CLIENT)
-    public void registerBlockIcons(IIconRegister p_149651_1_)
-    {
+    public void registerBlockIcons(IIconRegister p_149651_1_) {
         this.field_150167_a = new IIcon[field_150169_M.length];
         this.field_150166_b = new IIcon[field_150169_M.length];
 
-        for (int i = 0; i < this.field_150167_a.length; ++i)
-        {
+        for (int i = 0; i < this.field_150167_a.length; ++i) {
             this.field_150167_a[i] = p_149651_1_.registerIcon("stripped_" + field_150169_M[i] + "_log");
             this.field_150166_b[i] = p_149651_1_.registerIcon("stripped_" + field_150169_M[i] + "_log" + "_top");
         }
@@ -77,7 +74,7 @@ public class BlockStrippedNewLog extends BlockNewLog implements IConfigurable, I
                             //world.setBlock(x, y, z, block, meta, notify)
                             event.entityPlayer.swingItem();
                             stack.damageItem(1, event.entityPlayer);
-                            world.playSoundEffect(event.x + 0.5F, event.y + 0.5F, event.z + 0.5F, Block.soundTypeWood.getStepResourcePath(), 1.0F, 0.8F);
+                            world.playSoundEffect(event.x + 0.5F, event.y + 0.5F, event.z + 0.5F, Reference.MOD_ID + ":item.axe.strip", 1.0F, 0.8F);
                         }
                     }
             }

@@ -9,6 +9,7 @@ import ganymedes01.etfuturum.ModBlocks.ISubBlocksBlock;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.items.block.ItemBlockGeneric;
+import ganymedes01.etfuturum.lib.Reference;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -28,39 +29,33 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 
 public class BlockStrippedOldLog extends BlockOldLog implements IConfigurable, ISubBlocksBlock {
-    
-    public BlockStrippedOldLog()
-    {
+
+    public BlockStrippedOldLog() {
         setBlockName(Utils.getUnlocalisedName("log_stripped"));
-        //this.setCreativeTab(CreativeTabs.tabBlock);
         setCreativeTab(ConfigurationHandler.enableStrippedLogs ? EtFuturum.creativeTab : null);
-        
     }
-    
+
     @SideOnly(Side.CLIENT)
-    public void registerBlockIcons(IIconRegister p_149651_1_)
-    {
+    public void registerBlockIcons(IIconRegister p_149651_1_) {
         this.field_150167_a = new IIcon[field_150168_M.length];
         this.field_150166_b = new IIcon[field_150168_M.length];
 
-        for (int i = 0; i < this.field_150167_a.length; ++i)
-        {
+        for (int i = 0; i < this.field_150167_a.length; ++i) {
             this.field_150167_a[i] = p_149651_1_.registerIcon("stripped_" + field_150168_M[i] + "_log");
             this.field_150166_b[i] = p_149651_1_.registerIcon("stripped_" + field_150168_M[i] + "_log" + "_top");
         }
     }
-    
+
     @Override
     public boolean isEnabled() {
         return ConfigurationHandler.enableStrippedLogs;
     }
-    
+
     @Override
     public Class<? extends ItemBlock> getItemBlockClass() {
         return ItemBlockGeneric.class;
     }
-    
-    
+
     public static void onPlayerInteract(PlayerInteractEvent event) {
         if (ConfigurationHandler.enableStrippedLogs)
             if (event.entityPlayer != null) {
@@ -74,12 +69,12 @@ public class BlockStrippedOldLog extends BlockOldLog implements IConfigurable, I
                             //world.setBlock(x, y, z, block, meta, notify)
                             event.entityPlayer.swingItem();
                             stack.damageItem(1, event.entityPlayer);
-                            world.playSoundEffect(event.x + 0.5F, event.y + 0.5F, event.z + 0.5F, Block.soundTypeWood.getStepResourcePath(), 1.0F, 0.8F);
+                            world.playSoundEffect(event.x + 0.5F, event.y + 0.5F, event.z + 0.5F, Reference.MOD_ID + ":item.axe.strip", 1.0F, 0.8F);
                         }
                     }
             }
     }
-    
+
     private static Item tinkersAxe;
 
     private static boolean isTinkersAxe(ItemStack stack) {
@@ -97,6 +92,5 @@ public class BlockStrippedOldLog extends BlockOldLog implements IConfigurable, I
 
         return false;
     }
-    
 
 }
