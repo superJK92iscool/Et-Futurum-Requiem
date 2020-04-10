@@ -359,15 +359,30 @@ public class ModRecipes {
             addShapedRecipe(new ItemStack(ModBlocks.log_bark, 3, 1), "xx", "xx", 'x', new ItemStack(Blocks.log,1,1) );
             addShapedRecipe(new ItemStack(ModBlocks.log_bark, 3, 2), "xx", "xx", 'x', new ItemStack(Blocks.log,1,2) );
             addShapedRecipe(new ItemStack(ModBlocks.log_bark, 3, 3), "xx", "xx", 'x', new ItemStack(Blocks.log,1,3) );
-            addShapedRecipe(new ItemStack(ModBlocks.log_bark, 3, 4), "xx", "xx", 'x', new ItemStack(Blocks.log2,1,0) );
-            addShapedRecipe(new ItemStack(ModBlocks.log_bark, 3, 5), "xx", "xx", 'x', new ItemStack(Blocks.log2,1,1) );
+            addShapedRecipe(new ItemStack(ModBlocks.log2_bark, 3, 0), "xx", "xx", 'x', new ItemStack(Blocks.log2,1,0) );
+            addShapedRecipe(new ItemStack(ModBlocks.log2_bark, 3, 1), "xx", "xx", 'x', new ItemStack(Blocks.log2,1,1) );
             
             addShapedRecipe(new ItemStack(Blocks.planks, 4, 0), "x", 'x', new ItemStack(ModBlocks.log_bark, 1, 0));
             addShapedRecipe(new ItemStack(Blocks.planks, 4, 1), "x", 'x', new ItemStack(ModBlocks.log_bark, 1, 1));
             addShapedRecipe(new ItemStack(Blocks.planks, 4, 2), "x", 'x', new ItemStack(ModBlocks.log_bark, 1, 2));
             addShapedRecipe(new ItemStack(Blocks.planks, 4, 3), "x", 'x', new ItemStack(ModBlocks.log_bark, 1, 3));
-            addShapedRecipe(new ItemStack(Blocks.planks, 4, 4), "x", 'x', new ItemStack(ModBlocks.log_bark, 1, 4));
-            addShapedRecipe(new ItemStack(Blocks.planks, 4, 5), "x", 'x', new ItemStack(ModBlocks.log_bark, 1, 5));
+            addShapedRecipe(new ItemStack(Blocks.planks, 4, 4), "x", 'x', new ItemStack(ModBlocks.log2_bark, 1, 0));
+            addShapedRecipe(new ItemStack(Blocks.planks, 4, 5), "x", 'x', new ItemStack(ModBlocks.log2_bark, 1, 1));
+            if (ConfigurationHandler.enableStrippedLogs) {
+                addShapedRecipe(new ItemStack(ModBlocks.wood_stripped, 3, 0), "xx", "xx", 'x', new ItemStack(ModBlocks.log_stripped,1,0) );
+                addShapedRecipe(new ItemStack(ModBlocks.wood_stripped, 3, 1), "xx", "xx", 'x', new ItemStack(ModBlocks.log_stripped,1,1) );
+                addShapedRecipe(new ItemStack(ModBlocks.wood_stripped, 3, 2), "xx", "xx", 'x', new ItemStack(ModBlocks.log_stripped,1,2) );
+                addShapedRecipe(new ItemStack(ModBlocks.wood_stripped, 3, 3), "xx", "xx", 'x', new ItemStack(ModBlocks.log_stripped,1,3) );
+                addShapedRecipe(new ItemStack(ModBlocks.wood2_stripped, 3, 0), "xx", "xx", 'x', new ItemStack(ModBlocks.log2_stripped,1,0) );
+                addShapedRecipe(new ItemStack(ModBlocks.wood2_stripped, 3, 1), "xx", "xx", 'x', new ItemStack(ModBlocks.log2_stripped,1,1) );
+                
+                addShapedRecipe(new ItemStack(Blocks.planks, 4, 0), "x", 'x', new ItemStack(ModBlocks.wood_stripped, 1, 0));
+                addShapedRecipe(new ItemStack(Blocks.planks, 4, 1), "x", 'x', new ItemStack(ModBlocks.wood_stripped, 1, 1));
+                addShapedRecipe(new ItemStack(Blocks.planks, 4, 2), "x", 'x', new ItemStack(ModBlocks.wood_stripped, 1, 2));
+                addShapedRecipe(new ItemStack(Blocks.planks, 4, 3), "x", 'x', new ItemStack(ModBlocks.wood_stripped, 1, 3));
+                addShapedRecipe(new ItemStack(Blocks.planks, 4, 4), "x", 'x', new ItemStack(ModBlocks.wood2_stripped, 1, 0));
+                addShapedRecipe(new ItemStack(Blocks.planks, 4, 5), "x", 'x', new ItemStack(ModBlocks.wood2_stripped, 1, 1));
+            }
         }
 
     }

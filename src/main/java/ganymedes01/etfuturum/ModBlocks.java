@@ -5,8 +5,11 @@ import ganymedes01.etfuturum.blocks.BlockBeetroot;
 import ganymedes01.etfuturum.blocks.BlockPrismarineStairs;
 import ganymedes01.etfuturum.blocks.BlockSilkedMushroom;
 import ganymedes01.etfuturum.blocks.BlockStrippedNewLog;
+import ganymedes01.etfuturum.blocks.BlockStrippedNewWood;
 import ganymedes01.etfuturum.blocks.BlockStrippedOldLog;
-import ganymedes01.etfuturum.blocks.BlockWoodBark;
+import ganymedes01.etfuturum.blocks.BlockStrippedOldWood;
+import ganymedes01.etfuturum.blocks.BlockWoodBarkNew;
+import ganymedes01.etfuturum.blocks.BlockWoodBarkOld;
 import ganymedes01.etfuturum.blocks.BlockWoodButton;
 import ganymedes01.etfuturum.blocks.BlockWoodDoor;
 import ganymedes01.etfuturum.blocks.BlockWoodFence;
@@ -116,7 +119,10 @@ public class ModBlocks {
     
     public static final Block log_stripped = new BlockStrippedOldLog();
     public static final Block log2_stripped = new BlockStrippedNewLog();
-    public static final Block log_bark = new BlockWoodBark();
+    public static final Block log_bark = new BlockWoodBarkOld();
+    public static final Block log2_bark = new BlockWoodBarkNew();
+    public static final Block wood_stripped = new BlockStrippedOldWood();
+    public static final Block wood2_stripped = new BlockStrippedNewWood();
     
 
     public static final Block[] doors = new Block[BlockWood.field_150096_a.length - 1];

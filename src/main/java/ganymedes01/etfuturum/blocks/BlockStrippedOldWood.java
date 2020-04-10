@@ -14,7 +14,6 @@ import ganymedes01.etfuturum.items.block.ItemBlockGeneric;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.BlockOldLog;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemBlock;
@@ -24,27 +23,27 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 
-public class BlockStrippedOldLog extends BlockOldLog implements IConfigurable, ISubBlocksBlock {
+public class BlockStrippedOldWood extends BlockOldLog implements IConfigurable, ISubBlocksBlock {
 
-    public BlockStrippedOldLog() {
-        setBlockName(Utils.getUnlocalisedName("log_stripped"));
-        setCreativeTab(ConfigurationHandler.enableStrippedLogs ? EtFuturum.creativeTab : null);
+    public BlockStrippedOldWood() {
+        setBlockName(Utils.getUnlocalisedName("wood_stripped"));
+        setCreativeTab(ConfigurationHandler.enableStrippedLogs && ConfigurationHandler.enableBarkLogs ? EtFuturum.creativeTab : null);
     }
 
     @SideOnly(Side.CLIENT)
-    public void registerBlockIcons(IIconRegister p_149651_1_) {
+    public void registerBlockIcons(IIconRegister iconRegister) {
         this.field_150167_a = new IIcon[field_150168_M.length];
         this.field_150166_b = new IIcon[field_150168_M.length];
 
         for (int i = 0; i < this.field_150167_a.length; ++i) {
-            this.field_150167_a[i] = p_149651_1_.registerIcon("stripped_" + field_150168_M[i] + "_log");
-            this.field_150166_b[i] = p_149651_1_.registerIcon("stripped_" + field_150168_M[i] + "_log" + "_top");
+            this.field_150167_a[i] = iconRegister.registerIcon("stripped_" + field_150168_M[i] + "_log");
+            this.field_150166_b[i] = iconRegister.registerIcon("stripped_" + field_150168_M[i] + "_log");
         }
     }
 
     @Override
     public boolean isEnabled() {
-        return ConfigurationHandler.enableStrippedLogs;
+        return ConfigurationHandler.enableStrippedLogs && ConfigurationHandler.enableBarkLogs;
     }
 
     @Override
@@ -57,11 +56,11 @@ public class BlockStrippedOldLog extends BlockOldLog implements IConfigurable, I
             if (event.entityPlayer != null) {
                 World world = event.entityPlayer.worldObj;
                 if (event.action == Action.RIGHT_CLICK_BLOCK)
-                    if (world.getBlock(event.x, event.y, event.z) == Blocks.log) {
+                    if (world.getBlock(event.x, event.y, event.z) == ModBlocks.log_bark) {
                         int logMeta = world.getBlockMetadata(event.x, event.y, event.z);
                         ItemStack stack = event.entityPlayer.getCurrentEquippedItem();
                         if (stack != null && (stack.getItem() instanceof ItemAxe || isTinkersAxe(stack))) {
-                            world.setBlock(event.x, event.y, event.z, ModBlocks.log_stripped, logMeta, 2);
+                            world.setBlock(event.x, event.y, event.z, ModBlocks.wood_stripped, logMeta, 2);
                             //world.setBlock(x, y, z, block, meta, notify)
                             event.entityPlayer.swingItem();
                             stack.damageItem(1, event.entityPlayer);
