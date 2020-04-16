@@ -72,7 +72,7 @@ public class ModRecipes {
     private static void registerOreDictionary() {
         OreDictionary.registerOre("chestWood", new ItemStack(Blocks.chest));
         OreDictionary.registerOre("bookshelfWood", new ItemStack(Blocks.bookshelf));
-        OreDictionary.registerOre("doorWood", new ItemStack(Blocks.wooden_door));
+        OreDictionary.registerOre("doorWood", new ItemStack(Items.wooden_door));
         OreDictionary.registerOre("trapdoorWood", Blocks.trapdoor);
         OreDictionary.registerOre("fenceWood", new ItemStack(Blocks.fence));
         OreDictionary.registerOre("fenceGateWood", new ItemStack(Blocks.fence_gate));
