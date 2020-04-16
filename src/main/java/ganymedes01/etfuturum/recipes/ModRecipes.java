@@ -83,6 +83,8 @@ public class ModRecipes {
         OreDictionary.registerOre("pressurePlateStone", new ItemStack(Blocks.stone_pressure_plate));
         OreDictionary.registerOre("pressurePlateIron", new ItemStack(Blocks.heavy_weighted_pressure_plate));
         OreDictionary.registerOre("pressurePlateGold", new ItemStack(Blocks.light_weighted_pressure_plate));
+        
+        OreDictionary.registerOre("bowlWood", new ItemStack(Items.bowl));
 
         if (ConfigurationHandler.enableMutton) {
             OreDictionary.registerOre("foodMuttonraw", new ItemStack(ModItems.raw_mutton));
@@ -138,7 +140,8 @@ public class ModRecipes {
 
         if (ConfigurationHandler.enableBeetroot) {
             OreDictionary.registerOre("cropBeetroot", ModItems.beetroot);
-            OreDictionary.registerOre("listAllseed", ModItems.beetroot);
+            OreDictionary.registerOre("listAllseed", ModItems.beetroot_seeds);
+            OreDictionary.registerOre("seedBeetroot", ModItems.beetroot_seeds);
         }
 
         if (ConfigurationHandler.enableRabbit) {
@@ -164,7 +167,7 @@ public class ModRecipes {
         }
 
         if (ConfigurationHandler.enableSlimeBlock) {
-            addShapedRecipe(new ItemStack(ModBlocks.slime), "xxx", "xxx", "xxx", 'x', "slimeball");
+            addShapedRecipe(new ItemStack(ModBlocks.slime), "xxx", "xxx", "xxx", 'x', new ItemStack(Items.slime_ball));
             addShapelessRecipe(new ItemStack(Items.slime_ball, 9), ModBlocks.slime);
         }
 
@@ -255,8 +258,8 @@ public class ModRecipes {
             addShapedRecipe(new ItemStack(ModItems.armour_stand), "xxx", " x ", "xyx", 'x', "stickWood", 'y', new ItemStack(Blocks.stone_slab));
 
         if (ConfigurationHandler.enableRabbit) {
-            addShapedRecipe(new ItemStack(ModItems.rabbit_stew), " R ", "CPM", " B ", 'R', new ItemStack(ModItems.cooked_rabbit), 'C', Items.carrot, 'P', Items.baked_potato, 'M', Blocks.brown_mushroom, 'B', Items.bowl);
-            addShapedRecipe(new ItemStack(ModItems.rabbit_stew), " R ", "CPD", " B ", 'R', new ItemStack(ModItems.cooked_rabbit), 'C', Items.carrot, 'P', Items.baked_potato, 'D', Blocks.red_mushroom, 'B', Items.bowl);
+            addShapedRecipe(new ItemStack(ModItems.rabbit_stew), " R ", "CPM", " B ", 'R', new ItemStack(ModItems.cooked_rabbit), 'C', Items.carrot, 'P', Items.baked_potato, 'M', Blocks.brown_mushroom, 'B', "bowlWood");
+            addShapedRecipe(new ItemStack(ModItems.rabbit_stew), " R ", "CPD", " B ", 'R', new ItemStack(ModItems.cooked_rabbit), 'C', Items.carrot, 'P', Items.baked_potato, 'D', Blocks.red_mushroom, 'B', "bowlWood");
             GameRegistry.addSmelting(ModItems.raw_rabbit, new ItemStack(ModItems.cooked_rabbit), 0.35F);
             addShapedRecipe(new ItemStack(Items.leather), "xx", "xx", 'x', ModItems.rabbit_hide);
         }
@@ -271,7 +274,7 @@ public class ModRecipes {
         }
 
         if (ConfigurationHandler.enableBeetroot) {
-            addShapedRecipe(new ItemStack(ModItems.beetroot_soup), "xxx", "xxx", " y ", 'x', "cropBeetroot", 'y', Items.bowl);
+            addShapedRecipe(new ItemStack(ModItems.beetroot_soup), "xxx", "xxx", " y ", 'x', "cropBeetroot", 'y', "bowlWood");
             addShapelessRecipe(new ItemStack(Items.dye, 1, 1), "cropBeetroot");
         }
 
@@ -323,7 +326,7 @@ public class ModRecipes {
     
             if (ConfigurationHandler.enableInvertedDaylightSensor) {
                 removeFirstRecipeFor(Blocks.daylight_detector); // Remove recipe for Minecrafts Daylight Sensor
-                addShapedRecipe(new ItemStack(ModBlocks.daylight_sensor), "GGG", "QQQ", "WWW", 'G', Blocks.glass, 'Q', "gemQuartz", 'W', "slabWood");
+                addShapedRecipe(new ItemStack(ModBlocks.daylight_sensor), "GGG", "QQQ", "WWW", 'G', "blockGlassColorless", 'Q', "gemQuartz", 'W', "slabWood");
                 addShapelessRecipe(new ItemStack(ModBlocks.daylight_sensor), Blocks.daylight_detector);
                 addShapelessRecipe(new ItemStack(Blocks.daylight_detector), ModBlocks.daylight_sensor);
             }
@@ -344,6 +347,7 @@ public class ModRecipes {
             addShapelessRecipe(new ItemStack(Items.nether_wart, 9), ModBlocks.netherwart);
             
         }
+
         if (ConfigurationHandler.enableBoneBlock) {
             addShapedRecipe(new ItemStack(ModBlocks.bone), "xxx", "xxx", "xxx", 'x', new ItemStack(Items.dye, 1, 15));
             addShapelessRecipe(new ItemStack(Items.dye, 9, 15), new ItemStack(ModBlocks.bone));
@@ -408,7 +412,6 @@ public class ModRecipes {
                 addShapedRecipe(new ItemStack(Blocks.planks, 4, 5), "x", 'x', new ItemStack(ModBlocks.wood2_stripped, 1, 1));
             }
         }
-
     }
 
     private static void addShapedRecipe(ItemStack output, Object... objects) {
@@ -433,4 +436,5 @@ public class ModRecipes {
                 }
             }
     }
+
 }
