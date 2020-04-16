@@ -331,7 +331,8 @@ public class ModRecipes {
             if (ConfigurationHandler.enableBrewingStands) {
                 removeFirstRecipeFor(Items.brewing_stand); //gany pls, Blocks.brewing_stand is invalid
                 addShapedRecipe(new ItemStack(ModBlocks.brewing_stand), " i ", "xxx", 'i', Items.blaze_rod, 'x', "cobblestone");
-                addShapelessRecipe(new ItemStack(ModBlocks.brewing_stand), Items.brewing_stand); //vanilla brew > EtF brew
+                addShapelessRecipe(new ItemStack(ModBlocks.brewing_stand), Items.brewing_stand); //Minecraft Brewing Stand -> EtFuturum Brewing Stand
+                addShapelessRecipe(new ItemStack(Items.brewing_stand), ModBlocks.brewing_stand); //EtFuturum Brewing Stand -> Minecraft Brewing Stand
             }
         }
         
