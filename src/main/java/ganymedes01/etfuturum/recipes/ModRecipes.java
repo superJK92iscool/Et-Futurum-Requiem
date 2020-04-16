@@ -84,6 +84,16 @@ public class ModRecipes {
         OreDictionary.registerOre("pressurePlateIron", new ItemStack(Blocks.heavy_weighted_pressure_plate));
         OreDictionary.registerOre("pressurePlateGold", new ItemStack(Blocks.light_weighted_pressure_plate));
 
+        if (ConfigurationHandler.enableMutton) {
+            OreDictionary.registerOre("foodMuttonraw", new ItemStack(ModItems.raw_mutton));
+            OreDictionary.registerOre("listAllmeatraw", new ItemStack(ModItems.raw_mutton));
+            OreDictionary.registerOre("listAllmuttonraw", new ItemStack(ModItems.raw_mutton));
+
+            OreDictionary.registerOre("foodMuttoncooked", new ItemStack(ModItems.cooked_mutton));
+            OreDictionary.registerOre("listAllmeatcooked", new ItemStack(ModItems.cooked_mutton));
+            OreDictionary.registerOre("listAllmuttoncooked", new ItemStack(ModItems.cooked_mutton));
+        }
+
         if (ConfigurationHandler.enablePrismarine) {
             OreDictionary.registerOre("shardPrismarine", new ItemStack(ModItems.prismarine_shard));
             OreDictionary.registerOre("crystalPrismarine", new ItemStack(ModItems.prismarine_crystals));
@@ -126,8 +136,20 @@ public class ModRecipes {
         if (ConfigurationHandler.enableIronTrapdoor)
             OreDictionary.registerOre("trapdoorIron", ModBlocks.iron_trapdoor);
 
-        if (ConfigurationHandler.enableBeetroot)
+        if (ConfigurationHandler.enableBeetroot) {
             OreDictionary.registerOre("cropBeetroot", ModItems.beetroot);
+            OreDictionary.registerOre("listAllseed", ModItems.beetroot);
+        }
+
+        if (ConfigurationHandler.enableRabbit) {
+            OreDictionary.registerOre("foodRabbitraw", new ItemStack(ModItems.raw_rabbit));
+            OreDictionary.registerOre("listAllmeatraw", new ItemStack(ModItems.raw_rabbit));
+            OreDictionary.registerOre("listAllrabbitraw", new ItemStack(ModItems.raw_rabbit));
+
+            OreDictionary.registerOre("foodRabbitcooked", new ItemStack(ModItems.cooked_rabbit));
+            OreDictionary.registerOre("listAllmeatcooked", new ItemStack(ModItems.cooked_rabbit));
+            OreDictionary.registerOre("listAllrabbitcooked", new ItemStack(ModItems.cooked_rabbit));
+        }
 
         if (ConfigurationHandler.enableChorusFruit)
             OreDictionary.registerOre("brickEndStone", ModBlocks.end_bricks);
