@@ -36,6 +36,7 @@ import ganymedes01.etfuturum.recipes.BrewingFuelRegistry;
 import ganymedes01.etfuturum.recipes.ModRecipes;
 import ganymedes01.etfuturum.world.EtFuturumWorldGenerator;
 import ganymedes01.etfuturum.world.OceanMonument;
+import net.minecraft.block.BlockTrapDoor;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -129,6 +130,10 @@ public class EtFuturum {
             Blocks.packed_ice.setHarvestLevel("pickaxe", 0);
             Blocks.ladder.setHarvestLevel("axe", 0);
             Blocks.melon_block.setHarvestLevel("axe", 0);
+        }
+        
+        if(ConfigurationHandler.enableFloatingTrapDoors) {
+        	BlockTrapDoor.disableValidation = true;
         }
         
         if (Loader.isModLoaded("Thaumcraft")) {

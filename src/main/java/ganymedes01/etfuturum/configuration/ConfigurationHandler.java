@@ -65,6 +65,7 @@ public class ConfigurationHandler {
     public static boolean enablePlayerSkinOverlay;
     public static boolean enableShearableGolems;
     public static boolean enableShearableCobwebs;
+    public static boolean enableFloatingTrapDoors;
     
     public static boolean enableNetherBlocks;
     public static boolean enableBoneBlock;
@@ -181,6 +182,7 @@ public class ConfigurationHandler {
         enableUpdatedHarvestLevels = cfg.getBoolean("enableUpdatedHarvestLevels", "function", true, "Packed Ice, ladders and melons have preferred tools");//configBoolean("Use updated harvest levels", true, EtFuturum.enableUpdatedHarvestLevels);
         enableShearableGolems = cfg.getBoolean("enableShearableSnowGolems", "function", true, "");//configBoolean("Shearing Snow Golems", true, EtFuturum.enableShearableGolems);
         enableShearableCobwebs = cfg.getBoolean("enableShearableCobwebs", "function", true, "");//configBoolean("Shears harvest cobwebs", true, EtFuturum.enableShearableCobwebs);
+        enableFloatingTrapDoors = cfg.getBoolean("enableFloatingTrapDoors", "function", true, "");
         enableStoneBrickRecipes = cfg.getBoolean("enableStoneBrickRecipes", "function", true, "Makes mossy, cracked and chiseled stone brick craftable");//configBoolean("Stone Brick Recipes", true, EtFuturum.enableStoneBrickRecipes);
         enableBabyGrowthBoost = cfg.getBoolean("enableBabyGrowthBoost", "function", true, "");//configBoolean("Baby growth boost", true, EtFuturum.enableBabyGrowthBoost);
         enableVillagerTurnsIntoWitch = cfg.getBoolean("enableVillagerTurnsIntoWitch", "function", true, "Villagers turn into Witches when struck by lightning");//configBoolean("Villagers turn into Witches when struck by lightning", true, EtFuturum.enableVillagerTurnsIntoWitch);
