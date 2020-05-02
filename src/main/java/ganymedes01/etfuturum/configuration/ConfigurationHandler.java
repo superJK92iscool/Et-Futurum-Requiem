@@ -22,6 +22,7 @@ public class ConfigurationHandler {
     public static boolean enableSponge;
     public static boolean enablePrismarine;
     public static boolean enableDoors;
+    public static boolean enableTrapdoors;
     public static boolean enableInvertedDaylightSensor;
     public static boolean enableCoarseDirt;
     public static boolean enableRedSandstone;
@@ -125,6 +126,7 @@ public class ConfigurationHandler {
         enableSponge = cfg.getBoolean("enableSponge", "blocks", true, "");//configBoolean("Sponge", true, EtFuturum.enableSponge);
         enablePrismarine = cfg.getBoolean("enablePrismarine", "blocks", true, "");//configBoolean("Prismarine", true, EtFuturum.enablePrismarine);
         enableDoors = cfg.getBoolean("enableDoors", "blocks", true, "Enables wood variant doors");//configBoolean("Doors", true, EtFuturum.enableDoors);
+        enableTrapdoors = cfg.getBoolean("enableTrapdoors", "blocks", true, "Enables wood variant trapdoors");
         enableInvertedDaylightSensor = cfg.getBoolean("enableInvertedSensor", "blocks", true, "Inverted Daylight Sensor");//configBoolean("Inverted Daylight Sensor", true, EtFuturum.enableInvertedDaylightSensor);
         enableCoarseDirt = cfg.getBoolean("enableCoarseDirt", "blocks", true, "");//configBoolean("Coarse Dirt", true, EtFuturum.enableCoarseDirt);
         enableRedSandstone = cfg.getBoolean("enableRedSandstone", "blocks", true, "");//configBoolean("Red Sandstone", true, EtFuturum.enableRedSandstone);

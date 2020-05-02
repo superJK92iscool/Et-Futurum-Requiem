@@ -47,6 +47,9 @@ public class ModRecipes {
             Items.iron_door.setMaxStackSize(64);
             removeFirstRecipeFor(Items.wooden_door);
             removeFirstRecipeFor(Items.iron_door);
+        }
+
+        if (ConfigurationHandler.enableTrapdoors) {
             removeFirstRecipeFor(Blocks.trapdoor);
         }
 
@@ -105,6 +108,9 @@ public class ModRecipes {
         if (ConfigurationHandler.enableDoors) {
             for (int i=0;i<5;i++)
                 OreDictionary.registerOre("doorWood", new ItemStack(ModBlocks.doors[i]));
+        }
+
+        if (ConfigurationHandler.enableTrapdoors) {
             for (int i=0;i<5;i++)
                 OreDictionary.registerOre("trapdoorWood", ModBlocks.trapdoors[i]);
         }
@@ -221,7 +227,9 @@ public class ModRecipes {
                 addShapedRecipe(new ItemStack(ModBlocks.doors[i], 3), "xx", "xx", "xx", 'x', new ItemStack(Blocks.planks, 1, i + 1));
             addShapedRecipe(new ItemStack(Items.wooden_door, 3), "xx", "xx", "xx", 'x', "plankWood");
             addShapedRecipe(new ItemStack(Items.iron_door, 3), "xx", "xx", "xx", 'x', "ingotIron");
-            
+        }
+
+        if (ConfigurationHandler.enableTrapdoors) {
             for (int i = 0; i < ModBlocks.trapdoors.length; i++)
                 addShapedRecipe(new ItemStack(ModBlocks.trapdoors[i], 2), "xxx", "xxx", 'x', new ItemStack(Blocks.planks, 1, i + 1));
             addShapedRecipe(new ItemStack(Blocks.trapdoor, 2), "xxx", "xxx", 'x', "plankWood");

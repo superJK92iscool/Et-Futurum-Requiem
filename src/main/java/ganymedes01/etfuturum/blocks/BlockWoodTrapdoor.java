@@ -25,7 +25,7 @@ public class BlockWoodTrapdoor extends BlockTrapDoor implements IConfigurable{
         setHardness(3.0F);
         setStepSound(soundTypeWood);
         setBlockName(Utils.getUnlocalisedName("trapdoor_" + BlockWoodDoor.names[meta]));
-        setCreativeTab(ConfigurationHandler.enableDoors ? EtFuturum.creativeTab : null);
+        setCreativeTab(ConfigurationHandler.enableTrapdoors ? EtFuturum.creativeTab : null);
         
     }
     /*
@@ -56,7 +56,7 @@ public class BlockWoodTrapdoor extends BlockTrapDoor implements IConfigurable{
 
     @Override
     public boolean isEnabled() {
-        return ConfigurationHandler.enableDoors;
+        return ConfigurationHandler.enableTrapdoors;
     }
 
 }
