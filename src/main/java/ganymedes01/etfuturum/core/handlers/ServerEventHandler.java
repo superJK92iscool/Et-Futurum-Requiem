@@ -1,16 +1,26 @@
 package ganymedes01.etfuturum.core.handlers;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
+
+import cpw.mods.fml.common.eventhandler.Event.Result;
+import cpw.mods.fml.common.eventhandler.EventPriority;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
+import cpw.mods.fml.common.gameevent.TickEvent;
+import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
+import cpw.mods.fml.relauncher.Side;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModEnchantments;
 import ganymedes01.etfuturum.ModItems;
-import ganymedes01.etfuturum.blocks.BlockStrippedNewLog;
-import ganymedes01.etfuturum.blocks.BlockStrippedNewWood;
-import ganymedes01.etfuturum.blocks.BlockStrippedOldLog;
-import ganymedes01.etfuturum.blocks.BlockStrippedOldWood;
-import ganymedes01.etfuturum.blocks.CoarseDirt;
-import ganymedes01.etfuturum.blocks.GrassPath;
-import ganymedes01.etfuturum.blocks.NewAnvil;
 import ganymedes01.etfuturum.command.SetPlayerModelCommand;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.entities.EntityEndermite;
@@ -24,18 +34,7 @@ import ganymedes01.etfuturum.items.TippedArrow;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.network.BlackHeartParticlesMessage;
 import ganymedes01.etfuturum.network.SetPlayerModelMessage;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.List;
-import java.util.Random;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.particle.EntityFX;
+import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -72,7 +71,6 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
-import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.StatCollector;
 import net.minecraft.util.Vec3;
@@ -91,15 +89,10 @@ import net.minecraftforge.event.entity.player.ArrowNockEvent;
 import net.minecraftforge.event.entity.player.EntityInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 import net.minecraftforge.event.entity.player.PlayerPickupXpEvent;
 import net.minecraftforge.event.entity.player.UseHoeEvent;
 import net.minecraftforge.event.world.BlockEvent;
-import cpw.mods.fml.common.eventhandler.EventPriority;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
-import cpw.mods.fml.common.gameevent.TickEvent;
-import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
-import cpw.mods.fml.relauncher.Side;
 
 public class ServerEventHandler {
 
@@ -323,18 +316,65 @@ public class ServerEventHandler {
 
     @SubscribeEvent
     public void onPlayerInteract(PlayerInteractEvent event) {
-        NewAnvil.onPlayerInteract(event);
-        GrassPath.onPlayerInteract(event);
-        
-        BlockStrippedOldLog.onPlayerInteract(event);
-        BlockStrippedNewLog.onPlayerInteract(event);
-        BlockStrippedOldWood.onPlayerInteract(event);
-        BlockStrippedNewWood.onPlayerInteract(event);
+        if (event.action == Action.RIGHT_CLICK_BLOCK) {
+            EntityPlayer entityPlayer = event.entityPlayer;
+            if (entityPlayer != null) {
+            	ItemStack heldStack = entityPlayer.getCurrentEquippedItem();
+                World world = entityPlayer.worldObj;
+                int x = event.x;
+                int y = event.y;
+                int z = event.z;
+                Block oldBlock = world.getBlock(x, y, z);
+            	if (ConfigurationHandler.enableAnvil && oldBlock == Blocks.anvil) {
+            		world.setBlock(x, y, z, ModBlocks.anvil, world.getBlockMetadata(x, y, z), 3);
+            	} else if(heldStack != null && heldStack.getItem() != null) {
+                    Set<String> toolClasses = heldStack.getItem().getToolClasses(heldStack);
+                    if (toolClasses != null) {
+                    	if (ConfigurationHandler.enableGrassPath && toolClasses.contains("shovel") && oldBlock == Blocks.grass) {
+                        	world.setBlock(x, y, z, ModBlocks.grass_path);
+                            entityPlayer.swingItem();
+                            heldStack.damageItem(1, entityPlayer);
+                            world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, Block.soundTypeGravel.getStepResourcePath(), 1.0F, 0.8F);
+                        } else if (ConfigurationHandler.enableStrippedLogs && toolClasses.contains("axe")) {
+                        	Block newBlock = null;
+                            if (oldBlock == Blocks.log) {
+                            	newBlock = ModBlocks.log_stripped;
+                            } else if(oldBlock == Blocks.log2) {
+                            	newBlock = ModBlocks.log2_stripped;
+                            } else if (ConfigurationHandler.enableBarkLogs) {
+                            	if (oldBlock == ModBlocks.log_bark) {
+                            		newBlock = ModBlocks.wood_stripped;
+                            	} else if (oldBlock == ModBlocks.log2_bark) {
+                            		newBlock = ModBlocks.wood2_stripped;
+                            	}
+                            }
+                            if (newBlock != null) {
+                            	int logMeta = world.getBlockMetadata(x, y, z);
+                            	world.setBlock(x, y, z, newBlock, logMeta, 2);
+                            	entityPlayer.swingItem();
+                            	heldStack.damageItem(1, entityPlayer);
+                                world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, Reference.MOD_ID + ":item.axe.strip", 1.0F, 0.8F);
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     @SubscribeEvent
     public void onHoeUseEvent(UseHoeEvent event) {
-        CoarseDirt.onHoeEvent(event);
+        if (ConfigurationHandler.enableCoarseDirt) {
+            World world = event.world;
+            int x = event.x;
+            int y = event.y;
+            int z = event.z;
+            if (world.getBlock(x, y, z) == ModBlocks.coarse_dirt) {
+                world.setBlock(x, y, z, Blocks.dirt);
+                world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, Block.soundTypeGravel.getStepResourcePath(), 1.0F, 0.8F);
+                event.setResult(Result.ALLOW);
+            }
+        }
     }
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
@@ -591,5 +631,5 @@ public class ServerEventHandler {
             }
         }
     }
-    
+
 }

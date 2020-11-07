@@ -27,7 +27,7 @@ repositories {
 
 apply plugin: 'forge'
 
-version = "1.7.6-J"
+version = "1.7.7-J"
 group = "ganymedes01.etfuturum"
 archivesBaseName = "Et Futurum"
 

@@ -71,10 +71,6 @@ public class EtFuturum {
         }
     };
 
-    
-
-    public static boolean isTinkersConstructLoaded = false;
-
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         ConfigurationHandler.INSTANCE.init(new File(event.getModConfigurationDirectory().getAbsolutePath() + File.separator + Reference.MOD_ID + ".cfg"));
@@ -112,8 +108,6 @@ public class EtFuturum {
             GameRegistry.registerItem(ModEntityList.entity_egg, "entity_egg");
             OreDictionary.registerOre("mobEgg", ModEntityList.entity_egg);
         }
-
-        isTinkersConstructLoaded = Loader.isModLoaded("TConstruct");
     }
 
     @EventHandler

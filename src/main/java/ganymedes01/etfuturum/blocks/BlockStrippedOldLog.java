@@ -52,40 +52,4 @@ public class BlockStrippedOldLog extends BlockOldLog implements IConfigurable, I
         return ItemBlockGeneric.class;
     }
 
-    public static void onPlayerInteract(PlayerInteractEvent event) {
-        if (ConfigurationHandler.enableStrippedLogs)
-            if (event.entityPlayer != null) {
-                World world = event.entityPlayer.worldObj;
-                if (event.action == Action.RIGHT_CLICK_BLOCK)
-                    if (world.getBlock(event.x, event.y, event.z) == Blocks.log) {
-                        int logMeta = world.getBlockMetadata(event.x, event.y, event.z);
-                        ItemStack stack = event.entityPlayer.getCurrentEquippedItem();
-                        if (stack != null && (stack.getItem() instanceof ItemAxe || isTinkersAxe(stack))) {
-                            world.setBlock(event.x, event.y, event.z, ModBlocks.log_stripped, logMeta, 2);
-                            //world.setBlock(x, y, z, block, meta, notify)
-                            event.entityPlayer.swingItem();
-                            stack.damageItem(1, event.entityPlayer);
-                            world.playSoundEffect(event.x + 0.5F, event.y + 0.5F, event.z + 0.5F, Reference.MOD_ID + ":item.axe.strip", 1.0F, 0.8F);
-                        }
-                    }
-            }
-    }
-
-    private static Item tinkersAxe;
-
-    private static boolean isTinkersAxe(ItemStack stack) {
-        if (EtFuturum.isTinkersConstructLoaded) {
-            if (tinkersAxe == null)
-                try {
-                    Class<?> TinkerTools = Class.forName("tconstruct.tools.TinkerTools");
-                    Field field = TinkerTools.getDeclaredField("axe");
-                    field.setAccessible(true);
-                    tinkersAxe = (Item) field.get(null);
-                } catch (Exception e) {
-                }
-            return tinkersAxe == stack.getItem();
-        }
-        return false;
-    }
-
 }
