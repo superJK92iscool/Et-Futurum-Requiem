@@ -331,14 +331,14 @@ public class ModRecipes {
                 addShapelessRecipe(new ItemStack(ModBlocks.enchantment_table), Blocks.enchanting_table); // Minecraft Enchanting Table -> EtFuturum Enchanting Table (For any old leftovers)
                 addShapelessRecipe(new ItemStack(Blocks.enchanting_table), ModBlocks.enchantment_table); // EtFuturum Enchanting Table -> Minecraft Enchanting Table (For when you need to to craft something that has it as a component (ChickenChunks))
             }
-    
+
             if (ConfigurationHandler.enableInvertedDaylightSensor) {
                 removeFirstRecipeFor(Blocks.daylight_detector); // Remove recipe for Minecrafts Daylight Sensor
                 addShapedRecipe(new ItemStack(ModBlocks.daylight_sensor), "GGG", "QQQ", "WWW", 'G', "blockGlassColorless", 'Q', "gemQuartz", 'W', "slabWood");
                 addShapelessRecipe(new ItemStack(ModBlocks.daylight_sensor), Blocks.daylight_detector);
                 addShapelessRecipe(new ItemStack(Blocks.daylight_detector), ModBlocks.daylight_sensor);
             }
-            
+
             if (ConfigurationHandler.enableBrewingStands) {
                 removeFirstRecipeFor(Items.brewing_stand); //gany pls, Blocks.brewing_stand is invalid
                 addShapedRecipe(new ItemStack(ModBlocks.brewing_stand), " i ", "xxx", 'i', Items.blaze_rod, 'x', "cobblestone");
@@ -346,11 +346,17 @@ public class ModRecipes {
                 addShapelessRecipe(new ItemStack(Items.brewing_stand), ModBlocks.brewing_stand); //EtFuturum Brewing Stand -> Minecraft Brewing Stand
             }
         }
-        
-        if (ConfigurationHandler.enableNetherBlocks) {
+
+        if (ConfigurationHandler.enableMagmaBlock) {
             addShapedRecipe(new ItemStack(ModBlocks.magma), "xx", "xx", 'x', new ItemStack(Items.magma_cream) );
+        }
+
+        if (ConfigurationHandler.enableRedNetherBrick) {
             addShapedRecipe(new ItemStack(ModBlocks.redNB), "wb", "bw", 'b', Items.netherbrick, 'w', Items.nether_wart  );
             
+        }
+
+        if (ConfigurationHandler.enableNetherwartBlock) {
             addShapedRecipe(new ItemStack(ModBlocks.netherwart), "xxx", "xxx", "xxx", 'x', Items.nether_wart);
             addShapelessRecipe(new ItemStack(Items.nether_wart, 9), ModBlocks.netherwart);
             

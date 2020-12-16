@@ -67,8 +67,10 @@ public class ConfigurationHandler {
     public static boolean enableShearableGolems;
     public static boolean enableShearableCobwebs;
     public static boolean enableFloatingTrapDoors;
-    
-    public static boolean enableNetherBlocks;
+
+    public static boolean enableRedNetherBrick;
+    public static boolean enableNetherwartBlock;
+    public static boolean enableMagmaBlock;
     public static boolean enableBoneBlock;
     public static boolean enableConcrete;
     
@@ -139,7 +141,10 @@ public class ConfigurationHandler {
         enableCryingObsidian = cfg.getBoolean("enableCryingObsidian", "blocks", true, "");//configBoolean("Crying Obsidian", true, EtFuturum.enableCryingObsidian);
         enableRoses = cfg.getBoolean("enableOldRoses", "blocks", true, "");//configBoolean("Old Roses", true, EtFuturum.enableRoses);
         
-        enableNetherBlocks = cfg.getBoolean("enableNetherBlocks", "blocks", true, "Enables magma/netherwart blocks and red netherbrick");//configBoolean("Enable magma/netherwart blocks and red netherbrick", true, EtFuturum.enableNetherBlocks);
+        
+        enableRedNetherBrick = cfg.getBoolean("enableRedNetherBrick", "blocks", true, "");
+        enableNetherwartBlock = cfg.getBoolean("enableNetherwartBlock", "blocks", true, "");
+        enableMagmaBlock = cfg.getBoolean("enableMagmaBlock", "blocks", true, "");
         enableBoneBlock = cfg.getBoolean("enableBoneBlock", "blocks", true, "");//configBoolean("Enable bone block", true, EtFuturum.enableBoneBlock);
         enableConcrete = cfg.getBoolean("enableConcrete", "blocks", true, "");//configBoolean("Enable concrete", true, EtFuturum.enableConcrete);
         

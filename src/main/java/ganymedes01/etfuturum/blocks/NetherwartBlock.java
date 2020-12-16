@@ -17,12 +17,12 @@ public class NetherwartBlock extends Block implements IConfigurable {
         setStepSound(soundTypeWood);
         setBlockTextureName("nether_wart_block");
         setBlockName(Utils.getUnlocalisedName("nether_wart"));
-        setCreativeTab(ConfigurationHandler.enableNetherBlocks ? EtFuturum.creativeTab : null);
+        setCreativeTab(ConfigurationHandler.enableNetherwartBlock ? EtFuturum.creativeTab : null);
     }
     
     @Override
     public boolean isEnabled() {
-        return ConfigurationHandler.enableNetherBlocks;
+        return ConfigurationHandler.enableNetherwartBlock;
     }
     
 }

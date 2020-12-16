@@ -52,7 +52,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
             }
         
          //TODO
-        if (ConfigurationHandler.enableNetherBlocks && ConfigurationHandler.maxStonesPerCluster > 0 && world.provider.dimensionId == -1)
+        if (ConfigurationHandler.enableMagmaBlock && ConfigurationHandler.maxStonesPerCluster > 0 && world.provider.dimensionId == -1)
             for (Iterator<WorldGenMinable> iterator = netherGen.iterator(); iterator.hasNext();) {
                 WorldGenMinable netherGen = iterator.next();
                 for (int i = 0; i < 5; i++) {

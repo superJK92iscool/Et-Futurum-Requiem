@@ -18,12 +18,12 @@ public class RedNetherBrick extends Block implements IConfigurable {
         this.setHarvestLevel("pickaxe", 0);
         setBlockTextureName("red_nether_brick");
         setBlockName(Utils.getUnlocalisedName("red_netherbrick"));
-        setCreativeTab(ConfigurationHandler.enableNetherBlocks ? EtFuturum.creativeTab : null);
+        setCreativeTab(ConfigurationHandler.enableRedNetherBrick ? EtFuturum.creativeTab : null);
     }
     
     @Override
     public boolean isEnabled() {
-        return ConfigurationHandler.enableNetherBlocks;
+        return ConfigurationHandler.enableRedNetherBrick;
     }
     
 }

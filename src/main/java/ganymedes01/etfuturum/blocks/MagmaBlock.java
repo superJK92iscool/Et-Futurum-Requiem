@@ -32,7 +32,7 @@ public class MagmaBlock extends Block implements IConfigurable{
         setLightLevel(0.2F);
         setTickRandomly(true);
         setBlockName(Utils.getUnlocalisedName("magma"));
-        setCreativeTab(ConfigurationHandler.enableNetherBlocks ? EtFuturum.creativeTab : null);
+        setCreativeTab(ConfigurationHandler.enableMagmaBlock ? EtFuturum.creativeTab : null);
     }
     
     public static final DamageSource HOT_FLOOR = (new DamageSource("hotFloor")).setFireDamage();
@@ -51,7 +51,7 @@ public class MagmaBlock extends Block implements IConfigurable{
 
     @Override
     public boolean isEnabled() {
-        return ConfigurationHandler.enableNetherBlocks;
+        return ConfigurationHandler.enableMagmaBlock;
     }
     
     public boolean isFireSource(World world, int x, int y, int z, ForgeDirection side) {
