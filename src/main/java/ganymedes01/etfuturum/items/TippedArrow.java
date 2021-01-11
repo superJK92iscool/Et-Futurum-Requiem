@@ -45,7 +45,7 @@ public class TippedArrow extends Item implements IConfigurable {
     public TippedArrow() {
         setTextureName("tipped_arrow");
         setUnlocalizedName(Utils.getUnlocalisedName("tipped_arrow"));
-        setCreativeTab(ConfigurationHandler.enableTippedArrows ? EtFuturum.creativeTab : null);
+        setCreativeTab(ConfigurationHandler.enableTippedArrows ? EtFuturum.creativeTabItems : null);
 
         if (ConfigurationHandler.enableTippedArrows)
             BlockDispenser.dispenseBehaviorRegistry.putObject(this, new DispenserBehaviourTippedArrow());

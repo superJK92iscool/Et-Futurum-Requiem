@@ -24,7 +24,7 @@ public class NewEnchantmentTable extends BlockEnchantmentTable implements IConfi
         setResistance(2000.0F);
         setBlockTextureName("enchanting_table");
         setBlockName(Utils.getUnlocalisedName("enchantment_table"));
-        setCreativeTab(ConfigurationHandler.enableEnchants ? EtFuturum.creativeTab : null);
+        setCreativeTab(ConfigurationHandler.enableEnchants ? EtFuturum.creativeTabBlocks : null);
     }
 
     @Override

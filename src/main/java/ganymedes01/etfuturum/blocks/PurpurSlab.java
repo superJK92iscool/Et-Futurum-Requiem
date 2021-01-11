@@ -16,7 +16,7 @@ public class PurpurSlab extends GenericSlab {
         setResistance(30);
         setHardness(2.0F);
         setBlockName(Utils.getUnlocalisedName("purpur_slab"));
-        setCreativeTab(ConfigurationHandler.enableChorusFruit ? EtFuturum.creativeTab : null);
+        setCreativeTab(ConfigurationHandler.enableChorusFruit ? EtFuturum.creativeTabBlocks : null);
     }
 
     @Override

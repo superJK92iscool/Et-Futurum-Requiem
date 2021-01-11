@@ -24,7 +24,7 @@ public class EndRod extends BlockContainer implements IConfigurable {
         setBlockTextureName("end_rod");
         setBlockName(Utils.getUnlocalisedName("end_rod"));
         setBlockBounds(0.375F, 0.0F, 0.375F, 0.625F, 1.0F, 0.625F);
-        setCreativeTab(ConfigurationHandler.enableChorusFruit ? EtFuturum.creativeTab : null);
+        setCreativeTab(ConfigurationHandler.enableChorusFruit ? EtFuturum.creativeTabBlocks : null);
     }
 
     @Override

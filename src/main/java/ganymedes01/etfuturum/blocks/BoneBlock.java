@@ -20,7 +20,7 @@ public class BoneBlock extends BlockRotatedPillar implements IConfigurable{
         setStepSound(soundTypeStone);
         setBlockTextureName("bone_block");
         setBlockName(Utils.getUnlocalisedName("bone"));
-        setCreativeTab(ConfigurationHandler.enableBoneBlock ? EtFuturum.creativeTab : null);
+        setCreativeTab(ConfigurationHandler.enableBoneBlock ? EtFuturum.creativeTabBlocks : null);
     }
 
     @Override

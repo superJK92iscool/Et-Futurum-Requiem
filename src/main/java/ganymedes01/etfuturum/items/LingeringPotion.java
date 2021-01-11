@@ -45,7 +45,7 @@ public class LingeringPotion extends ItemPotion implements IConfigurable {
     public LingeringPotion() {
         setTextureName("potion");
         setUnlocalizedName(Utils.getUnlocalisedName("lingering_potion"));
-        setCreativeTab(ConfigurationHandler.enableLingeringPotions ? EtFuturum.creativeTab : null);
+        setCreativeTab(ConfigurationHandler.enableLingeringPotions ? EtFuturum.creativeTabItems : null);
 
         if (ConfigurationHandler.enableLingeringPotions)
             BlockDispenser.dispenseBehaviorRegistry.putObject(this, new DispenserBehaviourLingeringPotion());

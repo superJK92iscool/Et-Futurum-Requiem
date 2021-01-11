@@ -31,7 +31,7 @@ public class Sponge extends BlockGeneric implements IConfigurable {
         setStepSound(soundTypeGrass);
         setBlockTextureName("sponge");
         setBlockName(Utils.getUnlocalisedName("sponge"));
-        setCreativeTab(ConfigurationHandler.enableSponge ? EtFuturum.creativeTab : null);
+        setCreativeTab(ConfigurationHandler.enableSponge ? EtFuturum.creativeTabBlocks : null);
     }
 
     @Override

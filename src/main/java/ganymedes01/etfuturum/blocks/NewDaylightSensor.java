@@ -23,7 +23,7 @@ public class NewDaylightSensor extends BlockDaylightDetector implements IConfigu
         setStepSound(soundTypeWood);
         setBlockTextureName("daylight_detector");
         setBlockName(Utils.getUnlocalisedName("daylight_sensor"));
-        setCreativeTab(ConfigurationHandler.enableInvertedDaylightSensor ? EtFuturum.creativeTab : null);
+        setCreativeTab(ConfigurationHandler.enableInvertedDaylightSensor ? EtFuturum.creativeTabBlocks : null);
     }
 
     @Override

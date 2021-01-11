@@ -15,7 +15,7 @@ public class CryingObsidian extends BlockObsidian implements IConfigurable {
         setHarvestLevel("pickaxe", 3);
         setBlockTextureName("crying_obsidian");
         setBlockName(Utils.getUnlocalisedName("crying_obsidian"));
-        setCreativeTab(ConfigurationHandler.enableCryingObsidian ? EtFuturum.creativeTab : null);
+        setCreativeTab(ConfigurationHandler.enableCryingObsidian ? EtFuturum.creativeTabBlocks : null);
     }
 
     @Override

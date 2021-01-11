@@ -24,7 +24,7 @@ public class CoarseDirt extends Block implements IConfigurable {
         setStepSound(soundTypeGravel);
         setBlockTextureName("coarse_dirt");
         setBlockName(Utils.getUnlocalisedName("coarse_dirt"));
-        setCreativeTab(ConfigurationHandler.enableCoarseDirt ? EtFuturum.creativeTab : null);
+        setCreativeTab(ConfigurationHandler.enableCoarseDirt ? EtFuturum.creativeTabBlocks : null);
     }
 
     @Override

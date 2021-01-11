@@ -16,7 +16,7 @@ public class PrismarineSlab extends GenericSlab {
         setHardness(1.5F);
         setResistance(10.0F);
         setBlockName(Utils.getUnlocalisedName("prismarine_slab"));
-        setCreativeTab(ConfigurationHandler.enablePrismarine ? EtFuturum.creativeTab : null);
+        setCreativeTab(ConfigurationHandler.enablePrismarine ? EtFuturum.creativeTabBlocks : null);
     }
     
     @Override

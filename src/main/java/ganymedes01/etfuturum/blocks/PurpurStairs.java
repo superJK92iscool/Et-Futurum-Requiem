@@ -17,7 +17,7 @@ public class PurpurStairs extends BlockStairs implements IConfigurable {
         setHardness(0.8F);
         setLightOpacity(0);
         setBlockName(Utils.getUnlocalisedName("purpur_stairs"));
-        setCreativeTab(ConfigurationHandler.enableChorusFruit ? EtFuturum.creativeTab : null);
+        setCreativeTab(ConfigurationHandler.enableChorusFruit ? EtFuturum.creativeTabBlocks : null);
     }
 
     @Override

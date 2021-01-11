@@ -11,7 +11,7 @@ public class PrismarineCrystals extends Item implements IConfigurable {
     public PrismarineCrystals() {
         setTextureName("prismarine_crystals");
         setUnlocalizedName(Utils.getUnlocalisedName("prismarine_crystals"));
-        setCreativeTab(ConfigurationHandler.enablePrismarine ? EtFuturum.creativeTab : null);
+        setCreativeTab(ConfigurationHandler.enablePrismarine ? EtFuturum.creativeTabItems : null);
     }
 
     @Override

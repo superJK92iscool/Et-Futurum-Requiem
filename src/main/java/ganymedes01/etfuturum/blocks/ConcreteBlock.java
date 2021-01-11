@@ -20,7 +20,7 @@ public class ConcreteBlock extends BlockColored implements IConfigurable, ISubBl
         setHarvestLevel("pickaxe", 0);
         setBlockTextureName("concrete");
         setBlockName("etfuturum.concrete");
-        setCreativeTab(ConfigurationHandler.enableConcrete ? EtFuturum.creativeTab : null);
+        setCreativeTab(ConfigurationHandler.enableConcrete ? EtFuturum.creativeTabBlocks : null);
     }
     
     @Override

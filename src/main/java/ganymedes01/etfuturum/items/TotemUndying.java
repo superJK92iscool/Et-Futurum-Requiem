@@ -12,7 +12,7 @@ public class TotemUndying extends Item implements IConfigurable {
         setTextureName("totem_alt");
         setMaxStackSize(1);
         setUnlocalizedName(Utils.getUnlocalisedName("totem_of_undying"));
-        setCreativeTab(ConfigurationHandler.enableTotemUndying ? EtFuturum.creativeTab : null);
+        setCreativeTab(ConfigurationHandler.enableTotemUndying ? EtFuturum.creativeTabItems : null);
     }
 
     @Override

@@ -14,7 +14,7 @@ public class RedSandstoneStairs extends BlockStairs implements IConfigurable {
         setHardness(0.8F);
         setLightOpacity(0);
         setBlockName(Utils.getUnlocalisedName("red_sandstone_stairs"));
-        setCreativeTab(ConfigurationHandler.enableRedSandstone ? EtFuturum.creativeTab : null);
+        setCreativeTab(ConfigurationHandler.enableRedSandstone ? EtFuturum.creativeTabBlocks : null);
     }
 
     @Override

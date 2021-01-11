@@ -20,7 +20,7 @@ public class RabbitFoot extends Item implements IConfigurable {
     public RabbitFoot() {
         setTextureName("rabbit_foot");
         setUnlocalizedName(Utils.getUnlocalisedName("rabbit_foot"));
-        setCreativeTab(ConfigurationHandler.enableRabbit ? EtFuturum.creativeTab : null);
+        setCreativeTab(ConfigurationHandler.enableRabbit ? EtFuturum.creativeTabItems : null);
 
         if (ConfigurationHandler.enableRabbit)
             try {

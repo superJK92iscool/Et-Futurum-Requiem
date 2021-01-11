@@ -19,7 +19,7 @@ public class BlockStrippedNewWood extends BlockNewLog implements IConfigurable, 
     
     public BlockStrippedNewWood() {
         setBlockName(Utils.getUnlocalisedName("wood2_stripped"));
-        setCreativeTab(ConfigurationHandler.enableStrippedLogs && ConfigurationHandler.enableBarkLogs ? EtFuturum.creativeTab : null);
+        setCreativeTab(ConfigurationHandler.enableStrippedLogs && ConfigurationHandler.enableBarkLogs ? EtFuturum.creativeTabBlocks : null);
     }
     
     @SideOnly(Side.CLIENT)

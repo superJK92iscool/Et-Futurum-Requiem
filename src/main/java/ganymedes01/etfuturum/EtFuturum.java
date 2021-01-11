@@ -64,10 +64,17 @@ public class EtFuturum {
 
     public static SimpleNetworkWrapper networkWrapper;
 
-    public static CreativeTabs creativeTab = new CreativeTabs("etfuturum") {
+    public static CreativeTabs creativeTabItems = new CreativeTabs(Reference.MOD_ID + ".items") {
         @Override
         public Item getTabIconItem() {
-            return ConfigurationHandler.enablePrismarine ? ModItems.prismarine_shard : Items.skull;
+            return ConfigurationHandler.enableNetherite ? ModItems.netherite_scrap : ConfigurationHandler.enablePrismarine ? ModItems.prismarine_shard : Items.magma_cream;
+        }
+    };
+    
+    public static CreativeTabs creativeTabBlocks = new CreativeTabs(Reference.MOD_ID + ".blocks") {
+        @Override
+        public Item getTabIconItem() {
+            return /*ConfigurationHandler.enableNewFurnaces ? Item.getItemFromBlock(ModBlocks.smoker) : */ConfigurationHandler.enableChorusFruit ? Item.getItemFromBlock(ModBlocks.chorus_flower) : Item.getItemFromBlock(Blocks.ender_chest);
         }
     };
 

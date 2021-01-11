@@ -21,7 +21,7 @@ public class ChorusFruit extends ItemFood implements IConfigurable {
         setAlwaysEdible();
         setTextureName("chorus_fruit");
         setUnlocalizedName(Utils.getUnlocalisedName("chorus_fruit"));
-        setCreativeTab(ConfigurationHandler.enableChorusFruit ? EtFuturum.creativeTab : null);
+        setCreativeTab(ConfigurationHandler.enableChorusFruit ? EtFuturum.creativeTabItems : null);
     }
 
     @Override

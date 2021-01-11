@@ -20,7 +20,7 @@ public class BlockWoodButton extends BlockButtonWood implements IBurnableBlock, 
     public BlockWoodButton(int meta) {
         this.meta = meta;
         setBlockName(Utils.getUnlocalisedName("button_" + BlockWoodDoor.names[meta]));
-        setCreativeTab(ConfigurationHandler.enableWoodRedstone ? EtFuturum.creativeTab : null);
+        setCreativeTab(ConfigurationHandler.enableWoodRedstone ? EtFuturum.creativeTabBlocks : null);
         
     }
 

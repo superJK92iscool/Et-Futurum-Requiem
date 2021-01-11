@@ -34,7 +34,7 @@ public class GrassPath extends Block implements IConfigurable {
         setBlockTextureName("grass_path");
         setBlockName(Utils.getUnlocalisedName("grass_path"));
         setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.9375F, 1.0F);
-        setCreativeTab(ConfigurationHandler.enableGrassPath ? EtFuturum.creativeTab : null);
+        setCreativeTab(ConfigurationHandler.enableGrassPath ? EtFuturum.creativeTabBlocks : null);
     }
 
     @Override

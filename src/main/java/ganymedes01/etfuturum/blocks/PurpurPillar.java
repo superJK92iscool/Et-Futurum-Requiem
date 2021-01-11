@@ -23,7 +23,7 @@ public class PurpurPillar extends BlockRotatedPillar implements IConfigurable {
         setStepSound(soundTypePiston);
         setBlockTextureName("purpur_pillar");
         setBlockName(Utils.getUnlocalisedName("purpur_pillar"));
-        setCreativeTab(ConfigurationHandler.enableChorusFruit ? EtFuturum.creativeTab : null);
+        setCreativeTab(ConfigurationHandler.enableChorusFruit ? EtFuturum.creativeTabBlocks : null);
     }
 
     @Override

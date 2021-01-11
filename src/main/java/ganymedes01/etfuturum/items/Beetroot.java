@@ -12,7 +12,7 @@ public class Beetroot extends ItemFood implements IConfigurable {
         super(1, 0.6F, false);
         setTextureName("beetroot");
         setUnlocalizedName(Utils.getUnlocalisedName("beetroot"));
-        setCreativeTab(ConfigurationHandler.enableBeetroot ? EtFuturum.creativeTab : null);
+        setCreativeTab(ConfigurationHandler.enableBeetroot ? EtFuturum.creativeTabItems : null);
     }
 
     @Override

@@ -1,5 +1,6 @@
 # Creative Tab
-itemGroup.etfuturum=Et Futurum
+itemGroup.etfuturum.items=Et Futurum Items
+itemGroup.etfuturum.blocks=Et Futurum Blocks
 
 # Enchantments
 enchantment.frost_walker=Frost Walker

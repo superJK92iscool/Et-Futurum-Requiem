@@ -24,7 +24,7 @@ public class BlockConcretePowder extends BlockFalling {
         this.color = color;
         this.setBlockName("etfuturum.concrete_powder_" + this.color);
         this.setStepSound(soundTypeSand);
-        this.setCreativeTab(ConfigurationHandler.enableConcrete ? EtFuturum.creativeTab : null);
+        this.setCreativeTab(ConfigurationHandler.enableConcrete ? EtFuturum.creativeTabBlocks : null);
         this.setHardness(0.5F);
         this.setResistance(2.5F);
         this.setBlockTextureName("concrete_powder_" + this.color.getName());
