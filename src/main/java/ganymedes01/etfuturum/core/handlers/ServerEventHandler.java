@@ -605,6 +605,7 @@ public class ServerEventHandler {
         player.clearActivePotions();
         player.setHealth(1.0F);
         player.addPotionEffect(new PotionEffect(Potion.regeneration.id, 900, 1));
+        player.addPotionEffect(new PotionEffect(Potion.fireResistance.id, 800, 1));
         player.addPotionEffect(new PotionEffect(Potion.field_76444_x.id, 100, 1));
         
         player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("util.totemBreak")));
