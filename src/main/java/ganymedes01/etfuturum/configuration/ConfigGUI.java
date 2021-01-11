@@ -18,7 +18,7 @@ public class ConfigGUI extends GuiConfig {
     @SuppressWarnings({ "rawtypes" })
     private static List<IConfigElement> getElements() {
         List<IConfigElement> list = new ArrayList<IConfigElement>();
-        for (String category : ConfigurationHandler.INSTANCE.usedCategories)
+        for (String category : ConfigurationHandler.usedCategories)
             list.add(new ConfigElement(ConfigurationHandler.INSTANCE.cfg.getCategory(category)));
         return list;
     }

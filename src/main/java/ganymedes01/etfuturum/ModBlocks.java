@@ -1,7 +1,10 @@
 package ganymedes01.etfuturum;
 
+import ganymedes01.etfuturum.blocks.BlockAncientDebris;
 import ganymedes01.etfuturum.blocks.BlockBanner;
 import ganymedes01.etfuturum.blocks.BlockBeetroot;
+import ganymedes01.etfuturum.blocks.BlockNetherite;
+import ganymedes01.etfuturum.blocks.BlockNetheriteStairs;
 import ganymedes01.etfuturum.blocks.BlockPrismarineStairs;
 import ganymedes01.etfuturum.blocks.BlockSilkedMushroom;
 import ganymedes01.etfuturum.blocks.BlockStrippedNewLog;
@@ -100,10 +103,13 @@ public class ModBlocks {
     public static final Block anvil = new NewAnvil();
     public static final Block daylight_sensor = new NewDaylightSensor();
     
-    public static final Block bone = new BoneBlock();
+    public static final Block bone_block = new BoneBlock();
     public static final Block magma = new MagmaBlock();
     public static final Block redNB = new RedNetherBrick();
     public static final Block netherwart = new NetherwartBlock();
+    public static final Block ancient_debris = new BlockAncientDebris();
+    public static final Block netherite_block = new BlockNetherite();
+    public static final Block netherite_stairs = new BlockNetheriteStairs();
     
     //public static final Block concrete = new ConcreteBlock();
     
@@ -124,13 +130,13 @@ public class ModBlocks {
     public static final Block wood_stripped = new BlockStrippedOldWood();
     public static final Block wood2_stripped = new BlockStrippedNewWood();
     
-
-    public static final Block[] doors = new Block[BlockWood.field_150096_a.length - 1];
-    public static final Block[] fences = new Block[BlockWood.field_150096_a.length];
-    public static final Block[] gates = new Block[BlockWood.field_150096_a.length - 1];
+    public static final String[] woodTypes = new String[] {"oak", "spruce", "birch", "jungle", "acacia", "dark_oak"/*, "crimson", "warped"*/};
+    public static final Block[] doors = new Block[woodTypes.length - 1];
+    public static final Block[] fences = new Block[woodTypes.length - 1];
+    public static final Block[] gates = new Block[woodTypes.length - 1];
     
-    public static final Block[] pressurePlates = new Block[BlockWood.field_150096_a.length - 1];
-    public static final Block[] buttons = new Block[BlockWood.field_150096_a.length - 1];
+    public static final Block[] pressure_plates = new Block[woodTypes.length - 1];
+    public static final Block[] buttons = new Block[woodTypes.length - 1];
     public static final Block[] trapdoors = new Block[BlockWood.field_150096_a.length - 1];
 
     static {
@@ -143,8 +149,8 @@ public class ModBlocks {
         for (int i = 0; i < gates.length; i++)
             gates[i] = new BlockWoodFenceGate(i + 1);
         
-        for (int i = 0; i < pressurePlates.length; i++)
-            pressurePlates[i] = new BlockWoodPressurePlate(i + 1);
+        for (int i = 0; i < pressure_plates.length; i++)
+            pressure_plates[i] = new BlockWoodPressurePlate(i + 1);
         
         for (int i = 0; i < buttons.length; i++)
             buttons[i] = new BlockWoodButton(i + 1);

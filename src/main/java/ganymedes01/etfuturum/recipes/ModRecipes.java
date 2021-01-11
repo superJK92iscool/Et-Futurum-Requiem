@@ -125,8 +125,8 @@ public class ModRecipes {
         if (ConfigurationHandler.enableWoodRedstone) {
             for (int i = 0; i < ModBlocks.buttons.length; i++)
                 OreDictionary.registerOre("buttonWood", new ItemStack(ModBlocks.buttons[i]));
-            for (int i = 0; i < ModBlocks.pressurePlates.length; i++)
-                OreDictionary.registerOre("pressurePlateWood", new ItemStack(ModBlocks.pressurePlates[i]));
+            for (int i = 0; i < ModBlocks.pressure_plates.length; i++)
+                OreDictionary.registerOre("pressurePlateWood", new ItemStack(ModBlocks.pressure_plates[i]));
         }
 
         if (ConfigurationHandler.enableStones) {
@@ -363,8 +363,8 @@ public class ModRecipes {
         }
 
         if (ConfigurationHandler.enableBoneBlock) {
-            addShapedRecipe(new ItemStack(ModBlocks.bone), "xxx", "xxx", "xxx", 'x', new ItemStack(Items.dye, 1, 15));
-            addShapelessRecipe(new ItemStack(Items.dye, 9, 15), new ItemStack(ModBlocks.bone));
+            addShapedRecipe(new ItemStack(ModBlocks.bone_block), "xxx", "xxx", "xxx", 'x', new ItemStack(Items.dye, 1, 15));
+            addShapelessRecipe(new ItemStack(Items.dye, 9, 15), new ItemStack(ModBlocks.bone_block));
         }
         
         if (ConfigurationHandler.enableConcrete) {
@@ -382,8 +382,8 @@ public class ModRecipes {
                 addShapedRecipe(new ItemStack(ModBlocks.buttons[i], 1), "x", 'x', new ItemStack(Blocks.planks, 1, i + 1));
             addShapedRecipe(new ItemStack(Blocks.wooden_button, 1), "x", 'x', "plankWood");
             
-            for (int i = 0; i < ModBlocks.pressurePlates.length; i++)
-                addShapedRecipe(new ItemStack(ModBlocks.pressurePlates[i], 1), "xx", 'x', new ItemStack(Blocks.planks, 1, i + 1));
+            for (int i = 0; i < ModBlocks.pressure_plates.length; i++)
+                addShapedRecipe(new ItemStack(ModBlocks.pressure_plates[i], 1), "xx", 'x', new ItemStack(Blocks.planks, 1, i + 1));
             addShapedRecipe(new ItemStack(Blocks.wooden_pressure_plate, 1), "xx", 'x', "plankWood");
         }
         

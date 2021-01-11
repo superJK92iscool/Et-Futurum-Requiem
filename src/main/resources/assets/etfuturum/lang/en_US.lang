@@ -147,6 +147,9 @@ tile.etfuturum.anvil.intact.name=Anvil
 tile.etfuturum.anvil.slightlyDamaged.name=Slightly Damaged Anvil
 tile.etfuturum.anvil.veryDamaged.name=Very Damaged Anvil
 tile.etfuturum.daylight_sensor.name=Daylight Sensor
+tile.etfuturum.ancient_debris.name=Ancient Debris
+tile.etfuturum.netherite_block.name=Block of Netherite
+tile.etfuturum.netherite_stairs.name=Netherite Stairs
 
 #tile.etfuturum..name=
 

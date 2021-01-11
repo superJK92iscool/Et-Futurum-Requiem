@@ -14,8 +14,18 @@ public class ConfigurationHandler {
 
     public static ConfigurationHandler INSTANCE = new ConfigurationHandler();
     public Configuration cfg;
-    public String[] usedCategories = { "client", "blocks", "items", "enchants", "entity", "replacement", "function"};
     
+    public static final String catClient = "client";
+    public static final String catBlock = "blocks";
+    public static final String catItems = "items";
+    public static final String catEquipment = "equipment";
+    public static final String catEnchants = "enchants";
+    public static final String catEntity = "entity";
+    public static final String catReplacement = "replacement";
+    public static final String catFunction = "function";
+    
+    public static final String[] usedCategories = { catClient, catBlock, catItems, catEquipment, catEnchants, catEntity, catReplacement, catFunction};
+
     public static boolean enableStones;
     public static boolean enableIronTrapdoor;
     public static boolean enableMutton;
@@ -71,6 +81,7 @@ public class ConfigurationHandler {
     public static boolean enableRedNetherBrick;
     public static boolean enableNetherwartBlock;
     public static boolean enableMagmaBlock;
+    public static boolean enableNetherite;
     public static boolean enableBoneBlock;
     public static boolean enableConcrete;
     
@@ -83,32 +94,29 @@ public class ConfigurationHandler {
     public static boolean enableWoodRedstone;
     public static boolean enableStrippedLogs;
     public static boolean enableBarkLogs;
-    
+
     public static boolean enableTileReplacement;
 
-    public static int maxStonesPerCluster = 33;
+    public static int maxStonesPerCluster;
 
-    /*
-    private int configInteger(String name, boolean requireRestart, int def) {
-        return configInteger(name, null, requireRestart, def);
-    }
-
-    private int configInteger(String name, String tooltip, boolean requireRestart, int def) {
-        int config = configFile.get(Configuration.CATEGORY_GENERAL, name, def, tooltip).getInt(def);
-        return config >= 0 ? config : def;
-    }
-
-    private boolean configBoolean(String name, String tooltip, boolean requireRestart, boolean def) {
-        return configFile.get(Configuration.CATEGORY_GENERAL, name, def, tooltip).getBoolean(def);
-    }
-
-    private boolean configBoolean(String name, boolean requireRestart, boolean def) {
-        return configBoolean(name, null, requireRestart, def);
-    }
+    public static boolean enableNetheriteFlammable = false;
+    public static int netheriteToolDurability;
+    public static int netheriteEnchantability;
+    public static int netheriteHarvestLevel;
+    public static float netheriteSpeed;
+    public static float netheriteDamageBase;
+    public static int netheriteArmourDurabilityFactor;
+    public static int netheritePickaxeDurability;
+    public static int netheriteSwordDurability;
+    public static int netheriteHoeDurability;
+    public static int netheriteAxeDurability;
+    public static int netheriteSpadeDurability;
+    public static int netheriteHelmetDurability;
+    public static int netheriteChestplateDurability;
+    public static int netheriteLeggingsDurability;
+    public static int netheriteBootsDurability;
     
-    configFile.get("general", "", true, null).getBoolean(true);
-    
-    */
+    public static boolean enableIronNugget;
 
     public void init(File file) {
         cfg = new Configuration(file);
@@ -117,105 +125,120 @@ public class ConfigurationHandler {
     }
 
     private void syncConfigs() {
-        //cfg.getBoolean("", "general", true, null);
-        //cfg.getInt("", "general", 32, 0, 64, null);
         
         //blocks
-        enableStones = cfg.getBoolean("enableStones", "blocks", true, "Enable Granite/Andesite/Diorite");//configBoolean("", true, EtFuturum.enableStones);
-        maxStonesPerCluster = cfg.getInt("stoneClusterSize", "blocks", 32, 0, 64, "Max number of Granite/Andesite/Diorite/Magma blocks in a cluster");//configInteger("Max number of Granite/Andesite/Diorite/Magma blocks in a cluster", true, EtFuturum.maxStonesPerCluster);
+        enableStones = cfg.getBoolean("enableStones", catBlock, true, "Enable Granite/Andesite/Diorite");
+        maxStonesPerCluster = cfg.getInt("stoneClusterSize", catBlock, 32, 0, 64, "Max number of Granite/Andesite/Diorite/Magma blocks in a cluster");
         
-        enableIronTrapdoor = cfg.getBoolean("enableIronTrapdoor", "blocks", true, "");//configBoolean("Iron Trapdoor", true, EtFuturum.enableIronTrapdoor);
-        enableSponge = cfg.getBoolean("enableSponge", "blocks", true, "");//configBoolean("Sponge", true, EtFuturum.enableSponge);
-        enablePrismarine = cfg.getBoolean("enablePrismarine", "blocks", true, "");//configBoolean("Prismarine", true, EtFuturum.enablePrismarine);
-        enableDoors = cfg.getBoolean("enableDoors", "blocks", true, "Enables wood variant doors");//configBoolean("Doors", true, EtFuturum.enableDoors);
-        enableTrapdoors = cfg.getBoolean("enableTrapdoors", "blocks", true, "Enables wood variant trapdoors");
-        enableInvertedDaylightSensor = cfg.getBoolean("enableInvertedSensor", "blocks", true, "Inverted Daylight Sensor");//configBoolean("Inverted Daylight Sensor", true, EtFuturum.enableInvertedDaylightSensor);
-        enableCoarseDirt = cfg.getBoolean("enableCoarseDirt", "blocks", true, "");//configBoolean("Coarse Dirt", true, EtFuturum.enableCoarseDirt);
-        enableRedSandstone = cfg.getBoolean("enableRedSandstone", "blocks", true, "");//configBoolean("Red Sandstone", true, EtFuturum.enableRedSandstone);
-        enableFences = cfg.getBoolean("enableFences", "blocks", true, "Enables wood variant fences and gates");//configBoolean("Fences and Gates", true, EtFuturum.enableFences);
-        enableBanners = cfg.getBoolean("enableBanners", "blocks", true, "");//configBoolean("Banners", true, EtFuturum.enableBanners);
-        enableSlimeBlock = cfg.getBoolean("enableSlimeBlock", "blocks", true, "Just bouncy, does not pull blocks.");//configBoolean("Slime Block", true, EtFuturum.enableSlimeBlock);
-        enableOldGravel = cfg.getBoolean("enableOldGravel", "blocks", true, "");//configBoolean("Old Gravel", true, EtFuturum.enableOldGravel);
-        enableChorusFruit = cfg.getBoolean("enableChorusBlocks", "blocks", true, "Enables chorus plants and purpur blocks");//configBoolean("Chorus Fruit (and related blocks)", true, EtFuturum.enableChorusFruit);
-        enableGrassPath = cfg.getBoolean("enableGrassPath", "blocks", true, "");//configBoolean("Grass Path", true, EtFuturum.enableGrassPath);
-        enableCryingObsidian = cfg.getBoolean("enableCryingObsidian", "blocks", true, "");//configBoolean("Crying Obsidian", true, EtFuturum.enableCryingObsidian);
-        enableRoses = cfg.getBoolean("enableOldRoses", "blocks", true, "");//configBoolean("Old Roses", true, EtFuturum.enableRoses);
+        enableIronTrapdoor = cfg.getBoolean("enableIronTrapdoor", catBlock, true, "");
+        enableSponge = cfg.getBoolean("enableSponge", catBlock, true, "");
+        enablePrismarine = cfg.getBoolean("enablePrismarine", catBlock, true, "");
+        enableDoors = cfg.getBoolean("enableDoors", catBlock, true, "Enables wood variant doors");
+        enableTrapdoors = cfg.getBoolean("enableTrapdoors", catBlock, true, "Enables wood variant trapdoors");
+        enableInvertedDaylightSensor = cfg.getBoolean("enableInvertedSensor", catBlock, true, "Inverted Daylight Sensor");
+        enableCoarseDirt = cfg.getBoolean("enableCoarseDirt", catBlock, true, "");
+        enableRedSandstone = cfg.getBoolean("enableRedSandstone", catBlock, true, "");
+        enableFences = cfg.getBoolean("enableFences", catBlock, true, "Enables wood variant fences and gates");
+        enableBanners = cfg.getBoolean("enableBanners", catBlock, true, "");
+        enableSlimeBlock = cfg.getBoolean("enableSlimeBlock", catBlock, true, "Just bouncy, does not pull blocks.");
+        enableOldGravel = cfg.getBoolean("enableOldGravel", catBlock, true, "");
+        enableChorusFruit = cfg.getBoolean("enableChorusBlocks", catBlock, true, "Enables chorus plants and purpur blocks");
+        enableGrassPath = cfg.getBoolean("enableGrassPath", catBlock, true, "");
+        enableCryingObsidian = cfg.getBoolean("enableCryingObsidian", catBlock, true, "");
+        enableRoses = cfg.getBoolean("enableOldRoses", catBlock, true, "");
         
         
-        enableRedNetherBrick = cfg.getBoolean("enableRedNetherBrick", "blocks", true, "");
-        enableNetherwartBlock = cfg.getBoolean("enableNetherwartBlock", "blocks", true, "");
-        enableMagmaBlock = cfg.getBoolean("enableMagmaBlock", "blocks", true, "");
-        enableBoneBlock = cfg.getBoolean("enableBoneBlock", "blocks", true, "");//configBoolean("Enable bone block", true, EtFuturum.enableBoneBlock);
-        enableConcrete = cfg.getBoolean("enableConcrete", "blocks", true, "");//configBoolean("Enable concrete", true, EtFuturum.enableConcrete);
+        enableRedNetherBrick = cfg.getBoolean("enableRedNetherBrick", catBlock, true, "");
+        enableNetherwartBlock = cfg.getBoolean("enableNetherwartBlock", catBlock, true, "");
+        enableNetherite = cfg.getBoolean("enableNetherite", catBlock, true, "");
+        enableMagmaBlock = cfg.getBoolean("enableMagmaBlock", catBlock, true, "");
+        enableBoneBlock = cfg.getBoolean("enableBoneBlock", catBlock, true, "");
+        enableConcrete = cfg.getBoolean("enableConcrete", catBlock, true, "");
         
-        enableWoodRedstone = cfg.getBoolean("enableWoodRedstone", "blocks", true, "Enables wood variant buttons and pressure plates");//
-        enableStrippedLogs = cfg.getBoolean("enableStrippedLogs", "blocks", true, "Enables stripped log blocks");//
-        enableBarkLogs = cfg.getBoolean("enableBarkLogs", "blocks", true, "Enables log blocks with bark on all sides");//
+        enableWoodRedstone = cfg.getBoolean("enableWoodRedstone", catBlock, true, "Enables wood variant buttons and pressure plates");
+        enableStrippedLogs = cfg.getBoolean("enableStrippedLogs", catBlock, true, "Enables stripped log blocks");
+        enableBarkLogs = cfg.getBoolean("enableBarkLogs", catBlock, true, "Enables log blocks with bark on all sides");
         
         //items
-        enableMutton = cfg.getBoolean("enableMutton", "items", true, "");//configBoolean("Mutton", true, EtFuturum.enableMutton);
-        enableBeetroot = cfg.getBoolean("enableBeetroot", "items", true, "");//configBoolean("Beetroot", true, EtFuturum.enableBeetroot);
-        enableElytra = cfg.getBoolean("enableElytra", "items", true, "");//configBoolean("Elytra", true, EtFuturum.enableElytra);
-        enableTippedArrows = cfg.getBoolean("enableTippedArrows", "items", true, "");//configBoolean("Tipped Arrows", true, EtFuturum.enableTippedArrows);
-        enableLingeringPotions = cfg.getBoolean("enableLingeringPotions", "items", true, "");//configBoolean("Lingering Potions", true, EtFuturum.enableLingeringPotions);
+        enableMutton = cfg.getBoolean("enableMutton", catItems, true, "");
+        enableBeetroot = cfg.getBoolean("enableBeetroot", catItems, true, "");
+        enableElytra = cfg.getBoolean("enableElytra", catItems, true, "");
+        enableIronNugget = cfg.getBoolean("enableIronNugget", catItems, true, "");
+        enableTippedArrows = cfg.getBoolean("enableTippedArrows", catItems, true, "");
+        enableLingeringPotions = cfg.getBoolean("enableLingeringPotions", catItems, true, "");
         
-        enableTotemUndying = cfg.getBoolean("enableTotemUndying", "items", true, "");
+        enableTotemUndying = cfg.getBoolean("enableTotemUndying", catItems, true, "");
+        
+        //equipment
+        netheriteToolDurability = cfg.getInt("netheriteToolDurability", catEquipment, 2031, 1, Integer.MAX_VALUE, "");
+        netheriteEnchantability = cfg.getInt("netheriteEnchantability", catEquipment, 15, 1, Integer.MAX_VALUE, "");
+        netheriteHarvestLevel = cfg.getInt("netheriteHarvestLevel", catEquipment, 4, 0, Integer.MAX_VALUE, "Netherite harvest level, Diamond is 3");
+        netheriteSpeed = cfg.getFloat("netheriteSpeed", catEquipment, 9.0f, 0.1f, Float.MAX_VALUE, "Netherite mining speed, Diamond is 8.0");
+        netheriteDamageBase  = cfg.getFloat("netheriteDamageBase", catEquipment, 4.0f, 0.0f, Float.MAX_VALUE, "Neterite base damage, Diamond is 3.0");
+        netheriteArmourDurabilityFactor = cfg.getInt("netheriteArmourDurabilityFactor", catEquipment, 37, 1, Integer.MAX_VALUE, "");
+        netheritePickaxeDurability = cfg.getInt("netheritePickaxeDurability", catEquipment, -1, -1, Integer.MAX_VALUE, "Override Netherite Pickaxe Durability, -1 to disable");
+        netheriteSwordDurability = cfg.getInt("netheriteSwordDurability", catEquipment, -1, -1, Integer.MAX_VALUE, "Override Netherite Sword Durability, -1 to disable");
+        netheriteHoeDurability = cfg.getInt("netheriteHoeDurability", catEquipment, -1, -1, Integer.MAX_VALUE, "Override Netherite Hoe Durability, -1 to disable");
+        netheriteAxeDurability = cfg.getInt("netheriteAxeDurability", catEquipment, -1, -1, Integer.MAX_VALUE, "Override Netherite Axe Durability, -1 to disable");
+        netheriteSpadeDurability = cfg.getInt("netheriteSpadeDurability", catEquipment, -1, -1, Integer.MAX_VALUE, "Override Netherite Shovel Durability, -1 to disable");
+        netheriteHelmetDurability = cfg.getInt("netheriteHelmetDurability", catEquipment, -1, -1, Integer.MAX_VALUE, "Override Netherite Helmet Durability, -1 to disable");
+        netheriteChestplateDurability = cfg.getInt("netheriteChestplateDurability", catEquipment, -1, -1, Integer.MAX_VALUE, "Override Netherite Chestplate Durability, -1 to disable");
+        netheriteLeggingsDurability = cfg.getInt("netheriteLeggingsDurability", catEquipment, -1, -1, Integer.MAX_VALUE, "Override Netherite Leggings Durability, -1 to disable");
+        netheriteBootsDurability = cfg.getInt("netheriteBootsDurability", catEquipment, -1, -1, Integer.MAX_VALUE, "Override Netherite Boots Durability, -1 to disable");
         
         //enchants
-        enableFrostWalker = cfg.getBoolean("frostWalker", "enchants", true, "");//configBoolean("Frost Walker", true, EtFuturum.enableFrostWalker);
-        FrostWalker.ID = cfg.getInt("frostWalkerID", "enchants", 36, 0, 1023, "");//configInteger("Frost Walker ID", true, FrostWalker.ID);
+        enableFrostWalker = cfg.getBoolean("frostWalker", catEnchants, true, "");
+        FrostWalker.ID = cfg.getInt("frostWalkerID", catEnchants, 36, 0, 1023, "");
         
-        enableMending = cfg.getBoolean("mending", "enchants", true, "");//configBoolean("Mending", true, EtFuturum.enableMending);
-        Mending.ID = cfg.getInt("mendingID", "enchants", 37, 0, 1023, "");//configInteger("Mending ID", true, Mending.ID);
-        //configFile.get("enchantment", "", true, null).getBoolean(true);
-        //configFile.get("enchantment", "", def, null).getInt(def);
+        enableMending = cfg.getBoolean("mending", catEnchants, true, "");
+        Mending.ID = cfg.getInt("mendingID", catEnchants, 37, 0, 1023, "");
         
         //mobs
-        enableRabbit = cfg.getBoolean("enableRabbits", "entity", true, "");//configBoolean("Rabbits", true, EtFuturum.enableRabbit);
-        enableArmourStand = cfg.getBoolean("enableArmorStand", "entity", true, "");//configBoolean("Armour Stand", true, EtFuturum.enableArmourStand);
-        enableEndermite = cfg.getBoolean("enableEndermite", "entity", true, "");//configBoolean("Endermite", true, EtFuturum.enableEndermite);
-        enableVillagerZombies = cfg.getBoolean("enableZombieVillager", "entity", true, "");//configBoolean("Villager Zombies", true, EtFuturum.enableVillagerZombies);
+        enableRabbit = cfg.getBoolean("enableRabbits", catEntity, true, "");
+        enableArmourStand = cfg.getBoolean("enableArmorStand", catEntity, true, "");
+        enableEndermite = cfg.getBoolean("enableEndermite", catEntity, true, "");
+        enableVillagerZombies = cfg.getBoolean("enableZombieVillager", catEntity, true, "");
         
-        enableHusk = cfg.getBoolean("enableHusks", "entity", true, "Desert zombie variant");//configBoolean("Husks", true, EtFuturum.enableConcrete);
-        enableStray = cfg.getBoolean("enableStrays", "entity", true, "Tundra skeleton variant");//configBoolean("Strays", true, EtFuturum.enableConcrete);
+        enableHusk = cfg.getBoolean("enableHusks", catEntity, true, "Desert zombie variant");
+        enableStray = cfg.getBoolean("enableStrays", catEntity, true, "Tundra skeleton variant");
         
         //function
-        enableSilkTouchingMushrooms = cfg.getBoolean("enableSilkMushroom", "function", true, "Mushroom blocks can be silk-touched");//configBoolean("Mushroom Blocks", true, EtFuturum.enableSilkTouchingMushrooms);
-        enableRecipeForPrismarine = cfg.getBoolean("enablePrismarineRecipes", "function", true, "");//configBoolean("Recipes for prismarine", true, EtFuturum.enableRecipeForPrismarine);
-        enableSticksFromDeadBushes = cfg.getBoolean("enableBushSticks", "function", true, "Dead Bushes drop sticks");//configBoolean("Dead Bushes drop sticks", true, EtFuturum.enableSticksFromDeadBushes);
-        enableSkullDrop = cfg.getBoolean("enableSkullDrop", "function", true, "Skulls drop from charged creeper kills");//configBoolean("Skulls drop from charged creeper kills", true, EtFuturum.enableSkullDrop);
-        enableBurnableBlocks = cfg.getBoolean("enableBurnables", "function", true, "Fences, gates and dead bushes burn");//configBoolean("Fences, gates and dead bushes burn", true, EtFuturum.enableBurnableBlocks);
-        enableUpdatedFoodValues = cfg.getBoolean("enableUpdatedFood", "function", true, "Use updated food values");//configBoolean("Use updated food values", true, EtFuturum.enableUpdatedFoodValues);
-        enableUpdatedHarvestLevels = cfg.getBoolean("enableUpdatedHarvestLevels", "function", true, "Packed Ice, ladders and melons have preferred tools");//configBoolean("Use updated harvest levels", true, EtFuturum.enableUpdatedHarvestLevels);
-        enableShearableGolems = cfg.getBoolean("enableShearableSnowGolems", "function", true, "");//configBoolean("Shearing Snow Golems", true, EtFuturum.enableShearableGolems);
-        enableShearableCobwebs = cfg.getBoolean("enableShearableCobwebs", "function", true, "");//configBoolean("Shears harvest cobwebs", true, EtFuturum.enableShearableCobwebs);
-        enableFloatingTrapDoors = cfg.getBoolean("enableFloatingTrapDoors", "function", true, "");
-        enableStoneBrickRecipes = cfg.getBoolean("enableStoneBrickRecipes", "function", true, "Makes mossy, cracked and chiseled stone brick craftable");//configBoolean("Stone Brick Recipes", true, EtFuturum.enableStoneBrickRecipes);
-        enableBabyGrowthBoost = cfg.getBoolean("enableBabyGrowthBoost", "function", true, "");//configBoolean("Baby growth boost", true, EtFuturum.enableBabyGrowthBoost);
-        enableVillagerTurnsIntoWitch = cfg.getBoolean("enableVillagerTurnsIntoWitch", "function", true, "Villagers turn into Witches when struck by lightning");//configBoolean("Villagers turn into Witches when struck by lightning", true, EtFuturum.enableVillagerTurnsIntoWitch);
+        enableSilkTouchingMushrooms = cfg.getBoolean("enableSilkMushroom", catFunction, true, "Mushroom blocks can be silk-touched");
+        enableRecipeForPrismarine = cfg.getBoolean("enablePrismarineRecipes", catFunction, true, "");
+        enableSticksFromDeadBushes = cfg.getBoolean("enableBushSticks", catFunction, true, "Dead Bushes drop sticks");
+        enableSkullDrop = cfg.getBoolean("enableSkullDrop", catFunction, true, "Skulls drop from charged creeper kills");
+        enableBurnableBlocks = cfg.getBoolean("enableBurnables", catFunction, true, "Fences, gates and dead bushes burn");
+        enableUpdatedFoodValues = cfg.getBoolean("enableUpdatedFood", catFunction, true, "Use updated food values");
+        enableUpdatedHarvestLevels = cfg.getBoolean("enableUpdatedHarvestLevels", catFunction, true, "Packed Ice, ladders and melons have preferred tools");
+        enableShearableGolems = cfg.getBoolean("enableShearableSnowGolems", catFunction, true, "");
+        enableShearableCobwebs = cfg.getBoolean("enableShearableCobwebs", catFunction, true, "");
+        enableFloatingTrapDoors = cfg.getBoolean("enableFloatingTrapDoors", catFunction, true, "");
+        enableStoneBrickRecipes = cfg.getBoolean("enableStoneBrickRecipes", catFunction, true, "Makes mossy, cracked and chiseled stone brick craftable");
+        enableBabyGrowthBoost = cfg.getBoolean("enableBabyGrowthBoost", catFunction, true, "");
+        enableVillagerTurnsIntoWitch = cfg.getBoolean("enableVillagerTurnsIntoWitch", catFunction, true, "Villagers turn into Witches when struck by lightning");
         
-        enableDragonRespawn = cfg.getBoolean("enableDragonRespawn", "function", true, "");//configBoolean("Dragon respawning", true, EtFuturum.enableDragonRespawn);
-        enableNetherEndermen = cfg.getBoolean("enableNetherEndermen", "function", true, "Allow endermen to rarely spawn in the Nether");
-        //enableRecipeForTotem = cfg.getBoolean("enableTotemRecipe", "function", false, "");
+        enableDragonRespawn = cfg.getBoolean("enableDragonRespawn", catFunction, true, "");
+        enableNetherEndermen = cfg.getBoolean("enableNetherEndermen", catFunction, true, "Allow endermen to rarely spawn in the Nether");
         
         //replacement
-        enableTileReplacement = cfg.getBoolean("enableTileReplacement", "replacement", false, "Replace old Brewing Stands/Enchanting Tables/Daylight Sensors/Beacons with new one on the fly. Very update tick intensive.");//configBoolean("Replace old Brewing Stands/Enchanting Tables/Daylight Sensors/Beacons with new one on the fly", false, EtFuturum.enableTileReplacement);
+        enableTileReplacement = cfg.getBoolean("enableTileReplacement", catReplacement, false, "Replace old Brewing Stands/Enchanting Tables/Daylight Sensors/Beacons with new one on the fly. Very update tick intensive.");
         
-        enableEnchants = cfg.getBoolean("enableEnchantingTable", "replacement", true, "");//configBoolean("Enchanting Table", true, EtFuturum.enableEnchants);
-        enableAnvil = cfg.getBoolean("enableAnvil", "replacement", true, "");//configBoolean("Anvil", true, EtFuturum.enableAnvil);
-        enableBrewingStands = cfg.getBoolean("enableBrewingStand", "replacement", true, "");//configBoolean("Brewing Stands", true, EtFuturum.enableBrewingStands);
-        enableColourfulBeacons = cfg.getBoolean("enableBeacon", "replacement", true, "Beacon beam can be colored using stained glass");//configBoolean("Colourful Beacon Beams", true, EtFuturum.enableColourfulBeacons);
+        enableEnchants = cfg.getBoolean("enableEnchantingTable", catReplacement, true, "");
+        enableAnvil = cfg.getBoolean("enableAnvil", catReplacement, true, "");
+        enableBrewingStands = cfg.getBoolean("enableBrewingStand", catReplacement, true, "");
+        enableColourfulBeacons = cfg.getBoolean("enableBeacon", catReplacement, true, "Beacon beam can be colored using stained glass");
         
         //client
-        enableDmgIndicator = cfg.getBoolean("enableDmgIndicator", "client", true, "Heart Damage Indicator");//configBoolean("Heart Damage Indicator", true, EtFuturum.enableDmgIndicator);
-        enableTransparentAmour = cfg.getBoolean("enableTransparentAmour", "client", true, "Allow non-opaque armour");//configBoolean("Allow non-opaque armour", true, EtFuturum.enableTransparentAmour);
-        enableBowRendering = cfg.getBoolean("enableBowRendering", "client", true, "Bows render pulling animation on inventory");//configBoolean("Bows render pulling animation on inventory", true, EtFuturum.enableBowRendering);
-        enableFancySkulls = cfg.getBoolean("enableFancySkulls", "client", true, "Skulls render 3D in inventory");//configBoolean("Fancy Skulls", true, EtFuturum.enableFancySkulls);
-        enablePlayerSkinOverlay = cfg.getBoolean("enablePlayerSkinOverlay", "client", false, "Allows use of 1.8 skin format. Disable if skin is displaying oddly.");//configBoolean("Skin overlays", true, EtFuturum.enablePlayerSkinOverlay);
+        enableDmgIndicator = cfg.getBoolean("enableDmgIndicator", catClient, true, "Heart Damage Indicator");
+        enableTransparentAmour = cfg.getBoolean("enableTransparentAmour", catClient, true, "Allow non-opaque armour");
+        enableBowRendering = cfg.getBoolean("enableBowRendering", catClient, true, "Bows render pulling animation on inventory");
+        enableFancySkulls = cfg.getBoolean("enableFancySkulls", catClient, true, "Skulls render 3D in inventory");
+        enablePlayerSkinOverlay = cfg.getBoolean("enablePlayerSkinOverlay", catClient, false, "Allows use of 1.8 skin format. Disable if skin is displaying oddly.");
         
         
-        if (cfg.hasChanged())
+        if (cfg.hasChanged()) {
             cfg.save();
+        }
     }
 
     @SubscribeEvent
