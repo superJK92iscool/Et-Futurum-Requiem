@@ -79,6 +79,11 @@ public class ConfigurationHandler {
     public static boolean enableFloatingTrapDoors;
     public static boolean enableBarrel;
     public static boolean enableLantern;
+    public static boolean enableSmoker;
+    public static boolean enableBlastFurnace;
+    public static boolean enableAutoAddSmoker;
+    public static boolean enableAutoAddBlastFurnace;
+    public static boolean enableMeltGear = false;
 
     public static boolean enableRedNetherBrick;
     public static boolean enableNetherwartBlock;
@@ -91,7 +96,7 @@ public class ConfigurationHandler {
     public static boolean enableStray;
     public static boolean enableNetherEndermen;
     public static boolean enableTotemUndying;
-    public static boolean enableRecipeForTotem;
+    public static boolean enableRecipeForTotem = false;
     
     public static boolean enableWoodRedstone;
     public static boolean enableStrippedLogs;
@@ -119,6 +124,8 @@ public class ConfigurationHandler {
     public static int netheriteBootsDurability;
     
     public static boolean enableIronNugget;
+    
+    public static boolean enableNewBlocksSounds;
     
     //Nether Update temp disabled
     public static boolean enableCrimsonBlocks = false;
@@ -167,6 +174,9 @@ public class ConfigurationHandler {
         
         enableBarrel = cfg.getBoolean("enableBarrel", catBlock, true, "");
         enableLantern = cfg.getBoolean("enableLantern", catBlock, true, "");
+        
+        enableSmoker = cfg.getBoolean("enableSmoker", catBlock, true, "");
+        enableBlastFurnace = cfg.getBoolean("enableBlastFurnace", catBlock, true, "");
         
         //items
         enableMutton = cfg.getBoolean("enableMutton", catItems, true, "");
@@ -229,6 +239,9 @@ public class ConfigurationHandler {
         enableDragonRespawn = cfg.getBoolean("enableDragonRespawn", catFunction, true, "");
         enableNetherEndermen = cfg.getBoolean("enableNetherEndermen", catFunction, true, "Allow endermen to rarely spawn in the Nether");
         
+        enableAutoAddSmoker = cfg.getBoolean("enableAutoAddSmoker", catFunction, true, "Auto-adds smeltable foods to the blast furnace, turn off for only vanilla food");
+        enableAutoAddBlastFurnace = cfg.getBoolean("enableAutoAddBlastFurnace", catFunction, true, "Auto-adds ores to the blast furnace, detected if the input has the \"ore\" oreDictionary prefix and is smeltable. Turn off for only vanilla ores");
+        
         //replacement
         enableTileReplacement = cfg.getBoolean("enableTileReplacement", catReplacement, false, "Replace old Brewing Stands/Enchanting Tables/Daylight Sensors/Beacons with new one on the fly. Very update tick intensive.");
         
@@ -242,8 +255,9 @@ public class ConfigurationHandler {
         enableTransparentAmour = cfg.getBoolean("enableTransparentAmour", catClient, true, "Allow non-opaque armour");
         enableBowRendering = cfg.getBoolean("enableBowRendering", catClient, true, "Bows render pulling animation on inventory");
         enableFancySkulls = cfg.getBoolean("enableFancySkulls", catClient, true, "Skulls render 3D in inventory");
-        enablePlayerSkinOverlay = cfg.getBoolean("enablePlayerSkinOverlay", catClient, false, "Allows use of 1.8 skin format. Disable if skin is displaying oddly.");
-        
+        enablePlayerSkinOverlay = cfg.getBoolean("enablePlayerSkinOverlay", catClient, true, "Allows use of 1.8 skin format. Disable if skin is displaying oddly.");
+        enableNewBlocksSounds = cfg.getBoolean("enableNewBlocksSounds", catClient, true, "New Blocks sounds, such as the new place/break sounds added alongside new blocks, or ones added to existing blocks, and stuff like furnace crackling.");
+     
         
         if (cfg.hasChanged()) {
             cfg.save();

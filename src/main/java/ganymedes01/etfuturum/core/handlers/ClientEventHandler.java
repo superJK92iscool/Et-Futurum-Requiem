@@ -1,20 +1,20 @@
 package ganymedes01.etfuturum.core.handlers;
 
-import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.blocks.PrismarineBlocks;
-import ganymedes01.etfuturum.client.OpenGLHelper;
-import ganymedes01.etfuturum.client.PrismarineIcon;
-import ganymedes01.etfuturum.configuration.ConfigurationHandler;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraftforge.client.event.RenderPlayerEvent;
-import net.minecraftforge.client.event.RenderPlayerEvent.SetArmorModel;
-import net.minecraftforge.client.event.TextureStitchEvent;
-
 import org.lwjgl.opengl.GL11;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import ganymedes01.etfuturum.ModBlocks;
+import ganymedes01.etfuturum.blocks.BlockBlastFurnace;
+import ganymedes01.etfuturum.blocks.PrismarineBlocks;
+import ganymedes01.etfuturum.client.InterpolatedIcon;
+import ganymedes01.etfuturum.client.OpenGLHelper;
+import ganymedes01.etfuturum.configuration.ConfigurationHandler;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraftforge.client.event.RenderPlayerEvent;
+import net.minecraftforge.client.event.RenderPlayerEvent.SetArmorModel;
+import net.minecraftforge.client.event.TextureStitchEvent;
 
 public class ClientEventHandler {
 
@@ -28,12 +28,23 @@ public class ClientEventHandler {
     public void loadTextures(TextureStitchEvent.Pre event) {
         if (ConfigurationHandler.enablePrismarine)
             if (event.map.getTextureType() == 0) {
-                TextureAtlasSprite icon = new PrismarineIcon("prismarine_rough");
+                TextureAtlasSprite icon = new InterpolatedIcon("prismarine_rough");
                 if (event.map.setTextureEntry("prismarine_rough", icon))
                     ((PrismarineBlocks) ModBlocks.prismarine).setIcon(0, icon);
                 else
                     ((PrismarineBlocks) ModBlocks.prismarine).setIcon(0, event.map.registerIcon("prismarine_rough"));
             }
+		
+		if (ConfigurationHandler.enableBlastFurnace) {
+			if (event.map.getTextureType() == 0) {
+				String s = "blast_furnace_front_on";
+				TextureAtlasSprite icon = new InterpolatedIcon(s);
+				if (event.map.setTextureEntry(s, icon))
+					((BlockBlastFurnace) ModBlocks.lit_blast_furnace).setFurnaceFrontIcon(icon);
+				else
+					((BlockBlastFurnace) ModBlocks.lit_blast_furnace).setFurnaceFrontIcon(event.map.registerIcon(s));
+			}
+		}
     }
 
     @SubscribeEvent

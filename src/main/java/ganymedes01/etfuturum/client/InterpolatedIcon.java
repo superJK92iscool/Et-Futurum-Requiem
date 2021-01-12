@@ -10,12 +10,12 @@ import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.resources.data.AnimationMetadataSection;
 
 @SideOnly(Side.CLIENT)
-public class PrismarineIcon extends TextureAtlasSprite {
+public class InterpolatedIcon extends TextureAtlasSprite {
 
     protected int[][] interpolatedFrameData;
     private Field fanimationMetadata;
 
-    public PrismarineIcon(String name) {
+    public InterpolatedIcon(String name) {
         super(name);
         fanimationMetadata = ReflectionHelper.findField(TextureAtlasSprite.class, "animationMetadata", "field_110982_k");
         fanimationMetadata.setAccessible(true);

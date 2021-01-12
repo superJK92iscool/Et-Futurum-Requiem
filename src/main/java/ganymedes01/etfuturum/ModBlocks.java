@@ -7,11 +7,13 @@ import ganymedes01.etfuturum.blocks.BlockAncientDebris;
 import ganymedes01.etfuturum.blocks.BlockBanner;
 import ganymedes01.etfuturum.blocks.BlockBarrel;
 import ganymedes01.etfuturum.blocks.BlockBeetroot;
+import ganymedes01.etfuturum.blocks.BlockBlastFurnace;
 import ganymedes01.etfuturum.blocks.BlockLantern;
 import ganymedes01.etfuturum.blocks.BlockNetherite;
 import ganymedes01.etfuturum.blocks.BlockNetheriteStairs;
 import ganymedes01.etfuturum.blocks.BlockPrismarineStairs;
 import ganymedes01.etfuturum.blocks.BlockSilkedMushroom;
+import ganymedes01.etfuturum.blocks.BlockSmoker;
 import ganymedes01.etfuturum.blocks.BlockStrippedNewLog;
 import ganymedes01.etfuturum.blocks.BlockStrippedNewWood;
 import ganymedes01.etfuturum.blocks.BlockStrippedOldLog;
@@ -112,6 +114,10 @@ public class ModBlocks {
     public static final Block netherite_stairs = new BlockNetheriteStairs();
 	public static final Block barrel = new BlockBarrel();
 	public static final Block lantern = new BlockLantern();
+	public static final Block smoker = new BlockSmoker(false);
+	public static final Block lit_smoker = new BlockSmoker(true);
+	public static final Block blast_furnace = new BlockBlastFurnace(false);
+	public static final Block lit_blast_furnace = new BlockBlastFurnace(true);
     
     //public static final Block concrete = new ConcreteBlock();
     

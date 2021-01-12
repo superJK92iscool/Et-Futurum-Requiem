@@ -135,5 +135,35 @@
         "block/barrel/open1",
         "block/barrel/open2"
     ]
+  },
+  "block.furnace.fire_crackle": {
+    "category": "block",
+    "sounds": [
+      "block/furnace/fire_crackle1",
+      "block/furnace/fire_crackle2",
+      "block/furnace/fire_crackle3",
+      "block/furnace/fire_crackle4",
+      "block/furnace/fire_crackle5"
+    ]
+  },
+  "block.smoker.smoke": {
+    "category": "block",
+    "sounds": [
+      "block/smoker/smoker1",
+      "block/smoker/smoker2",
+      "block/smoker/smoker3",
+      "block/smoker/smoker4",
+      "block/smoker/smoker5"
+    ]
+  },
+  "block.blastfurnace.fire_crackle": {
+    "category": "block",
+    "sounds": [
+        "block/blastfurnace/blastfurnace1",
+        "block/blastfurnace/blastfurnace2",
+        "block/blastfurnace/blastfurnace3",
+        "block/blastfurnace/blastfurnace4",
+        "block/blastfurnace/blastfurnace5"
+    ]
   }
 }
