@@ -56,7 +56,7 @@ import ganymedes01.etfuturum.blocks.PurpurBlock;
 import ganymedes01.etfuturum.blocks.PurpurPillar;
 import ganymedes01.etfuturum.blocks.PurpurSlab;
 import ganymedes01.etfuturum.blocks.PurpurStairs;
-import ganymedes01.etfuturum.blocks.RedNetherBrick;
+import ganymedes01.etfuturum.blocks.NewNetherBrick;
 import ganymedes01.etfuturum.blocks.RedSandstone;
 import ganymedes01.etfuturum.blocks.RedSandstoneSlab;
 import ganymedes01.etfuturum.blocks.RedSandstoneStairs;
@@ -106,9 +106,9 @@ public class ModBlocks {
     public static final Block daylight_sensor = new NewDaylightSensor();
     
     public static final Block bone_block = new BoneBlock();
-    public static final Block magma = new MagmaBlock();
-    public static final Block redNB = new RedNetherBrick();
-    public static final Block netherwart = new NetherwartBlock();
+    public static final Block magma_block = new MagmaBlock();
+    public static final Block new_nether_brick = new NewNetherBrick();
+    public static final Block nether_wart_block = new NetherwartBlock();
     public static final Block ancient_debris = new BlockAncientDebris();
     public static final Block netherite_block = new BlockNetherite();
     public static final Block netherite_stairs = new BlockNetheriteStairs();

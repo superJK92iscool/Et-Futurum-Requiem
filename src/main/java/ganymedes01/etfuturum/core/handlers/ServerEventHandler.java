@@ -21,6 +21,7 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModEnchantments;
 import ganymedes01.etfuturum.ModItems;
+import ganymedes01.etfuturum.blocks.MagmaBlock;
 import ganymedes01.etfuturum.command.SetPlayerModelCommand;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.entities.EntityEndermite;
@@ -64,6 +65,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemShears;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.MinecraftServer;
@@ -139,6 +141,31 @@ public class ServerEventHandler {
     public void livingUpdate(LivingUpdateEvent event) {
         ModEnchantments.onLivingUpdate(event.entityLiving);
 
+		Entity entity = event.entityLiving;
+		double x = event.entityLiving.posX;
+		double y = event.entityLiving.posY;
+		double z = event.entityLiving.posZ;
+		if(ConfigurationHandler.enableMagmaBlock)
+			if(!entity.worldObj.isRemote && !entity.isImmuneToFire() && !entity.isSneaking() && entity.onGround
+					&& entity.worldObj.getBlock((int)x, (int)(y - .45), (int)z) == ModBlocks.magma_block) {
+				NBTTagList enchants;
+				boolean flag = true;
+				if(entity instanceof EntityPlayer && ((EntityPlayer) entity).inventory.getStackInSlot(36) != null
+						&& ((EntityPlayer) entity).inventory.getStackInSlot(36).getEnchantmentTagList() != null) {
+					enchants = ((EntityPlayer) entity).inventory.getStackInSlot(36).getEnchantmentTagList();
+					for(int i = 0; i < enchants.tagCount(); i++) {
+						NBTTagCompound nbt = enchants.getCompoundTagAt(i);
+						short id = nbt.getShort("id");
+						if(id == ModEnchantments.frostWalker.effectId) {
+							flag = false;
+							break;
+						}
+					}
+				}
+				if(flag)
+					entity.attackEntityFrom(MagmaBlock.HOT_FLOOR, 1);
+			}
+		
         if (ConfigurationHandler.enableVillagerZombies)
             if (!event.entityLiving.worldObj.isRemote && event.entityLiving.getClass() == EntityZombie.class) {
                 EntityZombie zombie = (EntityZombie) event.entityLiving;

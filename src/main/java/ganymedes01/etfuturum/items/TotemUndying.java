@@ -9,7 +9,7 @@ import net.minecraft.item.Item;
 public class TotemUndying extends Item implements IConfigurable {
 
     public TotemUndying() {
-        setTextureName("totem_alt");
+        setTextureName("totem");
         setMaxStackSize(1);
         setUnlocalizedName(Utils.getUnlocalisedName("totem_of_undying"));
         setCreativeTab(ConfigurationHandler.enableTotemUndying ? EtFuturum.creativeTabItems : null);

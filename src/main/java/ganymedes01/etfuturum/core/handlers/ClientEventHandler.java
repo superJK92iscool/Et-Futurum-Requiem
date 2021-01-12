@@ -8,6 +8,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.blocks.BlockBlastFurnace;
 import ganymedes01.etfuturum.blocks.PrismarineBlocks;
+import ganymedes01.etfuturum.blocks.MagmaBlock;
 import ganymedes01.etfuturum.client.InterpolatedIcon;
 import ganymedes01.etfuturum.client.OpenGLHelper;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
@@ -43,6 +44,17 @@ public class ClientEventHandler {
 					((BlockBlastFurnace) ModBlocks.lit_blast_furnace).setFurnaceFrontIcon(icon);
 				else
 					((BlockBlastFurnace) ModBlocks.lit_blast_furnace).setFurnaceFrontIcon(event.map.registerIcon(s));
+			}
+		}
+		
+		if (ConfigurationHandler.enableMagmaBlock) {
+			if (event.map.getTextureType() == 0) {
+				String s = "magma";
+				TextureAtlasSprite icon = new InterpolatedIcon(s);
+				if (event.map.setTextureEntry(s, icon))
+					((MagmaBlock) ModBlocks.magma_block).setMagmaIcon(icon);
+				else
+					((MagmaBlock) ModBlocks.magma_block).setMagmaIcon(event.map.registerIcon(s));
 			}
 		}
     }

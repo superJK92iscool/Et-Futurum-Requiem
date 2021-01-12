@@ -7,9 +7,9 @@ import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 
-public class RedNetherBrick extends Block implements IConfigurable {
+public class NewNetherBrick extends Block implements IConfigurable {
 
-    public RedNetherBrick()
+    public NewNetherBrick()
     {
         super(Material.rock);
         setHardness(2F);

@@ -109,7 +109,7 @@ public class CompatTC {
         ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.frosted_ice), new AspectList(new ItemStack(Blocks.ice)).add(Aspect.ENTROPY, 1) );
         ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.log_stripped,1,32767), new AspectList(new ItemStack(Blocks.log)) );
         ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.log2_stripped,1,32767), new AspectList(new ItemStack(Blocks.log2)) );
-        ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.magma), new AspectList().add(Aspect.FIRE, 2).add(Aspect.EARTH, 1) );
+        ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.magma_block), new AspectList().add(Aspect.FIRE, 2).add(Aspect.EARTH, 1) );
         
         ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.brown_mushroom_block), new AspectList(new ItemStack(Blocks.brown_mushroom)) );
         ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.red_mushroom_block), new AspectList(new ItemStack(Blocks.red_mushroom)) );

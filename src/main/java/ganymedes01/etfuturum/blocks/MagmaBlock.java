@@ -10,15 +10,18 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import static net.minecraftforge.common.util.ForgeDirection.UP;
 
 public class MagmaBlock extends Block implements IConfigurable{
     
@@ -36,18 +39,6 @@ public class MagmaBlock extends Block implements IConfigurable{
     }
     
     public static final DamageSource HOT_FLOOR = (new DamageSource("hotFloor")).setFireDamage();
-      
-      public AxisAlignedBB getCollisionBoundingBoxFromPool(World w, int x, int y, int z)
-      {
-        float f = 0.125F;
-        return AxisAlignedBB.getBoundingBox(x, y, z, x + 1, y + 1 - f, z + 1);
-      }
-      
-      public void onEntityCollidedWithBlock(World w, int p_149670_2_, int p_149670_3_, int p_149670_4_, Entity ent)
-      {
-          if (!ent.isImmuneToFire() && ent instanceof EntityLivingBase)
-              ent.attackEntityFrom(HOT_FLOOR, 1.0F);
-      }
 
     @Override
     public boolean isEnabled() {
@@ -55,10 +46,7 @@ public class MagmaBlock extends Block implements IConfigurable{
     }
     
     public boolean isFireSource(World world, int x, int y, int z, ForgeDirection side) {
-        if (this == ModBlocks.magma && side == ForgeDirection.UP) {
-            return true;
-        }
-        return false;
+        return side == UP;
     }
     
     public void updateTick(World world, int x, int y, int z, Random rand) {
@@ -77,8 +65,10 @@ public class MagmaBlock extends Block implements IConfigurable{
             }*/
         }
         
-        if ( block1 == Blocks.ice ) {
-            world.setBlock(x, y+1, z, Blocks.water, 0, 2);
+        if ( block1 == Blocks.ice) {
+        	 world.setBlock(x, y+1, z, world.provider.isHellWorld ? Blocks.air : Blocks.water, 0, 2);
+        	 if(!world.provider.isHellWorld)
+        		 world.markBlockForUpdate(x, y+1, z);
             //world.playSound((double)((float)x + 0.5F), (double)((float)y + 0.5F), (double)((float)z + 0.5F), "random.fizz", 1.0F + rand.nextFloat(), rand.nextFloat() * 0.7F + 0.3F, false);
             world.playSoundEffect((double)x + 0.5D, (double)y + 0.5D, (double)z + 0.5D, "random.splash", 0.3F, 0.6F);
             
@@ -102,6 +92,22 @@ public class MagmaBlock extends Block implements IConfigurable{
             world.spawnParticle("bubble", (double)x + 0.5D, (double)y + 1.1D, (double)z + 0.5D, 0.0D, 1.0D, 0.0D);
         }
         
+    }
+
+    //Sets the icon back to null after registering it in the constructor
+    //We register it and set it back to null so it can properly be overridden
+    @SideOnly(Side.CLIENT)
+    public void registerBlockIcons(IIconRegister p_149651_1_)
+    {
+        this.blockIcon = null;
+    }
+    
+    //Makes sure the icon is null so it can be overridden,
+    //then ClientEventHandler replaces the texture with the interpolated version
+    public void setMagmaIcon(IIcon icon) {
+    	if(blockIcon == null) {
+        	blockIcon = icon;
+    	}
     }
 
 }

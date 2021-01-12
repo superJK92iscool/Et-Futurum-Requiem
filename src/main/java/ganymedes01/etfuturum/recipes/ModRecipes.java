@@ -352,17 +352,17 @@ public class ModRecipes {
         }
 
         if (ConfigurationHandler.enableMagmaBlock) {
-            addShapedRecipe(new ItemStack(ModBlocks.magma), "xx", "xx", 'x', new ItemStack(Items.magma_cream) );
+            addShapedRecipe(new ItemStack(ModBlocks.magma_block), "xx", "xx", 'x', new ItemStack(Items.magma_cream) );
         }
 
         if (ConfigurationHandler.enableRedNetherBrick) {
-            addShapedRecipe(new ItemStack(ModBlocks.redNB), "wb", "bw", 'b', Items.netherbrick, 'w', Items.nether_wart  );
+            addShapedRecipe(new ItemStack(ModBlocks.new_nether_brick), "wb", "bw", 'b', Items.netherbrick, 'w', Items.nether_wart  );
             
         }
 
         if (ConfigurationHandler.enableNetherwartBlock) {
-            addShapedRecipe(new ItemStack(ModBlocks.netherwart), "xxx", "xxx", "xxx", 'x', Items.nether_wart);
-            addShapelessRecipe(new ItemStack(Items.nether_wart, 9), ModBlocks.netherwart);
+            addShapedRecipe(new ItemStack(ModBlocks.nether_wart_block), "xxx", "xxx", "xxx", 'x', Items.nether_wart);
+            addShapelessRecipe(new ItemStack(Items.nether_wart, 9), ModBlocks.nether_wart_block);
             
         }
 

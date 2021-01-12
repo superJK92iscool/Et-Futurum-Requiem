@@ -27,7 +27,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
         generators.add(new WorldGenMinable(ModBlocks.stone, 3, ConfigurationHandler.maxStonesPerCluster, Blocks.stone));
         generators.add(new WorldGenMinable(ModBlocks.stone, 5, ConfigurationHandler.maxStonesPerCluster, Blocks.stone));
         
-        netherGen.add(new WorldGenMinable(ModBlocks.magma, 5, ConfigurationHandler.maxStonesPerCluster, Blocks.netherrack));
+        netherGen.add(new WorldGenMinable(ModBlocks.magma_block, 5, ConfigurationHandler.maxStonesPerCluster, Blocks.netherrack));
     }
 
     @Override
