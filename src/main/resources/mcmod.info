@@ -1,13 +1,13 @@
 [
 {
   "modid": "etfuturum",
-  "name": "Et Futurum",
-  "description": "A mod dedicated to bring future features to 1.7.10",
-  "version": "${version}",
+  "name": "Et Futurum Requiem",
+  "description": "A mod dedicated to bring future features to 1.7.10... and it's back!",
+  "version": "2.0.0",
   "url": "",
   "updateUrl": "",
   "authorList": [
-    "ganymedes01"
+    "ganymedes01", "Roadhog360", "jss2a98aj", "KryptonCaptain"
   ],
   "credits": "",
   "logoFile": "",
