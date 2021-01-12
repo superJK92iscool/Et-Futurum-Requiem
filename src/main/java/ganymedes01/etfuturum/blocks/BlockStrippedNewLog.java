@@ -4,6 +4,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
+import ganymedes01.etfuturum.ModBlocks.IBurnableBlock;
 import ganymedes01.etfuturum.ModBlocks.ISubBlocksBlock;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.utils.Utils;
@@ -13,7 +14,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.util.IIcon;
 
-public class BlockStrippedNewLog extends BlockNewLog implements IConfigurable, ISubBlocksBlock {
+public class BlockStrippedNewLog extends BlockNewLog implements IConfigurable, ISubBlocksBlock, IBurnableBlock {
 
     public static final String[] field_150169_M = new String[] {"acacia", "dark_oak"};
 
@@ -43,4 +44,8 @@ public class BlockStrippedNewLog extends BlockNewLog implements IConfigurable, I
         return ItemBlockGeneric.class;
     }
 
+	@Override
+	public int[] getFireInfo() {
+		return new int[]{5, 5};
+	}
 }

@@ -35,4 +35,10 @@ public class BlockWoodButton extends BlockButtonWood implements IBurnableBlock, 
         return ConfigurationHandler.enableWoodRedstone;
     }
 
+	@Override
+	public int[] getFireInfo() {
+		if(meta < 6 && ConfigurationHandler.enableBurnableBlocks)
+			return new int[]{5, 20};
+		return null;
+	}
 }

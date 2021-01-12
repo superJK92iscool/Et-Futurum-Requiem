@@ -8,6 +8,8 @@ import ganymedes01.etfuturum.blocks.BlockBanner;
 import ganymedes01.etfuturum.blocks.BlockBarrel;
 import ganymedes01.etfuturum.blocks.BlockBeetroot;
 import ganymedes01.etfuturum.blocks.BlockBlastFurnace;
+import ganymedes01.etfuturum.blocks.BlockConcrete;
+import ganymedes01.etfuturum.blocks.BlockConcretePowder;
 import ganymedes01.etfuturum.blocks.BlockLantern;
 import ganymedes01.etfuturum.blocks.BlockNetherite;
 import ganymedes01.etfuturum.blocks.BlockNetheriteStairs;
@@ -30,7 +32,6 @@ import ganymedes01.etfuturum.blocks.BoneBlock;
 import ganymedes01.etfuturum.blocks.ChorusFlower;
 import ganymedes01.etfuturum.blocks.ChorusPlant;
 import ganymedes01.etfuturum.blocks.CoarseDirt;
-import ganymedes01.etfuturum.blocks.ConcreteRegistry;
 import ganymedes01.etfuturum.blocks.CryingObsidian;
 import ganymedes01.etfuturum.blocks.EndBricks;
 import ganymedes01.etfuturum.blocks.EndRod;
@@ -63,7 +64,6 @@ import ganymedes01.etfuturum.blocks.SeaLantern;
 import ganymedes01.etfuturum.blocks.SlimeBlock;
 import ganymedes01.etfuturum.blocks.Sponge;
 import ganymedes01.etfuturum.blocks.Stone;
-import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockWood;
 import net.minecraft.init.Blocks;
@@ -119,7 +119,8 @@ public class ModBlocks {
 	public static final Block blast_furnace = new BlockBlastFurnace(false);
 	public static final Block lit_blast_furnace = new BlockBlastFurnace(true);
     
-    //public static final Block concrete = new ConcreteBlock();
+    public static final Block concrete = new BlockConcrete();
+    public static final Block concrete_powder = new BlockConcretePowder();
     
     //do prismarine slab/stairs
     public static final Block prismarineStairsRough = new BlockPrismarineStairs(prismarine, 0).setBlockName("prismarine_stairs");
@@ -167,11 +168,7 @@ public class ModBlocks {
             trapdoors[i] = new BlockWoodTrapdoor(i + 1);
     }
 
-    public static void init() {
-        if (ConfigurationHandler.enableConcrete) {
-            ConcreteRegistry.init();
-        }
-        
+    public static void init() {        
         try {
             for (Field f : ModBlocks.class.getDeclaredFields()) {
                 Object obj = f.get(null);
@@ -197,8 +194,11 @@ public class ModBlocks {
             else
                 GameRegistry.registerBlock(block, strings[strings.length - 1]);
 
-            if (block instanceof IBurnableBlock)
-                Blocks.fire.setFireInfo(block, 5, 20);
+			if (block instanceof IBurnableBlock) {
+				int[] i = ((IBurnableBlock) block).getFireInfo();
+				if(i != null)
+					Blocks.fire.setFireInfo(block, i[0], i[1]);
+			}
         }
     }
 
@@ -207,6 +207,9 @@ public class ModBlocks {
         Class<? extends ItemBlock> getItemBlockClass();
     }
 
-    public static interface IBurnableBlock {
-    }
+	
+	public static interface IBurnableBlock {
+		
+		int[] getFireInfo();
+	}
 }

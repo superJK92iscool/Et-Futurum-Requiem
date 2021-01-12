@@ -56,4 +56,11 @@ public class BlockWoodFence extends BlockFence implements IBurnableBlock, IConfi
     public boolean isEnabled() {
         return ConfigurationHandler.enableFences;
     }
+
+	@Override
+	public int[] getFireInfo() {
+		if(meta < 6 && ConfigurationHandler.enableBurnableBlocks)
+			return new int[]{5, 20};
+		return null;
+	}
 }

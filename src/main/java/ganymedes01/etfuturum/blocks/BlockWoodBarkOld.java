@@ -4,6 +4,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
+import ganymedes01.etfuturum.ModBlocks.IBurnableBlock;
 import ganymedes01.etfuturum.ModBlocks.ISubBlocksBlock;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.utils.Utils;
@@ -13,7 +14,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.util.IIcon;
 
-public class BlockWoodBarkOld extends BlockOldLog implements IConfigurable, ISubBlocksBlock{
+public class BlockWoodBarkOld extends BlockOldLog implements IConfigurable, ISubBlocksBlock, IBurnableBlock {
     
     public BlockWoodBarkOld() {
         setBlockName(Utils.getUnlocalisedName("bark"));
@@ -41,4 +42,8 @@ public class BlockWoodBarkOld extends BlockOldLog implements IConfigurable, ISub
         return ItemBlockGeneric.class;
     }
 
+	@Override
+	public int[] getFireInfo() {
+		return new int[] {5, 5};
+	}
 }

@@ -1,20 +1,7 @@
 package ganymedes01.etfuturum;
 
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
-import cpw.mods.fml.common.registry.GameRegistry;
-import ganymedes01.etfuturum.blocks.BlockConcrete;
-import ganymedes01.etfuturum.blocks.BlockConcretePowder;
-import ganymedes01.etfuturum.blocks.BlockWoodTrapdoor;
-import ganymedes01.etfuturum.blocks.ConcreteRegistry;
-import ganymedes01.etfuturum.core.utils.EnumDyeColor;
-import ganymedes01.etfuturum.items.block.ItemBlockConcrete;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.PotionHelper;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
@@ -148,15 +135,15 @@ public class CompatTC {
         for (int i = 0; i < ModBlocks.doors.length; i++)
             ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.doors[i]), new AspectList(new ItemStack(Blocks.wooden_door)) );
         
-        
-        for(EnumDyeColor color : EnumDyeColor.values()){
+
+		for (int i = 0; i < 16; i++) {
             //ConcreteRegistry.concretePowders.put(color, new BlockConcretePowder(color));
             //GameRegistry.registerBlock(ConcreteRegistry.concretePowders.get(color), ItemBlockConcrete.class, "concrete_powder_" + color.getUnlocalizedName());
             //ConcreteRegistry.concretes.put(color, new BlockConcrete(color));
             //GameRegistry.registerBlock(ConcreteRegistry.concretes.get(color), ItemBlockConcrete.class, "concrete_" + color.getUnlocalizedName());
             
-            ThaumcraftApi.registerObjectTag(new ItemStack(ConcreteRegistry.concretePowders.get(color)), new AspectList().add(Aspect.EARTH, 3).add(Aspect.ENTROPY, 2) );
-            ThaumcraftApi.registerObjectTag(new ItemStack(ConcreteRegistry.concretes.get(color)), new AspectList(new ItemStack(ConcreteRegistry.concretePowders.get(color))).add(Aspect.WATER, 1).add(Aspect.ORDER, 1) );
+            ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.concrete_powder, 8, i), new AspectList().add(Aspect.EARTH, 3).add(Aspect.ENTROPY, 2) );
+            ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.concrete, 8, i), new AspectList(new ItemStack(ModBlocks.concrete_powder, 8, i)).add(Aspect.WATER, 1).add(Aspect.ORDER, 1) );
             
         }
         

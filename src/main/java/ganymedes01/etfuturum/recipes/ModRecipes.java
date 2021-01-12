@@ -1,12 +1,11 @@
 package ganymedes01.etfuturum.recipes;
 
-import ganymedes01.etfuturum.EtFuturum;
+import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
-import ganymedes01.etfuturum.blocks.ConcreteRegistry;
 import ganymedes01.etfuturum.blocks.Stone;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
-import ganymedes01.etfuturum.core.utils.EnumDyeColor;
 import ganymedes01.etfuturum.lib.EnumColour;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
@@ -21,8 +20,6 @@ import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.registry.GameRegistry;
 
 public class ModRecipes {
 
@@ -375,9 +372,14 @@ public class ModRecipes {
         }
         
         if (ConfigurationHandler.enableConcrete) {
-            for(EnumDyeColor dye : EnumDyeColor.values()){
-                GameRegistry.addShapelessRecipe(new ItemStack(ConcreteRegistry.getPowderFromDye(dye), 8), _SAND_, _SAND_, _SAND_, _SAND_, _GRAVEL_, _GRAVEL_, _GRAVEL_, _GRAVEL_, new ItemStack(Items.dye, 1, dye.getDyeDamage()));
-            }
+			final String[] dyesOD = new String[] {"dyeWhite", "dyeOrange", "dyeMagenta", "dyeLightBlue", "dyeYellow", "dyeLime", "dyePink", "dyeGray", "dyeLightGray", "dyeCyan", "dyePurple", "dyeBlue", "dyeBrown", "dyeGreen", "dyeRed", "dyeBlack"};
+
+			for (int i = 0; i < dyesOD.length; i++) {
+				addShapelessRecipe(new ItemStack(ModBlocks.concrete_powder, 8, i), 
+						new Object[]{dyesOD[i], new ItemStack(Blocks.sand, 1, 0), new ItemStack(Blocks.sand, 1, 0), new ItemStack(Blocks.sand, 1, 0), 
+								new ItemStack(Blocks.sand, 1, 0), Blocks.gravel, Blocks.gravel, Blocks.gravel, Blocks.gravel});
+
+			}
         }
         
         if (ConfigurationHandler.enableRecipeForTotem) {
