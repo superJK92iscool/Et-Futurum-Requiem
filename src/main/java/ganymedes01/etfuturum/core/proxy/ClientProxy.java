@@ -1,5 +1,14 @@
 package ganymedes01.etfuturum.core.proxy;
 
+import java.io.File;
+
+import com.mojang.authlib.minecraft.MinecraftSessionService;
+
+import cpw.mods.fml.client.registry.ClientRegistry;
+import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.relauncher.ReflectionHelper;
+import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.client.renderer.block.BlockChestRenderer;
 import ganymedes01.etfuturum.client.renderer.block.BlockChorusFlowerRender;
@@ -7,6 +16,7 @@ import ganymedes01.etfuturum.client.renderer.block.BlockChorusPlantRender;
 import ganymedes01.etfuturum.client.renderer.block.BlockDoorRenderer;
 import ganymedes01.etfuturum.client.renderer.block.BlockEndRodRender;
 import ganymedes01.etfuturum.client.renderer.block.BlockSlimeBlockRender;
+import ganymedes01.etfuturum.client.renderer.block.BlockTrapDoorRenderer;
 import ganymedes01.etfuturum.client.renderer.entity.ArmourStandRenderer;
 import ganymedes01.etfuturum.client.renderer.entity.EndermiteRenderer;
 import ganymedes01.etfuturum.client.renderer.entity.HuskRenderer;
@@ -42,9 +52,6 @@ import ganymedes01.etfuturum.entities.EntityZombieVillager;
 import ganymedes01.etfuturum.tileentities.TileEntityBanner;
 import ganymedes01.etfuturum.tileentities.TileEntityEndRod;
 import ganymedes01.etfuturum.tileentities.TileEntityNewBeacon;
-
-import java.io.File;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureManager;
@@ -54,13 +61,6 @@ import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntitySkull;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
-
-import com.mojang.authlib.minecraft.MinecraftSessionService;
-
-import cpw.mods.fml.client.registry.ClientRegistry;
-import cpw.mods.fml.client.registry.RenderingRegistry;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.relauncher.ReflectionHelper;
 
 public class ClientProxy extends CommonProxy {
 
@@ -110,6 +110,12 @@ public class ClientProxy extends CommonProxy {
         if (ConfigurationHandler.enableColourfulBeacons)
             ClientRegistry.bindTileEntitySpecialRenderer(TileEntityNewBeacon.class, new TileEntityNewBeaconRenderer());
 
+//		if (EtFuturum.enableBarrel)
+//			RenderingRegistry.registerBlockHandler(new BlockBarrelRenderer());
+		
+		if (ConfigurationHandler.enableTrapdoors)
+			RenderingRegistry.registerBlockHandler(new BlockTrapDoorRenderer());
+		
         RenderingRegistry.registerBlockHandler(new BlockChestRenderer());
     }
 

@@ -117,6 +117,10 @@ public class ConfigurationHandler {
     public static int netheriteBootsDurability;
     
     public static boolean enableIronNugget;
+    
+    //Nether Update temp disabled
+    public static boolean enableCrimsonBlocks = false;
+    public static boolean enableWarpedBlocks = false;
 
     public void init(File file) {
         cfg = new Configuration(file);

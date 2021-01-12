@@ -51,6 +51,13 @@ public class ModRecipes {
 
         if (ConfigurationHandler.enableTrapdoors) {
             removeFirstRecipeFor(Blocks.trapdoor);
+			for (int i = 0; i < ModBlocks.trapdoors.length; i++) {
+				if((i == 5 && !ConfigurationHandler.enableCrimsonBlocks) || (i == 6 && !ConfigurationHandler.enableWarpedBlocks))
+					continue;
+				ItemStack planks = /* i < 5 ? */new ItemStack(Blocks.planks, 1, i + 1)/* : new ItemStack(ModBlocks.nether_planks, 1, i - 5) */;
+				addShapedRecipe(new ItemStack(ModBlocks.trapdoors[i], 3), "xxx", "xxx", 'x', planks);
+			}
+			addShapedRecipe(new ItemStack(Blocks.trapdoor, 3), "xxx", "xxx", 'x', "plankWood");
         }
 
         if (ConfigurationHandler.enableFences) {

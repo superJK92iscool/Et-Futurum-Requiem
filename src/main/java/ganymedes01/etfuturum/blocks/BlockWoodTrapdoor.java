@@ -1,17 +1,15 @@
 package ganymedes01.etfuturum.blocks;
 
-import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.IConfigurable;
-import ganymedes01.etfuturum.ModBlocks.IBurnableBlock;
-import ganymedes01.etfuturum.configuration.ConfigurationHandler;
-import ganymedes01.etfuturum.core.utils.Utils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.block.BlockPressurePlate;
+import ganymedes01.etfuturum.EtFuturum;
+import ganymedes01.etfuturum.IConfigurable;
+import ganymedes01.etfuturum.configuration.ConfigurationHandler;
+import ganymedes01.etfuturum.core.utils.Utils;
+import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.BlockTrapDoor;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.IIcon;
 
 public class BlockWoodTrapdoor extends BlockTrapDoor implements IConfigurable{
@@ -54,9 +52,20 @@ public class BlockWoodTrapdoor extends BlockTrapDoor implements IConfigurable{
         return this.icon[this.meta];
     }
 
-    @Override
-    public boolean isEnabled() {
-        return ConfigurationHandler.enableTrapdoors;
+	
+	@Override
+    public int getRenderType()
+    {
+        return RenderIDs.TRAP_DOOR;
     }
+
+	@Override
+	public boolean isEnabled() {
+//		if(meta == 6 && !ConfigurationHandler.enableCrimsonBlocks)
+//			return false;
+//		if(meta == 7 && !ConfigurationHandler.enableWarpedBlocks)
+//			return false;
+		return ConfigurationHandler.enableTrapdoors;
+	}
 
 }
