@@ -603,7 +603,9 @@ public class ServerEventHandler {
         player.worldObj.playSoundEffect(player.posX + 0.5, player.posY + 0.5, player.posZ + 0.5, "etfuturum:item.totem_use", 1.0f, player.worldObj.rand.nextFloat() * 0.1f + 0.9f);
         
         player.clearActivePotions();
-        player.setHealth(1.0F);
+        float healpercent = (float)ConfigurationHandler.totemHealPercent / 100;
+        player.setHealth(player.getMaxHealth() * healpercent);
+        player.performHurtAnimation();
         player.addPotionEffect(new PotionEffect(Potion.regeneration.id, 900, 1));
         player.addPotionEffect(new PotionEffect(Potion.fireResistance.id, 800, 1));
         player.addPotionEffect(new PotionEffect(Potion.field_76444_x.id, 100, 1));
