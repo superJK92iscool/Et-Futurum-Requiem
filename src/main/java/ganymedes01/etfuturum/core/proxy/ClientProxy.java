@@ -8,13 +8,14 @@ import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.ReflectionHelper;
-import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
+import ganymedes01.etfuturum.client.renderer.block.BlockBarrelRenderer;
 import ganymedes01.etfuturum.client.renderer.block.BlockChestRenderer;
 import ganymedes01.etfuturum.client.renderer.block.BlockChorusFlowerRender;
 import ganymedes01.etfuturum.client.renderer.block.BlockChorusPlantRender;
 import ganymedes01.etfuturum.client.renderer.block.BlockDoorRenderer;
 import ganymedes01.etfuturum.client.renderer.block.BlockEndRodRender;
+import ganymedes01.etfuturum.client.renderer.block.BlockLanternRenderer;
 import ganymedes01.etfuturum.client.renderer.block.BlockSlimeBlockRender;
 import ganymedes01.etfuturum.client.renderer.block.BlockTrapDoorRenderer;
 import ganymedes01.etfuturum.client.renderer.entity.ArmourStandRenderer;
@@ -110,8 +111,11 @@ public class ClientProxy extends CommonProxy {
         if (ConfigurationHandler.enableColourfulBeacons)
             ClientRegistry.bindTileEntitySpecialRenderer(TileEntityNewBeacon.class, new TileEntityNewBeaconRenderer());
 
-//		if (EtFuturum.enableBarrel)
-//			RenderingRegistry.registerBlockHandler(new BlockBarrelRenderer());
+		if (ConfigurationHandler.enableLantern)
+			RenderingRegistry.registerBlockHandler(new BlockLanternRenderer());
+		
+		if (ConfigurationHandler.enableBarrel)
+			RenderingRegistry.registerBlockHandler(new BlockBarrelRenderer());
 		
 		if (ConfigurationHandler.enableTrapdoors)
 			RenderingRegistry.registerBlockHandler(new BlockTrapDoorRenderer());

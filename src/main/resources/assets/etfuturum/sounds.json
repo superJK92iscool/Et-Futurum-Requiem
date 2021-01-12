@@ -122,5 +122,18 @@
       "block/brewing_stand/brew1",
       "block/brewing_stand/brew2"
     ]
+  },
+  "block.barrel.close": {
+    "category": "block",
+    "sounds": [
+	"block/barrel/close"
+    ]
+  },
+  "block.barrel.open": {
+    "category": "block",
+    "sounds": [
+        "block/barrel/open1",
+        "block/barrel/open2"
+    ]
   }
 }

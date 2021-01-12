@@ -77,6 +77,8 @@ public class ConfigurationHandler {
     public static boolean enableShearableGolems;
     public static boolean enableShearableCobwebs;
     public static boolean enableFloatingTrapDoors;
+    public static boolean enableBarrel;
+    public static boolean enableLantern;
 
     public static boolean enableRedNetherBrick;
     public static boolean enableNetherwartBlock;
@@ -162,6 +164,9 @@ public class ConfigurationHandler {
         enableWoodRedstone = cfg.getBoolean("enableWoodRedstone", catBlock, true, "Enables wood variant buttons and pressure plates");
         enableStrippedLogs = cfg.getBoolean("enableStrippedLogs", catBlock, true, "Enables stripped log blocks");
         enableBarkLogs = cfg.getBoolean("enableBarkLogs", catBlock, true, "Enables log blocks with bark on all sides");
+        
+        enableBarrel = cfg.getBoolean("enableBarrel", catBlock, true, "");
+        enableLantern = cfg.getBoolean("enableLantern", catBlock, true, "");
         
         //items
         enableMutton = cfg.getBoolean("enableMutton", catItems, true, "");

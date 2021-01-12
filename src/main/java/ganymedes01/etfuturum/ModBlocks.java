@@ -1,8 +1,13 @@
 package ganymedes01.etfuturum;
 
+import java.lang.reflect.Field;
+
+import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.etfuturum.blocks.BlockAncientDebris;
 import ganymedes01.etfuturum.blocks.BlockBanner;
+import ganymedes01.etfuturum.blocks.BlockBarrel;
 import ganymedes01.etfuturum.blocks.BlockBeetroot;
+import ganymedes01.etfuturum.blocks.BlockLantern;
 import ganymedes01.etfuturum.blocks.BlockNetherite;
 import ganymedes01.etfuturum.blocks.BlockNetheriteStairs;
 import ganymedes01.etfuturum.blocks.BlockPrismarineStairs;
@@ -57,15 +62,10 @@ import ganymedes01.etfuturum.blocks.SlimeBlock;
 import ganymedes01.etfuturum.blocks.Sponge;
 import ganymedes01.etfuturum.blocks.Stone;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
-
-import java.lang.reflect.Field;
-
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockStairs;
 import net.minecraft.block.BlockWood;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBlock;
-import cpw.mods.fml.common.registry.GameRegistry;
 
 public class ModBlocks {
 
@@ -110,6 +110,8 @@ public class ModBlocks {
     public static final Block ancient_debris = new BlockAncientDebris();
     public static final Block netherite_block = new BlockNetherite();
     public static final Block netherite_stairs = new BlockNetheriteStairs();
+	public static final Block barrel = new BlockBarrel();
+	public static final Block lantern = new BlockLantern();
     
     //public static final Block concrete = new ConcreteBlock();
     

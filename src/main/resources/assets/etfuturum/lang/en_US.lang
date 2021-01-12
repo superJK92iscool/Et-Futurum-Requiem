@@ -1,15 +1,15 @@
-# Creative Tab
+ Creative Tab
 itemGroup.etfuturum.items=Et Futurum Items
 itemGroup.etfuturum.blocks=Et Futurum Blocks
 
-# Enchantments
+ Enchantments
 enchantment.frost_walker=Frost Walker
 enchantment.mending=Mending
 enchantment.waterWalker=Depth Strider
 enchantment.binding_curse=§cCurse of Binding
 enchantment.vanishing_curse=§cCurse of Vanishing
 
-# Containers
+ Containers
 container.etfuturum.banner=Banner
 container.enchant.lapis.one=1 Lapis Lazuli
 container.enchant.lapis.many=%d Lapis Lazuli
@@ -17,8 +17,11 @@ container.enchant.level.required=Level Requirement
 container.enchant.level.one=1 Enchantment Level
 container.enchant.level.many=%d Enchantment Levels
 container.enchant.clue=%s . . . ?
+container.etfuturum.blast_furnace=Blast Furnace
+container.etfuturum.smoker=Smoker
+container.etfuturum.barrel=Barrel
 
-# Entities
+ Entities
 entity.etfuturum.endermite.name=Endermite
 entity.etfuturum.wooden_armorstand.name=Armour Stand
 entity.etfuturum.rabbit.name=Rabbit
@@ -34,7 +37,7 @@ entity.etfuturum.elder_guardian.name=Elder Guardian
 entity.etfuturum.shulker.name=Shulker
 entity.etfuturum.polar_bear.name=Polar Bear
 
-# Items
+ Items
 item.etfuturum.mutton_raw.name=Raw Mutton
 item.etfuturum.mutton_cooked.name=Cooked Mutton
 item.etfuturum.prismarine_shard.name=Prismarine Shard
@@ -68,7 +71,7 @@ item.etfuturum.netherite_hoe.name=Netherite Hoe
 potion.prefix.lingering=Lingering
 item.etfuturum.totem_of_undying.name=Totem of Undying
 
-# Arrows
+ Arrows
 item.etfuturum.tipped_arrow.name=Tipped Arrow
 tipped_arrow.effect.empty.name=Uncraftable Tipped Arrow
 tipped_arrow.potion.nightVision.name=Arrow of Night Vision
@@ -86,7 +89,7 @@ tipped_arrow.potion.damageBoost.name=Arrow of Strength
 tipped_arrow.potion.weakness.name=Arrow of Weakness
 
 
-# Blocks
+ Blocks
 tile.etfuturum.stone_granite.name=Granite
 tile.etfuturum.stone_granite_smooth.name=Polished Granite
 tile.etfuturum.stone_diorite.name=Diorite
@@ -149,9 +152,9 @@ tile.etfuturum.anvil.veryDamaged.name=Very Damaged Anvil
 tile.etfuturum.daylight_sensor.name=Daylight Sensor
 tile.etfuturum.ancient_debris.name=Ancient Debris
 tile.etfuturum.netherite_block.name=Block of Netherite
-tile.etfuturum.netherite_stairs.name=Netherite Stairs
+tile.etfuturum.netherite_stairs.name=Swaggiest stairs ever
 
-#tile.etfuturum..name=
+tile.etfuturum..name=
 
 tile.etfuturum.magma.name=Magma Block
 tile.etfuturum.nether_wart.name=Nether Wart Block
@@ -207,7 +210,7 @@ tile.etfuturum.wood_stripped_3.name=Stripped Jungle Wood
 tile.etfuturum.wood2_stripped_0.name=Stripped Acacia Wood
 tile.etfuturum.wood2_stripped_1.name=Stripped Dark Oak Wood
 
-#pretend these don't have to exist for WAILA
+pretend these don't have to exist for WAILA
 tile.etfuturum.log_stripped_4.name=Stripped Oak Log
 tile.etfuturum.log_stripped_5.name=Stripped Spruce Log
 tile.etfuturum.log_stripped_6.name=Stripped Birch Log
@@ -267,24 +270,29 @@ tile.etfuturum.wood2_stripped_8.name=Stripped Acacia Wood
 tile.etfuturum.wood2_stripped_9.name=Stripped Dark Oak Wood
 tile.etfuturum.wood2_stripped_12.name=Stripped Acacia Wood
 tile.etfuturum.wood2_stripped_13.name=Stripped Dark Oak Wood
-#
 
-#tile.etfuturum.glazedTerracottaWhite.name=White Glazed Terracotta
-#tile.etfuturum.glazedTerracottaOrange.name=Orange Glazed Terracotta
-#tile.etfuturum.glazedTerracottaMagenta.name=Magenta Glazed Terracotta
-#tile.etfuturum.glazedTerracottaLightBlue.name=Light Blue Glazed Terracotta
-#tile.etfuturum.glazedTerracottaYellow.name=Yellow Glazed Terracotta
-#tile.etfuturum.glazedTerracottaLime.name=Lime Glazed Terracotta
-#tile.etfuturum.glazedTerracottaPink.name=Pink Glazed Terracotta
-#tile.etfuturum.glazedTerracottaGray.name=Gray Glazed Terracotta
-#tile.etfuturum.glazedTerracottaSilver.name=Light Gray Glazed Terracotta
-#tile.etfuturum.glazedTerracottaCyan.name=Cyan Glazed Terracotta
-#tile.etfuturum.glazedTerracottaPurple.name=Purple Glazed Terracotta
-#tile.etfuturum.glazedTerracottaBlue.name=Blue Glazed Terracotta
-#tile.etfuturum.glazedTerracottaBrown.name=Brown Glazed Terracotta
-#tile.etfuturum.glazedTerracottaGreen.name=Green Glazed Terracotta
-#tile.etfuturum.glazedTerracottaRed.name=Red Glazed Terracotta
-#tile.etfuturum.glazedTerracottaBlack.name=Black Glazed Terracotta
+
+tile.etfuturum.glazedTerracottaWhite.name=White Glazed Terracotta
+tile.etfuturum.glazedTerracottaOrange.name=Orange Glazed Terracotta
+tile.etfuturum.glazedTerracottaMagenta.name=Magenta Glazed Terracotta
+tile.etfuturum.glazedTerracottaLightBlue.name=Light Blue Glazed Terracotta
+tile.etfuturum.glazedTerracottaYellow.name=Yellow Glazed Terracotta
+tile.etfuturum.glazedTerracottaLime.name=Lime Glazed Terracotta
+tile.etfuturum.glazedTerracottaPink.name=Pink Glazed Terracotta
+tile.etfuturum.glazedTerracottaGray.name=Gray Glazed Terracotta
+tile.etfuturum.glazedTerracottaSilver.name=Light Gray Glazed Terracotta
+tile.etfuturum.glazedTerracottaCyan.name=Cyan Glazed Terracotta
+tile.etfuturum.glazedTerracottaPurple.name=Purple Glazed Terracotta
+tile.etfuturum.glazedTerracottaBlue.name=Blue Glazed Terracotta
+tile.etfuturum.glazedTerracottaBrown.name=Brown Glazed Terracotta
+tile.etfuturum.glazedTerracottaGreen.name=Green Glazed Terracotta
+tile.etfuturum.glazedTerracottaRed.name=Red Glazed Terracotta
+tile.etfuturum.glazedTerracottaBlack.name=Black Glazed Terracotta
+
+tile.etfuturum.barrel.name=Barrel
+tile.etfuturum.blast_furnace.name=Blast Furnace
+tile.etfuturum.smoker.name=Smoker
+tile.etfuturum.lantern.name=Lantern
 
 tile.concrete_powder.name=%s Concrete Powder
 tile.concrete.name=%s Concrete
@@ -306,30 +314,30 @@ color.green=Green
 color.red=Red
 color.black=Black
 
-#NYI
-#tile.shulkerBoxWhite.name=White Shulker Box
-#tile.shulkerBoxOrange.name=Orange Shulker Box
-#tile.shulkerBoxMagenta.name=Magenta Shulker Box
-#tile.shulkerBoxLightBlue.name=Light Blue Shulker Box
-#tile.shulkerBoxYellow.name=Yellow Shulker Box
-#tile.shulkerBoxLime.name=Lime Shulker Box
-#tile.shulkerBoxPink.name=Pink Shulker Box
-#tile.shulkerBoxGray.name=Gray Shulker Box
-#ile.shulkerBoxSilver.name=Light Gray Shulker Box
-#tile.shulkerBoxCyan.name=Cyan Shulker Box
-#tile.shulkerBoxPurple.name=Purple Shulker Box
-#tile.shulkerBoxBlue.name=Blue Shulker Box
-#ile.shulkerBoxBrown.name=Brown Shulker Box
-#tile.shulkerBoxGreen.name=Green Shulker Box
-#tile.shulkerBoxRed.name=Red Shulker Box
-#tile.shulkerBoxBlack.name=Black Shulker Box
+NYI
+tile.shulkerBoxWhite.name=White Shulker Box
+tile.shulkerBoxOrange.name=Orange Shulker Box
+tile.shulkerBoxMagenta.name=Magenta Shulker Box
+tile.shulkerBoxLightBlue.name=Light Blue Shulker Box
+tile.shulkerBoxYellow.name=Yellow Shulker Box
+tile.shulkerBoxLime.name=Lime Shulker Box
+tile.shulkerBoxPink.name=Pink Shulker Box
+tile.shulkerBoxGray.name=Gray Shulker Box
+ile.shulkerBoxSilver.name=Light Gray Shulker Box
+tile.shulkerBoxCyan.name=Cyan Shulker Box
+tile.shulkerBoxPurple.name=Purple Shulker Box
+tile.shulkerBoxBlue.name=Blue Shulker Box
+ile.shulkerBoxBrown.name=Brown Shulker Box
+tile.shulkerBoxGreen.name=Green Shulker Box
+tile.shulkerBoxRed.name=Red Shulker Box
+tile.shulkerBoxBlack.name=Black Shulker Box
 
 util.totemBreak=§a§oYour Totem of Undying shatters...
 
 death.attack.hotFloor=%1$s discovered floor was lava
 death.attack.hotFloor.player=%1$s walked into danger zone due to %2$s
 
-# Banners
+ Banners
 item.banner.black.name=Black Banner
 item.banner.red.name=Red Banner
 item.banner.green.name=Green Banner
@@ -996,7 +1004,7 @@ item.banner.straight_cross.white=White Cross
 
 
 
-#vanilla overrides
+vanilla overrides
 tile.clayHardenedStained.black.name=Black Terracotta
 tile.clayHardenedStained.red.name=Red Terracotta
 tile.clayHardenedStained.green.name=Green Terracotta
