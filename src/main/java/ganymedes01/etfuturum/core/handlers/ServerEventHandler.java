@@ -147,7 +147,8 @@ public class ServerEventHandler {
 		double z = event.entityLiving.posZ;
 		if(ConfigurationHandler.enableMagmaBlock)
 			if(!entity.worldObj.isRemote && !entity.isImmuneToFire() && !entity.isSneaking() && entity.onGround
-					&& entity.worldObj.getBlock((int)x, (int)(y - .45), (int)z) == ModBlocks.magma_block) {
+					&& entity.worldObj.getBlock(MathHelper.floor_double(x), (int)(y - .45), MathHelper.floor_double(z)) == ModBlocks.magma_block) {
+				System.out.println("On magma");
 				NBTTagList enchants;
 				boolean flag = true;
 				if(entity instanceof EntityPlayer && ((EntityPlayer) entity).inventory.getStackInSlot(36) != null
