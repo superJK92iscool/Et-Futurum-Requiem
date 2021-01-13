@@ -127,6 +127,8 @@ public class ConfigurationHandler {
     public static boolean enableIronNugget;
     
     public static boolean enableNewBlocksSounds;
+    public static boolean enableNewMiscSounds;
+    public static boolean enableNewAmbientSounds;
     
     //Nether Update temp disabled
     public static boolean enableCrimsonBlocks = false;
@@ -258,7 +260,9 @@ public class ConfigurationHandler {
         enableBowRendering = cfg.getBoolean("enableBowRendering", catClient, true, "Bows render pulling animation on inventory");
         enableFancySkulls = cfg.getBoolean("enableFancySkulls", catClient, true, "Skulls render 3D in inventory");
         enablePlayerSkinOverlay = cfg.getBoolean("enablePlayerSkinOverlay", catClient, true, "Allows use of 1.8 skin format. Disable if skin is displaying oddly.");
-        enableNewBlocksSounds = cfg.getBoolean("enableNewBlocksSounds", catClient, true, "New Blocks sounds, such as the new place/break sounds added alongside new blocks, or ones added to existing blocks, and stuff like furnace crackling.");
+        enableNewBlocksSounds = cfg.getBoolean("enableNewBlocksSounds", catClient, true, "New Blocks sounds, such as the new place/break sounds added alongside new blocks, or ones added to existing blocks");
+        enableNewMiscSounds = cfg.getBoolean("enableNewMiscSounds", catClient, true, "New sounds like furnace crackling, chests etc.");
+        enableNewAmbientSounds = cfg.getBoolean("enableNewAmbientSounds", catClient, true, "New ambient sounds like rain, cave sounds");
      
         
         if (cfg.hasChanged()) {

@@ -1,22 +1,23 @@
 package ganymedes01.etfuturum.core.handlers;
 
-import ganymedes01.etfuturum.IConfigurable;
-import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.configuration.ConfigurationHandler;
-
 import java.util.HashMap;
 import java.util.Map;
 
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.TickEvent.Phase;
+import cpw.mods.fml.common.gameevent.TickEvent.WorldTickEvent;
+import cpw.mods.fml.relauncher.Side;
+import ganymedes01.etfuturum.IConfigurable;
+import ganymedes01.etfuturum.ModBlocks;
+import ganymedes01.etfuturum.configuration.ConfigurationHandler;
+import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.world.World;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.TickEvent.Phase;
-import cpw.mods.fml.common.gameevent.TickEvent.WorldTickEvent;
-import cpw.mods.fml.relauncher.Side;
 
 public class WorldTickEventHandler {
 
@@ -51,6 +52,16 @@ public class WorldTickEventHandler {
             int x = tile.xCoord;
             int y = tile.yCoord;
             int z = tile.zCoord;
+			if (ConfigurationHandler.enableNewMiscSounds && tile instanceof TileEntityFurnace) {
+				TileEntityFurnace furnace = null;
+				if(tile instanceof TileEntityFurnace) {
+					furnace = (TileEntityFurnace) tile;
+				}
+				int burnint = world.rand.nextInt(75);
+				if(furnace != null && furnace.isBurning() && burnint == 0) {
+					world.playSoundEffect(x + .5D, y + .5D, z + .5D, Reference.MOD_ID + ":block.furnace.fire_crackle", 1, (world.rand.nextFloat() * 0.1F) + 0.9F);
+				}
+			}
             Block replacement = replacements.get(world.getBlock(x, y, z));
             if (replacement != null && ((IConfigurable) replacement).isEnabled()) {
                 NBTTagCompound nbt = new NBTTagCompound();

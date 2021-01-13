@@ -627,11 +627,12 @@ public class ServerEventHandler {
         }
         this.decreaseItemByOne(player, ModItems.totem);
         //this.spawnTotemParticles(player);
-        player.worldObj.playSoundEffect(player.posX + 0.5, player.posY + 0.5, player.posZ + 0.5, "etfuturum:item.totem_use", 1.0f, player.worldObj.rand.nextFloat() * 0.1f + 0.9f);
+        player.worldObj.playSoundEffect(player.posX + 0.5, player.posY + 0.5, player.posZ + 0.5, Reference.MOD_ID + ":item.totem_use", 1.0f, player.worldObj.rand.nextFloat() * 0.1f + 0.9f);
         
         player.clearActivePotions();
         float healpercent = (float)ConfigurationHandler.totemHealPercent / 100;
-        player.setHealth(player.getMaxHealth() * healpercent);
+        float sethp = player.getMaxHealth() * healpercent;
+        player.setHealth(sethp < .5F ? .5F : sethp);
         player.performHurtAnimation();
         player.addPotionEffect(new PotionEffect(Potion.regeneration.id, 900, 1));
         player.addPotionEffect(new PotionEffect(Potion.fireResistance.id, 800, 1));
