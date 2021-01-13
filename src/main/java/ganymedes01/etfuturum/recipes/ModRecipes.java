@@ -6,6 +6,7 @@ import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.blocks.Stone;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
+import ganymedes01.etfuturum.core.utils.HoeHelper;
 import ganymedes01.etfuturum.lib.EnumColour;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;

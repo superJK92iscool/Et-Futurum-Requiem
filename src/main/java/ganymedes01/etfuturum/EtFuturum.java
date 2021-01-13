@@ -23,6 +23,7 @@ import cpw.mods.fml.relauncher.Side;
 import ganymedes01.etfuturum.command.SetPlayerModelCommand;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.proxy.CommonProxy;
+import ganymedes01.etfuturum.core.utils.HoeHelper;
 import ganymedes01.etfuturum.entities.ModEntityList;
 import ganymedes01.etfuturum.items.ItemEntityEgg;
 import ganymedes01.etfuturum.lib.Reference;
@@ -140,6 +141,10 @@ public class EtFuturum {
         if (Loader.isModLoaded("Thaumcraft")) {
             CompatTC.doAspects();
         }
+
+        if(ConfigurationHandler.enableHoeMining) {
+        	HoeHelper.init();
+        }
     }
 
     @EventHandler
@@ -159,18 +164,28 @@ public class EtFuturum {
             event.registerServerCommand(new SetPlayerModelCommand());
     }
 
-    private void setFinalField(Class<?> cls, Object obj, Object newValue, String... fieldNames) {
-        try {
-            Field field = ReflectionHelper.findField(cls, fieldNames);
-            field.setAccessible(true);
+	private void setFinalField(Class<?> cls, Object obj, Object newValue, String... fieldNames) {
+		try {
+			Field field = null;
+			Field[] fieldList = cls.getFields();
+			for(int i = 0; i < fieldList.length; i++) {
+				for(int j = 0; j < fieldNames.length; j++)
+					if(fieldList[i].getName().equals(fieldNames[j])) {
+						field = fieldList[i];
+						break;
+					}
+				if(field == null)
+					continue;
+				field.setAccessible(true);
 
-            Field modifiersField = Field.class.getDeclaredField("modifiers");
-            modifiersField.setAccessible(true);
-            modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+				Field modifiersField = Field.class.getDeclaredField("modifiers");
+				modifiersField.setAccessible(true);
+				modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
 
-            field.set(obj, newValue);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+				field.set(obj, newValue);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

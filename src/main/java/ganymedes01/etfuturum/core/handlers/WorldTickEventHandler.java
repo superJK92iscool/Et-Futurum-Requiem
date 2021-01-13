@@ -45,7 +45,7 @@ public class WorldTickEventHandler {
     public void onClientTick(ClientTickEvent event)
     {
         World world = Minecraft.getMinecraft().theWorld;
-        if(world == null || event.phase != Phase.START)
+        if( ConfigurationHandler.enableNewMiscSounds || world == null || event.phase != Phase.START)
         	return;
         
         boolean tickchecktime = world.getTotalWorldTime() % 5 == 0;

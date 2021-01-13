@@ -24,6 +24,7 @@ import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.blocks.MagmaBlock;
 import ganymedes01.etfuturum.command.SetPlayerModelCommand;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
+import ganymedes01.etfuturum.core.utils.HoeHelper;
 import ganymedes01.etfuturum.entities.EntityEndermite;
 import ganymedes01.etfuturum.entities.EntityNewSnowGolem;
 import ganymedes01.etfuturum.entities.EntityRabbit;
@@ -36,6 +37,8 @@ import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.network.BlackHeartParticlesMessage;
 import ganymedes01.etfuturum.network.SetPlayerModelMessage;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockLeaves;
+import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -62,6 +65,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemShears;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -77,6 +81,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.StatCollector;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
@@ -340,6 +345,77 @@ public class ServerEventHandler {
                 }
             }
     }
+	
+	@SubscribeEvent
+	public void onBlockBroken(BlockEvent.BreakEvent event) {
+		if(ConfigurationHandler.enableHoeMining && (double)event.block.getBlockHardness(event.world, event.x, event.y, event.z) != 0.0D) {
+			ItemStack itemstack = event.getPlayer().getHeldItem();
+			if(itemstack != null && itemstack.getItem() instanceof ItemHoe) {
+				itemstack.damageItem(1, event.getPlayer());
+			}
+		}
+	}
+	
+	@SubscribeEvent
+	public void breakSpeedEvent(PlayerEvent.BreakSpeed event) {
+		boolean flag = false;
+		float toolSpeed = 0;
+		float speedModifier = 0;
+		if(ConfigurationHandler.enableHoeMining && HoeHelper.hoeArrayHas(event.block)) {
+			ItemStack stack = event.entityPlayer.getHeldItem();
+			if(stack != null && stack.getItem() instanceof ItemHoe) {
+				try {
+					Item hoe = stack.getItem();
+					toolSpeed = HoeHelper.getToolSpeed(hoe);
+					speedModifier = this.speedModifier(event.entityPlayer, event.block, event.metadata, toolSpeed);
+					flag = true;
+				} catch (IllegalArgumentException e) {
+					e.printStackTrace();
+				}
+			}
+			
+		}
+		if(flag)
+			event.newSpeed = event.originalSpeed + toolSpeed + speedModifier;
+	}
+	
+	public float speedModifier(EntityPlayer entity, Block block, int meta, float digSpeed) {
+		float moddedDigSpeed = 1;
+		
+        int i = EnchantmentHelper.getEfficiencyModifier(entity);
+        ItemStack itemstack = entity.inventory.getCurrentItem();
+
+        if (i > 0 && itemstack != null)
+        {
+            float f1 = (float)(i * i + 1);
+
+            boolean canHarvest = ForgeHooks.canToolHarvestBlock(block, meta, itemstack);
+            moddedDigSpeed += f1;
+        }
+
+        if (entity.isPotionActive(Potion.digSpeed))
+        {
+            moddedDigSpeed *= 1.0F + (float)(entity.getActivePotionEffect(Potion.digSpeed).getAmplifier() + 1) * 0.2F;
+        }
+
+        if (entity.isPotionActive(Potion.digSlowdown))
+        {
+            moddedDigSpeed *= 1.0F - (float)(entity.getActivePotionEffect(Potion.digSlowdown).getAmplifier() + 1) * 0.2F;
+        }
+
+        if (entity.isInsideOfMaterial(Material.water) && !EnchantmentHelper.getAquaAffinityModifier(entity))
+        {
+            moddedDigSpeed /= 5.0F;
+        }
+
+        if (!entity.onGround)
+        {
+            moddedDigSpeed /= 5.0F;
+        }
+        
+        return moddedDigSpeed - 1 < 0 ? 0 : moddedDigSpeed - 1;
+	}
+
 
     @SubscribeEvent
     public void onPlayerInteract(PlayerInteractEvent event) {
