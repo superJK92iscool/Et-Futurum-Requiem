@@ -90,9 +90,12 @@ public class ModRecipes {
         OreDictionary.registerOre("pressurePlateStone", new ItemStack(Blocks.stone_pressure_plate));
         OreDictionary.registerOre("pressurePlateIron", new ItemStack(Blocks.heavy_weighted_pressure_plate));
         OreDictionary.registerOre("pressurePlateGold", new ItemStack(Blocks.light_weighted_pressure_plate));
-        
         OreDictionary.registerOre("bowlWood", new ItemStack(Items.bowl));
 
+        if (ConfigurationHandler.enableIronNugget) {
+        	OreDictionary.registerOre("nuggetIron", new ItemStack(ModItems.iron_nugget));
+        }
+        
         if (ConfigurationHandler.enableMutton) {
             OreDictionary.registerOre("foodMuttonraw", new ItemStack(ModItems.raw_mutton));
             OreDictionary.registerOre("listAllmeatraw", new ItemStack(ModItems.raw_mutton));
@@ -186,9 +189,15 @@ public class ModRecipes {
 
         if (ConfigurationHandler.enableMutton)
             GameRegistry.addSmelting(ModItems.raw_mutton, new ItemStack(ModItems.cooked_mutton), 0.35F);
+        
+        if (ConfigurationHandler.enableIronNugget) {
+        	addShapedRecipe(new ItemStack(Items.iron_ingot), "xxx", "xxx", "xxx", 'x', "nuggetIron");
+        	GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModItems.iron_nugget, 9), new Object[] { "ingotIron" }));
+        }
 
-        if (ConfigurationHandler.enableIronTrapdoor)
+        if (ConfigurationHandler.enableIronTrapdoor) {
             addShapedRecipe(new ItemStack(ModBlocks.iron_trapdoor), "xx", "xx", 'x', "ingotIron");
+        }
 
         if (ConfigurationHandler.enableStones) {
             // Diorite
@@ -227,15 +236,17 @@ public class ModRecipes {
         }
 
         if (ConfigurationHandler.enableDoors) {
-            for (int i = 0; i < ModBlocks.doors.length; i++)
+            for (int i = 0; i < ModBlocks.doors.length; i++) {
                 addShapedRecipe(new ItemStack(ModBlocks.doors[i], 3), "xx", "xx", "xx", 'x', new ItemStack(Blocks.planks, 1, i + 1));
+            }
             addShapedRecipe(new ItemStack(Items.wooden_door, 3), "xx", "xx", "xx", 'x', "plankWood");
             addShapedRecipe(new ItemStack(Items.iron_door, 3), "xx", "xx", "xx", 'x', "ingotIron");
         }
 
         if (ConfigurationHandler.enableTrapdoors) {
-            for (int i = 0; i < ModBlocks.trapdoors.length; i++)
+            for (int i = 0; i < ModBlocks.trapdoors.length; i++) {
                 addShapedRecipe(new ItemStack(ModBlocks.trapdoors[i], 2), "xxx", "xxx", 'x', new ItemStack(Blocks.planks, 1, i + 1));
+            }
             addShapedRecipe(new ItemStack(Blocks.trapdoor, 2), "xxx", "xxx", 'x', "plankWood");
         }
 
@@ -248,26 +259,30 @@ public class ModRecipes {
         }
 
         if (ConfigurationHandler.enableFences) {
-            for (int i = 0; i < ModBlocks.fences.length; i++)
+            for (int i = 0; i < ModBlocks.fences.length; i++) {
                 addShapedRecipe(new ItemStack(ModBlocks.fences[i], 3), "xyx", "xyx", 'x', new ItemStack(Blocks.planks, 1, i), 'y', "stickWood");
+            }
             addShapedRecipe(new ItemStack(ModBlocks.fences[0], 3), "xyx", "xyx", 'x', "plankWood", 'y', "stickWood");
             addShapelessRecipe(new ItemStack(Blocks.fence), ModBlocks.fences[0]);
             addShapelessRecipe(new ItemStack(ModBlocks.fences[0]), Blocks.fence);
 
-            for (int i = 0; i < ModBlocks.gates.length; i++)
+            for (int i = 0; i < ModBlocks.gates.length; i++) {
                 addShapedRecipe(new ItemStack(ModBlocks.gates[i]), "yxy", "yxy", 'x', new ItemStack(Blocks.planks, 1, i + 1), 'y', "stickWood");
+            }
             addShapedRecipe(new ItemStack(Blocks.fence_gate), "yxy", "yxy", 'x', "plankWood", 'y', "stickWood");
         }
 
         if (ConfigurationHandler.enableBanners) {
-            for (EnumColour colour : EnumColour.values())
+            for (EnumColour colour : EnumColour.values()) {
                 addShapedRecipe(new ItemStack(ModBlocks.banner, 1, colour.getDamage()), new Object[] { "xxx", "xxx", " y ", 'x', new ItemStack(Blocks.wool, 1, colour.getDamage()), 'y', "stickWood" });
+            }
             GameRegistry.addRecipe(new RecipeDuplicatePattern());
             GameRegistry.addRecipe(new RecipeAddPattern());
         }
 
-        if (ConfigurationHandler.enableArmourStand)
+        if (ConfigurationHandler.enableArmourStand) {
             addShapedRecipe(new ItemStack(ModItems.armour_stand), "xxx", " x ", "xyx", 'x', "stickWood", 'y', new ItemStack(Blocks.stone_slab));
+        }
 
         if (ConfigurationHandler.enableRabbit) {
             addShapedRecipe(new ItemStack(ModItems.rabbit_stew), " R ", "CPM", " B ", 'R', new ItemStack(ModItems.cooked_rabbit), 'C', Items.carrot, 'P', Items.baked_potato, 'M', Blocks.brown_mushroom, 'B', "bowlWood");
@@ -276,8 +291,9 @@ public class ModRecipes {
             addShapedRecipe(new ItemStack(Items.leather), "xx", "xx", 'x', ModItems.rabbit_hide);
         }
 
-        if (ConfigurationHandler.enableOldGravel)
+        if (ConfigurationHandler.enableOldGravel) {
             addShapedRecipe(new ItemStack(ModBlocks.old_gravel, 4), "xy", "yx", 'x', ModBlocks.coarse_dirt, 'y', Blocks.gravel);
+        }
 
         if (ConfigurationHandler.enableSponge) {
             addShapelessRecipe(new ItemStack(ModBlocks.sponge), Blocks.sponge);
@@ -300,14 +316,17 @@ public class ModRecipes {
             addShapedRecipe(new ItemStack(ModBlocks.end_rod), "x", "y", 'x', Items.blaze_rod, 'y', ModItems.popped_chorus_fruit);
         }
 
-        if (ConfigurationHandler.enableCryingObsidian)
+        if (ConfigurationHandler.enableCryingObsidian) {
             addShapelessRecipe(new ItemStack(ModBlocks.crying_obsidian), Blocks.obsidian, "gemLapis");
+        }
 
-        if (ConfigurationHandler.enableLingeringPotions)
+        if (ConfigurationHandler.enableLingeringPotions) {
             addShapelessRecipe(new ItemStack(ModItems.dragon_breath), new ItemStack(Items.potionitem, 1, 8195), ModItems.chorus_fruit, ModItems.chorus_fruit);
+        }
 
-        if (ConfigurationHandler.enableDragonRespawn)
+        if (ConfigurationHandler.enableDragonRespawn) {
             addShapedRecipe(new ItemStack(ModItems.end_crystal), "xxx", "xyx", "xzx", 'x', "blockGlassColorless", 'y', Items.ender_eye, 'z', Items.ghast_tear);
+        }
 
         if (ConfigurationHandler.enableRoses) {
             addShapelessRecipe(new ItemStack(Items.dye, 1, 1), ModBlocks.rose);
