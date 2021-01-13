@@ -74,7 +74,7 @@ public class EtFuturum {
     public static CreativeTabs creativeTabBlocks = new CreativeTabs(Reference.MOD_ID + ".blocks") {
         @Override
         public Item getTabIconItem() {
-            return /*ConfigurationHandler.enableNewFurnaces ? Item.getItemFromBlock(ModBlocks.smoker) : */ConfigurationHandler.enableChorusFruit ? Item.getItemFromBlock(ModBlocks.chorus_flower) : Item.getItemFromBlock(Blocks.ender_chest);
+            return ConfigurationHandler.enableSmoker ? Item.getItemFromBlock(ModBlocks.smoker) : ConfigurationHandler.enableChorusFruit ? Item.getItemFromBlock(ModBlocks.chorus_flower) : Item.getItemFromBlock(Blocks.ender_chest);
         }
     };
 
