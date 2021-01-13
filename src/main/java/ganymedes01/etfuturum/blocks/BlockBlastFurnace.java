@@ -10,6 +10,7 @@ import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.GUIsID;
+import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.tileentities.TileEntityBlastFurnace;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFurnace;
@@ -46,12 +47,19 @@ public class BlockBlastFurnace extends BlockFurnace implements IConfigurable {
     {
         return p_149691_1_ == 1 ? this.blockTop : (p_149691_1_ == 0 ? this.blockTop : (p_149691_1_ != p_149691_2_ ? (p_149691_1_ == 3 && p_149691_2_ == 0 ? this.blockFront : this.blockIcon) : this.blockFront));
     }
-    
+
     @SideOnly(Side.CLIENT)
     public void randomDisplayTick(World p_149734_1_, int p_149734_2_, int p_149734_3_, int p_149734_4_, Random p_149734_5_)
     {
         if (this.isCooking)
         {
+            if (ConfigurationHandler.enableNewMiscSounds && p_149734_5_.nextDouble() < 0.1D)
+            {
+            	p_149734_1_.playSound((double)p_149734_2_ + .5D, (double)p_149734_3_ + .5D, (double)p_149734_4_ + .5D,
+            			Reference.MOD_ID + ":block.blastfurnace.fire_crackle", 1,
+            			(p_149734_1_.rand.nextFloat() * 0.1F) + 0.9F, false);
+            }
+        	
             int l = p_149734_1_.getBlockMetadata(p_149734_2_, p_149734_3_, p_149734_4_);
             float r = .0625F;
             float f = (float)p_149734_2_ + (r * 8);

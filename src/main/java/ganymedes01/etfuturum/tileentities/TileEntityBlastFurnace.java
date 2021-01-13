@@ -290,11 +290,6 @@ public class TileEntityBlastFurnace extends TileEntity implements ISidedInventor
         {
             this.markDirty();
         }
-        
-        int furnaceRand = worldObj.rand.nextInt(75);
-        if(isBurning() && furnaceRand == 0 && ConfigurationHandler.enableNewMiscSounds) {
-			worldObj.playSoundEffect(xCoord + .5D, yCoord + .5D, zCoord + .5D, Reference.MOD_ID + ":block.blastfurnace.fire_crackle", 1, (worldObj.rand.nextFloat() * 0.1F) + 0.9F);
-        }
     }
 
     /**

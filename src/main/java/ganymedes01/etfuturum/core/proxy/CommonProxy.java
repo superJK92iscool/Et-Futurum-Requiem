@@ -62,12 +62,12 @@ import net.minecraftforge.common.MinecraftForge;
 public class CommonProxy implements IGuiHandler {
 
     public void registerEvents() {
-        if (ConfigurationHandler.enableTileReplacement) {
-            FMLCommonHandler.instance().bus().register(new WorldTickEventHandler());
-        }
         FMLCommonHandler.instance().bus().register(ConfigurationHandler.INSTANCE);
         FMLCommonHandler.instance().bus().register(ServerEventHandler.INSTANCE);
         MinecraftForge.EVENT_BUS.register(ServerEventHandler.INSTANCE);
+        if (ConfigurationHandler.enableTileReplacement || ConfigurationHandler.enableNewMiscSounds) {
+            FMLCommonHandler.instance().bus().register(new WorldTickEventHandler());
+        }
     }
 
     public void registerEntities() {

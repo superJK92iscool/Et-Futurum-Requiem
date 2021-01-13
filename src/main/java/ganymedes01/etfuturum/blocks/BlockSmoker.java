@@ -11,6 +11,7 @@ import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.GUIsID;
+import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.tileentities.TileEntitySmoker;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFurnace;
@@ -67,6 +68,12 @@ public class BlockSmoker extends BlockFurnace implements IConfigurable {
         if (this.isCooking)
         {
             float f = (4 + (p_149734_5_.nextInt(8) + 1) + p_149734_5_.nextFloat()) / 16;
+            if (ConfigurationHandler.enableNewMiscSounds && p_149734_5_.nextDouble() < 0.1D)
+            {
+            	p_149734_1_.playSound((double)p_149734_2_ + .5D, (double)p_149734_3_ + .5D, (double)p_149734_4_ + .5D,
+            			Reference.MOD_ID + ":block.smoker.smoke", 1,
+            			(p_149734_1_.rand.nextFloat() * 0.1F) + 0.9F, false);
+            }
             p_149734_1_.spawnParticle("smoke", p_149734_2_ + f, p_149734_3_ + 1, p_149734_4_ + f, 0.0D, 0.0D, 0.0D);
         }
     }
