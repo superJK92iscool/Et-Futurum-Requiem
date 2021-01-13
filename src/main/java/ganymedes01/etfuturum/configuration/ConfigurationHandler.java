@@ -85,8 +85,9 @@ public class ConfigurationHandler {
     public static boolean enableAutoAddBlastFurnace;
     public static boolean enableMeltGear = false;
     public static int totemHealPercent;
+    public static boolean enableBarrier;
 
-    public static boolean enableRedNetherBrick;
+    public static boolean enableNewNetherBricks;
     public static boolean enableNetherwartBlock;
     public static boolean enableMagmaBlock;
     public static boolean enableNetherite;
@@ -164,7 +165,7 @@ public class ConfigurationHandler {
         enableRoses = cfg.getBoolean("enableOldRoses", catBlock, true, "");
         
         
-        enableRedNetherBrick = cfg.getBoolean("enableRedNetherBrick", catBlock, true, "");
+        enableNewNetherBricks = cfg.getBoolean("enableRedNetherBricks", catBlock, true, "");
         enableNetherwartBlock = cfg.getBoolean("enableNetherwartBlock", catBlock, true, "");
         enableNetherite = cfg.getBoolean("enableNetherite", catBlock, true, "");
         enableMagmaBlock = cfg.getBoolean("enableMagmaBlock", catBlock, true, "");
@@ -180,6 +181,8 @@ public class ConfigurationHandler {
         
         enableSmoker = cfg.getBoolean("enableSmoker", catBlock, true, "");
         enableBlastFurnace = cfg.getBoolean("enableBlastFurnace", catBlock, true, "");
+        
+        enableBarrier = cfg.getBoolean("enableBarrier", catBlock, true, "");
         
         //items
         enableMutton = cfg.getBoolean("enableMutton", catItems, true, "");

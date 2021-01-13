@@ -374,7 +374,7 @@ public class ModRecipes {
             addShapedRecipe(new ItemStack(ModBlocks.magma_block), "xx", "xx", 'x', new ItemStack(Items.magma_cream) );
         }
 
-        if (ConfigurationHandler.enableRedNetherBrick) {
+        if (ConfigurationHandler.enableNewNetherBricks) {
             addShapedRecipe(new ItemStack(ModBlocks.new_nether_brick), "wb", "bw", 'b', Items.netherbrick, 'w', Items.nether_wart  );
             
         }

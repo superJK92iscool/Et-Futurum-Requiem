@@ -158,7 +158,6 @@ tile.etfuturum..name=
 
 tile.etfuturum.magma.name=Magma Block
 tile.etfuturum.nether_wart.name=Nether Wart Block
-tile.etfuturum.red_netherbrick.name=Red Nether Bricks
 tile.etfuturum.bone.name=Bone Block
 
 tile.prismarine_stairs.name=Prismarine Stairs
@@ -210,7 +209,7 @@ tile.etfuturum.wood_stripped_3.name=Stripped Jungle Wood
 tile.etfuturum.wood2_stripped_0.name=Stripped Acacia Wood
 tile.etfuturum.wood2_stripped_1.name=Stripped Dark Oak Wood
 
-pretend these don't have to exist for WAILA
+#pretend these don't have to exist for WAILA
 tile.etfuturum.log_stripped_4.name=Stripped Oak Log
 tile.etfuturum.log_stripped_5.name=Stripped Spruce Log
 tile.etfuturum.log_stripped_6.name=Stripped Birch Log
@@ -326,8 +325,12 @@ tile.etfuturum.concrete_brown.name=Brown Concrete
 tile.etfuturum.concrete_green.name=Green Concrete
 tile.etfuturum.concrete_red.name=Red Concrete
 tile.etfuturum.concrete_black.name=Black Concrete
+tile.etfuturum.barrier.name=Barrier
+tile.etfuturum.red_netherbrick.name=Red Nether Bricks
+tile.etfuturum.red_netherbrick_chiseled.name=Chiseled Nether Bricks
+tile.etfuturum.red_netherbrick_cracked.name=Cracked Nether Bricks
 
-NYI
+#NYI
 tile.shulkerBoxWhite.name=White Shulker Box
 tile.shulkerBoxOrange.name=Orange Shulker Box
 tile.shulkerBoxMagenta.name=Magenta Shulker Box
