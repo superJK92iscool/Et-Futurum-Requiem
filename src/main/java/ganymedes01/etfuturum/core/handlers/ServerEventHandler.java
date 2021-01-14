@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
+import cpw.mods.fml.client.FMLClientHandler;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -17,6 +19,7 @@ import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModEnchantments;
@@ -37,8 +40,13 @@ import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.network.BlackHeartParticlesMessage;
 import ganymedes01.etfuturum.network.SetPlayerModelMessage;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockLeaves;
+import net.minecraft.block.BlockChest;
+import net.minecraft.block.BlockDoor;
+import net.minecraft.block.BlockEnderChest;
+import net.minecraft.block.BlockFenceGate;
+import net.minecraft.block.BlockTrapDoor;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -78,14 +86,17 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.sound.PlaySoundEvent17;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
+import net.minecraftforge.event.entity.PlaySoundAtEntityEvent;
 import net.minecraftforge.event.entity.living.EnderTeleportEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
@@ -739,4 +750,127 @@ public class ServerEventHandler {
         }
     }
 
+
+    @SideOnly(Side.CLIENT)
+    @SubscribeEvent
+    public void onPlaySoundEvent(PlaySoundEvent17 event)
+    {
+    	if(event != null && event.sound != null && event.name != null && FMLClientHandler.instance().getClient().theWorld != null
+    			&& FMLCommonHandler.instance().getSide() == Side.CLIENT) {
+    			String[] eventwithprefix = event.name.split("\\.");
+            if (ConfigurationHandler.enableNewBlocksSounds &&
+            		eventwithprefix[1].equals(Blocks.stone.stepSound.soundName)
+            		&& event.sound.getPitch() < 1.0F) {
+                World world = FMLClientHandler.instance().getClient().theWorld;
+                int x = MathHelper.floor_float(event.sound.getXPosF());
+                int y = MathHelper.floor_float(event.sound.getYPosF());
+                int z = MathHelper.floor_float(event.sound.getZPosF());
+                Block block = world.getBlock(x, y, z);
+                Item itemblock = Item.getItemFromBlock(block);
+                String name = itemblock.getUnlocalizedName(new ItemStack(itemblock, 1, world.getBlockMetadata(x, y, z) % 8)).toLowerCase();
+                if(name.contains("slab") && name.contains("nether") && name.contains("brick")) {
+                    String prefix = event.name.substring(0, event.name.indexOf(".") + 1);
+                    float soundPit = (block.stepSound.getPitch()) * (prefix.contains("step") ? 0.5F : 0.8F);
+                    float soundVol = (block.stepSound.getVolume() + 1.0F) / (prefix.contains("step") ? 8F : 2F);
+
+                    event.result = new PositionedSoundRecord(new ResourceLocation(Reference.MOD_ID + ":" + eventwithprefix[0] + ".nether_bricks"), soundVol, soundPit, x + 0.5F, y + 0.5F, z + 0.5F);
+                    return;
+                }
+            }
+            
+            if(ConfigurationHandler.enableNewMiscSounds) {
+            	if(event.name.contains("random.door")) {
+                    World world = FMLClientHandler.instance().getClient().theWorld;
+                    int x = MathHelper.floor_float(event.sound.getXPosF());
+                    int y = MathHelper.floor_float(event.sound.getYPosF());
+                    int z = MathHelper.floor_float(event.sound.getZPosF());
+
+                    Block block = world.getBlock(x, y, z);
+                    event.result = new PositionedSoundRecord(new ResourceLocation(getReplacementDoorSound(block, event.name)),
+                    		event.sound.getVolume(), event.sound.getPitch(), x + 0.5F, y + 0.5F, z + 0.5F);
+                } else if (event.name.contains("random.chest")) {
+                    World world = FMLClientHandler.instance().getClient().theWorld;
+                    int x = MathHelper.floor_float(event.sound.getXPosF());
+                    int y = MathHelper.floor_float(event.sound.getYPosF());
+                    int z = MathHelper.floor_float(event.sound.getZPosF());
+
+                    Block block = world.getBlock(x, y, z);
+                	String s = event.name;
+                	if(block instanceof BlockChest && event.name.contains("close"))
+                		s = Reference.MOD_ID + ":" + "block.chest.open";
+                	if(block instanceof BlockEnderChest)
+                		s = Reference.MOD_ID + ":" + "block.ender_chest." + (event.name.contains("close") ? "close" : "open");
+                	
+                	if(!s.equals(event.name)) {
+                        event.result = new PositionedSoundRecord(new ResourceLocation(s), 
+                        		event.sound.getVolume(), event.sound.getPitch(), x + 0.5F, y + 0.5F, z + 0.5F);
+                	}
+                }
+            }
+
+            if(ConfigurationHandler.enableNewAmbientSounds) {
+            	if (event.name.equals("ambient.weather.rain")) {
+                    World world = FMLClientHandler.instance().getClient().theWorld;
+                    int x = MathHelper.floor_float(event.sound.getXPosF());
+                    int y = MathHelper.floor_float(event.sound.getYPosF());
+                    int z = MathHelper.floor_float(event.sound.getZPosF());
+                    event.result = new PositionedSoundRecord(new ResourceLocation(Reference.MOD_ID + ":" + "weather.rain" + (event.sound.getPitch() < 1.0F ? ".above" : "")), 
+                    		event.sound.getVolume(), event.sound.getPitch(), x + 0.5F, y + 0.5F, z + 0.5F);
+                } else if (event.name.equals("ambient.cave.cave") && new Random().nextInt(19) >= 13) {
+                    int x = MathHelper.floor_float(event.sound.getXPosF());
+                    int y = MathHelper.floor_float(event.sound.getYPosF());
+                    int z = MathHelper.floor_float(event.sound.getZPosF());
+                    event.result = new PositionedSoundRecord(new ResourceLocation(Reference.MOD_ID + ":ambient.cave"), 
+                    		event.sound.getVolume(), event.sound.getPitch(), x + 0.5F, y + 0.5F, z + 0.5F);
+                }
+            }
+    	}
+    }
+
+
+    @SideOnly(Side.CLIENT)
+    @SubscribeEvent
+    public void onPlaySoundAtEntityEvent(PlaySoundAtEntityEvent event)
+    {
+        if (ConfigurationHandler.enableNewBlocksSounds && event != null && event.name != null
+        		&& event.entity != null && event.name.contains("step")) {
+			String[] eventwithprefix = event.name.split("\\.");
+            int x = MathHelper.floor_double(event.entity.posX);
+            int y = MathHelper.floor_double(event.entity.posY - 0.20000000298023224D - event.entity.yOffset);
+            int z = MathHelper.floor_double(event.entity.posZ);
+            World world = event.entity.worldObj;
+            Block block = world.getBlock(x, y, z);
+            Item itemblock = Item.getItemFromBlock(block);
+            String name = itemblock.getUnlocalizedName(new ItemStack(itemblock, 1, world.getBlockMetadata(x, y, z) % 8)).toLowerCase();
+            if(name.contains("slab") && name.contains("nether") && name.contains("brick")) {
+                String prefix = event.name.substring(0, event.name.indexOf(".") + 1);
+                float soundPit = (block.stepSound.getPitch()) * (prefix.contains("step") ? 0.5F : 0.8F);
+                float soundVol = (block.stepSound.getVolume() + 1.0F) / (prefix.contains("step") ? 8F : 2F);
+                event.name = Reference.MOD_ID + ":" + eventwithprefix[0] + ".nether_bricks";
+                return;
+            }
+        }
+    }
+    
+    private String getReplacementDoorSound(Block block, String string) {
+    	Random random = new Random();
+    	String closeOrOpen = random.nextInt(2) == 0 ? "open" : "close";
+    	if(block instanceof BlockDoor)
+			if (block.getMaterial() == Material.wood/* || block.getMaterial() == EtFuturum.netherwood */)
+        		return Reference.MOD_ID + ":block.wooden_door." + closeOrOpen;
+        	else if(block.getMaterial() == Material.iron)
+        		return Reference.MOD_ID + ":block.iron_door." + closeOrOpen;
+    	
+    	if(block instanceof BlockTrapDoor)
+			if (block.getMaterial() == Material.wood/* || block.getMaterial() == EtFuturum.netherwood */)
+        		return Reference.MOD_ID + ":block.wooden_trapdoor." + closeOrOpen;
+        	else if(block.getMaterial() == Material.iron)
+        		return Reference.MOD_ID + ":block.iron_trapdoor." + closeOrOpen;
+    	
+    	if(block instanceof BlockFenceGate)
+			if (block.getMaterial() == Material.wood/* || block.getMaterial() == EtFuturum.netherwood */)
+        		return Reference.MOD_ID + ":block.fence_gate." + closeOrOpen;
+        		
+    	return string;
+    }
 }
