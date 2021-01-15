@@ -27,7 +27,7 @@ public class Elytra extends ItemArmor implements IConfigurable {
         setMaxStackSize(1);
         setTextureName("elytra");
         setUnlocalizedName(Utils.getUnlocalisedName("elytra"));
-        setCreativeTab(ConfigurationHandler.enableElytra ? EtFuturum.creativeTabItems : null);
+        setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
     }
 
     @Override

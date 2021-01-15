@@ -12,7 +12,7 @@ public class RabbitCooked extends ItemFood implements IConfigurable {
         super(5, 0.6F, true);
         setTextureName("rabbit_cooked");
         setUnlocalizedName(Utils.getUnlocalisedName("rabbit_cooked"));
-        setCreativeTab(ConfigurationHandler.enableRabbit ? EtFuturum.creativeTabItems : null);
+        setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
     }
 
     @Override

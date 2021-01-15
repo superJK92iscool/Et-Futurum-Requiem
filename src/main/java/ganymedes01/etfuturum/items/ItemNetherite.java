@@ -13,7 +13,7 @@ public class ItemNetherite extends ItemUninflammable implements IConfigurable {
         super();
         setTextureName("netherite" + (type == 1 ? "_ingot" : "_scrap"));
         setUnlocalizedName(Utils.getUnlocalisedName("netherite" + (type == 1 ? "_ingot" : "_scrap")));
-        setCreativeTab(ConfigurationHandler.enableNetherite ? EtFuturum.creativeTabItems : null);
+        setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
     }
     
     public boolean isBeaconPayment(ItemStack stack) {

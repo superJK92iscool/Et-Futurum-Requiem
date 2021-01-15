@@ -8,6 +8,7 @@ import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.entities.EntityItemUninflammable;
 import ganymedes01.etfuturum.items.block.ItemBlockUninflammable;
+import ganymedes01.etfuturum.lib.ModSounds;
 import net.minecraft.block.BlockStairs;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemBlock;
@@ -18,9 +19,10 @@ public class BlockNetheriteStairs extends BlockStairs implements IConfigurable, 
 
     public BlockNetheriteStairs() {
         super(ModBlocks.netherite_block, 0);
+        setStepSound(ConfigurationHandler.enableNewBlocksSounds ? ModSounds.soundNetherite : soundTypePiston);
         setBlockTextureName("netherite_block");
         setBlockName(Utils.getUnlocalisedName("netherite_stairs"));
-        setCreativeTab(ConfigurationHandler.enableNetherite ? EtFuturum.creativeTabBlocks : null);
+        setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
         useNeighborBrightness = true;
     }
 

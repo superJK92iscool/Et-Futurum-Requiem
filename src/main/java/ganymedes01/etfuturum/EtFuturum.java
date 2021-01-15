@@ -3,6 +3,7 @@ package ganymedes01.etfuturum;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.Iterator;
 
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
@@ -18,7 +19,6 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.relauncher.ReflectionHelper;
 import cpw.mods.fml.relauncher.Side;
 import ganymedes01.etfuturum.command.SetPlayerModelCommand;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
@@ -26,6 +26,7 @@ import ganymedes01.etfuturum.core.proxy.CommonProxy;
 import ganymedes01.etfuturum.core.utils.HoeHelper;
 import ganymedes01.etfuturum.entities.ModEntityList;
 import ganymedes01.etfuturum.items.ItemEntityEgg;
+import ganymedes01.etfuturum.lib.ModSounds;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.network.ArmourStandInteractHandler;
 import ganymedes01.etfuturum.network.ArmourStandInteractMessage;
@@ -37,11 +38,13 @@ import ganymedes01.etfuturum.recipes.BrewingFuelRegistry;
 import ganymedes01.etfuturum.recipes.ModRecipes;
 import ganymedes01.etfuturum.world.EtFuturumWorldGenerator;
 import ganymedes01.etfuturum.world.OceanMonument;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockTrapDoor;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -144,6 +147,26 @@ public class EtFuturum {
 
         if(ConfigurationHandler.enableHoeMining) {
         	HoeHelper.init();
+        }
+        
+        if(ConfigurationHandler.enableNewBlocksSounds) {
+    		Iterator iterator = Block.blockRegistry.iterator();
+    		while(iterator.hasNext()) {
+    			Block block = (Block) iterator.next();
+    			if(block == null || block.stepSound == null || Block.blockRegistry.getNameForObject(block) == null)
+    				continue;
+    			
+    			if(block.stepSound == Block.soundTypePiston || block.stepSound == Block.soundTypeStone) {
+    				if(Block.blockRegistry.getNameForObject(block).toLowerCase().contains("nether") &&
+    					Block.blockRegistry.getNameForObject(block).toLowerCase().contains("brick"))
+        				block.setStepSound(ModSounds.soundNetherBricks);
+    				else if(Block.blockRegistry.getNameForObject(block).toLowerCase().contains("netherrack"))
+            				block.setStepSound(ModSounds.soundNetherrack);
+    			}
+    		}
+    		
+    		Blocks.quartz_ore.setStepSound(ModSounds.soundNetherOre);
+    		Blocks.soul_sand.setStepSound(ModSounds.soundSoulSand);
         }
     }
 

@@ -23,7 +23,7 @@ public class SeaLantern extends Block implements IConfigurable {
         setStepSound(soundTypeGlass);
         setBlockTextureName("sea_lantern");
         setBlockName(Utils.getUnlocalisedName("sea_lantern"));
-        setCreativeTab(ConfigurationHandler.enablePrismarine ? EtFuturum.creativeTabBlocks : null);
+        setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
     }
 
     @Override

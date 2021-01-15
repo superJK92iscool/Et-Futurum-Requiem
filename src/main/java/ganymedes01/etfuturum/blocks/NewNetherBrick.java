@@ -6,6 +6,7 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.utils.Utils;
+import ganymedes01.etfuturum.lib.ModSounds;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
@@ -17,11 +18,11 @@ public class NewNetherBrick extends BlockGeneric implements IConfigurable {
 		super(Material.rock, "", "cracked", "chiseled");
 		this.setResistance(6);
 		this.setHardness(2);
-        setStepSound(soundTypePiston);
+        setStepSound(ConfigurationHandler.enableNewBlocksSounds ? ModSounds.soundNetherBricks : soundTypePiston);
         this.setHarvestLevel("pickaxe", 0);
 		this.setBlockTextureName("nether_bricks");
 		setBlockName(Utils.getUnlocalisedName("red_netherbrick"));
-        setCreativeTab(ConfigurationHandler.enableNewNetherBricks ? EtFuturum.creativeTabBlocks : null);
+        setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
     }
     
     @Override

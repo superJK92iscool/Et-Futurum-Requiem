@@ -388,7 +388,7 @@ public class ModRecipes {
 
         if (ConfigurationHandler.enableBoneBlock) {
             addShapedRecipe(new ItemStack(ModBlocks.bone_block), "xxx", "xxx", "xxx", 'x', new ItemStack(Items.dye, 1, 15));
-            addShapelessRecipe(new ItemStack(Items.dye, 9, 15), new ItemStack(ModBlocks.bone_block));
+//            addShapelessRecipe(new ItemStack(Items.dye, 9, 15), new ItemStack(ModBlocks.bone_block));
         }
         
         if (ConfigurationHandler.enableConcrete) {

@@ -154,8 +154,8 @@ public class ModBlocks {
         for (int i = 0; i < doors.length; i++)
             doors[i] = new BlockWoodDoor(i + 1);
 
-        for (int i = 0; i < fences.length; i++)
-            fences[i] = new BlockWoodFence(i);
+        for (int i = 0; i < fences.length - 1; i++)
+            fences[i] = new BlockWoodFence(i + 1);
 
         for (int i = 0; i < gates.length; i++)
             gates[i] = new BlockWoodFenceGate(i + 1);

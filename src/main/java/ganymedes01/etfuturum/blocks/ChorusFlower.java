@@ -1,28 +1,29 @@
 package ganymedes01.etfuturum.blocks;
 
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.Random;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.RenderIDs;
-
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.boss.EntityDragon;
+import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class ChorusFlower extends Block implements IConfigurable {
 
@@ -36,9 +37,17 @@ public class ChorusFlower extends Block implements IConfigurable {
         setStepSound(soundTypeWood);
         setBlockTextureName("chorus_flower");
         setBlockName(Utils.getUnlocalisedName("chorus_flower"));
-        setCreativeTab(ConfigurationHandler.enableChorusFruit ? EtFuturum.creativeTabBlocks : null);
+        setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
     }
 
+    @Override
+	public void onEntityCollidedWithBlock(World w, int x, int y, int z, Entity ent)
+	{
+    	if (ent instanceof EntityArrow) {
+            w.func_147480_a(x, y, z, true);
+    	}
+	}
+	  
     @Override
     public boolean canEntityDestroy(IBlockAccess world, int x, int y, int z, Entity entity) {
         return !(entity instanceof EntityDragon);
@@ -132,7 +141,7 @@ public class ChorusFlower extends Block implements IConfigurable {
         if (!canBlockStay(world, x, y, z))
             world.func_147480_a(x, y, z, false);
     }
-
+    
     @Override
     public boolean canBlockStay(World world, int x, int y, int z) {
         return canPlantStay(world, x, y, z);
@@ -182,7 +191,7 @@ public class ChorusFlower extends Block implements IConfigurable {
 
     @Override
     public boolean canPlaceBlockAt(World world, int x, int y, int z) {
-        return super.canPlaceBlockAt(world, x, y, z) && canBlockStay(world, x, y, z);
+        return canBlockStay(world, x, y, z);
     }
 
     @Override

@@ -19,7 +19,7 @@ public class ItemEFRSword extends ItemSword implements IConfigurable {
         this.setMaxDamage(durabilityOverride > -1 ? durabilityOverride : material.getMaxUses());
         this.setUnlocalizedName(Utils.getUnlocalisedName("netherite_sword"));
         this.setTextureName("netherite_sword");
-        this.setCreativeTab(ConfigurationHandler.enableNetherite ? EtFuturum.creativeTabItems : null);
+        this.setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
     }
 
     @Override

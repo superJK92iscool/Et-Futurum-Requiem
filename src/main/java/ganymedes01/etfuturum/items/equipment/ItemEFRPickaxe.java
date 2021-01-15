@@ -19,7 +19,7 @@ public class ItemEFRPickaxe extends ItemPickaxe implements IConfigurable {
         this.setMaxDamage(durabilityOverride > -1 ? durabilityOverride : material.getMaxUses());
         this.setUnlocalizedName(Utils.getUnlocalisedName("netherite_pickaxe"));
         this.setTextureName("netherite_pickaxe");
-        this.setCreativeTab(ConfigurationHandler.enableNetherite ? EtFuturum.creativeTabItems : null);
+        this.setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
     }
 
     @Override

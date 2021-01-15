@@ -12,7 +12,7 @@ public class NuggetIron extends Item implements IConfigurable {
         super();
         setTextureName("iron_nugget");
         setUnlocalizedName(Utils.getUnlocalisedName("nugget_iron"));
-        setCreativeTab(ConfigurationHandler.enableIronNugget ? EtFuturum.creativeTabItems : null);
+        setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
     }
     
     @Override

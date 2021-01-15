@@ -19,7 +19,7 @@ public class ItemEFRSpade extends ItemSpade implements IConfigurable {
         this.setMaxDamage(durabilityOverride > -1 ? durabilityOverride : material.getMaxUses());
         this.setUnlocalizedName(Utils.getUnlocalisedName("netherite_spade"));
         this.setTextureName("netherite_shovel");
-        this.setCreativeTab(ConfigurationHandler.enableNetherite ? EtFuturum.creativeTabItems : null);
+        this.setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
     }
 
     @Override

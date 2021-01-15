@@ -27,10 +27,10 @@ public class BlockAncientDebris extends Block implements IConfigurable, ISubBloc
         setHarvestLevel("pickaxe", 3);
         setHardness(30F);
         setResistance(1200F);
-        //setStepSound(ModSounds.soundAncientDebris);
+        setStepSound(ModSounds.soundAncientDebris);
         setBlockTextureName("ancient_debris");
         setBlockName(Utils.getUnlocalisedName("ancient_debris"));
-        setCreativeTab(ConfigurationHandler.enableNetherite ? EtFuturum.creativeTabBlocks : null);
+        setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
     }
     
     @SideOnly(Side.CLIENT)

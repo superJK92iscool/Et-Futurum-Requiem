@@ -21,7 +21,7 @@ public class BlockPrismarineStairs extends BlockStairs implements IConfigurable
         this.refBlock = block;
         this.refMeta = meta;
         this.setLightOpacity(0);
-        this.setCreativeTab(ConfigurationHandler.enablePrismarine ? EtFuturum.creativeTabBlocks : null);
+        this.setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
     }
     
     @SideOnly(Side.CLIENT)

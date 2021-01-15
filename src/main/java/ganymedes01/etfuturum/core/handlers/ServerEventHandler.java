@@ -758,7 +758,7 @@ public class ServerEventHandler {
     	if(event != null && event.sound != null && event.name != null && FMLClientHandler.instance().getClient().theWorld != null
     			&& FMLCommonHandler.instance().getSide() == Side.CLIENT) {
     			String[] eventwithprefix = event.name.split("\\.");
-            if (ConfigurationHandler.enableNewBlocksSounds &&
+            if (ConfigurationHandler.enableNewBlocksSounds && event.name.contains(".") &&
             		eventwithprefix[1].equals(Blocks.stone.stepSound.soundName)
             		&& event.sound.getPitch() < 1.0F) {
                 World world = FMLClientHandler.instance().getClient().theWorld;
@@ -796,10 +796,11 @@ public class ServerEventHandler {
 
                     Block block = world.getBlock(x, y, z);
                 	String s = event.name;
-                	if(block instanceof BlockChest && event.name.contains("close"))
-                		s = Reference.MOD_ID + ":" + "block.chest.open";
-                	if(block instanceof BlockEnderChest)
+                	String classname = block.getClass().getName().toLowerCase();
+                	if((classname.contains("chest")) && classname.contains("ender") && block.getMaterial().equals(Material.rock))
                 		s = Reference.MOD_ID + ":" + "block.ender_chest." + (event.name.contains("close") ? "close" : "open");
+                	else if((classname.contains("chest")) && block.getMaterial().equals(Material.wood) && event.name.contains("close"))
+                		s = Reference.MOD_ID + ":" + "block.chest.close";
                 	
                 	if(!s.equals(event.name)) {
                         event.result = new PositionedSoundRecord(new ResourceLocation(s), 
@@ -833,7 +834,7 @@ public class ServerEventHandler {
     public void onPlaySoundAtEntityEvent(PlaySoundAtEntityEvent event)
     {
         if (ConfigurationHandler.enableNewBlocksSounds && event != null && event.name != null
-        		&& event.entity != null && event.name.contains("step")) {
+        		&& event.entity != null && event.name.contains("step") && event.name.equals("step.stone")) {
 			String[] eventwithprefix = event.name.split("\\.");
             int x = MathHelper.floor_double(event.entity.posX);
             int y = MathHelper.floor_double(event.entity.posY - 0.20000000298023224D - event.entity.yOffset);

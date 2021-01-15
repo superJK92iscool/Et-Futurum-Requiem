@@ -25,7 +25,7 @@ public class ChorusPlant extends Block implements IConfigurable {
         setStepSound(soundTypeWood);
         setBlockTextureName("chorus_plant");
         setBlockName(Utils.getUnlocalisedName("chorus_plant"));
-        setCreativeTab(ConfigurationHandler.enableChorusFruit ? EtFuturum.creativeTabBlocks : null);
+        setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
     }
 
     @Override

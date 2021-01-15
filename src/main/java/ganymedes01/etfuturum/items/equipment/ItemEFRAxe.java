@@ -19,7 +19,7 @@ public class ItemEFRAxe extends ItemAxe implements IConfigurable {
         this.setMaxDamage(durabilityOverride > -1 ? durabilityOverride : material.getMaxUses());
         this.setUnlocalizedName(Utils.getUnlocalisedName("netherite_axe"));
         this.setTextureName("netherite_axe");
-        this.setCreativeTab(ConfigurationHandler.enableNetherite ? EtFuturum.creativeTabItems : null);
+        this.setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
     }
 
     @Override

@@ -24,7 +24,7 @@ public class SlimeBlock extends Block implements IConfigurable {
         setBlockTextureName("slime");
         setStepSound(ModSounds.soundSlime);
         setBlockName(Utils.getUnlocalisedName("slime"));
-        setCreativeTab(ConfigurationHandler.enableSlimeBlock ? EtFuturum.creativeTabBlocks : null);
+        setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
     }
 
     @Override

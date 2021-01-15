@@ -12,7 +12,7 @@ public class RabbitStew extends ItemSoup implements IConfigurable {
         super(10);
         setTextureName("rabbit_stew");
         setUnlocalizedName(Utils.getUnlocalisedName("rabbit_stew"));
-        setCreativeTab(ConfigurationHandler.enableRabbit ? EtFuturum.creativeTabItems : null);
+        setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
     }
 
     @Override

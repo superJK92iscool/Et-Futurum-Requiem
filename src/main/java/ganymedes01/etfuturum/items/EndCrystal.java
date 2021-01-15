@@ -17,7 +17,7 @@ public class EndCrystal extends ItemSimpleFoiled implements IConfigurable {
     public EndCrystal() {
         setTextureName("end_crystal");
         setUnlocalizedName(Utils.getUnlocalisedName("end_crystal"));
-        setCreativeTab(ConfigurationHandler.enableDragonRespawn ? EtFuturum.creativeTabItems : null);
+        setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
     }
 
     @Override

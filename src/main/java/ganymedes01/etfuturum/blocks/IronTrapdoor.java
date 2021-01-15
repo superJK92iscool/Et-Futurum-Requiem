@@ -17,7 +17,7 @@ public class IronTrapdoor extends BlockTrapDoor implements IConfigurable {
         setStepSound(soundTypeMetal);
         setBlockTextureName("iron_trapdoor");
         setBlockName(Utils.getUnlocalisedName("iron_trapdoor"));
-        setCreativeTab(ConfigurationHandler.enableIronTrapdoor ? EtFuturum.creativeTabBlocks : null);
+        setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
     }
 
     @Override

@@ -23,7 +23,7 @@ public class BlockConcretePowder extends BlockGenericSand implements IConfigurab
 		this.setResistance(.5F);
     	this.setBlockName(Utils.getUnlocalisedName("concrete_powder"));
     	this.setBlockTextureName("concrete_powder");
-    	this.setCreativeTab(ConfigurationHandler.enableConcrete ? EtFuturum.creativeTabBlocks : null);
+    	this.setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
 	}
 	
 	public void onBlockAdded(World world, int x, int y, int z)

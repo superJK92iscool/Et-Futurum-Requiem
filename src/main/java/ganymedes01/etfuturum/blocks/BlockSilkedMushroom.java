@@ -25,7 +25,7 @@ public class BlockSilkedMushroom extends Block implements IConfigurable {
         setHardness(0.2F);
         setStepSound(soundTypeWood);
         setBlockName(Utils.getUnlocalisedName(str + "_mushroom"));
-        setCreativeTab(ConfigurationHandler.enableSilkTouchingMushrooms ? EtFuturum.creativeTabBlocks : null);
+        setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
     }
 
     @Override

@@ -25,7 +25,7 @@ public class OldRose extends BlockFlower implements IConfigurable {
         setStepSound(soundTypeGrass);
         setBlockName(Utils.getUnlocalisedName("rose"));
         setBlockTextureName(Reference.MOD_ID + ":flower_rose");
-        setCreativeTab(ConfigurationHandler.enableRoses ? EtFuturum.creativeTabBlocks : null);
+        setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
     }
 
     @Override

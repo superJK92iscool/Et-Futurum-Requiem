@@ -4,6 +4,7 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.utils.Utils;
+import ganymedes01.etfuturum.lib.ModSounds;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 
@@ -14,10 +15,10 @@ public class NetherwartBlock extends Block implements IConfigurable {
         super(Material.grass);
         setHardness(1F);
         setResistance(5F);
-        setStepSound(soundTypeWood);
+        setStepSound(ConfigurationHandler.enableNewBlocksSounds ? ModSounds.soundWartBlock : soundTypeWood);
         setBlockTextureName("nether_wart_block");
         setBlockName(Utils.getUnlocalisedName("nether_wart"));
-        setCreativeTab(ConfigurationHandler.enableNetherwartBlock ? EtFuturum.creativeTabBlocks : null);
+        setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
     }
     
     @Override

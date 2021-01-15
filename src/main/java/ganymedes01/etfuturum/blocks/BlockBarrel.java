@@ -39,7 +39,7 @@ public class BlockBarrel extends BlockContainer implements IConfigurable {
 		this.setBlockTextureName("barrel");
 		this.useNeighborBrightness = true;
 		this.setLightOpacity(500);
-		this.setCreativeTab(ConfigurationHandler.enableBarrel ? EtFuturum.creativeTabBlocks : null);
+		this.setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
 	}
     @SideOnly(Side.CLIENT)
     private IIcon innerTopIcon;

@@ -5,8 +5,6 @@ import ganymedes01.etfuturum.lib.sounds.CustomSoundNetherite;
 import net.minecraft.block.Block.SoundType;
 
 public class ModSounds {
-
-	public static final SoundType placeholder = new CustomSound("replaceme", 1, 1, true, false);
 	
 	public static final SoundType soundSlime = new CustomSound("mob.slime.big");
 	public static final SoundType soundLantern = new CustomSound("lantern", 1, 1, true, true);

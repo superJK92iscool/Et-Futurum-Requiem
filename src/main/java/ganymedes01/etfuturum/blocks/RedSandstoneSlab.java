@@ -13,7 +13,7 @@ public class RedSandstoneSlab extends GenericSlab {
         setResistance(30);
         setHardness(2.0F);
         setBlockName(Utils.getUnlocalisedName("red_sandstone_slab"));
-        setCreativeTab(ConfigurationHandler.enableRedSandstone ? EtFuturum.creativeTabBlocks : null);
+        setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
     }
 
     @Override

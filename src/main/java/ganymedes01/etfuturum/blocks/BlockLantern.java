@@ -6,6 +6,7 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.utils.Utils;
+import ganymedes01.etfuturum.lib.ModSounds;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFence;
@@ -25,7 +26,7 @@ public class BlockLantern extends Block implements IConfigurable {
         float f = 0.375F;
         float f1 = f / 2.0F;
 		this.setHarvestLevel("pickaxe", 0);
-//		this.setStepSound(EtFuturum.enableNewBlocksSounds ? ModSounds.soundLantern : soundTypeMetal);
+		this.setStepSound(ConfigurationHandler.enableNewBlocksSounds ? ModSounds.soundLantern : soundTypeMetal);
 		this.setHardness(3.5F);
 		this.setResistance(3.5F);
 		this.setLightLevel(1);
@@ -33,7 +34,7 @@ public class BlockLantern extends Block implements IConfigurable {
     	this.setBlockBounds(0.5F - f1, r * 1, 0.5F - f1, 0.5F + f1, r * 7, 0.5F + f1);
     	this.setBlockName(Utils.getUnlocalisedName("lantern"));
     	this.setBlockTextureName("lantern");
-    	this.setCreativeTab(ConfigurationHandler.enableLantern ? EtFuturum.creativeTabBlocks : null);
+    	this.setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
 	}
 
 	@Override

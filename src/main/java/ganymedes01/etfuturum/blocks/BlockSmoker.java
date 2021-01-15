@@ -44,7 +44,7 @@ public class BlockSmoker extends BlockFurnace implements IConfigurable {
 		this.setLightLevel(cooking ? .875F : 0);
 		this.setStepSound(soundTypePiston);
 		this.setBlockName(Utils.getUnlocalisedName((cooking ? "lit_" : "") + "smoker"));
-		this.setCreativeTab(ConfigurationHandler.enableSmoker && !cooking ? EtFuturum.creativeTabBlocks : null);
+		this.setCreativeTab(isEnabled() && !cooking ? EtFuturum.creativeTabBlocks : null);
 	}
 	
     @SideOnly(Side.CLIENT)

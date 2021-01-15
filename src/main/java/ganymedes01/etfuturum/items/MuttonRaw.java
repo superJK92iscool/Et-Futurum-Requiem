@@ -12,7 +12,7 @@ public class MuttonRaw extends ItemFood  implements IConfigurable{
         super(2, 0.3F, true);
         setTextureName("mutton_raw");
         setUnlocalizedName(Utils.getUnlocalisedName("mutton_raw"));
-        setCreativeTab(ConfigurationHandler.enableMutton ? EtFuturum.creativeTabItems : null);
+        setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
     }
     
     @Override
