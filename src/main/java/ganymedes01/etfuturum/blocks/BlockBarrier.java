@@ -26,7 +26,7 @@ public class BlockBarrier extends Block implements IConfigurable {
 		this.setBlockUnbreakable();
 		this.setResistance(2000000F);
         this.setLightOpacity(0);
-        this.setBlockTextureName("glass_red");
+        this.setBlockTextureName("barrier");
         this.setBlockName(Utils.getUnlocalisedName("barrier"));
         this.useNeighborBrightness = true;
         this.canBlockGrass = false;
@@ -69,14 +69,6 @@ public class BlockBarrier extends Block implements IConfigurable {
     public boolean renderAsNormalBlock()
     {
         return false;
-    }
-    
-    
-    
-    @SideOnly(Side.CLIENT)
-    public String getItemIconName()
-    {
-        return "barrier";
     }
 
 	@Override

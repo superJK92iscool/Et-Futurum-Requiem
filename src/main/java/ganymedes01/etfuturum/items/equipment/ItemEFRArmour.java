@@ -4,20 +4,22 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
-import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
+import ganymedes01.etfuturum.blocks.MagmaBlock;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.entities.EntityItemUninflammable;
 import ganymedes01.etfuturum.items.ItemUninflammable;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.item.Item;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ISpecialArmor;
+import net.minecraftforge.common.ISpecialArmor.ArmorProperties;
 
-public class ItemEFRArmour extends ItemArmor implements IConfigurable {
+public class ItemEFRArmour extends ItemArmor implements IConfigurable, ISpecialArmor {
 
     public ItemEFRArmour(ArmorMaterial material, int type, int durabilityOverride) {
         super(material, 0, type);
@@ -32,7 +34,7 @@ public class ItemEFRArmour extends ItemArmor implements IConfigurable {
         this.setTextureName("netherite_" + s);
         this.setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
     }
-
+    
     @Override
     public boolean getIsRepairable(ItemStack par1ItemStack, ItemStack par2ItemStack)
     {        
@@ -62,4 +64,24 @@ public class ItemEFRArmour extends ItemArmor implements IConfigurable {
             return null;
         return ItemUninflammable.createUninflammableItem(world, location);
     }
+
+	@Override
+	public ArmorProperties getProperties(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, int slot){
+		ItemEFRArmour armorItem = (ItemEFRArmour)armor.getItem();
+        ArmorProperties ap = new ArmorProperties(0, armorItem.damageReduceAmount / 25D, armorItem.getMaxDamage() + 1 - armor.getItemDamage());
+		return ap;
+	}
+
+	@Override
+	public int getArmorDisplay(EntityPlayer player, ItemStack armor, int slot) 
+	{
+		return ModItems.NETHERITE_ARMOUR.getDamageReductionAmount(slot);
+	}
+
+	@Override
+	public void damageArmor(EntityLivingBase entity, ItemStack stack, DamageSource source, int damage, int slot) {
+		if(!source.isUnblockable())
+			if(!source.isFireDamage() && getUnlocalizedName().contains("netherite"))
+		        stack.damageItem(damage, entity);
+	}
 }

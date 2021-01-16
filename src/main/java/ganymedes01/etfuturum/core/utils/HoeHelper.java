@@ -5,6 +5,7 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import ganymedes01.etfuturum.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockHay;
 import net.minecraft.block.BlockLeaves;
@@ -32,6 +33,7 @@ public class HoeHelper {
 			if(block instanceof BlockSponge)
 				addToHoeArray(block);
 		}
+		addToHoeArray(ModBlocks.nether_wart_block);
 	}
 	
 	private static ArrayList<Block> hoeBlocks = new ArrayList<Block>();
