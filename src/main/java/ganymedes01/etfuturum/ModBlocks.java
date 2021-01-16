@@ -14,6 +14,7 @@ import ganymedes01.etfuturum.blocks.BlockConcretePowder;
 import ganymedes01.etfuturum.blocks.BlockLantern;
 import ganymedes01.etfuturum.blocks.BlockNetherite;
 import ganymedes01.etfuturum.blocks.BlockNetheriteStairs;
+import ganymedes01.etfuturum.blocks.BlockOreNetherGold;
 import ganymedes01.etfuturum.blocks.BlockPrismarineStairs;
 import ganymedes01.etfuturum.blocks.BlockSilkedMushroom;
 import ganymedes01.etfuturum.blocks.BlockSmoker;
@@ -66,7 +67,6 @@ import ganymedes01.etfuturum.blocks.SlimeBlock;
 import ganymedes01.etfuturum.blocks.Sponge;
 import ganymedes01.etfuturum.blocks.Stone;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockWood;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBlock;
 
@@ -120,6 +120,7 @@ public class ModBlocks {
 	public static final Block blast_furnace = new BlockBlastFurnace(false);
 	public static final Block lit_blast_furnace = new BlockBlastFurnace(true);
 	public static final Block barrier = new BlockBarrier();
+	public static final Block nether_gold_ore = new BlockOreNetherGold();
     
     public static final Block concrete = new BlockConcrete();
     public static final Block concrete_powder = new BlockConcretePowder();
@@ -148,7 +149,7 @@ public class ModBlocks {
     
     public static final Block[] pressure_plates = new Block[woodTypes.length - 1];
     public static final Block[] buttons = new Block[woodTypes.length - 1];
-    public static final Block[] trapdoors = new Block[BlockWood.field_150096_a.length - 1];
+    public static final Block[] trapdoors = new Block[woodTypes.length - 1];
 
     static {
         for (int i = 0; i < doors.length; i++)

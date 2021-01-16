@@ -329,6 +329,7 @@ tile.etfuturum.barrier.name=Barrier
 tile.etfuturum.red_netherbrick.name=Red Nether Bricks
 tile.etfuturum.red_netherbrick_chiseled.name=Chiseled Nether Bricks
 tile.etfuturum.red_netherbrick_cracked.name=Cracked Nether Bricks
+tile.etfuturum.nether_gold_ore.name=Nether Gold Ore
 
 #NYI
 tile.shulkerBoxWhite.name=White Shulker Box

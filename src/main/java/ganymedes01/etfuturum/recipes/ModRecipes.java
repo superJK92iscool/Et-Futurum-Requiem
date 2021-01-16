@@ -542,8 +542,8 @@ public class ModRecipes {
 //		if(ConfigurationHandler.enableWarpedBlocks)
 //			addShapedRecipe(new ItemStack(ModBlocks.nether_planks_slab, 6, 3), "xxx", 'x', new ItemStack(ModBlocks.nether_planks, 1, 1));
 //
-//		if(ConfigurationHandler.enableNetherGold)
-//			GameRegistry.addSmelting(new ItemStack(ModBlocks.nether_gold_ore), new ItemStack(Items.gold_ingot), 1F);
+		if(ConfigurationHandler.enableNetherGold)
+			GameRegistry.addSmelting(new ItemStack(ModBlocks.nether_gold_ore), new ItemStack(Items.gold_ingot), 1F);
 //		
 //		if(ConfigurationHandler.enableBlackstone) {
 //			GameRegistry.addSmelting(new ItemStack(ModBlocks.blackstone, 1, 3), new ItemStack(ModBlocks.blackstone, 1, 4), .1F);

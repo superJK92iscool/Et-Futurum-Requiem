@@ -87,6 +87,12 @@ public class ConfigurationHandler {
     public static int totemHealPercent;
     public static boolean enableBarrier;
     public static boolean enableHoeMining;
+	public static boolean enableNetherGold;
+	public static boolean enableAirDebris;
+	public static int smallDebrisMax = 2;
+	public static int debrisMax = 3;
+	public static int maxNetherGoldPerCluster = 10;
+	public static int maxMagmaPerCluster = 33;
 
     public static boolean enableNewNetherBricks;
     public static boolean enableNetherwartBlock;
@@ -146,7 +152,22 @@ public class ConfigurationHandler {
         
         //blocks
         enableStones = cfg.getBoolean("enableStones", catBlock, true, "Enable Granite/Andesite/Diorite");
-        maxStonesPerCluster = cfg.getInt("stoneClusterSize", catBlock, 32, 0, 64, "Max number of Granite/Andesite/Diorite/Magma blocks in a cluster");
+        maxStonesPerCluster = cfg.getInt("stoneClusterSize", catBlock, 33, 0, 64, "Max number of Granite/Andesite/Diorite blocks in a cluster");
+        
+
+//    	public static boolean enableNetherGold;
+//    	public static boolean enableAirDebris = false;
+//    	public static int smallDebrisMax = 2;
+//    	public static int debrisMax = 3;
+//    	public static int maxNetherGoldPerCluster = 10;
+//    	public static int maxMagmaPerCluster = 33;
+
+        enableNetherGold = cfg.getBoolean("enableNetherGold", catBlock, true, "");
+        enableAirDebris = cfg.getBoolean("enableAirDebris", catBlock, false, "Can ancient debris generate next to air?");
+        smallDebrisMax = cfg.getInt("smallDebrisMax", catBlock, 2, 0, 64, "The first, typically smaller debris veins which generate from Y 8 to 119");
+        debrisMax = cfg.getInt("debrisMax", catBlock, 3, 0, 64, "The second, typically bigger debris veins, which generate from Y 8 to 22");
+        maxNetherGoldPerCluster = cfg.getInt("maxNetherGoldPerCluster", catBlock, 10, 0, 64, "Max number of nether gold ore blocks in a cluster");
+        maxMagmaPerCluster = cfg.getInt("maxMagmaPerCluster", catBlock, 33, 0, 64, "Max number of magma blocks in a cluster");
         
         enableIronTrapdoor = cfg.getBoolean("enableIronTrapdoor", catBlock, true, "");
         enableSponge = cfg.getBoolean("enableSponge", catBlock, true, "");
