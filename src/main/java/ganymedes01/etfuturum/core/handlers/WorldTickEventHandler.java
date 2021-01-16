@@ -2,6 +2,7 @@ package ganymedes01.etfuturum.core.handlers;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -45,18 +46,17 @@ public class WorldTickEventHandler {
     public void onClientTick(ClientTickEvent event)
     {
         World world = Minecraft.getMinecraft().theWorld;
-        if( ConfigurationHandler.enableNewMiscSounds || world == null || event.phase != Phase.START)
+        if(!ConfigurationHandler.enableNewMiscSounds || world == null || event.phase != Phase.START)
         	return;
         
-        boolean tickchecktime = world.getTotalWorldTime() % 5 == 0;
-        Iterator<TileEntity> iterator = world.loadedTileEntityList.iterator();
-        while(iterator.hasNext()) {
-        	TileEntity tile = iterator.next();
-			if (ConfigurationHandler.enableNewMiscSounds && tile.getBlockType() == Blocks.lit_furnace) {
+        boolean tickchecktime = world.rand.nextInt(Math.toIntExact((world.getTotalWorldTime() % 10) + 1)) == 0;
+        List<TileEntity> list = world.loadedTileEntityList;
+        for(TileEntity tile : list) {
+			if (tickchecktime && ConfigurationHandler.enableNewMiscSounds && tile.getBlockType() == Blocks.lit_furnace) {
 	            int x = tile.xCoord;
 	            int y = tile.yCoord;
 	            int z = tile.zCoord;
-				if(world.rand.nextDouble() < 0.1D && tickchecktime)
+				if(world.rand.nextDouble() < 0.1D)
 					world.playSound(x + .5D, y + .5D, z + .5D,
 							Reference.MOD_ID + ":block.furnace.fire_crackle", 1,
 							(world.rand.nextFloat() * 0.1F) + 0.9F, false);
@@ -77,9 +77,8 @@ public class WorldTickEventHandler {
         if(world.loadedTileEntityList.isEmpty())
         	return;
 
-        Iterator<TileEntity> iterator = world.loadedTileEntityList.iterator();
-        while(iterator.hasNext()) {
-        	TileEntity tile = iterator.next();
+        List<TileEntity> list = world.loadedTileEntityList;
+        for(TileEntity tile : list) {
             if (!replacements.isEmpty()) {
             	Block replacement = replacements.get(tile.getBlockType());
             	if(replacement != null && ((IConfigurable) replacement).isEnabled()) {

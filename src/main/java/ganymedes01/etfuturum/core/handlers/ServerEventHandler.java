@@ -767,6 +767,8 @@ public class ServerEventHandler {
                 int z = MathHelper.floor_float(event.sound.getZPosF());
                 Block block = world.getBlock(x, y, z);
                 Item itemblock = Item.getItemFromBlock(block);
+                if(itemblock == null)
+                	return;
                 String name = itemblock.getUnlocalizedName(new ItemStack(itemblock, 1, world.getBlockMetadata(x, y, z) % 8)).toLowerCase();
                 if(name.contains("slab") && name.contains("nether") && name.contains("brick")) {
                     String prefix = event.name.substring(0, event.name.indexOf(".") + 1);

@@ -170,9 +170,56 @@ public class ModRecipes {
 
         if (ConfigurationHandler.enableChorusFruit)
             OreDictionary.registerOre("brickEndStone", ModBlocks.end_bricks);
+        
+		if(ConfigurationHandler.enableNetherite) {
+			OreDictionary.registerOre("ingotNetherite", ModItems.netherite_ingot);
+			OreDictionary.registerOre("nuggetNetherite", ModItems.netherite_scrap);
+			OreDictionary.registerOre("oreNetherite", ModBlocks.ancient_debris);
+			OreDictionary.registerOre("blockNetherite", ModBlocks.netherite_block);
+		}
+
+		for(int i = 0; i < 4; i++) {
+			if (ConfigurationHandler.enableStrippedLogs) {
+				OreDictionary.registerOre("logWood", new ItemStack(ModBlocks.log_stripped, 1, i));
+				OreDictionary.registerOre("logWood", new ItemStack(ModBlocks.log2_stripped, 1, i));
+				if(ConfigurationHandler.enableBarkLogs) {
+					OreDictionary.registerOre("logWood", new ItemStack(ModBlocks.wood_stripped, 1, i));
+					OreDictionary.registerOre("logWood", new ItemStack(ModBlocks.wood2_stripped, 1, i));
+				}
+			}
+			if(ConfigurationHandler.enableBarkLogs) {
+				OreDictionary.registerOre("logWood", new ItemStack(ModBlocks.log_bark, 1, i));
+				OreDictionary.registerOre("logWood", new ItemStack(ModBlocks.log2_bark, 1, i));
+			}
+		}
+		
+//		if(ConfigurationHandler.enableCrimsonBlocks || ConfigurationHandler.enableWarpedBlocks) {
+//			OreDictionary.registerOre("plankWood", new ItemStack(ModBlocks.nether_planks, 1, 0));
+//			OreDictionary.registerOre("plankWood", new ItemStack(ModBlocks.nether_planks, 1, 1));
+//			OreDictionary.registerOre("slabWood", new ItemStack(ModBlocks.nether_planks_slab, 1, 0));
+//			OreDictionary.registerOre("slabWood", new ItemStack(ModBlocks.nether_planks_slab, 1, 3));
+//			OreDictionary.registerOre("logWood", new ItemStack(ModBlocks.crimson_stem, 1, 0));
+//			OreDictionary.registerOre("logWood", new ItemStack(ModBlocks.warped_stem, 1, 0));
+//			if(ConfigurationHandler.enableBarkLogs) {
+//				OreDictionary.registerOre("logWood", new ItemStack(ModBlocks.crimson_stem, 1, 1));
+//				OreDictionary.registerOre("logWood", new ItemStack(ModBlocks.warped_stem, 1, 1));
+//				if(ConfigurationHandler.enableStrippedLogs) {
+//					OreDictionary.registerOre("logWood", new ItemStack(ModBlocks.crimson_stem, 1, 3));
+//					OreDictionary.registerOre("logWood", new ItemStack(ModBlocks.warped_stem, 1, 3));
+//				}
+//			}
+//			if(ConfigurationHandler.enableStrippedLogs) {
+//				OreDictionary.registerOre("logWood", new ItemStack(ModBlocks.crimson_stem, 1, 2));
+//				OreDictionary.registerOre("logWood", new ItemStack(ModBlocks.warped_stem, 1, 2));
+//			}
+//		}
+		
+//		if (ConfigurationHandler.enableBlackstone)
+//			OreDictionary.registerOre("cobblestone", ModBlocks.blackstone);
     }
 
     private static void registerRecipes() {
+    	
         if (ConfigurationHandler.enableStoneBrickRecipes) {
             addShapelessRecipe(new ItemStack(Blocks.mossy_cobblestone), new ItemStack(Blocks.cobblestone), new ItemStack(Blocks.vine));
             addShapelessRecipe(new ItemStack(Blocks.stonebrick, 1, 1), new ItemStack(Blocks.stonebrick), new ItemStack(Blocks.vine));
@@ -193,7 +240,7 @@ public class ModRecipes {
         
         if (ConfigurationHandler.enableIronNugget) {
         	addShapedRecipe(new ItemStack(Items.iron_ingot), "xxx", "xxx", "xxx", 'x', "nuggetIron");
-        	GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModItems.iron_nugget, 9), new Object[] { "ingotIron" }));
+        	addShapelessRecipe(new ItemStack(ModItems.iron_nugget, 9), new Object[] { "ingotIron" });
         }
 
         if (ConfigurationHandler.enableIronTrapdoor) {
@@ -415,46 +462,21 @@ public class ModRecipes {
                 addShapedRecipe(new ItemStack(ModBlocks.pressure_plates[i], 1), "xx", 'x', new ItemStack(Blocks.planks, 1, i + 1));
             addShapedRecipe(new ItemStack(Blocks.wooden_pressure_plate, 1), "xx", 'x', "plankWood");
         }
-        
-        if (ConfigurationHandler.enableStrippedLogs) {
-            addShapedRecipe(new ItemStack(Blocks.planks, 4, 0), "x", 'x', new ItemStack(ModBlocks.log_stripped, 1, 0));
-            addShapedRecipe(new ItemStack(Blocks.planks, 4, 1), "x", 'x', new ItemStack(ModBlocks.log_stripped, 1, 1));
-            addShapedRecipe(new ItemStack(Blocks.planks, 4, 2), "x", 'x', new ItemStack(ModBlocks.log_stripped, 1, 2));
-            addShapedRecipe(new ItemStack(Blocks.planks, 4, 3), "x", 'x', new ItemStack(ModBlocks.log_stripped, 1, 3));
-            addShapedRecipe(new ItemStack(Blocks.planks, 4, 4), "x", 'x', new ItemStack(ModBlocks.log2_stripped, 1, 0));
-            addShapedRecipe(new ItemStack(Blocks.planks, 4, 5), "x", 'x', new ItemStack(ModBlocks.log2_stripped, 1, 1));
-        }
-        
-        if (ConfigurationHandler.enableBarkLogs) {
-            addShapedRecipe(new ItemStack(ModBlocks.log_bark, 3, 0), "xx", "xx", 'x', new ItemStack(Blocks.log,1,0) );
-            addShapedRecipe(new ItemStack(ModBlocks.log_bark, 3, 1), "xx", "xx", 'x', new ItemStack(Blocks.log,1,1) );
-            addShapedRecipe(new ItemStack(ModBlocks.log_bark, 3, 2), "xx", "xx", 'x', new ItemStack(Blocks.log,1,2) );
-            addShapedRecipe(new ItemStack(ModBlocks.log_bark, 3, 3), "xx", "xx", 'x', new ItemStack(Blocks.log,1,3) );
-            addShapedRecipe(new ItemStack(ModBlocks.log2_bark, 3, 0), "xx", "xx", 'x', new ItemStack(Blocks.log2,1,0) );
-            addShapedRecipe(new ItemStack(ModBlocks.log2_bark, 3, 1), "xx", "xx", 'x', new ItemStack(Blocks.log2,1,1) );
-            
-            addShapedRecipe(new ItemStack(Blocks.planks, 4, 0), "x", 'x', new ItemStack(ModBlocks.log_bark, 1, 0));
-            addShapedRecipe(new ItemStack(Blocks.planks, 4, 1), "x", 'x', new ItemStack(ModBlocks.log_bark, 1, 1));
-            addShapedRecipe(new ItemStack(Blocks.planks, 4, 2), "x", 'x', new ItemStack(ModBlocks.log_bark, 1, 2));
-            addShapedRecipe(new ItemStack(Blocks.planks, 4, 3), "x", 'x', new ItemStack(ModBlocks.log_bark, 1, 3));
-            addShapedRecipe(new ItemStack(Blocks.planks, 4, 4), "x", 'x', new ItemStack(ModBlocks.log2_bark, 1, 0));
-            addShapedRecipe(new ItemStack(Blocks.planks, 4, 5), "x", 'x', new ItemStack(ModBlocks.log2_bark, 1, 1));
-            if (ConfigurationHandler.enableStrippedLogs) {
-                addShapedRecipe(new ItemStack(ModBlocks.wood_stripped, 3, 0), "xx", "xx", 'x', new ItemStack(ModBlocks.log_stripped,1,0) );
-                addShapedRecipe(new ItemStack(ModBlocks.wood_stripped, 3, 1), "xx", "xx", 'x', new ItemStack(ModBlocks.log_stripped,1,1) );
-                addShapedRecipe(new ItemStack(ModBlocks.wood_stripped, 3, 2), "xx", "xx", 'x', new ItemStack(ModBlocks.log_stripped,1,2) );
-                addShapedRecipe(new ItemStack(ModBlocks.wood_stripped, 3, 3), "xx", "xx", 'x', new ItemStack(ModBlocks.log_stripped,1,3) );
-                addShapedRecipe(new ItemStack(ModBlocks.wood2_stripped, 3, 0), "xx", "xx", 'x', new ItemStack(ModBlocks.log2_stripped,1,0) );
-                addShapedRecipe(new ItemStack(ModBlocks.wood2_stripped, 3, 1), "xx", "xx", 'x', new ItemStack(ModBlocks.log2_stripped,1,1) );
-                
-                addShapedRecipe(new ItemStack(Blocks.planks, 4, 0), "x", 'x', new ItemStack(ModBlocks.wood_stripped, 1, 0));
-                addShapedRecipe(new ItemStack(Blocks.planks, 4, 1), "x", 'x', new ItemStack(ModBlocks.wood_stripped, 1, 1));
-                addShapedRecipe(new ItemStack(Blocks.planks, 4, 2), "x", 'x', new ItemStack(ModBlocks.wood_stripped, 1, 2));
-                addShapedRecipe(new ItemStack(Blocks.planks, 4, 3), "x", 'x', new ItemStack(ModBlocks.wood_stripped, 1, 3));
-                addShapedRecipe(new ItemStack(Blocks.planks, 4, 4), "x", 'x', new ItemStack(ModBlocks.wood2_stripped, 1, 0));
-                addShapedRecipe(new ItemStack(Blocks.planks, 4, 5), "x", 'x', new ItemStack(ModBlocks.wood2_stripped, 1, 1));
-            }
-        }
+
+		for(int i = 0; i < 4; i++) {
+			if (ConfigurationHandler.enableStrippedLogs) {
+				OreDictionary.registerOre("logWood", new ItemStack(ModBlocks.log_stripped, 1, i));
+				OreDictionary.registerOre("logWood", new ItemStack(ModBlocks.log2_stripped, 1, i));
+				if(ConfigurationHandler.enableBarkLogs) {
+					OreDictionary.registerOre("logWood", new ItemStack(ModBlocks.wood_stripped, 1, i));
+					OreDictionary.registerOre("logWood", new ItemStack(ModBlocks.wood2_stripped, 1, i));
+				}
+			}
+			if(ConfigurationHandler.enableBarkLogs) {
+				OreDictionary.registerOre("logWood", new ItemStack(ModBlocks.log_bark, 1, i));
+				OreDictionary.registerOre("logWood", new ItemStack(ModBlocks.log2_bark, 1, i));
+			}
+		}
     }
 
     private static void addShapedRecipe(ItemStack output, Object... objects) {
