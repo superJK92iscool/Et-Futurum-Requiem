@@ -53,16 +53,14 @@ public class ModRecipes {
 				if((i == 5 && !ConfigurationHandler.enableCrimsonBlocks) || (i == 6 && !ConfigurationHandler.enableWarpedBlocks))
 					continue;
 				ItemStack planks = /* i < 5 ? */new ItemStack(Blocks.planks, 1, i + 1)/* : new ItemStack(ModBlocks.nether_planks, 1, i - 5) */;
-				addShapedRecipe(new ItemStack(ModBlocks.trapdoors[i], 3), "xxx", "xxx", 'x', planks);
+				addShapedRecipe(new ItemStack(ModBlocks.trapdoors[i], 2), "xxx", "xxx", 'x', planks);
 			}
-			addShapedRecipe(new ItemStack(Blocks.trapdoor, 3), "xxx", "xxx", 'x', "plankWood");
+			addShapedRecipe(new ItemStack(Blocks.trapdoor, 2), "xxx", "xxx", 'x', "plankWood");
         }
 
         if (ConfigurationHandler.enableFences) {
             removeFirstRecipeFor(Blocks.fence);
             removeFirstRecipeFor(Blocks.fence_gate);
-            Blocks.fence.setCreativeTab(null);
-            Blocks.fence_gate.setCreativeTab(null);
         }
 
         if (ConfigurationHandler.enableBurnableBlocks) {
@@ -291,13 +289,6 @@ public class ModRecipes {
             addShapedRecipe(new ItemStack(Items.iron_door, 3), "xx", "xx", "xx", 'x', "ingotIron");
         }
 
-        if (ConfigurationHandler.enableTrapdoors) {
-            for (int i = 0; i < ModBlocks.trapdoors.length; i++) {
-                addShapedRecipe(new ItemStack(ModBlocks.trapdoors[i], 2), "xxx", "xxx", 'x', new ItemStack(Blocks.planks, 1, i + 1));
-            }
-            addShapedRecipe(new ItemStack(Blocks.trapdoor, 2), "xxx", "xxx", 'x', "plankWood");
-        }
-
         if (ConfigurationHandler.enableRedSandstone) {
             addShapedRecipe(new ItemStack(ModBlocks.red_sandstone), "xx", "xx", 'x', new ItemStack(Blocks.sand, 1, 1));
             addShapedRecipe(new ItemStack(ModBlocks.red_sandstone, 1, 1), "x", "x", 'x', new ItemStack(ModBlocks.red_sandstone_slab));
@@ -308,11 +299,9 @@ public class ModRecipes {
 
         if (ConfigurationHandler.enableFences) {
             for (int i = 0; i < ModBlocks.fences.length; i++) {
-                addShapedRecipe(new ItemStack(ModBlocks.fences[i], 3), "xyx", "xyx", 'x', new ItemStack(Blocks.planks, 1, i), 'y', "stickWood");
+                addShapedRecipe(new ItemStack(ModBlocks.fences[i], 3), "xyx", "xyx", 'x', new ItemStack(Blocks.planks, 1, i + 1), 'y', "stickWood");
             }
-            addShapedRecipe(new ItemStack(ModBlocks.fences[0], 3), "xyx", "xyx", 'x', "plankWood", 'y', "stickWood");
-            addShapelessRecipe(new ItemStack(Blocks.fence), ModBlocks.fences[0]);
-            addShapelessRecipe(new ItemStack(ModBlocks.fences[0]), Blocks.fence);
+            addShapedRecipe(new ItemStack(Blocks.fence, 3), "xyx", "xyx", 'x', "plankWood", 'y', "stickWood");
 
             for (int i = 0; i < ModBlocks.gates.length; i++) {
                 addShapedRecipe(new ItemStack(ModBlocks.gates[i]), "yxy", "yxy", 'x', new ItemStack(Blocks.planks, 1, i + 1), 'y', "stickWood");
@@ -423,8 +412,9 @@ public class ModRecipes {
         }
 
         if (ConfigurationHandler.enableNewNetherBricks) {
-            addShapedRecipe(new ItemStack(ModBlocks.new_nether_brick), "wb", "bw", 'b', Items.netherbrick, 'w', Items.nether_wart  );
-            
+			addShapedRecipe(new ItemStack(ModBlocks.new_nether_brick, 1, 0), "xi", "ix", 'x', Items.nether_wart, 'i', "ingotBrickNether");
+			addShapedRecipe(new ItemStack(ModBlocks.new_nether_brick, 1, 2), "x", "x", 'x', new ItemStack(Blocks.stone_slab, 1, 6));
+			GameRegistry.addSmelting(new ItemStack(Blocks.nether_brick, 1, 1), new ItemStack(ModBlocks.new_nether_brick), .1F);
         }
 
         if (ConfigurationHandler.enableNetherwartBlock) {
@@ -463,21 +453,116 @@ public class ModRecipes {
             addShapedRecipe(new ItemStack(Blocks.wooden_pressure_plate, 1), "xx", 'x', "plankWood");
         }
 
-		for(int i = 0; i < 4; i++) {
+		for(int i = 0; i < 6; i++) {
+			Block slog = i >= 4 ? ModBlocks.log2_stripped : ModBlocks.log_stripped;
+			Block log = i >= 4 ? Blocks.log2 : Blocks.log;
+			Block sbark = i >= 4 ? ModBlocks.wood2_stripped : ModBlocks.wood_stripped;
+			Block bark = i >= 4 ? ModBlocks.log2_bark : ModBlocks.log_bark;
+			
+			System.out.println(slog.getLocalizedName());
 			if (ConfigurationHandler.enableStrippedLogs) {
-				OreDictionary.registerOre("logWood", new ItemStack(ModBlocks.log_stripped, 1, i));
-				OreDictionary.registerOre("logWood", new ItemStack(ModBlocks.log2_stripped, 1, i));
+				addShapedRecipe(new ItemStack(Blocks.planks, 4, i), "x", 'x', new ItemStack(slog, 1, i % 4));
 				if(ConfigurationHandler.enableBarkLogs) {
-					OreDictionary.registerOre("logWood", new ItemStack(ModBlocks.wood_stripped, 1, i));
-					OreDictionary.registerOre("logWood", new ItemStack(ModBlocks.wood2_stripped, 1, i));
+					addShapedRecipe(new ItemStack(Blocks.planks, 4, i), "x", 'x', new ItemStack(sbark, 1, i % 4));
+					addShapedRecipe(new ItemStack(sbark, 3, i % 4), "xx", "xx", 'x', new ItemStack(slog, 1, i % 4));
+//					if(ConfigurationHandler.enableCrimsonBlocks && i == 0)
+//						addShapedRecipe(new ItemStack(ModBlocks.crimson_stem, 3, 3), "xx", "xx", 'x', new ItemStack(ModBlocks.crimson_stem, 1, 2));
+//					if(ConfigurationHandler.enableWarpedBlocks && i == 0)
+//						addShapedRecipe(new ItemStack(ModBlocks.warped_stem, 3, 3), "xx", "xx", 'x', new ItemStack(ModBlocks.warped_stem, 1, 2));
 				}
 			}
+
 			if(ConfigurationHandler.enableBarkLogs) {
-				OreDictionary.registerOre("logWood", new ItemStack(ModBlocks.log_bark, 1, i));
-				OreDictionary.registerOre("logWood", new ItemStack(ModBlocks.log2_bark, 1, i));
+				addShapedRecipe(new ItemStack(Blocks.planks, 4, 4), "x", 'x', new ItemStack(bark, 1, i % 4));
+				addShapedRecipe(new ItemStack(bark, 3, i % 4), "xx", "xx", 'x', new ItemStack(log, 1, i % 4));
+//				if(ConfigurationHandler.enableCrimsonBlocks && i == 0)
+//					addShapedRecipe(new ItemStack(ModBlocks.crimson_stem, 3, 1), "xx", "xx", 'x', new ItemStack(ModBlocks.crimson_stem, 1, 0));
+//				if(ConfigurationHandler.enableWarpedBlocks && i == 0)
+//					addShapedRecipe(new ItemStack(ModBlocks.warped_stem, 3, 1), "xx", "xx", 'x', new ItemStack(ModBlocks.warped_stem, 1, 0));
 			}
 		}
-    }
+		
+		if (ConfigurationHandler.enableLantern)
+			if(!OreDictionary.getOres("nuggetIron").isEmpty())
+				addShapedRecipe(new ItemStack(ModBlocks.lantern), "xxx", "xix", "xxx", 'x', "nuggetIron", 'i', Blocks.torch);
+			else
+				addShapedRecipe(new ItemStack(ModBlocks.lantern), "i", "x", 'x', "ingotIron", 'i', Blocks.torch);
+				
+		
+//		if (ConfigurationHandler.enableCrimsonBlocks)
+//			addShapedRecipe(new ItemStack(ModBlocks.nether_planks, 4, 0), "x", 'x', ModBlocks.crimson_stem);
+//		
+//		if (ConfigurationHandler.enableWarpedBlocks)
+//			addShapedRecipe(new ItemStack(ModBlocks.nether_planks, 4, 1), "x", 'x', ModBlocks.warped_stem);
+		
+		if (ConfigurationHandler.enableBarrel)
+			addShapedRecipe(new ItemStack(ModBlocks.barrel), "xsx", "x x", "xsx", 'x', "plankWood", 's', "slabWood");
+		
+//		if(ConfigurationHandler.enableBlueIce)
+//			addShapedRecipe(new ItemStack(ModBlocks.blue_ice), "xxx", "xxx", "xxx", 'x', Blocks.packed_ice);
+		
+		if(ConfigurationHandler.enableSmoker) {
+			addShapedRecipe(new ItemStack(ModBlocks.smoker), " l ", "lxl", " l ", 'x', Blocks.furnace, 'l', "logWood");
+		}
+		
+		if(ConfigurationHandler.enableBlastFurnace) {
+			addShapedRecipe(new ItemStack(ModBlocks.blast_furnace), "iii", "ixi", "sss", 'x', Blocks.furnace, 'i', "ingotIron", 's', /*ConfigurationHandler.enableGenericBuildingBlocks ? ModBlocks.smooth_stone : */Blocks.stone);
+		}
+		
+//		if(ConfigurationHandler.enableGenericBuildingBlocks) {
+//			GameRegistry.addSmelting(Blocks.stone, new ItemStack(ModBlocks.smooth_stone), .1F);
+//		}
+		
+		if(ConfigurationHandler.enableNetherite) {
+			GameRegistry.addSmelting(ModBlocks.ancient_debris, new ItemStack(ModItems.netherite_scrap), 2F);
+			if(ConfigurationHandler.enableBlastFurnace) {
+				BlastFurnaceRecipes.smelting().addRecipe(ModBlocks.ancient_debris, new ItemStack(ModItems.netherite_scrap), 2F);
+			}
+			addShapelessRecipe(new ItemStack(ModItems.netherite_ingot), new ItemStack(ModItems.netherite_scrap), new ItemStack(ModItems.netherite_scrap),
+			new ItemStack(ModItems.netherite_scrap), new ItemStack(ModItems.netherite_scrap), "ingotGold", "ingotGold", "ingotGold", "ingotGold");
+			addShapedRecipe(new ItemStack(ModBlocks.netherite_block), "xxx", "xxx", "xxx", 'x', ModItems.netherite_ingot);
+			addShapedRecipe(new ItemStack(ModItems.netherite_ingot, 9), "x", 'x', ModBlocks.netherite_block);
+		}
+		
+		if(ConfigurationHandler.enableNetherite) {
+			Item[][] items = new Item[][] {
+				{Items.diamond_helmet, Items.diamond_chestplate, Items.diamond_leggings, Items.diamond_boots, Items.diamond_pickaxe, Items.diamond_axe, Items.diamond_hoe, Items.diamond_shovel, Items.diamond_sword},
+				{ModItems.netherite_helmet, ModItems.netherite_chestplate, ModItems.netherite_leggings, ModItems.netherite_boots, ModItems.netherite_pickaxe, ModItems.netherite_axe, ModItems.netherite_hoe, ModItems.netherite_spade, ModItems.netherite_sword}};
+				for(int i = 0; i < items[0].length; i++) {
+	    			addShapelessRecipe(new ItemStack(items[1][i]), "ingotNetherite", items[0][i]);
+				}
+		}
+		
+//		if (ConfigurationHandler.enableBasalt)
+//			addShapedRecipe(new ItemStack(ModBlocks.basalt, 4, 1), "xx", "xx", 'x', new ItemStack(ModBlocks.basalt, 1, 0));
+//		
+//		if(ConfigurationHandler.enableCrimsonBlocks)
+//			addShapedRecipe(new ItemStack(ModBlocks.nether_planks_slab, 6), "xxx", 'x', new ItemStack(ModBlocks.nether_planks, 1, 0));
+//		
+//		if(ConfigurationHandler.enableWarpedBlocks)
+//			addShapedRecipe(new ItemStack(ModBlocks.nether_planks_slab, 6, 3), "xxx", 'x', new ItemStack(ModBlocks.nether_planks, 1, 1));
+//
+//		if(ConfigurationHandler.enableNetherGold)
+//			GameRegistry.addSmelting(new ItemStack(ModBlocks.nether_gold_ore), new ItemStack(Items.gold_ingot), 1F);
+//		
+//		if(ConfigurationHandler.enableBlackstone) {
+//			GameRegistry.addSmelting(new ItemStack(ModBlocks.blackstone, 1, 3), new ItemStack(ModBlocks.blackstone, 1, 4), .1F);
+//			GameRegistry.addSmelting(new ItemStack(ModBlocks.gilded_blackstone), new ItemStack(Items.gold_ingot), 1F);
+//			addShapedRecipe(new ItemStack(ModBlocks.blackstone, 4, 2), "x", "x", 'x', new ItemStack(ModBlocks.blackstone_slab, 1, 3));
+//			addShapedRecipe(new ItemStack(ModBlocks.blackstone, 4, 1), "xx", "xx", 'x', new ItemStack(ModBlocks.blackstone, 1, 0));
+//			addShapedRecipe(new ItemStack(ModBlocks.blackstone, 4, 3), "xx", "xx", 'x', new ItemStack(ModBlocks.blackstone, 1, 1));
+//			addShapedRecipe(new ItemStack(ModBlocks.blackstone_slab, 6, 0), "xxx", 'x', new ItemStack(ModBlocks.blackstone, 1, 0));
+//			addShapedRecipe(new ItemStack(ModBlocks.blackstone_slab, 6, 3), "xxx", 'x', new ItemStack(ModBlocks.blackstone, 1, 1));
+//			addShapedRecipe(new ItemStack(ModBlocks.blackstone_slab, 6, 6), "xxx", 'x', new ItemStack(ModBlocks.blackstone, 1, 3));
+//			if(ConfigurationHandler.enableStairs) {
+//				addShapedRecipe(new ItemStack(ModBlocks.blackstone_stairs, 4, 1), "x  ", "xx ", "xxx", 'x', new ItemStack(ModBlocks.blackstone, 1, 0));
+//				addShapedRecipe(new ItemStack(ModBlocks.polished_blackstone_stairs, 4, 1), "x  ", "xx ", "xxx", 'x', new ItemStack(ModBlocks.blackstone, 1, 1));
+//				addShapedRecipe(new ItemStack(ModBlocks.polished_blackstone_brick_stairs, 4, 1), "x  ", "xx ", "xxx", 'x', new ItemStack(ModBlocks.blackstone, 1, 3));
+//			}
+//		}
+		
+		addShapedRecipe(new ItemStack(Blocks.wooden_slab, 6), "xxx", 'x', "plankWood");
+	}
 
     private static void addShapedRecipe(ItemStack output, Object... objects) {
         GameRegistry.addRecipe(new ShapedOreRecipe(output, objects));
