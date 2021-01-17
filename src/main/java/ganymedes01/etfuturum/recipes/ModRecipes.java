@@ -49,15 +49,12 @@ public class ModRecipes {
 
         if (ConfigurationHandler.enableTrapdoors) {
             removeFirstRecipeFor(Blocks.trapdoor);
-			for (int i = 0; i < ModBlocks.trapdoors.length; i++) {
-				if((i == 5 && !ConfigurationHandler.enableCrimsonBlocks) || (i == 6 && !ConfigurationHandler.enableWarpedBlocks))
-					continue;
-				ItemStack planks = /* i < 5 ? */new ItemStack(Blocks.planks, 1, i + 1)/* : new ItemStack(ModBlocks.nether_planks, 1, i - 5) */;
-				addShapedRecipe(new ItemStack(ModBlocks.trapdoors[i], 2), "xxx", "xxx", 'x', planks);
-			}
-			addShapedRecipe(new ItemStack(Blocks.trapdoor, 2), "xxx", "xxx", 'x', "plankWood");
         }
 
+		if (ConfigurationHandler.enableSigns) {
+			removeFirstRecipeFor(Items.sign);
+		}
+		
         if (ConfigurationHandler.enableFences) {
             removeFirstRecipeFor(Blocks.fence);
             removeFirstRecipeFor(Blocks.fence_gate);
@@ -288,7 +285,27 @@ public class ModRecipes {
             addShapedRecipe(new ItemStack(Items.wooden_door, 3), "xx", "xx", "xx", 'x', "plankWood");
             addShapedRecipe(new ItemStack(Items.iron_door, 3), "xx", "xx", "xx", 'x', "ingotIron");
         }
+        
+        if(ConfigurationHandler.enableTrapdoors) {
+			for (int i = 0; i < ModBlocks.trapdoors.length; i++) {
+				if((i == 5 && !ConfigurationHandler.enableCrimsonBlocks) || (i == 6 && !ConfigurationHandler.enableWarpedBlocks))
+					continue;
+				ItemStack planks = /* i < 5 ? */new ItemStack(Blocks.planks, 1, i + 1)/* : new ItemStack(ModBlocks.nether_planks, 1, i - 5) */;
+				addShapedRecipe(new ItemStack(ModBlocks.trapdoors[i], 2), "xxx", "xxx", 'x', planks);
+			}
+			addShapedRecipe(new ItemStack(Blocks.trapdoor, 2), "xxx", "xxx", 'x', "plankWood");
+        }
 
+		if (ConfigurationHandler.enableSigns) {
+			for (int i = 0; i < ModItems.signs.length; i++) {
+//				if((i == 5 && !EtFuturum.enableCrimsonBlocks) || (i == 6 && !EtFuturum.enableWarpedBlocks))
+//					continue;
+				ItemStack planks = /* i < 5 ? */new ItemStack(Blocks.planks, 1, i + 1)/* : new ItemStack(ModBlocks.nether_planks, 1, i - 5)*/;
+				addShapedRecipe(new ItemStack(ModItems.signs[i], 3), "xxx", "xxx", " y ", 'x', planks, 'y', "stickWood");
+			}
+			addShapedRecipe(new ItemStack(Items.sign, 3), "xxx", "xxx", " y ", 'x', "plankWood", 'y', "stickWood");
+		}
+		
         if (ConfigurationHandler.enableRedSandstone) {
             addShapedRecipe(new ItemStack(ModBlocks.red_sandstone), "xx", "xx", 'x', new ItemStack(Blocks.sand, 1, 1));
             addShapedRecipe(new ItemStack(ModBlocks.red_sandstone, 1, 1), "x", "x", 'x', new ItemStack(ModBlocks.red_sandstone_slab));

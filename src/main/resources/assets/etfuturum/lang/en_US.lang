@@ -70,6 +70,13 @@ item.etfuturum.netherite_sword.name=Netherite Sword
 item.etfuturum.netherite_hoe.name=Netherite Hoe
 potion.prefix.lingering=Lingering
 item.etfuturum.totem_of_undying.name=Totem of Undying
+item.etfuturum.item_sign_spruce.name=Spruce Sign
+item.etfuturum.item_sign_birch.name=Birch Sign
+item.etfuturum.item_sign_jungle.name=Jungle Sign
+item.etfuturum.item_sign_acacia.name=Acacia Sign
+item.etfuturum.item_sign_dark_oak.name=Dark Oak Sign
+item.etfuturum.item_sign_warped.name=Warped Sign
+item.etfuturum.item_sign_crimson.name=Crimson Sign
 
  Arrows
 item.etfuturum.tipped_arrow.name=Tipped Arrow

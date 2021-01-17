@@ -27,6 +27,7 @@ import ganymedes01.etfuturum.items.RabbitRaw;
 import ganymedes01.etfuturum.items.RabbitStew;
 import ganymedes01.etfuturum.items.TippedArrow;
 import ganymedes01.etfuturum.items.TotemUndying;
+import ganymedes01.etfuturum.items.block.ItemWoodSign;
 import ganymedes01.etfuturum.items.equipment.ItemEFRArmour;
 import ganymedes01.etfuturum.items.equipment.ItemEFRAxe;
 import ganymedes01.etfuturum.items.equipment.ItemEFRHoe;
@@ -80,9 +81,14 @@ public class ModItems {
     public static final Item netherite_axe = new ItemEFRAxe(NETHERITE_TOOL, ConfigurationHandler.netheriteHelmetDurability);
     public static final Item netherite_hoe = new ItemEFRHoe(NETHERITE_TOOL, ConfigurationHandler.netheriteHelmetDurability);
     public static final Item netherite_sword = new ItemEFRSword(NETHERITE_TOOL, ConfigurationHandler.netheriteHelmetDurability);
-    //public static final Item[] signs = new Item[ModBlocks.woodTypes.length - 1];
+    public static final Item[] signs = new Item[ModBlocks.woodTypes.length - 1];
     public static final Item totem = new TotemUndying();
 
+	static {
+		for (int i = 0; i < signs.length; i++)
+			signs[i] = new ItemWoodSign(i + 1);
+	}
+	
     public static void init() {
         try {
             for (Field f : ModItems.class.getDeclaredFields()) {

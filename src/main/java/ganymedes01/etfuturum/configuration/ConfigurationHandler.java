@@ -93,6 +93,7 @@ public class ConfigurationHandler {
 	public static int debrisMax = 3;
 	public static int maxNetherGoldPerCluster = 10;
 	public static int maxMagmaPerCluster = 33;
+	public static boolean enableSigns;
 
     public static boolean enableNewNetherBricks;
     public static boolean enableNetherwartBlock;
@@ -105,7 +106,7 @@ public class ConfigurationHandler {
     public static boolean enableStray;
     public static boolean enableNetherEndermen;
     public static boolean enableTotemUndying;
-    public static boolean enableRecipeForTotem = false;
+    public static boolean enableRecipeForTotem;
     
     public static boolean enableWoodRedstone;
     public static boolean enableStrippedLogs;
@@ -115,7 +116,7 @@ public class ConfigurationHandler {
 
     public static int maxStonesPerCluster;
 
-    public static boolean enableNetheriteFlammable = false;
+    public static boolean enableNetheriteFlammable;
     public static int netheriteToolDurability;
     public static int netheriteEnchantability;
     public static int netheriteHarvestLevel;
@@ -200,9 +201,9 @@ public class ConfigurationHandler {
         
         enableBarrel = cfg.getBoolean("enableBarrel", catBlock, true, "");
         enableLantern = cfg.getBoolean("enableLantern", catBlock, true, "");
-        
         enableSmoker = cfg.getBoolean("enableSmoker", catBlock, true, "");
         enableBlastFurnace = cfg.getBoolean("enableBlastFurnace", catBlock, true, "");
+        enableSigns = cfg.getBoolean("enableSigns", catBlock, true, "");
         
         enableBarrier = cfg.getBoolean("enableBarrier", catBlock, true, "");
         
@@ -232,6 +233,7 @@ public class ConfigurationHandler {
         netheriteChestplateDurability = cfg.getInt("netheriteChestplateDurability", catEquipment, -1, -1, Integer.MAX_VALUE, "Override Netherite Chestplate Durability, -1 to disable");
         netheriteLeggingsDurability = cfg.getInt("netheriteLeggingsDurability", catEquipment, -1, -1, Integer.MAX_VALUE, "Override Netherite Leggings Durability, -1 to disable");
         netheriteBootsDurability = cfg.getInt("netheriteBootsDurability", catEquipment, -1, -1, Integer.MAX_VALUE, "Override Netherite Boots Durability, -1 to disable");
+        enableNetheriteFlammable = cfg.getBoolean("enableNetheriteFlammable", catEquipment, false, "Set to true to disable the fireproof item entity Netherite/ancient debris etc uses");
         
         //enchants
         enableFrostWalker = cfg.getBoolean("frostWalker", catEnchants, true, "");
@@ -271,6 +273,7 @@ public class ConfigurationHandler {
         enableAutoAddBlastFurnace = cfg.getBoolean("enableAutoAddBlastFurnace", catFunction, true, "Auto-adds ores to the blast furnace, detected if the input has the \"ore\" oreDictionary prefix and is smeltable. Turn off for only vanilla ores");
         totemHealPercent = cfg.getInt("totemHealPercent", catFunction, 5, 5, 100, "Percentage of max health for totem to set you at if you die with it. (5% is 0.05, 20 * 0.05 = 1, 1 health is one half-heart)");
         enableHoeMining = cfg.getBoolean("enableHoeMining", catFunction, true, "Allows blocks like hay bales, leaves etc to mine faster with hoes");
+        enableRecipeForTotem = cfg.getBoolean("enableRecipeForTotem", catFunction, false, "Recipe for totems since there's no other way to get them currently?");
         
         //replacement
         enableTileReplacement = cfg.getBoolean("enableTileReplacement", catReplacement, true, "Replace old Brewing Stands/Enchanting Tables/Daylight Sensors/Beacons with new one on the fly.");

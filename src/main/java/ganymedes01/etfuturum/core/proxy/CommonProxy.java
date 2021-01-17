@@ -44,6 +44,7 @@ import ganymedes01.etfuturum.tileentities.TileEntityEndRod;
 import ganymedes01.etfuturum.tileentities.TileEntityNewBeacon;
 import ganymedes01.etfuturum.tileentities.TileEntityNewBrewingStand;
 import ganymedes01.etfuturum.tileentities.TileEntitySmoker;
+import ganymedes01.etfuturum.tileentities.TileEntityWoodSign;
 import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.monster.EntityEnderman;
@@ -96,8 +97,8 @@ public class CommonProxy implements IGuiHandler {
 		if (ConfigurationHandler.enableBlastFurnace)
 			GameRegistry.registerTileEntity(TileEntityBlastFurnace.class, Utils.getUnlocalisedName("blast_furnace"));
 		
-//		if(EtFuturum.enableSigns)
-//			GameRegistry.registerTileEntity(TileEntityWoodSign.class, Utils.getUnlocalisedName("sign"));
+		if(ConfigurationHandler.enableSigns)
+			GameRegistry.registerTileEntity(TileEntityWoodSign.class, Utils.getUnlocalisedName("sign"));
 		
         if (ConfigurationHandler.enableRabbit) {
             ModEntityList.registerEntity(EntityRabbit.class, "rabbit", id++, EtFuturum.instance, 80, 3, true, 10051392, 7555121);

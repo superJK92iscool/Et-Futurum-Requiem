@@ -29,6 +29,7 @@ import ganymedes01.etfuturum.blocks.BlockWoodDoor;
 import ganymedes01.etfuturum.blocks.BlockWoodFence;
 import ganymedes01.etfuturum.blocks.BlockWoodFenceGate;
 import ganymedes01.etfuturum.blocks.BlockWoodPressurePlate;
+import ganymedes01.etfuturum.blocks.BlockWoodSign;
 import ganymedes01.etfuturum.blocks.BlockWoodTrapdoor;
 import ganymedes01.etfuturum.blocks.BoneBlock;
 import ganymedes01.etfuturum.blocks.ChorusFlower;
@@ -66,6 +67,7 @@ import ganymedes01.etfuturum.blocks.SeaLantern;
 import ganymedes01.etfuturum.blocks.SlimeBlock;
 import ganymedes01.etfuturum.blocks.Sponge;
 import ganymedes01.etfuturum.blocks.Stone;
+import ganymedes01.etfuturum.tileentities.TileEntityWoodSign;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBlock;
@@ -150,8 +152,15 @@ public class ModBlocks {
     public static final Block[] pressure_plates = new Block[woodTypes.length - 1];
     public static final Block[] buttons = new Block[woodTypes.length - 1];
     public static final Block[] trapdoors = new Block[woodTypes.length - 1];
+	public static final Block[] signs = new Block[woodTypes.length - 1];
+	public static final Block[] wall_signs = new Block[woodTypes.length - 1];
 
     static {
+		for (int i = 0; i < signs.length; i++) {
+			signs[i] = new BlockWoodSign(TileEntityWoodSign.class, true, i + 1);
+			wall_signs[i] = new BlockWoodSign(TileEntityWoodSign.class, false, i + 1);
+		}
+		
         for (int i = 0; i < doors.length; i++)
             doors[i] = new BlockWoodDoor(i + 1);
 

@@ -34,6 +34,8 @@ import ganymedes01.etfuturum.network.BlackHeartParticlesHandler;
 import ganymedes01.etfuturum.network.BlackHeartParticlesMessage;
 import ganymedes01.etfuturum.network.SetPlayerModelHandler;
 import ganymedes01.etfuturum.network.SetPlayerModelMessage;
+import ganymedes01.etfuturum.network.WoodSignOpenHandler;
+import ganymedes01.etfuturum.network.WoodSignOpenMessage;
 import ganymedes01.etfuturum.recipes.BrewingFuelRegistry;
 import ganymedes01.etfuturum.recipes.ModRecipes;
 import ganymedes01.etfuturum.world.EtFuturumWorldGenerator;
@@ -44,7 +46,6 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -99,9 +100,7 @@ public class EtFuturum {
         networkWrapper.registerMessage(ArmourStandInteractHandler.class, ArmourStandInteractMessage.class, 0, Side.SERVER);
         networkWrapper.registerMessage(BlackHeartParticlesHandler.class, BlackHeartParticlesMessage.class, 1, Side.CLIENT);
         networkWrapper.registerMessage(SetPlayerModelHandler.class, SetPlayerModelMessage.class, 2, Side.CLIENT);
-        
-    
-        
+		networkWrapper.registerMessage(WoodSignOpenHandler.class, WoodSignOpenMessage.class, 3, Side.CLIENT);          
     }
 
     @EventHandler

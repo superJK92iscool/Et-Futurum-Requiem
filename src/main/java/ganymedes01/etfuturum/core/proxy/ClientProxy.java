@@ -36,6 +36,7 @@ import ganymedes01.etfuturum.client.renderer.tileentity.TileEntityBannerRenderer
 import ganymedes01.etfuturum.client.renderer.tileentity.TileEntityEndRodRenderer;
 import ganymedes01.etfuturum.client.renderer.tileentity.TileEntityFancySkullRenderer;
 import ganymedes01.etfuturum.client.renderer.tileentity.TileEntityNewBeaconRenderer;
+import ganymedes01.etfuturum.client.renderer.tileentity.TileEntityWoodSignRenderer;
 import ganymedes01.etfuturum.client.skins.NewRenderPlayer;
 import ganymedes01.etfuturum.client.skins.NewSkinManager;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
@@ -53,6 +54,7 @@ import ganymedes01.etfuturum.entities.EntityZombieVillager;
 import ganymedes01.etfuturum.tileentities.TileEntityBanner;
 import ganymedes01.etfuturum.tileentities.TileEntityEndRod;
 import ganymedes01.etfuturum.tileentities.TileEntityNewBeacon;
+import ganymedes01.etfuturum.tileentities.TileEntityWoodSign;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureManager;
@@ -119,6 +121,9 @@ public class ClientProxy extends CommonProxy {
 		
 		if (ConfigurationHandler.enableTrapdoors)
 			RenderingRegistry.registerBlockHandler(new BlockTrapDoorRenderer());
+		
+		if(ConfigurationHandler.enableSigns)
+			ClientRegistry.bindTileEntitySpecialRenderer(TileEntityWoodSign.class, new TileEntityWoodSignRenderer());
 		
         RenderingRegistry.registerBlockHandler(new BlockChestRenderer());
     }
