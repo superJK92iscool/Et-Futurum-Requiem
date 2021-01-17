@@ -653,6 +653,8 @@ public class ServerEventHandler {
         if (!ConfigurationHandler.enableDmgIndicator)
             return;
         int amount = MathHelper.floor_float(Math.min(event.entityLiving.getHealth(), event.ammount) / 2F);
+		amount = (int) applyArmorCalculations(event.entityLiving, event.source, amount);
+		amount = (int) applyPotionDamageCalculations(event.entityLiving, event.source, amount);
         if (amount <= 0)
             return;
 
@@ -670,6 +672,68 @@ public class ServerEventHandler {
                     double z = event.entityLiving.posZ - amount * 0.35 * look.zCoord / 2 + i * 0.35 * look.zCoord;
                     EtFuturum.networkWrapper.sendToAllAround(new BlackHeartParticlesMessage(x, y, z), new TargetPoint(player.worldObj.provider.dimensionId, x, y, z, 64));
                 }
+            }
+        }
+    }
+    
+    private float applyArmorCalculations(EntityLivingBase entity, DamageSource p_70655_1_, float p_70655_2_)
+    {
+        if (!p_70655_1_.isUnblockable())
+        {
+            int i = 25 - entity.getTotalArmorValue();
+            float f1 = p_70655_2_ * (float)i;
+            p_70655_2_ = f1 / 25.0F;
+        }
+
+        return p_70655_2_;
+    }
+    
+    private float applyPotionDamageCalculations(EntityLivingBase entity, DamageSource p_70672_1_, float p_70672_2_)
+    {
+        if (p_70672_1_.isDamageAbsolute())
+        {
+            return p_70672_2_;
+        }
+        else
+        {
+            if (entity instanceof EntityZombie)
+            {
+                //par2 = par2; // Forge: Noop Warning
+            }
+
+            int i;
+            int j;
+            float f1;
+
+            if (entity.isPotionActive(Potion.resistance) && p_70672_1_ != DamageSource.outOfWorld)
+            {
+                i = (entity.getActivePotionEffect(Potion.resistance).getAmplifier() + 1) * 5;
+                j = 25 - i;
+                f1 = p_70672_2_ * (float)j;
+                p_70672_2_ = f1 / 25.0F;
+            }
+
+            if (p_70672_2_ <= 0.0F)
+            {
+                return 0.0F;
+            }
+            else
+            {
+                i = EnchantmentHelper.getEnchantmentModifierDamage(entity.getLastActiveItems(), p_70672_1_);
+
+                if (i > 20)
+                {
+                    i = 20;
+                }
+
+                if (i > 0 && i <= 20)
+                {
+                    j = 25 - i;
+                    f1 = p_70672_2_ * (float)j;
+                    p_70672_2_ = f1 / 25.0F;
+                }
+
+                return p_70672_2_;
             }
         }
     }
