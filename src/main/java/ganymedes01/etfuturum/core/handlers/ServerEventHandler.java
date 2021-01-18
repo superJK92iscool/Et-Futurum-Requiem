@@ -819,7 +819,7 @@ public class ServerEventHandler {
     @SubscribeEvent
     public void onPlaySoundEvent(PlaySoundEvent17 event)
     {
-    	if(event != null && event.sound != null && event.name != null && FMLClientHandler.instance().getClient().theWorld != null
+    	if(event.sound != null && event.name != null && FMLClientHandler.instance().getClient().theWorld != null
     			&& FMLCommonHandler.instance().getSide() == Side.CLIENT) {
     			String[] eventwithprefix = event.name.split("\\.");
             if (ConfigurationHandler.enableNewBlocksSounds && event.name.contains(".") &&
@@ -899,8 +899,9 @@ public class ServerEventHandler {
     @SubscribeEvent
     public void onPlaySoundAtEntityEvent(PlaySoundAtEntityEvent event)
     {
-        if (ConfigurationHandler.enableNewBlocksSounds && event != null && event.name != null
-        		&& event.entity != null && event.name.contains("step") && event.name.equals("step.stone")) {
+        if (ConfigurationHandler.enableNewBlocksSounds && event.name != null
+        		&& event.entity != null && event.name.contains("step") && event.name.equals("step.stone")
+        		&& event.name.contains(".")) {
 			String[] eventwithprefix = event.name.split("\\.");
             int x = MathHelper.floor_double(event.entity.posX);
             int y = MathHelper.floor_double(event.entity.posY - 0.20000000298023224D - event.entity.yOffset);
@@ -908,6 +909,8 @@ public class ServerEventHandler {
             World world = event.entity.worldObj;
             Block block = world.getBlock(x, y, z);
             Item itemblock = Item.getItemFromBlock(block);
+            if(itemblock == null)
+            	return;
             String name = itemblock.getUnlocalizedName(new ItemStack(itemblock, 1, world.getBlockMetadata(x, y, z) % 8)).toLowerCase();
             if(name.contains("slab") && name.contains("nether") && name.contains("brick")) {
                 String prefix = event.name.substring(0, event.name.indexOf(".") + 1);
