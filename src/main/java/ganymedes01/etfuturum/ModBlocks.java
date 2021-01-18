@@ -9,6 +9,7 @@ import ganymedes01.etfuturum.blocks.BlockBarrel;
 import ganymedes01.etfuturum.blocks.BlockBarrier;
 import ganymedes01.etfuturum.blocks.BlockBeetroot;
 import ganymedes01.etfuturum.blocks.BlockBlastFurnace;
+import ganymedes01.etfuturum.blocks.BlockBlueIce;
 import ganymedes01.etfuturum.blocks.BlockConcrete;
 import ganymedes01.etfuturum.blocks.BlockConcretePowder;
 import ganymedes01.etfuturum.blocks.BlockLantern;
@@ -123,6 +124,7 @@ public class ModBlocks {
 	public static final Block lit_blast_furnace = new BlockBlastFurnace(true);
 	public static final Block barrier = new BlockBarrier();
 	public static final Block nether_gold_ore = new BlockOreNetherGold();
+	public static final Block blue_ice = new BlockBlueIce();
     
     public static final Block concrete = new BlockConcrete();
     public static final Block concrete_powder = new BlockConcretePowder();

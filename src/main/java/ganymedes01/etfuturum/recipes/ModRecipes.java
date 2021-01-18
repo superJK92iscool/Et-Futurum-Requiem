@@ -515,8 +515,8 @@ public class ModRecipes {
 		if (ConfigurationHandler.enableBarrel)
 			addShapedRecipe(new ItemStack(ModBlocks.barrel), "xsx", "x x", "xsx", 'x', "plankWood", 's', "slabWood");
 		
-//		if(ConfigurationHandler.enableBlueIce)
-//			addShapedRecipe(new ItemStack(ModBlocks.blue_ice), "xxx", "xxx", "xxx", 'x', Blocks.packed_ice);
+		if(ConfigurationHandler.enableBlueIce)
+			addShapedRecipe(new ItemStack(ModBlocks.blue_ice), "xxx", "xxx", "xxx", 'x', Blocks.packed_ice);
 		
 		if(ConfigurationHandler.enableSmoker) {
 			addShapedRecipe(new ItemStack(ModBlocks.smoker), " l ", "lxl", " l ", 'x', Blocks.furnace, 'l', "logWood");

@@ -111,6 +111,7 @@ public class ConfigurationHandler {
     public static boolean enableWoodRedstone;
     public static boolean enableStrippedLogs;
     public static boolean enableBarkLogs;
+	public static boolean enableBlueIce;
 
     public static boolean enableTileReplacement;
 
@@ -204,6 +205,7 @@ public class ConfigurationHandler {
         enableSmoker = cfg.getBoolean("enableSmoker", catBlock, true, "");
         enableBlastFurnace = cfg.getBoolean("enableBlastFurnace", catBlock, true, "");
         enableSigns = cfg.getBoolean("enableSigns", catBlock, true, "");
+        enableBlueIce = cfg.getBoolean("enableBlueIce", catBlock, true, "");
         
         enableBarrier = cfg.getBoolean("enableBarrier", catBlock, true, "");
         
