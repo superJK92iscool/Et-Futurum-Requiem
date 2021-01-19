@@ -40,7 +40,6 @@ import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.network.BlackHeartParticlesMessage;
 import ganymedes01.etfuturum.network.SetPlayerModelMessage;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockDoor;
 import net.minecraft.block.BlockFenceGate;
 import net.minecraft.block.BlockTrapDoor;
@@ -49,6 +48,7 @@ import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAIOpenDoor;
 import net.minecraft.entity.ai.EntityAITargetNonTamed;
@@ -80,7 +80,6 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.tileentity.TileEntityFlowerPot;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
@@ -109,7 +108,6 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 import net.minecraftforge.event.entity.player.PlayerPickupXpEvent;
-import net.minecraftforge.event.entity.player.PlayerUseItemEvent;
 import net.minecraftforge.event.entity.player.UseHoeEvent;
 import net.minecraftforge.event.world.BlockEvent;
 
@@ -752,46 +750,55 @@ public class ServerEventHandler {
             }
         }
     }
-    
-    //TODO totem
     @SubscribeEvent
-    public void beforePlayerHurt(LivingAttackEvent event) {
+    public void livingHurtEvent(LivingHurtEvent event) {
         Entity entity = event.entity;
-        if ((entity == null) || (!(entity instanceof EntityPlayer))) {
+        if(ConfigurationHandler.enableHayBaleFalls && entity != null
+        		&& entity.worldObj.getBlock(MathHelper.floor_double(entity.posX), MathHelper.floor_double(entity.posY - 0.20000000298023224D - entity.yOffset), MathHelper.floor_double(entity.posZ)) == Blocks.hay_block
+        		&& event.source == DamageSource.fall) {
+        	if(ConfigurationHandler.hayBaleReducePercent <= 0)
+        		event.ammount = 0;
+        	else
+            	event.ammount *= (ConfigurationHandler.hayBaleReducePercent / 100);
+        }
+        if ((entity == null) || (!(entity instanceof EntityLivingBase))) {
             return;
         }
-        EntityPlayer player = (EntityPlayer)entity;
+        EntityLivingBase player = (EntityLivingBase)entity;
         
-        handleTotemCheck(player, event);
-        
-        if (event.isCanceled()) {
-            event.setResult(null);
-        }
-        
+        if(ConfigurationHandler.enableTotemUndying)
+            handleTotemCheck(player, event);
     }
     
-    public void handleTotemCheck(final EntityPlayer player, final LivingAttackEvent event) {
-        if (player.getHealth() > Math.round(event.ammount)) {
+    public void handleTotemCheck(final EntityLivingBase entity, final LivingHurtEvent event) {
+        if (entity.getHealth() > Math.round(event.ammount)) {
             return;
         }
-        if (!this.playerHasItem(player, new ItemStack(ModItems.totem), false)) {
+        if (entity.getHeldItem() == null || entity.getHeldItem().getItem() != ModItems.totem
+        		|| !(entity instanceof EntityLiving || entity instanceof EntityPlayer)) {
             return;
         }
-        this.decreaseItemByOne(player, ModItems.totem);
+        
         //this.spawnTotemParticles(player);
-        player.worldObj.playSoundEffect(player.posX + 0.5, player.posY + 0.5, player.posZ + 0.5, Reference.MOD_ID + ":item.totem_use", 1.0f, player.worldObj.rand.nextFloat() * 0.1f + 0.9f);
+        entity.worldObj.playSoundEffect(entity.posX + 0.5, entity.posY + 0.5, entity.posZ + 0.5, Reference.MOD_ID + ":item.totem_use", 1.0f, entity.worldObj.rand.nextFloat() * 0.1f + 0.9f);
         
-        player.clearActivePotions();
+        entity.clearActivePotions();
         float healpercent = (float)ConfigurationHandler.totemHealPercent / 100;
-        float sethp = player.getMaxHealth() * healpercent;
-        player.setHealth(sethp < .5F ? .5F : sethp);
-        player.performHurtAnimation();
-        player.addPotionEffect(new PotionEffect(Potion.regeneration.id, 900, 1));
-        player.addPotionEffect(new PotionEffect(Potion.fireResistance.id, 800, 1));
-        player.addPotionEffect(new PotionEffect(Potion.field_76444_x.id, 100, 1));
+        float sethp = entity.getMaxHealth() * healpercent;
+        entity.setHealth(sethp < .5F ? .5F : sethp);
+        event.ammount = 0;
+        entity.addPotionEffect(new PotionEffect(Potion.regeneration.id, 900, 1));
+        entity.addPotionEffect(new PotionEffect(Potion.fireResistance.id, 800, 1));
+        entity.addPotionEffect(new PotionEffect(Potion.field_76444_x.id, 100, 1));
+        //TODO: Make it respect a stack size
         
-        player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("util.totemBreak")));
-
+        if(entity instanceof EntityLiving) {
+        	((EntityLiving)entity).setCurrentItemOrArmor(0, (ItemStack)null);
+        }
+        if(entity instanceof EntityPlayer) {
+            ((EntityPlayer)entity).addChatMessage(new ChatComponentText(StatCollector.translateToLocal("util.totemBreak")));
+            ((EntityPlayer)entity).destroyCurrentEquippedItem();
+        }
         event.setCanceled(true);
     }
     
