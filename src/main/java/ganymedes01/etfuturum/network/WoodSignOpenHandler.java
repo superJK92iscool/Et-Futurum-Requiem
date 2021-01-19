@@ -4,6 +4,8 @@ import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.client.gui.GuiEditWoodSign;
 import ganymedes01.etfuturum.tileentities.TileEntityWoodSign;
@@ -12,6 +14,7 @@ import net.minecraft.tileentity.TileEntity;
 
 public class WoodSignOpenHandler implements IMessageHandler<WoodSignOpenMessage, IMessage> {
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public IMessage onMessage(WoodSignOpenMessage message, MessageContext ctx) {
         WorldClient world = FMLClientHandler.instance().getClient().theWorld;

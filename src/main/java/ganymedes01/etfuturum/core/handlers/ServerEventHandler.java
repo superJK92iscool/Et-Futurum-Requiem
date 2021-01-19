@@ -40,9 +40,8 @@ import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.network.BlackHeartParticlesMessage;
 import ganymedes01.etfuturum.network.SetPlayerModelMessage;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockChest;
+import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockDoor;
-import net.minecraft.block.BlockEnderChest;
 import net.minecraft.block.BlockFenceGate;
 import net.minecraft.block.BlockTrapDoor;
 import net.minecraft.block.material.Material;
@@ -81,6 +80,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.tileentity.TileEntityFlowerPot;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
@@ -109,6 +109,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 import net.minecraftforge.event.entity.player.PlayerPickupXpEvent;
+import net.minecraftforge.event.entity.player.PlayerUseItemEvent;
 import net.minecraftforge.event.entity.player.UseHoeEvent;
 import net.minecraftforge.event.world.BlockEvent;
 
@@ -428,12 +429,12 @@ public class ServerEventHandler {
 	}
 
 
-    @SubscribeEvent
+	@SubscribeEvent(priority=EventPriority.HIGHEST)
     public void onPlayerInteract(PlayerInteractEvent event) {
-        if (event.action == Action.RIGHT_CLICK_BLOCK) {
+        if (event.action == Action.RIGHT_CLICK_BLOCK || event.action == Action.RIGHT_CLICK_AIR) {
             EntityPlayer entityPlayer = event.entityPlayer;
             if (entityPlayer != null) {
-            	ItemStack heldStack = entityPlayer.getCurrentEquippedItem();
+            	ItemStack heldStack = entityPlayer.getHeldItem();
                 World world = entityPlayer.worldObj;
                 int x = event.x;
                 int y = event.y;
@@ -441,7 +442,7 @@ public class ServerEventHandler {
                 Block oldBlock = world.getBlock(x, y, z);
             	if (ConfigurationHandler.enableAnvil && oldBlock == Blocks.anvil) {
             		world.setBlock(x, y, z, ModBlocks.anvil, world.getBlockMetadata(x, y, z), 3);
-            	} else if(heldStack != null && heldStack.getItem() != null) {
+            	} else if(oldBlock != null && heldStack != null && heldStack.getItem() != null) {
                     Set<String> toolClasses = heldStack.getItem().getToolClasses(heldStack);
                     if (toolClasses != null) {
                     	if (ConfigurationHandler.enableGrassPath && toolClasses.contains("shovel") && oldBlock == Blocks.grass) {
@@ -475,7 +476,7 @@ public class ServerEventHandler {
             }
         }
     }
-
+	
     @SubscribeEvent
     public void onHoeUseEvent(UseHoeEvent event) {
         if (ConfigurationHandler.enableCoarseDirt) {

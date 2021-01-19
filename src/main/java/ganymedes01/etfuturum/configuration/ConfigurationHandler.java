@@ -154,7 +154,7 @@ public class ConfigurationHandler {
         
         //blocks
         enableStones = cfg.getBoolean("enableStones", catBlock, true, "Enable Granite/Andesite/Diorite");
-        maxStonesPerCluster = cfg.getInt("stoneClusterSize", catBlock, 33, 0, 64, "Max number of Granite/Andesite/Diorite blocks in a cluster");
+        maxStonesPerCluster = cfg.getInt("stoneClusterSize", catBlock, 33, 0, 64, "Max vein size for Granite/Andesite/Diorite blocks in a cluster");
         
 
 //    	public static boolean enableNetherGold;
@@ -166,10 +166,10 @@ public class ConfigurationHandler {
 
         enableNetherGold = cfg.getBoolean("enableNetherGold", catBlock, true, "");
         enableAirDebris = cfg.getBoolean("enableAirDebris", catBlock, false, "Can ancient debris generate next to air?");
-        smallDebrisMax = cfg.getInt("smallDebrisMax", catBlock, 2, 0, 64, "The first, typically smaller debris veins which generate from Y 8 to 119");
-        debrisMax = cfg.getInt("debrisMax", catBlock, 3, 0, 64, "The second, typically bigger debris veins, which generate from Y 8 to 22");
-        maxNetherGoldPerCluster = cfg.getInt("maxNetherGoldPerCluster", catBlock, 10, 0, 64, "Max number of nether gold ore blocks in a cluster");
-        maxMagmaPerCluster = cfg.getInt("maxMagmaPerCluster", catBlock, 33, 0, 64, "Max number of magma blocks in a cluster");
+        smallDebrisMax = cfg.getInt("smallDebrisMax", catBlock, 2, 0, 64, "The max vein size for the first, typically smaller debris veins which generate from Y 8 to 119");
+        debrisMax = cfg.getInt("debrisMax", catBlock, 3, 0, 64, "The max vein size for the second, typically bigger debris veins, which generate from Y 8 to 22");
+        maxNetherGoldPerCluster = cfg.getInt("maxNetherGoldPerCluster", catBlock, 10, 0, 64, "Max vein size for nether gold ore blocks in a cluster");
+        maxMagmaPerCluster = cfg.getInt("maxMagmaPerCluster", catBlock, 33, 0, 64, "Max vein size for magma blocks in a cluster");
         
         enableIronTrapdoor = cfg.getBoolean("enableIronTrapdoor", catBlock, true, "");
         enableSponge = cfg.getBoolean("enableSponge", catBlock, true, "");
