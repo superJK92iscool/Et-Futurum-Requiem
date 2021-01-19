@@ -476,7 +476,6 @@ public class ModRecipes {
 			Block sbark = i >= 4 ? ModBlocks.wood2_stripped : ModBlocks.wood_stripped;
 			Block bark = i >= 4 ? ModBlocks.log2_bark : ModBlocks.log_bark;
 			
-			System.out.println(slog.getLocalizedName());
 			if (ConfigurationHandler.enableStrippedLogs) {
 				addShapedRecipe(new ItemStack(Blocks.planks, 4, i), "x", 'x', new ItemStack(slog, 1, i % 4));
 				if(ConfigurationHandler.enableBarkLogs) {

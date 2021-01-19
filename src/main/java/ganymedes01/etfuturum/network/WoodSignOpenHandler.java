@@ -24,7 +24,6 @@ public class WoodSignOpenHandler implements IMessageHandler<WoodSignOpenMessage,
             if (tileEntity == null || !(tileEntity instanceof TileEntityWoodSign)) {
                 tileEntity = new TileEntityWoodSign();
                 int i = message.id % ModBlocks.signs.length;
-                System.out.println(i);
                 tileEntity.blockType = message.id >= ModBlocks.signs.length ? ModBlocks.wall_signs[i] : ModBlocks.signs[i];
                 tileEntity.setWorldObj(FMLClientHandler.instance().getClient().theWorld);
                 tileEntity.xCoord = message.tileX;

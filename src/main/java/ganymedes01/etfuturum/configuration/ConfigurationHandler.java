@@ -279,7 +279,7 @@ public class ConfigurationHandler {
         enableHoeMining = cfg.getBoolean("enableHoeMining", catFunction, true, "Allows blocks like hay bales, leaves etc to mine faster with hoes");
         enableRecipeForTotem = cfg.getBoolean("enableRecipeForTotem", catFunction, false, "Recipe for totems since there's no other way to get them currently?");
         enableHayBaleFalls = cfg.getBoolean("enableHayBaleFalls", catFunction, true, "If true, fall damage on a hay bale will be reduced");
-        hayBaleReducePercent = cfg.getInt("hayBaleReduceAmount", catFunction, 20, 0, 99, "If enableHayBaleFalls is true, what percent should we keep for the fall damage?");
+        hayBaleReducePercent = cfg.getInt("hayBaleReducePercent", catFunction, 20, 0, 99, "If enableHayBaleFalls is true, what percent should we keep for the fall damage?");
         
         //replacement
         enableTileReplacement = cfg.getBoolean("enableTileReplacement", catReplacement, true, "Replace old Brewing Stands/Enchanting Tables/Daylight Sensors/Beacons with new one on the fly.");

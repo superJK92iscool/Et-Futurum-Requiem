@@ -756,10 +756,7 @@ public class ServerEventHandler {
         if(ConfigurationHandler.enableHayBaleFalls && entity != null
         		&& entity.worldObj.getBlock(MathHelper.floor_double(entity.posX), MathHelper.floor_double(entity.posY - 0.20000000298023224D - entity.yOffset), MathHelper.floor_double(entity.posZ)) == Blocks.hay_block
         		&& event.source == DamageSource.fall) {
-        	if(ConfigurationHandler.hayBaleReducePercent <= 0)
-        		event.ammount = 0;
-        	else
-            	event.ammount *= (ConfigurationHandler.hayBaleReducePercent / 100);
+        	event.ammount *= ((float)ConfigurationHandler.hayBaleReducePercent / (float)100);
         }
         if ((entity == null) || (!(entity instanceof EntityLivingBase))) {
             return;
@@ -774,32 +771,32 @@ public class ServerEventHandler {
         if (entity.getHealth() > Math.round(event.ammount)) {
             return;
         }
-        if (entity.getHeldItem() == null || entity.getHeldItem().getItem() != ModItems.totem
-        		|| !(entity instanceof EntityLiving || entity instanceof EntityPlayer)) {
+        if (entity.getHeldItem() == null || entity.getHeldItem().getItem() != ModItems.totem) {
             return;
         }
         
-        //this.spawnTotemParticles(player);
-        entity.worldObj.playSoundEffect(entity.posX + 0.5, entity.posY + 0.5, entity.posZ + 0.5, Reference.MOD_ID + ":item.totem_use", 1.0f, entity.worldObj.rand.nextFloat() * 0.1f + 0.9f);
-        
-        entity.clearActivePotions();
-        float healpercent = (float)ConfigurationHandler.totemHealPercent / 100;
-        float sethp = entity.getMaxHealth() * healpercent;
-        entity.setHealth(sethp < .5F ? .5F : sethp);
-        event.ammount = 0;
-        entity.addPotionEffect(new PotionEffect(Potion.regeneration.id, 900, 1));
-        entity.addPotionEffect(new PotionEffect(Potion.fireResistance.id, 800, 1));
-        entity.addPotionEffect(new PotionEffect(Potion.field_76444_x.id, 100, 1));
-        //TODO: Make it respect a stack size
-        
-        if(entity instanceof EntityLiving) {
-        	((EntityLiving)entity).setCurrentItemOrArmor(0, (ItemStack)null);
+        if(entity instanceof EntityLiving || entity instanceof EntityPlayer) {
+            //this.spawnTotemParticles(player);
+            entity.worldObj.playSoundEffect(entity.posX + 0.5, entity.posY + 0.5, entity.posZ + 0.5, Reference.MOD_ID + ":item.totem_use", 1.0f, entity.worldObj.rand.nextFloat() * 0.1f + 0.9f);
+            
+            entity.clearActivePotions();
+            float healpercent = (float)ConfigurationHandler.totemHealPercent / 100;
+            float sethp = entity.getMaxHealth() * healpercent;
+            entity.setHealth(sethp < .5F ? .5F : sethp);
+            event.ammount = 0;
+            entity.addPotionEffect(new PotionEffect(Potion.regeneration.id, 900, 1));
+            entity.addPotionEffect(new PotionEffect(Potion.fireResistance.id, 800, 1));
+            entity.addPotionEffect(new PotionEffect(Potion.field_76444_x.id, 100, 1));
+            //TODO: Make it respect a stack size
+            
+            if(entity instanceof EntityLiving) {
+            	((EntityLiving)entity).setCurrentItemOrArmor(0, (ItemStack)null);
+            }
+            if(entity instanceof EntityPlayer) {
+                ((EntityPlayer)entity).addChatMessage(new ChatComponentText(StatCollector.translateToLocal("util.totemBreak")));
+                ((EntityPlayer)entity).destroyCurrentEquippedItem();
+            }
         }
-        if(entity instanceof EntityPlayer) {
-            ((EntityPlayer)entity).addChatMessage(new ChatComponentText(StatCollector.translateToLocal("util.totemBreak")));
-            ((EntityPlayer)entity).destroyCurrentEquippedItem();
-        }
-        event.setCanceled(true);
     }
     
     private boolean playerHasItem(final EntityPlayer player, final ItemStack ist, final boolean checkEnabled) {
