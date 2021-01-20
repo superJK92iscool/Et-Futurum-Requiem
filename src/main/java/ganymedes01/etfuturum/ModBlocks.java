@@ -17,8 +17,12 @@ import ganymedes01.etfuturum.blocks.BlockNetherite;
 import ganymedes01.etfuturum.blocks.BlockNetheriteStairs;
 import ganymedes01.etfuturum.blocks.BlockOreNetherGold;
 import ganymedes01.etfuturum.blocks.BlockPrismarineStairs;
+import ganymedes01.etfuturum.blocks.BlockQuartzBricks;
 import ganymedes01.etfuturum.blocks.BlockSilkedMushroom;
 import ganymedes01.etfuturum.blocks.BlockSmoker;
+import ganymedes01.etfuturum.blocks.BlockSmoothQuartz;
+import ganymedes01.etfuturum.blocks.BlockSmoothSandStone;
+import ganymedes01.etfuturum.blocks.BlockSmoothStone;
 import ganymedes01.etfuturum.blocks.BlockStrippedNewLog;
 import ganymedes01.etfuturum.blocks.BlockStrippedNewWood;
 import ganymedes01.etfuturum.blocks.BlockStrippedOldLog;
@@ -125,6 +129,11 @@ public class ModBlocks {
 	public static final Block barrier = new BlockBarrier();
 	public static final Block nether_gold_ore = new BlockOreNetherGold();
 	public static final Block blue_ice = new BlockBlueIce();
+	public static final Block smooth_stone = new BlockSmoothStone();
+	public static final Block smooth_sandstone = new BlockSmoothSandStone(0);
+	public static final Block smooth_red_sandstone = new BlockSmoothSandStone(1);
+	public static final Block smooth_quartz = new BlockSmoothQuartz();
+	public static final Block quartz_bricks = new BlockQuartzBricks();
     
     public static final Block concrete = new BlockConcrete();
     public static final Block concrete_powder = new BlockConcretePowder();

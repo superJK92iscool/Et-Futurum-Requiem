@@ -161,6 +161,11 @@ tile.etfuturum.ancient_debris.name=Ancient Debris
 tile.etfuturum.netherite_block.name=Block of Netherite
 tile.etfuturum.netherite_stairs.name=Swaggiest stairs ever
 tile.etfuturum.blue_ice.name=Blue Ice
+tile.etfuturum.smooth_stone.name=Smooth Stone
+tile.etfuturum.smooth_sandstone.name=Smooth Sandstone
+tile.etfuturum.smooth_red_sandstone.name=Smooth Red Sandstone
+tile.etfuturum.smooth_quartz.name=Smooth Quartz
+tile.etfuturum.quartz_bricks.name=Quartz Bricks
 
 tile.etfuturum.magma.name=Magma Block
 tile.etfuturum.nether_wart.name=Nether Wart Block

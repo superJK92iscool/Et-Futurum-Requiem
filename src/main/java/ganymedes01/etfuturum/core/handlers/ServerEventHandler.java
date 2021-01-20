@@ -798,6 +798,13 @@ public class ServerEventHandler {
             }
         }
     }
+    @SubscribeEvent
+    public void onDrops(BlockEvent.HarvestDropsEvent event) {
+    	if(ConfigurationHandler.enableSmoothStone && event.block == Blocks.double_stone_slab && event.blockMetadata == 8) {
+    		event.drops.clear();
+    		event.drops.add(new ItemStack(ModBlocks.smooth_stone, 1));
+    	}
+    }
     
     private boolean playerHasItem(final EntityPlayer player, final ItemStack ist, final boolean checkEnabled) {
         for (int slot = 0; slot < player.inventory.mainInventory.length; ++slot) {

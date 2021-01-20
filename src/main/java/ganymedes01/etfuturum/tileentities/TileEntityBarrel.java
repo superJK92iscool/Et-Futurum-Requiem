@@ -26,6 +26,7 @@ public class TileEntityBarrel extends TileEntity implements IInventory {
 	private String customName;
     private ItemStack[] chestContents = new ItemStack[36];
     public int numPlayersUsing;
+    //TODO: Fish barrel Easter Egg
 
     public int getSizeInventory()
     {

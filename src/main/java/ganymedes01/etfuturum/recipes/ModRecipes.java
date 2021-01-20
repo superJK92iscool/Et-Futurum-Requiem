@@ -522,7 +522,7 @@ public class ModRecipes {
 		}
 		
 		if(ConfigurationHandler.enableBlastFurnace) {
-			addShapedRecipe(new ItemStack(ModBlocks.blast_furnace), "iii", "ixi", "sss", 'x', Blocks.furnace, 'i', "ingotIron", 's', /*ConfigurationHandler.enableGenericBuildingBlocks ? ModBlocks.smooth_stone : */Blocks.stone);
+			addShapedRecipe(new ItemStack(ModBlocks.blast_furnace), "iii", "ixi", "sss", 'x', Blocks.furnace, 'i', "ingotIron", 's', ConfigurationHandler.enableSmoothStone ? ModBlocks.smooth_stone : Blocks.stone);
 		}
 		
 //		if(ConfigurationHandler.enableGenericBuildingBlocks) {
@@ -559,8 +559,22 @@ public class ModRecipes {
 //			addShapedRecipe(new ItemStack(ModBlocks.nether_planks_slab, 6, 3), "xxx", 'x', new ItemStack(ModBlocks.nether_planks, 1, 1));
 //
 		if(ConfigurationHandler.enableNetherGold)
-			GameRegistry.addSmelting(new ItemStack(ModBlocks.nether_gold_ore), new ItemStack(Items.gold_ingot), 1F);
+			GameRegistry.addSmelting(new ItemStack(ModBlocks.nether_gold_ore), new ItemStack(Items.gold_ingot), .1F);
+		
+		if(ConfigurationHandler.enableSmoothStone)
+			GameRegistry.addSmelting(new ItemStack(Blocks.stone), new ItemStack(ModBlocks.smooth_stone), .1F);
+		if(ConfigurationHandler.enableSmoothSandStone) {
+			GameRegistry.addSmelting(new ItemStack(Blocks.sandstone, 1, 0), new ItemStack(ModBlocks.smooth_sandstone), .1F);
+			if(ConfigurationHandler.enableRedSandstone)
+				GameRegistry.addSmelting(new ItemStack(ModBlocks.red_sandstone, 1, 0), new ItemStack(ModBlocks.smooth_red_sandstone), .1F);
+		}
+		
+		if(ConfigurationHandler.enableSmoothQuartz)
+			GameRegistry.addSmelting(new ItemStack(Blocks.quartz_block, 1, 0), new ItemStack(ModBlocks.smooth_quartz), .1F);
 //		
+		if(ConfigurationHandler.enableQuartzBricks)
+			addShapedRecipe(new ItemStack(ModBlocks.quartz_bricks), "xx", "xx", 'x', new ItemStack(Blocks.quartz_block, 1, 0));
+		
 //		if(ConfigurationHandler.enableBlackstone) {
 //			GameRegistry.addSmelting(new ItemStack(ModBlocks.blackstone, 1, 3), new ItemStack(ModBlocks.blackstone, 1, 4), .1F);
 //			GameRegistry.addSmelting(new ItemStack(ModBlocks.gilded_blackstone), new ItemStack(Items.gold_ingot), 1F);
