@@ -23,7 +23,7 @@ public class BlockSmoothSandStone extends Block implements IConfigurable {
 
 	@Override
 	public boolean isEnabled() {
-		return (ConfigurationHandler.enableSmoothSandStone && meta == 0) || (ConfigurationHandler.enableSmoothSandStone && ConfigurationHandler.enableRedSandstone && meta == 1);
+		return (ConfigurationHandler.enableSmoothSandstone && meta == 0) || (ConfigurationHandler.enableSmoothSandstone && ConfigurationHandler.enableRedSandstone && meta == 1);
 	}
 
 }

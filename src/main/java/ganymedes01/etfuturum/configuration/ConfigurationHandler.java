@@ -97,7 +97,7 @@ public class ConfigurationHandler {
 	public static boolean enableHayBaleFalls;
 	public static int hayBaleReducePercent;
 	public static boolean enableSmoothStone;
-	public static boolean enableSmoothSandStone;
+	public static boolean enableSmoothSandstone;
 	public static boolean enableSmoothQuartz;
 	public static boolean enableQuartzBricks;
 
@@ -213,7 +213,7 @@ public class ConfigurationHandler {
         enableSigns = cfg.getBoolean("enableSigns", catBlock, true, "");
         enableBlueIce = cfg.getBoolean("enableBlueIce", catBlock, true, "");
         enableSmoothStone = cfg.getBoolean("enableSmoothStone", catBlock, true, "");
-        enableSmoothSandStone = cfg.getBoolean("enableSmoothSandStone", catBlock, true, "");
+        enableSmoothSandstone = cfg.getBoolean("enableSmoothSandStone", catBlock, true, "");
         enableSmoothQuartz = cfg.getBoolean("enableSmoothQuartz", catBlock, true, "");
         enableQuartzBricks = cfg.getBoolean("enableQuartzBricks", catBlock, true, "");
         

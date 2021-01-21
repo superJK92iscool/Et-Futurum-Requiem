@@ -164,16 +164,19 @@ tile.etfuturum.blue_ice.name=Blue Ice
 tile.etfuturum.smooth_stone.name=Smooth Stone
 tile.etfuturum.smooth_sandstone.name=Smooth Sandstone
 tile.etfuturum.smooth_red_sandstone.name=Smooth Red Sandstone
+tile.etfuturum.smooth_sandstone_stairs.name=Smooth Sandstone Stairs
+tile.etfuturum.smooth_red_sandstone_stairs.name=Smooth Red Sandstone Stairs
 tile.etfuturum.smooth_quartz.name=Smooth Quartz
+tile.etfuturum.smooth_quartz_stairs.name=Smooth Quartz Stairs
 tile.etfuturum.quartz_bricks.name=Quartz Bricks
 
 tile.etfuturum.magma.name=Magma Block
 tile.etfuturum.nether_wart.name=Nether Wart Block
 tile.etfuturum.bone.name=Bone Block
 
-tile.prismarine_stairs.name=Prismarine Stairs
-tile.prismarine_stairs_brick.name=Prismarine Bricks Stairs
-tile.prismarine_stairs_dark.name=Dark Prismarine Stairs
+tile.etfuturum.prismarine_stairs.name=Prismarine Stairs
+tile.etfuturum.prismarine_stairs_brick.name=Prismarine Bricks Stairs
+tile.etfuturum.prismarine_stairs_dark.name=Dark Prismarine Stairs
 
 tile.etfuturum.prismarine_slab.name=Prismarine Slab
 tile.etfuturum.prismarine_slab_brick.name=Prismarine Bricks Slab

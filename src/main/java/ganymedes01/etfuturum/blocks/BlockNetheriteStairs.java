@@ -1,34 +1,22 @@
 package ganymedes01.etfuturum.blocks;
 
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModBlocks.ISubBlocksBlock;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.entities.EntityItemUninflammable;
 import ganymedes01.etfuturum.items.block.ItemBlockUninflammable;
-import ganymedes01.etfuturum.lib.ModSounds;
-import net.minecraft.block.BlockStairs;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class BlockNetheriteStairs extends BlockStairs implements IConfigurable, ISubBlocksBlock {
+public class BlockNetheriteStairs extends BlockGenericStairs implements ISubBlocksBlock {
 
     public BlockNetheriteStairs() {
-        super(ModBlocks.netherite_block, 0);
-        setStepSound(ConfigurationHandler.enableNewBlocksSounds ? ModSounds.soundNetherite : soundTypePiston);
-        setBlockTextureName("netherite_block");
+        super(ModBlocks.netherite_block, 0, ConfigurationHandler.enableNetherite);
         setBlockName(Utils.getUnlocalisedName("netherite_stairs"));
-        setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
-        useNeighborBrightness = true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return ConfigurationHandler.enableNetherite;
     }
 
     @Override

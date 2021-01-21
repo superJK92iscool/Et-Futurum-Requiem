@@ -12,11 +12,11 @@ import ganymedes01.etfuturum.blocks.BlockBlastFurnace;
 import ganymedes01.etfuturum.blocks.BlockBlueIce;
 import ganymedes01.etfuturum.blocks.BlockConcrete;
 import ganymedes01.etfuturum.blocks.BlockConcretePowder;
+import ganymedes01.etfuturum.blocks.BlockGenericStairs;
 import ganymedes01.etfuturum.blocks.BlockLantern;
 import ganymedes01.etfuturum.blocks.BlockNetherite;
 import ganymedes01.etfuturum.blocks.BlockNetheriteStairs;
 import ganymedes01.etfuturum.blocks.BlockOreNetherGold;
-import ganymedes01.etfuturum.blocks.BlockPrismarineStairs;
 import ganymedes01.etfuturum.blocks.BlockQuartzBricks;
 import ganymedes01.etfuturum.blocks.BlockSilkedMushroom;
 import ganymedes01.etfuturum.blocks.BlockSmoker;
@@ -64,14 +64,14 @@ import ganymedes01.etfuturum.blocks.PrismarineSlabDark;
 import ganymedes01.etfuturum.blocks.PurpurBlock;
 import ganymedes01.etfuturum.blocks.PurpurPillar;
 import ganymedes01.etfuturum.blocks.PurpurSlab;
-import ganymedes01.etfuturum.blocks.PurpurStairs;
 import ganymedes01.etfuturum.blocks.RedSandstone;
 import ganymedes01.etfuturum.blocks.RedSandstoneSlab;
-import ganymedes01.etfuturum.blocks.RedSandstoneStairs;
 import ganymedes01.etfuturum.blocks.SeaLantern;
 import ganymedes01.etfuturum.blocks.SlimeBlock;
 import ganymedes01.etfuturum.blocks.Sponge;
 import ganymedes01.etfuturum.blocks.Stone;
+import ganymedes01.etfuturum.configuration.ConfigurationHandler;
+import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.tileentities.TileEntityWoodSign;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -80,13 +80,10 @@ import net.minecraft.item.ItemBlock;
 public class ModBlocks {
 
     public static final Block stone = new Stone();
-    public static final Block iron_trapdoor = new IronTrapdoor();
     public static final Block prismarine = new PrismarineBlocks();
     public static final Block sea_lantern = new SeaLantern();
     public static final Block inverted_daylight_detector = new InvertedDaylightDetector();
     public static final Block red_sandstone = new RedSandstone();
-    public static final Block red_sandstone_slab = new RedSandstoneSlab();
-    public static final Block red_sandstone_stairs = new RedSandstoneStairs();
     public static final Block brown_mushroom_block = new BlockSilkedMushroom(Blocks.brown_mushroom_block, "brown");
     public static final Block red_mushroom_block = new BlockSilkedMushroom(Blocks.red_mushroom_block, "red");
     public static final Block coarse_dirt = new CoarseDirt();
@@ -97,35 +94,19 @@ public class ModBlocks {
     public static final Block beetroot = new BlockBeetroot();
     public static final Block purpur_block = new PurpurBlock();
     public static final Block purpur_pillar = new PurpurPillar();
-    public static final Block purpur_stairs = new PurpurStairs();
-    public static final Block purpur_slab = new PurpurSlab();
     public static final Block end_bricks = new EndBricks();
     public static final Block grass_path = new GrassPath();
     public static final Block end_rod = new EndRod();
     public static final Block chorus_plant = new ChorusPlant();
     public static final Block chorus_flower = new ChorusFlower();
     public static final Block crying_obsidian = new CryingObsidian();
-    public static final Block frosted_ice = new FrostedIce();
-    public static final Block brewing_stand = new NewBrewingStand();
     public static final Block rose = new OldRose();
-    public static final Block beacon = new NewBeacon();
-    public static final Block enchantment_table = new NewEnchantmentTable();
-    public static final Block anvil = new NewAnvil();
-    public static final Block daylight_sensor = new NewDaylightSensor();
     
     public static final Block bone_block = new BoneBlock();
-    public static final Block magma_block = new MagmaBlock();
     public static final Block new_nether_brick = new NewNetherBrick();
     public static final Block nether_wart_block = new NetherwartBlock();
     public static final Block ancient_debris = new BlockAncientDebris();
     public static final Block netherite_block = new BlockNetherite();
-    public static final Block netherite_stairs = new BlockNetheriteStairs();
-	public static final Block barrel = new BlockBarrel();
-	public static final Block lantern = new BlockLantern();
-	public static final Block smoker = new BlockSmoker(false);
-	public static final Block lit_smoker = new BlockSmoker(true);
-	public static final Block blast_furnace = new BlockBlastFurnace(false);
-	public static final Block lit_blast_furnace = new BlockBlastFurnace(true);
 	public static final Block barrier = new BlockBarrier();
 	public static final Block nether_gold_ore = new BlockOreNetherGold();
 	public static final Block blue_ice = new BlockBlueIce();
@@ -134,27 +115,53 @@ public class ModBlocks {
 	public static final Block smooth_red_sandstone = new BlockSmoothSandStone(1);
 	public static final Block smooth_quartz = new BlockSmoothQuartz();
 	public static final Block quartz_bricks = new BlockQuartzBricks();
-    
-    public static final Block concrete = new BlockConcrete();
-    public static final Block concrete_powder = new BlockConcretePowder();
-    
-    //do prismarine slab/stairs
-    public static final Block prismarineStairsRough = new BlockPrismarineStairs(prismarine, 0).setBlockName("prismarine_stairs");
-    public static final Block prismarineStairsBrick = new BlockPrismarineStairs(prismarine, 1).setBlockName("prismarine_stairs_brick");
-    public static final Block prismarineStairsDark = new BlockPrismarineStairs(prismarine, 2).setBlockName("prismarine_stairs_dark");
-    public static final Block prismarineSlabRough = new PrismarineSlab();
-    public static final Block prismarineSlabBrick = new PrismarineSlabBrick();
-    public static final Block prismarineSlabDark = new PrismarineSlabDark();
-    
-    //wood trapdoors, buttons, pressure plates
-    
     public static final Block log_stripped = new BlockStrippedOldLog();
     public static final Block log2_stripped = new BlockStrippedNewLog();
     public static final Block log_bark = new BlockWoodBarkOld();
     public static final Block log2_bark = new BlockWoodBarkNew();
     public static final Block wood_stripped = new BlockStrippedOldWood();
     public static final Block wood2_stripped = new BlockStrippedNewWood();
+    public static final Block concrete = new BlockConcrete();
+    public static final Block concrete_powder = new BlockConcretePowder();
     
+    //technical blocks
+    public static final Block brewing_stand = new NewBrewingStand();
+    public static final Block beacon = new NewBeacon();
+    public static final Block enchantment_table = new NewEnchantmentTable();
+    public static final Block anvil = new NewAnvil();
+    public static final Block daylight_sensor = new NewDaylightSensor();
+    public static final Block frosted_ice = new FrostedIce();
+    
+    //do slab/stairs
+    public static final Block red_sandstone_stairs = new BlockGenericStairs(red_sandstone, 0, ConfigurationHandler.enableRedSandstone).setBlockName(Utils.getUnlocalisedName("red_sandstone_stairs"));
+    public static final Block purpur_stairs = new BlockGenericStairs(purpur_block, 0, ConfigurationHandler.enableChorusFruit).setBlockName(Utils.getUnlocalisedName("purpur_stairs"));
+    public static final Block red_sandstone_slab = new RedSandstoneSlab();
+    public static final Block purpur_slab = new PurpurSlab();
+    
+    public static final Block rough_prismarine_stairs = new BlockGenericStairs(prismarine, 0, ConfigurationHandler.enablePrismarine).setBlockName(Utils.getUnlocalisedName("prismarine_stairs"));
+    public static final Block brick_prismarine_stairs = new BlockGenericStairs(prismarine, 1, ConfigurationHandler.enablePrismarine).setBlockName(Utils.getUnlocalisedName("prismarine_stairs_brick"));
+    public static final Block dark_prismarine_stairs = new BlockGenericStairs(prismarine, 2, ConfigurationHandler.enablePrismarine).setBlockName(Utils.getUnlocalisedName("prismarine_stairs_dark"));
+    public static final Block smooth_sandstone_stairs = new BlockGenericStairs(smooth_sandstone, 0, ConfigurationHandler.enableSmoothSandstone).setBlockName(Utils.getUnlocalisedName("smooth_sandstone_stairs"));
+    public static final Block smooth_red_sandstone_stairs = new BlockGenericStairs(smooth_red_sandstone, 0, ConfigurationHandler.enableRedSandstone && ConfigurationHandler.enableSmoothSandstone).setBlockName(Utils.getUnlocalisedName("smooth_red_sandstone_stairs"));
+    public static final Block smooth_quartz_stairs = new BlockGenericStairs(smooth_quartz, 0, ConfigurationHandler.enableSmoothQuartz).setBlockName(Utils.getUnlocalisedName("smooth_quartz_stairs"));
+    public static final Block rough_prismarine_slab = new PrismarineSlab();
+    public static final Block brick_prismarine_slab = new PrismarineSlabBrick();
+    public static final Block dark__prismarine_slab = new PrismarineSlabDark();
+    public static final Block netherite_stairs = new BlockNetheriteStairs();
+    
+    //TODO: More slabs after slab rewrite
+    
+    //Mechanic/Functional blocks
+    public static final Block iron_trapdoor = new IronTrapdoor();
+    
+    public static final Block magma_block = new MagmaBlock();
+	public static final Block barrel = new BlockBarrel();
+	public static final Block lantern = new BlockLantern();
+	public static final Block smoker = new BlockSmoker(false);
+	public static final Block lit_smoker = new BlockSmoker(true);
+	public static final Block blast_furnace = new BlockBlastFurnace(false);
+	public static final Block lit_blast_furnace = new BlockBlastFurnace(true);
+	
     public static final String[] woodTypes = new String[] {"oak", "spruce", "birch", "jungle", "acacia", "dark_oak"/*, "crimson", "warped"*/};
     public static final Block[] doors = new Block[woodTypes.length - 1];
     public static final Block[] fences = new Block[woodTypes.length - 1];

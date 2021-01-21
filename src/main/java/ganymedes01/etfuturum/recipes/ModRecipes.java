@@ -264,13 +264,13 @@ public class ModRecipes {
             addShapedRecipe(new ItemStack(ModBlocks.prismarine, 1, BRICKS), "xxx", "xxx", "xxx", 'x', "shardPrismarine");
             addShapedRecipe(new ItemStack(ModBlocks.sea_lantern), "xyx", "yyy", "xyx", 'x', "shardPrismarine", 'y', "crystalPrismarine");
 
-            addShapedRecipe(new ItemStack(ModBlocks.prismarineStairsRough, 4), "x  ", "xx ", "xxx", 'x', new ItemStack(ModBlocks.prismarine, 1, PLAIN));
-            addShapedRecipe(new ItemStack(ModBlocks.prismarineStairsBrick, 4), "x  ", "xx ", "xxx", 'x', new ItemStack(ModBlocks.prismarine, 1, BRICKS));
-            addShapedRecipe(new ItemStack(ModBlocks.prismarineStairsDark, 4), "x  ", "xx ", "xxx", 'x', new ItemStack(ModBlocks.prismarine, 1, DARK));
+            addShapedRecipe(new ItemStack(ModBlocks.rough_prismarine_stairs, 4), "x  ", "xx ", "xxx", 'x', new ItemStack(ModBlocks.prismarine, 1, PLAIN));
+            addShapedRecipe(new ItemStack(ModBlocks.brick_prismarine_stairs, 4), "x  ", "xx ", "xxx", 'x', new ItemStack(ModBlocks.prismarine, 1, BRICKS));
+            addShapedRecipe(new ItemStack(ModBlocks.dark_prismarine_stairs, 4), "x  ", "xx ", "xxx", 'x', new ItemStack(ModBlocks.prismarine, 1, DARK));
             
-            addShapedRecipe(new ItemStack(ModBlocks.prismarineSlabRough, 6), "xxx", 'x', new ItemStack(ModBlocks.prismarine, 1, PLAIN));
-            addShapedRecipe(new ItemStack(ModBlocks.prismarineSlabBrick, 6), "xxx", 'x', new ItemStack(ModBlocks.prismarine, 1, BRICKS));
-            addShapedRecipe(new ItemStack(ModBlocks.prismarineSlabDark, 6), "xxx", 'x', new ItemStack(ModBlocks.prismarine, 1, DARK));
+            addShapedRecipe(new ItemStack(ModBlocks.rough_prismarine_slab, 6), "xxx", 'x', new ItemStack(ModBlocks.prismarine, 1, PLAIN));
+            addShapedRecipe(new ItemStack(ModBlocks.brick_prismarine_slab, 6), "xxx", 'x', new ItemStack(ModBlocks.prismarine, 1, BRICKS));
+            addShapedRecipe(new ItemStack(ModBlocks.dark__prismarine_slab, 6), "xxx", 'x', new ItemStack(ModBlocks.prismarine, 1, DARK));
             
             if (ConfigurationHandler.enableRecipeForPrismarine && !Loader.isModLoaded("Botania")) {
                 addShapedRecipe(new ItemStack(ModItems.prismarine_shard, 4), "xy", "zx", 'x', "gemQuartz", 'y', "dyeBlue", 'z', "dyeGreen");
@@ -563,14 +563,19 @@ public class ModRecipes {
 		
 		if(ConfigurationHandler.enableSmoothStone)
 			GameRegistry.addSmelting(new ItemStack(Blocks.stone), new ItemStack(ModBlocks.smooth_stone), .1F);
-		if(ConfigurationHandler.enableSmoothSandStone) {
+		if(ConfigurationHandler.enableSmoothSandstone) {
 			GameRegistry.addSmelting(new ItemStack(Blocks.sandstone, 1, 0), new ItemStack(ModBlocks.smooth_sandstone), .1F);
-			if(ConfigurationHandler.enableRedSandstone)
+            addShapedRecipe(new ItemStack(ModBlocks.smooth_sandstone_stairs, 4, 0), "x  ", "xx ", "xxx", 'x', new ItemStack(ModBlocks.smooth_sandstone, 1, 0));
+			if(ConfigurationHandler.enableRedSandstone) {
 				GameRegistry.addSmelting(new ItemStack(ModBlocks.red_sandstone, 1, 0), new ItemStack(ModBlocks.smooth_red_sandstone), .1F);
+	            addShapedRecipe(new ItemStack(ModBlocks.smooth_red_sandstone_stairs, 4, 0), "x  ", "xx ", "xxx", 'x', new ItemStack(ModBlocks.smooth_red_sandstone, 1, 0));
+			}
 		}
 		
-		if(ConfigurationHandler.enableSmoothQuartz)
+		if(ConfigurationHandler.enableSmoothQuartz) {
 			GameRegistry.addSmelting(new ItemStack(Blocks.quartz_block, 1, 0), new ItemStack(ModBlocks.smooth_quartz), .1F);
+            addShapedRecipe(new ItemStack(ModBlocks.smooth_quartz_stairs, 4, 0), "x  ", "xx ", "xxx", 'x', new ItemStack(ModBlocks.smooth_quartz, 1, 0));
+		}
 //		
 		if(ConfigurationHandler.enableQuartzBricks)
 			addShapedRecipe(new ItemStack(ModBlocks.quartz_bricks), "xx", "xx", 'x', new ItemStack(Blocks.quartz_block, 1, 0));
