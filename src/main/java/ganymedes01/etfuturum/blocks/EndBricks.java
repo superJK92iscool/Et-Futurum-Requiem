@@ -15,7 +15,7 @@ public class EndBricks extends Block implements IConfigurable {
     public EndBricks() {
         super(Material.rock);
         setHardness(3.0F);
-        setResistance(15.0F);
+        setResistance(9.0F);
         setStepSound(soundTypePiston);
         setBlockTextureName("end_bricks");
         setBlockName(Utils.getUnlocalisedName("end_bricks"));

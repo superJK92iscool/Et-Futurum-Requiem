@@ -7,10 +7,10 @@ import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 
-public class BlockSmoothSandStone extends Block implements IConfigurable {
+public class BlockSmoothSandstone extends Block implements IConfigurable {
 
 	private final int meta;
-	public BlockSmoothSandStone(int i) {
+	public BlockSmoothSandstone(int i) {
 		super(Material.rock);
 		meta = i;
 		setHardness(2F);

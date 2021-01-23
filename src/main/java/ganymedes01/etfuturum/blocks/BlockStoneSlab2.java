@@ -1,0 +1,44 @@
+package ganymedes01.etfuturum.blocks;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import ganymedes01.etfuturum.EtFuturum;
+import ganymedes01.etfuturum.IConfigurable;
+import ganymedes01.etfuturum.ModBlocks;
+import ganymedes01.etfuturum.configuration.ConfigurationHandler;
+import ganymedes01.etfuturum.core.utils.Utils;
+import net.minecraft.block.material.Material;
+import net.minecraft.init.Blocks;
+import net.minecraft.util.IIcon;
+
+public class BlockStoneSlab2 extends BlockGenericSlab implements IConfigurable {
+
+	public BlockStoneSlab2(boolean p_i45410_1_) {
+		super(p_i45410_1_, Material.rock, "granite", "polished_granite", "diorite", "polished_diorite", "andesite", "polished_andesite");
+		setHardness(2F);
+		setResistance(6F);
+		setStepSound(soundTypePiston);
+		setBlockName(Utils.getUnlocalisedName("stone_slab_2"));
+		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return ConfigurationHandler.enableStones;
+	}
+
+	@Override
+	public BlockGenericSlab[] getSlabProperties() {
+		return new BlockGenericSlab[] {(BlockGenericSlab) ModBlocks.stone_slab, (BlockGenericSlab) ModBlocks.double_stone_slab};
+	}
+
+	@Override
+	public IIcon[] getSlabIcons(int side) {
+		IIcon[] blocks = new IIcon[6];
+        for(int i = 0; i < 6; i++) {
+        	blocks[i] = ModBlocks.stone.getIcon(side, i + 1);
+        };
+        return blocks;
+	}
+
+}

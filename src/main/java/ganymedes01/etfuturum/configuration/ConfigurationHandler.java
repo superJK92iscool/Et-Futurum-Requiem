@@ -100,6 +100,8 @@ public class ConfigurationHandler {
 	public static boolean enableSmoothSandstone;
 	public static boolean enableSmoothQuartz;
 	public static boolean enableQuartzBricks;
+	public static boolean enableGenericSlabs;
+	public static boolean enableGenericStairs;
 
     public static boolean enableNewNetherBricks;
     public static boolean enableNetherwartBlock;
@@ -216,6 +218,8 @@ public class ConfigurationHandler {
         enableSmoothSandstone = cfg.getBoolean("enableSmoothSandStone", catBlock, true, "");
         enableSmoothQuartz = cfg.getBoolean("enableSmoothQuartz", catBlock, true, "");
         enableQuartzBricks = cfg.getBoolean("enableQuartzBricks", catBlock, true, "");
+        enableGenericSlabs = cfg.getBoolean("enableGenericSlabs", catBlock, true, "Slabs for vanilla blocks: stone, mossy stone brick, mossy cobble, cut sandstone");
+        enableGenericStairs = cfg.getBoolean("enableGenericStairs", catBlock, true, "Stairs for vanilla blocks: stone, mossy stone brick, mossy cobble");
         
         enableBarrier = cfg.getBoolean("enableBarrier", catBlock, true, "");
         

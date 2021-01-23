@@ -1,19 +1,21 @@
 package ganymedes01.etfuturum.blocks;
 
 import ganymedes01.etfuturum.EtFuturum;
+import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.boss.EntityDragon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 
-public class PurpurSlab extends GenericSlab {
+public class PurpurSlab extends BlockGenericSlab implements IConfigurable {
 
-    public PurpurSlab() {
-        super(Material.rock, ModBlocks.purpur_block);
-        setResistance(30);
+    public PurpurSlab(boolean isDouble) {
+        super(isDouble, Material.rock, "");
+        setResistance(6);
         setHardness(2.0F);
         setBlockName(Utils.getUnlocalisedName("purpur_slab"));
         setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
@@ -28,4 +30,14 @@ public class PurpurSlab extends GenericSlab {
     public boolean isEnabled() {
         return ConfigurationHandler.enableChorusFruit;
     }
+
+	@Override
+	public BlockGenericSlab[] getSlabProperties() {
+		return new BlockGenericSlab[] {(BlockGenericSlab)ModBlocks.purpur_slab, (BlockGenericSlab)ModBlocks.double_purpur_slab};
+	}
+
+	@Override
+	public IIcon[] getSlabIcons(int side) {
+		return new IIcon[] {ModBlocks.purpur_block.getIcon(side, 0)};
+	}
 }
