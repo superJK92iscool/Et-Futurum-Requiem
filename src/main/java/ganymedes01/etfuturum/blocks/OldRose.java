@@ -19,7 +19,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 
-public class OldRose extends BlockNewFlower implements IConfigurable {
+public class OldRose extends BlockFlowerBase implements IConfigurable {
 
 	public OldRose() {
         setBlockName(Utils.getUnlocalisedName("rose"));

@@ -3,6 +3,7 @@ package ganymedes01.etfuturum;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.nio.file.Files;
 import java.util.Iterator;
 
 import cpw.mods.fml.common.Loader;
@@ -39,7 +40,7 @@ import ganymedes01.etfuturum.network.WoodSignOpenMessage;
 import ganymedes01.etfuturum.recipes.BrewingFuelRegistry;
 import ganymedes01.etfuturum.recipes.ModRecipes;
 import ganymedes01.etfuturum.world.EtFuturumWorldGenerator;
-import ganymedes01.etfuturum.world.OceanMonument;
+import ganymedes01.etfuturum.world.generate.OceanMonument;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockTrapDoor;
 import net.minecraft.creativetab.CreativeTabs;
@@ -85,7 +86,19 @@ public class EtFuturum {
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-        ConfigurationHandler.INSTANCE.init(new File(event.getModConfigurationDirectory().getAbsolutePath() + File.separator + Reference.MOD_ID + ".cfg"));
+    	File oldFile = new File(event.getModConfigurationDirectory().getAbsolutePath() + File.separator + Reference.MOD_ID + ".cfg");
+    	File configFile = new File(event.getModConfigurationDirectory().getAbsolutePath() + File.separator + Reference.MOD_ID + File.separator + Reference.MOD_ID + ".cfg");
+
+    	configFile.getParentFile().mkdirs();
+    	if(oldFile.exists()) {
+    		try {
+				Files.copy(oldFile.toPath(), configFile.toPath());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+    		oldFile.delete();
+    	}
+        ConfigurationHandler.INSTANCE.init(configFile);
 
         GameRegistry.registerWorldGenerator(new EtFuturumWorldGenerator(), 0);
 
@@ -186,7 +199,7 @@ public class EtFuturum {
             event.registerServerCommand(new SetPlayerModelCommand());
     }
 
-	private void setFinalField(Class<?> cls, Object obj, Object newValue, String... fieldNames) {
+	public static void setFinalField(Class<?> cls, Object obj, Object newValue, String... fieldNames) {
 		try {
 			Field field = null;
 			Field[] fieldList = cls.getFields();

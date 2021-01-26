@@ -1,5 +1,7 @@
 package ganymedes01.etfuturum.recipes;
 
+import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
 
 import cpw.mods.fml.common.Loader;
@@ -194,6 +196,12 @@ public class ModRecipes {
 				OreDictionary.registerOre("logWood", new ItemStack(ModBlocks.log_bark, 1, i));
 				OreDictionary.registerOre("logWood", new ItemStack(ModBlocks.log2_bark, 1, i));
 			}
+		}
+		if(ConfigurationHandler.enableNewFlowers) {
+				OreDictionary.registerOre("dyeWhite", new ItemStack(ModItems.new_dye, 1, 0));
+				OreDictionary.registerOre("dyeBlue", new ItemStack(ModItems.new_dye, 1, 1));
+				OreDictionary.registerOre("dyeBrown", new ItemStack(ModItems.new_dye, 1, 2));
+				OreDictionary.registerOre("dyeBlack", new ItemStack(ModItems.new_dye, 1, 3));
 		}
 		
 //		if(ConfigurationHandler.enableCrimsonBlocks || ConfigurationHandler.enableWarpedBlocks) {
@@ -618,6 +626,17 @@ public class ModRecipes {
 //		
 		if(ConfigurationHandler.enableQuartzBricks)
 			addShapedRecipe(new ItemStack(ModBlocks.quartz_bricks), "xx", "xx", 'x', new ItemStack(Blocks.quartz_block, 1, 0));
+		
+		if(ConfigurationHandler.enableNewFlowers) {
+			addShapelessRecipe(new ItemStack(ModItems.new_dye, 1, 0), new ItemStack(ModBlocks.lily_of_the_valley, 1, 0));
+			addShapelessRecipe(new ItemStack(ModItems.new_dye, 1, 0), new ItemStack(Items.dye, 1, 15));
+			addShapelessRecipe(new ItemStack(ModItems.new_dye, 1, 1), new ItemStack(ModBlocks.cornflower, 1, 0));
+			addShapelessRecipe(new ItemStack(ModItems.new_dye, 1, 1), new ItemStack(Items.dye, 1, 4));
+			addShapelessRecipe(new ItemStack(ModItems.new_dye, 1, 2), new ItemStack(Items.dye, 1, 3));
+			addShapelessRecipe(new ItemStack(ModItems.new_dye, 1, 3), new ItemStack(ModBlocks.wither_rose, 1, 0));
+			addShapelessRecipe(new ItemStack(ModItems.new_dye, 1, 3), new ItemStack(Items.dye, 1, 0));
+			
+		}
 		
 //		if(ConfigurationHandler.enableBlackstone) {
 //			GameRegistry.addSmelting(new ItemStack(ModBlocks.blackstone, 1, 3), new ItemStack(ModBlocks.blackstone, 1, 4), .1F);

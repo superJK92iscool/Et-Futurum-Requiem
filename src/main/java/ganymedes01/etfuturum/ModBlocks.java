@@ -12,9 +12,11 @@ import ganymedes01.etfuturum.blocks.BlockBlastFurnace;
 import ganymedes01.etfuturum.blocks.BlockBlueIce;
 import ganymedes01.etfuturum.blocks.BlockConcrete;
 import ganymedes01.etfuturum.blocks.BlockConcretePowder;
+import ganymedes01.etfuturum.blocks.BlockCornflower;
 import ganymedes01.etfuturum.blocks.BlockEndBrickSlab;
 import ganymedes01.etfuturum.blocks.BlockGenericStairs;
 import ganymedes01.etfuturum.blocks.BlockLantern;
+import ganymedes01.etfuturum.blocks.BlockLilyOfTheValley;
 import ganymedes01.etfuturum.blocks.BlockNetherite;
 import ganymedes01.etfuturum.blocks.BlockNetheriteStairs;
 import ganymedes01.etfuturum.blocks.BlockOreNetherGold;
@@ -33,6 +35,7 @@ import ganymedes01.etfuturum.blocks.BlockStrippedNewLog;
 import ganymedes01.etfuturum.blocks.BlockStrippedNewWood;
 import ganymedes01.etfuturum.blocks.BlockStrippedOldLog;
 import ganymedes01.etfuturum.blocks.BlockStrippedOldWood;
+import ganymedes01.etfuturum.blocks.BlockWitherRose;
 import ganymedes01.etfuturum.blocks.BlockWoodBarkNew;
 import ganymedes01.etfuturum.blocks.BlockWoodBarkOld;
 import ganymedes01.etfuturum.blocks.BlockWoodButton;
@@ -166,6 +169,10 @@ public class ModBlocks {
     public static final Block mossy_cobblestone_stairs = new BlockGenericStairs(Blocks.mossy_cobblestone, 0, ConfigurationHandler.enableGenericStairs).setBlockName(Utils.getUnlocalisedName("mossy_cobblestone_stairs"));
     public static final Block stone_stairs = new BlockGenericStairs(Blocks.stone, 0, ConfigurationHandler.enableGenericStairs).setBlockName(Utils.getUnlocalisedName("stone_stairs"));
     public static final Block end_brick_stairs = new BlockGenericStairs(ModBlocks.end_bricks, 0, ConfigurationHandler.enableChorusFruit).setBlockName(Utils.getUnlocalisedName("end_brick_stairs"));
+    
+    public static final Block cornflower = new BlockCornflower();
+    public static final Block lily_of_the_valley = new BlockLilyOfTheValley();
+    public static final Block wither_rose = new BlockWitherRose();
     
     public static final Block smooth_sandstone_slab = new BlockSmoothSandstoneSlab(0, false);
     public static final Block double_smooth_sandstone_slab = new BlockSmoothSandstoneSlab(0, true);

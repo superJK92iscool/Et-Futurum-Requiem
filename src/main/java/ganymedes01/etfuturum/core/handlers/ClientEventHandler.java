@@ -7,20 +7,22 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.blocks.BlockBlastFurnace;
-import ganymedes01.etfuturum.blocks.PrismarineBlocks;
 import ganymedes01.etfuturum.blocks.MagmaBlock;
+import ganymedes01.etfuturum.blocks.PrismarineBlocks;
 import ganymedes01.etfuturum.client.InterpolatedIcon;
 import ganymedes01.etfuturum.client.OpenGLHelper;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.item.Item;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.client.event.RenderPlayerEvent.SetArmorModel;
 import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 
 public class ClientEventHandler {
 
     public static final ClientEventHandler INSTANCE = new ClientEventHandler();
-
+    
     private ClientEventHandler() {
     }
 
@@ -59,6 +61,16 @@ public class ClientEventHandler {
 		}
     }
 
+    @SubscribeEvent
+    public void toolTipEvent(ItemTooltipEvent event) {
+    	if(event.showAdvancedItemTooltips) {
+        	event.toolTip.add("");
+        	event.toolTip.add("\u00a78" + Item.itemRegistry.getNameForObject(event.itemStack.getItem()));
+        	if(event.itemStack.stackTagCompound != null && !event.itemStack.stackTagCompound.hasNoTags())
+            	event.toolTip.add("\u00a78NBT: " + event.itemStack.stackTagCompound.func_150296_c().size() + " Tag(s)");
+    	}
+    }
+    
     @SubscribeEvent
     public void renderPlayerEventPre(RenderPlayerEvent.Pre event) {
         if (ConfigurationHandler.enableTransparentAmour) {

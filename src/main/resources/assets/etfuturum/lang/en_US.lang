@@ -77,6 +77,10 @@ item.etfuturum.item_sign_acacia.name=Acacia Sign
 item.etfuturum.item_sign_dark_oak.name=Dark Oak Sign
 item.etfuturum.item_sign_warped.name=Warped Sign
 item.etfuturum.item_sign_crimson.name=Crimson Sign
+item.etfuturum.dye_white.name=White Dye
+item.etfuturum.dye_blue.name=Blue Dye
+item.etfuturum.dye_brown.name=Brown Dye
+item.etfuturum.dye_black.name=Black Dye
 
  Arrows
 item.etfuturum.tipped_arrow.name=Tipped Arrow
@@ -194,6 +198,9 @@ tile.etfuturum.cut_sandstone_slab.name=Cut Sandstone Slab
 tile.etfuturum.stone_stairs.name=Stone Stairs
 tile.etfuturum.mossy_cobblestone_stairs.name=Mossy Cobblestone Stairs
 tile.etfuturum.mossy_stone_brick_stairs.name=Mossy Stone Brick Stairs
+tile.etfuturum.lily_of_the_valley.name=Lily of the Valley
+tile.etfuturum.cornflower.name=Cornflower
+tile.etfuturum.wither_rose.name=Wither Rose
 
 tile.etfuturum.magma.name=Magma Block
 tile.etfuturum.nether_wart.name=Nether Wart Block

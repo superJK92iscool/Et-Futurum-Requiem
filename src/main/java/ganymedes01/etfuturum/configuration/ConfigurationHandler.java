@@ -3,8 +3,9 @@ package ganymedes01.etfuturum.configuration;
 import java.io.File;
 
 import cpw.mods.fml.client.event.ConfigChangedEvent;
+import cpw.mods.fml.common.IFMLSidedHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import ganymedes01.etfuturum.EtFuturum;
+import cpw.mods.fml.relauncher.Side;
 import ganymedes01.etfuturum.enchantment.FrostWalker;
 import ganymedes01.etfuturum.enchantment.Mending;
 import ganymedes01.etfuturum.lib.Reference;
@@ -102,6 +103,8 @@ public class ConfigurationHandler {
 	public static boolean enableQuartzBricks;
 	public static boolean enableGenericSlabs;
 	public static boolean enableGenericStairs;
+	public static boolean enableNewFlowers;
+//	public static boolean enableDyeReplacement;
 
     public static boolean enableNewNetherBricks;
     public static boolean enableNetherwartBlock;
@@ -147,6 +150,7 @@ public class ConfigurationHandler {
     public static boolean enableNewBlocksSounds;
     public static boolean enableNewMiscSounds;
     public static boolean enableNewAmbientSounds;
+	public static boolean enableNetherAmbience;
     
     //Nether Update temp disabled
     public static boolean enableCrimsonBlocks = false;
@@ -220,6 +224,7 @@ public class ConfigurationHandler {
         enableQuartzBricks = cfg.getBoolean("enableQuartzBricks", catBlock, true, "");
         enableGenericSlabs = cfg.getBoolean("enableGenericSlabs", catBlock, true, "Slabs for vanilla blocks: stone, mossy stone brick, mossy cobble, cut sandstone");
         enableGenericStairs = cfg.getBoolean("enableGenericStairs", catBlock, true, "Stairs for vanilla blocks: stone, mossy stone brick, mossy cobble");
+        enableNewFlowers = cfg.getBoolean("enableNewFlowers", catBlock, true, "Cornflower, lily of the valley, wither rose");
         
         enableBarrier = cfg.getBoolean("enableBarrier", catBlock, true, "");
         
@@ -292,6 +297,7 @@ public class ConfigurationHandler {
         enableRecipeForTotem = cfg.getBoolean("enableRecipeForTotem", catFunction, false, "Recipe for totems since there's no other way to get them currently?");
         enableHayBaleFalls = cfg.getBoolean("enableHayBaleFalls", catFunction, true, "If true, fall damage on a hay bale will be reduced");
         hayBaleReducePercent = cfg.getInt("hayBaleReducePercent", catFunction, 20, 0, 99, "If enableHayBaleFalls is true, what percent should we keep for the fall damage?");
+//        enableDyeReplacement = cfg.getBoolean("enableDyeReplacement", catFunction, true, "Removes lapis, bone meal, ink sac and cocoa bean's ore dictionary entries as dyes, making the Et Futurum dyes the dyes instead. Disable if this causes weirdisms with modded recipes. (If false both items can be used)");
         
         //replacement
         enableTileReplacement = cfg.getBoolean("enableTileReplacement", catReplacement, true, "Replace old Brewing Stands/Enchanting Tables/Daylight Sensors/Beacons with new one on the fly.");
@@ -310,6 +316,7 @@ public class ConfigurationHandler {
         enableNewBlocksSounds = cfg.getBoolean("enableNewBlocksSounds", catClient, true, "New Blocks sounds, such as the new place/break sounds added alongside new blocks, or ones added to existing blocks");
         enableNewMiscSounds = cfg.getBoolean("enableNewMiscSounds", catClient, true, "New sounds like furnace crackling, chests etc.");
         enableNewAmbientSounds = cfg.getBoolean("enableNewAmbientSounds", catClient, true, "New ambient sounds like rain, cave sounds");
+        enableNetherAmbience = cfg.getBoolean("enableNetherAmbience", catClient, true, "");
      
         
         if (cfg.hasChanged()) {

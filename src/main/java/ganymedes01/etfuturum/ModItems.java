@@ -13,6 +13,7 @@ import ganymedes01.etfuturum.items.Elytra;
 import ganymedes01.etfuturum.items.EndCrystal;
 import ganymedes01.etfuturum.items.ItemArmourStand;
 import ganymedes01.etfuturum.items.ItemNetherite;
+import ganymedes01.etfuturum.items.ItemNewDye;
 import ganymedes01.etfuturum.items.LingeringPotion;
 import ganymedes01.etfuturum.items.MuttonCooked;
 import ganymedes01.etfuturum.items.MuttonRaw;
@@ -83,6 +84,7 @@ public class ModItems {
     public static final Item netherite_sword = new ItemEFRSword(NETHERITE_TOOL, ConfigurationHandler.netheriteHelmetDurability);
     public static final Item[] signs = new Item[ModBlocks.woodTypes.length - 1];
     public static final Item totem = new TotemUndying();
+    public static final Item new_dye = new ItemNewDye();
 
 	static {
 		for (int i = 0; i < signs.length; i++)

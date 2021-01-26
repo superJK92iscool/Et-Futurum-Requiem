@@ -13,8 +13,8 @@ import net.minecraft.util.IIcon;
 public class ItemGeneric extends Item {
 
     @SideOnly(Side.CLIENT)
-    private IIcon[] icons;
-    private final String[] types;
+	protected IIcon[] icons;
+    protected final String[] types;
 
     public ItemGeneric(String... types) {
         this.types = types;

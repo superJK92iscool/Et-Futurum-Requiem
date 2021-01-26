@@ -25,6 +25,7 @@ import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModEnchantments;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.blocks.MagmaBlock;
+import ganymedes01.etfuturum.client.sound.WeightedSoundPool;
 import ganymedes01.etfuturum.command.SetPlayerModelCommand;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.utils.HoeHelper;
@@ -44,6 +45,8 @@ import net.minecraft.block.BlockDoor;
 import net.minecraft.block.BlockFenceGate;
 import net.minecraft.block.BlockTrapDoor;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.PositionedSound;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -54,6 +57,7 @@ import net.minecraft.entity.ai.EntityAIOpenDoor;
 import net.minecraft.entity.ai.EntityAITargetNonTamed;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
 import net.minecraft.entity.ai.EntityAITempt;
+import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntitySkeleton;
@@ -80,6 +84,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.tileentity.TileEntityFlowerPot;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
@@ -110,12 +115,39 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 import net.minecraftforge.event.entity.player.PlayerPickupXpEvent;
 import net.minecraftforge.event.entity.player.UseHoeEvent;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class ServerEventHandler {
 
     public static final ServerEventHandler INSTANCE = new ServerEventHandler();
 
+    @SideOnly(Side.CLIENT)
+	public WeightedSoundPool netherWastesMusic = new WeightedSoundPool();
+    @SideOnly(Side.CLIENT)
+	public WeightedSoundPool basaltDeltasMusic = new WeightedSoundPool();
+    @SideOnly(Side.CLIENT)
+	public WeightedSoundPool crimsonForestMusic = new WeightedSoundPool();
+    @SideOnly(Side.CLIENT)
+	public WeightedSoundPool warpedForestMusic = new WeightedSoundPool();
+    @SideOnly(Side.CLIENT)
+	public WeightedSoundPool soulSandValleyMusic = new WeightedSoundPool();
+    @SideOnly(Side.CLIENT)
+	public WeightedSoundPool underWaterMusic = new WeightedSoundPool();
+    
     private ServerEventHandler() {
+    	netherWastesMusic.addEntry(Reference.MOD_ID + ":music.nether.nether_wastes", 6);
+    	netherWastesMusic.addEntry("music.game.nether", 4);
+
+    	basaltDeltasMusic.addEntry(Reference.MOD_ID + ":music.nether.basalt_deltas", 7);
+    	basaltDeltasMusic.addEntry("music.game.nether", 4);
+
+    	crimsonForestMusic.addEntry(Reference.MOD_ID + ":music.nether.crimson_forest", 7);
+    	crimsonForestMusic.addEntry("music.game.nether", 4);
+
+    	warpedForestMusic.addEntry(Reference.MOD_ID + ":music.nether.warped_forest", 1);
+
+    	soulSandValleyMusic.addEntry(Reference.MOD_ID + ":music.nether.soul_sand_valley", 7);
+    	soulSandValleyMusic.addEntry("music.game.nether", 4);
     }
 
     private Integer playerLoggedInCooldown = null;
@@ -125,9 +157,8 @@ public class ServerEventHandler {
         if (ConfigurationHandler.enablePlayerSkinOverlay)
             playerLoggedInCooldown = 20;
     }
-
+    
     @SubscribeEvent
-    @SuppressWarnings("unchecked")
     public void onWorldTick(TickEvent.ServerTickEvent event) {
         if (event.phase != TickEvent.Phase.END || event.side != Side.SERVER)
             return;
@@ -507,6 +538,16 @@ public class ServerEventHandler {
                 else
                     addDrop(new ItemStack(ModItems.raw_mutton), event.entityLiving, event.drops);
         }
+        
+//        if (ConfigurationHandler.enableNewFlowers && event.entity instanceof EntityLivingBase && event.source.getEntity() instanceof EntityWither) {
+//        	World world = event.entity.worldObj;
+//        	Entity entity = event.entity;
+//        	if(world.getGameRules().getGameRuleBooleanValue("mobGriefing") && ModBlocks.wither_rose.canPlaceBlockAt(world, (int)entity.posX, (int)entity.posY + 1, (int)entity.posZ)) {
+//        		world.setBlock((int)entity.posX, (int)entity.posY, (int)entity.posZ, ModBlocks.wither_rose);
+//        	} else {
+//                addDrop(new ItemStack(ModBlocks.wither_rose, 1, 0), event.entityLiving, event.drops);
+//        	}
+//        }
     }
 
     private void dropHead(EntityLivingBase entity, DamageSource source, int looting, List<EntityItem> drops) {
@@ -826,6 +867,7 @@ public class ServerEventHandler {
         }
     }
 
+    PositionedSound netherMusic;
 
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
@@ -887,6 +929,20 @@ public class ServerEventHandler {
                 }
             }
 
+            if(true) {
+            	Minecraft mc = FMLClientHandler.instance().getClient();
+            	if (mc.thePlayer.dimension == -1 && event.name.equals("music.game.nether")) {
+                    if(netherMusic == null || !mc.getSoundHandler().isSoundPlaying(netherMusic)) {
+                        World world = mc.theWorld;
+                        WeightedSoundPool pool = getMusicForBiome(mc.theWorld.getChunkFromBlockCoords((int)mc.thePlayer.posX, (int)mc.thePlayer.posZ).getBiomeGenForWorldCoords((int)mc.thePlayer.posX & 15, (int)mc.thePlayer.posZ & 15, mc.theWorld.getWorldChunkManager()).biomeName);
+                        netherMusic = PositionedSoundRecord.func_147673_a(new ResourceLocation(pool.getRandom()));
+                        event.result = netherMusic;
+                    } else {
+                    	event.result = null;
+                    }
+                }
+            }
+            
             if(ConfigurationHandler.enableNewAmbientSounds) {
             	if (event.name.equals("ambient.weather.rain")) {
                     World world = FMLClientHandler.instance().getClient().theWorld;
@@ -895,15 +951,38 @@ public class ServerEventHandler {
                     int z = MathHelper.floor_float(event.sound.getZPosF());
                     event.result = new PositionedSoundRecord(new ResourceLocation(Reference.MOD_ID + ":" + "weather.rain" + (event.sound.getPitch() < 1.0F ? ".above" : "")), 
                     		event.sound.getVolume(), event.sound.getPitch(), x + 0.5F, y + 0.5F, z + 0.5F);
-                } else if (event.name.equals("ambient.cave.cave") && new Random().nextInt(19) >= 13) {
+                } else if (event.name.equals("ambient.cave.cave")) {
                     int x = MathHelper.floor_float(event.sound.getXPosF());
                     int y = MathHelper.floor_float(event.sound.getYPosF());
                     int z = MathHelper.floor_float(event.sound.getZPosF());
-                    event.result = new PositionedSoundRecord(new ResourceLocation(Reference.MOD_ID + ":ambient.cave"), 
-                    		event.sound.getVolume(), event.sound.getPitch(), x + 0.5F, y + 0.5F, z + 0.5F);
+                    if(ConfigurationHandler.enableNetherAmbience && FMLClientHandler.instance().getClient().thePlayer.dimension == -1) {
+                    	String biomeName = FMLClientHandler.instance().getClient().theWorld.getChunkFromBlockCoords(x, z).getBiomeGenForWorldCoords(x & 15, z & 15, FMLClientHandler.instance().getClient().theWorld.getWorldChunkManager()).biomeName;
+                    	if(WorldTickEventHandler.getAmbienceLoopForBiome(biomeName) != null)
+                            event.result = new PositionedSoundRecord(new ResourceLocation(Reference.MOD_ID + ":ambient." + WorldTickEventHandler.getAmbienceLoopForBiome(biomeName) + ".mood"), 
+                            		event.sound.getVolume(), event.sound.getPitch(), x + 0.5F, y + 0.5F, z + 0.5F);
+                    } else if(new Random().nextInt(19) >= 13) {
+                        event.result = new PositionedSoundRecord(new ResourceLocation(Reference.MOD_ID + ":ambient.cave"), 
+                        		event.sound.getVolume(), event.sound.getPitch(), x + 0.5F, y + 0.5F, z + 0.5F);
+                    }
                 }
             }
     	}
+    }
+    
+    private WeightedSoundPool getMusicForBiome(String string) {
+    	if(string.equals("Basalt Deltas") || string.equals("Crystalline Crag")) {
+    		return basaltDeltasMusic;
+    	}
+    	if(string.equals("Warped Forest") || string.equals("Abyssal Shadowland")) {
+    		return warpedForestMusic;
+    	}
+    	if(string.equals("Crimson Forest") || string.equals("Foxfire Swamp")) {
+    		return crimsonForestMusic;
+    	}
+    	if(string.equals("Soul Sand Valley")) {
+    		return soulSandValleyMusic;
+    	}
+    	return netherWastesMusic;
     }
 
 
