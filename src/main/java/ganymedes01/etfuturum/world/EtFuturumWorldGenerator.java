@@ -1,12 +1,14 @@
 package ganymedes01.etfuturum.world;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
+import org.apache.commons.lang3.ArrayUtils;
+
 import cpw.mods.fml.common.IWorldGenerator;
-import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.blocks.ChorusFlower;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
@@ -15,10 +17,12 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.BiomeGenPlains;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenFlowers;
 import net.minecraft.world.gen.feature.WorldGenMinable;
-import net.minecraft.world.gen.feature.WorldGenerator;
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class EtFuturumWorldGenerator implements IWorldGenerator {
@@ -33,16 +37,20 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 
 	@Override
 	public void generate(Random rand, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
-		if (ConfigurationHandler.enableCoarseDirt && world.provider.dimensionId != -1 && world.provider.dimensionId != 1)
-			for (int x = chunkX * 16; x < chunkX * 16 + 16; x++)
-				for (int z = chunkZ * 16; z < chunkZ * 16 + 16; z++)
-					for (int y = 0; y < world.getActualHeight(); y++)
+		if (ConfigurationHandler.enableCoarseDirt && world.provider.dimensionId != -1 && world.provider.dimensionId != 1) {
+			//TODO Add checks so it doesn't run this code in biomes that don't generate coarse dirt
+			for (int x = chunkX * 16; x < chunkX * 16 + 16; x++) {
+				for (int z = chunkZ * 16; z < chunkZ * 16 + 16; z++) {
+					for (int y = 0; y < world.getActualHeight(); y++) {
 						if (world.getBlock(x, y, z) == Blocks.dirt && world.getBlockMetadata(x, y, z) == 1)
 							world.setBlock(x, y, z, ModBlocks.coarse_dirt, 0, 2);
+					}
+				}
+			}
+		}
 
 		if (ConfigurationHandler.enableStones && ConfigurationHandler.maxStonesPerCluster > 0 && world.provider.dimensionId != -1 && world.provider.dimensionId != 1)
-			for (Iterator<WorldGenMinable> iterator = generators.iterator(); iterator.hasNext();) {
-				WorldGenMinable generator = iterator.next();
+			for (WorldGenMinable generator : generators) {
 				for (int i = 0; i < 10; i++) {
 					int x = chunkX * 16 + rand.nextInt(16);
 					int y = rand.nextInt(80);
@@ -51,6 +59,20 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 					generator.generate(world, rand, x, y, z);
 				}
 			}
+		
+		// Flowers TODO Bone meal
+		if(world.provider.dimensionId == 0) {
+			int x = chunkX * 16 + world.rand.nextInt(16);
+			int z = chunkZ * 16 + world.rand.nextInt(16);
+			BiomeGenBase biome = world.getBiomeGenForCoords(x, z);
+			Type[] biomeList = BiomeDictionary.getTypesForBiome(biome);
+			if(ArrayUtils.contains(biomeList, Type.FOREST) && !ArrayUtils.contains(biomeList, Type.SNOWY)) {
+				new WorldGenFlowers(ModBlocks.lily_of_the_valley).generate(world, world.rand, x, world.rand.nextInt(world.getHeightValue(x, z) + 32), z);
+			}
+			if(biome.biomeID == 132 || (ArrayUtils.contains(biomeList, Type.PLAINS) && !ArrayUtils.contains(biomeList, Type.SNOWY) && !ArrayUtils.contains(biomeList, Type.SAVANNA))) {
+				new WorldGenFlowers(ModBlocks.cornflower).generate(world, world.rand, x, world.rand.nextInt(world.getHeightValue(x, z) + 32), z);
+			}
+		}
 		
 		if(world.provider.dimensionId == -1) {
 			if(ConfigurationHandler.enableMagmaBlock)

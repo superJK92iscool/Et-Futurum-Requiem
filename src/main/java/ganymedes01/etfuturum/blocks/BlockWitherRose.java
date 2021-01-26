@@ -1,5 +1,12 @@
 package ganymedes01.etfuturum.blocks;
 
+import static net.minecraftforge.common.EnumPlantType.Cave;
+import static net.minecraftforge.common.EnumPlantType.Crop;
+import static net.minecraftforge.common.EnumPlantType.Desert;
+import static net.minecraftforge.common.EnumPlantType.Nether;
+import static net.minecraftforge.common.EnumPlantType.Plains;
+import static net.minecraftforge.common.EnumPlantType.Water;
+
 import java.util.Random;
 
 import cpw.mods.fml.relauncher.Side;
@@ -15,7 +22,9 @@ import net.minecraft.init.Blocks;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.EnumPlantType;
 
 public class BlockWitherRose extends BlockFlowerBase implements IConfigurable {
 
@@ -49,4 +58,10 @@ public class BlockWitherRose extends BlockFlowerBase implements IConfigurable {
 	public boolean isEnabled() {
 		return ConfigurationHandler.enableNewFlowers;
 	}
+	
+    @Override
+    public EnumPlantType getPlantType(IBlockAccess world, int x, int y, int z)
+    {    
+        return Nether;
+    }
 }

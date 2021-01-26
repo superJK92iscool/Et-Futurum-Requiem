@@ -182,6 +182,7 @@ public class WorldTickEventHandler {
     	String string = ambience.getPositionedSoundLocation().getResourcePath().split("\\.")[1];
     	if(string.equals("null"))
     		return null;
+    	
     	if(string.equals("basalt_deltas")) {
     		return basaltDeltas;
     	}

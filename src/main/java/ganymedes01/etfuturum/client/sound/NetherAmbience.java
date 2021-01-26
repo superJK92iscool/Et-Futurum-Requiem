@@ -23,8 +23,14 @@ public class NetherAmbience extends PositionedSound implements ITickableSound {
 		if(string.equals(Reference.MOD_ID + ":ambient.warped_forest.additions.w3_p0.8") || (string.equals(Reference.MOD_ID + ":ambient.crimson_forest.additions.w4") && new Random().nextInt(2) == 0)) {
 			field_147663_c = 0.8F;
 		} else
-		if(string.equals(Reference.MOD_ID + ":ambient.warped_forest.additions.w3_p0.7") || ((string.equals(Reference.MOD_ID + ":ambient.warped_forest.additions.w2") || string.equals(Reference.MOD_ID + ":ambient.warped_forest.additions.w2")) && new Random().nextInt(2) == 0)) {
+		if(string.equals(Reference.MOD_ID + ":ambient.warped_forest.additions.w3_p0.7") ||
+				string.equals(Reference.MOD_ID + ":ambient.soul_sand_valley.additions.w5_p0.7") ||
+				((string.equals(Reference.MOD_ID + ":ambient.warped_forest.additions.w2") ||
+						string.equals(Reference.MOD_ID + ":ambient.warped_forest.additions.w2")) && new Random().nextInt(2) == 0)) {
 			field_147663_c = 0.7F;
+		} else
+		if(string.equals(Reference.MOD_ID + ":ambient.soul_sand_valley.additions.w25_p0.75")) {
+			field_147663_c = 0.75F;
 		} else
 		if(string.equals(Reference.MOD_ID + ":ambient.warped_forest.additions.w3_p0.1")) {
 			field_147663_c = 0.1F;
