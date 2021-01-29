@@ -24,14 +24,13 @@ import ganymedes01.etfuturum.client.sound.WeightedSoundPool;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.MusicTicker.MusicType;
-import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.client.event.RenderPlayerEvent.SetArmorModel;
 import net.minecraftforge.client.event.TextureStitchEvent;
@@ -104,7 +103,8 @@ public class ClientEventHandler {
         if(!ConfigurationHandler.enableNewMiscSounds || world == null || event.phase != Phase.START || Minecraft.getMinecraft().isGamePaused()) {
         	return;
         }
-        if(world.getTotalWorldTime() == 0) {
+        Chunk chunk = world.getChunkFromBlockCoords((int)player.posX, (int)player.posZ);
+        if(!chunk.isChunkLoaded) {
         	if(ambience != null && FMLClientHandler.instance().getClient().getSoundHandler().isSoundPlaying(ambience))
         		FMLClientHandler.instance().getClient().getSoundHandler().stopSound(ambience);
             ambience = null;
@@ -117,7 +117,7 @@ public class ClientEventHandler {
         	int x = MathHelper.floor_double(player.posX);
         	int y = MathHelper.floor_double(player.posY);
         	int z = MathHelper.floor_double(player.posZ);
-        	biomeName = world.getChunkFromBlockCoords(x, z).getBiomeGenForWorldCoords(x & 15, z & 15, world.getWorldChunkManager()).biomeName;
+        	biomeName = chunk.getBiomeGenForWorldCoords(x & 15, z & 15, world.getWorldChunkManager()).biomeName;
         	if(getAmbienceLoopForBiome(biomeName) != null && !mc.getSoundHandler().isSoundPlaying(ambience)) {
         		Boolean flag = ambience == null || ambience.getVolume() <= 0;
             		ambience = new NetherAmbienceLoop(Reference.MOD_ID + ":ambient." + getAmbienceLoopForBiome(biomeName) + ".loop");
