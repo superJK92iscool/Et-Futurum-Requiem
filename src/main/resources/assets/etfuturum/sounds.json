@@ -853,6 +853,7 @@
     ]
   },
   "ambient.warped_forest.additions.w1": {
+    "category": "ambient",
     "sounds": [
       "minecraft:ambient/nether/crimson_forest/addition1",
       "minecraft:ambient/nether/warped_forest/addition6",
@@ -861,11 +862,13 @@
     ]
   },
   "ambient.warped_forest.additions.w2": {
+    "category": "ambient",
     "sounds": [
       "minecraft:ambient/nether/warped_forest/here1"
     ]
   },
   "ambient.warped_forest.additions.w3": {
+    "category": "ambient",
     "sounds": [
       "minecraft:ambient/nether/warped_forest/addition4",
       "minecraft:ambient/nether/warped_forest/addition5",
@@ -874,33 +877,39 @@
     ]
   },
   "ambient.warped_forest.additions.w3_p0.8": {
+    "category": "ambient",
     "sounds": [
 	  "minecraft:ambient/nether/warped_forest/addition1"
     ]
   },
   "ambient.warped_forest.additions.w3_p0.7": {
+    "category": "ambient",
     "sounds": [
       "minecraft:ambient/nether/warped_forest/addition2",
       "minecraft:ambient/nether/warped_forest/here2"
     ]
   },
   "ambient.warped_forest.additions.w3_p0.1": {
+    "category": "ambient",
     "sounds": [
       "minecraft:ambient/nether/warped_forest/addition3"
     ]
   },
   "ambient.warped_forest.additions.w6": {
+    "category": "ambient",
     "sounds": [
       "minecraft:ambient/nether/warped_forest/enish2",
       "minecraft:ambient/nether/warped_forest/enish3"
     ]
   },
   "ambient.warped_forest.additions.w10": {
+    "category": "ambient",
     "sounds": [
       "minecraft:ambient/nether/warped_forest/enish1"
     ]
   },
   "ambient.warped_forest.additions.w40": {
+    "category": "ambient",
     "sounds": [
       "minecraft:ambient/nether/crimson_forest/particles1",
       "minecraft:ambient/nether/crimson_forest/particles2",
@@ -908,6 +917,7 @@
     ]
   },
   "ambient.warped_forest.mood": {
+    "category": "ambient",
     "sounds": [
       "minecraft:ambient/nether/warped_forest/creak1",
       "minecraft:ambient/nether/warped_forest/creak2",
@@ -933,16 +943,19 @@
     ]
   },
   "ambient.soul_sand_valley.additions.w2": {
+    "category": "ambient",
     "sounds": [
       "minecraft:ambient/nether/soulsand_valley/sand3"
     ]
   },
   "ambient.soul_sand_valley.additions.w4": {
+    "category": "ambient",
     "sounds": [
       "minecraft:ambient/nether/soulsand_valley/with1"
     ]
   },
   "ambient.soul_sand_valley.additions.w5": {
+    "category": "ambient",
     "sounds": [
       "minecraft:ambient/nether/soulsand_valley/voices1",
       "minecraft:ambient/nether/soulsand_valley/voices2",
@@ -960,11 +973,13 @@
     ]
   },
   "ambient.soul_sand_valley.additions.w5_p0.7": {
+    "category": "ambient",
     "sounds": [
       "minecraft:ambient/nether/soulsand_valley/voices5"
     ]
   },
   "ambient.soul_sand_valley.additions.w25": {
+    "category": "ambient",
     "sounds": [
       "minecraft:ambient/nether/soulsand_valley/wind1",
       "minecraft:ambient/nether/soulsand_valley/wind2",
@@ -975,6 +990,7 @@
     ]
   },
   "ambient.soul_sand_valley.additions.w25_p0.75": {
+    "category": "ambient",
     "sounds": [
       "minecraft:ambient/nether/soulsand_valley/wind1",
       "minecraft:ambient/nether/soulsand_valley/wind2",
@@ -983,6 +999,7 @@
     ]
   },
   "ambient.soul_sand_valley.mood": {
+    "category": "ambient",
     "sounds": [
       "minecraft:ambient/nether/soulsand_valley/mood1",
       "minecraft:ambient/nether/soulsand_valley/mood2",

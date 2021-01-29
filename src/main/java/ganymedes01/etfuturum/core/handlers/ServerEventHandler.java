@@ -10,7 +10,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
-import cpw.mods.fml.client.FMLClientHandler;
+import org.apache.commons.lang3.ArrayUtils;
+
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.eventhandler.EventPriority;
@@ -24,6 +25,7 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModEnchantments;
 import ganymedes01.etfuturum.ModItems;
+import ganymedes01.etfuturum.blocks.BlockWitherRose;
 import ganymedes01.etfuturum.blocks.MagmaBlock;
 import ganymedes01.etfuturum.client.sound.WeightedSoundPool;
 import ganymedes01.etfuturum.command.SetPlayerModelCommand;
@@ -40,6 +42,7 @@ import ganymedes01.etfuturum.items.TippedArrow;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.network.BlackHeartParticlesMessage;
 import ganymedes01.etfuturum.network.SetPlayerModelMessage;
+import ganymedes01.etfuturum.recipes.ModRecipes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDoor;
 import net.minecraft.block.BlockFenceGate;
@@ -84,7 +87,6 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.tileentity.TileEntityFlowerPot;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
@@ -121,20 +123,20 @@ public class ServerEventHandler {
 
     public static final ServerEventHandler INSTANCE = new ServerEventHandler();
 
-    @SideOnly(Side.CLIENT)
 	public WeightedSoundPool netherWastesMusic = new WeightedSoundPool();
-    @SideOnly(Side.CLIENT)
 	public WeightedSoundPool basaltDeltasMusic = new WeightedSoundPool();
-    @SideOnly(Side.CLIENT)
 	public WeightedSoundPool crimsonForestMusic = new WeightedSoundPool();
-    @SideOnly(Side.CLIENT)
 	public WeightedSoundPool warpedForestMusic = new WeightedSoundPool();
-    @SideOnly(Side.CLIENT)
 	public WeightedSoundPool soulSandValleyMusic = new WeightedSoundPool();
-    @SideOnly(Side.CLIENT)
 	public WeightedSoundPool underWaterMusic = new WeightedSoundPool();
     
     private ServerEventHandler() {
+    	if(FMLCommonHandler.instance().getSide() == Side.CLIENT)
+        	addToMusicPools();
+    }
+    
+    @SideOnly(Side.CLIENT)
+    private void addToMusicPools() {
     	netherWastesMusic.addEntry(Reference.MOD_ID + ":music.nether.nether_wastes", 6);
     	netherWastesMusic.addEntry("music.game.nether", 4);
 
@@ -539,15 +541,15 @@ public class ServerEventHandler {
                     addDrop(new ItemStack(ModItems.raw_mutton), event.entityLiving, event.drops);
         }
         
-//        if (ConfigurationHandler.enableNewFlowers && event.entity instanceof EntityLivingBase && event.source.getEntity() instanceof EntityWither) {
-//        	World world = event.entity.worldObj;
-//        	Entity entity = event.entity;
-//        	if(world.getGameRules().getGameRuleBooleanValue("mobGriefing") && ModBlocks.wither_rose.canPlaceBlockAt(world, (int)entity.posX, (int)entity.posY + 1, (int)entity.posZ)) {
-//        		world.setBlock((int)entity.posX, (int)entity.posY, (int)entity.posZ, ModBlocks.wither_rose);
-//        	} else {
-//                addDrop(new ItemStack(ModBlocks.wither_rose, 1, 0), event.entityLiving, event.drops);
-//        	}
-//        }
+        if (ConfigurationHandler.enableNewFlowers && event.entity instanceof EntityLivingBase && event.source.getEntity() instanceof EntityWither) {
+        	World world = event.entity.worldObj;
+        	Entity entity = event.entity;
+        	if(world.getGameRules().getGameRuleBooleanValue("mobGriefing") && ((BlockWitherRose)ModBlocks.wither_rose).canPlaceBlockAt(world, (int)entity.posX, (int)entity.posY, (int)entity.posZ)) {
+        		world.setBlock((int)entity.posX, (int)entity.posY, (int)entity.posZ, ModBlocks.wither_rose);
+        	} else {
+                addDrop(new ItemStack(ModBlocks.wither_rose, 1, 0), event.entityLiving, event.drops);
+        	}
+        }
     }
 
     private void dropHead(EntityLivingBase entity, DamageSource source, int looting, List<EntityItem> drops) {
@@ -647,6 +649,20 @@ public class ServerEventHandler {
                     setAnimalInLove(animal, event.entityPlayer, stack);
         } else if (ConfigurationHandler.enableBabyGrowthBoost && isFoodItem(animal, stack))
             feedBaby(animal, event.entityPlayer, stack);
+        
+        if(animal instanceof EntitySheep && stack.getItem() != Items.dye && !animal.worldObj.isRemote) {
+        	EntitySheep sheep = ((EntitySheep)animal);
+        	for(int oreID : OreDictionary.getOreIDs(stack)) {
+            	int fleeceColour = ~ArrayUtils.indexOf(ModRecipes.dyes, OreDictionary.getOreName(oreID)) & 15;
+            	if(ArrayUtils.contains(ModRecipes.dyes, OreDictionary.getOreName(oreID)) && sheep.getFleeceColor() != fleeceColour
+            			&& !sheep.getSheared()) {
+            		sheep.setFleeceColor(fleeceColour);
+            		if(!event.entityPlayer.capabilities.isCreativeMode)
+                		--stack.stackSize;
+            		break;
+            	}
+        	}
+        }
     }
 
     private void setAnimalInLove(EntityAnimal animal, EntityPlayer player, ItemStack stack) {
@@ -873,13 +889,13 @@ public class ServerEventHandler {
     @SubscribeEvent
     public void onPlaySoundEvent(PlaySoundEvent17 event)
     {
-    	if(event.sound != null && event.name != null && FMLClientHandler.instance().getClient().theWorld != null
+    	if(event.sound != null && event.name != null && cpw.mods.fml.client.FMLClientHandler.instance().getWorldClient() != null
     			&& FMLCommonHandler.instance().getSide() == Side.CLIENT) {
     			String[] eventwithprefix = event.name.split("\\.");
             if (ConfigurationHandler.enableNewBlocksSounds && event.name.contains(".") &&
             		eventwithprefix[1].equals(Blocks.stone.stepSound.soundName)
             		&& event.sound.getPitch() < 1.0F) {
-                World world = FMLClientHandler.instance().getClient().theWorld;
+                World world = cpw.mods.fml.client.FMLClientHandler.instance().getWorldClient();
                 int x = MathHelper.floor_float(event.sound.getXPosF());
                 int y = MathHelper.floor_float(event.sound.getYPosF());
                 int z = MathHelper.floor_float(event.sound.getZPosF());
@@ -900,7 +916,7 @@ public class ServerEventHandler {
             
             if(ConfigurationHandler.enableNewMiscSounds) {
             	if(event.name.contains("random.door")) {
-                    World world = FMLClientHandler.instance().getClient().theWorld;
+                    World world = cpw.mods.fml.client.FMLClientHandler.instance().getWorldClient();
                     int x = MathHelper.floor_float(event.sound.getXPosF());
                     int y = MathHelper.floor_float(event.sound.getYPosF());
                     int z = MathHelper.floor_float(event.sound.getZPosF());
@@ -909,7 +925,7 @@ public class ServerEventHandler {
                     event.result = new PositionedSoundRecord(new ResourceLocation(getReplacementDoorSound(block, event.name)),
                     		event.sound.getVolume(), event.sound.getPitch(), x + 0.5F, y + 0.5F, z + 0.5F);
                 } else if (event.name.contains("random.chest")) {
-                    World world = FMLClientHandler.instance().getClient().theWorld;
+                    World world = cpw.mods.fml.client.FMLClientHandler.instance().getWorldClient();
                     int x = MathHelper.floor_float(event.sound.getXPosF());
                     int y = MathHelper.floor_float(event.sound.getYPosF());
                     int z = MathHelper.floor_float(event.sound.getZPosF());
@@ -930,7 +946,7 @@ public class ServerEventHandler {
             }
 
             if(true) {
-            	Minecraft mc = FMLClientHandler.instance().getClient();
+            	Minecraft mc = cpw.mods.fml.client.FMLClientHandler.instance().getClient();
             	if (mc.thePlayer.dimension == -1 && event.name.equals("music.game.nether")) {
                     if(netherMusic == null || !mc.getSoundHandler().isSoundPlaying(netherMusic)) {
                         World world = mc.theWorld;
@@ -945,7 +961,7 @@ public class ServerEventHandler {
             
             if(ConfigurationHandler.enableNewAmbientSounds) {
             	if (event.name.equals("ambient.weather.rain")) {
-                    World world = FMLClientHandler.instance().getClient().theWorld;
+                    World world = cpw.mods.fml.client.FMLClientHandler.instance().getWorldClient();
                     int x = MathHelper.floor_float(event.sound.getXPosF());
                     int y = MathHelper.floor_float(event.sound.getYPosF());
                     int z = MathHelper.floor_float(event.sound.getZPosF());
@@ -955,11 +971,13 @@ public class ServerEventHandler {
                     int x = MathHelper.floor_float(event.sound.getXPosF());
                     int y = MathHelper.floor_float(event.sound.getYPosF());
                     int z = MathHelper.floor_float(event.sound.getZPosF());
-                    if(ConfigurationHandler.enableNetherAmbience && FMLClientHandler.instance().getClient().thePlayer.dimension == -1) {
-                    	String biomeName = FMLClientHandler.instance().getClient().theWorld.getChunkFromBlockCoords(x, z).getBiomeGenForWorldCoords(x & 15, z & 15, FMLClientHandler.instance().getClient().theWorld.getWorldChunkManager()).biomeName;
-                    	if(WorldTickEventHandler.getAmbienceLoopForBiome(biomeName) != null)
-                            event.result = new PositionedSoundRecord(new ResourceLocation(Reference.MOD_ID + ":ambient." + WorldTickEventHandler.getAmbienceLoopForBiome(biomeName) + ".mood"), 
+                    if(ConfigurationHandler.enableNetherAmbience && cpw.mods.fml.client.FMLClientHandler.instance().getClientPlayerEntity().dimension == -1) {
+                    	String biomeName = cpw.mods.fml.client.FMLClientHandler.instance().getWorldClient().getChunkFromBlockCoords(x, z).getBiomeGenForWorldCoords(x & 15, z & 15, cpw.mods.fml.client.FMLClientHandler.instance().getWorldClient().getWorldChunkManager()).biomeName;
+                    	if(ClientEventHandler.getAmbienceLoopForBiome(biomeName) != null)
+                            event.result = new PositionedSoundRecord(new ResourceLocation(Reference.MOD_ID + ":ambient." + ClientEventHandler.getAmbienceLoopForBiome(biomeName) + ".mood"), 
                             		event.sound.getVolume(), event.sound.getPitch(), x + 0.5F, y + 0.5F, z + 0.5F);
+                    	else
+                    		event.result = null;
                     } else if(new Random().nextInt(19) >= 13) {
                         event.result = new PositionedSoundRecord(new ResourceLocation(Reference.MOD_ID + ":ambient.cave"), 
                         		event.sound.getVolume(), event.sound.getPitch(), x + 0.5F, y + 0.5F, z + 0.5F);

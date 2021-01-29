@@ -7,6 +7,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.client.particle.BarrierParticleFX;
+import ganymedes01.etfuturum.client.particle.ParticleHandler;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
@@ -48,10 +49,11 @@ public class BlockBarrier extends Block implements IConfigurable {
     		heldItem = player.inventory.getCurrentItem().getItem();
         	Item barrier = Item.getItemFromBlock(this);
             
-            EntityFX particle = new BarrierParticleFX(world, x + .5F, y + .5F, z + .5F);
+//            EntityFX particle = new BarrierParticleFX(world, x + .5F, y + .5F, z + .5F);
             
         	if(player.capabilities.isCreativeMode && heldItem == barrier) {
-        		Minecraft.getMinecraft().effectRenderer.addEffect(particle);
+//        		Minecraft.getMinecraft().effectRenderer.addEffect(particle);
+        		ParticleHandler.BARRIER.spawn(world, x + .5F, y + .5F, z + .5F, 0D, 0D, 0D, 0);
         	}
     	}
     }
