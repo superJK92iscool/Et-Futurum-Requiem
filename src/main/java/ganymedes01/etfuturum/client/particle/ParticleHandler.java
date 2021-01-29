@@ -22,7 +22,7 @@ public enum ParticleHandler {
 
 		@Override
 		protected Object[] getAdditionalArgs(World world, Object... data) {
-			return new Object[] { 30, .45F, 0xFFFFFFFF, texture, 1 };
+			return new Object[] { 40, .45F, 0xFFFFFFFF, texture, 1 };
 		}
 	};
 

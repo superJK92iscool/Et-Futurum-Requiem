@@ -12,6 +12,7 @@ import cpw.mods.fml.common.gameevent.TickEvent.ClientTickEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.blocks.BlockBlastFurnace;
 import ganymedes01.etfuturum.blocks.MagmaBlock;
@@ -112,7 +113,7 @@ public class ClientEventHandler {
             return;
         }
 
-        if(player.dimension == -1 && ConfigurationHandler.enableNetherAmbience) {
+        if(player.dimension == -1 && ConfigurationHandler.enableNetherAmbience && !EtFuturum.netherAmbienceNetherlicious) {
         	Minecraft mc = FMLClientHandler.instance().getClient();
         	int x = MathHelper.floor_double(player.posX);
         	int y = MathHelper.floor_double(player.posY);

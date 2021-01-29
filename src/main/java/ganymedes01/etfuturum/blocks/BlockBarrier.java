@@ -53,7 +53,7 @@ public class BlockBarrier extends Block implements IConfigurable {
             
         	if(player.capabilities.isCreativeMode && heldItem == barrier) {
 //        		Minecraft.getMinecraft().effectRenderer.addEffect(particle);
-        		ParticleHandler.BARRIER.spawn(world, x + .5F, y + .5F, z + .5F, 0D, 0D, 0D, 0);
+        		ParticleHandler.BARRIER.spawn(world, x + .5F, y + .5F, z + .5F);
         	}
     	}
     }

@@ -290,7 +290,7 @@ public class ConfigurationHandler {
         enableDragonRespawn = cfg.getBoolean("enableDragonRespawn", catFunction, true, "");
         enableNetherEndermen = cfg.getBoolean("enableNetherEndermen", catFunction, true, "Allow endermen to rarely spawn in the Nether");
         
-        enableAutoAddSmoker = cfg.getBoolean("enableAutoAddSmoker", catFunction, true, "Auto-adds smeltable foods to the blast furnace, turn off for only vanilla food");
+        enableAutoAddSmoker = cfg.getBoolean("enableAutoAddSmoker", catFunction, true, "Auto-adds smeltable foods to the smoker, turn off for only vanilla food");
         enableAutoAddBlastFurnace = cfg.getBoolean("enableAutoAddBlastFurnace", catFunction, true, "Auto-adds ores to the blast furnace, detected if the input has the \"ore\" oreDictionary prefix and is smeltable. Turn off for only vanilla ores");
         totemHealPercent = cfg.getInt("totemHealPercent", catFunction, 5, 5, 100, "Percentage of max health for totem to set you at if you die with it. (5% is 0.05, 20 * 0.05 = 1, 1 health is one half-heart)");
         enableHoeMining = cfg.getBoolean("enableHoeMining", catFunction, true, "Allows blocks like hay bales, leaves etc to mine faster with hoes");

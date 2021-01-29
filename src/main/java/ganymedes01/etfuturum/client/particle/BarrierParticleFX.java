@@ -16,6 +16,7 @@ public class BarrierParticleFX extends EtFuturumFXParticle {
 	
     public void onUpdate()
     {
+    	super.onUpdate();
         this.prevPosX = this.posX;
         this.prevPosY = this.posY;
         this.prevPosZ = this.posZ;
@@ -25,14 +26,4 @@ public class BarrierParticleFX extends EtFuturumFXParticle {
             this.setDead();
         }
     }
-
-	@Override
-	public float getBrightness(float p_70013_1_) {
-		return 1.0F;
-	}
-	
-	@Override
-	public int getBrightnessForRender(float p_70013_1_) {
-		return 16;
-	}
 }

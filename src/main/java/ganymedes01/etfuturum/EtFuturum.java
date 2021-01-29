@@ -50,13 +50,14 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.oredict.OreDictionary;
 
 @Mod(
         modid = "etfuturum", 
         name = "Et Futurum", 
         version = "@VERSION@", 
-        dependencies = "required-after:Forge@[10.13.4.1558,);after:Thaumcraft@[4.2.3.5,);", 
+        dependencies = "required-after:Forge@[10.13.4.1558,);after:Thaumcraft@[4.2.3.5,);after:netherlicious", 
         guiFactory = "ganymedes01.etfuturum.configuration.ConfigGuiFactory"
     )
 
@@ -83,6 +84,9 @@ public class EtFuturum {
             return ConfigurationHandler.enableSmoker ? Item.getItemFromBlock(ModBlocks.smoker) : ConfigurationHandler.enableChorusFruit ? Item.getItemFromBlock(ModBlocks.chorus_flower) : Item.getItemFromBlock(Blocks.ender_chest);
         }
     };
+    
+	public static boolean netherAmbienceNetherlicious;
+	private Configuration Netherlicious;
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
@@ -113,7 +117,15 @@ public class EtFuturum {
         networkWrapper.registerMessage(ArmourStandInteractHandler.class, ArmourStandInteractMessage.class, 0, Side.SERVER);
         networkWrapper.registerMessage(BlackHeartParticlesHandler.class, BlackHeartParticlesMessage.class, 1, Side.CLIENT);
         networkWrapper.registerMessage(SetPlayerModelHandler.class, SetPlayerModelMessage.class, 2, Side.CLIENT);
-		networkWrapper.registerMessage(WoodSignOpenHandler.class, WoodSignOpenMessage.class, 3, Side.CLIENT);          
+		networkWrapper.registerMessage(WoodSignOpenHandler.class, WoodSignOpenMessage.class, 3, Side.CLIENT);   
+    	{
+    		if (Loader.isModLoaded("netherlicious")) {
+    			Netherlicious = new Configuration(
+    					new File(event.getModConfigurationDirectory() + "/netherlicious/Biome_Sound_Configuration.cfg"));
+    			netherAmbienceNetherlicious = Netherlicious.get("1 nether ambience", "Allow Biome specific sounds to play", true).getBoolean();
+
+    		}
+    	}       
     }
 
     @EventHandler
