@@ -81,6 +81,7 @@ item.etfuturum.dye_white.name=White Dye
 item.etfuturum.dye_blue.name=Blue Dye
 item.etfuturum.dye_brown.name=Brown Dye
 item.etfuturum.dye_black.name=Black Dye
+item.etfuturum.copper_ingot.name=Copper Ingot
 
  Arrows
 item.etfuturum.tipped_arrow.name=Tipped Arrow
@@ -202,6 +203,21 @@ tile.etfuturum.mossy_stone_brick_stairs.name=Mossy Stone Brick Stairs
 tile.etfuturum.lily_of_the_valley.name=Lily of the Valley
 tile.etfuturum.cornflower.name=Cornflower
 tile.etfuturum.wither_rose.name=Wither Rose
+tile.etfuturum.copper_ore.name=Copper Ore
+tile.etfuturum.copper_block.name=Copper Block
+tile.etfuturum.lightly_weathered_copper_block.name=Lightly Weathered Copper Block
+tile.etfuturum.semi_weathered_copper_block.name=Semi-Weathered Copper Block
+tile.etfuturum.weathered_copper_block.name=Weathered Copper Block
+tile.etfuturum.cut_copper.name=Cut Copper
+tile.etfuturum.lightly_weathered_cut_copper.name=Lightly Weathered Cut Copper
+tile.etfuturum.semi_weathered_cut_copper.name=Semi-Weathered Cut Copper
+tile.etfuturum.weathered_cut_copper.name=Weathered Cut Copper
+tile.etfuturum.waxed_copper_block.name=Waxed Copper
+tile.etfuturum.waxed_lightly_weathered_copper_block.name=Waxed Lightly Weathered Copper
+tile.etfuturum.waxed_semi_weathered_copper_block.name=Waxed Semi-Weathered Copper
+tile.etfuturum.waxed_cut_copper.name=Waxed Cut Copper
+tile.etfuturum.waxed_lightly_weathered_cut_copper.name=Waxed Lightly Weathered Cut Copper
+tile.etfuturum.waxed_semi_weathered_cut_copper.name=Waxed Semi-Weathered Cut Copper
 
 tile.etfuturum.magma.name=Magma Block
 tile.etfuturum.nether_wart.name=Nether Wart Block

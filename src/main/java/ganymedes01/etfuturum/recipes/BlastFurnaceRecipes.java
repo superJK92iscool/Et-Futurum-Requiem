@@ -31,9 +31,11 @@ public class BlastFurnaceRecipes
     {
         return smeltingBase;
     }
+    
+    private BlastFurnaceRecipes() {
+    }
 
-    private BlastFurnaceRecipes()
-    {
+    public static void init() {
 		if(ConfigurationHandler.enableMeltGear) {
 			Item[][] crafts = new Item[][] {
 				{Items.golden_helmet, Items.golden_chestplate, Items.golden_leggings, Items.golden_boots, Items.golden_sword, Items.golden_pickaxe,
@@ -44,7 +46,7 @@ public class BlastFurnaceRecipes
 			for(int i = 0; i < crafts[0].length; i++) {
 				if(!ConfigurationHandler.enableIronNugget && i > 9)
 					break;
-				addRecipe(crafts[0][i], new ItemStack(crafts[1][i > 9 ? 1 : 0]), .1F);
+				smeltingBase.addRecipe(crafts[0][i], new ItemStack(crafts[1][i > 9 ? 1 : 0]), .1F);
 			}
 		}
     	if(ConfigurationHandler.enableAutoAddBlastFurnace) {
@@ -60,7 +62,7 @@ public class BlastFurnaceRecipes
     					if(input != null) {
         					ItemStack result = FurnaceRecipes.smelting().getSmeltingResult(input);
         					if(result != null)
-        	        			addRecipe(input, result, result.getItem().getSmeltingExperience(result));
+        	        			smeltingBase.addRecipe(input, result, result.getItem().getSmeltingExperience(result));
     					}
     					o++;
     				}
@@ -68,14 +70,14 @@ public class BlastFurnaceRecipes
     			i++;
     		}
         } else {
-            this.addRecipe(Blocks.iron_ore, new ItemStack(Items.iron_ingot), 0.7F);
-            this.addRecipe(Blocks.gold_ore, new ItemStack(Items.gold_ingot), 1.0F);
-            this.addRecipe(Blocks.diamond_ore, new ItemStack(Items.diamond), 1.0F);
-            this.addRecipe(Blocks.emerald_ore, new ItemStack(Items.emerald), 1.0F);
-            this.addRecipe(Blocks.coal_ore, new ItemStack(Items.coal), 0.1F);
-            this.addRecipe(Blocks.redstone_ore, new ItemStack(Items.redstone), 0.7F);
-            this.addRecipe(Blocks.lapis_ore, new ItemStack(Items.dye, 1, 4), 0.2F);
-            this.addRecipe(Blocks.quartz_ore, new ItemStack(Items.quartz), 0.2F);
+        	smeltingBase.addRecipe(Blocks.iron_ore, new ItemStack(Items.iron_ingot), 0.7F);
+        	smeltingBase.addRecipe(Blocks.gold_ore, new ItemStack(Items.gold_ingot), 1.0F);
+        	smeltingBase.addRecipe(Blocks.diamond_ore, new ItemStack(Items.diamond), 1.0F);
+        	smeltingBase.addRecipe(Blocks.emerald_ore, new ItemStack(Items.emerald), 1.0F);
+        	smeltingBase.addRecipe(Blocks.coal_ore, new ItemStack(Items.coal), 0.1F);
+        	smeltingBase.addRecipe(Blocks.redstone_ore, new ItemStack(Items.redstone), 0.7F);
+        	smeltingBase.addRecipe(Blocks.lapis_ore, new ItemStack(Items.dye, 1, 4), 0.2F);
+        	smeltingBase.addRecipe(Blocks.quartz_ore, new ItemStack(Items.quartz), 0.2F);
         }
     }
 

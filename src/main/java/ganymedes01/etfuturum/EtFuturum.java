@@ -5,6 +5,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.nio.file.Files;
 import java.util.Iterator;
+import java.util.List;
 
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
@@ -21,12 +22,12 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.command.SetPlayerModelCommand;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.proxy.CommonProxy;
 import ganymedes01.etfuturum.core.utils.HoeHelper;
 import ganymedes01.etfuturum.entities.ModEntityList;
-import ganymedes01.etfuturum.items.ItemEntityEgg;
 import ganymedes01.etfuturum.lib.ModSounds;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.network.ArmourStandInteractHandler;
@@ -37,8 +38,10 @@ import ganymedes01.etfuturum.network.SetPlayerModelHandler;
 import ganymedes01.etfuturum.network.SetPlayerModelMessage;
 import ganymedes01.etfuturum.network.WoodSignOpenHandler;
 import ganymedes01.etfuturum.network.WoodSignOpenMessage;
+import ganymedes01.etfuturum.recipes.BlastFurnaceRecipes;
 import ganymedes01.etfuturum.recipes.BrewingFuelRegistry;
 import ganymedes01.etfuturum.recipes.ModRecipes;
+import ganymedes01.etfuturum.recipes.SmokerRecipes;
 import ganymedes01.etfuturum.world.EtFuturumWorldGenerator;
 import ganymedes01.etfuturum.world.generate.OceanMonument;
 import net.minecraft.block.Block;
@@ -75,6 +78,15 @@ public class EtFuturum {
         @Override
         public Item getTabIconItem() {
             return ConfigurationHandler.enableNetherite ? ModItems.netherite_scrap : ConfigurationHandler.enablePrismarine ? ModItems.prismarine_shard : Items.magma_cream;
+        }
+        
+        @SideOnly(Side.CLIENT)
+        @Override
+        public void displayAllReleventItems(List p_78018_1_)
+        {
+        	for(int i : ModEntityList.eggIDs)
+            	p_78018_1_.add(new ItemStack(Items.spawn_egg, 1, i));
+        	super.displayAllReleventItems(p_78018_1_);
         }
     };
     
@@ -138,12 +150,6 @@ public class EtFuturum {
         proxy.registerEvents();
         proxy.registerEntities();
         proxy.registerRenderers();
-
-        if (ModEntityList.hasEntitiesWithEggs()) {
-            ModEntityList.entity_egg = new ItemEntityEgg();
-            GameRegistry.registerItem(ModEntityList.entity_egg, "entity_egg");
-            OreDictionary.registerOre("mobEgg", ModEntityList.entity_egg);
-        }
     }
 
     @EventHandler
@@ -180,12 +186,12 @@ public class EtFuturum {
     			Block block = (Block) iterator.next();
     			if(block == null || block.stepSound == null || Block.blockRegistry.getNameForObject(block) == null)
     				continue;
+    			String blockID = Block.blockRegistry.getNameForObject(block).split(":")[1].toLowerCase();
     			
     			if(block.stepSound == Block.soundTypePiston || block.stepSound == Block.soundTypeStone) {
-    				if(Block.blockRegistry.getNameForObject(block).toLowerCase().contains("nether") &&
-    					Block.blockRegistry.getNameForObject(block).toLowerCase().contains("brick"))
+    				if(blockID.contains("nether") && blockID.contains("brick"))
         				block.setStepSound(ModSounds.soundNetherBricks);
-    				else if(Block.blockRegistry.getNameForObject(block).toLowerCase().contains("netherrack"))
+    				else if(blockID.contains("netherrack"))
             				block.setStepSound(ModSounds.soundNetherrack);
     			}
     		}
@@ -193,6 +199,9 @@ public class EtFuturum {
     		Blocks.quartz_ore.setStepSound(ModSounds.soundNetherOre);
     		Blocks.soul_sand.setStepSound(ModSounds.soundSoulSand);
         }
+        
+        SmokerRecipes.init();
+        BlastFurnaceRecipes.init();
     }
 
     @EventHandler

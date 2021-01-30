@@ -58,22 +58,23 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 
 					generator.generate(world, rand, x, y, z);
 				}
+				
+				if(ConfigurationHandler.enableCopper) {
+					this.generateOre(ModBlocks.copper_ore, 0, world, rand, chunkX, chunkZ, 1, ConfigurationHandler.maxCopperPerCluster, 8, 4, 63, Blocks.stone);
+				}
+				//TODO Bone meal
+
+				int x = chunkX * 16 + world.rand.nextInt(16);
+				int z = chunkZ * 16 + world.rand.nextInt(16);
+				BiomeGenBase biome = world.getBiomeGenForCoords(x, z);
+				Type[] biomeList = BiomeDictionary.getTypesForBiome(biome);
+				if(ArrayUtils.contains(biomeList, Type.FOREST) && !ArrayUtils.contains(biomeList, Type.SNOWY)) {
+					new WorldGenFlowers(ModBlocks.lily_of_the_valley).generate(world, world.rand, x, world.rand.nextInt(world.getHeightValue(x, z) + 32), z);
+				}
+				if(biome.biomeID == 132 || (ArrayUtils.contains(biomeList, Type.PLAINS) && !ArrayUtils.contains(biomeList, Type.SNOWY) && !ArrayUtils.contains(biomeList, Type.SAVANNA))) {
+					new WorldGenFlowers(ModBlocks.cornflower).generate(world, world.rand, x, world.rand.nextInt(world.getHeightValue(x, z) + 32), z);
+				}
 			}
-		
-		// Flowers TODO Bone meal
-		if(world.provider.dimensionId == 0) {
-			int x = chunkX * 16 + world.rand.nextInt(16);
-			int z = chunkZ * 16 + world.rand.nextInt(16);
-			BiomeGenBase biome = world.getBiomeGenForCoords(x, z);
-			Type[] biomeList = BiomeDictionary.getTypesForBiome(biome);
-			if(ArrayUtils.contains(biomeList, Type.FOREST) && !ArrayUtils.contains(biomeList, Type.SNOWY)) {
-				new WorldGenFlowers(ModBlocks.lily_of_the_valley).generate(world, world.rand, x, world.rand.nextInt(world.getHeightValue(x, z) + 32), z);
-			}
-			if(biome.biomeID == 132 || (ArrayUtils.contains(biomeList, Type.PLAINS) && !ArrayUtils.contains(biomeList, Type.SNOWY) && !ArrayUtils.contains(biomeList, Type.SAVANNA))) {
-				new WorldGenFlowers(ModBlocks.cornflower).generate(world, world.rand, x, world.rand.nextInt(world.getHeightValue(x, z) + 32), z);
-			}
-		}
-		
 		if(world.provider.dimensionId == -1) {
 			if(ConfigurationHandler.enableMagmaBlock)
 				this.generateOre(ModBlocks.magma_block, 0, world, rand, chunkX, chunkZ, 1, ConfigurationHandler.maxMagmaPerCluster, 4, 23, 37, Blocks.netherrack);

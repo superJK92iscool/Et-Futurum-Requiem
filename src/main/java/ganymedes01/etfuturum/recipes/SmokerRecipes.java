@@ -29,9 +29,11 @@ public class SmokerRecipes
     {
         return smeltingBase;
     }
+    
+    private SmokerRecipes() {
+    }
 
-    private SmokerRecipes()
-    {
+    public static void init() {
     	if(ConfigurationHandler.enableAutoAddSmoker) {
         	Map recipes = FurnaceRecipes.smelting().getSmeltingList();
         	ItemStack input;
@@ -44,15 +46,15 @@ public class SmokerRecipes
         		input = (ItemStack)entry.getKey();
     			result = FurnaceRecipes.smelting().getSmeltingResult((ItemStack)entry.getKey());
         		if(input.getItem() instanceof ItemFood) {
-        			addRecipe(input, result, result.getItem().getSmeltingExperience(result));
+        			smeltingBase.addRecipe(input, result, result.getItem().getSmeltingExperience(result));
         		}
         	}
     	} else {
-            this.addRecipe(Items.porkchop, new ItemStack(Items.cooked_porkchop), 0.35F);
-            this.addRecipe(Items.beef, new ItemStack(Items.cooked_beef), 0.35F);
-            this.addRecipe(Items.chicken, new ItemStack(Items.cooked_chicken), 0.35F);
-            this.addRecipe(Items.potato, new ItemStack(Items.baked_potato), 0.35F);
-            this.addRecipe(ModItems.raw_mutton, new ItemStack(ModItems.cooked_mutton), 0.35F);
+            smeltingBase.addRecipe(Items.porkchop, new ItemStack(Items.cooked_porkchop), 0.35F);
+            smeltingBase.addRecipe(Items.beef, new ItemStack(Items.cooked_beef), 0.35F);
+            smeltingBase.addRecipe(Items.chicken, new ItemStack(Items.cooked_chicken), 0.35F);
+            smeltingBase.addRecipe(Items.potato, new ItemStack(Items.baked_potato), 0.35F);
+            smeltingBase.addRecipe(ModItems.raw_mutton, new ItemStack(ModItems.cooked_mutton), 0.35F);
             ItemFishFood.FishType[] afishtype = ItemFishFood.FishType.values();
             int i = afishtype.length;
 
@@ -62,12 +64,12 @@ public class SmokerRecipes
 
                 if (fishtype.func_150973_i())
                 {
-                    this.addRecipe(new ItemStack(Items.fish, 1, fishtype.func_150976_a()), new ItemStack(Items.cooked_fished, 1, fishtype.func_150976_a()), 0.35F);
+                    smeltingBase.addRecipe(new ItemStack(Items.fish, 1, fishtype.func_150976_a()), new ItemStack(Items.cooked_fished, 1, fishtype.func_150976_a()), 0.35F);
                 }
             }
     	}
     }
-
+    
     public void addRecipe(Block p_151393_1_, ItemStack p_151393_2_, float p_151393_3_)
     {
         this.addRecipe(Item.getItemFromBlock(p_151393_1_), p_151393_2_, p_151393_3_);

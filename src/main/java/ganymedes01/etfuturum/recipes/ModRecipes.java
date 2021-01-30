@@ -178,7 +178,7 @@ public class ModRecipes {
         
 		if(ConfigurationHandler.enableNetherite) {
 			OreDictionary.registerOre("ingotNetherite", ModItems.netherite_ingot);
-			OreDictionary.registerOre("nuggetNetherite", ModItems.netherite_scrap);
+			OreDictionary.registerOre("scrapNetherite", ModItems.netherite_scrap);
 			OreDictionary.registerOre("oreNetherite", ModBlocks.ancient_debris);
 			OreDictionary.registerOre("blockNetherite", ModBlocks.netherite_block);
 		}
@@ -197,11 +197,19 @@ public class ModRecipes {
 				OreDictionary.registerOre("logWood", new ItemStack(ModBlocks.log2_bark, 1, i));
 			}
 		}
+		
 		if(ConfigurationHandler.enableNewFlowers) {
 				OreDictionary.registerOre("dyeWhite", new ItemStack(ModItems.new_dye, 1, 0));
 				OreDictionary.registerOre("dyeBlue", new ItemStack(ModItems.new_dye, 1, 1));
 				OreDictionary.registerOre("dyeBrown", new ItemStack(ModItems.new_dye, 1, 2));
 				OreDictionary.registerOre("dyeBlack", new ItemStack(ModItems.new_dye, 1, 3));
+		}
+		
+		if(ConfigurationHandler.enableCopper) {
+			OreDictionary.registerOre("oreCopper", new ItemStack(ModBlocks.copper_ore, 1, 0));
+			OreDictionary.registerOre("ingotCopper", new ItemStack(ModItems.copper_ingot, 1, 0));
+			OreDictionary.registerOre("blockCopper", new ItemStack(ModBlocks.copper_block, 1, 0));
+			OreDictionary.registerOre("blockCopperCut", new ItemStack(ModBlocks.copper_block, 1, 4));
 		}
 		
 //		if(ConfigurationHandler.enableCrimsonBlocks || ConfigurationHandler.enableWarpedBlocks) {
@@ -482,7 +490,6 @@ public class ModRecipes {
         if (ConfigurationHandler.enableNetherwartBlock) {
             addShapedRecipe(new ItemStack(ModBlocks.nether_wart_block), "xxx", "xxx", "xxx", 'x', Items.nether_wart);
             addShapelessRecipe(new ItemStack(Items.nether_wart, 9), ModBlocks.nether_wart_block);
-            
         }
 
         if (ConfigurationHandler.enableBoneBlock) {
@@ -636,6 +643,26 @@ public class ModRecipes {
 			addShapelessRecipe(new ItemStack(ModItems.new_dye, 1, 3), new ItemStack(ModBlocks.wither_rose, 1, 0));
 			addShapelessRecipe(new ItemStack(ModItems.new_dye, 1, 3), new ItemStack(Items.dye, 1, 0));
 			
+		}
+		
+		if(ConfigurationHandler.enableCopper) {
+			addShapedRecipe(new ItemStack(ModBlocks.copper_block, 4), "xx", "xx", 'x', new ItemStack(ModItems.copper_ingot, 1, 0));
+			addShapedRecipe(new ItemStack(ModItems.copper_ingot, 4), "x", 'x', new ItemStack(ModBlocks.copper_block, 1, 0));
+			GameRegistry.addSmelting(new ItemStack(ModBlocks.copper_ore), new ItemStack(ModItems.copper_ingot), .7F);
+			for(int i = 0; i <= 7; i++) {
+				int j = i;
+				if(i > 3)
+					j = i + 4;
+				addShapedRecipe(new ItemStack(ModBlocks.copper_block, 4, j + 4), "xx", "xx", 'x', new ItemStack(ModBlocks.copper_block, 1, j));
+				if(i % 4 != 3) {
+					if(OreDictionary.doesOreNameExist("materialWax") || OreDictionary.doesOreNameExist("materialWaxcomb")) {
+						addShapelessRecipe(new ItemStack(ModBlocks.copper_block, 1, i + 8), "materialWax", new ItemStack(ModBlocks.copper_block, 1, i));
+						addShapelessRecipe(new ItemStack(ModBlocks.copper_block, 1, i + 8), "materialWaxcomb", new ItemStack(ModBlocks.copper_block, 1, i));
+					} else {
+						addShapelessRecipe(new ItemStack(ModBlocks.copper_block, 1, i + 8), "slimeball", new ItemStack(ModBlocks.copper_block, 1, i));
+					}
+				}
+			}
 		}
 		
 //		if(ConfigurationHandler.enableBlackstone) {

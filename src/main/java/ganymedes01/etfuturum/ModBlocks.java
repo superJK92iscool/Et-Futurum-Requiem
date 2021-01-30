@@ -12,6 +12,8 @@ import ganymedes01.etfuturum.blocks.BlockBlastFurnace;
 import ganymedes01.etfuturum.blocks.BlockBlueIce;
 import ganymedes01.etfuturum.blocks.BlockConcrete;
 import ganymedes01.etfuturum.blocks.BlockConcretePowder;
+import ganymedes01.etfuturum.blocks.BlockCopper;
+import ganymedes01.etfuturum.blocks.BlockCopperOre;
 import ganymedes01.etfuturum.blocks.BlockCornflower;
 import ganymedes01.etfuturum.blocks.BlockEndBrickSlab;
 import ganymedes01.etfuturum.blocks.BlockGenericStairs;
@@ -130,6 +132,8 @@ public class ModBlocks {
     public static final Block wood2_stripped = new BlockStrippedNewWood();
     public static final Block concrete = new BlockConcrete();
     public static final Block concrete_powder = new BlockConcretePowder();
+    public static final Block copper_ore = new BlockCopperOre();
+    public static final Block copper_block = new BlockCopper();
     
     //technical blocks
     public static final Block brewing_stand = new NewBrewingStand();

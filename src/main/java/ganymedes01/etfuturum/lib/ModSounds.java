@@ -24,6 +24,7 @@ public class ModSounds {
 	public static final SoundType soundFungus = new CustomSoundFungus("fungus", 1, 1);
 	public static final SoundType soundStem = new CustomSound("stem", 1, 1, true, true);
 	public static final SoundType soundShroomlight = new CustomSound("shroomlight", 1, 1, true, true);
+	public static final SoundType soundCopper = new CustomSound("copper", 1, 1, true, true);
 
 	private static final class CustomSound extends SoundType {
 

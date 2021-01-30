@@ -172,9 +172,4 @@ public class EntityEndermite extends EntityMob {
     public EnumCreatureAttribute getCreatureAttribute() {
         return EnumCreatureAttribute.ARTHROPOD;
     }
-
-    @Override
-    public ItemStack getPickedResult(MovingObjectPosition target) {
-        return ModEntityList.getEggFor(getClass());
-    }
 }

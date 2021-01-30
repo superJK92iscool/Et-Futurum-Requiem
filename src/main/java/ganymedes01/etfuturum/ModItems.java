@@ -12,6 +12,7 @@ import ganymedes01.etfuturum.items.DragonBreath;
 import ganymedes01.etfuturum.items.Elytra;
 import ganymedes01.etfuturum.items.EndCrystal;
 import ganymedes01.etfuturum.items.ItemArmourStand;
+import ganymedes01.etfuturum.items.ItemCopperIngot;
 import ganymedes01.etfuturum.items.ItemNetherite;
 import ganymedes01.etfuturum.items.ItemNewDye;
 import ganymedes01.etfuturum.items.LingeringPotion;
@@ -85,6 +86,7 @@ public class ModItems {
     public static final Item[] signs = new Item[ModBlocks.woodTypes.length - 1];
     public static final Item totem = new TotemUndying();
     public static final Item new_dye = new ItemNewDye();
+    public static final Item copper_ingot = new ItemCopperIngot();
 
 	static {
 		for (int i = 0; i < signs.length; i++)

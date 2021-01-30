@@ -20,9 +20,18 @@ public class BlockGeneric extends Block implements ISubBlocksBlock {
     @SideOnly(Side.CLIENT)
     protected IIcon[] icons;
     protected final String[] types;
+    protected boolean flipNames;
 
     protected int startMeta = 0;
 
+    public void setFlippedNames(boolean flip) {
+    	flipNames = flip;
+    }
+    
+    public boolean flippedNames() {
+    	return flipNames;
+    }
+    
     public BlockGeneric(Material material, String... types) {
         super(material);
         this.types = types;

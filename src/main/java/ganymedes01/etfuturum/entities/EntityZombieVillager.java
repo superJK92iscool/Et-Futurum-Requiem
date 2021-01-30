@@ -78,9 +78,4 @@ public class EntityZombieVillager extends EntityZombie {
         setType(worldObj.rand.nextInt(6));
         return super.onSpawnWithEgg(data);
     }
-
-    @Override
-    public ItemStack getPickedResult(MovingObjectPosition target) {
-        return ModEntityList.getEggFor(getClass());
-    }
 }

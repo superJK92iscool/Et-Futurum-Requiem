@@ -325,11 +325,6 @@ public class EntityRabbit extends EntityAnimal {
             super.handleHealthUpdate(id);
     }
 
-    @Override
-    public ItemStack getPickedResult(MovingObjectPosition target) {
-        return ModEntityList.getEggFor(getClass());
-    }
-
     class AIEvilAttack extends EntityAIAttackOnCollide {
 
         public AIEvilAttack() {
