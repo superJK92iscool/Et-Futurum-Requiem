@@ -1,6 +1,8 @@
 package ganymedes01.etfuturum.client.particle;
 
-import net.minecraft.client.renderer.Tessellator;
+import java.util.Random;
+
+import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
@@ -12,6 +14,7 @@ public class BarrierParticleFX extends EtFuturumFXParticle {
 		this.motionX = 0;
 		this.motionY = 0;
 		this.motionZ = 0;
+		particleMaxAge = maxAge + MathHelper.getRandomIntegerInRange(new Random(), 0, 10);
 	}
 	
     public void onUpdate()

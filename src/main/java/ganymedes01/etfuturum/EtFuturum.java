@@ -86,6 +86,7 @@ public class EtFuturum {
     };
     
 	public static boolean netherAmbienceNetherlicious;
+	public static boolean netherMusicNetherlicious;
 	private Configuration Netherlicious;
 
     @EventHandler
@@ -123,7 +124,7 @@ public class EtFuturum {
     			Netherlicious = new Configuration(
     					new File(event.getModConfigurationDirectory() + "/netherlicious/Biome_Sound_Configuration.cfg"));
     			netherAmbienceNetherlicious = Netherlicious.get("1 nether ambience", "Allow Biome specific sounds to play", true).getBoolean();
-
+                netherMusicNetherlicious = Netherlicious.get("2 biome music", "1 Replace the Music System in the Nether, to allow Biome specific Music. Default Music will still play sometimes", true).getBoolean();
     		}
     	}       
     }

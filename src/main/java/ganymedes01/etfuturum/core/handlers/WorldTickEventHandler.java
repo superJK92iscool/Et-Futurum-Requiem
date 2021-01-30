@@ -58,7 +58,7 @@ public class WorldTickEventHandler {
         if (event.side != Side.SERVER || event.phase != Phase.END)
             return;
 
-        if (replacements.isEmpty() && !ConfigurationHandler.enableNewMiscSounds)
+        if (replacements.isEmpty() || !ConfigurationHandler.enableNewMiscSounds)
             return;
 
         World world = event.world;
@@ -68,25 +68,23 @@ public class WorldTickEventHandler {
 
         List<TileEntity> list = world.loadedTileEntityList;
         for(TileEntity tile : list) {
-            if (!replacements.isEmpty()) {
-            	Block replacement = replacements.get(tile.getBlockType());
-            	if(replacement != null && ((IConfigurable) replacement).isEnabled()) {
-                    NBTTagCompound nbt = new NBTTagCompound();
-                    tile.writeToNBT(nbt);
-                    if (tile instanceof IInventory) {
-                        IInventory invt = (IInventory) tile;
-                        for (int j = 0; j < invt.getSizeInventory(); j++)
-                            invt.setInventorySlotContents(j, null);
-                    }
-                    int x = tile.xCoord;
-                    int y = tile.yCoord;
-                    int z = tile.zCoord;
-                    world.setBlock(x, y, z, replacement);
-                    TileEntity newTile = world.getTileEntity(x, y, z);
-                    newTile.readFromNBT(nbt);
-                    break;
-            	}
-            }
+        	Block replacement = replacements.get(tile.getBlockType());
+        	if(replacement != null && ((IConfigurable) replacement).isEnabled()) {
+                NBTTagCompound nbt = new NBTTagCompound();
+                tile.writeToNBT(nbt);
+                if (tile instanceof IInventory) {
+                    IInventory invt = (IInventory) tile;
+                    for (int j = 0; j < invt.getSizeInventory(); j++)
+                        invt.setInventorySlotContents(j, null);
+                }
+                int x = tile.xCoord;
+                int y = tile.yCoord;
+                int z = tile.zCoord;
+                world.setBlock(x, y, z, replacement);
+                TileEntity newTile = world.getTileEntity(x, y, z);
+                newTile.readFromNBT(nbt);
+                break;
+        	}
         }
     }
 }

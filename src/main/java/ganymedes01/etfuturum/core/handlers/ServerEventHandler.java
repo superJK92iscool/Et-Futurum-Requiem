@@ -945,7 +945,7 @@ public class ServerEventHandler {
                 }
             }
 
-            if(true) {
+            if(!EtFuturum.netherMusicNetherlicious) {
             	Minecraft mc = cpw.mods.fml.client.FMLClientHandler.instance().getClient();
             	if (mc.thePlayer.dimension == -1 && event.name.equals("music.game.nether")) {
                     if(netherMusic == null || !mc.getSoundHandler().isSoundPlaying(netherMusic)) {
