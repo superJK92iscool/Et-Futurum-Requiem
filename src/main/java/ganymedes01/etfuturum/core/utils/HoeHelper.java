@@ -33,6 +33,7 @@ public class HoeHelper {
 			if(block instanceof BlockSponge)
 				addToHoeArray(block);
 		}
+		addToHoeArray(ModBlocks.sponge);
 		addToHoeArray(ModBlocks.nether_wart_block);
 	}
 	

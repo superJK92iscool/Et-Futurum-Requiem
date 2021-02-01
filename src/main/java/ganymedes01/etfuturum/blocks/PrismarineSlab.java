@@ -26,7 +26,7 @@ public class PrismarineSlab extends BlockGenericSlab implements IConfigurable {
     }
 
 	@Override
-	public BlockGenericSlab[] getSlabProperties() {
+	public BlockGenericSlab[] getSlabTypes() {
 		return new BlockGenericSlab[] {(BlockGenericSlab)ModBlocks.prismarine_slab, (BlockGenericSlab)ModBlocks.double_prismarine_slab};
 	}
 	

@@ -32,7 +32,7 @@ public class PurpurSlab extends BlockGenericSlab implements IConfigurable {
     }
 
 	@Override
-	public BlockGenericSlab[] getSlabProperties() {
+	public BlockGenericSlab[] getSlabTypes() {
 		return new BlockGenericSlab[] {(BlockGenericSlab)ModBlocks.purpur_slab, (BlockGenericSlab)ModBlocks.double_purpur_slab};
 	}
 

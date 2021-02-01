@@ -24,7 +24,7 @@ public class RedSandstoneSlab extends BlockGenericSlab implements IConfigurable 
     }
 
 	@Override
-	public BlockGenericSlab[] getSlabProperties() {
+	public BlockGenericSlab[] getSlabTypes() {
 		return new BlockGenericSlab[] {(BlockGenericSlab)ModBlocks.red_sandstone_slab, (BlockGenericSlab)ModBlocks.double_red_sandstone_slab};
 	}
 

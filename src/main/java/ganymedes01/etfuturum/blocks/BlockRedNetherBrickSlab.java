@@ -19,7 +19,7 @@ public class BlockRedNetherBrickSlab extends BlockGenericSlab implements IConfig
 	}
 
 	@Override
-	public BlockGenericSlab[] getSlabProperties() {
+	public BlockGenericSlab[] getSlabTypes() {
 		return new BlockGenericSlab[] {(BlockGenericSlab)ModBlocks.red_nether_brick_slab, (BlockGenericSlab)ModBlocks.double_red_nether_brick_slab};
 	}
 

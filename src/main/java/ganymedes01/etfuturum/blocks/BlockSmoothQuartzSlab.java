@@ -19,7 +19,7 @@ public class BlockSmoothQuartzSlab extends BlockGenericSlab implements IConfigur
 	}
 
 	@Override
-	public BlockGenericSlab[] getSlabProperties() {
+	public BlockGenericSlab[] getSlabTypes() {
 		return new BlockGenericSlab[] {(BlockGenericSlab)ModBlocks.smooth_quartz_slab, (BlockGenericSlab)ModBlocks.double_smooth_quartz_slab};
 	}
 

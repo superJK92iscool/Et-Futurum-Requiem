@@ -15,6 +15,8 @@ import ganymedes01.etfuturum.blocks.BlockConcretePowder;
 import ganymedes01.etfuturum.blocks.BlockCopper;
 import ganymedes01.etfuturum.blocks.BlockCopperOre;
 import ganymedes01.etfuturum.blocks.BlockCornflower;
+import ganymedes01.etfuturum.blocks.BlockCutCopperSlab;
+import ganymedes01.etfuturum.blocks.BlockCutCopperStairs;
 import ganymedes01.etfuturum.blocks.BlockEndBrickSlab;
 import ganymedes01.etfuturum.blocks.BlockGenericStairs;
 import ganymedes01.etfuturum.blocks.BlockLantern;
@@ -173,7 +175,13 @@ public class ModBlocks {
     public static final Block mossy_cobblestone_stairs = new BlockGenericStairs(Blocks.mossy_cobblestone, 0, ConfigurationHandler.enableGenericStairs).setBlockName(Utils.getUnlocalisedName("mossy_cobblestone_stairs"));
     public static final Block stone_stairs = new BlockGenericStairs(Blocks.stone, 0, ConfigurationHandler.enableGenericStairs).setBlockName(Utils.getUnlocalisedName("stone_stairs"));
     public static final Block end_brick_stairs = new BlockGenericStairs(ModBlocks.end_bricks, 0, ConfigurationHandler.enableChorusFruit).setBlockName(Utils.getUnlocalisedName("end_brick_stairs"));
-    
+    public static final Block cut_copper_stairs = new BlockCutCopperStairs(4);
+    public static final Block lightly_weathered_cut_copper_stairs = new BlockCutCopperStairs(5);
+    public static final Block semi_weathered_cut_copper_stairs = new BlockCutCopperStairs(6);
+    public static final Block weathered_cut_copper_stairs = new BlockCutCopperStairs(7);
+    public static final Block waxed_cut_copper_stairs = new BlockCutCopperStairs(12);
+    public static final Block waxed_lightly_weathered_cut_copper_stairs = new BlockCutCopperStairs(13);
+    public static final Block waxed_semi_weathered_cut_copper_stairs = new BlockCutCopperStairs(14);
     public static final Block cornflower = new BlockCornflower();
     public static final Block lily_of_the_valley = new BlockLilyOfTheValley();
     public static final Block wither_rose = new BlockWitherRose();
@@ -190,6 +198,8 @@ public class ModBlocks {
     public static final Block double_red_nether_brick_slab = new BlockRedNetherBrickSlab(true);
     public static final Block end_brick_slab = new BlockEndBrickSlab(false);
     public static final Block double_end_brick_slab = new BlockEndBrickSlab(true);
+    public static final Block cut_copper_slab = new BlockCutCopperSlab(false);
+    public static final Block double_cut_copper_slab = new BlockCutCopperSlab(true);
     public static final Block netherite_stairs = new BlockNetheriteStairs();
     
     //Mechanic/Functional blocks

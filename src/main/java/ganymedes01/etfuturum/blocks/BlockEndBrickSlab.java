@@ -19,7 +19,7 @@ public class BlockEndBrickSlab extends BlockGenericSlab implements IConfigurable
 	}
 
 	@Override
-	public BlockGenericSlab[] getSlabProperties() {
+	public BlockGenericSlab[] getSlabTypes() {
 		return new BlockGenericSlab[] {(BlockGenericSlab)ModBlocks.end_brick_slab, (BlockGenericSlab)ModBlocks.double_end_brick_slab};
 	}
 

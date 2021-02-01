@@ -66,7 +66,7 @@ public abstract class BlockGenericSlab extends BlockSlab implements ISubBlocksBl
         }
     }
     
-    public abstract BlockGenericSlab[] getSlabProperties();
+    public abstract BlockGenericSlab[] getSlabTypes();
     
     public abstract IIcon[] getSlabIcons(int side);
     
@@ -91,11 +91,11 @@ public abstract class BlockGenericSlab extends BlockSlab implements ISubBlocksBl
     @SideOnly(Side.CLIENT)
     public Item getItem(World p_149694_1_, int p_149694_2_, int p_149694_3_, int p_149694_4_)
     {
-        return Item.getItemFromBlock((BlockSlab)getSlabProperties()[0]);
+        return Item.getItemFromBlock((BlockSlab)getSlabTypes()[0]);
     }
     
     public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_)
     {
-        return Item.getItemFromBlock((BlockSlab)getSlabProperties()[0]);
+        return Item.getItemFromBlock((BlockSlab)getSlabTypes()[0]);
     }
 }

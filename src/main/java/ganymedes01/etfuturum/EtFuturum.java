@@ -60,7 +60,7 @@ import net.minecraftforge.oredict.OreDictionary;
         modid = "etfuturum", 
         name = "Et Futurum", 
         version = "@VERSION@", 
-        dependencies = "required-after:Forge@[10.13.4.1558,);after:Thaumcraft@[4.2.3.5,);after:netherlicious", 
+        dependencies = "required-after:Forge@[10.13.4.1558,);after:Thaumcraft@[4.2.3.5,)", 
         guiFactory = "ganymedes01.etfuturum.configuration.ConfigGuiFactory"
     )
 

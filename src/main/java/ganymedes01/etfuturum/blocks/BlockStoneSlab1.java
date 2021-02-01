@@ -29,7 +29,7 @@ public class BlockStoneSlab1 extends BlockGenericSlab implements IConfigurable {
 	}
 
 	@Override
-	public BlockGenericSlab[] getSlabProperties() {
+	public BlockGenericSlab[] getSlabTypes() {
 		return new BlockGenericSlab[] {(BlockGenericSlab) ModBlocks.generic_slab, (BlockGenericSlab) ModBlocks.double_generic_slab};
 	}
 

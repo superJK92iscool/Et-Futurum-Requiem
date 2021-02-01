@@ -78,11 +78,11 @@ public class ModItems {
     public static final Item netherite_chestplate = new ItemEFRArmour(NETHERITE_ARMOUR, 1, ConfigurationHandler.netheriteChestplateDurability);
     public static final Item netherite_leggings = new ItemEFRArmour(NETHERITE_ARMOUR, 2, ConfigurationHandler.netheriteLeggingsDurability);
     public static final Item netherite_boots = new ItemEFRArmour(NETHERITE_ARMOUR, 3, ConfigurationHandler.netheriteBootsDurability);
-    public static final Item netherite_pickaxe = new ItemEFRPickaxe(NETHERITE_TOOL, ConfigurationHandler.netheriteHelmetDurability);
-    public static final Item netherite_spade = new ItemEFRSpade(NETHERITE_TOOL, ConfigurationHandler.netheriteHelmetDurability);
-    public static final Item netherite_axe = new ItemEFRAxe(NETHERITE_TOOL, ConfigurationHandler.netheriteHelmetDurability);
-    public static final Item netherite_hoe = new ItemEFRHoe(NETHERITE_TOOL, ConfigurationHandler.netheriteHelmetDurability);
-    public static final Item netherite_sword = new ItemEFRSword(NETHERITE_TOOL, ConfigurationHandler.netheriteHelmetDurability);
+    public static final Item netherite_pickaxe = new ItemEFRPickaxe(NETHERITE_TOOL, ConfigurationHandler.netheritePickaxeDurability);
+    public static final Item netherite_spade = new ItemEFRSpade(NETHERITE_TOOL, ConfigurationHandler.netheriteSpadeDurability);
+    public static final Item netherite_axe = new ItemEFRAxe(NETHERITE_TOOL, ConfigurationHandler.netheriteAxeDurability);
+    public static final Item netherite_hoe = new ItemEFRHoe(NETHERITE_TOOL, ConfigurationHandler.netheriteHoeDurability);
+    public static final Item netherite_sword = new ItemEFRSword(NETHERITE_TOOL, ConfigurationHandler.netheriteSwordDurability);
     public static final Item[] signs = new Item[ModBlocks.woodTypes.length - 1];
     public static final Item totem = new TotemUndying();
     public static final Item new_dye = new ItemNewDye();

@@ -21,7 +21,7 @@ public class BlockSmoothSandstoneSlab extends BlockGenericSlab implements IConfi
 	}
 
 	@Override
-	public BlockGenericSlab[] getSlabProperties() {
+	public BlockGenericSlab[] getSlabTypes() {
 		return new BlockGenericSlab[] {(BlockGenericSlab)(meta == 0 ? ModBlocks.smooth_sandstone_slab : ModBlocks.smooth_red_sandstone_slab),
 				(BlockGenericSlab)(meta == 0 ? ModBlocks.double_smooth_sandstone_slab : ModBlocks.double_smooth_red_sandstone_slab)};
 	}
