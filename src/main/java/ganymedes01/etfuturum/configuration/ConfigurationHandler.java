@@ -234,7 +234,7 @@ public class ConfigurationHandler {
         enableLingeringPotions = cfg.getBoolean("enableLingeringPotions", catItems, true, "");
         
         enableTotemUndying = cfg.getBoolean("enableTotemUndying", catItems, true, "");
-        enableSuspiciousStew = cfg.getBoolean("enableSuspiciousStew", catItems, true, "");
+//        enableSuspiciousStew = cfg.getBoolean("enableSuspiciousStew", catItems, true, "");
         
         //equipment
         netheriteToolDurability = cfg.getInt("netheriteToolDurability", catEquipment, 2031, 1, Integer.MAX_VALUE, "");
