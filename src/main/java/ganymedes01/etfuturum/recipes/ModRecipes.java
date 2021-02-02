@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.recipes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -11,6 +12,7 @@ import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.blocks.BlockStoneSlab2;
 import ganymedes01.etfuturum.blocks.Stone;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
+import ganymedes01.etfuturum.items.ItemSuspiciousStew;
 import ganymedes01.etfuturum.lib.EnumColour;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
@@ -20,6 +22,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
@@ -682,6 +687,60 @@ public class ModRecipes {
 //		}
 		
 		addShapedRecipe(new ItemStack(Blocks.wooden_slab, 6), "xxx", 'x', "plankWood");
+		
+		if(ConfigurationHandler.enableSuspiciousStew) {
+			ItemStack stew = new ItemStack(ModItems.suspicious_stew, 1, 0);
+			List<ItemStack> inputs = new ArrayList<ItemStack>();
+			List<PotionEffect> effects = new ArrayList<PotionEffect>();
+			
+			inputs.add(new ItemStack(Blocks.red_flower, 1, 2)); //Allium > Fire Res
+			effects.add(new PotionEffect(Potion.fireResistance.id, 80, 0));
+			
+			inputs.add(new ItemStack(Blocks.red_flower, 1, 3)); //Azure Bluet > Blindness
+			effects.add(new PotionEffect(Potion.blindness.id, 160, 0));
+			
+			inputs.add(new ItemStack(Blocks.red_flower, 1, 1)); //Blue Orchid > Saturation
+			effects.add(new PotionEffect(Potion.field_76443_y.id, 7, 0));
+			
+			inputs.add(new ItemStack(Blocks.yellow_flower, 1)); //Dandelion > Saturation
+			effects.add(new PotionEffect(Potion.field_76443_y.id, 7, 0));
+			
+			inputs.add(new ItemStack(Blocks.red_flower, 1, 8)); //Oxeye Daisy > Regeneration
+			effects.add(new PotionEffect(Potion.regeneration.id, 160, 0));
+			
+			inputs.add(new ItemStack(Blocks.red_flower, 1, 0)); //Poppy > Night Vision
+			effects.add(new PotionEffect(Potion.nightVision.id, 100, 0));
+			
+			inputs.add(new ItemStack(Blocks.red_flower, 1, 4)); //Red Tulip > Weakness
+			effects.add(new PotionEffect(Potion.weakness.id, 180, 0));
+			
+			inputs.add(new ItemStack(Blocks.red_flower, 1, 5)); //Orange Tulip > Weakness
+			effects.add(new PotionEffect(Potion.weakness.id, 180, 0));
+			
+			inputs.add(new ItemStack(Blocks.red_flower, 1, 6)); //White Tulip > Weakness
+			effects.add(new PotionEffect(Potion.weakness.id, 180, 0));
+			
+			inputs.add(new ItemStack(Blocks.red_flower, 1, 7)); //Pink Tulip > Weakness
+			effects.add(new PotionEffect(Potion.weakness.id, 180, 0));
+			
+			if(ConfigurationHandler.enableNewFlowers) {
+				inputs.add(new ItemStack(ModBlocks.cornflower, 1, 0)); //Pink Tulip > Weakness
+				effects.add(new PotionEffect(Potion.jump.id, 120, 0));
+				
+				inputs.add(new ItemStack(ModBlocks.lily_of_the_valley, 1, 0)); //Pink Tulip > Weakness
+				effects.add(new PotionEffect(Potion.poison.id, 240, 0));
+				
+				inputs.add(new ItemStack(ModBlocks.wither_rose, 1, 0)); //Pink Tulip > Weakness
+				effects.add(new PotionEffect(Potion.wither.id, 160, 0));
+			}
+			for(int i = 0; i < inputs.size(); i++) {
+				stew.stackTagCompound = new NBTTagCompound();
+				stew.stackTagCompound.setInteger(ItemSuspiciousStew.stewEffect, effects.get(i).getPotionID());
+				stew.stackTagCompound.setInteger(ItemSuspiciousStew.stewEffectDuration, effects.get(i).getDuration());
+				stew.stackTagCompound.setInteger(ItemSuspiciousStew.stewEffectLevel, effects.get(i).getAmplifier());
+				addShapelessRecipe(stew, Blocks.red_mushroom, Blocks.brown_mushroom, Items.bowl, inputs.get(i));
+			}
+		}
 	}
 
     private static void addShapedRecipe(ItemStack output, Object... objects) {

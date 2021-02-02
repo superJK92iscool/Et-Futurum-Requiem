@@ -138,7 +138,6 @@ public class EtFuturum {
 
     @EventHandler
     public void init(FMLInitializationEvent event) {
-        NetworkRegistry.INSTANCE.registerGuiHandler(instance, proxy);
 
         ModRecipes.init();
 

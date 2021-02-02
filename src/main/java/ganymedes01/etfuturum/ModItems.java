@@ -15,6 +15,7 @@ import ganymedes01.etfuturum.items.ItemArmourStand;
 import ganymedes01.etfuturum.items.ItemCopperIngot;
 import ganymedes01.etfuturum.items.ItemNetherite;
 import ganymedes01.etfuturum.items.ItemNewDye;
+import ganymedes01.etfuturum.items.ItemSuspiciousStew;
 import ganymedes01.etfuturum.items.LingeringPotion;
 import ganymedes01.etfuturum.items.MuttonCooked;
 import ganymedes01.etfuturum.items.MuttonRaw;
@@ -87,6 +88,7 @@ public class ModItems {
     public static final Item totem = new TotemUndying();
     public static final Item new_dye = new ItemNewDye();
     public static final Item copper_ingot = new ItemCopperIngot();
+    public static final Item suspicious_stew = new ItemSuspiciousStew();
 
 	static {
 		for (int i = 0; i < signs.length; i++)

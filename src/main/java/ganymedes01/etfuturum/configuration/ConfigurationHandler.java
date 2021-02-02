@@ -24,8 +24,9 @@ public class ConfigurationHandler {
     public static final String catEntity = "entity";
     public static final String catReplacement = "replacement";
     public static final String catFunction = "function";
+    public static final String catWorld = "world";
     
-    public static final String[] usedCategories = { catClient, catBlock, catItems, catEquipment, catEnchants, catEntity, catReplacement, catFunction};
+    public static final String[] usedCategories = { catClient, catBlock, catItems, catEquipment, catEnchants, catEntity, catReplacement, catFunction, catWorld};
 
     public static boolean enableStones;
     public static boolean enableIronTrapdoor;
@@ -126,6 +127,7 @@ public class ConfigurationHandler {
 	public static boolean enableBlueIce;
 	public static boolean enableCopper;
 	public static boolean enableCopperSubItems;
+	public static boolean enableOceanMonuments;
 
     public static boolean enableTileReplacement;
 
@@ -149,6 +151,7 @@ public class ConfigurationHandler {
     public static int netheriteBootsDurability;
 	public static int minCopperOxidationTime;
 	public static int maxCopperOxidationTime;
+	public static boolean enableSuspiciousStew;
     
     public static boolean enableIronNugget;
     
@@ -172,22 +175,8 @@ public class ConfigurationHandler {
         
         //blocks
         enableStones = cfg.getBoolean("enableStones", catBlock, true, "Enable Granite/Andesite/Diorite");
-        maxStonesPerCluster = cfg.getInt("maxStonesPerCluster", catBlock, 33, 0, 64, "Max vein size for Granite/Andesite/Diorite blocks in a cluster");
-        
-
-//    	public static boolean enableNetherGold;
-//    	public static boolean enableAirDebris = false;
-//    	public static int smallDebrisMax = 2;
-//    	public static int debrisMax = 3;
-//    	public static int maxNetherGoldPerCluster = 10;
-//    	public static int maxMagmaPerCluster = 33;
 
         enableNetherGold = cfg.getBoolean("enableNetherGold", catBlock, true, "");
-        enableAirDebris = cfg.getBoolean("enableAirDebris", catBlock, false, "Can ancient debris generate next to air?");
-        smallDebrisMax = cfg.getInt("smallDebrisMax", catBlock, 2, 0, 64, "The max vein size for the first, typically smaller debris veins which generate from Y 8 to 119");
-        debrisMax = cfg.getInt("debrisMax", catBlock, 3, 0, 64, "The max vein size for the second, typically bigger debris veins, which generate from Y 8 to 22");
-        maxNetherGoldPerCluster = cfg.getInt("maxNetherGoldPerCluster", catBlock, 10, 0, 64, "Max vein size for nether gold ore blocks in a cluster");
-        maxMagmaPerCluster = cfg.getInt("maxMagmaPerCluster", catBlock, 33, 0, 64, "Max vein size for magma blocks in a cluster");
         
         enableIronTrapdoor = cfg.getBoolean("enableIronTrapdoor", catBlock, true, "");
         enableSponge = cfg.getBoolean("enableSponge", catBlock, true, "");
@@ -233,7 +222,6 @@ public class ConfigurationHandler {
         enableNewFlowers = cfg.getBoolean("enableNewFlowers", catBlock, true, "Cornflower, lily of the valley, wither rose");
         enableCopper = cfg.getBoolean("enableCopper", catBlock, true, "Copper ore and copper blocks, variants, and waxed variants. (Slime balls are used if no mod introduces wax)");
         enableCopperSubItems = cfg.getBoolean("enableCopperSubItems", catBlock, true, "Copper sub-blocks and items. Disable copper but keep this on if you want the new copper items and blocks made of it, without the main ingot, ore or copper block itself.");
-        maxCopperPerCluster = cfg.getInt("copperClusterSize", catBlock, 14, 0, 64, "Max vein size for copper ore blocks in a cluster");
         
         enableBarrier = cfg.getBoolean("enableBarrier", catBlock, true, "");
         
@@ -246,6 +234,7 @@ public class ConfigurationHandler {
         enableLingeringPotions = cfg.getBoolean("enableLingeringPotions", catItems, true, "");
         
         enableTotemUndying = cfg.getBoolean("enableTotemUndying", catItems, true, "");
+        enableSuspiciousStew = cfg.getBoolean("enableSuspiciousStew", catItems, true, "");
         
         //equipment
         netheriteToolDurability = cfg.getInt("netheriteToolDurability", catEquipment, 2031, 1, Integer.MAX_VALUE, "");
@@ -330,6 +319,15 @@ public class ConfigurationHandler {
         enableNetherAmbience = cfg.getBoolean("enableNetherAmbience", catClient, true, "");
         enableExtraF3HTooltips = cfg.getBoolean("enableExtraF3HTooltips", catClient, true, "Enables NBT tag count and item namespace label on F3 + H debug item labels");
      
+        //world
+        enableAirDebris = cfg.getBoolean("enableAirDebris", catWorld, false, "Can ancient debris generate next to air?");
+        maxStonesPerCluster = cfg.getInt("maxStonesPerCluster", catWorld, 33, 0, 64, "Max vein size for Granite/Andesite/Diorite blocks in a cluster");
+        smallDebrisMax = cfg.getInt("smallDebrisMax", catWorld, 2, 0, 64, "The max vein size for the first, typically smaller debris veins which generate from Y 8 to 119");
+        debrisMax = cfg.getInt("debrisMax", catWorld, 3, 0, 64, "The max vein size for the second, typically bigger debris veins, which generate from Y 8 to 22");
+        maxNetherGoldPerCluster = cfg.getInt("maxNetherGoldPerCluster", catWorld, 10, 0, 64, "Max vein size for nether gold ore blocks in a cluster");
+        maxMagmaPerCluster = cfg.getInt("maxMagmaPerCluster", catWorld, 33, 0, 64, "Max vein size for magma blocks in a cluster");
+        maxCopperPerCluster = cfg.getInt("copperClusterSize", catWorld, 14, 0, 64, "Max vein size for copper ore blocks in a cluster");
+        enableOceanMonuments = cfg.getBoolean("enableOceanMonuments", catWorld, true, "Note: Ocean monuments currently do not have guardians");
         
         if (cfg.hasChanged()) {
             cfg.save();

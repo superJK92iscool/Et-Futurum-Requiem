@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.world;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -13,14 +11,15 @@ import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.blocks.ChorusFlower;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.world.generate.OceanMonument;
+import ganymedes01.etfuturum.world.generate.WorldGenMinableNoAir;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.biome.BiomeGenPlains;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenFlowers;
 import net.minecraft.world.gen.feature.WorldGenMinable;
+import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -86,12 +85,12 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 				this.generateOre(ModBlocks.nether_gold_ore, 0, world, rand, chunkX, chunkZ, 1, ConfigurationHandler.maxNetherGoldPerCluster, 10, 10, 117, Blocks.netherrack);
 
 			if(ConfigurationHandler.enableNetherite) {
-				this.generateOre(ModBlocks.ancient_debris, 0, world, rand, chunkX, chunkZ, 1, ConfigurationHandler.smallDebrisMax, 1, 8, 119, Blocks.netherrack);
-				this.generateOre(ModBlocks.ancient_debris, 0, world, rand, chunkX, chunkZ, 1, ConfigurationHandler.debrisMax, 1, 8, 22, Blocks.netherrack);
+				this.generateOre(ModBlocks.ancient_debris, 0, world, rand, chunkX, chunkZ, 1, ConfigurationHandler.smallDebrisMax, 2, 8, 119, Blocks.netherrack);
+				this.generateOre(ModBlocks.ancient_debris, 0, world, rand, chunkX, chunkZ, 1, ConfigurationHandler.debrisMax, 3, 8, 22, Blocks.netherrack);
 			}
 		}
 
-		if (ConfigurationHandler.enablePrismarine && world.provider.dimensionId != -1 && world.provider.dimensionId != 1)
+		if (ConfigurationHandler.enableOceanMonuments &&ConfigurationHandler.enablePrismarine && world.provider.dimensionId != -1 && world.provider.dimensionId != 1)
 			if (OceanMonument.canSpawnAt(world, chunkX, chunkZ)) {
 				int x = chunkX * 16 + rand.nextInt(16);
 				int y = 256;
@@ -164,7 +163,11 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 		
 		int veinSize = minVeinSize + random.nextInt(maxVeinSize - minVeinSize);
 		int heightRange = maxY - minY;
-			WorldGenMinable gen = new WorldGenMinable(block, meta, veinSize, generateIn);
+			WorldGenerator gen;
+			if(block == ModBlocks.ancient_debris)
+				gen = new WorldGenMinableNoAir(block, meta, veinSize, generateIn);
+			else
+				gen = new WorldGenMinable(block, meta, veinSize, generateIn);
 			for(int i = 0; i < chance; i++) {
 				int xRand = chunkX * 16 + random.nextInt(16);
 				int yRand = random.nextInt(heightRange) + minY;
