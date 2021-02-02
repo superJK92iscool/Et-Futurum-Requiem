@@ -220,8 +220,8 @@ public class ConfigurationHandler {
         enableGenericSlabs = cfg.getBoolean("enableGenericSlabs", catBlock, true, "Slabs for vanilla blocks: stone, mossy stone brick, mossy cobble, cut sandstone");
         enableGenericStairs = cfg.getBoolean("enableGenericStairs", catBlock, true, "Stairs for vanilla blocks: stone, mossy stone brick, mossy cobble");
         enableNewFlowers = cfg.getBoolean("enableNewFlowers", catBlock, true, "Cornflower, lily of the valley, wither rose");
-        enableCopper = cfg.getBoolean("enableCopper", catBlock, true, "Copper ore and copper blocks, variants, and waxed variants. (Slime balls are used if no mod introduces wax)");
-        enableCopperSubItems = cfg.getBoolean("enableCopperSubItems", catBlock, true, "Copper sub-blocks and items. Disable copper but keep this on if you want the new copper items and blocks made of it, without the main ingot, ore or copper block itself.");
+//        enableCopper = cfg.getBoolean("enableCopper", catBlock, true, "Copper ore and copper blocks, variants, and waxed variants. (Slime balls are used if no mod introduces wax)");
+//        enableCopperSubItems = cfg.getBoolean("enableCopperSubItems", catBlock, true, "Copper sub-blocks and items. Disable copper but keep this on if you want the new copper items and blocks made of it, without the main ingot, ore or copper block itself.");
         
         enableBarrier = cfg.getBoolean("enableBarrier", catBlock, true, "");
         
@@ -295,8 +295,8 @@ public class ConfigurationHandler {
         enableRecipeForTotem = cfg.getBoolean("enableRecipeForTotem", catFunction, false, "Recipe for totems since there's no other way to get them currently?");
         enableHayBaleFalls = cfg.getBoolean("enableHayBaleFalls", catFunction, true, "If true, fall damage on a hay bale will be reduced");
         hayBaleReducePercent = cfg.getInt("hayBaleReducePercent", catFunction, 20, 0, 99, "If enableHayBaleFalls is true, what percent should we keep for the fall damage?");
-        minCopperOxidationTime = cfg.getInt("minCopperOxidationTime", catFunction, 1200000, 1, Integer.MAX_VALUE / 2, "Minimum time (in ticks) it takes for copper to advance to the next stage of weathering. Note: This and the below value don't effect copper blocks already placed in the world before this is changed, you'll need to break and replace them to get the new times.");
-        maxCopperOxidationTime = cfg.getInt("maxCopperOxidationTime", catFunction, 768000, 1, Integer.MAX_VALUE / 2, "Number added to the minimum time, (in ticks) it takes for copper to advance to the next stage of weathering. Ranges from 0 to the given value. Total time to oxidize copper: Minimum time + 0 to maximum time");
+//        minCopperOxidationTime = cfg.getInt("minCopperOxidationTime", catFunction, 1200000, 1, Integer.MAX_VALUE / 2, "Minimum time (in ticks) it takes for copper to advance to the next stage of weathering. Note: This and the below value don't effect copper blocks already placed in the world before this is changed, you'll need to break and replace them to get the new times.");
+//        maxCopperOxidationTime = cfg.getInt("maxCopperOxidationTime", catFunction, 768000, 1, Integer.MAX_VALUE / 2, "Number added to the minimum time, (in ticks) it takes for copper to advance to the next stage of weathering. Ranges from 0 to the given value. Total time to oxidize copper: Minimum time + 0 to maximum time");
 //        enableDyeReplacement = cfg.getBoolean("enableDyeReplacement", catFunction, true, "Removes lapis, bone meal, ink sac and cocoa bean's ore dictionary entries as dyes, making the Et Futurum dyes the dyes instead. Disable if this causes weirdisms with modded recipes. (If false both items can be used)");
         
         //replacement
@@ -326,7 +326,7 @@ public class ConfigurationHandler {
         debrisMax = cfg.getInt("debrisMax", catWorld, 3, 0, 64, "The max vein size for the second, typically bigger debris veins, which generate from Y 8 to 22");
         maxNetherGoldPerCluster = cfg.getInt("maxNetherGoldPerCluster", catWorld, 10, 0, 64, "Max vein size for nether gold ore blocks in a cluster");
         maxMagmaPerCluster = cfg.getInt("maxMagmaPerCluster", catWorld, 33, 0, 64, "Max vein size for magma blocks in a cluster");
-        maxCopperPerCluster = cfg.getInt("copperClusterSize", catWorld, 14, 0, 64, "Max vein size for copper ore blocks in a cluster");
+//        maxCopperPerCluster = cfg.getInt("copperClusterSize", catWorld, 14, 0, 64, "Max vein size for copper ore blocks in a cluster");
         enableOceanMonuments = cfg.getBoolean("enableOceanMonuments", catWorld, true, "Note: Ocean monuments currently do not have guardians");
         
         if (cfg.hasChanged()) {
