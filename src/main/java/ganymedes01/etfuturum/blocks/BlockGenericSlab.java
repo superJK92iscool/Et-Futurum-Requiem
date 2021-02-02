@@ -53,7 +53,7 @@ public abstract class BlockGenericSlab extends BlockSlab implements ISubBlocksBl
         if(metaBlocks[meta].equals("")) {
         	return super.getUnlocalizedName();
         } else {
-            return "tile.etfuturum." + metaBlocks[meta] + "_" + super.getUnlocalizedName().split("_")[field_150004_a ? 2 : 1];
+            return "tile.etfuturum." + metaBlocks[meta] + "_" + getUnlocalizedName().split("_")[field_150004_a ? 2 : 1];
         }
     }
 
