@@ -27,7 +27,6 @@ public class NewRenderPlayer extends RenderPlayer {
         renderManager = RenderManager.instance;
         mainModel = STEVE;
         modelBipedMain = (ModelBiped) mainModel;
-        System.out.println("Testing123");
     }
 
     private void setModel(EntityPlayer player) {
