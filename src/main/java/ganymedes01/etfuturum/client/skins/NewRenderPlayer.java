@@ -1,7 +1,8 @@
 package ganymedes01.etfuturum.client.skins;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.client.model.ModelPlayer;
-import ganymedes01.etfuturum.command.SetPlayerModelCommand;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.client.Minecraft;
@@ -14,9 +15,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.util.Constants;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class NewRenderPlayer extends RenderPlayer {
@@ -29,16 +27,14 @@ public class NewRenderPlayer extends RenderPlayer {
         renderManager = RenderManager.instance;
         mainModel = STEVE;
         modelBipedMain = (ModelBiped) mainModel;
+        System.out.println("Testing123");
     }
 
     private void setModel(EntityPlayer player) {
         boolean isAlex;
 
         NBTTagCompound nbt = player.getEntityData();
-        if (nbt.hasKey(SetPlayerModelCommand.MODEL_KEY, Constants.NBT.TAG_BYTE))
-            isAlex = nbt.getBoolean(SetPlayerModelCommand.MODEL_KEY);
-        else
-            isAlex = PlayerModelManager.isPlayerModelAlex(getEntityTexture(player));
+        isAlex = PlayerModelManager.isPlayerModelAlex(player);
 
         mainModel = isAlex ? ALEX : STEVE;
         modelBipedMain = (ModelBiped) mainModel;

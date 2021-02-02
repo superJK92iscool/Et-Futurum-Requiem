@@ -29,7 +29,7 @@ apply plugin: 'forge'
 
 version = "@VERSION@"
 group = "ganymedes01.etfuturum"
-archivesBaseName = "Et Futurum Requiem"
+archivesBaseName = "Et_Futurum_Requiem"
 
 dependencies {
     compile "codechicken:CodeChickenLib:1.7.10-1.1.3.140:dev"

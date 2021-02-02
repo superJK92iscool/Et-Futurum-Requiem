@@ -16,8 +16,6 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
-import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -28,7 +26,6 @@ import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.blocks.BlockWitherRose;
 import ganymedes01.etfuturum.blocks.MagmaBlock;
 import ganymedes01.etfuturum.client.sound.WeightedSoundPool;
-import ganymedes01.etfuturum.command.SetPlayerModelCommand;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.utils.HoeHelper;
 import ganymedes01.etfuturum.entities.EntityEndermite;
@@ -41,7 +38,6 @@ import ganymedes01.etfuturum.inventory.ContainerEnchantment;
 import ganymedes01.etfuturum.items.TippedArrow;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.network.BlackHeartParticlesMessage;
-import ganymedes01.etfuturum.network.SetPlayerModelMessage;
 import ganymedes01.etfuturum.recipes.ModRecipes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDoor;
@@ -86,7 +82,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
@@ -98,7 +93,6 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.sound.PlaySoundEvent17;
 import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
@@ -150,34 +144,6 @@ public class ServerEventHandler {
 
     	soulSandValleyMusic.addEntry(Reference.MOD_ID + ":music.nether.soul_sand_valley", 7);
     	soulSandValleyMusic.addEntry("music.game.nether", 4);
-    }
-
-    private Integer playerLoggedInCooldown = null;
-
-    @SubscribeEvent
-    public void onPlayerLoggedIn(PlayerLoggedInEvent event) {
-        if (ConfigurationHandler.enablePlayerSkinOverlay)
-            playerLoggedInCooldown = 20;
-    }
-    
-    @SubscribeEvent
-    public void onWorldTick(TickEvent.ServerTickEvent event) {
-        if (event.phase != TickEvent.Phase.END || event.side != Side.SERVER)
-            return;
-
-        if (ConfigurationHandler.enablePlayerSkinOverlay)
-            if (playerLoggedInCooldown != null)
-                if (--playerLoggedInCooldown <= 0) {
-                    for (World world : MinecraftServer.getServer().worldServers)
-                        for (EntityPlayer player : (List<EntityPlayer>) world.playerEntities) {
-                            NBTTagCompound nbt = player.getEntityData();
-                            if (nbt.hasKey(SetPlayerModelCommand.MODEL_KEY, Constants.NBT.TAG_BYTE)) {
-                                boolean isAlex = nbt.getBoolean(SetPlayerModelCommand.MODEL_KEY);
-                                EtFuturum.networkWrapper.sendToAll(new SetPlayerModelMessage(player, isAlex));
-                            }
-                        }
-                    playerLoggedInCooldown = null;
-                }
     }
 
     @SubscribeEvent

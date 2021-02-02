@@ -23,7 +23,6 @@ import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ganymedes01.etfuturum.command.SetPlayerModelCommand;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.proxy.CommonProxy;
 import ganymedes01.etfuturum.core.utils.HoeHelper;
@@ -34,8 +33,6 @@ import ganymedes01.etfuturum.network.ArmourStandInteractHandler;
 import ganymedes01.etfuturum.network.ArmourStandInteractMessage;
 import ganymedes01.etfuturum.network.BlackHeartParticlesHandler;
 import ganymedes01.etfuturum.network.BlackHeartParticlesMessage;
-import ganymedes01.etfuturum.network.SetPlayerModelHandler;
-import ganymedes01.etfuturum.network.SetPlayerModelMessage;
 import ganymedes01.etfuturum.network.WoodSignOpenHandler;
 import ganymedes01.etfuturum.network.WoodSignOpenMessage;
 import ganymedes01.etfuturum.recipes.BlastFurnaceRecipes;
@@ -54,7 +51,6 @@ import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.oredict.OreDictionary;
 
 @Mod(
         modid = "etfuturum", 
@@ -129,7 +125,6 @@ public class EtFuturum {
         networkWrapper = NetworkRegistry.INSTANCE.newSimpleChannel(Reference.MOD_ID);
         networkWrapper.registerMessage(ArmourStandInteractHandler.class, ArmourStandInteractMessage.class, 0, Side.SERVER);
         networkWrapper.registerMessage(BlackHeartParticlesHandler.class, BlackHeartParticlesMessage.class, 1, Side.CLIENT);
-        networkWrapper.registerMessage(SetPlayerModelHandler.class, SetPlayerModelMessage.class, 2, Side.CLIENT);
 		networkWrapper.registerMessage(WoodSignOpenHandler.class, WoodSignOpenMessage.class, 3, Side.CLIENT);   
     	{
     		if (Loader.isModLoaded("netherlicious")) {
@@ -217,8 +212,8 @@ public class EtFuturum {
 
     @EventHandler
     public void serverStarting(FMLServerStartingEvent event) {
-        if (ConfigurationHandler.enablePlayerSkinOverlay)
-            event.registerServerCommand(new SetPlayerModelCommand());
+//        if (ConfigurationHandler.enablePlayerSkinOverlay)
+//            event.registerServerCommand(new SetPlayerModelCommand());
     }
 
 	public static void setFinalField(Class<?> cls, Object obj, Object newValue, String... fieldNames) {

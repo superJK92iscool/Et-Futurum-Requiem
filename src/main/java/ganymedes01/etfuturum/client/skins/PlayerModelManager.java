@@ -1,39 +1,32 @@
 package ganymedes01.etfuturum.client.skins;
 
-import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.util.ResourceLocation;
+import ganymedes01.etfuturum.lib.Reference;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.util.Constants;
 
 @SideOnly(Side.CLIENT)
 public class PlayerModelManager {
 
-    private static Map<ResourceLocation, Boolean> analysedTextures = new HashMap<ResourceLocation, Boolean>();
+    public static final String MODEL_KEY = Reference.MOD_ID + "_model";
+    
+    public static Map<EntityPlayer, Boolean> alexCache = new HashMap<EntityPlayer, Boolean>();
 
-    public static boolean isPlayerModelAlex(ResourceLocation texture) {
-        Boolean isAlex = analysedTextures.get(texture);
-        if (isAlex == null) {
-            isAlex = false;
-            analysedTextures.put(texture, false);
-        }
+    public static boolean isPlayerModelAlex(EntityPlayer player) {
+        Boolean isAlex = alexCache.get(player);
+		NBTTagCompound nbt = player.getEntityData();
+		if(isAlex == null){
+			if(nbt.hasKey(MODEL_KEY, Constants.NBT.TAG_BYTE))
+				nbt.removeTag(MODEL_KEY);
+			ThreadCheckAlex skinthread = new ThreadCheckAlex();
+			skinthread.startWithArgs(player);
+			isAlex = false;
+		}
         return isAlex;
-    }
-
-    public static void analyseTexture(BufferedImage img, ResourceLocation texture) {
-        analysedTextures.put(texture, isAreaEmpty(img, 50, 16, 2, 4));
-    }
-
-    private static boolean isAreaEmpty(BufferedImage img, int x, int y, int width, int height) {
-        for (int i = x; i < x + width; i++)
-            for (int j = y; j < y + height; j++) {
-                int rgb = img.getRGB(i, j);
-                int alpha = rgb >> 24 & 0xFF;
-                if (alpha > 0)
-                    return false;
-            }
-        return true;
     }
 }
