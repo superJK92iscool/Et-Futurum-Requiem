@@ -1,7 +1,9 @@
-package ganymedes01.etfuturum.lib;
+package ganymedes01.etfuturum.client.sound;
 
-import ganymedes01.etfuturum.lib.sounds.CustomSoundFungus;
-import ganymedes01.etfuturum.lib.sounds.CustomSoundNetherite;
+import ganymedes01.etfuturum.client.sound.step.CustomSoundBerryBush;
+import ganymedes01.etfuturum.client.sound.step.CustomSoundFungus;
+import ganymedes01.etfuturum.client.sound.step.CustomSoundNetherite;
+import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block.SoundType;
 
 public class ModSounds {
@@ -25,7 +27,8 @@ public class ModSounds {
 	public static final SoundType soundStem = new CustomSound("stem", 1, 1, true, true);
 	public static final SoundType soundShroomlight = new CustomSound("shroomlight", 1, 1, true, true);
 	public static final SoundType soundCopper = new CustomSound("copper", 1, 1, true, true);
-
+	public static final SoundType soundBerryBush = new CustomSoundBerryBush("sweet_berry_bush", 0.8F, 1);
+	
 	private static final class CustomSound extends SoundType {
 
 		private final boolean useDefaults;

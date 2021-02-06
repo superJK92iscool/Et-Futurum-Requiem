@@ -27,11 +27,16 @@ import net.minecraftforge.common.util.ForgeDirection;
 public class EtFuturumWorldGenerator implements IWorldGenerator {
 
 	private final List<WorldGenMinable> generators = new LinkedList<WorldGenMinable>();
+	private final List<WorldGenFlowers> flowers = new LinkedList<WorldGenFlowers>();
 
 	public EtFuturumWorldGenerator() {
 		generators.add(new WorldGenMinable(ModBlocks.stone, 1, ConfigurationHandler.maxStonesPerCluster, Blocks.stone));
 		generators.add(new WorldGenMinable(ModBlocks.stone, 3, ConfigurationHandler.maxStonesPerCluster, Blocks.stone));
 		generators.add(new WorldGenMinable(ModBlocks.stone, 5, ConfigurationHandler.maxStonesPerCluster, Blocks.stone));
+		flowers.add(new WorldGenFlowers(ModBlocks.lily_of_the_valley));
+		flowers.add(new WorldGenFlowers(ModBlocks.cornflower));
+		flowers.add(new WorldGenFlowers(ModBlocks.sweet_berry_bush));
+		flowers.get(2).func_150550_a(ModBlocks.sweet_berry_bush, 3);
 	}
 
 	@Override
@@ -48,7 +53,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 			}
 		}
 
-		if (ConfigurationHandler.enableStones && ConfigurationHandler.maxStonesPerCluster > 0 && world.provider.dimensionId != -1 && world.provider.dimensionId != 1)
+		if (ConfigurationHandler.enableStones && ConfigurationHandler.maxStonesPerCluster > 0 && world.provider.dimensionId != -1 && world.provider.dimensionId != 1) {
 			for (WorldGenMinable generator : generators) {
 				for (int i = 0; i < 10; i++) {
 					int x = chunkX * 16 + rand.nextInt(16);
@@ -57,23 +62,29 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 
 					generator.generate(world, rand, x, y, z);
 				}
-				
-				if(ConfigurationHandler.enableCopper) {
-					this.generateOre(ModBlocks.copper_ore, 0, world, rand, chunkX, chunkZ, 1, ConfigurationHandler.maxCopperPerCluster, 8, 4, 63, Blocks.stone);
-				}
-				//TODO Bone meal
-
-				int x = chunkX * 16 + world.rand.nextInt(16);
-				int z = chunkZ * 16 + world.rand.nextInt(16);
-				BiomeGenBase biome = world.getBiomeGenForCoords(x, z);
-				Type[] biomeList = BiomeDictionary.getTypesForBiome(biome);
-				if(ArrayUtils.contains(biomeList, Type.FOREST) && !ArrayUtils.contains(biomeList, Type.SNOWY)) {
-					new WorldGenFlowers(ModBlocks.lily_of_the_valley).generate(world, world.rand, x, world.rand.nextInt(world.getHeightValue(x, z) + 32), z);
-				}
-				if(biome.biomeID == 132 || (ArrayUtils.contains(biomeList, Type.PLAINS) && !ArrayUtils.contains(biomeList, Type.SNOWY) && !ArrayUtils.contains(biomeList, Type.SAVANNA))) {
-					new WorldGenFlowers(ModBlocks.cornflower).generate(world, world.rand, x, world.rand.nextInt(world.getHeightValue(x, z) + 32), z);
-				}
 			}
+			
+			if(ConfigurationHandler.enableCopper) {
+				this.generateOre(ModBlocks.copper_ore, 0, world, rand, chunkX, chunkZ, 1, ConfigurationHandler.maxCopperPerCluster, 20, 4, 63, Blocks.stone);
+			}
+			
+			//TODO Bone meal
+			int x = chunkX * 16 + rand.nextInt(16);
+			int z = chunkZ * 16 + rand.nextInt(16);
+			BiomeGenBase biome = world.getBiomeGenForCoords(x, z);
+			Type[] biomeList = BiomeDictionary.getTypesForBiome(biome);
+			if(ArrayUtils.contains(biomeList, Type.FOREST) && !ArrayUtils.contains(biomeList, Type.SNOWY)) {
+				flowers.get(0).generate(world, rand, x, rand.nextInt(world.getHeightValue(x, z) * 2), z);
+			}
+			if(biome.biomeID == 132 || (ArrayUtils.contains(biomeList, Type.PLAINS) && !ArrayUtils.contains(biomeList, Type.SNOWY) && !ArrayUtils.contains(biomeList, Type.SAVANNA))) {
+				flowers.get(1).generate(world, rand, x, rand.nextInt(world.getHeightValue(x, z) * 2), z);
+			}
+			if(ArrayUtils.contains(biomeList, Type.CONIFEROUS)) {
+				flowers.get(2).generate(world, rand, x, rand.nextInt(world.getHeightValue(x, z) * 2), z);
+			}
+			
+		}
+		
 		if(world.provider.dimensionId == -1) {
 			if(ConfigurationHandler.enableMagmaBlock)
 				this.generateOre(ModBlocks.magma_block, 0, world, rand, chunkX, chunkZ, 1, ConfigurationHandler.maxMagmaPerCluster, 4, 23, 37, Blocks.netherrack);
@@ -90,7 +101,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 			}
 		}
 
-		if (ConfigurationHandler.enableOceanMonuments &&ConfigurationHandler.enablePrismarine && world.provider.dimensionId != -1 && world.provider.dimensionId != 1)
+		if (ConfigurationHandler.enableOceanMonuments && ConfigurationHandler.enablePrismarine && world.provider.dimensionId != -1 && world.provider.dimensionId != 1)
 			if (OceanMonument.canSpawnAt(world, chunkX, chunkZ)) {
 				int x = chunkX * 16 + rand.nextInt(16);
 				int y = 256;

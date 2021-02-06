@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.lib.sounds;
+package ganymedes01.etfuturum.client.sound.step;
 
 import java.util.Random;
 

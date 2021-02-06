@@ -34,6 +34,7 @@ import net.minecraft.world.World;
 public class WorldTickEventHandler {
 
     private static Map<Block, Block> replacements;
+    private int prevHash;
     private Random rand = new Random();
     
     public WorldTickEventHandler() {
@@ -63,11 +64,12 @@ public class WorldTickEventHandler {
 
         World world = event.world;
 
-        if(world.loadedTileEntityList.isEmpty())
+        if(world.loadedTileEntityList.isEmpty() || prevHash == world.loadedTileEntityList.hashCode())
         	return;
-
-        List<TileEntity> list = world.loadedTileEntityList;
-        for(TileEntity tile : list) {
+        
+        List<TileEntity> tileList = world.loadedTileEntityList;	
+        
+        for(TileEntity tile : tileList) {
         	Block replacement = replacements.get(tile.getBlockType());
         	if(replacement != null && ((IConfigurable) replacement).isEnabled()) {
                 NBTTagCompound nbt = new NBTTagCompound();
@@ -86,5 +88,6 @@ public class WorldTickEventHandler {
                 break;
         	}
         }
+        prevHash = tileList.hashCode();	
     }
 }

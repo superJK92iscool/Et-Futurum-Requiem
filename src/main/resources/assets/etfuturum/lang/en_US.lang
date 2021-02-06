@@ -82,6 +82,8 @@ item.etfuturum.dye_blue.name=Blue Dye
 item.etfuturum.dye_brown.name=Brown Dye
 item.etfuturum.dye_black.name=Black Dye
 item.etfuturum.copper_ingot.name=Copper Ingot
+item.etfuturum.suspicious_stew.name=Suspicious Stew
+item.etfuturum.sweet_berries.name=Sweet Berries
 
  Arrows
 item.etfuturum.tipped_arrow.name=Tipped Arrow
@@ -419,11 +421,11 @@ tile.shulkerBoxYellow.name=Yellow Shulker Box
 tile.shulkerBoxLime.name=Lime Shulker Box
 tile.shulkerBoxPink.name=Pink Shulker Box
 tile.shulkerBoxGray.name=Gray Shulker Box
-ile.shulkerBoxSilver.name=Light Gray Shulker Box
+tile.shulkerBoxSilver.name=Light Gray Shulker Box
 tile.shulkerBoxCyan.name=Cyan Shulker Box
 tile.shulkerBoxPurple.name=Purple Shulker Box
 tile.shulkerBoxBlue.name=Blue Shulker Box
-ile.shulkerBoxBrown.name=Brown Shulker Box
+tile.shulkerBoxBrown.name=Brown Shulker Box
 tile.shulkerBoxGreen.name=Green Shulker Box
 tile.shulkerBoxRed.name=Red Shulker Box
 tile.shulkerBoxBlack.name=Black Shulker Box
@@ -432,6 +434,8 @@ util.totemBreak=§a§oYour Totem of Undying shatters...
 
 death.attack.hotFloor=%1$s discovered floor was lava
 death.attack.hotFloor.player=%1$s walked into danger zone due to %2$s
+death.attack.sweetBerryBush=%1$s was poked to death by a sweet berry bush
+death.attack.sweetBerryBush.player=%1$s was poked to death by a sweet berry bush whilst trying to escape %2$s
 
  Banners
 item.banner.black.name=Black Banner

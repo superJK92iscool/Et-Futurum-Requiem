@@ -23,6 +23,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraftforge.oredict.OreDictionary;
@@ -735,9 +736,12 @@ public class ModRecipes {
 			}
 			for(int i = 0; i < inputs.size(); i++) {
 				stew.stackTagCompound = new NBTTagCompound();
-				stew.stackTagCompound.setInteger(ItemSuspiciousStew.stewEffect, effects.get(i).getPotionID());
-				stew.stackTagCompound.setInteger(ItemSuspiciousStew.stewEffectDuration, effects.get(i).getDuration());
-				stew.stackTagCompound.setInteger(ItemSuspiciousStew.stewEffectLevel, effects.get(i).getAmplifier());
+				NBTTagList effectsList = new NBTTagList();
+				stew.stackTagCompound.setTag(ItemSuspiciousStew.effectsList, effectsList);
+				NBTTagCompound potionEffect = new NBTTagCompound();
+				potionEffect.setShort(ItemSuspiciousStew.stewEffect, (short)effects.get(i).getPotionID());
+				potionEffect.setInteger(ItemSuspiciousStew.stewEffectDuration, effects.get(i).getDuration());
+				effectsList.appendTag(potionEffect);
 				addShapelessRecipe(stew, Blocks.red_mushroom, Blocks.brown_mushroom, Items.bowl, inputs.get(i));
 			}
 		}

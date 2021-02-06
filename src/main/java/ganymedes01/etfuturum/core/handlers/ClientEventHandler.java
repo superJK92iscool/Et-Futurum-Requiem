@@ -30,6 +30,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.client.event.RenderPlayerEvent;
@@ -139,16 +140,20 @@ public class ClientEventHandler {
 
         boolean tickchecktime = world.rand.nextInt(Math.toIntExact((world.getTotalWorldTime() % 10) + 1)) == 0;
         List<TileEntity> list = world.loadedTileEntityList;
-        for(TileEntity tile : list) {
-			if (tickchecktime && ConfigurationHandler.enableNewMiscSounds && tile.getBlockType() == Blocks.lit_furnace) {
-	            int x = tile.xCoord;
-	            int y = tile.yCoord;
-	            int z = tile.zCoord;
-				if(world.rand.nextDouble() < 0.1D)
-					world.playSound(x + .5D, y + .5D, z + .5D,
-							Reference.MOD_ID + ":block.furnace.fire_crackle", 1,
-							(world.rand.nextFloat() * 0.1F) + 0.9F, false);
-			}
+        if(tickchecktime) {
+            for(TileEntity tile : list) {
+            	if(!(tile instanceof TileEntityFurnace))
+            			continue;
+    			if (ConfigurationHandler.enableNewMiscSounds && tile.getBlockType() == Blocks.lit_furnace) {
+    	            int x = tile.xCoord;
+    	            int y = tile.yCoord;
+    	            int z = tile.zCoord;
+    				if(world.rand.nextDouble() < 0.1D)
+    					world.playSound(x + .5D, y + .5D, z + .5D,
+    							Reference.MOD_ID + ":block.furnace.fire_crackle", 1,
+    							(world.rand.nextFloat() * 0.1F) + 0.9F, false);
+    			}
+            }
         }
     }
 

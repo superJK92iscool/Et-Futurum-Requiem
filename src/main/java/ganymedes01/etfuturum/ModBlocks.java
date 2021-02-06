@@ -8,6 +8,7 @@ import ganymedes01.etfuturum.blocks.BlockBanner;
 import ganymedes01.etfuturum.blocks.BlockBarrel;
 import ganymedes01.etfuturum.blocks.BlockBarrier;
 import ganymedes01.etfuturum.blocks.BlockBeetroot;
+import ganymedes01.etfuturum.blocks.BlockBerryBush;
 import ganymedes01.etfuturum.blocks.BlockBlastFurnace;
 import ganymedes01.etfuturum.blocks.BlockBlueIce;
 import ganymedes01.etfuturum.blocks.BlockConcrete;
@@ -19,6 +20,7 @@ import ganymedes01.etfuturum.blocks.BlockCutCopperSlab;
 import ganymedes01.etfuturum.blocks.BlockCutCopperStairs;
 import ganymedes01.etfuturum.blocks.BlockEndBrickSlab;
 import ganymedes01.etfuturum.blocks.BlockGenericStairs;
+import ganymedes01.etfuturum.blocks.BlockGlazedTerracotta;
 import ganymedes01.etfuturum.blocks.BlockLantern;
 import ganymedes01.etfuturum.blocks.BlockLilyOfTheValley;
 import ganymedes01.etfuturum.blocks.BlockNetherite;
@@ -185,6 +187,7 @@ public class ModBlocks {
     public static final Block cornflower = new BlockCornflower();
     public static final Block lily_of_the_valley = new BlockLilyOfTheValley();
     public static final Block wither_rose = new BlockWitherRose();
+    public static final Block sweet_berry_bush = new BlockBerryBush();
     
     public static final Block smooth_sandstone_slab = new BlockSmoothSandstoneSlab(0, false);
     public static final Block double_smooth_sandstone_slab = new BlockSmoothSandstoneSlab(0, true);
@@ -201,6 +204,7 @@ public class ModBlocks {
     public static final Block cut_copper_slab = new BlockCutCopperSlab(false);
     public static final Block double_cut_copper_slab = new BlockCutCopperSlab(true);
     public static final Block netherite_stairs = new BlockNetheriteStairs();
+    public static final Block white_glazed_terracotta = new BlockGlazedTerracotta(0);
     
     //Mechanic/Functional blocks
     public static final Block iron_trapdoor = new IronTrapdoor();

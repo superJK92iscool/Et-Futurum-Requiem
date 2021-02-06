@@ -1,6 +1,6 @@
-package ganymedes01.etfuturum.lib.sounds;
+package ganymedes01.etfuturum.client.sound.step;
 
-import ganymedes01.etfuturum.lib.ModSounds;
+import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block.SoundType;
 
