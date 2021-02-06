@@ -13,4 +13,5 @@ public class RenderIDs {
 	public static final int LANTERN = RenderingRegistry.getNextAvailableRenderId();	
 	public static final int BARREL = RenderingRegistry.getNextAvailableRenderId();
 	public static final int TRAP_DOOR = RenderingRegistry.getNextAvailableRenderId();
+	public static final int GLAZED_TERRACOTTA = RenderingRegistry.getNextAvailableRenderId();
 }

@@ -15,6 +15,7 @@ import ganymedes01.etfuturum.client.renderer.block.BlockChorusFlowerRender;
 import ganymedes01.etfuturum.client.renderer.block.BlockChorusPlantRender;
 import ganymedes01.etfuturum.client.renderer.block.BlockDoorRenderer;
 import ganymedes01.etfuturum.client.renderer.block.BlockEndRodRender;
+import ganymedes01.etfuturum.client.renderer.block.BlockGlazedTerracottaRenderer;
 import ganymedes01.etfuturum.client.renderer.block.BlockLanternRenderer;
 import ganymedes01.etfuturum.client.renderer.block.BlockSlimeBlockRender;
 import ganymedes01.etfuturum.client.renderer.block.BlockTrapDoorRenderer;
@@ -124,6 +125,9 @@ public class ClientProxy extends CommonProxy {
 		
 		if(ConfigurationHandler.enableSigns)
 			ClientRegistry.bindTileEntitySpecialRenderer(TileEntityWoodSign.class, new TileEntityWoodSignRenderer());
+
+		if(ConfigurationHandler.enableGlazedTerracotta)
+			RenderingRegistry.registerBlockHandler(new BlockGlazedTerracottaRenderer());
 		
         RenderingRegistry.registerBlockHandler(new BlockChestRenderer());
     }

@@ -77,8 +77,13 @@ public class BlockBarrel extends BlockContainer implements IConfigurable {
 
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_)
     {
-		player.openGui(EtFuturum.instance, GUIsID.BARREL, world, x, y, z);
-		return true;
+        if (world.isRemote)
+        {
+            return true;
+        } else {
+    		player.openGui(EtFuturum.instance, GUIsID.BARREL, world, x, y, z);
+    		return true;
+        }
     }
 
     public IInventory func_149951_m(World p_149951_1_, int p_149951_2_, int p_149951_3_, int p_149951_4_)

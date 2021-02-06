@@ -9,6 +9,7 @@ import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.core.proxy.ClientProxy;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.Reference;
+import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -53,7 +54,7 @@ public class BlockGlazedTerracotta extends Block implements IConfigurable {
 	@SideOnly(Side.CLIENT)
     public int getRenderType()
     {
-        return 0;
+        return RenderIDs.GLAZED_TERRACOTTA;
     }
 
     @Override
@@ -107,7 +108,7 @@ public class BlockGlazedTerracotta extends Block implements IConfigurable {
 
 	@Override
 	public boolean isEnabled() {
-		return false;
+		return true;
 	}
 
 }

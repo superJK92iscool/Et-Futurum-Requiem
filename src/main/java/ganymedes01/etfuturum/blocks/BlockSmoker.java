@@ -172,8 +172,13 @@ public class BlockSmoker extends BlockFurnace implements IConfigurable {
     
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_)
     {
-		player.openGui(EtFuturum.instance, GUIsID.SMOKER, world, x, y, z);
-    	return true;
+        if (world.isRemote)
+        {
+            return true;
+        } else {
+    		player.openGui(EtFuturum.instance, GUIsID.SMOKER, world, x, y, z);
+        	return true;
+        }
     }
 
 	@Override

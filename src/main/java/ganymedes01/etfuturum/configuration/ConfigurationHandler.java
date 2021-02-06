@@ -153,6 +153,7 @@ public class ConfigurationHandler {
 	public static int minCopperOxidationTime;
 	public static int maxCopperOxidationTime;
 	public static boolean enableSuspiciousStew;
+	public static boolean enableGlazedTerracotta;
     
     public static boolean enableIronNugget;
     
@@ -224,6 +225,7 @@ public class ConfigurationHandler {
         enableCopper = cfg.getBoolean("enableCopper", catBlock, true, "Copper ore and copper blocks, variants, and waxed variants. (Slime balls are used if no mod introduces wax)");
         enableCopperSubItems = cfg.getBoolean("enableCopperSubItems", catBlock, true, "Copper sub-blocks and items. Disable copper but keep this on if you want the new copper items and blocks made of it, without the main ingot, ore or copper block itself.");
         enableSweetBerryBushes = cfg.getBoolean("enableSweetBerryBushes", catBlock, true, "");
+        enableGlazedTerracotta = cfg.getBoolean("enableGlazedTerracotta", catBlock, true, "");
         
         enableBarrier = cfg.getBoolean("enableBarrier", catBlock, true, "");
         
