@@ -29,6 +29,7 @@ entity.etfuturum.villager_zombie.name=Villager Zombie
 entity.etfuturum.end_crystal.name=End Crystal
 entity.etfuturum.ender_dragon.name=Ender Dragon
 entity.etfuturum.snow_golem.name=Snow Golem
+entity.etfuturum.brown_mooshroom.name=Brown Mooshroom
 
 entity.etfuturum.stray.name=Stray
 entity.etfuturum.husk.name=Husk
@@ -350,22 +351,22 @@ tile.etfuturum.wood2_stripped_12.name=Stripped Acacia Wood
 tile.etfuturum.wood2_stripped_13.name=Stripped Dark Oak Wood
 
 
-tile.etfuturum.glazedTerracottaWhite.name=White Glazed Terracotta
-tile.etfuturum.glazedTerracottaOrange.name=Orange Glazed Terracotta
-tile.etfuturum.glazedTerracottaMagenta.name=Magenta Glazed Terracotta
-tile.etfuturum.glazedTerracottaLightBlue.name=Light Blue Glazed Terracotta
-tile.etfuturum.glazedTerracottaYellow.name=Yellow Glazed Terracotta
-tile.etfuturum.glazedTerracottaLime.name=Lime Glazed Terracotta
-tile.etfuturum.glazedTerracottaPink.name=Pink Glazed Terracotta
-tile.etfuturum.glazedTerracottaGray.name=Gray Glazed Terracotta
-tile.etfuturum.glazedTerracottaSilver.name=Light Gray Glazed Terracotta
-tile.etfuturum.glazedTerracottaCyan.name=Cyan Glazed Terracotta
-tile.etfuturum.glazedTerracottaPurple.name=Purple Glazed Terracotta
-tile.etfuturum.glazedTerracottaBlue.name=Blue Glazed Terracotta
-tile.etfuturum.glazedTerracottaBrown.name=Brown Glazed Terracotta
-tile.etfuturum.glazedTerracottaGreen.name=Green Glazed Terracotta
-tile.etfuturum.glazedTerracottaRed.name=Red Glazed Terracotta
-tile.etfuturum.glazedTerracottaBlack.name=Black Glazed Terracotta
+tile.etfuturum.white_glazed_terracotta.name=White Glazed Terracotta
+tile.etfuturum.orange_glazed_terracotta.name=Orange Glazed Terracotta
+tile.etfuturum.magenta_glazed_terracotta.name=Magenta Glazed Terracotta
+tile.etfuturum.light_blue_glazed_terracotta.name=Light Blue Glazed Terracotta
+tile.etfuturum.yellow_glazed_terracotta.name=Yellow Glazed Terracotta
+tile.etfuturum.lime_glazed_terracotta.name=Lime Glazed Terracotta
+tile.etfuturum.pink_glazed_terracotta.name=Pink Glazed Terracotta
+tile.etfuturum.gray_glazed_terracotta.name=Gray Glazed Terracotta
+tile.etfuturum.light_gray_glazed_terracotta.name=Light Gray Glazed Terracotta
+tile.etfuturum.cyan_glazed_terracotta.name=Cyan Glazed Terracotta
+tile.etfuturum.purple_glazed_terracotta.name=Purple Glazed Terracotta
+tile.etfuturum.blue_glazed_terracotta.name=Blue Glazed Terracotta
+tile.etfuturum.brown_glazed_terracotta.name=Brown Glazed Terracotta
+tile.etfuturum.green_glazed_terracotta.name=Green Glazed Terracotta
+tile.etfuturum.red_glazed_terracotta.name=Red Glazed Terracotta
+tile.etfuturum.black_glazed_terracotta.name=Black Glazed Terracotta
 
 tile.etfuturum.barrel.name=Barrel
 tile.etfuturum.blast_furnace.name=Blast Furnace

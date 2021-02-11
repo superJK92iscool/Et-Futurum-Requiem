@@ -19,8 +19,8 @@ public class PlayerModelManager {
 
     public static boolean isPlayerModelAlex(EntityPlayer player) {
         Boolean isAlex = alexCache.get(player);
-		NBTTagCompound nbt = player.getEntityData();
-		if(isAlex == null){
+		if(isAlex == null) {
+			NBTTagCompound nbt = player.getEntityData();
 			if(nbt.hasKey(MODEL_KEY, Constants.NBT.TAG_BYTE))
 				nbt.removeTag(MODEL_KEY);
 			ThreadCheckAlex skinthread = new ThreadCheckAlex();

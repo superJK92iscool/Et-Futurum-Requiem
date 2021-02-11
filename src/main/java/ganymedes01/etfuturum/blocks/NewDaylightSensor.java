@@ -28,16 +28,12 @@ public class NewDaylightSensor extends BlockDaylightDetector implements IConfigu
 
     @Override
     public Item getItemDropped(int meta, Random rand, int fortune) {
-        if (!ConfigurationHandler.enableTileReplacement)
-            return Item.getItemFromBlock(ModBlocks.daylight_sensor);
         return Item.getItemFromBlock(Blocks.daylight_detector);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public Item getItem(World world, int x, int y, int z) {
-        if (!ConfigurationHandler.enableTileReplacement)
-            return Item.getItemFromBlock(ModBlocks.daylight_sensor);
         return Item.getItemFromBlock(Blocks.daylight_detector);
     }
 

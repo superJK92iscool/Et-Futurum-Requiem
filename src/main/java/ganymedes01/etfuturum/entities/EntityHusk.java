@@ -22,6 +22,8 @@ import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -34,6 +36,9 @@ import net.minecraftforge.event.entity.living.ZombieEvent.SummonAidEvent;
 
 public class EntityHusk extends EntityZombie
 {
+	
+	public static ItemStack dummyItem = new ItemStack(Blocks.stone_button, 0, 0); //TODO: Less spaghetti
+	
     public EntityHusk(final World p_i1745_1_) {
         super(p_i1745_1_);
         getNavigator().setBreakDoors(true);
@@ -49,7 +54,6 @@ public class EntityHusk extends EntityZombie
         this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, 0, true));
         this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityVillager.class, 0, false));
         setSize(0.6F, 1.8F);
-        this.isImmuneToFire = true;
     }
     
     
@@ -136,6 +140,14 @@ public class EntityHusk extends EntityZombie
         }
     }
     */
+    
+    public ItemStack getEquipmentInSlot(int slot)
+    { // Sets dummy item in helmet slot so itemstack in helmet is never null, to remove daylight check
+    	ItemStack stack = super.getEquipmentInSlot(slot);
+    	if(slot != 4 || isChild())
+    		return stack;
+        return stack == null ? dummyItem : stack;
+    }
     
     protected String getLivingSound() {
         return "etfuturum:mob.husk.idle";

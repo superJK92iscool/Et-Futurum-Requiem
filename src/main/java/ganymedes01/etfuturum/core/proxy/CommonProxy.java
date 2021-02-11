@@ -18,6 +18,7 @@ import ganymedes01.etfuturum.core.handlers.ServerEventHandler;
 import ganymedes01.etfuturum.core.handlers.WorldTickEventHandler;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.entities.EntityArmourStand;
+import ganymedes01.etfuturum.entities.EntityBrownMooshroom;
 import ganymedes01.etfuturum.entities.EntityEndermite;
 import ganymedes01.etfuturum.entities.EntityHusk;
 import ganymedes01.etfuturum.entities.EntityItemUninflammable;
@@ -155,6 +156,9 @@ public class CommonProxy implements IGuiHandler {
 
         if (ConfigurationHandler.enableShearableGolems)
             ModEntityList.registerEntity(EntityNewSnowGolem.class, "snow_golem", id++, EtFuturum.instance, 80, 3, true);
+        
+        if (ConfigurationHandler.enableBrownMooshroom)
+            ModEntityList.registerEntity(EntityBrownMooshroom.class, "brown_mooshroom", id++, EtFuturum.instance, 80, 3, true, 0, 0);
 
 		ModEntityList.registerEntity(EntityItemUninflammable.class, "fireproof_item", id++, EtFuturum.instance, 64, 1, true);
         //make magmas slightly more common, hopefully. 

@@ -17,6 +17,13 @@ import net.minecraft.world.IBlockAccess;
 
 public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandler {
 
+	private boolean uvFlipTop;
+	private boolean uvFlipBottom;
+	private boolean uvFlipNorth;
+	private boolean uvFlipSouth;
+	private boolean uvFlipEast;
+	private boolean uvFlipWest;
+	
     @Override
     public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer)
     {
@@ -28,6 +35,10 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
         renderer.uvRotateSouth = 1;
         renderer.uvRotateWest = 3;
         renderer.uvRotateBottom = 1;
+        
+        uvFlipBottom = true;
+        uvFlipSouth = true;
+        
         renderInInventory(tessellator, renderer, block, metadata);
         renderer.uvRotateTop = 0;
         renderer.uvRotateNorth = 0;
@@ -35,6 +46,9 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
         renderer.uvRotateSouth = 0;
         renderer.uvRotateWest = 0;
         renderer.uvRotateBottom = 0;
+        
+        uvFlipBottom = false;
+        uvFlipSouth = false;
     }
     
     @Override
@@ -43,12 +57,14 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
         renderer.setRenderBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
         int orient = world.getBlockMetadata(x, y, z); // Direction block is facing: 0=N, 1=E, 2=S, 3=W
 
-        renderer.uvRotateTop = orient > 1 ? 5-orient : orient; // Rotate top side (NO NEED FOR MIRROR)
-        renderer.uvRotateNorth = orient > 0 ? (orient%3)+1 : 0; // Rotate west-facing side (NO NEED FOR MIRROR)
-        renderer.uvRotateEast = orient < 2 ? 1-orient : orient; // Rotate north-facing side (N&S orientations are flipped)
-        renderer.uvRotateSouth = orient > 1 ? 2*orient-4 : 3-2*orient; // Rotate east-facing side (E&W orientations are flipped)
-        renderer.uvRotateWest = orient > 1 ? 3-orient : orient+2; // Rotate south-facing side (NO NEED FOR MIRROR)
-        renderer.uvRotateBottom = orient > 1 ? 2*orient-4 : 3-2*orient; // (ALL orientations are wrong)
+        renderer.uvRotateTop = orient > 1 ? 5 - orient : orient; // Rotate top side (NO NEED FOR MIRROR)
+        renderer.uvRotateNorth = orient > 0 ? (orient % 3) + 1 : 0; // Rotate west-facing side (NO NEED FOR MIRROR)
+        renderer.uvRotateEast = orient < 2 ? 1 - orient : orient; // Rotate north-facing side (N&S orientations are flipped)
+        renderer.uvRotateSouth = orient > 1 ? 2 * orient - 4 : 3 - 2 * orient; // Rotate east-facing side (E&W orientations are flipped)
+        renderer.uvRotateWest = orient > 1 ? 3 - orient : orient + 2; // Rotate south-facing side (NO NEED FOR MIRROR)
+        renderer.uvRotateBottom = orient > 1 ? 2 * orient - 4 : 3 - 2 * orient; // (ALL orientations are wrong)
+        
+//        System.out.println("Meta: " + Integer.toString(orient) + " Rotation: " + Integer.toString(orient > 1 ? 2 * orient - 4 : 3 - 2 * orient));
         
         int l = block.colorMultiplier(world, x, y, z);
         float f = (float)(l >> 16 & 255) / 255.0F;
@@ -65,11 +81,11 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
             f2 = f5;
         }
         
-        renderer.flipTexture = true;
+        uvFlipBottom = true;
+        uvFlipEast = orient % 2 == 0;
+        uvFlipSouth = orient % 2 == 1;
 
         boolean flag = Minecraft.isAmbientOcclusionEnabled() && block.getLightValue() == 0 ? (renderer.partialRenderBounds ? renderStandardBlockWithAmbientOcclusionPartial(renderer, block, x, y, z, f, f1, f2) : renderStandardBlockWithAmbientOcclusion(renderer, block, x, y, z, f, f1, f2)) : renderStandardBlockWithColorMultiplier(renderer, block, x, y, z, f, f1, f2);
-
-        renderer.flipTexture = false;
         
         // Must reset the rotation or it will mess up all rotating blocks around
         renderer.uvRotateTop = 0;
@@ -78,6 +94,13 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
         renderer.uvRotateSouth = 0;
         renderer.uvRotateWest = 0;
         renderer.uvRotateBottom = 0;
+        
+    	uvFlipTop = false;
+    	uvFlipBottom = false;
+    	uvFlipNorth = false;
+    	uvFlipSouth = false;
+    	uvFlipEast = false;
+    	uvFlipWest = false;
         
         return true;
         
@@ -1747,13 +1770,6 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
         double d5 = (double)p_147768_8_.getInterpolatedV(renderer.renderMinZ * 16.0D);
         double d6 = (double)p_147768_8_.getInterpolatedV(renderer.renderMaxZ * 16.0D);
         double d7;
-
-        if (renderer.flipTexture)
-        {
-            d7 = d3;
-            d3 = d4;
-            d4 = d7;
-        }
         
         if (renderer.renderMinX < 0.0D || renderer.renderMaxX > 1.0D)
         {
@@ -1822,6 +1838,46 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
             d12 = p_147768_2_ + renderer.renderMinX;
         }
 
+        if(uvFlipBottom) {
+        	double sw;
+        	
+        	if(renderer.uvRotateBottom == 1 || renderer.uvRotateBottom == 2) { // Side to side
+            	sw = d4;
+            	d4 = d7;
+            	d7 = sw;
+            	
+            	sw = d6;
+            	d6 = d9;
+            	d9 = sw;
+            	
+            	sw = d3;
+            	d3 = d8;
+            	d8 = sw;
+            	
+            	sw = d5;
+            	d5 = d10;
+            	d10 = sw;
+        	}
+
+        	if(renderer.uvRotateBottom != 1 && renderer.uvRotateBottom != 2) { // Bottom to top
+            	sw = d8;
+            	d8 = d4;
+            	d4 = sw;
+            	
+            	sw = d10;
+            	d10 = d6;
+            	d6 = sw;
+            	
+            	sw = d7;
+            	d7 = d3;
+            	d3 = sw;
+            	
+            	sw = d9;
+            	d9 = d5;
+            	d5 = sw;
+        	}
+        }
+        
         if (renderer.enableAO)
         {
             tessellator.setColorOpaque_F(renderer.colorRedTopLeft, renderer.colorGreenTopLeft, renderer.colorBlueTopLeft);
@@ -1863,13 +1919,6 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
         double d5 = (double)p_147806_8_.getInterpolatedV(renderer.renderMinZ * 16.0D);
         double d6 = (double)p_147806_8_.getInterpolatedV(renderer.renderMaxZ * 16.0D);
         double d7;
-        
-        if (renderer.flipTexture)
-        {
-            d7 = d3;
-            d3 = d4;
-            d4 = d7;
-        }
 
         if (renderer.renderMinX < 0.0D || renderer.renderMaxX > 1.0D)
         {
@@ -1938,6 +1987,46 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
             d12 = p_147806_2_ + renderer.renderMinX;
         }
 
+        if(uvFlipTop) {
+        	double sw;
+        	
+        	if(renderer.uvRotateTop == 1 || renderer.uvRotateTop == 2) { // Side to side
+            	sw = d4;
+            	d4 = d7;
+            	d7 = sw;
+            	
+            	sw = d6;
+            	d6 = d9;
+            	d9 = sw;
+            	
+            	sw = d3;
+            	d3 = d8;
+            	d8 = sw;
+            	
+            	sw = d5;
+            	d5 = d10;
+            	d10 = sw;
+        	}
+
+        	if(renderer.uvRotateTop != 1 && renderer.uvRotateTop != 2) { // Bottom to top
+            	sw = d8;
+            	d8 = d4;
+            	d4 = sw;
+            	
+            	sw = d10;
+            	d10 = d6;
+            	d6 = sw;
+            	
+            	sw = d7;
+            	d7 = d3;
+            	d3 = sw;
+            	
+            	sw = d9;
+            	d9 = d5;
+            	d5 = sw;
+        	}
+        }
+        
         if (renderer.enableAO)
         {
             tessellator.setColorOpaque_F(renderer.colorRedTopLeft, renderer.colorGreenTopLeft, renderer.colorBlueTopLeft);
@@ -1986,13 +2075,6 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
         double d5 = (double)p_147761_8_.getInterpolatedV(16.0D - renderer.renderMaxY * 16.0D);
         double d6 = (double)p_147761_8_.getInterpolatedV(16.0D - renderer.renderMinY * 16.0D);
         double d7;
-
-        if (renderer.flipTexture)
-        {
-            d7 = d3;
-            d3 = d4;
-            d4 = d7;
-        }
 
         if (renderer.renderMinX < 0.0D || renderer.renderMaxX > 1.0D)
         {
@@ -2061,6 +2143,46 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
             d12 = p_147761_2_ + renderer.renderMinX;
         }
 
+        if(uvFlipEast) {
+        	double sw;
+        	
+        	if(renderer.uvRotateEast == 0 || renderer.uvRotateEast == 3) { // Side to side
+            	sw = d8;
+            	d8 = d4;
+            	d4 = sw;
+            	
+            	sw = d10;
+            	d10 = d6;
+            	d6 = sw;
+            	
+            	sw = d7;
+            	d7 = d3;
+            	d3 = sw;
+            	
+            	sw = d9;
+            	d9 = d5;
+            	d5 = sw;
+        	}
+
+        	if(renderer.uvRotateEast != 0 && renderer.uvRotateEast != 3) { // Bottom to top
+            	sw = d4;
+            	d4 = d7;
+            	d7 = sw;
+            	
+            	sw = d6;
+            	d6 = d9;
+            	d9 = sw;
+            	
+            	sw = d3;
+            	d3 = d8;
+            	d8 = sw;
+            	
+            	sw = d5;
+            	d5 = d10;
+            	d10 = sw;
+        	}
+        }
+
         if (renderer.enableAO)
         {
             tessellator.setColorOpaque_F(renderer.colorRedTopLeft, renderer.colorGreenTopLeft, renderer.colorBlueTopLeft);
@@ -2102,13 +2224,6 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
         double d5 = (double)p_147734_8_.getInterpolatedV(16.0D - renderer.renderMaxY * 16.0D);
         double d6 = (double)p_147734_8_.getInterpolatedV(16.0D - renderer.renderMinY * 16.0D);
         double d7;
-
-        if (renderer.flipTexture)
-        {
-            d7 = d3;
-            d3 = d4;
-            d4 = d7;
-        }
 
         if (renderer.renderMinX < 0.0D || renderer.renderMaxX > 1.0D)
         {
@@ -2177,6 +2292,46 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
             d12 = p_147734_2_ + renderer.renderMinX;
         }
 
+        if(uvFlipWest) {
+        	double sw;
+        	
+        	if(renderer.uvRotateWest == 1 || renderer.uvRotateWest == 2) { // Side to side
+            	sw = d4;
+            	d4 = d7;
+            	d7 = sw;
+            	
+            	sw = d6;
+            	d6 = d9;
+            	d9 = sw;
+            	
+            	sw = d3;
+            	d3 = d8;
+            	d8 = sw;
+            	
+            	sw = d5;
+            	d5 = d10;
+            	d10 = sw;
+        	}
+
+        	if(renderer.uvRotateBottom != 1 && renderer.uvRotateBottom != 2) { // Bottom to top
+            	sw = d8;
+            	d8 = d4;
+            	d4 = sw;
+            	
+            	sw = d10;
+            	d10 = d6;
+            	d6 = sw;
+            	
+            	sw = d7;
+            	d7 = d3;
+            	d3 = sw;
+            	
+            	sw = d9;
+            	d9 = d5;
+            	d5 = sw;
+        	}
+        }
+
         if (renderer.enableAO)
         {
             tessellator.setColorOpaque_F(renderer.colorRedTopLeft, renderer.colorGreenTopLeft, renderer.colorBlueTopLeft);
@@ -2218,13 +2373,6 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
         double d5 = (double)p_147798_8_.getInterpolatedV(16.0D - renderer.renderMaxY * 16.0D);
         double d6 = (double)p_147798_8_.getInterpolatedV(16.0D - renderer.renderMinY * 16.0D);
         double d7;
-
-        if (renderer.flipTexture)
-        {
-            d7 = d3;
-            d3 = d4;
-            d4 = d7;
-        }
 
         if (renderer.renderMinZ < 0.0D || renderer.renderMaxZ > 1.0D)
         {
@@ -2293,6 +2441,46 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
             d15 = p_147798_6_ + renderer.renderMinZ;
         }
 
+        if(uvFlipNorth) {
+        	double sw;
+        	
+        	if(renderer.uvRotateNorth == 0 || renderer.uvRotateNorth == 3) { // Side to side
+            	sw = d8;
+            	d8 = d4;
+            	d4 = sw;
+            	
+            	sw = d10;
+            	d10 = d6;
+            	d6 = sw;
+            	
+            	sw = d7;
+            	d7 = d3;
+            	d3 = sw;
+            	
+            	sw = d9;
+            	d9 = d5;
+            	d5 = sw;
+        	}
+
+        	if(renderer.uvRotateNorth != 0 && renderer.uvRotateNorth != 3) { // Bottom to top
+            	sw = d4;
+            	d4 = d7;
+            	d7 = sw;
+            	
+            	sw = d6;
+            	d6 = d9;
+            	d9 = sw;
+            	
+            	sw = d3;
+            	d3 = d8;
+            	d8 = sw;
+            	
+            	sw = d5;
+            	d5 = d10;
+            	d10 = sw;
+        	}
+        }
+
         if (renderer.enableAO)
         {
             tessellator.setColorOpaque_F(renderer.colorRedTopLeft, renderer.colorGreenTopLeft, renderer.colorBlueTopLeft);
@@ -2341,13 +2529,6 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
         double d5 = (double)p_147764_8_.getInterpolatedV(16.0D - renderer.renderMaxY * 16.0D);
         double d6 = (double)p_147764_8_.getInterpolatedV(16.0D - renderer.renderMinY * 16.0D);
         double d7;
-
-        if (renderer.flipTexture)
-        {
-            d7 = d3;
-            d3 = d4;
-            d4 = d7;
-        }
 
         if (renderer.renderMinZ < 0.0D || renderer.renderMaxZ > 1.0D)
         {
@@ -2414,6 +2595,46 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
         {
             d14 = p_147764_6_ + renderer.renderMaxZ;
             d15 = p_147764_6_ + renderer.renderMinZ;
+        }
+
+        if(uvFlipSouth) {
+        	double sw;
+        	
+        	if(renderer.uvRotateSouth == 0 || renderer.uvRotateSouth == 3) { // Side to side
+            	sw = d8;
+            	d8 = d4;
+            	d4 = sw;
+            	
+            	sw = d10;
+            	d10 = d6;
+            	d6 = sw;
+            	
+            	sw = d7;
+            	d7 = d3;
+            	d3 = sw;
+            	
+            	sw = d9;
+            	d9 = d5;
+            	d5 = sw;
+        	}
+
+        	if(renderer.uvRotateSouth != 0 && renderer.uvRotateSouth != 3) { // Bottom to top
+            	sw = d4;
+            	d4 = d7;
+            	d7 = sw;
+            	
+            	sw = d6;
+            	d6 = d9;
+            	d9 = sw;
+            	
+            	sw = d3;
+            	d3 = d8;
+            	d8 = sw;
+            	
+            	sw = d5;
+            	d5 = d10;
+            	d10 = sw;
+        	}
         }
 
         if (renderer.enableAO)

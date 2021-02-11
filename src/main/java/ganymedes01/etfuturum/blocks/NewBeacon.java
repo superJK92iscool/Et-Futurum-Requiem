@@ -28,16 +28,12 @@ public class NewBeacon extends BlockBeacon implements IConfigurable {
 
     @Override
     public Item getItemDropped(int meta, Random rand, int fortune) {
-        if (!ConfigurationHandler.enableTileReplacement)
-            return Item.getItemFromBlock(ModBlocks.beacon);
         return Item.getItemFromBlock(Blocks.beacon);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public Item getItem(World world, int x, int y, int z) {
-        if (!ConfigurationHandler.enableTileReplacement)
-            return Item.getItemFromBlock(ModBlocks.beacon);
         return Item.getItemFromBlock(Blocks.beacon);
     }
 

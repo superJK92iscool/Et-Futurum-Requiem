@@ -154,6 +154,7 @@ public class ConfigurationHandler {
 	public static int maxCopperOxidationTime;
 	public static boolean enableSuspiciousStew;
 	public static boolean enableGlazedTerracotta;
+	public static boolean enableBrownMooshroom;
     
     public static boolean enableIronNugget;
     
@@ -273,6 +274,7 @@ public class ConfigurationHandler {
         
         enableHusk = cfg.getBoolean("enableHusks", catEntity, true, "Desert zombie variant");
         enableStray = cfg.getBoolean("enableStrays", catEntity, true, "Tundra skeleton variant");
+        enableBrownMooshroom = cfg.getBoolean("enableBrownMooshroom", catEntity, true, "Brown mooshroom variant");
         
         //function
         enableSilkTouchingMushrooms = cfg.getBoolean("enableSilkMushroom", catFunction, true, "Mushroom blocks can be silk-touched");

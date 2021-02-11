@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -17,6 +18,7 @@ import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
+import cpw.mods.fml.relauncher.ReflectionHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
@@ -28,6 +30,7 @@ import ganymedes01.etfuturum.blocks.MagmaBlock;
 import ganymedes01.etfuturum.client.sound.WeightedSoundPool;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.utils.HoeHelper;
+import ganymedes01.etfuturum.entities.EntityBrownMooshroom;
 import ganymedes01.etfuturum.entities.EntityEndermite;
 import ganymedes01.etfuturum.entities.EntityNewSnowGolem;
 import ganymedes01.etfuturum.entities.EntityRabbit;
@@ -50,6 +53,7 @@ import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAIOpenDoor;
@@ -65,6 +69,7 @@ import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityChicken;
+import net.minecraft.entity.passive.EntityMooshroom;
 import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.passive.EntityVillager;
@@ -771,7 +776,31 @@ public class ServerEventHandler {
                 villager.worldObj.spawnEntityInWorld(witch);
                 villager.setDead();
             }
-        }
+        } else
+            if (ConfigurationHandler.enableBrownMooshroom && event.entity.ticksExisted > 40 && event.entity.getClass() == EntityMooshroom.class)  {
+                EntityMooshroom mooshroom = (EntityMooshroom) event.entity;
+                if (!mooshroom.worldObj.isRemote) {
+                    EntityBrownMooshroom brownmooshroom = new EntityBrownMooshroom(mooshroom.worldObj);
+                    brownmooshroom.copyLocationAndAnglesFrom(mooshroom);
+                    brownmooshroom.onSpawnWithEgg(null);
+                    mooshroom.worldObj.spawnEntityInWorld(brownmooshroom);
+                    mooshroom.setDead();
+                    brownmooshroom.attackEntityFrom(DamageSource.onFire, 0);
+                    //TODO: Cow won't flee for some reason
+                }                    
+            } else
+            if (ConfigurationHandler.enableBrownMooshroom && event.entity.ticksExisted > 40 && event.entity.getClass() == EntityBrownMooshroom.class) {
+                EntityBrownMooshroom brownmooshroom = (EntityBrownMooshroom) event.entity;
+                if (!brownmooshroom.worldObj.isRemote) {
+                    EntityMooshroom mooshroom = new EntityMooshroom(brownmooshroom.worldObj);
+                    mooshroom.copyLocationAndAnglesFrom(brownmooshroom);
+                    mooshroom.onSpawnWithEgg(null);
+                    brownmooshroom.worldObj.spawnEntityInWorld(mooshroom);
+                    brownmooshroom.setDead();
+                    mooshroom.attackEntityFrom(DamageSource.onFire, 0);
+                    //TODO: Cow won't flee for some reason
+                }
+            }
     }
     @SubscribeEvent
     public void livingHurtEvent(LivingHurtEvent event) {

@@ -205,6 +205,21 @@ public class ModBlocks {
     public static final Block double_cut_copper_slab = new BlockCutCopperSlab(true);
     public static final Block netherite_stairs = new BlockNetheriteStairs();
     public static final Block white_glazed_terracotta = new BlockGlazedTerracotta(0);
+    public static final Block orange_glazed_terracotta = new BlockGlazedTerracotta(1);
+    public static final Block magenta_glazed_terracotta = new BlockGlazedTerracotta(2);
+    public static final Block light_blue_glazed_terracotta = new BlockGlazedTerracotta(3);
+    public static final Block yellow_glazed_terracotta = new BlockGlazedTerracotta(4);
+    public static final Block lime_glazed_terracotta = new BlockGlazedTerracotta(5);
+    public static final Block pink_glazed_terracotta = new BlockGlazedTerracotta(6);
+    public static final Block gray_glazed_terracotta = new BlockGlazedTerracotta(7);
+    public static final Block light_gray_glazed_terracotta = new BlockGlazedTerracotta(8);
+    public static final Block cyan_glazed_terracotta = new BlockGlazedTerracotta(9);
+    public static final Block purple_glazed_terracotta = new BlockGlazedTerracotta(10);
+    public static final Block blue_glazed_terracotta = new BlockGlazedTerracotta(11);
+    public static final Block brown_glazed_terracotta = new BlockGlazedTerracotta(12);
+    public static final Block green_glazed_terracotta = new BlockGlazedTerracotta(13);
+    public static final Block red_glazed_terracotta = new BlockGlazedTerracotta(14);
+    public static final Block black_glazed_terracotta = new BlockGlazedTerracotta(15);
     
     //Mechanic/Functional blocks
     public static final Block iron_trapdoor = new IronTrapdoor();

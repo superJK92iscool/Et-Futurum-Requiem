@@ -44,16 +44,12 @@ public class NewBrewingStand extends BlockBrewingStand implements IConfigurable 
 
     @Override
     public Item getItemDropped(int meta, Random rand, int fortune) {
-        if (!ConfigurationHandler.enableTileReplacement)
-            return Item.getItemFromBlock(ModBlocks.brewing_stand);
         return Items.brewing_stand;
     }
     
     @Override
     @SideOnly(Side.CLIENT)
     public Item getItem(World world, int x, int y, int z) {
-        if (!ConfigurationHandler.enableTileReplacement)
-            return Item.getItemFromBlock(ModBlocks.brewing_stand);
         return Items.brewing_stand;
     }
 

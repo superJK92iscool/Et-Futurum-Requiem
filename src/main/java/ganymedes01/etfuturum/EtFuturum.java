@@ -41,6 +41,7 @@ import ganymedes01.etfuturum.recipes.ModRecipes;
 import ganymedes01.etfuturum.recipes.SmokerRecipes;
 import ganymedes01.etfuturum.world.EtFuturumWorldGenerator;
 import ganymedes01.etfuturum.world.generate.OceanMonument;
+import ganymedes01.etfuturum.world.nether.dimension.DimensionProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockTrapDoor;
 import net.minecraft.creativetab.CreativeTabs;
@@ -140,6 +141,7 @@ public class EtFuturum {
     public void init(FMLInitializationEvent event) {
 
         ModRecipes.init();
+//        DimensionProvider.init(); // Come back to
 
         proxy.registerEvents();
         proxy.registerEntities();

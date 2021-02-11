@@ -32,7 +32,6 @@ public class NewRenderPlayer extends RenderPlayer {
     private void setModel(EntityPlayer player) {
         boolean isAlex;
 
-        NBTTagCompound nbt = player.getEntityData();
         isAlex = PlayerModelManager.isPlayerModelAlex(player);
 
         mainModel = isAlex ? ALEX : STEVE;

@@ -20,6 +20,7 @@ import ganymedes01.etfuturum.client.renderer.block.BlockLanternRenderer;
 import ganymedes01.etfuturum.client.renderer.block.BlockSlimeBlockRender;
 import ganymedes01.etfuturum.client.renderer.block.BlockTrapDoorRenderer;
 import ganymedes01.etfuturum.client.renderer.entity.ArmourStandRenderer;
+import ganymedes01.etfuturum.client.renderer.entity.BrownMooshroomRenderer;
 import ganymedes01.etfuturum.client.renderer.entity.EndermiteRenderer;
 import ganymedes01.etfuturum.client.renderer.entity.HuskRenderer;
 import ganymedes01.etfuturum.client.renderer.entity.LingeringEffectRenderer;
@@ -43,6 +44,7 @@ import ganymedes01.etfuturum.client.skins.NewSkinManager;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.handlers.ClientEventHandler;
 import ganymedes01.etfuturum.entities.EntityArmourStand;
+import ganymedes01.etfuturum.entities.EntityBrownMooshroom;
 import ganymedes01.etfuturum.entities.EntityEndermite;
 import ganymedes01.etfuturum.entities.EntityHusk;
 import ganymedes01.etfuturum.entities.EntityLingeringEffect;
@@ -154,8 +156,13 @@ public class ClientProxy extends CommonProxy {
         }
         if (ConfigurationHandler.enableVillagerZombies)
             RenderingRegistry.registerEntityRenderingHandler(EntityZombieVillager.class, new VillagerZombieRenderer());
+        
         if (ConfigurationHandler.enableDragonRespawn)
             RenderingRegistry.registerEntityRenderingHandler(EntityPlacedEndCrystal.class, new PlacedEndCrystalRenderer());
+
+        if (ConfigurationHandler.enableBrownMooshroom)
+            RenderingRegistry.registerEntityRenderingHandler(EntityBrownMooshroom.class, new BrownMooshroomRenderer());
+        
         if (ConfigurationHandler.enablePlayerSkinOverlay) {
             TextureManager texManager = Minecraft.getMinecraft().renderEngine;
             File fileAssets = ReflectionHelper.getPrivateValue(Minecraft.class, Minecraft.getMinecraft(), "fileAssets", "field_110446_Y", " field_110607_c");

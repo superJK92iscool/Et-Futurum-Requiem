@@ -9,6 +9,7 @@ import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
+import ganymedes01.etfuturum.blocks.BlockGlazedTerracotta;
 import ganymedes01.etfuturum.blocks.BlockStoneSlab2;
 import ganymedes01.etfuturum.blocks.Stone;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
@@ -502,16 +503,16 @@ public class ModRecipes {
             addShapedRecipe(new ItemStack(ModBlocks.bone_block), "xxx", "xxx", "xxx", 'x', new ItemStack(Items.dye, 1, 15));
 //            addShapelessRecipe(new ItemStack(Items.dye, 9, 15), new ItemStack(ModBlocks.bone_block));
         }
-        
-        if (ConfigurationHandler.enableConcrete) {
-			final String[] dyesOD = new String[] {"dyeWhite", "dyeOrange", "dyeMagenta", "dyeLightBlue", "dyeYellow", "dyeLime", "dyePink", "dyeGray", "dyeLightGray", "dyeCyan", "dyePurple", "dyeBlue", "dyeBrown", "dyeGreen", "dyeRed", "dyeBlack"};
 
-			for (int i = 0; i < dyesOD.length; i++) {
-				addShapelessRecipe(new ItemStack(ModBlocks.concrete_powder, 8, i), 
-						new Object[]{dyesOD[i], new ItemStack(Blocks.sand, 1, 0), new ItemStack(Blocks.sand, 1, 0), new ItemStack(Blocks.sand, 1, 0), 
-								new ItemStack(Blocks.sand, 1, 0), Blocks.gravel, Blocks.gravel, Blocks.gravel, Blocks.gravel});
-
+		for (int i = 0; i < dyes.length; i++) {
+	        if (ConfigurationHandler.enableConcrete) {
+					int dye = ~i & 15;
+					addShapelessRecipe(new ItemStack(ModBlocks.concrete_powder, 8, i), 
+							new Object[]{dyes[dye], new ItemStack(Blocks.sand, 1, 0), new ItemStack(Blocks.sand, 1, 0), new ItemStack(Blocks.sand, 1, 0), 
+									new ItemStack(Blocks.sand, 1, 0), Blocks.gravel, Blocks.gravel, Blocks.gravel, Blocks.gravel});
 			}
+			if(ConfigurationHandler.enableGlazedTerracotta)
+				GameRegistry.addSmelting(new ItemStack(Blocks.stained_hardened_clay, 1, i), new ItemStack(GameRegistry.findBlock(Reference.MOD_ID, BlockGlazedTerracotta.subBlock[i] + "_glazed_terracotta")), 0.1F);
         }
         
         if (ConfigurationHandler.enableRecipeForTotem) {
@@ -664,8 +665,15 @@ public class ModRecipes {
 					if(OreDictionary.doesOreNameExist("materialWax") || OreDictionary.doesOreNameExist("materialWaxcomb")) {
 						addShapelessRecipe(new ItemStack(ModBlocks.copper_block, 1, i + 8), "materialWax", new ItemStack(ModBlocks.copper_block, 1, i));
 						addShapelessRecipe(new ItemStack(ModBlocks.copper_block, 1, i + 8), "materialWaxcomb", new ItemStack(ModBlocks.copper_block, 1, i));
+						if(i > 3) {
+							addShapelessRecipe(new ItemStack(ModBlocks.cut_copper_slab, 1, i), "materialWax", new ItemStack(ModBlocks.cut_copper_slab, 1, i - 4));
+							addShapelessRecipe(new ItemStack(ModBlocks.cut_copper_slab, 1, i), "materialWaxcomb", new ItemStack(ModBlocks.cut_copper_slab, 1, i - 4));
+						}
 					} else {
 						addShapelessRecipe(new ItemStack(ModBlocks.copper_block, 1, i + 8), "slimeball", new ItemStack(ModBlocks.copper_block, 1, i));
+						if(i > 3) {
+							addShapelessRecipe(new ItemStack(ModBlocks.cut_copper_slab, 1, i), "slimeball", new ItemStack(ModBlocks.cut_copper_slab, 1, i - 4));
+						}
 					}
 				}
 			}

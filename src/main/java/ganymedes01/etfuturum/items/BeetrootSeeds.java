@@ -19,7 +19,7 @@ public class BeetrootSeeds extends ItemSeeds implements IConfigurable {
         setUnlocalizedName(Utils.getUnlocalisedName("beetroot_seeds"));
         setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
 
-        if (ConfigurationHandler.enableBeetroot) {
+        if (isEnabled()) {
             ChestGenHooks.addItem(ChestGenHooks.MINESHAFT_CORRIDOR, new WeightedRandomChestContent(new ItemStack(this), 1, 2, 5));
             ChestGenHooks.addItem(ChestGenHooks.PYRAMID_DESERT_CHEST, new WeightedRandomChestContent(new ItemStack(this), 1, 2, 5));
             ChestGenHooks.addItem(ChestGenHooks.PYRAMID_JUNGLE_CHEST, new WeightedRandomChestContent(new ItemStack(this), 1, 2, 5));

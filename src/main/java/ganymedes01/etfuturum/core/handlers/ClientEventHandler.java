@@ -142,17 +142,16 @@ public class ClientEventHandler {
         List<TileEntity> list = world.loadedTileEntityList;
         if(tickchecktime) {
             for(TileEntity tile : list) {
-            	if(!(tile instanceof TileEntityFurnace))
+            	if(tile.getBlockType() != Blocks.lit_furnace)
             			continue;
-    			if (ConfigurationHandler.enableNewMiscSounds && tile.getBlockType() == Blocks.lit_furnace) {
-    	            int x = tile.xCoord;
-    	            int y = tile.yCoord;
-    	            int z = tile.zCoord;
-    				if(world.rand.nextDouble() < 0.1D)
-    					world.playSound(x + .5D, y + .5D, z + .5D,
-    							Reference.MOD_ID + ":block.furnace.fire_crackle", 1,
-    							(world.rand.nextFloat() * 0.1F) + 0.9F, false);
-    			}
+
+	            int x = tile.xCoord;
+	            int y = tile.yCoord;
+	            int z = tile.zCoord;
+				if(world.rand.nextDouble() < 0.1D)
+					world.playSound(x + .5D, y + .5D, z + .5D,
+							Reference.MOD_ID + ":block.furnace.fire_crackle", 1,
+							(world.rand.nextFloat() * 0.1F) + 0.9F, false);
             }
         }
     }
