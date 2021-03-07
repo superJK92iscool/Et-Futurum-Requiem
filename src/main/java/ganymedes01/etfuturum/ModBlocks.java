@@ -22,6 +22,7 @@ import ganymedes01.etfuturum.blocks.BlockEndBrickSlab;
 import ganymedes01.etfuturum.blocks.BlockGenericStairs;
 import ganymedes01.etfuturum.blocks.BlockGlazedTerracotta;
 import ganymedes01.etfuturum.blocks.BlockLantern;
+import ganymedes01.etfuturum.blocks.BlockLavaCauldron;
 import ganymedes01.etfuturum.blocks.BlockLilyOfTheValley;
 import ganymedes01.etfuturum.blocks.BlockNetherite;
 import ganymedes01.etfuturum.blocks.BlockNetheriteStairs;
@@ -178,9 +179,9 @@ public class ModBlocks {
     public static final Block stone_stairs = new BlockGenericStairs(Blocks.stone, 0, ConfigurationHandler.enableGenericStairs).setBlockName(Utils.getUnlocalisedName("stone_stairs"));
     public static final Block end_brick_stairs = new BlockGenericStairs(ModBlocks.end_bricks, 0, ConfigurationHandler.enableChorusFruit).setBlockName(Utils.getUnlocalisedName("end_brick_stairs"));
     public static final Block cut_copper_stairs = new BlockCutCopperStairs(4);
-    public static final Block lightly_weathered_cut_copper_stairs = new BlockCutCopperStairs(5);
-    public static final Block semi_weathered_cut_copper_stairs = new BlockCutCopperStairs(6);
-    public static final Block weathered_cut_copper_stairs = new BlockCutCopperStairs(7);
+    public static final Block exposed_cut_copper_stairs = new BlockCutCopperStairs(5);
+    public static final Block weathered_cut_copper_stairs = new BlockCutCopperStairs(6);
+    public static final Block oxidized_cut_copper_stairs = new BlockCutCopperStairs(7);
     public static final Block waxed_cut_copper_stairs = new BlockCutCopperStairs(12);
     public static final Block waxed_lightly_weathered_cut_copper_stairs = new BlockCutCopperStairs(13);
     public static final Block waxed_semi_weathered_cut_copper_stairs = new BlockCutCopperStairs(14);
@@ -220,6 +221,7 @@ public class ModBlocks {
     public static final Block green_glazed_terracotta = new BlockGlazedTerracotta(13);
     public static final Block red_glazed_terracotta = new BlockGlazedTerracotta(14);
     public static final Block black_glazed_terracotta = new BlockGlazedTerracotta(15);
+    public static final Block lava_cauldron = new BlockLavaCauldron();
     
     //Mechanic/Functional blocks
     public static final Block iron_trapdoor = new IronTrapdoor();

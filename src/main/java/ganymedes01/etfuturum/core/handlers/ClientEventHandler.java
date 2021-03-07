@@ -194,42 +194,6 @@ public class ClientEventHandler {
     	}
     	return netherWastes;
     }
-
-    @SubscribeEvent
-    @SideOnly(Side.CLIENT)
-    public void loadTextures(TextureStitchEvent.Pre event) {
-        if (ConfigurationHandler.enablePrismarine)
-            if (event.map.getTextureType() == 0) {
-                TextureAtlasSprite icon = new InterpolatedIcon("prismarine_rough");
-                if (event.map.setTextureEntry("prismarine_rough", icon))
-                    ((PrismarineBlocks) ModBlocks.prismarine).setIcon(0, icon);
-                else
-                    ((PrismarineBlocks) ModBlocks.prismarine).setIcon(0, event.map.registerIcon("prismarine_rough"));
-            }
-		
-		if (ConfigurationHandler.enableBlastFurnace) {
-			if (event.map.getTextureType() == 0) {
-				String s = "blast_furnace_front_on";
-				TextureAtlasSprite icon = new InterpolatedIcon(s);
-				if (event.map.setTextureEntry(s, icon))
-					((BlockBlastFurnace) ModBlocks.lit_blast_furnace).setFurnaceFrontIcon(icon);
-				else
-					((BlockBlastFurnace) ModBlocks.lit_blast_furnace).setFurnaceFrontIcon(event.map.registerIcon(s));
-			}
-		}
-		
-		if (ConfigurationHandler.enableMagmaBlock) {
-			if (event.map.getTextureType() == 0) {
-				String s = "magma";
-				TextureAtlasSprite icon = new InterpolatedIcon(s);
-				if (event.map.setTextureEntry(s, icon))
-					((MagmaBlock) ModBlocks.magma_block).setMagmaIcon(icon);
-				else
-					((MagmaBlock) ModBlocks.magma_block).setMagmaIcon(event.map.registerIcon(s));
-			}
-		}
-    }
-
     @SubscribeEvent
     public void toolTipEvent(ItemTooltipEvent event) {
     	if(ConfigurationHandler.enableExtraF3HTooltips && event.showAdvancedItemTooltips) {

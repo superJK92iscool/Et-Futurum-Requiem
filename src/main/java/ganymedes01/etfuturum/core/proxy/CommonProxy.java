@@ -158,7 +158,7 @@ public class CommonProxy implements IGuiHandler {
             ModEntityList.registerEntity(EntityNewSnowGolem.class, "snow_golem", id++, EtFuturum.instance, 80, 3, true);
         
         if (ConfigurationHandler.enableBrownMooshroom)
-            ModEntityList.registerEntity(EntityBrownMooshroom.class, "brown_mooshroom", id++, EtFuturum.instance, 80, 3, true, 0, 0);
+            ModEntityList.registerEntity(EntityBrownMooshroom.class, "brown_mooshroom", id++, EtFuturum.instance, 80, 3, true);
 
 		ModEntityList.registerEntity(EntityItemUninflammable.class, "fireproof_item", id++, EtFuturum.instance, 64, 1, true);
         //make magmas slightly more common, hopefully. 

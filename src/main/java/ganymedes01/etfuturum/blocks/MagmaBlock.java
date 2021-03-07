@@ -3,6 +3,7 @@ package ganymedes01.etfuturum.blocks;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.ModBlocks;
+import ganymedes01.etfuturum.client.InterpolatedIcon;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.utils.Utils;
 
@@ -11,6 +12,7 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
@@ -93,21 +95,14 @@ public class MagmaBlock extends Block implements IConfigurable{
         }
         
     }
-
-    //Sets the icon back to null after registering it in the constructor
-    //We register it and set it back to null so it can properly be overridden
+    
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister p_149651_1_)
     {
-        this.blockIcon = null;
-    }
-    
-    //Makes sure the icon is null so it can be overridden,
-    //then ClientEventHandler replaces the texture with the interpolated version
-    public void setMagmaIcon(IIcon icon) {
-    	if(blockIcon == null) {
-        	blockIcon = icon;
-    	}
+    	blockIcon = new InterpolatedIcon(textureName);
+        if(p_149651_1_ instanceof TextureMap) {
+        	((TextureMap)p_149651_1_).setTextureEntry(textureName, (InterpolatedIcon)blockIcon);
+        }
     }
 
 }

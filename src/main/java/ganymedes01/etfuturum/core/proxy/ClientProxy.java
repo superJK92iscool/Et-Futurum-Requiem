@@ -17,6 +17,7 @@ import ganymedes01.etfuturum.client.renderer.block.BlockDoorRenderer;
 import ganymedes01.etfuturum.client.renderer.block.BlockEndRodRender;
 import ganymedes01.etfuturum.client.renderer.block.BlockGlazedTerracottaRenderer;
 import ganymedes01.etfuturum.client.renderer.block.BlockLanternRenderer;
+import ganymedes01.etfuturum.client.renderer.block.BlockLavaCauldronRenderer;
 import ganymedes01.etfuturum.client.renderer.block.BlockSlimeBlockRender;
 import ganymedes01.etfuturum.client.renderer.block.BlockTrapDoorRenderer;
 import ganymedes01.etfuturum.client.renderer.entity.ArmourStandRenderer;
@@ -75,6 +76,7 @@ public class ClientProxy extends CommonProxy {
         super.registerEvents();
         FMLCommonHandler.instance().bus().register(ClientEventHandler.INSTANCE);
         MinecraftForge.EVENT_BUS.register(ClientEventHandler.INSTANCE);
+//        MinecraftForge.EVENT_BUS.register(BiomeFogEventHandler.INSTANCE);
     }
 
     @Override
@@ -130,6 +132,9 @@ public class ClientProxy extends CommonProxy {
 
 		if(ConfigurationHandler.enableGlazedTerracotta)
 			RenderingRegistry.registerBlockHandler(new BlockGlazedTerracottaRenderer());
+		
+		if(ConfigurationHandler.enableLavaCauldrons)
+			RenderingRegistry.registerBlockHandler(new BlockLavaCauldronRenderer());
 		
         RenderingRegistry.registerBlockHandler(new BlockChestRenderer());
     }

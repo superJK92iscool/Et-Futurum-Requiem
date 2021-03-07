@@ -53,7 +53,6 @@ import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAIOpenDoor;
@@ -80,6 +79,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBucket;
 import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemShears;
 import net.minecraft.item.ItemStack;
@@ -433,11 +433,11 @@ public class ServerEventHandler {
 
 	@SubscribeEvent(priority=EventPriority.HIGHEST)
     public void onPlayerInteract(PlayerInteractEvent event) {
+        EntityPlayer player = event.entityPlayer;
         if (event.action == Action.RIGHT_CLICK_BLOCK || event.action == Action.RIGHT_CLICK_AIR) {
-            EntityPlayer entityPlayer = event.entityPlayer;
-            if (entityPlayer != null) {
-            	ItemStack heldStack = entityPlayer.getHeldItem();
-                World world = entityPlayer.worldObj;
+            if (player != null) {
+            	ItemStack heldStack = player.getHeldItem();
+                World world = player.worldObj;
                 int x = event.x;
                 int y = event.y;
                 int z = event.z;
@@ -449,8 +449,8 @@ public class ServerEventHandler {
                     if (toolClasses != null) {
                     	if (ConfigurationHandler.enableGrassPath && toolClasses.contains("shovel") && oldBlock == Blocks.grass) {
                         	world.setBlock(x, y, z, ModBlocks.grass_path);
-                            entityPlayer.swingItem();
-                            heldStack.damageItem(1, entityPlayer);
+                            player.swingItem();
+                            heldStack.damageItem(1, player);
                             world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, Block.soundTypeGravel.getStepResourcePath(), 1.0F, 0.8F);
                         } else if (ConfigurationHandler.enableStrippedLogs && toolClasses.contains("axe")) {
                         	Block newBlock = null;
@@ -468,8 +468,8 @@ public class ServerEventHandler {
                             if (newBlock != null) {
                             	int logMeta = world.getBlockMetadata(x, y, z);
                             	world.setBlock(x, y, z, newBlock, logMeta, 2);
-                            	entityPlayer.swingItem();
-                            	heldStack.damageItem(1, entityPlayer);
+                            	player.swingItem();
+                            	heldStack.damageItem(1, player);
                                 world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, Reference.MOD_ID + ":item.axe.strip", 1.0F, 0.8F);
                             }
                         }
@@ -477,6 +477,38 @@ public class ServerEventHandler {
                 }
             }
         }
+		if (player != null && !player.isSneaking() && ConfigurationHandler.enableLavaCauldrons) {
+			World world = player.worldObj;
+			if (event.action == Action.RIGHT_CLICK_BLOCK)
+				if (world.getBlock(event.x, event.y, event.z) == Blocks.cauldron && world.getBlockMetadata(event.x, event.y, event.z) == 0) {
+					ItemStack stack = player.getCurrentEquippedItem();
+					if (stack != null && stack.getItem() instanceof ItemBucket) {
+						boolean flag = false;
+						Field field = ReflectionHelper.findField(stack.getItem().getClass(), "field_77876_a", "isFull");
+						field.setAccessible(true);
+						try {
+							Block liquid = (Block) field.get(stack.getItem());
+							if(liquid == Blocks.lava || liquid == Blocks.flowing_lava) {
+								flag = true;
+							}
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+						if(flag) {
+						event.setResult(event.useItem.DENY);
+						world.setBlock(event.x, event.y, event.z, ModBlocks.lava_cauldron);
+						player.swingItem();
+						if (!player.capabilities.isCreativeMode)
+							if (stack.stackSize <= 1) {
+	                            player.inventory.setInventorySlotContents(player.inventory.currentItem, new ItemStack(Items.bucket));
+							} else {
+								--stack.stackSize;
+							}
+						}
+						
+					}
+				}
+		}
     }
 	
     @SubscribeEvent

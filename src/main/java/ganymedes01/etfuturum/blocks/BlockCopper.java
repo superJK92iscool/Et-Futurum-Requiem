@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.blocks;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -10,23 +11,24 @@ import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.utils.Utils;
+import ganymedes01.etfuturum.entities.ai.BlockPos;
 import ganymedes01.etfuturum.items.block.ItemBlockCopper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
-import net.minecraft.world.NextTickListEntry;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
 
 public class BlockCopper extends BlockGeneric implements IConfigurable {
 
 	public BlockCopper() {
-		super(Material.iron, "", "lightly_weathered", "semi_weathered", "weathered", "cut", "lightly_weathered_cut", "semi_weathered_cut", "weathered_cut", "waxed", "waxed_lightly_weathered", "waxed_semi_weathered", "unused", "waxed_cut", "waxed_lightly_weathered_cut", "waxed_semi_weathered_cut", "unused");
+		super(Material.iron, "", "exposed", "weathered", "oxidized", "cut", "exposed_cut", "weathered_cut", "oxidized_cut", "waxed", "waxed_exposed", "waxed_weathered", "unused", "waxed_cut", "waxed_exposed_cut", "waxed_weathered_cut", "unused");
 		setHardness(3);
 		setResistance(6);
 		setHarvestLevel("pickaxe", 1);
@@ -35,21 +37,13 @@ public class BlockCopper extends BlockGeneric implements IConfigurable {
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
 		setFlippedNames(true);
 		setStepSound(ConfigurationHandler.enableNewBlocksSounds ? ModSounds.soundCopper : Block.soundTypeMetal);
+		setTickRandomly(true);
 	}
 
 	@Override
 	public boolean isEnabled() {
 		return ConfigurationHandler.enableCopper;
 	}
-
-    public void onBlockAdded(World world, int x, int y, int z)
-    {
-        int meta = world.getBlockMetadata(x, y, z);
-        if (meta > 7 || meta % 4 == 3)
-        	return;
-        world.scheduleBlockUpdate(x, y, z, this, tickRate(world));
-    	
-    }
     
     @Override
     public void updateTick(World world, int x, int y, int z, Random rand) {
@@ -58,15 +52,51 @@ public class BlockCopper extends BlockGeneric implements IConfigurable {
         int meta = world.getBlockMetadata(x, y, z);
         if (meta > 7 || meta % 4 == 3)
         	return;
-        if(world.getBlock(x, y, z) == this) {
-        	world.setBlockMetadataWithNotify(x, y, z, meta + 1, 2);
-        }
-        if(!(meta + 1 > 7 || (meta + 1) % 4 == 3))
-            world.scheduleBlockUpdate(x, y, z, this, tickRate(world));
+        tickDegradation(world, x, y, z, rand);
     }
-    
-    public int tickRate(World world) {
-    	return ConfigurationHandler.minCopperOxidationTime + world.rand.nextInt(ConfigurationHandler.maxCopperOxidationTime + 1);
+
+    private void tickDegradation(World world, int x, int y, int z, Random random) {
+       float f = 0.05688889F;
+       if (random.nextFloat() < 0.05688889F) {
+          this.tryDegrade(world, x, y, z, random);
+       }
+    }
+
+    private void tryDegrade(World world, int x, int y, int z, Random random) {
+       int i = world.getBlockMetadata(x, y, z) % 4;
+       int j = 0;
+       int k = 0;
+       
+       for(int x1 = -4; x1 <= 4; x1++) {
+           for(int y1 = -4; y1 <= 4; y1++) {
+               for(int z1 = -4; z1 <= 4; z1++) {
+                   if(world.getBlock(x1 + x, y1 + y, z1 + z) instanceof BlockCopper && (x1 != 0 || y1 != 0 || z1 != 0) && Math.abs(x1) + Math.abs(y1) + Math.abs(z1) <= 4) {
+                       int m = world.getBlockMetadata(x1 + x, y1 + y, z1 + z);
+                       
+                       if(m > 7)
+                    	   continue;
+                       else
+                    	   m %= 4;
+                       
+                       if (m < i) {
+                          return;
+                       }
+              
+                       if (m > i) {
+                          ++k;
+                       } else {
+                          ++j;
+                       }
+                   }
+               }
+           }
+       }
+
+       float f = (float)(k + 1) / (float)(k + j + 1);
+       float g = f * f * (i == 0 ? 0.75F : 1F);
+       if (random.nextFloat() < g) {
+          world.setBlockMetadataWithNotify(x, y, z, (world.getBlockMetadata(x, y, z) % 8) + 1, 2);
+       }
     }
     
     public String getNameFor(int meta) {
@@ -112,7 +142,7 @@ public class BlockCopper extends BlockGeneric implements IConfigurable {
             } else {
             	String name = types[i];
             	String textName = getTextureName();
-            	if(name.contains("cut")) {
+            	if(i > 0) {
             		textName = textName.replace("_block", "");
             	}
                 icons[i] = reg.registerIcon(name + "_" + textName);

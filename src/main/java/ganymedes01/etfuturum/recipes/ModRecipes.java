@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
+import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.blocks.BlockGlazedTerracotta;
@@ -25,7 +26,6 @@ import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.RecipeSorter;
@@ -653,7 +653,7 @@ public class ModRecipes {
 		}
 		
 		if(ConfigurationHandler.enableCopper) {
-			Block[] stairs = new Block[] {ModBlocks.cut_copper_stairs, ModBlocks.lightly_weathered_cut_copper_stairs, ModBlocks.semi_weathered_cut_copper_stairs, ModBlocks.weathered_cut_copper_stairs, ModBlocks.waxed_cut_copper_stairs, ModBlocks.waxed_lightly_weathered_cut_copper_stairs, ModBlocks.waxed_semi_weathered_cut_copper_stairs};
+			Block[] stairs = new Block[] {ModBlocks.cut_copper_stairs, ModBlocks.exposed_cut_copper_stairs, ModBlocks.weathered_cut_copper_stairs, ModBlocks.oxidized_cut_copper_stairs, ModBlocks.waxed_cut_copper_stairs, ModBlocks.waxed_lightly_weathered_cut_copper_stairs, ModBlocks.waxed_semi_weathered_cut_copper_stairs};
 			addShapedRecipe(new ItemStack(ModBlocks.copper_block, 4), "xx", "xx", 'x', new ItemStack(ModItems.copper_ingot, 1, 0));
 			addShapedRecipe(new ItemStack(ModItems.copper_ingot, 4), "x", 'x', new ItemStack(ModBlocks.copper_block, 1, 0));
 			GameRegistry.addSmelting(new ItemStack(ModBlocks.copper_ore), new ItemStack(ModItems.copper_ingot), .7F);
@@ -708,62 +708,45 @@ public class ModRecipes {
 		addShapedRecipe(new ItemStack(Blocks.wooden_slab, 6), "xxx", 'x', "plankWood");
 		
 		if(ConfigurationHandler.enableSuspiciousStew) {
-			ItemStack stew = new ItemStack(ModItems.suspicious_stew, 1, 0);
-			List<ItemStack> inputs = new ArrayList<ItemStack>();
-			List<PotionEffect> effects = new ArrayList<PotionEffect>();
-			
-			inputs.add(new ItemStack(Blocks.red_flower, 1, 2)); //Allium > Fire Res
-			effects.add(new PotionEffect(Potion.fireResistance.id, 80, 0));
-			
-			inputs.add(new ItemStack(Blocks.red_flower, 1, 3)); //Azure Bluet > Blindness
-			effects.add(new PotionEffect(Potion.blindness.id, 160, 0));
-			
-			inputs.add(new ItemStack(Blocks.red_flower, 1, 1)); //Blue Orchid > Saturation
-			effects.add(new PotionEffect(Potion.field_76443_y.id, 7, 0));
-			
-			inputs.add(new ItemStack(Blocks.yellow_flower, 1)); //Dandelion > Saturation
-			effects.add(new PotionEffect(Potion.field_76443_y.id, 7, 0));
-			
-			inputs.add(new ItemStack(Blocks.red_flower, 1, 8)); //Oxeye Daisy > Regeneration
-			effects.add(new PotionEffect(Potion.regeneration.id, 160, 0));
-			
-			inputs.add(new ItemStack(Blocks.red_flower, 1, 0)); //Poppy > Night Vision
-			effects.add(new PotionEffect(Potion.nightVision.id, 100, 0));
-			
-			inputs.add(new ItemStack(Blocks.red_flower, 1, 4)); //Red Tulip > Weakness
-			effects.add(new PotionEffect(Potion.weakness.id, 180, 0));
-			
-			inputs.add(new ItemStack(Blocks.red_flower, 1, 5)); //Orange Tulip > Weakness
-			effects.add(new PotionEffect(Potion.weakness.id, 180, 0));
-			
-			inputs.add(new ItemStack(Blocks.red_flower, 1, 6)); //White Tulip > Weakness
-			effects.add(new PotionEffect(Potion.weakness.id, 180, 0));
-			
-			inputs.add(new ItemStack(Blocks.red_flower, 1, 7)); //Pink Tulip > Weakness
-			effects.add(new PotionEffect(Potion.weakness.id, 180, 0));
-			
-			if(ConfigurationHandler.enableNewFlowers) {
-				inputs.add(new ItemStack(ModBlocks.cornflower, 1, 0)); //Pink Tulip > Weakness
-				effects.add(new PotionEffect(Potion.jump.id, 120, 0));
+			for(int i = 0; i < getStewFlowers().size(); i++) {
+				ItemStack stew = new ItemStack(ModItems.suspicious_stew, 1, 0);
 				
-				inputs.add(new ItemStack(ModBlocks.lily_of_the_valley, 1, 0)); //Pink Tulip > Weakness
-				effects.add(new PotionEffect(Potion.poison.id, 240, 0));
+				PotionEffect effect = EtFuturum.getSuspiciousStewEffect(getStewFlowers().get(i));
 				
-				inputs.add(new ItemStack(ModBlocks.wither_rose, 1, 0)); //Pink Tulip > Weakness
-				effects.add(new PotionEffect(Potion.wither.id, 160, 0));
-			}
-			for(int i = 0; i < inputs.size(); i++) {
 				stew.stackTagCompound = new NBTTagCompound();
 				NBTTagList effectsList = new NBTTagList();
 				stew.stackTagCompound.setTag(ItemSuspiciousStew.effectsList, effectsList);
 				NBTTagCompound potionEffect = new NBTTagCompound();
-				potionEffect.setShort(ItemSuspiciousStew.stewEffect, (short)effects.get(i).getPotionID());
-				potionEffect.setInteger(ItemSuspiciousStew.stewEffectDuration, effects.get(i).getDuration());
+				potionEffect.setByte(ItemSuspiciousStew.stewEffect, (byte)effect.getPotionID());
+				potionEffect.setInteger(ItemSuspiciousStew.stewEffectDuration, effect.getDuration());
 				effectsList.appendTag(potionEffect);
-				addShapelessRecipe(stew, Blocks.red_mushroom, Blocks.brown_mushroom, Items.bowl, inputs.get(i));
+				addShapelessRecipe(stew, Blocks.red_mushroom, Blocks.brown_mushroom, Items.bowl, getStewFlowers().get(i));
 			}
 		}
 	}
+    
+    private static List<ItemStack> getStewFlowers() {
+    	List<ItemStack> list = new ArrayList<ItemStack>();
+    	
+		list.add(new ItemStack(Blocks.red_flower, 1, 2));
+		list.add(new ItemStack(Blocks.red_flower, 1, 3));
+		list.add(new ItemStack(Blocks.red_flower, 1, 1));
+		list.add(new ItemStack(Blocks.yellow_flower, 1));
+		list.add(new ItemStack(Blocks.red_flower, 1, 8));
+		list.add(new ItemStack(Blocks.red_flower, 1, 0));
+		list.add(new ItemStack(Blocks.red_flower, 1, 4));
+		list.add(new ItemStack(Blocks.red_flower, 1, 5));
+		list.add(new ItemStack(Blocks.red_flower, 1, 6));
+		list.add(new ItemStack(Blocks.red_flower, 1, 7));
+		
+		if(ConfigurationHandler.enableNewFlowers) {
+			list.add(new ItemStack(ModBlocks.cornflower, 1, 0));
+			list.add(new ItemStack(ModBlocks.lily_of_the_valley, 1, 0));
+			list.add(new ItemStack(ModBlocks.wither_rose, 1, 0));
+		}
+    	
+    	return list;
+}
 
     private static void addShapedRecipe(ItemStack output, Object... objects) {
         GameRegistry.addRecipe(new ShapedOreRecipe(output, objects));

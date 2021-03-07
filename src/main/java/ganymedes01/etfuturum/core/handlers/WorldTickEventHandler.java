@@ -59,7 +59,7 @@ public class WorldTickEventHandler {
         if (event.side != Side.SERVER || event.phase != Phase.END)
             return;
 
-        if (replacements.isEmpty() || !ConfigurationHandler.enableNewMiscSounds)
+        if (replacements.isEmpty())
             return;
 
         World world = event.world;

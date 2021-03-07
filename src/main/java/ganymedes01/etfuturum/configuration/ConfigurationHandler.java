@@ -4,6 +4,7 @@ import java.io.File;
 
 import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.common.IFMLSidedHandler;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
 import ganymedes01.etfuturum.enchantment.FrostWalker;
@@ -108,6 +109,7 @@ public class ConfigurationHandler {
 	public static int maxCopperPerCluster;
 //	public static boolean enableDyeReplacement;
 	public static boolean enableSweetBerryBushes;
+	public static boolean enableLavaCauldrons;
 
     public static boolean enableNewNetherBricks;
     public static boolean enableNetherwartBlock;
@@ -155,6 +157,7 @@ public class ConfigurationHandler {
 	public static boolean enableSuspiciousStew;
 	public static boolean enableGlazedTerracotta;
 	public static boolean enableBrownMooshroom;
+	public static boolean enableNewNether;
     
     public static boolean enableIronNugget;
     
@@ -229,6 +232,7 @@ public class ConfigurationHandler {
         enableGlazedTerracotta = cfg.getBoolean("enableGlazedTerracotta", catBlock, true, "");
         
         enableBarrier = cfg.getBoolean("enableBarrier", catBlock, true, "");
+        enableLavaCauldrons = cfg.getBoolean("enableLavaCauldrons", catBlock, true, "Allow lava buckets to fill cauldrons");
         
         //items
         enableMutton = cfg.getBoolean("enableMutton", catItems, true, "");
@@ -334,6 +338,10 @@ public class ConfigurationHandler {
         maxMagmaPerCluster = cfg.getInt("maxMagmaPerCluster", catWorld, 33, 0, 64, "Max vein size for magma blocks in a cluster");
         maxCopperPerCluster = cfg.getInt("copperClusterSize", catWorld, 14, 0, 64, "Max vein size for copper ore blocks in a cluster");
         enableOceanMonuments = cfg.getBoolean("enableOceanMonuments", catWorld, true, "Note: Ocean monuments currently do not have guardians");
+//        enableNewNether = cfg.getBoolean("enableNewNether", catWorld, true, "When false, the new Nether completely stops to generate, regardless of if the new Nether blocks are on. (Will be ignored if Netherlicious is installed)");
+        
+        if(Loader.isModLoaded("netherlicious")) // Come back to
+        	enableNewNether = false;
         
         if (cfg.hasChanged()) {
             cfg.save();

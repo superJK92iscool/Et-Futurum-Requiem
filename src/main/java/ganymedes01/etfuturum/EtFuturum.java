@@ -4,6 +4,7 @@ import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -28,6 +29,7 @@ import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.proxy.CommonProxy;
 import ganymedes01.etfuturum.core.utils.HoeHelper;
 import ganymedes01.etfuturum.entities.ModEntityList;
+import ganymedes01.etfuturum.items.ItemSuspiciousStew;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.network.ArmourStandInteractHandler;
 import ganymedes01.etfuturum.network.ArmourStandInteractMessage;
@@ -41,7 +43,6 @@ import ganymedes01.etfuturum.recipes.ModRecipes;
 import ganymedes01.etfuturum.recipes.SmokerRecipes;
 import ganymedes01.etfuturum.world.EtFuturumWorldGenerator;
 import ganymedes01.etfuturum.world.generate.OceanMonument;
-import ganymedes01.etfuturum.world.nether.dimension.DimensionProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockTrapDoor;
 import net.minecraft.creativetab.CreativeTabs;
@@ -51,6 +52,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraftforge.common.config.Configuration;
 
 @Mod(
@@ -134,14 +138,17 @@ public class EtFuturum {
     			netherAmbienceNetherlicious = Netherlicious.get("1 nether ambience", "Allow Biome specific sounds to play", true).getBoolean();
                 netherMusicNetherlicious = Netherlicious.get("2 biome music", "1 Replace the Music System in the Nether, to allow Biome specific Music. Default Music will still play sometimes", true).getBoolean();
     		}
-    	}       
+    	}      
+//        if(ConfigurationHandler.enableNewNether)
+//        	NetherBiomeManager.init(); // Come back to
     }
 
     @EventHandler
     public void init(FMLInitializationEvent event) {
 
         ModRecipes.init();
-//        DimensionProvider.init(); // Come back to
+//        if(ConfigurationHandler.enableNewNether)
+//            DimensionProvider.init(); // Come back to
 
         proxy.registerEvents();
         proxy.registerEntities();
@@ -240,5 +247,66 @@ public class EtFuturum {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static PotionEffect getSuspiciousStewEffect(ItemStack stack) {
+		
+		if(stack == null)
+			return null;
+		
+		if(stack.getItem() == Item.getItemFromBlock(Blocks.red_flower) && stack.getItemDamage() == 2) {
+			return new PotionEffect(Potion.fireResistance.id, 80, 0);
+		}
+
+		if(stack.getItem() == Item.getItemFromBlock(Blocks.red_flower) && stack.getItemDamage() == 3) {
+			return new PotionEffect(Potion.blindness.id, 160, 0);
+		}
+
+		if(stack.getItem() == Item.getItemFromBlock(Blocks.red_flower) && stack.getItemDamage() == 1) {
+			return new PotionEffect(Potion.field_76443_y.id, 7, 0);
+		}
+
+		if(stack.getItem() == Item.getItemFromBlock(Blocks.yellow_flower)) {
+			return new PotionEffect(Potion.field_76443_y.id, 7, 0);
+		}
+
+		if(stack.getItem() == Item.getItemFromBlock(Blocks.red_flower) && stack.getItemDamage() == 8) {
+			return new PotionEffect(Potion.regeneration.id, 160, 0);
+		}
+
+		if(stack.getItem() == Item.getItemFromBlock(Blocks.red_flower) && stack.getItemDamage() == 0) {
+			return new PotionEffect(Potion.nightVision.id, 100, 0);
+		}
+
+		if(stack.getItem() == Item.getItemFromBlock(Blocks.red_flower) && stack.getItemDamage() == 4) {
+			return new PotionEffect(Potion.weakness.id, 180, 0);
+		}
+
+		if(stack.getItem() == Item.getItemFromBlock(Blocks.red_flower) && stack.getItemDamage() == 5) {
+			return new PotionEffect(Potion.weakness.id, 180, 0);
+		}
+
+		if(stack.getItem() == Item.getItemFromBlock(Blocks.red_flower) && stack.getItemDamage() == 6) {
+			return new PotionEffect(Potion.weakness.id, 180, 0);
+		}
+
+		if(stack.getItem() == Item.getItemFromBlock(Blocks.red_flower) && stack.getItemDamage() == 7) {
+			return new PotionEffect(Potion.weakness.id, 180, 0);
+		}
+		
+		if(stack.getItem() == Item.getItemFromBlock(ModBlocks.cornflower)) {
+			return new PotionEffect(Potion.jump.id, 120, 0);
+		}
+
+		if(stack.getItem() == Item.getItemFromBlock(ModBlocks.lily_of_the_valley)) {
+			return new PotionEffect(Potion.poison.id, 240, 0);
+		}
+
+		if(stack.getItem() == Item.getItemFromBlock(ModBlocks.wither_rose)) {
+			return new PotionEffect(Potion.wither.id, 160, 0);
+		}
+		
+		return null;
+		
 	}
 }

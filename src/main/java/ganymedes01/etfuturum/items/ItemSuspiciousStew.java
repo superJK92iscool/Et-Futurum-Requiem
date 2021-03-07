@@ -18,7 +18,7 @@ public class ItemSuspiciousStew extends ItemSoup implements IConfigurable {
 	public static final String stewEffect = "EffectId";
 	public static final String stewEffectDuration = "EffectDuration";
 	public static final String stewEffectLevel = "EffectLevel";
-	//The potion ID should be set as a short (Instead of a byte)
+	//The potion ID should be set as a byte
 	//The potion duration should be set as an int
 	//The potion level should be set as a byte
 	
@@ -55,7 +55,7 @@ public class ItemSuspiciousStew extends ItemSoup implements IConfigurable {
 						effectDuration = nbt.getInteger(stewEffectDuration);
 					}
 					effectDuration = effectDuration > 1 ? effectDuration : 1;
-					player.addPotionEffect(new PotionEffect(nbt.getShort(stewEffect), effectDuration, nbt.getByte(stewEffectLevel)));
+					player.addPotionEffect(new PotionEffect(nbt.getByte(stewEffect), effectDuration, nbt.getByte(stewEffectLevel)));
 				}
 			}
 		}

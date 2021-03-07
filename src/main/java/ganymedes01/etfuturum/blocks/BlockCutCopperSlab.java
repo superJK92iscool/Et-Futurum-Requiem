@@ -16,7 +16,7 @@ import net.minecraft.world.World;
 public class BlockCutCopperSlab extends BlockGenericSlab implements IConfigurable {
 
 	public BlockCutCopperSlab(boolean p_i45410_1_) {
-		super(p_i45410_1_, Material.iron, "", "lightly_weathered", "semi_weathered", "weathered", "waxed", "waxed_lightly_weathered", "waxed_semi_weathered");
+		super(p_i45410_1_, Material.iron, "", "exposed", "weathered", "oxidized", "waxed", "waxed_exposed", "waxed_weathered");
 		setHardness(3);
 		setResistance(6);
 		setHarvestLevel("pickaxe", 1);
@@ -24,16 +24,8 @@ public class BlockCutCopperSlab extends BlockGenericSlab implements IConfigurabl
 		setBlockTextureName("cut_copper");
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
 		setStepSound(ConfigurationHandler.enableNewBlocksSounds ? ModSounds.soundCopper : Block.soundTypeMetal);
+		setTickRandomly(true);
 	}
-
-    public void onBlockAdded(World world, int x, int y, int z)
-    {
-        int meta = world.getBlockMetadata(x, y, z) % 8;
-        if (meta > 2)
-        	return;
-        world.scheduleBlockUpdate(x, y, z, this, tickRate(world));
-    	
-    }
     
     @Override
     public void updateTick(World world, int x, int y, int z, Random rand) {
@@ -42,15 +34,49 @@ public class BlockCutCopperSlab extends BlockGenericSlab implements IConfigurabl
         int meta = world.getBlockMetadata(x, y, z);
         if (meta % 8 > 2)
         	return;
-        if(world.getBlock(x, y, z) == this) {
-        	world.setBlockMetadataWithNotify(x, y, z, meta + 1, 2);
-        }
-        if(!(meta % 8 + 1 > 2))
-            world.scheduleBlockUpdate(x, y, z, this, tickRate(world));
+        tickDegradation(world, x, y, z, rand);
     }
-    
-    public int tickRate(World world) {
-    	return ConfigurationHandler.minCopperOxidationTime + world.rand.nextInt(ConfigurationHandler.maxCopperOxidationTime + 1);
+
+    private void tickDegradation(World world, int x, int y, int z, Random random) {
+    	float f = 0.05688889F;
+    	if (random.nextFloat() < 0.05688889F) {
+    		this.tryDegrade(world, x, y, z, random);
+    	}
+    }
+
+	private void tryDegrade(World world, int x, int y, int z, Random random) {
+	   int i = world.getBlockMetadata(x, y, z) % 4;
+	   int j = 0;
+	   int k = 0;
+	   
+	   for(int x1 = -4; x1 <= 4; x1++) {
+	       for(int y1 = -4; y1 <= 4; y1++) {
+	           for(int z1 = -4; z1 <= 4; z1++) {
+	               if(world.getBlock(x1 + x, y1 + y, z1 + z) instanceof BlockCutCopperSlab && (x1 != 0 || y1 != 0 || z1 != 0) && Math.abs(x1) + Math.abs(y1) + Math.abs(z1) <= 4) {
+	                   int m = world.getBlockMetadata(x1 + x, y1 + y, z1 + z) % 4;
+	                   
+	                   if(world.getBlockMetadata(x, y, z) % 8 > 3)
+	                	   continue;
+	                   
+	                   if (m < i) {
+	                      return;
+	                   }
+	          
+	                   if (m > i) {
+	                      ++k;
+	                   } else {
+	                      ++j;
+	                   }
+	               }
+	           }
+	       }
+	   }
+
+       float f = (float)(k + 1) / (float)(k + j + 1);
+       float g = f * f * (i == 0 ? 0.75F : 1F);
+       if (random.nextFloat() < g) {
+          world.setBlockMetadataWithNotify(x, y, z, world.getBlockMetadata(x, y, z) + 1, 2);
+       }
     }
 
 	@Override

@@ -1,14 +1,16 @@
 package ganymedes01.etfuturum.blocks;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
+import ganymedes01.etfuturum.client.InterpolatedIcon;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.util.IIcon;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class PrismarineBlocks extends BlockGeneric implements IConfigurable {
 
@@ -21,27 +23,25 @@ public class PrismarineBlocks extends BlockGeneric implements IConfigurable {
         setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
     }
 
-    @SideOnly(Side.CLIENT)
-    public void setIcon(int index, IIcon icon) {
-        if (icons == null)
-            icons = new IIcon[types.length];
-
-        icons[index] = icon;
-    }
-
     @Override
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister reg) {
         if (icons == null)
             icons = new IIcon[types.length];
 
-        for (int i = 1; i < types.length; i++)
-            if ("".equals(types[i]))
-                icons[i] = reg.registerIcon(getTextureName());
-            else
-                icons[i] = reg.registerIcon(getTextureName() + "_" + types[i]);
+        for (int i = 0; i < types.length; i++) {
+        	String texture = getTextureName() + "_" + types[i];
+            if ("rough".equals(types[i])) {
+            	icons[i] = new InterpolatedIcon(texture);
+                if(reg instanceof TextureMap) {
+                	((TextureMap)reg).setTextureEntry(texture, (InterpolatedIcon)icons[i]);
+                }
+            } else {
+                icons[i] = reg.registerIcon(texture);
+            }
+        }
     }
-
+    
     @Override
     public boolean isEnabled() {
         return ConfigurationHandler.enablePrismarine;

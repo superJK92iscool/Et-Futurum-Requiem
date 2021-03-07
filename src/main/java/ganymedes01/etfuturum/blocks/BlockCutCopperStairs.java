@@ -18,32 +18,25 @@ public class BlockCutCopperStairs extends BlockGenericStairs implements IConfigu
 		String name = "cut_copper_stairs";
 		String subtype = "";
 		switch(meta) {
-			case 5: subtype = "lightly_weathered"; break;
-			case 6: subtype = "semi_weathered"; break;
-			case 7: subtype = "weathered"; break;
+			case 5: subtype = "exposed"; break;
+			case 6: subtype = "weathered"; break;
+			case 7: subtype = "oxidized"; break;
 			case 12: subtype = "waxed"; break;
-			case 13: subtype = "waxed_lightly_weathered"; break;
-			case 14: subtype = "waxed_semi_weathered"; break;
+			case 13: subtype = "waxed_exposed"; break;
+			case 14: subtype = "waxed_weathered"; break;
 		}
 		setBlockName(Utils.getUnlocalisedName(subtype + (subtype.equals("") ? "" : "_") + name));
+		setTickRandomly(meta <= 7 ? true : false);
 	}
 	
 	public Block getNextWeatherStage() {
 		switch(meta) {
-		case 4: return ModBlocks.lightly_weathered_cut_copper_stairs;
-		case 5: return ModBlocks.semi_weathered_cut_copper_stairs;
-		case 6: return ModBlocks.weathered_cut_copper_stairs;
+		case 4: return ModBlocks.exposed_cut_copper_stairs;
+		case 5: return ModBlocks.weathered_cut_copper_stairs;
+		case 6: return ModBlocks.oxidized_cut_copper_stairs;
 		default: return null;
 		}
 	}
-
-    public void onBlockAdded(World world, int x, int y, int z)
-    {
-        if (meta > 7 || meta % 4 == 3)
-        	return;
-        world.scheduleBlockUpdate(x, y, z, this, tickRate(world));
-    	
-    }
     
     @Override
     public void updateTick(World world, int x, int y, int z, Random rand) {
@@ -51,14 +44,49 @@ public class BlockCutCopperStairs extends BlockGenericStairs implements IConfigu
             return;
         if (meta > 7 || meta % 4 == 3)
         	return;
-        if(world.getBlock(x, y, z) == this) {
-        	world.setBlock(x, y, z, getNextWeatherStage(), world.getBlockMetadata(x, y, z), 2);
-        }
-        if(!(meta + 1 > 7 || (meta + 1) % 4 == 3))
-            world.scheduleBlockUpdate(x, y, z, this, tickRate(world));
+        tickDegradation(world, x, y, z, rand);
     }
 
-    public int tickRate(World world) {
-    	return ConfigurationHandler.minCopperOxidationTime + world.rand.nextInt(ConfigurationHandler.maxCopperOxidationTime + 1);
+    private void tickDegradation(World world, int x, int y, int z, Random random) {
+    	float f = 0.05688889F;
+    	if (random.nextFloat() < 0.05688889F) {
+    		this.tryDegrade(world, x, y, z, random);
+    	}
+    }
+    
+	private void tryDegrade(World world, int x, int y, int z, Random random) {
+	   int i = world.getBlockMetadata(x, y, z) % 4;
+	   int j = 0;
+	   int k = 0;
+	   
+	   for(int x1 = -4; x1 <= 4; x1++) {
+	       for(int y1 = -4; y1 <= 4; y1++) {
+	           for(int z1 = -4; z1 <= 4; z1++) {
+	        	   Block block = world.getBlock(x1 + x, y1 + y, z1 + z);
+	               if(block instanceof BlockCutCopperStairs && (x1 != 0 || y1 != 0 || z1 != 0) && Math.abs(x1) + Math.abs(y1) + Math.abs(z1) <= 4) {
+	                   Integer m = block == ModBlocks.cut_copper_stairs ? 0 : block == ModBlocks.exposed_cut_copper_stairs ? 1 : block == ModBlocks.weathered_cut_copper_stairs ? 2 : block == ModBlocks.oxidized_cut_copper_stairs ? 3 : null;
+	                   
+	                   if(m == null || m > i)
+	                	   continue;
+	                   
+	                   if (m < i) {
+	                      return;
+	                   }
+	          
+	                   if (m > i) {
+	                      ++k;
+	                   } else {
+	                      ++j;
+	                   }
+	               }
+	           }
+	       }
+	   }
+
+       float f = (float)(k + 1) / (float)(k + j + 1);
+       float g = f * f * (i == 0 ? 0.75F : 1F);
+       if (random.nextFloat() < g) {
+          world.setBlock(x, y, z, getNextWeatherStage(), world.getBlockMetadata(x, y, z), 2);
+       }
     }
 }
