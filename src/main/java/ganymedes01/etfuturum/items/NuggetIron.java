@@ -4,13 +4,16 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.world.generate.WorldGenFossil;
+import ganymedes01.etfuturum.world.generate.feature.WorldGenFossil;
+import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class NuggetIron extends Item implements IConfigurable {
+	
+//	public int testvar = 0;
 
     public NuggetIron() {
         super();
@@ -26,7 +29,15 @@ public class NuggetIron extends Item implements IConfigurable {
 //        entity.delayBeforeCanPickup = 40;
 //        entity.setPosition(x, y, z);
 //        world.spawnEntityInWorld(entity);
-    	new WorldGenFossil(world.rand).generateSpecificFossil(world, world.rand, x, y, z, false, 0, world.rand.nextInt(2) == 1);
+//    	if(p_77648_2_.isSneaking()) {
+//    		if(world.isRemote) {
+//        		testvar++;
+//        		testvar %= 8;
+//        		((EntityClientPlayerMP)p_77648_2_).sendChatMessage(Integer.toString(testvar));
+//    		}
+//    	} else {
+//        	new WorldGenFossil(world.rand).generateSpecificFossil(world, world.rand, x, y, z, false, testvar, world.rand.nextInt(2) == 1);
+//    	}
         return false;
     }
     
