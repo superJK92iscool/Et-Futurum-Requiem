@@ -32,13 +32,13 @@ public class NuggetIron extends Item implements IConfigurable {
 //    	if(p_77648_2_.isSneaking()) {
 //    		if(world.isRemote) {
 //        		testvar++;
-//        		testvar %= 8;
+//        		testvar %= 4;
 //        		((EntityClientPlayerMP)p_77648_2_).sendChatMessage(Integer.toString(testvar));
 //    		}
 //    	} else {
-//        	new WorldGenFossil(world.rand).generateSpecificFossil(world, world.rand, x, y, z, false, testvar, world.rand.nextInt(2) == 1);
+//        	new WorldGenFossil().generateSpecificFossil(world, world.rand, x, y, z, testvar, 0, world.rand.nextInt(2) == 1);
 //    	}
-        return false;
+        return super.onItemUse(p_77648_1_, p_77648_2_, world, x, y, z, p_77648_7_, p_77648_8_, p_77648_9_, p_77648_10_);
     }
     
     @Override

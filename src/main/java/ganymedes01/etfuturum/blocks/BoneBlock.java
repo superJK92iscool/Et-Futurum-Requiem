@@ -9,6 +9,7 @@ import net.minecraft.block.BlockRotatedPillar;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.IBlockAccess;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -41,5 +42,4 @@ public class BoneBlock extends BlockRotatedPillar implements IConfigurable {
         super.registerBlockIcons(reg);
         field_150164_N = reg.registerIcon(getTextureName() + "_top");
     }
-
 }
