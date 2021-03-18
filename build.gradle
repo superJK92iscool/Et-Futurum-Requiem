@@ -23,6 +23,9 @@ repositories {
         name 'CB Maven FS'
         url "http://chickenbones.net/maven/"
     }
+    maven {
+        url "https://maven.mcmoddev.com/"
+    }
 }
 
 apply plugin: 'forge'
@@ -35,7 +38,8 @@ dependencies {
     compile "codechicken:CodeChickenLib:1.7.10-1.1.3.140:dev"
     compile "codechicken:CodeChickenCore:1.7.10-1.0.7.47:dev"
     compile "codechicken:NotEnoughItems:1.7.10-1.0.5.120:dev"
-    compile files('libs/Thaumcraft-deobf-1.7.10-4.2.3.5.jar')
+    compile "com.azanor:Thaumcraft:1.7.10-4.2.3.5:deobf"
+    compile "com.azanor:Baubles:1.7.10-1.0.1.10"
 }
 
 minecraft {
