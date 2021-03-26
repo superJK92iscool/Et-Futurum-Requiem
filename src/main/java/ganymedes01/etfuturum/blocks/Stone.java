@@ -22,7 +22,7 @@ public class Stone extends BlockGeneric implements IConfigurable {
         super(Material.rock, "", "granite", "granite_smooth", "diorite", "diorite_smooth", "andesite", "andesite_smooth");
         startMeta = 1;
         setHardness(1.5F);
-        setResistance(10.0F);
+        setResistance(6.0F);
         setBlockTextureName("stone");
         setStepSound(soundTypePiston);
         setBlockName(Utils.getUnlocalisedName("stone"));

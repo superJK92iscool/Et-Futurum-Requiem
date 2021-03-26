@@ -15,7 +15,7 @@ import net.minecraft.world.World;
 public class BlockNetheriteStairs extends BlockGenericStairs implements ISubBlocksBlock {
 
     public BlockNetheriteStairs() {
-        super(ModBlocks.netherite_block, 0, ConfigurationHandler.enableNetherite);
+        super(ModBlocks.netherite_block, 0);
         setBlockName(Utils.getUnlocalisedName("netherite_stairs"));
     }
 

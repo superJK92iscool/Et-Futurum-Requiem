@@ -58,4 +58,9 @@ processResources {
      from(sourceSets.main.resources.srcDirs) {
           exclude 'mcmod.info'
      }
+jar {
+    manifest {
+        attributes.put("AccessTransformer", "etfuturum_at.cfg")
+    }
+}
 }

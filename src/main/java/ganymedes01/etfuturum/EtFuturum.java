@@ -4,9 +4,10 @@ import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.nio.file.Files;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
@@ -22,6 +23,7 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.relauncher.ReflectionHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.client.sound.ModSounds;
@@ -29,7 +31,6 @@ import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.proxy.CommonProxy;
 import ganymedes01.etfuturum.core.utils.HoeHelper;
 import ganymedes01.etfuturum.entities.ModEntityList;
-import ganymedes01.etfuturum.items.ItemSuspiciousStew;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.network.ArmourStandInteractHandler;
 import ganymedes01.etfuturum.network.ArmourStandInteractMessage;
@@ -41,6 +42,7 @@ import ganymedes01.etfuturum.recipes.BlastFurnaceRecipes;
 import ganymedes01.etfuturum.recipes.BrewingFuelRegistry;
 import ganymedes01.etfuturum.recipes.ModRecipes;
 import ganymedes01.etfuturum.recipes.SmokerRecipes;
+import ganymedes01.etfuturum.world.EtFuturumLateWorldGenerator;
 import ganymedes01.etfuturum.world.EtFuturumWorldGenerator;
 import ganymedes01.etfuturum.world.generate.OceanMonument;
 import net.minecraft.block.Block;
@@ -52,7 +54,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraftforge.common.config.Configuration;
@@ -60,7 +61,7 @@ import net.minecraftforge.common.config.Configuration;
 @Mod(
         modid = "etfuturum", 
         name = "Et Futurum", 
-        version = "@VERSION@", 
+        version = "2.1.0", 
         dependencies = "required-after:Forge@[10.13.4.1558,);after:Thaumcraft@[4.2.3.5,)", 
         guiFactory = "ganymedes01.etfuturum.configuration.ConfigGuiFactory"
     )
@@ -75,6 +76,7 @@ public class EtFuturum {
 
     public static SimpleNetworkWrapper networkWrapper;
 
+    public static Map<Block, Block> deepslateOres = new HashMap<Block, Block>();
     public static CreativeTabs creativeTabItems = new CreativeTabs(Reference.MOD_ID + ".items") {
         @Override
         public Item getTabIconItem() {
@@ -118,12 +120,13 @@ public class EtFuturum {
     	}
         ConfigurationHandler.INSTANCE.init(configFile);
 
-        GameRegistry.registerWorldGenerator(new EtFuturumWorldGenerator(), 0);
-
         ModBlocks.init();
         ModItems.init();
         ModEnchantments.init();
 
+        GameRegistry.registerWorldGenerator(new EtFuturumWorldGenerator(), 0);
+        GameRegistry.registerWorldGenerator(new EtFuturumLateWorldGenerator(), 9999);
+        
         OceanMonument.makeMap();
 
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, proxy);
@@ -222,6 +225,39 @@ public class EtFuturum {
     public void serverStarting(FMLServerStartingEvent event) {
 //        if (ConfigurationHandler.enablePlayerSkinOverlay)
 //            event.registerServerCommand(new SetPlayerModelCommand());
+    }
+    
+    public static void copyAttribs(Block to, Block from) {
+		to.setHardness(getBlockHardness(from));
+		to.setResistance(getBlockResistance(from));
+		to.setBlockName(from.getUnlocalizedName().replace("tile.", ""));
+		to.setCreativeTab(from.getCreativeTabToDisplayOn());
+		to.setStepSound(from.stepSound);
+		to.setBlockTextureName(getTextureName(from));
+		Field harvestLevel = ReflectionHelper.findField(Block.class, "harvestLevel");
+		try {
+			harvestLevel.set(to, harvestLevel.get(from));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		Field harvestTool = ReflectionHelper.findField(Block.class, "harvestTool");
+		try {
+			harvestTool.set(to, harvestTool.get(from));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    }
+    
+    public static float getBlockHardness(Block block) {
+    	return ReflectionHelper.getPrivateValue(Block.class, block, "field_149782_v", "blockHardness");
+    }
+    
+    public static float getBlockResistance(Block block) {
+    	return ReflectionHelper.getPrivateValue(Block.class, block, "field_149781_w", "blockResistance");
+    }
+    
+    public static String getTextureName(Block block) {
+    	return ReflectionHelper.getPrivateValue(Block.class, block, "field_149768_d", "textureName");
     }
 
 	public static void setFinalField(Class<?> cls, Object obj, Object newValue, String... fieldNames) {

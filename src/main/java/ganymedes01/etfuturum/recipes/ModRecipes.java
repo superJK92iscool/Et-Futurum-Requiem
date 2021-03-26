@@ -13,6 +13,7 @@ import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.blocks.BlockGlazedTerracotta;
 import ganymedes01.etfuturum.blocks.BlockStoneSlab2;
 import ganymedes01.etfuturum.blocks.Stone;
+import ganymedes01.etfuturum.blocks.ores.BlockDeepslateOre;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.items.ItemSuspiciousStew;
 import ganymedes01.etfuturum.lib.EnumColour;
@@ -23,6 +24,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -217,6 +219,29 @@ public class ModRecipes {
 			OreDictionary.registerOre("ingotCopper", new ItemStack(ModItems.copper_ingot, 1, 0));
 			OreDictionary.registerOre("blockCopper", new ItemStack(ModBlocks.copper_block, 1, 0));
 			OreDictionary.registerOre("blockCopperCut", new ItemStack(ModBlocks.copper_block, 1, 4));
+		} // TODO: Waxed copper uncraftable and other new copper shid
+
+		if(ConfigurationHandler.enableDeepslate) {
+			OreDictionary.registerOre("cobblestone", new ItemStack(ModBlocks.cobbled_deepslate, 1, 0));
+		}
+		if(ConfigurationHandler.enableDeepslateOres) { //Copy block settings from deepslate base blocks
+			for(Block block : EtFuturum.deepslateOres.keySet()) {
+				BlockDeepslateOre ore = (BlockDeepslateOre) EtFuturum.deepslateOres.get(block);
+				Block oreBase = ore.base;
+				
+//				System.out.println("Trying to copy OreDict entries from " + oreBase.getLocalizedName() + " to " + ore.getLocalizedName());
+				for(int i : OreDictionary.getOreIDs(new ItemStack(block))) {
+					for(ItemStack oreStack : OreDictionary.getOres(OreDictionary.getOreName(i))) {
+						if(oreStack.getItem() == Item.getItemFromBlock(block)) {
+							OreDictionary.registerOre(OreDictionary.getOreName(i), oreStack);
+//							System.out.println(oreBase.getLocalizedName() + " giving OreDict entry " + OreDictionary.getOreName(i) + " to " + ore.getLocalizedName());
+						}
+					}
+				}
+
+				if(FurnaceRecipes.smelting().getSmeltingResult(new ItemStack(oreBase)) != null)
+					GameRegistry.addSmelting(ore, FurnaceRecipes.smelting().getSmeltingResult(new ItemStack(oreBase)), FurnaceRecipes.smelting().func_151398_b(new ItemStack(oreBase)));
+			}
 		}
 		
 //		if(ConfigurationHandler.enableCrimsonBlocks || ConfigurationHandler.enableWarpedBlocks) {
@@ -302,7 +327,7 @@ public class ModRecipes {
             addShapedRecipe(new ItemStack(ModBlocks.sea_lantern), "xyx", "yyy", "xyx", 'x', "shardPrismarine", 'y', "crystalPrismarine");
 
             addShapedRecipe(new ItemStack(ModBlocks.rough_prismarine_stairs, 4), "x  ", "xx ", "xxx", 'x', new ItemStack(ModBlocks.prismarine, 1, PLAIN));
-            addShapedRecipe(new ItemStack(ModBlocks.brick_prismarine_stairs, 4), "x  ", "xx ", "xxx", 'x', new ItemStack(ModBlocks.prismarine, 1, BRICKS));
+            addShapedRecipe(new ItemStack(ModBlocks.prismarine_brick_stairs, 4), "x  ", "xx ", "xxx", 'x', new ItemStack(ModBlocks.prismarine, 1, BRICKS));
             addShapedRecipe(new ItemStack(ModBlocks.dark_prismarine_stairs, 4), "x  ", "xx ", "xxx", 'x', new ItemStack(ModBlocks.prismarine, 1, DARK));
             
             for(int i = 0; i < 3; i++)
@@ -687,6 +712,17 @@ public class ModRecipes {
 					}
 				}
 			}
+		}
+		
+		if(ConfigurationHandler.enableDeepslate) {
+			GameRegistry.addSmelting(ModBlocks.cobbled_deepslate, new ItemStack(ModBlocks.deepslate), 0.1F);
+			GameRegistry.addSmelting(new ItemStack(ModBlocks.deepslate_bricks, 1, 0), new ItemStack(ModBlocks.deepslate_bricks, 1, 1), 0.1F);
+			GameRegistry.addSmelting(new ItemStack(ModBlocks.deepslate_bricks, 1, 2), new ItemStack(ModBlocks.deepslate_bricks, 1, 3), 0.1F);
+			
+			addShapedRecipe(new ItemStack(ModBlocks.polished_deepslate, 4, 0), "xx", "xx", 'x', new ItemStack(ModBlocks.cobbled_deepslate, 1, 0));
+			addShapedRecipe(new ItemStack(ModBlocks.deepslate_bricks, 4, 0), "xx", "xx", 'x', new ItemStack(ModBlocks.polished_deepslate, 1, 0));
+			addShapedRecipe(new ItemStack(ModBlocks.deepslate_bricks, 4, 2), "xx", "xx", 'x', new ItemStack(ModBlocks.deepslate_bricks, 1, 0));
+			addShapedRecipe(new ItemStack(ModBlocks.deepslate_bricks, 1, 4), "x", "x", 'x', new ItemStack(Blocks.bedrock, 1, 0)); //TODO: Change to deepslate slab
 		}
 		
 //		if(ConfigurationHandler.enableBlackstone) {

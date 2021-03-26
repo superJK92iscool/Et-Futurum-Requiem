@@ -1,4 +1,4 @@
-{
+﻿{
   "mob.rabbit.hop": {
     "category": "neutral",
     "sounds": [
@@ -1049,6 +1049,83 @@
     "sounds": [
       "minecraft:item/sweet_berries/pick_from_bush1",
       "minecraft:item/sweet_berries/pick_from_bush2"
+    ]
+  },
+  "dig.deepslate": {
+    "sounds": [
+      "minecraft:block/deepslate/break1",
+      "minecraft:block/deepslate/break2",
+      "minecraft:block/deepslate/break3",
+      "minecraft:block/deepslate/break4"
+    ]
+  },
+  "place.deepslate": {
+    "sounds": [
+      "minecraft:block/deepslate/place1",
+      "minecraft:block/deepslate/place2",
+      "minecraft:block/deepslate/place3",
+      "minecraft:block/deepslate/place4",
+      "minecraft:block/deepslate/place5",
+      "minecraft:block/deepslate/place6"
+    ]
+  },
+  "step.deepslate": {
+    "sounds": [
+      "minecraft:block/deepslate/step1",
+      "minecraft:block/deepslate/step2",
+      "minecraft:block/deepslate/step3",
+      "minecraft:block/deepslate/step4",
+      "minecraft:block/deepslate/step5",
+      "minecraft:block/deepslate/step6"
+    ]
+  },
+  "dig.tuff": {
+    "sounds": [
+      "minecraft:block/tuff/step1",
+      "minecraft:block/tuff/step2",
+      "minecraft:block/tuff/step3",
+      "minecraft:block/tuff/step4",
+      "minecraft:block/tuff/step5",
+      "minecraft:block/tuff/step6"
+    ]
+  },
+  "place.tuff": {
+    "sounds": [
+      "minecraft:block/tuff/step1",
+      "minecraft:block/tuff/step2",
+      "minecraft:block/tuff/step3",
+      "minecraft:block/tuff/step4",
+      "minecraft:block/tuff/step5",
+      "minecraft:block/tuff/step6"
+    ]
+  },
+  "step.tuff": {
+    "sounds": [
+      "minecraft:block/tuff/step1",
+      "minecraft:block/tuff/step2",
+      "minecraft:block/tuff/step3",
+      "minecraft:block/tuff/step4",
+      "minecraft:block/tuff/step5",
+      "minecraft:block/tuff/step6"
+    ]
+  },
+  "place.deepslate_bricks": {
+    "sounds": [
+      "minecraft:block/deepslate_bricks/place1",
+      "minecraft:block/deepslate_bricks/place2",
+      "minecraft:block/deepslate_bricks/place3",
+      "minecraft:block/deepslate_bricks/place4",
+      "minecraft:block/deepslate_bricks/place5",
+      "minecraft:block/deepslate_bricks/place6"
+    ]
+  },
+  "step.deepslate_bricks": {
+    "sounds": [
+      "minecraft:block/deepslate_bricks/step1",
+      "minecraft:block/deepslate_bricks/step2",
+      "minecraft:block/deepslate_bricks/step3",
+      "minecraft:block/deepslate_bricks/step4",
+      "minecraft:block/deepslate_bricks/step5"
     ]
   }
 }

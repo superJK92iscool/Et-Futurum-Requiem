@@ -25,7 +25,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-public class BlockCopper extends BlockGeneric implements IConfigurable {
+public class BlockCopper extends BlockGeneric implements IConfigurable, IDegradable {
 
 	public BlockCopper() {
 		super(Material.iron, "", "exposed", "weathered", "oxidized", "cut", "exposed_cut", "weathered_cut", "oxidized_cut", "waxed", "waxed_exposed", "waxed_weathered", "unused", "waxed_cut", "waxed_exposed_cut", "waxed_weathered_cut", "unused");
@@ -50,53 +50,52 @@ public class BlockCopper extends BlockGeneric implements IConfigurable {
         if (world.isRemote)
             return;
         int meta = world.getBlockMetadata(x, y, z);
-        if (meta > 7 || meta % 4 == 3)
+        if (getDegredationState(meta) == -1)
         	return;
         tickDegradation(world, x, y, z, rand);
     }
 
     private void tickDegradation(World world, int x, int y, int z, Random random) {
        float f = 0.05688889F;
-       if (random.nextFloat() < 0.05688889F) {
+       if (random.nextFloat() < f) {
           this.tryDegrade(world, x, y, z, random);
        }
     }
 
-    private void tryDegrade(World world, int x, int y, int z, Random random) {
-       int i = world.getBlockMetadata(x, y, z) % 4;
-       int j = 0;
-       int k = 0;
-       
-       for(int x1 = -4; x1 <= 4; x1++) {
-           for(int y1 = -4; y1 <= 4; y1++) {
-               for(int z1 = -4; z1 <= 4; z1++) {
-                   if(world.getBlock(x1 + x, y1 + y, z1 + z) instanceof BlockCopper && (x1 != 0 || y1 != 0 || z1 != 0) && Math.abs(x1) + Math.abs(y1) + Math.abs(z1) <= 4) {
-                       int m = world.getBlockMetadata(x1 + x, y1 + y, z1 + z);
-                       
-                       if(m > 7)
-                    	   continue;
-                       else
-                    	   m %= 4;
-                       
-                       if (m < i) {
-                          return;
-                       }
-              
-                       if (m > i) {
-                          ++k;
-                       } else {
-                          ++j;
-                       }
-                   }
-               }
-           }
-       }
+	private void tryDegrade(World world, int x, int y, int z, Random random) {
+		   int i = getDegredationState(world.getBlockMetadata(x, y, z));
+		   int j = 0;
+		   int k = 0;
+		   
+		   for(int x1 = -4; x1 <= 4; x1++) {
+		       for(int y1 = -4; y1 <= 4; y1++) {
+		           for(int z1 = -4; z1 <= 4; z1++) {
+		        	   Block block = world.getBlock(x1 + x, y1 + y, z1 + z);
+		               if(block instanceof IDegradable && (x1 != 0 || y1 != 0 || z1 != 0) && Math.abs(x1) + Math.abs(y1) + Math.abs(z1) <= 4) {
+		            	   int m = ((IDegradable)block).getDegredationState(world.getBlockMetadata(x1, y1, z1));
+		                   
+		                   if(m == -1)
+		                	   continue;
+		                   
+		                   if (m < i) {
+		                      return;
+		                   }
+		          
+		                   if (m > i) {
+		                      ++k;
+		                   } else {
+		                      ++j;
+		                   }
+		               }
+		           }
+		       }
+		   }
 
-       float f = (float)(k + 1) / (float)(k + j + 1);
-       float g = f * f * (i == 0 ? 0.75F : 1F);
-       if (random.nextFloat() < g) {
-          world.setBlockMetadataWithNotify(x, y, z, (world.getBlockMetadata(x, y, z) % 8) + 1, 2);
-       }
+	       float f = (float)(k + 1) / (float)(k + j + 1);
+	       float g = f * f * (i == 0 ? 0.75F : 1F);
+	       if (random.nextFloat() < g) {
+		          world.setBlock(x, y, z, this, world.getBlockMetadata(x, y, z) + 1, 2);
+		       }
     }
     
     public String getNameFor(int meta) {
@@ -154,4 +153,9 @@ public class BlockCopper extends BlockGeneric implements IConfigurable {
     public Class<? extends ItemBlock> getItemBlockClass() {
         return ItemBlockCopper.class;
     }
+
+	@Override
+	public int getDegredationState(int meta) {
+		return meta > 7 || meta % 4 == 3 ? -1 : meta % 4;
+	}
 }

@@ -43,14 +43,25 @@ public class WorldTickEventHandler {
     static {
         if (replacements == null) {
             replacements = new HashMap<Block, Block>();
-            if (ConfigurationHandler.enableBrewingStands)
+            if (ConfigurationHandler.enableBrewingStands && ConfigurationHandler.enableTileReplacement)
                 replacements.put(Blocks.brewing_stand, ModBlocks.brewing_stand);
-            if (ConfigurationHandler.enableColourfulBeacons)
+            else
+                replacements.put(ModBlocks.brewing_stand, Blocks.brewing_stand);
+            
+            if (ConfigurationHandler.enableColourfulBeacons && ConfigurationHandler.enableTileReplacement)
                 replacements.put(Blocks.beacon, ModBlocks.beacon);
-            if (ConfigurationHandler.enableEnchants)
+            else
+                replacements.put(ModBlocks.beacon, Blocks.beacon);
+            
+            if (ConfigurationHandler.enableEnchants && ConfigurationHandler.enableTileReplacement)
                 replacements.put(Blocks.enchanting_table, ModBlocks.enchantment_table);
-            if (ConfigurationHandler.enableInvertedDaylightSensor)
+            else
+                replacements.put(ModBlocks.enchantment_table, Blocks.enchanting_table);
+            
+            if (ConfigurationHandler.enableInvertedDaylightSensor && ConfigurationHandler.enableTileReplacement)
                 replacements.put(Blocks.daylight_detector, ModBlocks.daylight_sensor);
+            else
+                replacements.put(ModBlocks.daylight_sensor, Blocks.daylight_detector);
         }
     }
     

@@ -1,16 +1,15 @@
-package ganymedes01.etfuturum.blocks;
+package ganymedes01.etfuturum.blocks.ores;
 
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.utils.Utils;
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
+import net.minecraft.block.BlockOre;
 
-public class BlockCopperOre extends Block implements IConfigurable {
+public class BlockCopperOre extends BlockOre implements IConfigurable {
 
 	public BlockCopperOre() {
-		super(Material.rock);
+		super();
 		setHardness(3);
 		setResistance(3);
 		setBlockName(Utils.getUnlocalisedName("copper_ore"));

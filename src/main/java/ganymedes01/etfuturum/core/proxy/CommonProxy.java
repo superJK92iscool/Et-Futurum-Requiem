@@ -67,9 +67,7 @@ public class CommonProxy implements IGuiHandler {
         FMLCommonHandler.instance().bus().register(ConfigurationHandler.INSTANCE);
         FMLCommonHandler.instance().bus().register(ServerEventHandler.INSTANCE);
         MinecraftForge.EVENT_BUS.register(ServerEventHandler.INSTANCE);
-        if (ConfigurationHandler.enableTileReplacement || ConfigurationHandler.enableNewMiscSounds) {
-            FMLCommonHandler.instance().bus().register(new WorldTickEventHandler());
-        }
+        FMLCommonHandler.instance().bus().register(new WorldTickEventHandler());
     }
 
     public void registerEntities() {

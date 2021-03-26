@@ -46,6 +46,6 @@ public class NewDaylightSensor extends BlockDaylightDetector implements IConfigu
 
     @Override
     public boolean isEnabled() {
-        return ConfigurationHandler.enableInvertedDaylightSensor;
+        return true;
     }
 }

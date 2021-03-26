@@ -37,6 +37,7 @@ import ganymedes01.etfuturum.entities.EntityRabbit;
 import ganymedes01.etfuturum.entities.EntityTippedArrow;
 import ganymedes01.etfuturum.entities.EntityZombieVillager;
 import ganymedes01.etfuturum.entities.ai.EntityAIOpenCustomDoor;
+import ganymedes01.etfuturum.entities.ai.EntityAISilverfishEnterDeepslate;
 import ganymedes01.etfuturum.inventory.ContainerEnchantment;
 import ganymedes01.etfuturum.items.TippedArrow;
 import ganymedes01.etfuturum.lib.Reference;
@@ -62,6 +63,7 @@ import net.minecraft.entity.ai.EntityAITempt;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityCreeper;
+import net.minecraft.entity.monster.EntitySilverfish;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntitySnowman;
 import net.minecraft.entity.monster.EntityWitch;
@@ -632,6 +634,11 @@ public class ServerEventHandler {
                 }
             }
         }
+//        else if (event.entity instanceof EntitySilverfish) {
+//            EntitySilverfish silverfish = (EntitySilverfish) event.entity;
+//            //Add infested stone option
+//            silverfish.tasks.addTask(10, new EntityAISilverfishEnterDeepslate((EntitySilverfish) event.entity));
+//        }
     }
 
     @SubscribeEvent

@@ -1,6 +1,7 @@
 package ganymedes01.etfuturum.client.sound;
 
 import ganymedes01.etfuturum.client.sound.step.CustomSoundBerryBush;
+import ganymedes01.etfuturum.client.sound.step.CustomSoundDeepslate;
 import ganymedes01.etfuturum.client.sound.step.CustomSoundFungus;
 import ganymedes01.etfuturum.client.sound.step.CustomSoundNetherite;
 import ganymedes01.etfuturum.lib.Reference;
@@ -28,6 +29,9 @@ public class ModSounds {
 	public static final SoundType soundShroomlight = new CustomSound("shroomlight", 1, 1, true, true);
 	public static final SoundType soundCopper = new CustomSound("copper", 1, 1, true, true);
 	public static final SoundType soundBerryBush = new CustomSoundBerryBush("sweet_berry_bush", 0.8F, 1);
+	public static final SoundType soundDeepslate = new CustomSoundDeepslate("deepslate", 1, 1);
+	public static final SoundType soundDeepslateBricks = new CustomSoundDeepslate("deepslate_bricks", 1.3F, 1.3F);
+	public static final SoundType soundTuff = new CustomSoundDeepslate("tuff", 1, 1);
 	
 	private static final class CustomSound extends SoundType {
 

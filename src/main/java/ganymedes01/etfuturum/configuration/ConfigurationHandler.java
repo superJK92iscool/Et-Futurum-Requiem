@@ -3,13 +3,14 @@ package ganymedes01.etfuturum.configuration;
 import java.io.File;
 
 import cpw.mods.fml.client.event.ConfigChangedEvent;
-import cpw.mods.fml.common.IFMLSidedHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.common.registry.GameRegistry;
+import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.enchantment.FrostWalker;
 import ganymedes01.etfuturum.enchantment.Mending;
 import ganymedes01.etfuturum.lib.Reference;
+import net.minecraft.block.Block;
 import net.minecraftforge.common.config.Configuration;
 
 public class ConfigurationHandler {
@@ -131,6 +132,17 @@ public class ConfigurationHandler {
 	public static boolean enableCopper;
 	public static boolean enableCopperSubItems;
 	public static boolean enableOceanMonuments;
+	public static boolean enableDeepslate;
+	public static int deepslateGenerationMode;
+	public static int maxDeepslatePerCluster;
+	public static int deepslateMaxY;
+	public static boolean deepslateReplacesStones;
+	public static boolean deepslateReplacesDirt;
+	public static boolean enableDeepslateOres;
+	public static boolean enableFossils;
+	public static Block fossilBoneBlock;
+	public static boolean enableTuff;
+	public static int maxTuffPerCluster;
 
     public static boolean enableTileReplacement;
 
@@ -152,8 +164,6 @@ public class ConfigurationHandler {
     public static int netheriteChestplateDurability;
     public static int netheriteLeggingsDurability;
     public static int netheriteBootsDurability;
-	public static int minCopperOxidationTime;
-	public static int maxCopperOxidationTime;
 	public static boolean enableSuspiciousStew;
 	public static boolean enableGlazedTerracotta;
 	public static boolean enableBrownMooshroom;
@@ -201,7 +211,6 @@ public class ConfigurationHandler {
         enableCryingObsidian = cfg.getBoolean("enableCryingObsidian", catBlock, true, "");
         enableRoses = cfg.getBoolean("enableOldRoses", catBlock, true, "");
         
-        
         enableNewNetherBricks = cfg.getBoolean("enableRedNetherBricks", catBlock, true, "");
         enableNetherwartBlock = cfg.getBoolean("enableNetherwartBlock", catBlock, true, "");
         enableNetherite = cfg.getBoolean("enableNetherite", catBlock, true, "");
@@ -233,6 +242,7 @@ public class ConfigurationHandler {
         
         enableBarrier = cfg.getBoolean("enableBarrier", catBlock, true, "");
         enableLavaCauldrons = cfg.getBoolean("enableLavaCauldrons", catBlock, true, "Allow lava buckets to fill cauldrons");
+        enableDeepslate = cfg.getBoolean("enableDeepslate", catBlock, true, "");
         
         //items
         enableMutton = cfg.getBoolean("enableMutton", catItems, true, "");
@@ -305,8 +315,6 @@ public class ConfigurationHandler {
         enableRecipeForTotem = cfg.getBoolean("enableRecipeForTotem", catFunction, false, "Recipe for totems since there's no other way to get them currently?");
         enableHayBaleFalls = cfg.getBoolean("enableHayBaleFalls", catFunction, true, "If true, fall damage on a hay bale will be reduced");
         hayBaleReducePercent = cfg.getInt("hayBaleReducePercent", catFunction, 20, 0, 99, "If enableHayBaleFalls is true, what percent should we keep for the fall damage?");
-        minCopperOxidationTime = cfg.getInt("minCopperOxidationTime", catFunction, 1200000, 1, Integer.MAX_VALUE / 2, "Minimum time (in ticks) it takes for copper to advance to the next stage of weathering. Note: This and the below value don't effect copper blocks already placed in the world before this is changed, you'll need to break and replace them to get the new times.");
-        maxCopperOxidationTime = cfg.getInt("maxCopperOxidationTime", catFunction, 768000, 1, Integer.MAX_VALUE / 2, "Number added to the minimum time, (in ticks) it takes for copper to advance to the next stage of weathering. Ranges from 0 to the given value. Total time to oxidize copper: Minimum time + 0 to maximum time");
 //        enableDyeReplacement = cfg.getBoolean("enableDyeReplacement", catFunction, true, "Removes lapis, bone meal, ink sac and cocoa bean's ore dictionary entries as dyes, making the Et Futurum dyes the dyes instead. Disable if this causes weirdisms with modded recipes. (If false both items can be used)");
         
         //replacement
@@ -337,7 +345,19 @@ public class ConfigurationHandler {
         maxNetherGoldPerCluster = cfg.getInt("maxNetherGoldPerCluster", catWorld, 10, 0, 64, "Max vein size for nether gold ore blocks in a cluster");
         maxMagmaPerCluster = cfg.getInt("maxMagmaPerCluster", catWorld, 33, 0, 64, "Max vein size for magma blocks in a cluster");
         maxCopperPerCluster = cfg.getInt("copperClusterSize", catWorld, 14, 0, 64, "Max vein size for copper ore blocks in a cluster");
+        maxDeepslatePerCluster = cfg.getInt("deepslateClusterSize", catWorld, 64, 0, 128, "If deepslateGenerationMode is set to 1, this value is used to determine how big the clusters are. Otherwise this value is unused.");
+        deepslateMaxY = cfg.getInt("deepslateMaxY", catWorld, 22, 0, 256, "How high up deelslate and tuff goes. If deepslateGenerationMode is 0, all stone up to this y level (with a scattering effect a few blocks before then) are replaced with deepslate. If it's 1, the patches can generate to that Y level.");
+        deepslateReplacesStones = cfg.getBoolean("deepslateReplacesStones", catWorld, true, "Whether or not Deepslate will overwrite granite, diorite, andesite (Only works when deepslate generation mode is set to 0)");
+        deepslateReplacesDirt = cfg.getBoolean("deepslateReplacesDirt", catWorld, true, "Whether or not Deepslate will overwrite dirt (Only works when deepslate generation mode is set to 0)");
+        deepslateGenerationMode = cfg.getInt("deepslateGenerationMode", catWorld, 0, -1, 1, "If 0, deepslate replaces all stone below the specified value. If 1, it generates in clusters using the above cluster settings. -1 disables deepslate generation entirely");
+        enableDeepslateOres = cfg.getBoolean("enableDeepslateOres", catWorld, true, "Enable deepslate ores for copper ore and vanilla ores when deepslate generates at it.");
         enableOceanMonuments = cfg.getBoolean("enableOceanMonuments", catWorld, true, "Note: Ocean monuments currently do not have guardians");
+        enableFossils = cfg.getBoolean("enableFossils", catWorld, true, "Note: Fossils currently do not rotate");
+        int m  = cfg.getInt("deepslateGenerationMode", catWorld, 0, 0, 2, "0 = Et Futurum bone block, 1 = Netherlicious bone block, 2 = UpToDateMod bone block. If mod is not installed Et Futurum bone block will be used instead");
+        Block block = m == 1 ? block = GameRegistry.findBlock("netherlicious", "BoneBlock") : GameRegistry.findBlock("uptodate", "bone_block");
+        fossilBoneBlock = m == 0 || block == null ? ModBlocks.bone_block : block;
+        enableTuff = cfg.getBoolean("enableTuff", catWorld, true, "");
+        maxTuffPerCluster = cfg.getInt("tuffClusterSize", catWorld, 48, 0, 64, "Max vein size for tuff blocks in a cluster");
 //        enableNewNether = cfg.getBoolean("enableNewNether", catWorld, true, "When false, the new Nether completely stops to generate, regardless of if the new Nether blocks are on. (Will be ignored if Netherlicious is installed)");
         
         if(Loader.isModLoaded("netherlicious")) // Come back to

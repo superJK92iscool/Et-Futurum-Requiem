@@ -14,10 +14,13 @@ import ganymedes01.etfuturum.blocks.BlockBlueIce;
 import ganymedes01.etfuturum.blocks.BlockConcrete;
 import ganymedes01.etfuturum.blocks.BlockConcretePowder;
 import ganymedes01.etfuturum.blocks.BlockCopper;
-import ganymedes01.etfuturum.blocks.BlockCopperOre;
 import ganymedes01.etfuturum.blocks.BlockCornflower;
 import ganymedes01.etfuturum.blocks.BlockCutCopperSlab;
 import ganymedes01.etfuturum.blocks.BlockCutCopperStairs;
+import ganymedes01.etfuturum.blocks.BlockDeepslate;
+import ganymedes01.etfuturum.blocks.BlockDeepslateBricks;
+import ganymedes01.etfuturum.blocks.BlockDeepslateCobbled;
+import ganymedes01.etfuturum.blocks.BlockDeepslatePolished;
 import ganymedes01.etfuturum.blocks.BlockEndBrickSlab;
 import ganymedes01.etfuturum.blocks.BlockGenericStairs;
 import ganymedes01.etfuturum.blocks.BlockGlazedTerracotta;
@@ -42,6 +45,7 @@ import ganymedes01.etfuturum.blocks.BlockStrippedNewLog;
 import ganymedes01.etfuturum.blocks.BlockStrippedNewWood;
 import ganymedes01.etfuturum.blocks.BlockStrippedOldLog;
 import ganymedes01.etfuturum.blocks.BlockStrippedOldWood;
+import ganymedes01.etfuturum.blocks.BlockTuff;
 import ganymedes01.etfuturum.blocks.BlockWitherRose;
 import ganymedes01.etfuturum.blocks.BlockWoodBarkNew;
 import ganymedes01.etfuturum.blocks.BlockWoodBarkOld;
@@ -84,7 +88,9 @@ import ganymedes01.etfuturum.blocks.SeaLantern;
 import ganymedes01.etfuturum.blocks.SlimeBlock;
 import ganymedes01.etfuturum.blocks.Sponge;
 import ganymedes01.etfuturum.blocks.Stone;
-import ganymedes01.etfuturum.configuration.ConfigurationHandler;
+import ganymedes01.etfuturum.blocks.ores.BlockCopperOre;
+import ganymedes01.etfuturum.blocks.ores.BlockDeepslateOre;
+import ganymedes01.etfuturum.blocks.ores.BlockDeepslateRedstoneOre;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.tileentities.TileEntityWoodSign;
 import net.minecraft.block.Block;
@@ -138,73 +144,12 @@ public class ModBlocks {
     public static final Block concrete = new BlockConcrete();
     public static final Block concrete_powder = new BlockConcretePowder();
     public static final Block copper_ore = new BlockCopperOre();
-    public static final Block copper_block = new BlockCopper();
-    
-    //technical blocks
-    public static final Block brewing_stand = new NewBrewingStand();
-    public static final Block beacon = new NewBeacon();
-    public static final Block enchantment_table = new NewEnchantmentTable();
-    public static final Block anvil = new NewAnvil();
-    public static final Block daylight_sensor = new NewDaylightSensor();
-    public static final Block frosted_ice = new FrostedIce();
-    
-    //do slab/stairs
-    public static final Block red_sandstone_stairs = new BlockGenericStairs(red_sandstone, 0, ConfigurationHandler.enableRedSandstone).setBlockName(Utils.getUnlocalisedName("red_sandstone_stairs"));
-    public static final Block purpur_stairs = new BlockGenericStairs(purpur_block, 0, ConfigurationHandler.enableChorusFruit).setBlockName(Utils.getUnlocalisedName("purpur_stairs"));
-    public static final Block red_sandstone_slab = new RedSandstoneSlab(false);
-    public static final Block double_red_sandstone_slab = new RedSandstoneSlab(true);
-    public static final Block purpur_slab = new PurpurSlab(false);
-    public static final Block double_purpur_slab = new PurpurSlab(true);
-    
-    public static final Block generic_slab = new BlockStoneSlab1(false);
-    public static final Block double_generic_slab = new BlockStoneSlab1(true);
-    public static final Block stone_slab = new BlockStoneSlab2(false);
-    public static final Block double_stone_slab = new BlockStoneSlab2(true);
-    
-    public static final Block rough_prismarine_stairs = new BlockGenericStairs(prismarine, 0, ConfigurationHandler.enablePrismarine).setBlockName(Utils.getUnlocalisedName("prismarine_stairs"));
-    public static final Block brick_prismarine_stairs = new BlockGenericStairs(prismarine, 1, ConfigurationHandler.enablePrismarine).setBlockName(Utils.getUnlocalisedName("prismarine_stairs_brick"));
-    public static final Block dark_prismarine_stairs = new BlockGenericStairs(prismarine, 2, ConfigurationHandler.enablePrismarine).setBlockName(Utils.getUnlocalisedName("prismarine_stairs_dark"));
-    public static final Block smooth_sandstone_stairs = new BlockGenericStairs(smooth_sandstone, 0, ConfigurationHandler.enableSmoothSandstone).setBlockName(Utils.getUnlocalisedName("smooth_sandstone_stairs"));
-    public static final Block smooth_red_sandstone_stairs = new BlockGenericStairs(smooth_red_sandstone, 0, ConfigurationHandler.enableRedSandstone && ConfigurationHandler.enableSmoothSandstone).setBlockName(Utils.getUnlocalisedName("smooth_red_sandstone_stairs"));
-    public static final Block smooth_quartz_stairs = new BlockGenericStairs(smooth_quartz, 0, ConfigurationHandler.enableSmoothQuartz).setBlockName(Utils.getUnlocalisedName("smooth_quartz_stairs"));
-    public static final Block red_nether_brick_stairs = new BlockGenericStairs(new_nether_brick, 0, ConfigurationHandler.enableNewNetherBricks).setBlockName(Utils.getUnlocalisedName("red_netherbrick_stairs"));
-    public static final Block granite_stairs = new BlockGenericStairs(stone, 1, ConfigurationHandler.enableStones).setBlockName(Utils.getUnlocalisedName("granite_stairs"));
-    public static final Block polished_granite_stairs = new BlockGenericStairs(stone, 2, ConfigurationHandler.enableStones).setBlockName(Utils.getUnlocalisedName("polished_granite_stairs"));
-    public static final Block diorite_stairs = new BlockGenericStairs(stone, 3, ConfigurationHandler.enableStones).setBlockName(Utils.getUnlocalisedName("diorite_stairs"));
-    public static final Block polished_diorite_stairs = new BlockGenericStairs(stone, 4, ConfigurationHandler.enableStones).setBlockName(Utils.getUnlocalisedName("polished_diorite_stairs"));
-    public static final Block andesite_stairs = new BlockGenericStairs(stone, 5, ConfigurationHandler.enableStones).setBlockName(Utils.getUnlocalisedName("andesite_stairs"));
-    public static final Block polished_andesite_stairs = new BlockGenericStairs(stone, 6, ConfigurationHandler.enableStones).setBlockName(Utils.getUnlocalisedName("polished_andesite_stairs"));
-    public static final Block mossy_stone_brick_stairs = new BlockGenericStairs(Blocks.stonebrick, 1, ConfigurationHandler.enableGenericStairs).setBlockName(Utils.getUnlocalisedName("mossy_stone_brick_stairs"));
-    public static final Block mossy_cobblestone_stairs = new BlockGenericStairs(Blocks.mossy_cobblestone, 0, ConfigurationHandler.enableGenericStairs).setBlockName(Utils.getUnlocalisedName("mossy_cobblestone_stairs"));
-    public static final Block stone_stairs = new BlockGenericStairs(Blocks.stone, 0, ConfigurationHandler.enableGenericStairs).setBlockName(Utils.getUnlocalisedName("stone_stairs"));
-    public static final Block end_brick_stairs = new BlockGenericStairs(ModBlocks.end_bricks, 0, ConfigurationHandler.enableChorusFruit).setBlockName(Utils.getUnlocalisedName("end_brick_stairs"));
-    public static final Block cut_copper_stairs = new BlockCutCopperStairs(4);
-    public static final Block exposed_cut_copper_stairs = new BlockCutCopperStairs(5);
-    public static final Block weathered_cut_copper_stairs = new BlockCutCopperStairs(6);
-    public static final Block oxidized_cut_copper_stairs = new BlockCutCopperStairs(7);
-    public static final Block waxed_cut_copper_stairs = new BlockCutCopperStairs(12);
-    public static final Block waxed_lightly_weathered_cut_copper_stairs = new BlockCutCopperStairs(13);
-    public static final Block waxed_semi_weathered_cut_copper_stairs = new BlockCutCopperStairs(14);
+    public static final Block deepslate_copper_ore = new BlockDeepslateOre(ModBlocks.copper_ore);
+    public static final Block lava_cauldron = new BlockLavaCauldron();
     public static final Block cornflower = new BlockCornflower();
     public static final Block lily_of_the_valley = new BlockLilyOfTheValley();
     public static final Block wither_rose = new BlockWitherRose();
     public static final Block sweet_berry_bush = new BlockBerryBush();
-    
-    public static final Block smooth_sandstone_slab = new BlockSmoothSandstoneSlab(0, false);
-    public static final Block double_smooth_sandstone_slab = new BlockSmoothSandstoneSlab(0, true);
-    public static final Block smooth_red_sandstone_slab = new BlockSmoothSandstoneSlab(1, false);
-    public static final Block double_smooth_red_sandstone_slab = new BlockSmoothSandstoneSlab(1, true);
-    public static final Block prismarine_slab = new PrismarineSlab(false);
-    public static final Block double_prismarine_slab = new PrismarineSlab(true);
-    public static final Block smooth_quartz_slab = new BlockSmoothQuartzSlab(false);
-    public static final Block double_smooth_quartz_slab = new BlockSmoothQuartzSlab(true);
-    public static final Block red_nether_brick_slab = new BlockRedNetherBrickSlab(false);
-    public static final Block double_red_nether_brick_slab = new BlockRedNetherBrickSlab(true);
-    public static final Block end_brick_slab = new BlockEndBrickSlab(false);
-    public static final Block double_end_brick_slab = new BlockEndBrickSlab(true);
-    public static final Block cut_copper_slab = new BlockCutCopperSlab(false);
-    public static final Block double_cut_copper_slab = new BlockCutCopperSlab(true);
-    public static final Block netherite_stairs = new BlockNetheriteStairs();
     public static final Block white_glazed_terracotta = new BlockGlazedTerracotta(0);
     public static final Block orange_glazed_terracotta = new BlockGlazedTerracotta(1);
     public static final Block magenta_glazed_terracotta = new BlockGlazedTerracotta(2);
@@ -221,7 +166,88 @@ public class ModBlocks {
     public static final Block green_glazed_terracotta = new BlockGlazedTerracotta(13);
     public static final Block red_glazed_terracotta = new BlockGlazedTerracotta(14);
     public static final Block black_glazed_terracotta = new BlockGlazedTerracotta(15);
-    public static final Block lava_cauldron = new BlockLavaCauldron();
+    public static final Block copper_block = new BlockCopper();
+    public static final Block deepslate = new BlockDeepslate();
+    public static final Block cobbled_deepslate = new BlockDeepslateCobbled();
+    public static final Block polished_deepslate = new BlockDeepslatePolished();
+    public static final Block deepslate_bricks = new BlockDeepslateBricks();
+    public static final Block tuff = new BlockTuff();
+    
+    //deepslate vanilla ores
+    public static final Block deepslate_coal_ore = new BlockDeepslateOre(Blocks.coal_ore);
+    public static final Block deepslate_iron_ore = new BlockDeepslateOre(Blocks.iron_ore);
+    public static final Block deepslate_gold_ore = new BlockDeepslateOre(Blocks.gold_ore);
+    public static final Block deepslate_redstone_ore = new BlockDeepslateRedstoneOre(false);
+    public static final Block deepslate_lit_redstone_ore = new BlockDeepslateRedstoneOre(true);
+    public static final Block deepslate_lapis_ore = new BlockDeepslateOre(Blocks.lapis_ore);
+    public static final Block deepslate_diamond_ore = new BlockDeepslateOre(Blocks.diamond_ore);
+    public static final Block deepslate_emerald_ore = new BlockDeepslateOre(Blocks.emerald_ore);
+    
+    //technical blocks
+    public static final Block brewing_stand = new NewBrewingStand();
+    public static final Block beacon = new NewBeacon();
+    public static final Block enchantment_table = new NewEnchantmentTable();
+    public static final Block anvil = new NewAnvil();
+    public static final Block daylight_sensor = new NewDaylightSensor();
+    public static final Block frosted_ice = new FrostedIce();
+    
+    //do slab/stairs
+    public static final Block red_sandstone_stairs = new BlockGenericStairs(red_sandstone, 0).setBlockName(Utils.getUnlocalisedName("red_sandstone_stairs"));
+    public static final Block purpur_stairs = new BlockGenericStairs(purpur_block, 0).setBlockName(Utils.getUnlocalisedName("purpur_stairs"));
+    public static final Block red_sandstone_slab = new RedSandstoneSlab(false);
+    public static final Block double_red_sandstone_slab = new RedSandstoneSlab(true);
+    public static final Block purpur_slab = new PurpurSlab(false);
+    public static final Block double_purpur_slab = new PurpurSlab(true);
+    
+    public static final Block generic_slab = new BlockStoneSlab1(false);
+    public static final Block double_generic_slab = new BlockStoneSlab1(true);
+    public static final Block stone_slab = new BlockStoneSlab2(false);
+    public static final Block double_stone_slab = new BlockStoneSlab2(true);
+    
+    public static final Block rough_prismarine_stairs = new BlockGenericStairs(prismarine, 0).setBlockName(Utils.getUnlocalisedName("prismarine_stairs"));
+    public static final Block prismarine_brick_stairs = new BlockGenericStairs(prismarine, 1).setBlockName(Utils.getUnlocalisedName("prismarine_stairs_brick"));
+    public static final Block dark_prismarine_stairs = new BlockGenericStairs(prismarine, 2).setBlockName(Utils.getUnlocalisedName("prismarine_stairs_dark"));
+    public static final Block smooth_sandstone_stairs = new BlockGenericStairs(smooth_sandstone, 0).setBlockName(Utils.getUnlocalisedName("smooth_sandstone_stairs"));
+    public static final Block smooth_red_sandstone_stairs = new BlockGenericStairs(smooth_red_sandstone, 0).setBlockName(Utils.getUnlocalisedName("smooth_red_sandstone_stairs"));
+    public static final Block smooth_quartz_stairs = new BlockGenericStairs(smooth_quartz, 0).setBlockName(Utils.getUnlocalisedName("smooth_quartz_stairs"));
+    public static final Block red_nether_brick_stairs = new BlockGenericStairs(new_nether_brick, 0).setBlockName(Utils.getUnlocalisedName("red_netherbrick_stairs"));
+    public static final Block granite_stairs = new BlockGenericStairs(stone, 1).setBlockName(Utils.getUnlocalisedName("granite_stairs"));
+    public static final Block polished_granite_stairs = new BlockGenericStairs(stone, 2).setBlockName(Utils.getUnlocalisedName("polished_granite_stairs"));
+    public static final Block diorite_stairs = new BlockGenericStairs(stone, 3).setBlockName(Utils.getUnlocalisedName("diorite_stairs"));
+    public static final Block polished_diorite_stairs = new BlockGenericStairs(stone, 4).setBlockName(Utils.getUnlocalisedName("polished_diorite_stairs"));
+    public static final Block andesite_stairs = new BlockGenericStairs(stone, 5).setBlockName(Utils.getUnlocalisedName("andesite_stairs"));
+    public static final Block polished_andesite_stairs = new BlockGenericStairs(stone, 6).setBlockName(Utils.getUnlocalisedName("polished_andesite_stairs"));
+    public static final Block mossy_stone_brick_stairs = new BlockGenericStairs(Blocks.stonebrick, 1).setBlockName(Utils.getUnlocalisedName("mossy_stone_brick_stairs"));
+    public static final Block mossy_cobblestone_stairs = new BlockGenericStairs(Blocks.mossy_cobblestone, 0).setBlockName(Utils.getUnlocalisedName("mossy_cobblestone_stairs"));
+    public static final Block stone_stairs = new BlockGenericStairs(stone, 0).setBlockName(Utils.getUnlocalisedName("stone_stairs"));
+    public static final Block end_brick_stairs = new BlockGenericStairs(end_bricks, 0).setBlockName(Utils.getUnlocalisedName("end_brick_stairs"));
+    
+    public static final Block smooth_sandstone_slab = new BlockSmoothSandstoneSlab(0, false);
+    public static final Block double_smooth_sandstone_slab = new BlockSmoothSandstoneSlab(0, true);
+    public static final Block smooth_red_sandstone_slab = new BlockSmoothSandstoneSlab(1, false);
+    public static final Block double_smooth_red_sandstone_slab = new BlockSmoothSandstoneSlab(1, true);
+    public static final Block prismarine_slab = new PrismarineSlab(false);
+    public static final Block double_prismarine_slab = new PrismarineSlab(true);
+    public static final Block smooth_quartz_slab = new BlockSmoothQuartzSlab(false);
+    public static final Block double_smooth_quartz_slab = new BlockSmoothQuartzSlab(true);
+    public static final Block red_nether_brick_slab = new BlockRedNetherBrickSlab(false);
+    public static final Block double_red_nether_brick_slab = new BlockRedNetherBrickSlab(true);
+    public static final Block end_brick_slab = new BlockEndBrickSlab(false);
+    public static final Block double_end_brick_slab = new BlockEndBrickSlab(true);
+    public static final Block cut_copper_slab = new BlockCutCopperSlab(false);
+    public static final Block double_cut_copper_slab = new BlockCutCopperSlab(true);
+    public static final Block netherite_stairs = new BlockNetheriteStairs();
+    public static final Block cut_copper_stairs = new BlockCutCopperStairs(4);
+    public static final Block exposed_cut_copper_stairs = new BlockCutCopperStairs(5);
+    public static final Block weathered_cut_copper_stairs = new BlockCutCopperStairs(6);
+    public static final Block oxidized_cut_copper_stairs = new BlockCutCopperStairs(7);
+    public static final Block waxed_cut_copper_stairs = new BlockCutCopperStairs(12);
+    public static final Block waxed_exposed_cut_copper_stairs = new BlockCutCopperStairs(13);
+    public static final Block waxed_weathered_cut_copper_stairs = new BlockCutCopperStairs(14);
+    public static final Block cobbled_deepslate_stairs = new BlockGenericStairs(ModBlocks.cobbled_deepslate, 0).setBlockName(Utils.getUnlocalisedName("deepslate_stairs_cobbled"));
+    public static final Block polished_deepslate_stairs = new BlockGenericStairs(ModBlocks.polished_deepslate, 0).setBlockName(Utils.getUnlocalisedName("deepslate_stairs_polished"));
+    public static final Block deepslate_brick_stairs = new BlockGenericStairs(ModBlocks.deepslate_bricks, 0).setBlockName(Utils.getUnlocalisedName("deepslate_stairs_brick"));
+    public static final Block deepslate_tile_stairs = new BlockGenericStairs(ModBlocks.deepslate_bricks, 2).setBlockName(Utils.getUnlocalisedName("deepslate_stairs_tile"));
     
     //Mechanic/Functional blocks
     public static final Block iron_trapdoor = new IronTrapdoor();

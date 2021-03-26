@@ -43,17 +43,6 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 	@Override
 	public void generate(Random rand, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
 		if(world.getWorldInfo().getGeneratorOptions().length() <= 0 || world.getWorldInfo().getGeneratorOptions().contains("decoration") || world.provider.dimensionId != 0) {
-			if (ConfigurationHandler.enableCoarseDirt && world.provider.dimensionId != -1 && world.provider.dimensionId != 1) {
-				//TODO Add checks so it doesn't run this code in biomes that don't generate coarse dirt
-				for (int x = chunkX * 16; x < chunkX * 16 + 16; x++) {
-					for (int z = chunkZ * 16; z < chunkZ * 16 + 16; z++) {
-						for (int y = 0; y < world.getActualHeight(); y++) {
-							if (world.getBlock(x, y, z) == Blocks.dirt && world.getBlockMetadata(x, y, z) == 1)
-								world.setBlock(x, y, z, ModBlocks.coarse_dirt, 0, 2);
-						}
-					}
-				}
-			}
 
 			if (ConfigurationHandler.enableStones && ConfigurationHandler.maxStonesPerCluster > 0 && world.provider.dimensionId != -1 && world.provider.dimensionId != 1) {
 				for (WorldGenMinable generator : stoneGen) {
@@ -72,43 +61,59 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 			}
 			
 			{
+				int x;
+				int z;
+				BiomeGenBase biome;
+				Type[] biomeList;
 				//TODO Bone meal
-				int x = chunkX * 16 + rand.nextInt(16);
-				int z = chunkZ * 16 + rand.nextInt(16);
-				BiomeGenBase biome = world.getBiomeGenForCoords(x, z);
-				Type[] biomeList = BiomeDictionary.getTypesForBiome(biome);
-				if(world.getHeightValue(x, z) > 0) {
-					if(ArrayUtils.contains(biomeList, Type.FOREST) && !ArrayUtils.contains(biomeList, Type.SNOWY)) {
+				if(ConfigurationHandler.enableNewFlowers) {
+					x = chunkX * 16 + rand.nextInt(16);
+					z = chunkZ * 16 + rand.nextInt(16);
+					biome = world.getBiomeGenForCoords(x, z);
+					biomeList = BiomeDictionary.getTypesForBiome(biome);
+					if(ArrayUtils.contains(biomeList, Type.FOREST) && !ArrayUtils.contains(biomeList, Type.SNOWY) && world.getHeightValue(x, z) > 0) {
 						flowers.get(0).generate(world, rand, x, rand.nextInt(world.getHeightValue(x, z) * 2), z);
 					}
-					if (biome.biomeID == 132 || (ArrayUtils.contains(biomeList, Type.PLAINS) && !ArrayUtils.contains(biomeList, Type.SNOWY) && !ArrayUtils.contains(biomeList, Type.SAVANNA))) {
+					x = chunkX * 16 + rand.nextInt(16);
+					z = chunkZ * 16 + rand.nextInt(16);
+					biome = world.getBiomeGenForCoords(x, z);
+					biomeList = BiomeDictionary.getTypesForBiome(biome);
+					if (biome.biomeID == 132 || (ArrayUtils.contains(biomeList, Type.PLAINS) && !ArrayUtils.contains(biomeList, Type.SNOWY) && !ArrayUtils.contains(biomeList, Type.SAVANNA)) && world.getHeightValue(x, z) > 0) {
 						flowers.get(1).generate(world, rand, x, rand.nextInt(world.getHeightValue(x, z) * 2), z);
 					}
-					if(ArrayUtils.contains(biomeList, Type.CONIFEROUS)) {
+					x = chunkX * 16 + rand.nextInt(16);
+					z = chunkZ * 16 + rand.nextInt(16);
+					biome = world.getBiomeGenForCoords(x, z);
+					biomeList = BiomeDictionary.getTypesForBiome(biome);
+					if(ArrayUtils.contains(biomeList, Type.CONIFEROUS) && world.getHeightValue(x, z) > 0) {
 						flowers.get(2).generate(world, rand, x, rand.nextInt(world.getHeightValue(x, z) * 2), z);
 					}
-					if(rand.nextInt(64) == 0 && (ArrayUtils.contains(biomeList, Type.SANDY) && ArrayUtils.contains(biomeList, Type.DRY)) || ArrayUtils.contains(biomeList, Type.SWAMP)) {
-						new WorldGenFossil().generate(world, rand, x, rand.nextInt(10) + 15, z);
-					}
+				}
+				x = chunkX * 16 + rand.nextInt(16);
+				z = chunkZ * 16 + rand.nextInt(16);
+				biome = world.getBiomeGenForCoords(x, z);
+				biomeList = BiomeDictionary.getTypesForBiome(biome);
+				if(ConfigurationHandler.enableFossils && rand.nextInt(64) == 0 && (ArrayUtils.contains(biomeList, Type.SANDY) && ArrayUtils.contains(biomeList, Type.DRY)) || ArrayUtils.contains(biomeList, Type.SWAMP)) {
+					new WorldGenFossil().generate(world, rand, x, rand.nextInt(9) + 41, z);
 				}
 			}
 		}
+		
+		if(world.provider.dimensionId == -1) {
+			if(ConfigurationHandler.enableMagmaBlock)
+				this.generateOre(ModBlocks.magma_block, 0, world, rand, chunkX, chunkZ, 1, ConfigurationHandler.maxMagmaPerCluster, 4, 23, 37, Blocks.netherrack);
+
+//			if(ConfigurationHandler.enableBlackstone)
+//				this.generateOre(ModBlocks.blackstone, 0, world, rand, chunkX, chunkZ, 1, ConfigurationHandler.maxBlackstonePerCluster, 2, 5, 28, Blocks.netherrack);
 			
-			if(world.provider.dimensionId == -1) {
-				if(ConfigurationHandler.enableMagmaBlock)
-					this.generateOre(ModBlocks.magma_block, 0, world, rand, chunkX, chunkZ, 1, ConfigurationHandler.maxMagmaPerCluster, 4, 23, 37, Blocks.netherrack);
+			if(ConfigurationHandler.enableNetherGold)
+				this.generateOre(ModBlocks.nether_gold_ore, 0, world, rand, chunkX, chunkZ, 1, ConfigurationHandler.maxNetherGoldPerCluster, 10, 10, 117, Blocks.netherrack);
 
-//				if(ConfigurationHandler.enableBlackstone)
-//					this.generateOre(ModBlocks.blackstone, 0, world, rand, chunkX, chunkZ, 1, ConfigurationHandler.maxBlackstonePerCluster, 2, 5, 28, Blocks.netherrack);
-				
-				if(ConfigurationHandler.enableNetherGold)
-					this.generateOre(ModBlocks.nether_gold_ore, 0, world, rand, chunkX, chunkZ, 1, ConfigurationHandler.maxNetherGoldPerCluster, 10, 10, 117, Blocks.netherrack);
-
-				if(ConfigurationHandler.enableNetherite) {
-					this.generateOre(ModBlocks.ancient_debris, 0, world, rand, chunkX, chunkZ, 1, ConfigurationHandler.smallDebrisMax, 2, 8, 119, Blocks.netherrack);
-					this.generateOre(ModBlocks.ancient_debris, 0, world, rand, chunkX, chunkZ, 1, ConfigurationHandler.debrisMax, 3, 8, 22, Blocks.netherrack);
-				}
+			if(ConfigurationHandler.enableNetherite) {
+				this.generateOre(ModBlocks.ancient_debris, 0, world, rand, chunkX, chunkZ, 1, ConfigurationHandler.smallDebrisMax, 2, 8, 119, Blocks.netherrack);
+				this.generateOre(ModBlocks.ancient_debris, 0, world, rand, chunkX, chunkZ, 1, ConfigurationHandler.debrisMax, 3, 8, 22, Blocks.netherrack);
 			}
+		}
 
 		if (ConfigurationHandler.enableOceanMonuments && ConfigurationHandler.enablePrismarine && world.provider.dimensionId != -1 && world.provider.dimensionId != 1)
 			if (OceanMonument.canSpawnAt(world, chunkX, chunkZ)) {
