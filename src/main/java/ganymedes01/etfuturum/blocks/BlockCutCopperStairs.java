@@ -2,14 +2,17 @@ package ganymedes01.etfuturum.blocks;
 
 import java.util.Random;
 
-import ganymedes01.etfuturum.IConfigurable;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.utils.Utils;
+import ganymedes01.etfuturum.recipes.ModRecipes;
 import net.minecraft.block.Block;
-import net.minecraft.item.Item;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class BlockCutCopperStairs extends BlockGenericStairs implements IDegradable {
 
@@ -26,16 +29,27 @@ public class BlockCutCopperStairs extends BlockGenericStairs implements IDegrada
 			case 14: subtype = "waxed_weathered"; break;
 		}
 		setBlockName(Utils.getUnlocalisedName(subtype + (subtype.equals("") ? "" : "_") + name));
-		setTickRandomly(meta <= 7 ? true : false);
+		setTickRandomly(meta < 7 ? true : false);
 	}
 	
-	public Block getNextWeatherStage() {
-		switch(meta) {
-		case 4: return ModBlocks.exposed_cut_copper_stairs;
-		case 5: return ModBlocks.weathered_cut_copper_stairs;
-		case 6: return ModBlocks.oxidized_cut_copper_stairs;
+	public Block getWeatherStage(int i) {
+		switch(i) {
+		case 4: return ModBlocks.cut_copper_stairs;
+		case 5: return ModBlocks.exposed_cut_copper_stairs;
+		case 6: return ModBlocks.weathered_cut_copper_stairs;
+		case 7: return ModBlocks.oxidized_cut_copper_stairs;
 		default: return null;
 		}
+	}
+
+	public ImmutablePair getWax() {
+		if(this == ModBlocks.cut_copper_stairs || this == ModBlocks.waxed_cut_copper_stairs)
+			return new ImmutablePair(ModBlocks.cut_copper_stairs, ModBlocks.waxed_cut_copper_stairs);
+		if(this == ModBlocks.exposed_cut_copper_stairs || this == ModBlocks.waxed_exposed_cut_copper_stairs)
+			return new ImmutablePair(ModBlocks.exposed_cut_copper_stairs, ModBlocks.waxed_exposed_cut_copper_stairs);
+		if(this == ModBlocks.weathered_cut_copper_stairs || this == ModBlocks.waxed_weathered_cut_copper_stairs)
+			return new ImmutablePair(ModBlocks.weathered_cut_copper_stairs, ModBlocks.waxed_weathered_cut_copper_stairs);
+		return null;
 	}
     
     @Override
@@ -53,6 +67,52 @@ public class BlockCutCopperStairs extends BlockGenericStairs implements IDegrada
     		this.tryDegrade(world, x, y, z, random);
     	}
     }
+
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityPlayer, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_)
+    {
+    	boolean flag = false;
+    	boolean flag2 = false;
+    	if(entityPlayer.getCurrentEquippedItem() != null) {
+    		ItemStack heldStack = entityPlayer.getCurrentEquippedItem();
+    		if(meta <= 7 && getWax() != null) {
+            	for(int oreID : OreDictionary.getOreIDs(heldStack)) {
+            		System.out.println(OreDictionary.getOreName(oreID));
+                	if((OreDictionary.doesOreNameExist("materialWax") || OreDictionary.doesOreNameExist("materialWaxcomb")) ?
+                			OreDictionary.getOreName(oreID).equals("materialWax") || OreDictionary.getOreName(oreID).equals("materialWaxcomb") :
+                				OreDictionary.getOreName(oreID).equals("slimeball")) {
+                		flag = true;
+                        
+                        if (!entityPlayer.capabilities.isCreativeMode && --heldStack.stackSize <= 0)
+                        {
+                            entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, (ItemStack)null);
+                        }
+                        
+                        entityPlayer.inventoryContainer.detectAndSendChanges();
+                		break;
+                	}
+            	}
+    		}
+    		if(heldStack.getItem().getToolClasses(heldStack).contains("axe") && (getWeatherStage(meta - 1) != null || meta > 7)) {
+    			if(meta > 0)
+                	heldStack.damageItem(1, entityPlayer);
+            	if(meta <= 7) {
+            		flag2 = true;
+            	} else {
+            		flag = true;
+            	}
+    		}
+    		if(flag && !flag2) {
+        		Block block = (Block)(meta <= 7 ? getWax().getRight() : getWax().getLeft());
+        		world.setBlock(x, y, z, block, world.getBlockMetadata(x, y, z), 2);
+        		BlockCopper.spawnParticles(world, x, y, z, false);
+    		} else if (!flag && flag2) {
+        		Block block = getWeatherStage(meta - 1);
+        		world.setBlock(x, y, z, block, world.getBlockMetadata(x, y, z), 2);
+        		BlockCopper.spawnParticles(world, x, y, z, true);
+    		}
+     	}
+        return flag || flag2;
+    }
     
 	private void tryDegrade(World world, int x, int y, int z, Random random) {
 	   int i = getDegredationState(0); //Different since stairs are blocks and not meta variations. Using 0 since the state checker uses the block instance.
@@ -64,8 +124,7 @@ public class BlockCutCopperStairs extends BlockGenericStairs implements IDegrada
 	           for(int z1 = -4; z1 <= 4; z1++) {
 	        	   Block block = world.getBlock(x1 + x, y1 + y, z1 + z);
 	               if(block instanceof IDegradable && (x1 != 0 || y1 != 0 || z1 != 0) && Math.abs(x1) + Math.abs(y1) + Math.abs(z1) <= 4) {
-	            	   int m = ((IDegradable)block).getDegredationState(world.getBlockMetadata(x1, y1, z1));
-	                   
+	            	   int m = ((IDegradable)block).getDegredationState(0);
 	                   if(m == -1)
 	                	   continue;
 	                   
@@ -86,8 +145,9 @@ public class BlockCutCopperStairs extends BlockGenericStairs implements IDegrada
        float f = (float)(k + 1) / (float)(k + j + 1);
        float g = f * f * (i == 0 ? 0.75F : 1F);
        if (random.nextFloat() < g) {
-          world.setBlock(x, y, z, getNextWeatherStage(), world.getBlockMetadata(x, y, z), 2);
+          world.setBlock(x, y, z, getWeatherStage(meta + 1), world.getBlockMetadata(x, y, z), 2);
        }
+       System.out.println(g);
     }
 
 	@Override

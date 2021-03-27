@@ -5,6 +5,7 @@ import org.lwjgl.opengl.GL11;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
@@ -17,6 +18,7 @@ public class EtFuturumFXParticle extends EntityFX {
 	private double relativeTextureHeight;
 	private int currentTexture = 0;
 	private int textureCounter = 0;
+	private float entityBrightness;
 	
 	public EtFuturumFXParticle(World world, double x, double y, double z, double mx, double my, double mz, int maxAge,
 			float scale, int color, ResourceLocation texture, int textures) {
@@ -52,7 +54,7 @@ public class EtFuturumFXParticle extends EntityFX {
 		float b = (float) (this.color & 0xff) / 255F;
 
 		par1Tessellator.startDrawingQuads();
-		par1Tessellator.setBrightness(this.getBrightnessForRender(partialTicks));
+		par1Tessellator.setBrightness(getBrightnessForRender(entityBrightness));
 		par1Tessellator.setColorRGBA_F(r, g, b, a);
 		par1Tessellator.addVertexWithUV(ipx - rx * this.scale - ryz * this.scale, ipy - rxz * this.scale,
 				ipz - rz * this.scale - rxy * this.scale, 1.0D, (this.currentTexture + 1) * this.relativeTextureHeight);
@@ -71,37 +73,11 @@ public class EtFuturumFXParticle extends EntityFX {
 	public int getFXLayer() {
 		return 3;
 	}
-	
-    public int getBrightnessForRender(float p_70070_1_)
-    {
-        float f1 = ((float)this.particleAge + p_70070_1_) / (float)this.particleMaxAge;
-
-        if (f1 < 0.0F)
-        {
-            f1 = 0.0F;
-        }
-
-        if (f1 > 1.0F)
-        {
-            f1 = 1.0F;
-        }
-
-        int i = super.getBrightnessForRender(p_70070_1_);
-        int j = i & 255;
-        int k = i >> 16 & 255;
-        j += (int)(f1 * 15.0F * 16.0F);
-
-        if (j > 240)
-        {
-            j = 240;
-        }
-
-        return j | k << 16;
-    }
 
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
+		entityBrightness = worldObj.getLightBrightness((int)posX, (int)posY, (int)posZ);
 		if (!this.onGround) {
 			this.textureCounter++;
 			if (this.textureCounter >= 3) {

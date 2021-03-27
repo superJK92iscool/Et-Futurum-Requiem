@@ -66,6 +66,7 @@ public class TileEntityEndRodRenderer extends TileEntitySpecialRenderer {
         double z = 7 / 16.0;
         renderer.setRenderBounds(0, 1 / 16F, 0, 2 / 16F, 1, 2 / 16F);
         tessellator.startDrawingQuads();
+        tessellator.setTextureUV(1, 1);
         tessellator.setNormal(0.0F, -1.0F, 0.0F);
         renderer.renderFaceYNeg(block, x, y, z, renderer.getBlockIconFromSideAndMetadata(block, 0, meta));
         tessellator.setNormal(0.0F, 1.0F, 0.0F);

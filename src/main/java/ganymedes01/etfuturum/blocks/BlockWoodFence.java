@@ -1,5 +1,9 @@
 package ganymedes01.etfuturum.blocks;
 
+import org.apache.commons.lang3.tuple.ImmutablePair;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.ModBlocks.IBurnableBlock;
@@ -13,8 +17,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.util.ForgeDirection;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockWoodFence extends BlockFence implements IBurnableBlock, IConfigurable {
 
@@ -58,9 +60,9 @@ public class BlockWoodFence extends BlockFence implements IBurnableBlock, IConfi
     }
 
 	@Override
-	public int[] getFireInfo() {
+	public ImmutablePair getFireInfo() {
 		if(meta < 6 && ConfigurationHandler.enableBurnableBlocks)
-			return new int[]{5, 20};
+			return new ImmutablePair(5, 20);
 		return null;
 	}
 }

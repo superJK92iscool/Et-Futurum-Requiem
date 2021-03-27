@@ -1,5 +1,7 @@
 package ganymedes01.etfuturum.blocks;
 
+import org.apache.commons.lang3.tuple.ImmutablePair;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
@@ -8,8 +10,6 @@ import ganymedes01.etfuturum.ModBlocks.IBurnableBlock;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.BlockButtonWood;
-import net.minecraft.block.BlockPressurePlate;
-import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.IIcon;
 
@@ -36,9 +36,9 @@ public class BlockWoodButton extends BlockButtonWood implements IBurnableBlock, 
     }
 
 	@Override
-	public int[] getFireInfo() {
+	public ImmutablePair getFireInfo() {
 		if(meta < 6 && ConfigurationHandler.enableBurnableBlocks)
-			return new int[]{5, 20};
+			return new ImmutablePair(5, 20);
 		return null;
 	}
 }

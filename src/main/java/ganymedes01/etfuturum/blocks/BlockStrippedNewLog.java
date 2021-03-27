@@ -1,5 +1,7 @@
 package ganymedes01.etfuturum.blocks;
 
+import org.apache.commons.lang3.tuple.ImmutablePair;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
@@ -45,7 +47,7 @@ public class BlockStrippedNewLog extends BlockNewLog implements IConfigurable, I
     }
 
 	@Override
-	public int[] getFireInfo() {
-		return new int[]{5, 5};
+	public ImmutablePair getFireInfo() {
+		return new ImmutablePair(5, 5);
 	}
 }

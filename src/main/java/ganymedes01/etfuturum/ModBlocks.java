@@ -2,6 +2,8 @@ package ganymedes01.etfuturum;
 
 import java.lang.reflect.Field;
 
+import org.apache.commons.lang3.tuple.ImmutablePair;
+
 import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.etfuturum.blocks.BlockAncientDebris;
 import ganymedes01.etfuturum.blocks.BlockBanner;
@@ -21,11 +23,13 @@ import ganymedes01.etfuturum.blocks.BlockDeepslate;
 import ganymedes01.etfuturum.blocks.BlockDeepslateBricks;
 import ganymedes01.etfuturum.blocks.BlockDeepslateCobbled;
 import ganymedes01.etfuturum.blocks.BlockDeepslatePolished;
+import ganymedes01.etfuturum.blocks.BlockDeepslateSlab;
 import ganymedes01.etfuturum.blocks.BlockEndBrickSlab;
 import ganymedes01.etfuturum.blocks.BlockGenericStairs;
 import ganymedes01.etfuturum.blocks.BlockGlazedTerracotta;
 import ganymedes01.etfuturum.blocks.BlockLantern;
 import ganymedes01.etfuturum.blocks.BlockLavaCauldron;
+import ganymedes01.etfuturum.blocks.BlockLightningRod;
 import ganymedes01.etfuturum.blocks.BlockLilyOfTheValley;
 import ganymedes01.etfuturum.blocks.BlockNetherite;
 import ganymedes01.etfuturum.blocks.BlockNetheriteStairs;
@@ -145,7 +149,6 @@ public class ModBlocks {
     public static final Block concrete_powder = new BlockConcretePowder();
     public static final Block copper_ore = new BlockCopperOre();
     public static final Block deepslate_copper_ore = new BlockDeepslateOre(ModBlocks.copper_ore);
-    public static final Block lava_cauldron = new BlockLavaCauldron();
     public static final Block cornflower = new BlockCornflower();
     public static final Block lily_of_the_valley = new BlockLilyOfTheValley();
     public static final Block wither_rose = new BlockWitherRose();
@@ -167,6 +170,7 @@ public class ModBlocks {
     public static final Block red_glazed_terracotta = new BlockGlazedTerracotta(14);
     public static final Block black_glazed_terracotta = new BlockGlazedTerracotta(15);
     public static final Block copper_block = new BlockCopper();
+    public static final Block lightning_rod = new BlockLightningRod();
     public static final Block deepslate = new BlockDeepslate();
     public static final Block cobbled_deepslate = new BlockDeepslateCobbled();
     public static final Block polished_deepslate = new BlockDeepslatePolished();
@@ -190,6 +194,7 @@ public class ModBlocks {
     public static final Block anvil = new NewAnvil();
     public static final Block daylight_sensor = new NewDaylightSensor();
     public static final Block frosted_ice = new FrostedIce();
+    public static final Block lava_cauldron = new BlockLavaCauldron();
     
     //do slab/stairs
     public static final Block red_sandstone_stairs = new BlockGenericStairs(red_sandstone, 0).setBlockName(Utils.getUnlocalisedName("red_sandstone_stairs"));
@@ -236,6 +241,10 @@ public class ModBlocks {
     public static final Block double_end_brick_slab = new BlockEndBrickSlab(true);
     public static final Block cut_copper_slab = new BlockCutCopperSlab(false);
     public static final Block double_cut_copper_slab = new BlockCutCopperSlab(true);
+    public static final Block deepslate_slab = new BlockDeepslateSlab(false, false);
+    public static final Block double_deepslate_slab = new BlockDeepslateSlab(true, false);
+    public static final Block deepslate_brick_slab = new BlockDeepslateSlab(false, true);
+    public static final Block double_deepslate_brick_slab = new BlockDeepslateSlab(true, true);
     public static final Block netherite_stairs = new BlockNetheriteStairs();
     public static final Block cut_copper_stairs = new BlockCutCopperStairs(4);
     public static final Block exposed_cut_copper_stairs = new BlockCutCopperStairs(5);
@@ -244,10 +253,10 @@ public class ModBlocks {
     public static final Block waxed_cut_copper_stairs = new BlockCutCopperStairs(12);
     public static final Block waxed_exposed_cut_copper_stairs = new BlockCutCopperStairs(13);
     public static final Block waxed_weathered_cut_copper_stairs = new BlockCutCopperStairs(14);
-    public static final Block cobbled_deepslate_stairs = new BlockGenericStairs(ModBlocks.cobbled_deepslate, 0).setBlockName(Utils.getUnlocalisedName("deepslate_stairs_cobbled"));
-    public static final Block polished_deepslate_stairs = new BlockGenericStairs(ModBlocks.polished_deepslate, 0).setBlockName(Utils.getUnlocalisedName("deepslate_stairs_polished"));
-    public static final Block deepslate_brick_stairs = new BlockGenericStairs(ModBlocks.deepslate_bricks, 0).setBlockName(Utils.getUnlocalisedName("deepslate_stairs_brick"));
-    public static final Block deepslate_tile_stairs = new BlockGenericStairs(ModBlocks.deepslate_bricks, 2).setBlockName(Utils.getUnlocalisedName("deepslate_stairs_tile"));
+    public static final Block cobbled_deepslate_stairs = new BlockGenericStairs(ModBlocks.cobbled_deepslate, 0).setBlockName(Utils.getUnlocalisedName("cobbled_deepslate_stairs"));
+    public static final Block polished_deepslate_stairs = new BlockGenericStairs(ModBlocks.polished_deepslate, 0).setBlockName(Utils.getUnlocalisedName("polished_deepslate_stairs"));
+    public static final Block deepslate_brick_stairs = new BlockGenericStairs(ModBlocks.deepslate_bricks, 0).setBlockName(Utils.getUnlocalisedName("deepslate_brick_stairs"));
+    public static final Block deepslate_tile_stairs = new BlockGenericStairs(ModBlocks.deepslate_bricks, 2).setBlockName(Utils.getUnlocalisedName("deepslate_tile_stairs"));
     
     //Mechanic/Functional blocks
     public static final Block iron_trapdoor = new IronTrapdoor();
@@ -323,9 +332,9 @@ public class ModBlocks {
                 GameRegistry.registerBlock(block, strings[strings.length - 1]);
 
 			if (block instanceof IBurnableBlock) {
-				int[] i = ((IBurnableBlock) block).getFireInfo();
+				ImmutablePair i = ((IBurnableBlock) block).getFireInfo();
 				if(i != null)
-					Blocks.fire.setFireInfo(block, i[0], i[1]);
+					Blocks.fire.setFireInfo(block, (Integer)i.getLeft(), (Integer)i.getRight());
 			}
         }
     }
@@ -338,6 +347,6 @@ public class ModBlocks {
 	
 	public static interface IBurnableBlock {
 		
-		int[] getFireInfo();
+		ImmutablePair getFireInfo();
 	}
 }

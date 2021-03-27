@@ -52,7 +52,7 @@ public class BlockDeepslateOre extends BlockOre implements IConfigurable {
     	to.setCreativeTab(((IConfigurable)to).isEnabled() ? EtFuturum.creativeTabBlocks : null);
     	to.setLightLevel(from.getLightValue() / 15F);
     	to.setLightOpacity(from.getLightOpacity());
-		if(((IConfigurable)to).isEnabled())
+		if((!(to instanceof IConfigurable) || ((IConfigurable)to).isEnabled()) && !(from instanceof IConfigurable) || ((IConfigurable)from).isEnabled())
 			EtFuturum.deepslateOres.put(from, to);
     }
 

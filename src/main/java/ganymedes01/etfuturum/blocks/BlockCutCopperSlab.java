@@ -10,8 +10,11 @@ import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class BlockCutCopperSlab extends BlockGenericSlab implements IConfigurable, IDegradable {
 
@@ -35,6 +38,49 @@ public class BlockCutCopperSlab extends BlockGenericSlab implements IConfigurabl
         if (getDegredationState(meta) == -1)
         	return;
         tickDegradation(world, x, y, z, rand);
+    }
+
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityPlayer, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_)
+    {
+    	boolean flag = false;
+    	boolean flag2 = false;
+    	int meta = world.getBlockMetadata(x, y, z) % 8;
+    	if(entityPlayer.getCurrentEquippedItem() != null) {
+    		ItemStack heldStack = entityPlayer.getCurrentEquippedItem();
+    		if(meta <= 3 && meta + 4 < 7) {
+            	for(int oreID : OreDictionary.getOreIDs(heldStack)) {
+                	if((OreDictionary.doesOreNameExist("materialWax") || OreDictionary.doesOreNameExist("materialWaxcomb")) ?
+                			OreDictionary.getOreName(oreID).equals("materialWax") || OreDictionary.getOreName(oreID).equals("materialWaxcomb") :
+                				OreDictionary.getOreName(oreID).equals("slimeball")) {
+                		flag = true;
+                        
+                        if (!entityPlayer.capabilities.isCreativeMode && --heldStack.stackSize <= 0)
+                        {
+                            entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, (ItemStack)null);
+                        }
+                        
+                        entityPlayer.inventoryContainer.detectAndSendChanges();
+                		break;
+                	}
+            	}
+    		}
+    		if(heldStack.getItem().getToolClasses(heldStack).contains("axe") && meta - 1 >= 0 && ((meta % 4) != 0 || meta == 4)) {
+            	heldStack.damageItem(1, entityPlayer);
+            	if(meta <= 3) {
+            		flag2 = true;
+            	} else {
+            		flag = true;
+            	}
+    		}
+    		if(flag && !flag2) {
+        		world.setBlock(x, y, z, this, meta + 4 > 7 ? world.getBlockMetadata(x, y, z) - 4 : world.getBlockMetadata(x, y, z) + 4, 2);
+        		BlockCopper.spawnParticles(world, x, y, z, false);
+    		} else if (!flag && flag2) {
+        		world.setBlock(x, y, z, this, world.getBlockMetadata(x, y, z) - 1, 2);
+        		BlockCopper.spawnParticles(world, x, y, z, true);
+    		}
+     	}
+        return flag || flag2;
     }
 
     private void tickDegradation(World world, int x, int y, int z, Random random) {

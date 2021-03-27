@@ -17,6 +17,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -24,6 +25,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class BlockCopper extends BlockGeneric implements IConfigurable, IDegradable {
 
@@ -60,6 +62,97 @@ public class BlockCopper extends BlockGeneric implements IConfigurable, IDegrada
        if (random.nextFloat() < f) {
           this.tryDegrade(world, x, y, z, random);
        }
+    }
+
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityPlayer, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_)
+    {
+    	boolean flag = false;
+    	boolean flag2 = false;
+    	int meta = world.getBlockMetadata(x, y, z);
+    	if(entityPlayer.getCurrentEquippedItem() != null) {
+    		ItemStack heldStack = entityPlayer.getCurrentEquippedItem();
+    		if(meta <= 7 && meta + 8 < 15 && meta + 8 != 11) {
+            	for(int oreID : OreDictionary.getOreIDs(heldStack)) {
+                	if((OreDictionary.doesOreNameExist("materialWax") || OreDictionary.doesOreNameExist("materialWaxcomb")) ?
+                			OreDictionary.getOreName(oreID).equals("materialWax") || OreDictionary.getOreName(oreID).equals("materialWaxcomb") :
+                				OreDictionary.getOreName(oreID).equals("slimeball")) {
+                		flag = true;
+                        
+                        if (!entityPlayer.capabilities.isCreativeMode && --heldStack.stackSize <= 0)
+                        {
+                            entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, (ItemStack)null);
+                        }
+                        
+                        entityPlayer.inventoryContainer.detectAndSendChanges();
+                		break;
+                	}
+            	}
+    		}
+    		if(heldStack.getItem().getToolClasses(heldStack).contains("axe") && meta - 1 >= 0 && meta % 4 != (meta > 7 ? 4 : 0)) {
+            	heldStack.damageItem(1, entityPlayer);
+            	if(meta <= 7) {
+            		flag2 = true;
+            	} else {
+            		flag = true;
+            	}
+    		}
+    		if(flag && !flag2) {
+        		world.setBlock(x, y, z, this, meta + 8 > 15 ? meta - 8 : meta + 8, 2);
+        		BlockCopper.spawnParticles(world, x, y, z, false);
+    		} else if (!flag && flag2) {
+        		world.setBlock(x, y, z, this, meta - 1, 2);
+        		BlockCopper.spawnParticles(world, x, y, z, true);
+    		}
+     	}
+        return flag || flag2;
+    }
+    
+    public static void spawnParticles(World p_150186_1_, int p_150186_2_, int p_150186_3_, int p_150186_4_, boolean oxidize)
+    {
+        Random random = p_150186_1_.rand;
+        double d0 = 0.0625D;
+
+        for (int l = 0; l < 10; ++l)
+        {
+            double d1 = (double)((float)p_150186_2_ + random.nextFloat());
+            double d2 = (double)((float)p_150186_3_ + random.nextFloat());
+            double d3 = (double)((float)p_150186_4_ + random.nextFloat());
+
+            if (l == 0 && !p_150186_1_.getBlock(p_150186_2_, p_150186_3_ + 1, p_150186_4_).isOpaqueCube())
+            {
+                d2 = (double)(p_150186_3_ + 1) + d0;
+            }
+
+            if (l == 1 && !p_150186_1_.getBlock(p_150186_2_, p_150186_3_ - 1, p_150186_4_).isOpaqueCube())
+            {
+                d2 = (double)(p_150186_3_ + 0) - d0;
+            }
+
+            if (l == 2 && !p_150186_1_.getBlock(p_150186_2_, p_150186_3_, p_150186_4_ + 1).isOpaqueCube())
+            {
+                d3 = (double)(p_150186_4_ + 1) + d0;
+            }
+
+            if (l == 3 && !p_150186_1_.getBlock(p_150186_2_, p_150186_3_, p_150186_4_ - 1).isOpaqueCube())
+            {
+                d3 = (double)(p_150186_4_ + 0) - d0;
+            }
+
+            if (l == 4 && !p_150186_1_.getBlock(p_150186_2_ + 1, p_150186_3_, p_150186_4_).isOpaqueCube())
+            {
+                d1 = (double)(p_150186_2_ + 1) + d0;
+            }
+
+            if (l == 5 && !p_150186_1_.getBlock(p_150186_2_ - 1, p_150186_3_, p_150186_4_).isOpaqueCube())
+            {
+                d1 = (double)(p_150186_2_ + 0) - d0;
+            }
+
+            if (d1 < (double)p_150186_2_ || d1 > (double)(p_150186_2_ + 1) || d2 < 0.0D || d2 > (double)(p_150186_3_ + 1) || d3 < (double)p_150186_4_ || d3 > (double)(p_150186_4_ + 1))
+            {
+                p_150186_1_.spawnParticle("happyVillager", d1, d2, d3, oxidize ? 1D : 0.0D, 0.0D, 0.0D);
+            }
+        }
     }
 
 	private void tryDegrade(World world, int x, int y, int z, Random random) {

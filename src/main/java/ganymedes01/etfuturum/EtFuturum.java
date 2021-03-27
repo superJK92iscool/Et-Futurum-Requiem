@@ -208,6 +208,7 @@ public class EtFuturum {
         
         SmokerRecipes.init();
         BlastFurnaceRecipes.init();
+        ModRecipes.initDeepslate();
     }
 
     @EventHandler

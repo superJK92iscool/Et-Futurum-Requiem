@@ -243,6 +243,7 @@ public class ConfigurationHandler {
         enableBarrier = cfg.getBoolean("enableBarrier", catBlock, true, "");
         enableLavaCauldrons = cfg.getBoolean("enableLavaCauldrons", catBlock, true, "Allow lava buckets to fill cauldrons");
         enableDeepslate = cfg.getBoolean("enableDeepslate", catBlock, true, "");
+        enableTuff = cfg.getBoolean("enableTuff", catBlock, true, "");
         
         //items
         enableMutton = cfg.getBoolean("enableMutton", catItems, true, "");
@@ -356,7 +357,6 @@ public class ConfigurationHandler {
         int m  = cfg.getInt("deepslateGenerationMode", catWorld, 0, 0, 2, "0 = Et Futurum bone block, 1 = Netherlicious bone block, 2 = UpToDateMod bone block. If mod is not installed Et Futurum bone block will be used instead");
         Block block = m == 1 ? block = GameRegistry.findBlock("netherlicious", "BoneBlock") : GameRegistry.findBlock("uptodate", "bone_block");
         fossilBoneBlock = m == 0 || block == null ? ModBlocks.bone_block : block;
-        enableTuff = cfg.getBoolean("enableTuff", catWorld, true, "");
         maxTuffPerCluster = cfg.getInt("tuffClusterSize", catWorld, 48, 0, 64, "Max vein size for tuff blocks in a cluster");
 //        enableNewNether = cfg.getBoolean("enableNewNether", catWorld, true, "When false, the new Nether completely stops to generate, regardless of if the new Nether blocks are on. (Will be ignored if Netherlicious is installed)");
         

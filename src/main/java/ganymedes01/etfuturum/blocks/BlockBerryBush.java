@@ -3,13 +3,15 @@ package ganymedes01.etfuturum.blocks;
 import java.util.ArrayList;
 import java.util.Random;
 
+import org.apache.commons.lang3.tuple.ImmutablePair;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.ModBlocks.IBurnableBlock;
 import ganymedes01.etfuturum.ModBlocks.ISubBlocksBlock;
-import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.ModItems;
+import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.Reference;
@@ -28,7 +30,6 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.oredict.OreDictionary;
 
 public class BlockBerryBush extends BlockBush implements IConfigurable, ISubBlocksBlock, IBurnableBlock {
 
@@ -173,8 +174,8 @@ public class BlockBerryBush extends BlockBush implements IConfigurable, ISubBloc
 	}
 
 	@Override
-	public int[] getFireInfo() {
-		return new int[] {60, 100};
+	public ImmutablePair getFireInfo() {
+		return new ImmutablePair(60, 100);
 	}
 
 }

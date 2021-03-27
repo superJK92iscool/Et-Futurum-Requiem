@@ -224,25 +224,6 @@ public class ModRecipes {
 		if(ConfigurationHandler.enableDeepslate) {
 			OreDictionary.registerOre("cobblestone", new ItemStack(ModBlocks.cobbled_deepslate, 1, 0));
 		}
-		if(ConfigurationHandler.enableDeepslateOres) { //Copy block settings from deepslate base blocks
-			for(Block block : EtFuturum.deepslateOres.keySet()) {
-				BlockDeepslateOre ore = (BlockDeepslateOre) EtFuturum.deepslateOres.get(block);
-				Block oreBase = ore.base;
-				
-//				System.out.println("Trying to copy OreDict entries from " + oreBase.getLocalizedName() + " to " + ore.getLocalizedName());
-				for(int i : OreDictionary.getOreIDs(new ItemStack(block))) {
-					for(ItemStack oreStack : OreDictionary.getOres(OreDictionary.getOreName(i))) {
-						if(oreStack.getItem() == Item.getItemFromBlock(block)) {
-							OreDictionary.registerOre(OreDictionary.getOreName(i), oreStack);
-//							System.out.println(oreBase.getLocalizedName() + " giving OreDict entry " + OreDictionary.getOreName(i) + " to " + ore.getLocalizedName());
-						}
-					}
-				}
-
-				if(FurnaceRecipes.smelting().getSmeltingResult(new ItemStack(oreBase)) != null)
-					GameRegistry.addSmelting(ore, FurnaceRecipes.smelting().getSmeltingResult(new ItemStack(oreBase)), FurnaceRecipes.smelting().func_151398_b(new ItemStack(oreBase)));
-			}
-		}
 		
 //		if(ConfigurationHandler.enableCrimsonBlocks || ConfigurationHandler.enableWarpedBlocks) {
 //			OreDictionary.registerOre("plankWood", new ItemStack(ModBlocks.nether_planks, 1, 0));
@@ -681,6 +662,7 @@ public class ModRecipes {
 			Block[] stairs = new Block[] {ModBlocks.cut_copper_stairs, ModBlocks.exposed_cut_copper_stairs, ModBlocks.weathered_cut_copper_stairs, ModBlocks.oxidized_cut_copper_stairs, ModBlocks.waxed_cut_copper_stairs, ModBlocks.waxed_exposed_cut_copper_stairs, ModBlocks.waxed_weathered_cut_copper_stairs};
 			addShapedRecipe(new ItemStack(ModBlocks.copper_block, 4), "xx", "xx", 'x', new ItemStack(ModItems.copper_ingot, 1, 0));
 			addShapedRecipe(new ItemStack(ModItems.copper_ingot, 4), "x", 'x', new ItemStack(ModBlocks.copper_block, 1, 0));
+			addShapedRecipe(new ItemStack(ModItems.copper_ingot, 4), "x", 'x', new ItemStack(ModBlocks.copper_block, 1, 8));
 			GameRegistry.addSmelting(new ItemStack(ModBlocks.copper_ore), new ItemStack(ModItems.copper_ingot), .7F);
 			for(int i = 0; i <= 7; i++) {
 				int j = i;
@@ -723,6 +705,15 @@ public class ModRecipes {
 			addShapedRecipe(new ItemStack(ModBlocks.deepslate_bricks, 4, 0), "xx", "xx", 'x', new ItemStack(ModBlocks.polished_deepslate, 1, 0));
 			addShapedRecipe(new ItemStack(ModBlocks.deepslate_bricks, 4, 2), "xx", "xx", 'x', new ItemStack(ModBlocks.deepslate_bricks, 1, 0));
 			addShapedRecipe(new ItemStack(ModBlocks.deepslate_bricks, 1, 4), "x", "x", 'x', new ItemStack(Blocks.bedrock, 1, 0)); //TODO: Change to deepslate slab
+
+            addShapedRecipe(new ItemStack(ModBlocks.cobbled_deepslate_stairs, 4, 0), "x  ", "xx ", "xxx", 'x', new ItemStack(ModBlocks.cobbled_deepslate, 1, 0));
+            addShapedRecipe(new ItemStack(ModBlocks.polished_deepslate_stairs, 4, 0), "x  ", "xx ", "xxx", 'x', new ItemStack(ModBlocks.polished_deepslate, 1, 0));
+            addShapedRecipe(new ItemStack(ModBlocks.deepslate_brick_stairs, 4, 0), "x  ", "xx ", "xxx", 'x', new ItemStack(ModBlocks.deepslate_bricks, 1, 0));
+            addShapedRecipe(new ItemStack(ModBlocks.deepslate_tile_stairs, 4, 0), "x  ", "xx ", "xxx", 'x', new ItemStack(ModBlocks.deepslate_bricks, 1, 2));
+            addShapedRecipe(new ItemStack(ModBlocks.deepslate_slab, 4, 0), "xxx", 'x', new ItemStack(ModBlocks.cobbled_deepslate, 1, 0));
+            addShapedRecipe(new ItemStack(ModBlocks.deepslate_slab, 4, 1), "xxx", 'x', new ItemStack(ModBlocks.polished_deepslate, 1, 0));
+            addShapedRecipe(new ItemStack(ModBlocks.deepslate_brick_slab, 4, 0), "xxx", 'x', new ItemStack(ModBlocks.deepslate_bricks, 1, 0));
+            addShapedRecipe(new ItemStack(ModBlocks.deepslate_brick_slab, 4, 1), "xxx", 'x', new ItemStack(ModBlocks.deepslate_bricks, 1, 2));
 		}
 		
 //		if(ConfigurationHandler.enableBlackstone) {
@@ -760,6 +751,28 @@ public class ModRecipes {
 			}
 		}
 	}
+    
+    public static void initDeepslate() {
+		if(ConfigurationHandler.enableDeepslateOres) { //Copy block settings from deepslate base blocks
+			for(Block block : EtFuturum.deepslateOres.keySet()) {
+				BlockDeepslateOre ore = (BlockDeepslateOre) EtFuturum.deepslateOres.get(block);
+				Block oreBase = ore.base;
+				
+//				System.out.println("Trying to copy OreDict entries from " + oreBase.getLocalizedName() + " to " + ore.getLocalizedName());
+				for(int i : OreDictionary.getOreIDs(new ItemStack(block))) {
+					for(ItemStack oreStack : OreDictionary.getOres(OreDictionary.getOreName(i))) {
+						if(oreStack.getItem() == Item.getItemFromBlock(block)) {
+							OreDictionary.registerOre(OreDictionary.getOreName(i), oreStack);
+//							System.out.println(oreBase.getLocalizedName() + " giving OreDict entry " + OreDictionary.getOreName(i) + " to " + ore.getLocalizedName());
+						}
+					}
+				}
+
+				if(FurnaceRecipes.smelting().getSmeltingResult(new ItemStack(oreBase)) != null)
+					GameRegistry.addSmelting(ore, FurnaceRecipes.smelting().getSmeltingResult(new ItemStack(oreBase)), FurnaceRecipes.smelting().func_151398_b(new ItemStack(oreBase)));
+			}
+		}
+    }
     
     private static List<ItemStack> getStewFlowers() {
     	List<ItemStack> list = new ArrayList<ItemStack>();

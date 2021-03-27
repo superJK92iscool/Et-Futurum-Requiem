@@ -265,6 +265,7 @@ tile.etfuturum.deepslate_tile_wall.name=Deepslate Tile Wall
 tile.etfuturum.deepslate_bricks_cracked.name=Cracked Deepslate Bricks
 tile.etfuturum.deepslate_tiles_cracked.name=Cracked Deepslate Tiles
 tile.etfuturum.infested_deepslate.name=Infested Deepslate
+tile.etfuturum.tuff.name=Tuff
 
 tile.etfuturum.magma.name=Magma Block
 tile.etfuturum.nether_wart.name=Nether Wart Block

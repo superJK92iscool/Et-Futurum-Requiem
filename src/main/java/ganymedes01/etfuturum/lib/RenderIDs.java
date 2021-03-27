@@ -15,4 +15,5 @@ public class RenderIDs {
 	public static final int TRAP_DOOR = RenderingRegistry.getNextAvailableRenderId();
 	public static final int GLAZED_TERRACOTTA = RenderingRegistry.getNextAvailableRenderId();
 	public static final int LAVA_CAULDRON = RenderingRegistry.getNextAvailableRenderId();
+	public static final int LIGHTNING_ROD = RenderingRegistry.getNextAvailableRenderId();
 }

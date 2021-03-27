@@ -1,6 +1,11 @@
 package ganymedes01.etfuturum.client.sound.step;
 
+import ganymedes01.etfuturum.EtFuturum;
+import ganymedes01.etfuturum.client.sound.ModSounds;
+import ganymedes01.etfuturum.configuration.ConfigurationHandler;
+import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.Reference;
+import net.minecraft.block.Block;
 import net.minecraft.block.Block.SoundType;
 
 public class CustomSoundBerryBush extends SoundType {
@@ -16,7 +21,7 @@ public class CustomSoundBerryBush extends SoundType {
 
 	@Override
 	public String getStepResourcePath() {
-		return Reference.MOD_ID + ":" + super.getStepResourcePath();
+		return Block.soundTypeGrass.getStepResourcePath();
 	}
 
     public String func_150496_b()
