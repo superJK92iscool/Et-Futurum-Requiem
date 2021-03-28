@@ -76,7 +76,6 @@ public class BlockCutCopperStairs extends BlockGenericStairs implements IDegrada
     		ItemStack heldStack = entityPlayer.getCurrentEquippedItem();
     		if(meta <= 7 && getWax() != null) {
             	for(int oreID : OreDictionary.getOreIDs(heldStack)) {
-            		System.out.println(OreDictionary.getOreName(oreID));
                 	if((OreDictionary.doesOreNameExist("materialWax") || OreDictionary.doesOreNameExist("materialWaxcomb")) ?
                 			OreDictionary.getOreName(oreID).equals("materialWax") || OreDictionary.getOreName(oreID).equals("materialWaxcomb") :
                 				OreDictionary.getOreName(oreID).equals("slimeball")) {
@@ -147,7 +146,6 @@ public class BlockCutCopperStairs extends BlockGenericStairs implements IDegrada
        if (random.nextFloat() < g) {
           world.setBlock(x, y, z, getWeatherStage(meta + 1), world.getBlockMetadata(x, y, z), 2);
        }
-       System.out.println(g);
     }
 
 	@Override

@@ -2,8 +2,11 @@ package ganymedes01.etfuturum.blocks;
 
 import java.util.List;
 
+import org.apache.commons.lang3.ArrayUtils;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModBlocks.ISubBlocksBlock;
 import ganymedes01.etfuturum.items.block.ItemBlockFlower;
 import net.minecraft.block.BlockFlower;
@@ -16,6 +19,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityFlowerPot;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeDictionary.Type;
 
 public class BlockFlowerBase extends BlockFlower implements ISubBlocksBlock {
 

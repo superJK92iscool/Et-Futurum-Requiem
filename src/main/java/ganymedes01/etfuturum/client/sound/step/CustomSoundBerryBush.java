@@ -24,6 +24,7 @@ public class CustomSoundBerryBush extends SoundType {
 		return Block.soundTypeGrass.getStepResourcePath();
 	}
 
+	@Override
     public String func_150496_b()
     {
         return Reference.MOD_ID + ":" + "place." + soundName;

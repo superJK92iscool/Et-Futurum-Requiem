@@ -219,7 +219,7 @@ public class ModRecipes {
 			OreDictionary.registerOre("ingotCopper", new ItemStack(ModItems.copper_ingot, 1, 0));
 			OreDictionary.registerOre("blockCopper", new ItemStack(ModBlocks.copper_block, 1, 0));
 			OreDictionary.registerOre("blockCopperCut", new ItemStack(ModBlocks.copper_block, 1, 4));
-		} // TODO: Waxed copper uncraftable and other new copper shid
+		}
 
 		if(ConfigurationHandler.enableDeepslate) {
 			OreDictionary.registerOre("cobblestone", new ItemStack(ModBlocks.cobbled_deepslate, 1, 0));
@@ -758,12 +758,15 @@ public class ModRecipes {
 				BlockDeepslateOre ore = (BlockDeepslateOre) EtFuturum.deepslateOres.get(block);
 				Block oreBase = ore.base;
 				
-//				System.out.println("Trying to copy OreDict entries from " + oreBase.getLocalizedName() + " to " + ore.getLocalizedName());
-				for(int i : OreDictionary.getOreIDs(new ItemStack(block))) {
-					for(ItemStack oreStack : OreDictionary.getOres(OreDictionary.getOreName(i))) {
-						if(oreStack.getItem() == Item.getItemFromBlock(block)) {
-							OreDictionary.registerOre(OreDictionary.getOreName(i), oreStack);
-//							System.out.println(oreBase.getLocalizedName() + " giving OreDict entry " + OreDictionary.getOreName(i) + " to " + ore.getLocalizedName());
+				if(Item.getItemFromBlock(ore) == null || Item.getItemFromBlock(oreBase) == null)
+					continue;
+				for(int j = 0; j < (Item.getItemFromBlock(oreBase).getHasSubtypes() ? 16 : 1); j++) {
+					for(int i : OreDictionary.getOreIDs(new ItemStack(oreBase, 1, j))) {
+						for(int k = 0; k < OreDictionary.getOres(OreDictionary.getOreName(i)).size(); k++) {
+							ItemStack oreStack = OreDictionary.getOres(OreDictionary.getOreName(i)).get(k);
+							if(oreStack.getItem() == Item.getItemFromBlock(oreBase)) {
+								OreDictionary.registerOre(OreDictionary.getOreName(i), new ItemStack(ore, 1, j));
+							}
 						}
 					}
 				}

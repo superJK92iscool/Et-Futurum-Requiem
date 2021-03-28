@@ -9,6 +9,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.ArrayUtils;
+
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -56,6 +58,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.config.Configuration;
 
 @Mod(
@@ -148,7 +153,7 @@ public class EtFuturum {
 
     @EventHandler
     public void init(FMLInitializationEvent event) {
-
+        
         ModRecipes.init();
 //        if(ConfigurationHandler.enableNewNether)
 //            DimensionProvider.init(); // Come back to
@@ -160,6 +165,17 @@ public class EtFuturum {
 
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {
+
+        for(BiomeGenBase biome : BiomeGenBase.getBiomeGenArray()) {
+        	if(biome == null)
+        		continue;
+			Type[] biomeList = BiomeDictionary.getTypesForBiome(biome);
+            	if(biome.biomeID == 132 || (ArrayUtils.contains(biomeList, Type.PLAINS) && !ArrayUtils.contains(biomeList, Type.SNOWY) && !ArrayUtils.contains(biomeList, Type.SAVANNA)))
+            		biome.addFlower(ModBlocks.cornflower, 0, 12);
+            	if(biome.biomeID == 132)
+            		biome.addFlower(ModBlocks.lily_of_the_valley, 0, 5);
+        }
+        
         Items.blaze_rod.setFull3D();
         Blocks.trapped_chest.setCreativeTab(CreativeTabs.tabRedstone);
 
