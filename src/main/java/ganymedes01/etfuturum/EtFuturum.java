@@ -69,10 +69,10 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.oredict.RecipeSorter;
 
 @Mod(
-        modid = "etfuturum", 
-        name = "Et Futurum", 
-        version = "2.1.0", 
-        dependencies = "required-after:Forge@[10.13.4.1558,);after:Thaumcraft@[4.2.3.5,)", 
+        modid = Reference.MOD_ID, 
+        name = Reference.MOD_NAME, 
+        version = Reference.VERSION_NUMBER, 
+        dependencies = Reference.DEPENDENCIES, 
         guiFactory = "ganymedes01.etfuturum.configuration.ConfigGuiFactory"
     )
 
