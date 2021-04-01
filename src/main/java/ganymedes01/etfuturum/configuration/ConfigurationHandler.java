@@ -364,7 +364,7 @@ public class ConfigurationHandler {
         enableDeepslateOres = cfg.getBoolean("enableDeepslateOres", catWorld, true, "Enable deepslate ores for copper ore and vanilla ores when deepslate generates at it.");
         enableOceanMonuments = cfg.getBoolean("enableOceanMonuments", catWorld, true, "Note: Ocean monuments currently do not have guardians");
         enableFossils = cfg.getBoolean("enableFossils", catWorld, true, "Note: Fossils currently do not rotate");
-        int m  = cfg.getInt("deepslateGenerationMode", catWorld, 0, 0, 2, "0 = Et Futurum bone block, 1 = Netherlicious bone block, 2 = UpToDateMod bone block. If mod is not installed Et Futurum bone block will be used instead");
+        int m  = cfg.getInt("fossilBoneBlock", catWorld, 0, 0, 2, "0 = Et Futurum bone block, 1 = Netherlicious bone block, 2 = UpToDateMod bone block. If mod is not installed Et Futurum bone block will be used instead");
         Block block = m == 1 ? block = GameRegistry.findBlock("netherlicious", "BoneBlock") : GameRegistry.findBlock("uptodate", "bone_block");
         fossilBoneBlock = m == 0 || block == null ? ModBlocks.bone_block : block;
         maxTuffPerCluster = cfg.getInt("tuffClusterSize", catWorld, 48, 0, 64, "Max vein size for tuff blocks in a cluster");

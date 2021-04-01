@@ -714,7 +714,7 @@ public class ModRecipes {
 			addShapedRecipe(new ItemStack(ModBlocks.polished_deepslate, 4, 0), "xx", "xx", 'x', new ItemStack(ModBlocks.cobbled_deepslate, 1, 0));
 			addShapedRecipe(new ItemStack(ModBlocks.deepslate_bricks, 4, 0), "xx", "xx", 'x', new ItemStack(ModBlocks.polished_deepslate, 1, 0));
 			addShapedRecipe(new ItemStack(ModBlocks.deepslate_bricks, 4, 2), "xx", "xx", 'x', new ItemStack(ModBlocks.deepslate_bricks, 1, 0));
-			addShapedRecipe(new ItemStack(ModBlocks.deepslate_bricks, 1, 4), "x", "x", 'x', new ItemStack(Blocks.bedrock, 1, 0)); //TODO: Change to deepslate slab
+			addShapedRecipe(new ItemStack(ModBlocks.deepslate_bricks, 1, 4), "x", "x", 'x', new ItemStack(ModBlocks.deepslate_slab, 1, 0));
 
             addShapedRecipe(new ItemStack(ModBlocks.cobbled_deepslate_stairs, 4, 0), "x  ", "xx ", "xxx", 'x', new ItemStack(ModBlocks.cobbled_deepslate, 1, 0));
             addShapedRecipe(new ItemStack(ModBlocks.polished_deepslate_stairs, 4, 0), "x  ", "xx ", "xxx", 'x', new ItemStack(ModBlocks.polished_deepslate, 1, 0));
