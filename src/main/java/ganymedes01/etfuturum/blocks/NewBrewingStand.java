@@ -60,6 +60,6 @@ public class NewBrewingStand extends BlockBrewingStand implements IConfigurable 
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return ConfigurationHandler.enableBrewingStands;
     }
 }

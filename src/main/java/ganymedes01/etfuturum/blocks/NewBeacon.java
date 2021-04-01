@@ -43,6 +43,6 @@ public class NewBeacon extends BlockBeacon implements IConfigurable {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return ConfigurationHandler.enableColourfulBeacons;
     }
 }

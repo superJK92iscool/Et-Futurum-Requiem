@@ -145,6 +145,7 @@ public class ConfigurationHandler {
 	public static int maxTuffPerCluster;
 
     public static boolean enableTileReplacement;
+    public static boolean enableNewTileEntities;
 
     public static int maxStonesPerCluster;
 
@@ -319,7 +320,8 @@ public class ConfigurationHandler {
 //        enableDyeReplacement = cfg.getBoolean("enableDyeReplacement", catFunction, true, "Removes lapis, bone meal, ink sac and cocoa bean's ore dictionary entries as dyes, making the Et Futurum dyes the dyes instead. Disable if this causes weirdisms with modded recipes. (If false both items can be used)");
         
         //replacement
-        enableTileReplacement = cfg.getBoolean("enableTileReplacement", catReplacement, true, "Replace old Brewing Stands/Enchanting Tables/Daylight Sensors/Beacons with new one on the fly.");
+        enableTileReplacement = cfg.getBoolean("enableTileReplacement", catReplacement, true, "Replace old Brewing Stands/Enchanting Tables/Daylight Sensors/Beacons with new one on the fly. (Note, as of 2.1.0 this option has been reworked to have better performance. If you disabled it due to lag, please consider trying it again!)"); //Requires enableNewTileEntities. If you want to switch your tile entities from the \"new\" ones to the vanilla blocks, disable this, load the chunks with your tile entities and then disable enableNewTileEntities.
+//        enableNewTileEntities = cfg.getBoolean("enableNewTileEntities", catReplacement, true, "(NOT IMPLEMENTED, THIS IS JUST HERE IN ANTICIPATION FOR UPCOMING CHANGES, this currently just disables the \"new\" tile entities without doing anything to the vanilla blocks!) If disabled, the functionality for the anvil, beacon, daylight sensors and enchant tables will append vanilla blocks instead of being swapped out with modded versions.");
         
         enableEnchants = cfg.getBoolean("enableEnchantingTable", catReplacement, true, "");
         enableAnvil = cfg.getBoolean("enableAnvil", catReplacement, true, "");

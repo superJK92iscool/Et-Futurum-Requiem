@@ -82,7 +82,7 @@ public class WorldTickEventHandler {
         
         for(TileEntity tile : tileList) {
         	Block replacement = replacements.get(tile.getBlockType());
-        	if(replacement != null && ((IConfigurable) replacement).isEnabled()) {
+        	if(replacement != null && (!(replacement instanceof IConfigurable) || ((IConfigurable) replacement).isEnabled())) {
                 NBTTagCompound nbt = new NBTTagCompound();
                 tile.writeToNBT(nbt);
                 if (tile instanceof IInventory) {
