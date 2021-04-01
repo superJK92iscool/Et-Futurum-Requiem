@@ -660,9 +660,13 @@ public class ModRecipes {
 		
 		if(ConfigurationHandler.enableCopper) {
 			Block[] stairs = new Block[] {ModBlocks.cut_copper_stairs, ModBlocks.exposed_cut_copper_stairs, ModBlocks.weathered_cut_copper_stairs, ModBlocks.oxidized_cut_copper_stairs, ModBlocks.waxed_cut_copper_stairs, ModBlocks.waxed_exposed_cut_copper_stairs, ModBlocks.waxed_weathered_cut_copper_stairs};
-			addShapedRecipe(new ItemStack(ModBlocks.copper_block, 4), "xx", "xx", 'x', new ItemStack(ModItems.copper_ingot, 1, 0));
-			addShapedRecipe(new ItemStack(ModItems.copper_ingot, 4), "x", 'x', new ItemStack(ModBlocks.copper_block, 1, 0));
-			addShapedRecipe(new ItemStack(ModItems.copper_ingot, 4), "x", 'x', new ItemStack(ModBlocks.copper_block, 1, 8));
+			if(ConfigurationHandler.copper9to1) {
+				addShapedRecipe(new ItemStack(ModBlocks.copper_block, 1), "xxx", "xxx", "xxx", 'x', new ItemStack(ModItems.copper_ingot, 1, 0));
+			} else {
+				addShapedRecipe(new ItemStack(ModBlocks.copper_block, 1), "xx", "xx", 'x', new ItemStack(ModItems.copper_ingot, 1, 0));
+			}
+			addShapedRecipe(new ItemStack(ModItems.copper_ingot, ConfigurationHandler.copper9to1 ? 9 : 4), "x", 'x', new ItemStack(ModBlocks.copper_block, 1, 0));
+			addShapedRecipe(new ItemStack(ModItems.copper_ingot, ConfigurationHandler.copper9to1 ? 9 : 4), "x", 'x', new ItemStack(ModBlocks.copper_block, 1, 8));
 			GameRegistry.addSmelting(new ItemStack(ModBlocks.copper_ore), new ItemStack(ModItems.copper_ingot), .7F);
 			for(int i = 0; i <= 7; i++) {
 				int j = i;
