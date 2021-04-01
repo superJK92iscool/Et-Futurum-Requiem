@@ -224,7 +224,7 @@ public class ModBlocks {
     public static final Block polished_andesite_stairs = new BlockGenericStairs(stone, 6).setBlockName(Utils.getUnlocalisedName("polished_andesite_stairs"));
     public static final Block mossy_stone_brick_stairs = new BlockGenericStairs(Blocks.stonebrick, 1).setBlockName(Utils.getUnlocalisedName("mossy_stone_brick_stairs"));
     public static final Block mossy_cobblestone_stairs = new BlockGenericStairs(Blocks.mossy_cobblestone, 0).setBlockName(Utils.getUnlocalisedName("mossy_cobblestone_stairs"));
-    public static final Block stone_stairs = new BlockGenericStairs(stone, 0).setBlockName(Utils.getUnlocalisedName("stone_stairs"));
+    public static final Block stone_stairs = new BlockGenericStairs(Blocks.stone, 0).setBlockName(Utils.getUnlocalisedName("stone_stairs"));
     public static final Block end_brick_stairs = new BlockGenericStairs(end_bricks, 0).setBlockName(Utils.getUnlocalisedName("end_brick_stairs"));
     
     public static final Block smooth_sandstone_slab = new BlockSmoothSandstoneSlab(0, false);

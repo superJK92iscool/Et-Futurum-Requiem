@@ -56,7 +56,7 @@ public class BlockWitherRose extends BlockFlowerBase implements IConfigurable {
     
 	@Override
 	public boolean isEnabled() {
-		return ConfigurationHandler.enableNewFlowers;
+		return ConfigurationHandler.enableWitherRose;
 	}
 	
     @Override

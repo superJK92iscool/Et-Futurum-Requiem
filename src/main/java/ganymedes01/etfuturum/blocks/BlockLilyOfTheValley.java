@@ -16,6 +16,6 @@ public class BlockLilyOfTheValley extends BlockFlowerBase implements IConfigurab
 
 	@Override
 	public boolean isEnabled() {
-		return ConfigurationHandler.enableNewFlowers;
+		return ConfigurationHandler.enableLilyOfTheValley;
 	}
 }

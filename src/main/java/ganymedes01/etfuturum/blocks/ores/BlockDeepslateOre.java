@@ -52,13 +52,13 @@ public class BlockDeepslateOre extends BlockOre implements IConfigurable {
     	to.setCreativeTab(((IConfigurable)to).isEnabled() ? EtFuturum.creativeTabBlocks : null);
     	to.setLightLevel(from.getLightValue() / 15F);
     	to.setLightOpacity(from.getLightOpacity());
-		if((!(to instanceof IConfigurable) || ((IConfigurable)to).isEnabled()) && !(from instanceof IConfigurable) || ((IConfigurable)from).isEnabled())
+		if((!(to instanceof IConfigurable) || ((IConfigurable)to).isEnabled()) && (!(from instanceof IConfigurable) || ((IConfigurable)from).isEnabled()))
 			EtFuturum.deepslateOres.put(from, to);
     }
 
 	@Override
 	public boolean isEnabled() {
-		return base instanceof IConfigurable ? ((IConfigurable)base).isEnabled() : true && ConfigurationHandler.enableDeepslate && ConfigurationHandler.enableDeepslateOres;
+		return (base instanceof IConfigurable ? ((IConfigurable)base).isEnabled() : true) && ConfigurationHandler.enableDeepslate && ConfigurationHandler.enableDeepslateOres;
 	}
 	
     public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_)

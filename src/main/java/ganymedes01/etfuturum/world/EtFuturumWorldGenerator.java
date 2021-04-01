@@ -67,7 +67,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 				BiomeGenBase biome;
 				Type[] biomeList;
 				//TODO Bone meal
-				if(ConfigurationHandler.enableNewFlowers) {
+				if(ConfigurationHandler.enableLilyOfTheValley) {
 					x = chunkX * 16 + rand.nextInt(16);
 					z = chunkZ * 16 + rand.nextInt(16);
 					biome = world.getBiomeGenForCoords(x, z);
@@ -75,6 +75,9 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 					if(ArrayUtils.contains(biomeList, Type.FOREST) && !ArrayUtils.contains(biomeList, Type.SNOWY) && world.getHeightValue(x, z) > 0) {
 						flowers.get(0).generate(world, rand, x, rand.nextInt(world.getHeightValue(x, z) * 2), z);
 					}
+				}
+
+				if(ConfigurationHandler.enableCornflower) {
 					x = chunkX * 16 + rand.nextInt(16);
 					z = chunkZ * 16 + rand.nextInt(16);
 					biome = world.getBiomeGenForCoords(x, z);
@@ -82,6 +85,8 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 					if (biome.biomeID == 132 || (ArrayUtils.contains(biomeList, Type.PLAINS) && !ArrayUtils.contains(biomeList, Type.SNOWY) && !ArrayUtils.contains(biomeList, Type.SAVANNA)) && world.getHeightValue(x, z) > 0) {
 						flowers.get(1).generate(world, rand, x, rand.nextInt(world.getHeightValue(x, z) * 2), z);
 					}
+				}
+				if(ConfigurationHandler.enableSweetBerryBushes) {
 					x = chunkX * 16 + rand.nextInt(16);
 					z = chunkZ * 16 + rand.nextInt(16);
 					biome = world.getBiomeGenForCoords(x, z);
@@ -94,7 +99,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 				z = chunkZ * 16 + rand.nextInt(16);
 				biome = world.getBiomeGenForCoords(x, z);
 				biomeList = BiomeDictionary.getTypesForBiome(biome);
-				if(ConfigurationHandler.enableFossils && rand.nextInt(64) == 0 && (ArrayUtils.contains(biomeList, Type.SANDY) && ArrayUtils.contains(biomeList, Type.DRY)) || ArrayUtils.contains(biomeList, Type.SWAMP)) {
+				if(ConfigurationHandler.enableFossils && rand.nextInt(64) == 0 && (ArrayUtils.contains(biomeList, Type.SANDY) && ArrayUtils.contains(biomeList, Type.DRY) || ArrayUtils.contains(biomeList, Type.SWAMP))) {
 					new WorldGenFossil().generate(world, rand, x, rand.nextInt(9) + 41, z);
 				}
 			}

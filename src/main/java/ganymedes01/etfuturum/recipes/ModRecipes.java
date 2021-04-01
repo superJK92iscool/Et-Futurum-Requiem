@@ -207,7 +207,7 @@ public class ModRecipes {
 			}
 		}
 		
-		if(ConfigurationHandler.enableNewFlowers) {
+		if(ConfigurationHandler.enableNewDyes) {
 				OreDictionary.registerOre("dyeWhite", new ItemStack(ModItems.new_dye, 1, 0));
 				OreDictionary.registerOre("dyeBlue", new ItemStack(ModItems.new_dye, 1, 1));
 				OreDictionary.registerOre("dyeBrown", new ItemStack(ModItems.new_dye, 1, 2));
@@ -647,13 +647,19 @@ public class ModRecipes {
 		if(ConfigurationHandler.enableQuartzBricks)
 			addShapedRecipe(new ItemStack(ModBlocks.quartz_bricks), "xx", "xx", 'x', new ItemStack(Blocks.quartz_block, 1, 0));
 		
-		if(ConfigurationHandler.enableNewFlowers) {
-			addShapelessRecipe(new ItemStack(ModItems.new_dye, 1, 0), new ItemStack(ModBlocks.lily_of_the_valley, 1, 0));
+		if(ConfigurationHandler.enableNewDyes) {
+			if(ConfigurationHandler.enableLilyOfTheValley) {
+				addShapelessRecipe(new ItemStack(ModItems.new_dye, 1, 0), new ItemStack(ModBlocks.lily_of_the_valley, 1, 0));
+			}
+			if(ConfigurationHandler.enableCornflower) {
+				addShapelessRecipe(new ItemStack(ModItems.new_dye, 1, 1), new ItemStack(ModBlocks.cornflower, 1, 0));
+			}
+			if(ConfigurationHandler.enableWitherRose) {
+				addShapelessRecipe(new ItemStack(ModItems.new_dye, 1, 3), new ItemStack(ModBlocks.wither_rose, 1, 0));
+			}
 			addShapelessRecipe(new ItemStack(ModItems.new_dye, 1, 0), new ItemStack(Items.dye, 1, 15));
-			addShapelessRecipe(new ItemStack(ModItems.new_dye, 1, 1), new ItemStack(ModBlocks.cornflower, 1, 0));
 			addShapelessRecipe(new ItemStack(ModItems.new_dye, 1, 1), new ItemStack(Items.dye, 1, 4));
 			addShapelessRecipe(new ItemStack(ModItems.new_dye, 1, 2), new ItemStack(Items.dye, 1, 3));
-			addShapelessRecipe(new ItemStack(ModItems.new_dye, 1, 3), new ItemStack(ModBlocks.wither_rose, 1, 0));
 			addShapelessRecipe(new ItemStack(ModItems.new_dye, 1, 3), new ItemStack(Items.dye, 1, 0));
 			
 		}
@@ -795,9 +801,13 @@ public class ModRecipes {
 		list.add(new ItemStack(Blocks.red_flower, 1, 6));
 		list.add(new ItemStack(Blocks.red_flower, 1, 7));
 		
-		if(ConfigurationHandler.enableNewFlowers) {
-			list.add(new ItemStack(ModBlocks.cornflower, 1, 0));
+		if(ConfigurationHandler.enableLilyOfTheValley) {
 			list.add(new ItemStack(ModBlocks.lily_of_the_valley, 1, 0));
+		}
+		if(ConfigurationHandler.enableCornflower) {
+			list.add(new ItemStack(ModBlocks.cornflower, 1, 0));
+		}
+		if(ConfigurationHandler.enableWitherRose) {
 			list.add(new ItemStack(ModBlocks.wither_rose, 1, 0));
 		}
     	

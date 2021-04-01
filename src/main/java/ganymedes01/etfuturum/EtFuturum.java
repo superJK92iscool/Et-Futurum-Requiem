@@ -11,12 +11,15 @@ import java.util.Map;
 
 import org.apache.commons.lang3.ArrayUtils;
 
+import com.google.common.eventbus.Subscribe;
+
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLLoadCompleteEvent;
 import cpw.mods.fml.common.event.FMLInterModComms.IMCEvent;
 import cpw.mods.fml.common.event.FMLInterModComms.IMCMessage;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -62,6 +65,8 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.oredict.RecipeSorter;
 
 @Mod(
         modid = "etfuturum", 
@@ -175,9 +180,6 @@ public class EtFuturum {
             	if(biome.biomeID == 132)
             		biome.addFlower(ModBlocks.lily_of_the_valley, 0, 5);
         }
-        
-        Items.blaze_rod.setFull3D();
-        Blocks.trapped_chest.setCreativeTab(CreativeTabs.tabRedstone);
 
         if (ConfigurationHandler.enableUpdatedFoodValues) {
             setFinalField(ItemFood.class, Items.carrot, 3, "healAmount", "field_77853_b");
@@ -197,7 +199,10 @@ public class EtFuturum {
         if (Loader.isModLoaded("Thaumcraft")) {
             CompatTC.doAspects();
         }
-
+        
+        Items.blaze_rod.setFull3D();
+        Blocks.trapped_chest.setCreativeTab(CreativeTabs.tabRedstone);
+        
         if(ConfigurationHandler.enableHoeMining) {
         	HoeHelper.init();
         }
@@ -222,9 +227,9 @@ public class EtFuturum {
     		Blocks.soul_sand.setStepSound(ModSounds.soundSoulSand);
         }
         
+        ModRecipes.initDeepslate();
         SmokerRecipes.init();
         BlastFurnaceRecipes.init();
-        ModRecipes.initDeepslate();
     }
 
     @EventHandler

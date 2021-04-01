@@ -106,7 +106,9 @@ public class ConfigurationHandler {
 	public static boolean enableQuartzBricks;
 	public static boolean enableGenericSlabs;
 	public static boolean enableGenericStairs;
-	public static boolean enableNewFlowers;
+	public static boolean enableLilyOfTheValley;
+	public static boolean enableCornflower;
+	public static boolean enableWitherRose;
 	public static int maxCopperPerCluster;
 //	public static boolean enableDyeReplacement;
 	public static boolean enableSweetBerryBushes;
@@ -125,6 +127,7 @@ public class ConfigurationHandler {
     public static boolean enableTotemUndying;
     public static boolean enableRecipeForTotem;
     public static boolean copper9to1;
+    public static boolean enableNewDyes;
     
     public static boolean enableWoodRedstone;
     public static boolean enableStrippedLogs;
@@ -236,7 +239,9 @@ public class ConfigurationHandler {
         enableQuartzBricks = cfg.getBoolean("enableQuartzBricks", catBlock, true, "");
         enableGenericSlabs = cfg.getBoolean("enableGenericSlabs", catBlock, true, "Slabs for vanilla blocks: stone, mossy stone brick, mossy cobble, cut sandstone");
         enableGenericStairs = cfg.getBoolean("enableGenericStairs", catBlock, true, "Stairs for vanilla blocks: stone, mossy stone brick, mossy cobble");
-        enableNewFlowers = cfg.getBoolean("enableNewFlowers", catBlock, true, "Cornflower, lily of the valley, wither rose");
+        enableLilyOfTheValley = cfg.getBoolean("enableLilyOfTheValley", catBlock, true, "");
+        enableCornflower = cfg.getBoolean("enableCornflower", catBlock, true, "");
+        enableWitherRose = cfg.getBoolean("enableWitherRose", catBlock, true, "");
         enableCopper = cfg.getBoolean("enableCopper", catBlock, true, "Copper ore and copper blocks, variants, and waxed variants. (Slime balls are used if no mod introduces wax)");
         enableCopperSubItems = cfg.getBoolean("enableCopperSubItems", catBlock, true, "Copper sub-blocks and items. Disable copper but keep this on if you want the new copper items and blocks made of it, without the main ingot, ore or copper block itself.");
         enableSweetBerryBushes = cfg.getBoolean("enableSweetBerryBushes", catBlock, true, "");
@@ -257,6 +262,7 @@ public class ConfigurationHandler {
         
         enableTotemUndying = cfg.getBoolean("enableTotemUndying", catItems, true, "");
         enableSuspiciousStew = cfg.getBoolean("enableSuspiciousStew", catItems, true, "");
+        enableNewDyes = cfg.getBoolean("enableNewDyes", catItems, true, "");
         
         //equipment
         netheriteToolDurability = cfg.getInt("netheriteToolDurability", catEquipment, 2031, 1, Integer.MAX_VALUE, "");

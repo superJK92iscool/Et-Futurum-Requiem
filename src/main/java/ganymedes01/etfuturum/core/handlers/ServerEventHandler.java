@@ -546,7 +546,7 @@ public class ServerEventHandler {
                     addDrop(new ItemStack(ModItems.raw_mutton), event.entityLiving, event.drops);
         }
         
-        if (ConfigurationHandler.enableNewFlowers && event.entity instanceof EntityLivingBase && event.source.getEntity() instanceof EntityWither) {
+        if (ConfigurationHandler.enableWitherRose && event.entity instanceof EntityLivingBase && event.source.getEntity() instanceof EntityWither) {
         	World world = event.entity.worldObj;
         	Entity entity = event.entity;
         	if(world.getGameRules().getGameRuleBooleanValue("mobGriefing") && ((BlockWitherRose)ModBlocks.wither_rose).canPlaceBlockAt(world, (int)entity.posX, (int)entity.posY, (int)entity.posZ)) {
