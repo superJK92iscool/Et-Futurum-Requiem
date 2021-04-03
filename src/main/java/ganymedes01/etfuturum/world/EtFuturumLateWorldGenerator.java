@@ -29,7 +29,7 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 				}
 			}
 		}
-		if (ConfigurationHandler.enableDeepslate && ConfigurationHandler.deepslateGenerationMode == 0 && world.provider.dimensionId == 0) {
+		if (world.getWorldInfo().getGeneratorOptions().length() <= 0 && ConfigurationHandler.enableDeepslate && ConfigurationHandler.deepslateGenerationMode == 0 && world.provider.dimensionId == 0) {
 			for (int x = chunkX * 16; x < (chunkX * 16) + 16; x++) {
 				for (int z = chunkZ * 16; z < (chunkZ * 16) + 16; z++) {
 					for (int y = 0; y <= ConfigurationHandler.deepslateMaxY; y++) {
@@ -48,15 +48,17 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 				}
 			}
 		}
-		if(ConfigurationHandler.enableDeepslate && ConfigurationHandler.deepslateGenerationMode == 1 && world.provider.dimensionId == 0) {
-			int x = chunkX * 16 + rand.nextInt(16);
-			int z = chunkZ * 16 + rand.nextInt(16);
-			new WorldGenDeepslateLayerMinable(ModBlocks.deepslate, ConfigurationHandler.maxDeepslatePerCluster).generate(world, rand, x, rand.nextInt(ConfigurationHandler.deepslateMaxY), z);
-		}
-		if(ConfigurationHandler.enableTuff && world.provider.dimensionId != -1 && world.provider.dimensionId != 1) {
-			int x = chunkX * 16 + rand.nextInt(16);
-			int z = chunkZ * 16 + rand.nextInt(16);
-			new WorldGenDeepslateLayerMinable(ModBlocks.tuff, ConfigurationHandler.maxTuffPerCluster).generate(world, rand, x, rand.nextInt(ConfigurationHandler.deepslateMaxY), z);
+		if(world.getWorldInfo().getGeneratorOptions().length() <= 0 || world.getWorldInfo().getGeneratorOptions().contains("decoration") || world.provider.dimensionId != 0) {
+			if(ConfigurationHandler.enableDeepslate && ConfigurationHandler.deepslateGenerationMode == 1 && world.provider.dimensionId == 0) {
+				int x = chunkX * 16 + rand.nextInt(16);
+				int z = chunkZ * 16 + rand.nextInt(16);
+				new WorldGenDeepslateLayerMinable(ModBlocks.deepslate, ConfigurationHandler.maxDeepslatePerCluster).generate(world, rand, x, rand.nextInt(ConfigurationHandler.deepslateMaxY), z);
+			}
+			if(ConfigurationHandler.enableTuff && world.provider.dimensionId != -1 && world.provider.dimensionId != 1) {
+				int x = chunkX * 16 + rand.nextInt(16);
+				int z = chunkZ * 16 + rand.nextInt(16);
+				new WorldGenDeepslateLayerMinable(ModBlocks.tuff, ConfigurationHandler.maxTuffPerCluster).generate(world, rand, x, rand.nextInt(ConfigurationHandler.deepslateMaxY), z);
+			}
 		}
 	}
 }

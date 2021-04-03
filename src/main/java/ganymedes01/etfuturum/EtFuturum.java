@@ -64,6 +64,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.oredict.RecipeSorter;
@@ -253,7 +254,14 @@ public class EtFuturum {
 		to.setHardness(getBlockHardness(from));
 		to.setResistance(getBlockResistance(from));
 		to.setBlockName(from.getUnlocalizedName().replace("tile.", ""));
-		to.setCreativeTab(from.getCreativeTabToDisplayOn());
+		Field tab = ReflectionHelper.findField(Block.class, "field_149772_a", "displayOnCreativeTab");
+		tab.setAccessible(true);
+		try {
+			to.setCreativeTab((CreativeTabs) tab.get(from));
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		to.setStepSound(from.stepSound);
 		to.setBlockTextureName(getTextureName(from));
 		Field harvestLevel = ReflectionHelper.findField(Block.class, "harvestLevel");
