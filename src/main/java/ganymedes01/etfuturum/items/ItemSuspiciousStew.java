@@ -27,6 +27,7 @@ public class ItemSuspiciousStew extends ItemSoup implements IConfigurable {
 		setTextureName("suspicious_stew");
 		setUnlocalizedName(Utils.getUnlocalisedName("suspicious_stew"));
 		setCreativeTab(null);
+		setAlwaysEdible();
 	}
 
     public ItemStack onEaten(ItemStack p_77654_1_, World p_77654_2_, EntityPlayer p_77654_3_)
