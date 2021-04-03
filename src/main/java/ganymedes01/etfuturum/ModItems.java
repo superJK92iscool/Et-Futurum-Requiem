@@ -46,7 +46,8 @@ import net.minecraftforge.common.util.EnumHelper;
 public class ModItems {
 	
 	public static final Item.ToolMaterial NETHERITE_TOOL = EnumHelper.addToolMaterial("Netherite_Tool", ConfigurationHandler.netheriteHarvestLevel, ConfigurationHandler.netheriteToolDurability, ConfigurationHandler.netheriteSpeed, ConfigurationHandler.netheriteDamageBase, ConfigurationHandler.netheriteEnchantability);
-    public static final ItemArmor.ArmorMaterial NETHERITE_ARMOUR = EnumHelper.addArmorMaterial("Netherite_Armour", ConfigurationHandler.netheriteArmourDurabilityFactor, new int[]{3, 8, 6, 3}, ConfigurationHandler.netheriteEnchantability);
+    public static final ItemArmor.ArmorMaterial NETHERITE_ARMOUR = EnumHelper.addArmorMaterial("Netherite_Armour", ConfigurationHandler.netheriteArmourDurabilityFactor, new int[]{3, 6, 8, 3}, ConfigurationHandler.netheriteEnchantability);
+
     static {
         NETHERITE_TOOL.setRepairItem(new ItemStack(ModItems.netherite_ingot));
         NETHERITE_ARMOUR.customCraftingMaterial = ModItems.netherite_ingot;

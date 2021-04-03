@@ -36,12 +36,7 @@ public class GrassPath extends Block implements IConfigurable {
         setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.9375F, 1.0F);
         setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
     }
-
-    @Override
-    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
-        return AxisAlignedBB.getBoundingBox(x, y, z, x + 1, y + 1, z + 1);
-    }
-
+    
     @Override
     public Item getItemDropped(int meta, Random rand, int fortune) {
         return Blocks.dirt.getItemDropped(meta, rand, fortune);
@@ -61,6 +56,10 @@ public class GrassPath extends Block implements IConfigurable {
     public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
         if (world.getBlock(x, y + 1, z).getMaterial().isSolid())
             world.setBlock(x, y, z, Blocks.dirt);
+    }
+    
+    @Override public boolean canSilkHarvest() {
+    	return false;
     }
 
     @Override

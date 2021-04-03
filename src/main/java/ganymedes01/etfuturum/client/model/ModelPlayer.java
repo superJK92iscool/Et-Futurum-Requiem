@@ -12,135 +12,85 @@ import net.minecraft.entity.Entity;
 @SideOnly(Side.CLIENT)
 public class ModelPlayer extends ModelBiped {
 
+	/*
+	 * This class, with permission, is provided by SkinPort, thanks to LainMI
+	 * https://www.curseforge.com/minecraft/mc-mods/skinport
+	 * Permission: https://www.curseforge.com/minecraft/mc-mods/skinport?comment=142
+	 */
+	
     public ModelRenderer bipedLeftArmwear;
     public ModelRenderer bipedRightArmwear;
     public ModelRenderer bipedLeftLegwear;
     public ModelRenderer bipedRightLegwear;
     public ModelRenderer bipedBodyWear;
+    public boolean smallArms;
 
-    public ModelPlayer(float size, boolean isAlex) {
-        super(size, 0.0F, 64, 64);
+    public ModelPlayer(float z, boolean smallArms)
+    {
+        super(z, 0.0F, 64, 64);
 
-        bipedEars = new ModelRenderer(this, 24, 0);
-        bipedEars.addBox(-3.0F, -6.0F, -1.0F, 6, 6, 1, size);
+        this.smallArms = smallArms;
 
         bipedCloak = new ModelRenderer(this, 0, 0);
         bipedCloak.setTextureSize(64, 32);
-        bipedCloak.addBox(-5.0F, 0.0F, -1.0F, 10, 16, 1, size);
+        bipedCloak.addBox(-5.0F, 0.0F, -1.0F, 10, 16, 1, z);
 
-        if (isAlex) {
+        if (smallArms)
+        {
             bipedLeftArm = new ModelRenderer(this, 32, 48);
-            bipedLeftArm.addBox(-1.0F, -2.0F, -2.0F, 3, 12, 4, size);
+            bipedLeftArm.addBox(-1.0F, -2.0F, -2.0F, 3, 12, 4, z);
             bipedLeftArm.setRotationPoint(5.0F, 2.5F, 0.0F);
+
             bipedRightArm = new ModelRenderer(this, 40, 16);
-            bipedRightArm.addBox(-2.0F, -2.0F, -2.0F, 3, 12, 4, size);
+            bipedRightArm.addBox(-2.0F, -2.0F, -2.0F, 3, 12, 4, z);
             bipedRightArm.setRotationPoint(-5.0F, 2.5F, 0.0F);
+
             bipedLeftArmwear = new ModelRenderer(this, 48, 48);
-            bipedLeftArmwear.addBox(-1.0F, -2.0F, -2.0F, 3, 12, 4, size + 0.25F);
-            bipedLeftArmwear.setRotationPoint(5.0F, 2.5F, 0.0F);
+            bipedLeftArmwear.addBox(-1.0F, -2.0F, -2.0F, 3, 12, 4, z + 0.25F);
+            bipedLeftArm.addChild(bipedLeftArmwear);
+
             bipedRightArmwear = new ModelRenderer(this, 40, 32);
-            bipedRightArmwear.addBox(-2.0F, -2.0F, -2.0F, 3, 12, 4, size + 0.25F);
-            bipedRightArmwear.setRotationPoint(-5.0F, 2.5F, 10.0F);
-        } else {
+            bipedRightArmwear.addBox(-2.0F, -2.0F, -2.0F, 3, 12, 4, z + 0.25F);
+            bipedRightArm.addChild(bipedRightArmwear);
+        }
+        else
+        {
             bipedLeftArm = new ModelRenderer(this, 32, 48);
-            bipedLeftArm.addBox(-1.0F, -2.0F, -2.0F, 4, 12, 4, size);
+            bipedLeftArm.addBox(-1.0F, -2.0F, -2.0F, 4, 12, 4, z);
             bipedLeftArm.setRotationPoint(5.0F, 2.0F, 0.0F);
+
             bipedLeftArmwear = new ModelRenderer(this, 48, 48);
-            bipedLeftArmwear.addBox(-1.0F, -2.0F, -2.0F, 4, 12, 4, size + 0.25F);
-            bipedLeftArmwear.setRotationPoint(5.0F, 2.0F, 0.0F);
+            bipedLeftArmwear.addBox(-1.0F, -2.0F, -2.0F, 4, 12, 4, z + 0.25F);
+            bipedLeftArm.addChild(bipedLeftArmwear);
+
             bipedRightArmwear = new ModelRenderer(this, 40, 32);
-            bipedRightArmwear.addBox(-3.0F, -2.0F, -2.0F, 4, 12, 4, size + 0.25F);
-            bipedRightArmwear.setRotationPoint(-5.0F, 2.0F, 10.0F);
+            bipedRightArmwear.addBox(-3.0F, -2.0F, -2.0F, 4, 12, 4, z + 0.25F);
+            bipedRightArm.addChild(bipedRightArmwear);
         }
 
         bipedLeftLeg = new ModelRenderer(this, 16, 48);
-        bipedLeftLeg.addBox(-2.0F, 0.0F, -2.0F, 4, 12, 4, size);
+        bipedLeftLeg.addBox(-2.0F, 0.0F, -2.0F, 4, 12, 4, z);
         bipedLeftLeg.setRotationPoint(1.9F, 12.0F, 0.0F);
+
         bipedLeftLegwear = new ModelRenderer(this, 0, 48);
-        bipedLeftLegwear.addBox(-2.0F, 0.0F, -2.0F, 4, 12, 4, size + 0.25F);
-        bipedLeftLegwear.setRotationPoint(1.9F, 12.0F, 0.0F);
+        bipedLeftLegwear.addBox(-2.0F, 0.0F, -2.0F, 4, 12, 4, z + 0.25F);
+        bipedLeftLeg.addChild(bipedLeftLegwear);
+
         bipedRightLegwear = new ModelRenderer(this, 0, 32);
-        bipedRightLegwear.addBox(-2.0F, 0.0F, -2.0F, 4, 12, 4, size + 0.25F);
-        bipedRightLegwear.setRotationPoint(-1.9F, 12.0F, 0.0F);
+        bipedRightLegwear.addBox(-2.0F, 0.0F, -2.0F, 4, 12, 4, z + 0.25F);
+        bipedRightLeg.addChild(bipedRightLegwear);
+
         bipedBodyWear = new ModelRenderer(this, 16, 32);
-        bipedBodyWear.addBox(-4.0F, 0.0F, -2.0F, 8, 12, 4, size + 0.25F);
-        bipedBodyWear.setRotationPoint(0.0F, 0.0F, 0.0F);
+        bipedBodyWear.addBox(-4.0F, 0.0F, -2.0F, 8, 12, 4, z + 0.25F);
+        bipedBody.addChild(bipedBodyWear);
     }
 
     @Override
-    public void render(Entity entity, float f0, float f1, float f2, float f3, float f4, float scale) {
-        setRotationAngles(f0, f1, f2, f3, f4, scale, entity);
+    public void render(Entity p_render_1_, float p_render_2_, float p_render_3_, float p_render_4_, float p_render_5_, float p_render_6_, float p_render_7_)
+    {
+        super.render(p_render_1_, p_render_2_, p_render_3_, p_render_4_, p_render_5_, p_render_6_, p_render_7_);
 
-        if (isChild) {
-            float f6 = 2.0F;
-            OpenGLHelper.pushMatrix();
-            OpenGLHelper.scale(1.5F / f6, 1.5F / f6, 1.5F / f6);
-            OpenGLHelper.translate(0.0F, 16.0F * scale, 0.0F);
-            bipedHead.render(scale);
-            OpenGLHelper.popMatrix();
-            OpenGLHelper.pushMatrix();
-            OpenGLHelper.scale(1.0F / f6, 1.0F / f6, 1.0F / f6);
-            OpenGLHelper.translate(0.0F, 24.0F * scale, 0.0F);
-            bipedBody.render(scale);
-            bipedRightArm.render(scale);
-            bipedLeftArm.render(scale);
-            bipedRightLeg.render(scale);
-            bipedLeftLeg.render(scale);
-            OpenGLHelper.popMatrix();
-        } else {
-            bipedHead.render(scale);
-            bipedBody.render(scale);
-            bipedRightArm.render(scale);
-            bipedLeftArm.render(scale);
-            bipedRightLeg.render(scale);
-            bipedLeftLeg.render(scale);
-            OpenGLHelper.enableBlend();
-            OpenGLHelper.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-            bipedHeadwear.render(scale);
-            OpenGLHelper.disableBlend();
-        }
-
-        OpenGLHelper.pushMatrix();
-        OpenGLHelper.enableBlend();
-        OpenGLHelper.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-
-        if (isChild) {
-            float f6 = 2.0F;
-            OpenGLHelper.scale(1.0F / f6, 1.0F / f6, 1.0F / f6);
-            OpenGLHelper.translate(0.0F, 24.0F * scale, 0.0F);
-            bipedLeftLegwear.render(scale);
-            bipedRightLegwear.render(scale);
-            bipedLeftArmwear.render(scale);
-            bipedRightArmwear.render(scale);
-            bipedBodyWear.render(scale);
-        } else {
-            bipedLeftLegwear.render(scale);
-            bipedRightLegwear.render(scale);
-            bipedLeftArmwear.render(scale);
-            bipedRightArmwear.render(scale);
-            bipedBodyWear.render(scale);
-        }
-
-        OpenGLHelper.disableBlend();
-        OpenGLHelper.popMatrix();
-    }
-
-    @Override
-    public void setRotationAngles(float f0, float f1, float f2, float f3, float f4, float f5, Entity entity) {
-        super.setRotationAngles(f0, f1, f2, f3, f4, f5, entity);
-        copyModelAngles(bipedLeftLeg, bipedLeftLegwear);
-        copyModelAngles(bipedRightLeg, bipedRightLegwear);
-        copyModelAngles(bipedLeftArm, bipedLeftArmwear);
-        copyModelAngles(bipedRightArm, bipedRightArmwear);
-        copyModelAngles(bipedBody, bipedBodyWear);
-    }
-
-    private void copyModelAngles(ModelRenderer source, ModelRenderer dest) {
-        dest.rotateAngleX = source.rotateAngleX;
-        dest.rotateAngleY = source.rotateAngleY;
-        dest.rotateAngleZ = source.rotateAngleZ;
-        dest.rotationPointX = source.rotationPointX;
-        dest.rotationPointY = source.rotationPointY;
-        dest.rotationPointZ = source.rotationPointZ;
+        if (smallArms)
+            bipedRightArm.rotationPointX += 1.0F;
     }
 }

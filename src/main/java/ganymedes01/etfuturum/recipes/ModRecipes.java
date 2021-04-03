@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.etfuturum.EtFuturum;
+import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.blocks.BlockGlazedTerracotta;
@@ -770,6 +771,8 @@ public class ModRecipes {
 				
 				if(Item.getItemFromBlock(ore) == null || Item.getItemFromBlock(oreBase) == null)
 					continue;
+				if(((ore instanceof IConfigurable) && !((IConfigurable)ore).isEnabled()) || ((oreBase instanceof IConfigurable) && !((IConfigurable)oreBase).isEnabled()))
+					return;
 				for(int j = 0; j < (Item.getItemFromBlock(oreBase).getHasSubtypes() ? 16 : 1); j++) {
 					for(int i : OreDictionary.getOreIDs(new ItemStack(oreBase, 1, j))) {
 						for(int k = 0; k < OreDictionary.getOres(OreDictionary.getOreName(i)).size(); k++) {

@@ -18,6 +18,8 @@ public class PlayerModelManager {
     public static Map<EntityPlayer, Boolean> alexCache = new HashMap<EntityPlayer, Boolean>();
 
     public static boolean isPlayerModelAlex(EntityPlayer player) {
+    	if(player == null)
+    		return false;
         Boolean isAlex = alexCache.get(player);
 		if(isAlex == null) {
 			NBTTagCompound nbt = player.getEntityData();
