@@ -1,30 +1,19 @@
 package ganymedes01.etfuturum.core.handlers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import codechicken.lib.math.MathHelper;
-import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.TickEvent.ClientTickEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 import cpw.mods.fml.common.gameevent.TickEvent.WorldTickEvent;
 import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.client.sound.NetherAmbience;
-import ganymedes01.etfuturum.client.sound.NetherAmbienceLoop;
-import ganymedes01.etfuturum.client.sound.WeightedSoundPool;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
-import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiScreenWorking;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.nbt.NBTTagCompound;
@@ -78,11 +67,12 @@ public class WorldTickEventHandler {
         if(world.loadedTileEntityList.isEmpty() || prevHash == world.loadedTileEntityList.hashCode())
         	return;
         
-        List<TileEntity> tileList = world.loadedTileEntityList;	
+        List<TileEntity> tileList = new ArrayList<TileEntity>(world.loadedTileEntityList);	
         
         for(TileEntity tile : tileList) {
         	Block replacement = replacements.get(tile.getBlockType());
         	if(replacement != null && (!(replacement instanceof IConfigurable) || ((IConfigurable) replacement).isEnabled())) {
+        		System.out.println("ran tile check");
                 NBTTagCompound nbt = new NBTTagCompound();
                 tile.writeToNBT(nbt);
                 if (tile instanceof IInventory) {
