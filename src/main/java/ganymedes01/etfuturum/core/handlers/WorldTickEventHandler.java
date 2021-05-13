@@ -67,12 +67,12 @@ public class WorldTickEventHandler {
         if(world.loadedTileEntityList.isEmpty() || prevHash == world.loadedTileEntityList.hashCode())
         	return;
         
-        List<TileEntity> tileList = new ArrayList<TileEntity>(world.loadedTileEntityList);	
+        List<TileEntity> tileList = world.loadedTileEntityList;	
         
-        for(TileEntity tile : tileList) {
+        for(int i = 0; i < tileList.size(); i++) {
+        	TileEntity tile = tileList.get(i);
         	Block replacement = replacements.get(tile.getBlockType());
         	if(replacement != null && (!(replacement instanceof IConfigurable) || ((IConfigurable) replacement).isEnabled())) {
-        		System.out.println("ran tile check");
                 NBTTagCompound nbt = new NBTTagCompound();
                 tile.writeToNBT(nbt);
                 if (tile instanceof IInventory) {
