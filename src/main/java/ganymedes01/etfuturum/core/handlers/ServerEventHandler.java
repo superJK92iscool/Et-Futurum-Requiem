@@ -37,7 +37,6 @@ import ganymedes01.etfuturum.entities.EntityRabbit;
 import ganymedes01.etfuturum.entities.EntityTippedArrow;
 import ganymedes01.etfuturum.entities.EntityZombieVillager;
 import ganymedes01.etfuturum.entities.ai.EntityAIOpenCustomDoor;
-import ganymedes01.etfuturum.entities.ai.EntityAISilverfishEnterDeepslate;
 import ganymedes01.etfuturum.inventory.ContainerEnchantment;
 import ganymedes01.etfuturum.items.TippedArrow;
 import ganymedes01.etfuturum.lib.Reference;
@@ -54,6 +53,8 @@ import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityList;
+import net.minecraft.entity.EntityList.EntityEggInfo;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAIOpenDoor;
@@ -63,7 +64,6 @@ import net.minecraft.entity.ai.EntityAITempt;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityCreeper;
-import net.minecraft.entity.monster.EntitySilverfish;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntitySnowman;
 import net.minecraft.entity.monster.EntityWitch;
@@ -83,12 +83,14 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBucket;
 import net.minecraft.item.ItemHoe;
+import net.minecraft.item.ItemMonsterPlacer;
 import net.minecraft.item.ItemShears;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.tileentity.TileEntityMobSpawner;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
@@ -453,6 +455,15 @@ public class ServerEventHandler {
             		world.setBlock(x, y, z, ModBlocks.anvil, world.getBlockMetadata(x, y, z), 3);
             	} else if(oldBlock != null && heldStack != null && heldStack.getItem() != null) {
                     Set<String> toolClasses = heldStack.getItem().getToolClasses(heldStack);
+//                    if(heldStack.getItem() instanceof ItemMonsterPlacer && oldBlock == Blocks.mob_spawner) {
+//                    	String name = EntityList.getStringFromID(heldStack.getItemDamage());
+//                    	if(name == null || name.length() <= 0) {
+//                    		name = "Pig";
+//                    	}
+//                    	((TileEntityMobSpawner)world.getTileEntity(x, y, z)).func_145881_a().set;
+//                    	event.setCanceled(true);
+//                    	return;
+//                    }
                     if (toolClasses != null) {
                     	if (ConfigurationHandler.enableGrassPath && toolClasses.contains("shovel") && oldBlock == Blocks.grass) {
                         	world.setBlock(x, y, z, ModBlocks.grass_path);
@@ -481,6 +492,7 @@ public class ServerEventHandler {
                             }
                         }
                     }
+                    
                 }
             }
         }

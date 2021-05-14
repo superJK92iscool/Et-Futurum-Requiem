@@ -778,7 +778,9 @@ public class ModRecipes {
 						for(int k = 0; k < OreDictionary.getOres(OreDictionary.getOreName(i)).size(); k++) {
 							ItemStack oreStack = OreDictionary.getOres(OreDictionary.getOreName(i)).get(k);
 							if(oreStack.getItem() == Item.getItemFromBlock(oreBase)) {
-								OreDictionary.registerOre(OreDictionary.getOreName(i), new ItemStack(ore, 1, j));
+								String oreName = OreDictionary.getOreName(i);
+								oreName = oreName.replace("Vanillastone", "Deepslate");
+								OreDictionary.registerOre(oreName, new ItemStack(ore, 1, j));
 							}
 						}
 					}
