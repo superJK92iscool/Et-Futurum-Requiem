@@ -13,22 +13,22 @@ import net.minecraft.util.IIcon;
 
 public class NewNetherBrick extends BlockGeneric implements IConfigurable {
 
-    public NewNetherBrick()
-    {
+	public NewNetherBrick()
+	{
 		super(Material.rock, "", "cracked", "chiseled");
 		this.setResistance(6);
 		this.setHardness(2);
-        setStepSound(ConfigurationHandler.enableNewBlocksSounds ? ModSounds.soundNetherBricks : soundTypePiston);
-        this.setHarvestLevel("pickaxe", 0);
+		setStepSound(ConfigurationHandler.enableNewBlocksSounds ? ModSounds.soundNetherBricks : soundTypePiston);
+		this.setHarvestLevel("pickaxe", 0);
 		this.setBlockTextureName("nether_bricks");
 		setBlockName(Utils.getUnlocalisedName("red_netherbrick"));
-        setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
-    }
-    
-    @Override
-    public boolean isEnabled() {
-        return ConfigurationHandler.enableNewNetherBricks;
-    }
+		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+	}
+	
+	@Override
+	public boolean isEnabled() {
+		return ConfigurationHandler.enableNewNetherBricks;
+	}
 
 	@Override
 	@SideOnly(Side.CLIENT)

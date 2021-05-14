@@ -17,32 +17,32 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.util.IIcon;
 
 public class BlockWoodBarkOld extends BlockOldLog implements IConfigurable, ISubBlocksBlock, IBurnableBlock {
-    
-    public BlockWoodBarkOld() {
-        setBlockName(Utils.getUnlocalisedName("bark"));
-        setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
-    }
+	
+	public BlockWoodBarkOld() {
+		setBlockName(Utils.getUnlocalisedName("bark"));
+		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+	}
 
-    @SideOnly(Side.CLIENT)
-    public void registerBlockIcons(IIconRegister iconRegister) {
-        this.field_150167_a = new IIcon[field_150168_M.length];
-        this.field_150166_b = new IIcon[field_150168_M.length];
+	@SideOnly(Side.CLIENT)
+	public void registerBlockIcons(IIconRegister iconRegister) {
+		this.field_150167_a = new IIcon[field_150168_M.length];
+		this.field_150166_b = new IIcon[field_150168_M.length];
 
-        for (int i = 0; i < this.field_150167_a.length; ++i) {
-            this.field_150167_a[i] = iconRegister.registerIcon("log_" + field_150168_M[i]);
-            this.field_150166_b[i] = iconRegister.registerIcon("log_" + field_150168_M[i]);
-        }
-    }
+		for (int i = 0; i < this.field_150167_a.length; ++i) {
+			this.field_150167_a[i] = iconRegister.registerIcon("log_" + field_150168_M[i]);
+			this.field_150166_b[i] = iconRegister.registerIcon("log_" + field_150168_M[i]);
+		}
+	}
 
-    @Override
-    public boolean isEnabled() {
-        return ConfigurationHandler.enableBarkLogs;
-    }
+	@Override
+	public boolean isEnabled() {
+		return ConfigurationHandler.enableBarkLogs;
+	}
 
-    @Override
-    public Class<? extends ItemBlock> getItemBlockClass() {
-        return ItemBlockGeneric.class;
-    }
+	@Override
+	public Class<? extends ItemBlock> getItemBlockClass() {
+		return ItemBlockGeneric.class;
+	}
 
 	@Override
 	public ImmutablePair getFireInfo() {

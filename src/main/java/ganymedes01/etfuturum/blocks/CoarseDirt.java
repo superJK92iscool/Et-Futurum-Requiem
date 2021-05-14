@@ -17,24 +17,24 @@ import cpw.mods.fml.common.eventhandler.Event.Result;
 
 public class CoarseDirt extends Block implements IConfigurable {
 
-    public CoarseDirt() {
-        super(Material.ground);
-        setHardness(0.5F);
-        setHarvestLevel("shovel", 0);
-        setStepSound(soundTypeGravel);
-        setBlockTextureName("coarse_dirt");
-        setBlockName(Utils.getUnlocalisedName("coarse_dirt"));
-        setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
-    }
+	public CoarseDirt() {
+		super(Material.ground);
+		setHardness(0.5F);
+		setHarvestLevel("shovel", 0);
+		setStepSound(soundTypeGravel);
+		setBlockTextureName("coarse_dirt");
+		setBlockName(Utils.getUnlocalisedName("coarse_dirt"));
+		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+	}
 
-    @Override
-    public boolean canSustainPlant(IBlockAccess world, int x, int y, int z, ForgeDirection direction, IPlantable plant) {
-        return Blocks.dirt.canSustainPlant(world, x, y, z, direction, plant);
-    }
+	@Override
+	public boolean canSustainPlant(IBlockAccess world, int x, int y, int z, ForgeDirection direction, IPlantable plant) {
+		return Blocks.dirt.canSustainPlant(world, x, y, z, direction, plant);
+	}
 
-    @Override
-    public boolean isEnabled() {
-        return ConfigurationHandler.enableCoarseDirt;
-    }
+	@Override
+	public boolean isEnabled() {
+		return ConfigurationHandler.enableCoarseDirt;
+	}
 
 }

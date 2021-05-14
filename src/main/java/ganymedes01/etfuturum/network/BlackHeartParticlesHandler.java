@@ -11,19 +11,19 @@ import net.minecraft.world.World;
 
 public class BlackHeartParticlesHandler implements IMessageHandler<BlackHeartParticlesMessage, IMessage> {
 
-    @Override
-    public IMessage onMessage(BlackHeartParticlesMessage message, MessageContext ctx) {
-        handleMessage(message);
-        return null;
-    }
+	@Override
+	public IMessage onMessage(BlackHeartParticlesMessage message, MessageContext ctx) {
+		handleMessage(message);
+		return null;
+	}
 
-    @SideOnly(Side.CLIENT)
-    private void handleMessage(BlackHeartParticlesMessage message) {
-        World world = Minecraft.getMinecraft().theWorld;
-        double x = message.x;
-        double y = message.y;
-        double z = message.z;
+	@SideOnly(Side.CLIENT)
+	private void handleMessage(BlackHeartParticlesMessage message) {
+		World world = Minecraft.getMinecraft().theWorld;
+		double x = message.x;
+		double y = message.y;
+		double z = message.z;
 
-        Minecraft.getMinecraft().effectRenderer.addEffect(new BlackHeartFX(world, x, y, z));
-    }
+		Minecraft.getMinecraft().effectRenderer.addEffect(new BlackHeartFX(world, x, y, z));
+	}
 }

@@ -15,90 +15,90 @@ import net.minecraft.util.AxisAlignedBB;
 
 public class TileEntityNewBeacon extends TileEntityBeacon {
 
-    private final List<BeamSegment> segments = Lists.newArrayList();
+	private final List<BeamSegment> segments = Lists.newArrayList();
 
-    @Override
-    @SideOnly(Side.CLIENT)
-    public AxisAlignedBB getRenderBoundingBox() {
-        int height = worldObj == null ? 256 : worldObj.getActualHeight();
-        return AxisAlignedBB.getBoundingBox(xCoord, yCoord, zCoord, xCoord + 1, height, zCoord + 1);
-    }
+	@Override
+	@SideOnly(Side.CLIENT)
+	public AxisAlignedBB getRenderBoundingBox() {
+		int height = worldObj == null ? 256 : worldObj.getActualHeight();
+		return AxisAlignedBB.getBoundingBox(xCoord, yCoord, zCoord, xCoord + 1, height, zCoord + 1);
+	}
 
-    @Override
-    public void updateEntity() {
-        super.updateEntity();
+	@Override
+	public void updateEntity() {
+		super.updateEntity();
 
-        if (worldObj.isRemote && worldObj.getTotalWorldTime() % 80L == 0L)
-            updateSegments();
-    }
+		if (worldObj.isRemote && worldObj.getTotalWorldTime() % 80L == 0L)
+			updateSegments();
+	}
 
-    private void updateSegments() {
-        int x = xCoord;
-        int y = yCoord;
-        int z = zCoord;
-        segments.clear();
-        TileEntityNewBeacon.BeamSegment beamsegment = new TileEntityNewBeacon.BeamSegment(EntitySheep.fleeceColorTable[0]);
-        segments.add(beamsegment);
-        boolean flag = true;
+	private void updateSegments() {
+		int x = xCoord;
+		int y = yCoord;
+		int z = zCoord;
+		segments.clear();
+		TileEntityNewBeacon.BeamSegment beamsegment = new TileEntityNewBeacon.BeamSegment(EntitySheep.fleeceColorTable[0]);
+		segments.add(beamsegment);
+		boolean flag = true;
 
-        for (int i = y + 1; i < worldObj.getActualHeight(); i++) {
-            Block iblockstate = worldObj.getBlock(x, i, z);
-            float[] colours;
+		for (int i = y + 1; i < worldObj.getActualHeight(); i++) {
+			Block iblockstate = worldObj.getBlock(x, i, z);
+			float[] colours;
 
-            if (iblockstate == Blocks.stained_glass)
-                colours = EntitySheep.fleeceColorTable[worldObj.getBlockMetadata(x, i, z)];
-            else {
-                if (iblockstate != Blocks.stained_glass_pane) {
-                    if (iblockstate.getLightOpacity() >= 15) {
-                        segments.clear();
-                        break;
-                    }
+			if (iblockstate == Blocks.stained_glass)
+				colours = EntitySheep.fleeceColorTable[worldObj.getBlockMetadata(x, i, z)];
+			else {
+				if (iblockstate != Blocks.stained_glass_pane) {
+					if (iblockstate.getLightOpacity() >= 15) {
+						segments.clear();
+						break;
+					}
 
-                    beamsegment.func_177262_a();
-                    continue;
-                }
+					beamsegment.func_177262_a();
+					continue;
+				}
 
-                colours = EntitySheep.fleeceColorTable[worldObj.getBlockMetadata(x, i, z)];
-            }
+				colours = EntitySheep.fleeceColorTable[worldObj.getBlockMetadata(x, i, z)];
+			}
 
-            if (!flag)
-                colours = new float[] { (beamsegment.func_177263_b()[0] + colours[0]) / 2.0F, (beamsegment.func_177263_b()[1] + colours[1]) / 2.0F, (beamsegment.func_177263_b()[2] + colours[2]) / 2.0F };
+			if (!flag)
+				colours = new float[] { (beamsegment.func_177263_b()[0] + colours[0]) / 2.0F, (beamsegment.func_177263_b()[1] + colours[1]) / 2.0F, (beamsegment.func_177263_b()[2] + colours[2]) / 2.0F };
 
-            if (Arrays.equals(colours, beamsegment.func_177263_b()))
-                beamsegment.func_177262_a();
-            else {
-                beamsegment = new TileEntityNewBeacon.BeamSegment(colours);
-                segments.add(beamsegment);
-            }
+			if (Arrays.equals(colours, beamsegment.func_177263_b()))
+				beamsegment.func_177262_a();
+			else {
+				beamsegment = new TileEntityNewBeacon.BeamSegment(colours);
+				segments.add(beamsegment);
+			}
 
-            flag = false;
-        }
-    }
+			flag = false;
+		}
+	}
 
-    public List<BeamSegment> getSegments() {
-        return segments;
-    }
+	public List<BeamSegment> getSegments() {
+		return segments;
+	}
 
-    public static class BeamSegment {
+	public static class BeamSegment {
 
-        private final float[] colours;
-        private int field_177265_b;
+		private final float[] colours;
+		private int field_177265_b;
 
-        public BeamSegment(float[] colours) {
-            this.colours = colours;
-            field_177265_b = 1;
-        }
+		public BeamSegment(float[] colours) {
+			this.colours = colours;
+			field_177265_b = 1;
+		}
 
-        protected void func_177262_a() {
-            field_177265_b++;
-        }
+		protected void func_177262_a() {
+			field_177265_b++;
+		}
 
-        public float[] func_177263_b() {
-            return colours;
-        }
+		public float[] func_177263_b() {
+			return colours;
+		}
 
-        public int func_177264_c() {
-            return field_177265_b;
-        }
-    }
+		public int func_177264_c() {
+			return field_177265_b;
+		}
+	}
 }

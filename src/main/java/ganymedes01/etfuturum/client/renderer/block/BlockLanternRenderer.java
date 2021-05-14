@@ -19,41 +19,41 @@ public class BlockLanternRenderer implements ISimpleBlockRenderingHandler {
 	@Override
 	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId,
 			RenderBlocks renderer) {
-	    {
-	        Tessellator tessellator = Tessellator.instance;
-	        int l = block.colorMultiplier(renderer.blockAccess, x, y, z);
-	        tessellator.setBrightness(block.getMixedBrightnessForBlock(renderer.blockAccess, x, y, z));
-	        IIcon iicon = renderer.getBlockIcon(ModBlocks.lantern);
-	        float f = (float)(l >> 16 & 255) / 255.0F;
-	        float f1 = (float)(l >> 8 & 255) / 255.0F;
-	        float f2 = (float)(l & 255) / 255.0F;
-	        float f3;
+		{
+			Tessellator tessellator = Tessellator.instance;
+			int l = block.colorMultiplier(renderer.blockAccess, x, y, z);
+			tessellator.setBrightness(block.getMixedBrightnessForBlock(renderer.blockAccess, x, y, z));
+			IIcon iicon = renderer.getBlockIcon(ModBlocks.lantern);
+			float f = (float)(l >> 16 & 255) / 255.0F;
+			float f1 = (float)(l >> 8 & 255) / 255.0F;
+			float f2 = (float)(l & 255) / 255.0F;
+			float f3;
 
-	        if (EntityRenderer.anaglyphEnable)
-	        {
-	            f3 = (f * 30.0F + f1 * 59.0F + f2 * 11.0F) / 100.0F;
-	            float f4 = (f * 30.0F + f1 * 70.0F) / 100.0F;
-	            float f5 = (f * 30.0F + f2 * 70.0F) / 100.0F;
-	            f = f3;
-	            f1 = f4;
-	            f2 = f5;
-	        }
+			if (EntityRenderer.anaglyphEnable)
+			{
+				f3 = (f * 30.0F + f1 * 59.0F + f2 * 11.0F) / 100.0F;
+				float f4 = (f * 30.0F + f1 * 70.0F) / 100.0F;
+				float f5 = (f * 30.0F + f2 * 70.0F) / 100.0F;
+				f = f3;
+				f1 = f4;
+				f2 = f5;
+			}
 
-	        tessellator.setColorOpaque_F(f, f1, f2);
-	        f3 = 0.1865F;
+			tessellator.setColorOpaque_F(f, f1, f2);
+			f3 = 0.1865F;
 
-	        if (l != 16777215)
-	        {
-	            f = (float)(l >> 16 & 255) / 255.0F;
-	            f1 = (float)(l >> 8 & 255) / 255.0F;
-	            f2 = (float)(l & 255) / 255.0F;
-	            tessellator.setColorOpaque_F(f, f1, f2);
-	        }
-	        
-	        this.renderLanternUVs(world, x, y, z, block, modelId, renderer);
-	    }
+			if (l != 16777215)
+			{
+				f = (float)(l >> 16 & 255) / 255.0F;
+				f1 = (float)(l >> 8 & 255) / 255.0F;
+				f2 = (float)(l & 255) / 255.0F;
+				tessellator.setColorOpaque_F(f, f1, f2);
+			}
+			
+			this.renderLanternUVs(world, x, y, z, block, modelId, renderer);
+		}
 
-        return true;
+		return true;
 	}
 
 	@Override
@@ -68,28 +68,28 @@ public class BlockLanternRenderer implements ISimpleBlockRenderingHandler {
 	
 	public void renderLanternUVs(IBlockAccess world, int x, int y, int z, Block block, int modelId,
 			RenderBlocks renderer) {
-        IIcon iicon = renderer.getBlockIcon(ModBlocks.lantern);
-        Tessellator tessellator = Tessellator.instance;
-    	float r = 0.0625F;
-        int i = world.getBlockMetadata(x, y, z);
-        
-        int l = block.colorMultiplier(renderer.blockAccess, x, y, z);
-        float f = (float)(l >> 16 & 255) / 255.0F;
-        float f1 = (float)(l >> 8 & 255) / 255.0F;
-        float f2 = (float)(l & 255) / 255.0F;
+		IIcon iicon = renderer.getBlockIcon(ModBlocks.lantern);
+		Tessellator tessellator = Tessellator.instance;
+		float r = 0.0625F;
+		int i = world.getBlockMetadata(x, y, z);
+		
+		int l = block.colorMultiplier(renderer.blockAccess, x, y, z);
+		float f = (float)(l >> 16 & 255) / 255.0F;
+		float f1 = (float)(l >> 8 & 255) / 255.0F;
+		float f2 = (float)(l & 255) / 255.0F;
 
-        if (EntityRenderer.anaglyphEnable)
-        {
-            float f3 = (f * 30.0F + f1 * 59.0F + f2 * 11.0F) / 100.0F;
-            float f4 = (f * 30.0F + f1 * 70.0F) / 100.0F;
-            float f5 = (f * 30.0F + f2 * 70.0F) / 100.0F;
-            f = f3;
-            f1 = f4;
-            f2 = f5;
-        }
+		if (EntityRenderer.anaglyphEnable)
+		{
+			float f3 = (f * 30.0F + f1 * 59.0F + f2 * 11.0F) / 100.0F;
+			float f4 = (f * 30.0F + f1 * 70.0F) / 100.0F;
+			float f5 = (f * 30.0F + f2 * 70.0F) / 100.0F;
+			f = f3;
+			f1 = f4;
+			f2 = f5;
+		}
 
-        tessellator.setColorOpaque_F(f, f1, f2);
-        
+		tessellator.setColorOpaque_F(f, f1, f2);
+		
 		//Sides of main block
 		double iIntU = iicon.getInterpolatedU(0);
 		double iIntV = iicon.getInterpolatedV(2);

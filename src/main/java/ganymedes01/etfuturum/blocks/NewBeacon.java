@@ -18,31 +18,31 @@ import net.minecraft.world.World;
 
 public class NewBeacon extends BlockBeacon implements IConfigurable {
 
-    public NewBeacon() {
-        setLightLevel(1.0F);
-        setBlockTextureName("beacon");
-        setBlockName(Utils.getUnlocalisedName("beacon"));
-        setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
-    }
+	public NewBeacon() {
+		setLightLevel(1.0F);
+		setBlockTextureName("beacon");
+		setBlockName(Utils.getUnlocalisedName("beacon"));
+		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+	}
 
-    @Override
-    public Item getItemDropped(int meta, Random rand, int fortune) {
-        return Item.getItemFromBlock(Blocks.beacon);
-    }
+	@Override
+	public Item getItemDropped(int meta, Random rand, int fortune) {
+		return Item.getItemFromBlock(Blocks.beacon);
+	}
 
-    @Override
-    @SideOnly(Side.CLIENT)
-    public Item getItem(World world, int x, int y, int z) {
-        return Item.getItemFromBlock(Blocks.beacon);
-    }
+	@Override
+	@SideOnly(Side.CLIENT)
+	public Item getItem(World world, int x, int y, int z) {
+		return Item.getItemFromBlock(Blocks.beacon);
+	}
 
-    @Override
-    public TileEntity createNewTileEntity(World world, int meta) {
-        return new TileEntityNewBeacon();
-    }
+	@Override
+	public TileEntity createNewTileEntity(World world, int meta) {
+		return new TileEntityNewBeacon();
+	}
 
-    @Override
-    public boolean isEnabled() {
-        return ConfigurationHandler.enableColourfulBeacons;
-    }
+	@Override
+	public boolean isEnabled() {
+		return ConfigurationHandler.enableColourfulBeacons;
+	}
 }

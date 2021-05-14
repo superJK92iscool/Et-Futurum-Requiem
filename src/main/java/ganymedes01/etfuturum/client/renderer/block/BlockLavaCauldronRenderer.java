@@ -22,12 +22,12 @@ public class BlockLavaCauldronRenderer implements ISimpleBlockRenderingHandler {
 	@Override
 	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId,
 			RenderBlocks renderer) {
-	    {
-	    	renderer.renderBlockCauldron(Blocks.cauldron, x, y, z);
-            IIcon lava = BlockLiquid.getLiquidIcon("lava_still");
-	        renderer.renderFaceYPos(block, (double)x, (double)((float)y - 1.0F + (.0625 * 15F)), (double)z, lava);
-	        return true;
-	    }
+		{
+			renderer.renderBlockCauldron(Blocks.cauldron, x, y, z);
+			IIcon lava = BlockLiquid.getLiquidIcon("lava_still");
+			renderer.renderFaceYPos(block, (double)x, (double)((float)y - 1.0F + (.0625 * 15F)), (double)z, lava);
+			return true;
+		}
 	}
 
 	@Override

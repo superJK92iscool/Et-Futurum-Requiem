@@ -16,28 +16,28 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockWoodFenceGate extends BlockFenceGate implements IBurnableBlock, IConfigurable {
 
-    private final int meta;
+	private final int meta;
 
-    public BlockWoodFenceGate(int meta) {
-        this.meta = meta;
-        setHardness(2.0F);
-        setResistance(5.0F);
-        setStepSound(soundTypeWood);
-        setBlockName(Utils.getUnlocalisedName("fence_gate_" + BlockWoodDoor.names[meta]));
-        setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
-    }
+	public BlockWoodFenceGate(int meta) {
+		this.meta = meta;
+		setHardness(2.0F);
+		setResistance(5.0F);
+		setStepSound(soundTypeWood);
+		setBlockName(Utils.getUnlocalisedName("fence_gate_" + BlockWoodDoor.names[meta]));
+		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+	}
 
-    @Override
-    @SideOnly(Side.CLIENT)
-    public IIcon getIcon(int side, int meta) {
-        return Blocks.planks.getIcon(side, this.meta);
-    }
+	@Override
+	@SideOnly(Side.CLIENT)
+	public IIcon getIcon(int side, int meta) {
+		return Blocks.planks.getIcon(side, this.meta);
+	}
 
-    @Override
-    public boolean isEnabled() {
-        return ConfigurationHandler.enableFences;
-    }
-    
+	@Override
+	public boolean isEnabled() {
+		return ConfigurationHandler.enableFences;
+	}
+	
 	@Override
 	public ImmutablePair getFireInfo() {
 		if(meta < 6 && ConfigurationHandler.enableBurnableBlocks)

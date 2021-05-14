@@ -12,21 +12,21 @@ import net.minecraft.item.Item;
 
 public class OldGravel extends BlockGravel implements IConfigurable {
 
-    public OldGravel() {
-        setHardness(0.6F);
-        setStepSound(soundTypeGravel);
-        setBlockTextureName("old_gravel");
-        setBlockName(Utils.getUnlocalisedName("old_gravel"));
-        setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
-    }
+	public OldGravel() {
+		setHardness(0.6F);
+		setStepSound(soundTypeGravel);
+		setBlockTextureName("old_gravel");
+		setBlockName(Utils.getUnlocalisedName("old_gravel"));
+		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+	}
 
-    @Override
-    public Item getItemDropped(int meta, Random rand, int fortune) {
-        return Item.getItemFromBlock(this);
-    }
+	@Override
+	public Item getItemDropped(int meta, Random rand, int fortune) {
+		return Item.getItemFromBlock(this);
+	}
 
-    @Override
-    public boolean isEnabled() {
-        return ConfigurationHandler.enableOldGravel;
-    }
+	@Override
+	public boolean isEnabled() {
+		return ConfigurationHandler.enableOldGravel;
+	}
 }

@@ -15,27 +15,27 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockWoodPressurePlate extends BlockPressurePlate implements IConfigurable {
 
-    private final int meta;
+	private final int meta;
 
-    public BlockWoodPressurePlate(int meta) {
-        super("planks_oak", Material.wood, BlockPressurePlate.Sensitivity.everything);
-        this.meta = meta;
-        disableStats();
-        setHardness(0.5F);
-        setStepSound(soundTypeWood);
-        setBlockName(Utils.getUnlocalisedName("pressure_plate_" + BlockWoodDoor.names[meta]));
-        setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
-        
-    }
+	public BlockWoodPressurePlate(int meta) {
+		super("planks_oak", Material.wood, BlockPressurePlate.Sensitivity.everything);
+		this.meta = meta;
+		disableStats();
+		setHardness(0.5F);
+		setStepSound(soundTypeWood);
+		setBlockName(Utils.getUnlocalisedName("pressure_plate_" + BlockWoodDoor.names[meta]));
+		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		
+	}
 
-    @Override
-    @SideOnly(Side.CLIENT)
-    public IIcon getIcon(int side, int meta) {
-        return Blocks.planks.getIcon(side, this.meta);
-    }
+	@Override
+	@SideOnly(Side.CLIENT)
+	public IIcon getIcon(int side, int meta) {
+		return Blocks.planks.getIcon(side, this.meta);
+	}
 
-    @Override
-    public boolean isEnabled() {
-        return ConfigurationHandler.enableWoodRedstone;
-    }
+	@Override
+	public boolean isEnabled() {
+		return ConfigurationHandler.enableWoodRedstone;
+	}
 }

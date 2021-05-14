@@ -25,27 +25,27 @@ public class BlockLightningRod extends Block implements IConfigurable {
 	setTickRandomly(true);
 	}
 
-    public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_)
-    {
-        return new TileEntityLightningRod();
-    }
-    
-    /**
-     * Is this block (a) opaque and (b) a full 1m cube?  This determines whether or not to render the shared face of two
-     * adjacent blocks and also whether the player can attach torches, redstone wire, etc to this block.
-     */
-    public boolean isOpaqueCube()
-    {
-        return false;
-    }
+	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_)
+	{
+		return new TileEntityLightningRod();
+	}
+	
+	/**
+	 * Is this block (a) opaque and (b) a full 1m cube?  This determines whether or not to render the shared face of two
+	 * adjacent blocks and also whether the player can attach torches, redstone wire, etc to this block.
+	 */
+	public boolean isOpaqueCube()
+	{
+		return false;
+	}
 
-    /**
-     * If this block doesn't render as an ordinary block it will return False (examples: signs, buttons, stairs, etc)
-     */
-    public boolean renderAsNormalBlock()
-    {
-        return false;
-    }
+	/**
+	 * If this block doesn't render as an ordinary block it will return False (examples: signs, buttons, stairs, etc)
+	 */
+	public boolean renderAsNormalBlock()
+	{
+		return false;
+	}
 
 	@Override
 	public boolean isEnabled() {

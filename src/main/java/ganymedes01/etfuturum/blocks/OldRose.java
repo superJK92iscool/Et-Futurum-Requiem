@@ -22,14 +22,14 @@ import net.minecraft.util.IIcon;
 public class OldRose extends BlockFlowerBase implements IConfigurable {
 
 	public OldRose() {
-        setBlockName(Utils.getUnlocalisedName("rose"));
-        setBlockTextureName(Reference.MOD_ID + ":flower_rose");
-        setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setBlockName(Utils.getUnlocalisedName("rose"));
+		setBlockTextureName(Reference.MOD_ID + ":flower_rose");
+		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
 	}
 
-    @Override
-    public boolean isEnabled() {
-        return ConfigurationHandler.enableRoses;
-    }
+	@Override
+	public boolean isEnabled() {
+		return ConfigurationHandler.enableRoses;
+	}
 
 }

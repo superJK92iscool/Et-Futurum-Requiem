@@ -12,22 +12,22 @@ import net.minecraft.world.World;
 
 public class DispenserBehaviourTippedArrow extends BehaviorDefaultDispenseItem {
 
-    @Override
-    public ItemStack dispenseStack(IBlockSource block, final ItemStack stack) {
-        return new BehaviorProjectileDispense() {
+	@Override
+	public ItemStack dispenseStack(IBlockSource block, final ItemStack stack) {
+		return new BehaviorProjectileDispense() {
 
-            @Override
-            protected IProjectile getProjectileEntity(World world, IPosition pos) {
-                EntityTippedArrow entity = new EntityTippedArrow(world, pos.getX(), pos.getY(), pos.getZ());
-                entity.canBePickedUp = 1;
-                entity.setEffect(TippedArrow.getEffect(stack));
-                return entity;
-            }
-        }.dispense(block, stack);
-    }
+			@Override
+			protected IProjectile getProjectileEntity(World world, IPosition pos) {
+				EntityTippedArrow entity = new EntityTippedArrow(world, pos.getX(), pos.getY(), pos.getZ());
+				entity.canBePickedUp = 1;
+				entity.setEffect(TippedArrow.getEffect(stack));
+				return entity;
+			}
+		}.dispense(block, stack);
+	}
 
-    @Override
-    protected void playDispenseSound(IBlockSource block) {
-        block.getWorld().playAuxSFX(1002, block.getXInt(), block.getYInt(), block.getZInt(), 0);
-    }
+	@Override
+	protected void playDispenseSound(IBlockSource block) {
+		block.getWorld().playAuxSFX(1002, block.getXInt(), block.getYInt(), block.getZInt(), 0);
+	}
 }

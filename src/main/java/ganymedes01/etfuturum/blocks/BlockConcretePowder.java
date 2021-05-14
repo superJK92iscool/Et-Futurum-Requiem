@@ -21,63 +21,63 @@ public class BlockConcretePowder extends BlockGenericSand implements IConfigurab
 		this.setStepSound(soundTypeSand);
 		this.setHardness(.5F);
 		this.setResistance(.5F);
-    	this.setBlockName(Utils.getUnlocalisedName("concrete_powder"));
-    	this.setBlockTextureName("concrete_powder");
-    	this.setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		this.setBlockName(Utils.getUnlocalisedName("concrete_powder"));
+		this.setBlockTextureName("concrete_powder");
+		this.setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
 	}
 	
 	public void onBlockAdded(World world, int x, int y, int z)
-    {
-        world.scheduleBlockUpdate(x, y, z, this, this.tickRate(world));
-        this.setBlock(world, x, y, z);
-    }
-        	
-    public void onNeighborBlockChange(World world, int x, int y, int z, Block block)
-    {
-        world.scheduleBlockUpdate(x, y, z, this, this.tickRate(world));
-        this.setBlock(world, x, y, z);
-    }
+	{
+		world.scheduleBlockUpdate(x, y, z, this, this.tickRate(world));
+		this.setBlock(world, x, y, z);
+	}
+			
+	public void onNeighborBlockChange(World world, int x, int y, int z, Block block)
+	{
+		world.scheduleBlockUpdate(x, y, z, this, this.tickRate(world));
+		this.setBlock(world, x, y, z);
+	}
 	
-    private void setBlock(World world, int x, int y, int z)
-    {
-                boolean flag = false;
+	private void setBlock(World world, int x, int y, int z)
+	{
+				boolean flag = false;
 
-                if (flag || world.getBlock(x, y, z - 1).getMaterial() == Material.water)
-                {
-                    flag = true;
-                }
+				if (flag || world.getBlock(x, y, z - 1).getMaterial() == Material.water)
+				{
+					flag = true;
+				}
 
-                if (flag || world.getBlock(x, y, z + 1).getMaterial() == Material.water)
-                {
-                    flag = true;
-                }
+				if (flag || world.getBlock(x, y, z + 1).getMaterial() == Material.water)
+				{
+					flag = true;
+				}
 
-                if (flag || world.getBlock(x - 1, y, z).getMaterial() == Material.water)
-                {
-                    flag = true;
-                }
+				if (flag || world.getBlock(x - 1, y, z).getMaterial() == Material.water)
+				{
+					flag = true;
+				}
 
-                if (flag || world.getBlock(x + 1, y, z).getMaterial() == Material.water)
-                {
-                    flag = true;
-                }
+				if (flag || world.getBlock(x + 1, y, z).getMaterial() == Material.water)
+				{
+					flag = true;
+				}
 
-                if (flag || world.getBlock(x, y + 1, z).getMaterial() == Material.water)
-                {
-                    flag = true;
-                }
+				if (flag || world.getBlock(x, y + 1, z).getMaterial() == Material.water)
+				{
+					flag = true;
+				}
 
-                if (flag)
-                {
-                    int l = world.getBlockMetadata(x, y, z);
-                    	world.setBlock(x, y, z, ModBlocks.concrete, l, 2);
-                    	world.markBlockForUpdate(x, y, z);
-                    }
-                if (world.getBlock(x, y, z) == ModBlocks.concrete_powder) {
-                	world.markBlockForUpdate(x, y, z);
-                }
-                
-    		}
+				if (flag)
+				{
+					int l = world.getBlockMetadata(x, y, z);
+						world.setBlock(x, y, z, ModBlocks.concrete, l, 2);
+						world.markBlockForUpdate(x, y, z);
+					}
+				if (world.getBlock(x, y, z) == ModBlocks.concrete_powder) {
+					world.markBlockForUpdate(x, y, z);
+				}
+				
+			}
 	
 	@Override
 	@SideOnly(Side.CLIENT)

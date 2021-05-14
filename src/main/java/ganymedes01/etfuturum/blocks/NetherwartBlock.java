@@ -10,20 +10,20 @@ import net.minecraft.block.material.Material;
 
 public class NetherwartBlock extends Block implements IConfigurable {
 
-    public NetherwartBlock()
-    {
-        super(Material.grass);
-        setHardness(1F);
-        setResistance(5F);
-        setStepSound(ConfigurationHandler.enableNewBlocksSounds ? ModSounds.soundWartBlock : soundTypeWood);
-        setBlockTextureName("nether_wart_block");
-        setBlockName(Utils.getUnlocalisedName("nether_wart"));
-        setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
-    }
-    
-    @Override
-    public boolean isEnabled() {
-        return ConfigurationHandler.enableNetherwartBlock;
-    }
-    
+	public NetherwartBlock()
+	{
+		super(Material.grass);
+		setHardness(1F);
+		setResistance(5F);
+		setStepSound(ConfigurationHandler.enableNewBlocksSounds ? ModSounds.soundWartBlock : soundTypeWood);
+		setBlockTextureName("nether_wart_block");
+		setBlockName(Utils.getUnlocalisedName("nether_wart"));
+		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+	}
+	
+	@Override
+	public boolean isEnabled() {
+		return ConfigurationHandler.enableNetherwartBlock;
+	}
+	
 }

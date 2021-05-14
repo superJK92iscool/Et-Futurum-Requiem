@@ -32,42 +32,42 @@ public class BlockOreNetherGold extends Block implements IConfigurable {
 		return ConfigurationHandler.enableNetherGold;
 	}
 	
-    private Random rand = new Random();
-    @Override
-    public int getExpDrop(IBlockAccess p_149690_1_, int p_149690_5_, int p_149690_7_)
-    {
-        return MathHelper.getRandomIntegerInRange(rand, 2, 5);
-    }
-    
-    public int quantityDropped(Random p_149745_1_)
-    {
-        return 2 + p_149745_1_.nextInt(5);
-    }
-    
-    public int quantityDroppedWithBonus(int fortune, Random p_149679_2_)
-    {
-        if (fortune > 0)
-        {
-            int j = p_149679_2_.nextInt(fortune + 2) - 1;
+	private Random rand = new Random();
+	@Override
+	public int getExpDrop(IBlockAccess p_149690_1_, int p_149690_5_, int p_149690_7_)
+	{
+		return MathHelper.getRandomIntegerInRange(rand, 2, 5);
+	}
+	
+	public int quantityDropped(Random p_149745_1_)
+	{
+		return 2 + p_149745_1_.nextInt(5);
+	}
+	
+	public int quantityDroppedWithBonus(int fortune, Random p_149679_2_)
+	{
+		if (fortune > 0)
+		{
+			int j = p_149679_2_.nextInt(fortune + 2) - 1;
 
-            if (j < 0)
-            {
-                j = 0;
-            }
+			if (j < 0)
+			{
+				j = 0;
+			}
 
-            return this.quantityDropped(p_149679_2_) * (j + 1);
-        }
-        return this.quantityDropped(p_149679_2_);
-    }
+			return this.quantityDropped(p_149679_2_) * (j + 1);
+		}
+		return this.quantityDropped(p_149679_2_);
+	}
 
-    protected boolean canSilkHarvest()
-    {
-        return true;
-    }
+	protected boolean canSilkHarvest()
+	{
+		return true;
+	}
 
-    public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_)
-    {
-        return Items.gold_nugget;
-    }
-    
+	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_)
+	{
+		return Items.gold_nugget;
+	}
+	
 }

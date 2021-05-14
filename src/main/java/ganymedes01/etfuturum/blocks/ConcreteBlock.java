@@ -10,27 +10,27 @@ import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemBlock;
 
 public class ConcreteBlock extends BlockColored implements IConfigurable, ISubBlocksBlock{
-    
-    public ConcreteBlock()
-    {
-        super(Material.rock);
-        setHardness(1.5F);
-        setResistance(10F);
-        setStepSound(soundTypeStone);
-        setHarvestLevel("pickaxe", 0);
-        setBlockTextureName("concrete");
-        setBlockName("etfuturum.concrete");
-        setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
-    }
-    
-    @Override
-    public boolean isEnabled() {
-        return ConfigurationHandler.enableConcrete;
-    }
-    
-    @Override
-    public Class<? extends ItemBlock> getItemBlockClass() {
-        return ItemBlockGeneric.class;
-    }
+	
+	public ConcreteBlock()
+	{
+		super(Material.rock);
+		setHardness(1.5F);
+		setResistance(10F);
+		setStepSound(soundTypeStone);
+		setHarvestLevel("pickaxe", 0);
+		setBlockTextureName("concrete");
+		setBlockName("etfuturum.concrete");
+		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+	}
+	
+	@Override
+	public boolean isEnabled() {
+		return ConfigurationHandler.enableConcrete;
+	}
+	
+	@Override
+	public Class<? extends ItemBlock> getItemBlockClass() {
+		return ItemBlockGeneric.class;
+	}
 
 }

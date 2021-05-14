@@ -14,36 +14,36 @@ import net.minecraft.util.IIcon;
 
 public class PrismarineBlocks extends BlockGeneric implements IConfigurable {
 
-    public PrismarineBlocks() {
-        super(Material.rock, "rough", "bricks", "dark");
-        setHardness(1.5F);
-        setResistance(10.0F);
-        setBlockTextureName("prismarine");
-        setBlockName(Utils.getUnlocalisedName("prismarine_block"));
-        setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
-    }
+	public PrismarineBlocks() {
+		super(Material.rock, "rough", "bricks", "dark");
+		setHardness(1.5F);
+		setResistance(10.0F);
+		setBlockTextureName("prismarine");
+		setBlockName(Utils.getUnlocalisedName("prismarine_block"));
+		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+	}
 
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void registerBlockIcons(IIconRegister reg) {
-        if (icons == null)
-            icons = new IIcon[types.length];
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void registerBlockIcons(IIconRegister reg) {
+		if (icons == null)
+			icons = new IIcon[types.length];
 
-        for (int i = 0; i < types.length; i++) {
-        	String texture = getTextureName() + "_" + types[i];
-            if ("rough".equals(types[i])) {
-            	icons[i] = new InterpolatedIcon(texture);
-                if(reg instanceof TextureMap) {
-                	((TextureMap)reg).setTextureEntry(texture, (InterpolatedIcon)icons[i]);
-                }
-            } else {
-                icons[i] = reg.registerIcon(texture);
-            }
-        }
-    }
-    
-    @Override
-    public boolean isEnabled() {
-        return ConfigurationHandler.enablePrismarine;
-    }
+		for (int i = 0; i < types.length; i++) {
+			String texture = getTextureName() + "_" + types[i];
+			if ("rough".equals(types[i])) {
+				icons[i] = new InterpolatedIcon(texture);
+				if(reg instanceof TextureMap) {
+					((TextureMap)reg).setTextureEntry(texture, (InterpolatedIcon)icons[i]);
+				}
+			} else {
+				icons[i] = reg.registerIcon(texture);
+			}
+		}
+	}
+	
+	@Override
+	public boolean isEnabled() {
+		return ConfigurationHandler.enablePrismarine;
+	}
 }

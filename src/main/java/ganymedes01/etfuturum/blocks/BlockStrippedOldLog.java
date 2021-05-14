@@ -26,30 +26,30 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 
 public class BlockStrippedOldLog extends BlockOldLog implements IConfigurable, ISubBlocksBlock {
 
-    public BlockStrippedOldLog() {
-        setBlockName(Utils.getUnlocalisedName("log_stripped"));
-        setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
-    }
+	public BlockStrippedOldLog() {
+		setBlockName(Utils.getUnlocalisedName("log_stripped"));
+		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+	}
 
-    @SideOnly(Side.CLIENT)
-    public void registerBlockIcons(IIconRegister p_149651_1_) {
-        this.field_150167_a = new IIcon[field_150168_M.length];
-        this.field_150166_b = new IIcon[field_150168_M.length];
+	@SideOnly(Side.CLIENT)
+	public void registerBlockIcons(IIconRegister p_149651_1_) {
+		this.field_150167_a = new IIcon[field_150168_M.length];
+		this.field_150166_b = new IIcon[field_150168_M.length];
 
-        for (int i = 0; i < this.field_150167_a.length; ++i) {
-            this.field_150167_a[i] = p_149651_1_.registerIcon("stripped_" + field_150168_M[i] + "_log");
-            this.field_150166_b[i] = p_149651_1_.registerIcon("stripped_" + field_150168_M[i] + "_log" + "_top");
-        }
-    }
+		for (int i = 0; i < this.field_150167_a.length; ++i) {
+			this.field_150167_a[i] = p_149651_1_.registerIcon("stripped_" + field_150168_M[i] + "_log");
+			this.field_150166_b[i] = p_149651_1_.registerIcon("stripped_" + field_150168_M[i] + "_log" + "_top");
+		}
+	}
 
-    @Override
-    public boolean isEnabled() {
-        return ConfigurationHandler.enableStrippedLogs;
-    }
+	@Override
+	public boolean isEnabled() {
+		return ConfigurationHandler.enableStrippedLogs;
+	}
 
-    @Override
-    public Class<? extends ItemBlock> getItemBlockClass() {
-        return ItemBlockGeneric.class;
-    }
+	@Override
+	public Class<? extends ItemBlock> getItemBlockClass() {
+		return ItemBlockGeneric.class;
+	}
 
 }

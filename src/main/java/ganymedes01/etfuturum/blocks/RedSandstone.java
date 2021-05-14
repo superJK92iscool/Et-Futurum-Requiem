@@ -11,20 +11,20 @@ import net.minecraft.item.ItemBlock;
 
 public class RedSandstone extends BlockSandStone implements ISubBlocksBlock, IConfigurable {
 
-    public RedSandstone() {
-        setHardness(0.8F);
-        setBlockTextureName("red_sandstone");
-        setBlockName(Utils.getUnlocalisedName("red_sandstone"));
-        setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
-    }
+	public RedSandstone() {
+		setHardness(0.8F);
+		setBlockTextureName("red_sandstone");
+		setBlockName(Utils.getUnlocalisedName("red_sandstone"));
+		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+	}
 
-    @Override
-    public Class<? extends ItemBlock> getItemBlockClass() {
-        return ItemBlockRedSandstone.class;
-    }
+	@Override
+	public Class<? extends ItemBlock> getItemBlockClass() {
+		return ItemBlockRedSandstone.class;
+	}
 
-    @Override
-    public boolean isEnabled() {
-        return ConfigurationHandler.enableRedSandstone;
-    }
+	@Override
+	public boolean isEnabled() {
+		return ConfigurationHandler.enableRedSandstone;
+	}
 }

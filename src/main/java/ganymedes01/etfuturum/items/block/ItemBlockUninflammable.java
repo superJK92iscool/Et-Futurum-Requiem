@@ -12,16 +12,16 @@ import net.minecraft.world.World;
 
 public class ItemBlockUninflammable extends ItemBlock {
 
-    public ItemBlockUninflammable(Block block) {
-        super(block);
-    }
+	public ItemBlockUninflammable(Block block) {
+		super(block);
+	}
 
-    public boolean hasCustomEntity(ItemStack stack) {
-        return !ConfigurationHandler.enableNetheriteFlammable;
-    }
+	public boolean hasCustomEntity(ItemStack stack) {
+		return !ConfigurationHandler.enableNetheriteFlammable;
+	}
 
-    public Entity createEntity(World world, Entity location, ItemStack itemstack) {
-        return ItemUninflammable.createUninflammableItem(world, location);
-    }
+	public Entity createEntity(World world, Entity location, ItemStack itemstack) {
+		return ItemUninflammable.createUninflammableItem(world, location);
+	}
 
 }

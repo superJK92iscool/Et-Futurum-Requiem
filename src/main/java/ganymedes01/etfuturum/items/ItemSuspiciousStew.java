@@ -30,12 +30,12 @@ public class ItemSuspiciousStew extends ItemSoup implements IConfigurable {
 		setAlwaysEdible();
 	}
 
-    public ItemStack onEaten(ItemStack p_77654_1_, World p_77654_2_, EntityPlayer p_77654_3_)
-    {
-    	applyPotionEffects(p_77654_1_, p_77654_3_);
-    	return super.onEaten(p_77654_1_, p_77654_2_, p_77654_3_);
-    }
-    
+	public ItemStack onEaten(ItemStack p_77654_1_, World p_77654_2_, EntityPlayer p_77654_3_)
+	{
+		applyPotionEffects(p_77654_1_, p_77654_3_);
+		return super.onEaten(p_77654_1_, p_77654_2_, p_77654_3_);
+	}
+	
 	@Override
 	public boolean isEnabled() {
 		return ConfigurationHandler.enableSuspiciousStew;
@@ -68,8 +68,8 @@ public class ItemSuspiciousStew extends ItemSoup implements IConfigurable {
 		return stack.getTagCompound().hasKey(effectsList);
 	}
 	
-    public boolean getShareTag()
-    {
-        return true;
-    }
+	public boolean getShareTag()
+	{
+		return true;
+	}
 }

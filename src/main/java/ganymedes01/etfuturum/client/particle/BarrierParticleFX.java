@@ -17,16 +17,16 @@ public class BarrierParticleFX extends EtFuturumFXParticle {
 		particleMaxAge = maxAge + MathHelper.getRandomIntegerInRange(new Random(), 0, 10);
 	}
 	
-    public void onUpdate()
-    {
-    	super.onUpdate();
-        this.prevPosX = this.posX;
-        this.prevPosY = this.posY;
-        this.prevPosZ = this.posZ;
-        
-        if (this.particleAge++ >= this.particleMaxAge/* || this.worldObj.getBlock((int)posX, (int)posY, (int)posZ) != ModBlocks.barrier*/)
-        {
-            this.setDead();
-        }
-    }
+	public void onUpdate()
+	{
+		super.onUpdate();
+		this.prevPosX = this.posX;
+		this.prevPosY = this.posY;
+		this.prevPosZ = this.posZ;
+		
+		if (this.particleAge++ >= this.particleMaxAge/* || this.worldObj.getBlock((int)posX, (int)posY, (int)posZ) != ModBlocks.barrier*/)
+		{
+			this.setDead();
+		}
+	}
 }

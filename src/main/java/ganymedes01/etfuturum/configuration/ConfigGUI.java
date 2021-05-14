@@ -11,15 +11,15 @@ import net.minecraftforge.common.config.ConfigElement;
 
 public class ConfigGUI extends GuiConfig {
 
-    public ConfigGUI(GuiScreen parent) {
-        super(parent, getElements(), Reference.MOD_ID, Reference.MOD_ID, false, false, GuiConfig.getAbridgedConfigPath(ConfigurationHandler.INSTANCE.cfg.toString()));
-    }
+	public ConfigGUI(GuiScreen parent) {
+		super(parent, getElements(), Reference.MOD_ID, Reference.MOD_ID, false, false, GuiConfig.getAbridgedConfigPath(ConfigurationHandler.INSTANCE.cfg.toString()));
+	}
 
-    @SuppressWarnings({ "rawtypes" })
-    private static List<IConfigElement> getElements() {
-        List<IConfigElement> list = new ArrayList<IConfigElement>();
-        for (String category : ConfigurationHandler.usedCategories)
-            list.add(new ConfigElement(ConfigurationHandler.INSTANCE.cfg.getCategory(category)));
-        return list;
-    }
+	@SuppressWarnings({ "rawtypes" })
+	private static List<IConfigElement> getElements() {
+		List<IConfigElement> list = new ArrayList<IConfigElement>();
+		for (String category : ConfigurationHandler.usedCategories)
+			list.add(new ConfigElement(ConfigurationHandler.INSTANCE.cfg.getCategory(category)));
+		return list;
+	}
 }

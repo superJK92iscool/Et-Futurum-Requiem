@@ -8,14 +8,14 @@ import net.minecraft.item.Item;
 
 public class PrismarineShard extends Item implements IConfigurable {
 
-    public PrismarineShard() {
-        setTextureName("prismarine_shard");
-        setUnlocalizedName(Utils.getUnlocalisedName("prismarine_shard"));
-        setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
-    }
+	public PrismarineShard() {
+		setTextureName("prismarine_shard");
+		setUnlocalizedName(Utils.getUnlocalisedName("prismarine_shard"));
+		setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
+	}
 
-    @Override
-    public boolean isEnabled() {
-        return ConfigurationHandler.enablePrismarine;
-    }
+	@Override
+	public boolean isEnabled() {
+		return ConfigurationHandler.enablePrismarine;
+	}
 }

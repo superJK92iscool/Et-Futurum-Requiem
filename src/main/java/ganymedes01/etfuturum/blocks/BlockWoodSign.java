@@ -22,13 +22,13 @@ public class BlockWoodSign extends BlockSign implements IConfigurable {
 
 	public BlockWoodSign(Class p_i45426_1_, boolean p_i45426_2_, int i) {
 		super(p_i45426_1_, p_i45426_2_);
-//		if(i >= 6) {
-//			EtFuturum.forceSetMaterial(this, EtFuturum.netherwood);
-//		}
+//      if(i >= 6) {
+//          EtFuturum.forceSetMaterial(this, EtFuturum.netherwood);
+//      }
 		setHarvestLevel("axe", 0);
 		setHardness(1.0F);
 		disableStats();
-        setStepSound(soundTypeWood);
+		setStepSound(soundTypeWood);
 		setBlockName(Utils.getUnlocalisedName((!p_i45426_2_ ? "wall_" : "") + "sign_" + ModBlocks.woodTypes[i]));
 		setCreativeTab(null);
 		standing = p_i45426_2_;
@@ -38,32 +38,32 @@ public class BlockWoodSign extends BlockSign implements IConfigurable {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta) {
-//		if(this.meta < 6)
+//      if(this.meta < 6)
 			return Blocks.planks.getIcon(side, this.meta);
-//		else
-//			return ModBlocks.nether_planks.getIcon(side, this.meta - 6);
+//      else
+//          return ModBlocks.nether_planks.getIcon(side, this.meta - 6);
 	}
 
 	@Override
-    public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_)
-    {
-        return ModItems.signs[meta - 1];
-    }
-    
+	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_)
+	{
+		return ModItems.signs[meta - 1];
+	}
+	
 
 	@Override
-    @SideOnly(Side.CLIENT)
-    public Item getItem(World p_149694_1_, int p_149694_2_, int p_149694_3_, int p_149694_4_)
-    {
-        return ModItems.signs[meta - 1];
-    }
+	@SideOnly(Side.CLIENT)
+	public Item getItem(World p_149694_1_, int p_149694_2_, int p_149694_3_, int p_149694_4_)
+	{
+		return ModItems.signs[meta - 1];
+	}
 
 	@Override
 	public boolean isEnabled() {
-//		if(meta == 6 && !EtFuturum.enableCrimsonBlocks)
-//			return false;
-//		if(meta == 7 && !EtFuturum.enableWarpedBlocks)
-//			return false;
+//      if(meta == 6 && !EtFuturum.enableCrimsonBlocks)
+//          return false;
+//      if(meta == 7 && !EtFuturum.enableWarpedBlocks)
+//          return false;
 		return ConfigurationHandler.enableSigns;
 	}
 

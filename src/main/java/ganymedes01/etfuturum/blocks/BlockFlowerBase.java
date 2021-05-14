@@ -25,30 +25,30 @@ import net.minecraftforge.common.BiomeDictionary.Type;
 
 public class BlockFlowerBase extends BlockFlower implements ISubBlocksBlock {
 
-    public BlockFlowerBase() {
-        super(1);
-        setHardness(0.0F);
-        setStepSound(soundTypeGrass);
-    }
-    
-    @Override
-    @SideOnly(Side.CLIENT)
-    public IIcon getIcon(int side, int meta) {
-        return blockIcon;
-    }
+	public BlockFlowerBase() {
+		super(1);
+		setHardness(0.0F);
+		setStepSound(soundTypeGrass);
+	}
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public IIcon getIcon(int side, int meta) {
+		return blockIcon;
+	}
 
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void getSubBlocks(Item item, CreativeTabs tab, List list) {
-        list.add(new ItemStack(item));
-    }
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void getSubBlocks(Item item, CreativeTabs tab, List list) {
+		list.add(new ItemStack(item));
+	}
 
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void registerBlockIcons(IIconRegister reg) {
-        blockIcon = reg.registerIcon(getTextureName());
-    }
-    
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void registerBlockIcons(IIconRegister reg) {
+		blockIcon = reg.registerIcon(getTextureName());
+	}
+	
 	@Override
 	public Class<? extends ItemBlock> getItemBlockClass() {
 		return ItemBlockFlower.class;

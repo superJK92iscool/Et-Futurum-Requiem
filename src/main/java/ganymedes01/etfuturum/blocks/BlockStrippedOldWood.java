@@ -15,30 +15,30 @@ import net.minecraft.util.IIcon;
 
 public class BlockStrippedOldWood extends BlockOldLog implements IConfigurable, ISubBlocksBlock {
 
-    public BlockStrippedOldWood() {
-        setBlockName(Utils.getUnlocalisedName("wood_stripped"));
-        setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
-    }
+	public BlockStrippedOldWood() {
+		setBlockName(Utils.getUnlocalisedName("wood_stripped"));
+		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+	}
 
-    @SideOnly(Side.CLIENT)
-    public void registerBlockIcons(IIconRegister iconRegister) {
-        this.field_150167_a = new IIcon[field_150168_M.length];
-        this.field_150166_b = new IIcon[field_150168_M.length];
+	@SideOnly(Side.CLIENT)
+	public void registerBlockIcons(IIconRegister iconRegister) {
+		this.field_150167_a = new IIcon[field_150168_M.length];
+		this.field_150166_b = new IIcon[field_150168_M.length];
 
-        for (int i = 0; i < this.field_150167_a.length; ++i) {
-            this.field_150167_a[i] = iconRegister.registerIcon("stripped_" + field_150168_M[i] + "_log");
-            this.field_150166_b[i] = iconRegister.registerIcon("stripped_" + field_150168_M[i] + "_log");
-        }
-    }
+		for (int i = 0; i < this.field_150167_a.length; ++i) {
+			this.field_150167_a[i] = iconRegister.registerIcon("stripped_" + field_150168_M[i] + "_log");
+			this.field_150166_b[i] = iconRegister.registerIcon("stripped_" + field_150168_M[i] + "_log");
+		}
+	}
 
-    @Override
-    public boolean isEnabled() {
-        return ConfigurationHandler.enableStrippedLogs && ConfigurationHandler.enableBarkLogs;
-    }
+	@Override
+	public boolean isEnabled() {
+		return ConfigurationHandler.enableStrippedLogs && ConfigurationHandler.enableBarkLogs;
+	}
 
-    @Override
-    public Class<? extends ItemBlock> getItemBlockClass() {
-        return ItemBlockGeneric.class;
-    }
+	@Override
+	public Class<? extends ItemBlock> getItemBlockClass() {
+		return ItemBlockGeneric.class;
+	}
 
 }

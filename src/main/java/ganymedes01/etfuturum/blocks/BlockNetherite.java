@@ -18,47 +18,47 @@ import net.minecraft.world.World;
 
 public class BlockNetherite extends Block implements IConfigurable, ISubBlocksBlock {
 
-    public BlockNetherite() {
-        super(Material.iron);
-        setHarvestLevel("pickaxe", 3);
-        setHardness(50F);
-        setResistance(1200F);
-        setStepSound(ConfigurationHandler.enableNewBlocksSounds ? ModSounds.soundNetherite : soundTypePiston);
-        setBlockTextureName("netherite_block");
-        setBlockName(Utils.getUnlocalisedName("netherite_block"));
-        setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
-    }
-    
-    @Override
-    public boolean isBeaconBase(IBlockAccess world, int x, int y, int z, int bX, int bY, int bZ) {
-        return true;
-    }
+	public BlockNetherite() {
+		super(Material.iron);
+		setHarvestLevel("pickaxe", 3);
+		setHardness(50F);
+		setResistance(1200F);
+		setStepSound(ConfigurationHandler.enableNewBlocksSounds ? ModSounds.soundNetherite : soundTypePiston);
+		setBlockTextureName("netherite_block");
+		setBlockName(Utils.getUnlocalisedName("netherite_block"));
+		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+	}
+	
+	@Override
+	public boolean isBeaconBase(IBlockAccess world, int x, int y, int z, int bX, int bY, int bZ) {
+		return true;
+	}
 
-    @Override
-    public boolean isEnabled() {
-        return ConfigurationHandler.enableNetherite;
-    }
+	@Override
+	public boolean isEnabled() {
+		return ConfigurationHandler.enableNetherite;
+	}
 
-    @Override
-    public Class<? extends ItemBlock> getItemBlockClass() {
-        return ItemBlockUninflammable.class;
-    }
-    
-    protected void dropBlockAsItem(World world, int x, int y, int z, ItemStack stack) {
-    	// do not drop items while restoring blockstates, prevents item dupe
-        if (!world.isRemote && world.getGameRules().getGameRuleBooleanValue("doTileDrops") && !world.restoringBlockSnapshots) {
-            if (captureDrops.get()) {
-                capturedDrops.get().add(stack);
-                return;
-            }
-            float f = 0.7F;
-            double d0 = (double)(world.rand.nextFloat() * f) + (double)(1.0F - f) * 0.5D;
-            double d1 = (double)(world.rand.nextFloat() * f) + (double)(1.0F - f) * 0.5D;
-            double d2 = (double)(world.rand.nextFloat() * f) + (double)(1.0F - f) * 0.5D;
-            EntityItem entityitem = new EntityItemUninflammable(world, (double)x + d0, (double)y + d1, (double)z + d2, stack);
-            entityitem.delayBeforeCanPickup = 10;
-            world.spawnEntityInWorld(entityitem);
-        }
-    }
+	@Override
+	public Class<? extends ItemBlock> getItemBlockClass() {
+		return ItemBlockUninflammable.class;
+	}
+	
+	protected void dropBlockAsItem(World world, int x, int y, int z, ItemStack stack) {
+		// do not drop items while restoring blockstates, prevents item dupe
+		if (!world.isRemote && world.getGameRules().getGameRuleBooleanValue("doTileDrops") && !world.restoringBlockSnapshots) {
+			if (captureDrops.get()) {
+				capturedDrops.get().add(stack);
+				return;
+			}
+			float f = 0.7F;
+			double d0 = (double)(world.rand.nextFloat() * f) + (double)(1.0F - f) * 0.5D;
+			double d1 = (double)(world.rand.nextFloat() * f) + (double)(1.0F - f) * 0.5D;
+			double d2 = (double)(world.rand.nextFloat() * f) + (double)(1.0F - f) * 0.5D;
+			EntityItem entityitem = new EntityItemUninflammable(world, (double)x + d0, (double)y + d1, (double)z + d2, stack);
+			entityitem.delayBeforeCanPickup = 10;
+			world.spawnEntityInWorld(entityitem);
+		}
+	}
 
 }

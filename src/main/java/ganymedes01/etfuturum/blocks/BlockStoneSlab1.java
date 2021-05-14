@@ -38,5 +38,5 @@ public class BlockStoneSlab1 extends BlockGenericSlab implements IConfigurable {
 		return new IIcon[] {Blocks.stone.getIcon(side, 0),Blocks.mossy_cobblestone.getIcon(side, 0),
 				Blocks.stonebrick.getIcon(side, 1), Blocks.sandstone.getIcon(side, 2)};
 	}
-    
+	
 }

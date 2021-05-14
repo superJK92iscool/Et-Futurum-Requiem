@@ -14,35 +14,35 @@ import net.minecraft.world.World;
 
 public class ItemEFRSpade extends ItemSpade implements IConfigurable {
 
-    public ItemEFRSpade(ToolMaterial material, int durabilityOverride) {
-        super(material);
-        this.setMaxDamage(durabilityOverride > -1 ? durabilityOverride : material.getMaxUses());
-        this.setUnlocalizedName(Utils.getUnlocalisedName("netherite_spade"));
-        this.setTextureName("netherite_shovel");
-        this.setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
-    }
+	public ItemEFRSpade(ToolMaterial material, int durabilityOverride) {
+		super(material);
+		this.setMaxDamage(durabilityOverride > -1 ? durabilityOverride : material.getMaxUses());
+		this.setUnlocalizedName(Utils.getUnlocalisedName("netherite_spade"));
+		this.setTextureName("netherite_shovel");
+		this.setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
+	}
 
-    @Override
-    public boolean getIsRepairable(ItemStack par1ItemStack, ItemStack par2ItemStack)
-    {        
-        return ModItems.netherite_ingot == par2ItemStack.getItem() ? true : super.getIsRepairable(par1ItemStack, par2ItemStack);
-    }
-    
-    @Override
-    public boolean isEnabled() {
-        return ConfigurationHandler.enableNetherite;
-    }
-    
-    public boolean hasCustomEntity(ItemStack stack)
-    {
-        return getUnlocalizedName().contains("netherite") && !ConfigurationHandler.enableNetheriteFlammable;
-    }
-    
-    public Entity createEntity(World world, Entity location, ItemStack itemstack)
-    {
-        if(!getUnlocalizedName().contains("netherite"))
-            return null;
-        return ItemUninflammable.createUninflammableItem(world, location);
-    }
+	@Override
+	public boolean getIsRepairable(ItemStack par1ItemStack, ItemStack par2ItemStack)
+	{        
+		return ModItems.netherite_ingot == par2ItemStack.getItem() ? true : super.getIsRepairable(par1ItemStack, par2ItemStack);
+	}
+	
+	@Override
+	public boolean isEnabled() {
+		return ConfigurationHandler.enableNetherite;
+	}
+	
+	public boolean hasCustomEntity(ItemStack stack)
+	{
+		return getUnlocalizedName().contains("netherite") && !ConfigurationHandler.enableNetheriteFlammable;
+	}
+	
+	public Entity createEntity(World world, Entity location, ItemStack itemstack)
+	{
+		if(!getUnlocalizedName().contains("netherite"))
+			return null;
+		return ItemUninflammable.createUninflammableItem(world, location);
+	}
 
 }

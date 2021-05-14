@@ -12,23 +12,23 @@ import net.minecraft.world.IBlockAccess;
 
 public class PurpurBlock extends Block implements IConfigurable {
 
-    public PurpurBlock() {
-        super(Material.rock);
-        setHardness(1.5F);
-        setResistance(10.0F);
-        setStepSound(soundTypePiston);
-        setBlockTextureName("purpur_block");
-        setBlockName(Utils.getUnlocalisedName("purpur_block"));
-        setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
-    }
+	public PurpurBlock() {
+		super(Material.rock);
+		setHardness(1.5F);
+		setResistance(10.0F);
+		setStepSound(soundTypePiston);
+		setBlockTextureName("purpur_block");
+		setBlockName(Utils.getUnlocalisedName("purpur_block"));
+		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+	}
 
-    @Override
-    public boolean canEntityDestroy(IBlockAccess world, int x, int y, int z, Entity entity) {
-        return !(entity instanceof EntityDragon);
-    }
+	@Override
+	public boolean canEntityDestroy(IBlockAccess world, int x, int y, int z, Entity entity) {
+		return !(entity instanceof EntityDragon);
+	}
 
-    @Override
-    public boolean isEnabled() {
-        return ConfigurationHandler.enableChorusFruit;
-    }
+	@Override
+	public boolean isEnabled() {
+		return ConfigurationHandler.enableChorusFruit;
+	}
 }

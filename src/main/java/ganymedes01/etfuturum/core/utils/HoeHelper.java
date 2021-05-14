@@ -79,25 +79,25 @@ public class HoeHelper {
 	}
 
 	  public static Field getField(Class clazz, String fieldName)
-		        throws NoSuchFieldException {
-		    try {
-		      return clazz.getDeclaredField(fieldName);
-		    } catch (NoSuchFieldException e) {
-		      Class superClass = clazz.getSuperclass();
-		      if (superClass == null) {
-		        throw e;
-		      } else {
-		        return getField(superClass, fieldName);
-		      }
-		    }
+				throws NoSuchFieldException {
+			try {
+			  return clazz.getDeclaredField(fieldName);
+			} catch (NoSuchFieldException e) {
+			  Class superClass = clazz.getSuperclass();
+			  if (superClass == null) {
+				throw e;
+			  } else {
+				return getField(superClass, fieldName);
+			  }
+			}
 	  }
 
 	  static void setFinalField(Field field, Object newValue) throws Exception {
-		    field.setAccessible(true);
-		    Field modifiersField = Field.class.getDeclaredField("modifiers");
-		    modifiersField.setAccessible(true);
-		    modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
-		    field.set(null, newValue);
+			field.setAccessible(true);
+			Field modifiersField = Field.class.getDeclaredField("modifiers");
+			modifiersField.setAccessible(true);
+			modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+			field.set(null, newValue);
 		}
 	
 	public static void forceSetMaterial(Block block, Material material) {
@@ -112,6 +112,6 @@ public class HoeHelper {
 			field.set(block, material);
 		} catch (Exception e) {
 			e.printStackTrace(); //"Should" never happen
-		}	
+		}   
 	}
 }

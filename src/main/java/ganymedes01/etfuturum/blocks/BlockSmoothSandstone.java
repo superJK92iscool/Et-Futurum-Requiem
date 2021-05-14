@@ -17,7 +17,7 @@ public class BlockSmoothSandstone extends Block implements IConfigurable {
 		setResistance(6F);
 		setStepSound(soundTypePiston);
 		setBlockName(Utils.getUnlocalisedName("smooth_" + (i == 1 ? "red_" : "") + "sandstone"));
-        setBlockTextureName((i == 1 ? "red_" : "") + "sandstone_top");
+		setBlockTextureName((i == 1 ? "red_" : "") + "sandstone_top");
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
 	}
 

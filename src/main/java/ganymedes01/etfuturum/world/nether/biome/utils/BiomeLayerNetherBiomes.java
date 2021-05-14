@@ -20,70 +20,70 @@ public class BiomeLayerNetherBiomes extends BiomeLayerNether {
 
 		this.netherBiomes.add(new BiomeEntry(BiomeGenBase.hell, 30)); // Make weight configurable
 // Come back to
-//		if (BiomeConfiguration.CrimsonForestID != -1) {
+//      if (BiomeConfiguration.CrimsonForestID != -1) {
 			this.netherBiomes.add(new BiomeEntry(NetherBiomeManager.CrimsonForest, 10));
-//		}
+//      }
 //
-//		if (BiomeConfiguration.WarpedForestID != -1) {
-//			this.netherBiomes.add(
-//					new BiomeEntry(NetherBiomeManager.WarpedForest, BiomeConfiguration.WarpedForestWeight));
-//		}
+//      if (BiomeConfiguration.WarpedForestID != -1) {
+//          this.netherBiomes.add(
+//                  new BiomeEntry(NetherBiomeManager.WarpedForest, BiomeConfiguration.WarpedForestWeight));
+//      }
 //
-//		if (BiomeConfiguration.BasaltDeltasID != -1) {
-//			this.netherBiomes.add(
-//					new BiomeEntry(NetherBiomeManager.BasaltDeltas, BiomeConfiguration.BasaltDeltasWeight));
-//		}
+//      if (BiomeConfiguration.BasaltDeltasID != -1) {
+//          this.netherBiomes.add(
+//                  new BiomeEntry(NetherBiomeManager.BasaltDeltas, BiomeConfiguration.BasaltDeltasWeight));
+//      }
 //
-//		if (BiomeConfiguration.SoulSandValleyID != -1) {
-//			this.netherBiomes.add(
-//					new BiomeEntry(NetherBiomeManager.SoulSandValley, BiomeConfiguration.SoulSandValleyWeight));
-//		}
+//      if (BiomeConfiguration.SoulSandValleyID != -1) {
+//          this.netherBiomes.add(
+//                  new BiomeEntry(NetherBiomeManager.SoulSandValley, BiomeConfiguration.SoulSandValleyWeight));
+//      }
 //
-//		if (Loader.isModLoaded("BiomesOPlenty")) {
+//      if (Loader.isModLoaded("BiomesOPlenty")) {
 //
-//			if (BiomeConfiguration.BoneyardGen) {
-//				if (Netherlicious.Boneyard != -1) {
-//					this.netherBiomes.add(new BiomeEntry(BOPCBiomes.boneyard,
-//							BiomeConfiguration.BoneyardWeight));
-//				}
-//			}
+//          if (BiomeConfiguration.BoneyardGen) {
+//              if (Netherlicious.Boneyard != -1) {
+//                  this.netherBiomes.add(new BiomeEntry(BOPCBiomes.boneyard,
+//                          BiomeConfiguration.BoneyardWeight));
+//              }
+//          }
 //
-//			if (BiomeConfiguration.CorruptedSandsGen) {
-//				if (Netherlicious.CorruptedSands != -1) {
-//					this.netherBiomes.add(new BiomeEntry(BOPCBiomes.corruptedSands,
-//							BiomeConfiguration.CorruptedSandsWeight));
-//				}
-//			}
+//          if (BiomeConfiguration.CorruptedSandsGen) {
+//              if (Netherlicious.CorruptedSands != -1) {
+//                  this.netherBiomes.add(new BiomeEntry(BOPCBiomes.corruptedSands,
+//                          BiomeConfiguration.CorruptedSandsWeight));
+//              }
+//          }
 //
-//			if (BiomeConfiguration.PhantasmagoricInfernoGen) {
-//				if (Netherlicious.PhantasmagoricInferno != -1) {
-//					this.netherBiomes.add(new BiomeEntry(BOPCBiomes.phantasmagoricInferno,
-//							BiomeConfiguration.PhantasmagoricInfernoWeight));
-//				}
-//			}
+//          if (BiomeConfiguration.PhantasmagoricInfernoGen) {
+//              if (Netherlicious.PhantasmagoricInferno != -1) {
+//                  this.netherBiomes.add(new BiomeEntry(BOPCBiomes.phantasmagoricInferno,
+//                          BiomeConfiguration.PhantasmagoricInfernoWeight));
+//              }
+//          }
 //
-//			if (BiomeConfiguration.PolarChasmGen) {
-//				if (Netherlicious.PolarChasm != -1) {
-//					this.netherBiomes.add(new BiomeEntry(BOPCBiomes.polarChasm,
-//							BiomeConfiguration.PolarChasmWeight));
-//				}
-//			}
+//          if (BiomeConfiguration.PolarChasmGen) {
+//              if (Netherlicious.PolarChasm != -1) {
+//                  this.netherBiomes.add(new BiomeEntry(BOPCBiomes.polarChasm,
+//                          BiomeConfiguration.PolarChasmWeight));
+//              }
+//          }
 //
-//			if (BiomeConfiguration.UndergardenGen) {
-//				if (Netherlicious.Undergarden != -1) {
-//					this.netherBiomes.add(new BiomeEntry(BOPCBiomes.undergarden,
-//							BiomeConfiguration.UndergardenWeight));
-//				}
-//			}
+//          if (BiomeConfiguration.UndergardenGen) {
+//              if (Netherlicious.Undergarden != -1) {
+//                  this.netherBiomes.add(new BiomeEntry(BOPCBiomes.undergarden,
+//                          BiomeConfiguration.UndergardenWeight));
+//              }
+//          }
 //
-//			if (BiomeConfiguration.VisceralHeapGen) {
-//				if (Netherlicious.VisceralHeap != -1) {
-//					this.netherBiomes.add(new BiomeEntry(BOPCBiomes.visceralHeap,
-//							BiomeConfiguration.VisceralHeapWeight));
-//				}
-//			}
+//          if (BiomeConfiguration.VisceralHeapGen) {
+//              if (Netherlicious.VisceralHeap != -1) {
+//                  this.netherBiomes.add(new BiomeEntry(BOPCBiomes.visceralHeap,
+//                          BiomeConfiguration.VisceralHeapWeight));
+//              }
+//          }
 //
-//		}
+//      }
 
 	}
 

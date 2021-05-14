@@ -12,70 +12,70 @@ import net.minecraft.world.World;
 
 public class EntityZombieVillager extends EntityZombie {
 
-    public EntityZombieVillager(World world) {
-        super(world);
-    }
+	public EntityZombieVillager(World world) {
+		super(world);
+	}
 
-    public int getType() {
-        return getDataWatcher().getWatchableObjectInt(15);
-    }
+	public int getType() {
+		return getDataWatcher().getWatchableObjectInt(15);
+	}
 
-    public void setType(int type) {
-        getDataWatcher().updateObject(15, type);
-    }
+	public void setType(int type) {
+		getDataWatcher().updateObject(15, type);
+	}
 
-    @Override
-    protected void entityInit() {
-        super.entityInit();
-        getDataWatcher().addObject(15, 0);
-    }
+	@Override
+	protected void entityInit() {
+		super.entityInit();
+		getDataWatcher().addObject(15, 0);
+	}
 
-    @Override
-    public boolean isVillager() {
-        return true;
-    }
+	@Override
+	public boolean isVillager() {
+		return true;
+	}
 
-    @Override
-    public void setChild(boolean isChild) {
-    }
+	@Override
+	public void setChild(boolean isChild) {
+	}
 
-    @Override
-    public boolean isChild() {
-        return false;
-    }
+	@Override
+	public boolean isChild() {
+		return false;
+	}
 
-    @Override
-    protected void convertToVillager() {
-        EntityVillager villager = new EntityVillager(worldObj);
-        villager.copyLocationAndAnglesFrom(this);
-        villager.onSpawnWithEgg((IEntityLivingData) null);
-        villager.setLookingForHome();
-        villager.setProfession(getType());
+	@Override
+	protected void convertToVillager() {
+		EntityVillager villager = new EntityVillager(worldObj);
+		villager.copyLocationAndAnglesFrom(this);
+		villager.onSpawnWithEgg((IEntityLivingData) null);
+		villager.setLookingForHome();
+		villager.setProfession(getType());
 
-        if (isChild())
-            villager.setGrowingAge(-24000);
+		if (isChild())
+			villager.setGrowingAge(-24000);
 
-        worldObj.removeEntity(this);
-        worldObj.spawnEntityInWorld(villager);
-        villager.addPotionEffect(new PotionEffect(Potion.confusion.id, 200, 0));
-        worldObj.playAuxSFXAtEntity(null, 1017, (int) posX, (int) posY, (int) posZ, 0);
-    }
+		worldObj.removeEntity(this);
+		worldObj.spawnEntityInWorld(villager);
+		villager.addPotionEffect(new PotionEffect(Potion.confusion.id, 200, 0));
+		worldObj.playAuxSFXAtEntity(null, 1017, (int) posX, (int) posY, (int) posZ, 0);
+	}
 
-    @Override
-    public void writeEntityToNBT(NBTTagCompound nbt) {
-        super.writeEntityToNBT(nbt);
-        nbt.setInteger("VillagerType", getType());
-    }
+	@Override
+	public void writeEntityToNBT(NBTTagCompound nbt) {
+		super.writeEntityToNBT(nbt);
+		nbt.setInteger("VillagerType", getType());
+	}
 
-    @Override
-    public void readEntityFromNBT(NBTTagCompound nbt) {
-        super.readEntityFromNBT(nbt);
-        setType(nbt.getInteger("VillagerType"));
-    }
+	@Override
+	public void readEntityFromNBT(NBTTagCompound nbt) {
+		super.readEntityFromNBT(nbt);
+		setType(nbt.getInteger("VillagerType"));
+	}
 
-    @Override
-    public IEntityLivingData onSpawnWithEgg(IEntityLivingData data) {
-        setType(worldObj.rand.nextInt(6));
-        return super.onSpawnWithEgg(data);
-    }
+	@Override
+	public IEntityLivingData onSpawnWithEgg(IEntityLivingData data) {
+		setType(worldObj.rand.nextInt(6));
+		return super.onSpawnWithEgg(data);
+	}
 }

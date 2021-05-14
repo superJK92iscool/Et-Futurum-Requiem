@@ -27,16 +27,16 @@ public class ThreadCheckAlex extends Thread {
 			try {
 				is = new URL("https://sessionserver.mojang.com/session/minecraft/profile/"
 			+ player.getUniqueID().toString().replaceAll("-", "")).openStream();
-			      BufferedReader rd = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
-			      String jsonText = readAll(rd);
-//			      System.out.println(jsonText);
-			      String base64 = jsonText.substring(jsonText.indexOf("\"value\" : \""));
-			      base64 = base64.replace("\"value\" : \"", "");
-			      base64 = base64.substring(0, base64.indexOf('"'));
-//			      System.out.println(Base64.base64Decode(base64));
-			      if(new String(Base64.getDecoder().decode(base64), StandardCharsets.UTF_8).contains("\"model\" : \"slim\"")) {
-			    	  isAlex = true;
-			      }
+				  BufferedReader rd = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
+				  String jsonText = readAll(rd);
+//                System.out.println(jsonText);
+				  String base64 = jsonText.substring(jsonText.indexOf("\"value\" : \""));
+				  base64 = base64.replace("\"value\" : \"", "");
+				  base64 = base64.substring(0, base64.indexOf('"'));
+//                System.out.println(Base64.base64Decode(base64));
+				  if(new String(Base64.getDecoder().decode(base64), StandardCharsets.UTF_8).contains("\"model\" : \"slim\"")) {
+					  isAlex = true;
+				  }
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -50,7 +50,7 @@ public class ThreadCheckAlex extends Thread {
 			}
 		}
 		PlayerModelManager.alexCache.put(player, isAlex);
-//		nbt.setBoolean(SetPlayerModelCommand.MODEL_KEY, isAlex);
+//      nbt.setBoolean(SetPlayerModelCommand.MODEL_KEY, isAlex);
 	}
 
 	

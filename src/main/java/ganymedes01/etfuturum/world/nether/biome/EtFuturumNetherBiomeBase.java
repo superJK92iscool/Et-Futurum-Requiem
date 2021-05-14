@@ -21,10 +21,10 @@ public class EtFuturumNetherBiomeBase extends BiomeGenBase {
 		this.setTemperatureRainfall(2.0F, 0.0F);
 		
 		this.spawnableMonsterList.clear();
-        this.spawnableCreatureList.clear();
-        this.spawnableWaterCreatureList.clear();
-        this.spawnableCaveCreatureList.clear();
-        
+		this.spawnableCreatureList.clear();
+		this.spawnableWaterCreatureList.clear();
+		this.spawnableCaveCreatureList.clear();
+		
 		this.spawnableMonsterList.add(new SpawnListEntry(EntityGhast.class, 50, 4, 4));
 		this.spawnableMonsterList.add(new SpawnListEntry(EntityPigZombie.class, 100, 4, 4));
 	}
