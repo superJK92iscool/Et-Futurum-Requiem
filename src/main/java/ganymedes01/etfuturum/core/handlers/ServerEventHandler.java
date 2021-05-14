@@ -213,6 +213,11 @@ public class ServerEventHandler {
 
     @SubscribeEvent
     public void livingAttack(LivingAttackEvent event) {
+        if(event.source == DamageSource.wither && event.entityLiving instanceof EntitySkeleton && ((EntitySkeleton)event.entityLiving).getSkeletonType() == 1) {
+        	event.setCanceled(true);
+        	return;
+        }
+        
         if (event.source instanceof EntityDamageSourceIndirect) {
             EntityDamageSourceIndirect dmgSrc = (EntityDamageSourceIndirect) event.source;
             if (dmgSrc.getSourceOfDamage() instanceof EntityTippedArrow) {
@@ -837,7 +842,6 @@ public class ServerEventHandler {
                     brownmooshroom.worldObj.spawnEntityInWorld(mooshroom);
                     brownmooshroom.setDead();
                     mooshroom.attackEntityFrom(DamageSource.onFire, 0);
-                    //TODO: Cow won't flee for some reason
                 }
             }
     }
@@ -852,10 +856,10 @@ public class ServerEventHandler {
         if ((entity == null) || (!(entity instanceof EntityLivingBase))) {
             return;
         }
-        EntityLivingBase player = (EntityLivingBase)entity;
+        EntityLivingBase livingEntity = (EntityLivingBase)entity;
         
         if(ConfigurationHandler.enableTotemUndying)
-            handleTotemCheck(player, event);
+            handleTotemCheck(livingEntity, event);
     }
     
     public void handleTotemCheck(final EntityLivingBase entity, final LivingHurtEvent event) {
@@ -1022,16 +1026,16 @@ public class ServerEventHandler {
     }
     
     private WeightedSoundPool getMusicForBiome(String string) {
-    	if(string.equals("Basalt Deltas") || string.equals("Crystalline Crag")) {
+    	if(string.contains("Basalt Deltas") || string.contains("Crystalline Crag")) {
     		return basaltDeltasMusic;
     	}
-    	if(string.equals("Warped Forest") || string.equals("Abyssal Shadowland")) {
+    	if(string.contains("Warped Forest") || string.contains("Abyssal Shadowland")) {
     		return warpedForestMusic;
     	}
-    	if(string.equals("Crimson Forest") || string.equals("Foxfire Swamp")) {
+    	if(string.contains("Crimson Forest") || string.contains("Foxfire Swamp")) {
     		return crimsonForestMusic;
     	}
-    	if(string.equals("Soul Sand Valley")) {
+    	if(string.contains("Soul Sand Valley")) {
     		return soulSandValleyMusic;
     	}
     	return netherWastesMusic;

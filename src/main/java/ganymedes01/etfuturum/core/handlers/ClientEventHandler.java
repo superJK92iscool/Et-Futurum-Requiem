@@ -23,6 +23,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
@@ -97,6 +98,7 @@ public class ClientEventHandler {
         if(!ConfigurationHandler.enableNewMiscSounds || world == null || event.phase != Phase.START || Minecraft.getMinecraft().isGamePaused()) {
         	return;
         }
+        
         Chunk chunk = world.getChunkFromBlockCoords((int)player.posX, (int)player.posZ);
         if(!chunk.isChunkLoaded) {
         	if(ambience != null && FMLClientHandler.instance().getClient().getSoundHandler().isSoundPlaying(ambience))
@@ -131,15 +133,18 @@ public class ClientEventHandler {
         }
 
         boolean tickchecktime = world.rand.nextInt(Math.toIntExact((world.getTotalWorldTime() % 10) + 1)) == 0;
-        List<TileEntity> list = world.loadedTileEntityList;
         if(tickchecktime) {
-            for(TileEntity tile : list) {
-            	if(tile.getBlockType() != Blocks.lit_furnace)
-            			continue;
-
+            for(TileEntity tile : (List<TileEntity>)world.loadedTileEntityList) {
+            	if(!(tile instanceof TileEntityFurnace))
+            		continue;
+            	
 	            int x = tile.xCoord;
 	            int y = tile.yCoord;
 	            int z = tile.zCoord;
+	            
+            	if(world.getBlock(x, y, z) != Blocks.lit_furnace)
+            		continue;
+            	
 				if(world.rand.nextDouble() < 0.1D)
 					world.playSound(x + .5D, y + .5D, z + .5D,
 							Reference.MOD_ID + ":block.furnace.fire_crackle", 1,
@@ -149,19 +154,19 @@ public class ClientEventHandler {
     }
 
     public static String getAmbienceLoopForBiome(String string) {
-    	if(string.equals("Basalt Deltas")) {
+    	if(string.contains("Basalt Deltas")) {
     		return "basalt_deltas";
     	}
-    	if(string.equals("Warped Forest")) {
+    	if(string.contains("Warped Forest")) {
     		return "warped_forest";
     	}
-    	if(string.equals("Crimson Forest") || string.equals("Foxfire Swamp")) {
+    	if(string.contains("Crimson Forest") || string.contains("Foxfire Swamp")) {
     		return "crimson_forest";
     	}
-    	if(string.equals("Soul Sand Valley")) {
+    	if(string.contains("Soul Sand Valley")) {
     		return "soul_sand_valley";
     	}
-    	if(string.contentEquals("Abyssal Shadowland")) {
+    	if(string.contains("Abyssal Shadowland")) {
     		return null;
     	}
     	return "nether_wastes";
@@ -169,19 +174,19 @@ public class ClientEventHandler {
 
     private WeightedSoundPool getAmbienceForBiome() {
     	String string = ambience.getPositionedSoundLocation().getResourcePath().split("\\.")[1];
-    	if(string.equals("null"))
+    	if(string.contains("null"))
     		return null;
     	
-    	if(string.equals("basalt_deltas")) {
+    	if(string.contains("basalt_deltas")) {
     		return basaltDeltas;
     	}
-    	if(string.equals("warped_forest")) {
+    	if(string.contains("warped_forest")) {
     		return warpedForest;
     	}
-    	if(string.equals("crimson_forest")) {
+    	if(string.contains("crimson_forest")) {
     		return crimsonForest;
     	}
-    	if(string.equals("soul_sand_valley")) {
+    	if(string.contains("soul_sand_valley")) {
     		return soulSandValley;
     	}
     	return netherWastes;

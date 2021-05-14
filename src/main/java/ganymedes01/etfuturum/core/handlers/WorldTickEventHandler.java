@@ -72,7 +72,7 @@ public class WorldTickEventHandler {
         for(int i = 0; i < tileList.size(); i++) {
         	TileEntity tile = tileList.get(i);
         	Block replacement = replacements.get(tile.getBlockType());
-        	if(replacement != null && (!(replacement instanceof IConfigurable) || ((IConfigurable) replacement).isEnabled())) {
+        	if(tile != null && replacement != null && (!(replacement instanceof IConfigurable) || ((IConfigurable) replacement).isEnabled())) {
                 NBTTagCompound nbt = new NBTTagCompound();
                 tile.writeToNBT(nbt);
                 if (tile instanceof IInventory) {
@@ -85,7 +85,8 @@ public class WorldTickEventHandler {
                 int z = tile.zCoord;
                 world.setBlock(x, y, z, replacement);
                 TileEntity newTile = world.getTileEntity(x, y, z);
-                newTile.readFromNBT(nbt);
+                if(newTile != null)
+                    newTile.readFromNBT(nbt);
                 break;
         	}
         }
