@@ -135,14 +135,14 @@ public class ClientEventHandler {
         boolean tickchecktime = world.rand.nextInt(Math.toIntExact((world.getTotalWorldTime() % 10) + 1)) == 0;
         if(tickchecktime) {
             for(TileEntity tile : (List<TileEntity>)world.loadedTileEntityList) {
-            	if(!(tile instanceof TileEntityFurnace))
+            	if(!(tile instanceof TileEntityFurnace)) //Don't use getBlock or get tile coord info if the tile isn't a furnace, so we only get the block when we need to
             		continue;
             	
 	            int x = tile.xCoord;
 	            int y = tile.yCoord;
 	            int z = tile.zCoord;
 	            
-            	if(world.getBlock(x, y, z) != Blocks.lit_furnace)
+            	if(world.getBlock(x, y, z) != Blocks.lit_furnace) //Don't play sound if the furnace isn't lit
             		continue;
             	
 				if(world.rand.nextDouble() < 0.1D)
