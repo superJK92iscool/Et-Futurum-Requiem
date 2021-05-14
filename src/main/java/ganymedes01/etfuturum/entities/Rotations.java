@@ -33,10 +33,8 @@ public class Rotations {
 	public boolean equals(Object p_equals_1_) {
 		if (!(p_equals_1_ instanceof Rotations))
 			return false;
-		else {
-			Rotations rotations = (Rotations) p_equals_1_;
-			return x == rotations.x && y == rotations.y && z == rotations.z;
-		}
+		Rotations rotations = (Rotations) p_equals_1_;
+		return x == rotations.x && y == rotations.y && z == rotations.z;
 	}
 
 	public float getX() {
@@ -49,5 +47,10 @@ public class Rotations {
 
 	public float getZ() {
 		return z;
+	}
+
+	@Override
+	public int hashCode() {
+		return (int)(x + y + z);
 	}
 }
