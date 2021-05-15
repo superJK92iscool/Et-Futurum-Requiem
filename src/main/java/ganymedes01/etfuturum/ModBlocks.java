@@ -238,23 +238,11 @@ public class ModBlocks {
 					GameRegistry.registerBlock(block, ((ISubBlocksBlock) block).getItemBlockClass(), strings[strings.length - 1]);
 				else
 					GameRegistry.registerBlock(block, strings[strings.length - 1]);
-            //	This Interface does not make sense as nobody uses FireInfo to see what is Flammable and what isn't. There is actual Functions in Block that can override Flammability and I did that for all things that implemented this Interface.
-			//	if (block instanceof IBurnableBlock) {
-			//		ImmutablePair i = ((IBurnableBlock) block).getFireInfo();
-			//		if(i != null)
-			//			Blocks.fire.setFireInfo(block, (Integer)i.getLeft(), (Integer)i.getRight());
-			//	}
 			}
 		}
 	}
 	
 	public static interface ISubBlocksBlock {
 		Class<? extends ItemBlock> getItemBlockClass();
-	}
-	
-	@Deprecated
-	public static interface IBurnableBlock {
-		@Deprecated
-		ImmutablePair getFireInfo();
 	}
 }
