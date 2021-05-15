@@ -35,6 +35,7 @@ dependencies {
 	compile "codechicken:NotEnoughItems:1.7.10-1.0.5.120:dev"
 	compile "com.azanor.baubles:Baubles:1.7.10-1.0.1.10:deobf"
 	compile "thaumcraft:Thaumcraft:1.7.10-4.2.3.5:dev"
+    compile "team.chisel:Chisel:2.9.5.12:deobf"
 }
 
 minecraft {
