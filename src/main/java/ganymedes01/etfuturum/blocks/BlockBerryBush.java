@@ -3,12 +3,9 @@ package ganymedes01.etfuturum.blocks;
 import java.util.ArrayList;
 import java.util.Random;
 
-import org.apache.commons.lang3.tuple.ImmutablePair;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.IConfigurable;
-import ganymedes01.etfuturum.ModBlocks.IBurnableBlock;
 import ganymedes01.etfuturum.ModBlocks.ISubBlocksBlock;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.client.sound.ModSounds;
@@ -30,8 +27,9 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 
-public class BlockBerryBush extends BlockBush implements IConfigurable, ISubBlocksBlock, IBurnableBlock {
+public class BlockBerryBush extends BlockBush implements IConfigurable, ISubBlocksBlock {
 
 	@SideOnly(Side.CLIENT)
 	private IIcon[] icons;
@@ -47,6 +45,7 @@ public class BlockBerryBush extends BlockBush implements IConfigurable, ISubBloc
 	
 	public static final DamageSource SWEET_BERRY_BUSH = (new DamageSource("sweetBerryBush"));
 
+	@Override
 	public boolean isReplaceable(IBlockAccess world, int x, int y, int z)
 	{
 		return false;
@@ -72,13 +71,14 @@ public class BlockBerryBush extends BlockBush implements IConfigurable, ISubBloc
 		   if (!world.isRemote && world.getBlockMetadata(x, y, z) > 0 && (entity.lastTickPosX != entity.posX || entity.lastTickPosZ != entity.posZ)) {
 			  double d0 = Math.abs(entity.posX - entity.lastTickPosX);
 			  double d1 = Math.abs(entity.posZ - entity.lastTickPosZ);
-			  if (d0 >= (double)0.003F || d1 >= (double)0.003F) {
+			  if (d0 >= 0.003F || d1 >= 0.003F) {
 				 entity.attackEntityFrom(SWEET_BERRY_BUSH, 1.0F);
 			  }
 		   }
 		}
 	 }
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister icon)
 	{
@@ -107,6 +107,7 @@ public class BlockBerryBush extends BlockBush implements IConfigurable, ISubBloc
 		return ModItems.sweet_berries;
 	}
 	
+	@Override
 	public void setBlockBoundsBasedOnState(IBlockAccess p_149719_1_, int p_149719_2_, int p_149719_3_, int p_149719_4_)
 	{
 		if(p_149719_1_.getBlockMetadata(p_149719_2_, p_149719_3_, p_149719_4_) == 0) {
@@ -132,20 +133,21 @@ public class BlockBerryBush extends BlockBush implements IConfigurable, ISubBloc
 				   capturedDrops.get().add(stack);
 			   }
 			   float f = 0.7F;
-			   double d0 = (double)(world.rand.nextFloat() * f) + (double)(1.0F - f) * 0.5D;
-			   double d1 = (double)(world.rand.nextFloat() * f) + (double)(1.0F - f) * 0.5D;
-			   double d2 = (double)(world.rand.nextFloat() * f) + (double)(1.0F - f) * 0.5D;
-			   EntityItem entityitem = new EntityItem(world, (double)x + d0, (double)y + d1, (double)z + d2, stack);
+			   double d0 = world.rand.nextFloat() * f + (1.0F - f) * 0.5D;
+			   double d1 = world.rand.nextFloat() * f + (1.0F - f) * 0.5D;
+			   double d2 = world.rand.nextFloat() * f + (1.0F - f) * 0.5D;
+			   EntityItem entityitem = new EntityItem(world, x + d0, y + d1, z + d2, stack);
 			   entityitem.delayBeforeCanPickup = 10;
 			   world.spawnEntityInWorld(entityitem);
 		   }
-		   world.playSound((double)x, (double)y, (double)z, Reference.MOD_ID + ":item.sweet_berries.pick_from_bush", 1.0F, 0.8F + world.rand.nextFloat() * 0.4F, false);
+		   world.playSound(x, y, z, Reference.MOD_ID + ":item.sweet_berries.pick_from_bush", 1.0F, 0.8F + world.rand.nextFloat() * 0.4F, false);
 		   world.setBlockMetadataWithNotify(x, y, z, 1, 2);
 		   return true;
 		}
 		return false;
 	}
 	
+	@Override
 	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune)
 	{
 		ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
@@ -163,6 +165,7 @@ public class BlockBerryBush extends BlockBush implements IConfigurable, ISubBloc
 	}
 	
 
+	@Override
 	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_)
 	{
 		return ModItems.sweet_berries;
@@ -172,10 +175,19 @@ public class BlockBerryBush extends BlockBush implements IConfigurable, ISubBloc
 	public Class<? extends ItemBlock> getItemBlockClass() {
 		return null;
 	}
-
+	
 	@Override
-	public ImmutablePair getFireInfo() {
-		return new ImmutablePair(60, 100);
+	public boolean isFlammable(IBlockAccess aWorld, int aX, int aY, int aZ, ForgeDirection aSide) {
+		return true;
 	}
-
+	
+	@Override
+	public int getFlammability(IBlockAccess aWorld, int aX, int aY, int aZ, ForgeDirection aSide) {
+		return 100;
+	}
+	
+	@Override
+	public int getFireSpreadSpeed(IBlockAccess aWorld, int aX, int aY, int aZ, ForgeDirection aSide) {
+		return 60;
+	}
 }

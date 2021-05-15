@@ -1,19 +1,18 @@
 package ganymedes01.etfuturum.blocks;
 
-import org.apache.commons.lang3.tuple.ImmutablePair;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
-import ganymedes01.etfuturum.ModBlocks.IBurnableBlock;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.BlockButtonWood;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.IBlockAccess;
+import net.minecraftforge.common.util.ForgeDirection;
 
-public class BlockWoodButton extends BlockButtonWood implements IBurnableBlock, IConfigurable {
+public class BlockWoodButton extends BlockButtonWood implements IConfigurable {
 
 	private final int meta;
 
@@ -26,7 +25,7 @@ public class BlockWoodButton extends BlockButtonWood implements IBurnableBlock, 
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(int side, int meta) {
+	public IIcon getIcon(int side, int _meta) {
 		return Blocks.planks.getIcon(side, this.meta);
 	}
 	
@@ -34,11 +33,19 @@ public class BlockWoodButton extends BlockButtonWood implements IBurnableBlock, 
 	public boolean isEnabled() {
 		return ConfigurationHandler.enableWoodRedstone;
 	}
-
+	
 	@Override
-	public ImmutablePair getFireInfo() {
-		if(meta < 6 && ConfigurationHandler.enableBurnableBlocks)
-			return new ImmutablePair(5, 20);
-		return null;
+	public boolean isFlammable(IBlockAccess aWorld, int aX, int aY, int aZ, ForgeDirection aSide) {
+		return ConfigurationHandler.enableBurnableBlocks && meta < 6;
+	}
+	
+	@Override
+	public int getFlammability(IBlockAccess aWorld, int aX, int aY, int aZ, ForgeDirection aSide) {
+		return ConfigurationHandler.enableBurnableBlocks && meta < 6 ? 20 : 0;
+	}
+	
+	@Override
+	public int getFireSpreadSpeed(IBlockAccess aWorld, int aX, int aY, int aZ, ForgeDirection aSide) {
+		return ConfigurationHandler.enableBurnableBlocks && meta < 6 ? 5 : 0;
 	}
 }
