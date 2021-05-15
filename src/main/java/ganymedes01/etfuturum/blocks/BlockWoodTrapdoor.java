@@ -36,6 +36,7 @@ public class BlockWoodTrapdoor extends BlockTrapDoor implements IConfigurable{
 	
 	public IIcon[] icon = new IIcon[6];
 	
+	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister ir) {
 		
@@ -47,8 +48,9 @@ public class BlockWoodTrapdoor extends BlockTrapDoor implements IConfigurable{
 		this.icon[5] = ir.registerIcon("minecraft:dark_oak_trapdoor");
 	}
 	
+	@Override
 	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(int side, int meta) {
+	public IIcon getIcon(int side, int _meta) {
 		return this.icon[this.meta];
 	}
 

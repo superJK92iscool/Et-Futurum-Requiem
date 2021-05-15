@@ -15,21 +15,22 @@ import net.minecraft.util.IIcon;
 
 public class BlockStrippedNewWood extends BlockNewLog implements IConfigurable, ISubBlocksBlock {
 	
-	public static final String[] field_150169_M = new String[] {"acacia", "dark_oak"};
+	public static final String[] icon_names_stripped = new String[] {"acacia", "dark_oak"};
 	
 	public BlockStrippedNewWood() {
 		setBlockName(Utils.getUnlocalisedName("wood2_stripped"));
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
 	}
 	
+	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister iconRegister) {
-		this.field_150167_a = new IIcon[field_150169_M.length];
-		this.field_150166_b = new IIcon[field_150169_M.length];
+		this.field_150167_a = new IIcon[icon_names_stripped.length];
+		this.field_150166_b = new IIcon[icon_names_stripped.length];
 
 		for (int i = 0; i < this.field_150167_a.length; ++i) {
-			this.field_150167_a[i] = iconRegister.registerIcon("stripped_" + field_150169_M[i] + "_log");
-			this.field_150166_b[i] = iconRegister.registerIcon("stripped_" + field_150169_M[i] + "_log");
+			this.field_150167_a[i] = iconRegister.registerIcon("stripped_" + icon_names_stripped[i] + "_log");
+			this.field_150166_b[i] = iconRegister.registerIcon("stripped_" + icon_names_stripped[i] + "_log");
 		}
 	}
 	

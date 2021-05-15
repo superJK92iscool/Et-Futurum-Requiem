@@ -8,7 +8,7 @@ import org.apache.commons.lang3.ArrayUtils;
 
 import cpw.mods.fml.common.IWorldGenerator;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.blocks.ChorusFlower;
+import ganymedes01.etfuturum.blocks.BlockChorusFlower;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.world.generate.OceanMonument;
 import ganymedes01.etfuturum.world.generate.WorldGenMinableNoAir;
@@ -141,7 +141,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 			for (; y > 0; y--)
 				if (!world.getBlock(x, y, z).isAir(world, x, y, z))
 					break;
-			if (y > 0 && ChorusFlower.canPlantStay(world, x, y + 1, z))
+			if (y > 0 && BlockChorusFlower.canPlantStay(world, x, y + 1, z))
 				generateChorusPlant(world, x, y + 1, z, 0);
 		}
 	}
@@ -149,7 +149,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 	public static void generateChorusPlant(World world, int x, int y, int z, int pass) {
 		int height;
 		for (height = 0; height < 4; height++) {
-			if (!ChorusFlower.canPlantStay(world, x, y + height, z)) {
+			if (!BlockChorusFlower.canPlantStay(world, x, y + height, z)) {
 				world.setBlock(x, y + height, z, ModBlocks.chorus_flower, 5, 2);
 				break;
 			}
@@ -166,7 +166,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 					int xx = x + dir.offsetX;
 					int yy = y + height + dir.offsetY;
 					int zz = z + dir.offsetZ;
-					if (world.isAirBlock(xx, yy, zz) && ChorusFlower.isSpaceAroundFree(world, xx, yy, zz, dir.getOpposite())) {
+					if (world.isAirBlock(xx, yy, zz) && BlockChorusFlower.isSpaceAroundFree(world, xx, yy, zz, dir.getOpposite())) {
 						generateChorusPlant(world, xx, yy, zz, pass + 1);
 						grew = true;
 					}

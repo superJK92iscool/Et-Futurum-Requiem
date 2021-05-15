@@ -141,6 +141,7 @@ public class BlockBanner extends BlockContainer implements ISubBlocksBlock, ICon
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister reg) {
+		// Banners dont have Block Icons
 	}
 
 	@Override

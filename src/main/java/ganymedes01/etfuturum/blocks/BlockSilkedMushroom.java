@@ -51,6 +51,7 @@ public class BlockSilkedMushroom extends Block implements IConfigurable {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister reg) {
+		// Icons taken from original Block
 	}
 
 	@Override

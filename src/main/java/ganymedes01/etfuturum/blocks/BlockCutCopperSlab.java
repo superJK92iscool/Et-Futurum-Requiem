@@ -40,6 +40,7 @@ public class BlockCutCopperSlab extends BlockGenericSlab implements IConfigurabl
 		tickDegradation(world, x, y, z, rand);
 	}
 
+	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityPlayer, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_)
 	{
 		boolean flag = false;
@@ -136,6 +137,7 @@ public class BlockCutCopperSlab extends BlockGenericSlab implements IConfigurabl
 		return new BlockGenericSlab[] {(BlockGenericSlab)ModBlocks.cut_copper_slab, (BlockGenericSlab)ModBlocks.double_cut_copper_slab};
 	}
 
+	@Override
 	public String func_150002_b(int meta)
 	{
 		meta %= 8;
@@ -146,9 +148,8 @@ public class BlockCutCopperSlab extends BlockGenericSlab implements IConfigurabl
 
 		if(metaBlocks[meta].equals("")) {
 			return super.getUnlocalizedName();
-		} else {
-			return "tile.etfuturum." + metaBlocks[meta] + "_" + super.getUnlocalizedName().split("tile.etfuturum.")[1];
 		}
+		return "tile.etfuturum." + metaBlocks[meta] + "_" + super.getUnlocalizedName().split("tile.etfuturum.")[1];
 	}
 
 	@Override

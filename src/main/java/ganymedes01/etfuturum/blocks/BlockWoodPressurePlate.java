@@ -28,7 +28,7 @@ public class BlockWoodPressurePlate extends BlockPressurePlate implements IConfi
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(int side, int meta) {
+	public IIcon getIcon(int side, int _meta) {
 		return Blocks.planks.getIcon(side, this.meta);
 	}
 

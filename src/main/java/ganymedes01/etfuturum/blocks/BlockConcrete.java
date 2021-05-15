@@ -36,7 +36,6 @@ public class BlockConcrete extends BlockGeneric implements IConfigurable {
 	
 	@Override
 	public boolean isEnabled() {
-		// TODO Auto-generated method stub
 		return ConfigurationHandler.enableConcrete;
 	}
 

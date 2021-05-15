@@ -61,7 +61,7 @@ public class BlockGlazedTerracotta extends Block implements IConfigurable {
 	}
 	
 	@Override
-	public MapColor getMapColor(int meta)
+	public MapColor getMapColor(int _meta)
 	{
 		MapColor mapColor = MapColor.airColor;
 		switch (this.meta) {

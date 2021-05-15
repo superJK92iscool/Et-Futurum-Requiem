@@ -23,6 +23,7 @@ public class BlockBlueIce extends Block implements IConfigurable {
 		this.setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
 	}
 	
+	@Override
 	public int quantityDropped(Random p_149745_1_)
 	{
 		return 0;

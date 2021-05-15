@@ -24,6 +24,7 @@ public class BlockDeepslateSlab extends BlockGenericSlab implements IConfigurabl
 		this.setStepSound(ConfigurationHandler.enableNewBlocksSounds ? isBrick ? ModSounds.soundDeepslateBricks : ModSounds.soundDeepslate : soundTypeStone);
 	}
 
+	@Override
 	public String func_150002_b(int meta)
 	{
 		meta %= 8;

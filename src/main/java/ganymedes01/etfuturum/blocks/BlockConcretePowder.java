@@ -26,12 +26,14 @@ public class BlockConcretePowder extends BlockGenericSand implements IConfigurab
 		this.setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
 	}
 	
+	@Override
 	public void onBlockAdded(World world, int x, int y, int z)
 	{
 		world.scheduleBlockUpdate(x, y, z, this, this.tickRate(world));
 		this.setBlock(world, x, y, z);
 	}
 			
+	@Override
 	public void onNeighborBlockChange(World world, int x, int y, int z, Block block)
 	{
 		world.scheduleBlockUpdate(x, y, z, this, this.tickRate(world));

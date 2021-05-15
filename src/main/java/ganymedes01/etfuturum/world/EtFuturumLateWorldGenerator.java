@@ -5,7 +5,7 @@ import java.util.Random;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.blocks.BlockTuff;
-import ganymedes01.etfuturum.blocks.Stone;
+import ganymedes01.etfuturum.blocks.BlockNewStone;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.world.generate.WorldGenDeepslateLayerMinable;
 import net.minecraft.block.Block;
@@ -39,7 +39,7 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 								world.setBlock(x, y, z, EtFuturum.deepslateOres.get(block));
 							} else
 							if((ConfigurationHandler.deepslateReplacesDirt && block.isReplaceableOreGen(world, x, y, z, Blocks.dirt))
-									|| (block.isReplaceableOreGen(world, x, y, z, Blocks.stone) && (ConfigurationHandler.deepslateReplacesStones ? true : !(block instanceof Stone)))
+									|| (block.isReplaceableOreGen(world, x, y, z, Blocks.stone) && (ConfigurationHandler.deepslateReplacesStones ? true : !(block instanceof BlockNewStone)))
 									&& !(block instanceof BlockTuff)) {
 								world.setBlock(x, y, z, ModBlocks.deepslate, 0, 2);
 							}

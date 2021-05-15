@@ -43,12 +43,14 @@ public class BlockSmoker extends BlockFurnace implements IConfigurable {
 		this.setCreativeTab(isEnabled() && !cooking ? EtFuturum.creativeTabBlocks : null);
 	}
 	
+	@Override
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int p_149691_1_, int p_149691_2_)
 	{
 		return p_149691_1_ == 1 ? this.blockTop : (p_149691_1_ == 0 ? this.blockBottom : (p_149691_1_ != p_149691_2_ ? (p_149691_1_ == 3 && p_149691_2_ == 0 ? this.blockFront : this.blockIcon) : this.blockFront));
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister p_149651_1_)
 	{
@@ -58,6 +60,7 @@ public class BlockSmoker extends BlockFurnace implements IConfigurable {
 		this.blockBottom = p_149651_1_.registerIcon("smoker_bottom");
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public void randomDisplayTick(World p_149734_1_, int p_149734_2_, int p_149734_3_, int p_149734_4_, Random p_149734_5_)
 	{
@@ -66,7 +69,7 @@ public class BlockSmoker extends BlockFurnace implements IConfigurable {
 			float f = (4 + (p_149734_5_.nextInt(8) + 1) + p_149734_5_.nextFloat()) / 16;
 			if (ConfigurationHandler.enableNewMiscSounds && p_149734_5_.nextDouble() < 0.1D)
 			{
-				p_149734_1_.playSound((double)p_149734_2_ + .5D, (double)p_149734_3_ + .5D, (double)p_149734_4_ + .5D,
+				p_149734_1_.playSound(p_149734_2_ + .5D, p_149734_3_ + .5D, p_149734_4_ + .5D,
 						Reference.MOD_ID + ":block.smoker.smoke", 1,
 						(p_149734_1_.rand.nextFloat() * 0.1F) + 0.9F, false);
 			}
@@ -99,6 +102,7 @@ public class BlockSmoker extends BlockFurnace implements IConfigurable {
 		}
 	}
 	
+	@Override
 	public void breakBlock(World p_149749_1_, int p_149749_2_, int p_149749_3_, int p_149749_4_, Block p_149749_5_, int p_149749_6_)
 	{
 		Random random = new Random();
@@ -128,7 +132,7 @@ public class BlockSmoker extends BlockFurnace implements IConfigurable {
 							}
 
 							itemstack.stackSize -= j1;
-							EntityItem entityitem = new EntityItem(p_149749_1_, (double)((float)p_149749_2_ + f), (double)((float)p_149749_3_ + f1), (double)((float)p_149749_4_ + f2), new ItemStack(itemstack.getItem(), j1, itemstack.getItemDamage()));
+							EntityItem entityitem = new EntityItem(p_149749_1_, p_149749_2_ + f, p_149749_3_ + f1, p_149749_4_ + f2, new ItemStack(itemstack.getItem(), j1, itemstack.getItemDamage()));
 
 							if (itemstack.hasTagCompound())
 							{
@@ -136,9 +140,9 @@ public class BlockSmoker extends BlockFurnace implements IConfigurable {
 							}
 
 							float f3 = 0.05F;
-							entityitem.motionX = (double)((float)random.nextGaussian() * f3);
-							entityitem.motionY = (double)((float)random.nextGaussian() * f3 + 0.2F);
-							entityitem.motionZ = (double)((float)random.nextGaussian() * f3);
+							entityitem.motionX = (float)random.nextGaussian() * f3;
+							entityitem.motionY = (float)random.nextGaussian() * f3 + 0.2F;
+							entityitem.motionZ = (float)random.nextGaussian() * f3;
 							p_149749_1_.spawnEntityInWorld(entityitem);
 						}
 					}
@@ -150,31 +154,34 @@ public class BlockSmoker extends BlockFurnace implements IConfigurable {
 		p_149749_1_.removeTileEntity(p_149749_2_, p_149749_3_, p_149749_4_);
 	}
 
+	@Override
 	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_)
 	{
 		return Item.getItemFromBlock(ModBlocks.smoker);
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public Item getItem(World p_149694_1_, int p_149694_2_, int p_149694_3_, int p_149694_4_)
 	{
 		return Item.getItemFromBlock(ModBlocks.smoker);
 	}
 	
+	@Override
 	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_)
 	{
 		return new TileEntitySmoker();
 	}
 	
+	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_)
 	{
 		if (world.isRemote)
 		{
 			return true;
-		} else {
-			player.openGui(EtFuturum.instance, GUIsID.SMOKER, world, x, y, z);
-			return true;
 		}
+		player.openGui(EtFuturum.instance, GUIsID.SMOKER, world, x, y, z);
+		return true;
 	}
 
 	@Override

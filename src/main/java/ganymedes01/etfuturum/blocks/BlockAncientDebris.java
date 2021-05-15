@@ -33,11 +33,13 @@ public class BlockAncientDebris extends Block implements IConfigurable, ISubBloc
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
 	}
 	
+	@Override
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int p_149691_2_) {
 		return side > 1 ? blockIcon : iconTop;
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister register) {
 		blockIcon = register.registerIcon(this.getTextureName() + "_side");
@@ -54,6 +56,7 @@ public class BlockAncientDebris extends Block implements IConfigurable, ISubBloc
 		return ItemBlockUninflammable.class;
 	}
 	
+	@Override
 	protected void dropBlockAsItem(World world, int x, int y, int z, ItemStack stack) {
 		// do not drop items while restoring blockstates, prevents item dupe
 		if (!world.isRemote && world.getGameRules().getGameRuleBooleanValue("doTileDrops") && !world.restoringBlockSnapshots) {
@@ -62,10 +65,10 @@ public class BlockAncientDebris extends Block implements IConfigurable, ISubBloc
 				return;
 			}
 			float f = 0.7F;
-			double d0 = (double)(world.rand.nextFloat() * f) + (double)(1.0F - f) * 0.5D;
-			double d1 = (double)(world.rand.nextFloat() * f) + (double)(1.0F - f) * 0.5D;
-			double d2 = (double)(world.rand.nextFloat() * f) + (double)(1.0F - f) * 0.5D;
-			EntityItem entityitem = new EntityItemUninflammable(world, (double)x + d0, (double)y + d1, (double)z + d2, stack);
+			double d0 = world.rand.nextFloat() * f + (1.0F - f) * 0.5D;
+			double d1 = world.rand.nextFloat() * f + (1.0F - f) * 0.5D;
+			double d2 = world.rand.nextFloat() * f + (1.0F - f) * 0.5D;
+			EntityItem entityitem = new EntityItemUninflammable(world, x + d0, y + d1, z + d2, stack);
 			entityitem.delayBeforeCanPickup = 10;
 			world.spawnEntityInWorld(entityitem);
 		}

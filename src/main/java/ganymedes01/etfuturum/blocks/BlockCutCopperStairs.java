@@ -40,13 +40,14 @@ public class BlockCutCopperStairs extends BlockGenericStairs implements IDegrada
 		}
 	}
 
-	public ImmutablePair getWax() {
+	public ImmutablePair<Block, Block> getWax() {
 		if(this == ModBlocks.cut_copper_stairs || this == ModBlocks.waxed_cut_copper_stairs)
-			return new ImmutablePair(ModBlocks.cut_copper_stairs, ModBlocks.waxed_cut_copper_stairs);
+			return new ImmutablePair<Block, Block>(ModBlocks.cut_copper_stairs, ModBlocks.waxed_cut_copper_stairs);
 		if(this == ModBlocks.exposed_cut_copper_stairs || this == ModBlocks.waxed_exposed_cut_copper_stairs)
-			return new ImmutablePair(ModBlocks.exposed_cut_copper_stairs, ModBlocks.waxed_exposed_cut_copper_stairs);
+			return new ImmutablePair<Block, Block>(ModBlocks.exposed_cut_copper_stairs, ModBlocks.waxed_exposed_cut_copper_stairs);
 		if(this == ModBlocks.weathered_cut_copper_stairs || this == ModBlocks.waxed_weathered_cut_copper_stairs)
-			return new ImmutablePair(ModBlocks.weathered_cut_copper_stairs, ModBlocks.waxed_weathered_cut_copper_stairs);
+			return new ImmutablePair<Block, Block>(ModBlocks.weathered_cut_copper_stairs, ModBlocks.waxed_weathered_cut_copper_stairs);
+		// TODO Waxed Oxidized like Vanilla too?
 		return null;
 	}
 	
@@ -66,6 +67,7 @@ public class BlockCutCopperStairs extends BlockGenericStairs implements IDegrada
 		}
 	}
 
+	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityPlayer, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_)
 	{
 		boolean flag = false;
@@ -99,7 +101,7 @@ public class BlockCutCopperStairs extends BlockGenericStairs implements IDegrada
 				}
 			}
 			if(flag && !flag2) {
-				Block block = (Block)(meta <= 7 ? getWax().getRight() : getWax().getLeft());
+				Block block = meta <= 7 ? getWax().getRight() : getWax().getLeft();
 				world.setBlock(x, y, z, block, world.getBlockMetadata(x, y, z), 2);
 				BlockCopper.spawnParticles(world, x, y, z, false);
 			} else if (!flag && flag2) {
@@ -147,7 +149,7 @@ public class BlockCutCopperStairs extends BlockGenericStairs implements IDegrada
 	}
 
 	@Override
-	public int getDegredationState(int meta) {
+	public int getDegredationState(int _meta) {
 		return this == ModBlocks.cut_copper_stairs ? 0 : this == ModBlocks.exposed_cut_copper_stairs ? 1 : this == ModBlocks.weathered_cut_copper_stairs ? 2 : this == ModBlocks.oxidized_cut_copper_stairs ? 3 : -1;
 	}
 }

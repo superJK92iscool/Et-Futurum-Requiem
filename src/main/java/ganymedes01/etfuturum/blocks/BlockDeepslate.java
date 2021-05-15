@@ -36,12 +36,14 @@ public class BlockDeepslate extends BlockRotatedPillar implements IConfigurable 
 		return blockIcon;
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	protected IIcon getTopIcon(int p_150161_1_)
 	{
 		return field_150164_N;
 	}
 	
+	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister p_149651_1_)
 	{

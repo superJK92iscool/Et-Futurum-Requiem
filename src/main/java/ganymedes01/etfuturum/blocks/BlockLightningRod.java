@@ -34,6 +34,7 @@ public class BlockLightningRod extends Block implements IConfigurable {
 	 * Is this block (a) opaque and (b) a full 1m cube?  This determines whether or not to render the shared face of two
 	 * adjacent blocks and also whether the player can attach torches, redstone wire, etc to this block.
 	 */
+	@Override
 	public boolean isOpaqueCube()
 	{
 		return false;
@@ -42,6 +43,7 @@ public class BlockLightningRod extends Block implements IConfigurable {
 	/**
 	 * If this block doesn't render as an ordinary block it will return False (examples: signs, buttons, stairs, etc)
 	 */
+	@Override
 	public boolean renderAsNormalBlock()
 	{
 		return false;

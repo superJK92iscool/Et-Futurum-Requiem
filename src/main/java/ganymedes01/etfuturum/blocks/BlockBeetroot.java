@@ -29,8 +29,8 @@ public class BlockBeetroot extends BlockCrops implements IConfigurable {
 			if (meta == 6)
 				meta = 5;
 			return icons[meta >> 1];
-		} else
-			return icons[3];
+		}
+		return icons[3];
 	}
 
 	@Override

@@ -60,6 +60,7 @@ public class BlockCopper extends BlockGeneric implements IConfigurable, IDegrada
 	   }
 	}
 
+	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityPlayer, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_)
 	{
 		boolean flag = false;
@@ -110,41 +111,41 @@ public class BlockCopper extends BlockGeneric implements IConfigurable, IDegrada
 
 		for (int l = 0; l < 10; ++l)
 		{
-			double d1 = (double)((float)p_150186_2_ + random.nextFloat());
-			double d2 = (double)((float)p_150186_3_ + random.nextFloat());
-			double d3 = (double)((float)p_150186_4_ + random.nextFloat());
+			double d1 = p_150186_2_ + random.nextFloat();
+			double d2 = p_150186_3_ + random.nextFloat();
+			double d3 = p_150186_4_ + random.nextFloat();
 
 			if (l == 0 && !p_150186_1_.getBlock(p_150186_2_, p_150186_3_ + 1, p_150186_4_).isOpaqueCube())
 			{
-				d2 = (double)(p_150186_3_ + 1) + d0;
+				d2 = p_150186_3_ + 1 + d0;
 			}
 
 			if (l == 1 && !p_150186_1_.getBlock(p_150186_2_, p_150186_3_ - 1, p_150186_4_).isOpaqueCube())
 			{
-				d2 = (double)(p_150186_3_ + 0) - d0;
+				d2 = p_150186_3_ + 0 - d0;
 			}
 
 			if (l == 2 && !p_150186_1_.getBlock(p_150186_2_, p_150186_3_, p_150186_4_ + 1).isOpaqueCube())
 			{
-				d3 = (double)(p_150186_4_ + 1) + d0;
+				d3 = p_150186_4_ + 1 + d0;
 			}
 
 			if (l == 3 && !p_150186_1_.getBlock(p_150186_2_, p_150186_3_, p_150186_4_ - 1).isOpaqueCube())
 			{
-				d3 = (double)(p_150186_4_ + 0) - d0;
+				d3 = p_150186_4_ + 0 - d0;
 			}
 
 			if (l == 4 && !p_150186_1_.getBlock(p_150186_2_ + 1, p_150186_3_, p_150186_4_).isOpaqueCube())
 			{
-				d1 = (double)(p_150186_2_ + 1) + d0;
+				d1 = p_150186_2_ + 1 + d0;
 			}
 
 			if (l == 5 && !p_150186_1_.getBlock(p_150186_2_ - 1, p_150186_3_, p_150186_4_).isOpaqueCube())
 			{
-				d1 = (double)(p_150186_2_ + 0) - d0;
+				d1 = p_150186_2_ + 0 - d0;
 			}
 
-			if (d1 < (double)p_150186_2_ || d1 > (double)(p_150186_2_ + 1) || d2 < 0.0D || d2 > (double)(p_150186_3_ + 1) || d3 < (double)p_150186_4_ || d3 > (double)(p_150186_4_ + 1))
+			if (d1 < p_150186_2_ || d1 > p_150186_2_ + 1 || d2 < 0.0D || d2 > p_150186_3_ + 1 || d3 < p_150186_4_ || d3 > p_150186_4_ + 1)
 			{
 				p_150186_1_.spawnParticle("happyVillager", d1, d2, d3, oxidize ? 1D : 0.0D, 0.0D, 0.0D);
 			}
@@ -187,6 +188,7 @@ public class BlockCopper extends BlockGeneric implements IConfigurable, IDegrada
 			   }
 	}
 	
+	@Override
 	public String getNameFor(int meta) {
 		String name = types[Math.max(Math.min(meta, types.length - 1), 0)];
 		return name.equals("unused") ? types[0] : name;

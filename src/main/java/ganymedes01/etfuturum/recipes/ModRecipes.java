@@ -13,7 +13,7 @@ import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.blocks.BlockGlazedTerracotta;
 import ganymedes01.etfuturum.blocks.BlockStoneSlab2;
-import ganymedes01.etfuturum.blocks.Stone;
+import ganymedes01.etfuturum.blocks.BlockNewStone;
 import ganymedes01.etfuturum.blocks.ores.BlockDeepslateOre;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.items.ItemSuspiciousStew;
@@ -153,12 +153,12 @@ public class ModRecipes {
 		}
 
 		if (ConfigurationHandler.enableStones) {
-			OreDictionary.registerOre("stoneGranite", new ItemStack(ModBlocks.stone, 1, Stone.GRANITE));
-			OreDictionary.registerOre("stoneDiorite", new ItemStack(ModBlocks.stone, 1, Stone.DIORITE));
-			OreDictionary.registerOre("stoneAndesite", new ItemStack(ModBlocks.stone, 1, Stone.ANDESITE));
-			OreDictionary.registerOre("stoneGranitePolished", new ItemStack(ModBlocks.stone, 1, Stone.POLISHED_GRANITE));
-			OreDictionary.registerOre("stoneDioritePolished", new ItemStack(ModBlocks.stone, 1, Stone.POLISHED_DIORITE));
-			OreDictionary.registerOre("stoneAndesitePolished", new ItemStack(ModBlocks.stone, 1, Stone.POLISHED_ANDESITE));
+			OreDictionary.registerOre("stoneGranite", new ItemStack(ModBlocks.stone, 1, BlockNewStone.GRANITE));
+			OreDictionary.registerOre("stoneDiorite", new ItemStack(ModBlocks.stone, 1, BlockNewStone.DIORITE));
+			OreDictionary.registerOre("stoneAndesite", new ItemStack(ModBlocks.stone, 1, BlockNewStone.ANDESITE));
+			OreDictionary.registerOre("stoneGranitePolished", new ItemStack(ModBlocks.stone, 1, BlockNewStone.POLISHED_GRANITE));
+			OreDictionary.registerOre("stoneDioritePolished", new ItemStack(ModBlocks.stone, 1, BlockNewStone.POLISHED_DIORITE));
+			OreDictionary.registerOre("stoneAndesitePolished", new ItemStack(ModBlocks.stone, 1, BlockNewStone.POLISHED_ANDESITE));
 		}
 
 		if (ConfigurationHandler.enableSlimeBlock)
@@ -282,14 +282,14 @@ public class ModRecipes {
 
 		if (ConfigurationHandler.enableStones) {
 			// Diorite
-			addShapedRecipe(new ItemStack(ModBlocks.stone, 2, Stone.DIORITE), "xy", "yx", 'x', new ItemStack(Blocks.cobblestone), 'y', "gemQuartz");
-			addShapedRecipe(new ItemStack(ModBlocks.stone, 4, Stone.POLISHED_DIORITE), "xx", "xx", 'x', "stoneDiorite");
+			addShapedRecipe(new ItemStack(ModBlocks.stone, 2, BlockNewStone.DIORITE), "xy", "yx", 'x', new ItemStack(Blocks.cobblestone), 'y', "gemQuartz");
+			addShapedRecipe(new ItemStack(ModBlocks.stone, 4, BlockNewStone.POLISHED_DIORITE), "xx", "xx", 'x', "stoneDiorite");
 			// Andesite
-			addShapelessRecipe(new ItemStack(ModBlocks.stone, 2, Stone.ANDESITE), new ItemStack(Blocks.cobblestone), "stoneDiorite");
-			addShapedRecipe(new ItemStack(ModBlocks.stone, 4, Stone.POLISHED_ANDESITE), "xx", "xx", 'x', "stoneAndesite");
+			addShapelessRecipe(new ItemStack(ModBlocks.stone, 2, BlockNewStone.ANDESITE), new ItemStack(Blocks.cobblestone), "stoneDiorite");
+			addShapedRecipe(new ItemStack(ModBlocks.stone, 4, BlockNewStone.POLISHED_ANDESITE), "xx", "xx", 'x', "stoneAndesite");
 			// Granite
-			addShapelessRecipe(new ItemStack(ModBlocks.stone, 2, Stone.GRANITE), "gemQuartz", "stoneDiorite");
-			addShapedRecipe(new ItemStack(ModBlocks.stone, 4, Stone.POLISHED_GRANITE), "xx", "xx", 'x', "stoneGranite");
+			addShapelessRecipe(new ItemStack(ModBlocks.stone, 2, BlockNewStone.GRANITE), "gemQuartz", "stoneDiorite");
+			addShapedRecipe(new ItemStack(ModBlocks.stone, 4, BlockNewStone.POLISHED_GRANITE), "xx", "xx", 'x', "stoneGranite");
 			Block[] stairs = new Block[] {ModBlocks.granite_stairs, ModBlocks.polished_granite_stairs, ModBlocks.diorite_stairs, ModBlocks.polished_diorite_stairs, ModBlocks.andesite_stairs, ModBlocks.polished_andesite_stairs};
 			for(int i = 0; i < stairs.length; i++) {
 				String dictName = "stone" + StringUtils.capitalize(((BlockStoneSlab2)ModBlocks.stone_slab).metaBlocks[(i / 2) * 2]) + (i % 2 == 1 ? "Polished" : "");

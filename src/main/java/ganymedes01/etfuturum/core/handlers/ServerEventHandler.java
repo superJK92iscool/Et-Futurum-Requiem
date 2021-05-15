@@ -26,7 +26,7 @@ import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModEnchantments;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.blocks.BlockWitherRose;
-import ganymedes01.etfuturum.blocks.MagmaBlock;
+import ganymedes01.etfuturum.blocks.BlockMagma;
 import ganymedes01.etfuturum.client.sound.WeightedSoundPool;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.utils.HoeHelper;
@@ -182,7 +182,7 @@ public class ServerEventHandler {
 					}
 				}
 				if(flag)
-					entity.attackEntityFrom(MagmaBlock.HOT_FLOOR, 1);
+					entity.attackEntityFrom(BlockMagma.HOT_FLOOR, 1);
 			}
 		
 		if (ConfigurationHandler.enableVillagerZombies)

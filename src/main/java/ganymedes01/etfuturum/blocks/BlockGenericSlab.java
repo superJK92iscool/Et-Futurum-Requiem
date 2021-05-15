@@ -33,14 +33,18 @@ public abstract class BlockGenericSlab extends BlockSlab implements ISubBlocksBl
 		return ItemBlockGenericSlab.class;
 	}
 	
+	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister p_149651_1_) {}
+	public void registerBlockIcons(IIconRegister p_149651_1_) {
+		// Take Icons from the original Slabs
+	}
 	
 	@Override
 	public String getUnlocalizedName() {
 		return "tile.etfuturum." + (field_150004_a ? "double_" : "") + super.getUnlocalizedName().split("\\.")[2];
 	}
 
+	@Override
 	public String func_150002_b(int meta)
 	{
 		meta %= 8;
@@ -51,11 +55,11 @@ public abstract class BlockGenericSlab extends BlockSlab implements ISubBlocksBl
 
 		if(metaBlocks[meta].equals("")) {
 			return super.getUnlocalizedName();
-		} else {
-			return "tile.etfuturum." + metaBlocks[meta] + "_" + getUnlocalizedName().split("_")[field_150004_a ? 2 : 1];
 		}
+		return "tile.etfuturum." + metaBlocks[meta] + "_" + getUnlocalizedName().split("_")[field_150004_a ? 2 : 1];
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubBlocks(Item p_149666_1_, CreativeTabs p_149666_2_, List p_149666_3_)
 	{
@@ -69,6 +73,7 @@ public abstract class BlockGenericSlab extends BlockSlab implements ISubBlocksBl
 	
 	public abstract IIcon[] getSlabIcons(int side);
 	
+	@Override
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta)
 	{
@@ -87,14 +92,16 @@ public abstract class BlockGenericSlab extends BlockSlab implements ISubBlocksBl
 		return field_150004_a;
 	}
 	
+	@Override
 	@SideOnly(Side.CLIENT)
 	public Item getItem(World p_149694_1_, int p_149694_2_, int p_149694_3_, int p_149694_4_)
 	{
-		return Item.getItemFromBlock((BlockSlab)getSlabTypes()[0]);
+		return Item.getItemFromBlock(getSlabTypes()[0]);
 	}
 	
+	@Override
 	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_)
 	{
-		return Item.getItemFromBlock((BlockSlab)getSlabTypes()[0]);
+		return Item.getItemFromBlock(getSlabTypes()[0]);
 	}
 }

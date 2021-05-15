@@ -48,11 +48,13 @@ public class BlockBarrel extends BlockContainer implements IConfigurable {
 	@SideOnly(Side.CLIENT)
 	private IIcon topIcon;
 
+	@Override
 	public int getRenderType()
 	{
 		return RenderIDs.BARREL;
 	}
 	
+	@Override
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int p_149691_1_, int p_149691_2_)
 	{
@@ -60,12 +62,14 @@ public class BlockBarrel extends BlockContainer implements IConfigurable {
 		return (k) > 5 ? p_149691_2_ > 7 ? this.innerTopIcon : this.topIcon : (p_149691_1_ == k ? (p_149691_2_ > 7 ? this.innerTopIcon : this.topIcon) : (p_149691_1_ == Facing.oppositeSide[k] ? this.bottomIcon : this.blockIcon));
 	}
 	
+	@Override
 	public void onBlockPlacedBy(World p_149689_1_, int p_149689_2_, int p_149689_3_, int p_149689_4_, EntityLivingBase p_149689_5_, ItemStack p_149689_6_)
 	{
 		int l = BlockPistonBase.determineOrientation(p_149689_1_, p_149689_2_, p_149689_3_, p_149689_4_, p_149689_5_);
 		p_149689_1_.setBlockMetadataWithNotify(p_149689_2_, p_149689_3_, p_149689_4_, l, 2);
 	}
 	
+	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister i)
 	{
@@ -75,20 +79,20 @@ public class BlockBarrel extends BlockContainer implements IConfigurable {
 		this.bottomIcon = i.registerIcon(getTextureName() + "_bottom");
 	}
 
+	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_)
 	{
 		if (world.isRemote)
 		{
 			return true;
-		} else {
-			player.openGui(EtFuturum.instance, GUIsID.BARREL, world, x, y, z);
-			return true;
 		}
+		player.openGui(EtFuturum.instance, GUIsID.BARREL, world, x, y, z);
+		return true;
 	}
 
 	public IInventory func_149951_m(World p_149951_1_, int p_149951_2_, int p_149951_3_, int p_149951_4_)
 	{
-		Object object = (TileEntityBarrel)p_149951_1_.getTileEntity(p_149951_2_, p_149951_3_, p_149951_4_);
+		Object object = p_149951_1_.getTileEntity(p_149951_2_, p_149951_3_, p_149951_4_);
 
 		if(object == null)
 			return null;
@@ -123,11 +127,11 @@ public class BlockBarrel extends BlockContainer implements IConfigurable {
 						}
 
 						itemstack.stackSize -= j1;
-						entityitem = new EntityItem(world, (double)((float)x + f), (double)((float)y + f1), (double)((float)z + f2), new ItemStack(itemstack.getItem(), j1, itemstack.getItemDamage()));
+						entityitem = new EntityItem(world, x + f, y + f1, z + f2, new ItemStack(itemstack.getItem(), j1, itemstack.getItemDamage()));
 						float f3 = 0.05F;
-						entityitem.motionX = (double)((float)this.field_149955_b.nextGaussian() * f3);
-						entityitem.motionY = (double)((float)this.field_149955_b.nextGaussian() * f3 + 0.2F);
-						entityitem.motionZ = (double)((float)this.field_149955_b.nextGaussian() * f3);
+						entityitem.motionX = (float)this.field_149955_b.nextGaussian() * f3;
+						entityitem.motionY = (float)this.field_149955_b.nextGaussian() * f3 + 0.2F;
+						entityitem.motionZ = (float)this.field_149955_b.nextGaussian() * f3;
 
 						if (itemstack.hasTagCompound())
 						{
@@ -147,6 +151,7 @@ public class BlockBarrel extends BlockContainer implements IConfigurable {
 	/**
 	 * Returns a new instance of a block's tile entity class. Called on placing the block.
 	 */
+	@Override
 	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_)
 	{
 		return new TileEntityBarrel();

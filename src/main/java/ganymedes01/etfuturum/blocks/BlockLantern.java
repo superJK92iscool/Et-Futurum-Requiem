@@ -42,6 +42,7 @@ public class BlockLantern extends Block implements IConfigurable {
 		return ConfigurationHandler.enableLantern;
 	}
 	
+	@Override
 	public void setBlockBoundsBasedOnState(IBlockAccess p_149719_1_, int p_149719_2_, int p_149719_3_, int p_149719_4_)
 	{
 		float r = 0.0625F;
@@ -53,12 +54,13 @@ public class BlockLantern extends Block implements IConfigurable {
 			this.setBlockBounds(0.5F - f1, r * 1, 0.5F - f1, 0.5F + f1, r * 8, 0.5F + f1);
 	}
 	
+	@Override
 	public boolean canPlaceBlockAt(World world, int x, int y, int z)
 	{
 		int i1 = world.getBlockMetadata(x, y + 1, z);
 		int stairMeta = world.getBlockMetadata(x, y + 1, z) & 7;
 		return  world.getBlock(x, y - 1, z).canPlaceTorchOnTop(world, x, y, z) ||
-				world.doesBlockHaveSolidTopSurface(world, x, y - 1, z) ||
+				World.doesBlockHaveSolidTopSurface(world, x, y - 1, z) ||
 				world.isSideSolid(x, y + 1, z, ForgeDirection.DOWN) ||
 				world.getBlock(x, y + 1, z) instanceof BlockWall ||
 				world.getBlock(x, y + 1, z) instanceof BlockFence ||
@@ -66,13 +68,14 @@ public class BlockLantern extends Block implements IConfigurable {
 				((world.getBlock(x, y + 1, z) instanceof BlockSlab) && i1 <= 7);
 	}
 	
+	@Override
 	public int onBlockPlaced(World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int meta)
 	{
 		int i = 0;
 		if (side == 0) {
 			i = 1;
 		} else if (side > 0){
-			if (world.getBlock(x, y - 1, z).canPlaceTorchOnTop(world, x, y, z) || world.doesBlockHaveSolidTopSurface(world, x, y - 1, z)) {
+			if (world.getBlock(x, y - 1, z).canPlaceTorchOnTop(world, x, y, z) || World.doesBlockHaveSolidTopSurface(world, x, y - 1, z)) {
 				i = 0;
 			} else {
 				i = 1;
@@ -80,12 +83,14 @@ public class BlockLantern extends Block implements IConfigurable {
 		}
 		return i;
 	}
+	@Override
 	public void onBlockAdded(World world, int x, int y, int z)
 	{
 		Block block = world.getBlock(x, y, z);
 		this.onNeighborBlockChange(world, x, y, z, block);
 	}
 	
+	@Override
 	public void onNeighborBlockChange(World world, int x, int y, int z, Block block)
 	{
 		int i = world.getBlockMetadata(x, y, z);
@@ -93,7 +98,7 @@ public class BlockLantern extends Block implements IConfigurable {
 		int stairMeta1 = i2 & 7;
 		
 		if (i == 0 && !world.getBlock(x, y - 1, z).canPlaceTorchOnTop(world, x, y, z) &&
-				!world.doesBlockHaveSolidTopSurface(world, x, y - 1, z)) {
+				!World.doesBlockHaveSolidTopSurface(world, x, y - 1, z)) {
 			this.setLanternToAir(world, x, y, z);
 		} else if (i == 1 && !world.isSideSolid(x, y + 1, z, ForgeDirection.DOWN) &&
 				!(world.getBlock(x, y + 1, z) instanceof BlockWall) &&
@@ -111,22 +116,26 @@ public class BlockLantern extends Block implements IConfigurable {
 		}
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public String getItemIconName()
 	{
 		return "lantern";
 	}
 	
+	@Override
 	public int getRenderType()
 	{
 		return RenderIDs.LANTERN;
 	}
 	
+	@Override
 	public boolean isOpaqueCube()
 	{
 		return false;
 	}
 	
+	@Override
 	public boolean renderAsNormalBlock()
 	{
 		return false;

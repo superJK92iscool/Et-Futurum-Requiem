@@ -10,6 +10,7 @@ import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.items.block.ItemBlockDeepslate;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.util.IIcon;
 
 public class BlockDeepslateBricks extends BlockGeneric implements IConfigurable {
@@ -45,7 +46,7 @@ public class BlockDeepslateBricks extends BlockGeneric implements IConfigurable 
 	}
 	
 	@Override
-	public Class getItemBlockClass() {
+	public Class<? extends ItemBlock> getItemBlockClass() {
 		return ItemBlockDeepslate.class;
 	}
 }

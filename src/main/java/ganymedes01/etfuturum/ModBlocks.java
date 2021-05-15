@@ -20,32 +20,32 @@ public class ModBlocks {
 	
 	private static final List<Block> initList = new ArrayList<Block>();
 
-	public static final Block stone = initBlock(new Stone());
-	public static final Block prismarine = initBlock(new PrismarineBlocks());
-	public static final Block sea_lantern = initBlock(new SeaLantern());
-	public static final Block inverted_daylight_detector = initBlock(new InvertedDaylightDetector());
-	public static final Block red_sandstone = initBlock(new RedSandstone());
+	public static final Block stone = initBlock(new BlockNewStone());
+	public static final Block prismarine = initBlock(new BlockPrismarine());
+	public static final Block sea_lantern = initBlock(new BlockSeaLantern());
+	public static final Block inverted_daylight_detector = initBlock(new BlockInvertedDaylightDetector());
+	public static final Block red_sandstone = initBlock(new BlockRedSandstone());
 	public static final Block brown_mushroom_block = initBlock(new BlockSilkedMushroom(Blocks.brown_mushroom_block, "brown"));
 	public static final Block red_mushroom_block = initBlock(new BlockSilkedMushroom(Blocks.red_mushroom_block, "red"));
-	public static final Block coarse_dirt = initBlock(new CoarseDirt());
+	public static final Block coarse_dirt = initBlock(new BlockCoarseDirt());
 	public static final Block banner = initBlock(new BlockBanner());
-	public static final Block slime = initBlock(new SlimeBlock());
-	public static final Block sponge = initBlock(new Sponge());
-	public static final Block old_gravel = initBlock(new OldGravel());
+	public static final Block slime = initBlock(new BlockSlime());
+	public static final Block sponge = initBlock(new BlockSponge());
+	public static final Block old_gravel = initBlock(new BlockOldGravel());
 	public static final Block beetroot = initBlock(new BlockBeetroot());
-	public static final Block purpur_block = initBlock(new PurpurBlock());
-	public static final Block purpur_pillar = initBlock(new PurpurPillar());
-	public static final Block end_bricks = initBlock(new EndBricks());
-	public static final Block grass_path = initBlock(new GrassPath());
-	public static final Block end_rod = initBlock(new EndRod());
-	public static final Block chorus_plant = initBlock(new ChorusPlant());
-	public static final Block chorus_flower = initBlock(new ChorusFlower());
-	public static final Block crying_obsidian = initBlock(new CryingObsidian());
-	public static final Block rose = initBlock(new OldRose());
+	public static final Block purpur_block = initBlock(new BlockPurpur());
+	public static final Block purpur_pillar = initBlock(new BlockPurpurPillar());
+	public static final Block end_bricks = initBlock(new BlockEndBricks());
+	public static final Block grass_path = initBlock(new BlockGrassPath());
+	public static final Block end_rod = initBlock(new BlockEndRod());
+	public static final Block chorus_plant = initBlock(new BlockChorusPlant());
+	public static final Block chorus_flower = initBlock(new BlockChorusFlower());
+	public static final Block crying_obsidian = initBlock(new BlockCryingObsidian());
+	public static final Block rose = initBlock(new BlockOldRose());
 	
-	public static final Block bone_block = initBlock(new BoneBlock());
-	public static final Block new_nether_brick = initBlock(new NewNetherBrick());
-	public static final Block nether_wart_block = initBlock(new NetherwartBlock());
+	public static final Block bone_block = initBlock(new BlockBone());
+	public static final Block new_nether_brick = initBlock(new BlockNewNetherBrick());
+	public static final Block nether_wart_block = initBlock(new BlockNetherwart());
 	public static final Block ancient_debris = initBlock(new BlockAncientDebris());
 	public static final Block netherite_block = initBlock(new BlockNetherite());
 	public static final Block barrier = initBlock(new BlockBarrier());
@@ -105,21 +105,21 @@ public class ModBlocks {
 	public static final Block deepslate_emerald_ore = initBlock(new BlockDeepslateOre(Blocks.emerald_ore));
 	
 	//technical blocks
-	public static final Block brewing_stand = initBlock(new NewBrewingStand());
-	public static final Block beacon = initBlock(new NewBeacon());
-	public static final Block enchantment_table = initBlock(new NewEnchantmentTable());
-	public static final Block anvil = initBlock(new NewAnvil());
-	public static final Block daylight_sensor = initBlock(new NewDaylightSensor());
-	public static final Block frosted_ice = initBlock(new FrostedIce());
+	public static final Block brewing_stand = initBlock(new BlockNewBrewingStand());
+	public static final Block beacon = initBlock(new BlockNewBeacon());
+	public static final Block enchantment_table = initBlock(new BlockNewEnchantmentTable());
+	public static final Block anvil = initBlock(new BlockNewAnvil());
+	public static final Block daylight_sensor = initBlock(new BlockNewDaylightSensor());
+	public static final Block frosted_ice = initBlock(new BlockFrostedIce());
 	public static final Block lava_cauldron = initBlock(new BlockLavaCauldron());
 	
 	//do slab/stairs
 	public static final Block red_sandstone_stairs = initBlock(new BlockGenericStairs(red_sandstone, 0).setBlockName(Utils.getUnlocalisedName("red_sandstone_stairs")));
 	public static final Block purpur_stairs = initBlock(new BlockGenericStairs(purpur_block, 0).setBlockName(Utils.getUnlocalisedName("purpur_stairs")));
-	public static final Block red_sandstone_slab = initBlock(new RedSandstoneSlab(false));
-	public static final Block double_red_sandstone_slab = initBlock(new RedSandstoneSlab(true));
-	public static final Block purpur_slab = initBlock(new PurpurSlab(false));
-	public static final Block double_purpur_slab = initBlock(new PurpurSlab(true));
+	public static final Block red_sandstone_slab = initBlock(new BlockRedSandstoneSlab(false));
+	public static final Block double_red_sandstone_slab = initBlock(new BlockRedSandstoneSlab(true));
+	public static final Block purpur_slab = initBlock(new BlockPurpurSlab(false));
+	public static final Block double_purpur_slab = initBlock(new BlockPurpurSlab(true));
 	
 	public static final Block generic_slab = initBlock(new BlockStoneSlab1(false));
 	public static final Block double_generic_slab = initBlock(new BlockStoneSlab1(true));
@@ -148,8 +148,8 @@ public class ModBlocks {
 	public static final Block double_smooth_sandstone_slab = initBlock(new BlockSmoothSandstoneSlab(0, true));
 	public static final Block smooth_red_sandstone_slab = initBlock(new BlockSmoothSandstoneSlab(1, false));
 	public static final Block double_smooth_red_sandstone_slab = initBlock(new BlockSmoothSandstoneSlab(1, true));
-	public static final Block prismarine_slab = initBlock(new PrismarineSlab(false));
-	public static final Block double_prismarine_slab = initBlock(new PrismarineSlab(true));
+	public static final Block prismarine_slab = initBlock(new BlockPrismarineSlab(false));
+	public static final Block double_prismarine_slab = initBlock(new BlockPrismarineSlab(true));
 	public static final Block smooth_quartz_slab = initBlock(new BlockSmoothQuartzSlab(false));
 	public static final Block double_smooth_quartz_slab = initBlock(new BlockSmoothQuartzSlab(true));
 	public static final Block red_nether_brick_slab = initBlock(new BlockRedNetherBrickSlab(false));
@@ -176,9 +176,9 @@ public class ModBlocks {
 	public static final Block deepslate_tile_stairs = initBlock(new BlockGenericStairs(ModBlocks.deepslate_bricks, 2).setBlockName(Utils.getUnlocalisedName("deepslate_tile_stairs")));
 	
 	//Mechanic/Functional blocks
-	public static final Block iron_trapdoor = initBlock(new IronTrapdoor());
+	public static final Block iron_trapdoor = initBlock(new BlockIronTrapdoor());
 	
-	public static final Block magma_block = initBlock(new MagmaBlock());
+	public static final Block magma_block = initBlock(new BlockMagma());
 	public static final Block barrel = initBlock(new BlockBarrel());
 	public static final Block lantern = initBlock(new BlockLantern());
 	public static final Block smoker = initBlock(new BlockSmoker(false));

@@ -38,11 +38,13 @@ public class BlockOreNetherGold extends Block implements IConfigurable {
 		return MathHelper.getRandomIntegerInRange(rand, 2, 5);
 	}
 	
+	@Override
 	public int quantityDropped(Random p_149745_1_)
 	{
 		return 2 + p_149745_1_.nextInt(5);
 	}
 	
+	@Override
 	public int quantityDroppedWithBonus(int fortune, Random p_149679_2_)
 	{
 		if (fortune > 0)
@@ -59,11 +61,13 @@ public class BlockOreNetherGold extends Block implements IConfigurable {
 		return this.quantityDropped(p_149679_2_);
 	}
 
+	@Override
 	protected boolean canSilkHarvest()
 	{
 		return true;
 	}
 
+	@Override
 	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_)
 	{
 		return Items.gold_nugget;

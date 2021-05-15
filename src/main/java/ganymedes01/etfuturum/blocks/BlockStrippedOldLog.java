@@ -20,6 +20,7 @@ public class BlockStrippedOldLog extends BlockOldLog implements IConfigurable, I
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister p_149651_1_) {
 		this.field_150167_a = new IIcon[field_150168_M.length];

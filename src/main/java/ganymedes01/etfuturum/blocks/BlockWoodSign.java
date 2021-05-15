@@ -20,7 +20,7 @@ public class BlockWoodSign extends BlockSign implements IConfigurable {
 	public final int meta;
 	public final boolean standing;
 
-	public BlockWoodSign(Class p_i45426_1_, boolean p_i45426_2_, int i) {
+	public BlockWoodSign(Class<?> p_i45426_1_, boolean p_i45426_2_, int i) {
 		super(p_i45426_1_, p_i45426_2_);
 //      if(i >= 6) {
 //          EtFuturum.forceSetMaterial(this, EtFuturum.netherwood);
@@ -37,7 +37,7 @@ public class BlockWoodSign extends BlockSign implements IConfigurable {
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(int side, int meta) {
+	public IIcon getIcon(int side, int _meta) {
 //      if(this.meta < 6)
 			return Blocks.planks.getIcon(side, this.meta);
 //      else

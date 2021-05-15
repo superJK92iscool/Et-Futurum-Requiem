@@ -44,17 +44,20 @@ public class BlockLavaCauldron extends BlockCauldron implements IConfigurable, I
 		this.setBlockName(Utils.getUnlocalisedName("lava_cauldron"));
 	}
 	
+	@Override
 	public boolean onBlockActivated(World p_149727_1_, int p_149727_2_, int p_149727_3_, int p_149727_4_, EntityPlayer p_149727_5_, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_)
 	{
 		ItemStack item;
 		if (p_149727_5_.getCurrentEquippedItem() != null) {
-			 item = p_149727_5_.getCurrentEquippedItem();
-			 if (item.getItem() instanceof ItemBucket) {
+			item = p_149727_5_.getCurrentEquippedItem();
+			if (item.getItem() instanceof ItemBucket) {
+				// TODO Uh, what is this for? Seems unfinished.
 			}
 		}
 		return true;
 	}
 	
+	@Override
 	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity)
 	{
 		boolean flag = (int)entity.prevPosX != (int)entity.posX || (int)entity.prevPosY != (int)entity.posY || (int)entity.prevPosZ != (int)entity.posZ;
@@ -64,8 +67,8 @@ public class BlockLavaCauldron extends BlockCauldron implements IConfigurable, I
 			if (entity.worldObj.getBlock(MathHelper.floor_double(entity.posX), MathHelper.floor_double(entity.posY), MathHelper.floor_double(entity.posZ)) == this)
 			{
 				entity.motionY = 0.20000000298023224D;
-				entity.motionX = (double)((world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F);
-				entity.motionZ = (double)((world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F);
+				entity.motionX = (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F;
+				entity.motionZ = (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F;
 				entity.playSound("random.fizz", 0.4F, 2.0F + world.rand.nextFloat() * 0.4F);
 				entity.setFire(1);
 			}
@@ -78,24 +81,27 @@ public class BlockLavaCauldron extends BlockCauldron implements IConfigurable, I
 		}
 	}
 	
+	@Override
 	public IIcon getIcon(int side, int meta)
 	{
 		return Blocks.cauldron.getIcon(side, meta);
 	}
 	
+	@Override
 	public int tickRate(World world)
 	{
 		return 0;
 	}
 	
+	@Override
 	@SideOnly(Side.CLIENT)
 	public void randomDisplayTick(World world, int x, int y, int z, Random random)
 	{
 		float p0 = 0.875F;
 		float p1 = 0.125F;
 
-		double d0 = (double)((float)x + random.nextFloat());
-		double d1 = (double)((float)z + random.nextFloat());
+		double d0 = x + random.nextFloat();
+		double d1 = z + random.nextFloat();
 		
 		if(d0 > (p0 + x)) {
 			d0 = x + p0;
@@ -116,8 +122,11 @@ public class BlockLavaCauldron extends BlockCauldron implements IConfigurable, I
 		}
 	}
 	
+	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister p_149651_1_){}
+	public void registerBlockIcons(IIconRegister p_149651_1_) {
+		// Taking Icons from original Cauldron
+	}
 	
 	@Override
 	public int getRenderType()

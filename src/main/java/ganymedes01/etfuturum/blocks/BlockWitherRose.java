@@ -38,11 +38,13 @@ public class BlockWitherRose extends BlockFlowerBase implements IConfigurable {
 		}
 	}
 	
+	@Override
 	protected boolean canPlaceBlockOn(Block p_149854_1_)
 	{
 		return p_149854_1_ == Blocks.grass || p_149854_1_ == Blocks.dirt || p_149854_1_ == Blocks.farmland || p_149854_1_ == Blocks.soul_sand || p_149854_1_ == Blocks.netherrack;
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public void randomDisplayTick(World p_149734_1_, int p_149734_2_, int p_149734_3_, int p_149734_4_, Random p_149734_5_)
 	{

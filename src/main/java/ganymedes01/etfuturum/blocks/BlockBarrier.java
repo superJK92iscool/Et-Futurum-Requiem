@@ -32,11 +32,13 @@ public class BlockBarrier extends Block implements IConfigurable {
 		this.setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
 	}
 	
+	@Override
 	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_)
 	{
 		return null;
 	}
 	
+	@Override
 	@SideOnly(Side.CLIENT)
 	public void randomDisplayTick(World world, int x, int y, int z, Random rand)
 	{ 
@@ -56,16 +58,19 @@ public class BlockBarrier extends Block implements IConfigurable {
 		}
 	}
 	
+	@Override
 	public int getRenderType()
 	{
 		return -1;
 	}
 	
+	@Override
 	public boolean isOpaqueCube()
 	{
 		return false;
 	}
 	
+	@Override
 	public boolean renderAsNormalBlock()
 	{
 		return false;
@@ -77,21 +82,25 @@ public class BlockBarrier extends Block implements IConfigurable {
 		return ConfigurationHandler.enableBarrier;
 	}
 
+	@Override
 	public boolean isNormalCube()
 	{
 		return true;
 	}
 
+	@Override
 	public boolean isBlockSolid(IBlockAccess p_149747_1_, int p_149747_2_, int p_149747_3_, int p_149747_4_, int p_149747_5_)
 	{
 		return true;
 	}
 	
+	@Override
 	public boolean isNormalCube(IBlockAccess world, int x, int y, int z)
 	{
 		return true;
 	}
 	
+	@Override
 	public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side)
 	{
 		return true;
