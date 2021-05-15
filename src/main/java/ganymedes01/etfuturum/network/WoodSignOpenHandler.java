@@ -17,24 +17,24 @@ public class WoodSignOpenHandler implements IMessageHandler<WoodSignOpenMessage,
 	@SideOnly(Side.CLIENT)
 	@Override
 	public IMessage onMessage(WoodSignOpenMessage message, MessageContext ctx) {
-        WorldClient world = FMLClientHandler.instance().getClient().theWorld;
-        if (world.blockExists(message.tileX, message.tileY, message.tileZ)) {
-            TileEntity tileEntity = FMLClientHandler.instance().getClient().theWorld.getTileEntity(message.tileX, message.tileY, message.tileZ);
+		WorldClient world = FMLClientHandler.instance().getClient().theWorld;
+		if (world.blockExists(message.tileX, message.tileY, message.tileZ)) {
+			TileEntity tileEntity = FMLClientHandler.instance().getClient().theWorld.getTileEntity(message.tileX, message.tileY, message.tileZ);
 
-            if (tileEntity == null || !(tileEntity instanceof TileEntityWoodSign)) {
-                tileEntity = new TileEntityWoodSign();
-                int i = message.id % ModBlocks.signs.length;
-                tileEntity.blockType = message.id >= ModBlocks.signs.length ? ModBlocks.wall_signs[i] : ModBlocks.signs[i];
-                tileEntity.setWorldObj(FMLClientHandler.instance().getClient().theWorld);
-                tileEntity.xCoord = message.tileX;
-                tileEntity.yCoord = message.tileY;
-                tileEntity.zCoord = message.tileZ;
-            }
+			if (tileEntity == null || !(tileEntity instanceof TileEntityWoodSign)) {
+				tileEntity = new TileEntityWoodSign();
+				int i = message.id % ModBlocks.signs.length;
+				tileEntity.blockType = message.id >= ModBlocks.signs.length ? ModBlocks.wall_signs[i] : ModBlocks.signs[i];
+				tileEntity.setWorldObj(FMLClientHandler.instance().getClient().theWorld);
+				tileEntity.xCoord = message.tileX;
+				tileEntity.yCoord = message.tileY;
+				tileEntity.zCoord = message.tileZ;
+			}
 
-            tileEntity.markDirty();
+			tileEntity.markDirty();
 
-            FMLClientHandler.instance().getClient().displayGuiScreen(new GuiEditWoodSign((TileEntityWoodSign) tileEntity));
-        }
+			FMLClientHandler.instance().getClient().displayGuiScreen(new GuiEditWoodSign((TileEntityWoodSign) tileEntity));
+		}
 		return null;
 	}
 

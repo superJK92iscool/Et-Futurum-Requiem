@@ -8,15 +8,15 @@ import net.minecraft.item.ItemFood;
 
 public class RabbitCooked extends ItemFood implements IConfigurable {
 
-    public RabbitCooked() {
-        super(5, 0.6F, true);
-        setTextureName("rabbit_cooked");
-        setUnlocalizedName(Utils.getUnlocalisedName("rabbit_cooked"));
-        setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
-    }
+	public RabbitCooked() {
+		super(5, 0.6F, true);
+		setTextureName("rabbit_cooked");
+		setUnlocalizedName(Utils.getUnlocalisedName("rabbit_cooked"));
+		setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
+	}
 
-    @Override
-    public boolean isEnabled() {
-        return ConfigurationHandler.enableRabbit;
-    }
+	@Override
+	public boolean isEnabled() {
+		return ConfigurationHandler.enableRabbit;
+	}
 }

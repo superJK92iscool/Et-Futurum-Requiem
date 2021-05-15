@@ -8,29 +8,29 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 
 public class WorldGenHugeFungus extends WorldGenAbstractTree {
-    /** The minimum height of a generated tree. */
-    private final int minTreeHeight;
-    /** The minimum height of a generated tree. */
-    private final int maxTreeHeight;
-    /** True if this tree should grow Vines. */
-    private final boolean vinesGrow;
+	/** The minimum height of a generated tree. */
+	private final int minTreeHeight;
+	/** The minimum height of a generated tree. */
+	private final int maxTreeHeight;
+	/** True if this tree should grow Vines. */
+	private final boolean vinesGrow;
 
-    public WorldGenHugeFungus(boolean p_i2027_1_, boolean crimson)
-    {
-        this(p_i2027_1_, 4, 14, crimson);
-    }
+	public WorldGenHugeFungus(boolean p_i2027_1_, boolean crimson)
+	{
+		this(p_i2027_1_, 4, 14, crimson);
+	}
 
-    public WorldGenHugeFungus(boolean p_i2028_1_, int minHeight, int maxHeight, boolean growVines)
-    {
-        super(p_i2028_1_);
-        minTreeHeight = minHeight;
-        maxTreeHeight = maxHeight;
-        vinesGrow = growVines;
-    }
-    
-    public boolean generate(World world, Random rand, int x, int y, int z)
-    {
-    	return true;
+	public WorldGenHugeFungus(boolean p_i2028_1_, int minHeight, int maxHeight, boolean growVines)
+	{
+		super(p_i2028_1_);
+		minTreeHeight = minHeight;
+		maxTreeHeight = maxHeight;
+		vinesGrow = growVines;
+	}
+	
+	public boolean generate(World world, Random rand, int x, int y, int z)
+	{
+		return true;
 //        int l = Math.abs(rand.nextInt(maxTreeHeight) - rand.nextInt(maxTreeHeight)) + this.minTreeHeight;
 //        boolean flag = true;
 //
@@ -91,20 +91,20 @@ public class WorldGenHugeFungus extends WorldGenAbstractTree {
 //                    for (int i1 = 0; i1 < 3; i1++) {
 //                        for (int j1 = -2; j1 <= 2; j1++) {
 //                            for (int k2 = -2; k2 <= 2; k2++) {
-//                            	if(world.isAirBlock(x + j1, y + l - i1, z + k2)) {
-//                                	boolean flag1 = ((Math.abs(j1) < 2 && Math.abs(k2) < 2)) && (i1 > 1 || (i1 == 1 && rand.nextInt(2) == 1));
-//                                	boolean flag2 = ((Math.abs(j1) == 2 && Math.abs(k2) == 2) && ((i1 > 1) || (i1 == 1 && rand.nextFloat() > .30F)));
-//                                	if(((flag1 && i1 == 1) || ((Math.abs(j1) == 1 ^ Math.abs(k2) == 1) && i1 == 2)) && rand.nextInt(4) == 0)
+//                              if(world.isAirBlock(x + j1, y + l - i1, z + k2)) {
+//                                  boolean flag1 = ((Math.abs(j1) < 2 && Math.abs(k2) < 2)) && (i1 > 1 || (i1 == 1 && rand.nextInt(2) == 1));
+//                                  boolean flag2 = ((Math.abs(j1) == 2 && Math.abs(k2) == 2) && ((i1 > 1) || (i1 == 1 && rand.nextFloat() > .30F)));
+//                                  if(((flag1 && i1 == 1) || ((Math.abs(j1) == 1 ^ Math.abs(k2) == 1) && i1 == 2)) && rand.nextInt(4) == 0)
 //                                        this.setBlockAndNotifyAdequately(world, x + j1, y + l - i1, z + k2, ModBlocks.shroomlight, 0);
-//                                	if(((Math.abs(j1) > 1 || Math.abs(k2) > 1) && i1 == 0) || flag2 || flag1)
-//                                		continue;
-//                                	if(!flag2 && i1 == 2) {
-//                                		for(int i2 = 0; i2 < rand.nextInt(4) + 1; i2++) {
+//                                  if(((Math.abs(j1) > 1 || Math.abs(k2) > 1) && i1 == 0) || flag2 || flag1)
+//                                      continue;
+//                                  if(!flag2 && i1 == 2) {
+//                                      for(int i2 = 0; i2 < rand.nextInt(4) + 1; i2++) {
 //                                            this.setBlockAndNotifyAdequately(world, x + j1, y + l - i1 - i2, z + k2, ModBlocks.wart_block, vinesGrow ? 0 : 1);
-//                                		}
-//                                	}
+//                                      }
+//                                  }
 //                                    this.setBlockAndNotifyAdequately(world, x + j1, y + l - i1, z + k2, ModBlocks.wart_block, vinesGrow ? 0 : 1);
-//                            	}
+//                              }
 //                            }
 //                        }
 //                    }
@@ -130,8 +130,8 @@ public class WorldGenHugeFungus extends WorldGenAbstractTree {
 //        {
 //            return false;
 //        }
-    }
-    
+	}
+	
 //    protected boolean isReplaceable(World world, int x, int y, int z)
 //    {
 //        return super.isReplaceable(world, x, y, z) || world.getBlock(x, y, z) instanceof BlockNylium || world.getBlock(x, y, z) instanceof BlockFungus;

@@ -15,19 +15,19 @@ public class BlockTuff extends Block implements IConfigurable {
 
 	public BlockTuff() {
 		super(Material.rock);
-        setHardness(1.5F);
-        setResistance(6.0F);
-        setBlockTextureName("tuff");
-        setStepSound(ConfigurationHandler.enableNewBlocksSounds ? ModSounds.soundTuff : soundTypePiston);
-        setBlockName(Utils.getUnlocalisedName("tuff"));
-        setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
-    }
+		setHardness(1.5F);
+		setResistance(6.0F);
+		setBlockTextureName("tuff");
+		setStepSound(ConfigurationHandler.enableNewBlocksSounds ? ModSounds.soundTuff : soundTypePiston);
+		setBlockName(Utils.getUnlocalisedName("tuff"));
+		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+	}
 
-    @Override
-    public boolean isReplaceableOreGen(World world, int x, int y, int z, Block target) {
-        return this == target || target == Blocks.stone || target == ModBlocks.deepslate;
-    }
-    
+	@Override
+	public boolean isReplaceableOreGen(World world, int x, int y, int z, Block target) {
+		return this == target || target == Blocks.stone || target == ModBlocks.deepslate;
+	}
+	
 	@Override
 	public boolean isEnabled() {
 		return ConfigurationHandler.enableTuff;

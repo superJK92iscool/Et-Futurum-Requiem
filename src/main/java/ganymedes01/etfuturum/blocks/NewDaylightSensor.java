@@ -18,34 +18,34 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class NewDaylightSensor extends BlockDaylightDetector implements IConfigurable {
 
-    public NewDaylightSensor() {
-        setHardness(0.2F);
-        setStepSound(soundTypeWood);
-        setBlockTextureName("daylight_detector");
-        setBlockName(Utils.getUnlocalisedName("daylight_sensor"));
-        setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
-    }
+	public NewDaylightSensor() {
+		setHardness(0.2F);
+		setStepSound(soundTypeWood);
+		setBlockTextureName("daylight_detector");
+		setBlockName(Utils.getUnlocalisedName("daylight_sensor"));
+		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+	}
 
-    @Override
-    public Item getItemDropped(int meta, Random rand, int fortune) {
-        return Item.getItemFromBlock(Blocks.daylight_detector);
-    }
+	@Override
+	public Item getItemDropped(int meta, Random rand, int fortune) {
+		return Item.getItemFromBlock(Blocks.daylight_detector);
+	}
 
-    @Override
-    @SideOnly(Side.CLIENT)
-    public Item getItem(World world, int x, int y, int z) {
-        return Item.getItemFromBlock(Blocks.daylight_detector);
-    }
+	@Override
+	@SideOnly(Side.CLIENT)
+	public Item getItem(World world, int x, int y, int z) {
+		return Item.getItemFromBlock(Blocks.daylight_detector);
+	}
 
-    @Override
-    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
-        if (!world.isRemote)
-            world.setBlock(x, y, z, ModBlocks.inverted_daylight_detector);
-        return true;
-    }
+	@Override
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
+		if (!world.isRemote)
+			world.setBlock(x, y, z, ModBlocks.inverted_daylight_detector);
+		return true;
+	}
 
-    @Override
-    public boolean isEnabled() {
-        return ConfigurationHandler.enableInvertedDaylightSensor;
-    }
+	@Override
+	public boolean isEnabled() {
+		return ConfigurationHandler.enableInvertedDaylightSensor;
+	}
 }

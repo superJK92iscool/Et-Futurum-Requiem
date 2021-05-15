@@ -29,23 +29,23 @@ public class BlockDeepslateBricks extends BlockGeneric implements IConfigurable 
 		return ConfigurationHandler.enableDeepslate;
 	}
 
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void registerBlockIcons(IIconRegister reg) {
-        icons = new IIcon[types.length];
-        for (int i = 0; i < types.length; i++) {
-        	String name = getTextureName();
-        	if(i > 1)
-        		name = name.replace("bricks", "tiles");
-            if ("".equals(types[i]))
-                icons[i] = reg.registerIcon(name);
-            else
-                icons[i] = reg.registerIcon(i == 4 ? "chiseled_deepslate" : types[i] + "_" + name);
-        	}
-    }
-    
-    @Override
-    public Class getItemBlockClass() {
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void registerBlockIcons(IIconRegister reg) {
+		icons = new IIcon[types.length];
+		for (int i = 0; i < types.length; i++) {
+			String name = getTextureName();
+			if(i > 1)
+				name = name.replace("bricks", "tiles");
+			if ("".equals(types[i]))
+				icons[i] = reg.registerIcon(name);
+			else
+				icons[i] = reg.registerIcon(i == 4 ? "chiseled_deepslate" : types[i] + "_" + name);
+			}
+	}
+	
+	@Override
+	public Class getItemBlockClass() {
 		return ItemBlockDeepslate.class;
-    }
+	}
 }

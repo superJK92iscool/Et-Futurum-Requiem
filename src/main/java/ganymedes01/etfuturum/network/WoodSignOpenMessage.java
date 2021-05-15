@@ -6,10 +6,10 @@ import io.netty.buffer.ByteBuf;
 
 public class WoodSignOpenMessage implements IMessage {
 
-    public int tileX;
-    public int tileY;
-    public int tileZ;
-    public int id;
+	public int tileX;
+	public int tileY;
+	public int tileZ;
+	public int id;
 
 	public WoodSignOpenMessage() {
 	}
@@ -23,18 +23,18 @@ public class WoodSignOpenMessage implements IMessage {
 
 	@Override
 	public void fromBytes(ByteBuf buf) {
-        this.tileX = buf.readInt();
-        this.tileY = buf.readInt();
-        this.tileZ = buf.readInt();
-        this.id = buf.readByte();
+		this.tileX = buf.readInt();
+		this.tileY = buf.readInt();
+		this.tileZ = buf.readInt();
+		this.id = buf.readByte();
 	}
 
 	@Override
 	public void toBytes(ByteBuf buf) {
-        buf.writeInt(this.tileX);
-        buf.writeInt(this.tileY);
-        buf.writeInt(this.tileZ);
-        buf.writeByte(this.id);
+		buf.writeInt(this.tileX);
+		buf.writeInt(this.tileY);
+		buf.writeInt(this.tileZ);
+		buf.writeByte(this.id);
 	}
 
 }

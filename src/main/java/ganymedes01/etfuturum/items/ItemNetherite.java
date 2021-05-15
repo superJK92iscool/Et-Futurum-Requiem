@@ -8,20 +8,20 @@ import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.item.ItemStack;
 
 public class ItemNetherite extends ItemUninflammable implements IConfigurable {
-    
-    public ItemNetherite(int type) {
-        super();
-        setTextureName("netherite" + (type == 1 ? "_ingot" : "_scrap"));
-        setUnlocalizedName(Utils.getUnlocalisedName("netherite" + (type == 1 ? "_ingot" : "_scrap")));
-        setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
-    }
-    
-    public boolean isBeaconPayment(ItemStack stack) {
-        return this == ModItems.netherite_ingot;
-    }
-    
-    @Override
-    public boolean isEnabled() {
-        return ConfigurationHandler.enableNetherite;
-    }
+	
+	public ItemNetherite(int type) {
+		super();
+		setTextureName("netherite" + (type == 1 ? "_ingot" : "_scrap"));
+		setUnlocalizedName(Utils.getUnlocalisedName("netherite" + (type == 1 ? "_ingot" : "_scrap")));
+		setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
+	}
+	
+	public boolean isBeaconPayment(ItemStack stack) {
+		return this == ModItems.netherite_ingot;
+	}
+	
+	@Override
+	public boolean isEnabled() {
+		return ConfigurationHandler.enableNetherite;
+	}
 }

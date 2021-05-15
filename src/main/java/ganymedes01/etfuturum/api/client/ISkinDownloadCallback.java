@@ -10,9 +10,9 @@ import net.minecraft.util.ResourceLocation;
 @SideOnly(Side.CLIENT)
 public interface ISkinDownloadCallback extends SkinAvailableCallback {
 
-    /**
-     * Gets called when a 1.8 style skin is downloaded
-     */
-    @Override
-    void func_152121_a(Type skinType, ResourceLocation resourceLocation);
+	/**
+	 * Gets called when a 1.8 style skin is downloaded
+	 */
+	@Override
+	void func_152121_a(Type skinType, ResourceLocation resourceLocation);
 }

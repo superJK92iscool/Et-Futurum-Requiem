@@ -85,7 +85,7 @@ public static abstract class Fossil {
 							} else {
 								world.setBlock(i, j, k, block, meta, flag);
 							}
-//							System.out.println(i + " " + j + " " + k);
+//                          System.out.println(i + " " + j + " " + k);
 						}
 					}
 				}
@@ -96,7 +96,7 @@ public static abstract class Fossil {
 	
 	public abstract void build(World world, Random rand, int x, int y, int z, int type, int rotation, boolean hasCoal);
 	
-//	public abstract int[] getCorners();
+//  public abstract int[] getCorners();
 }
 
 public class Fossil_Skull_1 extends Fossil {

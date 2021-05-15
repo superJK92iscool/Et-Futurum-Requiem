@@ -8,15 +8,15 @@ import net.minecraft.item.ItemFood;
 
 public class MuttonRaw extends ItemFood  implements IConfigurable{
 
-    public MuttonRaw() {
-        super(2, 0.3F, true);
-        setTextureName("mutton_raw");
-        setUnlocalizedName(Utils.getUnlocalisedName("mutton_raw"));
-        setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
-    }
-    
-    @Override
-    public boolean isEnabled() {
-        return ConfigurationHandler.enableMutton;
-    }
+	public MuttonRaw() {
+		super(2, 0.3F, true);
+		setTextureName("mutton_raw");
+		setUnlocalizedName(Utils.getUnlocalisedName("mutton_raw"));
+		setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
+	}
+	
+	@Override
+	public boolean isEnabled() {
+		return ConfigurationHandler.enableMutton;
+	}
 }

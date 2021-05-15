@@ -13,36 +13,36 @@ import net.minecraftforge.oredict.OreDictionary;
 
 public class BrewingFuelRegistry {
 
-    private static Map<ItemStack, Integer> fuels = new HashMap<ItemStack, Integer>();
-    private static List<IBrewingFuel> advFuels = new ArrayList<IBrewingFuel>();
+	private static Map<ItemStack, Integer> fuels = new HashMap<ItemStack, Integer>();
+	private static List<IBrewingFuel> advFuels = new ArrayList<IBrewingFuel>();
 
-    static {
-        fuels.put(new ItemStack(Items.blaze_powder), 30);
-    }
+	static {
+		fuels.put(new ItemStack(Items.blaze_powder), 30);
+	}
 
-    public static void registerFuel(ItemStack fuel, int brews) {
-        fuels.put(fuel, brews);
-    }
+	public static void registerFuel(ItemStack fuel, int brews) {
+		fuels.put(fuel, brews);
+	}
 
-    public static void registerAdvancedFuel(IBrewingFuel fuel) {
-        advFuels.add(fuel);
-    }
+	public static void registerAdvancedFuel(IBrewingFuel fuel) {
+		advFuels.add(fuel);
+	}
 
-    public static boolean isFuel(ItemStack fuel) {
-        return getBrewAmount(fuel) > 0;
-    }
+	public static boolean isFuel(ItemStack fuel) {
+		return getBrewAmount(fuel) > 0;
+	}
 
-    public static int getBrewAmount(ItemStack fuel) {
-        for (IBrewingFuel advFuel : advFuels) {
-            int time = advFuel.getBrewingAmount(fuel);
-            if (time > 0)
-                return time;
-        }
+	public static int getBrewAmount(ItemStack fuel) {
+		for (IBrewingFuel advFuel : advFuels) {
+			int time = advFuel.getBrewingAmount(fuel);
+			if (time > 0)
+				return time;
+		}
 
-        for (Entry<ItemStack, Integer> entry : fuels.entrySet())
-            if (OreDictionary.itemMatches(entry.getKey(), fuel, false))
-                return entry.getValue();
+		for (Entry<ItemStack, Integer> entry : fuels.entrySet())
+			if (OreDictionary.itemMatches(entry.getKey(), fuel, false))
+				return entry.getValue();
 
-        return 0;
-    }
+		return 0;
+	}
 }

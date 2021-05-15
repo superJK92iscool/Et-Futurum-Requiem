@@ -109,8 +109,8 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 			if(ConfigurationHandler.enableMagmaBlock)
 				this.generateOre(ModBlocks.magma_block, 0, world, rand, chunkX, chunkZ, 1, ConfigurationHandler.maxMagmaPerCluster, 4, 23, 37, Blocks.netherrack);
 
-//			if(ConfigurationHandler.enableBlackstone)
-//				this.generateOre(ModBlocks.blackstone, 0, world, rand, chunkX, chunkZ, 1, ConfigurationHandler.maxBlackstonePerCluster, 2, 5, 28, Blocks.netherrack);
+//          if(ConfigurationHandler.enableBlackstone)
+//              this.generateOre(ModBlocks.blackstone, 0, world, rand, chunkX, chunkZ, 1, ConfigurationHandler.maxBlackstonePerCluster, 2, 5, 28, Blocks.netherrack);
 			
 			if(ConfigurationHandler.enableNetherGold)
 				this.generateOre(ModBlocks.nether_gold_ore, 0, world, rand, chunkX, chunkZ, 1, ConfigurationHandler.maxNetherGoldPerCluster, 10, 10, 117, Blocks.netherrack);

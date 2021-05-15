@@ -9,9 +9,9 @@ import net.minecraft.entity.monster.EntitySnowman;
 @SideOnly(Side.CLIENT)
 public class NewSnowGolemRenderer extends RenderSnowMan {
 
-    @Override
-    protected void renderEquippedItems(EntitySnowman entity, float partialTickTime) {
-        if (((EntityNewSnowGolem) entity).hasPumpkin())
-            super.renderEquippedItems(entity, partialTickTime);
-    }
+	@Override
+	protected void renderEquippedItems(EntitySnowman entity, float partialTickTime) {
+		if (((EntityNewSnowGolem) entity).hasPumpkin())
+			super.renderEquippedItems(entity, partialTickTime);
+	}
 }

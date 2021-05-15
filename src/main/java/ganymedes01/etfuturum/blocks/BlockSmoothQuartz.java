@@ -15,7 +15,7 @@ public class BlockSmoothQuartz extends Block implements IConfigurable {
 		this.setResistance(6F);
 		this.setStepSound(soundTypePiston);
 		this.setBlockName(Utils.getUnlocalisedName("smooth_quartz"));
-        setBlockTextureName("quartz_block_bottom");
+		setBlockTextureName("quartz_block_bottom");
 		this.setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
 	}
 

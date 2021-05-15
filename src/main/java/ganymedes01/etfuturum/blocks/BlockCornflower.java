@@ -8,10 +8,10 @@ import ganymedes01.etfuturum.core.utils.Utils;
 public class BlockCornflower extends BlockFlowerBase implements IConfigurable {
 
 	public BlockCornflower() {
-        setBlockName(Utils.getUnlocalisedName("cornflower"));
-        setStepSound(soundTypeGrass);
-        setBlockTextureName("cornflower");
-        setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setBlockName(Utils.getUnlocalisedName("cornflower"));
+		setStepSound(soundTypeGrass);
+		setBlockTextureName("cornflower");
+		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
 	}
 
 	@Override

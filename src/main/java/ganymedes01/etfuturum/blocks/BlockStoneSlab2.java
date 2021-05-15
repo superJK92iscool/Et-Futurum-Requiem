@@ -35,10 +35,10 @@ public class BlockStoneSlab2 extends BlockGenericSlab implements IConfigurable {
 	@Override
 	public IIcon[] getSlabIcons(int side) {
 		IIcon[] blocks = new IIcon[6];
-        for(int i = 0; i < 6; i++) {
-        	blocks[i] = ModBlocks.stone.getIcon(side, i + 1);
-        };
-        return blocks;
+		for(int i = 0; i < 6; i++) {
+			blocks[i] = ModBlocks.stone.getIcon(side, i + 1);
+		};
+		return blocks;
 	}
 
 }

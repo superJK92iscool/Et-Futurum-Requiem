@@ -37,28 +37,28 @@ public class BlockDeepslate extends BlockRotatedPillar implements IConfigurable 
 		return blockIcon;
 	}
 
-    @SideOnly(Side.CLIENT)
-    protected IIcon getTopIcon(int p_150161_1_)
-    {
-        return field_150164_N;
-    }
-    
-    @SideOnly(Side.CLIENT)
-    public void registerBlockIcons(IIconRegister p_149651_1_)
-    {
-        blockIcon = p_149651_1_.registerIcon(getTextureName());
-        field_150164_N = p_149651_1_.registerIcon(getTextureName() + "_top");
-    }
-    
-    @Override
-    public Item getItemDropped(int i, Random random, int j) {
+	@SideOnly(Side.CLIENT)
+	protected IIcon getTopIcon(int p_150161_1_)
+	{
+		return field_150164_N;
+	}
+	
+	@SideOnly(Side.CLIENT)
+	public void registerBlockIcons(IIconRegister p_149651_1_)
+	{
+		blockIcon = p_149651_1_.registerIcon(getTextureName());
+		field_150164_N = p_149651_1_.registerIcon(getTextureName() + "_top");
+	}
+	
+	@Override
+	public Item getItemDropped(int i, Random random, int j) {
 		return Item.getItemFromBlock(ModBlocks.cobbled_deepslate);
-    }
+	}
 
-    @Override
-    public boolean isReplaceableOreGen(World world, int x, int y, int z, Block target) {
-        return this == target || target == Blocks.stone;
-    }
+	@Override
+	public boolean isReplaceableOreGen(World world, int x, int y, int z, Block target) {
+		return this == target || target == Blocks.stone;
+	}
 
 	@Override
 	public boolean isEnabled() {

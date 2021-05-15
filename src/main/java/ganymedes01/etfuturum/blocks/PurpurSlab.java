@@ -13,23 +13,23 @@ import net.minecraft.world.IBlockAccess;
 
 public class PurpurSlab extends BlockGenericSlab implements IConfigurable {
 
-    public PurpurSlab(boolean isDouble) {
-        super(isDouble, Material.rock, "");
-        setResistance(6);
-        setHardness(2.0F);
-        setBlockName(Utils.getUnlocalisedName("purpur_slab"));
-        setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
-    }
+	public PurpurSlab(boolean isDouble) {
+		super(isDouble, Material.rock, "");
+		setResistance(6);
+		setHardness(2.0F);
+		setBlockName(Utils.getUnlocalisedName("purpur_slab"));
+		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+	}
 
-    @Override
-    public boolean canEntityDestroy(IBlockAccess world, int x, int y, int z, Entity entity) {
-        return !(entity instanceof EntityDragon);
-    }
+	@Override
+	public boolean canEntityDestroy(IBlockAccess world, int x, int y, int z, Entity entity) {
+		return !(entity instanceof EntityDragon);
+	}
 
-    @Override
-    public boolean isEnabled() {
-        return ConfigurationHandler.enableChorusFruit;
-    }
+	@Override
+	public boolean isEnabled() {
+		return ConfigurationHandler.enableChorusFruit;
+	}
 
 	@Override
 	public BlockGenericSlab[] getSlabTypes() {

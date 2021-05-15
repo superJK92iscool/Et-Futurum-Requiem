@@ -26,52 +26,52 @@ public class BlockBarrier extends Block implements IConfigurable {
 		super(Material.rock);
 		this.setBlockUnbreakable();
 		this.setResistance(2000000F);
-        this.setLightOpacity(0);
-        this.setBlockTextureName("barrier");
-        this.setBlockName(Utils.getUnlocalisedName("barrier"));
-        this.useNeighborBrightness = true;
-        this.canBlockGrass = false;
-        this.setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		this.setLightOpacity(0);
+		this.setBlockTextureName("barrier");
+		this.setBlockName(Utils.getUnlocalisedName("barrier"));
+		this.useNeighborBrightness = true;
+		this.canBlockGrass = false;
+		this.setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
 	}
-    
-    public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_)
-    {
-        return null;
-    }
-    
-    @SideOnly(Side.CLIENT)
-    public void randomDisplayTick(World world, int x, int y, int z, Random rand)
-    { 
-    	EntityPlayer player = Minecraft.getMinecraft().thePlayer;
-    	Item heldItem;
-    	
-    	if (player.inventory.getCurrentItem() != null) {
-    		heldItem = player.inventory.getCurrentItem().getItem();
-        	Item barrier = Item.getItemFromBlock(this);
-            
+	
+	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_)
+	{
+		return null;
+	}
+	
+	@SideOnly(Side.CLIENT)
+	public void randomDisplayTick(World world, int x, int y, int z, Random rand)
+	{ 
+		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+		Item heldItem;
+		
+		if (player.inventory.getCurrentItem() != null) {
+			heldItem = player.inventory.getCurrentItem().getItem();
+			Item barrier = Item.getItemFromBlock(this);
+			
 //            EntityFX particle = new BarrierParticleFX(world, x + .5F, y + .5F, z + .5F);
-            
-        	if(player.capabilities.isCreativeMode && heldItem == barrier) {
-//        		Minecraft.getMinecraft().effectRenderer.addEffect(particle);
-        		ParticleHandler.BARRIER.spawn(world, x + .5F, y + .5F, z + .5F);
-        	}
-    	}
-    }
-    
-    public int getRenderType()
-    {
-        return -1;
-    }
-    
-    public boolean isOpaqueCube()
-    {
-        return false;
-    }
-    
-    public boolean renderAsNormalBlock()
-    {
-        return false;
-    }
+			
+			if(player.capabilities.isCreativeMode && heldItem == barrier) {
+//              Minecraft.getMinecraft().effectRenderer.addEffect(particle);
+				ParticleHandler.BARRIER.spawn(world, x + .5F, y + .5F, z + .5F);
+			}
+		}
+	}
+	
+	public int getRenderType()
+	{
+		return -1;
+	}
+	
+	public boolean isOpaqueCube()
+	{
+		return false;
+	}
+	
+	public boolean renderAsNormalBlock()
+	{
+		return false;
+	}
 
 	@Override
 	public boolean isEnabled() {
@@ -79,24 +79,24 @@ public class BlockBarrier extends Block implements IConfigurable {
 		return ConfigurationHandler.enableBarrier;
 	}
 
-    public boolean isNormalCube()
-    {
-        return true;
-    }
+	public boolean isNormalCube()
+	{
+		return true;
+	}
 
-    public boolean isBlockSolid(IBlockAccess p_149747_1_, int p_149747_2_, int p_149747_3_, int p_149747_4_, int p_149747_5_)
-    {
-        return true;
-    }
-    
-    public boolean isNormalCube(IBlockAccess world, int x, int y, int z)
-    {
-        return true;
-    }
-    
-    public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side)
-    {
-        return true;
-    }
+	public boolean isBlockSolid(IBlockAccess p_149747_1_, int p_149747_2_, int p_149747_3_, int p_149747_4_, int p_149747_5_)
+	{
+		return true;
+	}
+	
+	public boolean isNormalCube(IBlockAccess world, int x, int y, int z)
+	{
+		return true;
+	}
+	
+	public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side)
+	{
+		return true;
+	}
 
 }

@@ -12,17 +12,17 @@ import net.minecraft.util.IIcon;
 
 public class ItemBlockGeneric extends ItemBlock {
 
-    public ItemBlockGeneric(Block block) {
-        super(block);
-        setHasSubtypes(true);
-    }
+	public ItemBlockGeneric(Block block) {
+		super(block);
+		setHasSubtypes(true);
+	}
 
-    @SideOnly(Side.CLIENT)
-    public IIcon getIconFromDamage(int p_77617_1_)
-    {
-        return Block.getBlockFromItem(this).getIcon(2, p_77617_1_);
-    }
-    
+	@SideOnly(Side.CLIENT)
+	public IIcon getIconFromDamage(int p_77617_1_)
+	{
+		return Block.getBlockFromItem(this).getIcon(2, p_77617_1_);
+	}
+	
 	@Override
 	public String getUnlocalizedName(ItemStack stack) {
 		if (field_150939_a instanceof BlockGeneric || field_150939_a instanceof BlockGenericSand) {
@@ -44,8 +44,8 @@ public class ItemBlockGeneric extends ItemBlock {
 		return getUnlocalizedName() + "_" + stack.getItemDamage();
 	}
 
-    @Override
-    public int getMetadata(int meta) {
-        return meta;
-    }
+	@Override
+	public int getMetadata(int meta) {
+		return meta;
+	}
 }

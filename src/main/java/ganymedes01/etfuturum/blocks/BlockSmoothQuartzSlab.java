@@ -12,10 +12,10 @@ public class BlockSmoothQuartzSlab extends BlockGenericSlab implements IConfigur
 
 	public BlockSmoothQuartzSlab(boolean p_i45410_1_) {
 		super(p_i45410_1_, Material.rock, "");
-        setResistance(6);
-        setHardness(2.0F);
-        setBlockName(Utils.getUnlocalisedName("smooth_quartz_slab"));
-        setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setResistance(6);
+		setHardness(2.0F);
+		setBlockName(Utils.getUnlocalisedName("smooth_quartz_slab"));
+		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
 	}
 
 	@Override

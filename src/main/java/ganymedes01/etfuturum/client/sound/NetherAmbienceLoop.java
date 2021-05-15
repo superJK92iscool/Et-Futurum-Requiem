@@ -35,12 +35,12 @@ public class NetherAmbienceLoop extends PositionedSoundRecord implements ITickab
 
 	@Override
 	public void update() {
-    	if(isStopping) {
-    		volume -= 0.02F;
-    	} else
-    	if(volume != volMax && (volume += 0.02F) > volMax && !isStopping) {
-    		volume = volMax;
-    	}
+		if(isStopping) {
+			volume -= 0.02F;
+		} else
+		if(volume != volMax && (volume += 0.02F) > volMax && !isStopping) {
+			volume = volMax;
+		}
 	}
 	
 	public void fadeIn() {

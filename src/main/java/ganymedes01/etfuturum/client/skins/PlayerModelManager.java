@@ -13,14 +13,14 @@ import net.minecraftforge.common.util.Constants;
 @SideOnly(Side.CLIENT)
 public class PlayerModelManager {
 
-    public static final String MODEL_KEY = Reference.MOD_ID + "_model";
-    
-    public static Map<EntityPlayer, Boolean> alexCache = new HashMap<EntityPlayer, Boolean>();
+	public static final String MODEL_KEY = Reference.MOD_ID + "_model";
+	
+	public static Map<EntityPlayer, Boolean> alexCache = new HashMap<EntityPlayer, Boolean>();
 
-    public static boolean isPlayerModelAlex(EntityPlayer player) {
-    	if(player == null)
-    		return false;
-        Boolean isAlex = alexCache.get(player);
+	public static boolean isPlayerModelAlex(EntityPlayer player) {
+		if(player == null)
+			return false;
+		Boolean isAlex = alexCache.get(player);
 		if(isAlex == null) {
 			NBTTagCompound nbt = player.getEntityData();
 			if(nbt.hasKey(MODEL_KEY, Constants.NBT.TAG_BYTE))
@@ -29,6 +29,6 @@ public class PlayerModelManager {
 			skinthread.startWithArgs(player);
 			isAlex = false;
 		}
-        return isAlex;
-    }
+		return isAlex;
+	}
 }

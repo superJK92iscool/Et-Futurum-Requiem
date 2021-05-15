@@ -15,7 +15,7 @@ public class BlockQuartzBricks extends Block implements IConfigurable {
 		this.setResistance(.8F);
 		this.setStepSound(soundTypePiston);
 		this.setBlockName(Utils.getUnlocalisedName("quartz_bricks"));
-        setBlockTextureName("quartz_bricks");
+		setBlockTextureName("quartz_bricks");
 		this.setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
 	}
 

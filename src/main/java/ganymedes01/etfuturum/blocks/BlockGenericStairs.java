@@ -23,8 +23,8 @@ public class BlockGenericStairs extends BlockStairs implements IConfigurable {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-        useNeighborBrightness = true;
-        meta = p_i45428_2_;
+		useNeighborBrightness = true;
+		meta = p_i45428_2_;
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
 	}
 	

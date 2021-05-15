@@ -8,15 +8,15 @@ import net.minecraft.item.Item;
 
 public class TotemUndying extends Item implements IConfigurable {
 
-    public TotemUndying() {
-        setTextureName("totem");
-        setMaxStackSize(1);
-        setUnlocalizedName(Utils.getUnlocalisedName("totem_of_undying"));
-        setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
-    }
+	public TotemUndying() {
+		setTextureName("totem");
+		setMaxStackSize(1);
+		setUnlocalizedName(Utils.getUnlocalisedName("totem_of_undying"));
+		setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
+	}
 
-    @Override
-    public boolean isEnabled() {
-        return ConfigurationHandler.enableTotemUndying;
-    }
+	@Override
+	public boolean isEnabled() {
+		return ConfigurationHandler.enableTotemUndying;
+	}
 }

@@ -25,8 +25,8 @@ public class CustomSoundBerryBush extends SoundType {
 	}
 
 	@Override
-    public String func_150496_b()
-    {
-        return Reference.MOD_ID + ":" + "place." + soundName;
-    }
+	public String func_150496_b()
+	{
+		return Reference.MOD_ID + ":" + "place." + soundName;
+	}
 }

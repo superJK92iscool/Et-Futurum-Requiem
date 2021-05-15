@@ -18,9 +18,9 @@ public class BlockConcrete extends BlockGeneric implements IConfigurable {
 		this.setStepSound(soundTypeStone);
 		this.setHardness(1.8F);
 		this.setResistance(1.8F);
-    	this.setBlockName(Utils.getUnlocalisedName("concrete"));
-    	this.setBlockTextureName("concrete");
-    	this.setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		this.setBlockName(Utils.getUnlocalisedName("concrete"));
+		this.setBlockTextureName("concrete");
+		this.setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
 	}
 
 	@Override

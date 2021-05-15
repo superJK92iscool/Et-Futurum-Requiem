@@ -8,15 +8,15 @@ import net.minecraft.item.ItemSoup;
 
 public class RabbitStew extends ItemSoup implements IConfigurable {
 
-    public RabbitStew() {
-        super(10);
-        setTextureName("rabbit_stew");
-        setUnlocalizedName(Utils.getUnlocalisedName("rabbit_stew"));
-        setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
-    }
+	public RabbitStew() {
+		super(10);
+		setTextureName("rabbit_stew");
+		setUnlocalizedName(Utils.getUnlocalisedName("rabbit_stew"));
+		setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
+	}
 
-    @Override
-    public boolean isEnabled() {
-        return ConfigurationHandler.enableRabbit;
-    }
+	@Override
+	public boolean isEnabled() {
+		return ConfigurationHandler.enableRabbit;
+	}
 }

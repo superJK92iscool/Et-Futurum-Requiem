@@ -10,7 +10,7 @@ public class CustomSoundFungus extends SoundType {
 		super(p_i45393_1_, p_i45393_2_, p_i45393_3_);
 	}
 
-    
+	
 	@Override
 	public String getBreakSound() {
 		return Reference.MOD_ID + ":" + super.getBreakSound();

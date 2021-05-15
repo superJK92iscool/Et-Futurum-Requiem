@@ -19,18 +19,18 @@ public class BlockGenericSand extends BlockFalling implements ISubBlocksBlock {
 	@SideOnly(Side.CLIENT)
 	protected IIcon[] icons;
 	protected final String[] types;
-    protected boolean flipNames;
+	protected boolean flipNames;
 
-    protected int startMeta = 0;
+	protected int startMeta = 0;
 
-    public boolean setFlippedNames(boolean flip) {
-    	return flip;
-    }
-    
-    public boolean flippedNames() {
-    	return flipNames;
-    }
-    
+	public boolean setFlippedNames(boolean flip) {
+		return flip;
+	}
+	
+	public boolean flippedNames() {
+		return flipNames;
+	}
+	
 	public BlockGenericSand(Material material, String... types) {
 		super(material);
 		this.types = types;

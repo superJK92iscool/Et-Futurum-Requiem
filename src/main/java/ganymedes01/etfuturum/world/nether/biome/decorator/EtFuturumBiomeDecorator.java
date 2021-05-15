@@ -40,7 +40,7 @@ public class EtFuturumBiomeDecorator {
 
 		decorate();
 
-//		isDecorating = false;
+//      isDecorating = false;
 	}
 
 	protected void populate() {

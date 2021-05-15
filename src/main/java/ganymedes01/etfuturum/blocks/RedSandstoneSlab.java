@@ -10,18 +10,18 @@ import net.minecraft.util.IIcon;
 
 public class RedSandstoneSlab extends BlockGenericSlab implements IConfigurable {
 
-    public RedSandstoneSlab(boolean isDouble) {
-        super(isDouble, Material.rock, "", "cut");
-        setResistance(6);
-        setHardness(2.0F);
-        setBlockName(Utils.getUnlocalisedName("red_sandstone_slab"));
-        setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
-    }
+	public RedSandstoneSlab(boolean isDouble) {
+		super(isDouble, Material.rock, "", "cut");
+		setResistance(6);
+		setHardness(2.0F);
+		setBlockName(Utils.getUnlocalisedName("red_sandstone_slab"));
+		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+	}
 
-    @Override
-    public boolean isEnabled() {
-        return ConfigurationHandler.enableRedSandstone;
-    }
+	@Override
+	public boolean isEnabled() {
+		return ConfigurationHandler.enableRedSandstone;
+	}
 
 	@Override
 	public BlockGenericSlab[] getSlabTypes() {
@@ -33,18 +33,18 @@ public class RedSandstoneSlab extends BlockGenericSlab implements IConfigurable 
 		return new IIcon[] {ModBlocks.red_sandstone.getIcon(side, 0), ModBlocks.red_sandstone.getIcon(side, 2)};
 	}
 	
-    public String func_150002_b(int meta)
-    {
-    	meta %= 8;
-        		
-        if(meta >= metaBlocks.length) {
-        	meta = 0;
-        }
+	public String func_150002_b(int meta)
+	{
+		meta %= 8;
+				
+		if(meta >= metaBlocks.length) {
+			meta = 0;
+		}
 
-        if(metaBlocks[meta].equals("")) {
-        	return super.getUnlocalizedName();
-        } else {
-            return "tile.etfuturum." + metaBlocks[meta] + "_" + super.getUnlocalizedName().split("\\.")[2];
-        }
-    }
+		if(metaBlocks[meta].equals("")) {
+			return super.getUnlocalizedName();
+		} else {
+			return "tile.etfuturum." + metaBlocks[meta] + "_" + super.getUnlocalizedName().split("\\.")[2];
+		}
+	}
 }

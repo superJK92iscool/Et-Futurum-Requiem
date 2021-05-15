@@ -13,11 +13,11 @@ public class CustomSoundNetherite extends SoundType {
 		super(p_i45393_1_, p_i45393_2_, p_i45393_3_);
 	}
 
-    public float getPitch()
-    {
-        return this.volume - (random.nextInt(2) == 0 ? 0 : .1F);
-    }
-    
+	public float getPitch()
+	{
+		return this.volume - (random.nextInt(2) == 0 ? 0 : .1F);
+	}
+	
 	@Override
 	public String getBreakSound() {
 		return Reference.MOD_ID + ":" + super.getBreakSound();

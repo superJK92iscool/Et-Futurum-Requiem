@@ -29,25 +29,25 @@ public class EntityBrownMooshroom extends EntityMooshroom {
 		super(p_i1687_1_);
 	}
 
-    public boolean interact(EntityPlayer player)
-    {
-        ItemStack itemstack = player.inventory.getCurrentItem();
-        
-        boolean flag = false;
+	public boolean interact(EntityPlayer player)
+	{
+		ItemStack itemstack = player.inventory.getCurrentItem();
+		
+		boolean flag = false;
 
-        if (EtFuturum.getSuspiciousStewEffect(itemstack) != null && effectID <= 0) {
-        	effectID = (byte)EtFuturum.getSuspiciousStewEffect(itemstack).getPotionID();
-        	effectDuration = EtFuturum.getSuspiciousStewEffect(itemstack).getDuration();
-            player.inventory.decrStackSize(player.inventory.currentItem, 1);
-            for (int i = 0; i < 4; i++)
-            {
-                    this.worldObj.spawnParticle("mobSpell", this.posX + (this.rand.nextDouble() - 0.5D) * (double)this.width, this.posY + this.rand.nextDouble() * (double)this.height - (double)this.yOffset, this.posZ + (this.rand.nextDouble() - 0.5D) * (double)this.width, 1, 1, 1);
-            }
-            return true;
-        }
-        if (effectID > 0 && itemstack != null && itemstack.getItem() == Items.bowl && this.getGrowingAge() >= 0)
-        {
-        	ItemStack stew = new ItemStack(ModItems.suspicious_stew, 1, 0);
+		if (EtFuturum.getSuspiciousStewEffect(itemstack) != null && effectID <= 0) {
+			effectID = (byte)EtFuturum.getSuspiciousStewEffect(itemstack).getPotionID();
+			effectDuration = EtFuturum.getSuspiciousStewEffect(itemstack).getDuration();
+			player.inventory.decrStackSize(player.inventory.currentItem, 1);
+			for (int i = 0; i < 4; i++)
+			{
+					this.worldObj.spawnParticle("mobSpell", this.posX + (this.rand.nextDouble() - 0.5D) * (double)this.width, this.posY + this.rand.nextDouble() * (double)this.height - (double)this.yOffset, this.posZ + (this.rand.nextDouble() - 0.5D) * (double)this.width, 1, 1, 1);
+			}
+			return true;
+		}
+		if (effectID > 0 && itemstack != null && itemstack.getItem() == Items.bowl && this.getGrowingAge() >= 0)
+		{
+			ItemStack stew = new ItemStack(ModItems.suspicious_stew, 1, 0);
 			stew.stackTagCompound = new NBTTagCompound();
 			NBTTagList effectsList = new NBTTagList();
 			stew.stackTagCompound.setTag(ItemSuspiciousStew.effectsList, effectsList);
@@ -58,83 +58,83 @@ public class EntityBrownMooshroom extends EntityMooshroom {
 			potionEffect.setInteger(ItemSuspiciousStew.stewEffectDuration, effectDuration);
 			effectsList.appendTag(potionEffect);
 
-            if (itemstack.stackSize == 1)
-            {
-                clearEffects();
-                player.inventory.setInventorySlotContents(player.inventory.currentItem, stew);
-                return true;
-            }
+			if (itemstack.stackSize == 1)
+			{
+				clearEffects();
+				player.inventory.setInventorySlotContents(player.inventory.currentItem, stew);
+				return true;
+			}
 
-            if (player.inventory.addItemStackToInventory(stew) && !player.capabilities.isCreativeMode)
-            {
-                clearEffects();
-                player.inventory.decrStackSize(player.inventory.currentItem, 1);
-                return true;
-            }
-            
-            player.inventoryContainer.detectAndSendChanges();
-        }
-        ItemStack stack = player.getCurrentEquippedItem();
-        if(effectID > 0) {
-            player.destroyCurrentEquippedItem();
-        }
-        boolean flag2 = super.interact(player);
-        if(effectID > 0) {
-            player.inventory.mainInventory[player.inventory.currentItem] = stack;
-        }
-        return flag2;
-    }
-    
-    private void clearEffects() {
-    	effectID = 0;
-    	effectDuration = 0;
-        getEntityData().setByte("EffectId", (byte)0);
-        getEntityData().setInteger("EffectDuration", 0);
-    }
-    
-    @Override
-    public void onEntityUpdate() {
+			if (player.inventory.addItemStackToInventory(stew) && !player.capabilities.isCreativeMode)
+			{
+				clearEffects();
+				player.inventory.decrStackSize(player.inventory.currentItem, 1);
+				return true;
+			}
+			
+			player.inventoryContainer.detectAndSendChanges();
+		}
+		ItemStack stack = player.getCurrentEquippedItem();
+		if(effectID > 0) {
+			player.destroyCurrentEquippedItem();
+		}
+		boolean flag2 = super.interact(player);
+		if(effectID > 0) {
+			player.inventory.mainInventory[player.inventory.currentItem] = stack;
+		}
+		return flag2;
+	}
+	
+	private void clearEffects() {
+		effectID = 0;
+		effectDuration = 0;
+		getEntityData().setByte("EffectId", (byte)0);
+		getEntityData().setInteger("EffectDuration", 0);
+	}
+	
+	@Override
+	public void onEntityUpdate() {
 		super.onEntityUpdate();
-    }
-    
-    public EntityMooshroom createChild(EntityAgeable p_90011_1_)
-    {
-        return new EntityBrownMooshroom(this.worldObj);
-    }
-    
-    @Override
-    public void writeEntityToNBT(NBTTagCompound p_70014_1_)
-    {
-        getEntityData().setByte("EffectId", this.effectID);
-        getEntityData().setInteger("EffectDuration", this.effectDuration);
-        super.writeEntityToNBT(p_70014_1_);
-    }
+	}
+	
+	public EntityMooshroom createChild(EntityAgeable p_90011_1_)
+	{
+		return new EntityBrownMooshroom(this.worldObj);
+	}
+	
+	@Override
+	public void writeEntityToNBT(NBTTagCompound p_70014_1_)
+	{
+		getEntityData().setByte("EffectId", this.effectID);
+		getEntityData().setInteger("EffectDuration", this.effectDuration);
+		super.writeEntityToNBT(p_70014_1_);
+	}
 
-    @Override
-    public void readEntityFromNBT(NBTTagCompound p_70037_1_)
-    {
-        this.effectID = getEntityData().getByte("EffectId");
-        this.effectDuration = getEntityData().getInteger("EffectDuration");
-        super.readEntityFromNBT(p_70037_1_);
-    }
-    
-    @Override
-    public ArrayList<ItemStack> onSheared(ItemStack item, IBlockAccess world, int x, int y, int z, int fortune)
-    {
-        setDead();
-        EntityCow entitycow = new EntityCow(worldObj);
-        entitycow.setLocationAndAngles(posX, posY, posZ, rotationYaw, rotationPitch);
-        entitycow.setHealth(this.getHealth());
-        entitycow.renderYawOffset = renderYawOffset;
-        worldObj.spawnEntityInWorld(entitycow);
-        worldObj.spawnParticle("largeexplode", posX, posY + (double)(height / 2.0F), posZ, 0.0D, 0.0D, 0.0D);
+	@Override
+	public void readEntityFromNBT(NBTTagCompound p_70037_1_)
+	{
+		this.effectID = getEntityData().getByte("EffectId");
+		this.effectDuration = getEntityData().getInteger("EffectDuration");
+		super.readEntityFromNBT(p_70037_1_);
+	}
+	
+	@Override
+	public ArrayList<ItemStack> onSheared(ItemStack item, IBlockAccess world, int x, int y, int z, int fortune)
+	{
+		setDead();
+		EntityCow entitycow = new EntityCow(worldObj);
+		entitycow.setLocationAndAngles(posX, posY, posZ, rotationYaw, rotationPitch);
+		entitycow.setHealth(this.getHealth());
+		entitycow.renderYawOffset = renderYawOffset;
+		worldObj.spawnEntityInWorld(entitycow);
+		worldObj.spawnParticle("largeexplode", posX, posY + (double)(height / 2.0F), posZ, 0.0D, 0.0D, 0.0D);
 
-        ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
-        for (int i = 0; i < 5; i++)
-        {
-            ret.add(new ItemStack(Blocks.brown_mushroom));
-        }
-        playSound("mob.sheep.shear", 1.0F, 1.0F);
-        return ret;
-    }
+		ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
+		for (int i = 0; i < 5; i++)
+		{
+			ret.add(new ItemStack(Blocks.brown_mushroom));
+		}
+		playSound("mob.sheep.shear", 1.0F, 1.0F);
+		return ret;
+	}
 }

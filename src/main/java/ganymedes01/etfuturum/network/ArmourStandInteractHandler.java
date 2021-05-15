@@ -10,13 +10,13 @@ import net.minecraftforge.common.DimensionManager;
 
 public class ArmourStandInteractHandler implements IMessageHandler<ArmourStandInteractMessage, IMessage> {
 
-    @Override
-    public IMessage onMessage(ArmourStandInteractMessage message, MessageContext ctx) {
-        World world = DimensionManager.getWorld(message.dimID);
-        EntityArmourStand stand = (EntityArmourStand) world.getEntityByID(message.standID);
-        EntityPlayer player = (EntityPlayer) world.getEntityByID(message.playerID);
+	@Override
+	public IMessage onMessage(ArmourStandInteractMessage message, MessageContext ctx) {
+		World world = DimensionManager.getWorld(message.dimID);
+		EntityArmourStand stand = (EntityArmourStand) world.getEntityByID(message.standID);
+		EntityPlayer player = (EntityPlayer) world.getEntityByID(message.playerID);
 
-        stand.interact(player, message.hitPos);
-        return null;
-    }
+		stand.interact(player, message.hitPos);
+		return null;
+	}
 }

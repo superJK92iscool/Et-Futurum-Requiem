@@ -21,47 +21,47 @@ import net.minecraft.world.World;
 
 public class NewAnvil extends BlockAnvil implements IConfigurable, ISubBlocksBlock {
 
-    public NewAnvil() {
-        setHardness(5.0F);
-        setResistance(2000.0F);
-        setStepSound(soundTypeAnvil);
-        setBlockName(Utils.getUnlocalisedName("anvil"));
-        setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
-    }
+	public NewAnvil() {
+		setHardness(5.0F);
+		setResistance(2000.0F);
+		setStepSound(soundTypeAnvil);
+		setBlockName(Utils.getUnlocalisedName("anvil"));
+		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+	}
 
-    @Override
-    public Item getItemDropped(int meta, Random rand, int fortune) {
-        if (!ConfigurationHandler.enableTileReplacement)
-            return Item.getItemFromBlock(ModBlocks.anvil);
-        return Item.getItemFromBlock(Blocks.anvil);
-    }
+	@Override
+	public Item getItemDropped(int meta, Random rand, int fortune) {
+		if (!ConfigurationHandler.enableTileReplacement)
+			return Item.getItemFromBlock(ModBlocks.anvil);
+		return Item.getItemFromBlock(Blocks.anvil);
+	}
 
-    @Override
-    @SideOnly(Side.CLIENT)
-    public Item getItem(World world, int x, int y, int z) {
-        if (!ConfigurationHandler.enableTileReplacement)
-            return Item.getItemFromBlock(ModBlocks.anvil);
-        return Item.getItemFromBlock(Blocks.anvil);
-    }
+	@Override
+	@SideOnly(Side.CLIENT)
+	public Item getItem(World world, int x, int y, int z) {
+		if (!ConfigurationHandler.enableTileReplacement)
+			return Item.getItemFromBlock(ModBlocks.anvil);
+		return Item.getItemFromBlock(Blocks.anvil);
+	}
 
-    @Override
-    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
-        if (world.isRemote)
-            return true;
-        else {
-            player.openGui(EtFuturum.instance, GUIsID.ANVIL, world, x, y, z);
-            return true;
-        }
-    }
+	@Override
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
+		if (world.isRemote)
+			return true;
+		else {
+			player.openGui(EtFuturum.instance, GUIsID.ANVIL, world, x, y, z);
+			return true;
+		}
+	}
 
-    @Override
-    public boolean isEnabled() {
-        return ConfigurationHandler.enableAnvil;
-    }
+	@Override
+	public boolean isEnabled() {
+		return ConfigurationHandler.enableAnvil;
+	}
 
-    @Override
-    public Class<? extends ItemBlock> getItemBlockClass() {
-        return ItemAnvilBlock.class;
-    }
+	@Override
+	public Class<? extends ItemBlock> getItemBlockClass() {
+		return ItemAnvilBlock.class;
+	}
 
 }

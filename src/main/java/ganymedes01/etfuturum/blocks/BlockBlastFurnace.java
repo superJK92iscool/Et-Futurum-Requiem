@@ -44,155 +44,155 @@ public class BlockBlastFurnace extends BlockFurnace implements IConfigurable {
 		this.setCreativeTab(isEnabled() && !cooking ? EtFuturum.creativeTabBlocks : null);
 	}
 	
-    @SideOnly(Side.CLIENT)
-    public IIcon getIcon(int p_149691_1_, int p_149691_2_)
-    {
-        return p_149691_1_ == 1 ? this.blockTop : (p_149691_1_ == 0 ? this.blockTop : (p_149691_1_ != p_149691_2_ ? (p_149691_1_ == 3 && p_149691_2_ == 0 ? this.blockFront : this.blockIcon) : this.blockFront));
-    }
+	@SideOnly(Side.CLIENT)
+	public IIcon getIcon(int p_149691_1_, int p_149691_2_)
+	{
+		return p_149691_1_ == 1 ? this.blockTop : (p_149691_1_ == 0 ? this.blockTop : (p_149691_1_ != p_149691_2_ ? (p_149691_1_ == 3 && p_149691_2_ == 0 ? this.blockFront : this.blockIcon) : this.blockFront));
+	}
 
-    @SideOnly(Side.CLIENT)
-    public void randomDisplayTick(World p_149734_1_, int p_149734_2_, int p_149734_3_, int p_149734_4_, Random p_149734_5_)
-    {
-        if (this.isCooking)
-        {
-            if (ConfigurationHandler.enableNewMiscSounds && p_149734_5_.nextDouble() < 0.1D)
-            {
-            	p_149734_1_.playSound((double)p_149734_2_ + .5D, (double)p_149734_3_ + .5D, (double)p_149734_4_ + .5D,
-            			Reference.MOD_ID + ":block.blastfurnace.fire_crackle", 1,
-            			(p_149734_1_.rand.nextFloat() * 0.1F) + 0.9F, false);
-            }
-        	
-            int l = p_149734_1_.getBlockMetadata(p_149734_2_, p_149734_3_, p_149734_4_);
-            float r = .0625F;
-            float f = (float)p_149734_2_ + (r * 8);
-            float f1 = (float)p_149734_3_ + (r * 3) + p_149734_5_.nextFloat() * 5.0F / 16.0F;
-            float f2 = (float)p_149734_4_ + (r * 8);
-            float f3 = r * 9;
-            float f4 = p_149734_5_.nextFloat() * 0.6F - 0.3F;
-            p_149734_1_.spawnParticle("smoke", (double)(f + (l == 4 ? -f3 : l == 5 ? f3 : f4)), (double)f1, (double)(f2 + (l == 3 ? f3 : l == 2 ? -f3 : f4)), 0.0D, 0.0D, 0.0D);
-        }
-    }
-    
-    @SideOnly(Side.CLIENT)
-    public void registerBlockIcons(IIconRegister p_149651_1_)
-    {
-        this.blockIcon = p_149651_1_.registerIcon("blast_furnace_side");
-        if(isCooking) {
-        	blockFront = new InterpolatedIcon("blast_furnace_front_on");
-            if(p_149651_1_ instanceof TextureMap) {
-            	((TextureMap)p_149651_1_).setTextureEntry("blast_furnace_front_on", (InterpolatedIcon)blockFront);
-            }
-        } else {
-            this.blockFront = p_149651_1_.registerIcon("blast_furnace_front");
-        }
-        this.blockTop = p_149651_1_.registerIcon("blast_furnace_top");
-    }
-    
-    /**
-     * Update which block the furnace is using depending on whether or not it is burning
-     */
-    public static void updateFurnaceBlockState(boolean p_149931_0_, World p_149931_1_, int p_149931_2_, int p_149931_3_, int p_149931_4_)
-    {
-        int l = p_149931_1_.getBlockMetadata(p_149931_2_, p_149931_3_, p_149931_4_);
-        TileEntity tileentity = p_149931_1_.getTileEntity(p_149931_2_, p_149931_3_, p_149931_4_);
-        field_149934_M = true;
+	@SideOnly(Side.CLIENT)
+	public void randomDisplayTick(World p_149734_1_, int p_149734_2_, int p_149734_3_, int p_149734_4_, Random p_149734_5_)
+	{
+		if (this.isCooking)
+		{
+			if (ConfigurationHandler.enableNewMiscSounds && p_149734_5_.nextDouble() < 0.1D)
+			{
+				p_149734_1_.playSound((double)p_149734_2_ + .5D, (double)p_149734_3_ + .5D, (double)p_149734_4_ + .5D,
+						Reference.MOD_ID + ":block.blastfurnace.fire_crackle", 1,
+						(p_149734_1_.rand.nextFloat() * 0.1F) + 0.9F, false);
+			}
+			
+			int l = p_149734_1_.getBlockMetadata(p_149734_2_, p_149734_3_, p_149734_4_);
+			float r = .0625F;
+			float f = (float)p_149734_2_ + (r * 8);
+			float f1 = (float)p_149734_3_ + (r * 3) + p_149734_5_.nextFloat() * 5.0F / 16.0F;
+			float f2 = (float)p_149734_4_ + (r * 8);
+			float f3 = r * 9;
+			float f4 = p_149734_5_.nextFloat() * 0.6F - 0.3F;
+			p_149734_1_.spawnParticle("smoke", (double)(f + (l == 4 ? -f3 : l == 5 ? f3 : f4)), (double)f1, (double)(f2 + (l == 3 ? f3 : l == 2 ? -f3 : f4)), 0.0D, 0.0D, 0.0D);
+		}
+	}
+	
+	@SideOnly(Side.CLIENT)
+	public void registerBlockIcons(IIconRegister p_149651_1_)
+	{
+		this.blockIcon = p_149651_1_.registerIcon("blast_furnace_side");
+		if(isCooking) {
+			blockFront = new InterpolatedIcon("blast_furnace_front_on");
+			if(p_149651_1_ instanceof TextureMap) {
+				((TextureMap)p_149651_1_).setTextureEntry("blast_furnace_front_on", (InterpolatedIcon)blockFront);
+			}
+		} else {
+			this.blockFront = p_149651_1_.registerIcon("blast_furnace_front");
+		}
+		this.blockTop = p_149651_1_.registerIcon("blast_furnace_top");
+	}
+	
+	/**
+	 * Update which block the furnace is using depending on whether or not it is burning
+	 */
+	public static void updateFurnaceBlockState(boolean p_149931_0_, World p_149931_1_, int p_149931_2_, int p_149931_3_, int p_149931_4_)
+	{
+		int l = p_149931_1_.getBlockMetadata(p_149931_2_, p_149931_3_, p_149931_4_);
+		TileEntity tileentity = p_149931_1_.getTileEntity(p_149931_2_, p_149931_3_, p_149931_4_);
+		field_149934_M = true;
 
-        if (p_149931_0_)
-        {
-            p_149931_1_.setBlock(p_149931_2_, p_149931_3_, p_149931_4_, ModBlocks.lit_blast_furnace);
-        }
-        else
-        {
-            p_149931_1_.setBlock(p_149931_2_, p_149931_3_, p_149931_4_, ModBlocks.blast_furnace);
-        }
+		if (p_149931_0_)
+		{
+			p_149931_1_.setBlock(p_149931_2_, p_149931_3_, p_149931_4_, ModBlocks.lit_blast_furnace);
+		}
+		else
+		{
+			p_149931_1_.setBlock(p_149931_2_, p_149931_3_, p_149931_4_, ModBlocks.blast_furnace);
+		}
 
-        field_149934_M = false;
-        p_149931_1_.setBlockMetadataWithNotify(p_149931_2_, p_149931_3_, p_149931_4_, l, 2);
+		field_149934_M = false;
+		p_149931_1_.setBlockMetadataWithNotify(p_149931_2_, p_149931_3_, p_149931_4_, l, 2);
 
-        if (tileentity != null)
-        {
-            tileentity.validate();
-            p_149931_1_.setTileEntity(p_149931_2_, p_149931_3_, p_149931_4_, tileentity);
-        }
-    }
-    
-    public void breakBlock(World p_149749_1_, int p_149749_2_, int p_149749_3_, int p_149749_4_, Block p_149749_5_, int p_149749_6_)
-    {
-    	Random random = new Random();
-        if (!field_149934_M)
-        {
-            TileEntityBlastFurnace tileentityfurnace = (TileEntityBlastFurnace)p_149749_1_.getTileEntity(p_149749_2_, p_149749_3_, p_149749_4_);
+		if (tileentity != null)
+		{
+			tileentity.validate();
+			p_149931_1_.setTileEntity(p_149931_2_, p_149931_3_, p_149931_4_, tileentity);
+		}
+	}
+	
+	public void breakBlock(World p_149749_1_, int p_149749_2_, int p_149749_3_, int p_149749_4_, Block p_149749_5_, int p_149749_6_)
+	{
+		Random random = new Random();
+		if (!field_149934_M)
+		{
+			TileEntityBlastFurnace tileentityfurnace = (TileEntityBlastFurnace)p_149749_1_.getTileEntity(p_149749_2_, p_149749_3_, p_149749_4_);
 
-            if (tileentityfurnace != null)
-            {
-                for (int i1 = 0; i1 < tileentityfurnace.getSizeInventory(); ++i1)
-                {
-                    ItemStack itemstack = tileentityfurnace.getStackInSlot(i1);
+			if (tileentityfurnace != null)
+			{
+				for (int i1 = 0; i1 < tileentityfurnace.getSizeInventory(); ++i1)
+				{
+					ItemStack itemstack = tileentityfurnace.getStackInSlot(i1);
 
-                    if (itemstack != null)
-                    {
-                        float f = random.nextFloat() * 0.8F + 0.1F;
-                        float f1 = random.nextFloat() * 0.8F + 0.1F;
-                        float f2 = random.nextFloat() * 0.8F + 0.1F;
+					if (itemstack != null)
+					{
+						float f = random.nextFloat() * 0.8F + 0.1F;
+						float f1 = random.nextFloat() * 0.8F + 0.1F;
+						float f2 = random.nextFloat() * 0.8F + 0.1F;
 
-                        while (itemstack.stackSize > 0)
-                        {
-                            int j1 = random.nextInt(21) + 10;
+						while (itemstack.stackSize > 0)
+						{
+							int j1 = random.nextInt(21) + 10;
 
-                            if (j1 > itemstack.stackSize)
-                            {
-                                j1 = itemstack.stackSize;
-                            }
+							if (j1 > itemstack.stackSize)
+							{
+								j1 = itemstack.stackSize;
+							}
 
-                            itemstack.stackSize -= j1;
-                            EntityItem entityitem = new EntityItem(p_149749_1_, (double)((float)p_149749_2_ + f), (double)((float)p_149749_3_ + f1), (double)((float)p_149749_4_ + f2), new ItemStack(itemstack.getItem(), j1, itemstack.getItemDamage()));
+							itemstack.stackSize -= j1;
+							EntityItem entityitem = new EntityItem(p_149749_1_, (double)((float)p_149749_2_ + f), (double)((float)p_149749_3_ + f1), (double)((float)p_149749_4_ + f2), new ItemStack(itemstack.getItem(), j1, itemstack.getItemDamage()));
 
-                            if (itemstack.hasTagCompound())
-                            {
-                                entityitem.getEntityItem().setTagCompound((NBTTagCompound)itemstack.getTagCompound().copy());
-                            }
+							if (itemstack.hasTagCompound())
+							{
+								entityitem.getEntityItem().setTagCompound((NBTTagCompound)itemstack.getTagCompound().copy());
+							}
 
-                            float f3 = 0.05F;
-                            entityitem.motionX = (double)((float)random.nextGaussian() * f3);
-                            entityitem.motionY = (double)((float)random.nextGaussian() * f3 + 0.2F);
-                            entityitem.motionZ = (double)((float)random.nextGaussian() * f3);
-                            p_149749_1_.spawnEntityInWorld(entityitem);
-                        }
-                    }
-                }
+							float f3 = 0.05F;
+							entityitem.motionX = (double)((float)random.nextGaussian() * f3);
+							entityitem.motionY = (double)((float)random.nextGaussian() * f3 + 0.2F);
+							entityitem.motionZ = (double)((float)random.nextGaussian() * f3);
+							p_149749_1_.spawnEntityInWorld(entityitem);
+						}
+					}
+				}
 
-                p_149749_1_.func_147453_f(p_149749_2_, p_149749_3_, p_149749_4_, p_149749_5_);
-            }
-        }
-        p_149749_1_.removeTileEntity(p_149749_2_, p_149749_3_, p_149749_4_);
-    }
+				p_149749_1_.func_147453_f(p_149749_2_, p_149749_3_, p_149749_4_, p_149749_5_);
+			}
+		}
+		p_149749_1_.removeTileEntity(p_149749_2_, p_149749_3_, p_149749_4_);
+	}
 
-    public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_)
-    {
-        return Item.getItemFromBlock(ModBlocks.blast_furnace);
-    }
+	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_)
+	{
+		return Item.getItemFromBlock(ModBlocks.blast_furnace);
+	}
 
-    @SideOnly(Side.CLIENT)
-    public Item getItem(World p_149694_1_, int p_149694_2_, int p_149694_3_, int p_149694_4_)
-    {
-        return Item.getItemFromBlock(ModBlocks.blast_furnace);
-    }
-    
-    public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_)
-    {
-        return new TileEntityBlastFurnace();
-    }
-    
-    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_)
-    {
-        if (world.isRemote)
-        {
-            return true;
-        } else {
-    		player.openGui(EtFuturum.instance, GUIsID.BLAST_FURNACE, world, x, y, z);
-        	return true;
-        }
-    }
+	@SideOnly(Side.CLIENT)
+	public Item getItem(World p_149694_1_, int p_149694_2_, int p_149694_3_, int p_149694_4_)
+	{
+		return Item.getItemFromBlock(ModBlocks.blast_furnace);
+	}
+	
+	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_)
+	{
+		return new TileEntityBlastFurnace();
+	}
+	
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_)
+	{
+		if (world.isRemote)
+		{
+			return true;
+		} else {
+			player.openGui(EtFuturum.instance, GUIsID.BLAST_FURNACE, world, x, y, z);
+			return true;
+		}
+	}
 
 	@Override
 	public boolean isEnabled() {

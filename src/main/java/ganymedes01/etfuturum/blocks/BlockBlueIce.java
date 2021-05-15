@@ -13,20 +13,20 @@ public class BlockBlueIce extends Block implements IConfigurable {
 
 	public BlockBlueIce() {
 		super(Material.ice);
-        this.slipperiness = 0.989F;
+		this.slipperiness = 0.989F;
 		this.setHarvestLevel("pickaxe", 0);
 		this.setStepSound(soundTypeGlass);
 		this.setHardness(2.8F);
 		this.setResistance(2.8F);
-    	this.setBlockName(Utils.getUnlocalisedName("blue_ice"));
-    	this.setBlockTextureName("blue_ice");
-        this.setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		this.setBlockName(Utils.getUnlocalisedName("blue_ice"));
+		this.setBlockTextureName("blue_ice");
+		this.setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
 	}
 	
-    public int quantityDropped(Random p_149745_1_)
-    {
-        return 0;
-    }
+	public int quantityDropped(Random p_149745_1_)
+	{
+		return 0;
+	}
 
 	@Override
 	public boolean isEnabled() {

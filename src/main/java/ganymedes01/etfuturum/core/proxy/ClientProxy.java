@@ -72,52 +72,52 @@ import net.minecraftforge.common.MinecraftForge;
 
 public class ClientProxy extends CommonProxy {
 
-    @Override
-    public void registerEvents() {
-        super.registerEvents();
-        FMLCommonHandler.instance().bus().register(ClientEventHandler.INSTANCE);
-        MinecraftForge.EVENT_BUS.register(ClientEventHandler.INSTANCE);
+	@Override
+	public void registerEvents() {
+		super.registerEvents();
+		FMLCommonHandler.instance().bus().register(ClientEventHandler.INSTANCE);
+		MinecraftForge.EVENT_BUS.register(ClientEventHandler.INSTANCE);
 //        MinecraftForge.EVENT_BUS.register(BiomeFogEventHandler.INSTANCE);
-    }
+	}
 
-    @Override
-    public void registerRenderers() {
-        registerItemRenderers();
-        registerBlockRenderers();
-        registerEntityRenderers();
-    }
+	@Override
+	public void registerRenderers() {
+		registerItemRenderers();
+		registerBlockRenderers();
+		registerEntityRenderers();
+	}
 
-    private void registerItemRenderers() {
-        if (ConfigurationHandler.enableBanners)
-            MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.banner), new ItemBannerRenderer());
-        if (ConfigurationHandler.enableFancySkulls)
-            MinecraftForgeClient.registerItemRenderer(Items.skull, new ItemSkullRenderer());
-        if (ConfigurationHandler.enableBowRendering)
-            MinecraftForgeClient.registerItemRenderer(Items.bow, new ItemBowRenderer());
-    }
+	private void registerItemRenderers() {
+		if (ConfigurationHandler.enableBanners)
+			MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.banner), new ItemBannerRenderer());
+		if (ConfigurationHandler.enableFancySkulls)
+			MinecraftForgeClient.registerItemRenderer(Items.skull, new ItemSkullRenderer());
+		if (ConfigurationHandler.enableBowRendering)
+			MinecraftForgeClient.registerItemRenderer(Items.bow, new ItemBowRenderer());
+	}
 
-    private void registerBlockRenderers() {
-        if (ConfigurationHandler.enableSlimeBlock)
-            RenderingRegistry.registerBlockHandler(new BlockSlimeBlockRender());
+	private void registerBlockRenderers() {
+		if (ConfigurationHandler.enableSlimeBlock)
+			RenderingRegistry.registerBlockHandler(new BlockSlimeBlockRender());
 
-        if (ConfigurationHandler.enableDoors)
-            RenderingRegistry.registerBlockHandler(new BlockDoorRenderer());
+		if (ConfigurationHandler.enableDoors)
+			RenderingRegistry.registerBlockHandler(new BlockDoorRenderer());
 
-        if (ConfigurationHandler.enableBanners)
-            ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBanner.class, new TileEntityBannerRenderer());
+		if (ConfigurationHandler.enableBanners)
+			ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBanner.class, new TileEntityBannerRenderer());
 
-        if (ConfigurationHandler.enableFancySkulls)
-            ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySkull.class, new TileEntityFancySkullRenderer());
+		if (ConfigurationHandler.enableFancySkulls)
+			ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySkull.class, new TileEntityFancySkullRenderer());
 
-        if (ConfigurationHandler.enableChorusFruit) {
-            RenderingRegistry.registerBlockHandler(new BlockEndRodRender());
-            RenderingRegistry.registerBlockHandler(new BlockChorusFlowerRender());
-            RenderingRegistry.registerBlockHandler(new BlockChorusPlantRender());
-            ClientRegistry.bindTileEntitySpecialRenderer(TileEntityEndRod.class, new TileEntityEndRodRenderer());
-        }
+		if (ConfigurationHandler.enableChorusFruit) {
+			RenderingRegistry.registerBlockHandler(new BlockEndRodRender());
+			RenderingRegistry.registerBlockHandler(new BlockChorusFlowerRender());
+			RenderingRegistry.registerBlockHandler(new BlockChorusPlantRender());
+			ClientRegistry.bindTileEntitySpecialRenderer(TileEntityEndRod.class, new TileEntityEndRodRenderer());
+		}
 
-        if (ConfigurationHandler.enableColourfulBeacons)
-            ClientRegistry.bindTileEntitySpecialRenderer(TileEntityNewBeacon.class, new TileEntityNewBeaconRenderer());
+		if (ConfigurationHandler.enableColourfulBeacons)
+			ClientRegistry.bindTileEntitySpecialRenderer(TileEntityNewBeacon.class, new TileEntityNewBeaconRenderer());
 
 		if (ConfigurationHandler.enableLantern)
 			RenderingRegistry.registerBlockHandler(new BlockLanternRenderer());
@@ -137,48 +137,48 @@ public class ClientProxy extends CommonProxy {
 		if(ConfigurationHandler.enableLavaCauldrons)
 			RenderingRegistry.registerBlockHandler(new BlockLavaCauldronRenderer());
 		
-        RenderingRegistry.registerBlockHandler(new BlockChestRenderer());
-    }
+		RenderingRegistry.registerBlockHandler(new BlockChestRenderer());
+	}
 
-    @SuppressWarnings("unchecked")
-    private void registerEntityRenderers() {
-        if (ConfigurationHandler.enableArmourStand)
-            RenderingRegistry.registerEntityRenderingHandler(EntityArmourStand.class, new ArmourStandRenderer());
-        if (ConfigurationHandler.enableEndermite)
-            RenderingRegistry.registerEntityRenderingHandler(EntityEndermite.class, new EndermiteRenderer());
-        if (ConfigurationHandler.enableRabbit)
-            RenderingRegistry.registerEntityRenderingHandler(EntityRabbit.class, new RabbitRenderer());
-        
-        if (ConfigurationHandler.enableHusk)
-            RenderingRegistry.registerEntityRenderingHandler(EntityHusk.class, new HuskRenderer());
-        if (ConfigurationHandler.enableStray) {
-            RenderingRegistry.registerEntityRenderingHandler(EntityStray.class, new StrayRenderer());
-            RenderingRegistry.registerEntityRenderingHandler(EntityStray.class, new StrayOverlayRenderer());
-        }
-        
-        if (ConfigurationHandler.enableLingeringPotions) {
-            RenderingRegistry.registerEntityRenderingHandler(EntityLingeringPotion.class, new LingeringPotionRenderer());
-            RenderingRegistry.registerEntityRenderingHandler(EntityLingeringEffect.class, new LingeringEffectRenderer());
-        }
-        if (ConfigurationHandler.enableVillagerZombies)
-            RenderingRegistry.registerEntityRenderingHandler(EntityZombieVillager.class, new VillagerZombieRenderer());
-        
-        if (ConfigurationHandler.enableDragonRespawn)
-            RenderingRegistry.registerEntityRenderingHandler(EntityPlacedEndCrystal.class, new PlacedEndCrystalRenderer());
+	@SuppressWarnings("unchecked")
+	private void registerEntityRenderers() {
+		if (ConfigurationHandler.enableArmourStand)
+			RenderingRegistry.registerEntityRenderingHandler(EntityArmourStand.class, new ArmourStandRenderer());
+		if (ConfigurationHandler.enableEndermite)
+			RenderingRegistry.registerEntityRenderingHandler(EntityEndermite.class, new EndermiteRenderer());
+		if (ConfigurationHandler.enableRabbit)
+			RenderingRegistry.registerEntityRenderingHandler(EntityRabbit.class, new RabbitRenderer());
+		
+		if (ConfigurationHandler.enableHusk)
+			RenderingRegistry.registerEntityRenderingHandler(EntityHusk.class, new HuskRenderer());
+		if (ConfigurationHandler.enableStray) {
+			RenderingRegistry.registerEntityRenderingHandler(EntityStray.class, new StrayRenderer());
+			RenderingRegistry.registerEntityRenderingHandler(EntityStray.class, new StrayOverlayRenderer());
+		}
+		
+		if (ConfigurationHandler.enableLingeringPotions) {
+			RenderingRegistry.registerEntityRenderingHandler(EntityLingeringPotion.class, new LingeringPotionRenderer());
+			RenderingRegistry.registerEntityRenderingHandler(EntityLingeringEffect.class, new LingeringEffectRenderer());
+		}
+		if (ConfigurationHandler.enableVillagerZombies)
+			RenderingRegistry.registerEntityRenderingHandler(EntityZombieVillager.class, new VillagerZombieRenderer());
+		
+		if (ConfigurationHandler.enableDragonRespawn)
+			RenderingRegistry.registerEntityRenderingHandler(EntityPlacedEndCrystal.class, new PlacedEndCrystalRenderer());
 
-        if (ConfigurationHandler.enableBrownMooshroom)
-            RenderingRegistry.registerEntityRenderingHandler(EntityBrownMooshroom.class, new BrownMooshroomRenderer());
-        
-        if (ConfigurationHandler.enablePlayerSkinOverlay) {
-            TextureManager texManager = Minecraft.getMinecraft().renderEngine;
-            File fileAssets = ReflectionHelper.getPrivateValue(Minecraft.class, Minecraft.getMinecraft(), "fileAssets", "field_110446_Y", " field_110607_c");
-            File skinFolder = new File(fileAssets, "skins");
-            MinecraftSessionService sessionService = Minecraft.getMinecraft().func_152347_ac();
-            ReflectionHelper.setPrivateValue(Minecraft.class, Minecraft.getMinecraft(), new NewSkinManager(Minecraft.getMinecraft().func_152342_ad(), texManager, skinFolder, sessionService), "field_152350_aA");
+		if (ConfigurationHandler.enableBrownMooshroom)
+			RenderingRegistry.registerEntityRenderingHandler(EntityBrownMooshroom.class, new BrownMooshroomRenderer());
+		
+		if (ConfigurationHandler.enablePlayerSkinOverlay) {
+			TextureManager texManager = Minecraft.getMinecraft().renderEngine;
+			File fileAssets = ReflectionHelper.getPrivateValue(Minecraft.class, Minecraft.getMinecraft(), "fileAssets", "field_110446_Y", " field_110607_c");
+			File skinFolder = new File(fileAssets, "skins");
+			MinecraftSessionService sessionService = Minecraft.getMinecraft().func_152347_ac();
+			ReflectionHelper.setPrivateValue(Minecraft.class, Minecraft.getMinecraft(), new NewSkinManager(Minecraft.getMinecraft().func_152342_ad(), texManager, skinFolder, sessionService), "field_152350_aA");
 
-            RenderManager.instance.entityRenderMap.put(EntityPlayer.class, new NewRenderPlayer());
-        }
-        if (ConfigurationHandler.enableShearableGolems)
-            RenderingRegistry.registerEntityRenderingHandler(EntityNewSnowGolem.class, new NewSnowGolemRenderer());
-    }
+			RenderManager.instance.entityRenderMap.put(EntityPlayer.class, new NewRenderPlayer());
+		}
+		if (ConfigurationHandler.enableShearableGolems)
+			RenderingRegistry.registerEntityRenderingHandler(EntityNewSnowGolem.class, new NewSnowGolemRenderer());
+	}
 }

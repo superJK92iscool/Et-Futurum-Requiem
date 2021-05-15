@@ -12,10 +12,10 @@ public class BlockEndBrickSlab extends BlockGenericSlab implements IConfigurable
 
 	public BlockEndBrickSlab(boolean p_i45410_1_) {
 		super(p_i45410_1_, Material.rock, "");
-        setResistance(9);
-        setHardness(3.0F);
-        setBlockName(Utils.getUnlocalisedName("end_brick_slab"));
-        setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setResistance(9);
+		setHardness(3.0F);
+		setBlockName(Utils.getUnlocalisedName("end_brick_slab"));
+		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
 	}
 
 	@Override
@@ -28,9 +28,9 @@ public class BlockEndBrickSlab extends BlockGenericSlab implements IConfigurable
 		return new IIcon[] {ModBlocks.end_bricks.getIcon(side, 0)};
 	}
 	
-    @Override
-    public boolean isEnabled() {
-        return ConfigurationHandler.enableChorusFruit;
-    }
+	@Override
+	public boolean isEnabled() {
+		return ConfigurationHandler.enableChorusFruit;
+	}
 
 }

@@ -17,24 +17,24 @@ public class NetherWorldProvider extends WorldProviderHell {
 
 	@Override
 	public IChunkProvider createChunkGenerator() {
-//		if (WorldgenConfiguration.BigNether) {
-//			return new MaxHeightNetherChunkProvider(this.worldObj, this.worldObj.getSeed());
-//		} else {
+//      if (WorldgenConfiguration.BigNether) {
+//          return new MaxHeightNetherChunkProvider(this.worldObj, this.worldObj.getSeed());
+//      } else {
 			return new NetherChunkProvider(this.worldObj, this.worldObj.getSeed());
-//		}
+//      }
 	}
 	
-//	@Override
-//	protected void generateLightBrightnessTable() {
-//		float minBrightness = (float) (1.0F / 10000000.0F * Math.pow(75, 3.2F) + 0.002F);
-//		for(int i = 0; i <= 15; i++) {
-//			float f1 = 1F - (i*i) / (15F*15F);
-//			this.lightBrightnessTable[i] = ((1F - f1) / (f1 * 6F + 1F) * (1F - minBrightness) + minBrightness);
-//		}
-//		System.arraycopy(this.lightBrightnessTable, 0, new float[16], 0, 16);
-//	}
+//  @Override
+//  protected void generateLightBrightnessTable() {
+//      float minBrightness = (float) (1.0F / 10000000.0F * Math.pow(75, 3.2F) + 0.002F);
+//      for(int i = 0; i <= 15; i++) {
+//          float f1 = 1F - (i*i) / (15F*15F);
+//          this.lightBrightnessTable[i] = ((1F - f1) / (f1 * 6F + 1F) * (1F - minBrightness) + minBrightness);
+//      }
+//      System.arraycopy(this.lightBrightnessTable, 0, new float[16], 0, 16);
+//  }
 
-//	@SideOnly(Side.CLIENT)
+//  @SideOnly(Side.CLIENT)
 //    public boolean getWorldHasVoidParticles()
 //    {
 //        return true;
@@ -55,11 +55,11 @@ public class NetherWorldProvider extends WorldProviderHell {
 
 	@Override
 	public int getRespawnDimension(EntityPlayerMP player) {
-//		if (NetherliciousConfiguration.canRespawnInNether) {
-//			ChunkCoordinates coords = player.getBedLocation(-1);
-//			if (coords != null)
-//				return -1;
-//		} // Nether spawn system is shid
+//      if (NetherliciousConfiguration.canRespawnInNether) {
+//          ChunkCoordinates coords = player.getBedLocation(-1);
+//          if (coords != null)
+//              return -1;
+//      } // Nether spawn system is shid
 		return super.getRespawnDimension(player);
 
 	}
