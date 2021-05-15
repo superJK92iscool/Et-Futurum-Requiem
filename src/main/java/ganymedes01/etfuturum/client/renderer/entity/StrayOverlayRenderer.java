@@ -1,13 +1,11 @@
 package ganymedes01.etfuturum.client.renderer.entity;
 
+import org.lwjgl.opengl.GL11;
+
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelSkeleton;
-import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
-
-import org.lwjgl.opengl.GL11;
 
 
 public class StrayOverlayRenderer extends StrayRenderer{

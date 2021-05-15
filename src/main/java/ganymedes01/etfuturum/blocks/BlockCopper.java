@@ -1,6 +1,5 @@
 package ganymedes01.etfuturum.blocks;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -11,18 +10,15 @@ import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.entities.ai.BlockPos;
 import ganymedes01.etfuturum.items.block.ItemBlockCopper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;

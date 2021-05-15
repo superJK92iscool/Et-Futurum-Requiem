@@ -1,8 +1,6 @@
 package ganymedes01.etfuturum.items.block;
 
-import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
-import ganymedes01.etfuturum.entities.EntityItemUninflammable;
 import ganymedes01.etfuturum.items.ItemUninflammable;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;

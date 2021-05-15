@@ -2,12 +2,10 @@ package ganymedes01.etfuturum.blocks;
 
 import java.util.Random;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.recipes.ModRecipes;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

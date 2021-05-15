@@ -1,28 +1,17 @@
 package ganymedes01.etfuturum.blocks;
 
-import java.lang.reflect.Field;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
-import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModBlocks.ISubBlocksBlock;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.items.block.ItemBlockGeneric;
-import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.BlockOldLog;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
-import net.minecraft.world.World;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 
 public class BlockStrippedOldLog extends BlockOldLog implements IConfigurable, ISubBlocksBlock {
 

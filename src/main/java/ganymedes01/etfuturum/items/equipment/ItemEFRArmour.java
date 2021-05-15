@@ -5,7 +5,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.ModItems;
-import ganymedes01.etfuturum.blocks.MagmaBlock;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.items.ItemUninflammable;
@@ -17,7 +16,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
-import net.minecraftforge.common.ISpecialArmor.ArmorProperties;
 
 public class ItemEFRArmour extends ItemArmor implements IConfigurable, ISpecialArmor {
 

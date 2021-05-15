@@ -2,7 +2,6 @@ package ganymedes01.etfuturum.world.nether.dimension;
 
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.WorldProviderHell;
 import net.minecraft.world.chunk.IChunkProvider;
 

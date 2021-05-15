@@ -2,7 +2,6 @@ package ganymedes01.etfuturum.world.generate.feature;
 
 import java.util.Random;
 
-import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;

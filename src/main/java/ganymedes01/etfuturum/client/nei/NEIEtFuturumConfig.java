@@ -2,7 +2,6 @@ package ganymedes01.etfuturum.client.nei;
 
 import codechicken.nei.api.API;
 import codechicken.nei.api.IConfigureNEI;
-import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.lib.Reference;

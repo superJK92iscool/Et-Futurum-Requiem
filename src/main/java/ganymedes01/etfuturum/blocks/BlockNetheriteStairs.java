@@ -1,9 +1,7 @@
 package ganymedes01.etfuturum.blocks;
 
-import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModBlocks.ISubBlocksBlock;
-import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.entities.EntityItemUninflammable;
 import ganymedes01.etfuturum.items.block.ItemBlockUninflammable;

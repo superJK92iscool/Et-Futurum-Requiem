@@ -2,7 +2,6 @@ package ganymedes01.etfuturum.world.nether.generate;
 
 import java.util.Random;
 
-import ganymedes01.etfuturum.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;

@@ -11,7 +11,6 @@ import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.entities.EntityItemUninflammable;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.BlockCauldron;
-import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;

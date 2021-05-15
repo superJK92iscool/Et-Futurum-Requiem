@@ -1,11 +1,6 @@
 package ganymedes01.etfuturum.blocks;
 
-import static net.minecraftforge.common.EnumPlantType.Cave;
-import static net.minecraftforge.common.EnumPlantType.Crop;
-import static net.minecraftforge.common.EnumPlantType.Desert;
-import static net.minecraftforge.common.EnumPlantType.Nether;
-import static net.minecraftforge.common.EnumPlantType.Plains;
-import static net.minecraftforge.common.EnumPlantType.Water;
+import static net.minecraftforge.common.EnumPlantType.*;
 
 import java.util.Random;
 

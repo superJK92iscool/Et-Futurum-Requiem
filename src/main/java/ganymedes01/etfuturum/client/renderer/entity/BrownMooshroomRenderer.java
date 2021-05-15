@@ -2,7 +2,6 @@ package ganymedes01.etfuturum.client.renderer.entity;
 
 import org.lwjgl.opengl.GL11;
 
-import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelCow;
 import net.minecraft.client.model.ModelQuadruped;
 import net.minecraft.client.renderer.entity.RenderMooshroom;

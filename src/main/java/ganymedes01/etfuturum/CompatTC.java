@@ -151,7 +151,7 @@ public class CompatTC {
 	
 	
 	public static void doRecipes() {
-		
+		// TODO is there supposed to be Thaumcraft related Recipes? If so, what would they be?
 	}
 
 }

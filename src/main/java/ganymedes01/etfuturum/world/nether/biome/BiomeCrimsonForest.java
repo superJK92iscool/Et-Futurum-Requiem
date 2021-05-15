@@ -2,10 +2,7 @@ package ganymedes01.etfuturum.world.nether.biome;
 
 import ganymedes01.etfuturum.world.nether.biome.decorator.CrimsonForestDecorator;
 import ganymedes01.etfuturum.world.nether.biome.utils.IBiomeColor;
-import net.minecraft.entity.monster.EntityGhast;
-import net.minecraft.entity.monster.EntityPigZombie;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase.SpawnListEntry;
 import net.minecraftforge.common.BiomeDictionary;
 
 public class BiomeCrimsonForest extends EtFuturumNetherBiomeBase implements IBiomeColor {

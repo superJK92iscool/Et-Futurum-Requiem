@@ -3,7 +3,6 @@ package ganymedes01.etfuturum.client.gui.inventory;
 import org.lwjgl.opengl.GL11;
 
 import ganymedes01.etfuturum.inventory.ContainerBlastFurnace;
-import ganymedes01.etfuturum.inventory.ContainerSmoker;
 import ganymedes01.etfuturum.tileentities.TileEntityBlastFurnace;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;

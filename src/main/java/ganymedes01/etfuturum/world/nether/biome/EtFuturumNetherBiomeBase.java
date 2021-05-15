@@ -4,7 +4,6 @@ import java.util.Random;
 
 import ganymedes01.etfuturum.world.nether.biome.decorator.EtFuturumBiomeDecorator;
 import net.minecraft.entity.monster.EntityGhast;
-import net.minecraft.entity.monster.EntityMagmaCube;
 import net.minecraft.entity.monster.EntityPigZombie;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;

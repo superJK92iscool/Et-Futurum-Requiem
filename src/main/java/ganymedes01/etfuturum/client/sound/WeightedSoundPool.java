@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
 /*
 	 * Creates weighted RNG to simulate the weights on Nether ambience sounds in 1.16
 	 * Author Philipp from Stack Overflow

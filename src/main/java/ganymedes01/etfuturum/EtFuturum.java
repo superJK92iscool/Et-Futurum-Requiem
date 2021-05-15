@@ -11,15 +11,12 @@ import java.util.Map;
 
 import org.apache.commons.lang3.ArrayUtils;
 
-import com.google.common.eventbus.Subscribe;
-
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLLoadCompleteEvent;
 import cpw.mods.fml.common.event.FMLInterModComms.IMCEvent;
 import cpw.mods.fml.common.event.FMLInterModComms.IMCMessage;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -64,10 +61,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.oredict.RecipeSorter;
 
 @Mod(
 		modid = Reference.MOD_ID, 

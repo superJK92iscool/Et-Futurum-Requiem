@@ -1,16 +1,12 @@
 package ganymedes01.etfuturum.client.sound;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.ITickableSound;
-import net.minecraft.client.audio.MovingSound;
 import net.minecraft.client.audio.PositionedSound;
-import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.util.ResourceLocation;
 
 public class NetherAmbience extends PositionedSound implements ITickableSound {

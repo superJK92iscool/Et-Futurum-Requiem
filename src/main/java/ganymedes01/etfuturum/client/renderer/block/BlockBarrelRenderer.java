@@ -1,17 +1,12 @@
 package ganymedes01.etfuturum.client.renderer.block;
 
-import org.lwjgl.opengl.GL11;
-
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
-import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.blocks.BlockBarrel;
 import ganymedes01.etfuturum.client.OpenGLHelper;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.src.FMLRenderAccessLibrary;
 import net.minecraft.world.IBlockAccess;
 
 public class BlockBarrelRenderer implements ISimpleBlockRenderingHandler {

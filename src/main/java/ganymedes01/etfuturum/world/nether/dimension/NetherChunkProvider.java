@@ -1,11 +1,8 @@
 package ganymedes01.etfuturum.world.nether.dimension;
 
-import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.NETHER_BRIDGE;
-import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.NETHER_CAVE;
-import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.FIRE;
-import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.GLOWSTONE;
-import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.NETHER_LAVA;
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.SHROOM;
+import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.*;
+import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.*;
+import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.*;
 
 import java.util.List;
 import java.util.Random;

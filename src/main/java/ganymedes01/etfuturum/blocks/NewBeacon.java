@@ -13,7 +13,6 @@ import net.minecraft.block.BlockBeacon;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityBeacon;
 import net.minecraft.world.World;
 
 public class NewBeacon extends BlockBeacon implements IConfigurable {

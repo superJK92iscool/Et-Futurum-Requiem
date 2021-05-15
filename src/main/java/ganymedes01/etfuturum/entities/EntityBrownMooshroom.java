@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.items.ItemSuspiciousStew;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.passive.EntityMooshroom;
@@ -15,10 +14,8 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.potion.Potion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import tv.twitch.chat.ChatMessage;
 
 public class EntityBrownMooshroom extends EntityMooshroom {
 	

@@ -1,29 +1,24 @@
 package ganymedes01.etfuturum.blocks;
 
-import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.IConfigurable;
-import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.client.InterpolatedIcon;
-import ganymedes01.etfuturum.configuration.ConfigurationHandler;
-import ganymedes01.etfuturum.core.utils.Utils;
+import static net.minecraftforge.common.util.ForgeDirection.*;
 
 import java.util.Random;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import ganymedes01.etfuturum.EtFuturum;
+import ganymedes01.etfuturum.IConfigurable;
+import ganymedes01.etfuturum.client.InterpolatedIcon;
+import ganymedes01.etfuturum.configuration.ConfigurationHandler;
+import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import static net.minecraftforge.common.util.ForgeDirection.UP;
 
 public class MagmaBlock extends Block implements IConfigurable{
 	

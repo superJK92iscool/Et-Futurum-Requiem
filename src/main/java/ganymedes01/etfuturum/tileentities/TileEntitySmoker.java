@@ -3,7 +3,6 @@ package ganymedes01.etfuturum.tileentities;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.blocks.BlockSmoker;
-import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.recipes.SmokerRecipes;
 import net.minecraft.entity.player.EntityPlayer;

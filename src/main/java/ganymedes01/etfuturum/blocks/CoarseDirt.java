@@ -2,18 +2,14 @@ package ganymedes01.etfuturum.blocks;
 
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
-import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.event.entity.player.UseHoeEvent;
-import cpw.mods.fml.common.eventhandler.Event.Result;
 
 public class CoarseDirt extends Block implements IConfigurable {
 

@@ -1,8 +1,5 @@
 package ganymedes01.etfuturum.items.block;
 
-import ganymedes01.etfuturum.blocks.BlockGeneric;
-import ganymedes01.etfuturum.blocks.BlockGenericSand;
-import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 

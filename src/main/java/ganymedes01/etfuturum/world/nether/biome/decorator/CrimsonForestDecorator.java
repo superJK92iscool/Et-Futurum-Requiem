@@ -1,6 +1,5 @@
 package ganymedes01.etfuturum.world.nether.biome.decorator;
 
-import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.world.nether.generate.HugeCrimsonFungi0;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.gen.feature.WorldGenerator;
