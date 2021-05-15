@@ -12,8 +12,8 @@ import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.blocks.BlockGlazedTerracotta;
-import ganymedes01.etfuturum.blocks.BlockStoneSlab2;
 import ganymedes01.etfuturum.blocks.BlockNewStone;
+import ganymedes01.etfuturum.blocks.BlockStoneSlab2;
 import ganymedes01.etfuturum.blocks.ores.BlockDeepslateOre;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.items.ItemSuspiciousStew;
@@ -218,6 +218,7 @@ public class ModRecipes {
 		if(ConfigurationHandler.enableCopper) {
 			OreDictionary.registerOre("oreCopper", new ItemStack(ModBlocks.copper_ore, 1, 0));
 			OreDictionary.registerOre("ingotCopper", new ItemStack(ModItems.copper_ingot, 1, 0));
+			if (ConfigurationHandler.copper9to1)
 			OreDictionary.registerOre("blockCopper", new ItemStack(ModBlocks.copper_block, 1, 0));
 			OreDictionary.registerOre("blockCopperCut", new ItemStack(ModBlocks.copper_block, 1, 4));
 		}
