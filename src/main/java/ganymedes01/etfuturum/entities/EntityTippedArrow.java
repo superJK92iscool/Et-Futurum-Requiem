@@ -5,7 +5,7 @@ import java.awt.Color;
 import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import ganymedes01.etfuturum.ModItems;
-import ganymedes01.etfuturum.items.TippedArrow;
+import ganymedes01.etfuturum.items.ItemArrowTipped;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -87,7 +87,7 @@ public class EntityTippedArrow extends EntityArrow implements IEntityAdditionalS
 			boolean flag = canBePickedUp == 1 || canBePickedUp == 2 && player.capabilities.isCreativeMode;
 
 			ItemStack stack = new ItemStack(ModItems.tipped_arrow);
-			TippedArrow.setEffect(stack, Potion.potionTypes[effect.getPotionID()], effect.getDuration(), effect.getAmplifier());
+			ItemArrowTipped.setEffect(stack, Potion.potionTypes[effect.getPotionID()], effect.getDuration(), effect.getAmplifier());
 
 			if (canBePickedUp == 1 && !player.inventory.addItemStackToInventory(stack))
 				flag = false;

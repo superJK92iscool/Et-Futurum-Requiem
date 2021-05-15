@@ -63,6 +63,7 @@ public class BlockInfestedDeepslate extends BlockSilverfish implements IConfigur
 	
 	@Override
 	@SideOnly(Side.CLIENT)
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void getSubBlocks(Item p_149666_1_, CreativeTabs p_149666_2_, List p_149666_3_)
 	{
 		for (int i = 0; i < icon_names.length; ++i)

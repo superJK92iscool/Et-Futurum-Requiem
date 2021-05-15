@@ -30,6 +30,7 @@ public class BlockFlowerBase extends BlockFlower implements ISubBlocksBlock {
 
 	@Override
 	@SideOnly(Side.CLIENT)
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void getSubBlocks(Item item, CreativeTabs tab, List list) {
 		list.add(new ItemStack(item));
 	}

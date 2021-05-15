@@ -30,6 +30,7 @@ public class ItemSuspiciousStew extends ItemSoup implements IConfigurable {
 		setAlwaysEdible();
 	}
 
+	@Override
 	public ItemStack onEaten(ItemStack p_77654_1_, World p_77654_2_, EntityPlayer p_77654_3_)
 	{
 		applyPotionEffects(p_77654_1_, p_77654_3_);
@@ -51,7 +52,6 @@ public class ItemSuspiciousStew extends ItemSoup implements IConfigurable {
 					if(!nbt.hasKey(stewEffect) || nbt.getInteger(stewEffect) <= 0 || nbt.getInteger(stewEffect) >= Potion.potionTypes.length || Potion.potionTypes[nbt.getInteger(stewEffect)] == null)
 						continue;
 					int effectDuration = 160;
-					byte effectAmplifier = 0;
 					if(nbt.hasKey(stewEffectDuration)) {
 						effectDuration = nbt.getInteger(stewEffectDuration);
 					}
@@ -68,6 +68,7 @@ public class ItemSuspiciousStew extends ItemSoup implements IConfigurable {
 		return stack.getTagCompound().hasKey(effectsList);
 	}
 	
+	@Override
 	public boolean getShareTag()
 	{
 		return true;

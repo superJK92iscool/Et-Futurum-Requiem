@@ -6,16 +6,16 @@ import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.item.Item;
 
-public class RabbitHide extends Item implements IConfigurable {
+public class ItemPrismarineShard extends Item implements IConfigurable {
 
-	public RabbitHide() {
-		setTextureName("rabbit_hide");
-		setUnlocalizedName(Utils.getUnlocalisedName("rabbit_hide"));
+	public ItemPrismarineShard() {
+		setTextureName("prismarine_shard");
+		setUnlocalizedName(Utils.getUnlocalisedName("prismarine_shard"));
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
 	}
 
 	@Override
 	public boolean isEnabled() {
-		return ConfigurationHandler.enableRabbit;
+		return ConfigurationHandler.enablePrismarine;
 	}
 }

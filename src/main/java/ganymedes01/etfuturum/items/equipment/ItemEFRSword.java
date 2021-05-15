@@ -32,11 +32,13 @@ public class ItemEFRSword extends ItemSword implements IConfigurable {
 		return ConfigurationHandler.enableNetherite;
 	}
 	
+	@Override
 	public boolean hasCustomEntity(ItemStack stack)
 	{
 		return getUnlocalizedName().contains("netherite") && !ConfigurationHandler.enableNetheriteFlammable;
 	}
 	
+	@Override
 	public Entity createEntity(World world, Entity location, ItemStack itemstack)
 	{
 		if(!getUnlocalizedName().contains("netherite"))

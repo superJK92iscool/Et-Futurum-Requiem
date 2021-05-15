@@ -47,15 +47,18 @@ public class ItemEFRArmour extends ItemArmor implements IConfigurable, ISpecialA
 		return this.armorType == 2 ? "textures/models/armor/" + wearingType + "_layer_2.png" : "textures/models/armor/" + wearingType + "_layer_1.png";
 	}
 	
+	@Override
 	public boolean isEnabled() {
 		return ConfigurationHandler.enableNetherite;
 	}
 	
+	@Override
 	public boolean hasCustomEntity(ItemStack stack)
 	{
 		return getUnlocalizedName().contains("netherite") && !ConfigurationHandler.enableNetheriteFlammable;
 	}
 	
+	@Override
 	public Entity createEntity(World world, Entity location, ItemStack itemstack)
 	{
 		if(!getUnlocalizedName().contains("netherite"))

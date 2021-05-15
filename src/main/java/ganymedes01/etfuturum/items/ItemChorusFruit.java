@@ -14,9 +14,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.EnderTeleportEvent;
 
-public class ChorusFruit extends ItemFood implements IConfigurable {
+public class ItemChorusFruit extends ItemFood implements IConfigurable {
 
-	public ChorusFruit() {
+	public ItemChorusFruit() {
 		super(4, 0.3F, false);
 		setAlwaysEdible();
 		setTextureName("chorus_fruit");
@@ -76,24 +76,23 @@ public class ChorusFruit extends ItemFood implements IConfigurable {
 		if (!flag) {
 			entity.setPosition(d3, d4, d5);
 			return false;
-		} else {
-			short short1 = 128;
-
-			for (int l = 0; l < short1; l++) {
-				double d6 = l / (short1 - 1.0D);
-				float f = (entity.getRNG().nextFloat() - 0.5F) * 0.2F;
-				float f1 = (entity.getRNG().nextFloat() - 0.5F) * 0.2F;
-				float f2 = (entity.getRNG().nextFloat() - 0.5F) * 0.2F;
-				double d7 = d3 + (entity.posX - d3) * d6 + (entity.getRNG().nextDouble() - 0.5D) * entity.width * 2.0D;
-				double d8 = d4 + (entity.posY - d4) * d6 + entity.getRNG().nextDouble() * entity.height;
-				double d9 = d5 + (entity.posZ - d5) * d6 + (entity.getRNG().nextDouble() - 0.5D) * entity.width * 2.0D;
-				entity.worldObj.spawnParticle("portal", d7, d8, d9, f, f1, f2);
-			}
-
-			entity.worldObj.playSoundEffect(d3, d4, d5, "mob.endermen.portal", 1.0F, 1.0F);
-			entity.playSound("mob.endermen.portal", 1.0F, 1.0F);
-			return true;
 		}
+		short short1 = 128;
+
+		for (int l = 0; l < short1; l++) {
+			double d6 = l / (short1 - 1.0D);
+			float f = (entity.getRNG().nextFloat() - 0.5F) * 0.2F;
+			float f1 = (entity.getRNG().nextFloat() - 0.5F) * 0.2F;
+			float f2 = (entity.getRNG().nextFloat() - 0.5F) * 0.2F;
+			double d7 = d3 + (entity.posX - d3) * d6 + (entity.getRNG().nextDouble() - 0.5D) * entity.width * 2.0D;
+			double d8 = d4 + (entity.posY - d4) * d6 + entity.getRNG().nextDouble() * entity.height;
+			double d9 = d5 + (entity.posZ - d5) * d6 + (entity.getRNG().nextDouble() - 0.5D) * entity.width * 2.0D;
+			entity.worldObj.spawnParticle("portal", d7, d8, d9, f, f1, f2);
+		}
+
+		entity.worldObj.playSoundEffect(d3, d4, d5, "mob.endermen.portal", 1.0F, 1.0F);
+		entity.playSound("mob.endermen.portal", 1.0F, 1.0F);
+		return true;
 	}
 
 	@Override

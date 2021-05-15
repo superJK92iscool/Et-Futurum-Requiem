@@ -9,10 +9,12 @@ import net.minecraft.world.World;
 
 public class ItemUninflammable extends Item {
 	
+	@Override
 	public boolean hasCustomEntity(ItemStack stack) {
 		return !ConfigurationHandler.enableNetheriteFlammable;
 	}
 	
+	@Override
 	public Entity createEntity(World world, Entity location, ItemStack itemstack) {
 		return createUninflammableItem(world, location);
 	}

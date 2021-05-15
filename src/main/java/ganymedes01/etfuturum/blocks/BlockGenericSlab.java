@@ -61,6 +61,7 @@ public abstract class BlockGenericSlab extends BlockSlab implements ISubBlocksBl
 
 	@Override
 	@SideOnly(Side.CLIENT)
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void getSubBlocks(Item p_149666_1_, CreativeTabs p_149666_2_, List p_149666_3_)
 	{
 		for (int i = 0; i < metaBlocks.length && !field_150004_a; i++)

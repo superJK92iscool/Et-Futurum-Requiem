@@ -6,9 +6,9 @@ import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.item.ItemFood;
 
-public class RabbitRaw extends ItemFood implements IConfigurable {
+public class ItemRabbitRaw extends ItemFood implements IConfigurable {
 
-	public RabbitRaw() {
+	public ItemRabbitRaw() {
 		super(3, 0.3F, true);
 		setTextureName("rabbit_raw");
 		setUnlocalizedName(Utils.getUnlocalisedName("rabbit_raw"));

@@ -12,9 +12,9 @@ import net.minecraft.item.ItemSimpleFoiled;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class EndCrystal extends ItemSimpleFoiled implements IConfigurable {
+public class ItemEndCrystal extends ItemSimpleFoiled implements IConfigurable {
 
-	public EndCrystal() {
+	public ItemEndCrystal() {
 		setTextureName("end_crystal");
 		setUnlocalizedName(Utils.getUnlocalisedName("end_crystal"));
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);

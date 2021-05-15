@@ -35,12 +35,12 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
-public class LingeringPotion extends ItemPotion implements IConfigurable {
+public class ItemLingeringPotion extends ItemPotion implements IConfigurable {
 
 	@SideOnly(Side.CLIENT)
 	private IIcon bottle;
 
-	public LingeringPotion() {
+	public ItemLingeringPotion() {
 		setTextureName("potion");
 		setUnlocalizedName(Utils.getUnlocalisedName("lingering_potion"));
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
@@ -113,29 +113,26 @@ public class LingeringPotion extends ItemPotion implements IConfigurable {
 			}
 
 			return list;
-		} else
-			return getEffects(stack.getItemDamage());
+		}
+		return getEffects(stack.getItemDamage());
 	}
 
 	@Override
 	public String getItemStackDisplayName(ItemStack stack) {
 		if (stack.getItemDamage() == 0)
 			return StatCollector.translateToLocal("item.emptyPotion.name").trim();
-		else {
-			String s = StatCollector.translateToLocal("potion.prefix.lingering").trim() + " ";
+		String s = StatCollector.translateToLocal("potion.prefix.lingering").trim() + " ";
 
-			List<PotionEffect> list = getEffects(stack);
-			String s1;
+		List<PotionEffect> list = getEffects(stack);
+		String s1;
 
-			if (list != null && !list.isEmpty()) {
-				s1 = list.get(0).getEffectName();
-				s1 = s1 + ".postfix";
-				return s + StatCollector.translateToLocal(s1).trim();
-			} else {
-				s1 = PotionHelper.func_77905_c(stack.getItemDamage());
-				return StatCollector.translateToLocal(s1).trim() + " " + super.getItemStackDisplayName(stack);
-			}
+		if (list != null && !list.isEmpty()) {
+			s1 = list.get(0).getEffectName();
+			s1 = s1 + ".postfix";
+			return s + StatCollector.translateToLocal(s1).trim();
 		}
+		s1 = PotionHelper.func_77905_c(stack.getItemDamage());
+		return StatCollector.translateToLocal(s1).trim() + " " + super.getItemStackDisplayName(stack);
 	}
 
 	@Override

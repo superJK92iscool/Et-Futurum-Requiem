@@ -1,10 +1,8 @@
 package ganymedes01.etfuturum.items;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -17,7 +15,6 @@ import ganymedes01.etfuturum.dispenser.DispenserBehaviourTippedArrow;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -30,12 +27,12 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.util.Constants;
 
-public class TippedArrow extends Item implements IConfigurable {
+public class ItemArrowTipped extends Item implements IConfigurable {
 
 	@SideOnly(Side.CLIENT)
 	private IIcon tipIcon;
 
-	public TippedArrow() {
+	public ItemArrowTipped() {
 		setTextureName("tipped_arrow");
 		setUnlocalizedName(Utils.getUnlocalisedName("tipped_arrow"));
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
@@ -124,13 +121,15 @@ public class TippedArrow extends Item implements IConfigurable {
 	
 	
 	
+	@Override
 	@SideOnly(Side.CLIENT)
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void addInformation(ItemStack stack, EntityPlayer p_77624_2_, List list, boolean p_77624_4_)
 	{
 		if (stack.getItemDamage() == 0)
 		{
 			
-			PotionEffect effect = ((TippedArrow) ModItems.tipped_arrow).getEffect(stack);
+			PotionEffect effect = ItemArrowTipped.getEffect(stack);
 			if (effect != null) {
 				
 			
@@ -146,22 +145,22 @@ public class TippedArrow extends Item implements IConfigurable {
 				while (iterator1.hasNext())
 				{    */
 					//PotionEffect potioneffect = (PotionEffect)iterator1.next();
-					PotionEffect potioneffect = ((TippedArrow) ModItems.tipped_arrow).getEffect(stack);
+					PotionEffect potioneffect = ItemArrowTipped.getEffect(stack);
 					String s1 = StatCollector.translateToLocal(potioneffect.getEffectName()).trim();
 					Potion potion = Potion.potionTypes[potioneffect.getPotionID()];
-					Map map = potion.func_111186_k();
+					Map<?, ?> map = potion.func_111186_k();
 
 					if (map != null && map.size() > 0)
 					{
-						Iterator iterator = map.entrySet().iterator();
-
-						while (iterator.hasNext())
-						{
-							Entry entry = (Entry)iterator.next();
-							AttributeModifier attributemodifier = (AttributeModifier)entry.getValue();
-							AttributeModifier attributemodifier1 = new AttributeModifier(attributemodifier.getName(), potion.func_111183_a(potioneffect.getAmplifier(), attributemodifier), attributemodifier.getOperation());
-							//hashmultimap.put(((IAttribute)entry.getKey()).getAttributeUnlocalizedName(), attributemodifier1);
-						}
+						//Iterator<?> iterator = map.entrySet().iterator();
+						// TODO This did nothing at all
+						//while (iterator.hasNext())
+						//{
+						//	Entry<?, ?> entry = (Entry<?, ?>)iterator.next();
+						//	AttributeModifier attributemodifier = (AttributeModifier)entry.getValue(); 
+						//	AttributeModifier attributemodifier1 = new AttributeModifier(attributemodifier.getName(), potion.func_111183_a(potioneffect.getAmplifier(), attributemodifier), attributemodifier.getOperation());
+						//	//hashmultimap.put(((IAttribute)entry.getKey()).getAttributeUnlocalizedName(), attributemodifier1);
+						//}
 					}
 
 					if (potioneffect.getAmplifier() > 0)

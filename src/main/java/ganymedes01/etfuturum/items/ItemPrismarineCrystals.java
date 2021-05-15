@@ -4,19 +4,18 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.utils.Utils;
-import net.minecraft.item.ItemFood;
+import net.minecraft.item.Item;
 
-public class RabbitCooked extends ItemFood implements IConfigurable {
+public class ItemPrismarineCrystals extends Item implements IConfigurable {
 
-	public RabbitCooked() {
-		super(5, 0.6F, true);
-		setTextureName("rabbit_cooked");
-		setUnlocalizedName(Utils.getUnlocalisedName("rabbit_cooked"));
+	public ItemPrismarineCrystals() {
+		setTextureName("prismarine_crystals");
+		setUnlocalizedName(Utils.getUnlocalisedName("prismarine_crystals"));
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
 	}
 
 	@Override
 	public boolean isEnabled() {
-		return ConfigurationHandler.enableRabbit;
+		return ConfigurationHandler.enablePrismarine;
 	}
 }

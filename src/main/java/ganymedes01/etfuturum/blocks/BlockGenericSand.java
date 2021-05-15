@@ -47,6 +47,7 @@ public class BlockGenericSand extends BlockFalling implements ISubBlocksBlock {
 
 	@Override
 	@SideOnly(Side.CLIENT)
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void getSubBlocks(Item item, CreativeTabs tab, List list) {
 		for (int i = startMeta; i < types.length; i++)
 			list.add(new ItemStack(item, 1, i));

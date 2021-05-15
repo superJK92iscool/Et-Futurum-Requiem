@@ -17,6 +17,7 @@ public class ItemBlockGeneric extends ItemBlock {
 		setHasSubtypes(true);
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public IIcon getIconFromDamage(int p_77617_1_)
 	{
@@ -37,8 +38,7 @@ public class ItemBlockGeneric extends ItemBlock {
 			}
 			if ("".equals(name))
 				return getUnlocalizedName();
-			else
-				return flipped ? "tile." + Utils.getUnlocalisedName(name + "_" + getUnlocalizedName().split("\\.")[getUnlocalizedName().contains("etfuturum") ? 2 : 1]) : getUnlocalizedName() + "_" + name;
+			return flipped ? "tile." + Utils.getUnlocalisedName(name + "_" + getUnlocalizedName().split("\\.")[getUnlocalizedName().contains("etfuturum") ? 2 : 1]) : getUnlocalizedName() + "_" + name;
 		}
 
 		return getUnlocalizedName() + "_" + stack.getItemDamage();

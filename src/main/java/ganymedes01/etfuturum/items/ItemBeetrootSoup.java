@@ -7,9 +7,9 @@ import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemSoup;
 
-public class BeetrootSoup extends ItemSoup implements IConfigurable {
+public class ItemBeetrootSoup extends ItemSoup implements IConfigurable {
 
-	public BeetrootSoup() {
+	public ItemBeetrootSoup() {
 		super(6);
 		setContainerItem(Items.bowl);
 		setTextureName("beetroot_soup");

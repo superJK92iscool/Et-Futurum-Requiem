@@ -1,7 +1,7 @@
 package ganymedes01.etfuturum.dispenser;
 
 import ganymedes01.etfuturum.entities.EntityTippedArrow;
-import ganymedes01.etfuturum.items.TippedArrow;
+import ganymedes01.etfuturum.items.ItemArrowTipped;
 import net.minecraft.dispenser.BehaviorDefaultDispenseItem;
 import net.minecraft.dispenser.BehaviorProjectileDispense;
 import net.minecraft.dispenser.IBlockSource;
@@ -20,7 +20,7 @@ public class DispenserBehaviourTippedArrow extends BehaviorDefaultDispenseItem {
 			protected IProjectile getProjectileEntity(World world, IPosition pos) {
 				EntityTippedArrow entity = new EntityTippedArrow(world, pos.getX(), pos.getY(), pos.getZ());
 				entity.canBePickedUp = 1;
-				entity.setEffect(TippedArrow.getEffect(stack));
+				entity.setEffect(ItemArrowTipped.getEffect(stack));
 				return entity;
 			}
 		}.dispense(block, stack);

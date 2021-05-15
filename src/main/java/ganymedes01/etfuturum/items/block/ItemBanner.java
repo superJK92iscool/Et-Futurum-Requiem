@@ -108,10 +108,8 @@ public class ItemBanner extends ItemBlock {
 	public int getColorFromItemStack(ItemStack stack, int renderPass) {
 		if (renderPass == 0)
 			return 0xFFFFFF;
-		else {
-			EnumColour EnumColour = getBaseColor(stack);
-			return EnumColour.getRGB();
-		}
+		EnumColour EnumColour = getBaseColor(stack);
+		return EnumColour.getRGB();
 	}
 
 	@Override

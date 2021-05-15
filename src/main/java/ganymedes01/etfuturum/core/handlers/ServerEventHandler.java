@@ -38,7 +38,7 @@ import ganymedes01.etfuturum.entities.EntityTippedArrow;
 import ganymedes01.etfuturum.entities.EntityZombieVillager;
 import ganymedes01.etfuturum.entities.ai.EntityAIOpenCustomDoor;
 import ganymedes01.etfuturum.inventory.ContainerEnchantment;
-import ganymedes01.etfuturum.items.TippedArrow;
+import ganymedes01.etfuturum.items.ItemArrowTipped;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.network.BlackHeartParticlesMessage;
 import ganymedes01.etfuturum.recipes.ModRecipes;
@@ -263,7 +263,7 @@ public class ServerEventHandler {
 					charge = 1.0F;
 
 				EntityTippedArrow arrowEntity = new EntityTippedArrow(event.entityPlayer.worldObj, event.entityPlayer, charge * 2.0F);
-				arrowEntity.setEffect(TippedArrow.getEffect(arrow));
+				arrowEntity.setEffect(ItemArrowTipped.getEffect(arrow));
 
 				if (charge == 1.0F)
 					arrowEntity.setIsCritical(true);

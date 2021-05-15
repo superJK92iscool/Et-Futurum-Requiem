@@ -11,9 +11,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraftforge.common.ChestGenHooks;
 
-public class BeetrootSeeds extends ItemSeeds implements IConfigurable {
+public class ItemBeetrootSeeds extends ItemSeeds implements IConfigurable {
 
-	public BeetrootSeeds() {
+	public ItemBeetrootSeeds() {
 		super(ModBlocks.beetroot, Blocks.farmland);
 		setTextureName("beetroot_seeds");
 		setUnlocalizedName(Utils.getUnlocalisedName("beetroot_seeds"));

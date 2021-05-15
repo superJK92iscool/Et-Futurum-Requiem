@@ -9,11 +9,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class NuggetIron extends Item implements IConfigurable {
+public class ItemNuggetIron extends Item implements IConfigurable {
 	
 //  public int testvar = 0;
 
-	public NuggetIron() {
+	public ItemNuggetIron() {
 		super();
 		setTextureName("iron_nugget");
 		setUnlocalizedName(Utils.getUnlocalisedName("nugget_iron"));

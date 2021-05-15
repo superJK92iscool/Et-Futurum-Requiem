@@ -20,9 +20,9 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-public class ItemArmourStand extends Item implements IConfigurable {
+public class ItemArmorStand extends Item implements IConfigurable {
 
-	public ItemArmourStand() {
+	public ItemArmorStand() {
 		setMaxStackSize(16);
 		setTextureName("wooden_armorstand");
 		setUnlocalizedName(Utils.getUnlocalisedName("wooden_armorstand"));
@@ -34,60 +34,52 @@ public class ItemArmourStand extends Item implements IConfigurable {
 	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
 		if (side == 0)
 			return false;
-		else {
-			if (side == 1)
-				y++;
-			if (side == 2)
-				z--;
-			if (side == 3)
-				z++;
-			if (side == 4)
-				x--;
-			if (side == 5)
-				x++;
+		if (side == 1)
+			y++;
+		if (side == 2)
+			z--;
+		if (side == 3)
+			z++;
+		if (side == 4)
+			x--;
+		if (side == 5)
+			x++;
 
-			if (!player.canPlayerEdit(x, y, z, side, stack))
-				return false;
-			else {
-				boolean flag1 = !world.isAirBlock(x, y, z) && !world.getBlock(x, y, z).isReplaceable(world, x, y, z);
-				flag1 |= !world.isAirBlock(x, y + 1, z) && !world.getBlock(x, y + 1, z).isReplaceable(world, x, y + 1, z);
+		if (!player.canPlayerEdit(x, y, z, side, stack))
+			return false;
+		boolean flag1 = !world.isAirBlock(x, y, z) && !world.getBlock(x, y, z).isReplaceable(world, x, y, z);
+		flag1 |= !world.isAirBlock(x, y + 1, z) && !world.getBlock(x, y + 1, z).isReplaceable(world, x, y + 1, z);
 
-				if (flag1)
-					return false;
-				else {
-					double d0 = x;
-					double d1 = y;
-					double d2 = z;
-					List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(null, AxisAlignedBB.getBoundingBox(d0, d1, d2, d0 + 1.0D, d1 + 2.0D, d2 + 1.0D));
+		if (flag1)
+			return false;
+		double d0 = x;
+		double d1 = y;
+		double d2 = z;
+		List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(null, AxisAlignedBB.getBoundingBox(d0, d1, d2, d0 + 1.0D, d1 + 2.0D, d2 + 1.0D));
 
-					if (list.size() > 0)
-						return false;
-					else {
-						if (!world.isRemote) {
-							world.setBlockToAir(x, y, z);
-							world.setBlockToAir(x, y + 1, z);
-							EntityArmourStand stand = new EntityArmourStand(world, d0 + 0.5D, d1, d2 + 0.5D);
-							float f3 = MathHelper.floor_float((MathHelper.wrapAngleTo180_float(player.rotationYaw - 180.0F) + 22.5F) / 45.0F) * 45.0F;
-							stand.setLocationAndAngles(d0 + 0.5D, d1, d2 + 0.5D, f3, 0.0F);
-							applyRandomRotations(stand, world.rand);
-							NBTTagCompound nbt = stack.getTagCompound();
+		if (list.size() > 0)
+			return false;
+		if (!world.isRemote) {
+			world.setBlockToAir(x, y, z);
+			world.setBlockToAir(x, y + 1, z);
+			EntityArmourStand stand = new EntityArmourStand(world, d0 + 0.5D, d1, d2 + 0.5D);
+			float f3 = MathHelper.floor_float((MathHelper.wrapAngleTo180_float(player.rotationYaw - 180.0F) + 22.5F) / 45.0F) * 45.0F;
+			stand.setLocationAndAngles(d0 + 0.5D, d1, d2 + 0.5D, f3, 0.0F);
+			applyRandomRotations(stand, world.rand);
+			NBTTagCompound nbt = stack.getTagCompound();
 
-							if (nbt != null && nbt.hasKey("EntityTag", 10)) {
-								NBTTagCompound nbt1 = new NBTTagCompound();
-								stand.writeToNBTOptional(nbt1);
-								merge(nbt1, nbt.getCompoundTag("EntityTag"));
-								stand.readFromNBT(nbt1);
-							}
-
-							world.spawnEntityInWorld(stand);
-						}
-
-						stack.stackSize--;
-						return true;
-					}
-				}
+			if (nbt != null && nbt.hasKey("EntityTag", 10)) {
+				NBTTagCompound nbt1 = new NBTTagCompound();
+				stand.writeToNBTOptional(nbt1);
+				merge(nbt1, nbt.getCompoundTag("EntityTag"));
+				stand.readFromNBT(nbt1);
 			}
+
+			world.spawnEntityInWorld(stand);
 		}
+
+		stack.stackSize--;
+		return true;
 	}
 
 	private void applyRandomRotations(EntityArmourStand armorStand, Random rand) {

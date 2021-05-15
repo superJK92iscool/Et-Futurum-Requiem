@@ -13,10 +13,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionHelper;
 
-public class RabbitFoot extends Item implements IConfigurable {
+public class ItemRabbitFoot extends Item implements IConfigurable {
 
 	@SuppressWarnings("unchecked")
-	public RabbitFoot() {
+	public ItemRabbitFoot() {
 		setTextureName("rabbit_foot");
 		setUnlocalizedName(Utils.getUnlocalisedName("rabbit_foot"));
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
@@ -37,6 +37,7 @@ public class RabbitFoot extends Item implements IConfigurable {
 				f3.setAccessible(true);
 				f3.set(Potion.jump, 0x22FF4C);
 			} catch (Exception e) {
+				// Is this Reflection really needed? I am not sure about that one.
 			}
 	}
 

@@ -16,6 +16,7 @@ public class ItemNetherite extends ItemUninflammable implements IConfigurable {
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
 	}
 	
+	@Override
 	public boolean isBeaconPayment(ItemStack stack) {
 		return this == ModItems.netherite_ingot;
 	}

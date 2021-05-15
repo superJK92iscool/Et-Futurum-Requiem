@@ -83,7 +83,7 @@ public class ItemWoodSign extends Item implements IConfigurable {
 			{
 				if (p_77648_7_ == 1)
 				{
-					int i1 = MathHelper.floor_double((double)((player.rotationYaw + 180.0F) * 16.0F / 360.0F) + 0.5D) & 15;
+					int i1 = MathHelper.floor_double((player.rotationYaw + 180.0F) * 16.0F / 360.0F + 0.5D) & 15;
 					p_77648_3_.setBlock(p_77648_4_, p_77648_5_, p_77648_6_, ModBlocks.signs[meta], i1, 3);
 				}
 				else

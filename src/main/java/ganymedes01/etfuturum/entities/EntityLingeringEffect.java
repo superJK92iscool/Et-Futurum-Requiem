@@ -5,7 +5,7 @@ import java.util.List;
 import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
 import ganymedes01.etfuturum.ModItems;
-import ganymedes01.etfuturum.items.LingeringPotion;
+import ganymedes01.etfuturum.items.ItemLingeringPotion;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -51,7 +51,7 @@ public class EntityLingeringEffect extends Entity implements IEntityAdditionalSp
 		if (!(e instanceof EntityLivingBase))
 			return;
 		EntityLivingBase entity = (EntityLivingBase) e;
-		List<PotionEffect> effects = ((LingeringPotion) ModItems.lingering_potion).getEffects(stack);
+		List<PotionEffect> effects = ((ItemLingeringPotion) ModItems.lingering_potion).getEffects(stack);
 		boolean addedEffect = false;
 
 		for (PotionEffect effect : effects) {

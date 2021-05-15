@@ -28,6 +28,7 @@ public class ItemBlockFlower extends ItemBlock {
 		return super.onItemUse(heldStack, entityPlayer, world, x, y, z, p_77648_7_, p_77648_8_, p_77648_9_, p_77648_10_);
 	}
 	
+	@Override
 	@SideOnly(Side.CLIENT)
 	public boolean func_150936_a(World p_150936_1_, int p_150936_2_, int p_150936_3_, int p_150936_4_, int p_150936_5_, EntityPlayer p_150936_6_, ItemStack p_150936_7_)
 	{

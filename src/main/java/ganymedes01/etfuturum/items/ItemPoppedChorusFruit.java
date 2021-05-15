@@ -4,19 +4,18 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.utils.Utils;
-import net.minecraft.item.ItemFood;
+import net.minecraft.item.Item;
 
-public class MuttonCooked extends ItemFood implements IConfigurable {
+public class ItemPoppedChorusFruit extends Item implements IConfigurable {
 
-	public MuttonCooked() {
-		super(6, 0.8F, true);
-		setTextureName("mutton_cooked");
-		setUnlocalizedName(Utils.getUnlocalisedName("mutton_cooked"));
+	public ItemPoppedChorusFruit() {
+		setTextureName("chorus_fruit_popped");
+		setUnlocalizedName(Utils.getUnlocalisedName("chorus_fruit_popped"));
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
 	}
 
 	@Override
 	public boolean isEnabled() {
-		return ConfigurationHandler.enableMutton;
+		return ConfigurationHandler.enableChorusFruit;
 	}
 }

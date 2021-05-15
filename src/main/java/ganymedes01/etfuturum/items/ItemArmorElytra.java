@@ -16,12 +16,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.common.util.EnumHelper;
 
-public class Elytra extends ItemArmor implements IConfigurable {
+public class ItemArmorElytra extends ItemArmor implements IConfigurable {
 
 	@SideOnly(Side.CLIENT)
 	private IIcon broken;
 
-	public Elytra() {
+	public ItemArmorElytra() {
 		super(EnumHelper.addArmorMaterial("elytra", 27, new int[] { 0, 0, 0, 0 }, 0), 0, 1);
 		setMaxDamage(432);
 		setMaxStackSize(1);
