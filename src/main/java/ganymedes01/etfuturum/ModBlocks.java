@@ -228,7 +228,6 @@ public class ModBlocks {
 		return block;
 	}
 	
-	@SuppressWarnings("rawtypes")
 	public static void init() {
 		for(Block block : initList) {
 			if (!(block instanceof IConfigurable) || ((IConfigurable) block).isEnabled()) {
@@ -253,7 +252,6 @@ public class ModBlocks {
 		Class<? extends ItemBlock> getItemBlockClass();
 	}
 	
-	@SuppressWarnings("rawtypes")
 	public static interface IBurnableBlock {
 		ImmutablePair getFireInfo();
 	}
