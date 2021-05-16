@@ -156,10 +156,10 @@ public class ItemArrowTipped extends Item implements IConfigurable {
 						// TODO This did nothing at all
 						//while (iterator.hasNext())
 						//{
-						//	Entry<?, ?> entry = (Entry<?, ?>)iterator.next();
-						//	AttributeModifier attributemodifier = (AttributeModifier)entry.getValue(); 
-						//	AttributeModifier attributemodifier1 = new AttributeModifier(attributemodifier.getName(), potion.func_111183_a(potioneffect.getAmplifier(), attributemodifier), attributemodifier.getOperation());
-						//	//hashmultimap.put(((IAttribute)entry.getKey()).getAttributeUnlocalizedName(), attributemodifier1);
+						//  Entry<?, ?> entry = (Entry<?, ?>)iterator.next();
+						//  AttributeModifier attributemodifier = (AttributeModifier)entry.getValue(); 
+						//  AttributeModifier attributemodifier1 = new AttributeModifier(attributemodifier.getName(), potion.func_111183_a(potioneffect.getAmplifier(), attributemodifier), attributemodifier.getOperation());
+						//  //hashmultimap.put(((IAttribute)entry.getKey()).getAttributeUnlocalizedName(), attributemodifier1);
 						//}
 					}
 
