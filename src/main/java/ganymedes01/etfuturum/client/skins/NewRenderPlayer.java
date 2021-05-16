@@ -15,7 +15,7 @@ import net.minecraft.util.ResourceLocation;
 
 @SideOnly(Side.CLIENT)
 public class NewRenderPlayer extends RenderPlayer {
-
+	
 	public static final ResourceLocation STEVE_SKIN = new ResourceLocation(Reference.MOD_ID, "textures/steve.png");
 	private static final ModelPlayer STEVE = new ModelPlayer(0.0F, false), ALEX = new ModelPlayer(0.0F, true);
 	
@@ -59,7 +59,7 @@ public class NewRenderPlayer extends RenderPlayer {
 		boolean isPlayer = entity != renderManager.livingPlayer;
 		boolean isInvisible = !entity.isInvisibleToPlayer(Minecraft.getMinecraft().thePlayer);
 		boolean isBeingRidden = entity.riddenByEntity == null;
-
+		
 		return isGUiEnabled && isPlayer && isInvisible && isBeingRidden;
 	}
 	
@@ -67,8 +67,10 @@ public class NewRenderPlayer extends RenderPlayer {
 	public void renderFirstPersonArm(EntityPlayer player) {
 		setModel(player);
 		Minecraft.getMinecraft().getTextureManager().bindTexture(getEntityTexture(player));
-
+		
 		super.renderFirstPersonArm(player);
+		
+		// This call is not needed at all due to bipedRightArmwear being a Child of bipedRightArm, therefore moving and rendering with it automatically already.
 		//((ModelPlayer) modelBipedMain).bipedRightArmwear.render(0.0625F);
 	}
 }
