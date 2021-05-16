@@ -28,10 +28,9 @@ public abstract class EntityAIMoveToBlock extends EntityAIBase {
 		if (runDelay > 0) {
 			runDelay--;
 			return false;
-		} else {
-			runDelay = 200 + theEntity.getRNG().nextInt(200);
-			return searchForDestination();
 		}
+		runDelay = 200 + theEntity.getRNG().nextInt(200);
+		return searchForDestination();
 	}
 
 	@Override

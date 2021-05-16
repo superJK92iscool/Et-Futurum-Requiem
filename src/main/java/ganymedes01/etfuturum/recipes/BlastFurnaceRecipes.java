@@ -3,7 +3,6 @@ package ganymedes01.etfuturum.recipes;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -21,8 +20,8 @@ public class BlastFurnaceRecipes
 {
 	private static final BlastFurnaceRecipes smeltingBase = new BlastFurnaceRecipes();
 	/** The list of smelting results. */
-	private Map smeltingList = new HashMap();
-	private Map experienceList = new HashMap();
+	public Map<ItemStack, ItemStack> smeltingList = new HashMap<ItemStack, ItemStack>();
+	public Map<ItemStack, Float> experienceList = new HashMap<ItemStack, Float>();
 
 	/**
 	 * Used to call methods addSmelting and getSmeltingResult.
@@ -51,7 +50,7 @@ public class BlastFurnaceRecipes
 		}
 		if(ConfigurationHandler.enableAutoAddBlastFurnace) {
 			String[] oreNames = OreDictionary.getOreNames();
-			List<ItemStack> oresToSmelt = new ArrayList();
+			//List<ItemStack> oresToSmelt = new ArrayList<ItemStack>(); // unused variable
 			int i = 0;
 			while(i < oreNames.length) {
 				if(oreNames[i].startsWith("ore")) {
@@ -102,8 +101,8 @@ public class BlastFurnaceRecipes
 	 */
 	public ItemStack getSmeltingResult(ItemStack p_151395_1_)
 	{
-		Iterator iterator = this.smeltingList.entrySet().iterator();
-		Entry entry;
+		Iterator<Entry<ItemStack, ItemStack>> iterator = this.smeltingList.entrySet().iterator();
+		Entry<ItemStack, ItemStack> entry;
 
 		do
 		{
@@ -112,11 +111,11 @@ public class BlastFurnaceRecipes
 				return null;
 			}
 
-			entry = (Entry)iterator.next();
+			entry = iterator.next();
 		}
-		while (!this.func_151397_a(p_151395_1_, (ItemStack)entry.getKey()));
+		while (!this.func_151397_a(p_151395_1_, entry.getKey()));
 
-		return (ItemStack)entry.getValue();
+		return entry.getValue();
 	}
 
 	private boolean func_151397_a(ItemStack p_151397_1_, ItemStack p_151397_2_)
@@ -124,7 +123,7 @@ public class BlastFurnaceRecipes
 		return p_151397_2_.getItem() == p_151397_1_.getItem() && (p_151397_2_.getItemDamage() == 32767 || p_151397_2_.getItemDamage() == p_151397_1_.getItemDamage());
 	}
 
-	public Map getSmeltingList()
+	public Map<ItemStack, ItemStack> getSmeltingList()
 	{
 		return this.smeltingList;
 	}
@@ -134,8 +133,8 @@ public class BlastFurnaceRecipes
 		float ret = p_151398_1_.getItem().getSmeltingExperience(p_151398_1_);
 		if (ret != -1) return ret;
 
-		Iterator iterator = this.experienceList.entrySet().iterator();
-		Entry entry;
+		Iterator<Entry<ItemStack, Float>> iterator = this.experienceList.entrySet().iterator();
+		Entry<ItemStack, Float> entry;
 
 		do
 		{
@@ -144,10 +143,10 @@ public class BlastFurnaceRecipes
 				return 0.0F;
 			}
 
-			entry = (Entry)iterator.next();
+			entry = iterator.next();
 		}
-		while (!this.func_151397_a(p_151398_1_, (ItemStack)entry.getKey()));
+		while (!this.func_151397_a(p_151398_1_, entry.getKey()));
 
-		return ((Float)entry.getValue()).floatValue();
+		return entry.getValue().floatValue();
 	}
 }

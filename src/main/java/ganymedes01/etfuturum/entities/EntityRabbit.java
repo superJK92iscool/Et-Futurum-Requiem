@@ -31,11 +31,11 @@ public class EntityRabbit extends EntityAnimal {
 
 	private int field_175540_bm = 0;
 	private int field_175535_bn = 0;
-	private boolean field_175536_bo = false;
+	boolean field_175536_bo = false;
 	private boolean field_175537_bp = false;
 	private int currentMoveTypeDuration = 0;
 	private EntityRabbit.EnumMoveType moveType;
-	private int carrotTicks;
+	int carrotTicks;
 
 	public EntityRabbit(World world) {
 		super(world);
@@ -284,7 +284,7 @@ public class EntityRabbit extends EntityAnimal {
 		return baby;
 	}
 
-	private boolean isCarrotEaten() {
+	boolean isCarrotEaten() {
 		return carrotTicks == 0;
 	}
 

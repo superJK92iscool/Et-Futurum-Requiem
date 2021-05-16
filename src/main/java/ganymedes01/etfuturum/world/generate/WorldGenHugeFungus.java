@@ -7,11 +7,11 @@ import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 
 public class WorldGenHugeFungus extends WorldGenAbstractTree {
 	/** The minimum height of a generated tree. */
-	private final int minTreeHeight;
+	public final int minTreeHeight;
 	/** The minimum height of a generated tree. */
-	private final int maxTreeHeight;
+	public final int maxTreeHeight;
 	/** True if this tree should grow Vines. */
-	private final boolean vinesGrow;
+	public final boolean vinesGrow;
 
 	public WorldGenHugeFungus(boolean p_i2027_1_, boolean crimson)
 	{
@@ -26,6 +26,7 @@ public class WorldGenHugeFungus extends WorldGenAbstractTree {
 		vinesGrow = growVines;
 	}
 	
+	@Override
 	public boolean generate(World world, Random rand, int x, int y, int z)
 	{
 		return true;

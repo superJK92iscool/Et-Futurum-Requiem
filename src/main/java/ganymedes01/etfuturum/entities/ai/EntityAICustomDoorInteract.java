@@ -31,33 +31,31 @@ public abstract class EntityAICustomDoorInteract extends EntityAIBase {
 	public boolean shouldExecute() {
 		if (!theEntity.isCollidedHorizontally)
 			return false;
-		else {
-			PathNavigate pathnavigate = theEntity.getNavigator();
-			PathEntity pathentity = pathnavigate.getPath();
+		PathNavigate pathnavigate = theEntity.getNavigator();
+		PathEntity pathentity = pathnavigate.getPath();
 
-			if (pathentity != null && !pathentity.isFinished() && pathnavigate.getCanBreakDoors()) {
-				for (int i = 0; i < Math.min(pathentity.getCurrentPathIndex() + 2, pathentity.getCurrentPathLength()); ++i) {
-					PathPoint pathpoint = pathentity.getPathPointFromIndex(i);
-					entityPosX = pathpoint.xCoord;
-					entityPosY = pathpoint.yCoord + 1;
-					entityPosZ = pathpoint.zCoord;
+		if (pathentity != null && !pathentity.isFinished() && pathnavigate.getCanBreakDoors()) {
+			for (int i = 0; i < Math.min(pathentity.getCurrentPathIndex() + 2, pathentity.getCurrentPathLength()); ++i) {
+				PathPoint pathpoint = pathentity.getPathPointFromIndex(i);
+				entityPosX = pathpoint.xCoord;
+				entityPosY = pathpoint.yCoord + 1;
+				entityPosZ = pathpoint.zCoord;
 
-					if (theEntity.getDistanceSq(entityPosX, theEntity.posY, entityPosZ) <= 2.25D) {
-						field_151504_e = func_151503_a(entityPosX, entityPosY, entityPosZ);
+				if (theEntity.getDistanceSq(entityPosX, theEntity.posY, entityPosZ) <= 2.25D) {
+					field_151504_e = func_151503_a(entityPosX, entityPosY, entityPosZ);
 
-						if (field_151504_e != null)
-							return true;
-					}
+					if (field_151504_e != null)
+						return true;
 				}
+			}
 
-				entityPosX = MathHelper.floor_double(theEntity.posX);
-				entityPosY = MathHelper.floor_double(theEntity.posY + 1.0D);
-				entityPosZ = MathHelper.floor_double(theEntity.posZ);
-				field_151504_e = func_151503_a(entityPosX, entityPosY, entityPosZ);
-				return field_151504_e != null;
-			} else
-				return false;
+			entityPosX = MathHelper.floor_double(theEntity.posX);
+			entityPosY = MathHelper.floor_double(theEntity.posY + 1.0D);
+			entityPosZ = MathHelper.floor_double(theEntity.posZ);
+			field_151504_e = func_151503_a(entityPosX, entityPosY, entityPosZ);
+			return field_151504_e != null;
 		}
+		return false;
 	}
 
 	@Override

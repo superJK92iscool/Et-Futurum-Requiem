@@ -1,9 +1,7 @@
 package ganymedes01.etfuturum.core.handlers;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
@@ -23,7 +21,6 @@ public class WorldTickEventHandler {
 
 	private static Map<Block, Block> replacements;
 	private int prevHash;
-	private Random rand = new Random();
 	
 	public WorldTickEventHandler() {
 	}
@@ -66,12 +63,11 @@ public class WorldTickEventHandler {
 		if(world.loadedTileEntityList.isEmpty() || prevHash == world.loadedTileEntityList.hashCode())
 			return;
 		
-		List<TileEntity> tileList = world.loadedTileEntityList; 
-		
-		for(int i = 0; i < tileList.size(); i++) {
-			TileEntity tile = tileList.get(i);
+		for(int i = 0; i < world.loadedTileEntityList.size(); i++) {
+			TileEntity tile = (TileEntity)world.loadedTileEntityList.get(i);
+			if (tile == null) continue;
 			Block replacement = replacements.get(tile.getBlockType());
-			if(tile != null && replacement != null && (!(replacement instanceof IConfigurable) || ((IConfigurable) replacement).isEnabled())) {
+			if(replacement != null && (!(replacement instanceof IConfigurable) || ((IConfigurable) replacement).isEnabled())) {
 				NBTTagCompound nbt = new NBTTagCompound();
 				tile.writeToNBT(nbt);
 				if (tile instanceof IInventory) {
@@ -89,6 +85,6 @@ public class WorldTickEventHandler {
 				break;
 			}
 		}
-		prevHash = tileList.hashCode(); 
+		prevHash = world.loadedTileEntityList.hashCode(); 
 	}
 }

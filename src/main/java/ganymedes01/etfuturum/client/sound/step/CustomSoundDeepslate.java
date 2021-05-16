@@ -19,6 +19,7 @@ public class CustomSoundDeepslate extends SoundType {
 		return Reference.MOD_ID + ":" + super.getStepResourcePath();
 	}
 
+	@Override
 	public String func_150496_b()
 	{
 		return Reference.MOD_ID + ":" + "place." + soundName;

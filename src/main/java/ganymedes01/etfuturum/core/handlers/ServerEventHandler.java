@@ -25,8 +25,8 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModEnchantments;
 import ganymedes01.etfuturum.ModItems;
-import ganymedes01.etfuturum.blocks.BlockWitherRose;
 import ganymedes01.etfuturum.blocks.BlockMagma;
+import ganymedes01.etfuturum.blocks.BlockWitherRose;
 import ganymedes01.etfuturum.client.sound.WeightedSoundPool;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.utils.HoeHelper;
@@ -97,7 +97,6 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.sound.PlaySoundEvent17;
-import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
@@ -309,8 +308,8 @@ public class ServerEventHandler {
 			if (line != null) {
 				int seed = Integer.parseInt(line);
 				ContainerEnchantment.seeds.put(event.playerUUID, seed);
-				br.close();
 			}
+			br.close();
 		} catch (Exception e) {
 		}
 	}
@@ -367,7 +366,7 @@ public class ServerEventHandler {
 	
 	@SubscribeEvent
 	public void onBlockBroken(BlockEvent.BreakEvent event) {
-		if(ConfigurationHandler.enableHoeMining && (double)event.block.getBlockHardness(event.world, event.x, event.y, event.z) != 0.0D) {
+		if(ConfigurationHandler.enableHoeMining && event.block.getBlockHardness(event.world, event.x, event.y, event.z) != 0.0D) {
 			ItemStack itemstack = event.getPlayer().getHeldItem();
 			if(itemstack != null && itemstack.getItem() instanceof ItemHoe) {
 				itemstack.damageItem(1, event.getPlayer());
@@ -406,20 +405,20 @@ public class ServerEventHandler {
 
 		if (i > 0 && itemstack != null)
 		{
-			float f1 = (float)(i * i + 1);
+			float f1 = i * i + 1;
 
-			boolean canHarvest = ForgeHooks.canToolHarvestBlock(block, meta, itemstack);
+			//boolean canHarvest = ForgeHooks.canToolHarvestBlock(block, meta, itemstack); // TODO Do you even care if it is harvestable?
 			moddedDigSpeed += f1;
 		}
 
 		if (entity.isPotionActive(Potion.digSpeed))
 		{
-			moddedDigSpeed *= 1.0F + (float)(entity.getActivePotionEffect(Potion.digSpeed).getAmplifier() + 1) * 0.2F;
+			moddedDigSpeed *= 1.0F + (entity.getActivePotionEffect(Potion.digSpeed).getAmplifier() + 1) * 0.2F;
 		}
 
 		if (entity.isPotionActive(Potion.digSlowdown))
 		{
-			moddedDigSpeed *= 1.0F - (float)(entity.getActivePotionEffect(Potion.digSlowdown).getAmplifier() + 1) * 0.2F;
+			moddedDigSpeed *= 1.0F - (entity.getActivePotionEffect(Potion.digSlowdown).getAmplifier() + 1) * 0.2F;
 		}
 
 		if (entity.isInsideOfMaterial(Material.water) && !EnchantmentHelper.getAquaAffinityModifier(entity))
@@ -510,7 +509,7 @@ public class ServerEventHandler {
 							e.printStackTrace();
 						}
 						if(flag) {
-						event.setResult(event.useItem.DENY);
+						event.setResult(Result.DENY);
 						world.setBlock(event.x, event.y, event.z, ModBlocks.lava_cauldron);
 						player.swingItem();
 						if (!player.capabilities.isCreativeMode)
@@ -760,7 +759,7 @@ public class ServerEventHandler {
 		if (!p_70655_1_.isUnblockable())
 		{
 			int i = 25 - entity.getTotalArmorValue();
-			float f1 = p_70655_2_ * (float)i;
+			float f1 = p_70655_2_ * i;
 			p_70655_2_ = f1 / 25.0F;
 		}
 
@@ -773,48 +772,42 @@ public class ServerEventHandler {
 		{
 			return p_70672_2_;
 		}
-		else
+		if (entity instanceof EntityZombie)
 		{
-			if (entity instanceof EntityZombie)
-			{
-				//par2 = par2; // Forge: Noop Warning
-			}
-
-			int i;
-			int j;
-			float f1;
-
-			if (entity.isPotionActive(Potion.resistance) && p_70672_1_ != DamageSource.outOfWorld)
-			{
-				i = (entity.getActivePotionEffect(Potion.resistance).getAmplifier() + 1) * 5;
-				j = 25 - i;
-				f1 = p_70672_2_ * (float)j;
-				p_70672_2_ = f1 / 25.0F;
-			}
-
-			if (p_70672_2_ <= 0.0F)
-			{
-				return 0.0F;
-			}
-			else
-			{
-				i = EnchantmentHelper.getEnchantmentModifierDamage(entity.getLastActiveItems(), p_70672_1_);
-
-				if (i > 20)
-				{
-					i = 20;
-				}
-
-				if (i > 0 && i <= 20)
-				{
-					j = 25 - i;
-					f1 = p_70672_2_ * (float)j;
-					p_70672_2_ = f1 / 25.0F;
-				}
-
-				return p_70672_2_;
-			}
+			//par2 = par2; // Forge: Noop Warning
 		}
+
+		int i;
+		int j;
+		float f1;
+
+		if (entity.isPotionActive(Potion.resistance) && p_70672_1_ != DamageSource.outOfWorld)
+		{
+			i = (entity.getActivePotionEffect(Potion.resistance).getAmplifier() + 1) * 5;
+			j = 25 - i;
+			f1 = p_70672_2_ * j;
+			p_70672_2_ = f1 / 25.0F;
+		}
+
+		if (p_70672_2_ <= 0.0F)
+		{
+			return 0.0F;
+		}
+		i = EnchantmentHelper.getEnchantmentModifierDamage(entity.getLastActiveItems(), p_70672_1_);
+
+		if (i > 20)
+		{
+			i = 20;
+		}
+
+		if (i > 0 && i <= 20)
+		{
+			j = 25 - i;
+			f1 = p_70672_2_ * j;
+			p_70672_2_ = f1 / 25.0F;
+		}
+
+		return p_70672_2_;
 	}
 
 	@SubscribeEvent
@@ -909,25 +902,26 @@ public class ServerEventHandler {
 		}
 	}
 	
-	private boolean playerHasItem(final EntityPlayer player, final ItemStack ist, final boolean checkEnabled) {
-		for (int slot = 0; slot < player.inventory.mainInventory.length; ++slot) {
-			if (player.inventory.mainInventory[slot] != null && player.inventory.mainInventory[slot].isItemEqual(ist)) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	private void decreaseItemByOne(final EntityPlayer player, final Item item) {
-		for (int slot = 0; slot < player.inventory.mainInventory.length; ++slot) {
-			if (player.inventory.mainInventory[slot] != null) {
-				if (player.inventory.mainInventory[slot].getItem() == item) {
-					player.inventory.decrStackSize(slot, 1);
-					return;
-				}
-			}
-		}
-	}
+	// UNUSED FUNCTIONS
+	//private boolean playerHasItem(final EntityPlayer player, final ItemStack ist, final boolean checkEnabled) {
+	//	for (int slot = 0; slot < player.inventory.mainInventory.length; ++slot) {
+	//		if (player.inventory.mainInventory[slot] != null && player.inventory.mainInventory[slot].isItemEqual(ist)) {
+	//			return true;
+	//		}
+	//	}
+	//	return false;
+	//}
+	// UNUSED FUNCTIONS
+	//private void decreaseItemByOne(final EntityPlayer player, final Item item) {
+	//	for (int slot = 0; slot < player.inventory.mainInventory.length; ++slot) {
+	//		if (player.inventory.mainInventory[slot] != null) {
+	//			if (player.inventory.mainInventory[slot].getItem() == item) {
+	//				player.inventory.decrStackSize(slot, 1);
+	//				return;
+	//			}
+	//		}
+	//	}
+	//}
 
 	PositionedSound netherMusic;
 
@@ -995,7 +989,7 @@ public class ServerEventHandler {
 				Minecraft mc = cpw.mods.fml.client.FMLClientHandler.instance().getClient();
 				if (mc.thePlayer.dimension == -1 && event.name.equals("music.game.nether")) {
 					if(netherMusic == null || !mc.getSoundHandler().isSoundPlaying(netherMusic)) {
-						World world = mc.theWorld;
+						//World world = mc.theWorld; // unused variable
 						WeightedSoundPool pool = getMusicForBiome(mc.theWorld.getChunkFromBlockCoords((int)mc.thePlayer.posX, (int)mc.thePlayer.posZ).getBiomeGenForWorldCoords((int)mc.thePlayer.posX & 15, (int)mc.thePlayer.posZ & 15, mc.theWorld.getWorldChunkManager()).biomeName);
 						netherMusic = PositionedSoundRecord.func_147673_a(new ResourceLocation(pool.getRandom()));
 						event.result = netherMusic;
@@ -1007,7 +1001,7 @@ public class ServerEventHandler {
 			
 			if(ConfigurationHandler.enableNewAmbientSounds) {
 				if (event.name.equals("ambient.weather.rain")) {
-					World world = cpw.mods.fml.client.FMLClientHandler.instance().getWorldClient();
+					//World world = cpw.mods.fml.client.FMLClientHandler.instance().getWorldClient(); // unused variable
 					int x = MathHelper.floor_float(event.sound.getXPosF());
 					int y = MathHelper.floor_float(event.sound.getYPosF());
 					int z = MathHelper.floor_float(event.sound.getZPosF());
@@ -1068,9 +1062,9 @@ public class ServerEventHandler {
 				return;
 			String name = itemblock.getUnlocalizedName(new ItemStack(itemblock, 1, world.getBlockMetadata(x, y, z) % 8)).toLowerCase();
 			if(name.contains("slab") && name.contains("nether") && name.contains("brick")) {
-				String prefix = event.name.substring(0, event.name.indexOf(".") + 1);
-				float soundPit = (block.stepSound.getPitch()) * (prefix.contains("step") ? 0.5F : 0.8F);
-				float soundVol = (block.stepSound.getVolume() + 1.0F) / (prefix.contains("step") ? 8F : 2F);
+				//String prefix = event.name.substring(0, event.name.indexOf(".") + 1); // unused variable
+				//float soundPit = (block.stepSound.getPitch()) * (prefix.contains("step") ? 0.5F : 0.8F); // unused variable
+				//float soundVol = (block.stepSound.getVolume() + 1.0F) / (prefix.contains("step") ? 8F : 2F); // unused variable
 				event.name = Reference.MOD_ID + ":" + eventwithprefix[0] + ".nether_bricks";
 				return;
 			}

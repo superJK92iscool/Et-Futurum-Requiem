@@ -20,9 +20,8 @@ public class WorldHelper {
 			}
 
 			return true;
-		} else {
-			return false;
 		}
+		return false;
 	}
 	
 	private static boolean isChunkLoaded(World world, int x, int z) {

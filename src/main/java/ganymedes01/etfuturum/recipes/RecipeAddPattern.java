@@ -34,8 +34,7 @@ public class RecipeAddPattern implements IRecipe {
 
 		if (!flag)
 			return false;
-		else
-			return getPattern(grid) != null;
+		return getPattern(grid) != null;
 	}
 
 	@Override

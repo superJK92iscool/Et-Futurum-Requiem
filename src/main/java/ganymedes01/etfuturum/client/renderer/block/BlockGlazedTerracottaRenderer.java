@@ -65,9 +65,9 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
 //        System.out.println("Meta: " + Integer.toString(orient) + " Rotation: " + Integer.toString(orient > 1 ? 2 * orient - 4 : 3 - 2 * orient));
 		
 		int l = block.colorMultiplier(world, x, y, z);
-		float f = (float)(l >> 16 & 255) / 255.0F;
-		float f1 = (float)(l >> 8 & 255) / 255.0F;
-		float f2 = (float)(l & 255) / 255.0F;
+		float f = (l >> 16 & 255) / 255.0F;
+		float f1 = (l >> 8 & 255) / 255.0F;
+		float f2 = (l & 255) / 255.0F;
 
 		if (EntityRenderer.anaglyphEnable)
 		{
@@ -186,7 +186,7 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
 			
 			tessellator.setBrightness(renderer.renderMinY > 0.0D ? l : p_147736_1_.getMixedBrightnessForBlock(renderer.blockAccess, p_147736_2_, p_147736_3_ - 1, p_147736_4_));
 			tessellator.setColorOpaque_F(f10, f13, f16);
-			renderFaceYNeg(renderer, p_147736_1_, (double)p_147736_2_, (double)p_147736_3_, (double)p_147736_4_, renderer.getBlockIcon(p_147736_1_, renderer.blockAccess, p_147736_2_, p_147736_3_, p_147736_4_, 0));
+			renderFaceYNeg(renderer, p_147736_1_, p_147736_2_, p_147736_3_, p_147736_4_, renderer.getBlockIcon(p_147736_1_, renderer.blockAccess, p_147736_2_, p_147736_3_, p_147736_4_, 0));
 			flag = true;
 			
 		}
@@ -195,7 +195,7 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
 		{
 			tessellator.setBrightness(renderer.renderMaxY < 1.0D ? l : p_147736_1_.getMixedBrightnessForBlock(renderer.blockAccess, p_147736_2_, p_147736_3_ + 1, p_147736_4_));
 			tessellator.setColorOpaque_F(f7, f8, f9);
-			renderFaceYPos(renderer, p_147736_1_, (double)p_147736_2_, (double)p_147736_3_, (double)p_147736_4_, renderer.getBlockIcon(p_147736_1_, renderer.blockAccess, p_147736_2_, p_147736_3_, p_147736_4_, 1));
+			renderFaceYPos(renderer, p_147736_1_, p_147736_2_, p_147736_3_, p_147736_4_, renderer.getBlockIcon(p_147736_1_, renderer.blockAccess, p_147736_2_, p_147736_3_, p_147736_4_, 1));
 			flag = true;
 		}
 
@@ -206,7 +206,7 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
 			tessellator.setBrightness(renderer.renderMinZ > 0.0D ? l : p_147736_1_.getMixedBrightnessForBlock(renderer.blockAccess, p_147736_2_, p_147736_3_, p_147736_4_ - 1));
 			tessellator.setColorOpaque_F(f11, f14, f17);
 			iicon = renderer.getBlockIcon(p_147736_1_, renderer.blockAccess, p_147736_2_, p_147736_3_, p_147736_4_, 2);
-			renderFaceZNeg(renderer, p_147736_1_, (double)p_147736_2_, (double)p_147736_3_, (double)p_147736_4_, iicon);
+			renderFaceZNeg(renderer, p_147736_1_, p_147736_2_, p_147736_3_, p_147736_4_, iicon);
 
 			flag = true;
 		}
@@ -216,7 +216,7 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
 			tessellator.setBrightness(renderer.renderMaxZ < 1.0D ? l : p_147736_1_.getMixedBrightnessForBlock(renderer.blockAccess, p_147736_2_, p_147736_3_, p_147736_4_ + 1));
 			tessellator.setColorOpaque_F(f11, f14, f17);
 			iicon = renderer.getBlockIcon(p_147736_1_, renderer.blockAccess, p_147736_2_, p_147736_3_, p_147736_4_, 3);
-			renderFaceZPos(renderer, p_147736_1_, (double)p_147736_2_, (double)p_147736_3_, (double)p_147736_4_, iicon);
+			renderFaceZPos(renderer, p_147736_1_, p_147736_2_, p_147736_3_, p_147736_4_, iicon);
 
 			flag = true;
 		}
@@ -226,7 +226,7 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
 			tessellator.setBrightness(renderer.renderMinX > 0.0D ? l : p_147736_1_.getMixedBrightnessForBlock(renderer.blockAccess, p_147736_2_ - 1, p_147736_3_, p_147736_4_));
 			tessellator.setColorOpaque_F(f12, f15, f18);
 			iicon = renderer.getBlockIcon(p_147736_1_, renderer.blockAccess, p_147736_2_, p_147736_3_, p_147736_4_, 4);
-			renderFaceXNeg(renderer, p_147736_1_, (double)p_147736_2_, (double)p_147736_3_, (double)p_147736_4_, iicon);
+			renderFaceXNeg(renderer, p_147736_1_, p_147736_2_, p_147736_3_, p_147736_4_, iicon);
 
 			flag = true;
 		}
@@ -236,7 +236,7 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
 			tessellator.setBrightness(renderer.renderMaxX < 1.0D ? l : p_147736_1_.getMixedBrightnessForBlock(renderer.blockAccess, p_147736_2_ + 1, p_147736_3_, p_147736_4_));
 			tessellator.setColorOpaque_F(f12, f15, f18);
 			iicon = renderer.getBlockIcon(p_147736_1_, renderer.blockAccess, p_147736_2_, p_147736_3_, p_147736_4_, 5);
-			renderFaceXPos(renderer, p_147736_1_, (double)p_147736_2_, (double)p_147736_3_, (double)p_147736_4_, iicon);
+			renderFaceXPos(renderer, p_147736_1_, p_147736_2_, p_147736_3_, p_147736_4_, iicon);
 
 			flag = true;
 		}
@@ -385,7 +385,7 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
 			renderer.colorGreenTopRight *= f6;
 			renderer.colorBlueTopRight *= f6;//Bottom, Side 0
 			
-			renderFaceYNeg(renderer, p_147751_1_, (double)p_147751_2_, (double)p_147751_3_, (double)p_147751_4_, renderer.getBlockIcon(p_147751_1_, renderer.blockAccess, p_147751_2_, p_147751_3_, p_147751_4_, 0));
+			renderFaceYNeg(renderer, p_147751_1_, p_147751_2_, p_147751_3_, p_147751_4_, renderer.getBlockIcon(p_147751_1_, renderer.blockAccess, p_147751_2_, p_147751_3_, p_147751_4_, 0));
 			
 			flag = true;
 		}
@@ -490,7 +490,7 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
 			renderer.colorRedTopRight *= f6;
 			renderer.colorGreenTopRight *= f6;
 			renderer.colorBlueTopRight *= f6;
-			renderFaceYPos(renderer, p_147751_1_, (double)p_147751_2_, (double)p_147751_3_, (double)p_147751_4_, renderer.getBlockIcon(p_147751_1_, renderer.blockAccess, p_147751_2_, p_147751_3_, p_147751_4_, 1));
+			renderFaceYPos(renderer, p_147751_1_, p_147751_2_, p_147751_3_, p_147751_4_, renderer.getBlockIcon(p_147751_1_, renderer.blockAccess, p_147751_2_, p_147751_3_, p_147751_4_, 1));
 			flag = true;
 		}
 
@@ -608,9 +608,9 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
 			renderer.colorGreenTopRight *= f6;
 			renderer.colorBlueTopRight *= f6;
 			iicon = renderer.getBlockIcon(p_147751_1_, renderer.blockAccess, p_147751_2_, p_147751_3_, p_147751_4_, 2);
-			renderFaceZNeg(renderer, p_147751_1_, (double)p_147751_2_, (double)p_147751_3_, (double)p_147751_4_, iicon);
+			renderFaceZNeg(renderer, p_147751_1_, p_147751_2_, p_147751_3_, p_147751_4_, iicon);
 
-			if (renderer.fancyGrass && iicon.getIconName().equals("grass_side") && !renderer.hasOverrideBlockTexture())
+			if (RenderBlocks.fancyGrass && iicon.getIconName().equals("grass_side") && !renderer.hasOverrideBlockTexture())
 			{
 				renderer.colorRedTopLeft *= p_147751_5_;
 				renderer.colorRedBottomLeft *= p_147751_5_;
@@ -624,7 +624,7 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
 				renderer.colorBlueBottomLeft *= p_147751_7_;
 				renderer.colorBlueBottomRight *= p_147751_7_;
 				renderer.colorBlueTopRight *= p_147751_7_;
-				renderFaceZNeg(renderer, p_147751_1_, (double)p_147751_2_, (double)p_147751_3_, (double)p_147751_4_, BlockGrass.getIconSideOverlay());
+				renderFaceZNeg(renderer, p_147751_1_, p_147751_2_, p_147751_3_, p_147751_4_, BlockGrass.getIconSideOverlay());
 			}
 
 			flag = true;
@@ -742,7 +742,7 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
 			renderer.colorGreenTopRight *= f6;
 			renderer.colorBlueTopRight *= f6;
 			iicon = renderer.getBlockIcon(p_147751_1_, renderer.blockAccess, p_147751_2_, p_147751_3_, p_147751_4_, 3);
-			renderFaceZPos(renderer, p_147751_1_, (double)p_147751_2_, (double)p_147751_3_, (double)p_147751_4_, renderer.getBlockIcon(p_147751_1_, renderer.blockAccess, p_147751_2_, p_147751_3_, p_147751_4_, 3));
+			renderFaceZPos(renderer, p_147751_1_, p_147751_2_, p_147751_3_, p_147751_4_, renderer.getBlockIcon(p_147751_1_, renderer.blockAccess, p_147751_2_, p_147751_3_, p_147751_4_, 3));
 
 			flag = true;
 		}
@@ -859,7 +859,7 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
 			renderer.colorGreenTopRight *= f6;
 			renderer.colorBlueTopRight *= f6;
 			iicon = renderer.getBlockIcon(p_147751_1_, renderer.blockAccess, p_147751_2_, p_147751_3_, p_147751_4_, 4);
-			renderFaceXNeg(renderer, p_147751_1_, (double)p_147751_2_, (double)p_147751_3_, (double)p_147751_4_, iicon);
+			renderFaceXNeg(renderer, p_147751_1_, p_147751_2_, p_147751_3_, p_147751_4_, iicon);
 
 			flag = true;
 		}
@@ -976,7 +976,7 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
 			renderer.colorGreenTopRight *= f6;
 			renderer.colorBlueTopRight *= f6;
 			iicon = renderer.getBlockIcon(p_147751_1_, renderer.blockAccess, p_147751_2_, p_147751_3_, p_147751_4_, 5);
-			renderFaceXPos(renderer, p_147751_1_, (double)p_147751_2_, (double)p_147751_3_, (double)p_147751_4_, iicon);
+			renderFaceXPos(renderer, p_147751_1_, p_147751_2_, p_147751_3_, p_147751_4_, iicon);
 
 			flag = true;
 		}
@@ -1129,7 +1129,7 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
 			renderer.colorGreenTopRight *= f6;
 			renderer.colorBlueTopRight *= f6;
 			
-			renderFaceYNeg(renderer, p_147808_1_, (double)p_147808_2_, (double)p_147808_3_, (double)p_147808_4_, renderer.getBlockIcon(p_147808_1_, renderer.blockAccess, p_147808_2_, p_147808_3_, p_147808_4_, 0));
+			renderFaceYNeg(renderer, p_147808_1_, p_147808_2_, p_147808_3_, p_147808_4_, renderer.getBlockIcon(p_147808_1_, renderer.blockAccess, p_147808_2_, p_147808_3_, p_147808_4_, 0));
 			
 			flag = true;
 		}
@@ -1234,7 +1234,7 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
 			renderer.colorRedTopRight *= f6;
 			renderer.colorGreenTopRight *= f6;
 			renderer.colorBlueTopRight *= f6;
-			renderFaceYPos(renderer, p_147808_1_, (double)p_147808_2_, (double)p_147808_3_, (double)p_147808_4_, renderer.getBlockIcon(p_147808_1_, renderer.blockAccess, p_147808_2_, p_147808_3_, p_147808_4_, 1));
+			renderFaceYPos(renderer, p_147808_1_, p_147808_2_, p_147808_3_, p_147808_4_, renderer.getBlockIcon(p_147808_1_, renderer.blockAccess, p_147808_2_, p_147808_3_, p_147808_4_, 1));
 			flag = true;
 		}
 
@@ -1329,10 +1329,10 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
 			f9 = (f7 + renderer.aoLightValueScratchYZPN + renderer.aoLightValueScratchXZPN + renderer.aoLightValueScratchXYZPPN) / 4.0F;
 			f10 = (renderer.aoLightValueScratchYZNN + f7 + renderer.aoLightValueScratchXYZPNN + renderer.aoLightValueScratchXZPN) / 4.0F;
 			f11 = (renderer.aoLightValueScratchXYZNNN + renderer.aoLightValueScratchXZNN + renderer.aoLightValueScratchYZNN + f7) / 4.0F;
-			f3 = (float)((double)f8 * renderer.renderMaxY * (1.0D - renderer.renderMinX) + (double)f9 * renderer.renderMaxY * renderer.renderMinX + (double)f10 * (1.0D - renderer.renderMaxY) * renderer.renderMinX + (double)f11 * (1.0D - renderer.renderMaxY) * (1.0D - renderer.renderMinX));
-			f4 = (float)((double)f8 * renderer.renderMaxY * (1.0D - renderer.renderMaxX) + (double)f9 * renderer.renderMaxY * renderer.renderMaxX + (double)f10 * (1.0D - renderer.renderMaxY) * renderer.renderMaxX + (double)f11 * (1.0D - renderer.renderMaxY) * (1.0D - renderer.renderMaxX));
-			f5 = (float)((double)f8 * renderer.renderMinY * (1.0D - renderer.renderMaxX) + (double)f9 * renderer.renderMinY * renderer.renderMaxX + (double)f10 * (1.0D - renderer.renderMinY) * renderer.renderMaxX + (double)f11 * (1.0D - renderer.renderMinY) * (1.0D - renderer.renderMaxX));
-			f6 = (float)((double)f8 * renderer.renderMinY * (1.0D - renderer.renderMinX) + (double)f9 * renderer.renderMinY * renderer.renderMinX + (double)f10 * (1.0D - renderer.renderMinY) * renderer.renderMinX + (double)f11 * (1.0D - renderer.renderMinY) * (1.0D - renderer.renderMinX));
+			f3 = (float)(f8 * renderer.renderMaxY * (1.0D - renderer.renderMinX) + f9 * renderer.renderMaxY * renderer.renderMinX + f10 * (1.0D - renderer.renderMaxY) * renderer.renderMinX + f11 * (1.0D - renderer.renderMaxY) * (1.0D - renderer.renderMinX));
+			f4 = (float)(f8 * renderer.renderMaxY * (1.0D - renderer.renderMaxX) + f9 * renderer.renderMaxY * renderer.renderMaxX + f10 * (1.0D - renderer.renderMaxY) * renderer.renderMaxX + f11 * (1.0D - renderer.renderMaxY) * (1.0D - renderer.renderMaxX));
+			f5 = (float)(f8 * renderer.renderMinY * (1.0D - renderer.renderMaxX) + f9 * renderer.renderMinY * renderer.renderMaxX + f10 * (1.0D - renderer.renderMinY) * renderer.renderMaxX + f11 * (1.0D - renderer.renderMinY) * (1.0D - renderer.renderMaxX));
+			f6 = (float)(f8 * renderer.renderMinY * (1.0D - renderer.renderMinX) + f9 * renderer.renderMinY * renderer.renderMinX + f10 * (1.0D - renderer.renderMinY) * renderer.renderMinX + f11 * (1.0D - renderer.renderMinY) * (1.0D - renderer.renderMinX));
 			j1 = renderer.getAoBrightness(renderer.aoBrightnessXZNN, renderer.aoBrightnessXYZNPN, renderer.aoBrightnessYZPN, i1);
 			k1 = renderer.getAoBrightness(renderer.aoBrightnessYZPN, renderer.aoBrightnessXZPN, renderer.aoBrightnessXYZPPN, i1);
 			l1 = renderer.getAoBrightness(renderer.aoBrightnessYZNN, renderer.aoBrightnessXYZPNN, renderer.aoBrightnessXZPN, i1);
@@ -1368,7 +1368,7 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
 			renderer.colorGreenTopRight *= f6;
 			renderer.colorBlueTopRight *= f6;
 			iicon = renderer.getBlockIcon(p_147808_1_, renderer.blockAccess, p_147808_2_, p_147808_3_, p_147808_4_, 2);
-			renderFaceZNeg(renderer, p_147808_1_, (double)p_147808_2_, (double)p_147808_3_, (double)p_147808_4_, iicon);
+			renderFaceZNeg(renderer, p_147808_1_, p_147808_2_, p_147808_3_, p_147808_4_, iicon);
 
 			flag = true;
 		}
@@ -1454,10 +1454,10 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
 			f9 = (f7 + renderer.aoLightValueScratchYZPP + renderer.aoLightValueScratchXZPP + renderer.aoLightValueScratchXYZPPP) / 4.0F;
 			f10 = (renderer.aoLightValueScratchYZNP + f7 + renderer.aoLightValueScratchXYZPNP + renderer.aoLightValueScratchXZPP) / 4.0F;
 			f11 = (renderer.aoLightValueScratchXYZNNP + renderer.aoLightValueScratchXZNP + renderer.aoLightValueScratchYZNP + f7) / 4.0F;
-			f3 = (float)((double)f8 * renderer.renderMaxY * (1.0D - renderer.renderMinX) + (double)f9 * renderer.renderMaxY * renderer.renderMinX + (double)f10 * (1.0D - renderer.renderMaxY) * renderer.renderMinX + (double)f11 * (1.0D - renderer.renderMaxY) * (1.0D - renderer.renderMinX));
-			f4 = (float)((double)f8 * renderer.renderMinY * (1.0D - renderer.renderMinX) + (double)f9 * renderer.renderMinY * renderer.renderMinX + (double)f10 * (1.0D - renderer.renderMinY) * renderer.renderMinX + (double)f11 * (1.0D - renderer.renderMinY) * (1.0D - renderer.renderMinX));
-			f5 = (float)((double)f8 * renderer.renderMinY * (1.0D - renderer.renderMaxX) + (double)f9 * renderer.renderMinY * renderer.renderMaxX + (double)f10 * (1.0D - renderer.renderMinY) * renderer.renderMaxX + (double)f11 * (1.0D - renderer.renderMinY) * (1.0D - renderer.renderMaxX));
-			f6 = (float)((double)f8 * renderer.renderMaxY * (1.0D - renderer.renderMaxX) + (double)f9 * renderer.renderMaxY * renderer.renderMaxX + (double)f10 * (1.0D - renderer.renderMaxY) * renderer.renderMaxX + (double)f11 * (1.0D - renderer.renderMaxY) * (1.0D - renderer.renderMaxX));
+			f3 = (float)(f8 * renderer.renderMaxY * (1.0D - renderer.renderMinX) + f9 * renderer.renderMaxY * renderer.renderMinX + f10 * (1.0D - renderer.renderMaxY) * renderer.renderMinX + f11 * (1.0D - renderer.renderMaxY) * (1.0D - renderer.renderMinX));
+			f4 = (float)(f8 * renderer.renderMinY * (1.0D - renderer.renderMinX) + f9 * renderer.renderMinY * renderer.renderMinX + f10 * (1.0D - renderer.renderMinY) * renderer.renderMinX + f11 * (1.0D - renderer.renderMinY) * (1.0D - renderer.renderMinX));
+			f5 = (float)(f8 * renderer.renderMinY * (1.0D - renderer.renderMaxX) + f9 * renderer.renderMinY * renderer.renderMaxX + f10 * (1.0D - renderer.renderMinY) * renderer.renderMaxX + f11 * (1.0D - renderer.renderMinY) * (1.0D - renderer.renderMaxX));
+			f6 = (float)(f8 * renderer.renderMaxY * (1.0D - renderer.renderMaxX) + f9 * renderer.renderMaxY * renderer.renderMaxX + f10 * (1.0D - renderer.renderMaxY) * renderer.renderMaxX + f11 * (1.0D - renderer.renderMaxY) * (1.0D - renderer.renderMaxX));
 			j1 = renderer.getAoBrightness(renderer.aoBrightnessXZNP, renderer.aoBrightnessXYZNPP, renderer.aoBrightnessYZPP, i1);
 			k1 = renderer.getAoBrightness(renderer.aoBrightnessYZPP, renderer.aoBrightnessXZPP, renderer.aoBrightnessXYZPPP, i1);
 			l1 = renderer.getAoBrightness(renderer.aoBrightnessYZNP, renderer.aoBrightnessXYZPNP, renderer.aoBrightnessXZPP, i1);
@@ -1493,7 +1493,7 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
 			renderer.colorGreenTopRight *= f6;
 			renderer.colorBlueTopRight *= f6;
 			iicon = renderer.getBlockIcon(p_147808_1_, renderer.blockAccess, p_147808_2_, p_147808_3_, p_147808_4_, 3);
-			renderFaceZPos(renderer, p_147808_1_, (double)p_147808_2_, (double)p_147808_3_, (double)p_147808_4_, iicon);
+			renderFaceZPos(renderer, p_147808_1_, p_147808_2_, p_147808_3_, p_147808_4_, iicon);
 			
 			flag = true;
 		}
@@ -1579,10 +1579,10 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
 			f9 = (f7 + renderer.aoLightValueScratchXZNP + renderer.aoLightValueScratchXYNP + renderer.aoLightValueScratchXYZNPP) / 4.0F;
 			f10 = (renderer.aoLightValueScratchXZNN + f7 + renderer.aoLightValueScratchXYZNPN + renderer.aoLightValueScratchXYNP) / 4.0F;
 			f11 = (renderer.aoLightValueScratchXYZNNN + renderer.aoLightValueScratchXYNN + renderer.aoLightValueScratchXZNN + f7) / 4.0F;
-			f3 = (float)((double)f9 * renderer.renderMaxY * renderer.renderMaxZ + (double)f10 * renderer.renderMaxY * (1.0D - renderer.renderMaxZ) + (double)f11 * (1.0D - renderer.renderMaxY) * (1.0D - renderer.renderMaxZ) + (double)f8 * (1.0D - renderer.renderMaxY) * renderer.renderMaxZ);
-			f4 = (float)((double)f9 * renderer.renderMaxY * renderer.renderMinZ + (double)f10 * renderer.renderMaxY * (1.0D - renderer.renderMinZ) + (double)f11 * (1.0D - renderer.renderMaxY) * (1.0D - renderer.renderMinZ) + (double)f8 * (1.0D - renderer.renderMaxY) * renderer.renderMinZ);
-			f5 = (float)((double)f9 * renderer.renderMinY * renderer.renderMinZ + (double)f10 * renderer.renderMinY * (1.0D - renderer.renderMinZ) + (double)f11 * (1.0D - renderer.renderMinY) * (1.0D - renderer.renderMinZ) + (double)f8 * (1.0D - renderer.renderMinY) * renderer.renderMinZ);
-			f6 = (float)((double)f9 * renderer.renderMinY * renderer.renderMaxZ + (double)f10 * renderer.renderMinY * (1.0D - renderer.renderMaxZ) + (double)f11 * (1.0D - renderer.renderMinY) * (1.0D - renderer.renderMaxZ) + (double)f8 * (1.0D - renderer.renderMinY) * renderer.renderMaxZ);
+			f3 = (float)(f9 * renderer.renderMaxY * renderer.renderMaxZ + f10 * renderer.renderMaxY * (1.0D - renderer.renderMaxZ) + f11 * (1.0D - renderer.renderMaxY) * (1.0D - renderer.renderMaxZ) + f8 * (1.0D - renderer.renderMaxY) * renderer.renderMaxZ);
+			f4 = (float)(f9 * renderer.renderMaxY * renderer.renderMinZ + f10 * renderer.renderMaxY * (1.0D - renderer.renderMinZ) + f11 * (1.0D - renderer.renderMaxY) * (1.0D - renderer.renderMinZ) + f8 * (1.0D - renderer.renderMaxY) * renderer.renderMinZ);
+			f5 = (float)(f9 * renderer.renderMinY * renderer.renderMinZ + f10 * renderer.renderMinY * (1.0D - renderer.renderMinZ) + f11 * (1.0D - renderer.renderMinY) * (1.0D - renderer.renderMinZ) + f8 * (1.0D - renderer.renderMinY) * renderer.renderMinZ);
+			f6 = (float)(f9 * renderer.renderMinY * renderer.renderMaxZ + f10 * renderer.renderMinY * (1.0D - renderer.renderMaxZ) + f11 * (1.0D - renderer.renderMinY) * (1.0D - renderer.renderMaxZ) + f8 * (1.0D - renderer.renderMinY) * renderer.renderMaxZ);
 			j1 = renderer.getAoBrightness(renderer.aoBrightnessXYNN, renderer.aoBrightnessXYZNNP, renderer.aoBrightnessXZNP, i1);
 			k1 = renderer.getAoBrightness(renderer.aoBrightnessXZNP, renderer.aoBrightnessXYNP, renderer.aoBrightnessXYZNPP, i1);
 			l1 = renderer.getAoBrightness(renderer.aoBrightnessXZNN, renderer.aoBrightnessXYZNPN, renderer.aoBrightnessXYNP, i1);
@@ -1618,7 +1618,7 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
 			renderer.colorGreenTopRight *= f6;
 			renderer.colorBlueTopRight *= f6;
 			iicon = renderer.getBlockIcon(p_147808_1_, renderer.blockAccess, p_147808_2_, p_147808_3_, p_147808_4_, 4);
-			renderFaceXNeg(renderer, p_147808_1_, (double)p_147808_2_, (double)p_147808_3_, (double)p_147808_4_, iicon);
+			renderFaceXNeg(renderer, p_147808_1_, p_147808_2_, p_147808_3_, p_147808_4_, iicon);
 
 			flag = true;
 		}
@@ -1704,10 +1704,10 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
 			f9 = (renderer.aoLightValueScratchXYZPNN + renderer.aoLightValueScratchXYPN + renderer.aoLightValueScratchXZPN + f7) / 4.0F;
 			f10 = (renderer.aoLightValueScratchXZPN + f7 + renderer.aoLightValueScratchXYZPPN + renderer.aoLightValueScratchXYPP) / 4.0F;
 			f11 = (f7 + renderer.aoLightValueScratchXZPP + renderer.aoLightValueScratchXYPP + renderer.aoLightValueScratchXYZPPP) / 4.0F;
-			f3 = (float)((double)f8 * (1.0D - renderer.renderMinY) * renderer.renderMaxZ + (double)f9 * (1.0D - renderer.renderMinY) * (1.0D - renderer.renderMaxZ) + (double)f10 * renderer.renderMinY * (1.0D - renderer.renderMaxZ) + (double)f11 * renderer.renderMinY * renderer.renderMaxZ);
-			f4 = (float)((double)f8 * (1.0D - renderer.renderMinY) * renderer.renderMinZ + (double)f9 * (1.0D - renderer.renderMinY) * (1.0D - renderer.renderMinZ) + (double)f10 * renderer.renderMinY * (1.0D - renderer.renderMinZ) + (double)f11 * renderer.renderMinY * renderer.renderMinZ);
-			f5 = (float)((double)f8 * (1.0D - renderer.renderMaxY) * renderer.renderMinZ + (double)f9 * (1.0D - renderer.renderMaxY) * (1.0D - renderer.renderMinZ) + (double)f10 * renderer.renderMaxY * (1.0D - renderer.renderMinZ) + (double)f11 * renderer.renderMaxY * renderer.renderMinZ);
-			f6 = (float)((double)f8 * (1.0D - renderer.renderMaxY) * renderer.renderMaxZ + (double)f9 * (1.0D - renderer.renderMaxY) * (1.0D - renderer.renderMaxZ) + (double)f10 * renderer.renderMaxY * (1.0D - renderer.renderMaxZ) + (double)f11 * renderer.renderMaxY * renderer.renderMaxZ);
+			f3 = (float)(f8 * (1.0D - renderer.renderMinY) * renderer.renderMaxZ + f9 * (1.0D - renderer.renderMinY) * (1.0D - renderer.renderMaxZ) + f10 * renderer.renderMinY * (1.0D - renderer.renderMaxZ) + f11 * renderer.renderMinY * renderer.renderMaxZ);
+			f4 = (float)(f8 * (1.0D - renderer.renderMinY) * renderer.renderMinZ + f9 * (1.0D - renderer.renderMinY) * (1.0D - renderer.renderMinZ) + f10 * renderer.renderMinY * (1.0D - renderer.renderMinZ) + f11 * renderer.renderMinY * renderer.renderMinZ);
+			f5 = (float)(f8 * (1.0D - renderer.renderMaxY) * renderer.renderMinZ + f9 * (1.0D - renderer.renderMaxY) * (1.0D - renderer.renderMinZ) + f10 * renderer.renderMaxY * (1.0D - renderer.renderMinZ) + f11 * renderer.renderMaxY * renderer.renderMinZ);
+			f6 = (float)(f8 * (1.0D - renderer.renderMaxY) * renderer.renderMaxZ + f9 * (1.0D - renderer.renderMaxY) * (1.0D - renderer.renderMaxZ) + f10 * renderer.renderMaxY * (1.0D - renderer.renderMaxZ) + f11 * renderer.renderMaxY * renderer.renderMaxZ);
 			j1 = renderer.getAoBrightness(renderer.aoBrightnessXYPN, renderer.aoBrightnessXYZPNP, renderer.aoBrightnessXZPP, i1);
 			k1 = renderer.getAoBrightness(renderer.aoBrightnessXZPP, renderer.aoBrightnessXYPP, renderer.aoBrightnessXYZPPP, i1);
 			l1 = renderer.getAoBrightness(renderer.aoBrightnessXZPN, renderer.aoBrightnessXYZPPN, renderer.aoBrightnessXYPP, i1);
@@ -1743,7 +1743,7 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
 			renderer.colorGreenTopRight *= f6;
 			renderer.colorBlueTopRight *= f6;
 			iicon = renderer.getBlockIcon(p_147808_1_, renderer.blockAccess, p_147808_2_, p_147808_3_, p_147808_4_, 5);
-			renderFaceXPos(renderer, p_147808_1_, (double)p_147808_2_, (double)p_147808_3_, (double)p_147808_4_, iicon);
+			renderFaceXPos(renderer, p_147808_1_, p_147808_2_, p_147808_3_, p_147808_4_, iicon);
 
 			flag = true;
 		}
@@ -1763,22 +1763,22 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
 			p_147768_8_ = renderer.overrideBlockTexture;
 		}
 
-		double d3 = (double)p_147768_8_.getInterpolatedU(renderer.renderMinX * 16.0D);
-		double d4 = (double)p_147768_8_.getInterpolatedU(renderer.renderMaxX * 16.0D);
-		double d5 = (double)p_147768_8_.getInterpolatedV(renderer.renderMinZ * 16.0D);
-		double d6 = (double)p_147768_8_.getInterpolatedV(renderer.renderMaxZ * 16.0D);
+		double d3 = p_147768_8_.getInterpolatedU(renderer.renderMinX * 16.0D);
+		double d4 = p_147768_8_.getInterpolatedU(renderer.renderMaxX * 16.0D);
+		double d5 = p_147768_8_.getInterpolatedV(renderer.renderMinZ * 16.0D);
+		double d6 = p_147768_8_.getInterpolatedV(renderer.renderMaxZ * 16.0D);
 		double d7;
 		
 		if (renderer.renderMinX < 0.0D || renderer.renderMaxX > 1.0D)
 		{
-			d3 = (double)p_147768_8_.getMinU();
-			d4 = (double)p_147768_8_.getMaxU();
+			d3 = p_147768_8_.getMinU();
+			d4 = p_147768_8_.getMaxU();
 		}
 
 		if (renderer.renderMinZ < 0.0D || renderer.renderMaxZ > 1.0D)
 		{
-			d5 = (double)p_147768_8_.getMinV();
-			d6 = (double)p_147768_8_.getMaxV();
+			d5 = p_147768_8_.getMinV();
+			d6 = p_147768_8_.getMaxV();
 		}
 
 		d7 = d4;
@@ -1788,10 +1788,10 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
 
 		if (renderer.uvRotateBottom == 2)
 		{
-			d3 = (double)p_147768_8_.getInterpolatedU(renderer.renderMinZ * 16.0D);
-			d5 = (double)p_147768_8_.getInterpolatedV(16.0D - renderer.renderMaxX * 16.0D);
-			d4 = (double)p_147768_8_.getInterpolatedU(renderer.renderMaxZ * 16.0D);
-			d6 = (double)p_147768_8_.getInterpolatedV(16.0D - renderer.renderMinX * 16.0D);
+			d3 = p_147768_8_.getInterpolatedU(renderer.renderMinZ * 16.0D);
+			d5 = p_147768_8_.getInterpolatedV(16.0D - renderer.renderMaxX * 16.0D);
+			d4 = p_147768_8_.getInterpolatedU(renderer.renderMaxZ * 16.0D);
+			d6 = p_147768_8_.getInterpolatedV(16.0D - renderer.renderMinX * 16.0D);
 			d9 = d5;
 			d10 = d6;
 			d7 = d3;
@@ -1801,10 +1801,10 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
 		}
 		else if (renderer.uvRotateBottom == 1)
 		{
-			d3 = (double)p_147768_8_.getInterpolatedU(16.0D - renderer.renderMaxZ * 16.0D);
-			d5 = (double)p_147768_8_.getInterpolatedV(renderer.renderMinX * 16.0D);
-			d4 = (double)p_147768_8_.getInterpolatedU(16.0D - renderer.renderMinZ * 16.0D);
-			d6 = (double)p_147768_8_.getInterpolatedV(renderer.renderMaxX * 16.0D);
+			d3 = p_147768_8_.getInterpolatedU(16.0D - renderer.renderMaxZ * 16.0D);
+			d5 = p_147768_8_.getInterpolatedV(renderer.renderMinX * 16.0D);
+			d4 = p_147768_8_.getInterpolatedU(16.0D - renderer.renderMinZ * 16.0D);
+			d6 = p_147768_8_.getInterpolatedV(renderer.renderMaxX * 16.0D);
 			d7 = d4;
 			d8 = d3;
 			d3 = d4;
@@ -1814,10 +1814,10 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
 		}
 		else if (renderer.uvRotateBottom == 3)
 		{
-			d3 = (double)p_147768_8_.getInterpolatedU(16.0D - renderer.renderMinX * 16.0D);
-			d4 = (double)p_147768_8_.getInterpolatedU(16.0D - renderer.renderMaxX * 16.0D);
-			d5 = (double)p_147768_8_.getInterpolatedV(16.0D - renderer.renderMinZ * 16.0D);
-			d6 = (double)p_147768_8_.getInterpolatedV(16.0D - renderer.renderMaxZ * 16.0D);
+			d3 = p_147768_8_.getInterpolatedU(16.0D - renderer.renderMinX * 16.0D);
+			d4 = p_147768_8_.getInterpolatedU(16.0D - renderer.renderMaxX * 16.0D);
+			d5 = p_147768_8_.getInterpolatedV(16.0D - renderer.renderMinZ * 16.0D);
+			d6 = p_147768_8_.getInterpolatedV(16.0D - renderer.renderMaxZ * 16.0D);
 			d7 = d4;
 			d8 = d3;
 			d9 = d5;
@@ -1912,22 +1912,22 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
 			p_147806_8_ = renderer.overrideBlockTexture;
 		}
 
-		double d3 = (double)p_147806_8_.getInterpolatedU(renderer.renderMinX * 16.0D);
-		double d4 = (double)p_147806_8_.getInterpolatedU(renderer.renderMaxX * 16.0D);
-		double d5 = (double)p_147806_8_.getInterpolatedV(renderer.renderMinZ * 16.0D);
-		double d6 = (double)p_147806_8_.getInterpolatedV(renderer.renderMaxZ * 16.0D);
+		double d3 = p_147806_8_.getInterpolatedU(renderer.renderMinX * 16.0D);
+		double d4 = p_147806_8_.getInterpolatedU(renderer.renderMaxX * 16.0D);
+		double d5 = p_147806_8_.getInterpolatedV(renderer.renderMinZ * 16.0D);
+		double d6 = p_147806_8_.getInterpolatedV(renderer.renderMaxZ * 16.0D);
 		double d7;
 
 		if (renderer.renderMinX < 0.0D || renderer.renderMaxX > 1.0D)
 		{
-			d3 = (double)p_147806_8_.getMinU();
-			d4 = (double)p_147806_8_.getMaxU();
+			d3 = p_147806_8_.getMinU();
+			d4 = p_147806_8_.getMaxU();
 		}
 
 		if (renderer.renderMinZ < 0.0D || renderer.renderMaxZ > 1.0D)
 		{
-			d5 = (double)p_147806_8_.getMinV();
-			d6 = (double)p_147806_8_.getMaxV();
+			d5 = p_147806_8_.getMinV();
+			d6 = p_147806_8_.getMaxV();
 		}
 
 		d7 = d4;
@@ -1937,10 +1937,10 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
 
 		if (renderer.uvRotateTop == 1)
 		{
-			d3 = (double)p_147806_8_.getInterpolatedU(renderer.renderMinZ * 16.0D);
-			d5 = (double)p_147806_8_.getInterpolatedV(16.0D - renderer.renderMaxX * 16.0D);
-			d4 = (double)p_147806_8_.getInterpolatedU(renderer.renderMaxZ * 16.0D);
-			d6 = (double)p_147806_8_.getInterpolatedV(16.0D - renderer.renderMinX * 16.0D);
+			d3 = p_147806_8_.getInterpolatedU(renderer.renderMinZ * 16.0D);
+			d5 = p_147806_8_.getInterpolatedV(16.0D - renderer.renderMaxX * 16.0D);
+			d4 = p_147806_8_.getInterpolatedU(renderer.renderMaxZ * 16.0D);
+			d6 = p_147806_8_.getInterpolatedV(16.0D - renderer.renderMinX * 16.0D);
 			d9 = d5;
 			d10 = d6;
 			d7 = d3;
@@ -1950,10 +1950,10 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
 		}
 		else if (renderer.uvRotateTop == 2)
 		{
-			d3 = (double)p_147806_8_.getInterpolatedU(16.0D - renderer.renderMaxZ * 16.0D);
-			d5 = (double)p_147806_8_.getInterpolatedV(renderer.renderMinX * 16.0D);
-			d4 = (double)p_147806_8_.getInterpolatedU(16.0D - renderer.renderMinZ * 16.0D);
-			d6 = (double)p_147806_8_.getInterpolatedV(renderer.renderMaxX * 16.0D);
+			d3 = p_147806_8_.getInterpolatedU(16.0D - renderer.renderMaxZ * 16.0D);
+			d5 = p_147806_8_.getInterpolatedV(renderer.renderMinX * 16.0D);
+			d4 = p_147806_8_.getInterpolatedU(16.0D - renderer.renderMinZ * 16.0D);
+			d6 = p_147806_8_.getInterpolatedV(renderer.renderMaxX * 16.0D);
 			d7 = d4;
 			d8 = d3;
 			d3 = d4;
@@ -1963,10 +1963,10 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
 		}
 		else if (renderer.uvRotateTop == 3)
 		{
-			d3 = (double)p_147806_8_.getInterpolatedU(16.0D - renderer.renderMinX * 16.0D);
-			d4 = (double)p_147806_8_.getInterpolatedU(16.0D - renderer.renderMaxX * 16.0D);
-			d5 = (double)p_147806_8_.getInterpolatedV(16.0D - renderer.renderMinZ * 16.0D);
-			d6 = (double)p_147806_8_.getInterpolatedV(16.0D - renderer.renderMaxZ * 16.0D);
+			d3 = p_147806_8_.getInterpolatedU(16.0D - renderer.renderMinX * 16.0D);
+			d4 = p_147806_8_.getInterpolatedU(16.0D - renderer.renderMaxX * 16.0D);
+			d5 = p_147806_8_.getInterpolatedV(16.0D - renderer.renderMinZ * 16.0D);
+			d6 = p_147806_8_.getInterpolatedV(16.0D - renderer.renderMaxZ * 16.0D);
 			d7 = d4;
 			d8 = d3;
 			d9 = d5;
@@ -2061,29 +2061,29 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
 			p_147761_8_ = renderer.overrideBlockTexture;
 		}
 
-		double d3 = (double)p_147761_8_.getInterpolatedU(renderer.renderMinX * 16.0D);
-		double d4 = (double)p_147761_8_.getInterpolatedU(renderer.renderMaxX * 16.0D);
+		double d3 = p_147761_8_.getInterpolatedU(renderer.renderMinX * 16.0D);
+		double d4 = p_147761_8_.getInterpolatedU(renderer.renderMaxX * 16.0D);
 
 		if (renderer.field_152631_f)
 		{
-			d4 = (double)p_147761_8_.getInterpolatedU((1.0D - renderer.renderMinX) * 16.0D);
-			d3 = (double)p_147761_8_.getInterpolatedU((1.0D - renderer.renderMaxX) * 16.0D);
+			d4 = p_147761_8_.getInterpolatedU((1.0D - renderer.renderMinX) * 16.0D);
+			d3 = p_147761_8_.getInterpolatedU((1.0D - renderer.renderMaxX) * 16.0D);
 		}
 
-		double d5 = (double)p_147761_8_.getInterpolatedV(16.0D - renderer.renderMaxY * 16.0D);
-		double d6 = (double)p_147761_8_.getInterpolatedV(16.0D - renderer.renderMinY * 16.0D);
+		double d5 = p_147761_8_.getInterpolatedV(16.0D - renderer.renderMaxY * 16.0D);
+		double d6 = p_147761_8_.getInterpolatedV(16.0D - renderer.renderMinY * 16.0D);
 		double d7;
 
 		if (renderer.renderMinX < 0.0D || renderer.renderMaxX > 1.0D)
 		{
-			d3 = (double)p_147761_8_.getMinU();
-			d4 = (double)p_147761_8_.getMaxU();
+			d3 = p_147761_8_.getMinU();
+			d4 = p_147761_8_.getMaxU();
 		}
 
 		if (renderer.renderMinY < 0.0D || renderer.renderMaxY > 1.0D)
 		{
-			d5 = (double)p_147761_8_.getMinV();
-			d6 = (double)p_147761_8_.getMaxV();
+			d5 = p_147761_8_.getMinV();
+			d6 = p_147761_8_.getMaxV();
 		}
 
 		d7 = d4;
@@ -2093,10 +2093,10 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
 
 		if (renderer.uvRotateEast == 2)
 		{
-			d3 = (double)p_147761_8_.getInterpolatedU(renderer.renderMinY * 16.0D);
-			d4 = (double)p_147761_8_.getInterpolatedU(renderer.renderMaxY * 16.0D);
-			d5 = (double)p_147761_8_.getInterpolatedV(16.0D - renderer.renderMinX * 16.0D);
-			d6 = (double)p_147761_8_.getInterpolatedV(16.0D - renderer.renderMaxX * 16.0D);
+			d3 = p_147761_8_.getInterpolatedU(renderer.renderMinY * 16.0D);
+			d4 = p_147761_8_.getInterpolatedU(renderer.renderMaxY * 16.0D);
+			d5 = p_147761_8_.getInterpolatedV(16.0D - renderer.renderMinX * 16.0D);
+			d6 = p_147761_8_.getInterpolatedV(16.0D - renderer.renderMaxX * 16.0D);
 			d9 = d5;
 			d10 = d6;
 			d7 = d3;
@@ -2106,10 +2106,10 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
 		}
 		else if (renderer.uvRotateEast == 1)
 		{
-			d3 = (double)p_147761_8_.getInterpolatedU(16.0D - renderer.renderMaxY * 16.0D);
-			d4 = (double)p_147761_8_.getInterpolatedU(16.0D - renderer.renderMinY * 16.0D);
-			d5 = (double)p_147761_8_.getInterpolatedV(renderer.renderMaxX * 16.0D);
-			d6 = (double)p_147761_8_.getInterpolatedV(renderer.renderMinX * 16.0D);
+			d3 = p_147761_8_.getInterpolatedU(16.0D - renderer.renderMaxY * 16.0D);
+			d4 = p_147761_8_.getInterpolatedU(16.0D - renderer.renderMinY * 16.0D);
+			d5 = p_147761_8_.getInterpolatedV(renderer.renderMaxX * 16.0D);
+			d6 = p_147761_8_.getInterpolatedV(renderer.renderMinX * 16.0D);
 			d7 = d4;
 			d8 = d3;
 			d3 = d4;
@@ -2119,10 +2119,10 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
 		}
 		else if (renderer.uvRotateEast == 3)
 		{
-			d3 = (double)p_147761_8_.getInterpolatedU(16.0D - renderer.renderMinX * 16.0D);
-			d4 = (double)p_147761_8_.getInterpolatedU(16.0D - renderer.renderMaxX * 16.0D);
-			d5 = (double)p_147761_8_.getInterpolatedV(renderer.renderMaxY * 16.0D);
-			d6 = (double)p_147761_8_.getInterpolatedV(renderer.renderMinY * 16.0D);
+			d3 = p_147761_8_.getInterpolatedU(16.0D - renderer.renderMinX * 16.0D);
+			d4 = p_147761_8_.getInterpolatedU(16.0D - renderer.renderMaxX * 16.0D);
+			d5 = p_147761_8_.getInterpolatedV(renderer.renderMaxY * 16.0D);
+			d6 = p_147761_8_.getInterpolatedV(renderer.renderMinY * 16.0D);
 			d7 = d4;
 			d8 = d3;
 			d9 = d5;
@@ -2217,22 +2217,22 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
 			p_147734_8_ = renderer.overrideBlockTexture;
 		}
 
-		double d3 = (double)p_147734_8_.getInterpolatedU(renderer.renderMinX * 16.0D);
-		double d4 = (double)p_147734_8_.getInterpolatedU(renderer.renderMaxX * 16.0D);
-		double d5 = (double)p_147734_8_.getInterpolatedV(16.0D - renderer.renderMaxY * 16.0D);
-		double d6 = (double)p_147734_8_.getInterpolatedV(16.0D - renderer.renderMinY * 16.0D);
+		double d3 = p_147734_8_.getInterpolatedU(renderer.renderMinX * 16.0D);
+		double d4 = p_147734_8_.getInterpolatedU(renderer.renderMaxX * 16.0D);
+		double d5 = p_147734_8_.getInterpolatedV(16.0D - renderer.renderMaxY * 16.0D);
+		double d6 = p_147734_8_.getInterpolatedV(16.0D - renderer.renderMinY * 16.0D);
 		double d7;
 
 		if (renderer.renderMinX < 0.0D || renderer.renderMaxX > 1.0D)
 		{
-			d3 = (double)p_147734_8_.getMinU();
-			d4 = (double)p_147734_8_.getMaxU();
+			d3 = p_147734_8_.getMinU();
+			d4 = p_147734_8_.getMaxU();
 		}
 
 		if (renderer.renderMinY < 0.0D || renderer.renderMaxY > 1.0D)
 		{
-			d5 = (double)p_147734_8_.getMinV();
-			d6 = (double)p_147734_8_.getMaxV();
+			d5 = p_147734_8_.getMinV();
+			d6 = p_147734_8_.getMaxV();
 		}
 
 		d7 = d4;
@@ -2242,10 +2242,10 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
 
 		if (renderer.uvRotateWest == 1)
 		{
-			d3 = (double)p_147734_8_.getInterpolatedU(renderer.renderMinY * 16.0D);
-			d6 = (double)p_147734_8_.getInterpolatedV(16.0D - renderer.renderMinX * 16.0D);
-			d4 = (double)p_147734_8_.getInterpolatedU(renderer.renderMaxY * 16.0D);
-			d5 = (double)p_147734_8_.getInterpolatedV(16.0D - renderer.renderMaxX * 16.0D);
+			d3 = p_147734_8_.getInterpolatedU(renderer.renderMinY * 16.0D);
+			d6 = p_147734_8_.getInterpolatedV(16.0D - renderer.renderMinX * 16.0D);
+			d4 = p_147734_8_.getInterpolatedU(renderer.renderMaxY * 16.0D);
+			d5 = p_147734_8_.getInterpolatedV(16.0D - renderer.renderMaxX * 16.0D);
 			d9 = d5;
 			d10 = d6;
 			d7 = d3;
@@ -2255,10 +2255,10 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
 		}
 		else if (renderer.uvRotateWest == 2)
 		{
-			d3 = (double)p_147734_8_.getInterpolatedU(16.0D - renderer.renderMaxY * 16.0D);
-			d5 = (double)p_147734_8_.getInterpolatedV(renderer.renderMinX * 16.0D);
-			d4 = (double)p_147734_8_.getInterpolatedU(16.0D - renderer.renderMinY * 16.0D);
-			d6 = (double)p_147734_8_.getInterpolatedV(renderer.renderMaxX * 16.0D);
+			d3 = p_147734_8_.getInterpolatedU(16.0D - renderer.renderMaxY * 16.0D);
+			d5 = p_147734_8_.getInterpolatedV(renderer.renderMinX * 16.0D);
+			d4 = p_147734_8_.getInterpolatedU(16.0D - renderer.renderMinY * 16.0D);
+			d6 = p_147734_8_.getInterpolatedV(renderer.renderMaxX * 16.0D);
 			d7 = d4;
 			d8 = d3;
 			d3 = d4;
@@ -2268,10 +2268,10 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
 		}
 		else if (renderer.uvRotateWest == 3)
 		{
-			d3 = (double)p_147734_8_.getInterpolatedU(16.0D - renderer.renderMinX * 16.0D);
-			d4 = (double)p_147734_8_.getInterpolatedU(16.0D - renderer.renderMaxX * 16.0D);
-			d5 = (double)p_147734_8_.getInterpolatedV(renderer.renderMaxY * 16.0D);
-			d6 = (double)p_147734_8_.getInterpolatedV(renderer.renderMinY * 16.0D);
+			d3 = p_147734_8_.getInterpolatedU(16.0D - renderer.renderMinX * 16.0D);
+			d4 = p_147734_8_.getInterpolatedU(16.0D - renderer.renderMaxX * 16.0D);
+			d5 = p_147734_8_.getInterpolatedV(renderer.renderMaxY * 16.0D);
+			d6 = p_147734_8_.getInterpolatedV(renderer.renderMinY * 16.0D);
 			d7 = d4;
 			d8 = d3;
 			d9 = d5;
@@ -2366,22 +2366,22 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
 			p_147798_8_ = renderer.overrideBlockTexture;
 		}
 
-		double d3 = (double)p_147798_8_.getInterpolatedU(renderer.renderMinZ * 16.0D);
-		double d4 = (double)p_147798_8_.getInterpolatedU(renderer.renderMaxZ * 16.0D);
-		double d5 = (double)p_147798_8_.getInterpolatedV(16.0D - renderer.renderMaxY * 16.0D);
-		double d6 = (double)p_147798_8_.getInterpolatedV(16.0D - renderer.renderMinY * 16.0D);
+		double d3 = p_147798_8_.getInterpolatedU(renderer.renderMinZ * 16.0D);
+		double d4 = p_147798_8_.getInterpolatedU(renderer.renderMaxZ * 16.0D);
+		double d5 = p_147798_8_.getInterpolatedV(16.0D - renderer.renderMaxY * 16.0D);
+		double d6 = p_147798_8_.getInterpolatedV(16.0D - renderer.renderMinY * 16.0D);
 		double d7;
 
 		if (renderer.renderMinZ < 0.0D || renderer.renderMaxZ > 1.0D)
 		{
-			d3 = (double)p_147798_8_.getMinU();
-			d4 = (double)p_147798_8_.getMaxU();
+			d3 = p_147798_8_.getMinU();
+			d4 = p_147798_8_.getMaxU();
 		}
 
 		if (renderer.renderMinY < 0.0D || renderer.renderMaxY > 1.0D)
 		{
-			d5 = (double)p_147798_8_.getMinV();
-			d6 = (double)p_147798_8_.getMaxV();
+			d5 = p_147798_8_.getMinV();
+			d6 = p_147798_8_.getMaxV();
 		}
 
 		d7 = d4;
@@ -2391,10 +2391,10 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
 
 		if (renderer.uvRotateNorth == 1)
 		{
-			d3 = (double)p_147798_8_.getInterpolatedU(renderer.renderMinY * 16.0D);
-			d5 = (double)p_147798_8_.getInterpolatedV(16.0D - renderer.renderMaxZ * 16.0D);
-			d4 = (double)p_147798_8_.getInterpolatedU(renderer.renderMaxY * 16.0D);
-			d6 = (double)p_147798_8_.getInterpolatedV(16.0D - renderer.renderMinZ * 16.0D);
+			d3 = p_147798_8_.getInterpolatedU(renderer.renderMinY * 16.0D);
+			d5 = p_147798_8_.getInterpolatedV(16.0D - renderer.renderMaxZ * 16.0D);
+			d4 = p_147798_8_.getInterpolatedU(renderer.renderMaxY * 16.0D);
+			d6 = p_147798_8_.getInterpolatedV(16.0D - renderer.renderMinZ * 16.0D);
 			d9 = d5;
 			d10 = d6;
 			d7 = d3;
@@ -2404,10 +2404,10 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
 		}
 		else if (renderer.uvRotateNorth == 2)
 		{
-			d3 = (double)p_147798_8_.getInterpolatedU(16.0D - renderer.renderMaxY * 16.0D);
-			d5 = (double)p_147798_8_.getInterpolatedV(renderer.renderMinZ * 16.0D);
-			d4 = (double)p_147798_8_.getInterpolatedU(16.0D - renderer.renderMinY * 16.0D);
-			d6 = (double)p_147798_8_.getInterpolatedV(renderer.renderMaxZ * 16.0D);
+			d3 = p_147798_8_.getInterpolatedU(16.0D - renderer.renderMaxY * 16.0D);
+			d5 = p_147798_8_.getInterpolatedV(renderer.renderMinZ * 16.0D);
+			d4 = p_147798_8_.getInterpolatedU(16.0D - renderer.renderMinY * 16.0D);
+			d6 = p_147798_8_.getInterpolatedV(renderer.renderMaxZ * 16.0D);
 			d7 = d4;
 			d8 = d3;
 			d3 = d4;
@@ -2417,10 +2417,10 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
 		}
 		else if (renderer.uvRotateNorth == 3)
 		{
-			d3 = (double)p_147798_8_.getInterpolatedU(16.0D - renderer.renderMinZ * 16.0D);
-			d4 = (double)p_147798_8_.getInterpolatedU(16.0D - renderer.renderMaxZ * 16.0D);
-			d5 = (double)p_147798_8_.getInterpolatedV(renderer.renderMaxY * 16.0D);
-			d6 = (double)p_147798_8_.getInterpolatedV(renderer.renderMinY * 16.0D);
+			d3 = p_147798_8_.getInterpolatedU(16.0D - renderer.renderMinZ * 16.0D);
+			d4 = p_147798_8_.getInterpolatedU(16.0D - renderer.renderMaxZ * 16.0D);
+			d5 = p_147798_8_.getInterpolatedV(renderer.renderMaxY * 16.0D);
+			d6 = p_147798_8_.getInterpolatedV(renderer.renderMinY * 16.0D);
 			d7 = d4;
 			d8 = d3;
 			d9 = d5;
@@ -2515,29 +2515,29 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
 			p_147764_8_ = renderer.overrideBlockTexture;
 		}
 
-		double d3 = (double)p_147764_8_.getInterpolatedU(renderer.renderMinZ * 16.0D);
-		double d4 = (double)p_147764_8_.getInterpolatedU(renderer.renderMaxZ * 16.0D);
+		double d3 = p_147764_8_.getInterpolatedU(renderer.renderMinZ * 16.0D);
+		double d4 = p_147764_8_.getInterpolatedU(renderer.renderMaxZ * 16.0D);
 
 		if (renderer.field_152631_f)
 		{
-			d4 = (double)p_147764_8_.getInterpolatedU((1.0D - renderer.renderMinZ) * 16.0D);
-			d3 = (double)p_147764_8_.getInterpolatedU((1.0D - renderer.renderMaxZ) * 16.0D);
+			d4 = p_147764_8_.getInterpolatedU((1.0D - renderer.renderMinZ) * 16.0D);
+			d3 = p_147764_8_.getInterpolatedU((1.0D - renderer.renderMaxZ) * 16.0D);
 		}
 
-		double d5 = (double)p_147764_8_.getInterpolatedV(16.0D - renderer.renderMaxY * 16.0D);
-		double d6 = (double)p_147764_8_.getInterpolatedV(16.0D - renderer.renderMinY * 16.0D);
+		double d5 = p_147764_8_.getInterpolatedV(16.0D - renderer.renderMaxY * 16.0D);
+		double d6 = p_147764_8_.getInterpolatedV(16.0D - renderer.renderMinY * 16.0D);
 		double d7;
 
 		if (renderer.renderMinZ < 0.0D || renderer.renderMaxZ > 1.0D)
 		{
-			d3 = (double)p_147764_8_.getMinU();
-			d4 = (double)p_147764_8_.getMaxU();
+			d3 = p_147764_8_.getMinU();
+			d4 = p_147764_8_.getMaxU();
 		}
 
 		if (renderer.renderMinY < 0.0D || renderer.renderMaxY > 1.0D)
 		{
-			d5 = (double)p_147764_8_.getMinV();
-			d6 = (double)p_147764_8_.getMaxV();
+			d5 = p_147764_8_.getMinV();
+			d6 = p_147764_8_.getMaxV();
 		}
 
 		d7 = d4;
@@ -2547,10 +2547,10 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
 
 		if (renderer.uvRotateSouth == 2)
 		{
-			d3 = (double)p_147764_8_.getInterpolatedU(renderer.renderMinY * 16.0D);
-			d5 = (double)p_147764_8_.getInterpolatedV(16.0D - renderer.renderMinZ * 16.0D);
-			d4 = (double)p_147764_8_.getInterpolatedU(renderer.renderMaxY * 16.0D);
-			d6 = (double)p_147764_8_.getInterpolatedV(16.0D - renderer.renderMaxZ * 16.0D);
+			d3 = p_147764_8_.getInterpolatedU(renderer.renderMinY * 16.0D);
+			d5 = p_147764_8_.getInterpolatedV(16.0D - renderer.renderMinZ * 16.0D);
+			d4 = p_147764_8_.getInterpolatedU(renderer.renderMaxY * 16.0D);
+			d6 = p_147764_8_.getInterpolatedV(16.0D - renderer.renderMaxZ * 16.0D);
 			d9 = d5;
 			d10 = d6;
 			d7 = d3;
@@ -2560,10 +2560,10 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
 		}
 		else if (renderer.uvRotateSouth == 1)
 		{
-			d3 = (double)p_147764_8_.getInterpolatedU(16.0D - renderer.renderMaxY * 16.0D);
-			d5 = (double)p_147764_8_.getInterpolatedV(renderer.renderMaxZ * 16.0D);
-			d4 = (double)p_147764_8_.getInterpolatedU(16.0D - renderer.renderMinY * 16.0D);
-			d6 = (double)p_147764_8_.getInterpolatedV(renderer.renderMinZ * 16.0D);
+			d3 = p_147764_8_.getInterpolatedU(16.0D - renderer.renderMaxY * 16.0D);
+			d5 = p_147764_8_.getInterpolatedV(renderer.renderMaxZ * 16.0D);
+			d4 = p_147764_8_.getInterpolatedU(16.0D - renderer.renderMinY * 16.0D);
+			d6 = p_147764_8_.getInterpolatedV(renderer.renderMinZ * 16.0D);
 			d7 = d4;
 			d8 = d3;
 			d3 = d4;
@@ -2573,10 +2573,10 @@ public class BlockGlazedTerracottaRenderer implements ISimpleBlockRenderingHandl
 		}
 		else if (renderer.uvRotateSouth == 3)
 		{
-			d3 = (double)p_147764_8_.getInterpolatedU(16.0D - renderer.renderMinZ * 16.0D);
-			d4 = (double)p_147764_8_.getInterpolatedU(16.0D - renderer.renderMaxZ * 16.0D);
-			d5 = (double)p_147764_8_.getInterpolatedV(renderer.renderMaxY * 16.0D);
-			d6 = (double)p_147764_8_.getInterpolatedV(renderer.renderMinY * 16.0D);
+			d3 = p_147764_8_.getInterpolatedU(16.0D - renderer.renderMinZ * 16.0D);
+			d4 = p_147764_8_.getInterpolatedU(16.0D - renderer.renderMaxZ * 16.0D);
+			d5 = p_147764_8_.getInterpolatedV(renderer.renderMaxY * 16.0D);
+			d6 = p_147764_8_.getInterpolatedV(renderer.renderMinY * 16.0D);
 			d7 = d4;
 			d8 = d3;
 			d9 = d5;

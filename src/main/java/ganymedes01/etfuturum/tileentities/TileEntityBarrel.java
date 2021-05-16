@@ -3,7 +3,6 @@ package ganymedes01.etfuturum.tileentities;
 import java.util.Iterator;
 import java.util.List;
 
-import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.blocks.BlockBarrel;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.entity.player.EntityPlayer;
@@ -108,23 +107,17 @@ public class TileEntityBarrel extends TileEntity implements IInventory {
 				this.markDirty();
 				return itemstack;
 			}
-			else
+			itemstack = this.chestContents[p_70298_1_].splitStack(p_70298_2_);
+
+			if (this.chestContents[p_70298_1_].stackSize == 0)
 			{
-				itemstack = this.chestContents[p_70298_1_].splitStack(p_70298_2_);
-
-				if (this.chestContents[p_70298_1_].stackSize == 0)
-				{
-					this.chestContents[p_70298_1_] = null;
-				}
-
-				this.markDirty();
-				return itemstack;
+				this.chestContents[p_70298_1_] = null;
 			}
+
+			this.markDirty();
+			return itemstack;
 		}
-		else
-		{
-			return null;
-		}
+		return null;
 	}
 
 	/**
@@ -140,10 +133,7 @@ public class TileEntityBarrel extends TileEntity implements IInventory {
 			this.chestContents[p_70304_1_] = null;
 			return itemstack;
 		}
-		else
-		{
-			return null;
-		}
+		return null;
 	}
 	
 	@Override
@@ -171,9 +161,9 @@ public class TileEntityBarrel extends TileEntity implements IInventory {
 	@Override
 	public void updateEntity()
 	{
-		BlockBarrel barrel = null;
-		if(worldObj.getBlock(xCoord, yCoord, zCoord) == ModBlocks.barrel)
-			barrel = (BlockBarrel)worldObj.getBlock(xCoord, yCoord, zCoord);
+		//BlockBarrel barrel = null; // TODO The heck is this unused variable??
+		//if(worldObj.getBlock(xCoord, yCoord, zCoord) == ModBlocks.barrel)
+		//	barrel = (BlockBarrel)worldObj.getBlock(xCoord, yCoord, zCoord); // Why call getBlock twice??
 		++this.ticksSinceSync;
 		float f;
 
@@ -181,12 +171,12 @@ public class TileEntityBarrel extends TileEntity implements IInventory {
 		{
 			this.numPlayersUsing = 0;
 			f = 5.0F;
-			List list = this.worldObj.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(this.xCoord - f, this.yCoord - f, this.zCoord - f, this.xCoord + 1 + f, this.yCoord + 1 + f, this.zCoord + 1 + f));
-			Iterator iterator = list.iterator();
+			List<EntityPlayer> list = this.worldObj.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(this.xCoord - f, this.yCoord - f, this.zCoord - f, this.xCoord + 1 + f, this.yCoord + 1 + f, this.zCoord + 1 + f));
+			Iterator<EntityPlayer> iterator = list.iterator();
 
 			while (iterator.hasNext())
 			{
-				EntityPlayer entityplayer = (EntityPlayer)iterator.next();
+				EntityPlayer entityplayer = iterator.next();
 
 				if (entityplayer.openContainer instanceof ContainerChest)
 				{
@@ -228,7 +218,7 @@ public class TileEntityBarrel extends TileEntity implements IInventory {
 				this.soundTimer = 10;
 			}
 
-			float f2 = 5;
+			//float f2 = 5; // unused variable
 
 			if (this.soundTimer < f1 && worldObj.getBlockMetadata(xCoord, yCoord, zCoord) > 7)
 			{
@@ -266,10 +256,7 @@ public class TileEntityBarrel extends TileEntity implements IInventory {
 			this.numPlayersUsing = p_145842_2_;
 			return true;
 		}
-		else
-		{
-			return super.receiveClientEvent(p_145842_1_, p_145842_2_);
-		}
+		return super.receiveClientEvent(p_145842_1_, p_145842_2_);
 	}
 
 	@Override

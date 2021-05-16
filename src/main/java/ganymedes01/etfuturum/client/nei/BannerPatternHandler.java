@@ -173,7 +173,7 @@ public class BannerPatternHandler extends TemplateRecipeHandler {
 					}
 	}
 
-	private EnumColour getEnumColour(ItemStack stack) {
+	EnumColour getEnumColour(ItemStack stack) {
 		for (String ore : Utils.getOreNames(stack))
 			for (EnumColour colour : EnumColour.values())
 				if (ore.equals(colour.getOreName()))

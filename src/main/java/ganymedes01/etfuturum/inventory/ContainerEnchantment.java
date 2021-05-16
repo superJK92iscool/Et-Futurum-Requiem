@@ -214,36 +214,36 @@ public class ContainerEnchantment extends Container {
 	 */
 	@Override
 	public boolean enchantItem(EntityPlayer player, int id) {
-		ItemStack var3 = tableInventory.getStackInSlot(0);
-		ItemStack var4 = tableInventory.getStackInSlot(1);
+		ItemStack slot0 = tableInventory.getStackInSlot(0);
+		ItemStack slot1 = tableInventory.getStackInSlot(1);
 		int var5 = id + 1;
 
-		if ((var4 == null || var4.stackSize < var5) && !player.capabilities.isCreativeMode)
+		if ((slot1 == null || slot1.stackSize < var5) && !player.capabilities.isCreativeMode)
 			return false;
-		else if (enchantLevels[id] > 0 && var3 != null && (player.experienceLevel >= var5 && player.experienceLevel >= enchantLevels[id] || player.capabilities.isCreativeMode)) {
+		else if (enchantLevels[id] > 0 && slot0 != null && (player.experienceLevel >= var5 && player.experienceLevel >= enchantLevels[id] || player.capabilities.isCreativeMode)) {
 			if (!world.isRemote) {
-				List<EnchantmentData> var6 = func_178148_a(var3, id, enchantLevels[id]);
-				boolean var7 = var3.getItem() == Items.book;
+				List<EnchantmentData> var6 = func_178148_a(slot0, id, enchantLevels[id]);
+				boolean var7 = slot0.getItem() == Items.book;
 
 				if (var6 != null) {
 					chargeForEnchant(player, rand, var5);
 
 					if (var7)
-						var3.func_150996_a(Items.enchanted_book);
+						slot0.func_150996_a(Items.enchanted_book);
 
 					for (int var8 = 0; var8 < var6.size(); ++var8) {
 						EnchantmentData var9 = var6.get(var8);
 
 						if (var7)
-							Items.enchanted_book.addEnchantment(var3, var9);
+							Items.enchanted_book.addEnchantment(slot0, var9);
 						else
-							var3.addEnchantment(var9.enchantmentobj, var9.enchantmentLevel);
+							slot0.addEnchantment(var9.enchantmentobj, var9.enchantmentLevel);
 					}
 
-					if (!player.capabilities.isCreativeMode) {
-						var4.stackSize -= var5;
+					if (!player.capabilities.isCreativeMode && slot1 != null) {
+						slot1.stackSize -= var5;
 
-						if (var4.stackSize <= 0)
+						if (slot1.stackSize <= 0)
 							tableInventory.setInventorySlotContents(1, (ItemStack) null);
 					}
 

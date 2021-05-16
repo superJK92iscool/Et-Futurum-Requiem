@@ -40,17 +40,17 @@ public class EtFuturumFXParticle extends EntityFX {
 	@Override
 	public void renderParticle(Tessellator par1Tessellator, float partialTicks, float rx, float rxz, float rz,
 			float ryz, float rxy) {
-		float ipx = (float) ((this.prevPosX + (this.posX - this.prevPosX) * (double) partialTicks) - this.interpPosX);
-		float ipy = (float) ((this.prevPosY + (this.posY - this.prevPosY) * (double) partialTicks) - this.interpPosY);
-		float ipz = (float) ((this.prevPosZ + (this.posZ - this.prevPosZ) * (double) partialTicks) - this.interpPosZ);
+		float ipx = (float) ((this.prevPosX + (this.posX - this.prevPosX) * partialTicks) - EntityFX.interpPosX);
+		float ipy = (float) ((this.prevPosY + (this.posY - this.prevPosY) * partialTicks) - EntityFX.interpPosY);
+		float ipz = (float) ((this.prevPosZ + (this.posZ - this.prevPosZ) * partialTicks) - EntityFX.interpPosZ);
 
 		int prevTex = GL11.glGetInteger(GL11.GL_TEXTURE_BINDING_2D);
 		Minecraft.getMinecraft().getTextureManager().bindTexture(this.particleTexture);
 
-		float a = (float) (this.color >> 24 & 0xff) / 255F;
-		float r = (float) (this.color >> 16 & 0xff) / 255F;
-		float g = (float) (this.color >> 8 & 0xff) / 255F;
-		float b = (float) (this.color & 0xff) / 255F;
+		float a = (this.color >> 24 & 0xff) / 255F;
+		float r = (this.color >> 16 & 0xff) / 255F;
+		float g = (this.color >> 8 & 0xff) / 255F;
+		float b = (this.color & 0xff) / 255F;
 
 		par1Tessellator.startDrawingQuads();
 		par1Tessellator.setBrightness(getBrightnessForRender(entityBrightness));

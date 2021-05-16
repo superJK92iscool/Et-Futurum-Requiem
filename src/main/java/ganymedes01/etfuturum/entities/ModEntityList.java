@@ -38,12 +38,10 @@ public class ModEntityList {
 		}
 		if (array[id] != null)
 			throw new IllegalArgumentException("ID " + id + " is already being used! Please report this error!");
-		else {
-			array[id] = new EntityData(entityName, id, eggColour1, eggColour2, hasEgg);
-			map.put(id, entityClass);
-			if(eggColour1 != -1)
-				registerEntityEgg(entityClass, eggColour1, eggColour2);
-		}
+		array[id] = new EntityData(entityName, id, eggColour1, eggColour2, hasEgg);
+		map.put(id, entityClass);
+		if(eggColour1 != -1)
+			registerEntityEgg(entityClass, eggColour1, eggColour2);
 	}
 
 	public static String getName(int id) {
@@ -116,7 +114,7 @@ public class ModEntityList {
 		public final int id, eggColour1, eggColour2;
 		public final boolean hasEgg;
 
-		private EntityData(String name, int id, int eggColour1, int eggColour2, boolean hasEgg) {
+		EntityData(String name, int id, int eggColour1, int eggColour2, boolean hasEgg) {
 			this.name = name;
 			this.id = id;
 			this.eggColour1 = eggColour1;

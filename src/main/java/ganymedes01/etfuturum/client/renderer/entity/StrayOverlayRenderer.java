@@ -10,7 +10,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class StrayOverlayRenderer extends StrayRenderer{
 
-	public ResourceLocation texture = new ResourceLocation("textures/entity/skeleton/stray_overlay.png");
+	public ResourceLocation stray_texture = new ResourceLocation("textures/entity/skeleton/stray_overlay.png");
 	public ModelBiped tutModel;
 	
 	public StrayOverlayRenderer() {
@@ -33,7 +33,7 @@ public class StrayOverlayRenderer extends StrayRenderer{
 				modelBiped = this.tutModel;
 				
 				GL11.glColor4f(1, 1, 1, 1);
-				this.bindTexture(texture);
+				this.bindTexture(stray_texture);
 				modelBiped.bipedHead.showModel = i == 0;
 				modelBiped.bipedHeadwear.showModel = i == 0;
 				modelBiped.bipedBody.showModel = i == 1 || i == 2;
@@ -58,7 +58,7 @@ public class StrayOverlayRenderer extends StrayRenderer{
 				
 				// Start alpha render
 				GL11.glDisable(GL11.GL_LIGHTING);
-				this.bindTexture(texture);
+				this.bindTexture(stray_texture);
 				GL11.glEnable(GL11.GL_ALPHA_TEST);
 				GL11.glEnable(GL11.GL_BLEND);
 				GL11.glAlphaFunc(GL11.GL_GREATER, 0.0F);

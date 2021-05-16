@@ -108,7 +108,7 @@ public class NetherChunkProvider implements IChunkProvider {
 					double d7 = (noiseField[((i1 + 1) * l + j1 + 0) * b2 + k1 + 1] - d3) * d0;
 					double d8 = (noiseField[((i1 + 1) * l + j1 + 1) * b2 + k1 + 1] - d4) * d0;
 
-					BiomeGenBase biome = worldObj.getBiomeGenForCoords(i1 + par1 * 16, j1 + par2 * 16);
+					//BiomeGenBase biome = worldObj.getBiomeGenForCoords(i1 + par1 * 16, j1 + par2 * 16); // unused variable
 					
 					for (int l1 = 0; l1 < 8; ++l1) {
 						double d9 = 0.25D;
@@ -290,7 +290,7 @@ public class NetherChunkProvider implements IChunkProvider {
 	@Override
 	public Chunk provideChunk(int par1, int par2) {
 		hellRNG.setSeed(par1 * 341873128712L + par2 * 132897987541L);
-		byte[] abyte = new byte[32768];
+		//byte[] abyte = new byte[32768]; // unused variable
 		Block[] blocks = new Block[32768];
 		this.generateNetherTerrain(par1, par2, blocks);
 		biomesForGeneration = worldObj.getWorldChunkManager().loadBlockGeneratorData(biomesForGeneration, par1 * 16,
@@ -470,7 +470,7 @@ public class NetherChunkProvider implements IChunkProvider {
 		this.hellRNG.setSeed(this.worldObj.getSeed());
 		long rand1 = this.hellRNG.nextLong() / 2L * 2L + 1L;
 		long rand2 = this.hellRNG.nextLong() / 2L * 2L + 1L;
-		this.hellRNG.setSeed((long) par2 * rand1 + (long) par3 * rand2 ^ this.worldObj.getSeed());
+		this.hellRNG.setSeed(par2 * rand1 + par3 * rand2 ^ this.worldObj.getSeed());
 
 		genNetherBridge.generateStructuresInChunk(worldObj, hellRNG, par2, par3);
 		int i1;
@@ -609,10 +609,8 @@ public class NetherChunkProvider implements IChunkProvider {
 	public List getPossibleCreatures(EnumCreatureType par1EnumCreatureType, int par2, int par3, int par4) {
 		if (par1EnumCreatureType == EnumCreatureType.monster && genNetherBridge.hasStructureAt(par2, par3, par4))
 			return genNetherBridge.getSpawnList();
-		else {
-			BiomeGenBase biomegenbase = worldObj.getBiomeGenForCoords(par2, par4);
-			return biomegenbase == null ? null : biomegenbase.getSpawnableList(par1EnumCreatureType);
-		}
+		BiomeGenBase biomegenbase = worldObj.getBiomeGenForCoords(par2, par4);
+		return biomegenbase == null ? null : biomegenbase.getSpawnableList(par1EnumCreatureType);
 	}
 
 	@Override

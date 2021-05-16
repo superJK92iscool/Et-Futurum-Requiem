@@ -42,6 +42,7 @@ public class ContainerBlastFurnace extends Container
 		}
 	}
 
+	@Override
 	public void addCraftingToCrafters(ICrafting p_75132_1_)
 	{
 		super.addCraftingToCrafters(p_75132_1_);
@@ -53,6 +54,7 @@ public class ContainerBlastFurnace extends Container
 	/**
 	 * Looks for changes made in the container, sends them to every listener.
 	 */
+	@Override
 	public void detectAndSendChanges()
 	{
 		super.detectAndSendChanges();
@@ -82,6 +84,7 @@ public class ContainerBlastFurnace extends Container
 		this.lastItemBurnTime = this.tileFurnace.currentItemBurnTime;
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public void updateProgressBar(int p_75137_1_, int p_75137_2_)
 	{
@@ -101,6 +104,7 @@ public class ContainerBlastFurnace extends Container
 		}
 	}
 
+	@Override
 	public boolean canInteractWith(EntityPlayer p_75145_1_)
 	{
 		return this.tileFurnace.isUseableByPlayer(p_75145_1_);

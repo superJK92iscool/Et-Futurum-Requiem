@@ -76,6 +76,8 @@ public class LayeredColorMaskTexture extends AbstractTexture {
 
 						bufferedimage.getGraphics().drawImage(bufferedimage2, 0, 0, (ImageObserver) null);
 					}
+					
+					inputstream.close();
 				}
 			}
 		} catch (IOException ioexception) {

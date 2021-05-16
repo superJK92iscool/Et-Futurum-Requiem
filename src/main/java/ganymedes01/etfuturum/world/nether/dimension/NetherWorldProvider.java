@@ -63,6 +63,7 @@ public class NetherWorldProvider extends WorldProviderHell {
 
 	}
 
+	@Override
 	public int getActualHeight() {
 		return 128;
 	}

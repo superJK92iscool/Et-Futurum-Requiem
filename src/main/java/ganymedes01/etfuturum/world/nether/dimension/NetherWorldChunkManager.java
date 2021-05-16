@@ -19,7 +19,7 @@ public class NetherWorldChunkManager extends WorldChunkManager {
 	private GenLayer biomeIndexLayer;
 	private BiomeCacheNether biomeCache;
 
-	private List biomesToSpawnIn;
+	private List<BiomeGenBase> biomesToSpawnIn;
 
 	protected NetherWorldChunkManager() {
 		biomeCache = new BiomeCacheNether(this);
@@ -168,15 +168,14 @@ public class NetherWorldChunkManager extends WorldChunkManager {
 			BiomeGenBase[] var9 = biomeCache.getCachedBiomes(par2, par3);
 			System.arraycopy(var9, 0, par1ArrayOfBiomeGenBase, 0, par4 * par5);
 			return par1ArrayOfBiomeGenBase;
-		} else {
-			int[] var7 = biomeIndexLayer.getInts(par2, par3, par4, par5);
-
-			for (int var8 = 0; var8 < par4 * par5; ++var8) {
-				par1ArrayOfBiomeGenBase[var8] = BiomeGenBase.getBiomeGenArray()[var7[var8]];
-			}
-
-			return par1ArrayOfBiomeGenBase;
 		}
+		int[] var7 = biomeIndexLayer.getInts(par2, par3, par4, par5);
+
+		for (int var8 = 0; var8 < par4 * par5; ++var8) {
+			par1ArrayOfBiomeGenBase[var8] = BiomeGenBase.getBiomeGenArray()[var7[var8]];
+		}
+
+		return par1ArrayOfBiomeGenBase;
 	}
 
 	/**

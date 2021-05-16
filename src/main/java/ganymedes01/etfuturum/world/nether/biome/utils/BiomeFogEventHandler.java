@@ -50,7 +50,7 @@ public class BiomeFogEventHandler {
 			Vec3 mixedColor;
 
 			{
-				mixedColor = getFogBlendColour(world, (EntityLivingBase) player, x, y, z, event.red, event.green,
+				mixedColor = getFogBlendColour(world, player, x, y, z, event.red, event.green,
 						event.blue, event.renderPartialTicks);
 			}
 			event.red = (float) mixedColor.xCoord;
@@ -94,7 +94,7 @@ public class BiomeFogEventHandler {
 			g = aG;
 			b = aB;
 		}
-		return Vec3.createVectorHelper((double) r, (double) g, (double) b);
+		return Vec3.createVectorHelper(r, g, b);
 	}
 
 	private static Vec3 getFogBlendColour(final World world, final EntityLivingBase playerEntity, final int playerX,
@@ -117,9 +117,9 @@ public class BiomeFogEventHandler {
 				if (biome instanceof IBiomeColor) {
 					final IBiomeColor biomeFog = (IBiomeColor) biome;
 					final int fogColour = biomeFog.getBiomeColour(playerX + x, playerY, playerZ + z);
-					float rPart = (float) ((fogColour & 0xFF0000) >> 16);
-					float gPart = (float) ((fogColour & 0xFF00) >> 8);
-					float bPart = (float) (fogColour & 0xFF);
+					float rPart = (fogColour & 0xFF0000) >> 16;
+					float gPart = (fogColour & 0xFF00) >> 8;
+					float bPart = fogColour & 0xFF;
 					float weightPart = 1.0f;
 					if (x == -distance) {
 						final double xDiff = 1.0 - (playerEntity.posX - playerX);
@@ -155,7 +155,7 @@ public class BiomeFogEventHandler {
 			}
 		}
 		if (weightBiomeFog == 0.0f || distance == 0) {
-			return Vec3.createVectorHelper((double) defR, (double) defG, (double) defB);
+			return Vec3.createVectorHelper(defR, defG, defB);
 		}
 		rBiomeFog /= 255.0f;
 		gBiomeFog /= 255.0f;
@@ -173,7 +173,7 @@ public class BiomeFogEventHandler {
 		rBiomeFog = (float) processedColor.xCoord;
 		gBiomeFog = (float) processedColor.yCoord;
 		bBiomeFog = (float) processedColor.zCoord;
-		final float weightMixed = (float) (distance * 2 * (distance * 2));
+		final float weightMixed = distance * 2 * (distance * 2);
 		final float weightDefault = weightMixed - weightBiomeFog;
 		processedColor.xCoord = (rBiomeFog * weightBiomeFog + defR * weightDefault) / weightMixed;
 		processedColor.yCoord = (gBiomeFog * weightBiomeFog + defG * weightDefault) / weightMixed;

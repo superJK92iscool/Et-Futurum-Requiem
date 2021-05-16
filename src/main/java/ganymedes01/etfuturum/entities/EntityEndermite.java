@@ -162,8 +162,8 @@ public class EntityEndermite extends EntityMob {
 		if (super.getCanSpawnHere()) {
 			EntityPlayer entityplayer = worldObj.getClosestPlayerToEntity(this, 5.0D);
 			return entityplayer == null;
-		} else
-			return false;
+		}
+		return false;
 	}
 
 	@Override

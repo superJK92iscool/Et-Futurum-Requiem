@@ -111,7 +111,7 @@ public class ClientEventHandler {
 		if(player.dimension == -1 && ConfigurationHandler.enableNetherAmbience && !EtFuturum.netherAmbienceNetherlicious) {
 			Minecraft mc = FMLClientHandler.instance().getClient();
 			int x = MathHelper.floor_double(player.posX);
-			int y = MathHelper.floor_double(player.posY);
+			//int y = MathHelper.floor_double(player.posY); // unused variable
 			int z = MathHelper.floor_double(player.posZ);
 			biomeName = chunk.getBiomeGenForWorldCoords(x & 15, z & 15, world.getWorldChunkManager()).biomeName;
 			if(getAmbienceLoopForBiome(biomeName) != null && !mc.getSoundHandler().isSoundPlaying(ambience)) {

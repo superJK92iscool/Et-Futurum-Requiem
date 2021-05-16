@@ -203,9 +203,9 @@ public class EtFuturum {
 		}
 		
 		if(ConfigurationHandler.enableNewBlocksSounds) {
-			Iterator iterator = Block.blockRegistry.iterator();
+			Iterator<Block> iterator = Block.blockRegistry.iterator();
 			while(iterator.hasNext()) {
-				Block block = (Block) iterator.next();
+				Block block = iterator.next();
 				if(block == null || block.stepSound == null || Block.blockRegistry.getNameForObject(block) == null)
 					continue;
 				String blockID = Block.blockRegistry.getNameForObject(block).split(":")[1].toLowerCase();

@@ -189,7 +189,7 @@ public class Fossil_Skull_4 extends Fossil {
 	@Override
 	public void build(World world, Random rand, int x, int y, int z, int type, int facing, boolean hasCoal) {
 		int rotation = (facing % 2) == 0 ? 4 : 8;
-		int rotation2 = (facing % 2) == 1 ? 4 : 8;
+		//int rotation2 = (facing % 2) == 1 ? 4 : 8; // unused variable
 		fillBlocks(world, bone, x, y, z, 1, 0, 1, 2, 1, 2, rotation, 3, hasCoal, rand, facing);
 
 		fillBlocks(world, bone, x, y, z, 0, 0, 0, 1, 3, 1, 0, 3, hasCoal, rand, facing);
@@ -210,7 +210,7 @@ public class Fossil_Spine_1 extends Fossil {
 
 	@Override
 	public void build(World world, Random rand, int x, int y, int z, int type, int facing, boolean hasCoal) {
-		int rotation = (facing % 2) == 0 ? 4 : 8;
+		//int rotation = (facing % 2) == 0 ? 4 : 8; // unused variable
 		int rotation2 = (facing % 2) == 1 ? 4 : 8;
 		
 		fillBlocks(world, bone, x, y, z, 0, 0, 1, 1, 2, 1, 0, 3, hasCoal, rand, facing);

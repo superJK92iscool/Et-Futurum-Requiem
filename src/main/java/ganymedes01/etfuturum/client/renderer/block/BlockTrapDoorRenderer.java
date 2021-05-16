@@ -55,9 +55,9 @@ public class BlockTrapDoorRenderer implements ISimpleBlockRenderingHandler {
 			RenderBlocks renderer) {
 		int l = renderer.blockAccess.getBlockMetadata(x, y, z);
 		int j = block.colorMultiplier(renderer.blockAccess, x, y, z);
-		float f = (float)(j >> 16 & 255) / 255.0F;
-		float f1 = (float)(j >> 8 & 255) / 255.0F;
-		float f2 = (float)(j & 255) / 255.0F;
+		float f = (j >> 16 & 255) / 255.0F;
+		float f1 = (j >> 8 & 255) / 255.0F;
+		float f2 = (j & 255) / 255.0F;
 
 		if (EntityRenderer.anaglyphEnable)
 		{

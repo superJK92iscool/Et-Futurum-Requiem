@@ -23,7 +23,6 @@ public class GuiEditWoodSign extends GuiScreen {
 	private int editLine;
 	/** "Done" button for the GUI. */
 	private GuiButton doneBtn;
-	private static final String __OBFID = "CL_00000764";
 
 	public GuiEditWoodSign(TileEntitySign p_i1097_1_)
 	{
@@ -34,6 +33,7 @@ public class GuiEditWoodSign extends GuiScreen {
 	/**
 	 * Adds the buttons (and other controls) to the screen in question.
 	 */
+	@Override
 	public void initGui()
 	{
 		this.buttonList.clear();
@@ -45,6 +45,7 @@ public class GuiEditWoodSign extends GuiScreen {
 	/**
 	 * Called when the screen is unloaded. Used to disable keyboard repeat events
 	 */
+	@Override
 	public void onGuiClosed()
 	{
 		Keyboard.enableRepeatEvents(false);
@@ -61,11 +62,13 @@ public class GuiEditWoodSign extends GuiScreen {
 	/**
 	 * Called from the main game loop to update the screen.
 	 */
+	@Override
 	public void updateScreen()
 	{
 		++this.updateCounter;
 	}
 
+	@Override
 	protected void actionPerformed(GuiButton p_146284_1_)
 	{
 		if (p_146284_1_.enabled)
@@ -81,6 +84,7 @@ public class GuiEditWoodSign extends GuiScreen {
 	/**
 	 * Fired when a key is typed. This is the equivalent of KeyListener.keyTyped(KeyEvent e).
 	 */
+	@Override
 	protected void keyTyped(char p_73869_1_, int p_73869_2_)
 	{
 		if (p_73869_2_ == 200)
@@ -112,6 +116,7 @@ public class GuiEditWoodSign extends GuiScreen {
 	/**
 	 * Draws the screen and all the components in it.
 	 */
+	@Override
 	public void drawScreen(int p_73863_1_, int p_73863_2_, float p_73863_3_)
 	{
 		this.drawDefaultBackground();
@@ -119,7 +124,7 @@ public class GuiEditWoodSign extends GuiScreen {
 		if(!(tileSign.getBlockType() instanceof BlockWoodSign))
 			return;
 		GL11.glPushMatrix();
-		GL11.glTranslatef((float)(this.width / 2), 0.0F, 50.0F);
+		GL11.glTranslatef(this.width / 2, 0.0F, 50.0F);
 		float f1 = 93.75F;
 		GL11.glScalef(-f1, -f1, -f1);
 		GL11.glRotatef(180.0F, 0.0F, 1.0F, 0.0F);
@@ -127,7 +132,7 @@ public class GuiEditWoodSign extends GuiScreen {
 
 		if (block.standing)
 		{
-			float f2 = (float)(this.tileSign.getBlockMetadata() * 360) / 16.0F;
+			float f2 = this.tileSign.getBlockMetadata() * 360 / 16.0F;
 			GL11.glRotatef(f2, 0.0F, 1.0F, 0.0F);
 			GL11.glTranslatef(0.0F, -1.0625F, 0.0F);
 		}

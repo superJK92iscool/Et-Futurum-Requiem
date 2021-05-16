@@ -27,6 +27,7 @@ public class TileEntityWoodSignRenderer extends TileEntitySpecialRenderer {
 	 * I, in no way, take credit for the majority of this code. I only altered it to work with my blocks and
 	 * textures.
 	 */
+	@Override
 	public void renderTileEntityAt(TileEntity p_147500_1_, double p_147500_2_, double p_147500_4_, double p_147500_6_, float p_147500_8_)
 	{
 		if(!(p_147500_1_.getBlockType() instanceof BlockWoodSign))
@@ -40,7 +41,7 @@ public class TileEntityWoodSignRenderer extends TileEntitySpecialRenderer {
 		if (block.standing)
 		{
 			GL11.glTranslatef((float)p_147500_2_ + 0.5F, (float)p_147500_4_ + 0.75F * f1, (float)p_147500_6_ + 0.5F);
-			float f2 = (float)(p_147500_1_.getBlockMetadata() * 360) / 16.0F;
+			float f2 = p_147500_1_.getBlockMetadata() * 360 / 16.0F;
 			GL11.glRotatef(-f2, 0.0F, 1.0F, 0.0F);
 			this.field_147514_c.signStick.showModel = true;
 		}

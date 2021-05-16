@@ -15,11 +15,13 @@ public class Mending extends Enchantment {
 		setName("mending");
 	}
 	
+	@Override
 	public int getMinEnchantability(int enchantmentLevel)
 	{
 		return enchantmentLevel * 25;
 	}
 
+	@Override
 	public int getMaxEnchantability(int enchantmentLevel)
 	{
 		return this.getMinEnchantability(enchantmentLevel) + 50;

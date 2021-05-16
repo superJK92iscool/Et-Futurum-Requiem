@@ -13,6 +13,7 @@ public class CustomSoundNetherite extends SoundType {
 		super(p_i45393_1_, p_i45393_2_, p_i45393_3_);
 	}
 
+	@Override
 	public float getPitch()
 	{
 		return this.volume - (random.nextInt(2) == 0 ? 0 : .1F);

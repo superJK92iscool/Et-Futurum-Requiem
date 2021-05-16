@@ -117,8 +117,8 @@ public class TileEntityNewBrewingStand extends TileEntityBrewingStand {
 
 				return flag;
 			}
-		} else
-			return false;
+		}
+		return false;
 	}
 
 	private void brewPotions() {
@@ -223,8 +223,8 @@ public class TileEntityNewBrewingStand extends TileEntityBrewingStand {
 			ItemStack itemstack = inventory[slot];
 			inventory[slot] = null;
 			return itemstack;
-		} else
-			return null;
+		}
+		return null;
 	}
 
 	@Override
@@ -233,8 +233,8 @@ public class TileEntityNewBrewingStand extends TileEntityBrewingStand {
 			ItemStack itemstack = inventory[slot];
 			inventory[slot] = null;
 			return itemstack;
-		} else
-			return null;
+		}
+		return null;
 	}
 
 	@Override
@@ -255,8 +255,8 @@ public class TileEntityNewBrewingStand extends TileEntityBrewingStand {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void func_145938_d(int brewTime) {
-		this.brewTime = brewTime;
+	public void func_145938_d(int _brewTime) {
+		this.brewTime = _brewTime;
 	}
 
 	@Override
@@ -276,10 +276,7 @@ public class TileEntityNewBrewingStand extends TileEntityBrewingStand {
 		{
 			return TOP_SLOTS;
 		}
-		else
-		{
-			return side == 0 ? SLOTS_FOR_DOWN : OUTPUT_SLOTS;
-		}
+		return side == 0 ? SLOTS_FOR_DOWN : OUTPUT_SLOTS;
 	}
 
 	public int getFuel() {

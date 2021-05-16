@@ -24,7 +24,7 @@ public class BlockLavaCauldronRenderer implements ISimpleBlockRenderingHandler {
 		{
 			renderer.renderBlockCauldron(Blocks.cauldron, x, y, z);
 			IIcon lava = BlockLiquid.getLiquidIcon("lava_still");
-			renderer.renderFaceYPos(block, (double)x, (double)((float)y - 1.0F + (.0625 * 15F)), (double)z, lava);
+			renderer.renderFaceYPos(block, x, y - 1.0F + (.0625 * 15F), z, lava);
 			return true;
 		}
 	}

@@ -19,8 +19,8 @@ public class SmokerRecipes
 {
 	private static final SmokerRecipes smeltingBase = new SmokerRecipes();
 	/** The list of smelting results. */
-	private Map smeltingList = new HashMap();
-	private Map experienceList = new HashMap();
+	public Map<ItemStack, ItemStack> smeltingList = new HashMap<ItemStack, ItemStack>();
+	public Map<ItemStack, Float> experienceList = new HashMap<ItemStack, Float>();
 
 	/**
 	 * Used to call methods addSmelting and getSmeltingResult.
@@ -35,16 +35,15 @@ public class SmokerRecipes
 
 	public static void init() {
 		if(ConfigurationHandler.enableAutoAddSmoker) {
-			Map recipes = FurnaceRecipes.smelting().getSmeltingList();
-			ItemStack input;
-			ItemStack result;
-			float exp;
-			Entry entry;
-			Iterator iterator = recipes.entrySet().iterator();
+			Map<ItemStack, ItemStack> recipes = FurnaceRecipes.smelting().getSmeltingList();
+			ItemStack input, result;
+			//float exp; // unused variable
+			Entry<ItemStack, ItemStack> entry;
+			Iterator<Entry<ItemStack, ItemStack>> iterator = recipes.entrySet().iterator();
 			while (iterator.hasNext()) {
-				entry = (Entry)iterator.next();
-				input = (ItemStack)entry.getKey();
-				result = FurnaceRecipes.smelting().getSmeltingResult((ItemStack)entry.getKey());
+				entry = iterator.next();
+				input = entry.getKey();
+				result = FurnaceRecipes.smelting().getSmeltingResult(entry.getKey());
 				if(input.getItem() instanceof ItemFood) {
 					smeltingBase.addRecipe(input, result, result.getItem().getSmeltingExperience(result));
 				}
@@ -91,8 +90,8 @@ public class SmokerRecipes
 	 */
 	public ItemStack getSmeltingResult(ItemStack p_151395_1_)
 	{
-		Iterator iterator = this.smeltingList.entrySet().iterator();
-		Entry entry;
+		Iterator<Entry<ItemStack, ItemStack>> iterator = this.smeltingList.entrySet().iterator();
+		Entry<ItemStack, ItemStack> entry;
 
 		do
 		{
@@ -101,11 +100,11 @@ public class SmokerRecipes
 				return null;
 			}
 
-			entry = (Entry)iterator.next();
+			entry = iterator.next();
 		}
-		while (!this.func_151397_a(p_151395_1_, (ItemStack)entry.getKey()));
+		while (!this.func_151397_a(p_151395_1_, entry.getKey()));
 
-		return (ItemStack)entry.getValue();
+		return entry.getValue();
 	}
 
 	private boolean func_151397_a(ItemStack p_151397_1_, ItemStack p_151397_2_)
@@ -113,7 +112,7 @@ public class SmokerRecipes
 		return p_151397_2_.getItem() == p_151397_1_.getItem() && (p_151397_2_.getItemDamage() == 32767 || p_151397_2_.getItemDamage() == p_151397_1_.getItemDamage());
 	}
 
-	public Map getSmeltingList()
+	public Map<ItemStack, ItemStack> getSmeltingList()
 	{
 		return this.smeltingList;
 	}
@@ -123,8 +122,8 @@ public class SmokerRecipes
 		float ret = p_151398_1_.getItem().getSmeltingExperience(p_151398_1_);
 		if (ret != -1) return ret;
 
-		Iterator iterator = this.experienceList.entrySet().iterator();
-		Entry entry;
+		Iterator<Entry<ItemStack, Float>> iterator = this.experienceList.entrySet().iterator();
+		Entry<ItemStack, Float> entry;
 
 		do
 		{
@@ -133,10 +132,10 @@ public class SmokerRecipes
 				return 0.0F;
 			}
 
-			entry = (Entry)iterator.next();
+			entry = iterator.next();
 		}
-		while (!this.func_151397_a(p_151398_1_, (ItemStack)entry.getKey()));
+		while (!this.func_151397_a(p_151398_1_, entry.getKey()));
 
-		return ((Float)entry.getValue()).floatValue();
+		return entry.getValue().floatValue();
 	}
 }

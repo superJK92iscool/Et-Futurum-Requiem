@@ -17,6 +17,7 @@ public class BarrierParticleFX extends EtFuturumFXParticle {
 		particleMaxAge = maxAge + MathHelper.getRandomIntegerInRange(new Random(), 0, 10);
 	}
 	
+	@Override
 	public void onUpdate()
 	{
 		super.onUpdate();

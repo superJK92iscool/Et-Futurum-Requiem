@@ -27,10 +27,12 @@ public class EntityItemUninflammable extends EntityItem {
 		this.fireResistance = Int.MaxValue();
 	}
 
+	@Override
 	protected void dealFireDamage(int p_70081_1_) {
 		//ignore
 	}
 	
+	@Override
 	public void onUpdate() {
 		if(isBurning())
 			extinguish();
@@ -84,9 +86,9 @@ public class EntityItemUninflammable extends EntityItem {
 				f = this.worldObj.getBlock(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.boundingBox.minY) - 1, MathHelper.floor_double(this.posZ)).slipperiness * 0.98F;
 			}
 
-			this.motionX *= (double)f;
+			this.motionX *= f;
 			this.motionY *= 0.9800000190734863D;
-			this.motionZ *= (double)f;
+			this.motionZ *= f;
 
 			if (this.onGround) {
 				this.motionY *= -0.5D;
@@ -116,14 +118,15 @@ public class EntityItemUninflammable extends EntityItem {
 	}
 	
 	private void searchForOtherItemsNearby() {
-		Iterator iterator = this.worldObj.getEntitiesWithinAABB(EntityItem.class, this.boundingBox.expand(0.5D, 0.0D, 0.5D)).iterator();
+		Iterator<EntityItem> iterator = this.worldObj.getEntitiesWithinAABB(EntityItem.class, this.boundingBox.expand(0.5D, 0.0D, 0.5D)).iterator();
 
 		while (iterator.hasNext()) {
-			EntityItem entityitem = (EntityItem)iterator.next();
+			EntityItem entityitem = iterator.next();
 			this.combineItems(entityitem);
 		}        
 	}
 	
+	@Override
 	public boolean attackEntityFrom(DamageSource p_70097_1_, float p_70097_2_) {
 		if(p_70097_1_ == DamageSource.inFire || p_70097_1_ == DamageSource.onFire || p_70097_1_ == DamageSource.lava)
 			return false;

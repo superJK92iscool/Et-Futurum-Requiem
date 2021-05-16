@@ -9,7 +9,7 @@ import net.minecraft.util.ResourceLocation;
 public class StrayRenderer extends RenderBiped
 {
 	public static final ResourceLocation texture;
-	private static final ResourceLocation textureOverlay;
+	public static final ResourceLocation textureOverlay;
 	protected ModelBiped field_82437_k; //modelArmourChestplate
 	protected ModelBiped field_82435_l; //modelArmor
 	
@@ -17,6 +17,7 @@ public class StrayRenderer extends RenderBiped
 		super(new ModelSkeleton(), 0.4f);
 	}
 	
+	@Override
 	protected ResourceLocation getEntityTexture(final Entity p_110775_1_) {
 		return StrayRenderer.texture;
 	}

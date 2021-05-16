@@ -15,7 +15,6 @@ public class WorldGenDeepslateLayerMinable extends WorldGenerator
 	/** The number of blocks to generate. */
 	private int numberOfBlocks;
 	private Block field_150518_c;
-	private static final String __OBFID = "CL_00000426";
 	private int mineableBlockMeta;
 
 	public WorldGenDeepslateLayerMinable(Block p_i45459_1_, int p_i45459_2_)
@@ -36,24 +35,25 @@ public class WorldGenDeepslateLayerMinable extends WorldGenerator
 		this.mineableBlockMeta = meta;
 	}
 
+	@Override
 	public boolean generate(World p_76484_1_, Random p_76484_2_, int p_76484_3_, int p_76484_4_, int p_76484_5_)
 	{
 		float f = p_76484_2_.nextFloat() * (float)Math.PI;
-		double d0 = (double)((float)(p_76484_3_ + 8) + MathHelper.sin(f) * (float)this.numberOfBlocks / 8.0F);
-		double d1 = (double)((float)(p_76484_3_ + 8) - MathHelper.sin(f) * (float)this.numberOfBlocks / 8.0F);
-		double d2 = (double)((float)(p_76484_5_ + 8) + MathHelper.cos(f) * (float)this.numberOfBlocks / 8.0F);
-		double d3 = (double)((float)(p_76484_5_ + 8) - MathHelper.cos(f) * (float)this.numberOfBlocks / 8.0F);
-		double d4 = (double)(p_76484_4_ + p_76484_2_.nextInt(3) - 2);
-		double d5 = (double)(p_76484_4_ + p_76484_2_.nextInt(3) - 2);
+		double d0 = p_76484_3_ + 8 + MathHelper.sin(f) * this.numberOfBlocks / 8.0F;
+		double d1 = p_76484_3_ + 8 - MathHelper.sin(f) * this.numberOfBlocks / 8.0F;
+		double d2 = p_76484_5_ + 8 + MathHelper.cos(f) * this.numberOfBlocks / 8.0F;
+		double d3 = p_76484_5_ + 8 - MathHelper.cos(f) * this.numberOfBlocks / 8.0F;
+		double d4 = p_76484_4_ + p_76484_2_.nextInt(3) - 2;
+		double d5 = p_76484_4_ + p_76484_2_.nextInt(3) - 2;
 
 		for (int l = 0; l <= this.numberOfBlocks; ++l)
 		{
-			double d6 = d0 + (d1 - d0) * (double)l / (double)this.numberOfBlocks;
-			double d7 = d4 + (d5 - d4) * (double)l / (double)this.numberOfBlocks;
-			double d8 = d2 + (d3 - d2) * (double)l / (double)this.numberOfBlocks;
-			double d9 = p_76484_2_.nextDouble() * (double)this.numberOfBlocks / 16.0D;
-			double d10 = (double)(MathHelper.sin((float)l * (float)Math.PI / (float)this.numberOfBlocks) + 1.0F) * d9 + 1.0D;
-			double d11 = (double)(MathHelper.sin((float)l * (float)Math.PI / (float)this.numberOfBlocks) + 1.0F) * d9 + 1.0D;
+			double d6 = d0 + (d1 - d0) * l / this.numberOfBlocks;
+			double d7 = d4 + (d5 - d4) * l / this.numberOfBlocks;
+			double d8 = d2 + (d3 - d2) * l / this.numberOfBlocks;
+			double d9 = p_76484_2_.nextDouble() * this.numberOfBlocks / 16.0D;
+			double d10 = (MathHelper.sin(l * (float)Math.PI / this.numberOfBlocks) + 1.0F) * d9 + 1.0D;
+			double d11 = (MathHelper.sin(l * (float)Math.PI / this.numberOfBlocks) + 1.0F) * d9 + 1.0D;
 			int i1 = MathHelper.floor_double(d6 - d10 / 2.0D);
 			int j1 = MathHelper.floor_double(d7 - d11 / 2.0D);
 			int k1 = MathHelper.floor_double(d8 - d10 / 2.0D);
@@ -63,19 +63,19 @@ public class WorldGenDeepslateLayerMinable extends WorldGenerator
 
 			for (int k2 = i1; k2 <= l1; ++k2)
 			{
-				double d12 = ((double)k2 + 0.5D - d6) / (d10 / 2.0D);
+				double d12 = (k2 + 0.5D - d6) / (d10 / 2.0D);
 
 				if (d12 * d12 < 1.0D)
 				{
 					for (int l2 = j1; l2 <= i2; ++l2)
 					{
-						double d13 = ((double)l2 + 0.5D - d7) / (d11 / 2.0D);
+						double d13 = (l2 + 0.5D - d7) / (d11 / 2.0D);
 
 						if (d12 * d12 + d13 * d13 < 1.0D)
 						{
 							for (int i3 = k1; i3 <= j2; ++i3)
 							{
-								double d14 = ((double)i3 + 0.5D - d8) / (d10 / 2.0D);
+								double d14 = (i3 + 0.5D - d8) / (d10 / 2.0D);
 
 								if (d12 * d12 + d13 * d13 + d14 * d14 < 1.0D && p_76484_1_.getBlock(k2, l2, i3).isReplaceableOreGen(p_76484_1_, k2, l2, i3, field_150518_c))
 								{

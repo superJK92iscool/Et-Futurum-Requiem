@@ -3,8 +3,6 @@ package ganymedes01.etfuturum;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang3.tuple.ImmutablePair;
-
 import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.etfuturum.blocks.*;
 import ganymedes01.etfuturum.blocks.ores.BlockCopperOre;

@@ -29,11 +29,11 @@ import net.minecraft.util.ResourceLocation;
 @SideOnly(Side.CLIENT)
 public class NewThreadDownloadImageData extends SimpleTexture {
 
-	private static final Logger logger = LogManager.getLogger();
+	static final Logger logger = LogManager.getLogger();
 	private static final AtomicInteger threadDownloadCounter = new AtomicInteger(0);
-	private final File field_152434_e;
-	private final String imageUrl;
-	private final IImageBuffer imageBuffer;
+	final File field_152434_e;
+	final String imageUrl;
+	final IImageBuffer imageBuffer;
 	private BufferedImage bufferedImage;
 	private Thread imageThread;
 	private boolean textureUploaded;

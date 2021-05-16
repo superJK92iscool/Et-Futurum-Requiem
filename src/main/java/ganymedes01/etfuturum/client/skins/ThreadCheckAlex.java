@@ -18,6 +18,7 @@ public class ThreadCheckAlex extends Thread {
 		start();
 	}
 	
+	@Override
 	public void run() {
 		boolean isAlex = false;
 		if(player.getUniqueID() == null) {
@@ -29,6 +30,7 @@ public class ThreadCheckAlex extends Thread {
 			+ player.getUniqueID().toString().replaceAll("-", "")).openStream();
 				  BufferedReader rd = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
 				  String jsonText = readAll(rd);
+				  rd.close();
 //                System.out.println(jsonText);
 				  String base64 = jsonText.substring(jsonText.indexOf("\"value\" : \""));
 				  base64 = base64.replace("\"value\" : \"", "");

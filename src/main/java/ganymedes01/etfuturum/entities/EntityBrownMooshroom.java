@@ -26,11 +26,12 @@ public class EntityBrownMooshroom extends EntityMooshroom {
 		super(p_i1687_1_);
 	}
 
+	@Override
 	public boolean interact(EntityPlayer player)
 	{
 		ItemStack itemstack = player.inventory.getCurrentItem();
 		
-		boolean flag = false;
+		//boolean flag = false; // unused variable
 
 		if (EtFuturum.getSuspiciousStewEffect(itemstack) != null && effectID <= 0) {
 			effectID = (byte)EtFuturum.getSuspiciousStewEffect(itemstack).getPotionID();
@@ -38,7 +39,7 @@ public class EntityBrownMooshroom extends EntityMooshroom {
 			player.inventory.decrStackSize(player.inventory.currentItem, 1);
 			for (int i = 0; i < 4; i++)
 			{
-					this.worldObj.spawnParticle("mobSpell", this.posX + (this.rand.nextDouble() - 0.5D) * (double)this.width, this.posY + this.rand.nextDouble() * (double)this.height - (double)this.yOffset, this.posZ + (this.rand.nextDouble() - 0.5D) * (double)this.width, 1, 1, 1);
+					this.worldObj.spawnParticle("mobSpell", this.posX + (this.rand.nextDouble() - 0.5D) * this.width, this.posY + this.rand.nextDouble() * this.height - this.yOffset, this.posZ + (this.rand.nextDouble() - 0.5D) * this.width, 1, 1, 1);
 			}
 			return true;
 		}
@@ -49,7 +50,7 @@ public class EntityBrownMooshroom extends EntityMooshroom {
 			NBTTagList effectsList = new NBTTagList();
 			stew.stackTagCompound.setTag(ItemSuspiciousStew.effectsList, effectsList);
 			NBTTagCompound potionEffect = new NBTTagCompound();
-			potionEffect.setByte(ItemSuspiciousStew.stewEffect, (byte)effectID);
+			potionEffect.setByte(ItemSuspiciousStew.stewEffect, effectID);
 			if(effectDuration <= 0)
 				effectDuration = 160;
 			potionEffect.setInteger(ItemSuspiciousStew.stewEffectDuration, effectDuration);
@@ -94,6 +95,7 @@ public class EntityBrownMooshroom extends EntityMooshroom {
 		super.onEntityUpdate();
 	}
 	
+	@Override
 	public EntityMooshroom createChild(EntityAgeable p_90011_1_)
 	{
 		return new EntityBrownMooshroom(this.worldObj);
@@ -124,7 +126,7 @@ public class EntityBrownMooshroom extends EntityMooshroom {
 		entitycow.setHealth(this.getHealth());
 		entitycow.renderYawOffset = renderYawOffset;
 		worldObj.spawnEntityInWorld(entitycow);
-		worldObj.spawnParticle("largeexplode", posX, posY + (double)(height / 2.0F), posZ, 0.0D, 0.0D, 0.0D);
+		worldObj.spawnParticle("largeexplode", posX, posY + height / 2.0F, posZ, 0.0D, 0.0D, 0.0D);
 
 		ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
 		for (int i = 0; i < 5; i++)

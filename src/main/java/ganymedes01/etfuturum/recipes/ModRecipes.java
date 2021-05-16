@@ -39,7 +39,7 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 public class ModRecipes {
 
 	public static String[] dyes = new String[] { "dyeBlack", "dyeRed", "dyeGreen", "dyeBrown", "dyeBlue", "dyePurple", "dyeCyan", "dyeLightGray", "dyeGray", "dyePink", "dyeLime", "dyeYellow", "dyeLightBlue", "dyeMagenta", "dyeOrange", "dyeWhite" };
-	private static final ItemStack _SAND_ = new ItemStack(Blocks.sand), _GRAVEL_ = new ItemStack(Blocks.gravel);
+	//private static final ItemStack _SAND_ = new ItemStack(Blocks.sand), _GRAVEL_ = new ItemStack(Blocks.gravel); // unused variables
 	
 	
 	public static void init() {
@@ -327,6 +327,7 @@ public class ModRecipes {
 			for(int i = 0; i < metaBlocks.length; i++) {
 				addShapedRecipe(new ItemStack(ModBlocks.generic_slab, 6, i), "xxx", 'x', new ItemStack(metaBlocks[i], 1, i != 0 ? i - 1 : i));
 				if(i < 2) {
+					// TODO Uh what is supposed to go here?
 				}
 			}
 			addShapedRecipe(new ItemStack(Blocks.stone_slab, 6, 0), "xxx", 'x', new ItemStack(ModBlocks.smooth_stone, 1, 0));
@@ -775,7 +776,7 @@ public class ModRecipes {
 				
 				if(Item.getItemFromBlock(ore) == null || Item.getItemFromBlock(oreBase) == null)
 					continue;
-				if(((ore instanceof IConfigurable) && !((IConfigurable)ore).isEnabled()) || ((oreBase instanceof IConfigurable) && !((IConfigurable)oreBase).isEnabled()))
+				if(!ore.isEnabled() || ((oreBase instanceof IConfigurable) && !((IConfigurable)oreBase).isEnabled()))
 					return;
 				for(int j = 0; j < (Item.getItemFromBlock(oreBase).getHasSubtypes() ? 16 : 1); j++) {
 					for(int i : OreDictionary.getOreIDs(new ItemStack(oreBase, 1, j))) {

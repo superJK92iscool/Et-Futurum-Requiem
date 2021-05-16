@@ -15,11 +15,13 @@ public class FrostWalker extends Enchantment {
 		setName("frost_walker");
 	}
 	
+	@Override
 	public int getMinEnchantability(int enchantmentLevel)
 	{
 		return enchantmentLevel * 10;
 	}
 
+	@Override
 	public int getMaxEnchantability(int enchantmentLevel)
 	{
 		return this.getMinEnchantability(enchantmentLevel) + 15;

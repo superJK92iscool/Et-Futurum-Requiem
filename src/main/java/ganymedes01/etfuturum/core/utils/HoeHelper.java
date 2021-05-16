@@ -18,9 +18,9 @@ import net.minecraft.item.ItemTool;
 public class HoeHelper {
 	
 	public static void init() {
-		Iterator iterator = Block.blockRegistry.iterator();
+		Iterator<Block> iterator = Block.blockRegistry.iterator();
 		while(iterator.hasNext()) {
-			Block block = (Block) iterator.next();
+			Block block = iterator.next();
 			if(block == null)
 				continue;
 			
@@ -55,7 +55,6 @@ public class HoeHelper {
 	 * Return 0 if the input is not a tool.
 	 * Gets private tool speed value from tool material.
 	 * @param item
-	 * @return
 	 */
 	public static float getToolSpeed(Item item) {
 		float returnValue = 0;
@@ -78,17 +77,16 @@ public class HoeHelper {
 		return returnValue;
 	}
 
-	  public static Field getField(Class clazz, String fieldName)
+	  public static Field getField(Class<?> clazz, String fieldName)
 				throws NoSuchFieldException {
 			try {
 			  return clazz.getDeclaredField(fieldName);
 			} catch (NoSuchFieldException e) {
-			  Class superClass = clazz.getSuperclass();
+			  Class<?> superClass = clazz.getSuperclass();
 			  if (superClass == null) {
 				throw e;
-			  } else {
-				return getField(superClass, fieldName);
 			  }
+			return getField(superClass, fieldName);
 			}
 	  }
 

@@ -36,18 +36,18 @@ public class ModSounds {
 	private static final class CustomSound extends SoundType {
 
 		private final boolean useDefaults;
-		private final boolean fromEF;
+		//private final boolean fromEF; // Never actually used! Uncomment if you want to use
 		private final String prefix;
 
 		public CustomSound(String name, float volume, float pitch, boolean useDefaults, boolean fromEF) {
 			super(name, volume, pitch);
 			this.useDefaults = useDefaults;
-			this.fromEF = fromEF;
+			//this.fromEF = fromEF; // Never actually used! Uncomment if you want to use
 			this.prefix = fromEF ? (Reference.MOD_ID + ":") : "";
 		}
 
 		public CustomSound(String name) {
-			this(name, 1.0F, 1.0F, false, false);
+			this(name, false);
 		}
 		public CustomSound(String name, boolean fromEF) {
 			this(name, 1.0F, 1.0F, false, fromEF);

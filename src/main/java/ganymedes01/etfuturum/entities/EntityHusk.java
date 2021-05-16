@@ -44,6 +44,7 @@ public class EntityHusk extends EntityZombie
 	}
 	
 	
+	@Override
 	public boolean attackEntityAsMob(final Entity entity) {
 		final boolean flag = super.attackEntityAsMob(entity);
 		if (flag) {
@@ -128,6 +129,7 @@ public class EntityHusk extends EntityZombie
 	}
 	*/
 	
+	@Override
 	public ItemStack getEquipmentInSlot(int slot)
 	{ // Sets dummy item in helmet slot so itemstack in helmet is never null, to remove daylight check
 		ItemStack stack = super.getEquipmentInSlot(slot);
@@ -136,18 +138,22 @@ public class EntityHusk extends EntityZombie
 		return stack == null ? dummyItem : stack;
 	}
 	
+	@Override
 	protected String getLivingSound() {
 		return "etfuturum:mob.husk.idle";
 	}
 	
+	@Override
 	protected String getHurtSound() {
 		return "etfuturum:mob.husk.hurt";
 	}
 	
+	@Override
 	protected String getDeathSound() {
 		return "etfuturum:mob.husk.death";
 	}
 	
+	@Override
 	protected void func_145780_a(final int p_145780_1_, final int p_145780_2_, final int p_145780_3_, final Block p_145780_4_) {
 		this.playSound("etfuturum:mob.husk.step", 0.15f, 1.0f);
 	}

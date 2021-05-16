@@ -34,44 +34,42 @@ public class TileEntityBannerRenderer extends TileEntitySpecialRenderer {
 
 		if (s.isEmpty())
 			return null;
-		else {
-			TimedBannerTexture texture = CANVAS_TEXTURES.get(s);
-			if (texture == null) {
-				if (CANVAS_TEXTURES.size() >= 256) {
-					long i = System.currentTimeMillis();
-					Iterator<String> iterator = CANVAS_TEXTURES.keySet().iterator();
+		TimedBannerTexture texture = CANVAS_TEXTURES.get(s);
+		if (texture == null) {
+			if (CANVAS_TEXTURES.size() >= 256) {
+				long i = System.currentTimeMillis();
+				Iterator<String> iterator = CANVAS_TEXTURES.keySet().iterator();
 
-					while (iterator.hasNext()) {
-						String s1 = iterator.next();
-						TimedBannerTexture texture1 = CANVAS_TEXTURES.get(s1);
+				while (iterator.hasNext()) {
+					String s1 = iterator.next();
+					TimedBannerTexture texture1 = CANVAS_TEXTURES.get(s1);
 
-						if (i - texture1.time > 60000L) {
-							Minecraft.getMinecraft().getTextureManager().deleteTexture(texture1.texture);
-							iterator.remove();
-						}
+					if (i - texture1.time > 60000L) {
+						Minecraft.getMinecraft().getTextureManager().deleteTexture(texture1.texture);
+						iterator.remove();
 					}
-
-					if (CANVAS_TEXTURES.size() >= 256)
-						return null;
 				}
 
-				List<EnumBannerPattern> list1 = banner.getPatternList();
-				List<EnumColour> list = banner.getColorList();
-				ArrayList<String> arraylist = Lists.newArrayList();
-				Iterator<EnumBannerPattern> patters = list1.iterator();
-
-				while (patters.hasNext())
-					arraylist.add("textures/entity/banner/" + patters.next().getPatternName() + ".png");
-
-				texture = new TimedBannerTexture();
-				texture.texture = new ResourceLocation(s);
-				Minecraft.getMinecraft().getTextureManager().loadTexture(texture.texture, new LayeredColorMaskTexture(BASE_TEXTURE, arraylist, list));
-				CANVAS_TEXTURES.put(s, texture);
+				if (CANVAS_TEXTURES.size() >= 256)
+					return null;
 			}
 
-			texture.time = System.currentTimeMillis();
-			return texture.texture;
+			List<EnumBannerPattern> list1 = banner.getPatternList();
+			List<EnumColour> list = banner.getColorList();
+			ArrayList<String> arraylist = Lists.newArrayList();
+			Iterator<EnumBannerPattern> patters = list1.iterator();
+
+			while (patters.hasNext())
+				arraylist.add("textures/entity/banner/" + patters.next().getPatternName() + ".png");
+
+			texture = new TimedBannerTexture();
+			texture.texture = new ResourceLocation(s);
+			Minecraft.getMinecraft().getTextureManager().loadTexture(texture.texture, new LayeredColorMaskTexture(BASE_TEXTURE, arraylist, list));
+			CANVAS_TEXTURES.put(s, texture);
 		}
+
+		texture.time = System.currentTimeMillis();
+		return texture.texture;
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -80,8 +78,7 @@ public class TileEntityBannerRenderer extends TileEntitySpecialRenderer {
 		public long time;
 		public ResourceLocation texture;
 
-		private TimedBannerTexture() {
-		}
+		TimedBannerTexture() {}
 	}
 
 	@Override

@@ -29,11 +29,11 @@ public class TileEntityBlastFurnace extends TileEntity implements ISidedInventor
 	/** The number of ticks that the current item has been cooking for */
 	public int furnaceCookTime;
 	private String field_145958_o;
-	private static final String __OBFID = "CL_00000357";
 
 	/**
 	 * Returns the number of slots in the inventory.
 	 */
+	@Override
 	public int getSizeInventory()
 	{
 		return this.furnaceItemStacks.length;
@@ -42,6 +42,7 @@ public class TileEntityBlastFurnace extends TileEntity implements ISidedInventor
 	/**
 	 * Returns the stack in slot i
 	 */
+	@Override
 	public ItemStack getStackInSlot(int p_70301_1_)
 	{
 		return this.furnaceItemStacks[p_70301_1_];
@@ -51,6 +52,7 @@ public class TileEntityBlastFurnace extends TileEntity implements ISidedInventor
 	 * Removes from an inventory slot (first arg) up to a specified number (second arg) of items and returns them in a
 	 * new stack.
 	 */
+	@Override
 	public ItemStack decrStackSize(int p_70298_1_, int p_70298_2_)
 	{
 		if (this.furnaceItemStacks[p_70298_1_] != null)
@@ -63,28 +65,23 @@ public class TileEntityBlastFurnace extends TileEntity implements ISidedInventor
 				this.furnaceItemStacks[p_70298_1_] = null;
 				return itemstack;
 			}
-			else
+			itemstack = this.furnaceItemStacks[p_70298_1_].splitStack(p_70298_2_);
+
+			if (this.furnaceItemStacks[p_70298_1_].stackSize == 0)
 			{
-				itemstack = this.furnaceItemStacks[p_70298_1_].splitStack(p_70298_2_);
-
-				if (this.furnaceItemStacks[p_70298_1_].stackSize == 0)
-				{
-					this.furnaceItemStacks[p_70298_1_] = null;
-				}
-
-				return itemstack;
+				this.furnaceItemStacks[p_70298_1_] = null;
 			}
+
+			return itemstack;
 		}
-		else
-		{
-			return null;
-		}
+		return null;
 	}
 
 	/**
 	 * When some containers are closed they call this on each slot, then drop whatever it returns as an EntityItem -
 	 * like when you close a workbench GUI.
 	 */
+	@Override
 	public ItemStack getStackInSlotOnClosing(int p_70304_1_)
 	{
 		if (this.furnaceItemStacks[p_70304_1_] != null)
@@ -93,15 +90,13 @@ public class TileEntityBlastFurnace extends TileEntity implements ISidedInventor
 			this.furnaceItemStacks[p_70304_1_] = null;
 			return itemstack;
 		}
-		else
-		{
-			return null;
-		}
+		return null;
 	}
 
 	/**
 	 * Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections).
 	 */
+	@Override
 	public void setInventorySlotContents(int p_70299_1_, ItemStack p_70299_2_)
 	{
 		this.furnaceItemStacks[p_70299_1_] = p_70299_2_;
@@ -115,6 +110,7 @@ public class TileEntityBlastFurnace extends TileEntity implements ISidedInventor
 	/**
 	 * Returns the name of the inventory
 	 */
+	@Override
 	public String getInventoryName()
 	{
 		return this.hasCustomInventoryName() ? this.field_145958_o : "container." + Reference.MOD_ID + ".blast_furnace";
@@ -123,6 +119,7 @@ public class TileEntityBlastFurnace extends TileEntity implements ISidedInventor
 	/**
 	 * Returns if the inventory is named
 	 */
+	@Override
 	public boolean hasCustomInventoryName()
 	{
 		return this.field_145958_o != null && this.field_145958_o.length() > 0;
@@ -133,6 +130,7 @@ public class TileEntityBlastFurnace extends TileEntity implements ISidedInventor
 		this.field_145958_o = p_145951_1_;
 	}
 
+	@Override
 	public void readFromNBT(NBTTagCompound p_145839_1_)
 	{
 		super.readFromNBT(p_145839_1_);
@@ -160,6 +158,7 @@ public class TileEntityBlastFurnace extends TileEntity implements ISidedInventor
 		}
 	}
 
+	@Override
 	public void writeToNBT(NBTTagCompound p_145841_1_)
 	{
 		super.writeToNBT(p_145841_1_);
@@ -189,6 +188,7 @@ public class TileEntityBlastFurnace extends TileEntity implements ISidedInventor
 	/**
 	 * Returns the maximum stack size for a inventory slot.
 	 */
+	@Override
 	public int getInventoryStackLimit()
 	{
 		return 64;
@@ -227,6 +227,7 @@ public class TileEntityBlastFurnace extends TileEntity implements ISidedInventor
 		return this.furnaceBurnTime > 0;
 	}
 
+	@Override
 	public void updateEntity()
 	{
 		boolean flag = this.furnaceBurnTime > 0;
@@ -300,15 +301,12 @@ public class TileEntityBlastFurnace extends TileEntity implements ISidedInventor
 		{
 			return false;
 		}
-		else
-		{
-			ItemStack itemstack = BlastFurnaceRecipes.smelting().getSmeltingResult(this.furnaceItemStacks[0]);
-			if (itemstack == null) return false;
-			if (this.furnaceItemStacks[2] == null) return true;
-			if (!this.furnaceItemStacks[2].isItemEqual(itemstack)) return false;
-			int result = furnaceItemStacks[2].stackSize + itemstack.stackSize;
-			return result <= getInventoryStackLimit() && result <= this.furnaceItemStacks[2].getMaxStackSize(); //Forge BugFix: Make it respect stack sizes properly.
-		}
+		ItemStack itemstack = BlastFurnaceRecipes.smelting().getSmeltingResult(this.furnaceItemStacks[0]);
+		if (itemstack == null) return false;
+		if (this.furnaceItemStacks[2] == null) return true;
+		if (!this.furnaceItemStacks[2].isItemEqual(itemstack)) return false;
+		int result = furnaceItemStacks[2].stackSize + itemstack.stackSize;
+		return result <= getInventoryStackLimit() && result <= this.furnaceItemStacks[2].getMaxStackSize(); //Forge BugFix: Make it respect stack sizes properly.
 	}
 
 	/**
@@ -355,18 +353,22 @@ public class TileEntityBlastFurnace extends TileEntity implements ISidedInventor
 	/**
 	 * Do not make give this method the name canInteractWith because it clashes with Container
 	 */
+	@Override
 	public boolean isUseableByPlayer(EntityPlayer p_70300_1_)
 	{
-		return this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord) != this ? false : p_70300_1_.getDistanceSq((double)this.xCoord + 0.5D, (double)this.yCoord + 0.5D, (double)this.zCoord + 0.5D) <= 64.0D;
+		return this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord) != this ? false : p_70300_1_.getDistanceSq(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D) <= 64.0D;
 	}
 
+	@Override
 	public void openInventory() {}
 
+	@Override
 	public void closeInventory() {}
 
 	/**
 	 * Returns true if automation is allowed to insert the given stack (ignoring stack size) into the given slot.
 	 */
+	@Override
 	public boolean isItemValidForSlot(int p_94041_1_, ItemStack p_94041_2_)
 	{
 		return p_94041_1_ == 2 ? false : (p_94041_1_ == 1 ? isItemFuel(p_94041_2_) : true);
@@ -376,6 +378,7 @@ public class TileEntityBlastFurnace extends TileEntity implements ISidedInventor
 	 * Returns an array containing the indices of the slots that can be accessed by automation on the given side of this
 	 * block.
 	 */
+	@Override
 	public int[] getAccessibleSlotsFromSide(int p_94128_1_)
 	{
 		return p_94128_1_ == 0 ? slotsBottom : (p_94128_1_ == 1 ? slotsTop : slotsSides);
@@ -385,6 +388,7 @@ public class TileEntityBlastFurnace extends TileEntity implements ISidedInventor
 	 * Returns true if automation can insert the given item in the given slot from the given side. Args: Slot, item,
 	 * side
 	 */
+	@Override
 	public boolean canInsertItem(int p_102007_1_, ItemStack p_102007_2_, int p_102007_3_)
 	{
 		return this.isItemValidForSlot(p_102007_1_, p_102007_2_);
@@ -394,6 +398,7 @@ public class TileEntityBlastFurnace extends TileEntity implements ISidedInventor
 	 * Returns true if automation can extract the given item in the given slot from the given side. Args: Slot, item,
 	 * side
 	 */
+	@Override
 	public boolean canExtractItem(int p_102008_1_, ItemStack p_102008_2_, int p_102008_3_)
 	{
 		return p_102008_3_ != 0 || p_102008_1_ != 1 || p_102008_2_.getItem() == Items.bucket;

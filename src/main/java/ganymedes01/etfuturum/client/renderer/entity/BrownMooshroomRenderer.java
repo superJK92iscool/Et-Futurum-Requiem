@@ -18,6 +18,7 @@ public class BrownMooshroomRenderer extends RenderMooshroom {
 
 	private static final ResourceLocation mooshroomTextures = new ResourceLocation("textures/entity/cow/brown_mooshroom.png");
 
+	@Override
 	protected ResourceLocation getEntityTexture(EntityMooshroom p_110775_1_)
 	{
 		return mooshroomTextures;

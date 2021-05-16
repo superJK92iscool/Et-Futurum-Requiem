@@ -113,11 +113,10 @@ public class EntityLingeringEffect extends Entity implements IEntityAdditionalSp
 		if (ticks >= MAX_TICKS) {
 			setDead();
 			return true;
-		} else {
-			double radius = 3 * ((double) (MAX_TICKS - ticks) / MAX_TICKS);
-			setSize((float) radius * 2, 0.5F);
-			return false;
 		}
+		double radius = 3 * ((double) (MAX_TICKS - ticks) / MAX_TICKS);
+		setSize((float) radius * 2, 0.5F);
+		return false;
 	}
 
 	@Override

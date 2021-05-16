@@ -39,21 +39,20 @@ public class RabbitRenderer extends RenderLiving {
 
 		if (s != null && s.equals("Toast"))
 			return TOAST;
-		else
-			switch (rabbit.getRabbitType()) {
-				case 0:
-				default:
-					return BROWN;
-				case 1:
-					return WHITE;
-				case 2:
-					return BLACK;
-				case 3:
-					return WHITE_SPLOTCHED;
-				case 4:
-					return GOLD;
-				case 5:
-					return SALT;
-			}
+		switch (rabbit.getRabbitType()) {
+			case 0:
+			default:
+				return BROWN;
+			case 1:
+				return WHITE;
+			case 2:
+				return BLACK;
+			case 3:
+				return WHITE_SPLOTCHED;
+			case 4:
+				return GOLD;
+			case 5:
+				return SALT;
+		}
 	}
 }

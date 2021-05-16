@@ -22,10 +22,10 @@ public class BlockLanternRenderer implements ISimpleBlockRenderingHandler {
 			Tessellator tessellator = Tessellator.instance;
 			int l = block.colorMultiplier(renderer.blockAccess, x, y, z);
 			tessellator.setBrightness(block.getMixedBrightnessForBlock(renderer.blockAccess, x, y, z));
-			IIcon iicon = renderer.getBlockIcon(ModBlocks.lantern);
-			float f = (float)(l >> 16 & 255) / 255.0F;
-			float f1 = (float)(l >> 8 & 255) / 255.0F;
-			float f2 = (float)(l & 255) / 255.0F;
+			//IIcon iicon = renderer.getBlockIcon(ModBlocks.lantern); // unused variable
+			float f = (l >> 16 & 255) / 255.0F;
+			float f1 = (l >> 8 & 255) / 255.0F;
+			float f2 = (l & 255) / 255.0F;
 			float f3;
 
 			if (EntityRenderer.anaglyphEnable)
@@ -43,9 +43,9 @@ public class BlockLanternRenderer implements ISimpleBlockRenderingHandler {
 
 			if (l != 16777215)
 			{
-				f = (float)(l >> 16 & 255) / 255.0F;
-				f1 = (float)(l >> 8 & 255) / 255.0F;
-				f2 = (float)(l & 255) / 255.0F;
+				f = (l >> 16 & 255) / 255.0F;
+				f1 = (l >> 8 & 255) / 255.0F;
+				f2 = (l & 255) / 255.0F;
 				tessellator.setColorOpaque_F(f, f1, f2);
 			}
 			
@@ -73,9 +73,9 @@ public class BlockLanternRenderer implements ISimpleBlockRenderingHandler {
 		int i = world.getBlockMetadata(x, y, z);
 		
 		int l = block.colorMultiplier(renderer.blockAccess, x, y, z);
-		float f = (float)(l >> 16 & 255) / 255.0F;
-		float f1 = (float)(l >> 8 & 255) / 255.0F;
-		float f2 = (float)(l & 255) / 255.0F;
+		float f = (l >> 16 & 255) / 255.0F;
+		float f1 = (l >> 8 & 255) / 255.0F;
+		float f2 = (l & 255) / 255.0F;
 
 		if (EntityRenderer.anaglyphEnable)
 		{
@@ -97,25 +97,25 @@ public class BlockLanternRenderer implements ISimpleBlockRenderingHandler {
 		double iIntV1 = iicon.getInterpolatedV(9);
 
 		tessellator.addVertexWithUV(x + (r * 5D), y + (r * (double)i), z + (r * 11D), iIntU, iIntV1);
-		tessellator.addVertexWithUV(x + (r * 5D), y + (r * (7D + (double)i)), z + (r * 11D), iIntU, iIntV);
-		tessellator.addVertexWithUV(x + (r * 5D), y + (r * (7D + (double)i)), z + (r * 5D), iIntU1, iIntV);
+		tessellator.addVertexWithUV(x + (r * 5D), y + (r * (7D + i)), z + (r * 11D), iIntU, iIntV);
+		tessellator.addVertexWithUV(x + (r * 5D), y + (r * (7D + i)), z + (r * 5D), iIntU1, iIntV);
 		tessellator.addVertexWithUV(x + (r * 5D), y + (r * (double)i),  z + (r * 5D), iIntU1, iIntV1);
 
 //        tessellator.setColorOpaque_F(f - 1, f1 - 1, f2 - 1);
 		tessellator.addVertexWithUV(x + (r * 11D), y + (r * (double)i), z + (r * 5D), iIntU, iIntV1);
-		tessellator.addVertexWithUV(x + (r * 11D), y + (r * (7D + (double)i)), z + (r * 5D), iIntU, iIntV);
-		tessellator.addVertexWithUV(x + (r * 11D), y + (r * (7D + (double)i)), z + (r * 11D), iIntU1, iIntV);
+		tessellator.addVertexWithUV(x + (r * 11D), y + (r * (7D + i)), z + (r * 5D), iIntU, iIntV);
+		tessellator.addVertexWithUV(x + (r * 11D), y + (r * (7D + i)), z + (r * 11D), iIntU1, iIntV);
 		tessellator.addVertexWithUV(x + (r * 11D), y + (r * (double)i),  z + (r * 11D), iIntU1, iIntV1);
 
 //        tessellator.setColorOpaque_F(f, f1, f2);
 		tessellator.addVertexWithUV(x + (r * 5D), y + (r * (double)i), z + (r * 5D), iIntU, iIntV1);
-		tessellator.addVertexWithUV(x + (r * 5D), y + (r * (7D + (double)i)), z + (r * 5D), iIntU, iIntV);
-		tessellator.addVertexWithUV(x + (r * 11D), y + (r * (7D + (double)i)), z + (r * 5D), iIntU1, iIntV);
+		tessellator.addVertexWithUV(x + (r * 5D), y + (r * (7D + i)), z + (r * 5D), iIntU, iIntV);
+		tessellator.addVertexWithUV(x + (r * 11D), y + (r * (7D + i)), z + (r * 5D), iIntU1, iIntV);
 		tessellator.addVertexWithUV(x + (r * 11D), y + (r * (double)i),  z + (r * 5D), iIntU1, iIntV1);
 
 		tessellator.addVertexWithUV(x + (r * 11D), y + (r * (double)i), z + (r * 11D), iIntU, iIntV1);
-		tessellator.addVertexWithUV(x + (r * 11D), y + (r * (7D + (double)i)), z + (r * 11D), iIntU, iIntV);
-		tessellator.addVertexWithUV(x + (r * 5D), y + (r * (7D + (double)i)), z + (r * 11D), iIntU1, iIntV);
+		tessellator.addVertexWithUV(x + (r * 11D), y + (r * (7D + i)), z + (r * 11D), iIntU, iIntV);
+		tessellator.addVertexWithUV(x + (r * 5D), y + (r * (7D + i)), z + (r * 11D), iIntU1, iIntV);
 		tessellator.addVertexWithUV(x + (r * 5D), y + (r * (double)i),  z + (r * 11D), iIntU1, iIntV1);
 		
 		//Top/Bottom of main block
@@ -125,10 +125,10 @@ public class BlockLanternRenderer implements ISimpleBlockRenderingHandler {
 		double iIntU3 = iicon.getInterpolatedU(6);
 		double iIntV3 = iicon.getInterpolatedV(15);
 		
-		tessellator.addVertexWithUV(x + (r * 5D), y + (r * (7D + (double)i)), z + (r * 5D), iIntU2, iIntV3);
-		tessellator.addVertexWithUV(x + (r * 5D), y + (r * (7D + (double)i)), z + (r * 11D), iIntU2, iIntV2);
-		tessellator.addVertexWithUV(x + (r * 11D), y + (r * (7D + (double)i)), z + (r * 11D), iIntU3, iIntV2);
-		tessellator.addVertexWithUV(x + (r * 11D), y + (r * (7D + (double)i)),  z + (r * 5D), iIntU3, iIntV3);
+		tessellator.addVertexWithUV(x + (r * 5D), y + (r * (7D + i)), z + (r * 5D), iIntU2, iIntV3);
+		tessellator.addVertexWithUV(x + (r * 5D), y + (r * (7D + i)), z + (r * 11D), iIntU2, iIntV2);
+		tessellator.addVertexWithUV(x + (r * 11D), y + (r * (7D + i)), z + (r * 11D), iIntU3, iIntV2);
+		tessellator.addVertexWithUV(x + (r * 11D), y + (r * (7D + i)),  z + (r * 5D), iIntU3, iIntV3);
 
 		tessellator.addVertexWithUV(x + (r * 5D), y + (r * (double)i), z + (r * 11D), iIntU2, iIntV3);
 		tessellator.addVertexWithUV(x + (r * 5D), y + (r * (double)i), z + (r * 5D), iIntU2, iIntV2);
@@ -142,25 +142,25 @@ public class BlockLanternRenderer implements ISimpleBlockRenderingHandler {
 		double iIntU5 = iicon.getInterpolatedU(5);
 		double iIntV5 = iicon.getInterpolatedV(2);
 		
-		tessellator.addVertexWithUV(x + (r * 6D), y + (r * (7D + (double)i)), z + (r * 10D), iIntU4, iIntV5);
-		tessellator.addVertexWithUV(x + (r * 6D), y + (r * (9D + (double)i)), z + (r * 10D), iIntU4, iIntV4);
-		tessellator.addVertexWithUV(x + (r * 6D), y + (r * (9D + (double)i)), z + (r * 6D), iIntU5, iIntV4);
-		tessellator.addVertexWithUV(x + (r * 6D), y + (r * (7D + (double)i)),  z + (r * 6D), iIntU5, iIntV5);
+		tessellator.addVertexWithUV(x + (r * 6D), y + (r * (7D + i)), z + (r * 10D), iIntU4, iIntV5);
+		tessellator.addVertexWithUV(x + (r * 6D), y + (r * (9D + i)), z + (r * 10D), iIntU4, iIntV4);
+		tessellator.addVertexWithUV(x + (r * 6D), y + (r * (9D + i)), z + (r * 6D), iIntU5, iIntV4);
+		tessellator.addVertexWithUV(x + (r * 6D), y + (r * (7D + i)),  z + (r * 6D), iIntU5, iIntV5);
 		
-		tessellator.addVertexWithUV(x + (r * 10D), y + (r * (7D + (double)i)), z + (r * 6D), iIntU4, iIntV5);
-		tessellator.addVertexWithUV(x + (r * 10D), y + (r * (9D + (double)i)), z + (r * 6D), iIntU4, iIntV4);
-		tessellator.addVertexWithUV(x + (r * 10D), y + (r * (9D + (double)i)), z + (r * 10D), iIntU5, iIntV4);
-		tessellator.addVertexWithUV(x + (r * 10D), y + (r * (7D + (double)i)),  z + (r * 10D), iIntU5, iIntV5);
+		tessellator.addVertexWithUV(x + (r * 10D), y + (r * (7D + i)), z + (r * 6D), iIntU4, iIntV5);
+		tessellator.addVertexWithUV(x + (r * 10D), y + (r * (9D + i)), z + (r * 6D), iIntU4, iIntV4);
+		tessellator.addVertexWithUV(x + (r * 10D), y + (r * (9D + i)), z + (r * 10D), iIntU5, iIntV4);
+		tessellator.addVertexWithUV(x + (r * 10D), y + (r * (7D + i)),  z + (r * 10D), iIntU5, iIntV5);
 
-		tessellator.addVertexWithUV(x + (r * 6D), y + (r * (7D + (double)i)), z + (r * 6D), iIntU4, iIntV5);
-		tessellator.addVertexWithUV(x + (r * 6D), y + (r * (9D + (double)i)), z + (r * 6D), iIntU4, iIntV4);
-		tessellator.addVertexWithUV(x + (r * 10D), y + (r * (9D + (double)i)), z + (r * 6D), iIntU5, iIntV4);
-		tessellator.addVertexWithUV(x + (r * 10D), y + (r * (7D + (double)i)),  z + (r * 6D), iIntU5, iIntV5);
+		tessellator.addVertexWithUV(x + (r * 6D), y + (r * (7D + i)), z + (r * 6D), iIntU4, iIntV5);
+		tessellator.addVertexWithUV(x + (r * 6D), y + (r * (9D + i)), z + (r * 6D), iIntU4, iIntV4);
+		tessellator.addVertexWithUV(x + (r * 10D), y + (r * (9D + i)), z + (r * 6D), iIntU5, iIntV4);
+		tessellator.addVertexWithUV(x + (r * 10D), y + (r * (7D + i)),  z + (r * 6D), iIntU5, iIntV5);
 
-		tessellator.addVertexWithUV(x + (r * 10D), y + (r * (7D + (double)i)), z + (r * 10D), iIntU4, iIntV5);
-		tessellator.addVertexWithUV(x + (r * 10D), y + (r * (9D + (double)i)), z + (r * 10D), iIntU4, iIntV4);
-		tessellator.addVertexWithUV(x + (r * 6D), y + (r * (9D + (double)i)), z + (r * 10D), iIntU5, iIntV4);
-		tessellator.addVertexWithUV(x + (r * 6D), y + (r * (7D + (double)i)),  z + (r * 10D), iIntU5, iIntV5);
+		tessellator.addVertexWithUV(x + (r * 10D), y + (r * (7D + i)), z + (r * 10D), iIntU4, iIntV5);
+		tessellator.addVertexWithUV(x + (r * 10D), y + (r * (9D + i)), z + (r * 10D), iIntU4, iIntV4);
+		tessellator.addVertexWithUV(x + (r * 6D), y + (r * (9D + i)), z + (r * 10D), iIntU5, iIntV4);
+		tessellator.addVertexWithUV(x + (r * 6D), y + (r * (7D + i)),  z + (r * 10D), iIntU5, iIntV5);
 		
 		//Top/Bottom of main block
 		double iIntU6 = iicon.getInterpolatedU(1);
@@ -169,10 +169,10 @@ public class BlockLanternRenderer implements ISimpleBlockRenderingHandler {
 		double iIntU7 = iicon.getInterpolatedU(5);
 		double iIntV7 = iicon.getInterpolatedV(14);
 		
-		tessellator.addVertexWithUV(x + (r * 6D), y + (r * (9D + (double)i)), z + (r * 6D), iIntU6, iIntV7);
-		tessellator.addVertexWithUV(x + (r * 6D), y + (r * (9D + (double)i)), z + (r * 10D), iIntU6, iIntV6);
-		tessellator.addVertexWithUV(x + (r * 10D), y + (r * (9D + (double)i)), z + (r * 10D), iIntU7, iIntV6);
-		tessellator.addVertexWithUV(x + (r * 10D), y + (r * (9D + (double)i)),  z + (r * 6D), iIntU7, iIntV7);
+		tessellator.addVertexWithUV(x + (r * 6D), y + (r * (9D + i)), z + (r * 6D), iIntU6, iIntV7);
+		tessellator.addVertexWithUV(x + (r * 6D), y + (r * (9D + i)), z + (r * 10D), iIntU6, iIntV6);
+		tessellator.addVertexWithUV(x + (r * 10D), y + (r * (9D + i)), z + (r * 10D), iIntU7, iIntV6);
+		tessellator.addVertexWithUV(x + (r * 10D), y + (r * (9D + i)),  z + (r * 6D), iIntU7, iIntV7);
 		
 		//Lantern chain
 		double iIntU8 = iicon.getInterpolatedU(11);
@@ -181,15 +181,15 @@ public class BlockLanternRenderer implements ISimpleBlockRenderingHandler {
 		double iIntU9 = iicon.getInterpolatedU(14);
 		double iIntV9 = iicon.getInterpolatedV(12);
 		
-		tessellator.addVertexWithUV(x + (r * 7D), y + (r * (9D + (double)i)), z + (r * 7D), iIntU8, iIntV9);
-		tessellator.addVertexWithUV(x + (r * 7D), y + (r * (11D + (double)i)), z + (r * 7D), iIntU8, iIntV8);
-		tessellator.addVertexWithUV(x + (r * 9D), y + (r * (11D + (double)i)), z + (r * 9D), iIntU9, iIntV8);
-		tessellator.addVertexWithUV(x + (r * 9D), y + (r * (9D + (double)i)),  z + (r * 9D), iIntU9, iIntV9);
+		tessellator.addVertexWithUV(x + (r * 7D), y + (r * (9D + i)), z + (r * 7D), iIntU8, iIntV9);
+		tessellator.addVertexWithUV(x + (r * 7D), y + (r * (11D + i)), z + (r * 7D), iIntU8, iIntV8);
+		tessellator.addVertexWithUV(x + (r * 9D), y + (r * (11D + i)), z + (r * 9D), iIntU9, iIntV8);
+		tessellator.addVertexWithUV(x + (r * 9D), y + (r * (9D + i)),  z + (r * 9D), iIntU9, iIntV9);
 
-		tessellator.addVertexWithUV(x + (r * 9D), y + (r * (9D + (double)i)), z + (r * 9D), iIntU8, iIntV9);
-		tessellator.addVertexWithUV(x + (r * 9D), y + (r * (11D + (double)i)), z + (r * 9D), iIntU8, iIntV8);
-		tessellator.addVertexWithUV(x + (r * 7D), y + (r * (11D + (double)i)), z + (r * 7D), iIntU9, iIntV8);
-		tessellator.addVertexWithUV(x + (r * 7D), y + (r * (9D + (double)i)),  z + (r * 7D), iIntU9, iIntV9);
+		tessellator.addVertexWithUV(x + (r * 9D), y + (r * (9D + i)), z + (r * 9D), iIntU8, iIntV9);
+		tessellator.addVertexWithUV(x + (r * 9D), y + (r * (11D + i)), z + (r * 9D), iIntU8, iIntV8);
+		tessellator.addVertexWithUV(x + (r * 7D), y + (r * (11D + i)), z + (r * 7D), iIntU9, iIntV8);
+		tessellator.addVertexWithUV(x + (r * 7D), y + (r * (9D + i)),  z + (r * 7D), iIntU9, iIntV9);
 
 		//If meta is not 0, the other parts of the chain will appear
 		if (world.getBlockMetadata(x, y, z) == 0) {

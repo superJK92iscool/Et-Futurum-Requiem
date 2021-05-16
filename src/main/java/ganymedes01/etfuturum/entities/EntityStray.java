@@ -39,6 +39,7 @@ public class EntityStray extends EntitySkeleton {
 		}
 	}
 	
+	@Override
 	public IEntityLivingData onSpawnWithEgg(IEntityLivingData p_110161_1_)
 	{
 		p_110161_1_ = super.onSpawnWithEgg(p_110161_1_);
@@ -79,12 +80,14 @@ public class EntityStray extends EntitySkeleton {
 		return p_110161_1_;
 	}
 	
+	@Override
 	protected void addRandomArmor()
 	{
 		super.addRandomArmor();
 		this.setCurrentItemOrArmor(0, new ItemStack(Items.bow));
 	}
 	
+	@Override
 	public boolean attackEntityAsMob(final Entity entity) {
 		final boolean flag = super.attackEntityAsMob(entity);
 		if (flag) {
@@ -100,17 +103,17 @@ public class EntityStray extends EntitySkeleton {
 	@Override
 	public void attackEntityWithRangedAttack(EntityLivingBase p_82196_1_, float p_82196_2_)
 	{
-		EntityTippedArrow entityarrow = new EntityTippedArrow(this.worldObj, this, p_82196_1_, 1.6F, (float)(14 - this.worldObj.difficultySetting.getDifficultyId() * 4));
+		EntityTippedArrow entityarrow = new EntityTippedArrow(this.worldObj, this, p_82196_1_, 1.6F, 14 - this.worldObj.difficultySetting.getDifficultyId() * 4);
 		int i = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, this.getHeldItem());
 		int j = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, this.getHeldItem());
-		entityarrow.setDamage((double)(p_82196_2_ * 2.0F) + this.rand.nextGaussian() * 0.25D + (double)((float)this.worldObj.difficultySetting.getDifficultyId() * 0.11F));
+		entityarrow.setDamage(p_82196_2_ * 2.0F + this.rand.nextGaussian() * 0.25D + this.worldObj.difficultySetting.getDifficultyId() * 0.11F);
 		
-		final int diff = this.worldObj.difficultySetting.getDifficultyId();
+		//final int diff = this.worldObj.difficultySetting.getDifficultyId(); // unused variable
 		entityarrow.setEffect(new PotionEffect(Potion.moveSlowdown.getId(), 600, 0) );
 		
 		if (i > 0)
 		{
-			entityarrow.setDamage(entityarrow.getDamage() + (double)i * 0.5D + 0.5D);
+			entityarrow.setDamage(entityarrow.getDamage() + i * 0.5D + 0.5D);
 		}
 
 		if (j > 0)
@@ -127,6 +130,7 @@ public class EntityStray extends EntitySkeleton {
 		this.worldObj.spawnEntityInWorld(entityarrow);
 	}
 	
+	@Override
 	protected void dropFewItems(boolean p_70628_1_, int p_70628_2_) {
 		int j;
 		int k;
@@ -146,18 +150,22 @@ public class EntityStray extends EntitySkeleton {
 		}*/
 	}
 	
+	@Override
 	protected String getLivingSound() {
 		return "etfuturum:mob.stray.idle";
 	}
 	
+	@Override
 	protected String getHurtSound() {
 		return "etfuturum:mob.stray.hurt";
 	}
 	
+	@Override
 	protected String getDeathSound() {
 		return "etfuturum:mob.stray.death";
 	}
 	
+	@Override
 	protected void func_145780_a(final int p_145780_1_, final int p_145780_2_, final int p_145780_3_, final Block p_145780_4_) {
 		this.playSound("etfuturum:mob.stray.step", 0.15f, 1.0f);
 	}

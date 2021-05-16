@@ -217,23 +217,24 @@ public class EntityArmourStand extends EntityLiving {
 		if (!worldObj.isRemote) {
 			byte b0 = 0;
 			ItemStack itemstack = player.getCurrentEquippedItem();
-			boolean flag = itemstack != null;
+			if (itemstack != null) {
+				if (itemstack.getItem() instanceof ItemArmor) {
+					ItemArmor itemarmor = (ItemArmor) itemstack.getItem();
 
-			if (flag && itemstack.getItem() instanceof ItemArmor) {
-				ItemArmor itemarmor = (ItemArmor) itemstack.getItem();
-
-				if (itemarmor.armorType == 3)
-					b0 = 1;
-				else if (itemarmor.armorType == 2)
-					b0 = 2;
-				else if (itemarmor.armorType == 1)
-					b0 = 3;
-				else if (itemarmor.armorType == 0)
+					if (itemarmor.armorType == 3)
+						b0 = 1;
+					else if (itemarmor.armorType == 2)
+						b0 = 2;
+					else if (itemarmor.armorType == 1)
+						b0 = 3;
+					else if (itemarmor.armorType == 0)
+						b0 = 4;
+				}
+				if (itemstack.getItem() == Items.skull || itemstack.getItem() == Item.getItemFromBlock(Blocks.pumpkin))
 					b0 = 4;
 			}
+			
 
-			if (flag && (itemstack.getItem() == Items.skull || itemstack.getItem() == Item.getItemFromBlock(Blocks.pumpkin)))
-				b0 = 4;
 
 			byte b1 = 0;
 			boolean isSmall = isSmall();
@@ -250,18 +251,16 @@ public class EntityArmourStand extends EntityLiving {
 
 			boolean flag2 = getEquipmentInSlot(b1) != null;
 
-			if (flag && b0 == 0 && !getShowArms())
+			if (itemstack != null && b0 == 0 && !getShowArms())
 				return true;
-			else {
-				if (flag)
-					func_175422_a(player, b0);
-				else if (flag2)
-					func_175422_a(player, b1);
+			if (itemstack != null)
+				func_175422_a(player, b0);
+			else if (flag2)
+				func_175422_a(player, b1);
 
-				return true;
-			}
-		} else
 			return true;
+		}
+		return true;
 	}
 
 	private void func_175422_a(EntityPlayer player, int slot) {
@@ -316,33 +315,31 @@ public class EntityArmourStand extends EntityLiving {
 
 				if (!flag1 && !flag)
 					return false;
-				else {
-					if (source.getSourceOfDamage() instanceof EntityArrow)
-						source.getSourceOfDamage().setDead();
+				if (source.getSourceOfDamage() instanceof EntityArrow)
+					source.getSourceOfDamage().setDead();
 
-					if (source.getEntity() instanceof EntityPlayer && !((EntityPlayer) source.getEntity()).capabilities.allowEdit)
-						return false;
-					else if (source.getEntity() instanceof EntityPlayer && ((EntityPlayer) source.getEntity()).capabilities.isCreativeMode) {
+				if (source.getEntity() instanceof EntityPlayer && !((EntityPlayer) source.getEntity()).capabilities.allowEdit)
+					return false;
+				else if (source.getEntity() instanceof EntityPlayer && ((EntityPlayer) source.getEntity()).capabilities.isCreativeMode) {
+					playParticles();
+					setDead();
+					return false;
+				} else {
+					long i = worldObj.getTotalWorldTime();
+
+					if (i - punchCooldown > 5L && !flag)
+						punchCooldown = i;
+					else {
+						dropBlock();
 						playParticles();
 						setDead();
-						return false;
-					} else {
-						long i = worldObj.getTotalWorldTime();
-
-						if (i - punchCooldown > 5L && !flag)
-							punchCooldown = i;
-						else {
-							dropBlock();
-							playParticles();
-							setDead();
-						}
-
-						return false;
 					}
+
+					return false;
 				}
 			}
-		} else
-			return false;
+		}
+		return false;
 	}
 
 	private void playParticles() {

@@ -19,12 +19,14 @@ public class HuskRenderer extends RenderBiped
 		this.scale = 1.1f;
 	}
 	
+	@Override
 	protected void preRenderCallback(EntityLivingBase par1EntityLiving, float par2) {
 		if ((par1EntityLiving instanceof EntityHusk)) {
 			GL11.glScalef(this.scale, this.scale, this.scale);
 		}
 	}
 
+	@Override
 	protected ResourceLocation getEntityTexture(final Entity p_110775_1_) {
 		return texture;
 	}

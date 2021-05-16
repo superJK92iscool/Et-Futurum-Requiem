@@ -39,8 +39,8 @@ public class ContainerAnvil extends ContainerRepair {
 	}
 
 	@Override
-	public boolean canInteractWith(EntityPlayer player) {
-		return world.getBlock(x, y, z) != ModBlocks.anvil ? false : player.getDistanceSq(x + 0.5D, y + 0.5D, z + 0.5D) <= 64.0D;
+	public boolean canInteractWith(EntityPlayer _player) {
+		return world.getBlock(x, y, z) != ModBlocks.anvil ? false : _player.getDistanceSq(x + 0.5D, y + 0.5D, z + 0.5D) <= 64.0D;
 	}
 
 	@Override
@@ -191,13 +191,16 @@ public class ContainerAnvil extends ContainerRepair {
 
 			boolean wasFixed = i > 0;
 			boolean wasRenamed = false;
-			if (StringUtils.isBlank(repairedItemName)) {
-				if (itemstack.hasDisplayName())
-					itemstack1.func_135074_t();
-			} else if (!repairedItemName.equals(itemstack.getDisplayName())) {
-				itemstack1.setStackDisplayName(repairedItemName);
-				i++;
-				wasRenamed = true;
+			
+			if (itemstack1 != null) {
+				if (StringUtils.isBlank(repairedItemName)) {
+					if (itemstack.hasDisplayName())
+						itemstack1.func_135074_t();
+				} else if (!repairedItemName.equals(itemstack.getDisplayName())) {
+					itemstack1.setStackDisplayName(repairedItemName);
+					i++;
+					wasRenamed = true;
+				}
 			}
 
 			maximumCost = wasRenamed && !wasFixed ? 1 : cost + i;

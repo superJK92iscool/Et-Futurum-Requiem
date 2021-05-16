@@ -11,7 +11,9 @@ import java.util.Random;
 public class WeightedSoundPool {
 	
 	private class Entry {
-		double accumulatedWeight;
+		Entry() {}
+		
+		double weight;
 		String object;
 	}
 
@@ -23,7 +25,7 @@ public class WeightedSoundPool {
 		accumulatedWeight += weight;
 		Entry e = new Entry();
 		e.object = object;
-		e.accumulatedWeight = accumulatedWeight;
+		e.weight = accumulatedWeight;
 		entries.add(e);
 	}
 
@@ -31,7 +33,7 @@ public class WeightedSoundPool {
 		double r = rand.nextDouble() * accumulatedWeight;
 
 		for (Entry entry: entries) {
-			if (entry.accumulatedWeight >= r) {
+			if (entry.weight >= r) {
 				return entry.object;
 			}
 		}
