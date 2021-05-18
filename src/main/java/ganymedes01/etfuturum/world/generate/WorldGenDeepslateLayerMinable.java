@@ -2,6 +2,7 @@ package ganymedes01.etfuturum.world.generate;
 import java.util.Random;
 
 import ganymedes01.etfuturum.EtFuturum;
+import ganymedes01.etfuturum.blocks.ores.DeepslateMapping;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -36,7 +37,7 @@ public class WorldGenDeepslateLayerMinable extends WorldGenerator
 	}
 
 	@Override
-	public boolean generate(World p_76484_1_, Random p_76484_2_, int p_76484_3_, int p_76484_4_, int p_76484_5_)
+	public boolean generate(World world, Random p_76484_2_, int p_76484_3_, int p_76484_4_, int p_76484_5_)
 	{
 		float f = p_76484_2_.nextFloat() * (float)Math.PI;
 		double d0 = p_76484_3_ + 8 + MathHelper.sin(f) * this.numberOfBlocks / 8.0F;
@@ -61,28 +62,29 @@ public class WorldGenDeepslateLayerMinable extends WorldGenerator
 			int i2 = MathHelper.floor_double(d7 + d11 / 2.0D);
 			int j2 = MathHelper.floor_double(d8 + d10 / 2.0D);
 
-			for (int k2 = i1; k2 <= l1; ++k2)
+			for (int x = i1; x <= l1; ++x)
 			{
-				double d12 = (k2 + 0.5D - d6) / (d10 / 2.0D);
+				double d12 = (x + 0.5D - d6) / (d10 / 2.0D);
 
 				if (d12 * d12 < 1.0D)
 				{
-					for (int l2 = j1; l2 <= i2; ++l2)
+					for (int y = j1; y <= i2; ++y)
 					{
-						double d13 = (l2 + 0.5D - d7) / (d11 / 2.0D);
+						double d13 = (y + 0.5D - d7) / (d11 / 2.0D);
 
 						if (d12 * d12 + d13 * d13 < 1.0D)
 						{
-							for (int i3 = k1; i3 <= j2; ++i3)
+							for (int z = k1; z <= j2; ++z)
 							{
-								double d14 = (i3 + 0.5D - d8) / (d10 / 2.0D);
+								double d14 = (z + 0.5D - d8) / (d10 / 2.0D);
 
-								if (d12 * d12 + d13 * d13 + d14 * d14 < 1.0D && p_76484_1_.getBlock(k2, l2, i3).isReplaceableOreGen(p_76484_1_, k2, l2, i3, field_150518_c))
+								if (d12 * d12 + d13 * d13 + d14 * d14 < 1.0D && world.getBlock(x, y, z).isReplaceableOreGen(world, x, y, z, field_150518_c))
 								{
-									if(ConfigurationHandler.enableDeepslate && EtFuturum.deepslateOres.containsKey(p_76484_1_.getBlock(k2, l2, i3))) {
-										p_76484_1_.setBlock(k2, l2, i3, EtFuturum.deepslateOres.get(p_76484_1_.getBlock(k2, l2, i3)));
+									DeepslateMapping mapping = EtFuturum.deepslateOres.get(new DeepslateMapping(world.getBlock(x, y, z), world.getBlockMetadata(x, y, z)));
+									if(ConfigurationHandler.enableDeepslate && mapping != null) {
+										world.setBlock(x, y, z, mapping.getOre(), mapping.getMeta(), 2);
 									} else {
-										p_76484_1_.setBlock(k2, l2, i3, this.field_150519_a, mineableBlockMeta, 2);
+										world.setBlock(x, y, z, this.field_150519_a, mineableBlockMeta, 2);
 									}
 								}
 							}

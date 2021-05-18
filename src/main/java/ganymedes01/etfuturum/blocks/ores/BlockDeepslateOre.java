@@ -32,19 +32,23 @@ public class BlockDeepslateOre extends BlockOre implements IConfigurable {
 		super();
 		setAttribs(this, block);
 		base = block;
+		if(isEnabled() && (!(base instanceof IConfigurable) || ((IConfigurable)base).isEnabled()))
+			addDeepslateMappings();
 	}
 	
 	public static void setAttribs(Block to, Block from) {
 		EtFuturum.copyAttribs(to, from);
-		to.setHardness(EtFuturum.getBlockHardness(from) + (EtFuturum.getBlockHardness(from)/2));
+		to.setHardness(EtFuturum.getBlockHardness(from) * 1.5F);
 		to.setBlockName(Utils.getUnlocalisedName("deepslate_" + EtFuturum.getTextureName(from)));
 		to.setBlockTextureName("deepslate_" + EtFuturum.getTextureName(from));
 		to.setStepSound(ConfigurationHandler.enableNewBlocksSounds ? ModSounds.soundDeepslate : soundTypeStone);
 		to.setCreativeTab(((IConfigurable)to).isEnabled() ? EtFuturum.creativeTabBlocks : null);
 		to.setLightLevel(from.getLightValue() / 15F);
 		to.setLightOpacity(from.getLightOpacity());
-		if((!(to instanceof IConfigurable) || ((IConfigurable)to).isEnabled()) && (!(from instanceof IConfigurable) || ((IConfigurable)from).isEnabled()))
-			EtFuturum.deepslateOres.put(from, to);
+	}
+	
+	protected void addDeepslateMappings() {
+		EtFuturum.deepslateOres.put(new DeepslateMapping(this, 0), new DeepslateMapping(base, 0));
 	}
 
 	@Override

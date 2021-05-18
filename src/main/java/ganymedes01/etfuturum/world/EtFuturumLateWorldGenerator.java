@@ -4,8 +4,9 @@ import java.util.Random;
 
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.blocks.BlockTuff;
 import ganymedes01.etfuturum.blocks.BlockNewStone;
+import ganymedes01.etfuturum.blocks.BlockTuff;
+import ganymedes01.etfuturum.blocks.ores.DeepslateMapping;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.world.generate.WorldGenDeepslateLayerMinable;
 import net.minecraft.block.Block;
@@ -35,8 +36,9 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 					for (int y = 0; y <= ConfigurationHandler.deepslateMaxY; y++) {
 						Block block = world.getBlock(x, y, z);
 						if(y < ConfigurationHandler.deepslateMaxY - 4 || world.rand.nextInt(y > ConfigurationHandler.deepslateMaxY - 2 ? 3 : 2) == 0) {
-							if(EtFuturum.deepslateOres.containsKey(block)) {
-								world.setBlock(x, y, z, EtFuturum.deepslateOres.get(block));
+							DeepslateMapping mapping = EtFuturum.deepslateOres.get(new DeepslateMapping(block, world.getBlockMetadata(x, y, z)));
+							if(mapping != null) {
+								world.setBlock(x, y, z, mapping.getOre(), mapping.getMeta(), 2);
 							} else
 							if((ConfigurationHandler.deepslateReplacesDirt && block.isReplaceableOreGen(world, x, y, z, Blocks.dirt))
 									|| (block.isReplaceableOreGen(world, x, y, z, Blocks.stone) && (ConfigurationHandler.deepslateReplacesStones ? true : !(block instanceof BlockNewStone)))

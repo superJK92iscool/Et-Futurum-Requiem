@@ -28,6 +28,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import ganymedes01.etfuturum.blocks.ores.DeepslateMapping;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.proxy.CommonProxy;
@@ -81,7 +82,7 @@ public class EtFuturum {
 
 	public static SimpleNetworkWrapper networkWrapper;
 
-	public static Map<Block, Block> deepslateOres = new HashMap<Block, Block>();
+	public static Map<DeepslateMapping, DeepslateMapping> deepslateOres = new HashMap<DeepslateMapping, DeepslateMapping>();
 	public static CreativeTabs creativeTabItems = new CreativeTabs(Reference.MOD_ID + ".items") {
 		@Override
 		public Item getTabIconItem() {
@@ -130,7 +131,7 @@ public class EtFuturum {
 		ModEnchantments.init();
 
 		GameRegistry.registerWorldGenerator(new EtFuturumWorldGenerator(), 0);
-		GameRegistry.registerWorldGenerator(new EtFuturumLateWorldGenerator(), 9999);
+		GameRegistry.registerWorldGenerator(new EtFuturumLateWorldGenerator(), Integer.MAX_VALUE);
 		
 		OceanMonument.makeMap();
 
@@ -225,6 +226,8 @@ public class EtFuturum {
 		ModRecipes.initDeepslate();
 		SmokerRecipes.init();
 		BlastFurnaceRecipes.init();
+		
+		System.out.println(EtFuturum.deepslateOres.get(new DeepslateMapping(ModBlocks.copper_ore, 0)).getOre() + " " + EtFuturum.deepslateOres.get(new DeepslateMapping(ModBlocks.copper_ore, 0)).getMeta());
 	}
 
 	@EventHandler

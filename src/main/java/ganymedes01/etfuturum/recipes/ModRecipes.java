@@ -15,6 +15,7 @@ import ganymedes01.etfuturum.blocks.BlockGlazedTerracotta;
 import ganymedes01.etfuturum.blocks.BlockNewStone;
 import ganymedes01.etfuturum.blocks.BlockStoneSlab2;
 import ganymedes01.etfuturum.blocks.ores.BlockDeepslateOre;
+import ganymedes01.etfuturum.blocks.ores.DeepslateMapping;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.items.ItemSuspiciousStew;
 import ganymedes01.etfuturum.lib.EnumColour;
@@ -770,23 +771,23 @@ public class ModRecipes {
 	
 	public static void initDeepslate() {
 		if(ConfigurationHandler.enableDeepslateOres) { //Copy block settings from deepslate base blocks
-			for(Block block : EtFuturum.deepslateOres.keySet()) {
-				BlockDeepslateOre ore = (BlockDeepslateOre) EtFuturum.deepslateOres.get(block);
-				Block oreBase = ore.base;
+			for(DeepslateMapping mapping1 : EtFuturum.deepslateOres.keySet()) {
+				Block ore = mapping1.getOre();
+				DeepslateMapping mapping2 = EtFuturum.deepslateOres.get(mapping1);
+				Block oreBase = mapping2.getOre();
+				int metaBase = mapping2.getMeta();
 				
 				if(Item.getItemFromBlock(ore) == null || Item.getItemFromBlock(oreBase) == null)
 					continue;
-				if(!ore.isEnabled() || ((oreBase instanceof IConfigurable) && !((IConfigurable)oreBase).isEnabled()))
+				if(((oreBase instanceof IConfigurable) && !((IConfigurable)oreBase).isEnabled()) || ((oreBase instanceof IConfigurable) && !((IConfigurable)oreBase).isEnabled()))
 					return;
-				for(int j = 0; j < (Item.getItemFromBlock(oreBase).getHasSubtypes() ? 16 : 1); j++) {
-					for(int i : OreDictionary.getOreIDs(new ItemStack(oreBase, 1, j))) {
-						for(int k = 0; k < OreDictionary.getOres(OreDictionary.getOreName(i)).size(); k++) {
-							ItemStack oreStack = OreDictionary.getOres(OreDictionary.getOreName(i)).get(k);
-							if(oreStack.getItem() == Item.getItemFromBlock(oreBase)) {
-								String oreName = OreDictionary.getOreName(i);
-								oreName = oreName.replace("Vanillastone", "Deepslate");
-								OreDictionary.registerOre(oreName, new ItemStack(ore, 1, j));
-							}
+				for(int i : OreDictionary.getOreIDs(new ItemStack(oreBase, 1, metaBase))) {
+					for(int k = 0; k < OreDictionary.getOres(OreDictionary.getOreName(i)).size(); k++) {
+						ItemStack oreStack = OreDictionary.getOres(OreDictionary.getOreName(i)).get(k);
+						if(oreStack.getItem() == Item.getItemFromBlock(oreBase)) {
+							String oreName = OreDictionary.getOreName(i);
+							oreName = oreName.replace("Vanillastone", "Deepslate");
+							OreDictionary.registerOre(oreName, new ItemStack(ore, 1, metaBase));
 						}
 					}
 				}
