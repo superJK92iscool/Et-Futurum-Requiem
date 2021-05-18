@@ -228,7 +228,7 @@ public class EtFuturum {
 		BlastFurnaceRecipes.init();
 		
 		// This causes a null pointer
-//		System.out.println(EtFuturum.deepslateOres.get(new DeepslateMapping(ModBlocks.copper_ore, 0)).getOre() + " " + EtFuturum.deepslateOres.get(new DeepslateMapping(ModBlocks.copper_ore, 0)).getMeta());
+//      System.out.println(EtFuturum.deepslateOres.get(new DeepslateMapping(ModBlocks.copper_ore, 0)).getOre() + " " + EtFuturum.deepslateOres.get(new DeepslateMapping(ModBlocks.copper_ore, 0)).getMeta());
 	}
 
 	@EventHandler

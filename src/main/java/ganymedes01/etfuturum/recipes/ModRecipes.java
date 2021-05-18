@@ -2,6 +2,7 @@ package ganymedes01.etfuturum.recipes;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map.Entry;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -14,7 +15,6 @@ import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.blocks.BlockGlazedTerracotta;
 import ganymedes01.etfuturum.blocks.BlockNewStone;
 import ganymedes01.etfuturum.blocks.BlockStoneSlab2;
-import ganymedes01.etfuturum.blocks.ores.BlockDeepslateOre;
 import ganymedes01.etfuturum.blocks.ores.DeepslateMapping;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.items.ItemSuspiciousStew;
@@ -770,30 +770,30 @@ public class ModRecipes {
 	}
 	
 	public static void initDeepslate() {
-		if(ConfigurationHandler.enableDeepslateOres) { //Copy block settings from deepslate base blocks
-			for(DeepslateMapping mapping1 : EtFuturum.deepslateOres.keySet()) {
-				Block ore = mapping1.getOre();
-				DeepslateMapping mapping2 = EtFuturum.deepslateOres.get(mapping1);
-				Block oreBase = mapping2.getOre();
-				int metaBase = mapping2.getMeta();
+		if (ConfigurationHandler.enableDeepslateOres) { //Copy block settings from deepslate base blocks
+			for (Entry<DeepslateMapping, DeepslateMapping> entry : EtFuturum.deepslateOres.entrySet()) {
+				Block oreNorm = entry.getKey().getOre();
+				if (oreNorm == null || oreNorm == Blocks.air) continue;
+				Block oreDeep = entry.getValue().getOre();
+				if (oreDeep == null || oreDeep == Blocks.air) continue;
+				ItemStack
+				stackNorm = new ItemStack(oreNorm, 1, entry.getKey().getMeta()),
+				stackDeep = new ItemStack(oreDeep, 1, entry.getValue().getMeta());
 				
-				if(Item.getItemFromBlock(ore) == null || Item.getItemFromBlock(oreBase) == null)
-					continue;
-				if(((oreBase instanceof IConfigurable) && !((IConfigurable)oreBase).isEnabled()) || ((oreBase instanceof IConfigurable) && !((IConfigurable)oreBase).isEnabled()))
+				if (((oreNorm instanceof IConfigurable) && !((IConfigurable)oreNorm).isEnabled()) || ((oreDeep instanceof IConfigurable) && !((IConfigurable)oreDeep).isEnabled()))
 					return;
-				for(int i : OreDictionary.getOreIDs(new ItemStack(oreBase, 1, metaBase))) {
-					for(int k = 0; k < OreDictionary.getOres(OreDictionary.getOreName(i)).size(); k++) {
-						ItemStack oreStack = OreDictionary.getOres(OreDictionary.getOreName(i)).get(k);
-						if(oreStack.getItem() == Item.getItemFromBlock(oreBase)) {
-							String oreName = OreDictionary.getOreName(i);
-							oreName = oreName.replace("Vanillastone", "Deepslate");
-							OreDictionary.registerOre(oreName, new ItemStack(ore, 1, metaBase));
+				for (int i : OreDictionary.getOreIDs(stackNorm)) {
+					String oreName = OreDictionary.getOreName(i);
+					for(int k = 0; k < OreDictionary.getOres(oreName).size(); k++) {
+						if (ItemStack.areItemStacksEqual(OreDictionary.getOres(oreName).get(k), stackNorm)) {
+							OreDictionary.registerOre(oreName.replace("Vanillastone", "Deepslate"), stackDeep.copy()); // Yes the .copy() is required!
 						}
 					}
 				}
-
-				if(FurnaceRecipes.smelting().getSmeltingResult(new ItemStack(oreBase)) != null)
-					GameRegistry.addSmelting(ore, FurnaceRecipes.smelting().getSmeltingResult(new ItemStack(oreBase)), FurnaceRecipes.smelting().func_151398_b(new ItemStack(oreBase)));
+				
+				if (FurnaceRecipes.smelting().getSmeltingResult(stackNorm) != null) {
+					GameRegistry.addSmelting(stackDeep, FurnaceRecipes.smelting().getSmeltingResult(stackNorm), FurnaceRecipes.smelting().func_151398_b(stackNorm));
+				}
 			}
 		}
 	}

@@ -8,7 +8,8 @@ import ganymedes01.etfuturum.blocks.BlockNewStone;
 import ganymedes01.etfuturum.blocks.BlockTuff;
 import ganymedes01.etfuturum.blocks.ores.DeepslateMapping;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
-import ganymedes01.etfuturum.world.generate.WorldGenDeepslateLayerMinable;
+import ganymedes01.etfuturum.world.generate.WorldGenDeepslateBlob;
+import ganymedes01.etfuturum.world.generate.WorldGenTuffBlob;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -54,12 +55,12 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 			if(ConfigurationHandler.enableDeepslate && ConfigurationHandler.deepslateGenerationMode == 1 && world.provider.dimensionId == 0) {
 				int x = chunkX * 16 + rand.nextInt(16);
 				int z = chunkZ * 16 + rand.nextInt(16);
-				new WorldGenDeepslateLayerMinable(ModBlocks.deepslate, ConfigurationHandler.maxDeepslatePerCluster).generate(world, rand, x, rand.nextInt(ConfigurationHandler.deepslateMaxY), z);
+				new WorldGenDeepslateBlob(ConfigurationHandler.maxDeepslatePerCluster).generate(world, rand, x, rand.nextInt(ConfigurationHandler.deepslateMaxY), z);
 			}
 			if(ConfigurationHandler.enableTuff && world.provider.dimensionId != -1 && world.provider.dimensionId != 1) {
 				int x = chunkX * 16 + rand.nextInt(16);
 				int z = chunkZ * 16 + rand.nextInt(16);
-				new WorldGenDeepslateLayerMinable(ModBlocks.tuff, ConfigurationHandler.maxTuffPerCluster).generate(world, rand, x, rand.nextInt(ConfigurationHandler.deepslateMaxY), z);
+				new WorldGenTuffBlob(ConfigurationHandler.maxTuffPerCluster).generate(world, rand, x, rand.nextInt(ConfigurationHandler.deepslateMaxY), z);
 			}
 		}
 	}

@@ -904,23 +904,23 @@ public class ServerEventHandler {
 	
 	// UNUSED FUNCTIONS
 	//private boolean playerHasItem(final EntityPlayer player, final ItemStack ist, final boolean checkEnabled) {
-	//	for (int slot = 0; slot < player.inventory.mainInventory.length; ++slot) {
-	//		if (player.inventory.mainInventory[slot] != null && player.inventory.mainInventory[slot].isItemEqual(ist)) {
-	//			return true;
-	//		}
-	//	}
-	//	return false;
+	//  for (int slot = 0; slot < player.inventory.mainInventory.length; ++slot) {
+	//      if (player.inventory.mainInventory[slot] != null && player.inventory.mainInventory[slot].isItemEqual(ist)) {
+	//          return true;
+	//      }
+	//  }
+	//  return false;
 	//}
 	// UNUSED FUNCTIONS
 	//private void decreaseItemByOne(final EntityPlayer player, final Item item) {
-	//	for (int slot = 0; slot < player.inventory.mainInventory.length; ++slot) {
-	//		if (player.inventory.mainInventory[slot] != null) {
-	//			if (player.inventory.mainInventory[slot].getItem() == item) {
-	//				player.inventory.decrStackSize(slot, 1);
-	//				return;
-	//			}
-	//		}
-	//	}
+	//  for (int slot = 0; slot < player.inventory.mainInventory.length; ++slot) {
+	//      if (player.inventory.mainInventory[slot] != null) {
+	//          if (player.inventory.mainInventory[slot].getItem() == item) {
+	//              player.inventory.decrStackSize(slot, 1);
+	//              return;
+	//          }
+	//      }
+	//  }
 	//}
 
 	PositionedSound netherMusic;

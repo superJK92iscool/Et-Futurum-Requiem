@@ -163,7 +163,7 @@ public class TileEntityBarrel extends TileEntity implements IInventory {
 	{
 		//BlockBarrel barrel = null; // TODO The heck is this unused variable??
 		//if(worldObj.getBlock(xCoord, yCoord, zCoord) == ModBlocks.barrel)
-		//	barrel = (BlockBarrel)worldObj.getBlock(xCoord, yCoord, zCoord); // Why call getBlock twice??
+		//  barrel = (BlockBarrel)worldObj.getBlock(xCoord, yCoord, zCoord); // Why call getBlock twice??
 		++this.ticksSinceSync;
 		float f;
 
