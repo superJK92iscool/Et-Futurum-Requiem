@@ -460,7 +460,7 @@ public class ServerEventHandler {
 //                      return;
 //                    }
 					if (toolClasses != null) {
-						if (ConfigurationHandler.enableGrassPath && toolClasses.contains("shovel") && oldBlock == Blocks.grass) {
+						if (ConfigurationHandler.enableGrassPath && toolClasses.contains("shovel") && (oldBlock == Blocks.grass || oldBlock == Blocks.dirt || oldBlock == Blocks.mycelium)) {
 							world.setBlock(x, y, z, ModBlocks.grass_path);
 							player.swingItem();
 							heldStack.damageItem(1, player);
