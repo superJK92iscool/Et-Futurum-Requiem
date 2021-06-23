@@ -1,6 +1,5 @@
 package ganymedes01.etfuturum.recipes;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -34,6 +33,7 @@ public class BlastFurnaceRecipes
 	private BlastFurnaceRecipes() {
 	}
 
+	@SuppressWarnings("unchecked")
 	public static void init() {
 		if(ConfigurationHandler.enableMeltGear) {
 			Item[][] crafts = new Item[][] {
@@ -49,24 +49,40 @@ public class BlastFurnaceRecipes
 			}
 		}
 		if(ConfigurationHandler.enableAutoAddBlastFurnace) {
-			String[] oreNames = OreDictionary.getOreNames();
-			//List<ItemStack> oresToSmelt = new ArrayList<ItemStack>(); // unused variable
-			int i = 0;
-			while(i < oreNames.length) {
-				if(oreNames[i].startsWith("ore")) {
-					ArrayList<ItemStack> oreItems = OreDictionary.getOres(oreNames[i]);
-					int o = 0;
-					while(o < oreItems.size()) {
-						ItemStack input = oreItems.get(o);
-						if(input != null) {
-							ItemStack result = FurnaceRecipes.smelting().getSmeltingResult(input);
-							if(result != null)
-								smeltingBase.addRecipe(input, result, result.getItem().getSmeltingExperience(result));
-						}
-						o++;
+			Iterator<Entry<ItemStack, ItemStack>> iterator = FurnaceRecipes.smelting().getSmeltingList().entrySet().iterator();
+			while (iterator.hasNext()) {
+				Entry<ItemStack, ItemStack> entry = iterator.next();
+				ItemStack input = entry.getKey(), result = entry.getValue();
+				if (input != null && result != null) {
+					boolean registerrecipe = false;
+					for (int id : OreDictionary.getOreIDs(input)) {
+						String oreName = OreDictionary.getOreName(id);
+						// It should not be possible for this to be null, but better safe than sorry...
+						if (oreName == null) continue;
+						// Any Type of Ores.
+						if (oreName.startsWith("ore")) {registerrecipe = true; break;}
+						// Thaumcraft Ore Cluster Items.
+						if (oreName.startsWith("cluster")) {registerrecipe = true; break;}
+						// IndustrialCraft2 Crushed Ore Items.
+						if (oreName.startsWith("crushed")) {registerrecipe = true; break;}
+					}
+					if (!registerrecipe) for (int id : OreDictionary.getOreIDs(result)) {
+						String oreName = OreDictionary.getOreName(id);
+						// It should not be possible for this to be null, but better safe than sorry...
+						if (oreName == null) continue;
+						// Outputs Ingots.
+						if (oreName.startsWith("ingot")) {registerrecipe = true; break;}
+						// Outputs GregTechs Quarter-of-Ingot Nuggets.
+						if (oreName.startsWith("chunkGt")) {registerrecipe = true; break;}
+						// Outputs normal Nuggets.
+						if (oreName.startsWith("nugget")) {registerrecipe = true; break;}
+						// Outputs Thaumcrafts Quicksilver Item, which weirdly enough is not registered as an Ingot, while still having Nuggets.
+						if (oreName.equalsIgnoreCase("quicksilver")) {registerrecipe = true; break;}
+					}
+					if (registerrecipe) {
+						smeltingBase.addRecipe(input, result, result.getItem().getSmeltingExperience(result));
 					}
 				}
-				i++;
 			}
 		} else {
 			smeltingBase.addRecipe(Blocks.iron_ore, new ItemStack(Items.iron_ingot), 0.7F);
