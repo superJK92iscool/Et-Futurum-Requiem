@@ -9,7 +9,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
@@ -316,8 +315,7 @@ public class TileEntityBlastFurnace extends TileEntity implements ISidedInventor
 	{
 		if (this.canSmelt())
 		{
-			ItemStack itemstack = FurnaceRecipes.smelting().getSmeltingResult(this.furnaceItemStacks[0]);
-
+			ItemStack itemstack = BlastFurnaceRecipes.smelting().getSmeltingResult(this.furnaceItemStacks[0]);
 			if (this.furnaceItemStacks[2] == null)
 			{
 				this.furnaceItemStacks[2] = itemstack.copy();
