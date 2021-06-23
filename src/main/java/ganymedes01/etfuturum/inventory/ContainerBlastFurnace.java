@@ -2,6 +2,7 @@ package ganymedes01.etfuturum.inventory;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import ganymedes01.etfuturum.recipes.BlastFurnaceRecipes;
 import ganymedes01.etfuturum.tileentities.TileEntityBlastFurnace;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -10,7 +11,6 @@ import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.inventory.SlotFurnace;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.tileentity.TileEntityFurnace;
 
 public class ContainerBlastFurnace extends Container
@@ -132,7 +132,7 @@ public class ContainerBlastFurnace extends Container
 			}
 			else if (p_82846_2_ != 1 && p_82846_2_ != 0)
 			{
-				if (FurnaceRecipes.smelting().getSmeltingResult(itemstack1) != null)
+				if (BlastFurnaceRecipes.smelting().getSmeltingResult(itemstack1) != null)
 				{
 					if (!this.mergeItemStack(itemstack1, 0, 1, false))
 					{
