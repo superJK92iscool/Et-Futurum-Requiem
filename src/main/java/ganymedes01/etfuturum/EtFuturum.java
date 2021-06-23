@@ -28,7 +28,6 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ganymedes01.etfuturum.blocks.ores.DeepslateMapping;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.proxy.CommonProxy;
@@ -47,6 +46,7 @@ import ganymedes01.etfuturum.recipes.ModRecipes;
 import ganymedes01.etfuturum.recipes.SmokerRecipes;
 import ganymedes01.etfuturum.world.EtFuturumLateWorldGenerator;
 import ganymedes01.etfuturum.world.EtFuturumWorldGenerator;
+import ganymedes01.etfuturum.world.generate.BlockAndMetadataMapping;
 import ganymedes01.etfuturum.world.generate.OceanMonument;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockTrapDoor;
@@ -82,7 +82,7 @@ public class EtFuturum {
 
 	public static SimpleNetworkWrapper networkWrapper;
 
-	public static Map<DeepslateMapping, DeepslateMapping> deepslateOres = new HashMap<DeepslateMapping, DeepslateMapping>();
+	public static Map<BlockAndMetadataMapping, BlockAndMetadataMapping> deepslateOres = new HashMap<BlockAndMetadataMapping, BlockAndMetadataMapping>();
 	public static CreativeTabs creativeTabItems = new CreativeTabs(Reference.MOD_ID + ".items") {
 		@Override
 		public Item getTabIconItem() {
@@ -227,8 +227,6 @@ public class EtFuturum {
 		SmokerRecipes.init();
 		BlastFurnaceRecipes.init();
 		
-		// This causes a null pointer
-//      System.out.println(EtFuturum.deepslateOres.get(new DeepslateMapping(ModBlocks.copper_ore, 0)).getOre() + " " + EtFuturum.deepslateOres.get(new DeepslateMapping(ModBlocks.copper_ore, 0)).getMeta());
 	}
 
 	@EventHandler

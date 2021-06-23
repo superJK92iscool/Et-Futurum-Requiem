@@ -15,11 +15,11 @@ import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.blocks.BlockGlazedTerracotta;
 import ganymedes01.etfuturum.blocks.BlockNewStone;
 import ganymedes01.etfuturum.blocks.BlockStoneSlab2;
-import ganymedes01.etfuturum.blocks.ores.DeepslateMapping;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.items.ItemSuspiciousStew;
 import ganymedes01.etfuturum.lib.EnumColour;
 import ganymedes01.etfuturum.lib.Reference;
+import ganymedes01.etfuturum.world.generate.BlockAndMetadataMapping;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -219,7 +219,6 @@ public class ModRecipes {
 		if(ConfigurationHandler.enableCopper) {
 			OreDictionary.registerOre("oreCopper", new ItemStack(ModBlocks.copper_ore, 1, 0));
 			OreDictionary.registerOre("ingotCopper", new ItemStack(ModItems.copper_ingot, 1, 0));
-			if (ConfigurationHandler.copper9to1)
 			OreDictionary.registerOre("blockCopper", new ItemStack(ModBlocks.copper_block, 1, 0));
 			OreDictionary.registerOre("blockCopperCut", new ItemStack(ModBlocks.copper_block, 1, 4));
 		}
@@ -670,13 +669,9 @@ public class ModRecipes {
 		
 		if(ConfigurationHandler.enableCopper) {
 			Block[] stairs = new Block[] {ModBlocks.cut_copper_stairs, ModBlocks.exposed_cut_copper_stairs, ModBlocks.weathered_cut_copper_stairs, ModBlocks.oxidized_cut_copper_stairs, ModBlocks.waxed_cut_copper_stairs, ModBlocks.waxed_exposed_cut_copper_stairs, ModBlocks.waxed_weathered_cut_copper_stairs};
-			if(ConfigurationHandler.copper9to1) {
-				addShapedRecipe(new ItemStack(ModBlocks.copper_block, 1), "xxx", "xxx", "xxx", 'x', new ItemStack(ModItems.copper_ingot, 1, 0));
-			} else {
-				addShapedRecipe(new ItemStack(ModBlocks.copper_block, 1), "xx", "xx", 'x', new ItemStack(ModItems.copper_ingot, 1, 0));
-			}
-			addShapedRecipe(new ItemStack(ModItems.copper_ingot, ConfigurationHandler.copper9to1 ? 9 : 4), "x", 'x', new ItemStack(ModBlocks.copper_block, 1, 0));
-			addShapedRecipe(new ItemStack(ModItems.copper_ingot, ConfigurationHandler.copper9to1 ? 9 : 4), "x", 'x', new ItemStack(ModBlocks.copper_block, 1, 8));
+			addShapedRecipe(new ItemStack(ModBlocks.copper_block, 1), "xxx", "xxx", "xxx", 'x', new ItemStack(ModItems.copper_ingot, 1, 0));
+			addShapedRecipe(new ItemStack(ModItems.copper_ingot, 9), "x", 'x', new ItemStack(ModBlocks.copper_block, 1, 0));
+			addShapedRecipe(new ItemStack(ModItems.copper_ingot, 9), "x", 'x', new ItemStack(ModBlocks.copper_block, 1, 8));
 			GameRegistry.addSmelting(new ItemStack(ModBlocks.copper_ore), new ItemStack(ModItems.copper_ingot), .7F);
 			for(int i = 0; i <= 7; i++) {
 				int j = i;
@@ -771,7 +766,7 @@ public class ModRecipes {
 	
 	public static void initDeepslate() {
 		if (ConfigurationHandler.enableDeepslateOres) { //Copy block settings from deepslate base blocks
-			for (Entry<DeepslateMapping, DeepslateMapping> entry : EtFuturum.deepslateOres.entrySet()) {
+			for (Entry<BlockAndMetadataMapping, BlockAndMetadataMapping> entry : EtFuturum.deepslateOres.entrySet()) {
 				Block oreNorm = entry.getKey().getOre();
 				if (oreNorm == null || oreNorm == Blocks.air) continue;
 				Block oreDeep = entry.getValue().getOre();

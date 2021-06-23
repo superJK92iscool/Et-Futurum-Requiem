@@ -113,6 +113,7 @@ public class ConfigurationHandler {
 //  public static boolean enableDyeReplacement;
 	public static boolean enableSweetBerryBushes;
 	public static boolean enableLavaCauldrons;
+	public static boolean enableExtraCopper;
 
 	public static boolean enableNewNetherBricks;
 	public static boolean enableNetherwartBlock;
@@ -126,7 +127,7 @@ public class ConfigurationHandler {
 	public static boolean enableNetherEndermen;
 	public static boolean enableTotemUndying;
 	public static boolean enableRecipeForTotem;
-	public static boolean copper9to1;
+	public static boolean enableRawOres;
 	public static boolean enableNewDyes;
 	
 	public static boolean enableWoodRedstone;
@@ -259,6 +260,7 @@ public class ConfigurationHandler {
 		enableIronNugget = cfg.getBoolean("enableIronNugget", catItems, true, "");
 		enableTippedArrows = cfg.getBoolean("enableTippedArrows", catItems, true, "");
 		enableLingeringPotions = cfg.getBoolean("enableLingeringPotions", catItems, true, "");
+		enableRawOres = cfg.getBoolean("enableRawOres", catItems, true, "If true, vanilla and Et Futurum copper ores will drop raw ore items.");
 		
 		enableTotemUndying = cfg.getBoolean("enableTotemUndying", catItems, true, "");
 		enableSuspiciousStew = cfg.getBoolean("enableSuspiciousStew", catItems, true, "");
@@ -325,7 +327,8 @@ public class ConfigurationHandler {
 		enableHayBaleFalls = cfg.getBoolean("enableHayBaleFalls", catFunction, true, "If true, fall damage on a hay bale will be reduced");
 		hayBaleReducePercent = cfg.getInt("hayBaleReducePercent", catFunction, 20, 0, 99, "If enableHayBaleFalls is true, what percent should we keep for the fall damage?");
 //        enableDyeReplacement = cfg.getBoolean("enableDyeReplacement", catFunction, true, "Removes lapis, bone meal, ink sac and cocoa bean's ore dictionary entries as dyes, making the Et Futurum dyes the dyes instead. Disable if this causes weirdisms with modded recipes. (If false both items can be used)");
-		copper9to1 = cfg.getBoolean("copper9to1", catFunction, false, "Changes the recipe to copper from four ingots, to nine and back. Copper is mainly a building block and would be much harder to build with if this is on, so only use if this causes balance issues with your mods.");
+		enableExtraCopper = cfg.getBoolean("enableExtraCopper", catFunction, true, "If true, copper will drop 2-3 and fortune will yield more than normal.");
+		
 		
 		//replacement
 		enableTileReplacement = cfg.getBoolean("enableTileReplacement", catReplacement, true, "Replace old Brewing Stands/Enchanting Tables/Daylight Sensors/Beacons with new one on the fly. (Note, as of 2.1.0 this option has been reworked to have better performance. If you disabled it due to lag, please consider trying it again!)"); //Requires enableNewTileEntities. If you want to switch your tile entities from the \"new\" ones to the vanilla blocks, disable this, load the chunks with your tile entities and then disable enableNewTileEntities.
