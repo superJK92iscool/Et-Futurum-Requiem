@@ -33,19 +33,20 @@ public class SmokerRecipes
 	private SmokerRecipes() {
 	}
 
+	@SuppressWarnings("unchecked")
 	public static void init() {
-		if(ConfigurationHandler.enableAutoAddSmoker) {
-			Map<ItemStack, ItemStack> recipes = FurnaceRecipes.smelting().getSmeltingList();
-			ItemStack input, result;
-			//float exp; // unused variable
-			Entry<ItemStack, ItemStack> entry;
-			Iterator<Entry<ItemStack, ItemStack>> iterator = recipes.entrySet().iterator();
+		if (ConfigurationHandler.enableAutoAddSmoker) {
+			Iterator<Entry<ItemStack, ItemStack>> iterator = FurnaceRecipes.smelting().getSmeltingList().entrySet().iterator();
 			while (iterator.hasNext()) {
-				entry = iterator.next();
-				input = entry.getKey();
-				result = FurnaceRecipes.smelting().getSmeltingResult(entry.getKey());
-				if(input.getItem() instanceof ItemFood) {
-					smeltingBase.addRecipe(input, result, result.getItem().getSmeltingExperience(result));
+				Entry<ItemStack, ItemStack> entry = iterator.next();
+				ItemStack input = entry.getKey(), result = entry.getValue();
+				// Make sure there is no Nullpointers in there, yes there can be invalid Recipes in the Furnace List.
+				// That was why DragonAPI somehow fixed a Bug in here, because Reika removes nulls from the List!
+				if (input != null && result != null) {
+					// If either the Input or the Result are Food, add a Smoker Recipe.
+					if (input.getItem() instanceof ItemFood || result.getItem() instanceof ItemFood) {
+						smeltingBase.addRecipe(input, result, result.getItem().getSmeltingExperience(result));
+					}
 				}
 			}
 		} else {
