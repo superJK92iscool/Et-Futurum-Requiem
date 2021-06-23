@@ -39,9 +39,12 @@ import ganymedes01.etfuturum.entities.EntityZombieVillager;
 import ganymedes01.etfuturum.entities.ai.EntityAIOpenCustomDoor;
 import ganymedes01.etfuturum.inventory.ContainerEnchantment;
 import ganymedes01.etfuturum.items.ItemArrowTipped;
+import ganymedes01.etfuturum.items.ItemRawOre;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.network.BlackHeartParticlesMessage;
 import ganymedes01.etfuturum.recipes.ModRecipes;
+import ganymedes01.etfuturum.world.generate.BlockAndMetadataMapping;
+import ganymedes01.etfuturum.world.generate.RawOreDropMapping;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDoor;
 import net.minecraft.block.BlockFenceGate;
@@ -337,7 +340,7 @@ public class ServerEventHandler {
 
 	@SubscribeEvent
 	public void harvestEvent(BlockEvent.HarvestDropsEvent event) {
-		if (ConfigurationHandler.enableSilkTouchingMushrooms && event.isSilkTouching)
+		if(ConfigurationHandler.enableSilkTouchingMushrooms && event.isSilkTouching)
 			if (event.block == Blocks.brown_mushroom_block) {
 				event.drops.clear();
 				event.drops.add(new ItemStack(ModBlocks.brown_mushroom_block));
@@ -346,15 +349,24 @@ public class ServerEventHandler {
 				event.drops.add(new ItemStack(ModBlocks.red_mushroom_block));
 			}
 
-		if (ConfigurationHandler.enableSticksFromDeadBushes)
-			if (event.block == Blocks.deadbush) {
+		if(ConfigurationHandler.enableSticksFromDeadBushes) {
+			if(event.block == Blocks.deadbush) {
 				boolean isShears = event.harvester != null && event.harvester.getCurrentEquippedItem() != null && event.harvester.getCurrentEquippedItem().getItem() instanceof ItemShears;
-				if (event.harvester == null || event.harvester.getCurrentEquippedItem() == null || !isShears)
-					for (int i = 0; i < event.world.rand.nextInt(3); i++)
+				if(event.harvester == null || event.harvester.getCurrentEquippedItem() == null || !isShears)
+					for(int i = 0; i < event.world.rand.nextInt(3); i++)
 						event.drops.add(new ItemStack(Items.stick));
 			}
+		}
+		
+		if(ConfigurationHandler.enableRawOres) {
+			RawOreDropMapping mapping = ItemRawOre.rawOreRegistry.get(new BlockAndMetadataMapping(event.block, event.blockMetadata));
+			if(mapping != null) {
+				event.drops.clear();
+				event.drops.add(new ItemStack(mapping.getItem(), mapping.getDropsExtra() ? event.world.rand.nextInt(3 * (event.fortuneLevel + 1) - 1) + 2 : event.world.rand.nextInt(1 + event.fortuneLevel) + 1, mapping.getMeta()));
+			}
+		}
 
-		if (ConfigurationHandler.enableShearableCobwebs)
+		if (ConfigurationHandler.enableShearableCobwebs) {
 			if (event.block == Blocks.web && event.harvester != null) {
 				ItemStack stack = event.harvester.getCurrentEquippedItem();
 				if (stack != null && stack.getItem() instanceof ItemShears) {
@@ -362,6 +374,7 @@ public class ServerEventHandler {
 					event.drops.add(new ItemStack(Blocks.web));
 				}
 			}
+		}
 	}
 	
 	@SubscribeEvent

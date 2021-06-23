@@ -52,6 +52,7 @@ public class ModItems {
 	public static final Item end_crystal = initItem(new ItemEndCrystal());
 	
 	public static final Item iron_nugget = initItem(new ItemNuggetIron());
+	public static final Item raw_ore = initItem(new ItemRawOre());
 	public static final Item netherite_scrap = initItem(new ItemNetherite(0));
 	public static final Item netherite_ingot = initItem(new ItemNetherite(1));
 	public static final Item netherite_helmet = initItem(new ItemEFRArmour(NETHERITE_ARMOUR, 0, ConfigurationHandler.netheriteHelmetDurability));

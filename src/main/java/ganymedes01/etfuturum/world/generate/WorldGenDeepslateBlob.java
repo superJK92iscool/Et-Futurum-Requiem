@@ -3,7 +3,6 @@ import java.util.Random;
 
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.blocks.ores.DeepslateMapping;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.MathHelper;
@@ -65,7 +64,7 @@ public class WorldGenDeepslateBlob extends WorldGenerator
 								if (d12 * d12 + d13 * d13 + d14 * d14 < 1.0D)
 								{
 									Block block = world.getBlock(x, y, z);
-									DeepslateMapping mapping = EtFuturum.deepslateOres.get(new DeepslateMapping(block, world.getBlockMetadata(x, y, z)));
+									BlockAndMetadataMapping mapping = EtFuturum.deepslateOres.get(new BlockAndMetadataMapping(block, world.getBlockMetadata(x, y, z)));
 									if (mapping != null) {
 										world.setBlock(x, y, z, mapping.getOre(), mapping.getMeta(), 2);
 									} else {

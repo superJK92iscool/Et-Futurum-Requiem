@@ -10,6 +10,7 @@ import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.utils.Utils;
+import ganymedes01.etfuturum.world.generate.BlockAndMetadataMapping;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockOre;
 import net.minecraft.block.material.MapColor;
@@ -48,8 +49,7 @@ public class BlockDeepslateOre extends BlockOre implements IConfigurable {
 	}
 	
 	protected void addDeepslateMappings() {
-		// those two originally had key block and value block swapped! (this comment can be removed)
-		EtFuturum.deepslateOres.put(new DeepslateMapping(base, 0), new DeepslateMapping(this, 0));
+		EtFuturum.deepslateOres.put(new BlockAndMetadataMapping(base, 0), new BlockAndMetadataMapping(this, 0));
 	}
 
 	@Override
