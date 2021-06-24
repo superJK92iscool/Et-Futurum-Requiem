@@ -66,18 +66,20 @@ public class BlastFurnaceRecipes
 						// IndustrialCraft2 Crushed Ore Items.
 						if (oreName.startsWith("crushed")) {registerrecipe = true; break;}
 					}
-					if (!registerrecipe) for (int id : OreDictionary.getOreIDs(result)) {
-						String oreName = OreDictionary.getOreName(id);
-						// It should not be possible for this to be null, but better safe than sorry...
-						if (oreName == null) continue;
-						// Outputs Ingots.
-						if (oreName.startsWith("ingot")) {registerrecipe = true; break;}
-						// Outputs GregTechs Quarter-of-Ingot Nuggets.
-						if (oreName.startsWith("chunkGt")) {registerrecipe = true; break;}
-						// Outputs normal Nuggets.
-						if (oreName.startsWith("nugget")) {registerrecipe = true; break;}
-						// Outputs Thaumcrafts Quicksilver Item, which weirdly enough is not registered as an Ingot, while still having Nuggets.
-						if (oreName.equalsIgnoreCase("quicksilver")) {registerrecipe = true; break;}
+					if (!registerrecipe) {
+						for (int id : OreDictionary.getOreIDs(result)) {
+							String oreName = OreDictionary.getOreName(id);
+							// It should not be possible for this to be null, but better safe than sorry...
+							if (oreName == null) continue;
+							// Outputs Ingots.
+							if (oreName.startsWith("ingot")) {registerrecipe = true; break;}
+							// Outputs GregTechs Quarter-of-Ingot Nuggets.
+							if (oreName.startsWith("chunkGt")) {registerrecipe = true; break;}
+							// Outputs normal Nuggets.
+							if (oreName.startsWith("nugget")) {registerrecipe = true; break;}
+							// Outputs Thaumcrafts Quicksilver Item, which weirdly enough is not registered as an Ingot, while still having Nuggets.
+							if (oreName.equalsIgnoreCase("quicksilver")) {registerrecipe = true; break;}
+						}
 					}
 					if (registerrecipe) {
 						smeltingBase.addRecipe(input, result, result.getItem().getSmeltingExperience(result));

@@ -230,9 +230,12 @@ public class ModRecipes {
 		if(ConfigurationHandler.enableRawOres) {
 			if(ConfigurationHandler.enableCopper) {
 				OreDictionary.registerOre("rawCopper", new ItemStack(ModItems.raw_ore, 1, 0));
+				OreDictionary.registerOre("blockRawCopper", new ItemStack(ModBlocks.raw_ore_block, 1, 0));
 			}
 			OreDictionary.registerOre("rawIron", new ItemStack(ModItems.raw_ore, 1, 1));
+			OreDictionary.registerOre("blockRawIron", new ItemStack(ModBlocks.raw_ore_block, 1, 1));
 			OreDictionary.registerOre("rawGold", new ItemStack(ModItems.raw_ore, 1, 2));
+			OreDictionary.registerOre("blockRawGold", new ItemStack(ModBlocks.raw_ore_block, 1, 2));
 		}
 		
 //      if(ConfigurationHandler.enableCrimsonBlocks || ConfigurationHandler.enableWarpedBlocks) {
