@@ -12,6 +12,7 @@ import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.world.generate.BlockAndMetadataMapping;
 import ganymedes01.etfuturum.world.generate.RawOreDropMapping;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
 
 public class ItemRawOre extends ItemGeneric implements IConfigurable {
 	
@@ -23,10 +24,20 @@ public class ItemRawOre extends ItemGeneric implements IConfigurable {
 		setTextureName("raw");
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
 		if(isEnabled()) {
-			rawOreRegistry.put(new BlockAndMetadataMapping(ModBlocks.copper_ore, 0), new RawOreDropMapping(this, 0, ConfigurationHandler.enableExtraCopper));
+			if(ConfigurationHandler.enableCopper) {
+				rawOreRegistry.put(new BlockAndMetadataMapping(ModBlocks.copper_ore, 0), new RawOreDropMapping(this, 0, ConfigurationHandler.enableExtraCopper));
+				rawOreRegistry.put(new BlockAndMetadataMapping(ModBlocks.deepslate_copper_ore, 0), new RawOreDropMapping(this, 0, ConfigurationHandler.enableExtraCopper));
+			}
 			rawOreRegistry.put(new BlockAndMetadataMapping(Blocks.iron_ore, 0), new RawOreDropMapping(this, 1, false));
+			rawOreRegistry.put(new BlockAndMetadataMapping(ModBlocks.deepslate_iron_ore, 0), new RawOreDropMapping(this, 1, false));
 			rawOreRegistry.put(new BlockAndMetadataMapping(Blocks.gold_ore, 0), new RawOreDropMapping(this, 2, false));
+			rawOreRegistry.put(new BlockAndMetadataMapping(ModBlocks.deepslate_gold_ore, 0), new RawOreDropMapping(this, 2, false));
 		}
+	}
+
+	@Override
+	public String getUnlocalizedName(ItemStack stack) {
+		return getUnlocalizedName().replace("_ore", "") + "_" + types[Math.max(Math.min(stack.getItemDamage(), types.length - 1), 0)];
 	}
 	
 	@Override

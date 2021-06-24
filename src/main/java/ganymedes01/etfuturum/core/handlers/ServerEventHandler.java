@@ -358,7 +358,7 @@ public class ServerEventHandler {
 			}
 		}
 		
-		if(ConfigurationHandler.enableRawOres) {
+		if(ConfigurationHandler.enableRawOres && !event.isSilkTouching) {
 			RawOreDropMapping mapping = ItemRawOre.rawOreRegistry.get(new BlockAndMetadataMapping(event.block, event.blockMetadata));
 			if(mapping != null) {
 				event.drops.clear();

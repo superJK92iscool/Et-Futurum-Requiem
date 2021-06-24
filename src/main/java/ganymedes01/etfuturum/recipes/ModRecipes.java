@@ -227,6 +227,14 @@ public class ModRecipes {
 			OreDictionary.registerOre("cobblestone", new ItemStack(ModBlocks.cobbled_deepslate, 1, 0));
 		}
 		
+		if(ConfigurationHandler.enableRawOres) {
+			if(ConfigurationHandler.enableCopper) {
+				OreDictionary.registerOre("rawCopper", new ItemStack(ModItems.raw_ore, 1, 0));
+			}
+			OreDictionary.registerOre("rawIron", new ItemStack(ModItems.raw_ore, 1, 1));
+			OreDictionary.registerOre("rawGold", new ItemStack(ModItems.raw_ore, 1, 2));
+		}
+		
 //      if(ConfigurationHandler.enableCrimsonBlocks || ConfigurationHandler.enableWarpedBlocks) {
 //          OreDictionary.registerOre("plankWood", new ItemStack(ModBlocks.nether_planks, 1, 0));
 //          OreDictionary.registerOre("plankWood", new ItemStack(ModBlocks.nether_planks, 1, 1));
@@ -461,35 +469,35 @@ public class ModRecipes {
 		}
 
 
-		if(!ConfigurationHandler.enableTileReplacement) { // Add recipes for updated tiles if tile replacement is disabled.
-			if (ConfigurationHandler.enableColourfulBeacons) {
-				removeFirstRecipeFor(Blocks.beacon); // Remove recipe for Minecrafts Beacon
-				addShapedRecipe(new ItemStack(ModBlocks.beacon), "GGG", "GSG", "OOO", 'G', Blocks.glass, 'S', Items.nether_star, 'O', Blocks.obsidian);
-				addShapelessRecipe(new ItemStack(ModBlocks.beacon), Blocks.beacon); // Minecraft Beacon -> EtFuturum Beacon
-				addShapelessRecipe(new ItemStack(Blocks.beacon), ModBlocks.beacon); // EtFuturm Beacon -> Minecraft Beacon
-			}
-	
-			if (ConfigurationHandler.enableEnchants) {
-				removeFirstRecipeFor(Blocks.enchanting_table); // Remove recipe for Minecrafts Enchanting Table
-				addShapedRecipe(new ItemStack(ModBlocks.enchantment_table), " B ", "D#D", "###", '#', Blocks.obsidian, 'B', Items.book, 'D', "gemDiamond");
-				addShapelessRecipe(new ItemStack(ModBlocks.enchantment_table), Blocks.enchanting_table); // Minecraft Enchanting Table -> EtFuturum Enchanting Table (For any old leftovers)
-				addShapelessRecipe(new ItemStack(Blocks.enchanting_table), ModBlocks.enchantment_table); // EtFuturum Enchanting Table -> Minecraft Enchanting Table (For when you need to to craft something that has it as a component (ChickenChunks))
-			}
-
-			if (ConfigurationHandler.enableInvertedDaylightSensor) {
-				removeFirstRecipeFor(Blocks.daylight_detector); // Remove recipe for Minecrafts Daylight Sensor
-				addShapedRecipe(new ItemStack(ModBlocks.daylight_sensor), "GGG", "QQQ", "WWW", 'G', "blockGlassColorless", 'Q', "gemQuartz", 'W', "slabWood");
-				addShapelessRecipe(new ItemStack(ModBlocks.daylight_sensor), Blocks.daylight_detector);
-				addShapelessRecipe(new ItemStack(Blocks.daylight_detector), ModBlocks.daylight_sensor);
-			}
-
-			if (ConfigurationHandler.enableBrewingStands) {
-				removeFirstRecipeFor(Items.brewing_stand); //gany pls, Blocks.brewing_stand is invalid
-				addShapedRecipe(new ItemStack(ModBlocks.brewing_stand), " i ", "xxx", 'i', Items.blaze_rod, 'x', "cobblestone");
-				addShapelessRecipe(new ItemStack(ModBlocks.brewing_stand), Items.brewing_stand); //Minecraft Brewing Stand -> EtFuturum Brewing Stand
-				addShapelessRecipe(new ItemStack(Items.brewing_stand), ModBlocks.brewing_stand); //EtFuturum Brewing Stand -> Minecraft Brewing Stand
-			}
-		}
+//		if(!ConfigurationHandler.enableTileReplacement) { // Add recipes for updated tiles if tile replacement is disabled.
+//			if (ConfigurationHandler.enableColourfulBeacons) {
+//				removeFirstRecipeFor(Blocks.beacon); // Remove recipe for Minecrafts Beacon
+//				addShapedRecipe(new ItemStack(ModBlocks.beacon), "GGG", "GSG", "OOO", 'G', Blocks.glass, 'S', Items.nether_star, 'O', Blocks.obsidian);
+//				addShapelessRecipe(new ItemStack(ModBlocks.beacon), Blocks.beacon); // Minecraft Beacon -> EtFuturum Beacon
+//				addShapelessRecipe(new ItemStack(Blocks.beacon), ModBlocks.beacon); // EtFuturm Beacon -> Minecraft Beacon
+//			}
+//	
+//			if (ConfigurationHandler.enableEnchants) {
+//				removeFirstRecipeFor(Blocks.enchanting_table); // Remove recipe for Minecrafts Enchanting Table
+//				addShapedRecipe(new ItemStack(ModBlocks.enchantment_table), " B ", "D#D", "###", '#', Blocks.obsidian, 'B', Items.book, 'D', "gemDiamond");
+//				addShapelessRecipe(new ItemStack(ModBlocks.enchantment_table), Blocks.enchanting_table); // Minecraft Enchanting Table -> EtFuturum Enchanting Table (For any old leftovers)
+//				addShapelessRecipe(new ItemStack(Blocks.enchanting_table), ModBlocks.enchantment_table); // EtFuturum Enchanting Table -> Minecraft Enchanting Table (For when you need to to craft something that has it as a component (ChickenChunks))
+//			}
+//
+//			if (ConfigurationHandler.enableInvertedDaylightSensor) {
+//				removeFirstRecipeFor(Blocks.daylight_detector); // Remove recipe for Minecrafts Daylight Sensor
+//				addShapedRecipe(new ItemStack(ModBlocks.daylight_sensor), "GGG", "QQQ", "WWW", 'G', "blockGlassColorless", 'Q', "gemQuartz", 'W', "slabWood");
+//				addShapelessRecipe(new ItemStack(ModBlocks.daylight_sensor), Blocks.daylight_detector);
+//				addShapelessRecipe(new ItemStack(Blocks.daylight_detector), ModBlocks.daylight_sensor);
+//			}
+//
+//			if (ConfigurationHandler.enableBrewingStands) {
+//				removeFirstRecipeFor(Items.brewing_stand); //gany pls, Blocks.brewing_stand is invalid
+//				addShapedRecipe(new ItemStack(ModBlocks.brewing_stand), " i ", "xxx", 'i', Items.blaze_rod, 'x', "cobblestone");
+//				addShapelessRecipe(new ItemStack(ModBlocks.brewing_stand), Items.brewing_stand); //Minecraft Brewing Stand -> EtFuturum Brewing Stand
+//				addShapelessRecipe(new ItemStack(Items.brewing_stand), ModBlocks.brewing_stand); //EtFuturum Brewing Stand -> Minecraft Brewing Stand
+//			}
+//		}
 
 		if (ConfigurationHandler.enableMagmaBlock) {
 			addShapedRecipe(new ItemStack(ModBlocks.magma_block), "xx", "xx", 'x', new ItemStack(Items.magma_cream) );
@@ -743,6 +751,20 @@ public class ModRecipes {
 //              addShapedRecipe(new ItemStack(ModBlocks.polished_blackstone_brick_stairs, 4, 1), "x  ", "xx ", "xxx", 'x', new ItemStack(ModBlocks.blackstone, 1, 3));
 //          }
 //      }
+		
+		if (ConfigurationHandler.enableRawOres) {
+			if(ConfigurationHandler.enableCopper) {
+				addShapedRecipe(new ItemStack(ModBlocks.raw_ore_block, 1, 0), "xxx", "xxx", "xxx", 'x', new ItemStack(ModItems.raw_ore, 1, 0));
+				addShapedRecipe(new ItemStack(ModItems.raw_ore, 9, 0), "x", 'x', new ItemStack(ModBlocks.raw_ore_block, 1, 0));
+				GameRegistry.addSmelting(new ItemStack(ModItems.raw_ore, 1, 0), new ItemStack(ModItems.copper_ingot, 1, 0), 0.7F);
+			}
+			addShapedRecipe(new ItemStack(ModBlocks.raw_ore_block, 1, 1), "xxx", "xxx", "xxx", 'x', new ItemStack(ModItems.raw_ore, 1, 1));
+			addShapedRecipe(new ItemStack(ModItems.raw_ore, 9, 1), "x", 'x', new ItemStack(ModBlocks.raw_ore_block, 1, 1));
+			GameRegistry.addSmelting(new ItemStack(ModItems.raw_ore, 1, 1), new ItemStack(Items.iron_ingot, 1, 0), 0.7F);
+			addShapedRecipe(new ItemStack(ModBlocks.raw_ore_block, 1, 2), "xxx", "xxx", "xxx", 'x', new ItemStack(ModItems.raw_ore, 1, 2));
+			addShapedRecipe(new ItemStack(ModItems.raw_ore, 9, 2), "x", 'x', new ItemStack(ModBlocks.raw_ore_block, 1, 2));
+			GameRegistry.addSmelting(new ItemStack(ModItems.raw_ore, 1, 2), new ItemStack(Items.gold_ingot, 1, 0), 0.7F);
+		}
 		
 		addShapedRecipe(new ItemStack(Blocks.wooden_slab, 6), "xxx", 'x', "plankWood");
 		
