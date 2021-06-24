@@ -20,8 +20,7 @@ public class TileEntityNewBeacon extends TileEntityBeacon {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public AxisAlignedBB getRenderBoundingBox() {
-		int height = worldObj == null ? 256 : worldObj.getActualHeight();
-		return AxisAlignedBB.getBoundingBox(xCoord, yCoord, zCoord, xCoord + 1, height, zCoord + 1);
+		return AxisAlignedBB.getBoundingBox(xCoord, yCoord, zCoord, xCoord + 1, Double.POSITIVE_INFINITY, zCoord + 1);
 	}
 
 	@Override
