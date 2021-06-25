@@ -114,6 +114,7 @@ public class ConfigurationHandler {
 	public static boolean enableSweetBerryBushes;
 	public static boolean enableLavaCauldrons;
 	public static boolean enableExtraCopper;
+	public static boolean registerRawItemAsOre;
 
 	public static boolean enableNewNetherBricks;
 	public static boolean enableNetherwartBlock;
@@ -328,6 +329,7 @@ public class ConfigurationHandler {
 		hayBaleReducePercent = cfg.getInt("hayBaleReducePercent", catFunction, 20, 0, 99, "If enableHayBaleFalls is true, what percent should we keep for the fall damage?");
 //        enableDyeReplacement = cfg.getBoolean("enableDyeReplacement", catFunction, true, "Removes lapis, bone meal, ink sac and cocoa bean's ore dictionary entries as dyes, making the Et Futurum dyes the dyes instead. Disable if this causes weirdisms with modded recipes. (If false both items can be used)");
 		enableExtraCopper = cfg.getBoolean("enableExtraCopper", catFunction, true, "If true, copper will drop 2-3 and fortune will yield more than normal.");
+		registerRawItemAsOre = cfg.getBoolean("registerRawItemAsOre", catFunction, true, "Registers raw ores as \"ore____\" in the OreDictionary. Configurable in case it causes crafting issues.");
 		
 		
 		//replacement

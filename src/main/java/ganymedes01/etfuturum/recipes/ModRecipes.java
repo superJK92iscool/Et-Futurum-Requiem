@@ -217,6 +217,14 @@ public class ModRecipes {
 			OreDictionary.registerOre("blockRawGold", new ItemStack(ModBlocks.raw_ore_block, 1, 2));
 		}
 		
+		if(ConfigurationHandler.registerRawItemAsOre) {
+			if(ConfigurationHandler.enableCopper) {
+				OreDictionary.registerOre("oreCopper", new ItemStack(ModItems.raw_ore, 1, 0));
+			}
+			OreDictionary.registerOre("oreIron", new ItemStack(ModItems.raw_ore, 1, 1));
+			OreDictionary.registerOre("oreGold", new ItemStack(ModItems.raw_ore, 1, 2));
+		}
+		
 //      if(ConfigurationHandler.enableCrimsonBlocks || ConfigurationHandler.enableWarpedBlocks) {
 //          OreDictionary.registerOre("plankWood", new ItemStack(ModBlocks.nether_planks, 1, 0));
 //          OreDictionary.registerOre("plankWood", new ItemStack(ModBlocks.nether_planks, 1, 1));
