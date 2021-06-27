@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.blocks;
+package ganymedes01.etfuturum.blocks.ores;
 
 import java.util.Random;
 
@@ -18,7 +18,7 @@ public class BlockOreNetherGold extends Block implements IConfigurable {
 
 	public BlockOreNetherGold() {
 		super(Material.rock);
-		setStepSound(ConfigurationHandler.enableNewBlocksSounds ? ModSounds.soundNetherOre : Block.soundTypeStone);
+		setStepSound(Block.soundTypeStone);
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
 		setHardness(3.0F);
 		setResistance(5.0F);

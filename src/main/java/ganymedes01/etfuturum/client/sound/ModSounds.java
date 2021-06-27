@@ -21,8 +21,8 @@ public class ModSounds {
 	public static final SoundType soundNylium = new CustomSound("nylium", 1, 1, true, true);
 	public static final SoundType soundBasalt = new CustomSound("basalt", 1, 1, true, true);
 	public static final SoundType soundNetherite = new CustomSoundNetherite("netherite_block", 1, 1);
-	public static final SoundType soundCrops = new CustomSound("crops", 1, 1, true, true);
-	public static final SoundType soundCropWarts = new CustomSound("nether_wart", 1, 1, true, true);
+	public static final SoundType soundCrops = new CustomSound("crops", 0.9F, 1, true, true); //SoundEvent for placing uses volume 0.45 and pitch 1 or 1.2
+	public static final SoundType soundCropWarts = new CustomSound("netherwart", 0.9F, 0.9F, true, true); //SoundEvent for placing uses volume 0.9 and pitch 1 or 1.12
 	public static final SoundType soundHoneyBlock = new CustomSound("honey_block", 1, 1, true, true);
 	public static final SoundType soundFungus = new CustomSoundFungus("fungus", 1, 1);
 	public static final SoundType soundStem = new CustomSound("stem", 1, 1, true, true);

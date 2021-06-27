@@ -95,20 +95,20 @@ public class ClientEventHandler {
 	{
 		World world = FMLClientHandler.instance().getWorldClient();
 		EntityPlayer player = FMLClientHandler.instance().getClientPlayerEntity();
-		if(!ConfigurationHandler.enableNewMiscSounds || world == null || event.phase != Phase.START || Minecraft.getMinecraft().isGamePaused()) {
+		if(world == null || event.phase != Phase.START || Minecraft.getMinecraft().isGamePaused()) {
 			return;
 		}
 		
-		Chunk chunk = world.getChunkFromBlockCoords((int)player.posX, (int)player.posZ);
-		if(!chunk.isChunkLoaded) {
-			if(ambience != null && FMLClientHandler.instance().getClient().getSoundHandler().isSoundPlaying(ambience))
-				FMLClientHandler.instance().getClient().getSoundHandler().stopSound(ambience);
-			ambience = null;
-			biomeName = null;
-			return;
-		}
 
-		if(player.dimension == -1 && ConfigurationHandler.enableNetherAmbience && !EtFuturum.netherAmbienceNetherlicious) {
+		if(ConfigurationHandler.enableNetherAmbience && !EtFuturum.netherAmbienceNetherlicious && player.dimension == -1) {
+			Chunk chunk = world.getChunkFromBlockCoords((int)player.posX, (int)player.posZ);
+			if(!chunk.isChunkLoaded) {
+				if(ambience != null && FMLClientHandler.instance().getClient().getSoundHandler().isSoundPlaying(ambience))
+					FMLClientHandler.instance().getClient().getSoundHandler().stopSound(ambience);
+				ambience = null;
+				biomeName = null;
+				return;
+			}
 			Minecraft mc = FMLClientHandler.instance().getClient();
 			int x = MathHelper.floor_double(player.posX);
 			//int y = MathHelper.floor_double(player.posY); // unused variable
@@ -132,8 +132,7 @@ public class ClientEventHandler {
 			}
 		}
 
-		boolean tickchecktime = world.rand.nextInt(Math.toIntExact((world.getTotalWorldTime() % 10) + 1)) == 0;
-		if(tickchecktime) {
+		if(ConfigurationHandler.enableNewMiscSounds && world.rand.nextInt(Math.toIntExact((world.getTotalWorldTime() % 10) + 1)) == 0) {
 			for(TileEntity tile : (List<TileEntity>)world.loadedTileEntityList) {
 				if(!(tile instanceof TileEntityFurnace)) //Don't use getBlock or get tile coord info if the tile isn't a furnace, so we only get the block when we need to
 					continue;

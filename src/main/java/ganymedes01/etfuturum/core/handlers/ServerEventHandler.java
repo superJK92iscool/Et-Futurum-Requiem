@@ -47,7 +47,9 @@ import ganymedes01.etfuturum.world.generate.BlockAndMetadataMapping;
 import ganymedes01.etfuturum.world.generate.RawOreDropMapping;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDoor;
+import net.minecraft.block.BlockFarmland;
 import net.minecraft.block.BlockFenceGate;
+import net.minecraft.block.BlockSoulSand;
 import net.minecraft.block.BlockTrapDoor;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
@@ -100,7 +102,9 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.sound.PlaySoundEvent17;
+import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.util.FakePlayer;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
 import net.minecraftforge.event.entity.PlaySoundAtEntityEvent;
@@ -452,26 +456,41 @@ public class ServerEventHandler {
 	public void onPlayerInteract(PlayerInteractEvent event) {
 		EntityPlayer player = event.entityPlayer;
 		if (event.action == Action.RIGHT_CLICK_BLOCK || event.action == Action.RIGHT_CLICK_AIR) {
-			if (player != null) {
+			if (player != null && !player.worldObj.isRemote) {
 				ItemStack heldStack = player.getHeldItem();
 				World world = player.worldObj;
 				int x = event.x;
 				int y = event.y;
 				int z = event.z;
 				Block oldBlock = world.getBlock(x, y, z);
-				if (ConfigurationHandler.enableAnvil && oldBlock == Blocks.anvil) {
-					world.setBlock(x, y, z, ModBlocks.anvil, world.getBlockMetadata(x, y, z), 3);
+				if (ConfigurationHandler.enableNewBlocksSounds && heldStack != null && heldStack.getItem() instanceof IPlantable
+						&& event.action == Action.RIGHT_CLICK_BLOCK && event.face == 1)
+			    {
+					int side = event.face;
+			        if (player.canPlayerEdit(x, y, z, side, heldStack)
+			        		&& player.canPlayerEdit(x, y + 1, z, side, heldStack))
+			        {
+			            if (world.getBlock(x, y, z).canSustainPlant(world, x, y, z, ForgeDirection.UP, (IPlantable)heldStack.getItem())
+			            		&& world.isAirBlock(x, y + 1, z))
+			            {
+			            	// Mundane seeds
+			            	if (oldBlock instanceof BlockFarmland)
+			            	{
+			            		world.playSoundEffect(x + 0.5, y + 1F , z + 0.5, Reference.MOD_ID+":place.crops", 0.45F, world.rand.nextBoolean() ? 1.0F : 1.2F);
+			            		return;
+			            	}
+			            	// Nether wart
+			            	if (oldBlock instanceof BlockSoulSand)
+			            	{
+			            		world.playSoundEffect(x + 0.5, y + 1F, z + 0.5, Reference.MOD_ID+":dig.netherwart", 0.9F, world.rand.nextBoolean() ? 1.0F : 1.12F);
+			            		return;
+			            	}
+			            }
+			        }
+//			    } else if (ConfigurationHandler.enableAnvil && oldBlock == Blocks.anvil) {
+//					world.setBlock(x, y, z, ModBlocks.anvil, world.getBlockMetadata(x, y, z), 3);
 				} else if(oldBlock != null && heldStack != null && heldStack.getItem() != null) {
 					Set<String> toolClasses = heldStack.getItem().getToolClasses(heldStack);
-//                    if(heldStack.getItem() instanceof ItemMonsterPlacer && oldBlock == Blocks.mob_spawner) {
-//                      String name = EntityList.getStringFromID(heldStack.getItemDamage());
-//                      if(name == null || name.length() <= 0) {
-//                          name = "Pig";
-//                      }
-//                      ((TileEntityMobSpawner)world.getTileEntity(x, y, z)).func_145881_a().set;
-//                      event.setCanceled(true);
-//                      return;
-//                    }
 					if (toolClasses != null) {
 						if (ConfigurationHandler.enableGrassPath && toolClasses.contains("shovel") && (oldBlock == Blocks.grass || oldBlock == Blocks.dirt || oldBlock == Blocks.mycelium)) {
 							world.setBlock(x, y, z, ModBlocks.grass_path);
@@ -985,11 +1004,13 @@ public class ServerEventHandler {
 
 					Block block = world.getBlock(x, y, z);
 					String s = event.name;
-					String classname = block.getClass().getName().toLowerCase();
-					if((classname.contains("chest")) && classname.contains("ender") && block.getMaterial().equals(Material.rock))
-						s = Reference.MOD_ID + ":" + "block.ender_chest." + (event.name.contains("close") ? "close" : "open");
-					else if((classname.contains("chest")) && block.getMaterial().equals(Material.wood) && event.name.contains("close"))
-						s = Reference.MOD_ID + ":" + "block.chest.close";
+					String blockID = Block.blockRegistry.getNameForObject(block).split(":")[1].toLowerCase();
+					if(blockID.contains("chest") && (blockID.contains("open") || blockID.contains("close"))) {
+						if((blockID.contains("ender") && block.getMaterial().equals(Material.rock)))
+							s = Reference.MOD_ID + ":" + "block.ender_chest." + (event.name.contains("close") ? "close" : "open");
+						else if(block.getMaterial().equals(Material.wood) && event.name.contains("close"))
+							s = Reference.MOD_ID + ":" + "block.chest.close";
+					}
 					
 					if(!s.equals(event.name)) {
 						event.result = new PositionedSoundRecord(new ResourceLocation(s), 

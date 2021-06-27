@@ -49,6 +49,9 @@ import ganymedes01.etfuturum.world.EtFuturumWorldGenerator;
 import ganymedes01.etfuturum.world.generate.BlockAndMetadataMapping;
 import ganymedes01.etfuturum.world.generate.OceanMonument;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockCrops;
+import net.minecraft.block.BlockNetherWart;
+import net.minecraft.block.BlockOre;
 import net.minecraft.block.BlockTrapDoor;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
@@ -216,7 +219,13 @@ public class EtFuturum {
 						block.setStepSound(ModSounds.soundNetherBricks);
 					else if(blockID.contains("netherrack"))
 							block.setStepSound(ModSounds.soundNetherrack);
+					else if(blockID.contains("nether") && (block instanceof BlockOre || blockID.contains("ore")))
+						block.setStepSound(ModSounds.soundNetherOre);
 				}
+				if(block instanceof BlockNetherWart || (blockID.contains("nether") && blockID.contains("wart")))
+					block.setStepSound(ModSounds.soundCropWarts);
+				else if(block instanceof BlockCrops)
+					block.setStepSound(ModSounds.soundCrops);
 			}
 			
 			Blocks.quartz_ore.setStepSound(ModSounds.soundNetherOre);
