@@ -1061,6 +1061,7 @@
     ]
   }, 
   "dig.sweet_berry_bush": {
+    "category": "neutral",
     "sounds": [
       "minecraft:block/sweet_berry_bush/break1",
       "minecraft:block/sweet_berry_bush/break2",
@@ -1069,6 +1070,7 @@
     ]
   },
   "place.sweet_berry_bush": {
+    "category": "block",
     "sounds": [
       "minecraft:block/sweet_berry_bush/place1",
       "minecraft:block/sweet_berry_bush/place2",
@@ -1079,12 +1081,14 @@
     ]
   },
   "item.sweet_berries.pick_from_bush": {
+    "category": "neutral",
     "sounds": [
       "minecraft:item/sweet_berries/pick_from_bush1",
       "minecraft:item/sweet_berries/pick_from_bush2"
     ]
   },
   "dig.deepslate": {
+    "category": "block",
     "sounds": [
       "minecraft:block/deepslate/break1",
       "minecraft:block/deepslate/break2",
@@ -1093,6 +1097,7 @@
     ]
   },
   "place.deepslate": {
+    "category": "block",
     "sounds": [
       "minecraft:block/deepslate/place1",
       "minecraft:block/deepslate/place2",
@@ -1103,6 +1108,7 @@
     ]
   },
   "step.deepslate": {
+    "category": "neutral",
     "sounds": [
       "minecraft:block/deepslate/step1",
       "minecraft:block/deepslate/step2",
@@ -1113,6 +1119,7 @@
     ]
   },
   "dig.tuff": {
+    "category": "block",
     "sounds": [
       "minecraft:block/tuff/step1",
       "minecraft:block/tuff/step2",
@@ -1123,6 +1130,7 @@
     ]
   },
   "place.tuff": {
+    "category": "block",
     "sounds": [
       "minecraft:block/tuff/step1",
       "minecraft:block/tuff/step2",
@@ -1133,6 +1141,7 @@
     ]
   },
   "step.tuff": {
+    "category": "neutral",
     "sounds": [
       "minecraft:block/tuff/step1",
       "minecraft:block/tuff/step2",
@@ -1143,6 +1152,7 @@
     ]
   },
   "place.deepslate_bricks": {
+    "category": "block",
     "sounds": [
       "minecraft:block/deepslate_bricks/place1",
       "minecraft:block/deepslate_bricks/place2",
@@ -1153,12 +1163,27 @@
     ]
   },
   "step.deepslate_bricks": {
+    "category": "neutral",
     "sounds": [
       "minecraft:block/deepslate_bricks/step1",
       "minecraft:block/deepslate_bricks/step2",
       "minecraft:block/deepslate_bricks/step3",
       "minecraft:block/deepslate_bricks/step4",
       "minecraft:block/deepslate_bricks/step5"
+    ]
+  },
+  "block.end_portal.spawn": {
+    "category": "ambient",
+    "sounds": [
+      "minecraft:block/end_portal/endportal"
+    ]
+  },
+  "block.end_portal_frame.fill": {
+    "category": "block",
+    "sounds": [
+      "minecraft:block/end_portal/eyeplace1",
+      "minecraft:block/end_portal/eyeplace2",
+      "minecraft:block/end_portal/eyeplace3"
     ]
   }
 }
