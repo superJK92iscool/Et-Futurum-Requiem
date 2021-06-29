@@ -32,6 +32,7 @@ public class ModSounds {
 	public static final SoundType soundDeepslate = new CustomSoundDeepslate("deepslate", 1, 1);
 	public static final SoundType soundDeepslateBricks = new CustomSoundDeepslate("deepslate_bricks", 1.3F, 1.3F);
 	public static final SoundType soundTuff = new CustomSoundDeepslate("tuff", 1, 1);
+	public static final SoundType soundVines = new CustomSound("vine", 0.9F, 1, true, true);
 	
 	private static final class CustomSound extends SoundType {
 

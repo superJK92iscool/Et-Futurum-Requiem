@@ -53,6 +53,7 @@ import net.minecraft.block.BlockCrops;
 import net.minecraft.block.BlockNetherWart;
 import net.minecraft.block.BlockOre;
 import net.minecraft.block.BlockTrapDoor;
+import net.minecraft.block.BlockVine;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -221,11 +222,15 @@ public class EtFuturum {
 							block.setStepSound(ModSounds.soundNetherrack);
 					else if(blockID.contains("nether") && (block instanceof BlockOre || blockID.contains("ore")))
 						block.setStepSound(ModSounds.soundNetherOre);
+					else if(block instanceof BlockNetherWart || (blockID.contains("nether") && blockID.contains("wart")))
+						block.setStepSound(ModSounds.soundCropWarts);
 				}
-				if(block instanceof BlockNetherWart || (blockID.contains("nether") && blockID.contains("wart")))
-					block.setStepSound(ModSounds.soundCropWarts);
-				else if(block instanceof BlockCrops)
-					block.setStepSound(ModSounds.soundCrops);
+				if(block.stepSound == Block.soundTypeGrass) {
+					if(block instanceof BlockCrops)
+						block.setStepSound(ModSounds.soundCrops);
+					else if(block instanceof BlockVine)
+						block.setStepSound(ModSounds.soundVines);
+				}
 			}
 			
 			Blocks.quartz_ore.setStepSound(ModSounds.soundNetherOre);

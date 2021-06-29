@@ -19,15 +19,12 @@ import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import cpw.mods.fml.relauncher.ReflectionHelper;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModEnchantments;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.blocks.BlockMagma;
 import ganymedes01.etfuturum.blocks.BlockWitherRose;
-import ganymedes01.etfuturum.client.sound.WeightedSoundPool;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.utils.HoeHelper;
 import ganymedes01.etfuturum.entities.EntityBrownMooshroom;
@@ -46,21 +43,17 @@ import ganymedes01.etfuturum.recipes.ModRecipes;
 import ganymedes01.etfuturum.world.generate.BlockAndMetadataMapping;
 import ganymedes01.etfuturum.world.generate.RawOreDropMapping;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockDoor;
 import net.minecraft.block.BlockEndPortalFrame;
 import net.minecraft.block.BlockFarmland;
-import net.minecraft.block.BlockFenceGate;
 import net.minecraft.block.BlockSoulSand;
-import net.minecraft.block.BlockTrapDoor;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.PositionedSound;
-import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.ai.EntityAIAvoidEntity;
+import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAIOpenDoor;
 import net.minecraft.entity.ai.EntityAITargetNonTamed;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
@@ -68,13 +61,16 @@ import net.minecraft.entity.ai.EntityAITempt;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityCreeper;
+import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntitySnowman;
 import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.entity.monster.EntityZombie;
+import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.passive.EntityMooshroom;
+import net.minecraft.entity.passive.EntityOcelot;
 import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.passive.EntityVillager;
@@ -100,18 +96,15 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
 import net.minecraft.util.MathHelper;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
-import net.minecraftforge.client.event.sound.PlaySoundEvent17;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
-import net.minecraftforge.event.entity.PlaySoundAtEntityEvent;
 import net.minecraftforge.event.entity.living.EnderTeleportEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
@@ -131,34 +124,8 @@ import net.minecraftforge.oredict.OreDictionary;
 public class ServerEventHandler {
 
 	public static final ServerEventHandler INSTANCE = new ServerEventHandler();
-
-	public WeightedSoundPool netherWastesMusic = new WeightedSoundPool();
-	public WeightedSoundPool basaltDeltasMusic = new WeightedSoundPool();
-	public WeightedSoundPool crimsonForestMusic = new WeightedSoundPool();
-	public WeightedSoundPool warpedForestMusic = new WeightedSoundPool();
-	public WeightedSoundPool soulSandValleyMusic = new WeightedSoundPool();
-	public WeightedSoundPool underWaterMusic = new WeightedSoundPool();
 	
 	private ServerEventHandler() {
-		if(FMLCommonHandler.instance().getSide() == Side.CLIENT)
-			addToMusicPools();
-	}
-	
-	@SideOnly(Side.CLIENT)
-	private void addToMusicPools() {
-		netherWastesMusic.addEntry(Reference.MOD_ID + ":music.nether.nether_wastes", 6);
-		netherWastesMusic.addEntry("music.game.nether", 4);
-
-		basaltDeltasMusic.addEntry(Reference.MOD_ID + ":music.nether.basalt_deltas", 7);
-		basaltDeltasMusic.addEntry("music.game.nether", 4);
-
-		crimsonForestMusic.addEntry(Reference.MOD_ID + ":music.nether.crimson_forest", 7);
-		crimsonForestMusic.addEntry("music.game.nether", 4);
-
-		warpedForestMusic.addEntry(Reference.MOD_ID + ":music.nether.warped_forest", 1);
-
-		soulSandValleyMusic.addEntry(Reference.MOD_ID + ":music.nether.soul_sand_valley", 7);
-		soulSandValleyMusic.addEntry("music.game.nether", 4);
 	}
 
 	@SubscribeEvent
@@ -744,9 +711,10 @@ public class ServerEventHandler {
 			if (entity instanceof EntityPlayerMP)
 				if (entity.getRNG().nextFloat() < 0.05F && entity.worldObj.getGameRules().getGameRuleBooleanValue("doMobSpawning")) {
 					EntityEndermite entityendermite = new EntityEndermite(entity.worldObj);
-					entityendermite.setSpawnedByPlayer(true);
 					entityendermite.setLocationAndAngles(entity.posX, entity.posY, entity.posZ, entity.rotationYaw, entity.rotationPitch);
 					entity.worldObj.spawnEntityInWorld(entityendermite);
+					entityendermite.setSpawnedByPlayer(true);
+					entityendermite.aggroEndermen(64);
 				}
 		}
 	}
@@ -765,6 +733,11 @@ public class ServerEventHandler {
 			EntityWolf wolf = (EntityWolf) event.entity;
 			if (ConfigurationHandler.enableRabbit)
 				wolf.targetTasks.addTask(4, new EntityAITargetNonTamed(wolf, EntityRabbit.class, 200, false));
+		} else if (event.entity instanceof EntityEnderman) {
+			EntityEnderman enderman = (EntityEnderman) event.entity;
+//			if (ConfigurationHandler.enableEndermite)
+				enderman.targetTasks.addTask(3, new EntityAINearestAttackableTarget(enderman, EntityEndermite.class, 100, false));
+				enderman.tasks.addTask(3, new EntityAITempt(enderman, 1.0D, ModItems.beetroot_seeds, false));
 		} else if (event.entity instanceof EntityVillager) {
 			EntityVillager villager = (EntityVillager) event.entity;
 			for (Object obj : villager.tasks.taskEntries) {
@@ -1052,176 +1025,4 @@ public class ServerEventHandler {
 	//      }
 	//  }
 	//}
-
-	PositionedSound netherMusic;
-
-	@SideOnly(Side.CLIENT)
-	@SubscribeEvent
-	public void onPlaySoundEvent(PlaySoundEvent17 event)
-	{
-		if(event.sound != null && event.name != null && cpw.mods.fml.client.FMLClientHandler.instance().getWorldClient() != null
-				&& FMLCommonHandler.instance().getSide() == Side.CLIENT) {
-				String[] eventwithprefix = event.name.split("\\.");
-			if (ConfigurationHandler.enableNewBlocksSounds && event.name.contains(".") &&
-					eventwithprefix[1].equals(Blocks.stone.stepSound.soundName)
-					&& event.sound.getPitch() < 1.0F) {
-				World world = cpw.mods.fml.client.FMLClientHandler.instance().getWorldClient();
-				int x = MathHelper.floor_float(event.sound.getXPosF());
-				int y = MathHelper.floor_float(event.sound.getYPosF());
-				int z = MathHelper.floor_float(event.sound.getZPosF());
-				Block block = world.getBlock(x, y, z);
-				Item itemblock = Item.getItemFromBlock(block);
-				if(itemblock == null)
-					return;
-				String name = itemblock.getUnlocalizedName(new ItemStack(itemblock, 1, world.getBlockMetadata(x, y, z) % 8)).toLowerCase();
-				if(name.contains("slab") && name.contains("nether") && name.contains("brick")) {
-					String prefix = event.name.substring(0, event.name.indexOf(".") + 1);
-					float soundPit = (block.stepSound.getPitch()) * (prefix.contains("step") ? 0.5F : 0.8F);
-					float soundVol = (block.stepSound.getVolume() + 1.0F) / (prefix.contains("step") ? 8F : 2F);
-
-					event.result = new PositionedSoundRecord(new ResourceLocation(Reference.MOD_ID + ":" + eventwithprefix[0] + ".nether_bricks"), soundVol, soundPit, x + 0.5F, y + 0.5F, z + 0.5F);
-					return;
-				}
-			}
-			
-			if(ConfigurationHandler.enableNewMiscSounds) {
-				if(event.name.contains("random.door")) {
-					World world = cpw.mods.fml.client.FMLClientHandler.instance().getWorldClient();
-					int x = MathHelper.floor_float(event.sound.getXPosF());
-					int y = MathHelper.floor_float(event.sound.getYPosF());
-					int z = MathHelper.floor_float(event.sound.getZPosF());
-
-					Block block = world.getBlock(x, y, z);
-					event.result = new PositionedSoundRecord(new ResourceLocation(getReplacementDoorSound(block, event.name)),
-							event.sound.getVolume(), event.sound.getPitch(), x + 0.5F, y + 0.5F, z + 0.5F);
-				} else if (event.name.contains("random.chest")) {
-					World world = cpw.mods.fml.client.FMLClientHandler.instance().getWorldClient();
-					int x = MathHelper.floor_float(event.sound.getXPosF());
-					int y = MathHelper.floor_float(event.sound.getYPosF());
-					int z = MathHelper.floor_float(event.sound.getZPosF());
-
-					Block block = world.getBlock(x, y, z);
-					String s = event.name;
-					String blockID = Block.blockRegistry.getNameForObject(block).split(":")[1].toLowerCase();
-					if(blockID.contains("chest") && (blockID.contains("open") || blockID.contains("close"))) {
-						if((blockID.contains("ender") && block.getMaterial().equals(Material.rock)))
-							s = Reference.MOD_ID + ":" + "block.ender_chest." + (event.name.contains("close") ? "close" : "open");
-						else if(block.getMaterial().equals(Material.wood) && event.name.contains("close"))
-							s = Reference.MOD_ID + ":" + "block.chest.close";
-					}
-					
-					if(!s.equals(event.name)) {
-						event.result = new PositionedSoundRecord(new ResourceLocation(s), 
-								event.sound.getVolume(), event.sound.getPitch(), x + 0.5F, y + 0.5F, z + 0.5F);
-					}
-				}
-			}
-
-			if(!EtFuturum.netherMusicNetherlicious) {
-				Minecraft mc = cpw.mods.fml.client.FMLClientHandler.instance().getClient();
-				if (mc.thePlayer.dimension == -1 && event.name.equals("music.game.nether")) {
-					if(netherMusic == null || !mc.getSoundHandler().isSoundPlaying(netherMusic)) {
-						//World world = mc.theWorld; // unused variable
-						WeightedSoundPool pool = getMusicForBiome(mc.theWorld.getChunkFromBlockCoords((int)mc.thePlayer.posX, (int)mc.thePlayer.posZ).getBiomeGenForWorldCoords((int)mc.thePlayer.posX & 15, (int)mc.thePlayer.posZ & 15, mc.theWorld.getWorldChunkManager()).biomeName);
-						netherMusic = PositionedSoundRecord.func_147673_a(new ResourceLocation(pool.getRandom()));
-						event.result = netherMusic;
-					} else {
-						event.result = null;
-					}
-				}
-			}
-			
-			if(ConfigurationHandler.enableNewAmbientSounds) {
-				if (event.name.equals("ambient.weather.rain")) {
-					//World world = cpw.mods.fml.client.FMLClientHandler.instance().getWorldClient(); // unused variable
-					int x = MathHelper.floor_float(event.sound.getXPosF());
-					int y = MathHelper.floor_float(event.sound.getYPosF());
-					int z = MathHelper.floor_float(event.sound.getZPosF());
-					event.result = new PositionedSoundRecord(new ResourceLocation(Reference.MOD_ID + ":" + "weather.rain" + (event.sound.getPitch() < 1.0F ? ".above" : "")), 
-							event.sound.getVolume(), event.sound.getPitch(), x + 0.5F, y + 0.5F, z + 0.5F);
-				} else if (event.name.equals("ambient.cave.cave")) {
-					int x = MathHelper.floor_float(event.sound.getXPosF());
-					int y = MathHelper.floor_float(event.sound.getYPosF());
-					int z = MathHelper.floor_float(event.sound.getZPosF());
-					if(ConfigurationHandler.enableNetherAmbience && cpw.mods.fml.client.FMLClientHandler.instance().getClientPlayerEntity().dimension == -1) {
-						String biomeName = cpw.mods.fml.client.FMLClientHandler.instance().getWorldClient().getChunkFromBlockCoords(x, z).getBiomeGenForWorldCoords(x & 15, z & 15, cpw.mods.fml.client.FMLClientHandler.instance().getWorldClient().getWorldChunkManager()).biomeName;
-						if(ClientEventHandler.getAmbienceLoopForBiome(biomeName) != null)
-							event.result = new PositionedSoundRecord(new ResourceLocation(Reference.MOD_ID + ":ambient." + ClientEventHandler.getAmbienceLoopForBiome(biomeName) + ".mood"), 
-									event.sound.getVolume(), event.sound.getPitch(), x + 0.5F, y + 0.5F, z + 0.5F);
-						else
-							event.result = null;
-					} else if(new Random().nextInt(19) >= 13) {
-						event.result = new PositionedSoundRecord(new ResourceLocation(Reference.MOD_ID + ":ambient.cave"), 
-								event.sound.getVolume(), event.sound.getPitch(), x + 0.5F, y + 0.5F, z + 0.5F);
-					}
-				}
-			}
-		}
-	}
-	
-	private WeightedSoundPool getMusicForBiome(String string) {
-		if(string.contains("Basalt Deltas") || string.contains("Crystalline Crag")) {
-			return basaltDeltasMusic;
-		}
-		if(string.contains("Warped Forest") || string.contains("Abyssal Shadowland")) {
-			return warpedForestMusic;
-		}
-		if(string.contains("Crimson Forest") || string.contains("Foxfire Swamp")) {
-			return crimsonForestMusic;
-		}
-		if(string.contains("Soul Sand Valley")) {
-			return soulSandValleyMusic;
-		}
-		return netherWastesMusic;
-	}
-
-
-	@SideOnly(Side.CLIENT)
-	@SubscribeEvent
-	public void onPlaySoundAtEntityEvent(PlaySoundAtEntityEvent event)
-	{
-		if (ConfigurationHandler.enableNewBlocksSounds && event.name != null
-				&& event.entity != null && event.name.contains("step") && event.name.equals("step.stone")
-				&& event.name.contains(".")) {
-			String[] eventwithprefix = event.name.split("\\.");
-			int x = MathHelper.floor_double(event.entity.posX);
-			int y = MathHelper.floor_double(event.entity.posY - 0.20000000298023224D - event.entity.yOffset);
-			int z = MathHelper.floor_double(event.entity.posZ);
-			World world = event.entity.worldObj;
-			Block block = world.getBlock(x, y, z);
-			Item itemblock = Item.getItemFromBlock(block);
-			if(itemblock == null)
-				return;
-			String name = itemblock.getUnlocalizedName(new ItemStack(itemblock, 1, world.getBlockMetadata(x, y, z) % 8)).toLowerCase();
-			if(name.contains("slab") && name.contains("nether") && name.contains("brick")) {
-				//String prefix = event.name.substring(0, event.name.indexOf(".") + 1); // unused variable
-				//float soundPit = (block.stepSound.getPitch()) * (prefix.contains("step") ? 0.5F : 0.8F); // unused variable
-				//float soundVol = (block.stepSound.getVolume() + 1.0F) / (prefix.contains("step") ? 8F : 2F); // unused variable
-				event.name = Reference.MOD_ID + ":" + eventwithprefix[0] + ".nether_bricks";
-				return;
-			}
-		}
-	}
-	
-	private String getReplacementDoorSound(Block block, String string) {
-		Random random = new Random();
-		String closeOrOpen = random.nextInt(2) == 0 ? "open" : "close";
-		if(block instanceof BlockDoor)
-			if (block.getMaterial() == Material.wood/* || block.getMaterial() == EtFuturum.netherwood */)
-				return Reference.MOD_ID + ":block.wooden_door." + closeOrOpen;
-			else if(block.getMaterial() == Material.iron)
-				return Reference.MOD_ID + ":block.iron_door." + closeOrOpen;
-		
-		if(block instanceof BlockTrapDoor)
-			if (block.getMaterial() == Material.wood/* || block.getMaterial() == EtFuturum.netherwood */)
-				return Reference.MOD_ID + ":block.wooden_trapdoor." + closeOrOpen;
-			else if(block.getMaterial() == Material.iron)
-				return Reference.MOD_ID + ":block.iron_trapdoor." + closeOrOpen;
-		
-		if(block instanceof BlockFenceGate)
-			if (block.getMaterial() == Material.wood/* || block.getMaterial() == EtFuturum.netherwood */)
-				return Reference.MOD_ID + ":block.fence_gate." + closeOrOpen;
-				
-		return string;
-	}
 }

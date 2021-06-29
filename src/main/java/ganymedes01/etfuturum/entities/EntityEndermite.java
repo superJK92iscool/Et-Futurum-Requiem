@@ -117,7 +117,6 @@ public class EntityEndermite extends EntityMob {
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
 
@@ -125,31 +124,38 @@ public class EntityEndermite extends EntityMob {
 			for (int i = 0; i < 2; i++)
 				worldObj.spawnParticle("portal", posX + (rand.nextDouble() - 0.5D) * width, posY + rand.nextDouble() * height, posZ + (rand.nextDouble() - 0.5D) * width, (rand.nextDouble() - 0.5D) * 2.0D, -rand.nextDouble(), (rand.nextDouble() - 0.5D) * 2.0D);
 		else {
-			if (!isNoDespawnRequired())
+			if (!isNoDespawnRequired() && !this.hasCustomNameTag())
 				lifetime++;
 
 			if (lifetime >= 2400)
 				setDead();
 		}
 
-		if (isSpawnedByPlayer()) {
-			double range = 64;
-			double radius = range / 2.0;
-			int tagetChance = 10;
-			if (rand.nextInt(tagetChance) != 0) {
-				List<EntityEnderman> list = worldObj.getEntitiesWithinAABBExcludingEntity(this, AxisAlignedBB.getBoundingBox(posX - radius, posY - 4, posZ - radius, posX + radius, posY + 4, posZ + radius), new IEntitySelector() {
-					@Override
-					public boolean isEntityApplicable(Entity entity) {
-						return entity instanceof EntityEnderman;
-					}
-				});
-				Collections.sort(list, sorter);
-				if (!list.isEmpty()) {
-					EntityEnderman enderman = list.get(0);
+		setSpawnedByPlayer(true);
+		if (isSpawnedByPlayer() && ticksExisted % 20 == 0) {
+			aggroEndermen(64);
+		}
+	}
+	
+	public void aggroEndermen(int range) {
+		double radius = range / 2.0;
+		int tagetChance = 10;
+		if (rand.nextInt(tagetChance) != 0) {
+			List<EntityEnderman> list = worldObj.getEntitiesWithinAABBExcludingEntity(this, AxisAlignedBB.getBoundingBox(posX - radius, posY - 4, posZ - radius, posX + radius, posY + 4, posZ + radius), new IEntitySelector() {
+				@Override
+				public boolean isEntityApplicable(Entity entity) {
+					return entity instanceof EntityEnderman && ((EntityEnderman)entity).getAttackTarget() == null;
+				}
+			});
+			Collections.sort(list, sorter);
+			if (!list.isEmpty()) {
+				for(EntityEnderman enderman : list) {
 					enderman.setTarget(this);
+					enderman.setScreaming(true);
 				}
 			}
 		}
+		
 	}
 
 	@Override

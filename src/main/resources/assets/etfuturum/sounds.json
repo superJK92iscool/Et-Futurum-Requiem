@@ -1185,5 +1185,24 @@
       "minecraft:block/end_portal/eyeplace2",
       "minecraft:block/end_portal/eyeplace3"
     ]
+  },
+  "dig.vine": {
+    "category": "block",
+    "sounds": [
+      "minecraft:block/vine/break1",
+      "minecraft:block/vine/break2",
+      "minecraft:block/vine/break3",
+      "minecraft:block/vine/break4"
+    ]
+  },
+  "step.vine": {
+    "category": "neutral",
+    "sounds": [
+      "minecraft:block/vine/climb1",
+      "minecraft:block/vine/climb2",
+      "minecraft:block/vine/climb3",
+      "minecraft:block/vine/climb4",
+      "minecraft:block/vine/climb5"
+    ]
   }
 }
