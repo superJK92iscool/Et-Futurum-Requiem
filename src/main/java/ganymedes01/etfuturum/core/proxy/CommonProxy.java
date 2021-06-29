@@ -145,6 +145,7 @@ public class CommonProxy implements IGuiHandler {
 			ModEntityList.registerEntity(EntityBrownMooshroom.class, "brown_mooshroom", id++, EtFuturum.instance, 80, 3, true);
 
 		ModEntityList.registerEntity(EntityItemUninflammable.class, "fireproof_item", id++, EtFuturum.instance, 64, 1, true);
+		ModEntityList.registerEntity(EntityNewBoat.class, "newboat", id++, EtFuturum.instance, 128, 5, true);
 		//make magmas slightly more common, hopefully. 
 		EntityRegistry.removeSpawn(EntityMagmaCube.class, EnumCreatureType.monster, new BiomeGenBase[] { BiomeGenBase.hell });
 		EntityRegistry.addSpawn(EntityMagmaCube.class, 2, 4, 4, EnumCreatureType.monster, new BiomeGenBase[] { BiomeGenBase.hell });

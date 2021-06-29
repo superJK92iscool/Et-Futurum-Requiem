@@ -1204,5 +1204,35 @@
       "minecraft:block/vine/climb4",
       "minecraft:block/vine/climb5"
     ]
+  },
+  "game.player.hurt_drown": {
+    "sounds": [
+      "minecraft:entity/player/hurt/drown1",
+      "minecraft:entity/player/hurt/drown2",
+      "minecraft:entity/player/hurt/drown3",
+      "minecraft:entity/player/hurt/drown4"
+    ]
+  },
+  "game.player.hurt_freeze": {
+    "sounds": [
+      "minecraft:entity/player/hurt/freeze_hurt1",
+      "minecraft:entity/player/hurt/freeze_hurt2",
+      "minecraft:entity/player/hurt/freeze_hurt3",
+      "minecraft:entity/player/hurt/freeze_hurt4",
+      "minecraft:entity/player/hurt/freeze_hurt5"
+    ]
+  },
+  "game.player.hurt_on_fire": {
+    "sounds": [
+      "minecraft:entity/player/hurt/fire_hurt1",
+      "minecraft:entity/player/hurt/fire_hurt2",
+      "minecraft:entity/player/hurt/fire_hurt3"
+    ]
+  },
+  "game.player.hurt_sweet_berry_bush": {
+    "sounds": [
+      "minecraft:entity/player/hurt/berrybush_hurt1",
+      "minecraft:entity/player/hurt/berrybush_hurt2"
+    ]
   }
 }

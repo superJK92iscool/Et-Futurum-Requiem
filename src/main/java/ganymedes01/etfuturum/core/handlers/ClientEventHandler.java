@@ -1,6 +1,8 @@
 package ganymedes01.etfuturum.core.handlers;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import org.lwjgl.opengl.GL11;
@@ -33,6 +35,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -41,6 +44,7 @@ import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.client.event.RenderPlayerEvent.SetArmorModel;
 import net.minecraftforge.client.event.sound.PlaySoundEvent17;
 import net.minecraftforge.event.entity.PlaySoundAtEntityEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 
 public class ClientEventHandler {
@@ -376,7 +380,6 @@ public class ClientEventHandler {
 		}
 		return netherWastesMusic;
 	}
-
 
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
