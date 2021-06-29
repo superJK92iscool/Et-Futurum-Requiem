@@ -131,7 +131,6 @@ public class EntityEndermite extends EntityMob {
 				setDead();
 		}
 
-		setSpawnedByPlayer(true);
 		if (isSpawnedByPlayer() && ticksExisted % 20 == 0) {
 			aggroEndermen(64);
 		}
