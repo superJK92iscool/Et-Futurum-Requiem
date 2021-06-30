@@ -4,25 +4,23 @@ import org.lwjgl.opengl.GL11;
 
 import ganymedes01.etfuturum.client.model.ModelNewBoat;
 import ganymedes01.etfuturum.entities.EntityNewBoat;
-import net.minecraft.client.renderer.entity.RenderBoat;
+import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityBoat;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 
-public class NewBoatRenderer extends RenderBoat {
-	
+public class NewBoatRenderer extends Render {
+
+    private static final ResourceLocation[] BOAT_TEXTURES = new ResourceLocation[] {new ResourceLocation("minecraft:textures/entity/boat/boat_oak.png"), new ResourceLocation("minecraft:textures/entity/boat/boat_spruce.png"), new ResourceLocation("minecraft:textures/entity/boat/boat_birch.png"), new ResourceLocation("minecraft:textures/entity/boat/boat_jungle.png"), new ResourceLocation("minecraft:textures/entity/boat/boat_acacia.png"), new ResourceLocation("minecraft:textures/entity/boat/boat_darkoak.png")};
+
 	public NewBoatRenderer() {
 		super();
         this.shadowSize = 0.5F;
 	}
 	
     protected ModelNewBoat modelBoat = new ModelNewBoat();
-
-    public void doRender(EntityBoat p_76986_1_, double p_76986_2_, double p_76986_4_, double p_76986_6_, float p_76986_8_, float p_76986_9_)
-    {
-    	
-    }
+    
 	@Override
 	public void doRender(Entity uncastedentity, double x, double y, double z, float entityYaw,
 			float partialTicks) {
@@ -53,7 +51,7 @@ public class NewBoatRenderer extends RenderBoat {
 
     public void setupRotation(EntityNewBoat p_188311_1_, float p_188311_2_, float p_188311_3_)
     {
-        GL11.glRotatef(180.0F - p_188311_2_, 0.0F, 1.0F, 0.0F);
+        GL11.glRotatef(180F - p_188311_2_, 0.0F, 1.0F, 0.0F);
         float f = (float)p_188311_1_.getTimeSinceHit() - p_188311_3_;
         float f1 = p_188311_1_.getDamageTaken() - p_188311_3_;
 
@@ -68,6 +66,11 @@ public class NewBoatRenderer extends RenderBoat {
         }
 
         GL11.glScalef(-1.0F, -1.0F, 1.0F);
+    }
+
+    protected ResourceLocation getEntityTexture(Entity entity)
+    {
+        return BOAT_TEXTURES[entity instanceof EntityNewBoat ? ((EntityNewBoat)entity).getBoatType().ordinal() : 0];
     }
 
     public void setupTranslation(double p_188309_1_, double p_188309_3_, double p_188309_5_)
