@@ -9,6 +9,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 
 public class ThreadCheckAlex extends Thread {
@@ -32,12 +33,16 @@ public class ThreadCheckAlex extends Thread {
 				  String jsonText = readAll(rd);
 				  rd.close();
 //                System.out.println(jsonText);
-				  String base64 = jsonText.substring(jsonText.indexOf("\"value\" : \""));
-				  base64 = base64.replace("\"value\" : \"", "");
-				  base64 = base64.substring(0, base64.indexOf('"'));
-//                System.out.println(Base64.base64Decode(base64));
-				  if(new String(Base64.getDecoder().decode(base64), StandardCharsets.UTF_8).contains("\"model\" : \"slim\"")) {
-					  isAlex = true;
+				  if(jsonText.indexOf("\"value\" : \"") == -1) {
+					  isAlex = false;
+				  } else {
+					  String base64 = jsonText.substring(jsonText.indexOf("\"value\" : \""));
+					  base64 = base64.replace("\"value\" : \"", "");
+					  base64 = base64.substring(0, base64.indexOf('"'));
+//	                System.out.println(Base64.base64Decode(base64));
+					  if(new String(Base64.getDecoder().decode(base64), StandardCharsets.UTF_8).contains("\"model\" : \"slim\"")) {
+						  isAlex = true;
+					  }
 				  }
 			} catch (Exception e) {
 				e.printStackTrace();

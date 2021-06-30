@@ -3,12 +3,11 @@ package ganymedes01.etfuturum.entities;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import com.google.common.collect.Lists;
 
 import ganymedes01.etfuturum.ModItems;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
@@ -171,9 +170,6 @@ public class EntityNewBoat extends Entity {
     	if(riddenByEntity != null) {
         	dummylist.add(riddenByEntity);
     	}
-    	if(!dummylist.isEmpty()) {
-    		System.out.println(dummylist.get(0).getCommandSenderName());
-    	}
     	return dummylist;
     }
     
@@ -190,11 +186,11 @@ public class EntityNewBoat extends Entity {
     public boolean isBeingRidden() {
     	return !getPassengers().isEmpty();
     }
-    
+
     public boolean canPassengerSteer()
     {
-    	//Changed as a test, dummy.
-        return getControllingPassenger() instanceof EntityPlayer;
+        Entity entity = this.getControllingPassenger();
+        return entity instanceof EntityPlayer ? true : !this.worldObj.isRemote;
     }
     
     /**
@@ -342,12 +338,20 @@ public class EntityNewBoat extends Entity {
 
         if (this.canPassengerSteer())
         {
-            if (this.getPassengers().size() == 0 || !(this.getPassengers().get(0) instanceof EntityPlayer))
+            if (this.getPassengers().size() == 0 || !(this.getControllingPassenger() instanceof EntityPlayer))
             {
                 this.setPaddleState(false, false);
             }
 
             this.updateMotion();
+        	if(this.getPassengers().size() > 0 && getControllingPassenger() instanceof EntityPlayer) {
+        		EntityPlayer living = (EntityPlayer) this.getControllingPassenger();
+        		boolean left = living.moveStrafing > 0;
+        		boolean right = living.moveStrafing < 0;
+        		boolean forward = living.moveForward > 0;
+        		boolean back = living.moveForward < 0;
+            	this.updateInputs(left, right, forward, back);
+        	}
 
             if (this.worldObj.isRemote)
             {
@@ -755,11 +759,7 @@ public class EntityNewBoat extends Entity {
 
     private void controlBoat()
     {
-    	if(!getPassengers().isEmpty() && getPassengers().get(0) instanceof EntityLiving) {
-    		EntityLiving living = (EntityLiving)getPassengers().get(0);
-        	this.updateInputs(living.moveStrafing < 0, living.moveStrafing > 0, living.moveForward > 0, living.moveForward < 0);
-    	}
-        if (this.isBeingRidden())
+        if (isBeingRidden())
         {
             float f = 0.0F;
 
@@ -796,6 +796,14 @@ public class EntityNewBoat extends Entity {
         }
     }
 
+    @Override
+    public void updateRidden() {
+    	if(!getPassengers().isEmpty()) {
+    		for(Entity passenger : getPassengers()) {
+    	    	this.updatePassenger(passenger);
+    		}
+    	}
+    }
     public void updatePassenger(Entity passenger)
     {
         if (this.isPassenger(passenger))
@@ -854,16 +862,9 @@ public class EntityNewBoat extends Entity {
     }
 
     /**
-     * Applies this entity's orientation (pitch/yaw) to another entity. Used to update passenger orientation.
-     */
-    public void applyOrientationToEntity(Entity entityToUpdate)
-    {
-        this.applyYawToEntity(entityToUpdate);
-    }
-
-    /**
      * (abstract) Protected helper method to write subclass entity data to NBT.
      */
+    @Override
     protected void writeEntityToNBT(NBTTagCompound compound)
     {
         compound.setString("Type", this.getBoatType().getName());
@@ -872,6 +873,7 @@ public class EntityNewBoat extends Entity {
     /**
      * (abstract) Protected helper method to read subclass entity data from NBT.
      */
+    @Override
     protected void readEntityFromNBT(NBTTagCompound compound)
     {
         if (compound.hasKey("Type", 8))
@@ -880,6 +882,7 @@ public class EntityNewBoat extends Entity {
         }
     }
 
+    @Override
     public boolean interactFirst(EntityPlayer player)
     {
         if (!this.worldObj.isRemote && !player.isSneaking() && this.outOfControlTicks < 60.0F)
@@ -890,6 +893,7 @@ public class EntityNewBoat extends Entity {
         return true;
     }
 
+    @Override
     protected void updateFallState(double y, boolean onGroundIn)
     {
         this.lastYd = this.motionY;
@@ -906,7 +910,7 @@ public class EntityNewBoat extends Entity {
                         return;
                     }
 
-                    this.fall(this.fallDistance); // Float 1.0F removed... Dummy
+                    this.fall(this.fallDistance);
 
                     if (!this.worldObj.isRemote && !this.isDead)
                     {
@@ -938,7 +942,7 @@ public class EntityNewBoat extends Entity {
 
     public boolean getPaddleState(int p_184457_1_)
     {
-        return false;//Dummy
+        return dataWatcher.getWatchableObjectByte(DATA_ID_PADDLE[p_184457_1_]) == 1 && this.getControllingPassenger() != null;
     }
 
     /**

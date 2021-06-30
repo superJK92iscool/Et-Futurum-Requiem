@@ -2,6 +2,8 @@ package ganymedes01.etfuturum;
 
 import java.io.File;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.nio.file.Files;
 import java.util.HashMap;
@@ -55,6 +57,8 @@ import net.minecraft.block.BlockOre;
 import net.minecraft.block.BlockTrapDoor;
 import net.minecraft.block.BlockVine;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
