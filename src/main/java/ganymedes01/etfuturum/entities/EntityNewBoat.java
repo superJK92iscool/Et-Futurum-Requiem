@@ -220,7 +220,7 @@ public class EntityNewBoat extends Entity {
 
 			if (flag || this.getDamageTaken() > 40.0F)
 			{
-			    if (!flag && this.worldObj.getGameRules().getGameRuleBooleanValue("doEntityDrops"))
+			    if (!flag && this.worldObj.getGameRules().getGameRuleBooleanValue("doMobLoot"))
 			    {
 			        this.dropItem(this.getItemBoat(), 1);
 			    }
