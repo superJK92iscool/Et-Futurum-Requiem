@@ -171,7 +171,7 @@ public class EntityNewBoat extends Entity {
     	List<Entity> dummylist = new ArrayList<Entity>();
     	if(riddenByEntity != null) {
         	dummylist.add(riddenByEntity);
-    	}//TODO: Implement multiple passengers later
+    	}//TODO: Implement multiple passengers
     	return dummylist;
     }
     
@@ -179,7 +179,7 @@ public class EntityNewBoat extends Entity {
     	if(getPassengers().size() > 2) return;
     	if(riddenByEntity == null) {
     		entity.mountEntity(this);
-    	}
+    	}//TODO: Implement multiple passengers
 //    	else if (riddenByEntity instanceof EntityPlayer) {
 //    		passengers.add(entity);
 //    	} //dummy
@@ -305,7 +305,6 @@ public class EntityNewBoat extends Entity {
      */
     public void onUpdate()
     {
-    	if(worldObj.isRemote)return;
         this.previousStatus = this.status;
         this.status = this.getBoatStatus();
 
@@ -969,7 +968,7 @@ public class EntityNewBoat extends Entity {
     }
 
     protected boolean canFitPassenger(Entity passenger)
-    { //TODO: Multiple passengers
+    { //TODO: Implement multiple passengers
         return this.getPassengers().size() < 2;
     }
 
