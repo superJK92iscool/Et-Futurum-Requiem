@@ -64,7 +64,7 @@ public class EntityNewBoat extends Entity {
     private EntityNewBoat.Status previousStatus;
     private double lastYd;
     
-    private List<Entity> passengers = new ArrayList<Entity>();
+    private List<EntityLivingBase> passengers = new ArrayList<EntityLivingBase>();
 
     public EntityNewBoat(World p_i1704_1_)
     {
@@ -151,15 +151,15 @@ public class EntityNewBoat extends Entity {
     }
     
     public void removePassengers() {
-    	riddenByEntity.ridingEntity = null;
-    	riddenByEntity = null;
-    	for(Entity passenger : passengers) {
-    		passenger.ridingEntity = null;
+    	if(getPassengers().isEmpty()) return;
+    	for(EntityLivingBase passenger : getPassengers()) {
+    		if(passenger.ridingEntity == this)
+        		passenger.dismountEntity(this);
     	}
     	passengers.clear();
     }
     
-    public List<Entity> getPassengers() {
+    public List<EntityLivingBase> getPassengers() {
 //    	List<Entity> passengersCopy = new ArrayList<Entity>(passengers);
 //    	List<Entity> passengers2 = new ArrayList<Entity>();
 //    	if(passengers.isEmpty() && passengers.get(0) != riddenByEntity) {
@@ -168,9 +168,9 @@ public class EntityNewBoat extends Entity {
 //    	}
 //    	passengers2.addAll(passengersCopy);
 //    	return passengers2;
-    	List<Entity> dummylist = new ArrayList<Entity>();
-    	if(riddenByEntity != null) {
-        	dummylist.add(riddenByEntity);
+    	List<EntityLivingBase> dummylist = new ArrayList<EntityLivingBase>();
+    	if(riddenByEntity instanceof EntityLivingBase) {
+        	dummylist.add((EntityLivingBase)riddenByEntity);
     	}//TODO: Implement multiple passengers
     	return dummylist;
     }
@@ -551,6 +551,7 @@ public class EntityNewBoat extends Entity {
                         Block iblockstate = this.worldObj.getBlock(l1, k2, i2);
 
                         f += iblockstate.slipperiness;
+                        ++k1;
 
 //                          blockpos$pooledmutableblockpos.set(l1, k2, i2);
 //                          IBlockState iblockstate = this.worldObj.getBlockState(blockpos$pooledmutableblockpos);
@@ -581,7 +582,7 @@ public class EntityNewBoat extends Entity {
         int l = MathHelper.ceiling_double_int(axisalignedbb.minY + 0.001D);
         int i1 = MathHelper.floor_double(axisalignedbb.minZ);
         int j1 = MathHelper.ceiling_double_int(axisalignedbb.maxZ);
-        boolean flag = false;
+        boolean flag = false; //TODO: Cleanup
         this.waterLevel = Double.MIN_VALUE;
 
         for (int k1 = i; k1 < j; ++k1)
@@ -597,6 +598,7 @@ public class EntityNewBoat extends Entity {
                         float f = getLiquidHeight(this.worldObj, k1, l1, i2);
                         this.waterLevel = Math.max((double)f, this.waterLevel);
                         flag |= axisalignedbb.minY < (double)f;
+                        if(flag) return true;
                     }
                 }
             }
@@ -648,7 +650,7 @@ public class EntityNewBoat extends Entity {
     public static float getBlockLiquidHeight(World world, int x, int y, int z)
     {
         int i = world.getBlockMetadata(x, y, z);
-        return (i & 7) == 0 && world.getBlock(x, y+1, z).getMaterial() == Material.water ? 1.0F : 1.0F - BlockLiquid.getLiquidHeightPercent(i);
+        return (i % 8) == 0 && world.getBlock(x, y+1, z).getMaterial() == Material.water ? 1.0F : 1.0F - BlockLiquid.getLiquidHeightPercent(i);
     }
     
     public static float getLiquidHeight(World world, int x, int y, int z)
@@ -668,7 +670,7 @@ public class EntityNewBoat extends Entity {
 
         if (this.previousStatus == EntityNewBoat.Status.IN_AIR && this.status != EntityNewBoat.Status.IN_AIR && this.status != EntityNewBoat.Status.ON_LAND)
         {
-            this.waterLevel = this.boundingBox.minY + (double)this.height;
+            this.waterLevel = this.getBoundingBox().minY + (double)this.height;
             this.setPosition(this.posX, (double)(this.getWaterLevelAbove() - this.height) + 0.101D, this.posZ);
             this.motionY = 0.0D;
             this.lastYd = 0.0D;
@@ -678,7 +680,7 @@ public class EntityNewBoat extends Entity {
         {
             if (this.status == EntityNewBoat.Status.IN_WATER)
             {
-                d2 = (this.waterLevel - this.boundingBox.minY) / (double)this.height;
+                d2 = (this.waterLevel - this.getBoundingBox().minY) / (double)this.height;
                 this.momentum = 0.9F;
             }
             else if (this.status == EntityNewBoat.Status.UNDER_FLOWING_WATER)
@@ -760,7 +762,7 @@ public class EntityNewBoat extends Entity {
     }
 
     @Override
-    public void updateRidden() {
+    public void updateRiderPosition() {
     	if(!getPassengers().isEmpty()) {
     		for(Entity passenger : getPassengers()) {
     	    	this.updatePassenger(passenger);
@@ -770,7 +772,7 @@ public class EntityNewBoat extends Entity {
     
     public void updatePassenger(Entity passenger)
     {
-        if (this.isPassenger(passenger))
+        if (isPassenger(passenger))
         {
             float f = 0.0F;
             float f1 = (float)((this.isDead ? 0.009999999776482582D : this.getMountedYOffset()) + passenger.getYOffset());
@@ -978,8 +980,8 @@ public class EntityNewBoat extends Entity {
      */
     public Entity getControllingPassenger()
     {
-        List<Entity> list = this.getPassengers();
-        return list.isEmpty() ? null : (Entity)list.get(0);
+        List<EntityLivingBase> list = this.getPassengers();
+        return list.isEmpty() ? null : list.get(0);
     }
 
     public void updateInputs(boolean p_184442_1_, boolean p_184442_2_, boolean p_184442_3_, boolean p_184442_4_)
