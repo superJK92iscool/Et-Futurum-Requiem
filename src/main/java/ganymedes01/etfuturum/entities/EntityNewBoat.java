@@ -6,15 +6,16 @@ import java.util.List;
 import com.google.common.collect.Lists;
 
 import ganymedes01.etfuturum.ModItems;
+import ganymedes01.etfuturum.entities.ai.BlockPos;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityWaterMob;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -26,6 +27,7 @@ import net.minecraft.util.EntityDamageSourceIndirect;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class EntityNewBoat extends Entity {
@@ -169,7 +171,7 @@ public class EntityNewBoat extends Entity {
     	List<Entity> dummylist = new ArrayList<Entity>();
     	if(riddenByEntity != null) {
         	dummylist.add(riddenByEntity);
-    	}
+    	}//TODO: Implement multiple passengers later
     	return dummylist;
     }
     
@@ -295,7 +297,7 @@ public class EntityNewBoat extends Entity {
      */
     public EnumFacing getAdjustedHorizontalFacing()
     {
-        return EnumFacing.NORTH; //Dummy
+        return this.getAdjustedHorizontalFacing();
     }
 
     /**
@@ -303,17 +305,18 @@ public class EntityNewBoat extends Entity {
      */
     public void onUpdate()
     {
+    	if(worldObj.isRemote)return;
         this.previousStatus = this.status;
         this.status = this.getBoatStatus();
 
-//        if (this.status != EntityNewBoat.Status.UNDER_WATER && this.status != EntityNewBoat.Status.UNDER_FLOWING_WATER)
-//        {
+        if (this.status != EntityNewBoat.Status.UNDER_WATER && this.status != EntityNewBoat.Status.UNDER_FLOWING_WATER)
+        {
             this.outOfControlTicks = 0.0F;
-//        }
-//        else
-//        {
-//            ++this.outOfControlTicks;
-//        }
+        }
+        else
+        {
+            ++this.outOfControlTicks;
+        }
 
         if (!this.worldObj.isRemote && this.outOfControlTicks >= 60.0F)
         {
@@ -353,7 +356,7 @@ public class EntityNewBoat extends Entity {
             	this.updateInputs(left, right, forward, back);
         	}
 
-            if (this.worldObj.isRemote)
+            if (!this.worldObj.isRemote)
             {
                 this.controlBoat();
 //                this.worldObj.sendPacketToServer(new CPacketSteerBoat(this.getPaddleState(0), this.getPaddleState(1)));
@@ -464,9 +467,6 @@ public class EntityNewBoat extends Entity {
         }
     }
 
-    /**
-     * Dummy method
-     */
     public float getWaterLevelAbove()
     {
         AxisAlignedBB axisalignedbb = this.boundingBox;
@@ -476,62 +476,52 @@ public class EntityNewBoat extends Entity {
         int l = MathHelper.ceiling_double_int(axisalignedbb.maxY - this.lastYd);
         int i1 = MathHelper.floor_double(axisalignedbb.minZ);
         int j1 = MathHelper.ceiling_double_int(axisalignedbb.maxZ);
-//        BlockPos.PooledMutableBlockPos blockpos$pooledmutableblockpos = BlockPos.PooledMutableBlockPos.retain();
 
-        try
-        {
-//            label78:
-//
-//            for (int k1 = k; k1 < l; ++k1)
-//            {
-//                float f = 0.0F;
-//                int l1 = i;
-//
-//                while (true)
-//                {
-//                    if (l1 >= j)
-//                    {
-//                        if (f < 1.0F)
-//                        {
-//                            float f2 = (float)blockpos$pooledmutableblockpos.getY() + f;
-//                            return f2;
-//                        }
-//
-//                        break;
-//                    }
-//
-//                    for (int i2 = i1; i2 < j1; ++i2)
-//                    {
-//                        blockpos$pooledmutableblockpos.set(l1, k1, i2);
-//                        IBlockState iblockstate = this.worldObj.getBlockState(blockpos$pooledmutableblockpos);
-//
-//                        if (iblockstate.getMaterial() == Material.WATER)
-//                        {
-//                            f = Math.max(f, getBlockLiquidHeight(iblockstate, this.worldObj, blockpos$pooledmutableblockpos));
-//                        }
-//
-//                        if (f >= 1.0F)
-//                        {
-//                            continue label78;
-//                        }
-//                    }
-//
-//                    ++l1;
-//                }
-//            }
+        label78:
 
-            float f1 = (float)(l + 1);
-            return f1;
-        }
-        finally
+        for (int k1 = k; k1 < l; ++k1)
         {
-//            blockpos$pooledmutableblockpos.release();
+            float f = 0.0F;
+            int l1 = i;
+
+            while (true)
+            {
+                if (l1 >= j)
+                {
+                    if (f < 1.0F)
+                    {
+                        float f2 = (float)k1 + f;
+                        return f2;
+                    }
+
+                    break;
+                }
+
+                for (int i2 = i1; i2 < j1; ++i2)
+                {
+                    Block iblockstate = this.worldObj.getBlock(l1, k1, i2);
+
+                    if (iblockstate.getMaterial() == Material.water)
+                    {
+                        f = Math.max(f, getBlockLiquidHeight(worldObj, l1, k1, i2));
+                    }
+
+                    if (f >= 1.0F)
+                    {
+                        continue label78;
+                    }
+                }
+
+                ++l1;
+            }
         }
+
+        float f1 = (float)(l + 1);
+        return f1;
     }
 
     /**
      * Decides how much the boat should be gliding on the land (based on any slippery blocks)
-     * Dummy method
      */
     public float getBoatGlide()
     {
@@ -543,53 +533,46 @@ public class EntityNewBoat extends Entity {
         int l = MathHelper.ceiling_double_int(axisalignedbb1.maxY) + 1;
         int i1 = MathHelper.floor_double(axisalignedbb1.minZ) - 1;
         int j1 = MathHelper.ceiling_double_int(axisalignedbb1.maxZ) + 1;
-        List<AxisAlignedBB> list = Lists.<AxisAlignedBB>newArrayList();
+//        List<AxisAlignedBB> list = Lists.<AxisAlignedBB>newArrayList();
         float f = 0.0F;
         int k1 = 0;
-//        BlockPos.PooledMutableBlockPos blockpos$pooledmutableblockpos = BlockPos.PooledMutableBlockPos.retain();
 
-//        try
-//        {
-//            for (int l1 = i; l1 < j; ++l1)
-//            {
-//                for (int i2 = i1; i2 < j1; ++i2)
-//                {
-//                    int j2 = (l1 != i && l1 != j - 1 ? 0 : 1) + (i2 != i1 && i2 != j1 - 1 ? 0 : 1);
+      for (int l1 = i; l1 < j; ++l1)
+      {
+          for (int i2 = i1; i2 < j1; ++i2)
+          {
+              int j2 = (l1 != i && l1 != j - 1 ? 0 : 1) + (i2 != i1 && i2 != j1 - 1 ? 0 : 1);
+
+              if (j2 != 2)
+              {
+                  for (int k2 = k; k2 < l; ++k2)
+                  {
+                      if (j2 <= 0 || k2 != k && k2 != l - 1)
+                      {
+                        Block iblockstate = this.worldObj.getBlock(l1, k2, i2);
+
+                        f += iblockstate.slipperiness;
+
+//                          blockpos$pooledmutableblockpos.set(l1, k2, i2);
+//                          IBlockState iblockstate = this.worldObj.getBlockState(blockpos$pooledmutableblockpos);
+//                          iblockstate.addCollisionBoxToList(this.worldObj, blockpos$pooledmutableblockpos, axisalignedbb1, list, this);
 //
-//                    if (j2 != 2)
-//                    {
-//                        for (int k2 = k; k2 < l; ++k2)
-//                        {
-//                            if (j2 <= 0 || k2 != k && k2 != l - 1)
-//                            {
-//                                blockpos$pooledmutableblockpos.set(l1, k2, i2);
-//                                IBlockState iblockstate = this.worldObj.getBlockState(blockpos$pooledmutableblockpos);
-//                                iblockstate.addCollisionBoxToList(this.worldObj, blockpos$pooledmutableblockpos, axisalignedbb1, list, this);
+//                          if (!list.isEmpty())
+//                          {
+//                              f += iblockstate.getBlock().slipperiness;
+//                              ++k1;
+//                          }
 //
-//                                if (!list.isEmpty())
-//                                {
-//                                    f += iblockstate.getBlock().slipperiness;
-//                                    ++k1;
-//                                }
-//
-//                                list.clear();
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//        finally
-//        {
-//            blockpos$pooledmutableblockpos.release();
-//        }
+//                          list.clear();
+                      }
+                  }
+              }
+          }
+      }
 
         return f / (float)k1;
     }
 
-    /**
-     * Dummy method
-     */
     private boolean checkInWater()
     {
         AxisAlignedBB axisalignedbb = this.boundingBox;
@@ -601,40 +584,30 @@ public class EntityNewBoat extends Entity {
         int j1 = MathHelper.ceiling_double_int(axisalignedbb.maxZ);
         boolean flag = false;
         this.waterLevel = Double.MIN_VALUE;
-//        BlockPos.PooledMutableBlockPos blockpos$pooledmutableblockpos = BlockPos.PooledMutableBlockPos.retain();
 
-//        try
-//        {
-//            for (int k1 = i; k1 < j; ++k1)
-//            {
-//                for (int l1 = k; l1 < l; ++l1)
-//                {
-//                    for (int i2 = i1; i2 < j1; ++i2)
-//                    {
-//                        blockpos$pooledmutableblockpos.set(k1, l1, i2);
-//                        IBlockState iblockstate = this.worldObj.getBlockState(blockpos$pooledmutableblockpos);
-//
-//                        if (iblockstate.getMaterial() == Material.WATER)
-//                        {
-//                            float f = getLiquidHeight(iblockstate, this.worldObj, blockpos$pooledmutableblockpos);
-//                            this.waterLevel = Math.max((double)f, this.waterLevel);
-//                            flag |= axisalignedbb.minY < (double)f;
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//        finally
-//        {
-//            blockpos$pooledmutableblockpos.release();
-//        }
+        for (int k1 = i; k1 < j; ++k1)
+        {
+            for (int l1 = k; l1 < l; ++l1)
+            {
+                for (int i2 = i1; i2 < j1; ++i2)
+                {
+                    Block iblockstate = this.worldObj.getBlock(k1, l1, i2);
+
+                    if (iblockstate.getMaterial() == Material.water)
+                    {
+                        float f = getLiquidHeight(this.worldObj, k1, l1, i2);
+                        this.waterLevel = Math.max((double)f, this.waterLevel);
+                        flag |= axisalignedbb.minY < (double)f;
+                    }
+                }
+            }
+        }
 
         return flag;
     }
 
     /**
      * Decides whether the boat is currently underwater.
-     * Dummy method
      */
     private EntityNewBoat.Status getUnderwaterStatus()
     {
@@ -647,51 +620,42 @@ public class EntityNewBoat extends Entity {
         int i1 = MathHelper.floor_double(axisalignedbb.minZ);
         int j1 = MathHelper.ceiling_double_int(axisalignedbb.maxZ);
         boolean flag = false;
-//        BlockPos.PooledMutableBlockPos blockpos$pooledmutableblockpos = BlockPos.PooledMutableBlockPos.retain();
-//
-//        try
-//        {
-//            for (int k1 = i; k1 < j; ++k1)
-//            {
-//                for (int l1 = k; l1 < l; ++l1)
-//                {
-//                    for (int i2 = i1; i2 < j1; ++i2)
-//                    {
-//                        blockpos$pooledmutableblockpos.set(k1, l1, i2);
-//                        IBlockState iblockstate = this.worldObj.getBlockState(blockpos$pooledmutableblockpos);
-//
-//                        if (iblockstate.getMaterial() == Material.WATER && d0 < (double)getLiquidHeight(iblockstate, this.worldObj, blockpos$pooledmutableblockpos))
-//                        {
-//                            if (((Integer)iblockstate.getValue(BlockLiquid.LEVEL)).intValue() != 0)
-//                            {
-//                                EntityNewBoat.Status EntityNewBoat$status = EntityNewBoat.Status.UNDER_FLOWING_WATER;
-//                                return EntityNewBoat$status;
-//                            }
-//
-//                            flag = true;
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//        finally
-//        {
-//            blockpos$pooledmutableblockpos.release();
-//        }
+
+        for (int k1 = i; k1 < j; ++k1)
+        {
+            for (int l1 = k; l1 < l; ++l1)
+            {
+                for (int i2 = i1; i2 < j1; ++i2)
+                {
+                    Block iblockstate = this.worldObj.getBlock(k1, l1, i2);
+
+                    if (iblockstate.getMaterial() == Material.water && d0 < (double)getLiquidHeight(this.worldObj, k1, l1, i2))
+                    {
+                        if (worldObj.getBlockMetadata(k1, l1, i2) != 0)
+                        {
+                            EntityNewBoat.Status EntityNewBoat$status = EntityNewBoat.Status.UNDER_FLOWING_WATER;
+                            return EntityNewBoat$status;
+                        }
+
+                        flag = true;
+                    }
+                }
+            }
+        }
 
         return flag ? EntityNewBoat.Status.UNDER_WATER : null;
     }
 
-//    public static float getBlockLiquidHeight(IBlockState p_184456_0_, IBlockAccess p_184456_1_, BlockPos p_184456_2_)
-//    {
-//        int i = ((Integer)p_184456_0_.getValue(BlockLiquid.LEVEL)).intValue();
-//        return (i & 7) == 0 && p_184456_1_.getBlockState(p_184456_2_.up()).getMaterial() == Material.WATER ? 1.0F : 1.0F - BlockLiquid.getLiquidHeightPercent(i);
-//    }
-////Dummy
-//    public static float getLiquidHeight(IBlockState p_184452_0_, IBlockAccess p_184452_1_, BlockPos p_184452_2_)
-//    {
-//        return (float)p_184452_2_.getY() + getBlockLiquidHeight(p_184452_0_, p_184452_1_, p_184452_2_);
-//    }
+    public static float getBlockLiquidHeight(World world, int x, int y, int z)
+    {
+        int i = world.getBlockMetadata(x, y, z);
+        return (i & 7) == 0 && world.getBlock(x, y+1, z).getMaterial() == Material.water ? 1.0F : 1.0F - BlockLiquid.getLiquidHeightPercent(i);
+    }
+    
+    public static float getLiquidHeight(World world, int x, int y, int z)
+    {
+        return (float)y + getBlockLiquidHeight(world, x, y, z);
+    }
 
     /**
      * Update the boat's speed, based on momentum.
@@ -804,6 +768,7 @@ public class EntityNewBoat extends Entity {
     		}
     	}
     }
+    
     public void updatePassenger(Entity passenger)
     {
         if (this.isPassenger(passenger))
@@ -840,7 +805,7 @@ public class EntityNewBoat extends Entity {
             if (passenger instanceof EntityAnimal && this.getPassengers().size() > 1)
             {
                 int j = passenger.getEntityId() % 2 == 0 ? 90 : 270;
-                ((EntityAnimal)passenger).renderYawOffset = ((EntityAnimal)passenger).renderYawOffset + (float)j; //dummy
+                ((EntityAnimal)passenger).renderYawOffset = ((EntityAnimal)passenger).renderYawOffset + (float)j;
                 passenger.setRotationYawHead(passenger.getRotationYawHead() + (float)j);
             }
         }
@@ -1004,7 +969,7 @@ public class EntityNewBoat extends Entity {
     }
 
     protected boolean canFitPassenger(Entity passenger)
-    {
+    { //TODO: Multiple passengers
         return this.getPassengers().size() < 2;
     }
 
@@ -1070,12 +1035,7 @@ public class EntityNewBoat extends Entity {
 
         public static EntityNewBoat.Type byId(int id)
         {
-            if (id < 0 || id >= values().length)
-            {
-                id = 0;
-            }
-
-            return values()[id];
+            return values()[MathHelper.clamp_int(id, 0, values().length - 1)];
         }
 
         public static EntityNewBoat.Type getTypeFromString(String nameIn)
