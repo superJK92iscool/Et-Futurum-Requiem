@@ -5,8 +5,10 @@ import java.util.List;
 
 import com.google.common.collect.Lists;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModItems;
-import ganymedes01.etfuturum.entities.ai.BlockPos;
+import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
@@ -27,7 +29,6 @@ import net.minecraft.util.EntityDamageSourceIndirect;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class EntityNewBoat extends Entity {
@@ -94,6 +95,11 @@ public class EntityNewBoat extends Entity {
     {
         return false;
     }
+    
+    public double getMountedYOffset()
+    {
+        return -0.1D;
+    }
 
     protected void entityInit()
     {
@@ -136,10 +142,10 @@ public class EntityNewBoat extends Entity {
     /**
      * Returns the Y offset from the entity's position for any entity riding this one.
      */
-    public double getMountedYOffset()
-    {
-        return -0.1D;
-    }
+//    public double getMountedYOffset()
+//    {
+//        return -0.1D;
+//    }
     
     public double getYOffset()
     {
@@ -153,8 +159,7 @@ public class EntityNewBoat extends Entity {
     public void removePassengers() {
     	if(getPassengers().isEmpty()) return;
     	for(EntityLivingBase passenger : getPassengers()) {
-    		if(passenger.ridingEntity == this)
-        		passenger.dismountEntity(this);
+    		passenger.mountEntity(null);
     	}
     	passengers.clear();
     }
@@ -281,14 +286,32 @@ public class EntityNewBoat extends Entity {
     /**
      * Set the position and rotation values directly without any clamping.
      */
-    public void setPositionAndRotationDirect(double x, double y, double z, float yaw, float pitch, int posRotationIncrements, boolean teleport)
+    @Override
+    public void setPositionAndRotation2(double x, double y, double z, float yaw, float pitch, int posRotationIncrements)
     {
+    	boolean flag = canPassengerSteer() && isBoatDesynchedXY(x, y, z, yaw, pitch);
+    	if(flag) {
+            setRotation(yaw, pitch);
+    	}
         this.boatPitch = x;
         this.lerpY = y;
         this.lerpZ = z;
         this.boatYaw = (double)yaw;
         this.lerpXRot = (double)pitch;
         this.lerpSteps = 10;
+        if(flag) {
+            setPosition(x, y, z);
+        }
+    }
+    
+    private boolean isBoatDesynchedXY(double x, double y, double z, float yaw, float pitch) {
+    	if(Math.abs(posX - x) > 0.4D) {
+    		return true;
+    	}
+    	if(Math.abs(posZ - z) > 0.4D) {
+    		return true;
+    	}
+    	return false;
     }
 
     /**
@@ -355,11 +378,11 @@ public class EntityNewBoat extends Entity {
             	this.updateInputs(left, right, forward, back);
         	}
 
-            if (!this.worldObj.isRemote)
-            {
+//            if (!worldObj.isRemote)
+//            {
                 this.controlBoat();
 //                this.worldObj.sendPacketToServer(new CPacketSteerBoat(this.getPaddleState(0), this.getPaddleState(1)));
-            }
+//            }
 
             this.moveEntity(this.motionX, this.motionY, this.motionZ);
         }
@@ -374,7 +397,11 @@ public class EntityNewBoat extends Entity {
         {
             if (this.getPaddleState(i))
             {
-                this.paddlePositions[i] = (float)((double)this.paddlePositions[i] + 0.01D);
+            	if((double)(this.paddlePositions[i] % ((float)Math.PI * 2F)) <= (Math.PI / 4D) && ((double)this.paddlePositions[i] + 0.39269909262657166D) % (Math.PI * 2D) >= (Math.PI / 4D)) {
+            		if(getPaddleSound() != null)
+                		playSound(getPaddleSound(), status == Status.IN_WATER ? 0.8F : 1, 1);
+            	}
+                this.paddlePositions[i] = (float)((double)this.paddlePositions[i] + 0.39269909262657166D);
             }
             else
             {
@@ -409,6 +436,22 @@ public class EntityNewBoat extends Entity {
             }
         }
     }
+    
+    protected String getPaddleSound()
+    {
+        switch (this.status)
+        {
+            case IN_WATER:
+            case UNDER_WATER:
+            case UNDER_FLOWING_WATER:
+        		return Reference.MOD_ID+":entity.boat.paddle_water"; //Paddle water
+            case ON_LAND:
+        		return Reference.MOD_ID+":entity.boat.paddle_land"; //Paddle land
+            case IN_AIR:
+            default:
+                return null;
+        }
+    }
 
     private void tickLerp()
     {
@@ -432,9 +475,10 @@ public class EntityNewBoat extends Entity {
         this.dataWatcher.updateObject(DATA_ID_PADDLE[1], new Byte((byte) (p_184445_2_ ? 1 : 0)));
     }
 
-    public float getRowingTime(int p_184448_1_, float limbSwing)
+    @SideOnly(Side.CLIENT)
+    public float getRowingTime(int side, float limbSwing)
     {
-        return this.getPaddleState(p_184448_1_) ? (float)MathHelper.denormalizeClamp((double)this.paddlePositions[p_184448_1_] - 0.01D, (double)this.paddlePositions[p_184448_1_], (double)limbSwing) : 0.0F;
+        return this.getPaddleState(side) ? (float)MathHelper.denormalizeClamp((double)this.paddlePositions[side] - 0.39269909262657166D, (double)this.paddlePositions[side], (double)limbSwing) : 0.0F;
     }
 
     /**
@@ -532,7 +576,7 @@ public class EntityNewBoat extends Entity {
         int l = MathHelper.ceiling_double_int(axisalignedbb1.maxY) + 1;
         int i1 = MathHelper.floor_double(axisalignedbb1.minZ) - 1;
         int j1 = MathHelper.ceiling_double_int(axisalignedbb1.maxZ) + 1;
-//        List<AxisAlignedBB> list = Lists.<AxisAlignedBB>newArrayList();
+        List<AxisAlignedBB> list = Lists.<AxisAlignedBB>newArrayList();
         float f = 0.0F;
         int k1 = 0;
 
@@ -548,29 +592,24 @@ public class EntityNewBoat extends Entity {
                   {
                       if (j2 <= 0 || k2 != k && k2 != l - 1)
                       {
-                        Block iblockstate = this.worldObj.getBlock(l1, k2, i2);
+                          Block iblockstate = this.worldObj.getBlock(l1, k2, i2);
 
-                        f += iblockstate.slipperiness;
-                        ++k1;
+                          iblockstate.addCollisionBoxesToList(this.worldObj, l1, k2, i2, axisalignedbb1, list, this);
 
-//                          blockpos$pooledmutableblockpos.set(l1, k2, i2);
-//                          IBlockState iblockstate = this.worldObj.getBlockState(blockpos$pooledmutableblockpos);
-//                          iblockstate.addCollisionBoxToList(this.worldObj, blockpos$pooledmutableblockpos, axisalignedbb1, list, this);
-//
-//                          if (!list.isEmpty())
-//                          {
-//                              f += iblockstate.getBlock().slipperiness;
-//                              ++k1;
-//                          }
-//
-//                          list.clear();
+                          if (!list.isEmpty())
+                          {
+                              f += iblockstate.slipperiness;
+                              ++k1;
+                          }
+
+                          list.clear();
                       }
                   }
               }
           }
       }
 
-        return f / (float)k1;
+        return f == 0 || k1 == 0  ? 0 : f / (float)k1;
     }
 
     private boolean checkInWater()
@@ -754,6 +793,8 @@ public class EntityNewBoat extends Entity {
             {
                 f -= 0.005F;
             }
+//            if(!worldObj.isRemote)
+//            	f = 0;
 
             this.motionX += (double)(MathHelper.sin(-this.rotationYaw * 0.017453292F) * f);
             this.motionZ += (double)(MathHelper.cos(this.rotationYaw * 0.017453292F) * f);
@@ -795,8 +836,8 @@ public class EntityNewBoat extends Entity {
                     f = (float)((double)f + 0.2D);
                 }
             }
-
-            Vec3 vec3d = Vec3.createVectorHelper((double)f, 0.0D, 0.0D);
+            
+            Vec3 vec3d = (Vec3.createVectorHelper((double)f, 0.0D, 0.0D));
             vec3d.rotateAroundY(-this.rotationYaw * 0.017453292F - ((float)Math.PI / 2F));
             passenger.setPosition(this.posX + vec3d.xCoord, this.posY + (double)f1, this.posZ + vec3d.zCoord);
             passenger.rotationYaw += this.deltaRotation;
@@ -818,9 +859,9 @@ public class EntityNewBoat extends Entity {
     protected void applyYawToEntity(Entity entityToUpdate)
     {
     	if(entityToUpdate instanceof EntityLiving) {
-            ((EntityLiving)entityToUpdate).renderYawOffset = this.rotationYaw; //Dummy
+            ((EntityLiving)entityToUpdate).renderYawOffset = this.rotationYaw;
     	}
-        float f = MathHelper.wrapAngleTo180_float(entityToUpdate.rotationYaw - this.rotationYaw);//WrapDegrees, check if correct. Dummy
+        float f = MathHelper.wrapAngleTo180_float(entityToUpdate.rotationYaw - this.rotationYaw);
         float f1 = MathHelper.clamp_float(f, -105.0F, 105.0F);
         entityToUpdate.prevRotationYaw += f1 - f;
         entityToUpdate.rotationYaw += f1 - f;
@@ -870,7 +911,7 @@ public class EntityNewBoat extends Entity {
             {
                 if (this.fallDistance > 3.0F)
                 {
-                    if (this.status != EntityNewBoat.Status.ON_LAND)
+                    if (this.status != EntityNewBoat.Status.ON_LAND || this.getControllingPassenger() instanceof EntityPlayer)
                     {
                         this.fallDistance = 0.0F;
                         return;
@@ -882,7 +923,7 @@ public class EntityNewBoat extends Entity {
                     {
                         this.setDead();
 
-                        if (this.worldObj.getGameRules().getGameRuleBooleanValue("doEntityDrops"))
+                        if (this.worldObj.getGameRules().getGameRuleBooleanValue("doMobLoot"))
                         {
                             for (int i = 0; i < 3; ++i)
                             {
@@ -899,7 +940,7 @@ public class EntityNewBoat extends Entity {
 
                 this.fallDistance = 0.0F;
             }
-            else if (this.worldObj.getBlock((int)posX, (int)y - 1, (int)posZ).getMaterial() != Material.water && y < 0.0D)
+            else if (this.worldObj.getBlock((int)posX, (int)(posY - 1D), (int)posZ).getMaterial() != Material.water && y < 0.0D)
             {
                 this.fallDistance = (float)((double)this.fallDistance - y);
             }

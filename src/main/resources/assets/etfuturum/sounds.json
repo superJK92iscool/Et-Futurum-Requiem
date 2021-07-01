@@ -1234,5 +1234,27 @@
       "minecraft:entity/player/hurt/berrybush_hurt1",
       "minecraft:entity/player/hurt/berrybush_hurt2"
     ]
+  },
+  "entity.boat.paddle_land": {
+    "sounds": [
+      "minecraft:entity/boat/paddle_land1",
+      "minecraft:entity/boat/paddle_land2",
+      "minecraft:entity/boat/paddle_land3",
+      "minecraft:entity/boat/paddle_land4",
+      "minecraft:entity/boat/paddle_land5",
+      "minecraft:entity/boat/paddle_land6"
+    ]
+  },
+  "entity.boat.paddle_water": {
+    "sounds": [
+      "minecraft:entity/boat/paddle_water1",
+      "minecraft:entity/boat/paddle_water2",
+      "minecraft:entity/boat/paddle_water3",
+      "minecraft:entity/boat/paddle_water4",
+      "minecraft:entity/boat/paddle_water5",
+      "minecraft:entity/boat/paddle_water6",
+      "minecraft:entity/boat/paddle_water7",
+      "minecraft:entity/boat/paddle_water8"
+    ]
   }
 }

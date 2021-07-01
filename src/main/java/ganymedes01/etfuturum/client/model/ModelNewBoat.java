@@ -107,11 +107,10 @@ public class ModelNewBoat extends ModelBase {
 
     public void renderPaddle(EntityNewBoat boat, int paddle, float scale, float limbSwing)
     {
-        float f = 40.0F;
-        float f1 = boat.getRowingTime(paddle, limbSwing) * f;
+        float f = boat.getRowingTime(paddle, limbSwing);
         ModelRenderer modelrenderer = this.paddles[paddle];
-        modelrenderer.rotateAngleX = (float)MathHelper.denormalizeClamp(-1.0471975803375244D, -0.2617993950843811D, (double)((MathHelper.sin(-f1) + 1.0F) / 2.0F));
-        modelrenderer.rotateAngleY = (float)MathHelper.denormalizeClamp(-(Math.PI / 4D), (Math.PI / 4D), (double)((MathHelper.sin(-f1 + 1.0F) + 1.0F) / 2.0F));
+        modelrenderer.rotateAngleX = (float)MathHelper.denormalizeClamp(-1.0471975803375244D, -0.2617993950843811D, (double)((MathHelper.sin(-f) + 1.0F) / 2.0F));
+        modelrenderer.rotateAngleY = (float)MathHelper.denormalizeClamp(-(Math.PI / 4D), (Math.PI / 4D), (double)((MathHelper.sin(-f + 1.0F) + 1.0F) / 2.0F));
 
         if (paddle == 1)
         {
