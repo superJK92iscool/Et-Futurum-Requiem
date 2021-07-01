@@ -14,8 +14,8 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityWaterMob;
 import net.minecraft.entity.player.EntityPlayer;
@@ -65,8 +65,6 @@ public class EntityNewBoat extends Entity {
     private EntityNewBoat.Status status;
     private EntityNewBoat.Status previousStatus;
     private double lastYd;
-    
-    private List<EntityLivingBase> passengers = new ArrayList<EntityLivingBase>();
 
     public EntityNewBoat(World p_i1704_1_)
     {
@@ -95,11 +93,6 @@ public class EntityNewBoat extends Entity {
     protected boolean canTriggerWalking()
     {
         return false;
-    }
-    
-    public double getMountedYOffset()
-    {
-        return -0.1D;
     }
 
     protected void entityInit()
@@ -143,10 +136,11 @@ public class EntityNewBoat extends Entity {
     /**
      * Returns the Y offset from the entity's position for any entity riding this one.
      */
-//    public double getMountedYOffset()
-//    {
+    public double getMountedYOffset()
+    {
+    	return 0;
 //        return -0.1D;
-//    }
+    }
     
     public double getYOffset()
     {
@@ -162,33 +156,34 @@ public class EntityNewBoat extends Entity {
     	for(EntityLivingBase passenger : getPassengers()) {
     		passenger.mountEntity(null);
     	}
-    	passengers.clear();
     }
     
     public List<EntityLivingBase> getPassengers() {
-//    	List<Entity> passengersCopy = new ArrayList<Entity>(passengers);
-//    	List<Entity> passengers2 = new ArrayList<Entity>();
-//    	if(passengers.isEmpty() && passengers.get(0) != riddenByEntity) {
-//        	passengers2.add(riddenByEntity);
-//        	passengersCopy.remove(0);
-//    	}
-//    	passengers2.addAll(passengersCopy);
-//    	return passengers2;
-    	List<EntityLivingBase> dummylist = new ArrayList<EntityLivingBase>();
+    	List<EntityLivingBase> list = new ArrayList<EntityLivingBase>();
     	if(riddenByEntity instanceof EntityLivingBase) {
-        	dummylist.add((EntityLivingBase)riddenByEntity);
-    	}//TODO: Implement multiple passengers
-    	return dummylist;
+        	list.add((EntityLivingBase)riddenByEntity);
+        	if(riddenByEntity.riddenByEntity != null) {
+        		list.add((EntityLivingBase) riddenByEntity.riddenByEntity);
+        	}
+    	}
+    	
+    	return list;
     }
     
     public void addToBoat(Entity entity) {
-    	if(getPassengers().size() > 2) return;
-    	if(riddenByEntity == null) {
+    	if(getPassengers().size() >= 2 || !(entity instanceof EntityLivingBase)) return;
+    	if(getPassengers().size() == 1) {
+//    		List<EntityLivingBase> list = new ArrayList<EntityLivingBase>(getPassengers());
+//    		if(getControllingPassenger() instanceof EntityPlayer) {
+//        		entity.mountEntity(list.get(0));
+//        	} else {
+//        		list.get(0).mountEntity(null);
+//        		entity.mountEntity(this);
+//        		list.get(0).mountEntity(entity);
+//        	}
+    	} else {
     		entity.mountEntity(this);
-    	}//TODO: Implement multiple passengers
-//    	else if (riddenByEntity instanceof EntityPlayer) {
-//    		passengers.add(entity);
-//    	} //dummy
+    	}
     }
     
     public boolean isBeingRidden() {
@@ -199,6 +194,21 @@ public class EntityNewBoat extends Entity {
     {
         Entity entity = this.getControllingPassenger();
         return entity instanceof EntityPlayer ? true : !this.worldObj.isRemote;
+    }
+
+    protected boolean canFitPassenger(Entity passenger)
+    {
+        return this.getPassengers().size() < 2;
+    }
+
+    /**
+     * For vehicles, the first passenger is generally considered the controller and "drives" the vehicle. For example,
+     * Pigs, Horses, and Boats are generally "steered" by the controlling passenger.
+     */
+    public Entity getControllingPassenger()
+    {
+        List<EntityLivingBase> list = this.getPassengers();
+        return list.isEmpty() ? null : list.get(0);
     }
     
     /**
@@ -290,26 +300,31 @@ public class EntityNewBoat extends Entity {
     @Override
     public void setPositionAndRotation2(double x, double y, double z, float yaw, float pitch, int posRotationIncrements)
     {
-    	boolean flag = canPassengerSteer() && isBoatDesynchedXY(x, y, z, yaw, pitch);
-    	if(flag) {
-            setRotation(yaw, pitch);
-    	}
         this.boatPitch = x;
         this.lerpY = y;
         this.lerpZ = z;
         this.boatYaw = (double)yaw;
         this.lerpXRot = (double)pitch;
         this.lerpSteps = 10;
-        if(flag) {
+    	boolean flag = canPassengerSteer();
+    	if(flag && isBoatDesynchedXY(x, y, z, yaw, pitch, 0.3D)) {
+            if(!getPassengers().isEmpty()) {
+            	for(EntityLivingBase passenger : getPassengers()) {
+            		passenger.rotationYaw -= rotationYaw - yaw;
+            	}
+            }
+            setRotation(yaw, pitch);
+    	}
+        if(flag && isBoatDesynchedXY(x, y, z, yaw, pitch, 0.4D)) {
             setPosition(x, y, z);
         }
     }
     
-    private boolean isBoatDesynchedXY(double x, double y, double z, float yaw, float pitch) {
-    	if(Math.abs(posX - x) > 0.4D) {
+    private boolean isBoatDesynchedXY(double x, double y, double z, float yaw, float pitch, double offset) {
+    	if(Math.abs(posX - x) > offset) {
     		return true;
     	}
-    	if(Math.abs(posZ - z) > 0.4D) {
+    	if(Math.abs(posZ - z) > offset) {
     		return true;
     	}
     	return false;
@@ -392,6 +407,7 @@ public class EntityNewBoat extends Entity {
             this.motionX = 0.0D;
             this.motionY = 0.0D;
             this.motionZ = 0.0D;
+            this.deltaRotation = 0.0F;
         }
 
         for (int i = 0; i <= 1; ++i)
@@ -844,13 +860,12 @@ public class EntityNewBoat extends Entity {
             passenger.rotationYaw += this.deltaRotation;
 //            passenger.setRotationYawHead(passenger.getRotationYawHead() + this.deltaRotation);
             this.applyYawToEntity(passenger);
-
-            if (passenger instanceof EntityAnimal && this.getPassengers().size() > 1)
-            {
-                int j = passenger.getEntityId() % 2 == 0 ? 90 : 270;
-                ((EntityAnimal)passenger).renderYawOffset = ((EntityAnimal)passenger).renderYawOffset + (float)j;
-//                passenger.setRotationYawHead(passenger.getRotationYawHead() + (float)j);
-            }
+//            if (passenger instanceof EntityAnimal && this.getPassengers().size() > 1)
+//            {
+//                int j = passenger.getEntityId() % 2 == 0 ? 90 : 270;
+//                ((EntityAnimal)passenger).renderYawOffset = ((EntityAnimal)passenger).renderYawOffset + (float)j;
+////                passenger.setRotationYawHead(passenger.getRotationYawHead() + (float)j);
+//            }
         }
     }
 
@@ -859,13 +874,22 @@ public class EntityNewBoat extends Entity {
      */
     protected void applyYawToEntity(Entity entityToUpdate)
     {
-    	if(entityToUpdate instanceof EntityLiving) {
-            ((EntityLiving)entityToUpdate).renderYawOffset = this.rotationYaw;
-    	}
         float f = MathHelper.wrapAngleTo180_float(entityToUpdate.rotationYaw - this.rotationYaw);
         float f1 = MathHelper.clamp_float(f, -105.0F, 105.0F);
         entityToUpdate.prevRotationYaw += f1 - f;
         entityToUpdate.rotationYaw += f1 - f;
+    	if(entityToUpdate instanceof EntityLivingBase) {
+            f = MathHelper.wrapAngleTo180_float(((EntityLivingBase)entityToUpdate).rotationYawHead - this.rotationYaw);
+            f1 = MathHelper.clamp_float(f, -105.0F, 105.0F);
+            ((EntityLivingBase)entityToUpdate).rotationYawHead += f1 - f;
+            ((EntityLivingBase)entityToUpdate).prevRotationYawHead += f1 - f;
+            ((EntityLivingBase)entityToUpdate).renderYawOffset = this.rotationYaw;
+            ((EntityLivingBase)entityToUpdate).prevRenderYawOffset = this.rotationYaw;
+    	}
+    	if(entityToUpdate instanceof EntityZombie && ((EntityZombie) entityToUpdate).ticksExisted % 20 == 0) {
+//    		System.out.println(f1);
+//    		System.out.println(f);
+    	}
 //        entityToUpdate.setRotationYawHead(entityToUpdate.rotationYaw);
     }
 
@@ -895,6 +919,8 @@ public class EntityNewBoat extends Entity {
     {
         if (!this.worldObj.isRemote && !player.isSneaking() && this.outOfControlTicks < 60.0F)
         {
+            player.prevRotationYaw = this.rotationYaw;
+            player.rotationYaw = this.rotationYaw;
             addToBoat(player);
         }
 
@@ -1009,21 +1035,6 @@ public class EntityNewBoat extends Entity {
     public EntityNewBoat.Type getBoatType()
     {
         return EntityNewBoat.Type.byId(getDataWatcher().getWatchableObjectInt(20));
-    }
-
-    protected boolean canFitPassenger(Entity passenger)
-    { //TODO: Implement multiple passengers
-        return this.getPassengers().size() < 2;
-    }
-
-    /**
-     * For vehicles, the first passenger is generally considered the controller and "drives" the vehicle. For example,
-     * Pigs, Horses, and Boats are generally "steered" by the controlling passenger.
-     */
-    public Entity getControllingPassenger()
-    {
-        List<EntityLivingBase> list = this.getPassengers();
-        return list.isEmpty() ? null : list.get(0);
     }
 
     public void updateInputs(boolean p_184442_1_, boolean p_184442_2_, boolean p_184442_3_, boolean p_184442_4_)
