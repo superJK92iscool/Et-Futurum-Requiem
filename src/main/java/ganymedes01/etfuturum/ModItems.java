@@ -5,6 +5,7 @@ import java.util.List;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
+import ganymedes01.etfuturum.entities.EntityNewBoat;
 import ganymedes01.etfuturum.items.*;
 import ganymedes01.etfuturum.items.block.ItemWoodSign;
 import ganymedes01.etfuturum.items.equipment.ItemEFRArmour;
@@ -70,10 +71,13 @@ public class ModItems {
 	public static final Item copper_ingot = initItem(new ItemCopperIngot());
 	public static final Item suspicious_stew = initItem(new ItemSuspiciousStew());
 	public static final Item sweet_berries = initItem(new ItemSweetBerries());
+	public static final Item[] boats = new Item[EntityNewBoat.Type.values().length];
 
 	static {
 		for (int i = 0; i < signs.length; i++)
 			signs[i] = initItem(new ItemWoodSign(i + 1));
+		for (int i = 0; i < boats.length; i++)
+			boats[i] = initItem(new ItemNewBoat(EntityNewBoat.Type.byId(i)));
 	}
 	
 	private static Item initItem(Item item) {

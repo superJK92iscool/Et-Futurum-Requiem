@@ -16,6 +16,8 @@ import ganymedes01.etfuturum.blocks.BlockGlazedTerracotta;
 import ganymedes01.etfuturum.blocks.BlockNewStone;
 import ganymedes01.etfuturum.blocks.BlockStoneSlab2;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
+import ganymedes01.etfuturum.core.utils.Utils;
+import ganymedes01.etfuturum.entities.EntityNewBoat;
 import ganymedes01.etfuturum.items.ItemSuspiciousStew;
 import ganymedes01.etfuturum.lib.EnumColour;
 import ganymedes01.etfuturum.lib.Reference;
@@ -63,6 +65,12 @@ public class ModRecipes {
 		if (ConfigurationHandler.enableDoors) {
 			Items.wooden_door.setMaxStackSize(64);
 			Items.iron_door.setMaxStackSize(64);
+		}
+		
+		if (ConfigurationHandler.replaceOldBoats && ConfigurationHandler.enableNewBoats) {
+			removeFirstRecipeFor(Items.boat);
+			Items.boat.setTextureName("minecraft:oak_boat");
+			Items.boat.setUnlocalizedName(Utils.getUnlocalisedName("oak_boat"));
 		}
 
 		if (ConfigurationHandler.enableBurnableBlocks) {
@@ -769,6 +777,13 @@ public class ModRecipes {
 				potionEffect.setInteger(ItemSuspiciousStew.stewEffectDuration, effect.getDuration());
 				effectsList.appendTag(potionEffect);
 				addShapelessRecipe(stew, Blocks.red_mushroom, Blocks.brown_mushroom, Items.bowl, getStewFlowers().get(i));
+			}
+		}
+		
+		if(ConfigurationHandler.enableNewBoats) {
+			for(int i = 0; i < EntityNewBoat.Type.values().length; i++) {
+				addShapedRecipe(new ItemStack(i == 0 && ConfigurationHandler.replaceOldBoats ? ModItems.boats[i] : Items.boat, 1),
+						ConfigurationHandler.replaceOldBoats ? "xyx" : "x x", "xxx", 'x', i == 0 ? new ItemStack(Blocks.planks, 1, i) : "plankWood", 'y', new ItemStack(Items.wooden_shovel, 1));
 			}
 		}
 	}

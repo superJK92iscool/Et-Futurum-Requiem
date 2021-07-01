@@ -29,6 +29,7 @@ import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.utils.HoeHelper;
 import ganymedes01.etfuturum.entities.EntityBrownMooshroom;
 import ganymedes01.etfuturum.entities.EntityEndermite;
+import ganymedes01.etfuturum.entities.EntityNewBoat;
 import ganymedes01.etfuturum.entities.EntityNewSnowGolem;
 import ganymedes01.etfuturum.entities.EntityRabbit;
 import ganymedes01.etfuturum.entities.EntityTippedArrow;
@@ -45,6 +46,7 @@ import ganymedes01.etfuturum.world.generate.RawOreDropMapping;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEndPortalFrame;
 import net.minecraft.block.BlockFarmland;
+import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.BlockSoulSand;
 import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.Enchantment;
@@ -52,13 +54,13 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.ai.EntityAIAvoidEntity;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAIOpenDoor;
 import net.minecraft.entity.ai.EntityAITargetNonTamed;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
 import net.minecraft.entity.ai.EntityAITempt;
 import net.minecraft.entity.boss.EntityWither;
+import net.minecraft.entity.item.EntityBoat;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntityEnderman;
@@ -66,11 +68,9 @@ import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntitySnowman;
 import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.entity.monster.EntityZombie;
-import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.passive.EntityMooshroom;
-import net.minecraft.entity.passive.EntityOcelot;
 import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.passive.EntityVillager;
@@ -103,6 +103,7 @@ import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
 import net.minecraftforge.event.entity.living.EnderTeleportEvent;
@@ -184,6 +185,25 @@ public class ServerEventHandler {
 
 				event.entityLiving.setDead();
 			}
+	}
+	
+	@SubscribeEvent
+	public void entityUpdate(EntityEvent event) {
+		if(event.entity.worldObj == null || event.entity.getClass() == null) return;
+		if (ConfigurationHandler.enableNewBoats && ConfigurationHandler.replaceOldBoats) {
+			if (!event.entity.worldObj.isRemote && event.entity.getClass() == EntityBoat.class && event.entity.riddenByEntity == null) {
+				if(event.entity.worldObj.getEntitiesWithinAABB(EntityNewBoat.class, event.entity.boundingBox).isEmpty()) {
+					EntityNewBoat boat = new EntityNewBoat(event.entity.worldObj);
+					boat.copyLocationAndAnglesFrom(event.entity);
+					event.entity.setDead();
+					boat.rotationYaw += 90;
+					if(boat.worldObj.getBlock((int)boat.posX, (int)((float)boat.posY - 1F), (int)boat.posZ) instanceof BlockLiquid)
+						boat.posY -= 0.12D;
+					boat.worldObj.spawnEntityInWorld(boat);
+					boat.setBoatType(EntityNewBoat.Type.OAK);
+				}
+			}
+		}
 	}
 
 	@SubscribeEvent

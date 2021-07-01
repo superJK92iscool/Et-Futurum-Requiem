@@ -8,6 +8,7 @@ import com.google.common.collect.Lists;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModItems;
+import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
@@ -499,7 +500,7 @@ public class EntityNewBoat extends Entity {
         }
         else
         {
-            float f = this.getBoatGlide();
+            float f = Math.min(this.getBoatGlide(), ConfigurationHandler.boatMaxLandSpeed);
 
             if (f > 0.0F)
             {
@@ -841,14 +842,14 @@ public class EntityNewBoat extends Entity {
             vec3d.rotateAroundY(-this.rotationYaw * 0.017453292F - ((float)Math.PI / 2F));
             passenger.setPosition(this.posX + vec3d.xCoord, this.posY + (double)f1, this.posZ + vec3d.zCoord);
             passenger.rotationYaw += this.deltaRotation;
-            passenger.setRotationYawHead(passenger.getRotationYawHead() + this.deltaRotation);
+//            passenger.setRotationYawHead(passenger.getRotationYawHead() + this.deltaRotation);
             this.applyYawToEntity(passenger);
 
             if (passenger instanceof EntityAnimal && this.getPassengers().size() > 1)
             {
                 int j = passenger.getEntityId() % 2 == 0 ? 90 : 270;
                 ((EntityAnimal)passenger).renderYawOffset = ((EntityAnimal)passenger).renderYawOffset + (float)j;
-                passenger.setRotationYawHead(passenger.getRotationYawHead() + (float)j);
+//                passenger.setRotationYawHead(passenger.getRotationYawHead() + (float)j);
             }
         }
     }
@@ -865,7 +866,7 @@ public class EntityNewBoat extends Entity {
         float f1 = MathHelper.clamp_float(f, -105.0F, 105.0F);
         entityToUpdate.prevRotationYaw += f1 - f;
         entityToUpdate.rotationYaw += f1 - f;
-        entityToUpdate.setRotationYawHead(entityToUpdate.rotationYaw);
+//        entityToUpdate.setRotationYawHead(entityToUpdate.rotationYaw);
     }
 
     /**

@@ -115,6 +115,8 @@ public class ConfigurationHandler {
 	public static boolean enableLavaCauldrons;
 	public static boolean enableExtraCopper;
 	public static boolean registerRawItemAsOre;
+	public static boolean replaceOldBoats;
+	public static float boatMaxLandSpeed;
 
 	public static boolean enableNewNetherBricks;
 	public static boolean enableNetherwartBlock;
@@ -177,6 +179,7 @@ public class ConfigurationHandler {
 	public static boolean enableNewNether;
 	
 	public static boolean enableIronNugget;
+	public static boolean enableNewBoats;
 	
 	public static boolean enableNewBlocksSounds;
 	public static boolean enableNewMiscSounds;
@@ -266,6 +269,7 @@ public class ConfigurationHandler {
 		enableTotemUndying = cfg.getBoolean("enableTotemUndying", catItems, true, "");
 		enableSuspiciousStew = cfg.getBoolean("enableSuspiciousStew", catItems, true, "");
 		enableNewDyes = cfg.getBoolean("enableNewDyes", catItems, true, "");
+		enableNewBoats = cfg.getBoolean("enableNewBoats", catItems, true, "");
 		
 		//equipment
 		netheriteToolDurability = cfg.getInt("netheriteToolDurability", catEquipment, 2031, 1, Integer.MAX_VALUE, "");
@@ -330,6 +334,8 @@ public class ConfigurationHandler {
 //        enableDyeReplacement = cfg.getBoolean("enableDyeReplacement", catFunction, true, "Removes lapis, bone meal, ink sac and cocoa bean's ore dictionary entries as dyes, making the Et Futurum dyes the dyes instead. Disable if this causes weirdisms with modded recipes. (If false both items can be used)");
 		enableExtraCopper = cfg.getBoolean("enableExtraCopper", catFunction, true, "If true, copper will drop 2-3 and fortune will yield more than normal.");
 		registerRawItemAsOre = cfg.getBoolean("registerRawItemAsOre", catFunction, true, "Registers raw ores as \"ore____\" in the OreDictionary. Configurable in case it causes crafting issues.");
+		replaceOldBoats = cfg.getBoolean("replaceOldBoats", catFunction, true, "If true, old boats will be replaced with the new oak boat and the item sprite will also be changned. False means the new and old boat and item for it exists separately. If this is enabled, a boat that has an entity in it will not be replaced until the entity gets out.");
+		boatMaxLandSpeed = cfg.getFloat("boatMaxLandSpeed", catFunction, Float.POSITIVE_INFINITY, 0.1F, Float.POSITIVE_INFINITY, "The maximum speed a boat can travel by while on land. This option exists because boats are very very fast when travelling on slippery blocks. Land speed = 0.6, Regular/Packed Ice Speed = 0.98, Packed Ice Speed = 0.986. Anything smaller than 0.6 is really, REALLY slow on land. The speed values are just block slipperiness values, and are averaged by the slippery blocks around the bottom of the boat.");
 		
 		
 		//replacement
