@@ -12,6 +12,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
@@ -30,6 +31,9 @@ public class ItemNewBoat extends Item implements IConfigurable {
 		setTextureName("minecraft:" + type.getName() + "_boat");
 		setUnlocalizedName(Utils.getUnlocalisedName(type.getName() + "_boat"));
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
+		if(!ConfigurationHandler.replaceOldBoats) {
+			this.setContainerItem(Items.wooden_shovel);
+		}
     }
 
     public ItemStack onItemRightClick(ItemStack p_77659_1_, World p_77659_2_, EntityPlayer p_77659_3_)

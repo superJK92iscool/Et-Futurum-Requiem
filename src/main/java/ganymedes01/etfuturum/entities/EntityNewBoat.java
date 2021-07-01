@@ -261,9 +261,9 @@ public class EntityNewBoat extends Entity {
     public Item getItemBoat()
     {
     	if(getBoatType() == Type.OAK) {
-    		return Items.boat; //Keep this here as a placeholder for boat compatibility options, dummy...
+    		return ConfigurationHandler.replaceOldBoats ? Items.boat : ModItems.boats[0];
     	}
-		return ModItems.signs[getBoatType().ordinal() - 1]; //Use signs as a stand-in for the different wood types, dummy.
+		return ModItems.boats[getBoatType().ordinal()];
     }
 
 	/**

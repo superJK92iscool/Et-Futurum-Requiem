@@ -782,8 +782,12 @@ public class ModRecipes {
 		
 		if(ConfigurationHandler.enableNewBoats) {
 			for(int i = 0; i < EntityNewBoat.Type.values().length; i++) {
-				addShapedRecipe(new ItemStack(i == 0 && ConfigurationHandler.replaceOldBoats ? ModItems.boats[i] : Items.boat, 1),
-						ConfigurationHandler.replaceOldBoats ? "xyx" : "x x", "xxx", 'x', i == 0 ? new ItemStack(Blocks.planks, 1, i) : "plankWood", 'y', new ItemStack(Items.wooden_shovel, 1));
+				addShapedRecipe(new ItemStack(i == 0 && ConfigurationHandler.replaceOldBoats ? Items.boat : ModItems.boats[i], 1),
+						(ConfigurationHandler.replaceOldBoats ? "x x" : "xyx"), "xxx", 'x', i == 0 ? "plankWood" : new ItemStack(Blocks.planks, 1, i), 'y', new ItemStack(Items.wooden_shovel, 1));
+			}
+			if(!ConfigurationHandler.replaceOldBoats) {
+				addShapelessRecipe(new ItemStack(Items.boat), ModItems.boats[0]);
+				addShapelessRecipe(new ItemStack(ModItems.boats[0]), Items.wooden_shovel, Items.boat);
 			}
 		}
 	}
