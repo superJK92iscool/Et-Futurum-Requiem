@@ -13,6 +13,7 @@ import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityZombie;
@@ -65,6 +66,8 @@ public class EntityNewBoat extends Entity {
     private EntityNewBoat.Status status;
     private EntityNewBoat.Status previousStatus;
     private double lastYd;
+    
+    private boolean prevPaddleState1, prevPaddleState2;
 
     public EntityNewBoat(World p_i1704_1_)
     {
@@ -106,6 +109,7 @@ public class EntityNewBoat extends Entity {
         {
             dataWatcher.addObject(DATA_ID_PADDLE[i], new Byte((byte) 0));
         }
+        this.dataWatcher.addObject(23, new Integer(0)); //Boat Type
     }
 
     /**
@@ -173,6 +177,7 @@ public class EntityNewBoat extends Entity {
     public void addToBoat(Entity entity) {
     	if(getPassengers().size() >= 2 || !(entity instanceof EntityLivingBase)) return;
     	if(getPassengers().size() == 1) {
+//    		entity.ridingEntity = this;
 //    		List<EntityLivingBase> list = new ArrayList<EntityLivingBase>(getPassengers());
 //    		if(getControllingPassenger() instanceof EntityPlayer) {
 //        		entity.mountEntity(list.get(0));
@@ -192,8 +197,7 @@ public class EntityNewBoat extends Entity {
 
     public boolean canPassengerSteer()
     {
-        Entity entity = this.getControllingPassenger();
-        return entity instanceof EntityPlayer ? true : !this.worldObj.isRemote;
+        return !worldObj.isRemote || getControllingPassenger() instanceof EntityPlayer && riddenByEntity == getControllingPassenger();
     }
 
     protected boolean canFitPassenger(Entity passenger)
@@ -255,6 +259,7 @@ public class EntityNewBoat extends Entity {
      */
     public void applyEntityCollision(Entity entityIn)
     {
+    	if(entityIn instanceof EntityNewBoatSeat) return;
         if (entityIn instanceof EntityNewBoat)
         {
             if (entityIn.boundingBox.minY < this.boundingBox.maxY)
@@ -307,13 +312,14 @@ public class EntityNewBoat extends Entity {
         this.lerpXRot = (double)pitch;
         this.lerpSteps = 10;
     	boolean flag = canPassengerSteer();
-    	if(flag && isBoatDesynchedXY(x, y, z, yaw, pitch, 0.3D)) {
+    	if((flag && isBoatDesynchedXY(x, y, z, yaw, pitch, 0.3D)) || getControllingPassenger() != Minecraft.getMinecraft().thePlayer) {
             if(!getPassengers().isEmpty()) {
             	for(EntityLivingBase passenger : getPassengers()) {
             		passenger.rotationYaw -= rotationYaw - yaw;
             	}
             }
             setRotation(yaw, pitch);
+        	rotationYaw = (float) boatYaw;
     	}
         if(flag && isBoatDesynchedXY(x, y, z, yaw, pitch, 0.4D)) {
             setPosition(x, y, z);
@@ -376,10 +382,10 @@ public class EntityNewBoat extends Entity {
         this.prevPosZ = this.posZ;
         super.onUpdate();
         this.tickLerp();
-
+        
         if (this.canPassengerSteer())
         {
-            if (this.getPassengers().size() == 0 || !(this.getControllingPassenger() instanceof EntityPlayer))
+            if (this.getPassengers().size() == 0)
             {
                 this.setPaddleState(false, false);
             }
@@ -394,11 +400,7 @@ public class EntityNewBoat extends Entity {
             	this.updateInputs(left, right, forward, back);
         	}
 
-//            if (!worldObj.isRemote)
-//            {
-                this.controlBoat();
-//                this.worldObj.sendPacketToServer(new CPacketSteerBoat(this.getPaddleState(0), this.getPaddleState(1)));
-//            }
+            this.controlBoat();
 
             this.moveEntity(this.motionX, this.motionY, this.motionZ);
         }
@@ -409,7 +411,7 @@ public class EntityNewBoat extends Entity {
             this.motionZ = 0.0D;
             this.deltaRotation = 0.0F;
         }
-
+        
         for (int i = 0; i <= 1; ++i)
         {
             if (this.getPaddleState(i))
@@ -815,7 +817,8 @@ public class EntityNewBoat extends Entity {
 
             this.motionX += (double)(MathHelper.sin(-this.rotationYaw * 0.017453292F) * f);
             this.motionZ += (double)(MathHelper.cos(this.rotationYaw * 0.017453292F) * f);
-            this.setPaddleState(this.rightInputDown || this.forwardInputDown, this.leftInputDown || this.forwardInputDown);
+            if(!worldObj.isRemote)
+                this.setPaddleState(this.rightInputDown || this.forwardInputDown, this.leftInputDown || this.forwardInputDown);
         }
     }
 
