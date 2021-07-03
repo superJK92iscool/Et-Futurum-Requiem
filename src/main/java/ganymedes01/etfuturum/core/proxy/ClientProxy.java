@@ -137,7 +137,8 @@ public class ClientProxy extends CommonProxy {
 		if (ConfigurationHandler.enableBrownMooshroom)
 			RenderingRegistry.registerEntityRenderingHandler(EntityBrownMooshroom.class, new BrownMooshroomRenderer());
 
-		RenderingRegistry.registerEntityRenderingHandler(EntityNewBoat.class, new NewBoatRenderer());
+		if(ConfigurationHandler.enableNewBoats)
+			RenderingRegistry.registerEntityRenderingHandler(EntityNewBoat.class, new NewBoatRenderer());
 		
 		if (ConfigurationHandler.enablePlayerSkinOverlay) {
 			TextureManager texManager = Minecraft.getMinecraft().renderEngine;

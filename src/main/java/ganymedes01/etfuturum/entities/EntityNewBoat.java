@@ -2,6 +2,7 @@ package ganymedes01.etfuturum.entities;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import com.google.common.collect.Lists;
 
@@ -14,9 +15,10 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
+import net.minecraft.command.PlayerSelector;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityWaterMob;
 import net.minecraft.entity.player.EntityPlayer;
@@ -67,7 +69,8 @@ public class EntityNewBoat extends Entity {
     private EntityNewBoat.Status previousStatus;
     private double lastYd;
     
-    private boolean prevPaddleState1, prevPaddleState2;
+    private EntityNewBoatSeat seat;
+    private EntityNewBoatSeat seatToSpawn;
 
     public EntityNewBoat(World p_i1704_1_)
     {
@@ -75,6 +78,7 @@ public class EntityNewBoat extends Entity {
         this.paddlePositions = new float[2];
         this.preventEntitySpawning = true;
         this.setSize(1.375F, 0.5625F);
+        this.shouldRenderInPass(-2);
     }
 
     public EntityNewBoat(World p_i1705_1_, double p_i1705_2_, double p_i1705_4_, double p_i1705_6_)
@@ -87,6 +91,17 @@ public class EntityNewBoat extends Entity {
         this.prevPosX = p_i1705_2_;
         this.prevPosY = p_i1705_4_;
         this.prevPosZ = p_i1705_6_;
+    }
+    
+    public EntityNewBoatSeat getSeat() {
+    	return seat;
+    }
+    
+    public void setSeat(EntityNewBoatSeat seatIn) {
+        	seat = seatIn;
+    	if(seatIn != null && seatIn != seat) {
+        	dataWatcher.updateObject(23, new Integer(seatIn.getEntityId()));
+    	}
     }
 
     /**
@@ -109,7 +124,7 @@ public class EntityNewBoat extends Entity {
         {
             dataWatcher.addObject(DATA_ID_PADDLE[i], new Byte((byte) 0));
         }
-        this.dataWatcher.addObject(23, new Integer(0)); //Boat Type
+        this.dataWatcher.addObject(23, new Integer(0)); //Boat Seat ID
     }
 
     /**
@@ -166,29 +181,30 @@ public class EntityNewBoat extends Entity {
     	List<EntityLivingBase> list = new ArrayList<EntityLivingBase>();
     	if(riddenByEntity instanceof EntityLivingBase) {
         	list.add((EntityLivingBase)riddenByEntity);
-        	if(riddenByEntity.riddenByEntity != null) {
-        		list.add((EntityLivingBase) riddenByEntity.riddenByEntity);
+        	if(seat != null && seat.riddenByEntity != null) {
+        		list.add((EntityLivingBase)seat.riddenByEntity);
         	}
     	}
-    	
     	return list;
     }
     
     public void addToBoat(Entity entity) {
-    	if(getPassengers().size() >= 2 || !(entity instanceof EntityLivingBase)) return;
-    	if(getPassengers().size() == 1) {
-//    		entity.ridingEntity = this;
-//    		List<EntityLivingBase> list = new ArrayList<EntityLivingBase>(getPassengers());
+    	if(!(entity instanceof EntityLivingBase)) return;
+    	if(getPassengers().isEmpty()) {
+    		entity.mountEntity(this);
+    	} else if(getPassengers().size() == 1) {
+    		if(seat == null) return;
+    		List<EntityLivingBase> list = new ArrayList<EntityLivingBase>(getPassengers());
 //    		if(getControllingPassenger() instanceof EntityPlayer) {
-//        		entity.mountEntity(list.get(0));
+        		seat.sitEntity(entity);
 //        	} else {
 //        		list.get(0).mountEntity(null);
 //        		entity.mountEntity(this);
-//        		list.get(0).mountEntity(entity);
+//        		list.get(0).mountEntity(seat);
 //        	}
-    	} else {
-    		entity.mountEntity(this);
     	}
+        entity.prevRotationYaw = this.rotationYaw;
+        entity.rotationYaw = this.rotationYaw;
     }
     
     public boolean isBeingRidden() {
@@ -259,7 +275,8 @@ public class EntityNewBoat extends Entity {
      */
     public void applyEntityCollision(Entity entityIn)
     {
-    	if(entityIn instanceof EntityNewBoatSeat) return;
+    	if (entityIn instanceof EntityNewBoatSeat || getPassengers().contains(entityIn))
+    		return;
         if (entityIn instanceof EntityNewBoat)
         {
             if (entityIn.boundingBox.minY < this.boundingBox.maxY)
@@ -345,6 +362,33 @@ public class EntityNewBoat extends Entity {
         return this.getAdjustedHorizontalFacing();
     }
 
+    public boolean hasSeat() {
+    	return seat != null && !seat.isDead;
+    }
+    
+    public void onEntityUpdate() {
+    	super.onEntityUpdate();
+    	
+        //TODO add option for no passenger seat and don't run this code
+    	
+        if(!hasSeat() && !worldObj.isRemote) {
+    		EntityNewBoatSeat newSeat;
+        	if(seatToSpawn == null) {
+        		newSeat = new EntityNewBoatSeat(worldObj, this);
+        		newSeat.setBoat(this);
+        		System.out.println("\nExisting seat not detected, making new one.");
+        	} else {
+        		newSeat = seatToSpawn;
+        		seatToSpawn = null;
+        	}
+    		this.setSeat(newSeat);
+        	newSeat.forceSpawn = true;
+        	newSeat.copyLocationAndAnglesFrom(this);
+    		worldObj.spawnEntityInWorld(newSeat);
+    		newSeat.forceSpawn = false;
+        }
+    }
+    
     /**
      * Called to update the entity's position/logic.
      */
@@ -352,7 +396,7 @@ public class EntityNewBoat extends Entity {
     {
         this.previousStatus = this.status;
         this.status = this.getBoatStatus();
-
+        
         if (this.status != EntityNewBoat.Status.UNDER_WATER && this.status != EntityNewBoat.Status.UNDER_FLOWING_WATER)
         {
             this.outOfControlTicks = 0.0F;
@@ -824,52 +868,45 @@ public class EntityNewBoat extends Entity {
 
     @Override
     public void updateRiderPosition() {
-    	if(!getPassengers().isEmpty()) {
-    		for(Entity passenger : getPassengers()) {
-    	    	this.updatePassenger(passenger);
-    		}
-    	}
+    	if(riddenByEntity != null)
+        	updatePassenger(riddenByEntity);
     }
     
     public void updatePassenger(Entity passenger)
     {
-        if (isPassenger(passenger))
+        float f = 0.0F;
+        float f1 = (float)((this.isDead ? 0.009999999776482582D : this.getMountedYOffset()) + passenger.getYOffset());
+
+        if (this.getPassengers().size() > 1)
         {
-            float f = 0.0F;
-            float f1 = (float)((this.isDead ? 0.009999999776482582D : this.getMountedYOffset()) + passenger.getYOffset());
+            int i = this.getPassengers().indexOf(passenger);
 
-            if (this.getPassengers().size() > 1)
+            if (i == 0)
             {
-                int i = this.getPassengers().indexOf(passenger);
-
-                if (i == 0)
-                {
-                    f = 0.2F;
-                }
-                else
-                {
-                    f = -0.6F;
-                }
-
-                if (passenger instanceof EntityAnimal)
-                {
-                    f = (float)((double)f + 0.2D);
-                }
+                f = 0.2F;
             }
-            
-            Vec3 vec3d = (Vec3.createVectorHelper((double)f, 0.0D, 0.0D));
-            vec3d.rotateAroundY(-this.rotationYaw * 0.017453292F - ((float)Math.PI / 2F));
-            passenger.setPosition(this.posX + vec3d.xCoord, this.posY + (double)f1, this.posZ + vec3d.zCoord);
-            passenger.rotationYaw += this.deltaRotation;
-//            passenger.setRotationYawHead(passenger.getRotationYawHead() + this.deltaRotation);
-            this.applyYawToEntity(passenger);
-//            if (passenger instanceof EntityAnimal && this.getPassengers().size() > 1)
-//            {
-//                int j = passenger.getEntityId() % 2 == 0 ? 90 : 270;
-//                ((EntityAnimal)passenger).renderYawOffset = ((EntityAnimal)passenger).renderYawOffset + (float)j;
-////                passenger.setRotationYawHead(passenger.getRotationYawHead() + (float)j);
-//            }
+            else
+            {
+                f = -0.6F;
+            }
+
+            if (passenger instanceof EntityAnimal)
+            {
+                f = (float)((double)f + 0.2D);
+            }
         }
+        
+        Vec3 vec3d = (Vec3.createVectorHelper((double)f, 0.0D, 0.0D));
+        vec3d.rotateAroundY(-this.rotationYaw * 0.017453292F - ((float)Math.PI / 2F));
+        passenger.setPosition(this.posX + vec3d.xCoord, this.posY + (double)f1, this.posZ + vec3d.zCoord);
+        passenger.rotationYaw += this.deltaRotation;
+        this.applyYawToEntity(passenger);
+//        if (passenger instanceof EntityAnimal && this.getPassengers().size() > 1)
+//        {
+//            int j = passenger.getEntityId() % 2 == 0 ? 90 : 270;
+//            ((EntityAnimal)passenger).renderYawOffset = ((EntityAnimal)passenger).renderYawOffset + (float)j;
+////            passenger.setRotationYawHead(passenger.getRotationYawHead() + (float)j);
+//        }
     }
 
     /**
@@ -889,11 +926,27 @@ public class EntityNewBoat extends Entity {
             ((EntityLivingBase)entityToUpdate).renderYawOffset = this.rotationYaw;
             ((EntityLivingBase)entityToUpdate).prevRenderYawOffset = this.rotationYaw;
     	}
-    	if(entityToUpdate instanceof EntityZombie && ((EntityZombie) entityToUpdate).ticksExisted % 20 == 0) {
-//    		System.out.println(f1);
-//    		System.out.println(f);
-    	}
-//        entityToUpdate.setRotationYawHead(entityToUpdate.rotationYaw);
+    }
+ 
+    /**
+     * (abstract) Protected helper method to read subclass entity data from NBT.
+     */
+    @Override
+    protected void readEntityFromNBT(NBTTagCompound compound)
+    {
+        if (compound.hasKey("Type", 8)) {
+            this.setBoatType(EntityNewBoat.Type.getTypeFromString(compound.getString("Type")));
+        }
+        System.out.println("Loading NBT data for boat #" + getEntityId());
+
+        if(compound.hasKey("Seat") && !hasSeat()) { //TODO add seat config
+            Entity entity = EntityList.createEntityFromNBT(compound.getCompoundTag("Seat"), worldObj);
+            if(entity instanceof EntityNewBoatSeat) {
+            	((EntityNewBoatSeat)entity).setBoat(this);
+            	seatToSpawn = ((EntityNewBoatSeat)entity);
+            	System.out.println("\nBoat has seat, loading it into world");
+            }
+        }
     }
 
     /**
@@ -903,17 +956,17 @@ public class EntityNewBoat extends Entity {
     protected void writeEntityToNBT(NBTTagCompound compound)
     {
         compound.setString("Type", this.getBoatType().getName());
-    }
+        if(hasSeat()) {
+        	System.out.println("Saving seat to NBT...");
+            String s = EntityList.getEntityString(seat);
+        	NBTTagCompound seatData = new NBTTagCompound();
 
-    /**
-     * (abstract) Protected helper method to read subclass entity data from NBT.
-     */
-    @Override
-    protected void readEntityFromNBT(NBTTagCompound compound)
-    {
-        if (compound.hasKey("Type", 8))
-        {
-            this.setBoatType(EntityNewBoat.Type.getTypeFromString(compound.getString("Type")));
+            if (!seat.isDead && !this.isDead && s != null)
+            {
+                seatData.setString("id", s);
+                seat.writeToNBT(seatData);
+            	compound.setTag("Seat", seatData);
+            }
         }
     }
 
@@ -922,8 +975,6 @@ public class EntityNewBoat extends Entity {
     {
         if (!this.worldObj.isRemote && !player.isSneaking() && this.outOfControlTicks < 60.0F)
         {
-            player.prevRotationYaw = this.rotationYaw;
-            player.rotationYaw = this.rotationYaw;
             addToBoat(player);
         }
 
@@ -941,7 +992,7 @@ public class EntityNewBoat extends Entity {
             {
                 if (this.fallDistance > 3.0F)
                 {
-                    if (this.status != EntityNewBoat.Status.ON_LAND || this.getControllingPassenger() instanceof EntityPlayer)
+                    if (this.status != EntityNewBoat.Status.ON_LAND && this.getControllingPassenger() instanceof EntityPlayer)
                     {
                         this.fallDistance = 0.0F;
                         return;
