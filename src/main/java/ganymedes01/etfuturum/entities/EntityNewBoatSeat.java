@@ -1,8 +1,12 @@
 package ganymedes01.etfuturum.entities;
 
+import java.util.List;
+import java.util.UUID;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
@@ -11,11 +15,15 @@ import net.minecraft.world.World;
 public class EntityNewBoatSeat extends Entity {
 	
 	private EntityNewBoat boat;
+	private UUID boatUUID;
 
 	public EntityNewBoatSeat(World p_i1582_1_) {
 		super(p_i1582_1_);
 		this.setSize(0, 0);
+		this.width = 0;
+		this.height = 0;
 		this.setInvisible(true);
+		this.noClip = true;
 	}
 	
 	public EntityNewBoatSeat(World p_i1582_1_, EntityNewBoat boat) {
@@ -30,8 +38,10 @@ public class EntityNewBoatSeat extends Entity {
 	
 	public void setBoat(EntityNewBoat newBoat) {
 		boat = newBoat;
-		if(newBoat != null)
+		if(newBoat != null) {
 			dataWatcher.updateObject(17, new Integer(newBoat.getEntityId()));
+			this.boatUUID = newBoat.getPersistentID();
+		}
 	}
 	
 	@Override
@@ -45,22 +55,46 @@ public class EntityNewBoatSeat extends Entity {
 	
 	@Override
 	public void onUpdate() {
-		if(isDead) {
+		
+		if(isDead || !worldObj.getChunkFromBlockCoords((int)posX, (int)posZ).isChunkLoaded) {
 			return;
 		}
 		
-    	if(this.ridingEntity != null) {
+    	if(ridingEntity != null) {
     		ridingEntity.mountEntity(null);
     		ridingEntity = null;
     	}
 		
+    	if(riddenByEntity != null && !riddenByEntity.isEntityAlive()) {
+    		riddenByEntity = null;
+    	}
+    	
 		int boatID = dataWatcher.getWatchableObjectInt(17);
 		
-		if(boatID > 0) {
-			Entity entity = worldObj.getEntityByID(boatID);
-			if(entity instanceof EntityNewBoat && !entity.isDead) {
-				setBoat((EntityNewBoat)entity);
+		if(boat == null) {
+			if(boatID == 0 && boatUUID != null) {
+				for(Entity entity : (List<Entity>)worldObj.loadedEntityList) {
+					if(entity == null || entity.getPersistentID() == null)
+						continue;
+					if(entity.getPersistentID().equals(boatUUID) && entity instanceof EntityNewBoat && !entity.isDead) {
+						if(riddenByEntity instanceof EntityPlayer) {
+							riddenByEntity.mountEntity(null);
+						}
+						setBoat((EntityNewBoat)entity);
+						break;
+					}
+				}
 			}
+			if(boatID > 0 && boat == null) {
+				Entity entity = worldObj.getEntityByID(boatID);
+				if(entity instanceof EntityNewBoat && !entity.isDead) {
+					setBoat((EntityNewBoat)entity);
+				}
+			}
+		}
+		
+		if(worldObj.isRemote && boat != null && boat.getSeat() == null) {
+			boat.setSeat(this);
 		}
 		
 		if(boat == null || boat.isDead || !canThisSeatStay(boat.getSeat())) {
@@ -68,11 +102,11 @@ public class EntityNewBoatSeat extends Entity {
 			return;
 		}
 		
-		if(worldObj.isRemote && boat != null && boat.getSeat() == null) {
-			boat.setSeat(this);
-		}
-		
 		copyLocationAndAnglesFrom(boat);
+	}
+	
+	private void mountToBoat(Entity entity) {
+		boat.sitEntity(entity);
 	}
 	
 	/**
@@ -90,7 +124,6 @@ public class EntityNewBoatSeat extends Entity {
 		}
 		if(compare.riddenByEntity == null && riddenByEntity != null) {
 			boat.setSeat(this);
-			System.out.println("Destroying linked seat in favor of one that has an entity sitting in it");
 			compare.kill();
 			return true;
 		}
@@ -100,8 +133,9 @@ public class EntityNewBoatSeat extends Entity {
 	@Override
 	protected void kill() {
 		if(riddenByEntity != null) {
-			riddenByEntity.copyLocationAndAnglesFrom(this);
-			riddenByEntity.posY += 0.5D;
+			if(riddenByEntity instanceof EntityLivingBase) {
+				((EntityLivingBase)riddenByEntity).dismountEntity(this);
+			}
 			riddenByEntity.mountEntity(null);
 		}
 		isDead = true;
@@ -111,19 +145,22 @@ public class EntityNewBoatSeat extends Entity {
     @SideOnly(Side.CLIENT)
     public void setPositionAndRotation2(double p_70056_1_, double p_70056_3_, double p_70056_5_, float p_70056_7_, float p_70056_8_, int p_70056_9_)
     {
-    	if(boat != null)
-		this.copyLocationAndAnglesFrom(boat);
+    	if(boat != null) {
+    		copyLocationAndAnglesFrom(boat);
+        	prevRotationYaw = boat.prevRotationYaw;
+        	prevRotationPitch = boat.prevRotationPitch;
+    	}
     }
     
 	@Override
 	protected void readEntityFromNBT(NBTTagCompound nbt) {
-		dataWatcher.updateObject(17, nbt.getInteger("attachedBoat"));
-		setBoat((EntityNewBoat)worldObj.getEntityByID(nbt.getInteger("attachedBoat")));
+		boatUUID = new UUID(nbt.getLong("boatUUIDMost"), nbt.getLong("boatUUIDLeast"));
 	}
 
 	@Override
 	protected void writeEntityToNBT(NBTTagCompound nbt) {
-		nbt.setInteger("attachedBoat", boat != null ? boat.getEntityId() : new Integer(0));
+		nbt.setLong("boatUUIDLeast", boatUUID.getLeastSignificantBits());
+		nbt.setLong("boatUUIDMost", boatUUID.getMostSignificantBits());
 	}
 	
 	/**
@@ -147,7 +184,7 @@ public class EntityNewBoatSeat extends Entity {
     @Override
     public void updateRiderPosition()
     {
-    	if(boat != null) {
+    	if(boat != null && riddenByEntity != null) {
     		boat.updatePassenger(riddenByEntity);
     	}
     }
@@ -227,6 +264,13 @@ public class EntityNewBoatSeat extends Entity {
 
     @Deprecated
     @Override
+    public AxisAlignedBB getBoundingBox()
+    {
+    	return null;
+    }
+
+    @Deprecated
+    @Override
     public AxisAlignedBB getCollisionBox(Entity p_70114_1_)
     {
     	return null;
@@ -248,9 +292,22 @@ public class EntityNewBoatSeat extends Entity {
     
     @Deprecated
     @Override
+	public boolean canBeCollidedWith()
+    {
+    	return false;
+    }
+    
+    @Deprecated
+    @Override
     public boolean canBePushed()
     {
     	return false;
+    }
+    
+    @Deprecated
+    @Override
+    public boolean shouldRenderInPass(int pass) {
+		return false;
     }
 
 }

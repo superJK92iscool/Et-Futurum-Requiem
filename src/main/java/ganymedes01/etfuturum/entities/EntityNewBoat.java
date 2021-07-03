@@ -78,7 +78,6 @@ public class EntityNewBoat extends Entity {
         this.paddlePositions = new float[2];
         this.preventEntitySpawning = true;
         this.setSize(1.375F, 0.5625F);
-        this.shouldRenderInPass(-2);
     }
 
     public EntityNewBoat(World p_i1705_1_, double p_i1705_2_, double p_i1705_4_, double p_i1705_6_)
@@ -99,11 +98,8 @@ public class EntityNewBoat extends Entity {
     
     public void setSeat(EntityNewBoatSeat seatIn) {
         	seat = seatIn;
-    	if(seatIn != null && seatIn != seat) {
-        	dataWatcher.updateObject(23, new Integer(seatIn.getEntityId()));
-    	}
     }
-
+    
     /**
      * returns if this entity triggers Block.onEntityWalking on the blocks they walk on. used for spiders and wolves to
      * prevent them from trampling crops
@@ -124,16 +120,15 @@ public class EntityNewBoat extends Entity {
         {
             dataWatcher.addObject(DATA_ID_PADDLE[i], new Byte((byte) 0));
         }
-        this.dataWatcher.addObject(23, new Integer(0)); //Boat Seat ID
     }
 
     /**
      * Returns a boundingBox used to collide the entity with other entities and blocks. This enables the entity to be
      * pushable on contact, like boats or minecarts.
      */
-    public AxisAlignedBB getCollisionBox(Entity p_70114_1_)
+    public AxisAlignedBB getCollisionBox(Entity entityIn)
     {
-        return p_70114_1_.boundingBox;
+        return entityIn instanceof EntityNewBoatSeat ? null : entityIn.boundingBox;
     }
 
     /**
@@ -188,23 +183,48 @@ public class EntityNewBoat extends Entity {
     	return list;
     }
     
+    public void sitEntity(Entity entity) {
+    	entity.mountEntity(this);
+    }
+    
+    private void addToSeat(Entity entity) {
+    	seat.sitEntity(entity);
+    }
+    
     public void addToBoat(Entity entity) {
     	if(!(entity instanceof EntityLivingBase)) return;
+    	EntityLivingBase oldDriver = (EntityLivingBase) getControllingPassenger();
     	if(getPassengers().isEmpty()) {
-    		entity.mountEntity(this);
+    		sitEntity(entity);
     	} else if(getPassengers().size() == 1) {
     		if(seat == null) return;
-    		List<EntityLivingBase> list = new ArrayList<EntityLivingBase>(getPassengers());
-//    		if(getControllingPassenger() instanceof EntityPlayer) {
-        		seat.sitEntity(entity);
-//        	} else {
-//        		list.get(0).mountEntity(null);
-//        		entity.mountEntity(this);
-//        		list.get(0).mountEntity(seat);
-//        	}
+    		if(entity instanceof EntityPlayer && !(oldDriver instanceof EntityPlayer)) {
+    			addToSeat(oldDriver);
+    			entity.mountEntity(this);
+    		} else {
+    			addToSeat(entity);
+    		}
     	}
         entity.prevRotationYaw = this.rotationYaw;
         entity.rotationYaw = this.rotationYaw;
+    }
+
+    @Override
+    public boolean interactFirst(EntityPlayer player)
+    {
+        if (!player.isSneaking() && this.outOfControlTicks < 60.0F)
+        {
+            addToBoat(player);
+        }
+        if(seat != null) {
+        	System.out.println("Client? " + worldObj.isRemote);
+        	System.out.println("Seat UUID " + seat.getUniqueID());
+        	System.out.println("Boat UUID " + getUniqueID());
+        	System.out.println("Seat ID " + seat.getEntityId());
+        	System.out.println("Boat ID " + getEntityId());
+        }
+
+        return true;
     }
     
     public boolean isBeingRidden() {
@@ -275,8 +295,6 @@ public class EntityNewBoat extends Entity {
      */
     public void applyEntityCollision(Entity entityIn)
     {
-    	if (entityIn instanceof EntityNewBoatSeat || getPassengers().contains(entityIn))
-    		return;
         if (entityIn instanceof EntityNewBoat)
         {
             if (entityIn.boundingBox.minY < this.boundingBox.maxY)
@@ -284,6 +302,8 @@ public class EntityNewBoat extends Entity {
                 super.applyEntityCollision(entityIn);
             }
         }
+    	if (entityIn instanceof EntityNewBoatSeat || getPassengers().contains(entityIn))
+    		return;
         else if (entityIn.boundingBox.minY <= this.boundingBox.minY)
         {
             super.applyEntityCollision(entityIn);
@@ -332,6 +352,7 @@ public class EntityNewBoat extends Entity {
     	if((flag && isBoatDesynchedXY(x, y, z, yaw, pitch, 0.3D)) || getControllingPassenger() != Minecraft.getMinecraft().thePlayer) {
             if(!getPassengers().isEmpty()) {
             	for(EntityLivingBase passenger : getPassengers()) {
+            		prevRotationYaw = rotationYaw - yaw;
             		passenger.rotationYaw -= rotationYaw - yaw;
             	}
             }
@@ -371,12 +392,12 @@ public class EntityNewBoat extends Entity {
     	
         //TODO add option for no passenger seat and don't run this code
     	
-        if(!hasSeat() && !worldObj.isRemote) {
+    	//This causes the boat to not fall for some reason!
+        if(!worldObj.isRemote && !hasSeat()) {
     		EntityNewBoatSeat newSeat;
         	if(seatToSpawn == null) {
         		newSeat = new EntityNewBoatSeat(worldObj, this);
         		newSeat.setBoat(this);
-        		System.out.println("\nExisting seat not detected, making new one.");
         	} else {
         		newSeat = seatToSpawn;
         		seatToSpawn = null;
@@ -387,6 +408,9 @@ public class EntityNewBoat extends Entity {
     		worldObj.spawnEntityInWorld(newSeat);
     		newSeat.forceSpawn = false;
         }
+        if(getSeat() != null && getSeat().riddenByEntity != null && riddenByEntity == null) {
+    		sitEntity(getSeat().riddenByEntity);
+    	}
     }
     
     /**
@@ -442,6 +466,8 @@ public class EntityNewBoat extends Entity {
         		boolean forward = living.moveForward > 0;
         		boolean back = living.moveForward < 0;
             	this.updateInputs(left, right, forward, back);
+        	} else {
+            	this.updateInputs(false, false, false, false);
         	}
 
             this.controlBoat();
@@ -937,14 +963,12 @@ public class EntityNewBoat extends Entity {
         if (compound.hasKey("Type", 8)) {
             this.setBoatType(EntityNewBoat.Type.getTypeFromString(compound.getString("Type")));
         }
-        System.out.println("Loading NBT data for boat #" + getEntityId());
 
         if(compound.hasKey("Seat") && !hasSeat()) { //TODO add seat config
             Entity entity = EntityList.createEntityFromNBT(compound.getCompoundTag("Seat"), worldObj);
-            if(entity instanceof EntityNewBoatSeat) {
+            if(entity instanceof EntityNewBoatSeat && entity.riddenByEntity == null) {
             	((EntityNewBoatSeat)entity).setBoat(this);
             	seatToSpawn = ((EntityNewBoatSeat)entity);
-            	System.out.println("\nBoat has seat, loading it into world");
             }
         }
     }
@@ -957,28 +981,16 @@ public class EntityNewBoat extends Entity {
     {
         compound.setString("Type", this.getBoatType().getName());
         if(hasSeat()) {
-        	System.out.println("Saving seat to NBT...");
             String s = EntityList.getEntityString(seat);
         	NBTTagCompound seatData = new NBTTagCompound();
 
-            if (!seat.isDead && !this.isDead && s != null)
+            if (!seat.isDead && !this.isDead && s != null && seat.riddenByEntity == null)
             {
                 seatData.setString("id", s);
                 seat.writeToNBT(seatData);
             	compound.setTag("Seat", seatData);
             }
         }
-    }
-
-    @Override
-    public boolean interactFirst(EntityPlayer player)
-    {
-        if (!this.worldObj.isRemote && !player.isSneaking() && this.outOfControlTicks < 60.0F)
-        {
-            addToBoat(player);
-        }
-
-        return true;
     }
 
     @Override
