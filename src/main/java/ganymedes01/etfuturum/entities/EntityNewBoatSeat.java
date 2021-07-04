@@ -71,7 +71,7 @@ public class EntityNewBoatSeat extends Entity {
     	
 		int boatID = dataWatcher.getWatchableObjectInt(17);
 		
-		if(boat == null) {
+		if(boat == null && !worldObj.isRemote) {
 			if(boatID == 0 && boatUUID != null) {
 				for(Entity entity : (List<Entity>)worldObj.loadedEntityList) {
 					if(entity == null || entity.getPersistentID() == null)
@@ -85,19 +85,28 @@ public class EntityNewBoatSeat extends Entity {
 					}
 				}
 			}
-			if(boatID > 0 && boat == null) {
-				Entity entity = worldObj.getEntityByID(boatID);
-				if(entity instanceof EntityNewBoat && !entity.isDead) {
-					setBoat((EntityNewBoat)entity);
-				}
+		}
+		
+		if(boatID > 0 && boat == null) {
+			Entity entity = worldObj.getEntityByID(boatID);
+			if(entity instanceof EntityNewBoat && !entity.isDead) {
+				setBoat((EntityNewBoat)entity);
 			}
 		}
 		
-		if(worldObj.isRemote && boat != null && boat.getSeat() == null) {
-			boat.setSeat(this);
+		if(worldObj.isRemote) {
+			boolean flag = false;
+			if(boat != null && boat.getSeat() == null) {
+				flag = true;
+			} else if (boat != null && boat.getSeat() != null && boat.getSeat().getEntityId() != boatID && boat.getSeat().riddenByEntity == null) {
+				flag = true;
+			}
+			if(flag) {
+				boat.setSeat(this);
+			}
 		}
 		
-		if(boat == null || boat.isDead || !canThisSeatStay(boat.getSeat())) {
+		if(boat == null || boat.isDead) {
 			kill();
 			return;
 		}
@@ -107,27 +116,6 @@ public class EntityNewBoatSeat extends Entity {
 	
 	private void mountToBoat(Entity entity) {
 		boat.sitEntity(entity);
-	}
-	
-	/**
-	 * Triggers if an existing boat seat is linked to the same boat
-	 * this boat seat is.
-	 * 
-	 * Used to determine if this seat instance should replace the seat
-	 * or if this one should be removed instead.
-	 * 
-	 * Compares the input seat with this seat.
-	 */
-	public boolean canThisSeatStay(EntityNewBoatSeat compare) {
-		if(compare == null || compare == this || compare.isDead) {
-			return true;
-		}
-		if(compare.riddenByEntity == null && riddenByEntity != null) {
-			boat.setSeat(this);
-			compare.kill();
-			return true;
-		}
-		return false;
 	}
 
 	@Override
@@ -180,11 +168,11 @@ public class EntityNewBoatSeat extends Entity {
         return false;
     }
 
-    @Deprecated
     @Override
     public void updateRiderPosition()
     {
     	if(boat != null && riddenByEntity != null) {
+    		copyLocationAndAnglesFrom(boat);
     		boat.updatePassenger(riddenByEntity);
     	}
     }

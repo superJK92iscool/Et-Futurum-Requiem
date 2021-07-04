@@ -402,10 +402,10 @@ public class EntityNewBoat extends Entity {
         		newSeat = seatToSpawn;
         		seatToSpawn = null;
         	}
-    		this.setSeat(newSeat);
         	newSeat.forceSpawn = true;
         	newSeat.copyLocationAndAnglesFrom(this);
     		worldObj.spawnEntityInWorld(newSeat);
+    		this.setSeat(newSeat);
     		newSeat.forceSpawn = false;
         }
         if(getSeat() != null && getSeat().riddenByEntity != null && riddenByEntity == null) {
@@ -964,7 +964,7 @@ public class EntityNewBoat extends Entity {
             this.setBoatType(EntityNewBoat.Type.getTypeFromString(compound.getString("Type")));
         }
 
-        if(compound.hasKey("Seat") && !hasSeat()) { //TODO add seat config
+        if(compound.hasKey("Seat") && !worldObj.isRemote) { //TODO add seat config
             Entity entity = EntityList.createEntityFromNBT(compound.getCompoundTag("Seat"), worldObj);
             if(entity instanceof EntityNewBoatSeat && entity.riddenByEntity == null) {
             	((EntityNewBoatSeat)entity).setBoat(this);
