@@ -23,9 +23,16 @@ apply plugin: 'forge'
 // Bump this every new code update after a version release, even if not releasing yet, that
 // way SNAPSHOT's work properly as something like `2.1.2-SNAPSHOT` orders before `2.1.2 in
 // SEMVER that gradle uses.
-version = "2.2.0"
 group = "ganymedes01.etfuturum"
 archivesBaseName = "Et_Futurum_Requiem"
+version = "2.2.0"
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+compileJava.options.bootClasspath = org.gradle.internal.jvm.Jvm.current().getJre().getHomeDir().toString() +"/lib/rt.jar"
+compileJava {
+	options.encoding = "UTF-8"
+}
 
 dependencies {
 	// Can use `compileOnly` instead of `compile` if you want to require it at build time,
