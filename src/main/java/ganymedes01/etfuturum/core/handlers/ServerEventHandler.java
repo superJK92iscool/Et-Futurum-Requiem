@@ -48,6 +48,7 @@ import net.minecraft.block.BlockEndPortalFrame;
 import net.minecraft.block.BlockFarmland;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.BlockSoulSand;
+import net.minecraft.block.BlockTrapDoor;
 import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -549,7 +550,7 @@ public class ServerEventHandler {
 			                    }
 			                }
 			        	}
-			        	if(ConfigurationHandler.enableNewBlocksSounds && event.face == 1 && heldStack.getItem() instanceof IPlantable && player.canPlayerEdit(x, y + 1, z, side, heldStack)) {
+			        	if(ConfigurationHandler.enableNewBlocksSounds && side == 1 && heldStack.getItem() instanceof IPlantable && player.canPlayerEdit(x, y + 1, z, side, heldStack)) {
 			        		/*
 			        		 * This code was adapted from AstroTibs' ASMC.
 			        		 * Used with permission!
@@ -569,7 +570,19 @@ public class ServerEventHandler {
 				            		world.playSoundEffect(x + 0.5, y + 1F, z + 0.5, Reference.MOD_ID+":dig.netherwart", 0.9F, world.rand.nextBoolean() ? 1.0F : 1.12F);
 				            		return;
 				            	}
-			            }
+				            }
+			        	}
+			        	if(Block.getBlockFromItem(heldStack.getItem()) instanceof BlockTrapDoor && side <= 1) {
+			        		if(oldBlock.isReplaceable(world, x, y, z)) {
+				        		if(side == 1) {
+				        			y++;
+				        		} else {
+				        			y--;
+				        		}
+			        		}
+			        		if(Block.getBlockFromItem(heldStack.getItem()).canPlaceBlockAt(world, x, y, z)) {
+			        			world.setBlockMetadataWithNotify(x, y, z, 12, 3);
+			        		}
 			        	}
 			        }
 //			    } else if (ConfigurationHandler.enableAnvil && oldBlock == Blocks.anvil) {
@@ -864,13 +877,14 @@ public class ServerEventHandler {
 			EntityDamageSource src = (EntityDamageSource) event.source;
 			Entity attacker = src.getSourceOfDamage();
 			if (attacker instanceof EntityPlayer && !(attacker instanceof FakePlayer)) {
+				Random random = event.entity.worldObj.rand;
 				EntityPlayer player = (EntityPlayer) attacker;
 				Vec3 look = player.getLookVec();
 				look.rotateAroundY((float) Math.PI / 2);
 				for (int i = 0; i < amount; i++) {
-					double x = event.entityLiving.posX - amount * 0.35 * look.xCoord / 2 + i * 0.35 * look.xCoord;
-					double y = event.entityLiving.posY + 1.5 + event.entityLiving.worldObj.rand.nextGaussian() * 0.05;
-					double z = event.entityLiving.posZ - amount * 0.35 * look.zCoord / 2 + i * 0.35 * look.zCoord;
+					double x = event.entityLiving.posX - (0.35D * look.xCoord / 2 * look.xCoord) + (i / 3);
+					double y = event.entityLiving.posY + ((double)event.entityLiving.height * 0.75D);
+					double z = event.entityLiving.posZ - (0.35D * look.zCoord / 2 * look.zCoord) + (i / 3);
 					EtFuturum.networkWrapper.sendToAllAround(new BlackHeartParticlesMessage(x, y, z), new TargetPoint(player.worldObj.provider.dimensionId, x, y, z, 64));
 				}
 			}

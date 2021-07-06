@@ -256,6 +256,7 @@ public class ModBlocks {
 	public static final Block waxed_cut_copper_stairs = initBlock(new BlockCutCopperStairs(12));
 	public static final Block waxed_exposed_cut_copper_stairs = initBlock(new BlockCutCopperStairs(13));
 	public static final Block waxed_weathered_cut_copper_stairs = initBlock(new BlockCutCopperStairs(14));
+	public static final Block waxed_oxidized_cut_copper_stairs = initBlock(new BlockCutCopperStairs(15));
 	public static final Block cobbled_deepslate_stairs = initBlock(new BlockGenericStairs(ModBlocks.cobbled_deepslate, 0).setBlockName(Utils.getUnlocalisedName("cobbled_deepslate_stairs")));
 	public static final Block polished_deepslate_stairs = initBlock(new BlockGenericStairs(ModBlocks.polished_deepslate, 0).setBlockName(Utils.getUnlocalisedName("polished_deepslate_stairs")));
 	public static final Block deepslate_brick_stairs = initBlock(new BlockGenericStairs(ModBlocks.deepslate_bricks, 0).setBlockName(Utils.getUnlocalisedName("deepslate_brick_stairs")));

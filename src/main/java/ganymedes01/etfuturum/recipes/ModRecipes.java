@@ -67,6 +67,11 @@ public class ModRecipes {
 			Items.iron_door.setMaxStackSize(64);
 		}
 		
+		if (ConfigurationHandler.enableFences) {
+			removeFirstRecipeFor(Blocks.fence);
+			removeFirstRecipeFor(Blocks.nether_brick_fence);
+		}
+		
 		if (ConfigurationHandler.replaceOldBoats && ConfigurationHandler.enableNewBoats) {
 			removeFirstRecipeFor(Items.boat);
 			Items.boat.setTextureName("minecraft:oak_boat");
@@ -381,14 +386,12 @@ public class ModRecipes {
 		}
 
 		if (ConfigurationHandler.enableFences) {
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Blocks.fence, 3), "xyx", "xyx", 'x', "plankWood", 'y', "stickWood"));
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Blocks.nether_brick_fence, 6), "xyx", "xyx", 'x', Blocks.nether_brick, 'y', "ingotBrickNether"));
+			
 			for (int i = 0; i < ModBlocks.fences.length; i++) {
 				addShapedRecipe(new ItemStack(ModBlocks.fences[i], 3), "xyx", "xyx", 'x', new ItemStack(Blocks.planks, 1, i + 1), 'y', "stickWood");
 			}
-			
-			removeFirstRecipeFor(Blocks.fence);
-			addShapedRecipe(new ItemStack(Blocks.fence, 3), "xyx", "xyx", 'x', "plankWood", 'y', "stickWood");
-			removeFirstRecipeFor(Blocks.nether_brick_fence);
-			addShapedRecipe(new ItemStack(Blocks.nether_brick_fence, 6), "xyx", "xyx", 'x', Blocks.nether_brick, 'y', "ingotBrickNether");
 
 			for (int i = 0; i < ModBlocks.gates.length; i++) {
 				addShapedRecipe(new ItemStack(ModBlocks.gates[i]), "yxy", "yxy", 'x', new ItemStack(Blocks.planks, 1, i + 1), 'y', "stickWood");
@@ -781,7 +784,7 @@ public class ModRecipes {
 		}
 		
 		if(ConfigurationHandler.enableNewBoats) {
-			for(int i = 0; i < EntityNewBoat.Type.values().length; i++) {
+			for(int i = EntityNewBoat.Type.values().length - 1; i >= 0; i--) {
 				addShapedRecipe(new ItemStack(i == 0 && ConfigurationHandler.replaceOldBoats ? Items.boat : ModItems.boats[i], 1),
 						(ConfigurationHandler.replaceOldBoats ? "x x" : "xyx"), "xxx", 'x', i == 0 ? "plankWood" : new ItemStack(Blocks.planks, 1, i), 'y', new ItemStack(Items.wooden_shovel, 1));
 			}

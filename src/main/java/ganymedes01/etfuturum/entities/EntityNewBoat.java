@@ -2,7 +2,6 @@ package ganymedes01.etfuturum.entities;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import com.google.common.collect.Lists;
 
@@ -15,7 +14,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
-import net.minecraft.command.PlayerSelector;
+import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
@@ -48,11 +47,11 @@ public class EntityNewBoat extends Entity {
     private float momentum;
     private float outOfControlTicks;
     private float deltaRotation;
-    private int lerpSteps;
+    public int lerpSteps;
     private double boatPitch;
     private double lerpY;
     private double lerpZ;
-    private double boatYaw;
+    public double boatYaw;
     private double lerpXRot;
     private boolean leftInputDown;
     private boolean rightInputDown;
@@ -216,13 +215,6 @@ public class EntityNewBoat extends Entity {
         {
             addToBoat(player);
         }
-        if(seat != null) {
-        	System.out.println("Client? " + worldObj.isRemote);
-        	System.out.println("Seat UUID " + seat.getUniqueID());
-        	System.out.println("Boat UUID " + getUniqueID());
-        	System.out.println("Seat ID " + seat.getEntityId());
-        	System.out.println("Boat ID " + getEntityId());
-        }
 
         return true;
     }
@@ -289,6 +281,14 @@ public class EntityNewBoat extends Entity {
             return true;
         }
     }
+    
+    public void setDead() {
+    	if(riddenByEntity instanceof EntityLivingBase) {
+    		((EntityLivingBase)riddenByEntity).dismountEntity(this);
+    		((EntityLivingBase)riddenByEntity).ridingEntity = null;
+    	}
+    	super.setDead();
+    }
 
     /**
      * Applies a velocity to the entities, to push them away from eachother.
@@ -345,22 +345,17 @@ public class EntityNewBoat extends Entity {
         this.boatPitch = x;
         this.lerpY = y;
         this.lerpZ = z;
-        this.boatYaw = (double)yaw;
         this.lerpXRot = (double)pitch;
-        this.lerpSteps = 10;
-    	boolean flag = canPassengerSteer();
-    	if((flag && isBoatDesynchedXY(x, y, z, yaw, pitch, 0.3D)) || getControllingPassenger() != Minecraft.getMinecraft().thePlayer) {
-            if(!getPassengers().isEmpty()) {
-            	for(EntityLivingBase passenger : getPassengers()) {
-            		prevRotationYaw = rotationYaw - yaw;
-            		passenger.rotationYaw -= rotationYaw - yaw;
-            	}
-            }
-            setRotation(yaw, pitch);
-        	rotationYaw = (float) boatYaw;
-    	}
-        if(flag && isBoatDesynchedXY(x, y, z, yaw, pitch, 0.4D)) {
+        this.lerpSteps = 5;
+    	boolean steer = canPassengerSteer();
+    	boolean isThisDriver = getControllingPassenger() instanceof EntityClientPlayerMP;
+    	boatYaw = yaw;
+        if(steer && isBoatDesynchedXY(x, y, z, yaw, pitch, isThisDriver ? 0.4D : 0.2D)) {
             setPosition(x, y, z);
+            setRotation(yaw, pitch);
+        	for(EntityLivingBase passenger : getPassengers()) {
+        		passenger.rotationYaw += rotationYaw - prevRotationYaw;
+        	}
         }
     }
     
@@ -408,6 +403,7 @@ public class EntityNewBoat extends Entity {
     		this.setSeat(newSeat);
     		newSeat.forceSpawn = false;
         }
+        
         if(getSeat() != null && getSeat().riddenByEntity != null && riddenByEntity == null) {
     		sitEntity(getSeat().riddenByEntity);
     	}
@@ -544,18 +540,26 @@ public class EntityNewBoat extends Entity {
 
     private void tickLerp()
     {
-        if (this.lerpSteps > 0 && !this.canPassengerSteer())
-        {
-            double d0 = this.posX + (this.boatPitch - this.posX) / (double)this.lerpSteps;
-            double d1 = this.posY + (this.lerpY - this.posY) / (double)this.lerpSteps;
-            double d2 = this.posZ + (this.lerpZ - this.posZ) / (double)this.lerpSteps;
-            double d3 = MathHelper.wrapAngleTo180_double(this.boatYaw - (double)this.rotationYaw);
-            this.rotationYaw = (float)((double)this.rotationYaw + d3 / (double)this.lerpSteps);
-            this.rotationPitch = (float)((double)this.rotationPitch + (this.lerpXRot - (double)this.rotationPitch) / (double)this.lerpSteps);
-            --this.lerpSteps;
-            this.setPosition(d0, d1, d2);
-            this.setRotation(this.rotationYaw, this.rotationPitch);
-        }
+    	if(worldObj.isRemote && this.lerpSteps > 0) {
+            if(worldObj.isRemote && getSeat() != null && getSeat().riddenByEntity instanceof EntityClientPlayerMP) {
+                double i = MathHelper.wrapAngleTo180_double(this.boatYaw - (double)this.rotationYaw);
+                getSeat().riddenByEntity.rotationYaw += i/lerpSteps;
+                i = MathHelper.wrapAngleTo180_double(this.boatYaw - (double)this.prevRotationYaw);
+                getSeat().riddenByEntity.prevRotationYaw += i/lerpSteps;
+            }
+    		if (!(getControllingPassenger() instanceof EntityClientPlayerMP))
+            {
+                double d0 = this.posX + (this.boatPitch - this.posX) / (double)this.lerpSteps;
+                double d1 = this.posY + (this.lerpY - this.posY) / (double)this.lerpSteps;
+                double d2 = this.posZ + (this.lerpZ - this.posZ) / (double)this.lerpSteps;
+                double d3 = MathHelper.wrapAngleTo180_double(this.boatYaw - (double)this.rotationYaw);
+                this.rotationYaw = (float)((double)this.rotationYaw + d3 / (double)this.lerpSteps);
+                this.rotationPitch = (float)((double)this.rotationPitch + (this.lerpXRot - (double)this.rotationPitch) / (double)this.lerpSteps);
+                --this.lerpSteps;
+                this.setPosition(d0, d1, d2);
+                this.setRotation(this.rotationYaw, this.rotationPitch);
+            }
+    	}
     }
 
     public void setPaddleState(boolean p_184445_1_, boolean p_184445_2_)
@@ -927,12 +931,12 @@ public class EntityNewBoat extends Entity {
         passenger.setPosition(this.posX + vec3d.xCoord, this.posY + (double)f1, this.posZ + vec3d.zCoord);
         passenger.rotationYaw += this.deltaRotation;
         this.applyYawToEntity(passenger);
-//        if (passenger instanceof EntityAnimal && this.getPassengers().size() > 1)
-//        {
-//            int j = passenger.getEntityId() % 2 == 0 ? 90 : 270;
-//            ((EntityAnimal)passenger).renderYawOffset = ((EntityAnimal)passenger).renderYawOffset + (float)j;
-////            passenger.setRotationYawHead(passenger.getRotationYawHead() + (float)j);
-//        }
+        if (passenger instanceof EntityAnimal && this.getPassengers().size() > 1)
+        {
+            int j = passenger.getEntityId() % 2 == 0 ? 90 : 270;
+            ((EntityAnimal)passenger).renderYawOffset = ((EntityAnimal)passenger).renderYawOffset + (float)j;
+            passenger.setRotationYawHead(passenger.getRotationYawHead() + (float)j);
+        }
     }
 
     /**

@@ -23,7 +23,7 @@ apply plugin: 'forge'
 // Bump this every new code update after a version release, even if not releasing yet, that
 // way SNAPSHOT's work properly as something like `2.1.2-SNAPSHOT` orders before `2.1.2 in
 // SEMVER that gradle uses.
-version = "2.1.3"
+version = "2.2.0"
 group = "ganymedes01.etfuturum"
 archivesBaseName = "Et_Futurum_Requiem"
 

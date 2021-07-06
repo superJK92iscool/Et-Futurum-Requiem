@@ -24,7 +24,7 @@ public class ItemBlockGenericSlab extends ItemSlab {
 	
 	@Override
 	public int getMetadata(int meta) {
-		return meta % 8 == 7 ? 0 : meta;
+		return meta % 8;
 	}
 
 }

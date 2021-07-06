@@ -2,6 +2,7 @@ package ganymedes01.etfuturum.client.particle;
 
 import java.lang.reflect.Constructor;
 import java.util.Arrays;
+import java.util.Random;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -23,6 +24,17 @@ public enum ParticleHandler {
 		@Override
 		protected Object[] getAdditionalArgs(World world, Object... data) {
 			return new Object[] { 80, .45F, 0xFFFFFFFF, texture, 1 };
+		}
+	},
+	
+	DAMAGE_HEART(BlackHeartFX.class, ParticleData.VX_VY_VZ, int.class, float.class, int.class, ResourceLocation.class,
+			int.class) {
+		private final ResourceLocation texture = new ResourceLocation(
+				"minecraft:textures/particle/damage.png");
+
+		@Override
+		protected Object[] getAdditionalArgs(World world, Object... data) {
+			return new Object[] { 15, 0.075F + (new Random().nextFloat() * 0.125F), 0xFFFFFFFF, texture, 1 };
 		}
 	};
 

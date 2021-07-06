@@ -39,7 +39,7 @@ public class EntityBrownMooshroom extends EntityMooshroom {
 			player.inventory.decrStackSize(player.inventory.currentItem, 1);
 			for (int i = 0; i < 4; i++)
 			{
-					this.worldObj.spawnParticle("mobSpell", this.posX + (this.rand.nextDouble() - 0.5D) * this.width, this.posY + this.rand.nextDouble() * this.height - this.yOffset, this.posZ + (this.rand.nextDouble() - 0.5D) * this.width, 1, 1, 1);
+				this.worldObj.spawnParticle("mobSpell", this.posX + (this.rand.nextDouble() - 0.5D) * this.width, this.posY + this.rand.nextDouble() * this.height - this.yOffset, this.posZ + (this.rand.nextDouble() - 0.5D) * this.width, 1, 1, 1);
 			}
 			return true;
 		}

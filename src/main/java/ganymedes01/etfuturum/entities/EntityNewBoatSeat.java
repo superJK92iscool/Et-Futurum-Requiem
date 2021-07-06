@@ -5,11 +5,13 @@ import java.util.UUID;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 public class EntityNewBoatSeat extends Entity {
@@ -110,7 +112,7 @@ public class EntityNewBoatSeat extends Entity {
 			kill();
 			return;
 		}
-		
+    	
 		copyLocationAndAnglesFrom(boat);
 	}
 	
