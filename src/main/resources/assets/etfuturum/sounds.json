@@ -132,8 +132,8 @@
   "block.barrel.open": {
     "category": "block",
     "sounds": [
-        "minecraft:block/barrel/open1",
-        "minecraft:block/barrel/open2"
+    "minecraft:block/barrel/open1",
+    "minecraft:block/barrel/open2"
     ]
   },
   "block.furnace.fire_crackle": {
@@ -159,11 +159,11 @@
   "block.blastfurnace.fire_crackle": {
     "category": "block",
     "sounds": [
-        "minecraft:block/blastfurnace/blastfurnace1",
-        "minecraft:block/blastfurnace/blastfurnace2",
-        "minecraft:block/blastfurnace/blastfurnace3",
-        "minecraft:block/blastfurnace/blastfurnace4",
-        "minecraft:block/blastfurnace/blastfurnace5"
+    "minecraft:block/blastfurnace/blastfurnace1",
+    "minecraft:block/blastfurnace/blastfurnace2",
+    "minecraft:block/blastfurnace/blastfurnace3",
+    "minecraft:block/blastfurnace/blastfurnace4",
+    "minecraft:block/blastfurnace/blastfurnace5"
     ]
   },
   "block.iron_door.close": {
@@ -339,11 +339,11 @@
   "dig.bone_block": {
     "category": "block",
     "sounds": [
-        "minecraft:block/bone_block/break1",
-        "minecraft:block/bone_block/break2",
-        "minecraft:block/bone_block/break3",
-        "minecraft:block/bone_block/break4",
-        "minecraft:block/bone_block/break5"
+    "minecraft:block/bone_block/break1",
+    "minecraft:block/bone_block/break2",
+    "minecraft:block/bone_block/break3",
+    "minecraft:block/bone_block/break4",
+    "minecraft:block/bone_block/break5"
     ]
   },
   "step.bone_block": {
@@ -359,12 +359,12 @@
   "dig.nether_bricks": {
     "category": "block",
     "sounds": [
-        "minecraft:block/nether_bricks/break1",
-        "minecraft:block/nether_bricks/break2",
-        "minecraft:block/nether_bricks/break3",
-        "minecraft:block/nether_bricks/break4",
-        "minecraft:block/nether_bricks/break5",
-        "minecraft:block/nether_bricks/break6"
+    "minecraft:block/nether_bricks/break1",
+    "minecraft:block/nether_bricks/break2",
+    "minecraft:block/nether_bricks/break3",
+    "minecraft:block/nether_bricks/break4",
+    "minecraft:block/nether_bricks/break5",
+    "minecraft:block/nether_bricks/break6"
     ]
   },
   "step.nether_bricks": {
@@ -405,22 +405,22 @@
   "step.wart_block": {
     "category": "neutral",
     "sounds": [
-        "minecraft:block/netherwart/step1",
-        "minecraft:block/netherwart/step2",
-        "minecraft:block/netherwart/step3",
-        "minecraft:block/netherwart/step4",
-        "minecraft:block/netherwart/step5"
+    "minecraft:block/netherwart/step1",
+    "minecraft:block/netherwart/step2",
+    "minecraft:block/netherwart/step3",
+    "minecraft:block/netherwart/step4",
+    "minecraft:block/netherwart/step5"
     ]
   },
   "dig.wart_block": {
     "category": "block",
     "sounds": [
-        "minecraft:block/netherwart/break1",
-        "minecraft:block/netherwart/break2",
-        "minecraft:block/netherwart/break3",
-        "minecraft:block/netherwart/break4",
-        "minecraft:block/netherwart/break5",
-        "minecraft:block/netherwart/break6"
+    "minecraft:block/netherwart/break1",
+    "minecraft:block/netherwart/break2",
+    "minecraft:block/netherwart/break3",
+    "minecraft:block/netherwart/break4",
+    "minecraft:block/netherwart/break5",
+    "minecraft:block/netherwart/break6"
     ]
   },
   "step.netherrack": {
@@ -512,10 +512,10 @@
   "dig.netherite_block": {
     "category": "block",
     "sounds": [
-        "minecraft:block/netherite/break1",
-        "minecraft:block/netherite/break2",
-        "minecraft:block/netherite/break3",
-        "minecraft:block/netherite/break4"
+    "minecraft:block/netherite/break1",
+    "minecraft:block/netherite/break2",
+    "minecraft:block/netherite/break3",
+    "minecraft:block/netherite/break4"
     ]
   },
   "step.netherite_block": {
@@ -532,12 +532,12 @@
   "dig.nylium": {
     "category": "block",
     "sounds": [
-        "minecraft:block/nylium/break1",
-        "minecraft:block/nylium/break2",
-        "minecraft:block/nylium/break3",
-        "minecraft:block/nylium/break4",
-        "minecraft:block/nylium/break5",
-        "minecraft:block/nylium/break6"
+    "minecraft:block/nylium/break1",
+    "minecraft:block/nylium/break2",
+    "minecraft:block/nylium/break3",
+    "minecraft:block/nylium/break4",
+    "minecraft:block/nylium/break5",
+    "minecraft:block/nylium/break6"
     ]
   },
   "step.nylium": {
@@ -1206,6 +1206,7 @@
     ]
   },
   "game.player.hurt_drown": {
+    "category": "player",
     "sounds": [
       "minecraft:entity/player/hurt/drown1",
       "minecraft:entity/player/hurt/drown2",
@@ -1214,6 +1215,7 @@
     ]
   },
   "game.player.hurt_freeze": {
+    "category": "player",
     "sounds": [
       "minecraft:entity/player/hurt/freeze_hurt1",
       "minecraft:entity/player/hurt/freeze_hurt2",
@@ -1223,6 +1225,7 @@
     ]
   },
   "game.player.hurt_on_fire": {
+    "category": "player",
     "sounds": [
       "minecraft:entity/player/hurt/fire_hurt1",
       "minecraft:entity/player/hurt/fire_hurt2",
@@ -1230,12 +1233,14 @@
     ]
   },
   "game.player.hurt_sweet_berry_bush": {
+    "category": "player",
     "sounds": [
       "minecraft:entity/player/hurt/berrybush_hurt1",
       "minecraft:entity/player/hurt/berrybush_hurt2"
     ]
   },
   "entity.boat.paddle_land": {
+    "category": "player",
     "sounds": [
       "minecraft:entity/boat/paddle_land1",
       "minecraft:entity/boat/paddle_land2",
@@ -1246,6 +1251,7 @@
     ]
   },
   "entity.boat.paddle_water": {
+    "category": "player",
     "sounds": [
       "minecraft:entity/boat/paddle_water1",
       "minecraft:entity/boat/paddle_water2",
@@ -1255,6 +1261,47 @@
       "minecraft:entity/boat/paddle_water6",
       "minecraft:entity/boat/paddle_water7",
       "minecraft:entity/boat/paddle_water8"
+    ]
+  },
+  "item.honeycomb.wax_on": {
+    "category": "player",
+    "sounds": [
+    "minecraft:item/honeycomb/wax_on1",
+    "minecraft:item/honeycomb/wax_on2",
+    "minecraft:item/honeycomb/wax_on3"
+    ]
+  },
+  "item.axe.wax_off": {
+    "category": "player",
+    "sounds": [
+    "minecraft:item/axe/wax_off1",
+    "minecraft:item/axe/wax_off2",
+    "minecraft:item/axe/wax_off3"
+    ]
+  },
+  "item.axe.scrape": {
+    "category": "player",
+    "sounds": [
+    "minecraft:item/axe/scrape1",
+    "minecraft:item/axe/scrape2",
+    "minecraft:item/axe/scrape3"
+    ]
+  },
+  "block.chorus_flower.death": {
+    "category": "block",
+    "sounds": [
+    "minecraft:block/chorus_flower/death1",
+    "minecraft:block/chorus_flower/death2",
+    "minecraft:block/chorus_flower/death3"
+    ]
+  },
+  "block.chorus_flower.grow": {
+    "category": "block",
+    "sounds": [
+    "minecraft:block/chorus_flower/grow1",
+    "minecraft:block/chorus_flower/grow2",
+    "minecraft:block/chorus_flower/grow3",
+    "minecraft:block/chorus_flower/grow4"
     ]
   }
 }

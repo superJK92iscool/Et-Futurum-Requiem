@@ -16,6 +16,7 @@ import net.minecraft.world.World;
 
 @SideOnly(Side.CLIENT)
 public enum ParticleHandler {
+	
 	BARRIER(BarrierParticleFX.class, ParticleData.VX_VY_VZ, int.class, float.class, int.class, ResourceLocation.class,
 			int.class) {
 		private final ResourceLocation texture = new ResourceLocation(
@@ -27,6 +28,39 @@ public enum ParticleHandler {
 		}
 	},
 	
+	WAX_ON(CopperGlowFX.class, ParticleData.VX_VY_VZ, int.class, float.class, int.class, ResourceLocation.class,
+			int.class) {
+		private final ResourceLocation texture = new ResourceLocation(
+				"minecraft:textures/particle/glow.png");
+
+		@Override
+		protected Object[] getAdditionalArgs(World world, Object... data) {
+			return new Object[] { 30 + rand.nextInt(26), .15F, 0xFFFFA32C, texture, 1 };
+		}
+	},
+	
+	WAX_OFF(CopperGlowFX.class, ParticleData.VX_VY_VZ, int.class, float.class, int.class, ResourceLocation.class,
+			int.class) {
+		private final ResourceLocation texture = new ResourceLocation(
+				"minecraft:textures/particle/glow.png");
+
+		@Override
+		protected Object[] getAdditionalArgs(World world, Object... data) {
+			return new Object[] { 30 + rand.nextInt(26), .15F, 0xFFFFFFFF, texture, 1 };
+		}
+	},
+	
+	COPPER_SCRAPE(CopperGlowFX.class, ParticleData.VX_VY_VZ, int.class, float.class, int.class, ResourceLocation.class,
+			int.class) {
+		private final ResourceLocation texture = new ResourceLocation(
+				"minecraft:textures/particle/glow.png");
+
+		@Override
+		protected Object[] getAdditionalArgs(World world, Object... data) {
+			return new Object[] { 30 + rand.nextInt(26), .15F, 0xFF78DAC1, texture, 1 };
+		}
+	},
+	
 	DAMAGE_HEART(BlackHeartFX.class, ParticleData.VX_VY_VZ, int.class, float.class, int.class, ResourceLocation.class,
 			int.class) {
 		private final ResourceLocation texture = new ResourceLocation(
@@ -34,9 +68,11 @@ public enum ParticleHandler {
 
 		@Override
 		protected Object[] getAdditionalArgs(World world, Object... data) {
-			return new Object[] { 15, 0.075F + (new Random().nextFloat() * 0.125F), 0xFFFFFFFF, texture, 1 };
+			return new Object[] { 15, 0.075F + (rand.nextFloat() * 0.125F), 0xFFFFFFFF, texture, 1 };
 		}
 	};
+	
+	protected static Random rand = new Random();
 
 	private static final int REGULAR_ARG_NUM = 4;
 

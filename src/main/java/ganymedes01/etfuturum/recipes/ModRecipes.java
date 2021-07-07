@@ -676,7 +676,7 @@ public class ModRecipes {
 		}
 		
 		if(ConfigurationHandler.enableCopper) {
-			Block[] stairs = new Block[] {ModBlocks.cut_copper_stairs, ModBlocks.exposed_cut_copper_stairs, ModBlocks.weathered_cut_copper_stairs, ModBlocks.oxidized_cut_copper_stairs, ModBlocks.waxed_cut_copper_stairs, ModBlocks.waxed_exposed_cut_copper_stairs, ModBlocks.waxed_weathered_cut_copper_stairs};
+			Block[] stairs = new Block[] {ModBlocks.cut_copper_stairs, ModBlocks.exposed_cut_copper_stairs, ModBlocks.weathered_cut_copper_stairs, ModBlocks.oxidized_cut_copper_stairs, ModBlocks.waxed_cut_copper_stairs, ModBlocks.waxed_exposed_cut_copper_stairs, ModBlocks.waxed_weathered_cut_copper_stairs, ModBlocks.waxed_oxidized_cut_copper_stairs};
 			addShapedRecipe(new ItemStack(ModBlocks.copper_block, 1), "xxx", "xxx", "xxx", 'x', new ItemStack(ModItems.copper_ingot, 1, 0));
 			addShapedRecipe(new ItemStack(ModItems.copper_ingot, 9), "x", 'x', new ItemStack(ModBlocks.copper_block, 1, 0));
 			addShapedRecipe(new ItemStack(ModItems.copper_ingot, 9), "x", 'x', new ItemStack(ModBlocks.copper_block, 1, 8));
@@ -692,25 +692,23 @@ public class ModRecipes {
 					addShapedRecipe(new ItemStack(ModBlocks.cut_copper_slab, 6, i), "xxx", 'x', new ItemStack(ModBlocks.copper_block, 1, j + 4));
 					addShapedRecipe(new ItemStack(stairs[i], 4), "x  ", "xx ", "xxx", 'x', new ItemStack(ModBlocks.copper_block, 1, j + 4));
 				}
-				if(i % 4 != 3) {
-					if(OreDictionary.doesOreNameExist("materialWax") || OreDictionary.doesOreNameExist("materialWaxcomb") || OreDictionary.doesOreNameExist("itemBeeswax")) {
-						addShapelessRecipe(new ItemStack(ModBlocks.copper_block, 1, i + 8), "itemBeeswax", new ItemStack(ModBlocks.copper_block, 1, i));
-						addShapelessRecipe(new ItemStack(ModBlocks.copper_block, 1, i + 8), "materialWax", new ItemStack(ModBlocks.copper_block, 1, i));
-						addShapelessRecipe(new ItemStack(ModBlocks.copper_block, 1, i + 8), "materialWaxcomb", new ItemStack(ModBlocks.copper_block, 1, i));
-						if(i > 3) {
-							addShapelessRecipe(new ItemStack(ModBlocks.cut_copper_slab, 1, i), "itemBeeswax", new ItemStack(ModBlocks.cut_copper_slab, 1, i - 4));
-							addShapelessRecipe(new ItemStack(ModBlocks.cut_copper_slab, 1, i), "materialWax", new ItemStack(ModBlocks.cut_copper_slab, 1, i - 4));
-							addShapelessRecipe(new ItemStack(ModBlocks.cut_copper_slab, 1, i), "materialWaxcomb", new ItemStack(ModBlocks.cut_copper_slab, 1, i - 4));
-							addShapelessRecipe(new ItemStack(stairs[i], 1), "itemBeeswax", new ItemStack(stairs[i - 4], 1));
-							addShapelessRecipe(new ItemStack(stairs[i], 1), "materialWax", new ItemStack(stairs[i - 4], 1));
-							addShapelessRecipe(new ItemStack(stairs[i], 1), "materialWaxcomb", new ItemStack(stairs[i - 4], 1));
-						}
-					} else {
-						addShapelessRecipe(new ItemStack(ModBlocks.copper_block, 1, i + 8), "slimeball", new ItemStack(ModBlocks.copper_block, 1, i));
-						if(i > 3) {
-							addShapelessRecipe(new ItemStack(ModBlocks.cut_copper_slab, 1, i), "slimeball", new ItemStack(stairs[i], 1, i - 4));
-							addShapelessRecipe(new ItemStack(stairs[i], 1), "slimeball", new ItemStack(stairs[i - 4], 1));
-						}
+				if(OreDictionary.doesOreNameExist("materialWax") || OreDictionary.doesOreNameExist("materialWaxcomb") || OreDictionary.doesOreNameExist("itemBeeswax")) {
+					addShapelessRecipe(new ItemStack(ModBlocks.copper_block, 1, i + 8), "itemBeeswax", new ItemStack(ModBlocks.copper_block, 1, i));
+					addShapelessRecipe(new ItemStack(ModBlocks.copper_block, 1, i + 8), "materialWax", new ItemStack(ModBlocks.copper_block, 1, i));
+					addShapelessRecipe(new ItemStack(ModBlocks.copper_block, 1, i + 8), "materialWaxcomb", new ItemStack(ModBlocks.copper_block, 1, i));
+					if(i > 3) {
+						addShapelessRecipe(new ItemStack(ModBlocks.cut_copper_slab, 1, i), "itemBeeswax", new ItemStack(ModBlocks.cut_copper_slab, 1, i - 4));
+						addShapelessRecipe(new ItemStack(ModBlocks.cut_copper_slab, 1, i), "materialWax", new ItemStack(ModBlocks.cut_copper_slab, 1, i - 4));
+						addShapelessRecipe(new ItemStack(ModBlocks.cut_copper_slab, 1, i), "materialWaxcomb", new ItemStack(ModBlocks.cut_copper_slab, 1, i - 4));
+						addShapelessRecipe(new ItemStack(stairs[i], 1), "itemBeeswax", new ItemStack(stairs[i - 4], 1));
+						addShapelessRecipe(new ItemStack(stairs[i], 1), "materialWax", new ItemStack(stairs[i - 4], 1));
+						addShapelessRecipe(new ItemStack(stairs[i], 1), "materialWaxcomb", new ItemStack(stairs[i - 4], 1));
+					}
+				} else {
+					addShapelessRecipe(new ItemStack(ModBlocks.copper_block, 1, i + 8), "slimeball", new ItemStack(ModBlocks.copper_block, 1, i));
+					if(i > 3) {
+						addShapelessRecipe(new ItemStack(ModBlocks.cut_copper_slab, 1, i), "slimeball", new ItemStack(stairs[i], 1, i - 4));
+						addShapelessRecipe(new ItemStack(stairs[i], 1), "slimeball", new ItemStack(stairs[i - 4], 1));
 					}
 				}
 			}

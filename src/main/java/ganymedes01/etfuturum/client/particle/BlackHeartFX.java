@@ -9,12 +9,10 @@ import net.minecraft.world.World;
 
 @SideOnly(Side.CLIENT)
 public class BlackHeartFX extends EtFuturumFXParticle {
-	
-	private static Random rand = new Random();
 
 	public BlackHeartFX(World world, double x, double y, double z, double mx, double my, double mz, int maxAge,
 			float scale, int color, ResourceLocation texture, int textures) {
-		super(world, x, y, z, (rand.nextFloat() - 0.5F) * 0.1D, 0.15D, (rand.nextFloat() - 0.5F) * 0.1D, maxAge, scale, color, texture, textures);
+		super(world, x, y, z, (particleRand.nextFloat() - 0.5F) * 0.1D, 0.15D, (particleRand.nextFloat() - 0.5F) * 0.1D, maxAge, scale, color, texture, textures);
 		particleGravity = 0.5F;
 	}
 }

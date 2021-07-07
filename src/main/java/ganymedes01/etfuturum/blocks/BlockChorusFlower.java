@@ -11,6 +11,7 @@ import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.utils.Utils;
+import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -30,7 +31,7 @@ public class BlockChorusFlower extends Block implements IConfigurable {
 	private IIcon deadIcon;
 
 	public BlockChorusFlower() {
-		super(Material.wood);
+		super(Material.plants);
 		setHardness(0.4F);
 		setTickRandomly(true);
 		setStepSound(soundTypeWood);
@@ -74,6 +75,7 @@ public class BlockChorusFlower extends Block implements IConfigurable {
 	public void updateTick(World world, int x, int y, int z, Random rand) {
 		if (world.isRemote)
 			return;
+        world.scheduleBlockUpdate(x, y, z, this, 5);
 		int meta = world.getBlockMetadata(x, y, z);
 		if (meta >= 5)
 			return;
@@ -110,7 +112,7 @@ public class BlockChorusFlower extends Block implements IConfigurable {
 
 			if (canGrowUp && isSpaceAroundFree(world, x, y + 1, z, ForgeDirection.DOWN) && world.isAirBlock(x, y + 2, z)) {
 				world.setBlock(x, y, z, ModBlocks.chorus_plant);
-				world.setBlock(x, y + 1, z, this, meta, 3);
+				setFlower(world, x, y + 1, z, meta);
 			} else if (meta < 4) {
 				int tries = rand.nextInt(4);
 				boolean grew = false;
@@ -122,17 +124,22 @@ public class BlockChorusFlower extends Block implements IConfigurable {
 					int yy = y + dir.offsetY;
 					int zz = z + dir.offsetZ;
 					if (world.isAirBlock(xx, yy, zz) && isSpaceAroundFree(world, xx, yy, zz, dir.getOpposite())) {
-						world.setBlock(xx, yy, zz, this, meta + 1, 3);
+						setFlower(world, xx, yy, zz, meta + 1);
 						grew = true;
 					}
 				}
 				if (grew)
 					world.setBlock(x, y, z, ModBlocks.chorus_plant, 0, 3);
 				else
-					world.setBlock(x, y, z, this, 5, 3);
+					setFlower(world, x, y, z, 5);
 			} else if (meta == 4)
-				world.setBlock(x, y, z, this, 5, 3);
+				setFlower(world, x, y, z, 5);
 		}
+	}
+	
+	private void setFlower(World world, int x, int y, int z, int age) {
+		world.setBlock(x, y, z, this, age, 3);
+		world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, Reference.MOD_ID+":block.chorus_flower." + (age < 5 ? "grow" : "death"), 1, 1);
 	}
 
 	@Override

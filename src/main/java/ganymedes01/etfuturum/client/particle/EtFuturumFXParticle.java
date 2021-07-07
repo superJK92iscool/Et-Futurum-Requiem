@@ -1,5 +1,7 @@
 package ganymedes01.etfuturum.client.particle;
 
+import java.util.Random;
+
 import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.Minecraft;
@@ -18,6 +20,8 @@ public class EtFuturumFXParticle extends EntityFX {
 	private int currentTexture = 0;
 	private int textureCounter = 0;
 	private float entityBrightness;
+	
+	protected static Random particleRand = new Random();
 	
 	public EtFuturumFXParticle(World world, double x, double y, double z, double mx, double my, double mz, int maxAge,
 			float scale, int color, ResourceLocation texture, int textures) {

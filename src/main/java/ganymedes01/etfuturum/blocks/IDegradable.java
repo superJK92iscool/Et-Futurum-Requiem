@@ -2,6 +2,8 @@ package ganymedes01.etfuturum.blocks;
 
 import java.util.Random;
 
+import ganymedes01.etfuturum.client.particle.ParticleHandler;
+import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockStairs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -115,8 +117,8 @@ public interface IDegradable {
 			ItemStack heldStack = entityPlayer.getCurrentEquippedItem();
 			if(meta < 8) {
 				for(int oreID : OreDictionary.getOreIDs(heldStack)) {
-					if((OreDictionary.doesOreNameExist("materialWax") || OreDictionary.doesOreNameExist("materialWaxcomb")) ?
-							OreDictionary.getOreName(oreID).equals("materialWax") || OreDictionary.getOreName(oreID).equals("materialWaxcomb") :
+					if((OreDictionary.doesOreNameExist("materialWax") || OreDictionary.doesOreNameExist("materialWaxcomb")) || OreDictionary.doesOreNameExist("itemBeeswax") ?
+							OreDictionary.getOreName(oreID).equals("materialWax") || OreDictionary.getOreName(oreID).equals("materialWaxcomb") || OreDictionary.getOreName(oreID).equals("itemBeeswax") :
 								OreDictionary.getOreName(oreID).equals("slimeball")) {
 						flag = true;
 						
@@ -144,60 +146,79 @@ public interface IDegradable {
 				waxMeta = meta > 7 ? meta % 8 : (meta % 8 + 8);
 				block = getCopperBlockFromMeta(waxMeta);
 				world.setBlock(x, y, z, block, block instanceof BlockStairs ? world.getBlockMetadata(x, y, z) : getFinalCopperMeta(waxMeta, world.getBlockMetadata(x, y, z)), 3);
-				spawnParticles(world, x, y, z, false);
+				spawnParticles(world, x, y, z, meta < 8 ? 0 : 1);
 			} else if (!flag && flag2) {
 				block = getCopperBlockFromMeta(meta - 1);
 				world.setBlock(x, y, z, block, block instanceof BlockStairs ? world.getBlockMetadata(x, y, z) : getFinalCopperMeta(meta - 1, world.getBlockMetadata(x, y, z)), 3);
-				spawnParticles(world, x, y, z, true);
+				spawnParticles(world, x, y, z, 2);
 			}
 		}
 		return flag || flag2;
 	}
 	
-	default void spawnParticles(World p_150186_1_, int p_150186_2_, int p_150186_3_, int p_150186_4_, boolean oxidize)
+	/**
+	 * 
+	 * @param world
+	 * @param x
+	 * @param y
+	 * @param z
+	 * @param type 0: Wax on 1: Wax off 2: Oxidation Scrape
+	 */
+	default void spawnParticles(World world, int x, int y, int z, int type)
 	{
-		Random random = p_150186_1_.rand;
+		Random random = world.rand;
 		double d0 = 0.0625D;
 
+		int pitch = random.nextInt(3);
+		world.playSound((double)x + 0.5D, (double)y + 0.5D, (double)z + 0.5D, 
+				Reference.MOD_ID+":item." + (type == 0 ? "honeycomb.wax_on" : type == 1 ? "axe.wax_off" : "axe.scrape"),
+				1F, (float)((pitch == 0 ? 0 : ((double)pitch / 10D)) + 0.9D), false);
+		
 		for (int l = 0; l < 10; ++l)
 		{
-			double d1 = p_150186_2_ + random.nextFloat();
-			double d2 = p_150186_3_ + random.nextFloat();
-			double d3 = p_150186_4_ + random.nextFloat();
+			double d1 = x + random.nextFloat();
+			double d2 = y + random.nextFloat();
+			double d3 = z + random.nextFloat();
 
-			if (l == 0 && !p_150186_1_.getBlock(p_150186_2_, p_150186_3_ + 1, p_150186_4_).isOpaqueCube())
+			if (l == 0 && !world.getBlock(x, y + 1, z).isOpaqueCube())
 			{
-				d2 = p_150186_3_ + 1 + d0;
+				d2 = y + 1 + d0;
 			}
 
-			if (l == 1 && !p_150186_1_.getBlock(p_150186_2_, p_150186_3_ - 1, p_150186_4_).isOpaqueCube())
+			if (l == 1 && !world.getBlock(x, y - 1, z).isOpaqueCube())
 			{
-				d2 = p_150186_3_ + 0 - d0;
+				d2 = y + 0 - d0;
 			}
 
-			if (l == 2 && !p_150186_1_.getBlock(p_150186_2_, p_150186_3_, p_150186_4_ + 1).isOpaqueCube())
+			if (l == 2 && !world.getBlock(x, y, z + 1).isOpaqueCube())
 			{
-				d3 = p_150186_4_ + 1 + d0;
+				d3 = z + 1 + d0;
 			}
 
-			if (l == 3 && !p_150186_1_.getBlock(p_150186_2_, p_150186_3_, p_150186_4_ - 1).isOpaqueCube())
+			if (l == 3 && !world.getBlock(x, y, z - 1).isOpaqueCube())
 			{
-				d3 = p_150186_4_ + 0 - d0;
+				d3 = z + 0 - d0;
 			}
 
-			if (l == 4 && !p_150186_1_.getBlock(p_150186_2_ + 1, p_150186_3_, p_150186_4_).isOpaqueCube())
+			if (l == 4 && !world.getBlock(x + 1, y, z).isOpaqueCube())
 			{
-				d1 = p_150186_2_ + 1 + d0;
+				d1 = x + 1 + d0;
 			}
 
-			if (l == 5 && !p_150186_1_.getBlock(p_150186_2_ - 1, p_150186_3_, p_150186_4_).isOpaqueCube())
+			if (l == 5 && !world.getBlock(x - 1, y, z).isOpaqueCube())
 			{
-				d1 = p_150186_2_ + 0 - d0;
+				d1 = x + 0 - d0;
 			}
 
-			if (d1 < p_150186_2_ || d1 > p_150186_2_ + 1 || d2 < 0.0D || d2 > p_150186_3_ + 1 || d3 < p_150186_4_ || d3 > p_150186_4_ + 1)
+			if (d1 < x || d1 > x + 1 || d2 < 0.0D || d2 > y + 1 || d3 < z || d3 > z + 1)
 			{
-				p_150186_1_.spawnParticle("fireworksSpark", d1, d2, d3, 0.0D, 0.0D, 0.0D);
+				if (type == 0) {
+					ParticleHandler.WAX_ON.spawn(world, d1, d2, d3);
+				} else if (type == 1) {
+					ParticleHandler.WAX_OFF.spawn(world, d1, d2, d3);
+				} else {
+					ParticleHandler.COPPER_SCRAPE.spawn(world, d1, d2, d3);
+				}
 			}
 		}
 	}
