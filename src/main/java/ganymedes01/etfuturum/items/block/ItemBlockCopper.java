@@ -12,7 +12,7 @@ public class ItemBlockCopper extends ItemBlockGeneric {
 	@Override
 	public String getUnlocalizedName(ItemStack stack) {
 		String name = super.getUnlocalizedName(stack);
-		if(stack.getItemDamage() % 8 > 0 && stack.getItemDamage() != 15)
+		if(stack.getItemDamage() % 8 > 0)
 			name = name.replace("_block", "");
 		return name;
 	}

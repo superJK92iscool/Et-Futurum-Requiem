@@ -5,25 +5,24 @@ import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.RenderIDs;
-import ganymedes01.etfuturum.tileentities.TileEntityEndRod;
-import net.minecraft.block.BlockContainer;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.boss.EntityDragon;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class BlockEndRod extends BlockContainer implements IConfigurable {
+public class BlockEndRod extends Block implements IConfigurable {
 
 	public BlockEndRod() {
-		super(Material.rock);
+		super(Material.circuits);
+		setStepSound(Block.soundTypeWood);
 		setHardness(0);
 		setLightLevel(0.9375F);
 		setBlockTextureName("end_rod");
 		setBlockName(Utils.getUnlocalisedName("end_rod"));
-		setBlockBounds(0.375F, 0.0F, 0.375F, 0.625F, 1.0F, 0.625F);
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
 	}
 
@@ -34,7 +33,7 @@ public class BlockEndRod extends BlockContainer implements IConfigurable {
 
 	@Override
 	public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z) {
-		ForgeDirection dir = ForgeDirection.getOrientation(world.getBlockMetadata(x, y, z));
+		ForgeDirection dir = ForgeDirection.getOrientation(world.getBlockMetadata(x, y, z) % 6);
 
 		if (dir == ForgeDirection.DOWN || dir == ForgeDirection.UP)
 			setBlockBounds(0.375F, 0.0F, 0.375F, 0.625F, 1.0F, 0.625F);
@@ -42,6 +41,25 @@ public class BlockEndRod extends BlockContainer implements IConfigurable {
 			setBlockBounds(0.0F, 0.375F, 0.375F, 1.0F, 0.625F, 0.625F);
 		else if (dir == ForgeDirection.NORTH || dir == ForgeDirection.SOUTH)
 			setBlockBounds(0.375F, 0.375F, 0.0F, 0.625F, 0.625F, 1.0F);
+	}
+    
+	@Override
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z)
+    {
+		ForgeDirection dir = ForgeDirection.getOrientation(world.getBlockMetadata(x, y, z) % 6);
+
+		if (dir == ForgeDirection.DOWN || dir == ForgeDirection.UP)
+			return AxisAlignedBB.getBoundingBox(x+0.375F, y+0.0F, z+0.375F, x+0.625F, y+1.0F, z+0.625F);
+		else if (dir == ForgeDirection.WEST || dir == ForgeDirection.EAST)
+			return AxisAlignedBB.getBoundingBox(x+0.0F, y+0.375F, z+0.375F, x+1.0F, y+0.625F, z+0.625F);
+		else if (dir == ForgeDirection.NORTH || dir == ForgeDirection.SOUTH)
+			return AxisAlignedBB.getBoundingBox(x+0.375F, y+0.375F, z+0.0F, x+0.625F, y+0.625F, z+1.0F);
+		return null;
+    }
+	
+	@Override
+	public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z) {
+		return this.getCollisionBoundingBoxFromPool(world, x, y, z);
 	}
 
 	@Override
@@ -65,11 +83,6 @@ public class BlockEndRod extends BlockContainer implements IConfigurable {
 	@Override
 	public boolean isOpaqueCube() {
 		return false;
-	}
-
-	@Override
-	public TileEntity createNewTileEntity(World world, int meta) {
-		return new TileEntityEndRod();
 	}
 
 	@Override

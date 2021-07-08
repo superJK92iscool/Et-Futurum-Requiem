@@ -20,8 +20,8 @@ public class BlockLanternRenderer implements ISimpleBlockRenderingHandler {
 			RenderBlocks renderer) {
 		{
 			Tessellator tessellator = Tessellator.instance;
-			int l = block.colorMultiplier(renderer.blockAccess, x, y, z);
-			tessellator.setBrightness(block.getMixedBrightnessForBlock(renderer.blockAccess, x, y, z));
+			int l = block.colorMultiplier(world, x, y, z);
+			tessellator.setBrightness(block.getMixedBrightnessForBlock(world, x, y, z));
 			//IIcon iicon = renderer.getBlockIcon(ModBlocks.lantern); // unused variable
 			float f = (l >> 16 & 255) / 255.0F;
 			float f1 = (l >> 8 & 255) / 255.0F;

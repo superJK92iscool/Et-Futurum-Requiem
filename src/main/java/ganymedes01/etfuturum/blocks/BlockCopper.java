@@ -53,14 +53,12 @@ public class BlockCopper extends BlockGeneric implements IConfigurable, IDegrada
 	
 	@Override
 	public String getNameFor(int meta) {
-		String name = types[Math.max(Math.min(meta, types.length - 1), 0)];
-		return name.equals("unused") ? types[0] : name;
+		return types[Math.max(Math.min(meta, types.length), 0)];
 	}
 
 	@Override
 	public int damageDropped(int meta) {
-		String name = types[Math.max(Math.min(meta, types.length - 1), 0)];
-		return name.equals("unused") ? 0 : meta;
+		return meta;
 	}
 
 	@Override
