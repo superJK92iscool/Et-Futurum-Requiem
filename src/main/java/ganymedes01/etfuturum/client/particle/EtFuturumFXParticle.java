@@ -4,6 +4,7 @@ import java.util.Random;
 
 import org.lwjgl.opengl.GL11;
 
+import ganymedes01.etfuturum.client.OpenGLHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.client.renderer.Tessellator;
@@ -21,6 +22,11 @@ public class EtFuturumFXParticle extends EntityFX {
 	protected int textureCounter = 0;
 	protected float entityBrightness;
 	private final String textureName;
+	private boolean fadingColor;
+	protected boolean fadeAway;
+	private float fadeTargetRed;
+	private float fadeTargetGreen;
+	private float fadeTargetBlue;
 	
 	protected boolean usesSheet;
 	
@@ -43,11 +49,17 @@ public class EtFuturumFXParticle extends EntityFX {
 		this.relativeTextureHeight = usesSheet ? (1.0D / this.textures) : 1;
 		this.particleTexture = texture;
 		this.usesSheet = true;
+		fadingColor = false;
 		if(texture != null) {
 			textureName = texture.getResourcePath();
 		} else {
 			textureName = "null";
 		}
+
+		particleAlpha = (this.color >> 24 & 0xff) / 255F;
+		particleRed = (this.color >> 16 & 0xff) / 255F;
+		particleGreen = (this.color >> 8 & 0xff) / 255F;
+		particleBlue = (this.color & 0xff) / 255F;
 	}
 
 	@Override
@@ -71,16 +83,13 @@ public class EtFuturumFXParticle extends EntityFX {
 		}
 		
 		Minecraft.getMinecraft().getTextureManager().bindTexture(this.particleTexture);
-
-		float a = (this.color >> 24 & 0xff) / 255F;
-		float r = (this.color >> 16 & 0xff) / 255F;
-		float g = (this.color >> 8 & 0xff) / 255F;
-		float b = (this.color & 0xff) / 255F;
-
+        
 		int prevCurrentTexture = usesSheet ? currentTexture : 0;
+		OpenGLHelper.enableBlend();
+		OpenGLHelper.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		par1Tessellator.startDrawingQuads();
 		par1Tessellator.setBrightness(getBrightnessForRender(entityBrightness));
-		par1Tessellator.setColorRGBA_F(r, g, b, a);
+		par1Tessellator.setColorRGBA_F(particleRed, particleGreen, particleBlue, particleAlpha);
 		par1Tessellator.addVertexWithUV(ipx - rx * this.scale - ryz * this.scale, ipy - rxz * this.scale,
 				ipz - rz * this.scale - rxy * this.scale, 1.0D, (prevCurrentTexture + 1) * this.relativeTextureHeight);
 		par1Tessellator.addVertexWithUV(ipx - rx * this.scale + ryz * this.scale, ipy + rxz * this.scale,
@@ -91,6 +100,7 @@ public class EtFuturumFXParticle extends EntityFX {
 				ipz + rz * this.scale - rxy * this.scale, 0.0D, (prevCurrentTexture + 1) * this.relativeTextureHeight);
 		par1Tessellator.draw();
 
+		OpenGLHelper.disableBlend();
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, prevTex);
 	}
 
@@ -98,6 +108,14 @@ public class EtFuturumFXParticle extends EntityFX {
 	public int getFXLayer() {
 		return 3;
 	}
+	
+    public void setColorFade(int rgb)
+    {
+        this.fadeTargetRed = (float)((rgb & 16711680) >> 16) / 255.0F;
+        this.fadeTargetGreen = (float)((rgb & 65280) >> 8) / 255.0F;
+        this.fadeTargetBlue = (float)((rgb & 255) >> 0) / 255.0F;
+        this.fadingColor = true;
+    }
 
 	@Override
 	public void onUpdate() {
@@ -113,6 +131,20 @@ public class EtFuturumFXParticle extends EntityFX {
 				}
 			}
 		}
+
+        if (particleAge > particleMaxAge / 2)
+        {
+        	if(fadeAway) {
+                setAlphaF(1.0F - ((float)particleAge - (float)(particleMaxAge / 2)) / (float)particleMaxAge);
+        	}
+
+            if (fadingColor)
+            {
+                particleRed += (fadeTargetRed - particleRed) * 0.2F;
+                particleGreen += (fadeTargetGreen - particleGreen) * 0.2F;
+                particleBlue += (fadeTargetBlue - particleBlue) * 0.2F;
+            }
+        }
 	}
 
 }

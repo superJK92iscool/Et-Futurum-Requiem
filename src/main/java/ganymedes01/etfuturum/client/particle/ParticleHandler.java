@@ -79,7 +79,7 @@ public enum ParticleHandler {
 
 		@Override
 		protected Object[] getAdditionalArgs(World world, Object... data) {
-			return new Object[] { 60 + rand.nextInt(12), .1F, 0xFFFFFFFF, texture, 8 };
+			return new Object[] { 60 + rand.nextInt(12), .075F, 0xFFFFFFFF, texture, 8 };
 		}
 	};
 	
