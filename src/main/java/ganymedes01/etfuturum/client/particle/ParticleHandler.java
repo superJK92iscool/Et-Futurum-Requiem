@@ -70,6 +70,17 @@ public enum ParticleHandler {
 		protected Object[] getAdditionalArgs(World world, Object... data) {
 			return new Object[] { 15, 0.075F + (rand.nextFloat() * 0.125F), 0xFFFFFFFF, texture, 1 };
 		}
+	},
+	
+	END_ROD(EndRodFX.class, ParticleData.VX_VY_VZ, int.class, float.class, int.class, ResourceLocation.class,
+			int.class) {
+		private final ResourceLocation texture = new ResourceLocation(
+				"minecraft:textures/particle/glitter.png");
+
+		@Override
+		protected Object[] getAdditionalArgs(World world, Object... data) {
+			return new Object[] { 60 + rand.nextInt(12), .1F, 0xFFFFFFFF, texture, 8 };
+		}
 	};
 	
 	protected static Random rand = new Random();

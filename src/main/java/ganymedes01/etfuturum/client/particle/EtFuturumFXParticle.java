@@ -12,14 +12,17 @@ import net.minecraft.world.World;
 
 public class EtFuturumFXParticle extends EntityFX {
 
-	private ResourceLocation particleTexture;
-	private float scale;
-	private int color;
-	private int textures;
-	private double relativeTextureHeight;
-	private int currentTexture = 0;
-	private int textureCounter = 0;
-	private float entityBrightness;
+	protected ResourceLocation particleTexture;
+	protected float scale;
+	protected int color;
+	protected int textures;
+	protected double relativeTextureHeight;
+	protected int currentTexture = 0;
+	protected int textureCounter = 0;
+	protected float entityBrightness;
+	private final String textureName;
+	
+	protected boolean usesSheet;
 	
 	protected static Random particleRand = new Random();
 	
@@ -32,13 +35,19 @@ public class EtFuturumFXParticle extends EntityFX {
 		this.motionX = this.motionX * 0.009999999776482582D + mx;
 		this.motionY = this.motionY * 0.009999999776482582D + my;
 		this.motionZ = this.motionZ * 0.009999999776482582D + mz;
-		this.particleMaxAge = (int) (8.0D / (Math.random() * 0.8D + 0.2D)) + 4;
+		this.particleMaxAge = maxAge;
 		this.noClip = true;
 		this.color = color;
 		this.scale = scale;
 		this.textures = textures;
-		this.relativeTextureHeight = 1.0D / this.textures;
+		this.relativeTextureHeight = usesSheet ? (1.0D / this.textures) : 1;
 		this.particleTexture = texture;
+		this.usesSheet = true;
+		if(texture != null) {
+			textureName = texture.getResourcePath();
+		} else {
+			textureName = "null";
+		}
 	}
 
 	@Override
@@ -49,6 +58,18 @@ public class EtFuturumFXParticle extends EntityFX {
 		float ipz = (float) ((this.prevPosZ + (this.posZ - this.prevPosZ) * partialTicks) - EntityFX.interpPosZ);
 
 		int prevTex = GL11.glGetInteger(GL11.GL_TEXTURE_BINDING_2D);
+		
+		if(!usesSheet) {
+			String domain = particleTexture.getResourceDomain();
+
+	        if (domain == null || domain.length() == 0)
+	        {
+	            domain = "minecraft";
+	        }
+			particleTexture = new ResourceLocation(domain + ":" +
+	        textureName.substring(0, textureName.length()-4) + "_" + currentTexture + textureName.substring(textureName.length()-4, textureName.length()));
+		}
+		
 		Minecraft.getMinecraft().getTextureManager().bindTexture(this.particleTexture);
 
 		float a = (this.color >> 24 & 0xff) / 255F;
@@ -56,17 +77,18 @@ public class EtFuturumFXParticle extends EntityFX {
 		float g = (this.color >> 8 & 0xff) / 255F;
 		float b = (this.color & 0xff) / 255F;
 
+		int prevCurrentTexture = usesSheet ? currentTexture : 0;
 		par1Tessellator.startDrawingQuads();
 		par1Tessellator.setBrightness(getBrightnessForRender(entityBrightness));
 		par1Tessellator.setColorRGBA_F(r, g, b, a);
 		par1Tessellator.addVertexWithUV(ipx - rx * this.scale - ryz * this.scale, ipy - rxz * this.scale,
-				ipz - rz * this.scale - rxy * this.scale, 1.0D, (this.currentTexture + 1) * this.relativeTextureHeight);
+				ipz - rz * this.scale - rxy * this.scale, 1.0D, (prevCurrentTexture + 1) * this.relativeTextureHeight);
 		par1Tessellator.addVertexWithUV(ipx - rx * this.scale + ryz * this.scale, ipy + rxz * this.scale,
-				ipz - rz * this.scale + rxy * this.scale, 1.0D, this.currentTexture * this.relativeTextureHeight);
+				ipz - rz * this.scale + rxy * this.scale, 1.0D, prevCurrentTexture * this.relativeTextureHeight);
 		par1Tessellator.addVertexWithUV(ipx + rx * this.scale + ryz * this.scale, ipy + rxz * this.scale,
-				ipz + rz * this.scale + rxy * this.scale, 0.0D, this.currentTexture * this.relativeTextureHeight);
+				ipz + rz * this.scale + rxy * this.scale, 0.0D, prevCurrentTexture * this.relativeTextureHeight);
 		par1Tessellator.addVertexWithUV(ipx + rx * this.scale - ryz * this.scale, ipy - rxz * this.scale,
-				ipz + rz * this.scale - rxy * this.scale, 0.0D, (this.currentTexture + 1) * this.relativeTextureHeight);
+				ipz + rz * this.scale - rxy * this.scale, 0.0D, (prevCurrentTexture + 1) * this.relativeTextureHeight);
 		par1Tessellator.draw();
 
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, prevTex);
@@ -81,7 +103,7 @@ public class EtFuturumFXParticle extends EntityFX {
 	public void onUpdate() {
 		super.onUpdate();
 		entityBrightness = worldObj.getLightBrightness((int)posX, (int)posY, (int)posZ);
-		if (!this.onGround) {
+		if (!this.onGround && usesSheet) {
 			this.textureCounter++;
 			if (this.textureCounter >= 3) {
 				this.textureCounter = 0;
