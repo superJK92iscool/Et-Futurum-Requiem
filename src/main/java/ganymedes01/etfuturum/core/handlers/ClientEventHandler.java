@@ -268,7 +268,7 @@ public class ClientEventHandler {
 		if(event.sound != null && event.name != null && cpw.mods.fml.client.FMLClientHandler.instance().getWorldClient() != null
 				&& FMLCommonHandler.instance().getSide() == Side.CLIENT) {
 				String[] eventwithprefix = event.name.split("\\.");
-			if (ConfigurationHandler.enableNewBlocksSounds && event.name.contains(".") &&
+			if (ConfigurationHandler.enableNewBlocksSounds && eventwithprefix.length > 1 &&
 					eventwithprefix[1].equals(Blocks.stone.stepSound.soundName)
 					&& event.sound.getPitch() < 1.0F) {
 				World world = cpw.mods.fml.client.FMLClientHandler.instance().getWorldClient();
@@ -389,21 +389,23 @@ public class ClientEventHandler {
 				&& event.entity != null && event.name.contains("step") && event.name.equals("step.stone")
 				&& event.name.contains(".")) {
 			String[] eventwithprefix = event.name.split("\\.");
-			int x = MathHelper.floor_double(event.entity.posX);
-			int y = MathHelper.floor_double(event.entity.posY - 0.20000000298023224D - event.entity.yOffset);
-			int z = MathHelper.floor_double(event.entity.posZ);
-			World world = event.entity.worldObj;
-			Block block = world.getBlock(x, y, z);
-			Item itemblock = Item.getItemFromBlock(block);
-			if(itemblock == null)
-				return;
-			String name = itemblock.getUnlocalizedName(new ItemStack(itemblock, 1, world.getBlockMetadata(x, y, z) % 8)).toLowerCase();
-			if(name.contains("slab") && name.contains("nether") && name.contains("brick")) {
-				//String prefix = event.name.substring(0, event.name.indexOf(".") + 1); // unused variable
-				//float soundPit = (block.stepSound.getPitch()) * (prefix.contains("step") ? 0.5F : 0.8F); // unused variable
-				//float soundVol = (block.stepSound.getVolume() + 1.0F) / (prefix.contains("step") ? 8F : 2F); // unused variable
-				event.name = Reference.MOD_ID + ":" + eventwithprefix[0] + ".nether_bricks";
-				return;
+			if(eventwithprefix.length > 1) {
+				int x = MathHelper.floor_double(event.entity.posX);
+				int y = MathHelper.floor_double(event.entity.posY - 0.20000000298023224D - event.entity.yOffset);
+				int z = MathHelper.floor_double(event.entity.posZ);
+				World world = event.entity.worldObj;
+				Block block = world.getBlock(x, y, z);
+				Item itemblock = Item.getItemFromBlock(block);
+				if(itemblock == null)
+					return;
+				String name = itemblock.getUnlocalizedName(new ItemStack(itemblock, 1, world.getBlockMetadata(x, y, z) % 8)).toLowerCase();
+				if(name.contains("slab") && name.contains("nether") && name.contains("brick")) {
+					//String prefix = event.name.substring(0, event.name.indexOf(".") + 1); // unused variable
+					//float soundPit = (block.stepSound.getPitch()) * (prefix.contains("step") ? 0.5F : 0.8F); // unused variable
+					//float soundVol = (block.stepSound.getVolume() + 1.0F) / (prefix.contains("step") ? 8F : 2F); // unused variable
+					event.name = Reference.MOD_ID + ":" + eventwithprefix[0] + ".nether_bricks";
+					return;
+				}
 			}
 		}
 	}
