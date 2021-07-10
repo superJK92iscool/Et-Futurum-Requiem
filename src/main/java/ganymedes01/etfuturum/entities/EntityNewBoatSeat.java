@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import ganymedes01.etfuturum.configuration.ConfigurationHandler;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -58,7 +59,7 @@ public class EntityNewBoatSeat extends Entity {
 	@Override
 	public void onUpdate() {
 		
-		if(isDead || !worldObj.getChunkFromBlockCoords((int)posX, (int)posZ).isChunkLoaded) {
+		if(isDead || !worldObj.getChunkFromBlockCoords((int)posX, (int)posZ).isChunkLoaded || !ConfigurationHandler.newBoatPassengerSeat) {
 			return;
 		}
 		

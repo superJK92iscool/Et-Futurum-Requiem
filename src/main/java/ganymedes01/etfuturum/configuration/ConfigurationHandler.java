@@ -118,6 +118,7 @@ public class ConfigurationHandler {
 	public static boolean replaceOldBoats;
 	public static float boatMaxLandSpeed;
 	public static boolean fullGrassPath;
+	public static boolean newBoatPassengerSeat;
 
 	public static boolean enableNewNetherBricks;
 	public static boolean enableNetherwartBlock;
@@ -335,8 +336,9 @@ public class ConfigurationHandler {
 //        enableDyeReplacement = cfg.getBoolean("enableDyeReplacement", catFunction, true, "Removes lapis, bone meal, ink sac and cocoa bean's ore dictionary entries as dyes, making the Et Futurum dyes the dyes instead. Disable if this causes weirdisms with modded recipes. (If false both items can be used)");
 		enableExtraCopper = cfg.getBoolean("enableExtraCopper", catFunction, true, "If true, copper will drop 2-3 and fortune will yield more than normal.");
 		registerRawItemAsOre = cfg.getBoolean("registerRawItemAsOre", catFunction, true, "Registers raw ores as \"ore____\" in the OreDictionary. Configurable in case it causes crafting issues.");
-		replaceOldBoats = cfg.getBoolean("replaceOldBoats", catFunction, true, "If true, old boats will be replaced with the new oak boat and the item sprite will also be changned. False means the new and old boat and item for it exists separately, and the new boats will use a wooden shovel in their crafting recipe. If this is enabled, a boat that has an entity in it will not be replaced until the entity gets out.");
+		replaceOldBoats = cfg.getBoolean("replaceOldBoats", catFunction, true, "If true, old boats will be replaced with the new oak boat and the item sprite will also be changned. False means the new and old boat and item for it exists separately, and the new boats will use a wooden shovel in their crafting recipe. If this is enabled, a boat that has an entity in it will not be replaced until the entity gets out. THIS WILL NOT WORK PROPERLY WITH BETTER BOATS INSTALLED");
 		boatMaxLandSpeed = cfg.getFloat("boatMaxLandSpeed", catFunction, 0.986F, 0.1F, Float.POSITIVE_INFINITY, "The maximum speed a boat can travel by while on land. This option exists because boats are very very fast when travelling on slippery blocks. Land speed = 0.6, Regular/Packed Ice Speed = 0.98, Packed Ice Speed = 0.986. Anything smaller than 0.6 is really, REALLY slow on land. Any value above 1 is exponential speed growth, and is discouraged. (Quicksoil from Aether Legacy is 1.1) The speed values are just block slipperiness values, and are averaged by the slippery blocks around the bottom of the boat.");
+		newBoatPassengerSeat = cfg.getBoolean("newBoatPassengerSeat", catFunction, true, "If disabled, only one person can sit in the passenger seat at a time.");
 		fullGrassPath = cfg.getBoolean("fullGrassPath", catFunction, false, "Set to true if you're having issues with stepping over grass paths. Temporary option until fixes are implemented to 1.7's stepping system.");
 		
 		
@@ -370,7 +372,7 @@ public class ConfigurationHandler {
 		maxMagmaPerCluster = cfg.getInt("maxMagmaPerCluster", catWorld, 33, 0, 64, "Max vein size for magma blocks in a cluster");
 		maxCopperPerCluster = cfg.getInt("copperClusterSize", catWorld, 14, 0, 64, "Max vein size for copper ore blocks in a cluster");
 		maxDeepslatePerCluster = cfg.getInt("deepslateClusterSize", catWorld, 64, 0, 128, "If deepslateGenerationMode is set to 1, this value is used to determine how big the clusters are. Otherwise this value is unused.");
-		deepslateMaxY = cfg.getInt("deepslateMaxY", catWorld, 22, 0, 256, "How high up deelslate and tuff goes. If deepslateGenerationMode is 0, all stone up to this y level (with a scattering effect a few blocks before then) are replaced with deepslate. If it's 1, the patches can generate to that Y level.");
+		deepslateMaxY = cfg.getInt("deepslateMaxY", catWorld, 22, 0, 256, "How high up deepslate and tuff goes. If deepslateGenerationMode is 0, all stone up to this y level (with a scattering effect a few blocks before then) are replaced with deepslate. If it's 1, the patches can generate to that Y level.");
 		deepslateReplacesStones = cfg.getBoolean("deepslateReplacesStones", catWorld, true, "Whether or not Deepslate will overwrite granite, diorite, andesite (Only works when deepslate generation mode is set to 0)");
 		deepslateReplacesDirt = cfg.getBoolean("deepslateReplacesDirt", catWorld, true, "Whether or not Deepslate will overwrite dirt (Only works when deepslate generation mode is set to 0)");
 		deepslateGenerationMode = cfg.getInt("deepslateGenerationMode", catWorld, 0, -1, 1, "If 0, deepslate replaces all stone below the specified value. If 1, it generates in clusters using the above cluster settings. -1 disables deepslate generation entirely");

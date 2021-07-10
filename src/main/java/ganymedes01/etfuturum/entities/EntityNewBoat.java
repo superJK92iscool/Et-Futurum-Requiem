@@ -302,7 +302,7 @@ public class EntityNewBoat extends Entity {
                 super.applyEntityCollision(entityIn);
             }
         }
-    	if (entityIn instanceof EntityNewBoatSeat || getPassengers().contains(entityIn))
+    	if (entityIn instanceof EntityNewBoatSeat || getPassengers().contains(entityIn) || entityIn.ridingEntity instanceof EntityNewBoat || entityIn.ridingEntity instanceof EntityNewBoatSeat)
     		return;
         else if (entityIn.boundingBox.minY <= this.boundingBox.minY)
         {
@@ -388,7 +388,7 @@ public class EntityNewBoat extends Entity {
         //TODO add option for no passenger seat and don't run this code
     	
     	//This causes the boat to not fall for some reason!
-        if(!worldObj.isRemote && !hasSeat()) {
+        if(!worldObj.isRemote && !hasSeat() && ConfigurationHandler.newBoatPassengerSeat) {
     		EntityNewBoatSeat newSeat;
         	if(seatToSpawn == null) {
         		newSeat = new EntityNewBoatSeat(worldObj, this);
@@ -931,12 +931,6 @@ public class EntityNewBoat extends Entity {
         passenger.setPosition(this.posX + vec3d.xCoord, this.posY + (double)f1, this.posZ + vec3d.zCoord);
         passenger.rotationYaw += this.deltaRotation;
         this.applyYawToEntity(passenger);
-        if (passenger instanceof EntityAnimal && this.getPassengers().size() > 1)
-        {
-            int j = passenger.getEntityId() % 2 == 0 ? 90 : 270;
-            ((EntityAnimal)passenger).renderYawOffset = ((EntityAnimal)passenger).renderYawOffset + (float)j;
-            passenger.setRotationYawHead(passenger.getRotationYawHead() + (float)j);
-        }
     }
 
     /**
@@ -944,18 +938,20 @@ public class EntityNewBoat extends Entity {
      */
     protected void applyYawToEntity(Entity entityToUpdate)
     {
-        float f = MathHelper.wrapAngleTo180_float(entityToUpdate.rotationYaw - this.rotationYaw);
-        float f1 = MathHelper.clamp_float(f, -105.0F, 105.0F);
+        int j = 0;
+        if (entityToUpdate instanceof EntityAnimal && this.getPassengers().size() > 1) {
+        	j = entityToUpdate.getEntityId() % 2 == 0 ? 90 : 270;
+        }
+        float f = MathHelper.wrapAngleTo180_float(((EntityLivingBase)entityToUpdate).rotationYawHead - this.rotationYaw) + j;
+        float f1 = MathHelper.clamp_float(f, -105.0F + j, 105.0F + j % 360);
         entityToUpdate.prevRotationYaw += f1 - f;
         entityToUpdate.rotationYaw += f1 - f;
-    	if(entityToUpdate instanceof EntityLivingBase) {
-            f = MathHelper.wrapAngleTo180_float(((EntityLivingBase)entityToUpdate).rotationYawHead - this.rotationYaw);
-            f1 = MathHelper.clamp_float(f, -105.0F, 105.0F);
+        if (entityToUpdate instanceof EntityLivingBase) {
             ((EntityLivingBase)entityToUpdate).rotationYawHead += f1 - f;
             ((EntityLivingBase)entityToUpdate).prevRotationYawHead += f1 - f;
-            ((EntityLivingBase)entityToUpdate).renderYawOffset = this.rotationYaw;
-            ((EntityLivingBase)entityToUpdate).prevRenderYawOffset = this.rotationYaw;
-    	}
+            ((EntityLivingBase)entityToUpdate).renderYawOffset = this.rotationYaw + j;
+            ((EntityLivingBase)entityToUpdate).prevRenderYawOffset = this.rotationYaw + j;
+        }
     }
  
     /**
@@ -968,7 +964,7 @@ public class EntityNewBoat extends Entity {
             this.setBoatType(EntityNewBoat.Type.getTypeFromString(compound.getString("Type")));
         }
 
-        if(compound.hasKey("Seat") && !worldObj.isRemote) { //TODO add seat config
+        if(compound.hasKey("Seat") && !worldObj.isRemote && ConfigurationHandler.newBoatPassengerSeat) { //TODO add seat config
             Entity entity = EntityList.createEntityFromNBT(compound.getCompoundTag("Seat"), worldObj);
             if(entity instanceof EntityNewBoatSeat && entity.riddenByEntity == null) {
             	((EntityNewBoatSeat)entity).setBoat(this);
@@ -984,7 +980,7 @@ public class EntityNewBoat extends Entity {
     protected void writeEntityToNBT(NBTTagCompound compound)
     {
         compound.setString("Type", this.getBoatType().getName());
-        if(hasSeat()) {
+        if(hasSeat() && ConfigurationHandler.newBoatPassengerSeat) {
             String s = EntityList.getEntityString(seat);
         	NBTTagCompound seatData = new NBTTagCompound();
 
