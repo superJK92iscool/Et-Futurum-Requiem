@@ -16,6 +16,7 @@ import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
 import net.minecraftforge.common.config.ConfigCategory;
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.common.config.Property;
 
 public class ConfigBase {
 
@@ -83,6 +84,7 @@ public class ConfigBase {
 	public static boolean enableFossils;
 	public static Block fossilBoneBlock;
 	public static int maxTuffPerCluster;
+	public static int[] fossilDimensionBlacklist;
 
 	public static boolean enableTileReplacement;
 	public static int maxStonesPerCluster;
@@ -311,6 +313,9 @@ public class ConfigBase {
 		int m  = cfg.getInt("fossilBoneBlock", catWorldLegacy, 0, 0, 2, "0 = Et Futurum bone block, 1 = Netherlicious bone block, 2 = UpToDateMod bone block. If mod is not installed Et Futurum bone block will be used instead");
 		Block block = m == 1 ? block = GameRegistry.findBlock("netherlicious", "BoneBlock") : GameRegistry.findBlock("uptodate", "bone_block");
 		fossilBoneBlock = m == 0 || block == null ? ModBlocks.bone_block : block;
+		Property prop = cfg.get(catWorldLegacy, "fossilDimensionBlacklist", new int[] {-1, 1});
+		prop.comment = "The dimensions the fossil structures should not spawn in.";
+		fossilDimensionBlacklist = prop.getIntList();
 		maxTuffPerCluster = cfg.getInt("tuffClusterSize", catWorldLegacy, 48, 0, 64, "Max vein size for tuff blocks in a cluster");
 //        enableNewNether = cfg.getBoolean("enableNewNether", catWorld, true, "When false, the new Nether completely stops to generate, regardless of if the new Nether blocks are on. (Will be ignored if Netherlicious is installed)");
 		

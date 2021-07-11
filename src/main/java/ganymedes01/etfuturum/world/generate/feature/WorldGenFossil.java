@@ -3,6 +3,7 @@ package ganymedes01.etfuturum.world.generate.feature;
 import java.util.Random;
 
 import ganymedes01.etfuturum.configuration.ConfigBase;
+import ganymedes01.etfuturum.entities.ai.BlockPos;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -17,11 +18,40 @@ public class WorldGenFossil extends WorldGenerator {
 
 	public boolean generateSpecificFossil(World world, Random random, int x, int y, int z, int rotation, int type, boolean hasCoal) {
 		Fossil fossil = getFossilFromType(type);
-		if(fossil != null) {
+		if(fossil != null && canFossilGenerateHere(world, x, y, z, fossil)) {
 			fossil.build(world, random, x, y, z, type, rotation, hasCoal);
 			return true;
 		}
 		return false;
+	}
+	
+	private boolean canFossilGenerateHere(World world, int x, int y, int z, Fossil fossil) {
+		int air = 0;
+		if(world.isAirBlock(x, y, z) ) {
+			air++;
+		}
+		if(world.isAirBlock(x + fossil.getCorners()[0], y, z) ) {
+			air++;
+		}
+		if(world.isAirBlock(x, y, z + fossil.getCorners()[2]) ) {
+			air++;
+		}
+		if(world.isAirBlock(x + fossil.getCorners()[0], y, z + fossil.getCorners()[2]) ) {
+			air++;
+		}
+		if(world.isAirBlock(x, y + fossil.getCorners()[1], z) ) {
+			air++;
+		}
+		if(world.isAirBlock(x + fossil.getCorners()[0], y + fossil.getCorners()[1], z) ) {
+			air++;
+		}
+		if(world.isAirBlock(x, y + fossil.getCorners()[1], z + fossil.getCorners()[2]) ) {
+			air++;
+		}
+		if(world.isAirBlock(x + fossil.getCorners()[0], y + fossil.getCorners()[1], z + fossil.getCorners()[2]) ) {
+			air++;
+		}
+		return air < 4;
 	}
 	
 	@Override
@@ -44,6 +74,8 @@ public class WorldGenFossil extends WorldGenerator {
 	}
 	
 public static abstract class Fossil {
+	
+	protected int[] corners;
 	
 	public Fossil() {
 	}
@@ -84,7 +116,6 @@ public static abstract class Fossil {
 							} else {
 								world.setBlock(i, j, k, block, meta, flag);
 							}
-//                          System.out.println(i + " " + j + " " + k);
 						}
 					}
 				}
@@ -92,6 +123,10 @@ public static abstract class Fossil {
 		}
 	}
 
+	/**
+	 * Three ints for the corners of the fossil. First is max X, second is max Y, third is max Z
+	 */
+	public abstract int[] getCorners();
 	
 	public abstract void build(World world, Random rand, int x, int y, int z, int type, int rotation, boolean hasCoal);
 	
@@ -127,6 +162,14 @@ public class Fossil_Skull_1 extends Fossil {
 		fillBlocks(world, bone, x, y, z, 2, 1, 6, 2, 3, 1, rotation, 3, hasCoal, rand, facing);
 		fillBlocks(world, bone, x, y, z, 4, 1, 6, 1, 3, 1, 0, 3, hasCoal, rand, facing);
 	}
+
+	@Override
+	public int[] getCorners() {
+		if(corners == null) {
+			corners = new int[] {5, 4, 6};
+		}
+		return corners;
+	}
 }
 
 public class Fossil_Skull_2 extends Fossil {
@@ -158,6 +201,14 @@ public class Fossil_Skull_2 extends Fossil {
 
 		fillBlocks(world, bone, x, y, z, 1, 4, 1, 5, 1, 3, rotation, 3, hasCoal, rand, facing);
 	}
+
+	@Override
+	public int[] getCorners() {
+		if(corners == null) {
+			corners = new int[] {6, 4, 4};
+		}
+		return corners;
+	}
 }
 
 public class Fossil_Skull_3 extends Fossil {
@@ -182,6 +233,14 @@ public class Fossil_Skull_3 extends Fossil {
 		fillBlocks(world, bone, x, y, z, 0, 3, 0, 1, 1, 1, rotation, 3, hasCoal, rand, facing);
 		fillBlocks(world, bone, x, y, z, 1, 3, 0, 3, 1, 4, rotation, 3, hasCoal, rand, facing);
 	}
+
+	@Override
+	public int[] getCorners() {
+		if(corners == null) {
+			corners = new int[] {4, 3, 4};
+		}
+		return corners;
+	}
 }
 
 public class Fossil_Skull_4 extends Fossil {
@@ -203,6 +262,14 @@ public class Fossil_Skull_4 extends Fossil {
 		fillBlocks(world, bone, x, y, z, 1, 3, 0, 2, 1, 3, rotation, 3, hasCoal, rand, facing);
 		fillBlocks(world, bone, x, y, z, 0, 3, 0, 1, 1, 1, rotation, 3, hasCoal, rand, facing);
 		fillBlocks(world, bone, x, y, z, 3, 3, 0, 1, 1, 1, rotation, 3, hasCoal, rand, facing);
+	}
+
+	@Override
+	public int[] getCorners() {
+		if(corners == null) {
+			corners = new int[] {3, 3, 3};
+		}
+		return corners;
 	}
 }
 
@@ -228,6 +295,14 @@ public class Fossil_Spine_1 extends Fossil {
 		fillBlocks(world, bone, x, y, z, 2, 0, 11, 1, 2, 1, 0, 3, hasCoal, rand, facing);
 
 		fillBlocks(world, bone, x, y, z, 1, 2, 0, 1, 1, 13, rotation2, 3, hasCoal, rand, facing);
+	}
+
+	@Override
+	public int[] getCorners() {
+		if(corners == null) {
+			corners = new int[] {2, 2, 12};
+		}
+		return corners;
 	}
 }
 
@@ -282,6 +357,14 @@ public class Fossil_Spine_2 extends Fossil {
 
 		fillBlocks(world, bone, x, y, z, 2, 3, 0, 1, 1, 13, rotation2, 3, hasCoal, rand, facing);
 	}
+
+	@Override
+	public int[] getCorners() {
+		if(corners == null) {
+			corners = new int[] {4, 3, 12};
+		}
+		return corners;
+	}
 }
 
 public class Fossil_Spine_3 extends Fossil {
@@ -335,6 +418,14 @@ public class Fossil_Spine_3 extends Fossil {
 		
 		fillBlocks(world, bone, x, y, z, 3, 3, 0, 1, 1, 13, rotation2, 3, hasCoal, rand, facing);
 	}
+
+	@Override
+	public int[] getCorners() {
+		if(corners == null) {
+			corners = new int[] {6, 3, 12};
+		}
+		return corners;
+	}
 }
 
 public class Fossil_Spine_4 extends Fossil {
@@ -387,6 +478,14 @@ public class Fossil_Spine_4 extends Fossil {
 		fillBlocks(world, bone, x, y, z, 5, 4, 11, 4, 1, 1, rotation, 3, hasCoal, rand, facing);
 		
 		fillBlocks(world, bone, x, y, z, 4, 4, 0, 1, 1, 13, rotation2, 3, hasCoal, rand, facing);
+	}
+
+	@Override
+	public int[] getCorners() {
+		if(corners == null) {
+			corners = new int[] {8, 4, 12};
+		}
+		return corners;
 	}
 }
 }

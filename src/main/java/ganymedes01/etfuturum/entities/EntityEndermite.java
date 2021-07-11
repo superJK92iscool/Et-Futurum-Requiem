@@ -131,7 +131,7 @@ public class EntityEndermite extends EntityMob {
 				setDead();
 		}
 
-		if (isSpawnedByPlayer() && ticksExisted % 20 == 0) {
+		if (!isDead && isSpawnedByPlayer() && ticksExisted % 20 == 0) {
 			aggroEndermen(64);
 		}
 	}
@@ -143,7 +143,7 @@ public class EntityEndermite extends EntityMob {
 			List<EntityEnderman> list = worldObj.getEntitiesWithinAABBExcludingEntity(this, AxisAlignedBB.getBoundingBox(posX - radius, posY - 4, posZ - radius, posX + radius, posY + 4, posZ + radius), new IEntitySelector() {
 				@Override
 				public boolean isEntityApplicable(Entity entity) {
-					return entity instanceof EntityEnderman && ((EntityEnderman)entity).getAttackTarget() == null;
+					return entity instanceof EntityEnderman && ((EntityEnderman)entity).getEntityToAttack() == null;
 				}
 			});
 			Collections.sort(list, sorter);

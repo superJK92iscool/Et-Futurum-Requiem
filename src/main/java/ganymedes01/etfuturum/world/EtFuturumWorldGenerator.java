@@ -87,6 +87,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 						flowers.get(1).generate(world, rand, x, rand.nextInt(world.getHeightValue(x, z) * 2), z);
 					}
 				}
+				
 				if(ConfigBlocksItems.enableSweetBerryBushes) {
 					x = chunkX * 16 + rand.nextInt(16);
 					z = chunkZ * 16 + rand.nextInt(16);
@@ -96,12 +97,15 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 						flowers.get(2).generate(world, rand, x, rand.nextInt(world.getHeightValue(x, z) * 2), z);
 					}
 				}
-				x = chunkX * 16 + rand.nextInt(16);
-				z = chunkZ * 16 + rand.nextInt(16);
-				biome = world.getBiomeGenForCoords(x, z);
-				biomeList = BiomeDictionary.getTypesForBiome(biome);
-				if(ConfigBase.enableFossils && rand.nextInt(64) == 0 && (ArrayUtils.contains(biomeList, Type.SANDY) && ArrayUtils.contains(biomeList, Type.DRY) || ArrayUtils.contains(biomeList, Type.SWAMP))) {
-					new WorldGenFossil().generate(world, rand, x, rand.nextInt(9) + 41, z);
+				
+				if(!ArrayUtils.contains(ConfigBase.fossilDimensionBlacklist, world.provider.dimensionId)) {
+					x = chunkX * 16 + rand.nextInt(16);
+					z = chunkZ * 16 + rand.nextInt(16);
+					biome = world.getBiomeGenForCoords(x, z);
+					biomeList = BiomeDictionary.getTypesForBiome(biome);
+					if(ConfigBase.enableFossils && rand.nextInt(64) == 0 && (ArrayUtils.contains(biomeList, Type.SANDY) && ArrayUtils.contains(biomeList, Type.DRY) || ArrayUtils.contains(biomeList, Type.SWAMP))) {
+						new WorldGenFossil().generate(world, rand, x, rand.nextInt(9) + 41, z);
+					}
 				}
 			}
 		}
