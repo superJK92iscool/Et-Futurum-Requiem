@@ -637,7 +637,6 @@ public class ServerEventHandler {
 										player.swingItem();
 										if(!world.isRemote) {
 											world.setBlock(x, y, z, ModBlocks.grass_path);
-											event.setResult(Result.ALLOW);
 											heldStack.damageItem(1, player);
 											world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, Block.soundTypeGravel.getStepResourcePath(), 1.0F, 0.8F);
 										}
@@ -659,7 +658,6 @@ public class ServerEventHandler {
 											if(!world.isRemote) {
 												int logMeta = meta;
 												world.setBlock(x, y, z, newBlock, logMeta, 2);
-												event.setResult(Result.ALLOW);
 												heldStack.damageItem(1, player);
 												world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, Reference.MOD_ID + ":item.axe.strip", 1.0F, 0.8F);
 											}
