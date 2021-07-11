@@ -2,19 +2,17 @@
 {
   "modid": "etfuturum",
   "name": "Et Futurum Requiem",
-  "description": "A mod dedicated to bring future features to 1.7.10... and it's back!",
-  "version": "${version}",
-  "url": "",
+  "description": "",
+  "version": "",
+  "mcversion": "",
+  "url": "https://www.curseforge.com/minecraft/mc-mods/et-futurum-requiem",
   "updateUrl": "",
   "authorList": [
     "ganymedes01", "Roadhog360", "jss2a98aj", "KryptonCaptain"
   ],
   "credits": "",
   "logoFile": "",
-  "screenshots": [
-  ],
-  "parent":"",
-  "dependencies": [
-  ]
+  "screenshots": [],
+  "dependencies": []
 }
 ]
