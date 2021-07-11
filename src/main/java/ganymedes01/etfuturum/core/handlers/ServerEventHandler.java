@@ -633,7 +633,7 @@ public class ServerEventHandler {
 			        		if(heldStack.getItem() != null) {
 								Set<String> toolClasses = heldStack.getItem().getToolClasses(heldStack);
 								if (toolClasses != null) {
-									if (ConfigBlocksItems.enableGrassPath && toolClasses.contains("shovel") && (oldBlock == Blocks.grass || oldBlock == Blocks.dirt || oldBlock == Blocks.mycelium)) {
+									if (ConfigBlocksItems.enableGrassPath && !world.getBlock(x, y + 1, z).getMaterial().isSolid() && toolClasses.contains("shovel") && (oldBlock == Blocks.grass || oldBlock == Blocks.dirt || oldBlock == Blocks.mycelium)) {
 										player.swingItem();
 										if(!world.isRemote) {
 											world.setBlock(x, y, z, ModBlocks.grass_path);
