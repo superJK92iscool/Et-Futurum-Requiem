@@ -7,7 +7,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
-import ganymedes01.etfuturum.configuration.ConfigurationHandler;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.BlockSign;
 import net.minecraft.init.Blocks;
@@ -64,7 +64,7 @@ public class BlockWoodSign extends BlockSign implements IConfigurable {
 //          return false;
 //      if(meta == 7 && !EtFuturum.enableWarpedBlocks)
 //          return false;
-		return ConfigurationHandler.enableSigns;
+		return ConfigBlocksItems.enableSigns;
 	}
 
 }

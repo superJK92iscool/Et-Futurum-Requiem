@@ -6,7 +6,8 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.configuration.ConfigurationHandler;
+import ganymedes01.etfuturum.configuration.ConfigBase;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -24,7 +25,7 @@ public class BlockCutCopperSlab extends BlockGenericSlab implements IConfigurabl
 		setBlockName(Utils.getUnlocalisedName("cut_copper_slab"));
 		setBlockTextureName("cut_copper");
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
-		setStepSound(ConfigurationHandler.enableNewBlocksSounds ? ModSounds.soundCopper : Block.soundTypeMetal);
+		setStepSound(ConfigBase.enableNewBlocksSounds ? ModSounds.soundCopper : Block.soundTypeMetal);
 		setTickRandomly(true);
 	}
 	
@@ -43,7 +44,7 @@ public class BlockCutCopperSlab extends BlockGenericSlab implements IConfigurabl
 
 	@Override
 	public boolean isEnabled() {
-		return ConfigurationHandler.enableCopper;
+		return ConfigBlocksItems.enableCopper;
 	}
 
 	@Override

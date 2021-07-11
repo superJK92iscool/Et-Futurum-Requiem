@@ -6,7 +6,7 @@ import java.util.HashMap;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
-import ganymedes01.etfuturum.configuration.ConfigurationHandler;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -21,7 +21,7 @@ public class ItemRabbitFoot extends Item implements IConfigurable {
 		setUnlocalizedName(Utils.getUnlocalisedName("rabbit_foot"));
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
 
-		if (ConfigurationHandler.enableRabbit)
+		if (ConfigBlocksItems.enableRabbit)
 			try {
 				Field f = ReflectionHelper.findField(PotionHelper.class, "potionRequirements", "field_77927_l");
 				f.setAccessible(true);
@@ -53,6 +53,6 @@ public class ItemRabbitFoot extends Item implements IConfigurable {
 
 	@Override
 	public boolean isEnabled() {
-		return ConfigurationHandler.enableRabbit;
+		return ConfigBlocksItems.enableRabbit;
 	}
 }

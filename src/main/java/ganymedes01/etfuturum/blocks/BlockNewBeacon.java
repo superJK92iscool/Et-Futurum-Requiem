@@ -6,7 +6,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
-import ganymedes01.etfuturum.configuration.ConfigurationHandler;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.tileentities.TileEntityNewBeacon;
 import net.minecraft.block.BlockBeacon;
@@ -42,6 +42,6 @@ public class BlockNewBeacon extends BlockBeacon implements IConfigurable {
 
 	@Override
 	public boolean isEnabled() {
-		return ConfigurationHandler.enableColourfulBeacons;
+		return ConfigBlocksItems.enableColourfulBeacons;
 	}
 }

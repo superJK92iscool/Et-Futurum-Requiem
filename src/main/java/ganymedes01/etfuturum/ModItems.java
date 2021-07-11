@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cpw.mods.fml.common.registry.GameRegistry;
-import ganymedes01.etfuturum.configuration.ConfigurationHandler;
+import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.entities.EntityNewBoat;
 import ganymedes01.etfuturum.items.*;
 import ganymedes01.etfuturum.items.block.ItemWoodSign;
@@ -21,8 +21,8 @@ import net.minecraftforge.common.util.EnumHelper;
 
 public class ModItems {
 	
-	public static final Item.ToolMaterial NETHERITE_TOOL = EnumHelper.addToolMaterial("Netherite_Tool", ConfigurationHandler.netheriteHarvestLevel, ConfigurationHandler.netheriteToolDurability, ConfigurationHandler.netheriteSpeed, ConfigurationHandler.netheriteDamageBase, ConfigurationHandler.netheriteEnchantability);
-	public static final ItemArmor.ArmorMaterial NETHERITE_ARMOUR = EnumHelper.addArmorMaterial("Netherite_Armour", ConfigurationHandler.netheriteArmourDurabilityFactor, new int[]{3, 6, 8, 3}, ConfigurationHandler.netheriteEnchantability);
+	public static final Item.ToolMaterial NETHERITE_TOOL = EnumHelper.addToolMaterial("Netherite_Tool", ConfigBase.netheriteHarvestLevel, ConfigBase.netheriteToolDurability, ConfigBase.netheriteSpeed, ConfigBase.netheriteDamageBase, ConfigBase.netheriteEnchantability);
+	public static final ItemArmor.ArmorMaterial NETHERITE_ARMOUR = EnumHelper.addArmorMaterial("Netherite_Armour", ConfigBase.netheriteArmourDurabilityFactor, new int[]{3, 6, 8, 3}, ConfigBase.netheriteEnchantability);
 
 	private static final List<Item> initList = new ArrayList<Item>();
 	
@@ -56,15 +56,15 @@ public class ModItems {
 	public static final Item raw_ore = initItem(new ItemRawOre());
 	public static final Item netherite_scrap = initItem(new ItemNetherite(0));
 	public static final Item netherite_ingot = initItem(new ItemNetherite(1));
-	public static final Item netherite_helmet = initItem(new ItemEFRArmour(NETHERITE_ARMOUR, 0, ConfigurationHandler.netheriteHelmetDurability));
-	public static final Item netherite_chestplate = initItem(new ItemEFRArmour(NETHERITE_ARMOUR, 1, ConfigurationHandler.netheriteChestplateDurability));
-	public static final Item netherite_leggings = initItem(new ItemEFRArmour(NETHERITE_ARMOUR, 2, ConfigurationHandler.netheriteLeggingsDurability));
-	public static final Item netherite_boots = initItem(new ItemEFRArmour(NETHERITE_ARMOUR, 3, ConfigurationHandler.netheriteBootsDurability));
-	public static final Item netherite_pickaxe = initItem(new ItemEFRPickaxe(NETHERITE_TOOL, ConfigurationHandler.netheritePickaxeDurability));
-	public static final Item netherite_spade = initItem(new ItemEFRSpade(NETHERITE_TOOL, ConfigurationHandler.netheriteSpadeDurability));
-	public static final Item netherite_axe = initItem(new ItemEFRAxe(NETHERITE_TOOL, ConfigurationHandler.netheriteAxeDurability));
-	public static final Item netherite_hoe = initItem(new ItemEFRHoe(NETHERITE_TOOL, ConfigurationHandler.netheriteHoeDurability));
-	public static final Item netherite_sword = initItem(new ItemEFRSword(NETHERITE_TOOL, ConfigurationHandler.netheriteSwordDurability));
+	public static final Item netherite_helmet = initItem(new ItemEFRArmour(NETHERITE_ARMOUR, 0, ConfigBase.netheriteHelmetDurability));
+	public static final Item netherite_chestplate = initItem(new ItemEFRArmour(NETHERITE_ARMOUR, 1, ConfigBase.netheriteChestplateDurability));
+	public static final Item netherite_leggings = initItem(new ItemEFRArmour(NETHERITE_ARMOUR, 2, ConfigBase.netheriteLeggingsDurability));
+	public static final Item netherite_boots = initItem(new ItemEFRArmour(NETHERITE_ARMOUR, 3, ConfigBase.netheriteBootsDurability));
+	public static final Item netherite_pickaxe = initItem(new ItemEFRPickaxe(NETHERITE_TOOL, ConfigBase.netheritePickaxeDurability));
+	public static final Item netherite_spade = initItem(new ItemEFRSpade(NETHERITE_TOOL, ConfigBase.netheriteSpadeDurability));
+	public static final Item netherite_axe = initItem(new ItemEFRAxe(NETHERITE_TOOL, ConfigBase.netheriteAxeDurability));
+	public static final Item netherite_hoe = initItem(new ItemEFRHoe(NETHERITE_TOOL, ConfigBase.netheriteHoeDurability));
+	public static final Item netherite_sword = initItem(new ItemEFRSword(NETHERITE_TOOL, ConfigBase.netheriteSwordDurability));
 	public static final Item[] signs = new Item[ModBlocks.woodTypes.length - 1];
 	public static final Item totem = initItem(new ItemTotemUndying());
 	public static final Item new_dye = initItem(new ItemNewDye());

@@ -29,7 +29,8 @@ import cpw.mods.fml.relauncher.ReflectionHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.configuration.ConfigurationHandler;
+import ganymedes01.etfuturum.configuration.ConfigBase;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.proxy.CommonProxy;
 import ganymedes01.etfuturum.core.utils.HoeHelper;
 import ganymedes01.etfuturum.entities.ModEntityList;
@@ -48,6 +49,7 @@ import ganymedes01.etfuturum.world.EtFuturumLateWorldGenerator;
 import ganymedes01.etfuturum.world.EtFuturumWorldGenerator;
 import ganymedes01.etfuturum.world.generate.BlockAndMetadataMapping;
 import ganymedes01.etfuturum.world.generate.OceanMonument;
+import ganymedes01.etfuturum.world.nether.dimension.DimensionProviderNether;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.block.BlockNetherWart;
@@ -90,7 +92,7 @@ public class EtFuturum {
 	public static CreativeTabs creativeTabItems = new CreativeTabs(Reference.MOD_ID + ".items") {
 		@Override
 		public Item getTabIconItem() {
-			return ConfigurationHandler.enableNetherite ? ModItems.netherite_scrap : ConfigurationHandler.enablePrismarine ? ModItems.prismarine_shard : Items.magma_cream;
+			return ConfigBlocksItems.enableNetherite ? ModItems.netherite_scrap : ConfigBlocksItems.enablePrismarine ? ModItems.prismarine_shard : Items.magma_cream;
 		}
 		
 		@SideOnly(Side.CLIENT)
@@ -106,7 +108,7 @@ public class EtFuturum {
 	public static CreativeTabs creativeTabBlocks = new CreativeTabs(Reference.MOD_ID + ".blocks") {
 		@Override
 		public Item getTabIconItem() {
-			return ConfigurationHandler.enableSmoker ? Item.getItemFromBlock(ModBlocks.smoker) : ConfigurationHandler.enableChorusFruit ? Item.getItemFromBlock(ModBlocks.chorus_flower) : Item.getItemFromBlock(Blocks.ender_chest);
+			return ConfigBlocksItems.enableSmoker ? Item.getItemFromBlock(ModBlocks.smoker) : ConfigBlocksItems.enableChorusFruit ? Item.getItemFromBlock(ModBlocks.chorus_flower) : Item.getItemFromBlock(Blocks.ender_chest);
 		}
 	};
 	
@@ -128,7 +130,7 @@ public class EtFuturum {
 			}
 			oldFile.delete();
 		}
-		ConfigurationHandler.INSTANCE.init(configFile);
+		ConfigBase.INSTANCE.init(configFile);
 
 		ModBlocks.init();
 		ModItems.init();
@@ -161,7 +163,7 @@ public class EtFuturum {
 		
 		ModRecipes.init();
 //        if(ConfigurationHandler.enableNewNether)
-//            DimensionProvider.init(); // Come back to
+//            DimensionProviderNether.init(); // Come back to
 
 		proxy.registerEvents();
 		proxy.registerEntities();
@@ -181,18 +183,18 @@ public class EtFuturum {
 					biome.addFlower(ModBlocks.lily_of_the_valley, 0, 5);
 		}
 
-		if (ConfigurationHandler.enableUpdatedFoodValues) {
+		if (ConfigBase.enableUpdatedFoodValues) {
 			setFinalField(ItemFood.class, Items.carrot, 3, "healAmount", "field_77853_b");
 			setFinalField(ItemFood.class, Items.baked_potato, 5, "healAmount", "field_77853_b");
 		}
 
-		if (ConfigurationHandler.enableUpdatedHarvestLevels) {
+		if (ConfigBase.enableUpdatedHarvestLevels) {
 			Blocks.packed_ice.setHarvestLevel("pickaxe", 0);
 			Blocks.ladder.setHarvestLevel("axe", 0);
 			Blocks.melon_block.setHarvestLevel("axe", 0);
 		}
 		
-		if(ConfigurationHandler.enableFloatingTrapDoors) {
+		if(ConfigBase.enableFloatingTrapDoors) {
 			BlockTrapDoor.disableValidation = true;
 		}
 		
@@ -203,11 +205,11 @@ public class EtFuturum {
 		Items.blaze_rod.setFull3D();
 		Blocks.trapped_chest.setCreativeTab(CreativeTabs.tabRedstone);
 		
-		if(ConfigurationHandler.enableHoeMining) {
+		if(ConfigBase.enableHoeMining) {
 			HoeHelper.init();
 		}
 		
-		if(ConfigurationHandler.enableNewBlocksSounds) {
+		if(ConfigBase.enableNewBlocksSounds) {
 			Iterator<Block> iterator = Block.blockRegistry.iterator();
 			while(iterator.hasNext()) {
 				Block block = iterator.next();

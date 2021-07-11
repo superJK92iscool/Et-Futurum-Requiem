@@ -5,7 +5,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.configuration.ConfigurationHandler;
+import ganymedes01.etfuturum.configuration.ConfigBase;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.Block;
@@ -26,7 +27,7 @@ public class BlockLantern extends Block implements IConfigurable {
 		float f = 0.375F;
 		float f1 = f / 2.0F;
 		this.setHarvestLevel("pickaxe", 0);
-		this.setStepSound(ConfigurationHandler.enableNewBlocksSounds ? ModSounds.soundLantern : soundTypeMetal);
+		this.setStepSound(ConfigBase.enableNewBlocksSounds ? ModSounds.soundLantern : soundTypeMetal);
 		this.setHardness(3.5F);
 		this.setResistance(3.5F);
 		this.setLightLevel(1);
@@ -39,7 +40,7 @@ public class BlockLantern extends Block implements IConfigurable {
 
 	@Override
 	public boolean isEnabled() {
-		return ConfigurationHandler.enableLantern;
+		return ConfigBlocksItems.enableLantern;
 	}
 	
 	@Override

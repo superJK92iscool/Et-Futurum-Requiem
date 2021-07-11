@@ -4,7 +4,8 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
-import ganymedes01.etfuturum.configuration.ConfigurationHandler;
+import ganymedes01.etfuturum.configuration.ConfigBase;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.BlockFenceGate;
 import net.minecraft.init.Blocks;
@@ -33,21 +34,21 @@ public class BlockWoodFenceGate extends BlockFenceGate implements IConfigurable 
 
 	@Override
 	public boolean isEnabled() {
-		return ConfigurationHandler.enableFences;
+		return ConfigBlocksItems.enableFences;
 	}
 	
 	@Override
 	public boolean isFlammable(IBlockAccess aWorld, int aX, int aY, int aZ, ForgeDirection aSide) {
-		return ConfigurationHandler.enableBurnableBlocks && meta < 6;
+		return ConfigBase.enableBurnableBlocks && meta < 6;
 	}
 	
 	@Override
 	public int getFlammability(IBlockAccess aWorld, int aX, int aY, int aZ, ForgeDirection aSide) {
-		return ConfigurationHandler.enableBurnableBlocks && meta < 6 ? 20 : 0;
+		return ConfigBase.enableBurnableBlocks && meta < 6 ? 20 : 0;
 	}
 	
 	@Override
 	public int getFireSpreadSpeed(IBlockAccess aWorld, int aX, int aY, int aZ, ForgeDirection aSide) {
-		return ConfigurationHandler.enableBurnableBlocks && meta < 6 ? 5 : 0;
+		return ConfigBase.enableBurnableBlocks && meta < 6 ? 5 : 0;
 	}
 }

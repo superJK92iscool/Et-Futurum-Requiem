@@ -4,7 +4,8 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.ModBlocks.ISubBlocksBlock;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.configuration.ConfigurationHandler;
+import ganymedes01.etfuturum.configuration.ConfigBase;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.entities.EntityItemUninflammable;
 import ganymedes01.etfuturum.items.block.ItemBlockUninflammable;
@@ -23,7 +24,7 @@ public class BlockNetherite extends Block implements IConfigurable, ISubBlocksBl
 		setHarvestLevel("pickaxe", 3);
 		setHardness(50F);
 		setResistance(1200F);
-		setStepSound(ConfigurationHandler.enableNewBlocksSounds ? ModSounds.soundNetherite : soundTypePiston);
+		setStepSound(ConfigBase.enableNewBlocksSounds ? ModSounds.soundNetherite : soundTypePiston);
 		setBlockTextureName("netherite_block");
 		setBlockName(Utils.getUnlocalisedName("netherite_block"));
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
@@ -36,7 +37,7 @@ public class BlockNetherite extends Block implements IConfigurable, ISubBlocksBl
 
 	@Override
 	public boolean isEnabled() {
-		return ConfigurationHandler.enableNetherite;
+		return ConfigBlocksItems.enableNetherite;
 	}
 
 	@Override

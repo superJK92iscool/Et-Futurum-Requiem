@@ -42,7 +42,8 @@ import ganymedes01.etfuturum.client.renderer.tileentity.TileEntityNewBeaconRende
 import ganymedes01.etfuturum.client.renderer.tileentity.TileEntityWoodSignRenderer;
 import ganymedes01.etfuturum.client.skins.NewRenderPlayer;
 import ganymedes01.etfuturum.client.skins.NewSkinManager;
-import ganymedes01.etfuturum.configuration.ConfigurationHandler;
+import ganymedes01.etfuturum.configuration.ConfigBase;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.handlers.ClientEventHandler;
 import ganymedes01.etfuturum.entities.EntityArmourStand;
 import ganymedes01.etfuturum.entities.EntityBrownMooshroom;
@@ -87,52 +88,52 @@ public class ClientProxy extends CommonProxy {
 	}
 
 	private void registerItemRenderers() {
-		if (ConfigurationHandler.enableBanners)
+		if (ConfigBlocksItems.enableBanners)
 			MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.banner), new ItemBannerRenderer());
-		if (ConfigurationHandler.enableFancySkulls)
+		if (ConfigBase.enableFancySkulls)
 			MinecraftForgeClient.registerItemRenderer(Items.skull, new ItemSkullRenderer());
-		if (ConfigurationHandler.enableBowRendering)
+		if (ConfigBase.enableBowRendering)
 			MinecraftForgeClient.registerItemRenderer(Items.bow, new ItemBowRenderer());
 	}
 
 	private void registerBlockRenderers() {
-		if (ConfigurationHandler.enableSlimeBlock)
+		if (ConfigBlocksItems.enableSlimeBlock)
 			RenderingRegistry.registerBlockHandler(new BlockSlimeBlockRender());
 
-		if (ConfigurationHandler.enableDoors)
+		if (ConfigBlocksItems.enableDoors)
 			RenderingRegistry.registerBlockHandler(new BlockDoorRenderer());
 
-		if (ConfigurationHandler.enableBanners)
+		if (ConfigBlocksItems.enableBanners)
 			ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBanner.class, new TileEntityBannerRenderer());
 
-		if (ConfigurationHandler.enableFancySkulls)
+		if (ConfigBase.enableFancySkulls)
 			ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySkull.class, new TileEntityFancySkullRenderer());
 
-		if (ConfigurationHandler.enableChorusFruit) {
+		if (ConfigBlocksItems.enableChorusFruit) {
 			RenderingRegistry.registerBlockHandler(new BlockEndRodRender());
 			RenderingRegistry.registerBlockHandler(new BlockChorusFlowerRender());
 			RenderingRegistry.registerBlockHandler(new BlockChorusPlantRender());
 		}
 
-		if (ConfigurationHandler.enableColourfulBeacons)
+		if (ConfigBlocksItems.enableColourfulBeacons)
 			ClientRegistry.bindTileEntitySpecialRenderer(TileEntityNewBeacon.class, new TileEntityNewBeaconRenderer());
 
-		if (ConfigurationHandler.enableLantern)
+		if (ConfigBlocksItems.enableLantern)
 			RenderingRegistry.registerBlockHandler(new BlockLanternRenderer());
 		
-		if (ConfigurationHandler.enableBarrel)
+		if (ConfigBlocksItems.enableBarrel)
 			RenderingRegistry.registerBlockHandler(new BlockBarrelRenderer());
 		
-		if (ConfigurationHandler.enableTrapdoors)
+		if (ConfigBlocksItems.enableTrapdoors)
 			RenderingRegistry.registerBlockHandler(new BlockTrapDoorRenderer());
 		
-		if(ConfigurationHandler.enableSigns)
+		if(ConfigBlocksItems.enableSigns)
 			ClientRegistry.bindTileEntitySpecialRenderer(TileEntityWoodSign.class, new TileEntityWoodSignRenderer());
 
-		if(ConfigurationHandler.enableGlazedTerracotta)
+		if(ConfigBlocksItems.enableGlazedTerracotta)
 			RenderingRegistry.registerBlockHandler(new BlockGlazedTerracottaRenderer());
 		
-		if(ConfigurationHandler.enableLavaCauldrons)
+		if(ConfigBlocksItems.enableLavaCauldrons)
 			RenderingRegistry.registerBlockHandler(new BlockLavaCauldronRenderer());
 		
 		RenderingRegistry.registerBlockHandler(new BlockChestRenderer());
@@ -140,37 +141,37 @@ public class ClientProxy extends CommonProxy {
 
 	@SuppressWarnings("unchecked")
 	private void registerEntityRenderers() {
-		if (ConfigurationHandler.enableArmourStand)
+		if (ConfigBase.enableArmourStand)
 			RenderingRegistry.registerEntityRenderingHandler(EntityArmourStand.class, new ArmourStandRenderer());
-		if (ConfigurationHandler.enableEndermite)
+		if (ConfigBase.enableEndermite)
 			RenderingRegistry.registerEntityRenderingHandler(EntityEndermite.class, new EndermiteRenderer());
-		if (ConfigurationHandler.enableRabbit)
+		if (ConfigBlocksItems.enableRabbit)
 			RenderingRegistry.registerEntityRenderingHandler(EntityRabbit.class, new RabbitRenderer());
 		
-		if (ConfigurationHandler.enableHusk)
+		if (ConfigBase.enableHusk)
 			RenderingRegistry.registerEntityRenderingHandler(EntityHusk.class, new HuskRenderer());
-		if (ConfigurationHandler.enableStray) {
+		if (ConfigBase.enableStray) {
 			RenderingRegistry.registerEntityRenderingHandler(EntityStray.class, new StrayRenderer());
 			RenderingRegistry.registerEntityRenderingHandler(EntityStray.class, new StrayOverlayRenderer());
 		}
 		
-		if (ConfigurationHandler.enableLingeringPotions) {
+		if (ConfigBlocksItems.enableLingeringPotions) {
 			RenderingRegistry.registerEntityRenderingHandler(EntityLingeringPotion.class, new LingeringPotionRenderer());
 			RenderingRegistry.registerEntityRenderingHandler(EntityLingeringEffect.class, new LingeringEffectRenderer());
 		}
-		if (ConfigurationHandler.enableVillagerZombies)
+		if (ConfigBase.enableVillagerZombies)
 			RenderingRegistry.registerEntityRenderingHandler(EntityZombieVillager.class, new VillagerZombieRenderer());
 		
-		if (ConfigurationHandler.enableDragonRespawn)
+		if (ConfigBase.enableDragonRespawn)
 			RenderingRegistry.registerEntityRenderingHandler(EntityPlacedEndCrystal.class, new PlacedEndCrystalRenderer());
 
-		if (ConfigurationHandler.enableBrownMooshroom)
+		if (ConfigBase.enableBrownMooshroom)
 			RenderingRegistry.registerEntityRenderingHandler(EntityBrownMooshroom.class, new BrownMooshroomRenderer());
 
-		if(ConfigurationHandler.enableNewBoats)
+		if(ConfigBase.enableNewBoats)
 			RenderingRegistry.registerEntityRenderingHandler(EntityNewBoat.class, new NewBoatRenderer());
 		
-		if (ConfigurationHandler.enablePlayerSkinOverlay) {
+		if (ConfigBase.enablePlayerSkinOverlay) {
 			TextureManager texManager = Minecraft.getMinecraft().renderEngine;
 			File fileAssets = ReflectionHelper.getPrivateValue(Minecraft.class, Minecraft.getMinecraft(), "fileAssets", "field_110446_Y", " field_110607_c");
 			File skinFolder = new File(fileAssets, "skins");
@@ -179,7 +180,7 @@ public class ClientProxy extends CommonProxy {
 
 			RenderManager.instance.entityRenderMap.put(EntityPlayer.class, new NewRenderPlayer());
 		}
-		if (ConfigurationHandler.enableShearableGolems)
+		if (ConfigBase.enableShearableGolems)
 			RenderingRegistry.registerEntityRenderingHandler(EntityNewSnowGolem.class, new NewSnowGolemRenderer());
 	}
 }

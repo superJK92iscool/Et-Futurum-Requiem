@@ -5,7 +5,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.ModBlocks.ISubBlocksBlock;
-import ganymedes01.etfuturum.configuration.ConfigurationHandler;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.items.block.ItemBlockGeneric;
 import net.minecraft.block.BlockOldLog;
@@ -34,7 +34,7 @@ public class BlockStrippedOldWood extends BlockOldLog implements IConfigurable, 
 
 	@Override
 	public boolean isEnabled() {
-		return ConfigurationHandler.enableStrippedLogs && ConfigurationHandler.enableBarkLogs;
+		return ConfigBlocksItems.enableStrippedLogs && ConfigBlocksItems.enableBarkLogs;
 	}
 
 	@Override

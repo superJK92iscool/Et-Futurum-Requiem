@@ -11,7 +11,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
-import ganymedes01.etfuturum.configuration.ConfigurationHandler;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.world.WorldCoord;
 import net.minecraft.block.Block;
@@ -134,6 +134,6 @@ public class BlockSponge extends BlockGeneric implements IConfigurable {
 
 	@Override
 	public boolean isEnabled() {
-		return ConfigurationHandler.enableSponge;
+		return ConfigBlocksItems.enableSponge;
 	}
 }

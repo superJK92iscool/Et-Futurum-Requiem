@@ -6,7 +6,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import ganymedes01.etfuturum.ModItems;
-import ganymedes01.etfuturum.configuration.ConfigurationHandler;
+import ganymedes01.etfuturum.configuration.ConfigBase;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -35,7 +36,7 @@ public class BlastFurnaceRecipes
 
 	@SuppressWarnings("unchecked")
 	public static void init() {
-		if(ConfigurationHandler.enableMeltGear) {
+		if(ConfigBase.enableMeltGear) {
 			Item[][] crafts = new Item[][] {
 				{Items.golden_helmet, Items.golden_chestplate, Items.golden_leggings, Items.golden_boots, Items.golden_sword, Items.golden_pickaxe,
 					Items.golden_axe, Items.golden_shovel, Items.golden_hoe, Items.golden_horse_armor,
@@ -43,12 +44,12 @@ public class BlastFurnaceRecipes
 					Items.iron_axe, Items.iron_shovel, Items.iron_hoe, Items.iron_horse_armor},
 				{Items.gold_nugget, ModItems.iron_nugget}};
 			for(int i = 0; i < crafts[0].length; i++) {
-				if(!ConfigurationHandler.enableIronNugget && i > 9)
+				if(!ConfigBlocksItems.enableIronNugget && i > 9)
 					break;
 				smeltingBase.addRecipe(crafts[0][i], new ItemStack(crafts[1][i > 9 ? 1 : 0]), .1F);
 			}
 		}
-		if(ConfigurationHandler.enableAutoAddBlastFurnace) {
+		if(ConfigBase.enableAutoAddBlastFurnace) {
 			Iterator<Entry<ItemStack, ItemStack>> iterator = FurnaceRecipes.smelting().getSmeltingList().entrySet().iterator();
 			while (iterator.hasNext()) {
 				Entry<ItemStack, ItemStack> entry = iterator.next();

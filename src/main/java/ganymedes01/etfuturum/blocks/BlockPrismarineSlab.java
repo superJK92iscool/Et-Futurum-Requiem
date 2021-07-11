@@ -3,7 +3,7 @@ package ganymedes01.etfuturum.blocks;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.configuration.ConfigurationHandler;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.material.Material;
 import net.minecraft.util.IIcon;
@@ -20,7 +20,7 @@ public class BlockPrismarineSlab extends BlockGenericSlab implements IConfigurab
 
 	@Override
 	public boolean isEnabled() {
-		return ConfigurationHandler.enablePrismarine;
+		return ConfigBlocksItems.enablePrismarine;
 	}
 
 	@Override

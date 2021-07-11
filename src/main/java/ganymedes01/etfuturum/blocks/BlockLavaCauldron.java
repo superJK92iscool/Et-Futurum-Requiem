@@ -6,7 +6,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.ModBlocks.ISubBlocksBlock;
-import ganymedes01.etfuturum.configuration.ConfigurationHandler;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.entities.EntityItemUninflammable;
 import ganymedes01.etfuturum.lib.RenderIDs;
@@ -47,14 +47,15 @@ public class BlockLavaCauldron extends BlockCauldron implements IConfigurable, I
 	@Override
 	public boolean onBlockActivated(World p_149727_1_, int p_149727_2_, int p_149727_3_, int p_149727_4_, EntityPlayer p_149727_5_, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_)
 	{
-		ItemStack item;
-		if (p_149727_5_.getCurrentEquippedItem() != null) {
-			item = p_149727_5_.getCurrentEquippedItem();
-			if (item.getItem() instanceof ItemBucket) {
-				// TODO Uh, what is this for? Seems unfinished.
-			}
-		}
-		return true;
+//		ItemStack item;
+//		if (p_149727_5_.getCurrentEquippedItem() != null) {
+//			item = p_149727_5_.getCurrentEquippedItem();
+//			if (item.getItem() instanceof ItemBucket) {
+//				// TODO Bucketing lava out of the cauldron
+//			}
+//		}
+//		return true;
+		return super.onBlockActivated(p_149727_1_, p_149727_2_, p_149727_3_, p_149727_4_, p_149727_5_, p_149727_6_, p_149727_7_, p_149727_8_, p_149727_9_);
 	}
 	
 	@Override
@@ -64,14 +65,10 @@ public class BlockLavaCauldron extends BlockCauldron implements IConfigurable, I
 
 		if ((flag || entity.ticksExisted % 25 == 0) && !(entity instanceof EntityItemUninflammable))
 		{
-			if (entity.worldObj.getBlock(MathHelper.floor_double(entity.posX), MathHelper.floor_double(entity.posY), MathHelper.floor_double(entity.posZ)) == this)
-			{
-				entity.motionY = 0.20000000298023224D;
-				entity.motionX = (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F;
-				entity.motionZ = (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F;
-				entity.playSound("random.fizz", 0.4F, 2.0F + world.rand.nextFloat() * 0.4F);
-				entity.setFire(1);
-			}
+			entity.motionY = 0.20000000298023224D;
+			entity.motionX = (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F;
+			entity.motionZ = (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F;
+			entity.playSound("random.fizz", 0.4F, 2.0F + world.rand.nextFloat() * 0.4F);
 		}
 		if (!world.isRemote) {
 			entity.attackEntityFrom(DamageSource.lava, 4.0F);
@@ -141,6 +138,6 @@ public class BlockLavaCauldron extends BlockCauldron implements IConfigurable, I
 
 	@Override
 	public boolean isEnabled() {
-		return ConfigurationHandler.enableLavaCauldrons;
+		return ConfigBlocksItems.enableLavaCauldrons;
 	}
 }

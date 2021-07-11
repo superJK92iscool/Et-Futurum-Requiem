@@ -11,7 +11,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
-import ganymedes01.etfuturum.configuration.ConfigurationHandler;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.dispenser.DispenserBehaviourLingeringPotion;
 import ganymedes01.etfuturum.entities.EntityLingeringPotion;
@@ -45,7 +45,7 @@ public class ItemLingeringPotion extends ItemPotion implements IConfigurable {
 		setUnlocalizedName(Utils.getUnlocalisedName("lingering_potion"));
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
 
-		if (ConfigurationHandler.enableLingeringPotions)
+		if (ConfigBlocksItems.enableLingeringPotions)
 			BlockDispenser.dispenseBehaviorRegistry.putObject(this, new DispenserBehaviourLingeringPotion());
 	}
 
@@ -229,6 +229,6 @@ public class ItemLingeringPotion extends ItemPotion implements IConfigurable {
 
 	@Override
 	public boolean isEnabled() {
-		return ConfigurationHandler.enableLingeringPotions;
+		return ConfigBlocksItems.enableLingeringPotions;
 	}
 }

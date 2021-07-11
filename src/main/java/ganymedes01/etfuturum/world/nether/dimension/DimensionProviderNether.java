@@ -2,7 +2,7 @@ package ganymedes01.etfuturum.world.nether.dimension;
 
 import net.minecraftforge.common.DimensionManager;
 
-public class DimensionProvider {
+public class DimensionProviderNether {
 
 	public static void init() {
 		unregisterProviders();

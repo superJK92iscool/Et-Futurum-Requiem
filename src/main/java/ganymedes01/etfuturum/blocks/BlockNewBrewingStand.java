@@ -6,7 +6,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
-import ganymedes01.etfuturum.configuration.ConfigurationHandler;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.GUIsID;
 import ganymedes01.etfuturum.tileentities.TileEntityNewBrewingStand;
@@ -57,6 +57,6 @@ public class BlockNewBrewingStand extends BlockBrewingStand implements IConfigur
 
 	@Override
 	public boolean isEnabled() {
-		return ConfigurationHandler.enableBrewingStands;
+		return ConfigBlocksItems.enableBrewingStands;
 	}
 }

@@ -8,7 +8,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.ModItems;
-import ganymedes01.etfuturum.configuration.ConfigurationHandler;
+import ganymedes01.etfuturum.configuration.ConfigBase;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.items.ItemUninflammable;
 import net.minecraft.entity.Entity;
@@ -54,13 +55,13 @@ public class ItemEFRArmour extends ItemArmor implements IConfigurable, ISpecialA
 	
 	@Override
 	public boolean isEnabled() {
-		return ConfigurationHandler.enableNetherite;
+		return ConfigBlocksItems.enableNetherite;
 	}
 	
 	@Override
 	public boolean hasCustomEntity(ItemStack stack)
 	{
-		return getUnlocalizedName().contains("netherite") && !ConfigurationHandler.enableNetheriteFlammable;
+		return getUnlocalizedName().contains("netherite") && !ConfigBase.enableNetheriteFlammable;
 	}
 	
 	@Override

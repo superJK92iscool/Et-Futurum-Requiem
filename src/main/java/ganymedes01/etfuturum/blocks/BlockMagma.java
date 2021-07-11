@@ -9,7 +9,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.client.InterpolatedIcon;
-import ganymedes01.etfuturum.configuration.ConfigurationHandler;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -39,7 +39,7 @@ public class BlockMagma extends Block implements IConfigurable{
 
 	@Override
 	public boolean isEnabled() {
-		return ConfigurationHandler.enableMagmaBlock;
+		return ConfigBlocksItems.enableMagmaBlock;
 	}
 	
 	@Override

@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import ganymedes01.etfuturum.ModItems;
-import ganymedes01.etfuturum.configuration.ConfigurationHandler;
+import ganymedes01.etfuturum.configuration.ConfigBase;
 import net.minecraft.block.Block;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -35,7 +35,7 @@ public class SmokerRecipes
 
 	@SuppressWarnings("unchecked")
 	public static void init() {
-		if (ConfigurationHandler.enableAutoAddSmoker) {
+		if (ConfigBase.enableAutoAddSmoker) {
 			Iterator<Entry<ItemStack, ItemStack>> iterator = FurnaceRecipes.smelting().getSmeltingList().entrySet().iterator();
 			while (iterator.hasNext()) {
 				Entry<ItemStack, ItemStack> entry = iterator.next();

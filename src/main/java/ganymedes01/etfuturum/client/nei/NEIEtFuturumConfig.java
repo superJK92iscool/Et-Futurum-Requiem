@@ -3,7 +3,7 @@ package ganymedes01.etfuturum.client.nei;
 import codechicken.nei.api.API;
 import codechicken.nei.api.IConfigureNEI;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.configuration.ConfigurationHandler;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.item.ItemStack;
 
@@ -11,12 +11,12 @@ public class NEIEtFuturumConfig implements IConfigureNEI {
 
 	@Override
 	public void loadConfig() {
-		if (ConfigurationHandler.enableBanners) {
+		if (ConfigBlocksItems.enableBanners) {
 			API.registerRecipeHandler(new BannerPatternHandler());
 			API.registerUsageHandler(new BannerPatternHandler());
 		}
 
-		if (ConfigurationHandler.enableBeetroot)
+		if (ConfigBlocksItems.enableBeetroot)
 			API.hideItem(new ItemStack(ModBlocks.beetroot));
 	}
 

@@ -15,7 +15,8 @@ import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.blocks.BlockGlazedTerracotta;
 import ganymedes01.etfuturum.blocks.BlockNewStone;
 import ganymedes01.etfuturum.blocks.BlockStoneSlab2;
-import ganymedes01.etfuturum.configuration.ConfigurationHandler;
+import ganymedes01.etfuturum.configuration.ConfigBase;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.entities.EntityNewBoat;
 import ganymedes01.etfuturum.items.ItemSuspiciousStew;
@@ -45,7 +46,7 @@ public class ModRecipes {
 	
 	
 	public static void init() {
-		if (ConfigurationHandler.enableBanners) {
+		if (ConfigBlocksItems.enableBanners) {
 			RecipeSorter.register(Reference.MOD_ID + ".RecipeDuplicatePattern", RecipeDuplicatePattern.class, Category.SHAPELESS, "after:minecraft:shapeless");
 			RecipeSorter.register(Reference.MOD_ID + ".RecipeAddPattern", RecipeAddPattern.class, Category.SHAPED, "after:minecraft:shaped");
 		}
@@ -58,27 +59,27 @@ public class ModRecipes {
 	}
 
 	private static void tweakRecipes() {
-		if (ConfigurationHandler.enableGenericSlabs) {
+		if (ConfigBlocksItems.enableGenericSlabs) {
 			removeFirstRecipeFor(Blocks.stone_slab, 0);
 		}
 		
-		if (ConfigurationHandler.enableDoors) {
+		if (ConfigBlocksItems.enableDoors) {
 			Items.wooden_door.setMaxStackSize(64);
 			Items.iron_door.setMaxStackSize(64);
 		}
 		
-		if (ConfigurationHandler.enableFences) {
+		if (ConfigBlocksItems.enableFences) {
 			removeFirstRecipeFor(Blocks.fence);
 			removeFirstRecipeFor(Blocks.nether_brick_fence);
 		}
 		
-		if (ConfigurationHandler.replaceOldBoats && ConfigurationHandler.enableNewBoats) {
+		if (ConfigBase.replaceOldBoats && ConfigBase.enableNewBoats) {
 			removeFirstRecipeFor(Items.boat);
 			Items.boat.setTextureName("minecraft:oak_boat");
 			Items.boat.setUnlocalizedName(Utils.getUnlocalisedName("oak_boat"));
 		}
 
-		if (ConfigurationHandler.enableBurnableBlocks) {
+		if (ConfigBase.enableBurnableBlocks) {
 			Blocks.fire.setFireInfo(Blocks.fence_gate, 5, 20);
 			Blocks.fire.setFireInfo(Blocks.fence, 5, 20);
 			Blocks.fire.setFireInfo(Blocks.deadbush, 60, 100);
@@ -101,11 +102,11 @@ public class ModRecipes {
 		OreDictionary.registerOre("pressurePlateGold", new ItemStack(Blocks.light_weighted_pressure_plate));
 		OreDictionary.registerOre("bowlWood", new ItemStack(Items.bowl));
 
-		if (ConfigurationHandler.enableIronNugget) {
+		if (ConfigBlocksItems.enableIronNugget) {
 			OreDictionary.registerOre("nuggetIron", new ItemStack(ModItems.iron_nugget));
 		}
 		
-		if (ConfigurationHandler.enableMutton) {
+		if (ConfigBlocksItems.enableMutton) {
 			OreDictionary.registerOre("foodMuttonraw", new ItemStack(ModItems.raw_mutton));
 			OreDictionary.registerOre("listAllmeatraw", new ItemStack(ModItems.raw_mutton));
 			OreDictionary.registerOre("listAllmuttonraw", new ItemStack(ModItems.raw_mutton));
@@ -115,37 +116,37 @@ public class ModRecipes {
 			OreDictionary.registerOre("listAllmuttoncooked", new ItemStack(ModItems.cooked_mutton));
 		}
 
-		if (ConfigurationHandler.enablePrismarine) {
+		if (ConfigBlocksItems.enablePrismarine) {
 			OreDictionary.registerOre("shardPrismarine", new ItemStack(ModItems.prismarine_shard));
 			OreDictionary.registerOre("crystalPrismarine", new ItemStack(ModItems.prismarine_crystals));
 			OreDictionary.registerOre("blockPrismarine", new ItemStack(ModBlocks.prismarine, 1, OreDictionary.WILDCARD_VALUE));
 		}
 
-		if (ConfigurationHandler.enableDoors) {
+		if (ConfigBlocksItems.enableDoors) {
 			for (int i=0;i<5;i++)
 				OreDictionary.registerOre("doorWood", new ItemStack(ModBlocks.doors[i]));
 		}
 
-		if (ConfigurationHandler.enableTrapdoors) {
+		if (ConfigBlocksItems.enableTrapdoors) {
 			for (int i=0;i<5;i++)
 				OreDictionary.registerOre("trapdoorWood", ModBlocks.trapdoors[i]);
 		}
 
-		if (ConfigurationHandler.enableFences) {
+		if (ConfigBlocksItems.enableFences) {
 			for (int i = 0; i < ModBlocks.fences.length; i++)
 				OreDictionary.registerOre("fenceWood", new ItemStack(ModBlocks.fences[i]));
 			for (int i = 0; i < ModBlocks.gates.length; i++)
 				OreDictionary.registerOre("fenceGateWood", new ItemStack(ModBlocks.gates[i]));
 		}
 
-		if (ConfigurationHandler.enableWoodRedstone) {
+		if (ConfigBlocksItems.enableWoodRedstone) {
 			for (int i = 0; i < ModBlocks.buttons.length; i++)
 				OreDictionary.registerOre("buttonWood", new ItemStack(ModBlocks.buttons[i]));
 			for (int i = 0; i < ModBlocks.pressure_plates.length; i++)
 				OreDictionary.registerOre("pressurePlateWood", new ItemStack(ModBlocks.pressure_plates[i]));
 		}
 
-		if (ConfigurationHandler.enableStones) {
+		if (ConfigBlocksItems.enableStones) {
 			OreDictionary.registerOre("stoneGranite", new ItemStack(ModBlocks.stone, 1, BlockNewStone.GRANITE));
 			OreDictionary.registerOre("stoneDiorite", new ItemStack(ModBlocks.stone, 1, BlockNewStone.DIORITE));
 			OreDictionary.registerOre("stoneAndesite", new ItemStack(ModBlocks.stone, 1, BlockNewStone.ANDESITE));
@@ -154,19 +155,19 @@ public class ModRecipes {
 			OreDictionary.registerOre("stoneAndesitePolished", new ItemStack(ModBlocks.stone, 1, BlockNewStone.POLISHED_ANDESITE));
 		}
 
-		if (ConfigurationHandler.enableSlimeBlock)
+		if (ConfigBlocksItems.enableSlimeBlock)
 			OreDictionary.registerOre("blockSlime", new ItemStack(ModBlocks.slime));
 
-		if (ConfigurationHandler.enableIronTrapdoor)
+		if (ConfigBlocksItems.enableIronTrapdoor)
 			OreDictionary.registerOre("trapdoorIron", ModBlocks.iron_trapdoor);
 
-		if (ConfigurationHandler.enableBeetroot) {
+		if (ConfigBlocksItems.enableBeetroot) {
 			OreDictionary.registerOre("cropBeetroot", ModItems.beetroot);
 			OreDictionary.registerOre("listAllseed", ModItems.beetroot_seeds);
 			OreDictionary.registerOre("seedBeetroot", ModItems.beetroot_seeds);
 		}
 
-		if (ConfigurationHandler.enableRabbit) {
+		if (ConfigBlocksItems.enableRabbit) {
 			OreDictionary.registerOre("foodRabbitraw", new ItemStack(ModItems.raw_rabbit));
 			OreDictionary.registerOre("listAllmeatraw", new ItemStack(ModItems.raw_rabbit));
 			OreDictionary.registerOre("listAllrabbitraw", new ItemStack(ModItems.raw_rabbit));
@@ -176,10 +177,10 @@ public class ModRecipes {
 			OreDictionary.registerOre("listAllrabbitcooked", new ItemStack(ModItems.cooked_rabbit));
 		}
 
-		if (ConfigurationHandler.enableChorusFruit)
+		if (ConfigBlocksItems.enableChorusFruit)
 			OreDictionary.registerOre("brickEndStone", ModBlocks.end_bricks);
 		
-		if(ConfigurationHandler.enableNetherite) {
+		if(ConfigBlocksItems.enableNetherite) {
 			OreDictionary.registerOre("ingotNetherite", ModItems.netherite_ingot);
 			OreDictionary.registerOre("scrapNetherite", ModItems.netherite_scrap);
 			OreDictionary.registerOre("oreNetherite", ModBlocks.ancient_debris);
@@ -187,40 +188,40 @@ public class ModRecipes {
 		}
 
 		for(int i = 0; i < 4; i++) {
-			if (ConfigurationHandler.enableStrippedLogs) {
+			if (ConfigBlocksItems.enableStrippedLogs) {
 				OreDictionary.registerOre("logWood", new ItemStack(ModBlocks.log_stripped, 1, i));
 				OreDictionary.registerOre("logWood", new ItemStack(ModBlocks.log2_stripped, 1, i));
-				if(ConfigurationHandler.enableBarkLogs) {
+				if(ConfigBlocksItems.enableBarkLogs) {
 					OreDictionary.registerOre("logWood", new ItemStack(ModBlocks.wood_stripped, 1, i));
 					OreDictionary.registerOre("logWood", new ItemStack(ModBlocks.wood2_stripped, 1, i));
 				}
 			}
-			if(ConfigurationHandler.enableBarkLogs) {
+			if(ConfigBlocksItems.enableBarkLogs) {
 				OreDictionary.registerOre("logWood", new ItemStack(ModBlocks.log_bark, 1, i));
 				OreDictionary.registerOre("logWood", new ItemStack(ModBlocks.log2_bark, 1, i));
 			}
 		}
 		
-		if(ConfigurationHandler.enableNewDyes) {
+		if(ConfigBlocksItems.enableNewDyes) {
 				OreDictionary.registerOre("dyeWhite", new ItemStack(ModItems.new_dye, 1, 0));
 				OreDictionary.registerOre("dyeBlue", new ItemStack(ModItems.new_dye, 1, 1));
 				OreDictionary.registerOre("dyeBrown", new ItemStack(ModItems.new_dye, 1, 2));
 				OreDictionary.registerOre("dyeBlack", new ItemStack(ModItems.new_dye, 1, 3));
 		}
 		
-		if(ConfigurationHandler.enableCopper) {
+		if(ConfigBlocksItems.enableCopper) {
 			OreDictionary.registerOre("oreCopper", new ItemStack(ModBlocks.copper_ore, 1, 0));
 			OreDictionary.registerOre("ingotCopper", new ItemStack(ModItems.copper_ingot, 1, 0));
 			OreDictionary.registerOre("blockCopper", new ItemStack(ModBlocks.copper_block, 1, 0));
 			OreDictionary.registerOre("blockCopperCut", new ItemStack(ModBlocks.copper_block, 1, 4));
 		}
 
-		if(ConfigurationHandler.enableDeepslate) {
+		if(ConfigBlocksItems.enableDeepslate) {
 			OreDictionary.registerOre("cobblestone", new ItemStack(ModBlocks.cobbled_deepslate, 1, 0));
 		}
 		
-		if(ConfigurationHandler.enableRawOres) {
-			if(ConfigurationHandler.enableCopper) {
+		if(ConfigBlocksItems.enableRawOres) {
+			if(ConfigBlocksItems.enableCopper) {
 				OreDictionary.registerOre("rawCopper", new ItemStack(ModItems.raw_ore, 1, 0));
 				OreDictionary.registerOre("blockRawCopper", new ItemStack(ModBlocks.raw_ore_block, 1, 0));
 			}
@@ -230,8 +231,8 @@ public class ModRecipes {
 			OreDictionary.registerOre("blockRawGold", new ItemStack(ModBlocks.raw_ore_block, 1, 2));
 		}
 		
-		if(ConfigurationHandler.registerRawItemAsOre) {
-			if(ConfigurationHandler.enableCopper) {
+		if(ConfigBase.registerRawItemAsOre) {
+			if(ConfigBlocksItems.enableCopper) {
 				OreDictionary.registerOre("oreCopper", new ItemStack(ModItems.raw_ore, 1, 0));
 			}
 			OreDictionary.registerOre("oreIron", new ItemStack(ModItems.raw_ore, 1, 1));
@@ -265,34 +266,34 @@ public class ModRecipes {
 
 	private static void registerRecipes() {
 		
-		if (ConfigurationHandler.enableStoneBrickRecipes) {
+		if (ConfigBase.enableStoneBrickRecipes) {
 			addShapelessRecipe(new ItemStack(Blocks.mossy_cobblestone), new ItemStack(Blocks.cobblestone), new ItemStack(Blocks.vine));
 			addShapelessRecipe(new ItemStack(Blocks.stonebrick, 1, 1), new ItemStack(Blocks.stonebrick), new ItemStack(Blocks.vine));
 			addShapedRecipe(new ItemStack(Blocks.stonebrick, 1, 3), "x", "x", 'x', new ItemStack(Blocks.stone_slab, 1, 5));
 			GameRegistry.addSmelting(new ItemStack(Blocks.stonebrick), new ItemStack(Blocks.stonebrick, 1, 2), 0.0F);
 		}
 
-		if (ConfigurationHandler.enableSlimeBlock) {
+		if (ConfigBlocksItems.enableSlimeBlock) {
 			addShapedRecipe(new ItemStack(ModBlocks.slime), "xxx", "xxx", "xxx", 'x', new ItemStack(Items.slime_ball));
 			addShapelessRecipe(new ItemStack(Items.slime_ball, 9), ModBlocks.slime);
 		}
 
-		if (ConfigurationHandler.enableCoarseDirt)
+		if (ConfigBlocksItems.enableCoarseDirt)
 			addShapedRecipe(new ItemStack(ModBlocks.coarse_dirt, 4), "xy", "yx", 'x', new ItemStack(Blocks.dirt), 'y', new ItemStack(Blocks.gravel));
 
-		if (ConfigurationHandler.enableMutton)
+		if (ConfigBlocksItems.enableMutton)
 			GameRegistry.addSmelting(ModItems.raw_mutton, new ItemStack(ModItems.cooked_mutton), 0.35F);
 		
-		if (ConfigurationHandler.enableIronNugget) {
+		if (ConfigBlocksItems.enableIronNugget) {
 			addShapedRecipe(new ItemStack(Items.iron_ingot), "xxx", "xxx", "xxx", 'x', "nuggetIron");
 			addShapelessRecipe(new ItemStack(ModItems.iron_nugget, 9), new Object[] { "ingotIron" });
 		}
 
-		if (ConfigurationHandler.enableIronTrapdoor) {
+		if (ConfigBlocksItems.enableIronTrapdoor) {
 			addShapedRecipe(new ItemStack(ModBlocks.iron_trapdoor), "xx", "xx", 'x', "ingotIron");
 		}
 
-		if (ConfigurationHandler.enableStones) {
+		if (ConfigBlocksItems.enableStones) {
 			// Diorite
 			addShapedRecipe(new ItemStack(ModBlocks.stone, 2, BlockNewStone.DIORITE), "xy", "yx", 'x', new ItemStack(Blocks.cobblestone), 'y', "gemQuartz");
 			addShapedRecipe(new ItemStack(ModBlocks.stone, 4, BlockNewStone.POLISHED_DIORITE), "xx", "xx", 'x', "stoneDiorite");
@@ -310,7 +311,7 @@ public class ModRecipes {
 			}
 		}
 
-		if (ConfigurationHandler.enablePrismarine) {
+		if (ConfigBlocksItems.enablePrismarine) {
 			int PLAIN = 0;
 			int BRICKS = 1;
 			int DARK = 2;
@@ -327,13 +328,13 @@ public class ModRecipes {
 			for(int i = 0; i < 3; i++)
 				addShapedRecipe(new ItemStack(ModBlocks.prismarine_slab, 6, i), "xxx", 'x', new ItemStack(ModBlocks.prismarine, 1, i));
 			
-			if (ConfigurationHandler.enableRecipeForPrismarine && !Loader.isModLoaded("Botania")) {
+			if (ConfigBase.enableRecipeForPrismarine && !Loader.isModLoaded("Botania")) {
 				addShapedRecipe(new ItemStack(ModItems.prismarine_shard, 4), "xy", "zx", 'x', "gemQuartz", 'y', "dyeBlue", 'z', "dyeGreen");
 				addShapedRecipe(new ItemStack(ModItems.prismarine_crystals, 4), "xy", "yx", 'x', "gemQuartz", 'y', "dustGlowstone");
 			}
 		}
 
-		if (ConfigurationHandler.enableGenericSlabs) {
+		if (ConfigBlocksItems.enableGenericSlabs) {
 			Block[] metaBlocks = new Block[] {Blocks.stone, Blocks.mossy_cobblestone, Blocks.stonebrick, Blocks.sandstone};
 			for(int i = 0; i < metaBlocks.length; i++) {
 				addShapedRecipe(new ItemStack(ModBlocks.generic_slab, 6, i), "xxx", 'x', new ItemStack(metaBlocks[i], 1, i != 0 ? i - 1 : i));
@@ -342,13 +343,13 @@ public class ModRecipes {
 		}
 
 		
-		if (ConfigurationHandler.enableGenericStairs) {
+		if (ConfigBlocksItems.enableGenericStairs) {
 			addShapedRecipe(new ItemStack(ModBlocks.stone_stairs, 4), "x  ", "xx ", "xxx", 'x', new ItemStack(Blocks.stone, 1, 0));
 			addShapedRecipe(new ItemStack(ModBlocks.mossy_cobblestone_stairs, 4), "x  ", "xx ", "xxx", 'x', new ItemStack(Blocks.mossy_cobblestone, 1, 0));
 			addShapedRecipe(new ItemStack(ModBlocks.mossy_stone_brick_stairs, 4), "x  ", "xx ", "xxx", 'x', new ItemStack(Blocks.stonebrick, 1, 1));
 		}
 
-		if (ConfigurationHandler.enableDoors) {
+		if (ConfigBlocksItems.enableDoors) {
 			for (int i = 0; i < ModBlocks.doors.length; i++) {
 				addShapedRecipe(new ItemStack(ModBlocks.doors[i], 3), "xx", "xx", "xx", 'x', new ItemStack(Blocks.planks, 1, i + 1));
 			}
@@ -358,16 +359,16 @@ public class ModRecipes {
 			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Items.iron_door, 3), "xx", "xx", "xx", 'x', "ingotIron"));
 		}
 		
-		if(ConfigurationHandler.enableTrapdoors) {
+		if(ConfigBlocksItems.enableTrapdoors) {
 			for (int i = 0; i < ModBlocks.trapdoors.length; i++) {
-				if((i == 5 && !ConfigurationHandler.enableCrimsonBlocks) || (i == 6 && !ConfigurationHandler.enableWarpedBlocks))
+				if((i == 5 && !ConfigBlocksItems.enableCrimsonBlocks) || (i == 6 && !ConfigBlocksItems.enableWarpedBlocks))
 					continue;
 				ItemStack planks = /* i < 5 ? */new ItemStack(Blocks.planks, 1, i + 1)/* : new ItemStack(ModBlocks.nether_planks, 1, i - 5) */;
 				addShapedRecipe(new ItemStack(ModBlocks.trapdoors[i], 2), "xxx", "xxx", 'x', planks);
 			}
 		}
 
-		if (ConfigurationHandler.enableSigns) {
+		if (ConfigBlocksItems.enableSigns) {
 			for (int i = 0; i < ModItems.signs.length; i++) {
 //              if((i == 5 && !EtFuturum.enableCrimsonBlocks) || (i == 6 && !EtFuturum.enableWarpedBlocks))
 //                  continue;
@@ -376,7 +377,7 @@ public class ModRecipes {
 			}
 		}
 		
-		if (ConfigurationHandler.enableRedSandstone) {
+		if (ConfigBlocksItems.enableRedSandstone) {
 			addShapedRecipe(new ItemStack(ModBlocks.red_sandstone), "xx", "xx", 'x', new ItemStack(Blocks.sand, 1, 1));
 			addShapedRecipe(new ItemStack(ModBlocks.red_sandstone, 1, 1), "x", "x", 'x', new ItemStack(ModBlocks.red_sandstone_slab));
 			addShapedRecipe(new ItemStack(ModBlocks.red_sandstone, 4, 2), "xx", "xx", 'x', new ItemStack(ModBlocks.red_sandstone));
@@ -385,7 +386,7 @@ public class ModRecipes {
 			addShapedRecipe(new ItemStack(ModBlocks.red_sandstone_stairs, 4), "x  ", "xx ", "xxx", 'x', ModBlocks.red_sandstone);
 		}
 
-		if (ConfigurationHandler.enableFences) {
+		if (ConfigBlocksItems.enableFences) {
 			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Blocks.fence, 3), "xyx", "xyx", 'x', "plankWood", 'y', "stickWood"));
 			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Blocks.nether_brick_fence, 6), "xyx", "xyx", 'x', Blocks.nether_brick, 'y', "ingotBrickNether"));
 			
@@ -398,7 +399,7 @@ public class ModRecipes {
 			}
 		}
 
-		if (ConfigurationHandler.enableBanners) {
+		if (ConfigBlocksItems.enableBanners) {
 			for (EnumColour colour : EnumColour.values()) {
 				addShapedRecipe(new ItemStack(ModBlocks.banner, 1, colour.getDamage()), new Object[] { "xxx", "xxx", " y ", 'x', new ItemStack(Blocks.wool, 1, colour.getDamage()), 'y', "stickWood" });
 			}
@@ -406,33 +407,33 @@ public class ModRecipes {
 			GameRegistry.addRecipe(new RecipeAddPattern());
 		}
 
-		if (ConfigurationHandler.enableArmourStand) {
+		if (ConfigBase.enableArmourStand) {
 			addShapedRecipe(new ItemStack(ModItems.armour_stand), "xxx", " x ", "xyx", 'x', "stickWood", 'y', new ItemStack(Blocks.stone_slab));
 		}
 
-		if (ConfigurationHandler.enableRabbit) {
+		if (ConfigBlocksItems.enableRabbit) {
 			addShapedRecipe(new ItemStack(ModItems.rabbit_stew), " R ", "CPM", " B ", 'R', new ItemStack(ModItems.cooked_rabbit), 'C', Items.carrot, 'P', Items.baked_potato, 'M', Blocks.brown_mushroom, 'B', "bowlWood");
 			addShapedRecipe(new ItemStack(ModItems.rabbit_stew), " R ", "CPD", " B ", 'R', new ItemStack(ModItems.cooked_rabbit), 'C', Items.carrot, 'P', Items.baked_potato, 'D', Blocks.red_mushroom, 'B', "bowlWood");
 			GameRegistry.addSmelting(ModItems.raw_rabbit, new ItemStack(ModItems.cooked_rabbit), 0.35F);
 			addShapedRecipe(new ItemStack(Items.leather), "xx", "xx", 'x', ModItems.rabbit_hide);
 		}
 
-		if (ConfigurationHandler.enableOldGravel) {
+		if (ConfigBlocksItems.enableOldGravel) {
 			addShapedRecipe(new ItemStack(ModBlocks.old_gravel, 4), "xy", "yx", 'x', ModBlocks.coarse_dirt, 'y', Blocks.gravel);
 		}
 
-		if (ConfigurationHandler.enableSponge) {
+		if (ConfigBlocksItems.enableSponge) {
 			addShapelessRecipe(new ItemStack(ModBlocks.sponge), Blocks.sponge);
 			addShapelessRecipe(new ItemStack(Blocks.sponge), ModBlocks.sponge);
 			GameRegistry.addSmelting(new ItemStack(ModBlocks.sponge, 1, 1), new ItemStack(ModBlocks.sponge), 0.0F);
 		}
 
-		if (ConfigurationHandler.enableBeetroot) {
+		if (ConfigBlocksItems.enableBeetroot) {
 			addShapedRecipe(new ItemStack(ModItems.beetroot_soup), "xxx", "xxx", " y ", 'x', "cropBeetroot", 'y', "bowlWood");
 			addShapelessRecipe(new ItemStack(Items.dye, 1, 1), "cropBeetroot");
 		}
 
-		if (ConfigurationHandler.enableChorusFruit) {
+		if (ConfigBlocksItems.enableChorusFruit) {
 			addShapedRecipe(new ItemStack(ModBlocks.purpur_block, 4), "xx", "xx", 'x', ModItems.popped_chorus_fruit);
 			addShapedRecipe(new ItemStack(ModBlocks.purpur_stairs, 4), "x  ", "xx ", "xxx", 'x', ModBlocks.purpur_block);
 			addShapedRecipe(new ItemStack(ModBlocks.purpur_slab, 6), "xxx", 'x', ModBlocks.purpur_block);
@@ -444,25 +445,25 @@ public class ModRecipes {
 			addShapedRecipe(new ItemStack(ModBlocks.end_rod), "x", "y", 'x', Items.blaze_rod, 'y', ModItems.popped_chorus_fruit);
 		}
 
-		if (ConfigurationHandler.enableCryingObsidian) {
+		if (ConfigBlocksItems.enableCryingObsidian) {
 			addShapelessRecipe(new ItemStack(ModBlocks.crying_obsidian), Blocks.obsidian, "gemLapis");
 		}
 
-		if (ConfigurationHandler.enableLingeringPotions) {
+		if (ConfigBlocksItems.enableLingeringPotions) {
 			addShapelessRecipe(new ItemStack(ModItems.dragon_breath), new ItemStack(Items.potionitem, 1, 8195), ModItems.chorus_fruit, ModItems.chorus_fruit);
 		}
 
-		if (ConfigurationHandler.enableDragonRespawn) {
+		if (ConfigBase.enableDragonRespawn) {
 			addShapedRecipe(new ItemStack(ModItems.end_crystal), "xxx", "xyx", "xzx", 'x', "blockGlassColorless", 'y', Items.ender_eye, 'z', Items.ghast_tear);
 		}
 
-		if (ConfigurationHandler.enableRoses) {
+		if (ConfigBlocksItems.enableRoses) {
 			addShapelessRecipe(new ItemStack(Items.dye, 1, 1), ModBlocks.rose);
 			addShapedRecipe(new ItemStack(Blocks.double_plant, 1, 4), "xx", "xx", "xx", 'x', new ItemStack(ModBlocks.rose));
 			addShapedRecipe(new ItemStack(ModBlocks.rose, 12), "xx", 'x', new ItemStack(Blocks.double_plant, 1, 4));
 		}
 
-		if (ConfigurationHandler.enableTippedArrows && ConfigurationHandler.enableLingeringPotions) {
+		if (ConfigBlocksItems.enableTippedArrows && ConfigBlocksItems.enableLingeringPotions) {
 			RecipeSorter.register(Reference.MOD_ID + ".RecipeTippedArrow", RecipeTippedArrow.class, Category.SHAPED, "after:minecraft:shaped");
 			GameRegistry.addRecipe(new RecipeTippedArrow(new ItemStack(ModItems.tipped_arrow), "xxx", "xyx", "xxx", 'x', Items.arrow, 'y', new ItemStack(ModItems.lingering_potion, 1, OreDictionary.WILDCARD_VALUE)));
 		}
@@ -498,11 +499,11 @@ public class ModRecipes {
 //			}
 //		}
 
-		if (ConfigurationHandler.enableMagmaBlock) {
+		if (ConfigBlocksItems.enableMagmaBlock) {
 			addShapedRecipe(new ItemStack(ModBlocks.magma_block), "xx", "xx", 'x', new ItemStack(Items.magma_cream) );
 		}
 
-		if (ConfigurationHandler.enableNewNetherBricks) {
+		if (ConfigBlocksItems.enableNewNetherBricks) {
 			addShapedRecipe(new ItemStack(ModBlocks.new_nether_brick, 1, 0), "xi", "ix", 'x', Items.nether_wart, 'i', "ingotBrickNether");
 			addShapedRecipe(new ItemStack(ModBlocks.new_nether_brick, 1, 2), "x", "x", 'x', new ItemStack(Blocks.stone_slab, 1, 6));
 			GameRegistry.addSmelting(new ItemStack(Blocks.nether_brick, 1, 1), new ItemStack(ModBlocks.new_nether_brick), .1F);
@@ -510,32 +511,32 @@ public class ModRecipes {
 			addShapedRecipe(new ItemStack(ModBlocks.red_nether_brick_slab, 6, 0), "xxx", 'x', new ItemStack(ModBlocks.new_nether_brick, 1, 0));
 		}
 
-		if (ConfigurationHandler.enableNetherwartBlock) {
+		if (ConfigBlocksItems.enableNetherwartBlock) {
 			addShapedRecipe(new ItemStack(ModBlocks.nether_wart_block), "xxx", "xxx", "xxx", 'x', Items.nether_wart);
 			addShapelessRecipe(new ItemStack(Items.nether_wart, 9), ModBlocks.nether_wart_block);
 		}
 
-		if (ConfigurationHandler.enableBoneBlock) {
+		if (ConfigBlocksItems.enableBoneBlock) {
 			addShapedRecipe(new ItemStack(ModBlocks.bone_block), "xxx", "xxx", "xxx", 'x', new ItemStack(Items.dye, 1, 15));
 //            addShapelessRecipe(new ItemStack(Items.dye, 9, 15), new ItemStack(ModBlocks.bone_block));
 		}
 
 		for (int i = 0; i < dyes.length; i++) {
-			if (ConfigurationHandler.enableConcrete) {
+			if (ConfigBlocksItems.enableConcrete) {
 					int dye = ~i & 15;
 					addShapelessRecipe(new ItemStack(ModBlocks.concrete_powder, 8, i), 
 							new Object[]{dyes[dye], new ItemStack(Blocks.sand, 1, 0), new ItemStack(Blocks.sand, 1, 0), new ItemStack(Blocks.sand, 1, 0), 
 									new ItemStack(Blocks.sand, 1, 0), Blocks.gravel, Blocks.gravel, Blocks.gravel, Blocks.gravel});
 			}
-			if(ConfigurationHandler.enableGlazedTerracotta)
+			if(ConfigBlocksItems.enableGlazedTerracotta)
 				GameRegistry.addSmelting(new ItemStack(Blocks.stained_hardened_clay, 1, i), new ItemStack(GameRegistry.findBlock(Reference.MOD_ID, BlockGlazedTerracotta.subBlock[i] + "_glazed_terracotta")), 0.1F);
 		}
 		
-		if (ConfigurationHandler.enableRecipeForTotem) {
+		if (ConfigBase.enableRecipeForTotem) {
 			addShapedRecipe(new ItemStack(ModItems.totem), "EBE", "GBG", " G ", 'E', "gemEmerald", 'G', "ingotGold", 'B', "blockGold" );
 		}
 		
-		if (ConfigurationHandler.enableWoodRedstone) {
+		if (ConfigBlocksItems.enableWoodRedstone) {
 			for (int i = 0; i < ModBlocks.buttons.length; i++)
 				addShapedRecipe(new ItemStack(ModBlocks.buttons[i], 1), "x", 'x', new ItemStack(Blocks.planks, 1, i + 1));
 			addShapedRecipe(new ItemStack(Blocks.wooden_button, 1), "x", 'x', "plankWood");
@@ -551,9 +552,9 @@ public class ModRecipes {
 			Block sbark = i >= 4 ? ModBlocks.wood2_stripped : ModBlocks.wood_stripped;
 			Block bark = i >= 4 ? ModBlocks.log2_bark : ModBlocks.log_bark;
 			
-			if (ConfigurationHandler.enableStrippedLogs) {
+			if (ConfigBlocksItems.enableStrippedLogs) {
 				addShapedRecipe(new ItemStack(Blocks.planks, 4, i), "x", 'x', new ItemStack(slog, 1, i % 4));
-				if(ConfigurationHandler.enableBarkLogs) {
+				if(ConfigBlocksItems.enableBarkLogs) {
 					addShapedRecipe(new ItemStack(Blocks.planks, 4, i), "x", 'x', new ItemStack(sbark, 1, i % 4));
 					addShapedRecipe(new ItemStack(sbark, 3, i % 4), "xx", "xx", 'x', new ItemStack(slog, 1, i % 4));
 //                  if(ConfigurationHandler.enableCrimsonBlocks && i == 0)
@@ -563,7 +564,7 @@ public class ModRecipes {
 				}
 			}
 
-			if(ConfigurationHandler.enableBarkLogs) {
+			if(ConfigBlocksItems.enableBarkLogs) {
 				addShapedRecipe(new ItemStack(Blocks.planks, 4, 4), "x", 'x', new ItemStack(bark, 1, i % 4));
 				addShapedRecipe(new ItemStack(bark, 3, i % 4), "xx", "xx", 'x', new ItemStack(log, 1, i % 4));
 //              if(ConfigurationHandler.enableCrimsonBlocks && i == 0)
@@ -573,7 +574,7 @@ public class ModRecipes {
 			}
 		}
 		
-		if (ConfigurationHandler.enableLantern)
+		if (ConfigBlocksItems.enableLantern)
 			if(!OreDictionary.getOres("nuggetIron").isEmpty())
 				addShapedRecipe(new ItemStack(ModBlocks.lantern), "xxx", "xix", "xxx", 'x', "nuggetIron", 'i', Blocks.torch);
 			else
@@ -586,27 +587,27 @@ public class ModRecipes {
 //      if (ConfigurationHandler.enableWarpedBlocks)
 //          addShapedRecipe(new ItemStack(ModBlocks.nether_planks, 4, 1), "x", 'x', ModBlocks.warped_stem);
 		
-		if (ConfigurationHandler.enableBarrel)
+		if (ConfigBlocksItems.enableBarrel)
 			addShapedRecipe(new ItemStack(ModBlocks.barrel), "xsx", "x x", "xsx", 'x', "plankWood", 's', "slabWood");
 		
-		if(ConfigurationHandler.enableBlueIce)
+		if(ConfigBlocksItems.enableBlueIce)
 			addShapedRecipe(new ItemStack(ModBlocks.blue_ice), "xxx", "xxx", "xxx", 'x', Blocks.packed_ice);
 		
-		if(ConfigurationHandler.enableSmoker) {
+		if(ConfigBlocksItems.enableSmoker) {
 			addShapedRecipe(new ItemStack(ModBlocks.smoker), " l ", "lxl", " l ", 'x', Blocks.furnace, 'l', "logWood");
 		}
 		
-		if(ConfigurationHandler.enableBlastFurnace) {
-			addShapedRecipe(new ItemStack(ModBlocks.blast_furnace), "iii", "ixi", "sss", 'x', Blocks.furnace, 'i', "ingotIron", 's', ConfigurationHandler.enableSmoothStone ? ModBlocks.smooth_stone : Blocks.stone);
+		if(ConfigBlocksItems.enableBlastFurnace) {
+			addShapedRecipe(new ItemStack(ModBlocks.blast_furnace), "iii", "ixi", "sss", 'x', Blocks.furnace, 'i', "ingotIron", 's', ConfigBlocksItems.enableSmoothStone ? ModBlocks.smooth_stone : Blocks.stone);
 		}
 		
 //      if(ConfigurationHandler.enableGenericBuildingBlocks) {
 //          GameRegistry.addSmelting(Blocks.stone, new ItemStack(ModBlocks.smooth_stone), .1F);
 //      }
 		
-		if(ConfigurationHandler.enableNetherite) {
+		if(ConfigBlocksItems.enableNetherite) {
 			GameRegistry.addSmelting(ModBlocks.ancient_debris, new ItemStack(ModItems.netherite_scrap), 2F);
-			if(ConfigurationHandler.enableBlastFurnace) {
+			if(ConfigBlocksItems.enableBlastFurnace) {
 				BlastFurnaceRecipes.smelting().addRecipe(ModBlocks.ancient_debris, new ItemStack(ModItems.netherite_scrap), 2F);
 			}
 			addShapelessRecipe(new ItemStack(ModItems.netherite_ingot), new ItemStack(ModItems.netherite_scrap), new ItemStack(ModItems.netherite_scrap),
@@ -615,7 +616,7 @@ public class ModRecipes {
 			addShapedRecipe(new ItemStack(ModItems.netherite_ingot, 9), "x", 'x', ModBlocks.netherite_block);
 		}
 		
-		if(ConfigurationHandler.enableNetherite) {
+		if(ConfigBlocksItems.enableNetherite) {
 			Item[][] items = new Item[][] {
 				{Items.diamond_helmet, Items.diamond_chestplate, Items.diamond_leggings, Items.diamond_boots, Items.diamond_pickaxe, Items.diamond_axe, Items.diamond_hoe, Items.diamond_shovel, Items.diamond_sword},
 				{ModItems.netherite_helmet, ModItems.netherite_chestplate, ModItems.netherite_leggings, ModItems.netherite_boots, ModItems.netherite_pickaxe, ModItems.netherite_axe, ModItems.netherite_hoe, ModItems.netherite_spade, ModItems.netherite_sword}};
@@ -633,39 +634,39 @@ public class ModRecipes {
 //      if(ConfigurationHandler.enableWarpedBlocks)
 //          addShapedRecipe(new ItemStack(ModBlocks.nether_planks_slab, 6, 3), "xxx", 'x', new ItemStack(ModBlocks.nether_planks, 1, 1));
 //
-		if(ConfigurationHandler.enableNetherGold)
+		if(ConfigBlocksItems.enableNetherGold)
 			GameRegistry.addSmelting(new ItemStack(ModBlocks.nether_gold_ore), new ItemStack(Items.gold_ingot), .1F);
 		
-		if(ConfigurationHandler.enableSmoothStone)
+		if(ConfigBlocksItems.enableSmoothStone)
 			GameRegistry.addSmelting(new ItemStack(Blocks.stone), new ItemStack(ModBlocks.smooth_stone), .1F);
 		
-		if(ConfigurationHandler.enableSmoothSandstone) {
+		if(ConfigBlocksItems.enableSmoothSandstone) {
 			GameRegistry.addSmelting(new ItemStack(Blocks.sandstone, 1, 0), new ItemStack(ModBlocks.smooth_sandstone), .1F);
 			addShapedRecipe(new ItemStack(ModBlocks.smooth_sandstone_stairs, 4, 0), "x  ", "xx ", "xxx", 'x', new ItemStack(ModBlocks.smooth_sandstone, 1, 0));
 			addShapedRecipe(new ItemStack(ModBlocks.smooth_sandstone_slab, 6, 0), "xxx", 'x', new ItemStack(ModBlocks.smooth_sandstone, 1, 0));
-			if(ConfigurationHandler.enableRedSandstone) {
+			if(ConfigBlocksItems.enableRedSandstone) {
 				GameRegistry.addSmelting(new ItemStack(ModBlocks.red_sandstone, 1, 0), new ItemStack(ModBlocks.smooth_red_sandstone), .1F);
 				addShapedRecipe(new ItemStack(ModBlocks.smooth_red_sandstone_stairs, 4, 0), "x  ", "xx ", "xxx", 'x', new ItemStack(ModBlocks.smooth_red_sandstone, 1, 0));
 				addShapedRecipe(new ItemStack(ModBlocks.smooth_red_sandstone_slab, 6, 0), "xxx", 'x', new ItemStack(ModBlocks.smooth_red_sandstone, 1, 0));
 			}
 		}
 		
-		if(ConfigurationHandler.enableSmoothQuartz) {
+		if(ConfigBlocksItems.enableSmoothQuartz) {
 			GameRegistry.addSmelting(new ItemStack(Blocks.quartz_block, 1, 0), new ItemStack(ModBlocks.smooth_quartz), .1F);
 			addShapedRecipe(new ItemStack(ModBlocks.smooth_quartz_stairs, 4, 0), "x  ", "xx ", "xxx", 'x', new ItemStack(ModBlocks.smooth_quartz, 1, 0));
 		}
 //      
-		if(ConfigurationHandler.enableQuartzBricks)
+		if(ConfigBlocksItems.enableQuartzBricks)
 			addShapedRecipe(new ItemStack(ModBlocks.quartz_bricks), "xx", "xx", 'x', new ItemStack(Blocks.quartz_block, 1, 0));
 		
-		if(ConfigurationHandler.enableNewDyes) {
-			if(ConfigurationHandler.enableLilyOfTheValley) {
+		if(ConfigBlocksItems.enableNewDyes) {
+			if(ConfigBlocksItems.enableLilyOfTheValley) {
 				addShapelessRecipe(new ItemStack(ModItems.new_dye, 1, 0), new ItemStack(ModBlocks.lily_of_the_valley, 1, 0));
 			}
-			if(ConfigurationHandler.enableCornflower) {
+			if(ConfigBlocksItems.enableCornflower) {
 				addShapelessRecipe(new ItemStack(ModItems.new_dye, 1, 1), new ItemStack(ModBlocks.cornflower, 1, 0));
 			}
-			if(ConfigurationHandler.enableWitherRose) {
+			if(ConfigBlocksItems.enableWitherRose) {
 				addShapelessRecipe(new ItemStack(ModItems.new_dye, 1, 3), new ItemStack(ModBlocks.wither_rose, 1, 0));
 			}
 			addShapelessRecipe(new ItemStack(ModItems.new_dye, 1, 0), new ItemStack(Items.dye, 1, 15));
@@ -675,7 +676,7 @@ public class ModRecipes {
 			
 		}
 		
-		if(ConfigurationHandler.enableCopper) {
+		if(ConfigBlocksItems.enableCopper) {
 			Block[] stairs = new Block[] {ModBlocks.cut_copper_stairs, ModBlocks.exposed_cut_copper_stairs, ModBlocks.weathered_cut_copper_stairs, ModBlocks.oxidized_cut_copper_stairs, ModBlocks.waxed_cut_copper_stairs, ModBlocks.waxed_exposed_cut_copper_stairs, ModBlocks.waxed_weathered_cut_copper_stairs, ModBlocks.waxed_oxidized_cut_copper_stairs};
 			addShapedRecipe(new ItemStack(ModBlocks.copper_block, 1), "xxx", "xxx", "xxx", 'x', new ItemStack(ModItems.copper_ingot, 1, 0));
 			addShapedRecipe(new ItemStack(ModItems.copper_ingot, 9), "x", 'x', new ItemStack(ModBlocks.copper_block, 1, 0));
@@ -714,7 +715,7 @@ public class ModRecipes {
 			}
 		}
 		
-		if(ConfigurationHandler.enableDeepslate) {
+		if(ConfigBlocksItems.enableDeepslate) {
 			GameRegistry.addSmelting(ModBlocks.cobbled_deepslate, new ItemStack(ModBlocks.deepslate), 0.1F);
 			GameRegistry.addSmelting(new ItemStack(ModBlocks.deepslate_bricks, 1, 0), new ItemStack(ModBlocks.deepslate_bricks, 1, 1), 0.1F);
 			GameRegistry.addSmelting(new ItemStack(ModBlocks.deepslate_bricks, 1, 2), new ItemStack(ModBlocks.deepslate_bricks, 1, 3), 0.1F);
@@ -750,8 +751,8 @@ public class ModRecipes {
 //          }
 //      }
 		
-		if (ConfigurationHandler.enableRawOres) {
-			if(ConfigurationHandler.enableCopper) {
+		if (ConfigBlocksItems.enableRawOres) {
+			if(ConfigBlocksItems.enableCopper) {
 				addShapedRecipe(new ItemStack(ModBlocks.raw_ore_block, 1, 0), "xxx", "xxx", "xxx", 'x', new ItemStack(ModItems.raw_ore, 1, 0));
 				addShapedRecipe(new ItemStack(ModItems.raw_ore, 9, 0), "x", 'x', new ItemStack(ModBlocks.raw_ore_block, 1, 0));
 				GameRegistry.addSmelting(new ItemStack(ModItems.raw_ore, 1, 0), new ItemStack(ModItems.copper_ingot, 1, 0), 0.7F);
@@ -764,7 +765,7 @@ public class ModRecipes {
 			GameRegistry.addSmelting(new ItemStack(ModItems.raw_ore, 1, 2), new ItemStack(Items.gold_ingot, 1, 0), 0.7F);
 		}
 		
-		if(ConfigurationHandler.enableSuspiciousStew) {
+		if(ConfigBlocksItems.enableSuspiciousStew) {
 			for(int i = 0; i < getStewFlowers().size(); i++) {
 				ItemStack stew = new ItemStack(ModItems.suspicious_stew, 1, 0);
 				
@@ -781,12 +782,12 @@ public class ModRecipes {
 			}
 		}
 		
-		if(ConfigurationHandler.enableNewBoats) {
+		if(ConfigBase.enableNewBoats) {
 			for(int i = EntityNewBoat.Type.values().length - 1; i >= 0; i--) {
-				addShapedRecipe(new ItemStack(i == 0 && ConfigurationHandler.replaceOldBoats ? Items.boat : ModItems.boats[i], 1),
-						(ConfigurationHandler.replaceOldBoats ? "x x" : "xyx"), "xxx", 'x', i == 0 ? "plankWood" : new ItemStack(Blocks.planks, 1, i), 'y', new ItemStack(Items.wooden_shovel, 1));
+				addShapedRecipe(new ItemStack(i == 0 && ConfigBase.replaceOldBoats ? Items.boat : ModItems.boats[i], 1),
+						(ConfigBase.replaceOldBoats ? "x x" : "xyx"), "xxx", 'x', i == 0 ? "plankWood" : new ItemStack(Blocks.planks, 1, i), 'y', new ItemStack(Items.wooden_shovel, 1));
 			}
-			if(!ConfigurationHandler.replaceOldBoats) {
+			if(!ConfigBase.replaceOldBoats) {
 				addShapelessRecipe(new ItemStack(Items.boat), ModItems.boats[0]);
 				addShapelessRecipe(new ItemStack(ModItems.boats[0]), Items.wooden_shovel, Items.boat);
 			}
@@ -794,7 +795,7 @@ public class ModRecipes {
 	}
 	
 	public static void initDeepslate() {
-		if (ConfigurationHandler.enableDeepslateOres) { //Copy block settings from deepslate base blocks
+		if (ConfigBlocksItems.enableDeepslateOres) { //Copy block settings from deepslate base blocks
 			for (Entry<BlockAndMetadataMapping, BlockAndMetadataMapping> entry : EtFuturum.deepslateOres.entrySet()) {
 				Block oreNorm = entry.getKey().getOre();
 				if (oreNorm == null || oreNorm == Blocks.air) continue;
@@ -836,13 +837,13 @@ public class ModRecipes {
 		list.add(new ItemStack(Blocks.red_flower, 1, 6));
 		list.add(new ItemStack(Blocks.red_flower, 1, 7));
 		
-		if(ConfigurationHandler.enableLilyOfTheValley) {
+		if(ConfigBlocksItems.enableLilyOfTheValley) {
 			list.add(new ItemStack(ModBlocks.lily_of_the_valley, 1, 0));
 		}
-		if(ConfigurationHandler.enableCornflower) {
+		if(ConfigBlocksItems.enableCornflower) {
 			list.add(new ItemStack(ModBlocks.cornflower, 1, 0));
 		}
-		if(ConfigurationHandler.enableWitherRose) {
+		if(ConfigBlocksItems.enableWitherRose) {
 			list.add(new ItemStack(ModBlocks.wither_rose, 1, 0));
 		}
 		

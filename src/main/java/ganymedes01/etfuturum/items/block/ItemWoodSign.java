@@ -3,7 +3,7 @@ package ganymedes01.etfuturum.items.block;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.configuration.ConfigurationHandler;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.network.WoodSignOpenMessage;
 import ganymedes01.etfuturum.tileentities.TileEntityWoodSign;
@@ -112,6 +112,6 @@ public class ItemWoodSign extends Item implements IConfigurable {
 //          return false;
 //      if(meta == 6 && !EtFuturum.enableWarpedBlocks)
 //          return false;
-		return ConfigurationHandler.enableSigns;
+		return ConfigBlocksItems.enableSigns;
 	}
 }

@@ -3,7 +3,7 @@ package ganymedes01.etfuturum.blocks;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.ModBlocks.ISubBlocksBlock;
-import ganymedes01.etfuturum.configuration.ConfigurationHandler;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.items.block.ItemBlockRedSandstone;
 import net.minecraft.block.BlockSandStone;
@@ -25,6 +25,6 @@ public class BlockRedSandstone extends BlockSandStone implements ISubBlocksBlock
 
 	@Override
 	public boolean isEnabled() {
-		return ConfigurationHandler.enableRedSandstone;
+		return ConfigBlocksItems.enableRedSandstone;
 	}
 }

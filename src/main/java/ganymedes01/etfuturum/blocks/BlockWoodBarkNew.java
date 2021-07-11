@@ -5,7 +5,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.ModBlocks.ISubBlocksBlock;
-import ganymedes01.etfuturum.configuration.ConfigurationHandler;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.items.block.ItemBlockGeneric;
 import net.minecraft.block.BlockNewLog;
@@ -36,7 +36,7 @@ public class BlockWoodBarkNew extends BlockNewLog implements IConfigurable, ISub
 
 	@Override
 	public boolean isEnabled() {
-		return ConfigurationHandler.enableBarkLogs;
+		return ConfigBlocksItems.enableBarkLogs;
 	}
 
 	@Override

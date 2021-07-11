@@ -16,7 +16,7 @@ import java.util.Random;
 
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.configuration.ConfigurationHandler;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.world.WorldCoord;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -84,7 +84,7 @@ public class OceanMonument {
 					block = Blocks.gold_block;
 					break;
 				case 5:
-					block = ConfigurationHandler.enableSponge ? ModBlocks.sponge : Blocks.sponge;
+					block = ConfigBlocksItems.enableSponge ? ModBlocks.sponge : Blocks.sponge;
 					meta = 1;
 					break;
 				case 6:

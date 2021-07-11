@@ -9,7 +9,8 @@ import cpw.mods.fml.common.gameevent.TickEvent.WorldTickEvent;
 import cpw.mods.fml.relauncher.Side;
 import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.configuration.ConfigurationHandler;
+import ganymedes01.etfuturum.configuration.ConfigBase;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
@@ -28,22 +29,22 @@ public class WorldTickEventHandler {
 	static {
 		if (replacements == null) {
 			replacements = new HashMap<Block, Block>();
-			if (ConfigurationHandler.enableBrewingStands && ConfigurationHandler.enableTileReplacement)
+			if (ConfigBlocksItems.enableBrewingStands && ConfigBase.enableTileReplacement)
 				replacements.put(Blocks.brewing_stand, ModBlocks.brewing_stand);
 			else
 				replacements.put(ModBlocks.brewing_stand, Blocks.brewing_stand);
 			
-			if (ConfigurationHandler.enableColourfulBeacons && ConfigurationHandler.enableTileReplacement)
+			if (ConfigBlocksItems.enableColourfulBeacons && ConfigBase.enableTileReplacement)
 				replacements.put(Blocks.beacon, ModBlocks.beacon);
 			else
 				replacements.put(ModBlocks.beacon, Blocks.beacon);
 			
-			if (ConfigurationHandler.enableEnchants && ConfigurationHandler.enableTileReplacement)
+			if (ConfigBlocksItems.enableEnchantingTable && ConfigBase.enableTileReplacement)
 				replacements.put(Blocks.enchanting_table, ModBlocks.enchantment_table);
 			else
 				replacements.put(ModBlocks.enchantment_table, Blocks.enchanting_table);
 			
-			if (ConfigurationHandler.enableInvertedDaylightSensor && ConfigurationHandler.enableTileReplacement)
+			if (ConfigBlocksItems.enableInvertedDaylightSensor && ConfigBase.enableTileReplacement)
 				replacements.put(Blocks.daylight_detector, ModBlocks.daylight_sensor);
 			else
 				replacements.put(ModBlocks.daylight_sensor, Blocks.daylight_detector);

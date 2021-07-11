@@ -4,7 +4,8 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.configuration.ConfigurationHandler;
+import ganymedes01.etfuturum.configuration.ConfigBase;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -18,7 +19,7 @@ public class BlockTuff extends Block implements IConfigurable {
 		setHardness(1.5F);
 		setResistance(6.0F);
 		setBlockTextureName("tuff");
-		setStepSound(ConfigurationHandler.enableNewBlocksSounds ? ModSounds.soundTuff : soundTypePiston);
+		setStepSound(ConfigBase.enableNewBlocksSounds ? ModSounds.soundTuff : soundTypePiston);
 		setBlockName(Utils.getUnlocalisedName("tuff"));
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
 	}
@@ -30,7 +31,7 @@ public class BlockTuff extends Block implements IConfigurable {
 	
 	@Override
 	public boolean isEnabled() {
-		return ConfigurationHandler.enableTuff;
+		return ConfigBlocksItems.enableTuff;
 	}
 
 }

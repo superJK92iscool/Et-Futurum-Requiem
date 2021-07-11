@@ -4,7 +4,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
-import ganymedes01.etfuturum.configuration.ConfigurationHandler;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.BlockTrapDoor;
@@ -67,7 +67,7 @@ public class BlockWoodTrapdoor extends BlockTrapDoor implements IConfigurable{
 //          return false;
 //      if(meta == 7 && !ConfigurationHandler.enableWarpedBlocks)
 //          return false;
-		return ConfigurationHandler.enableTrapdoors;
+		return ConfigBlocksItems.enableTrapdoors;
 	}
 
 }

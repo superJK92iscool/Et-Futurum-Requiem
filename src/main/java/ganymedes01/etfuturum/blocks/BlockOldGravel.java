@@ -4,7 +4,7 @@ import java.util.Random;
 
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
-import ganymedes01.etfuturum.configuration.ConfigurationHandler;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.BlockGravel;
 import net.minecraft.item.Item;
@@ -26,6 +26,6 @@ public class BlockOldGravel extends BlockGravel implements IConfigurable {
 
 	@Override
 	public boolean isEnabled() {
-		return ConfigurationHandler.enableOldGravel;
+		return ConfigBlocksItems.enableOldGravel;
 	}
 }

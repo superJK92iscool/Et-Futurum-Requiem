@@ -3,7 +3,7 @@ package ganymedes01.etfuturum.blocks.ores;
 import java.util.Random;
 
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.configuration.ConfigurationHandler;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -130,6 +130,6 @@ public class BlockDeepslateRedstoneOre extends BlockDeepslateOre {
 	
 	@Override
 	public boolean isEnabled() {
-		return ConfigurationHandler.enableDeepslate && ConfigurationHandler.enableDeepslateOres;
+		return ConfigBlocksItems.enableDeepslate && ConfigBlocksItems.enableDeepslateOres;
 	}
 }

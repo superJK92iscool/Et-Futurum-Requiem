@@ -9,7 +9,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.ModItems;
-import ganymedes01.etfuturum.configuration.ConfigurationHandler;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.dispenser.DispenserBehaviourTippedArrow;
 import net.minecraft.block.BlockDispenser;
@@ -37,7 +37,7 @@ public class ItemArrowTipped extends Item implements IConfigurable {
 		setUnlocalizedName(Utils.getUnlocalisedName("tipped_arrow"));
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
 
-		if (ConfigurationHandler.enableTippedArrows)
+		if (ConfigBlocksItems.enableTippedArrows)
 			BlockDispenser.dispenseBehaviorRegistry.putObject(this, new DispenserBehaviourTippedArrow());
 	}
 
@@ -115,7 +115,7 @@ public class ItemArrowTipped extends Item implements IConfigurable {
 
 	@Override
 	public boolean isEnabled() {
-		return ConfigurationHandler.enableTippedArrows;
+		return ConfigBlocksItems.enableTippedArrows;
 	}
 	
 	

@@ -5,7 +5,7 @@ import java.lang.reflect.Field;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
-import ganymedes01.etfuturum.configuration.ConfigurationHandler;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockStairs;
 
@@ -30,7 +30,7 @@ public class BlockGenericStairs extends BlockStairs implements IConfigurable {
 	
 	@Override
 	public boolean isEnabled() {
-		return base instanceof IConfigurable ? ((IConfigurable)base).isEnabled() : ConfigurationHandler.enableGenericStairs;
+		return base instanceof IConfigurable ? ((IConfigurable)base).isEnabled() : ConfigBlocksItems.enableGenericStairs;
 	}
 
 }

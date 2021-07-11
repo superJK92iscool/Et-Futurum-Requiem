@@ -2,7 +2,7 @@ package ganymedes01.etfuturum.world.generate.feature;
 
 import java.util.Random;
 
-import ganymedes01.etfuturum.configuration.ConfigurationHandler;
+import ganymedes01.etfuturum.configuration.ConfigBase;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -10,7 +10,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class WorldGenFossil extends WorldGenerator {
 	
-	public static Block bone = ConfigurationHandler.fossilBoneBlock;
+	public static Block bone = ConfigBase.fossilBoneBlock;
 	
 	public WorldGenFossil() {
 	}

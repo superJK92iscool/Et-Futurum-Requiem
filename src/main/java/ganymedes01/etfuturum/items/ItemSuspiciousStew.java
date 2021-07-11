@@ -1,7 +1,7 @@
 package ganymedes01.etfuturum.items;
 
 import ganymedes01.etfuturum.IConfigurable;
-import ganymedes01.etfuturum.configuration.ConfigurationHandler;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemSoup;
@@ -39,7 +39,7 @@ public class ItemSuspiciousStew extends ItemSoup implements IConfigurable {
 	
 	@Override
 	public boolean isEnabled() {
-		return ConfigurationHandler.enableSuspiciousStew;
+		return ConfigBlocksItems.enableSuspiciousStew;
 	}
 
 	public void applyPotionEffects(ItemStack stack, EntityPlayer player) {

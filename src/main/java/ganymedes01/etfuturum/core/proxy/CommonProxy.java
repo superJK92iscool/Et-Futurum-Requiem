@@ -13,7 +13,8 @@ import ganymedes01.etfuturum.client.gui.inventory.GuiBlastFurnace;
 import ganymedes01.etfuturum.client.gui.inventory.GuiEnchantment;
 import ganymedes01.etfuturum.client.gui.inventory.GuiNewBrewingStand;
 import ganymedes01.etfuturum.client.gui.inventory.GuiSmoker;
-import ganymedes01.etfuturum.configuration.ConfigurationHandler;
+import ganymedes01.etfuturum.configuration.ConfigBase;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.handlers.ServerEventHandler;
 import ganymedes01.etfuturum.core.handlers.WorldTickEventHandler;
 import ganymedes01.etfuturum.core.utils.Utils;
@@ -65,7 +66,7 @@ import net.minecraftforge.common.MinecraftForge;
 public class CommonProxy implements IGuiHandler {
 
 	public void registerEvents() {
-		FMLCommonHandler.instance().bus().register(ConfigurationHandler.INSTANCE);
+		FMLCommonHandler.instance().bus().register(ConfigBase.INSTANCE);
 		FMLCommonHandler.instance().bus().register(ServerEventHandler.INSTANCE);
 		MinecraftForge.EVENT_BUS.register(ServerEventHandler.INSTANCE);
 		FMLCommonHandler.instance().bus().register(new WorldTickEventHandler());
@@ -74,31 +75,31 @@ public class CommonProxy implements IGuiHandler {
 	public void registerEntities() {
 		int id = 0;
 		
-		if (ConfigurationHandler.enableBanners)
+		if (ConfigBlocksItems.enableBanners)
 			GameRegistry.registerTileEntity(TileEntityBanner.class, Utils.getUnlocalisedName("banner"));
-		if (ConfigurationHandler.enableArmourStand)
+		if (ConfigBase.enableArmourStand)
 			ModEntityList.registerEntity(EntityArmourStand.class, "wooden_armorstand", id++, EtFuturum.instance, 64, 1, true);
-		if (ConfigurationHandler.enableEndermite)
+		if (ConfigBase.enableEndermite)
 			ModEntityList.registerEntity(EntityEndermite.class, "endermite", id++, EtFuturum.instance, 64, 1, true, 1447446, 7237230);
-		if (ConfigurationHandler.enableTippedArrows)
+		if (ConfigBlocksItems.enableTippedArrows)
 			ModEntityList.registerEntity(EntityTippedArrow.class, "tipped_arrow", id++, EtFuturum.instance, 64, 20, true);
-		if (ConfigurationHandler.enableBrewingStands)
+		if (ConfigBlocksItems.enableBrewingStands)
 			GameRegistry.registerTileEntity(TileEntityNewBrewingStand.class, Utils.getUnlocalisedName("brewing_stand"));
-		if (ConfigurationHandler.enableColourfulBeacons)
+		if (ConfigBlocksItems.enableColourfulBeacons)
 			GameRegistry.registerTileEntity(TileEntityNewBeacon.class, Utils.getUnlocalisedName("beacon"));
 
-		if (ConfigurationHandler.enableBarrel)
+		if (ConfigBlocksItems.enableBarrel)
 			GameRegistry.registerTileEntity(TileEntityBarrel.class, Utils.getUnlocalisedName("barrel"));
 		
-		if (ConfigurationHandler.enableSmoker)
+		if (ConfigBlocksItems.enableSmoker)
 			GameRegistry.registerTileEntity(TileEntitySmoker.class, Utils.getUnlocalisedName("smoker"));
-		if (ConfigurationHandler.enableBlastFurnace)
+		if (ConfigBlocksItems.enableBlastFurnace)
 			GameRegistry.registerTileEntity(TileEntityBlastFurnace.class, Utils.getUnlocalisedName("blast_furnace"));
 		
-		if(ConfigurationHandler.enableSigns)
+		if(ConfigBlocksItems.enableSigns)
 			GameRegistry.registerTileEntity(TileEntityWoodSign.class, Utils.getUnlocalisedName("sign"));
 		
-		if (ConfigurationHandler.enableRabbit) {
+		if (ConfigBlocksItems.enableRabbit) {
 			ModEntityList.registerEntity(EntityRabbit.class, "rabbit", id++, EtFuturum.instance, 80, 3, true, 10051392, 7555121);
 
 			List<BiomeGenBase> biomes = new LinkedList<BiomeGenBase>();
@@ -116,7 +117,7 @@ public class CommonProxy implements IGuiHandler {
 			EntityRegistry.addSpawn(EntityRabbit.class, 10, 3, 3, EnumCreatureType.creature, biomes.toArray(new BiomeGenBase[biomes.size()]));
 		}
 		
-		if (ConfigurationHandler.enableHusk) {
+		if (ConfigBase.enableHusk) {
 			ModEntityList.registerEntity(EntityHusk.class, "husk", id++, EtFuturum.instance, 80, 3, true, 7828833, 14735761);
 			//change spawn weights
 			EntityRegistry.removeSpawn(EntityZombie.class, EnumCreatureType.monster, new BiomeGenBase[] { BiomeGenBase.desert, BiomeGenBase.desertHills });
@@ -125,7 +126,7 @@ public class CommonProxy implements IGuiHandler {
 			EntityRegistry.addSpawn(EntityZombieVillager.class, 1, 1, 1, EnumCreatureType.monster, new BiomeGenBase[] { BiomeGenBase.desert, BiomeGenBase.desertHills });
 			EntityRegistry.addSpawn(EntityHusk.class, 80, 4, 4, EnumCreatureType.monster, new BiomeGenBase[] { BiomeGenBase.desert, BiomeGenBase.desertHills });
 		}
-		if (ConfigurationHandler.enableStray) {
+		if (ConfigBase.enableStray) {
 			ModEntityList.registerEntity(EntityStray.class, "stray", id++, EtFuturum.instance, 80, 3, true, 6387576, 15133418);
 			//change spawn weights
 			EntityRegistry.removeSpawn(EntitySkeleton.class, EnumCreatureType.monster, new BiomeGenBase[] { BiomeGenBase.icePlains, BiomeGenBase.iceMountains });
@@ -133,31 +134,31 @@ public class CommonProxy implements IGuiHandler {
 			EntityRegistry.addSpawn(EntitySkeleton.class, 20, 4, 4, EnumCreatureType.monster, new BiomeGenBase[] { BiomeGenBase.icePlains, BiomeGenBase.iceMountains });
 			EntityRegistry.addSpawn(EntityStray.class, 80, 4, 4, EnumCreatureType.monster, new BiomeGenBase[] { BiomeGenBase.icePlains, BiomeGenBase.iceMountains });
 		}
-		if (ConfigurationHandler.enableNetherEndermen) {
+		if (ConfigBase.enableNetherEndermen) {
 			EntityRegistry.addSpawn(EntityEnderman.class, 1, 4, 4, EnumCreatureType.monster, new BiomeGenBase[] { BiomeGenBase.hell });
 			EntityEnderman.setCarriable(Blocks.netherrack, true);
 		}
 		
-		if (ConfigurationHandler.enableLingeringPotions) {
+		if (ConfigBlocksItems.enableLingeringPotions) {
 			ModEntityList.registerEntity(EntityLingeringPotion.class, "lingering_potion", id++, EtFuturum.instance, 64, 10, true);
 			ModEntityList.registerEntity(EntityLingeringEffect.class, "lingering_effect", id++, EtFuturum.instance, 64, 1, true);
 		}
 
-		if (ConfigurationHandler.enableVillagerZombies)
+		if (ConfigBase.enableVillagerZombies)
 			ModEntityList.registerEntity(EntityZombieVillager.class, "villager_zombie", id++, EtFuturum.instance, 80, 3, true, 44975, 7969893);
 
-		if (ConfigurationHandler.enableDragonRespawn) {
+		if (ConfigBase.enableDragonRespawn) {
 			ModEntityList.registerEntity(EntityPlacedEndCrystal.class, "end_crystal", id++, EtFuturum.instance, 256, Integer.MAX_VALUE, false);
 			ModEntityList.registerEntity(EntityRespawnedDragon.class, "ender_dragon", id++, EtFuturum.instance, 160, 3, true);
 		}
 
-		if (ConfigurationHandler.enableShearableGolems)
+		if (ConfigBase.enableShearableGolems)
 			ModEntityList.registerEntity(EntityNewSnowGolem.class, "snow_golem", id++, EtFuturum.instance, 80, 3, true);
 		
-		if (ConfigurationHandler.enableBrownMooshroom)
+		if (ConfigBase.enableBrownMooshroom)
 			ModEntityList.registerEntity(EntityBrownMooshroom.class, "brown_mooshroom", id++, EtFuturum.instance, 80, 3, true);
 
-		if(ConfigurationHandler.enableNewBoats)
+		if(ConfigBase.enableNewBoats)
 			ModEntityList.registerEntity(EntityNewBoat.class, "new_boat", id++, EtFuturum.instance, 64, 1, true);
 		
 		ModEntityList.registerEntity(EntityNewBoatSeat.class, "new_boat_seat", id++, EtFuturum.instance, 64, 1, false);

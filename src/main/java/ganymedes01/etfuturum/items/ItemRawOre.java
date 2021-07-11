@@ -7,7 +7,8 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
-import ganymedes01.etfuturum.configuration.ConfigurationHandler;
+import ganymedes01.etfuturum.configuration.ConfigBase;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.world.generate.BlockAndMetadataMapping;
 import ganymedes01.etfuturum.world.generate.RawOreDropMapping;
@@ -24,9 +25,9 @@ public class ItemRawOre extends ItemGeneric implements IConfigurable {
 		setTextureName("raw");
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
 		if(isEnabled()) {
-			if(ConfigurationHandler.enableCopper) {
-				rawOreRegistry.put(new BlockAndMetadataMapping(ModBlocks.copper_ore, 0), new RawOreDropMapping(this, 0, ConfigurationHandler.enableExtraCopper));
-				rawOreRegistry.put(new BlockAndMetadataMapping(ModBlocks.deepslate_copper_ore, 0), new RawOreDropMapping(this, 0, ConfigurationHandler.enableExtraCopper));
+			if(ConfigBlocksItems.enableCopper) {
+				rawOreRegistry.put(new BlockAndMetadataMapping(ModBlocks.copper_ore, 0), new RawOreDropMapping(this, 0, ConfigBase.enableExtraCopper));
+				rawOreRegistry.put(new BlockAndMetadataMapping(ModBlocks.deepslate_copper_ore, 0), new RawOreDropMapping(this, 0, ConfigBase.enableExtraCopper));
 			}
 			rawOreRegistry.put(new BlockAndMetadataMapping(Blocks.iron_ore, 0), new RawOreDropMapping(this, 1, false));
 			rawOreRegistry.put(new BlockAndMetadataMapping(ModBlocks.deepslate_iron_ore, 0), new RawOreDropMapping(this, 1, false));
@@ -42,7 +43,7 @@ public class ItemRawOre extends ItemGeneric implements IConfigurable {
 	
 	@Override
 	public boolean isEnabled() {
-		return ConfigurationHandler.enableRawOres;
+		return ConfigBlocksItems.enableRawOres;
 	}
 
 }

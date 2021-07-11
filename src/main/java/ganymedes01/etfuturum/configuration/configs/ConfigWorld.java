@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.configuration;
+package ganymedes01.etfuturum.configuration.configs;
 
 import java.io.File;
 
@@ -13,9 +13,9 @@ import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
 import net.minecraftforge.common.config.Configuration;
 
-public class ConfigurationHandler {
+public class ConfigWorld {
 
-	public static ConfigurationHandler INSTANCE = new ConfigurationHandler();
+	public static ConfigWorld INSTANCE = new ConfigWorld();
 	public Configuration cfg;
 	
 	public static final String catClient = "client";

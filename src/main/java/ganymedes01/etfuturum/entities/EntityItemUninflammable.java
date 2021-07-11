@@ -2,7 +2,7 @@ package ganymedes01.etfuturum.entities;
 
 import java.util.Iterator;
 
-import ganymedes01.etfuturum.configuration.ConfigurationHandler;
+import ganymedes01.etfuturum.configuration.ConfigBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
@@ -46,7 +46,7 @@ public class EntityItemUninflammable extends EntityItem {
 
 		if (this.getEntityItem() == null) {
 			this.setDead();
-		} else if(ConfigurationHandler.enableNetheriteFlammable) {
+		} else if(ConfigBase.enableNetheriteFlammable) {
 			EntityItem item = new EntityItem(this.worldObj);
 			item.copyDataFrom(this, true);
 			item.delayBeforeCanPickup = this.delayBeforeCanPickup;

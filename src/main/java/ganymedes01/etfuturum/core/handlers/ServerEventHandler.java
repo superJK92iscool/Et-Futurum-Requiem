@@ -25,7 +25,8 @@ import ganymedes01.etfuturum.ModEnchantments;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.blocks.BlockMagma;
 import ganymedes01.etfuturum.blocks.BlockWitherRose;
-import ganymedes01.etfuturum.configuration.ConfigurationHandler;
+import ganymedes01.etfuturum.configuration.ConfigBase;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.HoeHelper;
 import ganymedes01.etfuturum.entities.EntityBrownMooshroom;
 import ganymedes01.etfuturum.entities.EntityEndermite;
@@ -143,7 +144,7 @@ public class ServerEventHandler {
 		double x = event.entityLiving.posX;
 		double y = event.entityLiving.posY;
 		double z = event.entityLiving.posZ;
-		if(ConfigurationHandler.enableMagmaBlock)
+		if(ConfigBlocksItems.enableMagmaBlock)
 			if(!entity.worldObj.isRemote && !entity.isImmuneToFire() && !entity.isSneaking() && entity.onGround
 					&& entity.worldObj.getBlock(MathHelper.floor_double(x), (int)(y - .45), MathHelper.floor_double(z)) == ModBlocks.magma_block) {
 				NBTTagList enchants;
@@ -164,7 +165,7 @@ public class ServerEventHandler {
 					entity.attackEntityFrom(BlockMagma.HOT_FLOOR, 1);
 			}
 		
-		if (ConfigurationHandler.enableVillagerZombies)
+		if (ConfigBase.enableVillagerZombies)
 			if (!event.entityLiving.worldObj.isRemote && event.entityLiving.getClass() == EntityZombie.class) {
 				EntityZombie zombie = (EntityZombie) event.entityLiving;
 				if (zombie.isVillager()) {
@@ -177,7 +178,7 @@ public class ServerEventHandler {
 				}
 			}
 
-		if (ConfigurationHandler.enableShearableGolems)
+		if (ConfigBase.enableShearableGolems)
 			if (!event.entityLiving.worldObj.isRemote && event.entityLiving.getClass() == EntitySnowman.class) {
 				EntityNewSnowGolem golen = new EntityNewSnowGolem(event.entityLiving.worldObj);
 				golen.copyLocationAndAnglesFrom(event.entityLiving);
@@ -191,7 +192,7 @@ public class ServerEventHandler {
 	@SubscribeEvent
 	public void entityUpdate(EntityEvent event) {
 		if(event.entity.worldObj == null || event.entity.getClass() == null) return;
-		if (ConfigurationHandler.enableNewBoats && ConfigurationHandler.replaceOldBoats) {
+		if (ConfigBase.enableNewBoats && ConfigBase.replaceOldBoats) {
 			if (!event.entity.worldObj.isRemote && event.entity.getClass() == EntityBoat.class && event.entity.riddenByEntity == null) {
 				if(event.entity.worldObj.getEntitiesWithinAABB(EntityNewBoat.class, event.entity.boundingBox).isEmpty()) {
 					EntityNewBoat boat = new EntityNewBoat(event.entity.worldObj);
@@ -293,7 +294,7 @@ public class ServerEventHandler {
 
 	@SubscribeEvent
 	public void onPlayerLoadFromFileEvent(PlayerEvent.LoadFromFile event) {
-		if (!ConfigurationHandler.enableEnchants)
+		if (!ConfigBlocksItems.enableEnchantingTable)
 			return;
 		try {
 			File file = event.getPlayerFile(Reference.MOD_ID);
@@ -315,7 +316,7 @@ public class ServerEventHandler {
 
 	@SubscribeEvent
 	public void onPlayerSaveFromFileEvent(PlayerEvent.SaveToFile event) {
-		if (!ConfigurationHandler.enableEnchants)
+		if (!ConfigBlocksItems.enableEnchantingTable)
 			return;
 		try {
 			File file = event.getPlayerFile(Reference.MOD_ID);
@@ -336,7 +337,7 @@ public class ServerEventHandler {
 
 	@SubscribeEvent
 	public void harvestEvent(BlockEvent.HarvestDropsEvent event) {
-		if(ConfigurationHandler.enableSilkTouchingMushrooms && event.isSilkTouching)
+		if(ConfigBase.enableSilkTouchingMushrooms && event.isSilkTouching)
 			if (event.block == Blocks.brown_mushroom_block) {
 				event.drops.clear();
 				event.drops.add(new ItemStack(ModBlocks.brown_mushroom_block));
@@ -345,7 +346,7 @@ public class ServerEventHandler {
 				event.drops.add(new ItemStack(ModBlocks.red_mushroom_block));
 			}
 
-		if(ConfigurationHandler.enableSticksFromDeadBushes) {
+		if(ConfigBase.enableSticksFromDeadBushes) {
 			if(event.block == Blocks.deadbush) {
 				boolean isShears = event.harvester != null && event.harvester.getCurrentEquippedItem() != null && event.harvester.getCurrentEquippedItem().getItem() instanceof ItemShears;
 				if(event.harvester == null || event.harvester.getCurrentEquippedItem() == null || !isShears)
@@ -354,7 +355,7 @@ public class ServerEventHandler {
 			}
 		}
 		
-		if(ConfigurationHandler.enableRawOres && !event.isSilkTouching) {
+		if(ConfigBlocksItems.enableRawOres && !event.isSilkTouching) {
 			RawOreDropMapping mapping = ItemRawOre.rawOreRegistry.get(new BlockAndMetadataMapping(event.block, event.blockMetadata));
 			if(mapping != null) {
 				event.drops.clear();
@@ -362,7 +363,7 @@ public class ServerEventHandler {
 			}
 		}
 
-		if (ConfigurationHandler.enableShearableCobwebs) {
+		if (ConfigBase.enableShearableCobwebs) {
 			if (event.block == Blocks.web && event.harvester != null) {
 				ItemStack stack = event.harvester.getCurrentEquippedItem();
 				if (stack != null && stack.getItem() instanceof ItemShears) {
@@ -375,7 +376,7 @@ public class ServerEventHandler {
 	
 	@SubscribeEvent
 	public void onBlockBroken(BlockEvent.BreakEvent event) {
-		if(ConfigurationHandler.enableHoeMining && event.block.getBlockHardness(event.world, event.x, event.y, event.z) != 0.0D) {
+		if(ConfigBase.enableHoeMining && event.block.getBlockHardness(event.world, event.x, event.y, event.z) != 0.0D) {
 			ItemStack itemstack = event.getPlayer().getHeldItem();
 			if(itemstack != null && itemstack.getItem() instanceof ItemHoe) {
 				itemstack.damageItem(1, event.getPlayer());
@@ -388,7 +389,7 @@ public class ServerEventHandler {
 		boolean flag = false;
 		float toolSpeed = 0;
 		float speedModifier = 0;
-		if(ConfigurationHandler.enableHoeMining && HoeHelper.hoeArrayHas(event.block)) {
+		if(ConfigBase.enableHoeMining && HoeHelper.hoeArrayHas(event.block)) {
 			ItemStack stack = event.entityPlayer.getHeldItem();
 			if(stack != null && stack.getItem() instanceof ItemHoe) {
 				try {
@@ -447,7 +448,7 @@ public class ServerEventHandler {
 
 	@SubscribeEvent
 	public void onPlaceBlock(BlockEvent.PlaceEvent event) {
-		if(ConfigurationHandler.enableFloatingTrapDoors && (placedSide == 1 || placedSide == 0) && event.placedBlock instanceof BlockTrapDoor) {
+		if(ConfigBase.enableFloatingTrapDoors && (placedSide == 1 || placedSide == 0) && event.placedBlock instanceof BlockTrapDoor) {
 			int l = MathHelper.floor_double((double)(event.player.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
 			if(l == 0) {
 				l = 1;
@@ -468,9 +469,9 @@ public class ServerEventHandler {
 		placedSide = event.face;
 		EntityPlayer player = event.entityPlayer;
 		if (event.action == Action.RIGHT_CLICK_BLOCK || event.action == Action.RIGHT_CLICK_AIR) {
-			if (player != null && !player.worldObj.isRemote && event.getResult() == event.useItem) {
+			if (player != null) {
 				ItemStack heldStack = player.getHeldItem();
-				World world = player.worldObj;
+				World world = event.world;
 				int x = event.x;
 				int y = event.y;
 				int z = event.z;
@@ -481,203 +482,205 @@ public class ServerEventHandler {
 					int side = event.face;
 			        if (player.canPlayerEdit(x, y, z, side, heldStack))
 			        {
-			        	if(ConfigurationHandler.enableNewMiscSounds && heldStack.getItem() == Items.ender_eye && oldBlock == Blocks.end_portal_frame && !BlockEndPortalFrame.isEnderEyeInserted(meta))
-			        	{
-			        		world.playSoundEffect(x + .5F, y + .5F, z + .5F, Reference.MOD_ID+":block.end_portal_frame.fill", 1, 1);
-			                int j1 = meta & 3;
-			                int j2 = 0;
-			                int k1 = 0;
-			                boolean flag1 = false;
-			                boolean flag = true;
-			                int k2 = Direction.rotateRight[j1];
-			                int l1;
-			                int i2;
-			                int l2;
+			        	if(event.getResult() == event.useItem) {
+			        		
+			        		//Eye of Ender place sounds
+				        	if(ConfigBase.enableNewMiscSounds && heldStack.getItem() == Items.ender_eye && oldBlock == Blocks.end_portal_frame && !BlockEndPortalFrame.isEnderEyeInserted(meta))
+				        	{
+				        		world.playSoundEffect(x + .5F, y + .5F, z + .5F, Reference.MOD_ID+":block.end_portal_frame.fill", 1, 1);
+				                int j1 = meta & 3;
+				                int j2 = 0;
+				                int k1 = 0;
+				                boolean flag1 = false;
+				                boolean flag = true;
+				                int k2 = Direction.rotateRight[j1];
+				                int l1;
+				                int i2;
+				                int l2;
 
-			                for (l1 = -2; l1 <= 2; ++l1)
-			                {
-			                    l2 = x + Direction.offsetX[k2] * l1;
-			                    i2 = z + Direction.offsetZ[k2] * l1;
+				                for (l1 = -2; l1 <= 2; ++l1)
+				                {
+				                    l2 = x + Direction.offsetX[k2] * l1;
+				                    i2 = z + Direction.offsetZ[k2] * l1;
 
-			                    if (world.getBlock(l2, y, i2) == Blocks.end_portal_frame)
-			                    {
-			                        if (!BlockEndPortalFrame.isEnderEyeInserted(world.getBlockMetadata(l2, y, i2)))
-			                        {
-			                        	if(l2 != x || i2 != z) { //We add this so it doesn't care for the block clicked at, as the eye won't be there quite yet.
-				                            flag = false;
-				                            break;
-			                        	}
-			                        }
-
-			                        k1 = l1;
-
-			                        if (!flag1)
-			                        {
-			                            j2 = l1;
-			                            flag1 = true;
-			                        }
-			                    }
-			                }
-			                if (flag && k1 == j2 + 2)
-			                {
-			                    for (l1 = j2; l1 <= k1; ++l1)
-			                    {
-			                        l2 = x + Direction.offsetX[k2] * l1;
-			                        i2 = z + Direction.offsetZ[k2] * l1;
-			                        l2 += Direction.offsetX[j1] * 4;
-			                        i2 += Direction.offsetZ[j1] * 4;
-
-			                        if (world.getBlock(l2, y, i2) != Blocks.end_portal_frame || (!BlockEndPortalFrame.isEnderEyeInserted(world.getBlockMetadata(l2, y, i2))))
-			                        {
-			                        	if(l2 != x || i2 != z) { //We add this so it doesn't care for the block clicked at, as the eye won't be there quite yet.
-				                            flag = false;
-				                            break;
-			                        	}
-			                        }
-			                    }
-
-			                    int i3;
-			                    
-			                    for (l1 = j2 - 1; l1 <= k1 + 1; l1 += 4)
-			                    {
-			                        for (l2 = 1; l2 <= 3; ++l2)
-			                        {
-			                            i2 = x + Direction.offsetX[k2] * l1;
-			                            i3 = z + Direction.offsetZ[k2] * l1;
-			                            i2 += Direction.offsetX[j1] * l2;
-			                            i3 += Direction.offsetZ[j1] * l2;
-
-			                            if (world.getBlock(i2, y, i3) != Blocks.end_portal_frame || (!BlockEndPortalFrame.isEnderEyeInserted(world.getBlockMetadata(i2, y, i3))))
-			                            {
-				                        	if(i2 != x || i3 != z) { //We add this so it doesn't care for the block clicked at, as the eye won't be there quite yet.
-				                                flag = false;
-				                                break;
+				                    if (world.getBlock(l2, y, i2) == Blocks.end_portal_frame)
+				                    {
+				                        if (!BlockEndPortalFrame.isEnderEyeInserted(world.getBlockMetadata(l2, y, i2)))
+				                        {
+				                        	if(l2 != x || i2 != z) { //We add this so it doesn't care for the block clicked at, as the eye won't be there quite yet.
+					                            flag = false;
+					                            break;
 				                        	}
-			                            }
-			                        }
-			                    }
-			                    if (flag)
-			                    {
-			                    	for(WorldServer worldserver : FMLCommonHandler.instance().getMinecraftServerInstance().worldServers) {
-			                    		for(Object playerobj : worldserver.playerEntities) {
-			                    			if(playerobj instanceof EntityPlayerMP) {
-			                    				EntityPlayerMP playermp = (EntityPlayerMP)playerobj;
-				                    			playermp.playerNetServerHandler.sendPacket(new S29PacketSoundEffect(Reference.MOD_ID+":block.end_portal.spawn",
-				                    					playermp.posX, playermp.lastTickPosY, playermp.posZ, 1F, 1F));
-			                    			}
-			                    		}
-			                    	}
-			                    }
-			                }
-			        	}
-			        	if(ConfigurationHandler.enableNewBlocksSounds && side == 1 && heldStack.getItem() instanceof IPlantable && player.canPlayerEdit(x, y + 1, z, side, heldStack)) {
-			        		/*
-			        		 * This code was adapted from AstroTibs' ASMC.
-			        		 * Used with permission!
-			        		 */
-			        		if (world.getBlock(x, y, z).canSustainPlant(world, x, y, z, ForgeDirection.UP, (IPlantable)heldStack.getItem())
-				            		&& world.isAirBlock(x, y + 1, z))
-				            {
-				            	// Mundane seeds
-				            	if (oldBlock instanceof BlockFarmland)
-				            	{
-				            		world.playSoundEffect(x + 0.5, y + 1F , z + 0.5, Reference.MOD_ID+":place.crops", 0.45F, world.rand.nextBoolean() ? 1.0F : 1.2F);
-				            		return;
-				            	}
-				            	// Nether wart
-				            	if (oldBlock instanceof BlockSoulSand)
-				            	{
-				            		world.playSoundEffect(x + 0.5, y + 1F, z + 0.5, Reference.MOD_ID+":dig.netherwart", 0.9F, world.rand.nextBoolean() ? 1.0F : 1.12F);
-				            		return;
-				            	}
-				            }
-			        	}
-			        	if(Block.getBlockFromItem(heldStack.getItem()) instanceof BlockTrapDoor && side <= 1) {
-			        		if(oldBlock.isReplaceable(world, x, y, z)) {
-				        		if(side == 1) {
-				        			y++;
-				        		} else {
-				        			y--;
-				        		}
-			        		}
-			        		if(Block.getBlockFromItem(heldStack.getItem()).canPlaceBlockAt(world, x, y, z)) {
-			        			world.setBlockMetadataWithNotify(x, y, z, 12, 3);
-			        		}
-			        	}
-			        }
-//			    } else if (ConfigurationHandler.enableAnvil && oldBlock == Blocks.anvil) {
-//					world.setBlock(x, y, z, ModBlocks.anvil, world.getBlockMetadata(x, y, z), 3);
-				} else if(oldBlock != null && heldStack != null && heldStack.getItem() != null) {
-					Set<String> toolClasses = heldStack.getItem().getToolClasses(heldStack);
-					if (toolClasses != null) {
-						if (ConfigurationHandler.enableGrassPath && toolClasses.contains("shovel") && (oldBlock == Blocks.grass || oldBlock == Blocks.dirt || oldBlock == Blocks.mycelium)) {
-							world.setBlock(x, y, z, ModBlocks.grass_path);
-							player.swingItem();
-							heldStack.damageItem(1, player);
-							world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, Block.soundTypeGravel.getStepResourcePath(), 1.0F, 0.8F);
-						} else if (ConfigurationHandler.enableStrippedLogs && toolClasses.contains("axe")) {
-							Block newBlock = null;
-							if (oldBlock == Blocks.log) {
-								newBlock = ModBlocks.log_stripped;
-							} else if(oldBlock == Blocks.log2) {
-								newBlock = ModBlocks.log2_stripped;
-							} else if (ConfigurationHandler.enableBarkLogs) {
-								if (oldBlock == ModBlocks.log_bark) {
-									newBlock = ModBlocks.wood_stripped;
-								} else if (oldBlock == ModBlocks.log2_bark) {
-									newBlock = ModBlocks.wood2_stripped;
+				                        }
+
+				                        k1 = l1;
+
+				                        if (!flag1)
+				                        {
+				                            j2 = l1;
+				                            flag1 = true;
+				                        }
+				                    }
+				                }
+				                if (flag && k1 == j2 + 2)
+				                {
+				                    for (l1 = j2; l1 <= k1; ++l1)
+				                    {
+				                        l2 = x + Direction.offsetX[k2] * l1;
+				                        i2 = z + Direction.offsetZ[k2] * l1;
+				                        l2 += Direction.offsetX[j1] * 4;
+				                        i2 += Direction.offsetZ[j1] * 4;
+
+				                        if (world.getBlock(l2, y, i2) != Blocks.end_portal_frame || (!BlockEndPortalFrame.isEnderEyeInserted(world.getBlockMetadata(l2, y, i2))))
+				                        {
+				                        	if(l2 != x || i2 != z) { //We add this so it doesn't care for the block clicked at, as the eye won't be there quite yet.
+					                            flag = false;
+					                            break;
+				                        	}
+				                        }
+				                    }
+
+				                    int i3;
+				                    
+				                    for (l1 = j2 - 1; l1 <= k1 + 1; l1 += 4)
+				                    {
+				                        for (l2 = 1; l2 <= 3; ++l2)
+				                        {
+				                            i2 = x + Direction.offsetX[k2] * l1;
+				                            i3 = z + Direction.offsetZ[k2] * l1;
+				                            i2 += Direction.offsetX[j1] * l2;
+				                            i3 += Direction.offsetZ[j1] * l2;
+
+				                            if (world.getBlock(i2, y, i3) != Blocks.end_portal_frame || (!BlockEndPortalFrame.isEnderEyeInserted(world.getBlockMetadata(i2, y, i3))))
+				                            {
+					                        	if(i2 != x || i3 != z) { //We add this so it doesn't care for the block clicked at, as the eye won't be there quite yet.
+					                                flag = false;
+					                                break;
+					                        	}
+				                            }
+				                        }
+				                    }
+				                    if (flag)
+				                    {
+				                    	for(WorldServer worldserver : FMLCommonHandler.instance().getMinecraftServerInstance().worldServers) {
+				                    		for(Object playerobj : worldserver.playerEntities) {
+				                    			if(playerobj instanceof EntityPlayerMP) {
+				                    				EntityPlayerMP playermp = (EntityPlayerMP)playerobj;
+					                    			playermp.playerNetServerHandler.sendPacket(new S29PacketSoundEffect(Reference.MOD_ID+":block.end_portal.spawn",
+					                    					playermp.posX, playermp.lastTickPosY, playermp.posZ, 1F, 1F));
+				                    			}
+				                    		}
+				                    	}
+				                    }
+				                }
+				        	}
+				        	
+				        	//Seeds/Wart placing sounds
+				        	if(ConfigBase.enableNewBlocksSounds && side == 1 && heldStack.getItem() instanceof IPlantable && player.canPlayerEdit(x, y + 1, z, side, heldStack)) {
+				        		/*
+				        		 * This code was adapted from AstroTibs' ASMC.
+				        		 * Used with permission!
+				        		 */
+				        		if (world.getBlock(x, y, z).canSustainPlant(world, x, y, z, ForgeDirection.UP, (IPlantable)heldStack.getItem())
+					            		&& world.isAirBlock(x, y + 1, z))
+					            {
+					            	// Mundane seeds
+					            	if (oldBlock instanceof BlockFarmland)
+					            	{
+					            		world.playSoundEffect(x + 0.5, y + 1F , z + 0.5, Reference.MOD_ID+":place.crops", 0.45F, world.rand.nextBoolean() ? 1.0F : 1.2F);
+					            		return;
+					            	}
+					            	// Nether wart
+					            	if (oldBlock instanceof BlockSoulSand)
+					            	{
+					            		world.playSoundEffect(x + 0.5, y + 1F, z + 0.5, Reference.MOD_ID+":dig.netherwart", 0.9F, world.rand.nextBoolean() ? 1.0F : 1.12F);
+					            		return;
+					            	}
+					            }
+				        	}
+				        	
+				        	//Lava cauldron filling
+							if(ConfigBlocksItems.enableLavaCauldrons && !player.isSneaking() && 
+									oldBlock == Blocks.cauldron && world.getBlockMetadata(x, y, z) == 0) {
+								if (heldStack.getItem() instanceof ItemBucket) {
+									boolean flag = false;
+									Field field = ReflectionHelper.findField(heldStack.getItem().getClass(), "field_77876_a", "isFull");
+									field.setAccessible(true);
+									try {
+										Block liquid = (Block) field.get(heldStack.getItem());
+										if(liquid == Blocks.lava || liquid == Blocks.flowing_lava) {
+											flag = true;
+										}
+									} catch (Exception e) {
+										e.printStackTrace();
+									}
+									if(flag) {
+									event.setResult(Result.DENY);
+									player.swingItem();
+									world.setBlock(x, y, z, ModBlocks.lava_cauldron);
+									if (!player.capabilities.isCreativeMode)
+										if (heldStack.stackSize <= 1) {
+											player.inventory.setInventorySlotContents(player.inventory.currentItem, new ItemStack(Items.bucket));
+										} else {
+											--heldStack.stackSize;
+										}
+									}
 								}
 							}
-							if (newBlock != null) {
-								int logMeta = meta;
-								world.setBlock(x, y, z, newBlock, logMeta, 2);
-								player.swingItem();
-								heldStack.damageItem(1, player);
-								world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, Reference.MOD_ID + ":item.axe.strip", 1.0F, 0.8F);
-							}
-						}
-					}
-					
-				}
+							
+							//Grass pathing/Log Stripping
+							//This is nested into the same function since they use similar checks
+			        		if(heldStack.getItem() != null) {
+								Set<String> toolClasses = heldStack.getItem().getToolClasses(heldStack);
+								if (toolClasses != null) {
+									if (ConfigBlocksItems.enableGrassPath && toolClasses.contains("shovel") && (oldBlock == Blocks.grass || oldBlock == Blocks.dirt || oldBlock == Blocks.mycelium)) {
+										player.swingItem();
+										if(!world.isRemote) {
+											world.setBlock(x, y, z, ModBlocks.grass_path);
+											event.setResult(Result.ALLOW);
+											heldStack.damageItem(1, player);
+											world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, Block.soundTypeGravel.getStepResourcePath(), 1.0F, 0.8F);
+										}
+									} else if (ConfigBlocksItems.enableStrippedLogs && toolClasses.contains("axe")) {
+										Block newBlock = null;
+										if (oldBlock == Blocks.log) {
+											newBlock = ModBlocks.log_stripped;
+										} else if(oldBlock == Blocks.log2) {
+											newBlock = ModBlocks.log2_stripped;
+										} else if (ConfigBlocksItems.enableBarkLogs) {
+											if (oldBlock == ModBlocks.log_bark) {
+												newBlock = ModBlocks.wood_stripped;
+											} else if (oldBlock == ModBlocks.log2_bark) {
+												newBlock = ModBlocks.wood2_stripped;
+											}
+										}
+										if (newBlock != null) {
+											player.swingItem();
+											if(!world.isRemote) {
+												int logMeta = meta;
+												world.setBlock(x, y, z, newBlock, logMeta, 2);
+												event.setResult(Result.ALLOW);
+												heldStack.damageItem(1, player);
+												world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, Reference.MOD_ID + ":item.axe.strip", 1.0F, 0.8F);
+											}
+										}
+									}
+								}
+			        		}
+				        
+			        	}
+//			        	else if (event.getResult() == event.useBlock) {
+//			        		//Placeholder for future use.
+//			        	}
+			        }
+			    }
 			}
-		}
-		if (player != null && !player.isSneaking() && ConfigurationHandler.enableLavaCauldrons) {
-			World world = player.worldObj;
-			if (event.action == Action.RIGHT_CLICK_BLOCK)
-				if (world.getBlock(event.x, event.y, event.z) == Blocks.cauldron && world.getBlockMetadata(event.x, event.y, event.z) == 0) {
-					ItemStack stack = player.getCurrentEquippedItem();
-					if (stack != null && stack.getItem() instanceof ItemBucket) {
-						boolean flag = false;
-						Field field = ReflectionHelper.findField(stack.getItem().getClass(), "field_77876_a", "isFull");
-						field.setAccessible(true);
-						try {
-							Block liquid = (Block) field.get(stack.getItem());
-							if(liquid == Blocks.lava || liquid == Blocks.flowing_lava) {
-								flag = true;
-							}
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-						if(flag) {
-						event.setResult(Result.DENY);
-						world.setBlock(event.x, event.y, event.z, ModBlocks.lava_cauldron);
-						player.swingItem();
-						if (!player.capabilities.isCreativeMode)
-							if (stack.stackSize <= 1) {
-								player.inventory.setInventorySlotContents(player.inventory.currentItem, new ItemStack(Items.bucket));
-							} else {
-								--stack.stackSize;
-							}
-						}
-						
-					}
-				}
 		}
 	}
 	
 	@SubscribeEvent
 	public void onHoeUseEvent(UseHoeEvent event) {
-		if (ConfigurationHandler.enableCoarseDirt) {
+		if (ConfigBlocksItems.enableCoarseDirt) {
 			World world = event.world;
 			int x = event.x;
 			int y = event.y;
@@ -695,11 +698,11 @@ public class ServerEventHandler {
 		if (event.entityLiving.worldObj.isRemote)
 			return;
 
-		if (ConfigurationHandler.enableSkullDrop)
+		if (ConfigBase.enableSkullDrop)
 			dropHead(event.entityLiving, event.source, event.lootingLevel, event.drops);
 
 		Random rand = event.entityLiving.worldObj.rand;
-		if (ConfigurationHandler.enableMutton && event.entityLiving instanceof EntitySheep) {
+		if (ConfigBlocksItems.enableMutton && event.entityLiving instanceof EntitySheep) {
 			int amount = rand.nextInt(3) + 1 + rand.nextInt(1 + event.lootingLevel);
 			for (int i = 0; i < amount; i++)
 				if (event.entityLiving.isBurning())
@@ -708,7 +711,7 @@ public class ServerEventHandler {
 					addDrop(new ItemStack(ModItems.raw_mutton), event.entityLiving, event.drops);
 		}
 		
-		if (ConfigurationHandler.enableWitherRose && event.entity instanceof EntityLivingBase && event.source.getEntity() instanceof EntityWither) {
+		if (ConfigBlocksItems.enableWitherRose && event.entity instanceof EntityLivingBase && event.source.getEntity() instanceof EntityWither) {
 			World world = event.entity.worldObj;
 			Entity entity = event.entity;
 			if(world.getGameRules().getGameRuleBooleanValue("mobGriefing") && ((BlockWitherRose)ModBlocks.wither_rose).canPlaceBlockAt(world, (int)entity.posX, (int)entity.posY, (int)entity.posZ)) {
@@ -759,7 +762,7 @@ public class ServerEventHandler {
 
 	@SubscribeEvent
 	public void teleportEvent(EnderTeleportEvent event) {
-		if (ConfigurationHandler.enableEndermite) {
+		if (ConfigBase.enableEndermite) {
 			EntityLivingBase entity = event.entityLiving;
 			if (entity instanceof EntityPlayerMP)
 				if (entity.getRNG().nextFloat() < 0.05F && entity.worldObj.getGameRules().getGameRuleBooleanValue("doMobSpawning")) {
@@ -776,15 +779,15 @@ public class ServerEventHandler {
 	public void spawnEvent(EntityJoinWorldEvent event) {
 		if (event.entity instanceof EntityPig) {
 			EntityPig pig = (EntityPig) event.entity;
-			if (ConfigurationHandler.enableBeetroot)
+			if (ConfigBlocksItems.enableBeetroot)
 				pig.tasks.addTask(4, new EntityAITempt(pig, 1.2, ModItems.beetroot, false));
 		} else if (event.entity instanceof EntityChicken) {
 			EntityChicken chicken = (EntityChicken) event.entity;
-			if (ConfigurationHandler.enableBeetroot)
+			if (ConfigBlocksItems.enableBeetroot)
 				chicken.tasks.addTask(3, new EntityAITempt(chicken, 1.0D, ModItems.beetroot_seeds, false));
 		} else if (event.entity instanceof EntityWolf) {
 			EntityWolf wolf = (EntityWolf) event.entity;
-			if (ConfigurationHandler.enableRabbit)
+			if (ConfigBlocksItems.enableRabbit)
 				wolf.targetTasks.addTask(4, new EntityAITargetNonTamed(wolf, EntityRabbit.class, 200, false));
 		} else if (event.entity instanceof EntityEnderman) {
 			EntityEnderman enderman = (EntityEnderman) event.entity;
@@ -820,12 +823,12 @@ public class ServerEventHandler {
 		EntityAnimal animal = (EntityAnimal) event.target;
 		if (!animal.isChild()) {
 			if (animal instanceof EntityPig) {
-				if (stack.getItem() == ModItems.beetroot && ConfigurationHandler.enableBeetroot)
+				if (stack.getItem() == ModItems.beetroot && ConfigBlocksItems.enableBeetroot)
 					setAnimalInLove(animal, event.entityPlayer, stack);
 			} else if (animal instanceof EntityChicken)
-				if (stack.getItem() == ModItems.beetroot_seeds && ConfigurationHandler.enableBeetroot)
+				if (stack.getItem() == ModItems.beetroot_seeds && ConfigBlocksItems.enableBeetroot)
 					setAnimalInLove(animal, event.entityPlayer, stack);
-		} else if (ConfigurationHandler.enableBabyGrowthBoost && isFoodItem(animal, stack))
+		} else if (ConfigBase.enableBabyGrowthBoost && isFoodItem(animal, stack))
 			feedBaby(animal, event.entityPlayer, stack);
 		
 		if(animal instanceof EntitySheep && stack.getItem() != Items.dye && !animal.worldObj.isRemote) {
@@ -874,9 +877,9 @@ public class ServerEventHandler {
 	private boolean isFoodItem(EntityAnimal animal, ItemStack food) {
 		if (animal.isBreedingItem(food))
 			return true;
-		else if (animal instanceof EntityPig && food.getItem() == ModItems.beetroot && ConfigurationHandler.enableBeetroot)
+		else if (animal instanceof EntityPig && food.getItem() == ModItems.beetroot && ConfigBlocksItems.enableBeetroot)
 			return true;
-		else if (animal instanceof EntityChicken && food.getItem() == ModItems.beetroot_seeds && ConfigurationHandler.enableBeetroot)
+		else if (animal instanceof EntityChicken && food.getItem() == ModItems.beetroot_seeds && ConfigBlocksItems.enableBeetroot)
 			return true;
 		else
 			return false;
@@ -884,7 +887,7 @@ public class ServerEventHandler {
 
 	@SubscribeEvent
 	public void entityHurtEvent(LivingHurtEvent event) {
-		if (!ConfigurationHandler.enableDmgIndicator)
+		if (!ConfigBase.enableDmgIndicator)
 			return;
 		int amount = MathHelper.floor_float(Math.min(event.entityLiving.getHealth(), event.ammount) / 2F);
 		amount = (int) applyArmorCalculations(event.entityLiving, event.source, amount);
@@ -969,7 +972,7 @@ public class ServerEventHandler {
 
 	@SubscribeEvent
 	public void entityStruckByLightning(EntityStruckByLightningEvent event) {
-		if (ConfigurationHandler.enableVillagerTurnsIntoWitch && event.entity instanceof EntityVillager) {
+		if (ConfigBase.enableVillagerTurnsIntoWitch && event.entity instanceof EntityVillager) {
 			EntityVillager villager = (EntityVillager) event.entity;
 			if (!villager.worldObj.isRemote) {
 				EntityWitch witch = new EntityWitch(villager.worldObj);
@@ -979,7 +982,7 @@ public class ServerEventHandler {
 				villager.setDead();
 			}
 		} else
-			if (ConfigurationHandler.enableBrownMooshroom && event.entity.ticksExisted > 40 && event.entity.getClass() == EntityMooshroom.class)  {
+			if (ConfigBase.enableBrownMooshroom && event.entity.ticksExisted > 40 && event.entity.getClass() == EntityMooshroom.class)  {
 				EntityMooshroom mooshroom = (EntityMooshroom) event.entity;
 				if (!mooshroom.worldObj.isRemote) {
 					EntityBrownMooshroom brownmooshroom = new EntityBrownMooshroom(mooshroom.worldObj);
@@ -991,7 +994,7 @@ public class ServerEventHandler {
 					//TODO: Cow won't flee for some reason
 				}                    
 			} else
-			if (ConfigurationHandler.enableBrownMooshroom && event.entity.ticksExisted > 40 && event.entity.getClass() == EntityBrownMooshroom.class) {
+			if (ConfigBase.enableBrownMooshroom && event.entity.ticksExisted > 40 && event.entity.getClass() == EntityBrownMooshroom.class) {
 				EntityBrownMooshroom brownmooshroom = (EntityBrownMooshroom) event.entity;
 				if (!brownmooshroom.worldObj.isRemote) {
 					EntityMooshroom mooshroom = new EntityMooshroom(brownmooshroom.worldObj);
@@ -1006,17 +1009,17 @@ public class ServerEventHandler {
 	@SubscribeEvent
 	public void livingHurtEvent(LivingHurtEvent event) {
 		Entity entity = event.entity;
-		if(ConfigurationHandler.enableHayBaleFalls && entity != null
+		if(ConfigBase.enableHayBaleFalls && entity != null
 				&& entity.worldObj.getBlock(MathHelper.floor_double(entity.posX), MathHelper.floor_double(entity.posY - 0.20000000298023224D - entity.yOffset), MathHelper.floor_double(entity.posZ)) == Blocks.hay_block
 				&& event.source == DamageSource.fall) {
-			event.ammount *= ((float)ConfigurationHandler.hayBaleReducePercent / (float)100);
+			event.ammount *= ((float)ConfigBase.hayBaleReducePercent / (float)100);
 		}
 		if ((entity == null) || (!(entity instanceof EntityLivingBase))) {
 			return;
 		}
 		EntityLivingBase livingEntity = (EntityLivingBase)entity;
 		
-		if(ConfigurationHandler.enableTotemUndying)
+		if(ConfigBlocksItems.enableTotemUndying)
 			handleTotemCheck(livingEntity, event);
 	}
 	
@@ -1033,7 +1036,7 @@ public class ServerEventHandler {
 			entity.worldObj.playSoundEffect(entity.posX + 0.5, entity.posY + 0.5, entity.posZ + 0.5, Reference.MOD_ID + ":item.totem_use", 1.0f, entity.worldObj.rand.nextFloat() * 0.1f + 0.9f);
 			
 			entity.clearActivePotions();
-			float healpercent = (float)ConfigurationHandler.totemHealPercent / 100;
+			float healpercent = (float)ConfigBase.totemHealPercent / 100;
 			float sethp = entity.getMaxHealth() * healpercent;
 			entity.setHealth(sethp < .5F ? .5F : sethp);
 			event.ammount = 0;
@@ -1053,7 +1056,7 @@ public class ServerEventHandler {
 	}
 	@SubscribeEvent
 	public void onDrops(BlockEvent.HarvestDropsEvent event) {
-		if(ConfigurationHandler.enableSmoothStone && event.block == Blocks.double_stone_slab && event.blockMetadata == 8) {
+		if(ConfigBlocksItems.enableSmoothStone && event.block == Blocks.double_stone_slab && event.blockMetadata == 8) {
 			event.drops.clear();
 			event.drops.add(new ItemStack(ModBlocks.smooth_stone, 1));
 		}

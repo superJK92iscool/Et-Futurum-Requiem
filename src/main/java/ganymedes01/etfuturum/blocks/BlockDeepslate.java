@@ -8,7 +8,8 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.configuration.ConfigurationHandler;
+import ganymedes01.etfuturum.configuration.ConfigBase;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRotatedPillar;
@@ -28,7 +29,7 @@ public class BlockDeepslate extends BlockRotatedPillar implements IConfigurable 
 		this.setBlockName(Utils.getUnlocalisedName("deepslate"));
 		this.setBlockTextureName("deepslate");
 		this.setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
-		this.setStepSound(ConfigurationHandler.enableNewBlocksSounds ? ModSounds.soundDeepslate : soundTypeStone);
+		this.setStepSound(ConfigBase.enableNewBlocksSounds ? ModSounds.soundDeepslate : soundTypeStone);
 	}
 
 	@Override
@@ -63,6 +64,6 @@ public class BlockDeepslate extends BlockRotatedPillar implements IConfigurable 
 
 	@Override
 	public boolean isEnabled() {
-		return ConfigurationHandler.enableDeepslate;
+		return ConfigBlocksItems.enableDeepslate;
 	}
 }
