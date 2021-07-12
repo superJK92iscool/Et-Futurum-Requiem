@@ -17,8 +17,8 @@ public class ConfigGUI extends GuiConfig {
 
 	private static List<IConfigElement> getElements() {
 		List<IConfigElement> list = new ArrayList<IConfigElement>();
-		for (String category : ConfigBase.usedCategories)
-			list.add(new ConfigElement(ConfigBase.INSTANCE.cfg.getCategory(category)));
+//		for (String category : ConfigBase.usedCategories)
+//			list.add(new ConfigElement(ConfigBase.INSTANCE.cfg.getCategory(category)));
 		return list;
 	}
 }

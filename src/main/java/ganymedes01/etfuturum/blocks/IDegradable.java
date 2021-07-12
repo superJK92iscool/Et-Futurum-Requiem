@@ -117,8 +117,10 @@ public interface IDegradable {
 			ItemStack heldStack = entityPlayer.getCurrentEquippedItem();
 			if(meta < 8) {
 				for(int oreID : OreDictionary.getOreIDs(heldStack)) {
-					if((OreDictionary.doesOreNameExist("materialWax") || OreDictionary.doesOreNameExist("materialWaxcomb")) || OreDictionary.doesOreNameExist("itemBeeswax") ?
-							OreDictionary.getOreName(oreID).equals("materialWax") || OreDictionary.getOreName(oreID).equals("materialWaxcomb") || OreDictionary.getOreName(oreID).equals("itemBeeswax") :
+					if((OreDictionary.doesOreNameExist("materialWax") || OreDictionary.doesOreNameExist("materialWaxcomb"))
+							|| OreDictionary.doesOreNameExist("materialHoneycomb") || OreDictionary.doesOreNameExist("itemBeeswax") ?
+							OreDictionary.getOreName(oreID).equals("materialWax") || OreDictionary.getOreName(oreID).equals("materialWaxcomb") ||
+							OreDictionary.getOreName(oreID).equals("materialHoneycomb") || OreDictionary.getOreName(oreID).equals("itemBeeswax") :
 								OreDictionary.getOreName(oreID).equals("slimeball")) {
 						flag = true;
 						
