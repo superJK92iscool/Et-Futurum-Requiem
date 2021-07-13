@@ -112,7 +112,7 @@ public class ConfigBase {
 	public static boolean enableNetherAmbience;
 	public static boolean enableExtraF3HTooltips;
 	
-	public static final String catClientLegacy = "client (legacy)";
+	public static final String catClientLegacy = "client";
 	public static final String catBlockLegacy = "blocks";
 	public static final String catItemsLegacy = "items";
 	public static final String catEquipmentLegacy = "equipment";

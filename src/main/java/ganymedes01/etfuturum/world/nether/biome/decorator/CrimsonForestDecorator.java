@@ -4,7 +4,7 @@ import ganymedes01.etfuturum.world.nether.generate.HugeCrimsonFungi0;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-public class CrimsonForestDecorator extends EtFuturumBiomeDecorator {
+public class CrimsonForestDecorator extends NetherBiomeDecorator {
 //
 //  private final WorldGenerator genNetherrackSplatter = new BlockSplatter(Blocks.netherrack, 0, 128, ModBlocks.CrimsonNylium);
 //  private final WorldGenerator genWartSplatter = new BlockSplatter(ModBlocks.nether_wart_block, 0, 128, Blocks.grass);

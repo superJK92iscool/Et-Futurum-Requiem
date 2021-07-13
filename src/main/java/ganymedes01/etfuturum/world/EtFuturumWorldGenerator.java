@@ -11,6 +11,8 @@ import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.blocks.BlockChorusFlower;
 import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.world.end.dimension.EndChunkProvider;
+import ganymedes01.etfuturum.world.end.dimension.EndWorldProvider;
 import ganymedes01.etfuturum.world.generate.OceanMonument;
 import ganymedes01.etfuturum.world.generate.WorldGenMinableNoAir;
 import ganymedes01.etfuturum.world.generate.feature.WorldGenFossil;
@@ -139,7 +141,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 				return;
 			}
 
-		if (ConfigBlocksItems.enableChorusFruit && world.provider.dimensionId == 1) {
+		if (ConfigBlocksItems.enableChorusFruit && !(world.provider instanceof EndWorldProvider) && world.provider.dimensionId == 1) {
 			int x = chunkX * 16 + rand.nextInt(16);
 			int y = 256;
 			int z = chunkZ * 16 + rand.nextInt(16);
@@ -171,7 +173,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 					int xx = x + dir.offsetX;
 					int yy = y + height + dir.offsetY;
 					int zz = z + dir.offsetZ;
-					if (world.isAirBlock(xx, yy, zz) && BlockChorusFlower.isSpaceAroundFree(world, xx, yy, zz, dir.getOpposite())) {
+					if (world.isAirBlock(xx, yy, zz) && BlockChorusFlower.areAllNeighborsEmpty(world, xx, yy, zz, dir.getOpposite())) {
 						generateChorusPlant(world, xx, yy, zz, pass + 1);
 						grew = true;
 					}

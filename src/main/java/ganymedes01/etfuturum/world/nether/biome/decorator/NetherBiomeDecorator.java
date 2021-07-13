@@ -4,7 +4,7 @@ import java.util.Random;
 
 import net.minecraft.world.World;
 
-public class EtFuturumBiomeDecorator {
+public class NetherBiomeDecorator {
 
 	protected World world;
 	protected Random rand;
@@ -12,7 +12,7 @@ public class EtFuturumBiomeDecorator {
 	protected int xx, yy, zz, attempt;
 
 
-	protected EtFuturumBiomeDecorator() {
+	protected NetherBiomeDecorator() {
 	}
 
 	public final void populate(World world, Random rand, int x, int z) {

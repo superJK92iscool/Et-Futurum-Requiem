@@ -2,7 +2,7 @@ package ganymedes01.etfuturum.world.nether.biome;
 
 import java.util.Random;
 
-import ganymedes01.etfuturum.world.nether.biome.decorator.EtFuturumBiomeDecorator;
+import ganymedes01.etfuturum.world.nether.biome.decorator.NetherBiomeDecorator;
 import net.minecraft.entity.monster.EntityGhast;
 import net.minecraft.entity.monster.EntityPigZombie;
 import net.minecraft.world.World;
@@ -10,9 +10,9 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class EtFuturumNetherBiomeBase extends BiomeGenBase {
 
-	private final EtFuturumBiomeDecorator decorator;
+	private final NetherBiomeDecorator decorator;
 
-	public EtFuturumNetherBiomeBase(int id, EtFuturumBiomeDecorator decorator) {
+	public EtFuturumNetherBiomeBase(int id, NetherBiomeDecorator decorator) {
 
 		super(id);
 		this.decorator = decorator;
