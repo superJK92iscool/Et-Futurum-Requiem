@@ -8,4 +8,5 @@ public class GUIsID {
 	public static final int BARREL = 3;
 	public static final int SMOKER = 4;
 	public static final int BLAST_FURNACE = 5;
+	public static final int SHULKER_BOX = 6;
 }

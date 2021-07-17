@@ -30,6 +30,7 @@ import ganymedes01.etfuturum.blocks.BlockDeepslatePolished;
 import ganymedes01.etfuturum.blocks.BlockDeepslateSlab;
 import ganymedes01.etfuturum.blocks.BlockEndBrickSlab;
 import ganymedes01.etfuturum.blocks.BlockEndBricks;
+import ganymedes01.etfuturum.blocks.BlockEndGateway;
 import ganymedes01.etfuturum.blocks.BlockEndRod;
 import ganymedes01.etfuturum.blocks.BlockFrostedIce;
 import ganymedes01.etfuturum.blocks.BlockGenericStairs;
@@ -65,6 +66,7 @@ import ganymedes01.etfuturum.blocks.BlockRedNetherBrickSlab;
 import ganymedes01.etfuturum.blocks.BlockRedSandstone;
 import ganymedes01.etfuturum.blocks.BlockRedSandstoneSlab;
 import ganymedes01.etfuturum.blocks.BlockSeaLantern;
+import ganymedes01.etfuturum.blocks.BlockShulkerBox;
 import ganymedes01.etfuturum.blocks.BlockSilkedMushroom;
 import ganymedes01.etfuturum.blocks.BlockSlime;
 import ganymedes01.etfuturum.blocks.BlockSmoker;
@@ -99,6 +101,7 @@ import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.tileentities.TileEntityWoodSign;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 
 public class ModBlocks {
@@ -198,6 +201,7 @@ public class ModBlocks {
 	public static final Block daylight_sensor = initBlock(new BlockNewDaylightSensor());
 	public static final Block frosted_ice = initBlock(new BlockFrostedIce());
 	public static final Block lava_cauldron = initBlock(new BlockLavaCauldron());
+	public static final Block end_gateway = initBlock(new BlockEndGateway());
 	
 	//do slab/stairs
 	public static final Block red_sandstone_stairs = initBlock(new BlockGenericStairs(red_sandstone, 0).setBlockName(Utils.getUnlocalisedName("red_sandstone_stairs")));
@@ -272,6 +276,7 @@ public class ModBlocks {
 	public static final Block lit_smoker = initBlock(new BlockSmoker(true));
 	public static final Block blast_furnace = initBlock(new BlockBlastFurnace(false));
 	public static final Block lit_blast_furnace = initBlock(new BlockBlastFurnace(true));
+	public static final Block shulker_box = initBlock(new BlockShulkerBox());
 	
 	public static final String[] woodTypes = new String[] {"oak", "spruce", "birch", "jungle", "acacia", "dark_oak"/*, "crimson", "warped"*/};
 	public static final Block[] doors = new Block[woodTypes.length - 1];
@@ -327,6 +332,8 @@ public class ModBlocks {
 					GameRegistry.registerBlock(block, strings[strings.length - 1]);
 			}
 		}
+		
+		Item.getItemFromBlock(shulker_box).setMaxStackSize(1);
 	}
 	
 	public static interface ISubBlocksBlock {

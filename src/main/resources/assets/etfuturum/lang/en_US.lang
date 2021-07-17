@@ -282,6 +282,8 @@ tile.etfuturum.tuff.name=Tuff
 tile.etfuturum.raw_copper_block.name=Raw Copper Block
 tile.etfuturum.raw_iron_block.name=Raw Iron Block
 tile.etfuturum.raw_gold_block.name=Raw Gold Block
+tile.etfuturum.end_gateway.name=End Gateway
+tile.etfuturum.end_portal.name=End Portal
 
 tile.etfuturum.magma.name=Magma Block
 tile.etfuturum.nether_wart.name=Nether Wart Block

@@ -14,7 +14,9 @@ import ganymedes01.etfuturum.world.generate.WorldGenTuffBlob;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldType;
 import net.minecraft.world.chunk.IChunkProvider;
+import net.minecraft.world.gen.ChunkProviderFlat;
 
 public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 
@@ -32,7 +34,8 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 				}
 			}
 		}
-		if (world.getWorldInfo().getGeneratorOptions().length() <= 0 && ConfigBlocksItems.enableDeepslate && ConfigBase.deepslateGenerationMode == 0 && world.provider.dimensionId == 0) {
+		
+		if (world.getWorldInfo().getTerrainType() != WorldType.FLAT && ConfigBlocksItems.enableDeepslate && ConfigBase.deepslateGenerationMode == 0 && world.provider.dimensionId == 0) {
 			for (int x = chunkX * 16; x < (chunkX * 16) + 16; x++) {
 				for (int z = chunkZ * 16; z < (chunkZ * 16) + 16; z++) {
 					for (int y = 0; y <= ConfigBase.deepslateMaxY; y++) {
@@ -52,8 +55,9 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 				}
 			}
 		}
-		if(world.getWorldInfo().getGeneratorOptions().length() <= 0 || world.getWorldInfo().getGeneratorOptions().contains("decoration") || world.provider.dimensionId != 0) {
-			if(ConfigBlocksItems.enableDeepslate && ConfigBase.deepslateGenerationMode == 1 && world.provider.dimensionId == 0) {
+		
+		if(world.getWorldInfo().getTerrainType() != WorldType.FLAT || world.getWorldInfo().getGeneratorOptions().contains("decoration") || world.provider.dimensionId != 0) {
+			if(ConfigBlocksItems.enableDeepslate && ConfigBase.deepslateGenerationMode == 1 && world.provider.dimensionId != -1 && world.provider.dimensionId != 1) {
 				int x = chunkX * 16 + rand.nextInt(16);
 				int z = chunkZ * 16 + rand.nextInt(16);
 				new WorldGenDeepslateBlob(ConfigBase.maxDeepslatePerCluster).generate(world, rand, x, rand.nextInt(ConfigBase.deepslateMaxY), z);

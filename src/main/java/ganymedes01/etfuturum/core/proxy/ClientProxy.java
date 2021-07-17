@@ -9,6 +9,7 @@ import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import ganymedes01.etfuturum.ModBlocks;
+import ganymedes01.etfuturum.client.model.ModelShulker;
 import ganymedes01.etfuturum.client.renderer.block.BlockBarrelRenderer;
 import ganymedes01.etfuturum.client.renderer.block.BlockChestRenderer;
 import ganymedes01.etfuturum.client.renderer.block.BlockChorusFlowerRender;
@@ -38,7 +39,9 @@ import ganymedes01.etfuturum.client.renderer.item.ItemBowRenderer;
 import ganymedes01.etfuturum.client.renderer.item.ItemSkullRenderer;
 import ganymedes01.etfuturum.client.renderer.tileentity.TileEntityBannerRenderer;
 import ganymedes01.etfuturum.client.renderer.tileentity.TileEntityFancySkullRenderer;
+import ganymedes01.etfuturum.client.renderer.tileentity.TileEntityGatewayRenderer;
 import ganymedes01.etfuturum.client.renderer.tileentity.TileEntityNewBeaconRenderer;
+import ganymedes01.etfuturum.client.renderer.tileentity.TileEntityShulkerBoxRenderer;
 import ganymedes01.etfuturum.client.renderer.tileentity.TileEntityWoodSignRenderer;
 import ganymedes01.etfuturum.client.skins.NewRenderPlayer;
 import ganymedes01.etfuturum.client.skins.NewSkinManager;
@@ -58,7 +61,9 @@ import ganymedes01.etfuturum.entities.EntityRabbit;
 import ganymedes01.etfuturum.entities.EntityStray;
 import ganymedes01.etfuturum.entities.EntityZombieVillager;
 import ganymedes01.etfuturum.tileentities.TileEntityBanner;
+import ganymedes01.etfuturum.tileentities.TileEntityGateway;
 import ganymedes01.etfuturum.tileentities.TileEntityNewBeacon;
+import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox;
 import ganymedes01.etfuturum.tileentities.TileEntityWoodSign;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -135,6 +140,10 @@ public class ClientProxy extends CommonProxy {
 		
 		if(ConfigBlocksItems.enableLavaCauldrons)
 			RenderingRegistry.registerBlockHandler(new BlockLavaCauldronRenderer());
+		
+			ClientRegistry.bindTileEntitySpecialRenderer(TileEntityGateway.class, new TileEntityGatewayRenderer());
+			
+			ClientRegistry.bindTileEntitySpecialRenderer(TileEntityShulkerBox.class, new TileEntityShulkerBoxRenderer(new ModelShulker()));
 		
 		RenderingRegistry.registerBlockHandler(new BlockChestRenderer());
 	}

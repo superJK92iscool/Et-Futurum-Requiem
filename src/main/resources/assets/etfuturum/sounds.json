@@ -1303,5 +1303,17 @@
     "minecraft:block/chorus_flower/grow3",
     "minecraft:block/chorus_flower/grow4"
     ]
+  },
+  "block.shulker_box.close": {
+    "category": "block",
+    "sounds": [
+	"minecraft:block/shulker_box/close"
+    ]
+  },
+  "block.shulker_box.open": {
+    "category": "block",
+    "sounds": [
+    "minecraft:block/shulker_box/open"
+    ]
   }
 }

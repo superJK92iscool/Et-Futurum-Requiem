@@ -12,6 +12,7 @@ import ganymedes01.etfuturum.client.gui.inventory.GuiAnvil;
 import ganymedes01.etfuturum.client.gui.inventory.GuiBlastFurnace;
 import ganymedes01.etfuturum.client.gui.inventory.GuiEnchantment;
 import ganymedes01.etfuturum.client.gui.inventory.GuiNewBrewingStand;
+import ganymedes01.etfuturum.client.gui.inventory.GuiShulkerBox;
 import ganymedes01.etfuturum.client.gui.inventory.GuiSmoker;
 import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
@@ -39,13 +40,16 @@ import ganymedes01.etfuturum.inventory.ContainerAnvil;
 import ganymedes01.etfuturum.inventory.ContainerBlastFurnace;
 import ganymedes01.etfuturum.inventory.ContainerEnchantment;
 import ganymedes01.etfuturum.inventory.ContainerNewBrewingStand;
+import ganymedes01.etfuturum.inventory.ContainerShulkerBox;
 import ganymedes01.etfuturum.inventory.ContainerSmoker;
 import ganymedes01.etfuturum.lib.GUIsID;
 import ganymedes01.etfuturum.tileentities.TileEntityBanner;
 import ganymedes01.etfuturum.tileentities.TileEntityBarrel;
 import ganymedes01.etfuturum.tileentities.TileEntityBlastFurnace;
+import ganymedes01.etfuturum.tileentities.TileEntityGateway;
 import ganymedes01.etfuturum.tileentities.TileEntityNewBeacon;
 import ganymedes01.etfuturum.tileentities.TileEntityNewBrewingStand;
+import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox;
 import ganymedes01.etfuturum.tileentities.TileEntitySmoker;
 import ganymedes01.etfuturum.tileentities.TileEntityWoodSign;
 import net.minecraft.client.gui.inventory.GuiChest;
@@ -98,6 +102,12 @@ public class CommonProxy implements IGuiHandler {
 		
 		if(ConfigBlocksItems.enableSigns)
 			GameRegistry.registerTileEntity(TileEntityWoodSign.class, Utils.getUnlocalisedName("sign"));
+		
+		//Come back to
+			GameRegistry.registerTileEntity(TileEntityGateway.class, Utils.getUnlocalisedName("end_gateway"));
+
+			//Come back to
+			GameRegistry.registerTileEntity(TileEntityShulkerBox.class, Utils.getUnlocalisedName("shulker_box"));
 		
 		if (ConfigBlocksItems.enableRabbit) {
 			ModEntityList.registerEntity(EntityRabbit.class, "rabbit", id++, EtFuturum.instance, 80, 3, true, 10051392, 7555121);
@@ -187,6 +197,8 @@ public class CommonProxy implements IGuiHandler {
 				return new ContainerSmoker(player.inventory, (TileEntitySmoker) world.getTileEntity(x, y, z));
 			case GUIsID.BLAST_FURNACE:
 				return new ContainerBlastFurnace(player.inventory, (TileEntityBlastFurnace) world.getTileEntity(x, y, z));
+			case GUIsID.SHULKER_BOX:
+				return new ContainerShulkerBox(player.inventory, (TileEntityShulkerBox) world.getTileEntity(x, y, z));
 			default:
 				return null;
 		}
@@ -207,6 +219,8 @@ public class CommonProxy implements IGuiHandler {
 				return new GuiSmoker(player.inventory, (TileEntitySmoker) world.getTileEntity(x, y, z));
 			case GUIsID.BLAST_FURNACE:
 				return new GuiBlastFurnace(player.inventory, (TileEntityBlastFurnace) world.getTileEntity(x, y, z));
+			case GUIsID.SHULKER_BOX:
+				return new GuiShulkerBox(player.inventory, (TileEntityShulkerBox) world.getTileEntity(x, y, z));
 			default:
 				return null;
 		}

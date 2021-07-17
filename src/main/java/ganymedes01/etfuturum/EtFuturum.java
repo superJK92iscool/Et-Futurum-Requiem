@@ -24,16 +24,19 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import cpw.mods.fml.common.registry.ExistingSubstitutionException;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import ganymedes01.etfuturum.blocks.replace.BlockNewEndPortal;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.proxy.CommonProxy;
 import ganymedes01.etfuturum.core.utils.HoeHelper;
 import ganymedes01.etfuturum.entities.ModEntityList;
+import ganymedes01.etfuturum.items.block.ItemEndPortal;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.network.ArmourStandInteractHandler;
 import ganymedes01.etfuturum.network.ArmourStandInteractMessage;
@@ -135,6 +138,14 @@ public class EtFuturum {
 
 		ModBlocks.init();
 		ModItems.init();
+		try {
+			Block block = new BlockNewEndPortal();
+			GameRegistry.addSubstitutionAlias("minecraft:end_portal", GameRegistry.Type.BLOCK, block);
+			GameRegistry.addSubstitutionAlias("minecraft:end_portal", GameRegistry.Type.ITEM, new ItemEndPortal(block));
+		} catch (ExistingSubstitutionException e) {
+			System.err.println("Something already overrides the end portal block, can't use backported item icon!");
+			e.printStackTrace();
+		}
 		ModEnchantments.init();
 
 		GameRegistry.registerWorldGenerator(new EtFuturumWorldGenerator(), 0);

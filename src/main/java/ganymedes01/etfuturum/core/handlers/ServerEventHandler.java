@@ -42,6 +42,7 @@ import ganymedes01.etfuturum.items.ItemRawOre;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.network.BlackHeartParticlesMessage;
 import ganymedes01.etfuturum.recipes.ModRecipes;
+import ganymedes01.etfuturum.tileentities.TileEntityGateway;
 import ganymedes01.etfuturum.world.generate.BlockAndMetadataMapping;
 import ganymedes01.etfuturum.world.generate.RawOreDropMapping;
 import net.minecraft.block.Block;
@@ -92,6 +93,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.play.server.S29PacketSoundEffect;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
@@ -760,16 +762,29 @@ public class ServerEventHandler {
 
 	@SubscribeEvent
 	public void teleportEvent(EnderTeleportEvent event) {
-		if (ConfigBase.enableEndermite) {
-			EntityLivingBase entity = event.entityLiving;
-			if (entity instanceof EntityPlayerMP)
+		EntityLivingBase entity = event.entityLiving;
+		if (entity instanceof EntityPlayerMP) {
+			if (ConfigBase.enableEndermite) {
 				if (entity.getRNG().nextFloat() < 0.05F && entity.worldObj.getGameRules().getGameRuleBooleanValue("doMobSpawning")) {
 					EntityEndermite entityendermite = new EntityEndermite(entity.worldObj);
-					entityendermite.setLocationAndAngles(entity.posX, entity.posY, entity.posZ, entity.rotationYaw, entity.rotationPitch);
+					entityendermite.setLocationAndAngles(event.targetX, event.targetY, event.targetZ, entity.rotationYaw, entity.rotationPitch);
 					entity.worldObj.spawnEntityInWorld(entityendermite);
 					entityendermite.setSpawnedByPlayer(true);
 					entityendermite.aggroEndermen(64);
 				}
+			}
+			
+		    ForgeDirection[] horizontal = {ForgeDirection.NORTH, ForgeDirection.SOUTH, ForgeDirection.WEST, ForgeDirection.EAST};
+		    
+	        for (ForgeDirection enumfacing : horizontal) {
+	        	TileEntity tile = event.entity.worldObj.getTileEntity(MathHelper.floor_double(event.targetX + (double)enumfacing.offsetX), MathHelper.floor_double(event.targetY), MathHelper.floor_double(event.targetZ + (double)enumfacing.offsetZ));
+				if(!event.entity.worldObj.isRemote && tile instanceof TileEntityGateway && !((TileEntityGateway)tile).isCoolingDown()) {
+					((TileEntityGateway)tile).teleportEntity(event.entity);
+					tile.markDirty();
+					event.setCanceled(true);
+					break;
+				}
+			}
 		}
 	}
 

@@ -5,9 +5,6 @@ import java.util.Random;
 
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import ganymedes01.etfuturum.blocks.BlockChorusFlower;
-import ganymedes01.etfuturum.entities.ai.BlockPos;
-import ganymedes01.etfuturum.world.ChunkPrimer;
-import ganymedes01.etfuturum.world.EtFuturumWorldGenerator;
 import ganymedes01.etfuturum.world.end.gen.WorldGenEndIsland;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
@@ -443,6 +440,7 @@ public class EndChunkProvider implements IChunkProvider {
         if (i > 4096L)
         {
             float f = this.getIslandHeightValue(x, z, 1, 1);
+            
 
             if (f < -20.0F && this.rand.nextInt(14) == 0)
             {

@@ -11,7 +11,7 @@ public class WorldGenEndIsland extends WorldGenerator
 {
 
 	@Override
-	public boolean generate(World worldIn, Random rand, int p_76484_3_, int p_76484_4_, int p_76484_5_) {
+	public boolean generate(World worldIn, Random rand, int x, int y, int z) {
         float f = (float)(rand.nextInt(3) + 4);
 
         for (int i = 0; f > 0.5F; --i)
@@ -22,7 +22,7 @@ public class WorldGenEndIsland extends WorldGenerator
                 {
                     if ((float)(j * j + k * k) <= (f + 1.0F) * (f + 1.0F))
                     {
-                        this.setBlockAndNotifyAdequately(worldIn, j, i, k, Blocks.end_stone, 3);
+                        worldIn.setBlock(x + j, y + i, z + k, Blocks.end_stone);
                     }
                 }
             }

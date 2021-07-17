@@ -32,6 +32,7 @@ public class BlockChorusPlant extends Block implements IConfigurable {
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
 	}
 
+	//Come back to: Make it so the dragon can destroy the fruits if the new end is on
 	@Override
 	public boolean canEntityDestroy(IBlockAccess world, int x, int y, int z, Entity entity) {
 		return !(entity instanceof EntityDragon);

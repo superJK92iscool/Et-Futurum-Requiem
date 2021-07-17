@@ -11,7 +11,6 @@ import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.blocks.BlockChorusFlower;
 import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
-import ganymedes01.etfuturum.world.end.dimension.EndChunkProvider;
 import ganymedes01.etfuturum.world.end.dimension.EndWorldProvider;
 import ganymedes01.etfuturum.world.generate.OceanMonument;
 import ganymedes01.etfuturum.world.generate.WorldGenMinableNoAir;
@@ -19,8 +18,10 @@ import ganymedes01.etfuturum.world.generate.feature.WorldGenFossil;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.IChunkProvider;
+import net.minecraft.world.gen.ChunkProviderFlat;
 import net.minecraft.world.gen.feature.WorldGenFlowers;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraft.world.gen.feature.WorldGenerator;
@@ -45,7 +46,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 
 	@Override
 	public void generate(Random rand, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
-		if(world.getWorldInfo().getGeneratorOptions().length() <= 0 || world.getWorldInfo().getGeneratorOptions().contains("decoration") || world.provider.dimensionId != 0) {
+		if(world.getWorldInfo().getTerrainType() != WorldType.FLAT || world.getWorldInfo().getGeneratorOptions().contains("decoration") || world.provider.dimensionId != 0) {
 
 			if (ConfigBlocksItems.enableStones && ConfigBase.maxStonesPerCluster > 0 && world.provider.dimensionId != -1 && world.provider.dimensionId != 1) {
 				for (int j = 0; j < stoneGen.size(); j++) {
@@ -149,39 +150,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 				if (!world.getBlock(x, y, z).isAir(world, x, y, z))
 					break;
 			if (y > 0 && BlockChorusFlower.canPlantStay(world, x, y + 1, z))
-				generateChorusPlant(world, x, y + 1, z, 0);
-		}
-	}
-
-	public static void generateChorusPlant(World world, int x, int y, int z, int pass) {
-		int height;
-		for (height = 0; height < 4; height++) {
-			if (!BlockChorusFlower.canPlantStay(world, x, y + height, z)) {
-				world.setBlock(x, y + height, z, ModBlocks.chorus_flower, 5, 2);
-				break;
-			}
-			world.setBlock(x, y + height, z, ModBlocks.chorus_plant);
-		}
-		if (height > 1) {
-			world.setBlock(x, y + height, z, ModBlocks.chorus_plant);
-			boolean grew = false;
-
-			if (pass < 5) {
-				ForgeDirection[] dirs = new ForgeDirection[] { ForgeDirection.EAST, ForgeDirection.WEST, ForgeDirection.NORTH, ForgeDirection.SOUTH };
-				for (int j = 0; j < world.rand.nextInt(4); j++) {
-					ForgeDirection dir = dirs[world.rand.nextInt(dirs.length)];
-					int xx = x + dir.offsetX;
-					int yy = y + height + dir.offsetY;
-					int zz = z + dir.offsetZ;
-					if (world.isAirBlock(xx, yy, zz) && BlockChorusFlower.areAllNeighborsEmpty(world, xx, yy, zz, dir.getOpposite())) {
-						generateChorusPlant(world, xx, yy, zz, pass + 1);
-						grew = true;
-					}
-				}
-			}
-
-			if (!grew)
-				world.setBlock(x, y + height, z, ModBlocks.chorus_flower, 5, 2);
+                BlockChorusFlower.generatePlant(world, x, y + 1, z, rand, 8);
 		}
 	}
 	

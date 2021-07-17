@@ -48,7 +48,8 @@ public class BlockChorusFlower extends Block implements IConfigurable {
 			w.func_147480_a(x, y, z, true);
 		}
 	}
-	  
+
+	//Come back to: Make it so the dragon can destroy the fruits if the new end is on
 	@Override
 	public boolean canEntityDestroy(IBlockAccess world, int x, int y, int z, Entity entity) {
 		return !(entity instanceof EntityDragon);
@@ -207,7 +208,6 @@ public class BlockChorusFlower extends Block implements IConfigurable {
 
             if (!areAllNeighborsEmpty(worldIn, x, y + j + 1, z, null))
             {
-            	System.out.println("Neighbors are not empty, aborting");
                 return;
             }
 
@@ -234,8 +234,6 @@ public class BlockChorusFlower extends Block implements IConfigurable {
                 int bp1y = y + ForgeDirection.offsetY + i;
                 int bp1z = z + ForgeDirection.offsetZ;
 
-                System.out.println(bp1x + " " + bp1y + " " + bp1z);
-                System.out.println(Math.abs(bp1x - x1) + " " + Math.abs(bp1z - z1));
                 if (Math.abs(bp1x - x1) < p_185601_4_ && Math.abs(bp1z - z1) < p_185601_4_ && worldIn.isAirBlock(bp1x, bp1y, bp1z) && worldIn.isAirBlock(bp1x, bp1y - 1, bp1z) && areAllNeighborsEmpty(worldIn, bp1x, bp1y, bp1z, ForgeDirection.getOpposite()))
                 {
                     flag = true;
