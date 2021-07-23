@@ -230,7 +230,6 @@ public class ClientEventHandler {
 	@SubscribeEvent
 	public void toolTipEvent(ItemTooltipEvent event) {
 		if(ConfigBase.enableExtraF3HTooltips && event.showAdvancedItemTooltips) {
-			event.toolTip.add("");
 			event.toolTip.add("\u00a78" + Item.itemRegistry.getNameForObject(event.itemStack.getItem()));
 			if(event.itemStack.stackTagCompound != null && !event.itemStack.stackTagCompound.hasNoTags())
 				event.toolTip.add("\u00a78NBT: " + event.itemStack.stackTagCompound.func_150296_c().size() + " Tag(s)");
