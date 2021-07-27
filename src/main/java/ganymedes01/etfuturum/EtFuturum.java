@@ -17,6 +17,7 @@ import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLModIdMappingEvent;
 import cpw.mods.fml.common.event.FMLInterModComms.IMCEvent;
 import cpw.mods.fml.common.event.FMLInterModComms.IMCMessage;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -68,6 +69,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.stats.StatCrafting;
+import net.minecraft.stats.StatList;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
@@ -310,6 +313,12 @@ public class EtFuturum {
 	public void serverStarting(FMLServerStartingEvent event) {
 //        if (ConfigurationHandler.enablePlayerSkinOverlay)
 //            event.registerServerCommand(new SetPlayerModelCommand());
+	}
+	
+	@EventHandler
+	public void idMappingEvent(FMLModIdMappingEvent event) {
+		// update end portal reference in StatList
+		ReflectionHelper.setPrivateValue(StatCrafting.class, (StatCrafting)StatList.mineBlockStatArray[119], Item.getItemFromBlock(Block.getBlockById(119)), "field_150960_a");
 	}
 	
 	public static void copyAttribs(Block to, Block from) {
