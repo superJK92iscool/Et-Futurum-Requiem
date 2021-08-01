@@ -1,8 +1,6 @@
 package ganymedes01.etfuturum.core.handlers;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 import org.lwjgl.opengl.GL11;
@@ -15,12 +13,14 @@ import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
+import ganymedes01.etfuturum.blocks.BlockShulkerBox;
 import ganymedes01.etfuturum.client.OpenGLHelper;
 import ganymedes01.etfuturum.client.sound.NetherAmbience;
 import ganymedes01.etfuturum.client.sound.NetherAmbienceLoop;
 import ganymedes01.etfuturum.client.sound.WeightedSoundPool;
 import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.lib.Reference;
+import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDoor;
 import net.minecraft.block.BlockFenceGate;
@@ -29,13 +29,14 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSound;
 import net.minecraft.client.audio.PositionedSoundRecord;
+import net.minecraft.client.particle.EntityDiggingFX;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -43,8 +44,9 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.client.event.RenderPlayerEvent.SetArmorModel;
 import net.minecraftforge.client.event.sound.PlaySoundEvent17;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.event.entity.PlaySoundAtEntityEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 
 public class ClientEventHandler {
@@ -430,4 +432,34 @@ public class ClientEventHandler {
 				
 		return string;
 	}
+	
+    @SubscribeEvent
+    public void onLivingUpdateEvent(LivingUpdateEvent event)
+    {
+        Entity entity = event.entityLiving;
+        World world = entity.worldObj;
+
+        /*
+         * The purpose of the function is to manifest sprint particles
+         * and adjust slipperiness when entity is moving on block, so check
+         * that the conditions are met first.
+         */
+        if (entity.onGround && (entity.motionX != 0 || entity.motionZ != 0))
+        {
+            int x = MathHelper.floor_double(entity.posX);
+            int y = MathHelper.floor_double(entity.posY - 0.20000000298023224D - entity.yOffset);
+            int z = MathHelper.floor_double(entity.posZ);
+            
+            if(entity.worldObj.getBlock(x, y, z) instanceof BlockShulkerBox) {
+                TileEntityShulkerBox TE = (TileEntityShulkerBox) entity.worldObj.getTileEntity(x, y, z);
+                if (TE != null) {
+                    if (world.isRemote && entity.isSprinting() && !entity.isInWater()) {
+                        EntityDiggingFX dig = new EntityDiggingFX(world, entity.posX + (entity.worldObj.rand.nextFloat() - 0.5D) * entity.width, entity.boundingBox.minY + 0.1D, entity.posZ + (entity.worldObj.rand.nextFloat() - 0.5D) * entity.width, -entity.motionX * 4.0D, 1.5D, -entity.motionZ * 4.0D, TE.getBlockType(), 0);
+                        dig.setParticleIcon(((BlockShulkerBox)TE.getBlockType()).colorIcons[TE.color]);
+                        Minecraft.getMinecraft().effectRenderer.addEffect((dig).applyColourMultiplier(x, y, z));
+                    }
+                }
+            }
+        }
+    }
 }

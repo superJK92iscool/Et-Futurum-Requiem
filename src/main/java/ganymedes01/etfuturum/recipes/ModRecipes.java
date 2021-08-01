@@ -231,7 +231,7 @@ public class ModRecipes {
 			OreDictionary.registerOre("blockRawGold", new ItemStack(ModBlocks.raw_ore_block, 1, 2));
 		}
 		
-		if(ConfigBase.registerRawItemAsOre) {
+		if(ConfigBase.registerRawItemAsOre && ConfigBlocksItems.enableRawOres) {
 			if(ConfigBlocksItems.enableCopper) {
 				OreDictionary.registerOre("oreCopper", new ItemStack(ModItems.raw_ore, 1, 0));
 			}
@@ -795,6 +795,10 @@ public class ModRecipes {
 				addShapelessRecipe(new ItemStack(Items.boat), ModItems.boats[0]);
 				addShapelessRecipe(new ItemStack(ModItems.boats[0]), Items.wooden_shovel, Items.boat);
 			}
+		}
+		
+		if(ConfigBlocksItems.enableShulkerBoxes) {
+			GameRegistry.addRecipe(new RecipeDyedShulkerBox());
 		}
 	}
 	

@@ -36,6 +36,7 @@ import ganymedes01.etfuturum.client.renderer.entity.StrayRenderer;
 import ganymedes01.etfuturum.client.renderer.entity.VillagerZombieRenderer;
 import ganymedes01.etfuturum.client.renderer.item.ItemBannerRenderer;
 import ganymedes01.etfuturum.client.renderer.item.ItemBowRenderer;
+import ganymedes01.etfuturum.client.renderer.item.ItemShulkerBoxRenderer;
 import ganymedes01.etfuturum.client.renderer.item.ItemSkullRenderer;
 import ganymedes01.etfuturum.client.renderer.tileentity.TileEntityBannerRenderer;
 import ganymedes01.etfuturum.client.renderer.tileentity.TileEntityFancySkullRenderer;
@@ -99,6 +100,8 @@ public class ClientProxy extends CommonProxy {
 			MinecraftForgeClient.registerItemRenderer(Items.skull, new ItemSkullRenderer());
 		if (ConfigBase.enableBowRendering)
 			MinecraftForgeClient.registerItemRenderer(Items.bow, new ItemBowRenderer());
+		
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.shulker_box), new ItemShulkerBoxRenderer());
 	}
 
 	private void registerBlockRenderers() {

@@ -22,6 +22,10 @@ public class ConfigBase {
 
 	public static ConfigBase INSTANCE = new ConfigBase();
 	public Configuration cfg;
+	
+	public static final boolean hasIronChest = Loader.isModLoaded("IronChest");
+	public static final boolean hasNetherlicious = Loader.isModLoaded("netherlicious");
+	
 	public static boolean enableNewNether;
 	public static boolean enableBowRendering;
 	public static boolean enableSilkTouchingMushrooms;
