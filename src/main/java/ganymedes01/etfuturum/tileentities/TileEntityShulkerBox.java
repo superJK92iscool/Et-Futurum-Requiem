@@ -10,6 +10,7 @@ import org.apache.commons.lang3.ArrayUtils;
 
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.blocks.BlockShulkerBox;
+import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.inventory.ContainerShulkerBox;
 import ganymedes01.etfuturum.items.block.ItemShulkerBox;
@@ -354,7 +355,7 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 	@Override
 	public boolean isItemValidForSlot(int p_94041_1_, ItemStack p_94041_2_)
 	{
-		return p_94041_2_ == null || !(p_94041_2_.getItem() instanceof ItemShulkerBox);
+		return p_94041_2_ == null || !ConfigBase.shulkerBans.contains(p_94041_2_.getItem());
 	}
 
 	/**

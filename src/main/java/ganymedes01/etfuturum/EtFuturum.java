@@ -11,15 +11,19 @@ import java.util.Map;
 
 import org.apache.commons.lang3.ArrayUtils;
 
+import com.google.common.base.Stopwatch;
+
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLModIdMappingEvent;
 import cpw.mods.fml.common.event.FMLInterModComms.IMCEvent;
 import cpw.mods.fml.common.event.FMLInterModComms.IMCMessage;
+import cpw.mods.fml.common.event.FMLLoadCompleteEvent;
+import cpw.mods.fml.common.event.FMLModIdMappingEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
@@ -292,10 +296,14 @@ public class EtFuturum {
 			Blocks.soul_sand.setStepSound(ModSounds.soundSoulSand);
 		}
 		
+	}
+	
+	@EventHandler
+	public void onLoadComplete(FMLLoadCompleteEvent e){
 		ModRecipes.initDeepslate();
 		SmokerRecipes.init();
 		BlastFurnaceRecipes.init();
-		
+		ConfigBase.setupShulkerBanlist();
 	}
 
 	@EventHandler

@@ -14,6 +14,7 @@ import ganymedes01.etfuturum.enchantment.FrostWalker;
 import ganymedes01.etfuturum.enchantment.Mending;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
+import net.minecraft.item.Item;
 import net.minecraftforge.common.config.ConfigCategory;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
@@ -89,6 +90,8 @@ public class ConfigBase {
 	public static Block fossilBoneBlock;
 	public static int maxTuffPerCluster;
 	public static int[] fossilDimensionBlacklist;
+	public static List<Item> shulkerBans;
+	public static String[] shulkerBansString;
 
 	public static boolean enableTileReplacement;
 	public static int maxStonesPerCluster;
@@ -125,6 +128,84 @@ public class ConfigBase {
 	public static final String catReplacementLegacy = "replacement";
 	public static final String catFunctionLegacy = "function";
 	public static final String catWorldLegacy = "world";
+	
+	public static final String[] shulkerDefaultBans = new String[] {
+			"etfuturum:shulker_box",
+			"minecraft:written_book",
+			"minecraft:book_and_quill",
+			"BiblioCraft:item.BigBook",
+			"antiqueatlas:antiqueAtlas",
+			"DQMIIINext:ItemMahounoTutu11",
+			"DQMIIINext:ItemOokinaFukuro",
+			"DQMIIINext:ItemOokinaFukuroR",
+			"DQMIIINext:ItemOokinaFukuroG",
+			"DQMIIINext:ItemOokinaFukuroB",
+			"DQMIIINext:ItemOokinaFukuroY",
+			"JABBA:moverDiamond",
+			"JABBA:mover",
+			"ExtraUtilities:bedrockiumIngot",
+			"ExtraUtilities:golden_lasso",
+			"ExtraUtilities:block_bedrockium",
+			"ExtraUtilities:golden_bag",
+			"ExtraSimple:lasso",
+			"ExtraSimple:goldenBag",
+			"ExtraSimple:bedrockium",
+			"ExtraSimple:bedrockiumBlock",
+			"antiqueatlas:antiqueAtlas",
+			"OpenBlocks:devnull",
+			"warpbook:warpbook",
+			"StorageDrawers:fullDrawers1",
+			"StorageDrawers:fullDrawers2",
+			"StorageDrawers:fullDrawers4",
+			"StorageDrawers:halfDrawers2",
+			"StorageDrawers:halfDrawers4",
+			"StorageDrawers:compDrawers",
+			"StorageDrawers:controller",
+			"StorageDrawers:controllerSlave",
+			"StorageDrawersBop:fullDrawers1",
+			"StorageDrawersBop:fullDrawers2",
+			"StorageDrawersBop:fullDrawers4",
+			"StorageDrawersBop:halfDrawers2",
+			"StorageDrawersBop:halfDrawers4",
+			"dendrology:fullDrawers1",
+			"dendrology:fullDrawers2",
+			"dendrology:fullDrawers4",
+			"dendrology:halfDrawers2",
+			"dendrology:halfDrawers4",
+			"StorageDrawers:fullCustom1",
+			"StorageDrawers:fullCustom2",
+			"StorageDrawers:fullCustom4",
+			"StorageDrawers:halfCustom2",
+			"StorageDrawers:halfCustom4",
+			"StorageDrawers:trimCustom",
+			"StorageDrawersBop:fullDrawers1",
+			"StorageDrawersBop:fullDrawers2",
+			"StorageDrawersBop:fullDrawers4",
+			"StorageDrawersBop:halfDrawers2",
+			"StorageDrawersBop:halfDrawers4",
+			"StorageDrawersBop:trim",
+			"StorageDrawersForestry:fullDrawers1Aadventurebackpack:adventureBackpack",
+			"StorageDrawersForestry:fullDrawers2A",
+			"StorageDrawersForestry:fullDrawers4A",
+			"StorageDrawersForestry:halfDrawers2A",
+			"StorageDrawersForestry:halfDrawers4A",
+			"StorageDrawersForestry:trimA",
+			"StorageDrawersNatura:fullDrawers1",
+			"StorageDrawersNatura:fullDrawers2",
+			"StorageDrawersNatura:fullDrawers4",
+			"StorageDrawersNatura:halfDrawers2",
+			"StorageDrawersNatura:halfDrawers4",
+			"StorageDrawersNatura:trim",
+			"ironbackpacks:basicBackpack",
+			"ironbackpacks:goldBackpack",
+			"ironbackpacks:diamondBackpack",
+			"ironbackpacks:ironBackpack",
+			"WitchingGadgets:item.WG_Bag",
+			"betterstorage:cardboardBox",
+			"betterstorage:backpack",
+			"betterstorage:thaumcraftBackpack",
+			"adventurebackpack:adventureBackpack"
+	};
 	
 	public static final List<ConfigCategory> configCats = new ArrayList<ConfigCategory>();
 	
@@ -275,7 +356,7 @@ public class ConfigBase {
 		boatMaxLandSpeed = cfg.getFloat("boatMaxLandSpeed", catFunctionLegacy, 0.986F, 0.1F, Float.POSITIVE_INFINITY, "The maximum speed a boat can travel by while on land. This option exists because boats are very very fast when travelling on slippery blocks. Land speed = 0.6, Regular/Packed Ice Speed = 0.98, Packed Ice Speed = 0.986. Anything smaller than 0.6 is really, REALLY slow on land. Any value above 1 is exponential speed growth, and is discouraged. (Quicksoil from Aether Legacy is 1.1) The speed values are just block slipperiness values, and are averaged by the slippery blocks around the bottom of the boat.");
 		newBoatPassengerSeat = cfg.getBoolean("newBoatPassengerSeat", catFunctionLegacy, true, "If disabled, only one person can sit in the passenger seat at a time.");
 		fullGrassPath = cfg.getBoolean("fullGrassPath", catFunctionLegacy, false, "Set to true if you're having issues with stepping over grass paths. Temporary option until fixes are implemented to 1.7's stepping system.");
-		
+		shulkerBansString = cfg.getStringList("shulkerBans", catFunctionLegacy, shulkerDefaultBans, "Things (namespaced:id) that should not go inside a Shulker Box. Used to ensure recursive storage, boon banning and data overloads with certain items can be stopped. A default list is provided, but it might not cover everything so be sure to check with the mods you have.");
 		
 		//replacement
 		enableTileReplacement = cfg.getBoolean("enableTileReplacement", catReplacementLegacy, true, "Replace old Brewing Stands/Enchanting Tables/Daylight Sensors/Beacons with new one on the fly. (Note, as of 2.1.0 this option has been reworked to have better performance. If you disabled it due to lag, please consider trying it again!)"); //Requires enableNewTileEntities. If you want to switch your tile entities from the \"new\" ones to the vanilla blocks, disable this, load the chunks with your tile entities and then disable enableNewTileEntities.
@@ -328,6 +409,23 @@ public class ConfigBase {
 		
 		if (cfg.hasChanged()) {
 			cfg.save();
+		}
+	}
+	
+	public static void setupShulkerBanlist() {
+		shulkerBans = new ArrayList<Item>();
+		for(String itemName : shulkerBansString) {
+			System.out.println(itemName);
+			String[] nameAndID = itemName.split(":");
+			if(nameAndID.length == 2) {
+				System.out.println(nameAndID[0] + " " + nameAndID[1]);
+				Item item = GameRegistry.findItem(nameAndID[0], nameAndID[1]);
+				if(item != null) {
+					shulkerBans.add(item);
+				}
+			} else {
+				System.err.println("Shulker ban list item \"" + itemName + "\" is formatted incorrectly!");
+			}
 		}
 	}
 
