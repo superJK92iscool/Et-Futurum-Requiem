@@ -79,7 +79,7 @@ public class ConfigBlocksItems extends ConfigBase {
 	
 	public static boolean enableShulkerBoxes = true;
 	public static boolean enableDyedShulkerBoxes = true;
-	public static boolean enableIronShulkerBoxes = true && ConfigBase.hasIronChest;
+	public static boolean enableIronShulkerBoxes = false;
 
 	public static final String catNaturalBlock = "Natural Blocks";
 	public static final String catMiscBlock = "Misc Blocks";

@@ -2,7 +2,6 @@ package ganymedes01.etfuturum.items.block;
 
 import ganymedes01.etfuturum.blocks.BlockGlazedTerracotta;
 import ganymedes01.etfuturum.client.renderer.tileentity.TileEntityShulkerBoxRenderer;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;

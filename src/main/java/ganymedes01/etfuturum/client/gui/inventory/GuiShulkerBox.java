@@ -4,6 +4,7 @@ import org.lwjgl.opengl.GL11;
 
 import ganymedes01.etfuturum.inventory.ContainerShulkerBox;
 import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox;
+import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox.ShulkerBoxType;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.inventory.IInventory;
@@ -15,11 +16,12 @@ public class GuiShulkerBox extends GuiContainer {
 		super(new ContainerShulkerBox(p_i1083_1_, p_i1083_2_));
         this.upperChestInventory = p_i1083_1_;
         this.lowerChestInventory = p_i1083_2_;
+        
+        ShulkerBoxType type = ((TileEntityShulkerBox)p_i1083_2_).type;
+        this.xSize = type.getXSize();
+        this.ySize = type.getYSize();
         this.allowUserInput = false;
-        short short1 = 222;
-        int i = short1 - 108;
-        this.inventoryRows = p_i1083_2_.getSizeInventory() / ((TileEntityShulkerBox)p_i1083_2_).getRowSize();
-        this.ySize = i + this.inventoryRows * 18;
+        this.inventoryRows = p_i1083_2_.getSizeInventory() / type.getRowSize();
 	}
     private static final ResourceLocation field_147017_u = new ResourceLocation("textures/gui/container/generic_54.png");
     private IInventory upperChestInventory;
@@ -39,10 +41,10 @@ public class GuiShulkerBox extends GuiContainer {
     protected void drawGuiContainerBackgroundLayer(float p_146976_1_, int p_146976_2_, int p_146976_3_)
     {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        // new "bind tex"
         this.mc.getTextureManager().bindTexture(field_147017_u);
-        int x = (width - xSize) / 2;
-        int y = (height - ySize) / 2;
-        drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
+        int k = (this.width - this.xSize) / 2;
+        int l = (this.height - this.ySize) / 2;
+        this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.inventoryRows * 18 + 17);
+        this.drawTexturedModalRect(k, l + this.inventoryRows * 18 + 17, 0, 126, this.xSize, 96);
     }
 }
