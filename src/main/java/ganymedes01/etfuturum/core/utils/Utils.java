@@ -5,6 +5,9 @@ import java.util.List;
 
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.IBlockAccess;
@@ -45,6 +48,35 @@ public class Utils {
 		for (int id : OreDictionary.getOreIDs(stack))
 			list.add(OreDictionary.getOreName(id));
 
+		return list;
+	}
+
+	public static void loadItemStacksFromNBT(NBTTagList tag, ItemStack[] stacks) {
+		for (int i = 0; i < tag.tagCount(); ++i)
+		{
+			NBTTagCompound nbttagcompound1 = tag.getCompoundTagAt(i);
+			int j = nbttagcompound1.getByte("Slot") & 255;
+
+			if (j >= 0 && j < stacks.length)
+			{
+				stacks[j] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
+			}
+		}
+	}
+
+	public static NBTTagList writeItemStacksToNBT(ItemStack[] stacks) {
+		NBTTagList list = new NBTTagList();
+
+		for (int i = 0; i < stacks.length; ++i)
+		{
+			if (stacks[i] != null)
+			{
+				NBTTagCompound tag = new NBTTagCompound();
+				tag.setByte("Slot", (byte)i);
+				stacks[i].writeToNBT(tag);
+				list.appendTag(tag);
+			}
+		}
 		return list;
 	}
 }
