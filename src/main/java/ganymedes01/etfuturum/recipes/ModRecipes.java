@@ -203,6 +203,7 @@ public class ModRecipes {
 		}
 		
 		if(ConfigBlocksItems.enableNewDyes) {
+			    OreDictionary.registerOre("dye", new ItemStack(ModItems.new_dye, 1, OreDictionary.WILDCARD_VALUE));
 				OreDictionary.registerOre("dyeWhite", new ItemStack(ModItems.new_dye, 1, 0));
 				OreDictionary.registerOre("dyeBlue", new ItemStack(ModItems.new_dye, 1, 1));
 				OreDictionary.registerOre("dyeBrown", new ItemStack(ModItems.new_dye, 1, 2));
