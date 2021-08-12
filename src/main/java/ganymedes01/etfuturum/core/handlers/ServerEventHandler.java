@@ -172,10 +172,17 @@ public class ServerEventHandler {
 				EntityZombie zombie = (EntityZombie) event.entityLiving;
 				if (zombie.isVillager()) {
 					EntityZombieVillager villagerZombie = new EntityZombieVillager(zombie.worldObj);
+					// This literally only copies Location and Angles, nothing else!
 					villagerZombie.copyLocationAndAnglesFrom(zombie);
+					// So uhh why is this Parameter null? Shouldn't it copy all Data from the Zombie?
 					villagerZombie.onSpawnWithEgg(null);
+					// If the old Villager Zombie was marked persistent, then this new one needs to be persistent too!
+					if (zombie.isNoDespawnRequired()) villagerZombie.func_110163_bv();
+					// Name Tags need to transfer too!
+					if (zombie.hasCustomNameTag()) villagerZombie.setCustomNameTag(zombie.getCustomNameTag());
+					// Spawn the New!
 					villagerZombie.worldObj.spawnEntityInWorld(villagerZombie);
-
+					// Kill the Old!
 					zombie.setDead();
 				}
 			}
@@ -451,7 +458,7 @@ public class ServerEventHandler {
 	@SubscribeEvent
 	public void onPlaceBlock(BlockEvent.PlaceEvent event) {
 		if(ConfigBase.enableFloatingTrapDoors && (placedSide == 1 || placedSide == 0) && event.placedBlock instanceof BlockTrapDoor) {
-			int l = MathHelper.floor_double((double)(event.player.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
+			int l = MathHelper.floor_double(event.player.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
 			if(l == 0) {
 				l = 1;
 			} else if(l == 1) {
@@ -777,7 +784,7 @@ public class ServerEventHandler {
 		    ForgeDirection[] horizontal = {ForgeDirection.NORTH, ForgeDirection.SOUTH, ForgeDirection.WEST, ForgeDirection.EAST};
 		    
 	        for (ForgeDirection enumfacing : horizontal) {
-	        	TileEntity tile = event.entity.worldObj.getTileEntity(MathHelper.floor_double(event.targetX + (double)enumfacing.offsetX), MathHelper.floor_double(event.targetY), MathHelper.floor_double(event.targetZ + (double)enumfacing.offsetZ));
+	        	TileEntity tile = event.entity.worldObj.getTileEntity(MathHelper.floor_double(event.targetX + enumfacing.offsetX), MathHelper.floor_double(event.targetY), MathHelper.floor_double(event.targetZ + enumfacing.offsetZ));
 				if(!event.entity.worldObj.isRemote && tile instanceof TileEntityGateway && !((TileEntityGateway)tile).isCoolingDown()) {
 					((TileEntityGateway)tile).teleportEntity(event.entity);
 					tile.markDirty();
@@ -919,7 +926,7 @@ public class ServerEventHandler {
 				look.rotateAroundY((float) Math.PI / 2);
 				for (int i = 0; i < amount; i++) {
 					double x = event.entityLiving.posX - (0.35D * look.xCoord / 2 * look.xCoord) + (i / 3);
-					double y = event.entityLiving.posY + ((double)event.entityLiving.height * 0.75D);
+					double y = event.entityLiving.posY + (event.entityLiving.height * 0.75D);
 					double z = event.entityLiving.posZ - (0.35D * look.zCoord / 2 * look.zCoord) + (i / 3);
 					EtFuturum.networkWrapper.sendToAllAround(new BlackHeartParticlesMessage(x, y, z), new TargetPoint(player.worldObj.provider.dimensionId, x, y, z, 64));
 				}
