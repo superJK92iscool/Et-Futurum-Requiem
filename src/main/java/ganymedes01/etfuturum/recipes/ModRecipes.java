@@ -566,7 +566,7 @@ public class ModRecipes {
 			}
 
 			if(ConfigBlocksItems.enableBarkLogs) {
-				addShapedRecipe(new ItemStack(Blocks.planks, 4, 4), "x", 'x', new ItemStack(bark, 1, i % 4));
+				addShapedRecipe(new ItemStack(Blocks.planks, 4, i), "x", 'x', new ItemStack(bark, 1, i % 4));
 				addShapedRecipe(new ItemStack(bark, 3, i % 4), "xx", "xx", 'x', new ItemStack(log, 1, i % 4));
 //              if(ConfigurationHandler.enableCrimsonBlocks && i == 0)
 //                  addShapedRecipe(new ItemStack(ModBlocks.crimson_stem, 3, 1), "xx", "xx", 'x', new ItemStack(ModBlocks.crimson_stem, 1, 0));
