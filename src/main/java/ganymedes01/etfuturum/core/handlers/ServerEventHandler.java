@@ -140,14 +140,16 @@ public class ServerEventHandler {
 
 	@SubscribeEvent
 	public void livingUpdate(LivingUpdateEvent event) {
-		ModEnchantments.onLivingUpdate(event.entityLiving);
-
 		Entity entity = event.entityLiving;
-		double x = event.entityLiving.posX;
-		double y = event.entityLiving.posY;
-		double z = event.entityLiving.posZ;
+		if (entity.worldObj == null || !entity.worldObj.isRemote) return;
+		
+		ModEnchantments.onLivingUpdate(event.entityLiving);
+		
+		double x = entity.posX;
+		double y = entity.posY;
+		double z = entity.posZ;
 		if(ConfigBlocksItems.enableMagmaBlock)
-			if(!entity.worldObj.isRemote && !entity.isImmuneToFire() && !entity.isSneaking() && entity.onGround
+			if(!entity.isImmuneToFire() && !entity.isSneaking() && entity.onGround
 					&& entity.worldObj.getBlock(MathHelper.floor_double(x), (int)(y - .45), MathHelper.floor_double(z)) == ModBlocks.magma_block) {
 				NBTTagList enchants;
 				boolean flag = true;
@@ -168,8 +170,8 @@ public class ServerEventHandler {
 			}
 		
 		if (ConfigBase.enableVillagerZombies)
-			if (!event.entityLiving.worldObj.isRemote && event.entityLiving.getClass() == EntityZombie.class) {
-				EntityZombie zombie = (EntityZombie) event.entityLiving;
+			if (entity.getClass() == EntityZombie.class) {
+				EntityZombie zombie = (EntityZombie) entity;
 				if (zombie.isVillager()) {
 					EntityZombieVillager villagerZombie = new EntityZombieVillager(zombie.worldObj);
 					// This literally only copies Location and Angles, nothing else!
@@ -188,9 +190,9 @@ public class ServerEventHandler {
 			}
 
 		if (ConfigBase.enableShearableGolems)
-			if (!event.entityLiving.worldObj.isRemote && event.entityLiving.getClass() == EntitySnowman.class) {
-				EntityNewSnowGolem golen = new EntityNewSnowGolem(event.entityLiving.worldObj);
-				golen.copyLocationAndAnglesFrom(event.entityLiving);
+			if (entity.getClass() == EntitySnowman.class) {
+				EntityNewSnowGolem golen = new EntityNewSnowGolem(entity.worldObj);
+				golen.copyLocationAndAnglesFrom(entity);
 				golen.onSpawnWithEgg(null);
 				golen.worldObj.spawnEntityInWorld(golen);
 
@@ -200,7 +202,7 @@ public class ServerEventHandler {
 	
 	@SubscribeEvent
 	public void entityUpdate(EntityEvent event) {
-		if(event.entity.worldObj == null || event.entity.getClass() == null) return;
+		if(event.entity == null || event.entity.worldObj == null || event.entity.getClass() == null) return;
 		if (ConfigBase.enableNewBoats && ConfigBase.replaceOldBoats) {
 			if (!event.entity.worldObj.isRemote && event.entity.getClass() == EntityBoat.class && event.entity.riddenByEntity == null) {
 				if(event.entity.worldObj.getEntitiesWithinAABB(EntityNewBoat.class, event.entity.boundingBox).isEmpty()) {

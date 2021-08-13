@@ -27,11 +27,8 @@ public class ModEnchantments {
 
 	// Frost Walker logic
 	public static void onLivingUpdate(EntityLivingBase entity) {
-		if (entity.worldObj.isRemote)
-			return;
 		if (!ConfigBase.enableFrostWalker)
 			return;
-
 		ItemStack boots = entity.getEquipmentInSlot(1);
 		int level = 0;
 		if ((level = EnchantmentHelper.getEnchantmentLevel(frostWalker.effectId, boots)) > 0)
