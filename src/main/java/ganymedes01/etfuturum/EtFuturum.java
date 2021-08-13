@@ -398,60 +398,45 @@ public class EtFuturum {
 		
 		if(stack == null)
 			return null;
-		
-		if(stack.getItem() == Item.getItemFromBlock(Blocks.red_flower) && stack.getItemDamage() == 2) {
-			return new PotionEffect(Potion.fireResistance.id, 80, 0);
+
+		Item item = stack.getItem();
+
+		if(item == Item.getItemFromBlock(Blocks.red_flower)) {
+			switch(stack.getItemDamage()) {
+			case 0:
+				return new PotionEffect(Potion.nightVision.id, 100, 0);
+			case 1:
+				return new PotionEffect(Potion.field_76443_y.id, 7, 0);
+			case 2:
+				return new PotionEffect(Potion.fireResistance.id, 80, 0);
+			case 3:
+				return new PotionEffect(Potion.blindness.id, 160, 0);
+			case 4:
+			case 5:
+			case 6:
+			case 7:
+				return new PotionEffect(Potion.weakness.id, 180, 0);
+			case 8:
+				return new PotionEffect(Potion.regeneration.id, 160, 0);
+			}
 		}
 
-		if(stack.getItem() == Item.getItemFromBlock(Blocks.red_flower) && stack.getItemDamage() == 3) {
-			return new PotionEffect(Potion.blindness.id, 160, 0);
-		}
-
-		if(stack.getItem() == Item.getItemFromBlock(Blocks.red_flower) && stack.getItemDamage() == 1) {
+		if(item == Item.getItemFromBlock(Blocks.yellow_flower)) {
 			return new PotionEffect(Potion.field_76443_y.id, 7, 0);
 		}
 
-		if(stack.getItem() == Item.getItemFromBlock(Blocks.yellow_flower)) {
-			return new PotionEffect(Potion.field_76443_y.id, 7, 0);
-		}
-
-		if(stack.getItem() == Item.getItemFromBlock(Blocks.red_flower) && stack.getItemDamage() == 8) {
-			return new PotionEffect(Potion.regeneration.id, 160, 0);
-		}
-
-		if(stack.getItem() == Item.getItemFromBlock(Blocks.red_flower) && stack.getItemDamage() == 0) {
-			return new PotionEffect(Potion.nightVision.id, 100, 0);
-		}
-
-		if(stack.getItem() == Item.getItemFromBlock(Blocks.red_flower) && stack.getItemDamage() == 4) {
-			return new PotionEffect(Potion.weakness.id, 180, 0);
-		}
-
-		if(stack.getItem() == Item.getItemFromBlock(Blocks.red_flower) && stack.getItemDamage() == 5) {
-			return new PotionEffect(Potion.weakness.id, 180, 0);
-		}
-
-		if(stack.getItem() == Item.getItemFromBlock(Blocks.red_flower) && stack.getItemDamage() == 6) {
-			return new PotionEffect(Potion.weakness.id, 180, 0);
-		}
-
-		if(stack.getItem() == Item.getItemFromBlock(Blocks.red_flower) && stack.getItemDamage() == 7) {
-			return new PotionEffect(Potion.weakness.id, 180, 0);
-		}
-		
-		if(stack.getItem() == Item.getItemFromBlock(ModBlocks.cornflower)) {
+		if(item == Item.getItemFromBlock(ModBlocks.cornflower)) {
 			return new PotionEffect(Potion.jump.id, 120, 0);
 		}
 
-		if(stack.getItem() == Item.getItemFromBlock(ModBlocks.lily_of_the_valley)) {
+		if(item == Item.getItemFromBlock(ModBlocks.lily_of_the_valley)) {
 			return new PotionEffect(Potion.poison.id, 240, 0);
 		}
 
-		if(stack.getItem() == Item.getItemFromBlock(ModBlocks.wither_rose)) {
+		if(item == Item.getItemFromBlock(ModBlocks.wither_rose)) {
 			return new PotionEffect(Potion.wither.id, 160, 0);
 		}
-		
 		return null;
-		
 	}
+
 }
