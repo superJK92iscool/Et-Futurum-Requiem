@@ -5,6 +5,7 @@ import java.util.List;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModItems;
+import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.recipes.BrewingFuelRegistry;
 import net.minecraft.entity.item.EntityItem;
@@ -171,14 +172,7 @@ public class TileEntityNewBrewingStand extends TileEntityBrewingStand {
 		super.readFromNBT(nbt);
 		NBTTagList nbttaglist = nbt.getTagList("Items", 10);
 		inventory = new ItemStack[getSizeInventory()];
-
-		for (int i = 0; i < nbttaglist.tagCount(); i++) {
-			NBTTagCompound nbt1 = nbttaglist.getCompoundTagAt(i);
-			byte b0 = nbt1.getByte("Slot");
-
-			if (b0 >= 0 && b0 < inventory.length)
-				inventory[b0] = ItemStack.loadItemStackFromNBT(nbt1);
-		}
+		Utils.loadItemStacksFromNBT(nbttaglist, inventory);
 
 		brewTime = nbt.getShort("BrewTime");
 
@@ -196,17 +190,8 @@ public class TileEntityNewBrewingStand extends TileEntityBrewingStand {
 	public void writeToNBT(NBTTagCompound nbt) {
 		super.writeToNBT(nbt);
 		nbt.setShort("BrewTime", (short) brewTime);
-		NBTTagList nbttaglist = new NBTTagList();
 
-		for (int i = 0; i < inventory.length; i++)
-			if (inventory[i] != null) {
-				NBTTagCompound nbt1 = new NBTTagCompound();
-				nbt1.setByte("Slot", (byte) i);
-				inventory[i].writeToNBT(nbt1);
-				nbttaglist.appendTag(nbt1);
-			}
-
-		nbt.setTag("Items", nbttaglist);
+		nbt.setTag("Items", Utils.writeItemStacksToNBT(inventory));
 
 		nbt.setInteger("Fuel", fuel);
 		nbt.setInteger("CurrentFuel", currentFuel);

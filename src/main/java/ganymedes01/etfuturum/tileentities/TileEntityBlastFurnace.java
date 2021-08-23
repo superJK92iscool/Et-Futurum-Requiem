@@ -3,6 +3,7 @@ package ganymedes01.etfuturum.tileentities;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.blocks.BlockBlastFurnace;
+import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.recipes.BlastFurnaceRecipes;
 import net.minecraft.entity.player.EntityPlayer;
@@ -135,17 +136,7 @@ public class TileEntityBlastFurnace extends TileEntity implements ISidedInventor
 		super.readFromNBT(p_145839_1_);
 		NBTTagList nbttaglist = p_145839_1_.getTagList("Items", 10);
 		this.furnaceItemStacks = new ItemStack[this.getSizeInventory()];
-
-		for (int i = 0; i < nbttaglist.tagCount(); ++i)
-		{
-			NBTTagCompound nbttagcompound1 = nbttaglist.getCompoundTagAt(i);
-			byte b0 = nbttagcompound1.getByte("Slot");
-
-			if (b0 >= 0 && b0 < this.furnaceItemStacks.length)
-			{
-				this.furnaceItemStacks[b0] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
-			}
-		}
+		Utils.loadItemStacksFromNBT(nbttaglist, this.furnaceItemStacks);
 
 		this.furnaceBurnTime = p_145839_1_.getShort("BurnTime");
 		this.furnaceCookTime = p_145839_1_.getShort("CookTime");
@@ -163,20 +154,8 @@ public class TileEntityBlastFurnace extends TileEntity implements ISidedInventor
 		super.writeToNBT(p_145841_1_);
 		p_145841_1_.setShort("BurnTime", (short)this.furnaceBurnTime);
 		p_145841_1_.setShort("CookTime", (short)this.furnaceCookTime);
-		NBTTagList nbttaglist = new NBTTagList();
 
-		for (int i = 0; i < this.furnaceItemStacks.length; ++i)
-		{
-			if (this.furnaceItemStacks[i] != null)
-			{
-				NBTTagCompound nbttagcompound1 = new NBTTagCompound();
-				nbttagcompound1.setByte("Slot", (byte)i);
-				this.furnaceItemStacks[i].writeToNBT(nbttagcompound1);
-				nbttaglist.appendTag(nbttagcompound1);
-			}
-		}
-
-		p_145841_1_.setTag("Items", nbttaglist);
+		p_145841_1_.setTag("Items", Utils.writeItemStacksToNBT(this.furnaceItemStacks));
 
 		if (this.hasCustomInventoryName())
 		{
