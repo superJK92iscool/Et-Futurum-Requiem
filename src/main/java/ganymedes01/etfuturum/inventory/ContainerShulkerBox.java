@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.inventory;
 
+import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
@@ -14,7 +15,8 @@ public class ContainerShulkerBox extends Container {
 
 	public ContainerShulkerBox(IInventory p_i1806_1_, IInventory p_i1806_2_) {
         this.lowerChestInventory = p_i1806_2_;
-        this.numRows = p_i1806_2_.getSizeInventory() / 9;
+        this.numRows = p_i1806_2_.getSizeInventory() / ((TileEntityShulkerBox)p_i1806_2_).getRowSize();
+        this.rowSize = ((TileEntityShulkerBox)p_i1806_2_).getRowSize();
         p_i1806_2_.openInventory();
         int i = (this.numRows - 4) * 18;
         int j;
@@ -86,7 +88,7 @@ public class ContainerShulkerBox extends Container {
         {
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();
-
+            
             if (p_82846_2_ < this.numRows * 9)
             {
                 if (!this.mergeItemStack(itemstack1, this.numRows * rowSize, this.inventorySlots.size(), true))
@@ -94,7 +96,7 @@ public class ContainerShulkerBox extends Container {
                     return null;
                 }
             }
-            else if (!lowerChestInventory.isItemValidForSlot(0, itemstack) || !this.mergeItemStack(itemstack1, 0, this.numRows * rowSize, false)) // Row Size
+            else if (!this.mergeItemStack(itemstack1, 0, this.numRows * rowSize, false)) // Row Size
             {
                 return null;
             }
@@ -110,6 +112,36 @@ public class ContainerShulkerBox extends Container {
         }
 
         return itemstack;
+    }
+    
+    protected boolean mergeItemStack(ItemStack p_75135_1_, int p_75135_2_, int p_75135_3_, boolean p_75135_4_)
+    {
+        int k = p_75135_2_;
+
+        if (p_75135_4_)
+        {
+            k = p_75135_3_ - 1;
+        }
+        
+        while (!p_75135_4_ && k < p_75135_3_ || p_75135_4_ && k >= p_75135_2_)
+        {
+            Slot slot = (Slot)this.inventorySlots.get(k);
+            
+            if(slot instanceof ShulkerSlot && !slot.isItemValid(p_75135_1_)) {
+            	return false;
+            }
+
+            if (p_75135_4_)
+            {
+                --k;
+            }
+            else
+            {
+                ++k;
+            }
+        }
+
+        return super.mergeItemStack(p_75135_1_, p_75135_2_, p_75135_3_, p_75135_4_);
     }
 
     /**

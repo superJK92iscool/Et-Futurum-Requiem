@@ -131,8 +131,8 @@ public class ConfigBase {
 	
 	public static final String[] shulkerDefaultBans = new String[] {
 			"etfuturum:shulker_box",
+			"minecraft:writable_book",
 			"minecraft:written_book",
-			"minecraft:book_and_quill",
 			"BiblioCraft:item.BigBook",
 			"antiqueatlas:antiqueAtlas",
 			"DQMIIINext:ItemMahounoTutu11",
@@ -184,7 +184,7 @@ public class ConfigBase {
 			"StorageDrawersBop:halfDrawers2",
 			"StorageDrawersBop:halfDrawers4",
 			"StorageDrawersBop:trim",
-			"StorageDrawersForestry:fullDrawers1Aadventurebackpack:adventureBackpack",
+			"StorageDrawersForestry:fullDrawers1A",
 			"StorageDrawersForestry:fullDrawers2A",
 			"StorageDrawersForestry:fullDrawers4A",
 			"StorageDrawersForestry:halfDrawers2A",
@@ -415,10 +415,8 @@ public class ConfigBase {
 	public static void setupShulkerBanlist() {
 		shulkerBans = new ArrayList<Item>();
 		for(String itemName : shulkerBansString) {
-			System.out.println(itemName);
 			String[] nameAndID = itemName.split(":");
 			if(nameAndID.length == 2) {
-				System.out.println(nameAndID[0] + " " + nameAndID[1]);
 				Item item = GameRegistry.findItem(nameAndID[0], nameAndID[1]);
 				if(item != null) {
 					shulkerBans.add(item);
