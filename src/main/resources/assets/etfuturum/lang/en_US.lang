@@ -20,6 +20,7 @@ container.enchant.clue=%s . . . ?
 container.etfuturum.blast_furnace=Blast Furnace
 container.etfuturum.smoker=Smoker
 container.etfuturum.barrel=Barrel
+container.etfuturum.shulker_box=Shulker Box
 
 # Entities
 entity.etfuturum.endermite.name=Endermite

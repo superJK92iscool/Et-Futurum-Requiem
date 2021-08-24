@@ -44,9 +44,7 @@ public class ItemShulkerBoxRenderer implements IItemRenderer {
 				renderShulkerBox(0, 0, 0, 0, 1);
 				break;
 			case INVENTORY:
-				OpenGLHelper.enableBlend();
 				renderShulkerBox(-0.5F, -0.5F, -0.5F, 0, 1);
-				OpenGLHelper.disableBlend();
 				break;
 			default:
 				break;
