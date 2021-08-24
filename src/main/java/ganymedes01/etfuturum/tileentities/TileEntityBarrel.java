@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import ganymedes01.etfuturum.blocks.BlockBarrel;
+import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ContainerChest;
@@ -40,17 +41,7 @@ public class TileEntityBarrel extends TileEntity implements IInventory {
 		super.readFromNBT(p_145839_1_);
 		NBTTagList nbttaglist = p_145839_1_.getTagList("Items", 10);
 		this.chestContents = new ItemStack[this.getSizeInventory()];
-
-		for (int i = 0; i < nbttaglist.tagCount(); ++i)
-		{
-			NBTTagCompound nbttagcompound1 = nbttaglist.getCompoundTagAt(i);
-			int j = nbttagcompound1.getByte("Slot") & 255;
-
-			if (j >= 0 && j < this.chestContents.length)
-			{
-				this.chestContents[j] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
-			}
-		}
+		Utils.loadItemStacksFromNBT(nbttaglist, this.chestContents);
 
 		if (p_145839_1_.hasKey("CustomName", 8))
 		{
@@ -62,20 +53,8 @@ public class TileEntityBarrel extends TileEntity implements IInventory {
 	public void writeToNBT(NBTTagCompound p_145841_1_)
 	{
 		super.writeToNBT(p_145841_1_);
-		NBTTagList nbttaglist = new NBTTagList();
-
-		for (int i = 0; i < this.chestContents.length; ++i)
-		{
-			if (this.chestContents[i] != null)
-			{
-				NBTTagCompound nbttagcompound1 = new NBTTagCompound();
-				nbttagcompound1.setByte("Slot", (byte)i);
-				this.chestContents[i].writeToNBT(nbttagcompound1);
-				nbttaglist.appendTag(nbttagcompound1);
-			}
-		}
-
-		p_145841_1_.setTag("Items", nbttaglist);
+		
+		p_145841_1_.setTag("Items", Utils.writeItemStacksToNBT(this.chestContents));
 
 		if (this.hasCustomInventoryName())
 		{

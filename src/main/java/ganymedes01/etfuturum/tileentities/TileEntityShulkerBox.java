@@ -12,6 +12,7 @@ import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.blocks.BlockShulkerBox;
 import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.inventory.ContainerShulkerBox;
 import ganymedes01.etfuturum.items.block.ItemShulkerBox;
 import ganymedes01.etfuturum.lib.Reference;
@@ -82,17 +83,7 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 		NBTTagList nbttaglist = nbt.getTagList("Items", 10);
 		if(nbttaglist.tagCount() > 0)
 		this.chestContents = new ItemStack[this.getSizeInventory()];
-
-		for (int i = 0; i < nbttaglist.tagCount(); ++i)
-		{
-			NBTTagCompound nbttagcompound1 = nbttaglist.getCompoundTagAt(i);
-			int j = nbttagcompound1.getByte("Slot") & 255;
-
-			if (j >= 0 && j < this.chestContents.length)
-			{
-				this.chestContents[j] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
-			}
-		}
+		Utils.loadItemStacksFromNBT(nbttaglist, this.chestContents);
 		
 		if(type.getIsClear()) {
 			NBTTagList displaynbt = nbt.getTagList("Display", 10);
@@ -128,21 +119,8 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 	public void writeToNBT(NBTTagCompound nbt)
 	{
 		super.writeToNBT(nbt);
-		NBTTagList nbttaglist = new NBTTagList();
 
-		for (int i = 0; i < this.chestContents.length; ++i)
-		{
-			if (this.chestContents[i] != null)
-			{
-				NBTTagCompound nbttagcompound1 = new NBTTagCompound();
-				nbttagcompound1.setByte("Slot", (byte)i);
-				this.chestContents[i].writeToNBT(nbttagcompound1);
-				nbttaglist.appendTag(nbttagcompound1);
-			}
-		}
-
-		nbt.setTag("Items", nbttaglist);
-		
+		nbt.setTag("Items", Utils.writeItemStacksToNBT(this.chestContents));
 		if(color > 0) {
 			nbt.setByte("Color", color);
 		}
