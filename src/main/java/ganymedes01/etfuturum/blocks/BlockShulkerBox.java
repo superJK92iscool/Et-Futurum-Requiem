@@ -155,6 +155,30 @@ public class BlockShulkerBox extends BlockContainer implements IConfigurable, IS
         }
 		return false;
 	}
+
+//  public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z)
+//  {
+//      TileEntity tileentity = world.getTileEntity(x, y, z);
+//      
+//      this.setBlockBounds(0, 0, 0, 1, 1, 1);
+//       
+//      if(tileentity instanceof TileEntityShulkerBox && ((TileEntityShulkerBox)tileentity).func_190591_p() == TileEntityShulkerBox.AnimationStatus.CLOSED) {
+//      	AxisAlignedBB bb = ((TileEntityShulkerBox)tileentity).func_190584_a(((TileEntityShulkerBox)tileentity).facing);
+//      	setBlockBounds((float)bb.minX, (float)bb.minY, (float)bb.minZ, (float)bb.maxX, (float)bb.maxY, (float)bb.maxZ);
+//      }
+//  }
+	
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z)
+    {
+        TileEntity tileentity = world.getTileEntity(x, y, z);
+        return tileentity instanceof TileEntityShulkerBox ? ((TileEntityShulkerBox)tileentity).func_190584_a(((TileEntityShulkerBox)tileentity).facing).offset(x, y, z) : super.getCollisionBoundingBoxFromPool(world, x, y, z);
+    }
+    
+    @SideOnly(Side.CLIENT)
+    public AxisAlignedBB getSelectedBoundingBoxFromPool(World p_149633_1_, int p_149633_2_, int p_149633_3_, int p_149633_4_)
+    {
+    	return this.getCollisionBoundingBoxFromPool(p_149633_1_, p_149633_2_, p_149633_3_, p_149633_4_);
+    }
 	
 	private boolean canOpen(AxisAlignedBB bb, World world, TileEntity tile) {
 		List<AxisAlignedBB> boxes = new ArrayList<AxisAlignedBB>();

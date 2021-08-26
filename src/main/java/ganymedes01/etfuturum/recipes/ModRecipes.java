@@ -799,6 +799,7 @@ public class ModRecipes {
 		}
 		
 		if(ConfigBlocksItems.enableShulkerBoxes) {
+			addShapedRecipe(new ItemStack(ModBlocks.shulker_box), "x", "c", "x", 'x', new ItemStack(ModItems.shulker_shell), 'c', new ItemStack(Blocks.chest));
 			GameRegistry.addRecipe(new RecipeDyedShulkerBox());
 		}
 	}

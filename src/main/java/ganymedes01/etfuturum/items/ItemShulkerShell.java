@@ -22,7 +22,7 @@ public class ItemShulkerShell extends Item implements IConfigurable {
 
 	@Override
 	public boolean isEnabled() {
-		return true;
+		return ConfigBlocksItems.enableShulkerBoxes;
 	}
 
 }

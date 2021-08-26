@@ -367,7 +367,14 @@ public class ServerEventHandler {
 		}
 		
 		if(ConfigBlocksItems.enableRawOres && !event.isSilkTouching) {
-			RawOreDropMapping mapping = ItemRawOre.rawOreRegistry.get(new BlockAndMetadataMapping(event.block, event.blockMetadata));
+			RawOreDropMapping mapping = null;
+			for(int oreID : OreDictionary.getOreIDs(new ItemStack(event.block, 1, event.blockMetadata))) {
+				String oreName = OreDictionary.getOreName(oreID);
+				if(ItemRawOre.rawOreRegistry.get(oreName) != null) {
+					mapping = ItemRawOre.rawOreRegistry.get(oreName);
+					break;
+				}
+			}
 			if(mapping != null) {
 				event.drops.clear();
 				event.drops.add(new ItemStack(mapping.getItem(), mapping.getDropsExtra() ? event.world.rand.nextInt(3 * (event.fortuneLevel + 1) - 1) + 2 : event.world.rand.nextInt(1 + event.fortuneLevel) + 1, mapping.getMeta()));

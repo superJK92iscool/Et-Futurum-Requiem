@@ -71,6 +71,7 @@ public class ModItems {
 	public static final Item copper_ingot = initItem(new ItemCopperIngot());
 	public static final Item suspicious_stew = initItem(new ItemSuspiciousStew());
 	public static final Item sweet_berries = initItem(new ItemSweetBerries());
+	public static final Item shulker_shell = initItem(new ItemShulkerShell());
 	public static final Item[] boats = new Item[EntityNewBoat.Type.values().length];
 
 	static {

@@ -17,7 +17,7 @@ import net.minecraft.item.ItemStack;
 
 public class ItemRawOre extends ItemGeneric implements IConfigurable {
 	
-	public static final Map<BlockAndMetadataMapping, RawOreDropMapping> rawOreRegistry = new HashMap<BlockAndMetadataMapping, RawOreDropMapping>();
+	public static final Map<String, RawOreDropMapping> rawOreRegistry = new HashMap<String, RawOreDropMapping>();
 
 	public ItemRawOre() {
 		super("copper", "iron", "gold");
@@ -26,13 +26,10 @@ public class ItemRawOre extends ItemGeneric implements IConfigurable {
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
 		if(isEnabled()) {
 			if(ConfigBlocksItems.enableCopper) {
-				rawOreRegistry.put(new BlockAndMetadataMapping(ModBlocks.copper_ore, 0), new RawOreDropMapping(this, 0, ConfigBase.enableExtraCopper));
-				rawOreRegistry.put(new BlockAndMetadataMapping(ModBlocks.deepslate_copper_ore, 0), new RawOreDropMapping(this, 0, ConfigBase.enableExtraCopper));
+				rawOreRegistry.put("oreCopper", new RawOreDropMapping(this, 0, ConfigBase.enableExtraCopper));
 			}
-			rawOreRegistry.put(new BlockAndMetadataMapping(Blocks.iron_ore, 0), new RawOreDropMapping(this, 1, false));
-			rawOreRegistry.put(new BlockAndMetadataMapping(ModBlocks.deepslate_iron_ore, 0), new RawOreDropMapping(this, 1, false));
-			rawOreRegistry.put(new BlockAndMetadataMapping(Blocks.gold_ore, 0), new RawOreDropMapping(this, 2, false));
-			rawOreRegistry.put(new BlockAndMetadataMapping(ModBlocks.deepslate_gold_ore, 0), new RawOreDropMapping(this, 2, false));
+			rawOreRegistry.put("oreIron", new RawOreDropMapping(this, 1, false));
+			rawOreRegistry.put("oreGold", new RawOreDropMapping(this, 2, false));
 		}
 	}
 
