@@ -173,7 +173,7 @@ public class CommonProxy implements IGuiHandler {
 			ModEntityList.registerEntity(EntityNewBoat.class, "new_boat", id++, EtFuturum.instance, 64, 1, true);
 		
 		if(true)
-			ModEntityList.registerEntity(EntityShulker.class, "shulker", id++, EtFuturum.instance, 64, 1, false, 0x00AFAF, 0x799C65);
+			ModEntityList.registerEntity(EntityShulker.class, "shulker", id++, EtFuturum.instance, 64, 1, false, 0x946794, 0x4D3852);
 		
 		ModEntityList.registerEntity(EntityNewBoatSeat.class, "new_boat_seat", id++, EtFuturum.instance, 64, 1, false);
 		

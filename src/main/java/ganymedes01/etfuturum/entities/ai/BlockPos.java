@@ -3,6 +3,7 @@ package ganymedes01.etfuturum.entities.ai;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.Vec3;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class BlockPos extends Vec3i {
 
@@ -111,6 +112,14 @@ public class BlockPos extends Vec3i {
 
 	public BlockPos offset(EnumFacing facing, int n) {
 		return new BlockPos(getX() + facing.getFrontOffsetX() * n, getY() + facing.getFrontOffsetY() * n, getZ() + facing.getFrontOffsetZ() * n);
+	}
+
+	public BlockPos offset(ForgeDirection facing) {
+		return this.offset(facing, 1);
+	}
+
+	public BlockPos offset(ForgeDirection facing, int n) {
+		return new BlockPos(getX() + facing.offsetX * n, getY() + facing.offsetY * n, getZ() + facing.offsetZ * n);
 	}
 
 	public BlockPos crossProductBP(Vec3i vec) {
