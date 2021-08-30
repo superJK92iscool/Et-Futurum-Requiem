@@ -683,11 +683,7 @@ public class ServerEventHandler {
 									}
 								}
 			        		}
-				        
 			        	}
-//			        	else if (event.getResult() == event.useBlock) {
-//			        		//Placeholder for future use.
-//			        	}
 			        }
 			    }
 			}

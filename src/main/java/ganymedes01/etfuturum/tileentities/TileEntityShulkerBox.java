@@ -482,9 +482,6 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
             EnumFacing enumfacing = EnumFacing.getFront(facing);
             AxisAlignedBB axisalignedbb = this.func_190588_c(enumfacing).offset(xCoord, yCoord, zCoord);
             List<Entity> list = this.worldObj.getEntitiesWithinAABBExcludingEntity((Entity)null, axisalignedbb);
-
-            System.out.println(axisalignedbb.minX + " " + axisalignedbb.minY + " " + axisalignedbb.minZ);
-            System.out.println(axisalignedbb.maxX + " " + axisalignedbb.maxY + " " + axisalignedbb.maxZ);
             
             if (!list.isEmpty())
             {

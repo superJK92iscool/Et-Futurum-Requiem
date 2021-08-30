@@ -32,6 +32,7 @@ import ganymedes01.etfuturum.entities.EntityNewSnowGolem;
 import ganymedes01.etfuturum.entities.EntityPlacedEndCrystal;
 import ganymedes01.etfuturum.entities.EntityRabbit;
 import ganymedes01.etfuturum.entities.EntityRespawnedDragon;
+import ganymedes01.etfuturum.entities.EntityShulker;
 import ganymedes01.etfuturum.entities.EntityStray;
 import ganymedes01.etfuturum.entities.EntityTippedArrow;
 import ganymedes01.etfuturum.entities.EntityZombieVillager;
@@ -155,7 +156,7 @@ public class CommonProxy implements IGuiHandler {
 		}
 
 		if (ConfigBase.enableVillagerZombies)
-			ModEntityList.registerEntity(EntityZombieVillager.class, "villager_zombie", id++, EtFuturum.instance, 80, 3, true, 44975, 7969893);
+			ModEntityList.registerEntity(EntityZombieVillager.class, "villager_zombie", id++, EtFuturum.instance, 80, 3, true, 0x00AFAF, 0x799C65);
 
 		if (ConfigBase.enableDragonRespawn) {
 			ModEntityList.registerEntity(EntityPlacedEndCrystal.class, "end_crystal", id++, EtFuturum.instance, 256, Integer.MAX_VALUE, false);
@@ -170,6 +171,9 @@ public class CommonProxy implements IGuiHandler {
 
 		if(ConfigBase.enableNewBoats)
 			ModEntityList.registerEntity(EntityNewBoat.class, "new_boat", id++, EtFuturum.instance, 64, 1, true);
+		
+		if(true)
+			ModEntityList.registerEntity(EntityShulker.class, "shulker", id++, EtFuturum.instance, 64, 1, false, 0x00AFAF, 0x799C65);
 		
 		ModEntityList.registerEntity(EntityNewBoatSeat.class, "new_boat_seat", id++, EtFuturum.instance, 64, 1, false);
 		

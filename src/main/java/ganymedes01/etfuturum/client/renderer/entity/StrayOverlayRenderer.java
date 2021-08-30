@@ -8,7 +8,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
 
 
-public class StrayOverlayRenderer extends StrayRenderer{
+public class StrayOverlayRenderer extends StrayRenderer {
 
 	public ResourceLocation stray_texture = new ResourceLocation("textures/entity/skeleton/stray_overlay.png");
 	public ModelBiped tutModel;

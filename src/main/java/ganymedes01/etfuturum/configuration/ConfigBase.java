@@ -70,8 +70,10 @@ public class ConfigBase {
 	public static boolean enableHayBaleFalls;
 	public static int hayBaleReducePercent;
 	public static int maxCopperPerCluster;
+	@Deprecated
 	public static boolean enableExtraCopper;
 	public static boolean registerRawItemAsOre;
+	public static String[] extraDropRawOres = new String[] {"oreCopper", "oreTin"};
 	public static boolean replaceOldBoats;
 	public static float boatMaxLandSpeed;
 	public static boolean fullGrassPath;
@@ -350,7 +352,7 @@ public class ConfigBase {
 		enableHayBaleFalls = cfg.getBoolean("enableHayBaleFalls", catFunctionLegacy, true, "If true, fall damage on a hay bale will be reduced");
 		hayBaleReducePercent = cfg.getInt("hayBaleReducePercent", catFunctionLegacy, 20, 0, 99, "If enableHayBaleFalls is true, what percent should we keep for the fall damage?");
 //        enableDyeReplacement = cfg.getBoolean("enableDyeReplacement", catFunction, true, "Removes lapis, bone meal, ink sac and cocoa bean's ore dictionary entries as dyes, making the Et Futurum dyes the dyes instead. Disable if this causes weirdisms with modded recipes. (If false both items can be used)");
-		enableExtraCopper = cfg.getBoolean("enableExtraCopper", catFunctionLegacy, true, "If true, copper will drop 2-3 and fortune will yield more than normal.");
+		enableExtraCopper = cfg.getBoolean("enableExtraCopper", catFunctionLegacy, true, "[DEPRECATED, WILL BE REMOVED IN A FUTURE RELEASE, USE EXTRA DROPS LIST] If true, copper will drop 2-3 and fortune will yield more than normal.");
 		registerRawItemAsOre = cfg.getBoolean("registerRawItemAsOre", catFunctionLegacy, true, "Registers raw ores as \"ore____\" in the OreDictionary. Configurable in case it causes crafting issues.");
 		replaceOldBoats = cfg.getBoolean("replaceOldBoats", catFunctionLegacy, true, "If true, old boats will be replaced with the new oak boat and the item sprite will also be changned. False means the new and old boat and item for it exists separately, and the new boats will use a wooden shovel in their crafting recipe. If this is enabled, a boat that has an entity in it will not be replaced until the entity gets out. THIS WILL NOT WORK PROPERLY WITH BETTER BOATS INSTALLED");
 		boatMaxLandSpeed = cfg.getFloat("boatMaxLandSpeed", catFunctionLegacy, 0.986F, 0.1F, 1, "The maximum speed a boat can travel by while on land. This option exists because boats are very very fast when travelling on slippery blocks. Land speed = 0.6, Regular/Packed Ice Speed = 0.98, Packed Ice Speed = 0.986. Anything smaller than 0.6 is really, REALLY slow on land. Any value above 1 is exponential speed growth, and is discouraged. (Quicksoil from Aether Legacy is 1.1) The speed values are just block slipperiness values, and are averaged by the slippery blocks around the bottom of the boat.");

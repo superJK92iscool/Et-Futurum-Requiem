@@ -15,11 +15,17 @@ public class ItemGeneric extends Item {
 	@SideOnly(Side.CLIENT)
 	protected IIcon[] icons;
 	protected final String[] types;
+	protected boolean fromEtFuturum;
 
 	public ItemGeneric(String... types) {
 		this.types = types;
 		setMaxDamage(0);
 		setHasSubtypes(true);
+	}
+	
+	public ItemGeneric(boolean fromefr, String... types) {
+		this(types);
+		fromEtFuturum = fromefr;
 	}
 
 	@Override
@@ -46,6 +52,6 @@ public class ItemGeneric extends Item {
 	public void registerIcons(IIconRegister reg) {
 		icons = new IIcon[types.length];
 		for (int i = 0; i < types.length; i++)
-			icons[i] = reg.registerIcon(getIconString() + "_" + types[i]);
+			icons[i] = reg.registerIcon((fromEtFuturum ? "etfuturum:" : "minecraft:") + getIconString() + "_" + types[i]);
 	}
 }

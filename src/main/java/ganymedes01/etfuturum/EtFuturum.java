@@ -11,9 +11,6 @@ import java.util.Map;
 
 import org.apache.commons.lang3.ArrayUtils;
 
-import com.google.common.base.Stopwatch;
-
-import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -41,6 +38,7 @@ import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.proxy.CommonProxy;
 import ganymedes01.etfuturum.core.utils.HoeHelper;
 import ganymedes01.etfuturum.entities.ModEntityList;
+import ganymedes01.etfuturum.items.ItemRawOre;
 import ganymedes01.etfuturum.items.block.ItemEndPortal;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.network.ArmourStandInteractHandler;
@@ -58,6 +56,7 @@ import ganymedes01.etfuturum.world.EtFuturumWorldGenerator;
 import ganymedes01.etfuturum.world.end.dimension.DimensionProviderEnd;
 import ganymedes01.etfuturum.world.generate.BlockAndMetadataMapping;
 import ganymedes01.etfuturum.world.generate.OceanMonument;
+import ganymedes01.etfuturum.world.generate.RawOreDropMapping;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.block.BlockNetherWart;
@@ -304,6 +303,7 @@ public class EtFuturum {
 		SmokerRecipes.init();
 		BlastFurnaceRecipes.init();
 		ConfigBase.setupShulkerBanlist();
+		ItemRawOre.initRawOres();
 	}
 
 	@EventHandler
@@ -403,6 +403,7 @@ public class EtFuturum {
 
 		if(item == Item.getItemFromBlock(Blocks.red_flower)) {
 			switch(stack.getItemDamage()) {
+			default:
 			case 0:
 				return new PotionEffect(Potion.nightVision.id, 100, 0);
 			case 1:
