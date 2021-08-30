@@ -164,7 +164,9 @@ public class TileEntityGatewayRenderer extends TileEntitySpecialRenderer
                 tessellator.addVertex(x, y, z);
             }
 
-            if (te.shouldRenderFace(EnumFacing.EAST))
+            
+            //TODO: Swapped east and west since their X value is wrong. Maybe I'll find a better way to fix it, hopefully.
+            if (te.shouldRenderFace(EnumFacing.WEST))
             {
                 tessellator.addVertex(x + 1.0D, y + 1.0D, z);
                 tessellator.addVertex(x + 1.0D, y + 1.0D, z + 1.0D);
@@ -172,7 +174,7 @@ public class TileEntityGatewayRenderer extends TileEntitySpecialRenderer
                 tessellator.addVertex(x + 1.0D, y, z);
             }
 
-            if (te.shouldRenderFace(EnumFacing.WEST))
+            if (te.shouldRenderFace(EnumFacing.EAST))
             {
                 tessellator.addVertex(x, y, z);
                 tessellator.addVertex(x, y, z + 1.0D);

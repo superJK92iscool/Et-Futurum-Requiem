@@ -85,7 +85,7 @@ public class CommonProxy implements IGuiHandler {
 		if (ConfigBase.enableArmourStand)
 			ModEntityList.registerEntity(EntityArmourStand.class, "wooden_armorstand", id++, EtFuturum.instance, 64, 1, true);
 		if (ConfigBase.enableEndermite)
-			ModEntityList.registerEntity(EntityEndermite.class, "endermite", id++, EtFuturum.instance, 64, 1, true, 1447446, 7237230);
+			ModEntityList.registerEntity(EntityEndermite.class, "endermite", id++, EtFuturum.instance, 64, 1, true, 0x161616, 0x6E6E6E);
 		if (ConfigBlocksItems.enableTippedArrows)
 			ModEntityList.registerEntity(EntityTippedArrow.class, "tipped_arrow", id++, EtFuturum.instance, 64, 20, true);
 		if (ConfigBlocksItems.enableBrewingStands)
@@ -111,7 +111,7 @@ public class CommonProxy implements IGuiHandler {
 			GameRegistry.registerTileEntity(TileEntityShulkerBox.class, Utils.getUnlocalisedName("shulker_box"));
 		
 		if (ConfigBlocksItems.enableRabbit) {
-			ModEntityList.registerEntity(EntityRabbit.class, "rabbit", id++, EtFuturum.instance, 80, 3, true, 10051392, 7555121);
+			ModEntityList.registerEntity(EntityRabbit.class, "rabbit", id++, EtFuturum.instance, 80, 3, true, 0x995F40, 0x734831);
 
 			List<BiomeGenBase> biomes = new LinkedList<BiomeGenBase>();
 			label: for (BiomeGenBase biome : BiomeGenBase.getBiomeGenArray())
@@ -129,7 +129,7 @@ public class CommonProxy implements IGuiHandler {
 		}
 		
 		if (ConfigBase.enableHusk) {
-			ModEntityList.registerEntity(EntityHusk.class, "husk", id++, EtFuturum.instance, 80, 3, true, 7828833, 14735761);
+			ModEntityList.registerEntity(EntityHusk.class, "husk", id++, EtFuturum.instance, 80, 3, true, 0x777561, 0xE0D991);
 			//change spawn weights
 			EntityRegistry.removeSpawn(EntityZombie.class, EnumCreatureType.monster, new BiomeGenBase[] { BiomeGenBase.desert, BiomeGenBase.desertHills });
 			
@@ -138,7 +138,7 @@ public class CommonProxy implements IGuiHandler {
 			EntityRegistry.addSpawn(EntityHusk.class, 80, 4, 4, EnumCreatureType.monster, new BiomeGenBase[] { BiomeGenBase.desert, BiomeGenBase.desertHills });
 		}
 		if (ConfigBase.enableStray) {
-			ModEntityList.registerEntity(EntityStray.class, "stray", id++, EtFuturum.instance, 80, 3, true, 6387576, 15133418);
+			ModEntityList.registerEntity(EntityStray.class, "stray", id++, EtFuturum.instance, 80, 3, true, 0x617778, 0xE6EAEA);
 			//change spawn weights
 			EntityRegistry.removeSpawn(EntitySkeleton.class, EnumCreatureType.monster, new BiomeGenBase[] { BiomeGenBase.icePlains, BiomeGenBase.iceMountains });
 			
