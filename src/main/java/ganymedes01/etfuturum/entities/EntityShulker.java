@@ -93,10 +93,10 @@ public class EntityShulker extends EntityGolem implements IMob {
     @Override
     public void playLivingSound()
     {
-//        if (!this.isClosed())
-//        {
+        if (!this.isClosed())
+        {
             super.playLivingSound();
-//        }
+        }
     }
 
     @Override
@@ -210,10 +210,9 @@ public class EntityShulker extends EntityGolem implements IMob {
                 boolean flag = false;
 
                 
-                //TODO: Find a better way around the fact the EnumFacing X values are wrong
                 for (EnumFacing enumfacing1 : EnumFacing.values())
                 {
-                    if (this.worldObj.isBlockNormalCubeDefault(blockpos.getX() - enumfacing1.getFrontOffsetX(), blockpos.getY() + enumfacing1.getFrontOffsetY(),
+                    if (this.worldObj.isBlockNormalCubeDefault(blockpos.getX() + enumfacing1.getFrontOffsetX(), blockpos.getY() + enumfacing1.getFrontOffsetY(),
                     		blockpos.getZ() + enumfacing1.getFrontOffsetZ(), false))
                     {
                         this.getDataWatcher().updateObject(ATTACHED_FACE, (byte)enumfacing1.ordinal());
@@ -360,10 +359,10 @@ public class EntityShulker extends EntityGolem implements IMob {
                 {
                     boolean flag = false;
 
-                    //TODO: Find a better way around the fact that the X values for EnumFacing are wrong
                     for (EnumFacing enumfacing : EnumFacing.values())
                     {
-                        if (this.worldObj.isBlockNormalCubeDefault(newx - enumfacing.getFrontOffsetX(), newy + enumfacing.getFrontOffsetY(), newz + enumfacing.getFrontOffsetZ(), false))
+                        if (this.worldObj.isBlockNormalCubeDefault(newx + enumfacing.getFrontOffsetX(), newy + enumfacing.getFrontOffsetY(),
+                        		newz + enumfacing.getFrontOffsetZ(), false))
                         {
                             this.getDataWatcher().updateObject(ATTACHED_FACE, (byte)enumfacing.ordinal());
                             flag = true;

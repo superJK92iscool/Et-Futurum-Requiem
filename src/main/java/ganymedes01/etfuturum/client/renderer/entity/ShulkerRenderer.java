@@ -100,13 +100,15 @@ public class ShulkerRenderer extends RenderLiving {
             default:
                 break;
 
-            case EAST:
+                
+                //TODO: Temporarily flipped how East and West are handled due to them having the wrong X offset. Hopefully there's a better fix.
+            case WEST:
                 GL11.glTranslatef(0.5F, 0.5F, 0.0F);
                 GL11.glRotatef(90.0F, 1.0F, 0.0F, 0.0F);
                 GL11.glRotatef(90.0F, 0.0F, 0.0F, 1.0F);
                 break;
 
-            case WEST:
+            case EAST:
                 GL11.glTranslatef(-0.5F, 0.5F, 0.0F);
                 GL11.glRotatef(90.0F, 1.0F, 0.0F, 0.0F);
                 GL11.glRotatef(-90.0F, 0.0F, 0.0F, 1.0F);
@@ -129,6 +131,7 @@ public class ShulkerRenderer extends RenderLiving {
         }
     }
 
+    @Override
     protected void preRenderCallback(EntityLivingBase entitylivingbaseIn, float partialTickTime)
     {
         GL11.glScalef(0.999F, 0.999F, 0.999F);
