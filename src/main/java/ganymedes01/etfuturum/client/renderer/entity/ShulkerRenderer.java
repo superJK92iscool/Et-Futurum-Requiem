@@ -21,6 +21,12 @@ public class ShulkerRenderer extends RenderLiving {
 	}
 
 	@Override
+    protected float handleRotationFloat(EntityLivingBase p_77044_1_, float p_77044_2_)
+    {
+    	return 0;
+    }
+    
+	@Override
     public void doRender(Entity entity, double x, double y, double z, float entityYaw, float partialTicks)
     {
 		this.doRender((EntityShulker)entity, x, y, z, entityYaw, partialTicks);

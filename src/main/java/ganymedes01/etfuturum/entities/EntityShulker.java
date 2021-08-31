@@ -3,16 +3,22 @@ package ganymedes01.etfuturum.entities;
 import java.util.List;
 import java.util.UUID;
 
-import com.google.common.base.Optional;
+import javax.annotation.Nullable;
+
+import com.google.common.base.Predicate;
 
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.entities.ai.BlockPos;
+import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
+import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.monster.EntityGolem;
@@ -26,8 +32,8 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
+import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class EntityShulker extends EntityGolem implements IMob {
 
@@ -46,12 +52,12 @@ public class EntityShulker extends EntityGolem implements IMob {
 	public EntityShulker(World p_i1686_1_) {
 		super(p_i1686_1_);
         this.tasks.addTask(1, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-//        this.tasks.addTask(4, new EntityShulker.AIAttack());
-//        this.tasks.addTask(7, new EntityShulker.AIPeek());
+        this.tasks.addTask(4, new EntityShulker.AIAttack());
+        this.tasks.addTask(7, new EntityShulker.AIPeek());
         this.tasks.addTask(8, new EntityAILookIdle(this));
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
-//        this.targetTasks.addTask(2, new EntityShulker.AIAttackNearest(this));
-//        this.targetTasks.addTask(3, new EntityShulker.AIDefenseAttack(this));
+        this.targetTasks.addTask(2, new EntityShulker.AIAttackNearest(this));
+        this.targetTasks.addTask(3, new EntityShulker.AIDefenseAttack(this));
 	}
 	
 	@Override
@@ -77,6 +83,24 @@ public class EntityShulker extends EntityGolem implements IMob {
         this.getDataWatcher().addObject(ATTACHED_X, 0);
         this.getDataWatcher().addObject(ATTACHED_Y, -1);
         this.getDataWatcher().addObject(ATTACHED_Z, 0);
+    }
+    
+    protected String getLivingSound()
+    {
+        return Reference.MOD_ID + ":entity.shulker.ambient";
+    }
+    
+    protected String getHurtSound()
+    {
+        return Reference.MOD_ID + ":entity.shulker.hurt" + (isClosed() ? "_closed" : "");
+    }
+
+    /**
+     * Returns the sound this mob makes on death.
+     */
+    protected String getDeathSound()
+    {
+        return Reference.MOD_ID + ":entity.shulker.death";
     }
     
     @Override
@@ -141,7 +165,6 @@ public class EntityShulker extends EntityGolem implements IMob {
     {
     	return new BlockPos(getDataWatcher().getWatchableObjectInt(ATTACHED_X), getDataWatcher().getWatchableObjectInt(ATTACHED_Y), getDataWatcher().getWatchableObjectInt(ATTACHED_Z));
     }
-
     /**
      * Called to update the entity's position/logic.
      */
@@ -345,7 +368,7 @@ public class EntityShulker extends EntityGolem implements IMob {
     
     protected boolean tryTeleportToNewPosition()
     {
-		if (/* !this.isAIDisabled() && */this.isEntityAlive())
+		if ( this.isAIEnabled() && this.isEntityAlive())
         {
 
             for (int i = 0; i < 5; ++i)
@@ -372,7 +395,7 @@ public class EntityShulker extends EntityGolem implements IMob {
 
                     if (flag)
                     {
-//                        this.playSound(SoundEvents.ENTITY_SHULKER_TELEPORT, 1.0F, 1.0F);
+                        this.playSound(Reference.MOD_ID + ":entity.shulker.teleport", 1.0F, 1.0F);
                     	this.setAttachmentPos(new BlockPos(newx, newy, newz));
                         this.getDataWatcher().updateObject(PEEK_TICK, Byte.valueOf((byte)0));
                         this.setAttackTarget(null);
@@ -480,30 +503,29 @@ public class EntityShulker extends EntityGolem implements IMob {
     }
 
     
-//  @Override
-//  public void updateArmorModifier(int p_184691_1_)
-//  {
-//      if (!this.worldObj.isRemote)
-//      {
+  public void updateArmorModifier(int p_184691_1_)
+  {
+      if (!this.worldObj.isRemote)
+      {
 //          this.getEntityAttribute(SharedMonsterAttributes.ARMOR).removeModifier(COVERED_ARMOR_BONUS_MODIFIER);
-//
-//          if (p_184691_1_ == 0)
-//          {
+
+          if (p_184691_1_ == 0)
+          {
 //              this.getEntityAttribute(SharedMonsterAttributes.ARMOR).applyModifier(COVERED_ARMOR_BONUS_MODIFIER);
-//              this.playSound(SoundEvents.ENTITY_SHULKER_CLOSE, 1.0F, 1.0F);
-//          }
-//          else
-//          {
-//              this.playSound(SoundEvents.ENTITY_SHULKER_OPEN, 1.0F, 1.0F);
-//          }
-//      }
-//
-//      this.dataManager.set(PEEK_TICK, Byte.valueOf((byte)p_184691_1_));
-//  }
+              this.playSound(Reference.MOD_ID + ":entity.shulker.close", 1.0F, 1.0F);
+          }
+          else
+          {
+              this.playSound(Reference.MOD_ID + ":entity.shulker.open", 1.0F, 1.0F);
+          }
+      }
+
+      this.getDataWatcher().updateObject(PEEK_TICK, (byte)p_184691_1_);
+  }
     
     public int getTotalArmorValue()
     {
-        return isClosed() ? 20 : getTotalArmorValue();
+        return isClosed() ? 20 : super.getTotalArmorValue();
     }
 
     public float getClientPeekAmount(float p_184688_1_)
@@ -576,6 +598,150 @@ public class EntityShulker extends EntityGolem implements IMob {
             {
                 this.dropItem(item, 1);
             }
+        }
+    }
+    
+    protected boolean isAIEnabled()
+    {
+        return true;
+    }
+
+    class AIAttack extends EntityAIBase
+    {
+        private int attackTime;
+
+        public AIAttack()
+        {
+            this.setMutexBits(3);
+        }
+
+        public boolean shouldExecute()
+        {
+            EntityLivingBase entitylivingbase = EntityShulker.this.getAttackTarget();
+            return entitylivingbase != null && entitylivingbase.isEntityAlive() ? EntityShulker.this.worldObj.difficultySetting != EnumDifficulty.PEACEFUL : false;
+        }
+
+        public void startExecuting()
+        {
+            this.attackTime = 20;
+            EntityShulker.this.updateArmorModifier(100);
+        }
+
+        public void resetTask()
+        {
+            EntityShulker.this.updateArmorModifier(0);
+        }
+
+        public void updateTask()
+        {
+            if (EntityShulker.this.worldObj.difficultySetting != EnumDifficulty.PEACEFUL)
+            {
+                --this.attackTime;
+                EntityLivingBase entitylivingbase = EntityShulker.this.getAttackTarget();
+                EntityShulker.this.getLookHelper().setLookPositionWithEntity(entitylivingbase, 180.0F, 180.0F);
+                double d0 = EntityShulker.this.getDistanceSqToEntity(entitylivingbase);
+
+                if (d0 < 400.0D)
+                {
+                    if (this.attackTime <= 0)
+                    {
+                        this.attackTime = 20 + EntityShulker.this.rand.nextInt(10) * 20 / 2;
+//                        EntityShulkerBullet entityshulkerbullet = new EntityShulkerBullet(EntityShulker.this.worldObj, EntityShulker.this, entitylivingbase, EntityShulker.this.getAttachmentFacing().getAxis());
+//                        EntityShulker.this.worldObj.spawnEntityInWorld(entityshulkerbullet);
+                        EntityShulker.this.playSound(Reference.MOD_ID + ":entity.shulker.shoot", 2.0F, (EntityShulker.this.rand.nextFloat() - EntityShulker.this.rand.nextFloat()) * 0.2F + 1.0F);
+                    }
+                }
+                else
+                {
+                    EntityShulker.this.setAttackTarget((EntityLivingBase)null);
+                }
+
+                super.updateTask();
+            }
+        }
+    }
+
+    class AIAttackNearest extends EntityAINearestAttackableTarget
+    {
+        public AIAttackNearest(EntityShulker shulker)
+        {
+        	//TODO: Added arg 0
+            super(shulker, EntityPlayer.class, 0, true);
+        }
+
+        public boolean shouldExecute()
+        {
+            return EntityShulker.this.worldObj.difficultySetting == EnumDifficulty.PEACEFUL ? false : super.shouldExecute();
+        }
+
+        protected AxisAlignedBB getTargetableArea(double targetDistance)
+        {
+            EnumFacing enumfacing = ((EntityShulker)this.taskOwner).getAttachmentFacing();
+            return enumfacing.getFrontOffsetX() != 0 ? this.taskOwner.boundingBox.expand(4.0D, targetDistance, targetDistance) : (enumfacing.getFrontOffsetZ() != 0 ? this.taskOwner.boundingBox.expand(targetDistance, targetDistance, 4.0D) : this.taskOwner.boundingBox.expand(targetDistance, 4.0D, targetDistance));
+        }
+    }
+
+    static class AIDefenseAttack extends EntityAINearestAttackableTarget
+    {
+        public AIDefenseAttack(EntityShulker shulker)
+        {
+        	super(shulker, EntityLivingBase.class, 10, true);
+//            super(shulker, EntityLivingBase.class, 10, true, false, new Predicate<EntityLivingBase>()
+//            {
+//                public boolean apply(@Nullable EntityLivingBase p_apply_1_)
+//                {
+//                    return p_apply_1_ instanceof IMob;
+//                }
+//            });
+        }
+
+        public boolean shouldExecute()
+        {
+            return this.taskOwner.getTeam() == null ? false : super.shouldExecute();
+        }
+
+        protected AxisAlignedBB getTargetableArea(double targetDistance)
+        {
+            EnumFacing enumfacing = ((EntityShulker)this.taskOwner).getAttachmentFacing();
+            return enumfacing.getFrontOffsetX() != 0 ? this.taskOwner.boundingBox.expand(4.0D, targetDistance, targetDistance) : (enumfacing.getFrontOffsetZ() != 0 ? this.taskOwner.boundingBox.expand(targetDistance, targetDistance, 4.0D) : this.taskOwner.boundingBox.expand(targetDistance, 4.0D, targetDistance));
+        }
+    }
+
+    class AIPeek extends EntityAIBase
+    {
+        private int peekTime;
+
+        public AIPeek()
+        {
+        }
+
+        public boolean shouldExecute()
+        {
+            return EntityShulker.this.getAttackTarget() == null && EntityShulker.this.rand.nextInt(40) == 0;
+        }
+
+        public boolean continueExecuting()
+        {
+            return EntityShulker.this.getAttackTarget() == null && this.peekTime > 0;
+        }
+
+        public void startExecuting()
+        {
+            this.peekTime = 20 * (1 + EntityShulker.this.rand.nextInt(3));
+            EntityShulker.this.updateArmorModifier(30);
+        }
+
+        public void resetTask()
+        {
+            if (EntityShulker.this.getAttackTarget() == null)
+            {
+                EntityShulker.this.updateArmorModifier(0);
+            }
+        }
+
+        public void updateTask()
+        {
+            --this.peekTime;
         }
     }
 }

@@ -1315,5 +1315,99 @@
     "sounds": [
     "minecraft:block/shulker_box/open"
     ]
+  },
+  "entity.shulker.ambient": {
+    "category": "hostile",
+    "sounds": [
+    "minecraft:entity/shulker/ambient1",
+    "minecraft:entity/shulker/ambient2",
+    "minecraft:entity/shulker/ambient3",
+    "minecraft:entity/shulker/ambient4",
+    "minecraft:entity/shulker/ambient5",
+    "minecraft:entity/shulker/ambient6",
+    "minecraft:entity/shulker/ambient7"
+    ]
+  },
+  "entity.shulker.close": {
+    "category": "hostile",
+    "sounds": [
+    "minecraft:entity/shulker/close1",
+    "minecraft:entity/shulker/close2",
+    "minecraft:entity/shulker/close3",
+    "minecraft:entity/shulker/close4",
+    "minecraft:entity/shulker/close5"
+    ]
+  },
+  "entity.shulker.death": {
+    "category": "hostile",
+    "sounds": [
+    "minecraft:entity/shulker/death1",
+    "minecraft:entity/shulker/death2",
+    "minecraft:entity/shulker/death3",
+    "minecraft:entity/shulker/death4"
+    ]
+  },
+  "entity.shulker.hurt": {
+    "category": "hostile",
+    "sounds": [
+    "minecraft:entity/shulker/hurt1",
+    "minecraft:entity/shulker/hurt2",
+    "minecraft:entity/shulker/hurt3",
+    "minecraft:entity/shulker/hurt4"
+    ]
+  },
+  "entity.shulker.hurt_closed": {
+    "category": "hostile",
+    "sounds": [
+    "minecraft:entity/shulker/hurt_closed1",
+    "minecraft:entity/shulker/hurt_closed2",
+    "minecraft:entity/shulker/hurt_closed3",
+    "minecraft:entity/shulker/hurt_closed4",
+    "minecraft:entity/shulker/hurt_closed5"
+    ]
+  },
+  "entity.shulker.open": {
+    "category": "hostile",
+    "sounds": [
+    "minecraft:entity/shulker/open1",
+    "minecraft:entity/shulker/open2",
+    "minecraft:entity/shulker/open3",
+    "minecraft:entity/shulker/open4",
+    "minecraft:entity/shulker/open5"
+    ]
+  },
+  "entity.shulker.shoot": {
+    "category": "hostile",
+    "sounds": [
+    "minecraft:entity/shulker/shoot1",
+    "minecraft:entity/shulker/shoot2",
+    "minecraft:entity/shulker/shoot3",
+    "minecraft:entity/shulker/shoot4"
+    ]
+  },
+  "entity.shulker.teleport": {
+    "category": "hostile",
+    "sounds": [
+    "minecraft:mob/endermen/portal",
+    "minecraft:mob/endermen/portal2"
+    ]
+  },
+  "entity.shulker_bullet.hit": {
+    "category": "hostile",
+    "sounds": [
+    "minecraft:entity/shulker_bullet/hit1",
+    "minecraft:entity/shulker_bullet/hit2",
+    "minecraft:entity/shulker_bullet/hit3",
+    "minecraft:entity/shulker_bullet/hit4"
+    ]
+  },
+  "entity.shulker_bullet.hurt": {
+    "category": "hostile",
+    "sounds": [
+    "minecraft:entity/shulker_bullet/hit1",
+    "minecraft:entity/shulker_bullet/hit2",
+    "minecraft:entity/shulker_bullet/hit3",
+    "minecraft:entity/shulker_bullet/hit4"
+    ]
   }
 }
