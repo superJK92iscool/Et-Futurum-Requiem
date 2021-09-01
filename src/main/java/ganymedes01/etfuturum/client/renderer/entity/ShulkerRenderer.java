@@ -6,6 +6,7 @@ import ganymedes01.etfuturum.client.model.ModelShulker;
 import ganymedes01.etfuturum.client.renderer.tileentity.TileEntityShulkerBoxRenderer;
 import ganymedes01.etfuturum.entities.EntityShulker;
 import ganymedes01.etfuturum.entities.ai.BlockPos;
+import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -19,12 +20,6 @@ public class ShulkerRenderer extends RenderLiving {
 //        this.modelVersion = p_i1262_1_.getModelVersion();
         this.shadowSize = 0.0F;
 	}
-
-	@Override
-    protected float handleRotationFloat(EntityLivingBase p_77044_1_, float p_77044_2_)
-    {
-    	return 0;
-    }
     
 	@Override
     public void doRender(Entity entity, double x, double y, double z, float entityYaw, float partialTicks)
@@ -57,6 +52,21 @@ public class ShulkerRenderer extends RenderLiving {
         {
             super.doRender(entity, x, y, z, entityYaw, partialTicks);
         }
+    }
+    
+    protected void renderModel(EntityLivingBase p_77036_1_, float p_77036_2_, float p_77036_3_, float p_77036_4_, float p_77036_5_, float p_77036_6_, float p_77036_7_)
+    {
+    	super.renderModel(p_77036_1_, p_77036_2_, p_77036_3_, p_77036_4_, p_77036_5_, p_77036_6_, p_77036_7_);
+    	
+    	EntityShulker shulker = (EntityShulker)p_77036_1_;
+    	
+    	if(!shulker.isClosed() || shulker.getClientPeekAmount(1) != 0) {
+            ModelRenderer modelrenderer = ((ModelShulker)mainModel).head;
+            modelrenderer.rotateAngleY = p_77036_5_ * 0.017453292F;
+            modelrenderer.rotateAngleX = p_77036_6_ * 0.017453292F;
+            bindTexture(getEntityTexture(shulker));
+            modelrenderer.render(p_77036_7_);
+    	}
     }
 
 //    @Override

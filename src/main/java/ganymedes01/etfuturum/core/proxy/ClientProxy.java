@@ -185,7 +185,7 @@ public class ClientProxy extends CommonProxy {
 		if(ConfigBase.enableNewBoats)
 			RenderingRegistry.registerEntityRenderingHandler(EntityNewBoat.class, new NewBoatRenderer());
 		
-		if(true)
+		if(ConfigBase.enableShulker)
 			RenderingRegistry.registerEntityRenderingHandler(EntityShulker.class, new ShulkerRenderer());
 		
 		if (ConfigBase.enablePlayerSkinOverlay) {

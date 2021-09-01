@@ -7,7 +7,10 @@ import javax.annotation.Nullable;
 
 import com.google.common.base.Predicate;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.entities.ai.BlockPos;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
@@ -59,7 +62,12 @@ public class EntityShulker extends EntityGolem implements IMob {
         this.targetTasks.addTask(2, new EntityShulker.AIAttackNearest(this));
         this.targetTasks.addTask(3, new EntityShulker.AIDefenseAttack(this));
 	}
-	
+
+    protected float func_110146_f(float p_110146_1_, float p_110146_2_)
+    {
+    	return 180;
+    }
+    
 	@Override
     public IEntityLivingData onSpawnWithEgg(IEntityLivingData p_110161_1_)
     {
@@ -83,6 +91,12 @@ public class EntityShulker extends EntityGolem implements IMob {
         this.getDataWatcher().addObject(ATTACHED_X, 0);
         this.getDataWatcher().addObject(ATTACHED_Y, -1);
         this.getDataWatcher().addObject(ATTACHED_Z, 0);
+    }
+    
+    @SideOnly(Side.CLIENT)
+    public void setPositionAndRotation2(double p_70056_1_, double p_70056_3_, double p_70056_5_, float p_70056_7_, float p_70056_8_, int p_70056_9_)
+    {
+    	super.setPositionAndRotation2(p_70056_1_, p_70056_3_, p_70056_5_, p_70056_7_, p_70056_8_, p_70056_9_);
     }
     
     protected String getLivingSound()
@@ -331,7 +345,7 @@ public class EntityShulker extends EntityGolem implements IMob {
 
             if (d5 > 0.0D)
             {
-                List<Entity> list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.getBoundingBox());
+                List<Entity> list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox);
 
                 if (!list.isEmpty())
                 {
@@ -350,20 +364,21 @@ public class EntityShulker extends EntityGolem implements IMob {
     @Override
     public void setPosition(double x, double y, double z)
     {
+        super.setPosition(x, y, z);
+        
         if (this.getDataWatcher() != null && this.ticksExisted != 0)
         {
-            if (this.getDataWatcher().getWatchableObjectInt(ATTACHED_X) != x || this.getDataWatcher().getWatchableObjectInt(ATTACHED_Y) != y
-            		|| this.getDataWatcher().getWatchableObjectInt(ATTACHED_Z) != z)
+            if (this.getDataWatcher().getWatchableObjectInt(ATTACHED_X) != (int)x || this.getDataWatcher().getWatchableObjectInt(ATTACHED_Y) != (int)y
+            		|| this.getDataWatcher().getWatchableObjectInt(ATTACHED_Z) != (int)z)
             {
                 this.getDataWatcher().updateObject(ATTACHED_X, (int)x);
                 this.getDataWatcher().updateObject(ATTACHED_Y, (int)y);
                 this.getDataWatcher().updateObject(ATTACHED_Z, (int)z);
-                this.getDataWatcher().updateObject(PEEK_TICK, Byte.valueOf((byte)0));
+                if(!this.isRiding())
+                    this.getDataWatcher().updateObject(PEEK_TICK, Byte.valueOf((byte)0));
                 this.isAirBorne = true;
             }
         }
-        
-        super.setPosition(x, y, z);
     }
     
     protected boolean tryTeleportToNewPosition()
@@ -474,7 +489,7 @@ public class EntityShulker extends EntityGolem implements IMob {
 		return false;
     }
 
-    private boolean isClosed()
+    public boolean isClosed()
     {
         return this.getPeekTick() == 0;
     }
@@ -482,7 +497,7 @@ public class EntityShulker extends EntityGolem implements IMob {
     @Override
     public AxisAlignedBB getBoundingBox()
     {
-        return this.isEntityAlive() ? boundingBox : null;
+        return boundingBox;
     }
 
     public EnumFacing getAttachmentFacing()
@@ -583,7 +598,15 @@ public class EntityShulker extends EntityGolem implements IMob {
 
     protected Item getDropItem()
     {
-        return ModItems.shulker_shell;
+        return ConfigBlocksItems.enableShulkerBoxes ? ModItems.shulker_shell : null;
+    }
+    
+
+    public void setRevengeTarget(EntityLivingBase p_70604_1_)
+    {
+    	if(worldObj.difficultySetting != EnumDifficulty.PEACEFUL) {
+    		super.setRevengeTarget(p_70604_1_);
+    	}
     }
     
     protected void dropFewItems(boolean p_70628_1_, int p_70628_2_)

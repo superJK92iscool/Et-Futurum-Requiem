@@ -94,6 +94,7 @@ public class ConfigBase {
 	public static int[] fossilDimensionBlacklist;
 	public static List<Item> shulkerBans;
 	public static String[] shulkerBansString;
+	public static boolean enableShulker;
 
 	public static boolean enableTileReplacement;
 	public static int maxStonesPerCluster;

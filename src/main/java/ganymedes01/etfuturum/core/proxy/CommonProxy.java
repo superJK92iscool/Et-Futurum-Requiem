@@ -83,11 +83,11 @@ public class CommonProxy implements IGuiHandler {
 		if (ConfigBlocksItems.enableBanners)
 			GameRegistry.registerTileEntity(TileEntityBanner.class, Utils.getUnlocalisedName("banner"));
 		if (ConfigBase.enableArmourStand)
-			ModEntityList.registerEntity(EntityArmourStand.class, "wooden_armorstand", id++, EtFuturum.instance, 64, 1, true);
+			ModEntityList.registerEntity(EntityArmourStand.class, "wooden_armorstand", 0, EtFuturum.instance, 64, 1, true);
 		if (ConfigBase.enableEndermite)
-			ModEntityList.registerEntity(EntityEndermite.class, "endermite", id++, EtFuturum.instance, 64, 1, true, 0x161616, 0x6E6E6E);
+			ModEntityList.registerEntity(EntityEndermite.class, "endermite", 1, EtFuturum.instance, 64, 1, true, 0x161616, 0x6E6E6E);
 		if (ConfigBlocksItems.enableTippedArrows)
-			ModEntityList.registerEntity(EntityTippedArrow.class, "tipped_arrow", id++, EtFuturum.instance, 64, 20, true);
+			ModEntityList.registerEntity(EntityTippedArrow.class, "tipped_arrow", 2, EtFuturum.instance, 64, 20, true);
 		if (ConfigBlocksItems.enableBrewingStands)
 			GameRegistry.registerTileEntity(TileEntityNewBrewingStand.class, Utils.getUnlocalisedName("brewing_stand"));
 		if (ConfigBlocksItems.enableColourfulBeacons)
@@ -111,7 +111,7 @@ public class CommonProxy implements IGuiHandler {
 			GameRegistry.registerTileEntity(TileEntityShulkerBox.class, Utils.getUnlocalisedName("shulker_box"));
 		
 		if (ConfigBlocksItems.enableRabbit) {
-			ModEntityList.registerEntity(EntityRabbit.class, "rabbit", id++, EtFuturum.instance, 80, 3, true, 0x995F40, 0x734831);
+			ModEntityList.registerEntity(EntityRabbit.class, "rabbit", 3, EtFuturum.instance, 80, 3, true, 0x995F40, 0x734831);
 
 			List<BiomeGenBase> biomes = new LinkedList<BiomeGenBase>();
 			label: for (BiomeGenBase biome : BiomeGenBase.getBiomeGenArray())
@@ -129,7 +129,7 @@ public class CommonProxy implements IGuiHandler {
 		}
 		
 		if (ConfigBase.enableHusk) {
-			ModEntityList.registerEntity(EntityHusk.class, "husk", id++, EtFuturum.instance, 80, 3, true, 0x777561, 0xE0D991);
+			ModEntityList.registerEntity(EntityHusk.class, "husk", 4, EtFuturum.instance, 80, 3, true, 0x777561, 0xE0D991);
 			//change spawn weights
 			EntityRegistry.removeSpawn(EntityZombie.class, EnumCreatureType.monster, new BiomeGenBase[] { BiomeGenBase.desert, BiomeGenBase.desertHills });
 			
@@ -138,7 +138,7 @@ public class CommonProxy implements IGuiHandler {
 			EntityRegistry.addSpawn(EntityHusk.class, 80, 4, 4, EnumCreatureType.monster, new BiomeGenBase[] { BiomeGenBase.desert, BiomeGenBase.desertHills });
 		}
 		if (ConfigBase.enableStray) {
-			ModEntityList.registerEntity(EntityStray.class, "stray", id++, EtFuturum.instance, 80, 3, true, 0x617778, 0xE6EAEA);
+			ModEntityList.registerEntity(EntityStray.class, "stray", 5, EtFuturum.instance, 80, 3, true, 0x617778, 0xE6EAEA);
 			//change spawn weights
 			EntityRegistry.removeSpawn(EntitySkeleton.class, EnumCreatureType.monster, new BiomeGenBase[] { BiomeGenBase.icePlains, BiomeGenBase.iceMountains });
 			
@@ -151,33 +151,35 @@ public class CommonProxy implements IGuiHandler {
 		}
 		
 		if (ConfigBlocksItems.enableLingeringPotions) {
-			ModEntityList.registerEntity(EntityLingeringPotion.class, "lingering_potion", id++, EtFuturum.instance, 64, 10, true);
-			ModEntityList.registerEntity(EntityLingeringEffect.class, "lingering_effect", id++, EtFuturum.instance, 64, 1, true);
+			ModEntityList.registerEntity(EntityLingeringPotion.class, "lingering_potion", 6, EtFuturum.instance, 64, 10, true);
+			ModEntityList.registerEntity(EntityLingeringEffect.class, "lingering_effect", 7, EtFuturum.instance, 64, 1, true);
 		}
 
 		if (ConfigBase.enableVillagerZombies)
-			ModEntityList.registerEntity(EntityZombieVillager.class, "villager_zombie", id++, EtFuturum.instance, 80, 3, true, 0x00AFAF, 0x799C65);
+			ModEntityList.registerEntity(EntityZombieVillager.class, "villager_zombie", 8, EtFuturum.instance, 80, 3, true, 0x00AFAF, 0x799C65);
 
 		if (ConfigBase.enableDragonRespawn) {
-			ModEntityList.registerEntity(EntityPlacedEndCrystal.class, "end_crystal", id++, EtFuturum.instance, 256, Integer.MAX_VALUE, false);
-			ModEntityList.registerEntity(EntityRespawnedDragon.class, "ender_dragon", id++, EtFuturum.instance, 160, 3, true);
+			ModEntityList.registerEntity(EntityPlacedEndCrystal.class, "end_crystal", 9, EtFuturum.instance, 256, Integer.MAX_VALUE, false);
+			ModEntityList.registerEntity(EntityRespawnedDragon.class, "ender_dragon", 10, EtFuturum.instance, 160, 3, true);
 		}
 
 		if (ConfigBase.enableShearableGolems)
-			ModEntityList.registerEntity(EntityNewSnowGolem.class, "snow_golem", id++, EtFuturum.instance, 80, 3, true);
+			ModEntityList.registerEntity(EntityNewSnowGolem.class, "snow_golem", 11, EtFuturum.instance, 80, 3, true);
 		
 		if (ConfigBase.enableBrownMooshroom)
-			ModEntityList.registerEntity(EntityBrownMooshroom.class, "brown_mooshroom", id++, EtFuturum.instance, 80, 3, true);
+			ModEntityList.registerEntity(EntityBrownMooshroom.class, "brown_mooshroom", 12, EtFuturum.instance, 80, 3, true);
 
 		if(ConfigBase.enableNewBoats)
-			ModEntityList.registerEntity(EntityNewBoat.class, "new_boat", id++, EtFuturum.instance, 64, 1, true);
+			ModEntityList.registerEntity(EntityNewBoat.class, "new_boat", 13, EtFuturum.instance, 64, 1, true);
 		
-		if(true)
-			ModEntityList.registerEntity(EntityShulker.class, "shulker", id++, EtFuturum.instance, 64, 1, false, 0x946794, 0x4D3852);
+		ModEntityList.registerEntity(EntityNewBoatSeat.class, "new_boat_seat", 14, EtFuturum.instance, 64, 1, false);
 		
-		ModEntityList.registerEntity(EntityNewBoatSeat.class, "new_boat_seat", id++, EtFuturum.instance, 64, 1, false);
+		ModEntityList.registerEntity(EntityItemUninflammable.class, "fireproof_item", 15, EtFuturum.instance, 64, 1, true);
 		
-		ModEntityList.registerEntity(EntityItemUninflammable.class, "fireproof_item", id++, EtFuturum.instance, 64, 1, true);
+		if(ConfigBase.enableShulker) {
+			ModEntityList.registerEntity(EntityShulker.class, "shulker", 16, EtFuturum.instance, 64, 1, false, 0x946794, 0x4D3852);
+		}
+		
 		//make magmas slightly more common, hopefully. 
 		EntityRegistry.removeSpawn(EntityMagmaCube.class, EnumCreatureType.monster, new BiomeGenBase[] { BiomeGenBase.hell });
 		EntityRegistry.addSpawn(EntityMagmaCube.class, 2, 4, 4, EnumCreatureType.monster, new BiomeGenBase[] { BiomeGenBase.hell });
