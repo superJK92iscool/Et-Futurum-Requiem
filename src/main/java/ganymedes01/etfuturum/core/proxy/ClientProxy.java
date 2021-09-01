@@ -31,6 +31,7 @@ import ganymedes01.etfuturum.client.renderer.entity.NewBoatRenderer;
 import ganymedes01.etfuturum.client.renderer.entity.NewSnowGolemRenderer;
 import ganymedes01.etfuturum.client.renderer.entity.PlacedEndCrystalRenderer;
 import ganymedes01.etfuturum.client.renderer.entity.RabbitRenderer;
+import ganymedes01.etfuturum.client.renderer.entity.ShulkerBulletRenderer;
 import ganymedes01.etfuturum.client.renderer.entity.ShulkerRenderer;
 import ganymedes01.etfuturum.client.renderer.entity.StrayOverlayRenderer;
 import ganymedes01.etfuturum.client.renderer.entity.StrayRenderer;
@@ -61,6 +62,7 @@ import ganymedes01.etfuturum.entities.EntityNewSnowGolem;
 import ganymedes01.etfuturum.entities.EntityPlacedEndCrystal;
 import ganymedes01.etfuturum.entities.EntityRabbit;
 import ganymedes01.etfuturum.entities.EntityShulker;
+import ganymedes01.etfuturum.entities.EntityShulkerBullet;
 import ganymedes01.etfuturum.entities.EntityStray;
 import ganymedes01.etfuturum.entities.EntityZombieVillager;
 import ganymedes01.etfuturum.tileentities.TileEntityBanner;
@@ -185,8 +187,10 @@ public class ClientProxy extends CommonProxy {
 		if(ConfigBase.enableNewBoats)
 			RenderingRegistry.registerEntityRenderingHandler(EntityNewBoat.class, new NewBoatRenderer());
 		
-		if(ConfigBase.enableShulker)
+		if(ConfigBase.enableShulker) {
 			RenderingRegistry.registerEntityRenderingHandler(EntityShulker.class, new ShulkerRenderer());
+			RenderingRegistry.registerEntityRenderingHandler(EntityShulkerBullet.class, new ShulkerBulletRenderer());
+		}
 		
 		if (ConfigBase.enablePlayerSkinOverlay) {
 			TextureManager texManager = Minecraft.getMinecraft().renderEngine;

@@ -33,6 +33,7 @@ import ganymedes01.etfuturum.entities.EntityPlacedEndCrystal;
 import ganymedes01.etfuturum.entities.EntityRabbit;
 import ganymedes01.etfuturum.entities.EntityRespawnedDragon;
 import ganymedes01.etfuturum.entities.EntityShulker;
+import ganymedes01.etfuturum.entities.EntityShulkerBullet;
 import ganymedes01.etfuturum.entities.EntityStray;
 import ganymedes01.etfuturum.entities.EntityTippedArrow;
 import ganymedes01.etfuturum.entities.EntityZombieVillager;
@@ -78,8 +79,6 @@ public class CommonProxy implements IGuiHandler {
 	}
 
 	public void registerEntities() {
-		int id = 0;
-		
 		if (ConfigBlocksItems.enableBanners)
 			GameRegistry.registerTileEntity(TileEntityBanner.class, Utils.getUnlocalisedName("banner"));
 		if (ConfigBase.enableArmourStand)
@@ -178,6 +177,7 @@ public class CommonProxy implements IGuiHandler {
 		
 		if(ConfigBase.enableShulker) {
 			ModEntityList.registerEntity(EntityShulker.class, "shulker", 16, EtFuturum.instance, 64, 1, false, 0x946794, 0x4D3852);
+			ModEntityList.registerEntity(EntityShulkerBullet.class, "shulker_candy", 17, EtFuturum.instance, 64, 3, true);
 		}
 		
 		//make magmas slightly more common, hopefully. 

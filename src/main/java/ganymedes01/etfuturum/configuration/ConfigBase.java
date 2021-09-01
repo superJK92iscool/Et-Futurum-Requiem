@@ -326,6 +326,7 @@ public class ConfigBase {
 		enableHusk = cfg.getBoolean("enableHusks", catEntityLegacy, true, "Desert zombie variant");
 		enableStray = cfg.getBoolean("enableStrays", catEntityLegacy, true, "Tundra skeleton variant");
 		enableBrownMooshroom = cfg.getBoolean("enableBrownMooshroom", catEntityLegacy, true, "Brown mooshroom variant");
+		enableShulker = cfg.getBoolean("enableShulker", catEntityLegacy, true, "Shell-lurking mobs from the End.");
 		
 		//function
 		enableSilkTouchingMushrooms = cfg.getBoolean("enableSilkMushroom", catFunctionLegacy, true, "Mushroom blocks can be silk-touched");

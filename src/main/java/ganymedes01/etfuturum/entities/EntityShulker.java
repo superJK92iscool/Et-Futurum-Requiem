@@ -669,8 +669,8 @@ public class EntityShulker extends EntityGolem implements IMob {
                     if (this.attackTime <= 0)
                     {
                         this.attackTime = 20 + EntityShulker.this.rand.nextInt(10) * 20 / 2;
-//                        EntityShulkerBullet entityshulkerbullet = new EntityShulkerBullet(EntityShulker.this.worldObj, EntityShulker.this, entitylivingbase, EntityShulker.this.getAttachmentFacing().getAxis());
-//                        EntityShulker.this.worldObj.spawnEntityInWorld(entityshulkerbullet);
+                        EntityShulkerBullet entityshulkerbullet = new EntityShulkerBullet(EntityShulker.this.worldObj, EntityShulker.this, entitylivingbase, EntityShulker.this.getAttachmentFacing());
+                        EntityShulker.this.worldObj.spawnEntityInWorld(entityshulkerbullet);
                         EntityShulker.this.playSound(Reference.MOD_ID + ":entity.shulker.shoot", 2.0F, (EntityShulker.this.rand.nextFloat() - EntityShulker.this.rand.nextFloat()) * 0.2F + 1.0F);
                     }
                 }

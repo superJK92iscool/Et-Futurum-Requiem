@@ -1,6 +1,7 @@
 package ganymedes01.etfuturum.entities.ai;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.Vec3;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -140,5 +141,10 @@ public class BlockPos extends Vec3i {
 	@Override
 	public Vec3i crossProduct(Vec3i vec) {
 		return crossProductBP(vec);
+	}
+	
+	//Roadhog360 start
+	public static AxisAlignedBB getBB(BlockPos pos1, BlockPos pos2) {
+		return AxisAlignedBB.getBoundingBox((double)pos1.getX(), (double)pos1.getY(), (double)pos1.getZ(), (double)pos2.getX(), (double)pos2.getY(), (double)pos2.getZ());
 	}
 }
