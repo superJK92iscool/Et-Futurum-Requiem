@@ -3,6 +3,7 @@ package ganymedes01.etfuturum.entities.ai;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -24,7 +25,7 @@ public class BlockPos extends Vec3i {
 	}
 
 	public BlockPos(double x, double y, double z) {
-		super(x, y, z);
+		super(MathHelper.floor_double(x), MathHelper.floor_double(y), MathHelper.floor_double(z));
 	}
 
 	public BlockPos(Entity source) {

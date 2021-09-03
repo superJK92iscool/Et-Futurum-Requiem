@@ -140,7 +140,7 @@ public class ShulkerRenderer extends RenderLiving {
     	
     	EntityShulker shulker = (EntityShulker)p_77036_1_;
     	
-    	if(!shulker.isClosed() || shulker.getClientPeekAmount(1) != 0) {
+    	if(!shulker.isClosed() || shulker.getClientPeekAmount(1) != 0 || shulker.isInvisible()) {
             ModelRenderer modelrenderer = ((ModelShulker)mainModel).head;
             modelrenderer.rotateAngleY = p_77036_5_ * 0.017453292F;
             modelrenderer.rotateAngleX = p_77036_6_ * 0.017453292F;

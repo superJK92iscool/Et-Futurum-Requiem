@@ -37,6 +37,8 @@ public class EntityShulkerBullet extends Entity
     private BlockPos ownerBlockPos;
     private UUID targetUniqueId;
     private BlockPos targetBlockPos;
+    
+    private int ticksSinceFired;
 
     private static final int OWNER_ID = 2;
     private static final int TARGET_ID = 3;
@@ -335,8 +337,10 @@ public class EntityShulkerBullet extends Entity
         		firstTick();
         	}
         	
-            MovingObjectPosition raytraceresult = Utils.forwardsRaycast(this, true, false, this.owner);
-            //TODO: Fix this so the Shulker can hit itself
+        	if(ticksSinceFired < 20) {
+            	ticksSinceFired++;
+        	}
+            MovingObjectPosition raytraceresult = Utils.forwardsRaycast(this, true, false, this.ticksSinceFired >= 20 ? this.owner : null);
 
             if (raytraceresult != null)
             {

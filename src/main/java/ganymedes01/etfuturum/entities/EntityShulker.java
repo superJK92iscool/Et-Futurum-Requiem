@@ -82,10 +82,13 @@ public class EntityShulker extends EntityGolem implements IMob {
     {
     	super.setLocationAndAngles(p_70012_1_, p_70012_3_, p_70012_5_, p_70012_7_, p_70012_8_);
     	if(getAge() == 0) {
-            this.setAttachmentPos(new BlockPos((int)posX, (int)posY, (int)posZ));
+    		int x = MathHelper.floor_double(posX);
+    		int y = MathHelper.floor_double(posY);
+    		int z = MathHelper.floor_double(posZ);
+            this.setAttachmentPos(new BlockPos(x, y, z));
             for (EnumFacing enumfacing1 : EnumFacing.values())
             {
-                if (this.worldObj.isBlockNormalCubeDefault((int)posX + enumfacing1.getFrontOffsetX(), (int)posY + enumfacing1.getFrontOffsetY(), (int)posZ + enumfacing1.getFrontOffsetZ(), false))
+                if (this.worldObj.isBlockNormalCubeDefault(x + enumfacing1.getFrontOffsetX(), y + enumfacing1.getFrontOffsetY(), z + enumfacing1.getFrontOffsetZ(), false))
                 {
                     this.getDataWatcher().updateObject(ATTACHED_FACE, (byte)enumfacing1.ordinal());
                     break;
@@ -387,12 +390,13 @@ public class EntityShulker extends EntityGolem implements IMob {
         
         if (this.getDataWatcher() != null && this.ticksExisted != 0)
         {
-            if (this.getDataWatcher().getWatchableObjectInt(ATTACHED_X) != (int)x || this.getDataWatcher().getWatchableObjectInt(ATTACHED_Y) != (int)y
-            		|| this.getDataWatcher().getWatchableObjectInt(ATTACHED_Z) != (int)z)
+        	int xpos = MathHelper.floor_double(x);
+        	int ypos = MathHelper.floor_double(y);
+        	int zpos = MathHelper.floor_double(z);
+            if (this.getDataWatcher().getWatchableObjectInt(ATTACHED_X) != xpos || this.getDataWatcher().getWatchableObjectInt(ATTACHED_Y) != ypos
+            		|| this.getDataWatcher().getWatchableObjectInt(ATTACHED_Z) != zpos)
             {
-                this.getDataWatcher().updateObject(ATTACHED_X, (int)x);
-                this.getDataWatcher().updateObject(ATTACHED_Y, (int)y);
-                this.getDataWatcher().updateObject(ATTACHED_Z, (int)z);
+            	this.setAttachmentPos(new BlockPos(xpos, ypos, zpos));
                 if(!this.isRiding())
                     this.getDataWatcher().updateObject(PEEK_TICK, Byte.valueOf((byte)0));
                 this.isAirBorne = true;
@@ -402,14 +406,14 @@ public class EntityShulker extends EntityGolem implements IMob {
     
     protected boolean tryTeleportToNewPosition()
     {
-		if ( this.isAIEnabled() && this.isEntityAlive())
+		if (this.isAIEnabled() && this.isEntityAlive())
         {
 
             for (int i = 0; i < 5; ++i)
             {
-                int newx = (int) (this.posX + 8 - this.rand.nextInt(17));
-                int newy = (int) (this.posY + 8 - this.rand.nextInt(17));
-                int newz = (int) (this.posZ + 8 - this.rand.nextInt(17));
+                int newx = (int) (MathHelper.floor_double(this.posX) + 8 - this.rand.nextInt(17));
+                int newy = (int) (MathHelper.floor_double(this.posY) + 8 - this.rand.nextInt(17));
+                int newz = (int) (MathHelper.floor_double(this.posZ) + 8 - this.rand.nextInt(17));
 
 				if (newy > 0 && this.worldObj.isAirBlock(newx, newy, newz)
 						&& /* this.worldObj.isInsideBorder(this.worldObj.getWorldBorder(), this) && */this.worldObj.getCollidingBoundingBoxes(this, AxisAlignedBB.getBoundingBox(newx, newy, newz, newx + 1, newy + 1, newz + 1)).isEmpty())
@@ -500,20 +504,26 @@ public class EntityShulker extends EntityGolem implements IMob {
         {
             if ((double)this.getHealth() < (double)this.getMaxHealth() * 0.5D && this.rand.nextInt(4) == 0)
             {
-            	int x = (int) posX;
-            	int y = (int) posY;
-            	int z = (int) posZ;
+            	int x = MathHelper.floor_double(posX);
+            	int y = MathHelper.floor_double(posY);
+            	int z = MathHelper.floor_double(posZ);
+            	boolean prevClosed = isClosed();
                 boolean teleported = this.tryTeleportToNewPosition();
-                if(teleported && !this.isClosed() && !isRiding() && rand.nextInt(5) < 4) { //1.17 reproduction mechanic
-                	int successchance = 1;
-                	for(EntityShulker shulker : (List<EntityShulker>)worldObj.getEntitiesWithinAABB(EntityShulker.class, this.boundingBox.expand(8, 8, 8))) {
-                		if(shulker.equals(this) || shulker.isDead) continue;
+				if (isEntityAlive() && teleported && source.getSourceOfDamage() instanceof EntityShulkerBullet && !prevClosed && !isRiding()) { //1.17 reproduction mechanic remade by hand
+                	int failchance = 0;
+                	List<EntityShulker> shulkers = (List<EntityShulker>)worldObj.getEntitiesWithinAABB(EntityShulker.class, this.boundingBox.expand(8, 8, 8));
+                	for(EntityShulker shulker : shulkers) {
+                		if(shulker.equals(this) || shulker.isDead)
+                			continue;
+                		failchance++;
+                		if(failchance >= 5) {
+                			break;
+                		}
                 	}
-            		if(rand.nextInt(successchance) == 0) {
+            		if(failchance < 5 && rand.nextInt(5) >= failchance) {
             			EntityShulker newShulker = new EntityShulker(worldObj);
-            			newShulker.copyDataFrom(this, true);
             			newShulker.setPosition(x, y, z);
-            			newShulker.setAttachmentPos(new BlockPos(x, y, z));
+            			worldObj.spawnEntityInWorld(newShulker);
             			//TODO: Test this
             		}
                 }
