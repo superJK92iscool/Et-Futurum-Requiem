@@ -8,6 +8,7 @@ import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -42,9 +43,23 @@ public class ItemShulkerBox extends ItemBlock {
         return "tile.etfuturum." + string.toString();
     }
 	
+    public boolean onItemUse(ItemStack p_77648_1_, EntityPlayer p_77648_2_, World p_77648_3_, int p_77648_4_, int p_77648_5_, int p_77648_6_, int p_77648_7_, float p_77648_8_, float p_77648_9_, float p_77648_10_)
+    {
+        Block block = p_77648_3_.getBlock(p_77648_4_, p_77648_5_, p_77648_6_);
+        int meta = p_77648_3_.getBlockMetadata(p_77648_4_, p_77648_5_, p_77648_6_);
+    	if(block == Blocks.cauldron && meta > 0 && p_77648_1_.hasTagCompound() && p_77648_1_.getTagCompound().hasKey("Color")) {
+    		p_77648_1_.getTagCompound().removeTag("Color");
+    		if(p_77648_1_.getTagCompound().hasNoTags()) {
+    			p_77648_1_.setTagCompound(null);
+    		}
+    		p_77648_3_.setBlockMetadataWithNotify(p_77648_4_, p_77648_5_, p_77648_6_, meta-1, 2);
+    		return true;
+    	}
+    	return super.onItemUse(p_77648_1_, p_77648_2_, p_77648_3_, p_77648_4_, p_77648_5_, p_77648_6_, p_77648_7_, p_77648_8_, p_77648_9_, p_77648_10_);
+    }
+	
     public boolean placeBlockAt(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int metadata)
     {
-
        if (!world.setBlock(x, y, z, field_150939_a, metadata, 3))
        {
            return false;
