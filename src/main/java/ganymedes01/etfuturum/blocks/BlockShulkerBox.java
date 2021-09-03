@@ -69,6 +69,11 @@ public class BlockShulkerBox extends BlockContainer implements IConfigurable, IS
     	if(world.getBlockMetadata(x, y, z) >= 7) return 10000F;
         return super.getExplosionResistance(par1Entity, world, x, y, z, explosionX, explosionY, explosionZ);
     }
+    
+    @Override
+    public int getMobilityFlag() {
+    	return 1;
+    }
 
     public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack)
     {
