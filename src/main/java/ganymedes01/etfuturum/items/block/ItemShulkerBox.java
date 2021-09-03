@@ -1,7 +1,12 @@
 package ganymedes01.etfuturum.items.block;
 
+import java.util.List;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.blocks.BlockGlazedTerracotta;
 import ganymedes01.etfuturum.client.renderer.tileentity.TileEntityShulkerBoxRenderer;
+import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.dispenser.DispenserBehaviourShulkerBox;
 import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox;
@@ -11,6 +16,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
 
 public class ItemShulkerBox extends ItemBlock {
@@ -74,5 +81,31 @@ public class ItemShulkerBox extends ItemBlock {
 		TileEntityShulkerBox box = (TileEntityShulkerBox) world.getTileEntity(x, y, z);
 		box.facing = (byte) side;
        return true;
+    }
+
+    @SideOnly(Side.CLIENT)
+    public void addInformation(ItemStack stack, EntityPlayer player, List lore, boolean f3h) {
+    	if(ConfigBase.shulkerBoxTooltipLines > 0 && stack.getTagCompound() != null && stack.getTagCompound().hasKey("Items")) {
+    		NBTTagList tag = stack.getTagCompound().getTagList("Items", 10);
+    		int items = 0;
+    		for (int i = 0; i < tag.tagCount(); ++i)
+    		{
+    			NBTTagCompound nbttagcompound1 = tag.getCompoundTagAt(i);
+    			ItemStack containerStack = ItemStack.loadItemStackFromNBT(nbttagcompound1);
+    			if(containerStack != null && containerStack.getItem() != null) {
+    				items++;
+    				if(lore.size() <= ConfigBase.shulkerBoxTooltipLines) {
+        				try {
+        					lore.add(containerStack.getDisplayName() + " x" + containerStack.stackSize);
+        				} catch (Exception e) {
+        					lore.add("missingno x" + containerStack.stackSize);
+        				}
+    				}
+    			}
+    		}
+    		if(items > ConfigBase.shulkerBoxTooltipLines) {
+    			lore.add("\u00a7oAnd " + (items - ConfigBase.shulkerBoxTooltipLines) + " more...");
+    		}
+    	}
     }
 }

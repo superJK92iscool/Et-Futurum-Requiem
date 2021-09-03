@@ -95,6 +95,7 @@ public class ConfigBase {
 	public static List<Item> shulkerBans;
 	public static String[] shulkerBansString;
 	public static boolean enableShulker;
+	public static int shulkerBoxTooltipLines;
 
 	public static boolean enableTileReplacement;
 	public static int maxStonesPerCluster;
@@ -382,6 +383,7 @@ public class ConfigBase {
 		enableNewAmbientSounds = cfg.getBoolean("enableNewAmbientSounds", catClientLegacy, true, "New ambient sounds like rain, cave sounds");
 		enableNetherAmbience = cfg.getBoolean("enableNetherAmbience", catClientLegacy, true, "");
 		enableExtraF3HTooltips = cfg.getBoolean("enableExtraF3HTooltips", catClientLegacy, true, "Enables NBT tag count and item namespace label on F3 + H debug item labels");
+		shulkerBoxTooltipLines = cfg.getInt("shulkerBoxTooltipLines", catClientLegacy, 5, 0, Byte.MAX_VALUE, "The maximum amount of items a Shulker box can display on its tooltip. When the box has more stacks inside than this number, the rest of the stacks are displayed as \"And x more...\". Set to 0 to disable Shulker Box tooltips.");
 	 
 		//world
 		enableAirDebris = cfg.getBoolean("enableAirDebris", catWorldLegacy, false, "Can ancient debris generate next to air?");
