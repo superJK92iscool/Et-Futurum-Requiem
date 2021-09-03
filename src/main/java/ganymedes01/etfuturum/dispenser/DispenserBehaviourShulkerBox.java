@@ -6,6 +6,7 @@ import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.dispenser.BehaviorDefaultDispenseItem;
 import net.minecraft.dispenser.IBlockSource;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumFacing;
@@ -22,7 +23,7 @@ public class DispenserBehaviourShulkerBox extends BehaviorDefaultDispenseItem {
             stack.stackSize--;
             coords.getWorld().setBlock(x, y, z, ModBlocks.shulker_box);
     		TileEntityShulkerBox box = (TileEntityShulkerBox) coords.getWorld().getTileEntity(x, y, z);
-    		box.facing = (byte) enumfacing.ordinal();
+    		box.facing = enumfacing != EnumFacing.UP && coords.getWorld().getBlock(x, y - 1, z) == Blocks.air ? (byte) enumfacing.ordinal() : 1;
     		if(stack.hasTagCompound()) {
     			NBTTagList nbttaglist = stack.getTagCompound().getTagList("Items", 10);
     			box.chestContents = new ItemStack[box.getSizeInventory()];
