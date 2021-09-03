@@ -31,12 +31,13 @@ entity.etfuturum.end_crystal.name=End Crystal
 entity.etfuturum.ender_dragon.name=Ender Dragon
 entity.etfuturum.snow_golem.name=Snow Golem
 entity.etfuturum.brown_mooshroom.name=Brown Mooshroom
+entity.etfuturum.shulker.name=Shulker
+entity.etfuturum.shulker_candy.name=Shulker Bullet
 
 entity.etfuturum.stray.name=Stray
 entity.etfuturum.husk.name=Husk
 entity.etfuturum.guardian.name=Guardian
 entity.etfuturum.elder_guardian.name=Elder Guardian
-entity.etfuturum.shulker.name=Shulker
 entity.etfuturum.polar_bear.name=Polar Bear
 
 # Items
@@ -95,6 +96,7 @@ item.etfuturum.birch_boat.name=Birch Boat
 item.etfuturum.jungle_boat.name=Jungle Boat
 item.etfuturum.dark_oak_boat.name=Dark Oak Boat
 item.etfuturum.acacia_boat.name=Acacia Boat
+item.etfuturum.shulker_shell.name=Shulker Shell
 
 # Arrows
 item.etfuturum.tipped_arrow.name=Tipped Arrow

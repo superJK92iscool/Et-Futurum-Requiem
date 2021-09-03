@@ -1,0 +1,44 @@
+package ganymedes01.etfuturum.dispenser;
+
+import ganymedes01.etfuturum.ModBlocks;
+import ganymedes01.etfuturum.core.utils.Utils;
+import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox;
+import net.minecraft.block.BlockDispenser;
+import net.minecraft.dispenser.BehaviorDefaultDispenseItem;
+import net.minecraft.dispenser.IBlockSource;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.EnumFacing;
+
+public class DispenserBehaviourShulkerBox extends BehaviorDefaultDispenseItem {
+
+    protected ItemStack dispenseStack(IBlockSource coords, ItemStack stack)
+    {
+        EnumFacing enumfacing = BlockDispenser.func_149937_b(coords.getBlockMetadata());
+        int x = coords.getXInt() + enumfacing.getFrontOffsetX();
+        int y = coords.getYInt() + enumfacing.getFrontOffsetY();
+        int z = coords.getZInt() + enumfacing.getFrontOffsetZ();
+        if(coords.getWorld().getBlock(x, y, z).isReplaceable(coords.getWorld(), x, y, z)) {
+            stack.stackSize--;
+            coords.getWorld().setBlock(x, y, z, ModBlocks.shulker_box);
+    		TileEntityShulkerBox box = (TileEntityShulkerBox) coords.getWorld().getTileEntity(x, y, z);
+    		box.facing = (byte) enumfacing.ordinal();
+    		if(stack.hasTagCompound()) {
+    			NBTTagList nbttaglist = stack.getTagCompound().getTagList("Items", 10);
+    			box.chestContents = new ItemStack[box.getSizeInventory()];
+    			Utils.loadItemStacksFromNBT(nbttaglist, box.chestContents);
+    			
+    			if(stack.getTagCompound().hasKey("Color")) {
+    				box.color = stack.getTagCompound().getByte("Color");
+    			}
+
+    			if (stack.hasDisplayName())
+    			{
+    				box.func_145976_a(stack.getDisplayName());
+    			}
+    		}
+    		return stack;
+        }
+        return super.dispenseStack(coords, stack);
+    }
+}

@@ -2,8 +2,11 @@ package ganymedes01.etfuturum.items.block;
 
 import ganymedes01.etfuturum.blocks.BlockGlazedTerracotta;
 import ganymedes01.etfuturum.client.renderer.tileentity.TileEntityShulkerBoxRenderer;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.dispenser.DispenserBehaviourShulkerBox;
 import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockDispenser;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -13,6 +16,8 @@ public class ItemShulkerBox extends ItemBlock {
 
 	public ItemShulkerBox(Block p_i45328_1_) {
 		super(p_i45328_1_);
+		if(ConfigBlocksItems.enableShulkerBoxes)
+			BlockDispenser.dispenseBehaviorRegistry.putObject(this, new DispenserBehaviourShulkerBox());
 	}
 	
 	@Override
