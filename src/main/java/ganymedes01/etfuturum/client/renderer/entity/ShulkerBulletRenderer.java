@@ -5,7 +5,6 @@ import org.lwjgl.opengl.GL11;
 import ganymedes01.etfuturum.client.OpenGLHelper;
 import ganymedes01.etfuturum.client.model.ModelShulkerBullet;
 import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
@@ -50,17 +49,18 @@ public class ShulkerBulletRenderer extends Render
         GL11.glRotatef(MathHelper.cos(f2 * 0.1F) * 180.0F, 1.0F, 0.0F, 0.0F);
         GL11.glRotatef(MathHelper.sin(f2 * 0.15F) * 360.0F, 0.0F, 0.0F, 1.0F);
         float f3 = 0.03125F;
-        OpenGLHelper.enableRescaleNormal();
+//        OpenGLHelper.enableRescaleNormal();
         GL11.glScalef(-1.0F, -1.0F, 1.0F);
         this.bindEntityTexture(entity);
+        GL11.glColor4f(1, 1, 1, 1);
         this.model.render(entity, 0.0F, 0.0F, 0.0F, f, f1, f3);
         OpenGLHelper.enableBlend();
-        GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.5F);
+		OpenGLHelper.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        GL11.glColor4f(1, 1, 1, 0.5F);
         GL11.glScalef(1.5F, 1.5F, 1.5F);
         this.model.render(entity, 0.0F, 0.0F, 0.0F, f, f1, f3);
         OpenGLHelper.disableBlend();
         GL11.glPopMatrix();
-//        super.doRender(entity, x, y, z, entityYaw, partialTicks);
     }
 
     /**

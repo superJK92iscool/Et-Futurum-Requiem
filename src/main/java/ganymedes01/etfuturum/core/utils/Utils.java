@@ -112,8 +112,7 @@ public class Utils {
         World world = p_188802_0_.worldObj;
         Vec3 vec3d = Vec3.createVectorHelper(d0, d1, d2);
         Vec3 vec3d1 = Vec3.createVectorHelper(d0 + d3, d1 + d4, d2 + d5);
-        //TODO: maybe port the raytrace method which ignores blocks with no bounding box.
-        MovingObjectPosition raytraceresult = world.rayTraceBlocks(vec3d, vec3d1, false);
+        MovingObjectPosition raytraceresult = world.func_147447_a(vec3d, vec3d1, false, true, false);
 
         if (p_188802_1_)
         {

@@ -47,6 +47,7 @@ import ganymedes01.etfuturum.network.BlackHeartParticlesHandler;
 import ganymedes01.etfuturum.network.BlackHeartParticlesMessage;
 import ganymedes01.etfuturum.network.WoodSignOpenHandler;
 import ganymedes01.etfuturum.network.WoodSignOpenMessage;
+import ganymedes01.etfuturum.potion.EtFuturumPotions;
 import ganymedes01.etfuturum.recipes.BlastFurnaceRecipes;
 import ganymedes01.etfuturum.recipes.BrewingFuelRegistry;
 import ganymedes01.etfuturum.recipes.ModRecipes;
@@ -295,6 +296,7 @@ public class EtFuturum {
 			Blocks.soul_sand.setStepSound(ModSounds.soundSoulSand);
 		}
 		
+		EtFuturumPotions.init();
 	}
 	
 	@EventHandler

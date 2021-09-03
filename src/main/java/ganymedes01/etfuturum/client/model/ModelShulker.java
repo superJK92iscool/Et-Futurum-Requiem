@@ -66,13 +66,6 @@ public class ModelShulker extends ModelBase {
 
         this.head.rotateAngleX = headPitch * 0.017453292F;
         this.head.rotateAngleY = netHeadYaw * 0.017453292F;
-        
-      if(entityshulker.getClientPeekAmount(f) > 0) {
-//          System.out.println(entityshulker.getClientPeekAmount(f) + " " + f + " " + f1);
-      }
-//      if(entityshulker.getPeekTick() > 0) {
-//      	System.out.println(entityshulker.getPeekTick());
-//      }
     }
     
     /**

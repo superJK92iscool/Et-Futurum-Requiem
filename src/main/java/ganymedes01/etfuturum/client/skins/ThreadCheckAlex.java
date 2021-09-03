@@ -27,6 +27,7 @@ public class ThreadCheckAlex extends Thread {
 		} else {
 			InputStream is = null;
 			try {
+				System.setProperty("https.protocols", "TLSv1,TLSv1.1,TLSv1.2");
 				is = new URL("https://sessionserver.mojang.com/session/minecraft/profile/"
 			+ player.getUniqueID().toString().replaceAll("-", "")).openStream();
 				  BufferedReader rd = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));

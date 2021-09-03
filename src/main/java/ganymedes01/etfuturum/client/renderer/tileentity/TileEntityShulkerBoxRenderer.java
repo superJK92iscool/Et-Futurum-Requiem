@@ -7,6 +7,7 @@ import org.lwjgl.opengl.GL11;
 import com.google.common.primitives.SignedBytes;
 
 import ganymedes01.etfuturum.client.model.ModelShulker;
+import ganymedes01.etfuturum.client.renderer.entity.ShulkerRenderer;
 import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.entity.RenderItem;
@@ -26,87 +27,6 @@ public class TileEntityShulkerBoxRenderer extends TileEntitySpecialRenderer {
     private static float[][] shifts = { { 0.3F, 0.45F, 0.3F }, { 0.7F, 0.45F, 0.3F }, { 0.3F, 0.45F, 0.7F }, { 0.7F, 0.45F, 0.7F }, { 0.3F, 0.1F, 0.3F },
             { 0.7F, 0.1F, 0.3F }, { 0.3F, 0.1F, 0.7F }, { 0.7F, 0.1F, 0.7F }, { 0.5F, 0.32F, 0.5F }, };
 	public static final String[] tiers = new String[] {"iron", "gold", "diamond", "copper", "silver", "crystal", "obsidian"};
-    public static final ResourceLocation[] TEMP = new ResourceLocation[] {
-    		new ResourceLocation("textures/entity/shulker/shulker.png"),
-    		new ResourceLocation("textures/entity/shulker/shulker_white.png"), new ResourceLocation("textures/entity/shulker/shulker_orange.png"),
-    		new ResourceLocation("textures/entity/shulker/shulker_magenta.png"), new ResourceLocation("textures/entity/shulker/shulker_light_blue.png"),
-    		new ResourceLocation("textures/entity/shulker/shulker_yellow.png"), new ResourceLocation("textures/entity/shulker/shulker_lime.png"),
-    		new ResourceLocation("textures/entity/shulker/shulker_pink.png"), new ResourceLocation("textures/entity/shulker/shulker_gray.png"),
-    		new ResourceLocation("textures/entity/shulker/shulker_light_gray.png"), new ResourceLocation("textures/entity/shulker/shulker_cyan.png"),
-    		new ResourceLocation("textures/entity/shulker/shulker_purple.png"), new ResourceLocation("textures/entity/shulker/shulker_blue.png"),
-    		new ResourceLocation("textures/entity/shulker/shulker_brown.png"), new ResourceLocation("textures/entity/shulker/shulker_green.png"),
-    		new ResourceLocation("textures/entity/shulker/shulker_red.png"), new ResourceLocation("textures/entity/shulker/shulker_black.png"),
-
-    		new ResourceLocation("ironshulkerbox:textures/model/vanilla/shulker_iron.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/white/shulker_white_iron.png"), new ResourceLocation("ironshulkerbox:textures/model/orange/shulker_orange_iron.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/magenta/shulker_magenta_iron.png"), new ResourceLocation("ironshulkerbox:textures/model/light_blue/shulker_light_blue_iron.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/yellow/shulker_yellow_iron.png"), new ResourceLocation("ironshulkerbox:textures/model/lime/shulker_lime_iron.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/pink/shulker_pink_iron.png"), new ResourceLocation("ironshulkerbox:textures/model/gray/shulker_gray_iron.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/light_gray/shulker_light_gray_iron.png"), new ResourceLocation("ironshulkerbox:textures/model/cyan/shulker_cyan_iron.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/purple/shulker_purple_iron.png"), new ResourceLocation("ironshulkerbox:textures/model/blue/shulker_blue_iron.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/brown/shulker_brown_iron.png"), new ResourceLocation("ironshulkerbox:textures/model/green/shulker_green_iron.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/red/shulker_red_iron.png"), new ResourceLocation("ironshulkerbox:textures/model/black/shulker_black_iron.png"),
-
-    		new ResourceLocation("ironshulkerbox:textures/model/vanilla/shulker_gold.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/white/shulker_white_gold.png"), new ResourceLocation("ironshulkerbox:textures/model/orange/shulker_orange_gold.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/magenta/shulker_magenta_gold.png"), new ResourceLocation("ironshulkerbox:textures/model/light_blue/shulker_light_blue_gold.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/yellow/shulker_yellow_gold.png"), new ResourceLocation("ironshulkerbox:textures/model/lime/shulker_lime_gold.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/pink/shulker_pink_gold.png"), new ResourceLocation("ironshulkerbox:textures/model/gray/shulker_gray_gold.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/light_gray/shulker_light_gray_gold.png"), new ResourceLocation("ironshulkerbox:textures/model/cyan/shulker_cyan_gold.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/purple/shulker_purple_gold.png"), new ResourceLocation("ironshulkerbox:textures/model/blue/shulker_blue_gold.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/brown/shulker_brown_gold.png"), new ResourceLocation("ironshulkerbox:textures/model/green/shulker_green_gold.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/red/shulker_red_gold.png"), new ResourceLocation("ironshulkerbox:textures/model/black/shulker_black_gold.png"),
-
-    		new ResourceLocation("ironshulkerbox:textures/model/vanilla/shulker_diamond.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/white/shulker_white_diamond.png"), new ResourceLocation("ironshulkerbox:textures/model/orange/shulker_orange_diamond.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/magenta/shulker_magenta_diamond.png"), new ResourceLocation("ironshulkerbox:textures/model/light_blue/shulker_light_blue_diamond.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/yellow/shulker_yellow_diamond.png"), new ResourceLocation("ironshulkerbox:textures/model/lime/shulker_lime_diamond.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/pink/shulker_pink_diamond.png"), new ResourceLocation("ironshulkerbox:textures/model/gray/shulker_gray_diamond.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/light_gray/shulker_light_gray_diamond.png"), new ResourceLocation("ironshulkerbox:textures/model/cyan/shulker_cyan_diamond.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/purple/shulker_purple_diamond.png"), new ResourceLocation("ironshulkerbox:textures/model/blue/shulker_blue_diamond.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/brown/shulker_brown_diamond.png"), new ResourceLocation("ironshulkerbox:textures/model/green/shulker_green_diamond.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/red/shulker_red_diamond.png"), new ResourceLocation("ironshulkerbox:textures/model/black/shulker_black_diamond.png"),
-
-    		new ResourceLocation("ironshulkerbox:textures/model/vanilla/shulker_copper.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/white/shulker_white_copper.png"), new ResourceLocation("ironshulkerbox:textures/model/orange/shulker_orange_copper.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/magenta/shulker_magenta_copper.png"), new ResourceLocation("ironshulkerbox:textures/model/light_blue/shulker_light_blue_copper.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/yellow/shulker_yellow_copper.png"), new ResourceLocation("ironshulkerbox:textures/model/lime/shulker_lime_copper.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/pink/shulker_pink_copper.png"), new ResourceLocation("ironshulkerbox:textures/model/gray/shulker_gray_copper.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/light_gray/shulker_light_gray_copper.png"), new ResourceLocation("ironshulkerbox:textures/model/cyan/shulker_cyan_copper.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/purple/shulker_purple_copper.png"), new ResourceLocation("ironshulkerbox:textures/model/blue/shulker_blue_copper.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/brown/shulker_brown_copper.png"), new ResourceLocation("ironshulkerbox:textures/model/green/shulker_green_copper.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/red/shulker_red_copper.png"), new ResourceLocation("ironshulkerbox:textures/model/black/shulker_black_copper.png"),
-
-    		new ResourceLocation("ironshulkerbox:textures/model/vanilla/shulker_silver.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/white/shulker_white_silver.png"), new ResourceLocation("ironshulkerbox:textures/model/orange/shulker_orange_silver.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/magenta/shulker_magenta_silver.png"), new ResourceLocation("ironshulkerbox:textures/model/light_blue/shulker_light_blue_silver.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/yellow/shulker_yellow_silver.png"), new ResourceLocation("ironshulkerbox:textures/model/lime/shulker_lime_silver.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/pink/shulker_pink_silver.png"), new ResourceLocation("ironshulkerbox:textures/model/gray/shulker_gray_silver.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/light_gray/shulker_light_gray_silver.png"), new ResourceLocation("ironshulkerbox:textures/model/cyan/shulker_cyan_silver.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/purple/shulker_purple_silver.png"), new ResourceLocation("ironshulkerbox:textures/model/blue/shulker_blue_silver.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/brown/shulker_brown_silver.png"), new ResourceLocation("ironshulkerbox:textures/model/green/shulker_green_silver.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/red/shulker_red_silver.png"), new ResourceLocation("ironshulkerbox:textures/model/black/shulker_black_silver.png"),
-
-    		new ResourceLocation("ironshulkerbox:textures/model/vanilla/shulker_crystal.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/white/shulker_white_crystal.png"), new ResourceLocation("ironshulkerbox:textures/model/orange/shulker_orange_crystal.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/magenta/shulker_magenta_crystal.png"), new ResourceLocation("ironshulkerbox:textures/model/light_blue/shulker_light_blue_crystal.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/yellow/shulker_yellow_crystal.png"), new ResourceLocation("ironshulkerbox:textures/model/lime/shulker_lime_crystal.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/pink/shulker_pink_crystal.png"), new ResourceLocation("ironshulkerbox:textures/model/gray/shulker_gray_crystal.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/light_gray/shulker_light_gray_crystal.png"), new ResourceLocation("ironshulkerbox:textures/model/cyan/shulker_cyan_crystal.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/purple/shulker_purple_crystal.png"), new ResourceLocation("ironshulkerbox:textures/model/blue/shulker_blue_crystal.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/brown/shulker_brown_crystal.png"), new ResourceLocation("ironshulkerbox:textures/model/green/shulker_green_crystal.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/red/shulker_red_crystal.png"), new ResourceLocation("ironshulkerbox:textures/model/black/shulker_black_crystal.png"),
-
-    		new ResourceLocation("ironshulkerbox:textures/model/vanilla/shulker_obsidian.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/white/shulker_white_obsidian.png"), new ResourceLocation("ironshulkerbox:textures/model/orange/shulker_orange_obsidian.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/magenta/shulker_magenta_obsidian.png"), new ResourceLocation("ironshulkerbox:textures/model/light_blue/shulker_light_blue_obsidian.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/yellow/shulker_yellow_obsidian.png"), new ResourceLocation("ironshulkerbox:textures/model/lime/shulker_lime_obsidian.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/pink/shulker_pink_obsidian.png"), new ResourceLocation("ironshulkerbox:textures/model/gray/shulker_gray_obsidian.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/light_gray/shulker_light_gray_obsidian.png"), new ResourceLocation("ironshulkerbox:textures/model/cyan/shulker_cyan_obsidian.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/purple/shulker_purple_obsidian.png"), new ResourceLocation("ironshulkerbox:textures/model/blue/shulker_blue_obsidian.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/brown/shulker_brown_obsidian.png"), new ResourceLocation("ironshulkerbox:textures/model/green/shulker_green_obsidian.png"),
-    		new ResourceLocation("ironshulkerbox:textures/model/red/shulker_red_obsidian.png"), new ResourceLocation("ironshulkerbox:textures/model/black/shulker_black_obsidian.png")};
-
     protected static final ResourceLocation[] DESTROY_STAGES = new ResourceLocation[] {
     		new ResourceLocation("textures/blocks/destroy_stage_0.png"), new ResourceLocation("textures/blocks/destroy_stage_1.png"),
     		new ResourceLocation("textures/blocks/destroy_stage_2.png"), new ResourceLocation("textures/blocks/destroy_stage_3.png"),
@@ -169,7 +89,7 @@ public class TileEntityShulkerBoxRenderer extends TileEntitySpecialRenderer {
         }
         else
         {
-            this.bindTexture(TEMP[te.color % TEMP.length + (te.blockMetadata == -1 ? 0 : te.blockMetadata % (tiers.length + 1) * 17)]);
+            this.bindTexture(ShulkerRenderer.SHULKER_ENDERGOLEM_TEXTURES[te.color % ShulkerRenderer.SHULKER_ENDERGOLEM_TEXTURES.length + (te.blockMetadata == -1 ? 0 : te.blockMetadata % (tiers.length + 1) * 17)]);
         }
 
         GL11.glPushMatrix();

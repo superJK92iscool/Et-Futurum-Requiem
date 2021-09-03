@@ -75,7 +75,7 @@ public class ItemEFRArmour extends ItemArmor implements IConfigurable, ISpecialA
 	@Override
 	public ArmorProperties getProperties(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, int slot){
 		ItemEFRArmour armorItem = (ItemEFRArmour)armor.getItem();
-		ArmorProperties ap = new ArmorProperties(0, armorItem.damageReduceAmount / 25D, armorItem.getMaxDamage() + 1 - armor.getItemDamage());
+		ArmorProperties ap = new ArmorProperties(0, source.isUnblockable() ? 0 : armorItem.damageReduceAmount / 25D, armorItem.getMaxDamage() + 1 - armor.getItemDamage());
 		return ap;
 	}
 
