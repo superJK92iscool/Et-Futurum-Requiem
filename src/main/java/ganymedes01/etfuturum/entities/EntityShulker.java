@@ -8,6 +8,8 @@ import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.entities.ai.BlockPos;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.command.IEntitySelector;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
@@ -506,29 +508,22 @@ public class EntityShulker extends EntityGolem implements IMob {
 
         if (super.attackEntityFrom(source, amount))
         {
-            if ((double)this.getHealth() < (double)this.getMaxHealth() * 0.5D && this.rand.nextInt(4) == 0)
-            {
+            if ((double)this.getHealth() < (double)this.getMaxHealth() * 0.5D && this.rand.nextInt(4) == 0) {
+            	this.tryTeleportToNewPosition();
+            } else if(source.getSourceOfDamage() instanceof EntityShulkerBullet) {
             	int x = MathHelper.floor_double(posX);
             	int y = MathHelper.floor_double(posY);
             	int z = MathHelper.floor_double(posZ);
             	boolean prevClosed = isClosed();
                 boolean teleported = this.tryTeleportToNewPosition();
-				if (isEntityAlive() && teleported && source.getSourceOfDamage() instanceof EntityShulkerBullet && !prevClosed && !isRiding()) { //1.17 reproduction mechanic remade by hand
-                	int failchance = 0;
-                	List<EntityShulker> shulkers = (List<EntityShulker>)worldObj.getEntitiesWithinAABB(EntityShulker.class, this.boundingBox.expand(8, 8, 8));
-                	for(EntityShulker shulker : shulkers) {
-                		if(shulker.equals(this) || shulker.isDead)
-                			continue;
-                		failchance++;
-                		if(failchance >= 5) {
-                			break;
-                		}
-                	}
-            		if(failchance < 5 && rand.nextInt(5) >= failchance) {
+				if (isEntityAlive() && teleported && !prevClosed) { //1.17 reproduction mechanic remade by hand
+                    int i = worldObj.selectEntitiesWithinAABB(EntityShulker.class, this.boundingBox.expand(8, 8, 8), IEntitySelector.selectAnything).size();
+                    float f = (float)(i - 1) / 5.0F;
+            		if(!(this.worldObj.rand.nextFloat() < f)) { //Skip the check if i is 0, since that will always be true
             			EntityShulker newShulker = new EntityShulker(worldObj);
             			newShulker.setPosition(x, y, z);
+            			newShulker.setColor(getColor());
             			worldObj.spawnEntityInWorld(newShulker);
-            			//TODO: Test this
             		}
                 }
             }
@@ -682,6 +677,27 @@ public class EntityShulker extends EntityGolem implements IMob {
     {
         return true;
     }
+    
+    public ItemStack getPickedResult(MovingObjectPosition target)
+    {
+    	return null;
+    }
+
+    public void travelToDimension(int p_71027_1_)
+    {
+    	super.travelToDimension(p_71027_1_);
+    	this.setAttachmentPos(new BlockPos(this));
+    }
+    
+    public void dismountEntity(Entity p_110145_1_)
+    {
+    	super.dismountEntity(p_110145_1_);
+    	int y = (int)posY;
+    	if(worldObj.isAirBlock(MathHelper.floor_double(posX), y - 1, MathHelper.floor_double(posZ))) {
+    		y -= 1;
+    	}
+    	this.setAttachmentPos(new BlockPos(posX, y, posZ));
+    }
 
     class AIAttack extends EntityAIBase
     {
@@ -820,16 +836,5 @@ public class EntityShulker extends EntityGolem implements IMob {
         {
             --this.peekTime;
         }
-    }
-    
-    public ItemStack getPickedResult(MovingObjectPosition target)
-    {
-    	return null;
-    }
-
-    public void travelToDimension(int p_71027_1_)
-    {
-    	super.travelToDimension(p_71027_1_);
-    	this.setAttachmentPos(new BlockPos(this));
     }
 }
