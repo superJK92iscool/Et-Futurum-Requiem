@@ -519,7 +519,7 @@ public class EntityShulker extends EntityGolem implements IMob {
 				if (isEntityAlive() && teleported && !prevClosed) { //1.17 reproduction mechanic remade by hand
                     int i = worldObj.selectEntitiesWithinAABB(EntityShulker.class, this.boundingBox.expand(8, 8, 8), IEntitySelector.selectAnything).size();
                     float f = (float)(i - 1) / 5.0F;
-            		if(!(this.worldObj.rand.nextFloat() < f)) { //Skip the check if i is 0, since that will always be true
+            		if(!(this.worldObj.rand.nextFloat() < f)) {
             			EntityShulker newShulker = new EntityShulker(worldObj);
             			newShulker.setPosition(x, y, z);
             			newShulker.setColor(getColor());
