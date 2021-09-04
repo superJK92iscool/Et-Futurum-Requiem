@@ -1,5 +1,8 @@
 package ganymedes01.etfuturum.recipes;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.lang3.ArrayUtils;
 
 import ganymedes01.etfuturum.ModBlocks;
@@ -7,12 +10,26 @@ import ganymedes01.etfuturum.items.block.ItemShulkerBox;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 
-public class RecipeDyedShulkerBox implements IRecipe {
+public class RecipeDyedShulkerBox extends ShapelessOreRecipe {
+
+	public RecipeDyedShulkerBox(ItemStack result, Object[] recipe) {
+		super(result, recipe);
+		List<ItemStack> stacks = new ArrayList<ItemStack>();
+		for(int i = 0; i <= 16; i++) {
+			ItemStack shulker = new ItemStack(ModBlocks.shulker_box);
+			if(i > 0) {
+				shulker.setTagCompound(new NBTTagCompound());
+				shulker.getTagCompound().setByte("Color", (byte)i);
+			}
+			stacks.add(shulker);
+		}
+		getInput().set(0, stacks);
+	}
 
 	@Override
 	public boolean matches(InventoryCrafting inv, World world) {
@@ -94,10 +111,10 @@ public class RecipeDyedShulkerBox implements IRecipe {
 	public int getRecipeSize() {
 		return 2;
 	}
-
+	
 	@Override
 	public ItemStack getRecipeOutput() {
-		return new ItemStack(ModBlocks.shulker_box);
+		return super.getRecipeOutput();
 	}
 
 }

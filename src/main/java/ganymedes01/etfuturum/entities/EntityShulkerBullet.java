@@ -340,7 +340,7 @@ public class EntityShulkerBullet extends Entity
         	if(ticksSinceFired < 20) {
             	ticksSinceFired++;
         	}
-            MovingObjectPosition raytraceresult = Utils.forwardsRaycast(this, true, false, this.ticksSinceFired >= 20 ? this.owner : null);
+            MovingObjectPosition raytraceresult = Utils.forwardsRaycast(this, true, false, this.ticksSinceFired <= 20 ? this.owner : null);
 
             if (raytraceresult != null)
             {

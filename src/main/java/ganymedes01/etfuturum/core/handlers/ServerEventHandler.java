@@ -191,10 +191,10 @@ public class ServerEventHandler {
 
 		if (ConfigBase.enableShearableGolems)
 			if (entity.getClass() == EntitySnowman.class) {
-				EntityNewSnowGolem golen = new EntityNewSnowGolem(entity.worldObj);
-				golen.copyLocationAndAnglesFrom(entity);
-				golen.onSpawnWithEgg(null);
-				golen.worldObj.spawnEntityInWorld(golen);
+				EntityNewSnowGolem golem = new EntityNewSnowGolem(entity.worldObj);
+				golem.copyLocationAndAnglesFrom(entity);
+				golem.onSpawnWithEgg(null);
+				golem.worldObj.spawnEntityInWorld(golem);
 
 				event.entityLiving.setDead();
 			}

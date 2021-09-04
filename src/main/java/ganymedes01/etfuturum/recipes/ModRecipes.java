@@ -800,7 +800,12 @@ public class ModRecipes {
 		
 		if(ConfigBlocksItems.enableShulkerBoxes) {
 			addShapedRecipe(new ItemStack(ModBlocks.shulker_box), "x", "c", "x", 'x', new ItemStack(ModItems.shulker_shell), 'c', new ItemStack(Blocks.chest));
-			GameRegistry.addRecipe(new RecipeDyedShulkerBox());
+			for(int i = 0; i < 16; i++) {
+				ItemStack output = new ItemStack(ModBlocks.shulker_box);
+				output.setTagCompound(new NBTTagCompound());
+				output.getTagCompound().setByte("Color", (byte)(i + 1));
+				GameRegistry.addRecipe(new RecipeDyedShulkerBox(output, new Object[] {ModBlocks.shulker_box, dyes[(byte)((~i & 15))]}));
+			}
 		}
 	}
 	
