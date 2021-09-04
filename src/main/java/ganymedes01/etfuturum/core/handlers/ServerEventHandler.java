@@ -43,7 +43,6 @@ import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.network.BlackHeartParticlesMessage;
 import ganymedes01.etfuturum.recipes.ModRecipes;
 import ganymedes01.etfuturum.tileentities.TileEntityGateway;
-import ganymedes01.etfuturum.world.generate.BlockAndMetadataMapping;
 import ganymedes01.etfuturum.world.generate.RawOreDropMapping;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEndPortalFrame;
@@ -140,8 +139,8 @@ public class ServerEventHandler {
 
 	@SubscribeEvent
 	public void livingUpdate(LivingUpdateEvent event) {
-		Entity entity = event.entityLiving;
-		if (entity.worldObj == null || !entity.worldObj.isRemote) return;
+		EntityLivingBase entity = event.entityLiving;
+		if (entity.worldObj == null) return;
 		
 		ModEnchantments.onLivingUpdate(event.entityLiving);
 		
@@ -169,35 +168,38 @@ public class ServerEventHandler {
 					entity.attackEntityFrom(BlockMagma.HOT_FLOOR, 1);
 			}
 		
-		if (ConfigBase.enableVillagerZombies)
-			if (entity.getClass() == EntityZombie.class) {
-				EntityZombie zombie = (EntityZombie) entity;
-				if (zombie.isVillager()) {
-					EntityZombieVillager villagerZombie = new EntityZombieVillager(zombie.worldObj);
-					// This literally only copies Location and Angles, nothing else!
-					villagerZombie.copyLocationAndAnglesFrom(zombie);
-					// So uhh why is this Parameter null? Shouldn't it copy all Data from the Zombie?
-					villagerZombie.onSpawnWithEgg(null);
-					// If the old Villager Zombie was marked persistent, then this new one needs to be persistent too!
-					if (zombie.isNoDespawnRequired()) villagerZombie.func_110163_bv();
-					// Name Tags need to transfer too!
-					if (zombie.hasCustomNameTag()) villagerZombie.setCustomNameTag(zombie.getCustomNameTag());
-					// Spawn the New!
-					villagerZombie.worldObj.spawnEntityInWorld(villagerZombie);
-					// Kill the Old!
-					zombie.setDead();
-				}
+		if(entity instanceof EntityLiving) {
+			if (ConfigBase.enableVillagerZombies && entity.getClass() == EntityZombie.class && ((EntityZombie)entity).isVillager()) {
+				replaceEntity((EntityLiving) entity, new EntityZombieVillager(entity.worldObj));
 			}
 
-		if (ConfigBase.enableShearableGolems)
-			if (entity.getClass() == EntitySnowman.class) {
-				EntityNewSnowGolem golem = new EntityNewSnowGolem(entity.worldObj);
-				golem.copyLocationAndAnglesFrom(entity);
-				golem.onSpawnWithEgg(null);
-				golem.worldObj.spawnEntityInWorld(golem);
-
-				event.entityLiving.setDead();
+			if (ConfigBase.enableShearableGolems && entity.getClass() == EntitySnowman.class) {
+				replaceEntity((EntityLiving) entity, new EntityNewSnowGolem(entity.worldObj));
 			}
+		}
+	}
+	
+	private void replaceEntity(EntityLiving oldentity, EntityLiving newentity) {
+		
+		newentity.copyLocationAndAnglesFrom(oldentity);
+		
+		if(!oldentity.worldObj.isRemote) {
+			newentity.worldObj.spawnEntityInWorld(newentity);
+			newentity.onSpawnWithEgg(null);
+			
+			if (oldentity.isNoDespawnRequired()) {
+				newentity.func_110163_bv();
+			}
+			if (oldentity.hasCustomNameTag()) {
+				newentity.setCustomNameTag(oldentity.getCustomNameTag());
+			}
+			for(int i = 0; i < oldentity.getLastActiveItems().length; i++) {
+				if(i >= newentity.getLastActiveItems().length) break;
+				newentity.setCurrentItemOrArmor(i, oldentity.getLastActiveItems()[i]);
+			}
+		}
+		//TODO: Use ATs to get the drop chance?
+		oldentity.setDead();
 	}
 	
 	@SubscribeEvent
