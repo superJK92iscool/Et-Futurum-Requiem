@@ -17,6 +17,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
 public class EntityStray extends EntitySkeleton {
@@ -169,4 +170,9 @@ public class EntityStray extends EntitySkeleton {
 	protected void func_145780_a(final int p_145780_1_, final int p_145780_2_, final int p_145780_3_, final Block p_145780_4_) {
 		this.playSound("etfuturum:mob.stray.step", 0.15f, 1.0f);
 	}
+    
+    public ItemStack getPickedResult(MovingObjectPosition target)
+    {
+        return ModEntityList.getEggFromEntity(this);
+    }
 }

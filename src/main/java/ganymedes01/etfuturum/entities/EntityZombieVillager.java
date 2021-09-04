@@ -1,11 +1,15 @@
 package ganymedes01.etfuturum.entities;
 
+import net.minecraft.entity.EntityList;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.passive.EntityVillager;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
 public class EntityZombieVillager extends EntityZombie {
@@ -76,4 +80,9 @@ public class EntityZombieVillager extends EntityZombie {
 		setType(worldObj.rand.nextInt(6));
 		return super.onSpawnWithEgg(data);
 	}
+    
+    public ItemStack getPickedResult(MovingObjectPosition target)
+    {
+        return ModEntityList.getEggFromEntity(this);
+    }
 }

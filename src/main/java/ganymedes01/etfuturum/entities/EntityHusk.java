@@ -19,6 +19,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
 public class EntityHusk extends EntityZombie
@@ -157,4 +158,9 @@ public class EntityHusk extends EntityZombie
 	protected void func_145780_a(final int p_145780_1_, final int p_145780_2_, final int p_145780_3_, final Block p_145780_4_) {
 		this.playSound("etfuturum:mob.husk.step", 0.15f, 1.0f);
 	}
+    
+    public ItemStack getPickedResult(MovingObjectPosition target)
+    {
+        return ModEntityList.getEggFromEntity(this);
+    }
 }

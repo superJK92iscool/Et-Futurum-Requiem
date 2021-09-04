@@ -129,19 +129,23 @@ public class EtFuturum {
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-		File oldFile = new File(event.getModConfigurationDirectory().getAbsolutePath() + File.separator + Reference.MOD_ID + ".cfg");
-		File configFile = new File(event.getModConfigurationDirectory().getAbsolutePath() + File.separator + Reference.MOD_ID + File.separator + Reference.MOD_ID + ".cfg");
+		//File from before Et Futurum Requiem (Not in a subdirectory)
+		File olderFile = new File(event.getModConfigurationDirectory().getAbsolutePath() + File.separator + Reference.MOD_ID + ".cfg");
+		//File from before Et Futurum Requiem 2.3.0
+		File oldFile = new File(event.getModConfigurationDirectory().getAbsolutePath() + File.separator + Reference.MOD_ID + File.separator + Reference.MOD_ID + ".cfg");
 
-		configFile.getParentFile().mkdirs();
-		if(oldFile.exists()) {
+		oldFile.getParentFile().mkdirs();
+		if(olderFile.exists()) {
 			try {
-				Files.copy(oldFile.toPath(), configFile.toPath());
+				Files.copy(olderFile.toPath(), oldFile.toPath());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			oldFile.delete();
+			olderFile.delete();
 		}
-		ConfigBase.INSTANCE.init(configFile);
+		if(oldFile.exists()) {
+			ConfigBase.INSTANCE.init(oldFile);
+		}
 
 		ModBlocks.init();
 		ModItems.init();

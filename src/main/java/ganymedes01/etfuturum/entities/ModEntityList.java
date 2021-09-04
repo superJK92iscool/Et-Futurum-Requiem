@@ -6,11 +6,16 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.ModContainer;
 import cpw.mods.fml.common.registry.EntityRegistry;
+import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityList.EntityEggInfo;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class ModEntityList {
@@ -18,6 +23,7 @@ public class ModEntityList {
 	private static EntityData[] array = new EntityData[0];
 	private static Map<Integer, Class<? extends Entity>> map = new HashMap<Integer, Class<? extends Entity>>();
 	public static List<Integer> eggIDs = new ArrayList<Integer>();
+	public static Map<Class<? extends Entity>, Integer> eggIds = new HashMap<Class<? extends Entity>, Integer>();
 
 	public static void registerEntity(Class<? extends Entity> entityClass, String entityName, int id, Object mod, int trackingRange, int updateFrequency, boolean sendsVelocityUpdates) {
 		registerEntity(entityClass, entityName, id, mod, trackingRange, updateFrequency, sendsVelocityUpdates, -1, -1, false);
@@ -90,7 +96,7 @@ public class ModEntityList {
 		return list.toArray(new EntityData[list.size()]);
 	}
 	
-	public static int eggIDCounter = 500;
+	public static int eggIDCounter = 499;
 	
 	public static void registerEntityEgg(Class<? extends Entity> entity, int primaryColor, int secondaryColor) 
 	{
@@ -98,12 +104,16 @@ public class ModEntityList {
 
 		EntityList.IDtoClassMapping.put(id, entity);
 		EntityList.entityEggs.put(id, new EntityEggInfo(id, primaryColor, secondaryColor));
+		eggIds.put(entity, id);
 	}
-
+	
+	public static ItemStack getEggFromEntity(Entity entity) {
+		return new ItemStack(Items.spawn_egg, 1, eggIds.get(entity.getClass()));
+	}
 
 	public static int getUniqueEntityEggId() 
 	{
-		while(EntityList.getStringFromID(eggIDCounter++) != null);
+		while(EntityList.getClassFromID(++eggIDCounter) != null);
 		eggIDs.add(eggIDCounter);
 		return eggIDCounter;
 	}

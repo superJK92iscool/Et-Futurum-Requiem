@@ -26,6 +26,7 @@ import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -680,7 +681,7 @@ public class EntityShulker extends EntityGolem implements IMob {
     
     public ItemStack getPickedResult(MovingObjectPosition target)
     {
-    	return null;
+        return ModEntityList.getEggFromEntity(this);
     }
 
     public void travelToDimension(int p_71027_1_)

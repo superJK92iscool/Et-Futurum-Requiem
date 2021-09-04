@@ -18,6 +18,7 @@ public class PotionLevitation extends Potion {
 //    	p_76394_1_.moveEntity(0, 1, 0);
     	if(!(p_76394_1_ instanceof EntityPlayer) || !((EntityPlayer)p_76394_1_).capabilities.isFlying) {
     		p_76394_1_.addVelocity(0, (0.05D * (double)(p_76394_2_ + 8) - p_76394_1_.motionY) * 0.2D, 0);
+    		p_76394_1_.velocityChanged = true;
     	}
     }
     public boolean isReady(int p_76397_1_, int p_76397_2_)

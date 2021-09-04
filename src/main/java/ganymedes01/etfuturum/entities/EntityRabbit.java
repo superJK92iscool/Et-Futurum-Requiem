@@ -35,6 +35,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.pathfinding.PathEntity;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
@@ -522,4 +523,9 @@ public class EntityRabbit extends EntityAnimal {
 			return false;
 		}
 	}
+    
+    public ItemStack getPickedResult(MovingObjectPosition target)
+    {
+        return ModEntityList.getEggFromEntity(this);
+    }
 }
