@@ -13,14 +13,16 @@ public class PotionLevitation extends Potion {
 		setEffectiveness(1);
 	}
 
-    public void performEffect(EntityLivingBase p_76394_1_, int p_76394_2_)
+    public void performEffect(EntityLivingBase entity, int level)
     {
-//    	p_76394_1_.moveEntity(0, 1, 0);
-    	if(!(p_76394_1_ instanceof EntityPlayer) || !((EntityPlayer)p_76394_1_).capabilities.isFlying) {
-    		p_76394_1_.addVelocity(0, (0.05D * (double)(p_76394_2_ + 8) - p_76394_1_.motionY) * 0.2D, 0);
-    		p_76394_1_.velocityChanged = true;
+    	if(!(entity instanceof EntityPlayer) || !((EntityPlayer)entity).capabilities.isFlying) {
+    		entity.fallDistance = 0;
+    		entity.addVelocity(0, (0.05D * (double)(level + 1) - entity.motionY) * 0.2D, 0);
+    		if(!entity.isInWater() && !entity.handleLavaMovement())
+        		entity.motionY += 0.08D; //Counter falling velocity
     	}
     }
+    
     public boolean isReady(int p_76397_1_, int p_76397_2_)
     {
     	return true;

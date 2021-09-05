@@ -65,6 +65,7 @@ public class EntityShulker extends EntityGolem implements IMob {
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
         this.targetTasks.addTask(2, new EntityShulker.AIAttackNearest(this));
         this.targetTasks.addTask(3, new EntityShulker.AIDefenseAttack(this));
+        this.setSize(1, 1);
 	}
 
 	@Override
