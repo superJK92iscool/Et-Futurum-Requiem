@@ -11,7 +11,7 @@ import ganymedes01.etfuturum.client.particle.ParticleHandler;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.entities.ai.BlockPos;
 import ganymedes01.etfuturum.lib.Reference;
-import ganymedes01.etfuturum.potion.EtFuturumPotions;
+import ganymedes01.etfuturum.potion.EtFuturumPotion;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
@@ -451,7 +451,7 @@ public class EntityShulkerBullet extends Entity
 
                 if (result.entityHit instanceof EntityLivingBase)
                 {
-                    ((EntityLivingBase)result.entityHit).addPotionEffect(new PotionEffect(EtFuturumPotions.levitation.getId(), 10 * 20));
+                    ((EntityLivingBase)result.entityHit).addPotionEffect(new PotionEffect(EtFuturumPotion.levitation.getId(), 10 * 20));
                 }
             }
         }

@@ -2,9 +2,8 @@ package ganymedes01.etfuturum.potion;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.potion.Potion;
 
-public class PotionLevitation extends Potion {
+public class PotionLevitation extends EtFuturumPotion {
 
 	protected PotionLevitation(int p_i1573_1_, boolean p_i1573_2_, int p_i1573_3_) {
 		super(p_i1573_1_, p_i1573_2_, p_i1573_3_);
@@ -26,5 +25,10 @@ public class PotionLevitation extends Potion {
     public boolean isReady(int p_76397_1_, int p_76397_2_)
     {
     	return true;
+    }
+    
+    @Override
+    public boolean hasPacket() {
+        return true;
     }
 }

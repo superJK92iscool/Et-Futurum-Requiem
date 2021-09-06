@@ -300,7 +300,7 @@ public class EtFuturum {
 			Blocks.soul_sand.setStepSound(ModSounds.soundSoulSand);
 		}
 		
-		EtFuturumPotions.init();
+		EtFuturumPotion.init();
 	}
 	
 	@EventHandler
