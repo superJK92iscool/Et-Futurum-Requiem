@@ -1,5 +1,7 @@
 package ganymedes01.etfuturum.potion;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.attributes.BaseAttributeMap;
 import net.minecraft.entity.player.EntityPlayer;
@@ -8,12 +10,14 @@ import net.minecraft.network.play.server.S1EPacketRemoveEntityEffect;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.ResourceLocation;
 
 public class EtFuturumPotion extends Potion {
     protected EtFuturumPotion(int p_i1573_1_, boolean p_i1573_2_, int p_i1573_3_) {
         super(p_i1573_1_, p_i1573_2_, p_i1573_3_);
     }
 
+    private static final ResourceLocation POTION_ICONS = new ResourceLocation("etfuturum:textures/gui/container/potions.png");
     public static Potion levitation;
     
     public static void init() {
@@ -77,5 +81,21 @@ public class EtFuturumPotion extends Potion {
     private boolean shouldSync(EntityLivingBase entity) {
         // EntityPlayer's potion effects are already synced in EntityPlayerMP.
         return hasPacket() && !(entity instanceof EntityPlayer);
+    }
+
+    @SideOnly(Side.CLIENT)
+    public boolean hasStatusIcon() {
+    	//This disables the default icon rendering.
+        return false;
+    }
+    
+    @SideOnly(Side.CLIENT)
+    public void renderInventoryEffect(int x, int y, PotionEffect effect, net.minecraft.client.Minecraft mc) {
+    	//Render our own icon.
+    	//Even though this is the same code (without the offset for it being at the bottom of the inventory) it doesn't work for some reason
+    	//I can't figure out why it won't work since it's the same exact code. It seems for some reason the UVs are arbitrarily modified by the image size...
+        mc.getTextureManager().bindTexture(POTION_ICONS);
+        int l = getStatusIconIndex();
+        mc.currentScreen.drawTexturedModalRect(x + 6, y + 7, l % 8 * 18, l / 8 * 18, 18, 18);
     }
 }
