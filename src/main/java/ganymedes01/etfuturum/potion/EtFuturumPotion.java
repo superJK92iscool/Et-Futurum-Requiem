@@ -23,11 +23,18 @@ public class EtFuturumPotion extends Potion {
     /**
      * If true, the following potion which is an instance of EtFuturumPotion will have a packet sent to all players nearby.
      * We do this because some effects like levitation require the client to actually know the effect is on the entity.
+     * Otherwise, artifacts of client side desyncing like jittering may occur.
      */
     public boolean hasPacket() {
         return false;
     }
-    
+
+
+	/**
+	 * Some effects might require the client to be notified that the potion effect updated.
+	 * Let's send a packet to all entities within the standard entity tracking distance (80 blocks) notifying them of the potion change.
+	 * Effects like levitation might have a clientside jitter or desync if the client isn't notified otherwise.
+	 */
     @Override
     public void applyAttributesModifiersToEntity(EntityLivingBase entity, BaseAttributeMap attributeMap, int potency) {
         super.applyAttributesModifiersToEntity(entity, attributeMap, potency);
@@ -41,16 +48,30 @@ public class EtFuturumPotion extends Potion {
         }
     }
     
+	/**
+	 * This packet only cares about the ID, duration doesn't matter.
+	 * The potion is removed from the map at this point, but the packet just uses the ID, so we don't need the map anyways.
+	 * Sometimes the client can be desynced from the server and have a longer/stuck potion time,
+	 * so this ensures our client-sensitive potions are taken care of properly.
+	 */
     @Override
     public void removeAttributesModifiersFromEntity(EntityLivingBase entity, BaseAttributeMap attributeMap, int potency) {
         super.removeAttributesModifiersFromEntity(entity, attributeMap, potency);
         if(shouldSync(entity)) {
-            // This packet only cares about the ID, the duration doesn't matter.
-            // (The potion has been removed from activePotionsMap at this point so we can't reference that.) 
             MinecraftServer.getServer().getConfigurationManager().sendToAllNear(
                     entity.posX, entity.posY, entity.posZ, 80, entity.dimension,
                     new S1EPacketRemoveEntityEffect(entity.getEntityId(), new PotionEffect(id, 0)));
         }
+    }
+    
+    /*
+     * The super type of this method is vanilla potion effects, most of them are hard-coded into one class.
+     * Empty method added with warning to prevent me accidentally messing up my potion by calling its parent.
+     */
+    @Override
+    public void performEffect(EntityLivingBase entity, int level) {
+    	System.err.println("super.performEffect called its super. This shouldn't be done.");
+    	System.err.println("Remove the super call from " + Potion.potionTypes[this.id].getClass());
     }
     
     private boolean shouldSync(EntityLivingBase entity) {
