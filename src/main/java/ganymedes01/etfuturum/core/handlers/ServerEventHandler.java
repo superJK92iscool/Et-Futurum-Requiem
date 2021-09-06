@@ -7,7 +7,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Field;
-import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -42,8 +41,6 @@ import ganymedes01.etfuturum.items.ItemArrowTipped;
 import ganymedes01.etfuturum.items.ItemRawOre;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.network.BlackHeartParticlesMessage;
-import ganymedes01.etfuturum.potion.CustomPotionEffect;
-import ganymedes01.etfuturum.potion.EtFuturumPotion;
 import ganymedes01.etfuturum.recipes.ModRecipes;
 import ganymedes01.etfuturum.tileentities.TileEntityGateway;
 import ganymedes01.etfuturum.world.generate.RawOreDropMapping;
@@ -144,14 +141,6 @@ public class ServerEventHandler {
 	public void livingUpdate(LivingUpdateEvent event) {
 		EntityLivingBase entity = event.entityLiving;
 		if (entity.worldObj == null) return;
-		
-		for(PotionEffect effect : (Collection<PotionEffect>)event.entityLiving.getActivePotionEffects()) {
-			if(!(effect instanceof CustomPotionEffect) && Potion.potionTypes[effect.getPotionID()] instanceof EtFuturumPotion) {
-				CustomPotionEffect customeffect = new CustomPotionEffect(event.entityLiving.getActivePotionEffect(Potion.potionTypes[effect.getPotionID()]));
-				event.entityLiving.removePotionEffect(customeffect.getPotionID());
-				event.entityLiving.addPotionEffect(customeffect);
-			}
-		}
 		
 		ModEnchantments.onLivingUpdate(event.entityLiving);
 		

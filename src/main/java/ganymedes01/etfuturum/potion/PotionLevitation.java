@@ -17,12 +17,8 @@ public class PotionLevitation extends EtFuturumPotion {
     	if(!(entity instanceof EntityPlayer) || !((EntityPlayer)entity).capabilities.isFlying) {
     		entity.fallDistance = 0;
     		entity.addVelocity(0, (0.05D * (double)(level + 1) - entity.motionY) * 0.2D, 0);
-    		if(!entity.isInWater() && !entity.handleLavaMovement()) {
-        		if(entity.motionY < 0) {
-        			entity.motionY = 0;
-        		}
+    		if(!entity.isInWater() && !entity.handleLavaMovement())
         		entity.motionY += 0.08D; //Counter falling velocity
-    		}
     	}
     }
     
@@ -31,7 +27,8 @@ public class PotionLevitation extends EtFuturumPotion {
     	return true;
     }
     
+    @Override
     public boolean hasPacket() {
-    	return true;
+        return true;
     }
 }
