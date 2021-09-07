@@ -177,10 +177,10 @@ public class CommonProxy implements IGuiHandler {
 		
 		if(ConfigBase.enableShulker) {
 			ModEntityList.registerEntity(EntityShulker.class, "shulker", 16, EtFuturum.instance, 64, 1, false, 0x946794, 0x4D3852);
-			ModEntityList.registerEntity(EntityShulkerBullet.class, "shulker_candy", 17, EtFuturum.instance, 64, 3, true);
+			ModEntityList.registerEntity(EntityShulkerBullet.class, "shulker_candy", 17, EtFuturum.instance, 64, 1, true);
 		}
 		
-		//make magmas slightly more common, hopefully. 
+		//make magmas slightly more common, hopefully.
 		EntityRegistry.removeSpawn(EntityMagmaCube.class, EnumCreatureType.monster, new BiomeGenBase[] { BiomeGenBase.hell });
 		EntityRegistry.addSpawn(EntityMagmaCube.class, 2, 4, 4, EnumCreatureType.monster, new BiomeGenBase[] { BiomeGenBase.hell });
 	}

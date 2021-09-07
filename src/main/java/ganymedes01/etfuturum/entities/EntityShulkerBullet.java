@@ -3,6 +3,8 @@ package ganymedes01.etfuturum.entities;
 import java.util.List;
 import java.util.UUID;
 
+import javax.annotation.Nonnull;
+
 import com.google.common.collect.Lists;
 
 import cpw.mods.fml.relauncher.Side;
@@ -28,6 +30,7 @@ public class EntityShulkerBullet extends Entity
 {
     private EntityLivingBase owner;
     private Entity target;
+    @Nonnull
     private EnumFacing direction;
     private int steps;
     private double targetDeltaX;
@@ -37,8 +40,6 @@ public class EntityShulkerBullet extends Entity
     private BlockPos ownerBlockPos;
     private UUID targetUniqueId;
     private BlockPos targetBlockPos;
-    
-    private int ticksSinceFired;
 
     private static final int OWNER_ID = 2;
     private static final int TARGET_ID = 3;
@@ -169,7 +170,6 @@ public class EntityShulkerBullet extends Entity
 
     private void selectNextMoveDirection(EnumFacing p_184569_1_)
     {
-    	if(p_184569_1_ == null) return;
         double d0 = 0.5D;
         BlockPos blockpos;
         
@@ -188,7 +188,7 @@ public class EntityShulkerBullet extends Entity
         double d3 = (double)blockpos.getZ() + 0.5D;
         EnumFacing enumfacing = null;
 
-        if (blockpos.distanceSqToCenter(this.posX, this.posY, this.posZ) >= 4.0D)
+        if (p_184569_1_ != null && blockpos.distanceSqToCenter(this.posX, this.posY, this.posZ) >= 4.0D)
         {
             BlockPos blockpos1 = new BlockPos(this);
             List<EnumFacing> list = Lists.<EnumFacing>newArrayList();
@@ -336,10 +336,7 @@ public class EntityShulkerBullet extends Entity
         		firstTick();
         	}
         	
-        	if(ticksSinceFired < 20) {
-            	ticksSinceFired++;
-        	}
-            MovingObjectPosition raytraceresult = Utils.forwardsRaycast(this, true, false, this.ticksSinceFired <= 20 ? this.owner : null);
+            MovingObjectPosition raytraceresult = Utils.forwardsRaycast(this, true, false, ticksExisted <= 30 ? this.owner : null);
 
             if (raytraceresult != null)
             {
