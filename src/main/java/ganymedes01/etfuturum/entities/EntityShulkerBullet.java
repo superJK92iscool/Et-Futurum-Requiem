@@ -158,7 +158,6 @@ public class EntityShulkerBullet extends Entity
         {
             NBTTagCompound nbttagcompound1 = compound.getCompoundTag("Target");
             this.targetUniqueId = Utils.getUUIDFromTag(nbttagcompound1);
-            System.out.println(targetUniqueId);
             this.targetBlockPos = new BlockPos(nbttagcompound1.getInteger("X"), nbttagcompound1.getInteger("Y"), nbttagcompound1.getInteger("Z"));
         }
     }

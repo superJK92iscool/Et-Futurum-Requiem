@@ -75,7 +75,7 @@ public class EtFuturumPotion extends Potion {
     @Override
     public void performEffect(EntityLivingBase entity, int level) {
     	System.err.println("super.performEffect called its super. This shouldn't be done.");
-    	System.err.println("Remove the super call from " + Potion.potionTypes[this.id].getClass());
+    	System.err.println("Remove the super call from " + getClass());
     }
     
     private boolean shouldSync(EntityLivingBase entity) {
@@ -91,11 +91,9 @@ public class EtFuturumPotion extends Potion {
     
     @SideOnly(Side.CLIENT)
     public void renderInventoryEffect(int x, int y, PotionEffect effect, net.minecraft.client.Minecraft mc) {
-    	//Render our own icon.
-    	//Even though this is the same code (without the offset for it being at the bottom of the inventory) it doesn't work for some reason
-    	//I can't figure out why it won't work since it's the same exact code. It seems for some reason the UVs are arbitrarily modified by the image size...
+    	//Render our own icon. The image has to be really big (256x256) or it renders wrong for some reason.
         mc.getTextureManager().bindTexture(POTION_ICONS);
         int l = getStatusIconIndex();
-        mc.currentScreen.drawTexturedModalRect(x + 6, y + 7, l % 8 * 18, l / 8 * 18, 18, 18);
+        mc.currentScreen.drawTexturedModalRect(x + 6, y + 7, l % 14 * 18, l / 14 * 18, 18, 18);
     }
 }

@@ -137,7 +137,45 @@ public class ShulkerRenderer extends RenderLiving {
     protected void renderModel(EntityLivingBase p_77036_1_, float p_77036_2_, float p_77036_3_, float p_77036_4_, float p_77036_5_, float p_77036_6_, float p_77036_7_)
     {
     	super.renderModel(p_77036_1_, p_77036_2_, p_77036_3_, p_77036_4_, p_77036_5_, p_77036_6_, p_77036_7_);
-    	
+
+        GL11.glPushMatrix();
+
+        switch (((EntityShulker)p_77036_1_).getAttachmentFacing())
+        {
+            case DOWN:
+            default:
+                break;
+                //Flipped East and West to account for incorrect mappings
+            case WEST:
+                GL11.glRotatef(90.0F, 0.0F, 0.0F, 1.0F);
+                GL11.glRotatef(90.0F, 1.0F, 0.0F, 0.0F);
+                GL11.glTranslatef(1.0F, -1.0F, 0.0F);
+                GL11.glRotatef(180.0F, 0.0F, 1.0F, 0.0F);
+                break;
+
+            case EAST:
+                GL11.glRotatef(-90.0F, 0.0F, 0.0F, 1.0F);
+                GL11.glRotatef(90.0F, 1.0F, 0.0F, 0.0F);
+                GL11.glTranslatef(-1.0F, -1.0F, 0.0F);
+                GL11.glRotatef(180.0F, 0.0F, 1.0F, 0.0F);
+                break;
+
+            case NORTH:
+                GL11.glRotatef(90.0F, 1.0F, 0.0F, 0.0F);
+                GL11.glTranslatef(0.0F, -1.0F, -1.0F);
+                break;
+
+            case SOUTH:
+                GL11.glRotatef(180.0F, 0.0F, 0.0F, 1.0F);
+                GL11.glRotatef(90.0F, 1.0F, 0.0F, 0.0F);
+                GL11.glTranslatef(0.0F, -1.0F, 1.0F);
+                break;
+
+            case UP:
+                GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
+                GL11.glTranslatef(0.0F, -2.0F, 0.0F);
+        }
+        
     	EntityShulker shulker = (EntityShulker)p_77036_1_;
     	
     	if(!shulker.isClosed() || shulker.getClientPeekAmount(1) != 0 || shulker.isInvisible()) {
@@ -146,7 +184,24 @@ public class ShulkerRenderer extends RenderLiving {
             modelrenderer.rotateAngleX = p_77036_6_ * 0.017453292F;
             bindTexture(getEntityTexture(shulker));
             modelrenderer.render(p_77036_7_);
+            if (p_77036_1_.hurtTime > 0 || p_77036_1_.deathTime > 0)
+            {
+                GL11.glDisable(GL11.GL_TEXTURE_2D);
+                GL11.glDisable(GL11.GL_ALPHA_TEST);
+                GL11.glEnable(GL11.GL_BLEND);
+                GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+                GL11.glDepthFunc(GL11.GL_EQUAL);
+                float f14 = shulker.getBrightness(1);
+                GL11.glColor4f(f14, 0.0F, 0.0F, 0.4F);
+                modelrenderer.render(p_77036_7_);
+                GL11.glDepthFunc(GL11.GL_LEQUAL);
+                GL11.glDisable(GL11.GL_BLEND);
+                GL11.glEnable(GL11.GL_ALPHA_TEST);
+                GL11.glEnable(GL11.GL_TEXTURE_2D);
+            }
     	}
+    	
+        GL11.glPopMatrix();
     }
 
 //    @Override
@@ -195,9 +250,7 @@ public class ShulkerRenderer extends RenderLiving {
             case DOWN:
             default:
                 break;
-
-                
-                //TODO: Temporarily flipped how East and West are handled due to them having the wrong X offset. Hopefully there's a better fix.
+                //Flipped East and West to account for incorrect mappings
             case WEST:
                 GL11.glTranslatef(0.5F, 0.5F, 0.0F);
                 GL11.glRotatef(90.0F, 1.0F, 0.0F, 0.0F);
