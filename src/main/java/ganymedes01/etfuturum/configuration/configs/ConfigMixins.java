@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.configuration;
+package ganymedes01.etfuturum.configuration.configs;
 
 import java.io.File;
 
@@ -8,7 +8,8 @@ public class ConfigMixins {
 	
 	public static boolean fireArrowsDetonateTNTCarts;
 	
-	static final String categoryBackport = "backported features";
+	static final String categoryBackport = "backports";
+	static final String categoryOptimizations = "optimizations";
 
 	public static void loadMixinConfig(File configFile) {
 		Configuration config = new Configuration(configFile);

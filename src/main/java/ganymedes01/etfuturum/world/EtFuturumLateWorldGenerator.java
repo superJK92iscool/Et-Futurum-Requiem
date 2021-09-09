@@ -35,27 +35,27 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 			}
 		}
 		
-		if (world.getWorldInfo().getTerrainType() != WorldType.FLAT && ConfigBlocksItems.enableDeepslate && ConfigBase.deepslateGenerationMode == 0 && world.provider.dimensionId == 0) {
-			for (int x = chunkX * 16; x < (chunkX * 16) + 16; x++) {
-				for (int z = chunkZ * 16; z < (chunkZ * 16) + 16; z++) {
-					for (int y = 0; y <= ConfigBase.deepslateMaxY; y++) {
-						Block block = world.getBlock(x, y, z);
-						if(y < ConfigBase.deepslateMaxY - 4 || world.rand.nextInt(y > ConfigBase.deepslateMaxY - 2 ? 3 : 2) == 0) {
-							BlockAndMetadataMapping mapping = EtFuturum.deepslateOres.get(new BlockAndMetadataMapping(block, world.getBlockMetadata(x, y, z)));
-							if(mapping != null) {
-								world.setBlock(x, y, z, mapping.getOre(), mapping.getMeta(), 2);
-							} else
-							if((ConfigBase.deepslateReplacesDirt && block.isReplaceableOreGen(world, x, y, z, Blocks.dirt))
-									|| (block.isReplaceableOreGen(world, x, y, z, Blocks.stone) && (ConfigBase.deepslateReplacesStones ? true : !(block instanceof BlockNewStone)))
-									&& !(block instanceof BlockTuff)) {
-								world.setBlock(x, y, z, ModBlocks.deepslate, 0, 2);
-							}
-						}
-					}
-				}
-			}
-		}
-		
+//		if (world.getWorldInfo().getTerrainType() != WorldType.FLAT && ConfigBlocksItems.enableDeepslate && ConfigBase.deepslateGenerationMode == 0 && world.provider.dimensionId == 0) {
+//			for (int x = chunkX * 16; x < (chunkX * 16) + 16; x++) {
+//				for (int z = chunkZ * 16; z < (chunkZ * 16) + 16; z++) {
+//					for (int y = 0; y <= ConfigBase.deepslateMaxY; y++) {
+//						Block block = world.getBlock(x, y, z);
+//						if(y < ConfigBase.deepslateMaxY - 4 || world.rand.nextInt(y > ConfigBase.deepslateMaxY - 2 ? 3 : 2) == 0) {
+//							BlockAndMetadataMapping mapping = EtFuturum.deepslateOres.get(new BlockAndMetadataMapping(block, world.getBlockMetadata(x, y, z)));
+//							if(mapping != null) {
+//								world.setBlock(x, y, z, mapping.getOre(), mapping.getMeta(), 2);
+//							} else
+//							if((ConfigBase.deepslateReplacesDirt && block.isReplaceableOreGen(world, x, y, z, Blocks.dirt))
+//									|| (block.isReplaceableOreGen(world, x, y, z, Blocks.stone) && (ConfigBase.deepslateReplacesStones ? true : !(block instanceof BlockNewStone)))
+//									&& !(block instanceof BlockTuff)) {
+//								world.setBlock(x, y, z, ModBlocks.deepslate, 0, 2);
+//							}
+//						}
+//					}
+//				}
+//			}
+//		}
+//		
 		if(world.getWorldInfo().getTerrainType() != WorldType.FLAT || world.getWorldInfo().getGeneratorOptions().contains("decoration") || world.provider.dimensionId != 0) {
 			if(ConfigBlocksItems.enableDeepslate && ConfigBase.deepslateGenerationMode == 1 && world.provider.dimensionId != -1 && world.provider.dimensionId != 1) {
 				int x = chunkX * 16 + rand.nextInt(16);

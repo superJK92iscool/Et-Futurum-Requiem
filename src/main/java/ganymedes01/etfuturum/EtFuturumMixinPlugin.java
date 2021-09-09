@@ -9,7 +9,7 @@ import org.spongepowered.asm.lib.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
-import ganymedes01.etfuturum.configuration.ConfigMixins;
+import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.launchwrapper.Launch;
 
@@ -42,6 +42,8 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 		List<String> mixins = new ArrayList<>();
 		
 		if(ConfigMixins.fireArrowsDetonateTNTCarts) mixins.add("MixinEntityMinecartTNT");
+		
+		mixins.add("MixinChunkProviderGenerate");
 		
 		return mixins;
 	}
