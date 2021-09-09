@@ -84,6 +84,7 @@ task sourceJar(type: Jar) {
 	exclude 'assets/**'
 }
 
+// TODO fix this producing duplicate files inside the JAR. Also might want to embed Mixin in this JAR too.
 task devJar(type: Jar) {
 	manifest {
 		attributes(
