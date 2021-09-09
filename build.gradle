@@ -18,6 +18,11 @@ repositories {
 	}
 }
 
+configurations {
+    embed
+    compile.extendsFrom(embed)
+}
+
 apply plugin: 'forge'
 
 // Bump this every new code update after a version release, even if not releasing yet, that
@@ -37,7 +42,6 @@ compileJava {
 dependencies {
 	// Can use `compileOnly` instead of `compile` if you want to require it at build time,
 	// but not require it in `runClient`/`runServer`
-    compileOnly files("libs/SpongeMixins-1.3.0-dev.jar")
 	compile "codechicken:CodeChickenLib:1.7.10-1.1.3.140:dev"
 	compile "codechicken:CodeChickenCore:1.7.10-1.0.7.47:dev"
 	compile "codechicken:NotEnoughItems:1.7.10-1.0.5.120:dev"
@@ -137,7 +141,7 @@ repositories {
 }
 
 dependencies {
-    compile('org.spongepowered:mixin:0.7.11-SNAPSHOT') {
+    embed('org.spongepowered:mixin:0.7.11-SNAPSHOT') {
         // Mixin includes a lot of dependencies that are too up-to-date
         exclude module: 'launchwrapper'
         exclude module: 'guava'
@@ -158,6 +162,12 @@ jar {
         attributes.put("FMLCorePluginContainsFMLMod", true)
         attributes.put("ForceLoadAsMod", true)
         attributes.put("MixinConfigs", yourMixinConfig)
+    }
+
+    // embed libraries in jar
+    from configurations.embed.collect {
+        exclude '**/LICENSE.txt'
+        it.isDirectory() ? it : zipTree(it)
     }
 }
 
