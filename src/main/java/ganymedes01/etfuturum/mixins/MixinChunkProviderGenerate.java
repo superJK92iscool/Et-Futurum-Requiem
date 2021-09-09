@@ -31,7 +31,7 @@ import net.minecraft.world.gen.structure.MapGenVillage;
 @Mixin(value = ChunkProviderGenerate.class)
 public class MixinChunkProviderGenerate {
     
-    @Inject(method = "provideChunk", at = @At(value = "NEW", target = "net/minecraft/world/Chunk"))
+    @Inject(method = "provideChunk", at = @At(value = "NEW", target = "net/minecraft/world/chunk/Chunk"))
     private void generateDeepslate(int x, int z, CallbackInfoReturnable<Chunk> info) {
     	System.out.println(x + " " + z);
 //    	int x2, z2, array;
