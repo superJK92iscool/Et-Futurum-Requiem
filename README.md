@@ -8,4 +8,4 @@ Though this project is licensed under the Public Domain a lot of the code featur
 
 This project is jss2a98aj's fork of KryptonCaptain's Et Futurum build, as well as a merge of Roadhog360's changes he made to Et Futurum and never published anywhere. Makamys is a great help with helping me get the concept of Mixin code and various incredibly useful commits.
 
-Note that Mixin code will not work if you do not add --tweakClass org.spongepowered.asm.launch.MixinTweaker --mixin mixins.etfuturum.json to your start parameters.
+Note that Mixin code will not work if you do not add "--tweakClass org.spongepowered.asm.launch.MixinTweaker --mixin mixins.etfuturum.json" to your start parameters.
