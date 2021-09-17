@@ -70,6 +70,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
+import net.minecraft.launchwrapper.Launch;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -126,27 +127,10 @@ public class EtFuturum {
 	public static boolean netherAmbienceNetherlicious;
 	public static boolean netherMusicNetherlicious;
 	private Configuration Netherlicious;
-
+	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-		//File from before Et Futurum Requiem (Not in a subdirectory)
-		File olderFile = new File(event.getModConfigurationDirectory().getAbsolutePath() + File.separator + Reference.MOD_ID + ".cfg");
-		//File from before Et Futurum Requiem 2.3.0
-		File oldFile = new File(event.getModConfigurationDirectory().getAbsolutePath() + File.separator + Reference.MOD_ID + File.separator + Reference.MOD_ID + ".cfg");
-
-		oldFile.getParentFile().mkdirs();
-		if(olderFile.exists()) {
-			try {
-				Files.copy(olderFile.toPath(), oldFile.toPath());
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			olderFile.delete();
-		}
-		if(oldFile.exists()) {
-			ConfigBase.INSTANCE.init(oldFile);
-		}
-
+		ConfigBase.preInit();
 		ModBlocks.init();
 		ModItems.init();
 		try {
@@ -202,6 +186,9 @@ public class EtFuturum {
         event.getModMetadata().authorList.add(  // authorList - added as a list
         		EnumChatFormatting.GREEN +
         		"jss2a98aj");
+        event.getModMetadata().authorList.add(  // authorList - added as a list
+        		EnumChatFormatting.GREEN +
+        		"makamys");
         event.getModMetadata().authorList.add(  // authorList - added as a list
         		EnumChatFormatting.GREEN +
         		"KryptonCapitan");

@@ -8,6 +8,7 @@ import cpw.mods.fml.common.network.IGuiHandler;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.etfuturum.EtFuturum;
+import ganymedes01.etfuturum.EtFuturumMixinPlugin;
 import ganymedes01.etfuturum.client.gui.inventory.GuiAnvil;
 import ganymedes01.etfuturum.client.gui.inventory.GuiBlastFurnace;
 import ganymedes01.etfuturum.client.gui.inventory.GuiEnchantment;
@@ -72,7 +73,7 @@ import net.minecraftforge.common.MinecraftForge;
 public class CommonProxy implements IGuiHandler {
 
 	public void registerEvents() {
-		FMLCommonHandler.instance().bus().register(ConfigBase.INSTANCE);
+		FMLCommonHandler.instance().bus().register(EtFuturumMixinPlugin.baseConfig);
 		FMLCommonHandler.instance().bus().register(ServerEventHandler.INSTANCE);
 		MinecraftForge.EVENT_BUS.register(ServerEventHandler.INSTANCE);
 		FMLCommonHandler.instance().bus().register(new WorldTickEventHandler());

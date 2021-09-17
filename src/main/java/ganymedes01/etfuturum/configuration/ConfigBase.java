@@ -21,11 +21,15 @@ import net.minecraftforge.common.config.Property;
 
 public class ConfigBase {
 
-	public static ConfigBase INSTANCE = new ConfigBase();
+	public ConfigBase(File file) {
+		cfg = new Configuration(file);
+		syncOptions();
+	}
+	
 	public Configuration cfg;
 	
-	public static final boolean hasIronChest = Loader.isModLoaded("IronChest");
-	public static final boolean hasNetherlicious = Loader.isModLoaded("netherlicious");
+	public static boolean hasIronChest;
+	public static boolean hasNetherlicious;
 	
 	public static boolean enableNewNether;
 	public static boolean enableBowRendering;
@@ -78,6 +82,7 @@ public class ConfigBase {
 	public static float boatMaxLandSpeed;
 	public static boolean fullGrassPath;
 	public static boolean newBoatPassengerSeat;
+	public static int fossilBlockID;
 
 	public static boolean enableHusk;
 	public static boolean enableNetherEndermen;
@@ -213,13 +218,15 @@ public class ConfigBase {
 	
 	public static final List<ConfigCategory> configCats = new ArrayList<ConfigCategory>();
 	
-	public void init(File file) {
-		cfg = new Configuration(file);
-
+	private void syncOptions() {
 		syncConfigs();
+		
+		if (cfg.hasChanged()) {
+			cfg.save();
+		}
 	}
 
-	private void syncConfigs() {
+	protected void syncConfigs() {
 		
 		//blocks
 		ConfigBlocksItems.enableStones = cfg.getBoolean("enableStones", catBlockLegacy, true, "Enable Granite/Andesite/Diorite");
@@ -397,25 +404,26 @@ public class ConfigBase {
 		deepslateMaxY = cfg.getInt("deepslateMaxY", catWorldLegacy, 22, 0, 256, "How high up deepslate and tuff goes. If deepslateGenerationMode is 0, all stone up to this y level (with a scattering effect a few blocks before then) are replaced with deepslate. If it's 1, the patches can generate to that Y level.");
 		deepslateReplacesStones = cfg.getBoolean("deepslateReplacesStones", catWorldLegacy, true, "Whether or not Deepslate will overwrite granite, diorite, andesite (Only works when deepslate generation mode is set to 0)");
 		deepslateReplacesDirt = cfg.getBoolean("deepslateReplacesDirt", catWorldLegacy, true, "Whether or not Deepslate will overwrite dirt (Only works when deepslate generation mode is set to 0)");
-		deepslateGenerationMode = cfg.getInt("deepslateGenerationMode", catWorldLegacy, 0, -1, 1, "If 0, deepslate replaces all stone below the specified value. If 1, it generates in clusters using the above cluster settings. -1 disables deepslate generation entirely");
-		ConfigBlocksItems.enableDeepslateOres = cfg.getBoolean("enableDeepslateOres", catWorldLegacy, true, "Enable deepslate ores for copper ore and vanilla ores when deepslate generates at it.");
+		deepslateGenerationMode = cfg.getInt("deepslateGenerationMode", catWorldLegacy, 0, -1, 1, "If 0, deepslate replaces all stone below the specified value, with a shattering effect near the top similar to bedrock. If 1, it generates in clusters using the deepslate cluster settings. -1 disables Et Futurum deepslate generation entirely.");
+		ConfigBlocksItems.enableDeepslateOres = cfg.getBoolean("enableDeepslateOres", catWorldLegacy, true, "Enable deepslate ores for copper ore and vanilla ores when deepslate generates over them.");
 		enableOceanMonuments = cfg.getBoolean("enableOceanMonuments", catWorldLegacy, true, "Note: Ocean monuments currently do not have guardians");
 		enableFossils = cfg.getBoolean("enableFossils", catWorldLegacy, true, "Note: Fossils currently do not rotate");
-		int m  = cfg.getInt("fossilBoneBlock", catWorldLegacy, 0, 0, 2, "0 = Et Futurum bone block, 1 = Netherlicious bone block, 2 = UpToDateMod bone block. If mod is not installed Et Futurum bone block will be used instead");
-		Block block = m == 1 ? block = GameRegistry.findBlock("netherlicious", "BoneBlock") : GameRegistry.findBlock("uptodate", "bone_block");
-		fossilBoneBlock = m == 0 || block == null ? ModBlocks.bone_block : block;
+		fossilBlockID  = cfg.getInt("fossilBoneBlock", catWorldLegacy, 0, 0, 2, "0 = Et Futurum bone block, 1 = Netherlicious bone block, 2 = UpToDateMod bone block. If mod is not installed Et Futurum bone block will be used instead");
 		Property prop = cfg.get(catWorldLegacy, "fossilDimensionBlacklist", new int[] {-1, 1});
 		prop.comment = "The dimensions the fossil structures should not spawn in.";
 		fossilDimensionBlacklist = prop.getIntList();
 		maxTuffPerCluster = cfg.getInt("tuffClusterSize", catWorldLegacy, 48, 0, 64, "Max vein size for tuff blocks in a cluster");
 //        enableNewNether = cfg.getBoolean("enableNewNether", catWorld, true, "When false, the new Nether completely stops to generate, regardless of if the new Nether blocks are on. (Will be ignored if Netherlicious is installed)");
+	}
+	
+	public static void preInit() {
+		Block block = fossilBlockID == 1 ? block = GameRegistry.findBlock("netherlicious", "BoneBlock") : GameRegistry.findBlock("uptodate", "bone_block");
+		fossilBoneBlock = fossilBlockID == 0 || block == null ? ModBlocks.bone_block : block;
 		
-		if(Loader.isModLoaded("netherlicious")) // Come back to
+		hasIronChest = Loader.isModLoaded("IronChest");
+		hasNetherlicious = Loader.isModLoaded("netherlicious");
+		if(hasNetherlicious) // Come back to
 			ConfigBase.enableNewNether = false;
-		
-		if (cfg.hasChanged()) {
-			cfg.save();
-		}
 	}
 	
 	public static void setupShulkerBanlist() {
@@ -437,6 +445,6 @@ public class ConfigBase {
 	public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent eventArgs) {
 //		cfg.getConfigFile().deleteOnExit();
 		if (Reference.MOD_ID.equals(eventArgs.modID))
-			syncConfigs();
+			syncOptions();
 	}
 }
