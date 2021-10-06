@@ -6,8 +6,8 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.ModBlocks.ISubBlocksBlock;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.entities.EntityItemUninflammable;
 import ganymedes01.etfuturum.items.block.ItemBlockUninflammable;
@@ -28,7 +28,7 @@ public class BlockAncientDebris extends Block implements IConfigurable, ISubBloc
 		setHarvestLevel("pickaxe", 3);
 		setHardness(30F);
 		setResistance(1200F);
-		setStepSound(ConfigBase.enableNewBlocksSounds ? ModSounds.soundAncientDebris : Block.soundTypeStone);
+		setStepSound(ConfigWorld.enableNewBlocksSounds ? ModSounds.soundAncientDebris : Block.soundTypeStone);
 		setBlockTextureName("ancient_debris");
 		setBlockName(Utils.getUnlocalisedName("ancient_debris"));
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);

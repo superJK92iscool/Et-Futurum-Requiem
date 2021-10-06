@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.enchantment;
 
+import ganymedes01.etfuturum.configuration.configs.ConfigEnchants;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.init.Items;
@@ -7,10 +8,8 @@ import net.minecraft.item.ItemStack;
 
 public class Mending extends Enchantment {
 
-	public static int ID = 37;
-
 	public Mending() {
-		super(ID, 1, EnumEnchantmentType.breakable);
+		super(ConfigEnchants.mendingID, 1, EnumEnchantmentType.breakable);
 		Enchantment.addToBookList(this);
 		setName("mending");
 	}

@@ -35,6 +35,8 @@ import ganymedes01.etfuturum.blocks.replace.BlockNewEndPortal;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
+import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.proxy.CommonProxy;
 import ganymedes01.etfuturum.core.utils.HoeHelper;
 import ganymedes01.etfuturum.entities.ModEntityList;
@@ -231,18 +233,18 @@ public class EtFuturum {
 					biome.addFlower(ModBlocks.lily_of_the_valley, 0, 5);
 		}
 
-		if (ConfigBase.enableUpdatedFoodValues) {
+		if (ConfigFunctions.enableUpdatedFoodValues) {
 			setFinalField(ItemFood.class, Items.carrot, 3, "healAmount", "field_77853_b");
 			setFinalField(ItemFood.class, Items.baked_potato, 5, "healAmount", "field_77853_b");
 		}
 
-		if (ConfigBase.enableUpdatedHarvestLevels) {
+		if (ConfigWorld.enableUpdatedHarvestLevels) {
 			Blocks.packed_ice.setHarvestLevel("pickaxe", 0);
 			Blocks.ladder.setHarvestLevel("axe", 0);
 			Blocks.melon_block.setHarvestLevel("axe", 0);
 		}
 		
-		if(ConfigBase.enableFloatingTrapDoors) {
+		if(ConfigWorld.enableFloatingTrapDoors) {
 			BlockTrapDoor.disableValidation = true;
 		}
 		
@@ -253,11 +255,11 @@ public class EtFuturum {
 		Items.blaze_rod.setFull3D();
 		Blocks.trapped_chest.setCreativeTab(CreativeTabs.tabRedstone);
 		
-		if(ConfigBase.enableHoeMining) {
+		if(ConfigWorld.enableHoeMining) {
 			HoeHelper.init();
 		}
 		
-		if(ConfigBase.enableNewBlocksSounds) {
+		if(ConfigWorld.enableNewBlocksSounds) {
 			Iterator<Block> iterator = Block.blockRegistry.iterator();
 			while(iterator.hasNext()) {
 				Block block = iterator.next();

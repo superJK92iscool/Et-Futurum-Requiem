@@ -7,8 +7,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.GUIsID;
 import ganymedes01.etfuturum.lib.Reference;
@@ -68,7 +68,7 @@ public class BlockSmoker extends BlockFurnace implements IConfigurable {
 		if (this.isCooking)
 		{
 			float f = (4 + (p_149734_5_.nextInt(8) + 1) + p_149734_5_.nextFloat()) / 16;
-			if (ConfigBase.enableNewMiscSounds && p_149734_5_.nextDouble() < 0.1D)
+			if (ConfigWorld.enableNewMiscSounds && p_149734_5_.nextDouble() < 0.1D)
 			{
 				p_149734_1_.playSound(p_149734_2_ + .5D, p_149734_3_ + .5D, p_149734_4_ + .5D,
 						Reference.MOD_ID + ":block.smoker.smoke", 1,

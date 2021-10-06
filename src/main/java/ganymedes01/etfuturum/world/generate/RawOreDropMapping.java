@@ -2,7 +2,7 @@ package ganymedes01.etfuturum.world.generate;
 
 import org.apache.commons.lang3.ArrayUtils;
 
-import ganymedes01.etfuturum.configuration.ConfigBase;
+import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.items.ItemRawOre;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -29,7 +29,7 @@ public class RawOreDropMapping {
 		for(int oreID : OreDictionary.getOreIDs(new ItemStack(ore, 1, meta))) {
 			String oreName = OreDictionary.getOreName(oreID);
 			if(oreName != null && oreName.startsWith("ore")) {
-				this.exdrops = ArrayUtils.contains(ConfigBase.extraDropRawOres, oreName);
+				this.exdrops = ArrayUtils.contains(ConfigWorld.extraDropRawOres, oreName);
 				break;
 			}
 		}

@@ -8,8 +8,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.items.block.ItemBlockCopper;
 import net.minecraft.block.Block;
@@ -35,7 +35,7 @@ public class BlockCopper extends BlockGeneric implements IConfigurable, IDegrada
 		setBlockTextureName("copper_block");
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
 		setFlippedNames(true);
-		setStepSound(ConfigBase.enableNewBlocksSounds ? ModSounds.soundCopper : Block.soundTypeMetal);
+		setStepSound(ConfigWorld.enableNewBlocksSounds ? ModSounds.soundCopper : Block.soundTypeMetal);
 		setTickRandomly(true);
 	}
 	

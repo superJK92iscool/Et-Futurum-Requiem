@@ -30,7 +30,6 @@ public class EntityShulkerBullet extends Entity
 {
     private EntityLivingBase owner;
     private Entity target;
-    @Nonnull
     private EnumFacing direction;
     private int steps;
     private double targetDeltaX;

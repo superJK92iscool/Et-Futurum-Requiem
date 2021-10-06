@@ -6,7 +6,7 @@ import java.util.Random;
 
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
-import ganymedes01.etfuturum.configuration.ConfigBase;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.entities.EntityArmourStand;
 import ganymedes01.etfuturum.entities.Rotations;
@@ -115,6 +115,6 @@ public class ItemArmorStand extends Item implements IConfigurable {
 
 	@Override
 	public boolean isEnabled() {
-		return ConfigBase.enableArmourStand;
+		return ConfigBlocksItems.enableArmourStand;
 	}
 }

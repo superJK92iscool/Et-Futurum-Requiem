@@ -6,8 +6,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import ganymedes01.etfuturum.ModItems;
-import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -36,7 +36,7 @@ public class BlastFurnaceRecipes
 
 	@SuppressWarnings("unchecked")
 	public static void init() {
-		if(ConfigBase.enableMeltGear) {
+		if(ConfigFunctions.enableMeltGear) {
 			Item[][] crafts = new Item[][] {
 				{Items.golden_helmet, Items.golden_chestplate, Items.golden_leggings, Items.golden_boots, Items.golden_sword, Items.golden_pickaxe,
 					Items.golden_axe, Items.golden_shovel, Items.golden_hoe, Items.golden_horse_armor,
@@ -49,7 +49,7 @@ public class BlastFurnaceRecipes
 				smeltingBase.addRecipe(crafts[0][i], new ItemStack(crafts[1][i > 9 ? 1 : 0]), .1F);
 			}
 		}
-		if(ConfigBase.enableAutoAddBlastFurnace) {
+		if(ConfigFunctions.enableAutoAddBlastFurnace) {
 			Iterator<Entry<ItemStack, ItemStack>> iterator = FurnaceRecipes.smelting().getSmeltingList().entrySet().iterator();
 			while (iterator.hasNext()) {
 				Entry<ItemStack, ItemStack> entry = iterator.next();

@@ -5,8 +5,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.items.block.ItemBlockDeepslate;
 import net.minecraft.block.material.Material;
@@ -23,7 +23,7 @@ public class BlockDeepslateBricks extends BlockGeneric implements IConfigurable 
 		this.setBlockName(Utils.getUnlocalisedName("deepslate_bricks"));
 		this.setBlockTextureName("deepslate_bricks");
 		this.setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
-		this.setStepSound(ConfigBase.enableNewBlocksSounds ? ModSounds.soundDeepslateBricks : soundTypeStone);
+		this.setStepSound(ConfigWorld.enableNewBlocksSounds ? ModSounds.soundDeepslateBricks : soundTypeStone);
 	}
 
 	@Override

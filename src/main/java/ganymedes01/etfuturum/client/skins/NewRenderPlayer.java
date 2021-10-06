@@ -3,7 +3,7 @@ package ganymedes01.etfuturum.client.skins;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.client.model.ModelPlayer;
-import ganymedes01.etfuturum.configuration.ConfigBase;
+import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
@@ -48,7 +48,7 @@ public class NewRenderPlayer extends RenderPlayer {
 	
 	@Override
 	protected ResourceLocation getEntityTexture(AbstractClientPlayer player) {
-		if (!ConfigBase.enablePlayerSkinOverlay || player.getLocationSkin() == null)
+		if (!ConfigFunctions.enablePlayerSkinOverlay || player.getLocationSkin() == null)
 			return super.getEntityTexture(player);
 		return new ResourceLocation(Reference.MOD_ID, player.getLocationSkin().getResourcePath());
 	}

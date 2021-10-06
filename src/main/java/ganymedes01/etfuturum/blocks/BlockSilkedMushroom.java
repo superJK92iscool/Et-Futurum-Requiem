@@ -6,7 +6,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
-import ganymedes01.etfuturum.configuration.ConfigBase;
+import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -56,6 +56,6 @@ public class BlockSilkedMushroom extends Block implements IConfigurable {
 
 	@Override
 	public boolean isEnabled() {
-		return ConfigBase.enableSilkTouchingMushrooms;
+		return ConfigFunctions.enableSilkTouchingMushrooms;
 	}
 }

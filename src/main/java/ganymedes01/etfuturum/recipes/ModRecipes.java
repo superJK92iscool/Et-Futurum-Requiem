@@ -15,8 +15,10 @@ import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.blocks.BlockGlazedTerracotta;
 import ganymedes01.etfuturum.blocks.BlockNewStone;
 import ganymedes01.etfuturum.blocks.BlockStoneSlab2;
-import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigEntities;
+import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
+import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.entities.EntityNewBoat;
 import ganymedes01.etfuturum.items.ItemSuspiciousStew;
@@ -73,13 +75,13 @@ public class ModRecipes {
 			removeFirstRecipeFor(Blocks.nether_brick_fence);
 		}
 		
-		if (ConfigBase.replaceOldBoats && ConfigBase.enableNewBoats) {
+		if (ConfigWorld.replaceOldBoats && ConfigEntities.enableNewBoats) {
 			removeFirstRecipeFor(Items.boat);
 			Items.boat.setTextureName("minecraft:oak_boat");
 			Items.boat.setUnlocalizedName(Utils.getUnlocalisedName("oak_boat"));
 		}
 
-		if (ConfigBase.enableBurnableBlocks) {
+		if (ConfigWorld.enableBurnableBlocks) {
 			Blocks.fire.setFireInfo(Blocks.fence_gate, 5, 20);
 			Blocks.fire.setFireInfo(Blocks.fence, 5, 20);
 			Blocks.fire.setFireInfo(Blocks.deadbush, 60, 100);
@@ -232,7 +234,7 @@ public class ModRecipes {
 			OreDictionary.registerOre("blockRawGold", new ItemStack(ModBlocks.raw_ore_block, 1, 2));
 		}
 		
-		if(ConfigBase.registerRawItemAsOre && ConfigBlocksItems.enableRawOres) {
+		if(ConfigBlocksItems.registerRawItemAsOre && ConfigBlocksItems.enableRawOres) {
 			if(ConfigBlocksItems.enableCopper) {
 				OreDictionary.registerOre("oreCopper", new ItemStack(ModItems.raw_ore, 1, 0));
 			}
@@ -267,7 +269,7 @@ public class ModRecipes {
 
 	private static void registerRecipes() {
 		
-		if (ConfigBase.enableStoneBrickRecipes) {
+		if (ConfigFunctions.enableStoneBrickRecipes) {
 			addShapelessRecipe(new ItemStack(Blocks.mossy_cobblestone), new ItemStack(Blocks.cobblestone), new ItemStack(Blocks.vine));
 			addShapelessRecipe(new ItemStack(Blocks.stonebrick, 1, 1), new ItemStack(Blocks.stonebrick), new ItemStack(Blocks.vine));
 			addShapedRecipe(new ItemStack(Blocks.stonebrick, 1, 3), "x", "x", 'x', new ItemStack(Blocks.stone_slab, 1, 5));
@@ -329,7 +331,7 @@ public class ModRecipes {
 			for(int i = 0; i < 3; i++)
 				addShapedRecipe(new ItemStack(ModBlocks.prismarine_slab, 6, i), "xxx", 'x', new ItemStack(ModBlocks.prismarine, 1, i));
 			
-			if (ConfigBase.enableRecipeForPrismarine && !Loader.isModLoaded("Botania")) {
+			if (ConfigFunctions.enableRecipeForPrismarine && !Loader.isModLoaded("Botania")) {
 				addShapedRecipe(new ItemStack(ModItems.prismarine_shard, 4), "xy", "zx", 'x', "gemQuartz", 'y', "dyeBlue", 'z', "dyeGreen");
 				addShapedRecipe(new ItemStack(ModItems.prismarine_crystals, 4), "xy", "yx", 'x', "gemQuartz", 'y', "dustGlowstone");
 			}
@@ -408,7 +410,7 @@ public class ModRecipes {
 			GameRegistry.addRecipe(new RecipeAddPattern());
 		}
 
-		if (ConfigBase.enableArmourStand) {
+		if (ConfigBlocksItems.enableArmourStand) {
 			addShapedRecipe(new ItemStack(ModItems.armour_stand), "xxx", " x ", "xyx", 'x', "stickWood", 'y', new ItemStack(Blocks.stone_slab));
 		}
 
@@ -454,7 +456,7 @@ public class ModRecipes {
 			addShapelessRecipe(new ItemStack(ModItems.dragon_breath), new ItemStack(Items.potionitem, 1, 8195), ModItems.chorus_fruit, ModItems.chorus_fruit);
 		}
 
-		if (ConfigBase.enableDragonRespawn) {
+		if (ConfigWorld.enableDragonRespawn) {
 			addShapedRecipe(new ItemStack(ModItems.end_crystal), "xxx", "xyx", "xzx", 'x', "blockGlassColorless", 'y', Items.ender_eye, 'z', Items.ghast_tear);
 		}
 
@@ -533,7 +535,7 @@ public class ModRecipes {
 				GameRegistry.addSmelting(new ItemStack(Blocks.stained_hardened_clay, 1, i), new ItemStack(GameRegistry.findBlock(Reference.MOD_ID, BlockGlazedTerracotta.subBlock[i] + "_glazed_terracotta")), 0.1F);
 		}
 		
-		if (ConfigBase.enableRecipeForTotem) {
+		if (ConfigFunctions.enableRecipeForTotem) {
 			addShapedRecipe(new ItemStack(ModItems.totem), "EBE", "GBG", " G ", 'E', "gemEmerald", 'G', "ingotGold", 'B', "blockGold" );
 		}
 		
@@ -787,12 +789,12 @@ public class ModRecipes {
 			}
 		}
 		
-		if(ConfigBase.enableNewBoats) {
+		if(ConfigEntities.enableNewBoats) {
 			for(int i = EntityNewBoat.Type.values().length - 1; i >= 0; i--) {
-				addShapedRecipe(new ItemStack(i == 0 && ConfigBase.replaceOldBoats ? Items.boat : ModItems.boats[i], 1),
-						(ConfigBase.replaceOldBoats ? "x x" : "xyx"), "xxx", 'x', i == 0 ? "plankWood" : new ItemStack(Blocks.planks, 1, i), 'y', new ItemStack(Items.wooden_shovel, 1));
+				addShapedRecipe(new ItemStack(i == 0 && ConfigWorld.replaceOldBoats ? Items.boat : ModItems.boats[i], 1),
+						(ConfigWorld.replaceOldBoats ? "x x" : "xyx"), "xxx", 'x', i == 0 ? "plankWood" : new ItemStack(Blocks.planks, 1, i), 'y', new ItemStack(Items.wooden_shovel, 1));
 			}
-			if(!ConfigBase.replaceOldBoats) {
+			if(!ConfigWorld.replaceOldBoats) {
 				addShapelessRecipe(new ItemStack(Items.boat), ModItems.boats[0]);
 				addShapelessRecipe(new ItemStack(ModItems.boats[0]), Items.wooden_shovel, Items.boat);
 			}

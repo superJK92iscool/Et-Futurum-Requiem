@@ -1,6 +1,6 @@
 package ganymedes01.etfuturum.items.block;
 
-import ganymedes01.etfuturum.configuration.ConfigBase;
+import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.items.ItemUninflammable;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -16,7 +16,7 @@ public class ItemBlockUninflammable extends ItemBlock {
 
 	@Override
 	public boolean hasCustomEntity(ItemStack stack) {
-		return !ConfigBase.enableNetheriteFlammable;
+		return !ConfigWorld.enableNetheriteFlammable;
 	}
 
 	@Override

@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.configuration.ConfigBase;
+import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -30,7 +30,7 @@ public class MixinChunkProviderGenerate {
     	int x2, z2, array;
     	for(int x1 = 0; x1 < 16; x1++) {
         	for(int z1 = 0; z1 < 16; z1++) {
-            	for(int y = 0; y <= ConfigBase.deepslateMaxY; y++) {
+            	for(int y = 0; y <= ConfigWorld.deepslateMaxY; y++) {
             		x2 = (x * 16) + x1;
             		z2 = (z * 16) + z1;
             		
@@ -52,7 +52,7 @@ public class MixinChunkProviderGenerate {
      * @return Stone, or deepslate
      */
     private boolean shouldBeDeepslate(int y, Random rand) {
-		return y < ConfigBase.deepslateMaxY - 4 || y <= ConfigBase.deepslateMaxY - rand.nextInt(4);
+		return y < ConfigWorld.deepslateMaxY - 4 || y <= ConfigWorld.deepslateMaxY - rand.nextInt(4);
     }
     
 //	public boolean chunkExists(int p_73149_1_, int p_73149_2_) {return false;}

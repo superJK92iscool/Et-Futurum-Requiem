@@ -8,7 +8,8 @@ import com.google.common.collect.Lists;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModItems;
-import ganymedes01.etfuturum.configuration.ConfigBase;
+import ganymedes01.etfuturum.configuration.configs.ConfigEntities;
+import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
@@ -313,7 +314,7 @@ public class EntityNewBoat extends Entity {
     public Item getItemBoat()
     {
     	if(getBoatType() == Type.OAK) {
-    		return ConfigBase.replaceOldBoats ? Items.boat : ModItems.boats[0];
+    		return ConfigWorld.replaceOldBoats ? Items.boat : ModItems.boats[0];
     	}
 		return ModItems.boats[getBoatType().ordinal()];
     }
@@ -388,7 +389,7 @@ public class EntityNewBoat extends Entity {
         //TODO add option for no passenger seat and don't run this code
     	
     	//This causes the boat to not fall for some reason!
-        if(!worldObj.isRemote && !hasSeat() && ConfigBase.newBoatPassengerSeat) {
+        if(!worldObj.isRemote && !hasSeat() && ConfigEntities.newBoatPassengerSeat) {
     		EntityNewBoatSeat newSeat;
         	if(seatToSpawn == null) {
         		newSeat = new EntityNewBoatSeat(worldObj, this);
@@ -592,7 +593,7 @@ public class EntityNewBoat extends Entity {
         }
         else
         {
-            float f = Math.min(this.getBoatGlide(), ConfigBase.boatMaxLandSpeed);
+            float f = Math.min(this.getBoatGlide(), ConfigEntities.boatMaxLandSpeed);
 
             if (f > 0.0F)
             {
@@ -964,7 +965,7 @@ public class EntityNewBoat extends Entity {
             this.setBoatType(EntityNewBoat.Type.getTypeFromString(compound.getString("Type")));
         }
 
-        if(compound.hasKey("Seat") && !worldObj.isRemote && ConfigBase.newBoatPassengerSeat) { //TODO add seat config
+        if(compound.hasKey("Seat") && !worldObj.isRemote && ConfigEntities.newBoatPassengerSeat) { //TODO add seat config
             Entity entity = EntityList.createEntityFromNBT(compound.getCompoundTag("Seat"), worldObj);
             if(entity instanceof EntityNewBoatSeat && entity.riddenByEntity == null) {
             	((EntityNewBoatSeat)entity).setBoat(this);
@@ -980,7 +981,7 @@ public class EntityNewBoat extends Entity {
     protected void writeEntityToNBT(NBTTagCompound compound)
     {
         compound.setString("Type", this.getBoatType().getName());
-        if(hasSeat() && ConfigBase.newBoatPassengerSeat) {
+        if(hasSeat() && ConfigEntities.newBoatPassengerSeat) {
             String s = EntityList.getEntityString(seat);
         	NBTTagCompound seatData = new NBTTagCompound();
 

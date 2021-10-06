@@ -8,8 +8,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.world.generate.BlockAndMetadataMapping;
 import net.minecraft.block.Block;
@@ -43,7 +43,7 @@ public class BlockDeepslateOre extends BlockOre implements IConfigurable {
 		to.setHardness(EtFuturum.getBlockHardness(from) * 1.5F);
 		to.setBlockName(Utils.getUnlocalisedName("deepslate_" + EtFuturum.getTextureName(from)));
 		to.setBlockTextureName("deepslate_" + EtFuturum.getTextureName(from));
-		to.setStepSound(ConfigBase.enableNewBlocksSounds ? ModSounds.soundDeepslate : soundTypeStone);
+		to.setStepSound(ConfigWorld.enableNewBlocksSounds ? ModSounds.soundDeepslate : soundTypeStone);
 		to.setCreativeTab(((IConfigurable)to).isEnabled() ? EtFuturum.creativeTabBlocks : null);
 		to.setLightLevel(from.getLightValue() / 15F);
 		to.setLightOpacity(from.getLightOpacity());

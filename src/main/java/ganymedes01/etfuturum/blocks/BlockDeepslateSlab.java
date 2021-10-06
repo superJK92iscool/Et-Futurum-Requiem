@@ -4,8 +4,8 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.material.Material;
 import net.minecraft.util.IIcon;
@@ -22,7 +22,7 @@ public class BlockDeepslateSlab extends BlockGenericSlab implements IConfigurabl
 		this.setBlockName(Utils.getUnlocalisedName("deepslate" + (isBrick ? "_brick" : "") + "_slab"));
 		this.setBlockTextureName("deepslate" + (isBrick ? "_brick" : "") + "_slab");
 		this.setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
-		this.setStepSound(ConfigBase.enableNewBlocksSounds ? isBrick ? ModSounds.soundDeepslateBricks : ModSounds.soundDeepslate : soundTypeStone);
+		this.setStepSound(ConfigWorld.enableNewBlocksSounds ? isBrick ? ModSounds.soundDeepslateBricks : ModSounds.soundDeepslate : soundTypeStone);
 	}
 
 	@Override

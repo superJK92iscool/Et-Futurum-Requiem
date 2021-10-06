@@ -13,20 +13,17 @@ import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
+import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.launchwrapper.Launch;
 
 public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
-
-	public static ConfigBase baseConfig;
-	
-	public static ConfigMixins mixinConfig;
 	
 	@Override
 	public void onLoad(String mixinPackage) {
 		final String configDir = "config" + File.separator + Reference.MOD_ID;
-		
-		mixinConfig = new ConfigMixins((new File(Launch.minecraftHome, configDir + File.separator + "mixins.cfg")));
+
+		ConfigMixins.loadMixinConfig(new File(Launch.minecraftHome, "config" + File.separator + Reference.MOD_ID + File.separator + "mixins.cfg"));
 		
 //		File from before Et Futurum Requiem (Not in a subdirectory)
 		File olderFile = new File(Launch.minecraftHome, "config" + File.separator + "etfuturum.cfg");
@@ -34,7 +31,7 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 		File oldFile = new File(Launch.minecraftHome, configDir + File.separator + "etfuturum.cfg");
 
 		oldFile.getParentFile().mkdirs();
-		if(olderFile.exists()) {
+		if(olderFile.exists()) {			
 			try {
 				Files.copy(olderFile.toPath(), oldFile.toPath());
 			} catch (Exception e) {
@@ -43,9 +40,9 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 			olderFile.delete();
 		}
 		
-		if(oldFile.exists()) {
-			baseConfig = new ConfigBase(oldFile);
-		}
+//		if(oldFile.exists()) {
+			ConfigBase.loadBaseConfig(oldFile);
+//		}
 	}
 
 	@Override
@@ -70,9 +67,9 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 			mixins.add("MixinEntityMinecartTNT");
 		}
 		
-		if(ConfigMixins.deepslateLayerOptimization && ConfigBase.deepslateGenerationMode == 0) {
+		if(ConfigMixins.deepslateLayerOptimization && ConfigWorld.deepslateGenerationMode == 0) {
 			mixins.add("MixinChunkProviderGenerate");
-			if(ConfigBase.deepslateReplacesDirt || ConfigBase.deepslateReplacesStones || ConfigBlocksItems.enableDeepslateOres) {
+			if(ConfigWorld.deepslateReplacesDirt || ConfigWorld.deepslateReplacesStones || ConfigBlocksItems.enableDeepslateOres) {
 				mixins.add("MixinWorldGenMinable");
 			}
 		}

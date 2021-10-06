@@ -6,19 +6,36 @@ import ganymedes01.etfuturum.configuration.ConfigBase;
 
 public class ConfigBlocksItems extends ConfigBase {
 	
+	public static boolean enableArmourStand;
+	public static boolean registerRawItemAsOre;
+	public static int netheriteToolDurability;
+	public static int netheriteEnchantability;
+	public static int netheriteHarvestLevel;
+	public static float netheriteSpeed;
+	public static float netheriteDamageBase;
+	public static int netheriteArmourDurabilityFactor;
+	public static int netheritePickaxeDurability;
+	public static int netheriteSwordDurability;
+	public static int netheriteHoeDurability;
+	public static int netheriteAxeDurability;
+	public static int netheriteSpadeDurability;
+	public static int netheriteHelmetDurability;
+	public static int netheriteChestplateDurability;
+	public static int netheriteLeggingsDurability;
+	public static int netheriteBootsDurability;
 	public ConfigBlocksItems(File file) {
 		super(file);
-		configCats.add(cfg.getCategory(catNaturalBlock));
-		configCats.add(cfg.getCategory(catMiscBlock));
-		configCats.add(cfg.getCategory(catFuncBlock));
-		configCats.add(cfg.getCategory(catItems));
-		configCats.add(cfg.getCategory(catEntity));
+		configCats.add(getCategory(catNaturalBlock));
+		configCats.add(getCategory(catMiscBlock));
+		configCats.add(getCategory(catFuncBlock));
+		configCats.add(getCategory(catItems));
+		configCats.add(getCategory(catEntity));
 		
-		cfg.getCategory(catNaturalBlock).setComment("Blocks that can generate naturally in your world. Check world.cfg for more generation values.");
-		cfg.getCategory(catMiscBlock).setComment("Blocks that can generate naturally in your world. Check world.cfg for more generation values.");
-		cfg.getCategory(catFuncBlock).setComment("Blocks that can generate naturally in your world. Check world.cfg for more generation values.");
-		cfg.getCategory(catItems).setComment("Blocks that can generate naturally in your world. Check world.cfg for more generation values.");
-		cfg.getCategory(catEntity).setComment("Blocks that can generate naturally in your world. Check world.cfg for more generation values.");
+		getCategory(catNaturalBlock).setComment("Blocks that can generate naturally in your world. Check world.cfg for more generation values.");
+		getCategory(catMiscBlock).setComment("Blocks that can generate naturally in your world. Check world.cfg for more generation values.");
+		getCategory(catFuncBlock).setComment("Blocks that can generate naturally in your world. Check world.cfg for more generation values.");
+		getCategory(catItems).setComment("Blocks that can generate naturally in your world. Check world.cfg for more generation values.");
+		getCategory(catEntity).setComment("Blocks that can generate naturally in your world. Check world.cfg for more generation values.");
 	}
 	
 	public static boolean enableBanners;

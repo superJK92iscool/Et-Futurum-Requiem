@@ -6,8 +6,8 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.blocks.BlockNewStone;
 import ganymedes01.etfuturum.blocks.BlockTuff;
-import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.world.generate.BlockAndMetadataMapping;
 import ganymedes01.etfuturum.world.generate.WorldGenDeepslateBlob;
 import ganymedes01.etfuturum.world.generate.WorldGenTuffBlob;
@@ -57,15 +57,15 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 //		}
 //		
 		if(world.getWorldInfo().getTerrainType() != WorldType.FLAT || world.getWorldInfo().getGeneratorOptions().contains("decoration") || world.provider.dimensionId != 0) {
-			if(ConfigBlocksItems.enableDeepslate && ConfigBase.deepslateGenerationMode == 1 && world.provider.dimensionId != -1 && world.provider.dimensionId != 1) {
+			if(ConfigBlocksItems.enableDeepslate && ConfigWorld.deepslateGenerationMode == 1 && world.provider.dimensionId != -1 && world.provider.dimensionId != 1) {
 				int x = chunkX * 16 + rand.nextInt(16);
 				int z = chunkZ * 16 + rand.nextInt(16);
-				new WorldGenDeepslateBlob(ConfigBase.maxDeepslatePerCluster).generate(world, rand, x, rand.nextInt(ConfigBase.deepslateMaxY), z);
+				new WorldGenDeepslateBlob(ConfigWorld.maxDeepslatePerCluster).generate(world, rand, x, rand.nextInt(ConfigWorld.deepslateMaxY), z);
 			}
 			if(ConfigBlocksItems.enableTuff && world.provider.dimensionId != -1 && world.provider.dimensionId != 1) {
 				int x = chunkX * 16 + rand.nextInt(16);
 				int z = chunkZ * 16 + rand.nextInt(16);
-				new WorldGenTuffBlob(ConfigBase.maxTuffPerCluster).generate(world, rand, x, rand.nextInt(ConfigBase.deepslateMaxY), z);
+				new WorldGenTuffBlob(ConfigWorld.maxTuffPerCluster).generate(world, rand, x, rand.nextInt(ConfigWorld.deepslateMaxY), z);
 			}
 		}
 	}

@@ -48,8 +48,10 @@ import ganymedes01.etfuturum.client.renderer.tileentity.TileEntityShulkerBoxRend
 import ganymedes01.etfuturum.client.renderer.tileentity.TileEntityWoodSignRenderer;
 import ganymedes01.etfuturum.client.skins.NewRenderPlayer;
 import ganymedes01.etfuturum.client.skins.NewSkinManager;
-import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigEntities;
+import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
+import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.handlers.ClientEventHandler;
 import ganymedes01.etfuturum.entities.EntityArmourStand;
 import ganymedes01.etfuturum.entities.EntityBrownMooshroom;
@@ -100,9 +102,9 @@ public class ClientProxy extends CommonProxy {
 	private void registerItemRenderers() {
 		if (ConfigBlocksItems.enableBanners)
 			MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.banner), new ItemBannerRenderer());
-		if (ConfigBase.enableFancySkulls)
+		if (ConfigFunctions.enableFancySkulls)
 			MinecraftForgeClient.registerItemRenderer(Items.skull, new ItemSkullRenderer());
-		if (ConfigBase.enableBowRendering)
+		if (ConfigFunctions.enableBowRendering)
 			MinecraftForgeClient.registerItemRenderer(Items.bow, new ItemBowRenderer());
 		
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.shulker_box), new ItemShulkerBoxRenderer());
@@ -118,7 +120,7 @@ public class ClientProxy extends CommonProxy {
 		if (ConfigBlocksItems.enableBanners)
 			ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBanner.class, new TileEntityBannerRenderer());
 
-		if (ConfigBase.enableFancySkulls)
+		if (ConfigFunctions.enableFancySkulls)
 			ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySkull.class, new TileEntityFancySkullRenderer());
 
 		if (ConfigBlocksItems.enableChorusFruit) {
@@ -157,16 +159,16 @@ public class ClientProxy extends CommonProxy {
 
 	@SuppressWarnings("unchecked")
 	private void registerEntityRenderers() {
-		if (ConfigBase.enableArmourStand)
+		if (ConfigBlocksItems.enableArmourStand)
 			RenderingRegistry.registerEntityRenderingHandler(EntityArmourStand.class, new ArmourStandRenderer());
-		if (ConfigBase.enableEndermite)
+		if (ConfigEntities.enableEndermite)
 			RenderingRegistry.registerEntityRenderingHandler(EntityEndermite.class, new EndermiteRenderer());
 		if (ConfigBlocksItems.enableRabbit)
 			RenderingRegistry.registerEntityRenderingHandler(EntityRabbit.class, new RabbitRenderer());
 		
-		if (ConfigBase.enableHusk)
+		if (ConfigEntities.enableHusk)
 			RenderingRegistry.registerEntityRenderingHandler(EntityHusk.class, new HuskRenderer());
-		if (ConfigBase.enableStray) {
+		if (ConfigEntities.enableStray) {
 			RenderingRegistry.registerEntityRenderingHandler(EntityStray.class, new StrayRenderer());
 			RenderingRegistry.registerEntityRenderingHandler(EntityStray.class, new StrayOverlayRenderer());
 		}
@@ -175,24 +177,24 @@ public class ClientProxy extends CommonProxy {
 			RenderingRegistry.registerEntityRenderingHandler(EntityLingeringPotion.class, new LingeringPotionRenderer());
 			RenderingRegistry.registerEntityRenderingHandler(EntityLingeringEffect.class, new LingeringEffectRenderer());
 		}
-		if (ConfigBase.enableVillagerZombies)
+		if (ConfigEntities.enableVillagerZombies)
 			RenderingRegistry.registerEntityRenderingHandler(EntityZombieVillager.class, new VillagerZombieRenderer());
 		
-		if (ConfigBase.enableDragonRespawn)
+		if (ConfigWorld.enableDragonRespawn)
 			RenderingRegistry.registerEntityRenderingHandler(EntityPlacedEndCrystal.class, new PlacedEndCrystalRenderer());
 
-		if (ConfigBase.enableBrownMooshroom)
+		if (ConfigEntities.enableBrownMooshroom)
 			RenderingRegistry.registerEntityRenderingHandler(EntityBrownMooshroom.class, new BrownMooshroomRenderer());
 
-		if(ConfigBase.enableNewBoats)
+		if(ConfigEntities.enableNewBoats)
 			RenderingRegistry.registerEntityRenderingHandler(EntityNewBoat.class, new NewBoatRenderer());
 		
-		if(ConfigBase.enableShulker) {
+		if(ConfigEntities.enableShulker) {
 			RenderingRegistry.registerEntityRenderingHandler(EntityShulker.class, new ShulkerRenderer());
 			RenderingRegistry.registerEntityRenderingHandler(EntityShulkerBullet.class, new ShulkerBulletRenderer());
 		}
 		
-		if (ConfigBase.enablePlayerSkinOverlay) {
+		if (ConfigFunctions.enablePlayerSkinOverlay) {
 			TextureManager texManager = Minecraft.getMinecraft().renderEngine;
 			File fileAssets = ReflectionHelper.getPrivateValue(Minecraft.class, Minecraft.getMinecraft(), "fileAssets", "field_110446_Y", " field_110607_c");
 			File skinFolder = new File(fileAssets, "skins");
@@ -201,7 +203,7 @@ public class ClientProxy extends CommonProxy {
 
 			RenderManager.instance.entityRenderMap.put(EntityPlayer.class, new NewRenderPlayer());
 		}
-		if (ConfigBase.enableShearableGolems)
+		if (ConfigFunctions.enableShearableGolems)
 			RenderingRegistry.registerEntityRenderingHandler(EntityNewSnowGolem.class, new NewSnowGolemRenderer());
 	}
 }

@@ -7,13 +7,16 @@ import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.client.model.ModelElytra;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
+import ganymedes01.etfuturum.world.generate.feature.WorldGenFossil;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.World;
 import net.minecraftforge.common.util.EnumHelper;
 
 public class ItemArmorElytra extends ItemArmor implements IConfigurable {
@@ -62,5 +65,11 @@ public class ItemArmorElytra extends ItemArmor implements IConfigurable {
 	@Override
 	public boolean isEnabled() {
 		return ConfigBlocksItems.enableElytra;
+	}
+
+	@Override
+	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+		new WorldGenFossil().generate(world, world.rand, x, y, z);
+		return false;
 	}
 }

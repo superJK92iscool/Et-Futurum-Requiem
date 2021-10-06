@@ -2,7 +2,7 @@ package ganymedes01.etfuturum.world.generate.feature;
 
 import java.util.Random;
 
-import ganymedes01.etfuturum.configuration.ConfigBase;
+import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.entities.ai.BlockPos;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -11,7 +11,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class WorldGenFossil extends WorldGenerator {
 	
-	public static Block bone = ConfigBase.fossilBoneBlock;
+	public static Block bone = ConfigWorld.fossilBoneBlock;
 	
 	public WorldGenFossil() {
 	}
@@ -105,10 +105,12 @@ public static abstract class Fossil {
 			xadd2 = zadd2;
 			zadd2 = swap;
 		}
-		
-		for(int i = x + xadd1; facing <= 1 ? i < x + xadd2 : i > x + xadd2; i = (facing <= 1 ? i+1 : i-1)) {
-			for(int j = y + yfrom; j < y + yfrom + yto; j++) {
-				for(int k = z + zadd1; facing <= 1 ? k < z + zadd2 : k > z + zadd2; k = (facing <= 1 ? k+1 : k-1)) {
+		int i = x + xadd1;
+		while(i < x + xadd2) {
+			int j = y + yfrom;
+			while(j < y + yfrom + yto) {
+				int k = z + zadd1;
+				while(k < z + zadd2) {
 					if(world.getBlock(i, j, k) == null || world.getBlock(i, j, k).getBlockHardness(world, i, j, k) > -1) {
 						if(rand.nextFloat() < 0.9) {
 							if(hasCoal && rand.nextFloat() > 0.9) {
@@ -118,8 +120,11 @@ public static abstract class Fossil {
 							}
 						}
 					}
+					k++;
 				}
+				j++;
 			}
+			i++;
 		}
 	}
 

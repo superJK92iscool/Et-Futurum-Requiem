@@ -6,8 +6,8 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.blocks.BlockGlazedTerracotta;
 import ganymedes01.etfuturum.client.renderer.tileentity.TileEntityShulkerBoxRenderer;
-import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.dispenser.DispenserBehaviourShulkerBox;
 import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox;
 import net.minecraft.block.Block;
@@ -85,7 +85,7 @@ public class ItemShulkerBox extends ItemBlock {
 
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, EntityPlayer player, List lore, boolean f3h) {
-    	if(ConfigBase.shulkerBoxTooltipLines > 0 && stack.getTagCompound() != null && stack.getTagCompound().hasKey("Items")) {
+    	if(ConfigFunctions.shulkerBoxTooltipLines > 0 && stack.getTagCompound() != null && stack.getTagCompound().hasKey("Items")) {
     		NBTTagList tag = stack.getTagCompound().getTagList("Items", 10);
     		int items = 0;
     		for (int i = 0; i < tag.tagCount(); ++i)
@@ -94,7 +94,7 @@ public class ItemShulkerBox extends ItemBlock {
     			ItemStack containerStack = ItemStack.loadItemStackFromNBT(nbttagcompound1);
     			if(containerStack != null && containerStack.getItem() != null) {
     				items++;
-    				if(lore.size() <= ConfigBase.shulkerBoxTooltipLines) {
+    				if(lore.size() <= ConfigFunctions.shulkerBoxTooltipLines) {
         				try {
         					lore.add(containerStack.getDisplayName() + " x" + containerStack.stackSize);
         				} catch (Exception e) {
@@ -103,8 +103,8 @@ public class ItemShulkerBox extends ItemBlock {
     				}
     			}
     		}
-    		if(items > ConfigBase.shulkerBoxTooltipLines) {
-    			lore.add("\u00a7oAnd " + (items - ConfigBase.shulkerBoxTooltipLines) + " more...");
+    		if(items > ConfigFunctions.shulkerBoxTooltipLines) {
+    			lore.add("\u00a7oAnd " + (items - ConfigFunctions.shulkerBoxTooltipLines) + " more...");
     		}
     	}
     }

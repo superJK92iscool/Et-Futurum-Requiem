@@ -18,7 +18,8 @@ import ganymedes01.etfuturum.client.OpenGLHelper;
 import ganymedes01.etfuturum.client.sound.NetherAmbience;
 import ganymedes01.etfuturum.client.sound.NetherAmbienceLoop;
 import ganymedes01.etfuturum.client.sound.WeightedSoundPool;
-import ganymedes01.etfuturum.configuration.ConfigBase;
+import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
+import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox;
 import net.minecraft.block.Block;
@@ -139,7 +140,7 @@ public class ClientEventHandler {
 		}
 		
 
-		if(ConfigBase.enableNetherAmbience && !EtFuturum.netherAmbienceNetherlicious && player.dimension == -1) {
+		if(ConfigWorld.enableNetherAmbience && !EtFuturum.netherAmbienceNetherlicious && player.dimension == -1) {
 			Chunk chunk = world.getChunkFromBlockCoords((int)player.posX, (int)player.posZ);
 			if(!chunk.isChunkLoaded) {
 				if(ambience != null && FMLClientHandler.instance().getClient().getSoundHandler().isSoundPlaying(ambience))
@@ -171,7 +172,7 @@ public class ClientEventHandler {
 			}
 		}
 
-		if(ConfigBase.enableNewMiscSounds && world.rand.nextInt(Math.toIntExact((world.getTotalWorldTime() % 10) + 1)) == 0) {
+		if(ConfigWorld.enableNewMiscSounds && world.rand.nextInt(Math.toIntExact((world.getTotalWorldTime() % 10) + 1)) == 0) {
 			for(TileEntity tile : (List<TileEntity>)world.loadedTileEntityList) {
 				if(!(tile instanceof TileEntityFurnace)) //Don't use getBlock or get tile coord info if the tile isn't a furnace, so we only get the block when we need to
 					continue;
@@ -231,7 +232,7 @@ public class ClientEventHandler {
 	}
 	@SubscribeEvent
 	public void toolTipEvent(ItemTooltipEvent event) {
-		if(ConfigBase.enableExtraF3HTooltips && event.showAdvancedItemTooltips) {
+		if(ConfigFunctions.enableExtraF3HTooltips && event.showAdvancedItemTooltips) {
 			event.toolTip.add("\u00a78" + Item.itemRegistry.getNameForObject(event.itemStack.getItem()));
 			if(event.itemStack.stackTagCompound != null && !event.itemStack.stackTagCompound.hasNoTags())
 				event.toolTip.add("\u00a78NBT: " + event.itemStack.stackTagCompound.func_150296_c().size() + " Tag(s)");
@@ -240,7 +241,7 @@ public class ClientEventHandler {
 	
 	@SubscribeEvent
 	public void renderPlayerEventPre(RenderPlayerEvent.Pre event) {
-		if (ConfigBase.enableTransparentAmour) {
+		if (ConfigFunctions.enableTransparentAmour) {
 			OpenGLHelper.enableBlend();
 			OpenGLHelper.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		}
@@ -248,7 +249,7 @@ public class ClientEventHandler {
 
 	@SubscribeEvent
 	public void renderPlayerSetArmour(SetArmorModel event) {
-		if (ConfigBase.enableTransparentAmour) {
+		if (ConfigFunctions.enableTransparentAmour) {
 			OpenGLHelper.enableBlend();
 			OpenGLHelper.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		}
@@ -256,7 +257,7 @@ public class ClientEventHandler {
 
 	@SubscribeEvent
 	public void renderPlayerEventPost(RenderPlayerEvent.Post event) {
-		if (ConfigBase.enableTransparentAmour)
+		if (ConfigFunctions.enableTransparentAmour)
 			OpenGLHelper.disableBlend();
 	}
 
@@ -269,7 +270,7 @@ public class ClientEventHandler {
 		if(event.sound != null && event.name != null && cpw.mods.fml.client.FMLClientHandler.instance().getWorldClient() != null
 				&& FMLCommonHandler.instance().getSide() == Side.CLIENT) {
 				String[] eventwithprefix = event.name.split("\\.");
-			if (ConfigBase.enableNewBlocksSounds && eventwithprefix.length > 1 &&
+			if (ConfigWorld.enableNewBlocksSounds && eventwithprefix.length > 1 &&
 					eventwithprefix[1].equals(Blocks.stone.stepSound.soundName)
 					&& event.sound.getPitch() < 1.0F) {
 				World world = cpw.mods.fml.client.FMLClientHandler.instance().getWorldClient();
@@ -291,7 +292,7 @@ public class ClientEventHandler {
 				}
 			}
 			
-			if(ConfigBase.enableNewMiscSounds) {
+			if(ConfigWorld.enableNewMiscSounds) {
 				if(event.name.contains("random.door")) {
 					World world = cpw.mods.fml.client.FMLClientHandler.instance().getWorldClient();
 					int x = MathHelper.floor_float(event.sound.getXPosF());
@@ -338,7 +339,7 @@ public class ClientEventHandler {
 				}
 			}
 			
-			if(ConfigBase.enableNewAmbientSounds) {
+			if(ConfigWorld.enableNewAmbientSounds) {
 				if (event.name.equals("ambient.weather.rain")) {
 					//World world = cpw.mods.fml.client.FMLClientHandler.instance().getWorldClient(); // unused variable
 					int x = MathHelper.floor_float(event.sound.getXPosF());
@@ -350,7 +351,7 @@ public class ClientEventHandler {
 					int x = MathHelper.floor_float(event.sound.getXPosF());
 					int y = MathHelper.floor_float(event.sound.getYPosF());
 					int z = MathHelper.floor_float(event.sound.getZPosF());
-					if(ConfigBase.enableNetherAmbience && cpw.mods.fml.client.FMLClientHandler.instance().getClientPlayerEntity().dimension == -1) {
+					if(ConfigWorld.enableNetherAmbience && cpw.mods.fml.client.FMLClientHandler.instance().getClientPlayerEntity().dimension == -1) {
 						String biomeName = cpw.mods.fml.client.FMLClientHandler.instance().getWorldClient().getChunkFromBlockCoords(x, z).getBiomeGenForWorldCoords(x & 15, z & 15, cpw.mods.fml.client.FMLClientHandler.instance().getWorldClient().getWorldChunkManager()).biomeName;
 						if(ClientEventHandler.getAmbienceLoopForBiome(biomeName) != null)
 							event.result = new PositionedSoundRecord(new ResourceLocation(Reference.MOD_ID + ":ambient." + ClientEventHandler.getAmbienceLoopForBiome(biomeName) + ".mood"), 
@@ -386,7 +387,7 @@ public class ClientEventHandler {
 	@SubscribeEvent
 	public void onPlaySoundAtEntityEvent(PlaySoundAtEntityEvent event)
 	{
-		if (ConfigBase.enableNewBlocksSounds && event.name != null
+		if (ConfigWorld.enableNewBlocksSounds && event.name != null
 				&& event.entity != null && event.name.contains("step") && event.name.equals("step.stone")
 				&& event.name.contains(".")) {
 			String[] eventwithprefix = event.name.split("\\.");

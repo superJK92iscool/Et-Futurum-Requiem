@@ -1,6 +1,6 @@
 package ganymedes01.etfuturum.items;
 
-import ganymedes01.etfuturum.configuration.ConfigBase;
+import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.entities.EntityItemUninflammable;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
@@ -11,7 +11,7 @@ public class ItemUninflammable extends Item {
 	
 	@Override
 	public boolean hasCustomEntity(ItemStack stack) {
-		return !ConfigBase.enableNetheriteFlammable;
+		return !ConfigWorld.enableNetheriteFlammable;
 	}
 	
 	@Override
@@ -20,7 +20,7 @@ public class ItemUninflammable extends Item {
 	}
 	
 	public static Entity createUninflammableItem(World world, Entity location) {
-		if(ConfigBase.enableNetheriteFlammable)
+		if(ConfigWorld.enableNetheriteFlammable)
 			return null;
 		EntityItemUninflammable entity = new EntityItemUninflammable(world);
 		entity.copyDataFrom(location, true);

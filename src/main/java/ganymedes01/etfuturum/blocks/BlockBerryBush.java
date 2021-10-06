@@ -9,8 +9,8 @@ import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.ModBlocks.ISubBlocksBlock;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.BlockBush;
@@ -37,7 +37,7 @@ public class BlockBerryBush extends BlockBush implements IConfigurable, ISubBloc
 	
 	public BlockBerryBush() {
 		super(Material.vine);
-		setStepSound(ConfigBase.enableNewBlocksSounds ? ModSounds.soundBerryBush : soundTypeGrass);
+		setStepSound(ConfigWorld.enableNewBlocksSounds ? ModSounds.soundBerryBush : soundTypeGrass);
 		setBlockName(Utils.getUnlocalisedName("sweet_berry_bush"));
 		setBlockTextureName("sweet_berry_bush");
 		setCreativeTab(null);

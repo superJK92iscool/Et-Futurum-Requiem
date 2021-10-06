@@ -13,8 +13,8 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
-import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.world.generate.BlockAndMetadataMapping;
 import ganymedes01.etfuturum.world.generate.RawOreDropMapping;
@@ -66,7 +66,7 @@ public class ItemRawOre extends ItemGeneric implements IConfigurable {
 		if(((IConfigurable)(ModItems.raw_ore)).isEnabled()) {
 			CreativeTabs tab = ModItems.raw_ore.getCreativeTab();
 			if(ConfigBlocksItems.enableCopper || !OreDictionary.getOres("oreCopper").isEmpty()) {
-				ItemRawOre.rawOreRegistry.put("oreCopper", new RawOreDropMapping(ModItems.raw_ore, 0, ConfigBase.enableExtraCopper || ArrayUtils.contains(ConfigBase.extraDropRawOres, "oreCopper")));
+				ItemRawOre.rawOreRegistry.put("oreCopper", new RawOreDropMapping(ModItems.raw_ore, 0, ConfigWorld.enableExtraCopper || ArrayUtils.contains(ConfigWorld.extraDropRawOres, "oreCopper")));
 			}
 			ItemRawOre.rawOreRegistry.put("oreIron", new RawOreDropMapping(ModItems.raw_ore, 1));
 			ItemRawOre.rawOreRegistry.put("oreGold", new RawOreDropMapping(ModItems.raw_ore, 2));

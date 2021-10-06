@@ -25,8 +25,10 @@ import ganymedes01.etfuturum.ModEnchantments;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.blocks.BlockMagma;
 import ganymedes01.etfuturum.blocks.BlockWitherRose;
-import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigEntities;
+import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
+import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.HoeHelper;
 import ganymedes01.etfuturum.entities.EntityBrownMooshroom;
 import ganymedes01.etfuturum.entities.EntityEndermite;
@@ -169,11 +171,11 @@ public class ServerEventHandler {
 			}
 		
 		if(entity instanceof EntityLiving) {
-			if (ConfigBase.enableVillagerZombies && entity.getClass() == EntityZombie.class && ((EntityZombie)entity).isVillager()) {
+			if (ConfigEntities.enableVillagerZombies && entity.getClass() == EntityZombie.class && ((EntityZombie)entity).isVillager()) {
 				replaceEntity((EntityLiving) entity, new EntityZombieVillager(entity.worldObj));
 			}
 
-			if (ConfigBase.enableShearableGolems && entity.getClass() == EntitySnowman.class) {
+			if (ConfigFunctions.enableShearableGolems && entity.getClass() == EntitySnowman.class) {
 				replaceEntity((EntityLiving) entity, new EntityNewSnowGolem(entity.worldObj));
 			}
 		}
@@ -205,7 +207,7 @@ public class ServerEventHandler {
 	@SubscribeEvent
 	public void entityUpdate(EntityEvent event) {
 		if(event.entity == null || event.entity.worldObj == null || event.entity.getClass() == null) return;
-		if (ConfigBase.enableNewBoats && ConfigBase.replaceOldBoats) {
+		if (ConfigEntities.enableNewBoats && ConfigWorld.replaceOldBoats) {
 			if (!event.entity.worldObj.isRemote && event.entity.getClass() == EntityBoat.class && event.entity.riddenByEntity == null) {
 				if(event.entity.worldObj.getEntitiesWithinAABB(EntityNewBoat.class, event.entity.boundingBox).isEmpty()) {
 					EntityNewBoat boat = new EntityNewBoat(event.entity.worldObj);
@@ -350,7 +352,7 @@ public class ServerEventHandler {
 
 	@SubscribeEvent
 	public void harvestEvent(BlockEvent.HarvestDropsEvent event) {
-		if(ConfigBase.enableSilkTouchingMushrooms && event.isSilkTouching)
+		if(ConfigFunctions.enableSilkTouchingMushrooms && event.isSilkTouching)
 			if (event.block == Blocks.brown_mushroom_block) {
 				event.drops.clear();
 				event.drops.add(new ItemStack(ModBlocks.brown_mushroom_block));
@@ -359,7 +361,7 @@ public class ServerEventHandler {
 				event.drops.add(new ItemStack(ModBlocks.red_mushroom_block));
 			}
 
-		if(ConfigBase.enableSticksFromDeadBushes) {
+		if(ConfigFunctions.enableSticksFromDeadBushes) {
 			if(event.block == Blocks.deadbush) {
 				boolean isShears = event.harvester != null && event.harvester.getCurrentEquippedItem() != null && event.harvester.getCurrentEquippedItem().getItem() instanceof ItemShears;
 				if(event.harvester == null || event.harvester.getCurrentEquippedItem() == null || !isShears)
@@ -383,7 +385,7 @@ public class ServerEventHandler {
 			}
 		}
 
-		if (ConfigBase.enableShearableCobwebs) {
+		if (ConfigFunctions.enableShearableCobwebs) {
 			if (event.block == Blocks.web && event.harvester != null) {
 				ItemStack stack = event.harvester.getCurrentEquippedItem();
 				if (stack != null && stack.getItem() instanceof ItemShears) {
@@ -396,7 +398,7 @@ public class ServerEventHandler {
 	
 	@SubscribeEvent
 	public void onBlockBroken(BlockEvent.BreakEvent event) {
-		if(ConfigBase.enableHoeMining && event.block.getBlockHardness(event.world, event.x, event.y, event.z) != 0.0D) {
+		if(ConfigWorld.enableHoeMining && event.block.getBlockHardness(event.world, event.x, event.y, event.z) != 0.0D) {
 			ItemStack itemstack = event.getPlayer().getHeldItem();
 			if(itemstack != null && itemstack.getItem() instanceof ItemHoe) {
 				itemstack.damageItem(1, event.getPlayer());
@@ -409,7 +411,7 @@ public class ServerEventHandler {
 		boolean flag = false;
 		float toolSpeed = 0;
 		float speedModifier = 0;
-		if(ConfigBase.enableHoeMining && HoeHelper.hoeArrayHas(event.block)) {
+		if(ConfigWorld.enableHoeMining && HoeHelper.hoeArrayHas(event.block)) {
 			ItemStack stack = event.entityPlayer.getHeldItem();
 			if(stack != null && stack.getItem() instanceof ItemHoe) {
 				try {
@@ -468,7 +470,7 @@ public class ServerEventHandler {
 
 	@SubscribeEvent
 	public void onPlaceBlock(BlockEvent.PlaceEvent event) {
-		if(ConfigBase.enableFloatingTrapDoors && (placedSide == 1 || placedSide == 0) && event.placedBlock instanceof BlockTrapDoor) {
+		if(ConfigWorld.enableFloatingTrapDoors && (placedSide == 1 || placedSide == 0) && event.placedBlock instanceof BlockTrapDoor) {
 			int l = MathHelper.floor_double(event.player.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
 			if(l == 0) {
 				l = 1;
@@ -505,7 +507,7 @@ public class ServerEventHandler {
 			        	if(event.getResult() == event.useItem) {
 			        		
 			        		//Eye of Ender place sounds
-				        	if(ConfigBase.enableNewMiscSounds && heldStack.getItem() == Items.ender_eye && oldBlock == Blocks.end_portal_frame && !BlockEndPortalFrame.isEnderEyeInserted(meta))
+				        	if(ConfigWorld.enableNewMiscSounds && heldStack.getItem() == Items.ender_eye && oldBlock == Blocks.end_portal_frame && !BlockEndPortalFrame.isEnderEyeInserted(meta))
 				        	{
 				        		world.playSoundEffect(x + .5F, y + .5F, z + .5F, Reference.MOD_ID+":block.end_portal_frame.fill", 1, 1);
 				                int j1 = meta & 3;
@@ -596,7 +598,7 @@ public class ServerEventHandler {
 				        	}
 				        	
 				        	//Seeds/Wart placing sounds
-				        	if(ConfigBase.enableNewBlocksSounds && side == 1 && heldStack.getItem() instanceof IPlantable && player.canPlayerEdit(x, y + 1, z, side, heldStack)) {
+				        	if(ConfigWorld.enableNewBlocksSounds && side == 1 && heldStack.getItem() instanceof IPlantable && player.canPlayerEdit(x, y + 1, z, side, heldStack)) {
 				        		/*
 				        		 * This code was adapted from AstroTibs' ASMC.
 				        		 * Used with permission!
@@ -712,7 +714,7 @@ public class ServerEventHandler {
 		if (event.entityLiving.worldObj.isRemote)
 			return;
 
-		if (ConfigBase.enableSkullDrop)
+		if (ConfigFunctions.enableSkullDrop)
 			dropHead(event.entityLiving, event.source, event.lootingLevel, event.drops);
 
 		Random rand = event.entityLiving.worldObj.rand;
@@ -778,7 +780,7 @@ public class ServerEventHandler {
 	public void teleportEvent(EnderTeleportEvent event) {
 		EntityLivingBase entity = event.entityLiving;
 		if (entity instanceof EntityPlayerMP) {
-			if (ConfigBase.enableEndermite) {
+			if (ConfigEntities.enableEndermite) {
 				if (entity.getRNG().nextFloat() < 0.05F && entity.worldObj.getGameRules().getGameRuleBooleanValue("doMobSpawning")) {
 					EntityEndermite entityendermite = new EntityEndermite(entity.worldObj);
 					entityendermite.setLocationAndAngles(event.targetX, event.targetY, event.targetZ, entity.rotationYaw, entity.rotationPitch);
@@ -855,7 +857,7 @@ public class ServerEventHandler {
 			} else if (animal instanceof EntityChicken)
 				if (stack.getItem() == ModItems.beetroot_seeds && ConfigBlocksItems.enableBeetroot)
 					setAnimalInLove(animal, event.entityPlayer, stack);
-		} else if (ConfigBase.enableBabyGrowthBoost && isFoodItem(animal, stack))
+		} else if (ConfigEntities.enableBabyGrowthBoost && isFoodItem(animal, stack))
 			feedBaby(animal, event.entityPlayer, stack);
 		
 		if(animal instanceof EntitySheep && stack.getItem() != Items.dye && !animal.worldObj.isRemote) {
@@ -914,7 +916,7 @@ public class ServerEventHandler {
 
 	@SubscribeEvent
 	public void entityHurtEvent(LivingHurtEvent event) {
-		if (!ConfigBase.enableDmgIndicator)
+		if (!ConfigWorld.enableDmgIndicator)
 			return;
 		int amount = MathHelper.floor_float(Math.min(event.entityLiving.getHealth(), event.ammount) / 2F);
 		amount = (int) applyArmorCalculations(event.entityLiving, event.source, amount);
@@ -999,7 +1001,7 @@ public class ServerEventHandler {
 
 	@SubscribeEvent
 	public void entityStruckByLightning(EntityStruckByLightningEvent event) {
-		if (ConfigBase.enableVillagerTurnsIntoWitch && event.entity instanceof EntityVillager) {
+		if (ConfigEntities.enableVillagerTurnsIntoWitch && event.entity instanceof EntityVillager) {
 			EntityVillager villager = (EntityVillager) event.entity;
 			if (!villager.worldObj.isRemote) {
 				EntityWitch witch = new EntityWitch(villager.worldObj);
@@ -1009,7 +1011,7 @@ public class ServerEventHandler {
 				villager.setDead();
 			}
 		} else
-			if (ConfigBase.enableBrownMooshroom && event.entity.ticksExisted > 40 && event.entity.getClass() == EntityMooshroom.class)  {
+			if (ConfigEntities.enableBrownMooshroom && event.entity.ticksExisted > 40 && event.entity.getClass() == EntityMooshroom.class)  {
 				EntityMooshroom mooshroom = (EntityMooshroom) event.entity;
 				if (!mooshroom.worldObj.isRemote) {
 					EntityBrownMooshroom brownmooshroom = new EntityBrownMooshroom(mooshroom.worldObj);
@@ -1021,7 +1023,7 @@ public class ServerEventHandler {
 					//TODO: Cow won't flee for some reason
 				}                    
 			} else
-			if (ConfigBase.enableBrownMooshroom && event.entity.ticksExisted > 40 && event.entity.getClass() == EntityBrownMooshroom.class) {
+			if (ConfigEntities.enableBrownMooshroom && event.entity.ticksExisted > 40 && event.entity.getClass() == EntityBrownMooshroom.class) {
 				EntityBrownMooshroom brownmooshroom = (EntityBrownMooshroom) event.entity;
 				if (!brownmooshroom.worldObj.isRemote) {
 					EntityMooshroom mooshroom = new EntityMooshroom(brownmooshroom.worldObj);
@@ -1036,10 +1038,10 @@ public class ServerEventHandler {
 	@SubscribeEvent
 	public void livingHurtEvent(LivingHurtEvent event) {
 		Entity entity = event.entity;
-		if(ConfigBase.enableHayBaleFalls && entity != null
+		if(ConfigWorld.enableHayBaleFalls && entity != null
 				&& entity.worldObj.getBlock(MathHelper.floor_double(entity.posX), MathHelper.floor_double(entity.posY - 0.20000000298023224D - entity.yOffset), MathHelper.floor_double(entity.posZ)) == Blocks.hay_block
 				&& event.source == DamageSource.fall) {
-			event.ammount *= ((float)ConfigBase.hayBaleReducePercent / (float)100);
+			event.ammount *= ((float)ConfigWorld.hayBaleReducePercent / (float)100);
 		}
 		if ((entity == null) || (!(entity instanceof EntityLivingBase))) {
 			return;
@@ -1063,7 +1065,7 @@ public class ServerEventHandler {
 			entity.worldObj.playSoundEffect(entity.posX + 0.5, entity.posY + 0.5, entity.posZ + 0.5, Reference.MOD_ID + ":item.totem_use", 1.0f, entity.worldObj.rand.nextFloat() * 0.1f + 0.9f);
 			
 			entity.clearActivePotions();
-			float healpercent = (float)ConfigBase.totemHealPercent / 100;
+			float healpercent = (float)ConfigWorld.totemHealPercent / 100;
 			float sethp = entity.getMaxHealth() * healpercent;
 			entity.setHealth(sethp < .5F ? .5F : sethp);
 			event.ammount = 0;

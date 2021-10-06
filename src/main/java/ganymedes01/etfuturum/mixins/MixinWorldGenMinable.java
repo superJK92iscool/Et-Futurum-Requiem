@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.configuration.ConfigBase;
+import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.world.generate.BlockAndMetadataMapping;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -39,7 +39,7 @@ public class MixinWorldGenMinable {
     private Block field_150518_c;
 	
 	private boolean doesDeepslateDenyHere(World world, int x, int y, int z) {
-		return world.getBlock(x, y, z).isReplaceableOreGen(world, x, y, z, ModBlocks.deepslate) && ((ConfigBase.deepslateReplacesDirt && field_150519_a == Blocks.dirt) || (ConfigBase.deepslateReplacesStones && (ConfigBase.deepslateReplacesDirt && field_150519_a == ModBlocks.stone)));
+		return world.getBlock(x, y, z).isReplaceableOreGen(world, x, y, z, ModBlocks.deepslate) && ((ConfigWorld.deepslateReplacesDirt && field_150519_a == Blocks.dirt) || (ConfigWorld.deepslateReplacesStones && (ConfigWorld.deepslateReplacesDirt && field_150519_a == ModBlocks.stone)));
 	}
 	
     @Inject(method = "generate", at = @At(value = "HEAD"), cancellable = true)

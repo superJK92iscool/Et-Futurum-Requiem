@@ -2,7 +2,7 @@ package ganymedes01.etfuturum.world.generate;
 
 import java.util.Random;
 
-import ganymedes01.etfuturum.configuration.ConfigBase;
+import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.MathHelper;
@@ -79,7 +79,7 @@ public class WorldGenMinableNoAir extends WorldGenerator
 							for (int i3 = k1; i3 <= j2; ++i3)
 							{
 								//double d14 = (i3 + 0.5D - d8) / (d10 / 2.0D); // unused variable
-								if ((!isAdjacentToAir(p_76484_1_, k2, l2, i3) || ConfigBase.enableAirDebris) && p_76484_1_.getBlock(k2, l2, i3).isReplaceableOreGen(p_76484_1_, k2, l2, i3, field_150518_c))
+								if ((!isAdjacentToAir(p_76484_1_, k2, l2, i3) || ConfigWorld.enableAirDebris) && p_76484_1_.getBlock(k2, l2, i3).isReplaceableOreGen(p_76484_1_, k2, l2, i3, field_150518_c))
 								{
 									p_76484_1_.setBlock(k2, l2, i3, this.field_150519_a, mineableBlockMeta, 2);
 								}

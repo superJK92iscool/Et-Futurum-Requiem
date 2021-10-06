@@ -5,8 +5,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.BlockRotatedPillar;
 import net.minecraft.block.material.Material;
@@ -19,7 +19,7 @@ public class BlockBone extends BlockRotatedPillar implements IConfigurable {
 		super(Material.rock);
 		setHardness(1.5F);
 		setResistance(10.0F);
-		setStepSound(ConfigBase.enableNewBlocksSounds ? ModSounds.soundBoneBlock : soundTypeStone);
+		setStepSound(ConfigWorld.enableNewBlocksSounds ? ModSounds.soundBoneBlock : soundTypeStone);
 		setBlockTextureName("bone_block");
 		setBlockName(Utils.getUnlocalisedName("bone"));
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);

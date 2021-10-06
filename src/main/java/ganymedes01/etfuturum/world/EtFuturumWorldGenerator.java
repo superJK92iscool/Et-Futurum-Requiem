@@ -9,8 +9,9 @@ import org.apache.commons.lang3.ArrayUtils;
 import cpw.mods.fml.common.IWorldGenerator;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.blocks.BlockChorusFlower;
-import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
+import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.world.end.dimension.EndWorldProvider;
 import ganymedes01.etfuturum.world.generate.OceanMonument;
 import ganymedes01.etfuturum.world.generate.WorldGenMinableNoAir;
@@ -35,9 +36,9 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 	private final List<WorldGenFlowers> flowers = new LinkedList<WorldGenFlowers>();
 
 	public EtFuturumWorldGenerator() {
-		stoneGen.add(new WorldGenMinable(ModBlocks.stone, 1, ConfigBase.maxStonesPerCluster, Blocks.stone));
-		stoneGen.add(new WorldGenMinable(ModBlocks.stone, 3, ConfigBase.maxStonesPerCluster, Blocks.stone));
-		stoneGen.add(new WorldGenMinable(ModBlocks.stone, 5, ConfigBase.maxStonesPerCluster, Blocks.stone));
+		stoneGen.add(new WorldGenMinable(ModBlocks.stone, 1, ConfigWorld.maxStonesPerCluster, Blocks.stone));
+		stoneGen.add(new WorldGenMinable(ModBlocks.stone, 3, ConfigWorld.maxStonesPerCluster, Blocks.stone));
+		stoneGen.add(new WorldGenMinable(ModBlocks.stone, 5, ConfigWorld.maxStonesPerCluster, Blocks.stone));
 		flowers.add(new WorldGenFlowers(ModBlocks.lily_of_the_valley));
 		flowers.add(new WorldGenFlowers(ModBlocks.cornflower));
 		flowers.add(new WorldGenFlowers(ModBlocks.sweet_berry_bush));
@@ -48,7 +49,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 	public void generate(Random rand, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
 		if(world.getWorldInfo().getTerrainType() != WorldType.FLAT || world.getWorldInfo().getGeneratorOptions().contains("decoration") || world.provider.dimensionId != 0) {
 
-			if (ConfigBlocksItems.enableStones && ConfigBase.maxStonesPerCluster > 0 && world.provider.dimensionId != -1 && world.provider.dimensionId != 1) {
+			if (ConfigBlocksItems.enableStones && ConfigWorld.maxStonesPerCluster > 0 && world.provider.dimensionId != -1 && world.provider.dimensionId != 1) {
 				for (int j = 0; j < stoneGen.size(); j++) {
 					WorldGenMinable generator = stoneGen.get(j);
 					for (int i = 0; i < 10; i++) {
@@ -62,7 +63,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 			}
 			
 			if(ConfigBlocksItems.enableCopper) {
-				this.generateOre(ModBlocks.copper_ore, 0, world, rand, chunkX, chunkZ, 1, ConfigBase.maxCopperPerCluster, 20, 4, 63, Blocks.stone);
+				this.generateOre(ModBlocks.copper_ore, 0, world, rand, chunkX, chunkZ, 1, ConfigWorld.maxCopperPerCluster, 20, 4, 63, Blocks.stone);
 			}
 			
 			{
@@ -101,12 +102,12 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 					}
 				}
 				
-				if(!ArrayUtils.contains(ConfigBase.fossilDimensionBlacklist, world.provider.dimensionId)) {
+				if(!ArrayUtils.contains(ConfigWorld.fossilDimensionBlacklist, world.provider.dimensionId)) {
 					x = chunkX * 16 + rand.nextInt(16);
 					z = chunkZ * 16 + rand.nextInt(16);
 					biome = world.getBiomeGenForCoords(x, z);
 					biomeList = BiomeDictionary.getTypesForBiome(biome);
-					if(ConfigBase.enableFossils && rand.nextInt(64) == 0 && (ArrayUtils.contains(biomeList, Type.SANDY) && ArrayUtils.contains(biomeList, Type.DRY) || ArrayUtils.contains(biomeList, Type.SWAMP))) {
+					if(ConfigWorld.enableFossils && rand.nextInt(64) == 0 && (ArrayUtils.contains(biomeList, Type.SANDY) && ArrayUtils.contains(biomeList, Type.DRY) || ArrayUtils.contains(biomeList, Type.SWAMP))) {
 						new WorldGenFossil().generate(world, rand, x, rand.nextInt(9) + 41, z);
 					}
 				}
@@ -115,21 +116,21 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 		
 		if(world.provider.dimensionId == -1) {
 			if(ConfigBlocksItems.enableMagmaBlock)
-				this.generateOre(ModBlocks.magma_block, 0, world, rand, chunkX, chunkZ, 1, ConfigBase.maxMagmaPerCluster, 4, 23, 37, Blocks.netherrack);
+				this.generateOre(ModBlocks.magma_block, 0, world, rand, chunkX, chunkZ, 1, ConfigWorld.maxMagmaPerCluster, 4, 23, 37, Blocks.netherrack);
 
 //          if(ConfigurationHandler.enableBlackstone)
 //              this.generateOre(ModBlocks.blackstone, 0, world, rand, chunkX, chunkZ, 1, ConfigurationHandler.maxBlackstonePerCluster, 2, 5, 28, Blocks.netherrack);
 			
 			if(ConfigBlocksItems.enableNetherGold)
-				this.generateOre(ModBlocks.nether_gold_ore, 0, world, rand, chunkX, chunkZ, 1, ConfigBase.maxNetherGoldPerCluster, 10, 10, 117, Blocks.netherrack);
+				this.generateOre(ModBlocks.nether_gold_ore, 0, world, rand, chunkX, chunkZ, 1, ConfigWorld.maxNetherGoldPerCluster, 10, 10, 117, Blocks.netherrack);
 
 			if(ConfigBlocksItems.enableNetherite) {
-				this.generateOre(ModBlocks.ancient_debris, 0, world, rand, chunkX, chunkZ, 1, ConfigBase.smallDebrisMax, 2, 8, 119, Blocks.netherrack);
-				this.generateOre(ModBlocks.ancient_debris, 0, world, rand, chunkX, chunkZ, 1, ConfigBase.debrisMax, 3, 8, 22, Blocks.netherrack);
+				this.generateOre(ModBlocks.ancient_debris, 0, world, rand, chunkX, chunkZ, 1, ConfigWorld.smallDebrisMax, 2, 8, 119, Blocks.netherrack);
+				this.generateOre(ModBlocks.ancient_debris, 0, world, rand, chunkX, chunkZ, 1, ConfigWorld.debrisMax, 3, 8, 22, Blocks.netherrack);
 			}
 		}
 
-		if (ConfigBase.enableOceanMonuments && ConfigBlocksItems.enablePrismarine && world.provider.dimensionId != -1 && world.provider.dimensionId != 1)
+		if (ConfigFunctions.enableOceanMonuments && ConfigBlocksItems.enablePrismarine && world.provider.dimensionId != -1 && world.provider.dimensionId != 1)
 			if (OceanMonument.canSpawnAt(world, chunkX, chunkZ)) {
 				int x = chunkX * 16 + rand.nextInt(16);
 				int y = 256;

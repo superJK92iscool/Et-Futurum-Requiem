@@ -5,8 +5,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -19,7 +19,7 @@ public class BlockNewNetherBrick extends BlockGeneric implements IConfigurable {
 		super(Material.rock, "", "cracked", "chiseled");
 		this.setResistance(6);
 		this.setHardness(2);
-		setStepSound(ConfigBase.enableNewBlocksSounds ? ModSounds.soundNetherBricks : soundTypePiston);
+		setStepSound(ConfigWorld.enableNewBlocksSounds ? ModSounds.soundNetherBricks : soundTypePiston);
 		this.setHarvestLevel("pickaxe", 0);
 		this.setBlockTextureName("nether_bricks");
 		setBlockName(Utils.getUnlocalisedName("red_netherbrick"));

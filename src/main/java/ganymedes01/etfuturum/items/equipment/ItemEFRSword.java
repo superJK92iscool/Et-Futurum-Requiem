@@ -3,8 +3,8 @@ package ganymedes01.etfuturum.items.equipment;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.ModItems;
-import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.items.ItemUninflammable;
 import net.minecraft.entity.Entity;
@@ -36,7 +36,7 @@ public class ItemEFRSword extends ItemSword implements IConfigurable {
 	@Override
 	public boolean hasCustomEntity(ItemStack stack)
 	{
-		return getUnlocalizedName().contains("netherite") && !ConfigBase.enableNetheriteFlammable;
+		return getUnlocalizedName().contains("netherite") && !ConfigWorld.enableNetheriteFlammable;
 	}
 	
 	@Override
