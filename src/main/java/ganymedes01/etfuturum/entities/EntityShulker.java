@@ -3,15 +3,18 @@ package ganymedes01.etfuturum.entities;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.commons.lang3.ArrayUtils;
+
 import ganymedes01.etfuturum.ModItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigBedrockParity;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.entities.ai.BlockPos;
 import ganymedes01.etfuturum.lib.Reference;
+import ganymedes01.etfuturum.recipes.ModRecipes;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.command.IEntitySelector;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -26,20 +29,18 @@ import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBucket;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class EntityShulker extends EntityGolem implements IMob {
 
@@ -66,7 +67,13 @@ public class EntityShulker extends EntityGolem implements IMob {
         this.targetTasks.addTask(2, new EntityShulker.AIAttackNearest(this));
         this.targetTasks.addTask(3, new EntityShulker.AIDefenseAttack(this));
         this.setSize(1, 1);
+        persistenceRequired = true;
 	}
+
+    protected boolean canDespawn()
+    {
+        return isNoDespawnRequired();
+    }
 
 	@Override
     protected float func_110146_f(float p_110146_1_, float p_110146_2_)
@@ -196,10 +203,10 @@ public class EntityShulker extends EntityGolem implements IMob {
         compound.setByte("AttachFace", this.getDataWatcher().getWatchableObjectByte(ATTACHED_FACE));
         compound.setByte("Peek", this.getDataWatcher().getWatchableObjectByte(PEEK_TICK));
         
-        compound.setByte("Color", getDataWatcher().getWatchableObjectByte(COLOR));
         compound.setInteger("APX", this.getDataWatcher().getWatchableObjectInt(ATTACHED_X));
         compound.setInteger("APY", this.getDataWatcher().getWatchableObjectInt(ATTACHED_Y));
         compound.setInteger("APZ", this.getDataWatcher().getWatchableObjectInt(ATTACHED_Z));
+        compound.setByte("Color", getDataWatcher().getWatchableObjectByte(COLOR));
     }
     
     public BlockPos getAttachmentPos()
@@ -213,6 +220,10 @@ public class EntityShulker extends EntityGolem implements IMob {
     {
         super.onUpdate();
         BlockPos blockpos = getAttachmentPos();
+        
+        if(getColor() != 16 && worldObj.getBlock(blockpos.getX(), blockpos.getY(), blockpos.getZ()).getMaterial() == Material.water) {
+        	setColor((byte) 16);
+        }
 
         if(worldObj.difficultySetting == EnumDifficulty.PEACEFUL && this.getAttackTarget() instanceof EntityPlayer) {
         	this.setAttackTarget(null);
@@ -663,15 +674,14 @@ public class EntityShulker extends EntityGolem implements IMob {
     protected void dropFewItems(boolean p_70628_1_, int p_70628_2_)
     {
         Item item = this.getDropItem();
+        
+        float chance = rand.nextFloat();
+        
+        chance += p_70628_2_ * 0.0625;
 
-        if (item != null)
+        if (item != null && chance > 0.5)
         {
-            int j = this.rand.nextInt(2 + p_70628_2_);
-
-            for (int k = 0; k < j; ++k)
-            {
-                this.dropItem(item, 1);
-            }
+            this.dropItem(item, 1);
         }
     }
     
@@ -699,6 +709,30 @@ public class EntityShulker extends EntityGolem implements IMob {
     		y -= 1;
     	}
     	this.setAttachmentPos(new BlockPos(posX, y, posZ));
+    }
+    
+    public boolean interact(EntityPlayer p_70085_1_)
+    {
+    	ItemStack stack = p_70085_1_.getCurrentEquippedItem();
+    	if(ConfigBedrockParity.dyedShulkers && stack != null) {
+    		if(stack.getItem() instanceof ItemBucket) {
+    			System.out.println(((ItemBucket)stack.getItem()).isFull);
+    		}
+    		if(stack.getItem() instanceof ItemBucket && ((ItemBucket)stack.getItem()).isFull == Blocks.flowing_water && getColor() != 16) {
+    			setColor((byte)16);
+    			return true;
+    		}
+			for(int oreID : OreDictionary.getOreIDs(stack)) {
+				byte color = (byte)(~ArrayUtils.indexOf(ModRecipes.dyes, OreDictionary.getOreName(oreID)) & 15);
+				if(ArrayUtils.contains(ModRecipes.dyes, OreDictionary.getOreName(oreID)) && getColor() != color) {
+					setColor(color);
+					if(!p_70085_1_.capabilities.isCreativeMode)
+						--stack.stackSize;
+					return true;
+				}
+			}
+    	}
+    	return super.interact(p_70085_1_);
     }
 
     class AIAttack extends EntityAIBase

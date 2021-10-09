@@ -208,12 +208,7 @@ public class EtFuturum {
 
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
-		
 		ModRecipes.init();
-//        if(ConfigurationHandler.enableNewNether)
-//            DimensionProviderNether.init(); // Come back to
-		
-		DimensionProviderEnd.init(); // Come back to
 
 		proxy.registerEvents();
 		proxy.registerEntities();
@@ -299,6 +294,11 @@ public class EtFuturum {
 		BlastFurnaceRecipes.init();
 		ConfigBase.setupShulkerBanlist();
 		ItemRawOre.initRawOres();
+		
+//      if(ConfigurationHandler.enableNewNether)
+//		  DimensionProviderNether.init(); // Come back to
+		
+//		DimensionProviderEnd.init(); // Come back to
 	}
 
 	@EventHandler

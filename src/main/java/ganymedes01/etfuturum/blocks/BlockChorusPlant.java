@@ -5,6 +5,7 @@ import java.util.Random;
 
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
+import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
@@ -67,7 +68,7 @@ public class BlockChorusPlant extends Block implements IConfigurable {
 	}
 	
 	private boolean canConnectTo(IBlockAccess world, int x, int y, int z) {
-		return world.getBlock(x, y, z) instanceof BlockChorusPlant || world.getBlock(x, y, z) instanceof BlockChorusFlower || world.getBlock(x, y, z) == Blocks.end_stone;
+		return world.getBlock(x, y, z) instanceof BlockChorusPlant || world.getBlock(x, y, z) instanceof BlockChorusFlower || (world.getBlock(x, y, z) == Blocks.end_stone || (world instanceof World && canPlaceHere((World)world, x, y, z)));
 	}
 
     @Override
@@ -114,7 +115,7 @@ public class BlockChorusPlant extends Block implements IConfigurable {
 
                 Block block1 = world.getBlock(x+enumfacing.getFrontOffsetX(), y-1, z+enumfacing.getFrontOffsetZ());
 
-                if (block1 == this || block1 == Blocks.end_stone)
+                if (block1 == this || canPlaceHere(world, x, y, z))
                 {
                     return true;
                 }
@@ -122,7 +123,11 @@ public class BlockChorusPlant extends Block implements IConfigurable {
         }
 
         Block block2 = world.getBlock(x, y-1, z);
-        return block2 == this || block2 == Blocks.end_stone;
+        return block2 == this || canPlaceHere(world, x, y, z);
+    }
+    
+    public static boolean canPlaceHere(World world, int x, int y, int z) {
+    	return world.getBlock(x, y, z).isReplaceableOreGen(world, x, y, z, Blocks.end_stone);
     }
 
 	@Override

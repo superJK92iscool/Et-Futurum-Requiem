@@ -13,5 +13,7 @@ public class ConfigEntities {
 	public static boolean enableBrownMooshroom;
 	public static boolean enableBabyGrowthBoost;
 	public static float boatMaxLandSpeed;
+	
+	public static boolean shulkersSpawnAnywhere = true;
 
 }

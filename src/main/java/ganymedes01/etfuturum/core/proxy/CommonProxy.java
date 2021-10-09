@@ -78,6 +78,7 @@ public class CommonProxy implements IGuiHandler {
 	public void registerEvents() {
 		FMLCommonHandler.instance().bus().register(ClientEventHandler.INSTANCE);
 		FMLCommonHandler.instance().bus().register(ServerEventHandler.INSTANCE);
+		MinecraftForge.EVENT_BUS.register(ServerEventHandler.INSTANCE);
 		FMLCommonHandler.instance().bus().register(new WorldTickEventHandler());
 	}
 
@@ -181,6 +182,10 @@ public class CommonProxy implements IGuiHandler {
 		if(ConfigEntities.enableShulker) {
 			ModEntityList.registerEntity(EntityShulker.class, "shulker", 16, EtFuturum.instance, 64, 1, false, 0x946794, 0x4D3852);
 			ModEntityList.registerEntity(EntityShulkerBullet.class, "shulker_candy", 17, EtFuturum.instance, 64, 1, true);
+			
+			if(ConfigEntities.shulkersSpawnAnywhere) {
+				EntityRegistry.addSpawn(EntityShulker.class, 2, 1, 2, EnumCreatureType.monster, new BiomeGenBase[] { BiomeGenBase.sky });
+			}
 		}
 		
 		//make magmas slightly more common, hopefully.

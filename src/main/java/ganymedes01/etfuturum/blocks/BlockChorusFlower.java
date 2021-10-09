@@ -88,7 +88,7 @@ public class BlockChorusFlower extends Block implements IConfigurable {
 			boolean canGrowUp = false;
 			boolean isSegmentOnEndstone = false;
 			Block lowerBlock = world.getBlock(x, y - 1, z);
-			if (lowerBlock == Blocks.end_stone)
+			if (BlockChorusPlant.canPlaceHere(world, x, y, z))
 				canGrowUp = true;
 			else if (lowerBlock == ModBlocks.chorus_plant) {
 				int par8 = 1;
@@ -96,7 +96,7 @@ public class BlockChorusFlower extends Block implements IConfigurable {
 				for (height = 0; height < 4; height++) {
 					Block b = world.getBlock(x, y - (par8 + 1), z);
 					if (b != ModBlocks.chorus_plant) {
-						if (b == Blocks.end_stone)
+						if (BlockChorusPlant.canPlaceHere(world, x, y, z))
 							isSegmentOnEndstone = true;
 						break;
 					}
@@ -157,7 +157,7 @@ public class BlockChorusFlower extends Block implements IConfigurable {
 
 	public static boolean canPlantStay(World world, int x, int y, int z) {
 		Block block = world.getBlock(x, y - 1, z);
-		if (block != ModBlocks.chorus_plant && block != Blocks.end_stone) {
+		if (block != ModBlocks.chorus_plant && BlockChorusPlant.canPlaceHere(world, x, y, z)) {
 			if (block.isAir(world, x, y - 1, z)) {
 				int adjecentCount = 0;
 				for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
