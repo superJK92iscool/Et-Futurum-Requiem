@@ -3,6 +3,8 @@ package ganymedes01.etfuturum;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.nio.file.Files;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -168,34 +170,17 @@ public class EtFuturum {
         event.getModMetadata().version = Reference.VERSION_NUMBER; // version 
         
         event.getModMetadata().credits = 		// credits 
-        		EnumChatFormatting.AQUA +
-        		"DelirusCrux, AstroTibs";
+        		Reference.CREDITS;
         
         event.getModMetadata().authorList.clear();
-        event.getModMetadata().authorList.add(  // authorList - added as a list
-        		EnumChatFormatting.BLUE +
-        		"ganymedes01");
-        event.getModMetadata().authorList.add(  // authorList - added as a list
-        		EnumChatFormatting.AQUA +
-        		"Roadhog360");
-        event.getModMetadata().authorList.add(  // authorList - added as a list
-        		EnumChatFormatting.GREEN +
-        		"jss2a98aj");
-        event.getModMetadata().authorList.add(  // authorList - added as a list
-        		EnumChatFormatting.GREEN +
-        		"makamys");
-        event.getModMetadata().authorList.add(  // authorList - added as a list
-        		EnumChatFormatting.GREEN +
-        		"KryptonCapitan");
+    	event.getModMetadata().authorList.addAll(Arrays.asList(Reference.AUTHOR_LIST));	// authorList - added as a list
         
-        event.getModMetadata().url = EnumChatFormatting.GRAY +
-        		Reference.MOD_URL;
+        event.getModMetadata().url = Reference.MOD_URL;
         
         event.getModMetadata().description = 	// description
-	       		EnumChatFormatting.BLUE +
-	       		"Brings the future to now, for real this time.";
+	       		Reference.DESCRIPTION;
         
-        event.getModMetadata().logoFile = "assets/etfuturum/logo.png";
+        event.getModMetadata().logoFile = Reference.LOGO_FILE;
 
 	}
 

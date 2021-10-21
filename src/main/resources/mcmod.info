@@ -1,17 +1,17 @@
 [
 {
   "modid": "etfuturum",
-  "name": "Et Futurum Requiem",
-  "description": "",
-  "version": "",
-  "mcversion": "",
-  "url": "https://www.curseforge.com/minecraft/mc-mods/et-futurum-requiem",
+  "name": "${name}",
+  "description": "${description}",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "${url}",
   "updateUrl": "",
   "authorList": [
-    "ganymedes01", "Roadhog360", "jss2a98aj", "Makamys", "KryptonCaptain"
+    "${authorList}"
   ],
-  "credits": "",
-  "logoFile": "",
+  "credits": "${credits}",
+  "logoFile": "${logoFile}",
   "screenshots": [],
   "dependencies": []
 }

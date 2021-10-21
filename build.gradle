@@ -32,6 +32,20 @@ group = "ganymedes01.etfuturum"
 archivesBaseName = "Et_Futurum_Requiem"
 version = "2.2.2"
 
+// Run `./gradlew clean` when the metadata changes, otherwise the in-game meta (ForgeGradle's substitution) will remain stale.
+
+def authorList = ["\u00A79ganymedes01", "\u00A7bRoadhog360", "\u00A7ajss2a98aj", "\u00A7amakamys", "\u00A7aKryptonCaptain"]
+def meta = [
+	name: "Et Futurum Requiem",
+	version: version,
+	mcversion: "1.7.10",
+	credits: "\u00A7bDelirusCrux, AstroTibs",
+	authorList: authorList.join('", "'),
+	url: "\u00A77https://www.curseforge.com/minecraft/mc-mods/et-futurum-requiem",
+	description: "\u00A79Brings the future to now, for real this time.",
+	logoFile: "assets/etfuturum/logo.png"
+]
+
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 compileJava.options.bootClasspath = org.gradle.internal.jvm.Jvm.current().getJre().getHomeDir().toString() +"/lib/rt.jar"
@@ -55,14 +69,16 @@ dependencies {
 minecraft {
 	version = "1.7.10-10.13.4.1614-1.7.10"
 	runDir = "eclipse/assets"
-	replaceIn 'reference.java'
-	replace "@VERSION@", project.version
+	replaceIn 'ganymedes01/etfuturum/lib/Reference.java'
+	meta.each { k, v -> replace "@${k.toUpperCase()}@", v }
 }
 
 processResources {
+	// this will ensure that this task is redone when the versions change.
+	inputs.properties meta
 	from(sourceSets.main.resources.srcDirs) {
 		include 'mcmod.info'
-		expand 'version': project.version, 'mcversion': project.minecraft.version
+		expand meta.collectEntries { k, v -> [k, v.replaceAll("\u00A7.", "")] } // strip formatting
 	 }
 
 	from(sourceSets.main.resources.srcDirs) {
