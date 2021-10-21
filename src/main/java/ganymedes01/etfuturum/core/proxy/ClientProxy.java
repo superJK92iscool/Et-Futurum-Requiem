@@ -7,7 +7,6 @@ import com.mojang.authlib.minecraft.MinecraftSessionService;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.relauncher.ReflectionHelper;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.client.model.ModelShulker;
 import ganymedes01.etfuturum.client.renderer.block.BlockBarrelRenderer;
@@ -51,7 +50,6 @@ import ganymedes01.etfuturum.client.skins.NewSkinManager;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigEntities;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
-import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.handlers.ClientEventHandler;
 import ganymedes01.etfuturum.entities.EntityArmourStand;
 import ganymedes01.etfuturum.entities.EntityBrownMooshroom;
@@ -163,7 +161,7 @@ public class ClientProxy extends CommonProxy {
 			RenderingRegistry.registerEntityRenderingHandler(EntityArmourStand.class, new ArmourStandRenderer());
 		if (ConfigEntities.enableEndermite)
 			RenderingRegistry.registerEntityRenderingHandler(EntityEndermite.class, new EndermiteRenderer());
-		if (ConfigBlocksItems.enableRabbit)
+		if (ConfigEntities.enableRabbit)
 			RenderingRegistry.registerEntityRenderingHandler(EntityRabbit.class, new RabbitRenderer());
 		
 		if (ConfigEntities.enableHusk)
@@ -180,13 +178,13 @@ public class ClientProxy extends CommonProxy {
 		if (ConfigEntities.enableVillagerZombies)
 			RenderingRegistry.registerEntityRenderingHandler(EntityZombieVillager.class, new VillagerZombieRenderer());
 		
-		if (ConfigWorld.enableDragonRespawn)
+		if (ConfigEntities.enableDragonRespawn)
 			RenderingRegistry.registerEntityRenderingHandler(EntityPlacedEndCrystal.class, new PlacedEndCrystalRenderer());
 
 		if (ConfigEntities.enableBrownMooshroom)
 			RenderingRegistry.registerEntityRenderingHandler(EntityBrownMooshroom.class, new BrownMooshroomRenderer());
 
-		if(ConfigEntities.enableNewBoats)
+		if(ConfigBlocksItems.enableNewBoats)
 			RenderingRegistry.registerEntityRenderingHandler(EntityNewBoat.class, new NewBoatRenderer());
 		
 		if(ConfigEntities.enableShulker) {
@@ -196,14 +194,13 @@ public class ClientProxy extends CommonProxy {
 		
 		if (ConfigFunctions.enablePlayerSkinOverlay) {
 			TextureManager texManager = Minecraft.getMinecraft().renderEngine;
-			File fileAssets = ReflectionHelper.getPrivateValue(Minecraft.class, Minecraft.getMinecraft(), "fileAssets", "field_110446_Y", " field_110607_c");
-			File skinFolder = new File(fileAssets, "skins");
+			File skinFolder = new File(Minecraft.getMinecraft().fileAssets, "skins");
 			MinecraftSessionService sessionService = Minecraft.getMinecraft().func_152347_ac();
-			ReflectionHelper.setPrivateValue(Minecraft.class, Minecraft.getMinecraft(), new NewSkinManager(Minecraft.getMinecraft().func_152342_ad(), texManager, skinFolder, sessionService), "field_152350_aA");
+			Minecraft.getMinecraft().field_152350_aA = new NewSkinManager(Minecraft.getMinecraft().func_152342_ad(), texManager, skinFolder, sessionService);
 
 			RenderManager.instance.entityRenderMap.put(EntityPlayer.class, new NewRenderPlayer());
 		}
-		if (ConfigFunctions.enableShearableGolems)
+		if (ConfigEntities.enableShearableSnowGolems)
 			RenderingRegistry.registerEntityRenderingHandler(EntityNewSnowGolem.class, new NewSnowGolemRenderer());
 	}
 }

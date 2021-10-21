@@ -62,11 +62,10 @@ public class ItemRawOre extends ItemGeneric implements IConfigurable {
 		}
 	}
 	
-	public static void initRawOres() {
+	public static void init() {
 		if(((IConfigurable)(ModItems.raw_ore)).isEnabled()) {
-			CreativeTabs tab = ModItems.raw_ore.getCreativeTab();
 			if(ConfigBlocksItems.enableCopper || !OreDictionary.getOres("oreCopper").isEmpty()) {
-				ItemRawOre.rawOreRegistry.put("oreCopper", new RawOreDropMapping(ModItems.raw_ore, 0, ConfigWorld.enableExtraCopper || ArrayUtils.contains(ConfigWorld.extraDropRawOres, "oreCopper")));
+				ItemRawOre.rawOreRegistry.put("oreCopper", new RawOreDropMapping(ModItems.raw_ore, 0));
 			}
 			ItemRawOre.rawOreRegistry.put("oreIron", new RawOreDropMapping(ModItems.raw_ore, 1));
 			ItemRawOre.rawOreRegistry.put("oreGold", new RawOreDropMapping(ModItems.raw_ore, 2));

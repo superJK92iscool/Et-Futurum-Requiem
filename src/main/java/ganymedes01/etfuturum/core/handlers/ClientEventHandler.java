@@ -60,13 +60,16 @@ public class ClientEventHandler {
 	public WeightedSoundPool crimsonForest = new WeightedSoundPool();
 	public WeightedSoundPool warpedForest = new WeightedSoundPool();
 	public WeightedSoundPool soulSandValley = new WeightedSoundPool();
+	
+	public WeightedSoundPool underwater = new WeightedSoundPool();
 
 	public WeightedSoundPool netherWastesMusic = new WeightedSoundPool();
 	public WeightedSoundPool basaltDeltasMusic = new WeightedSoundPool();
 	public WeightedSoundPool crimsonForestMusic = new WeightedSoundPool();
 	public WeightedSoundPool warpedForestMusic = new WeightedSoundPool();
 	public WeightedSoundPool soulSandValleyMusic = new WeightedSoundPool();
-	public WeightedSoundPool underWaterMusic = new WeightedSoundPool();
+	
+	public WeightedSoundPool underwaterMusic = new WeightedSoundPool();
 	
 	private ClientEventHandler() {
 		netherWastes.addEntry("ambient.nether_wastes.additions.w1", 9);

@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.client.gui;
+package ganymedes01.etfuturum.client.gui.inventory;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;

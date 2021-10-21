@@ -40,9 +40,11 @@ public class BlockDeepslateOre extends BlockOre implements IConfigurable {
 	
 	public static void setAttribs(Block to, Block from) {
 		EtFuturum.copyAttribs(to, from);
-		to.setHardness(EtFuturum.getBlockHardness(from) * 1.5F);
-		to.setBlockName(Utils.getUnlocalisedName("deepslate_" + EtFuturum.getTextureName(from)));
-		to.setBlockTextureName("deepslate_" + EtFuturum.getTextureName(from));
+		to.setHardness(from.blockHardness * 1.5F);
+		//We use the texture name because texture naming conventions look just like namespaced IDs.
+		//Block.blockRegistry.getNameFor does not work in preInit
+		to.setBlockName(Utils.getUnlocalisedName("deepslate_" + from.textureName.toLowerCase()));
+		to.setBlockTextureName("deepslate_" + from.textureName);
 		to.setStepSound(ConfigWorld.enableNewBlocksSounds ? ModSounds.soundDeepslate : soundTypeStone);
 		to.setCreativeTab(((IConfigurable)to).isEnabled() ? EtFuturum.creativeTabBlocks : null);
 		to.setLightLevel(from.getLightValue() / 15F);
@@ -305,4 +307,6 @@ public class BlockDeepslateOre extends BlockOre implements IConfigurable {
 	{
 		return base.collisionRayTrace(p_149731_1_, p_149731_2_, p_149731_3_, p_149731_4_, p_149731_5_, p_149731_6_);
 	}
+	
+	//TODO: Add stuff like getBlockHardness, maybe?
 }

@@ -5,7 +5,6 @@ import java.util.List;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.blocks.BlockGlazedTerracotta;
-import ganymedes01.etfuturum.client.renderer.tileentity.TileEntityShulkerBoxRenderer;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.dispenser.DispenserBehaviourShulkerBox;
@@ -24,8 +23,10 @@ public class ItemShulkerBox extends ItemBlock {
 
 	public ItemShulkerBox(Block p_i45328_1_) {
 		super(p_i45328_1_);
-		if(ConfigBlocksItems.enableShulkerBoxes)
+		if(ConfigBlocksItems.enableShulkerBoxes) {
 			BlockDispenser.dispenseBehaviorRegistry.putObject(this, new DispenserBehaviourShulkerBox());
+		}
+		this.setMaxStackSize(1);
 	}
 	
 	@Override
@@ -38,8 +39,8 @@ public class ItemShulkerBox extends ItemBlock {
     public String getUnlocalizedName(ItemStack stack)
     {
     	String string = field_150939_a.getUnlocalizedName().substring(15);
-    	if(stack.getItemDamage() % TileEntityShulkerBoxRenderer.tiers.length > 0) {
-    		string = TileEntityShulkerBoxRenderer.tiers[(stack.getItemDamage() - 1) % TileEntityShulkerBoxRenderer.tiers.length] + "_" + string;
+    	if(stack.getItemDamage() % TileEntityShulkerBox.tiers.length > 0) {
+    		string = TileEntityShulkerBox.tiers[(stack.getItemDamage() - 1) % TileEntityShulkerBox.tiers.length] + "_" + string;
     	}
     	if(stack.hasTagCompound()) {
         	if(stack.getTagCompound().hasKey("Color") && stack.getTagCompound().getByte("Color") > 0) {

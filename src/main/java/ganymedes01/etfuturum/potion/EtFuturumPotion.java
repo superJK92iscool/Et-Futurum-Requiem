@@ -2,6 +2,9 @@ package ganymedes01.etfuturum.potion;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import ganymedes01.etfuturum.configuration.configs.ConfigEnchantsPotions;
+import ganymedes01.etfuturum.configuration.configs.ConfigEntities;
+import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.attributes.BaseAttributeMap;
 import net.minecraft.entity.player.EntityPlayer;
@@ -13,15 +16,17 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ResourceLocation;
 
 public class EtFuturumPotion extends Potion {
-    protected EtFuturumPotion(int p_i1573_1_, boolean p_i1573_2_, int p_i1573_3_) {
-        super(p_i1573_1_, p_i1573_2_, p_i1573_3_);
+    protected EtFuturumPotion(int id, boolean isBad, int color) {
+        super(id, isBad, color);
     }
 
-    private static final ResourceLocation POTION_ICONS = new ResourceLocation("etfuturum:textures/gui/container/potions.png");
+    private static final ResourceLocation POTION_ICONS = new ResourceLocation(Reference.MOD_ID + ":textures/gui/container/potions.png");
     public static Potion levitation;
     
     public static void init() {
-        levitation = new PotionLevitation(24, true, 0xFFFFFF);
+    	if(ConfigEntities.enableShulker) {
+            levitation = new PotionLevitation(ConfigEnchantsPotions.levitationID, true, 0xFFFFFF);
+    	}
     }
     
     /**
@@ -68,7 +73,7 @@ public class EtFuturumPotion extends Potion {
         }
     }
     
-    /*
+    /**
      * The super type of this method is vanilla potion effects, most of them are hard-coded into one class.
      * Empty method added with warning to prevent me accidentally messing up my potion by calling its parent.
      */
@@ -76,6 +81,7 @@ public class EtFuturumPotion extends Potion {
     public void performEffect(EntityLivingBase entity, int level) {
     	System.err.println("super.performEffect called its super. This shouldn't be done.");
     	System.err.println("Remove the super call from " + getClass());
+    	System.err.println("If you are seeing this, this is an Et Futurum Requiem bug.");
     }
     
     private boolean shouldSync(EntityLivingBase entity) {

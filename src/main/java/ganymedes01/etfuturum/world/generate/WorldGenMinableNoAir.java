@@ -11,7 +11,8 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 
 /** Derived from Mojang code, due to all the private variables stopping me from extending the class.
  * Reflections not used for performance.
- * This code is copyright of Mojang, all rights reserved. */
+ * This code is copyright of Mojang, all rights reserved, to them, or however copyright works.
+ * Idfk Mojang please don't sue me lmao */
 public class WorldGenMinableNoAir extends WorldGenerator
 {
 	private Block field_150519_a;

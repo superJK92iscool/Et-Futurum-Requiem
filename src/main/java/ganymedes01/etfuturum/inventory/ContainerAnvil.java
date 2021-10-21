@@ -5,14 +5,12 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
-import cpw.mods.fml.relauncher.ReflectionHelper;
 import ganymedes01.etfuturum.ModBlocks;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.ContainerRepair;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
@@ -20,8 +18,6 @@ import net.minecraftforge.common.ForgeHooks;
 public class ContainerAnvil extends ContainerRepair {
 
 	private final EntityPlayer player;
-	private IInventory inputSlots = null;
-	private IInventory outputSlot = null;
 	private String repairedItemName;
 	private final int x, y, z;
 	private final World world;
@@ -33,9 +29,6 @@ public class ContainerAnvil extends ContainerRepair {
 		this.y = y;
 		this.z = z;
 		this.world = world;
-
-		inputSlots = ReflectionHelper.getPrivateValue(ContainerRepair.class, this, "inputSlots", "field_82853_g");
-		outputSlot = ReflectionHelper.getPrivateValue(ContainerRepair.class, this, "outputSlot", "field_82852_f");
 	}
 
 	@Override

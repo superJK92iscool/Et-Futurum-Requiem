@@ -2,12 +2,10 @@ package ganymedes01.etfuturum.client;
 
 import java.lang.reflect.Field;
 
-import cpw.mods.fml.relauncher.ReflectionHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureUtil;
-import net.minecraft.client.resources.data.AnimationMetadataSection;
 
 @SideOnly(Side.CLIENT)
 public class InterpolatedIcon extends TextureAtlasSprite {
@@ -17,8 +15,6 @@ public class InterpolatedIcon extends TextureAtlasSprite {
 
 	public InterpolatedIcon(String name) {
 		super(name);
-		fanimationMetadata = ReflectionHelper.findField(TextureAtlasSprite.class, "animationMetadata", "field_110982_k");
-		fanimationMetadata.setAccessible(true);
 	}
 
 	@Override
@@ -31,7 +27,6 @@ public class InterpolatedIcon extends TextureAtlasSprite {
 	}
 
 	private void updateAnimationInterpolated() throws IllegalArgumentException, IllegalAccessException {
-		AnimationMetadataSection animationMetadata = (AnimationMetadataSection) fanimationMetadata.get(this);
 
 		double d0 = 1.0D - tickCounter / (double) animationMetadata.getFrameTimeSingle(frameCounter);
 		int i = animationMetadata.getFrameIndex(frameCounter);

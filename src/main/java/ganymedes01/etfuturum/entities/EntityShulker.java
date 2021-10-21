@@ -6,7 +6,7 @@ import java.util.UUID;
 import org.apache.commons.lang3.ArrayUtils;
 
 import ganymedes01.etfuturum.ModItems;
-import ganymedes01.etfuturum.configuration.configs.ConfigBedrockParity;
+import ganymedes01.etfuturum.configuration.configs.ConfigTweaks;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.entities.ai.BlockPos;
 import ganymedes01.etfuturum.lib.Reference;
@@ -72,7 +72,7 @@ public class EntityShulker extends EntityGolem implements IMob {
 
     protected boolean canDespawn()
     {
-        return isNoDespawnRequired();
+        return !isNoDespawnRequired();
     }
 
 	@Override
@@ -714,7 +714,7 @@ public class EntityShulker extends EntityGolem implements IMob {
     public boolean interact(EntityPlayer p_70085_1_)
     {
     	ItemStack stack = p_70085_1_.getCurrentEquippedItem();
-    	if(ConfigBedrockParity.dyedShulkers && stack != null) {
+    	if(ConfigTweaks.dyableShulkers && stack != null) {
     		if(stack.getItem() instanceof ItemBucket) {
     			System.out.println(((ItemBucket)stack.getItem()).isFull);
     		}

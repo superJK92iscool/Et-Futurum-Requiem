@@ -2,11 +2,14 @@ package ganymedes01.etfuturum.world;
 
 import java.util.Random;
 
+import org.apache.commons.lang3.ArrayUtils;
+
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.blocks.BlockNewStone;
 import ganymedes01.etfuturum.blocks.BlockTuff;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.world.generate.BlockAndMetadataMapping;
 import ganymedes01.etfuturum.world.generate.WorldGenDeepslateBlob;
@@ -35,27 +38,6 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 			}
 		}
 		
-//		if (world.getWorldInfo().getTerrainType() != WorldType.FLAT && ConfigBlocksItems.enableDeepslate && ConfigBase.deepslateGenerationMode == 0 && world.provider.dimensionId == 0) {
-//			for (int x = chunkX * 16; x < (chunkX * 16) + 16; x++) {
-//				for (int z = chunkZ * 16; z < (chunkZ * 16) + 16; z++) {
-//					for (int y = 0; y <= ConfigBase.deepslateMaxY; y++) {
-//						Block block = world.getBlock(x, y, z);
-//						if(y < ConfigBase.deepslateMaxY - 4 || world.rand.nextInt(y > ConfigBase.deepslateMaxY - 2 ? 3 : 2) == 0) {
-//							BlockAndMetadataMapping mapping = EtFuturum.deepslateOres.get(new BlockAndMetadataMapping(block, world.getBlockMetadata(x, y, z)));
-//							if(mapping != null) {
-//								world.setBlock(x, y, z, mapping.getOre(), mapping.getMeta(), 2);
-//							} else
-//							if((ConfigBase.deepslateReplacesDirt && block.isReplaceableOreGen(world, x, y, z, Blocks.dirt))
-//									|| (block.isReplaceableOreGen(world, x, y, z, Blocks.stone) && (ConfigBase.deepslateReplacesStones ? true : !(block instanceof BlockNewStone)))
-//									&& !(block instanceof BlockTuff)) {
-//								world.setBlock(x, y, z, ModBlocks.deepslate, 0, 2);
-//							}
-//						}
-//					}
-//				}
-//			}
-//		}
-//		
 		if(world.getWorldInfo().getTerrainType() != WorldType.FLAT || world.getWorldInfo().getGeneratorOptions().contains("decoration") || world.provider.dimensionId != 0) {
 			if(ConfigBlocksItems.enableDeepslate && ConfigWorld.deepslateGenerationMode == 1 && world.provider.dimensionId != -1 && world.provider.dimensionId != 1) {
 				int x = chunkX * 16 + rand.nextInt(16);
@@ -66,6 +48,27 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 				int x = chunkX * 16 + rand.nextInt(16);
 				int z = chunkZ * 16 + rand.nextInt(16);
 				new WorldGenTuffBlob(ConfigWorld.maxTuffPerCluster).generate(world, rand, x, rand.nextInt(ConfigWorld.deepslateMaxY), z);
+			}
+		}
+		
+		if (!ConfigMixins.deepslateLayerOptimization && ConfigBlocksItems.enableDeepslate && ConfigWorld.deepslateGenerationMode == 0 && ConfigWorld.deepslateMaxY > 0 && world.getWorldInfo().getTerrainType() != WorldType.FLAT && !ArrayUtils.contains(ConfigWorld.deepslateLayerDimensionBlacklist, world.provider.dimensionId)) {
+			for (int x = chunkX * 16; x < (chunkX * 16) + 16; x++) {
+				for (int z = chunkZ * 16; z < (chunkZ * 16) + 16; z++) {
+					for (int y = 0; y <= ConfigWorld.deepslateMaxY; y++) {
+						Block block = world.getBlock(x, y, z);
+						if(y < ConfigWorld.deepslateMaxY - 4 || world.rand.nextInt(y > ConfigWorld.deepslateMaxY - 2 ? 3 : 2) == 0) {
+							BlockAndMetadataMapping mapping = EtFuturum.deepslateOres.get(new BlockAndMetadataMapping(block, world.getBlockMetadata(x, y, z)));
+							if(mapping != null) {
+								world.setBlock(x, y, z, mapping.getOre(), mapping.getMeta(), 2);
+							} else
+							if((ConfigWorld.deepslateReplacesDirt && block.isReplaceableOreGen(world, x, y, z, Blocks.dirt))
+									|| (block.isReplaceableOreGen(world, x, y, z, Blocks.stone) && (ConfigWorld.deepslateReplacesStones ? true : !(block instanceof BlockNewStone)))
+									&& !(block instanceof BlockTuff)) {
+								world.setBlock(x, y, z, ModBlocks.deepslate, 0, 2);
+							}
+						}
+					}
+				}
 			}
 		}
 	}

@@ -9,6 +9,10 @@ enchantment.waterWalker=Depth Strider
 enchantment.binding_curse=§cCurse of Binding
 enchantment.vanishing_curse=§cCurse of Vanishing
 
+# Potions
+potion.levitation=Levitation
+potion.levitation.postfix=Potion of Levitation
+
 # Containers
 container.etfuturum.banner=Banner
 container.enchant.lapis.one=1 Lapis Lazuli

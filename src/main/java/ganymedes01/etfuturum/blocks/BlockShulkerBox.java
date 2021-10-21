@@ -8,7 +8,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.ModBlocks.ISubBlocksBlock;
-import ganymedes01.etfuturum.client.renderer.tileentity.TileEntityShulkerBoxRenderer;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.items.block.ItemShulkerBox;
@@ -43,7 +42,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public class BlockShulkerBox extends BlockContainer implements IConfigurable, ISubBlocksBlock {
 	
-	@SideOnly(Side.CLIENT)
+//	@SideOnly(Side.CLIENT)
 	public IIcon[] colorIcons = new IIcon[17];
 
 	public BlockShulkerBox() {
@@ -60,7 +59,7 @@ public class BlockShulkerBox extends BlockContainer implements IConfigurable, IS
 	
     public int damageDropped(int i)
     {
-        return ConfigBlocksItems.enableIronShulkerBoxes ? i % (TileEntityShulkerBoxRenderer.tiers.length + 1) : 0;
+        return ConfigBlocksItems.enableIronShulkerBoxes ? i % (TileEntityShulkerBox.tiers.length + 1) : 0;
     }
 
     @Override

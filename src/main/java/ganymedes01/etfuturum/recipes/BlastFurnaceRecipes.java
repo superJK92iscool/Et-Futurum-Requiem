@@ -36,19 +36,6 @@ public class BlastFurnaceRecipes
 
 	@SuppressWarnings("unchecked")
 	public static void init() {
-		if(ConfigFunctions.enableMeltGear) {
-			Item[][] crafts = new Item[][] {
-				{Items.golden_helmet, Items.golden_chestplate, Items.golden_leggings, Items.golden_boots, Items.golden_sword, Items.golden_pickaxe,
-					Items.golden_axe, Items.golden_shovel, Items.golden_hoe, Items.golden_horse_armor,
-				Items.iron_helmet, Items.iron_chestplate, Items.iron_leggings, Items.iron_boots, Items.iron_sword, Items.iron_pickaxe,
-					Items.iron_axe, Items.iron_shovel, Items.iron_hoe, Items.iron_horse_armor},
-				{Items.gold_nugget, ModItems.iron_nugget}};
-			for(int i = 0; i < crafts[0].length; i++) {
-				if(!ConfigBlocksItems.enableIronNugget && i > 9)
-					break;
-				smeltingBase.addRecipe(crafts[0][i], new ItemStack(crafts[1][i > 9 ? 1 : 0]), .1F);
-			}
-		}
 		if(ConfigFunctions.enableAutoAddBlastFurnace) {
 			Iterator<Entry<ItemStack, ItemStack>> iterator = FurnaceRecipes.smelting().getSmeltingList().entrySet().iterator();
 			while (iterator.hasNext()) {
@@ -96,6 +83,19 @@ public class BlastFurnaceRecipes
 			smeltingBase.addRecipe(Blocks.redstone_ore, new ItemStack(Items.redstone), 0.7F);
 			smeltingBase.addRecipe(Blocks.lapis_ore, new ItemStack(Items.dye, 1, 4), 0.2F);
 			smeltingBase.addRecipe(Blocks.quartz_ore, new ItemStack(Items.quartz), 0.2F);
+		}
+		if(ConfigFunctions.enableMeltGear) {
+			Item[][] crafts = new Item[][] {
+				{Items.golden_helmet, Items.golden_chestplate, Items.golden_leggings, Items.golden_boots, Items.golden_sword, Items.golden_pickaxe,
+					Items.golden_axe, Items.golden_shovel, Items.golden_hoe, Items.golden_horse_armor,
+				Items.iron_helmet, Items.iron_chestplate, Items.iron_leggings, Items.iron_boots, Items.iron_sword, Items.iron_pickaxe,
+					Items.iron_axe, Items.iron_shovel, Items.iron_hoe, Items.iron_horse_armor},
+				{Items.gold_nugget, ModItems.iron_nugget}};
+			for(int i = 0; i < crafts[0].length; i++) {
+				if(!ConfigBlocksItems.enableIronNugget && i > 9)
+					break;
+				smeltingBase.addRecipe(crafts[0][i], new ItemStack(crafts[1][i > 9 ? 1 : 0]), .1F);
+			}
 		}
 	}
 

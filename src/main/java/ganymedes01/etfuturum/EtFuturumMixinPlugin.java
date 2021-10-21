@@ -12,18 +12,22 @@ import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
 import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigEnchantsPotions;
+import ganymedes01.etfuturum.configuration.configs.ConfigEntities;
+import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
+import ganymedes01.etfuturum.configuration.configs.ConfigTweaks;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.launchwrapper.Launch;
 
 public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 	
+	public static boolean launchConfigWarning;
+	
 	@Override
 	public void onLoad(String mixinPackage) {
 		final String configDir = "config" + File.separator + Reference.MOD_ID;
-
-		ConfigMixins.loadMixinConfig(new File(Launch.minecraftHome, "config" + File.separator + Reference.MOD_ID + File.separator + "mixins.cfg"));
 		
 //		File from before Et Futurum Requiem (Not in a subdirectory)
 		File olderFile = new File(Launch.minecraftHome, "config" + File.separator + "etfuturum.cfg");
@@ -38,10 +42,37 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 				e.printStackTrace();
 			}
 			olderFile.delete();
+			launchConfigWarning = true;
 		}
 		
+		if(oldFile.exists()) {
+			launchConfigWarning = true;
+		}
+		
+		//TODO: Add options for...
+		//End gateway beam color
+		//Deepslate replaces cobblestone
+		//End portal overhaul
+		//Mixin Floor/Ceil buttons
+		//Mixin Floor/Ceil item frames
+		//Better end gateway rendering
+		//Mixin Damage sounds
+		//Mixin Remove vanilla dyes from oreDict pool
+		//Mixin for no parent achievement requirement
+		//Tweak for stone splatters in the ground like beta
+		//Mixin for cows having 1024 to output the opposite type baby
+
+		ConfigBlocksItems.configInstance.syncOptions();
+		ConfigEnchantsPotions.configInstance.syncOptions();
+		ConfigFunctions.configInstance.syncOptions();
+		ConfigTweaks.configInstance.syncOptions();
+		ConfigWorld.configInstance.syncOptions();
+		ConfigEntities.configInstance.syncOptions();
+
+		ConfigMixins.configInstance.syncOptions();
+		
 //		if(oldFile.exists()) {
-			ConfigBase.loadBaseConfig(oldFile);
+//			ConfigBase.loadBaseConfig(oldFile);
 //		}
 	}
 
@@ -63,11 +94,9 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 	public List<String> getMixins() {
 		List<String> mixins = new ArrayList<>();
 		
-		if(ConfigMixins.fireArrowsDetonateTNTCarts) {
-			mixins.add("MixinEntityMinecartTNT");
-		}
+		mixins.add("MixinBlockEndPortal");
 		
-		if(ConfigMixins.deepslateLayerOptimization && ConfigWorld.deepslateGenerationMode == 0) {
+		if(ConfigMixins.deepslateLayerOptimization && ConfigWorld.deepslateGenerationMode == 0 && ConfigBlocksItems.enableDeepslate && ConfigWorld.deepslateMaxY > 0) {
 			mixins.add("MixinChunkProviderGenerate");
 			if(ConfigWorld.deepslateReplacesDirt || ConfigWorld.deepslateReplacesStones || ConfigBlocksItems.enableDeepslateOres) {
 				mixins.add("MixinWorldGenMinable");

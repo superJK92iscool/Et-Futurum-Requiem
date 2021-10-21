@@ -3,7 +3,6 @@ package ganymedes01.etfuturum;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -20,18 +19,17 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLInterModComms.IMCEvent;
 import cpw.mods.fml.common.event.FMLInterModComms.IMCMessage;
 import cpw.mods.fml.common.event.FMLLoadCompleteEvent;
-import cpw.mods.fml.common.event.FMLModIdMappingEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
-import cpw.mods.fml.common.registry.ExistingSubstitutionException;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ganymedes01.etfuturum.blocks.replace.BlockNewEndPortal;
+import ganymedes01.etfuturum.blocks.BlockDeepslate;
+import ganymedes01.etfuturum.blocks.ores.BlockDeepslateOre;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
@@ -41,7 +39,6 @@ import ganymedes01.etfuturum.core.proxy.CommonProxy;
 import ganymedes01.etfuturum.core.utils.HoeHelper;
 import ganymedes01.etfuturum.entities.ModEntityList;
 import ganymedes01.etfuturum.items.ItemRawOre;
-import ganymedes01.etfuturum.items.block.ItemEndPortal;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.network.ArmourStandInteractHandler;
 import ganymedes01.etfuturum.network.ArmourStandInteractMessage;
@@ -49,6 +46,7 @@ import ganymedes01.etfuturum.network.BlackHeartParticlesHandler;
 import ganymedes01.etfuturum.network.BlackHeartParticlesMessage;
 import ganymedes01.etfuturum.network.WoodSignOpenHandler;
 import ganymedes01.etfuturum.network.WoodSignOpenMessage;
+import ganymedes01.etfuturum.plugins.waila.WailaRegistrar;
 import ganymedes01.etfuturum.potion.EtFuturumPotion;
 import ganymedes01.etfuturum.recipes.BlastFurnaceRecipes;
 import ganymedes01.etfuturum.recipes.BrewingFuelRegistry;
@@ -56,14 +54,15 @@ import ganymedes01.etfuturum.recipes.ModRecipes;
 import ganymedes01.etfuturum.recipes.SmokerRecipes;
 import ganymedes01.etfuturum.world.EtFuturumLateWorldGenerator;
 import ganymedes01.etfuturum.world.EtFuturumWorldGenerator;
-import ganymedes01.etfuturum.world.end.dimension.DimensionProviderEnd;
 import ganymedes01.etfuturum.world.generate.BlockAndMetadataMapping;
 import ganymedes01.etfuturum.world.generate.OceanMonument;
-import ganymedes01.etfuturum.world.generate.RawOreDropMapping;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCrops;
+import net.minecraft.block.BlockHay;
+import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockNetherWart;
 import net.minecraft.block.BlockOre;
+import net.minecraft.block.BlockSponge;
 import net.minecraft.block.BlockTrapDoor;
 import net.minecraft.block.BlockVine;
 import net.minecraft.creativetab.CreativeTabs;
@@ -72,12 +71,9 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
-import net.minecraft.launchwrapper.Launch;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.stats.StatCrafting;
-import net.minecraft.stats.StatList;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
@@ -128,22 +124,17 @@ public class EtFuturum {
 	
 	public static boolean netherAmbienceNetherlicious;
 	public static boolean netherMusicNetherlicious;
-	private Configuration Netherlicious;
+	private Configuration netherliciousSoundConfig;
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		ConfigBase.preInit();
 		ModBlocks.init();
 		ModItems.init();
-		try {
-			Block block = new BlockNewEndPortal();
-			GameRegistry.addSubstitutionAlias("minecraft:end_portal", GameRegistry.Type.BLOCK, block);
-			GameRegistry.addSubstitutionAlias("minecraft:end_portal", GameRegistry.Type.ITEM, new ItemEndPortal(block));
-		} catch (ExistingSubstitutionException e) {
-			System.err.println("Something already overrides the end portal block, can't use backported item icon!");
-			e.printStackTrace();
-		}
 		ModEnchantments.init();
+//      if(ConfigurationHandler.enableNewNether) {
+//			NetherBiomeManager.init(); // Come back to
+//		}
 
 		GameRegistry.registerWorldGenerator(new EtFuturumWorldGenerator(), 0);
 		GameRegistry.registerWorldGenerator(new EtFuturumLateWorldGenerator(), Integer.MAX_VALUE);
@@ -157,16 +148,18 @@ public class EtFuturum {
 		networkWrapper.registerMessage(WoodSignOpenHandler.class, WoodSignOpenMessage.class, 3, Side.CLIENT);   
 		{
 			if (Loader.isModLoaded("netherlicious")) {
-				Netherlicious = new Configuration(
-						new File(event.getModConfigurationDirectory() + "/netherlicious/Biome_Sound_Configuration.cfg"));
-				netherAmbienceNetherlicious = Netherlicious.get("1 nether ambience", "Allow Biome specific sounds to play", true).getBoolean();
-				netherMusicNetherlicious = Netherlicious.get("2 biome music", "1 Replace the Music System in the Nether, to allow Biome specific Music. Default Music will still play sometimes", true).getBoolean();
+				File file = new File(event.getModConfigurationDirectory() + "/netherlicious/Biome_Sound_Configuration.cfg");
+				if(file.exists()) {
+					netherliciousSoundConfig = new Configuration(file);
+					netherAmbienceNetherlicious = netherliciousSoundConfig.get("1 nether ambience", "Allow Biome specific sounds to play", true).getBoolean();
+					netherMusicNetherlicious = netherliciousSoundConfig.get("2 biome music", "1 Replace the Music System in the Nether, to allow Biome specific Music. Default Music will still play sometimes", true).getBoolean();
+				}
 			}
-		}      
-//        if(ConfigurationHandler.enableNewNether)
-//          NetherBiomeManager.init(); // Come back to
+		}
 		
 		//Define mod data here instead of in mcmod.info, adapted from Village Names.
+		//Thanks AstroTibs!
+		
         event.getModMetadata().autogenerated = false ; // stops it from complaining about missing mcmod.info
         
         event.getModMetadata().name = 			// name 
@@ -209,7 +202,11 @@ public class EtFuturum {
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
 		ModRecipes.init();
-
+		
+		if(Loader.isModLoaded("Waila")) {
+			WailaRegistrar.register();
+		}
+		
 		proxy.registerEvents();
 		proxy.registerEntities();
 		proxy.registerRenderers();
@@ -233,13 +230,13 @@ public class EtFuturum {
 			setFinalField(ItemFood.class, Items.baked_potato, 5, "healAmount", "field_77853_b");
 		}
 
-		if (ConfigWorld.enableUpdatedHarvestLevels) {
+		if (ConfigFunctions.enableUpdatedHarvestLevels) {
 			Blocks.packed_ice.setHarvestLevel("pickaxe", 0);
 			Blocks.ladder.setHarvestLevel("axe", 0);
 			Blocks.melon_block.setHarvestLevel("axe", 0);
 		}
 		
-		if(ConfigWorld.enableFloatingTrapDoors) {
+		if(ConfigFunctions.enableFloatingTrapDoors) {
 			BlockTrapDoor.disableValidation = true;
 		}
 		
@@ -250,16 +247,34 @@ public class EtFuturum {
 		Items.blaze_rod.setFull3D();
 		Blocks.trapped_chest.setCreativeTab(CreativeTabs.tabRedstone);
 		
-		if(ConfigWorld.enableHoeMining) {
-			HoeHelper.init();
-		}
+		EtFuturumPotion.init();
+	}
+	
+	@EventHandler
+	public void onLoadComplete(FMLLoadCompleteEvent e){
+		BlockDeepslate.init();
+		SmokerRecipes.init();
+		BlastFurnaceRecipes.init();
+		ItemRawOre.init();
+		ConfigBase.setupShulkerBanlist();
 		
-		if(ConfigWorld.enableNewBlocksSounds) {
-			Iterator<Block> iterator = Block.blockRegistry.iterator();
-			while(iterator.hasNext()) {
-				Block block = iterator.next();
-				if(block == null || block.stepSound == null || Block.blockRegistry.getNameForObject(block) == null)
-					continue;
+		Iterator<Block> iterator = Block.blockRegistry.iterator();
+		while(iterator.hasNext()) {
+			Block block = iterator.next();
+
+			if(ConfigFunctions.enableHoeMining) {
+				/*
+				 * HOE MINING
+				 */
+				if(block instanceof BlockLeaves || block instanceof BlockHay || block instanceof BlockSponge || block instanceof BlockNetherWart) {
+					HoeHelper.addToHoeArray(block);
+				}
+			}
+
+			if(ConfigWorld.enableNewBlocksSounds) {
+				/*
+				 * SOUNDS
+				 */
 				String blockID = Block.blockRegistry.getNameForObject(block).split(":")[1].toLowerCase();
 				
 				if(block.stepSound == Block.soundTypePiston || block.stepSound == Block.soundTypeStone) {
@@ -272,28 +287,23 @@ public class EtFuturum {
 					else if(block instanceof BlockNetherWart || (blockID.contains("nether") && blockID.contains("wart")))
 						block.setStepSound(ModSounds.soundCropWarts);
 				}
+				
 				if(block.stepSound == Block.soundTypeGrass) {
 					if(block instanceof BlockCrops)
 						block.setStepSound(ModSounds.soundCrops);
 					else if(block instanceof BlockVine)
 						block.setStepSound(ModSounds.soundVines);
 				}
+				
+				if(block.stepSound == Block.soundTypeSand && blockID.contains("soul") && blockID.contains("sand")) {
+					block.setStepSound(ModSounds.soundSoulSand);
+				}
+				
+				if(block.stepSound == Block.soundTypeMetal && blockID.contains("copper")) {
+					block.setStepSound(ModSounds.soundCopper);
+				}
 			}
-			
-			Blocks.quartz_ore.setStepSound(ModSounds.soundNetherOre);
-			Blocks.soul_sand.setStepSound(ModSounds.soundSoulSand);
 		}
-		
-		EtFuturumPotion.init();
-	}
-	
-	@EventHandler
-	public void onLoadComplete(FMLLoadCompleteEvent e){
-		ModRecipes.initDeepslate();
-		SmokerRecipes.init();
-		BlastFurnaceRecipes.init();
-		ConfigBase.setupShulkerBanlist();
-		ItemRawOre.initRawOres();
 		
 //      if(ConfigurationHandler.enableNewNether)
 //		  DimensionProviderNether.init(); // Come back to
@@ -318,50 +328,19 @@ public class EtFuturum {
 //            event.registerServerCommand(new SetPlayerModelCommand());
 	}
 	
-	@EventHandler
-	public void idMappingEvent(FMLModIdMappingEvent event) {
-		// update end portal reference in StatList
-		ReflectionHelper.setPrivateValue(StatCrafting.class, (StatCrafting)StatList.mineBlockStatArray[119], Item.getItemFromBlock(Block.getBlockById(119)), "field_150960_a");
-	}
-	
 	public static void copyAttribs(Block to, Block from) {
-		to.setHardness(getBlockHardness(from));
-		to.setResistance(getBlockResistance(from));
+		to.setHardness(from.blockHardness);
+		to.setResistance(from.blockResistance);
 		to.setBlockName(from.getUnlocalizedName().replace("tile.", ""));
-		Field tab = ReflectionHelper.findField(Block.class, "field_149772_a", "displayOnCreativeTab");
-		tab.setAccessible(true);
-		try {
-			to.setCreativeTab((CreativeTabs) tab.get(from));
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		to.setCreativeTab(from.displayOnCreativeTab);
 		to.setStepSound(from.stepSound);
-		to.setBlockTextureName(getTextureName(from));
-		Field harvestLevel = ReflectionHelper.findField(Block.class, "harvestLevel");
-		try {
-			harvestLevel.set(to, harvestLevel.get(from));
-		} catch (Exception e) {
-			e.printStackTrace();
+		to.setBlockTextureName(from.textureName);
+		//We do this because Forge methods cannot be Access Transformed
+		for(int i = 0; i < 16; i++) {
+			String tool = from.getHarvestTool(i);
+			int level = from.getHarvestLevel(i);
+			to.setHarvestLevel(tool, level, i);
 		}
-		Field harvestTool = ReflectionHelper.findField(Block.class, "harvestTool");
-		try {
-			harvestTool.set(to, harvestTool.get(from));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public static float getBlockHardness(Block block) {
-		return ReflectionHelper.getPrivateValue(Block.class, block, "field_149782_v", "blockHardness");
-	}
-	
-	public static float getBlockResistance(Block block) {
-		return ReflectionHelper.getPrivateValue(Block.class, block, "field_149781_w", "blockResistance");
-	}
-	
-	public static String getTextureName(Block block) {
-		return ReflectionHelper.getPrivateValue(Block.class, block, "field_149768_d", "textureName");
 	}
 
 	public static void setFinalField(Class<?> cls, Object obj, Object newValue, String... fieldNames) {

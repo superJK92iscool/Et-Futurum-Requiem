@@ -4,8 +4,7 @@ import java.util.List;
 
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
-import ganymedes01.etfuturum.configuration.configs.ConfigEntities;
-import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.entities.EntityNewBoat;
 import net.minecraft.block.BlockLiquid;
@@ -32,7 +31,7 @@ public class ItemNewBoat extends Item implements IConfigurable {
 		setTextureName("minecraft:" + type.getName() + "_boat");
 		setUnlocalizedName(Utils.getUnlocalisedName(type.getName() + "_boat"));
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
-		if(!ConfigWorld.replaceOldBoats) {
+		if(!ConfigBlocksItems.replaceOldBoats) {
 			this.setContainerItem(Items.wooden_shovel);
 		}
     }
@@ -122,7 +121,7 @@ public class ItemNewBoat extends Item implements IConfigurable {
     
 	@Override
 	public boolean isEnabled() {
-		return ConfigEntities.enableNewBoats && (!ConfigWorld.replaceOldBoats || type != EntityNewBoat.Type.OAK);
+		return ConfigBlocksItems.enableNewBoats && (!ConfigBlocksItems.replaceOldBoats || type != EntityNewBoat.Type.OAK);
 	}
 
 }

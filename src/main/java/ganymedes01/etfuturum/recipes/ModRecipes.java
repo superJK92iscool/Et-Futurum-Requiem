@@ -2,14 +2,12 @@ package ganymedes01.etfuturum.recipes;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map.Entry;
 
 import org.apache.commons.lang3.StringUtils;
 
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.blocks.BlockGlazedTerracotta;
@@ -18,20 +16,18 @@ import ganymedes01.etfuturum.blocks.BlockStoneSlab2;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigEntities;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
-import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
+import ganymedes01.etfuturum.configuration.configs.ConfigTweaks;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.entities.EntityNewBoat;
 import ganymedes01.etfuturum.items.ItemSuspiciousStew;
 import ganymedes01.etfuturum.lib.EnumColour;
 import ganymedes01.etfuturum.lib.Reference;
-import ganymedes01.etfuturum.world.generate.BlockAndMetadataMapping;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
-import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -75,13 +71,13 @@ public class ModRecipes {
 			removeFirstRecipeFor(Blocks.nether_brick_fence);
 		}
 		
-		if (ConfigWorld.replaceOldBoats && ConfigEntities.enableNewBoats) {
+		if (ConfigBlocksItems.replaceOldBoats && ConfigBlocksItems.enableNewBoats) {
 			removeFirstRecipeFor(Items.boat);
 			Items.boat.setTextureName("minecraft:oak_boat");
 			Items.boat.setUnlocalizedName(Utils.getUnlocalisedName("oak_boat"));
 		}
 
-		if (ConfigWorld.enableBurnableBlocks) {
+		if (ConfigFunctions.enableExtraBurnableBlocks) {
 			Blocks.fire.setFireInfo(Blocks.fence_gate, 5, 20);
 			Blocks.fire.setFireInfo(Blocks.fence, 5, 20);
 			Blocks.fire.setFireInfo(Blocks.deadbush, 60, 100);
@@ -169,7 +165,7 @@ public class ModRecipes {
 			OreDictionary.registerOre("seedBeetroot", ModItems.beetroot_seeds);
 		}
 
-		if (ConfigBlocksItems.enableRabbit) {
+		if (ConfigEntities.enableRabbit) {
 			OreDictionary.registerOre("foodRabbitraw", new ItemStack(ModItems.raw_rabbit));
 			OreDictionary.registerOre("listAllmeatraw", new ItemStack(ModItems.raw_rabbit));
 			OreDictionary.registerOre("listAllrabbitraw", new ItemStack(ModItems.raw_rabbit));
@@ -234,7 +230,7 @@ public class ModRecipes {
 			OreDictionary.registerOre("blockRawGold", new ItemStack(ModBlocks.raw_ore_block, 1, 2));
 		}
 		
-		if(ConfigBlocksItems.registerRawItemAsOre && ConfigBlocksItems.enableRawOres) {
+		if(ConfigFunctions.registerRawItemAsOre && ConfigBlocksItems.enableRawOres) {
 			if(ConfigBlocksItems.enableCopper) {
 				OreDictionary.registerOre("oreCopper", new ItemStack(ModItems.raw_ore, 1, 0));
 			}
@@ -414,14 +410,14 @@ public class ModRecipes {
 			addShapedRecipe(new ItemStack(ModItems.armour_stand), "xxx", " x ", "xyx", 'x', "stickWood", 'y', new ItemStack(Blocks.stone_slab));
 		}
 
-		if (ConfigBlocksItems.enableRabbit) {
+		if (ConfigEntities.enableRabbit) {
 			addShapedRecipe(new ItemStack(ModItems.rabbit_stew), " R ", "CPM", " B ", 'R', new ItemStack(ModItems.cooked_rabbit), 'C', Items.carrot, 'P', Items.baked_potato, 'M', Blocks.brown_mushroom, 'B', "bowlWood");
 			addShapedRecipe(new ItemStack(ModItems.rabbit_stew), " R ", "CPD", " B ", 'R', new ItemStack(ModItems.cooked_rabbit), 'C', Items.carrot, 'P', Items.baked_potato, 'D', Blocks.red_mushroom, 'B', "bowlWood");
 			GameRegistry.addSmelting(ModItems.raw_rabbit, new ItemStack(ModItems.cooked_rabbit), 0.35F);
 			addShapedRecipe(new ItemStack(Items.leather), "xx", "xx", 'x', ModItems.rabbit_hide);
 		}
 
-		if (ConfigBlocksItems.enableOldGravel) {
+		if (ConfigTweaks.enableOldGravel) {
 			addShapedRecipe(new ItemStack(ModBlocks.old_gravel, 4), "xy", "yx", 'x', ModBlocks.coarse_dirt, 'y', Blocks.gravel);
 		}
 
@@ -456,11 +452,11 @@ public class ModRecipes {
 			addShapelessRecipe(new ItemStack(ModItems.dragon_breath), new ItemStack(Items.potionitem, 1, 8195), ModItems.chorus_fruit, ModItems.chorus_fruit);
 		}
 
-		if (ConfigWorld.enableDragonRespawn) {
+		if (ConfigEntities.enableDragonRespawn) {
 			addShapedRecipe(new ItemStack(ModItems.end_crystal), "xxx", "xyx", "xzx", 'x', "blockGlassColorless", 'y', Items.ender_eye, 'z', Items.ghast_tear);
 		}
 
-		if (ConfigBlocksItems.enableRoses) {
+		if (ConfigTweaks.enableRoses) {
 			addShapelessRecipe(new ItemStack(Items.dye, 1, 1), ModBlocks.rose);
 			addShapedRecipe(new ItemStack(Blocks.double_plant, 1, 4), "xx", "xx", "xx", 'x', new ItemStack(ModBlocks.rose));
 			addShapedRecipe(new ItemStack(ModBlocks.rose, 12), "xx", 'x', new ItemStack(Blocks.double_plant, 1, 4));
@@ -789,12 +785,12 @@ public class ModRecipes {
 			}
 		}
 		
-		if(ConfigEntities.enableNewBoats) {
+		if(ConfigBlocksItems.enableNewBoats) {
 			for(int i = EntityNewBoat.Type.values().length - 1; i >= 0; i--) {
-				addShapedRecipe(new ItemStack(i == 0 && ConfigWorld.replaceOldBoats ? Items.boat : ModItems.boats[i], 1),
-						(ConfigWorld.replaceOldBoats ? "x x" : "xyx"), "xxx", 'x', i == 0 ? "plankWood" : new ItemStack(Blocks.planks, 1, i), 'y', new ItemStack(Items.wooden_shovel, 1));
+				addShapedRecipe(new ItemStack(i == 0 && ConfigBlocksItems.replaceOldBoats ? Items.boat : ModItems.boats[i], 1),
+						(ConfigBlocksItems.replaceOldBoats ? "x x" : "xyx"), "xxx", 'x', i == 0 ? "plankWood" : new ItemStack(Blocks.planks, 1, i), 'y', new ItemStack(Items.wooden_shovel, 1));
 			}
-			if(!ConfigWorld.replaceOldBoats) {
+			if(!ConfigBlocksItems.replaceOldBoats) {
 				addShapelessRecipe(new ItemStack(Items.boat), ModItems.boats[0]);
 				addShapelessRecipe(new ItemStack(ModItems.boats[0]), Items.wooden_shovel, Items.boat);
 			}
@@ -807,35 +803,6 @@ public class ModRecipes {
 				output.setTagCompound(new NBTTagCompound());
 				output.getTagCompound().setByte("Color", (byte)(i + 1));
 				GameRegistry.addRecipe(new RecipeDyedShulkerBox(output, new Object[] {ModBlocks.shulker_box, dyes[(byte)((~i & 15))]}));
-			}
-		}
-	}
-	
-	public static void initDeepslate() {
-		if (ConfigBlocksItems.enableDeepslateOres) { //Copy block settings from deepslate base blocks
-			for (Entry<BlockAndMetadataMapping, BlockAndMetadataMapping> entry : EtFuturum.deepslateOres.entrySet()) {
-				Block oreNorm = entry.getKey().getOre();
-				if (oreNorm == null || oreNorm == Blocks.air) continue;
-				Block oreDeep = entry.getValue().getOre();
-				if (oreDeep == null || oreDeep == Blocks.air) continue;
-				ItemStack
-				stackNorm = new ItemStack(oreNorm, 1, entry.getKey().getMeta()),
-				stackDeep = new ItemStack(oreDeep, 1, entry.getValue().getMeta());
-				
-				if (((oreNorm instanceof IConfigurable) && !((IConfigurable)oreNorm).isEnabled()) || ((oreDeep instanceof IConfigurable) && !((IConfigurable)oreDeep).isEnabled()))
-					return;
-				for (int i : OreDictionary.getOreIDs(stackNorm)) {
-					String oreName = OreDictionary.getOreName(i);
-					for(int k = 0; k < OreDictionary.getOres(oreName).size(); k++) {
-						if (ItemStack.areItemStacksEqual(OreDictionary.getOres(oreName).get(k), stackNorm)) {
-							OreDictionary.registerOre(oreName.replace("Vanillastone", "Deepslate"), stackDeep.copy()); // Yes the .copy() is required!
-						}
-					}
-				}
-				
-				if (FurnaceRecipes.smelting().getSmeltingResult(stackNorm) != null) {
-					GameRegistry.addSmelting(stackDeep, FurnaceRecipes.smelting().getSmeltingResult(stackNorm), FurnaceRecipes.smelting().func_151398_b(stackNorm));
-				}
 			}
 		}
 	}

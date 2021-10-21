@@ -7,6 +7,7 @@ import org.lwjgl.opengl.GL11;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.tileentities.TileEntityGateway;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GLAllocation;
@@ -41,8 +42,7 @@ public class TileEntityGatewayRenderer extends TileEntitySpecialRenderer
             double d0 = te.isSpawning() ? 256.0D - y : 25.0D;
             f = MathHelper.sin(f * (float)Math.PI);
             int j = MathHelper.floor_double((double)f * d0);
-//            float[] afloat = te.isSpawning() ? EntitySheep.fleeceColorTable[2] : EntitySheep.fleeceColorTable[4];
-          float[] afloat = EntitySheep.fleeceColorTable[2];
+            float[] afloat = te.isSpawning() ? EntitySheep.fleeceColorTable[ConfigBlocksItems.endGatewaySpawnColor] : EntitySheep.fleeceColorTable[ConfigBlocksItems.endGatewayEntryColor];
             TileEntityNewBeaconRenderer.renderBeamSegment(x, y, z, (double)destroyStage, (double)f, (double)te.getWorldObj().getTotalWorldTime(), 0, j, afloat, 0.15D, 0.175D);
             TileEntityNewBeaconRenderer.renderBeamSegment(x, y, z, (double)destroyStage, (double)f, (double)te.getWorldObj().getTotalWorldTime(), 0, -j, afloat, 0.15D, 0.175D);
         }

@@ -1,6 +1,5 @@
 package ganymedes01.etfuturum.client.gui.inventory;
 
-import cpw.mods.fml.relauncher.ReflectionHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.inventory.ContainerAnvil;
@@ -15,7 +14,7 @@ public class GuiAnvil extends GuiRepair {
 		super(player.inventory, world, x, y, z);
 
 		ContainerAnvil container = new ContainerAnvil(player, world, x, y, z);
-		ReflectionHelper.setPrivateValue(GuiRepair.class, this, container, "field_147092_v");
+		field_147092_v = container;
 		inventorySlots = container;
 	}
 }

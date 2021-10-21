@@ -332,8 +332,6 @@ public class ModBlocks {
 					GameRegistry.registerBlock(block, strings[strings.length - 1]);
 			}
 		}
-		
-		Item.getItemFromBlock(shulker_box).setMaxStackSize(1);
 	}
 	
 	public static interface ISubBlocksBlock {

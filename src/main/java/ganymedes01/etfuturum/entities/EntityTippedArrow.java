@@ -3,7 +3,6 @@ package ganymedes01.etfuturum.entities;
 import java.awt.Color;
 
 import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
-import cpw.mods.fml.relauncher.ReflectionHelper;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.items.ItemArrowTipped;
 import io.netty.buffer.ByteBuf;
@@ -77,12 +76,6 @@ public class EntityTippedArrow extends EntityArrow implements IEntityAdditionalS
 
 	@Override
 	public void onCollideWithPlayer(EntityPlayer player) {
-		boolean inGround = false;
-		try {
-			inGround = ReflectionHelper.getPrivateValue(EntityArrow.class, this, "inGround", "field_70254_i");
-		} catch (Exception e) {
-		}
-
 		if (!worldObj.isRemote && inGround && arrowShake <= 0 && isEffectValid()) {
 			boolean flag = canBePickedUp == 1 || canBePickedUp == 2 && player.capabilities.isCreativeMode;
 

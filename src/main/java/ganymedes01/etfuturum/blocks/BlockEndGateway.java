@@ -7,9 +7,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
-import ganymedes01.etfuturum.ModBlocks.ISubBlocksBlock;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.items.block.ItemEndPortal;
 import ganymedes01.etfuturum.tileentities.TileEntityGateway;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
@@ -18,10 +16,9 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.boss.EntityDragon;
-import net.minecraft.entity.item.EntityEnderPearl;
+import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
@@ -29,7 +26,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockEndGateway extends BlockContainer implements IConfigurable, ISubBlocksBlock {
+public class BlockEndGateway extends BlockContainer implements IConfigurable {
 
 	public BlockEndGateway() {
 		super(Material.portal);
@@ -38,13 +35,15 @@ public class BlockEndGateway extends BlockContainer implements IConfigurable, IS
 		this.setBlockUnbreakable();
 		this.setBlockName(Utils.getUnlocalisedName("end_gateway"));
 		this.setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+
+		Blocks.end_portal.setBlockName(Utils.getUnlocalisedName("end_portal"));
 	}
 	
     @SideOnly(Side.CLIENT)
     public void getSubBlocks(Item p_149666_1_, CreativeTabs p_149666_2_, List p_149666_3_)
     {
-        p_149666_3_.add(new ItemStack(p_149666_1_, 1, 0));
         p_149666_3_.add(new ItemStack(Blocks.end_portal, 1, 0));
+        p_149666_3_.add(new ItemStack(p_149666_1_, 1, 0));
     }
 	
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World p_149668_1_, int p_149668_2_, int p_149668_3_, int p_149668_4_)
@@ -59,7 +58,7 @@ public class BlockEndGateway extends BlockContainer implements IConfigurable, IS
     
 	@Override
 	public boolean canEntityDestroy(IBlockAccess world, int x, int y, int z, Entity entity) {
-		return !(entity instanceof EntityDragon);
+		return !(entity instanceof EntityDragon) && !(entity instanceof EntityWither);
 	}
 
 	@Override
@@ -77,7 +76,7 @@ public class BlockEndGateway extends BlockContainer implements IConfigurable, IS
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister p_149651_1_)
     {
-        this.blockIcon = p_149651_1_.registerIcon("obsidian");
+        this.blockIcon = Blocks.obsidian.getIcon(0, 0);
     }
 	
     public boolean isOpaqueCube()
@@ -148,10 +147,4 @@ public class BlockEndGateway extends BlockContainer implements IConfigurable, IS
             }
         }
     }
-
-	@Override
-	public Class<? extends ItemBlock> getItemBlockClass() {
-		return ItemEndPortal.class;
-	}
-
 }

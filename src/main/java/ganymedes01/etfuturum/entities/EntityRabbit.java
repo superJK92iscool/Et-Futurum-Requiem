@@ -1,6 +1,5 @@
 package ganymedes01.etfuturum.entities;
 
-import cpw.mods.fml.relauncher.ReflectionHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModItems;
@@ -9,9 +8,7 @@ import ganymedes01.etfuturum.entities.ai.EntityAIMoveToBlock;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCarrot;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.EntityAgeable;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -28,7 +25,6 @@ import net.minecraft.entity.ai.EntityMoveHelper;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -54,8 +50,8 @@ public class EntityRabbit extends EntityAnimal {
 		moveType = EntityRabbit.EnumMoveType.HOP;
 		carrotTicks = 0;
 		setSize(0.4F, 0.5F);
-		ReflectionHelper.setPrivateValue(EntityLiving.class, this, new EntityRabbit.RabbitJumpHelper(this), "jumpHelper", "field_70767_i");
-		ReflectionHelper.setPrivateValue(EntityLiving.class, this, new EntityRabbit.RabbitMoveHelper(), "moveHelper", "field_70765_h");
+		jumpHelper = new EntityRabbit.RabbitJumpHelper(this);
+		moveHelper = new EntityRabbit.RabbitMoveHelper();
 		getNavigator().setAvoidsWater(true);
 		//        navigator.func_179678_a(2.5F);
 		tasks.addTask(0, new EntityAISwimming(this));

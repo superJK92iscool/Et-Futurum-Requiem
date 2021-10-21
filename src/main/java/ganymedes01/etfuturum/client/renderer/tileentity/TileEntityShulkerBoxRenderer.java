@@ -26,8 +26,7 @@ public class TileEntityShulkerBoxRenderer extends TileEntitySpecialRenderer {
     private RenderItem itemRenderer;
     private static float[][] shifts = { { 0.3F, 0.45F, 0.3F }, { 0.7F, 0.45F, 0.3F }, { 0.3F, 0.45F, 0.7F }, { 0.7F, 0.45F, 0.7F }, { 0.3F, 0.1F, 0.3F },
             { 0.7F, 0.1F, 0.3F }, { 0.3F, 0.1F, 0.7F }, { 0.7F, 0.1F, 0.7F }, { 0.5F, 0.32F, 0.5F }, };
-	public static final String[] tiers = new String[] {"iron", "gold", "diamond", "copper", "silver", "crystal", "obsidian"};
-    protected static final ResourceLocation[] DESTROY_STAGES = new ResourceLocation[] {
+	protected static final ResourceLocation[] DESTROY_STAGES = new ResourceLocation[] {
     		new ResourceLocation("textures/blocks/destroy_stage_0.png"), new ResourceLocation("textures/blocks/destroy_stage_1.png"),
     		new ResourceLocation("textures/blocks/destroy_stage_2.png"), new ResourceLocation("textures/blocks/destroy_stage_3.png"),
     		new ResourceLocation("textures/blocks/destroy_stage_4.png"), new ResourceLocation("textures/blocks/destroy_stage_5.png"),
@@ -89,7 +88,7 @@ public class TileEntityShulkerBoxRenderer extends TileEntitySpecialRenderer {
         }
         else
         {
-            this.bindTexture(ShulkerRenderer.SHULKER_ENDERGOLEM_TEXTURES[te.color % ShulkerRenderer.SHULKER_ENDERGOLEM_TEXTURES.length + (te.blockMetadata == -1 ? 0 : te.blockMetadata % (tiers.length + 1) * 17)]);
+            this.bindTexture(ShulkerRenderer.SHULKER_ENDERGOLEM_TEXTURES[te.color % ShulkerRenderer.SHULKER_ENDERGOLEM_TEXTURES.length + (te.blockMetadata == -1 ? 0 : te.blockMetadata % (TileEntityShulkerBox.tiers.length + 1) * 17)]);
         }
 
         GL11.glPushMatrix();

@@ -1,6 +1,6 @@
 package ganymedes01.etfuturum;
 
-import ganymedes01.etfuturum.configuration.configs.ConfigEnchants;
+import ganymedes01.etfuturum.configuration.configs.ConfigEnchantsPotions;
 import ganymedes01.etfuturum.enchantment.FrostWalker;
 import ganymedes01.etfuturum.enchantment.Mending;
 import net.minecraft.block.Block;
@@ -19,15 +19,15 @@ public class ModEnchantments {
 	public static Enchantment mending;
 
 	public static void init() {
-		if (ConfigEnchants.enableFrostWalker)
+		if (ConfigEnchantsPotions.enableFrostWalker)
 			frostWalker = new FrostWalker();
-		if (ConfigEnchants.enableMending)
+		if (ConfigEnchantsPotions.enableMending)
 			mending = new Mending();
 	}
 
 	// Frost Walker logic
 	public static void onLivingUpdate(EntityLivingBase entity) {
-		if (!ConfigEnchants.enableFrostWalker)
+		if (!ConfigEnchantsPotions.enableFrostWalker)
 			return;
 		ItemStack boots = entity.getEquipmentInSlot(1);
 		int level = 0;
@@ -54,7 +54,7 @@ public class ModEnchantments {
 		EntityXPOrb orb = event.orb;
 		if (player.worldObj.isRemote)
 			return;
-		if (!ConfigEnchants.enableMending)
+		if (!ConfigEnchantsPotions.enableMending)
 			return;
 
 		ItemStack[] stacks = new ItemStack[5];

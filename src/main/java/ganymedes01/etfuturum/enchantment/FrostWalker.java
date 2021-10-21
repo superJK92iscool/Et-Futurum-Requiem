@@ -1,6 +1,6 @@
 package ganymedes01.etfuturum.enchantment;
 
-import ganymedes01.etfuturum.configuration.configs.ConfigEnchants;
+import ganymedes01.etfuturum.configuration.configs.ConfigEnchantsPotions;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.init.Items;
@@ -9,7 +9,7 @@ import net.minecraft.item.ItemStack;
 public class FrostWalker extends Enchantment {
 
 	public FrostWalker() {
-		super(ConfigEnchants.frostWalkerID, 1, EnumEnchantmentType.armor_feet);
+		super(ConfigEnchantsPotions.frostWalkerID, 1, EnumEnchantmentType.armor_feet);
 		Enchantment.addToBookList(this);
 		setName("frost_walker");
 	}

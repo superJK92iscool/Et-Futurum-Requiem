@@ -11,31 +11,9 @@ import net.minecraft.block.BlockHay;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockSponge;
 import net.minecraft.block.material.Material;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemHoe;
-import net.minecraft.item.ItemTool;
+import net.minecraft.item.Item.ToolMaterial;
 
 public class HoeHelper {
-	
-	public static void init() {
-		Iterator<Block> iterator = Block.blockRegistry.iterator();
-		while(iterator.hasNext()) {
-			Block block = iterator.next();
-			if(block == null)
-				continue;
-			
-			if(block instanceof BlockLeaves)
-				addToHoeArray(block);
-			
-			if(block instanceof BlockHay)
-				addToHoeArray(block);
-			
-			if(block instanceof BlockSponge)
-				addToHoeArray(block);
-		}
-		addToHoeArray(ModBlocks.sponge);
-		addToHoeArray(ModBlocks.nether_wart_block);
-	}
 	
 	private static ArrayList<Block> hoeBlocks = new ArrayList<Block>();
 	
@@ -51,33 +29,7 @@ public class HoeHelper {
 		return hoeBlocks;
 	}
 	
-	/**
-	 * Return 0 if the input is not a tool.
-	 * Gets private tool speed value from tool material.
-	 * @param item
-	 */
-	public static float getToolSpeed(Item item) {
-		float returnValue = 0;
-		try {
-			if(item instanceof ItemHoe || item instanceof ItemTool) {
-				Field theToolMaterialField;
-				if(item instanceof ItemTool)
-					theToolMaterialField = ItemTool.class.getDeclaredFields()[3];
-				else
-					theToolMaterialField = ItemHoe.class.getDeclaredFields()[0];
-				theToolMaterialField.setAccessible(true);
-				Item.ToolMaterial theToolMaterial = (Item.ToolMaterial)theToolMaterialField.get(item);
-				Field efficiencyOnProperMaterialField = Item.ToolMaterial.class.getDeclaredFields()[7];
-				efficiencyOnProperMaterialField.setAccessible(true);
-				returnValue = efficiencyOnProperMaterialField.getFloat(theToolMaterial);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return returnValue;
-	}
-
-	  public static Field getField(Class<?> clazz, String fieldName)
+	public static Field getField(Class<?> clazz, String fieldName)
 				throws NoSuchFieldException {
 			try {
 			  return clazz.getDeclaredField(fieldName);

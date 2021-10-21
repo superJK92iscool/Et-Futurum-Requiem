@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -18,7 +17,6 @@ import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
-import cpw.mods.fml.relauncher.ReflectionHelper;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModEnchantments;
@@ -86,10 +84,11 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBucket;
+import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemShears;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemTool;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.play.server.S29PacketSoundEffect;
@@ -117,7 +116,6 @@ import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.entity.living.LivingSpawnEvent.CheckSpawn;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent.SpecialSpawn;
 import net.minecraftforge.event.entity.player.ArrowLooseEvent;
 import net.minecraftforge.event.entity.player.ArrowNockEvent;
@@ -178,7 +176,7 @@ public class ServerEventHandler {
 				replaceEntity((EntityLiving) entity, new EntityZombieVillager(entity.worldObj));
 			}
 
-			if (ConfigFunctions.enableShearableGolems && entity.getClass() == EntitySnowman.class) {
+			if (ConfigEntities.enableShearableSnowGolems && entity.getClass() == EntitySnowman.class) {
 				replaceEntity((EntityLiving) entity, new EntityNewSnowGolem(entity.worldObj));
 			}
 		}
@@ -210,7 +208,7 @@ public class ServerEventHandler {
 	@SubscribeEvent
 	public void entityUpdate(EntityEvent event) {
 		if(event.entity == null || event.entity.worldObj == null || event.entity.getClass() == null) return;
-		if (ConfigEntities.enableNewBoats && ConfigWorld.replaceOldBoats) {
+		if (ConfigBlocksItems.enableNewBoats && ConfigBlocksItems.replaceOldBoats) {
 			if (!event.entity.worldObj.isRemote && event.entity.getClass() == EntityBoat.class && event.entity.riddenByEntity == null) {
 				if(event.entity.worldObj.getEntitiesWithinAABB(EntityNewBoat.class, event.entity.boundingBox).isEmpty()) {
 					EntityNewBoat boat = new EntityNewBoat(event.entity.worldObj);
@@ -401,7 +399,7 @@ public class ServerEventHandler {
 	
 	@SubscribeEvent
 	public void onBlockBroken(BlockEvent.BreakEvent event) {
-		if(ConfigWorld.enableHoeMining && event.block.getBlockHardness(event.world, event.x, event.y, event.z) != 0.0D) {
+		if(ConfigFunctions.enableHoeMining && event.block.getBlockHardness(event.world, event.x, event.y, event.z) != 0.0D) {
 			ItemStack itemstack = event.getPlayer().getHeldItem();
 			if(itemstack != null && itemstack.getItem() instanceof ItemHoe) {
 				itemstack.damageItem(1, event.getPlayer());
@@ -414,12 +412,12 @@ public class ServerEventHandler {
 		boolean flag = false;
 		float toolSpeed = 0;
 		float speedModifier = 0;
-		if(ConfigWorld.enableHoeMining && HoeHelper.hoeArrayHas(event.block)) {
+		if(ConfigFunctions.enableHoeMining && HoeHelper.hoeArrayHas(event.block)) {
 			ItemStack stack = event.entityPlayer.getHeldItem();
 			if(stack != null && stack.getItem() instanceof ItemHoe) {
 				try {
 					Item hoe = stack.getItem();
-					toolSpeed = HoeHelper.getToolSpeed(hoe);
+					toolSpeed = getHoeSpeed(hoe);
 					speedModifier = this.speedModifier(event.entityPlayer, event.block, event.metadata, toolSpeed);
 					flag = true;
 				} catch (IllegalArgumentException e) {
@@ -430,6 +428,30 @@ public class ServerEventHandler {
 		}
 		if(flag)
 			event.newSpeed = event.originalSpeed + toolSpeed + speedModifier;
+	}
+
+	/**
+	 * Return 0 if the input is not a tool.
+	 * Gets private tool speed value from tool material.
+	 * Now cleaned up and uses Access Transformers for better performance!
+	 * @param item
+	 */
+	public float getHoeSpeed(Item item) {
+		float returnValue = 0;
+		try {
+			if(item instanceof ItemHoe || item instanceof ItemTool) {
+				Item.ToolMaterial theToolMaterial;
+				if(item instanceof ItemTool) {
+					theToolMaterial = ((ItemTool)item).toolMaterial;
+				} else {
+					theToolMaterial = ((ItemHoe)item).theToolMaterial;
+				}
+				returnValue = theToolMaterial.getEfficiencyOnProperMaterial();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return returnValue;
 	}
 	
 	public float speedModifier(EntityPlayer entity, Block block, int meta, float digSpeed) {
@@ -473,7 +495,7 @@ public class ServerEventHandler {
 
 	@SubscribeEvent
 	public void onPlaceBlock(BlockEvent.PlaceEvent event) {
-		if(ConfigWorld.enableFloatingTrapDoors && (placedSide == 1 || placedSide == 0) && event.placedBlock instanceof BlockTrapDoor) {
+		if(ConfigFunctions.enableFloatingTrapDoors && (placedSide == 1 || placedSide == 0) && event.placedBlock instanceof BlockTrapDoor) {
 			int l = MathHelper.floor_double(event.player.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
 			if(l == 0) {
 				l = 1;
@@ -510,7 +532,7 @@ public class ServerEventHandler {
 			        	if(event.getResult() == event.useItem) {
 			        		
 			        		//Eye of Ender place sounds
-				        	if(ConfigWorld.enableNewMiscSounds && heldStack.getItem() == Items.ender_eye && oldBlock == Blocks.end_portal_frame && !BlockEndPortalFrame.isEnderEyeInserted(meta))
+				        	if(!event.world.isRemote && ConfigWorld.enableNewMiscSounds && heldStack.getItem() == Items.ender_eye && oldBlock == Blocks.end_portal_frame && !BlockEndPortalFrame.isEnderEyeInserted(meta))
 				        	{
 				        		world.playSoundEffect(x + .5F, y + .5F, z + .5F, Reference.MOD_ID+":block.end_portal_frame.fill", 1, 1);
 				                int j1 = meta & 3;
@@ -585,7 +607,7 @@ public class ServerEventHandler {
 				                            }
 				                        }
 				                    }
-				                    if (flag)
+				                    if(flag)
 				                    {
 				                    	for(WorldServer worldserver : FMLCommonHandler.instance().getMinecraftServerInstance().worldServers) {
 				                    		for(Object playerobj : worldserver.playerEntities) {
@@ -627,23 +649,11 @@ public class ServerEventHandler {
 				        	//Lava cauldron filling
 							if(ConfigBlocksItems.enableLavaCauldrons && !player.isSneaking() && 
 									oldBlock == Blocks.cauldron && world.getBlockMetadata(x, y, z) == 0) {
-								if (heldStack.getItem() instanceof ItemBucket) {
-									boolean flag = false;
-									Field field = ReflectionHelper.findField(heldStack.getItem().getClass(), "field_77876_a", "isFull");
-									field.setAccessible(true);
-									try {
-										Block liquid = (Block) field.get(heldStack.getItem());
-										if(liquid == Blocks.lava || liquid == Blocks.flowing_lava) {
-											flag = true;
-										}
-									} catch (Exception e) {
-										e.printStackTrace();
-									}
-									if(flag) {
+								if (heldStack.getItem() == Items.lava_bucket) {
 									event.setResult(Result.DENY);
 									player.swingItem();
 									world.setBlock(x, y, z, ModBlocks.lava_cauldron);
-									if (!player.capabilities.isCreativeMode)
+									if (!player.capabilities.isCreativeMode) {
 										if (heldStack.stackSize <= 1) {
 											player.inventory.setInventorySlotContents(player.inventory.currentItem, new ItemStack(Items.bucket));
 										} else {
@@ -652,6 +662,7 @@ public class ServerEventHandler {
 									}
 								}
 							}
+			        	
 							
 							//Grass pathing/Log Stripping
 							//This is nested into the same function since they use similar checks
@@ -826,7 +837,7 @@ public class ServerEventHandler {
 				chicken.tasks.addTask(3, new EntityAITempt(chicken, 1.0D, ModItems.beetroot_seeds, false));
 		} else if (event.entity instanceof EntityWolf) {
 			EntityWolf wolf = (EntityWolf) event.entity;
-			if (ConfigBlocksItems.enableRabbit)
+			if (ConfigEntities.enableRabbit)
 				wolf.targetTasks.addTask(4, new EntityAITargetNonTamed(wolf, EntityRabbit.class, 200, false));
 		} else if (event.entity instanceof EntityEnderman) {
 			EntityEnderman enderman = (EntityEnderman) event.entity;
@@ -844,11 +855,6 @@ public class ServerEventHandler {
 				}
 			}
 		}
-//        else if (event.entity instanceof EntitySilverfish) {
-//            EntitySilverfish silverfish = (EntitySilverfish) event.entity;
-//            //Add infested stone option
-//            silverfish.tasks.addTask(10, new EntityAISilverfishEnterDeepslate((EntitySilverfish) event.entity));
-//        }
 	}
 
 	@SubscribeEvent
@@ -1048,10 +1054,10 @@ public class ServerEventHandler {
 	@SubscribeEvent
 	public void livingHurtEvent(LivingHurtEvent event) {
 		Entity entity = event.entity;
-		if(ConfigWorld.enableHayBaleFalls && entity != null
+		if(ConfigFunctions.enableHayBaleFalls && entity != null
 				&& entity.worldObj.getBlock(MathHelper.floor_double(entity.posX), MathHelper.floor_double(entity.posY - 0.20000000298023224D - entity.yOffset), MathHelper.floor_double(entity.posZ)) == Blocks.hay_block
 				&& event.source == DamageSource.fall) {
-			event.ammount *= ((float)ConfigWorld.hayBaleReducePercent / (float)100);
+			event.ammount *= ((float)ConfigFunctions.hayBaleReducePercent / (float)100);
 		}
 		if ((entity == null) || (!(entity instanceof EntityLivingBase))) {
 			return;
@@ -1075,7 +1081,7 @@ public class ServerEventHandler {
 			entity.worldObj.playSoundEffect(entity.posX + 0.5, entity.posY + 0.5, entity.posZ + 0.5, Reference.MOD_ID + ":item.totem_use", 1.0f, entity.worldObj.rand.nextFloat() * 0.1f + 0.9f);
 			
 			entity.clearActivePotions();
-			float healpercent = (float)ConfigWorld.totemHealPercent / 100;
+			float healpercent = (float)ConfigFunctions.totemHealPercent / 100;
 			float sethp = entity.getMaxHealth() * healpercent;
 			entity.setHealth(sethp < .5F ? .5F : sethp);
 			event.ammount = 0;
