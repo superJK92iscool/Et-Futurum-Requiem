@@ -68,7 +68,8 @@ public class BlockChorusPlant extends Block implements IConfigurable {
 	}
 	
 	private boolean canConnectTo(IBlockAccess world, int x, int y, int z) {
-		return world.getBlock(x, y, z) instanceof BlockChorusPlant || world.getBlock(x, y, z) instanceof BlockChorusFlower || (world.getBlock(x, y, z) == Blocks.end_stone || (world instanceof World && canPlaceHere((World)world, x, y, z)));
+		Block block = world.getBlock(x, y, z);
+		return block instanceof BlockChorusPlant || block instanceof BlockChorusFlower || (block == Blocks.end_stone || (world instanceof World && canPlaceHere(block, (World)world, x, y, z)));
 	}
 
     @Override
@@ -115,7 +116,7 @@ public class BlockChorusPlant extends Block implements IConfigurable {
 
                 Block block1 = world.getBlock(x+enumfacing.getFrontOffsetX(), y-1, z+enumfacing.getFrontOffsetZ());
 
-                if (block1 == this || canPlaceHere(world, x, y, z))
+                if (block1 == this || canPlaceHere(block1, world, x, y, z))
                 {
                     return true;
                 }
@@ -123,11 +124,15 @@ public class BlockChorusPlant extends Block implements IConfigurable {
         }
 
         Block block2 = world.getBlock(x, y-1, z);
-        return block2 == this || canPlaceHere(world, x, y, z);
+        return block2 == this || canPlaceHere(block2, world, x, y, z);
     }
     
     public static boolean canPlaceHere(World world, int x, int y, int z) {
-    	return world.getBlock(x, y, z).isReplaceableOreGen(world, x, y, z, Blocks.end_stone);
+    	return canPlaceHere(world.getBlock(x, y, z), world, x, y, z);
+    }
+    
+    public static boolean canPlaceHere(Block block, World world, int x, int y, int z) {
+    	return block.isReplaceableOreGen(world, x, y, z, Blocks.end_stone);
     }
 
 	@Override

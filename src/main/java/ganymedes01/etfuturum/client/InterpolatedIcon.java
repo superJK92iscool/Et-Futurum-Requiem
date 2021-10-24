@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.client;
 
-import java.lang.reflect.Field;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -11,7 +9,6 @@ import net.minecraft.client.renderer.texture.TextureUtil;
 public class InterpolatedIcon extends TextureAtlasSprite {
 
 	protected int[][] interpolatedFrameData;
-	private Field fanimationMetadata;
 
 	public InterpolatedIcon(String name) {
 		super(name);

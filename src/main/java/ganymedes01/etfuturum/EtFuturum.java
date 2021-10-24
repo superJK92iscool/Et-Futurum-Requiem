@@ -214,8 +214,8 @@ public class EtFuturum {
 		}
 
 		if (ConfigFunctions.enableUpdatedFoodValues) {
-			setFinalField(ItemFood.class, Items.carrot, 3, "healAmount", "field_77853_b");
-			setFinalField(ItemFood.class, Items.baked_potato, 5, "healAmount", "field_77853_b");
+			((ItemFood)Items.carrot).healAmount = 3;
+			((ItemFood)Items.baked_potato).healAmount = 5;
 		}
 
 		if (ConfigFunctions.enableUpdatedHarvestLevels) {
