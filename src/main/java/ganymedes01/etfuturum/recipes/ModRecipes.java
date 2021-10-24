@@ -17,6 +17,7 @@ import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigEntities;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.configuration.configs.ConfigTweaks;
+import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.entities.EntityNewBoat;
 import ganymedes01.etfuturum.items.ItemSuspiciousStew;
@@ -803,6 +804,28 @@ public class ModRecipes {
 				output.setTagCompound(new NBTTagCompound());
 				output.getTagCompound().setByte("Color", (byte)(i + 1));
 				GameRegistry.addRecipe(new RecipeDyedShulkerBox(output, new Object[] {ModBlocks.shulker_box, dyes[(byte)((~i & 15))]}));
+			}
+		}
+		
+		if(ConfigWorld.tileReplacementMode == -1 && ConfigBlocksItems.enableNewTileEntities) {
+			if(ConfigBlocksItems.enableAnvil) {
+				GameRegistry.addRecipe(new ItemStack(ModBlocks.anvil), "BBB", " I ", "III", 'I', new ItemStack(Items.iron_ingot), 'B', new ItemStack(Blocks.iron_block));
+				removeFirstRecipeFor(Blocks.anvil);
+			}
+			
+			if(ConfigBlocksItems.enableBrewingStands) {
+				GameRegistry.addRecipe(new ItemStack(ModBlocks.brewing_stand), " B ", "CCC", 'C', new ItemStack(Blocks.cobblestone), 'B', new ItemStack(Items.blaze_rod));
+				removeFirstRecipeFor(Blocks.brewing_stand);
+			}
+			
+			if(ConfigBlocksItems.enableInvertedDaylightSensor) {
+				GameRegistry.addRecipe(new ItemStack(ModBlocks.daylight_detector), "GGG", "QQQ", "SSS", 'G', new ItemStack(Blocks.glass), 'Q', new ItemStack(Items.quartz), 'S', "slabWood");
+				removeFirstRecipeFor(Blocks.daylight_detector);
+			}
+			
+			if(ConfigBlocksItems.enableColourfulBeacons) {
+				GameRegistry.addRecipe(new ItemStack(ModBlocks.beacon), "GGG", "GNG", "OOO", 'G', new ItemStack(Blocks.glass), 'N', new ItemStack(Items.nether_star), 'O', new ItemStack(Blocks.obsidian));
+				removeFirstRecipeFor(Blocks.beacon);
 			}
 		}
 	}

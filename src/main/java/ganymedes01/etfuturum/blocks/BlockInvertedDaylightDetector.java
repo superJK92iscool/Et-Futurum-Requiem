@@ -24,7 +24,7 @@ public class BlockInvertedDaylightDetector extends BlockNewDaylightSensor {
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
 		if (!world.isRemote)
-			world.setBlock(x, y, z, ModBlocks.daylight_sensor);
+			world.setBlock(x, y, z, ModBlocks.daylight_detector);
 		return true;
 	}
 

@@ -6,7 +6,9 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
+import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.GUIsID;
 import ganymedes01.etfuturum.tileentities.TileEntityNewBrewingStand;
@@ -41,12 +43,16 @@ public class BlockNewBrewingStand extends BlockBrewingStand implements IConfigur
 
 	@Override
 	public Item getItemDropped(int meta, Random rand, int fortune) {
+		if (ConfigWorld.tileReplacementMode == -1)
+			return Item.getItemFromBlock(ModBlocks.brewing_stand);
 		return Items.brewing_stand;
 	}
 	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public Item getItem(World world, int x, int y, int z) {
+		if (ConfigWorld.tileReplacementMode == -1)
+			return Item.getItemFromBlock(ModBlocks.brewing_stand);
 		return Items.brewing_stand;
 	}
 
@@ -58,5 +64,12 @@ public class BlockNewBrewingStand extends BlockBrewingStand implements IConfigur
 	@Override
 	public boolean isEnabled() {
 		return ConfigBlocksItems.enableBrewingStands;
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public String getItemIconName()
+	{
+		return "brewing_stand";
 	}
 }

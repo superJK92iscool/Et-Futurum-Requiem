@@ -8,6 +8,7 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.BlockDaylightDetector;
 import net.minecraft.entity.player.EntityPlayer;
@@ -27,12 +28,16 @@ public class BlockNewDaylightSensor extends BlockDaylightDetector implements ICo
 
 	@Override
 	public Item getItemDropped(int meta, Random rand, int fortune) {
+		if (ConfigWorld.tileReplacementMode == -1)
+			return Item.getItemFromBlock(ModBlocks.daylight_detector);
 		return Item.getItemFromBlock(Blocks.daylight_detector);
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public Item getItem(World world, int x, int y, int z) {
+		if (ConfigWorld.tileReplacementMode == -1)
+			return Item.getItemFromBlock(ModBlocks.daylight_detector);
 		return Item.getItemFromBlock(Blocks.daylight_detector);
 	}
 

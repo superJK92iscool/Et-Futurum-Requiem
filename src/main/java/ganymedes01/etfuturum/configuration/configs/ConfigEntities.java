@@ -23,12 +23,6 @@ public class ConfigEntities extends ConfigBase {
 	public static boolean enableDragonRespawn;
 	public static boolean enableNetherEndermen;
 	public static boolean enableShearableSnowGolems;
-	
-	private static final List<ConfigCategory> configCats = new ArrayList<ConfigCategory>();
-	
-	public static List<ConfigCategory> getConfigCats() {
-		return configCats;
-	}
 
 	static final String catHostile = "hostile";
 	static final String catNeutral = "neutral";
@@ -51,7 +45,7 @@ public class ConfigEntities extends ConfigBase {
 		configCats.add(getCategory(catMisc));
 	}
 
-	protected void syncConfigs() {
+	protected void syncConfigOptions() {
 		Configuration cfg = configInstance;
 		
 		//passive
@@ -63,12 +57,12 @@ public class ConfigEntities extends ConfigBase {
 		ConfigEntities.enableHusk = cfg.getBoolean("enableHusks", catHostile, true, "Desert zombie variant");
 		ConfigEntities.enableStray = cfg.getBoolean("enableStrays", catHostile, true, "Tundra skeleton variant");
 		ConfigEntities.enableShulker = cfg.getBoolean("enableShulker", catHostile, true, "Shell-lurking mobs from the End.");
+		ConfigEntities.enableVillagerZombies = cfg.getBoolean("enableZombieVillager", catHostile, true, "");
 		
 		//function
 		ConfigEntities.enableShearableSnowGolems = cfg.getBoolean("enableShearableSnowGolems", catMisc, true, "");
 		ConfigEntities.enableBabyGrowthBoost = cfg.getBoolean("enableBabyGrowthBoost", catMisc, true, "");
 		ConfigEntities.enableVillagerTurnsIntoWitch = cfg.getBoolean("enableVillagerTurnsIntoWitch", catMisc, true, "Villagers turn into Witches when struck by lightning");
-		ConfigEntities.enableVillagerZombies = cfg.getBoolean("enableZombieVillager", catMisc, true, "");
 		ConfigEntities.enableDragonRespawn = cfg.getBoolean("enableDragonRespawn", catMisc, true, "Crude implementation of respawning the dragon using four End crystals.");
 		ConfigEntities.enableNetherEndermen = cfg.getBoolean("enableNetherEndermen", catMisc, true, "Allow endermen to rarely spawn in the Nether");
 	}

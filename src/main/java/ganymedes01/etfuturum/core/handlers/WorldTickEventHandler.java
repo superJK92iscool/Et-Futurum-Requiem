@@ -29,25 +29,25 @@ public class WorldTickEventHandler {
 	static {
 		if (replacements == null) {
 			replacements = new HashMap<Block, Block>();
-			if (ConfigBlocksItems.enableBrewingStands && ConfigWorld.enableTileReplacement)
+			if (ConfigWorld.tileReplacementMode == 0 && ConfigBlocksItems.enableBrewingStands)
 				replacements.put(Blocks.brewing_stand, ModBlocks.brewing_stand);
 			else
 				replacements.put(ModBlocks.brewing_stand, Blocks.brewing_stand);
 			
-			if (ConfigBlocksItems.enableColourfulBeacons && ConfigWorld.enableTileReplacement)
+			if (ConfigWorld.tileReplacementMode == 0 && ConfigBlocksItems.enableColourfulBeacons)
 				replacements.put(Blocks.beacon, ModBlocks.beacon);
 			else
 				replacements.put(ModBlocks.beacon, Blocks.beacon);
 			
-			if (ConfigBlocksItems.enableEnchantingTable && ConfigWorld.enableTileReplacement)
+			if (ConfigWorld.tileReplacementMode == 0 && ConfigBlocksItems.enableEnchantingTable)
 				replacements.put(Blocks.enchanting_table, ModBlocks.enchantment_table);
 			else
 				replacements.put(ModBlocks.enchantment_table, Blocks.enchanting_table);
 			
-			if (ConfigBlocksItems.enableInvertedDaylightSensor && ConfigWorld.enableTileReplacement)
-				replacements.put(Blocks.daylight_detector, ModBlocks.daylight_sensor);
+			if (ConfigWorld.tileReplacementMode == 0 && ConfigBlocksItems.enableInvertedDaylightSensor)
+				replacements.put(Blocks.daylight_detector, ModBlocks.daylight_detector);
 			else
-				replacements.put(ModBlocks.daylight_sensor, Blocks.daylight_detector);
+				replacements.put(ModBlocks.daylight_detector, Blocks.daylight_detector);
 		}
 	}
 	
@@ -60,6 +60,7 @@ public class WorldTickEventHandler {
 			return;
 
 		World world = event.world;
+		
 
 		if(world.loadedTileEntityList.isEmpty() || prevHash == world.loadedTileEntityList.hashCode())
 			return;

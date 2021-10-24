@@ -10,6 +10,7 @@ import ganymedes01.etfuturum.blocks.BlockNewStone;
 import ganymedes01.etfuturum.blocks.BlockTuff;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
+import ganymedes01.etfuturum.configuration.configs.ConfigTweaks;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.world.generate.BlockAndMetadataMapping;
 import ganymedes01.etfuturum.world.generate.WorldGenDeepslateBlob;
@@ -65,6 +66,8 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 									|| (block.isReplaceableOreGen(world, x, y, z, Blocks.stone) && (ConfigWorld.deepslateReplacesStones ? true : !(block instanceof BlockNewStone)))
 									&& !(block instanceof BlockTuff)) {
 								world.setBlock(x, y, z, ModBlocks.deepslate, 0, 2);
+							} else if(ConfigTweaks.deepslateReplacesCobblestone && (block.isReplaceableOreGen(world, x, y, z, Blocks.cobblestone))) {
+								world.setBlock(x, y, z, ModBlocks.cobbled_deepslate, 0, 2);
 							}
 						}
 					}

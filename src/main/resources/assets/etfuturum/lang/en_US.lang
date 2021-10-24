@@ -13,7 +13,7 @@ enchantment.vanishing_curse=§cCurse of Vanishing
 potion.levitation=Levitation
 potion.levitation.postfix=Potion of Levitation
 
-# Containers
+# Containers/GUI
 container.etfuturum.banner=Banner
 container.enchant.lapis.one=1 Lapis Lazuli
 container.enchant.lapis.many=%d Lapis Lazuli
@@ -25,6 +25,12 @@ container.etfuturum.blast_furnace=Blast Furnace
 container.etfuturum.smoker=Smoker
 container.etfuturum.barrel=Barrel
 container.etfuturum.shulker_box=Shulker Box
+
+gui.warn.continue=Continue...
+gui.warn.dismiss=Don't show me this again.
+gui.warn.notice=NOTICE:
+gui.warn.configSplit1=Due to the main Et Futurum Requiem config becoming very long and hard to navigate, the configs have been split into multiple files. You are being shown this warning because you have a config from a previous version in "configs/etfuturum.cfg". There is no system in place to automatically transfer your settings so be sure to check out the new files!
+gui.warn.configSplit2=When you're done, you can delete or rename the old config file, or tick the box below to stop seeing this warning.
 
 # Entities
 entity.etfuturum.endermite.name=Endermite

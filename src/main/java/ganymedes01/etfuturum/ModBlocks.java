@@ -198,7 +198,7 @@ public class ModBlocks {
 	public static final Block beacon = initBlock(new BlockNewBeacon());
 	public static final Block enchantment_table = initBlock(new BlockNewEnchantmentTable());
 	public static final Block anvil = initBlock(new BlockNewAnvil());
-	public static final Block daylight_sensor = initBlock(new BlockNewDaylightSensor());
+	public static final Block daylight_detector = initBlock(new BlockNewDaylightSensor());
 	public static final Block frosted_ice = initBlock(new BlockFrostedIce());
 	public static final Block lava_cauldron = initBlock(new BlockLavaCauldron());
 	public static final Block end_gateway = initBlock(new BlockEndGateway());

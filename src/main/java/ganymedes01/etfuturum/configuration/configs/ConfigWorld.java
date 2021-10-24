@@ -32,7 +32,7 @@ public class ConfigWorld extends ConfigBase {
 	public static Block fossilBoneBlock;
 	public static int maxTuffPerCluster;
 	public static int[] fossilDimensionBlacklist;
-	public static boolean enableTileReplacement;
+	public static int tileReplacementMode;
 	public static int maxStonesPerCluster;
 	public static boolean enableNewBlocksSounds;
 	public static boolean enableNewMiscSounds;
@@ -41,12 +41,6 @@ public class ConfigWorld extends ConfigBase {
 	public static int smallDebrisMax = 2;
 	public static boolean enableOceanMonuments;
 	public static int[] deepslateLayerDimensionBlacklist;
-	
-	private static final List<ConfigCategory> configCats = new ArrayList<ConfigCategory>();
-	
-	public static List<ConfigCategory> getConfigCats() {
-		return configCats;
-	}
 
 	public static final String catClient = "client";
 	public static final String catGeneration = "generation";
@@ -66,11 +60,11 @@ public class ConfigWorld extends ConfigBase {
 		configCats.add(getCategory(catMisc));
 	}
 
-	protected void syncConfigs() {
+	protected void syncConfigOptions() {
 		Configuration cfg = configInstance;
 		
 		enableDmgIndicator = cfg.getBoolean("enableDmgIndicator", catClient, true, "Heart Damage Indicator");
-		enableNewBlocksSounds = cfg.getBoolean("enableNewBlocksSounds", catClient, true, "New Blocks sounds, such as the new place/break sounds added alongside new blocks, or ones added to existing blocks");
+		enableNewBlocksSounds = cfg.getBoolean("enableNewBlocksSounds", catClient, true, "New Blocks sounds, such as the new place/break sounds added alongside new blocks. Additionally, this will attempt to apply the sounds to existing blocks, like custom Netherrack variants may have the step sound if named right.");
 		enableNewMiscSounds = cfg.getBoolean("enableNewMiscSounds", catClient, true, "New sounds like furnace crackling, chests etc.");
 		enableNewAmbientSounds = cfg.getBoolean("enableNewAmbientSounds", catClient, true, "New ambient sounds like rain, cave sounds");
 		enableNetherAmbience = cfg.getBoolean("enableNetherAmbience", catClient, true, "");
@@ -89,7 +83,7 @@ public class ConfigWorld extends ConfigBase {
 		deepslateGenerationMode = cfg.getInt("deepslateGenerationMode", catGeneration, 0, -1, 1, "If 0, deepslate replaces all stone below the specified value, with a shattering effect near the top similar to bedrock. If 1, it generates in clusters using the deepslate cluster settings. -1 disables Et Futurum deepslate generation entirely.");
 		enableOceanMonuments = cfg.getBoolean("enableOceanMonuments", catGeneration, true, "Note: Ocean monuments currently do not have guardians");
 		enableFossils = cfg.getBoolean("enableFossils", catGeneration, true, "Note: Fossils currently do not rotate");
-		fossilBlockID  = cfg.getInt("fossilBoneBlock", catGeneration, 0, 0, 2, "0 = cfg.Et Futurum bone block, 1 = cfg.Netherlicious bone block, 2 = cfg.UpToDateMod bone block. If mod is not installed Et Futurum bone block will be used instead");
+		fossilBlockID  = cfg.getInt("fossilBoneBlock", catGeneration, 0, 0, 2, "0 = cfg.Et Futurum bone block\n1 = cfg.Netherlicious bone block\2 = cfg.UpToDateMod bone block. If mod is not installed Et Futurum bone block will be used instead");
 		Property fossilBlacklistProp = cfg.get(catGeneration, "fossilDimensionBlacklist", new int[] {-1, 1});
 		fossilBlacklistProp.comment = "The dimensions the fossil structures should not spawn in.";
 		fossilDimensionBlacklist = fossilBlacklistProp.getIntList();
@@ -99,6 +93,6 @@ public class ConfigWorld extends ConfigBase {
 		maxTuffPerCluster = cfg.getInt("tuffClusterSize", catGeneration, 48, 0, 64, "Max vein size for tuff blocks in a cluster");
 		
 		fullGrassPath = cfg.getBoolean("fullGrassPath", catMisc, false, "Set to true if you're having issues with stepping over grass paths. Temporary option until fixes are implemented to 1.7's stepping system.");
-		enableTileReplacement = cfg.getBoolean("enableTileReplacement", catMisc, true, "Replace old Brewing Stands/Enchanting Tables/Daylight Sensors/Beacons with new one on the fly. (Note, as of 2.1.0 this option has been reworked to have better performance. If you disabled it due to lag, please consider trying it again!)");
+		tileReplacementMode = cfg.getInt("tileReplacementMode", catMisc, 0, -1, 1, "Replace old Brewing Stands/Enchanting Tables/Daylight Sensors/Beacons with new one on the fly.\n-1 = Disabled, no conversion even if the replacement tile entities are on\n0 = Convert the vanilla tile entities to their Et Futurum versions\n1 = Convert Et Futurum replacement tile entities back to default ones. Useful if you want to turn those off.");
 	}
 }

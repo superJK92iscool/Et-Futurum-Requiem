@@ -106,12 +106,6 @@ public class ConfigBlocksItems extends ConfigBase {
 	
 	public static int endGatewaySpawnColor = 2;
 	public static int endGatewayEntryColor = 2;
-	
-	private static final List<ConfigCategory> configCats = new ArrayList<ConfigCategory>();
-	
-	public static List<ConfigCategory> getConfigCats() {
-		return configCats;
-	}
 
 	public static final String catBlockNatural = "natural blocks";
 	public static final String catBlockFunc = "function blocks";
@@ -140,7 +134,7 @@ public class ConfigBlocksItems extends ConfigBase {
 		configCats.add(getCategory(catItemMisc));
 	}
 
-	protected void syncConfigs() {
+	protected void syncConfigOptions() {
 		Configuration cfg = configInstance;
 
 		//Natural Blocks

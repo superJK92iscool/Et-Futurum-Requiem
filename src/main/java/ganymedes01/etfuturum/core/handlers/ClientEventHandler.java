@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.core.handlers;
 
+import java.io.File;
 import java.util.List;
 import java.util.Random;
 
@@ -13,11 +14,14 @@ import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
+import ganymedes01.etfuturum.EtFuturumMixinPlugin;
 import ganymedes01.etfuturum.blocks.BlockShulkerBox;
 import ganymedes01.etfuturum.client.OpenGLHelper;
+import ganymedes01.etfuturum.client.gui.GuiConfigWarning;
 import ganymedes01.etfuturum.client.sound.NetherAmbience;
 import ganymedes01.etfuturum.client.sound.NetherAmbienceLoop;
 import ganymedes01.etfuturum.client.sound.WeightedSoundPool;
+import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.lib.Reference;
@@ -30,22 +34,26 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSound;
 import net.minecraft.client.audio.PositionedSoundRecord;
+import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.particle.EntityDiggingFX;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.launchwrapper.Launch;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
+import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.client.event.RenderPlayerEvent.SetArmorModel;
 import net.minecraftforge.client.event.sound.PlaySoundEvent17;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.event.entity.PlaySoundAtEntityEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
@@ -54,6 +62,7 @@ public class ClientEventHandler {
 
 	public static final ClientEventHandler INSTANCE = new ClientEventHandler();
 	private Random rand = new Random();
+	private boolean showedWarning;
 
 	public WeightedSoundPool netherWastes = new WeightedSoundPool();
 	public WeightedSoundPool basaltDeltas = new WeightedSoundPool();
@@ -142,6 +151,11 @@ public class ClientEventHandler {
 			return;
 		}
 		
+		if(player.ticksExisted == 40 &&
+				(Reference.VERSION_NUMBER.contains("dev") || Reference.VERSION_NUMBER.contains("snapshot") ||Reference.VERSION_NUMBER.contains("alpha"))) {
+			player.addChatComponentMessage(new ChatComponentText("\u00a7c\u00a7l[Debug]: \u00a7rYou are using a debug, or beta version of \u00a7bEt \u00a7bFuturum \u00a7bRequiem\u00a7r. There might be bugs!"));
+			showedWarning = true;
+		}
 
 		if(ConfigWorld.enableNetherAmbience && !EtFuturum.netherAmbienceNetherlicious && player.dimension == -1) {
 			Chunk chunk = world.getChunkFromBlockCoords((int)player.posX, (int)player.posZ);
@@ -466,4 +480,26 @@ public class ClientEventHandler {
             }
         }
     }
+
+	public static int main_menu_display_count = 0;
+
+    @SubscribeEvent
+    @SideOnly(Side.CLIENT)
+    public void openMainMenu(GuiOpenEvent event)
+    {
+        if (event != null && event.gui != null && EtFuturumMixinPlugin.launchConfigWarning && main_menu_display_count++ < 20)
+        {
+            EtFuturumMixinPlugin.launchConfigWarning = false;
+            Configuration oldConfig = new Configuration(new File(Launch.minecraftHome, ConfigBase.PATH));
+            oldConfig.setCategoryComment("warned", "This is added if we've warned you this file exists.\nUsed by versions that split the config into different files, rendering this file unused.\nThis was done because the current file was becoming difficult to navigate.");
+            if(!oldConfig.getBoolean("configWarningShown", "warned", false, "")) {
+            	event.gui = new GuiConfigWarning(event.gui, oldConfig);
+            }
+            oldConfig.getCategory("warned").get("configWarningShown").comment = "";
+            oldConfig.save();
+            
+            return;
+        }
+    }
+
 }

@@ -32,7 +32,7 @@ public class BlockNewAnvil extends BlockAnvil implements IConfigurable, ISubBloc
 
 	@Override
 	public Item getItemDropped(int meta, Random rand, int fortune) {
-		if (!ConfigWorld.enableTileReplacement)
+		if (ConfigWorld.tileReplacementMode == -1)
 			return Item.getItemFromBlock(ModBlocks.anvil);
 		return Item.getItemFromBlock(Blocks.anvil);
 	}
@@ -40,7 +40,7 @@ public class BlockNewAnvil extends BlockAnvil implements IConfigurable, ISubBloc
 	@Override
 	@SideOnly(Side.CLIENT)
 	public Item getItem(World world, int x, int y, int z) {
-		if (!ConfigWorld.enableTileReplacement)
+		if (ConfigWorld.tileReplacementMode == -1)
 			return Item.getItemFromBlock(ModBlocks.anvil);
 		return Item.getItemFromBlock(Blocks.anvil);
 	}

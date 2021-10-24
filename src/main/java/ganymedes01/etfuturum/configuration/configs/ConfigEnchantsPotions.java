@@ -16,12 +16,6 @@ public class ConfigEnchantsPotions extends ConfigBase {
 	public static int mendingID;
 	public static int frostWalkerID;
 	public static int levitationID;
-	
-	private static final List<ConfigCategory> configCats = new ArrayList<ConfigCategory>();
-	
-	public static List<ConfigCategory> getConfigCats() {
-		return configCats;
-	}
 
 	static final String catEnchants = "enchantments";
 	static final String catPotions = "potions";
@@ -38,7 +32,7 @@ public class ConfigEnchantsPotions extends ConfigBase {
 		configCats.add(getCategory(catPotions));
 	}
 
-	protected void syncConfigs() {
+	protected void syncConfigOptions() {
 		Configuration cfg = configInstance;
 		
 		//enchants

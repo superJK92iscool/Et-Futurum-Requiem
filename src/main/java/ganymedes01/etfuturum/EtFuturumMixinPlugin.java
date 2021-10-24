@@ -62,14 +62,14 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 		//Tweak for stone splatters in the ground like beta
 		//Mixin for cows having 1024 to output the opposite type baby
 
-		ConfigBlocksItems.configInstance.syncOptions();
-		ConfigEnchantsPotions.configInstance.syncOptions();
-		ConfigFunctions.configInstance.syncOptions();
-		ConfigTweaks.configInstance.syncOptions();
-		ConfigWorld.configInstance.syncOptions();
-		ConfigEntities.configInstance.syncOptions();
+		ConfigBlocksItems.configInstance.syncConfig();
+		ConfigEnchantsPotions.configInstance.syncConfig();
+		ConfigFunctions.configInstance.syncConfig();
+		ConfigTweaks.configInstance.syncConfig();
+		ConfigWorld.configInstance.syncConfig();
+		ConfigEntities.configInstance.syncConfig();
 
-		ConfigMixins.configInstance.syncOptions();
+		ConfigMixins.configInstance.syncConfig();
 		
 //		if(oldFile.exists()) {
 //			ConfigBase.loadBaseConfig(oldFile);

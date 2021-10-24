@@ -17,15 +17,11 @@ public class ConfigTweaks extends ConfigBase {
 	public static boolean enableRoses;
 	
 	public static boolean shulkersSpawnAnywhere;
+	public static boolean deepslateReplacesCobblestone;
+	
 	public static final String catAbandoned = "abandoned ideas";
 	public static final String catCustomTweaks = "custom tweaks";
 	public static final String catBedrockParity = "bedrock parity";
-	
-	private static final List<ConfigCategory> configCats = new ArrayList<ConfigCategory>();
-	
-	public static List<ConfigCategory> getConfigCats() {
-		return configCats;
-	}
 
 	public static final String PATH = configDir + File.separator + "tweaks.cfg";
 	public static final ConfigTweaks configInstance = new ConfigTweaks(new File(Launch.minecraftHome, PATH));
@@ -40,7 +36,7 @@ public class ConfigTweaks extends ConfigBase {
 		configCats.add(getCategory(catAbandoned));
 	}
 
-	protected void syncConfigs() {
+	protected void syncConfigOptions() {
 		Configuration cfg = configInstance;
 
 		dyableShulkers = cfg.getBoolean("dyableShulkers", catBedrockParity, true, "Clicking a Shulker to dye them. As an added bonus, you can also click them with a water bucket (water is not consumed) or pour water on them to remove the dye.");
@@ -48,7 +44,8 @@ public class ConfigTweaks extends ConfigBase {
 		enableRoses = cfg.getBoolean("enableOldRoses", catAbandoned, true, "");
 		enableOldGravel = cfg.getBoolean("enableOldGravel", catAbandoned, true, "");
 		
-		shulkersSpawnAnywhere = cfg.getBoolean("shulkersSpawnAnywhere", catCustomTweaks, false, "For compatibility reasons, you may want the Shulker to spawn anywhere in the End in random groups like Endermen. These are uncommon.\nShulkers spawned in this way will despawn naturally, unless seated, given armor through a dispenser, or name tagged. Right now Shulkers are otherwise inacessible.");	
+		shulkersSpawnAnywhere = cfg.getBoolean("shulkersSpawnAnywhere", catCustomTweaks, false, "For compatibility reasons, you may want the Shulker to spawn anywhere in the End in random groups like Endermen. These are uncommon.\nShulkers spawned in this way will despawn naturally, unless seated, given armor through a dispenser, or name tagged. Right now Shulkers are otherwise inacessible.");
+		deepslateReplacesCobblestone = cfg.getBoolean("deepslateReplacesCobblestone", catCustomTweaks, false, "If you want cobblestone to be replaced with cobbled deepslate during world generation.");
 	}
 
 }

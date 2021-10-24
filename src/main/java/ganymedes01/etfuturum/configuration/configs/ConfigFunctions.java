@@ -118,12 +118,6 @@ public class ConfigFunctions extends ConfigBase {
 	public static boolean enableExtraBurnableBlocks;
 	public static boolean enableUpdatedHarvestLevels;
 	public static String[] extraDropRawOres = new String[] {"oreCopper", "oreTin"};
-	
-	private static final List<ConfigCategory> configCats = new ArrayList<ConfigCategory>();
-	
-	public static List<ConfigCategory> getConfigCats() {
-		return configCats;
-	}
 
 	static final String catChanges = "changes";
 	static final String catSettings = "settings";
@@ -143,7 +137,7 @@ public class ConfigFunctions extends ConfigBase {
 		configCats.add(getCategory(catClient));
 	}
 
-	protected void syncConfigs() {
+	protected void syncConfigOptions() {
 		Configuration cfg = configInstance;
 		
 		//changes

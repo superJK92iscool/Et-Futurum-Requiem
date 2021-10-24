@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.plugins.waila;
+package ganymedes01.etfuturum.api.waila;
 
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLInterModComms;
@@ -16,6 +16,6 @@ public class WailaRegistrar {
     }
     
     public static void register() {
-        FMLInterModComms.sendMessage("Waila", "register", "ganymedes01.etfuturum.plugins.waila.WailaRegistrar.wailaCallback");
+        FMLInterModComms.sendMessage("Waila", "register", "ganymedes01.etfuturum.api.waila.WailaRegistrar.wailaCallback");
     }
 }
