@@ -1,15 +1,20 @@
 package ganymedes01.etfuturum.client.skins;
 
-import java.io.BufferedReader;
+import java.io.BufferedInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
+import java.util.Map.Entry;
 
-import net.minecraft.client.Minecraft;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
+
 import net.minecraft.entity.player.EntityPlayer;
 
 public class ThreadCheckAlex extends Thread {
@@ -25,38 +30,25 @@ public class ThreadCheckAlex extends Thread {
 		if(player.getUniqueID() == null) {
 			isAlex = false;
 		} else {
-			InputStream is = null;
 			try {
 				System.setProperty("https.protocols", "TLSv1,TLSv1.1,TLSv1.2");
-				is = new URL("https://sessionserver.mojang.com/session/minecraft/profile/"
-			+ player.getUniqueID().toString().replaceAll("-", "")).openStream();
-				  BufferedReader rd = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
-				  String jsonText = readAll(rd);
-				  rd.close();
-//                System.out.println(jsonText);
-				  if(jsonText.indexOf("\"value\" : \"") == -1) {
+				JsonObject json = new Gson().fromJson(new InputStreamReader(new BufferedInputStream(new URL("https://sessionserver.mojang.com/session/minecraft/profile/" + player.getUniqueID().toString().replaceAll("-", "")).openStream())), 
+						JsonObject.class);
+				
+				JsonArray jsonArray = json.getAsJsonArray("properties");
+				
+				  if(!jsonArray.get(0).getAsJsonObject().has("value")) {
 					  isAlex = false;
 				  } else {
-					  String base64 = jsonText.substring(jsonText.indexOf("\"value\" : \""));
-					  base64 = base64.replace("\"value\" : \"", "");
-					  base64 = base64.substring(0, base64.indexOf('"'));
-//	                System.out.println(Base64.base64Decode(base64));
-					  if(new String(Base64.getDecoder().decode(base64), StandardCharsets.UTF_8).contains("\"model\" : \"slim\"")) {
-						  isAlex = true;
-					  }
+					  JsonObject props = new Gson().fromJson(new String(Base64.getDecoder().decode(jsonArray.get(0).getAsJsonObject().get("value").getAsString()), StandardCharsets.UTF_8),
+							  JsonObject.class);
+					  isAlex = props.getAsJsonObject("textures").getAsJsonObject("SKIN").getAsJsonObject("metadata").get("model").getAsString().equals("slim");
 				  }
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
-			if (is != null) {
-				try {
-					is.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
 		}
+		
 		PlayerModelManager.alexCache.put(player, isAlex);
 //      nbt.setBoolean(SetPlayerModelCommand.MODEL_KEY, isAlex);
 	}

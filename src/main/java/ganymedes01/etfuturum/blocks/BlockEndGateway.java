@@ -98,11 +98,6 @@ public class BlockEndGateway extends BlockContainer implements IConfigurable {
     {
         return -1;
     }
-    
-	@Override
-	public boolean isEnabled() {
-		return true;
-	}
 	
     @SideOnly(Side.CLIENT)
     public boolean shouldSideBeRendered(IBlockAccess world, int x, int y, int z, int side)
@@ -147,4 +142,9 @@ public class BlockEndGateway extends BlockContainer implements IConfigurable {
             }
         }
     }
+    
+	@Override
+	public boolean isEnabled() {
+		return EtFuturum.isTesting;
+	}
 }

@@ -423,7 +423,7 @@ public class EndChunkProvider implements IChunkProvider {
 	public void populate(IChunkProvider chunkProvider, int x, int z) {
         BlockFalling.fallInstantly = true;
         
-        MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Pre(chunkProvider, worldObj, worldObj.rand, x, z, false));
+        MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Pre(chunkProvider, worldObj, rand, x, z, false));
         
         int xPos = x * 16;
         int yPos = 0;
@@ -434,7 +434,7 @@ public class EndChunkProvider implements IChunkProvider {
 //            this.endCityGen.generateStructure(this.worldObj, this.rand, new ChunkPos(x, z));
         }
 
-        this.worldObj.getBiomeGenForCoords(xPos + 16, zPos + 16).decorate(this.worldObj, this.worldObj.rand, xPos, zPos);
+        this.worldObj.getBiomeGenForCoords(xPos + 16, zPos + 16).decorate(this.worldObj, rand, xPos, zPos);
         long i = (long)x * (long)x + (long)z * (long)z;
 
         if (i > 4096L)
@@ -474,7 +474,7 @@ public class EndChunkProvider implements IChunkProvider {
             }
         }
         
-        MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Post(chunkProvider, worldObj, worldObj.rand, x, z, false));
+        MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Post(chunkProvider, worldObj, rand, x, z, false));
 
         BlockFalling.fallInstantly = false;
     

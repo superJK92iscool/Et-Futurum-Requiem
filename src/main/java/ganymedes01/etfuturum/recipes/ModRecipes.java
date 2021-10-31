@@ -40,7 +40,8 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 
 public class ModRecipes {
 
-	public static String[] dyes = new String[] { "dyeBlack", "dyeRed", "dyeGreen", "dyeBrown", "dyeBlue", "dyePurple", "dyeCyan", "dyeLightGray", "dyeGray", "dyePink", "dyeLime", "dyeYellow", "dyeLightBlue", "dyeMagenta", "dyeOrange", "dyeWhite" };
+	public static final String[] ore_dyes = new String[] { "dyeBlack", "dyeRed", "dyeGreen", "dyeBrown", "dyeBlue", "dyePurple", "dyeCyan", "dyeLightGray", "dyeGray", "dyePink", "dyeLime", "dyeYellow", "dyeLightBlue", "dyeMagenta", "dyeOrange", "dyeWhite" };
+	public static final String[] dye_names = new String[] { "white", "orange", "magenta", "light_blue", "yellow", "lime", "pink", "gray", "light_gray", "cyan", "purple", "blue", "brown", "green", "red", "black"};
 	//private static final ItemStack _SAND_ = new ItemStack(Blocks.sand), _GRAVEL_ = new ItemStack(Blocks.gravel); // unused variables
 	
 	
@@ -521,15 +522,15 @@ public class ModRecipes {
 //            addShapelessRecipe(new ItemStack(Items.dye, 9, 15), new ItemStack(ModBlocks.bone_block));
 		}
 
-		for (int i = 0; i < dyes.length; i++) {
+		for (int i = 0; i < ore_dyes.length; i++) {
 			if (ConfigBlocksItems.enableConcrete) {
 					int dye = ~i & 15;
 					addShapelessRecipe(new ItemStack(ModBlocks.concrete_powder, 8, i), 
-							new Object[]{dyes[dye], new ItemStack(Blocks.sand, 1, 0), new ItemStack(Blocks.sand, 1, 0), new ItemStack(Blocks.sand, 1, 0), 
+							new Object[]{ore_dyes[dye], new ItemStack(Blocks.sand, 1, 0), new ItemStack(Blocks.sand, 1, 0), new ItemStack(Blocks.sand, 1, 0), 
 									new ItemStack(Blocks.sand, 1, 0), Blocks.gravel, Blocks.gravel, Blocks.gravel, Blocks.gravel});
 			}
 			if(ConfigBlocksItems.enableGlazedTerracotta)
-				GameRegistry.addSmelting(new ItemStack(Blocks.stained_hardened_clay, 1, i), new ItemStack(GameRegistry.findBlock(Reference.MOD_ID, BlockGlazedTerracotta.subBlock[i] + "_glazed_terracotta")), 0.1F);
+				GameRegistry.addSmelting(new ItemStack(Blocks.stained_hardened_clay, 1, i), new ItemStack(GameRegistry.findBlock(Reference.MOD_ID, dye_names[i] + "_glazed_terracotta")), 0.1F);
 		}
 		
 		if (ConfigFunctions.enableRecipeForTotem) {
@@ -803,7 +804,7 @@ public class ModRecipes {
 				ItemStack output = new ItemStack(ModBlocks.shulker_box);
 				output.setTagCompound(new NBTTagCompound());
 				output.getTagCompound().setByte("Color", (byte)(i + 1));
-				GameRegistry.addRecipe(new RecipeDyedShulkerBox(output, new Object[] {ModBlocks.shulker_box, dyes[(byte)((~i & 15))]}));
+				GameRegistry.addRecipe(new RecipeDyedShulkerBox(output, new Object[] {ModBlocks.shulker_box, ore_dyes[(byte)((~i & 15))]}));
 			}
 		}
 		

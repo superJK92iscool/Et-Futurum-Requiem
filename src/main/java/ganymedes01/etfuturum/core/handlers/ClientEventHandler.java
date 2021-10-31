@@ -147,15 +147,18 @@ public class ClientEventHandler {
 	{
 		World world = FMLClientHandler.instance().getWorldClient();
 		EntityPlayer player = FMLClientHandler.instance().getClientPlayerEntity();
+		
 		if(world == null || event.phase != Phase.START || Minecraft.getMinecraft().isGamePaused()) {
 			return;
 		}
-		
-		if(player.ticksExisted == 40 &&
-				(Reference.VERSION_NUMBER.contains("dev") || Reference.VERSION_NUMBER.contains("snapshot") ||Reference.VERSION_NUMBER.contains("alpha"))) {
-			player.addChatComponentMessage(new ChatComponentText("\u00a7c\u00a7l[Debug]: \u00a7rYou are using a debug, or beta version of \u00a7bEt \u00a7bFuturum \u00a7bRequiem\u00a7r. There might be bugs!"));
-			showedWarning = true;
-		}
+//		
+//		if(!showedWarning && player.ticksExisted == 40) {
+//			if(Reference.VERSION_NUMBER.contains("dev") || Reference.VERSION_NUMBER.contains("snapshot")
+//						|| Reference.VERSION_NUMBER.contains("alpha") || Reference.VERSION_NUMBER.contains("beta") || EtFuturum.isTesting) {
+//			player.addChatComponentMessage(new ChatComponentText("\u00a7c\u00a7l[Debug]: \u00a7rYou are using a debug, or beta version of \u00a7bEt \u00a7bFuturum \u00a7bRequiem\u00a7r. There might be bugs, please report issues here: https://github.com/Roadhog360/Et-Futurum-Requiem/issues"));
+//						}
+//			showedWarning = true;
+//		}
 
 		if(ConfigWorld.enableNetherAmbience && !EtFuturum.netherAmbienceNetherlicious && player.dimension == -1) {
 			Chunk chunk = world.getChunkFromBlockCoords((int)player.posX, (int)player.posZ);
@@ -487,6 +490,8 @@ public class ClientEventHandler {
     @SideOnly(Side.CLIENT)
     public void openMainMenu(GuiOpenEvent event)
     {
+    	showedWarning = false;
+
         if (event != null && event.gui != null && EtFuturumMixinPlugin.launchConfigWarning && main_menu_display_count++ < 20)
         {
             EtFuturumMixinPlugin.launchConfigWarning = false;

@@ -1,24 +1,16 @@
 package ganymedes01.etfuturum.client.renderer.block;
 
-import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.client.OpenGLHelper;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.shader.TesselatorVertexState;
-import net.minecraft.init.Blocks;
 import net.minecraft.world.IBlockAccess;
 
 @SideOnly(Side.CLIENT)
-public class BlockEndRodRender implements ISimpleBlockRenderingHandler {
-	
-	float r;
-	float g;
-	float b;
+public class BlockEndRodRender extends BlockModelBase {
 
 	@Override
 	public void renderInventoryBlock(Block block, int meta, int modelID, RenderBlocks renderer) {
@@ -30,7 +22,6 @@ public class BlockEndRodRender implements ISimpleBlockRenderingHandler {
 		double z = 7 / 16.0;
 		renderer.setRenderBounds(0, 1 / 16F, 0, 2 / 16F, 1, 2 / 16F);
 		tessellator.startDrawingQuads();
-		tessellator.setTextureUV(1, 1);
 		tessellator.setNormal(0.0F, -1.0F, 0.0F);
 		renderer.renderFaceYNeg(block, x, y, z, renderer.getBlockIconFromSideAndMetadata(block, 0, meta));
 		tessellator.setNormal(0.0F, 1.0F, 0.0F);
@@ -79,47 +70,6 @@ public class BlockEndRodRender implements ISimpleBlockRenderingHandler {
 	    float f1 = 0.125F;
 	    float f2 = 0.0625F;
 
-	    int m = block.getMixedBrightnessForBlock(world, x, y, z);
-		int l = block.colorMultiplier(world, x, y, z);
-
-		float i = (l >> 16 & 255) / 255.0F;
-		float i1 = (l >> 8 & 255) / 255.0F;
-		float i2 = (l & 255) / 255.0F;
-		float i3;
-
-		if (EntityRenderer.anaglyphEnable)
-		{
-			i3 = (i * 30.0F + i1 * 59.0F + f2 * 11.0F) / 100.0F;
-			float i4 = (i * 30.0F + f1 * 70.0F) / 100.0F;
-			float i5 = (i * 30.0F + f2 * 70.0F) / 100.0F;
-			i = i3;
-			i1 = i4;
-			i2 = i5;
-		}
-
-		tessellator.setColorOpaque_F(i, i1, i2);
-		
-		r = i;
-		g = i1;
-		b = i2;
-		
-		
-		i3 = 0.1865F;
-		i3 = 1;
-		if (l != 16777215)
-		{
-			i = (l >> 16 & 255) / 255.0F;
-			i1 = (l >> 8 & 255) / 255.0F;
-			i2 = (l & 255) / 255.0F;
-			tessellator.setColorOpaque_F(i * i3, i1 * i3, i2 * i3);
-			
-			r = i;
-			g = i1;
-			b = i2;
-		}
-		
-	    tessellator.setBrightness(m);
-
 	    double x1 = 0;
 	    double y1 = 0;
 	    double z1 = 0;
@@ -153,34 +103,22 @@ public class BlockEndRodRender implements ISimpleBlockRenderingHandler {
 	    	renderer.uvRotateSouth = 0;
 			renderer.setRenderBounds(0.0625D, 0, 0, 1D, 0.125D, 0.125D);
 	    }
-	    
-	    x1 += x;
-	    y1 += y;
-	    z1 += z;
 
 	    if (meta == 0 || meta == 1) {
-	        multiplyColorBy(tessellator, 0.8F);
-			renderer.renderFaceZNeg(block, x1, y1, z1, renderer.getBlockIconFromSideAndMetadata(block, 2, meta));
-			renderer.renderFaceZPos(block, x1, y1, z1, renderer.getBlockIconFromSideAndMetadata(block, 3, meta));
-	        multiplyColorBy(tessellator, 0.6F);
-			renderer.renderFaceXNeg(block, x1, y1, z1, renderer.getBlockIconFromSideAndMetadata(block, 4, meta));
-			renderer.renderFaceXPos(block, x1, y1, z1, renderer.getBlockIconFromSideAndMetadata(block, 5, meta));
+			renderFaceZNeg(renderer, block, x, y, z, x1, y1, z1);
+			renderFaceZPos(renderer, block, x, y, z, x1, y1, z1);
+			renderFaceXNeg(renderer, block, x, y, z, x1, y1, z1);
+			renderFaceXPos(renderer, block, x, y, z, x1, y1, z1);
 	    } else if (meta == 2 || meta == 3) {
-	        multiplyColorBy(tessellator, 0.5F);
-			renderer.renderFaceYNeg(block, x1, y1, z1, renderer.getBlockIconFromSideAndMetadata(block, 0, meta));
-	        multiplyColorBy(tessellator, 1);
-			renderer.renderFaceYPos(block, x1, y1, z1, renderer.getBlockIconFromSideAndMetadata(block, 1, meta));
-	        multiplyColorBy(tessellator, 0.6F);
-			renderer.renderFaceXNeg(block, x1, y1, z1, renderer.getBlockIconFromSideAndMetadata(block, 4, meta));
-			renderer.renderFaceXPos(block, x1, y1, z1, renderer.getBlockIconFromSideAndMetadata(block, 5, meta));
+			renderFaceYNeg(renderer, block, x, y, z, x1, y1, z1);
+			renderFaceYPos(renderer, block, x, y, z, x1, y1, z1);
+			renderFaceXNeg(renderer, block, x, y, z, x1, y1, z1);
+			renderFaceXPos(renderer, block, x, y, z, x1, y1, z1);
 	    } else if (meta == 4 || meta == 5) {
-	        multiplyColorBy(tessellator, 0.5F);
-			renderer.renderFaceYNeg(block, x1, y1, z1, renderer.getBlockIconFromSideAndMetadata(block, 0, meta));
-	        multiplyColorBy(tessellator, 1);
-			renderer.renderFaceYPos(block, x1, y1, z1, renderer.getBlockIconFromSideAndMetadata(block, 1, meta));
-	        multiplyColorBy(tessellator, 0.8F);
-			renderer.renderFaceZNeg(block, x1, y1, z1, renderer.getBlockIconFromSideAndMetadata(block, 2, meta));
-			renderer.renderFaceZPos(block, x1, y1, z1, renderer.getBlockIconFromSideAndMetadata(block, 3, meta));
+			renderFaceYNeg(renderer, block, x, y, z, x1, y1, z1);
+			renderFaceYPos(renderer, block, x, y, z, x1, y1, z1);
+			renderFaceZNeg(renderer, block, x, y, z, x1, y1, z1);
+			renderFaceZPos(renderer, block, x, y, z, x1, y1, z1);
 	    }
 	    
 	    if (meta == 0 || meta == 1)
@@ -200,24 +138,16 @@ public class BlockEndRodRender implements ISimpleBlockRenderingHandler {
 			z1 = .3125D;
 			renderer.setRenderBounds(0.0625D, 0.875D, 0.125D, 1D, 1, 0.25D);
 	    }
-	    
-	    x1 += x;
-	    y1 += y;
-	    z1 += z;
 
 	    if (meta == 0 || meta == 1) {
-	        multiplyColorBy(tessellator, 0.5F);
-			renderer.renderFaceYNeg(block, x1, y1, z1, renderer.getBlockIconFromSideAndMetadata(block, 0, meta));
-	        multiplyColorBy(tessellator, 1);
-			renderer.renderFaceYPos(block, x1, y1, z1, renderer.getBlockIconFromSideAndMetadata(block, 1, meta));
+			renderFaceYNeg(renderer, block, x, y, z, x1, y1, z1);
+			renderFaceYPos(renderer, block, x, y, z, x1, y1, z1);
 	    } else if (meta == 2 || meta == 3) {
-	        multiplyColorBy(tessellator, 0.8F);
-			renderer.renderFaceZNeg(block, x1, y1, z1, renderer.getBlockIconFromSideAndMetadata(block, 2, meta));
-			renderer.renderFaceZPos(block, x1, y1, z1, renderer.getBlockIconFromSideAndMetadata(block, 3, meta));
+			renderFaceZNeg(renderer, block, x, y, z, x1, y1, z1);
+			renderFaceZPos(renderer, block, x, y, z, x1, y1, z1);
 	    } else if (meta == 4 || meta == 5) {
-	        multiplyColorBy(tessellator, 0.6F);
-			renderer.renderFaceXNeg(block, x1, y1, z1, renderer.getBlockIconFromSideAndMetadata(block, 2, meta));
-			renderer.renderFaceXPos(block, x1, y1, z1, renderer.getBlockIconFromSideAndMetadata(block, 3, meta));
+			renderFaceXNeg(renderer, block, x, y, z, x1, y1, z1);
+			renderFaceXPos(renderer, block, x, y, z, x1, y1, z1);
 	    }
 		
 		x1 = 0;
@@ -249,26 +179,20 @@ public class BlockEndRodRender implements ISimpleBlockRenderingHandler {
 	    	renderer.uvRotateSouth = 1;
 			renderer.setRenderBounds(0.9375, 0.625D, 0.125D, 1, .875, .375);
 	    }
-	    
-	    x1 += x;
-	    y1 += y;
-	    z1 += z;
 
+	    renderer.renderAllFaces = true;
 	    if (meta == 0 || meta == 1)
 	    {
-	        multiplyColorBy(tessellator, 0.5F);
-			renderer.renderFaceYNeg(block, x1, y1, z1, renderer.getBlockIconFromSideAndMetadata(block, 0, meta));
-	        multiplyColorBy(tessellator, 1);
-			renderer.renderFaceYPos(block, x1, y1, z1, renderer.getBlockIconFromSideAndMetadata(block, 1, meta));
+			renderFaceYNeg(renderer, block, x, y, z, x1, y1, z1);
+			renderFaceYPos(renderer, block, x, y, z, x1, y1, z1);
 	    } else if (meta == 2 || meta == 3) {
-			multiplyColorBy(tessellator, 0.8F);
-			renderer.renderFaceZNeg(block, x1, y1, z1, renderer.getBlockIconFromSideAndMetadata(block, 4, meta));
-			renderer.renderFaceZPos(block, x1, y1, z1, renderer.getBlockIconFromSideAndMetadata(block, 5, meta));
+			renderFaceZNeg(renderer, block, x, y, z, x1, y1, z1);
+			renderFaceZPos(renderer, block, x, y, z, x1, y1, z1);
 	    } else if (meta == 4 || meta == 5) {
-			multiplyColorBy(tessellator, 0.6F);
-			renderer.renderFaceXNeg(block, x1, y1, z1, renderer.getBlockIconFromSideAndMetadata(block, 4, meta));
-			renderer.renderFaceXPos(block, x1, y1, z1, renderer.getBlockIconFromSideAndMetadata(block, 5, meta));
+			renderFaceXNeg(renderer, block, x, y, z, x1, y1, z1);
+			renderFaceXPos(renderer, block, x, y, z, x1, y1, z1);
 	    }
+	    renderer.renderAllFaces = false;
 
 		x1 = 0;
 		y1 = 0;
@@ -305,33 +229,21 @@ public class BlockEndRodRender implements ISimpleBlockRenderingHandler {
 			renderer.setRenderBounds(0.5625, 0.125, 0.125, 0.625, 0.375, 0.375);
 		}
 
-	    x1 += x;
-	    y1 += y;
-	    z1 += z;
-
 		if(meta == 0 || meta == 1) {
-	        multiplyColorBy(tessellator, 0.8F);
-			renderer.renderFaceZNeg(block, x1, y1, z1, renderer.getBlockIconFromSideAndMetadata(block, 2, meta));
-			renderer.renderFaceZPos(block, x1, y1, z1, renderer.getBlockIconFromSideAndMetadata(block, 3, meta));
-	        multiplyColorBy(tessellator, 0.6F);
-			renderer.renderFaceXNeg(block, x1, y1, z1, renderer.getBlockIconFromSideAndMetadata(block, 4, meta));
-			renderer.renderFaceXPos(block, x1, y1, z1, renderer.getBlockIconFromSideAndMetadata(block, 5, meta));
+			renderFaceZNeg(renderer, block, x, y, z, x1, y1, z1);
+			renderFaceZPos(renderer, block, x, y, z, x1, y1, z1);
+			renderFaceXNeg(renderer, block, x, y, z, x1, y1, z1);
+			renderFaceXPos(renderer, block, x, y, z, x1, y1, z1);
 		} else if (meta == 2 || meta == 3) {
-	        multiplyColorBy(tessellator, 0.5F);
-			renderer.renderFaceYNeg(block, x1, y1, z1, renderer.getBlockIconFromSideAndMetadata(block, 0, meta));
-	        multiplyColorBy(tessellator, 1);
-			renderer.renderFaceYPos(block, x1, y1, z1, renderer.getBlockIconFromSideAndMetadata(block, 1, meta));
-	        multiplyColorBy(tessellator, 0.6F);
-			renderer.renderFaceXNeg(block, x1, y1, z1, renderer.getBlockIconFromSideAndMetadata(block, 4, meta));
-			renderer.renderFaceXPos(block, x1, y1, z1, renderer.getBlockIconFromSideAndMetadata(block, 5, meta));
+			renderFaceYNeg(renderer, block, x, y, z, x1, y1, z1);
+			renderFaceYPos(renderer, block, x, y, z, x1, y1, z1);
+			renderFaceXNeg(renderer, block, x, y, z, x1, y1, z1);
+			renderFaceXPos(renderer, block, x, y, z, x1, y1, z1);
 		}  else if (meta == 4 || meta == 5) {
-	        multiplyColorBy(tessellator, 0.5F);
-			renderer.renderFaceYNeg(block, x1, y1, z1, renderer.getBlockIconFromSideAndMetadata(block, 0, meta));
-	        multiplyColorBy(tessellator, 1);
-			renderer.renderFaceYPos(block, x1, y1, z1, renderer.getBlockIconFromSideAndMetadata(block, 1, meta));
-	        multiplyColorBy(tessellator, 0.8F);
-			renderer.renderFaceZNeg(block, x1, y1, z1, renderer.getBlockIconFromSideAndMetadata(block, 2, meta));
-			renderer.renderFaceZPos(block, x1, y1, z1, renderer.getBlockIconFromSideAndMetadata(block, 3, meta));
+			renderFaceYNeg(renderer, block, x, y, z, x1, y1, z1);
+			renderFaceYPos(renderer, block, x, y, z, x1, y1, z1);
+			renderFaceZNeg(renderer, block, x, y, z, x1, y1, z1);
+			renderFaceZPos(renderer, block, x, y, z, x1, y1, z1);
 		}
 		
 		
@@ -344,10 +256,6 @@ public class BlockEndRodRender implements ISimpleBlockRenderingHandler {
 		renderer.uvRotateSouth = 0;
     	
 		return true;
-	}
-	
-	private void multiplyColorBy(Tessellator tessellator, float m) {
-		tessellator.setColorOpaque_F(r * m, g * m, b * m);
 	}
 
 	@Override

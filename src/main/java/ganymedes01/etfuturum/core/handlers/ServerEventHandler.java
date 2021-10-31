@@ -879,8 +879,8 @@ public class ServerEventHandler {
 		if(animal instanceof EntitySheep && stack.getItem() != Items.dye && !animal.worldObj.isRemote) {
 			EntitySheep sheep = ((EntitySheep)animal);
 			for(int oreID : OreDictionary.getOreIDs(stack)) {
-				int fleeceColour = ~ArrayUtils.indexOf(ModRecipes.dyes, OreDictionary.getOreName(oreID)) & 15;
-				if(ArrayUtils.contains(ModRecipes.dyes, OreDictionary.getOreName(oreID)) && sheep.getFleeceColor() != fleeceColour
+				int fleeceColour = ~ArrayUtils.indexOf(ModRecipes.ore_dyes, OreDictionary.getOreName(oreID)) & 15;
+				if(ArrayUtils.contains(ModRecipes.ore_dyes, OreDictionary.getOreName(oreID)) && sheep.getFleeceColor() != fleeceColour
 						&& !sheep.getSheared()) {
 					sheep.setFleeceColor(fleeceColour);
 					if(!event.entityPlayer.capabilities.isCreativeMode)

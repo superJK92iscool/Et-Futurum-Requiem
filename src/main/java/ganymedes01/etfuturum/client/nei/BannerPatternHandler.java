@@ -182,7 +182,7 @@ public class BannerPatternHandler extends TemplateRecipeHandler {
 	}
 
 	private boolean isNameDye(String name) {
-		for (String dye : ModRecipes.dyes)
+		for (String dye : ModRecipes.ore_dyes)
 			if (dye.equals(name))
 				return true;
 		return false;

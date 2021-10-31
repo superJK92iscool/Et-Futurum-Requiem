@@ -16,5 +16,5 @@ public class RenderIDs {
 	public static final int GLAZED_TERRACOTTA = RenderingRegistry.getNextAvailableRenderId();
 	public static final int LAVA_CAULDRON = RenderingRegistry.getNextAvailableRenderId();
 	public static final int LIGHTNING_ROD = RenderingRegistry.getNextAvailableRenderId();
-	public static final int SHULKER_BOX = RenderingRegistry.getNextAvailableRenderId();
+	public static final int STONECUTTER = RenderingRegistry.getNextAvailableRenderId();
 }

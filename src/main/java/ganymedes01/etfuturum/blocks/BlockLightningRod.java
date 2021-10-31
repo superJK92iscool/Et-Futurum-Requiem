@@ -14,15 +14,15 @@ import net.minecraft.world.World;
 public class BlockLightningRod extends Block implements IConfigurable {
 
 	public BlockLightningRod() {
-	super(Material.iron);
-	setHardness(3);
-	setResistance(6);
-	setHarvestLevel("pickaxe", 1);
-	setBlockName(Utils.getUnlocalisedName("lightning_rod"));
-	setBlockTextureName("lightning_rod");
-	setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
-	setStepSound(ConfigWorld.enableNewBlocksSounds ? ModSounds.soundCopper : Block.soundTypeMetal);
-	setTickRandomly(true);
+		super(Material.iron);
+		setHardness(3);
+		setResistance(6);
+		setHarvestLevel("pickaxe", 1);
+		setBlockName(Utils.getUnlocalisedName("lightning_rod"));
+		setBlockTextureName("lightning_rod");
+		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setStepSound(ConfigWorld.enableNewBlocksSounds ? ModSounds.soundCopper : Block.soundTypeMetal);
+		setTickRandomly(true);
 	}
 
 	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_)
@@ -51,6 +51,6 @@ public class BlockLightningRod extends Block implements IConfigurable {
 
 	@Override
 	public boolean isEnabled() {
-		return false;
+		return EtFuturum.isTesting;
 	}
 }

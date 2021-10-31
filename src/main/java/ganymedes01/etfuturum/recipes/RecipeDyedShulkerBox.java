@@ -76,7 +76,7 @@ public class RecipeDyedShulkerBox extends ShapelessOreRecipe {
 				if(color == 0) {
 					for(int oreID : OreDictionary.getOreIDs(slot)) {
 						if(OreDictionary.getOreName(oreID).startsWith("dye")) {
-							color = (byte) ((~ArrayUtils.indexOf(ModRecipes.dyes, OreDictionary.getOreName(oreID)) & 15) + 1);
+							color = (byte) ((~ArrayUtils.indexOf(ModRecipes.ore_dyes, OreDictionary.getOreName(oreID)) & 15) + 1);
 							break;
 						}
 					}

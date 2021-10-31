@@ -7,7 +7,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.blocks.BlockGlazedTerracotta;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
+import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.dispenser.DispenserBehaviourShulkerBox;
+import ganymedes01.etfuturum.recipes.ModRecipes;
 import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDispenser;
@@ -44,11 +46,11 @@ public class ItemShulkerBox extends ItemBlock {
     	}
     	if(stack.hasTagCompound()) {
         	if(stack.getTagCompound().hasKey("Color") && stack.getTagCompound().getByte("Color") > 0) {
-        		String dye = BlockGlazedTerracotta.subBlock[stack.getTagCompound().getByte("Color") - 1 % BlockGlazedTerracotta.subBlock.length];
+        		String dye = ModRecipes.dye_names[stack.getTagCompound().getByte("Color") - 1 % ModRecipes.dye_names.length];
         		string = dye + "_" + string;
         	}
     	}
-        return "tile.etfuturum." + string.toString();
+        return "tile." + Utils.getUnlocalisedName(string.toString());
     }
 	
     public boolean onItemUse(ItemStack p_77648_1_, EntityPlayer p_77648_2_, World p_77648_3_, int p_77648_4_, int p_77648_5_, int p_77648_6_, int p_77648_7_, float p_77648_8_, float p_77648_9_, float p_77648_10_)

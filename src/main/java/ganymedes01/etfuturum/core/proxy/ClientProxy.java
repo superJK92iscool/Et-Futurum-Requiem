@@ -7,6 +7,7 @@ import com.mojang.authlib.minecraft.MinecraftSessionService;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
+import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.client.model.ModelShulker;
 import ganymedes01.etfuturum.client.renderer.block.BlockBarrelRenderer;
@@ -19,6 +20,7 @@ import ganymedes01.etfuturum.client.renderer.block.BlockGlazedTerracottaRenderer
 import ganymedes01.etfuturum.client.renderer.block.BlockLanternRenderer;
 import ganymedes01.etfuturum.client.renderer.block.BlockLavaCauldronRenderer;
 import ganymedes01.etfuturum.client.renderer.block.BlockSlimeBlockRender;
+import ganymedes01.etfuturum.client.renderer.block.BlockStonecutterRenderer;
 import ganymedes01.etfuturum.client.renderer.block.BlockTrapDoorRenderer;
 import ganymedes01.etfuturum.client.renderer.entity.ArmourStandRenderer;
 import ganymedes01.etfuturum.client.renderer.entity.BrownMooshroomRenderer;
@@ -147,6 +149,9 @@ public class ClientProxy extends CommonProxy {
 		
 		if(ConfigBlocksItems.enableLavaCauldrons)
 			RenderingRegistry.registerBlockHandler(new BlockLavaCauldronRenderer());
+		
+		if(EtFuturum.isTesting)
+			RenderingRegistry.registerBlockHandler(new BlockStonecutterRenderer());
 		
 			ClientRegistry.bindTileEntitySpecialRenderer(TileEntityGateway.class, new TileEntityGatewayRenderer());
 			

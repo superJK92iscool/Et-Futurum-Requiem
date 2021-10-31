@@ -723,8 +723,8 @@ public class EntityShulker extends EntityGolem implements IMob {
     			return true;
     		}
 			for(int oreID : OreDictionary.getOreIDs(stack)) {
-				byte color = (byte)(~ArrayUtils.indexOf(ModRecipes.dyes, OreDictionary.getOreName(oreID)) & 15);
-				if(ArrayUtils.contains(ModRecipes.dyes, OreDictionary.getOreName(oreID)) && getColor() != color) {
+				byte color = (byte)(~ArrayUtils.indexOf(ModRecipes.ore_dyes, OreDictionary.getOreName(oreID)) & 15);
+				if(ArrayUtils.contains(ModRecipes.ore_dyes, OreDictionary.getOreName(oreID)) && getColor() != color) {
 					setColor(color);
 					if(!p_70085_1_.capabilities.isCreativeMode)
 						--stack.stackSize;

@@ -7,6 +7,7 @@ import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.RenderIDs;
+import ganymedes01.etfuturum.recipes.ModRecipes;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -16,33 +17,13 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 public class BlockGlazedTerracotta extends Block implements IConfigurable {
-
-	// These are used to reference texture names
-	public static final String[] subBlock = {
-			"white", //0
-			"orange", //1
-			"magenta", //2
-			"light_blue", //3
-			"yellow", //4
-			"lime", //5
-			"pink", //6
-			"gray", //7
-			"light_gray", //8
-			"cyan", //9
-			"purple", //10
-			"blue", //11
-			"brown", //12
-			"green", //13
-			"red", //14
-			"black" //15
-			};
 	
 	private final int meta;
 	
 	public BlockGlazedTerracotta(int meta) {
 		super(Material.rock);
-		setBlockName(Utils.getUnlocalisedName(subBlock[meta] + "_glazed_terracotta"));
-		setBlockTextureName(subBlock[meta] + "_glazed_terracotta");
+		setBlockName(Utils.getUnlocalisedName(ModRecipes.dye_names[meta] + "_glazed_terracotta"));
+		setBlockTextureName(ModRecipes.dye_names[meta] + "_glazed_terracotta");
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
 		this.meta = meta;
 	}

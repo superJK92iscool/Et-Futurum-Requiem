@@ -53,9 +53,11 @@ import ganymedes01.etfuturum.recipes.ModRecipes;
 import ganymedes01.etfuturum.recipes.SmokerRecipes;
 import ganymedes01.etfuturum.world.EtFuturumLateWorldGenerator;
 import ganymedes01.etfuturum.world.EtFuturumWorldGenerator;
+import ganymedes01.etfuturum.world.end.dimension.DimensionProviderEnd;
 import ganymedes01.etfuturum.world.generate.BlockAndMetadataMapping;
 import ganymedes01.etfuturum.world.generate.OceanMonument;
 import net.minecraft.block.Block;
+import net.minecraft.block.Block.SoundType;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.block.BlockHay;
 import net.minecraft.block.BlockLeaves;
@@ -64,6 +66,7 @@ import net.minecraft.block.BlockOre;
 import net.minecraft.block.BlockSponge;
 import net.minecraft.block.BlockTrapDoor;
 import net.minecraft.block.BlockVine;
+import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -73,7 +76,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
@@ -127,6 +129,7 @@ public class EtFuturum {
 	public static boolean hasIronChest;
 	public static boolean hasNetherlicious;
 	public static boolean hasEnderlicious;
+	public static final boolean isTesting = Reference.VERSION_NUMBER.equals("@VERSION@");
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
@@ -265,38 +268,74 @@ public class EtFuturum {
 				 */
 				String blockID = Block.blockRegistry.getNameForObject(block).split(":")[1].toLowerCase();
 				
-				if(block.stepSound == Block.soundTypePiston || block.stepSound == Block.soundTypeStone) {
-					if(blockID.contains("nether") && blockID.contains("brick"))
-						block.setStepSound(ModSounds.soundNetherBricks);
-					else if(blockID.contains("netherrack"))
-							block.setStepSound(ModSounds.soundNetherrack);
-					else if(blockID.contains("nether") && (block instanceof BlockOre || blockID.contains("ore")))
-						block.setStepSound(ModSounds.soundNetherOre);
-					else if(block instanceof BlockNetherWart || (blockID.contains("nether") && blockID.contains("wart")))
-						block.setStepSound(ModSounds.soundCropWarts);
+				SoundType sound = getCustomStepSound(block, blockID);
+				if(sound != null) {
+					block.setStepSound(sound);
 				}
-				
-				if(block.stepSound == Block.soundTypeGrass) {
-					if(block instanceof BlockCrops)
-						block.setStepSound(ModSounds.soundCrops);
-					else if(block instanceof BlockVine)
-						block.setStepSound(ModSounds.soundVines);
-				}
-				
-				if(block.stepSound == Block.soundTypeSand && blockID.contains("soul") && blockID.contains("sand")) {
-					block.setStepSound(ModSounds.soundSoulSand);
-				}
-				
-				if(block.stepSound == Block.soundTypeMetal && blockID.contains("copper")) {
-					block.setStepSound(ModSounds.soundCopper);
-				}
+			}
+			
+			/*
+			 * MATERIALS
+			 */
+			if(block == Blocks.bed && isTesting) {
+				block.blockMaterial = Material.wood;
 			}
 		}
 		
 //      if(ConfigurationHandler.enableNewNether)
 //		  DimensionProviderNether.init(); // Come back to
 		
-//		DimensionProviderEnd.init(); // Come back to
+		if(isTesting) {
+			DimensionProviderEnd.init(); // Come back to
+		}
+	}
+	
+	public SoundType getCustomStepSound(Block block, String namespace) {
+		
+		if(block.stepSound == Block.soundTypePiston || block.stepSound == Block.soundTypeStone) {
+			
+			if(namespace.contains("nether") && namespace.contains("brick")) {
+				return ModSounds.soundNetherBricks;
+			}
+			
+			else if(namespace.contains("netherrack")) {
+					return ModSounds.soundNetherrack;
+			}
+			
+			else if(namespace.contains("nether") && (block instanceof BlockOre || namespace.contains("ore"))) {
+				return ModSounds.soundNetherOre;
+			}
+			
+			else if(block instanceof BlockNetherWart || (namespace.contains("nether") && namespace.contains("wart"))) {
+				return ModSounds.soundCropWarts;
+			}
+			
+			else if(namespace.contains("bone")) {
+				return ModSounds.soundBoneBlock;
+			}
+			
+		}
+		
+		if(block.stepSound == Block.soundTypeGrass) {
+			
+			if(block instanceof BlockCrops) {
+				return ModSounds.soundCrops;
+			}
+			
+			else if(block instanceof BlockVine) {
+				return ModSounds.soundVines;
+			}
+		}
+		
+		if(block.stepSound == Block.soundTypeSand && namespace.contains("soul") && namespace.contains("sand")) {
+			return ModSounds.soundSoulSand;
+		}
+		
+		if(block.stepSound == Block.soundTypeMetal && (namespace.contains("copper") || namespace.contains("tin"))) {
+			return ModSounds.soundCopper;
+		}
+		
+		return null;
 	}
 
 	@EventHandler

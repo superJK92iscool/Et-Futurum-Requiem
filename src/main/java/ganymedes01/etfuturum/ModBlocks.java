@@ -28,6 +28,7 @@ import ganymedes01.etfuturum.blocks.BlockDeepslateBricks;
 import ganymedes01.etfuturum.blocks.BlockDeepslateCobbled;
 import ganymedes01.etfuturum.blocks.BlockDeepslatePolished;
 import ganymedes01.etfuturum.blocks.BlockDeepslateSlab;
+import ganymedes01.etfuturum.blocks.BlockDyedBed;
 import ganymedes01.etfuturum.blocks.BlockEndBrickSlab;
 import ganymedes01.etfuturum.blocks.BlockEndBricks;
 import ganymedes01.etfuturum.blocks.BlockEndGateway;
@@ -69,6 +70,7 @@ import ganymedes01.etfuturum.blocks.BlockSeaLantern;
 import ganymedes01.etfuturum.blocks.BlockShulkerBox;
 import ganymedes01.etfuturum.blocks.BlockSilkedMushroom;
 import ganymedes01.etfuturum.blocks.BlockSlime;
+import ganymedes01.etfuturum.blocks.BlockSmithingTable;
 import ganymedes01.etfuturum.blocks.BlockSmoker;
 import ganymedes01.etfuturum.blocks.BlockSmoothQuartz;
 import ganymedes01.etfuturum.blocks.BlockSmoothQuartzSlab;
@@ -78,6 +80,7 @@ import ganymedes01.etfuturum.blocks.BlockSmoothStone;
 import ganymedes01.etfuturum.blocks.BlockSponge;
 import ganymedes01.etfuturum.blocks.BlockStoneSlab1;
 import ganymedes01.etfuturum.blocks.BlockStoneSlab2;
+import ganymedes01.etfuturum.blocks.BlockStonecutter;
 import ganymedes01.etfuturum.blocks.BlockStrippedNewLog;
 import ganymedes01.etfuturum.blocks.BlockStrippedNewWood;
 import ganymedes01.etfuturum.blocks.BlockStrippedOldLog;
@@ -101,7 +104,6 @@ import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.tileentities.TileEntityWoodSign;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 
 public class ModBlocks {
@@ -277,6 +279,8 @@ public class ModBlocks {
 	public static final Block blast_furnace = initBlock(new BlockBlastFurnace(false));
 	public static final Block lit_blast_furnace = initBlock(new BlockBlastFurnace(true));
 	public static final Block shulker_box = initBlock(new BlockShulkerBox());
+	public static final Block smithing_table = initBlock(new BlockSmithingTable());
+	public static final Block stonecutter = initBlock(new BlockStonecutter());
 	
 	public static final String[] woodTypes = new String[] {"oak", "spruce", "birch", "jungle", "acacia", "dark_oak"/*, "crimson", "warped"*/};
 	public static final Block[] doors = new Block[woodTypes.length - 1];
@@ -288,6 +292,7 @@ public class ModBlocks {
 	public static final Block[] trapdoors = new Block[woodTypes.length - 1];
 	public static final Block[] signs = new Block[woodTypes.length - 1];
 	public static final Block[] wall_signs = new Block[woodTypes.length - 1];
+	public static final Block[] beds = new Block[15];
 
 	static {
 		for (int i = 0; i < signs.length; i++) {
@@ -295,23 +300,33 @@ public class ModBlocks {
 			wall_signs[i] = initBlock(new BlockWoodSign(TileEntityWoodSign.class, false, i + 1));
 		}
 		
-		for (int i = 0; i < doors.length; i++)
+		for (int i = 0; i < doors.length; i++) {
 			doors[i] = initBlock(new BlockWoodDoor(i + 1));
+		}
 
-		for (int i = 0; i < fences.length; i++)
+		for (int i = 0; i < fences.length; i++) {
 			fences[i] = initBlock(new BlockWoodFence(i + 1));
+		}
 
-		for (int i = 0; i < gates.length; i++)
+		for (int i = 0; i < gates.length; i++) {
 			gates[i] = initBlock(new BlockWoodFenceGate(i + 1));
+		}
 		
-		for (int i = 0; i < pressure_plates.length; i++)
+		for (int i = 0; i < pressure_plates.length; i++) {
 			pressure_plates[i] = initBlock(new BlockWoodPressurePlate(i + 1));
+		}
 		
-		for (int i = 0; i < buttons.length; i++)
+		for (int i = 0; i < buttons.length; i++) {
 			buttons[i] = initBlock(new BlockWoodButton(i + 1));
+		}
 		
-		for (int i = 0; i < trapdoors.length; i++)
+		for (int i = 0; i < trapdoors.length; i++) {
 			trapdoors[i] = initBlock(new BlockWoodTrapdoor(i + 1));
+		}
+		
+		for(int i = 0; i < beds.length; i++) {
+			beds[i] = initBlock(new BlockDyedBed(i));
+		}
 	}
 	
 	private static Block initBlock(Block block) {
@@ -322,14 +337,13 @@ public class ModBlocks {
 	
 	public static void init() {
 		for(Block block : initList) {
-			if (!(block instanceof IConfigurable) || ((IConfigurable) block).isEnabled()) {
-				String name = block.getUnlocalizedName();
-				String[] strings = name.split("\\.");
+			String name = block.getUnlocalizedName();
+			String[] strings = name.split("\\.");
 
-				if (block instanceof ISubBlocksBlock)
-					GameRegistry.registerBlock(block, ((ISubBlocksBlock) block).getItemBlockClass(), strings[strings.length - 1]);
-				else
-					GameRegistry.registerBlock(block, strings[strings.length - 1]);
+			if (block instanceof ISubBlocksBlock) {
+				GameRegistry.registerBlock(block, ((ISubBlocksBlock) block).getItemBlockClass(), strings[strings.length - 1]);
+			} else {
+				GameRegistry.registerBlock(block, strings[strings.length - 1]);
 			}
 		}
 	}

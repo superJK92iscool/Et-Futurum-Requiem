@@ -31,6 +31,7 @@ public class BlockGlazedTerracottaRenderer extends FlippedUVCubeModel implements
 		uvFlipSouth = true;
 		
 		renderInInventory(tessellator, renderer, block, metadata);
+		
 		renderer.uvRotateTop = 0;
 		renderer.uvRotateNorth = 0;
 		//renderer.uvRotateEast = 0;

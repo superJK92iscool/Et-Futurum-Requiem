@@ -6,7 +6,7 @@ import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.IIcon;
 
-public class FlippedUVCubeModel {
+public abstract class FlippedUVCubeModel extends BlockModelBase {
 
 	protected boolean uvFlipTop;
 	protected boolean uvFlipBottom;

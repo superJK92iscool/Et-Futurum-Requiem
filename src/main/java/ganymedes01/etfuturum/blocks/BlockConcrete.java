@@ -6,6 +6,7 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
+import ganymedes01.etfuturum.recipes.ModRecipes;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
@@ -13,7 +14,7 @@ import net.minecraft.util.IIcon;
 public class BlockConcrete extends BlockGeneric implements IConfigurable {
 
 	public BlockConcrete() {
-		super(Material.rock, "white", "orange", "magenta", "light_blue", "yellow", "lime", "pink", "gray", "light_gray", "cyan", "purple", "blue", "brown", "green", "red", "black");
+		super(Material.rock, ModRecipes.dye_names);
 		this.setHarvestLevel("pickaxe", 0);
 		this.setStepSound(soundTypeStone);
 		this.setHardness(1.8F);
