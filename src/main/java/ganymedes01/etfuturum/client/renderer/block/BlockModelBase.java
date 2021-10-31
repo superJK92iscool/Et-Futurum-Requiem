@@ -12,8 +12,6 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 
 public abstract class BlockModelBase implements ISimpleBlockRenderingHandler {
-	
-	protected boolean cullYPos, cullYNeg, cullXPos, cullXNeg, cullZPos, cullZNeg;
 
     public boolean renderStandardFace(RenderBlocks renderer, Block block, int x, int y, int z, int side, IIcon icon)
     {
