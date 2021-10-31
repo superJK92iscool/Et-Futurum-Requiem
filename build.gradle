@@ -30,7 +30,7 @@ apply plugin: 'forge'
 // SEMVER that gradle uses.
 group = "ganymedes01.etfuturum"
 archivesBaseName = "Et_Futurum_Requiem"
-version = "2.2.2-beta-1"
+version = "2.3.0-beta-1"
 
 // Run `./gradlew clean` when the metadata changes, otherwise the in-game meta (ForgeGradle's substitution) will remain stale.
 
