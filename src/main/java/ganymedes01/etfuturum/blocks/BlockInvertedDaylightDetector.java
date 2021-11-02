@@ -3,6 +3,7 @@ package ganymedes01.etfuturum.blocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModBlocks;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,7 +25,7 @@ public class BlockInvertedDaylightDetector extends BlockNewDaylightSensor {
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
 		if (!world.isRemote)
-			world.setBlock(x, y, z, ModBlocks.daylight_detector);
+			world.setBlock(x, y, z, Blocks.daylight_detector, 15 - world.getBlockMetadata(x, y, z), 2);
 		return true;
 	}
 
@@ -42,12 +43,8 @@ public class BlockInvertedDaylightDetector extends BlockNewDaylightSensor {
 
 			light = Math.round(light * MathHelper.cos(angle));
 
-			if (light < 0)
-				light = 0;
-			if (light > 15)
-				light = 15;
-
-			light = invertedValues[light];
+			light = invertedValues[Math.min(Math.max(0, light), 15)];
+			
 			if (meta != light)
 				world.setBlockMetadataWithNotify(x, y, z, light, 3);
 		}
@@ -63,5 +60,10 @@ public class BlockInvertedDaylightDetector extends BlockNewDaylightSensor {
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister reg) {
 		blockIcon = reg.registerIcon(getTextureName());
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return ConfigBlocksItems.enableInvertedDaylightSensor;
 	}
 }

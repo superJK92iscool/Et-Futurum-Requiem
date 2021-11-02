@@ -28,16 +28,12 @@ public class BlockNewDaylightSensor extends BlockDaylightDetector implements ICo
 
 	@Override
 	public Item getItemDropped(int meta, Random rand, int fortune) {
-		if (ConfigWorld.tileReplacementMode == -1)
-			return Item.getItemFromBlock(ModBlocks.daylight_detector);
 		return Item.getItemFromBlock(Blocks.daylight_detector);
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public Item getItem(World world, int x, int y, int z) {
-		if (ConfigWorld.tileReplacementMode == -1)
-			return Item.getItemFromBlock(ModBlocks.daylight_detector);
 		return Item.getItemFromBlock(Blocks.daylight_detector);
 	}
 
@@ -50,6 +46,6 @@ public class BlockNewDaylightSensor extends BlockDaylightDetector implements ICo
 
 	@Override
 	public boolean isEnabled() {
-		return ConfigBlocksItems.enableInvertedDaylightSensor;
+		return ConfigBlocksItems.enableInvertedDaylightSensor && ConfigBlocksItems.enableOldBaseDaylightSensor;
 	}
 }

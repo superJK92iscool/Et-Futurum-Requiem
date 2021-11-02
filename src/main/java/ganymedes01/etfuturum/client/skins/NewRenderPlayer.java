@@ -16,6 +16,8 @@ import net.minecraft.util.ResourceLocation;
 @SideOnly(Side.CLIENT)
 public class NewRenderPlayer extends RenderPlayer {
 	
+	private boolean cachedAlex;
+	
 	public static final ResourceLocation STEVE_SKIN = new ResourceLocation(Reference.MOD_ID, "textures/steve.png");
 	private static final ModelPlayer STEVE = new ModelPlayer(0.0F, false), ALEX = new ModelPlayer(0.0F, true);
 	
@@ -25,7 +27,11 @@ public class NewRenderPlayer extends RenderPlayer {
 	}
 	
 	private void setModel(EntityPlayer player) {
-		mainModel = modelBipedMain = PlayerModelManager.isPlayerModelAlex(player) ? ALEX : STEVE;
+		if(cachedAlex != PlayerModelManager.isPlayerModelAlex(player)) {
+			System.out.println("test");
+			cachedAlex = PlayerModelManager.isPlayerModelAlex(player);
+			mainModel = modelBipedMain = cachedAlex ? ALEX : STEVE;
+		}
 	}
 	
 	@Override

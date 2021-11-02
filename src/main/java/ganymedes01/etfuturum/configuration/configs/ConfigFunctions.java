@@ -49,7 +49,6 @@ public class ConfigFunctions extends ConfigBase {
 			"ExtraSimple:goldenBag",
 			"ExtraSimple:bedrockium",
 			"ExtraSimple:bedrockiumBlock",
-			"antiqueatlas:antiqueAtlas",
 			"OpenBlocks:devnull",
 			"warpbook:warpbook",
 			"StorageDrawers:fullDrawers1",

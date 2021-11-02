@@ -41,32 +41,31 @@ public class MixinWorldGenMinable {
 	 */
     private Block field_150518_c;
 	
-	private boolean doesDeepslateDenyHere(World world, int x, int y, int z, Block getBlock) {
-		return getBlock.isReplaceableOreGen(world, x, y, z, ModBlocks.deepslate) && ((ConfigWorld.deepslateReplacesDirt && getBlock.isReplaceableOreGen(world, x, y, z, Blocks.dirt)) || (ConfigWorld.deepslateReplacesStones && (ConfigWorld.deepslateReplacesDirt && field_150519_a == ModBlocks.stone)));
-	}
+	private Block getBlock;
 	
     @Inject(method = "generate", at = @At(value = "HEAD"), cancellable = true)
 	private void canGenerateHere(World world, Random rand, int x, int y, int z, CallbackInfoReturnable<Boolean> info) {
-    	if(doesDeepslateDenyHere(world, x, y, z, world.getBlock(x, y, z))) {
+    	getBlock = world.getBlock(x, y, z);
+    	if(!getBlock.isReplaceableOreGen(world, x, y, z, field_150518_c) && !getBlock.isReplaceableOreGen(world, x, y, z, ModBlocks.deepslate)) {
     		info.setReturnValue(false);
     	}
 	}
     
     @Redirect(method = "generate", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;setBlock(IIILnet/minecraft/block/Block;II)Z", ordinal = 0))
 	private boolean ignoreVanillaSetblock(World world, int x, int y, int z, Block block, int meta, int flag) {
-    	Block getBlock = world.getBlock(x, y, z);
+    	boolean replaceableDeepslate = getBlock.isReplaceableOreGen(world, x, y, z, ModBlocks.deepslate);
     	
-    	if (!doesDeepslateDenyHere(world, x, y, z, getBlock)) {
+    	if (!replaceableDeepslate && getBlock.isReplaceableOreGen(world, x, y, z, field_150518_c)) {
     		world.setBlock(x, y, z, this.field_150519_a, mineableBlockMeta, 2);
     		return true;
     	}
     	
     	if (!ArrayUtils.contains(ConfigWorld.deepslateLayerDimensionBlacklist, world.provider.dimensionId) && world.getWorldInfo().getTerrainType() != WorldType.FLAT) {
-    		if((getBlock.isReplaceableOreGen(world, x, y, z, ModBlocks.deepslate) || (ConfigTweaks.deepslateReplacesCobblestone && getBlock.isReplaceableOreGen(world, x, y, z, ModBlocks.cobbled_deepslate))) && EtFuturum.deepslateOres.get(new BlockAndMetadataMapping(field_150519_a, mineableBlockMeta)) != null) {
+    		if(replaceableDeepslate && EtFuturum.deepslateOres.get(new BlockAndMetadataMapping(field_150519_a, mineableBlockMeta)) != null) {
         		BlockAndMetadataMapping replacement = EtFuturum.deepslateOres.get(new BlockAndMetadataMapping(field_150519_a, mineableBlockMeta));
         		world.setBlock(x, y, z, replacement.getOre(), replacement.getMeta(), 2);
+        		return true;
     		}
-    		return true;
     	}
     	return false;
     }

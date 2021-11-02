@@ -94,13 +94,20 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 	public List<String> getMixins() {
 		List<String> mixins = new ArrayList<>();
 		
-		mixins.add("MixinBlockEndPortal");
+		if(ConfigMixins.endPortalReplacement) {
+			mixins.add("MixinBlockEndPortal");
+		}
 		
 		if(ConfigMixins.deepslateLayerOptimization && ConfigWorld.deepslateGenerationMode == 0 && ConfigBlocksItems.enableDeepslate && ConfigWorld.deepslateMaxY > 0) {
 			mixins.add("MixinChunkProviderGenerate");
 			if(ConfigWorld.deepslateReplacesDirt || ConfigWorld.deepslateReplacesStones || ConfigBlocksItems.enableDeepslateOres) {
 				mixins.add("MixinWorldGenMinable");
 			}
+		}
+		
+		if(ConfigMixins.fenceWallConnectFix) {
+			mixins.add("MixinBlockWall");
+			mixins.add("MixinBlockFence");
 		}
 		
 		return mixins;

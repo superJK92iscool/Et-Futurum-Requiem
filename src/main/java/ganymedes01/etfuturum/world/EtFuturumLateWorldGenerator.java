@@ -57,7 +57,7 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 				for (int z = chunkZ * 16; z < (chunkZ * 16) + 16; z++) {
 					for (int y = 0; y <= ConfigWorld.deepslateMaxY; y++) {
 						Block block = world.getBlock(x, y, z);
-						if(y < ConfigWorld.deepslateMaxY - 4 || world.rand.nextInt(y > ConfigWorld.deepslateMaxY - 2 ? 3 : 2) == 0) {
+						if(y < ConfigWorld.deepslateMaxY - 4 || y <= ConfigWorld.deepslateMaxY - rand.nextInt(4)) {
 							BlockAndMetadataMapping mapping = EtFuturum.deepslateOres.get(new BlockAndMetadataMapping(block, world.getBlockMetadata(x, y, z)));
 							if(mapping != null) {
 								world.setBlock(x, y, z, mapping.getOre(), mapping.getMeta(), 2);

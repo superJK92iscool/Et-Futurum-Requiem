@@ -310,7 +310,7 @@ public class EtFuturum {
 				return ModSounds.soundCropWarts;
 			}
 			
-			else if(namespace.contains("bone")) {
+			else if(namespace.contains("bone") || namespace.contains("ivory")) {
 				return ModSounds.soundBoneBlock;
 			}
 			

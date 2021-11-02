@@ -12,6 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigTweaks;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -40,8 +41,12 @@ public class MixinChunkProviderGenerate {
                 		
                         array = (z1 * 16 + x1) * (ablock.length / 256) + y;
 
-                        if(ablock[array] != null && ablock[array] != Blocks.air && shouldBeDeepslate(y, rand) && ablock[array].isReplaceableOreGen(worldObj, x2, y, z2, Blocks.stone)) {
-                        	ablock[array] = ModBlocks.deepslate;
+                        if(ablock[array] != null && ablock[array] != Blocks.air && shouldBeDeepslate(y, rand)) {
+                        	if(ablock[array].isReplaceableOreGen(worldObj, x2, y, z2, Blocks.stone)) {
+                            	ablock[array] = ModBlocks.deepslate;
+                        	} else if(ConfigTweaks.deepslateReplacesCobblestone && ablock[array].isReplaceableOreGen(worldObj, x2, y, z2, Blocks.cobblestone)) {
+                            	ablock[array] = ModBlocks.cobbled_deepslate;
+                        	}
                         }
                 	}
             	}

@@ -77,9 +77,9 @@ public class BlockDeepslate extends BlockRotatedPillar implements IConfigurable 
 		if (ConfigBlocksItems.enableDeepslateOres) { //Copy block settings from deepslate base blocks
 			for (Entry<BlockAndMetadataMapping, BlockAndMetadataMapping> entry : EtFuturum.deepslateOres.entrySet()) {
 				Block oreNorm = entry.getKey().getOre();
-				if (oreNorm == null || oreNorm == Blocks.air) continue;
+				if (Block.blockRegistry.getNameForObject(oreNorm) == null || oreNorm == Blocks.air) continue;
 				Block oreDeep = entry.getValue().getOre();
-				if (oreDeep == null || oreDeep == Blocks.air) continue;
+				if (Block.blockRegistry.getNameForObject(oreDeep) == null || oreDeep == Blocks.air) continue;
 				
 				ItemStack
 				stackNorm = new ItemStack(oreNorm, 1, entry.getKey().getMeta()),

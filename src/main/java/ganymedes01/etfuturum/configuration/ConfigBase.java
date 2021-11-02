@@ -70,7 +70,11 @@ public abstract class ConfigBase extends Configuration {
 			if(itemName.contains(":") && (nameAndID = itemName.split(":")).length == 2) {
 				Item item = GameRegistry.findItem(nameAndID[0], nameAndID[1]);
 				if(item != null) {
-					ConfigFunctions.shulkerBans.add(item);
+					if(!ConfigFunctions.shulkerBans.contains(item)) {
+						ConfigFunctions.shulkerBans.add(item);
+					} else {
+						System.err.println("Shulker ban list entry \"" + itemName + "\" is already added!s");
+					}
 				}
 			} else {
 				System.err.println("Shulker ban list entry \"" + itemName + "\" is formatted incorrectly!");

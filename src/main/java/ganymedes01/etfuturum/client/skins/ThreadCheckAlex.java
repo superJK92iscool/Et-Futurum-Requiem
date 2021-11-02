@@ -7,49 +7,44 @@ import java.io.Reader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
-import java.util.Map.Entry;
+import java.util.UUID;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
 
 import net.minecraft.entity.player.EntityPlayer;
 
 public class ThreadCheckAlex extends Thread {
-	EntityPlayer player;
-	public void startWithArgs(EntityPlayer mcplayer) {
-		player = mcplayer;
+	
+	UUID uuid;
+	
+	public void startWithArgs(UUID uuid) {
+		this.uuid = uuid;
 		start();
 	}
 	
 	@Override
 	public void run() {
 		boolean isAlex = false;
-		if(player.getUniqueID() == null) {
-			isAlex = false;
-		} else {
-			try {
-				System.setProperty("https.protocols", "TLSv1,TLSv1.1,TLSv1.2");
-				JsonObject json = new Gson().fromJson(new InputStreamReader(new BufferedInputStream(new URL("https://sessionserver.mojang.com/session/minecraft/profile/" + player.getUniqueID().toString().replaceAll("-", "")).openStream())), 
-						JsonObject.class);
-				
-				JsonArray jsonArray = json.getAsJsonArray("properties");
-				
-				  if(!jsonArray.get(0).getAsJsonObject().has("value")) {
-					  isAlex = false;
-				  } else {
-					  JsonObject props = new Gson().fromJson(new String(Base64.getDecoder().decode(jsonArray.get(0).getAsJsonObject().get("value").getAsString()), StandardCharsets.UTF_8),
-							  JsonObject.class);
-					  isAlex = props.getAsJsonObject("textures").getAsJsonObject("SKIN").getAsJsonObject("metadata").get("model").getAsString().equals("slim");
-				  }
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		try {
+			System.setProperty("https.protocols", "TLSv1,TLSv1.1,TLSv1.2");
+			JsonObject json = new Gson().fromJson(new InputStreamReader(new BufferedInputStream(new URL("https://sessionserver.mojang.com/session/minecraft/profile/" + uuid.toString().replaceAll("-", "")).openStream())), 
+					JsonObject.class);
+			JsonArray jsonArray = json.getAsJsonArray("properties");
+			
+			  if(!jsonArray.get(0).getAsJsonObject().has("value")) {
+				  isAlex = false;
+			  } else {
+				  JsonObject props = new Gson().fromJson(new String(Base64.getDecoder().decode(jsonArray.get(0).getAsJsonObject().get("value").getAsString()), StandardCharsets.UTF_8),
+						  JsonObject.class);
+				  isAlex = props.getAsJsonObject("textures").getAsJsonObject("SKIN").getAsJsonObject("metadata").get("model").getAsString().equals("slim");
+			  }
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		
-		PlayerModelManager.alexCache.put(player, isAlex);
+		PlayerModelManager.alexCache.put(uuid, isAlex);
 //      nbt.setBoolean(SetPlayerModelCommand.MODEL_KEY, isAlex);
 	}
 

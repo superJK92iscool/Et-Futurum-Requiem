@@ -29,25 +29,33 @@ public class WorldTickEventHandler {
 	static {
 		if (replacements == null) {
 			replacements = new HashMap<Block, Block>();
-			if (ConfigWorld.tileReplacementMode == 0 && ConfigBlocksItems.enableBrewingStands)
-				replacements.put(Blocks.brewing_stand, ModBlocks.brewing_stand);
-			else
-				replacements.put(ModBlocks.brewing_stand, Blocks.brewing_stand);
+
+			if(ConfigBlocksItems.enableBrewingStands) {
+				if (ConfigWorld.tileReplacementMode == 0)
+					replacements.put(Blocks.brewing_stand, ModBlocks.brewing_stand);
+				else if(ConfigWorld.tileReplacementMode == 1)
+					replacements.put(ModBlocks.brewing_stand, Blocks.brewing_stand);
+			}
 			
-			if (ConfigWorld.tileReplacementMode == 0 && ConfigBlocksItems.enableColourfulBeacons)
-				replacements.put(Blocks.beacon, ModBlocks.beacon);
-			else
-				replacements.put(ModBlocks.beacon, Blocks.beacon);
+
+			if(ConfigBlocksItems.enableColourfulBeacons) {
+				if (ConfigWorld.tileReplacementMode == 0)
+					replacements.put(Blocks.beacon, ModBlocks.beacon);
+				else if(ConfigWorld.tileReplacementMode == 1)
+					replacements.put(ModBlocks.beacon, Blocks.beacon);
+			}
+
+			if(ConfigBlocksItems.enableEnchantingTable) {
+				if (ConfigWorld.tileReplacementMode == 0)
+					replacements.put(Blocks.enchanting_table, ModBlocks.enchantment_table);
+				else if(ConfigWorld.tileReplacementMode == 1)
+					replacements.put(ModBlocks.enchantment_table, Blocks.enchanting_table);
+			}
 			
-			if (ConfigWorld.tileReplacementMode == 0 && ConfigBlocksItems.enableEnchantingTable)
-				replacements.put(Blocks.enchanting_table, ModBlocks.enchantment_table);
-			else
-				replacements.put(ModBlocks.enchantment_table, Blocks.enchanting_table);
-			
-			if (ConfigWorld.tileReplacementMode == 0 && ConfigBlocksItems.enableInvertedDaylightSensor)
-				replacements.put(Blocks.daylight_detector, ModBlocks.daylight_detector);
-			else
-				replacements.put(ModBlocks.daylight_detector, Blocks.daylight_detector);
+			if(ConfigBlocksItems.enableInvertedDaylightSensor) {
+				if (ConfigWorld.tileReplacementMode == 0 || ConfigWorld.tileReplacementMode == 1)
+					replacements.put(ModBlocks.daylight_detector, Blocks.daylight_detector);
+			}
 		}
 	}
 	

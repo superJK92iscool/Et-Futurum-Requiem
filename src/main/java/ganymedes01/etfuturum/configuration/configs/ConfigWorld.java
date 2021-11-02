@@ -83,7 +83,7 @@ public class ConfigWorld extends ConfigBase {
 		deepslateGenerationMode = cfg.getInt("deepslateGenerationMode", catGeneration, 0, -1, 1, "If 0, deepslate replaces all stone below the specified value, with a shattering effect near the top similar to bedrock. If 1, it generates in clusters using the deepslate cluster settings. -1 disables Et Futurum deepslate generation entirely.");
 		enableOceanMonuments = cfg.getBoolean("enableOceanMonuments", catGeneration, true, "Note: Ocean monuments currently do not have guardians");
 		enableFossils = cfg.getBoolean("enableFossils", catGeneration, true, "Note: Fossils currently do not rotate");
-		fossilBlockID  = cfg.getInt("fossilBoneBlock", catGeneration, 0, 0, 2, "0 = cfg.Et Futurum bone block\n1 = cfg.Netherlicious bone block\2 = cfg.UpToDateMod bone block. If mod is not installed Et Futurum bone block will be used instead");
+		fossilBlockID  = cfg.getInt("fossilBoneBlock", catGeneration, 0, 0, 2, "0 = cfg.Et Futurum bone block\n1 = cfg.Netherlicious bone block\n2 = cfg.UpToDateMod bone block. If mod is not installed Et Futurum bone block will be used instead");
 		Property fossilBlacklistProp = cfg.get(catGeneration, "fossilDimensionBlacklist", new int[] {-1, 1});
 		fossilBlacklistProp.comment = "The dimensions the fossil structures should not spawn in.";
 		fossilDimensionBlacklist = fossilBlacklistProp.getIntList();

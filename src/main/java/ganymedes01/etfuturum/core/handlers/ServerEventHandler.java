@@ -524,186 +524,195 @@ public class ServerEventHandler {
 				int z = event.z;
 				Block oldBlock = world.getBlock(x, y, z);
 				int meta = world.getBlockMetadata(x, y, z);
-				if (heldStack != null && event.action == Action.RIGHT_CLICK_BLOCK)
-			    {
-					int side = event.face;
-			        if (player.canPlayerEdit(x, y, z, side, heldStack))
-			        {
-			        	if(event.getResult() == event.useItem) {
-			        		
-			        		//Eye of Ender place sounds
-				        	if(!event.world.isRemote && ConfigWorld.enableNewMiscSounds && heldStack.getItem() == Items.ender_eye && oldBlock == Blocks.end_portal_frame && !BlockEndPortalFrame.isEnderEyeInserted(meta))
-				        	{
-				        		world.playSoundEffect(x + .5F, y + .5F, z + .5F, Reference.MOD_ID+":block.end_portal_frame.fill", 1, 1);
-				                int j1 = meta & 3;
-				                int j2 = 0;
-				                int k1 = 0;
-				                boolean flag1 = false;
-				                boolean flag = true;
-				                int k2 = Direction.rotateRight[j1];
-				                int l1;
-				                int i2;
-				                int l2;
+				int side = event.face;
+		        if (player.canPlayerEdit(x, y, z, side, heldStack))
+		        {
+		        	System.out.println(event.getResult());
+		        	if(event.getResult() == event.useItem) {
+		        		
+		        		//Eye of Ender place sounds
+			        	if(heldStack != null && !event.world.isRemote && ConfigWorld.enableNewMiscSounds && heldStack.getItem() == Items.ender_eye && oldBlock == Blocks.end_portal_frame && !BlockEndPortalFrame.isEnderEyeInserted(meta))
+			        	{
+			        		world.playSoundEffect(x + .5F, y + .5F, z + .5F, Reference.MOD_ID+":block.end_portal_frame.fill", 1, 1);
+			                int j1 = meta & 3;
+			                int j2 = 0;
+			                int k1 = 0;
+			                boolean flag1 = false;
+			                boolean flag = true;
+			                int k2 = Direction.rotateRight[j1];
+			                int l1;
+			                int i2;
+			                int l2;
 
-				                for (l1 = -2; l1 <= 2; ++l1)
-				                {
-				                    l2 = x + Direction.offsetX[k2] * l1;
-				                    i2 = z + Direction.offsetZ[k2] * l1;
+			                for (l1 = -2; l1 <= 2; ++l1)
+			                {
+			                    l2 = x + Direction.offsetX[k2] * l1;
+			                    i2 = z + Direction.offsetZ[k2] * l1;
 
-				                    if (world.getBlock(l2, y, i2) == Blocks.end_portal_frame)
-				                    {
-				                        if (!BlockEndPortalFrame.isEnderEyeInserted(world.getBlockMetadata(l2, y, i2)))
-				                        {
-				                        	if(l2 != x || i2 != z) { //We add this so it doesn't care for the block clicked at, as the eye won't be there quite yet.
-					                            flag = false;
-					                            break;
+			                    if (world.getBlock(l2, y, i2) == Blocks.end_portal_frame)
+			                    {
+			                        if (!BlockEndPortalFrame.isEnderEyeInserted(world.getBlockMetadata(l2, y, i2)))
+			                        {
+			                        	if(l2 != x || i2 != z) { //We add this so it doesn't care for the block clicked at, as the eye won't be there quite yet.
+				                            flag = false;
+				                            break;
+			                        	}
+			                        }
+
+			                        k1 = l1;
+
+			                        if (!flag1)
+			                        {
+			                            j2 = l1;
+			                            flag1 = true;
+			                        }
+			                    }
+			                }
+			                if (flag && k1 == j2 + 2)
+			                {
+			                    for (l1 = j2; l1 <= k1; ++l1)
+			                    {
+			                        l2 = x + Direction.offsetX[k2] * l1;
+			                        i2 = z + Direction.offsetZ[k2] * l1;
+			                        l2 += Direction.offsetX[j1] * 4;
+			                        i2 += Direction.offsetZ[j1] * 4;
+
+			                        if (world.getBlock(l2, y, i2) != Blocks.end_portal_frame || (!BlockEndPortalFrame.isEnderEyeInserted(world.getBlockMetadata(l2, y, i2))))
+			                        {
+			                        	if(l2 != x || i2 != z) { //We add this so it doesn't care for the block clicked at, as the eye won't be there quite yet.
+				                            flag = false;
+				                            break;
+			                        	}
+			                        }
+			                    }
+
+			                    int i3;
+			                    
+			                    for (l1 = j2 - 1; l1 <= k1 + 1; l1 += 4)
+			                    {
+			                        for (l2 = 1; l2 <= 3; ++l2)
+			                        {
+			                            i2 = x + Direction.offsetX[k2] * l1;
+			                            i3 = z + Direction.offsetZ[k2] * l1;
+			                            i2 += Direction.offsetX[j1] * l2;
+			                            i3 += Direction.offsetZ[j1] * l2;
+
+			                            if (world.getBlock(i2, y, i3) != Blocks.end_portal_frame || (!BlockEndPortalFrame.isEnderEyeInserted(world.getBlockMetadata(i2, y, i3))))
+			                            {
+				                        	if(i2 != x || i3 != z) { //We add this so it doesn't care for the block clicked at, as the eye won't be there quite yet.
+				                                flag = false;
+				                                break;
 				                        	}
-				                        }
-
-				                        k1 = l1;
-
-				                        if (!flag1)
-				                        {
-				                            j2 = l1;
-				                            flag1 = true;
-				                        }
-				                    }
-				                }
-				                if (flag && k1 == j2 + 2)
-				                {
-				                    for (l1 = j2; l1 <= k1; ++l1)
-				                    {
-				                        l2 = x + Direction.offsetX[k2] * l1;
-				                        i2 = z + Direction.offsetZ[k2] * l1;
-				                        l2 += Direction.offsetX[j1] * 4;
-				                        i2 += Direction.offsetZ[j1] * 4;
-
-				                        if (world.getBlock(l2, y, i2) != Blocks.end_portal_frame || (!BlockEndPortalFrame.isEnderEyeInserted(world.getBlockMetadata(l2, y, i2))))
-				                        {
-				                        	if(l2 != x || i2 != z) { //We add this so it doesn't care for the block clicked at, as the eye won't be there quite yet.
-					                            flag = false;
-					                            break;
-				                        	}
-				                        }
-				                    }
-
-				                    int i3;
-				                    
-				                    for (l1 = j2 - 1; l1 <= k1 + 1; l1 += 4)
-				                    {
-				                        for (l2 = 1; l2 <= 3; ++l2)
-				                        {
-				                            i2 = x + Direction.offsetX[k2] * l1;
-				                            i3 = z + Direction.offsetZ[k2] * l1;
-				                            i2 += Direction.offsetX[j1] * l2;
-				                            i3 += Direction.offsetZ[j1] * l2;
-
-				                            if (world.getBlock(i2, y, i3) != Blocks.end_portal_frame || (!BlockEndPortalFrame.isEnderEyeInserted(world.getBlockMetadata(i2, y, i3))))
-				                            {
-					                        	if(i2 != x || i3 != z) { //We add this so it doesn't care for the block clicked at, as the eye won't be there quite yet.
-					                                flag = false;
-					                                break;
-					                        	}
-				                            }
-				                        }
-				                    }
-				                    if(flag)
-				                    {
-				                    	for(WorldServer worldserver : FMLCommonHandler.instance().getMinecraftServerInstance().worldServers) {
-				                    		for(Object playerobj : worldserver.playerEntities) {
-				                    			if(playerobj instanceof EntityPlayerMP) {
-				                    				EntityPlayerMP playermp = (EntityPlayerMP)playerobj;
-					                    			playermp.playerNetServerHandler.sendPacket(new S29PacketSoundEffect(Reference.MOD_ID+":block.end_portal.spawn",
-					                    					playermp.posX, playermp.lastTickPosY, playermp.posZ, 1F, 1F));
-				                    			}
-				                    		}
-				                    	}
-				                    }
-				                }
-				        	}
-				        	
-				        	//Seeds/Wart placing sounds
-				        	if(ConfigWorld.enableNewBlocksSounds && side == 1 && heldStack.getItem() instanceof IPlantable && player.canPlayerEdit(x, y + 1, z, side, heldStack)) {
-				        		/*
-				        		 * This code was adapted from AstroTibs' ASMC.
-				        		 * Used with permission!
-				        		 */
-				        		if (world.getBlock(x, y, z).canSustainPlant(world, x, y, z, ForgeDirection.UP, (IPlantable)heldStack.getItem())
-					            		&& world.isAirBlock(x, y + 1, z))
-					            {
-					            	// Mundane seeds
-					            	if (oldBlock instanceof BlockFarmland)
-					            	{
-					            		world.playSoundEffect(x + 0.5, y + 1F , z + 0.5, Reference.MOD_ID+":place.crops", 0.45F, world.rand.nextBoolean() ? 1.0F : 1.2F);
-					            		return;
-					            	}
-					            	// Nether wart
-					            	if (oldBlock instanceof BlockSoulSand)
-					            	{
-					            		world.playSoundEffect(x + 0.5, y + 1F, z + 0.5, Reference.MOD_ID+":dig.netherwart", 0.9F, world.rand.nextBoolean() ? 1.0F : 1.12F);
-					            		return;
-					            	}
-					            }
-				        	}
-				        	
-				        	//Lava cauldron filling
-							if(ConfigBlocksItems.enableLavaCauldrons && !player.isSneaking() && 
-									oldBlock == Blocks.cauldron && world.getBlockMetadata(x, y, z) == 0) {
-								if (heldStack.getItem() == Items.lava_bucket) {
-									event.setResult(Result.DENY);
+			                            }
+			                        }
+			                    }
+			                    if(flag)
+			                    {
+			                    	for(WorldServer worldserver : FMLCommonHandler.instance().getMinecraftServerInstance().worldServers) {
+			                    		for(Object playerobj : worldserver.playerEntities) {
+			                    			if(playerobj instanceof EntityPlayerMP) {
+			                    				EntityPlayerMP playermp = (EntityPlayerMP)playerobj;
+				                    			playermp.playerNetServerHandler.sendPacket(new S29PacketSoundEffect(Reference.MOD_ID+":block.end_portal.spawn",
+				                    					playermp.posX, playermp.lastTickPosY, playermp.posZ, 1F, 1F));
+			                    			}
+			                    		}
+			                    	}
+			                    }
+			                }
+			        	}
+			        	
+			        	//Seeds/Wart placing sounds
+			        	if(ConfigWorld.enableNewBlocksSounds && side == 1 && heldStack != null && heldStack.getItem() instanceof IPlantable && player.canPlayerEdit(x, y + 1, z, side, heldStack)) {
+			        		/*
+			        		 * This code was adapted from AstroTibs' ASMC.
+			        		 * Used with permission!
+			        		 */
+			        		if (world.getBlock(x, y, z).canSustainPlant(world, x, y, z, ForgeDirection.UP, (IPlantable)heldStack.getItem())
+				            		&& world.isAirBlock(x, y + 1, z))
+				            {
+				            	// Mundane seeds
+				            	if (oldBlock instanceof BlockFarmland)
+				            	{
+				            		world.playSoundEffect(x + 0.5, y + 1F , z + 0.5, Reference.MOD_ID+":place.crops", 0.45F, world.rand.nextBoolean() ? 1.0F : 1.2F);
+				            		return;
+				            	}
+				            	// Nether wart
+				            	if (oldBlock instanceof BlockSoulSand)
+				            	{
+				            		world.playSoundEffect(x + 0.5, y + 1F, z + 0.5, Reference.MOD_ID+":dig.netherwart", 0.9F, world.rand.nextBoolean() ? 1.0F : 1.12F);
+				            		return;
+				            	}
+				            }
+			        	}
+			        	
+			        	//Lava cauldron filling
+						if(ConfigBlocksItems.enableLavaCauldrons && !player.isSneaking() && 
+								oldBlock == Blocks.cauldron && world.getBlockMetadata(x, y, z) == 0) {
+							if (heldStack != null && heldStack.getItem() == Items.lava_bucket) {
+								event.setResult(Result.DENY);
+								player.swingItem();
+								world.setBlock(x, y, z, ModBlocks.lava_cauldron);
+								if (!player.capabilities.isCreativeMode) {
+									if (heldStack.stackSize <= 1) {
+										player.inventory.setInventorySlotContents(player.inventory.currentItem, new ItemStack(Items.bucket));
+									} else {
+										--heldStack.stackSize;
+									}
+								}
+							}
+						}
+						
+		        		if(ConfigBlocksItems.enableInvertedDaylightSensor && oldBlock == Blocks.daylight_detector) {
+		        			if(!player.isSneaking() || player.getHeldItem() == null || player.getHeldItem().getItem().doesSneakBypassUse(world, x, y, z, player)) {
 									player.swingItem();
-									world.setBlock(x, y, z, ModBlocks.lava_cauldron);
-									if (!player.capabilities.isCreativeMode) {
-										if (heldStack.stackSize <= 1) {
-											player.inventory.setInventorySlotContents(player.inventory.currentItem, new ItemStack(Items.bucket));
-										} else {
-											--heldStack.stackSize;
+				        			world.setBlock(x, y, z, ModBlocks.inverted_daylight_detector, 15 - world.getBlockMetadata(x, y, z), 2);
+									if(!world.isRemote) {
+										event.setResult(Result.DENY);
+										event.setCanceled(true);
+		        				}
+							}
+		        		}
+		        	
+						
+						//Grass pathing/Log Stripping
+						//This is nested into the same function since they use similar checks
+		        		if(heldStack != null) {
+							Set<String> toolClasses = heldStack.getItem().getToolClasses(heldStack);
+							if (toolClasses != null) {
+								if (ConfigBlocksItems.enableGrassPath && !world.getBlock(x, y + 1, z).getMaterial().isSolid() && toolClasses.contains("shovel") && (oldBlock == Blocks.grass || oldBlock == Blocks.dirt || oldBlock == Blocks.mycelium)) {
+									player.swingItem();
+									if(!world.isRemote) {
+										world.setBlock(x, y, z, ModBlocks.grass_path);
+										heldStack.damageItem(1, player);
+										world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, Block.soundTypeGravel.getStepResourcePath(), 1.0F, 0.8F);
+									}
+								} else if (ConfigBlocksItems.enableStrippedLogs && toolClasses.contains("axe")) {
+									Block newBlock = null;
+									if (oldBlock == Blocks.log) {
+										newBlock = ModBlocks.log_stripped;
+									} else if(oldBlock == Blocks.log2) {
+										newBlock = ModBlocks.log2_stripped;
+									} else if (ConfigBlocksItems.enableBarkLogs) {
+										if (oldBlock == ModBlocks.log_bark) {
+											newBlock = ModBlocks.wood_stripped;
+										} else if (oldBlock == ModBlocks.log2_bark) {
+											newBlock = ModBlocks.wood2_stripped;
+										}
+									}
+									if (newBlock != null) {
+										player.swingItem();
+										if(!world.isRemote) {
+											int logMeta = meta;
+											world.setBlock(x, y, z, newBlock, logMeta, 2);
+											heldStack.damageItem(1, player);
+											world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, Reference.MOD_ID + ":item.axe.strip", 1.0F, 0.8F);
 										}
 									}
 								}
 							}
-			        	
-							
-							//Grass pathing/Log Stripping
-							//This is nested into the same function since they use similar checks
-			        		if(heldStack.getItem() != null) {
-								Set<String> toolClasses = heldStack.getItem().getToolClasses(heldStack);
-								if (toolClasses != null) {
-									if (ConfigBlocksItems.enableGrassPath && !world.getBlock(x, y + 1, z).getMaterial().isSolid() && toolClasses.contains("shovel") && (oldBlock == Blocks.grass || oldBlock == Blocks.dirt || oldBlock == Blocks.mycelium)) {
-										player.swingItem();
-										if(!world.isRemote) {
-											world.setBlock(x, y, z, ModBlocks.grass_path);
-											heldStack.damageItem(1, player);
-											world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, Block.soundTypeGravel.getStepResourcePath(), 1.0F, 0.8F);
-										}
-									} else if (ConfigBlocksItems.enableStrippedLogs && toolClasses.contains("axe")) {
-										Block newBlock = null;
-										if (oldBlock == Blocks.log) {
-											newBlock = ModBlocks.log_stripped;
-										} else if(oldBlock == Blocks.log2) {
-											newBlock = ModBlocks.log2_stripped;
-										} else if (ConfigBlocksItems.enableBarkLogs) {
-											if (oldBlock == ModBlocks.log_bark) {
-												newBlock = ModBlocks.wood_stripped;
-											} else if (oldBlock == ModBlocks.log2_bark) {
-												newBlock = ModBlocks.wood2_stripped;
-											}
-										}
-										if (newBlock != null) {
-											player.swingItem();
-											if(!world.isRemote) {
-												int logMeta = meta;
-												world.setBlock(x, y, z, newBlock, logMeta, 2);
-												heldStack.damageItem(1, player);
-												world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, Reference.MOD_ID + ":item.axe.strip", 1.0F, 0.8F);
-											}
-										}
-									}
-								}
-			        		}
-			        	}
-			        }
-			    }
+		        		}
+		        	}
+		        }
 			}
 		}
 	}

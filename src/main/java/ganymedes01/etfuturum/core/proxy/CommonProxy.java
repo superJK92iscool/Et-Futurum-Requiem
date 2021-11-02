@@ -70,6 +70,8 @@ import net.minecraft.inventory.ContainerChest;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.biome.BiomeGenBase.SpawnListEntry;
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.MinecraftForge;
 
 public class CommonProxy implements IGuiHandler {
@@ -135,7 +137,6 @@ public class CommonProxy implements IGuiHandler {
 			EntityRegistry.removeSpawn(EntityZombie.class, EnumCreatureType.monster, new BiomeGenBase[] { BiomeGenBase.desert, BiomeGenBase.desertHills });
 			
 			EntityRegistry.addSpawn(EntityZombie.class, 19, 4, 4, EnumCreatureType.monster, new BiomeGenBase[] { BiomeGenBase.desert, BiomeGenBase.desertHills });
-			EntityRegistry.addSpawn(EntityZombieVillager.class, 1, 1, 1, EnumCreatureType.monster, new BiomeGenBase[] { BiomeGenBase.desert, BiomeGenBase.desertHills });
 			EntityRegistry.addSpawn(EntityHusk.class, 80, 4, 4, EnumCreatureType.monster, new BiomeGenBase[] { BiomeGenBase.desert, BiomeGenBase.desertHills });
 		}
 		if (ConfigEntities.enableStray) {
@@ -182,7 +183,7 @@ public class CommonProxy implements IGuiHandler {
 			ModEntityList.registerEntity(EntityShulkerBullet.class, "shulker_candy", 17, EtFuturum.instance, 64, 1, true);
 			
 			if(ConfigTweaks.shulkersSpawnAnywhere) {
-				EntityRegistry.addSpawn(EntityShulker.class, 2, 1, 2, EnumCreatureType.monster, new BiomeGenBase[] { BiomeGenBase.sky });
+				EntityRegistry.addSpawn(EntityShulker.class, 2, 1, 2, EnumCreatureType.monster, BiomeDictionary.getBiomesForType(Type.END));
 			}
 		}
 		
@@ -190,9 +191,8 @@ public class CommonProxy implements IGuiHandler {
 		EntityRegistry.removeSpawn(EntityMagmaCube.class, EnumCreatureType.monster, new BiomeGenBase[] { BiomeGenBase.hell });
 		EntityRegistry.addSpawn(EntityMagmaCube.class, 2, 4, 4, EnumCreatureType.monster, new BiomeGenBase[] { BiomeGenBase.hell });
 	}
-
-	public void registerRenderers() {
-	}
+	
+	public void registerRenderers() {};
 
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {

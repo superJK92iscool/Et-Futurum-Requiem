@@ -38,6 +38,7 @@ public class ConfigBlocksItems extends ConfigBase {
 	public static boolean enableDoors;
 	public static boolean enableTrapdoors;
 	public static boolean enableInvertedDaylightSensor;
+	public static boolean enableOldBaseDaylightSensor;
 	public static boolean enableCoarseDirt;
 	public static boolean enableRedSandstone;
 	public static boolean enableFences;
@@ -167,6 +168,7 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableDoors = cfg.getBoolean("enableDoors", catBlockFunc, true, "Enables wood variant doors");
 		enableTrapdoors = cfg.getBoolean("enableTrapdoors", catBlockFunc, true, "Enables wood variant trapdoors");
 		enableInvertedDaylightSensor = cfg.getBoolean("enableInvertedSensor", catBlockFunc, true, "Inverted Daylight Sensor");
+		enableOldBaseDaylightSensor = cfg.getBoolean("enableOldBaseDaylightSensor", catBlockFunc, false, "Enable the old Et Futurum daylight sensor block. Should be enabled if you still have the old Et Futurum copy of the non-inverted daylight detector that need to be converted.");
 		enableSlimeBlock = cfg.getBoolean("enableSlimeBlock", catBlockFunc, true, "Just bouncy, does not pull blocks.");
 		enableWoodRedstone = cfg.getBoolean("enableWoodRedstone", catBlockFunc, true, "Enables wood variant buttons and pressure plates");
 		enableBarrel = cfg.getBoolean("enableBarrel", catBlockFunc, true, "");
