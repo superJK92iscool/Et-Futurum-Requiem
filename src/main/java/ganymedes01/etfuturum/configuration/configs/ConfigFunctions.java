@@ -32,7 +32,6 @@ public class ConfigFunctions extends ConfigBase {
 			"minecraft:writable_book",
 			"minecraft:written_book",
 			"BiblioCraft:item.BigBook",
-			"antiqueatlas:antiqueAtlas",
 			"DQMIIINext:ItemMahounoTutu11",
 			"DQMIIINext:ItemOokinaFukuro",
 			"DQMIIINext:ItemOokinaFukuroR",
@@ -101,7 +100,9 @@ public class ConfigFunctions extends ConfigBase {
 			"betterstorage:cardboardBox",
 			"betterstorage:backpack",
 			"betterstorage:thaumcraftBackpack",
-			"adventurebackpack:adventureBackpack"
+			"adventurebackpack:adventureBackpack",
+			"Thaumcraft:FocusPouch",
+			"ThaumicTinkerer:ichorPouch"
 	};
 	public static boolean enableSilkTouchingMushrooms;
 	public static boolean enableSticksFromDeadBushes;
