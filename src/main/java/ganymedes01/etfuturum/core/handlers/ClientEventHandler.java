@@ -490,7 +490,6 @@ public class ClientEventHandler {
     @SideOnly(Side.CLIENT)
     public void openMainMenu(GuiOpenEvent event)
     {
-    	showedWarning = false;
 
         if (event != null && event.gui != null && EtFuturumMixinPlugin.launchConfigWarning && main_menu_display_count++ < 20)
         {
