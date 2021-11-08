@@ -23,6 +23,12 @@ import ganymedes01.etfuturum.entities.EntityNewBoat;
 import ganymedes01.etfuturum.items.ItemSuspiciousStew;
 import ganymedes01.etfuturum.lib.EnumColour;
 import ganymedes01.etfuturum.lib.Reference;
+import ganymedes01.etfuturum.recipes.crafting.RecipeAddPattern;
+import ganymedes01.etfuturum.recipes.crafting.RecipeDuplicatePattern;
+import ganymedes01.etfuturum.recipes.crafting.RecipeDyedShulkerBox;
+import ganymedes01.etfuturum.recipes.crafting.RecipeTippedArrow;
+import ganymedes01.etfuturum.recipes.crafting.ShapedEtFuturumRecipe;
+import ganymedes01.etfuturum.recipes.crafting.ShapelessEtFuturumRecipe;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -59,7 +65,7 @@ public class ModRecipes {
 	}
 
 	private static void tweakRecipes() {
-		if (ConfigBlocksItems.enableGenericSlabs) {
+		if (ConfigBlocksItems.enableExtraVanillaSlabs) {
 			removeFirstRecipeFor(Blocks.stone_slab, 0);
 		}
 		
@@ -147,12 +153,12 @@ public class ModRecipes {
 		}
 
 		if (ConfigBlocksItems.enableStones) {
-			OreDictionary.registerOre("stoneGranite", new ItemStack(ModBlocks.stone, 1, BlockNewStone.GRANITE));
-			OreDictionary.registerOre("stoneDiorite", new ItemStack(ModBlocks.stone, 1, BlockNewStone.DIORITE));
-			OreDictionary.registerOre("stoneAndesite", new ItemStack(ModBlocks.stone, 1, BlockNewStone.ANDESITE));
-			OreDictionary.registerOre("stoneGranitePolished", new ItemStack(ModBlocks.stone, 1, BlockNewStone.POLISHED_GRANITE));
-			OreDictionary.registerOre("stoneDioritePolished", new ItemStack(ModBlocks.stone, 1, BlockNewStone.POLISHED_DIORITE));
-			OreDictionary.registerOre("stoneAndesitePolished", new ItemStack(ModBlocks.stone, 1, BlockNewStone.POLISHED_ANDESITE));
+			OreDictionary.registerOre("stoneGranite", new ItemStack(ModBlocks.stone, 1, 1));
+			OreDictionary.registerOre("stoneDiorite", new ItemStack(ModBlocks.stone, 1, 3));
+			OreDictionary.registerOre("stoneAndesite", new ItemStack(ModBlocks.stone, 1, 5));
+			OreDictionary.registerOre("stoneGranitePolished", new ItemStack(ModBlocks.stone, 1, 2));
+			OreDictionary.registerOre("stoneDioritePolished", new ItemStack(ModBlocks.stone, 1, 4));
+			OreDictionary.registerOre("stoneAndesitePolished", new ItemStack(ModBlocks.stone, 1, 6));
 		}
 
 		if (ConfigBlocksItems.enableSlimeBlock)
@@ -296,38 +302,40 @@ public class ModRecipes {
 
 		if (ConfigBlocksItems.enableStones) {
 			// Diorite
-			addShapedRecipe(new ItemStack(ModBlocks.stone, 2, BlockNewStone.DIORITE), "xy", "yx", 'x', new ItemStack(Blocks.cobblestone), 'y', "gemQuartz");
-			addShapedRecipe(new ItemStack(ModBlocks.stone, 4, BlockNewStone.POLISHED_DIORITE), "xx", "xx", 'x', "stoneDiorite");
+			addShapedRecipe(new ItemStack(ModBlocks.stone, 2, 1), "xy", "yx", 'x', new ItemStack(Blocks.cobblestone), 'y', "gemQuartz");
+			addShapedRecipe(new ItemStack(ModBlocks.stone, 4, 2), "xx", "xx", 'x', "stoneDiorite");
 			// Andesite
-			addShapelessRecipe(new ItemStack(ModBlocks.stone, 2, BlockNewStone.ANDESITE), new ItemStack(Blocks.cobblestone), "stoneDiorite");
-			addShapedRecipe(new ItemStack(ModBlocks.stone, 4, BlockNewStone.POLISHED_ANDESITE), "xx", "xx", 'x', "stoneAndesite");
+			addShapelessRecipe(new ItemStack(ModBlocks.stone, 2, 3), new ItemStack(Blocks.cobblestone), "stoneDiorite");
+			addShapedRecipe(new ItemStack(ModBlocks.stone, 4, 4), "xx", "xx", 'x', "stoneAndesite");
 			// Granite
-			addShapelessRecipe(new ItemStack(ModBlocks.stone, 2, BlockNewStone.GRANITE), "gemQuartz", "stoneDiorite");
-			addShapedRecipe(new ItemStack(ModBlocks.stone, 4, BlockNewStone.POLISHED_GRANITE), "xx", "xx", 'x', "stoneGranite");
+			addShapelessRecipe(new ItemStack(ModBlocks.stone, 2, 5), "gemQuartz", "stoneDiorite");
+			addShapedRecipe(new ItemStack(ModBlocks.stone, 4, 6), "xx", "xx", 'x', "stoneGranite");
 			Block[] stairs = new Block[] {ModBlocks.granite_stairs, ModBlocks.polished_granite_stairs, ModBlocks.diorite_stairs, ModBlocks.polished_diorite_stairs, ModBlocks.andesite_stairs, ModBlocks.polished_andesite_stairs};
 			for(int i = 0; i < stairs.length; i++) {
 				String dictName = "stone" + StringUtils.capitalize(((BlockStoneSlab2)ModBlocks.stone_slab).metaBlocks[(i / 2) * 2]) + (i % 2 == 1 ? "Polished" : "");
 				addShapedRecipe(new ItemStack(ModBlocks.stone_slab, 6, i), "xxx", 'x', dictName);
 				addShapedRecipe(new ItemStack(stairs[i], 4), "x  ", "xx ", "xxx", 'x', dictName);
+				if(i % 2 == 1) {
+					addShapedRecipe(new ItemStack(ModBlocks.stone_wall, 6, i == 5 ? 2 : i == 3 ? 1 : 0), "xxx", "xxx", 'x', new ItemStack(ModBlocks.stone, 1, i));
+				}
 			}
 		}
 
 		if (ConfigBlocksItems.enablePrismarine) {
-			int PLAIN = 0;
-			int BRICKS = 1;
-			int DARK = 2;
 
-			addShapedRecipe(new ItemStack(ModBlocks.prismarine, 1, DARK), "xxx", "xyx", "xxx", 'x', "shardPrismarine", 'y', "dyeBlack");
-			addShapedRecipe(new ItemStack(ModBlocks.prismarine, 1, PLAIN), "xx", "xx", 'x', "shardPrismarine");
-			addShapedRecipe(new ItemStack(ModBlocks.prismarine, 1, BRICKS), "xxx", "xxx", "xxx", 'x', "shardPrismarine");
+			addShapedRecipe(new ItemStack(ModBlocks.prismarine, 1, 0), "xxx", "xyx", "xxx", 'x', "shardPrismarine", 'y', "dyeBlack");
+			addShapedRecipe(new ItemStack(ModBlocks.prismarine, 1, 1), "xx", "xx", 'x', "shardPrismarine");
+			addShapedRecipe(new ItemStack(ModBlocks.prismarine, 1, 2), "xxx", "xxx", "xxx", 'x', "shardPrismarine");
 			addShapedRecipe(new ItemStack(ModBlocks.sea_lantern), "xyx", "yyy", "xyx", 'x', "shardPrismarine", 'y', "crystalPrismarine");
 
-			addShapedRecipe(new ItemStack(ModBlocks.rough_prismarine_stairs, 4), "x  ", "xx ", "xxx", 'x', new ItemStack(ModBlocks.prismarine, 1, PLAIN));
-			addShapedRecipe(new ItemStack(ModBlocks.prismarine_brick_stairs, 4), "x  ", "xx ", "xxx", 'x', new ItemStack(ModBlocks.prismarine, 1, BRICKS));
-			addShapedRecipe(new ItemStack(ModBlocks.dark_prismarine_stairs, 4), "x  ", "xx ", "xxx", 'x', new ItemStack(ModBlocks.prismarine, 1, DARK));
+			addShapedRecipe(new ItemStack(ModBlocks.rough_prismarine_stairs, 4), "x  ", "xx ", "xxx", 'x', new ItemStack(ModBlocks.prismarine, 1, 0));
+			addShapedRecipe(new ItemStack(ModBlocks.prismarine_brick_stairs, 4), "x  ", "xx ", "xxx", 'x', new ItemStack(ModBlocks.prismarine, 1, 1));
+			addShapedRecipe(new ItemStack(ModBlocks.dark_prismarine_stairs, 4), "x  ", "xx ", "xxx", 'x', new ItemStack(ModBlocks.prismarine, 1, 2));
+			GameRegistry.addRecipe(new ItemStack(ModBlocks.prismarine_wall, 6, 0), "xxx", "xxx", 'x', new ItemStack(ModBlocks.prismarine, 1, 0));
 			
-			for(int i = 0; i < 3; i++)
+			for(int i = 0; i < 3; i++) {
 				addShapedRecipe(new ItemStack(ModBlocks.prismarine_slab, 6, i), "xxx", 'x', new ItemStack(ModBlocks.prismarine, 1, i));
+			}
 			
 			if (ConfigFunctions.enableRecipeForPrismarine && !Loader.isModLoaded("Botania")) {
 				addShapedRecipe(new ItemStack(ModItems.prismarine_shard, 4), "xy", "zx", 'x', "gemQuartz", 'y', "dyeBlue", 'z', "dyeGreen");
@@ -335,7 +343,7 @@ public class ModRecipes {
 			}
 		}
 
-		if (ConfigBlocksItems.enableGenericSlabs) {
+		if (ConfigBlocksItems.enableExtraVanillaSlabs) {
 			Block[] metaBlocks = new Block[] {Blocks.stone, Blocks.mossy_cobblestone, Blocks.stonebrick, Blocks.sandstone};
 			for(int i = 0; i < metaBlocks.length; i++) {
 				addShapedRecipe(new ItemStack(ModBlocks.generic_slab, 6, i), "xxx", 'x', new ItemStack(metaBlocks[i], 1, i != 0 ? i - 1 : i));
@@ -344,7 +352,7 @@ public class ModRecipes {
 		}
 
 		
-		if (ConfigBlocksItems.enableGenericStairs) {
+		if (ConfigBlocksItems.enableExtraVanillaStairs) {
 			addShapedRecipe(new ItemStack(ModBlocks.stone_stairs, 4), "x  ", "xx ", "xxx", 'x', new ItemStack(Blocks.stone, 1, 0));
 			addShapedRecipe(new ItemStack(ModBlocks.mossy_cobblestone_stairs, 4), "x  ", "xx ", "xxx", 'x', new ItemStack(Blocks.mossy_cobblestone, 1, 0));
 			addShapedRecipe(new ItemStack(ModBlocks.mossy_stone_brick_stairs, 4), "x  ", "xx ", "xxx", 'x', new ItemStack(Blocks.stonebrick, 1, 1));
@@ -385,6 +393,7 @@ public class ModRecipes {
 			addShapedRecipe(new ItemStack(ModBlocks.red_sandstone_slab, 6, 1), "xxx", 'x', new ItemStack(ModBlocks.red_sandstone, 1, 2));
 			addShapedRecipe(new ItemStack(ModBlocks.red_sandstone_slab, 6, 0), "xxx", 'x', new ItemStack(ModBlocks.red_sandstone, 1, OreDictionary.WILDCARD_VALUE));
 			addShapedRecipe(new ItemStack(ModBlocks.red_sandstone_stairs, 4), "x  ", "xx ", "xxx", 'x', ModBlocks.red_sandstone);
+			addShapedRecipe(new ItemStack(ModBlocks.red_sandstone_wall, 6, 0), "xxx", "xxx", 'x', new ItemStack(ModBlocks.red_sandstone, 1, 0));
 		}
 
 		if (ConfigBlocksItems.enableFences) {
@@ -435,13 +444,16 @@ public class ModRecipes {
 		}
 
 		if (ConfigBlocksItems.enableChorusFruit) {
+			addShapedRecipe(new ItemStack(ModBlocks.end_brick_slab, 6), "xxx", 'x', ModBlocks.end_bricks);
+			addShapedRecipe(new ItemStack(ModBlocks.end_brick_stairs, 4), "x  ", "xx ", "xxx", 'x', ModBlocks.end_bricks);
+			addShapedRecipe(new ItemStack(ModBlocks.end_brick_wall, 6, 0), "xxx", "xxx", 'x', new ItemStack(ModBlocks.end_bricks, 1, 0));
+			
 			addShapedRecipe(new ItemStack(ModBlocks.purpur_block, 4), "xx", "xx", 'x', ModItems.popped_chorus_fruit);
 			addShapedRecipe(new ItemStack(ModBlocks.purpur_stairs, 4), "x  ", "xx ", "xxx", 'x', ModBlocks.purpur_block);
 			addShapedRecipe(new ItemStack(ModBlocks.purpur_slab, 6), "xxx", 'x', ModBlocks.purpur_block);
 			addShapedRecipe(new ItemStack(ModBlocks.purpur_pillar), "x", "x", 'x', ModBlocks.purpur_slab);
 			addShapedRecipe(new ItemStack(ModBlocks.end_bricks), "xx", "xx", 'x', Blocks.end_stone);
-			addShapedRecipe(new ItemStack(ModBlocks.end_brick_slab, 6), "xxx", 'x', ModBlocks.end_bricks);
-			addShapedRecipe(new ItemStack(ModBlocks.end_brick_stairs, 4), "x  ", "xx ", "xxx", 'x', ModBlocks.end_bricks);
+			
 			GameRegistry.addSmelting(new ItemStack(ModItems.chorus_fruit), new ItemStack(ModItems.popped_chorus_fruit), 0.0F);
 			addShapedRecipe(new ItemStack(ModBlocks.end_rod), "x", "y", 'x', Items.blaze_rod, 'y', ModItems.popped_chorus_fruit);
 		}
@@ -510,6 +522,7 @@ public class ModRecipes {
 			GameRegistry.addSmelting(new ItemStack(Blocks.nether_brick, 1, 1), new ItemStack(ModBlocks.new_nether_brick), .1F);
 			addShapedRecipe(new ItemStack(ModBlocks.red_nether_brick_stairs, 4, 0), "x  ", "xx ", "xxx", 'x', new ItemStack(ModBlocks.new_nether_brick, 1, 0));
 			addShapedRecipe(new ItemStack(ModBlocks.red_nether_brick_slab, 6, 0), "xxx", 'x', new ItemStack(ModBlocks.new_nether_brick, 1, 0));
+			addShapedRecipe(new ItemStack(ModBlocks.red_nether_brick_wall, 6, 0), "xxx", "xxx", 'x', new ItemStack(ModBlocks.new_nether_brick, 1, 0));
 		}
 
 		if (ConfigBlocksItems.enableNetherwartBlock) {
@@ -738,6 +751,10 @@ public class ModRecipes {
 			addShapedRecipe(new ItemStack(ModBlocks.deepslate_slab, 6, 1), "xxx", 'x', new ItemStack(ModBlocks.polished_deepslate, 1, 0));
 			addShapedRecipe(new ItemStack(ModBlocks.deepslate_brick_slab, 4, 0), "xxx", 'x', new ItemStack(ModBlocks.deepslate_bricks, 1, 0));
 			addShapedRecipe(new ItemStack(ModBlocks.deepslate_brick_slab, 4, 1), "xxx", 'x', new ItemStack(ModBlocks.deepslate_bricks, 1, 2));
+			addShapedRecipe(new ItemStack(ModBlocks.deepslate_wall, 6, 0), "xxx", "xxx", 'x', new ItemStack(ModBlocks.cobbled_deepslate, 1, 0));
+			addShapedRecipe(new ItemStack(ModBlocks.deepslate_wall, 6, 1), "xxx", "xxx", 'x', new ItemStack(ModBlocks.polished_deepslate, 1, 0));
+			addShapedRecipe(new ItemStack(ModBlocks.deepslate_brick_wall, 6, 0), "xxx", "xxx", 'x', new ItemStack(ModBlocks.deepslate_bricks, 1, 0));
+			addShapedRecipe(new ItemStack(ModBlocks.deepslate_brick_wall, 6, 1), "xxx", "xxx", 'x', new ItemStack(ModBlocks.deepslate_bricks, 1, 2));
 		}
 		
 //      if(ConfigurationHandler.enableBlackstone) {
@@ -828,6 +845,16 @@ public class ModRecipes {
 				GameRegistry.addRecipe(new ItemStack(ModBlocks.beacon), "GGG", "GNG", "OOO", 'G', new ItemStack(Blocks.glass), 'N', new ItemStack(Items.nether_star), 'O', new ItemStack(Blocks.obsidian));
 				removeFirstRecipeFor(Blocks.beacon);
 			}
+		}
+		
+		if(ConfigBlocksItems.enableExtraVanillaWalls) {
+			addShapedRecipe(new ItemStack(ModBlocks.generic_wall, 1, 0), "BBB", "BBB", 'B', new ItemStack(Blocks.stonebrick, 1, 0));
+			addShapedRecipe(new ItemStack(ModBlocks.generic_wall, 1, 1), "BBB", "BBB", 'B', new ItemStack(Blocks.stonebrick, 1, 1));
+			addShapedRecipe(new ItemStack(ModBlocks.generic_wall, 1, 2), "BBB", "BBB", 'B', new ItemStack(Blocks.sandstone, 1, 0));
+			addShapedRecipe(new ItemStack(ModBlocks.generic_wall, 1, 3), "BBB", "BBB", 'B', new ItemStack(Blocks.brick_block, 1, 0));
+
+			//TODO Nether brick wall should be individually toggleable because of Netherlicious
+			addShapedRecipe(new ItemStack(ModBlocks.nether_brick_wall), "BBB", "BBB", 'B', new ItemStack(Blocks.nether_brick));
 		}
 	}
 	

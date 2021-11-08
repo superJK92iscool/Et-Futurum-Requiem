@@ -1,8 +1,9 @@
 package ganymedes01.etfuturum.world.generate;
 import java.util.Random;
 
-import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
+import ganymedes01.etfuturum.configuration.configs.ConfigTweaks;
+import ganymedes01.etfuturum.core.utils.DeepslateOreRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.MathHelper;
@@ -64,12 +65,15 @@ public class WorldGenDeepslateBlob extends WorldGenerator
 								if (d12 * d12 + d13 * d13 + d14 * d14 < 1.0D)
 								{
 									Block block = world.getBlock(x, y, z);
-									BlockAndMetadataMapping mapping = EtFuturum.deepslateOres.get(new BlockAndMetadataMapping(block, world.getBlockMetadata(x, y, z)));
-									if (mapping != null) {
-										world.setBlock(x, y, z, mapping.getOre(), mapping.getMeta(), 2);
+									
+									if((block.isReplaceableOreGen(world, x, y, z, Blocks.stone))) {
+										world.setBlock(x, y, z, ModBlocks.deepslate, 0, 2);
+									} else if(ConfigTweaks.deepslateReplacesCobblestone && (block.isReplaceableOreGen(world, x, y, z, Blocks.cobblestone))) {
+										world.setBlock(x, y, z, ModBlocks.cobbled_deepslate, 0, 2);
 									} else {
-										if (block.isReplaceableOreGen(world, x, y, z, Blocks.stone)) {
-											world.setBlock(x, y, z, ModBlocks.deepslate, 0, 2);
+										BlockAndMetadataMapping mapping;
+										if((mapping = DeepslateOreRegistry.getOre(block, world.getBlockMetadata(x, y, z))) != null) {
+											world.setBlock(x, y, z, mapping.getBlock(), mapping.getMeta(), 2);
 										}
 									}
 								}

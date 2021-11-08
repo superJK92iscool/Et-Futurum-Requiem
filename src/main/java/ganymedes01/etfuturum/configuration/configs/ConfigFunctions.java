@@ -162,6 +162,8 @@ public class ConfigFunctions extends ConfigBase {
 		enableRecipeForTotem = cfg.getBoolean("enableRecipeForTotem", catSettings, false, "Recipe for totems since there's no other way to get them currently.");
 		shulkerBansString = cfg.getStringList("shulkerBans", catSettings, shulkerDefaultBans, "Things (namespaced:id) that should not go inside a Shulker Box. Used to ensure recursive storage, book banning and data overloads with certain items can be stopped. A default list is provided, but it might not cover everything so be sure to check with the mods you have. Be sure to check the default list for this frequently, it will be updated frequently.");
 		totemHealPercent = cfg.getInt("totemHealPercent", catSettings, 5, 5, 100, "Percentage of max health for totem to set you at if you die with it. (5% is 0.05, 20 * 0.05 = 1, 1 health is one half-heart)");
+		registerRawItemAsOre = cfg.getBoolean("registerRawItemAsOre", catSettings, true, "Register the raw ore items in the OreDictionary as if they were the actual ore block. Such as raw iron being registered as an iron ore, etc...\nTurn this off if you have an ore dictionary converter mod or experience other issues.");
+		extraDropRawOres = cfg.getStringList("extraDropRawOres", catSettings, new String[] {"oreCopper", "oreTin"}, "OreDictionary values for ore blocks that should drop extra items (2-3) instead of the usual one, before fortune.");
 		
 		//client
 		enableTransparentAmour = cfg.getBoolean("enableTransparentAmour", catClient, true, "Allow non-opaque armour");

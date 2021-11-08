@@ -23,11 +23,15 @@ import ganymedes01.etfuturum.ModEnchantments;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.blocks.BlockMagma;
 import ganymedes01.etfuturum.blocks.BlockWitherRose;
+import ganymedes01.etfuturum.blocks.ExternalContent;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigEntities;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
+import ganymedes01.etfuturum.configuration.configs.ConfigTweaks;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.HoeHelper;
+import ganymedes01.etfuturum.core.utils.RawOreRegistry;
+import ganymedes01.etfuturum.core.utils.StrippedLogRegistry;
 import ganymedes01.etfuturum.entities.EntityBrownMooshroom;
 import ganymedes01.etfuturum.entities.EntityEndermite;
 import ganymedes01.etfuturum.entities.EntityNewBoat;
@@ -39,11 +43,11 @@ import ganymedes01.etfuturum.entities.EntityZombieVillager;
 import ganymedes01.etfuturum.entities.ai.EntityAIOpenCustomDoor;
 import ganymedes01.etfuturum.inventory.ContainerEnchantment;
 import ganymedes01.etfuturum.items.ItemArrowTipped;
-import ganymedes01.etfuturum.items.ItemRawOre;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.network.BlackHeartParticlesMessage;
 import ganymedes01.etfuturum.recipes.ModRecipes;
 import ganymedes01.etfuturum.tileentities.TileEntityGateway;
+import ganymedes01.etfuturum.world.generate.BlockAndMetadataMapping;
 import ganymedes01.etfuturum.world.generate.RawOreDropMapping;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEndPortalFrame;
@@ -84,13 +88,11 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
-import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemShears;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.play.server.S29PacketSoundEffect;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -100,6 +102,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
 import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.StatCollector;
 import net.minecraft.util.Vec3;
@@ -145,31 +148,18 @@ public class ServerEventHandler {
 		EntityLivingBase entity = event.entityLiving;
 		if (entity.worldObj == null) return;
 		
-		ModEnchantments.onLivingUpdate(event.entityLiving);
+		ModEnchantments.onLivingUpdate(entity);
 		
 		double x = entity.posX;
 		double y = entity.posY;
 		double z = entity.posZ;
-		if(ConfigBlocksItems.enableMagmaBlock)
-			if(!entity.isImmuneToFire() && !entity.isSneaking() && entity.onGround
-					&& entity.worldObj.getBlock(MathHelper.floor_double(x), (int)(y - .45), MathHelper.floor_double(z)) == ModBlocks.magma_block) {
-				NBTTagList enchants;
-				boolean flag = true;
-				if(entity instanceof EntityPlayer && ((EntityPlayer) entity).inventory.getStackInSlot(36) != null
-						&& ((EntityPlayer) entity).inventory.getStackInSlot(36).getEnchantmentTagList() != null) {
-					enchants = ((EntityPlayer) entity).inventory.getStackInSlot(36).getEnchantmentTagList();
-					for(int i = 0; i < enchants.tagCount(); i++) {
-						NBTTagCompound nbt = enchants.getCompoundTagAt(i);
-						short id = nbt.getShort("id");
-						if(id == ModEnchantments.frostWalker.effectId) {
-							flag = false;
-							break;
-						}
-					}
-				}
-				if(flag)
+		if(ConfigBlocksItems.enableMagmaBlock) {
+			if(!entity.isImmuneToFire() && !entity.isSneaking() && entity.onGround && entity.worldObj.getBlock(MathHelper.floor_double(x), (int)(y - .45D), MathHelper.floor_double(z)) == ModBlocks.magma_block) {
+				if(EnchantmentHelper.getEnchantmentLevel(ModEnchantments.frostWalker.effectId, entity.getEquipmentInSlot(1)) == 0) {
 					entity.attackEntityFrom(BlockMagma.HOT_FLOOR, 1);
+				}
 			}
+		}
 		
 		if(entity instanceof EntityLiving) {
 			if (ConfigEntities.enableVillagerZombies && entity.getClass() == EntityZombie.class && ((EntityZombie)entity).isVillager()) {
@@ -190,18 +180,23 @@ public class ServerEventHandler {
 			newentity.worldObj.spawnEntityInWorld(newentity);
 			newentity.onSpawnWithEgg(null);
 			
-			if (oldentity.isNoDespawnRequired()) {
-				newentity.func_110163_bv();
-			}
-			if (oldentity.hasCustomNameTag()) {
-				newentity.setCustomNameTag(oldentity.getCustomNameTag());
-			}
-			for(int i = 0; i < oldentity.getLastActiveItems().length; i++) {
-				if(i >= newentity.getLastActiveItems().length) break;
-				newentity.setCurrentItemOrArmor(i, oldentity.getLastActiveItems()[i]);
+			if(newentity.getClass().isInstance(oldentity)) {
+				NBTTagCompound tag = new NBTTagCompound();
+				oldentity.writeToNBT(tag);
+				newentity.readEntityFromNBT(tag);
+			} else {
+				if (oldentity.isNoDespawnRequired()) {
+					newentity.func_110163_bv();
+				}
+				if (oldentity.hasCustomNameTag()) {
+					newentity.setCustomNameTag(oldentity.getCustomNameTag());
+				}
+				for(int i = 0; i < oldentity.getLastActiveItems().length; i++) {
+					if(i >= newentity.getLastActiveItems().length) break;
+					newentity.setCurrentItemOrArmor(i, oldentity.getLastActiveItems()[i]);
+				}
 			}
 		}
-		//TODO: Use ATs to get the drop chance?
 		oldentity.setDead();
 	}
 	
@@ -375,14 +370,14 @@ public class ServerEventHandler {
 			RawOreDropMapping mapping = null;
 			for(int oreID : OreDictionary.getOreIDs(new ItemStack(event.block, 1, event.blockMetadata))) {
 				String oreName = OreDictionary.getOreName(oreID);
-				if(ItemRawOre.rawOreRegistry.get(oreName) != null) {
-					mapping = ItemRawOre.rawOreRegistry.get(oreName);
+				if(RawOreRegistry.hasOre(oreName)) {
+					mapping = RawOreRegistry.getOre(oreName);
 					break;
 				}
 			}
 			if(mapping != null) {
 				event.drops.clear();
-				event.drops.add(new ItemStack(mapping.getItem(), mapping.getDropsExtra() ? event.world.rand.nextInt(3 * (event.fortuneLevel + 1) - 1) + 2 : event.world.rand.nextInt(1 + event.fortuneLevel) + 1, mapping.getMeta()));
+				event.drops.add(new ItemStack(mapping.getItem(), mapping.getDropAmount(event.world.rand, event.fortuneLevel), mapping.getMeta()));
 			}
 		}
 
@@ -527,7 +522,6 @@ public class ServerEventHandler {
 				int side = event.face;
 		        if (player.canPlayerEdit(x, y, z, side, heldStack))
 		        {
-		        	System.out.println(event.getResult());
 		        	if(event.getResult() == event.useItem) {
 		        		
 		        		//Eye of Ender place sounds
@@ -646,9 +640,8 @@ public class ServerEventHandler {
 			        	}
 			        	
 			        	//Lava cauldron filling
-						if(ConfigBlocksItems.enableLavaCauldrons && !player.isSneaking() && 
-								oldBlock == Blocks.cauldron && world.getBlockMetadata(x, y, z) == 0) {
-							if (heldStack != null && heldStack.getItem() == Items.lava_bucket) {
+						if (ConfigBlocksItems.enableLavaCauldrons && heldStack != null && heldStack.getItem() == Items.lava_bucket) {
+							if(oldBlock == Blocks.cauldron && canUse(player, world, x, y, z) && meta == 0) {
 								event.setResult(Result.DENY);
 								player.swingItem();
 								world.setBlock(x, y, z, ModBlocks.lava_cauldron);
@@ -662,15 +655,13 @@ public class ServerEventHandler {
 							}
 						}
 						
-		        		if(ConfigBlocksItems.enableInvertedDaylightSensor && oldBlock == Blocks.daylight_detector) {
-		        			if(!player.isSneaking() || player.getHeldItem() == null || player.getHeldItem().getItem().doesSneakBypassUse(world, x, y, z, player)) {
-									player.swingItem();
-				        			world.setBlock(x, y, z, ModBlocks.inverted_daylight_detector, 15 - world.getBlockMetadata(x, y, z), 2);
-									if(!world.isRemote) {
-										event.setResult(Result.DENY);
-										event.setCanceled(true);
-		        				}
-							}
+		        		if(ConfigBlocksItems.enableInvertedDaylightSensor && oldBlock == Blocks.daylight_detector && canUse(player, world, x, y, z)) {
+							player.swingItem();
+		        			world.setBlock(x, y, z, ModBlocks.inverted_daylight_detector, 15 - meta, 2);
+							if(!world.isRemote) {
+								event.setResult(Result.DENY);
+								event.setCanceled(true);
+	        				}
 		        		}
 		        	
 						
@@ -679,7 +670,7 @@ public class ServerEventHandler {
 		        		if(heldStack != null) {
 							Set<String> toolClasses = heldStack.getItem().getToolClasses(heldStack);
 							if (toolClasses != null) {
-								if (ConfigBlocksItems.enableGrassPath && !world.getBlock(x, y + 1, z).getMaterial().isSolid() && toolClasses.contains("shovel") && (oldBlock == Blocks.grass || oldBlock == Blocks.dirt || oldBlock == Blocks.mycelium)) {
+								if (ConfigBlocksItems.enableGrassPath && toolClasses.contains("shovel") && !world.getBlock(x, y + 1, z).getMaterial().isSolid() && (oldBlock == Blocks.grass || oldBlock == Blocks.dirt || oldBlock == Blocks.mycelium)) {
 									player.swingItem();
 									if(!world.isRemote) {
 										world.setBlock(x, y, z, ModBlocks.grass_path);
@@ -687,23 +678,11 @@ public class ServerEventHandler {
 										world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, Block.soundTypeGravel.getStepResourcePath(), 1.0F, 0.8F);
 									}
 								} else if (ConfigBlocksItems.enableStrippedLogs && toolClasses.contains("axe")) {
-									Block newBlock = null;
-									if (oldBlock == Blocks.log) {
-										newBlock = ModBlocks.log_stripped;
-									} else if(oldBlock == Blocks.log2) {
-										newBlock = ModBlocks.log2_stripped;
-									} else if (ConfigBlocksItems.enableBarkLogs) {
-										if (oldBlock == ModBlocks.log_bark) {
-											newBlock = ModBlocks.wood_stripped;
-										} else if (oldBlock == ModBlocks.log2_bark) {
-											newBlock = ModBlocks.wood2_stripped;
-										}
-									}
+									BlockAndMetadataMapping newBlock = StrippedLogRegistry.getLog(oldBlock, world.getBlockMetadata(x, y, z) % 4);
 									if (newBlock != null) {
 										player.swingItem();
 										if(!world.isRemote) {
-											int logMeta = meta;
-											world.setBlock(x, y, z, newBlock, logMeta, 2);
+											world.setBlock(x, y, z, newBlock.getBlock(), newBlock.getMeta() + ((meta / 4) * 4), 2);
 											heldStack.damageItem(1, player);
 											world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, Reference.MOD_ID + ":item.axe.strip", 1.0F, 0.8F);
 										}
@@ -715,6 +694,10 @@ public class ServerEventHandler {
 		        }
 			}
 		}
+	}
+	
+	public static boolean canUse(EntityPlayer player, World world, int x, int y, int z) {
+		return !player.isSneaking() || player.getHeldItem() == null || player.getHeldItem().getItem().doesSneakBypassUse(world, x, y, z, player);
 	}
 	
 	@SubscribeEvent
@@ -830,7 +813,35 @@ public class ServerEventHandler {
 	@SubscribeEvent
 	public void naturalSpawnEvent(SpecialSpawn event) {
 		if(event.entityLiving instanceof EntityShulker) {
-			((EntityShulker)event.entityLiving).persistenceRequired = false;
+			EntityShulker shulker = ((EntityShulker)event.entityLiving);
+			shulker.persistenceRequired = false;
+			if(ConfigTweaks.spawnAnywhereShulkerColors) {
+				int x = MathHelper.floor_double(event.x);
+				int y = MathHelper.floor_double(event.y);
+				int z = MathHelper.floor_double(event.z);
+				World world = event.world;
+				
+				if(ConfigTweaks.spawnAnywhereShulkerColors) {
+					for(EnumFacing facing : EnumFacing.values()) {
+						Block block = world.getBlock(x + facing.getFrontOffsetX(), y + facing.getFrontOffsetY(), z + facing.getFrontOffsetZ());
+						byte color = -1;
+						int meta = world.getBlockMetadata(x + facing.getFrontOffsetX(), y + facing.getFrontOffsetY(), z + facing.getFrontOffsetZ());
+						
+						if(facing == EnumFacing.DOWN && block == ExternalContent.hee_end_stone) {
+							color = (byte) (meta == 2 ? 10 : meta == 1 ? 1 : 14);
+						} else if (block == ExternalContent.enderlicious_sand) {
+							color = (byte) (meta == 1 ? 15 : 0);
+						} else if (block == ExternalContent.enderlicious_end_rock) {
+							color = (byte) (meta % 4 == 1 ? 13 : -1);
+						}
+							
+						if(color > -1) {
+							shulker.setColor(color);
+							break;
+						}
+					}
+				}
+			}
 		}
 	}
 

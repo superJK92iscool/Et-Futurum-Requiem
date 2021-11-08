@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.recipes;
+package ganymedes01.etfuturum.recipes.crafting;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +7,7 @@ import org.apache.commons.lang3.ArrayUtils;
 
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.items.block.ItemShulkerBox;
+import ganymedes01.etfuturum.recipes.ModRecipes;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

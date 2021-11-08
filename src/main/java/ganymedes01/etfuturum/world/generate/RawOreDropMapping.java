@@ -1,9 +1,10 @@
 package ganymedes01.etfuturum.world.generate;
 
+import java.util.Random;
+
 import org.apache.commons.lang3.ArrayUtils;
 
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
-import ganymedes01.etfuturum.items.ItemRawOre;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -27,7 +28,9 @@ public class RawOreDropMapping {
 			String oreName = OreDictionary.getOreName(oreID);
 			if(oreName != null && oreName.startsWith("ore")) {
 				this.exdrops = ArrayUtils.contains(ConfigFunctions.extraDropRawOres, oreName);
-				break;
+				if(exdrops) {
+					break;
+				}
 			}
 		}
 	}
@@ -42,5 +45,9 @@ public class RawOreDropMapping {
 	
 	public boolean getDropsExtra() {
 		return exdrops;
+	}
+	
+	public int getDropAmount(Random rand, int fortune) {
+		return getDropsExtra() ? rand.nextInt(3 * (fortune + 1) - 1) + 2 : rand.nextInt(1 + fortune) + 1;
 	}
 }

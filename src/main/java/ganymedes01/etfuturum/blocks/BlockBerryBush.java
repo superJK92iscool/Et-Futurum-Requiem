@@ -5,7 +5,6 @@ import java.util.Random;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.ModBlocks.ISubBlocksBlock;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.client.sound.ModSounds;
@@ -69,6 +68,7 @@ public class BlockBerryBush extends BlockBush implements IConfigurable, ISubBloc
 			entity.motionX *= 0.3405D;
 			entity.motionY *= 0.3405D;
 			entity.motionZ *= 0.3405D;
+			entity.fallDistance = 0;
 		   if (!world.isRemote && world.getBlockMetadata(x, y, z) > 0 && (entity.lastTickPosX != entity.posX || entity.lastTickPosZ != entity.posZ)) {
 			  double d0 = Math.abs(entity.posX - entity.lastTickPosX);
 			  double d1 = Math.abs(entity.posZ - entity.lastTickPosZ);

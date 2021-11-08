@@ -6,10 +6,11 @@ import java.util.Random;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.IConfigurable;
+import ganymedes01.etfuturum.blocks.IConfigurable;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
+import ganymedes01.etfuturum.core.utils.DeepslateOreRegistry;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.world.generate.BlockAndMetadataMapping;
 import net.minecraft.block.Block;
@@ -52,7 +53,7 @@ public class BlockDeepslateOre extends BlockOre implements IConfigurable {
 	}
 	
 	protected void addDeepslateMappings() {
-		EtFuturum.deepslateOres.put(new BlockAndMetadataMapping(base, 0), new BlockAndMetadataMapping(this, 0));
+		DeepslateOreRegistry.addOre(base, 0, this, 0);
 	}
 
 	@Override

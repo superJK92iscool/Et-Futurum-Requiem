@@ -155,7 +155,7 @@ public class ClientEventHandler {
 		if(!showedWarning && player.ticksExisted == 40) {
 			if(Reference.VERSION_NUMBER.contains("dev") || Reference.VERSION_NUMBER.contains("snapshot")
 						|| Reference.VERSION_NUMBER.contains("alpha") || Reference.VERSION_NUMBER.contains("beta") || EtFuturum.isTesting) {
-			player.addChatComponentMessage(new ChatComponentText("\u00a7c\u00a7l[Debug]: \u00a7rYou are using a debug, or beta version of \u00a7bEt \u00a7bFuturum \u00a7bRequiem\u00a7r. There might be bugs, please report issues here: https://github.com/Roadhog360/Et-Futurum-Requiem/issues"));
+			player.addChatComponentMessage(new ChatComponentText("\u00a7c\u00a7l[Debug]: \u00a7rYou are using a debug, or beta version of \u00a7bEt \u00a7bFuturum \u00a7bRequiem\u00a7r. There might be bugs, please report issues on the GitHub page, which can be found under the \"source\" button at the top of the CurseForge page."));
 						}
 			showedWarning = true;
 		}

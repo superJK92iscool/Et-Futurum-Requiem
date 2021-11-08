@@ -19,13 +19,19 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
 public class EntityHusk extends EntityZombie
 {
 	
-	public static ItemStack dummyItem = new ItemStack(Blocks.stone_button, 0, 0); //TODO: Less spaghetti
+	/*
+	 * We set this to true to force the brightness to be 0 in onLivingUpdate so the husk does not burn.
+	 * It is set back to false after onLivingUpdate, which is nested in onUpdate, so it will not affect
+	 * what other code sees when it gets the entity brightness.
+	 */
+	private boolean ignoreSunlight;
 	
 	public EntityHusk(final World p_i1745_1_) {
 		super(p_i1745_1_);
@@ -57,6 +63,18 @@ public class EntityHusk extends EntityZombie
 		}
 		return flag;
 	}
+	
+    public void onLivingUpdate()
+    {
+    	ignoreSunlight = true;
+    	super.onLivingUpdate();
+    	ignoreSunlight = false;
+    }
+    
+    public float getBrightness(float p_70013_1_)
+    {
+    	return ignoreSunlight ? 0F : super.getBrightness(p_70013_1_);
+    }
 	
 	/*
 	public boolean attackEntityFrom(DamageSource p_70097_1_, float p_70097_2_)
@@ -129,15 +147,6 @@ public class EntityHusk extends EntityZombie
 		}
 	}
 	*/
-	
-	@Override
-	public ItemStack getEquipmentInSlot(int slot)
-	{ // Sets dummy item in helmet slot so itemstack in helmet is never null, to remove daylight check
-		ItemStack stack = super.getEquipmentInSlot(slot);
-		if(slot != 4 || isChild())
-			return stack;
-		return stack == null ? dummyItem : stack;
-	}
 	
 	@Override
 	protected String getLivingSound() {

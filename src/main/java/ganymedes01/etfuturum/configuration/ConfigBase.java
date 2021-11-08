@@ -8,6 +8,7 @@ import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.etfuturum.ModBlocks;
+import ganymedes01.etfuturum.blocks.ExternalContent;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigEnchantsPotions;
 import ganymedes01.etfuturum.configuration.configs.ConfigEntities;
@@ -73,7 +74,7 @@ public abstract class ConfigBase extends Configuration {
 					if(!ConfigFunctions.shulkerBans.contains(item)) {
 						ConfigFunctions.shulkerBans.add(item);
 					} else {
-						System.err.println("Shulker ban list entry \"" + itemName + "\" is already added!s");
+						System.err.println("Shulker ban list entry \"" + itemName + "\" is already added!");
 					}
 				}
 			} else {
@@ -81,7 +82,7 @@ public abstract class ConfigBase extends Configuration {
 			}
 		}
 		
-		Block block = ConfigWorld.fossilBlockID == 1 ? block = GameRegistry.findBlock("netherlicious", "BoneBlock") : GameRegistry.findBlock("uptodate", "bone_block");
+		Block block = ConfigWorld.fossilBlockID == 1 ? ExternalContent.netherlicious_bone_block : ExternalContent.utd_bone_block;
 		ConfigWorld.fossilBoneBlock = ConfigWorld.fossilBlockID == 0 || block == null ? ModBlocks.bone_block : block;
 	}
 

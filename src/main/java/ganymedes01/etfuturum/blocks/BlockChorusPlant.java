@@ -1,15 +1,12 @@
 package ganymedes01.etfuturum.blocks;
 
-import java.util.List;
 import java.util.Random;
 
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.entities.ai.BlockPos;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -67,15 +64,15 @@ public class BlockChorusPlant extends Block implements IConfigurable {
 		return this.getCollisionBoundingBoxFromPool(world, x, y, z);
 	}
 	
-	private boolean canConnectTo(IBlockAccess world, int x, int y, int z) {
+	public boolean canConnectTo(IBlockAccess world, int x, int y, int z) {
 		Block block = world.getBlock(x, y, z);
-		return block instanceof BlockChorusPlant || block instanceof BlockChorusFlower || (block == Blocks.end_stone || (world instanceof World && canPlaceHere(block, (World)world, x, y, z)));
+		return canPlaceOn(block) || block == ModBlocks.chorus_flower;
 	}
 
     @Override
     public boolean canPlaceBlockAt(World world, int x, int y, int z)
     {
-        return super.canPlaceBlockAt(world, x, y, z) ? this.canSurviveAt(world, x, y, z) : false;
+        return super.canPlaceBlockAt(world, x, y, z) || this.canSurviveAt(world, x, y, z);
     }
 
     @Override
@@ -103,7 +100,7 @@ public class BlockChorusPlant extends Block implements IConfigurable {
 
         for (EnumFacing enumfacing : EnumFacing.values())
         {
-        	if(enumfacing == EnumFacing.DOWN || enumfacing == EnumFacing.UP) continue;
+        	if(enumfacing.getFrontOffsetY() != 0) continue;
         	
             Block block = world.getBlock(x+enumfacing.getFrontOffsetX(), y, z+enumfacing.getFrontOffsetZ());
 
@@ -116,7 +113,7 @@ public class BlockChorusPlant extends Block implements IConfigurable {
 
                 Block block1 = world.getBlock(x+enumfacing.getFrontOffsetX(), y-1, z+enumfacing.getFrontOffsetZ());
 
-                if (block1 == this || canPlaceHere(block1, world, x, y, z))
+                if (block1 == this || canPlaceOn(block1))
                 {
                     return true;
                 }
@@ -124,15 +121,11 @@ public class BlockChorusPlant extends Block implements IConfigurable {
         }
 
         Block block2 = world.getBlock(x, y-1, z);
-        return block2 == this || canPlaceHere(block2, world, x, y, z);
+        return block2 == this || canPlaceOn(block2);
     }
     
-    public static boolean canPlaceHere(World world, int x, int y, int z) {
-    	return canPlaceHere(world.getBlock(x, y, z), world, x, y, z);
-    }
-    
-    public static boolean canPlaceHere(Block block, World world, int x, int y, int z) {
-    	return block.isReplaceableOreGen(world, x, y, z, Blocks.end_stone);
+    public static boolean canPlaceOn(Block block) {
+    	return block == Blocks.end_stone || block == ExternalContent.enderlicious_end_rock || block == ExternalContent.hee_end_stone;
     }
 
 	@Override

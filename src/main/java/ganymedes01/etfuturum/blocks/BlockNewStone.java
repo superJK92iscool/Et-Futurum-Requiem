@@ -1,7 +1,6 @@
 package ganymedes01.etfuturum.blocks;
 
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
@@ -10,13 +9,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 
 public class BlockNewStone extends BlockGeneric implements IConfigurable {
-
-	public static final int GRANITE = 1;
-	public static final int POLISHED_GRANITE = 2;
-	public static final int DIORITE = 3;
-	public static final int POLISHED_DIORITE = 4;
-	public static final int ANDESITE = 5;
-	public static final int POLISHED_ANDESITE = 6;
 
 	public BlockNewStone() {
 		super(Material.rock, "", "granite", "granite_smooth", "diorite", "diorite_smooth", "andesite", "andesite_smooth");

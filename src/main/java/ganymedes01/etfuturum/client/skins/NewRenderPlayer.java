@@ -28,7 +28,6 @@ public class NewRenderPlayer extends RenderPlayer {
 	
 	private void setModel(EntityPlayer player) {
 		if(cachedAlex != PlayerModelManager.isPlayerModelAlex(player)) {
-			System.out.println("test");
 			cachedAlex = PlayerModelManager.isPlayerModelAlex(player);
 			mainModel = modelBipedMain = cachedAlex ? ALEX : STEVE;
 		}

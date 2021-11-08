@@ -2,7 +2,7 @@ package ganymedes01.etfuturum.inventory;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ganymedes01.etfuturum.recipes.BrewingFuelRegistry;
+import ganymedes01.etfuturum.core.utils.BrewingFuelRegistry;
 import ganymedes01.etfuturum.tileentities.TileEntityNewBrewingStand;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;

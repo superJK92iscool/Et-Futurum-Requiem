@@ -5,7 +5,6 @@ import java.util.List;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;

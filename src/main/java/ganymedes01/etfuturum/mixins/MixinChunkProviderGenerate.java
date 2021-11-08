@@ -31,7 +31,8 @@ public class MixinChunkProviderGenerate {
     
     @Inject(method = "provideChunk", at = @At(value = "NEW", target = "net/minecraft/world/chunk/Chunk"), locals = LocalCapture.CAPTURE_FAILSOFT)
     private void generateDeepslate(int x, int z, CallbackInfoReturnable<Chunk> info, Block[] ablock) {
-    	if(worldObj.getWorldInfo().getTerrainType() != WorldType.FLAT && !ArrayUtils.contains(ConfigWorld.deepslateLayerDimensionBlacklist, worldObj.provider.dimensionId)) {
+    	if(worldObj.getWorldInfo().getTerrainType() != WorldType.FLAT &&
+    			!ArrayUtils.contains(ConfigWorld.deepslateLayerDimensionBlacklist, worldObj.provider.dimensionId)) {
         	int x2, z2, array;
         	for(int x1 = 0; x1 < 16; x1++) {
             	for(int z1 = 0; z1 < 16; z1++) {

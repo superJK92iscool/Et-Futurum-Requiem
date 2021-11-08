@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.recipes;
+package ganymedes01.etfuturum.recipes.crafting;
 
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.tileentities.TileEntityBanner;

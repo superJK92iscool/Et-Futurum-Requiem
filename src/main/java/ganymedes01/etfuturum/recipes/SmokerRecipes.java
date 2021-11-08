@@ -47,8 +47,6 @@ public class SmokerRecipes
 					if (input.getItem() instanceof ItemFood || result.getItem() instanceof ItemFood) {
 						smeltingBase.addRecipe(input, result, result.getItem().getSmeltingExperience(result));
 					}
-				} else {
-					FurnaceRecipes.smelting().getSmeltingList().remove(input);
 				}
 			}
 		} else {

@@ -15,8 +15,8 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ResourceLocation;
 
-public class EtFuturumPotion extends Potion {
-    protected EtFuturumPotion(int id, boolean isBad, int color) {
+public class ModPotions extends Potion {
+    protected ModPotions(int id, boolean isBad, int color) {
         super(id, isBad, color);
     }
 

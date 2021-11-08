@@ -6,7 +6,6 @@ import java.util.Random;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.tileentities.TileEntityGateway;
 import net.minecraft.block.Block;

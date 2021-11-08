@@ -54,6 +54,7 @@ import ganymedes01.etfuturum.blocks.BlockNewDaylightSensor;
 import ganymedes01.etfuturum.blocks.BlockNewEnchantmentTable;
 import ganymedes01.etfuturum.blocks.BlockNewNetherBrick;
 import ganymedes01.etfuturum.blocks.BlockNewStone;
+import ganymedes01.etfuturum.blocks.BlockNewWall;
 import ganymedes01.etfuturum.blocks.BlockOldGravel;
 import ganymedes01.etfuturum.blocks.BlockOldRose;
 import ganymedes01.etfuturum.blocks.BlockPrismarine;
@@ -96,12 +97,14 @@ import ganymedes01.etfuturum.blocks.BlockWoodFenceGate;
 import ganymedes01.etfuturum.blocks.BlockWoodPressurePlate;
 import ganymedes01.etfuturum.blocks.BlockWoodSign;
 import ganymedes01.etfuturum.blocks.BlockWoodTrapdoor;
+import ganymedes01.etfuturum.blocks.IConfigurable;
 import ganymedes01.etfuturum.blocks.ores.BlockCopperOre;
 import ganymedes01.etfuturum.blocks.ores.BlockDeepslateOre;
 import ganymedes01.etfuturum.blocks.ores.BlockDeepslateRedstoneOre;
 import ganymedes01.etfuturum.blocks.ores.BlockOreNetherGold;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.tileentities.TileEntityWoodSign;
+import ganymedes01.etfuturum.world.generate.BlockAndMetadataMapping;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBlock;
@@ -185,6 +188,19 @@ public class ModBlocks {
 	public static final Block tuff = initBlock(new BlockTuff());
 	public static final Block raw_ore_block = initBlock(new BlockRawOre());
 	
+	//walls
+	public static final Block generic_wall = initBlock(new BlockNewWall("stone_wall", new Block[] {Blocks.stonebrick, Blocks.stonebrick, Blocks.sandstone, Blocks.brick_block}, new int[] {0, 1, 0, 0}, new String[] {"stone_brick_wall", "mossy_stone_brick_wall", "sandstone_wall", "brick_wall"}));
+	public static final Block nether_brick_wall = initBlock(new BlockNewWall("nether_brick_wall", new Block[] {Blocks.nether_brick}, new int[] {0}, null));
+
+	public static final Block stone_wall = initBlock(new BlockNewWall("stone_wall_2", new Block[] {stone, stone, stone}, new int[] {1, 3, 5}, new String[] {"andesite_wall", "diorite_wall", "granite_wall"}));
+	public static final Block red_sandstone_wall = initBlock(new BlockNewWall("red_sandstone_wall", new Block[] {red_sandstone}, new int[] {0}, null));
+	public static final Block prismarine_wall = initBlock(new BlockNewWall("prismarine_wall", new Block[] {prismarine}, new int[] {0}, null));
+	public static final Block red_nether_brick_wall = initBlock(new BlockNewWall("red_nether_brick_wall", new Block[] {new_nether_brick}, new int[] {0}, null));
+	public static final Block end_brick_wall = initBlock(new BlockNewWall("end_brick_wall", new Block[] {end_bricks}, new int[] {0}, null));
+	
+	public static final Block deepslate_wall = initBlock(new BlockNewWall("deepslate_wall", new Block[] {cobbled_deepslate, polished_deepslate}, new int[] {0, 0}, new String[] {"cobbled_deepslate_wall", "polished_deepslate_wall"}));
+	public static final Block deepslate_brick_wall = initBlock(new BlockNewWall("deepslate_brick_wall", new Block[] {deepslate_bricks, deepslate_bricks}, new int[] {0, 2}, new String[] {"deepslate_brick_wall", "deepslate_tile_wall"}));
+	
 	//deepslate vanilla ores
 	public static final Block deepslate_coal_ore = initBlock(new BlockDeepslateOre(Blocks.coal_ore));
 	public static final Block deepslate_iron_ore = initBlock(new BlockDeepslateOre(Blocks.iron_ore));
@@ -205,7 +221,7 @@ public class ModBlocks {
 	public static final Block lava_cauldron = initBlock(new BlockLavaCauldron());
 	public static final Block end_gateway = initBlock(new BlockEndGateway());
 	
-	//do slab/stairs
+	//slab/stairs
 	public static final Block red_sandstone_stairs = initBlock(new BlockGenericStairs(red_sandstone, 0).setBlockName(Utils.getUnlocalisedName("red_sandstone_stairs")));
 	public static final Block purpur_stairs = initBlock(new BlockGenericStairs(purpur_block, 0).setBlockName(Utils.getUnlocalisedName("purpur_stairs")));
 	public static final Block red_sandstone_slab = initBlock(new BlockRedSandstoneSlab(false));

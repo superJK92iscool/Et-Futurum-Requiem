@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.apache.commons.lang3.ArrayUtils;
 
 import ganymedes01.etfuturum.ModItems;
+import ganymedes01.etfuturum.blocks.ExternalContent;
 import ganymedes01.etfuturum.configuration.configs.ConfigTweaks;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.entities.ai.BlockPos;
@@ -124,7 +125,7 @@ public class EntityShulker extends EntityGolem implements IMob {
     }
     
     public void setColor(byte color) {
-    	getDataWatcher().updateObject(COLOR, color < 0 ? 0 : color > 16 ? 16 : color);
+    	getDataWatcher().updateObject(COLOR, (byte) Math.min(Math.max(color, 0), 16));
     }
     
     public byte getColor() {
@@ -715,9 +716,6 @@ public class EntityShulker extends EntityGolem implements IMob {
     {
     	ItemStack stack = p_70085_1_.getCurrentEquippedItem();
     	if(ConfigTweaks.dyableShulkers && stack != null) {
-    		if(stack.getItem() instanceof ItemBucket) {
-    			System.out.println(((ItemBucket)stack.getItem()).isFull);
-    		}
     		if(stack.getItem() instanceof ItemBucket && ((ItemBucket)stack.getItem()).isFull == Blocks.flowing_water && getColor() != 16) {
     			setColor((byte)16);
     			return true;

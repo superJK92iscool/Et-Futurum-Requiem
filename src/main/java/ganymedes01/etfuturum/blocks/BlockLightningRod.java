@@ -1,7 +1,6 @@
 package ganymedes01.etfuturum.blocks;
 
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.Utils;

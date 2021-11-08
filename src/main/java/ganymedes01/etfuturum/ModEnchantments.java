@@ -4,6 +4,7 @@ import ganymedes01.etfuturum.configuration.configs.ConfigEnchantsPotions;
 import ganymedes01.etfuturum.enchantment.FrostWalker;
 import ganymedes01.etfuturum.enchantment.Mending;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
@@ -27,25 +28,37 @@ public class ModEnchantments {
 
 	// Frost Walker logic
 	public static void onLivingUpdate(EntityLivingBase entity) {
+		if (entity.worldObj.isRemote)
+			return;
 		if (!ConfigEnchantsPotions.enableFrostWalker)
 			return;
+		
 		ItemStack boots = entity.getEquipmentInSlot(1);
 		int level = 0;
-		if ((level = EnchantmentHelper.getEnchantmentLevel(frostWalker.effectId, boots)) > 0)
-			if (entity.onGround) {
+		if ((level = EnchantmentHelper.getEnchantmentLevel(frostWalker.effectId, boots)) > 0) {
+//			double motX = Math.abs(entity.motionX);
+//			double motZ = Math.abs(entity.motionZ);
+			if (entity.onGround/* && (motX >= 0.003D || motZ >= 0.003D) */) {
 				int x = (int) entity.posX;
 				int y = (int) entity.posY;
 				int z = (int) entity.posZ;
 
-				int radius = 1 + level;
+				int radius = Math.min(16, 2 + level);
 
-				for (int i = -radius; i <= radius; i++)
+				for (int i = -radius; i <= radius; i++) {
 					for (int j = -radius; j <= radius; j++) {
-						Block block = entity.worldObj.getBlock(x + i, y - 1, z + j);
-						if (block == Blocks.water || block == Blocks.flowing_water)
-							entity.worldObj.setBlock(x + i, y - 1, z + j, ModBlocks.frosted_ice);
+				        
+				        if(i * i + j * j <= (double)(radius * radius)) {
+							Block block = entity.worldObj.getBlock(x + i, y - 1, z + j);
+							Block blockUp = entity.worldObj.getBlock(x + i, y, z + j);
+							if(!blockUp.isNormalCube() && blockUp.getMaterial() != Material.water && (block == Blocks.water || block == Blocks.flowing_water)) {
+								entity.worldObj.setBlock(x + i, y - 1, z + j, ModBlocks.frosted_ice);
+							}
+				        }
 					}
+				}
 			}
+		}
 	}
 
 	// Mending logic

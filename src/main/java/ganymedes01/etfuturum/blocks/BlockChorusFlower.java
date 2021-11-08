@@ -7,7 +7,6 @@ import java.util.Random;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
@@ -88,7 +87,7 @@ public class BlockChorusFlower extends Block implements IConfigurable {
 			boolean canGrowUp = false;
 			boolean isSegmentOnEndstone = false;
 			Block lowerBlock = world.getBlock(x, y - 1, z);
-			if (BlockChorusPlant.canPlaceHere(lowerBlock, world, x, y - 1, z))
+			if (BlockChorusPlant.canPlaceOn(lowerBlock))
 				canGrowUp = true;
 			else if (lowerBlock == ModBlocks.chorus_plant) {
 				int par8 = 1;
@@ -96,7 +95,7 @@ public class BlockChorusFlower extends Block implements IConfigurable {
 				for (height = 0; height < 4; height++) {
 					Block b = world.getBlock(x, y - (par8 + 1), z);
 					if (b != ModBlocks.chorus_plant) {
-						if (BlockChorusPlant.canPlaceHere(b, world, x, y - (par8 + 1), z))
+						if (BlockChorusPlant.canPlaceOn(b))
 							isSegmentOnEndstone = true;
 						break;
 					}
@@ -157,7 +156,7 @@ public class BlockChorusFlower extends Block implements IConfigurable {
 
 	public static boolean canPlantStay(World world, int x, int y, int z) {
 		Block block = world.getBlock(x, y - 1, z);
-		if (block != ModBlocks.chorus_plant && !BlockChorusPlant.canPlaceHere(block, world, x, y - 1, z)) {
+		if (block != ModBlocks.chorus_plant && !BlockChorusPlant.canPlaceOn(block)) {
 			if (block.isAir(world, x, y - 1, z)) {
 				int adjecentCount = 0;
 				for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {

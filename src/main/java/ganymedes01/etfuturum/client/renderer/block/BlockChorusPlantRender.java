@@ -5,11 +5,13 @@ import java.util.Random;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModBlocks;
+import ganymedes01.etfuturum.blocks.BlockChorusPlant;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 @SideOnly(Side.CLIENT)
@@ -32,15 +34,22 @@ public class BlockChorusPlantRender extends BlockChorusFlowerRender {
 		int noConNorth = rand.nextInt(5);
 		int noConSouth = rand.nextInt(5);
 
-		Block neighbourUp = world.getBlock(x + ForgeDirection.UP.offsetX, y + ForgeDirection.UP.offsetY, z + ForgeDirection.UP.offsetZ);
-		Block neighbourDown = world.getBlock(x + ForgeDirection.DOWN.offsetX, y + ForgeDirection.DOWN.offsetY, z + ForgeDirection.DOWN.offsetZ);
-		Block neighbourWest = world.getBlock(x + ForgeDirection.WEST.offsetX, y + ForgeDirection.WEST.offsetY, z + ForgeDirection.WEST.offsetZ);
-		Block neighbourEast = world.getBlock(x + ForgeDirection.EAST.offsetX, y + ForgeDirection.EAST.offsetY, z + ForgeDirection.EAST.offsetZ);
-		Block neighbourNorth = world.getBlock(x + ForgeDirection.NORTH.offsetX, y + ForgeDirection.NORTH.offsetY, z + ForgeDirection.NORTH.offsetZ);
-		Block neighbourSouth = world.getBlock(x + ForgeDirection.SOUTH.offsetX, y + ForgeDirection.SOUTH.offsetY, z + ForgeDirection.SOUTH.offsetZ);
+		Block neighbourUp = world.getBlock(x, y + ForgeDirection.UP.offsetY, z);
+		Block neighbourDown = world.getBlock(x, y + ForgeDirection.DOWN.offsetY, z);
+		Block neighbourWest = world.getBlock(x + ForgeDirection.WEST.offsetX, y, z);
+		Block neighbourEast = world.getBlock(x + ForgeDirection.EAST.offsetX, y, z);
+		Block neighbourNorth = world.getBlock(x, y, z + ForgeDirection.NORTH.offsetZ);
+		Block neighbourSouth = world.getBlock(x, y, z + ForgeDirection.SOUTH.offsetZ);
+		
+		boolean connectUp = BlockChorusPlant.canPlaceOn(neighbourUp);
+		boolean connectDown = BlockChorusPlant.canPlaceOn(neighbourDown);
+		boolean connectWest = BlockChorusPlant.canPlaceOn(neighbourWest);
+		boolean connectEast = BlockChorusPlant.canPlaceOn(neighbourEast);
+		boolean connectNorth = BlockChorusPlant.canPlaceOn(neighbourNorth);
+		boolean connectSouth = BlockChorusPlant.canPlaceOn(neighbourSouth);
 		float conWidth = 4 / 16F;
 
-		if (neighbourUp == ModBlocks.chorus_flower || neighbourUp == Blocks.end_stone || neighbourUp == block) {
+		if (neighbourUp == ModBlocks.chorus_flower || connectUp || neighbourUp == block) {
 			renderer.setRenderBounds(conWidth, 1 - conWidth, conWidth, 1 - conWidth, 1, 1 - conWidth);
 			renderer.renderStandardBlock(block, x, y, z);
 		} else if (noConUp == 2 || noConUp == 3) {
@@ -51,7 +60,7 @@ public class BlockChorusPlantRender extends BlockChorusFlowerRender {
 			renderer.renderStandardBlock(block, x, y, z);
 		}
 
-		if (neighbourDown == ModBlocks.chorus_flower || neighbourDown == Blocks.end_stone || neighbourDown == block) {
+		if (neighbourDown == ModBlocks.chorus_flower || connectDown || neighbourDown == block) {
 			renderer.setRenderBounds(conWidth, 0, conWidth, 1 - conWidth, conWidth, 1 - conWidth);
 			renderer.renderStandardBlock(block, x, y, z);
 		} else if (noConDown == 2 || noConDown == 3) {
@@ -62,7 +71,7 @@ public class BlockChorusPlantRender extends BlockChorusFlowerRender {
 			renderer.renderStandardBlock(block, x, y, z);
 		}
 
-		if (neighbourWest == ModBlocks.chorus_flower || neighbourWest == Blocks.end_stone || neighbourWest == block) {
+		if (neighbourWest == ModBlocks.chorus_flower || connectWest || neighbourWest == block) {
 			renderer.setRenderBounds(0, conWidth, conWidth, conWidth, 1 - conWidth, 1 - conWidth);
 			renderer.renderStandardBlock(block, x, y, z);
 		} else if (noConWest == 2 || noConWest == 3) {
@@ -73,7 +82,7 @@ public class BlockChorusPlantRender extends BlockChorusFlowerRender {
 			renderer.renderStandardBlock(block, x, y, z);
 		}
 
-		if (neighbourEast == ModBlocks.chorus_flower || neighbourEast == Blocks.end_stone || neighbourEast == block) {
+		if (neighbourEast == ModBlocks.chorus_flower || connectEast || neighbourEast == block) {
 			renderer.setRenderBounds(1 - conWidth, conWidth, conWidth, 1, 1 - conWidth, 1 - conWidth);
 			renderer.renderStandardBlock(block, x, y, z);
 		} else if (noConEast == 2 || noConEast == 3) {
@@ -84,7 +93,7 @@ public class BlockChorusPlantRender extends BlockChorusFlowerRender {
 			renderer.renderStandardBlock(block, x, y, z);
 		}
 
-		if (neighbourNorth == ModBlocks.chorus_flower || neighbourNorth == Blocks.end_stone || neighbourNorth == block) {
+		if (neighbourNorth == ModBlocks.chorus_flower || connectNorth || neighbourNorth == block) {
 			renderer.setRenderBounds(conWidth, conWidth, 0, 1 - conWidth, 1 - conWidth, conWidth);
 			renderer.renderStandardBlock(block, x, y, z);
 		} else if (noConNorth == 2 || noConNorth == 3) {
@@ -95,7 +104,7 @@ public class BlockChorusPlantRender extends BlockChorusFlowerRender {
 			renderer.renderStandardBlock(block, x, y, z);
 		}
 
-		if (neighbourSouth == ModBlocks.chorus_flower || neighbourSouth == Blocks.end_stone || neighbourSouth == block) {
+		if (neighbourSouth == ModBlocks.chorus_flower || connectSouth || neighbourSouth == block) {
 			renderer.setRenderBounds(conWidth, conWidth, 1 - conWidth, 1 - conWidth, 1 - conWidth, 1);
 			renderer.renderStandardBlock(block, x, y, z);
 		} else if (noConSouth == 2 || noConSouth == 3) {
@@ -108,6 +117,8 @@ public class BlockChorusPlantRender extends BlockChorusFlowerRender {
 
 		renderer.setRenderBounds(conWidth, conWidth, conWidth, 1 - conWidth, 1 - conWidth, 1 - conWidth);
 		renderer.renderStandardBlock(block, x, y, z);
+
+		renderer.renderAllFaces = false;
 
 		return true;
 	}

@@ -3,7 +3,6 @@ package ganymedes01.etfuturum.blocks;
 import java.util.Random;
 
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;

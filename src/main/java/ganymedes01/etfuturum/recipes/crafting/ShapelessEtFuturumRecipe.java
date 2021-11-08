@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.recipes;
+package ganymedes01.etfuturum.recipes.crafting;
 
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.ShapelessOreRecipe;

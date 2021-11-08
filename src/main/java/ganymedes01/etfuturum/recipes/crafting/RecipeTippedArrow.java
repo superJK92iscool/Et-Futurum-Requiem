@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.recipes;
+package ganymedes01.etfuturum.recipes.crafting;
 
 import java.util.List;
 

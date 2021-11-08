@@ -4,10 +4,8 @@ import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -29,16 +27,19 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.api.waila.WailaRegistrar;
-import ganymedes01.etfuturum.blocks.BlockDeepslate;
+import ganymedes01.etfuturum.blocks.ExternalContent;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.proxy.CommonProxy;
+import ganymedes01.etfuturum.core.utils.BrewingFuelRegistry;
+import ganymedes01.etfuturum.core.utils.DeepslateOreRegistry;
 import ganymedes01.etfuturum.core.utils.HoeHelper;
+import ganymedes01.etfuturum.core.utils.RawOreRegistry;
+import ganymedes01.etfuturum.core.utils.StrippedLogRegistry;
 import ganymedes01.etfuturum.entities.ModEntityList;
-import ganymedes01.etfuturum.items.ItemRawOre;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.network.ArmourStandInteractHandler;
 import ganymedes01.etfuturum.network.ArmourStandInteractMessage;
@@ -46,15 +47,13 @@ import ganymedes01.etfuturum.network.BlackHeartParticlesHandler;
 import ganymedes01.etfuturum.network.BlackHeartParticlesMessage;
 import ganymedes01.etfuturum.network.WoodSignOpenHandler;
 import ganymedes01.etfuturum.network.WoodSignOpenMessage;
-import ganymedes01.etfuturum.potion.EtFuturumPotion;
+import ganymedes01.etfuturum.potion.ModPotions;
 import ganymedes01.etfuturum.recipes.BlastFurnaceRecipes;
-import ganymedes01.etfuturum.recipes.BrewingFuelRegistry;
 import ganymedes01.etfuturum.recipes.ModRecipes;
 import ganymedes01.etfuturum.recipes.SmokerRecipes;
 import ganymedes01.etfuturum.world.EtFuturumLateWorldGenerator;
 import ganymedes01.etfuturum.world.EtFuturumWorldGenerator;
 import ganymedes01.etfuturum.world.end.dimension.DimensionProviderEnd;
-import ganymedes01.etfuturum.world.generate.BlockAndMetadataMapping;
 import ganymedes01.etfuturum.world.generate.OceanMonument;
 import net.minecraft.block.Block;
 import net.minecraft.block.Block.SoundType;
@@ -99,7 +98,6 @@ public class EtFuturum {
 
 	public static SimpleNetworkWrapper networkWrapper;
 
-	public static Map<BlockAndMetadataMapping, BlockAndMetadataMapping> deepslateOres = new HashMap<BlockAndMetadataMapping, BlockAndMetadataMapping>();
 	public static CreativeTabs creativeTabItems = new CreativeTabs(Reference.MOD_ID + ".items") {
 		@Override
 		public Item getTabIconItem() {
@@ -141,6 +139,8 @@ public class EtFuturum {
 		ModBlocks.init();
 		ModItems.init();
 		ModEnchantments.init();
+		ModPotions.init();
+		
 //      if(ConfigurationHandler.enableNewNether) {
 //			NetherBiomeManager.init(); // Come back to
 //		}
@@ -237,18 +237,19 @@ public class EtFuturum {
 		
 		Items.blaze_rod.setFull3D();
 		Blocks.trapped_chest.setCreativeTab(CreativeTabs.tabRedstone);
-		
-		EtFuturumPotion.init();
 	}
 	
 	@EventHandler
 	public void onLoadComplete(FMLLoadCompleteEvent e){
-		BlockDeepslate.init();
+		DeepslateOreRegistry.init();
+		StrippedLogRegistry.init();
 		SmokerRecipes.init();
 		BlastFurnaceRecipes.init();
-		ItemRawOre.init();
+		RawOreRegistry.init();
 		ConfigBase.postInit();
 		
+		
+		//Block registry iterator
 		Iterator<Block> iterator = Block.blockRegistry.iterator();
 		while(iterator.hasNext()) {
 			Block block = iterator.next();

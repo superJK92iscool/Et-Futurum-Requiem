@@ -63,8 +63,9 @@ public class ConfigBlocksItems extends ConfigBase {
 	public static boolean enableSmoothSandstone;
 	public static boolean enableSmoothQuartz;
 	public static boolean enableQuartzBricks;
-	public static boolean enableGenericSlabs;
-	public static boolean enableGenericStairs;
+	public static boolean enableExtraVanillaSlabs;
+	public static boolean enableExtraVanillaStairs;
+	public static boolean enableExtraVanillaWalls;
 	public static boolean enableLilyOfTheValley;
 	public static boolean enableCornflower;
 	public static boolean enableWitherRose;
@@ -193,8 +194,9 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableSmoothSandstone = cfg.getBoolean("enableSmoothSandStone", catBlockMisc, true, "");
 		enableSmoothQuartz = cfg.getBoolean("enableSmoothQuartz", catBlockMisc, true, "");
 		enableQuartzBricks = cfg.getBoolean("enableQuartzBricks", catBlockMisc, true, "");
-		enableGenericSlabs = cfg.getBoolean("enableGenericSlabs", catBlockMisc, true, "Slabs for vanilla blocks: stone, mossy stone brick, mossy cobble, cut sandstone");
-		enableGenericStairs = cfg.getBoolean("enableGenericStairs", catBlockMisc, true, "Stairs for vanilla blocks: stone, mossy stone brick, mossy cobble");
+		enableExtraVanillaSlabs = cfg.getBoolean("enableExtraVanillaSlabs", catBlockMisc, true, "Slabs for vanilla blocks: stone, mossy stone brick, mossy cobble, cut sandstone");
+		enableExtraVanillaStairs = cfg.getBoolean("enableExtraVanillaStairs", catBlockMisc, true, "Stairs for vanilla blocks: stone, mossy stone brick, mossy cobble");
+		enableExtraVanillaWalls = cfg.getBoolean("enableExtraVanillaWalls", catBlockMisc, true, "Stairs for vanilla blocks: stone brick, mossy stone brick, sandstone, brick, nether brick");
 		enableCopperSubItems = cfg.getBoolean("enableCopperSubItems", catBlockMisc, true, "Copper sub-blocks and items. Disable copper but keep this on if you want the new copper items and blocks made of it, without the main ingot, ore or copper block itself.");
 		enableGlazedTerracotta = cfg.getBoolean("enableGlazedTerracotta", catBlockMisc, true, "");
 		enableBarrier = cfg.getBoolean("enableBarrier", catBlockMisc, true, "");

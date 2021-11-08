@@ -17,6 +17,7 @@ public class ConfigTweaks extends ConfigBase {
 	public static boolean enableRoses;
 	
 	public static boolean shulkersSpawnAnywhere;
+	public static boolean spawnAnywhereShulkerColors;
 	public static boolean deepslateReplacesCobblestone;
 	
 	public static final String catAbandoned = "abandoned ideas";
@@ -45,6 +46,7 @@ public class ConfigTweaks extends ConfigBase {
 		enableOldGravel = cfg.getBoolean("enableOldGravel", catAbandoned, true, "");
 		
 		shulkersSpawnAnywhere = cfg.getBoolean("shulkersSpawnAnywhere", catCustomTweaks, false, "For compatibility reasons, you may want the Shulker to spawn anywhere in the End in random groups like Endermen. These are uncommon.\nShulkers spawned in this way will despawn naturally, unless seated, given armor through a dispenser, or name tagged. Right now Shulkers are otherwise inacessible.");
+		spawnAnywhereShulkerColors =  cfg.getBoolean("spawnAnywhereShulkerColors", catCustomTweaks, true, "If spawn anywhere is enabled, spawn Shulkers matching the color of modded biome blocks. Currently supports Enderlicious and Hardcore Ender Expansion terrain blocks.");
 		deepslateReplacesCobblestone = cfg.getBoolean("deepslateReplacesCobblestone", catCustomTweaks, false, "If you want cobblestone to be replaced with cobbled deepslate during world generation.");
 	}
 

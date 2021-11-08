@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cpw.mods.fml.common.registry.GameRegistry;
+import ganymedes01.etfuturum.blocks.IConfigurable;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.entities.EntityNewBoat;
 import ganymedes01.etfuturum.items.*;

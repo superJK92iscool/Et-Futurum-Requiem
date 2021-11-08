@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.recipes;
+package ganymedes01.etfuturum.core.utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,8 +13,8 @@ import net.minecraftforge.oredict.OreDictionary;
 
 public class BrewingFuelRegistry {
 
-	private static Map<ItemStack, Integer> fuels = new HashMap<ItemStack, Integer>();
-	private static List<IBrewingFuel> advFuels = new ArrayList<IBrewingFuel>();
+	private static final Map<ItemStack, Integer> fuels = new HashMap<ItemStack, Integer>();
+	private static final List<IBrewingFuel> advFuels = new ArrayList<IBrewingFuel>();
 
 	static {
 		fuels.put(new ItemStack(Items.blaze_powder), 30);

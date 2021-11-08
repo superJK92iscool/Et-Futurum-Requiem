@@ -1,8 +1,6 @@
 package ganymedes01.etfuturum.items;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -10,14 +8,12 @@ import org.apache.commons.lang3.StringUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.IConfigurable;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.ModItems;
+import ganymedes01.etfuturum.blocks.IConfigurable;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.world.generate.BlockAndMetadataMapping;
-import ganymedes01.etfuturum.world.generate.RawOreDropMapping;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -26,7 +22,6 @@ import net.minecraftforge.oredict.OreDictionary;
 
 public class ItemRawOre extends ItemGeneric implements IConfigurable {
 	
-	public static final Map<String, RawOreDropMapping> rawOreRegistry = new HashMap<String, RawOreDropMapping>();
 	private boolean modded;
 
 	public ItemRawOre(boolean mod) {
@@ -59,16 +54,6 @@ public class ItemRawOre extends ItemGeneric implements IConfigurable {
 					list.add(new ItemStack(item, 1, i));
 				}
 			}
-		}
-	}
-	
-	public static void init() {
-		if(((IConfigurable)(ModItems.raw_ore)).isEnabled()) {
-			if(ConfigBlocksItems.enableCopper || !OreDictionary.getOres("oreCopper").isEmpty()) {
-				ItemRawOre.rawOreRegistry.put("oreCopper", new RawOreDropMapping(ModItems.raw_ore, 0));
-			}
-			ItemRawOre.rawOreRegistry.put("oreIron", new RawOreDropMapping(ModItems.raw_ore, 1));
-			ItemRawOre.rawOreRegistry.put("oreGold", new RawOreDropMapping(ModItems.raw_ore, 2));
 		}
 	}
 
