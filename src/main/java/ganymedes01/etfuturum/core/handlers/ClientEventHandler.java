@@ -34,10 +34,12 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSound;
 import net.minecraft.client.audio.PositionedSoundRecord;
-import net.minecraft.client.gui.GuiMainMenu;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.particle.EntityDiggingFX;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.event.ClickEvent;
+import net.minecraft.event.ClickEvent.Action;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -62,7 +64,7 @@ public class ClientEventHandler {
 
 	public static final ClientEventHandler INSTANCE = new ClientEventHandler();
 	private Random rand = new Random();
-	private boolean showedWarning;
+	private boolean showedDebugWarning;
 
 	public WeightedSoundPool netherWastes = new WeightedSoundPool();
 	public WeightedSoundPool basaltDeltas = new WeightedSoundPool();
@@ -152,12 +154,14 @@ public class ClientEventHandler {
 			return;
 		}
 		
-		if(!showedWarning && player.ticksExisted == 40) {
+		if(!showedDebugWarning && player.ticksExisted == 40) {
 			if(Reference.VERSION_NUMBER.contains("dev") || Reference.VERSION_NUMBER.contains("snapshot")
 						|| Reference.VERSION_NUMBER.contains("alpha") || Reference.VERSION_NUMBER.contains("beta") || EtFuturum.isTesting) {
-			player.addChatComponentMessage(new ChatComponentText("\u00a7c\u00a7l[Debug]: \u00a7rYou are using a debug, or beta version of \u00a7bEt \u00a7bFuturum \u00a7bRequiem\u00a7r. There might be bugs, please report issues on the GitHub page, which can be found under the \"source\" button at the top of the CurseForge page."));
+				ChatComponentText text = new ChatComponentText("\u00a7c\u00a7l[Debug]: \u00a7rYou are using a pre-release version of \u00a7bEt \u00a7bFuturum \u00a7bRequiem\u00a7r. There might be more bugs, please click on this message to report them!");
+				text.getChatStyle().setChatClickEvent(new ClickEvent(Action.OPEN_URL, "https://github.com/Roadhog360/Et-Futurum-Requiem/issues"));
+			player.addChatComponentMessage(text);
 						}
-			showedWarning = true;
+			showedDebugWarning = true;
 		}
 
 		if(ConfigWorld.enableNetherAmbience && !EtFuturum.netherAmbienceNetherlicious && player.dimension == -1) {
@@ -490,20 +494,23 @@ public class ClientEventHandler {
     @SideOnly(Side.CLIENT)
     public void openMainMenu(GuiOpenEvent event)
     {
-
-        if (event != null && event.gui != null && EtFuturumMixinPlugin.launchConfigWarning && main_menu_display_count++ < 20)
-        {
-            EtFuturumMixinPlugin.launchConfigWarning = false;
-            Configuration oldConfig = new Configuration(new File(Launch.minecraftHome, ConfigBase.PATH));
-            oldConfig.setCategoryComment("warned", "This is added if we've warned you this file exists.\nUsed by versions that split the config into different files, rendering this file unused.\nThis was done because the current file was becoming difficult to navigate.");
-            if(!oldConfig.getBoolean("configWarningShown", "warned", false, "")) {
-            	event.gui = new GuiConfigWarning(event.gui, oldConfig);
+    	if(event != null && event.gui instanceof GuiScreen) {
+    		this.showedDebugWarning = false;
+    		
+            if (EtFuturumMixinPlugin.launchConfigWarning && main_menu_display_count++ < 20)
+            {
+                EtFuturumMixinPlugin.launchConfigWarning = false;
+                Configuration oldConfig = new Configuration(new File(Launch.minecraftHome, ConfigBase.PATH));
+                oldConfig.setCategoryComment("warned", "This is added if we've warned you this file exists.\nUsed by versions that split the config into different files, rendering this file unused.\nThis was done because the current file was becoming difficult to navigate.");
+                if(!oldConfig.getBoolean("configWarningShown", "warned", false, "")) {
+                	event.gui = new GuiConfigWarning(event.gui, oldConfig);
+                }
+                oldConfig.getCategory("warned").get("configWarningShown").comment = "";
+                oldConfig.save();
+                
+                return;
             }
-            oldConfig.getCategory("warned").get("configWarningShown").comment = "";
-            oldConfig.save();
-            
-            return;
-        }
+    	}
     }
 
 }

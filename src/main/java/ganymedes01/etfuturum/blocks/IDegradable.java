@@ -168,58 +168,60 @@ public interface IDegradable {
 	 */
 	default void spawnParticles(World world, int x, int y, int z, int type)
 	{
-		Random random = world.rand;
-		double d0 = 0.0625D;
+		if(world.isRemote) {
+			Random random = world.rand;
+			double d0 = 0.0625D;
 
-		int pitch = random.nextInt(3);
-		world.playSound((double)x + 0.5D, (double)y + 0.5D, (double)z + 0.5D, 
-				Reference.MOD_ID+":item." + (type == 0 ? "honeycomb.wax_on" : type == 1 ? "axe.wax_off" : "axe.scrape"),
-				1F, (float)((pitch == 0 ? 0 : ((double)pitch / 10D)) + 0.9D), false);
-		
-		for (int l = 0; l < 10; ++l)
-		{
-			double d1 = x + random.nextFloat();
-			double d2 = y + random.nextFloat();
-			double d3 = z + random.nextFloat();
-
-			if (l == 0 && !world.getBlock(x, y + 1, z).isOpaqueCube())
+			int pitch = random.nextInt(3);
+			world.playSound((double)x + 0.5D, (double)y + 0.5D, (double)z + 0.5D, 
+					Reference.MOD_ID+":item." + (type == 0 ? "honeycomb.wax_on" : type == 1 ? "axe.wax_off" : "axe.scrape"),
+					1F, (float)((pitch == 0 ? 0 : ((double)pitch / 10D)) + 0.9D), false);
+			
+			for (int l = 0; l < 10; ++l)
 			{
-				d2 = y + 1 + d0;
-			}
+				double d1 = x + random.nextFloat();
+				double d2 = y + random.nextFloat();
+				double d3 = z + random.nextFloat();
 
-			if (l == 1 && !world.getBlock(x, y - 1, z).isOpaqueCube())
-			{
-				d2 = y + 0 - d0;
-			}
+				if (l == 0 && !world.getBlock(x, y + 1, z).isOpaqueCube())
+				{
+					d2 = y + 1 + d0;
+				}
 
-			if (l == 2 && !world.getBlock(x, y, z + 1).isOpaqueCube())
-			{
-				d3 = z + 1 + d0;
-			}
+				if (l == 1 && !world.getBlock(x, y - 1, z).isOpaqueCube())
+				{
+					d2 = y + 0 - d0;
+				}
 
-			if (l == 3 && !world.getBlock(x, y, z - 1).isOpaqueCube())
-			{
-				d3 = z + 0 - d0;
-			}
+				if (l == 2 && !world.getBlock(x, y, z + 1).isOpaqueCube())
+				{
+					d3 = z + 1 + d0;
+				}
 
-			if (l == 4 && !world.getBlock(x + 1, y, z).isOpaqueCube())
-			{
-				d1 = x + 1 + d0;
-			}
+				if (l == 3 && !world.getBlock(x, y, z - 1).isOpaqueCube())
+				{
+					d3 = z + 0 - d0;
+				}
 
-			if (l == 5 && !world.getBlock(x - 1, y, z).isOpaqueCube())
-			{
-				d1 = x + 0 - d0;
-			}
+				if (l == 4 && !world.getBlock(x + 1, y, z).isOpaqueCube())
+				{
+					d1 = x + 1 + d0;
+				}
 
-			if (d1 < x || d1 > x + 1 || d2 < 0.0D || d2 > y + 1 || d3 < z || d3 > z + 1)
-			{
-				if (type == 0) {
-					ParticleHandler.WAX_ON.spawn(world, d1, d2, d3);
-				} else if (type == 1) {
-					ParticleHandler.WAX_OFF.spawn(world, d1, d2, d3);
-				} else {
-					ParticleHandler.COPPER_SCRAPE.spawn(world, d1, d2, d3);
+				if (l == 5 && !world.getBlock(x - 1, y, z).isOpaqueCube())
+				{
+					d1 = x + 0 - d0;
+				}
+
+				if (d1 < x || d1 > x + 1 || d2 < 0.0D || d2 > y + 1 || d3 < z || d3 > z + 1)
+				{
+					if (type == 0) {
+						ParticleHandler.WAX_ON.spawn(world, d1, d2, d3);
+					} else if (type == 1) {
+						ParticleHandler.WAX_OFF.spawn(world, d1, d2, d3);
+					} else {
+						ParticleHandler.COPPER_SCRAPE.spawn(world, d1, d2, d3);
+					}
 				}
 			}
 		}

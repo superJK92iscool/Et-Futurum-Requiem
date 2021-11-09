@@ -59,17 +59,10 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 						for (int y = 0; y <= ConfigWorld.deepslateMaxY; y++) {
 							
 							Block block = world.getBlock(x, y, z);
-					    	boolean replaceableDeepslate = block.isReplaceableOreGen(world, x, y, z, ModBlocks.deepslate);
-					    	
-					    	if(ConfigWorld.deepslateReplacesDirt && block == Blocks.dirt && replaceableDeepslate) {
-					    		continue;
-					    	}
-					    	if(ConfigWorld.deepslateReplacesStones && block == ModBlocks.stone && replaceableDeepslate) {
-					    		continue;
-					    	}
 					    	
 							if(y < ConfigWorld.deepslateMaxY - 4 || y <= ConfigWorld.deepslateMaxY - rand.nextInt(4)) {
-								if((block.isReplaceableOreGen(world, x, y, z, Blocks.stone))) {
+								if(block.isReplaceableOreGen(world, x, y, z, Blocks.stone)
+										|| (ConfigWorld.deepslateReplacesDirt && block == Blocks.dirt) || (ConfigWorld.deepslateReplacesStones && block == ModBlocks.stone)) {
 									world.setBlock(x, y, z, ModBlocks.deepslate, 0, 2);
 								} else if(ConfigTweaks.deepslateReplacesCobblestone && (block.isReplaceableOreGen(world, x, y, z, Blocks.cobblestone))) {
 									world.setBlock(x, y, z, ModBlocks.cobbled_deepslate, 0, 2);
