@@ -39,6 +39,7 @@ public class ConfigMixins extends ConfigBase {
 		configCats.add(getCategory(catMisc));
 	}
 
+	@Override
 	protected void syncConfigOptions() {
 		Configuration cfg = configInstance;
 		

@@ -32,6 +32,7 @@ public class ConfigEnchantsPotions extends ConfigBase {
 		configCats.add(getCategory(catPotions));
 	}
 
+	@Override
 	protected void syncConfigOptions() {
 		Configuration cfg = configInstance;
 		

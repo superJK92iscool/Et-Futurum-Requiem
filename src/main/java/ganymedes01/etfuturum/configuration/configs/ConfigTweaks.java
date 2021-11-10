@@ -37,6 +37,7 @@ public class ConfigTweaks extends ConfigBase {
 		configCats.add(getCategory(catAbandoned));
 	}
 
+	@Override
 	protected void syncConfigOptions() {
 		Configuration cfg = configInstance;
 

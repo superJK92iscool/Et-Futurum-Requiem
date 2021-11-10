@@ -136,6 +136,7 @@ public class ConfigBlocksItems extends ConfigBase {
 		configCats.add(getCategory(catItemMisc));
 	}
 
+	@Override
 	protected void syncConfigOptions() {
 		Configuration cfg = configInstance;
 

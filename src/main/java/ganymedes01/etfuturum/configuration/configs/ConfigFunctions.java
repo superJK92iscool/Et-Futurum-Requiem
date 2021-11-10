@@ -138,6 +138,7 @@ public class ConfigFunctions extends ConfigBase {
 		configCats.add(getCategory(catClient));
 	}
 
+	@Override
 	protected void syncConfigOptions() {
 		Configuration cfg = configInstance;
 		
