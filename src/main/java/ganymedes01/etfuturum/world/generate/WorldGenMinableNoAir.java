@@ -5,6 +5,7 @@ import java.util.Random;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
@@ -95,8 +96,12 @@ public class WorldGenMinableNoAir extends WorldGenerator
 	}
 	
 	public static boolean isAdjacentToAir(World world, int x, int y, int z) {
-		return world.isAirBlock(x + 1, y, z) || world.isAirBlock(x, y, z + 1) || world.isAirBlock(x, y + 1, z) ||
-			 world.isAirBlock(x - 1, y, z) || world.isAirBlock(x, y, z - 1)  || world.isAirBlock(x, y - 1, z);
+		for(EnumFacing facing : EnumFacing.values()) {
+			if(world.isAirBlock(x + facing.getFrontOffsetX(), y + facing.getFrontOffsetY(), z + facing.getFrontOffsetZ())) {
+				return true;
+			}
+		}
+		return false;
 		
 	}
 }

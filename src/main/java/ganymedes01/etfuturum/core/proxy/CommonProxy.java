@@ -20,7 +20,7 @@ import ganymedes01.etfuturum.configuration.configs.ConfigEntities;
 import ganymedes01.etfuturum.configuration.configs.ConfigTweaks;
 import ganymedes01.etfuturum.core.handlers.ClientEventHandler;
 import ganymedes01.etfuturum.core.handlers.ServerEventHandler;
-import ganymedes01.etfuturum.core.handlers.WorldTickEventHandler;
+import ganymedes01.etfuturum.core.handlers.WorldEventHandler;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.entities.EntityArmourStand;
 import ganymedes01.etfuturum.entities.EntityBrownMooshroom;
@@ -57,6 +57,7 @@ import ganymedes01.etfuturum.tileentities.TileEntityNewBrewingStand;
 import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox;
 import ganymedes01.etfuturum.tileentities.TileEntitySmoker;
 import ganymedes01.etfuturum.tileentities.TileEntityWoodSign;
+import ganymedes01.etfuturum.world.EtFuturumChunkPopulateGenerator;
 import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.monster.EntityEnderman;
@@ -79,7 +80,10 @@ public class CommonProxy implements IGuiHandler {
 	public void registerEvents() {
 		FMLCommonHandler.instance().bus().register(ServerEventHandler.INSTANCE);
 		MinecraftForge.EVENT_BUS.register(ServerEventHandler.INSTANCE);
-		FMLCommonHandler.instance().bus().register(new WorldTickEventHandler());
+		
+		FMLCommonHandler.instance().bus().register(WorldEventHandler.INSTANCE);
+		
+		MinecraftForge.ORE_GEN_BUS.register(EtFuturumChunkPopulateGenerator.INSTANCE);
 	}
 
 	public void registerEntities() {

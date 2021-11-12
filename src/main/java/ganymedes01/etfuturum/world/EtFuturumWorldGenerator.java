@@ -155,7 +155,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 	}
 	
 	public void generateOre(Block block, int meta, World world, Random random, int chunkX, int chunkZ, int minVeinSize, int maxVeinSize, float chance, int minY, int maxY, Block generateIn) {
-		if(maxVeinSize == 0)
+		if(maxVeinSize <= 0)
 			return;
 		
 		if(maxVeinSize == 1) {

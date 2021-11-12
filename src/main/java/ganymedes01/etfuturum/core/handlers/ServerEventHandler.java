@@ -486,12 +486,10 @@ public class ServerEventHandler {
 		return moddedDigSpeed - 1 < 0 ? 0 : moddedDigSpeed - 1;
 	}
 
-	private int placedSide;
-
 	@SubscribeEvent
 	public void onPlaceBlock(BlockEvent.PlaceEvent event) {
-		if(ConfigFunctions.enableFloatingTrapDoors && (placedSide == 1 || placedSide == 0) && event.placedBlock instanceof BlockTrapDoor) {
-			int l = MathHelper.floor_double(event.player.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
+		if(ConfigFunctions.enableFloatingTrapDoors && event.blockSnapshot.y - event.y != 0 && event.placedBlock instanceof BlockTrapDoor) {
+			int l = (MathHelper.floor_double(event.player.rotationYaw * 4.0F / 360.0F + 0.5D) + 1) & 3;
 			if(l == 0) {
 				l = 1;
 			} else if(l == 1) {
@@ -499,16 +497,12 @@ public class ServerEventHandler {
 			} else if(l == 2) {
 				l = 0;
 			}
-			if(placedSide == 0) {
-				l += 8;
-			}
 			event.world.setBlockMetadataWithNotify(event.x, event.y, event.z, l, 3);
 		}
 	}
 
 	@SubscribeEvent(priority=EventPriority.HIGHEST)
 	public void onPlayerInteract(PlayerInteractEvent event) {
-		placedSide = event.face;
 		EntityPlayer player = event.entityPlayer;
 		if (event.action == Action.RIGHT_CLICK_BLOCK || event.action == Action.RIGHT_CLICK_AIR) {
 			if (player != null) {
@@ -621,8 +615,7 @@ public class ServerEventHandler {
 			        		 * This code was adapted from AstroTibs' ASMC.
 			        		 * Used with permission!
 			        		 */
-			        		if (world.getBlock(x, y, z).canSustainPlant(world, x, y, z, ForgeDirection.UP, (IPlantable)heldStack.getItem())
-				            		&& world.isAirBlock(x, y + 1, z))
+			        		if (world.getBlock(x, y, z).canSustainPlant(world, x, y, z, ForgeDirection.UP, (IPlantable)heldStack.getItem()) && world.isAirBlock(x, y + 1, z))
 				            {
 				            	// Mundane seeds
 				            	if (oldBlock instanceof BlockFarmland)

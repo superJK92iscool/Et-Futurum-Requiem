@@ -34,7 +34,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSound;
 import net.minecraft.client.audio.PositionedSoundRecord;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.particle.EntityDiggingFX;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -494,7 +494,7 @@ public class ClientEventHandler {
     @SideOnly(Side.CLIENT)
     public void openMainMenu(GuiOpenEvent event)
     {
-    	if(event != null && event.gui instanceof GuiScreen) {
+    	if(event != null && event.gui instanceof GuiMainMenu) {
     		this.showedDebugWarning = false;
     		
             if (EtFuturumMixinPlugin.launchConfigWarning && main_menu_display_count++ < 20)

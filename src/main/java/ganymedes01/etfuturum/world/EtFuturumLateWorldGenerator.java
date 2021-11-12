@@ -50,33 +50,6 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 				int z = chunkZ * 16 + rand.nextInt(16);
 				new WorldGenTuffBlob(ConfigWorld.maxTuffPerCluster).generate(world, rand, x, rand.nextInt(ConfigWorld.deepslateMaxY), z);
 			}
-			
-			if (!ConfigMixins.deepslateLayerOptimization && ConfigBlocksItems.enableDeepslate && ConfigWorld.deepslateGenerationMode == 0 &&
-					ConfigWorld.deepslateMaxY > 0 && world.getWorldInfo().getTerrainType() != WorldType.FLAT &&
-					!ArrayUtils.contains(ConfigWorld.deepslateLayerDimensionBlacklist, world.provider.dimensionId)) {
-				for (int x = chunkX * 16; x < (chunkX * 16) + 16; x++) {
-					for (int z = chunkZ * 16; z < (chunkZ * 16) + 16; z++) {
-						for (int y = 0; y <= ConfigWorld.deepslateMaxY; y++) {
-							
-							Block block = world.getBlock(x, y, z);
-					    	
-							if(y < ConfigWorld.deepslateMaxY - 4 || y <= ConfigWorld.deepslateMaxY - rand.nextInt(4)) {
-								if(block.isReplaceableOreGen(world, x, y, z, Blocks.stone)
-										|| (ConfigWorld.deepslateReplacesDirt && block == Blocks.dirt) || (ConfigWorld.deepslateReplacesStones && block == ModBlocks.stone)) {
-									world.setBlock(x, y, z, ModBlocks.deepslate, 0, 2);
-								} else if(ConfigTweaks.deepslateReplacesCobblestone && (block.isReplaceableOreGen(world, x, y, z, Blocks.cobblestone))) {
-									world.setBlock(x, y, z, ModBlocks.cobbled_deepslate, 0, 2);
-								} else {
-									BlockAndMetadataMapping mapping;
-									if((mapping = DeepslateOreRegistry.getOre(block, world.getBlockMetadata(x, y, z))) != null) {
-										world.setBlock(x, y, z, mapping.getBlock(), mapping.getMeta(), 2);
-									}
-								}
-							}
-						}
-					}
-				}
-			}
 		}
 	}
 }

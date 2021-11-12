@@ -12,9 +12,7 @@ import net.minecraftforge.common.config.Configuration;
 
 public class ConfigMixins extends ConfigBase {
 	
-	public static boolean deepslateLayerOptimization;
-	
-	public static boolean endPortalReplacement;
+	public static boolean endPortalFix;
 	
 	public static boolean fenceWallConnectFix;
 
@@ -43,9 +41,7 @@ public class ConfigMixins extends ConfigBase {
 	protected void syncConfigOptions() {
 		Configuration cfg = configInstance;
 		
-		deepslateLayerOptimization = cfg.getBoolean("deepslateLayerOptimization", catOptimization, true, "If \"deepslateGenerationMode\" is set to 0, this config option is used. This optimizes deepslate generation by adding on to the stone generator instead of sending lots of setblocks, making the performance impact of using the layer deepslate option from fairly noticeable, to none.\nModified Classes: net.minecraft.world.gen.feature.WorldGenMinable net.minecraft.world.gen.ChunkProviderGenerate");
-		
-		endPortalReplacement = cfg.getBoolean("endPortalReplacement", catBackport, true, "Makes the End Portal block (the actual portal, not the frame) have an item icon, proper hitbox and will not instantly destroy itself in other dimensions.\nModified classes: net.minecraft.block.BlockEndPortal");
+		endPortalFix = cfg.getBoolean("endPortalFix", catBackport, true, "Makes the End Portal block (the actual portal, not the frame) have an item icon, proper hitbox and will not instantly destroy itself in other dimensions.\nModified classes: net.minecraft.block.BlockEndPortal");
 
 		fenceWallConnectFix = cfg.getBoolean("fenceWallConnectFix", catBackport, true, "Makes vanilla fences connect to modded ones of the same material. Might have connection issue with mods that don't reference BlockFence super code. \nModified classes: net.minecraft.block.BlockFence net.minecraft.block.BlockWall");
 	}
