@@ -177,9 +177,9 @@ public class EntityEndermite extends EntityMob {
 	public EnumCreatureAttribute getCreatureAttribute() {
 		return EnumCreatureAttribute.ARTHROPOD;
 	}
-    
-    public ItemStack getPickedResult(MovingObjectPosition target)
-    {
-        return ModEntityList.getEggFromEntity(this);
-    }
+	
+	public ItemStack getPickedResult(MovingObjectPosition target)
+	{
+		return ModEntityList.getEggFromEntity(this);
+	}
 }

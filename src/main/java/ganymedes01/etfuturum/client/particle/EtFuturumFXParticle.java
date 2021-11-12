@@ -74,16 +74,16 @@ public class EtFuturumFXParticle extends EntityFX {
 		if(!usesSheet) {
 			String domain = particleTexture.getResourceDomain();
 
-	        if (domain == null || domain.length() == 0)
-	        {
-	            domain = "minecraft";
-	        }
+			if (domain == null || domain.length() == 0)
+			{
+				domain = "minecraft";
+			}
 			particleTexture = new ResourceLocation(domain + ":" +
-	        textureName.substring(0, textureName.length()-4) + "_" + currentTexture + textureName.substring(textureName.length()-4, textureName.length()));
+			textureName.substring(0, textureName.length()-4) + "_" + currentTexture + textureName.substring(textureName.length()-4, textureName.length()));
 		}
 		
 		Minecraft.getMinecraft().getTextureManager().bindTexture(this.particleTexture);
-        
+		
 		int prevCurrentTexture = usesSheet ? currentTexture : 0;
 		OpenGLHelper.enableBlend();
 		OpenGLHelper.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
@@ -109,13 +109,13 @@ public class EtFuturumFXParticle extends EntityFX {
 		return 3;
 	}
 	
-    public void setColorFade(int rgb)
-    {
-        this.fadeTargetRed = (float)((rgb & 16711680) >> 16) / 255.0F;
-        this.fadeTargetGreen = (float)((rgb & 65280) >> 8) / 255.0F;
-        this.fadeTargetBlue = (float)((rgb & 255) >> 0) / 255.0F;
-        this.fadingColor = true;
-    }
+	public void setColorFade(int rgb)
+	{
+		this.fadeTargetRed = (float)((rgb & 16711680) >> 16) / 255.0F;
+		this.fadeTargetGreen = (float)((rgb & 65280) >> 8) / 255.0F;
+		this.fadeTargetBlue = (float)((rgb & 255) >> 0) / 255.0F;
+		this.fadingColor = true;
+	}
 
 	@Override
 	public void onUpdate() {
@@ -132,19 +132,19 @@ public class EtFuturumFXParticle extends EntityFX {
 			}
 		}
 
-        if (particleAge > particleMaxAge / 2)
-        {
-        	if(fadeAway) {
-                setAlphaF(1.0F - ((float)particleAge - (float)(particleMaxAge / 2)) / (float)particleMaxAge);
-        	}
+		if (particleAge > particleMaxAge / 2)
+		{
+			if(fadeAway) {
+				setAlphaF(1.0F - ((float)particleAge - (float)(particleMaxAge / 2)) / (float)particleMaxAge);
+			}
 
-            if (fadingColor)
-            {
-                particleRed += (fadeTargetRed - particleRed) * 0.2F;
-                particleGreen += (fadeTargetGreen - particleGreen) * 0.2F;
-                particleBlue += (fadeTargetBlue - particleBlue) * 0.2F;
-            }
-        }
+			if (fadingColor)
+			{
+				particleRed += (fadeTargetRed - particleRed) * 0.2F;
+				particleGreen += (fadeTargetGreen - particleGreen) * 0.2F;
+				particleBlue += (fadeTargetBlue - particleBlue) * 0.2F;
+			}
+		}
 	}
 
 }

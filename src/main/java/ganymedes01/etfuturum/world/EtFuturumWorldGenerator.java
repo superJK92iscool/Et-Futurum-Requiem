@@ -150,7 +150,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 				if (!world.getBlock(x, y, z).isAir(world, x, y, z))
 					break;
 			if (y > 0 && BlockChorusFlower.canPlantStay(world, x, y + 1, z))
-                BlockChorusFlower.generatePlant(world, x, y + 1, z, rand, 8);
+				BlockChorusFlower.generatePlant(world, x, y + 1, z, rand, 8);
 		}
 	}
 	

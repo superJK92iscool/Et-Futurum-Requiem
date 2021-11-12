@@ -36,21 +36,21 @@ public class BlockEndRod extends Block implements IConfigurable {
 		return !(entity instanceof EntityDragon);
 	}
 
-    @SideOnly(Side.CLIENT)
-    public void randomDisplayTick(World world, int x, int y, int z, Random random)
-    {
+	@SideOnly(Side.CLIENT)
+	public void randomDisplayTick(World world, int x, int y, int z, Random random)
+	{
 		ForgeDirection dir = ForgeDirection.getOrientation(world.getBlockMetadata(x, y, z) % 6);
 		Random rand = new Random();
-        double d0 = (double)x + 0.55D - (double)(rand.nextFloat() * 0.1F);
-        double d1 = (double)y + 0.55D - (double)(rand.nextFloat() * 0.1F);
-        double d2 = (double)z + 0.55D - (double)(rand.nextFloat() * 0.1F);
-        double d3 = (double)(0.4F - (rand.nextFloat() + rand.nextFloat()) * 0.4F);
+		double d0 = (double)x + 0.55D - (double)(rand.nextFloat() * 0.1F);
+		double d1 = (double)y + 0.55D - (double)(rand.nextFloat() * 0.1F);
+		double d2 = (double)z + 0.55D - (double)(rand.nextFloat() * 0.1F);
+		double d3 = (double)(0.4F - (rand.nextFloat() + rand.nextFloat()) * 0.4F);
 
-        if (rand.nextInt(5) == 0)
-        {
-        	ParticleHandler.END_ROD.spawn(world, d0 + dir.offsetX * d3, d1 + dir.offsetY * d3, d2 + dir.offsetZ * d3);
-        }
-    }
+		if (rand.nextInt(5) == 0)
+		{
+			ParticleHandler.END_ROD.spawn(world, d0 + dir.offsetX * d3, d1 + dir.offsetY * d3, d2 + dir.offsetZ * d3);
+		}
+	}
 
 	@Override
 	public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z) {
@@ -63,10 +63,10 @@ public class BlockEndRod extends Block implements IConfigurable {
 		else if (dir == ForgeDirection.NORTH || dir == ForgeDirection.SOUTH)
 			setBlockBounds(0.375F, 0.375F, 0.0F, 0.625F, 0.625F, 1.0F);
 	}
-    
+	
 	@Override
-    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z)
-    {
+	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z)
+	{
 		ForgeDirection dir = ForgeDirection.getOrientation(world.getBlockMetadata(x, y, z) % 6);
 
 		if (dir == ForgeDirection.DOWN || dir == ForgeDirection.UP)
@@ -76,7 +76,7 @@ public class BlockEndRod extends Block implements IConfigurable {
 		else if (dir == ForgeDirection.NORTH || dir == ForgeDirection.SOUTH)
 			return AxisAlignedBB.getBoundingBox(x+0.375F, y+0.375F, z+0.0F, x+0.625F, y+0.625F, z+1.0F);
 		return null;
-    }
+	}
 	
 	@Override
 	public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z) {

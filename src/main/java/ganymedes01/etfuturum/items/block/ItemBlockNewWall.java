@@ -14,14 +14,14 @@ public class ItemBlockNewWall extends ItemBlock {
 		setHasSubtypes(((BlockNewWall)field_150939_a).variations > 1);
 	}
 	
-    public int getMetadata(int p_77647_1_)
-    {
-        return p_77647_1_ % ((BlockNewWall)field_150939_a).variations;
-    }
-    
-    public String getUnlocalizedName(ItemStack p_77667_1_)
-    {
-        return ((BlockNewWall)field_150939_a).getWallName(p_77667_1_);
-    }
+	public int getMetadata(int p_77647_1_)
+	{
+		return p_77647_1_ % ((BlockNewWall)field_150939_a).variations;
+	}
+	
+	public String getUnlocalizedName(ItemStack p_77667_1_)
+	{
+		return ((BlockNewWall)field_150939_a).getWallName(p_77667_1_);
+	}
 
 }

@@ -36,8 +36,8 @@ public class ModEnchantments {
 		ItemStack boots = entity.getEquipmentInSlot(1);
 		int level = 0;
 		if ((level = EnchantmentHelper.getEnchantmentLevel(frostWalker.effectId, boots)) > 0) {
-//			double motX = Math.abs(entity.motionX);
-//			double motZ = Math.abs(entity.motionZ);
+//          double motX = Math.abs(entity.motionX);
+//          double motZ = Math.abs(entity.motionZ);
 			if (entity.onGround/* && (motX >= 0.003D || motZ >= 0.003D) */) {
 				int x = (int) entity.posX;
 				int y = (int) entity.posY;
@@ -47,14 +47,14 @@ public class ModEnchantments {
 
 				for (int i = -radius; i <= radius; i++) {
 					for (int j = -radius; j <= radius; j++) {
-				        
-				        if(i * i + j * j <= (double)(radius * radius)) {
+						
+						if(i * i + j * j <= (double)(radius * radius)) {
 							Block block = entity.worldObj.getBlock(x + i, y - 1, z + j);
 							Block blockUp = entity.worldObj.getBlock(x + i, y, z + j);
 							if(!blockUp.isNormalCube() && blockUp.getMaterial() != Material.water && (block == Blocks.water || block == Blocks.flowing_water)) {
 								entity.worldObj.setBlock(x + i, y - 1, z + j, ModBlocks.frosted_ice);
 							}
-				        }
+						}
 					}
 				}
 			}

@@ -13,9 +13,9 @@ public class EndWorldProvider extends WorldProviderEnd {
 	@Override
 	public void registerWorldChunkManager() {
 		BiomeGenBase.sky.theBiomeDecorator = new EndBiomeDecorator();
-        this.worldChunkMgr = new WorldChunkManagerHell(BiomeGenBase.sky, 0.0F);
-        this.dimensionId = 1;
-        this.hasNoSky = true;
+		this.worldChunkMgr = new WorldChunkManagerHell(BiomeGenBase.sky, 0.0F);
+		this.dimensionId = 1;
+		this.hasNoSky = true;
 	}
 
 	@Override

@@ -24,32 +24,32 @@ public class MixinBlockEndPortal extends Block {
 	}
 
 	@Overwrite
-    public void onBlockAdded(World p_149726_1_, int p_149726_2_, int p_149726_3_, int p_149726_4_) {}
-    
-	@Overwrite
-    public void setBlockBoundsBasedOnState(IBlockAccess p_149719_1_, int p_149719_2_, int p_149719_3_, int p_149719_4_)
-    {
-		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, .75F, 1.0F);
-    }
+	public void onBlockAdded(World p_149726_1_, int p_149726_2_, int p_149726_3_, int p_149726_4_) {}
 	
-    @SideOnly(Side.CLIENT)
 	@Overwrite
-    public Item getItem(World p_149694_1_, int p_149694_2_, int p_149694_3_, int p_149694_4_)
-    {
-        return Item.getItemFromBlock(this);
-    }
+	public void setBlockBoundsBasedOnState(IBlockAccess p_149719_1_, int p_149719_2_, int p_149719_3_, int p_149719_4_)
+	{
+		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, .75F, 1.0F);
+	}
+	
+	@SideOnly(Side.CLIENT)
+	@Overwrite
+	public Item getItem(World p_149694_1_, int p_149694_2_, int p_149694_3_, int p_149694_4_)
+	{
+		return Item.getItemFromBlock(this);
+	}
 
-    @SideOnly(Side.CLIENT)
+	@SideOnly(Side.CLIENT)
 	@Overwrite
-    public void registerBlockIcons(IIconRegister p_149651_1_)
-    {
-        this.blockIcon = Blocks.obsidian.getIcon(0, 0);
-    }
-    
-    @SideOnly(Side.CLIENT)
-    public String getItemIconName()
-    {
-        return "end_portal";
-    }
+	public void registerBlockIcons(IIconRegister p_149651_1_)
+	{
+		this.blockIcon = Blocks.obsidian.getIcon(0, 0);
+	}
+	
+	@SideOnly(Side.CLIENT)
+	public String getItemIconName()
+	{
+		return "end_portal";
+	}
 
 }

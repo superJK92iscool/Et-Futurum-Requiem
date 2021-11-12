@@ -21,10 +21,10 @@ public class PlayerModelManager {
 	public static boolean isPlayerModelAlex(EntityPlayer player) {
 		if(player == null || player.getUniqueID() == null)
 			return false;
-//		alexCache.clear();
+//      alexCache.clear();
 		Boolean isAlex = alexCache.get(player.getUniqueID());
 		if(isAlex == null) {
-//			System.out.println("test");
+//          System.out.println("test");
 			NBTTagCompound nbt = player.getEntityData();
 			if(nbt.hasKey(MODEL_KEY, Constants.NBT.TAG_BYTE))
 				nbt.removeTag(MODEL_KEY);

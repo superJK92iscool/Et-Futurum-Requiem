@@ -79,10 +79,10 @@ public class ItemEFRArmour extends ItemArmor implements IConfigurable, ISpecialA
 		return ap;
 	}
 
-//	public Multimap func_111205_h() {
+//  public Multimap func_111205_h() {
 //        final Multimap multimap = (Multimap)HashMultimap.create();
-//		if(getUnlocalizedName().contains("netherite"))
-//	        multimap.put((Object)SharedMonsterAttributes.knockbackResistance.getAttributeUnlocalizedName(), (Object)new AttributeModifier("netheriteArmorModifier", 1.0, 0));
+//      if(getUnlocalizedName().contains("netherite"))
+//          multimap.put((Object)SharedMonsterAttributes.knockbackResistance.getAttributeUnlocalizedName(), (Object)new AttributeModifier("netheriteArmorModifier", 1.0, 0));
 //        return multimap;
 //    }
 

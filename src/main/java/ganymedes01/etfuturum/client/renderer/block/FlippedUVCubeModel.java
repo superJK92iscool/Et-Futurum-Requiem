@@ -1955,13 +1955,13 @@ public abstract class FlippedUVCubeModel extends BlockModelBase {
 
 		d7 = d4;
 		
-        if (renderer.flipTexture)
-        {
-            d7 = d3;
-            d3 = d4;
-            d4 = d7;
-        }
-        
+		if (renderer.flipTexture)
+		{
+			d7 = d3;
+			d3 = d4;
+			d4 = d7;
+		}
+		
 		double d8 = d3;
 		double d9 = d5;
 		double d10 = d6;
@@ -2112,13 +2112,13 @@ public abstract class FlippedUVCubeModel extends BlockModelBase {
 
 		d7 = d4;
 		
-        if (renderer.flipTexture)
-        {
-            d7 = d3;
-            d3 = d4;
-            d4 = d7;
-        }
-        
+		if (renderer.flipTexture)
+		{
+			d7 = d3;
+			d3 = d4;
+			d4 = d7;
+		}
+		
 		double d8 = d3;
 		double d9 = d5;
 		double d10 = d6;
@@ -2269,13 +2269,13 @@ public abstract class FlippedUVCubeModel extends BlockModelBase {
 
 		d7 = d4;
 		
-        if (renderer.flipTexture)
-        {
-            d7 = d3;
-            d3 = d4;
-            d4 = d7;
-        }
-        
+		if (renderer.flipTexture)
+		{
+			d7 = d3;
+			d3 = d4;
+			d4 = d7;
+		}
+		
 		double d8 = d3;
 		double d9 = d5;
 		double d10 = d6;
@@ -2433,13 +2433,13 @@ public abstract class FlippedUVCubeModel extends BlockModelBase {
 
 		d7 = d4;
 		
-        if (renderer.flipTexture)
-        {
-            d7 = d3;
-            d3 = d4;
-            d4 = d7;
-        }
-        
+		if (renderer.flipTexture)
+		{
+			d7 = d3;
+			d3 = d4;
+			d4 = d7;
+		}
+		
 		double d8 = d3;
 		double d9 = d5;
 		double d10 = d6;

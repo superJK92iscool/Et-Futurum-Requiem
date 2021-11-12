@@ -36,28 +36,28 @@ public class BlockChorusPlant extends Block implements IConfigurable {
 		return !(entity instanceof EntityDragon);
 	}
 
-    public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z)
-    {
-        float down = canConnectTo(world, x, y-1, z) ? 0.0F : 0.1875F;
-        float up = canConnectTo(world, x, y+1, z) ? 1.0F : 0.8125F;
-        float west = canConnectTo(world, x-1, y, z) ? 0.0F : 0.1875F;
-        float east = canConnectTo(world, x+1, y, z) ? 1.0F : 0.8125F;
-        float north = canConnectTo(world, x, y, z-1) ? 0.0F : 0.1875F;
-        float south = canConnectTo(world, x, y, z+1) ? 1.0F : 0.8125F;
-        setBlockBounds(west, down, north, east, up, south);
-    }
-    
+	public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z)
+	{
+		float down = canConnectTo(world, x, y-1, z) ? 0.0F : 0.1875F;
+		float up = canConnectTo(world, x, y+1, z) ? 1.0F : 0.8125F;
+		float west = canConnectTo(world, x-1, y, z) ? 0.0F : 0.1875F;
+		float east = canConnectTo(world, x+1, y, z) ? 1.0F : 0.8125F;
+		float north = canConnectTo(world, x, y, z-1) ? 0.0F : 0.1875F;
+		float south = canConnectTo(world, x, y, z+1) ? 1.0F : 0.8125F;
+		setBlockBounds(west, down, north, east, up, south);
+	}
+	
 	@Override
-    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z)
-    {
-        float down = canConnectTo(world, x, y-1, z) ? 0.0F : 0.1875F;
-        float up = canConnectTo(world, x, y+1, z) ? 1.0F : 0.8125F;
-        float west = canConnectTo(world, x-1, y, z) ? 0.0F : 0.1875F;
-        float east = canConnectTo(world, x+1, y, z) ? 1.0F : 0.8125F;
-        float north = canConnectTo(world, x, y, z-1) ? 0.0F : 0.1875F;
-        float south = canConnectTo(world, x, y, z+1) ? 1.0F : 0.8125F;
-        return AxisAlignedBB.getBoundingBox(x+west, y+down, z+north, x+east, y+up, z+south);
-    }
+	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z)
+	{
+		float down = canConnectTo(world, x, y-1, z) ? 0.0F : 0.1875F;
+		float up = canConnectTo(world, x, y+1, z) ? 1.0F : 0.8125F;
+		float west = canConnectTo(world, x-1, y, z) ? 0.0F : 0.1875F;
+		float east = canConnectTo(world, x+1, y, z) ? 1.0F : 0.8125F;
+		float north = canConnectTo(world, x, y, z-1) ? 0.0F : 0.1875F;
+		float south = canConnectTo(world, x, y, z+1) ? 1.0F : 0.8125F;
+		return AxisAlignedBB.getBoundingBox(x+west, y+down, z+north, x+east, y+up, z+south);
+	}
 	
 	@Override
 	public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z) {
@@ -69,64 +69,64 @@ public class BlockChorusPlant extends Block implements IConfigurable {
 		return canPlaceOn(block) || block == ModBlocks.chorus_flower;
 	}
 
-    @Override
-    public boolean canPlaceBlockAt(World world, int x, int y, int z)
-    {
-        return super.canPlaceBlockAt(world, x, y, z) || this.canSurviveAt(world, x, y, z);
-    }
+	@Override
+	public boolean canPlaceBlockAt(World world, int x, int y, int z)
+	{
+		return super.canPlaceBlockAt(world, x, y, z) || this.canSurviveAt(world, x, y, z);
+	}
 
-    @Override
-    public void updateTick(World world, int x, int y, int z, Random random)
-    {
-        if (!this.canSurviveAt(world, x, y, z))
-        {
-            world.func_147480_a(x, y, z, true);
-        }
-    }
+	@Override
+	public void updateTick(World world, int x, int y, int z, Random random)
+	{
+		if (!this.canSurviveAt(world, x, y, z))
+		{
+			world.func_147480_a(x, y, z, true);
+		}
+	}
 
-    @Override
-    public void onNeighborBlockChange(World world, int x, int y, int z, Block p_149695_5_)
-    {
-        if (!this.canSurviveAt(world, x, y, z))
-        {
-            world.scheduleBlockUpdate(x, y, z, this, 1);
-        }
-    }
+	@Override
+	public void onNeighborBlockChange(World world, int x, int y, int z, Block p_149695_5_)
+	{
+		if (!this.canSurviveAt(world, x, y, z))
+		{
+			world.scheduleBlockUpdate(x, y, z, this, 1);
+		}
+	}
 
-    public boolean canSurviveAt(World world, int x, int y, int z)
-    {
-        boolean flag = world.isAirBlock(x, y+1, z);
-        boolean flag1 = world.isAirBlock(x, y-1, z);
+	public boolean canSurviveAt(World world, int x, int y, int z)
+	{
+		boolean flag = world.isAirBlock(x, y+1, z);
+		boolean flag1 = world.isAirBlock(x, y-1, z);
 
-        for (EnumFacing enumfacing : EnumFacing.values())
-        {
-        	if(enumfacing.getFrontOffsetY() != 0) continue;
-        	
-            Block block = world.getBlock(x+enumfacing.getFrontOffsetX(), y, z+enumfacing.getFrontOffsetZ());
+		for (EnumFacing enumfacing : EnumFacing.values())
+		{
+			if(enumfacing.getFrontOffsetY() != 0) continue;
+			
+			Block block = world.getBlock(x+enumfacing.getFrontOffsetX(), y, z+enumfacing.getFrontOffsetZ());
 
-            if (block == this)
-            {
-                if (!flag && !flag1)
-                {
-                    return false;
-                }
+			if (block == this)
+			{
+				if (!flag && !flag1)
+				{
+					return false;
+				}
 
-                Block block1 = world.getBlock(x+enumfacing.getFrontOffsetX(), y-1, z+enumfacing.getFrontOffsetZ());
+				Block block1 = world.getBlock(x+enumfacing.getFrontOffsetX(), y-1, z+enumfacing.getFrontOffsetZ());
 
-                if (block1 == this || canPlaceOn(block1))
-                {
-                    return true;
-                }
-            }
-        }
+				if (block1 == this || canPlaceOn(block1))
+				{
+					return true;
+				}
+			}
+		}
 
-        Block block2 = world.getBlock(x, y-1, z);
-        return block2 == this || canPlaceOn(block2);
-    }
-    
-    public static boolean canPlaceOn(Block block) {
-    	return block == Blocks.end_stone || block == ExternalContent.enderlicious_end_rock || block == ExternalContent.hee_end_stone;
-    }
+		Block block2 = world.getBlock(x, y-1, z);
+		return block2 == this || canPlaceOn(block2);
+	}
+	
+	public static boolean canPlaceOn(Block block) {
+		return block == Blocks.end_stone || block == ExternalContent.enderlicious_end_rock || block == ExternalContent.hee_end_stone;
+	}
 
 	@Override
 	public boolean renderAsNormalBlock() {

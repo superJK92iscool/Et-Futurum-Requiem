@@ -10,12 +10,12 @@ import net.minecraftforge.fluids.FluidStack;
 
 public class WailaRegistrar {
 	
-    public static void wailaCallback(IWailaRegistrar registrar)
-    {
-        registrar.registerStackProvider(new ShulkerDataProvider(), BlockShulkerBox.class);
-    }
-    
-    public static void register() {
-        FMLInterModComms.sendMessage("Waila", "register", "ganymedes01.etfuturum.api.waila.WailaRegistrar.wailaCallback");
-    }
+	public static void wailaCallback(IWailaRegistrar registrar)
+	{
+		registrar.registerStackProvider(new ShulkerDataProvider(), BlockShulkerBox.class);
+	}
+	
+	public static void register() {
+		FMLInterModComms.sendMessage("Waila", "register", "ganymedes01.etfuturum.api.waila.WailaRegistrar.wailaCallback");
+	}
 }

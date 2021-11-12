@@ -37,23 +37,23 @@ public class BlockGrassPath extends Block implements IConfigurable {
 		setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.9375F, 1.0F);
 	}
 
-    /**
-     * Returns a bounding box from the pool of bounding boxes (this means this box can change after the pool has been
-     * cleared to be reused)
-     */
-    public AxisAlignedBB getCollisionBoundingBoxFromPool(World p_149668_1_, int p_149668_2_, int p_149668_3_, int p_149668_4_)
-    {
-        return AxisAlignedBB.getBoundingBox((double)p_149668_2_ + this.minX, (double)p_149668_3_ + this.minY, (double)p_149668_4_ + this.minZ, (double)p_149668_2_ + this.maxX, (double)p_149668_3_ + (ConfigWorld.fullGrassPath ? 1 : this.maxY), (double)p_149668_4_ + this.maxZ);
-    }
+	/**
+	 * Returns a bounding box from the pool of bounding boxes (this means this box can change after the pool has been
+	 * cleared to be reused)
+	 */
+	public AxisAlignedBB getCollisionBoundingBoxFromPool(World p_149668_1_, int p_149668_2_, int p_149668_3_, int p_149668_4_)
+	{
+		return AxisAlignedBB.getBoundingBox((double)p_149668_2_ + this.minX, (double)p_149668_3_ + this.minY, (double)p_149668_4_ + this.minZ, (double)p_149668_2_ + this.maxX, (double)p_149668_3_ + (ConfigWorld.fullGrassPath ? 1 : this.maxY), (double)p_149668_4_ + this.maxZ);
+	}
 
-    /**
-     * Returns the bounding box of the wired rectangular prism to render.
-     */
-    @SideOnly(Side.CLIENT)
-    public AxisAlignedBB getSelectedBoundingBoxFromPool(World p_149633_1_, int p_149633_2_, int p_149633_3_, int p_149633_4_)
-    {
-        return getCollisionBoundingBoxFromPool(p_149633_1_, p_149633_2_, p_149633_3_, p_149633_4_);
-    }
+	/**
+	 * Returns the bounding box of the wired rectangular prism to render.
+	 */
+	@SideOnly(Side.CLIENT)
+	public AxisAlignedBB getSelectedBoundingBoxFromPool(World p_149633_1_, int p_149633_2_, int p_149633_3_, int p_149633_4_)
+	{
+		return getCollisionBoundingBoxFromPool(p_149633_1_, p_149633_2_, p_149633_3_, p_149633_4_);
+	}
 	
 	@Override
 	public Item getItemDropped(int meta, Random rand, int fortune) {

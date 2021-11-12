@@ -458,59 +458,59 @@ public class ClientEventHandler {
 		return string;
 	}
 	
-    @SubscribeEvent
-    public void onLivingUpdateEvent(LivingUpdateEvent event)
-    {
-        Entity entity = event.entityLiving;
-        World world = entity.worldObj;
+	@SubscribeEvent
+	public void onLivingUpdateEvent(LivingUpdateEvent event)
+	{
+		Entity entity = event.entityLiving;
+		World world = entity.worldObj;
 
-        /*
-         * The purpose of the function is to manifest sprint particles
-         * and adjust slipperiness when entity is moving on block, so check
-         * that the conditions are met first.
-         */
-        if (entity.onGround && (entity.motionX != 0 || entity.motionZ != 0))
-        {
-            int x = MathHelper.floor_double(entity.posX);
-            int y = MathHelper.floor_double(entity.posY - 0.20000000298023224D - entity.yOffset);
-            int z = MathHelper.floor_double(entity.posZ);
-            
-            if(entity.worldObj.getBlock(x, y, z) instanceof BlockShulkerBox) {
-                TileEntityShulkerBox TE = (TileEntityShulkerBox) entity.worldObj.getTileEntity(x, y, z);
-                if (TE != null) {
-                    if (world.isRemote && entity.isSprinting() && !entity.isInWater()) {
-                        EntityDiggingFX dig = new EntityDiggingFX(world, entity.posX + (entity.worldObj.rand.nextFloat() - 0.5D) * entity.width, entity.boundingBox.minY + 0.1D, entity.posZ + (entity.worldObj.rand.nextFloat() - 0.5D) * entity.width, -entity.motionX * 4.0D, 1.5D, -entity.motionZ * 4.0D, TE.getBlockType(), 0);
-                        dig.setParticleIcon(((BlockShulkerBox)TE.getBlockType()).colorIcons[TE.color]);
-                        Minecraft.getMinecraft().effectRenderer.addEffect((dig).applyColourMultiplier(x, y, z));
-                    }
-                }
-            }
-        }
-    }
+		/*
+		 * The purpose of the function is to manifest sprint particles
+		 * and adjust slipperiness when entity is moving on block, so check
+		 * that the conditions are met first.
+		 */
+		if (entity.onGround && (entity.motionX != 0 || entity.motionZ != 0))
+		{
+			int x = MathHelper.floor_double(entity.posX);
+			int y = MathHelper.floor_double(entity.posY - 0.20000000298023224D - entity.yOffset);
+			int z = MathHelper.floor_double(entity.posZ);
+			
+			if(entity.worldObj.getBlock(x, y, z) instanceof BlockShulkerBox) {
+				TileEntityShulkerBox TE = (TileEntityShulkerBox) entity.worldObj.getTileEntity(x, y, z);
+				if (TE != null) {
+					if (world.isRemote && entity.isSprinting() && !entity.isInWater()) {
+						EntityDiggingFX dig = new EntityDiggingFX(world, entity.posX + (entity.worldObj.rand.nextFloat() - 0.5D) * entity.width, entity.boundingBox.minY + 0.1D, entity.posZ + (entity.worldObj.rand.nextFloat() - 0.5D) * entity.width, -entity.motionX * 4.0D, 1.5D, -entity.motionZ * 4.0D, TE.getBlockType(), 0);
+						dig.setParticleIcon(((BlockShulkerBox)TE.getBlockType()).colorIcons[TE.color]);
+						Minecraft.getMinecraft().effectRenderer.addEffect((dig).applyColourMultiplier(x, y, z));
+					}
+				}
+			}
+		}
+	}
 
 	public static int main_menu_display_count = 0;
 
-    @SubscribeEvent
-    @SideOnly(Side.CLIENT)
-    public void openMainMenu(GuiOpenEvent event)
-    {
-    	if(event != null && event.gui instanceof GuiMainMenu) {
-    		this.showedDebugWarning = false;
-    		
-            if (EtFuturumMixinPlugin.launchConfigWarning && main_menu_display_count++ < 20)
-            {
-                EtFuturumMixinPlugin.launchConfigWarning = false;
-                Configuration oldConfig = new Configuration(new File(Launch.minecraftHome, ConfigBase.PATH));
-                oldConfig.setCategoryComment("warned", "This is added if we've warned you this file exists.\nUsed by versions that split the config into different files, rendering this file unused.\nThis was done because the current file was becoming difficult to navigate.");
-                if(!oldConfig.getBoolean("configWarningShown", "warned", false, "")) {
-                	event.gui = new GuiConfigWarning(event.gui, oldConfig);
-                }
-                oldConfig.getCategory("warned").get("configWarningShown").comment = "";
-                oldConfig.save();
-                
-                return;
-            }
-    	}
-    }
+	@SubscribeEvent
+	@SideOnly(Side.CLIENT)
+	public void openMainMenu(GuiOpenEvent event)
+	{
+		if(event != null && event.gui instanceof GuiMainMenu) {
+			this.showedDebugWarning = false;
+			
+			if (EtFuturumMixinPlugin.launchConfigWarning && main_menu_display_count++ < 20)
+			{
+				EtFuturumMixinPlugin.launchConfigWarning = false;
+				Configuration oldConfig = new Configuration(new File(Launch.minecraftHome, ConfigBase.PATH));
+				oldConfig.setCategoryComment("warned", "This is added if we've warned you this file exists.\nUsed by versions that split the config into different files, rendering this file unused.\nThis was done because the current file was becoming difficult to navigate.");
+				if(!oldConfig.getBoolean("configWarningShown", "warned", false, "")) {
+					event.gui = new GuiConfigWarning(event.gui, oldConfig);
+				}
+				oldConfig.getCategory("warned").get("configWarningShown").comment = "";
+				oldConfig.save();
+				
+				return;
+			}
+		}
+	}
 
 }

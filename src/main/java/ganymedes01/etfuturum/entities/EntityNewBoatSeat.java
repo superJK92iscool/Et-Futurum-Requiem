@@ -63,15 +63,15 @@ public class EntityNewBoatSeat extends Entity {
 			return;
 		}
 		
-    	if(ridingEntity != null) {
-    		ridingEntity.mountEntity(null);
-    		ridingEntity = null;
-    	}
+		if(ridingEntity != null) {
+			ridingEntity.mountEntity(null);
+			ridingEntity = null;
+		}
 		
-    	if(riddenByEntity != null && !riddenByEntity.isEntityAlive()) {
-    		riddenByEntity = null;
-    	}
-    	
+		if(riddenByEntity != null && !riddenByEntity.isEntityAlive()) {
+			riddenByEntity = null;
+		}
+		
 		int boatID = dataWatcher.getWatchableObjectInt(17);
 		
 		if(boat == null && !worldObj.isRemote) {
@@ -113,7 +113,7 @@ public class EntityNewBoatSeat extends Entity {
 			kill();
 			return;
 		}
-    	
+		
 		copyLocationAndAnglesFrom(boat);
 	}
 	
@@ -132,17 +132,17 @@ public class EntityNewBoatSeat extends Entity {
 		isDead = true;
 		boat = null;
 	}
-    
-    @SideOnly(Side.CLIENT)
-    public void setPositionAndRotation2(double p_70056_1_, double p_70056_3_, double p_70056_5_, float p_70056_7_, float p_70056_8_, int p_70056_9_)
-    {
-    	if(boat != null) {
-    		copyLocationAndAnglesFrom(boat);
-        	prevRotationYaw = boat.prevRotationYaw;
-        	prevRotationPitch = boat.prevRotationPitch;
-    	}
-    }
-    
+	
+	@SideOnly(Side.CLIENT)
+	public void setPositionAndRotation2(double p_70056_1_, double p_70056_3_, double p_70056_5_, float p_70056_7_, float p_70056_8_, int p_70056_9_)
+	{
+		if(boat != null) {
+			copyLocationAndAnglesFrom(boat);
+			prevRotationYaw = boat.prevRotationYaw;
+			prevRotationPitch = boat.prevRotationPitch;
+		}
+	}
+	
 	@Override
 	protected void readEntityFromNBT(NBTTagCompound nbt) {
 		boatUUID = new UUID(nbt.getLong("boatUUIDMost"), nbt.getLong("boatUUIDLeast"));
@@ -160,145 +160,145 @@ public class EntityNewBoatSeat extends Entity {
 	public EntityNewBoat getBoat() {
 		return boat;
 	}
-    
-    public boolean writeToNBTOptional(NBTTagCompound p_70039_1_)
-    {
-    	if(this.ridingEntity != null) {
-    		ridingEntity.mountEntity(null);
-    		ridingEntity = null;
-    	}
-    	//This entity does not save on disk, we save it through the boat instead.
-        return false;
-    }
+	
+	public boolean writeToNBTOptional(NBTTagCompound p_70039_1_)
+	{
+		if(this.ridingEntity != null) {
+			ridingEntity.mountEntity(null);
+			ridingEntity = null;
+		}
+		//This entity does not save on disk, we save it through the boat instead.
+		return false;
+	}
 
-    @Override
-    public void updateRiderPosition()
-    {
-    	if(boat != null && riddenByEntity != null) {
-    		copyLocationAndAnglesFrom(boat);
-    		boat.updatePassenger(riddenByEntity);
-    	}
-    }
-    
-    /* 
-     * ====================DUMMY START====================
-     *  
-     *  Any code beyond this point has been canceled out with
-     *  empty methods for performance reasons. This is to
-     *  ensure that code that doesn't matter isn't running.
-     *  
+	@Override
+	public void updateRiderPosition()
+	{
+		if(boat != null && riddenByEntity != null) {
+			copyLocationAndAnglesFrom(boat);
+			boat.updatePassenger(riddenByEntity);
+		}
+	}
+	
+	/* 
+	 * ====================DUMMY START====================
+	 *  
+	 *  Any code beyond this point has been canceled out with
+	 *  empty methods for performance reasons. This is to
+	 *  ensure that code that doesn't matter isn't running.
+	 *  
 	 * ===================================================
 	 */
 
 
 	@Deprecated
-    @Override
+	@Override
 	public void onEntityUpdate() {
 		
 	}
 
 	@Deprecated
-    @Override
-    public void moveEntity(double p_70091_1_, double p_70091_3_, double p_70091_5_) {
-    	
-    }
+	@Override
+	public void moveEntity(double p_70091_1_, double p_70091_3_, double p_70091_5_) {
+		
+	}
 
-    @Deprecated
-    @Override
-    public void updateRidden()
-    {
-    	
-    }
+	@Deprecated
+	@Override
+	public void updateRidden()
+	{
+		
+	}
 
-    @Deprecated
-    @Override
-    public boolean isBurning()
-    {
-    	return false;
-    }
-
-    @Deprecated
-    @Override
-    public boolean isRiding()
-    {
-    	return false;
-    	
-    }
-    
-    @SideOnly(Side.CLIENT)
-    @Deprecated
-    @Override
-    public boolean isInvisibleToPlayer(EntityPlayer p_98034_1_)
-    {
-    	return true;
-    }
-
-    @Deprecated
-    @Override
-    public boolean isInvisible() {
-    	return true;
-    }
-
-    @Deprecated
-    @Override
-    public void setInWeb()
-    {
-    	
-    }
-
-    @Deprecated
-    @Override
-    public boolean hitByEntity(Entity p_85031_1_)
-    {
-    	return true;
-    }
-
-    @Deprecated
-    @Override
-    public AxisAlignedBB getBoundingBox()
-    {
-    	return null;
-    }
-
-    @Deprecated
-    @Override
-    public AxisAlignedBB getCollisionBox(Entity p_70114_1_)
-    {
-    	return null;
-    }
-
-    @Deprecated
-    @Override
-    public void applyEntityCollision(Entity p_70108_1_)
-    {
-    	
-    }
-    
-    @Deprecated
-    @Override
-    protected boolean canTriggerWalking()
-    {
-    	return false;
-    }
-    
-    @Deprecated
-    @Override
-	public boolean canBeCollidedWith()
-    {
-    	return false;
-    }
-    
-    @Deprecated
-    @Override
-    public boolean canBePushed()
-    {
-    	return false;
-    }
-    
-    @Deprecated
-    @Override
-    public boolean shouldRenderInPass(int pass) {
+	@Deprecated
+	@Override
+	public boolean isBurning()
+	{
 		return false;
-    }
+	}
+
+	@Deprecated
+	@Override
+	public boolean isRiding()
+	{
+		return false;
+		
+	}
+	
+	@SideOnly(Side.CLIENT)
+	@Deprecated
+	@Override
+	public boolean isInvisibleToPlayer(EntityPlayer p_98034_1_)
+	{
+		return true;
+	}
+
+	@Deprecated
+	@Override
+	public boolean isInvisible() {
+		return true;
+	}
+
+	@Deprecated
+	@Override
+	public void setInWeb()
+	{
+		
+	}
+
+	@Deprecated
+	@Override
+	public boolean hitByEntity(Entity p_85031_1_)
+	{
+		return true;
+	}
+
+	@Deprecated
+	@Override
+	public AxisAlignedBB getBoundingBox()
+	{
+		return null;
+	}
+
+	@Deprecated
+	@Override
+	public AxisAlignedBB getCollisionBox(Entity p_70114_1_)
+	{
+		return null;
+	}
+
+	@Deprecated
+	@Override
+	public void applyEntityCollision(Entity p_70108_1_)
+	{
+		
+	}
+	
+	@Deprecated
+	@Override
+	protected boolean canTriggerWalking()
+	{
+		return false;
+	}
+	
+	@Deprecated
+	@Override
+	public boolean canBeCollidedWith()
+	{
+		return false;
+	}
+	
+	@Deprecated
+	@Override
+	public boolean canBePushed()
+	{
+		return false;
+	}
+	
+	@Deprecated
+	@Override
+	public boolean shouldRenderInPass(int pass) {
+		return false;
+	}
 
 }

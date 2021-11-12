@@ -29,13 +29,13 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 	public void onLoad(String mixinPackage) {
 		final String configDir = "config" + File.separator + Reference.MOD_ID;
 		
-//		File from before Et Futurum Requiem (Not in a subdirectory)
+//      File from before Et Futurum Requiem (Not in a subdirectory)
 		File olderFile = new File(Launch.minecraftHome, "config" + File.separator + "etfuturum.cfg");
-//		File from before Et Futurum Requiem 2.2.2
+//      File from before Et Futurum Requiem 2.2.2
 		File oldFile = new File(Launch.minecraftHome, configDir + File.separator + "etfuturum.cfg");
 
 		oldFile.getParentFile().mkdirs();
-		if(olderFile.exists()) {			
+		if(olderFile.exists()) {            
 			try {
 				Files.copy(olderFile.toPath(), oldFile.toPath());
 			} catch (Exception e) {
@@ -71,9 +71,9 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 
 		ConfigMixins.configInstance.syncConfig();
 		
-//		if(oldFile.exists()) {
-//			ConfigBase.loadBaseConfig(oldFile);
-//		}
+//      if(oldFile.exists()) {
+//          ConfigBase.loadBaseConfig(oldFile);
+//      }
 	}
 
 	@Override

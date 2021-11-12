@@ -240,7 +240,7 @@ public class ConfigBlocksItems extends ConfigBase {
 		newBoatMaxLandSpeed = cfg.getFloat("newBoatMaxLandSpeed", catItemEntity, 0.986F, 0.1F, 1, "The maximum speed a boat can travel by while on land. This option exists because boats are very very fast when travelling on slippery blocks. Land speed = cfg.0.6, Regular/Packed Ice Speed = cfg.0.98, Packed Ice Speed = cfg.0.986. Anything smaller than 0.6 is really, REALLY slow on land.\nAny value above 1 is exponential speed growth, and is discouraged. (Quicksoil from Aether Legacy is 1.1) The speed values are just block slipperiness values, and are averaged by the slippery blocks around the bottom of the boat. This option does nothing to old boats.");
 		newBoatPassengerSeat = cfg.getBoolean("newBoatPassengerSeat", catItemEntity, true, "If disabled, only one person can sit in the passenger seat at a time.");
 		
-		//		endGatewaySpawnColor = cfg.getInt("endGatewaySpawnColor", catAbandoned, 2, 0, 15, "The color of the end gateway beam when the gateway first appears.");
-//		endGatewayEntryColor = cfg.getInt("endGatewayEntryColor", catAbandoned, 2, 0, 15, "The color of the end gateway beam when an entity enters it. Originally, this value was 4 (yellow) before version 1.11.");
+		//      endGatewaySpawnColor = cfg.getInt("endGatewaySpawnColor", catAbandoned, 2, 0, 15, "The color of the end gateway beam when the gateway first appears.");
+//      endGatewayEntryColor = cfg.getInt("endGatewayEntryColor", catAbandoned, 2, 0, 15, "The color of the end gateway beam when an entity enters it. Originally, this value was 4 (yellow) before version 1.11.");
 	}
 }

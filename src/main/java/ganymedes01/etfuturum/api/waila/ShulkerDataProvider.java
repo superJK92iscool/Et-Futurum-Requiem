@@ -15,37 +15,37 @@ import net.minecraft.world.World;
 public class ShulkerDataProvider implements IWailaDataProvider
 {
 
-    @Override
-    public ItemStack getWailaStack (IWailaDataAccessor accessor, IWailaConfigHandler config)
-    {
-    	ItemStack stack = accessor.getStack();
-    	if(accessor.getTileEntity() instanceof TileEntityShulkerBox) {
-    		TileEntityShulkerBox box = (TileEntityShulkerBox)accessor.getTileEntity();
-    		if(!stack.hasTagCompound()) {
-    			stack.setTagCompound(new NBTTagCompound());
-    		}
-    		stack.getTagCompound().setByte("Color", box.color);
-    	}
-        return stack;
-    }
+	@Override
+	public ItemStack getWailaStack (IWailaDataAccessor accessor, IWailaConfigHandler config)
+	{
+		ItemStack stack = accessor.getStack();
+		if(accessor.getTileEntity() instanceof TileEntityShulkerBox) {
+			TileEntityShulkerBox box = (TileEntityShulkerBox)accessor.getTileEntity();
+			if(!stack.hasTagCompound()) {
+				stack.setTagCompound(new NBTTagCompound());
+			}
+			stack.getTagCompound().setByte("Color", box.color);
+		}
+		return stack;
+	}
 
-    @Override
-    public List<String> getWailaHead (ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config)
-    {
-        return currenttip;
-    }
+	@Override
+	public List<String> getWailaHead (ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config)
+	{
+		return currenttip;
+	}
 
-    @Override
-    public List<String> getWailaBody (ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config)
-    {
-        return currenttip;
-    }
+	@Override
+	public List<String> getWailaBody (ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config)
+	{
+		return currenttip;
+	}
 
-    @Override
-    public List<String> getWailaTail (ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config)
-    {
-        return currenttip;
-    }
+	@Override
+	public List<String> getWailaTail (ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config)
+	{
+		return currenttip;
+	}
 
 	@Override
 	public NBTTagCompound getNBTData(EntityPlayerMP arg0, TileEntity arg1, NBTTagCompound arg2, World arg3, int arg4,

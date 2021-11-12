@@ -76,7 +76,7 @@ public class BlockChorusFlower extends Block implements IConfigurable {
 	public void updateTick(World world, int x, int y, int z, Random rand) {
 		if (world.isRemote)
 			return;
-        world.scheduleBlockUpdate(x, y, z, this, 5);
+		world.scheduleBlockUpdate(x, y, z, this, 5);
 		int meta = world.getBlockMetadata(x, y, z);
 		if (meta >= 5)
 			return;
@@ -174,79 +174,79 @@ public class BlockChorusFlower extends Block implements IConfigurable {
 	}
 
 	public static boolean areAllNeighborsEmpty(World world, int x, int y, int z, ForgeDirection skip) {
-	    ForgeDirection[] horizontal = {ForgeDirection.NORTH, ForgeDirection.SOUTH, ForgeDirection.WEST, ForgeDirection.EAST};
-	    
-        for (ForgeDirection enumfacing : horizontal)
-        {
-            if (enumfacing != skip && !world.isAirBlock(x + enumfacing.offsetX, y + enumfacing.offsetY, z + enumfacing.offsetZ))
-            {
-                return false;
-            }
-        }
+		ForgeDirection[] horizontal = {ForgeDirection.NORTH, ForgeDirection.SOUTH, ForgeDirection.WEST, ForgeDirection.EAST};
+		
+		for (ForgeDirection enumfacing : horizontal)
+		{
+			if (enumfacing != skip && !world.isAirBlock(x + enumfacing.offsetX, y + enumfacing.offsetY, z + enumfacing.offsetZ))
+			{
+				return false;
+			}
+		}
 
-        return true;
+		return true;
 	}
 
-    public static void generatePlant(World worldIn, int x, int y, int z, Random rand, int p_185603_3_)
-    {
-        worldIn.setBlock(x, y, z, ModBlocks.chorus_plant);
-        growTreeRecursive(worldIn, x, y, z, x, y, z, rand, p_185603_3_, 0);
-    }
+	public static void generatePlant(World worldIn, int x, int y, int z, Random rand, int p_185603_3_)
+	{
+		worldIn.setBlock(x, y, z, ModBlocks.chorus_plant);
+		growTreeRecursive(worldIn, x, y, z, x, y, z, rand, p_185603_3_, 0);
+	}
 
-    private static void growTreeRecursive(World worldIn, int x, int y, int z, int x1, int y1, int z1, Random rand, int p_185601_4_, int p_185601_5_)
-    {
-        int i = rand.nextInt(4) + 1;
+	private static void growTreeRecursive(World worldIn, int x, int y, int z, int x1, int y1, int z1, Random rand, int p_185601_4_, int p_185601_5_)
+	{
+		int i = rand.nextInt(4) + 1;
 
-        if (p_185601_5_ == 0)
-        {
-            ++i;
-        }
+		if (p_185601_5_ == 0)
+		{
+			++i;
+		}
 
-        for (int j = 0; j < i; ++j)
-        {
+		for (int j = 0; j < i; ++j)
+		{
 
-            if (!areAllNeighborsEmpty(worldIn, x, y + j + 1, z, null))
-            {
-                return;
-            }
+			if (!areAllNeighborsEmpty(worldIn, x, y + j + 1, z, null))
+			{
+				return;
+			}
 
-            worldIn.setBlock(x, y + j + 1, z, ModBlocks.chorus_plant);
-        }
+			worldIn.setBlock(x, y + j + 1, z, ModBlocks.chorus_plant);
+		}
 
-        boolean flag = false;
+		boolean flag = false;
 
-        if (p_185601_5_ < 4)
-        {
-            int l = rand.nextInt(4);
+		if (p_185601_5_ < 4)
+		{
+			int l = rand.nextInt(4);
 
-            if (p_185601_5_ == 0)
-            {
-                ++l;
-            }
+			if (p_185601_5_ == 0)
+			{
+				++l;
+			}
 
-            for (int k = 0; k < l; ++k)
-            {
-        	    ForgeDirection[] horizontal = {ForgeDirection.NORTH, ForgeDirection.SOUTH, ForgeDirection.WEST, ForgeDirection.EAST};
-                ForgeDirection ForgeDirection = horizontal[rand.nextInt(horizontal.length)];
+			for (int k = 0; k < l; ++k)
+			{
+				ForgeDirection[] horizontal = {ForgeDirection.NORTH, ForgeDirection.SOUTH, ForgeDirection.WEST, ForgeDirection.EAST};
+				ForgeDirection ForgeDirection = horizontal[rand.nextInt(horizontal.length)];
 //                BlockPos blockpos1 = bp1.up(i).offset(ForgeDirection);
-                int bp1x = x + ForgeDirection.offsetX;
-                int bp1y = y + ForgeDirection.offsetY + i;
-                int bp1z = z + ForgeDirection.offsetZ;
+				int bp1x = x + ForgeDirection.offsetX;
+				int bp1y = y + ForgeDirection.offsetY + i;
+				int bp1z = z + ForgeDirection.offsetZ;
 
-                if (Math.abs(bp1x - x1) < p_185601_4_ && Math.abs(bp1z - z1) < p_185601_4_ && worldIn.isAirBlock(bp1x, bp1y, bp1z) && worldIn.isAirBlock(bp1x, bp1y - 1, bp1z) && areAllNeighborsEmpty(worldIn, bp1x, bp1y, bp1z, ForgeDirection.getOpposite()))
-                {
-                    flag = true;
-                    worldIn.setBlock(bp1x, bp1y, bp1z, ModBlocks.chorus_plant);
-                    growTreeRecursive(worldIn, bp1x, bp1y, bp1z, x1, y1, z1, rand, p_185601_4_, p_185601_5_ + 1);
-                }
-            }
-        }
+				if (Math.abs(bp1x - x1) < p_185601_4_ && Math.abs(bp1z - z1) < p_185601_4_ && worldIn.isAirBlock(bp1x, bp1y, bp1z) && worldIn.isAirBlock(bp1x, bp1y - 1, bp1z) && areAllNeighborsEmpty(worldIn, bp1x, bp1y, bp1z, ForgeDirection.getOpposite()))
+				{
+					flag = true;
+					worldIn.setBlock(bp1x, bp1y, bp1z, ModBlocks.chorus_plant);
+					growTreeRecursive(worldIn, bp1x, bp1y, bp1z, x1, y1, z1, rand, p_185601_4_, p_185601_5_ + 1);
+				}
+			}
+		}
 
-        if (!flag)
-        {
-            worldIn.setBlock(x, y+i, z, ModBlocks.chorus_flower, 5, 2);
-        }
-    }
+		if (!flag)
+		{
+			worldIn.setBlock(x, y+i, z, ModBlocks.chorus_flower, 5, 2);
+		}
+	}
 
 	@Override
 	public boolean renderAsNormalBlock() {

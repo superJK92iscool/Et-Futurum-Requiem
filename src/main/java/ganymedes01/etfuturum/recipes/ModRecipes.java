@@ -209,7 +209,7 @@ public class ModRecipes {
 		}
 		
 		if(ConfigBlocksItems.enableNewDyes) {
-			    OreDictionary.registerOre("dye", new ItemStack(ModItems.new_dye, 1, OreDictionary.WILDCARD_VALUE));
+				OreDictionary.registerOre("dye", new ItemStack(ModItems.new_dye, 1, OreDictionary.WILDCARD_VALUE));
 				OreDictionary.registerOre("dyeWhite", new ItemStack(ModItems.new_dye, 1, 0));
 				OreDictionary.registerOre("dyeBlue", new ItemStack(ModItems.new_dye, 1, 1));
 				OreDictionary.registerOre("dyeBrown", new ItemStack(ModItems.new_dye, 1, 2));
@@ -482,35 +482,35 @@ public class ModRecipes {
 		}
 
 
-//		if(!ConfigurationHandler.enableTileReplacement) { // Add recipes for updated tiles if tile replacement is disabled.
-//			if (ConfigurationHandler.enableColourfulBeacons) {
-//				removeFirstRecipeFor(Blocks.beacon); // Remove recipe for Minecrafts Beacon
-//				addShapedRecipe(new ItemStack(ModBlocks.beacon), "GGG", "GSG", "OOO", 'G', Blocks.glass, 'S', Items.nether_star, 'O', Blocks.obsidian);
-//				addShapelessRecipe(new ItemStack(ModBlocks.beacon), Blocks.beacon); // Minecraft Beacon -> EtFuturum Beacon
-//				addShapelessRecipe(new ItemStack(Blocks.beacon), ModBlocks.beacon); // EtFuturm Beacon -> Minecraft Beacon
-//			}
-//	
-//			if (ConfigurationHandler.enableEnchants) {
-//				removeFirstRecipeFor(Blocks.enchanting_table); // Remove recipe for Minecrafts Enchanting Table
-//				addShapedRecipe(new ItemStack(ModBlocks.enchantment_table), " B ", "D#D", "###", '#', Blocks.obsidian, 'B', Items.book, 'D', "gemDiamond");
-//				addShapelessRecipe(new ItemStack(ModBlocks.enchantment_table), Blocks.enchanting_table); // Minecraft Enchanting Table -> EtFuturum Enchanting Table (For any old leftovers)
-//				addShapelessRecipe(new ItemStack(Blocks.enchanting_table), ModBlocks.enchantment_table); // EtFuturum Enchanting Table -> Minecraft Enchanting Table (For when you need to to craft something that has it as a component (ChickenChunks))
-//			}
+//      if(!ConfigurationHandler.enableTileReplacement) { // Add recipes for updated tiles if tile replacement is disabled.
+//          if (ConfigurationHandler.enableColourfulBeacons) {
+//              removeFirstRecipeFor(Blocks.beacon); // Remove recipe for Minecrafts Beacon
+//              addShapedRecipe(new ItemStack(ModBlocks.beacon), "GGG", "GSG", "OOO", 'G', Blocks.glass, 'S', Items.nether_star, 'O', Blocks.obsidian);
+//              addShapelessRecipe(new ItemStack(ModBlocks.beacon), Blocks.beacon); // Minecraft Beacon -> EtFuturum Beacon
+//              addShapelessRecipe(new ItemStack(Blocks.beacon), ModBlocks.beacon); // EtFuturm Beacon -> Minecraft Beacon
+//          }
+//  
+//          if (ConfigurationHandler.enableEnchants) {
+//              removeFirstRecipeFor(Blocks.enchanting_table); // Remove recipe for Minecrafts Enchanting Table
+//              addShapedRecipe(new ItemStack(ModBlocks.enchantment_table), " B ", "D#D", "###", '#', Blocks.obsidian, 'B', Items.book, 'D', "gemDiamond");
+//              addShapelessRecipe(new ItemStack(ModBlocks.enchantment_table), Blocks.enchanting_table); // Minecraft Enchanting Table -> EtFuturum Enchanting Table (For any old leftovers)
+//              addShapelessRecipe(new ItemStack(Blocks.enchanting_table), ModBlocks.enchantment_table); // EtFuturum Enchanting Table -> Minecraft Enchanting Table (For when you need to to craft something that has it as a component (ChickenChunks))
+//          }
 //
-//			if (ConfigurationHandler.enableInvertedDaylightSensor) {
-//				removeFirstRecipeFor(Blocks.daylight_detector); // Remove recipe for Minecrafts Daylight Sensor
-//				addShapedRecipe(new ItemStack(ModBlocks.daylight_sensor), "GGG", "QQQ", "WWW", 'G', "blockGlassColorless", 'Q', "gemQuartz", 'W', "slabWood");
-//				addShapelessRecipe(new ItemStack(ModBlocks.daylight_sensor), Blocks.daylight_detector);
-//				addShapelessRecipe(new ItemStack(Blocks.daylight_detector), ModBlocks.daylight_sensor);
-//			}
+//          if (ConfigurationHandler.enableInvertedDaylightSensor) {
+//              removeFirstRecipeFor(Blocks.daylight_detector); // Remove recipe for Minecrafts Daylight Sensor
+//              addShapedRecipe(new ItemStack(ModBlocks.daylight_sensor), "GGG", "QQQ", "WWW", 'G', "blockGlassColorless", 'Q', "gemQuartz", 'W', "slabWood");
+//              addShapelessRecipe(new ItemStack(ModBlocks.daylight_sensor), Blocks.daylight_detector);
+//              addShapelessRecipe(new ItemStack(Blocks.daylight_detector), ModBlocks.daylight_sensor);
+//          }
 //
-//			if (ConfigurationHandler.enableBrewingStands) {
-//				removeFirstRecipeFor(Items.brewing_stand); //gany pls, Blocks.brewing_stand is invalid
-//				addShapedRecipe(new ItemStack(ModBlocks.brewing_stand), " i ", "xxx", 'i', Items.blaze_rod, 'x', "cobblestone");
-//				addShapelessRecipe(new ItemStack(ModBlocks.brewing_stand), Items.brewing_stand); //Minecraft Brewing Stand -> EtFuturum Brewing Stand
-//				addShapelessRecipe(new ItemStack(Items.brewing_stand), ModBlocks.brewing_stand); //EtFuturum Brewing Stand -> Minecraft Brewing Stand
-//			}
-//		}
+//          if (ConfigurationHandler.enableBrewingStands) {
+//              removeFirstRecipeFor(Items.brewing_stand); //gany pls, Blocks.brewing_stand is invalid
+//              addShapedRecipe(new ItemStack(ModBlocks.brewing_stand), " i ", "xxx", 'i', Items.blaze_rod, 'x', "cobblestone");
+//              addShapelessRecipe(new ItemStack(ModBlocks.brewing_stand), Items.brewing_stand); //Minecraft Brewing Stand -> EtFuturum Brewing Stand
+//              addShapelessRecipe(new ItemStack(Items.brewing_stand), ModBlocks.brewing_stand); //EtFuturum Brewing Stand -> Minecraft Brewing Stand
+//          }
+//      }
 
 		if (ConfigBlocksItems.enableMagmaBlock) {
 			addShapedRecipe(new ItemStack(ModBlocks.magma_block), "xx", "xx", 'x', new ItemStack(Items.magma_cream) );

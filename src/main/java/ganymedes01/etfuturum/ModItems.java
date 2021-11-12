@@ -55,7 +55,7 @@ public class ModItems {
 	
 	public static final Item iron_nugget = initItem(new ItemNuggetIron());
 	public static final Item raw_ore = initItem(new ItemRawOre(false));
-//	public static final Item modded_raw_ore = initItem(new ItemRawOre(true));
+//  public static final Item modded_raw_ore = initItem(new ItemRawOre(true));
 	public static final Item netherite_scrap = initItem(new ItemNetherite(0));
 	public static final Item netherite_ingot = initItem(new ItemNetherite(1));
 	public static final Item netherite_helmet = initItem(new ItemEFRArmour(NETHERITE_ARMOUR, 0, ConfigBlocksItems.netheriteHelmetDurability));

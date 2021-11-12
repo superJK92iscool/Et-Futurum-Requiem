@@ -12,23 +12,23 @@ public class PotionLevitation extends ModPotions {
 		setEffectiveness(1);
 	}
 
-    public void performEffect(EntityLivingBase entity, int level)
-    {
-    	if(!(entity instanceof EntityPlayer) || !((EntityPlayer)entity).capabilities.isFlying) {
-    		entity.fallDistance = 0;
-    		entity.addVelocity(0, (0.05D * (double)(level + 1) - entity.motionY) * 0.2D, 0);
-    		if(!entity.isInWater() && !entity.handleLavaMovement())
-        		entity.motionY += 0.08D; //Counter falling velocity
-    	}
-    }
-    
-    public boolean isReady(int p_76397_1_, int p_76397_2_)
-    {
-    	return true;
-    }
-    
-    @Override
-    public boolean hasPacket() {
-        return true;
-    }
+	public void performEffect(EntityLivingBase entity, int level)
+	{
+		if(!(entity instanceof EntityPlayer) || !((EntityPlayer)entity).capabilities.isFlying) {
+			entity.fallDistance = 0;
+			entity.addVelocity(0, (0.05D * (double)(level + 1) - entity.motionY) * 0.2D, 0);
+			if(!entity.isInWater() && !entity.handleLavaMovement())
+				entity.motionY += 0.08D; //Counter falling velocity
+		}
+	}
+	
+	public boolean isReady(int p_76397_1_, int p_76397_2_)
+	{
+		return true;
+	}
+	
+	@Override
+	public boolean hasPacket() {
+		return true;
+	}
 }

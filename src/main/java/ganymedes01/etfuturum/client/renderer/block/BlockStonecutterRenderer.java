@@ -63,31 +63,31 @@ public class BlockStonecutterRenderer extends BlockModelBase {
 			RenderBlocks renderer) {
 		int metadata = world.getBlockMetadata(x, y, z) % 4;
 
-        switch (metadata)
-        {
-            case 1:
-                renderer.uvRotateTop = 3;
-                break;
-            case 2:
-            	renderer.uvRotateTop = 2;
-                break;
-            case 3:
-            	renderer.uvRotateTop = 1;
-                break;
-            case 0:
-            default:
-        }
-        
+		switch (metadata)
+		{
+			case 1:
+				renderer.uvRotateTop = 3;
+				break;
+			case 2:
+				renderer.uvRotateTop = 2;
+				break;
+			case 3:
+				renderer.uvRotateTop = 1;
+				break;
+			case 0:
+			default:
+		}
+		
 		renderer.setRenderBounds(0.0F, 0.0F, 0.0F, 1.0F, .5625F, 1.0F);
 		renderer.renderStandardBlock(block, x, y, z);
 
 		if(!renderer.hasOverrideBlockTexture())
-        renderer.setOverrideBlockTexture(((BlockStonecutter)block).sawIcon);
-        renderer.setRenderAllFaces(true);
-        
+		renderer.setOverrideBlockTexture(((BlockStonecutter)block).sawIcon);
+		renderer.setRenderAllFaces(true);
+		
 		if(metadata < 2) {
 			renderer.setRenderBounds(0F, 0.0F, 0.5F, 1F, 0.4375F, 0.5F);
-//			renderer.renderStandardBlock(block, x, y + 1, z);
+//          renderer.renderStandardBlock(block, x, y + 1, z);
 			if(metadata == 1) {
 				renderer.flipTexture = true;
 			}
@@ -103,7 +103,7 @@ public class BlockStonecutterRenderer extends BlockModelBase {
 			if(metadata == 3) {
 				renderer.flipTexture = true;
 			}
-            renderFaceXNeg(renderer, block, x, y, z, 0, .5625D, 0);
+			renderFaceXNeg(renderer, block, x, y, z, 0, .5625D, 0);
 			if(metadata == 2) {
 				renderer.flipTexture = true;
 			} else {
@@ -112,7 +112,7 @@ public class BlockStonecutterRenderer extends BlockModelBase {
 			renderFaceXPos(renderer, block, x, y, z, 0, .5625D, 0);
 		}
 
-        renderer.setRenderAllFaces(false);
+		renderer.setRenderAllFaces(false);
 		renderer.clearOverrideBlockTexture();
 		renderer.flipTexture = false;
 		renderer.uvRotateTop = 0;

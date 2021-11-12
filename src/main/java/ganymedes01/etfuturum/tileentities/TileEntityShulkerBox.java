@@ -46,17 +46,17 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 	public static final List<ItemStack> bannedItems = new ArrayList<ItemStack>();
 
 	public TileEntityShulkerBox(int i) {
-        this.field_190599_i = TileEntityShulkerBox.AnimationStatus.CLOSED;
-        this.topStacks = new ItemStack[8];
+		this.field_190599_i = TileEntityShulkerBox.AnimationStatus.CLOSED;
+		this.topStacks = new ItemStack[8];
 		type = ShulkerBoxType.values()[i];
-        chestContents = new ItemStack[getSizeInventory() + 9];
+		chestContents = new ItemStack[getSizeInventory() + 9];
 	}
 	
 	public TileEntityShulkerBox() {
-        this.field_190599_i = TileEntityShulkerBox.AnimationStatus.CLOSED;
-        this.topStacks = new ItemStack[8];
-        type = ShulkerBoxType.VANILLA;
-        chestContents = new ItemStack[getSizeInventory() + 9];
+		this.field_190599_i = TileEntityShulkerBox.AnimationStatus.CLOSED;
+		this.topStacks = new ItemStack[8];
+		type = ShulkerBoxType.VANILLA;
+		chestContents = new ItemStack[getSizeInventory() + 9];
 	}
 	
 	@Override
@@ -111,7 +111,7 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 		{
 			this.customName = nbt.getString("CustomName");
 		}
-        sortTopStacks();
+		sortTopStacks();
 	}
 
 	@Override
@@ -137,7 +137,7 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 	@Override
 	public ItemStack getStackInSlot(int p_70301_1_)
 	{
-        inventoryTouched = true;
+		inventoryTouched = true;
 		return this.chestContents[p_70301_1_];
 	}
 
@@ -213,13 +213,13 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 	@Override
 	public void updateEntity()
 	{
-        this.func_190583_o();
+		this.func_190583_o();
 
-        if (this.field_190599_i == TileEntityShulkerBox.AnimationStatus.OPENING || this.field_190599_i == TileEntityShulkerBox.AnimationStatus.CLOSING)
-        {
-            this.func_190589_G();
-        }
-        
+		if (this.field_190599_i == TileEntityShulkerBox.AnimationStatus.OPENING || this.field_190599_i == TileEntityShulkerBox.AnimationStatus.CLOSING)
+		{
+			this.func_190589_G();
+		}
+		
 		++this.ticksSinceSync;
 		float f;
 
@@ -240,17 +240,17 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 				}
 			}
 		}
-        
-        if (!worldObj.isRemote && inventoryTouched)
-        {
-            inventoryTouched = false;
-            sortTopStacks();
-        }
-        
-        if(firstTick) {
-        	markDirty();
-        	firstTick = false;
-        }
+		
+		if (!worldObj.isRemote && inventoryTouched)
+		{
+			inventoryTouched = false;
+			sortTopStacks();
+		}
+		
+		if(firstTick) {
+			markDirty();
+			firstTick = false;
+		}
 	}
 	
 	@Override
@@ -272,22 +272,22 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 	@Override
 	public boolean receiveClientEvent(int id, int type)
 	{
-        if (id == 1)
-        {
-            this.numPlayersUsing = type;
+		if (id == 1)
+		{
+			this.numPlayersUsing = type;
 
-            if (type == 0)
-            {
-                this.field_190599_i = TileEntityShulkerBox.AnimationStatus.CLOSING;
-            }
+			if (type == 0)
+			{
+				this.field_190599_i = TileEntityShulkerBox.AnimationStatus.CLOSING;
+			}
 
-            if (type == 1)
-            {
-                this.field_190599_i = TileEntityShulkerBox.AnimationStatus.OPENING;
-            }
+			if (type == 1)
+			{
+				this.field_190599_i = TileEntityShulkerBox.AnimationStatus.OPENING;
+			}
 
-            return true;
-        }
+			return true;
+		}
 		return super.receiveClientEvent(id, type);
 	}
 
@@ -366,7 +366,7 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 			ItemStack stack = new ItemStack(ModBlocks.shulker_box, 1, getBlockMetadata());
 			
 			writeToStack(stack);
-    		
+			
 			EntityItem item = new EntityItem(worldObj, xCoord + .5D, yCoord + .5D, zCoord + .5D, stack);
 			item.motionX = worldObj.rand.nextGaussian() * 0.05F;
 			item.motionY = worldObj.rand.nextGaussian() * 0.05F + 0.2F;
@@ -406,436 +406,436 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 		return stack;
 	}
 	
-    private float field_190600_j;
-    private float field_190601_k;
-    private TileEntityShulkerBox.AnimationStatus field_190599_i;
+	private float field_190600_j;
+	private float field_190601_k;
+	private TileEntityShulkerBox.AnimationStatus field_190599_i;
 
-    public float func_190585_a(float p_190585_1_)
-    {
-        return this.field_190601_k + (this.field_190600_j - this.field_190601_k) * p_190585_1_;
-    }
+	public float func_190585_a(float p_190585_1_)
+	{
+		return this.field_190601_k + (this.field_190600_j - this.field_190601_k) * p_190585_1_;
+	}
 
-    protected void func_190583_o()
-    {
-        this.field_190601_k = this.field_190600_j;
+	protected void func_190583_o()
+	{
+		this.field_190601_k = this.field_190600_j;
 
-        switch (this.field_190599_i)
-        {
-            case CLOSED:
-                this.field_190600_j = 0.0F;
-                break;
+		switch (this.field_190599_i)
+		{
+			case CLOSED:
+				this.field_190600_j = 0.0F;
+				break;
 
-            case OPENING:
-                this.field_190600_j += 0.1F;
+			case OPENING:
+				this.field_190600_j += 0.1F;
 
-                if (this.field_190600_j >= 1.0F)
-                {
-                    this.func_190589_G();
-                    this.field_190599_i = TileEntityShulkerBox.AnimationStatus.OPENED;
-                    this.field_190600_j = 1.0F;
-                }
+				if (this.field_190600_j >= 1.0F)
+				{
+					this.func_190589_G();
+					this.field_190599_i = TileEntityShulkerBox.AnimationStatus.OPENED;
+					this.field_190600_j = 1.0F;
+				}
 
-                break;
+				break;
 
-            case CLOSING:
-                this.field_190600_j -= 0.1F;
+			case CLOSING:
+				this.field_190600_j -= 0.1F;
 
-                if (this.field_190600_j <= 0.0F)
-                {
-                    this.field_190599_i = TileEntityShulkerBox.AnimationStatus.CLOSED;
-                    this.field_190600_j = 0.0F;
-                }
+				if (this.field_190600_j <= 0.0F)
+				{
+					this.field_190599_i = TileEntityShulkerBox.AnimationStatus.CLOSED;
+					this.field_190600_j = 0.0F;
+				}
 
-                break;
+				break;
 
-            case OPENED:
-                this.field_190600_j = 1.0F;
-        }
-    }
+			case OPENED:
+				this.field_190600_j = 1.0F;
+		}
+	}
 
-    public TileEntityShulkerBox.AnimationStatus func_190591_p()
-    {
-        return this.field_190599_i;
-    }
+	public TileEntityShulkerBox.AnimationStatus func_190591_p()
+	{
+		return this.field_190599_i;
+	}
 
-    public AxisAlignedBB func_190584_a(int facing)
-    {
-        return this.func_190587_b(EnumFacing.getFront(facing));
-    }
+	public AxisAlignedBB func_190584_a(int facing)
+	{
+		return this.func_190587_b(EnumFacing.getFront(facing));
+	}
 
-    public AxisAlignedBB func_190587_b(EnumFacing p_190587_1_)
-    {
-        return AxisAlignedBB.getBoundingBox(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D).addCoord((double)(0.5F * this.func_190585_a(1.0F) * (float)p_190587_1_.getFrontOffsetX()), (double)(0.5F * this.func_190585_a(1.0F) * (float)p_190587_1_.getFrontOffsetY()), (double)(0.5F * this.func_190585_a(1.0F) * (float)p_190587_1_.getFrontOffsetZ()));
-    }
+	public AxisAlignedBB func_190587_b(EnumFacing p_190587_1_)
+	{
+		return AxisAlignedBB.getBoundingBox(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D).addCoord((double)(0.5F * this.func_190585_a(1.0F) * (float)p_190587_1_.getFrontOffsetX()), (double)(0.5F * this.func_190585_a(1.0F) * (float)p_190587_1_.getFrontOffsetY()), (double)(0.5F * this.func_190585_a(1.0F) * (float)p_190587_1_.getFrontOffsetZ()));
+	}
 
-    private AxisAlignedBB func_190588_c(EnumFacing p_190588_1_)
-    {
-    	int ordinal = p_190588_1_.ordinal();
-    	int opposite = ordinal = ordinal % 2 == 0 ? ordinal + 1 : ordinal - 1;
-        EnumFacing enumfacing = EnumFacing.getFront(opposite);
-        return func_191195_a(this.func_190587_b(p_190588_1_), (double)enumfacing.getFrontOffsetX(), (double)enumfacing.getFrontOffsetY(), (double)enumfacing.getFrontOffsetZ());
-    }
-    
-    private void func_190589_G()
-    {
-        if (getBlockType() instanceof BlockShulkerBox)
-        {
-            EnumFacing enumfacing = EnumFacing.getFront(facing);
-            AxisAlignedBB axisalignedbb = this.func_190588_c(enumfacing).offset(xCoord, yCoord, zCoord);
-            List<Entity> list = this.worldObj.getEntitiesWithinAABBExcludingEntity((Entity)null, axisalignedbb);
-            
-            if (!list.isEmpty())
-            {
-                for (int i = 0; i < list.size(); ++i)
-                {
-                    Entity entity = (Entity)list.get(i);
+	private AxisAlignedBB func_190588_c(EnumFacing p_190588_1_)
+	{
+		int ordinal = p_190588_1_.ordinal();
+		int opposite = ordinal = ordinal % 2 == 0 ? ordinal + 1 : ordinal - 1;
+		EnumFacing enumfacing = EnumFacing.getFront(opposite);
+		return func_191195_a(this.func_190587_b(p_190588_1_), (double)enumfacing.getFrontOffsetX(), (double)enumfacing.getFrontOffsetY(), (double)enumfacing.getFrontOffsetZ());
+	}
+	
+	private void func_190589_G()
+	{
+		if (getBlockType() instanceof BlockShulkerBox)
+		{
+			EnumFacing enumfacing = EnumFacing.getFront(facing);
+			AxisAlignedBB axisalignedbb = this.func_190588_c(enumfacing).offset(xCoord, yCoord, zCoord);
+			List<Entity> list = this.worldObj.getEntitiesWithinAABBExcludingEntity((Entity)null, axisalignedbb);
+			
+			if (!list.isEmpty())
+			{
+				for (int i = 0; i < list.size(); ++i)
+				{
+					Entity entity = (Entity)list.get(i);
 
-                    if (entity.canBePushed())
-                    {
-                        double d0 = 0.0D;
-                        double d1 = 0.0D;
-                        double d2 = 0.0D;
-                        AxisAlignedBB axisalignedbb1 = entity.boundingBox;
+					if (entity.canBePushed())
+					{
+						double d0 = 0.0D;
+						double d1 = 0.0D;
+						double d2 = 0.0D;
+						AxisAlignedBB axisalignedbb1 = entity.boundingBox;
 
-                        if(enumfacing.getFrontOffsetX() != 0) {
-                            if (enumfacing.getFrontOffsetX() > 0)
-                            {
-                                d0 = axisalignedbb.maxX - axisalignedbb1.minX;
-                            }
-                            else
-                            {
-                                d0 = axisalignedbb1.maxX - axisalignedbb.minX;
-                            }
+						if(enumfacing.getFrontOffsetX() != 0) {
+							if (enumfacing.getFrontOffsetX() > 0)
+							{
+								d0 = axisalignedbb.maxX - axisalignedbb1.minX;
+							}
+							else
+							{
+								d0 = axisalignedbb1.maxX - axisalignedbb.minX;
+							}
 
-                            d0 = d0 + 0.01D;
-                        } else if(enumfacing.getFrontOffsetY() != 0) {
-                            if (enumfacing.getFrontOffsetY() > 0)
-                            {
-                                d1 = axisalignedbb.maxY - axisalignedbb1.minY;
-                            }
-                            else
-                            {
-                                d1 = axisalignedbb1.maxY - axisalignedbb.minY;
-                            }
+							d0 = d0 + 0.01D;
+						} else if(enumfacing.getFrontOffsetY() != 0) {
+							if (enumfacing.getFrontOffsetY() > 0)
+							{
+								d1 = axisalignedbb.maxY - axisalignedbb1.minY;
+							}
+							else
+							{
+								d1 = axisalignedbb1.maxY - axisalignedbb.minY;
+							}
 
-                            d1 = d1+ 0.01D;
-                        } else if(enumfacing.getFrontOffsetZ() != 0) {
-                            if (enumfacing.getFrontOffsetZ() > 0)
-                            {
-                                d2 = axisalignedbb.maxZ - axisalignedbb1.minZ;
-                            }
-                            else
-                            {
-                                d2 = axisalignedbb1.maxZ - axisalignedbb.minZ;
-                            }
+							d1 = d1+ 0.01D;
+						} else if(enumfacing.getFrontOffsetZ() != 0) {
+							if (enumfacing.getFrontOffsetZ() > 0)
+							{
+								d2 = axisalignedbb.maxZ - axisalignedbb1.minZ;
+							}
+							else
+							{
+								d2 = axisalignedbb1.maxZ - axisalignedbb.minZ;
+							}
 
-                            d2 = d2 + 0.01D;
-                        }
+							d2 = d2 + 0.01D;
+						}
 
-                        entity.moveEntity(d0 * (double)enumfacing.getFrontOffsetX(), d1 * (double)enumfacing.getFrontOffsetY(), d2 * (double)enumfacing.getFrontOffsetZ());
-                    }
-                }
-            }
-        }
-    }
+						entity.moveEntity(d0 * (double)enumfacing.getFrontOffsetX(), d1 * (double)enumfacing.getFrontOffsetY(), d2 * (double)enumfacing.getFrontOffsetZ());
+					}
+				}
+			}
+		}
+	}
 
-    public AxisAlignedBB func_191195_a(AxisAlignedBB bb, double p_191195_1_, double p_191195_3_, double p_191195_5_)
-    {
-        double d0 = bb.minX;
-        double d1 = bb.minY;
-        double d2 = bb.minZ;
-        double d3 = bb.maxX;
-        double d4 = bb.maxY;
-        double d5 = bb.maxZ;
+	public AxisAlignedBB func_191195_a(AxisAlignedBB bb, double p_191195_1_, double p_191195_3_, double p_191195_5_)
+	{
+		double d0 = bb.minX;
+		double d1 = bb.minY;
+		double d2 = bb.minZ;
+		double d3 = bb.maxX;
+		double d4 = bb.maxY;
+		double d5 = bb.maxZ;
 
-        if (p_191195_1_ < 0.0D)
-        {
-            d0 -= p_191195_1_;
-        }
-        else if (p_191195_1_ > 0.0D)
-        {
-            d3 -= p_191195_1_;
-        }
+		if (p_191195_1_ < 0.0D)
+		{
+			d0 -= p_191195_1_;
+		}
+		else if (p_191195_1_ > 0.0D)
+		{
+			d3 -= p_191195_1_;
+		}
 
-        if (p_191195_3_ < 0.0D)
-        {
-            d1 -= p_191195_3_;
-        }
-        else if (p_191195_3_ > 0.0D)
-        {
-            d4 -= p_191195_3_;
-        }
+		if (p_191195_3_ < 0.0D)
+		{
+			d1 -= p_191195_3_;
+		}
+		else if (p_191195_3_ > 0.0D)
+		{
+			d4 -= p_191195_3_;
+		}
 
-        if (p_191195_5_ < 0.0D)
-        {
-            d2 -= p_191195_5_;
-        }
-        else if (p_191195_5_ > 0.0D)
-        {
-            d5 -= p_191195_5_;
-        }
+		if (p_191195_5_ < 0.0D)
+		{
+			d2 -= p_191195_5_;
+		}
+		else if (p_191195_5_ > 0.0D)
+		{
+			d5 -= p_191195_5_;
+		}
 
-        return AxisAlignedBB.getBoundingBox(d0, d1, d2, d3, d4, d5);
-    }
-    
-    @Override
-    public Packet getDescriptionPacket()
-    {
-        NBTTagCompound nbt = new NBTTagCompound();
-        
-        super.writeToNBT(nbt);
-        
-        if(type.getIsClear()) {
-    		NBTTagList nbttaglist = new NBTTagList();
+		return AxisAlignedBB.getBoundingBox(d0, d1, d2, d3, d4, d5);
+	}
+	
+	@Override
+	public Packet getDescriptionPacket()
+	{
+		NBTTagCompound nbt = new NBTTagCompound();
+		
+		super.writeToNBT(nbt);
+		
+		if(type.getIsClear()) {
+			NBTTagList nbttaglist = new NBTTagList();
 
-    		for (int i = 0; i < this.topStacks.length; ++i)
-    		{
-    			if (this.topStacks[i] != null)
-    			{
-    				NBTTagCompound nbttagcompound1 = new NBTTagCompound();
-    				nbttagcompound1.setByte("Slot", (byte)i);
-    				this.topStacks[i].writeToNBT(nbttagcompound1);
-    				nbttaglist.appendTag(nbttagcompound1);
-    			}
-    		}
+			for (int i = 0; i < this.topStacks.length; ++i)
+			{
+				if (this.topStacks[i] != null)
+				{
+					NBTTagCompound nbttagcompound1 = new NBTTagCompound();
+					nbttagcompound1.setByte("Slot", (byte)i);
+					this.topStacks[i].writeToNBT(nbttagcompound1);
+					nbttaglist.appendTag(nbttagcompound1);
+				}
+			}
 
-    		nbt.setTag("Display", nbttaglist);
-        }
-        
-        if(color > 0)
-            nbt.setByte("Color", this.color);
-        
-        if(facing > 0)
-            nbt.setByte("Facing", this.facing);
-        
-        return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, nbt);
-    }
+			nbt.setTag("Display", nbttaglist);
+		}
+		
+		if(color > 0)
+			nbt.setByte("Color", this.color);
+		
+		if(facing > 0)
+			nbt.setByte("Facing", this.facing);
+		
+		return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, nbt);
+	}
 
-    @Override
-    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt)
-    {
-        readFromNBT(pkt.func_148857_g());
-    }
+	@Override
+	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt)
+	{
+		readFromNBT(pkt.func_148857_g());
+	}
 
-    @Override
-    public boolean shouldRefresh(Block oldBlock, Block newBlock, int oldMeta, int newMeta, World world, int x, int y, int z)
-    {
-        return oldBlock != newBlock && oldMeta != newMeta;
-    }
+	@Override
+	public boolean shouldRefresh(Block oldBlock, Block newBlock, int oldMeta, int newMeta, World world, int x, int y, int z)
+	{
+		return oldBlock != newBlock && oldMeta != newMeta;
+	}
 
-    public int getBlockMetadata()
-    {
-        if (this.blockMetadata == -1)
-        {
-        	if(ConfigBlocksItems.enableIronShulkerBoxes) {
-                this.blockMetadata = this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord);
-        	} else {
-            	blockMetadata = 0;
-        	}
-        }
+	public int getBlockMetadata()
+	{
+		if (this.blockMetadata == -1)
+		{
+			if(ConfigBlocksItems.enableIronShulkerBoxes) {
+				this.blockMetadata = this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord);
+			} else {
+				blockMetadata = 0;
+			}
+		}
 
-        return this.blockMetadata;
-    }
+		return this.blockMetadata;
+	}
 
-    public static enum AnimationStatus
-    {
-        CLOSED,
-        OPENING,
-        OPENED,
-        CLOSING;
-    }
-    
-    public static enum ShulkerBoxType {
-    	VANILLA(27, 9, false, 184, 168),
-    	IRON(54, 9, false, 184, 202),
-    	GOLD(81, 9, false, 184, 256),
-    	DIAMOND(108, 12, false, 238, 256),
-    	COPPER(45, 9, false, 184, 184),
-    	SILVER(72, 9, false, 184, 238),
-    	CRYSTAL(108, 12, true, 238, 256),
-    	OBSIDIAN(108, 12, false, 238, 256);
-    	
-    	private int size;
-    	private int rowSize;
-    	private boolean isClear;
-    	private int xSize;
-    	private int ySize;
-    	
-    	private ShulkerBoxType(int size, int rowSize, boolean isClear, int xSize, int ySize) {
-    		this.size = size;
-    		this.rowSize = rowSize;
-    		this.isClear = isClear;
-    		this.xSize = xSize;
-    		this.ySize = ySize;
-    	}
-    	
-    	public int getSize() {
-    		return size;
-    	}
-    	
-    	public int getRowSize() {
-    		return rowSize;
-    	}
-    	
-    	public boolean getIsClear() {
-    		return isClear;
-    	}
-    	
-    	public int getXSize() {
-    		return xSize;
-    	}
-    	
-    	public int getYSize() {
-    		return ySize;
-    	}
-    }
-    
-    /*
-     * IRON CHESTS CODE START
-     * 
-     * ALL CREDIT TO IRON CHEST 1.7.10 AUTHOR
-     * 
-     * Iron Shulker Boxes were ported by eye and not by copying code
-     * 
-     * However, this code copies crystal chest display code
-     * from ICs 1.7.10 for accuracy's sake
-     * 
-     * Some code was also copied to from the chest upgrades
-     * to ensure upgrades function exactly the same way.
-     */
+	public static enum AnimationStatus
+	{
+		CLOSED,
+		OPENING,
+		OPENED,
+		CLOSING;
+	}
+	
+	public static enum ShulkerBoxType {
+		VANILLA(27, 9, false, 184, 168),
+		IRON(54, 9, false, 184, 202),
+		GOLD(81, 9, false, 184, 256),
+		DIAMOND(108, 12, false, 238, 256),
+		COPPER(45, 9, false, 184, 184),
+		SILVER(72, 9, false, 184, 238),
+		CRYSTAL(108, 12, true, 238, 256),
+		OBSIDIAN(108, 12, false, 238, 256);
+		
+		private int size;
+		private int rowSize;
+		private boolean isClear;
+		private int xSize;
+		private int ySize;
+		
+		private ShulkerBoxType(int size, int rowSize, boolean isClear, int xSize, int ySize) {
+			this.size = size;
+			this.rowSize = rowSize;
+			this.isClear = isClear;
+			this.xSize = xSize;
+			this.ySize = ySize;
+		}
+		
+		public int getSize() {
+			return size;
+		}
+		
+		public int getRowSize() {
+			return rowSize;
+		}
+		
+		public boolean getIsClear() {
+			return isClear;
+		}
+		
+		public int getXSize() {
+			return xSize;
+		}
+		
+		public int getYSize() {
+			return ySize;
+		}
+	}
+	
+	/*
+	 * IRON CHESTS CODE START
+	 * 
+	 * ALL CREDIT TO IRON CHEST 1.7.10 AUTHOR
+	 * 
+	 * Iron Shulker Boxes were ported by eye and not by copying code
+	 * 
+	 * However, this code copies crystal chest display code
+	 * from ICs 1.7.10 for accuracy's sake
+	 * 
+	 * Some code was also copied to from the chest upgrades
+	 * to ensure upgrades function exactly the same way.
+	 */
 
-    private ItemStack[] topStacks;
-    private boolean hadStuff;
-    private boolean inventoryTouched;
+	private ItemStack[] topStacks;
+	private boolean hadStuff;
+	private boolean inventoryTouched;
 	public static final String[] tiers = new String[] {"iron", "gold", "diamond", "copper", "silver", "crystal", "obsidian"};
 
-    @Override
-    public void markDirty()
-    {
-        super.markDirty();
-        sortTopStacks();
-    }
+	@Override
+	public void markDirty()
+	{
+		super.markDirty();
+		sortTopStacks();
+	}
 
-    public ItemStack[] getTopItemStacks()
-    {
-        return topStacks;
-    }
+	public ItemStack[] getTopItemStacks()
+	{
+		return topStacks;
+	}
 
-    protected void sortTopStacks()
-    {
-        if (!type.getIsClear() || (worldObj != null && worldObj.isRemote))
-        {
-            return;
-        }
-        ItemStack[] tempCopy = new ItemStack[getSizeInventory()];
-        ItemStack[] contents = chestContents.clone();
-        boolean hasStuff = false;
-        int compressedIdx = 0;
-        mainLoop: for (int i = 0; i < getSizeInventory(); i++)
-        {
-            if (contents[i] != null)
-            {
-                for (int j = 0; j < compressedIdx; j++)
-                {
-                    if (tempCopy[j].isItemEqual(contents[i]))
-                    {
-                        tempCopy[j].stackSize += contents[i].stackSize;
-                        continue mainLoop;
-                    }
-                }
-                tempCopy[compressedIdx++] = contents[i].copy();
-                hasStuff = true;
-            }
-        }
-        if (!hasStuff && hadStuff)
-        {
-            hadStuff = false;
-            for (int i = 0; i < topStacks.length; i++)
-            {
-                topStacks[i] = null;
-            }
-            if (worldObj != null)
-            {
-                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-            }
-            return;
-        }
-        hadStuff = true;
-        Arrays.sort(tempCopy, new Comparator<ItemStack>() {
-            @Override
-            public int compare(ItemStack o1, ItemStack o2)
-            {
-                if (o1 == null)
-                {
-                    return 1;
-                }
-                else if (o2 == null)
-                {
-                    return -1;
-                }
-                else
-                {
-                    return o2.stackSize - o1.stackSize;
-                }
-            }
-        });
-        int p = 0;
-        for (int i = 0; i < tempCopy.length; i++)
-        {
-            if (tempCopy[i] != null && tempCopy[i].stackSize > 0)
-            {
-                topStacks[p++] = tempCopy[i];
-                if (p == topStacks.length)
-                {
-                    break;
-                }
-            }
-        }
-        for (int i = p; i < topStacks.length; i++)
-        {
-            topStacks[i] = null;
-        }
-        if (worldObj != null)
-        {
-            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-        }
-    }
+	protected void sortTopStacks()
+	{
+		if (!type.getIsClear() || (worldObj != null && worldObj.isRemote))
+		{
+			return;
+		}
+		ItemStack[] tempCopy = new ItemStack[getSizeInventory()];
+		ItemStack[] contents = chestContents.clone();
+		boolean hasStuff = false;
+		int compressedIdx = 0;
+		mainLoop: for (int i = 0; i < getSizeInventory(); i++)
+		{
+			if (contents[i] != null)
+			{
+				for (int j = 0; j < compressedIdx; j++)
+				{
+					if (tempCopy[j].isItemEqual(contents[i]))
+					{
+						tempCopy[j].stackSize += contents[i].stackSize;
+						continue mainLoop;
+					}
+				}
+				tempCopy[compressedIdx++] = contents[i].copy();
+				hasStuff = true;
+			}
+		}
+		if (!hasStuff && hadStuff)
+		{
+			hadStuff = false;
+			for (int i = 0; i < topStacks.length; i++)
+			{
+				topStacks[i] = null;
+			}
+			if (worldObj != null)
+			{
+				worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+			}
+			return;
+		}
+		hadStuff = true;
+		Arrays.sort(tempCopy, new Comparator<ItemStack>() {
+			@Override
+			public int compare(ItemStack o1, ItemStack o2)
+			{
+				if (o1 == null)
+				{
+					return 1;
+				}
+				else if (o2 == null)
+				{
+					return -1;
+				}
+				else
+				{
+					return o2.stackSize - o1.stackSize;
+				}
+			}
+		});
+		int p = 0;
+		for (int i = 0; i < tempCopy.length; i++)
+		{
+			if (tempCopy[i] != null && tempCopy[i].stackSize > 0)
+			{
+				topStacks[p++] = tempCopy[i];
+				if (p == topStacks.length)
+				{
+					break;
+				}
+			}
+		}
+		for (int i = p; i < topStacks.length; i++)
+		{
+			topStacks[i] = null;
+		}
+		if (worldObj != null)
+		{
+			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+		}
+	}
 
-    public void handlePacketData(int typeData, ItemStack[] intData)
-    {
-        TileEntityShulkerBox chest = this;
-        if (blockMetadata != typeData)
-        {
-            chest = updateFromMetadata(typeData);
-        }
-        if (blockMetadata == 6 && intData != null)
-        {
-            int pos = 0;
-            for (int i = 0; i < chest.topStacks.length; i++)
-            {
-                if (intData[pos] != null)
-                {
-                    chest.topStacks[i] = intData[pos];
-                }
-                else
-                {
-                    chest.topStacks[i] = null;
-                }
-                pos ++;
-            }
-        }
-    }
+	public void handlePacketData(int typeData, ItemStack[] intData)
+	{
+		TileEntityShulkerBox chest = this;
+		if (blockMetadata != typeData)
+		{
+			chest = updateFromMetadata(typeData);
+		}
+		if (blockMetadata == 6 && intData != null)
+		{
+			int pos = 0;
+			for (int i = 0; i < chest.topStacks.length; i++)
+			{
+				if (intData[pos] != null)
+				{
+					chest.topStacks[i] = intData[pos];
+				}
+				else
+				{
+					chest.topStacks[i] = null;
+				}
+				pos ++;
+			}
+		}
+	}
 
-    public TileEntityShulkerBox updateFromMetadata(int l)
-    {
-        if (worldObj != null && worldObj.isRemote)
-        {
-            if (l != blockMetadata)
-            {
+	public TileEntityShulkerBox updateFromMetadata(int l)
+	{
+		if (worldObj != null && worldObj.isRemote)
+		{
+			if (l != blockMetadata)
+			{
 //                worldObj.setTileEntity(xCoord, yCoord, zCoord, IronChestType.makeEntity(l));
-                return (TileEntityShulkerBox) worldObj.getTileEntity(xCoord, yCoord, zCoord);
-            }
-        }
-        return this;
-    }
+				return (TileEntityShulkerBox) worldObj.getTileEntity(xCoord, yCoord, zCoord);
+			}
+		}
+		return this;
+	}
 }

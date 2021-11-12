@@ -64,17 +64,17 @@ public class EntityHusk extends EntityZombie
 		return flag;
 	}
 	
-    public void onLivingUpdate()
-    {
-    	ignoreSunlight = true;
-    	super.onLivingUpdate();
-    	ignoreSunlight = false;
-    }
-    
-    public float getBrightness(float p_70013_1_)
-    {
-    	return ignoreSunlight ? 0F : super.getBrightness(p_70013_1_);
-    }
+	public void onLivingUpdate()
+	{
+		ignoreSunlight = true;
+		super.onLivingUpdate();
+		ignoreSunlight = false;
+	}
+	
+	public float getBrightness(float p_70013_1_)
+	{
+		return ignoreSunlight ? 0F : super.getBrightness(p_70013_1_);
+	}
 	
 	/*
 	public boolean attackEntityFrom(DamageSource p_70097_1_, float p_70097_2_)
@@ -167,9 +167,9 @@ public class EntityHusk extends EntityZombie
 	protected void func_145780_a(final int p_145780_1_, final int p_145780_2_, final int p_145780_3_, final Block p_145780_4_) {
 		this.playSound("etfuturum:mob.husk.step", 0.15f, 1.0f);
 	}
-    
-    public ItemStack getPickedResult(MovingObjectPosition target)
-    {
-        return ModEntityList.getEggFromEntity(this);
-    }
+	
+	public ItemStack getPickedResult(MovingObjectPosition target)
+	{
+		return ModEntityList.getEggFromEntity(this);
+	}
 }

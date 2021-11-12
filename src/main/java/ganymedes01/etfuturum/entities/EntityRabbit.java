@@ -519,9 +519,9 @@ public class EntityRabbit extends EntityAnimal {
 			return false;
 		}
 	}
-    
-    public ItemStack getPickedResult(MovingObjectPosition target)
-    {
-        return ModEntityList.getEggFromEntity(this);
-    }
+	
+	public ItemStack getPickedResult(MovingObjectPosition target)
+	{
+		return ModEntityList.getEggFromEntity(this);
+	}
 }

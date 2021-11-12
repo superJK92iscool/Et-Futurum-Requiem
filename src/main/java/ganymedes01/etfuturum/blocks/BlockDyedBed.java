@@ -30,23 +30,23 @@ public class BlockDyedBed extends BlockBed implements IConfigurable, ISubBlocksB
 		setBlockTextureName(dyeName + "_bed");
 	}
 
-    public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_)
-    {
-        return isBlockHeadOfBed(p_149650_1_) ? Item.getItemById(0) : Item.getItemFromBlock(this);
-    }
+	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_)
+	{
+		return isBlockHeadOfBed(p_149650_1_) ? Item.getItemById(0) : Item.getItemFromBlock(this);
+	}
 
-    @SideOnly(Side.CLIENT)
-    public Item getItem(World p_149694_1_, int p_149694_2_, int p_149694_3_, int p_149694_4_)
-    {
-        return Item.getItemFromBlock(this);
-    }
-    
-    @Override
-    public String getItemIconName() {
-    	String[] name = getTextureName().split("_");
-    	return name[name.length - 1] + "_" + name[0];
-    }
-    
+	@SideOnly(Side.CLIENT)
+	public Item getItem(World p_149694_1_, int p_149694_2_, int p_149694_3_, int p_149694_4_)
+	{
+		return Item.getItemFromBlock(this);
+	}
+	
+	@Override
+	public String getItemIconName() {
+		String[] name = getTextureName().split("_");
+		return name[name.length - 1] + "_" + name[0];
+	}
+	
 	@Override
 	public boolean isEnabled() {
 		return EtFuturum.isTesting;
