@@ -105,7 +105,7 @@ public class EtFuturumChunkPopulateGenerator {
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public void populatedChunk(DecorateBiomeEvent.Post event) {
 		if(doesChunkSupportDeepslate(event.world.getWorldInfo().getTerrainType(), event.world.provider.dimensionId)) {
-			Chunk chunk = event.world.getChunkFromBlockCoords(event.chunkX, event.chunkZ);
+			Chunk chunk = event.world.getChunkFromChunkCoords(event.chunkX >> 4, event.chunkZ >> 4);
 			doDeepslateGen(chunk);
 			final List<BlockPos> redo = getRedoList(event.world.provider.dimensionId);
 			if(!redo.isEmpty()) {
@@ -113,17 +113,18 @@ public class EtFuturumChunkPopulateGenerator {
 				stopRecording = true;
 				Chunk newChunk = null;
 				//Iterate this way to avoid ConcurrentModificationException
-				ListIterator<BlockPos> redoIterator = redo.listIterator();
-				while(redoIterator.hasNext()) {
-					BlockPos pos = redoIterator.next();
-					if(newChunk == null || newChunk.xPosition != pos.getX() >> 4 || newChunk.zPosition != pos.getZ() >> 4) {
-						newChunk = event.world.getChunkFromBlockCoords(pos.getX(), pos.getZ());
+				for(int i = 0; i < redo.size(); i++) {
+					BlockPos pos = redo.get(i);
+					int chunkX = pos.getX() >> 4;
+					int chunkZ = pos.getZ() >> 4;
+					if((newChunk == null || newChunk.xPosition != chunkX >> 4 || newChunk.zPosition != chunkZ >> 4)) {
+						newChunk = event.world.getChunkFromChunkCoords(chunkX, chunkZ);
 					}
 					this.replaceBlockInChunk(newChunk, pos.getX() & 15, pos.getZ() & 15, pos.getX(), pos.getY(), pos.getZ());
-					redoIterator.remove();
 				}
-				stopRecording = false;
+				redo.clear();
 			}
+			stopRecording = false;
 		}
 	}
 }
