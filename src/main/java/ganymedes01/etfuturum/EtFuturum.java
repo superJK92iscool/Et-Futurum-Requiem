@@ -303,7 +303,7 @@ public class EtFuturum {
 					return ModSounds.soundNetherrack;
 			}
 			
-			else if(namespace.contains("nether") && (block instanceof BlockOre || namespace.contains("ore"))) {
+			else if(block == Blocks.quartz_ore || (namespace.contains("nether") && (block instanceof BlockOre) || namespace.contains("ore"))) {
 				return ModSounds.soundNetherOre;
 			}
 			
