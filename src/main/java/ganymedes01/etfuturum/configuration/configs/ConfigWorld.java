@@ -76,7 +76,7 @@ public class ConfigWorld extends ConfigBase {
 		debrisMax = cfg.getInt("debrisMax", catGeneration, 3, 0, 64, "The max vein size for the second, typically bigger debris veins, which generate from Y 8 to 22");
 		maxNetherGoldPerCluster = cfg.getInt("maxNetherGoldPerCluster", catGeneration, 10, 0, 64, "Max vein size for nether gold ore blocks in a cluster");
 		maxMagmaPerCluster = cfg.getInt("maxMagmaPerCluster", catGeneration, 33, 0, 64, "Max vein size for magma blocks in a cluster");
-		maxCopperPerCluster = cfg.getInt("copperClusterSize", catGeneration, 14, 0, 64, "Max vein size for copper ore blocks in a cluster");
+		maxCopperPerCluster = cfg.getInt("copperClusterSize", catGeneration, 8, 0, 64, "Max vein size for copper ore blocks in a cluster");
 		maxDeepslatePerCluster = cfg.getInt("deepslateClusterSize", catGeneration, 64, 0, 128, "If deepslateGenerationMode is set to 1, this value is used to determine how big the clusters are. Otherwise this value is unused.");
 		deepslateMaxY = cfg.getInt("deepslateMaxY", catGeneration, 22, 0, 256, "How high up deepslate and tuff goes. If deepslateGenerationMode is 0, all stone up to this y level (with a scattering effect a few blocks before then) are replaced with deepslate. If it's 1, the patches can generate to that Y level.");
 		deepslateReplacesStones = cfg.getBoolean("deepslateReplacesStones", catGeneration, true, "Whether or not Deepslate will overwrite granite, diorite, andesite (Only works when deepslate generation mode is set to 0)");

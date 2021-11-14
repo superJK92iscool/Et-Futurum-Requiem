@@ -2,42 +2,23 @@ package ganymedes01.etfuturum.world.generate;
 
 import java.util.Random;
 
+import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.WorldGenerator;
+import net.minecraft.world.gen.feature.WorldGenMinable;
 
-/** Derived from Mojang code, due to all the private variables stopping me from extending the class.
- * Reflections not used for performance.
- * This code is copyright of Mojang, all rights reserved, to them, or however copyright works.
- * Idfk Mojang please don't sue me lmao */
-public class WorldGenMinableNoAir extends WorldGenerator
+public class WorldGenMinableCustom extends WorldGenMinable
 {
-	private Block field_150519_a;
-	/** The number of blocks to generate. */
-	private int numberOfBlocks;
-	private Block field_150518_c;
-	private int mineableBlockMeta;
+	private final boolean shouldAirGen;
 
-	public WorldGenMinableNoAir(Block p_i45459_1_, int p_i45459_2_)
+	public WorldGenMinableCustom(int p_i45459_2_)
 	{
-		this(p_i45459_1_, p_i45459_2_, Blocks.stone);
-	}
-
-	public WorldGenMinableNoAir(Block p_i45460_1_, int p_i45460_2_, Block p_i45460_3_)
-	{
-		this.field_150519_a = p_i45460_1_;
-		this.numberOfBlocks = p_i45460_2_;
-		this.field_150518_c = p_i45460_3_;
-	}
-
-	public WorldGenMinableNoAir(Block block, int meta, int number, Block target)
-	{
-		this(block, number, target);
-		this.mineableBlockMeta = meta;
+		super(ModBlocks.ancient_debris, p_i45459_2_, Blocks.netherrack);
+		shouldAirGen = ConfigWorld.enableAirDebris;
 	}
 
 	@Override
@@ -80,10 +61,9 @@ public class WorldGenMinableNoAir extends WorldGenerator
 						{
 							for (int i3 = k1; i3 <= j2; ++i3)
 							{
-								//double d14 = (i3 + 0.5D - d8) / (d10 / 2.0D); // unused variable
-								if ((!isAdjacentToAir(p_76484_1_, k2, l2, i3) || ConfigWorld.enableAirDebris) && p_76484_1_.getBlock(k2, l2, i3).isReplaceableOreGen(p_76484_1_, k2, l2, i3, field_150518_c))
+								if (canGenerate(p_76484_1_, k2, l2, i3))
 								{
-									p_76484_1_.setBlock(k2, l2, i3, this.field_150519_a, mineableBlockMeta, 2);
+									setBlock(p_76484_1_, k2, l2, i3, ModBlocks.ancient_debris, 0, 2);
 								}
 							}
 						}
@@ -95,13 +75,20 @@ public class WorldGenMinableNoAir extends WorldGenerator
 		return true;
 	}
 	
-	public static boolean isAdjacentToAir(World world, int x, int y, int z) {
-		for(EnumFacing facing : EnumFacing.values()) {
-			if(world.isAirBlock(x + facing.getFrontOffsetX(), y + facing.getFrontOffsetY(), z + facing.getFrontOffsetZ())) {
-				return true;
+	private boolean canGenerate(World world, int x, int y, int z) {
+		if(!world.getBlock(x, y, z).isReplaceableOreGen(world, x, y, z, field_150518_c)) return false;
+		
+		if(shouldAirGen) {
+			for(EnumFacing facing : EnumFacing.values()) {
+				if(world.isAirBlock(x + facing.getFrontOffsetX(), y + facing.getFrontOffsetY(), z + facing.getFrontOffsetZ())) {
+					return false;
+				}
 			}
 		}
-		return false;
-		
+		return true;
+	}
+	
+	private void setBlock(World world, int x, int y, int z, Block block, int meta, int flag) {
+		world.setBlock(x, y, z, block, meta, flag);
 	}
 }

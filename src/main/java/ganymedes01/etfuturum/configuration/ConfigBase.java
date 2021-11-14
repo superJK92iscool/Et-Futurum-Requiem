@@ -5,20 +5,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cpw.mods.fml.client.event.ConfigChangedEvent;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.relauncher.Side;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.blocks.ExternalContent;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
-import ganymedes01.etfuturum.configuration.configs.ConfigEnchantsPotions;
-import ganymedes01.etfuturum.configuration.configs.ConfigEntities;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
-import ganymedes01.etfuturum.configuration.configs.ConfigTweaks;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
-import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.common.config.ConfigCategory;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
@@ -52,6 +49,14 @@ public abstract class ConfigBase extends Configuration {
 		syncConfigOptions();
 		
 		for(ConfigCategory cat : configCats) {
+			if(FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER) {
+				if(cat.getName().contains("client")) {
+					for(Property prop : cat.getOrderedValues()) {
+						cat.remove(prop.getName());
+					}
+				}
+			}
+			
 			if(cat.isEmpty()) {
 				removeCategory(cat);
 			}

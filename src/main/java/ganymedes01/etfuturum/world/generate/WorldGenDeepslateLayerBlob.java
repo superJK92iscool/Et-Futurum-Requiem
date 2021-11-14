@@ -2,18 +2,26 @@ package ganymedes01.etfuturum.world.generate;
 import java.util.Random;
 
 import ganymedes01.etfuturum.ModBlocks;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigTweaks;
+import ganymedes01.etfuturum.core.utils.DeepslateOreRegistry;
+import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.WorldGenerator;
+import net.minecraft.world.gen.feature.WorldGenMinable;
 
-public class WorldGenTuffBlob extends WorldGenerator
+public class WorldGenDeepslateLayerBlob extends WorldGenMinable
 {
 	/** The number of blocks to generate. */
 	private int numberOfBlocks;
-	
-	public WorldGenTuffBlob(int numberOfBlocks) {
+	private boolean tuff;
+
+	public WorldGenDeepslateLayerBlob(int numberOfBlocks, boolean tuff)
+	{
+		super(tuff ? ModBlocks.deepslate : ModBlocks.tuff, numberOfBlocks);
 		this.numberOfBlocks = numberOfBlocks;
+		this.tuff = tuff;
 	}
 	
 	@Override
@@ -27,6 +35,9 @@ public class WorldGenTuffBlob extends WorldGenerator
 		double d4 = p_76484_4_ + p_76484_2_.nextInt(3) - 2;
 		double d5 = p_76484_4_ + p_76484_2_.nextInt(3) - 2;
 
+		BlockAndMetadataMapping mapping;
+		Block block;
+		
 		for (int l = 0; l <= numberOfBlocks; ++l)
 		{
 			double d6 = d0 + (d1 - d0) * l / numberOfBlocks;
@@ -60,8 +71,16 @@ public class WorldGenTuffBlob extends WorldGenerator
 
 								if (d12 * d12 + d13 * d13 + d14 * d14 < 1.0D)
 								{
-									if (world.getBlock(x, y, z).isReplaceableOreGen(world, x, y, z, Blocks.stone)) {
-										world.setBlock(x, y, z, ModBlocks.tuff, 0, 2);
+									block = world.getBlock(x, y, z);
+									
+									if((block.isReplaceableOreGen(world, x, y, z, Blocks.stone))) {
+										world.setBlock(x, y, z, field_150519_a, 0, 2);
+									} else if(!tuff && ConfigTweaks.deepslateReplacesCobblestone && (block.isReplaceableOreGen(world, x, y, z, Blocks.cobblestone))) {
+										world.setBlock(x, y, z, ModBlocks.cobbled_deepslate, 0, 2);
+									} else if(ConfigBlocksItems.enableDeepslateOres && block != Blocks.air) {
+										if((mapping = DeepslateOreRegistry.getOre(block, world.getBlockMetadata(x, y, z))) != null) {
+											world.setBlock(x, y, z, mapping.getBlock(), mapping.getMeta(), 2);
+										}
 									}
 								}
 							}

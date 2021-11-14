@@ -13,7 +13,8 @@ import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.world.end.dimension.EndWorldProvider;
 import ganymedes01.etfuturum.world.generate.OceanMonument;
-import ganymedes01.etfuturum.world.generate.WorldGenMinableNoAir;
+import ganymedes01.etfuturum.world.generate.WorldGenDeepslateLayerBlob;
+import ganymedes01.etfuturum.world.generate.WorldGenMinableCustom;
 import ganymedes01.etfuturum.world.generate.feature.WorldGenFossil;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -21,18 +22,26 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.IChunkProvider;
-import net.minecraft.world.gen.ChunkProviderFlat;
 import net.minecraft.world.gen.feature.WorldGenFlowers;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class EtFuturumWorldGenerator implements IWorldGenerator {
 
-	private final List<WorldGenMinable> stoneGen = new LinkedList<WorldGenMinable>();
-	private final List<WorldGenFlowers> flowers = new LinkedList<WorldGenFlowers>();
+	protected final List<WorldGenMinable> stoneGen = new LinkedList<WorldGenMinable>();
+	protected final List<WorldGenFlowers> flowers = new LinkedList<WorldGenFlowers>();
+	
+	protected final WorldGenMinable copperGen = new WorldGenMinable(ModBlocks.copper_ore, ConfigWorld.maxCopperPerCluster);
+	
+	protected final WorldGenMinable magmaGen = new WorldGenMinable(ModBlocks.magma_block, ConfigWorld.maxMagmaPerCluster, Blocks.netherrack);
+	protected final WorldGenMinable netherGoldGen = new WorldGenMinable(ModBlocks.nether_gold_ore, ConfigWorld.maxNetherGoldPerCluster, Blocks.netherrack);
+	protected final WorldGenMinable debrisGen = new WorldGenMinableCustom(ConfigWorld.debrisMax);
+	protected final WorldGenMinable smallDebrisGen = new WorldGenMinableCustom(ConfigWorld.smallDebrisMax);
+	
+	protected final WorldGenerator deepslateBlobGen = new WorldGenDeepslateLayerBlob(ConfigWorld.maxDeepslatePerCluster, false);
+	protected final WorldGenerator tuffGen = new WorldGenDeepslateLayerBlob(ConfigWorld.maxDeepslatePerCluster, true);
 
 	public EtFuturumWorldGenerator() {
 		stoneGen.add(new WorldGenMinable(ModBlocks.stone, 1, ConfigWorld.maxStonesPerCluster, Blocks.stone));
@@ -62,7 +71,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 			}
 			
 			if(ConfigBlocksItems.enableCopper) {
-				this.generateOre(ModBlocks.copper_ore, 0, world, rand, chunkX, chunkZ, 1, ConfigWorld.maxCopperPerCluster, 20, 4, 63, Blocks.stone);
+				this.generateOre(copperGen, world, rand, chunkX, chunkZ, 20, 4, 63);
 			}
 			
 			{
@@ -114,18 +123,20 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 		}
 		
 		if(world.provider.dimensionId == -1) {
-			if(ConfigBlocksItems.enableMagmaBlock)
-				this.generateOre(ModBlocks.magma_block, 0, world, rand, chunkX, chunkZ, 1, ConfigWorld.maxMagmaPerCluster, 4, 23, 37, Blocks.netherrack);
+			if(ConfigBlocksItems.enableMagmaBlock) {
+				this.generateOre(magmaGen, world, rand, chunkX, chunkZ, 4, 23, 37);
+			}
 
 //          if(ConfigurationHandler.enableBlackstone)
 //              this.generateOre(ModBlocks.blackstone, 0, world, rand, chunkX, chunkZ, 1, ConfigurationHandler.maxBlackstonePerCluster, 2, 5, 28, Blocks.netherrack);
 			
-			if(ConfigBlocksItems.enableNetherGold)
-				this.generateOre(ModBlocks.nether_gold_ore, 0, world, rand, chunkX, chunkZ, 1, ConfigWorld.maxNetherGoldPerCluster, 10, 10, 117, Blocks.netherrack);
+			if(ConfigBlocksItems.enableNetherGold) {
+				this.generateOre(netherGoldGen, world, rand, chunkX, chunkZ, 10, 10, 117);
+			}
 
 			if(ConfigBlocksItems.enableNetherite) {
-				this.generateOre(ModBlocks.ancient_debris, 0, world, rand, chunkX, chunkZ, 1, ConfigWorld.smallDebrisMax, 2, 8, 119, Blocks.netherrack);
-				this.generateOre(ModBlocks.ancient_debris, 0, world, rand, chunkX, chunkZ, 1, ConfigWorld.debrisMax, 3, 8, 22, Blocks.netherrack);
+				this.generateOre(debrisGen, world, rand, chunkX, chunkZ, 3, 8, 22);
+				this.generateOre(smallDebrisGen, world, rand, chunkX, chunkZ, 2, 8, 119);
 			}
 		}
 
@@ -146,41 +157,46 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 			int x = chunkX * 16 + rand.nextInt(16);
 			int y = 256;
 			int z = chunkZ * 16 + rand.nextInt(16);
-			for (; y > 0; y--)
-				if (!world.getBlock(x, y, z).isAir(world, x, y, z))
-					break;
-			if (y > 0 && BlockChorusFlower.canPlantStay(world, x, y + 1, z))
-				BlockChorusFlower.generatePlant(world, x, y + 1, z, rand, 8);
+			for (; y > 0; y--) {
+				if (!world.getBlock(x, y, z).isAir(world, x, y, z)) {
+					if (y > 0 && BlockChorusFlower.canPlantStay(world, x, y + 1, z)) {
+						BlockChorusFlower.generatePlant(world, x, y + 1, z, rand, 8);
+						break;
+					}
+				}
+			}
+		}
+	}
+	public void generateSingleOre(Block block, int meta, World world, Random random, int chunkX, int chunkZ, float chance, int minY, int maxY, Block generateIn) {
+		if(chance <= 0)
+			return;
+		
+		for(int i = 0; i < (chance < 1 ? 1 : chance); i++) {
+			if(chance > 1 || random.nextFloat() < chance) {
+				int heightRange = maxY - minY;
+				int xRand = chunkX * 16 + random.nextInt(16);
+				int yRand = random.nextInt(heightRange) + minY;
+				int zRand = chunkZ * 16 + random.nextInt(16);
+				if(world.getBlock(xRand, yRand, zRand).isReplaceableOreGen(world, xRand, yRand, zRand, generateIn))
+					world.setBlock(xRand, yRand, zRand, block, meta, 3);
+			}
 		}
 	}
 	
-	public void generateOre(Block block, int meta, World world, Random random, int chunkX, int chunkZ, int minVeinSize, int maxVeinSize, float chance, int minY, int maxY, Block generateIn) {
-		if(maxVeinSize <= 0)
+	public void generateOre(WorldGenMinable gen, World world, Random random, int chunkX, int chunkZ, float chance, int minY, int maxY) {
+		if(gen.numberOfBlocks <= 0 || chance <= 0)
 			return;
 		
-		if(maxVeinSize == 1) {
-			int heightRange = maxY - minY;
-			int xRand = chunkX * 16 + random.nextInt(16);
-			int yRand = random.nextInt(heightRange) + minY;
-			int zRand = chunkZ * 16 + random.nextInt(16);
-			if(world.getBlock(xRand, yRand, zRand).isReplaceableOreGen(world, xRand, yRand, zRand, generateIn))
-				world.setBlock(xRand, yRand, zRand, block, meta, 3);
-			return;
-		}
-		
-		int veinSize = minVeinSize + random.nextInt(maxVeinSize - minVeinSize);
 		int heightRange = maxY - minY;
-			WorldGenerator gen;
-			if(block == ModBlocks.ancient_debris)
-				gen = new WorldGenMinableNoAir(block, meta, veinSize, generateIn);
-			else
-				gen = new WorldGenMinable(block, meta, veinSize, generateIn);
-			for(int i = 0; i < chance; i++) {
+		
+		for(int i = 0; i < (chance < 1 ? 1 : (int)chance); i++) {
+			if(chance >= 1 || random.nextFloat() < chance) {
 				int xRand = chunkX * 16 + random.nextInt(16);
 				int yRand = random.nextInt(heightRange) + minY;
 				int zRand = chunkZ * 16 + random.nextInt(16);
 				
 				gen.generate(world, random, xRand, yRand, zRand);
+			}
 		}
 	}
 }

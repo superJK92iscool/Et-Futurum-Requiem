@@ -2,25 +2,13 @@ package ganymedes01.etfuturum.world;
 
 import java.util.Random;
 
-import org.apache.commons.lang3.ArrayUtils;
-
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.blocks.BlockNewStone;
-import ganymedes01.etfuturum.blocks.BlockTuff;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
-import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
-import ganymedes01.etfuturum.configuration.configs.ConfigTweaks;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
-import ganymedes01.etfuturum.core.utils.DeepslateOreRegistry;
-import ganymedes01.etfuturum.world.generate.BlockAndMetadataMapping;
-import ganymedes01.etfuturum.world.generate.WorldGenDeepslateBlob;
-import ganymedes01.etfuturum.world.generate.WorldGenTuffBlob;
-import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.chunk.IChunkProvider;
-import net.minecraft.world.gen.ChunkProviderFlat;
 
 public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 
@@ -40,15 +28,15 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 		}
 		
 		if(world.getWorldInfo().getTerrainType() != WorldType.FLAT || world.provider.dimensionId != 0 || world.getWorldInfo().getGeneratorOptions().contains("decoration")) {
-			if(world.getWorldInfo().getTerrainType() != WorldType.FLAT && ConfigBlocksItems.enableDeepslate && ConfigWorld.deepslateGenerationMode == 1 && world.provider.dimensionId != -1 && world.provider.dimensionId != 1) {
+			if(ConfigBlocksItems.enableDeepslate && ConfigWorld.deepslateGenerationMode == 1 && world.provider.dimensionId != -1 && world.provider.dimensionId != 1) {
 				int x = chunkX * 16 + rand.nextInt(16);
 				int z = chunkZ * 16 + rand.nextInt(16);
-				new WorldGenDeepslateBlob(ConfigWorld.maxDeepslatePerCluster).generate(world, rand, x, rand.nextInt(ConfigWorld.deepslateMaxY), z);
+				deepslateBlobGen.generate(world, rand, x, rand.nextInt(ConfigWorld.deepslateMaxY), z);
 			}
 			if(ConfigBlocksItems.enableTuff && world.provider.dimensionId != -1 && world.provider.dimensionId != 1) {
 				int x = chunkX * 16 + rand.nextInt(16);
 				int z = chunkZ * 16 + rand.nextInt(16);
-				new WorldGenTuffBlob(ConfigWorld.maxTuffPerCluster).generate(world, rand, x, rand.nextInt(ConfigWorld.deepslateMaxY), z);
+				tuffGen.generate(world, rand, x, rand.nextInt(ConfigWorld.deepslateMaxY), z);
 			}
 		}
 	}
