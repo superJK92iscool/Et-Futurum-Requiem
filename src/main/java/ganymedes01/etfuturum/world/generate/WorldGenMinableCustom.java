@@ -78,7 +78,7 @@ public class WorldGenMinableCustom extends WorldGenMinable
 	private boolean canGenerate(World world, int x, int y, int z) {
 		if(!world.getBlock(x, y, z).isReplaceableOreGen(world, x, y, z, field_150518_c)) return false;
 		
-		if(shouldAirGen) {
+		if(!shouldAirGen) {
 			for(EnumFacing facing : EnumFacing.values()) {
 				if(world.isAirBlock(x + facing.getFrontOffsetX(), y + facing.getFrontOffsetY(), z + facing.getFrontOffsetZ())) {
 					return false;

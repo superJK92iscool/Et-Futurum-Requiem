@@ -4,6 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.net.SocketException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
@@ -18,6 +19,7 @@ import net.minecraft.entity.player.EntityPlayer;
 public class ThreadCheckAlex extends Thread {
 	
 	UUID uuid;
+	private boolean connectFailedWarning;
 	
 	public void startWithArgs(UUID uuid) {
 		this.uuid = uuid;
@@ -40,8 +42,14 @@ public class ThreadCheckAlex extends Thread {
 						  JsonObject.class);
 				  isAlex = props.getAsJsonObject("textures").getAsJsonObject("SKIN").getAsJsonObject("metadata").get("model").getAsString().equals("slim");
 			  }
+
+			  PlayerModelManager.alexCache.put(uuid, isAlex);
 		} catch (Exception e) {
-			e.printStackTrace();
+			if(!connectFailedWarning && e instanceof SocketException) {
+				System.out.println("Failed to connect to the Mojang API while checking if a skin was alex! Are you connected to the internet? Is something blocking the connection to it?");
+				e.printStackTrace();
+				connectFailedWarning = true;
+			}
 		}
 		
 		PlayerModelManager.alexCache.put(uuid, isAlex);

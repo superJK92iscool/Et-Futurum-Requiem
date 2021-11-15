@@ -29,14 +29,10 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 		
 		if(world.getWorldInfo().getTerrainType() != WorldType.FLAT || world.provider.dimensionId != 0 || world.getWorldInfo().getGeneratorOptions().contains("decoration")) {
 			if(ConfigBlocksItems.enableDeepslate && ConfigWorld.deepslateGenerationMode == 1 && world.provider.dimensionId != -1 && world.provider.dimensionId != 1) {
-				int x = chunkX * 16 + rand.nextInt(16);
-				int z = chunkZ * 16 + rand.nextInt(16);
-				deepslateBlobGen.generate(world, rand, x, rand.nextInt(ConfigWorld.deepslateMaxY), z);
+				generateOre(deepslateBlobGen, world, rand, chunkX, chunkZ, 1, 6, ConfigWorld.deepslateMaxY);
 			}
 			if(ConfigBlocksItems.enableTuff && world.provider.dimensionId != -1 && world.provider.dimensionId != 1) {
-				int x = chunkX * 16 + rand.nextInt(16);
-				int z = chunkZ * 16 + rand.nextInt(16);
-				tuffGen.generate(world, rand, x, rand.nextInt(ConfigWorld.deepslateMaxY), z);
+				generateOre(tuffGen, world, rand, chunkX, chunkZ, 1, 6, ConfigWorld.deepslateMaxY);
 			}
 		}
 	}

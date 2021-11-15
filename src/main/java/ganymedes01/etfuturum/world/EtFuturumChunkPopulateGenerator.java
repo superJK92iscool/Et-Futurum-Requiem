@@ -3,7 +3,6 @@ package ganymedes01.etfuturum.world;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Map;
 
 import org.apache.commons.lang3.ArrayUtils;
@@ -18,11 +17,12 @@ import ganymedes01.etfuturum.core.utils.DeepslateOreRegistry;
 import ganymedes01.etfuturum.entities.ai.BlockPos;
 import ganymedes01.etfuturum.world.generate.BlockAndMetadataMapping;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockLiquid;
+import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
-import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 
 public class EtFuturumChunkPopulateGenerator {
 	
@@ -47,10 +47,6 @@ public class EtFuturumChunkPopulateGenerator {
 							worldZ = z + chunkMultiplier;
 							
 							this.replaceBlockInChunk(chunk, block, x, z, worldX, y, worldZ);
-
-//							if(block.isOpaqueCube()) { Debug code, used to confirm that it really was bordering chunks and not just stupid code
-//								chunk.func_150807_a(x, y, z, ModBlocks.deepslate, 0);
-//							}
 						}
 					}
 				}
@@ -62,15 +58,18 @@ public class EtFuturumChunkPopulateGenerator {
 	}
 	
 	private void replaceBlockInChunk(Chunk chunk, Block block, int x, int z, int worldX, int worldY, int worldZ) {
-		if(block.isReplaceableOreGen(chunk.worldObj, worldX , worldY, worldZ, Blocks.stone)
-				|| (ConfigWorld.deepslateReplacesDirt && block == Blocks.dirt)) {
-			chunk.func_150807_a(x, worldY, z, ModBlocks.deepslate, 0);
-		} else if(ConfigTweaks.deepslateReplacesCobblestone && block.isReplaceableOreGen(chunk.worldObj, x, worldY, z, Blocks.cobblestone)) {
-			chunk.func_150807_a(x, worldY, z, ModBlocks.cobbled_deepslate, 0);
-		} else if(block != Blocks.air && !DeepslateOreRegistry.getOreMap().isEmpty()) {
-			BlockAndMetadataMapping mapping;
-			if((mapping = DeepslateOreRegistry.getOre(block, chunk.getBlockMetadata(x, worldY, z))) != null) {
-				chunk.func_150807_a(x, worldY, z, mapping.getBlock(), mapping.getMeta());
+		if(block.getMaterial() != Material.air || block != ModBlocks.deepslate || block != ModBlocks.tuff || block != ModBlocks.cobbled_deepslate) {
+			if((!ConfigWorld.deepslateReplacesStones && block != ModBlocks.stone) ||
+					block.isReplaceableOreGen(chunk.worldObj, worldX, worldY, worldZ, Blocks.stone)
+					|| (ConfigWorld.deepslateReplacesDirt && block == Blocks.dirt)) {
+				chunk.func_150807_a(x, worldY, z, ModBlocks.deepslate, 0);
+			} else if(ConfigTweaks.deepslateReplacesCobblestone && block.isReplaceableOreGen(chunk.worldObj, worldX, worldY, worldZ, Blocks.cobblestone)) {
+				chunk.func_150807_a(x, worldY, z, ModBlocks.cobbled_deepslate, 0);
+			} else if(!DeepslateOreRegistry.getOreMap().isEmpty()) {
+				BlockAndMetadataMapping mapping;
+				if((mapping = DeepslateOreRegistry.getOre(block, chunk.getBlockMetadata(x, worldY, z))) != null) {
+					chunk.func_150807_a(x, worldY, z, mapping.getBlock(), mapping.getMeta());
+				}
 			}
 		}
 	}
@@ -79,9 +78,7 @@ public class EtFuturumChunkPopulateGenerator {
 	public boolean stopRecording;
 	
 	public void clearRedos() {
-		for(Integer key : redos.keySet()) {
-			getRedoList(key).clear();
-		}
+		redos.clear();
 	}
 	
 	public List<BlockPos> getRedoList(int dim) {
@@ -104,8 +101,9 @@ public class EtFuturumChunkPopulateGenerator {
 	
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public void populatedChunk(DecorateBiomeEvent.Post event) {
+		//Because the variables are misnamed and these are world coords, not chunk coords...
 		if(doesChunkSupportDeepslate(event.world.getWorldInfo().getTerrainType(), event.world.provider.dimensionId)) {
-			Chunk chunk = event.world.getChunkFromChunkCoords(event.chunkX >> 4, event.chunkZ >> 4);
+			Chunk chunk = event.world.getChunkFromBlockCoords(event.chunkX, event.chunkZ);
 			doDeepslateGen(chunk);
 			final List<BlockPos> redo = getRedoList(event.world.provider.dimensionId);
 			if(!redo.isEmpty()) {
@@ -117,7 +115,7 @@ public class EtFuturumChunkPopulateGenerator {
 					BlockPos pos = redo.get(i);
 					int chunkX = pos.getX() >> 4;
 					int chunkZ = pos.getZ() >> 4;
-					if((newChunk == null || newChunk.xPosition != chunkX >> 4 || newChunk.zPosition != chunkZ >> 4)) {
+					if(newChunk == null || newChunk.xPosition != chunkX || newChunk.zPosition != chunkZ) {
 						newChunk = event.world.getChunkFromChunkCoords(chunkX, chunkZ);
 					}
 					this.replaceBlockInChunk(newChunk, pos.getX() & 15, pos.getZ() & 15, pos.getX(), pos.getY(), pos.getZ());

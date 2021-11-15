@@ -75,8 +75,10 @@ public class BlockDeepslate extends BlockRotatedPillar implements IConfigurable 
 		return flag;
 	}
 	
+	private static List<BlockPos> tempcache = new ArrayList<BlockPos>();
+	
 	public static void doDeepslateRedoCheck(World world, int x, int y, int z) {
-		if(!EtFuturumChunkPopulateGenerator.INSTANCE.stopRecording && world.getChunkFromBlockCoords(x, z).lastSaveTime == 0) {
+		if(!EtFuturumChunkPopulateGenerator.INSTANCE.stopRecording && world.checkChunksExist(x, 0, z, x, 0, z) && world.getChunkFromBlockCoords(x, z).lastSaveTime == 0) {
 			BlockPos pos = new BlockPos(x, y, z);
 			List<BlockPos> redo = EtFuturumChunkPopulateGenerator.INSTANCE.getRedoList(world.provider.dimensionId);
 			if(!redo.contains(pos)) {

@@ -40,8 +40,8 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 	protected final WorldGenMinable debrisGen = new WorldGenMinableCustom(ConfigWorld.debrisMax);
 	protected final WorldGenMinable smallDebrisGen = new WorldGenMinableCustom(ConfigWorld.smallDebrisMax);
 	
-	protected final WorldGenerator deepslateBlobGen = new WorldGenDeepslateLayerBlob(ConfigWorld.maxDeepslatePerCluster, false);
-	protected final WorldGenerator tuffGen = new WorldGenDeepslateLayerBlob(ConfigWorld.maxDeepslatePerCluster, true);
+	protected final WorldGenMinable deepslateBlobGen = new WorldGenDeepslateLayerBlob(ConfigWorld.maxDeepslatePerCluster, false);
+	protected final WorldGenMinable tuffGen = new WorldGenDeepslateLayerBlob(ConfigWorld.maxDeepslatePerCluster, true);
 
 	public EtFuturumWorldGenerator() {
 		stoneGen.add(new WorldGenMinable(ModBlocks.stone, 1, ConfigWorld.maxStonesPerCluster, Blocks.stone));
@@ -71,7 +71,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 			}
 			
 			if(ConfigBlocksItems.enableCopper) {
-				this.generateOre(copperGen, world, rand, chunkX, chunkZ, 20, 4, 63);
+				this.generateOre(copperGen, world, rand, chunkX, chunkZ, 8, 4, 80);
 			}
 			
 			{
@@ -184,7 +184,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 	}
 	
 	public void generateOre(WorldGenMinable gen, World world, Random random, int chunkX, int chunkZ, float chance, int minY, int maxY) {
-		if(gen.numberOfBlocks <= 0 || chance <= 0)
+		if(maxY <= 0 || minY < 0 || maxY < minY || gen.numberOfBlocks <= 0 || chance <= 0)
 			return;
 		
 		int heightRange = maxY - minY;
