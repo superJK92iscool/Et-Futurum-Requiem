@@ -157,7 +157,7 @@ public class EtFuturum {
 		networkWrapper.registerMessage(WoodSignOpenHandler.class, WoodSignOpenMessage.class, 3, Side.CLIENT);   
 		{
 			if (Loader.isModLoaded("netherlicious")) {
-				File file = new File(event.getModConfigurationDirectory() + "/netherlicious/Biome_Sound_Configuration.cfg");
+				File file = new File(event.getModConfigurationDirectory() + "/Netherlicious/Biome_Sound_Configuration.cfg");
 				if(file.exists()) {
 					Configuration netherliciousSoundConfig = new Configuration(file);
 					netherAmbienceNetherlicious = netherliciousSoundConfig.get("1 nether ambience", "Allow Biome specific sounds to play", true).getBoolean();
