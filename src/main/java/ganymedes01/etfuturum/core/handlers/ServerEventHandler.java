@@ -47,7 +47,7 @@ import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.network.BlackHeartParticlesMessage;
 import ganymedes01.etfuturum.recipes.ModRecipes;
 import ganymedes01.etfuturum.tileentities.TileEntityGateway;
-import ganymedes01.etfuturum.world.EtFuturumChunkPopulateGenerator;
+import ganymedes01.etfuturum.world.EtFuturumLateWorldGenerator;
 import ganymedes01.etfuturum.world.generate.BlockAndMetadataMapping;
 import ganymedes01.etfuturum.world.generate.RawOreDropMapping;
 import net.minecraft.block.Block;
@@ -1121,11 +1121,6 @@ public class ServerEventHandler {
 			event.drops.clear();
 			event.drops.add(new ItemStack(ModBlocks.smooth_stone, 1));
 		}
-	}
-	
-	@SubscribeEvent
-	public void onUnload(WorldEvent.Unload event) {
-		EtFuturumChunkPopulateGenerator.INSTANCE.clearRedos();
 	}
 	
 	// UNUSED FUNCTIONS

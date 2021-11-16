@@ -4,6 +4,7 @@ import java.util.Random;
 
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
+import ganymedes01.etfuturum.world.EtFuturumLateWorldGenerator;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
@@ -14,12 +15,25 @@ import net.minecraft.world.gen.feature.WorldGenMinable;
 public class WorldGenMinableCustom extends WorldGenMinable
 {
 	private final boolean shouldAirGen;
+	private final int meta;
 
-	public WorldGenMinableCustom(int p_i45459_2_)
-	{
-		super(ModBlocks.ancient_debris, p_i45459_2_, Blocks.netherrack);
-		shouldAirGen = ConfigWorld.enableAirDebris;
-	}
+    public WorldGenMinableCustom(Block p_i45459_1_, int p_i45459_2_)
+    {
+        this(p_i45459_1_, p_i45459_2_, Blocks.stone);
+    }
+
+    public WorldGenMinableCustom(Block p_i45460_1_, int p_i45460_2_, Block p_i45460_3_)
+    {
+    	this(p_i45460_1_, 0, p_i45460_2_, p_i45460_3_);
+    }
+
+    public WorldGenMinableCustom(Block block, int meta, int number, Block target)
+    {
+        super(block, meta, number, target);
+        this.meta = meta;
+        
+        shouldAirGen = block == ModBlocks.ancient_debris && ConfigWorld.enableAirDebris;
+    }
 
 	@Override
 	public boolean generate(World p_76484_1_, Random p_76484_2_, int p_76484_3_, int p_76484_4_, int p_76484_5_)
@@ -63,7 +77,7 @@ public class WorldGenMinableCustom extends WorldGenMinable
 							{
 								if (canGenerate(p_76484_1_, k2, l2, i3))
 								{
-									setBlock(p_76484_1_, k2, l2, i3, ModBlocks.ancient_debris, 0, 2);
+									setBlock(p_76484_1_, k2, l2, i3, field_150519_a, meta, 2);
 								}
 							}
 						}
@@ -76,7 +90,9 @@ public class WorldGenMinableCustom extends WorldGenMinable
 	}
 	
 	private boolean canGenerate(World world, int x, int y, int z) {
-		if(!world.getBlock(x, y, z).isReplaceableOreGen(world, x, y, z, field_150518_c)) return false;
+		Block block = world.getBlock(x, y, z);
+		
+		if(!block.isReplaceableOreGen(world, x, y, z, field_150518_c)) return false;
 		
 		if(!shouldAirGen) {
 			for(EnumFacing facing : EnumFacing.values()) {

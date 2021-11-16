@@ -307,6 +307,10 @@ public class EtFuturum {
 				return ModSounds.soundNetherOre;
 			}
 			
+			else if(namespace.contains("deepslate")) {
+				return namespace.contains("brick") ? ModSounds.soundDeepslateBricks : ModSounds.soundDeepslate;
+			}
+			
 			else if(block instanceof BlockNetherWart || (namespace.contains("nether") && namespace.contains("wart"))) {
 				return ModSounds.soundCropWarts;
 			}

@@ -8,7 +8,6 @@ import cpw.mods.fml.common.network.IGuiHandler;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.EtFuturumMixinPlugin;
 import ganymedes01.etfuturum.client.gui.inventory.GuiAnvil;
 import ganymedes01.etfuturum.client.gui.inventory.GuiBlastFurnace;
 import ganymedes01.etfuturum.client.gui.inventory.GuiEnchantment;
@@ -18,7 +17,6 @@ import ganymedes01.etfuturum.client.gui.inventory.GuiSmoker;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigEntities;
 import ganymedes01.etfuturum.configuration.configs.ConfigTweaks;
-import ganymedes01.etfuturum.core.handlers.ClientEventHandler;
 import ganymedes01.etfuturum.core.handlers.ServerEventHandler;
 import ganymedes01.etfuturum.core.handlers.WorldEventHandler;
 import ganymedes01.etfuturum.core.utils.Utils;
@@ -57,7 +55,6 @@ import ganymedes01.etfuturum.tileentities.TileEntityNewBrewingStand;
 import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox;
 import ganymedes01.etfuturum.tileentities.TileEntitySmoker;
 import ganymedes01.etfuturum.tileentities.TileEntityWoodSign;
-import ganymedes01.etfuturum.world.EtFuturumChunkPopulateGenerator;
 import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.monster.EntityEnderman;
@@ -82,9 +79,6 @@ public class CommonProxy implements IGuiHandler {
 		MinecraftForge.EVENT_BUS.register(ServerEventHandler.INSTANCE);
 		
 		FMLCommonHandler.instance().bus().register(WorldEventHandler.INSTANCE);
-		
-		MinecraftForge.ORE_GEN_BUS.register(EtFuturumChunkPopulateGenerator.INSTANCE);
-		MinecraftForge.EVENT_BUS.register(EtFuturumChunkPopulateGenerator.INSTANCE);
 	}
 
 	public void registerEntities() {

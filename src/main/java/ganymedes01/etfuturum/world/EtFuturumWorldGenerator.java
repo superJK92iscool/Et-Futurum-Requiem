@@ -37,16 +37,16 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 	
 	protected final WorldGenMinable magmaGen = new WorldGenMinable(ModBlocks.magma_block, ConfigWorld.maxMagmaPerCluster, Blocks.netherrack);
 	protected final WorldGenMinable netherGoldGen = new WorldGenMinable(ModBlocks.nether_gold_ore, ConfigWorld.maxNetherGoldPerCluster, Blocks.netherrack);
-	protected final WorldGenMinable debrisGen = new WorldGenMinableCustom(ConfigWorld.debrisMax);
-	protected final WorldGenMinable smallDebrisGen = new WorldGenMinableCustom(ConfigWorld.smallDebrisMax);
+	protected final WorldGenMinable debrisGen = new WorldGenMinableCustom(ModBlocks.ancient_debris, ConfigWorld.debrisMax, Blocks.netherrack);
+	protected final WorldGenMinable smallDebrisGen = new WorldGenMinableCustom(ModBlocks.ancient_debris, ConfigWorld.smallDebrisMax, Blocks.netherrack);
 	
 	protected final WorldGenMinable deepslateBlobGen = new WorldGenDeepslateLayerBlob(ConfigWorld.maxDeepslatePerCluster, false);
 	protected final WorldGenMinable tuffGen = new WorldGenDeepslateLayerBlob(ConfigWorld.maxDeepslatePerCluster, true);
 
 	public EtFuturumWorldGenerator() {
-		stoneGen.add(new WorldGenMinable(ModBlocks.stone, 1, ConfigWorld.maxStonesPerCluster, Blocks.stone));
-		stoneGen.add(new WorldGenMinable(ModBlocks.stone, 3, ConfigWorld.maxStonesPerCluster, Blocks.stone));
-		stoneGen.add(new WorldGenMinable(ModBlocks.stone, 5, ConfigWorld.maxStonesPerCluster, Blocks.stone));
+		stoneGen.add(new WorldGenMinableCustom(ModBlocks.stone, 1, ConfigWorld.maxStonesPerCluster, Blocks.stone));
+		stoneGen.add(new WorldGenMinableCustom(ModBlocks.stone, 3, ConfigWorld.maxStonesPerCluster, Blocks.stone));
+		stoneGen.add(new WorldGenMinableCustom(ModBlocks.stone, 5, ConfigWorld.maxStonesPerCluster, Blocks.stone));
 		flowers.add(new WorldGenFlowers(ModBlocks.lily_of_the_valley));
 		flowers.add(new WorldGenFlowers(ModBlocks.cornflower));
 		flowers.add(new WorldGenFlowers(ModBlocks.sweet_berry_bush));
