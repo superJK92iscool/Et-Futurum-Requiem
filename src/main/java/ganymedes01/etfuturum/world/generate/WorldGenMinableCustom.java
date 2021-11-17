@@ -1,10 +1,12 @@
 package ganymedes01.etfuturum.world.generate;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
-import ganymedes01.etfuturum.world.EtFuturumLateWorldGenerator;
+import ganymedes01.etfuturum.entities.ai.BlockPos;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
@@ -25,7 +27,7 @@ public class WorldGenMinableCustom extends WorldGenMinable
 	private final boolean hardAmountCap;
 	private final int meta;
 	
-	private int places;
+	private int places = 0;
 
     public WorldGenMinableCustom(Block p_i45459_1_, int p_i45459_2_)
     {
@@ -89,7 +91,8 @@ public class WorldGenMinableCustom extends WorldGenMinable
 							{
 								if (canGenerate(p_76484_1_, k2, l2, i3))
 								{
-									if(places++ > numberOfBlocks) {
+									if(hardAmountCap && places++ >= numberOfBlocks) {
+										places = 0;
 										return true;
 									}
 									setBlock(p_76484_1_, k2, l2, i3, field_150519_a, meta, 2);
@@ -100,7 +103,6 @@ public class WorldGenMinableCustom extends WorldGenMinable
 				}
 			}
 		}
-
 		return true;
 	}
 	

@@ -30,12 +30,7 @@ public class StrippedLogRegistry {
 	}
 	
 	private static void addLog(BlockAndMetadataMapping from, BlockAndMetadataMapping to) {
-		if(Loader.instance().getLoaderState() != LoaderState.AVAILABLE) {
-			strippedLogs.put(from, to);
-		} else {
-			System.err.println("Mod " + Loader.instance().activeModContainer() + " tried to add a stripped log after the game loaded!" + " "
-					+ "This is an error with using the Et Futurum API incorrectly, report it to them!");
-		}
+		strippedLogs.put(from, to);
 	}
 	
 	/**

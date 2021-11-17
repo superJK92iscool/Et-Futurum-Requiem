@@ -53,12 +53,7 @@ public class RawOreRegistry {
 	}
 	
 	private static void addOre(String oreDict, RawOreDropMapping map) {
-		if(Loader.instance().getLoaderState() != LoaderState.AVAILABLE) {
-			rawOreRegistry.put(oreDict, map);
-		} else {
-			System.err.println("Mod " + Loader.instance().activeModContainer() + " tried to add a raw ore drop after the game loaded!" + " "
-					+ "This is an error with using the Et Futurum API incorrectly, report it to them!");
-		}
+		rawOreRegistry.put(oreDict, map);
 	}
 	
 	/**

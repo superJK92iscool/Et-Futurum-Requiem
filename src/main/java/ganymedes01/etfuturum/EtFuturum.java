@@ -209,6 +209,7 @@ public class EtFuturum {
 		for(BiomeGenBase biome : BiomeGenBase.getBiomeGenArray()) {
 			if(biome == null)
 				continue;
+			//TODO: Change to bone meal event because the description of addFlower is a literal lie, as it affects worldgen too!
 			Type[] biomeList = BiomeDictionary.getTypesForBiome(biome);
 				if(biome.biomeID == 132 || (ArrayUtils.contains(biomeList, Type.PLAINS) && !ArrayUtils.contains(biomeList, Type.SNOWY) && !ArrayUtils.contains(biomeList, Type.SAVANNA)))
 					biome.addFlower(ModBlocks.cornflower, 0, 12);
@@ -243,9 +244,9 @@ public class EtFuturum {
 	public void onLoadComplete(FMLLoadCompleteEvent e){
 		DeepslateOreRegistry.init();
 		StrippedLogRegistry.init();
+		RawOreRegistry.init();
 		SmokerRecipes.init();
 		BlastFurnaceRecipes.init();
-		RawOreRegistry.init();
 		ConfigBase.postInit();
 		
 		

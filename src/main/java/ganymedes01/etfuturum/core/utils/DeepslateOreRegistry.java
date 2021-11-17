@@ -62,14 +62,9 @@ public class DeepslateOreRegistry {
 	 * @param toMeta The meta deepslate changes it to.
 	 */
 	public static void addOre(Block from, int fromMeta, Block to, int toMeta) {
-		if(Loader.instance().getLoaderState() != LoaderState.AVAILABLE) {
-			BlockAndMetadataMapping inputMapping = new BlockAndMetadataMapping(from, fromMeta);
-			deepslateOres.put(inputMapping.hashCode(), new BlockAndMetadataMapping(to, toMeta));
-			inputOres.put(inputMapping.hashCode(), inputMapping);
-		} else {
-			System.err.println("Mod " + Loader.instance().activeModContainer() + " tried to add a deepslate ore after the game loaded!" + " "
-					+ "This is an error with using the Et Futurum API incorrectly, report it to them!");
-		}
+		BlockAndMetadataMapping inputMapping = new BlockAndMetadataMapping(from, fromMeta);
+		deepslateOres.put(inputMapping.hashCode(), new BlockAndMetadataMapping(to, toMeta));
+		inputOres.put(inputMapping.hashCode(), inputMapping);
 	}
 	
 	/**
