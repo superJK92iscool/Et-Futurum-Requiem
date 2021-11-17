@@ -39,6 +39,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 	protected final WorldGenMinable netherGoldGen = new WorldGenMinable(ModBlocks.nether_gold_ore, ConfigWorld.maxNetherGoldPerCluster, Blocks.netherrack);
 	protected final WorldGenMinable debrisGen = new WorldGenMinableCustom(ModBlocks.ancient_debris, ConfigWorld.debrisMax, Blocks.netherrack);
 	protected final WorldGenMinable smallDebrisGen = new WorldGenMinableCustom(ModBlocks.ancient_debris, ConfigWorld.smallDebrisMax, Blocks.netherrack);
+	protected final WorldGenMinable mesaGoldGen = new WorldGenMinable(Blocks.gold_ore, 8);
 	
 	protected final WorldGenMinable deepslateBlobGen = new WorldGenDeepslateLayerBlob(ConfigWorld.maxDeepslatePerCluster, false);
 	protected final WorldGenMinable tuffGen = new WorldGenDeepslateLayerBlob(ConfigWorld.maxDeepslatePerCluster, true);
@@ -71,7 +72,13 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 			}
 			
 			if(ConfigBlocksItems.enableCopper) {
-				this.generateOre(copperGen, world, rand, chunkX, chunkZ, 8, 4, 80);
+				generateOre(copperGen, world, rand, chunkX, chunkZ, 8, 4, 80);
+			}
+			
+			if(ConfigWorld.enableExtraMesaGold) {
+				if(ArrayUtils.contains(BiomeDictionary.getTypesForBiome(world.getBiomeGenForCoords(chunkX * 16, chunkZ * 16)), Type.MESA)) {
+					generateOre(mesaGoldGen, world, rand, chunkX, chunkZ, 20, 32, 80);
+				}
 			}
 			
 			{

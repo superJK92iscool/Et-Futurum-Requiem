@@ -41,6 +41,7 @@ public class ConfigWorld extends ConfigBase {
 	public static int smallDebrisMax = 2;
 	public static boolean enableOceanMonuments;
 	public static int[] deepslateLayerDimensionBlacklist;
+	public static boolean enableExtraMesaGold;
 
 	public static final String catClient = "client";
 	public static final String catGeneration = "generation";
@@ -92,6 +93,7 @@ public class ConfigWorld extends ConfigBase {
 		deepslateBlacklistProp.comment = "The dimensions the deepslate layer (deepslate generation mode 0) should not spawn in. Does nothing if other deepslate generation modes are used.";
 		deepslateLayerDimensionBlacklist = deepslateBlacklistProp.getIntList();
 		maxTuffPerCluster = cfg.getInt("tuffClusterSize", catGeneration, 48, 0, 64, "Max vein size for tuff blocks in a cluster");
+		enableExtraMesaGold = cfg.getBoolean("enableExtraMesaGold", catGeneration, true, "Generate 20 more veins of gold ore from Y 32 to Y 80.");
 		
 		fullGrassPath = cfg.getBoolean("fullGrassPath", catMisc, false, "Set to true if you're having issues with stepping over grass paths. Temporary option until fixes are implemented to 1.7's stepping system.");
 		tileReplacementMode = cfg.getInt("tileReplacementMode", catMisc, 0, -1, 1, "Replace old Brewing Stands/Enchanting Tables/Daylight Sensors/Beacons with new one on the fly.\n-1 = Disabled, no conversion even if the replacement tile entities are on\n0 = Convert the vanilla tile entities to their Et Futurum versions\n1 = Convert Et Futurum replacement tile entities back to default ones. Useful if you want to turn those off.");
