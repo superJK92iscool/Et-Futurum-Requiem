@@ -14,8 +14,18 @@ import net.minecraft.world.gen.feature.WorldGenMinable;
 
 public class WorldGenMinableCustom extends WorldGenMinable
 {
+	/**
+	 * Can blocks in this vein generate next to air?
+	 */
 	private final boolean shouldAirGen;
+	/**
+	 * Is the specified ore amount a hard cap? When specifying an amount
+	 * sometimes the ore generator code will generate more ores anyways
+	 */
+	private final boolean hardAmountCap;
 	private final int meta;
+	
+	private int places;
 
     public WorldGenMinableCustom(Block p_i45459_1_, int p_i45459_2_)
     {
@@ -33,6 +43,8 @@ public class WorldGenMinableCustom extends WorldGenMinable
         this.meta = meta;
         
         shouldAirGen = block == ModBlocks.ancient_debris && ConfigWorld.enableAirDebris;
+        hardAmountCap = block == ModBlocks.ancient_debris;
+        //TODO Mesa gen, block cap
     }
 
 	@Override
@@ -77,6 +89,9 @@ public class WorldGenMinableCustom extends WorldGenMinable
 							{
 								if (canGenerate(p_76484_1_, k2, l2, i3))
 								{
+									if(places++ > numberOfBlocks) {
+										return true;
+									}
 									setBlock(p_76484_1_, k2, l2, i3, field_150519_a, meta, 2);
 								}
 							}

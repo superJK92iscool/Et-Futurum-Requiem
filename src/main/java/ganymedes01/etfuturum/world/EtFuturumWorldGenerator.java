@@ -86,7 +86,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 					biome = world.getBiomeGenForCoords(x, z);
 					biomeList = BiomeDictionary.getTypesForBiome(biome);
 					if(ArrayUtils.contains(biomeList, Type.FOREST) && !ArrayUtils.contains(biomeList, Type.SNOWY) && world.getHeightValue(x, z) > 0) {
-						flowers.get(0).generate(world, rand, x, rand.nextInt(world.getHeightValue(x, z) * 2), z);
+						flowers.get(0).generate(world, rand, x, nextHeightInt(rand, world.getHeightValue(x, z) * 2), z);
 					}
 				}
 
@@ -96,7 +96,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 					biome = world.getBiomeGenForCoords(x, z);
 					biomeList = BiomeDictionary.getTypesForBiome(biome);
 					if (biome.biomeID == 132 || (ArrayUtils.contains(biomeList, Type.PLAINS) && !ArrayUtils.contains(biomeList, Type.SNOWY) && !ArrayUtils.contains(biomeList, Type.SAVANNA)) && world.getHeightValue(x, z) > 0) {
-						flowers.get(1).generate(world, rand, x, rand.nextInt(world.getHeightValue(x, z) * 2), z);
+						flowers.get(1).generate(world, rand, x, nextHeightInt(rand, world.getHeightValue(x, z) * 2), z);
 					}
 				}
 				
@@ -106,7 +106,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 					biome = world.getBiomeGenForCoords(x, z);
 					biomeList = BiomeDictionary.getTypesForBiome(biome);
 					if(ArrayUtils.contains(biomeList, Type.CONIFEROUS) && world.getHeightValue(x, z) > 0) {
-						flowers.get(2).generate(world, rand, x, rand.nextInt(world.getHeightValue(x, z) * 2), z);
+						flowers.get(2).generate(world, rand, x, nextHeightInt(rand, world.getHeightValue(x, z) * 2), z);
 					}
 				}
 				
@@ -135,8 +135,8 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 			}
 
 			if(ConfigBlocksItems.enableNetherite) {
-				this.generateOre(debrisGen, world, rand, chunkX, chunkZ, 3, 8, 22);
-				this.generateOre(smallDebrisGen, world, rand, chunkX, chunkZ, 2, 8, 119);
+				this.generateOre(debrisGen, world, rand, chunkX, chunkZ, 1, 8, 22);
+				this.generateOre(smallDebrisGen, world, rand, chunkX, chunkZ, 1, 8, 119);
 			}
 		}
 
@@ -198,5 +198,11 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 				gen.generate(world, random, xRand, yRand, zRand);
 			}
 		}
+	}
+
+    protected int nextHeightInt(Random rand, int i) {
+        if (i <= 1)
+            return 1;
+        return rand.nextInt(i);
 	}
 }

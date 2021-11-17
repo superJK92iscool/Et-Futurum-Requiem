@@ -21,6 +21,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.Chunk;
 
 public class BlockDeepslate extends BlockRotatedPillar implements IConfigurable {
 
@@ -75,11 +76,14 @@ public class BlockDeepslate extends BlockRotatedPillar implements IConfigurable 
 	}
 	
 	public static void doDeepslateRedoCheck(World world, int x, int y, int z) {
-		if(!EtFuturumLateWorldGenerator.stopRecording && world.checkChunksExist(x, 0, z, x, 0, z) && world.getChunkFromBlockCoords(x, z).lastSaveTime == 0) {
-			BlockPos pos = new BlockPos(x, y, z);
-			List<BlockPos> redo = EtFuturumLateWorldGenerator.getRedoList(world.provider.dimensionId);
-			if(!redo.contains(pos)) {
-				redo.add(pos);
+		if(!EtFuturumLateWorldGenerator.stopRecording) {
+			Chunk chunk = world.getChunkFromBlockCoords(x, z);
+			if(chunk.lastSaveTime == 0) {
+				BlockPos pos = new BlockPos(x, y, z);
+				List<BlockPos> redo = EtFuturumLateWorldGenerator.getRedoList(world.provider.dimensionId);
+				if(!redo.contains(pos)) {
+					redo.add(pos);
+				}
 			}
 		}
 	}

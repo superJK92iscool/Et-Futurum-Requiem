@@ -54,13 +54,13 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 		
 		//Because the variables are misnamed and these are world coords, not chunk coords...
 		if(doesChunkSupportLayerDeepslate(world.getWorldInfo().getTerrainType(), world.provider.dimensionId)) {
+			//Turn off recording here so the world gen isn't an infinite recursion loop of constantly checking the same blocks
 			stopRecording = true;
 			final List<BlockPos> redo = getRedoList(world.provider.dimensionId);
 			if(!redo.isEmpty()) {
-				//Turn off recording here so the world gen isn't an infinite recursion loop of constantly checking the same blocks
 				Chunk newChunk = null;
 				//Iterate this way to avoid ConcurrentModificationException
-				for(int i = redo.size() - 1; i >= 0; i--) {
+				for(int i = 0; i < redo.size(); i++) {
 					BlockPos pos = redo.get(i);
 					int chunkPosX = pos.getX() >> 4;
 					int chunkPosZ = pos.getZ() >> 4;

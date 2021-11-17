@@ -74,7 +74,7 @@ public class WorldGenDeepslateLayerBlob extends WorldGenMinable
 								{
 									block = world.getBlock(x, y, z);
 									
-									if(block.getMaterial() != Material.air || block != ModBlocks.deepslate || block != ModBlocks.tuff || block != ModBlocks.cobbled_deepslate) {
+									if(block.getMaterial() != Material.air && block != ModBlocks.deepslate && block != ModBlocks.tuff && block != ModBlocks.cobbled_deepslate) {
 										if((block.isReplaceableOreGen(world, x, y, z, Blocks.stone))) {
 											world.setBlock(x, y, z, field_150519_a, 0, 2);
 										} else if(!tuff && ConfigTweaks.deepslateReplacesCobblestone && (block.isReplaceableOreGen(world, x, y, z, Blocks.cobblestone))) {
