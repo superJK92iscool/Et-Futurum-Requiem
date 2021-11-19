@@ -3,8 +3,6 @@ package ganymedes01.etfuturum.entities;
 import java.util.List;
 import java.util.UUID;
 
-import javax.annotation.Nonnull;
-
 import com.google.common.collect.Lists;
 
 import cpw.mods.fml.relauncher.Side;

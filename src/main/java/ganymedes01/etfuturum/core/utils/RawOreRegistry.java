@@ -3,14 +3,10 @@ package ganymedes01.etfuturum.core.utils;
 import java.util.HashMap;
 import java.util.Map;
 
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.LoaderState;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.blocks.IConfigurable;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
-import ganymedes01.etfuturum.world.generate.BlockAndMetadataMapping;
 import ganymedes01.etfuturum.world.generate.RawOreDropMapping;
-import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.oredict.OreDictionary;
 

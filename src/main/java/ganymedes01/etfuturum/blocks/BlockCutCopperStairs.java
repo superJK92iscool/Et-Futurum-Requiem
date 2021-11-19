@@ -2,15 +2,11 @@ package ganymedes01.etfuturum.blocks;
 
 import java.util.Random;
 
-import org.apache.commons.lang3.tuple.ImmutablePair;
-
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import net.minecraftforge.oredict.OreDictionary;
 
 public class BlockCutCopperStairs extends BlockGenericStairs implements IDegradable {
 

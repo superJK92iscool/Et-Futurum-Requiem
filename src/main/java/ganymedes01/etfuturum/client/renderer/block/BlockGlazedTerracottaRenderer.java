@@ -5,12 +5,10 @@ import org.lwjgl.opengl.GL11;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockGrass;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 
 public class BlockGlazedTerracottaRenderer extends FlippedUVCubeModel implements ISimpleBlockRenderingHandler {

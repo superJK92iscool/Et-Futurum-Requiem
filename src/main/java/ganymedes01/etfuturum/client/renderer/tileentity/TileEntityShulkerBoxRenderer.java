@@ -9,7 +9,6 @@ import com.google.common.primitives.SignedBytes;
 import ganymedes01.etfuturum.client.model.ModelShulker;
 import ganymedes01.etfuturum.client.renderer.entity.ShulkerRenderer;
 import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox;
-import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;

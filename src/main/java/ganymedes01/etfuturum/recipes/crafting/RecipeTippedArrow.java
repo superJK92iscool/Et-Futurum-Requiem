@@ -3,8 +3,8 @@ package ganymedes01.etfuturum.recipes.crafting;
 import java.util.List;
 
 import ganymedes01.etfuturum.ModItems;
-import ganymedes01.etfuturum.items.ItemLingeringPotion;
 import ganymedes01.etfuturum.items.ItemArrowTipped;
+import ganymedes01.etfuturum.items.ItemLingeringPotion;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;

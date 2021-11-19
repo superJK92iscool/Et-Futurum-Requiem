@@ -14,8 +14,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import net.minecraft.entity.player.EntityPlayer;
-
 public class ThreadCheckAlex extends Thread {
 	
 	UUID uuid;

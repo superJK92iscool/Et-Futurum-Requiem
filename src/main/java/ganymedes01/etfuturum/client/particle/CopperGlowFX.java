@@ -1,6 +1,5 @@
 package ganymedes01.etfuturum.client.particle;
 
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 

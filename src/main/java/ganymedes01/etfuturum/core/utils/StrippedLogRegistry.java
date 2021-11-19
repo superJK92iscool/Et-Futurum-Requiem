@@ -3,8 +3,6 @@ package ganymedes01.etfuturum.core.utils;
 import java.util.HashMap;
 import java.util.Map;
 
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.LoaderState;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.world.generate.BlockAndMetadataMapping;

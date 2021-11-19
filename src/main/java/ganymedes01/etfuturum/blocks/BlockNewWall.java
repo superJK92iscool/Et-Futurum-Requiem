@@ -10,7 +10,6 @@ import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.items.block.ItemBlockNewWall;
 import ganymedes01.etfuturum.lib.Reference;
-import ganymedes01.etfuturum.world.generate.BlockAndMetadataMapping;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFenceGate;
 import net.minecraft.block.BlockWall;

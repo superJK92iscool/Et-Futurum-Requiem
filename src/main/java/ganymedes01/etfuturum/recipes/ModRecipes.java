@@ -10,8 +10,6 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
-import ganymedes01.etfuturum.blocks.BlockGlazedTerracotta;
-import ganymedes01.etfuturum.blocks.BlockNewStone;
 import ganymedes01.etfuturum.blocks.BlockStoneSlab2;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigEntities;

@@ -6,12 +6,9 @@ import java.util.List;
 
 import cpw.mods.fml.client.config.GuiConfig;
 import cpw.mods.fml.client.config.IConfigElement;
-import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.EtFuturumMixinPlugin;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.launchwrapper.Launch;
-import net.minecraftforge.common.config.ConfigElement;
 
 public class ConfigGUI extends GuiConfig {
 

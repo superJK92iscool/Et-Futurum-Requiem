@@ -1,8 +1,6 @@
 package ganymedes01.etfuturum.items.block;
 
 import ganymedes01.etfuturum.blocks.BlockNewWall;
-import ganymedes01.etfuturum.blocks.IConfigurable;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;

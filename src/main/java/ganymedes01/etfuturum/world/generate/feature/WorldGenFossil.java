@@ -3,7 +3,6 @@ package ganymedes01.etfuturum.world.generate.feature;
 import java.util.Random;
 
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
-import ganymedes01.etfuturum.entities.ai.BlockPos;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;

@@ -1,13 +1,9 @@
 package ganymedes01.etfuturum.configuration.configs;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 import ganymedes01.etfuturum.configuration.ConfigBase;
-import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.launchwrapper.Launch;
-import net.minecraftforge.common.config.ConfigCategory;
 import net.minecraftforge.common.config.Configuration;
 
 public class ConfigMixins extends ConfigBase {

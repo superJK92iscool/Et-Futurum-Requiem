@@ -12,7 +12,6 @@ import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.DeepslateOreRegistry;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.world.generate.BlockAndMetadataMapping;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockOre;
 import net.minecraft.block.material.MapColor;

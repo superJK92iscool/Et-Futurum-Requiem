@@ -6,7 +6,6 @@ import ganymedes01.etfuturum.client.model.ModelNewBoat;
 import ganymedes01.etfuturum.entities.EntityNewBoat;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityBoat;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 
