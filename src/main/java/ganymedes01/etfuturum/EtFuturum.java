@@ -248,6 +248,14 @@ public class EtFuturum {
 		BlastFurnaceRecipes.init();
 		ConfigBase.postInit();
 		
+		if(ConfigBlocksItems.enableCoarseDirt) {
+			for(BiomeGenBase biome : BiomeGenBase.getBiomeGenArray()) {
+				if(biome != null && biome.topBlock == Blocks.dirt && biome.field_150604_aj == 1) {
+					biome.topBlock = ModBlocks.coarse_dirt;
+					biome.field_150604_aj = 0;
+				}
+			}
+		}
 		
 		//Block registry iterator
 		Iterator<Block> iterator = Block.blockRegistry.iterator();

@@ -6,7 +6,7 @@ import java.util.Map.Entry;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
-import ganymedes01.etfuturum.world.generate.BlockAndMetadataMapping;
+import ganymedes01.etfuturum.core.utils.helpers.BlockAndMetadataMapping;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;

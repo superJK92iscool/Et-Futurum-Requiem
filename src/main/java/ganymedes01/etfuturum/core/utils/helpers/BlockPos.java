@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.entities.ai;
+package ganymedes01.etfuturum.core.utils.helpers;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.util.AxisAlignedBB;

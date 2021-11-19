@@ -10,6 +10,7 @@ import ganymedes01.etfuturum.blocks.ores.BlockDeepslateOre;
 import ganymedes01.etfuturum.blocks.ores.BlockDeepslateRedstoneOre;
 import ganymedes01.etfuturum.blocks.ores.BlockOreNetherGold;
 import ganymedes01.etfuturum.core.utils.Utils;
+import ganymedes01.etfuturum.core.utils.helpers.BlockAndMetadataMapping;
 import ganymedes01.etfuturum.tileentities.TileEntityWoodSign;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;

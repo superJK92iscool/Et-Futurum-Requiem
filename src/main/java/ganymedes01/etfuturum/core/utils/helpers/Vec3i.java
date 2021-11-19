@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.entities.ai;
+package ganymedes01.etfuturum.core.utils.helpers;
 
 import com.google.common.base.Objects;
 

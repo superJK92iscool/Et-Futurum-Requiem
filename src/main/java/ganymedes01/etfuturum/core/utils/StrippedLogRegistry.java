@@ -5,7 +5,7 @@ import java.util.Map;
 
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
-import ganymedes01.etfuturum.world.generate.BlockAndMetadataMapping;
+import ganymedes01.etfuturum.core.utils.helpers.BlockAndMetadataMapping;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 

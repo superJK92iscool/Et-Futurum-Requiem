@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.blocks;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -11,7 +12,8 @@ import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.entities.ai.BlockPos;
+import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
+import ganymedes01.etfuturum.core.utils.helpers.CachedChunk;
 import ganymedes01.etfuturum.world.EtFuturumLateWorldGenerator;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRotatedPillar;
@@ -74,13 +76,35 @@ public class BlockDeepslate extends BlockRotatedPillar implements IConfigurable 
 		}
 		return flag;
 	}
+	public static final List<CachedChunk> chunkCache = new ArrayList<CachedChunk>();
 	
 	public static void doDeepslateRedoCheck(World world, int x, int y, int z) {
 		if(!EtFuturumLateWorldGenerator.stopRecording) {
-			Chunk chunk = world.getChunkFromBlockCoords(x, z);
+			Chunk chunk;
+			
+			/*
+			 * New instance so we can check the coords, as the coords, and dim ID only need to be equal.
+			 */
+			CachedChunk cacheEntry  = new CachedChunk(x >> 4, z >> 4, world.provider.dimensionId);
+			
+			if(!chunkCache.contains(cacheEntry)) {
+				/*
+				 * No similar object exists, let's set this one as it, and set the cached chunk as the chunk we're loading.
+				 */
+				chunk = world.getChunkFromChunkCoords(x >> 4, z >> 4);
+				cacheEntry.setChunk(chunk);
+				chunkCache.add(cacheEntry);
+			} else {
+				/*
+				 * We already have a chunk cache with those coords and dimension ID
+				 * We just used the previous instance to check this, load the instance which already has gotten the chunk!
+				 */
+				chunk = chunkCache.get(chunkCache.indexOf(cacheEntry)).getChunk();
+			}
+			
 			if(chunk.lastSaveTime == 0) {
 				BlockPos pos = new BlockPos(x, y, z);
-				List<BlockPos> redo = EtFuturumLateWorldGenerator.getRedoList(world.provider.dimensionId);
+				List<BlockPos> redo = EtFuturumLateWorldGenerator.getRedoList(cacheEntry);
 				if(!redo.contains(pos)) {
 					redo.add(pos);
 				}

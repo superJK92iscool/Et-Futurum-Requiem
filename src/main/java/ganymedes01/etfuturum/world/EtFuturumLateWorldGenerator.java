@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Random;
 
 import org.apache.commons.lang3.ArrayUtils;
@@ -13,8 +14,9 @@ import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigTweaks;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.DeepslateOreRegistry;
-import ganymedes01.etfuturum.entities.ai.BlockPos;
-import ganymedes01.etfuturum.world.generate.BlockAndMetadataMapping;
+import ganymedes01.etfuturum.core.utils.helpers.BlockAndMetadataMapping;
+import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
+import ganymedes01.etfuturum.core.utils.helpers.CachedChunk;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
@@ -27,21 +29,6 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 
 	@Override
 	public void generate(Random rand, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
-		int worldX = chunkX * 16;
-		int worldZ = chunkZ * 16;
-		if (world.getWorldInfo().getTerrainType() != WorldType.FLAT && ConfigBlocksItems.enableCoarseDirt && world.provider.dimensionId != -1 && world.provider.dimensionId != 1) {
-			//TODO Add checks so it doesn't run this code in biomes that don't generate coarse dirt
-			for (int x = chunkX * 16; x < (chunkX * 16) + 16; x++) {
-				for (int z = chunkZ * 16; z < (chunkZ * 16) + 16; z++) {
-					for (int y = 0; y < world.getActualHeight(); y++) {
-						if (world.getBlock(x, y, z) == Blocks.dirt && world.getBlockMetadata(x, y, z) == 1) {
-							world.setBlock(x, y, z, ModBlocks.coarse_dirt, 0, 2);
-						}
-					}
-				}
-			}
-		}
-		
 		if(world.getWorldInfo().getTerrainType() != WorldType.FLAT || world.provider.dimensionId != 0 || world.getWorldInfo().getGeneratorOptions().contains("decoration")) {
 			if(ConfigBlocksItems.enableDeepslate && ConfigWorld.deepslateGenerationMode == 1 && world.provider.dimensionId != -1 && world.provider.dimensionId != 1) {
 				generateOre(deepslateBlobGen, world, rand, chunkX, chunkZ, 1, 6, ConfigWorld.deepslateMaxY);
@@ -51,28 +38,24 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 			}
 		}
 		
-		//Because the variables are misnamed and these are world coords, not chunk coords...
 		if(doesChunkSupportLayerDeepslate(world.getWorldInfo().getTerrainType(), world.provider.dimensionId)) {
 			//Turn off recording here so the world gen isn't an infinite recursion loop of constantly checking the same blocks
 			stopRecording = true;
-			final List<BlockPos> redo = getRedoList(world.provider.dimensionId);
-			if(!redo.isEmpty()) {
-				Chunk newChunk = null;
-				//Iterate this way to avoid ConcurrentModificationException
-				for(int i = 0; i < redo.size(); i++) {
-					BlockPos pos = redo.get(i);
-					int chunkPosX = pos.getX() >> 4;
-					int chunkPosZ = pos.getZ() >> 4;
-					if(newChunk == null || newChunk.xPosition != chunkPosX || newChunk.zPosition != chunkPosZ) {
-						newChunk = world.getChunkFromChunkCoords(chunkPosX, chunkPosZ);
-					}
-					this.replaceBlockInChunk(newChunk, pos.getX() & 15, pos.getZ() & 15, pos.getX(), pos.getY(), pos.getZ());
-				}
-				redo.clear();
-			}
 			
+			List<BlockPos> redo;
+			for(Entry<CachedChunk, List<BlockPos>> set : redos.entrySet()) {
+				redo = set.getValue();
+				while(!redo.isEmpty()) {
+					//Iterate this way to avoid ConcurrentModificationException
+					BlockPos pos = redo.get(0);
+					this.replaceBlockInChunk(set.getKey().getChunk(), pos.getX() & 15, pos.getZ() & 15, pos.getX(), pos.getY(), pos.getZ());
+					redo.remove(0);
+				}
+			}
+
 			Chunk chunk = world.getChunkFromChunkCoords(chunkX, chunkZ);
 			doDeepslateGen(chunk);
+			
 			stopRecording = false;
 		}
 	}
@@ -123,18 +106,34 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 		}
 	}
 	
-	private static final Map<Integer, List<BlockPos>> redos = new HashMap<Integer, List<BlockPos>>();
+	private static final Map<CachedChunk, List<BlockPos>> redos = new HashMap<CachedChunk, List<BlockPos>>();
 	public static boolean stopRecording;
 	
 	public static void clearRedos() {
 		redos.clear();
 	}
 	
-	public static List<BlockPos> getRedoList(int dim) {
-		if(redos.get(dim) == null) {
-			redos.put(dim, new ArrayList<BlockPos>());
+	public static List<BlockPos> getRedoList(World world, int x, int z, int dim) {
+		CachedChunk chunk = new CachedChunk(x, z, dim);
+		
+		if(redos.get(chunk) == null) {
+			redos.put(chunk, new ArrayList<BlockPos>());
 		}
-		return redos.get(dim);
+		
+		if(chunk.getChunk() == null) {
+			chunk.setChunk(world.getChunkFromChunkCoords(x, z));
+		}
+		
+		return redos.get(chunk);
+	}
+	
+	public static List<BlockPos> getRedoList(CachedChunk chunk) {
+		
+		if(redos.get(chunk) == null) {
+			redos.put(chunk, new ArrayList<BlockPos>());
+		}
+		
+		return redos.get(chunk);
 	}
 	
 	private boolean doesChunkSupportLayerDeepslate(WorldType terrain, int dimId) {

@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.entities.ai;
 
+import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.world.World;

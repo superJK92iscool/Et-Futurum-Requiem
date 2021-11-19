@@ -3,7 +3,7 @@ package ganymedes01.etfuturum.entities;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModItems;
-import ganymedes01.etfuturum.entities.ai.BlockPos;
+import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import ganymedes01.etfuturum.entities.ai.EntityAIMoveToBlock;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;

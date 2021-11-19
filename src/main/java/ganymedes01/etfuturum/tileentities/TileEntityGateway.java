@@ -8,7 +8,7 @@ import javax.annotation.Nullable;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import ganymedes01.etfuturum.entities.ai.BlockPos;
+import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import ganymedes01.etfuturum.world.end.gen.WorldGenEndGateway;
 import ganymedes01.etfuturum.world.end.gen.WorldGenEndIsland;
 import net.minecraft.block.Block;

@@ -3,8 +3,8 @@ package ganymedes01.etfuturum.client.renderer.entity;
 import org.lwjgl.opengl.GL11;
 
 import ganymedes01.etfuturum.client.model.ModelShulker;
+import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import ganymedes01.etfuturum.entities.EntityShulker;
-import ganymedes01.etfuturum.entities.ai.BlockPos;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.entity.Entity;

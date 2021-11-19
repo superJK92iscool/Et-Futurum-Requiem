@@ -6,7 +6,7 @@ import java.util.Map;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.blocks.IConfigurable;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
-import ganymedes01.etfuturum.world.generate.RawOreDropMapping;
+import ganymedes01.etfuturum.core.utils.helpers.RawOreDropMapping;
 import net.minecraft.item.Item;
 import net.minecraftforge.oredict.OreDictionary;
 

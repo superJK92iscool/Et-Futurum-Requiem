@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.world.generate;
+package ganymedes01.etfuturum.core.utils.helpers;
 
 import java.util.Random;
 
