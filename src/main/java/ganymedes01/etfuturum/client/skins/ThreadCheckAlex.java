@@ -17,7 +17,7 @@ import com.google.gson.JsonObject;
 public class ThreadCheckAlex extends Thread {
 	
 	UUID uuid;
-	private boolean connectFailedWarning;
+	private static boolean connectFailedWarning;
 	
 	public void startWithArgs(UUID uuid) {
 		this.uuid = uuid;
@@ -42,25 +42,17 @@ public class ThreadCheckAlex extends Thread {
 			  }
 
 			  PlayerModelManager.alexCache.put(uuid, isAlex);
+			  connectFailedWarning = false;
+			  return;
 		} catch (Exception e) {
-			if(!connectFailedWarning && e instanceof SocketException) {
+			if(!connectFailedWarning) {
 				System.out.println("Failed to connect to the Mojang API while checking if a skin was alex! Are you connected to the internet? Is something blocking the connection to it?");
 				e.printStackTrace();
 				connectFailedWarning = true;
 			}
 		}
 		
-		PlayerModelManager.alexCache.put(uuid, isAlex);
+		PlayerModelManager.alexCache.put(uuid, false);
 //      nbt.setBoolean(SetPlayerModelCommand.MODEL_KEY, isAlex);
-	}
-
-	
-	private static String readAll(Reader rd) throws IOException {
-		StringBuilder sb = new StringBuilder();
-		int cp;
-		while ((cp = rd.read()) != -1) {
-			sb.append((char) cp);
-		}
-		return sb.toString();
 	}
 }

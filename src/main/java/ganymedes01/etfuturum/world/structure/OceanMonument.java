@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.world.generate;
+package ganymedes01.etfuturum.world.structure;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

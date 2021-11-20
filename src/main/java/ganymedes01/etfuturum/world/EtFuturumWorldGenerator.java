@@ -12,10 +12,10 @@ import ganymedes01.etfuturum.blocks.BlockChorusFlower;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.world.end.dimension.EndWorldProvider;
-import ganymedes01.etfuturum.world.generate.OceanMonument;
 import ganymedes01.etfuturum.world.generate.WorldGenDeepslateLayerBlob;
 import ganymedes01.etfuturum.world.generate.WorldGenMinableCustom;
 import ganymedes01.etfuturum.world.generate.feature.WorldGenFossil;
+import ganymedes01.etfuturum.world.structure.OceanMonument;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -61,11 +61,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 				for (int j = 0; j < stoneGen.size(); j++) {
 					WorldGenMinable generator = stoneGen.get(j);
 					for (int i = 0; i < 10; i++) {
-						int x = chunkX * 16 + rand.nextInt(16);
-						int y = rand.nextInt(80);
-						int z = chunkZ * 16 + rand.nextInt(16);
-
-						generator.generate(world, rand, x, y, z);
+						generateOre(generator, world, rand, chunkX, chunkZ, 1, 0, 80);
 					}
 				}
 			}
@@ -174,7 +170,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 		}
 	}
 	public void generateSingleOre(Block block, int meta, World world, Random random, int chunkX, int chunkZ, float chance, int minY, int maxY, Block generateIn) {
-		if(chance <= 0)
+		if(maxY <= 0 || minY < 0 || maxY < minY || chance <= 0)
 			return;
 		
 		for(int i = 0; i < (chance < 1 ? 1 : chance); i++) {

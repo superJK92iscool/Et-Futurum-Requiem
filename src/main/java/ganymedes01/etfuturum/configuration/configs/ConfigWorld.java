@@ -69,7 +69,7 @@ public class ConfigWorld extends ConfigBase {
 		enableNetherAmbience = cfg.getBoolean("enableNetherAmbience", catClient, true, "");
 		
 		enableAirDebris = cfg.getBoolean("enableAirDebris", catGeneration, false, "Can ancient debris generate next to air?");
-		maxStonesPerCluster = cfg.getInt("maxStonesPerCluster", catGeneration, 33, 0, 64, "Max vein size for Granite/Andesite/Diorite blocks in a cluster");
+		maxStonesPerCluster = cfg.getInt("maxStonesPerCluster", catGeneration, 32, 0, 64, "Max vein size for Granite/Andesite/Diorite blocks in a cluster");
 		smallDebrisMax = cfg.getInt("smallDebrisMax", catGeneration, 2, 0, 64, "The max vein size for the first, typically smaller debris veins which generate from Y 8 to 119");
 		debrisMax = cfg.getInt("debrisMax", catGeneration, 3, 0, 64, "The max vein size for the second, typically bigger debris veins, which generate from Y 8 to 22");
 		maxNetherGoldPerCluster = cfg.getInt("maxNetherGoldPerCluster", catGeneration, 10, 0, 64, "Max vein size for nether gold ore blocks in a cluster");
@@ -89,8 +89,8 @@ public class ConfigWorld extends ConfigBase {
 		Property deepslateBlacklistProp = cfg.get(catGeneration, "deepslateLayerDimensionBlacklist", new int[] {-1, 1});
 		deepslateBlacklistProp.comment = "The dimensions the deepslate layer (deepslate generation mode 0) should not spawn in. Does nothing if other deepslate generation modes are used.";
 		deepslateLayerDimensionBlacklist = deepslateBlacklistProp.getIntList();
-		maxTuffPerCluster = cfg.getInt("tuffClusterSize", catGeneration, 48, 0, 64, "Max vein size for tuff blocks in a cluster");
-		enableExtraMesaGold = cfg.getBoolean("enableExtraMesaGold", catGeneration, true, "Generate 20 more veins of gold ore from Y 32 to Y 80.");
+		maxTuffPerCluster = cfg.getInt("tuffClusterSize", catGeneration, 32, 0, 64, "Max vein size for tuff blocks in a cluster");
+		enableExtraMesaGold = cfg.getBoolean("enableExtraMesaGold", catGeneration, true, "Generate 20 more veins of gold ore from Y 32 to Y 80 in any Mesa biome.");
 		
 		fullGrassPath = cfg.getBoolean("fullGrassPath", catMisc, false, "Set to true if you're having issues with stepping over grass paths. Temporary option until fixes are implemented to 1.7's stepping system.");
 		tileReplacementMode = cfg.getInt("tileReplacementMode", catMisc, 0, -1, 1, "Replace old Brewing Stands/Enchanting Tables/Daylight Sensors/Beacons with new one on the fly.\n-1 = Disabled, no conversion even if the replacement tile entities are on\n0 = Convert the vanilla tile entities to their Et Futurum versions\n1 = Convert Et Futurum replacement tile entities back to default ones. Useful if you want to turn those off.");

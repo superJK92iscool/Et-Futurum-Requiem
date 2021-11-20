@@ -1,7 +1,8 @@
 package ganymedes01.etfuturum.blocks;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import cpw.mods.fml.relauncher.Side;
@@ -13,7 +14,7 @@ import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
-import ganymedes01.etfuturum.core.utils.helpers.CachedChunk;
+import ganymedes01.etfuturum.core.utils.helpers.CachedChunkCoords;
 import ganymedes01.etfuturum.world.EtFuturumLateWorldGenerator;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRotatedPillar;
@@ -76,38 +77,38 @@ public class BlockDeepslate extends BlockRotatedPillar implements IConfigurable 
 		}
 		return flag;
 	}
-	public static final List<CachedChunk> chunkCache = new ArrayList<CachedChunk>();
+	public static final Map<CachedChunkCoords, Chunk> chunkCache = new HashMap<CachedChunkCoords, Chunk>();
+	public static final Map<CachedChunkCoords, Long> saveTimeCache = new HashMap<CachedChunkCoords, Long>();
 	
 	public static void doDeepslateRedoCheck(World world, int x, int y, int z) {
 		if(!EtFuturumLateWorldGenerator.stopRecording) {
 			Chunk chunk;
 			
-			/*
-			 * New instance so we can check the coords, as the coords, and dim ID only need to be equal.
-			 */
-			CachedChunk cacheEntry  = new CachedChunk(x >> 4, z >> 4, world.provider.dimensionId);
+			CachedChunkCoords cacheEntry  = new CachedChunkCoords(x >> 4, z >> 4, world.provider.dimensionId);
+			long saveTime;
 			
-			if(!chunkCache.contains(cacheEntry)) {
-				/*
-				 * No similar object exists, let's set this one as it, and set the cached chunk as the chunk we're loading.
-				 */
-				chunk = world.getChunkFromChunkCoords(x >> 4, z >> 4);
-				cacheEntry.setChunk(chunk);
-				chunkCache.add(cacheEntry);
+			if(!chunkCache.containsKey(cacheEntry)) {
+				chunkCache.put(cacheEntry, chunk = world.getChunkFromChunkCoords(cacheEntry.xPos(), cacheEntry.zPos()));
+				saveTimeCache.put(cacheEntry, saveTime = chunk.lastSaveTime);
 			} else {
-				/*
-				 * We already have a chunk cache with those coords and dimension ID
-				 * We just used the previous instance to check this, load the instance which already has gotten the chunk!
-				 */
-				chunk = chunkCache.get(chunkCache.indexOf(cacheEntry)).getChunk();
+				chunk = chunkCache.get(cacheEntry);
+				saveTime = saveTimeCache.get(cacheEntry);
 			}
 			
-			if(chunk.lastSaveTime == 0) {
-				BlockPos pos = new BlockPos(x, y, z);
-				List<BlockPos> redo = EtFuturumLateWorldGenerator.getRedoList(cacheEntry);
-				if(!redo.contains(pos)) {
-					redo.add(pos);
-				}
+			/*
+			 * Make sure this chunk's save time was 0 when we created the entry. This ensures the chunk was new.
+			 * We don't want to conflict with mods that use this method to call for non-generation purposes.
+			 * 
+			 * I don't do this above since getting the chunk runs a bunch of code to create a NEW chunk instance for
+			 * some goddamned reason, so we still cache it even though we know it won't be used, for performance reasons.
+			 */
+			
+			if(saveTime > 0) return;
+			
+			BlockPos pos = new BlockPos(x, y, z);
+			List<BlockPos> redo = EtFuturumLateWorldGenerator.getRedoList(cacheEntry);
+			if(!redo.contains(pos)) {
+				redo.add(pos);
 			}
 		}
 	}

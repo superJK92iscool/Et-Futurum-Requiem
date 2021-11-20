@@ -161,6 +161,16 @@ public class ServerEventHandler {
 			}
 		}
 		
+		if(entity instanceof EntityPlayer) {
+			EntityPlayer player = ((EntityPlayer)entity);
+			if(player.capabilities.getFlySpeed() == 0.05F && player.isSprinting() && player.capabilities.isFlying) {
+				player.capabilities.setFlySpeed(0.125F);
+			} else if(player.capabilities.getFlySpeed() == 0.125F) {
+				player.capabilities.setFlySpeed(0.05F);
+			}
+			
+		}
+		
 		if(entity instanceof EntityLiving) {
 			if (ConfigEntities.enableVillagerZombies && entity.getClass() == EntityZombie.class && ((EntityZombie)entity).isVillager()) {
 				replaceEntity((EntityLiving) entity, new EntityZombieVillager(entity.worldObj));

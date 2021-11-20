@@ -53,7 +53,7 @@ import ganymedes01.etfuturum.recipes.SmokerRecipes;
 import ganymedes01.etfuturum.world.EtFuturumLateWorldGenerator;
 import ganymedes01.etfuturum.world.EtFuturumWorldGenerator;
 import ganymedes01.etfuturum.world.end.dimension.DimensionProviderEnd;
-import ganymedes01.etfuturum.world.generate.OceanMonument;
+import ganymedes01.etfuturum.world.structure.OceanMonument;
 import net.minecraft.block.Block;
 import net.minecraft.block.Block.SoundType;
 import net.minecraft.block.BlockCrops;
