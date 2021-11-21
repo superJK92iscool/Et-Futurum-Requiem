@@ -78,37 +78,32 @@ public class BlockDeepslate extends BlockRotatedPillar implements IConfigurable 
 		return flag;
 	}
 	public static final Map<CachedChunkCoords, Chunk> chunkCache = new HashMap<CachedChunkCoords, Chunk>();
-	public static final Map<CachedChunkCoords, Long> saveTimeCache = new HashMap<CachedChunkCoords, Long>();
 	
 	public static void doDeepslateRedoCheck(World world, int x, int y, int z) {
+		
 		if(!EtFuturumLateWorldGenerator.stopRecording) {
 			Chunk chunk;
 			
 			CachedChunkCoords cacheEntry  = new CachedChunkCoords(x >> 4, z >> 4, world.provider.dimensionId);
-			long saveTime;
 			
 			if(!chunkCache.containsKey(cacheEntry)) {
 				chunkCache.put(cacheEntry, chunk = world.getChunkFromChunkCoords(cacheEntry.xPos(), cacheEntry.zPos()));
-				saveTimeCache.put(cacheEntry, saveTime = chunk.lastSaveTime);
 			} else {
 				chunk = chunkCache.get(cacheEntry);
-				saveTime = saveTimeCache.get(cacheEntry);
 			}
 			
 			/*
-			 * Make sure this chunk's save time was 0 when we created the entry. This ensures the chunk was new.
-			 * We don't want to conflict with mods that use this method to call for non-generation purposes.
-			 * 
-			 * I don't do this above since getting the chunk runs a bunch of code to create a NEW chunk instance for
-			 * some goddamned reason, so we still cache it even though we know it won't be used, for performance reasons.
+			 * We check if the chunk has this flag as false, which means it's still generating and the client hasn't received it yet.
+			 * This prevents mods that use isReplaceableOreGen for non-worldgen purposes from converting blocks to deepslate versions.
 			 */
-			
-			if(saveTime > 0) return;
-			
-			BlockPos pos = new BlockPos(x, y, z);
-			List<BlockPos> redo = EtFuturumLateWorldGenerator.getRedoList(cacheEntry);
-			if(!redo.contains(pos)) {
-				redo.add(pos);
+			if(!chunk.sendUpdates) {
+				BlockPos pos = new BlockPos(x, y, z);
+				List<BlockPos> redo = EtFuturumLateWorldGenerator.getRedoList(cacheEntry);
+				if(!redo.contains(pos)) {
+					redo.add(pos);
+				}
+			} else {
+				System.out.println("Chunk " + cacheEntry.toString() + " was already generated");
 			}
 		}
 	}

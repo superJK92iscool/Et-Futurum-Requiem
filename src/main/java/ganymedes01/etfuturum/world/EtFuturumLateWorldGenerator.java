@@ -52,11 +52,11 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 			Entry<CachedChunkCoords, List<BlockPos>> set;
 			while(iterator.hasNext()) {
 				set = iterator.next();
-				if(set.getKey().dim() == world.provider.dimensionId && BlockDeepslate.saveTimeCache.get(set.getKey()) == 0) {
+				if(set.getKey().dim() == world.provider.dimensionId) {
 					
 					Chunk chunk = BlockDeepslate.chunkCache.get(set.getKey());
-					
-					if(chunk != null ) {
+
+					if(chunk != null) {
 						redo = set.getValue();
 						while(!redo.isEmpty()) {
 							//Iterate this way to avoid ConcurrentModificationException
@@ -65,11 +65,9 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 							redo.remove(0);
 						}
 					}
+					BlockDeepslate.chunkCache.remove(set.getKey());
+					iterator.remove();
 				}
-				
-				BlockDeepslate.saveTimeCache.remove(set.getKey());
-				BlockDeepslate.chunkCache.remove(set.getKey());
-				iterator.remove();
 			}
 
 			Chunk chunk = world.getChunkFromChunkCoords(chunkX, chunkZ);
