@@ -54,6 +54,7 @@ import ganymedes01.etfuturum.world.EtFuturumLateWorldGenerator;
 import ganymedes01.etfuturum.world.EtFuturumWorldGenerator;
 import ganymedes01.etfuturum.world.end.dimension.DimensionProviderEnd;
 import ganymedes01.etfuturum.world.structure.OceanMonument;
+import ganymedes01.etfuturum.world.structure.StructureMesaMineshaftPieces;
 import net.minecraft.block.Block;
 import net.minecraft.block.Block.SoundType;
 import net.minecraft.block.BlockCrops;
@@ -144,8 +145,8 @@ public class EtFuturum {
 //          NetherBiomeManager.init(); // Come back to
 //      }
 
-		GameRegistry.registerWorldGenerator(new EtFuturumWorldGenerator(), 0);
-		GameRegistry.registerWorldGenerator(new EtFuturumLateWorldGenerator(), Integer.MAX_VALUE);
+		GameRegistry.registerWorldGenerator(EtFuturumWorldGenerator.INSTANCE, 0);
+		GameRegistry.registerWorldGenerator(EtFuturumLateWorldGenerator.INSTANCE, Integer.MAX_VALUE);
 		
 		OceanMonument.makeMap();
 
@@ -186,7 +187,6 @@ public class EtFuturum {
 				
 		
 		event.getModMetadata().logoFile = Reference.LOGO_FILE;
-
 	}
 
 	@EventHandler

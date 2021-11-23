@@ -102,8 +102,6 @@ public class BlockDeepslate extends BlockRotatedPillar implements IConfigurable 
 				if(!redo.contains(pos)) {
 					redo.add(pos);
 				}
-			} else {
-				System.out.println("Chunk " + cacheEntry.toString() + " was already generated");
 			}
 		}
 	}

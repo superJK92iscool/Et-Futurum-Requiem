@@ -8,8 +8,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
 
-import javax.security.auth.kerberos.KerberosKey;
-
 import org.apache.commons.lang3.ArrayUtils;
 
 import ganymedes01.etfuturum.ModBlocks;
@@ -31,6 +29,8 @@ import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
 
 public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
+	
+	public static final EtFuturumLateWorldGenerator INSTANCE = new EtFuturumLateWorldGenerator();
 
 	@Override
 	public void generate(Random rand, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {

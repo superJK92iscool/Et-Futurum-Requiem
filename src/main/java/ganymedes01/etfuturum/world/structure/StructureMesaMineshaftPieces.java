@@ -2,6 +2,8 @@ package ganymedes01.etfuturum.world.structure;
 
 import static net.minecraftforge.common.ChestGenHooks.MINESHAFT_CORRIDOR;
 
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
@@ -10,28 +12,28 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.item.EntityMinecartChest;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntityMobSpawner;
 import net.minecraft.util.WeightedRandomChestContent;
+import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraft.world.gen.structure.StructureComponent;
-import net.minecraft.world.gen.structure.StructureMineshaftPieces;
 import net.minecraftforge.common.ChestGenHooks;
 
-public class StructureMesaMineshaftPieces extends StructureMineshaftPieces {
+public class StructureMesaMineshaftPieces {
 
     /** List of contents that can generate in Mineshafts. */
-    public static final WeightedRandomChestContent[] mineshaftChestContents = new WeightedRandomChestContent[] {new WeightedRandomChestContent(Items.iron_ingot, 0, 1, 5, 10), new WeightedRandomChestContent(Items.gold_ingot, 0, 1, 3, 5), new WeightedRandomChestContent(Items.redstone, 0, 4, 9, 5), new WeightedRandomChestContent(Items.dye, 4, 4, 9, 5), new WeightedRandomChestContent(Items.diamond, 0, 1, 2, 3), new WeightedRandomChestContent(Items.coal, 0, 3, 8, 10), new WeightedRandomChestContent(Items.bread, 0, 1, 3, 15), new WeightedRandomChestContent(Items.iron_pickaxe, 0, 1, 1, 1), new WeightedRandomChestContent(Item.getItemFromBlock(Blocks.rail), 0, 4, 8, 1), new WeightedRandomChestContent(Items.melon_seeds, 0, 2, 4, 10), new WeightedRandomChestContent(Items.pumpkin_seeds, 0, 2, 4, 10), new WeightedRandomChestContent(Items.saddle, 0, 1, 1, 3), new WeightedRandomChestContent(Items.iron_horse_armor, 0, 1, 1, 1)};
-    private static final String __OBFID = "CL_00000444";
 
     public static void registerStructurePieces()
     {
-        MapGenStructureIO.func_143031_a(StructureMineshaftPieces.Corridor.class, "MSMesaCorridor");
-        MapGenStructureIO.func_143031_a(StructureMineshaftPieces.Cross.class, "MSMesaCrossing");
+        MapGenStructureIO.func_143031_a(StructureMesaMineshaftPieces.MesaCorridor.class, "MSMesaCorridor");
+        MapGenStructureIO.func_143031_a(StructureMesaMineshaftPieces.MesaCross.class, "MSMesaCrossing");
+        MapGenStructureIO.func_143031_a(StructureMesaMineshaftPieces.MesaRoom.class, "MSMesaRoom");
+        MapGenStructureIO.func_143031_a(StructureMesaMineshaftPieces.MesaStairs.class, "MSMesaStairs");
+        MapGenStructureIO.registerStructure(StructureMesaMineshaftStart.class, "Mineshaft");
     }
 
     private static StructureComponent getRandomComponent(List p_78815_0_, Random p_78815_1_, int p_78815_2_, int p_78815_3_, int p_78815_4_, int p_78815_5_, int p_78815_6_)
@@ -45,16 +47,16 @@ public class StructureMesaMineshaftPieces extends StructureMineshaftPieces {
 
             if (structureboundingbox != null)
             {
-                return new MesaCross(p_78815_6_, p_78815_1_, structureboundingbox, p_78815_5_);
+                return new StructureMesaMineshaftPieces.MesaCross(p_78815_6_, p_78815_1_, structureboundingbox, p_78815_5_);
             }
         }
         else if (j1 >= 70)
         {
-            structureboundingbox = StructureMineshaftPieces.Stairs.findValidPlacement(p_78815_0_, p_78815_1_, p_78815_2_, p_78815_3_, p_78815_4_, p_78815_5_);
+            structureboundingbox = StructureMesaMineshaftPieces.MesaStairs.findValidPlacement(p_78815_0_, p_78815_1_, p_78815_2_, p_78815_3_, p_78815_4_, p_78815_5_);
 
             if (structureboundingbox != null)
             {
-                return new StructureMineshaftPieces.Stairs(p_78815_6_, p_78815_1_, structureboundingbox, p_78815_5_);
+                return new StructureMesaMineshaftPieces.MesaStairs(p_78815_6_, p_78815_1_, structureboundingbox, p_78815_5_);
             }
         }
         else
@@ -63,7 +65,7 @@ public class StructureMesaMineshaftPieces extends StructureMineshaftPieces {
 
             if (structureboundingbox != null)
             {
-                return new MesaCorridor(p_78815_6_, p_78815_1_, structureboundingbox, p_78815_5_);
+                return new StructureMesaMineshaftPieces.MesaCorridor(p_78815_6_, p_78815_1_, structureboundingbox, p_78815_5_);
             }
         }
 
@@ -99,7 +101,7 @@ public class StructureMesaMineshaftPieces extends StructureMineshaftPieces {
             private boolean hasRails;
             private boolean hasSpiders;
             private boolean spawnerPlaced;
-            /** A count of the different sections of this mine. The space between ceiling supports. */
+            /** A count of the different sections of . The spthis mineace between ceiling supports. */
             private int sectionCount;
             private static final String __OBFID = "CL_00000445";
 
@@ -295,7 +297,7 @@ public class StructureMesaMineshaftPieces extends StructureMineshaftPieces {
                 int j1 = this.getYWithOffset(p_74879_5_);
                 int k1 = this.getZWithOffset(p_74879_4_, p_74879_6_);
 
-                if (p_74879_2_.isVecInside(i1, j1, k1) && p_74879_1_.getBlock(i1, j1, k1).getMaterial() == Material.air)
+                if (p_74879_2_.isVecInside(i1, j1, k1) && p_74879_1_.getBlock(i1, j1, k1).getMaterial() == Material.air && p_74879_1_.getBlock(i1, j1 - 1, k1).getMaterial() != Material.air)
                 {
                     int l1 = p_74879_3_.nextBoolean() ? 1 : 0;
                     p_74879_1_.setBlock(i1, j1, k1, Blocks.rail, this.getMetadataWithOffset(Blocks.rail, l1), 2);
@@ -323,7 +325,7 @@ public class StructureMesaMineshaftPieces extends StructureMineshaftPieces {
 
 				if (this.hasSpiders)
 				{
-				    this.randomlyFillWithBlocks(p_74875_1_, p_74875_3_, p_74875_2_, 0.6F, 0, 0, 0, 2, 1, i, Blocks.web, Blocks.air, false);
+				    randomlyFillWithBlocksLightLimit(p_74875_1_, p_74875_3_, p_74875_2_, 0.6F, 0, 0, 0, 2, 1, i, Blocks.web, Blocks.air, false, 8);
 				}
 
 				int j;
@@ -332,29 +334,16 @@ public class StructureMesaMineshaftPieces extends StructureMineshaftPieces {
 				for (j = 0; j < this.sectionCount; ++j)
 				{
 				    k = 2 + j * 5;
-				    this.fillWithBlocks(p_74875_1_, p_74875_3_, 0, 0, k, 0, 1, k, ModBlocks.fences[4], Blocks.air, false);
-				    this.fillWithBlocks(p_74875_1_, p_74875_3_, 2, 0, k, 2, 1, k, ModBlocks.fences[4], Blocks.air, false);
 
-				    if (p_74875_2_.nextInt(4) == 0)
-				    {
-				        this.fillWithMetadataBlocks(p_74875_1_, p_74875_3_, 0, 2, k, 0, 2, k, Blocks.planks, 5, Blocks.air, 0, false);
-				        this.fillWithMetadataBlocks(p_74875_1_, p_74875_3_, 2, 2, k, 2, 2, k, Blocks.planks, 5, Blocks.air, 0, false);
-				    }
-				    else
-				    {
-				        this.fillWithMetadataBlocks(p_74875_1_, p_74875_3_, 0, 2, k, 2, 2, k, Blocks.planks, 5, Blocks.air, 0, false);
-				    }
-
-				    this.func_151552_a(p_74875_1_, p_74875_3_, p_74875_2_, 0.1F, 0, 2, k - 1, Blocks.web, 0);
-				    this.func_151552_a(p_74875_1_, p_74875_3_, p_74875_2_, 0.1F, 2, 2, k - 1, Blocks.web, 0);
-				    this.func_151552_a(p_74875_1_, p_74875_3_, p_74875_2_, 0.1F, 0, 2, k + 1, Blocks.web, 0);
-				    this.func_151552_a(p_74875_1_, p_74875_3_, p_74875_2_, 0.1F, 2, 2, k + 1, Blocks.web, 0);
-				    this.func_151552_a(p_74875_1_, p_74875_3_, p_74875_2_, 0.05F, 0, 2, k - 2, Blocks.web, 0);
-				    this.func_151552_a(p_74875_1_, p_74875_3_, p_74875_2_, 0.05F, 2, 2, k - 2, Blocks.web, 0);
-				    this.func_151552_a(p_74875_1_, p_74875_3_, p_74875_2_, 0.05F, 0, 2, k + 2, Blocks.web, 0);
-				    this.func_151552_a(p_74875_1_, p_74875_3_, p_74875_2_, 0.05F, 2, 2, k + 2, Blocks.web, 0);
-				    this.func_151552_a(p_74875_1_, p_74875_3_, p_74875_2_, 0.05F, 1, 2, k - 1, Blocks.torch, 0);
-				    this.func_151552_a(p_74875_1_, p_74875_3_, p_74875_2_, 0.05F, 1, 2, k + 1, Blocks.torch, 0);
+				    buildWoodenParts(p_74875_1_, p_74875_3_, 0, 0, k, 2, 2, p_74875_2_);
+				    placeWeb(p_74875_1_, p_74875_3_, p_74875_2_, 0.1F, 0, 2, k - 1);
+				    placeWeb(p_74875_1_, p_74875_3_, p_74875_2_, 0.1F, 2, 2, k - 1);
+				    placeWeb(p_74875_1_, p_74875_3_, p_74875_2_, 0.1F, 0, 2, k + 1);
+				    placeWeb(p_74875_1_, p_74875_3_, p_74875_2_, 0.1F, 2, 2, k + 1);
+				    placeWeb(p_74875_1_, p_74875_3_, p_74875_2_, 0.05F, 0, 2, k - 2);
+				    placeWeb(p_74875_1_, p_74875_3_, p_74875_2_, 0.05F, 2, 2, k - 2);
+				    placeWeb(p_74875_1_, p_74875_3_, p_74875_2_, 0.05F, 0, 2, k + 2);
+				    placeWeb(p_74875_1_, p_74875_3_, p_74875_2_, 0.05F, 2, 2, k + 2);
 
 				    ChestGenHooks info = ChestGenHooks.getInfo(MINESHAFT_CORRIDOR);
 				    if (p_74875_2_.nextInt(100) == 0)
@@ -374,7 +363,7 @@ public class StructureMesaMineshaftPieces extends StructureMineshaftPieces {
 				        int j1 = this.getXWithOffset(1, i1);
 				        i1 = this.getZWithOffset(1, i1);
 
-				        if (p_74875_3_.isVecInside(j1, l, i1))
+				        if (p_74875_3_.isVecInside(j1, l, i1) && this.skyLight(p_74875_1_, 1, 0, i1, getBoundingBox()) < 8)
 				        {
 				            this.spawnerPlaced = true;
 				            p_74875_1_.setBlock(j1, l, i1, Blocks.mob_spawner, 0, 2);
@@ -395,7 +384,7 @@ public class StructureMesaMineshaftPieces extends StructureMineshaftPieces {
 				        byte b0 = -1;
 				        Block block1 = this.getBlockAtCurrentPosition(p_74875_1_, j, b0, k, p_74875_3_);
 
-				        if (block1.getMaterial() == Material.air)
+				        if (block1.getMaterial() == Material.air && this.skyLight(p_74875_1_, j, -1, k, getBoundingBox()) < 8)
 				        {
 				            byte b1 = -1;
 				            this.placeBlockAtCurrentPosition(p_74875_1_, Blocks.planks, 5, j, b1, k, p_74875_3_);
@@ -411,12 +400,87 @@ public class StructureMesaMineshaftPieces extends StructureMineshaftPieces {
 
 				        if (block.getMaterial() != Material.air && block.func_149730_j())
 				        {
-				            this.func_151552_a(p_74875_1_, p_74875_3_, p_74875_2_, 0.7F, 1, 0, j, Blocks.rail, this.getMetadataWithOffset(Blocks.rail, 0));
+                            float f = skyLight(p_74875_1_, 1, 0, j, getBoundingBox()) > 8 ? 0.9F : 0.7F;
+				            this.func_151552_a(p_74875_1_, p_74875_3_, p_74875_2_, f, 1, 0, j, Blocks.rail, this.getMetadataWithOffset(Blocks.rail, 0));
 				        }
 				    }
 				}
 
 				return true;
+            }
+            
+            private void buildWoodenParts(World p_189921_1_, StructureBoundingBox p_189921_2_, int p_189921_3_, int p_189921_4_, int p_189921_5_, int p_189921_6_, int p_189921_7_, Random p_189921_8_)
+            {
+                if (this.func_189918_a(p_189921_1_, p_189921_2_, p_189921_3_, p_189921_7_, p_189921_6_, p_189921_5_))
+                {
+                    this.fillWithBlocks(p_189921_1_, p_189921_2_, p_189921_3_, p_189921_4_, p_189921_5_, p_189921_3_, p_189921_6_ - 1, p_189921_5_, ModBlocks.fences[4], Blocks.air, false);
+                    this.fillWithBlocks(p_189921_1_, p_189921_2_, p_189921_7_, p_189921_4_, p_189921_5_, p_189921_7_, p_189921_6_ - 1, p_189921_5_, ModBlocks.fences[4], Blocks.air, false);
+
+                    if (p_189921_8_.nextInt(4) == 0)
+                    {
+                        this.fillWithMetadataBlocks(p_189921_1_, p_189921_2_, p_189921_3_, p_189921_6_, p_189921_5_, p_189921_3_, p_189921_6_, p_189921_5_, Blocks.planks, 5, Blocks.air, 0, false);
+                        this.fillWithMetadataBlocks(p_189921_1_, p_189921_2_, p_189921_7_, p_189921_6_, p_189921_5_, p_189921_7_, p_189921_6_, p_189921_5_, Blocks.planks, 5, Blocks.air, 0, false);
+                    }
+                    else
+                    {
+                        this.fillWithMetadataBlocks(p_189921_1_, p_189921_2_, p_189921_3_, p_189921_6_, p_189921_5_, p_189921_7_, p_189921_6_, p_189921_5_, Blocks.planks, 5, Blocks.air, 0, false);
+                        this.func_151552_a(p_189921_1_, p_189921_2_, p_189921_8_, 0.05F, p_189921_3_ + 1, p_189921_6_, p_189921_5_ - 1, Blocks.torch, 0);
+                        this.func_151552_a(p_189921_1_, p_189921_2_, p_189921_8_, 0.05F, p_189921_3_ + 1, p_189921_6_, p_189921_5_ + 1, Blocks.torch, 0);
+                    }
+                }
+            }
+
+            protected boolean func_189918_a(World p_189918_1_, StructureBoundingBox p_189918_2_, int p_189918_3_, int p_189918_4_, int p_189918_5_, int p_189918_6_)
+            {
+                for (int i = p_189918_3_; i <= p_189918_4_; ++i)
+                {
+                    if (this.getBlockAtCurrentPosition(p_189918_1_, i, p_189918_5_ + 1, p_189918_6_, p_189918_2_).getMaterial() == Material.air)
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+
+            protected int skyLight(World p_189916_1_, int p_189916_2_, int p_189916_3_, int p_189916_4_, StructureBoundingBox p_189916_5_)
+            {
+                int i = this.getXWithOffset(p_189916_2_, p_189916_4_);
+                int j = this.getYWithOffset(p_189916_3_ + 1);
+                int k = this.getZWithOffset(p_189916_2_, p_189916_4_);
+                return !p_189916_5_.isVecInside(i, j, k) ? EnumSkyBlock.Sky.defaultLightValue : p_189916_1_.getSkyBlockTypeBrightness(EnumSkyBlock.Sky, i, j, k);
+            }
+
+            private void placeWeb(World p_189922_1_, StructureBoundingBox p_189922_2_, Random p_189922_3_, float p_189922_4_, int p_189922_5_, int p_189922_6_, int p_189922_7_)
+            {
+                if (this.skyLight(p_189922_1_, p_189922_5_, p_189922_6_, p_189922_7_, p_189922_2_) < 8)
+                {
+				    this.func_151552_a(p_189922_1_, p_189922_2_, p_189922_3_, p_189922_4_, p_189922_5_, p_189922_6_, p_189922_7_, Blocks.web, 0);
+                }
+            }
+            
+            protected void randomlyFillWithBlocksLightLimit(World p_151551_1_, StructureBoundingBox p_151551_2_, Random p_151551_3_, float p_151551_4_, int p_151551_5_, int p_151551_6_, int p_151551_7_, int p_151551_8_, int p_151551_9_, int p_151551_10_, Block p_151551_11_, Block p_151551_12_, boolean p_151551_13_, int light)
+            {
+                for (int k1 = p_151551_6_; k1 <= p_151551_9_; ++k1)
+                {
+                    for (int l1 = p_151551_5_; l1 <= p_151551_8_; ++l1)
+                    {
+                        for (int i2 = p_151551_7_; i2 <= p_151551_10_; ++i2)
+                        {
+                            if (p_151551_3_.nextFloat() <= p_151551_4_ && (!p_151551_13_ || this.getBlockAtCurrentPosition(p_151551_1_, l1, k1, i2, p_151551_2_).getMaterial() != Material.air) && skyLight(p_151551_1_, l1, k1, i2, p_151551_2_) < light)
+                            {
+                                if (k1 != p_151551_6_ && k1 != p_151551_9_ && l1 != p_151551_5_ && l1 != p_151551_8_ && i2 != p_151551_7_ && i2 != p_151551_10_)
+                                {
+                                    this.placeBlockAtCurrentPosition(p_151551_1_, p_151551_12_, 0, l1, k1, i2, p_151551_2_);
+                                }
+                                else
+                                {
+                                    this.placeBlockAtCurrentPosition(p_151551_1_, p_151551_11_, 0, l1, k1, i2, p_151551_2_);
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -561,16 +625,16 @@ public class StructureMesaMineshaftPieces extends StructureMineshaftPieces {
 				    this.fillWithBlocks(p_74875_1_, p_74875_3_, this.boundingBox.minX, this.boundingBox.minY, this.boundingBox.minZ + 1, this.boundingBox.maxX, this.boundingBox.maxY, this.boundingBox.maxZ - 1, Blocks.air, Blocks.air, false);
 				}
 
-				this.fillWithMetadataBlocks(p_74875_1_, p_74875_3_, this.boundingBox.minX + 1, this.boundingBox.minY, this.boundingBox.minZ + 1, this.boundingBox.minX + 1, this.boundingBox.maxY, this.boundingBox.minZ + 1, Blocks.planks, 5, Blocks.air, 0, false);
-				this.fillWithMetadataBlocks(p_74875_1_, p_74875_3_, this.boundingBox.minX + 1, this.boundingBox.minY, this.boundingBox.maxZ - 1, this.boundingBox.minX + 1, this.boundingBox.maxY, this.boundingBox.maxZ - 1, Blocks.planks, 5, Blocks.air, 0, false);
-				this.fillWithMetadataBlocks(p_74875_1_, p_74875_3_, this.boundingBox.maxX - 1, this.boundingBox.minY, this.boundingBox.minZ + 1, this.boundingBox.maxX - 1, this.boundingBox.maxY, this.boundingBox.minZ + 1, Blocks.planks, 5, Blocks.air, 0, false);
-				this.fillWithMetadataBlocks(p_74875_1_, p_74875_3_, this.boundingBox.maxX - 1, this.boundingBox.minY, this.boundingBox.maxZ - 1, this.boundingBox.maxX - 1, this.boundingBox.maxY, this.boundingBox.maxZ - 1, Blocks.planks, 5, Blocks.air, 0, false);
+				this.mineshaftWood(p_74875_1_, p_74875_3_, this.boundingBox.minX + 1, this.boundingBox.minY, this.boundingBox.minZ + 1, this.boundingBox.maxY);
+				this.mineshaftWood(p_74875_1_, p_74875_3_, this.boundingBox.minX + 1, this.boundingBox.minY, this.boundingBox.maxZ - 1, this.boundingBox.maxY);
+				this.mineshaftWood(p_74875_1_, p_74875_3_, this.boundingBox.maxX - 1, this.boundingBox.minY, this.boundingBox.minZ + 1, this.boundingBox.maxY);
+				this.mineshaftWood(p_74875_1_, p_74875_3_, this.boundingBox.maxX - 1, this.boundingBox.minY, this.boundingBox.maxZ - 1, this.boundingBox.maxY);
 
 				for (int i = this.boundingBox.minX; i <= this.boundingBox.maxX; ++i)
 				{
 				    for (int j = this.boundingBox.minZ; j <= this.boundingBox.maxZ; ++j)
 				    {
-				        if (this.getBlockAtCurrentPosition(p_74875_1_, i, this.boundingBox.minY - 1, j, p_74875_3_).getMaterial() == Material.air)
+				        if (this.getBlockAtCurrentPosition(p_74875_1_, i, this.boundingBox.minY - 1, j, p_74875_3_).getMaterial() == Material.air && skyLight(p_74875_1_, i, this.boundingBox.minY - 1, j, getBoundingBox()) < 8)
 				        {
 				            this.placeBlockAtCurrentPosition(p_74875_1_, Blocks.planks, 5, i, this.boundingBox.minY - 1, j, p_74875_3_);
 				        }
@@ -579,5 +643,265 @@ public class StructureMesaMineshaftPieces extends StructureMineshaftPieces {
 
 				return true;
             }
+
+            protected int skyLight(World p_189916_1_, int p_189916_2_, int p_189916_3_, int p_189916_4_, StructureBoundingBox p_189916_5_)
+            {
+                int i = this.getXWithOffset(p_189916_2_, p_189916_4_);
+                int j = this.getYWithOffset(p_189916_3_ + 1);
+                int k = this.getZWithOffset(p_189916_2_, p_189916_4_);
+                return !p_189916_5_.isVecInside(i, j, k) ? EnumSkyBlock.Sky.defaultLightValue : p_189916_1_.getSkyBlockTypeBrightness(EnumSkyBlock.Sky, i, j, k);
+            }
+
+	        private void mineshaftWood(World p_189923_1_, StructureBoundingBox p_189923_2_, int p_189923_3_, int p_189923_4_, int p_189923_5_, int p_189923_6_)
+	        {
+	            if (this.getBlockAtCurrentPosition(p_189923_1_, p_189923_3_, p_189923_6_ + 1, p_189923_5_, p_189923_2_).getMaterial() != Material.air)
+	            {
+	                this.fillWithMetadataBlocks(p_189923_1_, p_189923_2_, p_189923_3_, p_189923_4_, p_189923_5_, p_189923_3_, p_189923_6_, p_189923_5_, Blocks.planks, 5, Blocks.air, 0, false);
+	            }
+	        }
         }
+
+    public static class MesaRoom extends StructureComponent
+        {
+            /** List of other Mineshaft components linked to this room. */
+            private List roomsLinkedToTheRoom = new LinkedList();
+            private static final String __OBFID = "CL_00000447";
+
+            public MesaRoom() {}
+
+            public MesaRoom(int p_i2037_1_, Random p_i2037_2_, int p_i2037_3_, int p_i2037_4_)
+            {
+                super(p_i2037_1_);
+                this.boundingBox = new StructureBoundingBox(p_i2037_3_, 50, p_i2037_4_, p_i2037_3_ + 7 + p_i2037_2_.nextInt(6), 54 + p_i2037_2_.nextInt(6), p_i2037_4_ + 7 + p_i2037_2_.nextInt(6));
+            }
+
+            /**
+             * Initiates construction of the Structure Component picked, at the current Location of StructGen
+             */
+            public void buildComponent(StructureComponent p_74861_1_, List p_74861_2_, Random p_74861_3_)
+            {
+                int i = this.getComponentType();
+                int k = this.boundingBox.getYSize() - 3 - 1;
+
+                if (k <= 0)
+                {
+                    k = 1;
+                }
+
+                int j;
+                StructureComponent structurecomponent1;
+                StructureBoundingBox structureboundingbox;
+
+                for (j = 0; j < this.boundingBox.getXSize(); j += 4)
+                {
+                    j += p_74861_3_.nextInt(this.boundingBox.getXSize());
+
+                    if (j + 3 > this.boundingBox.getXSize())
+                    {
+                        break;
+                    }
+
+                    structurecomponent1 = StructureMesaMineshaftPieces.getNextMineShaftComponent(p_74861_1_, p_74861_2_, p_74861_3_, this.boundingBox.minX + j, this.boundingBox.minY + p_74861_3_.nextInt(k) + 1, this.boundingBox.minZ - 1, 2, i);
+
+                    if (structurecomponent1 != null)
+                    {
+                        structureboundingbox = structurecomponent1.getBoundingBox();
+                        this.roomsLinkedToTheRoom.add(new StructureBoundingBox(structureboundingbox.minX, structureboundingbox.minY, this.boundingBox.minZ, structureboundingbox.maxX, structureboundingbox.maxY, this.boundingBox.minZ + 1));
+                    }
+                }
+
+                for (j = 0; j < this.boundingBox.getXSize(); j += 4)
+                {
+                    j += p_74861_3_.nextInt(this.boundingBox.getXSize());
+
+                    if (j + 3 > this.boundingBox.getXSize())
+                    {
+                        break;
+                    }
+
+                    structurecomponent1 = StructureMesaMineshaftPieces.getNextMineShaftComponent(p_74861_1_, p_74861_2_, p_74861_3_, this.boundingBox.minX + j, this.boundingBox.minY + p_74861_3_.nextInt(k) + 1, this.boundingBox.maxZ + 1, 0, i);
+
+                    if (structurecomponent1 != null)
+                    {
+                        structureboundingbox = structurecomponent1.getBoundingBox();
+                        this.roomsLinkedToTheRoom.add(new StructureBoundingBox(structureboundingbox.minX, structureboundingbox.minY, this.boundingBox.maxZ - 1, structureboundingbox.maxX, structureboundingbox.maxY, this.boundingBox.maxZ));
+                    }
+                }
+
+                for (j = 0; j < this.boundingBox.getZSize(); j += 4)
+                {
+                    j += p_74861_3_.nextInt(this.boundingBox.getZSize());
+
+                    if (j + 3 > this.boundingBox.getZSize())
+                    {
+                        break;
+                    }
+
+                    structurecomponent1 = StructureMesaMineshaftPieces.getNextMineShaftComponent(p_74861_1_, p_74861_2_, p_74861_3_, this.boundingBox.minX - 1, this.boundingBox.minY + p_74861_3_.nextInt(k) + 1, this.boundingBox.minZ + j, 1, i);
+
+                    if (structurecomponent1 != null)
+                    {
+                        structureboundingbox = structurecomponent1.getBoundingBox();
+                        this.roomsLinkedToTheRoom.add(new StructureBoundingBox(this.boundingBox.minX, structureboundingbox.minY, structureboundingbox.minZ, this.boundingBox.minX + 1, structureboundingbox.maxY, structureboundingbox.maxZ));
+                    }
+                }
+
+                for (j = 0; j < this.boundingBox.getZSize(); j += 4)
+                {
+                    j += p_74861_3_.nextInt(this.boundingBox.getZSize());
+
+                    if (j + 3 > this.boundingBox.getZSize())
+                    {
+                        break;
+                    }
+
+                    structurecomponent1 = StructureMesaMineshaftPieces.getNextMineShaftComponent(p_74861_1_, p_74861_2_, p_74861_3_, this.boundingBox.maxX + 1, this.boundingBox.minY + p_74861_3_.nextInt(k) + 1, this.boundingBox.minZ + j, 3, i);
+
+                    if (structurecomponent1 != null)
+                    {
+                        structureboundingbox = structurecomponent1.getBoundingBox();
+                        this.roomsLinkedToTheRoom.add(new StructureBoundingBox(this.boundingBox.maxX - 1, structureboundingbox.minY, structureboundingbox.minZ, this.boundingBox.maxX, structureboundingbox.maxY, structureboundingbox.maxZ));
+                    }
+                }
+            }
+
+            /**
+             * second Part of Structure generating, this for example places Spiderwebs, Mob Spawners, it closes
+             * Mineshafts at the end, it adds Fences...
+             */
+            public boolean addComponentParts(World p_74875_1_, Random p_74875_2_, StructureBoundingBox p_74875_3_)
+            {
+                if (this.isLiquidInStructureBoundingBox(p_74875_1_, p_74875_3_))
+                {
+                    return false;
+                }
+				this.fillWithBlocks(p_74875_1_, p_74875_3_, this.boundingBox.minX, this.boundingBox.minY, this.boundingBox.minZ, this.boundingBox.maxX, this.boundingBox.minY, this.boundingBox.maxZ, Blocks.dirt, Blocks.air, true);
+				this.fillWithBlocks(p_74875_1_, p_74875_3_, this.boundingBox.minX, this.boundingBox.minY + 1, this.boundingBox.minZ, this.boundingBox.maxX, Math.min(this.boundingBox.minY + 3, this.boundingBox.maxY), this.boundingBox.maxZ, Blocks.air, Blocks.air, false);
+				Iterator iterator = this.roomsLinkedToTheRoom.iterator();
+
+				while (iterator.hasNext())
+				{
+				    StructureBoundingBox structureboundingbox1 = (StructureBoundingBox)iterator.next();
+				    this.fillWithBlocks(p_74875_1_, p_74875_3_, structureboundingbox1.minX, structureboundingbox1.maxY - 2, structureboundingbox1.minZ, structureboundingbox1.maxX, structureboundingbox1.maxY, structureboundingbox1.maxZ, Blocks.air, Blocks.air, false);
+				}
+
+				this.func_151547_a(p_74875_1_, p_74875_3_, this.boundingBox.minX, this.boundingBox.minY + 4, this.boundingBox.minZ, this.boundingBox.maxX, this.boundingBox.maxY, this.boundingBox.maxZ, Blocks.air, false);
+				return true;
+            }
+
+            protected void func_143012_a(NBTTagCompound p_143012_1_)
+            {
+                NBTTagList nbttaglist = new NBTTagList();
+                Iterator iterator = this.roomsLinkedToTheRoom.iterator();
+
+                while (iterator.hasNext())
+                {
+                    StructureBoundingBox structureboundingbox = (StructureBoundingBox)iterator.next();
+                    nbttaglist.appendTag(structureboundingbox.func_151535_h());
+                }
+
+                p_143012_1_.setTag("Entrances", nbttaglist);
+            }
+
+            protected void func_143011_b(NBTTagCompound p_143011_1_)
+            {
+                NBTTagList nbttaglist = p_143011_1_.getTagList("Entrances", 11);
+
+                for (int i = 0; i < nbttaglist.tagCount(); ++i)
+                {
+                    this.roomsLinkedToTheRoom.add(new StructureBoundingBox(nbttaglist.func_150306_c(i)));
+                }
+            }
+        }
+    
+    public static class MesaStairs extends StructureComponent
+    {
+        private static final String __OBFID = "CL_00000449";
+
+        public MesaStairs() {}
+
+        public MesaStairs(int p_i2038_1_, Random p_i2038_2_, StructureBoundingBox p_i2038_3_, int p_i2038_4_)
+        {
+            super(p_i2038_1_);
+            this.coordBaseMode = p_i2038_4_;
+            this.boundingBox = p_i2038_3_;
+        }
+
+        protected void func_143012_a(NBTTagCompound p_143012_1_) {}
+
+        protected void func_143011_b(NBTTagCompound p_143011_1_) {}
+
+        /**
+         * Trys to find a valid place to put this component.
+         */
+        public static StructureBoundingBox findValidPlacement(List p_74950_0_, Random p_74950_1_, int p_74950_2_, int p_74950_3_, int p_74950_4_, int p_74950_5_)
+        {
+            StructureBoundingBox structureboundingbox = new StructureBoundingBox(p_74950_2_, p_74950_3_ - 5, p_74950_4_, p_74950_2_, p_74950_3_ + 2, p_74950_4_);
+
+            switch (p_74950_5_)
+            {
+                case 0:
+                    structureboundingbox.maxX = p_74950_2_ + 2;
+                    structureboundingbox.maxZ = p_74950_4_ + 8;
+                    break;
+                case 1:
+                    structureboundingbox.minX = p_74950_2_ - 8;
+                    structureboundingbox.maxZ = p_74950_4_ + 2;
+                    break;
+                case 2:
+                    structureboundingbox.maxX = p_74950_2_ + 2;
+                    structureboundingbox.minZ = p_74950_4_ - 8;
+                    break;
+                case 3:
+                    structureboundingbox.maxX = p_74950_2_ + 8;
+                    structureboundingbox.maxZ = p_74950_4_ + 2;
+            }
+
+            return StructureComponent.findIntersecting(p_74950_0_, structureboundingbox) != null ? null : structureboundingbox;
+        }
+
+        /**
+         * Initiates construction of the Structure Component picked, at the current Location of StructGen
+         */
+        public void buildComponent(StructureComponent p_74861_1_, List p_74861_2_, Random p_74861_3_)
+        {
+            int i = this.getComponentType();
+
+            switch (this.coordBaseMode)
+            {
+                case 0:
+                    StructureMesaMineshaftPieces.getNextMineShaftComponent(p_74861_1_, p_74861_2_, p_74861_3_, this.boundingBox.minX, this.boundingBox.minY, this.boundingBox.maxZ + 1, 0, i);
+                    break;
+                case 1:
+                    StructureMesaMineshaftPieces.getNextMineShaftComponent(p_74861_1_, p_74861_2_, p_74861_3_, this.boundingBox.minX - 1, this.boundingBox.minY, this.boundingBox.minZ, 1, i);
+                    break;
+                case 2:
+                    StructureMesaMineshaftPieces.getNextMineShaftComponent(p_74861_1_, p_74861_2_, p_74861_3_, this.boundingBox.minX, this.boundingBox.minY, this.boundingBox.minZ - 1, 2, i);
+                    break;
+                case 3:
+                    StructureMesaMineshaftPieces.getNextMineShaftComponent(p_74861_1_, p_74861_2_, p_74861_3_, this.boundingBox.maxX + 1, this.boundingBox.minY, this.boundingBox.minZ, 3, i);
+            }
+        }
+
+        /**
+         * second Part of Structure generating, this for example places Spiderwebs, Mob Spawners, it closes
+         * Mineshafts at the end, it adds Fences...
+         */
+        public boolean addComponentParts(World p_74875_1_, Random p_74875_2_, StructureBoundingBox p_74875_3_)
+        {
+            if (this.isLiquidInStructureBoundingBox(p_74875_1_, p_74875_3_))
+            {
+                return false;
+            }
+			this.fillWithBlocks(p_74875_1_, p_74875_3_, 0, 5, 0, 2, 7, 1, Blocks.air, Blocks.air, false);
+			this.fillWithBlocks(p_74875_1_, p_74875_3_, 0, 0, 7, 2, 2, 8, Blocks.air, Blocks.air, false);
+
+			for (int i = 0; i < 5; ++i)
+			{
+			    this.fillWithBlocks(p_74875_1_, p_74875_3_, 0, 5 - i - (i < 4 ? 1 : 0), 2 + i, 2, 7 - i, 2 + i, Blocks.air, Blocks.air, false);
+			}
+
+			return true;
+        }
+    }
 }

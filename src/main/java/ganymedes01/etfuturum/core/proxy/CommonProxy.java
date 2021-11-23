@@ -61,6 +61,7 @@ public class CommonProxy implements IGuiHandler {
 		MinecraftForge.EVENT_BUS.register(ServerEventHandler.INSTANCE);
 		
 		FMLCommonHandler.instance().bus().register(WorldEventHandler.INSTANCE);
+		MinecraftForge.TERRAIN_GEN_BUS.register(WorldEventHandler.INSTANCE);
 	}
 
 	public void registerEntities() {

@@ -15,6 +15,7 @@ import ganymedes01.etfuturum.world.end.dimension.EndWorldProvider;
 import ganymedes01.etfuturum.world.generate.WorldGenDeepslateLayerBlob;
 import ganymedes01.etfuturum.world.generate.WorldGenMinableCustom;
 import ganymedes01.etfuturum.world.generate.feature.WorldGenFossil;
+import ganymedes01.etfuturum.world.structure.MapGenMesaMineshaft;
 import ganymedes01.etfuturum.world.structure.OceanMonument;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -28,6 +29,8 @@ import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 
 public class EtFuturumWorldGenerator implements IWorldGenerator {
+	
+	public static final EtFuturumWorldGenerator INSTANCE = new EtFuturumWorldGenerator();
 
 	protected final List<WorldGenMinable> stoneGen = new LinkedList<WorldGenMinable>();
 	protected final List<WorldGenFlowers> flowers = new LinkedList<WorldGenFlowers>();
@@ -42,8 +45,10 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 	
 	protected final WorldGenMinable deepslateBlobGen = new WorldGenDeepslateLayerBlob(ConfigWorld.maxDeepslatePerCluster, false);
 	protected final WorldGenMinable tuffGen = new WorldGenDeepslateLayerBlob(ConfigWorld.maxDeepslatePerCluster, true);
+	
+	public final MapGenMesaMineshaft mesaMineshaftGen = new MapGenMesaMineshaft();
 
-	public EtFuturumWorldGenerator() {
+	protected EtFuturumWorldGenerator() {
 		stoneGen.add(new WorldGenMinableCustom(ModBlocks.stone, 1, ConfigWorld.maxStonesPerCluster, Blocks.stone));
 		stoneGen.add(new WorldGenMinableCustom(ModBlocks.stone, 3, ConfigWorld.maxStonesPerCluster, Blocks.stone));
 		stoneGen.add(new WorldGenMinableCustom(ModBlocks.stone, 5, ConfigWorld.maxStonesPerCluster, Blocks.stone));
@@ -69,7 +74,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 			if(ConfigBlocksItems.enableCopper) {
 				generateOre(copperGen, world, rand, chunkX, chunkZ, 8, 4, 80);
 			}
-			
+
 			if(ConfigWorld.enableExtraMesaGold) {
 				if(ArrayUtils.contains(BiomeDictionary.getTypesForBiome(world.getBiomeGenForCoords(chunkX * 16, chunkZ * 16)), Type.MESA)) {
 					generateOre(mesaGoldGen, world, rand, chunkX, chunkZ, 20, 32, 80);
