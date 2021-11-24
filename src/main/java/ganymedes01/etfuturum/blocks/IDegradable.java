@@ -2,6 +2,7 @@ package ganymedes01.etfuturum.blocks;
 
 import java.util.Random;
 
+import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.client.particle.ParticleHandler;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
@@ -63,9 +64,10 @@ public interface IDegradable {
 	public Block getCopperBlockFromMeta(int meta);
 
 	default void tickDegradation(World world, int x, int y, int z, Random random) {
-		float f = 0.05688889F;
-		if (random.nextFloat() < f) {
-			this.tryDegrade(world, x, y, z, random);
+		if(!world.isRemote) {
+			if (random.nextFloat() < 0.05688889F) {
+				this.tryDegrade(world, x, y, z, random);
+			}
 		}
 	}
 	default void tryDegrade(World world, int x, int y, int z, Random random) {
@@ -81,7 +83,7 @@ public interface IDegradable {
 						   if(block instanceof IDegradable && (x1 != 0 || y1 != 0 || z1 != 0) && Math.abs(x1) + Math.abs(y1) + Math.abs(z1) <= 4) {
 							   int m = ((IDegradable)block).getCopperMeta(world.getBlockMetadata(x1 + x, y1 + y, z1 + z));
 							   
-							   if(m > 7) //TODO: Are fully oxidized blocks counted?
+							   if(m > 7)
 								   continue;
 							   
 							   m %= 4;

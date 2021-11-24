@@ -30,8 +30,6 @@ public class BlockCutCopperSlab extends BlockGenericSlab implements IConfigurabl
 	
 	@Override
 	public void updateTick(World world, int x, int y, int z, Random rand) {
-		if (world.isRemote)
-			return;
 		tickDegradation(world, x, y, z, rand);
 	}
 
