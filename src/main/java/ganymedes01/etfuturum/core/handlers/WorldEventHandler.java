@@ -23,50 +23,43 @@ import net.minecraftforge.event.terraingen.InitMapGenEvent;
 
 public class WorldEventHandler {
 
-	private static Map<Block, Block> replacements;
-	private int prevHash;
+	private static final Map<Block, Block> replacements = new HashMap<>();
+	private int prevSize;
 	
 	public static final WorldEventHandler INSTANCE = new WorldEventHandler();
 	
 	private WorldEventHandler() {
-	}
+		if(ConfigBlocksItems.enableBrewingStands) {
+			if (ConfigWorld.tileReplacementMode == 0)
+				replacements.put(Blocks.brewing_stand, ModBlocks.brewing_stand);
+			else if(ConfigWorld.tileReplacementMode == 1)
+				replacements.put(ModBlocks.brewing_stand, Blocks.brewing_stand);
+		}
+		
 
-	static {
-		if (replacements == null) {
-			replacements = new HashMap<Block, Block>();
+		if(ConfigBlocksItems.enableColourfulBeacons) {
+			if (ConfigWorld.tileReplacementMode == 0)
+				replacements.put(Blocks.beacon, ModBlocks.beacon);
+			else if(ConfigWorld.tileReplacementMode == 1)
+				replacements.put(ModBlocks.beacon, Blocks.beacon);
+		}
 
-			if(ConfigBlocksItems.enableBrewingStands) {
-				if (ConfigWorld.tileReplacementMode == 0)
-					replacements.put(Blocks.brewing_stand, ModBlocks.brewing_stand);
-				else if(ConfigWorld.tileReplacementMode == 1)
-					replacements.put(ModBlocks.brewing_stand, Blocks.brewing_stand);
-			}
-			
-
-			if(ConfigBlocksItems.enableColourfulBeacons) {
-				if (ConfigWorld.tileReplacementMode == 0)
-					replacements.put(Blocks.beacon, ModBlocks.beacon);
-				else if(ConfigWorld.tileReplacementMode == 1)
-					replacements.put(ModBlocks.beacon, Blocks.beacon);
-			}
-
-			if(ConfigBlocksItems.enableEnchantingTable) {
-				if (ConfigWorld.tileReplacementMode == 0)
-					replacements.put(Blocks.enchanting_table, ModBlocks.enchantment_table);
-				else if(ConfigWorld.tileReplacementMode == 1)
-					replacements.put(ModBlocks.enchantment_table, Blocks.enchanting_table);
-			}
-			
-			if(ConfigBlocksItems.enableInvertedDaylightSensor) {
-				if (ConfigWorld.tileReplacementMode == 0 || ConfigWorld.tileReplacementMode == 1)
-					replacements.put(ModBlocks.daylight_detector, Blocks.daylight_detector);
-			}
+		if(ConfigBlocksItems.enableEnchantingTable) {
+			if (ConfigWorld.tileReplacementMode == 0)
+				replacements.put(Blocks.enchanting_table, ModBlocks.enchantment_table);
+			else if(ConfigWorld.tileReplacementMode == 1)
+				replacements.put(ModBlocks.enchantment_table, Blocks.enchanting_table);
+		}
+		
+		if(ConfigBlocksItems.enableInvertedDaylightSensor) {
+			if (ConfigWorld.tileReplacementMode == 0 || ConfigWorld.tileReplacementMode == 1)
+				replacements.put(ModBlocks.daylight_detector, Blocks.daylight_detector);
 		}
 	}
 	
 	@SubscribeEvent
 	public void tick(WorldTickEvent event) {
-		if (event.side != Side.SERVER || event.phase != Phase.END)
+		if (!event.side.isServer() || event.phase != Phase.END)
 			return;
 
 		if (replacements.isEmpty())
@@ -74,33 +67,42 @@ public class WorldEventHandler {
 
 		World world = event.world;
 		
-
-		if(world.loadedTileEntityList.isEmpty() || prevHash == world.loadedTileEntityList.hashCode())
+		if(world.getWorldTime() % 5 != 0)
 			return;
 		
+		if(world.loadedTileEntityList.isEmpty() || prevSize == world.loadedTileEntityList.size())
+			return;
+		
+		System.out.println("Initiating tile check on size " + prevSize);
+		
+		TileEntity tile;
+		Block replacement;
 		for(int i = 0; i < world.loadedTileEntityList.size(); i++) {
-			TileEntity tile = (TileEntity)world.loadedTileEntityList.get(i);
-			if (tile == null) continue;
-			Block replacement = replacements.get(tile.getBlockType());
-			if(replacement != null && (!(replacement instanceof IConfigurable) || ((IConfigurable) replacement).isEnabled())) {
-				NBTTagCompound nbt = new NBTTagCompound();
-				tile.writeToNBT(nbt);
-				if (tile instanceof IInventory) {
-					IInventory invt = (IInventory) tile;
-					for (int j = 0; j < invt.getSizeInventory(); j++)
-						invt.setInventorySlotContents(j, null);
+			tile = (TileEntity)world.loadedTileEntityList.get(i);
+			replacement = replacements.get(tile.getBlockType());
+			
+			if(replacement == null) continue;
+			
+			NBTTagCompound nbt = new NBTTagCompound();
+			tile.writeToNBT(nbt);
+			if (tile instanceof IInventory) {
+				IInventory invt = (IInventory) tile;
+				for (int j = 0; j < invt.getSizeInventory(); j++) {
+					invt.setInventorySlotContents(j, null);
 				}
-				int x = tile.xCoord;
-				int y = tile.yCoord;
-				int z = tile.zCoord;
-				world.setBlock(x, y, z, replacement);
-				TileEntity newTile = world.getTileEntity(x, y, z);
-				if(newTile != null)
-					newTile.readFromNBT(nbt);
-				break;
+			}
+			
+			int x = tile.xCoord;
+			int y = tile.yCoord;
+			int z = tile.zCoord;
+			world.setBlock(x, y, z, replacement);
+			TileEntity newTile = world.getTileEntity(x, y, z);
+			if(newTile != null) {
+				newTile.readFromNBT(nbt);
 			}
 		}
-		prevHash = world.loadedTileEntityList.hashCode();
+		
+		prevSize = world.loadedTileEntityList.size();
 	}
 	
 	private static boolean hasRegistered;
