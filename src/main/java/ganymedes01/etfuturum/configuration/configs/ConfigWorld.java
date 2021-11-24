@@ -9,9 +9,9 @@ import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 
 public class ConfigWorld extends ConfigBase {
-	
-	public static boolean enableNewNether;
+
 	//TODO: CHANGE THIS
+	public static boolean enableNewNether;
 	public static boolean enableDmgIndicator;
 	public static boolean enableAirDebris;
 	public static int debrisMax = 3;
@@ -40,6 +40,7 @@ public class ConfigWorld extends ConfigBase {
 	public static int[] deepslateLayerDimensionBlacklist;
 	public static boolean enableExtraMesaGold;
 	public static boolean enableMesaMineshaft;
+	public static boolean enableCoarseDirtReplacement;
 
 	public static final String catClient = "client";
 	public static final String catGeneration = "generation";
@@ -93,6 +94,8 @@ public class ConfigWorld extends ConfigBase {
 		maxTuffPerCluster = cfg.getInt("tuffClusterSize", catGeneration, 32, 0, 64, "Max vein size for tuff blocks in a cluster");
 		enableExtraMesaGold = cfg.getBoolean("enableExtraMesaGold", catGeneration, true, "Generate 20 more veins of gold ore from Y 32 to Y 80 in any Mesa biome.");
 		enableMesaMineshaft = cfg.getBoolean("enableMesaMineshaft", catGeneration, true, "Generates extra mineshafts in mesa biomes up to y80. If fences are enabled, dark oak wood is used.");
+		enableCoarseDirtReplacement = cfg.getBoolean("enableCoarseDirtReplacement", catGeneration, true, "Replaces coarse dirt in biomes it (dirt:1) generates in such as shattered savannas or mesa plateaus.");
+		
 		
 		fullGrassPath = cfg.getBoolean("fullGrassPath", catMisc, false, "Set to true if you're having issues with stepping over grass paths. Temporary option until fixes are implemented to 1.7's stepping system.");
 		tileReplacementMode = cfg.getInt("tileReplacementMode", catMisc, 0, -1, 1, "Replace old Brewing Stands/Enchanting Tables/Daylight Sensors/Beacons with new one on the fly.\n-1 = Disabled, no conversion even if the replacement tile entities are on\n0 = Convert the vanilla tile entities to their Et Futurum versions\n1 = Convert Et Futurum replacement tile entities back to default ones. Useful if you want to turn those off.");

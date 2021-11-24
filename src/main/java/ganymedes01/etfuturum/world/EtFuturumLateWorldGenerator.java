@@ -42,7 +42,8 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 				generateOre(tuffGen, world, rand, chunkX, chunkZ, 1, 6, ConfigWorld.deepslateMaxY);
 			}
 		}
-		
+
+		Chunk chunk = null;
 		if(doesChunkSupportLayerDeepslate(world.getWorldInfo().getTerrainType(), world.provider.dimensionId)) {
 			//Turn off recording here so the world gen isn't an infinite recursion loop of constantly checking the same blocks
 			stopRecording = true;
@@ -54,14 +55,14 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 				set = iterator.next();
 				if(set.getKey().dim() == world.provider.dimensionId) {
 					
-					Chunk chunk = BlockDeepslate.chunkCache.get(set.getKey());
+					Chunk cachedChunk = BlockDeepslate.chunkCache.get(set.getKey());
 
-					if(chunk != null) {
+					if(cachedChunk != null) {
 						redo = set.getValue();
 						while(!redo.isEmpty()) {
 							//Iterate this way to avoid ConcurrentModificationException
 							BlockPos pos = redo.get(0);
-							this.replaceBlockInChunk(chunk, pos.getX() & 15, pos.getZ() & 15, pos.getX(), pos.getY(), pos.getZ());
+							this.replaceBlockInChunk(cachedChunk, pos.getX() & 15, pos.getZ() & 15, pos.getX(), pos.getY(), pos.getZ());
 							redo.remove(0);
 						}
 					}
@@ -70,34 +71,56 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 				}
 			}
 
-			Chunk chunk = world.getChunkFromChunkCoords(chunkX, chunkZ);
+			chunk = world.getChunkFromChunkCoords(chunkX, chunkZ);
 			doDeepslateGen(chunk);
 			
 			stopRecording = false;
+		}
+		
+		if(ConfigBlocksItems.enableCoarseDirt && ConfigWorld.enableCoarseDirtReplacement) {
+			if(chunk == null) {
+				chunk = world.getChunkFromChunkCoords(chunkX, chunkZ);
+			}
+			doCoarseDirtGen(chunk);
+		}
+	}
+	
+	
+	private void doCoarseDirtGen(Chunk chunk) {
+			for (int x = 0; x < 16; x++) {
+				for (int z = 0; z < 16; z++) {
+					for (int y = 0; y <= chunk.getHeightValue(x, z); y++) {
+						ExtendedBlockStorage array = chunk.getBlockStorageArray()[y >> 4];
+						if(array != null && array.getBlockByExtId(x, y & 15, z) == Blocks.dirt && array.getExtBlockMetadata(x, y & 15, z) == 1) {
+							array.func_150818_a(x, y & 15, z, ModBlocks.coarse_dirt);
+							array.setExtBlockMetadata(x, y & 15, z, 0);
+					}
+				}
+			}
 		}
 	}
 	
 	
 	private void doDeepslateGen(Chunk chunk) {
-			
-			int worldX;
-			int worldZ;
-			final int chunkMultiplierX = chunk.xPosition * 16;
-			final int chunkMultiplierZ = chunk.zPosition * 16;
+		
+		int worldX;
+		int worldZ;
+		final int chunkMultiplierX = chunk.xPosition * 16;
+		final int chunkMultiplierZ = chunk.zPosition * 16;
 
-			for (int y = 0; y <= ConfigWorld.deepslateMaxY; y++) {
-				for (int x = 0; x < 16; x++) {
-					for (int z = 0; z < 16; z++) {
-						if(ConfigWorld.deepslateMaxY >= 255 || y < ConfigWorld.deepslateMaxY - 4 || y <= ConfigWorld.deepslateMaxY - chunk.worldObj.rand.nextInt(4)) {
-							
-							worldX = x + chunkMultiplierX;
-							worldZ = z + chunkMultiplierZ;
-							
-							this.replaceBlockInChunk(chunk, x, z, worldX, y, worldZ);
-						}
+		for (int y = 0; y <= ConfigWorld.deepslateMaxY; y++) {
+			for (int x = 0; x < 16; x++) {
+				for (int z = 0; z < 16; z++) {
+					if(ConfigWorld.deepslateMaxY >= 255 || y < ConfigWorld.deepslateMaxY - 4 || y <= ConfigWorld.deepslateMaxY - chunk.worldObj.rand.nextInt(4)) {
+						
+						worldX = x + chunkMultiplierX;
+						worldZ = z + chunkMultiplierZ;
+						
+						this.replaceBlockInChunk(chunk, x, z, worldX, y, worldZ);
 					}
 				}
 			}
+		}
 	}
 	
 	private void replaceBlockInChunk(Chunk chunk, int x, int z, int worldX, int worldY, int worldZ) {

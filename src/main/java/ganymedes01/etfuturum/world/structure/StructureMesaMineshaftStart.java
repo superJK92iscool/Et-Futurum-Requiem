@@ -28,7 +28,9 @@ public class StructureMesaMineshaftStart extends StructureMineshaftStart {
 
             for (StructureComponent structurecomponent : (LinkedList<StructureComponent>)this.components)
             {
-                structurecomponent.getBoundingBox().offset(0, j, 0);
+            	if(structurecomponent instanceof StructureMesaMineshaftPieces.Piece) {
+                    ((StructureMesaMineshaftPieces.Piece)structurecomponent).offset(0, j, 0);
+            	}
             }
 	    }
 

@@ -31,7 +31,7 @@ public class MapGenMesaMineshaft extends MapGenMineshaft {
 
     protected boolean canSpawnStructureAtCoords(int p_75047_1_, int p_75047_2_)
     {
-    	if(ArrayUtils.contains(BiomeDictionary.getTypesForBiome(this.worldObj.getBiomeGenForCoords(p_75047_1_ * 16, p_75047_2_ * 16)), Type.MESA)) {
+    	if(ArrayUtils.contains(BiomeDictionary.getTypesForBiome(this.worldObj.getBiomeGenForCoords((p_75047_1_ << 4) + 8, (p_75047_2_ << 4) + 8)), Type.MESA)) {
         	isMesa = true;
     	}
         return super.canSpawnStructureAtCoords(p_75047_1_, p_75047_2_);

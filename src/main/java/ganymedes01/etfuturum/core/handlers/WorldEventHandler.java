@@ -73,8 +73,6 @@ public class WorldEventHandler {
 		if(world.loadedTileEntityList.isEmpty() || prevSize == world.loadedTileEntityList.size())
 			return;
 		
-		System.out.println("Initiating tile check on size " + prevSize);
-		
 		TileEntity tile;
 		Block replacement;
 		for(int i = 0; i < world.loadedTileEntityList.size(); i++) {
