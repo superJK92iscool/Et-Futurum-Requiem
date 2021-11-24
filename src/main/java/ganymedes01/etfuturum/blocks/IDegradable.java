@@ -70,6 +70,7 @@ public interface IDegradable {
 			}
 		}
 	}
+	
 	default void tryDegrade(World world, int x, int y, int z, Random random) {
 		   int i = getCopperMeta(world.getBlockMetadata(x, y, z));
 		   int j = 0;
