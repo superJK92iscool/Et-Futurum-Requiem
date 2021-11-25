@@ -54,8 +54,6 @@ public class BlockGlazedTerracottaRenderer extends FlippedUVCubeModel implements
 		renderer.uvRotateWest = orient > 1 ? 3 - orient : orient + 2; // Rotate south-facing side (NO NEED FOR MIRROR)
 		renderer.uvRotateBottom = orient > 1 ? 2 * orient - 4 : 3 - 2 * orient; // (ALL orientations are wrong)
 		
-//        System.out.println("Meta: " + Integer.toString(orient) + " Rotation: " + Integer.toString(orient > 1 ? 2 * orient - 4 : 3 - 2 * orient));
-		
 		int l = block.colorMultiplier(world, x, y, z);
 		float f = (l >> 16 & 255) / 255.0F;
 		float f1 = (l >> 8 & 255) / 255.0F;

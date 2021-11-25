@@ -24,7 +24,6 @@ public class PlayerModelManager {
 //      alexCache.clear();
 		Boolean isAlex = alexCache.get(player.getUniqueID());
 		if(isAlex == null) {
-//          System.out.println("test");
 			NBTTagCompound nbt = player.getEntityData();
 			if(nbt.hasKey(MODEL_KEY, Constants.NBT.TAG_BYTE))
 				nbt.removeTag(MODEL_KEY);

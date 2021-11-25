@@ -341,8 +341,6 @@ public class EntityShulkerBullet extends Entity
 			}
 
 			this.setPosition(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
-//            System.out.println((worldObj.isRemote ? "Client: " : "Server: ") + posX + " " + posY + " " + posZ);
-//            System.out.println((worldObj.isRemote ? "Client: " : "Server: ") + motionX + " " + motionY + " " + motionZ);
 			Utils.rotateTowardsMovement(this, 0.5F);
 
 			if (this.worldObj.isRemote)

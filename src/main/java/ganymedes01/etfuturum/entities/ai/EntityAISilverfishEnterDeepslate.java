@@ -30,7 +30,6 @@ public class EntityAISilverfishEnterDeepslate extends EntityAIBase {
 	
 	@Override
 	public void updateTask() {
-//        System.out.println(shouldExecute());
 		int i = MathHelper.floor_double(theEntity.posX);
 		int j = MathHelper.floor_double(theEntity.posY + 0.5D);
 		int k = MathHelper.floor_double(theEntity.posZ);
