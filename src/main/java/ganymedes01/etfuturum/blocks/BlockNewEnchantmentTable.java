@@ -5,7 +5,9 @@ import java.util.Random;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
+import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.GUIsID;
 import net.minecraft.block.BlockEnchantmentTable;
@@ -26,12 +28,16 @@ public class BlockNewEnchantmentTable extends BlockEnchantmentTable implements I
 
 	@Override
 	public Item getItemDropped(int meta, Random rand, int fortune) {
+		if (ConfigWorld.tileReplacementMode == -1)
+			return Item.getItemFromBlock(ModBlocks.enchanting_table);
 		return Item.getItemFromBlock(Blocks.enchanting_table);
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public Item getItem(World world, int x, int y, int z) {
+		if (ConfigWorld.tileReplacementMode == -1)
+			return Item.getItemFromBlock(ModBlocks.enchanting_table);
 		return Item.getItemFromBlock(Blocks.enchanting_table);
 	}
 

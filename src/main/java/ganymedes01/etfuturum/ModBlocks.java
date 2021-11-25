@@ -121,7 +121,7 @@ public class ModBlocks {
 	//technical blocks
 	public static final Block brewing_stand = initBlock(new BlockNewBrewingStand());
 	public static final Block beacon = initBlock(new BlockNewBeacon());
-	public static final Block enchantment_table = initBlock(new BlockNewEnchantmentTable());
+	public static final Block enchanting_table = initBlock(new BlockNewEnchantmentTable());
 	public static final Block anvil = initBlock(new BlockNewAnvil());
 	public static final Block daylight_detector = initBlock(new BlockNewDaylightSensor());
 	public static final Block frosted_ice = initBlock(new BlockFrostedIce());

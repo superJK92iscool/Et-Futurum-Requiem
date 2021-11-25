@@ -46,9 +46,9 @@ public class WorldEventHandler {
 
 		if(ConfigBlocksItems.enableEnchantingTable) {
 			if (ConfigWorld.tileReplacementMode == 0)
-				replacements.put(Blocks.enchanting_table, ModBlocks.enchantment_table);
+				replacements.put(Blocks.enchanting_table, ModBlocks.enchanting_table);
 			else if(ConfigWorld.tileReplacementMode == 1)
-				replacements.put(ModBlocks.enchantment_table, Blocks.enchanting_table);
+				replacements.put(ModBlocks.enchanting_table, Blocks.enchanting_table);
 		}
 		
 		if(ConfigBlocksItems.enableInvertedDaylightSensor) {

@@ -103,7 +103,7 @@ public class CompatTC {
 		ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.chorus_flower), new AspectList().add(Aspect.ELDRITCH, 1).add(Aspect.SENSES, 1).add(Aspect.PLANT, 1) );
 		ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.chorus_plant), new AspectList().add(Aspect.ELDRITCH, 1).add(Aspect.PLANT, 1) );
 		ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.daylight_detector), new AspectList(new ItemStack(Blocks.daylight_detector)) );
-		ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.enchantment_table), new AspectList(new ItemStack(Blocks.enchanting_table)) );
+		ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.enchanting_table), new AspectList(new ItemStack(Blocks.enchanting_table)) );
 		ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.end_rod), new AspectList().add(Aspect.LIGHT, 2).add(Aspect.FIRE, 1) );
 		ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.grass_path), new AspectList(new ItemStack(Blocks.dirt)).add(Aspect.ORDER, 1) );
 		ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.frosted_ice), new AspectList(new ItemStack(Blocks.ice)).add(Aspect.ENTROPY, 1) );

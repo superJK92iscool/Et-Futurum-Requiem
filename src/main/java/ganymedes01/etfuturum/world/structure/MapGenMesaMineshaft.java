@@ -17,23 +17,13 @@ import net.minecraftforge.common.BiomeDictionary.Type;
  *
  */
 public class MapGenMesaMineshaft extends MapGenMineshaft {
-	
-	public boolean isMesa;
 
 	@Override
     protected StructureStart getStructureStart(int p_75049_1_, int p_75049_2_)
     {
-		if(isMesa) {
+		if(ArrayUtils.contains(BiomeDictionary.getTypesForBiome(this.worldObj.getBiomeGenForCoords((p_75049_1_ << 4) + 8, (p_75049_2_ << 4) + 8)), Type.MESA)) {
 	        return new StructureMesaMineshaftStart(this.worldObj, this.rand, p_75049_1_, p_75049_2_);
 		}
         return new StructureMineshaftStart(this.worldObj, this.rand, p_75049_1_, p_75049_2_);
-    }
-
-    protected boolean canSpawnStructureAtCoords(int p_75047_1_, int p_75047_2_)
-    {
-    	if(ArrayUtils.contains(BiomeDictionary.getTypesForBiome(this.worldObj.getBiomeGenForCoords((p_75047_1_ << 4) + 8, (p_75047_2_ << 4) + 8)), Type.MESA)) {
-        	isMesa = true;
-    	}
-        return super.canSpawnStructureAtCoords(p_75047_1_, p_75047_2_);
     }
 }
