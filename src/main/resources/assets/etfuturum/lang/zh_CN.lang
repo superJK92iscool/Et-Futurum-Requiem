@@ -9,7 +9,11 @@ enchantment.waterWalker=深海探索者
 enchantment.binding_curse=§c绑定诅咒
 enchantment.vanishing_curse=§c消失诅咒
 
-# Containers
+# Potions
+potion.levitation=飘浮
+potion.levitation.postfix=飘浮药水
+
+# Containers/GUI
 container.etfuturum.banner=旗帜
 container.enchant.lapis.one=花费：1个青金石
 container.enchant.lapis.many=花费：%d个青金石
@@ -20,6 +24,13 @@ container.enchant.clue=%s…？
 container.etfuturum.blast_furnace=高炉
 container.etfuturum.smoker=烟熏炉
 container.etfuturum.barrel=木桶
+container.etfuturum.shulker_box=潜影盒
+
+gui.warn.continue=继续……
+gui.warn.dismiss=不再显示此警告。
+gui.warn.notice=注意：
+gui.warn.configSplit1=由于 Et Futurum Requiem 的主配置变得非常长且难以浏览，所以配置被拆分成多个文件。你之所以收到此警告是因为在“configs/etfuturum.cfg”有个先前版本的配置文件。目前并不会自动转移你的配置，所以一定要查看新文件！
+gui.warn.configSplit2=当你完成上述操作后，你可以删除或重命名旧配置文件，或勾选下面的方框以停止显示此警告。
 
 # Entities
 entity.etfuturum.endermite.name=末影螨
@@ -30,12 +41,13 @@ entity.etfuturum.end_crystal.name=末影水晶
 entity.etfuturum.ender_dragon.name=末影龙
 entity.etfuturum.snow_golem.name=雪傀儡
 entity.etfuturum.brown_mooshroom.name=棕色蘑菇
+entity.etfuturum.shulker.name=潜影贝
+entity.etfuturum.shulker_candy.name=潜影贝导弹
 
 entity.etfuturum.stray.name=流浪者
 entity.etfuturum.husk.name=尸壳
 entity.etfuturum.guardian.name=守卫者
 entity.etfuturum.elder_guardian.name=远古守卫者
-entity.etfuturum.shulker.name=潜影贝
 entity.etfuturum.polar_bear.name=北极熊
 
 # Items
@@ -94,6 +106,7 @@ item.etfuturum.birch_boat.name=白桦木船
 item.etfuturum.jungle_boat.name=丛林木船
 item.etfuturum.dark_oak_boat.name=深色橡木船
 item.etfuturum.acacia_boat.name=金合欢木船
+item.etfuturum.shulker_shell.name=潜影壳
 
 # Arrows
 item.etfuturum.tipped_arrow.name=药箭
@@ -137,7 +150,7 @@ tile.etfuturum.prismarine_block_rough.name=海晶石
 tile.etfuturum.prismarine_block_bricks.name=海晶石砖
 tile.etfuturum.prismarine_block_dark.name=暗海晶石
 tile.etfuturum.sea_lantern.name=海晶灯
-tile.etfuturum.daylight_detector_inverted.name=反相阳光传感器
+tile.etfuturum.daylight_detector_inverted.name=反相阳光探测器
 tile.etfuturum.red_sandstone_default.name=红砂岩
 tile.etfuturum.red_sandstone_chiseled.name=錾制红砂岩
 tile.etfuturum.red_sandstone_smooth.name=平滑红砂岩
@@ -167,7 +180,7 @@ tile.etfuturum.fence_gate_birch.name=白桦木栅栏门
 tile.etfuturum.fence_gate_jungle.name=丛林木栅栏门
 tile.etfuturum.fence_gate_acacia.name=金合欢栅栏门
 tile.etfuturum.fence_gate_dark_oak.name=深色橡木栅栏门
-tile.etfuturum.old_gravel.name=旧版本沙砾
+tile.etfuturum.old_gravel.name=旧版沙砾
 tile.etfuturum.beetroots.name=甜菜根
 tile.etfuturum.purpur_block.name=紫珀块
 tile.etfuturum.purpur_slab.name=紫珀台阶
@@ -286,7 +299,7 @@ tile.etfuturum.end_gateway.name=末地折跃门
 tile.etfuturum.end_portal.name=末地传送门
 
 tile.etfuturum.magma.name=岩浆块
-tile.etfuturum.nether_wart.name=下界疣
+tile.etfuturum.nether_wart.name=下界疣块
 tile.etfuturum.bone.name=骨块
 
 tile.etfuturum.prismarine_stairs.name=海晶石楼梯
@@ -461,6 +474,18 @@ tile.etfuturum.red_netherbrick_stairs.name=红色下界砖楼梯
 tile.etfuturum.red_netherbrick_chiseled.name=錾制下界砖块
 tile.etfuturum.red_netherbrick_cracked.name=裂纹下界砖块
 tile.etfuturum.nether_gold_ore.name=下界金矿石
+tile.etfuturum.stone_brick_wall.name=石砖墙
+tile.etfuturum.mossy_stone_brick_wall.name=苔石砖墙
+tile.etfuturum.sandstone_wall.name=砂岩墙
+tile.etfuturum.brick_wall.name=砖块墙
+tile.etfuturum.nether_brick_wall.name=下界砖墙
+tile.etfuturum.andesite_wall.name=安山岩墙
+tile.etfuturum.diorite_wall.name=闪长岩墙
+tile.etfuturum.granite_wall.name=花岗岩墙
+tile.etfuturum.red_sandstone_wall.name=红砂岩墙
+tile.etfuturum.prismarine_wall.name=海晶石墙
+tile.etfuturum.red_nether_brick_wall.name=红色下界砖墙
+tile.etfuturum.end_brick_wall.name=末地石砖墙
 
 tile.etfuturum.shulker_box.name=潜影盒
 tile.etfuturum.white_shulker_box.name=白色潜影盒
