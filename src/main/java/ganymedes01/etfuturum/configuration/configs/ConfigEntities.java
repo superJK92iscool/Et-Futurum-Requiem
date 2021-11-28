@@ -20,10 +20,12 @@ public class ConfigEntities extends ConfigBase {
 	public static boolean enableDragonRespawn;
 	public static boolean enableNetherEndermen;
 	public static boolean enableShearableSnowGolems;
+	public static float flySprintSpeed;
 
 	static final String catHostile = "hostile";
 	static final String catNeutral = "neutral";
 	static final String catPassive = "passive";
+	static final String catPlayer = "player";
 	static final String catMisc = "misc";
 
 	public static final String PATH = configDir + File.separator + "entities.cfg";
@@ -34,12 +36,14 @@ public class ConfigEntities extends ConfigBase {
 		setCategoryComment(catHostile, "Hostile entities.");
 		setCategoryComment(catNeutral, "Neutral entities.");
 		setCategoryComment(catPassive, "Passive entities.");
+		setCategoryComment(catPlayer, "These settings affect the player directly.");
 		setCategoryComment(catMisc, "Entity settings that don't fit into any other category, typically entity settings.");
 		
 		configCats.add(getCategory(catHostile));
 		configCats.add(getCategory(catNeutral));
 		configCats.add(getCategory(catPassive));
 		configCats.add(getCategory(catMisc));
+		configCats.add(getCategory(catPlayer));
 	}
 
 	@Override
@@ -47,22 +51,24 @@ public class ConfigEntities extends ConfigBase {
 		Configuration cfg = configInstance;
 		
 		//passive
-		ConfigEntities.enableRabbit = cfg.getBoolean("enableRabbits", catPassive, true, "");
-		ConfigEntities.enableBrownMooshroom = cfg.getBoolean("enableBrownMooshroom", catPassive, true, "Brown mooshroom variant.");
+		enableRabbit = cfg.getBoolean("enableRabbits", catPassive, true, "");
+		enableBrownMooshroom = cfg.getBoolean("enableBrownMooshroom", catPassive, true, "Brown mooshroom variant.");
 
 		//neutral
-		ConfigEntities.enableEndermite = cfg.getBoolean("enableEndermite", catHostile, true, "Rarely spawns when the player lands from Ender Pearl throws");
-		ConfigEntities.enableHusk = cfg.getBoolean("enableHusks", catHostile, true, "Desert zombie variant");
-		ConfigEntities.enableStray = cfg.getBoolean("enableStrays", catHostile, true, "Tundra skeleton variant");
-		ConfigEntities.enableShulker = cfg.getBoolean("enableShulker", catHostile, true, "Shell-lurking mobs from the End.");
-		ConfigEntities.enableVillagerZombies = cfg.getBoolean("enableZombieVillager", catHostile, true, "");
+		enableEndermite = cfg.getBoolean("enableEndermite", catHostile, true, "Rarely spawns when the player lands from Ender Pearl throws");
+		enableHusk = cfg.getBoolean("enableHusks", catHostile, true, "Desert zombie variant");
+		enableStray = cfg.getBoolean("enableStrays", catHostile, true, "Tundra skeleton variant");
+		enableShulker = cfg.getBoolean("enableShulker", catHostile, true, "Shell-lurking mobs from the End.");
+		enableVillagerZombies = cfg.getBoolean("enableZombieVillager", catHostile, true, "");
+		
+		flySprintSpeed = cfg.getFloat("flySprintSpeed", catPlayer, 0.125F, 0.05F, 0.2F, "Speed boost while sprinting and flying. 0.05 is no extra speed.");
 		
 		//function
-		ConfigEntities.enableShearableSnowGolems = cfg.getBoolean("enableShearableSnowGolems", catMisc, true, "");
-		ConfigEntities.enableBabyGrowthBoost = cfg.getBoolean("enableBabyGrowthBoost", catMisc, true, "");
-		ConfigEntities.enableVillagerTurnsIntoWitch = cfg.getBoolean("enableVillagerTurnsIntoWitch", catMisc, true, "Villagers turn into Witches when struck by lightning");
-		ConfigEntities.enableDragonRespawn = cfg.getBoolean("enableDragonRespawn", catMisc, true, "Crude implementation of respawning the dragon using four End crystals.");
-		ConfigEntities.enableNetherEndermen = cfg.getBoolean("enableNetherEndermen", catMisc, true, "Allow endermen to rarely spawn in the Nether");
+		enableShearableSnowGolems = cfg.getBoolean("enableShearableSnowGolems", catMisc, true, "");
+		enableBabyGrowthBoost = cfg.getBoolean("enableBabyGrowthBoost", catMisc, true, "");
+		enableVillagerTurnsIntoWitch = cfg.getBoolean("enableVillagerTurnsIntoWitch", catMisc, true, "Villagers turn into Witches when struck by lightning");
+		enableDragonRespawn = cfg.getBoolean("enableDragonRespawn", catMisc, true, "Crude implementation of respawning the dragon using four End crystals.");
+		enableNetherEndermen = cfg.getBoolean("enableNetherEndermen", catMisc, true, "Allow endermen to rarely spawn in the Nether");
 	}
 
 }
