@@ -846,10 +846,10 @@ public class ModRecipes {
 		}
 		
 		if(ConfigBlocksItems.enableExtraVanillaWalls) {
-			addShapedRecipe(new ItemStack(ModBlocks.generic_wall, 1, 0), "BBB", "BBB", 'B', new ItemStack(Blocks.stonebrick, 1, 0));
-			addShapedRecipe(new ItemStack(ModBlocks.generic_wall, 1, 1), "BBB", "BBB", 'B', new ItemStack(Blocks.stonebrick, 1, 1));
-			addShapedRecipe(new ItemStack(ModBlocks.generic_wall, 1, 2), "BBB", "BBB", 'B', new ItemStack(Blocks.sandstone, 1, 0));
-			addShapedRecipe(new ItemStack(ModBlocks.generic_wall, 1, 3), "BBB", "BBB", 'B', new ItemStack(Blocks.brick_block, 1, 0));
+			addShapedRecipe(new ItemStack(ModBlocks.generic_wall, 6, 0), "BBB", "BBB", 'B', new ItemStack(Blocks.stonebrick, 1, 0));
+			addShapedRecipe(new ItemStack(ModBlocks.generic_wall, 6, 1), "BBB", "BBB", 'B', new ItemStack(Blocks.stonebrick, 1, 1));
+			addShapedRecipe(new ItemStack(ModBlocks.generic_wall, 6, 2), "BBB", "BBB", 'B', new ItemStack(Blocks.sandstone, 1, 0));
+			addShapedRecipe(new ItemStack(ModBlocks.generic_wall, 6, 3), "BBB", "BBB", 'B', new ItemStack(Blocks.brick_block, 1, 0));
 
 			//TODO Nether brick wall should be individually toggleable because of Netherlicious
 			addShapedRecipe(new ItemStack(ModBlocks.nether_brick_wall), "BBB", "BBB", 'B', new ItemStack(Blocks.nether_brick));
