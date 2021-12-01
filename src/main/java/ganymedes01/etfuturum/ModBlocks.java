@@ -99,7 +99,7 @@ public class ModBlocks {
 	public static final Block generic_wall = initBlock(new BlockNewWall("stone_wall", new Block[] {Blocks.stonebrick, Blocks.stonebrick, Blocks.sandstone, Blocks.brick_block}, new int[] {0, 1, 0, 0}, new String[] {"stone_brick_wall", "mossy_stone_brick_wall", "sandstone_wall", "brick_wall"}));
 	public static final Block nether_brick_wall = initBlock(new BlockNewWall("nether_brick_wall", new Block[] {Blocks.nether_brick}, new int[] {0}, null));
 
-	public static final Block stone_wall = initBlock(new BlockNewWall("stone_wall_2", new Block[] {stone, stone, stone}, new int[] {1, 3, 5}, new String[] {"andesite_wall", "diorite_wall", "granite_wall"}));
+	public static final Block stone_wall = initBlock(new BlockNewWall("stone_wall_2", new Block[] {stone, stone, stone}, new int[] {1, 3, 5}, new String[] {"granite_wall", "diorite_wall", "andesite_wall"}));
 	public static final Block red_sandstone_wall = initBlock(new BlockNewWall("red_sandstone_wall", new Block[] {red_sandstone}, new int[] {0}, null));
 	public static final Block prismarine_wall = initBlock(new BlockNewWall("prismarine_wall", new Block[] {prismarine}, new int[] {0}, null));
 	public static final Block red_nether_brick_wall = initBlock(new BlockNewWall("red_nether_brick_wall", new Block[] {new_nether_brick}, new int[] {0}, null));
