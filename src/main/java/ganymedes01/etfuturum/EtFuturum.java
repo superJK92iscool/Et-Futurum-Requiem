@@ -235,7 +235,6 @@ public class EtFuturum {
             ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.deepslate.step", "block");
             ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.deepslate.break", "block");
             ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.deepslate.place", "block");
-            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.sweet_berry_bush.step", "block");
             ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.sweet_berry_bush.break", "block");
             ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.sweet_berry_bush.place", "block");
             ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.deepslate_bricks.step", "block");
