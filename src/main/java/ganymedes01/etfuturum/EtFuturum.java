@@ -9,11 +9,14 @@ import java.util.List;
 
 import org.apache.commons.lang3.ArrayUtils;
 
+import com.google.gson.JsonObject;
+
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.SidedProxy;
+import cpw.mods.fml.common.event.FMLConstructionEvent;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLInterModComms.IMCEvent;
 import cpw.mods.fml.common.event.FMLInterModComms.IMCMessage;
@@ -54,7 +57,9 @@ import ganymedes01.etfuturum.world.EtFuturumLateWorldGenerator;
 import ganymedes01.etfuturum.world.EtFuturumWorldGenerator;
 import ganymedes01.etfuturum.world.end.dimension.DimensionProviderEnd;
 import ganymedes01.etfuturum.world.structure.OceanMonument;
-import ganymedes01.etfuturum.world.structure.StructureMesaMineshaftPieces;
+import makamys.mclib.core.MCLib;
+import makamys.mclib.ext.assetdirector.ADJsonHelper;
+import makamys.mclib.ext.assetdirector.AssetDirectorAPI;
 import net.minecraft.block.Block;
 import net.minecraft.block.Block.SoundType;
 import net.minecraft.block.BlockCrops;
@@ -128,6 +133,153 @@ public class EtFuturum {
 	public static boolean hasNetherlicious;
 	public static boolean hasEnderlicious;
 	public static final boolean isTesting = Reference.VERSION_NUMBER.equals("@VERSION@");
+	
+	@EventHandler
+	public void onConstruction(FMLConstructionEvent event) {
+		MCLib.init();
+		
+		JsonObject soundsJson = new JsonObject();
+		String ver = "1.18";
+		
+		if(ConfigWorld.enableNewAmbientSounds) {
+			ADJsonHelper.addObject(soundsJson, ver, "minecraft/sounds/ambient/cave/cave14.ogg");
+			ADJsonHelper.addObject(soundsJson, ver, "minecraft/sounds/ambient/cave/cave15.ogg");
+			ADJsonHelper.addObject(soundsJson, ver, "minecraft/sounds/ambient/cave/cave16.ogg");
+			ADJsonHelper.addObject(soundsJson, ver, "minecraft/sounds/ambient/cave/cave17.ogg");
+			ADJsonHelper.addObject(soundsJson, ver, "minecraft/sounds/ambient/cave/cave18.ogg");
+			ADJsonHelper.addObject(soundsJson, ver, "minecraft/sounds/ambient/cave/cave19.ogg");
+			
+	        ADJsonHelper.addSoundEvent(soundsJson, ver,  "weather.rain", "weather");
+	        ADJsonHelper.addSoundEvent(soundsJson, ver,  "weather.rain.above", "weather");
+		}
+		
+		
+        ADJsonHelper.addSoundEvent(soundsJson, ver,  "entity.boat.paddle_land", "player");
+        ADJsonHelper.addSoundEvent(soundsJson, ver,  "entity.boat.paddle_water", "player");
+        ADJsonHelper.addSoundEvent(soundsJson, ver,  "entity.rabbit.ambient", "neutral");
+        ADJsonHelper.addSoundEvent(soundsJson, ver,  "entity.rabbit.jump", "neutral");
+        ADJsonHelper.addSoundEvent(soundsJson, ver,  "entity.rabbit.attack", "neutral");
+        ADJsonHelper.addSoundEvent(soundsJson, ver,  "entity.rabbit.hurt", "neutral");
+        ADJsonHelper.addSoundEvent(soundsJson, ver,  "entity.rabbit.death", "neutral");
+        ADJsonHelper.addSoundEvent(soundsJson, ver,  "entity.zombie_villager.ambient", "hostile");
+        ADJsonHelper.addSoundEvent(soundsJson, ver,  "entity.zombie_villager.step", "hostile");
+        ADJsonHelper.addSoundEvent(soundsJson, ver,  "entity.zombie_villager.hurt", "hostile");
+        ADJsonHelper.addSoundEvent(soundsJson, ver,  "entity.zombie_villager.death", "hostile");
+        ADJsonHelper.addSoundEvent(soundsJson, ver,  "entity.husk.ambient", "hostile");
+        ADJsonHelper.addSoundEvent(soundsJson, ver,  "entity.husk.step", "hostile");
+        ADJsonHelper.addSoundEvent(soundsJson, ver,  "entity.husk.hurt", "hostile");
+        ADJsonHelper.addSoundEvent(soundsJson, ver,  "entity.husk.death", "hostile");
+        ADJsonHelper.addSoundEvent(soundsJson, ver,  "entity.zombie.converted_to_drowned", "hostile");
+        ADJsonHelper.addSoundEvent(soundsJson, ver,  "entity.husk.converted_to_zombie", "hostile");
+        ADJsonHelper.addSoundEvent(soundsJson, ver,  "entity.stray.ambient", "hostile");
+        ADJsonHelper.addSoundEvent(soundsJson, ver,  "entity.stray.step", "hostile");
+        ADJsonHelper.addSoundEvent(soundsJson, ver,  "entity.stray.hurt", "hostile");
+        ADJsonHelper.addSoundEvent(soundsJson, ver,  "entity.stray.death", "hostile");
+        ADJsonHelper.addSoundEvent(soundsJson, ver,  "entity.skeleton.converted_to_stray", "hostile");
+        ADJsonHelper.addSoundEvent(soundsJson, ver,  "entity.shulker_bullet.hurt", "hostile");
+        ADJsonHelper.addSoundEvent(soundsJson, ver,  "entity.shulker_bullet.hit", "hostile");
+        ADJsonHelper.addSoundEvent(soundsJson, ver,  "entity.shulker.ambient", "hostile");
+        ADJsonHelper.addSoundEvent(soundsJson, ver,  "entity.shulker.open", "hostile");
+        ADJsonHelper.addSoundEvent(soundsJson, ver,  "entity.shulker.close", "hostile");
+        ADJsonHelper.addSoundEvent(soundsJson, ver,  "entity.shulker.shoot", "hostile");
+        ADJsonHelper.addSoundEvent(soundsJson, ver,  "entity.shulker.hurt", "hostile");
+        ADJsonHelper.addSoundEvent(soundsJson, ver,  "entity.shulker.hurt_closed", "hostile");
+        ADJsonHelper.addSoundEvent(soundsJson, ver,  "entity.shulker.death", "hostile");
+        ADJsonHelper.addSoundEvent(soundsJson, ver,  "entity.shulker.teleport", "hostile");
+        
+        ADJsonHelper.addSoundEvent(soundsJson, ver,  "item.axe.scrape", "player");
+        ADJsonHelper.addSoundEvent(soundsJson, ver,  "item.axe.wax_off", "player");
+        ADJsonHelper.addSoundEvent(soundsJson, ver,  "item.axe.strip", "player");
+        ADJsonHelper.addSoundEvent(soundsJson, ver,  "item.honeycomb.wax_on", "player");
+        ADJsonHelper.addSoundEvent(soundsJson, ver,  "item.totem.use", "player");
+        ADJsonHelper.addSoundEvent(soundsJson, ver,  "item.shovel.flatten", "player");
+        ADJsonHelper.addSoundEvent(soundsJson, ver,  "item.chorus_fruit.teleport", "player");
+        
+        ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.barrel.open", "block");
+        ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.barrel.close", "block");
+        ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.chorus_flower.grow", "block");
+        ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.chorus_flower.death", "block");
+        ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.end_portal.spawn", "ambient");
+        ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.end_portal_frame.fill", "block");
+        ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.shulker_box.open", "block");
+        ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.shulker_box.close", "block");
+        ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.sweet_berry_bush.pick_berries", "player");
+        if(ConfigWorld.enableNewMiscSounds) {
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.brewing_stand.brew", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.furnace.fire_crackle", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.blastfurnace.fire_crackle", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.smoker.smoke", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.chest.close", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.ender_chest.open", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.ender_chest.close", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.wooden_door.open", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.wooden_door.close", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.iron_door.open", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.iron_door.close", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.wooden_trapdoor.open", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.wooden_trapdoor.close", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.iron_trapdoor.open", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.iron_trapdoor.close", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.fence_gate.open", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.fence_gate.close", "block");
+        }
+        
+        if(ConfigWorld.enableNewBlocksSounds) {
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "item.crop.plant", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.crop.break", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "item.nether_wart.plant", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.nether_wart.break", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.lantern.step", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.lantern.break", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.lantern.place", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.deepslate.step", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.deepslate.break", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.deepslate.place", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.sweet_berry_bush.step", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.sweet_berry_bush.break", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.sweet_berry_bush.place", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.deepslate_bricks.step", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.deepslate_bricks.break", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.soul_sand.step", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.soul_sand.break", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.wart_block.step", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.wart_block.break", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.nether_bricks.step", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.nether_bricks.break", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.bone_block.step", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.bone_block.break", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.netherrack.step", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.netherrack.break", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.nether_ore.step", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.nether_ore.break", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.ancient_debris.step", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.ancient_debris.break", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.netherite_block.step", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.netherite_block.break", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.nylium.step", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.nylium.break", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.basalt.step", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.basalt.break", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.honey_block.step", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.honey_block.break", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.fungus.step", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.fungus.break", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.stem.step", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.stem.break", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.shroomlight.step", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.shroomlight.break", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.shroomlight.step", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.shroomlight.break", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.copper.step", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.copper.break", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.tuff.step", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.tuff.break", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.vine.step", "block");
+            ADJsonHelper.addSoundEvent(soundsJson, ver,  "block.vine.break", "block");
+        }
+		
+		AssetDirectorAPI.register(soundsJson);
+	}
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {

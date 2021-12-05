@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.entities;
 
+import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -148,22 +149,22 @@ public class EntityHusk extends EntityZombie
 	
 	@Override
 	protected String getLivingSound() {
-		return "etfuturum:mob.husk.idle";
+		return Reference.MCv118 + ":entity.husk.ambient";
 	}
 	
 	@Override
 	protected String getHurtSound() {
-		return "etfuturum:mob.husk.hurt";
+		return Reference.MCv118 + ":entity.husk.hurt";
 	}
 	
 	@Override
 	protected String getDeathSound() {
-		return "etfuturum:mob.husk.death";
+		return Reference.MCv118 + ":entity.husk.death";
 	}
 	
 	@Override
 	protected void func_145780_a(final int p_145780_1_, final int p_145780_2_, final int p_145780_3_, final Block p_145780_4_) {
-		this.playSound("etfuturum:mob.husk.step", 0.15f, 1.0f);
+		this.playSound(Reference.MCv118 + ":entity.husk.step", 0.15f, 1.0f);
 	}
 	
 	public ItemStack getPickedResult(MovingObjectPosition target)

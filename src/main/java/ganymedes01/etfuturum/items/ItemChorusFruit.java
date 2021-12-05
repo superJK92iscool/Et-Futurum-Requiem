@@ -4,6 +4,7 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.blocks.IConfigurable;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
+import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -90,8 +91,8 @@ public class ItemChorusFruit extends ItemFood implements IConfigurable {
 			entity.worldObj.spawnParticle("portal", d7, d8, d9, f, f1, f2);
 		}
 
-		entity.worldObj.playSoundEffect(d3, d4, d5, "mob.endermen.portal", 1.0F, 1.0F);
-		entity.playSound("mob.endermen.portal", 1.0F, 1.0F);
+		entity.worldObj.playSoundEffect(d3, d4, d5, Reference.MCv118 + ":item.chorus_fruit.teleport", 1.0F, 1.0F);
+		entity.playSound(Reference.MCv118 + ":item.chorus_fruit.teleport", 1.0F, 1.0F);
 		return true;
 	}
 

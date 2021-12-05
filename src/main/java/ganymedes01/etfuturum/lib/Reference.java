@@ -12,6 +12,8 @@ public class Reference {
 	public static final String DESCRIPTION = "@DESCRIPTION@";
 	public static final String LOGO_FILE = "@LOGOFILE@";
 	
+	public static final String MCv118 = "minecraft_1.18";
+	
 	public static final String ITEM_BLOCK_TEXTURE_PATH = MOD_ID + ":";
 	public static final String ARMOUR_TEXTURE_PATH = ITEM_BLOCK_TEXTURE_PATH + "textures/models/armor/";
 	public static final String ENTITY_TEXTURE_PATH = ITEM_BLOCK_TEXTURE_PATH + "textures/entities/";

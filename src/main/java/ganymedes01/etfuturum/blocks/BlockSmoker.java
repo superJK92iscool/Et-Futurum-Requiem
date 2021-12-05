@@ -70,7 +70,7 @@ public class BlockSmoker extends BlockFurnace implements IConfigurable {
 			if (ConfigWorld.enableNewMiscSounds && p_149734_5_.nextDouble() < 0.1D)
 			{
 				p_149734_1_.playSound(p_149734_2_ + .5D, p_149734_3_ + .5D, p_149734_4_ + .5D,
-						Reference.MOD_ID + ":block.smoker.smoke", 1,
+						Reference.MCv118 + ":block.smoker.smoke", 1,
 						(p_149734_1_.rand.nextFloat() * 0.1F) + 0.9F, false);
 			}
 			p_149734_1_.spawnParticle("smoke", p_149734_2_ + f, p_149734_3_ + 1, p_149734_4_ + f, 0.0D, 0.0D, 0.0D);

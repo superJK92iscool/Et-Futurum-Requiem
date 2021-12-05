@@ -52,7 +52,7 @@ public class BlockMagma extends Block implements IConfigurable{
 		Block block1 = world.getBlock(x, y+1, z);
 		Block block2 = world.getBlock(x, y+2, z);
 		
-		if ( (block1 == Blocks.water || block1 == Blocks.flowing_water) && block2.isAir(world, x, y+2, z)) {
+		if ((block1 == Blocks.water || block1 == Blocks.flowing_water) && block2.isAir(world, x, y+2, z)) {
 			world.setBlockToAir(x, y+1, z);
 			//world.playSound((double)((float)x + 0.5F), (double)((float)y + 0.5F), (double)((float)z + 0.5F), "random.fizz", 1.0F + rand.nextFloat(), rand.nextFloat() * 0.7F + 0.3F, false);
 			world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, "random.fizz", 0.3F, 0.6F);
@@ -63,7 +63,7 @@ public class BlockMagma extends Block implements IConfigurable{
 			}*/
 		}
 		
-		if ( block1 == Blocks.ice) {
+		if (block1 == Blocks.ice) {
 			 world.setBlock(x, y+1, z, world.provider.isHellWorld ? Blocks.air : Blocks.water, 0, 2);
 			 if(!world.provider.isHellWorld)
 				 world.markBlockForUpdate(x, y+1, z);
@@ -81,11 +81,11 @@ public class BlockMagma extends Block implements IConfigurable{
 		Block block1 = world.getBlock(x, y+1, z);
 		Block block2 = world.getBlock(x, y+2, z);
 		
-		if ( (block1 == Blocks.water || block1 == Blocks.flowing_water) && block2.isAir(world, x, y+2, z)) {
+		if ((block1 == Blocks.water || block1 == Blocks.flowing_water) && block2.isAir(world, x, y+2, z)) {
 			world.spawnParticle("explode", x + 0.5D, y + 1.0D, z + 0.5D, 0.0D, 0.0D, 0.0D);
 		}
 		
-		else if ( (block1 == Blocks.water || block1 == Blocks.flowing_water) && 
+		else if ((block1 == Blocks.water || block1 == Blocks.flowing_water) && 
 				(block2 == Blocks.water || block2 == Blocks.flowing_water) ) {
 			world.spawnParticle("bubble", x + 0.5D, y + 1.1D, z + 0.5D, 0.0D, 1.0D, 0.0D);
 		}

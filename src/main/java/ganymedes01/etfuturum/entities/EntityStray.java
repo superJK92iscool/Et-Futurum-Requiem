@@ -2,6 +2,7 @@ package ganymedes01.etfuturum.entities;
 
 import java.util.Calendar;
 
+import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -153,22 +154,22 @@ public class EntityStray extends EntitySkeleton {
 	
 	@Override
 	protected String getLivingSound() {
-		return "etfuturum:mob.stray.idle";
+		return Reference.MCv118 + ":entity.stray.ambient";
 	}
 	
 	@Override
 	protected String getHurtSound() {
-		return "etfuturum:mob.stray.hurt";
+		return Reference.MCv118 + ":entity.stray.hurt";
 	}
 	
 	@Override
 	protected String getDeathSound() {
-		return "etfuturum:mob.stray.death";
+		return Reference.MCv118 + ":entity.stray.death";
 	}
 	
 	@Override
 	protected void func_145780_a(final int p_145780_1_, final int p_145780_2_, final int p_145780_3_, final Block p_145780_4_) {
-		this.playSound("etfuturum:mob.stray.step", 0.15f, 1.0f);
+		this.playSound(Reference.MCv118 + ":entity.stray.step", 0.15f, 1.0f);
 	}
 	
 	public ItemStack getPickedResult(MovingObjectPosition target)

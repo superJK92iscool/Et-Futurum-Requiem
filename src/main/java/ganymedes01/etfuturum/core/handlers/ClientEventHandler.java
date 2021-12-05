@@ -18,6 +18,7 @@ import ganymedes01.etfuturum.EtFuturumMixinPlugin;
 import ganymedes01.etfuturum.blocks.BlockShulkerBox;
 import ganymedes01.etfuturum.client.OpenGLHelper;
 import ganymedes01.etfuturum.client.gui.GuiConfigWarning;
+import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.client.sound.NetherAmbience;
 import ganymedes01.etfuturum.client.sound.NetherAmbienceLoop;
 import ganymedes01.etfuturum.client.sound.WeightedSoundPool;
@@ -198,19 +199,19 @@ public class ClientEventHandler {
 
 		if(ConfigWorld.enableNewMiscSounds && world.rand.nextInt(Math.toIntExact((world.getTotalWorldTime() % 10) + 1)) == 0) {
 			for(TileEntity tile : (List<TileEntity>)world.loadedTileEntityList) {
-				if(!(tile instanceof TileEntityFurnace)) //Don't use getBlock or get tile coord info if the tile isn't a furnace, so we only get the block when we need to
+				if(!(tile instanceof TileEntityFurnace) && tile.getBlockType() != Blocks.lit_furnace) {
+					//Don't use getBlock or get tile coord info if the tile isn't a furnace, so we only get the block when we need to
+					//Don't run code if block is not lit furnace
 					continue;
+				}
 				
 				int x = tile.xCoord;
 				int y = tile.yCoord;
 				int z = tile.zCoord;
 				
-				if(world.getBlock(x, y, z) != Blocks.lit_furnace) //Don't play sound if the furnace isn't lit
-					continue;
-				
 				if(world.rand.nextDouble() < 0.1D)
 					world.playSound(x + .5D, y + .5D, z + .5D,
-							Reference.MOD_ID + ":block.furnace.fire_crackle", 1,
+							Reference.MCv118 + ":block.furnace.fire_crackle", 1,
 							(world.rand.nextFloat() * 0.1F) + 0.9F, false);
 			}
 		}
@@ -293,7 +294,7 @@ public class ClientEventHandler {
 	{
 		if(event.sound != null && event.name != null && cpw.mods.fml.client.FMLClientHandler.instance().getWorldClient() != null
 				&& FMLCommonHandler.instance().getSide() == Side.CLIENT) {
-				String[] eventwithprefix = event.name.split("\\.");
+			String[] eventwithprefix = event.name.split("\\.");
 			if (ConfigWorld.enableNewBlocksSounds && eventwithprefix.length > 1 &&
 					eventwithprefix[1].equals(Blocks.stone.stepSound.soundName)
 					&& event.sound.getPitch() < 1.0F) {
@@ -307,11 +308,12 @@ public class ClientEventHandler {
 					return;
 				String name = itemblock.getUnlocalizedName(new ItemStack(itemblock, 1, world.getBlockMetadata(x, y, z) % 8)).toLowerCase();
 				if(name.contains("slab") && name.contains("nether") && name.contains("brick")) {
-					String prefix = event.name.substring(0, event.name.indexOf(".") + 1);
-					float soundPit = (block.stepSound.getPitch()) * (prefix.contains("step") ? 0.5F : 0.8F);
-					float soundVol = (block.stepSound.getVolume() + 1.0F) / (prefix.contains("step") ? 8F : 2F);
+					float soundVol = (block.stepSound.getVolume() + 1.0F) / (eventwithprefix[0].contains("step") ? 8F : 2F);
+					float soundPit = (block.stepSound.getPitch()) * (eventwithprefix[0].contains("step") ? 0.5F : 0.8F);
 
-					event.result = new PositionedSoundRecord(new ResourceLocation(Reference.MOD_ID + ":" + eventwithprefix[0] + ".nether_bricks"), soundVol, soundPit, x + 0.5F, y + 0.5F, z + 0.5F);
+					boolean step = event.name.contains("step");
+					
+					event.result = new PositionedSoundRecord(new ResourceLocation(step ? ModSounds.soundNetherBricks.getStepResourcePath() : ModSounds.soundNetherBricks.getBreakSound()), soundVol, soundPit, x + 0.5F, y + 0.5F, z + 0.5F);
 					return;
 				}
 			}
@@ -337,9 +339,9 @@ public class ClientEventHandler {
 					String blockID = Block.blockRegistry.getNameForObject(block).split(":")[1].toLowerCase();
 					if(blockID.contains("chest") && (event.name.contains("open") || event.name.contains("close"))) {
 						if((blockID.contains("ender") && block.getMaterial().equals(Material.rock)))
-							s = Reference.MOD_ID + ":" + "block.ender_chest." + (event.name.contains("close") ? "close" : "open");
+							s = Reference.MCv118 + ":" + "block.ender_chest." + (event.name.contains("close") ? "close" : "open");
 						else if(block.getMaterial().equals(Material.wood) && event.name.contains("close"))
-							s = Reference.MOD_ID + ":" + "block.chest.close";
+							s = Reference.MCv118 + ":" + "block.chest.close";
 					}
 					
 					if(!s.equals(event.name)) {
@@ -369,7 +371,7 @@ public class ClientEventHandler {
 					int x = MathHelper.floor_float(event.sound.getXPosF());
 					int y = MathHelper.floor_float(event.sound.getYPosF());
 					int z = MathHelper.floor_float(event.sound.getZPosF());
-					event.result = new PositionedSoundRecord(new ResourceLocation(Reference.MOD_ID + ":" + "weather.rain" + (event.sound.getPitch() < 1.0F ? ".above" : "")), 
+					event.result = new PositionedSoundRecord(new ResourceLocation(Reference.MCv118 + ":" + "weather.rain" + (event.sound.getPitch() < 1.0F ? ".above" : "")), 
 							event.sound.getVolume(), event.sound.getPitch(), x + 0.5F, y + 0.5F, z + 0.5F);
 				} else if (event.name.equals("ambient.cave.cave")) {
 					int x = MathHelper.floor_float(event.sound.getXPosF());
@@ -377,11 +379,13 @@ public class ClientEventHandler {
 					int z = MathHelper.floor_float(event.sound.getZPosF());
 					if(ConfigWorld.enableNetherAmbience && cpw.mods.fml.client.FMLClientHandler.instance().getClientPlayerEntity().dimension == -1) {
 						String biomeName = cpw.mods.fml.client.FMLClientHandler.instance().getWorldClient().getChunkFromBlockCoords(x, z).getBiomeGenForWorldCoords(x & 15, z & 15, cpw.mods.fml.client.FMLClientHandler.instance().getWorldClient().getWorldChunkManager()).biomeName;
-						if(ClientEventHandler.getAmbienceLoopForBiome(biomeName) != null)
-							event.result = new PositionedSoundRecord(new ResourceLocation(Reference.MOD_ID + ":ambient." + ClientEventHandler.getAmbienceLoopForBiome(biomeName) + ".mood"), 
+						if(ClientEventHandler.getAmbienceLoopForBiome(biomeName) != null) {
+							event.result = new PositionedSoundRecord(new ResourceLocation(Reference.MCv118 + ":ambient." + ClientEventHandler.getAmbienceLoopForBiome(biomeName) + ".mood"), 
 									event.sound.getVolume(), event.sound.getPitch(), x + 0.5F, y + 0.5F, z + 0.5F);
-						else
+						}
+						else {
 							event.result = null;
+						}
 					} else if(new Random().nextInt(19) >= 13) {
 						event.result = new PositionedSoundRecord(new ResourceLocation(Reference.MOD_ID + ":ambient.cave"), 
 								event.sound.getVolume(), event.sound.getPitch(), x + 0.5F, y + 0.5F, z + 0.5F);
@@ -426,10 +430,7 @@ public class ClientEventHandler {
 					return;
 				String name = itemblock.getUnlocalizedName(new ItemStack(itemblock, 1, world.getBlockMetadata(x, y, z) % 8)).toLowerCase();
 				if(name.contains("slab") && name.contains("nether") && name.contains("brick")) {
-					//String prefix = event.name.substring(0, event.name.indexOf(".") + 1); // unused variable
-					//float soundPit = (block.stepSound.getPitch()) * (prefix.contains("step") ? 0.5F : 0.8F); // unused variable
-					//float soundVol = (block.stepSound.getVolume() + 1.0F) / (prefix.contains("step") ? 8F : 2F); // unused variable
-					event.name = Reference.MOD_ID + ":" + eventwithprefix[0] + ".nether_bricks";
+					event.name = ModSounds.soundNetherBricks.getBreakSound();
 					return;
 				}
 			}
@@ -438,22 +439,22 @@ public class ClientEventHandler {
 	
 	private String getReplacementDoorSound(Block block, String string) {
 		Random random = new Random();
-		String closeOrOpen = random.nextInt(2) == 0 ? "open" : "close";
+		String closeOrOpen = random.nextBoolean() ? "open" : "close";
 		if(block instanceof BlockDoor)
 			if (block.getMaterial() == Material.wood/* || block.getMaterial() == EtFuturum.netherwood */)
-				return Reference.MOD_ID + ":block.wooden_door." + closeOrOpen;
+				return Reference.MCv118 + ":block.wooden_door." + closeOrOpen;
 			else if(block.getMaterial() == Material.iron)
-				return Reference.MOD_ID + ":block.iron_door." + closeOrOpen;
+				return Reference.MCv118 + ":block.iron_door." + closeOrOpen;
 		
 		if(block instanceof BlockTrapDoor)
 			if (block.getMaterial() == Material.wood/* || block.getMaterial() == EtFuturum.netherwood */)
-				return Reference.MOD_ID + ":block.wooden_trapdoor." + closeOrOpen;
+				return Reference.MCv118 + ":block.wooden_trapdoor." + closeOrOpen;
 			else if(block.getMaterial() == Material.iron)
-				return Reference.MOD_ID + ":block.iron_trapdoor." + closeOrOpen;
+				return Reference.MCv118 + ":block.iron_trapdoor." + closeOrOpen;
 		
 		if(block instanceof BlockFenceGate)
 			if (block.getMaterial() == Material.wood/* || block.getMaterial() == EtFuturum.netherwood */)
-				return Reference.MOD_ID + ":block.fence_gate." + closeOrOpen;
+				return Reference.MCv118 + ":block.fence_gate." + closeOrOpen;
 				
 		return string;
 	}

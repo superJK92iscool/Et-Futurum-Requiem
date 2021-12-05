@@ -221,22 +221,22 @@ public class EntityRabbit extends EntityAnimal {
 	}
 
 	protected String getJumpingSound() {
-		return Reference.MOD_ID + ":mob.rabbit.hop";
+		return Reference.MCv118 + ":entity.rabbit.jump";
 	}
 
 	@Override
 	protected String getLivingSound() {
-		return Reference.MOD_ID + ":mob.rabbit.idle";
+		return Reference.MCv118 + ":entity.rabbit.ambient";
 	}
 
 	@Override
 	protected String getHurtSound() {
-		return Reference.MOD_ID + ":mob.rabbit.hurt";
+		return Reference.MCv118 + ":entity.rabbit.hurt";
 	}
 
 	@Override
 	protected String getDeathSound() {
-		return Reference.MOD_ID + ":mob.rabbit.death";
+		return Reference.MCv118 + ":entity.rabbit.death";
 	}
 
 	@Override

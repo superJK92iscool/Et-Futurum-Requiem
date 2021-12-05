@@ -24,7 +24,9 @@ import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.blocks.BlockMagma;
 import ganymedes01.etfuturum.blocks.BlockWitherRose;
 import ganymedes01.etfuturum.blocks.ExternalContent;
+import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigEnchantsPotions;
 import ganymedes01.etfuturum.configuration.configs.ConfigEntities;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.configuration.configs.ConfigTweaks;
@@ -155,7 +157,7 @@ public class ServerEventHandler {
 		double z = entity.posZ;
 		if(ConfigBlocksItems.enableMagmaBlock) {
 			if(!entity.isImmuneToFire() && !entity.isSneaking() && entity.onGround && entity.worldObj.getBlock(MathHelper.floor_double(x), (int)(y - .45D), MathHelper.floor_double(z)) == ModBlocks.magma_block) {
-				if(EnchantmentHelper.getEnchantmentLevel(ModEnchantments.frostWalker.effectId, entity.getEquipmentInSlot(1)) == 0) {
+				if(ConfigEnchantsPotions.enableFrostWalker && EnchantmentHelper.getEnchantmentLevel(ConfigEnchantsPotions.frostWalkerID, entity.getEquipmentInSlot(1)) == 0) {
 					entity.attackEntityFrom(BlockMagma.HOT_FLOOR, 1);
 				}
 			}
@@ -531,7 +533,7 @@ public class ServerEventHandler {
 						//Eye of Ender place sounds
 						if(heldStack != null && !event.world.isRemote && ConfigWorld.enableNewMiscSounds && heldStack.getItem() == Items.ender_eye && oldBlock == Blocks.end_portal_frame && !BlockEndPortalFrame.isEnderEyeInserted(meta))
 						{
-							world.playSoundEffect(x + .5F, y + .5F, z + .5F, Reference.MOD_ID+":block.end_portal_frame.fill", 1, 1);
+							world.playSoundEffect(x + .5F, y + .5F, z + .5F, Reference.MCv118 +":block.end_portal_frame.fill", 1, 1);
 							int j1 = meta & 3;
 							int j2 = 0;
 							int k1 = 0;
@@ -610,7 +612,7 @@ public class ServerEventHandler {
 										for(Object playerobj : worldserver.playerEntities) {
 											if(playerobj instanceof EntityPlayerMP) {
 												EntityPlayerMP playermp = (EntityPlayerMP)playerobj;
-												playermp.playerNetServerHandler.sendPacket(new S29PacketSoundEffect(Reference.MOD_ID+":block.end_portal.spawn",
+												playermp.playerNetServerHandler.sendPacket(new S29PacketSoundEffect(Reference.MCv118 + ":block.end_portal.spawn",
 														playermp.posX, playermp.lastTickPosY, playermp.posZ, 1F, 1F));
 											}
 										}
@@ -630,13 +632,13 @@ public class ServerEventHandler {
 								// Mundane seeds
 								if (oldBlock instanceof BlockFarmland)
 								{
-									world.playSoundEffect(x + 0.5, y + 1F , z + 0.5, Reference.MOD_ID+":place.crops", 0.45F, world.rand.nextBoolean() ? 1.0F : 1.2F);
+									world.playSoundEffect(x + 0.5, y + 1F , z + 0.5, ModSounds.soundCrops.func_150496_b(), ModSounds.soundCrops.getVolume(), ModSounds.soundCrops.getPitch());
 									return;
 								}
 								// Nether wart
-								if (oldBlock instanceof BlockSoulSand)
+								else if (oldBlock instanceof BlockSoulSand)
 								{
-									world.playSoundEffect(x + 0.5, y + 1F, z + 0.5, Reference.MOD_ID+":dig.netherwart", 0.9F, world.rand.nextBoolean() ? 1.0F : 1.12F);
+									world.playSoundEffect(x + 0.5, y + 1F, z + 0.5, ModSounds.soundCropWarts.func_150496_b(), ModSounds.soundCropWarts.getVolume(), ModSounds.soundCropWarts.getPitch());
 									return;
 								}
 							}
@@ -678,7 +680,7 @@ public class ServerEventHandler {
 									if(!world.isRemote) {
 										world.setBlock(x, y, z, ModBlocks.grass_path);
 										heldStack.damageItem(1, player);
-										world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, Block.soundTypeGravel.getStepResourcePath(), 1.0F, 0.8F);
+										world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, Reference.MCv118 + ":item.shovel.flatten", 1.0F, 1.0F);
 									}
 								} else if (ConfigBlocksItems.enableStrippedLogs && toolClasses.contains("axe")) {
 									BlockAndMetadataMapping newBlock = StrippedLogRegistry.getLog(oldBlock, world.getBlockMetadata(x, y, z) % 4);
@@ -687,7 +689,7 @@ public class ServerEventHandler {
 										if(!world.isRemote) {
 											world.setBlock(x, y, z, newBlock.getBlock(), newBlock.getMeta() + ((meta / 4) * 4), 2);
 											heldStack.damageItem(1, player);
-											world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, Reference.MOD_ID + ":item.axe.strip", 1.0F, 0.8F);
+											world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, Reference.MCv118 + ":item.axe.strip", 1.0F, 0.8F);
 										}
 									}
 								}
@@ -1101,7 +1103,7 @@ public class ServerEventHandler {
 		
 		if(entity instanceof EntityLiving || entity instanceof EntityPlayer) {
 			//this.spawnTotemParticles(player);
-			entity.worldObj.playSoundEffect(entity.posX + 0.5, entity.posY + 0.5, entity.posZ + 0.5, Reference.MOD_ID + ":item.totem_use", 1.0f, entity.worldObj.rand.nextFloat() * 0.1f + 0.9f);
+			entity.worldObj.playSoundEffect(entity.posX + 0.5, entity.posY + 0.5, entity.posZ + 0.5, Reference.MCv118 + ":item.totem.use", 1.0f, entity.worldObj.rand.nextFloat() * 0.1f + 0.9f);
 			
 			entity.clearActivePotions();
 			float healpercent = (float)ConfigFunctions.totemHealPercent / 100;

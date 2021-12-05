@@ -302,7 +302,7 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 
 		if (this.numPlayersUsing == 1)
 		{
-			this.worldObj.playSoundEffect(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D, Reference.MOD_ID + ":block.shulker_box.open", 1, 1);
+			this.worldObj.playSoundEffect(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D, Reference.MCv118 + ":block.shulker_box.open", 1, 1);
 		}
 		this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType(), 1, this.numPlayersUsing);
 		this.worldObj.notifyBlocksOfNeighborChange(this.xCoord, this.yCoord, this.zCoord, this.getBlockType());
@@ -317,7 +317,7 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 			--this.numPlayersUsing;
 			if (this.numPlayersUsing <= 0)
 			{
-				this.worldObj.playSoundEffect(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D, Reference.MOD_ID + ":block.shulker_box.close", 1, 1);
+				this.worldObj.playSoundEffect(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D, Reference.MCv118 + ":block.shulker_box.close", 1, 1);
 			}
 			this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType(), 1, this.numPlayersUsing);
 			this.worldObj.notifyBlocksOfNeighborChange(this.xCoord, this.yCoord, this.zCoord, this.getBlockType());

@@ -136,7 +136,7 @@ public class BlockChorusFlower extends Block implements IConfigurable {
 	
 	private void setFlower(World world, int x, int y, int z, int age) {
 		world.setBlock(x, y, z, this, age, 3);
-		world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, Reference.MOD_ID+":block.chorus_flower." + (age < 5 ? "grow" : "death"), 1, 1);
+		world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, Reference.MCv118 + ":block.chorus_flower." + (age < 5 ? "grow" : "death"), 1, 1);
 	}
 
 	@Override
