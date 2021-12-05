@@ -21,7 +21,7 @@ public class CustomSoundPlants extends CustomSound {
 	@Override
 	public float getPitch()
 	{
-		return this.volume + (random.nextBoolean() ? 0 : soundName.equals("crop") ? .2F : .12F);
+		return super.getPitch() + (random.nextBoolean() ? 0 : soundName.equals("crop") ? .2F : .12F);
 	}
 
 	@Override
