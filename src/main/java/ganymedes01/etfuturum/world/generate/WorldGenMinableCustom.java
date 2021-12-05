@@ -26,25 +26,25 @@ public class WorldGenMinableCustom extends WorldGenMinable
 	
 	private int places = 0;
 
-    public WorldGenMinableCustom(Block p_i45459_1_, int p_i45459_2_)
-    {
-        this(p_i45459_1_, p_i45459_2_, Blocks.stone);
-    }
+	public WorldGenMinableCustom(Block p_i45459_1_, int p_i45459_2_)
+	{
+		this(p_i45459_1_, p_i45459_2_, Blocks.stone);
+	}
 
-    public WorldGenMinableCustom(Block p_i45460_1_, int p_i45460_2_, Block p_i45460_3_)
-    {
-    	this(p_i45460_1_, 0, p_i45460_2_, p_i45460_3_);
-    }
+	public WorldGenMinableCustom(Block p_i45460_1_, int p_i45460_2_, Block p_i45460_3_)
+	{
+		this(p_i45460_1_, 0, p_i45460_2_, p_i45460_3_);
+	}
 
-    public WorldGenMinableCustom(Block block, int meta, int number, Block target)
-    {
-        super(block, meta, number, target);
-        this.meta = meta;
-        
-        shouldAirGen = block == ModBlocks.ancient_debris && ConfigWorld.enableAirDebris;
-        hardAmountCap = block == ModBlocks.ancient_debris;
-        //TODO Mesa gen, block cap
-    }
+	public WorldGenMinableCustom(Block block, int meta, int number, Block target)
+	{
+		super(block, meta, number, target);
+		this.meta = meta;
+		
+		shouldAirGen = block == ModBlocks.ancient_debris && ConfigWorld.enableAirDebris;
+		hardAmountCap = block == ModBlocks.ancient_debris;
+		//TODO Mesa gen, block cap
+	}
 
 	@Override
 	public boolean generate(World p_76484_1_, Random p_76484_2_, int p_76484_3_, int p_76484_4_, int p_76484_5_)

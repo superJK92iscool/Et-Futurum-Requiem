@@ -207,9 +207,9 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 		}
 	}
 
-    protected int nextHeightInt(Random rand, int i) {
-        if (i <= 1)
-            return 1;
-        return rand.nextInt(i);
+	protected int nextHeightInt(Random rand, int i) {
+		if (i <= 1)
+			return 1;
+		return rand.nextInt(i);
 	}
 }
