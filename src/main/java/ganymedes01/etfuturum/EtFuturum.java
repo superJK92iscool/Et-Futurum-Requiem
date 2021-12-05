@@ -68,6 +68,7 @@ import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockNetherWart;
 import net.minecraft.block.BlockOre;
 import net.minecraft.block.BlockSponge;
+import net.minecraft.block.BlockStem;
 import net.minecraft.block.BlockTrapDoor;
 import net.minecraft.block.BlockVine;
 import net.minecraft.block.material.Material;
@@ -471,15 +472,12 @@ public class EtFuturum {
 			
 		}
 		
-		if(block.stepSound == Block.soundTypeGrass) {
-			
-			if(block instanceof BlockCrops) {
-				return ModSounds.soundCrops;
-			}
-			
-			else if(block instanceof BlockVine) {
-				return ModSounds.soundVines;
-			}
+		if(block instanceof BlockCrops || block instanceof BlockStem) {
+			return ModSounds.soundCrops;
+		}
+		
+		if(block.stepSound == Block.soundTypeGrass && block instanceof BlockVine) {
+			return ModSounds.soundVines;
 		}
 		
 		if(block.stepSound == Block.soundTypeSand && namespace.contains("soul") && namespace.contains("sand")) {
