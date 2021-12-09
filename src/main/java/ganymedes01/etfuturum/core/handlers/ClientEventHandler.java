@@ -19,9 +19,8 @@ import ganymedes01.etfuturum.blocks.BlockShulkerBox;
 import ganymedes01.etfuturum.client.OpenGLHelper;
 import ganymedes01.etfuturum.client.gui.GuiConfigWarning;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.client.sound.NetherAmbience;
 import ganymedes01.etfuturum.client.sound.NetherAmbienceLoop;
-import ganymedes01.etfuturum.client.sound.WeightedSoundPool;
+import ganymedes01.etfuturum.client.sound.NetherAmbienceSound;
 import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
@@ -51,6 +50,7 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.client.event.RenderPlayerEvent;
@@ -66,75 +66,8 @@ public class ClientEventHandler {
 	public static final ClientEventHandler INSTANCE = new ClientEventHandler();
 	private Random rand = new Random();
 	private boolean showedDebugWarning;
-
-	public WeightedSoundPool netherWastes = new WeightedSoundPool();
-	public WeightedSoundPool basaltDeltas = new WeightedSoundPool();
-	public WeightedSoundPool crimsonForest = new WeightedSoundPool();
-	public WeightedSoundPool warpedForest = new WeightedSoundPool();
-	public WeightedSoundPool soulSandValley = new WeightedSoundPool();
-	
-	public WeightedSoundPool underwater = new WeightedSoundPool();
-
-	public WeightedSoundPool netherWastesMusic = new WeightedSoundPool();
-	public WeightedSoundPool basaltDeltasMusic = new WeightedSoundPool();
-	public WeightedSoundPool crimsonForestMusic = new WeightedSoundPool();
-	public WeightedSoundPool warpedForestMusic = new WeightedSoundPool();
-	public WeightedSoundPool soulSandValleyMusic = new WeightedSoundPool();
-	
-	public WeightedSoundPool underwaterMusic = new WeightedSoundPool();
 	
 	private ClientEventHandler() {
-		netherWastes.addEntry("ambient.nether_wastes.additions.w1", 9);
-		netherWastes.addEntry("ambient.nether_wastes.additions.w3", 3);
-		netherWastes.addEntry("ambient.nether_wastes.additions.w5", 15);
-		
-		basaltDeltas.addEntry("ambient.basalt_deltas.additions.w1", 4);
-		basaltDeltas.addEntry("ambient.basalt_deltas.additions.w10", 60);
-		basaltDeltas.addEntry("ambient.basalt_deltas.additions.w20", 160);
-		basaltDeltas.addEntry("ambient.basalt_deltas.additions.w25", 150);
-		basaltDeltas.addEntry("ambient.basalt_deltas.additions.w40", 240);
-
-		crimsonForest.addEntry("ambient.crimson_forest.additions.w2", 8);
-		crimsonForest.addEntry("ambient.crimson_forest.additions.w3", 6);
-		crimsonForest.addEntry("ambient.crimson_forest.additions.w4", 16);
-		crimsonForest.addEntry("ambient.crimson_forest.additions.w6", 18);
-		crimsonForest.addEntry("ambient.crimson_forest.additions.w35", 105);
-		
-		warpedForest.addEntry("ambient.warped_forest.additions.w1", 4);
-		warpedForest.addEntry("ambient.warped_forest.additions.w2", 4);
-		warpedForest.addEntry("ambient.warped_forest.additions.w3", 12);
-		warpedForest.addEntry("ambient.warped_forest.additions.w3_p0.8", 3);
-		warpedForest.addEntry("ambient.warped_forest.additions.w3_p0.7", 6);
-		warpedForest.addEntry("ambient.warped_forest.additions.w3_p0.1", 3);
-		warpedForest.addEntry("ambient.warped_forest.additions.w6", 12);
-		warpedForest.addEntry("ambient.warped_forest.additions.w10", 10);
-		warpedForest.addEntry("ambient.warped_forest.additions.w40", 120);
-
-		soulSandValley.addEntry("ambient.soul_sand_valley.additions.w2", 2);
-		soulSandValley.addEntry("ambient.soul_sand_valley.additions.w4", 4);
-		soulSandValley.addEntry("ambient.soul_sand_valley.additions.w5", 65);
-		soulSandValley.addEntry("ambient.soul_sand_valley.additions.w5_p0.7", 5);
-		soulSandValley.addEntry("ambient.soul_sand_valley.additions.w25", 150);
-		soulSandValley.addEntry("ambient.soul_sand_valley.additions.w25_p0.75", 100);
-		
-		addToMusicPools();
-	}
-	
-	@SideOnly(Side.CLIENT)
-	private void addToMusicPools() {
-		netherWastesMusic.addEntry(Reference.MOD_ID + ":music.nether.nether_wastes", 6);
-		netherWastesMusic.addEntry("music.game.nether", 4);
-
-		basaltDeltasMusic.addEntry(Reference.MOD_ID + ":music.nether.basalt_deltas", 7);
-		basaltDeltasMusic.addEntry("music.game.nether", 4);
-
-		crimsonForestMusic.addEntry(Reference.MOD_ID + ":music.nether.crimson_forest", 7);
-		crimsonForestMusic.addEntry("music.game.nether", 4);
-
-		warpedForestMusic.addEntry(Reference.MOD_ID + ":music.nether.warped_forest", 1);
-
-		soulSandValleyMusic.addEntry(Reference.MOD_ID + ":music.nether.soul_sand_valley", 7);
-		soulSandValleyMusic.addEntry("music.game.nether", 4);
 	}
 	
 	@SideOnly(Side.CLIENT)
@@ -142,7 +75,7 @@ public class ClientEventHandler {
 	@SideOnly(Side.CLIENT)
 	int ticksToNextAmbience = rand.nextInt(80) + 1;
 	@SideOnly(Side.CLIENT)
-	String biomeName = null;
+	BiomeGenBase biome = null;
 	
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
@@ -166,34 +99,35 @@ public class ClientEventHandler {
 		}
 
 		if(ConfigWorld.enableNetherAmbience && !EtFuturum.netherAmbienceNetherlicious && player.dimension == -1) {
-			Chunk chunk = world.getChunkFromBlockCoords((int)player.posX, (int)player.posZ);
+			Chunk chunk = world.getChunkFromBlockCoords(MathHelper.floor_double((int)player.posX), MathHelper.floor_double((int)player.posZ));
 			if(!chunk.isChunkLoaded) {
-				if(ambience != null && FMLClientHandler.instance().getClient().getSoundHandler().isSoundPlaying(ambience))
+				if(ambience != null && FMLClientHandler.instance().getClient().getSoundHandler().isSoundPlaying(ambience)) {
 					FMLClientHandler.instance().getClient().getSoundHandler().stopSound(ambience);
+				}
 				ambience = null;
-				biomeName = null;
+				biome = null;
 				return;
 			}
 			Minecraft mc = FMLClientHandler.instance().getClient();
 			int x = MathHelper.floor_double(player.posX);
 			//int y = MathHelper.floor_double(player.posY); // unused variable
 			int z = MathHelper.floor_double(player.posZ);
-			biomeName = chunk.getBiomeGenForWorldCoords(x & 15, z & 15, world.getWorldChunkManager()).biomeName;
-			if(getAmbienceLoopForBiome(biomeName) != null && !mc.getSoundHandler().isSoundPlaying(ambience)) {
+			biome = chunk.getBiomeGenForWorldCoords(x & 15, z & 15, world.getWorldChunkManager());
+			if(getAmbienceLoop(biome) != null && !mc.getSoundHandler().isSoundPlaying(ambience)) {
 				Boolean flag = ambience == null || ambience.getVolume() <= 0;
-					ambience = new NetherAmbienceLoop(Reference.MOD_ID + ":ambient." + getAmbienceLoopForBiome(biomeName) + ".loop");
+					ambience = new NetherAmbienceLoop(getAmbienceLoop(biome));
 					mc.getSoundHandler().playSound(ambience);
 				if(flag)
 					ambience.fadeIn();
-			} else if (biomeName == null || getAmbienceLoopForBiome(biomeName) == null || !ambience.getPositionedSoundLocation().getResourcePath().split("\\.")[1].equals(getAmbienceLoopForBiome(biomeName))) {
+			} else if (biome == null || getAmbienceLoop(biome) == null || !ambience.getPositionedSoundLocation().getResourcePath().split("\\.")[1].equals(getAmbienceLoop(biome))) {
 				if(ambience != null)
 					ambience.stop();
-			} else if (mc.getSoundHandler().isSoundPlaying(ambience) && ambience.isStopping && ambience.getPositionedSoundLocation().getResourcePath().split("\\.")[1].equals(getAmbienceLoopForBiome(biomeName))){
+			} else if (mc.getSoundHandler().isSoundPlaying(ambience) && ambience.isStopping && ambience.getPositionedSoundLocation().getResourcePath().split("\\.")[1].equals(getAmbienceLoop(biome))){
 				ambience.isStopping = false;
 			}
-			if(getAmbienceLoopForBiome(biomeName) != null && ambience != null && ticksToNextAmbience-- <= 0) {
-				Minecraft.getMinecraft().getSoundHandler().playSound(new NetherAmbience(Reference.MOD_ID + ":" + getAmbienceForBiome().getRandom(), 0.5F, 1));
-				ticksToNextAmbience = 40 + rand.nextInt(40) + 1;
+			if(getAmbienceAdditions(biome) != null && ambience != null && ticksToNextAmbience-- <= 0) {
+				Minecraft.getMinecraft().getSoundHandler().playSound(new NetherAmbienceSound(new ResourceLocation(getAmbienceAdditions(biome))));
+				ticksToNextAmbience = 50 + rand.nextInt(30) + 1;
 			}
 		}
 
@@ -216,51 +150,80 @@ public class ClientEventHandler {
 			}
 		}
 	}
-
-	public static String getAmbienceLoopForBiome(String string) {
-		if(string.contains("Basalt Deltas")) {
-			return "basalt_deltas";
-		}
-		if(string.contains("Warped Forest")) {
-			return "warped_forest";
-		}
-		if(string.contains("Crimson Forest") || string.contains("Foxfire Swamp")) {
-			return "crimson_forest";
-		}
-		if(string.contains("Soul Sand Valley")) {
-			return "soul_sand_valley";
-		}
-		if(string.contains("Abyssal Shadowland")) {
-			return null;
-		}
-		return "nether_wastes";
-	}
-
-	private WeightedSoundPool getAmbienceForBiome() {
-		String string = ambience.getPositionedSoundLocation().getResourcePath().split("\\.")[1];
-		if(string.contains("null"))
+	private String getStringFor(BiomeGenBase biome) {
+		if(biome == null)
 			return null;
 		
-		if(string.contains("basalt_deltas")) {
-			return basaltDeltas;
-		}
-		if(string.contains("warped_forest")) {
-			return warpedForest;
-		}
-		if(string.contains("crimson_forest")) {
-			return crimsonForest;
-		}
-		if(string.contains("soul_sand_valley")) {
-			return soulSandValley;
-		}
-		return netherWastes;
+//		if(string.contains("basalt_deltas")) {
+//			return basaltDeltas;
+//		}
+//		if(string.contains("warped_forest")) {
+//			return warpedForest;
+//		}
+//		if(string.contains("crimson_forest")) {
+//			return crimsonForest;
+//		}
+//		if(string.contains("soul_sand_valley")) {
+//			return soulSandValley;
+//		}
+		return "nether_wastes";
+		
 	}
+
+	private String getAmbience(BiomeGenBase biome) {
+		if(biome == null)
+			return null;
+		
+//		if(string.contains("basalt_deltas")) {
+//			return basaltDeltas;
+//		}
+//		if(string.contains("warped_forest")) {
+//			return warpedForest;
+//		}
+//		if(string.contains("crimson_forest")) {
+//			return crimsonForest;
+//		}
+//		if(string.contains("soul_sand_valley")) {
+//			return soulSandValley;
+//		}
+		return Reference.MCv118 + ":ambient." + getStringFor(biome);
+	}
+
+	private String getAmbienceLoop(BiomeGenBase biome) {
+		if(biome == null) {
+			return null;
+		}
+		return getAmbience(biome) + ".loop";
+	}
+
+	private String getAmbienceMood(BiomeGenBase biome) {
+		if(biome == null) {
+			return null;
+		}
+		return getAmbience(biome) + ".mood";
+	}
+
+	private String getAmbienceAdditions(BiomeGenBase biome) {
+		if(biome == null) {
+			return null;
+		}
+		return getAmbience(biome) + ".additions";
+	}
+
+	private String getMusic(BiomeGenBase biome) {
+		if(biome == null) {
+			return null;
+		}
+		return Reference.MCv118 + ":music.nether." + getStringFor(biome);
+	}
+	
 	@SubscribeEvent
 	public void toolTipEvent(ItemTooltipEvent event) {
 		if(ConfigFunctions.enableExtraF3HTooltips && event.showAdvancedItemTooltips) {
 			event.toolTip.add("\u00a78" + Item.itemRegistry.getNameForObject(event.itemStack.getItem()));
-			if(event.itemStack.stackTagCompound != null && !event.itemStack.stackTagCompound.hasNoTags())
+			if(event.itemStack.stackTagCompound != null && !event.itemStack.stackTagCompound.hasNoTags()) {
 				event.toolTip.add("\u00a78NBT: " + event.itemStack.stackTagCompound.func_150296_c().size() + " Tag(s)");
+			}
 		}
 	}
 	
@@ -356,9 +319,11 @@ public class ClientEventHandler {
 				if (mc.thePlayer.dimension == -1 && event.name.equals("music.game.nether")) {
 					if(netherMusic == null || !mc.getSoundHandler().isSoundPlaying(netherMusic)) {
 						//World world = mc.theWorld; // unused variable
-						WeightedSoundPool pool = getMusicForBiome(mc.theWorld.getChunkFromBlockCoords((int)mc.thePlayer.posX, (int)mc.thePlayer.posZ).getBiomeGenForWorldCoords((int)mc.thePlayer.posX & 15, (int)mc.thePlayer.posZ & 15, mc.theWorld.getWorldChunkManager()).biomeName);
-						netherMusic = PositionedSoundRecord.func_147673_a(new ResourceLocation(pool.getRandom()));
-						event.result = netherMusic;
+						String music = getMusic(mc.theWorld.getChunkFromBlockCoords((int)mc.thePlayer.posX, (int)mc.thePlayer.posZ).getBiomeGenForWorldCoords((int)mc.thePlayer.posX & 15, (int)mc.thePlayer.posZ & 15, mc.theWorld.getWorldChunkManager()));
+						if(music != null) {
+							netherMusic = PositionedSoundRecord.func_147673_a(new ResourceLocation(music));
+							event.result = netherMusic;
+						}
 					} else {
 						event.result = null;
 					}
@@ -378,9 +343,9 @@ public class ClientEventHandler {
 					int y = MathHelper.floor_float(event.sound.getYPosF());
 					int z = MathHelper.floor_float(event.sound.getZPosF());
 					if(ConfigWorld.enableNetherAmbience && cpw.mods.fml.client.FMLClientHandler.instance().getClientPlayerEntity().dimension == -1) {
-						String biomeName = cpw.mods.fml.client.FMLClientHandler.instance().getWorldClient().getChunkFromBlockCoords(x, z).getBiomeGenForWorldCoords(x & 15, z & 15, cpw.mods.fml.client.FMLClientHandler.instance().getWorldClient().getWorldChunkManager()).biomeName;
-						if(ClientEventHandler.getAmbienceLoopForBiome(biomeName) != null) {
-							event.result = new PositionedSoundRecord(new ResourceLocation(Reference.MCv118 + ":ambient." + ClientEventHandler.getAmbienceLoopForBiome(biomeName) + ".mood"), 
+						BiomeGenBase biome = cpw.mods.fml.client.FMLClientHandler.instance().getWorldClient().getChunkFromBlockCoords(x, z).getBiomeGenForWorldCoords(x & 15, z & 15, cpw.mods.fml.client.FMLClientHandler.instance().getWorldClient().getWorldChunkManager());
+						if(getAmbienceMood(biome) != null) {
+							event.result = new PositionedSoundRecord(new ResourceLocation(getAmbienceMood(biome)), 
 									event.sound.getVolume(), event.sound.getPitch(), x + 0.5F, y + 0.5F, z + 0.5F);
 						}
 						else {
@@ -393,22 +358,6 @@ public class ClientEventHandler {
 				}
 			}
 		}
-	}
-	
-	private WeightedSoundPool getMusicForBiome(String string) {
-		if(string.contains("Basalt Deltas") || string.contains("Crystalline Crag")) {
-			return basaltDeltasMusic;
-		}
-		if(string.contains("Warped Forest") || string.contains("Abyssal Shadowland")) {
-			return warpedForestMusic;
-		}
-		if(string.contains("Crimson Forest") || string.contains("Foxfire Swamp")) {
-			return crimsonForestMusic;
-		}
-		if(string.contains("Soul Sand Valley")) {
-			return soulSandValleyMusic;
-		}
-		return netherWastesMusic;
 	}
 
 	@SideOnly(Side.CLIENT)

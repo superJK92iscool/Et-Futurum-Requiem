@@ -95,7 +95,7 @@ public class ConfigBlocksItems extends ConfigBase {
 	public static boolean enableEnchantingTable;
 	public static boolean enableAnvil;
 	
-	public static boolean enableShulkerBoxes = true;
+	public static boolean enableShulkerBoxes;
 	public static boolean enableDyedShulkerBoxes = true;
 	public static boolean enableIronShulkerBoxes = false;
 	public static boolean enableNewBoats;
@@ -175,6 +175,7 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableBlastFurnace = cfg.getBoolean("enableBlastFurnace", catBlockFunc, true, "");
 		enableSigns = cfg.getBoolean("enableSigns", catBlockFunc, true, "");
 		enableLavaCauldrons = cfg.getBoolean("enableLavaCauldrons", catBlockFunc, true, "Allow lava buckets to fill cauldrons");
+		enableShulkerBoxes = cfg.getBoolean("enableShulkerBoxes", catBlockFunc, true, "If Shulkers are disabled, a custom recipe will be required to obtain Shulker shells.");
 
 		enableEnchantingTable = cfg.getBoolean("enableNewEnchantingTable", catBlockFunc, true, "Uses lapis as payment and has enchant previews and adjusted level costs\nRequires tile entity replacement to be enabled in function.cfg");
 		enableAnvil = cfg.getBoolean("enableNewAnvil", catBlockFunc, true, "");

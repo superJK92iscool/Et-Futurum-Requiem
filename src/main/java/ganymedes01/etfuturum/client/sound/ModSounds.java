@@ -19,21 +19,21 @@ public class ModSounds {
 	public static final SoundType soundNetherrack = new CustomSound("netherrack");
 	public static final SoundType soundNetherOre = new CustomSound("nether_ore");
 	public static final SoundType soundAncientDebris = new CustomSound("ancient_debris");
-	public static final SoundType soundNylium = new CustomSound("nylium");
 	public static final SoundType soundBasalt = new CustomSound("basalt");
 	public static final SoundType soundNetherite = new CustomSoundNetherite();
 	public static final SoundType soundCrops = new CustomSoundPlants("crop", 0.45F, 1, Block.soundTypeGrass);
 	public static final SoundType soundCropWarts = new CustomSoundPlants("nether_wart", 0.9F, 1F, Block.soundTypeStone);
-	public static final SoundType soundHoneyBlock = new CustomSound("honey_block");
-	public static final SoundType soundFungus = new CustomSound("fungus");
-	public static final SoundType soundStem = new CustomSound("stem");
-	public static final SoundType soundShroomlight = new CustomSound("shroomlight");
 	public static final SoundType soundCopper = new CustomSound("copper");
 	public static final SoundType soundBerryBush = new CustomSoundBerryBush();
 	public static final SoundType soundDeepslate = new CustomSound("deepslate", 1, 1, true);
 	public static final SoundType soundDeepslateBricks = new CustomSound("deepslate_bricks", 1.3F, 0.92F);
 	public static final SoundType soundTuff = new CustomSound("tuff");
 	public static final SoundType soundVines = new CustomSound("vine", 0.9F, 1);
+//	public static final SoundType soundNylium = new CustomSound("nylium");
+//	public static final SoundType soundHoneyBlock = new CustomSound("honey_block");
+//	public static final SoundType soundFungus = new CustomSound("fungus");
+//	public static final SoundType soundStem = new CustomSound("stem");
+//	public static final SoundType soundShroomlight = new CustomSound("shroomlight");
 	
 	public static class CustomSound extends SoundType {
 
