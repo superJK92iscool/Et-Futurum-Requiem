@@ -9,35 +9,5 @@
       "minecraft_1.18:ambient/cave/cave18",
       "minecraft_1.18:ambient/cave/cave19"
     ]
-  },
-	"place.sweet_berry_bush1": {
-		"category": "block",
-		"sounds": [
-			{
-			"name": "minecraft_1.18:block/sweet_berry_bush/place1",
-        	"volume": 0.35,
-        	"pitch": 0
-			}
-		]
-	},
-	"place.sweet_berry_bush2": {
-		"category": "block",
-		"sounds": [
-			{
-			"name": "minecraft_1.18:block/sweet_berry_bush/place1",
-        	"volume": 0.35,
-        	"pitch": 1
-			}
-		]
-	},
-	"place.sweet_berry_bush3": {
-		"category": "block",
-		"sounds": [
-			{
-			"name": "minecraft_1.18:block/sweet_berry_bush/place1",
-        	"volume": 0.35,
-        	"pitch": 2
-			}
-		]
-	}
+  }
 }
