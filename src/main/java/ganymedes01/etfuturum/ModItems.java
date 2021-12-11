@@ -17,6 +17,7 @@ import ganymedes01.etfuturum.items.equipment.ItemEFRSpade;
 import ganymedes01.etfuturum.items.equipment.ItemEFRSword;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemRecord;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.util.EnumHelper;
 
@@ -75,6 +76,8 @@ public class ModItems {
 	public static final Item sweet_berries = initItem(new ItemSweetBerries());
 	public static final Item shulker_shell = initItem(new ItemShulkerShell());
 	public static final Item[] boats = new Item[EntityNewBoat.Type.values().length];
+	public static final Item pigstep_record = initItem(new ItemEtFuturumRecord("pigstep"));
+	public static final Item otherside_record = initItem(new ItemEtFuturumRecord("otherside"));
 
 	static {
 		for (int i = 0; i < signs.length; i++)
@@ -93,7 +96,8 @@ public class ModItems {
 		for(Item item : initList) {
 			String name = item.getUnlocalizedName();
 			String[] strings = name.split("\\.");
-			GameRegistry.registerItem(item, strings[strings.length - 1]);
+			String registryName = item instanceof IRegistryName ? ((IRegistryName)item).getRegistryName() : strings[strings.length - 1];
+			GameRegistry.registerItem(item, registryName);
 		}
 	}
 }

@@ -89,6 +89,8 @@ public class ConfigBlocksItems extends ConfigBase {
 	public static boolean enableSuspiciousStew;
 	public static boolean enableGlazedTerracotta;
 	public static boolean enableIronNugget;
+	public static boolean enablePigstep;
+	public static boolean enableOtherside;
 	//Nether Update temp disabled
 	public static boolean enableCrimsonBlocks = false;
 	public static boolean enableWarpedBlocks = false;
@@ -212,6 +214,9 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableTotemUndying = cfg.getBoolean("enableTotemUndying", catItemMisc, true, "");
 		enableSuspiciousStew = cfg.getBoolean("enableSuspiciousStew", catItemMisc, true, "");
 		enableNewDyes = cfg.getBoolean("enableNewDyes", catItemMisc, true, "");
+		
+		enablePigstep = cfg.getBoolean("enablePigstep", catItemMisc, true, "Appears in Nether fortress chest loot.");
+		enableOtherside = cfg.getBoolean("enableOtherside", catItemMisc, true, "Appears in stronghold corridor chests.");
 		
 		//Equipment Items
 		netheriteToolDurability = cfg.getInt("netheriteToolDurability", catItemEquipment, 2031, 1, Integer.MAX_VALUE, "");

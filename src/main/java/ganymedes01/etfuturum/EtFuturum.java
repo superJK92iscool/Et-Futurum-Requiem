@@ -4,6 +4,7 @@ import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -79,9 +80,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
+import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.common.config.Configuration;
 
 @Mod(
@@ -151,9 +154,13 @@ public class EtFuturum {
 		config.addSoundEvent(ver,  "weather.rain.above", "weather");
 		
 		config.addSoundEvent(ver, "music.nether.nether_wastes", "music");
+		
 		config.addSoundEvent(ver, "ambient.nether_wastes.additions", "ambient");
 		config.addSoundEvent(ver, "ambient.nether_wastes.loop", "ambient");
 		config.addSoundEvent(ver, "ambient.nether_wastes.mood", "ambient");
+		
+		config.addSoundEvent(ver, "music_disc.pigstep", "record");
+		config.addSoundEvent(ver, "music_disc.otherside", "record");
 		
 		config.addSoundEvent(ver,  "entity.boat.paddle_land", "player");
 		config.addSoundEvent(ver,  "entity.boat.paddle_water", "player");
@@ -274,7 +281,28 @@ public class EtFuturum {
 //		config.addSoundEvent(ver,  "block.honey_block.break", "block");
 		
 		AssetDirectorAPI.register(config);
+		
+	    try {
+	        Field fortressWeightedContent = Class.forName("net.minecraft.world.gen.structure.StructureNetherBridgePieces$Piece").getDeclaredField("field_111019_a");
+	        fortressWeightedContent.setAccessible(true);
+	        Field modifiersField = Field.class.getDeclaredField("modifiers");
+	        modifiersField.setAccessible(true);
+	        modifiersField.setInt(fortressWeightedContent, fortressWeightedContent.getModifiers() & 0xFFFFFFEF);
+	        
+	        WeightedRandomChestContent[] netherLoot = (WeightedRandomChestContent[]) fortressWeightedContent.get(null);
+	        
+	        ArrayUtils.add(netherLoot, netherLoot.length, new WeightedRandomChestContent(Items.diamond, 0, 1, 1, 5));
+	        
+	        Field chestInfo = ChestGenHooks.class.getDeclaredField("chestInfo");
+	        chestInfo.setAccessible(true);
+	        ((HashMap<String, ChestGenHooks>)chestInfo.get(null)).put(NETHER_FORTRESS_CHEST, new ChestGenHooks(NETHER_FORTRESS_CHEST, netherLoot, 2, 5));
+	      } catch (Exception e) {
+	        System.out.println("[Loot++] Couldn't get nether fortress chest contents! =(");
+	        e.printStackTrace();
+	      } 
 	}
+	
+	static final String NETHER_FORTRESS_CHEST = "netherFortress";
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {

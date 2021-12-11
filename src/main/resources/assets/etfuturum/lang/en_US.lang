@@ -26,6 +26,9 @@ container.etfuturum.smoker=Smoker
 container.etfuturum.barrel=Barrel
 container.etfuturum.shulker_box=Shulker Box
 
+item.record.pigstep.desc=Lena Raine - pigstep
+item.record.otherside.desc=Lena Raine - otherside
+
 gui.warn.continue=Continue...
 gui.warn.dismiss=Don't show me this again.
 gui.warn.notice=NOTICE:
