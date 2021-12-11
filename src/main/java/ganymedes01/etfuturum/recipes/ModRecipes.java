@@ -300,14 +300,14 @@ public class ModRecipes {
 
 		if (ConfigBlocksItems.enableStones) {
 			// Diorite
-			addShapedRecipe(new ItemStack(ModBlocks.stone, 2, 1), "xy", "yx", 'x', new ItemStack(Blocks.cobblestone), 'y', "gemQuartz");
-			addShapedRecipe(new ItemStack(ModBlocks.stone, 4, 2), "xx", "xx", 'x', "stoneDiorite");
+			addShapedRecipe(new ItemStack(ModBlocks.stone, 2, 3), "xy", "yx", 'x', new ItemStack(Blocks.cobblestone), 'y', "gemQuartz");
+			addShapedRecipe(new ItemStack(ModBlocks.stone, 4, 4), "xx", "xx", 'x', "stoneDiorite");
 			// Andesite
-			addShapelessRecipe(new ItemStack(ModBlocks.stone, 2, 3), new ItemStack(Blocks.cobblestone), "stoneDiorite");
-			addShapedRecipe(new ItemStack(ModBlocks.stone, 4, 4), "xx", "xx", 'x', "stoneAndesite");
+			addShapelessRecipe(new ItemStack(ModBlocks.stone, 2, 5), new ItemStack(Blocks.cobblestone), "stoneDiorite");
+			addShapedRecipe(new ItemStack(ModBlocks.stone, 4, 6), "xx", "xx", 'x', "stoneAndesite");
 			// Granite
-			addShapelessRecipe(new ItemStack(ModBlocks.stone, 2, 5), "gemQuartz", "stoneDiorite");
-			addShapedRecipe(new ItemStack(ModBlocks.stone, 4, 6), "xx", "xx", 'x', "stoneGranite");
+			addShapelessRecipe(new ItemStack(ModBlocks.stone, 2, 1), "gemQuartz", "stoneDiorite");
+			addShapedRecipe(new ItemStack(ModBlocks.stone, 4, 2), "xx", "xx", 'x', "stoneGranite");
 			Block[] stairs = new Block[] {ModBlocks.granite_stairs, ModBlocks.polished_granite_stairs, ModBlocks.diorite_stairs, ModBlocks.polished_diorite_stairs, ModBlocks.andesite_stairs, ModBlocks.polished_andesite_stairs};
 			for(int i = 0; i < stairs.length; i++) {
 				String dictName = "stone" + StringUtils.capitalize(((BlockStoneSlab2)ModBlocks.stone_slab).metaBlocks[(i / 2) * 2]) + (i % 2 == 1 ? "Polished" : "");

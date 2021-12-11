@@ -126,13 +126,10 @@ public class ClientEventHandler {
 				if(flag) {
 					ambience.fadeIn();
 				}
-				System.out.println("test1");
 			} else if (biome == null || getAmbienceLoop(biome) == null || !soundLoc.equals(getAmbienceLoop(biome))) {
 				ambience.stop();
-				System.out.println("test2");
 			} else if (mc.getSoundHandler().isSoundPlaying(ambience) && ambience.isStopping && soundLoc.equals(getAmbienceLoop(biome))){
 				ambience.isStopping = false;
-				System.out.println("test3");
 			}
 			if(getAmbienceAdditions(biome) != null && ambience != null && ticksToNextAmbience-- <= 0) {
 				Minecraft.getMinecraft().getSoundHandler().playSound(new NetherAmbienceSound(new ResourceLocation(getAmbienceAdditions(biome))));
