@@ -73,7 +73,7 @@ dependencies {
 }
 
 minecraft {
-	srgExtra "PK: makamys/mclib repackage/makamys/mclib"
+	srgExtra "PK: makamys/mclib ganymedes01/etfuturum/repackage/makamys/mclib"
 	version = "1.7.10-10.13.4.1614-1.7.10"
 	runDir = "eclipse/assets"
 	replaceIn 'ganymedes01/etfuturum/lib/Reference.java'
@@ -174,7 +174,7 @@ dependencies {
         exclude module: 'commons-io'
         exclude module: 'log4j-core'
     }
-	shade('com.github.makamys:MCLib:b22fa0e') {
+	shade('com.github.makamys:MCLib:0.3') {
 		exclude group: "codechicken"
 	}
 }
