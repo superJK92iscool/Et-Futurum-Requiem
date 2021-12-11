@@ -113,17 +113,26 @@ public class ClientEventHandler {
 			//int y = MathHelper.floor_double(player.posY); // unused variable
 			int z = MathHelper.floor_double(player.posZ);
 			biome = chunk.getBiomeGenForWorldCoords(x & 15, z & 15, world.getWorldChunkManager());
-			if(getAmbienceLoop(biome) != null && !mc.getSoundHandler().isSoundPlaying(ambience)) {
+			
+			String soundLoc = "";
+			if(ambience != null ) {
+				soundLoc = ambience.getPositionedSoundLocation().getResourceDomain() + ":" + ambience.getPositionedSoundLocation().getResourcePath();
+			}
+			
+			if(getAmbienceLoop(biome) != null  && !mc.getSoundHandler().isSoundPlaying(ambience)) {
 				Boolean flag = ambience == null || ambience.getVolume() <= 0;
 					ambience = new NetherAmbienceLoop(getAmbienceLoop(biome));
 					mc.getSoundHandler().playSound(ambience);
-				if(flag)
+				if(flag) {
 					ambience.fadeIn();
-			} else if (biome == null || getAmbienceLoop(biome) == null || !ambience.getPositionedSoundLocation().getResourcePath().split("\\.")[1].equals(getAmbienceLoop(biome))) {
-				if(ambience != null)
-					ambience.stop();
-			} else if (mc.getSoundHandler().isSoundPlaying(ambience) && ambience.isStopping && ambience.getPositionedSoundLocation().getResourcePath().split("\\.")[1].equals(getAmbienceLoop(biome))){
+				}
+				System.out.println("test1");
+			} else if (biome == null || getAmbienceLoop(biome) == null || !soundLoc.equals(getAmbienceLoop(biome))) {
+				ambience.stop();
+				System.out.println("test2");
+			} else if (mc.getSoundHandler().isSoundPlaying(ambience) && ambience.isStopping && soundLoc.equals(getAmbienceLoop(biome))){
 				ambience.isStopping = false;
+				System.out.println("test3");
 			}
 			if(getAmbienceAdditions(biome) != null && ambience != null && ticksToNextAmbience-- <= 0) {
 				Minecraft.getMinecraft().getSoundHandler().playSound(new NetherAmbienceSound(new ResourceLocation(getAmbienceAdditions(biome))));

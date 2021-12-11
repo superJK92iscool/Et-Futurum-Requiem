@@ -8,12 +8,11 @@ import net.minecraft.util.ResourceLocation;
 
 public class NetherAmbienceLoop extends PositionedSoundRecord implements ITickableSound {
 
-	private float volMax = 0.8F;
 	public boolean isStopping;
 	
 	public NetherAmbienceLoop(String loc) {
 		super(new ResourceLocation(loc), 1, 1, 0, 0, 0);
-		volume = volMax;
+		volume = 1;
 		repeat = true;
 		field_147666_i = ISound.AttenuationType.NONE;
 	}
@@ -23,8 +22,8 @@ public class NetherAmbienceLoop extends PositionedSoundRecord implements ITickab
 		if(isStopping) {
 			volume -= 0.02F;
 		} else
-		if(volume != volMax && (volume += 0.02F) > volMax && !isStopping) {
-			volume = volMax;
+		if(volume != 1 && (volume += 0.02F) > 1 && !isStopping) {
+			volume = 1;
 		}
 	}
 	

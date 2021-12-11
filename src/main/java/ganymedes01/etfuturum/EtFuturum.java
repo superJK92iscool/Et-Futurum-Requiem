@@ -281,25 +281,6 @@ public class EtFuturum {
 //		config.addSoundEvent(ver,  "block.honey_block.break", "block");
 		
 		AssetDirectorAPI.register(config);
-		
-	    try {
-	        Field fortressWeightedContent = Class.forName("net.minecraft.world.gen.structure.StructureNetherBridgePieces$Piece").getDeclaredField("field_111019_a");
-	        fortressWeightedContent.setAccessible(true);
-	        Field modifiersField = Field.class.getDeclaredField("modifiers");
-	        modifiersField.setAccessible(true);
-	        modifiersField.setInt(fortressWeightedContent, fortressWeightedContent.getModifiers() & 0xFFFFFFEF);
-	        
-	        WeightedRandomChestContent[] netherLoot = (WeightedRandomChestContent[]) fortressWeightedContent.get(null);
-	        
-	        ArrayUtils.add(netherLoot, netherLoot.length, new WeightedRandomChestContent(Items.diamond, 0, 1, 1, 5));
-	        
-	        Field chestInfo = ChestGenHooks.class.getDeclaredField("chestInfo");
-	        chestInfo.setAccessible(true);
-	        ((HashMap<String, ChestGenHooks>)chestInfo.get(null)).put(NETHER_FORTRESS_CHEST, new ChestGenHooks(NETHER_FORTRESS_CHEST, netherLoot, 2, 5));
-	      } catch (Exception e) {
-	        System.out.println("[Loot++] Couldn't get nether fortress chest contents! =(");
-	        e.printStackTrace();
-	      } 
 	}
 	
 	static final String NETHER_FORTRESS_CHEST = "netherFortress";
@@ -412,6 +393,32 @@ public class EtFuturum {
 		
 		Items.blaze_rod.setFull3D();
 		Blocks.trapped_chest.setCreativeTab(CreativeTabs.tabRedstone);
+		
+		if(ConfigBlocksItems.enablePigstep) {
+		    try {
+		        Field fortressWeightedContent = Class.forName("net.minecraft.world.gen.structure.StructureNetherBridgePieces$Piece").getDeclaredField("field_111019_a");
+		        fortressWeightedContent.setAccessible(true);
+		        Field modifiersField = Field.class.getDeclaredField("modifiers");
+		        modifiersField.setAccessible(true);
+		        modifiersField.setInt(fortressWeightedContent, fortressWeightedContent.getModifiers() & 0xFFFFFFEF);
+		        
+		        WeightedRandomChestContent[] netherLoot = (WeightedRandomChestContent[]) fortressWeightedContent.get(null);
+		        
+		        ArrayUtils.add(netherLoot, netherLoot.length, new WeightedRandomChestContent(ModItems.pigstep_record, 0, 1, 1, 1));
+		        
+		        Field chestInfo = ChestGenHooks.class.getDeclaredField("chestInfo");
+		        chestInfo.setAccessible(true);
+		        ((HashMap<String, ChestGenHooks>)chestInfo.get(null)).put(NETHER_FORTRESS_CHEST, new ChestGenHooks(NETHER_FORTRESS_CHEST, netherLoot, 2, 5));
+		      } catch (Exception e) {
+		        System.out.println("Failed to get Nether fortress loot table:");
+		        e.printStackTrace();
+		      } 
+		}
+	    
+		if(ConfigBlocksItems.enableOtherside) {
+		    ChestGenHooks.addItem(ChestGenHooks.STRONGHOLD_CORRIDOR, new WeightedRandomChestContent(ModItems.otherside_record, 0, 1, 1, 1));
+		    ChestGenHooks.addItem(ChestGenHooks.DUNGEON_CHEST, new WeightedRandomChestContent(ModItems.otherside_record, 0, 1, 1, 1));
+		}
 	}
 	
 	@EventHandler
