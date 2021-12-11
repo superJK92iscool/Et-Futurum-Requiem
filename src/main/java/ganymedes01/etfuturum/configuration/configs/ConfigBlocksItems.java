@@ -216,7 +216,7 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableNewDyes = cfg.getBoolean("enableNewDyes", catItemMisc, true, "");
 		
 		enablePigstep = cfg.getBoolean("enablePigstep", catItemMisc, true, "Appears in Nether fortress chest loot.");
-		enableOtherside = cfg.getBoolean("enableOtherside", catItemMisc, true, "Appears in stronghold corridor chests.");
+		enableOtherside = cfg.getBoolean("enableOtherside", catItemMisc, true, "Appears in stronghold corridor and dungeon chests.");
 		
 		//Equipment Items
 		netheriteToolDurability = cfg.getInt("netheriteToolDurability", catItemEquipment, 2031, 1, Integer.MAX_VALUE, "");

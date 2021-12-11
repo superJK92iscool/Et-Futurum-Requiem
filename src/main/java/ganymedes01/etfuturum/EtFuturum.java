@@ -3,6 +3,7 @@ package ganymedes01.etfuturum;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -283,10 +284,27 @@ public class EtFuturum {
 		AssetDirectorAPI.register(config);
 	}
 	
-	static final String NETHER_FORTRESS_CHEST = "netherFortress";
+	static final String NETHER_FORTRESS = "netherFortress";
+	private Field fortressWeightedField;
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
+
+	    try {
+	        Field chestInfo = ChestGenHooks.class.getDeclaredField("chestInfo");
+	        chestInfo.setAccessible(true);
+	        if(!((HashMap<String, ChestGenHooks>)chestInfo.get(null)).containsKey(NETHER_FORTRESS)) {
+		        fortressWeightedField = Class.forName("net.minecraft.world.gen.structure.StructureNetherBridgePieces$Piece").getDeclaredField("field_111019_a");
+		        fortressWeightedField.setAccessible(true);
+		        Field modifiersField = Field.class.getDeclaredField("modifiers");
+		        modifiersField.setAccessible(true);
+		        modifiersField.setInt(fortressWeightedField, fortressWeightedField.getModifiers() & ~Modifier.FINAL);
+		        ((HashMap<String, ChestGenHooks>)chestInfo.get(null)).put(NETHER_FORTRESS, new ChestGenHooks(NETHER_FORTRESS, (WeightedRandomChestContent[]) fortressWeightedField.get(null), 2, 5));
+	        }
+        } catch (Exception e) {
+	        System.out.println("Failed to get Nether fortress loot table:");
+	        e.printStackTrace();
+        }
 		
 		hasIronChest = Loader.isModLoaded("IronChest");
 		hasNetherlicious = Loader.isModLoaded("netherlicious");
@@ -393,31 +411,33 @@ public class EtFuturum {
 		
 		Items.blaze_rod.setFull3D();
 		Blocks.trapped_chest.setCreativeTab(CreativeTabs.tabRedstone);
-		
-		if(ConfigBlocksItems.enablePigstep) {
-		    try {
-		        Field fortressWeightedContent = Class.forName("net.minecraft.world.gen.structure.StructureNetherBridgePieces$Piece").getDeclaredField("field_111019_a");
-		        fortressWeightedContent.setAccessible(true);
-		        Field modifiersField = Field.class.getDeclaredField("modifiers");
-		        modifiersField.setAccessible(true);
-		        modifiersField.setInt(fortressWeightedContent, fortressWeightedContent.getModifiers() & 0xFFFFFFEF);
-		        
-		        WeightedRandomChestContent[] netherLoot = (WeightedRandomChestContent[]) fortressWeightedContent.get(null);
-		        
-		        ArrayUtils.add(netherLoot, netherLoot.length, new WeightedRandomChestContent(ModItems.pigstep_record, 0, 1, 1, 1));
-		        
-		        Field chestInfo = ChestGenHooks.class.getDeclaredField("chestInfo");
-		        chestInfo.setAccessible(true);
-		        ((HashMap<String, ChestGenHooks>)chestInfo.get(null)).put(NETHER_FORTRESS_CHEST, new ChestGenHooks(NETHER_FORTRESS_CHEST, netherLoot, 2, 5));
-		      } catch (Exception e) {
-		        System.out.println("Failed to get Nether fortress loot table:");
-		        e.printStackTrace();
-		      } 
-		}
 	    
 		if(ConfigBlocksItems.enableOtherside) {
-		    ChestGenHooks.addItem(ChestGenHooks.STRONGHOLD_CORRIDOR, new WeightedRandomChestContent(ModItems.otherside_record, 0, 1, 1, 1));
-		    ChestGenHooks.addItem(ChestGenHooks.DUNGEON_CHEST, new WeightedRandomChestContent(ModItems.otherside_record, 0, 1, 1, 1));
+		    ChestGenHooks.addItem(ChestGenHooks.STRONGHOLD_CORRIDOR, new WeightedRandomChestContent(ModItems.otherside_record, 0, 1, 1, 3));
+		    ChestGenHooks.addItem(ChestGenHooks.DUNGEON_CHEST, new WeightedRandomChestContent(ModItems.otherside_record, 0, 1, 1, 3));
+		}
+		
+		if(ConfigBlocksItems.enablePigstep) {
+			ChestGenHooks.addItem(NETHER_FORTRESS, new WeightedRandomChestContent(ModItems.pigstep_record, 0, 1, 1, 3));
+			
+			if(fortressWeightedField != null) {
+				try {
+				    Field contents = ChestGenHooks.class.getDeclaredField("contents");
+				    contents.setAccessible(true);
+			        ArrayList<WeightedRandomChestContent> fortressContentList;
+					fortressContentList = (ArrayList<WeightedRandomChestContent>)contents.get(ChestGenHooks.getInfo("netherFortress"));
+					if(!fortressContentList.isEmpty()) {
+				        WeightedRandomChestContent[] fortressChest = new WeightedRandomChestContent[fortressContentList.size()];
+				        for (int i = 0; i < fortressContentList.size(); i++) {
+				          fortressChest[i] = fortressContentList.get(i); 
+				        }
+						fortressWeightedField.set(null, fortressChest);
+					}
+				} catch (Exception e) {
+			        System.out.println("Failed to fill Nether fortress loot table:");
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 	
