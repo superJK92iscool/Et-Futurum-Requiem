@@ -174,7 +174,7 @@ dependencies {
         exclude module: 'commons-io'
         exclude module: 'log4j-core'
     }
-	shade('com.github.makamys:MCLib:b22fa0e') {
+	shade('com.github.makamys:MCLib:0.3') {
 		exclude group: "codechicken"
 	}
 }
