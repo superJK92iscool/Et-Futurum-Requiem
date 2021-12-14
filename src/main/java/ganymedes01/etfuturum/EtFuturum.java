@@ -500,7 +500,7 @@ public class EtFuturum {
 				return ModSounds.soundNetherBricks;
 			}
 			
-			else if(namespace.contains("netherrack")) {
+			else if(namespace.contains("netherrack") || namespace.contains("hellfish")) {
 					return ModSounds.soundNetherrack;
 			}
 			
