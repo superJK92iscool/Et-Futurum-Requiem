@@ -35,14 +35,32 @@ apply plugin: 'forge'
 // SEMVER that gradle uses.
 group = "ganymedes01.etfuturum"
 archivesBaseName = "Et_Futurum_Requiem"
-version = "2.3.1"
+def modVersion = "2.3.1"
+version = getCommitVersion() ?: modVersion
+
+def getCommitVersion(){
+	try {
+		def commitVersionProc = "git describe --tags --dirty".execute()
+		commitVersionProc.waitFor()
+		if(commitVersionProc.exitValue() == 0){
+			def commitVersion = commitVersionProc.text.trim()
+			return commitVersion
+		} else {
+			println commitVersionProc.err.text
+			throw new Exception("git describe exited with non-zero return value")
+		}
+	} catch(Exception e){
+		println "Failed to get commit version: " + e.getMessage()
+	}
+}
 
 // Run `./gradlew clean` when the metadata changes, otherwise the in-game meta (ForgeGradle's substitution) will remain stale.
 
 def authorList = ["\u00A79ganymedes01", "\u00A7bRoadhog360", "\u00A7ajss2a98aj", "\u00A7amakamys", "\u00A7aKryptonCaptain"]
 def meta = [
 	name: "Et Futurum Requiem", // hardcoded in Reference.java
-	version: version,
+	version: modVersion,
+	commitVersion: version,
 	mcversion: "1.7.10",
 	credits: "\u00A7bDelirusCrux, AstroTibs",
 	authorList: authorList.join('", "'),

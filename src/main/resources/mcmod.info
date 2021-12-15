@@ -3,7 +3,7 @@
   "modid": "etfuturum",
   "name": "${name}",
   "description": "${description}",
-  "version": "${version}",
+  "version": "${commitVersion}",
   "mcversion": "${mcversion}",
   "url": "${url}",
   "updateUrl": "",
