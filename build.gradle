@@ -36,22 +36,36 @@ apply plugin: 'forge'
 group = "ganymedes01.etfuturum"
 archivesBaseName = "Et_Futurum_Requiem"
 def modVersion = "2.3.1"
-version = getCommitVersion() ?: modVersion
+version = getCommitVersion(modVersion)
 
-def getCommitVersion(){
+def getCommitVersion(modVersion){
 	try {
-		def commitVersionProc = "git describe --tags --dirty".execute()
-		commitVersionProc.waitFor()
-		if(commitVersionProc.exitValue() == 0){
-			def commitVersion = commitVersionProc.text.trim()
-			return commitVersion
+		def commitHashProc = "git rev-parse --short HEAD".execute()
+		commitHashProc.waitFor()
+		if(commitHashProc.exitValue() == 0){
+			def commitHash = commitHashProc.text.trim()
+			
+			def commitTagProc = "git tag --points-at HEAD".execute()
+			commitTagProc.waitFor()
+			if(commitTagProc.exitValue() == 0){
+				def commitTag = commitTagProc.text.trim()
+				if(commitTag){
+					return modVersion // if the commit is tagged, assume it's a release
+				} else {
+					return modVersion + "-SNAPSHOT-" + commitHash
+				}
+			} else {
+				println commitTagProc.err.text
+				throw new Exception("git tag exited with non-zero return value")
+			}
 		} else {
-			println commitVersionProc.err.text
-			throw new Exception("git describe exited with non-zero return value")
+			println commitHashProc.err.text
+			throw new Exception("git rev-parse exited with non-zero return value")
 		}
 	} catch(Exception e){
 		println "Failed to get commit version: " + e.getMessage()
 	}
+	return modVersion // fallback
 }
 
 // Run `./gradlew clean` when the metadata changes, otherwise the in-game meta (ForgeGradle's substitution) will remain stale.
