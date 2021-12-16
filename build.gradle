@@ -145,7 +145,7 @@ task devJar(type: Jar) {
 }
 
 artifacts {
-	archives sourceJar, devJar
+	archives devJar
 }
 
 
