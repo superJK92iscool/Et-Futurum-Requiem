@@ -93,10 +93,11 @@ public class BlockComposter extends Block implements IConfigurable {
     		meta = Math.min(meta, 7);
         	ItemStack stack = player.getCurrentEquippedItem();
         	for(String oreName : EtFuturum.getOreStrings(stack)) {
-        		if(oreName.startsWith("compost")) {
+        		String chanceKey = "compostChance";
+        		if(oreName.startsWith(chanceKey)) {
         			try {
         				if(!world.isRemote) {
-            				int chance = Math.min(100, Math.max(1, Integer.valueOf(oreName.substring(7))));
+            				int chance = Math.min(100, Math.max(1, Integer.valueOf(oreName.substring(chanceKey.length()))));
                 			if(world.rand.nextInt(100) < chance) {
                 				world.setBlockMetadataWithNotify(x, y, z, meta + 1, 3);
                 			}
