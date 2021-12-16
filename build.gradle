@@ -133,13 +133,6 @@ jar {
 	}
 }
 
-task sourceJar(type: Jar) {
-	manifest {}
-	classifier = 'sources'
-	from sourceSets.main.allSource
-	exclude 'assets/**'
-}
-
 // TODO might want to embed Mixin in this JAR too, unless this would cause issues?
 task devJar(type: Jar) {
 	manifest {

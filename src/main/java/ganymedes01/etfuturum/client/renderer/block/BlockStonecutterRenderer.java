@@ -30,7 +30,6 @@ public class BlockStonecutterRenderer extends BlockModelBase {
 		return RenderIDs.STONECUTTER;
 	}
 
-	// To render a ISBRH part in the inventory - Credits to MinecraftForgeFrance
 	private void renderInInventory(Tessellator tessellator, RenderBlocks renderer, Block block, int metadata)
 	{
 		GL11.glTranslatef(-0.5F, -0.5F, -0.5F);

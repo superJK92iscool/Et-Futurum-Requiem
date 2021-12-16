@@ -87,6 +87,7 @@ import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.oredict.OreDictionary;
 
 @Mod(
 		modid = Reference.MOD_ID, 
@@ -572,30 +573,24 @@ public class EtFuturum {
 			to.setHarvestLevel(tool, level, i);
 		}
 	}
-
-	public static void setFinalField(Class<?> cls, Object obj, Object newValue, String... fieldNames) {
-		try {
-			Field field = null;
-			Field[] fieldList = cls.getFields();
-			for(int i = 0; i < fieldList.length; i++) {
-				for(int j = 0; j < fieldNames.length; j++)
-					if(fieldList[i].getName().equals(fieldNames[j])) {
-						field = fieldList[i];
-						break;
-					}
-				if(field == null)
-					continue;
-				field.setAccessible(true);
-
-				Field modifiersField = Field.class.getDeclaredField("modifiers");
-				modifiersField.setAccessible(true);
-				modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
-
-				field.set(obj, newValue);
+	
+	public static List<String> getOreStrings(ItemStack stack) {
+		final List<String> list = new ArrayList();
+		if(stack != null) {
+			for(int oreID : OreDictionary.getOreIDs(stack)) {
+				list.add(OreDictionary.getOreName(oreID));
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
+		return list;
+	}
+	
+	public static boolean hasDictTag(ItemStack stack, String... tags) {
+		for(String oreName : getOreStrings(stack)) {
+			if(ArrayUtils.contains(tags, oreName)) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public static PotionEffect getSuspiciousStewEffect(ItemStack stack) {

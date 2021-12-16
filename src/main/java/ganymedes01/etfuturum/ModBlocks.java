@@ -16,6 +16,7 @@ import ganymedes01.etfuturum.blocks.BlockBone;
 import ganymedes01.etfuturum.blocks.BlockChorusFlower;
 import ganymedes01.etfuturum.blocks.BlockChorusPlant;
 import ganymedes01.etfuturum.blocks.BlockCoarseDirt;
+import ganymedes01.etfuturum.blocks.BlockComposter;
 import ganymedes01.etfuturum.blocks.BlockConcrete;
 import ganymedes01.etfuturum.blocks.BlockConcretePowder;
 import ganymedes01.etfuturum.blocks.BlockCopper;
@@ -296,6 +297,7 @@ public class ModBlocks {
 	public static final Block lit_blast_furnace = initBlock(new BlockBlastFurnace(true));
 	public static final Block shulker_box = initBlock(new BlockShulkerBox());
 	public static final Block smithing_table = initBlock(new BlockSmithingTable());
+	public static final Block composter = initBlock(new BlockComposter());
 	public static final Block stonecutter = initBlock(new BlockStonecutter());
 	
 	public static final String[] woodTypes = new String[] {"oak", "spruce", "birch", "jungle", "acacia", "dark_oak"/*, "crimson", "warped"*/};
