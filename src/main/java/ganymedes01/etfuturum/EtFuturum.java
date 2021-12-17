@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -136,7 +137,10 @@ public class EtFuturum {
 	public static boolean hasIronChest;
 	public static boolean hasNetherlicious;
 	public static boolean hasEnderlicious;
-	public static final boolean isTesting = Reference.VERSION_NUMBER.equals("@VERSION@");
+	public static final boolean TESTING = Reference.VERSION_NUMBER.equals("@VERSION@");
+	public static final boolean IS_CI_BUILD = Reference.VERSION_NUMBER.toLowerCase().contains("snapshot");
+	
+	static final Map<Item, Integer> DEFAULT_COMPOST_CHANCES = new HashMap<Item, Integer>();
 	
 	@EventHandler
 	public void onConstruction(FMLConstructionEvent event) {
@@ -152,8 +156,8 @@ public class EtFuturum {
 		config.addObject(ver, "minecraft/sounds/ambient/cave/cave18.ogg");
 		config.addObject(ver, "minecraft/sounds/ambient/cave/cave19.ogg");
 		
-		config.addSoundEvent(ver,  "weather.rain", "weather");
-		config.addSoundEvent(ver,  "weather.rain.above", "weather");
+		config.addSoundEvent(ver, "weather.rain", "weather");
+		config.addSoundEvent(ver, "weather.rain.above", "weather");
 		
 		config.addSoundEvent(ver, "music.nether.nether_wastes", "music");
 		
@@ -164,123 +168,127 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "music_disc.pigstep", "record");
 		config.addSoundEvent(ver, "music_disc.otherside", "record");
 		
-		config.addSoundEvent(ver,  "entity.boat.paddle_land", "player");
-		config.addSoundEvent(ver,  "entity.boat.paddle_water", "player");
-		config.addSoundEvent(ver,  "entity.rabbit.ambient", "neutral");
-		config.addSoundEvent(ver,  "entity.rabbit.jump", "neutral");
-		config.addSoundEvent(ver,  "entity.rabbit.attack", "neutral");
-		config.addSoundEvent(ver,  "entity.rabbit.hurt", "neutral");
-		config.addSoundEvent(ver,  "entity.rabbit.death", "neutral");
-		config.addSoundEvent(ver,  "entity.zombie_villager.ambient", "hostile");
-		config.addSoundEvent(ver,  "entity.zombie_villager.step", "hostile");
-		config.addSoundEvent(ver,  "entity.zombie_villager.hurt", "hostile");
-		config.addSoundEvent(ver,  "entity.zombie_villager.death", "hostile");
-		config.addSoundEvent(ver,  "entity.husk.ambient", "hostile");
-		config.addSoundEvent(ver,  "entity.husk.step", "hostile");
-		config.addSoundEvent(ver,  "entity.husk.hurt", "hostile");
-		config.addSoundEvent(ver,  "entity.husk.death", "hostile");
-		config.addSoundEvent(ver,  "entity.zombie.converted_to_drowned", "hostile");
-		config.addSoundEvent(ver,  "entity.husk.converted_to_zombie", "hostile");
-		config.addSoundEvent(ver,  "entity.stray.ambient", "hostile");
-		config.addSoundEvent(ver,  "entity.stray.step", "hostile");
-		config.addSoundEvent(ver,  "entity.stray.hurt", "hostile");
-		config.addSoundEvent(ver,  "entity.stray.death", "hostile");
-		config.addSoundEvent(ver,  "entity.skeleton.converted_to_stray", "hostile");
-		config.addSoundEvent(ver,  "entity.shulker_bullet.hurt", "hostile");
-		config.addSoundEvent(ver,  "entity.shulker_bullet.hit", "hostile");
-		config.addSoundEvent(ver,  "entity.shulker.ambient", "hostile");
-		config.addSoundEvent(ver,  "entity.shulker.open", "hostile");
-		config.addSoundEvent(ver,  "entity.shulker.close", "hostile");
-		config.addSoundEvent(ver,  "entity.shulker.shoot", "hostile");
-		config.addSoundEvent(ver,  "entity.shulker.hurt", "hostile");
-		config.addSoundEvent(ver,  "entity.shulker.hurt_closed", "hostile");
-		config.addSoundEvent(ver,  "entity.shulker.death", "hostile");
-		config.addSoundEvent(ver,  "entity.shulker.teleport", "hostile");
+		config.addSoundEvent(ver, "entity.boat.paddle_land", "player");
+		config.addSoundEvent(ver, "entity.boat.paddle_water", "player");
+		config.addSoundEvent(ver, "entity.rabbit.ambient", "neutral");
+		config.addSoundEvent(ver, "entity.rabbit.jump", "neutral");
+		config.addSoundEvent(ver, "entity.rabbit.attack", "neutral");
+		config.addSoundEvent(ver, "entity.rabbit.hurt", "neutral");
+		config.addSoundEvent(ver, "entity.rabbit.death", "neutral");
+		config.addSoundEvent(ver, "entity.zombie_villager.ambient", "hostile");
+		config.addSoundEvent(ver, "entity.zombie_villager.step", "hostile");
+		config.addSoundEvent(ver, "entity.zombie_villager.hurt", "hostile");
+		config.addSoundEvent(ver, "entity.zombie_villager.death", "hostile");
+		config.addSoundEvent(ver, "entity.husk.ambient", "hostile");
+		config.addSoundEvent(ver, "entity.husk.step", "hostile");
+		config.addSoundEvent(ver, "entity.husk.hurt", "hostile");
+		config.addSoundEvent(ver, "entity.husk.death", "hostile");
+		config.addSoundEvent(ver, "entity.zombie.converted_to_drowned", "hostile");
+		config.addSoundEvent(ver, "entity.husk.converted_to_zombie", "hostile");
+		config.addSoundEvent(ver, "entity.stray.ambient", "hostile");
+		config.addSoundEvent(ver, "entity.stray.step", "hostile");
+		config.addSoundEvent(ver, "entity.stray.hurt", "hostile");
+		config.addSoundEvent(ver, "entity.stray.death", "hostile");
+		config.addSoundEvent(ver, "entity.skeleton.converted_to_stray", "hostile");
+		config.addSoundEvent(ver, "entity.shulker_bullet.hurt", "hostile");
+		config.addSoundEvent(ver, "entity.shulker_bullet.hit", "hostile");
+		config.addSoundEvent(ver, "entity.shulker.ambient", "hostile");
+		config.addSoundEvent(ver, "entity.shulker.open", "hostile");
+		config.addSoundEvent(ver, "entity.shulker.close", "hostile");
+		config.addSoundEvent(ver, "entity.shulker.shoot", "hostile");
+		config.addSoundEvent(ver, "entity.shulker.hurt", "hostile");
+		config.addSoundEvent(ver, "entity.shulker.hurt_closed", "hostile");
+		config.addSoundEvent(ver, "entity.shulker.death", "hostile");
+		config.addSoundEvent(ver, "entity.shulker.teleport", "hostile");
 		
-		config.addSoundEvent(ver,  "item.axe.scrape", "player");
-		config.addSoundEvent(ver,  "item.axe.wax_off", "player");
-		config.addSoundEvent(ver,  "item.axe.strip", "player");
-		config.addSoundEvent(ver,  "item.honeycomb.wax_on", "player");
-		config.addSoundEvent(ver,  "item.totem.use", "player");
-		config.addSoundEvent(ver,  "item.shovel.flatten", "player");
-		config.addSoundEvent(ver,  "item.chorus_fruit.teleport", "player");
+		config.addSoundEvent(ver, "item.axe.scrape", "player");
+		config.addSoundEvent(ver, "item.axe.wax_off", "player");
+		config.addSoundEvent(ver, "item.axe.strip", "player");
+		config.addSoundEvent(ver, "item.honeycomb.wax_on", "player");
+		config.addSoundEvent(ver, "item.totem.use", "player");
+		config.addSoundEvent(ver, "item.shovel.flatten", "player");
+		config.addSoundEvent(ver, "item.chorus_fruit.teleport", "player");
 		
-		config.addSoundEvent(ver,  "block.barrel.open", "block");
-		config.addSoundEvent(ver,  "block.barrel.close", "block");
-		config.addSoundEvent(ver,  "block.chorus_flower.grow", "block");
-		config.addSoundEvent(ver,  "block.chorus_flower.death", "block");
-		config.addSoundEvent(ver,  "block.end_portal.spawn", "ambient");
-		config.addSoundEvent(ver,  "block.end_portal_frame.fill", "block");
-		config.addSoundEvent(ver,  "block.shulker_box.open", "block");
-		config.addSoundEvent(ver,  "block.shulker_box.close", "block");
-		config.addSoundEvent(ver,  "block.sweet_berry_bush.pick_berries", "player");
+		config.addSoundEvent(ver, "block.barrel.open", "block");
+		config.addSoundEvent(ver, "block.barrel.close", "block");
+		config.addSoundEvent(ver, "block.chorus_flower.grow", "block");
+		config.addSoundEvent(ver, "block.chorus_flower.death", "block");
+		config.addSoundEvent(ver, "block.end_portal.spawn", "ambient");
+		config.addSoundEvent(ver, "block.end_portal_frame.fill", "block");
+		config.addSoundEvent(ver, "block.shulker_box.open", "block");
+		config.addSoundEvent(ver, "block.shulker_box.close", "block");
+		config.addSoundEvent(ver, "block.sweet_berry_bush.pick_berries", "player");
 		
-		config.addSoundEvent(ver,  "block.brewing_stand.brew", "block");
-		config.addSoundEvent(ver,  "block.furnace.fire_crackle", "block");
-		config.addSoundEvent(ver,  "block.blastfurnace.fire_crackle", "block");
-		config.addSoundEvent(ver,  "block.smoker.smoke", "block");
-		config.addSoundEvent(ver,  "block.chest.close", "block");
-		config.addSoundEvent(ver,  "block.ender_chest.open", "block");
-		config.addSoundEvent(ver,  "block.ender_chest.close", "block");
-		config.addSoundEvent(ver,  "block.wooden_door.open", "block");
-		config.addSoundEvent(ver,  "block.wooden_door.close", "block");
-		config.addSoundEvent(ver,  "block.iron_door.open", "block");
-		config.addSoundEvent(ver,  "block.iron_door.close", "block");
-		config.addSoundEvent(ver,  "block.wooden_trapdoor.open", "block");
-		config.addSoundEvent(ver,  "block.wooden_trapdoor.close", "block");
-		config.addSoundEvent(ver,  "block.iron_trapdoor.open", "block");
-		config.addSoundEvent(ver,  "block.iron_trapdoor.close", "block");
-		config.addSoundEvent(ver,  "block.fence_gate.open", "block");
-		config.addSoundEvent(ver,  "block.fence_gate.close", "block");
+		config.addSoundEvent(ver, "block.brewing_stand.brew", "block");
+		config.addSoundEvent(ver, "block.furnace.fire_crackle", "block");
+		config.addSoundEvent(ver, "block.blastfurnace.fire_crackle", "block");
+		config.addSoundEvent(ver, "block.smoker.smoke", "block");
+		config.addSoundEvent(ver, "block.chest.close", "block");
+		config.addSoundEvent(ver, "block.ender_chest.open", "block");
+		config.addSoundEvent(ver, "block.ender_chest.close", "block");
+		config.addSoundEvent(ver, "block.wooden_door.open", "block");
+		config.addSoundEvent(ver, "block.wooden_door.close", "block");
+		config.addSoundEvent(ver, "block.iron_door.open", "block");
+		config.addSoundEvent(ver, "block.iron_door.close", "block");
+		config.addSoundEvent(ver, "block.wooden_trapdoor.open", "block");
+		config.addSoundEvent(ver, "block.wooden_trapdoor.close", "block");
+		config.addSoundEvent(ver, "block.iron_trapdoor.open", "block");
+		config.addSoundEvent(ver, "block.iron_trapdoor.close", "block");
+		config.addSoundEvent(ver, "block.fence_gate.open", "block");
+		config.addSoundEvent(ver, "block.fence_gate.close", "block");
+		config.addSoundEvent(ver, "block.composter.empty", "block");
+		config.addSoundEvent(ver, "block.composter.fill", "block");
+		config.addSoundEvent(ver, "block.composter.fill_success", "block");
+		config.addSoundEvent(ver, "block.composter.ready", "block");
 	
-		config.addSoundEvent(ver,  "item.crop.plant", "block");
-		config.addSoundEvent(ver,  "block.crop.break", "block");
-		config.addSoundEvent(ver,  "item.nether_wart.plant", "block");
-		config.addSoundEvent(ver,  "block.nether_wart.break", "block");
-		config.addSoundEvent(ver,  "block.lantern.step", "block");
-		config.addSoundEvent(ver,  "block.lantern.break", "block");
-		config.addSoundEvent(ver,  "block.lantern.place", "block");
-		config.addSoundEvent(ver,  "block.deepslate.step", "block");
-		config.addSoundEvent(ver,  "block.deepslate.break", "block");
-		config.addSoundEvent(ver,  "block.deepslate.place", "block");
-		config.addSoundEvent(ver,  "block.sweet_berry_bush.break", "block");
-		config.addSoundEvent(ver,  "block.sweet_berry_bush.place", "block");
-		config.addSoundEvent(ver,  "block.deepslate_bricks.step", "block");
-		config.addSoundEvent(ver,  "block.deepslate_bricks.break", "block");
-		config.addSoundEvent(ver,  "block.soul_sand.step", "block");
-		config.addSoundEvent(ver,  "block.soul_sand.break", "block");
-		config.addSoundEvent(ver,  "block.wart_block.step", "block");
-		config.addSoundEvent(ver,  "block.wart_block.break", "block");
-		config.addSoundEvent(ver,  "block.nether_bricks.step", "block");
-		config.addSoundEvent(ver,  "block.nether_bricks.break", "block");
-		config.addSoundEvent(ver,  "block.bone_block.step", "block");
-		config.addSoundEvent(ver,  "block.bone_block.break", "block");
-		config.addSoundEvent(ver,  "block.netherrack.step", "block");
-		config.addSoundEvent(ver,  "block.netherrack.break", "block");
-		config.addSoundEvent(ver,  "block.nether_ore.step", "block");
-		config.addSoundEvent(ver,  "block.nether_ore.break", "block");
-		config.addSoundEvent(ver,  "block.ancient_debris.step", "block");
-		config.addSoundEvent(ver,  "block.ancient_debris.break", "block");
-		config.addSoundEvent(ver,  "block.netherite_block.step", "block");
-		config.addSoundEvent(ver,  "block.netherite_block.break", "block");
-		config.addSoundEvent(ver,  "block.basalt.step", "block");
-		config.addSoundEvent(ver,  "block.basalt.break", "block");
-		config.addSoundEvent(ver,  "block.copper.step", "block");
-		config.addSoundEvent(ver,  "block.copper.break", "block");
-		config.addSoundEvent(ver,  "block.tuff.step", "block");
-		config.addSoundEvent(ver,  "block.tuff.break", "block");
-		config.addSoundEvent(ver,  "block.vine.step", "block");
-		config.addSoundEvent(ver,  "block.vine.break", "block");
-//		config.addSoundEvent(ver,  "block.nylium.step", "block");
-//		config.addSoundEvent(ver,  "block.nylium.break", "block");
-//		config.addSoundEvent(ver,  "block.fungus.step", "block");
-//		config.addSoundEvent(ver,  "block.fungus.break", "block");
-//		config.addSoundEvent(ver,  "block.stem.step", "block");
-//		config.addSoundEvent(ver,  "block.stem.break", "block");
-//		config.addSoundEvent(ver,  "block.shroomlight.step", "block");
-//		config.addSoundEvent(ver,  "block.shroomlight.break", "block");
-//		config.addSoundEvent(ver,  "block.honey_block.step", "block");
-//		config.addSoundEvent(ver,  "block.honey_block.break", "block");
+		config.addSoundEvent(ver, "item.crop.plant", "block");
+		config.addSoundEvent(ver, "block.crop.break", "block");
+		config.addSoundEvent(ver, "item.nether_wart.plant", "block");
+		config.addSoundEvent(ver, "block.nether_wart.break", "block");
+		config.addSoundEvent(ver, "block.lantern.step", "block");
+		config.addSoundEvent(ver, "block.lantern.break", "block");
+		config.addSoundEvent(ver, "block.lantern.place", "block");
+		config.addSoundEvent(ver, "block.deepslate.step", "block");
+		config.addSoundEvent(ver, "block.deepslate.break", "block");
+		config.addSoundEvent(ver, "block.deepslate.place", "block");
+		config.addSoundEvent(ver, "block.sweet_berry_bush.break", "block");
+		config.addSoundEvent(ver, "block.sweet_berry_bush.place", "block");
+		config.addSoundEvent(ver, "block.deepslate_bricks.step", "block");
+		config.addSoundEvent(ver, "block.deepslate_bricks.break", "block");
+		config.addSoundEvent(ver, "block.soul_sand.step", "block");
+		config.addSoundEvent(ver, "block.soul_sand.break", "block");
+		config.addSoundEvent(ver, "block.wart_block.step", "block");
+		config.addSoundEvent(ver, "block.wart_block.break", "block");
+		config.addSoundEvent(ver, "block.nether_bricks.step", "block");
+		config.addSoundEvent(ver, "block.nether_bricks.break", "block");
+		config.addSoundEvent(ver, "block.bone_block.step", "block");
+		config.addSoundEvent(ver, "block.bone_block.break", "block");
+		config.addSoundEvent(ver, "block.netherrack.step", "block");
+		config.addSoundEvent(ver, "block.netherrack.break", "block");
+		config.addSoundEvent(ver, "block.nether_ore.step", "block");
+		config.addSoundEvent(ver, "block.nether_ore.break", "block");
+		config.addSoundEvent(ver, "block.ancient_debris.step", "block");
+		config.addSoundEvent(ver, "block.ancient_debris.break", "block");
+		config.addSoundEvent(ver, "block.netherite_block.step", "block");
+		config.addSoundEvent(ver, "block.netherite_block.break", "block");
+		config.addSoundEvent(ver, "block.basalt.step", "block");
+		config.addSoundEvent(ver, "block.basalt.break", "block");
+		config.addSoundEvent(ver, "block.copper.step", "block");
+		config.addSoundEvent(ver, "block.copper.break", "block");
+		config.addSoundEvent(ver, "block.tuff.step", "block");
+		config.addSoundEvent(ver, "block.tuff.break", "block");
+		config.addSoundEvent(ver, "block.vine.step", "block");
+		config.addSoundEvent(ver, "block.vine.break", "block");
+//		config.addSoundEvent(ver, "block.nylium.step", "block");
+//		config.addSoundEvent(ver, "block.nylium.break", "block");
+//		config.addSoundEvent(ver, "block.fungus.step", "block");
+//		config.addSoundEvent(ver, "block.fungus.break", "block");
+//		config.addSoundEvent(ver, "block.stem.step", "block");
+//		config.addSoundEvent(ver, "block.stem.break", "block");
+//		config.addSoundEvent(ver, "block.shroomlight.step", "block");
+//		config.addSoundEvent(ver, "block.shroomlight.break", "block");
+//		config.addSoundEvent(ver, "block.honey_block.step", "block");
+//		config.addSoundEvent(ver, "block.honey_block.break", "block");
 		
 		AssetDirectorAPI.register(config);
 	}
@@ -480,7 +488,7 @@ public class EtFuturum {
 			/*
 			 * MATERIALS
 			 */
-			if(block == Blocks.bed && isTesting) {
+			if(block == Blocks.bed && TESTING) {
 				block.blockMaterial = Material.wood;
 			}
 		}
@@ -488,7 +496,7 @@ public class EtFuturum {
 //      if(ConfigurationHandler.enableNewNether)
 //        DimensionProviderNether.init(); // Come back to
 		
-		if(isTesting) {
+		if(TESTING) {
 			DimensionProviderEnd.init(); // Come back to
 		}
 	}

@@ -50,6 +50,6 @@ public class BlockLightningRod extends Block implements IConfigurable {
 
 	@Override
 	public boolean isEnabled() {
-		return EtFuturum.isTesting;
+		return EtFuturum.TESTING;
 	}
 }

@@ -49,7 +49,7 @@ public class BlockDyedBed extends BlockBed implements IConfigurable, ISubBlocksB
 	
 	@Override
 	public boolean isEnabled() {
-		return EtFuturum.isTesting;
+		return EtFuturum.TESTING;
 	}
 
 	@Override

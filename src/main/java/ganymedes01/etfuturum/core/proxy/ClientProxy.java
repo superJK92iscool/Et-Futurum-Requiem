@@ -151,7 +151,7 @@ public class ClientProxy extends CommonProxy {
 		if(ConfigBlocksItems.enableLavaCauldrons)
 			RenderingRegistry.registerBlockHandler(new BlockLavaCauldronRenderer());
 		
-		if(EtFuturum.isTesting) {
+		if(EtFuturum.TESTING) {
 			RenderingRegistry.registerBlockHandler(new BlockStonecutterRenderer());
 			RenderingRegistry.registerBlockHandler(new BlockComposterRenderer());
 			ClientRegistry.bindTileEntitySpecialRenderer(TileEntityGateway.class, new TileEntityGatewayRenderer());

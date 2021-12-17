@@ -1,16 +1,19 @@
 package ganymedes01.etfuturum.blocks;
 
 import java.util.List;
+import java.util.Random;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.core.utils.Utils;
+import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -44,7 +47,6 @@ public class BlockComposter extends Block implements IConfigurable {
 		this.setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
 		this.setLightOpacity(0);
 		this.useNeighborBrightness = true;
-		OreDictionary.registerOre("compost75", Items.wheat_seeds);
 	}
 	
 	@SideOnly(Side.CLIENT)
@@ -89,7 +91,7 @@ public class BlockComposter extends Block implements IConfigurable {
     {
     	
     	int meta = world.getBlockMetadata(x, y, z);
-    	if(meta < 8) {
+    	if(meta < 6) {
     		meta = Math.min(meta, 7);
         	ItemStack stack = player.getCurrentEquippedItem();
         	for(String oreName : EtFuturum.getOreStrings(stack)) {
@@ -100,6 +102,12 @@ public class BlockComposter extends Block implements IConfigurable {
             				int chance = Math.min(100, Math.max(1, Integer.valueOf(oreName.substring(chanceKey.length()))));
                 			if(world.rand.nextInt(100) < chance) {
                 				world.setBlockMetadataWithNotify(x, y, z, meta + 1, 3);
+                				world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, Reference.MCv118 + ":block.composter.fill_success", 1, 1);
+                				if(meta == 5) {
+                					world.scheduleBlockUpdate(x, y, z, this, world.rand.nextInt(10) + 10);
+                				}
+                			} else {
+                				world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, Reference.MCv118 + ":block.composter.fill", 1, 1);
                 			}
                 			if(!player.capabilities.isCreativeMode) {
                     			stack.stackSize--;
@@ -117,8 +125,22 @@ public class BlockComposter extends Block implements IConfigurable {
         			}
         		}
         	}
+    	} else if(meta == 7) {
+    		if(!world.isRemote) {
+        		EntityItem item = new EntityItem(world, x + 0.5D, y + 1, z + 0.5D, new ItemStack(Items.dye, 1, 15));
+        		item.setVelocity(world.rand.nextDouble() * 0.5D, 0, world.rand.nextDouble() * 0.5D);
+        		world.spawnEntityInWorld(item);
+    		}
+			world.playSound(x + 0.5D, y  + 0.5D, z + 0.5D, Reference.MCv118 + ":block.composter.empty", 1, 1, true);
+			world.setBlockMetadataWithNotify(x, y, z, 0, 3);
+    		return true;
     	}
         return false;
+    }
+
+    public void updateTick(World world, int x, int y, int z, Random rand) {
+		world.playSoundEffect(x + 0.5D, y  + 0.5D, z + 0.5D, Reference.MCv118 + ":block.composter.ready", 1, 1);
+		world.setBlockMetadataWithNotify(x, y, z, 7, 3);
     }
 
 	@Override
@@ -138,7 +160,7 @@ public class BlockComposter extends Block implements IConfigurable {
 
 	@Override
 	public boolean isEnabled() {
-		return EtFuturum.isTesting;
+		return EtFuturum.TESTING;
 	}
 
 }

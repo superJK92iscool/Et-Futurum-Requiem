@@ -94,7 +94,7 @@ public class BlockStonecutter extends Block implements IConfigurable {
 
 	@Override
 	public boolean isEnabled() {
-		return EtFuturum.isTesting;
+		return EtFuturum.TESTING;
 	}
 
 }

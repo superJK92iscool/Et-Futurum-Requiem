@@ -71,11 +71,11 @@ public class BlockComposterRenderer extends BlockModelBase {
 			this.renderFaceXNeg(renderer, block, x, y, z);
 			renderer.renderAllFaces = prevRenderFaces;
 			
-			int meta = world.getBlockMetadata(x, y, z);
+			int meta = Math.min(world.getBlockMetadata(x, y, z), 9);
 			if(!renderer.hasOverrideBlockTexture()) {
 				if(meta == 0) {
 					renderer.setOverrideBlockTexture(ModBlocks.composter.getIcon(0, 0));
-				} else if (meta == 8){
+				} else if (meta == 7){
 					renderer.setOverrideBlockTexture(((BlockComposter)block).fullCompostIcon);
 				} else {
 					renderer.setOverrideBlockTexture(((BlockComposter)block).compostIcon);

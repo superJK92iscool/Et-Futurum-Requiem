@@ -402,7 +402,7 @@ public class BlockShulkerBox extends BlockContainer implements IConfigurable, IS
 					tag.setByte("Color", j);
 				}
 				
-				if(j > 0) {
+				if(j > 0 || i > 0) {
 					stack.setTagCompound(tag);
 				}
 				
