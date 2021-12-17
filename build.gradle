@@ -36,7 +36,7 @@ apply plugin: 'forge'
 group = "ganymedes01.etfuturum"
 archivesBaseName = "Et_Futurum_Requiem"
 def modVersion = "2.4.0"
-version = getCommitVersion(modVersion)
+version = project.hasProperty("useCommitHashInVersion") ? getCommitVersion(modVersion) : modVersion
 
 def getCommitVersion(modVersion){
 	try {
