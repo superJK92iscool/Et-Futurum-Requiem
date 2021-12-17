@@ -357,7 +357,7 @@ public class EtFuturum {
 		
 		event.getModMetadata().name = "\u00a75\u00a7o" + Reference.MOD_NAME; // name 
 		
-		event.getModMetadata().version = "\u00a7e" + Reference.VERSION_NUMBER; // version 
+		event.getModMetadata().version = "\u00a7e" + event.getModMetadata().version; // version (read from mcmod.info)
 		
 		event.getModMetadata().credits = Reference.CREDITS; // credits 
 		
