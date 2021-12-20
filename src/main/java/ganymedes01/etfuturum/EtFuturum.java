@@ -520,7 +520,7 @@ public class EtFuturum {
 					
 					for(String oreDict : getOreStrings(stack)) {
 						if(oreDict.startsWith("compostChance")) {
-							break metaIterator;
+							continue metaIterator;
 						}
 					}
 					
