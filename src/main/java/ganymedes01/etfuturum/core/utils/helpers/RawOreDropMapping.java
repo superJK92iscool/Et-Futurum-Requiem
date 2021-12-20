@@ -9,10 +9,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
-public class RawOreDropMapping {
+public class RawOreDropMapping extends ItemAndMetadataMapping {
 	
-	private Item ore;
-	private int meta;
 	private boolean exdrops;
 	
 	/**
@@ -22,8 +20,7 @@ public class RawOreDropMapping {
 	 * meta: Meta
 	 */
 	public RawOreDropMapping(Item ore, int meta) {
-		this.ore = ore;
-		this.meta = meta;
+		super(ore, meta);
 		for(int oreID : OreDictionary.getOreIDs(new ItemStack(ore, 1, meta))) {
 			String oreName = OreDictionary.getOreName(oreID);
 			if(oreName != null && oreName.startsWith("ore")) {
@@ -33,14 +30,6 @@ public class RawOreDropMapping {
 				}
 			}
 		}
-	}
-	
-	public Item getItem() {
-		return ore;
-	}
-	
-	public int getMeta() {
-		return meta;
 	}
 	
 	public boolean getDropsExtra() {

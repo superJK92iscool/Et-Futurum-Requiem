@@ -6,6 +6,7 @@ import java.util.Random;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.lib.RenderIDs;
@@ -100,7 +101,8 @@ public class BlockComposter extends Block implements IConfigurable {
         			try {
         				if(!world.isRemote) {
             				int chance = Math.min(100, Math.max(1, Integer.valueOf(oreName.substring(chanceKey.length()))));
-                			if(world.rand.nextInt(100) < chance) {
+            				int chance2 = world.rand.nextInt(100);
+                			if(chance2 < chance) {
                 				world.setBlockMetadataWithNotify(x, y, z, meta + 1, 3);
                 				world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, Reference.MCv118 + ":block.composter.fill_success", 1, 1);
                 				if(meta == 5) {
@@ -122,6 +124,7 @@ public class BlockComposter extends Block implements IConfigurable {
         				System.out.println("Item " + itemName + " had an incorrectly formatted composter tag! Got " + oreName + " instead.");
         				System.out.println("It should be formatted starting with \"compost\" and then a number from 1 to 100. Example: compost75 for a 75% composting chance.");
         				e.printStackTrace();
+        				return false;
         			}
         		}
         	}
@@ -139,8 +142,10 @@ public class BlockComposter extends Block implements IConfigurable {
     }
 
     public void updateTick(World world, int x, int y, int z, Random rand) {
-		world.playSoundEffect(x + 0.5D, y  + 0.5D, z + 0.5D, Reference.MCv118 + ":block.composter.ready", 1, 1);
-		world.setBlockMetadataWithNotify(x, y, z, 7, 3);
+    	if(world.getBlockMetadata(x, y, z) == 6) {
+    		world.playSoundEffect(x + 0.5D, y  + 0.5D, z + 0.5D, Reference.MCv118 + ":block.composter.ready", 1, 1);
+    		world.setBlockMetadataWithNotify(x, y, z, 7, 3);
+    	}
     }
 
 	@Override
@@ -160,7 +165,7 @@ public class BlockComposter extends Block implements IConfigurable {
 
 	@Override
 	public boolean isEnabled() {
-		return EtFuturum.TESTING;
+		return ConfigBlocksItems.enableComposter;
 	}
 
 }

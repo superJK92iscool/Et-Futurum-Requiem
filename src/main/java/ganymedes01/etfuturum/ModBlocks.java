@@ -34,6 +34,7 @@ import ganymedes01.etfuturum.blocks.BlockEndBrickSlab;
 import ganymedes01.etfuturum.blocks.BlockEndBricks;
 import ganymedes01.etfuturum.blocks.BlockEndGateway;
 import ganymedes01.etfuturum.blocks.BlockEndRod;
+import ganymedes01.etfuturum.blocks.BlockFletchingTable;
 import ganymedes01.etfuturum.blocks.BlockFrostedIce;
 import ganymedes01.etfuturum.blocks.BlockGenericStairs;
 import ganymedes01.etfuturum.blocks.BlockGlazedTerracotta;
@@ -299,6 +300,7 @@ public class ModBlocks {
 	public static final Block smithing_table = initBlock(new BlockSmithingTable());
 	public static final Block composter = initBlock(new BlockComposter());
 	public static final Block stonecutter = initBlock(new BlockStonecutter());
+	public static final Block fletching_table = initBlock(new BlockFletchingTable());
 	
 	public static final String[] woodTypes = new String[] {"oak", "spruce", "birch", "jungle", "acacia", "dark_oak"/*, "crimson", "warped"*/};
 	public static final Block[] doors = new Block[woodTypes.length - 1];

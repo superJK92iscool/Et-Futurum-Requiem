@@ -46,7 +46,6 @@ public class ModRecipes {
 
 	public static final String[] ore_dyes = new String[] { "dyeBlack", "dyeRed", "dyeGreen", "dyeBrown", "dyeBlue", "dyePurple", "dyeCyan", "dyeLightGray", "dyeGray", "dyePink", "dyeLime", "dyeYellow", "dyeLightBlue", "dyeMagenta", "dyeOrange", "dyeWhite" };
 	public static final String[] dye_names = new String[] { "white", "orange", "magenta", "light_blue", "yellow", "lime", "pink", "gray", "light_gray", "cyan", "purple", "blue", "brown", "green", "red", "black"};
-	//private static final ItemStack _SAND_ = new ItemStack(Blocks.sand), _GRAVEL_ = new ItemStack(Blocks.gravel); // unused variables
 	
 	
 	public static void init() {
@@ -853,6 +852,22 @@ public class ModRecipes {
 
 			//TODO Nether brick wall should be individually toggleable because of Netherlicious
 			addShapedRecipe(new ItemStack(ModBlocks.nether_brick_wall), "BBB", "BBB", 'B', new ItemStack(Blocks.nether_brick));
+		}
+		
+		if(ConfigBlocksItems.enableSmithingTable) {
+			addShapedRecipe(new ItemStack(ModBlocks.smithing_table, 1, 0), "II", "PP", "PP", 'P', "plankWood", 'I', "ingotIron");
+		}
+		
+		if(ConfigBlocksItems.enableFletchingTable) {
+			addShapedRecipe(new ItemStack(ModBlocks.fletching_table, 1, 0), "FF", "PP", "PP", 'P', "plankWood", 'F', new ItemStack(Items.flint, 1, 0));
+		}
+		
+		if(ConfigBlocksItems.enableStonecutter) {
+			addShapedRecipe(new ItemStack(ModBlocks.stonecutter, 1, 0), " I ", "SSS", 'S', "stone", 'I', "ingotIron");
+		}
+		
+		if(ConfigBlocksItems.enableComposter) {
+			addShapedRecipe(new ItemStack(ModBlocks.composter, 1, 0), "S S", "S S", "SSS", 'S', "slabWood");
 		}
 	}
 	

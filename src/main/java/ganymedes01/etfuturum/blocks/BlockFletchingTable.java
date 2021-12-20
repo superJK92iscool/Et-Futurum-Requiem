@@ -10,33 +10,34 @@ import ganymedes01.etfuturum.items.block.ItemDecorationWorkbench;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.IBlockAccess;
+import net.minecraftforge.common.util.ForgeDirection;
 
-public class BlockSmithingTable extends Block implements IConfigurable, ISubBlocksBlock {
+public class BlockFletchingTable extends Block implements IConfigurable, ISubBlocksBlock {
 
 	@SideOnly(Side.CLIENT)
 	private IIcon topIcon;
 	@SideOnly(Side.CLIENT)
 	private IIcon sideIcon;
-	@SideOnly(Side.CLIENT)
-	private IIcon bottomIcon;
 	
-	public BlockSmithingTable() {
+	public BlockFletchingTable() {
 		super(Material.wood);
 		this.setStepSound(soundTypeWood);
 		this.setHardness(2.5F);
 		this.setHarvestLevel("axe", 0);
 		this.setResistance(2.5F);
-		this.setBlockName(Utils.getUnlocalisedName("smithing_table"));
-		this.setBlockTextureName("smithing_table");
+		this.setBlockName(Utils.getUnlocalisedName("fletching_table"));
+		this.setBlockTextureName("fletching_table");
 		this.setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
 	}
 	
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int p_149691_1_, int p_149691_2_)
 	{
-		return p_149691_1_ == 1 ? this.topIcon : (p_149691_1_ == 0 ? bottomIcon : (p_149691_1_ != 2 && p_149691_1_ != 4 ? this.blockIcon : this.sideIcon));
+		return p_149691_1_ == 1 ? this.topIcon : (p_149691_1_ == 0 ? Blocks.planks.getIcon(0, 2) : (p_149691_1_ != 2 && p_149691_1_ != 4 ? this.blockIcon : this.sideIcon));
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -45,7 +46,22 @@ public class BlockSmithingTable extends Block implements IConfigurable, ISubBloc
 		this.blockIcon = p_149651_1_.registerIcon(this.getTextureName() + "_side");
 		this.topIcon = p_149651_1_.registerIcon(this.getTextureName() + "_top");
 		this.sideIcon = p_149651_1_.registerIcon(this.getTextureName() + "_front");
-		this.bottomIcon = p_149651_1_.registerIcon(this.getTextureName() + "_bottom");
+	}
+
+	
+	@Override
+	public boolean isFlammable(IBlockAccess aWorld, int aX, int aY, int aZ, ForgeDirection aSide) {
+		return true;
+	}
+	
+	@Override
+	public int getFlammability(IBlockAccess aWorld, int aX, int aY, int aZ, ForgeDirection aSide) {
+		return 5;
+	}
+	
+	@Override
+	public int getFireSpreadSpeed(IBlockAccess aWorld, int aX, int aY, int aZ, ForgeDirection aSide) {
+		return 20;
 	}
 
 	@Override
@@ -57,5 +73,4 @@ public class BlockSmithingTable extends Block implements IConfigurable, ISubBloc
 	public Class<? extends ItemBlock> getItemBlockClass() {
 		return ItemDecorationWorkbench.class;
 	}
-
 }

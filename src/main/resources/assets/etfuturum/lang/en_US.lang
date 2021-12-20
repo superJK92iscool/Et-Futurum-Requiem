@@ -436,7 +436,10 @@ tile.etfuturum.black_glazed_terracotta.name=Black Glazed Terracotta
 tile.etfuturum.barrel.name=Barrel
 tile.etfuturum.blast_furnace.name=Blast Furnace
 tile.etfuturum.smoker.name=Smoker
-tile.etfuturum.lantern.name=Lantern
+tile.etfuturum.stonecutter.name=Stonecutter
+tile.etfuturum.smithing_table.name=Smithing Table
+tile.etfuturum.fletching_table.name=Fletching Table
+tile.etfuturum.composter.name=Composter
 
 tile.etfuturum.concrete_powder_white.name=White Concrete Powder
 tile.etfuturum.concrete_powder_orange.name=Orange Concrete Powder
@@ -633,6 +636,7 @@ tile.etfuturum.brown_obsidian_shulker_box.name=Brown Obsidian Shulker Box
 tile.etfuturum.green_obsidian_shulker_box.name=Green Obsidian Shulker Box
 tile.etfuturum.red_obsidian_shulker_box.name=Red Obsidian Shulker Box
 tile.etfuturum.black_obsidian_shulker_box.name=Black Obsidian Shulker Box
+tile.etfuturum.lantern.name=Lantern
 
 util.totemBreak=§a§oYour Totem of Undying shatters...
 

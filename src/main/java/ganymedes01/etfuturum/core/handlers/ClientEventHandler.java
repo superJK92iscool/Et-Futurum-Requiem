@@ -71,11 +71,11 @@ public class ClientEventHandler {
 	}
 	
 	@SideOnly(Side.CLIENT)
-	NetherAmbienceLoop ambience = null;
+	NetherAmbienceLoop ambienceLoop = null;
 	@SideOnly(Side.CLIENT)
 	int ticksToNextAmbience = rand.nextInt(80) + 1;
 	@SideOnly(Side.CLIENT)
-	BiomeGenBase biome = null;
+	BiomeGenBase ambienceBiome = null;
 	
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
@@ -89,57 +89,56 @@ public class ClientEventHandler {
 		}
 		
 		if(!showedDebugWarning && player.ticksExisted == 40) {
-			if(Reference.VERSION_NUMBER.contains("dev") || Reference.VERSION_NUMBER.contains("snapshot")
-						|| Reference.VERSION_NUMBER.contains("alpha") || Reference.VERSION_NUMBER.contains("beta") || EtFuturum.TESTING) {
-				ChatComponentText text = new ChatComponentText("\u00a7c\u00a7l[Debug]: \u00a7rYou are using a pre-release version of \u00a7bEt \u00a7bFuturum \u00a7bRequiem\u00a7r. There might be more bugs, please click on this message to report them!");
+			if(Reference.VERSION_NUMBER.contains("SNAPSHOT") || Reference.VERSION_NUMBER.contains("beta")) {
+				ChatComponentText text = new ChatComponentText("\u00a7c\u00a7l[Debug]: \u00a7rYou are using a pre-release version of \u00a7bEt \u00a7bFuturum \u00a7bRequiem\u00a7r. Click here to be taken to the GitHub issue tracker to report it.");
 				text.getChatStyle().setChatClickEvent(new ClickEvent(Action.OPEN_URL, "https://github.com/Roadhog360/Et-Futurum-Requiem/issues"));
-			player.addChatComponentMessage(text);
-						}
+				player.addChatComponentMessage(text);
+			}
 			showedDebugWarning = true;
 		}
 
 		if(ConfigWorld.enableNetherAmbience && !EtFuturum.netherAmbienceNetherlicious && player.dimension == -1) {
 			Chunk chunk = world.getChunkFromBlockCoords(MathHelper.floor_double((int)player.posX), MathHelper.floor_double((int)player.posZ));
 			if(!chunk.isChunkLoaded) {
-				if(ambience != null && FMLClientHandler.instance().getClient().getSoundHandler().isSoundPlaying(ambience)) {
-					FMLClientHandler.instance().getClient().getSoundHandler().stopSound(ambience);
+				if(ambienceLoop != null && FMLClientHandler.instance().getClient().getSoundHandler().isSoundPlaying(ambienceLoop)) {
+					FMLClientHandler.instance().getClient().getSoundHandler().stopSound(ambienceLoop);
 				}
-				ambience = null;
-				biome = null;
+				ambienceLoop = null;
+				ambienceBiome = null;
 				return;
 			}
 			Minecraft mc = FMLClientHandler.instance().getClient();
 			int x = MathHelper.floor_double(player.posX);
 			//int y = MathHelper.floor_double(player.posY); // unused variable
 			int z = MathHelper.floor_double(player.posZ);
-			biome = chunk.getBiomeGenForWorldCoords(x & 15, z & 15, world.getWorldChunkManager());
+			ambienceBiome = world.getBiomeGenForCoords(x, z);
 			
 			String soundLoc = "";
-			if(ambience != null ) {
-				soundLoc = ambience.getPositionedSoundLocation().getResourceDomain() + ":" + ambience.getPositionedSoundLocation().getResourcePath();
+			if(ambienceLoop != null) {
+				soundLoc = ambienceLoop.getPositionedSoundLocation().getResourceDomain() + ":" + ambienceLoop.getPositionedSoundLocation().getResourcePath();
 			}
 			
-			if(getAmbienceLoop(biome) != null  && !mc.getSoundHandler().isSoundPlaying(ambience)) {
-				Boolean flag = ambience == null || ambience.getVolume() <= 0;
-					ambience = new NetherAmbienceLoop(getAmbienceLoop(biome));
-					mc.getSoundHandler().playSound(ambience);
+			if(getAmbienceLoop(ambienceBiome) != null  && !mc.getSoundHandler().isSoundPlaying(ambienceLoop)) {
+				Boolean flag = ambienceLoop == null || ambienceLoop.getVolume() <= 0;
+					ambienceLoop = new NetherAmbienceLoop(getAmbienceLoop(ambienceBiome));
+					mc.getSoundHandler().playSound(ambienceLoop);
 				if(flag) {
-					ambience.fadeIn();
+					ambienceLoop.fadeIn();
 				}
-			} else if (biome == null || getAmbienceLoop(biome) == null || !soundLoc.equals(getAmbienceLoop(biome))) {
-				ambience.stop();
-			} else if (mc.getSoundHandler().isSoundPlaying(ambience) && ambience.isStopping && soundLoc.equals(getAmbienceLoop(biome))){
-				ambience.isStopping = false;
+			} else if (ambienceBiome == null || getAmbienceLoop(ambienceBiome) == null || !soundLoc.equals(getAmbienceLoop(ambienceBiome))) {
+				ambienceLoop.stop();
+			} else if (mc.getSoundHandler().isSoundPlaying(ambienceLoop) && ambienceLoop.isStopping && soundLoc.equals(getAmbienceLoop(ambienceBiome))){
+				ambienceLoop.isStopping = false;
 			}
-			if(getAmbienceAdditions(biome) != null && ambience != null && ticksToNextAmbience-- <= 0) {
-				Minecraft.getMinecraft().getSoundHandler().playSound(new NetherAmbienceSound(new ResourceLocation(getAmbienceAdditions(biome))));
+			if(getAmbienceAdditions(ambienceBiome) != null && ambienceLoop != null && ticksToNextAmbience-- <= 0) {
+				Minecraft.getMinecraft().getSoundHandler().playSound(new NetherAmbienceSound(new ResourceLocation(getAmbienceAdditions(ambienceBiome))));
 				ticksToNextAmbience = 50 + rand.nextInt(30) + 1;
 			}
 		}
 
 		if(ConfigWorld.enableNewMiscSounds && world.rand.nextInt(Math.toIntExact((world.getTotalWorldTime() % 10) + 1)) == 0) {
 			for(TileEntity tile : (List<TileEntity>)world.loadedTileEntityList) {
-				if(!(tile instanceof TileEntityFurnace) && tile.getBlockType() != Blocks.lit_furnace) {
+				if(!(tile instanceof TileEntityFurnace) || tile.getBlockType() != Blocks.lit_furnace) {
 					//Don't use getBlock or get tile coord info if the tile isn't a furnace, so we only get the block when we need to
 					//Don't run code if block is not lit furnace
 					continue;

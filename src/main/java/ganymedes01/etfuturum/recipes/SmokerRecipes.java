@@ -64,7 +64,7 @@ public class SmokerRecipes
 
 				if (fishtype.func_150973_i())
 				{
-					smeltingBase.addRecipe(new ItemStack(Items.fish, 1, fishtype.func_150976_a()), new ItemStack(Items.cooked_fished, 1, fishtype.func_150976_a()), 0.35F);
+					smeltingBase.addRecipe(new ItemStack(Items.fish, 1, fishtype.func_150976_a()), new ItemStack(Items.cooked_fished /*pain*/, 1, fishtype.func_150976_a()), 0.35F);
 				}
 			}
 		}

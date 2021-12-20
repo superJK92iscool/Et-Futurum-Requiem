@@ -49,7 +49,7 @@ public class BlockComposterRenderer extends BlockModelBase {
 		renderer.renderFaceXNeg(block, 0, 0, 0, renderer.getBlockIconFromSideAndMetadata(block, 5, metadata));
 		
 		renderer.setRenderBounds(0, 0, 0, 1, 0.125D, 1);
-		tessellator.setNormal(0.0F, -1.0F, 0.0F);
+		tessellator.setNormal(0.0F, 1.0F, 0.0F);
 		renderer.renderFaceYPos(block, 0, 0, 0, renderer.getBlockIconFromSideAndMetadata(block, 0, metadata));
 		
 		tessellator.draw();

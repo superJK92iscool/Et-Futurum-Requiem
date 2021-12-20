@@ -91,11 +91,15 @@ public class ConfigBlocksItems extends ConfigBase {
 	public static boolean enableIronNugget;
 	public static boolean enablePigstep;
 	public static boolean enableOtherside;
+	public static boolean enableEnchantingTable;
+	public static boolean enableAnvil;
+	public static boolean enableComposter;
+	public static boolean enableSmithingTable;
+	public static boolean enableStonecutter;
+	public static boolean enableFletchingTable;
 	//Nether Update temp disabled
 	public static boolean enableCrimsonBlocks = false;
 	public static boolean enableWarpedBlocks = false;
-	public static boolean enableEnchantingTable;
-	public static boolean enableAnvil;
 	
 	public static boolean enableShulkerBoxes;
 	public static boolean enableDyedShulkerBoxes = true;
@@ -178,6 +182,10 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableSigns = cfg.getBoolean("enableSigns", catBlockFunc, true, "");
 		enableLavaCauldrons = cfg.getBoolean("enableLavaCauldrons", catBlockFunc, true, "Allow lava buckets to fill cauldrons");
 		enableShulkerBoxes = cfg.getBoolean("enableShulkerBoxes", catBlockFunc, true, "If Shulkers are disabled, a custom recipe will be required to obtain Shulker shells.");
+		enableStonecutter = cfg.getBoolean("enableStonecutter", catBlockFunc, true, "Currently DOES NOT HAVE ANY FUNCTIONALITY. Decoration ONLY!");
+		enableSmithingTable = cfg.getBoolean("enableSmithingTable", catBlockFunc, true, "Currently DOES NOT HAVE ANY FUNCTIONALITY. Decoration ONLY!");
+		enableFletchingTable = cfg.getBoolean("enableFletchingTable", catBlockFunc, true, "Currently DOES NOT HAVE ANY FUNCTIONALITY. Decoration ONLY!");
+		enableComposter = cfg.getBoolean("enableComposter", catBlockFunc, true, "");
 
 		enableEnchantingTable = cfg.getBoolean("enableNewEnchantingTable", catBlockFunc, true, "Uses lapis as payment and has enchant previews and adjusted level costs\nRequires tile entity replacement to be enabled in function.cfg");
 		enableAnvil = cfg.getBoolean("enableNewAnvil", catBlockFunc, true, "");

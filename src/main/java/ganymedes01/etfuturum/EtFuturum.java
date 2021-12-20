@@ -7,10 +7,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.commons.lang3.ArrayUtils;
+
+import com.google.common.base.Strings;
+import com.google.common.collect.Lists;
 
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
@@ -63,11 +68,16 @@ import makamys.mclib.ext.assetdirector.ADConfig;
 import makamys.mclib.ext.assetdirector.AssetDirectorAPI;
 import net.minecraft.block.Block;
 import net.minecraft.block.Block.SoundType;
+import net.minecraft.block.BlockBush;
+import net.minecraft.block.BlockCactus;
 import net.minecraft.block.BlockCrops;
+import net.minecraft.block.BlockFlower;
 import net.minecraft.block.BlockHay;
+import net.minecraft.block.BlockHugeMushroom;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockNetherWart;
 import net.minecraft.block.BlockOre;
+import net.minecraft.block.BlockSapling;
 import net.minecraft.block.BlockSponge;
 import net.minecraft.block.BlockStem;
 import net.minecraft.block.BlockTrapDoor;
@@ -77,24 +87,24 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
+import net.minecraft.launchwrapper.Launch;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.WeightedRandomChestContent;
-import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.ChestGenHooks;
+import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.oredict.OreDictionary;
 
 @Mod(
-		modid = Reference.MOD_ID, 
-		name = Reference.MOD_NAME, 
-		version = Reference.VERSION_NUMBER, 
-		dependencies = Reference.DEPENDENCIES, 
+		modid = Reference.MOD_ID,
+		name = Reference.MOD_NAME,
+		version = Reference.VERSION_NUMBER,
+		dependencies = Reference.DEPENDENCIES,
 		guiFactory = "ganymedes01.etfuturum.configuration.ConfigGuiFactory"
 	)
 
@@ -137,10 +147,10 @@ public class EtFuturum {
 	public static boolean hasIronChest;
 	public static boolean hasNetherlicious;
 	public static boolean hasEnderlicious;
-	public static final boolean TESTING = Reference.VERSION_NUMBER.equals("@VERSION@");
+	public static final boolean TESTING = (Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");;
 	public static final boolean IS_CI_BUILD = Reference.VERSION_NUMBER.toLowerCase().contains("snapshot");
 	
-	static final Map<Item, Integer> DEFAULT_COMPOST_CHANCES = new HashMap<Item, Integer>();
+	static final Map<ItemStack, Integer> DEFAULT_COMPOST_CHANCES = new LinkedHashMap();
 	
 	@EventHandler
 	public void onConstruction(FMLConstructionEvent event) {
@@ -388,17 +398,6 @@ public class EtFuturum {
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
 
-		for(BiomeGenBase biome : BiomeGenBase.getBiomeGenArray()) {
-			if(biome == null)
-				continue;
-			//TODO: Change to bone meal event because the description of addFlower is a literal lie, as it affects worldgen too!
-			Type[] biomeList = BiomeDictionary.getTypesForBiome(biome);
-				if(biome.biomeID == 132 || (ArrayUtils.contains(biomeList, Type.PLAINS) && !ArrayUtils.contains(biomeList, Type.SNOWY) && !ArrayUtils.contains(biomeList, Type.SAVANNA)))
-					biome.addFlower(ModBlocks.cornflower, 0, 12);
-				if(biome.biomeID == 132)
-					biome.addFlower(ModBlocks.lily_of_the_valley, 0, 5);
-		}
-
 		if (ConfigFunctions.enableUpdatedFoodValues) {
 			((ItemFood)Items.carrot).healAmount = 3;
 			((ItemFood)Items.baked_potato).healAmount = 5;
@@ -459,11 +458,10 @@ public class EtFuturum {
 		BlastFurnaceRecipes.init();
 		ConfigBase.postInit();
 		
+		Iterator<Block> blockIterator = Block.blockRegistry.iterator();
 		//Block registry iterator
-		Iterator<Block> iterator = Block.blockRegistry.iterator();
-		while(iterator.hasNext()) {
-			Block block = iterator.next();
-
+		while(blockIterator.hasNext()) {
+			Block block = blockIterator.next();
 			if(ConfigFunctions.enableHoeMining) {
 				/*
 				 * HOE MINING
@@ -490,6 +488,69 @@ public class EtFuturum {
 			 */
 			if(block == Blocks.bed && TESTING) {
 				block.blockMaterial = Material.wood;
+			}
+		}
+
+		Iterator<Item> itemIterator = Item.itemRegistry.iterator();
+		//Item registry iterator
+		while(itemIterator.hasNext()) {
+			Item item = itemIterator.next();
+			//Can be null
+			Block block = Block.getBlockFromItem(item);
+			String itemID = Item.itemRegistry.getNameForObject(item).split(":")[1].toLowerCase();
+			
+			if(true) {
+				ItemStack stack;
+				List<ItemStack> itemList = Lists.newArrayList();
+				item.getSubItems(item, item.getCreativeTab(), itemList);
+				
+				for(int i = 0; i < Math.max(1, itemList.size()); i++) {
+					if(itemList.size() > 1) {
+						stack = itemList.get(i);
+						item = stack.getItem();
+						stack.setTagCompound(null);
+						String name = stack.getUnlocalizedName().toLowerCase();
+						if(!Strings.isNullOrEmpty(name)) {
+							itemID = name;
+						}
+					} else {
+						stack = new ItemStack(item, 1, OreDictionary.WILDCARD_VALUE);
+					}
+					
+					boolean alreadyCompostable = false;
+					for(String oreDict : getOreStrings(stack)) {
+						if(oreDict.startsWith("compostChance")) {
+							alreadyCompostable = true;
+							break;
+						}
+					}
+					
+					if(!alreadyCompostable) {
+						if(itemID.contains("seeds") || (block instanceof BlockBush && itemID.contains("grass") && !itemID.contains("fern")) || itemID.contains("berry") || itemID.contains("berries")
+								|| block instanceof BlockLeaves || itemID.contains("leaves") || block instanceof BlockSapling || itemID.contains("sapling")) {
+							DEFAULT_COMPOST_CHANCES.put(stack, 30);
+							OreDictionary.registerOre("compostChance30", stack);
+						} else if ((!(item instanceof ItemBlock) && itemID.contains("melon") && !itemID.contains("glistering")) || block instanceof BlockCactus || itemID.contains("cactus")
+								|| block instanceof BlockVine || itemID.contains("vines")) {
+							DEFAULT_COMPOST_CHANCES.put(stack, 50);
+							OreDictionary.registerOre("compostChance50", stack);
+						} else if ((item instanceof ItemBlock && itemID.contains("melon")) || itemID.contains("apple") || itemID.contains("beetroot")
+								|| (block instanceof BlockBush && (itemID.contains("fern") || itemID.contains("flower") || itemID.contains("doublePlant"))) || block instanceof BlockFlower
+								|| itemID.contains("lily") || (itemID.contains("mushroom") && !(block instanceof BlockHugeMushroom))
+								|| (item instanceof IPlantable && itemID.contains("wart")) || (item instanceof IPlantable && itemID.contains("potato"))
+								|| (item instanceof ItemBlock && itemID.contains("pumpkin")) || itemID.contains("wheat")) {
+							DEFAULT_COMPOST_CHANCES.put(stack, 65);
+							OreDictionary.registerOre("compostChance65", stack);
+						} else if ((item instanceof ItemFood && itemID.contains("potato")) || itemID.contains("bread") || itemID.contains("cookie")
+								|| (item instanceof ItemBlock && itemID.contains("wart"))) {
+							DEFAULT_COMPOST_CHANCES.put(stack, 85);
+							OreDictionary.registerOre("compostChance85", stack);
+						} else if(itemID.contains("cake") || itemID.contains("pie")) {
+							DEFAULT_COMPOST_CHANCES.put(stack, 100);
+							OreDictionary.registerOre("compostChance100", stack);
+						}
+					}
+				}
 			}
 		}
 		
@@ -590,6 +651,14 @@ public class EtFuturum {
 			}
 		}
 		return list;
+	}
+
+	public static boolean hasDictTag(Block block, String... tags) {
+		return hasDictTag(new ItemStack(block));
+	}
+	
+	public static boolean hasDictTag(Item item, String... tags) {
+		return hasDictTag(new ItemStack(item));
 	}
 	
 	public static boolean hasDictTag(ItemStack stack, String... tags) {
