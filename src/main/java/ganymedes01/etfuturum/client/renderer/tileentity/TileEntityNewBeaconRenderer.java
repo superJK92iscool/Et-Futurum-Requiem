@@ -42,9 +42,9 @@ public class TileEntityNewBeaconRenderer extends TileEntitySpecialRenderer {
 			}
 		}
 	}
-	public static void renderBeamSegment(double x, double y, double z, double partialTickTime, double shouldRender, double segmentedHeight, int worldTime, int partialHeight, float[] color)
+	public static void renderBeamSegment(double x, double y, double z, double partialTickTime, double shouldRender, double worldTime, int yOffset, int partialHeight, float[] color)
 	{
-		renderBeamSegment(x, y, z, partialTickTime, shouldRender, segmentedHeight, worldTime, partialHeight, color, 0.2D, 0.25D);
+		renderBeamSegment(x, y, z, partialTickTime, shouldRender, worldTime, yOffset, partialHeight, color, 0.2D, 0.25D);
 	}
 
 	public static void renderBeamSegment(double x, double y, double z, double partialTickTime, double shouldRender, double worldTime, int partialHeight, int height, float[] color, double p_188205_15_, double p_188205_17_)

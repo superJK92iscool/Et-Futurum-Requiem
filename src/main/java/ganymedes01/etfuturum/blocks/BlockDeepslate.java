@@ -1,9 +1,12 @@
 package ganymedes01.etfuturum.blocks;
 
 import java.util.HashMap;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
+
+import com.google.common.collect.Maps;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -14,7 +17,6 @@ import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
-import ganymedes01.etfuturum.core.utils.helpers.CachedChunkCoords;
 import ganymedes01.etfuturum.world.EtFuturumLateWorldGenerator;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRotatedPillar;
@@ -23,8 +25,8 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
-import net.minecraft.world.chunk.Chunk;
 
 public class BlockDeepslate extends BlockRotatedPillar implements IConfigurable {
 
@@ -77,33 +79,27 @@ public class BlockDeepslate extends BlockRotatedPillar implements IConfigurable 
 		}
 		return flag;
 	}
-	public static final Map<CachedChunkCoords, Chunk> chunkCache = new HashMap<CachedChunkCoords, Chunk>();
 	
 	public static void doDeepslateRedoCheck(World world, int x, int y, int z) {
-		
-		if(!EtFuturumLateWorldGenerator.stopRecording) {
-			Chunk chunk;
-			
-			CachedChunkCoords cacheEntry  = new CachedChunkCoords(x >> 4, z >> 4, world.provider.dimensionId);
-			
-			if(!chunkCache.containsKey(cacheEntry)) {
-				chunkCache.put(cacheEntry, chunk = world.getChunkFromChunkCoords(cacheEntry.xPos(), cacheEntry.zPos()));
-			} else {
-				chunk = chunkCache.get(cacheEntry);
-			}
-			
-			/*
-			 * We check if the chunk has this flag as false, which means it's still generating and the client hasn't received it yet.
-			 * This prevents mods that use isReplaceableOreGen for non-worldgen purposes from converting blocks to deepslate versions.
-			 */
-			if(!chunk.sendUpdates) {
-				BlockPos pos = new BlockPos(x, y, z);
-				List<BlockPos> redo = EtFuturumLateWorldGenerator.getRedoList(cacheEntry);
-				if(!redo.contains(pos)) {
-					redo.add(pos);
-				}
-			}
-		}
+//		if(!EtFuturumLateWorldGenerator.stopRecording) {
+//			Map<Long, Set<Integer>> map;
+//			if(!EtFuturumLateWorldGenerator.deepslateRedoCache.containsKey(world.provider.dimensionId)) {
+//				EtFuturumLateWorldGenerator.deepslateRedoCache.put(world.provider.dimensionId, map = Maps.newConcurrentMap());
+//			} else {
+//				map = EtFuturumLateWorldGenerator.deepslateRedoCache.get(world.provider.dimensionId);
+//			}
+//
+//			long coords = ChunkCoordIntPair.chunkXZ2Int(x >> 4, z >> 4);
+//			
+//			Set<Integer> posSet;
+//			if(!map.containsKey(coords)) {
+//				map.put(coords, posSet = new HashSet());
+//			} else {
+//				posSet = map.get(coords);
+//			}
+//			
+//			posSet.add((int)((x & 0xF) << 12 | (y & 0xFF) << 4 | (z & 0xF)));
+//		}
 	}
 
 	@Override

@@ -7,8 +7,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
+import java.util.Set;
 
 import org.apache.commons.lang3.ArrayUtils;
+
+import com.google.common.collect.Maps;
 
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.blocks.BlockDeepslate;
@@ -22,6 +25,7 @@ import ganymedes01.etfuturum.core.utils.helpers.CachedChunkCoords;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
+import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.chunk.Chunk;
@@ -31,6 +35,7 @@ import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
 public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 	
 	public static final EtFuturumLateWorldGenerator INSTANCE = new EtFuturumLateWorldGenerator();
+	public static final Map<Integer, Map<Long, Set<Integer>>> deepslateRedoCache = Maps.newConcurrentMap();
 
 	@Override
 	public void generate(Random rand, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
@@ -47,29 +52,36 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 		if(doesChunkSupportLayerDeepslate(world.getWorldInfo().getTerrainType(), world.provider.dimensionId)) {
 			//Turn off recording here so the world gen isn't an infinite recursion loop of constantly checking the same blocks
 			stopRecording = true;
-			
-			List<BlockPos> redo;
-			Iterator<Entry<CachedChunkCoords, List<BlockPos>>> iterator = redos.entrySet().iterator();
-			Entry<CachedChunkCoords, List<BlockPos>> set;
-			while(iterator.hasNext()) {
-				set = iterator.next();
-				if(set.getKey().dim() == world.provider.dimensionId) {
-					
-					Chunk cachedChunk = BlockDeepslate.chunkCache.get(set.getKey());
-
-					if(cachedChunk != null) {
-						redo = set.getValue();
-						while(!redo.isEmpty()) {
-							//Iterate this way to avoid ConcurrentModificationException
-							BlockPos pos = redo.get(0);
-							this.replaceBlockInChunk(cachedChunk, pos.getX() & 15, pos.getZ() & 15, pos.getX(), pos.getY(), pos.getZ());
-							redo.remove(0);
-						}
-					}
-					BlockDeepslate.chunkCache.remove(set.getKey());
-					iterator.remove();
-				}
-			}
+//			Map<Long, Set<Integer>> map = deepslateRedoCache.get(world.provider.dimensionId);
+//			if(map != null) {
+//				Iterator<Entry<Long, Set<Integer>>> mapIterator = map.entrySet().iterator();
+//				while(mapIterator.hasNext()) {
+//					Entry<Long, Set<Integer>> set = mapIterator.next();
+//					Set<Integer> posSet = set.getValue();
+//					
+//					if(posSet != null) {
+//						
+//						long packedChunkCoords = set.getKey();
+//						int redoX = (int)packedChunkCoords;
+//						int redoZ = (int)(packedChunkCoords >> 32);
+//						
+//						Chunk cachedChunk = world.getChunkFromChunkCoords(redoX, redoZ);
+//						Iterator<Integer> setIterator = posSet.iterator();
+//						while(setIterator.hasNext()) {
+//							int pos = setIterator.next();
+//							
+//							byte posX = (byte)((pos >> 12));
+//							short posY = (short)((pos >> 4 & 0xFF));
+//							byte posZ = (byte)((pos & 0xF));
+//							
+//							System.out.println(posX + " " + posZ);
+//							
+//							replaceBlockInChunk(cachedChunk, posX, posZ, redoX << 4 + posX, posY, redoZ << 4 + posZ);
+//						}
+//					}
+//					mapIterator.remove();
+//				}
+//			}
 
 			chunk = world.getChunkFromChunkCoords(chunkX, chunkZ);
 			doDeepslateGen(chunk);
@@ -134,7 +146,7 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 			
 			if(array == null) return;
 			
-			if((block.isReplaceableOreGen(chunk.worldObj, worldX , worldY, worldZ, Blocks.stone) && (ConfigWorld.deepslateReplacesStones || block != ModBlocks.stone))
+			if((block.isReplaceableOreGen(chunk.worldObj, worldX, worldY, worldZ, Blocks.stone) && (ConfigWorld.deepslateReplacesStones || block != ModBlocks.stone))
 					|| (ConfigWorld.deepslateReplacesDirt && block == Blocks.dirt)) {
 				array.func_150818_a(x, worldY & 15, z, ModBlocks.deepslate);
 				array.setExtBlockMetadata(x, worldY & 15, z, 0);
@@ -143,7 +155,7 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 				array.setExtBlockMetadata(x, worldY & 15, z, 0);
 			} else if(!DeepslateOreRegistry.getOreMap().isEmpty()) {
 				BlockAndMetadataMapping mapping;
-				if((mapping = DeepslateOreRegistry.getOre(block, chunk.getBlockMetadata(x, worldY, z))) != null) {
+				if((mapping = DeepslateOreRegistry.getOre(block, array.getExtBlockMetadata(x, worldY & 15, z))) != null) {
 					array.func_150818_a(x, worldY & 15, z, mapping.getBlock());
 					array.setExtBlockMetadata(x, worldY & 15, z, mapping.getMeta());
 				}
