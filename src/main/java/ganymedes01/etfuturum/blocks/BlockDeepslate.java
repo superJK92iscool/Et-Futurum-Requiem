@@ -81,25 +81,25 @@ public class BlockDeepslate extends BlockRotatedPillar implements IConfigurable 
 	}
 	
 	public static void doDeepslateRedoCheck(World world, int x, int y, int z) {
-//		if(!EtFuturumLateWorldGenerator.stopRecording) {
-//			Map<Long, Set<Integer>> map;
-//			if(!EtFuturumLateWorldGenerator.deepslateRedoCache.containsKey(world.provider.dimensionId)) {
-//				EtFuturumLateWorldGenerator.deepslateRedoCache.put(world.provider.dimensionId, map = Maps.newConcurrentMap());
-//			} else {
-//				map = EtFuturumLateWorldGenerator.deepslateRedoCache.get(world.provider.dimensionId);
-//			}
-//
-//			long coords = ChunkCoordIntPair.chunkXZ2Int(x >> 4, z >> 4);
-//			
-//			Set<Integer> posSet;
-//			if(!map.containsKey(coords)) {
-//				map.put(coords, posSet = new HashSet());
-//			} else {
-//				posSet = map.get(coords);
-//			}
-//			
-//			posSet.add((int)((x & 0xF) << 12 | (y & 0xFF) << 4 | (z & 0xF)));
-//		}
+		if(!EtFuturumLateWorldGenerator.stopRecording) {
+			Map<Long, Set<Integer>> map;
+			if(!EtFuturumLateWorldGenerator.deepslateRedoCache.containsKey(world.provider.dimensionId)) {
+				EtFuturumLateWorldGenerator.deepslateRedoCache.put(world.provider.dimensionId, map = Maps.newConcurrentMap());
+			} else {
+				map = EtFuturumLateWorldGenerator.deepslateRedoCache.get(world.provider.dimensionId);
+			}
+
+			long coords = ChunkCoordIntPair.chunkXZ2Int(x >> 4, z >> 4);
+			
+			Set<Integer> posSet;
+			if(!map.containsKey(coords)) {
+				map.put(coords, posSet = new HashSet());
+			} else {
+				posSet = map.get(coords);
+			}
+			
+			posSet.add((int)((x & 0xF) << 12 | (y & 0xFF) << 4 | (z & 0xF)));
+		}
 	}
 
 	@Override

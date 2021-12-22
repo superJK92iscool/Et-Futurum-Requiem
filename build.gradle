@@ -102,6 +102,10 @@ dependencies {
 	compile "mcp.mobius.waila:Waila:1.5.11-RC2-NONEI_1.7.10:dev"
     compileOnly "team.chisel:Chisel:2.9.5.12:deobf"
     compileOnly "team.chisel.ctmlib:CTMLib:MC1.7.10-1.4.1.5:deobf"
+    
+	shade('com.github.makamys:MCLib:22cd459') {
+		exclude group: "codechicken"
+	}
 }
 
 minecraft {
@@ -199,9 +203,6 @@ dependencies {
         exclude module: 'commons-io'
         exclude module: 'log4j-core'
     }
-	shade('com.github.makamys:MCLib:22cd459') {
-		exclude group: "codechicken"
-	}
 }
 
 def refMap = "${tasks.compileJava.temporaryDir}" + File.separator + refMapForYourConfig

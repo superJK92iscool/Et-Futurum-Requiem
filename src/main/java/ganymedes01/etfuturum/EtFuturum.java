@@ -548,7 +548,7 @@ public class EtFuturum {
 							|| (item instanceof ItemBlock && itemID.contains("wart"))) {
 						DEFAULT_COMPOST_CHANCES.put(stack, 85);
 						OreDictionary.registerOre("compostChance85", stack);
-					} else if(itemID.contains("cake") || itemID.contains("pie") || (item.getClass().getName().contains("harvestcraft") || itemID.contains("garden"))) {
+					} else if(itemID.contains("cake") || itemID.contains("pie") || (item.getClass().getName().contains("harvestcraft") && itemID.contains("garden"))) {
 						DEFAULT_COMPOST_CHANCES.put(stack, 100);
 						OreDictionary.registerOre("compostChance100", stack);
 					}

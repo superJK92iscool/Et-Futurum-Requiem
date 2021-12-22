@@ -52,36 +52,36 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 		if(doesChunkSupportLayerDeepslate(world.getWorldInfo().getTerrainType(), world.provider.dimensionId)) {
 			//Turn off recording here so the world gen isn't an infinite recursion loop of constantly checking the same blocks
 			stopRecording = true;
-//			Map<Long, Set<Integer>> map = deepslateRedoCache.get(world.provider.dimensionId);
-//			if(map != null) {
-//				Iterator<Entry<Long, Set<Integer>>> mapIterator = map.entrySet().iterator();
-//				while(mapIterator.hasNext()) {
-//					Entry<Long, Set<Integer>> set = mapIterator.next();
-//					Set<Integer> posSet = set.getValue();
-//					
-//					if(posSet != null) {
-//						
-//						long packedChunkCoords = set.getKey();
-//						int redoX = (int)packedChunkCoords;
-//						int redoZ = (int)(packedChunkCoords >> 32);
-//						
-//						Chunk cachedChunk = world.getChunkFromChunkCoords(redoX, redoZ);
-//						Iterator<Integer> setIterator = posSet.iterator();
-//						while(setIterator.hasNext()) {
-//							int pos = setIterator.next();
-//							
-//							byte posX = (byte)((pos >> 12));
-//							short posY = (short)((pos >> 4 & 0xFF));
-//							byte posZ = (byte)((pos & 0xF));
-//							
-//							System.out.println(posX + " " + posZ);
-//							
-//							replaceBlockInChunk(cachedChunk, posX, posZ, redoX << 4 + posX, posY, redoZ << 4 + posZ);
-//						}
-//					}
-//					mapIterator.remove();
-//				}
-//			}
+			Map<Long, Set<Integer>> map = deepslateRedoCache.get(world.provider.dimensionId);
+			if(map != null) {
+				Iterator<Entry<Long, Set<Integer>>> mapIterator = map.entrySet().iterator();
+				while(mapIterator.hasNext()) {
+					Entry<Long, Set<Integer>> set = mapIterator.next();
+					Set<Integer> posSet = set.getValue();
+					
+					if(posSet != null) {
+						
+						long packedChunkCoords = set.getKey();
+						int redoX = (int)packedChunkCoords;
+						int redoZ = (int)(packedChunkCoords >> 32);
+						
+						Chunk cachedChunk = world.getChunkFromChunkCoords(redoX, redoZ);
+						Iterator<Integer> setIterator = posSet.iterator();
+						while(setIterator.hasNext()) {
+							int pos = setIterator.next();
+							
+							byte posX = (byte)((pos >> 12));
+							short posY = (short)((pos >> 4 & 0xFF));
+							byte posZ = (byte)((pos & 0xF));
+							
+							System.out.println(posX + " " + posZ);
+							
+							replaceBlockInChunk(cachedChunk, posX, posZ, redoX << 4 + posX, posY, redoZ << 4 + posZ);
+						}
+					}
+					mapIterator.remove();
+				}
+			}
 
 			chunk = world.getChunkFromChunkCoords(chunkX, chunkZ);
 			doDeepslateGen(chunk);
