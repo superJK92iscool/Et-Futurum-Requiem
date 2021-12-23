@@ -23,8 +23,6 @@ public class WorldGenMinableCustom extends WorldGenMinable
 	 */
 	private final boolean hardAmountCap;
 	private final int meta;
-	
-	private int places = 0;
 
 	public WorldGenMinableCustom(Block p_i45459_1_, int p_i45459_2_)
 	{
@@ -56,6 +54,8 @@ public class WorldGenMinableCustom extends WorldGenMinable
 		double d3 = p_76484_5_ + 8 - MathHelper.cos(f) * this.numberOfBlocks / 8.0F;
 		double d4 = p_76484_4_ + p_76484_2_.nextInt(3) - 2;
 		double d5 = p_76484_4_ + p_76484_2_.nextInt(3) - 2;
+		
+		int places = 0;
 
 		for (int l = 0; l <= this.numberOfBlocks; ++l)
 		{
@@ -89,7 +89,6 @@ public class WorldGenMinableCustom extends WorldGenMinable
 								if (canGenerate(p_76484_1_, k2, l2, i3))
 								{
 									if(hardAmountCap && places++ >= numberOfBlocks) {
-										places = 0;
 										return true;
 									}
 									setBlock(p_76484_1_, k2, l2, i3, field_150519_a, meta, 2);
