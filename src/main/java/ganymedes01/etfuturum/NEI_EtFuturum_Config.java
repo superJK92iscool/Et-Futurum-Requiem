@@ -15,6 +15,7 @@ import ganymedes01.etfuturum.recipes.BlastFurnaceRecipes;
 import ganymedes01.etfuturum.recipes.SmokerRecipes;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 
 /** DO NOT RENAME OR MOVE THIS FILE, IT HAS TO BE IN THIS LOCATION AND HAVE THIS NAME!!! (I wish that was not the case, but that is not my choice lol) */
 public class NEI_EtFuturum_Config implements codechicken.nei.api.IConfigureNEI {
@@ -79,9 +80,10 @@ public class NEI_EtFuturum_Config implements codechicken.nei.api.IConfigureNEI {
 					arecipes.add(arecipe);
 				}
 		}
-		
-		// TODO insert actually localized Name of the Smoker here, so that this works with Language Packs.
-		@Override public String getRecipeName() {return "Smoker";}
+
+		@Override public String getRecipeName() {
+			return StatCollector.translateToLocal("tile.etfuturum.smoker.name");
+		}
 		@Override public String getOverlayIdentifier() {return "etfuturum.smoker";}
 		@Override public Class<? extends GuiContainer> getGuiClass() {return GuiSmoker.class;}
 	}
@@ -122,9 +124,10 @@ public class NEI_EtFuturum_Config implements codechicken.nei.api.IConfigureNEI {
 					arecipes.add(arecipe);
 				}
 		}
-		
-		// TODO insert actually localized Name of the Blast Furnace here, so that this works with Language Packs.
-		@Override public String getRecipeName() {return "Blast Furnace";}
+
+		@Override public String getRecipeName() {
+			return StatCollector.translateToLocal("tile.etfuturum.blast_furnace.name");
+		}
 		@Override public String getOverlayIdentifier() {return "etfuturum.blastfurnace";}
 		@Override public Class<? extends GuiContainer> getGuiClass() {return GuiBlastFurnace.class;}
 	}
