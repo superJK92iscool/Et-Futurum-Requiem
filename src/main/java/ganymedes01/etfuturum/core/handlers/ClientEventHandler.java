@@ -99,7 +99,7 @@ public class ClientEventHandler {
 		}
 
 		if(ConfigWorld.enableNetherAmbience && !EtFuturum.netherAmbienceNetherlicious && player.dimension == -1) {
-			Chunk chunk = world.getChunkFromBlockCoords(MathHelper.floor_double((int)player.posX), MathHelper.floor_double((int)player.posZ));
+			Chunk chunk = world.getChunkFromBlockCoords(MathHelper.floor_double(player.posX), MathHelper.floor_double(player.posZ));
 			if(!chunk.isChunkLoaded) {
 				if(ambienceLoop != null && FMLClientHandler.instance().getClient().getSoundHandler().isSoundPlaying(ambienceLoop)) {
 					FMLClientHandler.instance().getClient().getSoundHandler().stopSound(ambienceLoop);

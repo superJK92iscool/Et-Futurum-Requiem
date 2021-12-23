@@ -530,7 +530,7 @@ public class EtFuturum {
 						}
 					}
 					
-					if(itemID.contains("seeds") || (block instanceof BlockBush && itemID.contains("grass") && !itemID.contains("fern")) || (itemID.contains("berry") && !itemID.contains("ore")) || itemID.contains("berries")
+					if(itemID.contains("seed") || (block instanceof BlockBush && itemID.contains("grass") && !itemID.contains("fern")) || (itemID.contains("berry") && !itemID.contains("ore")) || itemID.contains("berries")
 							|| block instanceof BlockLeaves || itemID.contains("leaves") || block instanceof BlockSapling || itemID.contains("sapling")) {
 						DEFAULT_COMPOST_CHANCES.put(stack, 30);
 						OreDictionary.registerOre("compostChance30", stack);

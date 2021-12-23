@@ -1,8 +1,12 @@
 package ganymedes01.etfuturum;
 
+import java.util.Map;
+import java.util.WeakHashMap;
+
 import ganymedes01.etfuturum.configuration.configs.ConfigEnchantsPotions;
 import ganymedes01.etfuturum.enchantment.FrostWalker;
 import ganymedes01.etfuturum.enchantment.Mending;
+import ibxm.Player;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.Enchantment;
@@ -18,6 +22,8 @@ public class ModEnchantments {
 
 	public static Enchantment frostWalker;
 	public static Enchantment mending;
+	
+	private static final Map<EntityLivingBase, double[]> prevMoveCache = new WeakHashMap();
 
 	public static void init() {
 		if (ConfigEnchantsPotions.enableFrostWalker)
@@ -36,9 +42,8 @@ public class ModEnchantments {
 		ItemStack boots = entity.getEquipmentInSlot(1);
 		int level = 0;
 		if ((level = EnchantmentHelper.getEnchantmentLevel(frostWalker.effectId, boots)) > 0) {
-//          double motX = Math.abs(entity.motionX);
-//          double motZ = Math.abs(entity.motionZ);
-			if (entity.onGround/* && (motX >= 0.003D || motZ >= 0.003D) */) {
+			double[] prevCoords = prevMoveCache.get(entity);
+			if (entity.onGround && (prevCoords == null || (Math.abs(prevCoords[0] - entity.posX) > 0.003D && Math.abs(prevCoords[1] - entity.posZ) > 0.003D))) {
 				int x = (int) entity.posX;
 				int y = (int) entity.posY;
 				int z = (int) entity.posZ;
@@ -47,8 +52,7 @@ public class ModEnchantments {
 
 				for (int i = -radius; i <= radius; i++) {
 					for (int j = -radius; j <= radius; j++) {
-						
-						if(i * i + j * j <= (double)(radius * radius)) {
+						if(i * i + j * j <= radius * radius) {
 							Block block = entity.worldObj.getBlock(x + i, y - 1, z + j);
 							Block blockUp = entity.worldObj.getBlock(x + i, y, z + j);
 							if(!blockUp.isNormalCube() && blockUp.getMaterial() != Material.water && (block == Blocks.water || block == Blocks.flowing_water)) {
@@ -58,6 +62,10 @@ public class ModEnchantments {
 					}
 				}
 			}
+			
+			prevMoveCache.put(entity, new double[] {entity.prevPosX, entity.prevPosZ});
+		} else {
+			prevMoveCache.remove(entity);
 		}
 	}
 
