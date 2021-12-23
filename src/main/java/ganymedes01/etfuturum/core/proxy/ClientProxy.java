@@ -150,18 +150,24 @@ public class ClientProxy extends CommonProxy {
 		
 		if(ConfigBlocksItems.enableLavaCauldrons)
 			RenderingRegistry.registerBlockHandler(new BlockLavaCauldronRenderer());
-		
-		if(EtFuturum.TESTING) {
-			RenderingRegistry.registerBlockHandler(new BlockStonecutterRenderer());
-			RenderingRegistry.registerBlockHandler(new BlockComposterRenderer());
-			ClientRegistry.bindTileEntitySpecialRenderer(TileEntityGateway.class, new TileEntityGatewayRenderer());
-		}
 
 		if(ConfigBlocksItems.enableShulkerBoxes) {
 			ClientRegistry.bindTileEntitySpecialRenderer(TileEntityShulkerBox.class, new TileEntityShulkerBoxRenderer(new ModelShulker()));
 		}
 		
+		if(ConfigBlocksItems.enableStonecutter) {
+			RenderingRegistry.registerBlockHandler(new BlockStonecutterRenderer());
+		}
+		
+		if(ConfigBlocksItems.enableComposter) {
+			RenderingRegistry.registerBlockHandler(new BlockComposterRenderer());
+		}
+		
 		RenderingRegistry.registerBlockHandler(new BlockChestRenderer());
+		
+		if(EtFuturum.TESTING) {
+			ClientRegistry.bindTileEntitySpecialRenderer(TileEntityGateway.class, new TileEntityGatewayRenderer());
+		}
 	}
 
 	@SuppressWarnings("unchecked")

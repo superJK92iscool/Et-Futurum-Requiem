@@ -7,6 +7,7 @@ public class Reference {
 	public static final String MOD_URL = "@URL@";
 	public static final String DEPENDENCIES = "required-after:Forge@[10.13.4.1558,);after:Thaumcraft@[4.2.3.5,);after:TwilightForest;after:HardcoreEnderExpansion;";
 	public static final String VERSION_NUMBER = "@VERSION@";
+	public static String BUILD_VERSION;
 	public static final String CREDITS = "@CREDITS@";
 	public static final String[] AUTHOR_LIST = {"@AUTHORLIST@"};
 	public static final String DESCRIPTION = "@DESCRIPTION@";
