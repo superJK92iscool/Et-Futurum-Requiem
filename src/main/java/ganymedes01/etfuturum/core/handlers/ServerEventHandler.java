@@ -163,11 +163,11 @@ public class ServerEventHandler {
 			}
 		}
 		
-		if(ConfigEntities.flySprintSpeed > 0.05F && entity instanceof EntityPlayer) {
+		if(entity instanceof EntityPlayer) {
 			EntityPlayer player = ((EntityPlayer)entity);
 			if(player.capabilities.getFlySpeed() == 0.05F && player.isSprinting() && player.capabilities.isFlying) {
 				player.capabilities.setFlySpeed(ConfigEntities.flySprintSpeed);
-			} else if(player.capabilities.getFlySpeed() == ConfigEntities.flySprintSpeed) {
+			} else if(player.capabilities.getFlySpeed() == ConfigEntities.flySprintSpeed && !player.isSprinting()) {
 				player.capabilities.setFlySpeed(0.05F);
 			}
 			
