@@ -1,7 +1,6 @@
 package ganymedes01.etfuturum.client.sound;
 
 import ganymedes01.etfuturum.client.sound.step.CustomSoundBerryBush;
-import ganymedes01.etfuturum.client.sound.step.CustomSoundNetherite;
 import ganymedes01.etfuturum.client.sound.step.CustomSoundPlants;
 import ganymedes01.etfuturum.client.sound.step.CustomSoundSlimeBlock;
 import ganymedes01.etfuturum.lib.Reference;
@@ -11,24 +10,24 @@ import net.minecraft.block.Block.SoundType;
 public class ModSounds {
 	
 	public static final SoundType soundSlime = new CustomSoundSlimeBlock();
-	public static final SoundType soundLantern = new CustomSound("lantern", 1, 1, true);
-	public static final SoundType soundWartBlock = new CustomSound("wart_block", 0.8F, 1);
+	public static final SoundType soundLantern = new CustomSound("lantern", true);
+	public static final SoundType soundWartBlock = new CustomSound("wart_block");
 	public static final SoundType soundSoulSand = new CustomSound("soul_sand");
-	public static final SoundType soundNetherBricks = new CustomSound("nether_bricks", 0.8F, 1);
-	public static final SoundType soundBoneBlock = new CustomSound("bone_block", 0.9F, 1);
+	public static final SoundType soundNetherBricks = new CustomSound("nether_bricks");
+	public static final SoundType soundBoneBlock = new CustomSound("bone_block");
 	public static final SoundType soundNetherrack = new CustomSound("netherrack");
 	public static final SoundType soundNetherOre = new CustomSound("nether_ore");
 	public static final SoundType soundAncientDebris = new CustomSound("ancient_debris");
 	public static final SoundType soundBasalt = new CustomSound("basalt");
-	public static final SoundType soundNetherite = new CustomSoundNetherite();
-	public static final SoundType soundCrops = new CustomSoundPlants("crop", 0.45F, 1, Block.soundTypeGrass);
-	public static final SoundType soundCropWarts = new CustomSoundPlants("nether_wart", 0.9F, 1F, Block.soundTypeStone);
+	public static final SoundType soundNetherite = new CustomSound("netherite_block");
+	public static final SoundType soundCrops = new CustomSoundPlants("crop", 1, 1, Block.soundTypeGrass);
+	public static final SoundType soundCropWarts = new CustomSoundPlants("nether_wart", 1, 1, Block.soundTypeStone);
 	public static final SoundType soundCopper = new CustomSound("copper");
 	public static final SoundType soundBerryBush = new CustomSoundBerryBush();
-	public static final SoundType soundDeepslate = new CustomSound("deepslate", 1, 1, true);
-	public static final SoundType soundDeepslateBricks = new CustomSound("deepslate_bricks", 1.3F, 0.92F);
+	public static final SoundType soundDeepslate = new CustomSound("deepslate", true);
+	public static final SoundType soundDeepslateBricks = new CustomSound("deepslate_bricks");
 	public static final SoundType soundTuff = new CustomSound("tuff");
-	public static final SoundType soundVines = new CustomSound("vine", 0.9F, 1);
+	public static final SoundType soundVines = new CustomSound("vine");
 //	public static final SoundType soundNylium = new CustomSound("nylium");
 //	public static final SoundType soundHoneyBlock = new CustomSound("honey_block");
 //	public static final SoundType soundFungus = new CustomSound("fungus");
@@ -39,6 +38,10 @@ public class ModSounds {
 
 		private final boolean placeSound;
 
+		public CustomSound(String name, boolean placeSound) {
+			this(name, 1, 1, placeSound);
+		}
+		
 		public CustomSound(String name, float volume, float pitch, boolean placeSound) {
 			super(name, volume, pitch);
 			this.placeSound = placeSound;
@@ -65,7 +68,7 @@ public class ModSounds {
 		@Override
 		public String func_150496_b()
 		{
-			return (placeSound ? Reference.MCv118 +  ":block." + soundName + ".place" :  this.getBreakSound());
+			return placeSound ? Reference.MCv118 + ":block." + soundName + ".place" : this.getBreakSound();
 		}
 	}
 }
