@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import cpw.mods.fml.common.registry.GameRegistry;
+import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.helpers.BlockAndMetadataMapping;
 import net.minecraft.block.Block;
@@ -143,14 +144,9 @@ public class DeepslateOreRegistry {
 				ItemStack
 				stackNorm = new ItemStack(oreNorm, 1, inputOres.get(entry.getKey()).getMeta()),
 				stackDeep = new ItemStack(oreDeep, 1, entry.getValue().getMeta());
-				
-				for (int j : OreDictionary.getOreIDs(stackNorm)) {
-					String oreName = OreDictionary.getOreName(j);
-					for(int k = 0; k < OreDictionary.getOres(oreName).size(); k++) {
-						if (ItemStack.areItemStacksEqual(OreDictionary.getOres(oreName).get(k), stackNorm)) {
-							OreDictionary.registerOre(oreName.replace("Vanillastone", "Deepslate"), stackDeep.copy()); // Yes the .copy() is required!
-						}
-					}
+
+				for(String oreName : EtFuturum.getOreStrings(stackNorm)) {
+					OreDictionary.registerOre(oreName.replace("Vanillastone", "Deepslate"), stackDeep.copy()); // Yes the .copy() is required!
 				}
 				
 				if (FurnaceRecipes.smelting().getSmeltingResult(stackNorm) != null) {

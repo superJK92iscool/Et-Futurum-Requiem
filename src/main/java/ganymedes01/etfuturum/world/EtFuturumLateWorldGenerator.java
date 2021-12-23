@@ -1,9 +1,6 @@
 package ganymedes01.etfuturum.world;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
@@ -14,18 +11,14 @@ import org.apache.commons.lang3.ArrayUtils;
 import com.google.common.collect.Maps;
 
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.blocks.BlockDeepslate;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigTweaks;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.DeepslateOreRegistry;
 import ganymedes01.etfuturum.core.utils.helpers.BlockAndMetadataMapping;
-import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
-import ganymedes01.etfuturum.core.utils.helpers.CachedChunkCoords;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.chunk.Chunk;
@@ -74,8 +67,6 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 							short posY = (short)((pos >> 4 & 0xFF));
 							byte posZ = (byte)((pos & 0xF));
 							
-							System.out.println(posX + " " + posZ);
-							
 							replaceBlockInChunk(cachedChunk, posX, posZ, redoX << 4 + posX, posY, redoZ << 4 + posZ);
 						}
 					}
@@ -101,9 +92,9 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 	private void doCoarseDirtGen(Chunk chunk) {
 			for (int x = 0; x < 16; x++) {
 				for (int z = 0; z < 16; z++) {
-					for (int y = 0; y <= chunk.getHeightValue(x, z); y++) {
+					for (int y = 0; y < chunk.getHeightValue(x, z); y++) {
 						ExtendedBlockStorage array = chunk.getBlockStorageArray()[y >> 4];
-						if(array != null && array.getBlockByExtId(x, y & 15, z) == Blocks.dirt && array.getExtBlockMetadata(x, y & 15, z) == 1) {
+						if(array != null && array.getExtBlockMetadata(x, y & 15, z) == 1 && array.getBlockByExtId(x, y & 15, z) == Blocks.dirt) {
 							array.func_150818_a(x, y & 15, z, ModBlocks.coarse_dirt);
 							array.setExtBlockMetadata(x, y & 15, z, 0);
 					}
@@ -117,8 +108,8 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 		
 		int worldX;
 		int worldZ;
-		final int chunkMultiplierX = chunk.xPosition * 16;
-		final int chunkMultiplierZ = chunk.zPosition * 16;
+		final int chunkMultiplierX = chunk.xPosition << 4;
+		final int chunkMultiplierZ = chunk.zPosition << 4;
 
 		for (int y = 0; y <= ConfigWorld.deepslateMaxY; y++) {
 			for (int x = 0; x < 16; x++) {
@@ -163,27 +154,7 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 		}
 	}
 	
-	private static final Map<CachedChunkCoords, List<BlockPos>> redos = new HashMap<CachedChunkCoords, List<BlockPos>>();
 	public static boolean stopRecording;
-	
-	public static void clearRedos() {
-		redos.clear();
-	}
-	
-	public static List<BlockPos> getRedoList(World world, int x, int z, int dim) {
-		CachedChunkCoords chunk = new CachedChunkCoords(x, z, dim);
-		
-		return getRedoList(chunk);
-	}
-	
-	public static List<BlockPos> getRedoList(CachedChunkCoords chunk) {
-		
-		if(redos.get(chunk) == null) {
-			redos.put(chunk, new ArrayList<BlockPos>());
-		}
-		
-		return redos.get(chunk);
-	}
 	
 	private boolean doesChunkSupportLayerDeepslate(WorldType terrain, int dimId) {
 		if(ConfigBlocksItems.enableDeepslate) {

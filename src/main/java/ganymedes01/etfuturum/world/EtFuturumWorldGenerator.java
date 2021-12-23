@@ -63,10 +63,9 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 		if(world.getWorldInfo().getTerrainType() != WorldType.FLAT || world.getWorldInfo().getGeneratorOptions().contains("decoration") || world.provider.dimensionId != 0) {
 
 			if (ConfigBlocksItems.enableStones && ConfigWorld.maxStonesPerCluster > 0 && world.provider.dimensionId != -1 && world.provider.dimensionId != 1) {
-				for (int j = 0; j < stoneGen.size(); j++) {
-					WorldGenMinable generator = stoneGen.get(j);
-					for (int i = 0; i < 10; i++) {
-						generateOre(generator, world, rand, chunkX, chunkZ, 1, 0, 80);
+				for(WorldGenMinable stoneGenerator : stoneGen) {
+					for(int i = 0; i < 10; i++) {
+						generateOre(stoneGenerator, world, rand, chunkX, chunkZ, 1, 0, 80);
 					}
 				}
 			}

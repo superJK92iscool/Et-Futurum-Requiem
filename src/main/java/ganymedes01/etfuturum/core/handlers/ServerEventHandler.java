@@ -163,7 +163,7 @@ public class ServerEventHandler {
 			}
 		}
 		
-		if(ConfigEntities.flySprintSpeed > 0.5F && entity instanceof EntityPlayer) {
+		if(ConfigEntities.flySprintSpeed > 0.05F && entity instanceof EntityPlayer) {
 			EntityPlayer player = ((EntityPlayer)entity);
 			if(player.capabilities.getFlySpeed() == 0.05F && player.isSprinting() && player.capabilities.isFlying) {
 				player.capabilities.setFlySpeed(ConfigEntities.flySprintSpeed);
