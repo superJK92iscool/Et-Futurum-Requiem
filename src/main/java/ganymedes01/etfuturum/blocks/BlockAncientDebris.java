@@ -21,6 +21,7 @@ import net.minecraft.world.World;
 
 public class BlockAncientDebris extends Block implements IConfigurable, ISubBlocksBlock {
 
+	@SideOnly(Side.CLIENT)
 	public IIcon iconTop;
 	public BlockAncientDebris() {
 		super(Material.rock);
