@@ -44,8 +44,9 @@ public class BlockBanner extends BlockContainer implements ISubBlocksBlock, ICon
 	@Override
 	public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z) {
 		TileEntityBanner tile = Utils.getTileEntity(world, x, y, z, TileEntityBanner.class);
-		if (tile == null)
+		if (tile == null) {
 			return;
+		}
 
 		if (!tile.isStanding) {
 			int meta = world.getBlockMetadata(x, y, z);
@@ -57,14 +58,20 @@ public class BlockBanner extends BlockContainer implements ISubBlocksBlock, ICon
 
 			setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
 
-			if (meta == 2)
+			switch (meta) {
+			case 2:
 				setBlockBounds(f2, f, 1.0F - f4, f3, f1, 1.0F);
-			if (meta == 3)
+				break;
+			case 3:
 				setBlockBounds(f2, f, 0.0F, f3, f1, f4);
-			if (meta == 4)
+				break;
+			case 4:
 				setBlockBounds(1.0F - f4, f, f2, 1.0F, f1, f3);
-			if (meta == 5)
+				break;
+			case 5:
 				setBlockBounds(0.0F, f, f2, f4, f1, f3);
+				break;
+			}
 		} else {
 			float f = 0.25F;
 			float f1 = 1.0F;
@@ -75,24 +82,29 @@ public class BlockBanner extends BlockContainer implements ISubBlocksBlock, ICon
 	@Override
 	public void onNeighborBlockChange(World world, int x, int y, int z, Block neighbour) {
 		TileEntityBanner tile = Utils.getTileEntity(world, x, y, z, TileEntityBanner.class);
-		if (tile == null)
+		if (tile == null) {
 			return;
+		}
 
 		boolean flag = false;
 		if (tile.isStanding) {
-			if (!world.getBlock(x, y - 1, z).getMaterial().isSolid())
-				flag = true;
+			flag = !world.getBlock(x, y - 1, z).getMaterial().isSolid();
 		} else {
-			int meta = world.getBlockMetadata(x, y, z);
-			flag = true;
-			if (meta == 2 && world.getBlock(x, y, z + 1).getMaterial().isSolid())
-				flag = false;
-			if (meta == 3 && world.getBlock(x, y, z - 1).getMaterial().isSolid())
-				flag = false;
-			if (meta == 4 && world.getBlock(x + 1, y, z).getMaterial().isSolid())
-				flag = false;
-			if (meta == 5 && world.getBlock(x - 1, y, z).getMaterial().isSolid())
-				flag = false;
+			final int meta = world.getBlockMetadata(x, y, z);
+			switch(meta) {
+			case 2:
+				flag = !world.getBlock(x, y, z + 1).getMaterial().isSolid();
+				break;
+			case 3:
+				flag = !world.getBlock(x, y, z - 1).getMaterial().isSolid();
+				break;
+			case 4:
+				flag = !world.getBlock(x + 1, y, z).getMaterial().isSolid();
+				break;
+			case 5:
+				flag = !world.getBlock(x - 1, y, z).getMaterial().isSolid();
+				break;
+			}
 		}
 
 		if (flag) {
@@ -106,8 +118,9 @@ public class BlockBanner extends BlockContainer implements ISubBlocksBlock, ICon
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z, EntityPlayer player) {
 		TileEntityBanner banner = Utils.getTileEntity(world, x, y, z, TileEntityBanner.class);
-		if (banner != null)
+		if (banner != null) {
 			return banner.createStack();
+		}
 
 		return super.getPickBlock(target, world, x, y, z, player);
 	}
@@ -116,9 +129,11 @@ public class BlockBanner extends BlockContainer implements ISubBlocksBlock, ICon
 	public void onBlockHarvested(World world, int x, int y, int z, int meta, EntityPlayer player) {
 		if (!player.capabilities.isCreativeMode) {
 			ArrayList<ItemStack> drops = getDrops(world, x, y, z, meta, 0);
-			if (ForgeEventFactory.fireBlockHarvesting(drops, world, this, x, y, z, meta, 0, 1.0F, false, player) > 0.0F)
-				for (ItemStack stack : drops)
+			if (ForgeEventFactory.fireBlockHarvesting(drops, world, this, x, y, z, meta, 0, 1.0F, false, player) > 0.0F) {
+				for (ItemStack stack : drops) {
 					dropBlockAsItem(world, x, y, z, stack);
+				}
+			}
 		}
 	}
 
@@ -126,8 +141,9 @@ public class BlockBanner extends BlockContainer implements ISubBlocksBlock, ICon
 	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
 		ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
 		TileEntityBanner banner = Utils.getTileEntity(world, x, y, z, TileEntityBanner.class);
-		if (banner != null)
+		if (banner != null) {
 			ret.add(banner.createStack());
+		}
 		return ret;
 	}
 
@@ -189,4 +205,5 @@ public class BlockBanner extends BlockContainer implements ISubBlocksBlock, ICon
 	public boolean isEnabled() {
 		return ConfigBlocksItems.enableBanners;
 	}
+
 }

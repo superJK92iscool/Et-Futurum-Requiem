@@ -28,21 +28,18 @@ public enum EnumColour {
 
 	final String dye;
 	final String name;
-	final MapColor mapColour;
+	final MapColor mapColor;
 
-	EnumColour(String name, MapColor mapColour) {
+	EnumColour(String name, MapColor mapColor) {
 		dye = "dye" + name;
 		this.name = name;
-		this.mapColour = mapColour;
-	}
-
-	public String getName() {
-		return name;
+		this.mapColor = mapColor;
 	}
 
 	public String getMojangName() {
-		if (this == LIGHT_GREY)
+		if (this == LIGHT_GREY) {
 			return "silver";
+		}
 		return name.substring(0, 1).toLowerCase() + name.substring(1);
 	}
 
@@ -51,12 +48,7 @@ public enum EnumColour {
 	}
 
 	public MapColor getMapColour() {
-		return mapColour;
-	}
-
-	public Color getColour() {
-		int i = getDamage();
-		return new Color(EntitySheep.fleeceColorTable[i][0], EntitySheep.fleeceColorTable[i][1], EntitySheep.fleeceColorTable[i][2]);
+		return mapColor;
 	}
 
 	public int getDamage() {
@@ -64,27 +56,13 @@ public enum EnumColour {
 	}
 
 	public int getRGB() {
-		return getColour().getRGB();
-	}
-
-	public int getDarker() {
-		return getColour().darker().getRGB();
-	}
-
-	public int getBrighter() {
-		return getColour().brighter().getRGB();
-	}
-
-	public String getTranslatedName() {
-		return StatCollector.translateToLocal(getUnlocalisedName());
-	}
-
-	public String getUnlocalisedName() {
-		return "colour." + Reference.MOD_ID + "." + dye;
+		int i = getDamage();
+		return new Color(EntitySheep.fleeceColorTable[i][0], EntitySheep.fleeceColorTable[i][1], EntitySheep.fleeceColorTable[i][2]).getRGB();
 	}
 
 	public static EnumColour fromDamage(int meta) {
 		meta = BlockColored.func_150031_c(meta);
 		return values()[Math.min(Math.max(0, meta), values().length - 1)];
 	}
+
 }
