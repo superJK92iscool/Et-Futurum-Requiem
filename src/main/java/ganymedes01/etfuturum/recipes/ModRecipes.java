@@ -243,6 +243,14 @@ public class ModRecipes {
 			OreDictionary.registerOre("oreGold", new ItemStack(ModItems.raw_ore, 1, 2));
 		}
 		
+		if(ConfigBlocksItems.enablePigstep) {
+			OreDictionary.registerOre("record", ModItems.pigstep_record);
+		}
+		
+		if(ConfigBlocksItems.enableOtherside) {
+			OreDictionary.registerOre("record", ModItems.otherside_record);
+		}
+		
 //      if(ConfigurationHandler.enableCrimsonBlocks || ConfigurationHandler.enableWarpedBlocks) {
 //          OreDictionary.registerOre("plankWood", new ItemStack(ModBlocks.nether_planks, 1, 0));
 //          OreDictionary.registerOre("plankWood", new ItemStack(ModBlocks.nether_planks, 1, 1));
@@ -868,6 +876,14 @@ public class ModRecipes {
 		
 		if(ConfigBlocksItems.enableComposter) {
 			addShapedRecipe(new ItemStack(ModBlocks.composter, 1, 0), "S S", "S S", "SSS", 'S', "slabWood");
+		}
+		
+		if(ConfigBlocksItems.enableCartographyTable) {
+			addShapedRecipe(new ItemStack(ModBlocks.cartography_table, 1, 0), "pp", "PP", "PP", 'P', "plankWood", 'p', new ItemStack(Items.paper, 1, 0));
+		}
+		
+		if(ConfigBlocksItems.enableLoom) {
+			addShapedRecipe(new ItemStack(ModBlocks.loom, 1, 0), "SS", "PP", 'P', "plankWood", 'S', new ItemStack(Items.string, 1, 0));
 		}
 	}
 	

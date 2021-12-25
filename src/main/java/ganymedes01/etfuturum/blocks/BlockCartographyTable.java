@@ -16,36 +16,39 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class BlockFletchingTable extends Block implements IConfigurable, ISubBlocksBlock {
+public class BlockCartographyTable extends Block implements IConfigurable, ISubBlocksBlock {
 
 	@SideOnly(Side.CLIENT)
 	private IIcon topIcon;
 	@SideOnly(Side.CLIENT)
 	private IIcon sideIcon;
+	@SideOnly(Side.CLIENT)
+	private IIcon bottomIcon;
 	
-	public BlockFletchingTable() {
+	public BlockCartographyTable() {
 		super(Material.wood);
 		this.setStepSound(soundTypeWood);
 		this.setHardness(2.5F);
 		this.setHarvestLevel("axe", 0);
 		this.setResistance(2.5F);
-		this.setBlockName(Utils.getUnlocalisedName("fletching_table"));
-		this.setBlockTextureName("fletching_table");
+		this.setBlockName(Utils.getUnlocalisedName("cartography_table"));
+		this.setBlockTextureName("cartography_table");
 		this.setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
 	}
 	
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int p_149691_1_, int p_149691_2_)
 	{
-		return p_149691_1_ == 1 ? this.topIcon : (p_149691_1_ == 0 ? Blocks.planks.getIcon(0, 2) : (p_149691_1_ != 2 && p_149691_1_ != 4 ? this.blockIcon : this.sideIcon));
+		return p_149691_1_ == 1 ? this.topIcon : (p_149691_1_ == 0 ? Blocks.planks.getIcon(0, 5) : (p_149691_1_ == 2 || p_149691_1_ == 5 ? this.bottomIcon : p_149691_1_ == 3 ? this.blockIcon : this.sideIcon));
 	}
 
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister p_149651_1_)
 	{
-		this.blockIcon = p_149651_1_.registerIcon(this.getTextureName() + "_side");
+		this.blockIcon = p_149651_1_.registerIcon(this.getTextureName() + "_side1");
 		this.topIcon = p_149651_1_.registerIcon(this.getTextureName() + "_top");
-		this.sideIcon = p_149651_1_.registerIcon(this.getTextureName() + "_front");
+		this.sideIcon = p_149651_1_.registerIcon(this.getTextureName() + "_side2");
+		this.bottomIcon = p_149651_1_.registerIcon(this.getTextureName() + "_side3");
 	}
 	
 	@Override
@@ -65,7 +68,7 @@ public class BlockFletchingTable extends Block implements IConfigurable, ISubBlo
 
 	@Override
 	public boolean isEnabled() {
-		return ConfigBlocksItems.enableFletchingTable;
+		return ConfigBlocksItems.enableCartographyTable;
 	}
 
 	@Override

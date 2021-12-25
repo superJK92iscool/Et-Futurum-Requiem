@@ -6,7 +6,6 @@ import java.util.WeakHashMap;
 import ganymedes01.etfuturum.configuration.configs.ConfigEnchantsPotions;
 import ganymedes01.etfuturum.enchantment.FrostWalker;
 import ganymedes01.etfuturum.enchantment.Mending;
-import ibxm.Player;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.Enchantment;
@@ -63,7 +62,7 @@ public class ModEnchantments {
 				}
 			}
 			
-			prevMoveCache.put(entity, new double[] {entity.prevPosX, entity.prevPosZ});
+			prevMoveCache.put(entity, new double[] {entity.posX, entity.posZ});
 		} else {
 			prevMoveCache.remove(entity);
 		}

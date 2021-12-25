@@ -215,15 +215,17 @@ public class ServerEventHandler {
 	@SubscribeEvent
 	public void entityUpdate(EntityEvent event) {
 		if(event.entity == null || event.entity.worldObj == null || event.entity.getClass() == null) return;
+		
 		if (ConfigBlocksItems.enableNewBoats && ConfigBlocksItems.replaceOldBoats) {
 			if (!event.entity.worldObj.isRemote && event.entity.getClass() == EntityBoat.class && event.entity.riddenByEntity == null) {
-				if(event.entity.worldObj.getEntitiesWithinAABB(EntityNewBoat.class, event.entity.boundingBox).isEmpty()) {
+				if(!event.entity.isDead) {
 					EntityNewBoat boat = new EntityNewBoat(event.entity.worldObj);
 					boat.copyLocationAndAnglesFrom(event.entity);
+					if(event.entity.worldObj.getBlock(MathHelper.floor_double(event.entity.posX), MathHelper.floor_double(event.entity.posY - 1), MathHelper.floor_double(event.entity.posZ)).getMaterial().isLiquid()) {
+						boat.posY -= 0.12D;
+					}
 					event.entity.setDead();
 					boat.rotationYaw += 90;
-					if(boat.worldObj.getBlock((int)boat.posX, (int)((float)boat.posY - 1F), (int)boat.posZ) instanceof BlockLiquid)
-						boat.posY -= 0.12D;
 					boat.worldObj.spawnEntityInWorld(boat);
 					boat.setBoatType(EntityNewBoat.Type.OAK);
 				}

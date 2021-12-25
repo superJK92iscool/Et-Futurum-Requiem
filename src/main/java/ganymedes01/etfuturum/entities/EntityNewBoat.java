@@ -483,7 +483,7 @@ public class EntityNewBoat extends Entity {
 			{
 				if((double)(this.paddlePositions[i] % ((float)Math.PI * 2F)) <= (Math.PI / 4D) && ((double)this.paddlePositions[i] + 0.39269909262657166D) % (Math.PI * 2D) >= (Math.PI / 4D)) {
 					if(getPaddleSound() != null)
-						playSound(getPaddleSound(), status == Status.IN_WATER ? 0.8F : 1, 1);
+						playSound(getPaddleSound(), 1, 1);
 				}
 				this.paddlePositions[i] = (float)((double)this.paddlePositions[i] + 0.39269909262657166D);
 			}
@@ -528,9 +528,9 @@ public class EntityNewBoat extends Entity {
 			case IN_WATER:
 			case UNDER_WATER:
 			case UNDER_FLOWING_WATER:
-				return Reference.MOD_ID+":entity.boat.paddle_water"; //Paddle water
+				return Reference.MCv118 + ":entity.boat.paddle_water";
 			case ON_LAND:
-				return Reference.MOD_ID+":entity.boat.paddle_land"; //Paddle land
+				return Reference.MCv118 + ":entity.boat.paddle_land";
 			case IN_AIR:
 			default:
 				return null;

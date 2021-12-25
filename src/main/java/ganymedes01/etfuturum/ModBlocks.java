@@ -13,6 +13,7 @@ import ganymedes01.etfuturum.blocks.BlockBerryBush;
 import ganymedes01.etfuturum.blocks.BlockBlastFurnace;
 import ganymedes01.etfuturum.blocks.BlockBlueIce;
 import ganymedes01.etfuturum.blocks.BlockBone;
+import ganymedes01.etfuturum.blocks.BlockCartographyTable;
 import ganymedes01.etfuturum.blocks.BlockChorusFlower;
 import ganymedes01.etfuturum.blocks.BlockChorusPlant;
 import ganymedes01.etfuturum.blocks.BlockCoarseDirt;
@@ -45,6 +46,7 @@ import ganymedes01.etfuturum.blocks.BlockLantern;
 import ganymedes01.etfuturum.blocks.BlockLavaCauldron;
 import ganymedes01.etfuturum.blocks.BlockLightningRod;
 import ganymedes01.etfuturum.blocks.BlockLilyOfTheValley;
+import ganymedes01.etfuturum.blocks.BlockLoom;
 import ganymedes01.etfuturum.blocks.BlockMagma;
 import ganymedes01.etfuturum.blocks.BlockNetherite;
 import ganymedes01.etfuturum.blocks.BlockNetheriteStairs;
@@ -301,6 +303,8 @@ public class ModBlocks {
 	public static final Block composter = initBlock(new BlockComposter());
 	public static final Block stonecutter = initBlock(new BlockStonecutter());
 	public static final Block fletching_table = initBlock(new BlockFletchingTable());
+	public static final Block cartography_table = initBlock(new BlockCartographyTable());
+	public static final Block loom = initBlock(new BlockLoom());
 	
 	public static final String[] woodTypes = new String[] {"oak", "spruce", "birch", "jungle", "acacia", "dark_oak"/*, "crimson", "warped"*/};
 	public static final Block[] doors = new Block[woodTypes.length - 1];

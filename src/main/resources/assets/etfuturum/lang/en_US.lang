@@ -440,6 +440,10 @@ tile.etfuturum.stonecutter.name=Stonecutter
 tile.etfuturum.smithing_table.name=Smithing Table
 tile.etfuturum.fletching_table.name=Fletching Table
 tile.etfuturum.composter.name=Composter
+tile.etfuturum.cartography_table.name=Cartography Table
+tile.etfuturum.loom.name=Loom
+tile.etfuturum.grindstone.name=Grindstone
+tile.etfuturum.lectern.name=Lectern
 
 tile.etfuturum.concrete_powder_white.name=White Concrete Powder
 tile.etfuturum.concrete_powder_orange.name=Orange Concrete Powder

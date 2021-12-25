@@ -1,15 +1,22 @@
 package ganymedes01.etfuturum.client.sound;
 
-import ganymedes01.etfuturum.client.sound.step.CustomSoundBerryBush;
-import ganymedes01.etfuturum.client.sound.step.CustomSoundPlants;
-import ganymedes01.etfuturum.client.sound.step.CustomSoundSlimeBlock;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.block.Block.SoundType;
 
 public class ModSounds {
 	
-	public static final SoundType soundSlime = new CustomSoundSlimeBlock();
+	public static final SoundType soundSlime = new CustomSound("minecraft:mob.slime.big") {
+		@Override
+		public String getBreakSound() {
+			return soundName;
+		}
+
+		@Override
+		public String getStepResourcePath() {
+			return "minecraft:mob.slime.small";
+		}
+	};
 	public static final SoundType soundLantern = new CustomSound("lantern", true);
 	public static final SoundType soundWartBlock = new CustomSound("wart_block");
 	public static final SoundType soundSoulSand = new CustomSound("soul_sand");
@@ -20,10 +27,37 @@ public class ModSounds {
 	public static final SoundType soundAncientDebris = new CustomSound("ancient_debris");
 	public static final SoundType soundBasalt = new CustomSound("basalt");
 	public static final SoundType soundNetherite = new CustomSound("netherite_block");
-	public static final SoundType soundCrops = new CustomSoundPlants("crop", 1, 1, Block.soundTypeGrass);
-	public static final SoundType soundCropWarts = new CustomSoundPlants("nether_wart", 1, 1, Block.soundTypeStone);
+	public static final SoundType soundCrops = new CustomSound("crop") {
+		@Override
+		public String getStepResourcePath() {
+			return Block.soundTypeGrass.getStepResourcePath();
+		}
+
+		@Override
+		public String func_150496_b()
+		{
+			return Reference.MCv118 + ":item." + soundName + ".plant";
+		}
+	};
+	public static final SoundType soundCropWarts = new CustomSound("nether_wart") {
+		@Override
+		public String getStepResourcePath() {
+			return Reference.MCv118 + ":block.fungus.step";
+		}
+
+		@Override
+		public String func_150496_b()
+		{
+			return Reference.MCv118 + ":item." + soundName + ".plant";
+		}
+	};
 	public static final SoundType soundCopper = new CustomSound("copper");
-	public static final SoundType soundBerryBush = new CustomSoundBerryBush();
+	public static final SoundType soundBerryBush = new CustomSound("sweet_berry_bush", true) {
+		@Override
+		public String getStepResourcePath() {
+			return Block.soundTypeGrass.getStepResourcePath();
+		}
+	};
 	public static final SoundType soundDeepslate = new CustomSound("deepslate", true);
 	public static final SoundType soundDeepslateBricks = new CustomSound("deepslate_bricks");
 	public static final SoundType soundTuff = new CustomSound("tuff");

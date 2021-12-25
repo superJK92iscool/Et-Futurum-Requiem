@@ -20,6 +20,7 @@ import ganymedes01.etfuturum.client.renderer.block.BlockEndRodRender;
 import ganymedes01.etfuturum.client.renderer.block.BlockGlazedTerracottaRenderer;
 import ganymedes01.etfuturum.client.renderer.block.BlockLanternRenderer;
 import ganymedes01.etfuturum.client.renderer.block.BlockLavaCauldronRenderer;
+import ganymedes01.etfuturum.client.renderer.block.BlockLoomRenderer;
 import ganymedes01.etfuturum.client.renderer.block.BlockSlimeBlockRender;
 import ganymedes01.etfuturum.client.renderer.block.BlockStonecutterRenderer;
 import ganymedes01.etfuturum.client.renderer.block.BlockTrapDoorRenderer;
@@ -161,6 +162,10 @@ public class ClientProxy extends CommonProxy {
 		
 		if(ConfigBlocksItems.enableComposter) {
 			RenderingRegistry.registerBlockHandler(new BlockComposterRenderer());
+		}
+		
+		if(ConfigBlocksItems.enableLoom) {
+			RenderingRegistry.registerBlockHandler(new BlockLoomRenderer());
 		}
 		
 		RenderingRegistry.registerBlockHandler(new BlockChestRenderer());
