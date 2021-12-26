@@ -4,7 +4,6 @@ import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import ganymedes01.etfuturum.client.OpenGLHelper;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockPistonBase;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.world.IBlockAccess;

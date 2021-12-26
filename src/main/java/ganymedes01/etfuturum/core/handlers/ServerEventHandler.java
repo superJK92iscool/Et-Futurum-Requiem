@@ -54,7 +54,6 @@ import ganymedes01.etfuturum.tileentities.TileEntityGateway;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEndPortalFrame;
 import net.minecraft.block.BlockFarmland;
-import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.BlockSoulSand;
 import net.minecraft.block.BlockTrapDoor;
 import net.minecraft.block.material.Material;
@@ -113,7 +112,6 @@ import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
 import net.minecraftforge.event.entity.living.EnderTeleportEvent;
@@ -172,16 +170,6 @@ public class ServerEventHandler {
 			}
 			
 		}
-		
-		if(entity instanceof EntityLiving) {
-			if (ConfigEntities.enableVillagerZombies && entity.getClass() == EntityZombie.class && ((EntityZombie)entity).isVillager()) {
-				replaceEntity((EntityLiving) entity, new EntityZombieVillager(entity.worldObj));
-			}
-
-			if (ConfigEntities.enableShearableSnowGolems && entity.getClass() == EntitySnowman.class) {
-				replaceEntity((EntityLiving) entity, new EntityNewSnowGolem(entity.worldObj));
-			}
-		}
 	}
 	
 	private void replaceEntity(EntityLiving oldentity, EntityLiving newentity) {
@@ -213,22 +201,32 @@ public class ServerEventHandler {
 	}
 	
 	@SubscribeEvent
-	public void entityUpdate(EntityEvent event) {
-		if(event.entity == null || event.entity.worldObj == null || event.entity.getClass() == null) return;
+	public void entityAdded(EntityJoinWorldEvent event) {
+		if(event.world.isRemote) return;
 		
 		if (ConfigBlocksItems.enableNewBoats && ConfigBlocksItems.replaceOldBoats) {
-			if (!event.entity.worldObj.isRemote && event.entity.getClass() == EntityBoat.class && event.entity.riddenByEntity == null) {
-				if(!event.entity.isDead) {
-					EntityNewBoat boat = new EntityNewBoat(event.entity.worldObj);
-					boat.copyLocationAndAnglesFrom(event.entity);
-					if(event.entity.worldObj.getBlock(MathHelper.floor_double(event.entity.posX), MathHelper.floor_double(event.entity.posY - 1), MathHelper.floor_double(event.entity.posZ)).getMaterial().isLiquid()) {
-						boat.posY -= 0.12D;
-					}
-					event.entity.setDead();
-					boat.rotationYaw += 90;
-					boat.worldObj.spawnEntityInWorld(boat);
-					boat.setBoatType(EntityNewBoat.Type.OAK);
-				}
+			if (event.entity.getClass() == EntityBoat.class) {
+				EntityNewBoat boat = new EntityNewBoat(event.world);
+				boat.copyLocationAndAnglesFrom(event.entity);
+				boat.rotationYaw += 90;
+				boat.worldObj.spawnEntityInWorld(boat);
+				boat.setBoatType(EntityNewBoat.Type.OAK);
+				event.world.removeEntity(event.entity);
+//				event.setCanceled(true);
+			}
+		}
+		
+		if(event.entity instanceof EntityLiving) {
+			if (ConfigEntities.enableVillagerZombies && event.entity.getClass() == EntityZombie.class && ((EntityZombie)event.entity).isVillager()) {
+				replaceEntity((EntityLiving) event.entity, new EntityZombieVillager(event.world));
+				event.world.removeEntity(event.entity);
+//				event.setCanceled(true);
+			}
+
+			if (ConfigEntities.enableShearableSnowGolems && event.entity.getClass() == EntitySnowman.class) {
+				replaceEntity((EntityLiving) event.entity, new EntityNewSnowGolem(event.world));
+				event.world.removeEntity(event.entity);
+//				event.setCanceled(true);
 			}
 		}
 	}

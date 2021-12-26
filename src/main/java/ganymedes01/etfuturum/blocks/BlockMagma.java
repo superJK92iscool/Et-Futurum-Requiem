@@ -1,6 +1,6 @@
 package ganymedes01.etfuturum.blocks;
 
-import static net.minecraftforge.common.util.ForgeDirection.*;
+import static net.minecraftforge.common.util.ForgeDirection.UP;
 
 import java.util.Random;
 

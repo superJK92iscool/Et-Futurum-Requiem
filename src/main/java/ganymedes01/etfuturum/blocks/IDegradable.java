@@ -2,7 +2,6 @@ package ganymedes01.etfuturum.blocks;
 
 import java.util.Random;
 
-import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.client.particle.ParticleHandler;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;

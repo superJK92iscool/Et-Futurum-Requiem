@@ -1,6 +1,5 @@
 package ganymedes01.etfuturum.blocks;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Random;
@@ -16,7 +15,6 @@ import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import ganymedes01.etfuturum.world.EtFuturumLateWorldGenerator;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRotatedPillar;
@@ -69,8 +67,6 @@ public class BlockDeepslate extends BlockRotatedPillar implements IConfigurable 
 	/**
 	 * We need to do this in order to make sure deepslate generates, as veins crossing a chunk border may not get replaced fully.
 	 * This is used to detect those ores since they'd generate over deepslate, not the other way around.
-	 * Then we add them to a list of BlockPos objects which the check is re-done to.
-	 * The last save time is checked for 0 to ensure that only fresh chunks get deepslated.
 	 */
 	public boolean isReplaceableOreGen(World world, int x, int y, int z, Block target) {
 		boolean flag = target == Blocks.stone || this == target;
@@ -81,7 +77,7 @@ public class BlockDeepslate extends BlockRotatedPillar implements IConfigurable 
 	}
 	
 	public static void doDeepslateRedoCheck(World world, int x, int y, int z) {
-		if(!EtFuturumLateWorldGenerator.stopRecording) {
+		if(!EtFuturumLateWorldGenerator.stopRecording && !world.getChunkFromBlockCoords(x, z).sendUpdates) {
 			Map<Long, Set<Integer>> map;
 			if(!EtFuturumLateWorldGenerator.deepslateRedoCache.containsKey(world.provider.dimensionId)) {
 				EtFuturumLateWorldGenerator.deepslateRedoCache.put(world.provider.dimensionId, map = Maps.newConcurrentMap());

@@ -5,7 +5,6 @@ import java.awt.Color;
 import net.minecraft.block.BlockColored;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.entity.passive.EntitySheep;
-import net.minecraft.util.StatCollector;
 
 public enum EnumColour {
 
