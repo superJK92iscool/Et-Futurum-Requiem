@@ -868,7 +868,6 @@ public class ServerEventHandler {
 			EntityEnderman enderman = (EntityEnderman) event.entity;
 //          if (ConfigurationHandler.enableEndermite)
 				enderman.targetTasks.addTask(3, new EntityAINearestAttackableTarget(enderman, EntityEndermite.class, 100, false));
-				enderman.tasks.addTask(3, new EntityAITempt(enderman, 1.0D, ModItems.beetroot_seeds, false));
 		} else if (event.entity instanceof EntityVillager) {
 			EntityVillager villager = (EntityVillager) event.entity;
 			for (Object obj : villager.tasks.taskEntries) {
