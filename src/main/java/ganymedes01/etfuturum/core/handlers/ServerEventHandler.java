@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -93,7 +94,6 @@ import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemShears;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.play.server.S29PacketSoundEffect;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -107,8 +107,10 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.StatCollector;
 import net.minecraft.util.Vec3;
+import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -129,7 +131,9 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 import net.minecraftforge.event.entity.player.PlayerPickupXpEvent;
 import net.minecraftforge.event.entity.player.UseHoeEvent;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.oredict.OreDictionary;
+import scala.reflect.internal.util.WeakHashSet;
 
 public class ServerEventHandler {
 
@@ -172,63 +176,61 @@ public class ServerEventHandler {
 		}
 	}
 	
-	private void replaceEntity(EntityLiving oldentity, EntityLiving newentity) {
-		
-		newentity.copyLocationAndAnglesFrom(oldentity);
-		
-		if(!oldentity.worldObj.isRemote) {
-			newentity.worldObj.spawnEntityInWorld(newentity);
-			newentity.onSpawnWithEgg(null);
-			
-			if(newentity.getClass().isInstance(oldentity)) {
-				NBTTagCompound tag = new NBTTagCompound();
-				oldentity.writeToNBT(tag);
-				newentity.readEntityFromNBT(tag);
-			} else {
-				if (oldentity.isNoDespawnRequired()) {
-					newentity.func_110163_bv();
-				}
-				if (oldentity.hasCustomNameTag()) {
-					newentity.setCustomNameTag(oldentity.getCustomNameTag());
-				}
-				for(int i = 0; i < oldentity.getLastActiveItems().length; i++) {
-					if(i >= newentity.getLastActiveItems().length) break;
-					newentity.setCurrentItemOrArmor(i, oldentity.getLastActiveItems()[i]);
-				}
-			}
-		}
-		oldentity.setDead();
-	}
-	
 	@SubscribeEvent
 	public void entityAdded(EntityJoinWorldEvent event) {
 		if(event.world.isRemote) return;
+
+		Chunk chunk = event.world.getChunkFromChunkCoords(event.entity.chunkCoordX, event.entity.chunkCoordZ);
 		
 		if (ConfigBlocksItems.enableNewBoats && ConfigBlocksItems.replaceOldBoats) {
 			if (event.entity.getClass() == EntityBoat.class) {
 				EntityNewBoat boat = new EntityNewBoat(event.world);
-				boat.copyLocationAndAnglesFrom(event.entity);
-				boat.rotationYaw += 90;
-				boat.worldObj.spawnEntityInWorld(boat);
+				event.entity.rotationYaw += 90;
+				replaceEntity(event.entity, boat, event.world, chunk);
 				boat.setBoatType(EntityNewBoat.Type.OAK);
-				event.world.removeEntity(event.entity);
-//				event.setCanceled(true);
+				event.setCanceled(true);
+				return;
 			}
 		}
 		
-		if(event.entity instanceof EntityLiving) {
-			if (ConfigEntities.enableVillagerZombies && event.entity.getClass() == EntityZombie.class && ((EntityZombie)event.entity).isVillager()) {
-				replaceEntity((EntityLiving) event.entity, new EntityZombieVillager(event.world));
-				event.world.removeEntity(event.entity);
-//				event.setCanceled(true);
-			}
-
-			if (ConfigEntities.enableShearableSnowGolems && event.entity.getClass() == EntitySnowman.class) {
-				replaceEntity((EntityLiving) event.entity, new EntityNewSnowGolem(event.world));
-				event.world.removeEntity(event.entity);
-//				event.setCanceled(true);
-			}
+		if (ConfigEntities.enableVillagerZombies && event.entity.getClass() == EntityZombie.class && ((EntityZombie)event.entity).isVillager()) {
+			replaceEntity(event.entity, new EntityZombieVillager(event.world), event.world, chunk);
+			event.setCanceled(true);
+			return;
 		}
+
+		if (ConfigEntities.enableShearableSnowGolems && event.entity.getClass() == EntitySnowman.class) {
+			Entity entity = new EntityNewSnowGolem(event.world);
+			replaceEntity(event.entity, entity, event.world, chunk);
+			entity.getDataWatcher().updateObject(12, (byte)1);
+			event.setCanceled(true);
+			return;
+		}
+	}
+	
+	private WeakHashSet<Chunk> loadedChunks = new WeakHashSet(); // TODO clear when server stops
+	private Set<Long> debugCoords = new HashSet();
+	
+	@SubscribeEvent
+	public void chunkLoad(ChunkEvent.Load event) {
+		loadedChunks.add(event.getChunk());
+	}
+	
+	@SubscribeEvent
+	public void chunkUnload(ChunkEvent.Unload event) {
+		loadedChunks.remove(event.getChunk());
+	}
+	
+	private void replaceEntity(Entity oldEntity, Entity newEntity, World world, Chunk chunk) {
+		newEntity.copyDataFrom(oldEntity, true);
+		if(loadedChunks.contains(chunk)) {
+			// World#addLoadedEntities has already run for the chunk, we don't have to worry about conflicting with it
+			world.spawnEntityInWorld(newEntity);
+		} else {
+			// don't add to tracker, because World#addLoadedEntities will also do it
+			chunk.addEntity(newEntity);
+		}
+		oldEntity.setDead();
 	}
 
 	@SubscribeEvent
