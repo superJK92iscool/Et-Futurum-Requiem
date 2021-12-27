@@ -223,7 +223,7 @@ public class ServerEventHandler {
 	
 	private void replaceEntity(Entity oldEntity, Entity newEntity, World world, Chunk chunk) {
 		newEntity.copyDataFrom(oldEntity, true);
-		if(loadedChunks.contains(chunk)) {
+		if(loadedChunks.contains(chunk)) { // Use this list because somehow chunk.isChunkLoaded is always true here...
 			// World#addLoadedEntities has already run for the chunk, we don't have to worry about conflicting with it
 			world.spawnEntityInWorld(newEntity);
 		} else {
