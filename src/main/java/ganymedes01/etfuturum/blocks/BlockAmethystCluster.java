@@ -21,10 +21,12 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class BlockAmethystCluster extends BlockAmethystBlock implements ISubBlocksBlock {
 	
@@ -93,6 +95,34 @@ public class BlockAmethystCluster extends BlockAmethystBlock implements ISubBloc
 	@Override
 	public int onBlockPlaced(World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int meta) {
 		return side + meta;
+	}
+	
+	@Override
+	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z)
+	{
+    	int meta = world.getBlockMetadata(x, y, z);
+
+    	float height = (meta < 6 ? 0.125F : 0.1875F) + (type == 1 ? 0.0625F : 0.1875F);
+    	float xzOffset = meta < 6 && type == 0 ? .25F : .1875F;
+    	if(meta >= 6 && type == 1) {
+    		height += .0625F;
+    	}
+
+		switch (meta % 6) {
+		case 0:
+			return AxisAlignedBB.getBoundingBox(x+xzOffset, y+1 - height, z+xzOffset, x+1 - xzOffset, y+1.0F, z+1 - xzOffset);
+		case 1:
+			return AxisAlignedBB.getBoundingBox(x+xzOffset, y, z+xzOffset, x+1 - xzOffset, y+height, z+1 - xzOffset);
+		case 2:
+			return AxisAlignedBB.getBoundingBox(x+xzOffset, y+xzOffset, z+1 - height, x+1 - xzOffset, y+1 - xzOffset, z+1.0F);
+		case 3:
+			return AxisAlignedBB.getBoundingBox(x+xzOffset, y+xzOffset, z, x+1 - xzOffset, y+1 - xzOffset, z+height);
+		case 4:
+			return AxisAlignedBB.getBoundingBox(x+1 - height, y+xzOffset, z+xzOffset, x+1.0F, y+1 - xzOffset, z+1 - xzOffset);
+		case 5:
+			return AxisAlignedBB.getBoundingBox(x, y+xzOffset, z+xzOffset, x+height, y+1 - xzOffset, z+1 - xzOffset);
+		}
+		return null;
 	}
 
     @Override

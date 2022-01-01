@@ -15,6 +15,7 @@ import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.event.entity.player.PlayerPickupXpEvent;
 
 public class ModEnchantments {
@@ -40,9 +41,9 @@ public class ModEnchantments {
 		
 		ItemStack boots = entity.getEquipmentInSlot(1);
 		int level = 0;
-		if ((level = EnchantmentHelper.getEnchantmentLevel(frostWalker.effectId, boots)) > 0) {
+		if ((level = EnchantmentHelper.getEnchantmentLevel(frostWalker.effectId, boots)) > 0 && entity.onGround) {
 			double[] prevCoords = prevMoveCache.get(entity);
-			if (entity.onGround && (prevCoords == null || (Math.abs(prevCoords[0] - entity.posX) > 0.003D && Math.abs(prevCoords[1] - entity.posZ) > 0.003D))) {
+			if (prevCoords == null || (Math.abs(prevCoords[0] - entity.posX) > 0.003D && Math.abs(prevCoords[1] - entity.posZ) > 0.003D)) {
 				int x = (int) entity.posX;
 				int y = (int) entity.posY;
 				int z = (int) entity.posZ;
@@ -55,14 +56,15 @@ public class ModEnchantments {
 							Block block = entity.worldObj.getBlock(x + i, y - 1, z + j);
 							Block blockUp = entity.worldObj.getBlock(x + i, y, z + j);
 							if(!blockUp.isNormalCube() && blockUp.getMaterial() != Material.water && (block == Blocks.water || block == Blocks.flowing_water)) {
+								if(entity.worldObj.getEntitiesWithinAABBExcludingEntity(entity, AxisAlignedBB.getBoundingBox(x + i, y - 1, z + j, x + i + 1, y, z + j + 1)).isEmpty()) {
 								entity.worldObj.setBlock(x + i, y - 1, z + j, ModBlocks.frosted_ice);
+								}
 							}
 						}
 					}
 				}
+				prevMoveCache.put(entity, new double[] {entity.posX, entity.posZ});
 			}
-			
-			prevMoveCache.put(entity, new double[] {entity.posX, entity.posZ});
 		} else {
 			prevMoveCache.remove(entity);
 		}
