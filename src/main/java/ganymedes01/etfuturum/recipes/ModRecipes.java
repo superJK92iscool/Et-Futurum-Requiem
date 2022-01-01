@@ -251,6 +251,10 @@ public class ModRecipes {
 			OreDictionary.registerOre("record", ModItems.otherside_record);
 		}
 		
+		if(ConfigBlocksItems.enableAmethyst) {
+			OreDictionary.registerOre("gemAmethyst", ModItems.amethyst_shard);
+		}
+		
 //      if(ConfigurationHandler.enableCrimsonBlocks || ConfigurationHandler.enableWarpedBlocks) {
 //          OreDictionary.registerOre("plankWood", new ItemStack(ModBlocks.nether_planks, 1, 0));
 //          OreDictionary.registerOre("plankWood", new ItemStack(ModBlocks.nether_planks, 1, 1));
@@ -884,6 +888,10 @@ public class ModRecipes {
 		
 		if(ConfigBlocksItems.enableLoom) {
 			addShapedRecipe(new ItemStack(ModBlocks.loom, 1, 0), "SS", "PP", 'P', "plankWood", 'S', new ItemStack(Items.string, 1, 0));
+		}
+		
+		if(ConfigBlocksItems.enableAmethyst) {
+			addShapedRecipe(new ItemStack(ModBlocks.amethyst_block, 1, 0), "AA", "AA", 'A', "gemAmethyst");
 		}
 	}
 	

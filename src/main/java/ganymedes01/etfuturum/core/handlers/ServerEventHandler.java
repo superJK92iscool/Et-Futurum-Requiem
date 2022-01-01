@@ -208,7 +208,7 @@ public class ServerEventHandler {
 		}
 	}
 	
-	private WeakHashSet<Chunk> loadedChunks = new WeakHashSet(); // TODO clear when server stops
+	private WeakHashSet<Chunk> loadedChunks = new WeakHashSet();
 	private Set<Long> debugCoords = new HashSet();
 	
 	@SubscribeEvent

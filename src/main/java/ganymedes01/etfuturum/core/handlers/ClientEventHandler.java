@@ -2,8 +2,11 @@ package ganymedes01.etfuturum.core.handlers;
 
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
+import java.util.WeakHashMap;
 
+import org.apache.commons.lang3.tuple.MutablePair;
 import org.lwjgl.opengl.GL11;
 
 import cpw.mods.fml.client.FMLClientHandler;
@@ -15,6 +18,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.EtFuturumMixinPlugin;
+import ganymedes01.etfuturum.blocks.BlockAmethystBlock;
 import ganymedes01.etfuturum.blocks.BlockShulkerBox;
 import ganymedes01.etfuturum.client.OpenGLHelper;
 import ganymedes01.etfuturum.client.gui.GuiConfigWarning;
@@ -67,6 +71,12 @@ public class ClientEventHandler {
 	private Random rand = new Random();
 	private boolean showedDebugWarning;
 	public static boolean showDebugWarning;
+	/*
+	 * Represents the two values that govern the last chime age in 1.17 and up.
+	 * Left = field_26997 (Seems to be related to pitch)
+	 * Right = lastChimeAge
+	 */
+	private static final Map<Entity, MutablePair<Float, Integer>> amethystChimeCache = new WeakHashMap();
 	
 	private ClientEventHandler() {
 	}
@@ -370,23 +380,44 @@ public class ClientEventHandler {
 	@SubscribeEvent
 	public void onPlaySoundAtEntityEvent(PlaySoundAtEntityEvent event)
 	{
-		if (ConfigWorld.enableNewBlocksSounds && event.name != null
-				&& event.entity != null && event.name.contains("step") && event.name.equals("step.stone")
-				&& event.name.contains(".")) {
-			String[] eventwithprefix = event.name.split("\\.");
-			if(eventwithprefix.length > 1) {
-				int x = MathHelper.floor_double(event.entity.posX);
-				int y = MathHelper.floor_double(event.entity.posY - 0.20000000298023224D - event.entity.yOffset);
-				int z = MathHelper.floor_double(event.entity.posZ);
-				World world = event.entity.worldObj;
-				Block block = world.getBlock(x, y, z);
-				Item itemblock = Item.getItemFromBlock(block);
-				if(itemblock == null)
-					return;
-				String name = itemblock.getUnlocalizedName(new ItemStack(itemblock, 1, world.getBlockMetadata(x, y, z) % 8)).toLowerCase();
-				if(name.contains("slab") && name.contains("nether") && name.contains("brick")) {
-					event.name = ModSounds.soundNetherBricks.getBreakSound();
-					return;
+		if(!event.entity.worldObj.isRemote) return;
+		
+		if(ConfigWorld.enableNewBlocksSounds && event.name != null && event.entity != null) {
+			int x = MathHelper.floor_double(event.entity.posX);
+			int y = MathHelper.floor_double(event.entity.posY - 0.20000000298023224D - event.entity.yOffset);
+			int z = MathHelper.floor_double(event.entity.posZ);
+			World world = event.entity.worldObj;
+			Block block = world.getBlock(x, y, z);
+			if(event.name.equals(Block.soundTypePiston.getStepResourcePath())) {
+				String[] eventwithprefix = event.name.split("\\.");
+				if(eventwithprefix.length > 1) {
+					Item itemblock = Item.getItemFromBlock(block);
+					if(itemblock == null)
+						return;
+					String name = itemblock.getUnlocalizedName(new ItemStack(itemblock, 1, world.getBlockMetadata(x, y, z) % 8)).toLowerCase();
+					if(name.contains("slab") && name.contains("nether") && name.contains("brick")) {
+						event.name = ModSounds.soundNetherBricks.getBreakSound();
+						return;
+					}
+				}
+			} else if(ModSounds.soundAmethystBlock.getStepResourcePath().equals(event.name)
+					|| ModSounds.soundAmethystCluster.getStepResourcePath().equals(event.name)) {
+				MutablePair<Float, Integer> pair = amethystChimeCache.get(event.entity);
+				if(pair == null) {
+					pair = new MutablePair(0.0F, 0);
+				}
+				float field_26997 = pair.getLeft();
+				int lastChimeAge = pair.getRight();
+				if (event.entity.ticksExisted >= lastChimeAge + 20) {
+					field_26997 = (float)((double)field_26997 * Math.pow(0.996999979019165D, (double)(event.entity.ticksExisted - lastChimeAge)));
+					field_26997 = Math.min(1.0F, field_26997 + 0.07F);
+					float f = 0.5F + field_26997 * event.entity.worldObj.rand.nextFloat() * 1.2F;
+					float g = 0.1F + field_26997 * 1.2F;
+					event.entity.playSound(Reference.MCv118 + ":block.amethyst_block.chime", g, f);
+					lastChimeAge = event.entity.ticksExisted;
+					pair.setLeft(field_26997);
+					pair.setRight(lastChimeAge);
+					amethystChimeCache.put(event.entity, pair);
 				}
 			}
 		}
@@ -445,7 +476,7 @@ public class ClientEventHandler {
 	}
 
 	public static int main_menu_display_count = 0;
-
+	
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
 	public void openMainMenu(GuiOpenEvent event)

@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.core.utils;
+package ganymedes01.etfuturum.core.utils.helpers;
 
 import net.minecraft.world.World;
 

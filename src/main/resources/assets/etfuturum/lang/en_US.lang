@@ -110,6 +110,7 @@ item.etfuturum.jungle_boat.name=Jungle Boat
 item.etfuturum.dark_oak_boat.name=Dark Oak Boat
 item.etfuturum.acacia_boat.name=Acacia Boat
 item.etfuturum.shulker_shell.name=Shulker Shell
+item.etfuturum.amethyst_shard.name=Amethyst Shard
 
 # Arrows
 item.etfuturum.tipped_arrow.name=Tipped Arrow
@@ -300,6 +301,14 @@ tile.etfuturum.raw_iron_block.name=Raw Iron Block
 tile.etfuturum.raw_gold_block.name=Raw Gold Block
 tile.etfuturum.end_gateway.name=End Gateway
 tile.etfuturum.end_portal.name=End Portal
+tile.etfuturum.smooth_basalt.name=Smooth Basalt
+tile.etfuturum.calcite.name=Calcite
+tile.etfuturum.amethyst_block.name=Amethyst Block
+tile.etfuturum.budding_amethyst.name=Budding Amethyst
+tile.etfuturum.small_amethyst_bud.name=Small Amethyst Bud
+tile.etfuturum.medium_amethyst_bud.name=Medium Amethyst Bud
+tile.etfuturum.large_amethyst_bud.name=Large Amethyst Bud
+tile.etfuturum.amethyst_cluster.name=Amethyst Cluster
 
 tile.etfuturum.magma.name=Magma Block
 tile.etfuturum.nether_wart.name=Nether Wart Block

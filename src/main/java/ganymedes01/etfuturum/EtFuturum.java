@@ -226,7 +226,6 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "block.shulker_box.open", "block");
 		config.addSoundEvent(ver, "block.shulker_box.close", "block");
 		config.addSoundEvent(ver, "block.sweet_berry_bush.pick_berries", "player");
-		
 		config.addSoundEvent(ver, "block.brewing_stand.brew", "block");
 		config.addSoundEvent(ver, "block.furnace.fire_crackle", "block");
 		config.addSoundEvent(ver, "block.blastfurnace.fire_crackle", "block");
@@ -248,6 +247,8 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "block.composter.fill", "block");
 		config.addSoundEvent(ver, "block.composter.fill_success", "block");
 		config.addSoundEvent(ver, "block.composter.ready", "block");
+		config.addSoundEvent(ver, "block.amethyst_block.hit", "block");
+		config.addSoundEvent(ver, "block.amethyst_block.chime", "block");
 	
 		config.addSoundEvent(ver, "item.crop.plant", "block");
 		config.addSoundEvent(ver, "block.crop.break", "block");
@@ -287,6 +288,18 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "block.tuff.break", "block");
 		config.addSoundEvent(ver, "block.vine.step", "neutral");
 		config.addSoundEvent(ver, "block.vine.break", "block");
+		config.addSoundEvent(ver, "block.calcite.step", "neutral");
+		config.addSoundEvent(ver, "block.calcite.break", "block");
+		config.addSoundEvent(ver, "block.calcite.place", "block");
+		config.addSoundEvent(ver, "block.amethyst_block.step", "neutral");
+		config.addSoundEvent(ver, "block.amethyst_block.break", "block");
+		config.addSoundEvent(ver, "block.amethyst_block.place", "block");
+		config.addSoundEvent(ver, "block.amethyst_cluster.step", "neutral");
+		config.addSoundEvent(ver, "block.amethyst_cluster.break", "block");
+		config.addSoundEvent(ver, "block.amethyst_cluster.place", "block");
+		config.addSoundEvent(ver, "block.lodestone.step", "neutral");
+		config.addSoundEvent(ver, "block.lodestone.break", "block");
+		config.addSoundEvent(ver, "block.lodestone.place", "block");
 //		config.addSoundEvent(ver, "block.nylium.step", "neutral");
 //		config.addSoundEvent(ver, "block.nylium.break", "block");
 		config.addSoundEvent(ver, "block.fungus.step", "neutral");

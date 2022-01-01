@@ -99,6 +99,7 @@ public class ConfigBlocksItems extends ConfigBase {
 	public static boolean enableFletchingTable;
 	public static boolean enableCartographyTable;
 	public static boolean enableLoom;
+	public static boolean enableAmethyst;
 	//Nether Update temp disabled
 	public static boolean enableCrimsonBlocks = false;
 	public static boolean enableWarpedBlocks = false;
@@ -168,6 +169,7 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableDeepslate = cfg.getBoolean("enableDeepslate", catBlockNatural, true, "");
 		enableTuff = cfg.getBoolean("enableTuff", catBlockNatural, true, "");
 		enableDeepslateOres = cfg.getBoolean("enableDeepslateOres", catBlockNatural, true, "Enable deepslate ores for copper ore and vanilla ores when deepslate generates over them.");
+		enableAmethyst = cfg.getBoolean("enableAmethyst", catBlockNatural, true, "Enables amethyst blocks, budding amethyst and amethyst crystals. Also enables the item too.");		
 
 		//Function Blocks
 		enableIronTrapdoor = cfg.getBoolean("enableIronTrapdoor", catBlockFunc, true, "");

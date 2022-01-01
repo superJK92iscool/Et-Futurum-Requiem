@@ -10,6 +10,7 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.client.model.ModelShulker;
+import ganymedes01.etfuturum.client.renderer.block.BlockAmethystClusterRenderer;
 import ganymedes01.etfuturum.client.renderer.block.BlockBarrelRenderer;
 import ganymedes01.etfuturum.client.renderer.block.BlockChestRenderer;
 import ganymedes01.etfuturum.client.renderer.block.BlockChorusFlowerRender;
@@ -102,14 +103,18 @@ public class ClientProxy extends CommonProxy {
 	}
 
 	private void registerItemRenderers() {
-		if (ConfigBlocksItems.enableBanners)
+		if (ConfigBlocksItems.enableBanners) {
 			MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.banner), new ItemBannerRenderer());
-		if (ConfigFunctions.enableFancySkulls)
+		}
+		if (ConfigFunctions.enableFancySkulls) {
 			MinecraftForgeClient.registerItemRenderer(Items.skull, new ItemSkullRenderer());
-		if (ConfigFunctions.enableBowRendering)
+		}
+		if (ConfigFunctions.enableBowRendering) {
 			MinecraftForgeClient.registerItemRenderer(Items.bow, new ItemBowRenderer());
-		
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.shulker_box), new ItemShulkerBoxRenderer());
+		}
+		if(ConfigBlocksItems.enableShulkerBoxes) {
+			MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.shulker_box), new ItemShulkerBoxRenderer());
+		}
 	}
 
 	private void registerBlockRenderers() {
@@ -166,6 +171,10 @@ public class ClientProxy extends CommonProxy {
 		
 		if(ConfigBlocksItems.enableLoom) {
 			RenderingRegistry.registerBlockHandler(new BlockLoomRenderer());
+		}
+		
+		if(ConfigBlocksItems.enableAmethyst) {
+			RenderingRegistry.registerBlockHandler(new BlockAmethystClusterRenderer());
 		}
 		
 		RenderingRegistry.registerBlockHandler(new BlockChestRenderer());

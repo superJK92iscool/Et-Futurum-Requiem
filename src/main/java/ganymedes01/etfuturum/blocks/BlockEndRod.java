@@ -84,8 +84,8 @@ public class BlockEndRod extends Block implements IConfigurable {
 
 	@Override
 	public int onBlockPlaced(World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int meta) {
-		ForgeDirection dir = ForgeDirection.getOrientation(side).getOpposite();
-		if (world.getBlock(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ) != this)
+		ForgeDirection dir = ForgeDirection.getOrientation(side);
+		if (world.getBlock(x - dir.offsetX, y - dir.offsetY, z - dir.offsetZ) == this && world.getBlockMetadata(x - dir.offsetX, y - dir.offsetY, z - dir.offsetZ) == dir.ordinal())
 			dir = dir.getOpposite();
 		return dir.ordinal();
 	}

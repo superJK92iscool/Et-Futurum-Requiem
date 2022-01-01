@@ -41,6 +41,8 @@ public class ConfigWorld extends ConfigBase {
 	public static boolean enableExtraMesaGold;
 	public static boolean enableMesaMineshaft;
 	public static boolean enableCoarseDirtReplacement;
+	public static boolean enableAmethystGeodes;
+	public static int buddingAmethystMode;
 
 	public static final String catClient = "client";
 	public static final String catGeneration = "generation";
@@ -95,6 +97,8 @@ public class ConfigWorld extends ConfigBase {
 		enableExtraMesaGold = cfg.getBoolean("enableExtraMesaGold", catGeneration, true, "Generate 20 more veins of gold ore from Y 32 to Y 80 in any Mesa biome.");
 		enableMesaMineshaft = cfg.getBoolean("enableMesaMineshaft", catGeneration, true, "Generates extra mineshafts in mesa biomes up to y80. If fences are enabled, dark oak wood is used.");
 		enableCoarseDirtReplacement = cfg.getBoolean("enableCoarseDirtReplacement", catGeneration, true, "Replaces coarse dirt in biomes it (dirt:1) generates in such as shattered savannas or mesa plateaus.");
+		enableAmethystGeodes = cfg.getBoolean("enableAmethystGeodes", catGeneration, true, "");
+		buddingAmethystMode  = cfg.getInt("buddingAmethystMode", catGeneration, 0, 0, 2, "0 = Budding amethyst cannot be obtained at all even with silk touch. When using this option, attempting to push them using a piston will break it.\n1 = Budding amethyst will drop if you use a silk touch pickaxe.\n2 = Budding amethyst does not need silk touch, just a pickaxe.");
 		
 		
 		fullGrassPath = cfg.getBoolean("fullGrassPath", catMisc, false, "Set to true if you're having issues with stepping over grass paths. Temporary option until fixes are implemented to 1.7's stepping system.");

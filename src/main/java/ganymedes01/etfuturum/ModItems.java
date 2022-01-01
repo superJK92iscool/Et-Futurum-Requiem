@@ -8,6 +8,7 @@ import ganymedes01.etfuturum.blocks.IConfigurable;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.entities.EntityNewBoat;
 import ganymedes01.etfuturum.items.IRegistryName;
+import ganymedes01.etfuturum.items.ItemAmethystShard;
 import ganymedes01.etfuturum.items.ItemArmorElytra;
 import ganymedes01.etfuturum.items.ItemArmorStand;
 import ganymedes01.etfuturum.items.ItemArrowTipped;
@@ -20,6 +21,7 @@ import ganymedes01.etfuturum.items.ItemDragonBreath;
 import ganymedes01.etfuturum.items.ItemEndCrystal;
 import ganymedes01.etfuturum.items.ItemEtFuturumRecord;
 import ganymedes01.etfuturum.items.ItemLingeringPotion;
+import ganymedes01.etfuturum.items.ItemLodestoneCompass;
 import ganymedes01.etfuturum.items.ItemMuttonCooked;
 import ganymedes01.etfuturum.items.ItemMuttonRaw;
 import ganymedes01.etfuturum.items.ItemNetherite;
@@ -108,6 +110,7 @@ public class ModItems {
 	public static final Item[] boats = new Item[EntityNewBoat.Type.values().length];
 	public static final Item pigstep_record = initItem(new ItemEtFuturumRecord("pigstep"));
 	public static final Item otherside_record = initItem(new ItemEtFuturumRecord("otherside"));
+	public static final Item amethyst_shard = initItem(new ItemAmethystShard());
 
 	static {
 		for (int i = 0; i < signs.length; i++)
