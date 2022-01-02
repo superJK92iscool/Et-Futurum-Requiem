@@ -53,10 +53,9 @@ public class BlockBuddingAmethyst extends BlockAmethystBlock {
 			Block block = world.getBlock(x + facing.getFrontOffsetX(), y + facing.getFrontOffsetY(), z + facing.getFrontOffsetZ());
 			int meta = world.getBlockMetadata(x + facing.getFrontOffsetX(), y + facing.getFrontOffsetY(), z + facing.getFrontOffsetZ());
 			
-			if(block instanceof BlockAmethystCluster && meta == facing.ordinal()) {
+			if(block instanceof BlockAmethystCluster && meta % 6 == facing.ordinal()) {
 				if(meta < 6) {
 					world.setBlockMetadataWithNotify(x + facing.getFrontOffsetX(), y + facing.getFrontOffsetY(), z + facing.getFrontOffsetZ(), meta + 6, 3);
-					return;
 				} else if(block == ModBlocks.amethyst_cluster_1) {
 					world.setBlock(x + facing.getFrontOffsetX(), y + facing.getFrontOffsetY(), z + facing.getFrontOffsetZ(), ModBlocks.amethyst_cluster_2, meta - 6, 3);
 				}

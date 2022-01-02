@@ -75,21 +75,34 @@ public class BlockAmethystCluster extends BlockAmethystBlock implements ISubBloc
     {
     	return true;
     }
+
+    public int getDamageValue(World p_149643_1_, int p_149643_2_, int p_149643_3_, int p_149643_4_)
+    {
+        return p_149643_1_.getBlockMetadata(p_149643_2_, p_149643_3_, p_149643_4_) < 6 ? 0 : 6;
+    }
     
     public int quantityDropped(int meta, int fortune, Random random)
     {
     	if(this == ModBlocks.amethyst_cluster_2 && meta >= 6) {
-        	return quantityDropped(random);
+    		int drop = quantityDropped(random);
+    		if(fortune > 0 && harvestingWithPickaxe() && random.nextInt(2 + fortune) == 0) {
+    			drop += 4 * fortune;
+    		}
+        	return drop;
     	}
     	return 0;
     }
 
     public int quantityDropped(Random p_149745_1_)
     {
-    	if(harvesters.get() != null && harvesters.get().getCurrentEquippedItem() != null && harvesters.get().getCurrentEquippedItem().getItem().getToolClasses(harvesters.get().getCurrentEquippedItem()).contains("pickaxe")) {
+    	if(harvestingWithPickaxe()) {
             return 4;
     	}
     	return 2;
+    }
+    
+    private boolean harvestingWithPickaxe() {
+    	return harvesters.get() != null && harvesters.get().getCurrentEquippedItem() != null && harvesters.get().getCurrentEquippedItem().getItem().getToolClasses(harvesters.get().getCurrentEquippedItem()).contains("pickaxe");
     }
 
 	@Override

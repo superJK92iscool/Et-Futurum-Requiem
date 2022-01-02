@@ -33,7 +33,6 @@ public class BlockAmethystBlock extends Block implements IConfigurable {
 		if (!world.isRemote && ent instanceof IProjectile) {
 	         ent.playSound(Reference.MCv118 + ":block.amethyst_block.hit", 1.0F, 0.5F + world.rand.nextFloat() * 1.2F);
 	         ent.playSound(Reference.MCv118 + ":block.amethyst_block.chime", 1.0F, 0.5F + world.rand.nextFloat() * 1.2F);
-	         System.out.println("test");
 		}
 	}
 
