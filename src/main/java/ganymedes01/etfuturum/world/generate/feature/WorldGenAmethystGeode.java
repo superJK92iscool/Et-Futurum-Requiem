@@ -7,40 +7,42 @@ import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class WorldGenAmethystGeode extends WorldGenerator {
-
-	//Add 2 to the shape, because otherwise it will generate with a block sticking out of the middle of each side of the circle.
-    private static final int DISTANCE_BASALT_SQ = 8 * 8 + 2;
-    private static final int DISTANCE_CALCITE_SQ = 7 * 7 + 2;
-    private static final int DISTANCE_AMETHYST_SQ = 6 * 6 + 2;
-    private static final int DISTANCE_INNER_SQ = 5 * 5 + 2;
     
 	@Override
 	public boolean generate(World world, Random random, int x, int y, int z) {
+		final float size = (random.nextInt(3) + 6) + random.nextFloat();
+	    final float DISTANCE_BASALT_SQ = (size * size);
+	    final float DISTANCE_CALCITE_SQ = ((size - 1) * (size - 1));
+	    final float DISTANCE_AMETHYST_SQ = ((size - 2) * (size - 2));
+	    final float DISTANCE_INNER_SQ = ((size - 3) * (size - 3));
+	    final int sizeInt = MathHelper.floor_float(size);
+	    
 		int holeX = -1;
 		int holeY = -1;
 		int holeZ = -1;
 		int holeSize = random.nextFloat() < .95F ? random.nextInt(3) + 4 : -1;
 		if(holeSize > -1) {
-			holeX = random.nextInt(16) - 8;
-			holeY = random.nextInt(16) - 8;
-			holeZ = random.nextInt(16) - 8;
-			int holeDistSq = holeX * holeX + 2 + holeY * holeY + 2 + holeZ * holeZ + 2;
-			while(holeDistSq > DISTANCE_AMETHYST_SQ || holeDistSq < DISTANCE_INNER_SQ) {
-				holeX = random.nextInt(16) - 8;
-				holeY = random.nextInt(16) - 8;
-				holeZ = random.nextInt(16) - 8;
-				holeDistSq = holeX * holeX + 2 + holeY * holeY + 2 + holeZ * holeZ + 2;
+			holeX = random.nextInt(sizeInt * 2) - sizeInt;
+			holeY = random.nextInt(sizeInt * 2) - sizeInt;
+			holeZ = random.nextInt(sizeInt * 2) - sizeInt;
+			int holeDistSq = holeX * holeX + holeY * holeY + holeZ * holeZ;
+			while(holeDistSq > DISTANCE_CALCITE_SQ || holeDistSq < DISTANCE_AMETHYST_SQ) {
+				holeX = random.nextInt(sizeInt * 2) - sizeInt;
+				holeY = random.nextInt(sizeInt * 2) - sizeInt;
+				holeZ = random.nextInt(sizeInt * 2) - sizeInt;
+				holeDistSq = holeX * holeX + holeY * holeY + holeZ * holeZ;
 			}
 		}
 		
-        for (int i = -8; i < 8; i++) {
-            for (int j = -8; j < 8; j++) {
-                for (int k = -8; k < 8; k++) {
-                    int distSq = i * i + 2 + j * j + 2 + k * k + 2;
+        for (int i = -sizeInt; i <= sizeInt; i++) {
+            for (int j = -sizeInt; j <= sizeInt; j++) {
+                for (int k = -sizeInt; k <= sizeInt; k++) {
+                    int distSq = i * i + j * j + k * k;
                     Block block = world.getBlock(x + i, y + j, z + k);
                     if(block.getBlockHardness(world, x + i, y + j, z + k) == -1) continue;
 
