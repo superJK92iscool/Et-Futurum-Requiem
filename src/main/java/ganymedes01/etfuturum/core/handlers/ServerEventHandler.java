@@ -107,7 +107,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.StatCollector;
 import net.minecraft.util.Vec3;
-import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.Chunk;
@@ -380,7 +379,7 @@ public class ServerEventHandler {
 			}
 		}
 		
-		if(ConfigBlocksItems.enableRawOres && !event.isSilkTouching) {
+		if(ConfigBlocksItems.enableRawOres && !event.isSilkTouching && !event.drops.isEmpty()) {
 			RawOreDropMapping mapping = null;
 			for(int oreID : OreDictionary.getOreIDs(new ItemStack(event.block, 1, event.blockMetadata))) {
 				String oreName = OreDictionary.getOreName(oreID);
