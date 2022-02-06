@@ -22,6 +22,7 @@ import ganymedes01.etfuturum.client.renderer.block.BlockGlazedTerracottaRenderer
 import ganymedes01.etfuturum.client.renderer.block.BlockLanternRenderer;
 import ganymedes01.etfuturum.client.renderer.block.BlockLavaCauldronRenderer;
 import ganymedes01.etfuturum.client.renderer.block.BlockLoomRenderer;
+import ganymedes01.etfuturum.client.renderer.block.BlockPointedDripstoneRenderer;
 import ganymedes01.etfuturum.client.renderer.block.BlockSlimeBlockRender;
 import ganymedes01.etfuturum.client.renderer.block.BlockStonecutterRenderer;
 import ganymedes01.etfuturum.client.renderer.block.BlockTrapDoorRenderer;
@@ -175,6 +176,10 @@ public class ClientProxy extends CommonProxy {
 		
 		if(ConfigBlocksItems.enableAmethyst) {
 			RenderingRegistry.registerBlockHandler(new BlockAmethystClusterRenderer());
+		}
+		
+		{
+			RenderingRegistry.registerBlockHandler(new BlockPointedDripstoneRenderer());
 		}
 		
 		RenderingRegistry.registerBlockHandler(new BlockChestRenderer());

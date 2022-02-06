@@ -300,6 +300,10 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "block.lodestone.step", "neutral");
 		config.addSoundEvent(ver, "block.lodestone.break", "block");
 		config.addSoundEvent(ver, "block.lodestone.place", "block");
+		config.addSoundEvent(ver, "block.dripstone_block.step", "neutral");
+		config.addSoundEvent(ver, "block.dripstone_block.break", "block");
+		config.addSoundEvent(ver, "block.pointed_dripstone.step", "neutral");
+		config.addSoundEvent(ver, "block.pointed_dripstone.break", "block");
 //		config.addSoundEvent(ver, "block.nylium.step", "neutral");
 //		config.addSoundEvent(ver, "block.nylium.break", "block");
 		config.addSoundEvent(ver, "block.fungus.step", "neutral");

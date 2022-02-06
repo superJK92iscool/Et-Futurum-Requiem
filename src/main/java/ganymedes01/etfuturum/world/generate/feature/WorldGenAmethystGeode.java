@@ -25,7 +25,7 @@ public class WorldGenAmethystGeode extends WorldGenerator {
 		int holeX = -1;
 		int holeY = -1;
 		int holeZ = -1;
-		int holeSize = random.nextFloat() < .95F ? random.nextInt(3) + 4 : -1;
+		int holeSize = random.nextFloat() < .95F ? random.nextInt(3) + 5 : -1;
 		if(holeSize > -1) {
 			holeX = random.nextInt(sizeInt * 2) - sizeInt;
 			holeY = random.nextInt(sizeInt * 2) - sizeInt;

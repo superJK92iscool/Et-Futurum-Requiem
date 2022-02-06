@@ -20,4 +20,5 @@ public class RenderIDs {
 	public static final int COMPOSTER = RenderingRegistry.getNextAvailableRenderId();
 	public static final int LOOM = RenderingRegistry.getNextAvailableRenderId();
 	public static final int AMETHYST_CLUSTER = RenderingRegistry.getNextAvailableRenderId();
+	public static final int POINTED_DRIPSTONE = RenderingRegistry.getNextAvailableRenderId();
 }

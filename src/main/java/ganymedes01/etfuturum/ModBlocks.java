@@ -214,6 +214,8 @@ public class ModBlocks {
 	public static final Block fletching_table = initBlock(new BlockFletchingTable());
 	public static final Block cartography_table = initBlock(new BlockCartographyTable());
 	public static final Block loom = initBlock(new BlockLoom());
+	public static final Block dripstone_block = initBlock(new BlockDripstone());
+	public static final Block pointed_dripstone = initBlock(new BlockPointedDripstone());
 	
 	public static final String[] woodTypes = new String[] {"oak", "spruce", "birch", "jungle", "acacia", "dark_oak"/*, "crimson", "warped"*/};
 	public static final Block[] doors = new Block[woodTypes.length - 1];
