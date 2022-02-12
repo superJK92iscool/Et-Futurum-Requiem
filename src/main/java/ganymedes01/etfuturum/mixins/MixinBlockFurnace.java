@@ -23,9 +23,7 @@ public class MixinBlockFurnace {
 		//Tried to find out how to inject into the already existing if (this.field_149932_b) clause, gave up.
         if (this.field_149932_b && p_149734_5_.nextDouble() < 0.1D)
         {
-				p_149734_1_.playSound(p_149734_2_ + .5D, p_149734_3_ + .5D, p_149734_4_ + .5D,
-						Reference.MCv118 + ":block.furnace.fire_crackle", 1,
-						(p_149734_1_.rand.nextFloat() * 0.1F) + 0.9F, false);
+        	p_149734_1_.playSound(p_149734_2_ + .5D, p_149734_3_ + .5D, p_149734_4_ + .5D, Reference.MCv118 + ":block.furnace.fire_crackle", 1, 1, false);
         }
 	}
 }
