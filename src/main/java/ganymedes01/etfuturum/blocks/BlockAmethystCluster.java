@@ -115,7 +115,7 @@ public class BlockAmethystCluster extends BlockAmethystBlock implements ISubBloc
 	{
     	int meta = world.getBlockMetadata(x, y, z);
 
-    	float height = (meta < 6 ? 0.125F : 0.1875F) + (type == 1 ? 0.0625F : 0.1875F);
+    	float height = (meta < 6 ? 0.125F : 0.1875F) + (type == 1 ? 0.1875F : 0.0625F);
     	float xzOffset = meta < 6 && type == 0 ? .25F : .1875F;
     	if(meta >= 6 && type == 1) {
     		height += .0625F;
@@ -142,7 +142,7 @@ public class BlockAmethystCluster extends BlockAmethystBlock implements ISubBloc
 	public void setBlockBoundsBasedOnState(IBlockAccess access, int x, int y, int z) {
     	int meta = access.getBlockMetadata(x, y, z);
 
-    	float height = (meta < 6 ? 0.125F : 0.1875F) + (type == 1 ? 0.0625F : 0.1875F);
+    	float height = (meta < 6 ? 0.125F : 0.1875F) + (type == 1 ? 0.1875F : 0.0625F);
     	float xzOffset = meta < 6 && type == 0 ? .25F : .1875F;
     	if(meta >= 6 && type == 1) {
     		height += .0625F;

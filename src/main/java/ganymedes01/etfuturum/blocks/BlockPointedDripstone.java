@@ -56,7 +56,7 @@ public class BlockPointedDripstone extends Block implements IConfigurable {
 	
     public int onBlockPlaced(World world, int x, int y, int z, int side, float p_149660_6_, float p_149660_7_, float p_149660_8_, int p_149660_9_)
     {
-    	return (side == 0 && side != 1) || world.isSideSolid(x, y + 1, z, ForgeDirection.DOWN) ? 0 : states;
+    	return side > 1 || world.isSideSolid(x, y + 1, z, ForgeDirection.DOWN) ? 0 : states;
     }
     
     public boolean canPlaceBlockOnSide(World world, int x, int y, int z, int side)
