@@ -62,9 +62,9 @@ public class MixinWorldGenMinable {
 	@Redirect(method = "generate", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;setBlock(IIILnet/minecraft/block/Block;II)Z", ordinal = 0))
 	private boolean ignoreVanillaSetblock(World world, int x, int y, int z, Block block, int meta, int flag) {
 		Block getBlock = world.getBlock(x, y, z);
-		boolean replaceOre = !notDeepslate && getBlock.isReplaceableOreGen(world, x, y, z, ModBlocks.deepslate);
 		
 		if(!stopGeneration(getBlock, world, x, y, z)) {
+			boolean replaceOre = !notDeepslate && getBlock.isReplaceableOreGen(world, x, y, z, ModBlocks.deepslate);
 			if (replaceOre && !ArrayUtils.contains(ConfigWorld.deepslateLayerDimensionBlacklist, world.provider.dimensionId) && world.getWorldInfo().getTerrainType() != WorldType.FLAT) {
 				world.setBlock(x, y, z, map.getBlock(), map.getMeta(), 2);
 				return true;

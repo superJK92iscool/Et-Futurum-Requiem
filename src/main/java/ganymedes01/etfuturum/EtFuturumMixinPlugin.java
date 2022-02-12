@@ -102,6 +102,10 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 			mixins.add("MixinBlockFence");
 		}
 		
+		if(true) {
+			mixins.add("MixinBlockFurnace");
+		}
+		
 		return mixins;
 	}
 

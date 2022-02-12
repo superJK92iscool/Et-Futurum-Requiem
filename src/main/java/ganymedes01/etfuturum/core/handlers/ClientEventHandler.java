@@ -77,22 +77,6 @@ public class ClientEventHandler {
 	 * Right = lastChimeAge
 	 */
 	private static final Map<Entity, MutablePair<Float, Integer>> amethystChimeCache = new WeakHashMap();
-	
-
-	//Furnace crackle code from ASMC, used with permission from AstroTibs!
-	// Only a fraction of blocks produce the crackle every tick, so only search one every N. I'm hard-coding this to minimize computation footprint.
-    final static int everyNblocks = 10*10; // The furnace is ticked for every 10 world ticks, and then only plays the sound 10% of the time.
-    final static int furnaceSoundRadius = 15; // Search range, in blocks, that this event looks for active furnaces
-    
-    // The way I'm going to do this is to randomly generate a fraction of positions from the search cube.
-    // This equates to generating (2*soundRange+1)^3 / everyNblocks unique numbers.
-    // Then I de-convolve those numbers to 3D positions, and if there's a furnace at that position, I play the crackle noise.
-    // The actual calculation takes a bit more nuance.
-        
-    // Step 1: figure out how many total blocks will be searched.
-    final static int totalBlocks = ((2*furnaceSoundRadius)+1)*((2*furnaceSoundRadius)+1)*((2*furnaceSoundRadius)+1); // Total number of blocks in the search cube
-    // Step 2: find out how many positions we'll check, rounded up.
-    final static int numPosToCheck = (totalBlocks+everyNblocks-1)/everyNblocks;
 
 	
 	private ClientEventHandler() {
@@ -161,48 +145,6 @@ public class ClientEventHandler {
 			if(getAmbienceAdditions(ambienceBiome) != null && ambienceLoop != null && ticksToNextAmbience-- <= 0) {
 				Minecraft.getMinecraft().getSoundHandler().playSound(new NetherAmbienceSound(new ResourceLocation(getAmbienceAdditions(ambienceBiome))));
 				ticksToNextAmbience = 50 + rand.nextInt(30) + 1;
-			}
-		}
-
-		// --- Furnace crackle (ASMC) --- //
-		if (ConfigWorld.enableNewMiscSounds)
-		{
-			System.out.println(totalBlocks);
-			System.out.println(furnaceSoundRadius);
-			// Generating a list and going through it takes more computational power (thus FPS) than generating multiple random values.
-    		// The downside is that rarely, a position can be double-ticked. I barely care.
-			for (int p = 0; p < numPosToCheck ; p++)
-			{ 
-				int codedPosition = world.rand.nextInt(numPosToCheck*everyNblocks-1);
-				
-        		if (codedPosition <= (totalBlocks-1)) // Occasionally, a position will be outside the cube, and that's fine. Just reject it.
-        		{
-        			// Step 3: decode the integer to an x, y, z position
-        			
-        			// These range from -15 to +15 in x, y, z
-        			int sx = (codedPosition / ( ((2*furnaceSoundRadius)+1)*((2*furnaceSoundRadius)+1) )) - furnaceSoundRadius; // X position is unpacked
-        			int sy = codedPosition % ( ((2*furnaceSoundRadius)+1)*((2*furnaceSoundRadius)+1) ); // this is Y and Z convolved
-        			int sz = (sy % ((2*furnaceSoundRadius)+1)) - furnaceSoundRadius; // Z position is unpacked
-        			sy = (sy / ((2*furnaceSoundRadius)+1)) - furnaceSoundRadius; // Y position is unpacked
-        			
-        			
-        			// Step 4: add the player's position as offset.
-        			int fx = sx + MathHelper.floor_double(player.posX);
-        			int fy = sy + MathHelper.floor_double(player.posY + player.eyeHeight);
-        			int fz = sz + MathHelper.floor_double(player.posZ);
-        			
-        			
-        			// Step 5: only continue if the position is inside the sphere AND inside the world:
-        			if (
-        					fy >= 0 // Greater than the void height
-        					&& fy <= world.getHeight() // Less than the sky height
-        					&& (sx*sx + sy*sy + sz*sz) <= furnaceSoundRadius*furnaceSoundRadius // Within the search sphere -- cuts the list into about half
-        					&& world.getBlock(fx, fy, fz) == Blocks.lit_furnace // Is a lit furnace
-        					)
-        			{
-    					world.playSound(fx + .5D, fy + .5D, fz + .5D, Reference.MCv118 + ":block.furnace.fire_crackle", 1, (world.rand.nextFloat() * 0.1F) + 0.9F, false);
-        			}
-        		}
 			}
 		}
 	}
