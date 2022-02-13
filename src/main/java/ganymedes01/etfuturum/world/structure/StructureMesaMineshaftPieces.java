@@ -877,7 +877,7 @@ public class StructureMesaMineshaftPieces {
 			int i = this.getXWithOffset(p_189916_2_, p_189916_4_);
 			int j = this.getYWithOffset(p_189916_3_ + 1);
 			int k = this.getZWithOffset(p_189916_2_, p_189916_4_);
-			return !p_189916_5_.isVecInside(i, j, k) ? EnumSkyBlock.Sky.defaultLightValue : p_189916_1_.getSkyBlockTypeBrightness(EnumSkyBlock.Sky, i, j, k);
+			return !p_189916_5_.isVecInside(i, j, k) ? EnumSkyBlock.Sky.defaultLightValue : (int)(p_189916_1_.getBlockLightValue(i, j, k) * 15);
 		}
 		
 		protected void mineshaftWood(World p_189923_1_, StructureBoundingBox p_189923_2_, int p_189923_3_, int p_189923_4_, int p_189923_5_, int p_189923_6_)
