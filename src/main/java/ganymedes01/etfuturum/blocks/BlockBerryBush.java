@@ -123,9 +123,14 @@ public class BlockBerryBush extends BlockBush implements IConfigurable, ISubBloc
 	{
 		int i = world.getBlockMetadata(x, y, z);
 		boolean flag = i == 3;
-		if (!flag && player.getHeldItem() != null && player.getHeldItem().getItem() == Items.dye && player.getHeldItem().getItemDamage() == 15) {
-			   world.setBlockMetadataWithNotify(x, y, z, i + 1, 2);
-			   return true;
+		ItemStack heldItem = player.getHeldItem();
+		if (!flag && heldItem != null && heldItem.getItem() == Items.dye && heldItem.getItemDamage() == 15) {
+			world.setBlockMetadataWithNotify(x, y, z, i + 1, 2);
+			if (!player.capabilities.isCreativeMode && --heldItem.stackSize <= 0)
+			{
+				player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack)null);
+			}
+			return true;
 	   } else if (i > 1) {
 		   int j = 1 + world.rand.nextInt(2);
 		   ItemStack stack = new ItemStack(ModItems.sweet_berries, j + (flag ? 1 : 0));

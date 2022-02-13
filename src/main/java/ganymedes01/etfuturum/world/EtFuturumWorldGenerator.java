@@ -152,7 +152,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 				int y = 256;
 				int z = chunkZ * 16 + rand.nextInt(16);
 				for (; y > 0; y--)
-					if (!world.getBlock(x, y, z).isAir(world, x, y, z))
+					if (!world.isAirBlock(x, y, z))
 						break;
 				int monumentCeiling = y - (1 + rand.nextInt(3));
 				OceanMonument.buildTemple(world, x, monumentCeiling - 22, z);
