@@ -663,10 +663,8 @@ public class EtFuturum {
 	
 	public static List<String> getOreStrings(ItemStack stack) {
 		final List<String> list = new ArrayList();
-		if(stack != null) {
-			for(int oreID : OreDictionary.getOreIDs(stack)) {
-				list.add(OreDictionary.getOreName(oreID));
-			}
+		for(int oreID : OreDictionary.getOreIDs(stack)) {
+			list.add(OreDictionary.getOreName(oreID));
 		}
 		return list;
 	}

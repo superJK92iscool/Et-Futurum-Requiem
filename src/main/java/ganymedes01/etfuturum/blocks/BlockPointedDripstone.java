@@ -56,13 +56,19 @@ public class BlockPointedDripstone extends Block implements IConfigurable {
 	
     public int onBlockPlaced(World world, int x, int y, int z, int side, float p_149660_6_, float p_149660_7_, float p_149660_8_, int p_149660_9_)
     {
-    	return side > 1 || world.isSideSolid(x, y + 1, z, ForgeDirection.DOWN) ? 0 : states;
+    	if(side < 2) {
+    		return side * states;
+    	}
+    	if(canDripstoneStayHere(world, x, y, z, -1)) {
+    		return states;
+    	}
+    	return 0;
     }
     
     public boolean canPlaceBlockOnSide(World world, int x, int y, int z, int side)
     {
 		int checkY = side == 0 || world.isSideSolid(x, y + 1, z, ForgeDirection.DOWN) ? 1 : -1;
-		return world.isBlockNormalCubeDefault(x, y + checkY, z, false) || (checkY == (world.getBlockMetadata(x, y + checkY, z) < states ? 1 : -1) && world.getBlock(x, y + checkY, z) == this);
+		return canDripstoneStayHere(world, x, y, z, checkY);
     }
     
     public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
@@ -115,7 +121,11 @@ public class BlockPointedDripstone extends Block implements IConfigurable {
 	@Override
 	public boolean canBlockStay(World world, int x, int y, int z) {
 		int checkY = world.getBlockMetadata(x, y, z) < states ? 1 : -1;
-		return world.isBlockNormalCubeDefault(x, y + checkY, z, false) || (checkY == (world.getBlockMetadata(x, y + checkY, z) < states ? 1 : -1) && world.getBlock(x, y + checkY, z) == this);
+		return canDripstoneStayHere(world, x, y, z, checkY);
+	}
+	
+	private boolean canDripstoneStayHere(World world, int x, int y, int z, int offset) {
+		return world.isBlockNormalCubeDefault(x, y + offset, z, false) || (offset == (world.getBlockMetadata(x, y + offset, z) < states ? 1 : -1) && world.getBlock(x, y + offset, z) == this);
 	}
     
 	@Override

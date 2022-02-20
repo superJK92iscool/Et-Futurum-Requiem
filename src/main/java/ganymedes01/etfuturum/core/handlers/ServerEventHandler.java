@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -380,22 +381,28 @@ public class ServerEventHandler {
 						event.drops.add(new ItemStack(Items.stick));
 			}
 		}
+
+//		if(event.block == Blocks.iron_ore) {
+//			event.drops.add(new ItemStack(ModBlocks.copper_ore, 1, 1));
+//		} //Debug code, see below
 		
-		if(ConfigBlocksItems.enableRawOres && !event.isSilkTouching && !event.drops.isEmpty()) {
+		if(ConfigBlocksItems.enableRawOres && !event.isSilkTouching) {
 			RawOreDropMapping mapping = null;
-			for(int oreID : OreDictionary.getOreIDs(new ItemStack(event.block, 1, event.blockMetadata))) {
-				String oreName = OreDictionary.getOreName(oreID);
-				if(RawOreRegistry.hasOre(oreName)) {
-					mapping = RawOreRegistry.getOre(oreName);
-					break;
+			//Looks at the list of drops, and replaces all drops with its respective raw ore
+			//For example all oreIron in the drops turn into Raw Iron
+			for(int i = 0; i < event.drops.size(); i++) {
+				ItemStack stack = event.drops.get(i);
+				for(String oreName : EtFuturum.getOreStrings(stack)) {
+					//For some reason this list is always empty for items which were added during the event being fired (see above)
+					mapping = RawOreRegistry.getOreMap().get(oreName);
+					if(mapping != null) {
+						event.drops.set(i, new ItemStack(mapping.getItem(), mapping.getDropAmount(event.world.rand, event.fortuneLevel), mapping.getMeta()));
+						break;
+					}
 				}
 			}
-			if(mapping != null) {
-				event.drops.clear();
-				event.drops.add(new ItemStack(mapping.getItem(), mapping.getDropAmount(event.world.rand, event.fortuneLevel), mapping.getMeta()));
-			}
 		}
-
+		
 		if (ConfigFunctions.enableShearableCobwebs) {
 			if (event.block == Blocks.web && event.harvester != null) {
 				ItemStack stack = event.harvester.getCurrentEquippedItem();
