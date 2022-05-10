@@ -4,11 +4,12 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.spongepowered.asm.mixin.MixinEnvironment;
+import org.spongepowered.asm.mixin.MixinEnvironment.Side;
+
 import cpw.mods.fml.client.event.ConfigChangedEvent;
-import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.relauncher.Side;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.blocks.ExternalContent;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
@@ -49,7 +50,7 @@ public abstract class ConfigBase extends Configuration {
 		syncConfigOptions();
 		
 		for(ConfigCategory cat : configCats) {
-			if(FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER) {
+			if(MixinEnvironment.getCurrentEnvironment().getSide() == Side.SERVER) {
 				if(cat.getName().contains("client")) {
 					for(Property prop : cat.getOrderedValues()) {
 						cat.remove(prop.getName());
