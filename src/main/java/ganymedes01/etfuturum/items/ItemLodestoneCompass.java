@@ -23,7 +23,7 @@ public class ItemLodestoneCompass extends Item implements IConfigurable {
 	public static final Map<UUID, MutablePair<Double, Double>> lodestoneCompasses = Maps.newHashMap();
 	
 	@SideOnly(Side.CLIENT)
-	private IIcon[] frames = new IIcon[32];
+	private IIcon[] frames;
 
 	public ItemLodestoneCompass() {
 		setTextureName("lodestone_compass");
@@ -35,6 +35,7 @@ public class ItemLodestoneCompass extends Item implements IConfigurable {
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister p_149651_1_)
 	{
+		frames = new IIcon[32];
 		for(int i = 0; i < frames.length; i++) {
 			frames[i] = p_149651_1_.registerIcon(getIconString() + "_" + String.format("%02d", i));
 		}

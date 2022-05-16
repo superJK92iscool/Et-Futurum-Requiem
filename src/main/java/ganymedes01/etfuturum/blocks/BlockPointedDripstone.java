@@ -22,9 +22,9 @@ import net.minecraftforge.common.util.ForgeDirection;
 public class BlockPointedDripstone extends Block implements IConfigurable {
 
     @SideOnly(Side.CLIENT)
-    private IIcon[] downIcons = new IIcon[5];
+    private IIcon[] downIcons;
     @SideOnly(Side.CLIENT)
-    private IIcon[] upIcons = new IIcon[5];
+    private IIcon[] upIcons;
     private static final int states = 5;
 
 	public BlockPointedDripstone() {
@@ -41,16 +41,20 @@ public class BlockPointedDripstone extends Block implements IConfigurable {
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister p_149651_1_)
     {
+    	downIcons = new IIcon[5];
     	downIcons[0] = p_149651_1_.registerIcon(getTextureName() + "_down_tip");
     	downIcons[1] = p_149651_1_.registerIcon(getTextureName() + "_down_frustum");
     	downIcons[2] = p_149651_1_.registerIcon(getTextureName() + "_down_middle");
     	downIcons[3] = p_149651_1_.registerIcon(getTextureName() + "_down_base");
     	downIcons[4] = p_149651_1_.registerIcon(getTextureName() + "_down_tip_merge");
+
+    	upIcons = new IIcon[5];
     	upIcons[0] = p_149651_1_.registerIcon(getTextureName() + "_up_tip");
     	upIcons[1] = p_149651_1_.registerIcon(getTextureName() + "_up_frustum");
     	upIcons[2] = p_149651_1_.registerIcon(getTextureName() + "_up_middle");
     	upIcons[3] = p_149651_1_.registerIcon(getTextureName() + "_up_base");
     	upIcons[4] = p_149651_1_.registerIcon(getTextureName() + "_up_tip_merge");
+
         this.blockIcon = downIcons[3];
     }
 	

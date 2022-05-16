@@ -32,7 +32,7 @@ public class BlockAmethystCluster extends BlockAmethystBlock implements ISubBloc
 	
 	private final int type;
 	@SideOnly(Side.CLIENT)
-	private IIcon[] icons = new IIcon[2];
+	private IIcon[] icons;
 
 	public BlockAmethystCluster(int type) {
 		super(Material.glass);
@@ -209,6 +209,7 @@ public class BlockAmethystCluster extends BlockAmethystBlock implements ISubBloc
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister p_149651_1_)
 	{
+		icons = new IIcon[2];
 		if(type == 0) {
 			icons[0] = p_149651_1_.registerIcon("small_amethyst_bud");
 			icons[1] = p_149651_1_.registerIcon("medium_amethyst_bud");
