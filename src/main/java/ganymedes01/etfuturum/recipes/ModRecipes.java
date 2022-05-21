@@ -863,7 +863,7 @@ public class ModRecipes {
 			addShapedRecipe(new ItemStack(ModBlocks.generic_wall, 6, 3), "BBB", "BBB", 'B', new ItemStack(Blocks.brick_block, 1, 0));
 
 			//TODO Nether brick wall should be individually toggleable because of Netherlicious
-			addShapedRecipe(new ItemStack(ModBlocks.nether_brick_wall), "BBB", "BBB", 'B', new ItemStack(Blocks.nether_brick));
+			addShapedRecipe(new ItemStack(ModBlocks.nether_brick_wall, 6), "BBB", "BBB", 'B', new ItemStack(Blocks.nether_brick));
 		}
 		
 		if(ConfigBlocksItems.enableSmithingTable) {
