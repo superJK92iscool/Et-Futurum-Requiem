@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.blocks;
 
-import java.util.Random;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
@@ -13,7 +11,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -26,6 +24,8 @@ public class BlockPointedDripstone extends Block implements IConfigurable {
     @SideOnly(Side.CLIENT)
     private IIcon[] upIcons;
     private static final int states = 5;
+    
+    public static DamageSource STALACTITE_DAMAGE;
 
 	public BlockPointedDripstone() {
 		super(Material.rock);
