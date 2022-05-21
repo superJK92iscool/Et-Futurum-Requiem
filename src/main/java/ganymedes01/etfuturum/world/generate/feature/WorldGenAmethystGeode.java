@@ -12,6 +12,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class WorldGenAmethystGeode extends WorldGenerator {
+	//I don't know how to make the sphere slightly warped in shape and I didn't understand the massive nest of noise-related classes
+	//in vanilla, so I am just using a perfect circle for now, sorry!
     
 	@Override
 	public boolean generate(World world, Random random, int x, int y, int z) {
@@ -31,6 +33,7 @@ public class WorldGenAmethystGeode extends WorldGenerator {
 			holeY = random.nextInt(sizeInt * 2) - sizeInt;
 			holeZ = random.nextInt(sizeInt * 2) - sizeInt;
 			int holeDistSq = holeX * holeX + holeY * holeY + holeZ * holeZ;
+			//Keep guessing with random numbers until the hole is at the proper spot since I don't know how to do this right, lmao
 			while(holeDistSq > DISTANCE_CALCITE_SQ || holeDistSq < DISTANCE_AMETHYST_SQ) {
 				holeX = random.nextInt(sizeInt * 2) - sizeInt;
 				holeY = random.nextInt(sizeInt * 2) - sizeInt;

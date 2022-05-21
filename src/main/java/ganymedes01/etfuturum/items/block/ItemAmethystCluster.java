@@ -9,6 +9,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 
 public class ItemAmethystCluster extends ItemBlock {
+	
+	private static final String[] item_names = new String[] {"small_amethyst_bud", "medium_amethyst_bud", "large_amethyst_bud", "amethyst_cluster"};
 
 	public ItemAmethystCluster(Block p_i45328_1_) {
 		super(p_i45328_1_);
@@ -28,6 +30,6 @@ public class ItemAmethystCluster extends ItemBlock {
 	
 	public String getUnlocalizedName(ItemStack p_77667_1_)
 	{
-		return "tile." + Utils.getUnlocalisedName(p_77667_1_.getIconIndex().getIconName());
+		return "tile." + Utils.getUnlocalisedName(item_names[p_77667_1_.getItemDamage() % 4]);
 	}
 }

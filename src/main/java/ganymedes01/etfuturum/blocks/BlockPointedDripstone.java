@@ -141,7 +141,7 @@ public class BlockPointedDripstone extends Block implements IConfigurable {
 
 	@Override
 	public boolean isEnabled() {
-		return true;
+		return EtFuturum.TESTING;
 	}
     
     public int getRenderType()

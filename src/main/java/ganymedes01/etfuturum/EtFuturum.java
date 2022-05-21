@@ -12,10 +12,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.spongepowered.asm.mixin.MixinEnvironment;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -146,7 +148,8 @@ public class EtFuturum {
 	public static boolean hasIronChest;
 	public static boolean hasNetherlicious;
 	public static boolean hasEnderlicious;
-	public static final boolean TESTING = (Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");;
+	public static final boolean TESTING = (Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");
+	private static Side effectiveSide;
 	
 	static final Map<ItemStack, Integer> DEFAULT_COMPOST_CHANCES = new LinkedHashMap();
 	
@@ -518,7 +521,7 @@ public class EtFuturum {
 			if(true) {
 				ItemStack stack;
 				List<ItemStack> itemList = Lists.newArrayList();
-				item.getSubItems(item, item.getCreativeTab(), itemList);
+				item.getSubItems(item, item.tabToDisplayOn, itemList);
 				
 				metaIterator:
 				for(int i = 0; i < Math.max(1, itemList.size()); i++) {
@@ -540,7 +543,7 @@ public class EtFuturum {
 					}
 					
 					for(String oreDict : getOreStrings(stack)) {
-						if(oreDict.startsWith("compostChance")) {
+						if(oreDict.startsWith("compostChance") || oreDict.startsWith("compostIgnore")) {
 							continue metaIterator;
 						}
 					}

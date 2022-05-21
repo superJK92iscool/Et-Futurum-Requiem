@@ -29,6 +29,7 @@ import ganymedes01.etfuturum.client.renderer.block.BlockTrapDoorRenderer;
 import ganymedes01.etfuturum.client.renderer.entity.ArmourStandRenderer;
 import ganymedes01.etfuturum.client.renderer.entity.BrownMooshroomRenderer;
 import ganymedes01.etfuturum.client.renderer.entity.EndermiteRenderer;
+import ganymedes01.etfuturum.client.renderer.entity.FallingDripstoneRenderer;
 import ganymedes01.etfuturum.client.renderer.entity.HuskRenderer;
 import ganymedes01.etfuturum.client.renderer.entity.LingeringEffectRenderer;
 import ganymedes01.etfuturum.client.renderer.entity.LingeringPotionRenderer;
@@ -60,6 +61,7 @@ import ganymedes01.etfuturum.core.handlers.ClientEventHandler;
 import ganymedes01.etfuturum.entities.EntityArmourStand;
 import ganymedes01.etfuturum.entities.EntityBrownMooshroom;
 import ganymedes01.etfuturum.entities.EntityEndermite;
+import ganymedes01.etfuturum.entities.EntityFallingDripstone;
 import ganymedes01.etfuturum.entities.EntityHusk;
 import ganymedes01.etfuturum.entities.EntityLingeringEffect;
 import ganymedes01.etfuturum.entities.EntityLingeringPotion;
@@ -224,6 +226,10 @@ public class ClientProxy extends CommonProxy {
 		if(ConfigEntities.enableShulker) {
 			RenderingRegistry.registerEntityRenderingHandler(EntityShulker.class, new ShulkerRenderer());
 			RenderingRegistry.registerEntityRenderingHandler(EntityShulkerBullet.class, new ShulkerBulletRenderer());
+		}
+		
+		{
+			RenderingRegistry.registerEntityRenderingHandler(EntityFallingDripstone.class, new FallingDripstoneRenderer());
 		}
 		
 		if (ConfigFunctions.enablePlayerSkinOverlay) {

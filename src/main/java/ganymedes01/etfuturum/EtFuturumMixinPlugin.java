@@ -7,9 +7,12 @@ import java.util.List;
 import java.util.Set;
 
 import org.spongepowered.asm.lib.tree.ClassNode;
+import org.spongepowered.asm.mixin.MixinEnvironment;
+import org.spongepowered.asm.mixin.MixinEnvironment.Side;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigEnchantsPotions;
 import ganymedes01.etfuturum.configuration.configs.ConfigEntities;
@@ -23,6 +26,8 @@ import net.minecraft.launchwrapper.Launch;
 public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 	
 	public static boolean launchConfigWarning;
+	protected static boolean serverSide;
+	public static final MixinEnvironment.Side side = MixinEnvironment.getCurrentEnvironment().getSide();
 	
 	@Override
 	public void onLoad(String mixinPackage) {
@@ -102,8 +107,10 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 			mixins.add("MixinBlockFence");
 		}
 		
-		if(true) {
-			mixins.add("MixinBlockFurnace");
+		if(side == MixinEnvironment.Side.CLIENT) {
+			if(ConfigMixins.furnaceCrackle) {
+				mixins.add("client.MixinBlockFurnace");
+			}
 		}
 		
 		return mixins;

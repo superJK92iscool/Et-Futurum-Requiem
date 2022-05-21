@@ -2,6 +2,10 @@ package ganymedes01.etfuturum.configuration.configs;
 
 import java.io.File;
 
+import org.spongepowered.asm.mixin.MixinEnvironment;
+import org.spongepowered.asm.mixin.MixinEnvironment.Side;
+
+import ganymedes01.etfuturum.EtFuturumMixinPlugin;
 import ganymedes01.etfuturum.configuration.ConfigBase;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.common.config.Configuration;
@@ -9,8 +13,8 @@ import net.minecraftforge.common.config.Configuration;
 public class ConfigMixins extends ConfigBase {
 	
 	public static boolean endPortalFix;
-	
 	public static boolean fenceWallConnectFix;
+	public static boolean furnaceCrackle;
 
 	static final String catBackport = "backported features";
 	static final String catOptimization = "optimizations";
@@ -38,8 +42,10 @@ public class ConfigMixins extends ConfigBase {
 		Configuration cfg = configInstance;
 		
 		endPortalFix = cfg.getBoolean("endPortalFix", catBackport, true, "Makes the End Portal block (the actual portal, not the frame) have an item icon, proper hitbox and will not instantly destroy itself in other dimensions.\nModified classes: net.minecraft.block.BlockEndPortal");
-
 		fenceWallConnectFix = cfg.getBoolean("fenceWallConnectFix", catBackport, true, "Makes vanilla fences connect to modded ones of the same material. Might have connection issue with mods that don't reference BlockFence super code. \nModified classes: net.minecraft.block.BlockFence net.minecraft.block.BlockWall");
+		if(EtFuturumMixinPlugin.side == MixinEnvironment.Side.CLIENT) {
+			furnaceCrackle = cfg.getBoolean("furnaceCrackle", catBackport, true, "(Client only) Allows vanilla furnaces to have crackling sounds."); 
+		}
 	}
 	
 }

@@ -657,6 +657,10 @@ death.attack.hotFloor=%1$s discovered floor was lava
 death.attack.hotFloor.player=%1$s walked into danger zone due to %2$s
 death.attack.sweetBerryBush=%1$s was poked to death by a sweet berry bush
 death.attack.sweetBerryBush.player=%1$s was poked to death by a sweet berry bush whilst trying to escape %2$s
+death.attack.stalactite=%1$s was skewered by a falling stalactite
+death.attack.stalactite.player=%1$s was skewered by a falling stalactite whilst trying to escape %2$s
+death.attack.stalactite=%1$s was impaled on a stalagmite
+death.attack.stalactite.player=%1$s was impaled on a stalagmite whilst trying to escape %2$s
 
 # Banners
 item.banner.black.name=Black Banner

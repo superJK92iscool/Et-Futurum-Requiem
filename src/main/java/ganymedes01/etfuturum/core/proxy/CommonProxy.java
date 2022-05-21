@@ -23,6 +23,7 @@ import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.entities.EntityArmourStand;
 import ganymedes01.etfuturum.entities.EntityBrownMooshroom;
 import ganymedes01.etfuturum.entities.EntityEndermite;
+import ganymedes01.etfuturum.entities.EntityFallingDripstone;
 import ganymedes01.etfuturum.entities.EntityHusk;
 import ganymedes01.etfuturum.entities.EntityItemUninflammable;
 import ganymedes01.etfuturum.entities.EntityLingeringEffect;
@@ -185,6 +186,10 @@ public class CommonProxy implements IGuiHandler {
 			if(ConfigTweaks.shulkersSpawnAnywhere) {
 				EntityRegistry.addSpawn(EntityShulker.class, 2, 1, 2, EnumCreatureType.monster, BiomeDictionary.getBiomesForType(Type.END));
 			}
+		}
+		
+		{
+			ModEntityList.registerEntity(EntityFallingDripstone.class, "falling_dripstone", 18, EtFuturum.instance, 64, 1, true);
 		}
 		
 		//make magmas slightly more common, hopefully.
