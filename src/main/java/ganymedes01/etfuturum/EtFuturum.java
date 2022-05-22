@@ -510,70 +510,70 @@ public class EtFuturum {
 			}
 		}
 
-		Iterator<Item> itemIterator = Item.itemRegistry.iterator();
-		//Item registry iterator
-		while(itemIterator.hasNext()) {
-			Item item = itemIterator.next();
-			//Can be null
-			Block block = Block.getBlockFromItem(item);
-			String itemID = Item.itemRegistry.getNameForObject(item).split(":")[1].toLowerCase();
-			
-			if(true) {
-				ItemStack stack;
-				List<ItemStack> itemList = Lists.newArrayList();
-				item.getSubItems(item, item.tabToDisplayOn, itemList);
-				
-				metaIterator:
-				for(int i = 0; i < Math.max(1, itemList.size()); i++) {
-					if(itemList.size() > 1) {
-						stack = itemList.get(i);
-						item = stack.getItem();
-						stack.setTagCompound(null);
-						String name = stack.getUnlocalizedName().toLowerCase();
-						if(!Strings.isNullOrEmpty(name)) {
-							itemID = name;
-						}
-					} else {
-						stack = new ItemStack(item, 1, OreDictionary.WILDCARD_VALUE);
-					}
-					
-					//Don't add certain keywords to the compost list no matter what (Because composting a juice makes no sense)
-					if(itemID.contains("juice")) {
-						continue metaIterator;
-					}
-					
-					for(String oreDict : getOreStrings(stack)) {
-						if(oreDict.startsWith("compostChance") || oreDict.startsWith("compostIgnore")) {
-							continue metaIterator;
-						}
-					}
-					
-					if(itemID.contains("seed") || (block instanceof BlockBush && itemID.contains("grass") && !itemID.contains("fern")) || (itemID.contains("berry") && !itemID.contains("ore")) || itemID.contains("berries")
-							|| block instanceof BlockLeaves || itemID.contains("leaves") || block instanceof BlockSapling || itemID.contains("sapling")) {
-						DEFAULT_COMPOST_CHANCES.put(stack, 30);
-						OreDictionary.registerOre("compostChance30", stack);
-					} else if ((!(item instanceof ItemBlock) && itemID.contains("melon") && !itemID.contains("glistering")) || block instanceof BlockCactus || itemID.contains("cactus")
-							|| block instanceof BlockVine || itemID.contains("vines")) {
-						DEFAULT_COMPOST_CHANCES.put(stack, 50);
-						OreDictionary.registerOre("compostChance50", stack);
-					} else if ((item instanceof ItemBlock && itemID.contains("melon")) || itemID.contains("apple") || itemID.contains("beetroot")
-							|| (block instanceof BlockBush && (itemID.contains("fern") || itemID.contains("flower") || itemID.contains("doublePlant"))) || block instanceof BlockFlower
-							|| itemID.contains("lily") || (itemID.contains("mushroom") && !(block instanceof BlockHugeMushroom))
-							|| (item instanceof IPlantable && itemID.contains("wart")) || (item instanceof IPlantable && itemID.contains("potato"))
-							|| (item instanceof ItemBlock && itemID.contains("pumpkin")) || itemID.contains("wheat")) {
-						DEFAULT_COMPOST_CHANCES.put(stack, 65);
-						OreDictionary.registerOre("compostChance65", stack);
-					} else if ((item instanceof ItemFood && itemID.contains("potato")) || itemID.contains("bread") || itemID.contains("cookie")
-							|| (item instanceof ItemBlock && itemID.contains("wart"))) {
-						DEFAULT_COMPOST_CHANCES.put(stack, 85);
-						OreDictionary.registerOre("compostChance85", stack);
-					} else if(itemID.contains("cake") || itemID.contains("pie") || (item.getClass().getName().contains("harvestcraft") && itemID.contains("garden"))) {
-						DEFAULT_COMPOST_CHANCES.put(stack, 100);
-						OreDictionary.registerOre("compostChance100", stack);
-					}
-				}
-			}
-		}
+//		Iterator<Item> itemIterator = Item.itemRegistry.iterator();
+//		//Item registry iterator
+//		while(itemIterator.hasNext()) {
+//			Item item = itemIterator.next();
+//			//Can be null
+//			Block block = Block.getBlockFromItem(item);
+//			String itemID = Item.itemRegistry.getNameForObject(item).split(":")[1].toLowerCase();
+//			
+//			if(true) {
+//				ItemStack stack;
+//				List<ItemStack> itemList = Lists.newArrayList();
+//				item.getSubItems(item, item.tabToDisplayOn, itemList);
+//				
+//				metaIterator:
+//				for(int i = 0; i < Math.max(1, itemList.size()); i++) {
+//					if(itemList.size() > 1) {
+//						stack = itemList.get(i);
+//						item = stack.getItem();
+//						stack.setTagCompound(null);
+//						String name = stack.getUnlocalizedName().toLowerCase();
+//						if(!Strings.isNullOrEmpty(name)) {
+//							itemID = name;
+//						}
+//					} else {
+//						stack = new ItemStack(item, 1, OreDictionary.WILDCARD_VALUE);
+//					}
+//					
+//					//Don't add certain keywords to the compost list no matter what (Because composting a juice makes no sense)
+//					if(itemID.contains("juice")) {
+//						continue metaIterator;
+//					}
+//					
+//					for(String oreDict : getOreStrings(stack)) {
+//						if(oreDict.startsWith("compostChance") || oreDict.startsWith("compostIgnore")) {
+//							continue metaIterator;
+//						}
+//					}
+//					
+//					if(itemID.contains("seed") || (block instanceof BlockBush && itemID.contains("grass") && !itemID.contains("fern")) || (itemID.contains("berry") && !itemID.contains("ore")) || itemID.contains("berries")
+//							|| block instanceof BlockLeaves || itemID.contains("leaves") || block instanceof BlockSapling || itemID.contains("sapling")) {
+//						DEFAULT_COMPOST_CHANCES.put(stack, 30);
+//						OreDictionary.registerOre("compostChance30", stack);
+//					} else if ((!(item instanceof ItemBlock) && itemID.contains("melon") && !itemID.contains("glistering")) || block instanceof BlockCactus || itemID.contains("cactus")
+//							|| block instanceof BlockVine || itemID.contains("vines")) {
+//						DEFAULT_COMPOST_CHANCES.put(stack, 50);
+//						OreDictionary.registerOre("compostChance50", stack);
+//					} else if ((item instanceof ItemBlock && itemID.contains("melon")) || itemID.contains("apple") || itemID.contains("beetroot")
+//							|| (block instanceof BlockBush && (itemID.contains("fern") || itemID.contains("flower") || itemID.contains("doublePlant"))) || block instanceof BlockFlower
+//							|| itemID.contains("lily") || (itemID.contains("mushroom") && !(block instanceof BlockHugeMushroom))
+//							|| (item instanceof IPlantable && itemID.contains("wart")) || (item instanceof IPlantable && itemID.contains("potato"))
+//							|| (item instanceof ItemBlock && itemID.contains("pumpkin")) || itemID.contains("wheat")) {
+//						DEFAULT_COMPOST_CHANCES.put(stack, 65);
+//						OreDictionary.registerOre("compostChance65", stack);
+//					} else if ((item instanceof ItemFood && itemID.contains("potato")) || itemID.contains("bread") || itemID.contains("cookie")
+//							|| (item instanceof ItemBlock && itemID.contains("wart"))) {
+//						DEFAULT_COMPOST_CHANCES.put(stack, 85);
+//						OreDictionary.registerOre("compostChance85", stack);
+//					} else if(itemID.contains("cake") || itemID.contains("pie") || (item.getClass().getName().contains("harvestcraft") && itemID.contains("garden"))) {
+//						DEFAULT_COMPOST_CHANCES.put(stack, 100);
+//						OreDictionary.registerOre("compostChance100", stack);
+//					}
+//				}
+//			}
+//		}
 		
 //      if(ConfigurationHandler.enableNewNether)
 //        DimensionProviderNether.init(); // Come back to
