@@ -4,6 +4,7 @@ import java.util.Random;
 
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
+import ganymedes01.etfuturum.world.generate.feature.WorldGenFossil.Fossil;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.util.EnumFacing;
@@ -17,12 +18,17 @@ public class WorldGenAmethystGeode extends WorldGenerator {
     
 	@Override
 	public boolean generate(World world, Random random, int x, int y, int z) {
+		int nonAirCorners = 0;
 		final float size = (random.nextInt(3) + 6) + random.nextFloat();
 	    final float DISTANCE_BASALT_SQ = (size * size);
 	    final float DISTANCE_CALCITE_SQ = ((size - 1) * (size - 1));
 	    final float DISTANCE_AMETHYST_SQ = ((size - 2) * (size - 2));
 	    final float DISTANCE_INNER_SQ = ((size - 3) * (size - 3));
 	    final int sizeInt = MathHelper.floor_float(size);
+	    
+	    if(!canGeodeGenerateHere(world, x, y, z, sizeInt)) {
+	    	return false;
+	    }
 	    
 		int holeX = -1;
 		int holeY = -1;
@@ -73,6 +79,35 @@ public class WorldGenAmethystGeode extends WorldGenerator {
             }
         }
         return true;
+	}
+	
+	private boolean canGeodeGenerateHere(World world, int x, int y, int z, int size) {
+		int air = 0;
+		if(world.isAirBlock(x + size, y + size, z + size) ) {
+			air++;
+		}
+		if(world.isAirBlock(x + size, y + size, z - size) ) {
+			air++;
+		}
+		if(world.isAirBlock(x - size, y + size, z + size) ) {
+			air++;
+		}
+		if(world.isAirBlock(x - size, y + size, z - size) ) {
+			air++;
+		}
+		if(world.isAirBlock(x + size, y - size, z + size) ) {
+			air++;
+		}
+		if(world.isAirBlock(x + size, y - size, z - size) ) {
+			air++;
+		}
+		if(world.isAirBlock(x - size, y - size, z + size) ) {
+			air++;
+		}
+		if(world.isAirBlock(x - size, y - size, z - size) ) {
+			air++;
+		}
+		return air < 4;
 	}
 	
 	private void placeAmethyst(World world, Random random, int x, int y, int z) {
