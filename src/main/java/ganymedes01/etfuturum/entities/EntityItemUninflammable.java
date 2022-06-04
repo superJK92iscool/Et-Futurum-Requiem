@@ -11,20 +11,19 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.item.ItemExpireEvent;
-import scala.Int;
 
 public class EntityItemUninflammable extends EntityItem {
 
 	public EntityItemUninflammable(World p_i1711_1_) {
 		super(p_i1711_1_);
 		this.isImmuneToFire = true;
-		this.fireResistance = Int.MaxValue();
+		this.fireResistance = Integer.MAX_VALUE;
 	}
 
 	public EntityItemUninflammable(World p_149642_1_, double d, double e, double f, ItemStack p_149642_5_) {
 		super(p_149642_1_, d, e, f, p_149642_5_);
 		this.isImmuneToFire = true;
-		this.fireResistance = Int.MaxValue();
+		this.fireResistance = Integer.MAX_VALUE;
 	}
 
 	@Override

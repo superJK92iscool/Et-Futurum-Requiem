@@ -6,11 +6,13 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import java.util.WeakHashMap;
 
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -135,7 +137,6 @@ import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.oredict.OreDictionary;
-import scala.reflect.internal.util.WeakHashSet;
 
 public class ServerEventHandler {
 
@@ -210,7 +211,7 @@ public class ServerEventHandler {
 		}
 	}
 	
-	private WeakHashSet<Chunk> loadedChunks = new WeakHashSet();
+	private Set<Chunk> loadedChunks = Collections.newSetFromMap(new WeakHashMap<Chunk, Boolean>());
 	private Set<Long> debugCoords = new HashSet();
 	
 	@SubscribeEvent
