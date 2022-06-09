@@ -7,9 +7,11 @@ import com.google.common.collect.Lists;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.lib.Reference;
+import ganymedes01.etfuturum.network.BoatMoveMessage;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
@@ -349,23 +351,6 @@ public class EntityNewBoat extends Entity {
 		boolean steer = canPassengerSteer();
 		boolean isThisDriver = getControllingPassenger() instanceof EntityClientPlayerMP;
 		boatYaw = yaw;
-		if(steer && isBoatDesynchedXY(x, y, z, yaw, pitch, isThisDriver ? 0.4D : 0.2D)) {
-			setPosition(x, y, z);
-			setRotation(yaw, pitch);
-			for(EntityLivingBase passenger : getPassengers()) {
-				passenger.rotationYaw += rotationYaw - prevRotationYaw;
-			}
-		}
-	}
-	
-	private boolean isBoatDesynchedXY(double x, double y, double z, float yaw, float pitch, double offset) {
-		if(Math.abs(posX - x) > offset) {
-			return true;
-		}
-		if(Math.abs(posZ - z) > offset) {
-			return true;
-		}
-		return false;
 	}
 
 	/**
@@ -518,6 +503,10 @@ public class EntityNewBoat extends Entity {
 					}
 				}
 			}
+		}
+
+		if(this.worldObj.isRemote && canPassengerSteer() && getControllingPassenger() instanceof EntityClientPlayerMP) {
+			EtFuturum.networkWrapper.sendToServer(new BoatMoveMessage(this));
 		}
 	}
 	
