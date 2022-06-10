@@ -15,6 +15,8 @@ public class BoatMoveHandler implements IMessageHandler<BoatMoveMessage, IMessag
         WorldServer vehWorld = DimensionManager.getWorld(message.dimensionId);
         if(vehWorld != null) {
             Entity vehicle = vehWorld.getEntityByID(message.entityId);
+            if(vehicle == null)
+                return null;
             if(vehicle.riddenByEntity != ctx.getServerHandler().playerEntity) {
                 /* Only take position updates from the riding player */
                 return null;
