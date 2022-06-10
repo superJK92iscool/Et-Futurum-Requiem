@@ -348,8 +348,6 @@ public class EntityNewBoat extends Entity {
 		this.lerpZ = z;
 		this.lerpXRot = (double)pitch;
 		this.lerpSteps = 5;
-		boolean steer = canPassengerSteer();
-		boolean isThisDriver = getControllingPassenger() instanceof EntityClientPlayerMP;
 		boatYaw = yaw;
 	}
 
