@@ -392,6 +392,35 @@ public class EntityNewBoat extends Entity {
 			sitEntity(getSeat().riddenByEntity);
 		}
 	}
+
+	private void collideWithSurfaceBlocks() {
+		AxisAlignedBB box = this.boundingBox;
+		int minX = MathHelper.floor_double(box.minX - 0.2d);
+		int minY = MathHelper.floor_double(box.minY - 0.2d);
+		int minZ = MathHelper.floor_double(box.minZ - 0.2d);
+		int maxX = MathHelper.floor_double(box.maxX + 0.2d);
+		int maxY = MathHelper.floor_double(box.maxY + 0.2d);
+		int maxZ = MathHelper.floor_double(box.maxZ + 0.2d);
+
+		for(int x = minX; x <= maxX; x++) {
+			for(int y = minY; y <= maxY; y++) {
+				for(int z = minZ; z <= maxZ; z++) {
+					Block block = this.worldObj.getBlock(x, y, z);
+
+					if (block == Blocks.snow_layer)
+					{
+						this.worldObj.setBlockToAir(x, y, z);
+						this.isCollidedHorizontally = false;
+					}
+					else if (block == Blocks.waterlily)
+					{
+						this.worldObj.func_147480_a(x, y, z, true);
+						this.isCollidedHorizontally = false;
+					}
+				}
+			}
+		}
+	}
 	
 	/**
 	 * Called to update the entity's position/logic.
@@ -433,6 +462,7 @@ public class EntityNewBoat extends Entity {
 		
 		if (this.canPassengerSteer())
 		{
+			this.collideWithSurfaceBlocks();
 			if (this.getPassengers().size() == 0)
 			{
 				this.setPaddleState(false, false);
