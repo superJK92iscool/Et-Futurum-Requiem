@@ -40,7 +40,7 @@ public class WorldGenAmethystGeode extends WorldGenerator {
 		if(holeSize != -1) {
 			holeTheta = (float) (Math.acos(1 - 2 * random.nextFloat()) - Math.PI/2);
 			holePhi = (float) (random.nextFloat() * Math.PI * 2);
-			radius = size - (1F + random.nextFloat()) + (random.nextFloat() * 0);
+			radius = size - (random.nextFloat() * 2 + 0.5F) + (random.nextFloat() * 0);
 			holeX = Math.round(radius * MathHelper.cos(holePhi) * MathHelper.cos(holeTheta));
 			holeY = Math.round(radius * MathHelper.sin(holeTheta));
 			holeZ = Math.round(radius * MathHelper.sin(holePhi) * MathHelper.cos(holeTheta));
@@ -100,31 +100,35 @@ public class WorldGenAmethystGeode extends WorldGenerator {
 	
 	private boolean canGeodeGenerateHere(World world, int x, int y, int z, int size) {
 		int air = 0;
-		if(world.isAirBlock(x + size, y + size, z + size)) {
+		if(isAirOrFluid(world, x + size, y + size, z + size)) {
 			air++;
 		}
-		if(world.isAirBlock(x + size, y + size, z - size)) { 
+		if(isAirOrFluid(world, x + size, y + size, z - size)) { 
 			air++;
 		}
-		if(world.isAirBlock(x - size, y + size, z + size)) {
+		if(isAirOrFluid(world, x - size, y + size, z + size)) {
 			air++;
 		}
-		if(world.isAirBlock(x - size, y + size, z - size)) {
+		if(isAirOrFluid(world, x - size, y + size, z - size)) {
 			air++;
 		}
-		if(world.isAirBlock(x + size, y - size, z + size)) {
+		if(isAirOrFluid(world, x + size, y - size, z + size)) {
 			air++;
 		}
-		if(world.isAirBlock(x + size, y - size, z - size)) {
+		if(isAirOrFluid(world, x + size, y - size, z - size)) {
+			air++;
+		}s
+		if(isAirOrFluid(world, x - size, y - size, z + size)) {
 			air++;
 		}
-		if(world.isAirBlock(x - size, y - size, z + size)) {
-			air++;
-		}
-		if(world.isAirBlock(x - size, y - size, z - size)) {
+		if(isAirOrFluid(world, x - size, y - size, z - size)) {
 			air++;
 		}
 		return air < 4;
+	}
+	
+	private boolean isAirOrFluid(World world, int x, int y, int z) {
+		return world.isAirBlock(x, y, z) || world.getBlock(x, y, z).getMaterial().isLiquid();
 	}
 	
 	private void placeAmethyst(World world, Random random, int x, int y, int z) {
