@@ -117,7 +117,7 @@ public class WorldGenAmethystGeode extends WorldGenerator {
 		}
 		if(isAirOrFluid(world, x + size, y - size, z - size)) {
 			air++;
-		}s
+		}
 		if(isAirOrFluid(world, x - size, y - size, z + size)) {
 			air++;
 		}
