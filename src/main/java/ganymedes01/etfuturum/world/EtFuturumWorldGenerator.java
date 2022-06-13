@@ -130,8 +130,8 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 				if(ConfigBlocksItems.enableAmethyst) {
 					x = chunkX * 16 + rand.nextInt(16);
 					z = chunkZ * 16 + rand.nextInt(16);
-					if(ConfigWorld.enableFossils && rand.nextInt(53) == 0) {
-						new WorldGenAmethystGeode().generate(world, rand, x, rand.nextInt(70) + 8, z);
+					if(ConfigWorld.enableAmethystGeodes && rand.nextInt(53) == 0) {
+						new WorldGenAmethystGeode().generate(world, rand, x, rand.nextInt(52) + 9, z);
 					}
 				}
 			}

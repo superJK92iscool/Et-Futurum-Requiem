@@ -18,7 +18,6 @@ public class WorldGenAmethystGeode extends WorldGenerator {
     
 	@Override
 	public boolean generate(World world, Random random, int x, int y, int z) {
-		int nonAirCorners = 0;
 		final float size = (random.nextInt(3) + 6) + random.nextFloat();
 	    final float DISTANCE_BASALT_SQ = (size * size);
 	    final float DISTANCE_CALCITE_SQ = ((size - 1) * (size - 1));
@@ -33,20 +32,38 @@ public class WorldGenAmethystGeode extends WorldGenerator {
 		int holeX = -1;
 		int holeY = -1;
 		int holeZ = -1;
+		float radius = -1;
 		int holeSize = random.nextFloat() < .95F ? random.nextInt(3) + 5 : -1;
-		if(holeSize > -1) {
-			holeX = random.nextInt(sizeInt * 2) - sizeInt;
-			holeY = random.nextInt(sizeInt * 2) - sizeInt;
-			holeZ = random.nextInt(sizeInt * 2) - sizeInt;
-			int holeDistSq = holeX * holeX + holeY * holeY + holeZ * holeZ;
-			//Keep guessing with random numbers until the hole is at the proper spot since I don't know how to do this right, lmao
-			while(holeDistSq > DISTANCE_CALCITE_SQ || holeDistSq < DISTANCE_AMETHYST_SQ) {
-				holeX = random.nextInt(sizeInt * 2) - sizeInt;
-				holeY = random.nextInt(sizeInt * 2) - sizeInt;
-				holeZ = random.nextInt(sizeInt * 2) - sizeInt;
-				holeDistSq = holeX * holeX + holeY * holeY + holeZ * holeZ;
-			}
+		float holeTheta = 0;
+		float holePhi = 0;
+		int attempts = 1;
+		if(holeSize != -1) {
+			holeTheta = (float) (Math.acos(1 - 2 * random.nextFloat()) - Math.PI/2);
+			holePhi = (float) (random.nextFloat() * Math.PI * 2);
+			radius = size - (1F + random.nextFloat()) + (random.nextFloat() * 0);
+			holeX = Math.round(radius * MathHelper.cos(holePhi) * MathHelper.cos(holeTheta));
+			holeY = Math.round(radius * MathHelper.sin(holeTheta));
+			holeZ = Math.round(radius * MathHelper.sin(holePhi) * MathHelper.cos(holeTheta));
+			System.out.println("Hole xyz: " + holeX + " " + holeY + " " + holeZ);
+			System.out.println("Hole distance sq: " + (Math.sqrt(holeX * holeX + holeY * holeY + holeZ * holeZ)));
+			System.out.println("Radius & Size: " + radius + " " + size);
+			System.out.println(attempts + " attempts.");
+			attempts++;
 		}
+		
+//		if(holeSize > -1) {
+//			holeX = random.nextInt(sizeInt * 2) - sizeInt;
+//			holeY = random.nextInt(sizeInt * 2) - sizeInt;
+//			holeZ = random.nextInt(sizeInt * 2) - sizeInt;
+//			int holeDistSq = holeX * holeX + holeY * holeY + holeZ * holeZ;
+//			//Keep guessing with random numbers until the hole is at the proper spot since I don't know how to do this right, lmao
+//			while(holeDistSq > DISTANCE_CALCITE_SQ || holeDistSq < DISTANCE_AMETHYST_SQ) {
+//				holeX = random.nextInt(sizeInt * 2) - sizeInt;
+//				holeY = random.nextInt(sizeInt * 2) - sizeInt;
+//				holeZ = random.nextInt(sizeInt * 2) - sizeInt;
+//				holeDistSq = holeX * holeX + holeY * holeY + holeZ * holeZ;
+//			}
+//		}
 		
         for (int i = -sizeInt; i <= sizeInt; i++) {
             for (int j = -sizeInt; j <= sizeInt; j++) {
@@ -83,28 +100,28 @@ public class WorldGenAmethystGeode extends WorldGenerator {
 	
 	private boolean canGeodeGenerateHere(World world, int x, int y, int z, int size) {
 		int air = 0;
-		if(world.isAirBlock(x + size, y + size, z + size) ) {
+		if(world.isAirBlock(x + size, y + size, z + size)) {
 			air++;
 		}
-		if(world.isAirBlock(x + size, y + size, z - size) ) {
+		if(world.isAirBlock(x + size, y + size, z - size)) { 
 			air++;
 		}
-		if(world.isAirBlock(x - size, y + size, z + size) ) {
+		if(world.isAirBlock(x - size, y + size, z + size)) {
 			air++;
 		}
-		if(world.isAirBlock(x - size, y + size, z - size) ) {
+		if(world.isAirBlock(x - size, y + size, z - size)) {
 			air++;
 		}
-		if(world.isAirBlock(x + size, y - size, z + size) ) {
+		if(world.isAirBlock(x + size, y - size, z + size)) {
 			air++;
 		}
-		if(world.isAirBlock(x + size, y - size, z - size) ) {
+		if(world.isAirBlock(x + size, y - size, z - size)) {
 			air++;
 		}
-		if(world.isAirBlock(x - size, y - size, z + size) ) {
+		if(world.isAirBlock(x - size, y - size, z + size)) {
 			air++;
 		}
-		if(world.isAirBlock(x - size, y - size, z - size) ) {
+		if(world.isAirBlock(x - size, y - size, z - size)) {
 			air++;
 		}
 		return air < 4;
