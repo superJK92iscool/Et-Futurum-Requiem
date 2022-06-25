@@ -24,6 +24,7 @@ import net.minecraftforge.client.EnumHelperClient;
 import net.minecraftforge.client.event.*;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
+import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
@@ -139,8 +140,8 @@ public class SpectatorMode {
     }
 
     @SubscribeEvent
-    public void onItemPickup(cpw.mods.fml.common.gameevent.PlayerEvent.ItemPickupEvent event) {
-        if(isSpectator(event.player)) {
+    public void onItemPickup(EntityItemPickupEvent event) {
+        if(isSpectator(event.entityPlayer)) {
             event.setCanceled(true);
         }
     }
