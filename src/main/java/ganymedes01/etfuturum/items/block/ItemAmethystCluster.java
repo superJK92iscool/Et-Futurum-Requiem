@@ -2,6 +2,7 @@ package ganymedes01.etfuturum.items.block;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
@@ -11,7 +12,8 @@ import net.minecraft.util.IIcon;
 public class ItemAmethystCluster extends ItemBlock {
 	
 	private static final String[] item_names = new String[] {"small_amethyst_bud", "medium_amethyst_bud", "large_amethyst_bud", "amethyst_cluster"};
-
+	private boolean secondCluster = field_150939_a == ModBlocks.amethyst_cluster_2;
+	
 	public ItemAmethystCluster(Block p_i45328_1_) {
 		super(p_i45328_1_);
 		setHasSubtypes(true);
@@ -30,6 +32,10 @@ public class ItemAmethystCluster extends ItemBlock {
 	
 	public String getUnlocalizedName(ItemStack p_77667_1_)
 	{
-		return "tile." + Utils.getUnlocalisedName(item_names[p_77667_1_.getItemDamage() % 4]);
+		int damage = p_77667_1_.getItemDamage() < 6 ? 0 : 1;
+		if(secondCluster) {
+			damage += 2;
+		}
+		return "tile." + Utils.getUnlocalisedName(item_names[damage]);
 	}
 }
