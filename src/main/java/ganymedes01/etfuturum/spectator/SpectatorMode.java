@@ -17,6 +17,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldSettings;
 import net.minecraftforge.client.EnumHelperClient;
 import net.minecraftforge.client.event.*;
+import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -83,6 +84,8 @@ public class SpectatorMode {
     }
 
     public static boolean isSpectator(EntityPlayer player) {
+        if(player == null)
+            return false;
         if(player.worldObj.isRemote) {
             if(player == Minecraft.getMinecraft().thePlayer)
                 return Minecraft.getMinecraft().playerController.currentGameType == SPECTATOR_GAMETYPE;
@@ -147,6 +150,12 @@ public class SpectatorMode {
     public void breakSpeed(PlayerEvent.BreakSpeed event) {
         if(isSpectator(event.entityPlayer))
             event.newSpeed = 0;
+    }
+
+    @SubscribeEvent
+    public void itemToss(ItemTossEvent event) {
+        if(isSpectator(event.player))
+            event.setCanceled(true);
     }
 
     private static boolean hadHeldItemTooltips;

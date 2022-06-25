@@ -18,10 +18,4 @@ public class MixinEntityPlayer {
             cir.setReturnValue(false);
         }
     }
-
-    @Inject(method = "collideWithPlayer", at = @At("HEAD"), cancellable = true)
-    private void skipCollisionForSpectator(Entity p_71044_1_, CallbackInfo ci) {
-        if(SpectatorMode.isSpectator((EntityPlayer)(Object)this))
-            ci.cancel();
-    }
 }

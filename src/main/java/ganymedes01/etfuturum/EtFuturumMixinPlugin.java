@@ -115,6 +115,8 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 			mixins.add("MixinGameType");
 			mixins.add("MixinEntity_Spectator");
 			mixins.add("MixinWorld_Spectator");
+			mixins.add("MixinEntityPlayer_Spectator");
+			mixins.add("MixinNetHandlerPlayServer");
 		}
 		
 		if(side == MixinEnvironment.Side.CLIENT) {
