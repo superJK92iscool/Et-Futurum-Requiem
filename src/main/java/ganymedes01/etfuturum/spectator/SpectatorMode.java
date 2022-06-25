@@ -1,6 +1,7 @@
 package ganymedes01.etfuturum.spectator;
 
 import cpw.mods.fml.client.FMLClientHandler;
+import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.relauncher.Side;
@@ -15,13 +16,11 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldSettings;
 import net.minecraftforge.client.EnumHelperClient;
-import net.minecraftforge.client.event.DrawBlockHighlightEvent;
-import net.minecraftforge.client.event.RenderBlockOverlayEvent;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.client.event.RenderPlayerEvent;
+import net.minecraftforge.client.event.*;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.world.BlockEvent;
 
 import java.util.WeakHashMap;
 
@@ -114,6 +113,13 @@ public class SpectatorMode {
     }
 
     @SubscribeEvent
+    public void onInteract(BlockEvent.PlaceEvent event) {
+        if(isSpectator(event.player)) {
+            event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
     public void onInteract(AttackEntityEvent event) {
         if(isSpectator(event.entityPlayer)) {
             event.setCanceled(true);
@@ -143,10 +149,37 @@ public class SpectatorMode {
             event.newSpeed = 0;
     }
 
+    private static boolean hadHeldItemTooltips;
+
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    @SideOnly(Side.CLIENT)
+    public void onOverlayRenderPre(RenderGameOverlayEvent.Pre event) {
+        if(isSpectator(Minecraft.getMinecraft().thePlayer)) {
+            if(event.type == RenderGameOverlayEvent.ElementType.HOTBAR ||
+               event.type == RenderGameOverlayEvent.ElementType.CROSSHAIRS) {
+                event.setCanceled(true);
+            }
+            if(event.type == RenderGameOverlayEvent.ElementType.ALL) {
+                hadHeldItemTooltips = Minecraft.getMinecraft().gameSettings.heldItemTooltips;
+                Minecraft.getMinecraft().gameSettings.heldItemTooltips = false;
+            }
+        }
+    }
+
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    @SideOnly(Side.CLIENT)
+    public void onOverlayRenderPost(RenderGameOverlayEvent.Post event) {
+        if(isSpectator(Minecraft.getMinecraft().thePlayer)) {
+            if(event.type == RenderGameOverlayEvent.ElementType.ALL) {
+                Minecraft.getMinecraft().gameSettings.heldItemTooltips = hadHeldItemTooltips;
+            }
+        }
+    }
+
     @SubscribeEvent
     @SideOnly(Side.CLIENT)
-    public void onHotbarRender(RenderGameOverlayEvent.Pre event) {
-        if(isSpectator(Minecraft.getMinecraft().thePlayer) && event.type == RenderGameOverlayEvent.ElementType.HOTBAR)
+    public void onHandRender(RenderHandEvent event) {
+        if(isSpectator(Minecraft.getMinecraft().thePlayer))
             event.setCanceled(true);
     }
 
