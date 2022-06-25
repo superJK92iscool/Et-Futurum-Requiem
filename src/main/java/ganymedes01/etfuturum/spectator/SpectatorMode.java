@@ -8,11 +8,13 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldSettings;
 import net.minecraftforge.client.EnumHelperClient;
@@ -162,10 +164,13 @@ public class SpectatorMode {
             event.newSpeed = 0;
     }
 
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.LOWEST)
     public void itemToss(ItemTossEvent event) {
-        if(isSpectator(event.player))
+        if(isSpectator(event.player)) {
             event.setCanceled(true);
+            ItemStack item = event.entityItem.getEntityItem();
+            event.player.inventory.addItemStackToInventory(item);
+        }
     }
 
     private static boolean hadHeldItemTooltips;
@@ -205,7 +210,21 @@ public class SpectatorMode {
     @SubscribeEvent
     @SideOnly(Side.CLIENT)
     public void onFireRender(RenderBlockOverlayEvent event) {
-        if(isSpectator(Minecraft.getMinecraft().thePlayer) && event.overlayType == RenderBlockOverlayEvent.OverlayType.FIRE)
+        if(isSpectator(Minecraft.getMinecraft().thePlayer))
             event.setCanceled(true);
+    }
+
+    /* TODO look into increasing the distance instead of outright disabling it */
+    @SubscribeEvent
+    @SideOnly(Side.CLIENT)
+    public void onRenderFogDensity(EntityViewRenderEvent.FogDensity event) {
+        if(event.entity instanceof EntityPlayer) {
+            if(isSpectator((EntityPlayer)event.entity)) {
+                if(event.block.getMaterial() == Material.water || event.block.getMaterial() == Material.lava) {
+                    event.setCanceled(true);
+                    event.density = 0;
+                }
+            }
+        }
     }
 }
