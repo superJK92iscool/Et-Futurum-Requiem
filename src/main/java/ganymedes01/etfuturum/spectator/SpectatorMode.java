@@ -16,9 +16,11 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldSettings;
 import net.minecraftforge.client.EnumHelperClient;
 import net.minecraftforge.client.event.DrawBlockHighlightEvent;
+import net.minecraftforge.client.event.RenderBlockOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 import java.util.WeakHashMap;
@@ -136,10 +138,22 @@ public class SpectatorMode {
     }
 
     @SubscribeEvent
+    public void breakSpeed(PlayerEvent.BreakSpeed event) {
+        if(isSpectator(event.entityPlayer))
+            event.newSpeed = 0;
+    }
+
+    @SubscribeEvent
     @SideOnly(Side.CLIENT)
     public void onHotbarRender(RenderGameOverlayEvent.Pre event) {
         if(isSpectator(Minecraft.getMinecraft().thePlayer) && event.type == RenderGameOverlayEvent.ElementType.HOTBAR)
             event.setCanceled(true);
     }
 
+    @SubscribeEvent
+    @SideOnly(Side.CLIENT)
+    public void onFireRender(RenderBlockOverlayEvent event) {
+        if(isSpectator(Minecraft.getMinecraft().thePlayer) && event.overlayType == RenderBlockOverlayEvent.OverlayType.FIRE)
+            event.setCanceled(true);
+    }
 }
