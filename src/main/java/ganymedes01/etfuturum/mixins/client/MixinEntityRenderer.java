@@ -14,7 +14,7 @@ public class MixinEntityRenderer {
 
     @ModifyVariable(method = "orientCamera", at = @At("STORE"), ordinal = 7, name = "d6")
     private double ignoreDistanceForSpectators(double value) {
-        if(this.mc.playerController.currentGameType == SpectatorMode.SPECTATOR_GAMETYPE && this.mc.renderViewEntity == this.mc.thePlayer) {
+        if(SpectatorMode.isSpectator(this.mc.thePlayer) && this.mc.renderViewEntity == this.mc.thePlayer) {
             return Double.MAX_VALUE;
         }
         return value;
