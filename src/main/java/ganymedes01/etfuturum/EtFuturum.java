@@ -11,8 +11,10 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.google.common.collect.ImmutableList;
 import ganymedes01.etfuturum.network.*;
 import ganymedes01.etfuturum.spectator.SpectatorMode;
+import net.minecraft.block.*;
 import org.apache.commons.lang3.ArrayUtils;
 import org.spongepowered.asm.mixin.MixinEnvironment;
 
@@ -63,22 +65,7 @@ import ganymedes01.etfuturum.world.structure.OceanMonument;
 import makamys.mclib.core.MCLib;
 import makamys.mclib.ext.assetdirector.ADConfig;
 import makamys.mclib.ext.assetdirector.AssetDirectorAPI;
-import net.minecraft.block.Block;
 import net.minecraft.block.Block.SoundType;
-import net.minecraft.block.BlockBush;
-import net.minecraft.block.BlockCactus;
-import net.minecraft.block.BlockCrops;
-import net.minecraft.block.BlockFlower;
-import net.minecraft.block.BlockHay;
-import net.minecraft.block.BlockHugeMushroom;
-import net.minecraft.block.BlockLeaves;
-import net.minecraft.block.BlockNetherWart;
-import net.minecraft.block.BlockOre;
-import net.minecraft.block.BlockSapling;
-import net.minecraft.block.BlockSponge;
-import net.minecraft.block.BlockStem;
-import net.minecraft.block.BlockTrapDoor;
-import net.minecraft.block.BlockVine;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
@@ -466,6 +453,51 @@ public class EtFuturum {
 			}
 		}
 	}
+
+	private void registerComposting(ImmutableList<Object> items, int percent) {
+		String oredict = "compostChance" + percent;
+		ArrayList<ItemStack> oredictAdditions = new ArrayList<>();
+		ArrayList<Class<?>> classesToCheck = new ArrayList<>();
+		for(Object item : items) {
+			if(item instanceof ItemStack) {
+				oredictAdditions.add((ItemStack)item);
+			} else if(item instanceof String) {
+				oredictAdditions.addAll(OreDictionary.getOres((String) item));
+			} else if(item instanceof Class) {
+				classesToCheck.add((Class<?>)item);
+			}
+		}
+		if(classesToCheck.size() > 0) {
+			for(Object o : Item.itemRegistry) {
+				Item item = (Item)o;
+				for(Class<?> clz : classesToCheck) {
+					if(clz.isAssignableFrom(item.getClass())) {
+						oredictAdditions.add(new ItemStack(item, 1, OreDictionary.WILDCARD_VALUE));
+					}
+				}
+			}
+			for(Object o : Block.blockRegistry) {
+				Block block = (Block)o;
+				for(Class<?> clz : classesToCheck) {
+					if(clz.isAssignableFrom(block.getClass())) {
+						oredictAdditions.add(new ItemStack(block, 1, OreDictionary.WILDCARD_VALUE));
+					}
+				}
+			}
+		}
+		for(ItemStack stack : oredictAdditions) {
+			boolean exists = false;
+			for(int id : OreDictionary.getOreIDs(stack)) {
+				String name = OreDictionary.getOreName(id);
+				if(name.startsWith("compostChance") || name.equals("compostIgnore")) {
+					exists = true;
+					break;
+				}
+			}
+			if(!exists)
+				OreDictionary.registerOre(oredict, stack);
+		}
+	}
 	
 	@EventHandler
 	public void onLoadComplete(FMLLoadCompleteEvent e){
@@ -509,70 +541,57 @@ public class EtFuturum {
 			}
 		}
 
-//		Iterator<Item> itemIterator = Item.itemRegistry.iterator();
-//		//Item registry iterator
-//		while(itemIterator.hasNext()) {
-//			Item item = itemIterator.next();
-//			//Can be null
-//			Block block = Block.getBlockFromItem(item);
-//			String itemID = Item.itemRegistry.getNameForObject(item).split(":")[1].toLowerCase();
-//			
-//			if(true) {
-//				ItemStack stack;
-//				List<ItemStack> itemList = Lists.newArrayList();
-//				item.getSubItems(item, item.tabToDisplayOn, itemList);
-//				
-//				metaIterator:
-//				for(int i = 0; i < Math.max(1, itemList.size()); i++) {
-//					if(itemList.size() > 1) {
-//						stack = itemList.get(i);
-//						item = stack.getItem();
-//						stack.setTagCompound(null);
-//						String name = stack.getUnlocalizedName().toLowerCase();
-//						if(!Strings.isNullOrEmpty(name)) {
-//							itemID = name;
-//						}
-//					} else {
-//						stack = new ItemStack(item, 1, OreDictionary.WILDCARD_VALUE);
-//					}
-//					
-//					//Don't add certain keywords to the compost list no matter what (Because composting a juice makes no sense)
-//					if(itemID.contains("juice")) {
-//						continue metaIterator;
-//					}
-//					
-//					for(String oreDict : getOreStrings(stack)) {
-//						if(oreDict.startsWith("compostChance") || oreDict.startsWith("compostIgnore")) {
-//							continue metaIterator;
-//						}
-//					}
-//					
-//					if(itemID.contains("seed") || (block instanceof BlockBush && itemID.contains("grass") && !itemID.contains("fern")) || (itemID.contains("berry") && !itemID.contains("ore")) || itemID.contains("berries")
-//							|| block instanceof BlockLeaves || itemID.contains("leaves") || block instanceof BlockSapling || itemID.contains("sapling")) {
-//						DEFAULT_COMPOST_CHANCES.put(stack, 30);
-//						OreDictionary.registerOre("compostChance30", stack);
-//					} else if ((!(item instanceof ItemBlock) && itemID.contains("melon") && !itemID.contains("glistering")) || block instanceof BlockCactus || itemID.contains("cactus")
-//							|| block instanceof BlockVine || itemID.contains("vines")) {
-//						DEFAULT_COMPOST_CHANCES.put(stack, 50);
-//						OreDictionary.registerOre("compostChance50", stack);
-//					} else if ((item instanceof ItemBlock && itemID.contains("melon")) || itemID.contains("apple") || itemID.contains("beetroot")
-//							|| (block instanceof BlockBush && (itemID.contains("fern") || itemID.contains("flower") || itemID.contains("doublePlant"))) || block instanceof BlockFlower
-//							|| itemID.contains("lily") || (itemID.contains("mushroom") && !(block instanceof BlockHugeMushroom))
-//							|| (item instanceof IPlantable && itemID.contains("wart")) || (item instanceof IPlantable && itemID.contains("potato"))
-//							|| (item instanceof ItemBlock && itemID.contains("pumpkin")) || itemID.contains("wheat")) {
-//						DEFAULT_COMPOST_CHANCES.put(stack, 65);
-//						OreDictionary.registerOre("compostChance65", stack);
-//					} else if ((item instanceof ItemFood && itemID.contains("potato")) || itemID.contains("bread") || itemID.contains("cookie")
-//							|| (item instanceof ItemBlock && itemID.contains("wart"))) {
-//						DEFAULT_COMPOST_CHANCES.put(stack, 85);
-//						OreDictionary.registerOre("compostChance85", stack);
-//					} else if(itemID.contains("cake") || itemID.contains("pie") || (item.getClass().getName().contains("harvestcraft") && itemID.contains("garden"))) {
-//						DEFAULT_COMPOST_CHANCES.put(stack, 100);
-//						OreDictionary.registerOre("compostChance100", stack);
-//					}
-//				}
-//			}
-//		}
+		registerComposting(ImmutableList.of(
+				new ItemStack(ModItems.beetroot_seeds),
+				new ItemStack(Blocks.tallgrass, 1, 1),
+				new ItemStack(Blocks.leaves, 1, OreDictionary.WILDCARD_VALUE),
+				new ItemStack(Items.melon_seeds),
+				new ItemStack(Items.pumpkin_seeds),
+				"treeSapling",
+				"treeLeaves",
+				new ItemStack(Items.wheat_seeds),
+				new ItemStack(ModItems.sweet_berries)
+		), 30);
+
+		registerComposting(ImmutableList.of(
+				new ItemStack(Blocks.cactus),
+				new ItemStack(Items.melon),
+				new ItemStack(Items.reeds),
+				new ItemStack(Blocks.double_plant, 1, 2),
+				new ItemStack(Blocks.vine)
+		), 50);
+
+		registerComposting(ImmutableList.of(
+				new ItemStack(Items.apple),
+				new ItemStack(ModItems.beetroot),
+				"cropCarrot",
+				new ItemStack(Blocks.cocoa),
+				new ItemStack(Blocks.tallgrass, 1, 2),
+				new ItemStack(Blocks.double_plant, 1, 3),
+				BlockFlower.class,
+				BlockLilyPad.class,
+				new ItemStack(Blocks.melon_block),
+				new ItemStack(Blocks.brown_mushroom),
+				new ItemStack(Blocks.red_mushroom),
+				new ItemStack(Items.nether_wart),
+				"cropPotato",
+				new ItemStack(Blocks.pumpkin),
+				"cropWheat"
+		), 65);
+
+		registerComposting(ImmutableList.of(
+				new ItemStack(Items.baked_potato),
+				new ItemStack(Items.bread),
+				new ItemStack(Items.cookie),
+				new ItemStack(Blocks.hay_block),
+				new ItemStack(Blocks.red_mushroom_block, 1, OreDictionary.WILDCARD_VALUE),
+				new ItemStack(Blocks.brown_mushroom_block, 1, OreDictionary.WILDCARD_VALUE)
+		), 85);
+
+		registerComposting(ImmutableList.of(
+				new ItemStack(Items.cake),
+				new ItemStack(Items.pumpkin_pie)
+		), 100);
 		
 //      if(ConfigurationHandler.enableNewNether)
 //        DimensionProviderNether.init(); // Come back to
