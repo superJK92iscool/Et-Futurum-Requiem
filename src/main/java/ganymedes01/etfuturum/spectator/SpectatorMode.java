@@ -135,6 +135,13 @@ public class SpectatorMode {
     }
 
     @SubscribeEvent
+    public void onItemPickup(cpw.mods.fml.common.gameevent.PlayerEvent.ItemPickupEvent event) {
+        if(isSpectator(event.player)) {
+            event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
     public void onInteract(AttackEntityEvent event) {
         if(isSpectator(event.entityPlayer)) {
             event.setCanceled(true);

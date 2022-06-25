@@ -28,4 +28,18 @@ public abstract class MixinEntityPlayer_Spectator extends EntityLivingBase {
         if(!SpectatorMode.isSpectator((EntityPlayer)(Object)this))
             super.collideWithNearbyEntities();
     }
+
+    @Override
+    public boolean isOnLadder() {
+        if(SpectatorMode.isSpectator((EntityPlayer)(Object)this))
+            return false;
+        return super.isOnLadder();
+    }
+
+    @Override
+    public boolean handleWaterMovement() {
+        if(SpectatorMode.isSpectator((EntityPlayer)(Object)this))
+            return false;
+        return super.handleWaterMovement();
+    }
 }
