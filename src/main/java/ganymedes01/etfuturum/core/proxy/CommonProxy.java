@@ -16,6 +16,7 @@ import ganymedes01.etfuturum.client.gui.inventory.GuiShulkerBox;
 import ganymedes01.etfuturum.client.gui.inventory.GuiSmoker;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigEntities;
+import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.configuration.configs.ConfigTweaks;
 import ganymedes01.etfuturum.core.handlers.ServerEventHandler;
 import ganymedes01.etfuturum.core.handlers.WorldEventHandler;
@@ -47,6 +48,7 @@ import ganymedes01.etfuturum.inventory.ContainerNewBrewingStand;
 import ganymedes01.etfuturum.inventory.ContainerShulkerBox;
 import ganymedes01.etfuturum.inventory.ContainerSmoker;
 import ganymedes01.etfuturum.lib.GUIsID;
+import ganymedes01.etfuturum.spectator.SpectatorMode;
 import ganymedes01.etfuturum.tileentities.TileEntityBanner;
 import ganymedes01.etfuturum.tileentities.TileEntityBarrel;
 import ganymedes01.etfuturum.tileentities.TileEntityBlastFurnace;
@@ -81,6 +83,11 @@ public class CommonProxy implements IGuiHandler {
 		
 		FMLCommonHandler.instance().bus().register(WorldEventHandler.INSTANCE);
 		MinecraftForge.TERRAIN_GEN_BUS.register(WorldEventHandler.INSTANCE);
+
+		if(ConfigFunctions.enableSpectatorMode) {
+			FMLCommonHandler.instance().bus().register(SpectatorMode.INSTANCE);
+			MinecraftForge.EVENT_BUS.register(SpectatorMode.INSTANCE);
+		}
 	}
 
 	public void registerEntities() {

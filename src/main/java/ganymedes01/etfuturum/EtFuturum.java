@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 import ganymedes01.etfuturum.network.*;
+import ganymedes01.etfuturum.spectator.SpectatorMode;
 import org.apache.commons.lang3.ArrayUtils;
 import org.spongepowered.asm.mixin.MixinEnvironment;
 
@@ -347,6 +348,7 @@ public class EtFuturum {
 		ModItems.init();
 		ModEnchantments.init();
 		ModPotions.init();
+		SpectatorMode.init();
 		
 //      if(ConfigurationHandler.enableNewNether) {
 //          NetherBiomeManager.init(); // Come back to
