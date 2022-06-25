@@ -8,6 +8,7 @@ enchantment.mending=Mending
 enchantment.waterWalker=Depth Strider
 enchantment.binding_curse=§cCurse of Binding
 enchantment.vanishing_curse=§cCurse of Vanishing
+enchantment.swift_sneak=Swift Sneak
 
 # Potions
 potion.levitation=Levitation

@@ -6,6 +6,7 @@ import java.util.WeakHashMap;
 import ganymedes01.etfuturum.configuration.configs.ConfigEnchantsPotions;
 import ganymedes01.etfuturum.enchantment.FrostWalker;
 import ganymedes01.etfuturum.enchantment.Mending;
+import ganymedes01.etfuturum.enchantment.SwiftSneak;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.Enchantment;
@@ -22,6 +23,7 @@ public class ModEnchantments {
 
 	public static Enchantment frostWalker;
 	public static Enchantment mending;
+	public static Enchantment swiftSneak;
 	
 	private static final Map<EntityLivingBase, double[]> prevMoveCache = new WeakHashMap();
 
@@ -30,6 +32,8 @@ public class ModEnchantments {
 			frostWalker = new FrostWalker();
 		if (ConfigEnchantsPotions.enableMending)
 			mending = new Mending();
+		if (ConfigEnchantsPotions.enableSwiftSneak)
+			swiftSneak = new SwiftSneak();
 	}
 
 	// Frost Walker logic
