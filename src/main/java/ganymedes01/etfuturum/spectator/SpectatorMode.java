@@ -11,6 +11,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
+import net.minecraft.command.IEntitySelector;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.IInventory;
@@ -29,6 +32,7 @@ import java.util.WeakHashMap;
 
 public class SpectatorMode {
     public static final SpectatorMode INSTANCE = new SpectatorMode();
+    public static final IEntitySelector EXCEPT_SPECTATING = p_82704_1_ -> !(p_82704_1_ instanceof EntityPlayer) || !isSpectator((EntityPlayer) p_82704_1_);
     SpectatorMode() {
 
     }
