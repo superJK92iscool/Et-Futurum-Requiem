@@ -13,6 +13,9 @@ enchantment.vanishing_curse=§cCurse of Vanishing
 potion.levitation=Levitation
 potion.levitation.postfix=Potion of Levitation
 
+# Gamemodes
+gameMode.Spectator=Spectator Mode
+
 # Containers/GUI
 container.etfuturum.banner=Banner
 container.enchant.lapis.one=1 Lapis Lazuli
