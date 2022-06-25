@@ -70,7 +70,7 @@ def getCommitVersion(modVersion){
 
 // Run `./gradlew clean` when the metadata changes, otherwise the in-game meta (ForgeGradle's substitution) will remain stale.
 
-def authorList = ["\u00A79ganymedes01", "\u00A7bRoadhog360", "\u00A7ajss2a98aj", "\u00A7amakamys", "\u00A7aKryptonCaptain"]
+def authorList = ["\u00A79ganymedes01", "\u00A7bRoadhog360", "\u00A7aembeddedt", "\u00A7ajss2a98aj", "\u00A7amakamys", "\u00A7aKryptonCaptain"]
 def meta = [
 	name: "Et Futurum Requiem", // hardcoded in Reference.java
 	version: modVersion,

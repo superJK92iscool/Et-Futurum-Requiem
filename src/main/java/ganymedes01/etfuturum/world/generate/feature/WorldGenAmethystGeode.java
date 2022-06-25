@@ -44,10 +44,6 @@ public class WorldGenAmethystGeode extends WorldGenerator {
 			holeX = Math.round(radius * MathHelper.cos(holePhi) * MathHelper.cos(holeTheta));
 			holeY = Math.round(radius * MathHelper.sin(holeTheta));
 			holeZ = Math.round(radius * MathHelper.sin(holePhi) * MathHelper.cos(holeTheta));
-			System.out.println("Hole xyz: " + holeX + " " + holeY + " " + holeZ);
-			System.out.println("Hole distance sq: " + (Math.sqrt(holeX * holeX + holeY * holeY + holeZ * holeZ)));
-			System.out.println("Radius & Size: " + radius + " " + size);
-			System.out.println(attempts + " attempts.");
 			attempts++;
 		}
 		
