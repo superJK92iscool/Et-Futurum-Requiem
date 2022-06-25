@@ -112,6 +112,16 @@ public class SpectatorMode {
         if(isSpectator(event.entityPlayer)) {
             if(event.action != PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK)
                 event.setCanceled(true);
+            else {
+                if(!Minecraft.getMinecraft().theWorld.blockExists(event.x, event.y, event.z)) {
+                    return;
+                }
+                Block block = Minecraft.getMinecraft().theWorld.getBlock(event.x, event.y, event.z);
+                int meta = Minecraft.getMinecraft().theWorld.getBlockMetadata(event.x, event.y, event.z);
+                if(!block.hasTileEntity(meta) || !(Minecraft.getMinecraft().theWorld.getTileEntity(event.x, event.y, event.z) instanceof IInventory)) {
+                    event.setCanceled(true);
+                }
+            }
         }
     }
 
