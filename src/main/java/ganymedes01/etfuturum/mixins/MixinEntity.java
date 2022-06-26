@@ -17,7 +17,7 @@ public class MixinEntity {
     private AxisAlignedBB etfu$savedBB;
 
     @Inject(method = "moveEntity",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;getCollidingBoundingBoxes(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/AxisAlignedBB;)Ljava/util/List;", ordinal = 0, shift = At.Shift.AFTER),
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/util/AxisAlignedBB;setBB(Lnet/minecraft/util/AxisAlignedBB;)V", ordinal = 0, shift = At.Shift.AFTER),
             slice = @Slice(from = @At(value = "FIELD", opcode = Opcodes.GETFIELD, target = "Lnet/minecraft/entity/Entity;stepHeight:F", ordinal = 1))
     )
     private void saveOldBoundingBox(double x, double y, double z, CallbackInfo ci) {
@@ -31,6 +31,8 @@ public class MixinEntity {
             slice = @Slice(from = @At(value = "FIELD", opcode = Opcodes.GETFIELD, target = "Lnet/minecraft/entity/Entity;stepHeight:F", ordinal = 1))
     )
     private void restoreOldBoundingBox(double x, double y, double z, CallbackInfo ci) {
+        if(etfu$savedBB == null)
+            throw new IllegalStateException("A conflict has occured with another mod's transformer");
         this.boundingBox.setBB(etfu$savedBB);
         etfu$savedBB = null;
     }
