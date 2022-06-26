@@ -12,6 +12,12 @@ public class ConfigWorld extends ConfigBase {
 
 	//TODO: CHANGE THIS
 	public static boolean enableNewNether;
+
+	public static Block fossilBoneBlock;
+	public static int fossilBlockID;
+	public static Block amethystOuterBlock;
+	public static int amethystOuterID;
+	
 	public static boolean enableDmgIndicator;
 	public static boolean enableAirDebris;
 	public static int debrisMax = 3;
@@ -19,14 +25,12 @@ public class ConfigWorld extends ConfigBase {
 	public static int maxMagmaPerCluster;
 	public static int maxCopperPerCluster;
 	public static boolean fullGrassPath;
-	public static int fossilBlockID;
 	public static int deepslateGenerationMode;
 	public static int maxDeepslatePerCluster;
 	public static int deepslateMaxY;
 	public static boolean deepslateReplacesStones;
 	public static boolean deepslateReplacesDirt;
 	public static boolean enableFossils;
-	public static Block fossilBoneBlock;
 	public static int maxTuffPerCluster;
 	public static int[] fossilDimensionBlacklist;
 	public static int tileReplacementMode;
@@ -86,7 +90,8 @@ public class ConfigWorld extends ConfigBase {
 		deepslateGenerationMode = cfg.getInt("deepslateGenerationMode", catGeneration, 0, -1, 1, "If 0, deepslate replaces all stone below the specified value, with a shattering effect near the top similar to bedrock. If 1, it generates in clusters using the deepslate cluster settings. -1 disables Et Futurum deepslate generation entirely.");
 		enableOceanMonuments = cfg.getBoolean("enableOceanMonuments", catGeneration, true, "Note: Ocean monuments currently do not have guardians");
 		enableFossils = cfg.getBoolean("enableFossils", catGeneration, true, "Note: Fossils currently do not rotate");
-		fossilBlockID  = cfg.getInt("fossilBoneBlock", catGeneration, 0, 0, 2, "0 = cfg.Et Futurum bone block\n1 = cfg.Netherlicious bone block\n2 = cfg.UpToDateMod bone block. If mod is not installed Et Futurum bone block will be used instead");
+		fossilBlockID  = cfg.getInt("fossilBoneBlock", catGeneration, 0, 0, 2, "0 = cfg.Et Futurum bone block\n1 = Netherlicious bone block\n2 = UpToDateMod bone block.\nIf the block does not exist, this option is ignored.");
+		amethystOuterID  = cfg.getInt("amethystOuterBlock", catGeneration, 0, 0, 2, "0 = cfg.Et Futurum smooth basalt block\n1 = Et Futurum tuff block\n2 = Netherlicious smooth basalt block\nSince there's no other way to get Et Futurum's smooth basalt, using an option other than 0, if they exist, will disable Et Futurum smooth basalt. If the selected block does not exist (disabled or mod not installed), this option does nothing.");
 		Property fossilBlacklistProp = cfg.get(catGeneration, "fossilDimensionBlacklist", new int[] {-1, 1});
 		fossilBlacklistProp.comment = "The dimensions the fossil structures should not spawn in.";
 		fossilDimensionBlacklist = fossilBlacklistProp.getIntList();

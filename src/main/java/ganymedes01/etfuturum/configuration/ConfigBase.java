@@ -12,6 +12,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.etfuturum.EtFuturumMixinPlugin;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.blocks.ExternalContent;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.lib.Reference;
@@ -90,6 +91,8 @@ public abstract class ConfigBase extends Configuration {
 		
 		Block block = ConfigWorld.fossilBlockID == 1 ? ExternalContent.netherlicious_bone_block : ExternalContent.utd_bone_block;
 		ConfigWorld.fossilBoneBlock = ConfigWorld.fossilBlockID == 0 || block == null ? ModBlocks.bone_block : block;
+		block = ConfigWorld.amethystOuterID == 1 && ConfigBlocksItems.enableTuff ? ModBlocks.tuff : ExternalContent.netherlicious_smooth_basalt;
+		ConfigWorld.amethystOuterBlock = ConfigWorld.amethystOuterID == 0 || block == null ? ModBlocks.smooth_basalt : block;
 	}
 
 	@SubscribeEvent
