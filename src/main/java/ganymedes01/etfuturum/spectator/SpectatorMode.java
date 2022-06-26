@@ -33,7 +33,12 @@ import java.util.WeakHashMap;
 
 public class SpectatorMode {
     public static final SpectatorMode INSTANCE = new SpectatorMode();
-    public static final IEntitySelector EXCEPT_SPECTATING = p_82704_1_ -> !(p_82704_1_ instanceof EntityPlayer) || !isSpectator((EntityPlayer) p_82704_1_);
+    public static final IEntitySelector EXCEPT_SPECTATING = new IEntitySelector() {
+        @Override
+        public boolean isEntityApplicable(Entity p_82704_1_) {
+            return !(p_82704_1_ instanceof EntityPlayer) || !isSpectator((EntityPlayer) p_82704_1_);
+        }
+    };
     SpectatorMode() {
 
     }
