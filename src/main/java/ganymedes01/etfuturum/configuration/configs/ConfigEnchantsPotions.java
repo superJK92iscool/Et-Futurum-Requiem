@@ -40,11 +40,11 @@ public class ConfigEnchantsPotions extends ConfigBase {
 		frostWalkerID = cfg.getInt("frostWalkerID", catEnchants, 36, 0, 256, "");
 		enableMending = cfg.getBoolean("mending", catEnchants, true, "");
 		mendingID = cfg.getInt("mendingID", catEnchants, 37, 0, 256, "");
-//		enableSwiftSneak = cfg.getBoolean("swiftSneak", catEnchants, true, "");
-//		swiftSneakID = cfg.getInt("swiftSneakID", catEnchants, 38, 0, 256, "");
+		enableSwiftSneak = cfg.getBoolean("swiftSneak", catEnchants, true, "");
+		swiftSneakID = cfg.getInt("swiftSneakID", catEnchants, 38, 0, 256, "");
 		
 		//potions
-		levitationID  = cfg.getInt("levitationID", catPotions, 27, 0, Byte.MAX_VALUE, "Since this is essential for Shulkers, enabling levitation is tied to Shulkers being enabled instead of having its own option.");
+		levitationID  = cfg.getInt("levitationID", catPotions, 27, 0, Byte.MAX_VALUE, "Since this is essential for Shulkers, this is tied to Shulkers being enabled instead of having its own option.");
 	}
 
 }
