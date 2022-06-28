@@ -18,6 +18,7 @@ import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigEntities;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.configuration.configs.ConfigTweaks;
+import ganymedes01.etfuturum.core.handlers.SculkEventHandler;
 import ganymedes01.etfuturum.core.handlers.ServerEventHandler;
 import ganymedes01.etfuturum.core.handlers.WorldEventHandler;
 import ganymedes01.etfuturum.core.utils.Utils;
@@ -49,15 +50,7 @@ import ganymedes01.etfuturum.inventory.ContainerShulkerBox;
 import ganymedes01.etfuturum.inventory.ContainerSmoker;
 import ganymedes01.etfuturum.lib.GUIsID;
 import ganymedes01.etfuturum.spectator.SpectatorMode;
-import ganymedes01.etfuturum.tileentities.TileEntityBanner;
-import ganymedes01.etfuturum.tileentities.TileEntityBarrel;
-import ganymedes01.etfuturum.tileentities.TileEntityBlastFurnace;
-import ganymedes01.etfuturum.tileentities.TileEntityGateway;
-import ganymedes01.etfuturum.tileentities.TileEntityNewBeacon;
-import ganymedes01.etfuturum.tileentities.TileEntityNewBrewingStand;
-import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox;
-import ganymedes01.etfuturum.tileentities.TileEntitySmoker;
-import ganymedes01.etfuturum.tileentities.TileEntityWoodSign;
+import ganymedes01.etfuturum.tileentities.*;
 import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.monster.EntityEnderman;
@@ -88,6 +81,11 @@ public class CommonProxy implements IGuiHandler {
 			FMLCommonHandler.instance().bus().register(SpectatorMode.INSTANCE);
 			MinecraftForge.EVENT_BUS.register(SpectatorMode.INSTANCE);
 		}
+
+		if(ConfigBlocksItems.enableSculk) {
+			FMLCommonHandler.instance().bus().register(SculkEventHandler.INSTANCE);
+			MinecraftForge.EVENT_BUS.register(SculkEventHandler.INSTANCE);
+		}
 	}
 
 	public void registerEntities() {
@@ -114,6 +112,9 @@ public class CommonProxy implements IGuiHandler {
 		
 		if(ConfigBlocksItems.enableSigns)
 			GameRegistry.registerTileEntity(TileEntityWoodSign.class, Utils.getUnlocalisedName("sign"));
+
+		if(ConfigBlocksItems.enableSculk)
+			GameRegistry.registerTileEntity(TileEntitySculkCatalyst.class, Utils.getUnlocalisedName("sculk_catalyst"));
 		
 		//Come back to
 			GameRegistry.registerTileEntity(TileEntityGateway.class, Utils.getUnlocalisedName("end_gateway"));

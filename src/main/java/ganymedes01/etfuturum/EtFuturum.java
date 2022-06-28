@@ -13,6 +13,7 @@ import java.util.Map;
 
 import com.google.common.collect.ImmutableList;
 import ganymedes01.etfuturum.blocks.BlockSculk;
+import ganymedes01.etfuturum.blocks.BlockSculkCatalyst;
 import ganymedes01.etfuturum.network.*;
 import ganymedes01.etfuturum.spectator.SpectatorMode;
 import net.minecraft.block.*;
@@ -295,6 +296,9 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "block.sculk.break", "block");
 		config.addSoundEvent(ver, "block.sculk.place", "block");
 		config.addSoundEvent(ver, "block.sculk.step", "block");
+		config.addSoundEvent(ver, "block.sculk_catalyst.break", "block");
+		config.addSoundEvent(ver, "block.sculk_catalyst.place", "block");
+		config.addSoundEvent(ver, "block.sculk_catalyst.step", "block");
 //		config.addSoundEvent(ver, "block.nylium.step", "neutral");
 //		config.addSoundEvent(ver, "block.nylium.break", "block");
 		config.addSoundEvent(ver, "block.fungus.step", "neutral");
@@ -520,7 +524,8 @@ public class EtFuturum {
 				/*
 				 * HOE MINING
 				 */
-				if(block instanceof BlockLeaves || block instanceof BlockHay || block instanceof BlockSponge || block instanceof BlockNetherWart || block instanceof BlockSculk) {
+				if(block instanceof BlockLeaves || block instanceof BlockHay || block instanceof BlockSponge || block instanceof BlockNetherWart
+						|| block instanceof BlockSculk || block instanceof BlockSculkCatalyst) {
 					HoeHelper.addToHoeArray(block);
 				}
 			}

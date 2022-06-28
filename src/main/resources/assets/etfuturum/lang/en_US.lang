@@ -315,6 +315,7 @@ tile.etfuturum.large_amethyst_bud.name=Large Amethyst Bud
 tile.etfuturum.amethyst_cluster.name=Amethyst Cluster
 
 tile.etfuturum.sculk.name=Sculk
+tile.etfuturum.sculk_catalyst.name=Sculk Catalyst
 
 tile.etfuturum.magma.name=Magma Block
 tile.etfuturum.nether_wart.name=Nether Wart Block

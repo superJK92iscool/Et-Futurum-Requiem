@@ -62,6 +62,7 @@ public class ModSounds {
 	public static final SoundType soundDeepslateBricks = new CustomSound("deepslate_bricks");
 	public static final SoundType soundTuff = new CustomSound("tuff");
 	public static final SoundType soundSculk = new CustomSound("sculk");
+	public static final SoundType soundSculkCatalyst = new CustomSound("sculk_catalyst");
 	public static final SoundType soundVines = new CustomSound("vine");
 	public static final SoundType soundCalcite = new CustomSound("calcite", true);
 	public static final SoundType soundAmethystBlock = new CustomSound("amethyst_block", true);

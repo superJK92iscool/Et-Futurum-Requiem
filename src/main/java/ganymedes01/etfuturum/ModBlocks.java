@@ -102,6 +102,7 @@ public class ModBlocks {
 	public static final Block amethyst_cluster_2 = initBlock(new BlockAmethystCluster(1));
 
 	public static final Block sculk = initBlock(new BlockSculk());
+	public static final Block sculk_catalyst = initBlock(new BlockSculkCatalyst());
 	
 	//walls
 	public static final Block generic_wall = initBlock(new BlockNewWall("stone_wall", new Block[] {Blocks.stonebrick, Blocks.stonebrick, Blocks.sandstone, Blocks.brick_block}, new int[] {0, 1, 0, 0}, new String[] {"stone_brick_wall", "mossy_stone_brick_wall", "sandstone_wall", "brick_wall"}));
