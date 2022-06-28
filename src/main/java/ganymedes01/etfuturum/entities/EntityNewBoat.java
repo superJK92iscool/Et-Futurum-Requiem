@@ -545,9 +545,9 @@ public class EntityNewBoat extends Entity {
 			case IN_WATER:
 			case UNDER_WATER:
 			case UNDER_FLOWING_WATER:
-				return Reference.MCv118 + ":entity.boat.paddle_water";
+				return Reference.MCv119 + ":entity.boat.paddle_water";
 			case ON_LAND:
-				return Reference.MCv118 + ":entity.boat.paddle_land";
+				return Reference.MCv119 + ":entity.boat.paddle_land";
 			case IN_AIR:
 			default:
 				return null;

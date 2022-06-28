@@ -149,22 +149,22 @@ public class EntityHusk extends EntityZombie
 	
 	@Override
 	protected String getLivingSound() {
-		return Reference.MCv118 + ":entity.husk.ambient";
+		return Reference.MCv119 + ":entity.husk.ambient";
 	}
 	
 	@Override
 	protected String getHurtSound() {
-		return Reference.MCv118 + ":entity.husk.hurt";
+		return Reference.MCv119 + ":entity.husk.hurt";
 	}
 	
 	@Override
 	protected String getDeathSound() {
-		return Reference.MCv118 + ":entity.husk.death";
+		return Reference.MCv119 + ":entity.husk.death";
 	}
 	
 	@Override
 	protected void func_145780_a(final int p_145780_1_, final int p_145780_2_, final int p_145780_3_, final Block p_145780_4_) {
-		this.playSound(Reference.MCv118 + ":entity.husk.step", 0.15f, 1.0f);
+		this.playSound(Reference.MCv119 + ":entity.husk.step", 0.15f, 1.0f);
 	}
 	
 	public ItemStack getPickedResult(MovingObjectPosition target)

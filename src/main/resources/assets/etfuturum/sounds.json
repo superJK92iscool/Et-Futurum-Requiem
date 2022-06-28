@@ -2,12 +2,12 @@
   "ambient.cave": {
     "category": "ambient",
     "sounds": [
-      "minecraft_1.18:ambient/cave/cave14",
-      "minecraft_1.18:ambient/cave/cave15",
-      "minecraft_1.18:ambient/cave/cave16",
-      "minecraft_1.18:ambient/cave/cave17",
-      "minecraft_1.18:ambient/cave/cave18",
-      "minecraft_1.18:ambient/cave/cave19"
+      "minecraft_1.19:ambient/cave/cave14",
+      "minecraft_1.19:ambient/cave/cave15",
+      "minecraft_1.19:ambient/cave/cave16",
+      "minecraft_1.19:ambient/cave/cave17",
+      "minecraft_1.19:ambient/cave/cave18",
+      "minecraft_1.19:ambient/cave/cave19"
     ]
   }
 }

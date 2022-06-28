@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.google.common.collect.ImmutableList;
+import ganymedes01.etfuturum.blocks.BlockSculk;
 import ganymedes01.etfuturum.network.*;
 import ganymedes01.etfuturum.spectator.SpectatorMode;
 import net.minecraft.block.*;
@@ -142,7 +143,7 @@ public class EtFuturum {
 		MCLib.init();
 		
 		ADConfig config = new ADConfig();
-		String ver = "1.18";
+		String ver = "1.19";
 		
 		config.addObject(ver, "minecraft/sounds/ambient/cave/cave14.ogg");
 		config.addObject(ver, "minecraft/sounds/ambient/cave/cave15.ogg");
@@ -291,6 +292,9 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "block.dripstone_block.break", "block");
 		config.addSoundEvent(ver, "block.pointed_dripstone.step", "neutral");
 		config.addSoundEvent(ver, "block.pointed_dripstone.break", "block");
+		config.addSoundEvent(ver, "block.sculk.break", "block");
+		config.addSoundEvent(ver, "block.sculk.place", "block");
+		config.addSoundEvent(ver, "block.sculk.step", "block");
 //		config.addSoundEvent(ver, "block.nylium.step", "neutral");
 //		config.addSoundEvent(ver, "block.nylium.break", "block");
 		config.addSoundEvent(ver, "block.fungus.step", "neutral");
@@ -516,7 +520,7 @@ public class EtFuturum {
 				/*
 				 * HOE MINING
 				 */
-				if(block instanceof BlockLeaves || block instanceof BlockHay || block instanceof BlockSponge || block instanceof BlockNetherWart) {
+				if(block instanceof BlockLeaves || block instanceof BlockHay || block instanceof BlockSponge || block instanceof BlockNetherWart || block instanceof BlockSculk) {
 					HoeHelper.addToHoeArray(block);
 				}
 			}

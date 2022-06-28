@@ -146,7 +146,7 @@ public class BlockBerryBush extends BlockBush implements IConfigurable, ISubBloc
 			   entityitem.delayBeforeCanPickup = 10;
 			   world.spawnEntityInWorld(entityitem);
 		   }
-		   world.playSound(x, y, z, Reference.MCv118 + ":block.sweet_berry_bush.pick_berries", 1.0F, 0.8F + world.rand.nextFloat() * 0.4F, false);
+		   world.playSound(x, y, z, Reference.MCv119 + ":block.sweet_berry_bush.pick_berries", 1.0F, 0.8F + world.rand.nextFloat() * 0.4F, false);
 		   world.setBlockMetadataWithNotify(x, y, z, 1, 2);
 		   return true;
 		}
