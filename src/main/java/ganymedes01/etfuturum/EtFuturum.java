@@ -15,6 +15,7 @@ import com.google.common.collect.ImmutableList;
 import ganymedes01.etfuturum.network.*;
 import ganymedes01.etfuturum.spectator.SpectatorMode;
 import net.minecraft.block.*;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import org.apache.commons.lang3.ArrayUtils;
 import org.spongepowered.asm.mixin.MixinEnvironment;
 
@@ -450,6 +451,20 @@ public class EtFuturum {
 				} catch (Exception e) {
 			        System.out.println("Failed to fill Nether fortress loot table:");
 					e.printStackTrace();
+				}
+			}
+		}
+
+		if(ConfigBlocksItems.enableSmoothStone && Loader.isModLoaded("bluepower")) {
+			Item stoneTile = GameRegistry.findItem("bluepower", "stone_tile");
+			if(stoneTile != null) {
+				Item stoneItem = Item.getItemFromBlock(Blocks.stone);
+				Iterator<Map.Entry<ItemStack, ItemStack>> furnaceRecipes = FurnaceRecipes.smelting().getSmeltingList().entrySet().iterator();
+				while (furnaceRecipes.hasNext()) {
+					Map.Entry<ItemStack, ItemStack> recipe = furnaceRecipes.next();
+					if (recipe.getValue() != null && recipe.getValue().getItem() == stoneTile && recipe.getKey() != null && recipe.getKey().getItem() == stoneItem) {
+						furnaceRecipes.remove();
+					}
 				}
 			}
 		}

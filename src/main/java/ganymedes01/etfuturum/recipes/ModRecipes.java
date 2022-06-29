@@ -1,7 +1,6 @@
 package ganymedes01.etfuturum.recipes;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -660,8 +659,15 @@ public class ModRecipes {
 		if(ConfigBlocksItems.enableNetherGold)
 			GameRegistry.addSmelting(new ItemStack(ModBlocks.nether_gold_ore), new ItemStack(Items.gold_ingot), .1F);
 		
-		if(ConfigBlocksItems.enableSmoothStone)
+		if(ConfigBlocksItems.enableSmoothStone) {
 			GameRegistry.addSmelting(new ItemStack(Blocks.stone), new ItemStack(ModBlocks.smooth_stone), .1F);
+			if(Loader.isModLoaded("bluepower")) {
+				Item stoneTile = GameRegistry.findItem("bluepower", "stone_tile");
+				if(stoneTile != null) {
+					addShapedRecipe(new ItemStack(stoneTile, 4), "xx", 'x', new ItemStack(ModBlocks.smooth_stone));
+				}
+			}
+		}
 		
 		if(ConfigBlocksItems.enableSmoothSandstone) {
 			GameRegistry.addSmelting(new ItemStack(Blocks.sandstone, 1, 0), new ItemStack(ModBlocks.smooth_sandstone), .1F);
