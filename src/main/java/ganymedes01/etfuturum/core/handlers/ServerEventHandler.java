@@ -6,14 +6,10 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
-import java.util.WeakHashMap;
+import java.util.*;
 
+import cpw.mods.fml.common.gameevent.TickEvent;
+import net.minecraftforge.event.entity.item.ItemTossEvent;
 import org.apache.commons.lang3.ArrayUtils;
 
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -141,6 +137,7 @@ import net.minecraftforge.oredict.OreDictionary;
 public class ServerEventHandler {
 
 	public static final ServerEventHandler INSTANCE = new ServerEventHandler();
+	public static HashSet<EntityPlayerMP> playersClosedContainers = new HashSet<>();
 	
 	private ServerEventHandler() {
 	}
@@ -1147,6 +1144,23 @@ public class ServerEventHandler {
 	public void loadWorldEvent(WorldEvent.Load event)
 	{
 		event.world.addWorldAccess(new EtFuturumWorldListener(event.world));
+	}
+
+	@SubscribeEvent
+	public void onItemToss(ItemTossEvent event)
+	{
+		if(ConfigFunctions.avoidDroppingItemsWhenClosing && event.player instanceof EntityPlayerMP && playersClosedContainers.contains(event.player)) {
+			if(event.player.inventory.addItemStackToInventory(event.entityItem.getEntityItem())) {
+				event.setCanceled(true);
+			}
+		}
+	}
+
+	@SubscribeEvent
+	public void onTickEnd(TickEvent.ServerTickEvent event)
+	{
+		if(event.phase == TickEvent.Phase.END)
+			playersClosedContainers.clear();
 	}
 	
 	// UNUSED FUNCTIONS

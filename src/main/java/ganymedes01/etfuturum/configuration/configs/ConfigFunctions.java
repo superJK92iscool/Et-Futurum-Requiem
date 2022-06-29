@@ -117,6 +117,7 @@ public class ConfigFunctions extends ConfigBase {
 	public static boolean enableExtraBurnableBlocks;
 	public static boolean enableUpdatedHarvestLevels;
 	public static boolean enableSpectatorMode;
+	public static boolean avoidDroppingItemsWhenClosing;
 	public static String[] extraDropRawOres = new String[] {"oreCopper", "oreTin"};
 
 	static final String catChanges = "changes";
@@ -155,6 +156,7 @@ public class ConfigFunctions extends ConfigBase {
 		enableHoeMining = cfg.getBoolean("enableHoeMining", catChanges, true, "Allows blocks like hay bales, leaves etc to mine faster with hoes");
 		hayBaleReducePercent = cfg.getInt("hayBaleReducePercent", catChanges, 20, 0, 99, "If enableHayBaleFalls is true, what percent should we keep for the fall damage?");
 		enableSpectatorMode = cfg.getBoolean("enableSpectatorMode", catChanges, true, "Enable spectator mode");
+		avoidDroppingItemsWhenClosing = cfg.getBoolean("avoidDroppingItemsWhenClosing", catChanges, true, "Experimental: avoid dropping items when closing an inventory, like in modern versions");
 		
 		//settings
 		enableNetheriteFlammable = cfg.getBoolean("enableNetheriteFlammable", catSettings, false, "Set to true to disable the fireproof item entity Netherite/ancient debris etc uses");

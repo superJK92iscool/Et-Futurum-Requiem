@@ -118,6 +118,10 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 			mixins.add("MixinEntityPlayer_Spectator");
 			mixins.add("MixinNetHandlerPlayServer");
 		}
+
+		if(ConfigFunctions.avoidDroppingItemsWhenClosing) {
+			mixins.add("MixinEntityPlayerMP");
+		}
 		
 		if(side == MixinEnvironment.Side.CLIENT) {
 			if(ConfigMixins.furnaceCrackle) {
