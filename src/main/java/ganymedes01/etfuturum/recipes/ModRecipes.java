@@ -822,6 +822,9 @@ public class ModRecipes {
 				addShapelessRecipe(new ItemStack(Items.boat), ModItems.boats[0]);
 				addShapelessRecipe(new ItemStack(ModItems.boats[0]), Items.wooden_shovel, Items.boat);
 			}
+			for(int i = EntityNewBoat.Type.values().length - 1; i >= 0; i--) {
+				addShapelessRecipe(new ItemStack(ModItems.chest_boats[i]), ModItems.boats[i], Blocks.chest);
+			}
 		}
 		
 		if(ConfigBlocksItems.enableShulkerBoxes) {

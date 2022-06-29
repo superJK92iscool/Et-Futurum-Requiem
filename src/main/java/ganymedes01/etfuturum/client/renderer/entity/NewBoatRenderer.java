@@ -37,6 +37,8 @@ public class NewBoatRenderer extends Render {
 //        }
 
 		this.modelBoat.render(entity, partialTicks, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
+		GL11.glScalef(-1.0F, -1.0F, 1.0F);
+		this.renderExtraBoatContents(entity, partialTicks);
 
 //        if (this.renderOutlines)
 //        {
@@ -46,6 +48,10 @@ public class NewBoatRenderer extends Render {
 
 		GL11.glPopMatrix();
 		this.renderMultipass(entity, x, y, z, entityYaw, partialTicks);
+	}
+
+	protected void renderExtraBoatContents(EntityNewBoat boat, float partialTicks) {
+
 	}
 
 	public void setupRotation(EntityNewBoat p_188311_1_, float p_188311_2_, float p_188311_3_)
@@ -84,6 +90,8 @@ public class NewBoatRenderer extends Render {
 		this.setupRotation(p_188300_1_, p_188300_8_, p_188300_9_);
 		this.bindEntityTexture(p_188300_1_);
 		modelBoat.renderMultipass(p_188300_1_, p_188300_9_, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
+		GL11.glScalef(-1.0F, -1.0F, 1.0F);
+		this.renderExtraBoatContents(p_188300_1_, p_188300_9_);
 		GL11.glPopMatrix();
 	}
 }

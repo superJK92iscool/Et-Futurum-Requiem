@@ -363,14 +363,21 @@ public class EntityNewBoat extends Entity {
 	public boolean hasSeat() {
 		return seat != null && !seat.isDead;
 	}
-	
+
+	/**
+	 * Let subclasses disable the passenger seat if they want to.
+	 */
+	protected boolean shouldHaveSeat() {
+		return true;
+	}
+
 	public void onEntityUpdate() {
 		super.onEntityUpdate();
 		
 		//TODO add option for no passenger seat and don't run this code
 		
 		//This causes the boat to not fall for some reason!
-		if(!worldObj.isRemote && !hasSeat() && ConfigBlocksItems.newBoatPassengerSeat) {
+		if(!worldObj.isRemote && !hasSeat() && ConfigBlocksItems.newBoatPassengerSeat && shouldHaveSeat()) {
 			EntityNewBoatSeat newSeat;
 			if(seatToSpawn == null) {
 				newSeat = new EntityNewBoatSeat(worldObj, this);
@@ -917,10 +924,14 @@ public class EntityNewBoat extends Entity {
 		if(riddenByEntity != null)
 			updatePassenger(riddenByEntity);
 	}
+
+	protected float getDefaultRiderOffset() {
+		return 0.0f;
+	}
 	
 	public void updatePassenger(Entity passenger)
 	{
-		float f = 0.0F;
+		float f = this.getDefaultRiderOffset();
 		float f1 = (float)((this.isDead ? 0.009999999776482582D : this.getMountedYOffset()) + passenger.getYOffset());
 
 		if (this.getPassengers().size() > 1)
@@ -980,7 +991,7 @@ public class EntityNewBoat extends Entity {
 			this.setBoatType(EntityNewBoat.Type.getTypeFromString(compound.getString("Type")));
 		}
 
-		if(compound.hasKey("Seat") && !worldObj.isRemote && ConfigBlocksItems.newBoatPassengerSeat) { //TODO add seat config
+		if(compound.hasKey("Seat") && !worldObj.isRemote && ConfigBlocksItems.newBoatPassengerSeat && shouldHaveSeat()) { //TODO add seat config
 			Entity entity = EntityList.createEntityFromNBT(compound.getCompoundTag("Seat"), worldObj);
 			if(entity instanceof EntityNewBoatSeat && entity.riddenByEntity == null) {
 				((EntityNewBoatSeat)entity).setBoat(this);
@@ -996,7 +1007,7 @@ public class EntityNewBoat extends Entity {
 	protected void writeEntityToNBT(NBTTagCompound compound)
 	{
 		compound.setString("Type", this.getBoatType().getName());
-		if(hasSeat() && ConfigBlocksItems.newBoatPassengerSeat) {
+		if(hasSeat() && ConfigBlocksItems.newBoatPassengerSeat && shouldHaveSeat()) {
 			String s = EntityList.getEntityString(seat);
 			NBTTagCompound seatData = new NBTTagCompound();
 
