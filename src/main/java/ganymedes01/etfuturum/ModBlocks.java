@@ -19,7 +19,12 @@ import net.minecraft.item.ItemBlock;
 public class ModBlocks {
 	
 	private static final List<Block> initList = new ArrayList<Block>();
+	
+	//old blocks
+	public static final Block crying_obsidian = initBlock(new BlockCryingObsidian());
+	public static final Block rose = initBlock(new BlockOldRose());
 
+	//Standard Et Futurum 1.5.5 blocks
 	public static final Block stone = initBlock(new BlockNewStone());
 	public static final Block prismarine = initBlock(new BlockPrismarine());
 	public static final Block sea_lantern = initBlock(new BlockSeaLantern());
@@ -40,8 +45,6 @@ public class ModBlocks {
 	public static final Block end_rod = initBlock(new BlockEndRod());
 	public static final Block chorus_plant = initBlock(new BlockChorusPlant());
 	public static final Block chorus_flower = initBlock(new BlockChorusFlower());
-	public static final Block crying_obsidian = initBlock(new BlockCryingObsidian());
-	public static final Block rose = initBlock(new BlockOldRose());
 	
 	public static final Block bone_block = initBlock(new BlockBone());
 	public static final Block new_nether_brick = initBlock(new BlockNewNetherBrick());
