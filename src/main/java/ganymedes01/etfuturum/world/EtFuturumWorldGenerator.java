@@ -62,11 +62,20 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 	@Override
 	public void generate(Random rand, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
 		if(world.getWorldInfo().getTerrainType() != WorldType.FLAT || world.getWorldInfo().getGeneratorOptions().contains("decoration") || world.provider.dimensionId != 0) {
-
+			int x;
+			int z;
 			if (ConfigBlocksItems.enableStones && ConfigWorld.maxStonesPerCluster > 0 && world.provider.dimensionId != -1 && world.provider.dimensionId != 1) {
 				for(WorldGenMinable stoneGenerator : stoneGen) {
 					for(int i = 0; i < 10; i++) {
 						generateOre(stoneGenerator, world, rand, chunkX, chunkZ, 1, 0, 80);
+					}
+				}
+				
+				if(ConfigBlocksItems.enableAmethyst) {
+					x = chunkX * 16 + rand.nextInt(16) + 8;
+					z = chunkZ * 16 + rand.nextInt(16) + 8;
+					if(ConfigWorld.enableAmethystGeodes && rand.nextInt(53) == 0) {
+						new WorldGenAmethystGeode().generate(world, rand, x, rand.nextInt(52) + 9, z);
 					}
 				}
 			}
@@ -82,8 +91,6 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 			}
 			
 			{
-				int x;
-				int z;
 				BiomeGenBase biome;
 				Type[] biomeList;
 				//TODO Bone meal
@@ -124,14 +131,6 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 					biomeList = BiomeDictionary.getTypesForBiome(biome);
 					if(ConfigWorld.enableFossils && rand.nextInt(64) == 0 && (ArrayUtils.contains(biomeList, Type.SANDY) && ArrayUtils.contains(biomeList, Type.DRY) || ArrayUtils.contains(biomeList, Type.SWAMP))) {
 						new WorldGenFossil().generate(world, rand, x, rand.nextInt(9) + 41, z);
-					}
-				}
-				
-				if(ConfigBlocksItems.enableAmethyst) {
-					x = chunkX * 16 + rand.nextInt(16) + 8;
-					z = chunkZ * 16 + rand.nextInt(16) + 8;
-					if(ConfigWorld.enableAmethystGeodes && rand.nextInt(53) == 0) {
-						new WorldGenAmethystGeode().generate(world, rand, x, rand.nextInt(52) + 9, z);
 					}
 				}
 			}
