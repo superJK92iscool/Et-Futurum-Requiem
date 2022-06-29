@@ -131,7 +131,7 @@ public class ItemNewBoat extends Item implements IConfigurable {
 	
 	@Override
 	public boolean isEnabled() {
-		return ConfigBlocksItems.enableNewBoats && (!ConfigBlocksItems.replaceOldBoats || type != EntityNewBoat.Type.OAK);
+		return ConfigBlocksItems.enableNewBoats && (!ConfigBlocksItems.replaceOldBoats || isChest || type != EntityNewBoat.Type.OAK);
 	}
 
 }
