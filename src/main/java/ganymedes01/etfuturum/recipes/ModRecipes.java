@@ -252,6 +252,7 @@ public class ModRecipes {
 		
 		if(ConfigBlocksItems.enableAmethyst) {
 			OreDictionary.registerOre("gemAmethyst", ModItems.amethyst_shard);
+			OreDictionary.registerOre("blockGlassTinted", new ItemStack(ModBlocks.tinted_glass, 1, 0));
 		}
 		
 //      if(ConfigurationHandler.enableCrimsonBlocks || ConfigurationHandler.enableWarpedBlocks) {
@@ -901,6 +902,7 @@ public class ModRecipes {
 		
 		if(ConfigBlocksItems.enableAmethyst) {
 			addShapedRecipe(new ItemStack(ModBlocks.amethyst_block, 1, 0), "AA", "AA", 'A', "gemAmethyst");
+			addShapedRecipe(new ItemStack(ModBlocks.tinted_glass, 2, 0), " A ", "AGA", " A ", 'A', "gemAmethyst", 'G', "blockGlassColorless");
 		}
 	}
 	

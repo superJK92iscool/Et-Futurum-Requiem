@@ -663,6 +663,8 @@ tile.etfuturum.red_obsidian_shulker_box.name=Red Obsidian Shulker Box
 tile.etfuturum.black_obsidian_shulker_box.name=Black Obsidian Shulker Box
 tile.etfuturum.lantern.name=Lantern
 
+tile.etfuturum.tinted_glass.name=Tinted Glass
+
 util.totemBreak=§a§oYour Totem of Undying shatters...
 
 death.attack.hotFloor=%1$s discovered floor was lava

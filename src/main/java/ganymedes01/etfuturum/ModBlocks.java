@@ -103,6 +103,8 @@ public class ModBlocks {
 	public static final Block budding_amethyst = initBlock(new BlockBuddingAmethyst());
 	public static final Block amethyst_cluster_1 = initBlock(new BlockAmethystCluster(0));
 	public static final Block amethyst_cluster_2 = initBlock(new BlockAmethystCluster(1));
+
+	public static final Block tinted_glass = initBlock(new BlockTintedGlass());
 	
 	//walls
 	public static final Block generic_wall = initBlock(new BlockNewWall("stone_wall", new Block[] {Blocks.stonebrick, Blocks.stonebrick, Blocks.sandstone, Blocks.brick_block}, new int[] {0, 1, 0, 0}, new String[] {"stone_brick_wall", "mossy_stone_brick_wall", "sandstone_wall", "brick_wall"}));

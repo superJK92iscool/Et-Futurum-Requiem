@@ -169,7 +169,7 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableDeepslate = cfg.getBoolean("enableDeepslate", catBlockNatural, true, "");
 		enableTuff = cfg.getBoolean("enableTuff", catBlockNatural, true, "");
 		enableDeepslateOres = cfg.getBoolean("enableDeepslateOres", catBlockNatural, true, "Enable deepslate ores for copper ore and vanilla ores when deepslate generates over them.");
-		enableAmethyst = cfg.getBoolean("enableAmethyst", catBlockNatural, true, "Enables amethyst blocks, budding amethyst and amethyst crystals. Also enables the item too.");		
+		enableAmethyst = cfg.getBoolean("enableAmethyst", catBlockNatural, true, "Enables tinted glass, amethyst blocks, budding amethyst and amethyst crystals. Also enables the item too.");
 
 		//Function Blocks
 		enableIronTrapdoor = cfg.getBoolean("enableIronTrapdoor", catBlockFunc, true, "");
