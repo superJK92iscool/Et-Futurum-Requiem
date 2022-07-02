@@ -10,6 +10,7 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.client.model.ModelShulker;
+import ganymedes01.etfuturum.client.model.ModelTechnobladeCrown;
 import ganymedes01.etfuturum.client.renderer.block.BlockAmethystClusterRenderer;
 import ganymedes01.etfuturum.client.renderer.block.BlockBarrelRenderer;
 import ganymedes01.etfuturum.client.renderer.block.BlockChestRenderer;
@@ -26,7 +27,23 @@ import ganymedes01.etfuturum.client.renderer.block.BlockPointedDripstoneRenderer
 import ganymedes01.etfuturum.client.renderer.block.BlockSlimeBlockRender;
 import ganymedes01.etfuturum.client.renderer.block.BlockStonecutterRenderer;
 import ganymedes01.etfuturum.client.renderer.block.BlockTrapDoorRenderer;
-import ganymedes01.etfuturum.client.renderer.entity.*;
+import ganymedes01.etfuturum.client.renderer.entity.ArmourStandRenderer;
+import ganymedes01.etfuturum.client.renderer.entity.BrownMooshroomRenderer;
+import ganymedes01.etfuturum.client.renderer.entity.ChestBoatRenderer;
+import ganymedes01.etfuturum.client.renderer.entity.EndermiteRenderer;
+import ganymedes01.etfuturum.client.renderer.entity.HuskRenderer;
+import ganymedes01.etfuturum.client.renderer.entity.LingeringEffectRenderer;
+import ganymedes01.etfuturum.client.renderer.entity.LingeringPotionRenderer;
+import ganymedes01.etfuturum.client.renderer.entity.NewBoatRenderer;
+import ganymedes01.etfuturum.client.renderer.entity.NewSnowGolemRenderer;
+import ganymedes01.etfuturum.client.renderer.entity.PlacedEndCrystalRenderer;
+import ganymedes01.etfuturum.client.renderer.entity.RabbitRenderer;
+import ganymedes01.etfuturum.client.renderer.entity.ShulkerBulletRenderer;
+import ganymedes01.etfuturum.client.renderer.entity.ShulkerRenderer;
+import ganymedes01.etfuturum.client.renderer.entity.StrayOverlayRenderer;
+import ganymedes01.etfuturum.client.renderer.entity.StrayRenderer;
+import ganymedes01.etfuturum.client.renderer.entity.TechnobladeCrownRenderer;
+import ganymedes01.etfuturum.client.renderer.entity.VillagerZombieRenderer;
 import ganymedes01.etfuturum.client.renderer.item.ItemBannerRenderer;
 import ganymedes01.etfuturum.client.renderer.item.ItemBowRenderer;
 import ganymedes01.etfuturum.client.renderer.item.ItemShulkerBoxRenderer;
@@ -43,7 +60,21 @@ import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigEntities;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.core.handlers.ClientEventHandler;
-import ganymedes01.etfuturum.entities.*;
+import ganymedes01.etfuturum.entities.EntityArmourStand;
+import ganymedes01.etfuturum.entities.EntityBrownMooshroom;
+import ganymedes01.etfuturum.entities.EntityEndermite;
+import ganymedes01.etfuturum.entities.EntityHusk;
+import ganymedes01.etfuturum.entities.EntityLingeringEffect;
+import ganymedes01.etfuturum.entities.EntityLingeringPotion;
+import ganymedes01.etfuturum.entities.EntityNewBoat;
+import ganymedes01.etfuturum.entities.EntityNewBoatWithChest;
+import ganymedes01.etfuturum.entities.EntityNewSnowGolem;
+import ganymedes01.etfuturum.entities.EntityPlacedEndCrystal;
+import ganymedes01.etfuturum.entities.EntityRabbit;
+import ganymedes01.etfuturum.entities.EntityShulker;
+import ganymedes01.etfuturum.entities.EntityShulkerBullet;
+import ganymedes01.etfuturum.entities.EntityStray;
+import ganymedes01.etfuturum.entities.EntityZombieVillager;
 import ganymedes01.etfuturum.tileentities.TileEntityBanner;
 import ganymedes01.etfuturum.tileentities.TileEntityGateway;
 import ganymedes01.etfuturum.tileentities.TileEntityNewBeacon;
@@ -52,6 +83,7 @@ import ganymedes01.etfuturum.tileentities.TileEntityWoodSign;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureManager;
+import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -174,7 +206,6 @@ public class ClientProxy extends CommonProxy {
 		if (ConfigEntities.enableHusk)
 			RenderingRegistry.registerEntityRenderingHandler(EntityHusk.class, new HuskRenderer());
 		if (ConfigEntities.enableStray) {
-			RenderingRegistry.registerEntityRenderingHandler(EntityStray.class, new StrayRenderer());
 			RenderingRegistry.registerEntityRenderingHandler(EntityStray.class, new StrayOverlayRenderer());
 		}
 		
@@ -201,9 +232,11 @@ public class ClientProxy extends CommonProxy {
 			RenderingRegistry.registerEntityRenderingHandler(EntityShulkerBullet.class, new ShulkerBulletRenderer());
 		}
 		
-		{
-			RenderingRegistry.registerEntityRenderingHandler(EntityFallingDripstone.class, new FallingDripstoneRenderer());
-		}
+		RenderingRegistry.registerEntityRenderingHandler(EntityPig.class, new TechnobladeCrownRenderer());
+		
+//		{
+//			RenderingRegistry.registerEntityRenderingHandler(EntityFallingDripstone.class, new FallingDripstoneRenderer());
+//		}
 		
 		if (ConfigFunctions.enablePlayerSkinOverlay) {
 			TextureManager texManager = Minecraft.getMinecraft().renderEngine;
