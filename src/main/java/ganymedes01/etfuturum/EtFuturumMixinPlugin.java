@@ -111,7 +111,7 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 			mixins.add("MixinEntity");
 		}
 
-		if(ConfigFunctions.enableSpectatorMode) {
+		if(ConfigMixins.enableSpectatorMode) {
 			mixins.add("MixinGameType");
 			mixins.add("MixinEntity_Spectator");
 			mixins.add("MixinWorld_Spectator");
@@ -119,7 +119,7 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 			mixins.add("MixinNetHandlerPlayServer");
 		}
 
-		if(ConfigFunctions.avoidDroppingItemsWhenClosing) {
+		if(ConfigMixins.avoidDroppingItemsWhenClosing) {
 			mixins.add("MixinEntityPlayerMP");
 		}
 		
@@ -127,7 +127,7 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 			if(ConfigMixins.furnaceCrackle) {
 				mixins.add("client.MixinBlockFurnace");
 			}
-			if(ConfigFunctions.enableSpectatorMode) {
+			if(ConfigMixins.enableSpectatorMode) {
 				mixins.add("client.MixinEntityRenderer");
 				mixins.add("client.MixinEntityPlayer");
 				mixins.add("client.MixinWorldRenderer_Spectator");

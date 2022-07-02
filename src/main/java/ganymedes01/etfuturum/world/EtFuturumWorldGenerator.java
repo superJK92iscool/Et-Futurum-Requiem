@@ -70,13 +70,13 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 						generateOre(stoneGenerator, world, rand, chunkX, chunkZ, 1, 0, 80);
 					}
 				}
-				
-				if(ConfigBlocksItems.enableAmethyst) {
-					x = chunkX * 16 + rand.nextInt(16) + 8;
-					z = chunkZ * 16 + rand.nextInt(16) + 8;
-					if(ConfigWorld.enableAmethystGeodes && rand.nextInt(53) == 0) {
-						new WorldGenAmethystGeode().generate(world, rand, x, rand.nextInt(52) + 9, z);
-					}
+			}
+			
+			if(ConfigBlocksItems.enableAmethyst && !ArrayUtils.contains(ConfigWorld.amethystDimensionBlacklist, world.provider.dimensionId)) {
+				x = chunkX * 16 + rand.nextInt(16) + 8;
+				z = chunkZ * 16 + rand.nextInt(16) + 8;
+				if(ConfigWorld.enableAmethystGeodes && rand.nextInt(ConfigWorld.amethystRarity) == 0) {
+					new WorldGenAmethystGeode().generate(world, rand, x, rand.nextInt(ConfigWorld.amethystMaxY) - 8, z);
 				}
 			}
 			

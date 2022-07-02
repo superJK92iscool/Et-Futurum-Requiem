@@ -36,7 +36,6 @@ public class WorldGenAmethystGeode extends WorldGenerator {
 		int holeSize = random.nextFloat() < .95F ? random.nextInt(3) + 5 : -1;
 		float holeTheta = 0;
 		float holePhi = 0;
-		int attempts = 1;
 		if(holeSize != -1) {
 			holeTheta = (float) (Math.acos(1 - 2 * random.nextFloat()) - Math.PI/2);
 			holePhi = (float) (random.nextFloat() * Math.PI * 2);
@@ -44,7 +43,6 @@ public class WorldGenAmethystGeode extends WorldGenerator {
 			holeX = Math.round(radius * MathHelper.cos(holePhi) * MathHelper.cos(holeTheta));
 			holeY = Math.round(radius * MathHelper.sin(holeTheta));
 			holeZ = Math.round(radius * MathHelper.sin(holePhi) * MathHelper.cos(holeTheta));
-			attempts++;
 		}
 		
 //		if(holeSize > -1) {

@@ -1154,7 +1154,7 @@ public class ServerEventHandler {
 	@SubscribeEvent
 	public void onItemToss(ItemTossEvent event)
 	{
-		if(ConfigFunctions.avoidDroppingItemsWhenClosing && event.player instanceof EntityPlayerMP && playersClosedContainers.contains(event.player)) {
+		if(ConfigMixins.avoidDroppingItemsWhenClosing && event.player instanceof EntityPlayerMP && playersClosedContainers.contains(event.player)) {
 			if(event.player.inventory.addItemStackToInventory(event.entityItem.getEntityItem())) {
 				event.setCanceled(true);
 			}

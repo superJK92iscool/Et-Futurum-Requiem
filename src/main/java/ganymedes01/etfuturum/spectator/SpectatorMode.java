@@ -6,7 +6,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
+import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
@@ -44,7 +44,7 @@ public class SpectatorMode {
     }
     public static WorldSettings.GameType SPECTATOR_GAMETYPE = null;
     public static void init() {
-        if(ConfigFunctions.enableSpectatorMode)
+        if(ConfigMixins.enableSpectatorMode)
             SPECTATOR_GAMETYPE = EnumHelperClient.addGameType("spectator", 3, "Spectator");
     }
 

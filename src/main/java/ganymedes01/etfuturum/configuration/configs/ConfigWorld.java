@@ -47,6 +47,9 @@ public class ConfigWorld extends ConfigBase {
 	public static boolean enableCoarseDirtReplacement;
 	public static boolean enableAmethystGeodes;
 	public static int buddingAmethystMode;
+	public static int amethystRarity;
+	public static int amethystMaxY;
+	public static int[] amethystDimensionBlacklist;
 
 	public static final String catClient = "client";
 	public static final String catGeneration = "generation";
@@ -104,9 +107,12 @@ public class ConfigWorld extends ConfigBase {
 		enableCoarseDirtReplacement = cfg.getBoolean("enableCoarseDirtReplacement", catGeneration, true, "Replaces coarse dirt in biomes it (dirt:1) generates in such as shattered savannas or mesa plateaus.");
 		enableAmethystGeodes = cfg.getBoolean("enableAmethystGeodes", catGeneration, true, "");
 		buddingAmethystMode  = cfg.getInt("buddingAmethystMode", catGeneration, 0, 0, 2, "0 = Budding amethyst cannot be obtained at all even with silk touch. When using this option, attempting to push them using a piston will break it.\n1 = Budding amethyst will drop if you use a silk touch pickaxe.\n2 = Budding amethyst does not need silk touch, just a pickaxe.");
+		Property amethystBlacklistProp = cfg.get(catGeneration, "amethystDimensionBlacklist", new int[] {-1, 1});
+		amethystBlacklistProp.comment = "What dimensions should we ban amethyst geodes from generating in?";
+		amethystDimensionBlacklist = amethystBlacklistProp.getIntList();
+		amethystRarity = cfg.getInt("amethystRarity", catGeneration, 53, 1, 128, "How rare should amethyst geodes be? 1/x chance per chunk, 1 means a geode every chunk");
+		amethystMaxY = cfg.getInt("amethystMaxY", catGeneration, 50, 9, 255, "Max Y level amethyst geodes should attempt to generate at");
 		
-		
-		fullGrassPath = cfg.getBoolean("fullGrassPath", catMisc, false, "Set to true if you're having issues with stepping over grass paths. Temporary option until fixes are implemented to 1.7's stepping system.");
 		tileReplacementMode = cfg.getInt("tileReplacementMode", catMisc, 0, -1, 1, "Replace old Brewing Stands/Enchanting Tables/Daylight Sensors/Beacons with new one on the fly.\n-1 = Disabled, no conversion even if the replacement tile entities are on\n0 = Convert the vanilla tile entities to their Et Futurum versions\n1 = Convert Et Futurum replacement tile entities back to default ones. Useful if you want to turn those off.");
 	}
 }

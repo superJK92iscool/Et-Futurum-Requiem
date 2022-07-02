@@ -47,6 +47,11 @@ public class BlockAmethystCluster extends BlockAmethystBlock implements ISubBloc
 		this.type = type;
 	}
 	
+    public int getMobilityFlag()
+    {
+    	return 1;
+    }
+	
     public int getLightValue(IBlockAccess world, int x, int y, int z)
     {
     	int meta = world.getBlockMetadata(x, y, z);

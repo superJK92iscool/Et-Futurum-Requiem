@@ -6,8 +6,10 @@ import java.util.Random;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
+import ganymedes01.etfuturum.ModBlocks.ISubBlocksBlock;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
+import ganymedes01.etfuturum.items.block.ItemDecorationWorkbench;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.Block;
@@ -18,12 +20,13 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-public class BlockComposter extends Block implements IConfigurable {
+public class BlockComposter extends Block implements IConfigurable, ISubBlocksBlock {
 
 	@SideOnly(Side.CLIENT)
 	private IIcon topIcon;
@@ -165,6 +168,11 @@ public class BlockComposter extends Block implements IConfigurable {
 	@Override
 	public boolean isEnabled() {
 		return ConfigBlocksItems.enableComposter;
+	}
+
+	@Override
+	public Class<? extends ItemBlock> getItemBlockClass() {
+		return ItemDecorationWorkbench.class;
 	}
 
 }
