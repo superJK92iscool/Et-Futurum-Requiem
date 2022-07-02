@@ -7,7 +7,7 @@ import java.util.Random;
 import java.util.WeakHashMap;
 
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
-import ganymedes01.etfuturum.entities.EntityChestBoat;
+import ganymedes01.etfuturum.entities.EntityNewBoatWithChest;
 import ganymedes01.etfuturum.network.ChestBoatOpenInventoryMessage;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import org.apache.commons.lang3.tuple.MutablePair;
@@ -485,7 +485,7 @@ public class ClientEventHandler {
 				return;
 			}
 		} else if(ConfigBlocksItems.enableNewBoats && event.gui instanceof GuiInventory) {
-			if(Minecraft.getMinecraft().thePlayer.ridingEntity instanceof EntityChestBoat) {
+			if(Minecraft.getMinecraft().thePlayer.ridingEntity instanceof EntityNewBoatWithChest) {
 				event.setCanceled(true);
 				EtFuturum.networkWrapper.sendToServer(new ChestBoatOpenInventoryMessage());
 			}

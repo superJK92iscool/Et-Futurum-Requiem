@@ -193,7 +193,7 @@ public class ClientProxy extends CommonProxy {
 
 		if(ConfigBlocksItems.enableNewBoats) {
 			RenderingRegistry.registerEntityRenderingHandler(EntityNewBoat.class, new NewBoatRenderer());
-			RenderingRegistry.registerEntityRenderingHandler(EntityChestBoat.class, new ChestBoatRenderer());
+			RenderingRegistry.registerEntityRenderingHandler(EntityNewBoatWithChest.class, new ChestBoatRenderer());
 		}
 		
 		if(ConfigEntities.enableShulker) {

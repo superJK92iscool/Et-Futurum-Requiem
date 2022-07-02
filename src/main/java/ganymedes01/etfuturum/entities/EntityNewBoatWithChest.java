@@ -2,6 +2,7 @@ package ganymedes01.etfuturum.entities;
 
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -12,10 +13,10 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
 
-public class EntityChestBoat extends EntityNewBoat implements IInventory {
+public class EntityNewBoatWithChest extends EntityNewBoat implements IInventory {
     private ItemStack[] boatItems = new ItemStack[27];
     private boolean dropContentsWhenDead = true;
-    public EntityChestBoat(World world) {
+    public EntityNewBoatWithChest(World world) {
         super(world);
     }
 
@@ -72,12 +73,7 @@ public class EntityChestBoat extends EntityNewBoat implements IInventory {
 
     @Override
     public String getInventoryName() {
-        return "container.etfuturum.chest_boat";
-    }
-
-    @Override
-    public boolean hasCustomInventoryName() {
-        return false;
+        return hasCustomInventoryName() ? getBoatName() : "container.etfuturum.chest_boat";
     }
 
     @Override
@@ -222,6 +218,6 @@ public class EntityChestBoat extends EntityNewBoat implements IInventory {
     @Override
     public Item getItemBoat()
     {
-        return ModItems.chest_boats[getBoatType().ordinal()];
+        return ConfigFunctions.dropVehiclesTogether ? ModItems.chest_boats[getBoatType().ordinal()] : super.getItemBoat();
     }
 }

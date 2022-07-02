@@ -5,6 +5,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockGlass;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -19,6 +20,7 @@ public class BlockTintedGlass extends BlockGlass implements IConfigurable {
         setLightOpacity(255);
         setBlockName(Utils.getUnlocalisedName("tinted_glass"));
         setCreativeTab(EtFuturum.creativeTabBlocks);
+        setStepSound(Block.soundTypeGlass);
     }
 
     @Override

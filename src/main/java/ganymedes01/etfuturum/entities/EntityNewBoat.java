@@ -10,6 +10,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.network.BoatMoveMessage;
 import net.minecraft.block.Block;
@@ -71,6 +72,7 @@ public class EntityNewBoat extends Entity {
 	
 	private EntityNewBoatSeat seat;
 	private EntityNewBoatSeat seatToSpawn;
+    private String entityName;
 
 	public EntityNewBoat(World p_i1704_1_)
 	{
@@ -269,7 +271,15 @@ public class EntityNewBoat extends Entity {
 			{
 				if (!flag && this.worldObj.getGameRules().getGameRuleBooleanValue("doMobLoot"))
 				{
-					this.dropItem(this.getItemBoat(), 1);
+					ItemStack boat = new ItemStack(getItemBoat());
+			        if (this.entityName != null)
+			        {
+			            boat.setStackDisplayName(this.entityName);
+			        }
+			        entityDropItem(boat, 0);
+					if(this instanceof EntityNewBoatWithChest && !ConfigFunctions.dropVehiclesTogether) {
+						this.dropItem(Item.getItemFromBlock(Blocks.chest), 1);
+					}
 				}
 
 				this.setDead();
@@ -909,6 +919,8 @@ public class EntityNewBoat extends Entity {
 			{
 				f -= 0.005F;
 			}
+			
+			f *= ConfigBlocksItems.newBoatSpeed;
 //            if(!worldObj.isRemote)
 //              f = 0;
 
@@ -998,6 +1010,11 @@ public class EntityNewBoat extends Entity {
 				seatToSpawn = ((EntityNewBoatSeat)entity);
 			}
 		}
+
+        if (compound.hasKey("CustomName", 9) && compound.getString("CustomName").length() > 0)
+        {
+            this.entityName = compound.getString("CustomName");
+        }
 	}
 
 	/**
@@ -1018,6 +1035,11 @@ public class EntityNewBoat extends Entity {
 				compound.setTag("Seat", seatData);
 			}
 		}
+
+        if (this.entityName != null && this.entityName.length() > 0)
+        {
+            compound.setString("CustomName", this.entityName);
+        }
 	}
 
 	@Override
@@ -1137,6 +1159,19 @@ public class EntityNewBoat extends Entity {
 		this.forwardInputDown = p_184442_3_;
 		this.backInputDown = p_184442_4_;
 	}
+
+    public boolean hasCustomInventoryName() {
+        return entityName != null;
+    }
+	
+	public String getBoatName() {
+		return entityName;
+	}
+	
+    public void setBoatName(String p_96094_1_)
+    {
+        this.entityName = p_96094_1_;
+    }
 
 	public static enum Status
 	{

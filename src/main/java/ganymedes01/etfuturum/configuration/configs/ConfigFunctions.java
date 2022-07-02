@@ -118,6 +118,7 @@ public class ConfigFunctions extends ConfigBase {
 	public static boolean enableUpdatedHarvestLevels;
 	public static boolean enableSpectatorMode;
 	public static boolean avoidDroppingItemsWhenClosing;
+	public static boolean dropVehiclesTogether;
 	public static String[] extraDropRawOres = new String[] {"oreCopper", "oreTin"};
 
 	static final String catChanges = "changes";
@@ -171,7 +172,7 @@ public class ConfigFunctions extends ConfigBase {
 		
 		//client
 		enableTransparentAmour = cfg.getBoolean("enableTransparentAmour", catClient, true, "Allow non-opaque armour");
-		enableBowRendering = cfg.getBoolean("enableBowRendering", catClient, true, "Bows render pulling animation on inventory");
+		enableBowRendering = cfg.getBoolean("enableBowRendering", catClient, true, "Bows render pulling animation in inventory");
 		enableFancySkulls = cfg.getBoolean("enableFancySkulls", catClient, true, "Skulls render 3D in inventory");
 		enablePlayerSkinOverlay = cfg.getBoolean("enablePlayerSkinOverlay", catClient, true, "Allows use of 1.8 skin format, and Alex skins. Also includes some fixes from SkinPort. (Per SkinPort author's permission) Disable if skin is displaying oddly. Not compatible with OptiFine, use FastCraft instead.");
 		enableExtraF3HTooltips = cfg.getBoolean("enableExtraF3HTooltips", catClient, true, "Enables NBT tag count and item namespace label on F3 + H debug item labels");

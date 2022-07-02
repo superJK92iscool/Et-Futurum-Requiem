@@ -110,6 +110,7 @@ public class ConfigBlocksItems extends ConfigBase {
 	public static boolean enableNewBoats;
 	public static boolean newBoatPassengerSeat;
 	public static float newBoatMaxLandSpeed;
+	public static float newBoatSpeed;
 	public static boolean replaceOldBoats;
 	
 	public static int endGatewaySpawnColor = 2;
@@ -254,8 +255,9 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableNewBoats = cfg.getBoolean("enableNewBoats", catItemEntity, true, "New boats from 1.9+, including the new rowing sounds. All vanilla wood variants included.");
 		
 		replaceOldBoats = cfg.getBoolean("replaceOldBoats", catItemEntity, true, "If true, old boats will be replaced with the new oak boat and the item sprite will also be changned. False means the new and old boat and item for it exists separately, and the new boats will use a wooden shovel in their crafting recipe. If this is enabled, a boat that has an entity in it will not be replaced until the entity gets out.\nTHIS WILL NOT WORK PROPERLY WITH BETTER BOATS INSTALLED");
-		newBoatMaxLandSpeed = cfg.getFloat("newBoatMaxLandSpeed", catItemEntity, 0.986F, 0.1F, 1, "The maximum speed a boat can travel by while on land. This option exists because boats are very very fast when travelling on slippery blocks. Land speed = cfg.0.6, Regular/Packed Ice Speed = cfg.0.98, Packed Ice Speed = cfg.0.986. Anything smaller than 0.6 is really, REALLY slow on land.\nAny value above 1 is exponential speed growth, and is discouraged. (Quicksoil from Aether Legacy is 1.1) The speed values are just block slipperiness values, and are averaged by the slippery blocks around the bottom of the boat. This option does nothing to old boats.");
-		newBoatPassengerSeat = cfg.getBoolean("newBoatPassengerSeat", catItemEntity, true, "If disabled, only one person can sit in the passenger seat at a time.");
+		newBoatMaxLandSpeed = cfg.getFloat("newBoatMaxLandSpeed", catItemEntity, 0.986F, 0.1F, 1, "The maximum speed a boat can travel by while on land. This option exists because boats are very very fast when travelling on slippery blocks. Land speed = cfg.0.6, Regular/Packed Ice Speed = cfg.0.98, Packed Ice Speed = cfg.0.986. Anything smaller than 0.6 is really, REALLY slow on land.\nThe speed values are just block slipperiness values, and are averaged by the slippery blocks around the bottom of the boat. This option does nothing to old boats.");
+		newBoatSpeed = cfg.getFloat("newBoatSpeed", catItemEntity, 1F, 0.1F, 2, "The speed multiplier for boats while in water. Use this if you want to make the boats faster or slower. 1 = no speed change");
+		newBoatPassengerSeat = cfg.getBoolean("newBoatPassengerSeat", catItemEntity, true, "If disabled, only one person can sit in the new boat at a time. The new seat is actually an invisible entity that follows new boats.");
 		
 		//      endGatewaySpawnColor = cfg.getInt("endGatewaySpawnColor", catAbandoned, 2, 0, 15, "The color of the end gateway beam when the gateway first appears.");
 //      endGatewayEntryColor = cfg.getInt("endGatewayEntryColor", catAbandoned, 2, 0, 15, "The color of the end gateway beam when an entity enters it. Originally, this value was 4 (yellow) before version 1.11.");

@@ -29,6 +29,7 @@ import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigEnchantsPotions;
 import ganymedes01.etfuturum.configuration.configs.ConfigEntities;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
+import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.configuration.configs.ConfigTweaks;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.HoeHelper;
@@ -541,7 +542,7 @@ public class ServerEventHandler {
 						//Eye of Ender place sounds
 						if(heldStack != null && !event.world.isRemote && ConfigWorld.enableNewMiscSounds && heldStack.getItem() == Items.ender_eye && oldBlock == Blocks.end_portal_frame && !BlockEndPortalFrame.isEnderEyeInserted(meta))
 						{
-							world.playSoundEffect(x + .5F, y + .5F, z + .5F, Reference.MCv118 +":block.end_portal_frame.fill", 1, 1);
+							world.playSoundEffect(x + .5F, y + .5F, z + .5F, Reference.MCv118 + ":block.end_portal_frame.fill", 1, 1);
 							int j1 = meta & 3;
 							int j2 = 0;
 							int k1 = 0;
@@ -886,6 +887,10 @@ public class ServerEventHandler {
 					break;
 				}
 			}
+		}
+		
+		if (event.entity instanceof EntityPlayer && ConfigMixins.stepHeightFix) {
+			event.entity.stepHeight = .6F;
 		}
 	}
 

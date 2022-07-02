@@ -6,7 +6,7 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.blocks.IConfigurable;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.entities.EntityChestBoat;
+import ganymedes01.etfuturum.entities.EntityNewBoatWithChest;
 import ganymedes01.etfuturum.entities.EntityNewBoat;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -101,7 +101,7 @@ public class ItemNewBoat extends Item implements IConfigurable {
 
 			EntityNewBoat entityboat;
 			if(isChest) {
-				entityboat = new EntityChestBoat(p_77659_2_);
+				entityboat = new EntityNewBoatWithChest(p_77659_2_);
 			} else {
 				entityboat = new EntityNewBoat(p_77659_2_);
 			}
@@ -109,6 +109,9 @@ public class ItemNewBoat extends Item implements IConfigurable {
 			entityboat.setPositionAndRotation((double)((float)i + 0.5F), (double)((float)j + (p_77659_2_.getBlock(i, j-1, k).getMaterial() == Material.water ? 0.88F : 1.0F)), (double)((float)k + 0.5F), yaw, 0);
 			entityboat.motionX = entityboat.motionY = entityboat.motionZ = 0;
 			entityboat.setBoatType(type);
+			if(p_77659_1_.hasDisplayName()) {
+				entityboat.setBoatName(p_77659_1_.getDisplayName());
+			}
 
 			if (!p_77659_2_.getCollidingBoundingBoxes(entityboat, entityboat.boundingBox.expand(-0.1D, -0.1D, -0.1D)).isEmpty())
 			{
