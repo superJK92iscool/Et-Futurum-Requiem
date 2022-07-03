@@ -864,6 +864,12 @@ public class ModRecipes {
 				GameRegistry.addRecipe(new ItemStack(ModBlocks.beacon), "GGG", "GNG", "OOO", 'G', new ItemStack(Blocks.glass), 'N', new ItemStack(Items.nether_star), 'O', new ItemStack(Blocks.obsidian));
 				removeFirstRecipeFor(Blocks.beacon);
 			}
+
+          if (ConfigBlocksItems.enableEnchantingTable) {
+              addShapedRecipe(new ItemStack(ModBlocks.enchanting_table), " B ", "D#D", "###", '#', Blocks.obsidian, 'B', Items.book, 'D', "gemDiamond");
+              removeFirstRecipeFor(Blocks.enchanting_table); // Remove recipe for Minecrafts Enchanting Table
+          }
+			
 		}
 		
 		if(ConfigBlocksItems.enableExtraVanillaWalls) {

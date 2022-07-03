@@ -124,7 +124,7 @@ public class BlockComposter extends Block implements IConfigurable, ISubBlocksBl
         			} catch(NumberFormatException e) {
         				String itemName = Item.itemRegistry.getNameForObject(stack.getItem());
         				System.out.println("Item " + itemName + " had an incorrectly formatted composter tag! Got " + oreName + " instead.");
-        				System.out.println("It should be formatted starting with \"compostChance\" and then a number from 1 to 100. Example: compost75 for a 75% composting chance.");
+        				System.out.println("It should be formatted starting with \"compostChance\" and then a number from 1 to 100. Example: compostChance75 for a 75% composting chance.");
         				e.printStackTrace();
         				return false;
         			}

@@ -177,8 +177,6 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableSponge = cfg.getBoolean("enableSponge", catBlockFunc, true, "");
 		enableDoors = cfg.getBoolean("enableDoors", catBlockFunc, true, "Enables wood variant doors");
 		enableTrapdoors = cfg.getBoolean("enableTrapdoors", catBlockFunc, true, "Enables wood variant trapdoors");
-		enableInvertedDaylightSensor = cfg.getBoolean("enableInvertedSensor", catBlockFunc, true, "Inverted Daylight Sensor");
-		enableOldBaseDaylightSensor = cfg.getBoolean("enableOldBaseDaylightSensor", catBlockFunc, false, "Enable the old Et Futurum daylight sensor block. Should be enabled if you still have the old Et Futurum copy of the non-inverted daylight detector that need to be converted.");
 		enableSlimeBlock = cfg.getBoolean("enableSlimeBlock", catBlockFunc, true, "Just bouncy, does not pull blocks.");
 		enableWoodRedstone = cfg.getBoolean("enableWoodRedstone", catBlockFunc, true, "Enables wood variant buttons and pressure plates");
 		enableBarrel = cfg.getBoolean("enableBarrel", catBlockFunc, true, "");
@@ -195,9 +193,11 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableLoom = cfg.getBoolean("enableLoom", catBlockFunc, true, "Currently DOES NOT HAVE ANY FUNCTIONALITY. Decoration ONLY!");
 
 		enableEnchantingTable = cfg.getBoolean("enableNewEnchantingTable", catBlockFunc, true, "Uses lapis as payment and has enchant previews and adjusted level costs\nRequires tile entity replacement to be enabled in function.cfg");
-		enableAnvil = cfg.getBoolean("enableNewAnvil", catBlockFunc, true, "");
+		enableAnvil = cfg.getBoolean("enableNewAnvil", catBlockFunc, true, "Enables new anvil behavior, such as less expensive item renaming");
 		enableBrewingStands = cfg.getBoolean("enableNewBrewingStand", catBlockFunc, true, "Uses blaze powder as fuel");
 		enableColourfulBeacons = cfg.getBoolean("enableNewBeacon", catBlockFunc, true, "Beacon beam can be colored using stained glass");
+		enableInvertedDaylightSensor = cfg.getBoolean("enableInvertedSensor", catBlockFunc, true, "Inverted Daylight Sensor");
+		enableOldBaseDaylightSensor = cfg.getBoolean("enableOldBaseDaylightSensor", catBlockFunc, false, "Enable the old Et Futurum daylight sensor block. Should be enabled if you still have the old Et Futurum copy of the non-inverted daylight detector that need to be converted.");
 		
 		//Misc Blocks
 		enableFences = cfg.getBoolean("enableFences", catBlockMisc, true, "Enables wood variant fences and gates");
