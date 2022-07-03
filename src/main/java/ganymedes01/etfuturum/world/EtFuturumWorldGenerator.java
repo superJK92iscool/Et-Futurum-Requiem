@@ -45,7 +45,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 	protected final WorldGenMinable mesaGoldGen = new WorldGenMinable(Blocks.gold_ore, 8);
 	
 	protected final WorldGenMinable deepslateBlobGen = new WorldGenDeepslateLayerBlob(ConfigWorld.maxDeepslatePerCluster, false);
-	protected final WorldGenMinable tuffGen = new WorldGenDeepslateLayerBlob(ConfigWorld.maxDeepslatePerCluster, true);
+	protected final WorldGenMinable tuffGen = new WorldGenDeepslateLayerBlob(ConfigWorld.maxTuffPerCluster, true);
 	
 	public final MapGenMesaMineshaft mesaMineshaftGen = new MapGenMesaMineshaft();
 
