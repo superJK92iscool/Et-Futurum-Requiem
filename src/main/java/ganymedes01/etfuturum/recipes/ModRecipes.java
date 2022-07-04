@@ -830,7 +830,7 @@ public class ModRecipes {
 				addShapelessRecipe(new ItemStack(ModItems.boats[0]), Items.wooden_shovel, Items.boat);
 			}
 			for(int i = EntityNewBoat.Type.values().length - 1; i >= 0; i--) {
-				addShapelessRecipe(new ItemStack(ModItems.chest_boats[i]), i == 0 && ConfigBlocksItems.replaceOldBoats ? Items.boat : ModItems.boats[i], Blocks.chest);
+				addShapedRecipe(new ItemStack(ModItems.chest_boats[i]), "c", "b", 'b', i == 0 && ConfigBlocksItems.replaceOldBoats ? Items.boat : ModItems.boats[i], 'c', Blocks.chest);
 			}
 		}
 		
