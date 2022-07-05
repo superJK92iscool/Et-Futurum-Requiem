@@ -3,6 +3,8 @@ package ganymedes01.etfuturum.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.ArrayUtils;
+
 import com.google.common.collect.Lists;
 
 import cpw.mods.fml.relauncher.Side;
@@ -540,7 +542,9 @@ public class EntityNewBoat extends Entity {
 				{
 					if (flag && this.getPassengers().size() < 2 && !entity.isRiding() && entity.width < this.width && entity instanceof EntityLivingBase && !(entity instanceof EntityWaterMob) && !(entity instanceof EntityPlayer))
 					{
-						addToBoat(entity);
+						if(canEntitySit(entity)) {
+							addToBoat(entity);
+						}
 					}
 					else
 					{
@@ -553,6 +557,31 @@ public class EntityNewBoat extends Entity {
 		if(this.worldObj.isRemote && canPassengerSteer() && getControllingPassenger() instanceof EntityClientPlayerMP) {
 			EtFuturum.networkWrapper.sendToServer(new BoatMoveMessage(this));
 		}
+	}
+	
+	private boolean canEntitySit(Entity entity) {
+		if(ConfigBlocksItems.newBoatEntityBlacklist.length == 0) {
+			return !ConfigBlocksItems.newBoatEntityBlacklistAsWhitelist;
+		}
+		
+		if(ArrayUtils.contains(ConfigBlocksItems.newBoatEntityBlacklist, EntityList.getEntityString(entity))) {
+			return ConfigBlocksItems.newBoatEntityBlacklistAsWhitelist;
+		}
+		
+		for(int i = 0; i < ConfigBlocksItems.newBoatEntityBlacklist.length; i++) {
+			String blacklistEntry = ConfigBlocksItems.newBoatEntityBlacklist[i];
+			if(blacklistEntry.startsWith("classpath:")) {
+				if(entity.getClass().getName().contains(blacklistEntry.replace("classpath:", ""))) {
+					return ConfigBlocksItems.newBoatEntityBlacklistAsWhitelist;
+				}
+			}
+//			if(blacklistEntry.startsWith("class:")) {
+//				if(entity.getClass().getSimpleName().equals(blacklistEntry.replace("class:", ""))) {
+//					return ConfigBlocksItems.newBoatEntityBlacklistAsWhitelist;
+//				}
+//			}
+		}
+		return !ConfigBlocksItems.newBoatEntityBlacklistAsWhitelist;
 	}
 	
 	protected String getPaddleSound()

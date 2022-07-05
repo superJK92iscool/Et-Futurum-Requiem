@@ -2,9 +2,12 @@ package ganymedes01.etfuturum.configuration.configs;
 
 import java.io.File;
 
+import org.apache.commons.lang3.ArrayUtils;
+
 import ganymedes01.etfuturum.configuration.ConfigBase;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.common.config.Property;
 
 public class ConfigBlocksItems extends ConfigBase {
 	
@@ -112,6 +115,8 @@ public class ConfigBlocksItems extends ConfigBase {
 	public static float newBoatMaxLandSpeed;
 	public static float newBoatSpeed;
 	public static boolean replaceOldBoats;
+	public static String[] newBoatEntityBlacklist;
+	public static boolean newBoatEntityBlacklistAsWhitelist;
 	
 	public static int endGatewaySpawnColor = 2;
 	public static int endGatewayEntryColor = 2;
@@ -258,6 +263,10 @@ public class ConfigBlocksItems extends ConfigBase {
 		newBoatMaxLandSpeed = cfg.getFloat("newBoatMaxLandSpeed", catItemEntity, 0.986F, 0.1F, 1, "The maximum speed a boat can travel by while on land. This option exists because boats are very very fast when travelling on slippery blocks. Land speed = cfg.0.6, Regular/Packed Ice Speed = cfg.0.98, Packed Ice Speed = cfg.0.986. Anything smaller than 0.6 is really, REALLY slow on land.\nThe speed values are just block slipperiness values, and are averaged by the slippery blocks around the bottom of the boat. This option does nothing to old boats.");
 		newBoatSpeed = cfg.getFloat("newBoatSpeed", catItemEntity, 1F, 0.1F, 2, "The speed multiplier for boats while in water. Use this if you want to make the boats faster or slower. 1 = no speed change");
 		newBoatPassengerSeat = cfg.getBoolean("newBoatPassengerSeat", catItemEntity, true, "If disabled, only one person can sit in the new boat at a time. The new seat is actually an invisible entity that follows new boats.");
+		Property newBoatEntityBlacklistProp = cfg.get(catItemEntity, "amethystDimensionBlacklist", new String[] {});
+		newBoatEntityBlacklistProp.comment = "What entities shouldn't be able to sit in the boat? You can either provide an entity ID (modid.entityid, for vanilla entities type just entity ID), or search for a string in the classpath (classpath:stringtofind).\nSeparate entries in the list by a new line. Note that players can always sit even if blacklisted, and some entities, like horses, water mobs or nonliving entities, will never be allowed to sit in boats.\nIt's a little hard to explain, a more detailed explanation and list of examples can be found here: https://pastebin.com/XNZ7VWKh";
+		newBoatEntityBlacklist = newBoatEntityBlacklistProp.getStringList();
+		newBoatEntityBlacklistAsWhitelist = cfg.getBoolean("newBoatEntityBlacklistAsWhitelist", catBlockNatural, false, "Treat the entity blacklist as a whitelist, ONLY entities matching that criteria will be allowed.");
 		
 		//      endGatewaySpawnColor = cfg.getInt("endGatewaySpawnColor", catAbandoned, 2, 0, 15, "The color of the end gateway beam when the gateway first appears.");
 //      endGatewayEntryColor = cfg.getInt("endGatewayEntryColor", catAbandoned, 2, 0, 15, "The color of the end gateway beam when an entity enters it. Originally, this value was 4 (yellow) before version 1.11.");

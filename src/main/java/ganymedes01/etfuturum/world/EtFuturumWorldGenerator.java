@@ -72,7 +72,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 				}
 			}
 			
-			if(ConfigBlocksItems.enableAmethyst && !ArrayUtils.contains(ConfigWorld.amethystDimensionBlacklist, world.provider.dimensionId)) {
+			if(ConfigBlocksItems.enableAmethyst && ArrayUtils.contains(ConfigWorld.amethystDimensionBlacklist, world.provider.dimensionId) == ConfigWorld.amethystDimensionBlacklistAsWhitelist) {
 				x = chunkX * 16 + rand.nextInt(16) + 8;
 				z = chunkZ * 16 + rand.nextInt(16) + 8;
 				if(ConfigWorld.enableAmethystGeodes && rand.nextInt(ConfigWorld.amethystRarity) == 0) {
@@ -124,7 +124,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 					}
 				}
 				
-				if(!ArrayUtils.contains(ConfigWorld.fossilDimensionBlacklist, world.provider.dimensionId)) {
+				if(ArrayUtils.contains(ConfigWorld.fossilDimensionBlacklist, world.provider.dimensionId) == ConfigWorld.fossilDimensionBlacklistAsWhitelist) {
 					x = chunkX * 16 + rand.nextInt(16) + 8;
 					z = chunkZ * 16 + rand.nextInt(16) + 8;
 					biome = world.getBiomeGenForCoords(x, z);
@@ -181,6 +181,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 			}
 		}
 	}
+	
 	public void generateSingleOre(Block block, int meta, World world, Random random, int chunkX, int chunkZ, float chance, int minY, int maxY, Block generateIn) {
 		if(maxY <= 0 || minY < 0 || maxY < minY || chance <= 0)
 			return;

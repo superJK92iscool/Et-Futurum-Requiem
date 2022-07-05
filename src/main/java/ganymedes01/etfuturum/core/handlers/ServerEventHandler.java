@@ -6,16 +6,20 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
+import java.util.WeakHashMap;
 
-import cpw.mods.fml.common.gameevent.TickEvent;
-import net.minecraftforge.event.entity.item.ItemTossEvent;
 import org.apache.commons.lang3.ArrayUtils;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
@@ -59,16 +63,19 @@ import net.minecraft.block.BlockFarmland;
 import net.minecraft.block.BlockSoulSand;
 import net.minecraft.block.BlockTrapDoor;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAIOpenDoor;
 import net.minecraft.entity.ai.EntityAITargetNonTamed;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
 import net.minecraft.entity.ai.EntityAITempt;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.item.EntityBoat;
 import net.minecraft.entity.item.EntityItem;
@@ -116,6 +123,7 @@ import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
+import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.event.entity.living.EnderTeleportEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
@@ -165,15 +173,25 @@ public class ServerEventHandler {
 				}
 			}
 		}
-		
 		if(entity instanceof EntityPlayer) {
 			EntityPlayer player = ((EntityPlayer)entity);
-			if(player.capabilities.getFlySpeed() == 0.05F && player.isSprinting() && player.capabilities.isFlying) {
-				player.capabilities.setFlySpeed(ConfigEntities.flySprintSpeed);
-			} else if(player.capabilities.getFlySpeed() == ConfigEntities.flySprintSpeed && !player.isSprinting()) {
-				player.capabilities.setFlySpeed(0.05F);
+			if(ConfigEntities.flySprintSpeed > 0.05F) {
+				if(player.isSprinting() && player.capabilities.isFlying) {
+					player.capabilities.setFlySpeed(ConfigEntities.flySprintSpeed);
+				} else if(!player.isSprinting()) {
+					player.capabilities.setFlySpeed(0.05F);
+				}
 			}
 			
+			if(ConfigEnchantsPotions.enableSwiftSneak) {
+		        ItemStack leggings = Minecraft.getMinecraft().thePlayer.getEquipmentInSlot(2);
+		        int sslevel = EnchantmentHelper.getEnchantmentLevel(ModEnchantments.swiftSneak.effectId, leggings);
+				if(sslevel > 0 && player.isSneaking()) {
+					player.capabilities.setPlayerWalkSpeed(0.1F + ((0.15F * sslevel) * 0.3F));
+				} else if(player.capabilities.getWalkSpeed() > 0.1F) {
+					player.capabilities.setPlayerWalkSpeed(0.1F);
+				}
+			}
 		}
 	}
 	

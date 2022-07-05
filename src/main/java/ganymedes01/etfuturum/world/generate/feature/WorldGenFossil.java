@@ -26,31 +26,36 @@ public class WorldGenFossil extends WorldGenerator {
 	
 	private boolean canFossilGenerateHere(World world, int x, int y, int z, Fossil fossil) {
 		int air = 0;
-		if(world.isAirBlock(x, y, z) ) {
+		if(isValidCorner(world, x, y, z) ) {
 			air++;
 		}
-		if(world.isAirBlock(x + fossil.getCorners()[0], y, z) ) {
+		if(isValidCorner(world, x + fossil.getCorners()[0], y, z) ) {
 			air++;
 		}
-		if(world.isAirBlock(x, y, z + fossil.getCorners()[2]) ) {
+		if(isValidCorner(world, x, y, z + fossil.getCorners()[2]) ) {
 			air++;
 		}
-		if(world.isAirBlock(x + fossil.getCorners()[0], y, z + fossil.getCorners()[2]) ) {
+		if(isValidCorner(world, x + fossil.getCorners()[0], y, z + fossil.getCorners()[2]) ) {
 			air++;
 		}
-		if(world.isAirBlock(x, y + fossil.getCorners()[1], z) ) {
+		if(isValidCorner(world, x, y + fossil.getCorners()[1], z) ) {
 			air++;
 		}
-		if(world.isAirBlock(x + fossil.getCorners()[0], y + fossil.getCorners()[1], z) ) {
+		if(isValidCorner(world, x + fossil.getCorners()[0], y + fossil.getCorners()[1], z) ) {
 			air++;
 		}
-		if(world.isAirBlock(x, y + fossil.getCorners()[1], z + fossil.getCorners()[2]) ) {
+		if(isValidCorner(world, x, y + fossil.getCorners()[1], z + fossil.getCorners()[2]) ) {
 			air++;
 		}
-		if(world.isAirBlock(x + fossil.getCorners()[0], y + fossil.getCorners()[1], z + fossil.getCorners()[2]) ) {
+		if(isValidCorner(world, x + fossil.getCorners()[0], y + fossil.getCorners()[1], z + fossil.getCorners()[2]) ) {
 			air++;
 		}
 		return air < 4;
+	}
+	
+	private boolean isValidCorner(World world, int x, int y, int z) {
+		Block block = world.getBlock(x, y, z);
+		return !world.canBlockSeeTheSky(x, y, z) && !block.isAir(world, x, y, z) && block.isOpaqueCube();
 	}
 	
 	@Override

@@ -9,7 +9,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
+import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class WorldGenAmethystGeode extends WorldGenerator {
@@ -94,35 +96,40 @@ public class WorldGenAmethystGeode extends WorldGenerator {
 	
 	private boolean canGeodeGenerateHere(World world, int x, int y, int z, int size) {
 		int air = 0;
-		if(isAirOrFluid(world, x + size, y + size, z + size)) {
+		if(isValidCorner(world, x + size, y + size, z + size)) {
 			air++;
 		}
-		if(isAirOrFluid(world, x + size, y + size, z - size)) { 
+		if(isValidCorner(world, x + size, y + size, z - size)) { 
 			air++;
 		}
-		if(isAirOrFluid(world, x - size, y + size, z + size)) {
+		if(isValidCorner(world, x - size, y + size, z + size)) {
 			air++;
 		}
-		if(isAirOrFluid(world, x - size, y + size, z - size)) {
+		if(isValidCorner(world, x - size, y + size, z - size)) {
 			air++;
 		}
-		if(isAirOrFluid(world, x + size, y - size, z + size)) {
+		if(isValidCorner(world, x + size, y - size, z + size)) {
 			air++;
 		}
-		if(isAirOrFluid(world, x + size, y - size, z - size)) {
+		if(isValidCorner(world, x + size, y - size, z - size)) {
 			air++;
 		}
-		if(isAirOrFluid(world, x - size, y - size, z + size)) {
+		if(isValidCorner(world, x - size, y - size, z + size)) {
 			air++;
 		}
-		if(isAirOrFluid(world, x - size, y - size, z - size)) {
+		if(isValidCorner(world, x - size, y - size, z - size)) {
 			air++;
 		}
 		return air < 4;
 	}
 	
-	private boolean isAirOrFluid(World world, int x, int y, int z) {
-		return world.isAirBlock(x, y, z) || world.getBlock(x, y, z).getMaterial().isLiquid();
+	/*
+	 * This is used when generating amethyst to check all 8 corners.
+	 * This is so it doesn't generate in the middle of the air, ocean, hanging in trees, etc.
+	 */
+	private boolean isValidCorner(World world, int x, int y, int z) {
+		Block block = world.getBlock(x, y, z);
+		return !world.canBlockSeeTheSky(x, y, z) && !block.isAir(world, x, y, z) && block.isOpaqueCube();
 	}
 	
 	private void placeAmethyst(World world, Random random, int x, int y, int z) {

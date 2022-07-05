@@ -33,6 +33,7 @@ public class ConfigWorld extends ConfigBase {
 	public static boolean enableFossils;
 	public static int maxTuffPerCluster;
 	public static int[] fossilDimensionBlacklist;
+	public static boolean fossilDimensionBlacklistAsWhitelist;
 	public static int tileReplacementMode;
 	public static int maxStonesPerCluster;
 	public static boolean enableNewBlocksSounds;
@@ -42,6 +43,7 @@ public class ConfigWorld extends ConfigBase {
 	public static int smallDebrisMax = 2;
 	public static boolean enableOceanMonuments;
 	public static int[] deepslateLayerDimensionBlacklist;
+	public static boolean deepslateLayerDimensionBlacklistAsWhitelist;
 	public static boolean enableExtraMesaGold;
 	public static boolean enableMesaMineshaft;
 	public static boolean enableCoarseDirtReplacement;
@@ -50,6 +52,7 @@ public class ConfigWorld extends ConfigBase {
 	public static int amethystRarity;
 	public static int amethystMaxY;
 	public static int[] amethystDimensionBlacklist;
+	public static boolean amethystDimensionBlacklistAsWhitelist;
 
 	public static final String catClient = "client";
 	public static final String catGeneration = "generation";
@@ -98,9 +101,11 @@ public class ConfigWorld extends ConfigBase {
 		Property fossilBlacklistProp = cfg.get(catGeneration, "fossilDimensionBlacklist", new int[] {-1, 1});
 		fossilBlacklistProp.comment = "The dimensions the fossil structures should not spawn in.";
 		fossilDimensionBlacklist = fossilBlacklistProp.getIntList();
+		fossilDimensionBlacklistAsWhitelist = cfg.getBoolean("fossilDimensionBlacklistAsWhitelist", catGeneration, false, "Treat the fossil dimension blacklist as a whitelist instead, so fossils will ONLY generate in those dimensions, instead of excluding those dimensions from generation.");
 		Property deepslateBlacklistProp = cfg.get(catGeneration, "deepslateLayerDimensionBlacklist", new int[] {-1, 1});
 		deepslateBlacklistProp.comment = "The dimensions the deepslate layer (deepslate generation mode 0) should not spawn in. Does nothing if other deepslate generation modes are used.";
 		deepslateLayerDimensionBlacklist = deepslateBlacklistProp.getIntList();
+		deepslateLayerDimensionBlacklistAsWhitelist = cfg.getBoolean("deepslateLayerDimensionBlacklistAsWhitelist", catGeneration, false, "Treat the deepslate layer dimension blacklist as a whitelist instead, so it will ONLY generate in those dimensions, instead of excluding those dimensions from generation.");
 		maxTuffPerCluster = cfg.getInt("tuffClusterSize", catGeneration, 32, 0, 64, "Max vein size for tuff blocks in a cluster");
 		enableExtraMesaGold = cfg.getBoolean("enableExtraMesaGold", catGeneration, true, "Generate 20 more veins of gold ore from Y 32 to Y 80 in any Mesa biome.");
 		enableMesaMineshaft = cfg.getBoolean("enableMesaMineshaft", catGeneration, true, "Generates extra mineshafts in mesa biomes up to y80. If fences are enabled, dark oak wood is used.");
@@ -110,7 +115,8 @@ public class ConfigWorld extends ConfigBase {
 		Property amethystBlacklistProp = cfg.get(catGeneration, "amethystDimensionBlacklist", new int[] {-1, 1});
 		amethystBlacklistProp.comment = "What dimensions should we ban amethyst geodes from generating in?";
 		amethystDimensionBlacklist = amethystBlacklistProp.getIntList();
-		amethystRarity = cfg.getInt("amethystRarity", catGeneration, 53, 1, 128, "How rare should amethyst geodes be? 1/x chance per chunk, 1 means a geode every chunk");
+		amethystDimensionBlacklistAsWhitelist = cfg.getBoolean("amethystDimensionBlacklistAsWhitelist", catGeneration, false, "Treat the amethyst dimension blacklist as a whitelist instead, so geodes will ONLY generate in those dimensions, instead of excluding those dimensions from generation.");
+		amethystRarity = cfg.getInt("amethystRarity", catGeneration, 53, 1, 128, "How rare should amethyst geodes be? 1/x chance per chunk, 1 means a geode attempts to appear every chunk");
 		amethystMaxY = cfg.getInt("amethystMaxY", catGeneration, 51, 9, 255, "Max Y level amethyst geodes should attempt to generate at");
 		
 		tileReplacementMode = cfg.getInt("tileReplacementMode", catMisc, 0, -1, 1, "Replace old Brewing Stands/Enchanting Tables/Daylight Sensors/Beacons with new one on the fly.\n-1 = Disabled, no conversion even if the replacement tile entities are on\n0 = Convert the vanilla tile entities to their Et Futurum versions\n1 = Convert Et Futurum replacement tile entities back to default ones. Useful if you want to turn those off.");
