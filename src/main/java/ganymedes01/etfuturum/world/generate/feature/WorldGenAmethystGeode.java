@@ -99,28 +99,28 @@ public class WorldGenAmethystGeode extends WorldGenerator {
 	private boolean canGeodeGenerateHere(World world, int x, int y, int z, int size) {
 		int air = 0;
 		int cornerDist = (int)((size - 0.5F) / MathHelper.sqrt_float(3));
-		if(isInValidCorner(world, x + cornerDist, y + size, z + cornerDist)) {
+		if(isInvalidCorner(world, x + cornerDist, y + size, z + cornerDist)) {
 			air++;
 		}
-		if(isInValidCorner(world, x + cornerDist, y + size, z - cornerDist)) { 
+		if(isInvalidCorner(world, x + cornerDist, y + size, z - cornerDist)) { 
 			air++;
 		}
-		if(isInValidCorner(world, x - cornerDist, y + size, z + cornerDist)) {
+		if(isInvalidCorner(world, x - cornerDist, y + size, z + cornerDist)) {
 			air++;
 		}
-		if(isInValidCorner(world, x - cornerDist, y + size, z - cornerDist)) {
+		if(isInvalidCorner(world, x - cornerDist, y + size, z - cornerDist)) {
 			air++;
 		}
-		if(isInValidCorner(world, x + cornerDist, y - cornerDist, z + cornerDist)) {
+		if(isInvalidCorner(world, x + cornerDist, y - cornerDist, z + cornerDist)) {
 			air++;
 		}
-		if(isInValidCorner(world, x + cornerDist, y - cornerDist, z - cornerDist)) {
+		if(isInvalidCorner(world, x + cornerDist, y - cornerDist, z - cornerDist)) {
 			air++;
 		}
-		if(isInValidCorner(world, x - cornerDist, y - cornerDist, z + cornerDist)) {
+		if(isInvalidCorner(world, x - cornerDist, y - cornerDist, z + cornerDist)) {
 			air++;
 		}
-		if(isInValidCorner(world, x - cornerDist, y - cornerDist, z - cornerDist)) {
+		if(isInvalidCorner(world, x - cornerDist, y - cornerDist, z - cornerDist)) {
 			air++;
 		}
 		return air < 4;
@@ -130,7 +130,7 @@ public class WorldGenAmethystGeode extends WorldGenerator {
 	 * This is used when generating amethyst to check all 8 corners.
 	 * This is so it doesn't generate in the middle of the air, ocean, hanging in trees, etc.
 	 */
-	private boolean isInValidCorner(World world, int x, int y, int z) {
+	private boolean isInvalidCorner(World world, int x, int y, int z) {
 		Block block = world.getBlock(x, y, z);
 		return world.canBlockSeeTheSky(x, y, z) && block.isAir(world, x, y, z) && !block.isOpaqueCube();
 	}
