@@ -55,7 +55,7 @@ public class WorldGenFossil extends WorldGenerator {
 	
 	private boolean isValidCorner(World world, int x, int y, int z) {
 		Block block = world.getBlock(x, y, z);
-		return !world.canBlockSeeTheSky(x, y, z) && !block.isAir(world, x, y, z) && block.isOpaqueCube();
+		return world.canBlockSeeTheSky(x, y, z) && block.isAir(world, x, y, z) && !block.isOpaqueCube();
 	}
 	
 	@Override

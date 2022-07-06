@@ -3,6 +3,8 @@ package ganymedes01.etfuturum.world.generate.feature;
 import java.util.Random;
 
 import ganymedes01.etfuturum.ModBlocks;
+import ganymedes01.etfuturum.configuration.ConfigBase;
+import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import ganymedes01.etfuturum.world.generate.feature.WorldGenFossil.Fossil;
 import net.minecraft.block.Block;
@@ -82,7 +84,7 @@ public class WorldGenAmethystGeode extends WorldGenerator {
                     if (distSq <= DISTANCE_INNER_SQ) {
                         world.setBlockToAir(x + i, y + j, z + k);
                     } else if (distSq <= DISTANCE_BASALT_SQ && distSq > DISTANCE_CALCITE_SQ) {
-                        world.setBlock(x + i, y + j, z + k, ModBlocks.smooth_basalt, 0, 2);
+                        world.setBlock(x + i, y + j, z + k, ConfigWorld.amethystOuterBlock, 0, 2);
                 	} else if (distSq <= DISTANCE_CALCITE_SQ && distSq > DISTANCE_AMETHYST_SQ) {
                         world.setBlock(x + i, y + j, z + k, ModBlocks.calcite, 0, 2);
                 	} else if (distSq <= DISTANCE_AMETHYST_SQ) {
@@ -96,28 +98,29 @@ public class WorldGenAmethystGeode extends WorldGenerator {
 	
 	private boolean canGeodeGenerateHere(World world, int x, int y, int z, int size) {
 		int air = 0;
-		if(isValidCorner(world, x + size, y + size, z + size)) {
+		int cornerDist = (int)((size - 0.5F) / MathHelper.sqrt_float(3));
+		if(isInValidCorner(world, x + cornerDist, y + cornerDist, z + cornerDist)) {
 			air++;
 		}
-		if(isValidCorner(world, x + size, y + size, z - size)) { 
+		if(isInValidCorner(world, x + cornerDist, y + cornerDist, z - cornerDist)) { 
 			air++;
 		}
-		if(isValidCorner(world, x - size, y + size, z + size)) {
+		if(isInValidCorner(world, x - cornerDist, y + cornerDist, z + cornerDist)) {
 			air++;
 		}
-		if(isValidCorner(world, x - size, y + size, z - size)) {
+		if(isInValidCorner(world, x - cornerDist, y + cornerDist, z - cornerDist)) {
 			air++;
 		}
-		if(isValidCorner(world, x + size, y - size, z + size)) {
+		if(isInValidCorner(world, x + cornerDist, y - cornerDist, z + cornerDist)) {
 			air++;
 		}
-		if(isValidCorner(world, x + size, y - size, z - size)) {
+		if(isInValidCorner(world, x + cornerDist, y - cornerDist, z - cornerDist)) {
 			air++;
 		}
-		if(isValidCorner(world, x - size, y - size, z + size)) {
+		if(isInValidCorner(world, x - cornerDist, y - cornerDist, z + cornerDist)) {
 			air++;
 		}
-		if(isValidCorner(world, x - size, y - size, z - size)) {
+		if(isInValidCorner(world, x - cornerDist, y - cornerDist, z - cornerDist)) {
 			air++;
 		}
 		return air < 4;
@@ -127,9 +130,9 @@ public class WorldGenAmethystGeode extends WorldGenerator {
 	 * This is used when generating amethyst to check all 8 corners.
 	 * This is so it doesn't generate in the middle of the air, ocean, hanging in trees, etc.
 	 */
-	private boolean isValidCorner(World world, int x, int y, int z) {
+	private boolean isInValidCorner(World world, int x, int y, int z) {
 		Block block = world.getBlock(x, y, z);
-		return !world.canBlockSeeTheSky(x, y, z) && !block.isAir(world, x, y, z) && block.isOpaqueCube();
+		return world.canBlockSeeTheSky(x, y, z) && block.isAir(world, x, y, z) && !block.isOpaqueCube();
 	}
 	
 	private void placeAmethyst(World world, Random random, int x, int y, int z) {
