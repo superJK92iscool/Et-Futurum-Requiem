@@ -670,6 +670,8 @@ tile.etfuturum.lantern.name=Lantern
 
 tile.etfuturum.tinted_glass.name=Tinted Glass
 
+tile.etfuturum.observer.name=Observer
+
 util.totemBreak=§a§oYour Totem of Undying shatters...
 
 death.attack.hotFloor=%1$s discovered floor was lava

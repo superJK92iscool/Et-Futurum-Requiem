@@ -11,22 +11,7 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.client.model.ModelShulker;
 import ganymedes01.etfuturum.client.model.ModelTechnobladeCrown;
-import ganymedes01.etfuturum.client.renderer.block.BlockAmethystClusterRenderer;
-import ganymedes01.etfuturum.client.renderer.block.BlockBarrelRenderer;
-import ganymedes01.etfuturum.client.renderer.block.BlockChestRenderer;
-import ganymedes01.etfuturum.client.renderer.block.BlockChorusFlowerRender;
-import ganymedes01.etfuturum.client.renderer.block.BlockChorusPlantRender;
-import ganymedes01.etfuturum.client.renderer.block.BlockComposterRenderer;
-import ganymedes01.etfuturum.client.renderer.block.BlockDoorRenderer;
-import ganymedes01.etfuturum.client.renderer.block.BlockEndRodRender;
-import ganymedes01.etfuturum.client.renderer.block.BlockGlazedTerracottaRenderer;
-import ganymedes01.etfuturum.client.renderer.block.BlockLanternRenderer;
-import ganymedes01.etfuturum.client.renderer.block.BlockLavaCauldronRenderer;
-import ganymedes01.etfuturum.client.renderer.block.BlockLoomRenderer;
-import ganymedes01.etfuturum.client.renderer.block.BlockPointedDripstoneRenderer;
-import ganymedes01.etfuturum.client.renderer.block.BlockSlimeBlockRender;
-import ganymedes01.etfuturum.client.renderer.block.BlockStonecutterRenderer;
-import ganymedes01.etfuturum.client.renderer.block.BlockTrapDoorRenderer;
+import ganymedes01.etfuturum.client.renderer.block.*;
 import ganymedes01.etfuturum.client.renderer.entity.ArmourStandRenderer;
 import ganymedes01.etfuturum.client.renderer.entity.BrownMooshroomRenderer;
 import ganymedes01.etfuturum.client.renderer.entity.ChestBoatRenderer;
@@ -194,6 +179,10 @@ public class ClientProxy extends CommonProxy {
 		}
 		
 		RenderingRegistry.registerBlockHandler(new BlockChestRenderer());
+
+		if(ConfigMixins.enableObservers) {
+			RenderingRegistry.registerBlockHandler(new BlockObserverRenderer());
+		}
 		
 		if(EtFuturum.TESTING) {
 			ClientRegistry.bindTileEntitySpecialRenderer(TileEntityGateway.class, new TileEntityGatewayRenderer());

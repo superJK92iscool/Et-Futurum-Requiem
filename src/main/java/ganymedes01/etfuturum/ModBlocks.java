@@ -138,6 +138,7 @@ public class ModBlocks {
 	public static final Block frosted_ice = initBlock(new BlockFrostedIce());
 	public static final Block lava_cauldron = initBlock(new BlockLavaCauldron());
 	public static final Block end_gateway = initBlock(new BlockEndGateway());
+	public static final Block observer = initBlock(new BlockObserver());
 	
 	//slab/stairs
 	public static final Block red_sandstone_stairs = initBlock(new BlockGenericStairs(red_sandstone, 0).setBlockName(Utils.getUnlocalisedName("red_sandstone_stairs")));
