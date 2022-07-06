@@ -99,16 +99,16 @@ public class WorldGenAmethystGeode extends WorldGenerator {
 	private boolean canGeodeGenerateHere(World world, int x, int y, int z, int size) {
 		int air = 0;
 		int cornerDist = (int)((size - 0.5F) / MathHelper.sqrt_float(3));
-		if(isInValidCorner(world, x + cornerDist, y + cornerDist, z + cornerDist)) {
+		if(isInValidCorner(world, x + cornerDist, y + size, z + cornerDist)) {
 			air++;
 		}
-		if(isInValidCorner(world, x + cornerDist, y + cornerDist, z - cornerDist)) { 
+		if(isInValidCorner(world, x + cornerDist, y + size, z - cornerDist)) { 
 			air++;
 		}
-		if(isInValidCorner(world, x - cornerDist, y + cornerDist, z + cornerDist)) {
+		if(isInValidCorner(world, x - cornerDist, y + size, z + cornerDist)) {
 			air++;
 		}
-		if(isInValidCorner(world, x - cornerDist, y + cornerDist, z - cornerDist)) {
+		if(isInValidCorner(world, x - cornerDist, y + size, z - cornerDist)) {
 			air++;
 		}
 		if(isInValidCorner(world, x + cornerDist, y - cornerDist, z + cornerDist)) {
