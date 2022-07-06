@@ -3,8 +3,10 @@ package ganymedes01.etfuturum.blocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
+import ganymedes01.etfuturum.api.IBlockObserver;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.core.utils.Utils;
+import ganymedes01.etfuturum.ducks.IObserverWorldExtension;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
@@ -14,11 +16,11 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Facing;
 import net.minecraft.util.IIcon;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 
-public class BlockObserver extends Block implements IConfigurable {
+import java.util.Random;
+
+public class BlockObserver extends Block implements IConfigurable, IBlockObserver {
     @SideOnly(Side.CLIENT)
     private IIcon observerFront, observerBack, observerTop, observerBackLit;
 
@@ -90,5 +92,45 @@ public class BlockObserver extends Block implements IConfigurable {
     @Override
     public boolean isEnabled() {
         return ConfigMixins.enableObservers;
+    }
+
+    @Override
+    public void observedNeighborChange(World world, int observerX, int observerY, int observerZ, Block changedBlock, int changedX, int changedY, int changedZ) {
+        if(world.isRemote)
+            return;
+        int myMeta = world.getBlockMetadata(observerX, observerY, observerZ);
+        int facing = BlockPistonBase.getPistonOrientation(myMeta);
+        int observedX = observerX + Facing.offsetsXForSide[facing];
+        int observedY = observerY + Facing.offsetsYForSide[facing];
+        int observedZ = observerZ + Facing.offsetsZForSide[facing];
+        if(observedX == changedX && observedY == changedY && observedZ == changedZ) {
+            if((myMeta & 8) == 0 && !((IObserverWorldExtension)world).etfu$hasScheduledUpdate(observerX, observerY, observerZ, this)) {
+                world.scheduleBlockUpdate(observerX, observerY, observerZ, this, 2);
+            }
+        }
+    }
+
+    protected void updateNeighborsInFront(World worldIn, int x, int y, int z)
+    {
+        int facing = BlockPistonBase.getPistonOrientation(worldIn.getBlockMetadata(x, y, z));
+        int opposite = Facing.oppositeSide[facing];
+        int newX = x + Facing.offsetsXForSide[opposite];
+        int newY = y + Facing.offsetsYForSide[opposite];
+        int newZ = z + Facing.offsetsZForSide[opposite];
+        worldIn.notifyBlockOfNeighborChange(newX, newY, newZ, this);
+        worldIn.notifyBlocksOfNeighborChange(newX, newY, newZ, this, facing);
+    }
+
+
+    @Override
+    public void updateTick(World world, int x, int y, int z, Random rand) {
+        int meta = world.getBlockMetadata(x, y, z);
+        if((meta & 8) != 0) {
+            world.setBlockMetadataWithNotify(x, y, z, meta & 7, 2);
+        } else {
+            world.setBlockMetadataWithNotify(x, y, z, meta | 8, 2);
+            world.scheduleBlockUpdate(x, y, z, this, 2);
+        }
+        updateNeighborsInFront(world, x, y, z);
     }
 }

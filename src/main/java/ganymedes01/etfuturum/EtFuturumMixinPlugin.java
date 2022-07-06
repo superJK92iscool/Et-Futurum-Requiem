@@ -122,6 +122,11 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 		if(ConfigMixins.avoidDroppingItemsWhenClosing) {
 			mixins.add("MixinEntityPlayerMP");
 		}
+
+		if(ConfigMixins.enableObservers) {
+			mixins.add("MixinWorld_Observer");
+			mixins.add("MixinWorldServer_Observer");
+		}
 		
 		if(side == MixinEnvironment.Side.CLIENT) {
 			if(ConfigMixins.furnaceCrackle) {
