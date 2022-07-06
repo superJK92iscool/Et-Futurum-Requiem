@@ -21,6 +21,7 @@ public class ConfigFunctions extends ConfigBase {
 	public static boolean enableAutoAddBlastFurnace;
 	public static boolean enableMeltGear = false;
 	public static boolean enableRecipeForTotem;
+	public static boolean enableGamemodeSwitcher;
 	public static List<Item> shulkerBans;
 	public static String[] shulkerBansString;
 	public static int shulkerBoxTooltipLines;
@@ -173,5 +174,6 @@ public class ConfigFunctions extends ConfigBase {
 		enablePlayerSkinOverlay = cfg.getBoolean("enablePlayerSkinOverlay", catClient, true, "Allows use of 1.8 skin format, and Alex skins. Also includes some fixes from SkinPort. (Per SkinPort author's permission) Disable if skin is displaying oddly. Not compatible with OptiFine, use FastCraft instead.");
 		enableExtraF3HTooltips = cfg.getBoolean("enableExtraF3HTooltips", catClient, true, "Enables NBT tag count and item namespace label on F3 + H debug item labels");
 		shulkerBoxTooltipLines = cfg.getInt("shulkerBoxTooltipLines", catClient, 5, 0, Byte.MAX_VALUE, "The maximum amount of items a Shulker box can display on its tooltip. When the box has more stacks inside than this number, the rest of the stacks are displayed as \"And x more...\". Set to 0 to disable Shulker Box tooltips.");
+		enableGamemodeSwitcher = cfg.getBoolean("enableGamemodeSwitcher", catClient, true, "Enable the new F3+F4 gamemode switcher from 1.16+");
 	}
 }

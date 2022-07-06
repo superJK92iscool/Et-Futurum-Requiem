@@ -6,11 +6,13 @@ import java.util.Map;
 import java.util.Random;
 import java.util.WeakHashMap;
 
+import ganymedes01.etfuturum.client.gui.GuiGamemodeSwitcher;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.entities.EntityNewBoatWithChest;
 import ganymedes01.etfuturum.network.ChestBoatOpenInventoryMessage;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import org.apache.commons.lang3.tuple.MutablePair;
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
 import cpw.mods.fml.client.FMLClientHandler;
@@ -99,6 +101,7 @@ public class ClientEventHandler {
 	{
 		World world = FMLClientHandler.instance().getWorldClient();
 		EntityPlayer player = FMLClientHandler.instance().getClientPlayerEntity();
+		Minecraft mc = FMLClientHandler.instance().getClient();
 		
 		if(world == null || event.phase == Phase.START || Minecraft.getMinecraft().isGamePaused()) {
 			return;
@@ -124,7 +127,7 @@ public class ClientEventHandler {
 				ambienceBiome = null;
 				return;
 			}
-			Minecraft mc = FMLClientHandler.instance().getClient();
+
 			int x = MathHelper.floor_double(player.posX);
 			//int y = MathHelper.floor_double(player.posY); // unused variable
 			int z = MathHelper.floor_double(player.posZ);
@@ -150,6 +153,12 @@ public class ClientEventHandler {
 			if(getAmbienceAdditions(ambienceBiome) != null && ambienceLoop != null && ticksToNextAmbience-- <= 0) {
 				Minecraft.getMinecraft().getSoundHandler().playSound(new NetherAmbienceSound(new ResourceLocation(getAmbienceAdditions(ambienceBiome))));
 				ticksToNextAmbience = 50 + rand.nextInt(30) + 1;
+			}
+		}
+
+		if(ConfigFunctions.enableGamemodeSwitcher && Keyboard.isCreated() && Keyboard.isKeyDown(Keyboard.KEY_F3) && Keyboard.isKeyDown(Keyboard.KEY_F4)) {
+			if(mc.currentScreen == null) {
+				mc.displayGuiScreen(new GuiGamemodeSwitcher());
 			}
 		}
 	}

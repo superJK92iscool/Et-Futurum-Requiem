@@ -14,6 +14,11 @@ enchantment.swift_sneak=Swift Sneak
 potion.levitation=Levitation
 potion.levitation.postfix=Potion of Levitation
 
+# Gamemode selector
+
+debug.gamemodes.select_next=%s Next
+debug.gamemodes.press_f4=[ F4 ]
+
 # Gamemodes
 gameMode.Spectator=Spectator Mode
 
