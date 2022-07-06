@@ -60,7 +60,6 @@ public abstract class MixinWorld_Observer {
     private void etfu$notifyObserver(int x, int y, int z, Block otherBlock) {
         Block observer = getBlock(x, y, z);
         if(observer instanceof IBlockObserver) {
-            System.out.println("notifying observer " + x + " " + y + " " + z);
             ((IBlockObserver)observer).observedNeighborChange((World)(Object)this, x, y, z, otherBlock, observedX, observedY, observedZ);
         }
     }

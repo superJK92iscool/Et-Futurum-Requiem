@@ -16,6 +16,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Facing;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -132,5 +133,23 @@ public class BlockObserver extends Block implements IConfigurable, IBlockObserve
             world.scheduleBlockUpdate(x, y, z, this, 2);
         }
         updateNeighborsInFront(world, x, y, z);
+    }
+
+    @Override
+    public boolean canProvidePower() {
+        return true;
+    }
+
+    @Override
+    public int isProvidingStrongPower(IBlockAccess p_149748_1_, int p_149748_2_, int p_149748_3_, int p_149748_4_, int p_149748_5_) {
+        return isProvidingWeakPower(p_149748_1_, p_149748_2_, p_149748_3_, p_149748_4_, p_149748_5_);
+    }
+
+    @Override
+    public int isProvidingWeakPower(IBlockAccess p_149709_1_, int p_149709_2_, int p_149709_3_, int p_149709_4_, int p_149709_5_) {
+        int metadata = p_149709_1_.getBlockMetadata(p_149709_2_, p_149709_3_, p_149709_4_);
+        if((metadata & 8) == 0)
+            return 0;
+        return (BlockPistonBase.getPistonOrientation(metadata) == p_149709_5_) ? 15 : 0;
     }
 }
