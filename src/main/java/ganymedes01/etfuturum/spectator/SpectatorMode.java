@@ -7,6 +7,7 @@ import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
+import ganymedes01.etfuturum.core.utils.helpers.SafeEnumHelperClient;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
@@ -20,7 +21,6 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldSettings;
-import net.minecraftforge.client.EnumHelperClient;
 import net.minecraftforge.client.event.*;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
@@ -45,7 +45,7 @@ public class SpectatorMode {
 	public static WorldSettings.GameType SPECTATOR_GAMETYPE = null;
 	public static void init() {
 		if(ConfigMixins.enableSpectatorMode)
-			SPECTATOR_GAMETYPE = EnumHelperClient.addGameType("spectator", 3, "Spectator");
+			SPECTATOR_GAMETYPE = SafeEnumHelperClient.addGameType("spectator", 3, "Spectator");
 	}
 
 	@SubscribeEvent
