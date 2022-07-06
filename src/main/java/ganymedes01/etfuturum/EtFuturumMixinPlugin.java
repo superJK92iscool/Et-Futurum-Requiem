@@ -127,6 +127,10 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 			mixins.add("MixinWorld_Observer");
 			mixins.add("MixinWorldServer_Observer");
 		}
+
+		if(ConfigMixins.arrowFallingFix) {
+			mixins.add("MixinEntityArrow");
+		}
 		
 		if(side == MixinEnvironment.Side.CLIENT) {
 			if(ConfigMixins.furnaceCrackle) {

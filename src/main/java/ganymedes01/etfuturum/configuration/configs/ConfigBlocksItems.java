@@ -103,6 +103,7 @@ public class ConfigBlocksItems extends ConfigBase {
 	public static boolean enableCartographyTable;
 	public static boolean enableLoom;
 	public static boolean enableAmethyst;
+	public static boolean enableTarget;
 	//Nether Update temp disabled
 	public static boolean enableCrimsonBlocks = false;
 	public static boolean enableWarpedBlocks = false;
@@ -203,6 +204,8 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableColourfulBeacons = cfg.getBoolean("enableNewBeacon", catBlockFunc, true, "Beacon beam can be colored using stained glass");
 		enableInvertedDaylightSensor = cfg.getBoolean("enableInvertedSensor", catBlockFunc, true, "Inverted Daylight Sensor");
 		enableOldBaseDaylightSensor = cfg.getBoolean("enableOldBaseDaylightSensor", catBlockFunc, false, "Enable the old Et Futurum daylight sensor block. Should be enabled if you still have the old Et Futurum copy of the non-inverted daylight detector that need to be converted.");
+
+		enableTarget = cfg.getBoolean("enableTarget", catBlockFunc, true, "Enables target block from 1.16");
 		
 		//Misc Blocks
 		enableFences = cfg.getBoolean("enableFences", catBlockMisc, true, "Enables wood variant fences and gates");

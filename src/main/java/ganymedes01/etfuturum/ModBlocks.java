@@ -139,6 +139,7 @@ public class ModBlocks {
 	public static final Block lava_cauldron = initBlock(new BlockLavaCauldron());
 	public static final Block end_gateway = initBlock(new BlockEndGateway());
 	public static final Block observer = initBlock(new BlockObserver());
+	public static final Block target = initBlock(new BlockTarget());
 	
 	//slab/stairs
 	public static final Block red_sandstone_stairs = initBlock(new BlockGenericStairs(red_sandstone, 0).setBlockName(Utils.getUnlocalisedName("red_sandstone_stairs")));

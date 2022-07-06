@@ -671,6 +671,7 @@ tile.etfuturum.lantern.name=Lantern
 tile.etfuturum.tinted_glass.name=Tinted Glass
 
 tile.etfuturum.observer.name=Observer
+tile.etfuturum.target.name=Target
 
 util.totemBreak=§a§oYour Totem of Undying shatters...
 

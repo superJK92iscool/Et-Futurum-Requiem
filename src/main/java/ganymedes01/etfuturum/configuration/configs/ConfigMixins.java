@@ -16,6 +16,7 @@ public class ConfigMixins extends ConfigBase {
 	public static boolean fenceWallConnectFix;
 	public static boolean furnaceCrackle;
 	public static boolean stepHeightFix;
+	public static boolean arrowFallingFix;
 
 	static final String catBackport = "backported features";
 	static final String catOptimization = "optimizations";
@@ -55,6 +56,7 @@ public class ConfigMixins extends ConfigBase {
 		enableObservers = cfg.getBoolean("enableObservers", catBackport, true, "Modified Classes:");
 		
 		stepHeightFix = cfg.getBoolean("stepHeightFix", catFixes, true, "Makes the player able to step up even if a block would be above their head at the destination.\nModified classes: net.minecraft.entity.Entity");
+		arrowFallingFix = cfg.getBoolean("arrowFallingFix", catFixes, true, "Prevents arrows from falling off of blocks too easily\nModified classes: net.minecraft.entity.EntityArrow");
 	}
 	
 }
