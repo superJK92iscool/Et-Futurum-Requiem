@@ -20,10 +20,12 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.ClientTickEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
+import cpw.mods.fml.common.gameevent.TickEvent.PlayerTickEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.EtFuturumMixinPlugin;
+import ganymedes01.etfuturum.ModEnchantments;
 import ganymedes01.etfuturum.blocks.BlockShulkerBox;
 import ganymedes01.etfuturum.client.OpenGLHelper;
 import ganymedes01.etfuturum.client.gui.GuiConfigWarning;
@@ -46,6 +48,7 @@ import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.particle.EntityDiggingFX;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.event.ClickEvent;
@@ -94,6 +97,17 @@ public class ClientEventHandler {
 	int ticksToNextAmbience = rand.nextInt(80) + 1;
 	@SideOnly(Side.CLIENT)
 	BiomeGenBase ambienceBiome = null;
+	
+
+	@SubscribeEvent
+	public void onPlayerTick(PlayerTickEvent event) {
+        ItemStack leggings = Minecraft.getMinecraft().thePlayer.getEquipmentInSlot(2);
+        int sslevel = EnchantmentHelper.getEnchantmentLevel(ModEnchantments.swiftSneak.effectId, leggings);
+		if(sslevel > 0 && event.player.isSneaking()) {
+			event.player.moveForward += (sslevel * 0.15);
+			event.player.moveStrafing += (sslevel * 0.15);
+		}
+	}
 	
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)

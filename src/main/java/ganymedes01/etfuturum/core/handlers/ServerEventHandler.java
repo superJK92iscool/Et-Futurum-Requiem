@@ -177,19 +177,9 @@ public class ServerEventHandler {
 			EntityPlayer player = ((EntityPlayer)entity);
 			if(ConfigEntities.flySprintSpeed > 0.05F) {
 				if(player.isSprinting() && player.capabilities.isFlying) {
-					player.capabilities.setFlySpeed(ConfigEntities.flySprintSpeed);
-				} else if(!player.isSprinting()) {
-					player.capabilities.setFlySpeed(0.05F);
-				}
-			}
-			
-			if(ConfigEnchantsPotions.enableSwiftSneak) {
-				ItemStack leggings = Minecraft.getMinecraft().thePlayer.getEquipmentInSlot(2);
-				int sslevel = EnchantmentHelper.getEnchantmentLevel(ModEnchantments.swiftSneak.effectId, leggings);
-				if(sslevel > 0 && player.isSneaking()) {
-					player.capabilities.setPlayerWalkSpeed(0.1F + ((0.15F * sslevel) * 0.3F));
-				} else if(player.capabilities.getWalkSpeed() > 0.1F) {
-					player.capabilities.setPlayerWalkSpeed(0.1F);
+					player.capabilities.flySpeed = ConfigEntities.flySprintSpeed;
+				} else {
+					player.capabilities.flySpeed = 0.05F;
 				}
 			}
 		}

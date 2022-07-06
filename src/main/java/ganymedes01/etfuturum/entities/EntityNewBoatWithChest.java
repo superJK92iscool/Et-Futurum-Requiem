@@ -71,6 +71,10 @@ public class EntityNewBoatWithChest extends EntityNewBoat implements IInventory 
 		}
 	}
 
+	public boolean hasCustomInventoryName() {
+		return getBoatName() != null;
+	}
+
 	@Override
 	public String getInventoryName() {
 		return hasCustomInventoryName() ? getBoatName() : "container.etfuturum.chest_boat";

@@ -1188,10 +1188,6 @@ public class EntityNewBoat extends Entity {
 		this.forwardInputDown = p_184442_3_;
 		this.backInputDown = p_184442_4_;
 	}
-
-	public boolean hasCustomInventoryName() {
-		return entityName != null;
-	}
 	
 	public String getBoatName() {
 		return entityName;

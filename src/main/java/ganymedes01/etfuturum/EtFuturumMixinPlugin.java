@@ -132,6 +132,9 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 				mixins.add("client.MixinEntityPlayer");
 				mixins.add("client.MixinWorldRenderer_Spectator");
 			}
+			if(ConfigEnchantsPotions.enableSwiftSneak) {
+				mixins.add("client.MixinMovementInputFromOptions");
+			}
 		}
 		
 		return mixins;
