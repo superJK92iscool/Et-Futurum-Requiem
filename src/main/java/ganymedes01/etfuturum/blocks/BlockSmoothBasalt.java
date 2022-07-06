@@ -23,7 +23,7 @@ public class BlockSmoothBasalt extends Block implements IConfigurable {
 
 	@Override
 	public boolean isEnabled() {
-		return ConfigBlocksItems.enableAmethyst && ConfigWorld.amethystOuterBlock == ModBlocks.smooth_basalt;
+		return ConfigBlocksItems.enableAmethyst && ConfigWorld.amethystOuterID == 0;
 	}
 
 }
