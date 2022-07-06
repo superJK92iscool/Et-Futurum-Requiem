@@ -3,6 +3,7 @@ package ganymedes01.etfuturum.world.generate.feature;
 import java.util.Random;
 
 import ganymedes01.etfuturum.ModBlocks;
+import ganymedes01.etfuturum.blocks.ExternalContent;
 import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
@@ -19,6 +20,12 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 public class WorldGenAmethystGeode extends WorldGenerator {
 	//I don't know how to make the sphere slightly warped in shape and I didn't understand the massive nest of noise-related classes
 	//in vanilla, so I am just using a perfect circle for now, sorry!
+	
+	private final int outerMeta;
+	
+	public WorldGenAmethystGeode() {
+		outerMeta = ConfigWorld.amethystOuterBlock == ExternalContent.netherlicious_basalt_bricks ? 6 : 0;
+	}
 	
 	@Override
 	public boolean generate(World world, Random random, int x, int y, int z) {
@@ -84,7 +91,7 @@ public class WorldGenAmethystGeode extends WorldGenerator {
 					if (distSq <= DISTANCE_INNER_SQ) {
 						world.setBlockToAir(x + i, y + j, z + k);
 					} else if (distSq <= DISTANCE_BASALT_SQ && distSq > DISTANCE_CALCITE_SQ) {
-						world.setBlock(x + i, y + j, z + k, ConfigWorld.amethystOuterBlock, 0, 2);
+						world.setBlock(x + i, y + j, z + k, ConfigWorld.amethystOuterBlock, outerMeta, 2);
 					} else if (distSq <= DISTANCE_CALCITE_SQ && distSq > DISTANCE_AMETHYST_SQ) {
 						world.setBlock(x + i, y + j, z + k, ModBlocks.calcite, 0, 2);
 					} else if (distSq <= DISTANCE_AMETHYST_SQ) {

@@ -91,7 +91,7 @@ public abstract class ConfigBase extends Configuration {
 		
 		Block block = ConfigWorld.fossilBlockID == 1 ? ExternalContent.netherlicious_bone_block : ExternalContent.utd_bone_block;
 		ConfigWorld.fossilBoneBlock = ConfigWorld.fossilBlockID == 0 || block == null ? ModBlocks.bone_block : block;
-		block = ConfigWorld.amethystOuterID == 1 && ConfigBlocksItems.enableTuff ? ModBlocks.tuff : ExternalContent.netherlicious_smooth_basalt;
+		block = ConfigWorld.amethystOuterID == 1 && ConfigBlocksItems.enableTuff ? ModBlocks.tuff : ExternalContent.netherlicious_basalt_bricks;
 		ConfigWorld.amethystOuterBlock = ConfigWorld.amethystOuterID == 0 || block == null ? ModBlocks.smooth_basalt : block;
 	}
 
