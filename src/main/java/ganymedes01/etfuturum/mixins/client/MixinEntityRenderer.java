@@ -10,13 +10,13 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin(EntityRenderer.class)
 public class MixinEntityRenderer {
-    @Shadow private Minecraft mc;
+	@Shadow private Minecraft mc;
 
-    @ModifyVariable(method = "orientCamera", at = @At("STORE"), ordinal = 7, name = "d6")
-    private double ignoreDistanceForSpectators(double value) {
-        if(SpectatorMode.isSpectator(this.mc.thePlayer) && this.mc.renderViewEntity == this.mc.thePlayer) {
-            return Double.MAX_VALUE;
-        }
-        return value;
-    }
+	@ModifyVariable(method = "orientCamera", at = @At("STORE"), ordinal = 7, name = "d6")
+	private double ignoreDistanceForSpectators(double value) {
+		if(SpectatorMode.isSpectator(this.mc.thePlayer) && this.mc.renderViewEntity == this.mc.thePlayer) {
+			return Double.MAX_VALUE;
+		}
+		return value;
+	}
 }

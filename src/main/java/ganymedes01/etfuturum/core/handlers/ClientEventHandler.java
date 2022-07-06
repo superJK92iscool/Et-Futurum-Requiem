@@ -157,18 +157,18 @@ public class ClientEventHandler {
 		if(biome == null)
 			return null;
 		
-//		if(string.contains("basalt_deltas")) {
-//			return basaltDeltas;
-//		}
-//		if(string.contains("warped_forest")) {
-//			return warpedForest;
-//		}
-//		if(string.contains("crimson_forest")) {
-//			return crimsonForest;
-//		}
-//		if(string.contains("soul_sand_valley")) {
-//			return soulSandValley;
-//		}
+//      if(string.contains("basalt_deltas")) {
+//          return basaltDeltas;
+//      }
+//      if(string.contains("warped_forest")) {
+//          return warpedForest;
+//      }
+//      if(string.contains("crimson_forest")) {
+//          return crimsonForest;
+//      }
+//      if(string.contains("soul_sand_valley")) {
+//          return soulSandValley;
+//      }
 		return "nether_wastes";
 		
 	}
@@ -177,18 +177,18 @@ public class ClientEventHandler {
 		if(biome == null)
 			return null;
 		
-//		if(string.contains("basalt_deltas")) {
-//			return basaltDeltas;
-//		}
-//		if(string.contains("warped_forest")) {
-//			return warpedForest;
-//		}
-//		if(string.contains("crimson_forest")) {
-//			return crimsonForest;
-//		}
-//		if(string.contains("soul_sand_valley")) {
-//			return soulSandValley;
-//		}
+//      if(string.contains("basalt_deltas")) {
+//          return basaltDeltas;
+//      }
+//      if(string.contains("warped_forest")) {
+//          return warpedForest;
+//      }
+//      if(string.contains("crimson_forest")) {
+//          return crimsonForest;
+//      }
+//      if(string.contains("soul_sand_valley")) {
+//          return soulSandValley;
+//      }
 		return Reference.MCv118 + ":ambient." + getStringFor(biome);
 	}
 

@@ -42,19 +42,19 @@ public class ItemLodestoneCompass extends Item implements IConfigurable {
 		itemIcon = frames[0];
 	}
 
-    @SideOnly(Side.CLIENT)
-    public boolean hasEffect(ItemStack p_77636_1_)
-    {
-        return true;
-    }
+	@SideOnly(Side.CLIENT)
+	public boolean hasEffect(ItemStack p_77636_1_)
+	{
+		return true;
+	}
 
-    /**
-     * Return an item rarity from EnumRarity
-     */
-    public EnumRarity getRarity(ItemStack p_77613_1_)
-    {
-        return EnumRarity.common;
-    }
+	/**
+	 * Return an item rarity from EnumRarity
+	 */
+	public EnumRarity getRarity(ItemStack p_77613_1_)
+	{
+		return EnumRarity.common;
+	}
 
 	@Override
 	public boolean isEnabled() {

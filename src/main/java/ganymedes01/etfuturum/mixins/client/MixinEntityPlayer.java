@@ -12,10 +12,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(EntityPlayer.class)
 public class MixinEntityPlayer {
-    @Inject(method = "isInvisibleToPlayer", at = @At("HEAD"), cancellable = true)
-    public void isInvisibleToPlayer(EntityPlayer p_98034_1_, CallbackInfoReturnable<Boolean> cir) {
-        if(SpectatorMode.isSpectator(p_98034_1_)) {
-            cir.setReturnValue(false);
-        }
-    }
+	@Inject(method = "isInvisibleToPlayer", at = @At("HEAD"), cancellable = true)
+	public void isInvisibleToPlayer(EntityPlayer p_98034_1_, CallbackInfoReturnable<Boolean> cir) {
+		if(SpectatorMode.isSpectator(p_98034_1_)) {
+			cir.setReturnValue(false);
+		}
+	}
 }

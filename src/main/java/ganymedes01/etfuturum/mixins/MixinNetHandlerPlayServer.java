@@ -16,18 +16,18 @@ import java.util.ArrayList;
 
 @Mixin(NetHandlerPlayServer.class)
 public class MixinNetHandlerPlayServer {
-    @Shadow public EntityPlayerMP playerEntity;
+	@Shadow public EntityPlayerMP playerEntity;
 
-    @Inject(method = "processClickWindow", at = @At(value = "INVOKE", target = "Lnet/minecraft/inventory/Container;slotClick(IIILnet/minecraft/entity/player/EntityPlayer;)Lnet/minecraft/item/ItemStack;"), cancellable = true)
-    private void skipClickForSpectators(C0EPacketClickWindow packet, CallbackInfo ci) {
-        if(SpectatorMode.isSpectator(this.playerEntity)) {
-            ci.cancel();
-            ArrayList<ItemStack> arraylist = new ArrayList<>();
-            for (int i = 0; i < this.playerEntity.openContainer.inventorySlots.size(); ++i)
-            {
-                arraylist.add(((Slot)this.playerEntity.openContainer.inventorySlots.get(i)).getStack());
-            }
-            this.playerEntity.sendContainerAndContentsToPlayer(this.playerEntity.openContainer, arraylist);
-        }
-    }
+	@Inject(method = "processClickWindow", at = @At(value = "INVOKE", target = "Lnet/minecraft/inventory/Container;slotClick(IIILnet/minecraft/entity/player/EntityPlayer;)Lnet/minecraft/item/ItemStack;"), cancellable = true)
+	private void skipClickForSpectators(C0EPacketClickWindow packet, CallbackInfo ci) {
+		if(SpectatorMode.isSpectator(this.playerEntity)) {
+			ci.cancel();
+			ArrayList<ItemStack> arraylist = new ArrayList<>();
+			for (int i = 0; i < this.playerEntity.openContainer.inventorySlots.size(); ++i)
+			{
+				arraylist.add(((Slot)this.playerEntity.openContainer.inventorySlots.get(i)).getStack());
+			}
+			this.playerEntity.sendContainerAndContentsToPlayer(this.playerEntity.openContainer, arraylist);
+		}
+	}
 }

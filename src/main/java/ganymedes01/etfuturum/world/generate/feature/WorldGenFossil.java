@@ -26,31 +26,31 @@ public class WorldGenFossil extends WorldGenerator {
 	
 	private boolean canFossilGenerateHere(World world, int x, int y, int z, Fossil fossil) {
 		int air = 0;
-		if(isInvalidCorner(world, x, y, z) ) {
+		if(isInvalidCorner(world, x, y, z)) {
 			air++;
 		}
-		if(isInvalidCorner(world, x + fossil.getCorners()[0], y, z) ) {
+		if(isInvalidCorner(world, x + fossil.getCorners()[0], y, z)) {
 			air++;
 		}
-		if(isInvalidCorner(world, x, y, z + fossil.getCorners()[2]) ) {
+		if(isInvalidCorner(world, x, y, z + fossil.getCorners()[2])) {
 			air++;
 		}
-		if(isInvalidCorner(world, x + fossil.getCorners()[0], y, z + fossil.getCorners()[2]) ) {
+		if(isInvalidCorner(world, x + fossil.getCorners()[0], y, z + fossil.getCorners()[2])) {
 			air++;
 		}
-		if(isInvalidCorner(world, x, y + fossil.getCorners()[1], z) ) {
-			air++;
+		if(isInvalidCorner(world, x, y + fossil.getCorners()[1], z)) {
+			if(air++ >= 5) return false;
 		}
-		if(isInvalidCorner(world, x + fossil.getCorners()[0], y + fossil.getCorners()[1], z) ) {
-			air++;
+		if(isInvalidCorner(world, x + fossil.getCorners()[0], y + fossil.getCorners()[1], z)) {
+			if(air++ >= 5) return false;
 		}
-		if(isInvalidCorner(world, x, y + fossil.getCorners()[1], z + fossil.getCorners()[2]) ) {
-			air++;
+		if(isInvalidCorner(world, x, y + fossil.getCorners()[1], z + fossil.getCorners()[2])) {
+			if(air++ >= 5) return false;
 		}
-		if(isInvalidCorner(world, x + fossil.getCorners()[0], y + fossil.getCorners()[1], z + fossil.getCorners()[2]) ) {
-			air++;
+		if(isInvalidCorner(world, x + fossil.getCorners()[0], y + fossil.getCorners()[1], z + fossil.getCorners()[2])) {
+			if(air++ >= 5) return false;
 		}
-		return air < 4;
+		return air < 5;
 	}
 	
 	private boolean isInvalidCorner(World world, int x, int y, int z) {

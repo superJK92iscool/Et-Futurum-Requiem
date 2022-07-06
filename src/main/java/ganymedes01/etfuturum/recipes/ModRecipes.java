@@ -865,10 +865,10 @@ public class ModRecipes {
 				removeFirstRecipeFor(Blocks.beacon);
 			}
 
-          if (ConfigBlocksItems.enableEnchantingTable) {
-              addShapedRecipe(new ItemStack(ModBlocks.enchanting_table), " B ", "D#D", "###", '#', Blocks.obsidian, 'B', Items.book, 'D', "gemDiamond");
-              removeFirstRecipeFor(Blocks.enchanting_table); // Remove recipe for Minecrafts Enchanting Table
-          }
+		  if (ConfigBlocksItems.enableEnchantingTable) {
+			  addShapedRecipe(new ItemStack(ModBlocks.enchanting_table), " B ", "D#D", "###", '#', Blocks.obsidian, 'B', Items.book, 'D', "gemDiamond");
+			  removeFirstRecipeFor(Blocks.enchanting_table); // Remove recipe for Minecrafts Enchanting Table
+		  }
 			
 		}
 		

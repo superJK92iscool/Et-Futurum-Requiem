@@ -9,8 +9,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(EntityPlayerMP.class)
 public class MixinEntityPlayerMP {
-    @Inject(method = "closeContainer", at = @At("HEAD"))
-    private void detectClosingContainer(CallbackInfo ci) {
-        ServerEventHandler.playersClosedContainers.add((EntityPlayerMP)(Object)this);
-    }
+	@Inject(method = "closeContainer", at = @At("HEAD"))
+	private void detectClosingContainer(CallbackInfo ci) {
+		ServerEventHandler.playersClosedContainers.add((EntityPlayerMP)(Object)this);
+	}
 }

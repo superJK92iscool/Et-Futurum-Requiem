@@ -74,7 +74,7 @@ public class EntityNewBoat extends Entity {
 	
 	private EntityNewBoatSeat seat;
 	private EntityNewBoatSeat seatToSpawn;
-    private String entityName;
+	private String entityName;
 
 	public EntityNewBoat(World p_i1704_1_)
 	{
@@ -274,11 +274,11 @@ public class EntityNewBoat extends Entity {
 				if (!flag && this.worldObj.getGameRules().getGameRuleBooleanValue("doMobLoot"))
 				{
 					ItemStack boat = new ItemStack(getItemBoat());
-			        if (this.entityName != null)
-			        {
-			            boat.setStackDisplayName(this.entityName);
-			        }
-			        entityDropItem(boat, 0);
+					if (this.entityName != null)
+					{
+						boat.setStackDisplayName(this.entityName);
+					}
+					entityDropItem(boat, 0);
 					if(this instanceof EntityNewBoatWithChest && !ConfigFunctions.dropVehiclesTogether) {
 						this.dropItem(Item.getItemFromBlock(Blocks.chest), 1);
 					}
@@ -575,11 +575,11 @@ public class EntityNewBoat extends Entity {
 					return ConfigBlocksItems.newBoatEntityBlacklistAsWhitelist;
 				}
 			}
-//			if(blacklistEntry.startsWith("class:")) {
-//				if(entity.getClass().getSimpleName().equals(blacklistEntry.replace("class:", ""))) {
-//					return ConfigBlocksItems.newBoatEntityBlacklistAsWhitelist;
-//				}
-//			}
+//          if(blacklistEntry.startsWith("class:")) {
+//              if(entity.getClass().getSimpleName().equals(blacklistEntry.replace("class:", ""))) {
+//                  return ConfigBlocksItems.newBoatEntityBlacklistAsWhitelist;
+//              }
+//          }
 		}
 		return !ConfigBlocksItems.newBoatEntityBlacklistAsWhitelist;
 	}
@@ -1040,10 +1040,10 @@ public class EntityNewBoat extends Entity {
 			}
 		}
 
-        if (compound.hasKey("CustomName", 9) && compound.getString("CustomName").length() > 0)
-        {
-            this.entityName = compound.getString("CustomName");
-        }
+		if (compound.hasKey("CustomName", 9) && compound.getString("CustomName").length() > 0)
+		{
+			this.entityName = compound.getString("CustomName");
+		}
 	}
 
 	/**
@@ -1065,10 +1065,10 @@ public class EntityNewBoat extends Entity {
 			}
 		}
 
-        if (this.entityName != null && this.entityName.length() > 0)
-        {
-            compound.setString("CustomName", this.entityName);
-        }
+		if (this.entityName != null && this.entityName.length() > 0)
+		{
+			compound.setString("CustomName", this.entityName);
+		}
 	}
 
 	@Override
@@ -1189,18 +1189,18 @@ public class EntityNewBoat extends Entity {
 		this.backInputDown = p_184442_4_;
 	}
 
-    public boolean hasCustomInventoryName() {
-        return entityName != null;
-    }
+	public boolean hasCustomInventoryName() {
+		return entityName != null;
+	}
 	
 	public String getBoatName() {
 		return entityName;
 	}
 	
-    public void setBoatName(String p_96094_1_)
-    {
-        this.entityName = p_96094_1_;
-    }
+	public void setBoatName(String p_96094_1_)
+	{
+		this.entityName = p_96094_1_;
+	}
 
 	public static enum Status
 	{

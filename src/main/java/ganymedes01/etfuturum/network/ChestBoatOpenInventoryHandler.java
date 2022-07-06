@@ -7,11 +7,11 @@ import ganymedes01.etfuturum.entities.EntityNewBoatWithChest;
 import net.minecraft.entity.player.EntityPlayerMP;
 
 public class ChestBoatOpenInventoryHandler implements IMessageHandler<ChestBoatOpenInventoryMessage, IMessage> {
-    @Override
-    public IMessage onMessage(ChestBoatOpenInventoryMessage message, MessageContext ctx) {
-        EntityPlayerMP player = ctx.getServerHandler().playerEntity;
-        if(player.ridingEntity instanceof EntityNewBoatWithChest)
-            player.displayGUIChest((EntityNewBoatWithChest)player.ridingEntity);
-        return null;
-    }
+	@Override
+	public IMessage onMessage(ChestBoatOpenInventoryMessage message, MessageContext ctx) {
+		EntityPlayerMP player = ctx.getServerHandler().playerEntity;
+		if(player.ridingEntity instanceof EntityNewBoatWithChest)
+			player.displayGUIChest((EntityNewBoatWithChest)player.ridingEntity);
+		return null;
+	}
 }

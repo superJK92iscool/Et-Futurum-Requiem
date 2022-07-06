@@ -8,7 +8,7 @@ public class NetherAmbienceSound extends PositionedSoundRecord {
 
 	public NetherAmbienceSound(ResourceLocation resourceLoc) {
 		super(resourceLoc, 1, 1, 0, 0, 0);
-        this.field_147666_i = ISound.AttenuationType.NONE;
+		this.field_147666_i = ISound.AttenuationType.NONE;
 	}
 
 }

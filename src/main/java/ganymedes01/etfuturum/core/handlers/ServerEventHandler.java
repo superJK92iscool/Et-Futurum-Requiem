@@ -184,8 +184,8 @@ public class ServerEventHandler {
 			}
 			
 			if(ConfigEnchantsPotions.enableSwiftSneak) {
-		        ItemStack leggings = Minecraft.getMinecraft().thePlayer.getEquipmentInSlot(2);
-		        int sslevel = EnchantmentHelper.getEnchantmentLevel(ModEnchantments.swiftSneak.effectId, leggings);
+				ItemStack leggings = Minecraft.getMinecraft().thePlayer.getEquipmentInSlot(2);
+				int sslevel = EnchantmentHelper.getEnchantmentLevel(ModEnchantments.swiftSneak.effectId, leggings);
 				if(sslevel > 0 && player.isSneaking()) {
 					player.capabilities.setPlayerWalkSpeed(0.1F + ((0.15F * sslevel) * 0.3F));
 				} else if(player.capabilities.getWalkSpeed() > 0.1F) {
@@ -399,9 +399,9 @@ public class ServerEventHandler {
 			}
 		}
 
-//		if(event.block == Blocks.iron_ore) {
-//			event.drops.add(new ItemStack(ModBlocks.copper_ore, 1, 1));
-//		} //Debug code, see below
+//      if(event.block == Blocks.iron_ore) {
+//          event.drops.add(new ItemStack(ModBlocks.copper_ore, 1, 1));
+//      } //Debug code, see below
 		
 		if(ConfigBlocksItems.enableRawOres && !event.isSilkTouching) {
 			RawOreDropMapping mapping = null;

@@ -27,9 +27,9 @@ public class ItemEtFuturumRecord extends ItemRecord implements IConfigurable, IR
 	}
 	
 	@Override
-    public ResourceLocation getRecordResource(String name)
-    {
-        return new ResourceLocation(Reference.MCv118 + ":music_disc." + recordName);
-    }
+	public ResourceLocation getRecordResource(String name)
+	{
+		return new ResourceLocation(Reference.MCv118 + ":music_disc." + recordName);
+	}
 	
 }
