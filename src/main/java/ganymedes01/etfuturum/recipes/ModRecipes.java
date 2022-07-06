@@ -2,6 +2,7 @@ package ganymedes01.etfuturum.recipes;
 
 import java.util.*;
 
+import ganymedes01.etfuturum.configuration.configs.*;
 import org.apache.commons.lang3.StringUtils;
 
 import cpw.mods.fml.common.Loader;
@@ -10,11 +11,6 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.blocks.BlockStoneSlab2;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
-import ganymedes01.etfuturum.configuration.configs.ConfigEntities;
-import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
-import ganymedes01.etfuturum.configuration.configs.ConfigTweaks;
-import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.entities.EntityNewBoat;
 import ganymedes01.etfuturum.items.ItemSuspiciousStew;
@@ -909,6 +905,14 @@ public class ModRecipes {
 		if(ConfigBlocksItems.enableAmethyst) {
 			addShapedRecipe(new ItemStack(ModBlocks.amethyst_block, 1, 0), "AA", "AA", 'A', "gemAmethyst");
 			addShapedRecipe(new ItemStack(ModBlocks.tinted_glass, 2, 0), " A ", "AGA", " A ", 'A', "gemAmethyst", 'G', "blockGlassColorless");
+		}
+
+		if(ConfigBlocksItems.enableTarget) {
+			addShapedRecipe(new ItemStack(ModBlocks.target, 1, 0), " R ", "RHR", " R ", 'R', "dustRedstone", 'H', Blocks.hay_block);
+		}
+
+		if(ConfigMixins.enableObservers) {
+			addShapedRecipe(new ItemStack(ModBlocks.observer, 1, 0), "CCC", "RRQ", "CCC", 'R', "dustRedstone", 'C', "cobblestone", 'Q', "gemQuartz");
 		}
 	}
 	
