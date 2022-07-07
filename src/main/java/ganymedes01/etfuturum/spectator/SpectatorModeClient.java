@@ -19,6 +19,8 @@ import static ganymedes01.etfuturum.spectator.SpectatorMode.isSpectator;
 
 public class SpectatorModeClient {
     public static final SpectatorModeClient INSTANCE = new SpectatorModeClient();
+
+    @SideOnly(Side.CLIENT)
     private static void setBipedVisible(ModelBiped biped, boolean visible)
     {
         biped.bipedHead.showModel = visible;
