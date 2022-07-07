@@ -98,17 +98,6 @@ public class ClientEventHandler {
 	@SideOnly(Side.CLIENT)
 	BiomeGenBase ambienceBiome = null;
 	
-
-	@SubscribeEvent
-	public void onPlayerTick(PlayerTickEvent event) {
-        ItemStack leggings = Minecraft.getMinecraft().thePlayer.getEquipmentInSlot(2);
-        int sslevel = EnchantmentHelper.getEnchantmentLevel(ModEnchantments.swiftSneak.effectId, leggings);
-		if(sslevel > 0 && event.player.isSneaking()) {
-			event.player.moveForward += (sslevel * 0.15);
-			event.player.moveStrafing += (sslevel * 0.15);
-		}
-	}
-	
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
 	public void onClientTick(ClientTickEvent event)
