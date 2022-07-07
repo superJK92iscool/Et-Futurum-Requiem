@@ -74,6 +74,8 @@ import net.minecraftforge.event.entity.PlaySoundAtEntityEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 
+import static ganymedes01.etfuturum.spectator.SpectatorMode.isSpectator;
+
 public class ClientEventHandler {
 
 	public static final ClientEventHandler INSTANCE = new ClientEventHandler();
@@ -252,6 +254,9 @@ public class ClientEventHandler {
 
 	@SubscribeEvent
 	public void renderPlayerSetArmour(SetArmorModel event) {
+		if(isSpectator(event.entityPlayer)) {
+			event.result = 0;
+		} else
 		if (ConfigFunctions.enableTransparentAmour) {
 			OpenGLHelper.enableBlend();
 			OpenGLHelper.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
