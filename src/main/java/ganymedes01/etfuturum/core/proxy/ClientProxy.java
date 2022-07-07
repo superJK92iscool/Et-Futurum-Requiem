@@ -4,6 +4,7 @@ import java.io.File;
 
 import com.mojang.authlib.minecraft.MinecraftSessionService;
 
+import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -41,6 +42,7 @@ import ganymedes01.etfuturum.client.renderer.tileentity.TileEntityShulkerBoxRend
 import ganymedes01.etfuturum.client.renderer.tileentity.TileEntityWoodSignRenderer;
 import ganymedes01.etfuturum.client.skins.NewRenderPlayer;
 import ganymedes01.etfuturum.client.skins.NewSkinManager;
+import ganymedes01.etfuturum.client.subtitle.GuiSubtitles;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigEntities;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
@@ -88,6 +90,10 @@ public class ClientProxy extends CommonProxy {
 		if(ConfigMixins.enableSpectatorMode) {
 			FMLCommonHandler.instance().bus().register(SpectatorModeClient.INSTANCE);
 			MinecraftForge.EVENT_BUS.register(SpectatorModeClient.INSTANCE);
+		}
+		if(ConfigFunctions.enableSubtitles) {
+			GuiSubtitles.INSTANCE = new GuiSubtitles(FMLClientHandler.instance().getClient());
+			MinecraftForge.EVENT_BUS.register(GuiSubtitles.INSTANCE);
 		}
 //        MinecraftForge.EVENT_BUS.register(BiomeFogEventHandler.INSTANCE);
 	}

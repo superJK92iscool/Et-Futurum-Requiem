@@ -118,6 +118,8 @@ public class ConfigFunctions extends ConfigBase {
 	public static boolean enableExtraBurnableBlocks;
 	public static boolean enableUpdatedHarvestLevels;
 	public static boolean dropVehiclesTogether;
+	public static boolean enableSubtitles;
+	public static String subtitleBlacklist;
 	public static String[] extraDropRawOres = new String[] {"oreCopper", "oreTin"};
 
 	static final String catChanges = "changes";
@@ -175,5 +177,7 @@ public class ConfigFunctions extends ConfigBase {
 		enableExtraF3HTooltips = cfg.getBoolean("enableExtraF3HTooltips", catClient, true, "Enables NBT tag count and item namespace label on F3 + H debug item labels");
 		shulkerBoxTooltipLines = cfg.getInt("shulkerBoxTooltipLines", catClient, 5, 0, Byte.MAX_VALUE, "The maximum amount of items a Shulker box can display on its tooltip. When the box has more stacks inside than this number, the rest of the stacks are displayed as \"And x more...\". Set to 0 to disable Shulker Box tooltips.");
 		enableGamemodeSwitcher = cfg.getBoolean("enableGamemodeSwitcher", catClient, true, "Enable the new F3+F4 gamemode switcher from 1.16+");
+		enableSubtitles = cfg.getBoolean("enableSubtitles", catClient, false, "Enable subtitles");
+		subtitleBlacklist = cfg.getString("subtitleBlacklist", catClient, "^(dig\\.*)", "Regex of subtitles to blacklist");
 	}
 }
