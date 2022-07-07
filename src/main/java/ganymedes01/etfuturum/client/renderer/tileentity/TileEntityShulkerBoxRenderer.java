@@ -69,13 +69,16 @@ public class TileEntityShulkerBoxRenderer extends TileEntitySpecialRenderer {
 			
 			tier = te.getBlockMetadata();
 		}
+		
+		GL11.glPushAttrib(GL11.GL_ENABLE_BIT);
 
 //        GlStateManager.enableDepth();
 //        GlStateManager.depthFunc(515);
 //        GlStateManager.depthMask(true);
 //        GlStateManager.disableCull();
 		GL11.glDisable(GL11.GL_CULL_FACE);
-
+		GL11.glEnable(GL11.GL_ALPHA_TEST); // Needed because the texture has transparent pixels
+		
 		if (destroyStage >= 0)
 		{
 			this.bindTexture(DESTROY_STAGES[destroyStage]);
@@ -194,6 +197,8 @@ public class TileEntityShulkerBoxRenderer extends TileEntitySpecialRenderer {
 			GL11.glPopMatrix();
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		}
+		
+		GL11.glPopAttrib();
 	}
 
 	@Override
