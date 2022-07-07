@@ -59,6 +59,7 @@ import ganymedes01.etfuturum.client.skins.NewSkinManager;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigEntities;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
+import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.core.handlers.ClientEventHandler;
 import ganymedes01.etfuturum.entities.EntityArmourStand;
 import ganymedes01.etfuturum.entities.EntityBrownMooshroom;
@@ -75,6 +76,7 @@ import ganymedes01.etfuturum.entities.EntityShulker;
 import ganymedes01.etfuturum.entities.EntityShulkerBullet;
 import ganymedes01.etfuturum.entities.EntityStray;
 import ganymedes01.etfuturum.entities.EntityZombieVillager;
+import ganymedes01.etfuturum.spectator.SpectatorModeClient;
 import ganymedes01.etfuturum.tileentities.TileEntityBanner;
 import ganymedes01.etfuturum.tileentities.TileEntityGateway;
 import ganymedes01.etfuturum.tileentities.TileEntityNewBeacon;
@@ -98,6 +100,10 @@ public class ClientProxy extends CommonProxy {
 		super.registerEvents();
 		FMLCommonHandler.instance().bus().register(ClientEventHandler.INSTANCE);
 		MinecraftForge.EVENT_BUS.register(ClientEventHandler.INSTANCE);
+		if(ConfigMixins.enableSpectatorMode) {
+			FMLCommonHandler.instance().bus().register(SpectatorModeClient.INSTANCE);
+			MinecraftForge.EVENT_BUS.register(SpectatorModeClient.INSTANCE);
+		}
 //        MinecraftForge.EVENT_BUS.register(BiomeFogEventHandler.INSTANCE);
 	}
 

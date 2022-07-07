@@ -48,53 +48,6 @@ public class SpectatorMode {
 			SPECTATOR_GAMETYPE = SafeEnumHelperClient.addGameType("spectator", 3, "Spectator");
 	}
 
-	@SubscribeEvent
-	@SideOnly(Side.CLIENT)
-	public void onClientTick(TickEvent.ClientTickEvent event) {
-		World world = FMLClientHandler.instance().getWorldClient();
-		EntityPlayer player = FMLClientHandler.instance().getClientPlayerEntity();
-		if(player != null && event.phase == TickEvent.Phase.START) {
-			if(Minecraft.getMinecraft().playerController.currentGameType == SpectatorMode.SPECTATOR_GAMETYPE) {
-				if(!player.capabilities.isFlying) {
-					player.capabilities.isFlying = true;
-					player.sendPlayerAbilities();
-				}
-			}
-		}
-	}
-
-	@SubscribeEvent
-	@SideOnly(Side.CLIENT)
-	public void onBlockHighlight(DrawBlockHighlightEvent event) {
-		if(isSpectator(event.player)) {
-			Block block = Minecraft.getMinecraft().theWorld.getBlock(event.target.blockX, event.target.blockY, event.target.blockZ);
-			int meta = Minecraft.getMinecraft().theWorld.getBlockMetadata(event.target.blockX, event.target.blockY, event.target.blockZ);
-			if(!block.hasTileEntity(meta) || !(Minecraft.getMinecraft().theWorld.getTileEntity(event.target.blockX, event.target.blockY, event.target.blockZ) instanceof IInventory)) {
-				event.setCanceled(true);
-			}
-		}
-	}
-
-	@SubscribeEvent
-	@SideOnly(Side.CLIENT)
-	public void onRenderPlayerPre(RenderPlayerEvent.Pre event) {
-		if(isSpectator(event.entityPlayer)) {
-			setBipedVisible(event.renderer.modelBipedMain, false);
-			event.renderer.modelBipedMain.bipedHead.showModel = true;
-			event.renderer.modelBipedMain.bipedHeadwear.showModel = true;
-		} else {
-			setBipedVisible(event.renderer.modelBipedMain, true);
-		}
-	}
-
-	@SubscribeEvent
-	@SideOnly(Side.CLIENT)
-	public void onRenderPlayerArmor(RenderPlayerEvent.Specials.Pre event) {
-		if(isSpectator(event.entityPlayer)) {
-			event.setCanceled(true);
-		}
-	}
-
 	public static boolean isSpectator(EntityPlayer player) {
 		if(player == null)
 			return false;
@@ -103,22 +56,9 @@ public class SpectatorMode {
 				return Minecraft.getMinecraft().playerController.currentGameType == SPECTATOR_GAMETYPE;
 			else
 				return false;
-		} else {
-			return ((EntityPlayerMP)player).theItemInWorldManager.getGameType() == SPECTATOR_GAMETYPE;
 		}
+		return ((EntityPlayerMP)player).theItemInWorldManager.getGameType() == SPECTATOR_GAMETYPE;
 	}
-
-	private static void setBipedVisible(ModelBiped biped, boolean visible)
-	{
-		biped.bipedHead.showModel = visible;
-		biped.bipedHeadwear.showModel = visible;
-		biped.bipedBody.showModel = visible;
-		biped.bipedRightArm.showModel = visible;
-		biped.bipedLeftArm.showModel = visible;
-		biped.bipedRightLeg.showModel = visible;
-		biped.bipedLeftLeg.showModel = visible;
-	}
-
 	@SubscribeEvent
 	public void onInteract(PlayerInteractEvent event) {
 		if(isSpectator(event.entityPlayer)) {
@@ -187,61 +127,6 @@ public class SpectatorMode {
 			event.setCanceled(true);
 			ItemStack item = event.entityItem.getEntityItem();
 			event.player.inventory.addItemStackToInventory(item);
-		}
-	}
-
-	private static boolean hadHeldItemTooltips;
-
-	@SubscribeEvent(priority = EventPriority.HIGHEST)
-	@SideOnly(Side.CLIENT)
-	public void onOverlayRenderPre(RenderGameOverlayEvent.Pre event) {
-		if(isSpectator(Minecraft.getMinecraft().thePlayer)) {
-			if(event.type == RenderGameOverlayEvent.ElementType.HOTBAR ||
-			   event.type == RenderGameOverlayEvent.ElementType.CROSSHAIRS) {
-				event.setCanceled(true);
-			}
-			if(event.type == RenderGameOverlayEvent.ElementType.ALL) {
-				hadHeldItemTooltips = Minecraft.getMinecraft().gameSettings.heldItemTooltips;
-				Minecraft.getMinecraft().gameSettings.heldItemTooltips = false;
-			}
-		}
-	}
-
-	@SubscribeEvent(priority = EventPriority.LOWEST)
-	@SideOnly(Side.CLIENT)
-	public void onOverlayRenderPost(RenderGameOverlayEvent.Post event) {
-		if(isSpectator(Minecraft.getMinecraft().thePlayer)) {
-			if(event.type == RenderGameOverlayEvent.ElementType.ALL) {
-				Minecraft.getMinecraft().gameSettings.heldItemTooltips = hadHeldItemTooltips;
-			}
-		}
-	}
-
-	@SubscribeEvent
-	@SideOnly(Side.CLIENT)
-	public void onHandRender(RenderHandEvent event) {
-		if(isSpectator(Minecraft.getMinecraft().thePlayer))
-			event.setCanceled(true);
-	}
-
-	@SubscribeEvent
-	@SideOnly(Side.CLIENT)
-	public void onFireRender(RenderBlockOverlayEvent event) {
-		if(isSpectator(Minecraft.getMinecraft().thePlayer))
-			event.setCanceled(true);
-	}
-
-	/* TODO look into increasing the distance instead of outright disabling it */
-	@SubscribeEvent
-	@SideOnly(Side.CLIENT)
-	public void onRenderFogDensity(EntityViewRenderEvent.FogDensity event) {
-		if(event.entity instanceof EntityPlayer) {
-			if(isSpectator((EntityPlayer)event.entity)) {
-				if(event.block.getMaterial() == Material.water || event.block.getMaterial() == Material.lava) {
-					event.setCanceled(true);
-					event.density = 0;
-				}
-			}
 		}
 	}
 }
