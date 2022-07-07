@@ -183,6 +183,10 @@ public class ServerEventHandler {
 				}
 			}
 		}
+		
+		if (ConfigMixins.stepHeightFix && event.entity.stepHeight == .5F) {
+			event.entity.stepHeight = .6F;
+		}
 	}
 	
 	@SubscribeEvent
@@ -843,24 +847,22 @@ public class ServerEventHandler {
 				int z = MathHelper.floor_double(event.z);
 				World world = event.world;
 				
-				if(ConfigTweaks.spawnAnywhereShulkerColors) {
-					for(EnumFacing facing : EnumFacing.values()) {
-						Block block = world.getBlock(x + facing.getFrontOffsetX(), y + facing.getFrontOffsetY(), z + facing.getFrontOffsetZ());
-						byte color = -1;
-						int meta = world.getBlockMetadata(x + facing.getFrontOffsetX(), y + facing.getFrontOffsetY(), z + facing.getFrontOffsetZ());
+				for(EnumFacing facing : EnumFacing.values()) {
+					Block block = world.getBlock(x + facing.getFrontOffsetX(), y + facing.getFrontOffsetY(), z + facing.getFrontOffsetZ());
+					byte color = -1;
+					int meta = world.getBlockMetadata(x + facing.getFrontOffsetX(), y + facing.getFrontOffsetY(), z + facing.getFrontOffsetZ());
+					
+					if(facing == EnumFacing.DOWN && block == ExternalContent.hee_end_stone) {
+						color = (byte) (meta == 2 ? 10 : meta == 1 ? 1 : 14);
+					} else if (block == ExternalContent.enderlicious_sand) {
+						color = (byte) (meta == 1 ? 15 : 0);
+					} else if (block == ExternalContent.enderlicious_end_rock) {
+						color = (byte) (meta % 4 == 1 ? 13 : -1);
+					}
 						
-						if(facing == EnumFacing.DOWN && block == ExternalContent.hee_end_stone) {
-							color = (byte) (meta == 2 ? 10 : meta == 1 ? 1 : 14);
-						} else if (block == ExternalContent.enderlicious_sand) {
-							color = (byte) (meta == 1 ? 15 : 0);
-						} else if (block == ExternalContent.enderlicious_end_rock) {
-							color = (byte) (meta % 4 == 1 ? 13 : -1);
-						}
-							
-						if(color > -1) {
-							shulker.setColor(color);
-							break;
-						}
+					if(color > -1) {
+						shulker.setColor(color);
+						break;
 					}
 				}
 			}
@@ -895,10 +897,6 @@ public class ServerEventHandler {
 					break;
 				}
 			}
-		}
-		
-		if (event.entity instanceof EntityPlayer && ConfigMixins.stepHeightFix) {
-			event.entity.stepHeight = .6F;
 		}
 	}
 

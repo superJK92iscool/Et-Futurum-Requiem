@@ -855,11 +855,6 @@ public class ModRecipes {
 				removeFirstRecipeFor(Blocks.brewing_stand);
 			}
 			
-			if(ConfigBlocksItems.enableInvertedDaylightSensor) {
-				GameRegistry.addRecipe(new ItemStack(ModBlocks.daylight_detector), "GGG", "QQQ", "SSS", 'G', new ItemStack(Blocks.glass), 'Q', new ItemStack(Items.quartz), 'S', "slabWood");
-				removeFirstRecipeFor(Blocks.daylight_detector);
-			}
-			
 			if(ConfigBlocksItems.enableColourfulBeacons) {
 				GameRegistry.addRecipe(new ItemStack(ModBlocks.beacon), "GGG", "GNG", "OOO", 'G', new ItemStack(Blocks.glass), 'N', new ItemStack(Items.nether_star), 'O', new ItemStack(Blocks.obsidian));
 				removeFirstRecipeFor(Blocks.beacon);
