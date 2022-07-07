@@ -159,7 +159,7 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 	private boolean doesChunkSupportLayerDeepslate(WorldType terrain, int dimId) {
 		if(ConfigBlocksItems.enableDeepslate) {
 			if (ConfigWorld.deepslateGenerationMode == 0 && ConfigWorld.deepslateMaxY > 0) {
-				if(terrain != WorldType.FLAT && !ArrayUtils.contains(ConfigWorld.deepslateLayerDimensionBlacklist, dimId)) {
+				if(terrain != WorldType.FLAT && ArrayUtils.contains(ConfigWorld.deepslateLayerDimensionBlacklist, dimId) == ConfigWorld.deepslateLayerDimensionBlacklistAsWhitelist) {
 					return true;
 				}
 			}

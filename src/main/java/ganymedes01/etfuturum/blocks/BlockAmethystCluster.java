@@ -47,63 +47,68 @@ public class BlockAmethystCluster extends BlockAmethystBlock implements ISubBloc
 		this.type = type;
 	}
 	
-    public int getLightValue(IBlockAccess world, int x, int y, int z)
-    {
-    	int meta = world.getBlockMetadata(x, y, z);
-        return getLightValue() + (type * 3) + (meta / 6);
-    }
-
-    public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_)
-    {
-        return ModItems.amethyst_shard;
-    }
-    
-    protected ItemStack createStackedBlock(int p_149644_1_)
-    {
-        int j = 0;
-        Item item = Item.getItemFromBlock(this);
-
-        if (item != null && item.getHasSubtypes())
-        {
-            j = p_149644_1_ < 6 ? 0 : 6;
-        }
-
-        return new ItemStack(item, 1, j);
-    }
+	public int getMobilityFlag()
+	{
+		return 1;
+	}
 	
-    protected boolean canSilkHarvest()
-    {
-    	return true;
-    }
+	public int getLightValue(IBlockAccess world, int x, int y, int z)
+	{
+		int meta = world.getBlockMetadata(x, y, z);
+		return getLightValue() + (type * 3) + (meta / 6);
+	}
 
-    public int getDamageValue(World p_149643_1_, int p_149643_2_, int p_149643_3_, int p_149643_4_)
-    {
-        return p_149643_1_.getBlockMetadata(p_149643_2_, p_149643_3_, p_149643_4_) < 6 ? 0 : 6;
-    }
-    
-    public int quantityDropped(int meta, int fortune, Random random)
-    {
-    	if(this == ModBlocks.amethyst_cluster_2 && meta >= 6) {
-    		int drop = quantityDropped(random);
-    		if(fortune > 0 && harvestingWithPickaxe() && random.nextInt(2 + fortune) == 0) {
-    			drop += 4 * fortune;
-    		}
-        	return drop;
-    	}
-    	return 0;
-    }
+	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_)
+	{
+		return ModItems.amethyst_shard;
+	}
+	
+	protected ItemStack createStackedBlock(int p_149644_1_)
+	{
+		int j = 0;
+		Item item = Item.getItemFromBlock(this);
 
-    public int quantityDropped(Random p_149745_1_)
-    {
-    	if(harvestingWithPickaxe()) {
-            return 4;
-    	}
-    	return 2;
-    }
-    
-    private boolean harvestingWithPickaxe() {
-    	return harvesters.get() != null && harvesters.get().getCurrentEquippedItem() != null && harvesters.get().getCurrentEquippedItem().getItem().getToolClasses(harvesters.get().getCurrentEquippedItem()).contains("pickaxe");
-    }
+		if (item != null && item.getHasSubtypes())
+		{
+			j = p_149644_1_ < 6 ? 0 : 6;
+		}
+
+		return new ItemStack(item, 1, j);
+	}
+	
+	protected boolean canSilkHarvest()
+	{
+		return true;
+	}
+
+	public int getDamageValue(World p_149643_1_, int p_149643_2_, int p_149643_3_, int p_149643_4_)
+	{
+		return p_149643_1_.getBlockMetadata(p_149643_2_, p_149643_3_, p_149643_4_) < 6 ? 0 : 6;
+	}
+	
+	public int quantityDropped(int meta, int fortune, Random random)
+	{
+		if(this == ModBlocks.amethyst_cluster_2 && meta >= 6) {
+			int drop = quantityDropped(random);
+			if(fortune > 0 && harvestingWithPickaxe() && random.nextInt(2 + fortune) == 0) {
+				drop += 4 * fortune;
+			}
+			return drop;
+		}
+		return 0;
+	}
+
+	public int quantityDropped(Random p_149745_1_)
+	{
+		if(harvestingWithPickaxe()) {
+			return 4;
+		}
+		return 2;
+	}
+	
+	private boolean harvestingWithPickaxe() {
+		return harvesters.get() != null && harvesters.get().getCurrentEquippedItem() != null && harvesters.get().getCurrentEquippedItem().getItem().getToolClasses(harvesters.get().getCurrentEquippedItem()).contains("pickaxe");
+	}
 
 	@Override
 	public int onBlockPlaced(World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int meta) {
@@ -113,13 +118,13 @@ public class BlockAmethystCluster extends BlockAmethystBlock implements ISubBloc
 	@Override
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z)
 	{
-    	int meta = world.getBlockMetadata(x, y, z);
+		int meta = world.getBlockMetadata(x, y, z);
 
-    	float height = (meta < 6 ? 0.125F : 0.1875F) + (type == 1 ? 0.1875F : 0.0625F);
-    	float xzOffset = meta < 6 && type == 0 ? .25F : .1875F;
-    	if(meta >= 6 && type == 1) {
-    		height += .0625F;
-    	}
+		float height = (meta < 6 ? 0.125F : 0.1875F) + (type == 1 ? 0.1875F : 0.0625F);
+		float xzOffset = meta < 6 && type == 0 ? .25F : .1875F;
+		if(meta >= 6 && type == 1) {
+			height += .0625F;
+		}
 
 		switch (meta % 6) {
 		case 0:
@@ -138,15 +143,15 @@ public class BlockAmethystCluster extends BlockAmethystBlock implements ISubBloc
 		return null;
 	}
 
-    @Override
+	@Override
 	public void setBlockBoundsBasedOnState(IBlockAccess access, int x, int y, int z) {
-    	int meta = access.getBlockMetadata(x, y, z);
+		int meta = access.getBlockMetadata(x, y, z);
 
-    	float height = (meta < 6 ? 0.125F : 0.1875F) + (type == 1 ? 0.1875F : 0.0625F);
-    	float xzOffset = meta < 6 && type == 0 ? .25F : .1875F;
-    	if(meta >= 6 && type == 1) {
-    		height += .0625F;
-    	}
+		float height = (meta < 6 ? 0.125F : 0.1875F) + (type == 1 ? 0.1875F : 0.0625F);
+		float xzOffset = meta < 6 && type == 0 ? .25F : .1875F;
+		if(meta >= 6 && type == 1) {
+			height += .0625F;
+		}
 
 		switch (meta % 6) {
 		case 0:
@@ -168,35 +173,35 @@ public class BlockAmethystCluster extends BlockAmethystBlock implements ISubBloc
 			this.setBlockBounds(0.0F, xzOffset, xzOffset, height, 1 - xzOffset, 1 - xzOffset);
 			break;
 		}
-    }
+	}
 
-    protected void checkAndDropBlock(World p_149855_1_, int p_149855_2_, int p_149855_3_, int p_149855_4_)
-    {
-        if (!this.canBlockStay(p_149855_1_, p_149855_2_, p_149855_3_, p_149855_4_))
-        {
-            this.dropBlockAsItem(p_149855_1_, p_149855_2_, p_149855_3_, p_149855_4_, p_149855_1_.getBlockMetadata(p_149855_2_, p_149855_3_, p_149855_4_), 0);
-            p_149855_1_.setBlockToAir(p_149855_2_, p_149855_3_, p_149855_4_);
-        }
-    }
+	protected void checkAndDropBlock(World p_149855_1_, int p_149855_2_, int p_149855_3_, int p_149855_4_)
+	{
+		if (!this.canBlockStay(p_149855_1_, p_149855_2_, p_149855_3_, p_149855_4_))
+		{
+			this.dropBlockAsItem(p_149855_1_, p_149855_2_, p_149855_3_, p_149855_4_, p_149855_1_.getBlockMetadata(p_149855_2_, p_149855_3_, p_149855_4_), 0);
+			p_149855_1_.setBlockToAir(p_149855_2_, p_149855_3_, p_149855_4_);
+		}
+	}
 
 	@Override
-    public void onNeighborBlockChange(World p_149695_1_, int p_149695_2_, int p_149695_3_, int p_149695_4_, Block p_149695_5_)
-    {
-        super.onNeighborBlockChange(p_149695_1_, p_149695_2_, p_149695_3_, p_149695_4_, p_149695_5_);
-        this.checkAndDropBlock(p_149695_1_, p_149695_2_, p_149695_3_, p_149695_4_);
-    }
-    
+	public void onNeighborBlockChange(World p_149695_1_, int p_149695_2_, int p_149695_3_, int p_149695_4_, Block p_149695_5_)
+	{
+		super.onNeighborBlockChange(p_149695_1_, p_149695_2_, p_149695_3_, p_149695_4_, p_149695_5_);
+		this.checkAndDropBlock(p_149695_1_, p_149695_2_, p_149695_3_, p_149695_4_);
+	}
+	
 	@Override
 	public boolean canBlockStay(World world, int x, int y, int z) {
 		return this.canPlaceBlockOnSide(world, x, y, z, world.getBlockMetadata(x, y, z));
 	}
 	
 	@Override
-    public boolean canPlaceBlockOnSide(World world, int x, int y, int z, int side)
-    {
+	public boolean canPlaceBlockOnSide(World world, int x, int y, int z, int side)
+	{
 		EnumFacing facing = EnumFacing.getFront(side);
 		return world.getBlock(x - facing.getFrontOffsetX(), y - facing.getFrontOffsetY(), z - facing.getFrontOffsetZ()).isOpaqueCube();
-    }
+	}
 	
 	@Override
 	@SideOnly(Side.CLIENT)

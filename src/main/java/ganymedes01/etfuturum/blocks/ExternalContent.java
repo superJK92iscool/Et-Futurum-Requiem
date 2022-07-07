@@ -13,6 +13,6 @@ public class ExternalContent {
 	public static final Block netherlicious_bone_block = GameRegistry.findBlock("netherlicious", "BoneBlock");
 	public static final Block utd_bone_block = GameRegistry.findBlock("uptodate", "bone_block");
 	
-	public static final Block netherlicious_smooth_basalt = GameRegistry.findBlock("netherlicious", "SmoothBasalt");
+	public static final Block netherlicious_basalt_bricks = GameRegistry.findBlock("netherlicious", "BasaltBricks");
 
 }

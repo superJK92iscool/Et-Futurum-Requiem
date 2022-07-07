@@ -5,7 +5,13 @@ import java.util.Map;
 import java.util.Random;
 import java.util.WeakHashMap;
 
+import ganymedes01.etfuturum.client.gui.GuiGamemodeSwitcher;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.entities.EntityNewBoatWithChest;
+import ganymedes01.etfuturum.network.ChestBoatOpenInventoryMessage;
+import net.minecraft.client.gui.inventory.GuiInventory;
 import org.apache.commons.lang3.tuple.MutablePair;
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
 import cpw.mods.fml.client.FMLClientHandler;
@@ -13,10 +19,12 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.ClientTickEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
+import cpw.mods.fml.common.gameevent.TickEvent.PlayerTickEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.EtFuturumMixinPlugin;
+import ganymedes01.etfuturum.ModEnchantments;
 import ganymedes01.etfuturum.blocks.BlockShulkerBox;
 import ganymedes01.etfuturum.client.OpenGLHelper;
 import ganymedes01.etfuturum.client.gui.GuiConfigWarning;
@@ -38,6 +46,7 @@ import net.minecraft.client.audio.PositionedSound;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.particle.EntityDiggingFX;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.event.ClickEvent;
@@ -91,6 +100,7 @@ public class ClientEventHandler {
 	{
 		World world = FMLClientHandler.instance().getWorldClient();
 		EntityPlayer player = FMLClientHandler.instance().getClientPlayerEntity();
+		Minecraft mc = FMLClientHandler.instance().getClient();
 		
 		if(world == null || event.phase == Phase.START || Minecraft.getMinecraft().isGamePaused()) {
 			return;
@@ -116,7 +126,7 @@ public class ClientEventHandler {
 				ambienceBiome = null;
 				return;
 			}
-			Minecraft mc = FMLClientHandler.instance().getClient();
+
 			int x = MathHelper.floor_double(player.posX);
 			//int y = MathHelper.floor_double(player.posY); // unused variable
 			int z = MathHelper.floor_double(player.posZ);
@@ -144,23 +154,29 @@ public class ClientEventHandler {
 				ticksToNextAmbience = 50 + rand.nextInt(30) + 1;
 			}
 		}
+
+		if(ConfigFunctions.enableGamemodeSwitcher && Keyboard.isCreated() && Keyboard.isKeyDown(Keyboard.KEY_F3) && Keyboard.isKeyDown(Keyboard.KEY_F4)) {
+			if(mc.currentScreen == null) {
+				mc.displayGuiScreen(new GuiGamemodeSwitcher());
+			}
+		}
 	}
 	private String getStringFor(BiomeGenBase biome) {
 		if(biome == null)
 			return null;
 		
-//		if(string.contains("basalt_deltas")) {
-//			return basaltDeltas;
-//		}
-//		if(string.contains("warped_forest")) {
-//			return warpedForest;
-//		}
-//		if(string.contains("crimson_forest")) {
-//			return crimsonForest;
-//		}
-//		if(string.contains("soul_sand_valley")) {
-//			return soulSandValley;
-//		}
+//      if(string.contains("basalt_deltas")) {
+//          return basaltDeltas;
+//      }
+//      if(string.contains("warped_forest")) {
+//          return warpedForest;
+//      }
+//      if(string.contains("crimson_forest")) {
+//          return crimsonForest;
+//      }
+//      if(string.contains("soul_sand_valley")) {
+//          return soulSandValley;
+//      }
 		return "nether_wastes";
 		
 	}
@@ -169,18 +185,18 @@ public class ClientEventHandler {
 		if(biome == null)
 			return null;
 		
-//		if(string.contains("basalt_deltas")) {
-//			return basaltDeltas;
-//		}
-//		if(string.contains("warped_forest")) {
-//			return warpedForest;
-//		}
-//		if(string.contains("crimson_forest")) {
-//			return crimsonForest;
-//		}
-//		if(string.contains("soul_sand_valley")) {
-//			return soulSandValley;
-//		}
+//      if(string.contains("basalt_deltas")) {
+//          return basaltDeltas;
+//      }
+//      if(string.contains("warped_forest")) {
+//          return warpedForest;
+//      }
+//      if(string.contains("crimson_forest")) {
+//          return crimsonForest;
+//      }
+//      if(string.contains("soul_sand_valley")) {
+//          return soulSandValley;
+//      }
 		return Reference.MCv119 + ":ambient." + getStringFor(biome);
 	}
 
@@ -460,7 +476,7 @@ public class ClientEventHandler {
 	@SideOnly(Side.CLIENT)
 	public void openMainMenu(GuiOpenEvent event)
 	{
-		if(event != null && event.gui instanceof GuiMainMenu) {
+		if(event.gui instanceof GuiMainMenu) {
 			this.showedDebugWarning = false;
 			
 			if (EtFuturumMixinPlugin.launchConfigWarning && main_menu_display_count++ < 20)
@@ -475,6 +491,11 @@ public class ClientEventHandler {
 				oldConfig.save();
 				
 				return;
+			}
+		} else if(ConfigBlocksItems.enableNewBoats && event.gui instanceof GuiInventory) {
+			if(Minecraft.getMinecraft().thePlayer.ridingEntity instanceof EntityNewBoatWithChest) {
+				event.setCanceled(true);
+				EtFuturum.networkWrapper.sendToServer(new ChestBoatOpenInventoryMessage());
 			}
 		}
 	}

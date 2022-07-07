@@ -44,6 +44,13 @@ public class EtFuturumWorldListener implements IWorldAccess {
 			else if(ConfigWorld.tileReplacementMode == 1)
 				replacements.put(ModBlocks.enchanting_table, Blocks.enchanting_table);
 		}
+
+		if(ConfigBlocksItems.enableAnvil) {
+			if (ConfigWorld.tileReplacementMode == 0)
+				replacements.put(Blocks.anvil, ModBlocks.anvil);
+			else if(ConfigWorld.tileReplacementMode == 1)
+				replacements.put(ModBlocks.anvil, Blocks.anvil);
+		}
 		
 		if(ConfigBlocksItems.enableInvertedDaylightSensor) {
 			if (ConfigWorld.tileReplacementMode == 0 || ConfigWorld.tileReplacementMode == 1)
@@ -53,23 +60,25 @@ public class EtFuturumWorldListener implements IWorldAccess {
 
 	@Override
 	public void markBlockForUpdate(int x, int y, int z) {
-		// TODO Auto-generated method stub
 
-		if (replacements.isEmpty())
+		if (replacements.isEmpty() || !world.blockExists(x, y, z))
 			return;
 		
 		Block replacement;
 		TileEntity tile;
 		
-		if((replacement = replacements.get(world.getBlock(x, y, z))) == null || (tile = world.getTileEntity(x, y, z)) == null)
+		if((replacement = replacements.get(world.getBlock(x, y, z))) == null)
 			return;
 
+		tile = world.getTileEntity(x, y, z);
 		NBTTagCompound nbt = new NBTTagCompound();
-		tile.writeToNBT(nbt);
-		if (tile instanceof IInventory) {
-			IInventory invt = (IInventory) tile;
-			for (int j = 0; j < invt.getSizeInventory(); j++) {
-				invt.setInventorySlotContents(j, null);
+		if(tile != null) {
+			tile.writeToNBT(nbt);
+			if (tile instanceof IInventory) {
+				IInventory invt = (IInventory) tile;
+				for (int j = 0; j < invt.getSizeInventory(); j++) {
+					invt.setInventorySlotContents(j, null);
+				}
 			}
 		}
 		

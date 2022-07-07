@@ -27,6 +27,6 @@ public class ItemLodestoneCompassRenderer implements IItemRenderer {
 
 	@Override
 	public void renderItem(ItemRenderType type, ItemStack stack, Object... data) {
-//		renderItem.doRender((EntityItem) data[1], 0, 0, 0, 1, 1);
+//      renderItem.doRender((EntityItem) data[1], 0, 0, 0, 1, 1);
 	}
 }

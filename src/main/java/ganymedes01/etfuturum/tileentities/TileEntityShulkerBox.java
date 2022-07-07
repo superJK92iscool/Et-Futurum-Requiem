@@ -119,13 +119,9 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 		super.writeToNBT(nbt);
 
 		nbt.setTag("Items", Utils.writeItemStacksToNBT(this.chestContents));
-		if(color > 0) {
-			nbt.setByte("Color", color);
-		}
-		
-		if(facing > 0) {
-			nbt.setByte("Facing", facing);
-		}
+
+		nbt.setByte("Color", color);
+		nbt.setByte("Facing", facing);
 
 		if (this.hasCustomInventoryName())
 		{
@@ -600,12 +596,9 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 
 			nbt.setTag("Display", nbttaglist);
 		}
-		
-		if(color > 0)
-			nbt.setByte("Color", this.color);
-		
-		if(facing > 0)
-			nbt.setByte("Facing", this.facing);
+
+		nbt.setByte("Color", this.color);
+		nbt.setByte("Facing", this.facing);
 		
 		return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, nbt);
 	}

@@ -35,7 +35,7 @@ apply plugin: 'forge'
 // SEMVER that gradle uses.
 group = "ganymedes01.etfuturum"
 archivesBaseName = "Et_Futurum_Requiem"
-def modVersion = "2.4.0-beta-2"
+def modVersion = "2.4.0"
 version = project.hasProperty("useCommitHashInVersion") ? getCommitVersion(modVersion) : modVersion
 
 def getCommitVersion(modVersion){
@@ -91,7 +91,6 @@ compileJava {
 }
 
 dependencies {
-    shade 'com.googlecode.efficient-java-matrix-library:ejml:0.25'
 	// Can use `compileOnly` instead of `compile` if you want to require it at build time,
 	// but not require it in `runClient`/`runServer`
 	compile "codechicken:CodeChickenLib:1.7.10-1.1.3.140:dev"
@@ -103,7 +102,7 @@ dependencies {
     compileOnly "team.chisel:Chisel:2.9.5.12:deobf"
     compileOnly "team.chisel.ctmlib:CTMLib:MC1.7.10-1.4.1.5:deobf"
     
-	shade('com.github.makamys:MCLib:0.3.3') {
+	shade('com.github.makamys:MCLib:0.3.4') {
 		exclude group: "codechicken"
 	}
 }

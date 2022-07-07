@@ -14,6 +14,11 @@ enchantment.swift_sneak=Swift Sneak
 potion.levitation=Levitation
 potion.levitation.postfix=Potion of Levitation
 
+# Gamemode selector
+
+debug.gamemodes.select_next=%s Next
+debug.gamemodes.press_f4=[ F4 ]
+
 # Gamemodes
 gameMode.Spectator=Spectator Mode
 
@@ -29,6 +34,7 @@ container.etfuturum.blast_furnace=Blast Furnace
 container.etfuturum.smoker=Smoker
 container.etfuturum.barrel=Barrel
 container.etfuturum.shulker_box=Shulker Box
+container.etfuturum.chest_boat=Boat with Chest
 
 item.record.pigstep.desc=Lena Raine - pigstep
 item.record.otherside.desc=Lena Raine - otherside
@@ -50,6 +56,7 @@ entity.etfuturum.snow_golem.name=Snow Golem
 entity.etfuturum.brown_mooshroom.name=Brown Mooshroom
 entity.etfuturum.shulker.name=Shulker
 entity.etfuturum.shulker_candy.name=Shulker Bullet
+entity.etfuturum.chest_boat.name=Boat with Chest
 
 entity.etfuturum.stray.name=Stray
 entity.etfuturum.husk.name=Husk
@@ -113,6 +120,12 @@ item.etfuturum.birch_boat.name=Birch Boat
 item.etfuturum.jungle_boat.name=Jungle Boat
 item.etfuturum.dark_oak_boat.name=Dark Oak Boat
 item.etfuturum.acacia_boat.name=Acacia Boat
+item.etfuturum.oak_chest_boat.name=Oak Boat with Chest
+item.etfuturum.spruce_chest_boat.name=Spruce Boat with Chest
+item.etfuturum.birch_chest_boat.name=Birch Boat with Chest
+item.etfuturum.jungle_chest_boat.name=Jungle Boat with Chest
+item.etfuturum.dark_oak_chest_boat.name=Dark Oak Boat with Chest
+item.etfuturum.acacia_chest_boat.name=Acacia Boat with Chest
 item.etfuturum.shulker_shell.name=Shulker Shell
 item.etfuturum.amethyst_shard.name=Amethyst Shard
 
@@ -657,6 +670,8 @@ tile.etfuturum.green_obsidian_shulker_box.name=Green Obsidian Shulker Box
 tile.etfuturum.red_obsidian_shulker_box.name=Red Obsidian Shulker Box
 tile.etfuturum.black_obsidian_shulker_box.name=Black Obsidian Shulker Box
 tile.etfuturum.lantern.name=Lantern
+
+tile.etfuturum.tinted_glass.name=Tinted Glass
 
 util.totemBreak=§a§oYour Totem of Undying shatters...
 

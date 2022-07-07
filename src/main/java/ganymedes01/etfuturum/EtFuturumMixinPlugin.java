@@ -111,19 +111,23 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 			mixins.add("MixinEntity");
 		}
 
-		if(ConfigFunctions.enableSpectatorMode) {
+		if(ConfigMixins.enableSpectatorMode) {
 			mixins.add("MixinGameType");
 			mixins.add("MixinEntity_Spectator");
 			mixins.add("MixinWorld_Spectator");
 			mixins.add("MixinEntityPlayer_Spectator");
 			mixins.add("MixinNetHandlerPlayServer");
 		}
+
+		if(ConfigMixins.avoidDroppingItemsWhenClosing) {
+			mixins.add("MixinEntityPlayerMP");
+		}
 		
 		if(side == MixinEnvironment.Side.CLIENT) {
 			if(ConfigMixins.furnaceCrackle) {
 				mixins.add("client.MixinBlockFurnace");
 			}
-			if(ConfigFunctions.enableSpectatorMode) {
+			if(ConfigMixins.enableSpectatorMode) {
 				mixins.add("client.MixinEntityRenderer");
 				mixins.add("client.MixinEntityPlayer");
 				mixins.add("client.MixinWorldRenderer_Spectator");

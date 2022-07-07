@@ -33,6 +33,7 @@ public class ConfigWorld extends ConfigBase {
 	public static boolean enableFossils;
 	public static int maxTuffPerCluster;
 	public static int[] fossilDimensionBlacklist;
+	public static boolean fossilDimensionBlacklistAsWhitelist;
 	public static int tileReplacementMode;
 	public static int maxStonesPerCluster;
 	public static boolean enableNewBlocksSounds;
@@ -42,11 +43,16 @@ public class ConfigWorld extends ConfigBase {
 	public static int smallDebrisMax = 2;
 	public static boolean enableOceanMonuments;
 	public static int[] deepslateLayerDimensionBlacklist;
+	public static boolean deepslateLayerDimensionBlacklistAsWhitelist;
 	public static boolean enableExtraMesaGold;
 	public static boolean enableMesaMineshaft;
 	public static boolean enableCoarseDirtReplacement;
 	public static boolean enableAmethystGeodes;
 	public static int buddingAmethystMode;
+	public static int amethystRarity;
+	public static int amethystMaxY;
+	public static int[] amethystDimensionBlacklist;
+	public static boolean amethystDimensionBlacklistAsWhitelist;
 
 	public static final String catClient = "client";
 	public static final String catGeneration = "generation";
@@ -90,23 +96,29 @@ public class ConfigWorld extends ConfigBase {
 		deepslateGenerationMode = cfg.getInt("deepslateGenerationMode", catGeneration, 0, -1, 1, "If 0, deepslate replaces all stone below the specified value, with a shattering effect near the top similar to bedrock. If 1, it generates in clusters using the deepslate cluster settings. -1 disables Et Futurum deepslate generation entirely.");
 		enableOceanMonuments = cfg.getBoolean("enableOceanMonuments", catGeneration, true, "Note: Ocean monuments currently do not have guardians");
 		enableFossils = cfg.getBoolean("enableFossils", catGeneration, true, "Note: Fossils currently do not rotate");
-		fossilBlockID  = cfg.getInt("fossilBoneBlock", catGeneration, 0, 0, 2, "0 = cfg.Et Futurum bone block\n1 = Netherlicious bone block\n2 = UpToDateMod bone block.\nIf the block does not exist, this option is ignored.");
-		amethystOuterID  = cfg.getInt("amethystOuterBlock", catGeneration, 0, 0, 2, "0 = cfg.Et Futurum smooth basalt block\n1 = Et Futurum tuff block\n2 = Netherlicious smooth basalt block\nSince there's no other way to get Et Futurum's smooth basalt, using an option other than 0, if they exist, will disable Et Futurum smooth basalt. If the selected block does not exist (disabled or mod not installed), this option does nothing.");
+		fossilBlockID  = cfg.getInt("fossilBoneBlock", catGeneration, 0, 0, 2, "0 = Et Futurum bone block\n1 = Netherlicious bone block\n2 = UpToDateMod bone block.\nIf the block does not exist, this option is ignored.");
+		amethystOuterID  = cfg.getInt("amethystOuterBlock", catGeneration, 0, 0, 2, "0 = Et Futurum smooth basalt block\n1 = Et Futurum tuff block\n2 = Netherlicious smooth basalt block\nSince there's no other way to get Et Futurum's smooth basalt, using an option other than 0, if they exist, will disable Et Futurum smooth basalt. If the selected block does not exist (disabled or mod not installed), this option does nothing.");
 		Property fossilBlacklistProp = cfg.get(catGeneration, "fossilDimensionBlacklist", new int[] {-1, 1});
 		fossilBlacklistProp.comment = "The dimensions the fossil structures should not spawn in.";
 		fossilDimensionBlacklist = fossilBlacklistProp.getIntList();
+		fossilDimensionBlacklistAsWhitelist = cfg.getBoolean("fossilDimensionBlacklistAsWhitelist", catGeneration, false, "Treat the fossil dimension blacklist as a whitelist instead, so fossils will ONLY generate in those dimensions, instead of excluding those dimensions from generation.");
 		Property deepslateBlacklistProp = cfg.get(catGeneration, "deepslateLayerDimensionBlacklist", new int[] {-1, 1});
 		deepslateBlacklistProp.comment = "The dimensions the deepslate layer (deepslate generation mode 0) should not spawn in. Does nothing if other deepslate generation modes are used.";
 		deepslateLayerDimensionBlacklist = deepslateBlacklistProp.getIntList();
+		deepslateLayerDimensionBlacklistAsWhitelist = cfg.getBoolean("deepslateLayerDimensionBlacklistAsWhitelist", catGeneration, false, "Treat the deepslate layer dimension blacklist as a whitelist instead, so it will ONLY generate in those dimensions, instead of excluding those dimensions from generation.");
 		maxTuffPerCluster = cfg.getInt("tuffClusterSize", catGeneration, 32, 0, 64, "Max vein size for tuff blocks in a cluster");
 		enableExtraMesaGold = cfg.getBoolean("enableExtraMesaGold", catGeneration, true, "Generate 20 more veins of gold ore from Y 32 to Y 80 in any Mesa biome.");
 		enableMesaMineshaft = cfg.getBoolean("enableMesaMineshaft", catGeneration, true, "Generates extra mineshafts in mesa biomes up to y80. If fences are enabled, dark oak wood is used.");
 		enableCoarseDirtReplacement = cfg.getBoolean("enableCoarseDirtReplacement", catGeneration, true, "Replaces coarse dirt in biomes it (dirt:1) generates in such as shattered savannas or mesa plateaus.");
 		enableAmethystGeodes = cfg.getBoolean("enableAmethystGeodes", catGeneration, true, "");
 		buddingAmethystMode  = cfg.getInt("buddingAmethystMode", catGeneration, 0, 0, 2, "0 = Budding amethyst cannot be obtained at all even with silk touch. When using this option, attempting to push them using a piston will break it.\n1 = Budding amethyst will drop if you use a silk touch pickaxe.\n2 = Budding amethyst does not need silk touch, just a pickaxe.");
+		Property amethystBlacklistProp = cfg.get(catGeneration, "amethystDimensionBlacklist", new int[] {-1, 1});
+		amethystBlacklistProp.comment = "What dimensions should we ban amethyst geodes from generating in?";
+		amethystDimensionBlacklist = amethystBlacklistProp.getIntList();
+		amethystDimensionBlacklistAsWhitelist = cfg.getBoolean("amethystDimensionBlacklistAsWhitelist", catGeneration, false, "Treat the amethyst dimension blacklist as a whitelist instead, so geodes will ONLY generate in those dimensions, instead of excluding those dimensions from generation.");
+		amethystRarity = cfg.getInt("amethystRarity", catGeneration, 53, 1, 128, "How rare should amethyst geodes be? 1/x chance per chunk, 1 means a geode attempts to appear every chunk");
+		amethystMaxY = cfg.getInt("amethystMaxY", catGeneration, 51, 10, 245, "Max Y level amethyst geodes should attempt to generate at");
 		
-		
-		fullGrassPath = cfg.getBoolean("fullGrassPath", catMisc, false, "Set to true if you're having issues with stepping over grass paths. Temporary option until fixes are implemented to 1.7's stepping system.");
 		tileReplacementMode = cfg.getInt("tileReplacementMode", catMisc, 0, -1, 1, "Replace old Brewing Stands/Enchanting Tables/Daylight Sensors/Beacons with new one on the fly.\n-1 = Disabled, no conversion even if the replacement tile entities are on\n0 = Convert the vanilla tile entities to their Et Futurum versions\n1 = Convert Et Futurum replacement tile entities back to default ones. Useful if you want to turn those off.");
 	}
 }

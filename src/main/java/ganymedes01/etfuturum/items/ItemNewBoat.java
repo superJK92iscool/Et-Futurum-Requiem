@@ -6,6 +6,7 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.blocks.IConfigurable;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
+import ganymedes01.etfuturum.entities.EntityNewBoatWithChest;
 import ganymedes01.etfuturum.entities.EntityNewBoat;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -23,14 +24,17 @@ import net.minecraft.world.World;
 public class ItemNewBoat extends Item implements IConfigurable {
 
 	private final EntityNewBoat.Type type;
+	private final boolean isChest;
 	
-	public ItemNewBoat(EntityNewBoat.Type type) {
+	public ItemNewBoat(EntityNewBoat.Type type, boolean isChest) {
 		this.type = type;
+		this.isChest = isChest;
+		String suffix = isChest ? "_chest_boat" : "_boat";
 		setMaxStackSize(1);
-		setTextureName("minecraft:" + type.getName() + "_boat");
-		setUnlocalizedName(Utils.getUnlocalisedName(type.getName() + "_boat"));
+		setTextureName("minecraft:" + type.getName() + suffix);
+		setUnlocalizedName(Utils.getUnlocalisedName(type.getName() + suffix));
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
-		if(!ConfigBlocksItems.replaceOldBoats) {
+		if(!isChest && !ConfigBlocksItems.replaceOldBoats) {
 			this.setContainerItem(Items.wooden_shovel);
 		}
 	}
@@ -95,9 +99,19 @@ public class ItemNewBoat extends Item implements IConfigurable {
 				--j;
 			}
 
-			EntityNewBoat entityboat = new EntityNewBoat(p_77659_2_, (double)((float)i + 0.5F), (double)((float)j + (p_77659_2_.getBlock(i, j-1, k).getMaterial() == Material.water ? 0.88F : 1.0F)), (double)((float)k + 0.5F));
-			entityboat.rotationYaw = (float)(((MathHelper.floor_double((double)(p_77659_3_.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3) - 1) * 90) + 90;
+			EntityNewBoat entityboat;
+			if(isChest) {
+				entityboat = new EntityNewBoatWithChest(p_77659_2_);
+			} else {
+				entityboat = new EntityNewBoat(p_77659_2_);
+			}
+			float yaw = (float)(((MathHelper.floor_double((double)(p_77659_3_.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3) - 1) * 90) + 90;
+			entityboat.setPositionAndRotation((double)((float)i + 0.5F), (double)((float)j + (p_77659_2_.getBlock(i, j-1, k).getMaterial() == Material.water ? 0.88F : 1.0F)), (double)((float)k + 0.5F), yaw, 0);
+			entityboat.motionX = entityboat.motionY = entityboat.motionZ = 0;
 			entityboat.setBoatType(type);
+			if(p_77659_1_.hasDisplayName()) {
+				entityboat.setBoatName(p_77659_1_.getDisplayName());
+			}
 
 			if (!p_77659_2_.getCollidingBoundingBoxes(entityboat, entityboat.boundingBox.expand(-0.1D, -0.1D, -0.1D)).isEmpty())
 			{
@@ -120,7 +134,7 @@ public class ItemNewBoat extends Item implements IConfigurable {
 	
 	@Override
 	public boolean isEnabled() {
-		return ConfigBlocksItems.enableNewBoats && (!ConfigBlocksItems.replaceOldBoats || type != EntityNewBoat.Type.OAK);
+		return ConfigBlocksItems.enableNewBoats && (!ConfigBlocksItems.replaceOldBoats || isChest || type != EntityNewBoat.Type.OAK);
 	}
 
 }

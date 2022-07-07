@@ -2,9 +2,12 @@ package ganymedes01.etfuturum.configuration.configs;
 
 import java.io.File;
 
+import org.apache.commons.lang3.ArrayUtils;
+
 import ganymedes01.etfuturum.configuration.ConfigBase;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.common.config.Property;
 
 public class ConfigBlocksItems extends ConfigBase {
 	
@@ -111,7 +114,10 @@ public class ConfigBlocksItems extends ConfigBase {
 	public static boolean enableNewBoats;
 	public static boolean newBoatPassengerSeat;
 	public static float newBoatMaxLandSpeed;
+	public static float newBoatSpeed;
 	public static boolean replaceOldBoats;
+	public static String[] newBoatEntityBlacklist;
+	public static boolean newBoatEntityBlacklistAsWhitelist;
 	
 	public static int endGatewaySpawnColor = 2;
 	public static int endGatewayEntryColor = 2;
@@ -170,7 +176,7 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableDeepslate = cfg.getBoolean("enableDeepslate", catBlockNatural, true, "");
 		enableTuff = cfg.getBoolean("enableTuff", catBlockNatural, true, "");
 		enableDeepslateOres = cfg.getBoolean("enableDeepslateOres", catBlockNatural, true, "Enable deepslate ores for copper ore and vanilla ores when deepslate generates over them.");
-		enableAmethyst = cfg.getBoolean("enableAmethyst", catBlockNatural, true, "Enables amethyst blocks, budding amethyst and amethyst crystals. Also enables the item too.");
+		enableAmethyst = cfg.getBoolean("enableAmethyst", catBlockNatural, true, "Enables tinted glass, amethyst blocks, budding amethyst and amethyst crystals. Also enables the item too.");
 		enableSculk = cfg.getBoolean("enableSculk", catBlockNatural, true, "Enables sculk-related blocks.");
 
 		//Function Blocks
@@ -178,8 +184,6 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableSponge = cfg.getBoolean("enableSponge", catBlockFunc, true, "");
 		enableDoors = cfg.getBoolean("enableDoors", catBlockFunc, true, "Enables wood variant doors");
 		enableTrapdoors = cfg.getBoolean("enableTrapdoors", catBlockFunc, true, "Enables wood variant trapdoors");
-		enableInvertedDaylightSensor = cfg.getBoolean("enableInvertedSensor", catBlockFunc, true, "Inverted Daylight Sensor");
-		enableOldBaseDaylightSensor = cfg.getBoolean("enableOldBaseDaylightSensor", catBlockFunc, false, "Enable the old Et Futurum daylight sensor block. Should be enabled if you still have the old Et Futurum copy of the non-inverted daylight detector that need to be converted.");
 		enableSlimeBlock = cfg.getBoolean("enableSlimeBlock", catBlockFunc, true, "Just bouncy, does not pull blocks.");
 		enableWoodRedstone = cfg.getBoolean("enableWoodRedstone", catBlockFunc, true, "Enables wood variant buttons and pressure plates");
 		enableBarrel = cfg.getBoolean("enableBarrel", catBlockFunc, true, "");
@@ -196,9 +200,11 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableLoom = cfg.getBoolean("enableLoom", catBlockFunc, true, "Currently DOES NOT HAVE ANY FUNCTIONALITY. Decoration ONLY!");
 
 		enableEnchantingTable = cfg.getBoolean("enableNewEnchantingTable", catBlockFunc, true, "Uses lapis as payment and has enchant previews and adjusted level costs\nRequires tile entity replacement to be enabled in function.cfg");
-		enableAnvil = cfg.getBoolean("enableNewAnvil", catBlockFunc, true, "");
+		enableAnvil = cfg.getBoolean("enableNewAnvil", catBlockFunc, true, "Enables new anvil behavior, such as less expensive item renaming");
 		enableBrewingStands = cfg.getBoolean("enableNewBrewingStand", catBlockFunc, true, "Uses blaze powder as fuel");
 		enableColourfulBeacons = cfg.getBoolean("enableNewBeacon", catBlockFunc, true, "Beacon beam can be colored using stained glass");
+		enableInvertedDaylightSensor = cfg.getBoolean("enableInvertedSensor", catBlockFunc, true, "Inverted Daylight Sensor");
+		enableOldBaseDaylightSensor = cfg.getBoolean("enableOldBaseDaylightSensor", catBlockFunc, false, "Enable the old Et Futurum daylight sensor block. Should be enabled if you still have the old Et Futurum copy of the non-inverted daylight detector that need to be converted.");
 		
 		//Misc Blocks
 		enableFences = cfg.getBoolean("enableFences", catBlockMisc, true, "Enables wood variant fences and gates");
@@ -256,8 +262,13 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableNewBoats = cfg.getBoolean("enableNewBoats", catItemEntity, true, "New boats from 1.9+, including the new rowing sounds. All vanilla wood variants included.");
 		
 		replaceOldBoats = cfg.getBoolean("replaceOldBoats", catItemEntity, true, "If true, old boats will be replaced with the new oak boat and the item sprite will also be changned. False means the new and old boat and item for it exists separately, and the new boats will use a wooden shovel in their crafting recipe. If this is enabled, a boat that has an entity in it will not be replaced until the entity gets out.\nTHIS WILL NOT WORK PROPERLY WITH BETTER BOATS INSTALLED");
-		newBoatMaxLandSpeed = cfg.getFloat("newBoatMaxLandSpeed", catItemEntity, 0.986F, 0.1F, 1, "The maximum speed a boat can travel by while on land. This option exists because boats are very very fast when travelling on slippery blocks. Land speed = cfg.0.6, Regular/Packed Ice Speed = cfg.0.98, Packed Ice Speed = cfg.0.986. Anything smaller than 0.6 is really, REALLY slow on land.\nAny value above 1 is exponential speed growth, and is discouraged. (Quicksoil from Aether Legacy is 1.1) The speed values are just block slipperiness values, and are averaged by the slippery blocks around the bottom of the boat. This option does nothing to old boats.");
-		newBoatPassengerSeat = cfg.getBoolean("newBoatPassengerSeat", catItemEntity, true, "If disabled, only one person can sit in the passenger seat at a time.");
+		newBoatMaxLandSpeed = cfg.getFloat("newBoatMaxLandSpeed", catItemEntity, 0.986F, 0.1F, 1, "The maximum speed a boat can travel by while on land. This option exists because boats are very very fast when travelling on slippery blocks. Land speed = cfg.0.6, Regular/Packed Ice Speed = cfg.0.98, Packed Ice Speed = cfg.0.986. Anything smaller than 0.6 is really, REALLY slow on land.\nThe speed values are just block slipperiness values, and are averaged by the slippery blocks around the bottom of the boat. This option does nothing to old boats.");
+		newBoatSpeed = cfg.getFloat("newBoatSpeed", catItemEntity, 1F, 0.1F, 2, "The speed multiplier for boats while in water. Use this if you want to make the boats faster or slower. 1 = no speed change");
+		newBoatPassengerSeat = cfg.getBoolean("newBoatPassengerSeat", catItemEntity, true, "If disabled, only one person can sit in the new boat at a time. The new seat is actually an invisible entity that follows new boats.");
+		Property newBoatEntityBlacklistProp = cfg.get(catItemEntity, "newBoatEntityBlacklist", new String[] {});
+		newBoatEntityBlacklistProp.comment = "What entities shouldn't be able to sit in the boat? You can either provide an entity ID (modid.entityid, for vanilla entities type just entity ID), or search for a string in the classpath (classpath:stringtofind).\nSeparate entries in the list by a new line. Note that players can always sit even if blacklisted, and some entities, like horses, water mobs or nonliving entities, will never be allowed to sit in boats.\nIt's a little hard to explain, a more detailed explanation and list of examples can be found here: https://pastebin.com/XNZ7VWKh";
+		newBoatEntityBlacklist = newBoatEntityBlacklistProp.getStringList();
+		newBoatEntityBlacklistAsWhitelist = cfg.getBoolean("newBoatEntityBlacklistAsWhitelist", catItemEntity, false, "Treat the entity blacklist as a whitelist, ONLY entities matching that criteria will be allowed.");
 		
 		//      endGatewaySpawnColor = cfg.getInt("endGatewaySpawnColor", catAbandoned, 2, 0, 15, "The color of the end gateway beam when the gateway first appears.");
 //      endGatewayEntryColor = cfg.getInt("endGatewayEntryColor", catAbandoned, 2, 0, 15, "The color of the end gateway beam when an entity enters it. Originally, this value was 4 (yellow) before version 1.11.");

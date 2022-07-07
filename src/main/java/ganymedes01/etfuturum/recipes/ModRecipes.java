@@ -1,7 +1,6 @@
 package ganymedes01.etfuturum.recipes;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -253,6 +252,7 @@ public class ModRecipes {
 		
 		if(ConfigBlocksItems.enableAmethyst) {
 			OreDictionary.registerOre("gemAmethyst", ModItems.amethyst_shard);
+			OreDictionary.registerOre("blockGlassTinted", new ItemStack(ModBlocks.tinted_glass, 1, 0));
 		}
 		
 //      if(ConfigurationHandler.enableCrimsonBlocks || ConfigurationHandler.enableWarpedBlocks) {
@@ -660,8 +660,15 @@ public class ModRecipes {
 		if(ConfigBlocksItems.enableNetherGold)
 			GameRegistry.addSmelting(new ItemStack(ModBlocks.nether_gold_ore), new ItemStack(Items.gold_ingot), .1F);
 		
-		if(ConfigBlocksItems.enableSmoothStone)
+		if(ConfigBlocksItems.enableSmoothStone) {
 			GameRegistry.addSmelting(new ItemStack(Blocks.stone), new ItemStack(ModBlocks.smooth_stone), .1F);
+			if(Loader.isModLoaded("bluepower")) {
+				Item stoneTile = GameRegistry.findItem("bluepower", "stone_tile");
+				if(stoneTile != null) {
+					addShapedRecipe(new ItemStack(stoneTile, 4), "xx", 'x', new ItemStack(ModBlocks.smooth_stone));
+				}
+			}
+		}
 		
 		if(ConfigBlocksItems.enableSmoothSandstone) {
 			GameRegistry.addSmelting(new ItemStack(Blocks.sandstone, 1, 0), new ItemStack(ModBlocks.smooth_sandstone), .1F);
@@ -822,6 +829,9 @@ public class ModRecipes {
 				addShapelessRecipe(new ItemStack(Items.boat), ModItems.boats[0]);
 				addShapelessRecipe(new ItemStack(ModItems.boats[0]), Items.wooden_shovel, Items.boat);
 			}
+			for(int i = EntityNewBoat.Type.values().length - 1; i >= 0; i--) {
+				addShapedRecipe(new ItemStack(ModItems.chest_boats[i]), "c", "b", 'b', i == 0 && ConfigBlocksItems.replaceOldBoats ? Items.boat : ModItems.boats[i], 'c', Blocks.chest);
+			}
 		}
 		
 		if(ConfigBlocksItems.enableShulkerBoxes) {
@@ -854,6 +864,12 @@ public class ModRecipes {
 				GameRegistry.addRecipe(new ItemStack(ModBlocks.beacon), "GGG", "GNG", "OOO", 'G', new ItemStack(Blocks.glass), 'N', new ItemStack(Items.nether_star), 'O', new ItemStack(Blocks.obsidian));
 				removeFirstRecipeFor(Blocks.beacon);
 			}
+
+		  if (ConfigBlocksItems.enableEnchantingTable) {
+			  addShapedRecipe(new ItemStack(ModBlocks.enchanting_table), " B ", "D#D", "###", '#', Blocks.obsidian, 'B', Items.book, 'D', "gemDiamond");
+			  removeFirstRecipeFor(Blocks.enchanting_table); // Remove recipe for Minecrafts Enchanting Table
+		  }
+			
 		}
 		
 		if(ConfigBlocksItems.enableExtraVanillaWalls) {
@@ -892,6 +908,7 @@ public class ModRecipes {
 		
 		if(ConfigBlocksItems.enableAmethyst) {
 			addShapedRecipe(new ItemStack(ModBlocks.amethyst_block, 1, 0), "AA", "AA", 'A', "gemAmethyst");
+			addShapedRecipe(new ItemStack(ModBlocks.tinted_glass, 2, 0), " A ", "AGA", " A ", 'A', "gemAmethyst", 'G', "blockGlassColorless");
 		}
 	}
 	

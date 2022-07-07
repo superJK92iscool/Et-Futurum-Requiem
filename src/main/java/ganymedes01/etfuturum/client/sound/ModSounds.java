@@ -70,11 +70,11 @@ public class ModSounds {
 	public static final SoundType soundLodestone = new CustomSound("lodestone", true);
 	public static final SoundType soundDripstoneBlock = new CustomSound("dripstone_block");
 	public static final SoundType soundPointedDripstone = new CustomSound("pointed_dripstone");
-//	public static final SoundType soundNylium = new CustomSound("nylium");
-//	public static final SoundType soundHoneyBlock = new CustomSound("honey_block");
-//	public static final SoundType soundFungus = new CustomSound("fungus");
-//	public static final SoundType soundStem = new CustomSound("stem");
-//	public static final SoundType soundShroomlight = new CustomSound("shroomlight");
+//  public static final SoundType soundNylium = new CustomSound("nylium");
+//  public static final SoundType soundHoneyBlock = new CustomSound("honey_block");
+//  public static final SoundType soundFungus = new CustomSound("fungus");
+//  public static final SoundType soundStem = new CustomSound("stem");
+//  public static final SoundType soundShroomlight = new CustomSound("shroomlight");
 	
 	public static class CustomSound extends SoundType {
 

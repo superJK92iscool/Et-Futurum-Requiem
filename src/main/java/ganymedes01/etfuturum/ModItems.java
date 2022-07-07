@@ -108,6 +108,7 @@ public class ModItems {
 	public static final Item sweet_berries = initItem(new ItemSweetBerries());
 	public static final Item shulker_shell = initItem(new ItemShulkerShell());
 	public static final Item[] boats = new Item[EntityNewBoat.Type.values().length];
+	public static final Item[] chest_boats = new Item[EntityNewBoat.Type.values().length];
 	public static final Item pigstep_record = initItem(new ItemEtFuturumRecord("pigstep"));
 	public static final Item otherside_record = initItem(new ItemEtFuturumRecord("otherside"));
 	public static final Item amethyst_shard = initItem(new ItemAmethystShard());
@@ -116,7 +117,9 @@ public class ModItems {
 		for (int i = 0; i < signs.length; i++)
 			signs[i] = initItem(new ItemWoodSign(i + 1));
 		for (int i = 0; i < boats.length; i++)
-			boats[i] = initItem(new ItemNewBoat(EntityNewBoat.Type.byId(i)));
+			boats[i] = initItem(new ItemNewBoat(EntityNewBoat.Type.byId(i), false));
+		for (int i = 0; i < chest_boats.length; i++)
+			chest_boats[i] = initItem(new ItemNewBoat(EntityNewBoat.Type.byId(i), true));
 	}
 	
 	private static Item initItem(Item item) {

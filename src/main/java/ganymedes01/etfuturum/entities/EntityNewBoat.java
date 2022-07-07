@@ -3,6 +3,8 @@ package ganymedes01.etfuturum.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.ArrayUtils;
+
 import com.google.common.collect.Lists;
 
 import cpw.mods.fml.relauncher.Side;
@@ -10,6 +12,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.network.BoatMoveMessage;
 import net.minecraft.block.Block;
@@ -71,6 +74,7 @@ public class EntityNewBoat extends Entity {
 	
 	private EntityNewBoatSeat seat;
 	private EntityNewBoatSeat seatToSpawn;
+	private String entityName;
 
 	public EntityNewBoat(World p_i1704_1_)
 	{
@@ -269,7 +273,15 @@ public class EntityNewBoat extends Entity {
 			{
 				if (!flag && this.worldObj.getGameRules().getGameRuleBooleanValue("doMobLoot"))
 				{
-					this.dropItem(this.getItemBoat(), 1);
+					ItemStack boat = new ItemStack(getItemBoat());
+					if (this.entityName != null)
+					{
+						boat.setStackDisplayName(this.entityName);
+					}
+					entityDropItem(boat, 0);
+					if(this instanceof EntityNewBoatWithChest && !ConfigFunctions.dropVehiclesTogether) {
+						this.dropItem(Item.getItemFromBlock(Blocks.chest), 1);
+					}
 				}
 
 				this.setDead();
@@ -363,14 +375,21 @@ public class EntityNewBoat extends Entity {
 	public boolean hasSeat() {
 		return seat != null && !seat.isDead;
 	}
-	
+
+	/**
+	 * Let subclasses disable the passenger seat if they want to.
+	 */
+	protected boolean shouldHaveSeat() {
+		return true;
+	}
+
 	public void onEntityUpdate() {
 		super.onEntityUpdate();
 		
 		//TODO add option for no passenger seat and don't run this code
 		
 		//This causes the boat to not fall for some reason!
-		if(!worldObj.isRemote && !hasSeat() && ConfigBlocksItems.newBoatPassengerSeat) {
+		if(!worldObj.isRemote && !hasSeat() && ConfigBlocksItems.newBoatPassengerSeat && shouldHaveSeat()) {
 			EntityNewBoatSeat newSeat;
 			if(seatToSpawn == null) {
 				newSeat = new EntityNewBoatSeat(worldObj, this);
@@ -523,7 +542,9 @@ public class EntityNewBoat extends Entity {
 				{
 					if (flag && this.getPassengers().size() < 2 && !entity.isRiding() && entity.width < this.width && entity instanceof EntityLivingBase && !(entity instanceof EntityWaterMob) && !(entity instanceof EntityPlayer))
 					{
-						addToBoat(entity);
+						if(canEntitySit(entity)) {
+							addToBoat(entity);
+						}
 					}
 					else
 					{
@@ -536,6 +557,31 @@ public class EntityNewBoat extends Entity {
 		if(this.worldObj.isRemote && canPassengerSteer() && getControllingPassenger() instanceof EntityClientPlayerMP) {
 			EtFuturum.networkWrapper.sendToServer(new BoatMoveMessage(this));
 		}
+	}
+	
+	private boolean canEntitySit(Entity entity) {
+		if(ConfigBlocksItems.newBoatEntityBlacklist.length == 0) {
+			return !ConfigBlocksItems.newBoatEntityBlacklistAsWhitelist;
+		}
+		
+		if(ArrayUtils.contains(ConfigBlocksItems.newBoatEntityBlacklist, EntityList.getEntityString(entity))) {
+			return ConfigBlocksItems.newBoatEntityBlacklistAsWhitelist;
+		}
+		
+		for(int i = 0; i < ConfigBlocksItems.newBoatEntityBlacklist.length; i++) {
+			String blacklistEntry = ConfigBlocksItems.newBoatEntityBlacklist[i];
+			if(blacklistEntry.startsWith("classpath:")) {
+				if(entity.getClass().getName().contains(blacklistEntry.replace("classpath:", ""))) {
+					return ConfigBlocksItems.newBoatEntityBlacklistAsWhitelist;
+				}
+			}
+//          if(blacklistEntry.startsWith("class:")) {
+//              if(entity.getClass().getSimpleName().equals(blacklistEntry.replace("class:", ""))) {
+//                  return ConfigBlocksItems.newBoatEntityBlacklistAsWhitelist;
+//              }
+//          }
+		}
+		return !ConfigBlocksItems.newBoatEntityBlacklistAsWhitelist;
 	}
 	
 	protected String getPaddleSound()
@@ -902,6 +948,8 @@ public class EntityNewBoat extends Entity {
 			{
 				f -= 0.005F;
 			}
+			
+			f *= ConfigBlocksItems.newBoatSpeed;
 //            if(!worldObj.isRemote)
 //              f = 0;
 
@@ -917,10 +965,14 @@ public class EntityNewBoat extends Entity {
 		if(riddenByEntity != null)
 			updatePassenger(riddenByEntity);
 	}
+
+	protected float getDefaultRiderOffset() {
+		return 0.0f;
+	}
 	
 	public void updatePassenger(Entity passenger)
 	{
-		float f = 0.0F;
+		float f = this.getDefaultRiderOffset();
 		float f1 = (float)((this.isDead ? 0.009999999776482582D : this.getMountedYOffset()) + passenger.getYOffset());
 
 		if (this.getPassengers().size() > 1)
@@ -980,12 +1032,17 @@ public class EntityNewBoat extends Entity {
 			this.setBoatType(EntityNewBoat.Type.getTypeFromString(compound.getString("Type")));
 		}
 
-		if(compound.hasKey("Seat") && !worldObj.isRemote && ConfigBlocksItems.newBoatPassengerSeat) { //TODO add seat config
+		if(compound.hasKey("Seat") && !worldObj.isRemote && ConfigBlocksItems.newBoatPassengerSeat && shouldHaveSeat()) { //TODO add seat config
 			Entity entity = EntityList.createEntityFromNBT(compound.getCompoundTag("Seat"), worldObj);
 			if(entity instanceof EntityNewBoatSeat && entity.riddenByEntity == null) {
 				((EntityNewBoatSeat)entity).setBoat(this);
 				seatToSpawn = ((EntityNewBoatSeat)entity);
 			}
+		}
+
+		if (compound.hasKey("CustomName", 9) && compound.getString("CustomName").length() > 0)
+		{
+			this.entityName = compound.getString("CustomName");
 		}
 	}
 
@@ -996,7 +1053,7 @@ public class EntityNewBoat extends Entity {
 	protected void writeEntityToNBT(NBTTagCompound compound)
 	{
 		compound.setString("Type", this.getBoatType().getName());
-		if(hasSeat() && ConfigBlocksItems.newBoatPassengerSeat) {
+		if(hasSeat() && ConfigBlocksItems.newBoatPassengerSeat && shouldHaveSeat()) {
 			String s = EntityList.getEntityString(seat);
 			NBTTagCompound seatData = new NBTTagCompound();
 
@@ -1006,6 +1063,11 @@ public class EntityNewBoat extends Entity {
 				seat.writeToNBT(seatData);
 				compound.setTag("Seat", seatData);
 			}
+		}
+
+		if (this.entityName != null && this.entityName.length() > 0)
+		{
+			compound.setString("CustomName", this.entityName);
 		}
 	}
 
@@ -1125,6 +1187,15 @@ public class EntityNewBoat extends Entity {
 		this.rightInputDown = p_184442_2_;
 		this.forwardInputDown = p_184442_3_;
 		this.backInputDown = p_184442_4_;
+	}
+	
+	public String getBoatName() {
+		return entityName;
+	}
+	
+	public void setBoatName(String p_96094_1_)
+	{
+		this.entityName = p_96094_1_;
 	}
 
 	public static enum Status

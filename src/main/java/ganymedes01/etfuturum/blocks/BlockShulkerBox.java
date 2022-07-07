@@ -83,6 +83,8 @@ public class BlockShulkerBox extends BlockContainer implements IConfigurable, IS
 			
 			if(stack.getTagCompound().hasKey("Color")) {
 				box.color = stack.getTagCompound().getByte("Color");
+			} else {
+				box.color = 0;
 			}
 
 			if (stack.hasDisplayName())

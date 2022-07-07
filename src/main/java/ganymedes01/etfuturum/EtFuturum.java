@@ -18,12 +18,7 @@ import ganymedes01.etfuturum.network.*;
 import ganymedes01.etfuturum.spectator.SpectatorMode;
 import net.minecraft.block.*;
 import org.apache.commons.lang3.ArrayUtils;
-import org.spongepowered.asm.mixin.MixinEnvironment;
 
-import com.google.common.base.Strings;
-import com.google.common.collect.Lists;
-
-import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -56,10 +51,21 @@ import ganymedes01.etfuturum.core.utils.RawOreRegistry;
 import ganymedes01.etfuturum.core.utils.StrippedLogRegistry;
 import ganymedes01.etfuturum.entities.ModEntityList;
 import ganymedes01.etfuturum.lib.Reference;
+import ganymedes01.etfuturum.network.ArmourStandInteractHandler;
+import ganymedes01.etfuturum.network.ArmourStandInteractMessage;
+import ganymedes01.etfuturum.network.BlackHeartParticlesHandler;
+import ganymedes01.etfuturum.network.BlackHeartParticlesMessage;
+import ganymedes01.etfuturum.network.BoatMoveHandler;
+import ganymedes01.etfuturum.network.BoatMoveMessage;
+import ganymedes01.etfuturum.network.ChestBoatOpenInventoryHandler;
+import ganymedes01.etfuturum.network.ChestBoatOpenInventoryMessage;
+import ganymedes01.etfuturum.network.WoodSignOpenHandler;
+import ganymedes01.etfuturum.network.WoodSignOpenMessage;
 import ganymedes01.etfuturum.potion.ModPotions;
 import ganymedes01.etfuturum.recipes.BlastFurnaceRecipes;
 import ganymedes01.etfuturum.recipes.ModRecipes;
 import ganymedes01.etfuturum.recipes.SmokerRecipes;
+import ganymedes01.etfuturum.spectator.SpectatorMode;
 import ganymedes01.etfuturum.world.EtFuturumLateWorldGenerator;
 import ganymedes01.etfuturum.world.EtFuturumWorldGenerator;
 import ganymedes01.etfuturum.world.end.dimension.DimensionProviderEnd;
@@ -67,22 +73,33 @@ import ganymedes01.etfuturum.world.structure.OceanMonument;
 import makamys.mclib.core.MCLib;
 import makamys.mclib.ext.assetdirector.ADConfig;
 import makamys.mclib.ext.assetdirector.AssetDirectorAPI;
+import net.minecraft.block.Block;
 import net.minecraft.block.Block.SoundType;
+import net.minecraft.block.BlockCrops;
+import net.minecraft.block.BlockFlower;
+import net.minecraft.block.BlockHay;
+import net.minecraft.block.BlockLeaves;
+import net.minecraft.block.BlockLilyPad;
+import net.minecraft.block.BlockNetherWart;
+import net.minecraft.block.BlockOre;
+import net.minecraft.block.BlockSponge;
+import net.minecraft.block.BlockStem;
+import net.minecraft.block.BlockTrapDoor;
+import net.minecraft.block.BlockVine;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraftforge.common.ChestGenHooks;
-import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -134,7 +151,7 @@ public class EtFuturum {
 	public static boolean hasNetherlicious;
 	public static boolean hasEnderlicious;
 	public static final boolean TESTING = (Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");
-//	public static final boolean TESTING = false;
+//  public static final boolean TESTING = false;
 	private static Side effectiveSide;
 	
 	static final Map<ItemStack, Integer> DEFAULT_COMPOST_CHANCES = new LinkedHashMap();
@@ -299,16 +316,16 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "block.sculk_catalyst.break", "block");
 		config.addSoundEvent(ver, "block.sculk_catalyst.place", "block");
 		config.addSoundEvent(ver, "block.sculk_catalyst.step", "block");
-//		config.addSoundEvent(ver, "block.nylium.step", "neutral");
-//		config.addSoundEvent(ver, "block.nylium.break", "block");
+//      config.addSoundEvent(ver, "block.nylium.step", "neutral");
+//      config.addSoundEvent(ver, "block.nylium.break", "block");
 		config.addSoundEvent(ver, "block.fungus.step", "neutral");
-//		config.addSoundEvent(ver, "block.fungus.break", "block");
-//		config.addSoundEvent(ver, "block.stem.step", "neutral");
-//		config.addSoundEvent(ver, "block.stem.break", "block");
-//		config.addSoundEvent(ver, "block.shroomlight.step", "neutral");
-//		config.addSoundEvent(ver, "block.shroomlight.break", "block");
-//		config.addSoundEvent(ver, "block.honey_block.step", "neutral");
-//		config.addSoundEvent(ver, "block.honey_block.break", "block");
+//      config.addSoundEvent(ver, "block.fungus.break", "block");
+//      config.addSoundEvent(ver, "block.stem.step", "neutral");
+//      config.addSoundEvent(ver, "block.stem.break", "block");
+//      config.addSoundEvent(ver, "block.shroomlight.step", "neutral");
+//      config.addSoundEvent(ver, "block.shroomlight.break", "block");
+//      config.addSoundEvent(ver, "block.honey_block.step", "neutral");
+//      config.addSoundEvent(ver, "block.honey_block.break", "block");
 		
 		AssetDirectorAPI.register(config);
 	}
@@ -319,21 +336,21 @@ public class EtFuturum {
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 
-	    try {
-	        Field chestInfo = ChestGenHooks.class.getDeclaredField("chestInfo");
-	        chestInfo.setAccessible(true);
-	        if(!((HashMap<String, ChestGenHooks>)chestInfo.get(null)).containsKey(NETHER_FORTRESS)) {
-		        fortressWeightedField = Class.forName("net.minecraft.world.gen.structure.StructureNetherBridgePieces$Piece").getDeclaredField("field_111019_a");
-		        fortressWeightedField.setAccessible(true);
-		        Field modifiersField = Field.class.getDeclaredField("modifiers");
-		        modifiersField.setAccessible(true);
-		        modifiersField.setInt(fortressWeightedField, fortressWeightedField.getModifiers() & ~Modifier.FINAL);
-		        ((HashMap<String, ChestGenHooks>)chestInfo.get(null)).put(NETHER_FORTRESS, new ChestGenHooks(NETHER_FORTRESS, (WeightedRandomChestContent[]) fortressWeightedField.get(null), 2, 5));
-	        }
-        } catch (Exception e) {
-	        System.out.println("Failed to get Nether fortress loot table:");
-	        e.printStackTrace();
-        }
+		try {
+			Field chestInfo = ChestGenHooks.class.getDeclaredField("chestInfo");
+			chestInfo.setAccessible(true);
+			if(!((HashMap<String, ChestGenHooks>)chestInfo.get(null)).containsKey(NETHER_FORTRESS)) {
+				fortressWeightedField = Class.forName("net.minecraft.world.gen.structure.StructureNetherBridgePieces$Piece").getDeclaredField("field_111019_a");
+				fortressWeightedField.setAccessible(true);
+				Field modifiersField = Field.class.getDeclaredField("modifiers");
+				modifiersField.setAccessible(true);
+				modifiersField.setInt(fortressWeightedField, fortressWeightedField.getModifiers() & ~Modifier.FINAL);
+				((HashMap<String, ChestGenHooks>)chestInfo.get(null)).put(NETHER_FORTRESS, new ChestGenHooks(NETHER_FORTRESS, (WeightedRandomChestContent[]) fortressWeightedField.get(null), 2, 5));
+			}
+		} catch (Exception e) {
+			System.out.println("Failed to get Nether fortress loot table:");
+			e.printStackTrace();
+		}
 		
 		hasIronChest = Loader.isModLoaded("IronChest");
 		hasNetherlicious = Loader.isModLoaded("netherlicious");
@@ -360,6 +377,7 @@ public class EtFuturum {
 		networkWrapper.registerMessage(BlackHeartParticlesHandler.class, BlackHeartParticlesMessage.class, 1, Side.CLIENT);
 		networkWrapper.registerMessage(WoodSignOpenHandler.class, WoodSignOpenMessage.class, 3, Side.CLIENT);
 		networkWrapper.registerMessage(BoatMoveHandler.class, BoatMoveMessage.class, 4, Side.SERVER);
+		networkWrapper.registerMessage(ChestBoatOpenInventoryHandler.class, ChestBoatOpenInventoryMessage.class, 5, Side.SERVER);
 		{
 			if (Loader.isModLoaded("netherlicious")) {
 				File file = new File(event.getModConfigurationDirectory() + "/Netherlicious/Biome_Sound_Configuration.cfg");
@@ -432,10 +450,10 @@ public class EtFuturum {
 		
 		Items.blaze_rod.setFull3D();
 		Blocks.trapped_chest.setCreativeTab(CreativeTabs.tabRedstone);
-	    
+		
 		if(ConfigBlocksItems.enableOtherside) {
-		    ChestGenHooks.addItem(ChestGenHooks.STRONGHOLD_CORRIDOR, new WeightedRandomChestContent(ModItems.otherside_record, 0, 1, 1, 1));
-		    ChestGenHooks.addItem(ChestGenHooks.DUNGEON_CHEST, new WeightedRandomChestContent(ModItems.otherside_record, 0, 1, 1, 1));
+			ChestGenHooks.addItem(ChestGenHooks.STRONGHOLD_CORRIDOR, new WeightedRandomChestContent(ModItems.otherside_record, 0, 1, 1, 1));
+			ChestGenHooks.addItem(ChestGenHooks.DUNGEON_CHEST, new WeightedRandomChestContent(ModItems.otherside_record, 0, 1, 1, 1));
 		}
 		
 		if(ConfigBlocksItems.enablePigstep) {
@@ -443,20 +461,34 @@ public class EtFuturum {
 			
 			if(fortressWeightedField != null) {
 				try {
-				    Field contents = ChestGenHooks.class.getDeclaredField("contents");
-				    contents.setAccessible(true);
-			        ArrayList<WeightedRandomChestContent> fortressContentList;
+					Field contents = ChestGenHooks.class.getDeclaredField("contents");
+					contents.setAccessible(true);
+					ArrayList<WeightedRandomChestContent> fortressContentList;
 					fortressContentList = (ArrayList<WeightedRandomChestContent>)contents.get(ChestGenHooks.getInfo("netherFortress"));
 					if(!fortressContentList.isEmpty()) {
-				        WeightedRandomChestContent[] fortressChest = new WeightedRandomChestContent[fortressContentList.size()];
-				        for (int i = 0; i < fortressContentList.size(); i++) {
-				          fortressChest[i] = fortressContentList.get(i); 
-				        }
+						WeightedRandomChestContent[] fortressChest = new WeightedRandomChestContent[fortressContentList.size()];
+						for (int i = 0; i < fortressContentList.size(); i++) {
+						  fortressChest[i] = fortressContentList.get(i); 
+						}
 						fortressWeightedField.set(null, fortressChest);
 					}
 				} catch (Exception e) {
-			        System.out.println("Failed to fill Nether fortress loot table:");
+					System.out.println("Failed to fill Nether fortress loot table:");
 					e.printStackTrace();
+				}
+			}
+		}
+
+		if(ConfigBlocksItems.enableSmoothStone && Loader.isModLoaded("bluepower")) {
+			Item stoneTile = GameRegistry.findItem("bluepower", "stone_tile");
+			if(stoneTile != null) {
+				Item stoneItem = Item.getItemFromBlock(Blocks.stone);
+				Iterator<Map.Entry<ItemStack, ItemStack>> furnaceRecipes = FurnaceRecipes.smelting().getSmeltingList().entrySet().iterator();
+				while (furnaceRecipes.hasNext()) {
+					Map.Entry<ItemStack, ItemStack> recipe = furnaceRecipes.next();
+					if (recipe.getValue() != null && recipe.getValue().getItem() == stoneTile && recipe.getKey() != null && recipe.getKey().getItem() == stoneItem) {
+						furnaceRecipes.remove();
+					}
 				}
 			}
 		}
@@ -550,57 +582,59 @@ public class EtFuturum {
 			}
 		}
 
-		registerComposting(ImmutableList.of(
-				new ItemStack(ModItems.beetroot_seeds),
-				new ItemStack(Blocks.tallgrass, 1, 1),
-				new ItemStack(Blocks.leaves, 1, OreDictionary.WILDCARD_VALUE),
-				new ItemStack(Items.melon_seeds),
-				new ItemStack(Items.pumpkin_seeds),
-				"treeSapling",
-				"treeLeaves",
-				new ItemStack(Items.wheat_seeds),
-				new ItemStack(ModItems.sweet_berries)
-		), 30);
-
-		registerComposting(ImmutableList.of(
-				new ItemStack(Blocks.cactus),
-				new ItemStack(Items.melon),
-				new ItemStack(Items.reeds),
-				new ItemStack(Blocks.double_plant, 1, 2),
-				new ItemStack(Blocks.vine)
-		), 50);
-
-		registerComposting(ImmutableList.of(
-				new ItemStack(Items.apple),
-				new ItemStack(ModItems.beetroot),
-				"cropCarrot",
-				new ItemStack(Blocks.cocoa),
-				new ItemStack(Blocks.tallgrass, 1, 2),
-				new ItemStack(Blocks.double_plant, 1, 3),
-				BlockFlower.class,
-				BlockLilyPad.class,
-				new ItemStack(Blocks.melon_block),
-				new ItemStack(Blocks.brown_mushroom),
-				new ItemStack(Blocks.red_mushroom),
-				new ItemStack(Items.nether_wart),
-				"cropPotato",
-				new ItemStack(Blocks.pumpkin),
-				"cropWheat"
-		), 65);
-
-		registerComposting(ImmutableList.of(
-				new ItemStack(Items.baked_potato),
-				new ItemStack(Items.bread),
-				new ItemStack(Items.cookie),
-				new ItemStack(Blocks.hay_block),
-				new ItemStack(Blocks.red_mushroom_block, 1, OreDictionary.WILDCARD_VALUE),
-				new ItemStack(Blocks.brown_mushroom_block, 1, OreDictionary.WILDCARD_VALUE)
-		), 85);
-
-		registerComposting(ImmutableList.of(
-				new ItemStack(Items.cake),
-				new ItemStack(Items.pumpkin_pie)
-		), 100);
+//      if(ConfigBlocksItems.enableComposter) {
+//          registerComposting(ImmutableList.of(
+//                  new ItemStack(ModItems.beetroot_seeds),
+//                  new ItemStack(Blocks.tallgrass, 1, 1),
+//                  new ItemStack(Blocks.leaves, 1, OreDictionary.WILDCARD_VALUE),
+//                  new ItemStack(Items.melon_seeds),
+//                  new ItemStack(Items.pumpkin_seeds),
+//                  "treeSapling",
+//                  "treeLeaves",
+//                  new ItemStack(Items.wheat_seeds),
+//                  new ItemStack(ModItems.sweet_berries)
+//          ), 30);
+//
+//          registerComposting(ImmutableList.of(
+//                  new ItemStack(Blocks.cactus),
+//                  new ItemStack(Items.melon),
+//                  new ItemStack(Items.reeds),
+//                  new ItemStack(Blocks.double_plant, 1, 2),
+//                  new ItemStack(Blocks.vine)
+//          ), 50);
+//
+//          registerComposting(ImmutableList.of(
+//                  new ItemStack(Items.apple),
+//                  new ItemStack(ModItems.beetroot),
+//                  "cropCarrot",
+//                  new ItemStack(Blocks.cocoa),
+//                  new ItemStack(Blocks.tallgrass, 1, 2),
+//                  new ItemStack(Blocks.double_plant, 1, 3),
+//                  BlockFlower.class,
+//                  BlockLilyPad.class,
+//                  new ItemStack(Blocks.melon_block),
+//                  new ItemStack(Blocks.brown_mushroom),
+//                  new ItemStack(Blocks.red_mushroom),
+//                  new ItemStack(Items.nether_wart),
+//                  "cropPotato",
+//                  new ItemStack(Blocks.pumpkin),
+//                  "cropWheat"
+//          ), 65);
+//
+//          registerComposting(ImmutableList.of(
+//                  new ItemStack(Items.baked_potato),
+//                  new ItemStack(Items.bread),
+//                  new ItemStack(Items.cookie),
+//                  new ItemStack(Blocks.hay_block),
+//                  new ItemStack(Blocks.red_mushroom_block, 1, OreDictionary.WILDCARD_VALUE),
+//                  new ItemStack(Blocks.brown_mushroom_block, 1, OreDictionary.WILDCARD_VALUE)
+//          ), 85);
+//
+//          registerComposting(ImmutableList.of(
+//                  new ItemStack(Items.cake),
+//                  new ItemStack(Items.pumpkin_pie)
+//          ), 100);
+//      }
 		
 //      if(ConfigurationHandler.enableNewNether)
 //        DimensionProviderNether.init(); // Come back to

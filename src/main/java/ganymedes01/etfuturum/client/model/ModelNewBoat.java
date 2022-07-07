@@ -62,6 +62,7 @@ public class ModelNewBoat extends ModelBase {
 	 */
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale)
 	{
+		GL11.glPushMatrix();
 		GL11.glRotatef(90.0F, 0.0F, 1.0F, 0.0F);
 		EntityNewBoat entityboat = (EntityNewBoat)entityIn;
 		this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
@@ -73,14 +74,17 @@ public class ModelNewBoat extends ModelBase {
 
 		this.renderPaddle(entityboat, 0, scale, limbSwing);
 		this.renderPaddle(entityboat, 1, scale, limbSwing);
+		GL11.glPopMatrix();
 	}
 
 	public void renderMultipass(Entity p_187054_1_, float p_187054_2_, float p_187054_3_, float p_187054_4_, float p_187054_5_, float p_187054_6_, float scale)
 	{
+		GL11.glPushMatrix();
 		GL11.glRotatef(90.0F, 0.0F, 1.0F, 0.0F);
 		GL11.glColorMask(false, false, false, false);
 		this.noWater.render(scale);
 		GL11.glColorMask(true, true, true, true);
+		GL11.glPopMatrix();
 	}
 
 	/**
