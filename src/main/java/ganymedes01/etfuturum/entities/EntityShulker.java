@@ -133,17 +133,17 @@ public class EntityShulker extends EntityGolem implements IMob {
 	
 	protected String getLivingSound()
 	{
-		return Reference.MCv118 + ":entity.shulker.ambient";
+		return Reference.MCv119 + ":entity.shulker.ambient";
 	}
 	
 	protected String getHurtSound()
 	{
-		return Reference.MCv118 + ":entity.shulker.hurt" + (isClosed() ? "_closed" : "");
+		return Reference.MCv119 + ":entity.shulker.hurt" + (isClosed() ? "_closed" : "");
 	}
 
 	protected String getDeathSound()
 	{
-		return Reference.MCv118 + ":entity.shulker.death";
+		return Reference.MCv119 + ":entity.shulker.death";
 	}
 	
 	@Override
@@ -449,7 +449,7 @@ public class EntityShulker extends EntityGolem implements IMob {
 
 					if (flag)
 					{
-						this.playSound(Reference.MCv118 + ":entity.shulker.teleport", 1.0F, 1.0F);
+						this.playSound(Reference.MCv119 + ":entity.shulker.teleport", 1.0F, 1.0F);
 						this.setAttachmentPos(new BlockPos(newx, newy, newz));
 						this.getDataWatcher().updateObject(PEEK_TICK, Byte.valueOf((byte)0));
 						this.setAttackTarget(null);
@@ -586,11 +586,11 @@ public class EntityShulker extends EntityGolem implements IMob {
 		  if (p_184691_1_ == 0)
 		  {
 //              this.getEntityAttribute(SharedMonsterAttributes.ARMOR).applyModifier(COVERED_ARMOR_BONUS_MODIFIER);
-			  this.playSound(Reference.MCv118 + ":entity.shulker.close", 1.0F, 1.0F);
+			  this.playSound(Reference.MCv119 + ":entity.shulker.close", 1.0F, 1.0F);
 		  }
 		  else
 		  {
-			  this.playSound(Reference.MCv118 + ":entity.shulker.open", 1.0F, 1.0F);
+			  this.playSound(Reference.MCv119 + ":entity.shulker.open", 1.0F, 1.0F);
 		  }
 	  }
 
@@ -771,7 +771,7 @@ public class EntityShulker extends EntityGolem implements IMob {
 						this.attackTime = 20 + EntityShulker.this.rand.nextInt(10) * 20 / 2;
 						EntityShulkerBullet entityshulkerbullet = new EntityShulkerBullet(EntityShulker.this.worldObj, EntityShulker.this, entitylivingbase, EntityShulker.this.getAttachmentFacing());
 						EntityShulker.this.worldObj.spawnEntityInWorld(entityshulkerbullet);
-						EntityShulker.this.playSound(Reference.MCv118 + ":entity.shulker.shoot", 1, 1);
+						EntityShulker.this.playSound(Reference.MCv119 + ":entity.shulker.shoot", 1, 1);
 					}
 				}
 				else

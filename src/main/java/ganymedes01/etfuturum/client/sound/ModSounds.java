@@ -36,19 +36,19 @@ public class ModSounds {
 		@Override
 		public String func_150496_b()
 		{
-			return Reference.MCv118 + ":item." + soundName + ".plant";
+			return Reference.MCv119 + ":item." + soundName + ".plant";
 		}
 	};
 	public static final SoundType soundCropWarts = new CustomSound("nether_wart") {
 		@Override
 		public String getStepResourcePath() {
-			return Reference.MCv118 + ":block.fungus.step";
+			return Reference.MCv119 + ":block.fungus.step";
 		}
 
 		@Override
 		public String func_150496_b()
 		{
-			return Reference.MCv118 + ":item." + soundName + ".plant";
+			return Reference.MCv119 + ":item." + soundName + ".plant";
 		}
 	};
 	public static final SoundType soundCopper = new CustomSound("copper");
@@ -61,6 +61,8 @@ public class ModSounds {
 	public static final SoundType soundDeepslate = new CustomSound("deepslate", true);
 	public static final SoundType soundDeepslateBricks = new CustomSound("deepslate_bricks");
 	public static final SoundType soundTuff = new CustomSound("tuff");
+	public static final SoundType soundSculk = new CustomSound("sculk");
+	public static final SoundType soundSculkCatalyst = new CustomSound("sculk_catalyst");
 	public static final SoundType soundVines = new CustomSound("vine");
 	public static final SoundType soundCalcite = new CustomSound("calcite", true);
 	public static final SoundType soundAmethystBlock = new CustomSound("amethyst_block", true);
@@ -97,18 +99,18 @@ public class ModSounds {
 
 		@Override
 		public String getBreakSound() {
-			return Reference.MCv118 + ":block." + soundName + ".break";
+			return Reference.MCv119 + ":block." + soundName + ".break";
 		}
 
 		@Override
 		public String getStepResourcePath() {
-			return Reference.MCv118 + ":block." + soundName + ".step";
+			return Reference.MCv119 + ":block." + soundName + ".step";
 		}
 
 		@Override
 		public String func_150496_b()
 		{
-			return placeSound ? Reference.MCv118 + ":block." + soundName + ".place" : this.getBreakSound();
+			return placeSound ? Reference.MCv119 + ":block." + soundName + ".place" : this.getBreakSound();
 		}
 	}
 }

@@ -159,7 +159,7 @@ public class TileEntityNewBrewingStand extends TileEntityBrewingStand {
 
 			fuel--;
 			ForgeEventFactory.onPotionBrewed(new ItemStack[] { inventory[0], inventory[1], inventory[2], inventory[3] });
-			worldObj.playSound(xCoord, yCoord, zCoord, Reference.MCv118 + ":block.brewing_stand.brew", 1.0F, 1.0F, true);
+			worldObj.playSound(xCoord, yCoord, zCoord, Reference.MCv119 + ":block.brewing_stand.brew", 1.0F, 1.0F, true);
 		}
 	}
 

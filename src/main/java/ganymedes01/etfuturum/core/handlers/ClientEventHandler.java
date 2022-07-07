@@ -1,7 +1,6 @@
 package ganymedes01.etfuturum.core.handlers;
 
 import java.io.File;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.WeakHashMap;
@@ -45,7 +44,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSound;
 import net.minecraft.client.audio.PositionedSoundRecord;
-import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.particle.EntityDiggingFX;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -57,8 +55,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.launchwrapper.Launch;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
@@ -201,7 +197,7 @@ public class ClientEventHandler {
 //      if(string.contains("soul_sand_valley")) {
 //          return soulSandValley;
 //      }
-		return Reference.MCv118 + ":ambient." + getStringFor(biome);
+		return Reference.MCv119 + ":ambient." + getStringFor(biome);
 	}
 
 	private String getAmbienceLoop(BiomeGenBase biome) {
@@ -229,7 +225,7 @@ public class ClientEventHandler {
 		if(biome == null) {
 			return null;
 		}
-		return Reference.MCv118 + ":music.nether." + getStringFor(biome);
+		return Reference.MCv119 + ":music.nether." + getStringFor(biome);
 	}
 	
 	@SubscribeEvent
@@ -317,9 +313,9 @@ public class ClientEventHandler {
 					String blockID = Block.blockRegistry.getNameForObject(block).split(":")[1].toLowerCase();
 					if(blockID.contains("chest") && (event.name.contains("open") || event.name.contains("close"))) {
 						if((blockID.contains("ender") && block.getMaterial().equals(Material.rock)))
-							s = Reference.MCv118 + ":" + "block.ender_chest." + (event.name.contains("close") ? "close" : "open");
+							s = Reference.MCv119 + ":" + "block.ender_chest." + (event.name.contains("close") ? "close" : "open");
 						else if(block.getMaterial().equals(Material.wood) && event.name.contains("close"))
-							s = Reference.MCv118 + ":" + "block.chest.close";
+							s = Reference.MCv119 + ":" + "block.chest.close";
 					}
 					
 					if(!s.equals(event.name)) {
@@ -351,7 +347,7 @@ public class ClientEventHandler {
 					int x = MathHelper.floor_float(event.sound.getXPosF());
 					int y = MathHelper.floor_float(event.sound.getYPosF());
 					int z = MathHelper.floor_float(event.sound.getZPosF());
-					event.result = new PositionedSoundRecord(new ResourceLocation(Reference.MCv118 + ":" + "weather.rain" + (event.sound.getPitch() < 1.0F ? ".above" : "")), 
+					event.result = new PositionedSoundRecord(new ResourceLocation(Reference.MCv119 + ":" + "weather.rain" + (event.sound.getPitch() < 1.0F ? ".above" : "")),
 							event.sound.getVolume(), event.sound.getPitch(), x + 0.5F, y + 0.5F, z + 0.5F);
 				} else if (event.name.equals("ambient.cave.cave")) {
 					int x = MathHelper.floor_float(event.sound.getXPosF());
@@ -412,7 +408,7 @@ public class ClientEventHandler {
 					field_26997 = Math.min(1.0F, field_26997 + 0.07F);
 					float f = 0.5F + field_26997 * event.entity.worldObj.rand.nextFloat() * 1.2F;
 					float g = 0.1F + field_26997 * 1.2F;
-					event.entity.playSound(Reference.MCv118 + ":block.amethyst_block.chime", g, f);
+					event.entity.playSound(Reference.MCv119 + ":block.amethyst_block.chime", g, f);
 					lastChimeAge = event.entity.ticksExisted;
 					pair.setLeft(field_26997);
 					pair.setRight(lastChimeAge);
@@ -427,19 +423,19 @@ public class ClientEventHandler {
 		String closeOrOpen = random.nextBoolean() ? "open" : "close";
 		if(block instanceof BlockDoor)
 			if (block.getMaterial() == Material.wood/* || block.getMaterial() == EtFuturum.netherwood */)
-				return Reference.MCv118 + ":block.wooden_door." + closeOrOpen;
+				return Reference.MCv119 + ":block.wooden_door." + closeOrOpen;
 			else if(block.getMaterial() == Material.iron)
-				return Reference.MCv118 + ":block.iron_door." + closeOrOpen;
+				return Reference.MCv119 + ":block.iron_door." + closeOrOpen;
 		
 		if(block instanceof BlockTrapDoor)
 			if (block.getMaterial() == Material.wood/* || block.getMaterial() == EtFuturum.netherwood */)
-				return Reference.MCv118 + ":block.wooden_trapdoor." + closeOrOpen;
+				return Reference.MCv119 + ":block.wooden_trapdoor." + closeOrOpen;
 			else if(block.getMaterial() == Material.iron)
-				return Reference.MCv118 + ":block.iron_trapdoor." + closeOrOpen;
+				return Reference.MCv119 + ":block.iron_trapdoor." + closeOrOpen;
 		
 		if(block instanceof BlockFenceGate)
 			if (block.getMaterial() == Material.wood/* || block.getMaterial() == EtFuturum.netherwood */)
-				return Reference.MCv118 + ":block.fence_gate." + closeOrOpen;
+				return Reference.MCv119 + ":block.fence_gate." + closeOrOpen;
 				
 		return string;
 	}

@@ -176,7 +176,7 @@ public interface IDegradable {
 
 			int pitch = random.nextInt(3);
 			world.playSound((double)x + 0.5D, (double)y + 0.5D, (double)z + 0.5D, 
-					Reference.MCv118 + ":item." + (type == 0 ? "honeycomb.wax_on" : type == 1 ? "axe.wax_off" : "axe.scrape"),
+					Reference.MCv119 + ":item." + (type == 0 ? "honeycomb.wax_on" : type == 1 ? "axe.wax_off" : "axe.scrape"),
 					1F, (float)((pitch == 0 ? 0 : ((double)pitch / 10D)) + 0.9D), false);
 			
 			for (int l = 0; l < 10; ++l)
