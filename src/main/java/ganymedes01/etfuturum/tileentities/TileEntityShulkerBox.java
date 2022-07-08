@@ -11,7 +11,7 @@ import ganymedes01.etfuturum.blocks.BlockShulkerBox;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.inventory.ContainerShulkerBox;
+import ganymedes01.etfuturum.inventory.ContainerChestGeneric;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -227,7 +227,7 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 			{
 				EntityPlayer entityplayer = iterator.next();
 
-				if (entityplayer.openContainer instanceof ContainerShulkerBox)
+				if (entityplayer.openContainer instanceof ContainerChestGeneric)
 				{
 					++this.numPlayersUsing;
 				}

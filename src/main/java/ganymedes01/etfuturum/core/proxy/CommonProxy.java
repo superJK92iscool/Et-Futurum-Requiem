@@ -27,7 +27,6 @@ import ganymedes01.etfuturum.inventory.ContainerBlastFurnace;
 import ganymedes01.etfuturum.inventory.ContainerChestGeneric;
 import ganymedes01.etfuturum.inventory.ContainerEnchantment;
 import ganymedes01.etfuturum.inventory.ContainerNewBrewingStand;
-import ganymedes01.etfuturum.inventory.ContainerShulkerBox;
 import ganymedes01.etfuturum.inventory.ContainerSmoker;
 import ganymedes01.etfuturum.lib.GUIsID;
 import ganymedes01.etfuturum.spectator.SpectatorMode;
