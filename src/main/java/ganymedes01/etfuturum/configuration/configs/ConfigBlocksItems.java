@@ -109,7 +109,7 @@ public class ConfigBlocksItems extends ConfigBase {
 	
 	public static boolean enableShulkerBoxes;
 	public static boolean enableDyedShulkerBoxes = true;
-	public static boolean enableIronShulkerBoxes = false;
+	public static boolean enableIronShulkerBoxes = Boolean.parseBoolean(System.getProperty("etfuturum.enableIronShulkerBoxes", "false"));
 	public static boolean enableNewBoats;
 	public static boolean newBoatPassengerSeat;
 	public static float newBoatMaxLandSpeed;
