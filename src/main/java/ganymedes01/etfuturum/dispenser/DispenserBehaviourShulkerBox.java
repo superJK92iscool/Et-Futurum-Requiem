@@ -31,9 +31,7 @@ public class DispenserBehaviourShulkerBox extends BehaviorDefaultDispenseItem {
 				box.chestContents = new ItemStack[box.getSizeInventory()];
 				Utils.loadItemStacksFromNBT(nbttaglist, box.chestContents);
 				
-				if(stack.getTagCompound().hasKey("Color")) {
 				box.color = stack.getTagCompound().getByte("Color");
-				}
 
 				if (stack.hasDisplayName())
 				{

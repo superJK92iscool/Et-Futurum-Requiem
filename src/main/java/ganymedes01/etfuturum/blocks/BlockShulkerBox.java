@@ -83,11 +83,7 @@ public class BlockShulkerBox extends BlockContainer implements IConfigurable, IS
 			box.chestContents = new ItemStack[box.getSizeInventory()];
 			Utils.loadItemStacksFromNBT(nbttaglist, box.chestContents);
 			
-			if(stack.getTagCompound().hasKey("Color")) {
 			box.color = stack.getTagCompound().getByte("Color");
-			} else {
-				box.color = 0;
-			}
 			
 			if (stack.hasDisplayName())
 			{

@@ -94,7 +94,7 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 			}
 		}
 		
-		if (nbt.hasKey("Color") && ConfigBlocksItems.enableDyedShulkerBoxes) {
+		if (ConfigBlocksItems.enableDyedShulkerBoxes) {
 			color = nbt.getByte("Color");
 		}
 		
