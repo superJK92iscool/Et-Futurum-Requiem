@@ -43,8 +43,8 @@ public class ItemShulkerBox extends ItemBlock {
 		int color = stack.hasTagCompound() ? stack.getTagCompound().getByte("Color") : 0;
 		
 		String string = field_150939_a.getUnlocalizedName().substring(15);
-		if(type % TileEntityShulkerBox.tiers.length > 0) {
-			string = TileEntityShulkerBox.tiers[(type - 1) % TileEntityShulkerBox.tiers.length] + "_" + string;
+		if(type > 0 && type - 1< TileEntityShulkerBox.tiers.length) {
+			string = TileEntityShulkerBox.tiers[type - 1] + "_" + string;
 		}
 		if(color > 0) {
 			String dye = ModRecipes.dye_names[stack.getTagCompound().getByte("Color") - 1 % ModRecipes.dye_names.length];
