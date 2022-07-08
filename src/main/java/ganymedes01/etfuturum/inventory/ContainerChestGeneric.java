@@ -112,6 +112,37 @@ public class ContainerChestGeneric extends Container
 
         return itemstack;
     }
+    
+    @Override
+    protected boolean mergeItemStack(ItemStack p_75135_1_, int p_75135_2_, int p_75135_3_, boolean p_75135_4_)
+	{
+		int k = p_75135_2_;
+
+		if (p_75135_4_)
+		{
+			k = p_75135_3_ - 1;
+		}
+		
+		while (!p_75135_4_ && k < p_75135_3_ || p_75135_4_ && k >= p_75135_2_)
+		{
+			Slot slot = (Slot)this.inventorySlots.get(k);
+			
+			if(slot instanceof SlotCustom && !slot.isItemValid(p_75135_1_)) {
+				return false;
+			}
+
+			if (p_75135_4_)
+			{
+				--k;
+			}
+			else
+			{
+				++k;
+			}
+		}
+
+		return super.mergeItemStack(p_75135_1_, p_75135_2_, p_75135_3_, p_75135_4_);
+	}
 
     /**
      * Called when the container is closed.
