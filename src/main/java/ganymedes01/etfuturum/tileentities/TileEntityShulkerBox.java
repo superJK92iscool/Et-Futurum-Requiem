@@ -642,27 +642,29 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 	}
 	
 	public static enum ShulkerBoxType {
-		VANILLA(27, 9, false, 184, 168),
-		IRON(54, 9, false, 184, 202),
-		GOLD(81, 9, false, 184, 256),
-		DIAMOND(108, 12, false, 238, 256),
-		COPPER(45, 9, false, 184, 184),
-		SILVER(72, 9, false, 184, 238),
-		CRYSTAL(108, 12, true, 238, 256),
-		OBSIDIAN(108, 12, false, 238, 256);
+		VANILLA(27, 9, false, 184, 168, null),
+		IRON(54, 9, false, 184, 202, "ironcontainer"),
+		GOLD(81, 9, false, 184, 256, "goldcontainer"),
+		DIAMOND(108, 12, false, 238, 256, "diamondcontainer"),
+		COPPER(45, 9, false, 184, 184, "coppercontainer"),
+		SILVER(72, 9, false, 184, 238, "silvercontainer"),
+		CRYSTAL(108, 12, true, 238, 256, "diamondcontainer"),
+		OBSIDIAN(108, 12, false, 238, 256, "diamondcontainer");
 		
 		private int size;
 		private int rowSize;
 		private boolean isClear;
 		private int xSize;
 		private int ySize;
+		private String guiTextureName;
 		
-		private ShulkerBoxType(int size, int rowSize, boolean isClear, int xSize, int ySize) {
+		private ShulkerBoxType(int size, int rowSize, boolean isClear, int xSize, int ySize, String guiTextureName) {
 			this.size = size;
 			this.rowSize = rowSize;
 			this.isClear = isClear;
 			this.xSize = xSize;
 			this.ySize = ySize;
+			this.guiTextureName = guiTextureName;
 		}
 		
 		public int getSize() {
@@ -683,6 +685,10 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 		
 		public int getYSize() {
 			return ySize;
+		}
+		
+		public String getGuiTextureName() {
+			return guiTextureName;
 		}
 	}
 	

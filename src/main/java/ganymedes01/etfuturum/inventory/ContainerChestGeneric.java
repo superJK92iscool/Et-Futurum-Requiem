@@ -14,10 +14,10 @@ public class ContainerChestGeneric extends Container
     private int rowSize;
 
     public ContainerChestGeneric(IInventory p_i1806_1_, IInventory p_i1806_2_) {
-        this(p_i1806_1_, p_i1806_2_, 9);
+        this(p_i1806_1_, p_i1806_2_, 9, false);
     }
     
-    public ContainerChestGeneric(IInventory p_i1806_1_, IInventory p_i1806_2_, int rowSize)
+    public ContainerChestGeneric(IInventory p_i1806_1_, IInventory p_i1806_2_, int rowSize, boolean slim)
     {
         this.chestInventory = p_i1806_2_;
         this.rowSize = rowSize = Math.min(rowSize, p_i1806_2_.getSizeInventory());
@@ -29,31 +29,40 @@ public class ContainerChestGeneric extends Container
         p_i1806_2_.openInventory();
         int i = (numRows - 4) * 18;
         int j;
-        int k; 
+        int k;
         
-        int slotStartXOff = ((9 - rowSize) * 18) / 2; 
+        int padL = slim ? 12 : 8; // padding on left and right
+        int padT = slim ? 8 : 18; // padding on top
+        int sep1H = slim ? 4 : 13; // height of separator
+        int sep2H = slim ? 4 : 4; // height of separator
+        
+        int width = rowSize * 18 + 2 * padL;
+        
+        int slotStartXOff = 0;
         
         for (j = 0; j < numRows; ++j)
         {
             for (k = 0; k < rowSize; ++k)
             {
                 if(k + j * rowSize < chestInventory.getSizeInventory()) {
-                    this.addSlotToContainer(constructSlot(p_i1806_2_, k + j * rowSize, slotStartXOff + 8 + k * 18, 18 + j * 18));
+                    this.addSlotToContainer(constructSlot(p_i1806_2_, k + j * rowSize, slotStartXOff + padL + k * 18, padT + j * 18));
                 }
             }
         }
+        
+        int invSlotStartXOff = (rowSize * 18 - 9 * 18) / 2;
 
         for (j = 0; j < 3; ++j)
         {
             for (k = 0; k < 9; ++k)
             {
-                this.addSlotToContainer(new Slot(p_i1806_1_, k + j * 9 + 9, 8 + k * 18, 103 + j * 18 + i));
+                this.addSlotToContainer(new Slot(p_i1806_1_, k + j * 9 + 9, invSlotStartXOff + padL + k * 18, padT + numRows * 18 + sep1H + j * 18));
             }
         }
 
         for (j = 0; j < 9; ++j)
         {
-            this.addSlotToContainer(new Slot(p_i1806_1_, j, 8 + j * 18, 161 + i));
+            this.addSlotToContainer(new Slot(p_i1806_1_, j, invSlotStartXOff + padL + j * 18, padT + numRows * 18 + sep1H + 3 * 18 + sep2H));
         }
     }
     
