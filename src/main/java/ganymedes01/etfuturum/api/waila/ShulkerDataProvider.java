@@ -24,6 +24,7 @@ public class ShulkerDataProvider implements IWailaDataProvider
 			if(!stack.hasTagCompound()) {
 				stack.setTagCompound(new NBTTagCompound());
 			}
+			stack.getTagCompound().setByte("Type", (byte) box.type.ordinal());
 			stack.getTagCompound().setByte("Color", box.color);
 		}
 		return stack;

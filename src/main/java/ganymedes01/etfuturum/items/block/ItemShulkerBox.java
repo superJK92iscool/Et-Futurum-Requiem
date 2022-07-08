@@ -39,15 +39,17 @@ public class ItemShulkerBox extends ItemBlock {
 	@Override
 	public String getUnlocalizedName(ItemStack stack)
 	{
+		int type = stack.hasTagCompound() ? stack.getTagCompound().getByte("Type") : 0;
+		
 		String string = field_150939_a.getUnlocalizedName().substring(15);
-		if(stack.getItemDamage() % TileEntityShulkerBox.tiers.length > 0) {
-			string = TileEntityShulkerBox.tiers[(stack.getItemDamage() - 1) % TileEntityShulkerBox.tiers.length] + "_" + string;
+		if(type % TileEntityShulkerBox.tiers.length > 0) {
+			string = TileEntityShulkerBox.tiers[(type - 1) % TileEntityShulkerBox.tiers.length] + "_" + string;
 		}
 		if(stack.hasTagCompound()) {
 			if(stack.getTagCompound().hasKey("Color") && stack.getTagCompound().getByte("Color") > 0) {
-				String dye = ModRecipes.dye_names[stack.getTagCompound().getByte("Color") - 1 % ModRecipes.dye_names.length];
-				string = dye + "_" + string;
-			}
+			String dye = ModRecipes.dye_names[stack.getTagCompound().getByte("Color") - 1 % ModRecipes.dye_names.length];
+			string = dye + "_" + string;
+		}
 		}
 		return "tile." + Utils.getUnlocalisedName(string.toString());
 	}

@@ -28,8 +28,7 @@ public class ItemShulkerBoxRenderer implements IItemRenderer {
 	public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
 		
 		box.color = item.hasTagCompound() && item.getTagCompound().hasKey("Color") ? item.getTagCompound().getByte("Color") : 0;
-		box.blockMetadata = (byte) item.getItemDamage();
-		box.type = ShulkerBoxType.VANILLA;
+		box.type = TileEntityShulkerBox.ShulkerBoxType.values()[item.hasTagCompound() ? item.getTagCompound().getByte("Type") : 0];
 
 		OpenGLHelper.pushMatrix();
 		

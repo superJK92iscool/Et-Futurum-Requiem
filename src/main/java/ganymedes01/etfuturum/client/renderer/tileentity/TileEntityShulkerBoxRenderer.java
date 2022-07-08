@@ -61,13 +61,13 @@ public class TileEntityShulkerBoxRenderer extends TileEntitySpecialRenderer {
 	public void renderTileEntityAt(TileEntityShulkerBox te, double x, double y, double z, float partialTicks, int destroyStage)
 	{
 		ForgeDirection enumfacing = ForgeDirection.UP;
+		
+		tier = te.type.ordinal();
 
 		if (te.hasWorldObj())
 		{
 			int facing = te.facing;
 			enumfacing = ForgeDirection.values()[facing];
-			
-			tier = te.getBlockMetadata();
 		}
 		
 		GL11.glPushAttrib(GL11.GL_ENABLE_BIT);
@@ -90,7 +90,7 @@ public class TileEntityShulkerBoxRenderer extends TileEntitySpecialRenderer {
 		}
 		else
 		{
-			this.bindTexture(ShulkerRenderer.SHULKER_ENDERGOLEM_TEXTURES[te.color % ShulkerRenderer.SHULKER_ENDERGOLEM_TEXTURES.length + (te.blockMetadata == -1 ? 0 : te.blockMetadata % (TileEntityShulkerBox.tiers.length + 1) * 17)]);
+			this.bindTexture(ShulkerRenderer.SHULKER_ENDERGOLEM_TEXTURES[te.color % ShulkerRenderer.SHULKER_ENDERGOLEM_TEXTURES.length + (tier % (TileEntityShulkerBox.tiers.length + 1) * 17)]);
 		}
 
 		GL11.glPushMatrix();

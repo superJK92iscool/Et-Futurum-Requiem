@@ -43,13 +43,6 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 	private boolean firstTick = true;
 	
 	public static final List<ItemStack> bannedItems = new ArrayList<ItemStack>();
-
-	public TileEntityShulkerBox(int i) {
-		this.field_190599_i = TileEntityShulkerBox.AnimationStatus.CLOSED;
-		this.topStacks = new ItemStack[8];
-		type = ShulkerBoxType.values()[i];
-		chestContents = new ItemStack[getSizeInventory() + 9];
-	}
 	
 	public TileEntityShulkerBox() {
 		this.field_190599_i = TileEntityShulkerBox.AnimationStatus.CLOSED;
@@ -78,9 +71,12 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 	public void readFromNBT(NBTTagCompound nbt)
 	{
 		super.readFromNBT(nbt);
-		NBTTagList nbttaglist = nbt.getTagList("Items", 10);
-		if(nbttaglist.tagCount() > 0)
+		
+		this.type = ShulkerBoxType.values()[nbt.getByte("Type")];
+		
 		this.chestContents = new ItemStack[this.getSizeInventory()];
+		
+		NBTTagList nbttaglist = nbt.getTagList("Items", 10);
 		Utils.loadItemStacksFromNBT(nbttaglist, this.chestContents);
 		
 		if(type.getIsClear()) {
@@ -118,6 +114,8 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 	{
 		super.writeToNBT(nbt);
 
+		nbt.setByte("Type", (byte) type.ordinal());
+		
 		nbt.setTag("Items", Utils.writeItemStacksToNBT(this.chestContents));
 
 		nbt.setByte("Color", color);
@@ -358,7 +356,7 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 		}
 		// Don't drop an empty Shulker Box in creative.
 		if ((!empty || !brokenInCreative) && worldObj.getGameRules().getGameRuleBooleanValue("doTileDrops")) {
-			ItemStack stack = new ItemStack(ModBlocks.shulker_box, 1, getBlockMetadata());
+			ItemStack stack = new ItemStack(ModBlocks.shulker_box, 1);
 			
 			writeToStack(stack);
 			
@@ -389,7 +387,11 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 		stack.setTagCompound(new NBTTagCompound());
 		if(nbttaglist.tagCount() > 0)
 			stack.getTagCompound().setTag("Items", nbttaglist);
-
+		
+		byte typeOrd = (byte)type.ordinal();
+		if(typeOrd > 0)
+			stack.getTagCompound().setByte("Type", typeOrd);
+		
 		if(color > 0)
 			stack.getTagCompound().setByte("Color", color);
 		
@@ -579,6 +581,8 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 		NBTTagCompound nbt = new NBTTagCompound();
 		
 		super.writeToNBT(nbt);
+		
+		nbt.setByte("Type", (byte)this.type.ordinal());
 		
 		if(type.getIsClear()) {
 			NBTTagList nbttaglist = new NBTTagList();

@@ -77,16 +77,18 @@ public class BlockShulkerBox extends BlockContainer implements IConfigurable, IS
 	{
 		TileEntityShulkerBox box = (TileEntityShulkerBox)world.getTileEntity(x, y, z);
 		if(stack.hasTagCompound()) {
+			box.type = TileEntityShulkerBox.ShulkerBoxType.values()[stack.getTagCompound().getByte("Type")];
+			
 			NBTTagList nbttaglist = stack.getTagCompound().getTagList("Items", 10);
 			box.chestContents = new ItemStack[box.getSizeInventory()];
 			Utils.loadItemStacksFromNBT(nbttaglist, box.chestContents);
 			
 			if(stack.getTagCompound().hasKey("Color")) {
-				box.color = stack.getTagCompound().getByte("Color");
+			box.color = stack.getTagCompound().getByte("Color");
 			} else {
 				box.color = 0;
 			}
-
+			
 			if (stack.hasDisplayName())
 			{
 				box.func_145976_a(stack.getDisplayName());
@@ -272,7 +274,7 @@ public class BlockShulkerBox extends BlockContainer implements IConfigurable, IS
 	@Override
 	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_)
 	{
-		return new TileEntityShulkerBox(p_149915_2_);
+		return new TileEntityShulkerBox();
 	}
 
 	@Override
@@ -398,7 +400,11 @@ public class BlockShulkerBox extends BlockContainer implements IConfigurable, IS
 			for (byte j = 0; j <= (ConfigBlocksItems.enableDyedShulkerBoxes ? 16 : 0); j++) {
 				
 				NBTTagCompound tag = new NBTTagCompound();
-				ItemStack stack = new ItemStack(item, 1, i);
+				ItemStack stack = new ItemStack(item, 1);
+				
+				if(i > 0) {
+					tag.setByte("Type", i);
+				}
 				
 				if(j > 0) {
 					tag.setByte("Color", j);
@@ -421,6 +427,7 @@ public class BlockShulkerBox extends BlockContainer implements IConfigurable, IS
 		if(box != null) {
 			if(box.color > 0 && ConfigBlocksItems.enableDyedShulkerBoxes) {
 				if(!stack.hasTagCompound()) stack.setTagCompound(new NBTTagCompound());
+				stack.getTagCompound().setByte("Type", (byte) box.type.ordinal());
 				stack.getTagCompound().setByte("Color", box.color);
 			}
 		}
