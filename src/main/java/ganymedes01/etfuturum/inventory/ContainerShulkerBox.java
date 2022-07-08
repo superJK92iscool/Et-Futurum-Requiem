@@ -7,6 +7,8 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
+/** Will be migrated to ContainerChestGeneric. */
+@Deprecated
 public class ContainerShulkerBox extends Container {
 	
 	private IInventory lowerChestInventory;

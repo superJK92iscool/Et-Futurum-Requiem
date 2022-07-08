@@ -24,6 +24,7 @@ import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.entities.*;
 import ganymedes01.etfuturum.inventory.ContainerAnvil;
 import ganymedes01.etfuturum.inventory.ContainerBlastFurnace;
+import ganymedes01.etfuturum.inventory.ContainerChestGeneric;
 import ganymedes01.etfuturum.inventory.ContainerEnchantment;
 import ganymedes01.etfuturum.inventory.ContainerNewBrewingStand;
 import ganymedes01.etfuturum.inventory.ContainerShulkerBox;
@@ -207,7 +208,7 @@ public class CommonProxy implements IGuiHandler {
 			case GUIsID.BLAST_FURNACE:
 				return new ContainerBlastFurnace(player.inventory, (TileEntityBlastFurnace) world.getTileEntity(x, y, z));
 			case GUIsID.SHULKER_BOX:
-				return new ContainerShulkerBox(player.inventory, (TileEntityShulkerBox) world.getTileEntity(x, y, z));
+				return new ContainerChestGeneric(player.inventory, (TileEntityShulkerBox) world.getTileEntity(x, y, z), ((TileEntityShulkerBox) world.getTileEntity(x, y, z)).getRowSize());
 			default:
 				return null;
 		}
