@@ -119,7 +119,11 @@ public class BlockShulkerBox extends BlockContainer implements IConfigurable, IS
 	@Override
 	public IIcon getIcon(IBlockAccess world, int x, int y, int z, int side)
 	{
-		return world.getTileEntity(x, y, z) instanceof TileEntityShulkerBox ? Blocks.glowstone.getIcon(0, 0) : Blocks.redstone_block.getIcon(0, 0);
+		int meta = 0;
+		if(world.getTileEntity(x, y, z) instanceof TileEntityShulkerBox && ConfigBlocksItems.enableDyedShulkerBoxes) {
+			meta = ((TileEntityShulkerBox)world.getTileEntity(x, y, z)).color;
+		}
+		return colorIcons[meta];
 	}
 
 	@Override
