@@ -619,7 +619,7 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 	@Override
 	public boolean shouldRefresh(Block oldBlock, Block newBlock, int oldMeta, int newMeta, World world, int x, int y, int z)
 	{
-		return oldBlock != newBlock && oldMeta != newMeta;
+		return oldBlock != newBlock || oldMeta != newMeta;
 	}
 
 	public int getBlockMetadata()
