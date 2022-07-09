@@ -48,7 +48,6 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 		this.field_190599_i = TileEntityShulkerBox.AnimationStatus.CLOSED;
 		this.topStacks = new ItemStack[8];
 		type = ShulkerBoxType.VANILLA;
-		chestContents = new ItemStack[getSizeInventory() + 9];
 	}
 	
 	@Override
@@ -74,10 +73,14 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 		
 		this.type = ShulkerBoxType.values()[nbt.getByte("Type")];
 		
-		this.chestContents = new ItemStack[this.getSizeInventory()];
+		if(this.chestContents == null) {
+			this.chestContents = new ItemStack[this.getSizeInventory()];
+		}
 		
 		NBTTagList nbttaglist = nbt.getTagList("Items", 10);
-		Utils.loadItemStacksFromNBT(nbttaglist, this.chestContents);
+		if(nbttaglist.tagCount() > 0) {
+			Utils.loadItemStacksFromNBT(nbttaglist, this.chestContents);
+		}
 		
 		if(type.getIsClear()) {
 			NBTTagList displaynbt = nbt.getTagList("Display", 10);
