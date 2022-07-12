@@ -61,21 +61,7 @@ import ganymedes01.etfuturum.configuration.configs.ConfigEntities;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.core.handlers.ClientEventHandler;
-import ganymedes01.etfuturum.entities.EntityArmourStand;
-import ganymedes01.etfuturum.entities.EntityBrownMooshroom;
-import ganymedes01.etfuturum.entities.EntityEndermite;
-import ganymedes01.etfuturum.entities.EntityHusk;
-import ganymedes01.etfuturum.entities.EntityLingeringEffect;
-import ganymedes01.etfuturum.entities.EntityLingeringPotion;
-import ganymedes01.etfuturum.entities.EntityNewBoat;
-import ganymedes01.etfuturum.entities.EntityNewBoatWithChest;
-import ganymedes01.etfuturum.entities.EntityNewSnowGolem;
-import ganymedes01.etfuturum.entities.EntityPlacedEndCrystal;
-import ganymedes01.etfuturum.entities.EntityRabbit;
-import ganymedes01.etfuturum.entities.EntityShulker;
-import ganymedes01.etfuturum.entities.EntityShulkerBullet;
-import ganymedes01.etfuturum.entities.EntityStray;
-import ganymedes01.etfuturum.entities.EntityZombieVillager;
+import ganymedes01.etfuturum.entities.*;
 import ganymedes01.etfuturum.spectator.SpectatorModeClient;
 import ganymedes01.etfuturum.tileentities.TileEntityBanner;
 import ganymedes01.etfuturum.tileentities.TileEntityGateway;
@@ -84,6 +70,7 @@ import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox;
 import ganymedes01.etfuturum.tileentities.TileEntityWoodSign;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.entity.RenderSnowball;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.entity.player.EntityPlayer;
@@ -254,5 +241,7 @@ public class ClientProxy extends CommonProxy {
 		}
 		if (ConfigEntities.enableShearableSnowGolems)
 			RenderingRegistry.registerEntityRenderingHandler(EntityNewSnowGolem.class, new NewSnowGolemRenderer());
+		if (ConfigBlocksItems.enableElytra)
+			RenderingRegistry.registerEntityRenderingHandler(EntityBoostingFireworkRocket.class, new RenderSnowball(Items.fireworks));
 	}
 }

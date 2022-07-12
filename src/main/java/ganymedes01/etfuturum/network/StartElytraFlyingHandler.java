@@ -13,7 +13,7 @@ import net.minecraft.network.NetHandlerPlayServer;
 public class StartElytraFlyingHandler implements IMessageHandler<StartElytraFlyingMessage, IMessage> {
     @Override
     public IMessage onMessage(StartElytraFlyingMessage message, MessageContext ctx) {
-         EntityPlayer player = ((NetHandlerPlayServer)ctx.netHandler).playerEntity;
+        EntityPlayer player = ((NetHandlerPlayServer)ctx.netHandler).playerEntity;
         if (!player.onGround && player.motionY < 0.0D && !((IElytraPlayer)player).etfu$isElytraFlying() && !player.isInWater()) {
             ItemStack itemstack = player.getEquipmentInSlot(3);
 
@@ -21,6 +21,7 @@ public class StartElytraFlyingHandler implements IMessageHandler<StartElytraFlyi
                 ((IElytraPlayer)player).etfu$setElytraFlying(true);
             }
         } else {
+            ((IElytraPlayer)player).etfu$setElytraFlying(true);
             ((IElytraPlayer)player).etfu$setElytraFlying(false);
         }
         return null;

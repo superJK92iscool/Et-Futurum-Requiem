@@ -15,6 +15,7 @@ import java.util.WeakHashMap;
 
 import ganymedes01.etfuturum.api.elytra.IElytraEntityTrackerEntry;
 import ganymedes01.etfuturum.api.elytra.IElytraPlayer;
+import ganymedes01.etfuturum.entities.*;
 import jdk.nashorn.internal.runtime.regexp.joni.Config;
 import net.minecraft.entity.*;
 import net.minecraft.util.*;
@@ -46,14 +47,6 @@ import ganymedes01.etfuturum.core.utils.RawOreRegistry;
 import ganymedes01.etfuturum.core.utils.StrippedLogRegistry;
 import ganymedes01.etfuturum.core.utils.helpers.BlockAndMetadataMapping;
 import ganymedes01.etfuturum.core.utils.helpers.RawOreDropMapping;
-import ganymedes01.etfuturum.entities.EntityBrownMooshroom;
-import ganymedes01.etfuturum.entities.EntityEndermite;
-import ganymedes01.etfuturum.entities.EntityNewBoat;
-import ganymedes01.etfuturum.entities.EntityNewSnowGolem;
-import ganymedes01.etfuturum.entities.EntityRabbit;
-import ganymedes01.etfuturum.entities.EntityShulker;
-import ganymedes01.etfuturum.entities.EntityTippedArrow;
-import ganymedes01.etfuturum.entities.EntityZombieVillager;
 import ganymedes01.etfuturum.entities.ai.EntityAIOpenCustomDoor;
 import ganymedes01.etfuturum.inventory.ContainerEnchantment;
 import ganymedes01.etfuturum.items.ItemArrowTipped;
@@ -529,6 +522,26 @@ public class ServerEventHandler {
 		}
 	}
 
+	@SubscribeEvent
+	public void onPlayerInteractNonVanilla(PlayerInteractEvent event) {
+		if(event.action == Action.RIGHT_CLICK_AIR) {
+			EntityPlayer player = event.entityPlayer;
+			ItemStack heldStack = player.getHeldItem();
+			World world = event.world;
+			//Firework boosting
+			if(ConfigBlocksItems.enableElytra && heldStack != null && heldStack.getItem() == Items.fireworks && !world.isRemote && ((IElytraPlayer)player).etfu$isElytraFlying()) {
+				EntityBoostingFireworkRocket entityfireworkrocket = new EntityBoostingFireworkRocket(world, heldStack, player);
+				world.spawnEntityInWorld(entityfireworkrocket);
+
+				if (!player.capabilities.isCreativeMode)
+				{
+					--heldStack.stackSize;
+				}
+				event.useItem = Result.ALLOW;
+			}
+		}
+	}
+
 	@SubscribeEvent(priority=EventPriority.HIGHEST)
 	public void onPlayerInteract(PlayerInteractEvent event) {
 		EntityPlayer player = event.entityPlayer;
@@ -684,7 +697,6 @@ public class ServerEventHandler {
 								event.setCanceled(true);
 							}
 						}
-					
 						
 						//Grass pathing/Log Stripping
 						//This is nested into the same function since they use similar checks
