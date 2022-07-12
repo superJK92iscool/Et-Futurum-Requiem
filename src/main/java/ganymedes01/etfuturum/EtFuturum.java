@@ -11,6 +11,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import ganymedes01.etfuturum.network.*;
 import org.apache.commons.lang3.ArrayUtils;
 
 import com.google.common.collect.ImmutableList;
@@ -47,16 +48,6 @@ import ganymedes01.etfuturum.core.utils.RawOreRegistry;
 import ganymedes01.etfuturum.core.utils.StrippedLogRegistry;
 import ganymedes01.etfuturum.entities.ModEntityList;
 import ganymedes01.etfuturum.lib.Reference;
-import ganymedes01.etfuturum.network.ArmourStandInteractHandler;
-import ganymedes01.etfuturum.network.ArmourStandInteractMessage;
-import ganymedes01.etfuturum.network.BlackHeartParticlesHandler;
-import ganymedes01.etfuturum.network.BlackHeartParticlesMessage;
-import ganymedes01.etfuturum.network.BoatMoveHandler;
-import ganymedes01.etfuturum.network.BoatMoveMessage;
-import ganymedes01.etfuturum.network.ChestBoatOpenInventoryHandler;
-import ganymedes01.etfuturum.network.ChestBoatOpenInventoryMessage;
-import ganymedes01.etfuturum.network.WoodSignOpenHandler;
-import ganymedes01.etfuturum.network.WoodSignOpenMessage;
 import ganymedes01.etfuturum.potion.ModPotions;
 import ganymedes01.etfuturum.recipes.BlastFurnaceRecipes;
 import ganymedes01.etfuturum.recipes.ModRecipes;
@@ -368,6 +359,7 @@ public class EtFuturum {
 		networkWrapper.registerMessage(WoodSignOpenHandler.class, WoodSignOpenMessage.class, 3, Side.CLIENT);
 		networkWrapper.registerMessage(BoatMoveHandler.class, BoatMoveMessage.class, 4, Side.SERVER);
 		networkWrapper.registerMessage(ChestBoatOpenInventoryHandler.class, ChestBoatOpenInventoryMessage.class, 5, Side.SERVER);
+		networkWrapper.registerMessage(StartElytraFlyingHandler.class, StartElytraFlyingMessage.class, 6, Side.SERVER);
 		{
 			if (Loader.isModLoaded("netherlicious")) {
 				File file = new File(event.getModConfigurationDirectory() + "/Netherlicious/Biome_Sound_Configuration.cfg");

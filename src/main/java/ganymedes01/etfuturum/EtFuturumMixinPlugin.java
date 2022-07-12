@@ -122,6 +122,13 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 		if(ConfigMixins.avoidDroppingItemsWhenClosing) {
 			mixins.add("MixinEntityPlayerMP");
 		}
+
+		if(ConfigBlocksItems.enableElytra) {
+			mixins.add("elytra.MixinEntityPlayer");
+			mixins.add("elytra.MixinEntityLivingBase");
+			mixins.add("elytra.MixinNetHandlerPlayServer");
+			mixins.add("elytra.MixinEntityTrackerEntry");
+		}
 		
 		if(side == MixinEnvironment.Side.CLIENT) {
 			if(ConfigMixins.furnaceCrackle) {
@@ -134,6 +141,12 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 			}
 			if(ConfigEnchantsPotions.enableSwiftSneak) {
 				mixins.add("client.MixinMovementInputFromOptions");
+			}
+			if(ConfigBlocksItems.enableElytra) {
+				mixins.add("elytra.client.MixinAbstractClientPlayer");
+				mixins.add("elytra.client.MixinEntityPlayerSP");
+				mixins.add("elytra.client.MixinRenderPlayer");
+				mixins.add("elytra.client.MixinModelBiped");
 			}
 		}
 		

@@ -13,6 +13,11 @@ import java.util.Random;
 import java.util.Set;
 import java.util.WeakHashMap;
 
+import ganymedes01.etfuturum.api.elytra.IElytraEntityTrackerEntry;
+import ganymedes01.etfuturum.api.elytra.IElytraPlayer;
+import jdk.nashorn.internal.runtime.regexp.joni.Config;
+import net.minecraft.entity.*;
+import net.minecraft.util.*;
 import org.apache.commons.lang3.ArrayUtils;
 
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -66,10 +71,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAIOpenDoor;
 import net.minecraft.entity.ai.EntityAITargetNonTamed;
@@ -106,15 +107,6 @@ import net.minecraft.network.play.server.S29PacketSoundEffect;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.Direction;
-import net.minecraft.util.EntityDamageSource;
-import net.minecraft.util.EntityDamageSourceIndirect;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.StatCollector;
-import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.Chunk;
@@ -187,6 +179,9 @@ public class ServerEventHandler {
 		if (ConfigMixins.stepHeightFix && event.entity.stepHeight == .5F) {
 			event.entity.stepHeight = .6F;
 		}
+
+		if(ConfigBlocksItems.enableElytra && entity instanceof IElytraPlayer)
+			((IElytraPlayer)entity).tickElytra();
 	}
 	
 	@SubscribeEvent
@@ -1172,6 +1167,64 @@ public class ServerEventHandler {
 	{
 		if(event.phase == TickEvent.Phase.END)
 			playersClosedContainers.clear();
+	}
+
+	@SubscribeEvent
+	public void onElytraPostPlayerTick(TickEvent.PlayerTickEvent e) {
+		if (ConfigBlocksItems.enableElytra && e.phase == TickEvent.Phase.END) {
+			boolean isElytraFlying = ((IElytraPlayer)e.player).etfu$isElytraFlying();
+			if (e.player instanceof EntityPlayerMP && isElytraFlying) {
+				((EntityPlayerMP)e.player).playerNetServerHandler.floatingTickCount = 0;
+			}
+			if (isElytraFlying != ((IElytraPlayer)e.player).etfu$lastElytraFlying()) {
+				float f = 0.6f;
+				float f1 = isElytraFlying ? 0.6f : 1.8f;
+
+				if (f != e.player.width || f1 != e.player.height) {
+					AxisAlignedBB axisalignedbb = e.player.boundingBox;
+					axisalignedbb = AxisAlignedBB.getBoundingBox(axisalignedbb.minX, axisalignedbb.minY, axisalignedbb.minZ, axisalignedbb.minX + f, axisalignedbb.minY + f1, axisalignedbb.minZ + f);
+
+					if (e.player.worldObj.func_147461_a(axisalignedbb).isEmpty()) {
+						float f2 = e.player.width;
+						e.player.width = f;
+						e.player.height = f1;
+						e.player.boundingBox.setBounds(e.player.boundingBox.minX, e.player.boundingBox.minY, e.player.boundingBox.minZ, e.player.boundingBox.minX + e.player.width, e.player.boundingBox.minY + e.player.height, e.player.boundingBox.minZ + e.player.width);
+
+						if (e.player.width > f2 && !e.player.worldObj.isRemote) {
+							e.player.moveEntity(f2 - e.player.width, 0.0D, f2 - e.player.width);
+						}
+					}
+				}
+				((IElytraPlayer)e.player).etfu$setLastElytraFlying(isElytraFlying);
+			}
+		}
+	}
+
+	@SubscribeEvent
+	public void onPostWorldTick(TickEvent.WorldTickEvent e) {
+		if (ConfigBlocksItems.enableElytra && e.phase == TickEvent.Phase.END && e.world instanceof WorldServer) {
+			WorldServer ws = (WorldServer)e.world;
+			for (EntityTrackerEntry ete : (Set<EntityTrackerEntry>)ws.getEntityTracker().trackedEntities) {
+				if (ete.myEntity instanceof IElytraPlayer) {
+					IElytraPlayer elb = (IElytraPlayer) ete.myEntity;
+					boolean flying = elb.etfu$isElytraFlying();
+					if (!flying && ((IElytraEntityTrackerEntry)ete).etfu$getWasSendingVelUpdates()) {
+						ete.sendVelocityUpdates = false;
+					} else if (flying) {
+						if (!ete.sendVelocityUpdates) {
+							((IElytraEntityTrackerEntry)ete).etfu$setWasSendingVelUpdates(true);
+						}
+						ete.sendVelocityUpdates = true;
+					}
+				}
+			}
+		}
+	}
+
+	@SubscribeEvent
+	public void onWorldLoad(WorldEvent.Load e) {
+		if(ConfigBlocksItems.enableElytra)
+			e.world.getGameRules().addGameRule("disableElytraMovementCheck", "false");
 	}
 	
 	// UNUSED FUNCTIONS
