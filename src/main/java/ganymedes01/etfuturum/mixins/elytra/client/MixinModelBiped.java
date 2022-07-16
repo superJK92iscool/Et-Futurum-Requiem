@@ -17,15 +17,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ModelBiped.class)
 public class MixinModelBiped {
     @Shadow public ModelRenderer bipedHead;
-
+    @Shadow public ModelRenderer bipedHeadwear;
     @Shadow public ModelRenderer bipedBody;
-
     @Shadow public ModelRenderer bipedRightArm;
-
     @Shadow public ModelRenderer bipedLeftArm;
-
     @Shadow public ModelRenderer bipedRightLeg;
-
     @Shadow public ModelRenderer bipedLeftLeg;
 
     @Inject(method = "setRotationAngles", at = @At(value = "FIELD", target = "Lnet/minecraft/client/model/ModelBiped;isRiding:Z", ordinal = 0))
@@ -35,9 +31,8 @@ public class MixinModelBiped {
         if (flag) {
             limbSwing = ageInTicks;
 
-            this.bipedHead.rotateAngleY = netHeadYaw * 0.017453292F;
-
-            this.bipedHead.rotateAngleX = -((float) Math.PI / 4F);
+            this.bipedHead.rotateAngleY = this.bipedHeadwear.rotateAngleY = netHeadYaw * 0.017453292F;
+            this.bipedHead.rotateAngleX = this.bipedHeadwear.rotateAngleX = -((float) Math.PI / 4F);
 
             this.bipedBody.rotateAngleY = 0.0F;
             this.bipedRightArm.rotationPointZ = 0.0F;

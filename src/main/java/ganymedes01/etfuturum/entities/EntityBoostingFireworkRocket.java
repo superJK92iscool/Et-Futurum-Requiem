@@ -28,6 +28,11 @@ public class EntityBoostingFireworkRocket extends EntityFireworkRocket {
         this.boostedEntity = entityToBoost;
     }
 
+    public boolean isInRangeToRenderDist(double p_70112_1_)
+    {
+    	return false;
+    }
+    
     @Override
     public void onUpdate() {
         super.onUpdate();
@@ -50,6 +55,8 @@ public class EntityBoostingFireworkRocket extends EntityFireworkRocket {
                     this.boostedEntity.motionX += vec3d.xCoord * 0.1D + (vec3d.xCoord * 1.5D - this.boostedEntity.motionX) * 0.5D;
                     this.boostedEntity.motionY += vec3d.yCoord * 0.1D + (vec3d.yCoord * 1.5D - this.boostedEntity.motionY) * 0.5D;
                     this.boostedEntity.motionZ += vec3d.zCoord * 0.1D + (vec3d.zCoord * 1.5D - this.boostedEntity.motionZ) * 0.5D;
+                } else {
+                	this.setDead();
                 }
 
                 this.setPosition(this.boostedEntity.posX, this.boostedEntity.posY, this.boostedEntity.posZ);

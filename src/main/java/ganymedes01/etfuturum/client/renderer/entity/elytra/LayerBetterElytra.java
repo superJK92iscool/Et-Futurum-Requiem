@@ -50,7 +50,7 @@ public class LayerBetterElytra {
 				GL11.glColor3f(r, g, b);
 			}
 			 */
-			GL11.glColor3f(1, 1, 1);
+//			GL11.glColor3f(1, 1, 1);
 
 			Minecraft.getMinecraft().renderEngine.bindTexture(player.func_152122_n() ? player.getLocationCape() : TEXTURE_ELYTRA);
 

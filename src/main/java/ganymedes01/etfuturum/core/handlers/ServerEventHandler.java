@@ -528,15 +528,18 @@ public class ServerEventHandler {
 			ItemStack heldStack = player.getHeldItem();
 			World world = event.world;
 			//Firework boosting
-			if(ConfigBlocksItems.enableElytra && heldStack != null && heldStack.getItem() == Items.fireworks && !world.isRemote && ((IElytraPlayer)player).etfu$isElytraFlying()) {
-				EntityBoostingFireworkRocket entityfireworkrocket = new EntityBoostingFireworkRocket(world, heldStack, player);
-				world.spawnEntityInWorld(entityfireworkrocket);
+			if(ConfigBlocksItems.enableElytra && heldStack != null && heldStack.getItem() == Items.fireworks && ((IElytraPlayer)player).etfu$isElytraFlying()) {
+				player.swingItem();
+				if(!world.isRemote) {
+					EntityBoostingFireworkRocket entityfireworkrocket = new EntityBoostingFireworkRocket(world, heldStack, player);
+					world.spawnEntityInWorld(entityfireworkrocket);
 
-				if (!player.capabilities.isCreativeMode)
-				{
-					--heldStack.stackSize;
+					if (!player.capabilities.isCreativeMode)
+					{
+						--heldStack.stackSize;
+					}
+					event.useItem = Result.ALLOW;
 				}
-				event.useItem = Result.ALLOW;
 			}
 		}
 	}
