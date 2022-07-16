@@ -1,16 +1,12 @@
 package ganymedes01.etfuturum.core.handlers;
 
+import static ganymedes01.etfuturum.spectator.SpectatorMode.isSpectator;
+
 import java.io.File;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.WeakHashMap;
 
-import ganymedes01.etfuturum.client.gui.GuiGamemodeSwitcher;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
-import ganymedes01.etfuturum.entities.EntityNewBoatWithChest;
-import ganymedes01.etfuturum.network.ChestBoatOpenInventoryMessage;
-import net.minecraft.client.gui.inventory.GuiInventory;
 import org.apache.commons.lang3.tuple.MutablePair;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
@@ -20,22 +16,26 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.ClientTickEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
-import cpw.mods.fml.common.gameevent.TickEvent.PlayerTickEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.EtFuturumMixinPlugin;
-import ganymedes01.etfuturum.ModEnchantments;
+import ganymedes01.etfuturum.api.elytra.IElytraPlayer;
 import ganymedes01.etfuturum.blocks.BlockShulkerBox;
 import ganymedes01.etfuturum.client.OpenGLHelper;
 import ganymedes01.etfuturum.client.gui.GuiConfigWarning;
+import ganymedes01.etfuturum.client.gui.GuiGamemodeSwitcher;
+import ganymedes01.etfuturum.client.sound.ElytraSound;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.client.sound.NetherAmbienceLoop;
 import ganymedes01.etfuturum.client.sound.NetherAmbienceSound;
 import ganymedes01.etfuturum.configuration.ConfigBase;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
+import ganymedes01.etfuturum.entities.EntityNewBoatWithChest;
 import ganymedes01.etfuturum.lib.Reference;
+import ganymedes01.etfuturum.network.ChestBoatOpenInventoryMessage;
 import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDoor;
@@ -45,10 +45,10 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSound;
 import net.minecraft.client.audio.PositionedSoundRecord;
-import net.minecraft.client.entity.EntityClientPlayerMP;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.GuiMainMenu;
+import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.particle.EntityDiggingFX;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.event.ClickEvent;
@@ -57,8 +57,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.launchwrapper.Launch;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
@@ -73,8 +71,6 @@ import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.event.entity.PlaySoundAtEntityEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
-
-import static ganymedes01.etfuturum.spectator.SpectatorMode.isSpectator;
 
 public class ClientEventHandler {
 
@@ -455,6 +451,13 @@ public class ClientEventHandler {
 		Entity entity = event.entityLiving;
 		World world = entity.worldObj;
 
+		if (ConfigBlocksItems.enableElytra && entity instanceof EntityPlayerSP) {
+			IElytraPlayer e = (IElytraPlayer) entity;
+			if (e.etfu$isElytraFlying() && !e.etfu$lastElytraFlying()) {
+				Minecraft.getMinecraft().getSoundHandler().playSound(new ElytraSound((EntityPlayerSP) entity));
+			}
+			e.etfu$setLastElytraFlying(e.etfu$isElytraFlying());
+		}
 		/*
 		 * The purpose of the function is to manifest sprint particles
 		 * and adjust slipperiness when entity is moving on block, so check

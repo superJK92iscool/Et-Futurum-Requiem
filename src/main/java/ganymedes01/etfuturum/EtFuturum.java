@@ -168,7 +168,8 @@ public class EtFuturum {
 		
 		config.addSoundEvent(ver, "music_disc.pigstep", "record");
 		config.addSoundEvent(ver, "music_disc.otherside", "record");
-		
+
+		config.addSoundEvent(ver, "item.elytra.flying", "player");
 		config.addSoundEvent(ver, "entity.boat.paddle_land", "player");
 		config.addSoundEvent(ver, "entity.boat.paddle_water", "player");
 		config.addSoundEvent(ver, "entity.rabbit.ambient", "neutral");

@@ -27,14 +27,14 @@ public abstract class MixinEntityPlayer extends EntityLivingBase implements IEly
     }
 
     //Surpress false warning; it thinks itemstack can be null at the damageItem line when it can't.
-//    @SuppressWarnings("null")
+    @SuppressWarnings("null")
 	public void tickElytra() {
         boolean flag = etfu$isElytraFlying();
 
         ItemStack itemstack = this.getEquipmentInSlot(3);
         boolean flag2 = itemstack != null && itemstack.getItem() == ModItems.elytra;
     	this.setHideCape(1, flag2);
-        if (flag2 && !ItemArmorElytra.isBroken(itemstack)) {
+        if (flag2 && !capabilities.isFlying && !ItemArmorElytra.isBroken(itemstack)) {
             if (flag && !this.onGround && !this.isRiding() && !this.isInWater()) {
                 flag = true;
 
@@ -55,7 +55,6 @@ public abstract class MixinEntityPlayer extends EntityLivingBase implements IEly
 
         if (this.etfu$isElytraFlying()) {
             this.etfu$ticksElytraFlying = this.etfu$ticksElytraFlying + 1;
-            this.flyToggleTimer = 0;
         } else {
             this.etfu$ticksElytraFlying = 0;
         }
@@ -85,7 +84,6 @@ public abstract class MixinEntityPlayer extends EntityLivingBase implements IEly
 
         if (flag) {
             this.getDataWatcher().updateObject(0, (byte) (b0 | 1 << 7));
-            this.capabilities.isFlying = false;
         } else {
             this.getDataWatcher().updateObject(0, (byte) (b0 & ~(1 << 7)));
         }
