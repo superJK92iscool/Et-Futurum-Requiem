@@ -470,6 +470,7 @@ tile.etfuturum.cartography_table.name=Cartography Table
 tile.etfuturum.loom.name=Loom
 tile.etfuturum.grindstone.name=Grindstone
 tile.etfuturum.lectern.name=Lectern
+tile.etfuturum.lantern.name=Lantern
 
 tile.etfuturum.concrete_powder_white.name=White Concrete Powder
 tile.etfuturum.concrete_powder_orange.name=Orange Concrete Powder
@@ -666,7 +667,16 @@ tile.etfuturum.brown_obsidian_shulker_box.name=Brown Obsidian Shulker Box
 tile.etfuturum.green_obsidian_shulker_box.name=Green Obsidian Shulker Box
 tile.etfuturum.red_obsidian_shulker_box.name=Red Obsidian Shulker Box
 tile.etfuturum.black_obsidian_shulker_box.name=Black Obsidian Shulker Box
-tile.etfuturum.lantern.name=Lantern
+
+item.shulker_vanilla_iron_upgrade.name=Vanilla to Iron Shulker Box Upgrade
+item.shulker_vanilla_copper_upgrade.name=Vanilla to Copper Shulker Box Upgrade
+item.shulker_iron_gold_upgrade.name=Iron to Gold Shulker Box Upgrade
+item.shulker_gold_diamond_upgrade.name=Gold to Diamond Shulker Box Upgrade
+item.shulker_diamond_obsidian_upgrade.name=Diamond to Obsidian Shulker Box Upgrade
+item.shulker_diamond_crystal_upgrade.name=Diamond to Crystal Shulker Box Upgrade
+item.shulker_copper_iron_upgrade.name=Copper to Iron Shulker Box Upgrade
+item.shulker_copper_silver_upgrade.name=Copper to Silver Shulker Box Upgrade
+item.shulker_silver_gold_upgrade.name=Silver to Gold Shulker Box Upgrade
 
 tile.etfuturum.tinted_glass.name=Tinted Glass
 

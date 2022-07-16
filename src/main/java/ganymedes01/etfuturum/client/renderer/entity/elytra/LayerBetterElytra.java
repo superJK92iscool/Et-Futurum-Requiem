@@ -10,19 +10,16 @@
  */
 package ganymedes01.etfuturum.client.renderer.entity.elytra;
 
-import java.awt.Color;
-
-import ganymedes01.etfuturum.ModItems;
 import org.lwjgl.opengl.GL11;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.item.ItemDye;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.util.Constants.NBT;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import ganymedes01.etfuturum.ModItems;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.AbstractClientPlayer;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 
 @SideOnly(Side.CLIENT)
 public class LayerBetterElytra {
@@ -33,7 +30,8 @@ public class LayerBetterElytra {
 
 	public static void doRenderLayer(EntityLivingBase entityIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		ItemStack itemstack = entityIn.getEquipmentInSlot(3);
-		if (itemstack != null && itemstack.getItem() == ModItems.elytra) {
+		if (entityIn instanceof AbstractClientPlayer && itemstack != null && itemstack.getItem() == ModItems.elytra) {
+			AbstractClientPlayer player = (AbstractClientPlayer) entityIn;
 			GL11.glPushAttrib(-1);
 			/*
 			int colorIndex =
@@ -54,7 +52,7 @@ public class LayerBetterElytra {
 			 */
 			GL11.glColor3f(1, 1, 1);
 
-			Minecraft.getMinecraft().renderEngine.bindTexture(TEXTURE_ELYTRA);
+			Minecraft.getMinecraft().renderEngine.bindTexture(player.func_152122_n() ? player.getLocationCape() : TEXTURE_ELYTRA);
 
 			GL11.glPushMatrix();
 			GL11.glTranslatef(0.0F, 0.0F, 0.125F);

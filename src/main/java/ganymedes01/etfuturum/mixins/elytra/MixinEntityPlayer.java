@@ -5,6 +5,7 @@ import ganymedes01.etfuturum.api.elytra.IElytraPlayer;
 import ganymedes01.etfuturum.items.ItemArmorElytra;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerCapabilities;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -17,18 +18,24 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(EntityPlayer.class)
 public abstract class MixinEntityPlayer extends EntityLivingBase implements IElytraPlayer {
     @Shadow public abstract boolean isPlayerSleeping();
+    @Shadow protected int flyToggleTimer;
+    @Shadow public PlayerCapabilities capabilities;
+    @Shadow protected abstract void setHideCape(int par1, boolean par2);
 
     public MixinEntityPlayer(World p_i1594_1_) {
         super(p_i1594_1_);
     }
 
-    public void tickElytra() {
+    //Surpress false warning; it thinks itemstack can be null at the damageItem line when it can't.
+//    @SuppressWarnings("null")
+	public void tickElytra() {
         boolean flag = etfu$isElytraFlying();
 
-        if (flag && !this.onGround && !this.isRiding() && !this.isInWater()) {
-            ItemStack itemstack = this.getEquipmentInSlot(3);
-
-            if (itemstack != null && itemstack.getItem() == ModItems.elytra && !ItemArmorElytra.isBroken(itemstack)) {
+        ItemStack itemstack = this.getEquipmentInSlot(3);
+        boolean flag2 = itemstack != null && itemstack.getItem() == ModItems.elytra;
+    	this.setHideCape(1, flag2);
+        if (flag2 && !ItemArmorElytra.isBroken(itemstack)) {
+            if (flag && !this.onGround && !this.isRiding() && !this.isInWater()) {
                 flag = true;
 
                 if (!this.worldObj.isRemote && (this.etfu$ticksElytraFlying + 1) % 20 == 0) {
@@ -40,6 +47,7 @@ public abstract class MixinEntityPlayer extends EntityLivingBase implements IEly
         } else {
             flag = false;
         }
+        
 
         if (!this.worldObj.isRemote) {
             this.etfu$setElytraFlying(flag);
@@ -47,6 +55,7 @@ public abstract class MixinEntityPlayer extends EntityLivingBase implements IEly
 
         if (this.etfu$isElytraFlying()) {
             this.etfu$ticksElytraFlying = this.etfu$ticksElytraFlying + 1;
+            this.flyToggleTimer = 0;
         } else {
             this.etfu$ticksElytraFlying = 0;
         }
@@ -76,6 +85,7 @@ public abstract class MixinEntityPlayer extends EntityLivingBase implements IEly
 
         if (flag) {
             this.getDataWatcher().updateObject(0, (byte) (b0 | 1 << 7));
+            this.capabilities.isFlying = false;
         } else {
             this.getDataWatcher().updateObject(0, (byte) (b0 & ~(1 << 7)));
         }

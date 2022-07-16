@@ -16,7 +16,6 @@ import java.util.WeakHashMap;
 import ganymedes01.etfuturum.api.elytra.IElytraEntityTrackerEntry;
 import ganymedes01.etfuturum.api.elytra.IElytraPlayer;
 import ganymedes01.etfuturum.entities.*;
-import jdk.nashorn.internal.runtime.regexp.joni.Config;
 import net.minecraft.entity.*;
 import net.minecraft.util.*;
 import org.apache.commons.lang3.ArrayUtils;

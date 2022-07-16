@@ -21,7 +21,6 @@ import ganymedes01.etfuturum.items.ItemDragonBreath;
 import ganymedes01.etfuturum.items.ItemEndCrystal;
 import ganymedes01.etfuturum.items.ItemEtFuturumRecord;
 import ganymedes01.etfuturum.items.ItemLingeringPotion;
-import ganymedes01.etfuturum.items.ItemLodestoneCompass;
 import ganymedes01.etfuturum.items.ItemMuttonCooked;
 import ganymedes01.etfuturum.items.ItemMuttonRaw;
 import ganymedes01.etfuturum.items.ItemNetherite;
@@ -37,6 +36,7 @@ import ganymedes01.etfuturum.items.ItemRabbitHide;
 import ganymedes01.etfuturum.items.ItemRabbitRaw;
 import ganymedes01.etfuturum.items.ItemRabbitStew;
 import ganymedes01.etfuturum.items.ItemRawOre;
+import ganymedes01.etfuturum.items.ItemShulkerBoxUpgrade;
 import ganymedes01.etfuturum.items.ItemShulkerShell;
 import ganymedes01.etfuturum.items.ItemSuspiciousStew;
 import ganymedes01.etfuturum.items.ItemSweetBerries;
@@ -112,6 +112,7 @@ public class ModItems {
 	public static final Item pigstep_record = initItem(new ItemEtFuturumRecord("pigstep"));
 	public static final Item otherside_record = initItem(new ItemEtFuturumRecord("otherside"));
 	public static final Item amethyst_shard = initItem(new ItemAmethystShard());
+	public static final Item shulker_box_upgrade = initItem(new ItemShulkerBoxUpgrade());
 
 	static {
 		for (int i = 0; i < signs.length; i++)

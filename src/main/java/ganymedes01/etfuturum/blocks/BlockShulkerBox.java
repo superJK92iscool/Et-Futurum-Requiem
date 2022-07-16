@@ -3,15 +3,20 @@ package ganymedes01.etfuturum.blocks;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.ArrayUtils;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks.ISubBlocksBlock;
+import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
+import ganymedes01.etfuturum.items.ItemGeneric;
 import ganymedes01.etfuturum.items.block.ItemShulkerBox;
 import ganymedes01.etfuturum.lib.GUIsID;
 import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox;
+import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox.ShulkerBoxType;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.BlockRedstoneWire;
@@ -55,16 +60,11 @@ public class BlockShulkerBox extends BlockContainer implements IConfigurable, IS
 		this.isBlockContainer = true;
 		this.setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
 	}
-	
-	public int damageDropped(int i)
-	{
-		return ConfigBlocksItems.enableIronShulkerBoxes ? i % (TileEntityShulkerBox.tiers.length + 1) : 0;
-	}
 
 	@Override
 	public float getExplosionResistance(Entity par1Entity, World world, int x, int y, int z, double explosionX, double explosionY, double explosionZ)
 	{
-		if(world.getBlockMetadata(x, y, z) >= 7) return 10000F;
+		if(((TileEntityShulkerBox)world.getTileEntity(x, y, z)).type.ordinal() >= 7) return 10000F;
 		return super.getExplosionResistance(par1Entity, world, x, y, z, explosionX, explosionY, explosionZ);
 	}
 	
@@ -78,9 +78,9 @@ public class BlockShulkerBox extends BlockContainer implements IConfigurable, IS
 		TileEntityShulkerBox box = (TileEntityShulkerBox)world.getTileEntity(x, y, z);
 		if(stack.hasTagCompound()) {
 			box.type = TileEntityShulkerBox.ShulkerBoxType.values()[stack.getTagCompound().getByte("Type")];
+			box.chestContents = new ItemStack[box.getSizeInventory()];
 			
 			NBTTagList nbttaglist = stack.getTagCompound().getTagList("Items", 10);
-			box.chestContents = new ItemStack[box.getSizeInventory()];
 			Utils.loadItemStacksFromNBT(nbttaglist, box.chestContents);
 			
 			box.color = stack.getTagCompound().getByte("Color");
@@ -89,6 +89,8 @@ public class BlockShulkerBox extends BlockContainer implements IConfigurable, IS
 			{
 				box.func_145976_a(stack.getDisplayName());
 			}
+		} else {
+			box.chestContents = new ItemStack[ShulkerBoxType.VANILLA.getSize()];
 		}
 	}
 	
@@ -125,7 +127,7 @@ public class BlockShulkerBox extends BlockContainer implements IConfigurable, IS
 		}
 		return colorIcons[meta];
 	}
-
+	
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_)
 	{
@@ -133,20 +135,38 @@ public class BlockShulkerBox extends BlockContainer implements IConfigurable, IS
 		{
 			return true;
 		}
-		TileEntity tileentity = world.getTileEntity(x, y, z);
 
-		if (tileentity instanceof TileEntityShulkerBox)
+		if (world.getTileEntity(x, y, z) instanceof TileEntityShulkerBox)
 		{
-			ForgeDirection dir = ForgeDirection.getOrientation(((TileEntityShulkerBox) tileentity).facing);
-			boolean flag;
+			TileEntityShulkerBox shulker = (TileEntityShulkerBox) world.getTileEntity(x, y, z);
 
-			if (((TileEntityShulkerBox)tileentity).func_190591_p() == TileEntityShulkerBox.AnimationStatus.CLOSED)
+			if(!player.isSneaking() && player.getHeldItem() != null && player.getHeldItem().getItem() == ModItems.shulker_box_upgrade) {
+				ItemStack stack = player.getHeldItem();
+				String[] upgrades = ((ItemGeneric)player.getHeldItem().getItem()).types[stack.getItemDamage()].split("_");
+				if(upgrades[0].equals(shulker.type.toString().toLowerCase())) {
+					ItemStack[] tempCopy = shulker.chestContents == null ? new ItemStack[shulker.getSizeInventory()] : ArrayUtils.clone(shulker.chestContents);
+					shulker.type = ShulkerBoxType.valueOf(upgrades[1].toUpperCase());
+					shulker.chestContents = new ItemStack[shulker.getSizeInventory()];
+					for(int i = 0; i < tempCopy.length; i++) {
+						shulker.chestContents[i] = tempCopy[i];
+					}
+					shulker.touch();
+					if(!player.capabilities.isCreativeMode) {
+						stack.stackSize--;
+					}
+					world.markBlockForUpdate(x, y, z);
+					return true;
+				}
+			}
+			ForgeDirection dir = ForgeDirection.getOrientation(((TileEntityShulkerBox)shulker).facing);
+			boolean flag;
+			if (((TileEntityShulkerBox)shulker).func_190591_p() == TileEntityShulkerBox.AnimationStatus.CLOSED)
 			{
 				AxisAlignedBB axisalignedbb = AxisAlignedBB.getBoundingBox(x, y, z, x + 1, y + 1, z + 1)
 				.addCoord((double)(0.5F * (float)dir.offsetX), (double)(0.5F * (float)dir.offsetY), (double)(0.5F * (float)dir.offsetZ));
 				axisalignedbb.addCoord(-(double)dir.offsetX, -(double)dir.offsetY, -(double)dir.offsetZ);
 				
-				flag = canOpen(axisalignedbb, world, tileentity);
+				flag = canOpen(axisalignedbb, world, shulker);
 			}
 			else
 			{
@@ -396,7 +416,7 @@ public class BlockShulkerBox extends BlockContainer implements IConfigurable, IS
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubBlocks(Item item, CreativeTabs tab, List subItems) {
-		for (byte i = 0; i <= (ConfigBlocksItems.enableIronShulkerBoxes ? 7 : 0); i++) {
+		for (byte i = 0; i <= (ConfigBlocksItems.enableShulkerBoxesIronChest ? 7 : 0); i++) {
 			for (byte j = 0; j <= (ConfigBlocksItems.enableDyedShulkerBoxes ? 16 : 0); j++) {
 				
 				NBTTagCompound tag = new NBTTagCompound();
@@ -421,7 +441,7 @@ public class BlockShulkerBox extends BlockContainer implements IConfigurable, IS
 	
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z, EntityPlayer player)
 	{
-		ItemStack stack = new ItemStack(this, 1, damageDropped(world.getBlockMetadata(x, y, z)));
+		ItemStack stack = new ItemStack(this);
 		TileEntityShulkerBox box = (TileEntityShulkerBox) world.getTileEntity(x, y, z);
 		
 		if(box != null) {

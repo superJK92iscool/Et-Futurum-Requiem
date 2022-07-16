@@ -9,6 +9,7 @@ import org.spongepowered.asm.mixin.MixinEnvironment;
 import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
+import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.EtFuturumMixinPlugin;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.blocks.ExternalContent;

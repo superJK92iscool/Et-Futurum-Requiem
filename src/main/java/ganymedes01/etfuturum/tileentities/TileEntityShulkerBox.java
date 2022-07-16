@@ -50,6 +50,10 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 		type = ShulkerBoxType.VANILLA;
 	}
 	
+	public void touch() {
+		inventoryTouched = true;
+	}
+	
 	@Override
 	public int getSizeInventory()
 	{
@@ -70,10 +74,10 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 	public void readFromNBT(NBTTagCompound nbt)
 	{
 		super.readFromNBT(nbt);
+
+		this.type = ConfigBlocksItems.enableShulkerBoxesIronChest ? ShulkerBoxType.values()[nbt.getByte("Type")] : ShulkerBoxType.VANILLA;
 		
-		this.type = ShulkerBoxType.values()[nbt.getByte("Type")];
-		
-		if(this.chestContents == null) {
+		if(this.chestContents == null || this.chestContents.length != this.getSizeInventory()) {
 			this.chestContents = new ItemStack[this.getSizeInventory()];
 		}
 		
@@ -119,7 +123,9 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 
 		nbt.setByte("Type", (byte) type.ordinal());
 		
-		nbt.setTag("Items", Utils.writeItemStacksToNBT(this.chestContents));
+		if(chestContents != null) {
+			nbt.setTag("Items", Utils.writeItemStacksToNBT(this.chestContents));
+		}
 
 		nbt.setByte("Color", color);
 		nbt.setByte("Facing", facing);
@@ -345,7 +351,6 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 		brokenInCreative = player.capabilities.isCreativeMode;
 		return true;
 	}
-	
 	
 	public void onBlockDestroyed() {
 		if (destroyed) return;
@@ -626,7 +631,7 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 	{
 		if (this.blockMetadata == -1)
 		{
-			if(ConfigBlocksItems.enableIronShulkerBoxes) {
+			if(ConfigBlocksItems.enableShulkerBoxesIronChest) {
 				this.blockMetadata = this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord);
 			} else {
 				blockMetadata = 0;
@@ -744,7 +749,9 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 				{
 					if (tempCopy[j].isItemEqual(contents[i]))
 					{
-						tempCopy[j].stackSize += contents[i].stackSize;
+						if((tempCopy[j].stackSize += contents[i].stackSize) > 96) {
+							tempCopy[j].stackSize = 96;
+						}
 						continue mainLoop;
 					}
 				}

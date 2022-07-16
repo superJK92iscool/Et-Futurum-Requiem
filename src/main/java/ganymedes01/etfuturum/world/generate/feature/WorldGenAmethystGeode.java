@@ -139,7 +139,7 @@ public class WorldGenAmethystGeode extends WorldGenerator {
 	 */
 	private boolean isInvalidCorner(World world, int x, int y, int z) {
 		Block block = world.getBlock(x, y, z);
-		return world.canBlockSeeTheSky(x, y, z) && block.isAir(world, x, y, z) && !block.isOpaqueCube();
+		return world.canBlockSeeTheSky(x, y, z) || block.isAir(world, x, y, z) || !block.isOpaqueCube();
 	}
 	
 	private void placeAmethyst(World world, Random random, int x, int y, int z) {

@@ -835,12 +835,24 @@ public class ModRecipes {
 		}
 		
 		if(ConfigBlocksItems.enableShulkerBoxes) {
+			OreDictionary.registerOre("ingotSilver", ModItems.netherite_ingot);
 			addShapedRecipe(new ItemStack(ModBlocks.shulker_box), "x", "c", "x", 'x', new ItemStack(ModItems.shulker_shell), 'c', new ItemStack(Blocks.chest));
 			for(int i = 0; i < 16; i++) {
 				ItemStack output = new ItemStack(ModBlocks.shulker_box);
 				output.setTagCompound(new NBTTagCompound());
 				output.getTagCompound().setByte("Color", (byte)(i + 1));
 				GameRegistry.addRecipe(new RecipeDyedShulkerBox(output, new Object[] {ModBlocks.shulker_box, ore_dyes[(byte)((~i & 15))]}));
+			}
+			if(ConfigBlocksItems.enableShulkerBoxesIronChest) {
+				addShapedRecipe(new ItemStack(ModItems.shulker_box_upgrade, 1, 0), "XXX", "XYX", "XXX", 'X', "ingotIron", 'Y', ModItems.shulker_shell);
+				addShapedRecipe(new ItemStack(ModItems.shulker_box_upgrade, 1, 1), "XXX", "XYX", "XXX", 'X', "ingotCopper", 'Y', ModItems.shulker_shell);
+				addShapedRecipe(new ItemStack(ModItems.shulker_box_upgrade, 1, 2), "XYX", "XXX", "XXX", 'X', "ingotGold", 'Y', "ingotIron");
+				addShapedRecipe(new ItemStack(ModItems.shulker_box_upgrade, 1, 3), "GXG", "GYG", "GXG", 'X', "gemDiamond", 'Y', "ingotGold", 'G', "blockGlassColorless");
+				addShapedRecipe(new ItemStack(ModItems.shulker_box_upgrade, 1, 4), "XYX", "XXX", "XXX", 'X', Blocks.obsidian, 'Y', "blockGlassColorless");
+				addShapedRecipe(new ItemStack(ModItems.shulker_box_upgrade, 1, 5), "XYX", "XXX", "XXX", 'X', "blockGlassColorless", 'Y', Blocks.obsidian);
+				addShapedRecipe(new ItemStack(ModItems.shulker_box_upgrade, 1, 6), "GGG", "XYX", "XGX", 'X', "ingotIron", 'Y', "ingotCopper", 'G', "blockGlassColorless");
+				addShapedRecipe(new ItemStack(ModItems.shulker_box_upgrade, 1, 7), "XXX", "XYX", "XXX", 'X', "ingotSilver", 'Y', "ingotCopper");
+				addShapedRecipe(new ItemStack(ModItems.shulker_box_upgrade, 1, 8), "XYX", "GGG", "XGX", 'X', "ingotGold", 'Y', "ingotSilver", 'G', "blockGlassColorless");
 			}
 		}
 		

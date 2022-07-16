@@ -14,7 +14,7 @@ public class ItemGeneric extends Item {
 
 	@SideOnly(Side.CLIENT)
 	protected IIcon[] icons;
-	protected final String[] types;
+	public final String[] types;
 	protected boolean fromEtFuturum;
 
 	public ItemGeneric(String... types) {
