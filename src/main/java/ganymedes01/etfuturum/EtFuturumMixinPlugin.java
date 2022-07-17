@@ -31,6 +31,7 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 	
 	@Override
 	public void onLoad(String mixinPackage) {
+		System.out.println("test0");
 		final String configDir = "config" + File.separator + Reference.MOD_ID;
 		
 //      File from before Et Futurum Requiem (Not in a subdirectory)
@@ -149,16 +150,19 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 				mixins.add("elytra.client.MixinModelBiped");
 			}
 		}
+		System.out.println("test1");
 		
 		return mixins;
 	}
 
 	@Override
 	public void preApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo) {
+		System.out.println("test2");
 	}
 
 	@Override
 	public void postApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo) {
+		System.out.println("test3");
 	}
 
 }

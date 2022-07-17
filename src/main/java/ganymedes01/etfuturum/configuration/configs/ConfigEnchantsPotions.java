@@ -3,6 +3,7 @@ package ganymedes01.etfuturum.configuration.configs;
 import java.io.File;
 
 import ganymedes01.etfuturum.configuration.ConfigBase;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.common.config.Configuration;
 
@@ -37,11 +38,11 @@ public class ConfigEnchantsPotions extends ConfigBase {
 		
 		//enchants
 		enableFrostWalker = cfg.getBoolean("frostWalker", catEnchants, true, "");
-		frostWalkerID = cfg.getInt("frostWalkerID", catEnchants, 2000, 0, Short.MAX_VALUE, "");
+		frostWalkerID = cfg.getInt("frostWalkerID", catEnchants, 200, 0, 255, "");
 		enableMending = cfg.getBoolean("mending", catEnchants, true, "");
-		mendingID = cfg.getInt("mendingID", catEnchants, 2001, 0, Short.MAX_VALUE, "");
+		mendingID = cfg.getInt("mendingID", catEnchants, 201, 0, 255, "");
 		enableSwiftSneak = cfg.getBoolean("swiftSneak", catEnchants, true, "");
-		swiftSneakID = cfg.getInt("swiftSneakID", catEnchants, 2002, 0, Short.MAX_VALUE, "");
+		swiftSneakID = cfg.getInt("swiftSneakID", catEnchants, 202, 0, 255, "");
 		
 		//potions
 		levitationID  = cfg.getInt("levitationID", catPotions, 27, 0, Byte.MAX_VALUE, "Since this is essential for Shulkers, this is tied to Shulkers being enabled instead of having its own option.");

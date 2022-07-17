@@ -44,8 +44,6 @@ public class ElytraSound extends MovingSound {
 				this.volume = (float) (this.volume * ((this.field_189406_n - 20) / 20.0D));
 			}
 
-			float f2 = 0.8F;
-
 			if (this.volume > 0.8F) {
 				this.field_147663_c = 1.0F + (this.volume - 0.8F);
 			} else {
