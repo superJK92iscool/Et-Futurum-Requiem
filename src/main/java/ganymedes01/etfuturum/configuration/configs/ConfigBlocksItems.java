@@ -50,7 +50,6 @@ public class ConfigBlocksItems extends ConfigBase {
 	public static boolean enableTippedArrows;
 	public static boolean enableLingeringPotions;
 	public static boolean enableCryingObsidian;
-	public static boolean enableElytra;
 	public static boolean enableBrewingStands;
 	public static boolean enableColourfulBeacons;
 	public static boolean enableBarrel;
@@ -228,7 +227,6 @@ public class ConfigBlocksItems extends ConfigBase {
 		//Misc Items
 		enableMutton = cfg.getBoolean("enableMutton", catItemMisc, true, "");
 		enableBeetroot = cfg.getBoolean("enableBeetroot", catItemMisc, true, "");
-		enableElytra = cfg.getBoolean("enableElytra", catItemMisc, true, "");
 		enableIronNugget = cfg.getBoolean("enableIronNugget", catItemMisc, true, "");
 		enableTippedArrows = cfg.getBoolean("enableTippedArrows", catItemMisc, true, "");
 		enableLingeringPotions = cfg.getBoolean("enableLingeringPotions", catItemMisc, true, "");

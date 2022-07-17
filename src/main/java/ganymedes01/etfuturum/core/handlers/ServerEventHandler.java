@@ -172,7 +172,7 @@ public class ServerEventHandler {
 			event.entity.stepHeight = .6F;
 		}
 
-		if(ConfigBlocksItems.enableElytra && entity instanceof IElytraPlayer)
+		if(ConfigMixins.enableElytra && entity instanceof IElytraPlayer)
 			((IElytraPlayer)entity).tickElytra();
 	}
 	
@@ -528,7 +528,7 @@ public class ServerEventHandler {
 			ItemStack heldStack = player.getHeldItem();
 			World world = event.world;
 			//Firework boosting
-			if(ConfigBlocksItems.enableElytra && heldStack != null && heldStack.getItem() == Items.fireworks && ((IElytraPlayer)player).etfu$isElytraFlying()) {
+			if(ConfigMixins.enableElytra && heldStack != null && heldStack.getItem() == Items.fireworks && ((IElytraPlayer)player).etfu$isElytraFlying()) {
 				player.swingItem();
 				if(!world.isRemote) {
 					EntityBoostingFireworkRocket entityfireworkrocket = new EntityBoostingFireworkRocket(world, heldStack, player);
@@ -1185,7 +1185,7 @@ public class ServerEventHandler {
 
 	@SubscribeEvent
 	public void onElytraPostPlayerTick(TickEvent.PlayerTickEvent e) {
-		if (ConfigBlocksItems.enableElytra && e.phase == TickEvent.Phase.END) {
+		if (ConfigMixins.enableElytra && e.phase == TickEvent.Phase.END) {
 			boolean isElytraFlying = ((IElytraPlayer)e.player).etfu$isElytraFlying();
 			if (e.player instanceof EntityPlayerMP && isElytraFlying) {
 				((EntityPlayerMP)e.player).playerNetServerHandler.floatingTickCount = 0;
@@ -1216,7 +1216,7 @@ public class ServerEventHandler {
 
 	@SubscribeEvent
 	public void onPostWorldTick(TickEvent.WorldTickEvent e) {
-		if (ConfigBlocksItems.enableElytra && e.phase == TickEvent.Phase.END && e.world instanceof WorldServer) {
+		if (ConfigMixins.enableElytra && e.phase == TickEvent.Phase.END && e.world instanceof WorldServer) {
 			WorldServer ws = (WorldServer)e.world;
 			for (EntityTrackerEntry ete : (Set<EntityTrackerEntry>)ws.getEntityTracker().trackedEntities) {
 				if (ete.myEntity instanceof IElytraPlayer) {
@@ -1237,7 +1237,7 @@ public class ServerEventHandler {
 
 	@SubscribeEvent
 	public void onWorldLoad(WorldEvent.Load e) {
-		if(ConfigBlocksItems.enableElytra)
+		if(ConfigMixins.enableElytra)
 			e.world.getGameRules().addGameRule("disableElytraMovementCheck", "false");
 	}
 	

@@ -241,7 +241,7 @@ public class ClientProxy extends CommonProxy {
 		}
 		if (ConfigEntities.enableShearableSnowGolems)
 			RenderingRegistry.registerEntityRenderingHandler(EntityNewSnowGolem.class, new NewSnowGolemRenderer());
-		if (ConfigBlocksItems.enableElytra)
+		if (ConfigMixins.enableElytra)
 			RenderingRegistry.registerEntityRenderingHandler(EntityBoostingFireworkRocket.class, new RenderSnowball(Items.fireworks));
 	}
 }

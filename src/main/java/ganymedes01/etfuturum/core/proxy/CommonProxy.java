@@ -184,7 +184,7 @@ public class CommonProxy implements IGuiHandler {
 			ModEntityList.registerEntity(EntityNewBoatWithChest.class, "chest_boat", 19, EtFuturum.instance, 64, 1, true);
 		}
 
-		if(ConfigBlocksItems.enableElytra)
+		if(ConfigMixins.enableElytra)
 			ModEntityList.registerEntity(EntityBoostingFireworkRocket.class, "boosting_firework_rocket", 20, EtFuturum.instance, 64, 1, true);
 		
 		//make magmas slightly more common, hopefully.

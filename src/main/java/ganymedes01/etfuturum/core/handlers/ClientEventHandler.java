@@ -32,6 +32,7 @@ import ganymedes01.etfuturum.client.sound.NetherAmbienceSound;
 import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
+import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.entities.EntityNewBoatWithChest;
 import ganymedes01.etfuturum.lib.Reference;
@@ -451,7 +452,7 @@ public class ClientEventHandler {
 		Entity entity = event.entityLiving;
 		World world = entity.worldObj;
 
-		if (ConfigBlocksItems.enableElytra && entity instanceof EntityPlayerSP) {
+		if (ConfigMixins.enableElytra && entity instanceof EntityPlayerSP) {
 			IElytraPlayer e = (IElytraPlayer) entity;
 			if (e.etfu$isElytraFlying() && !e.etfu$lastElytraFlying()) {
 				Minecraft.getMinecraft().getSoundHandler().playSound(new ElytraSound((EntityPlayerSP) entity));
