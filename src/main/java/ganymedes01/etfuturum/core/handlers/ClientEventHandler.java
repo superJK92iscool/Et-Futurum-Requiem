@@ -457,7 +457,7 @@ public class ClientEventHandler {
 			if (e.etfu$isElytraFlying() && !e.etfu$lastElytraFlying()) {
 				Minecraft.getMinecraft().getSoundHandler().playSound(new ElytraSound((EntityPlayerSP) entity));
 			}
-			e.etfu$setLastElytraFlying(e.etfu$isElytraFlying());
+			/* lastElytraFlying is set by the shared handler in ServerEventHandler */
 		}
 		/*
 		 * The purpose of the function is to manifest sprint particles
