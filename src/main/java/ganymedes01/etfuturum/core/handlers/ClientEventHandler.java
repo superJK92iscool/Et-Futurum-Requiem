@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.WeakHashMap;
 
+import cpw.mods.fml.common.gameevent.TickEvent;
 import org.apache.commons.lang3.tuple.MutablePair;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
@@ -444,6 +445,26 @@ public class ClientEventHandler {
 				return Reference.MCv118 + ":block.fence_gate." + closeOrOpen;
 				
 		return string;
+	}
+
+	private float prevYOffset;
+	@SubscribeEvent
+	public void onRenderTick(TickEvent.RenderTickEvent event) {
+		if (!ConfigMixins.enableElytra)
+			return;
+		EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
+		if(!(player instanceof IElytraPlayer))
+			return;
+		if(((IElytraPlayer)player).etfu$isElytraFlying()) {
+			if(event.phase == Phase.START) {
+				prevYOffset = player.yOffset;
+				/* TODO find the right number here */
+				if(Minecraft.getMinecraft().gameSettings.thirdPersonView == 0)
+					player.yOffset = 3.02f;
+			} else {
+				player.yOffset = prevYOffset;
+			}
+		}
 	}
 	
 	@SubscribeEvent
