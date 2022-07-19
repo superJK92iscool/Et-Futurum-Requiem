@@ -4,6 +4,7 @@ import com.mojang.authlib.GameProfile;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.api.elytra.IElytraPlayer;
+import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.items.ItemArmorElytra;
 import ganymedes01.etfuturum.network.StartElytraFlyingMessage;
 import net.minecraft.client.entity.AbstractClientPlayer;
@@ -28,7 +29,7 @@ public abstract class MixinEntityPlayerSP extends AbstractClientPlayer {
 
     @Inject(method = "onLivingUpdate", at = @At("TAIL"))
     private void startElytraFlying(CallbackInfo ci) {
-        if (this.movementInput.jump && !etfu$lastIsJumping && !this.onGround && this.motionY < 0.0D && !((IElytraPlayer)this).etfu$isElytraFlying() && !this.capabilities.isFlying) {
+         if (this.movementInput.jump && !etfu$lastIsJumping && !this.onGround && (ConfigMixins.enableNewElytraTakeoffLogic || this.motionY < 0.0D) && !((IElytraPlayer)this).etfu$isElytraFlying() && !this.capabilities.isFlying) {
             ItemStack itemstack = this.getEquipmentInSlot(3);
 
             if (itemstack != null && itemstack.getItem() == ModItems.elytra && !ItemArmorElytra.isBroken(itemstack)) {

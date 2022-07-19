@@ -27,6 +27,7 @@ public class ConfigMixins extends ConfigBase {
 	public static boolean avoidDroppingItemsWhenClosing;
 	public static boolean enableSpectatorMode;
 	public static boolean enableElytra;
+	public static boolean enableNewElytraTakeoffLogic;
 	
 	public ConfigMixins(File file) {
 		super(file);
@@ -53,7 +54,9 @@ public class ConfigMixins extends ConfigBase {
 		avoidDroppingItemsWhenClosing = cfg.getBoolean("avoidDroppingItemsWhenClosing", catBackport, false, "Experimental: avoid dropping items when closing an inventory, like in modern versions.\nModified Classes: net.minecraft.entity.player.EntityPlayerMP");
 		enableSpectatorMode = cfg.getBoolean("enableSpectatorMode", catBackport, true, "VERY EXPERIMENTAL!\nModified Classes: net.minecraft.world.WorldSettings.GameType net.minecraft.entity.Entity net.minecraft.world.World net.minecraft.entity.player.EntityPlayer net.minecraft.network.NetHandlerPlayServer\nModified Client Classes: net.minecraft.client.renderer.EntityRenderer net.minecraft.entity.player.EntityPlayer net.minecraft.client.renderer.WorldRenderer");
 		enableElytra = cfg.getBoolean("enableElytra", catBackport, true, "Enables the elytra item.\nModified Classes: net.minecraft.entity.EntityLivingBase net.minecraft.entity.player.EntityPlayer net.minecraft.entity.EntityTrackerEntry net.minecraft.network.NetHandlerPlayServer net.minecraft.client.entity.AbstractClientPlayer net.minecraft.client.entity.EntityPlayerSP net.minecraft.client.model.ModelBiped net.minecraft.client.renderer.entity.RenderPlayer");
-		
+		enableNewElytraTakeoffLogic = cfg.getBoolean("enableNewElytraTakeoffLogic", catBackport, true, "When enabled, the 1.15+ elytra takeoff logic is used, when disabled, the 1.9-1.14 elytra takeoff logic is used.");
+
+
 		stepHeightFix = cfg.getBoolean("stepHeightFix", catFixes, true, "Makes the player able to step up even if a block would be above their head at the destination.\nModified classes: net.minecraft.entity.Entity");
 	}
 	

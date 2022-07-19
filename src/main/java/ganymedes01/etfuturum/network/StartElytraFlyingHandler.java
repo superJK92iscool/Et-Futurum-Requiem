@@ -5,6 +5,7 @@ import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.api.elytra.IElytraPlayer;
+import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.items.ItemArmorElytra;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -14,7 +15,7 @@ public class StartElytraFlyingHandler implements IMessageHandler<StartElytraFlyi
     @Override
     public IMessage onMessage(StartElytraFlyingMessage message, MessageContext ctx) {
         EntityPlayer player = ((NetHandlerPlayServer)ctx.netHandler).playerEntity;
-        if (!player.onGround && player.motionY < 0.0D && !((IElytraPlayer)player).etfu$isElytraFlying() && !player.isInWater()) {
+        if (!player.onGround && (ConfigMixins.enableNewElytraTakeoffLogic || player.motionY < 0.0D) && !((IElytraPlayer)player).etfu$isElytraFlying() && !player.isInWater()) {
             ItemStack itemstack = player.getEquipmentInSlot(3);
 
             if (itemstack != null && itemstack.getItem() == ModItems.elytra && !ItemArmorElytra.isBroken(itemstack)) {
