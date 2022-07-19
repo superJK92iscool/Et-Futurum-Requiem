@@ -27,7 +27,7 @@ public class MixinRenderPlayer {
                 if (d0 > 0.0D && d1 > 0.0D) {
                     double d2 = (player.motionX * vec3d.xCoord + player.motionZ * vec3d.zCoord) / (Math.sqrt(d0) * Math.sqrt(d1));
                     double d3 = player.motionX * vec3d.zCoord - player.motionZ * vec3d.xCoord;
-                    GL11.glRotatef((float) (Math.signum(d3) * Math.acos(d2)) * 180.0F / (float) Math.PI, 0.0F, 1.0F, 0.0F);
+                    GL11.glRotatef((float) (Math.signum(d3) * Math.acos(Math.min(d2, 1))) * 180.0F / (float) Math.PI, 0.0F, 1.0F, 0.0F);
                 }
             }
         }
