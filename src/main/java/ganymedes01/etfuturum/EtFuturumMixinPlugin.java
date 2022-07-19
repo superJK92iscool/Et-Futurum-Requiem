@@ -147,6 +147,7 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 				mixins.add("elytra.client.MixinEntityPlayerSP");
 				mixins.add("elytra.client.MixinRenderPlayer");
 				mixins.add("elytra.client.MixinModelBiped");
+				mixins.add("elytra.client.MixinEntityRenderer");
 			}
 		}
 		
