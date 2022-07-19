@@ -7,7 +7,9 @@ import java.util.Map;
 import java.util.Random;
 import java.util.WeakHashMap;
 
+import cpw.mods.fml.common.gameevent.InputEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
+import net.minecraft.client.gui.GuiScreen;
 import org.apache.commons.lang3.tuple.MutablePair;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
@@ -97,6 +99,32 @@ public class ClientEventHandler {
 	int ticksToNextAmbience = rand.nextInt(80) + 1;
 	@SideOnly(Side.CLIENT)
 	BiomeGenBase ambienceBiome = null;
+
+	private boolean wasShowingDebugInfo, wasShowingProfiler;
+	private boolean pressedF3;
+	private boolean eligibleForDebugInfoSwap = false;
+
+	@SubscribeEvent
+	@SideOnly(Side.CLIENT)
+	public void onKeyInput(InputEvent.KeyInputEvent event) {
+		if(ConfigFunctions.enableNewF3Behavior) {
+			Minecraft mc = FMLClientHandler.instance().getClient();
+			if(Keyboard.getEventKey() == Keyboard.KEY_F3) {
+				pressedF3 = Keyboard.getEventKeyState();
+				if(pressedF3)
+					eligibleForDebugInfoSwap = true;
+				if(!pressedF3 && eligibleForDebugInfoSwap) {
+					mc.gameSettings.showDebugInfo = !mc.gameSettings.showDebugInfo;
+					mc.gameSettings.showDebugProfilerChart = GuiScreen.isShiftKeyDown();
+				}
+			} else if(Keyboard.getEventKeyState()) {
+				/* Another key changed states besides F3 */
+				int key = Keyboard.getEventKey();
+				if(key != Keyboard.KEY_LSHIFT && key != Keyboard.KEY_RSHIFT)
+					eligibleForDebugInfoSwap = false;
+			}
+		}
+	}
 	
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
@@ -164,6 +192,13 @@ public class ClientEventHandler {
 				mc.displayGuiScreen(new GuiGamemodeSwitcher());
 			}
 		}
+
+		if(ConfigFunctions.enableNewF3Behavior && mc.gameSettings.showDebugInfo != wasShowingDebugInfo && Keyboard.isKeyDown(Keyboard.KEY_F3)) {
+			mc.gameSettings.showDebugInfo = wasShowingDebugInfo;
+			mc.gameSettings.showDebugProfilerChart = wasShowingProfiler;
+		}
+		wasShowingDebugInfo = mc.gameSettings.showDebugInfo;
+		wasShowingProfiler = mc.gameSettings.showDebugProfilerChart;
 	}
 	private String getStringFor(BiomeGenBase biome) {
 		if(biome == null)
