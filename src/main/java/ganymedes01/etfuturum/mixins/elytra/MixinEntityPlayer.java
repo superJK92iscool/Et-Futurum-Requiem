@@ -7,6 +7,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.PlayerCapabilities;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -102,5 +103,16 @@ public abstract class MixinEntityPlayer extends EntityLivingBase implements IEly
     @Override
     public void etfu$setLastElytraFlying(boolean flag) {
         etfu$lastElytraFlying = flag;
+    }
+
+    @Inject(method = "writeEntityToNBT", at = @At("TAIL"))
+    private void writeElytra(NBTTagCompound p_70014_1_, CallbackInfo ci) {
+        p_70014_1_.setBoolean("FallFlying", etfu$isElytraFlying());
+    }
+
+    @Inject(method = "readEntityFromNBT", at = @At("TAIL"))
+    private void readElytra(NBTTagCompound p_70014_1_, CallbackInfo ci) {
+        if(p_70014_1_.getBoolean("FallFlying"))
+            etfu$setElytraFlying(true);
     }
 }
