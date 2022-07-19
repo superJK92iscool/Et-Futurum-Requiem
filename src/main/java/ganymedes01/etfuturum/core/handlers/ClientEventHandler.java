@@ -89,6 +89,8 @@ public class ClientEventHandler {
 	 */
 	private static final Map<Entity, MutablePair<Float, Integer>> amethystChimeCache = new WeakHashMap();
 
+	private static final boolean forceHideSnapshotWarning = Boolean.parseBoolean(System.getProperty("etfuturum.hideSnapshotWarning"));
+
 	
 	private ClientEventHandler() {
 	}
@@ -141,9 +143,13 @@ public class ClientEventHandler {
 		if(!showedDebugWarning && player.ticksExisted == 40) {
 			String buildVer = Reference.BUILD_VERSION.toLowerCase();
 			if(buildVer.contains("snapshot") || buildVer.contains("beta") || buildVer.contains("rc")) {
-				ChatComponentText text = new ChatComponentText("\u00a7c\u00a7l[Debug]: \u00a7rYou are using a pre-release version of \u00a7bEt \u00a7bFuturum \u00a7bRequiem\u00a7r. This version might not be stable, click here to go to GitHub to report bugs.");
-				text.getChatStyle().setChatClickEvent(new ClickEvent(Action.OPEN_URL, "https://github.com/Roadhog360/Et-Futurum-Requiem/issues"));
-				player.addChatComponentMessage(text);
+				if(!forceHideSnapshotWarning) {
+					ChatComponentText text = new ChatComponentText("\u00a7c\u00a7l[Debug]: \u00a7rYou are using a pre-release version of \u00a7bEt \u00a7bFuturum \u00a7bRequiem\u00a7r. This version might not be stable, click here to go to GitHub to report bugs.");
+					text.getChatStyle().setChatClickEvent(new ClickEvent(Action.OPEN_URL, "https://github.com/Roadhog360/Et-Futurum-Requiem/issues"));
+					player.addChatComponentMessage(text);
+				} else {
+					System.err.println("NOTE: a snapshot version of Et Futurum is in use");
+				}
 			}
 			showedDebugWarning = true;
 		}
