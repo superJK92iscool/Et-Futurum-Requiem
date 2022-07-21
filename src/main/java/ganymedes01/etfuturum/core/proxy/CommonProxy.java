@@ -21,7 +21,27 @@ import ganymedes01.etfuturum.configuration.configs.ConfigTweaks;
 import ganymedes01.etfuturum.core.handlers.ServerEventHandler;
 import ganymedes01.etfuturum.core.handlers.WorldEventHandler;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.entities.*;
+import ganymedes01.etfuturum.entities.EntityArmourStand;
+import ganymedes01.etfuturum.entities.EntityBoostingFireworkRocket;
+import ganymedes01.etfuturum.entities.EntityBrownMooshroom;
+import ganymedes01.etfuturum.entities.EntityEndermite;
+import ganymedes01.etfuturum.entities.EntityHusk;
+import ganymedes01.etfuturum.entities.EntityItemUninflammable;
+import ganymedes01.etfuturum.entities.EntityLingeringEffect;
+import ganymedes01.etfuturum.entities.EntityLingeringPotion;
+import ganymedes01.etfuturum.entities.EntityNewBoat;
+import ganymedes01.etfuturum.entities.EntityNewBoatSeat;
+import ganymedes01.etfuturum.entities.EntityNewBoatWithChest;
+import ganymedes01.etfuturum.entities.EntityNewSnowGolem;
+import ganymedes01.etfuturum.entities.EntityPlacedEndCrystal;
+import ganymedes01.etfuturum.entities.EntityRabbit;
+import ganymedes01.etfuturum.entities.EntityRespawnedDragon;
+import ganymedes01.etfuturum.entities.EntityShulker;
+import ganymedes01.etfuturum.entities.EntityShulkerBullet;
+import ganymedes01.etfuturum.entities.EntityStray;
+import ganymedes01.etfuturum.entities.EntityTippedArrow;
+import ganymedes01.etfuturum.entities.EntityZombieVillager;
+import ganymedes01.etfuturum.entities.ModEntityList;
 import ganymedes01.etfuturum.inventory.ContainerAnvil;
 import ganymedes01.etfuturum.inventory.ContainerBlastFurnace;
 import ganymedes01.etfuturum.inventory.ContainerChestGeneric;
@@ -33,6 +53,7 @@ import ganymedes01.etfuturum.spectator.SpectatorMode;
 import ganymedes01.etfuturum.tileentities.TileEntityBanner;
 import ganymedes01.etfuturum.tileentities.TileEntityBarrel;
 import ganymedes01.etfuturum.tileentities.TileEntityBlastFurnace;
+import ganymedes01.etfuturum.tileentities.TileEntityCauldronPotion;
 import ganymedes01.etfuturum.tileentities.TileEntityGateway;
 import ganymedes01.etfuturum.tileentities.TileEntityNewBeacon;
 import ganymedes01.etfuturum.tileentities.TileEntityNewBrewingStand;
@@ -99,8 +120,10 @@ public class CommonProxy implements IGuiHandler {
 		//Come back to
 			GameRegistry.registerTileEntity(TileEntityGateway.class, Utils.getUnlocalisedName("end_gateway"));
 
-			//Come back to
+		if(ConfigBlocksItems.enableShulkerBoxes)
 			GameRegistry.registerTileEntity(TileEntityShulkerBox.class, Utils.getUnlocalisedName("shulker_box"));
+		
+		GameRegistry.registerTileEntity(TileEntityCauldronPotion.class, Utils.getUnlocalisedName("potion_cauldron"));
 		
 		if (ConfigEntities.enableRabbit) {
 			ModEntityList.registerEntity(EntityRabbit.class, "rabbit", 3, EtFuturum.instance, 80, 3, true, 0x995F40, 0x734831);

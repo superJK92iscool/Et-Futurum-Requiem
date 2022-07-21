@@ -10,12 +10,12 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.client.model.ModelShulker;
-import ganymedes01.etfuturum.client.model.ModelTechnobladeCrown;
 import ganymedes01.etfuturum.client.renderer.block.BlockAmethystClusterRenderer;
 import ganymedes01.etfuturum.client.renderer.block.BlockBarrelRenderer;
 import ganymedes01.etfuturum.client.renderer.block.BlockChestRenderer;
 import ganymedes01.etfuturum.client.renderer.block.BlockChorusFlowerRender;
 import ganymedes01.etfuturum.client.renderer.block.BlockChorusPlantRender;
+import ganymedes01.etfuturum.client.renderer.block.BlockColoredWaterCauldronRenderer;
 import ganymedes01.etfuturum.client.renderer.block.BlockComposterRenderer;
 import ganymedes01.etfuturum.client.renderer.block.BlockDoorRenderer;
 import ganymedes01.etfuturum.client.renderer.block.BlockEndRodRender;
@@ -41,7 +41,6 @@ import ganymedes01.etfuturum.client.renderer.entity.RabbitRenderer;
 import ganymedes01.etfuturum.client.renderer.entity.ShulkerBulletRenderer;
 import ganymedes01.etfuturum.client.renderer.entity.ShulkerRenderer;
 import ganymedes01.etfuturum.client.renderer.entity.StrayOverlayRenderer;
-import ganymedes01.etfuturum.client.renderer.entity.StrayRenderer;
 import ganymedes01.etfuturum.client.renderer.entity.TechnobladeCrownRenderer;
 import ganymedes01.etfuturum.client.renderer.entity.VillagerZombieRenderer;
 import ganymedes01.etfuturum.client.renderer.item.ItemBannerRenderer;
@@ -61,7 +60,22 @@ import ganymedes01.etfuturum.configuration.configs.ConfigEntities;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.core.handlers.ClientEventHandler;
-import ganymedes01.etfuturum.entities.*;
+import ganymedes01.etfuturum.entities.EntityArmourStand;
+import ganymedes01.etfuturum.entities.EntityBoostingFireworkRocket;
+import ganymedes01.etfuturum.entities.EntityBrownMooshroom;
+import ganymedes01.etfuturum.entities.EntityEndermite;
+import ganymedes01.etfuturum.entities.EntityHusk;
+import ganymedes01.etfuturum.entities.EntityLingeringEffect;
+import ganymedes01.etfuturum.entities.EntityLingeringPotion;
+import ganymedes01.etfuturum.entities.EntityNewBoat;
+import ganymedes01.etfuturum.entities.EntityNewBoatWithChest;
+import ganymedes01.etfuturum.entities.EntityNewSnowGolem;
+import ganymedes01.etfuturum.entities.EntityPlacedEndCrystal;
+import ganymedes01.etfuturum.entities.EntityRabbit;
+import ganymedes01.etfuturum.entities.EntityShulker;
+import ganymedes01.etfuturum.entities.EntityShulkerBullet;
+import ganymedes01.etfuturum.entities.EntityStray;
+import ganymedes01.etfuturum.entities.EntityZombieVillager;
 import ganymedes01.etfuturum.spectator.SpectatorModeClient;
 import ganymedes01.etfuturum.tileentities.TileEntityBanner;
 import ganymedes01.etfuturum.tileentities.TileEntityGateway;
@@ -178,6 +192,7 @@ public class ClientProxy extends CommonProxy {
 		
 		{
 			RenderingRegistry.registerBlockHandler(new BlockPointedDripstoneRenderer());
+			RenderingRegistry.registerBlockHandler(new BlockColoredWaterCauldronRenderer());
 		}
 		
 		RenderingRegistry.registerBlockHandler(new BlockChestRenderer());

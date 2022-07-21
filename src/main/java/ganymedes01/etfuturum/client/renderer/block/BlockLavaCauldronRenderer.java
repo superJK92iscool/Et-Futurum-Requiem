@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.client.renderer.block;
 
-import org.lwjgl.opengl.GL11;
-
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.Block;
@@ -15,7 +13,6 @@ public class BlockLavaCauldronRenderer implements ISimpleBlockRenderingHandler {
 
 	@Override
 	public void renderInventoryBlock(Block block, int metadata, int modelId, RenderBlocks renderer) {
-		GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
 	}
 
 	@Override
