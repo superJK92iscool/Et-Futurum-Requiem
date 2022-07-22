@@ -35,6 +35,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.api.waila.WailaRegistrar;
+import ganymedes01.etfuturum.client.DynamicResourcePack;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
@@ -352,6 +353,8 @@ public class EtFuturum {
 		GameRegistry.registerWorldGenerator(EtFuturumLateWorldGenerator.INSTANCE, Integer.MAX_VALUE);
 		
 		OceanMonument.makeMap();
+		
+		DynamicResourcePack.inject();
 
 		NetworkRegistry.INSTANCE.registerGuiHandler(instance, proxy);
 		networkWrapper = NetworkRegistry.INSTANCE.newSimpleChannel(Reference.MOD_ID);

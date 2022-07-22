@@ -7,7 +7,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModBlocks.ISubBlocksBlock;
-import ganymedes01.etfuturum.client.GrayscaleIcon;
+import ganymedes01.etfuturum.client.DynamicResourcePack;
 import ganymedes01.etfuturum.client.InterpolatedIcon;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.RenderIDs;
@@ -28,6 +28,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
 public class BlockPotionCauldron extends BlockContainer implements ISubBlocksBlock, IConfigurable {
@@ -114,10 +115,7 @@ public class BlockPotionCauldron extends BlockContainer implements ISubBlocksBlo
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister p_149651_1_)
 	{
-		blockIcon = new GrayscaleIcon("water_still");
-		if(p_149651_1_ instanceof TextureMap) {
-			((TextureMap)p_149651_1_).setTextureEntry(blockIcon.getIconName(), (GrayscaleIcon)blockIcon);
-		}
+		blockIcon = p_149651_1_.registerIcon(DynamicResourcePack.createGrayscaleName("water_still"));
 	}
     
     /**
