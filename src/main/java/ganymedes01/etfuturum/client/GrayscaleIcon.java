@@ -27,7 +27,7 @@ public class GrayscaleIcon extends TextureAtlasSprite {
     		int[] originalImage = original[mipMapLevelMaybe];
     		int[] image = copy[mipMapLevelMaybe] = new int[originalImage.length];
 			for(int i = 0; i < image.length; i++) {
-				int a = originalImage[i] >> 25 & 0xFF;
+				int a = originalImage[i] >> 24 & 0xFF;
                 int r = originalImage[i] >> 16 & 0xFF;
                 int g = originalImage[i] >>  8 & 0xFF;
                 int b = originalImage[i] >>  0 & 0xFF;
