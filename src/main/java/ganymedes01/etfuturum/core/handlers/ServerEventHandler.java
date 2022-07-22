@@ -1195,18 +1195,14 @@ public class ServerEventHandler {
 				float f1 = isElytraFlying ? 0.6f : 1.8f;
 
 				if (f != e.player.width || f1 != e.player.height) {
-					AxisAlignedBB axisalignedbb = e.player.boundingBox;
-					axisalignedbb = AxisAlignedBB.getBoundingBox(axisalignedbb.minX, axisalignedbb.minY, axisalignedbb.minZ, axisalignedbb.minX + f, axisalignedbb.minY + f1, axisalignedbb.minZ + f);
+					// Always reset hitbox. For future reference, Backlytra used world.func_147461_a to check that there was nothing in the bounding box.
+					float f2 = e.player.width;
+					e.player.width = f;
+					e.player.height = f1;
+					e.player.boundingBox.setBounds(e.player.boundingBox.minX, e.player.boundingBox.minY, e.player.boundingBox.minZ, e.player.boundingBox.minX + e.player.width, e.player.boundingBox.minY + e.player.height, e.player.boundingBox.minZ + e.player.width);
 
-					if (e.player.worldObj.func_147461_a(axisalignedbb).isEmpty()) {
-						float f2 = e.player.width;
-						e.player.width = f;
-						e.player.height = f1;
-						e.player.boundingBox.setBounds(e.player.boundingBox.minX, e.player.boundingBox.minY, e.player.boundingBox.minZ, e.player.boundingBox.minX + e.player.width, e.player.boundingBox.minY + e.player.height, e.player.boundingBox.minZ + e.player.width);
-
-						if (e.player.width > f2 && !e.player.worldObj.isRemote) {
-							e.player.moveEntity(f2 - e.player.width, 0.0D, f2 - e.player.width);
-						}
+					if (e.player.width > f2 && !e.player.worldObj.isRemote) {
+						e.player.moveEntity(f2 - e.player.width, 0.0D, f2 - e.player.width);
 					}
 				}
 				((IElytraPlayer)e.player).etfu$setLastElytraFlying(isElytraFlying);
