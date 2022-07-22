@@ -1,35 +1,53 @@
 package ganymedes01.etfuturum.client;
 
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.data.AnimationMetadataSection;
+import net.minecraft.client.resources.IResourceManager;
+import net.minecraft.util.ResourceLocation;
 
+/** Creates a grayscale copy of the texture with the provided name called {originalName}_gray. */
 public class GrayscaleIcon extends TextureAtlasSprite {
 
-	public GrayscaleIcon(String p_i1282_1_) {
-		super(p_i1282_1_);
+	private final String originalName;
+	
+	public GrayscaleIcon(String name) {
+		super(name + "_gray");
+		originalName = name;
 	}
-
-
-	//Note for makamys
-	//Even if you comment out this code entirely it still happens, doubt it's specifically the class, I may have registered it wrong.
-	//To place a potion cauldron: /setblock ~ ~ ~ etfuturum:potion_cauldron 1 false {potionID:3}
-	//You can replace the 3 potionID with any potion ID you want.
-    public void loadSprite(BufferedImage[] p_147964_1_, AnimationMetadataSection p_147964_2_, boolean p_147964_3_)
-    {
-    	super.loadSprite(p_147964_1_, p_147964_2_, p_147964_3_);
-    	for(int[][] colorFrameData : (ArrayList<int[][]>)framesTextureData) {
-    		for(int[] frame : colorFrameData) {
-    			for(int colorData : frame) {
-                    int r = colorData >> 16 & 255;
-                    int g = colorData >> 8 & 255;
-                    int b = colorData >> 0 & 255;
-                    r = g = b = (r+g+b)/3;
-                    colorData = r << 16 | g << 8 | b;
-    			}
-    		}
+    
+    @Override
+    public boolean hasCustomLoader(IResourceManager manager, ResourceLocation location) {
+    	return true;
+    }
+    
+    private int[][] createGrayscaleCopyOfFrame(int[][] original) {
+    	int[][] copy = new int[original.length][];
+    	
+    	for(int mipMapLevelMaybe = 0; mipMapLevelMaybe < original.length; mipMapLevelMaybe++) {
+    		int[] originalImage = original[mipMapLevelMaybe];
+    		int[] image = copy[mipMapLevelMaybe] = new int[originalImage.length];
+			for(int i = 0; i < image.length; i++) {
+				int a = originalImage[i] >> 25 & 0xFF;
+                int r = originalImage[i] >> 16 & 0xFF;
+                int g = originalImage[i] >>  8 & 0xFF;
+                int b = originalImage[i] >>  0 & 0xFF;
+                r = g = b = (r+g+b)/3;
+				image[i] = a << 24 | r << 16 | g << 8 | b;
+			}
     	}
+    	
+    	return copy;
+    }
+    
+    @Override
+    public boolean load(IResourceManager manager, ResourceLocation location) {
+    	TextureAtlasSprite original = Minecraft.getMinecraft().getTextureMapBlocks().getTextureExtry(originalName);
+    	this.copyFrom(original);
+    	this.animationMetadata = original.animationMetadata;
+    	for(int i = 0; i < original.getFrameCount(); i++) {
+    		this.framesTextureData.add(createGrayscaleCopyOfFrame(original.getFrameTextureData(i)));
+    	}
+    	
+    	return false;
     }
 }

@@ -31,7 +31,12 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
 public class BlockPotionCauldron extends BlockContainer implements ISubBlocksBlock, IConfigurable {
-
+	
+	/* Testing:
+	* To place a potion cauldron: /setblock ~ ~ ~ etfuturum:potion_cauldron 1 false {potionID:3}
+	* You can replace the 3 potionID with any potion ID you want.
+	* */
+	
 	public BlockPotionCauldron() {
 		super(Material.iron);
 		this.setStepSound(Blocks.cauldron.stepSound);
@@ -111,7 +116,7 @@ public class BlockPotionCauldron extends BlockContainer implements ISubBlocksBlo
 	{
 		blockIcon = new GrayscaleIcon("water_still");
 		if(p_149651_1_ instanceof TextureMap) {
-			((TextureMap)p_149651_1_).setTextureEntry("water_still", (GrayscaleIcon)blockIcon);
+			((TextureMap)p_149651_1_).setTextureEntry(blockIcon.getIconName(), (GrayscaleIcon)blockIcon);
 		}
 	}
     
