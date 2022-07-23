@@ -45,8 +45,21 @@ public class ModRecipes {
 
 	public static final String[] ore_dyes = new String[] { "dyeBlack", "dyeRed", "dyeGreen", "dyeBrown", "dyeBlue", "dyePurple", "dyeCyan", "dyeLightGray", "dyeGray", "dyePink", "dyeLime", "dyeYellow", "dyeLightBlue", "dyeMagenta", "dyeOrange", "dyeWhite" };
 	public static final String[] dye_names = new String[] { "white", "orange", "magenta", "light_blue", "yellow", "lime", "pink", "gray", "light_gray", "cyan", "purple", "blue", "brown", "green", "red", "black"};
-	
-	
+
+	public static final Map<Item, Item> smithingRecipeMap = new HashMap<>();
+
+	static {
+		smithingRecipeMap.put(Items.diamond_shovel, ModItems.netherite_spade);
+		smithingRecipeMap.put(Items.diamond_sword, ModItems.netherite_sword);
+		smithingRecipeMap.put(Items.diamond_axe, ModItems.netherite_axe);
+		smithingRecipeMap.put(Items.diamond_pickaxe, ModItems.netherite_pickaxe);
+		smithingRecipeMap.put(Items.diamond_hoe, ModItems.netherite_hoe);
+		smithingRecipeMap.put(Items.diamond_helmet, ModItems.netherite_helmet);
+		smithingRecipeMap.put(Items.diamond_chestplate, ModItems.netherite_chestplate);
+		smithingRecipeMap.put(Items.diamond_leggings, ModItems.netherite_leggings);
+		smithingRecipeMap.put(Items.diamond_boots, ModItems.netherite_boots);
+	}
+
 	public static void init() {
 		if (ConfigBlocksItems.enableBanners) {
 			RecipeSorter.register(Reference.MOD_ID + ".RecipeDuplicatePattern", RecipeDuplicatePattern.class, Category.SHAPELESS, "after:minecraft:shapeless");

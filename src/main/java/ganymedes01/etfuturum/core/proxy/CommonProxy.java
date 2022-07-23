@@ -8,12 +8,7 @@ import cpw.mods.fml.common.network.IGuiHandler;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.client.gui.inventory.GuiAnvil;
-import ganymedes01.etfuturum.client.gui.inventory.GuiBlastFurnace;
-import ganymedes01.etfuturum.client.gui.inventory.GuiEnchantment;
-import ganymedes01.etfuturum.client.gui.inventory.GuiNewBrewingStand;
-import ganymedes01.etfuturum.client.gui.inventory.GuiShulkerBox;
-import ganymedes01.etfuturum.client.gui.inventory.GuiSmoker;
+import ganymedes01.etfuturum.client.gui.inventory.*;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigEntities;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
@@ -42,12 +37,7 @@ import ganymedes01.etfuturum.entities.EntityStray;
 import ganymedes01.etfuturum.entities.EntityTippedArrow;
 import ganymedes01.etfuturum.entities.EntityZombieVillager;
 import ganymedes01.etfuturum.entities.ModEntityList;
-import ganymedes01.etfuturum.inventory.ContainerAnvil;
-import ganymedes01.etfuturum.inventory.ContainerBlastFurnace;
-import ganymedes01.etfuturum.inventory.ContainerChestGeneric;
-import ganymedes01.etfuturum.inventory.ContainerEnchantment;
-import ganymedes01.etfuturum.inventory.ContainerNewBrewingStand;
-import ganymedes01.etfuturum.inventory.ContainerSmoker;
+import ganymedes01.etfuturum.inventory.*;
 import ganymedes01.etfuturum.lib.GUIsID;
 import ganymedes01.etfuturum.spectator.SpectatorMode;
 import ganymedes01.etfuturum.tileentities.TileEntityBanner;
@@ -234,8 +224,9 @@ public class CommonProxy implements IGuiHandler {
 				return new ContainerBlastFurnace(player.inventory, (TileEntityBlastFurnace) world.getTileEntity(x, y, z));
 			case GUIsID.SHULKER_BOX:
 				return new ContainerChestGeneric(player.inventory, (TileEntityShulkerBox) world.getTileEntity(x, y, z), ((TileEntityShulkerBox) world.getTileEntity(x, y, z)).getRowSize(), ((TileEntityShulkerBox) world.getTileEntity(x, y, z)).getSizeInventory() != 27);
-			default:
-				return null;
+			case GUIsID.SMITHING_TABLE:
+				return new ContainerSmithingTable(player.inventory, world);
+			default: return null;
 		}
 	}
 	
@@ -256,6 +247,8 @@ public class CommonProxy implements IGuiHandler {
 				return new GuiBlastFurnace(player.inventory, (TileEntityBlastFurnace) world.getTileEntity(x, y, z));
 			case GUIsID.SHULKER_BOX:
 				return new GuiShulkerBox(player.inventory, (TileEntityShulkerBox) world.getTileEntity(x, y, z));
+			case GUIsID.SMITHING_TABLE:
+				return new GuiSmithingTable(new ContainerSmithingTable(player.inventory, world));
 			default:
 				return null;
 		}
