@@ -82,7 +82,7 @@ public class EtFuturumWorldListener implements IWorldAccess {
 			}
 		}
 		
-		world.setBlock(x, y, z, replacement);
+		world.setBlock(x, y, z, replacement, world.getBlockMetadata(x, y, z), 3);
 		TileEntity newTile = world.getTileEntity(x, y, z);
 		if(newTile != null) {
 			newTile.readFromNBT(nbt);

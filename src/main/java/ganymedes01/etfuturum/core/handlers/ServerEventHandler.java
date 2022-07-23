@@ -92,6 +92,7 @@ import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemHoe;
+import net.minecraft.item.ItemPotion;
 import net.minecraft.item.ItemShears;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
@@ -698,6 +699,12 @@ public class ServerEventHandler {
 								event.setResult(Result.DENY);
 								event.setCanceled(true);
 							}
+						}
+						
+						//True is stand-in value for config
+						if(true && oldBlock == Blocks.cauldron && heldStack != null && meta == 0 && heldStack.getItem() == Items.potionitem
+								 && !ItemPotion.isSplash(heldStack.getItemDamage()) && ((ItemPotion)heldStack.getItem()).hasEffect(heldStack)) {
+							world.setBlock(x, y, z, ModBlocks.potion_cauldron); //If we don't cancel the use event, the new block is used, so the use code is in the block class.
 						}
 						
 						//Grass pathing/Log Stripping

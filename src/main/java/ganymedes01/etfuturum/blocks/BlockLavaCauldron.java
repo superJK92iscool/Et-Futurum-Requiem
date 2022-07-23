@@ -90,25 +90,13 @@ public class BlockLavaCauldron extends BlockCauldron implements IConfigurable, I
 	@SideOnly(Side.CLIENT)
 	public void randomDisplayTick(World world, int x, int y, int z, Random random)
 	{
-		float p0 = 0.875F;
-		float p1 = 0.125F;
-
-		double d0 = x + random.nextFloat();
-		double d1 = z + random.nextFloat();
-		
-		if(d0 > (p0 + x)) {
-			d0 = x + p0;
-		} else if(d0 < (p1 + x))
-			d0 = x + p1;
-		if(d1 > (p0 + z)) {
-			d1 = z + p0;
-		} else if(d1 < (p1 + z))
-			d1 = z + p1;
+		double d0 = x + (random.nextFloat() * 0.875F) + 0.125F;
+		double d1 = z + (random.nextFloat() * 0.875F) + 0.125F;
 		
 		if (world.canBlockSeeTheSky(x, y + 1, z) && world.isRaining()) {
-			world.spawnParticle("smoke", d0, y + 1, d1, 0.0D, 0.0D, 0.0D);
+			world.spawnParticle("smoke", d0, y + 0.9375F, d1, 0.0D, 0.0D, 0.0D);
 		} if (random.nextInt(100) == 0) {
-			world.spawnParticle("lava", d0, y + 1, d1, 0.0D, 0.0D, 0.0D);
+			world.spawnParticle("lava", d0, y + 0.9375F, d1, 0.0D, 0.0D, 0.0D);
 			world.playSound(x + .5, y + 1, z + 0.5, "liquid.lavapop", 0.2F + random.nextFloat() * 0.2F, 0.9F + random.nextFloat() * 0.15F, false);
 		} if (random.nextInt(200) == 0) {
 			world.playSound(x + .5, y + 1, z + 0.5, "liquid.lava", 0.2F + random.nextFloat() * 0.2F, 0.9F + random.nextFloat() * 0.15F, false);

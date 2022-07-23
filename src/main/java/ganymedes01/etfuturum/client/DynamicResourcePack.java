@@ -6,9 +6,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Set;
+
 import javax.imageio.ImageIO;
 
 import com.google.common.collect.ImmutableSet;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.IResourcePack;
@@ -39,9 +41,8 @@ public class DynamicResourcePack implements IResourcePack {
 	        	data = os.toByteArray();
 	        }
 	        return new ByteArrayInputStream(data);
-        } else {
-        	return original;
         }
+		return original;
     }
     
     private static void convertImageToGrayscale(BufferedImage image) {
