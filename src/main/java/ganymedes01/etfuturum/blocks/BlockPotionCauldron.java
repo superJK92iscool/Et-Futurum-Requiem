@@ -7,6 +7,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModBlocks.ISubBlocksBlock;
 import ganymedes01.etfuturum.client.DynamicResourcePack;
+import ganymedes01.etfuturum.client.DynamicResourcePack.GrayscaleType;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import ganymedes01.etfuturum.tileentities.TileEntityCauldronColoredWater;
@@ -19,7 +20,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemPotion;
@@ -30,11 +30,6 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
 public class BlockPotionCauldron extends BlockContainer implements ISubBlocksBlock, IConfigurable {
-	
-	/* Testing:
-	* To place a potion cauldron: /setblock ~ ~ ~ etfuturum:potion_cauldron 1 false {potionID:3}
-	* You can replace the 3 potionID with any potion ID you want.
-	* */
 	
 	public BlockPotionCauldron() {
 		super(Material.iron);
@@ -51,7 +46,7 @@ public class BlockPotionCauldron extends BlockContainer implements ISubBlocksBlo
 		double d0 = x + (random.nextFloat() * 0.875F) + 0.125F;
 		double d1 = z + (random.nextFloat() * 0.875F) + 0.125F;
 		
-		if (random.nextInt(30) == 0) {
+		if (random.nextInt(1) == 0) {
 			int color = ((TileEntityCauldronColoredWater)world.getTileEntity(x, y, z)).getWaterColor();
 	        float r = (float)(color >> 16 & 255) / 255.0F;
 	        float g = (float)(color >> 8 & 255) / 255.0F;
@@ -184,7 +179,7 @@ public class BlockPotionCauldron extends BlockContainer implements ISubBlocksBlo
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister p_149651_1_)
 	{
-		blockIcon = p_149651_1_.registerIcon(DynamicResourcePack.createGrayscaleName("water_still"));
+		blockIcon = p_149651_1_.registerIcon(DynamicResourcePack.createGrayscaleName("water_still", GrayscaleType.HIGHEST_LUMINOSITY));
 	}
     
     /**
