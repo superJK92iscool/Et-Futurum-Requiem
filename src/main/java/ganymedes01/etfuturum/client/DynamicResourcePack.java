@@ -39,7 +39,7 @@ public class DynamicResourcePack implements IResourcePack {
         if(resLoc.getResourcePath().endsWith(".png")) {
 	    	BufferedImage image = ImageIO.read(original);
 	    	String[] fileName = resLoc.getResourcePath().split("/");
-	        convertImageToGrayscale(image, grayscaleTypes.get(fileName[fileName.length - 1].replace(".png", "")));
+	        image = convertImageToGrayscale(image, grayscaleTypes.get(fileName[fileName.length - 1].replace(".png", "")));
 	        byte[] data = null;
 	        try(ByteArrayOutputStream os = new ByteArrayOutputStream()){
 	        	ImageIO.write(image, "png", os);
@@ -50,8 +50,10 @@ public class DynamicResourcePack implements IResourcePack {
 		return original;
     }
     
-    private static void convertImageToGrayscale(BufferedImage image, GrayscaleType type) {
+    private static BufferedImage convertImageToGrayscale(BufferedImage image, GrayscaleType type) {
     	int referenceRGB = type == GrayscaleType.TINT_INVERSE ? findMaxRGB(image) : 0; // Used by TINT_INVERSE.
+    	
+    	BufferedImage copy = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB);
     	
     	for(int y = 0; y < image.getHeight(); y++){
 			for(int x = 0; x < image.getWidth(); x++){
@@ -81,9 +83,10 @@ public class DynamicResourcePack implements IResourcePack {
                         b = (int) (b * 0.114);
                         r = g = b = r+g+b;
                 }
-				image.setRGB(x, y, toRGBA(r, g, b, a));
+				copy.setRGB(x, y, toRGBA(r, g, b, a));
 			}
 		}
+    	return copy;
     }
     
     /** Returns the color of the pixel where max(r, g, b) is highest. */
