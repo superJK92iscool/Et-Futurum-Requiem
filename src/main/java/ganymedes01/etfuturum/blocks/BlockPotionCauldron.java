@@ -179,7 +179,7 @@ public class BlockPotionCauldron extends BlockContainer implements ISubBlocksBlo
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister p_149651_1_)
 	{
-		blockIcon = p_149651_1_.registerIcon(DynamicResourcePack.createGrayscaleName("water_still", GrayscaleType.HIGHEST_LUMINOSITY));
+		blockIcon = p_149651_1_.registerIcon(DynamicResourcePack.createGrayscaleName("water_still", GrayscaleType.TINT_INVERSE));
 	}
     
     /**

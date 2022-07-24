@@ -53,6 +53,9 @@ public class DynamicResourcePack implements IResourcePack {
     private static void convertImageToGrayscale(BufferedImage image, GrayscaleType type) {
     	boolean iteratedOnce = false; //Used by HIGHEST_LUMINOSITY to determine if we should iterate again.
     	int highest = 0; //Used by HIGHEST_LUMINOSITY to find the brightest pixel.
+    	
+    	int referenceRGB = type == GrayscaleType.TINT_INVERSE ? findMaxRGB(image) : 0; // Used by TINT_INVERSE.
+    	
     	reloop:
     	for(int y = 0; y < image.getHeight(); y++){
 			for(int x = 0; x < image.getWidth(); x++){
@@ -62,6 +65,13 @@ public class DynamicResourcePack implements IResourcePack {
                 int g = rgbaToG(rgb);
                 int b = rgbaToB(rgb);
                 switch(type) {
+                	case TINT_INVERSE:
+                		float referenceRelativeR = (float)r / (float)rgbaToR(referenceRGB);
+                		float referenceRelativeG = (float)g / (float)rgbaToG(referenceRGB);
+                		float referenceRelativeB = (float)b / (float)rgbaToB(referenceRGB);
+                		float referenceRelativeLuma = Math.min(1f, ((referenceRelativeR * 0.299f) + (referenceRelativeG * 0.587f) + (referenceRelativeB * 0.114f)));
+                		r = g = b = (int)(referenceRelativeLuma * 255f);
+                		break;
             		case HIGHEST_LUMINOSITY:
                         r = (int) (r * 0.299);
                         g = (int) (g * 0.587);
@@ -105,6 +115,29 @@ public class DynamicResourcePack implements IResourcePack {
 		}
     }
     
+    /** Returns the color of the pixel where max(r, g, b) is highest. */
+    private static int findMaxRGB(BufferedImage image) {
+    	int maxR = 0, maxG = 0, maxB = 0, max = 0;
+    	for(int y = 0; y < image.getHeight(); y++){
+			for(int x = 0; x < image.getWidth(); x++){
+				int rgb = image.getRGB(x, y);
+				int r = rgbaToR(rgb);
+				int g = rgbaToG(rgb);
+				int b = rgbaToB(rgb);
+	            
+	            int maxOfThis = Math.max(Math.max(r, g), b);
+	            
+	            if(maxOfThis > max){
+	            	maxR = r;
+	            	maxG = g;
+	            	maxB = b;
+	            	max = maxOfThis;
+	            }
+			}
+    	}
+    	return toRGBA(maxR, maxG, maxB, 0);
+    }
+
     public boolean resourceExists(ResourceLocation resLoc) {
     	if(resLoc.getResourcePath().startsWith("textures/blocks") && resLoc.getResourcePath().contains(GRAYSCALE_SUFFIX + ".png")) {
     		return resourceExistsSomewhere(toNonGrayscaleLocation(resLoc));
@@ -201,7 +234,13 @@ public class DynamicResourcePack implements IResourcePack {
     	 * highest = highest luminosity gray value
     	 * (r * 0.299) + (g * 0.587) + (b * 0.114) + highest
     	 */
-    	HIGHEST_LUMINOSITY()
+    	HIGHEST_LUMINOSITY(),
+    	/**
+    	 * Inverts the tinting operation (multiplying every pixel in the image by a constant (r, g, b) vector), which is what vanilla uses
+    	 * to tint textures. It should produce correct results if the texture has the same-ish hue in every pixel. The grayscale texture
+    	 * will be normalized so the brightest pixel is (1, 1, 1).
+    	 */
+    	TINT_INVERSE()
     	
     }
 }
