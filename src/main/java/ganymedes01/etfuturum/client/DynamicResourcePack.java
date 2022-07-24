@@ -57,10 +57,10 @@ public class DynamicResourcePack implements IResourcePack {
     	for(int y = 0; y < image.getHeight(); y++){
 			for(int x = 0; x < image.getWidth(); x++){
 				int rgb = image.getRGB(x, y);
-				int a = rgb >> 24 & 0xFF;
-                int r = rgb >> 16 & 0xFF;
-                int g = rgb >>  8 & 0xFF;
-                int b = rgb >>  0 & 0xFF;
+				int a = rgbaToA(rgb);
+                int r = rgbaToR(rgb);
+                int g = rgbaToG(rgb);
+                int b = rgbaToB(rgb);
                 switch(type) {
             		case HIGHEST_LUMINOSITY:
                         r = (int) (r * 0.299);
@@ -100,11 +100,11 @@ public class DynamicResourcePack implements IResourcePack {
                         b = (int) (b * 0.114);
                         r = g = b = r+g+b;
                 }
-				image.setRGB(x, y, a << 24 | r << 16 | g << 8 | b);
+				image.setRGB(x, y, toRGBA(r, g, b, a));
 			}
 		}
     }
-
+    
     public boolean resourceExists(ResourceLocation resLoc) {
     	if(resLoc.getResourcePath().startsWith("textures/blocks") && resLoc.getResourcePath().contains(GRAYSCALE_SUFFIX + ".png")) {
     		return resourceExistsSomewhere(toNonGrayscaleLocation(resLoc));
@@ -155,6 +155,26 @@ public class DynamicResourcePack implements IResourcePack {
         if(resMan instanceof SimpleReloadableResourceManager) {
             ((SimpleReloadableResourceManager)resMan).reloadResourcePack(dynamicResourcePack);
         }
+    }
+    
+    private static int rgbaToR(int rgba) {
+    	return rgba >> 16 & 0xFF;
+    }
+    
+    private static int rgbaToG(int rgba) {
+    	return rgba >>  8 & 0xFF;
+    }
+    
+    private static int rgbaToB(int rgba) {
+    	return rgba >>  0 & 0xFF;
+    }
+    
+    private static int rgbaToA(int rgba) {
+    	return rgba >> 24 & 0xFF;
+    }
+    
+    private static int toRGBA(int r, int g, int b, int a) {
+    	return a << 24 | r << 16 | g << 8 | b;
     }
 
     public enum GrayscaleType {
