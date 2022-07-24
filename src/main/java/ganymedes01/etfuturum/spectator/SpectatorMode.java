@@ -51,7 +51,7 @@ public class SpectatorMode {
 	public static boolean isSpectator(EntityPlayer player) {
 		if(player == null)
 			return false;
-		if(player.worldObj.isRemote) {
+		if(player.worldObj.isRemote || !(player instanceof EntityPlayerMP)) {
 			if(player == Minecraft.getMinecraft().thePlayer)
 				return Minecraft.getMinecraft().playerController.currentGameType == SPECTATOR_GAMETYPE;
 			else
