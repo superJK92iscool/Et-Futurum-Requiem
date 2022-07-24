@@ -20,7 +20,7 @@ public class DispenserBehaviourTippedArrow extends BehaviorDefaultDispenseItem {
 			protected IProjectile getProjectileEntity(World world, IPosition pos) {
 				EntityTippedArrow entity = new EntityTippedArrow(world, pos.getX(), pos.getY(), pos.getZ());
 				entity.canBePickedUp = 1;
-				entity.setEffect(ItemArrowTipped.getEffect(stack));
+				entity.setArrow(stack);
 				return entity;
 			}
 		}.dispense(block, stack);

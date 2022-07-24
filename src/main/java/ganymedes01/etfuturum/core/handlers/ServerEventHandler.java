@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -245,8 +246,26 @@ public class ServerEventHandler {
 			EntityDamageSourceIndirect dmgSrc = (EntityDamageSourceIndirect) event.source;
 			if (dmgSrc.getSourceOfDamage() instanceof EntityTippedArrow) {
 				EntityTippedArrow tippedArrow = (EntityTippedArrow) dmgSrc.getSourceOfDamage();
-				if (!tippedArrow.worldObj.isRemote)
-					event.entityLiving.addPotionEffect(tippedArrow.getEffect());
+				if (!tippedArrow.worldObj.isRemote && dmgSrc.getEntity() instanceof EntityLivingBase) {
+
+					List list = Items.potionitem.getEffects(tippedArrow.getArrow());
+                    Iterator iterator1 = list.iterator();
+
+                    while (iterator1.hasNext())
+                    {
+                        PotionEffect potioneffect = (PotionEffect)iterator1.next();
+                        int i = potioneffect.getPotionID();
+
+                        if (Potion.potionTypes[i].isInstant())
+                        {
+                            Potion.potionTypes[i].affectEntity((EntityLivingBase)dmgSrc.getEntity(), event.entityLiving, potioneffect.getAmplifier(), 1D);
+                        }
+                        else
+                        {
+                            event.entityLiving.addPotionEffect(new PotionEffect(i, potioneffect.getDuration(), potioneffect.getAmplifier()));
+                        }
+                    }
+				}
 			}
 		}
 	}
@@ -288,7 +307,7 @@ public class ServerEventHandler {
 					charge = 1.0F;
 
 				EntityTippedArrow arrowEntity = new EntityTippedArrow(event.entityPlayer.worldObj, event.entityPlayer, charge * 2.0F);
-				arrowEntity.setEffect(ItemArrowTipped.getEffect(arrow));
+				arrowEntity.setArrow(arrow);
 
 				if (charge == 1.0F)
 					arrowEntity.setIsCritical(true);

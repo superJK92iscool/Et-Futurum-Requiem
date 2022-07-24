@@ -2,6 +2,7 @@ package ganymedes01.etfuturum.entities;
 
 import java.util.Calendar;
 
+import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
@@ -120,7 +121,7 @@ public class EntityStray extends EntitySkeleton {
 		entityarrow.setDamage(p_82196_2_ * 2.0F + this.rand.nextGaussian() * 0.25D + this.worldObj.difficultySetting.getDifficultyId() * 0.11F);
 		
 		//final int diff = this.worldObj.difficultySetting.getDifficultyId(); // unused variable
-		entityarrow.setEffect(new PotionEffect(Potion.moveSlowdown.getId(), 600, 0) );
+		entityarrow.setArrow(new ItemStack(ModItems.tipped_arrow, 1, 8202));//Temp
 		
 		if (i > 0)
 		{

@@ -148,7 +148,8 @@ public class ClientEventHandler {
 					text.getChatStyle().setChatClickEvent(new ClickEvent(Action.OPEN_URL, "https://github.com/Roadhog360/Et-Futurum-Requiem/issues"));
 					player.addChatComponentMessage(text);
 				} else {
-					System.err.println("NOTE: a snapshot version of Et Futurum is in use");
+					System.out.println("WARNING: a pre-release version of Et Futurum Requiem is in use! This build may not be stable, expect more bugs than usual.");
+					System.out.println("Be sure to report bugs at https://github.com/Roadhog360/Et-Futurum-Requiem/issues");
 				}
 			}
 			showedDebugWarning = true;

@@ -5,6 +5,7 @@ import java.util.Random;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.ModBlocks.ISubBlocksBlock;
 import ganymedes01.etfuturum.client.DynamicResourcePack;
 import ganymedes01.etfuturum.client.DynamicResourcePack.GrayscaleType;
@@ -24,6 +25,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemPotion;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
@@ -98,12 +100,6 @@ public class BlockPotionCauldron extends BlockContainer implements ISubBlocksBlo
 					return true;
 				}
 			} else if(item == Items.glass_bottle) {
-				if(world.getBlockMetadata(x, y, z) <= 0) {
-					world.setBlock(x, y, z, Blocks.cauldron, 0, 3);
-				} else {
-					world.setBlockMetadataWithNotify(x, y, z, world.getBlockMetadata(x, y, z) - 1, 3);
-				}
-				//TODO: Add taking sound
 				ItemStack newPotion = potionCauldron.potion.copy();
 				if(stack.stackSize <= 1 && !entityPlayer.capabilities.isCreativeMode) {
 					entityPlayer.setCurrentItemOrArmor(0, newPotion);
@@ -115,17 +111,42 @@ public class BlockPotionCauldron extends BlockContainer implements ISubBlocksBlo
 						entityPlayer.dropPlayerItemWithRandomChoice(newPotion, false);
 					}
 				}
-				return true;
-			} else if(item == Items.arrow) {
 				if(world.getBlockMetadata(x, y, z) <= 0) {
 					world.setBlock(x, y, z, Blocks.cauldron, 0, 3);
 				} else {
 					world.setBlockMetadataWithNotify(x, y, z, world.getBlockMetadata(x, y, z) - 1, 3);
 				}
-				//TODO: Tipped arrows.
-				//1 Water level (meta 0) = 16 or less arrows
-				//2 Water level (meta 1) = 32 or less arrows
-				//3 Water level (meta 2) = 64 or less arrows
+				//TODO: Add taking sound
+				return true;
+			} else if(item == Items.arrow) {
+				int meta = world.getBlockMetadata(x, y, z);
+				int tipmax = meta == 0 ? 16 : meta == 1 ? 32 : 64;
+				
+				ItemStack tippedArrow = new ItemStack(ModItems.tipped_arrow, Math.min(stack.stackSize, tipmax), potionCauldron.potion.getItemDamage());
+
+				if (!Items.potionitem.getEffects(potionCauldron.potion).isEmpty() && potionCauldron.potion.hasTagCompound() && potionCauldron.potion.getTagCompound().hasKey("CustomPotionEffects", 9)) {
+					NBTTagCompound tag = new NBTTagCompound();
+					tag.setTag("CustomPotionEffects", potionCauldron.potion.getTagCompound().getTagList("CustomPotionEffects", 10).copy());
+					tippedArrow.setTagCompound(tag);
+				}
+
+				if(tippedArrow.stackSize == stack.stackSize) {
+					entityPlayer.setCurrentItemOrArmor(0, tippedArrow);
+				} else {
+						entityPlayer.inventory.decrStackSize(entityPlayer.inventory.currentItem, tipmax);
+					if(!entityPlayer.inventory.addItemStackToInventory(tippedArrow)) {
+						entityPlayer.dropPlayerItemWithRandomChoice(tippedArrow, false);
+					}
+				}
+				
+				int setMeta = tippedArrow.stackSize == tipmax ? -1 : meta - (tipmax < 32 ? 1 : 2);
+				
+				if(setMeta < 0) {
+					world.setBlock(x, y, z, Blocks.cauldron, 0, 3);
+				} else {
+					world.setBlockMetadataWithNotify(x, y, z, setMeta, 3);
+				}
+				return true;
 			}
 		}
 		return false;
