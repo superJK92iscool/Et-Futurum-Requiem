@@ -27,6 +27,7 @@ import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
+import cpw.mods.fml.relauncher.Side;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModEnchantments;
@@ -54,6 +55,7 @@ import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.network.BlackHeartParticlesMessage;
 import ganymedes01.etfuturum.recipes.ModRecipes;
 import ganymedes01.etfuturum.tileentities.TileEntityGateway;
+import ganymedes01.etfuturum.world.DoWeatherCycleHelper;
 import ganymedes01.etfuturum.world.EtFuturumWorldListener;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEndPortalFrame;
@@ -1190,6 +1192,10 @@ public class ServerEventHandler {
 	public void loadWorldEvent(WorldEvent.Load event)
 	{
 		event.world.addWorldAccess(new EtFuturumWorldListener(event.world));
+		
+		if (ConfigMixins.enableDoWeatherCycle && !event.world.isRemote && !event.world.getGameRules().hasRule("doWeatherCycle")) {
+			event.world.getGameRules().addGameRule("doWeatherCycle", "true");
+		}
 	}
 
 	@SubscribeEvent
@@ -1235,6 +1241,13 @@ public class ServerEventHandler {
 			}
 		}
 	}
+	
+	@SubscribeEvent
+	public void onPreWorldTick(TickEvent.WorldTickEvent e) {
+		if (ConfigMixins.enableDoWeatherCycle && e.phase == TickEvent.Phase.START && e.side == Side.SERVER) {
+			DoWeatherCycleHelper.INSTANCE.reset();
+		}
+	}
 
 	@SubscribeEvent
 	public void onPostWorldTick(TickEvent.WorldTickEvent e) {
@@ -1254,6 +1267,10 @@ public class ServerEventHandler {
 					}
 				}
 			}
+		}
+		
+		if (ConfigMixins.enableDoWeatherCycle && e.phase == TickEvent.Phase.END && e.side == Side.SERVER) {
+			DoWeatherCycleHelper.INSTANCE.isWorldTickInProgress = false;
 		}
 	}
 
