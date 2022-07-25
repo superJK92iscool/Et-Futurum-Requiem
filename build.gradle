@@ -136,7 +136,8 @@ jar {
 	}
 }
 
-// TODO might want to embed Mixin in this JAR too, unless this would cause issues?
+// Disabled dev jars because they are broken (libraries don't get embedded)
+/*
 task devJar(type: Jar) {
 	manifest {
 		attributes(
@@ -150,7 +151,7 @@ task devJar(type: Jar) {
 artifacts {
 	archives devJar
 }
-
+*/
 
 if (!hasProperty("mavenUsername")) {
 	ext.mavenUsername="${System.getenv().MAVEN_USERNAME}"
