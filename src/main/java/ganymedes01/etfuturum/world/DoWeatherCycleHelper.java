@@ -12,9 +12,5 @@ public class DoWeatherCycleHelper {
 	public boolean canCancelWeatherChange(GameRules gameRules) {
 		return isWorldTickInProgress && !isCommandInProgress && !gameRules.getGameRuleBooleanValue("doWeatherCycle");
 	}
-
-	public void reset() {
-		isWorldTickInProgress = isCommandInProgress = true;
-	}
 	
 }

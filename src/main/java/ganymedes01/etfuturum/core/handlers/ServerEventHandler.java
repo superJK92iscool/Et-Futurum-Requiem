@@ -1245,7 +1245,8 @@ public class ServerEventHandler {
 	@SubscribeEvent
 	public void onPreWorldTick(TickEvent.WorldTickEvent e) {
 		if (ConfigMixins.enableDoWeatherCycle && e.phase == TickEvent.Phase.START && e.side == Side.SERVER) {
-			DoWeatherCycleHelper.INSTANCE.reset();
+			DoWeatherCycleHelper.INSTANCE.isWorldTickInProgress = true;
+			DoWeatherCycleHelper.INSTANCE.isCommandInProgress = false;
 		}
 	}
 
