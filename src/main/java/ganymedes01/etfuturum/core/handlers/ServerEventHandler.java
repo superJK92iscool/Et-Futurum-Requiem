@@ -54,6 +54,7 @@ import ganymedes01.etfuturum.items.ItemArrowTipped;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.network.BlackHeartParticlesMessage;
 import ganymedes01.etfuturum.recipes.ModRecipes;
+import ganymedes01.etfuturum.spectator.SpectatorMode;
 import ganymedes01.etfuturum.tileentities.TileEntityGateway;
 import ganymedes01.etfuturum.world.DoWeatherCycleHelper;
 import ganymedes01.etfuturum.world.EtFuturumWorldListener;
@@ -569,7 +570,7 @@ public class ServerEventHandler {
 	@SubscribeEvent(priority=EventPriority.HIGHEST)
 	public void onPlayerInteract(PlayerInteractEvent event) {
 		EntityPlayer player = event.entityPlayer;
-		if (event.action == Action.RIGHT_CLICK_BLOCK || event.action == Action.RIGHT_CLICK_AIR) {
+		if ((event.action == Action.RIGHT_CLICK_BLOCK || event.action == Action.RIGHT_CLICK_AIR) && !SpectatorMode.isSpectator(player)) {
 			if (player != null) {
 				ItemStack heldStack = player.getHeldItem();
 				World world = event.world;

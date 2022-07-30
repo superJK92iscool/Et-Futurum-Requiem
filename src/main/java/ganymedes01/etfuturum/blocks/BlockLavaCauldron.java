@@ -90,8 +90,10 @@ public class BlockLavaCauldron extends BlockCauldron implements IConfigurable, I
 	@SideOnly(Side.CLIENT)
 	public void randomDisplayTick(World world, int x, int y, int z, Random random)
 	{
-		double d0 = x + (random.nextFloat() * 0.875F) + 0.125F;
-		double d1 = z + (random.nextFloat() * 0.875F) + 0.125F;
+        float min = 0.125F;
+        float max = 0.875F;
+		double d0 = x + (min + random.nextFloat() * (max - min));
+		double d1 = z + (min + random.nextFloat() * (max - min));
 		
 		if (world.canBlockSeeTheSky(x, y + 1, z) && world.isRaining()) {
 			world.spawnParticle("smoke", d0, y + 0.9375F, d1, 0.0D, 0.0D, 0.0D);

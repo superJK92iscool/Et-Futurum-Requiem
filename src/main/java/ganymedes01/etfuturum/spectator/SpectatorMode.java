@@ -54,8 +54,7 @@ public class SpectatorMode {
 		if(player.worldObj.isRemote || !(player instanceof EntityPlayerMP)) {
 			if(player == Minecraft.getMinecraft().thePlayer)
 				return Minecraft.getMinecraft().playerController.currentGameType == SPECTATOR_GAMETYPE;
-			else
-				return false;
+			return false;
 		}
 		return ((EntityPlayerMP)player).theItemInWorldManager.getGameType() == SPECTATOR_GAMETYPE;
 	}

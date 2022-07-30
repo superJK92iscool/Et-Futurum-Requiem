@@ -39,6 +39,7 @@ public class ItemArrowTipped extends Item implements IConfigurable {
     private HashMap effectCache = new HashMap();
 
 	public ItemArrowTipped() {
+		setHasSubtypes(true);
 		setTextureName("tipped_arrow");
 		setUnlocalizedName(Utils.getUnlocalisedName("tipped_arrow"));
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
@@ -59,7 +60,11 @@ public class ItemArrowTipped extends Item implements IConfigurable {
 			}
 			return list;
 		}
-		return Items.potionitem.getEffects(stack);
+		List<PotionEffect> effects = Items.potionitem.getEffects(stack);
+		for(PotionEffect effect : effects) {
+			effect = new PotionEffect(effect.getPotionID(), effect.getDuration() / 2, effect.getAmplifier(), effect.getIsAmbient());
+		}
+		return effects;
     }
 
     @SideOnly(Side.CLIENT)
