@@ -119,6 +119,7 @@ public class ConfigFunctions extends ConfigBase {
 	public static boolean enableUpdatedHarvestLevels;
 	public static boolean dropVehiclesTogether;
 	public static boolean enableNewF3Behavior;
+	public static boolean enableFillCommand;
 	public static String[] extraDropRawOres = new String[] {"oreCopper", "oreTin"};
 
 	static final String catChanges = "changes";
@@ -156,7 +157,8 @@ public class ConfigFunctions extends ConfigBase {
 		enableHayBaleFalls = cfg.getBoolean("enableHayBaleFalls", catChanges, true, "If true, fall damage on a hay bale will be reduced");
 		enableHoeMining = cfg.getBoolean("enableHoeMining", catChanges, true, "Allows blocks like hay bales, leaves etc to mine faster with hoes");
 		hayBaleReducePercent = cfg.getInt("hayBaleReducePercent", catChanges, 20, 0, 99, "If enableHayBaleFalls is true, what percent should we keep for the fall damage?");
-		
+		enableFillCommand = cfg.getBoolean("enableFillCommand", catChanges, true, "Enable the /fill command.");
+
 		//settings
 		enableNetheriteFlammable = cfg.getBoolean("enableNetheriteFlammable", catSettings, false, "Set to true to disable the fireproof item entity Netherite/ancient debris etc uses");
 		enableRecipeForPrismarine = cfg.getBoolean("enablePrismarineRecipes", catSettings, true, "Recipe for prismarine if you want it without the temples, or want it craftable alongside temples.");
