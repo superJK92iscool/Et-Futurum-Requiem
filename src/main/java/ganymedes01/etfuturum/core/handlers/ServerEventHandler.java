@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -26,6 +27,7 @@ import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
+import cpw.mods.fml.relauncher.Side;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModEnchantments;
@@ -52,7 +54,9 @@ import ganymedes01.etfuturum.items.ItemArrowTipped;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.network.BlackHeartParticlesMessage;
 import ganymedes01.etfuturum.recipes.ModRecipes;
+import ganymedes01.etfuturum.spectator.SpectatorMode;
 import ganymedes01.etfuturum.tileentities.TileEntityGateway;
+import ganymedes01.etfuturum.world.DoWeatherCycleHelper;
 import ganymedes01.etfuturum.world.EtFuturumWorldListener;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEndPortalFrame;
@@ -245,8 +249,26 @@ public class ServerEventHandler {
 			EntityDamageSourceIndirect dmgSrc = (EntityDamageSourceIndirect) event.source;
 			if (dmgSrc.getSourceOfDamage() instanceof EntityTippedArrow) {
 				EntityTippedArrow tippedArrow = (EntityTippedArrow) dmgSrc.getSourceOfDamage();
-				if (!tippedArrow.worldObj.isRemote)
-					event.entityLiving.addPotionEffect(tippedArrow.getEffect());
+				if (!tippedArrow.worldObj.isRemote && dmgSrc.getEntity() instanceof EntityLivingBase) {
+
+					List list = Items.potionitem.getEffects(tippedArrow.getArrow());
+                    Iterator iterator1 = list.iterator();
+
+                    while (iterator1.hasNext())
+                    {
+                        PotionEffect potioneffect = (PotionEffect)iterator1.next();
+                        int i = potioneffect.getPotionID();
+
+                        if (Potion.potionTypes[i].isInstant())
+                        {
+                            Potion.potionTypes[i].affectEntity((EntityLivingBase)dmgSrc.getEntity(), event.entityLiving, potioneffect.getAmplifier(), 1D);
+                        }
+                        else
+                        {
+                            event.entityLiving.addPotionEffect(new PotionEffect(i, potioneffect.getDuration(), potioneffect.getAmplifier()));
+                        }
+                    }
+				}
 			}
 		}
 	}
@@ -288,7 +310,7 @@ public class ServerEventHandler {
 					charge = 1.0F;
 
 				EntityTippedArrow arrowEntity = new EntityTippedArrow(event.entityPlayer.worldObj, event.entityPlayer, charge * 2.0F);
-				arrowEntity.setEffect(ItemArrowTipped.getEffect(arrow));
+				arrowEntity.setArrow(arrow);
 
 				if (charge == 1.0F)
 					arrowEntity.setIsCritical(true);
@@ -548,7 +570,7 @@ public class ServerEventHandler {
 	@SubscribeEvent(priority=EventPriority.HIGHEST)
 	public void onPlayerInteract(PlayerInteractEvent event) {
 		EntityPlayer player = event.entityPlayer;
-		if (event.action == Action.RIGHT_CLICK_BLOCK || event.action == Action.RIGHT_CLICK_AIR) {
+		if ((event.action == Action.RIGHT_CLICK_BLOCK || event.action == Action.RIGHT_CLICK_AIR) && !SpectatorMode.isSpectator(player)) {
 			if (player != null) {
 				ItemStack heldStack = player.getHeldItem();
 				World world = event.world;
@@ -1171,6 +1193,10 @@ public class ServerEventHandler {
 	public void loadWorldEvent(WorldEvent.Load event)
 	{
 		event.world.addWorldAccess(new EtFuturumWorldListener(event.world));
+		
+		if (ConfigMixins.enableDoWeatherCycle && !event.world.isRemote && !event.world.getGameRules().hasRule("doWeatherCycle")) {
+			event.world.getGameRules().addGameRule("doWeatherCycle", "true");
+		}
 	}
 
 	@SubscribeEvent
@@ -1216,6 +1242,14 @@ public class ServerEventHandler {
 			}
 		}
 	}
+	
+	@SubscribeEvent
+	public void onPreWorldTick(TickEvent.WorldTickEvent e) {
+		if (ConfigMixins.enableDoWeatherCycle && e.phase == TickEvent.Phase.START && e.side == Side.SERVER) {
+			DoWeatherCycleHelper.INSTANCE.isWorldTickInProgress = true;
+			DoWeatherCycleHelper.INSTANCE.isCommandInProgress = false;
+		}
+	}
 
 	@SubscribeEvent
 	public void onPostWorldTick(TickEvent.WorldTickEvent e) {
@@ -1235,6 +1269,10 @@ public class ServerEventHandler {
 					}
 				}
 			}
+		}
+		
+		if (ConfigMixins.enableDoWeatherCycle && e.phase == TickEvent.Phase.END && e.side == Side.SERVER) {
+			DoWeatherCycleHelper.INSTANCE.isWorldTickInProgress = false;
 		}
 	}
 

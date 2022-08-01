@@ -9,16 +9,18 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.PotionHelper;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-public class EntityTippedArrow extends EntityArrow implements IEntityAdditionalSpawnData {
+public class EntityTippedArrow extends EntityArrow {
 
-	private PotionEffect effect;
+	private ItemStack arrow;
 
 	public EntityTippedArrow(World world) {
 		super(world);
@@ -36,51 +38,75 @@ public class EntityTippedArrow extends EntityArrow implements IEntityAdditionalS
 		super(world, entity, target, f0, f1);
 	}
 
-	public void setEffect(PotionEffect effect) {
-		this.effect = effect;
+	public void setArrow(ItemStack effect) {
+		this.arrow = effect;
 	}
 
-	public PotionEffect getEffect() {
-		return effect;
+	public ItemStack getArrow() {
+		return arrow;
 	}
 
 	private boolean isEffectValid() {
-		return effect != null && Potion.potionTypes[effect.getPotionID()] != null;
+		return arrow != null;
 	}
 
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
 		if (isEffectValid()) {
-			Color colour = new Color(Potion.potionTypes[effect.getPotionID()].getLiquidColor());
+			Color colour = new Color(Items.potionitem.getColorFromItemStack(arrow, 0));
 			worldObj.spawnParticle("mobSpell", posX, posY, posZ, colour.getRed() / 255F, colour.getGreen() / 255F, colour.getBlue() / 255F);
 		}
 	}
+    public void readEntityFromNBT(NBTTagCompound p_70037_1_)
+    {
+        super.readEntityFromNBT(p_70037_1_);
 
-	@Override
-	public void writeEntityToNBT(NBTTagCompound nbt) {
-		super.writeEntityToNBT(nbt);
-		if (effect != null) {
-			NBTTagCompound effectNBT = new NBTTagCompound();
-			effect.writeCustomPotionEffectToNBT(effectNBT);
-			nbt.setTag("Effect", effectNBT);
-		}
-	}
+        if (p_70037_1_.hasKey("Potion", 10))
+        {
+            this.arrow = ItemStack.loadItemStackFromNBT(p_70037_1_.getCompoundTag("Potion"));
+        }
+        else
+        {
+            this.setPotionDamage(p_70037_1_.getInteger("potionValue"));
+        }
 
-	@Override
-	public void readEntityFromNBT(NBTTagCompound nbt) {
-		super.readEntityFromNBT(nbt);
-		if (nbt.hasKey("Effect"))
-			effect = PotionEffect.readCustomPotionEffectFromNBT((NBTTagCompound) nbt.getTag("Effect"));
-	}
+        if (this.arrow == null)
+        {
+            this.setDead();
+        }
+    }
+
+    public void setPotionDamage(int p_82340_1_)
+    {
+        if (this.arrow == null)
+        {
+            this.arrow = new ItemStack(Items.potionitem, 1, 0);
+        }
+
+        this.arrow.setItemDamage(p_82340_1_);
+    }
+
+    /**
+     * (abstract) Protected helper method to write subclass entity data to NBT.
+     */
+    public void writeEntityToNBT(NBTTagCompound p_70014_1_)
+    {
+        super.writeEntityToNBT(p_70014_1_);
+
+        if (this.arrow != null)
+        {
+            p_70014_1_.setTag("Potion", this.arrow.writeToNBT(new NBTTagCompound()));
+        }
+    }
 
 	@Override
 	public void onCollideWithPlayer(EntityPlayer player) {
 		if (!worldObj.isRemote && inGround && arrowShake <= 0 && isEffectValid()) {
 			boolean flag = canBePickedUp == 1 || canBePickedUp == 2 && player.capabilities.isCreativeMode;
 
-			ItemStack stack = new ItemStack(ModItems.tipped_arrow);
-			ItemArrowTipped.setEffect(stack, Potion.potionTypes[effect.getPotionID()], effect.getDuration(), effect.getAmplifier());
+			ItemStack stack = arrow.copy();
+			stack.stackSize = 1;
 
 			if (canBePickedUp == 1 && !player.inventory.addItemStackToInventory(stack))
 				flag = false;
@@ -91,37 +117,5 @@ public class EntityTippedArrow extends EntityArrow implements IEntityAdditionalS
 				setDead();
 			}
 		}
-	}
-
-	@Override
-	public void writeSpawnData(ByteBuf buffer) {
-		buffer.writeFloat(rotationYaw);
-
-		int id = shootingEntity == null ? getEntityId() : shootingEntity.getEntityId();
-		buffer.writeInt(id);
-
-		buffer.writeDouble(motionX);
-		buffer.writeDouble(motionY);
-		buffer.writeDouble(motionZ);
-
-		buffer.writeInt(effect.getPotionID());
-		buffer.writeInt(effect.getDuration());
-		buffer.writeInt(effect.getAmplifier());
-	}
-
-	@Override
-	public void readSpawnData(ByteBuf buffer) {
-		rotationYaw = buffer.readFloat();
-		shootingEntity = worldObj.getEntityByID(buffer.readInt());
-
-		motionX = buffer.readDouble();
-		motionY = buffer.readDouble();
-		motionZ = buffer.readDouble();
-
-		posX -= MathHelper.cos(rotationYaw / 180.0F * (float) Math.PI) * 0.16F;
-		posY -= 0.10000000149011612D;
-		posZ -= MathHelper.sin(rotationYaw / 180.0F * (float) Math.PI) * 0.16F;
-
-		effect = new PotionEffect(buffer.readInt(), buffer.readInt(), buffer.readInt());
 	}
 }

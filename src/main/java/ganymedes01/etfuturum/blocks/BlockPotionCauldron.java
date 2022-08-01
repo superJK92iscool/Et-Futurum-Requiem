@@ -6,7 +6,9 @@ import java.util.Random;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModBlocks.ISubBlocksBlock;
+import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.client.DynamicResourcePack;
+import ganymedes01.etfuturum.client.DynamicResourcePack.GrayscaleType;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import ganymedes01.etfuturum.tileentities.TileEntityCauldronColoredWater;
@@ -19,22 +21,18 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemPotion;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.potion.Potion;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-public class BlockPotionCauldron extends BlockContainer implements ISubBlocksBlock, IConfigurable {
-	
-	/* Testing:
-	* To place a potion cauldron: /setblock ~ ~ ~ etfuturum:potion_cauldron 1 false {potionID:3}
-	* You can replace the 3 potionID with any potion ID you want.
-	* */
+public class BlockPotionCauldron extends BlockCauldronTileEntity implements ISubBlocksBlock, IConfigurable {
 	
 	public BlockPotionCauldron() {
 		super(Material.iron);
@@ -48,17 +46,18 @@ public class BlockPotionCauldron extends BlockContainer implements ISubBlocksBlo
 	@SideOnly(Side.CLIENT)
 	public void randomDisplayTick(World world, int x, int y, int z, Random random)
 	{
-		double d0 = x + (random.nextFloat() * 0.875F) + 0.125F;
-		double d1 = z + (random.nextFloat() * 0.875F) + 0.125F;
-		
 		if (random.nextInt(30) == 0) {
 			int color = ((TileEntityCauldronColoredWater)world.getTileEntity(x, y, z)).getWaterColor();
 	        float r = (float)(color >> 16 & 255) / 255.0F;
 	        float g = (float)(color >> 8 & 255) / 255.0F;
 	        float b = (float)(color & 255) / 255.0F;
-	        int l = BlockCauldron.func_150027_b(world.getBlockMetadata(x, y, z));
-	        float f = (float)y + (6.0F + (float)(3 * (l + 1))) / 16.0F;
-			world.spawnParticle("mobSpell", d0, y + f, d1, r, g, b);
+	        
+	        //Slightly decrease the bounds in which the particles can spawn so they don't go through the inside of the cauldron walls
+	        float min = 0.1875F;
+	        float max = 0.8125F;
+			double d0 = x + (min + random.nextFloat() * (max - min));
+			double d1 = z + (min + random.nextFloat() * (max - min));
+			world.spawnParticle("mobSpell", d0, y + BlockCauldron.getRenderLiquidLevel(world.getBlockMetadata(x, y, z) + 1), d1, r, g, b);
 		}
 	}
 	
@@ -67,10 +66,11 @@ public class BlockPotionCauldron extends BlockContainer implements ISubBlocksBlo
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityPlayer, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_)
 	{
-		ItemStack stack = entityPlayer.getHeldItem();
+		
+		final ItemStack stack = entityPlayer.getHeldItem();
 		if(stack != null) {
-			Item item = stack.getItem();
-			TileEntityCauldronPotion potionCauldron = (TileEntityCauldronPotion) world.getTileEntity(x, y, z);
+			final Item item = stack.getItem();
+			final TileEntityCauldronPotion potionCauldron = (TileEntityCauldronPotion) world.getTileEntity(x, y, z);
 			if(item == Items.potionitem) {
 				boolean shouldFill = true;
 				if(potionCauldron.potion == null) {
@@ -80,36 +80,34 @@ public class BlockPotionCauldron extends BlockContainer implements ISubBlocksBlo
 					shouldFill = false;
 				}
 
-				if(!((ItemPotion)item).getEffects(stack).equals(((ItemPotion)potionCauldron.potion.getItem()).getEffects(potionCauldron.potion))) {
-					world.setBlock(x, y, z, Blocks.cauldron, 0, 3);
-					//TODO: Add smoke particles and sound
-					return true;
-				} else if(world.getBlockMetadata(x, y, z) < 2) {
-					ItemStack bottle = new ItemStack(Items.glass_bottle);
-					if(stack.stackSize <= 1 && !entityPlayer.capabilities.isCreativeMode) {
-						entityPlayer.setCurrentItemOrArmor(0, bottle);
-					} else {
-						if(!entityPlayer.capabilities.isCreativeMode) {
-							entityPlayer.inventory.decrStackSize(entityPlayer.inventory.currentItem, 1);
-							if(!entityPlayer.inventory.addItemStackToInventory(bottle)) {
-								entityPlayer.dropPlayerItemWithRandomChoice(bottle, false);
-							}
+				boolean flag = false;
+				final int meta = world.getBlockMetadata(x, y, z);
+					final ItemStack bottle = new ItemStack(Items.glass_bottle);
+					final List<Potion> effects = ((ItemPotion)item).getEffects(stack);
+					if(effects == null || !effects.equals(((ItemPotion)potionCauldron.potion.getItem()).getEffects(potionCauldron.potion))) {
+						EnumCauldronFillAction.EVAPORATE.getAction(world, x, y, z, meta);
+						world.setBlock(x, y, z, Blocks.cauldron, 0, 3);
+						flag = true;
+					} else if(meta < 2) {
+						EnumCauldronFillAction.CHANGE_LEVEL.getAction(world, x, y, z, meta);
+						if(shouldFill) {
+							world.setBlockMetadataWithNotify(x, y, z, meta + 1, 3);
 						}
+						flag = true;
 					}
-					if(shouldFill) {
-						//TODO: Add filling sound
-						world.setBlockMetadataWithNotify(x, y, z, world.getBlockMetadata(x, y, z) + 1, 3);
+					if(flag && !entityPlayer.capabilities.isCreativeMode) {
+						if(stack.stackSize <= 1) {
+						     entityPlayer.setCurrentItemOrArmor(0, bottle);
+						 } else {
+						     entityPlayer.inventory.decrStackSize(entityPlayer.inventory.currentItem, 1);
+						     if(!entityPlayer.inventory.addItemStackToInventory(bottle)) {
+						         entityPlayer.dropPlayerItemWithRandomChoice(bottle, false);
+						     }
+						 }
 					}
-					return true;
-				}
+					return flag;
 			} else if(item == Items.glass_bottle) {
-				if(world.getBlockMetadata(x, y, z) <= 0) {
-					world.setBlock(x, y, z, Blocks.cauldron, 0, 3);
-				} else {
-					world.setBlockMetadataWithNotify(x, y, z, world.getBlockMetadata(x, y, z) - 1, 3);
-				}
-				//TODO: Add taking sound
-				ItemStack newPotion = potionCauldron.potion.copy();
+				final ItemStack newPotion = potionCauldron.potion.copy();
 				if(stack.stackSize <= 1 && !entityPlayer.capabilities.isCreativeMode) {
 					entityPlayer.setCurrentItemOrArmor(0, newPotion);
 				} else {
@@ -120,17 +118,44 @@ public class BlockPotionCauldron extends BlockContainer implements ISubBlocksBlo
 						entityPlayer.dropPlayerItemWithRandomChoice(newPotion, false);
 					}
 				}
-				return true;
-			} else if(item == Items.arrow) {
+				EnumCauldronFillAction.CHANGE_LEVEL.getAction(world, x, y, z, world.getBlockMetadata(x, y, z));
 				if(world.getBlockMetadata(x, y, z) <= 0) {
 					world.setBlock(x, y, z, Blocks.cauldron, 0, 3);
 				} else {
 					world.setBlockMetadataWithNotify(x, y, z, world.getBlockMetadata(x, y, z) - 1, 3);
 				}
-				//TODO: Tipped arrows.
-				//1 Water level (meta 0) = 16 or less arrows
-				//2 Water level (meta 1) = 32 or less arrows
-				//3 Water level (meta 2) = 64 or less arrows
+				return true;
+			} else if(item == Items.arrow) {
+				final int meta = world.getBlockMetadata(x, y, z);
+				final int tipmax = meta == 0 ? 16 : meta == 1 ? 32 : 64;
+				
+				ItemStack tippedArrow = new ItemStack(ModItems.tipped_arrow, Math.min(stack.stackSize, tipmax), potionCauldron.potion.getItemDamage());
+				final int setMeta = tippedArrow.stackSize >= tipmax ? -1 : meta - (tippedArrow.stackSize < 32 ? 1 : 2);
+
+				if (!Items.potionitem.getEffects(potionCauldron.potion).isEmpty() && potionCauldron.potion.hasTagCompound() && potionCauldron.potion.getTagCompound().hasKey("CustomPotionEffects", 9)) {
+					NBTTagCompound tag = new NBTTagCompound();
+					tag.setTag("CustomPotionEffects", potionCauldron.potion.getTagCompound().getTagList("CustomPotionEffects", 10).copy());
+					tippedArrow.setTagCompound(tag);
+				}
+
+				if(!entityPlayer.capabilities.isCreativeMode && tippedArrow.stackSize == stack.stackSize) {
+					entityPlayer.setCurrentItemOrArmor(0, tippedArrow);
+				} else {
+					if(!entityPlayer.capabilities.isCreativeMode) {
+						entityPlayer.inventory.decrStackSize(entityPlayer.inventory.currentItem, tipmax);
+					}
+					if(!entityPlayer.inventory.addItemStackToInventory(tippedArrow)) {
+						entityPlayer.dropPlayerItemWithRandomChoice(tippedArrow, false);
+					}
+				}
+				
+				
+				if(setMeta < 0) {
+					world.setBlock(x, y, z, Blocks.cauldron, 0, 3);
+				} else {
+					world.setBlockMetadataWithNotify(x, y, z, setMeta, 3);
+				}
+				return true;
 			}
 		}
 		return false;
@@ -142,41 +167,7 @@ public class BlockPotionCauldron extends BlockContainer implements ISubBlocksBlo
 		return RenderIDs.COLORED_CAULDRON;
 	}
 	
-	@Override
-	public IIcon getIcon(int side, int meta)
-	{
-		return Blocks.cauldron.getIcon(side, meta);
-	}
-    
-    public void addCollisionBoxesToList(World p_149743_1_, int p_149743_2_, int p_149743_3_, int p_149743_4_, AxisAlignedBB p_149743_5_, List p_149743_6_, Entity p_149743_7_)
-    {
-        Blocks.cauldron.addCollisionBoxesToList(p_149743_1_, p_149743_2_, p_149743_3_, p_149743_4_, p_149743_5_, p_149743_6_, p_149743_7_);
-    }
-    
-    public void setBlockBoundsForItemRender()
-    {
-        this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
-    }
-
-    public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_)
-    {
-        return Items.cauldron;
-    }
-
-    public boolean isOpaqueCube()
-    {
-        return false;
-    }
-
-    /**
-     * If this block doesn't render as an ordinary block it will return False (examples: signs, buttons, stairs, etc)
-     */
-    public boolean renderAsNormalBlock()
-    {
-        return false;
-    }
-	
-    public IIcon greyscaleWaterIcon() {
+    public IIcon grayscaleWaterIcon() {
     	return blockIcon;
     }
     
@@ -184,17 +175,8 @@ public class BlockPotionCauldron extends BlockContainer implements ISubBlocksBlo
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister p_149651_1_)
 	{
-		blockIcon = p_149651_1_.registerIcon(DynamicResourcePack.createGrayscaleName("water_still"));
+		blockIcon = p_149651_1_.registerIcon(DynamicResourcePack.createGrayscaleName("water_still", GrayscaleType.TINT_INVERSE));
 	}
-    
-    /**
-     * Gets an item for the block being called on. Args: world, x, y, z
-     */
-    @SideOnly(Side.CLIENT)
-    public Item getItem(World p_149694_1_, int p_149694_2_, int p_149694_3_, int p_149694_4_)
-    {
-        return Items.cauldron;
-    }
 
 	@Override
 	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
@@ -209,6 +191,43 @@ public class BlockPotionCauldron extends BlockContainer implements ISubBlocksBlo
 	@Override
 	public Class<? extends ItemBlock> getItemBlockClass() {
 		return null;
+	}
+	
+	public enum EnumCauldronFillAction {
+		CHANGE_LEVEL(){
+			@Override
+			public void getAction(World world, int x, int y, int z, int meta) {
+				int color = ((TileEntityCauldronColoredWater)world.getTileEntity(x, y, z)).getWaterColor();
+		        float r = (float)(color >> 16 & 255) / 255.0F;
+		        float g = (float)(color >> 8 & 255) / 255.0F;
+		        float b = (float)(color & 255) / 255.0F;
+		        float liquidLevel = y + BlockCauldron.getRenderLiquidLevel(world.getBlockMetadata(x, y, z) + 1);
+		        world.playSound(x + 0.5D, liquidLevel, z + 0.5D, "random.splash", 0.15F, 1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.4F, false);
+		        for(int i = 0; i < world.rand.nextInt(4) + 4; i++) {
+					world.spawnParticle("mobSpell", this.getParticleXYCoord(x, world.rand), liquidLevel, this.getParticleXYCoord(z, world.rand), r, g, b);
+		        }
+			}
+		},
+		EVAPORATE() {
+			@Override
+			public void getAction(World world, int x, int y, int z, int meta) {
+		        float min = 0.25F;
+		        float max = BlockCauldron.getRenderLiquidLevel(world.getBlockMetadata(x, y, z) + 1);
+		        float liquidLevel = y + (min + world.rand.nextFloat() * (max - min));
+		        world.playSound(x + 0.5D, liquidLevel, z + 0.5D, "random.fizz", 0.3F, (world.rand.nextFloat() * 0.6F) + 0.4F, false);
+		        for(int i = 0; i < world.rand.nextInt(4) + 4; i++) {
+					world.spawnParticle("explode", this.getParticleXYCoord(x, world.rand), liquidLevel, this.getParticleXYCoord(z, world.rand), 0, 0, 0);
+		        }
+			}
+		};
+		
+		public abstract void getAction(World world, int x, int y, int z, int meta);
+		
+		protected float getParticleXYCoord(int coordinate, Random rand) {
+	        float min = 0.1875F;
+	        float max = 0.8125F;
+			return coordinate + (min + rand.nextFloat() * (max - min));
+		}
 	}
 
 }

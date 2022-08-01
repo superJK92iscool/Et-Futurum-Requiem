@@ -130,6 +130,11 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 			mixins.add("elytra.MixinEntityTrackerEntry");
 		}
 		
+		if(ConfigMixins.enableDoWeatherCycle) {
+			mixins.add("doweathercycle.MixinCommandHandler");
+			mixins.add("doweathercycle.MixinWorldInfo");
+		}
+		
 		if(side == MixinEnvironment.Side.CLIENT) {
 			if(ConfigMixins.furnaceCrackle) {
 				mixins.add("client.MixinBlockFurnace");

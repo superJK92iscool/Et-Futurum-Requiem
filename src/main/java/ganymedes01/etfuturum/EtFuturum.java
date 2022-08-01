@@ -11,6 +11,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import ganymedes01.etfuturum.command.CommandFill;
 import ganymedes01.etfuturum.network.*;
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -691,6 +692,8 @@ public class EtFuturum {
 
 	@EventHandler
 	public void serverStarting(FMLServerStartingEvent event) {
+		if(ConfigFunctions.enableFillCommand)
+			event.registerServerCommand(new CommandFill());
 //        if (ConfigurationHandler.enablePlayerSkinOverlay)
 //            event.registerServerCommand(new SetPlayerModelCommand());
 	}

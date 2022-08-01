@@ -39,13 +39,12 @@ public class BlockEndRod extends Block implements IConfigurable {
 	public void randomDisplayTick(World world, int x, int y, int z, Random random)
 	{
 		ForgeDirection dir = ForgeDirection.getOrientation(world.getBlockMetadata(x, y, z) % 6);
-		Random rand = new Random();
-		double d0 = (double)x + 0.55D - (double)(rand.nextFloat() * 0.1F);
-		double d1 = (double)y + 0.55D - (double)(rand.nextFloat() * 0.1F);
-		double d2 = (double)z + 0.55D - (double)(rand.nextFloat() * 0.1F);
-		double d3 = (double)(0.4F - (rand.nextFloat() + rand.nextFloat()) * 0.4F);
+		double d0 = (double)x + 0.55D - (double)(random.nextFloat() * 0.1F);
+		double d1 = (double)y + 0.55D - (double)(random.nextFloat() * 0.1F);
+		double d2 = (double)z + 0.55D - (double)(random.nextFloat() * 0.1F);
+		double d3 = (double)(0.4F - (random.nextFloat() + random.nextFloat()) * 0.4F);
 
-		if (rand.nextInt(5) == 0)
+		if (random.nextInt(5) == 0)
 		{
 			ParticleHandler.END_ROD.spawn(world, d0 + dir.offsetX * d3, d1 + dir.offsetY * d3, d2 + dir.offsetZ * d3);
 		}
