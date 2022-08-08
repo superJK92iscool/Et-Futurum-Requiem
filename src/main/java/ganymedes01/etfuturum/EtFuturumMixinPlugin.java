@@ -135,7 +135,7 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 			mixins.add("doweathercycle.MixinWorldInfo");
 		}
 
-		if(ConfigMixins.enableNewCreativeFlightSpeed) {
+		if(ConfigMixins.creativeFlightSpeedModifier > 1) {
 			mixins.add("MixinEntityPlayer_CreativeFlightSpeed");
 		}
 		

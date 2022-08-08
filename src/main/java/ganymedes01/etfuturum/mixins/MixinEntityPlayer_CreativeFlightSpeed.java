@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.mixins;
 
+import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.PlayerCapabilities;
@@ -20,6 +21,6 @@ public abstract class MixinEntityPlayer_CreativeFlightSpeed extends EntityLiving
 
     @Inject(method = "moveEntityWithHeading", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/EntityLivingBase;moveEntityWithHeading(FF)V", ordinal = 0))
     private void setMovementFactor(float p_70612_1_, float p_70612_2_, CallbackInfo ci) {
-        this.jumpMovementFactor = this.capabilities.getFlySpeed() * (float)(this.isSprinting() ? 2 : 1);
+        this.jumpMovementFactor = this.capabilities.getFlySpeed() * (this.isSprinting() ? ConfigMixins.creativeFlightSpeedModifier : 1);
     }
 }
