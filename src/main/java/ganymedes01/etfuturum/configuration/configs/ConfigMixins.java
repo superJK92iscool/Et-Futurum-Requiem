@@ -29,6 +29,7 @@ public class ConfigMixins extends ConfigBase {
 	public static boolean enableElytra;
 	public static boolean enableNewElytraTakeoffLogic;
 	public static boolean enableDoWeatherCycle;
+	public static float creativeFlightSpeedModifier;
 	
 	public ConfigMixins(File file) {
 		super(file);
@@ -57,6 +58,7 @@ public class ConfigMixins extends ConfigBase {
 		enableElytra = cfg.getBoolean("enableElytra", catBackport, true, "Enables the elytra item.\nModified Classes: net.minecraft.entity.EntityLivingBase net.minecraft.entity.player.EntityPlayer net.minecraft.entity.EntityTrackerEntry net.minecraft.network.NetHandlerPlayServer net.minecraft.client.entity.AbstractClientPlayer net.minecraft.client.entity.EntityPlayerSP net.minecraft.client.model.ModelBiped net.minecraft.client.renderer.entity.RenderPlayer");
 		enableNewElytraTakeoffLogic = cfg.getBoolean("enableNewElytraTakeoffLogic", catBackport, true, "When enabled, the 1.15+ elytra takeoff logic is used, when disabled, the 1.9-1.14 elytra takeoff logic is used.");
 		enableDoWeatherCycle = cfg.getBoolean("enableDoWeatherCycle", catBackport, true, "Add the doWeatherCycle game rule from 1.11+");
+		creativeFlightSpeedModifier = cfg.getFloat("creativeFlightSpeedModifier", catBackport, 2, 1, 4, "When greater than 1, boosts creative flight speed when sprinting, like in newer versions");
 
 
 		stepHeightFix = cfg.getBoolean("stepHeightFix", catFixes, true, "Makes the player able to step up even if a block would be above their head at the destination.\nModified classes: net.minecraft.entity.Entity");

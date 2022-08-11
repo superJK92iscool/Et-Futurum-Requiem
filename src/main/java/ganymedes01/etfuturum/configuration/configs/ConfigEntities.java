@@ -20,7 +20,6 @@ public class ConfigEntities extends ConfigBase {
 	public static boolean enableDragonRespawn;
 	public static boolean enableNetherEndermen;
 	public static boolean enableShearableSnowGolems;
-	public static float flySprintSpeed;
 
 	static final String catHostile = "hostile";
 	static final String catNeutral = "neutral";
@@ -60,9 +59,7 @@ public class ConfigEntities extends ConfigBase {
 		enableStray = cfg.getBoolean("enableStrays", catHostile, true, "Tundra skeleton variant");
 		enableShulker = cfg.getBoolean("enableShulker", catHostile, true, "Shell-lurking mobs from the End.");
 		enableVillagerZombies = cfg.getBoolean("enableZombieVillager", catHostile, true, "");
-		
-		flySprintSpeed = cfg.getFloat("flySprintSpeed", catPlayer, 0.125F, 0.05F, 0.2F, "Speed boost while sprinting and flying. 0.05 is no extra speed.");
-		
+
 		//function
 		enableShearableSnowGolems = cfg.getBoolean("enableShearableSnowGolems", catMisc, true, "");
 		enableBabyGrowthBoost = cfg.getBoolean("enableBabyGrowthBoost", catMisc, true, "");

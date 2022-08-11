@@ -162,16 +162,6 @@ public class ServerEventHandler {
 				}
 			}
 		}
-		if(entity instanceof EntityPlayer) {
-			EntityPlayer player = ((EntityPlayer)entity);
-			if(ConfigEntities.flySprintSpeed > 0.05F) {
-				if(player.isSprinting() && player.capabilities.isFlying) {
-					player.capabilities.flySpeed = ConfigEntities.flySprintSpeed;
-				} else {
-					player.capabilities.flySpeed = 0.05F;
-				}
-			}
-		}
 		
 		if (ConfigMixins.stepHeightFix && event.entity.stepHeight == .5F) {
 			event.entity.stepHeight = .6F;
