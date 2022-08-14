@@ -346,6 +346,10 @@ public class EtFuturum {
 		ModPotions.init();
 		SpectatorMode.init();
 		
+		if(event.getSide() == Side.CLIENT) {
+			DynamicResourcePack.inject();
+		}
+		
 //      if(ConfigurationHandler.enableNewNether) {
 //          NetherBiomeManager.init(); // Come back to
 //      }
@@ -354,8 +358,6 @@ public class EtFuturum {
 		GameRegistry.registerWorldGenerator(EtFuturumLateWorldGenerator.INSTANCE, Integer.MAX_VALUE);
 		
 		OceanMonument.makeMap();
-		
-		DynamicResourcePack.inject();
 
 		NetworkRegistry.INSTANCE.registerGuiHandler(instance, proxy);
 		networkWrapper = NetworkRegistry.INSTANCE.newSimpleChannel(Reference.MOD_ID);

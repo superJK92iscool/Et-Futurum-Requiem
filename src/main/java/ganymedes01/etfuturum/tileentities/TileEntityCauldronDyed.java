@@ -8,7 +8,7 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 
 public class TileEntityCauldronDyed extends TileEntityCauldronColoredWater {
 	
-	private int dyeColor;
+	public int dyeColor;
 
 	@Override
 	public int getWaterColor() {

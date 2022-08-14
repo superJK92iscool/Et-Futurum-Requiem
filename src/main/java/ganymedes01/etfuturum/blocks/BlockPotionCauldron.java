@@ -194,7 +194,7 @@ public class BlockPotionCauldron extends BlockCauldronTileEntity implements ISub
 	}
 	
 	public enum EnumCauldronFillAction {
-		CHANGE_LEVEL(){
+		CHANGE_LEVEL {
 			@Override
 			public void getAction(World world, int x, int y, int z, int meta) {
 				int color = ((TileEntityCauldronColoredWater)world.getTileEntity(x, y, z)).getWaterColor();
@@ -208,7 +208,7 @@ public class BlockPotionCauldron extends BlockCauldronTileEntity implements ISub
 		        }
 			}
 		},
-		EVAPORATE() {
+		EVAPORATE {
 			@Override
 			public void getAction(World world, int x, int y, int z, int meta) {
 		        float min = 0.25F;
