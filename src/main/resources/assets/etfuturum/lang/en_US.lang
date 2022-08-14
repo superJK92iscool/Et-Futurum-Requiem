@@ -44,6 +44,7 @@ container.etfuturum.chest_boat=Boat with Chest
 item.record.pigstep.desc=Lena Raine - pigstep
 item.record.otherside.desc=Lena Raine - otherside
 
+gui.smithing.upgrade=Upgrade Gear
 gui.warn.continue=Continue...
 gui.warn.dismiss=Don't show me this again.
 gui.warn.notice=NOTICE:

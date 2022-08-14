@@ -245,6 +245,7 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "block.composter.ready", "block");
 		config.addSoundEvent(ver, "block.amethyst_block.hit", "block");
 		config.addSoundEvent(ver, "block.amethyst_block.chime", "block");
+		config.addSoundEvent(ver, "block.smithing_table.use", "player");
 	
 		config.addSoundEvent(ver, "item.crop.plant", "block");
 		config.addSoundEvent(ver, "block.crop.break", "block");

@@ -96,15 +96,7 @@ public class ContainerSmithingTable extends Container {
             resultSlot.setInventorySlotContents(0, null);
             return;
         }
-        if (!ModRecipes.smithingRecipeMap.containsKey(a.getItem())) {
-            resultSlot.setInventorySlotContents(0, null);
-            return;
-        }
-        if (b == null) {
-            resultSlot.setInventorySlotContents(0, null);
-            return;
-        }
-        if (!isNetheriteIngot(b)) {
+        if (!ModRecipes.smithingRecipeMap.containsKey(a.getItem()) || b == null || !isNetheriteIngot(b)) {
             resultSlot.setInventorySlotContents(0, null);
             return;
         }
