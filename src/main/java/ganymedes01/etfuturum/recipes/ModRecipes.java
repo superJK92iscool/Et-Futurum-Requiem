@@ -1,7 +1,9 @@
 package ganymedes01.etfuturum.recipes;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -48,18 +50,6 @@ public class ModRecipes {
 	public static final String[] dye_names = new String[] { "white", "orange", "magenta", "light_blue", "yellow", "lime", "pink", "gray", "light_gray", "cyan", "purple", "blue", "brown", "green", "red", "black"};
 
 	public static final Map<Item, Item> smithingRecipeMap = new HashMap<>();
-
-	static {
-		smithingRecipeMap.put(Items.diamond_shovel, ModItems.netherite_spade);
-		smithingRecipeMap.put(Items.diamond_sword, ModItems.netherite_sword);
-		smithingRecipeMap.put(Items.diamond_axe, ModItems.netherite_axe);
-		smithingRecipeMap.put(Items.diamond_pickaxe, ModItems.netherite_pickaxe);
-		smithingRecipeMap.put(Items.diamond_hoe, ModItems.netherite_hoe);
-		smithingRecipeMap.put(Items.diamond_helmet, ModItems.netherite_helmet);
-		smithingRecipeMap.put(Items.diamond_chestplate, ModItems.netherite_chestplate);
-		smithingRecipeMap.put(Items.diamond_leggings, ModItems.netherite_leggings);
-		smithingRecipeMap.put(Items.diamond_boots, ModItems.netherite_boots);
-	}
 
 	public static void init() {
 		if (ConfigBlocksItems.enableBanners) {
@@ -295,6 +285,16 @@ public class ModRecipes {
 	}
 
 	private static void registerRecipes() {
+
+		smithingRecipeMap.put(Items.diamond_shovel, ModItems.netherite_spade);
+		smithingRecipeMap.put(Items.diamond_sword, ModItems.netherite_sword);
+		smithingRecipeMap.put(Items.diamond_axe, ModItems.netherite_axe);
+		smithingRecipeMap.put(Items.diamond_pickaxe, ModItems.netherite_pickaxe);
+		smithingRecipeMap.put(Items.diamond_hoe, ModItems.netherite_hoe);
+		smithingRecipeMap.put(Items.diamond_helmet, ModItems.netherite_helmet);
+		smithingRecipeMap.put(Items.diamond_chestplate, ModItems.netherite_chestplate);
+		smithingRecipeMap.put(Items.diamond_leggings, ModItems.netherite_leggings);
+		smithingRecipeMap.put(Items.diamond_boots, ModItems.netherite_boots);
 		
 		if (ConfigFunctions.enableStoneBrickRecipes) {
 			addShapelessRecipe(new ItemStack(Blocks.mossy_cobblestone), new ItemStack(Blocks.cobblestone), new ItemStack(Blocks.vine));
@@ -653,15 +653,6 @@ public class ModRecipes {
 			addShapedRecipe(new ItemStack(ModItems.netherite_ingot, 9), "x", 'x', ModBlocks.netherite_block);
 		}
 		
-		if(ConfigBlocksItems.enableNetherite) {
-			Item[][] items = new Item[][] {
-				{Items.diamond_helmet, Items.diamond_chestplate, Items.diamond_leggings, Items.diamond_boots, Items.diamond_pickaxe, Items.diamond_axe, Items.diamond_hoe, Items.diamond_shovel, Items.diamond_sword},
-				{ModItems.netherite_helmet, ModItems.netherite_chestplate, ModItems.netherite_leggings, ModItems.netherite_boots, ModItems.netherite_pickaxe, ModItems.netherite_axe, ModItems.netherite_hoe, ModItems.netherite_spade, ModItems.netherite_sword}};
-				for(int i = 0; i < items[0].length; i++) {
-					addShapelessRecipe(new ItemStack(items[1][i]), "ingotNetherite", items[0][i]);
-				}
-		}
-		
 //      if (ConfigurationHandler.enableBasalt)
 //          addShapedRecipe(new ItemStack(ModBlocks.basalt, 4, 1), "xx", "xx", 'x', new ItemStack(ModBlocks.basalt, 1, 0));
 //      
@@ -849,7 +840,6 @@ public class ModRecipes {
 		}
 		
 		if(ConfigBlocksItems.enableShulkerBoxes) {
-			OreDictionary.registerOre("ingotSilver", ModItems.netherite_ingot);
 			addShapedRecipe(new ItemStack(ModBlocks.shulker_box), "x", "c", "x", 'x', new ItemStack(ModItems.shulker_shell), 'c', new ItemStack(Blocks.chest));
 			for(int i = 0; i < 16; i++) {
 				ItemStack output = new ItemStack(ModBlocks.shulker_box);
