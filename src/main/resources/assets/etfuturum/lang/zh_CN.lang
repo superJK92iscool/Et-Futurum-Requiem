@@ -8,10 +8,19 @@ enchantment.mending=经验修补
 enchantment.waterWalker=深海探索者
 enchantment.binding_curse=§c绑定诅咒
 enchantment.vanishing_curse=§c消失诅咒
+enchantment.swift_sneak=迅捷潜行
 
 # Potions
 potion.levitation=飘浮
 potion.levitation.postfix=飘浮药水
+
+# Gamemode selector
+
+debug.gamemodes.select_next=%s下一个
+debug.gamemodes.press_f4=[ F4 ]
+
+# Gamemodes
+gameMode.Spectator=旁观模式
 
 # Containers/GUI
 container.etfuturum.banner=旗帜
@@ -25,6 +34,10 @@ container.etfuturum.blast_furnace=高炉
 container.etfuturum.smoker=烟熏炉
 container.etfuturum.barrel=木桶
 container.etfuturum.shulker_box=潜影盒
+container.etfuturum.chest_boat=运输船
+
+item.record.pigstep.desc=Lena Raine - pigstep
+item.record.otherside.desc=Lena Raine - otherside
 
 gui.warn.continue=继续……
 gui.warn.dismiss=不再显示此警告。
@@ -43,6 +56,7 @@ entity.etfuturum.snow_golem.name=雪傀儡
 entity.etfuturum.brown_mooshroom.name=棕色蘑菇
 entity.etfuturum.shulker.name=潜影贝
 entity.etfuturum.shulker_candy.name=潜影贝导弹
+entity.etfuturum.chest_boat.name=运输船
 
 entity.etfuturum.stray.name=流浪者
 entity.etfuturum.husk.name=尸壳
@@ -106,7 +120,14 @@ item.etfuturum.birch_boat.name=白桦木船
 item.etfuturum.jungle_boat.name=丛林木船
 item.etfuturum.dark_oak_boat.name=深色橡木船
 item.etfuturum.acacia_boat.name=金合欢木船
+item.etfuturum.oak_chest_boat.name=橡木运输船
+item.etfuturum.spruce_chest_boat.name=云杉木运输船
+item.etfuturum.birch_chest_boat.name=白桦木运输船
+item.etfuturum.jungle_chest_boat.name=丛林木运输船
+item.etfuturum.dark_oak_chest_boat.name=深色橡木运输船
+item.etfuturum.acacia_chest_boat.name=金合欢木运输船
 item.etfuturum.shulker_shell.name=潜影壳
+item.etfuturum.amethyst_shard.name=紫水晶碎片
 
 # Arrows
 item.etfuturum.tipped_arrow.name=药箭
@@ -297,6 +318,14 @@ tile.etfuturum.raw_iron_block.name=粗铁块
 tile.etfuturum.raw_gold_block.name=粗金块
 tile.etfuturum.end_gateway.name=末地折跃门
 tile.etfuturum.end_portal.name=末地传送门
+tile.etfuturum.smooth_basalt.name=平滑玄武岩
+tile.etfuturum.calcite.name=方解石
+tile.etfuturum.amethyst_block.name=紫水晶块
+tile.etfuturum.budding_amethyst.name=紫水晶母岩
+tile.etfuturum.small_amethyst_bud.name=小型紫晶芽
+tile.etfuturum.medium_amethyst_bud.name=中型紫晶芽
+tile.etfuturum.large_amethyst_bud.name=大型紫晶芽
+tile.etfuturum.amethyst_cluster.name=紫水晶簇
 
 tile.etfuturum.magma.name=岩浆块
 tile.etfuturum.nether_wart.name=下界疣块
@@ -433,7 +462,14 @@ tile.etfuturum.black_glazed_terracotta.name=黑色带釉陶瓦
 tile.etfuturum.barrel.name=木桶
 tile.etfuturum.blast_furnace.name=高炉
 tile.etfuturum.smoker.name=烟熏炉
-tile.etfuturum.lantern.name=灯笼
+tile.etfuturum.stonecutter.name=切石机
+tile.etfuturum.smithing_table.name=锻造台
+tile.etfuturum.fletching_table.name=制箭台
+tile.etfuturum.composter.name=堆肥桶
+tile.etfuturum.cartography_table.name=制图台
+tile.etfuturum.loom.name=织布机
+tile.etfuturum.grindstone.name=砂轮
+tile.etfuturum.lectern.name=讲台
 
 tile.etfuturum.concrete_powder_white.name=白色混凝土粉末
 tile.etfuturum.concrete_powder_orange.name=橙色混凝土粉末
@@ -630,6 +666,9 @@ tile.etfuturum.brown_obsidian_shulker_box.name=棕色黑曜石潜影盒
 tile.etfuturum.green_obsidian_shulker_box.name=绿色黑曜石潜影盒
 tile.etfuturum.red_obsidian_shulker_box.name=红色黑曜石潜影盒
 tile.etfuturum.black_obsidian_shulker_box.name=黑色黑曜石潜影盒
+tile.etfuturum.lantern.name=灯笼
+
+tile.etfuturum.tinted_glass.name=遮光玻璃
 
 util.totemBreak=§a§o你的不死图腾碎掉了…
 
@@ -637,6 +676,10 @@ death.attack.hotFloor=%1$s发现了地板是熔岩做的
 death.attack.hotFloor.player=%1$s因%2$s而步入危险之地
 death.attack.sweetBerryBush=%1$s被甜浆果丛刺死了
 death.attack.sweetBerryBush.player=%1$s在试图逃离%2$s时被甜浆果丛刺死了
+death.attack.stalactite=%1$s被掉落的钟乳石刺穿
+death.attack.stalactite.player=%1$s在试图逃跑时被掉落的钟乳石刺穿%2$s
+death.attack.stalactite=%1$s被刺穿在石笋上
+death.attack.stalactite.player=%1$s在试图逃跑时被刺穿在石笋上%2$s
 
 # Banners
 item.banner.black.name=黑色旗帜
