@@ -1,35 +1,25 @@
 package ganymedes01.etfuturum.spectator;
 
-import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.core.utils.helpers.SafeEnumHelperClient;
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.ModelBiped;
 import net.minecraft.command.IEntitySelector;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 import net.minecraft.world.WorldSettings;
-import net.minecraftforge.client.event.*;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
-
-import java.util.WeakHashMap;
 
 public class SpectatorMode {
 	public static final SpectatorMode INSTANCE = new SpectatorMode();
@@ -64,12 +54,12 @@ public class SpectatorMode {
 			if(event.action != PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK)
 				event.setCanceled(true);
 			else {
-				if(!Minecraft.getMinecraft().theWorld.blockExists(event.x, event.y, event.z)) {
+				if(!event.world.blockExists(event.x, event.y, event.z)) {
 					return;
 				}
-				Block block = Minecraft.getMinecraft().theWorld.getBlock(event.x, event.y, event.z);
-				int meta = Minecraft.getMinecraft().theWorld.getBlockMetadata(event.x, event.y, event.z);
-				if(!block.hasTileEntity(meta) || !(Minecraft.getMinecraft().theWorld.getTileEntity(event.x, event.y, event.z) instanceof IInventory)) {
+				Block block = event.world.getBlock(event.x, event.y, event.z);
+				int meta = event.world.getBlockMetadata(event.x, event.y, event.z);
+				if(!block.hasTileEntity(meta) || !(event.world.getTileEntity(event.x, event.y, event.z) instanceof IInventory)) {
 					event.setCanceled(true);
 				}
 			}
