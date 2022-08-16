@@ -140,7 +140,7 @@ public class ClientEventHandler {
 			return;
 		}
 		
-		if(!EtFuturum.TESTING && !showedDebugWarning && player.ticksExisted == 40) {
+		if(!EtFuturum.TESTING && !EtFuturum.DEV_ENVIRONMENT && !showedDebugWarning && player.ticksExisted == 40) {
 			String buildVer = Reference.BUILD_VERSION.toLowerCase();
 			if(buildVer.contains("snapshot") || buildVer.contains("beta") || buildVer.contains("rc")) {
 				if(!forceHideSnapshotWarning) {

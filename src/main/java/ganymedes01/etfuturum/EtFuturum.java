@@ -139,8 +139,8 @@ public class EtFuturum {
 	public static boolean hasIronChest;
 	public static boolean hasNetherlicious;
 	public static boolean hasEnderlicious;
-	public static final boolean TESTING = (Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");
-//  public static final boolean TESTING = false;
+	public static final boolean TESTING = Boolean.parseBoolean(System.getProperty("etfuturum.testing"));
+	public static final boolean DEV_ENVIRONMENT = (Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");
 	private static Side effectiveSide;
 	
 	static final Map<ItemStack, Integer> DEFAULT_COMPOST_CHANCES = new LinkedHashMap();
