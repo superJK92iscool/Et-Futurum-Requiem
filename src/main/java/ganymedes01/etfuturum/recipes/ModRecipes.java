@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -49,7 +51,7 @@ public class ModRecipes {
 	public static final String[] ore_dyes = new String[] { "dyeBlack", "dyeRed", "dyeGreen", "dyeBrown", "dyeBlue", "dyePurple", "dyeCyan", "dyeLightGray", "dyeGray", "dyePink", "dyeLime", "dyeYellow", "dyeLightBlue", "dyeMagenta", "dyeOrange", "dyeWhite" };
 	public static final String[] dye_names = new String[] { "white", "orange", "magenta", "light_blue", "yellow", "lime", "pink", "gray", "light_gray", "cyan", "purple", "blue", "brown", "green", "red", "black"};
 
-	public static final Map<Item, Item> smithingRecipeMap = new HashMap<>();
+	public static final Map<Object, Pair<Object, Item>> smithingRecipeMap = new HashMap<>();
 
 	public static void init() {
 		if (ConfigBlocksItems.enableBanners) {
@@ -286,15 +288,15 @@ public class ModRecipes {
 
 	private static void registerRecipes() {
 
-		smithingRecipeMap.put(Items.diamond_shovel, ModItems.netherite_spade);
-		smithingRecipeMap.put(Items.diamond_sword, ModItems.netherite_sword);
-		smithingRecipeMap.put(Items.diamond_axe, ModItems.netherite_axe);
-		smithingRecipeMap.put(Items.diamond_pickaxe, ModItems.netherite_pickaxe);
-		smithingRecipeMap.put(Items.diamond_hoe, ModItems.netherite_hoe);
-		smithingRecipeMap.put(Items.diamond_helmet, ModItems.netherite_helmet);
-		smithingRecipeMap.put(Items.diamond_chestplate, ModItems.netherite_chestplate);
-		smithingRecipeMap.put(Items.diamond_leggings, ModItems.netherite_leggings);
-		smithingRecipeMap.put(Items.diamond_boots, ModItems.netherite_boots);
+		smithingRecipeMap.put(Items.diamond_shovel, new ImmutablePair("ingotNetherite", ModItems.netherite_spade));
+		smithingRecipeMap.put(Items.diamond_sword, new ImmutablePair("ingotNetherite", ModItems.netherite_sword));
+		smithingRecipeMap.put(Items.diamond_axe, new ImmutablePair("ingotNetherite", ModItems.netherite_axe));
+		smithingRecipeMap.put(Items.diamond_pickaxe, new ImmutablePair("ingotNetherite", ModItems.netherite_pickaxe));
+		smithingRecipeMap.put(Items.diamond_hoe, new ImmutablePair("ingotNetherite", ModItems.netherite_hoe));
+		smithingRecipeMap.put(Items.diamond_helmet, new ImmutablePair("ingotNetherite", ModItems.netherite_helmet));
+		smithingRecipeMap.put(Items.diamond_chestplate, new ImmutablePair("ingotNetherite", ModItems.netherite_chestplate));
+		smithingRecipeMap.put(Items.diamond_leggings, new ImmutablePair("ingotNetherite", ModItems.netherite_leggings));
+		smithingRecipeMap.put(Items.diamond_boots, new ImmutablePair("ingotNetherite", ModItems.netherite_boots));
 		
 		if (ConfigFunctions.enableStoneBrickRecipes) {
 			addShapelessRecipe(new ItemStack(Blocks.mossy_cobblestone), new ItemStack(Blocks.cobblestone), new ItemStack(Blocks.vine));

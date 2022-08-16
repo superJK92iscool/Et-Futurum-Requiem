@@ -725,16 +725,33 @@ public class EtFuturum {
 	}
 
 	public static boolean hasDictTag(Block block, String... tags) {
-		return hasDictTag(new ItemStack(block));
+		return hasDictTag(new ItemStack(block), tags);
 	}
 	
 	public static boolean hasDictTag(Item item, String... tags) {
-		return hasDictTag(new ItemStack(item));
+		return hasDictTag(new ItemStack(item), tags);
 	}
 	
 	public static boolean hasDictTag(ItemStack stack, String... tags) {
 		for(String oreName : getOreStrings(stack)) {
 			if(ArrayUtils.contains(tags, oreName)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static boolean dictTagsContain(Block block, String stringToFind) {
+		return dictTagsContain(new ItemStack(block), stringToFind);
+	}
+	
+	public static boolean dictTagsContain(Item item, String stringToFind) {
+		return dictTagsContain(new ItemStack(item), stringToFind);
+	}
+	
+	public static boolean dictTagsContain(ItemStack stack, String stringToFind) {
+		for(String oreName : getOreStrings(stack)) {
+			if(oreName.contains(stringToFind)) {
 				return true;
 			}
 		}

@@ -1,5 +1,10 @@
 package ganymedes01.etfuturum.inventory;
 
+import java.util.Map;
+
+import org.apache.commons.lang3.tuple.Pair;
+
+import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.inventory.slot.SlotLimited;
 import ganymedes01.etfuturum.inventory.slot.SlotSmithingResult;
@@ -7,11 +12,14 @@ import ganymedes01.etfuturum.recipes.ModRecipes;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.*;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.InventoryBasic;
+import net.minecraft.inventory.InventoryCraftResult;
+import net.minecraft.inventory.Slot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-
-import java.util.Map;
 
 public class ContainerSmithingTable extends Container {
     public final World world;
@@ -96,19 +104,48 @@ public class ContainerSmithingTable extends Container {
             resultSlot.setInventorySlotContents(0, null);
             return;
         }
-        if (!ModRecipes.smithingRecipeMap.containsKey(a.getItem()) || b == null || !isNetheriteIngot(b)) {
+        
+        Pair<Object, Item> pair = getResult(a);
+        
+        if (pair == null || b == null || !secondItemMatches(b, pair.getLeft())) {
             resultSlot.setInventorySlotContents(0, null);
             return;
         }
-        final ItemStack result = new ItemStack(ModRecipes.smithingRecipeMap.get(a.getItem()));
+        
+        final ItemStack result = new ItemStack(pair.getRight());
         final Map<?, ?> enchantmentMap = EnchantmentHelper.getEnchantments(a);
         EnchantmentHelper.setEnchantments(enchantmentMap, result);
         result.setItemDamage(a.getItemDamage());
+        if(a.hasDisplayName()) {
+            result.setStackDisplayName(a.getDisplayName());
+        }
         resultSlot.setInventorySlotContents(0, result);
     }
 
     private static boolean isNetheriteIngot(ItemStack stack) {
         return stack.getItem().equals(ModItems.netherite_ingot);
+    }
+    
+    private Pair<Object, Item> getResult(ItemStack stack) {
+    	if(ModRecipes.smithingRecipeMap.containsKey(stack.getItem())) {
+    		return ModRecipes.smithingRecipeMap.get(stack.getItem());
+    	}
+    	for(String string : EtFuturum.getOreStrings(stack)) {
+    		if(ModRecipes.smithingRecipeMap.containsKey(string)) {
+    			return ModRecipes.smithingRecipeMap.get(string);
+    		}
+    	}
+    	return null;
+    }
+    
+    private boolean secondItemMatches(ItemStack input2, Object expectedInput) {
+    	if(input2.getItem() == expectedInput) {
+    		return true;
+    	} else
+    	if(expectedInput instanceof String) {
+    		return EtFuturum.hasDictTag(input2, (String)expectedInput);
+    	}
+    	return false;
     }
 
     public boolean unable(){

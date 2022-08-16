@@ -2,6 +2,8 @@ package ganymedes01.etfuturum.items;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -32,6 +34,7 @@ import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.util.Constants;
 
 public class ItemArrowTipped extends Item implements IConfigurable {
+    private static final Map field_77835_b = new LinkedHashMap();
 
 	@SideOnly(Side.CLIENT)
 	private IIcon tipIcon;
@@ -48,36 +51,103 @@ public class ItemArrowTipped extends Item implements IConfigurable {
 			BlockDispenser.dispenseBehaviorRegistry.putObject(this, new DispenserBehaviourTippedArrow());
 	}
 	
+	private List<PotionEffect> getPotionEffects(int meta, boolean flag) {
+		List<PotionEffect> list = new ArrayList();
+	    list = PotionHelper.getPotionEffects(meta, flag);
+	    for(int i = 0; i < list.size(); i++) {
+	    	PotionEffect effect = (PotionEffect) list.get(i);
+	    	list.set(i, new PotionEffect(effect.getPotionID(), effect.getDuration() / (Potion.potionTypes[effect.getPotionID()].isBadEffect() ? 6 : 5), effect.getAmplifier()));
+	    }
+	    return list;
+	}
+	
     public List getEffects(ItemStack stack)
     {
-		if (stack.hasTagCompound() && stack.getTagCompound().hasKey("Potion", Constants.NBT.TAG_COMPOUND)) {
-			NBTTagCompound nbt = stack.getTagCompound().getCompoundTag("Potion");
-			List list = new ArrayList();
-			list.add(PotionEffect.readCustomPotionEffectFromNBT(nbt));
-			stack.getTagCompound().removeTag("Potion");
-			if(stack.getTagCompound().hasNoTags()) {
-				stack.setTagCompound(null);
-			}
-			return list;
+    	if(stack.hasTagCompound()) {
+    		if (stack.getTagCompound().hasKey("Potion", Constants.NBT.TAG_COMPOUND)) {
+    			NBTTagCompound nbt = stack.getTagCompound().getCompoundTag("Potion");
+    			List list = new ArrayList();
+    			list.add(PotionEffect.readCustomPotionEffectFromNBT(nbt));
+    			return list;
+    		}
+            if (stack.hasTagCompound() && stack.getTagCompound().hasKey("CustomPotionEffects", 9))
+            {
+                ArrayList arraylist = new ArrayList();
+                NBTTagList nbttaglist = stack.getTagCompound().getTagList("CustomPotionEffects", 10);
+
+                for (int i = 0; i < nbttaglist.tagCount(); ++i)
+                {
+                    NBTTagCompound nbttagcompound = nbttaglist.getCompoundTagAt(i);
+                    PotionEffect potioneffect = PotionEffect.readCustomPotionEffectFromNBT(nbttagcompound);
+
+                    if (potioneffect != null)
+                    {
+                        arraylist.add(potioneffect);
+                    }
+                }
+
+                return arraylist;
+            }
+    	}
+		List list = (List)this.effectCache.get(Integer.valueOf(stack.getItemDamage()));
+
+		if (list == null)
+		{
+			list = getPotionEffects(stack.getItemDamage(), false);
+		    this.effectCache.put(Integer.valueOf(stack.getItemDamage()), list);
 		}
-		List<PotionEffect> effects = Items.potionitem.getEffects(stack);
-		for(PotionEffect effect : effects) {
-			effect = new PotionEffect(effect.getPotionID(), effect.getDuration() / 2, effect.getAmplifier(), effect.getIsAmbient());
-		}
-		return effects;
+
+		return list;
     }
 
     @SideOnly(Side.CLIENT)
     public void getSubItems(Item item, CreativeTabs tab, List list)
     {
-		List<ItemStack> potions = new ArrayList<ItemStack>();
-		Items.potionitem.getSubItems(item, tab, potions);
+        super.getSubItems(item, tab, list);
+        int j;
 
-		for (ItemStack potion : potions) {
-			if (potion.getItemDamage() > 0 && !ItemPotion.isSplash(potion.getItemDamage())) {
-				list.add(potion);
-			}
-		}
+        if (field_77835_b.isEmpty())
+        {
+            for (int i = 1; i <= 15; ++i)
+            {
+                    int k;
+
+                    k = i | 8192;
+
+                    for (int l = 0; l <= 2; ++l)
+                    {
+                        int i1 = k;
+
+                        if (l != 0)
+                        {
+                            if (l == 1)
+                            {
+                                i1 = k | 32;
+                            }
+                            else if (l == 2)
+                            {
+                                i1 = k | 64;
+                            }
+                        }
+
+                        List list1 = getPotionEffects(i1, false);
+
+                        if (list1 != null && !list1.isEmpty())
+                        {
+                            field_77835_b.put(list1, Integer.valueOf(i1));
+                        }
+                    }
+            }
+        }
+
+        Iterator iterator = field_77835_b.values().iterator();
+
+        while (iterator.hasNext())
+        {
+            j = ((Integer)iterator.next()).intValue();
+            list.add(new ItemStack(item, 1, j));
+        }
+    
     }
 
 	@Override
@@ -113,7 +183,7 @@ public class ItemArrowTipped extends Item implements IConfigurable {
         }
 		String s = "tipped_arrow.";
 
-		List list = Items.potionitem.getEffects(stack);
+		List list = getEffects(stack);
 		String s1;
 
 		if (list != null && !list.isEmpty())
