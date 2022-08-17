@@ -74,48 +74,86 @@ public class ContainerNewBrewingStand extends Container {
 
 	@Override
 	public ItemStack transferStackInSlot(EntityPlayer player, int slotIndex) {
-		ItemStack itemstack = null;
-		Slot slot = (Slot) inventorySlots.get(slotIndex);
+        ItemStack itemstack = null;
+        Slot slot = (Slot)this.inventorySlots.get(slotIndex);
 
-		if (slot != null && slot.getHasStack()) {
-			ItemStack itemstack1 = slot.getStack();
-			itemstack = itemstack1.copy();
+        if (slot != null && slot.getHasStack())
+        {
+            ItemStack itemstack1 = slot.getStack();
+            itemstack = itemstack1.copy();
 
-			if ((slotIndex < 0 || slotIndex > 2) && slotIndex != 3) {
-				if (!ingredientSlot.getHasStack() && ingredientSlot.isItemValid(itemstack1)) {
-					if (!mergeItemStack(itemstack1, 3, 4, false))
-						return null;
-				} else if (PotionSlot.canHoldPotion(itemstack)) {
-					if (!mergeItemStack(itemstack1, 0, 3, false))
-						return null;
-				} else if (slotIndex >= 4 && slotIndex < 31) {
-					if (!mergeItemStack(itemstack1, 31, 40, false))
-						return null;
-				} else if (slotIndex >= 31 && slotIndex < 40) {
-					if (!mergeItemStack(itemstack1, 4, 31, false))
-						return null;
-				} else if (!mergeItemStack(itemstack1, 4, 40, false))
-					return null;
-			} else {
-				if (!mergeItemStack(itemstack1, 4, 40, true))
-					return null;
+            if ((slotIndex < 0 || slotIndex > 2) && slotIndex != 3 && slotIndex != 4)
+            {
+            	 if (((Slot) inventorySlots.get(4)).isItemValid(itemstack))
+                 {
+                     if (!this.mergeItemStack(itemstack1, 4, 5, false))
+                     {
+                         return null;
+                     }
+                 }
+                else if (!this.ingredientSlot.getHasStack() && this.ingredientSlot.isItemValid(itemstack1)) {
+                    {
+                        if (!this.mergeItemStack(itemstack1, 3, 4, false))
+                        {
+                            return null;
+                        }
+                    }
+                }
+                else if (PotionSlot.canHoldPotion(itemstack))
+                {
+                    if (!this.mergeItemStack(itemstack1, 0, 3, false))
+                    {
+                        return null;
+                    }
+                }
+                else if (slotIndex >= 5 && slotIndex < 32)
+                {
+                    if (!this.mergeItemStack(itemstack1, 32, 41, false))
+                    {
+                        return null;
+                    }
+                }
+                else if (slotIndex >= 32 && slotIndex < 41)
+                {
+                    if (!this.mergeItemStack(itemstack1, 5, 32, false))
+                    {
+                        return null;
+                    }
+                }
+                else if (!this.mergeItemStack(itemstack1, 5, 41, false))
+                {
+                    return null;
+                }
+            }
+            else
+            {
+                if (!this.mergeItemStack(itemstack1, 5, 41, true))
+                {
+                    return null;
+                }
 
-				slot.onSlotChange(itemstack1, itemstack);
-			}
+                slot.onSlotChange(itemstack1, itemstack);
+            }
 
-			if (itemstack1.stackSize == 0)
-				slot.putStack((ItemStack) null);
-			else
-				slot.onSlotChanged();
+            if (itemstack1.stackSize == 0)
+            {
+                slot.putStack((ItemStack)null);
+            }
+            else
+            {
+                slot.onSlotChanged();
+            }
 
-			if (itemstack1.stackSize == itemstack.stackSize)
-				return null;
+            if (itemstack1.stackSize == itemstack.stackSize)
+            {
+                return null;
+            }
 
-			slot.onPickupFromSlot(player, itemstack1);
-		}
+            slot.onPickupFromSlot(player, itemstack1);
+        }
 
-		return itemstack;
-	}
+        return itemstack;
+    }
 
 	class BlazePowderSlot extends Slot {
 

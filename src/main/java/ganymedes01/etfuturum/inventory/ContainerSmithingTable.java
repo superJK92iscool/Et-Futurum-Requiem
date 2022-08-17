@@ -32,7 +32,7 @@ public class ContainerSmithingTable extends Container {
     };
     public final InventoryCraftResult resultSlot = new InventoryCraftResult();
     public final Slot applicant = new Slot(inputSlots, 0, 27, 47);
-    public final SlotLimited ingot = new SlotLimited(inputSlots, 1, 76, 47, ContainerSmithingTable::isNetheriteIngot);
+    public final Slot ingot = new Slot(inputSlots, 1, 76, 47);
     public final SlotSmithingResult result = new SlotSmithingResult(this, resultSlot, 2, 134, 47);
 
     public ContainerSmithingTable(InventoryPlayer inv, World world) {
@@ -85,7 +85,7 @@ public class ContainerSmithingTable extends Container {
     }
 
     private boolean tryUpper(ItemStack newStack) {
-        return !ingot.getHasStack() && isNetheriteIngot(newStack) && mergeItemStack(newStack, 1, 2, false) || !applicant.getHasStack() && mergeItemStack(newStack, 0, 1, false);
+        return !ingot.getHasStack() && mergeItemStack(newStack, 1, 2, false) || !applicant.getHasStack() && mergeItemStack(newStack, 0, 1, false);
     }
 
     @Override
