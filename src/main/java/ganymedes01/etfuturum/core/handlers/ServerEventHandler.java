@@ -492,7 +492,7 @@ public class ServerEventHandler {
 		{
 			float f1 = i * i + 1;
 
-			//boolean canHarvest = ForgeHooks.canToolHarvestBlock(block, meta, itemstack); // TODO Do you even care if it is harvestable?
+			//boolean canHarvest = ForgeHooks.canToolHarvestBlock(block, meta, itemstack); // TODO Do you even care if it is harvestable? Tbh not sure of what to slash the speed by if it isn't
 			moddedDigSpeed += f1;
 		}
 
@@ -774,11 +774,12 @@ public class ServerEventHandler {
 		if (event.entityLiving.worldObj.isRemote)
 			return;
 
-		if (ConfigFunctions.enableSkullDrop)
+		if (ConfigFunctions.enableSkullDrop && event.entityLiving.worldObj.getGameRules().getGameRuleBooleanValue("doMobLoot")) {
 			dropHead(event.entityLiving, event.source, event.lootingLevel, event.drops);
+		}
 
 		Random rand = event.entityLiving.worldObj.rand;
-		if (ConfigBlocksItems.enableMutton && event.entityLiving instanceof EntitySheep) {
+		if (ConfigBlocksItems.enableMutton && event.entityLiving.worldObj.getGameRules().getGameRuleBooleanValue("doMobLoot") && event.entityLiving instanceof EntitySheep) {
 			int amount = rand.nextInt(3) + 1 + rand.nextInt(1 + event.lootingLevel);
 			for (int i = 0; i < amount; i++)
 				if (event.entityLiving.isBurning())
