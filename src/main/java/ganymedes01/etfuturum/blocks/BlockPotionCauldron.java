@@ -9,6 +9,7 @@ import ganymedes01.etfuturum.ModBlocks.ISubBlocksBlock;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.client.DynamicResourcePack;
 import ganymedes01.etfuturum.client.DynamicResourcePack.GrayscaleType;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import ganymedes01.etfuturum.tileentities.TileEntityCauldronColoredWater;
@@ -185,7 +186,7 @@ public class BlockPotionCauldron extends BlockCauldronTileEntity implements ISub
 
 	@Override
 	public boolean isEnabled() {
-		return true;
+		return ConfigBlocksItems.enablePotionCauldron;
 	}
 
 	@Override
