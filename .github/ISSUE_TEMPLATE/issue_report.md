@@ -8,6 +8,7 @@ assignees: ''
 ---
 
 ### Please check any boxes that apply to you and your issue
+<!-- To check a box, place an x inside it, like this: [x] -->
 
 - [ ] I use a translator application to post this issue.
 
