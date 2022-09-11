@@ -36,7 +36,12 @@ apply plugin: 'forge'
 group = "ganymedes01.etfuturum"
 archivesBaseName = "Et_Futurum_Requiem"
 def modVersion = "2.4.1"
+def embedMixin = !project.hasProperty("nomixin");
 version = project.hasProperty("useCommitHashInVersion") ? getCommitVersion(modVersion) : modVersion
+
+if(!embedMixin){
+	version += "+nomixin"
+}
 
 def getCommitVersion(modVersion){
 	try {
@@ -195,13 +200,24 @@ repositories {
 }
 
 dependencies {
-	embed('org.spongepowered:mixin:0.7.11-SNAPSHOT') {
-		// Mixin includes a lot of dependencies that are too up-to-date
-		exclude module: 'launchwrapper'
-		exclude module: 'guava'
-		exclude module: 'gson'
-		exclude module: 'commons-io'
-		exclude module: 'log4j-core'
+	if(embedMixin){
+		embed('org.spongepowered:mixin:0.7.11-SNAPSHOT') {
+			// Mixin includes a lot of dependencies that are too up-to-date
+			exclude module: 'launchwrapper'
+			exclude module: 'guava'
+			exclude module: 'gson'
+			exclude module: 'commons-io'
+			exclude module: 'log4j-core'
+		}
+	} else {
+		compile('org.spongepowered:mixin:0.7.11-SNAPSHOT') {
+			// Mixin includes a lot of dependencies that are too up-to-date
+			exclude module: 'launchwrapper'
+			exclude module: 'guava'
+			exclude module: 'gson'
+			exclude module: 'commons-io'
+			exclude module: 'log4j-core'
+		}
 	}
 }
 
