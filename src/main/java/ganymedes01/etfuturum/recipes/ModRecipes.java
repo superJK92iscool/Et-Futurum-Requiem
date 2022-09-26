@@ -694,7 +694,7 @@ public class ModRecipes {
 		}
 //      
 		if(ConfigBlocksItems.enableQuartzBricks)
-			addShapedRecipe(new ItemStack(ModBlocks.quartz_bricks), "xx", "xx", 'x', new ItemStack(Blocks.quartz_block, 1, 0));
+			addShapedRecipe(new ItemStack(ModBlocks.quartz_bricks, 4, 0), "xx", "xx", 'x', new ItemStack(Blocks.quartz_block, 1, 0));
 		
 		if(ConfigBlocksItems.enableNewDyes) {
 			if(ConfigBlocksItems.enableLilyOfTheValley) {
