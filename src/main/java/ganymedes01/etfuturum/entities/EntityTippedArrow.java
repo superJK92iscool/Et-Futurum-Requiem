@@ -81,7 +81,7 @@ public class EntityTippedArrow extends EntityArrow {
     {
         if (this.arrow == null)
         {
-            this.arrow = new ItemStack(Items.potionitem, 1, 0);
+            this.arrow = new ItemStack(ModItems.tipped_arrow, 1, 0);
         }
 
         this.arrow.setItemDamage(p_82340_1_);

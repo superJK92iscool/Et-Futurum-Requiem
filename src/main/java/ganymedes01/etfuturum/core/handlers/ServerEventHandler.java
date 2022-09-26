@@ -241,7 +241,7 @@ public class ServerEventHandler {
 				EntityTippedArrow tippedArrow = (EntityTippedArrow) dmgSrc.getSourceOfDamage();
 				if (!tippedArrow.worldObj.isRemote && dmgSrc.getEntity() instanceof EntityLivingBase) {
 
-					List list = Items.potionitem.getEffects(tippedArrow.getArrow());
+					List list = ((ItemArrowTipped) ModItems.tipped_arrow).getEffects(tippedArrow.getArrow());
                     Iterator iterator1 = list.iterator();
 
                     while (iterator1.hasNext())

@@ -6,6 +6,9 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+
+import com.google.common.collect.HashMultimap;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -18,6 +21,8 @@ import ganymedes01.etfuturum.dispenser.DispenserBehaviourTippedArrow;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -56,7 +61,7 @@ public class ItemArrowTipped extends Item implements IConfigurable {
 	    list = PotionHelper.getPotionEffects(meta, flag);
 	    for(int i = 0; i < list.size(); i++) {
 	    	PotionEffect effect = (PotionEffect) list.get(i);
-	    	list.set(i, new PotionEffect(effect.getPotionID(), effect.getDuration() / (Potion.potionTypes[effect.getPotionID()].isBadEffect() ? 6 : 5), effect.getAmplifier()));
+	    	list.set(i, new PotionEffect(effect.getPotionID(), effect.getDuration() / 8, effect.getAmplifier()));
 	    }
 	    return list;
 	}
@@ -103,7 +108,6 @@ public class ItemArrowTipped extends Item implements IConfigurable {
     @SideOnly(Side.CLIENT)
     public void getSubItems(Item item, CreativeTabs tab, List list)
     {
-        super.getSubItems(item, tab, list);
         int j;
 
         if (field_77835_b.isEmpty())
@@ -179,9 +183,9 @@ public class ItemArrowTipped extends Item implements IConfigurable {
 	public String getUnlocalizedName(ItemStack stack) {
         if (stack.getItemDamage() == 0)
         {
-            return StatCollector.translateToLocal("tipped_arrow.effect.empty").trim();
+            return StatCollector.translateToLocal("item.etfuturum.tipped_arrow.effect.empty").trim();
         }
-		String s = "tipped_arrow.";
+		String s = "item.etfuturum.tipped_arrow.";
 
 		List list = getEffects(stack);
 		String s1;
@@ -189,7 +193,7 @@ public class ItemArrowTipped extends Item implements IConfigurable {
 		if (list != null && !list.isEmpty())
 		{
 		    s1 = ((PotionEffect)list.get(0)).getEffectName();
-		    return s + StatCollector.translateToLocal(s1).trim();
+		    return s + s1;
 		}
 		
 		s1 = PotionHelper.func_77905_c(stack.getItemDamage());
@@ -217,7 +221,96 @@ public class ItemArrowTipped extends Item implements IConfigurable {
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, EntityPlayer p_77624_2_, List list, boolean p_77624_4_)
 	{
-		Items.potionitem.addInformation(stack, p_77624_2_, list, p_77624_4_);
+        if (stack.getItemDamage() != 0)
+        {
+            List list1 = getEffects(stack);
+            HashMultimap hashmultimap = HashMultimap.create();
+            Iterator iterator1;
+
+            if (list1 != null && !list1.isEmpty())
+            {
+                iterator1 = list1.iterator();
+
+                while (iterator1.hasNext())
+                {
+                    PotionEffect potioneffect = (PotionEffect)iterator1.next();
+                    String s1 = StatCollector.translateToLocal(potioneffect.getEffectName()).trim();
+                    Potion potion = Potion.potionTypes[potioneffect.getPotionID()];
+                    Map map = potion.func_111186_k();
+
+                    if (map != null && map.size() > 0)
+                    {
+                        Iterator iterator = map.entrySet().iterator();
+
+                        while (iterator.hasNext())
+                        {
+                            Entry entry = (Entry)iterator.next();
+                            AttributeModifier attributemodifier = (AttributeModifier)entry.getValue();
+                            AttributeModifier attributemodifier1 = new AttributeModifier(attributemodifier.getName(), potion.func_111183_a(potioneffect.getAmplifier(), attributemodifier), attributemodifier.getOperation());
+                            hashmultimap.put(((IAttribute)entry.getKey()).getAttributeUnlocalizedName(), attributemodifier1);
+                        }
+                    }
+
+                    if (potioneffect.getAmplifier() > 0)
+                    {
+                        s1 = s1 + " " + StatCollector.translateToLocal("potion.potency." + potioneffect.getAmplifier()).trim();
+                    }
+
+                    if (potioneffect.getDuration() > 20)
+                    {
+                        s1 = s1 + " (" + Potion.getDurationString(potioneffect) + ")";
+                    }
+
+                    if (potion.isBadEffect())
+                    {
+                        list.add(EnumChatFormatting.RED + s1);
+                    }
+                    else
+                    {
+                        list.add(EnumChatFormatting.GRAY + s1);
+                    }
+                }
+            }
+            else
+            {
+                String s = StatCollector.translateToLocal("potion.empty").trim();
+                list.add(EnumChatFormatting.GRAY + s);
+            }
+
+            if (!hashmultimap.isEmpty())
+            {
+                list.add("");
+                list.add(EnumChatFormatting.DARK_PURPLE + StatCollector.translateToLocal("potion.effects.whenDrank"));
+                iterator1 = hashmultimap.entries().iterator();
+
+                while (iterator1.hasNext())
+                {
+                    Entry entry1 = (Entry)iterator1.next();
+                    AttributeModifier attributemodifier2 = (AttributeModifier)entry1.getValue();
+                    double d0 = attributemodifier2.getAmount();
+                    double d1;
+
+                    if (attributemodifier2.getOperation() != 1 && attributemodifier2.getOperation() != 2)
+                    {
+                        d1 = attributemodifier2.getAmount();
+                    }
+                    else
+                    {
+                        d1 = attributemodifier2.getAmount() * 100.0D;
+                    }
+
+                    if (d0 > 0.0D)
+                    {
+                        list.add(EnumChatFormatting.BLUE + StatCollector.translateToLocalFormatted("attribute.modifier.plus." + attributemodifier2.getOperation(), new Object[] {ItemStack.field_111284_a.format(d1), StatCollector.translateToLocal("attribute.name." + (String)entry1.getKey())}));
+                    }
+                    else if (d0 < 0.0D)
+                    {
+                        d1 *= -1.0D;
+                        list.add(EnumChatFormatting.RED + StatCollector.translateToLocalFormatted("attribute.modifier.take." + attributemodifier2.getOperation(), new Object[] {ItemStack.field_111284_a.format(d1), StatCollector.translateToLocal("attribute.name." + (String)entry1.getKey())}));
+                    }
+                }
+            }
+        }
 	}
 	
 }

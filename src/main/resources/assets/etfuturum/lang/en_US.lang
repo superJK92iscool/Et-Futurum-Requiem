@@ -138,20 +138,20 @@ item.etfuturum.amethyst_shard.name=Amethyst Shard
 
 # Arrows
 item.etfuturum.tipped_arrow.name=Tipped Arrow
-tipped_arrow.effect.empty.name=Uncraftable Tipped Arrow
-tipped_arrow.potion.nightVision.name=Arrow of Night Vision
-tipped_arrow.potion.invisibility.name=Arrow of Invisibility
-tipped_arrow.potion.jump.name=Arrow of Leaping
-tipped_arrow.potion.fireResistance.name=Arrow of Fire Resistance
-tipped_arrow.potion.moveSpeed.name=Arrow of Swiftness
-tipped_arrow.potion.moveSlowdown.name=Arrow of Slowness
-tipped_arrow.potion.waterBreathing.name=Arrow of Water Breathing
-tipped_arrow.potion.heal.name=Arrow of Healing
-tipped_arrow.potion.harm.name=Arrow of Harming
-tipped_arrow.potion.poison.name=Arrow of Poison
-tipped_arrow.potion.regeneration.name=Arrow of Regeneration
-tipped_arrow.potion.damageBoost.name=Arrow of Strength
-tipped_arrow.potion.weakness.name=Arrow of Weakness
+item.etfuturum.tipped_arrow.effect.empty.name=Uncraftable Tipped Arrow
+item.etfuturum.tipped_arrow.potion.nightVision.name=Arrow of Night Vision
+item.etfuturum.tipped_arrow.potion.invisibility.name=Arrow of Invisibility
+item.etfuturum.tipped_arrow.potion.jump.name=Arrow of Leaping
+item.etfuturum.tipped_arrow.potion.fireResistance.name=Arrow of Fire Resistance
+item.etfuturum.tipped_arrow.potion.moveSpeed.name=Arrow of Swiftness
+item.etfuturum.tipped_arrow.potion.moveSlowdown.name=Arrow of Slowness
+item.etfuturum.tipped_arrow.potion.waterBreathing.name=Arrow of Water Breathing
+item.etfuturum.tipped_arrow.potion.heal.name=Arrow of Healing
+item.etfuturum.tipped_arrow.potion.harm.name=Arrow of Harming
+item.etfuturum.tipped_arrow.potion.poison.name=Arrow of Poison
+item.etfuturum.tipped_arrow.potion.regeneration.name=Arrow of Regeneration
+item.etfuturum.tipped_arrow.potion.damageBoost.name=Arrow of Strength
+item.etfuturum.tipped_arrow.potion.weakness.name=Arrow of Weakness
 
 
 # Blocks
