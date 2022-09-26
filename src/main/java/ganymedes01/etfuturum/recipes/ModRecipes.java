@@ -797,10 +797,18 @@ public class ModRecipes {
 //      }
 		
 		if (ConfigBlocksItems.enableRawOres) {
+			Item result = null;
 			if(ConfigBlocksItems.enableCopper) {
+				result = ModItems.copper_ingot;
+			} else
+			if(!OreDictionary.getOres("ingotCopper").isEmpty()) {
+				result = OreDictionary.getOres("ingotCopper").get(0).getItem();
+			}
+			
+			if(result != null) {
 				addShapedRecipe(new ItemStack(ModBlocks.raw_ore_block, 1, 0), "xxx", "xxx", "xxx", 'x', new ItemStack(ModItems.raw_ore, 1, 0));
 				addShapedRecipe(new ItemStack(ModItems.raw_ore, 9, 0), "x", 'x', new ItemStack(ModBlocks.raw_ore_block, 1, 0));
-				GameRegistry.addSmelting(new ItemStack(ModItems.raw_ore, 1, 0), new ItemStack(ModItems.copper_ingot, 1, 0), 0.7F);
+				GameRegistry.addSmelting(new ItemStack(ModItems.raw_ore, 1, 0), new ItemStack(result, 1, 0), 0.7F);
 			}
 			addShapedRecipe(new ItemStack(ModBlocks.raw_ore_block, 1, 1), "xxx", "xxx", "xxx", 'x', new ItemStack(ModItems.raw_ore, 1, 1));
 			addShapedRecipe(new ItemStack(ModItems.raw_ore, 9, 1), "x", 'x', new ItemStack(ModBlocks.raw_ore_block, 1, 1));

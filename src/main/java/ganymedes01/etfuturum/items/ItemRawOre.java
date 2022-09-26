@@ -45,7 +45,7 @@ public class ItemRawOre extends ItemGeneric implements IConfigurable {
 			super.getSubItems(item, tabs, list);
 		} else {
 			for (int i = 0; i < types.length; i++) {
-				if(!OreDictionary.getOres("ore" + StringUtils.capitalize(types[i])).isEmpty()) {
+				if(!OreDictionary.getOres("ingot" + StringUtils.capitalize(types[i])).isEmpty()) {
 					list.add(new ItemStack(item, 1, i));
 				}
 			}

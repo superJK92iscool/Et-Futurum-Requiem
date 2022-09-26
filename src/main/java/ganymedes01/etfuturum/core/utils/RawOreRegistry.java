@@ -94,7 +94,7 @@ public class RawOreRegistry {
 
 	public static void init() {
 		if(((IConfigurable)(ModItems.raw_ore)).isEnabled()) {
-			if(ConfigBlocksItems.enableCopper || !OreDictionary.getOres("oreCopper").isEmpty()) {
+			if(ConfigBlocksItems.enableCopper || !OreDictionary.getOres("ingotCopper").isEmpty()) {
 				addOre("oreCopper", ModItems.raw_ore);
 			}
 			addOre("oreIron", ModItems.raw_ore, 1);
