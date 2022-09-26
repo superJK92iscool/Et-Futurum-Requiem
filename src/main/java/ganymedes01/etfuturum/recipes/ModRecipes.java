@@ -865,7 +865,7 @@ public class ModRecipes {
 				addShapedRecipe(new ItemStack(ModItems.shulker_box_upgrade, 1, 4), "XYX", "XXX", "XXX", 'X', Blocks.obsidian, 'Y', "blockGlassColorless");
 				addShapedRecipe(new ItemStack(ModItems.shulker_box_upgrade, 1, 5), "XYX", "XXX", "XXX", 'X', "blockGlassColorless", 'Y', Blocks.obsidian);
 				addShapedRecipe(new ItemStack(ModItems.shulker_box_upgrade, 1, 6), "GGG", "XYX", "XGX", 'X', "ingotIron", 'Y', "ingotCopper", 'G', "blockGlassColorless");
-				addShapedRecipe(new ItemStack(ModItems.shulker_box_upgrade, 1, 7), "XXX", "XYX", "XXX", 'X', "ingotSilver", 'Y', "ingotCopper");
+				addShapedRecipe(new ItemStack(ModItems.shulker_box_upgrade, 1, 7), "XYX", "XXX", "XXX", 'X', "ingotSilver", 'Y', "ingotCopper");
 				addShapedRecipe(new ItemStack(ModItems.shulker_box_upgrade, 1, 8), "XYX", "GGG", "XGX", 'X', "ingotGold", 'Y', "ingotSilver", 'G', "blockGlassColorless");
 			}
 		}
