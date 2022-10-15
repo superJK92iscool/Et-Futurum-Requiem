@@ -57,11 +57,12 @@ public class ItemArrowTipped extends Item implements IConfigurable {
 	}
 	
 	private List<PotionEffect> getPotionEffects(int meta, boolean flag) {
-		List<PotionEffect> list = new ArrayList();
-	    list = PotionHelper.getPotionEffects(meta, flag);
-	    for(int i = 0; i < list.size(); i++) {
-	    	PotionEffect effect = (PotionEffect) list.get(i);
-	    	list.set(i, new PotionEffect(effect.getPotionID(), effect.getDuration() / 8, effect.getAmplifier()));
+		List<PotionEffect> list = PotionHelper.getPotionEffects(meta, flag);
+	    if(list != null) {
+			for(int i = 0; i < list.size(); i++) {
+		    	PotionEffect effect = (PotionEffect) list.get(i);
+		    	list.set(i, new PotionEffect(effect.getPotionID(), effect.getDuration() / 8, effect.getAmplifier()));
+		    }
 	    }
 	    return list;
 	}
