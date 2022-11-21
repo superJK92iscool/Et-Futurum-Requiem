@@ -18,6 +18,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -145,6 +146,16 @@ public class BlockBarrel extends BlockContainer implements IConfigurable {
 
 		super.breakBlock(world, x, y, z, block, meta);
 		
+	}
+
+	public boolean hasComparatorInputOverride()
+	{
+		return true;
+	}
+
+	public int getComparatorInputOverride(World p_149736_1_, int p_149736_2_, int p_149736_3_, int p_149736_4_, int p_149736_5_)
+	{
+		return Container.calcRedstoneFromInventory(this.func_149951_m(p_149736_1_, p_149736_2_, p_149736_3_, p_149736_4_));
 	}
 
 	/**
