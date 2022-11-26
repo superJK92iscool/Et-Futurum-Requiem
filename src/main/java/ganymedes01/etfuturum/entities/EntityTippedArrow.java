@@ -1,6 +1,7 @@
 package ganymedes01.etfuturum.entities;
 
 import java.awt.Color;
+import java.io.IOException;
 
 import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
 import ganymedes01.etfuturum.ModItems;
@@ -12,13 +13,14 @@ import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionHelper;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-public class EntityTippedArrow extends EntityArrow {
+public class EntityTippedArrow extends EntityArrow implements IEntityAdditionalSpawnData {
 
 	private ItemStack arrow;
 
@@ -116,6 +118,48 @@ public class EntityTippedArrow extends EntityArrow {
 				player.onItemPickup(this, 1);
 				setDead();
 			}
+		}
+	}
+	
+	@Override
+	public void writeSpawnData(ByteBuf buffer) {
+		buffer.writeFloat(rotationYaw);
+
+		int id = shootingEntity == null ? getEntityId() : shootingEntity.getEntityId();
+		buffer.writeInt(id);
+
+		buffer.writeDouble(motionX);
+		buffer.writeDouble(motionY);
+		buffer.writeDouble(motionZ);
+
+		PacketBuffer pb = new PacketBuffer(buffer);
+		
+		try {
+			pb.writeItemStackToBuffer(arrow);
+		} catch(IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@Override
+	public void readSpawnData(ByteBuf buffer) {
+		rotationYaw = buffer.readFloat();
+		shootingEntity = worldObj.getEntityByID(buffer.readInt());
+
+		motionX = buffer.readDouble();
+		motionY = buffer.readDouble();
+		motionZ = buffer.readDouble();
+
+		posX -= MathHelper.cos(rotationYaw / 180.0F * (float) Math.PI) * 0.16F;
+		posY -= 0.10000000149011612D;
+		posZ -= MathHelper.sin(rotationYaw / 180.0F * (float) Math.PI) * 0.16F;
+
+		PacketBuffer pb = new PacketBuffer(buffer);
+		
+		try {
+			arrow = pb.readItemStackFromBuffer();
+		} catch(IOException e) {
+			throw new RuntimeException(e);
 		}
 	}
 }
