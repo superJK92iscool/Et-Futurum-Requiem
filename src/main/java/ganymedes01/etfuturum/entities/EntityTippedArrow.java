@@ -53,7 +53,7 @@ public class EntityTippedArrow extends EntityArrow {
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
-		if (isEffectValid()) {
+		if (worldObj.isRemote && isEffectValid()) {
 			Color colour = new Color(Items.potionitem.getColorFromItemStack(arrow, 0));
 			worldObj.spawnParticle("mobSpell", posX, posY, posZ, colour.getRed() / 255F, colour.getGreen() / 255F, colour.getBlue() / 255F);
 		}
