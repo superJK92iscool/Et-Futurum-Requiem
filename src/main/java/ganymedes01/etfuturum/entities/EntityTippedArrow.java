@@ -55,12 +55,29 @@ public class EntityTippedArrow extends EntityArrow implements IEntityAdditionalS
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
-		if (worldObj.isRemote && isEffectValid()) {
-			Color colour = new Color(Items.potionitem.getColorFromItemStack(arrow, 0));
-			worldObj.spawnParticle("mobSpell", posX, posY, posZ, colour.getRed() / 255F, colour.getGreen() / 255F, colour.getBlue() / 255F);
+		
+		if (this.worldObj.isRemote) {
+			if (this.inGround) {
+				if (this.ticksInGround % 5 == 0) {
+					this.spawnPotionParticles(1);
+				}
+			} else {
+				this.spawnPotionParticles(2);
+			}
 		}
 	}
-    public void readEntityFromNBT(NBTTagCompound p_70037_1_)
+    
+	private void spawnPotionParticles(int particleCount) {
+		if(isEffectValid() && particleCount > 0) {
+			Color colour = new Color(Items.potionitem.getColorFromItemStack(arrow, 0));
+
+			for (int j = 0; j < particleCount; ++j) {
+				this.worldObj.spawnParticle("mobSpell", this.posX + (this.rand.nextDouble() - 0.5D) * (double)this.width, this.posY + this.rand.nextDouble() * (double)this.height - (double)this.yOffset, this.posZ + (this.rand.nextDouble() - 0.5D) * (double)this.width, colour.getRed() / 255F, colour.getGreen() / 255F, colour.getBlue() / 255F);
+			}
+		}
+	}
+
+	public void readEntityFromNBT(NBTTagCompound p_70037_1_)
     {
         super.readEntityFromNBT(p_70037_1_);
 
