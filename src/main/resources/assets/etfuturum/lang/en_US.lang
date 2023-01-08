@@ -495,6 +495,7 @@ tile.etfuturum.concrete_powder_brown.name=Brown Concrete Powder
 tile.etfuturum.concrete_powder_green.name=Green Concrete Powder
 tile.etfuturum.concrete_powder_red.name=Red Concrete Powder
 tile.etfuturum.concrete_powder_black.name=Black Concrete Powder
+
 tile.etfuturum.concrete_white.name=White Concrete
 tile.etfuturum.concrete_orange.name=Orange Concrete
 tile.etfuturum.concrete_magenta.name=Magenta Concrete
@@ -511,6 +512,24 @@ tile.etfuturum.concrete_brown.name=Brown Concrete
 tile.etfuturum.concrete_green.name=Green Concrete
 tile.etfuturum.concrete_red.name=Red Concrete
 tile.etfuturum.concrete_black.name=Black Concrete
+
+tile.etfuturum.white_bed.name=White Bed
+tile.etfuturum.orange_bed.name=Orange Bed
+tile.etfuturum.magenta_bed.name=Magenta Bed
+tile.etfuturum.light_blue_bed.name=Light Blue Bed
+tile.etfuturum.yellow_bed.name=Yellow Bed
+tile.etfuturum.lime_bed.name=Lime Bed
+tile.etfuturum.pink_bed.name=Pink Bed
+tile.etfuturum.gray_bed.name=Gray Bed
+tile.etfuturum.silver_bed.name=Light Gray Bed
+tile.etfuturum.cyan_bed.name=Cyan Bed
+tile.etfuturum.purple_bed.name=Purple Bed
+tile.etfuturum.blue_bed.name=Blue Bed
+tile.etfuturum.brown_bed.name=Brown Bed
+tile.etfuturum.green_bed.name=Green Bed
+item.etfuturum.red_bed.name=Red Bed
+tile.etfuturum.black_bed.name=Black Bed
+
 tile.etfuturum.barrier.name=Barrier
 tile.etfuturum.red_netherbrick.name=Red Nether Bricks
 tile.etfuturum.red_netherbrick_slab.name=Red Nether Brick Slab

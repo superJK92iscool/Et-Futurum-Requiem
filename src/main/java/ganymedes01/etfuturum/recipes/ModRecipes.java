@@ -92,6 +92,10 @@ public class ModRecipes {
 			Blocks.fire.setFireInfo(Blocks.fence, 5, 20);
 			Blocks.fire.setFireInfo(Blocks.deadbush, 60, 100);
 		}
+		
+		if(ConfigBlocksItems.enableDyedBeds) {
+			Items.bed.setUnlocalizedName(Utils.getUnlocalisedName("red_bed"));
+		}
 	}
 
 	private static void registerOreDictionary() {
@@ -504,6 +508,17 @@ public class ModRecipes {
 		if (ConfigBlocksItems.enableTippedArrows && ConfigBlocksItems.enableLingeringPotions) {
 			RecipeSorter.register(Reference.MOD_ID + ".RecipeTippedArrow", RecipeTippedArrow.class, Category.SHAPED, "after:minecraft:shaped");
 			GameRegistry.addRecipe(new RecipeTippedArrow(new ItemStack(ModItems.tipped_arrow), "xxx", "xyx", "xxx", 'x', Items.arrow, 'y', new ItemStack(ModItems.lingering_potion, 1, OreDictionary.WILDCARD_VALUE)));
+		}
+		
+		if (ConfigBlocksItems.enableDyedBeds) {
+			for(int i = 0; i < ModBlocks.beds.length; i++) {
+				int j = i == 14 ? 15 : i;
+				addShapedRecipe(new ItemStack(ModBlocks.beds[i], 1), new Object[] {"###", "XXX", '#', new ItemStack(Blocks.wool, 1, j), 'X', "plankWood"});
+				if(i > 0) {
+					addShapelessRecipe(new ItemStack(ModBlocks.beds[i], 1), ModBlocks.beds[0], ore_dyes[~j & 15]);
+				}
+			}
+			addShapelessRecipe(new ItemStack(Items.bed, 1), new ItemStack(ModBlocks.beds[0]), ore_dyes[1]);
 		}
 
 

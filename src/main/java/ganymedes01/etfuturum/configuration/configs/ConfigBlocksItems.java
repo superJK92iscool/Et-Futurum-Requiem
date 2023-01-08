@@ -103,6 +103,7 @@ public class ConfigBlocksItems extends ConfigBase {
 	public static boolean enableCartographyTable;
 	public static boolean enableLoom;
 	public static boolean enableAmethyst;
+	public static boolean enableDyedBeds;
 	//Nether Update temp disabled
 	public static boolean enableCrimsonBlocks = false;
 	public static boolean enableWarpedBlocks = false;
@@ -200,6 +201,7 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableComposter = cfg.getBoolean("enableComposter", catBlockFunc, true, "");
 		enableCartographyTable = cfg.getBoolean("enableCartographyTable", catBlockFunc, true, "Currently DOES NOT HAVE ANY FUNCTIONALITY. Decoration ONLY!");
 		enableLoom = cfg.getBoolean("enableLoom", catBlockFunc, true, "Currently DOES NOT HAVE ANY FUNCTIONALITY. Decoration ONLY!");
+		enableDyedBeds = cfg.getBoolean("enableDyedBeds", catBlockFunc, true, "Ability to craft differently colored beds out of wool. Mixed wool colors = red bed");
 
 		enableEnchantingTable = cfg.getBoolean("enableNewEnchantingTable", catBlockFunc, true, "Uses lapis as payment and has enchant previews and adjusted level costs\nRequires tile entity replacement to be enabled in function.cfg");
 		enableAnvil = cfg.getBoolean("enableNewAnvil", catBlockFunc, true, "Enables new anvil behavior, such as less expensive item renaming");

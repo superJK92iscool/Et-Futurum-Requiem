@@ -65,6 +65,7 @@ import makamys.mclib.ext.assetdirector.ADConfig;
 import makamys.mclib.ext.assetdirector.AssetDirectorAPI;
 import net.minecraft.block.Block;
 import net.minecraft.block.Block.SoundType;
+import net.minecraft.block.BlockBed;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.block.BlockFlower;
 import net.minecraft.block.BlockHay;
@@ -572,7 +573,7 @@ public class EtFuturum {
 			 * MATERIALS
 			 */
 			if(block == Blocks.bed && TESTING) {
-				block.blockMaterial = Material.wood;
+//				block.blockMaterial = Material.wood;
 			}
 		}
 
@@ -664,6 +665,10 @@ public class EtFuturum {
 			
 			else if(namespace.contains("bone") || namespace.contains("ivory")) {
 				return ModSounds.soundBoneBlock;
+			}
+			
+			else if(block instanceof BlockBed && (block.getMaterial() == Material.wood || block.getMaterial() == Material.cloth)) {
+				block.setStepSound(Block.soundTypeWood);
 			}
 			
 		}

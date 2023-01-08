@@ -69,7 +69,7 @@ public class EntityTippedArrow extends EntityArrow implements IEntityAdditionalS
     
 	private void spawnPotionParticles(int particleCount) {
 		if(isEffectValid() && particleCount > 0) {
-			Color colour = new Color(Items.potionitem.getColorFromItemStack(arrow, 0));
+			Color colour = new Color(ModItems.tipped_arrow.getColorFromItemStack(arrow, 0));
 
 			for (int j = 0; j < particleCount; ++j) {
 				this.worldObj.spawnParticle("mobSpell", this.posX + (this.rand.nextDouble() - 0.5D) * (double)this.width, this.posY + this.rand.nextDouble() * (double)this.height - (double)this.yOffset, this.posZ + (this.rand.nextDouble() - 0.5D) * (double)this.width, colour.getRed() / 255F, colour.getGreen() / 255F, colour.getBlue() / 255F);
