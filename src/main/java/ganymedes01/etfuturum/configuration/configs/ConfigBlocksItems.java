@@ -163,7 +163,7 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableChorusFruit = cfg.getBoolean("enableChorusBlocks", catBlockNatural, true, "Enables chorus plants and purpur blocks");
 		enableGrassPath = cfg.getBoolean("enableGrassPath", catBlockNatural, true, "");
 		enableCryingObsidian = cfg.getBoolean("enableCryingObsidian", catBlockNatural, true, "");
-		enableNewNetherBricks = cfg.getBoolean("enableRedNetherBricks", catBlockMisc, true, "");
+		enableNewNetherBricks = cfg.getBoolean("enableRedNetherBricks", catBlockMisc, true, "Note: Also enables cracked and chiseled nether bricks as they use this ID too");
 		enableNetherwartBlock = cfg.getBoolean("enableNetherwartBlock", catBlockNatural, true, "");
 		enableNetherite = cfg.getBoolean("enableNetherite", catBlockNatural, true, "");
 		enableMagmaBlock = cfg.getBoolean("enableMagmaBlock", catBlockNatural, true, "");
@@ -177,7 +177,7 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableDeepslate = cfg.getBoolean("enableDeepslate", catBlockNatural, true, "");
 		enableTuff = cfg.getBoolean("enableTuff", catBlockNatural, true, "");
 		enableDeepslateOres = cfg.getBoolean("enableDeepslateOres", catBlockNatural, true, "Enable deepslate ores for copper ore and vanilla ores when deepslate generates over them.");
-		enableAmethyst = cfg.getBoolean("enableAmethyst", catBlockNatural, true, "Enables tinted glass, amethyst blocks, budding amethyst and amethyst crystals. Also enables the item too.");
+		enableAmethyst = cfg.getBoolean("enableAmethyst", catBlockNatural, true, "Enables tinted glass, amethyst blocks, budding amethyst and amethyst crystals. Also enables the item too. Smooth basalt can be disabled by changing the world.cfg option for the basalt layer to something else.");
 
 		//Function Blocks
 		enableIronTrapdoor = cfg.getBoolean("enableIronTrapdoor", catBlockFunc, true, "");

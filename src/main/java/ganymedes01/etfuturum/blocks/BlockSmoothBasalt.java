@@ -35,7 +35,7 @@ public class BlockSmoothBasalt extends Block implements IConfigurable {
 		if(ConfigWorld.amethystOuterID == 0) {
 			return true;
 		}
-		return ConfigWorld.amethystOuterID == 1 ? !ConfigBlocksItems.enableTuff : !Loader.isModLoaded("Netherlicious");
+		return ConfigWorld.amethystOuterID == 1 ? !ConfigBlocksItems.enableTuff : !Loader.isModLoaded("netherlicious");
 	}
 
 }

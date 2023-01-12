@@ -56,10 +56,8 @@ public class ItemArmorElytra extends Item implements IConfigurable {
 		if (itemstack == null) {
 			playerIn.setCurrentItemOrArmor(entityequipmentslot, itemStackIn.copy());
 			itemStackIn.stackSize = 0;
-			return itemStackIn;
-		} else {
-			return itemStackIn;
 		}
+		return itemStackIn;
 	}
 
 	@Override
