@@ -8,10 +8,24 @@ enchantment.mending=Починка
 enchantment.waterWalker=Покоритель глубин
 enchantment.binding_curse=§cПроклятие несъёмности
 enchantment.vanishing_curse=§cПроклятье утраты
+enchantment.swift_sneak=Проворство
 
 # Potions
 potion.levitation=Левитация
 potion.levitation.postfix=Зелье левитации
+
+# Gamemode selector
+
+debug.gamemodes.select_next=%s Следующий
+debug.gamemodes.press_f4=[ F4 ]
+
+# Gamemodes
+gameMode.Spectator=Режим наблюдателя
+
+# Commands
+commands.etfuturum.fill.usage=/fill <от> <до> <блок>
+commands.etfuturum.fill.outOfWorld=Невозможно размещать блоки за пределами мира
+commands.etfuturum.fill.success=Успешно заполнено %d блоков
 
 # Containers
 container.etfuturum.banner=Флаг
@@ -25,10 +39,12 @@ container.etfuturum.blast_furnace=Плавильная печь
 container.etfuturum.smoker=Коптильня
 container.etfuturum.barrel=Бочка
 container.etfuturum.shulker_box=Шалкеровый ящик
+container.etfuturum.chest_boat=Лодка с сундуком
 
 item.record.pigstep.desc=Lena Raine - Pigstep
 item.record.otherside.desc=Lena Raine - otherside
 
+gui.smithing.upgrade=Улучшить снаряжение
 gui.warn.continue=Продолжить...
 gui.warn.dismiss=Не показывать это снова.
 gui.warn.notice=ВНИМАНИЕ:
@@ -46,6 +62,8 @@ entity.etfuturum.snow_golem.name=Снеговик
 entity.etfuturum.brown_mooshroom.name=Коричневый мууухомор
 entity.etfuturum.shulker.name=Шалкер
 entity.etfuturum.shulker_candy.name=Снаряд шалкера
+entity.etfuturum.chest_boat.name=Лодка с сундуком
+entity.etfuturum.new_boat.name=Лодка
 
 entity.etfuturum.stray.name=Зимогор
 entity.etfuturum.husk.name=Кадавр
@@ -109,24 +127,31 @@ item.etfuturum.birch_boat.name=Берёзовая лодка
 item.etfuturum.jungle_boat.name=Лодка из досок тропического дерева
 item.etfuturum.dark_oak_boat.name=Лодка из досок тёмного дуба
 item.etfuturum.acacia_boat.name=Акациевая лодка
+item.etfuturum.oak_chest_boat.name=Дубовая лодка с сундуком
+item.etfuturum.spruce_chest_boat.name=Еловая лодка с сундуком
+item.etfuturum.birch_chest_boat.name=Берёзовая лодка  с сундуком
+item.etfuturum.jungle_chest_boat.name=Лодка из досок тропического дерева с сундуком
+item.etfuturum.dark_oak_chest_boat.name=Лодка из темного дуба с сундуком
+item.etfuturum.acacia_chest_boat.name=Акациевая лодка с сундуком
 item.etfuturum.shulker_shell.name=Панцирь шалкера
+item.etfuturum.amethyst_shard.name=Осколок аметиста
 
 # Arrows
 item.etfuturum.tipped_arrow.name=Стрела с эффектом
-tipped_arrow.effect.empty.name=Несоздаваемая стрела
-tipped_arrow.potion.nightVision.name=Стрела ночного зрения
-tipped_arrow.potion.invisibility.name=Стрела невидимости
-tipped_arrow.potion.jump.name=Стрела прыгучести
-tipped_arrow.potion.fireResistance.name=Стрела огнестойкости
-tipped_arrow.potion.moveSpeed.name=Стрела скорости
-tipped_arrow.potion.moveSlowdown.name=Стрела замедления
-tipped_arrow.potion.waterBreathing.name=Стрела подводного дыхания
-tipped_arrow.potion.heal.name=Стрела лечения
-tipped_arrow.potion.harm.name=Стрела урона
-tipped_arrow.potion.poison.name=Стрела отравления
-tipped_arrow.potion.regeneration.name=Стрела регенерации
-tipped_arrow.potion.damageBoost.name=Стрела силы
-tipped_arrow.potion.weakness.name=Стрела слабости
+item.etfuturum.tipped_arrow.effect.empty.name=Несоздаваемая стрела
+item.etfuturum.tipped_arrow.potion.nightVision.name=Стрела ночного зрения
+item.etfuturum.tipped_arrow.potion.invisibility.name=Стрела невидимости
+item.etfuturum.tipped_arrow.potion.jump.name=Стрела прыгучести
+item.etfuturum.tipped_arrow.potion.fireResistance.name=Стрела огнестойкости
+item.etfuturum.tipped_arrow.potion.moveSpeed.name=Стрела скорости
+item.etfuturum.tipped_arrow.potion.moveSlowdown.name=Стрела замедления
+item.etfuturum.tipped_arrow.potion.waterBreathing.name=Стрела подводного дыхания
+item.etfuturum.tipped_arrow.potion.heal.name=Стрела лечения
+item.etfuturum.tipped_arrow.potion.harm.name=Стрела урона
+item.etfuturum.tipped_arrow.potion.poison.name=Стрела отравления
+item.etfuturum.tipped_arrow.potion.regeneration.name=Стрела регенерации
+item.etfuturum.tipped_arrow.potion.damageBoost.name=Стрела силы
+item.etfuturum.tipped_arrow.potion.weakness.name=Стрела слабости
 
 
 # Blocks
@@ -300,6 +325,14 @@ tile.etfuturum.raw_iron_block.name=Блок необработанного же�
 tile.etfuturum.raw_gold_block.name=Блок необработанного золота
 tile.etfuturum.end_gateway.name=Врата Края
 tile.etfuturum.end_portal.name=Портал Края
+tile.etfuturum.smooth_basalt.name=Гладкий базальт
+tile.etfuturum.calcite.name=Кальцит
+tile.etfuturum.amethyst_block.name=Аметистовый блок
+tile.etfuturum.budding_amethyst.name=Расцветающий аметист
+tile.etfuturum.small_amethyst_bud.name=Малый аметистовый бутон
+tile.etfuturum.medium_amethyst_bud.name=Средний аметистовый бутон
+tile.etfuturum.large_amethyst_bud.name=Большой аметистовый бутон
+tile.etfuturum.amethyst_cluster.name=Аметистовый кластер
 
 tile.etfuturum.magma.name=Магмовый блок
 tile.etfuturum.nether_wart.name=Блок адского нароста
@@ -633,6 +666,8 @@ tile.etfuturum.brown_obsidian_shulker_box.name=Коричневый обсиди
 tile.etfuturum.green_obsidian_shulker_box.name=Зелёный обсидиановый шалкеровый ящик
 tile.etfuturum.red_obsidian_shulker_box.name=Красный обсидиановый шалкеровый ящик
 tile.etfuturum.black_obsidian_shulker_box.name=Чёрный обсидиановый шалкеровый ящик
+
+tile.etfuturum.tinted_glass.name=Тонированное стекло
 
 util.totemBreak=§a§oВаш тотем бессмертия раскололся...
 
