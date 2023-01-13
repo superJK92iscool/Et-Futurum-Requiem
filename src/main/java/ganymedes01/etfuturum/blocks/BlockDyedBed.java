@@ -1,6 +1,5 @@
 package ganymedes01.etfuturum.blocks;
 
-import java.util.List;
 import java.util.Random;
 
 import cpw.mods.fml.relauncher.Side;
@@ -12,14 +11,11 @@ import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.items.IRegistryName;
 import ganymedes01.etfuturum.items.block.ItemDyedBed;
-import ganymedes01.etfuturum.recipes.ModRecipes;
 import net.minecraft.block.BlockBed;
-import net.minecraft.block.material.Material;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Items;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class BlockDyedBed extends BlockBed implements IConfigurable, ISubBlocksBlock, IRegistryName {
@@ -49,6 +45,11 @@ public class BlockDyedBed extends BlockBed implements IConfigurable, ISubBlocksB
 //		super.getSubBlocks(p_149666_1_, p_149666_2_, p_149666_3_);
 //	}
 
+    public boolean isBed(IBlockAccess world, int x, int y, int z, EntityLivingBase player)
+    {
+    	return true;
+    }
+    
 	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_)
 	{
 		return isBlockHeadOfBed(p_149650_1_) ? Item.getItemById(0) : Item.getItemFromBlock(this);

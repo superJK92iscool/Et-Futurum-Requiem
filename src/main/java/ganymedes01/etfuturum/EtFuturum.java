@@ -138,9 +138,6 @@ public class EtFuturum {
 	public static boolean netherAmbienceNetherlicious;
 	public static boolean netherMusicNetherlicious;
 	
-	public static boolean hasIronChest;
-	public static boolean hasNetherlicious;
-	public static boolean hasEnderlicious;
 	public static final boolean TESTING = Boolean.parseBoolean(System.getProperty("etfuturum.testing"));
 	public static final boolean DEV_ENVIRONMENT = (Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");
 	private static Side effectiveSide;
@@ -338,10 +335,6 @@ public class EtFuturum {
 			System.out.println("Failed to get Nether fortress loot table:");
 			e.printStackTrace();
 		}
-		
-		hasIronChest = Loader.isModLoaded("IronChest");
-		hasNetherlicious = Loader.isModLoaded("netherlicious");
-		hasEnderlicious = Loader.isModLoaded("enderlicious");
 		
 		ModBlocks.init();
 		ModItems.init();

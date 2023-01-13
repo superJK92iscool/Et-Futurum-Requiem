@@ -3,9 +3,9 @@ package ganymedes01.etfuturum.world.generate.feature;
 import java.util.Random;
 
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.blocks.ExternalContent;
 import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
+import ganymedes01.etfuturum.core.utils.ExternalContent;
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import ganymedes01.etfuturum.world.generate.feature.WorldGenFossil.Fossil;
 import net.minecraft.block.Block;

@@ -1,10 +1,16 @@
-package ganymedes01.etfuturum.blocks;
+package ganymedes01.etfuturum.core.utils;
 
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 
 public class ExternalContent {
 
+	public static boolean hasEnderlicious = Loader.isModLoaded("enderlicious");
+	public static boolean hasIronChest = Loader.isModLoaded("IronChest");
+	public static boolean hasNetherlicious = Loader.isModLoaded("netherlicious");
+	public static boolean hasAetherLegacy = Loader.isModLoaded("aether_legacy");
+	
 	public static final Block enderlicious_end_rock = GameRegistry.findBlock("enderlicious", "EndRock");
 	public static final Block hee_end_stone = GameRegistry.findBlock("HardcoreEnderExpansion", "end_stone_terrain");
 	
