@@ -6,7 +6,6 @@ import org.apache.commons.lang3.ArrayUtils;
 
 import cpw.mods.fml.common.Loader;
 import ganymedes01.etfuturum.configuration.ConfigBase;
-import ganymedes01.etfuturum.core.utils.ExternalContent;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
@@ -193,7 +192,7 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableSigns = cfg.getBoolean("enableSigns", catBlockFunc, true, "");
 		enableLavaCauldrons = cfg.getBoolean("enableLavaCauldrons", catBlockFunc, true, "Allow lava buckets to fill cauldrons");
 		enableShulkerBoxes = cfg.getBoolean("enableShulkerBoxes", catBlockFunc, true, "If Shulkers are disabled, a custom recipe will be required to obtain Shulker shells.");
-		enableShulkerBoxesIronChest = ExternalContent.hasIronChest ? cfg.getBoolean("enableShulkerBoxesIronChest", catBlockFunc, true, "If Iron Chests is installed, allow Iron Shulker boxes to be crafted having all the same tiers as Iron Chests. This option does nothing if Iron Chests is not installed.") : false;
+		enableShulkerBoxesIronChest = cfg.getBoolean("enableShulkerBoxesIronChest", catBlockFunc, true, "If Iron Chests is installed, allow Iron Shulker boxes to be crafted having all the same tiers as Iron Chests. This option does nothing if Iron Chests is not installed.");
 		enablePotionCauldron = cfg.getBoolean("enablePotionCauldron", catBlockFunc, true, "A port of potion cauldrons from Bedrock Edition. Used to make tipped arrows and store potions.");
 		//Note the above option has an extra check in preInit to ensure Iron Chests is loaded. We can't do this here because Loader doesn't even exist yet since we initialize these configs while Mixins and ASM are being applied.
 		enableStonecutter = cfg.getBoolean("enableStonecutter", catBlockFunc, true, "Currently DOES NOT HAVE ANY FUNCTIONALITY. Decoration ONLY!");

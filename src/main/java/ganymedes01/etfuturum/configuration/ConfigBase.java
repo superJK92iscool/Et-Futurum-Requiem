@@ -94,6 +94,9 @@ public abstract class ConfigBase extends Configuration {
 		ConfigWorld.fossilBoneBlock = ConfigWorld.fossilBlockID == 0 || block == null ? ModBlocks.bone_block : block;
 		block = ConfigWorld.amethystOuterID == 1 && ConfigBlocksItems.enableTuff ? ModBlocks.tuff : ExternalContent.netherlicious_basalt_bricks;
 		ConfigWorld.amethystOuterBlock = ConfigWorld.amethystOuterID == 0 || block == null ? ModBlocks.smooth_basalt : block;
+		if(!ExternalContent.hasIronChest) {
+			ConfigBlocksItems.enableShulkerBoxesIronChest = false;
+		}
 	}
 
 	@SubscribeEvent
