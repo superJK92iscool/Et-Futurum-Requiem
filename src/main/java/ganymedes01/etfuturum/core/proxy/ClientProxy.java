@@ -60,6 +60,7 @@ import ganymedes01.etfuturum.configuration.configs.ConfigEntities;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.core.handlers.ClientEventHandler;
+import ganymedes01.etfuturum.core.utils.VersionChecker;
 import ganymedes01.etfuturum.entities.EntityArmourStand;
 import ganymedes01.etfuturum.entities.EntityBoostingFireworkRocket;
 import ganymedes01.etfuturum.entities.EntityBrownMooshroom;
@@ -104,6 +105,10 @@ public class ClientProxy extends CommonProxy {
 		if(ConfigMixins.enableSpectatorMode) {
 			FMLCommonHandler.instance().bus().register(SpectatorModeClient.INSTANCE);
 			MinecraftForge.EVENT_BUS.register(SpectatorModeClient.INSTANCE);
+		}
+		
+		if(ConfigFunctions.enableUpdateChecker && !EtFuturum.SNAPSHOT_BUILD && !EtFuturum.DEV_ENVIRONMENT) {
+			FMLCommonHandler.instance().bus().register(VersionChecker.instance);
 		}
 //        MinecraftForge.EVENT_BUS.register(BiomeFogEventHandler.INSTANCE);
 	}

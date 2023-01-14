@@ -82,10 +82,6 @@ public class CommonProxy implements IGuiHandler {
 			FMLCommonHandler.instance().bus().register(SpectatorMode.INSTANCE);
 			MinecraftForge.EVENT_BUS.register(SpectatorMode.INSTANCE);
 		}
-		
-		if(ConfigFunctions.enableUpdateChecker && !EtFuturum.SNAPSHOT_BUILD && !EtFuturum.DEV_ENVIRONMENT) {
-			FMLCommonHandler.instance().bus().register(VersionChecker.instance);
-		}
 	}
 
 	public void registerEntities() {
