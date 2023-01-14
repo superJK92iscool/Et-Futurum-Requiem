@@ -36,19 +36,19 @@ public class ModSounds {
 		@Override
 		public String func_150496_b()
 		{
-			return Reference.MCv118 + ":item." + soundName + ".plant";
+			return Reference.MCAssetVer + ":item." + soundName + ".plant";
 		}
 	};
 	public static final SoundType soundCropWarts = new CustomSound("nether_wart") {
 		@Override
 		public String getStepResourcePath() {
-			return Reference.MCv118 + ":block.fungus.step";
+			return Reference.MCAssetVer + ":block.fungus.step";
 		}
 
 		@Override
 		public String func_150496_b()
 		{
-			return Reference.MCv118 + ":item." + soundName + ".plant";
+			return Reference.MCAssetVer + ":item." + soundName + ".plant";
 		}
 	};
 	public static final SoundType soundCopper = new CustomSound("copper");
@@ -97,18 +97,18 @@ public class ModSounds {
 
 		@Override
 		public String getBreakSound() {
-			return Reference.MCv118 + ":block." + soundName + ".break";
+			return Reference.MCAssetVer + ":block." + soundName + ".break";
 		}
 
 		@Override
 		public String getStepResourcePath() {
-			return Reference.MCv118 + ":block." + soundName + ".step";
+			return Reference.MCAssetVer + ":block." + soundName + ".step";
 		}
 
 		@Override
 		public String func_150496_b()
 		{
-			return placeSound ? Reference.MCv118 + ":block." + soundName + ".place" : this.getBreakSound();
+			return placeSound ? Reference.MCAssetVer + ":block." + soundName + ".place" : this.getBreakSound();
 		}
 	}
 }

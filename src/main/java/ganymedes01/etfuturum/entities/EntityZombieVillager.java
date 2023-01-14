@@ -82,22 +82,22 @@ public class EntityZombieVillager extends EntityZombie {
 	}
 	protected String getLivingSound()
 	{
-		return Reference.MCv118 + ":entity.zombie_villager.ambient";
+		return Reference.MCAssetVer + ":entity.zombie_villager.ambient";
 	}
 
 	protected String getHurtSound()
 	{
-		return Reference.MCv118 + ":entity.zombie_villager.hurt";
+		return Reference.MCAssetVer + ":entity.zombie_villager.hurt";
 	}
 
 	protected String getDeathSound()
 	{
-		return Reference.MCv118 + ":entity.zombie_villager.death";
+		return Reference.MCAssetVer + ":entity.zombie_villager.death";
 	}
 
 	protected void func_145780_a(int p_145780_1_, int p_145780_2_, int p_145780_3_, Block p_145780_4_)
 	{
-		this.playSound(Reference.MCv118 + ":entity.zombie_villager.step", 0.15F, 1.0F);
+		this.playSound(Reference.MCAssetVer + ":entity.zombie_villager.step", 0.15F, 1.0F);
 	}
 	
 	public ItemStack getPickedResult(MovingObjectPosition target)

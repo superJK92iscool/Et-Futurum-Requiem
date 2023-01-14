@@ -149,7 +149,7 @@ public class EtFuturum {
 		MCLib.init();
 		
 		ADConfig config = new ADConfig();
-		String ver = "1.18";
+		String ver = Reference.MCAssetVer.split("_")[1];
 		
 		config.addObject(ver, "minecraft/sounds/ambient/cave/cave14.ogg");
 		config.addObject(ver, "minecraft/sounds/ambient/cave/cave15.ogg");
@@ -310,6 +310,8 @@ public class EtFuturum {
 //      config.addSoundEvent(ver, "block.shroomlight.break", "block");
 //      config.addSoundEvent(ver, "block.honey_block.step", "neutral");
 //      config.addSoundEvent(ver, "block.honey_block.break", "block");
+		config.addSoundEvent(ver, "block.nether_wood.step", "neutral");
+		config.addSoundEvent(ver, "block.nether_wood.break", "block");
 		
 		AssetDirectorAPI.register(config);
 	}

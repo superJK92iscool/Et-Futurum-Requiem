@@ -12,7 +12,7 @@ public class ElytraSound extends MovingSound {
 	private int field_189406_n;
 
 	public ElytraSound(EntityPlayerSP p_i47113_1_) {
-		super(new ResourceLocation(Reference.MCv118 + ":item.elytra.flying"));
+		super(new ResourceLocation(Reference.MCAssetVer + ":item.elytra.flying"));
 		this.field_189405_m = p_i47113_1_;
 		this.repeat = true;
 		this.volume = 0.1F;

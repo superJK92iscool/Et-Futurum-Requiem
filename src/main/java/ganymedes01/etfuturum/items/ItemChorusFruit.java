@@ -91,8 +91,8 @@ public class ItemChorusFruit extends ItemFood implements IConfigurable {
 			entity.worldObj.spawnParticle("portal", d7, d8, d9, f, f1, f2);
 		}
 
-		entity.worldObj.playSoundEffect(d3, d4, d5, Reference.MCv118 + ":item.chorus_fruit.teleport", 1.0F, 1.0F);
-		entity.playSound(Reference.MCv118 + ":item.chorus_fruit.teleport", 1.0F, 1.0F);
+		entity.worldObj.playSoundEffect(d3, d4, d5, Reference.MCAssetVer + ":item.chorus_fruit.teleport", 1.0F, 1.0F);
+		entity.playSound(Reference.MCAssetVer + ":item.chorus_fruit.teleport", 1.0F, 1.0F);
 		return true;
 	}
 

@@ -33,6 +33,6 @@ public class SlotSmithingResult extends Slot {
         final ItemStack ingot = container.inputSlots.getStackInSlot(1);
         ingot.stackSize--;
         container.inputSlots.setInventorySlotContents(1, (ingot.stackSize > 0) ? ingot : null);
-        player.playSound(Reference.MCv118 + ":block.smithing_table.use", 1F, 1F);
+        player.playSound(Reference.MCAssetVer + ":block.smithing_table.use", 1F, 1F);
     }
 }

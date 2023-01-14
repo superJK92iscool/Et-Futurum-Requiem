@@ -106,12 +106,12 @@ public class BlockComposter extends Block implements IConfigurable, ISubBlocksBl
 							int chance2 = world.rand.nextInt(100);
 							if(chance2 < chance) {
 								world.setBlockMetadataWithNotify(x, y, z, meta + 1, 3);
-								world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, Reference.MCv118 + ":block.composter.fill_success", 1, 1);
+								world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, Reference.MCAssetVer + ":block.composter.fill_success", 1, 1);
 								if(meta == 5) {
 									world.scheduleBlockUpdate(x, y, z, this, world.rand.nextInt(10) + 10);
 								}
 							} else {
-								world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, Reference.MCv118 + ":block.composter.fill", 1, 1);
+								world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, Reference.MCAssetVer + ":block.composter.fill", 1, 1);
 							}
 							if(!player.capabilities.isCreativeMode) {
 								stack.stackSize--;
@@ -136,7 +136,7 @@ public class BlockComposter extends Block implements IConfigurable, ISubBlocksBl
 				item.setVelocity(world.rand.nextDouble() * 0.5D, 0, world.rand.nextDouble() * 0.5D);
 				world.spawnEntityInWorld(item);
 			}
-			world.playSound(x + 0.5D, y  + 0.5D, z + 0.5D, Reference.MCv118 + ":block.composter.empty", 1, 1, true);
+			world.playSound(x + 0.5D, y  + 0.5D, z + 0.5D, Reference.MCAssetVer + ":block.composter.empty", 1, 1, true);
 			world.setBlockMetadataWithNotify(x, y, z, 0, 3);
 			return true;
 		}
@@ -145,7 +145,7 @@ public class BlockComposter extends Block implements IConfigurable, ISubBlocksBl
 
 	public void updateTick(World world, int x, int y, int z, Random rand) {
 		if(world.getBlockMetadata(x, y, z) == 6) {
-			world.playSoundEffect(x + 0.5D, y  + 0.5D, z + 0.5D, Reference.MCv118 + ":block.composter.ready", 1, 1);
+			world.playSoundEffect(x + 0.5D, y  + 0.5D, z + 0.5D, Reference.MCAssetVer + ":block.composter.ready", 1, 1);
 			world.setBlockMetadataWithNotify(x, y, z, 7, 3);
 		}
 	}

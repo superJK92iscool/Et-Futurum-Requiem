@@ -139,6 +139,10 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 			mixins.add("MixinEntityPlayer_CreativeFlightSpeed");
 		}
 		
+		if(ConfigMixins.bouncyBeds) {
+			mixins.add("MixinBlockBed");
+		}
+		
 		if(side == MixinEnvironment.Side.CLIENT) {
 			if(ConfigMixins.furnaceCrackle) {
 				mixins.add("client.MixinBlockFurnace");

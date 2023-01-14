@@ -8,13 +8,17 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModBlocks.ISubBlocksBlock;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.items.IRegistryName;
 import ganymedes01.etfuturum.items.block.ItemDyedBed;
+import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.BlockBed;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -44,6 +48,26 @@ public class BlockDyedBed extends BlockBed implements IConfigurable, ISubBlocksB
 //		}
 //		super.getSubBlocks(p_149666_1_, p_149666_2_, p_149666_3_);
 //	}
+
+	@Override
+	public void onFallenUpon(World world, int x, int y, int z, Entity entity, float fallDistance) {
+		if (!entity.isSneaking() && ConfigMixins.bouncyBeds) {
+			entity.fallDistance /= 2;
+			if (entity.motionY < 0)
+				entity.getEntityData().setDouble(Reference.MOD_ID + ":bed_bounce", -entity.motionY * 0.66);
+		}
+	}
+
+	@Override
+	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
+		if(ConfigMixins.bouncyBeds) {
+			NBTTagCompound data = entity.getEntityData();
+			if (data.hasKey(Reference.MOD_ID + ":bed_bounce")) {
+				entity.motionY = data.getDouble(Reference.MOD_ID + ":bed_bounce");
+				data.removeTag(Reference.MOD_ID + ":bed_bounce");
+			}
+		}
+	}
 
     public boolean isBed(IBlockAccess world, int x, int y, int z, EntityLivingBase player)
     {

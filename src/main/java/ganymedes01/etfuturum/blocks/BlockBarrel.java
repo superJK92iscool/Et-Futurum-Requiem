@@ -5,6 +5,7 @@ import java.util.Random;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
+import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.GUIsID;
@@ -31,7 +32,7 @@ public class BlockBarrel extends BlockContainer implements IConfigurable {
 
 	public BlockBarrel() {
 		super(Material.wood);
-		this.setStepSound(soundTypeWood);
+		this.setStepSound(ModSounds.soundNetherWood);
 		this.setHardness(2.5F);
 		this.setHarvestLevel("axe", 0);
 		this.setResistance(2.5F);

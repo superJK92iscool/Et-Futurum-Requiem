@@ -16,6 +16,7 @@ public class ConfigMixins extends ConfigBase {
 	public static boolean fenceWallConnectFix;
 	public static boolean furnaceCrackle;
 	public static boolean stepHeightFix;
+	public static boolean bouncyBeds;
 
 	static final String catBackport = "backported features";
 	static final String catOptimization = "optimizations";
@@ -59,6 +60,7 @@ public class ConfigMixins extends ConfigBase {
 		enableNewElytraTakeoffLogic = cfg.getBoolean("enableNewElytraTakeoffLogic", catBackport, true, "When enabled, the 1.15+ elytra takeoff logic is used, when disabled, the 1.9-1.14 elytra takeoff logic is used.");
 		enableDoWeatherCycle = cfg.getBoolean("enableDoWeatherCycle", catBackport, true, "Add the doWeatherCycle game rule from 1.11+");
 		creativeFlightSpeedModifier = cfg.getFloat("creativeFlightSpeedModifier", catBackport, 2, 1, 4, "When greater than 1, boosts creative flight speed when sprinting, like in newer versions");
+		bouncyBeds = cfg.getBoolean("bouncyBeds", catBackport, true, "Makes beds bouncy. Should work with most modded beds. For continuity disabling this also disables EFR beds being bouncy.\nModified Classes: net.minecraft.block.BlockBed");
 
 
 		stepHeightFix = cfg.getBoolean("stepHeightFix", catFixes, true, "Makes the player able to step up even if a block would be above their head at the destination.\nModified classes: net.minecraft.entity.Entity");
