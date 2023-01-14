@@ -32,7 +32,7 @@ public class BlockBarrel extends BlockContainer implements IConfigurable {
 
 	public BlockBarrel() {
 		super(Material.wood);
-		this.setStepSound(ModSounds.soundNetherWood);
+		this.setStepSound(soundTypeWood);
 		this.setHardness(2.5F);
 		this.setHarvestLevel("axe", 0);
 		this.setResistance(2.5F);
