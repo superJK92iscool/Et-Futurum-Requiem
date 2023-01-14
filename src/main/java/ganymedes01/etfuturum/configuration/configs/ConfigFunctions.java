@@ -3,9 +3,13 @@ package ganymedes01.etfuturum.configuration.configs;
 import java.io.File;
 import java.util.List;
 
+import org.spongepowered.asm.mixin.MixinEnvironment;
+
+import ganymedes01.etfuturum.EtFuturumMixinPlugin;
 import ganymedes01.etfuturum.configuration.ConfigBase;
 import net.minecraft.item.Item;
 import net.minecraft.launchwrapper.Launch;
+import net.minecraftforge.common.config.ConfigCategory;
 import net.minecraftforge.common.config.Configuration;
 
 public class ConfigFunctions extends ConfigBase {
@@ -121,8 +125,10 @@ public class ConfigFunctions extends ConfigBase {
 	public static boolean enableNewF3Behavior;
 	public static boolean enableNewTextures;
 	public static boolean enableFillCommand;
+	public static boolean enableUpdateChecker;
 	public static String[] extraDropRawOres = new String[] {"oreCopper", "oreTin"};
 
+	static final String catUpdateChecker = "update_checker";
 	static final String catChanges = "changes";
 	static final String catSettings = "settings";
 	static final String catClient = "client";
@@ -132,10 +138,12 @@ public class ConfigFunctions extends ConfigBase {
 
 	public ConfigFunctions(File file) {
 		super(file);
+		setCategoryComment(catUpdateChecker, "Category solely for the update checker, to make it easier to find and disable for those who don't want it.");
 		setCategoryComment(catChanges, "Changes to existing content.");
 		setCategoryComment(catSettings, "Settings for Et Futurum content.");
 		setCategoryComment(catClient, "Client-side settings or changes.");
-		
+
+		configCats.add(getCategory(catUpdateChecker));
 		configCats.add(getCategory(catChanges));
 		configCats.add(getCategory(catSettings));
 		configCats.add(getCategory(catClient));
@@ -144,6 +152,9 @@ public class ConfigFunctions extends ConfigBase {
 	@Override
 	protected void syncConfigOptions() {
 		Configuration cfg = configInstance;
+		if(EtFuturumMixinPlugin.side == MixinEnvironment.Side.CLIENT) {
+			enableUpdateChecker = cfg.getBoolean("enableUpdateChecker", catUpdateChecker, true, "Check and print a chat message in-game if there's a new update available?");
+		}
 		
 		//changes
 		enableExtraBurnableBlocks = cfg.getBoolean("enableExtraBurnableBlocks", catChanges, true, "Fences, gates and dead bushes burn");
@@ -181,5 +192,6 @@ public class ConfigFunctions extends ConfigBase {
 		enableGamemodeSwitcher = cfg.getBoolean("enableGamemodeSwitcher", catClient, true, "Enable the new F3+F4 gamemode switcher from 1.16+");
 		enableNewF3Behavior = cfg.getBoolean("enableNewF3Behavior", catClient, true, "Make F3 only show/hide info on release, and not if another key is pressed");
 		enableNewTextures = cfg.getBoolean("enableNewTextures", catClient, true, "Replace tall grass and sponge textures with modern version");
+		
 	}
 }

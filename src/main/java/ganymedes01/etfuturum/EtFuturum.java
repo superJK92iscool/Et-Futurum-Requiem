@@ -140,6 +140,7 @@ public class EtFuturum {
 	
 	public static final boolean TESTING = Boolean.parseBoolean(System.getProperty("etfuturum.testing"));
 	public static final boolean DEV_ENVIRONMENT = (Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");
+	public static boolean SNAPSHOT_BUILD = false;
 	private static Side effectiveSide;
 	
 	static final Map<ItemStack, Integer> DEFAULT_COMPOST_CHANCES = new LinkedHashMap();
@@ -389,6 +390,7 @@ public class EtFuturum {
 		event.getModMetadata().name = "\u00a75\u00a7o" + Reference.MOD_NAME; // name 
 		
 		Reference.BUILD_VERSION = event.getModMetadata().version;
+		SNAPSHOT_BUILD = Reference.BUILD_VERSION.toLowerCase().contains("snapshot") || Reference.BUILD_VERSION.toLowerCase().contains("beta") || Reference.BUILD_VERSION.toLowerCase().contains("rc") || Reference.BUILD_VERSION.toLowerCase().contains("snapshot") || Reference.BUILD_VERSION.toLowerCase().contains("beta") || Reference.BUILD_VERSION.toLowerCase().contains("rc");
 		event.getModMetadata().version = "\u00a7e" + event.getModMetadata().version; // version (read from mcmod.info)
 		
 		event.getModMetadata().credits = Reference.CREDITS; // credits 
