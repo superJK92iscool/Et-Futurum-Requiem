@@ -390,7 +390,7 @@ public class EtFuturum {
 		event.getModMetadata().name = "\u00a75\u00a7o" + Reference.MOD_NAME; // name 
 		
 		Reference.BUILD_VERSION = event.getModMetadata().version;
-		SNAPSHOT_BUILD = Reference.BUILD_VERSION.toLowerCase().contains("snapshot") || Reference.BUILD_VERSION.toLowerCase().contains("beta") || Reference.BUILD_VERSION.toLowerCase().contains("rc") || Reference.BUILD_VERSION.toLowerCase().contains("snapshot") || Reference.BUILD_VERSION.toLowerCase().contains("beta") || Reference.BUILD_VERSION.toLowerCase().contains("rc");
+		SNAPSHOT_BUILD = Reference.BUILD_VERSION.toLowerCase().contains("snapshot") || Reference.BUILD_VERSION.toLowerCase().contains("beta") || Reference.BUILD_VERSION.toLowerCase().contains("rc");
 		event.getModMetadata().version = "\u00a7e" + event.getModMetadata().version; // version (read from mcmod.info)
 		
 		event.getModMetadata().credits = Reference.CREDITS; // credits 

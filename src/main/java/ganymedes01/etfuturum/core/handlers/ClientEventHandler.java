@@ -140,8 +140,8 @@ public class ClientEventHandler {
 			return;
 		}
 		
-		if(!EtFuturum.DEV_ENVIRONMENT && !showedDebugWarning && player.ticksExisted == 40) {
-			if(EtFuturum.SNAPSHOT_BUILD && !forceHideSnapshotWarning) {
+		if(!EtFuturum.DEV_ENVIRONMENT && EtFuturum.SNAPSHOT_BUILD && !showedDebugWarning && player.ticksExisted == 40) {
+			if(!forceHideSnapshotWarning) {
 				ChatComponentText text = new ChatComponentText("\u00a7c\u00a7l[Debug]: \u00a7rYou are using a pre-release version of \u00a7bEt \u00a7bFuturum \u00a7bRequiem\u00a7r. This version might not be stable, click here to go to GitHub to report bugs.");
 				text.getChatStyle().setChatClickEvent(new ClickEvent(Action.OPEN_URL, "https://github.com/Roadhog360/Et-Futurum-Requiem/issues"));
 				player.addChatComponentMessage(text);
@@ -441,8 +441,7 @@ public class ClientEventHandler {
 						return;
 					}
 				}
-			} else if(ModSounds.soundAmethystBlock.getStepResourcePath().equals(event.name)
-					|| ModSounds.soundAmethystCluster.getStepResourcePath().equals(event.name)) {
+			} else if(ModSounds.soundAmethystBlock.getStepResourcePath().equals(event.name)) {
 				MutablePair<Float, Integer> pair = amethystChimeCache.get(event.entity);
 				if(pair == null) {
 					pair = new MutablePair(0.0F, 0);
