@@ -24,7 +24,7 @@ public class ItemShulkerBoxUpgrade extends ItemGeneric implements IConfigurable 
 	public ItemShulkerBoxUpgrade() {
 		super("vanilla_iron_upgrade", "vanilla_copper_upgrade", "iron_gold_upgrade", "gold_diamond_upgrade", "diamond_obsidian_upgrade", "diamond_crystal_upgrade", "copper_iron_upgrade", "copper_silver_upgrade", "silver_gold_upgrade");
 
-		setTextureName("hulker_box_upgrade");
+		setTextureName("shulker_box_upgrade");
 		setUnlocalizedName(Utils.getUnlocalisedName("shulker_box_upgrade"));
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
 	}
