@@ -31,7 +31,7 @@ import net.minecraftforge.common.ForgeHooks;
 
 public class VersionChecker extends Thread
 {
-	public static VersionChecker instance = new VersionChecker();
+	public static final VersionChecker instance = new VersionChecker();
 	
 	private static boolean isLatestVersion = false;
 	private static boolean warnaboutfailure = false;
