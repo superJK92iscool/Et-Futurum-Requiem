@@ -11,6 +11,7 @@ import ganymedes01.etfuturum.ModBlocks.ISubBlocksBlock;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
+import ganymedes01.etfuturum.core.utils.Logger;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.items.block.ItemAmethystCluster;
 import ganymedes01.etfuturum.lib.RenderIDs;
@@ -28,7 +29,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class BlockAmethystCluster extends BlockAmethystBlock implements ISubBlocksBlock {
+public class BlockAmethystCluster extends BlockAmethystBlock implements ISubBlocksBlock, IMultiStepSound {
 	
 	private final int type;
 	@SideOnly(Side.CLIENT)
@@ -251,5 +252,16 @@ public class BlockAmethystCluster extends BlockAmethystBlock implements ISubBloc
 	@Override
 	public Class<? extends ItemBlock> getItemBlockClass() {
 		return ItemAmethystCluster.class;
+	}
+
+	private static final SoundType[] STEPSOUNDS = new SoundType[] {ModSounds.soundAmethystBudSmall, ModSounds.soundAmethystBudMed, ModSounds.soundAmethystBudLrg, ModSounds.soundAmethystCluster};
+	@Override
+	public SoundType getStepSound(IBlockAccess world, int x, int y, int z, int meta) {
+		return STEPSOUNDS[(meta < 6 ? 0 : 1) + (type == 0 ? 0 : 2)];
+	}
+
+	@Override
+	public boolean requiresNewBlockSounds() {
+		return true;
 	}
 }

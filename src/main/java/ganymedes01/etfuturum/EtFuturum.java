@@ -291,6 +291,15 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "block.amethyst_block.step", "neutral");
 		config.addSoundEvent(ver, "block.amethyst_block.break", "block");
 		config.addSoundEvent(ver, "block.amethyst_block.place", "block");
+		config.addSoundEvent(ver, "block.small_amethyst_bud.step", "neutral");
+		config.addSoundEvent(ver, "block.small_amethyst_bud.break", "block");
+		config.addSoundEvent(ver, "block.small_amethyst_bud.place", "block");
+		config.addSoundEvent(ver, "block.medium_amethyst_bud.step", "neutral");
+		config.addSoundEvent(ver, "block.medium_amethyst_bud.break", "block");
+		config.addSoundEvent(ver, "block.medium_amethyst_bud.place", "block");
+		config.addSoundEvent(ver, "block.large_amethyst_bud.step", "neutral");
+		config.addSoundEvent(ver, "block.large_amethyst_bud.break", "block");
+		config.addSoundEvent(ver, "block.large_amethyst_bud.place", "block");
 		config.addSoundEvent(ver, "block.amethyst_cluster.step", "neutral");
 		config.addSoundEvent(ver, "block.amethyst_cluster.break", "block");
 		config.addSoundEvent(ver, "block.amethyst_cluster.place", "block");
