@@ -50,6 +50,8 @@ gui.warn.dismiss=Не показывать это снова.
 gui.warn.notice=ВНИМАНИЕ:
 gui.warn.configSplit1=Из-за того, что основная конфигурация Et Futurum Requiem стала очень длинной и сложной для навигации, она была разделена на несколько файлов. Вы видите это предупреждение, потому что у Вас есть конфигурация из предыдущей версии в "configs/etfuturum.cfg". Не существует системы для автоматического переноса Ваших настроек, поэтому обязательно проверьте новые файлы!
 gui.warn.configSplit2=Когда закончите, Вы можете удалить или переименовать старый файл конфигурации или поставить галочку в поле ниже, чтобы это предупреждение больше не отображалось.
+gui.chat.update=%1$s доступна версия %2$s!
+gui.chat.update.download=Нажмите здесь, чтобы загрузить обновление на %s!
 
 # Entities
 entity.etfuturum.endermite.name=Чешуйница Края
@@ -487,6 +489,7 @@ tile.etfuturum.concrete_powder_brown.name=Коричневый цемент
 tile.etfuturum.concrete_powder_green.name=Зелёный цемент
 tile.etfuturum.concrete_powder_red.name=Красный цемент
 tile.etfuturum.concrete_powder_black.name=Чёрный цемент
+
 tile.etfuturum.concrete_white.name=Белый бетон
 tile.etfuturum.concrete_orange.name=Оранжевый бетон
 tile.etfuturum.concrete_magenta.name=Пурпурный бетон
@@ -503,6 +506,24 @@ tile.etfuturum.concrete_brown.name=Коричневый бетон
 tile.etfuturum.concrete_green.name=Зелёный бетон
 tile.etfuturum.concrete_red.name=Красный бетон
 tile.etfuturum.concrete_black.name=Чёрный бетон
+
+tile.etfuturum.white_bed.name=Белая кровать
+tile.etfuturum.orange_bed.name=Оранжевая кровать
+tile.etfuturum.magenta_bed.name=Пурпурная кровать
+tile.etfuturum.light_blue_bed.name=Голубая кровать
+tile.etfuturum.yellow_bed.name=Желтая кровать
+tile.etfuturum.lime_bed.name=Лаймовая кровать
+tile.etfuturum.pink_bed.name=Розовая кровать
+tile.etfuturum.gray_bed.name=Серая кровать
+tile.etfuturum.silver_bed.name=Светло-серая кровать
+tile.etfuturum.cyan_bed.name=Бирюзовая кровать
+tile.etfuturum.purple_bed.name=Фиолетовая кровать
+tile.etfuturum.blue_bed.name=Синяя кровать
+tile.etfuturum.brown_bed.name=Коричневая кровать
+tile.etfuturum.green_bed.name=Зеленая кровать
+item.etfuturum.red_bed.name=Красная кровать
+tile.etfuturum.black_bed.name=Черная кровать
+
 tile.etfuturum.barrier.name=Барьер
 tile.etfuturum.red_netherbrick.name=Красные адские кирпичи
 tile.etfuturum.red_netherbrick_slab.name=Плита из красного адского кирпича
