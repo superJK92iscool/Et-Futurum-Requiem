@@ -16,8 +16,10 @@ import cpw.mods.fml.common.gameevent.TickEvent.PlayerTickEvent;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.event.ClickEvent;
 import net.minecraft.event.ClickEvent.Action;
+import net.minecraft.event.HoverEvent;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.ForgeHooks;
 /**
  * Adapted from Jabelar's tutorials
@@ -67,7 +69,7 @@ public class VersionChecker extends Thread
         	List<String> lines = IOUtils.readLines(in, Charset.defaultCharset());
             latestVersion = lines.get(0);
             for(int i = 1; i < lines.size(); i++) {
-            	if(!lines.get(i).startsWith("#") || !lines.get(i).contains("|")) {
+            	if(!lines.get(i).startsWith("#") && lines.get(i).contains("|")) {
                 	downloadURLs.add(lines.get(i));
             	}
             }
@@ -156,25 +158,32 @@ public class VersionChecker extends Thread
         			)
         	{
                 quitChecking=true;
+
+                String text = String.format(StatCollector.translateToLocal("gui.chat.update"), 
+                		EnumChatFormatting.AQUA.toString()+EnumChatFormatting.ITALIC.toString()+Reference.MOD_NAME+EnumChatFormatting.RESET.toString(), 
+                		EnumChatFormatting.YELLOW.toString()+latestVersion+EnumChatFormatting.RESET.toString());
+                event.player.addChatComponentMessage(new ChatComponentText(text));
                 
-                event.player.addChatComponentMessage(
-                		new ChatComponentText(EnumChatFormatting.BLUE + "" + EnumChatFormatting.ITALIC + Reference.MOD_NAME +
-                				EnumChatFormatting.RESET + " version " + EnumChatFormatting.YELLOW + this.getLatestVersion() + EnumChatFormatting.RESET +
-                				" is available!"
-                		 ));
-                ChatComponentText text = new ChatComponentText("");
+                ChatComponentText updateLinks = new ChatComponentText("");
+                
                 for(int i = 0; i < downloadURLs.size(); i++) {
                 	String url = downloadURLs.get(i);
-                	ChatComponentText urlComponent = new ChatComponentText("[" + url.split("|")[0] + "]");
-                	urlComponent.getChatStyle().setColor(EnumChatFormatting.getValueByName(url.split("|")[1]));
+                	Logger.debug(event);
+                	ChatComponentText urlComponent = new ChatComponentText("[" + url.split("\\|")[0] + "]");
+                	urlComponent.getChatStyle().setColor(EnumChatFormatting.getValueByName(url.split("\\|")[1]));
                 	urlComponent.getChatStyle().setBold(true);
-                	urlComponent.getChatStyle().setChatClickEvent(new ClickEvent(Action.OPEN_URL, url.split("|")[2]));
-                	text.appendSibling(urlComponent);
+                	urlComponent.getChatStyle().setChatClickEvent(new ClickEvent(Action.OPEN_URL, url.split("\\|")[2]));
+                	
+                	ChatComponentText hoverComponent = new ChatComponentText(String.format(StatCollector.translateToLocal("gui.chat.update.download"), url.split("\\|")[0]));
+                	hoverComponent.getChatStyle().setColor(urlComponent.getChatStyle().getColor());
+                	urlComponent.getChatStyle().setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, hoverComponent));
+                	
+                	updateLinks.appendSibling(urlComponent);
                 	if(downloadURLs.size() > i) { //Don't add a space if it's the last URL
-                    	text.appendText(" ");
+                    	updateLinks.appendText(" ");
                 	}
                 }
-				event.player.addChatComponentMessage(text);
+				event.player.addChatComponentMessage(updateLinks);
         	}
         }
         
