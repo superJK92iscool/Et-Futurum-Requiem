@@ -3,9 +3,8 @@ package ganymedes01.etfuturum.core.utils;
 import java.io.InputStream;
 import java.net.URL;
 import java.nio.charset.Charset;
-import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 import org.apache.commons.io.IOUtils;
 
@@ -15,6 +14,8 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 import cpw.mods.fml.common.gameevent.TickEvent.PlayerTickEvent;
 import ganymedes01.etfuturum.lib.Reference;
+import net.minecraft.event.ClickEvent;
+import net.minecraft.event.ClickEvent.Action;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.common.ForgeHooks;
@@ -36,7 +37,7 @@ public class VersionChecker extends Thread
     private static boolean isUpdateCheckFinished = false;
     private static boolean quitChecking = false;
     private static boolean hasThreadStarted = false;
-    private static Set<String> downloadURLs = new HashSet<String>();
+    private static List<String> downloadURLs = new LinkedList<String>();
     
 	@Override
 	public void run()
@@ -66,7 +67,7 @@ public class VersionChecker extends Thread
         	List<String> lines = IOUtils.readLines(in, Charset.defaultCharset());
             latestVersion = lines.get(0);
             for(int i = 1; i < lines.size(); i++) {
-            	if(!lines.get(i).startsWith("#")) {
+            	if(!lines.get(i).startsWith("#") || !lines.get(i).contains("|")) {
                 	downloadURLs.add(lines.get(i));
             	}
             }
@@ -157,13 +158,23 @@ public class VersionChecker extends Thread
                 quitChecking=true;
                 
                 event.player.addChatComponentMessage(
-                		new ChatComponentText(
+                		new ChatComponentText(EnumChatFormatting.BLUE + "" + EnumChatFormatting.ITALIC + Reference.MOD_NAME +
                 				EnumChatFormatting.RESET + " version " + EnumChatFormatting.YELLOW + this.getLatestVersion() + EnumChatFormatting.RESET +
-                				" is available! Get it at the following links:"
+                				" is available!"
                 		 ));
-                for(String url : downloadURLs) {
-                    event.player.addChatComponentMessage(ForgeHooks.newChatWithLinks(url));
+                ChatComponentText text = new ChatComponentText("");
+                for(int i = 0; i < downloadURLs.size(); i++) {
+                	String url = downloadURLs.get(i);
+                	ChatComponentText urlComponent = new ChatComponentText("[" + url.split("|")[0] + "]");
+                	urlComponent.getChatStyle().setColor(EnumChatFormatting.getValueByName(url.split("|")[1]));
+                	urlComponent.getChatStyle().setBold(true);
+                	urlComponent.getChatStyle().setChatClickEvent(new ClickEvent(Action.OPEN_URL, url.split("|")[2]));
+                	text.appendSibling(urlComponent);
+                	if(downloadURLs.size() > i) { //Don't add a space if it's the last URL
+                    	text.appendText(" ");
+                	}
                 }
+				event.player.addChatComponentMessage(text);
         	}
         }
         
