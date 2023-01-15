@@ -13,6 +13,7 @@ import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 import cpw.mods.fml.common.gameevent.TickEvent.PlayerTickEvent;
+import cpw.mods.fml.common.versioning.ComparableVersion;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.event.ClickEvent;
 import net.minecraft.event.ClickEvent.Action;
@@ -90,7 +91,7 @@ public class VersionChecker extends Thread
             IOUtils.closeQuietly(in);
         }
         
-        isLatestVersion = Reference.VERSION_NUMBER.equals(latestVersion);
+        isLatestVersion = new ComparableVersion(Reference.VERSION_NUMBER).compareTo(new ComparableVersion(latestVersion)) >= 0;
         
         if (!this.isLatestVersion() && !latestVersion.equals("") && !latestVersion.equals(null))
         {
