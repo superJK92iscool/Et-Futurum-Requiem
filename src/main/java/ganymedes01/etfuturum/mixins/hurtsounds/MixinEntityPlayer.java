@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.mixins;
+package ganymedes01.etfuturum.mixins.hurtsounds;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
@@ -16,9 +16,9 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
 @Mixin(EntityPlayer.class)
-public abstract class MixinEntityPlayer_DamageSounds extends EntityLivingBase {
+public abstract class MixinEntityPlayer extends EntityLivingBase {
 	
-	public MixinEntityPlayer_DamageSounds(World p_i1594_1_) {
+	public MixinEntityPlayer(World p_i1594_1_) {
 		super(p_i1594_1_);
 	}
 

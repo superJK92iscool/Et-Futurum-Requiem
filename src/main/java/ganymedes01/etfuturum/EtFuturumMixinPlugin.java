@@ -144,9 +144,9 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 		}
 		
 		if(ConfigMixins.newHurtSounds) {
-			mixins.add("MixinEntityPlayer_DamageSounds");
+			mixins.add("hurtsounds.MixinEntityPlayer");
 			if(side == MixinEnvironment.Side.CLIENT) {
-				mixins.add("client.MixinEntityClientPlayerMP_DamageSounds");
+				mixins.add("hurtsounds.client.MixinEntityClientPlayerMP");
 			}
 		}
 		

@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.mixins.client;
+package ganymedes01.etfuturum.mixins.hurtsounds.client;
 
 import org.spongepowered.asm.mixin.Mixin;
 
@@ -19,9 +19,9 @@ import net.minecraftforge.event.entity.PlaySoundAtEntityEvent;
  * @author roadhog360
  *
  */
-public class MixinEntityClientPlayerMP_DamageSounds extends EntityPlayerSP {
+public class MixinEntityClientPlayerMP extends EntityPlayerSP {
 
-	public MixinEntityClientPlayerMP_DamageSounds(Minecraft p_i1238_1_, World p_i1238_2_, Session p_i1238_3_,
+	public MixinEntityClientPlayerMP(Minecraft p_i1238_1_, World p_i1238_2_, Session p_i1238_3_,
 			int p_i1238_4_) {
 		super(p_i1238_1_, p_i1238_2_, p_i1238_3_, p_i1238_4_);
 	}
