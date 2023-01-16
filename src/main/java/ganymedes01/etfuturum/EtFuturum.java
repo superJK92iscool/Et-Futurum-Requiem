@@ -204,6 +204,21 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "entity.shulker.hurt_closed", "hostile");
 		config.addSoundEvent(ver, "entity.shulker.death", "hostile");
 		config.addSoundEvent(ver, "entity.shulker.teleport", "hostile");
+		config.addSoundEvent(ver, "entity.snow_golem.ambient", "neutral");
+		config.addSoundEvent(ver, "entity.snow_golem.hurt", "neutral");
+		config.addSoundEvent(ver, "entity.snow_golem.death", "neutral");
+		config.addSoundEvent(ver, "entity.wither_skeleton.ambient", "hostile");
+		config.addSoundEvent(ver, "entity.wither_skeleton.hurt", "hostile");
+		config.addSoundEvent(ver, "entity.wither_skeleton.death", "hostile");
+		config.addSoundEvent(ver, "entity.wither_skeleton.step", "hostile");
+		config.addSoundEvent(ver, "entity.squid.ambient", "neutral");
+		config.addSoundEvent(ver, "entity.squid.hurt", "neutral");
+		config.addSoundEvent(ver, "entity.squid.death", "neutral");
+		config.addSoundEvent(ver, "entity.squid.squirt", "neutral");
+		config.addSoundEvent(ver, "entity.witch.ambient", "neutral");
+		config.addSoundEvent(ver, "entity.witch.hurt", "neutral");
+		config.addSoundEvent(ver, "entity.witch.death", "neutral");
+		
 		
 		config.addSoundEvent(ver, "entity.player.hurt_on_fire", "player");
 		config.addSoundEvent(ver, "entity.player.hurt_drown", "player");

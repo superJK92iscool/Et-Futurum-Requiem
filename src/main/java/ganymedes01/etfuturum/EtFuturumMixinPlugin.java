@@ -144,10 +144,17 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 		}
 		
 		if(ConfigMixins.newHurtSounds) {
-			mixins.add("hurtsounds.MixinEntityPlayer");
+			mixins.add("entitysounds.MixinEntityPlayer");
 			if(side == MixinEnvironment.Side.CLIENT) {
-				mixins.add("hurtsounds.client.MixinEntityClientPlayerMP");
+				mixins.add("entitysounds.client.MixinEntityClientPlayerMP");
 			}
+		}
+		
+		if(ConfigMixins.newMobSounds) {
+			mixins.add("entitysounds.MixinEntitySnowman");
+			mixins.add("entitysounds.MixinEntitySkeleton");
+			mixins.add("entitysounds.MixinEntitySquid");
+			mixins.add("entitysounds.MixinEntityWitch");
 		}
 		
 		if(side == MixinEnvironment.Side.CLIENT) {

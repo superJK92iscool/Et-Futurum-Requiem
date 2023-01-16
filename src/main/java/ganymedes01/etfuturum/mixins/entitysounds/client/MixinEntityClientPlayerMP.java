@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.mixins.hurtsounds.client;
+package ganymedes01.etfuturum.mixins.entitysounds.client;
 
 import org.spongepowered.asm.mixin.Mixin;
 
