@@ -28,6 +28,10 @@ public class ConfigBlocksItems extends ConfigBase {
 	public static int netheriteChestplateDurability;
 	public static int netheriteLeggingsDurability;
 	public static int netheriteBootsDurability;
+	public static int netheriteHelmetProtection;
+	public static int netheriteChestplateProtection;
+	public static int netheriteLeggingsProtection;
+	public static int netheriteBootsProtection;
 	
 	public static boolean enableBanners;
 	public static boolean enableBarkLogs;
@@ -256,9 +260,13 @@ public class ConfigBlocksItems extends ConfigBase {
 		netheriteAxeDurability = cfg.getInt("netheriteAxeDurability", catItemEquipment, -1, -1, Integer.MAX_VALUE, "Override Netherite Axe Durability, -1 to disable");
 		netheriteSpadeDurability = cfg.getInt("netheriteSpadeDurability", catItemEquipment, -1, -1, Integer.MAX_VALUE, "Override Netherite Shovel Durability, -1 to disable");
 		netheriteHelmetDurability = cfg.getInt("netheriteHelmetDurability", catItemEquipment, -1, -1, Integer.MAX_VALUE, "Override Netherite Helmet Durability, -1 to disable");
-		netheriteChestplateDurability = cfg.getInt("netheriteChestplateDurability", catItemEquipment, -1, -1, Integer.MAX_VALUE, "Override Netherite Chestplate Durability, -1 to disable");
-		netheriteLeggingsDurability = cfg.getInt("netheriteLeggingsDurability", catItemEquipment, -1, -1, Integer.MAX_VALUE, "Override Netherite Leggings Durability, -1 to disable");
-		netheriteBootsDurability = cfg.getInt("netheriteBootsDurability", catItemEquipment, -1, -1, Integer.MAX_VALUE, "Override Netherite Boots Durability, -1 to disable");
+		netheriteChestplateDurability = cfg.getInt("netheriteChestplateDurability", catItemEquipment, -1, -1, Integer.MAX_VALUE, "Override Netherite Chestplate Durability, -1 for no override");
+		netheriteLeggingsDurability = cfg.getInt("netheriteLeggingsDurability", catItemEquipment, -1, -1, Integer.MAX_VALUE, "Override Netherite Leggings Durability, -1 for no override");
+		netheriteBootsDurability = cfg.getInt("netheriteBootsDurability", catItemEquipment, -1, -1, Integer.MAX_VALUE, "Override Netherite Boots Durability, -1 for no override");
+		netheriteHelmetProtection = cfg.getInt("netheriteHelmetProtection", catItemEquipment, 3, 1, Integer.MAX_VALUE, "Netherite Helmet Protection");
+		netheriteChestplateProtection = cfg.getInt("netheriteChestplateProtection", catItemEquipment, 8, 1, Integer.MAX_VALUE, "Netherite Chestplate Protection");
+		netheriteLeggingsProtection = cfg.getInt("netheriteLeggingsProtection", catItemEquipment, 6, 1, Integer.MAX_VALUE, "Netherite Leggings Protection");
+		netheriteBootsProtection = cfg.getInt("netheriteBootsProtection", catItemEquipment, -3, 1, Integer.MAX_VALUE, "Netherite Boots Protection");
 
 		//Entity Items
 		enableArmourStand = cfg.getBoolean("enableArmorStand", catItemEntity, true, "");

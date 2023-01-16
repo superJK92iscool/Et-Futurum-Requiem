@@ -56,7 +56,7 @@ import net.minecraftforge.common.util.EnumHelper;
 public class ModItems {
 	
 	public static final Item.ToolMaterial NETHERITE_TOOL = EnumHelper.addToolMaterial("Netherite_Tool", ConfigBlocksItems.netheriteHarvestLevel, ConfigBlocksItems.netheriteToolDurability, ConfigBlocksItems.netheriteSpeed, ConfigBlocksItems.netheriteDamageBase, ConfigBlocksItems.netheriteEnchantability);
-	public static final ItemArmor.ArmorMaterial NETHERITE_ARMOUR = EnumHelper.addArmorMaterial("Netherite_Armour", ConfigBlocksItems.netheriteArmourDurabilityFactor, new int[]{3, 6, 8, 3}, ConfigBlocksItems.netheriteEnchantability);
+	public static final ItemArmor.ArmorMaterial NETHERITE_ARMOUR = EnumHelper.addArmorMaterial("Netherite_Armour", ConfigBlocksItems.netheriteArmourDurabilityFactor, new int[]{ConfigBlocksItems.netheriteHelmetProtection, ConfigBlocksItems.netheriteChestplateProtection, ConfigBlocksItems.netheriteLeggingsProtection, ConfigBlocksItems.netheriteBootsProtection}, ConfigBlocksItems.netheriteEnchantability);
 
 	private static final List<Item> initList = new ArrayList<Item>();
 	
