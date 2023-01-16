@@ -343,8 +343,11 @@ public class ClientEventHandler {
 			if(event.sound.getPitch() < 1.0F && world.getBlock(x, y, z) instanceof IMultiStepSound && (!((IMultiStepSound)block).requiresNewBlockSounds() || ConfigWorld.enableNewBlocksSounds)) {
 				
 				IMultiStepSound multiSoundBlock = (IMultiStepSound)block;
-				Block.SoundType blockSound = block.stepSound;
 				Block.SoundType newSound = multiSoundBlock.getStepSound(world, x, y, z, world.getBlockMetadata(x, y, z));
+				
+				if(newSound == null) return;
+				
+				Block.SoundType blockSound = block.stepSound;
 				
 				//Check if we're replacing a step sound, a break sound or a place sound? We also truncate the mod prefix so the string can actually match
 				//We'll use a variable to store the current block sound and truncate the prefix if it has one.
@@ -448,9 +451,17 @@ public class ClientEventHandler {
 			Block block = world.getBlock(x, y, z);
 			
 			if(world.getBlock(x, y, z) instanceof IMultiStepSound && (!((IMultiStepSound)block).requiresNewBlockSounds() || ConfigWorld.enableNewBlocksSounds)) {
-				if(event.name.equals(block.stepSound.getStepResourcePath().substring(block.stepSound.getStepResourcePath().indexOf(':')+1))) {
-					Block.SoundType stepSound = ((IMultiStepSound)block).getStepSound(world, x, y, z, world.getBlockMetadata(x, y, z));
-					
+				Block.SoundType stepSound = ((IMultiStepSound)block).getStepSound(world, x, y, z, world.getBlockMetadata(x, y, z));
+				if(stepSound == null) return;
+				
+				String stepSoundString = block.stepSound.getStepResourcePath();
+				
+				int index = stepSoundString.indexOf(':');
+				if(index != -1) {
+					stepSoundString = stepSoundString.substring(index+1);
+				}
+				
+				if(event.name.equals(stepSoundString)) {
 					event.name = stepSound.getStepResourcePath();
 					return;
 				}

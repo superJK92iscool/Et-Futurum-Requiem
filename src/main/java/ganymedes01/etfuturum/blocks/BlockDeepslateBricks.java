@@ -12,8 +12,9 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.IBlockAccess;
 
-public class BlockDeepslateBricks extends BlockGeneric implements IConfigurable {
+public class BlockDeepslateBricks extends BlockGeneric implements IConfigurable, IMultiStepSound {
 	
 	public BlockDeepslateBricks() {
 		super(Material.rock, "", "cracked", "", "cracked", "chiseled");
@@ -48,5 +49,18 @@ public class BlockDeepslateBricks extends BlockGeneric implements IConfigurable 
 	@Override
 	public Class<? extends ItemBlock> getItemBlockClass() {
 		return ItemBlockDeepslate.class;
+	}
+
+	@Override
+	public SoundType getStepSound(IBlockAccess world, int x, int y, int z, int meta) {
+		if(meta == 2 || meta == 3) {
+			return ModSounds.soundDeepslateTiles;
+		}
+		return this.stepSound;
+	}
+
+	@Override
+	public boolean requiresNewBlockSounds() {
+		return true;
 	}
 }

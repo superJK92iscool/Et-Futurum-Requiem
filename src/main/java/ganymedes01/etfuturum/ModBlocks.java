@@ -9,6 +9,7 @@ import ganymedes01.etfuturum.blocks.ores.BlockCopperOre;
 import ganymedes01.etfuturum.blocks.ores.BlockDeepslateOre;
 import ganymedes01.etfuturum.blocks.ores.BlockDeepslateRedstoneOre;
 import ganymedes01.etfuturum.blocks.ores.BlockOreNetherGold;
+import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.items.IRegistryName;
 import ganymedes01.etfuturum.tileentities.TileEntityWoodSign;
@@ -201,7 +202,7 @@ public class ModBlocks {
 	public static final Block cobbled_deepslate_stairs = initBlock(new BlockGenericStairs(ModBlocks.cobbled_deepslate, 0).setBlockName(Utils.getUnlocalisedName("cobbled_deepslate_stairs")));
 	public static final Block polished_deepslate_stairs = initBlock(new BlockGenericStairs(ModBlocks.polished_deepslate, 0).setBlockName(Utils.getUnlocalisedName("polished_deepslate_stairs")));
 	public static final Block deepslate_brick_stairs = initBlock(new BlockGenericStairs(ModBlocks.deepslate_bricks, 0).setBlockName(Utils.getUnlocalisedName("deepslate_brick_stairs")));
-	public static final Block deepslate_tile_stairs = initBlock(new BlockGenericStairs(ModBlocks.deepslate_bricks, 2).setBlockName(Utils.getUnlocalisedName("deepslate_tile_stairs")));
+	public static final Block deepslate_tile_stairs = initBlock(new BlockGenericStairs(ModBlocks.deepslate_bricks, 2).setBlockName(Utils.getUnlocalisedName("deepslate_tile_stairs"))).setStepSound(ModSounds.soundDeepslateTiles);
 	
 	//Mechanic/Functional blocks
 	public static final Block iron_trapdoor = initBlock(new BlockIronTrapdoor());

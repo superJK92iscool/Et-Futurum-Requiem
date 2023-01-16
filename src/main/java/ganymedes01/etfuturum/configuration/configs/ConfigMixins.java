@@ -17,6 +17,7 @@ public class ConfigMixins extends ConfigBase {
 	public static boolean furnaceCrackle;
 	public static boolean stepHeightFix;
 	public static boolean bouncyBeds;
+	public static boolean newHurtSounds;
 
 	static final String catBackport = "backported features";
 	static final String catOptimization = "optimizations";
@@ -61,6 +62,7 @@ public class ConfigMixins extends ConfigBase {
 		enableDoWeatherCycle = cfg.getBoolean("enableDoWeatherCycle", catBackport, true, "Add the doWeatherCycle game rule from 1.11+");
 		creativeFlightSpeedModifier = cfg.getFloat("creativeFlightSpeedModifier", catBackport, 2, 1, 4, "When greater than 1, boosts creative flight speed when sprinting, like in newer versions");
 		bouncyBeds = cfg.getBoolean("bouncyBeds", catBackport, true, "Makes beds bouncy. Should work with most modded beds. For continuity disabling this also disables EFR beds being bouncy.\nModified Classes: net.minecraft.block.BlockBed");
+		newHurtSounds = cfg.getBoolean("newHurtSounds", catBackport, true, "Damage sounds for walking into a berry bush, drowning or burning");
 
 
 		stepHeightFix = cfg.getBoolean("stepHeightFix", catFixes, true, "Makes the player able to step up even if a block would be above their head at the destination.\nModified classes: net.minecraft.entity.Entity");

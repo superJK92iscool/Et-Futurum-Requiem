@@ -7,6 +7,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks.ISubBlocksBlock;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.items.block.ItemBlockNewWall;
 import ganymedes01.etfuturum.lib.Reference;
@@ -22,7 +23,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockNewWall extends BlockWall implements IConfigurable, ISubBlocksBlock {
+public class BlockNewWall extends BlockWall implements IConfigurable, ISubBlocksBlock, IMultiStepSound {
 	
 	private Block[] blocks;
 	private int[] metas;
@@ -88,6 +89,19 @@ public class BlockNewWall extends BlockWall implements IConfigurable, ISubBlocks
 	@Override
 	public Class<? extends ItemBlock> getItemBlockClass() {
 		return ItemBlockNewWall.class;
+	}
+
+	@Override
+	public SoundType getStepSound(IBlockAccess world, int x, int y, int z, int meta) {
+		if(blocks[meta % variations] instanceof IMultiStepSound && (!((IMultiStepSound)blocks[meta % variations]).requiresNewBlockSounds() || ConfigWorld.enableNewBlocksSounds)) {
+			return ((IMultiStepSound)blocks[meta % variations]).getStepSound(world, x, y, z, metas[meta % variations]);
+		}
+		return null;
+	}
+
+	@Override
+	public boolean requiresNewBlockSounds() {
+		return false;
 	}
 
 }

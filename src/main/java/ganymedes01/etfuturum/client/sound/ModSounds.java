@@ -60,6 +60,7 @@ public class ModSounds {
 	};
 	public static final SoundType soundDeepslate = new CustomSound("deepslate", true);
 	public static final SoundType soundDeepslateBricks = new CustomSound("deepslate_bricks");
+	public static final SoundType soundDeepslateTiles = new CustomSound("deepslate_tiles");
 	public static final SoundType soundTuff = new CustomSound("tuff");
 	public static final SoundType soundVines = new CustomSound("vine");
 	public static final SoundType soundCalcite = new CustomSound("calcite", true);

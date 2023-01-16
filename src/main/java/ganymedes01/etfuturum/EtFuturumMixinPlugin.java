@@ -143,6 +143,10 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 			mixins.add("MixinBlockBed");
 		}
 		
+		if(ConfigMixins.newHurtSounds) {
+			mixins.add("MixinEntityPlayer_DamageSounds");
+		}
+		
 		if(side == MixinEnvironment.Side.CLIENT) {
 			if(ConfigMixins.furnaceCrackle) {
 				mixins.add("client.MixinBlockFurnace");

@@ -205,6 +205,10 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "entity.shulker.death", "hostile");
 		config.addSoundEvent(ver, "entity.shulker.teleport", "hostile");
 		
+		config.addSoundEvent(ver, "entity.player.hurt_on_fire", "player");
+		config.addSoundEvent(ver, "entity.player.hurt_drown", "player");
+		config.addSoundEvent(ver, "entity.player.hurt_sweet_berry_bush", "player");
+		
 		config.addSoundEvent(ver, "item.axe.scrape", "player");
 		config.addSoundEvent(ver, "item.axe.wax_off", "player");
 		config.addSoundEvent(ver, "item.axe.strip", "player");
@@ -261,6 +265,8 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "block.sweet_berry_bush.place", "block");
 		config.addSoundEvent(ver, "block.deepslate_bricks.step", "neutral");
 		config.addSoundEvent(ver, "block.deepslate_bricks.break", "block");
+		config.addSoundEvent(ver, "block.deepslate_tiles.step", "neutral");
+		config.addSoundEvent(ver, "block.deepslate_tiles.break", "block");
 		config.addSoundEvent(ver, "block.soul_sand.step", "neutral");
 		config.addSoundEvent(ver, "block.soul_sand.break", "block");
 		config.addSoundEvent(ver, "block.wart_block.step", "neutral");

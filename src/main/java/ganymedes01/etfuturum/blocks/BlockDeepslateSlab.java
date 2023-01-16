@@ -8,8 +8,9 @@ import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.material.Material;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.IBlockAccess;
 
-public class BlockDeepslateSlab extends BlockGenericSlab implements IConfigurable {
+public class BlockDeepslateSlab extends BlockGenericSlab implements IConfigurable, IMultiStepSound {
 	
 	private final boolean brick;
 
@@ -54,6 +55,18 @@ public class BlockDeepslateSlab extends BlockGenericSlab implements IConfigurabl
 	@Override
 	public boolean isEnabled() {
 		return ConfigBlocksItems.enableDeepslate;
+	}
+
+	@Override
+	public SoundType getStepSound(IBlockAccess world, int x, int y, int z, int meta) {
+		if(brick && (meta % 8) == 1)
+			return ModSounds.soundDeepslateTiles;
+		return this.stepSound;
+	}
+
+	@Override
+	public boolean requiresNewBlockSounds() {
+		return true;
 	}
 
 }

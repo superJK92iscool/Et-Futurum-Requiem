@@ -254,7 +254,7 @@ public class BlockAmethystCluster extends BlockAmethystBlock implements ISubBloc
 		return ItemAmethystCluster.class;
 	}
 
-	private static final SoundType[] STEPSOUNDS = new SoundType[] {ModSounds.soundAmethystBudSmall, ModSounds.soundAmethystBudMed, ModSounds.soundAmethystBudLrg, ModSounds.soundAmethystCluster};
+	private static final SoundType[] STEPSOUNDS = new SoundType[] {ModSounds.soundAmethystBudSmall, ModSounds.soundAmethystBudMed, ModSounds.soundAmethystBudLrg, null};
 	@Override
 	public SoundType getStepSound(IBlockAccess world, int x, int y, int z, int meta) {
 		return STEPSOUNDS[(meta < 6 ? 0 : 1) + (type == 0 ? 0 : 2)];
