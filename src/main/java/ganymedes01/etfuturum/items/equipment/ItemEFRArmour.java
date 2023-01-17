@@ -84,7 +84,7 @@ public class ItemEFRArmour extends ItemArmor implements IConfigurable, ISpecialA
 	@Override
 	public int getArmorDisplay(EntityPlayer player, ItemStack armor, int slot) 
 	{
-		return ModItems.NETHERITE_ARMOUR.getDamageReductionAmount(slot);
+		return this.damageReduceAmount;
 	}
 
 	@Override
