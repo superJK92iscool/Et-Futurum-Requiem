@@ -266,7 +266,7 @@ public class ConfigBlocksItems extends ConfigBase {
 		netheriteHelmetProtection = cfg.getInt("netheriteHelmetProtection", catItemEquipment, 3, 1, Integer.MAX_VALUE, "Netherite Helmet Protection");
 		netheriteChestplateProtection = cfg.getInt("netheriteChestplateProtection", catItemEquipment, 8, 1, Integer.MAX_VALUE, "Netherite Chestplate Protection");
 		netheriteLeggingsProtection = cfg.getInt("netheriteLeggingsProtection", catItemEquipment, 6, 1, Integer.MAX_VALUE, "Netherite Leggings Protection");
-		netheriteBootsProtection = cfg.getInt("netheriteBootsProtection", catItemEquipment, -3, 1, Integer.MAX_VALUE, "Netherite Boots Protection");
+		netheriteBootsProtection = cfg.getInt("netheriteBootsProtection", catItemEquipment, 3, 1, Integer.MAX_VALUE, "Netherite Boots Protection");
 
 		//Entity Items
 		enableArmourStand = cfg.getBoolean("enableArmorStand", catItemEntity, true, "");
