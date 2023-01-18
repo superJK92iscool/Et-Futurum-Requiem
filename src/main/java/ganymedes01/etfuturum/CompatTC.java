@@ -1,6 +1,7 @@
 package ganymedes01.etfuturum;
 
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
@@ -133,7 +134,7 @@ public class CompatTC {
 			ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.gates[i]), new AspectList(new ItemStack(Blocks.fence_gate)) );
 		
 		for (int i = 0; i < ModBlocks.doors.length; i++)
-			ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.doors[i]), new AspectList(new ItemStack(Blocks.wooden_door)) );
+			ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.doors[i]), new AspectList(new ItemStack(Items.wooden_door)) );
 		
 
 		for (int i = 0; i < 16; i++) {
