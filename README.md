@@ -1,6 +1,6 @@
 # Et-Futurum
 
-Download: https://www.curseforge.com/minecraft/mc-mods/et-futurum-requiem/files
+**Download: [CurseForge](https://www.curseforge.com/minecraft/mc-mods/et-futurum-requiem/files) | [Modrinth](https://modrinth.com/mod/etfuturum)**
 
 WARNING!
 
