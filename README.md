@@ -8,6 +8,8 @@ Though this project is licensed under the LGPL-3.0 a lot of the code featured he
 
 This project is jss2a98aj's fork of KryptonCaptain's Et Futurum build, as well as a merge of Roadhog360's changes he made to Et Futurum and never published anywhere. Makamys is a great help with helping me get the concept of Mixin code and various incredibly useful commits.
 
+The mod uses MCLib's AssetDirector module to download assets from Mojang's servers. Check [its wiki page](https://github.com/makamys/MCLib/wiki/AssetDirector) for more information.
+
 ## About `nomixin` builds
 
 The mod (starting with version 2.4.1) comes in two flavors:
