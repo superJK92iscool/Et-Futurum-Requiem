@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.tileentities;
 
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemPotion;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -12,8 +13,8 @@ public class TileEntityCauldronPotion extends TileEntityCauldronColoredWater {
 
 	@Override
 	public int getWaterColor() {
-		if(potion != null && potion.getItem() instanceof ItemPotion) {
-			return ((ItemPotion)potion.getItem()).getColorFromDamage(potion.getItemDamage());
+		if(worldObj.isRemote && potion != null && potion.getItem() instanceof ItemPotion) {
+			return Items.potionitem.getColorFromDamage(potion.getItemDamage());
 		}
 		return 0;
 	}

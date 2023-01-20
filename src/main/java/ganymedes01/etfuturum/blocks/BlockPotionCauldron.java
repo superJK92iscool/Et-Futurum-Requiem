@@ -31,6 +31,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 public class BlockPotionCauldron extends BlockCauldronTileEntity implements ISubBlocksBlock, IConfigurable {
@@ -188,6 +189,12 @@ public class BlockPotionCauldron extends BlockCauldronTileEntity implements ISub
 	public boolean isEnabled() {
 		return ConfigBlocksItems.enablePotionCauldron;
 	}
+	
+    static float getRenderLiquidLevel(int p_150025_0_)
+    {
+        int j = MathHelper.clamp_int(p_150025_0_, 0, 3);
+        return (float)(6 + 3 * j) / 16.0F;
+    }
 
 	@Override
 	public Class<? extends ItemBlock> getItemBlockClass() {
@@ -202,7 +209,7 @@ public class BlockPotionCauldron extends BlockCauldronTileEntity implements ISub
 		        float r = (float)(color >> 16 & 255) / 255.0F;
 		        float g = (float)(color >> 8 & 255) / 255.0F;
 		        float b = (float)(color & 255) / 255.0F;
-		        float liquidLevel = y + BlockCauldron.getRenderLiquidLevel(world.getBlockMetadata(x, y, z) + 1);
+		        float liquidLevel = y + getRenderLiquidLevel(world.getBlockMetadata(x, y, z) + 1);
 		        world.playSound(x + 0.5D, liquidLevel, z + 0.5D, "random.splash", 0.15F, 1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.4F, false);
 		        for(int i = 0; i < world.rand.nextInt(4) + 4; i++) {
 					world.spawnParticle("mobSpell", this.getParticleXYCoord(x, world.rand), liquidLevel, this.getParticleXYCoord(z, world.rand), r, g, b);
@@ -213,7 +220,7 @@ public class BlockPotionCauldron extends BlockCauldronTileEntity implements ISub
 			@Override
 			public void getAction(World world, int x, int y, int z, int meta) {
 		        float min = 0.25F;
-		        float max = BlockCauldron.getRenderLiquidLevel(world.getBlockMetadata(x, y, z) + 1);
+		        float max = getRenderLiquidLevel(world.getBlockMetadata(x, y, z) + 1);
 		        float liquidLevel = y + (min + world.rand.nextFloat() * (max - min));
 		        world.playSound(x + 0.5D, liquidLevel, z + 0.5D, "random.fizz", 0.3F, (world.rand.nextFloat() * 0.6F) + 0.4F, false);
 		        for(int i = 0; i < world.rand.nextInt(4) + 4; i++) {

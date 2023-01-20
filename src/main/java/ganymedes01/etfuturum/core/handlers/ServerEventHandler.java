@@ -713,9 +713,8 @@ public class ServerEventHandler {
 							}
 						}
 						
-						//True is stand-in value for config
 						if(ConfigBlocksItems.enablePotionCauldron && oldBlock == Blocks.cauldron && heldStack != null && meta == 0 && heldStack.getItem() == Items.potionitem
-								 && !ItemPotion.isSplash(heldStack.getItemDamage()) && ((ItemPotion)heldStack.getItem()).hasEffect(heldStack)) {
+								 && !ItemPotion.isSplash(heldStack.getItemDamage()) && !Items.potionitem.getEffects(heldStack).isEmpty()) {
 							world.setBlock(x, y, z, ModBlocks.potion_cauldron); //If we don't cancel the use event, the new block is used, so the use code is in the block class.
 						}
 						
