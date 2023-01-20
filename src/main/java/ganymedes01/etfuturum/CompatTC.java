@@ -130,11 +130,6 @@ public class CompatTC {
 		//ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.stone,1,3), new AspectList(new ItemStack(Blocks.stone)) );
 		//ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.stone,1,5), new AspectList(new ItemStack(Blocks.stone)) );
 		
-		// copper (permutatio because it oxidizes)
-		
-		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.copper_ingot), new AspectList().add(Aspect.METAL, 3).add(Aspect.EXCHANGE, 2) );
-		ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.copper_ore), new AspectList().add(Aspect.METAL, 2).add(Aspect.EXCHANGE, 1).add(Aspect.EARTH, 1) );
-		
 		// copies
 		
 		for (int i = 0; i < ModBlocks.trapdoors.length; i++)
