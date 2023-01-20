@@ -7,6 +7,7 @@ import ganymedes01.etfuturum.ModBlocks.ISubBlocksBlock;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.items.block.ItemDecorationWorkbench;
+import ganymedes01.etfuturum.lib.GUIsID;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -15,7 +16,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-public class BlockSmithingTable extends Block implements IConfigurable, ISubBlocksBlock {
+public class BlockSmithingTable extends Block implements IConfigurable {
 
 	@SideOnly(Side.CLIENT)
 	private IIcon topIcon;
@@ -51,20 +52,14 @@ public class BlockSmithingTable extends Block implements IConfigurable, ISubBloc
 	}
 
 	@Override
-	public Class<? extends ItemBlock> getItemBlockClass() {
-		return ItemDecorationWorkbench.class;
-	}
-
-	@Override
 	public boolean isEnabled() {
 		return ConfigBlocksItems.enableSmithingTable;
 	}
 
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float subX, float subY, float subZ) {
-//		if (!world.isRemote)
-//			player.openGui(EtFuturum.instance, GUIsID.SMITHING_TABLE, world, x, y, z);
-//		return true;
-		return super.onBlockActivated(world, x, y, z, player, side, subX, subY, subZ);
+		if (!world.isRemote)
+			player.openGui(EtFuturum.instance, GUIsID.SMITHING_TABLE, world, x, y, z);
+		return true;
 	}
 }

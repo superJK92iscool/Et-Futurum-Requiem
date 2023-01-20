@@ -30,9 +30,6 @@ public class BlastFurnaceRecipes
 	{
 		return smeltingBase;
 	}
-	
-	private BlastFurnaceRecipes() {
-	}
 
 	@SuppressWarnings("unchecked")
 	public static void init() {

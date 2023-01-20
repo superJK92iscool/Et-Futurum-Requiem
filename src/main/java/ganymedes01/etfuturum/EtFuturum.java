@@ -54,6 +54,7 @@ import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.potion.ModPotions;
 import ganymedes01.etfuturum.recipes.BlastFurnaceRecipes;
 import ganymedes01.etfuturum.recipes.ModRecipes;
+import ganymedes01.etfuturum.recipes.SmithingTableRecipes;
 import ganymedes01.etfuturum.recipes.SmokerRecipes;
 import ganymedes01.etfuturum.spectator.SpectatorMode;
 import ganymedes01.etfuturum.world.EtFuturumLateWorldGenerator;
@@ -569,6 +570,7 @@ public class EtFuturum {
 		RawOreRegistry.init();
 		SmokerRecipes.init();
 		BlastFurnaceRecipes.init();
+		SmithingTableRecipes.init();
 		ConfigBase.postInit();
 		
 		Iterator<Block> blockIterator = Block.blockRegistry.iterator();

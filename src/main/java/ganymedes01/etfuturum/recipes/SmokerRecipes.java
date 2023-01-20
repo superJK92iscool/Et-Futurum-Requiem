@@ -29,9 +29,6 @@ public class SmokerRecipes
 	{
 		return smeltingBase;
 	}
-	
-	private SmokerRecipes() {
-	}
 
 	@SuppressWarnings("unchecked")
 	public static void init() {

@@ -1,6 +1,5 @@
 package ganymedes01.etfuturum.inventory.slot;
 
-import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.inventory.ContainerSmithingTable;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.entity.player.EntityPlayer;
@@ -27,6 +26,7 @@ public class SlotSmithingResult extends Slot {
 
     @Override
     public void onPickupFromSlot(EntityPlayer player, ItemStack stack) {
+    	super.onPickupFromSlot(player, stack);
         final ItemStack applicant = container.inputSlots.getStackInSlot(0);
         applicant.stackSize--;
         container.inputSlots.setInventorySlotContents(0,(applicant.stackSize > 0) ? applicant : null);
