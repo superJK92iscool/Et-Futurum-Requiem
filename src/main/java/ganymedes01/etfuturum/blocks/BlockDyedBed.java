@@ -24,8 +24,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class BlockDyedBed extends BlockBed implements IConfigurable, ISubBlocksBlock, IRegistryName {
-
-	private static final String[] dye_names = new String[] { "white", "orange", "magenta", "light_blue", "yellow", "lime", "pink", "gray", "silver", "cyan", "purple", "blue", "brown", "green", "red", "black"};
 	
 	public BlockDyedBed(int dye) {
 		super();
