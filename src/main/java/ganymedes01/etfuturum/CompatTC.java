@@ -49,6 +49,9 @@ public class CompatTC {
 		
 		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.tipped_arrow), new AspectList().add(Aspect.WEAPON, 1).add(Aspect.MAGIC, 2) );
 		
+		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.pigstep_record), new AspectList().add(Aspect.SENSES, 4).add(Aspect.AIR, 4).add(Aspect.GREED, 4).add(Aspect.FIRE, 2).add(Aspect.BEAST, 2) );
+		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.otherside_record), new AspectList().add(Aspect.SENSES, 4).add(Aspect.AIR, 4).add(Aspect.GREED, 4).add(Aspect.FIRE, 2).add(Aspect.ELDRITCH, 2) );
+		
 		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.lingering_potion,1,32767), new AspectList().add(Aspect.TRAP, 1).add(Aspect.WATER, 1).add(Aspect.MAGIC, 2) );
 		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.lingering_potion,1,0), new AspectList().add(Aspect.CRYSTAL, 1).add(Aspect.WATER, 1) );
 		//regen
@@ -111,6 +114,7 @@ public class CompatTC {
 		ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.log_stripped,1,32767), new AspectList(new ItemStack(Blocks.log)) );
 		ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.log2_stripped,1,32767), new AspectList(new ItemStack(Blocks.log2)) );
 		ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.magma_block), new AspectList().add(Aspect.FIRE, 2).add(Aspect.EARTH, 1) );
+		ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.rose), new AspectList(new ItemStack(Blocks.red_flower)) );
 		
 		ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.brown_mushroom_block), new AspectList(new ItemStack(Blocks.brown_mushroom)) );
 		ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.red_mushroom_block), new AspectList(new ItemStack(Blocks.red_mushroom)) );
@@ -126,6 +130,12 @@ public class CompatTC {
 		//ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.stone,1,3), new AspectList(new ItemStack(Blocks.stone)) );
 		//ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.stone,1,5), new AspectList(new ItemStack(Blocks.stone)) );
 		
+		// copper (permutatio because it oxidizes)
+		
+		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.copper_ingot), new AspectList().add(Aspect.METAL, 3).add(Aspect.EXCHANGE, 2) );
+		ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.copper_ore), new AspectList().add(Aspect.METAL, 2).add(Aspect.EXCHANGE, 1).add(Aspect.EARTH, 1) );
+		
+		// copies
 		
 		for (int i = 0; i < ModBlocks.trapdoors.length; i++)
 			ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.trapdoors[i]), new AspectList(new ItemStack(Blocks.trapdoor)) );
@@ -136,7 +146,12 @@ public class CompatTC {
 		for (int i = 0; i < ModBlocks.doors.length; i++)
 			ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.doors[i]), new AspectList(new ItemStack(Items.wooden_door)) );
 		
-
+		for (int i = 0; i < ModBlocks.buttons.length; i++)
+			ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.buttons[i]), new AspectList(new ItemStack(Blocks.wooden_button)) );
+		
+		for (int i = 0; i < ModItems.boats.length; i++)
+			ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.boats[i]), new AspectList(new ItemStack(Items.boat)) );
+		
 		for (int i = 0; i < 16; i++) {
 			//ConcreteRegistry.concretePowders.put(color, new BlockConcretePowder(color));
 			//GameRegistry.registerBlock(ConcreteRegistry.concretePowders.get(color), ItemBlockConcrete.class, "concrete_powder_" + color.getUnlocalizedName());
@@ -148,6 +163,22 @@ public class CompatTC {
 			
 		}
 		
+		ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.tinted_glass), new AspectList(new ItemStack(Blocks.glass)) );
+		
+		ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.anvil), new AspectList(new ItemStack(Blocks.anvil)) );
+		
+		// ores
+		
+		ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.deepslate_coal_ore), new AspectList(new ItemStack(Blocks.coal_ore)) );
+		ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.deepslate_iron_ore), new AspectList(new ItemStack(Blocks.iron_ore)) );
+		ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.deepslate_gold_ore), new AspectList(new ItemStack(Blocks.gold_ore)) );
+		ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.deepslate_redstone_ore), new AspectList(new ItemStack(Blocks.redstone_ore)) );
+		ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.deepslate_lapis_ore), new AspectList(new ItemStack(Blocks.lapis_ore)) );
+		ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.deepslate_diamond_ore), new AspectList(new ItemStack(Blocks.diamond_ore)) );
+		ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.deepslate_emerald_ore), new AspectList(new ItemStack(Blocks.emerald_ore)) );
+		ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.deepslate_copper_ore), new AspectList(new ItemStack(ModBlocks.copper_ore)) );
+		
+		ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.nether_gold_ore), new AspectList(new ItemStack(Blocks.gold_ore)) );
 	}
 	
 	
