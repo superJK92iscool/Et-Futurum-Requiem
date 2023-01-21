@@ -583,6 +583,13 @@ public class EtFuturum {
 		BlastFurnaceRecipes.init();
 		SmithingTableRecipes.init();
 		ConfigBase.postInit();
+
+		//Because NP+ uses its own (worse) step sounds for this and it causes the check below that replaces these blocks to fail.
+		if(EtFuturum.hasNP && ConfigWorld.enableNewBlocksSounds) {
+			Blocks.nether_brick.setStepSound(ModSounds.soundNetherBricks);
+			Blocks.nether_brick_fence.setStepSound(ModSounds.soundNetherBricks);
+			Blocks.nether_brick_stairs.setStepSound(ModSounds.soundNetherBricks);
+		}
 		
 		Iterator<Block> blockIterator = Block.blockRegistry.iterator();
 		//Block registry iterator
@@ -612,9 +619,9 @@ public class EtFuturum {
 			/*
 			 * MATERIALS
 			 */
-			if(block == Blocks.bed && TESTING) {
+//			if(block == Blocks.bed && TESTING) {
 //				block.blockMaterial = Material.wood;
-			}
+//			}
 		}
 
 //      if(ConfigBlocksItems.enableComposter) {
