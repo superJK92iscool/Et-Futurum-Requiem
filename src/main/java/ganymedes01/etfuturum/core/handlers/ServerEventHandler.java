@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -41,7 +42,6 @@ import ganymedes01.etfuturum.configuration.configs.ConfigTweaks;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.ExternalContent;
 import ganymedes01.etfuturum.core.utils.HoeHelper;
-import ganymedes01.etfuturum.core.utils.PlayerArmorTracker;
 import ganymedes01.etfuturum.core.utils.RawOreRegistry;
 import ganymedes01.etfuturum.core.utils.StrippedLogRegistry;
 import ganymedes01.etfuturum.core.utils.helpers.BlockAndMetadataMapping;
@@ -104,6 +104,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemPotion;
 import net.minecraft.item.ItemShears;
@@ -128,7 +129,6 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
@@ -150,11 +150,13 @@ import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.oredict.OreDictionary;
+import scala.actors.threadpool.Arrays;
 
 public class ServerEventHandler {
 
 	public static final ServerEventHandler INSTANCE = new ServerEventHandler();
 	public static HashSet<EntityPlayerMP> playersClosedContainers = new HashSet<>();
+	private static final HashMap<EntityPlayer, List<ItemStack>> armorTracker = new HashMap<>();
 	
 	private ServerEventHandler() {
 	}
@@ -163,15 +165,6 @@ public class ServerEventHandler {
 	public void onPlayerPickXP(PlayerPickupXpEvent event) {
 		ModEnchantments.onPlayerPickupXP(event);
 	}
-	
-    @SubscribeEvent
-    public void onEntityConstructing(EntityConstructing event)
-    {
-    	if (event.entity instanceof EntityPlayer)
-    	{
-    		PlayerArmorTracker.register((EntityPlayer) event.entity);
-    	}
-    }
 
 	@SubscribeEvent
 	public void livingUpdate(LivingUpdateEvent event) {
@@ -198,167 +191,60 @@ public class ServerEventHandler {
 		if(ConfigMixins.enableElytra && entity instanceof IElytraPlayer) {
 			((IElytraPlayer)entity).tickElytra();
 		}
-		if (event.entity instanceof EntityPlayer && !(event.entity instanceof FakePlayer) && event.entity.worldObj != null && ConfigWorld.enableNewMiscSounds) {
+
+
+		if (!event.entity.worldObj.isRemote && event.entity instanceof EntityPlayer && !(event.entity instanceof FakePlayer) && event.entity.worldObj != null && ConfigWorld.enableNewMiscSounds) {
 			EntityPlayer player = (EntityPlayer) event.entity;
-			// Items currently on the player
-			ItemStack playerBoots = player.getEquipmentInSlot(1);
-			ItemStack playerLeggings = player.getEquipmentInSlot(2);
-			ItemStack playerChestplate = player.getEquipmentInSlot(3);
-			ItemStack playerHelmet = player.getEquipmentInSlot(4);
 
-			// Items attached to the player as an IEEP tag
-			PlayerArmorTracker ipat = PlayerArmorTracker.get(player);
-			ItemStack storedBoots = ItemStack.loadItemStackFromNBT(ipat.getBoots());
-			ItemStack storedLeggings = ItemStack.loadItemStackFromNBT(ipat.getLeggings());
-			ItemStack storedChestplate = ItemStack.loadItemStackFromNBT(ipat.getChestplate());
-			ItemStack storedHelmet = ItemStack.loadItemStackFromNBT(ipat.getHelmet());
+			if(!armorTracker.containsKey(player)) {
+				// Items currently on the player
+				ItemStack playerBoots = player.getEquipmentInSlot(1);
+				ItemStack playerLeggings = player.getEquipmentInSlot(2);
+				ItemStack playerChestplate = player.getEquipmentInSlot(3);
+				ItemStack playerHelmet = player.getEquipmentInSlot(4);
+				armorTracker.put(player, Arrays.asList(new ItemStack[] {playerBoots, playerLeggings, playerChestplate, playerHelmet}));
+			} else {
+				List<ItemStack> armorList = armorTracker.get(player);
 
-			String itemEquippedSound = "";
-
-			// --- Boots --- //
-			if (playerBoots != null // Equipment is in the slot
-					&& (storedBoots == null // and either the NBT thinks there's not an item already there,
-							// or that the item is different in some way...
-							|| (storedBoots != null && ( // ...that's not its durability.
-							!playerBoots.getItem().equals(storedBoots.getItem())
-									|| !(playerBoots.stackTagCompound == null && storedBoots.stackTagCompound != null
-											? false
-											: playerBoots.stackTagCompound == null || playerBoots.stackTagCompound
-													.equals(storedBoots.stackTagCompound)))))) {
-				if (playerBoots.getItem() == Items.chainmail_boots) {
-					itemEquippedSound = "item.armor.equip_chain";
-				} else if (playerBoots.getItem() == Items.diamond_boots) {
-					itemEquippedSound = "item.armor.equip_diamond";
-				} else if (playerBoots.getItem() == Items.golden_boots) {
-					itemEquippedSound = "item.armor.equip_gold";
-				} else if (playerBoots.getItem() == Items.iron_boots) {
-					itemEquippedSound = "item.armor.equip_iron";
-				} else if (playerBoots.getItem() == Items.leather_boots) {
-					itemEquippedSound = "item.armor.equip_leather";
-				} else if (playerBoots.getItem().getUnlocalizedName().toLowerCase().contains("netherite")) {
-					itemEquippedSound = "item.armor.equip_netherite";
-				} else {
-					itemEquippedSound = "item.armor.equip_generic";
+				String itemEquippedSound = "";
+				ItemStack storedArmor;
+				ItemStack playerArmor;
+				for(int i = 0; i < 4; i++) {
+					storedArmor = armorList.get(i);
+					playerArmor = player.getEquipmentInSlot(i+1);
+					if (playerArmor != null // Equipment is in the slot
+							&& (storedArmor == null // and either the NBT thinks there's not an item already there,
+									// or that the item is different in some way that's not its durability.
+									|| (!playerArmor.getItem().equals(storedArmor.getItem())
+											|| !(playerArmor.stackTagCompound == null && storedArmor.stackTagCompound != null
+													? false : playerArmor.stackTagCompound == null || playerArmor.stackTagCompound.equals(storedArmor.stackTagCompound))))) {
+						if(playerArmor.getItem() instanceof ItemArmor) {
+							String armorString = ((ItemArmor)playerArmor.getItem()).getArmorMaterial().name().toLowerCase();
+							if (armorString.contains("chain")) {
+								itemEquippedSound = "item.armor.equip_chain";
+							} else if (armorString.contains("diamond")) {
+								itemEquippedSound = "item.armor.equip_diamond";
+							} else if (armorString.contains("gold")) {
+								itemEquippedSound = "item.armor.equip_gold";
+							} else if (armorString.contains("iron") || armorString.contains("copper") || armorString.contains("tin")) {
+								itemEquippedSound = "item.armor.equip_iron";
+							} else if (armorString.contains("leather")) {
+								itemEquippedSound = "item.armor.equip_leather";
+							} else if (armorString.contains("netherite") || armorString.contains("thaumium") || armorString.contains("thaumaturge")) {
+								itemEquippedSound = "item.armor.equip_netherite";
+							} else {
+								itemEquippedSound = "item.armor.equip_generic";
+							}
+						} else if(itemEquippedSound.equals("") && i == 2 && playerArmor.getItem().getUnlocalizedName().toLowerCase().contains("elytra")) {
+							itemEquippedSound = "item.armor.equip_elytra";
+						}
+					}
+					armorList.set(i, playerArmor);
 				}
-			}
-
-			// Update the stored itemstack if it's changed, regardless of if you should make
-			// a noise
-			if (!ItemStack.areItemStacksEqual(playerBoots, storedBoots)) {
-				ipat.setBoots(PlayerArmorTracker.saveItemStackToNBT(playerBoots));
-			}
-
-			// --- Leggings --- //
-			if (playerLeggings != null // Equipment is in the slot
-					&& (storedLeggings == null // and either the NBT thinks there's not an item already there,
-							// or that the item is different in some way...
-							|| (storedLeggings != null && ( // ...that's not its durability.
-							!playerLeggings.getItem().equals(storedLeggings.getItem())
-									|| !(playerLeggings.stackTagCompound == null
-											&& storedLeggings.stackTagCompound != null
-													? false
-													: playerLeggings.stackTagCompound == null
-															|| playerLeggings.stackTagCompound
-																	.equals(storedLeggings.stackTagCompound)))))) {
-				if (playerLeggings.getItem() == Items.chainmail_leggings) {
-					itemEquippedSound = "item.armor.equip_chain";
-				} else if (playerLeggings.getItem() == Items.diamond_leggings) {
-					itemEquippedSound = "item.armor.equip_diamond";
-				} else if (playerLeggings.getItem() == Items.golden_leggings) {
-					itemEquippedSound = "item.armor.equip_gold";
-				} else if (playerLeggings.getItem() == Items.iron_leggings) {
-					itemEquippedSound = "item.armor.equip_iron";
-				} else if (playerLeggings.getItem() == Items.leather_leggings) {
-					itemEquippedSound = "item.armor.equip_leather";
-				} else if (playerLeggings.getItem().getUnlocalizedName().toLowerCase().contains("netherite")) {
-					itemEquippedSound = "item.armor.equip_netherite";
-				} else {
-					itemEquippedSound = "item.armor.equip_generic";
+				// Play a sound if one of the equipment pieces changed
+				if (!itemEquippedSound.equals("")) {
+			        player.worldObj.playSoundAtEntity(player, Reference.MCAssetVer + ":" + itemEquippedSound, 1, 1);
 				}
-			}
-
-			// Update the stored itemstack if it's changed, regardless of if you should make
-			// a noise
-			if (!ItemStack.areItemStacksEqual(playerLeggings, storedLeggings)) {
-				ipat.setLeggings(PlayerArmorTracker.saveItemStackToNBT(playerLeggings));
-			}
-
-			// --- Chestplate --- //
-			if (playerChestplate != null // Equipment is in the slot
-					&& (storedChestplate == null // and either the NBT thinks there's not an item already there,
-							// or that the item is different in some way...
-							|| (storedChestplate != null && ( // ...that's not its durability.
-							!playerChestplate.getItem().equals(storedChestplate.getItem())
-									|| !(playerChestplate.stackTagCompound == null
-											&& storedChestplate.stackTagCompound != null
-													? false
-													: playerChestplate.stackTagCompound == null
-															|| playerChestplate.stackTagCompound
-																	.equals(storedChestplate.stackTagCompound)))))) {
-				if (playerChestplate.getItem() == Items.chainmail_chestplate) {
-					itemEquippedSound = "item.armor.equip_chain";
-				} else if (playerChestplate.getItem() == Items.diamond_chestplate) {
-					itemEquippedSound = "item.armor.equip_diamond";
-				} else if (playerChestplate.getItem() == Items.golden_chestplate) {
-					itemEquippedSound = "item.armor.equip_gold";
-				} else if (playerChestplate.getItem() == Items.iron_chestplate) {
-					itemEquippedSound = "item.armor.equip_iron";
-				} else if (playerChestplate.getItem() == Items.leather_chestplate) {
-					itemEquippedSound = "item.armor.equip_leather";
-				} else if (playerChestplate.getItem().getUnlocalizedName().toLowerCase().contains("netherite")) {
-					itemEquippedSound = "item.armor.equip_netherite";
-				} else if (playerChestplate.getItem().getUnlocalizedName().toLowerCase().contains("elytra")) {
-					itemEquippedSound = "item.armor.equip_elytra";
-				} // Elytra is its own sound event
-				else {
-					itemEquippedSound = "item.armor.equip_generic";
-				}
-			}
-
-			// Update the stored itemstack if it's changed, regardless of if you should make
-			// a noise
-			if (!ItemStack.areItemStacksEqual(playerChestplate, storedChestplate)) {
-				ipat.setChestplate(PlayerArmorTracker.saveItemStackToNBT(playerChestplate));
-			}
-
-			// --- Helmet --- //
-			if (playerHelmet != null // Equipment is in the slot
-					&& (storedHelmet == null // and either the NBT thinks there's not an item already there,
-							// or that the item is different in some way...
-							|| (storedHelmet != null && ( // ...that's not its durability.
-							!playerHelmet.getItem().equals(storedHelmet.getItem())
-									|| !(playerHelmet.stackTagCompound == null && storedHelmet.stackTagCompound != null
-											? false
-											: playerHelmet.stackTagCompound == null || playerHelmet.stackTagCompound
-													.equals(storedHelmet.stackTagCompound)))))) {
-				if (playerHelmet.getItem() == Items.chainmail_helmet) {
-					itemEquippedSound = "item.armor.equip_chain";
-				} else if (playerHelmet.getItem() == Items.diamond_helmet) {
-					itemEquippedSound = "item.armor.equip_diamond";
-				} else if (playerHelmet.getItem() == Items.golden_helmet) {
-					itemEquippedSound = "item.armor.equip_gold";
-				} else if (playerHelmet.getItem() == Items.iron_helmet) {
-					itemEquippedSound = "item.armor.equip_iron";
-				} else if (playerHelmet.getItem() == Items.leather_helmet) {
-					itemEquippedSound = "item.armor.equip_leather";
-				} else if (playerHelmet.getItem().getUnlocalizedName().toLowerCase().contains("netherite")) {
-					itemEquippedSound = "item.armor.equip_netherite";
-				} else {
-					itemEquippedSound = "item.armor.equip_generic";
-				}
-			}
-
-			// Update the stored itemstack if it's changed, regardless of if you should make
-			// a noise
-			if (!ItemStack.areItemStacksEqual(playerHelmet, storedHelmet)) {
-				ipat.setHelmet(PlayerArmorTracker.saveItemStackToNBT(playerHelmet));
-			}
-
-			// Play a sound if one of the equipment pieces changed
-			if (!itemEquippedSound.equals("")) {
-				player.worldObj.playSoundEffect(player.posX, player.posY, player.posZ,
-						Reference.MCAssetVer + ":" + itemEquippedSound, 1F, 1F);
-				return;
 			}
 		}
 	}

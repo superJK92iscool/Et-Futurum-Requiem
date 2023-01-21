@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.items;
+package ganymedes01.etfuturum.items.equipment;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

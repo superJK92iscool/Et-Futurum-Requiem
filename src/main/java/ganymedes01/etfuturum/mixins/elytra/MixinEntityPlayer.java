@@ -2,7 +2,7 @@ package ganymedes01.etfuturum.mixins.elytra;
 
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.api.elytra.IElytraPlayer;
-import ganymedes01.etfuturum.items.ItemArmorElytra;
+import ganymedes01.etfuturum.items.equipment.ItemArmorElytra;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.PlayerCapabilities;
