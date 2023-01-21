@@ -313,13 +313,10 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "block.amethyst_block.step", "neutral");
 		config.addSoundEvent(ver, "block.amethyst_block.break", "block");
 		config.addSoundEvent(ver, "block.amethyst_block.place", "block");
-		config.addSoundEvent(ver, "block.small_amethyst_bud.step", "neutral");
 		config.addSoundEvent(ver, "block.small_amethyst_bud.break", "block");
 		config.addSoundEvent(ver, "block.small_amethyst_bud.place", "block");
-		config.addSoundEvent(ver, "block.medium_amethyst_bud.step", "neutral");
 		config.addSoundEvent(ver, "block.medium_amethyst_bud.break", "block");
 		config.addSoundEvent(ver, "block.medium_amethyst_bud.place", "block");
-		config.addSoundEvent(ver, "block.large_amethyst_bud.step", "neutral");
 		config.addSoundEvent(ver, "block.large_amethyst_bud.break", "block");
 		config.addSoundEvent(ver, "block.large_amethyst_bud.place", "block");
 		config.addSoundEvent(ver, "block.amethyst_cluster.step", "neutral");
@@ -342,8 +339,6 @@ public class EtFuturum {
 //      config.addSoundEvent(ver, "block.shroomlight.break", "block");
 //      config.addSoundEvent(ver, "block.honey_block.step", "neutral");
 //      config.addSoundEvent(ver, "block.honey_block.break", "block");
-		config.addSoundEvent(ver, "block.nether_wood.step", "neutral");
-		config.addSoundEvent(ver, "block.nether_wood.break", "block");
 		
 		AssetDirectorAPI.register(config);
 	}
