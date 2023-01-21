@@ -226,11 +226,11 @@ public class ServerEventHandler {
 								itemEquippedSound = "item.armor.equip_diamond";
 							} else if (armorString.contains("gold")) {
 								itemEquippedSound = "item.armor.equip_gold";
-							} else if (armorString.contains("iron") || armorString.contains("copper") || armorString.contains("tin")) {
+							} else if (armorString.contains("iron")) {
 								itemEquippedSound = "item.armor.equip_iron";
 							} else if (armorString.contains("leather")) {
 								itemEquippedSound = "item.armor.equip_leather";
-							} else if (armorString.contains("netherite") || armorString.contains("thaumium") || armorString.contains("thaumaturge")) {
+							} else if (armorString.contains("netherite")) {
 								itemEquippedSound = "item.armor.equip_netherite";
 							} else {
 								itemEquippedSound = "item.armor.equip_generic";
