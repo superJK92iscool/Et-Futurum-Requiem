@@ -1,5 +1,7 @@
 package ganymedes01.etfuturum.spectator;
 
+import static ganymedes01.etfuturum.spectator.SpectatorMode.isSpectator;
+
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -12,10 +14,13 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.world.World;
-import net.minecraftforge.client.event.*;
-
-import static ganymedes01.etfuturum.spectator.SpectatorMode.isSpectator;
+import net.minecraftforge.client.event.DrawBlockHighlightEvent;
+import net.minecraftforge.client.event.EntityViewRenderEvent;
+import net.minecraftforge.client.event.RenderBlockOverlayEvent;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.client.event.RenderHandEvent;
+import net.minecraftforge.client.event.RenderPlayerEvent;
+import net.minecraftforge.common.util.FakePlayer;
 
 public class SpectatorModeClient {
     public static final SpectatorModeClient INSTANCE = new SpectatorModeClient();
@@ -123,7 +128,7 @@ public class SpectatorModeClient {
     @SideOnly(Side.CLIENT)
     public void onClientTick(TickEvent.ClientTickEvent event) {
         EntityPlayer player = FMLClientHandler.instance().getClientPlayerEntity();
-        if(player != null && event.phase == TickEvent.Phase.START) {
+        if(player != null && !(player instanceof FakePlayer) && Minecraft.getMinecraft().playerController != null && event.phase == TickEvent.Phase.START) {
             if(Minecraft.getMinecraft().playerController.currentGameType == SpectatorMode.SPECTATOR_GAMETYPE) {
                 if(!player.capabilities.isFlying) {
                     player.capabilities.isFlying = true;

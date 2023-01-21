@@ -4,6 +4,7 @@ import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
+import ganymedes01.etfuturum.core.utils.Logger;
 import ganymedes01.etfuturum.core.utils.helpers.SafeEnumHelperClient;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -14,6 +15,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.WorldSettings;
+import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
@@ -39,10 +41,10 @@ public class SpectatorMode {
 	}
 
 	public static boolean isSpectator(EntityPlayer player) {
-		if(player == null)
+		if(player == null || player instanceof FakePlayer || player.worldObj == null)
 			return false;
 		if(player.worldObj.isRemote || !(player instanceof EntityPlayerMP)) {
-			if(player == Minecraft.getMinecraft().thePlayer)
+			if(player == Minecraft.getMinecraft().thePlayer && Minecraft.getMinecraft().playerController != null)
 				return Minecraft.getMinecraft().playerController.currentGameType == SPECTATOR_GAMETYPE;
 			return false;
 		}
