@@ -14,11 +14,6 @@ import java.util.Random;
 import java.util.Set;
 import java.util.WeakHashMap;
 
-import ganymedes01.etfuturum.api.elytra.IElytraEntityTrackerEntry;
-import ganymedes01.etfuturum.api.elytra.IElytraPlayer;
-import ganymedes01.etfuturum.entities.*;
-import net.minecraft.entity.*;
-import net.minecraft.util.*;
 import org.apache.commons.lang3.ArrayUtils;
 
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -32,6 +27,8 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModEnchantments;
 import ganymedes01.etfuturum.ModItems;
+import ganymedes01.etfuturum.api.elytra.IElytraEntityTrackerEntry;
+import ganymedes01.etfuturum.api.elytra.IElytraPlayer;
 import ganymedes01.etfuturum.blocks.BlockMagma;
 import ganymedes01.etfuturum.blocks.BlockWitherRose;
 import ganymedes01.etfuturum.client.sound.ModSounds;
@@ -44,10 +41,20 @@ import ganymedes01.etfuturum.configuration.configs.ConfigTweaks;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.ExternalContent;
 import ganymedes01.etfuturum.core.utils.HoeHelper;
+import ganymedes01.etfuturum.core.utils.PlayerArmorTracker;
 import ganymedes01.etfuturum.core.utils.RawOreRegistry;
 import ganymedes01.etfuturum.core.utils.StrippedLogRegistry;
 import ganymedes01.etfuturum.core.utils.helpers.BlockAndMetadataMapping;
 import ganymedes01.etfuturum.core.utils.helpers.RawOreDropMapping;
+import ganymedes01.etfuturum.entities.EntityBoostingFireworkRocket;
+import ganymedes01.etfuturum.entities.EntityBrownMooshroom;
+import ganymedes01.etfuturum.entities.EntityEndermite;
+import ganymedes01.etfuturum.entities.EntityNewBoat;
+import ganymedes01.etfuturum.entities.EntityNewSnowGolem;
+import ganymedes01.etfuturum.entities.EntityRabbit;
+import ganymedes01.etfuturum.entities.EntityShulker;
+import ganymedes01.etfuturum.entities.EntityTippedArrow;
+import ganymedes01.etfuturum.entities.EntityZombieVillager;
 import ganymedes01.etfuturum.entities.ai.EntityAIOpenCustomDoor;
 import ganymedes01.etfuturum.inventory.ContainerEnchantment;
 import ganymedes01.etfuturum.items.ItemArrowTipped;
@@ -64,15 +71,17 @@ import net.minecraft.block.BlockFarmland;
 import net.minecraft.block.BlockSoulSand;
 import net.minecraft.block.BlockTrapDoor;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.Minecraft;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.EntityTrackerEntry;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAIOpenDoor;
 import net.minecraft.entity.ai.EntityAITargetNonTamed;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
 import net.minecraft.entity.ai.EntityAITempt;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.item.EntityBoat;
 import net.minecraft.entity.item.EntityItem;
@@ -104,12 +113,22 @@ import net.minecraft.network.play.server.S29PacketSoundEffect;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.Direction;
+import net.minecraft.util.EntityDamageSource;
+import net.minecraft.util.EntityDamageSourceIndirect;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.StatCollector;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
@@ -144,6 +163,15 @@ public class ServerEventHandler {
 	public void onPlayerPickXP(PlayerPickupXpEvent event) {
 		ModEnchantments.onPlayerPickupXP(event);
 	}
+	
+    @SubscribeEvent
+    public void onEntityConstructing(EntityConstructing event)
+    {
+    	if (event.entity instanceof EntityPlayer)
+    	{
+    		PlayerArmorTracker.register((EntityPlayer) event.entity);
+    	}
+    }
 
 	@SubscribeEvent
 	public void livingUpdate(LivingUpdateEvent event) {
@@ -167,8 +195,172 @@ public class ServerEventHandler {
 			event.entity.stepHeight = .6F;
 		}
 
-		if(ConfigMixins.enableElytra && entity instanceof IElytraPlayer)
+		if(ConfigMixins.enableElytra && entity instanceof IElytraPlayer) {
 			((IElytraPlayer)entity).tickElytra();
+		}
+		if (event.entity instanceof EntityPlayer && !(event.entity instanceof FakePlayer) && event.entity.worldObj != null && ConfigWorld.enableNewMiscSounds) {
+			EntityPlayer player = (EntityPlayer) event.entity;
+			// Items currently on the player
+			ItemStack playerBoots = player.getEquipmentInSlot(1);
+			ItemStack playerLeggings = player.getEquipmentInSlot(2);
+			ItemStack playerChestplate = player.getEquipmentInSlot(3);
+			ItemStack playerHelmet = player.getEquipmentInSlot(4);
+
+			// Items attached to the player as an IEEP tag
+			PlayerArmorTracker ipat = PlayerArmorTracker.get(player);
+			ItemStack storedBoots = ItemStack.loadItemStackFromNBT(ipat.getBoots());
+			ItemStack storedLeggings = ItemStack.loadItemStackFromNBT(ipat.getLeggings());
+			ItemStack storedChestplate = ItemStack.loadItemStackFromNBT(ipat.getChestplate());
+			ItemStack storedHelmet = ItemStack.loadItemStackFromNBT(ipat.getHelmet());
+
+			String itemEquippedSound = "";
+
+			// --- Boots --- //
+			if (playerBoots != null // Equipment is in the slot
+					&& (storedBoots == null // and either the NBT thinks there's not an item already there,
+							// or that the item is different in some way...
+							|| (storedBoots != null && ( // ...that's not its durability.
+							!playerBoots.getItem().equals(storedBoots.getItem())
+									|| !(playerBoots.stackTagCompound == null && storedBoots.stackTagCompound != null
+											? false
+											: playerBoots.stackTagCompound == null || playerBoots.stackTagCompound
+													.equals(storedBoots.stackTagCompound)))))) {
+				if (playerBoots.getItem() == Items.chainmail_boots) {
+					itemEquippedSound = "item.armor.equip_chain";
+				} else if (playerBoots.getItem() == Items.diamond_boots) {
+					itemEquippedSound = "item.armor.equip_diamond";
+				} else if (playerBoots.getItem() == Items.golden_boots) {
+					itemEquippedSound = "item.armor.equip_gold";
+				} else if (playerBoots.getItem() == Items.iron_boots) {
+					itemEquippedSound = "item.armor.equip_iron";
+				} else if (playerBoots.getItem() == Items.leather_boots) {
+					itemEquippedSound = "item.armor.equip_leather";
+				} else if (playerBoots.getItem().getUnlocalizedName().toLowerCase().contains("netherite")) {
+					itemEquippedSound = "item.armor.equip_netherite";
+				} else {
+					itemEquippedSound = "item.armor.equip_generic";
+				}
+			}
+
+			// Update the stored itemstack if it's changed, regardless of if you should make
+			// a noise
+			if (!ItemStack.areItemStacksEqual(playerBoots, storedBoots)) {
+				ipat.setBoots(PlayerArmorTracker.saveItemStackToNBT(playerBoots));
+			}
+
+			// --- Leggings --- //
+			if (playerLeggings != null // Equipment is in the slot
+					&& (storedLeggings == null // and either the NBT thinks there's not an item already there,
+							// or that the item is different in some way...
+							|| (storedLeggings != null && ( // ...that's not its durability.
+							!playerLeggings.getItem().equals(storedLeggings.getItem())
+									|| !(playerLeggings.stackTagCompound == null
+											&& storedLeggings.stackTagCompound != null
+													? false
+													: playerLeggings.stackTagCompound == null
+															|| playerLeggings.stackTagCompound
+																	.equals(storedLeggings.stackTagCompound)))))) {
+				if (playerLeggings.getItem() == Items.chainmail_leggings) {
+					itemEquippedSound = "item.armor.equip_chain";
+				} else if (playerLeggings.getItem() == Items.diamond_leggings) {
+					itemEquippedSound = "item.armor.equip_diamond";
+				} else if (playerLeggings.getItem() == Items.golden_leggings) {
+					itemEquippedSound = "item.armor.equip_gold";
+				} else if (playerLeggings.getItem() == Items.iron_leggings) {
+					itemEquippedSound = "item.armor.equip_iron";
+				} else if (playerLeggings.getItem() == Items.leather_leggings) {
+					itemEquippedSound = "item.armor.equip_leather";
+				} else if (playerLeggings.getItem().getUnlocalizedName().toLowerCase().contains("netherite")) {
+					itemEquippedSound = "item.armor.equip_netherite";
+				} else {
+					itemEquippedSound = "item.armor.equip_generic";
+				}
+			}
+
+			// Update the stored itemstack if it's changed, regardless of if you should make
+			// a noise
+			if (!ItemStack.areItemStacksEqual(playerLeggings, storedLeggings)) {
+				ipat.setLeggings(PlayerArmorTracker.saveItemStackToNBT(playerLeggings));
+			}
+
+			// --- Chestplate --- //
+			if (playerChestplate != null // Equipment is in the slot
+					&& (storedChestplate == null // and either the NBT thinks there's not an item already there,
+							// or that the item is different in some way...
+							|| (storedChestplate != null && ( // ...that's not its durability.
+							!playerChestplate.getItem().equals(storedChestplate.getItem())
+									|| !(playerChestplate.stackTagCompound == null
+											&& storedChestplate.stackTagCompound != null
+													? false
+													: playerChestplate.stackTagCompound == null
+															|| playerChestplate.stackTagCompound
+																	.equals(storedChestplate.stackTagCompound)))))) {
+				if (playerChestplate.getItem() == Items.chainmail_chestplate) {
+					itemEquippedSound = "item.armor.equip_chain";
+				} else if (playerChestplate.getItem() == Items.diamond_chestplate) {
+					itemEquippedSound = "item.armor.equip_diamond";
+				} else if (playerChestplate.getItem() == Items.golden_chestplate) {
+					itemEquippedSound = "item.armor.equip_gold";
+				} else if (playerChestplate.getItem() == Items.iron_chestplate) {
+					itemEquippedSound = "item.armor.equip_iron";
+				} else if (playerChestplate.getItem() == Items.leather_chestplate) {
+					itemEquippedSound = "item.armor.equip_leather";
+				} else if (playerChestplate.getItem().getUnlocalizedName().toLowerCase().contains("netherite")) {
+					itemEquippedSound = "item.armor.equip_netherite";
+				} else if (playerChestplate.getItem().getUnlocalizedName().toLowerCase().contains("elytra")) {
+					itemEquippedSound = "item.armor.equip_elytra";
+				} // Elytra is its own sound event
+				else {
+					itemEquippedSound = "item.armor.equip_generic";
+				}
+			}
+
+			// Update the stored itemstack if it's changed, regardless of if you should make
+			// a noise
+			if (!ItemStack.areItemStacksEqual(playerChestplate, storedChestplate)) {
+				ipat.setChestplate(PlayerArmorTracker.saveItemStackToNBT(playerChestplate));
+			}
+
+			// --- Helmet --- //
+			if (playerHelmet != null // Equipment is in the slot
+					&& (storedHelmet == null // and either the NBT thinks there's not an item already there,
+							// or that the item is different in some way...
+							|| (storedHelmet != null && ( // ...that's not its durability.
+							!playerHelmet.getItem().equals(storedHelmet.getItem())
+									|| !(playerHelmet.stackTagCompound == null && storedHelmet.stackTagCompound != null
+											? false
+											: playerHelmet.stackTagCompound == null || playerHelmet.stackTagCompound
+													.equals(storedHelmet.stackTagCompound)))))) {
+				if (playerHelmet.getItem() == Items.chainmail_helmet) {
+					itemEquippedSound = "item.armor.equip_chain";
+				} else if (playerHelmet.getItem() == Items.diamond_helmet) {
+					itemEquippedSound = "item.armor.equip_diamond";
+				} else if (playerHelmet.getItem() == Items.golden_helmet) {
+					itemEquippedSound = "item.armor.equip_gold";
+				} else if (playerHelmet.getItem() == Items.iron_helmet) {
+					itemEquippedSound = "item.armor.equip_iron";
+				} else if (playerHelmet.getItem() == Items.leather_helmet) {
+					itemEquippedSound = "item.armor.equip_leather";
+				} else if (playerHelmet.getItem().getUnlocalizedName().toLowerCase().contains("netherite")) {
+					itemEquippedSound = "item.armor.equip_netherite";
+				} else {
+					itemEquippedSound = "item.armor.equip_generic";
+				}
+			}
+
+			// Update the stored itemstack if it's changed, regardless of if you should make
+			// a noise
+			if (!ItemStack.areItemStacksEqual(playerHelmet, storedHelmet)) {
+				ipat.setHelmet(PlayerArmorTracker.saveItemStackToNBT(playerHelmet));
+			}
+
+			// Play a sound if one of the equipment pieces changed
+			if (!itemEquippedSound.equals("")) {
+				player.worldObj.playSoundEffect(player.posX, player.posY, player.posZ,
+						Reference.MCAssetVer + ":" + itemEquippedSound, 1F, 1F);
+				return;
+			}
+		}
 	}
 	
 	@SubscribeEvent
@@ -1003,29 +1195,30 @@ public class ServerEventHandler {
 
 	@SubscribeEvent
 	public void entityHurtEvent(LivingHurtEvent event) {
-		if (!ConfigWorld.enableDmgIndicator)
-			return;
-		int amount = MathHelper.floor_float(Math.min(event.entityLiving.getHealth(), event.ammount) / 2F);
-		amount = (int) applyArmorCalculations(event.entityLiving, event.source, amount);
-		amount = (int) applyPotionDamageCalculations(event.entityLiving, event.source, amount);
-		if (amount <= 0)
-			return;
-
 		// If the attacker is a player spawn the hearts aligned and facing it
 		if (event.source instanceof EntityDamageSource) {
-			EntityDamageSource src = (EntityDamageSource) event.source;
-			Entity attacker = src.getSourceOfDamage();
-			if (attacker instanceof EntityPlayer && !(attacker instanceof FakePlayer)) {
-				Random random = event.entity.worldObj.rand;
-				EntityPlayer player = (EntityPlayer) attacker;
-				Vec3 look = player.getLookVec();
-				look.rotateAroundY((float) Math.PI / 2);
-				for (int i = 0; i < amount; i++) {
-					double x = event.entityLiving.posX - (0.35D * look.xCoord / 2 * look.xCoord) + (i / 3);
-					double y = event.entityLiving.posY + (event.entityLiving.height * 0.75D);
-					double z = event.entityLiving.posZ - (0.35D * look.zCoord / 2 * look.zCoord) + (i / 3);
-					EtFuturum.networkWrapper.sendToAllAround(new BlackHeartParticlesMessage(x, y, z), new TargetPoint(player.worldObj.provider.dimensionId, x, y, z, 64));
+			if(ConfigWorld.enableDmgIndicator) {
+				int amount = MathHelper.floor_float(Math.min(event.entityLiving.getHealth(), event.ammount) / 2F);
+				amount = (int) applyArmorCalculations(event.entityLiving, event.source, amount);
+				amount = (int) applyPotionDamageCalculations(event.entityLiving, event.source, amount);
+				if(amount > 0) {
+					EntityDamageSource src = (EntityDamageSource) event.source;
+					Entity attacker = src.getSourceOfDamage();
+					if (attacker instanceof EntityPlayer && !(attacker instanceof FakePlayer)) {
+						EntityPlayer player = (EntityPlayer) attacker;
+						Vec3 look = player.getLookVec();
+						look.rotateAroundY((float) Math.PI / 2);
+						for (int i = 0; i < amount; i++) {
+							double x = event.entityLiving.posX - (0.35D * look.xCoord / 2 * look.xCoord) + (i / 3);
+							double y = event.entityLiving.posY + (event.entityLiving.height * 0.75D);
+							double z = event.entityLiving.posZ - (0.35D * look.zCoord / 2 * look.zCoord) + (i / 3);
+							EtFuturum.networkWrapper.sendToAllAround(new BlackHeartParticlesMessage(x, y, z), new TargetPoint(player.worldObj.provider.dimensionId, x, y, z, 64));
+						}
+					}
 				}
+			}
+			if(ConfigWorld.enableNewMiscSounds && event.source.getDamageType().equals("thorns")) {
+				event.entity.worldObj.playSoundAtEntity(event.entity, Reference.MCAssetVer + ":enchant.thorns.hit", 1, 1);
 			}
 		}
 	}

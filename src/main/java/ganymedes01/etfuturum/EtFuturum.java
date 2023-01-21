@@ -173,6 +173,7 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "music_disc.otherside", "record");
 
 		config.addSoundEvent(ver, "item.elytra.flying", "player");
+		config.addSoundEvent(ver, "enchant.thorns.hit", "player");
 		config.addSoundEvent(ver, "entity.boat.paddle_land", "player");
 		config.addSoundEvent(ver, "entity.boat.paddle_water", "player");
 		config.addSoundEvent(ver, "entity.rabbit.ambient", "neutral");
@@ -232,6 +233,16 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "item.totem.use", "player");
 		config.addSoundEvent(ver, "item.shovel.flatten", "player");
 		config.addSoundEvent(ver, "item.chorus_fruit.teleport", "player");
+
+		config.addSoundEvent(ver, "item.armor.equip_leather", "player");
+		config.addSoundEvent(ver, "item.armor.equip_gold", "player");
+		config.addSoundEvent(ver, "item.armor.equip_chain", "player");
+		config.addSoundEvent(ver, "item.armor.equip_iron", "player");
+		config.addSoundEvent(ver, "item.armor.equip_diamond", "player");
+		config.addSoundEvent(ver, "item.armor.equip_netherite", "player");
+		config.addSoundEvent(ver, "item.armor.equip_turtle", "player");
+		config.addSoundEvent(ver, "item.armor.equip_generic", "player");
+		config.addSoundEvent(ver, "item.armor.equip_elytra", "player");
 		
 		config.addSoundEvent(ver, "block.barrel.open", "block");
 		config.addSoundEvent(ver, "block.barrel.close", "block");
