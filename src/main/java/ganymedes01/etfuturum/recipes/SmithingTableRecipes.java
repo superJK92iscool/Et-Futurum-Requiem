@@ -5,7 +5,11 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import cpw.mods.fml.common.Loader;
+import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.core.utils.ExternalContent;
 import ganymedes01.etfuturum.core.utils.Logger;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -29,16 +33,34 @@ public class SmithingTableRecipes {
     
     //TODO: Add Netherite Plus support
     public static void init() {
-    	SmithingTableRecipes.getInstance().addRecipe(new ItemStack(Items.diamond_pickaxe, 1, OreDictionary.WILDCARD_VALUE), "ingotNetherite", new ItemStack(ModItems.netherite_pickaxe));
-    	SmithingTableRecipes.getInstance().addRecipe(new ItemStack(Items.diamond_axe, 1, OreDictionary.WILDCARD_VALUE), "ingotNetherite", new ItemStack(ModItems.netherite_axe));
-    	SmithingTableRecipes.getInstance().addRecipe(new ItemStack(Items.diamond_shovel, 1, OreDictionary.WILDCARD_VALUE), "ingotNetherite", new ItemStack(ModItems.netherite_spade));
-    	SmithingTableRecipes.getInstance().addRecipe(new ItemStack(Items.diamond_sword, 1, OreDictionary.WILDCARD_VALUE), "ingotNetherite", new ItemStack(ModItems.netherite_sword));
-    	SmithingTableRecipes.getInstance().addRecipe(new ItemStack(Items.diamond_hoe, 1, OreDictionary.WILDCARD_VALUE), "ingotNetherite", new ItemStack(ModItems.netherite_hoe));
+    	if(ConfigBlocksItems.enableSmithingTable) {
+    		
+    		if(EtFuturum.hasNP) {
+            	SmithingTableRecipes.getInstance().addRecipe(new ItemStack(Items.diamond_pickaxe, 1, OreDictionary.WILDCARD_VALUE), ExternalContent.np_netherite_ingot, new ItemStack(ExternalContent.np_netherite_pickaxe));
+            	SmithingTableRecipes.getInstance().addRecipe(new ItemStack(Items.diamond_axe, 1, OreDictionary.WILDCARD_VALUE), ExternalContent.np_netherite_ingot, new ItemStack(ExternalContent.np_netherite_axe));
+            	SmithingTableRecipes.getInstance().addRecipe(new ItemStack(Items.diamond_shovel, 1, OreDictionary.WILDCARD_VALUE), ExternalContent.np_netherite_ingot, new ItemStack(ExternalContent.np_netherite_shovel));
+            	SmithingTableRecipes.getInstance().addRecipe(new ItemStack(Items.diamond_sword, 1, OreDictionary.WILDCARD_VALUE), ExternalContent.np_netherite_ingot, new ItemStack(ExternalContent.np_netherite_sword));
+            	SmithingTableRecipes.getInstance().addRecipe(new ItemStack(Items.diamond_hoe, 1, OreDictionary.WILDCARD_VALUE), ExternalContent.np_netherite_ingot, new ItemStack(ExternalContent.np_netherite_hoe));
 
-    	SmithingTableRecipes.getInstance().addRecipe(new ItemStack(Items.diamond_helmet, 1, OreDictionary.WILDCARD_VALUE), "ingotNetherite", new ItemStack(ModItems.netherite_helmet));
-    	SmithingTableRecipes.getInstance().addRecipe(new ItemStack(Items.diamond_chestplate, 1, OreDictionary.WILDCARD_VALUE), "ingotNetherite", new ItemStack(ModItems.netherite_chestplate));
-    	SmithingTableRecipes.getInstance().addRecipe(new ItemStack(Items.diamond_leggings, 1, OreDictionary.WILDCARD_VALUE), "ingotNetherite", new ItemStack(ModItems.netherite_leggings));
-    	SmithingTableRecipes.getInstance().addRecipe(new ItemStack(Items.diamond_boots, 1, OreDictionary.WILDCARD_VALUE), "ingotNetherite", new ItemStack(ModItems.netherite_boots));
+            	SmithingTableRecipes.getInstance().addRecipe(new ItemStack(Items.diamond_helmet, 1, OreDictionary.WILDCARD_VALUE), ExternalContent.np_netherite_ingot, new ItemStack(ExternalContent.np_netherite_helmet));
+            	SmithingTableRecipes.getInstance().addRecipe(new ItemStack(Items.diamond_chestplate, 1, OreDictionary.WILDCARD_VALUE), ExternalContent.np_netherite_ingot, new ItemStack(ExternalContent.np_netherite_chestplate));
+            	SmithingTableRecipes.getInstance().addRecipe(new ItemStack(Items.diamond_leggings, 1, OreDictionary.WILDCARD_VALUE), ExternalContent.np_netherite_ingot, new ItemStack(ExternalContent.np_netherite_leggings));
+            	SmithingTableRecipes.getInstance().addRecipe(new ItemStack(Items.diamond_boots, 1, OreDictionary.WILDCARD_VALUE), ExternalContent.np_netherite_ingot, new ItemStack(ExternalContent.np_netherite_boots));
+    		}
+    		
+    		if(ConfigBlocksItems.enableNetherite) {
+            	SmithingTableRecipes.getInstance().addRecipe(new ItemStack(Items.diamond_pickaxe, 1, OreDictionary.WILDCARD_VALUE), "ingotNetherite", new ItemStack(ModItems.netherite_pickaxe));
+            	SmithingTableRecipes.getInstance().addRecipe(new ItemStack(Items.diamond_axe, 1, OreDictionary.WILDCARD_VALUE), "ingotNetherite", new ItemStack(ModItems.netherite_axe));
+            	SmithingTableRecipes.getInstance().addRecipe(new ItemStack(Items.diamond_shovel, 1, OreDictionary.WILDCARD_VALUE), "ingotNetherite", new ItemStack(ModItems.netherite_spade));
+            	SmithingTableRecipes.getInstance().addRecipe(new ItemStack(Items.diamond_sword, 1, OreDictionary.WILDCARD_VALUE), "ingotNetherite", new ItemStack(ModItems.netherite_sword));
+            	SmithingTableRecipes.getInstance().addRecipe(new ItemStack(Items.diamond_hoe, 1, OreDictionary.WILDCARD_VALUE), "ingotNetherite", new ItemStack(ModItems.netherite_hoe));
+
+            	SmithingTableRecipes.getInstance().addRecipe(new ItemStack(Items.diamond_helmet, 1, OreDictionary.WILDCARD_VALUE), "ingotNetherite", new ItemStack(ModItems.netherite_helmet));
+            	SmithingTableRecipes.getInstance().addRecipe(new ItemStack(Items.diamond_chestplate, 1, OreDictionary.WILDCARD_VALUE), "ingotNetherite", new ItemStack(ModItems.netherite_chestplate));
+            	SmithingTableRecipes.getInstance().addRecipe(new ItemStack(Items.diamond_leggings, 1, OreDictionary.WILDCARD_VALUE), "ingotNetherite", new ItemStack(ModItems.netherite_leggings));
+            	SmithingTableRecipes.getInstance().addRecipe(new ItemStack(Items.diamond_boots, 1, OreDictionary.WILDCARD_VALUE), "ingotNetherite", new ItemStack(ModItems.netherite_boots));
+    		}
+    	}
     }
     
     public void addRecipe(Object toolSlot, Object materialSlot, ItemStack result)
@@ -73,6 +95,7 @@ public class SmithingTableRecipes {
         private ItemStack output;
 
 		public SmithingTableRecipe(Object toolSlot, Object materialSlot, ItemStack result) {
+			
 			output = result;
 			
 			Object[] recipe = new Object[] {toolSlot, materialSlot};

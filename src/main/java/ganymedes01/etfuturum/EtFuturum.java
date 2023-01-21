@@ -350,6 +350,17 @@ public class EtFuturum {
 	
 	static final String NETHER_FORTRESS = "netherFortress";
 	private Field fortressWeightedField;
+
+	public static final boolean hasEnderlicious = Loader.isModLoaded("enderlicious");
+	public static final boolean hasIronChest = Loader.isModLoaded("IronChest");
+	public static final boolean hasNetherlicious = Loader.isModLoaded("netherlicious");
+	public static final boolean hasAetherLegacy = Loader.isModLoaded("aether_legacy");
+	public static final boolean hasWaila = Loader.isModLoaded("Waila");
+	public static final boolean hasThaumcraft = Loader.isModLoaded("Thaumcraft");
+	public static final boolean hasBluePower = Loader.isModLoaded("bluepower");
+	public static final boolean hasNP = Loader.isModLoaded("netheriteplus");
+	public static final boolean hasBotania = Loader.isModLoaded("Botania");
+	public static final boolean hasHEE = Loader.isModLoaded("HardcoreEnderExpansion");
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
@@ -402,7 +413,7 @@ public class EtFuturum {
 		networkWrapper.registerMessage(ChestBoatOpenInventoryHandler.class, ChestBoatOpenInventoryMessage.class, 5, Side.SERVER);
 		networkWrapper.registerMessage(StartElytraFlyingHandler.class, StartElytraFlyingMessage.class, 6, Side.SERVER);
 		{
-			if (Loader.isModLoaded("netherlicious")) {
+			if (EtFuturum.hasNetherlicious) {
 				File file = new File(event.getModConfigurationDirectory() + "/Netherlicious/Biome_Sound_Configuration.cfg");
 				if(file.exists()) {
 					Configuration netherliciousSoundConfig = new Configuration(file);
@@ -441,7 +452,7 @@ public class EtFuturum {
 	public void init(FMLInitializationEvent event) {
 		ModRecipes.init();
 		
-		if(Loader.isModLoaded("Waila")) {
+		if(EtFuturum.hasWaila) {
 			WailaRegistrar.register();
 		}
 		
@@ -468,7 +479,7 @@ public class EtFuturum {
 			BlockTrapDoor.disableValidation = true;
 		}
 		
-		if (Loader.isModLoaded("Thaumcraft")) {
+		if (EtFuturum.hasThaumcraft) {
 			CompatTC.doAspects();
 		}
 		
@@ -503,7 +514,7 @@ public class EtFuturum {
 			}
 		}
 
-		if(ConfigBlocksItems.enableSmoothStone && Loader.isModLoaded("bluepower")) {
+		if(ConfigBlocksItems.enableSmoothStone && EtFuturum.hasBluePower) {
 			Item stoneTile = GameRegistry.findItem("bluepower", "stone_tile");
 			if(stoneTile != null) {
 				Item stoneItem = Item.getItemFromBlock(Blocks.stone);

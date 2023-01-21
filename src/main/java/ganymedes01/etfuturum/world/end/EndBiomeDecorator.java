@@ -1,6 +1,7 @@
 package ganymedes01.etfuturum.world.end;
 
 import cpw.mods.fml.common.Loader;
+import ganymedes01.etfuturum.EtFuturum;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeEndDecorator;
@@ -18,7 +19,7 @@ public class EndBiomeDecorator extends BiomeEndDecorator {
 	{
 		this.generateOres();
 
-		if(!(Loader.isModLoaded("HardcoreEnderExpansion"))) {
+		if(!EtFuturum.hasHEE) {
 			if (Math.abs(chunk_X) < 256 && Math.abs(chunk_Z) < 256 && this.randomGenerator.nextInt(5) == 0)
 			{
 				int i = this.chunk_X + this.randomGenerator.nextInt(16) + 8;

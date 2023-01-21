@@ -366,7 +366,7 @@ public class ModRecipes {
 				addShapedRecipe(new ItemStack(ModBlocks.prismarine_slab, 6, i), "xxx", 'x', new ItemStack(ModBlocks.prismarine, 1, i));
 			}
 			
-			if (ConfigFunctions.enableRecipeForPrismarine && !Loader.isModLoaded("Botania")) {
+			if (ConfigFunctions.enableRecipeForPrismarine && !EtFuturum.hasBotania) {
 				addShapedRecipe(new ItemStack(ModItems.prismarine_shard, 4), "xy", "zx", 'x', "gemQuartz", 'y', "dyeBlue", 'z', "dyeGreen");
 				addShapedRecipe(new ItemStack(ModItems.prismarine_crystals, 4), "xy", "yx", 'x', "gemQuartz", 'y', "dustGlowstone");
 			}

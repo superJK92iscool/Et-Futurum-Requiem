@@ -7,7 +7,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.blocks.IConfigurable;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
-import ganymedes01.etfuturum.core.utils.ExternalContent;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox;
 import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox.ShulkerBoxType;
@@ -49,7 +48,7 @@ public class ItemShulkerBoxUpgrade extends ItemGeneric implements IConfigurable 
 	
 	@Override
 	public boolean isEnabled() {
-		return ExternalContent.hasIronChest && ConfigBlocksItems.enableShulkerBoxesIronChest;
+		return EtFuturum.hasIronChest && ConfigBlocksItems.enableShulkerBoxesIronChest;
 	}
 
 }

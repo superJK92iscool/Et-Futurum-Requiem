@@ -6,7 +6,6 @@ import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
-import ganymedes01.etfuturum.core.utils.ExternalContent;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -36,7 +35,7 @@ public class BlockSmoothBasalt extends Block implements IConfigurable {
 		if(ConfigWorld.amethystOuterID == 0) {
 			return true;
 		}
-		return ConfigWorld.amethystOuterID == 1 ? !ConfigBlocksItems.enableTuff : !ExternalContent.hasNetherlicious;
+		return ConfigWorld.amethystOuterID == 1 ? !ConfigBlocksItems.enableTuff : !EtFuturum.hasNetherlicious;
 	}
 
 }

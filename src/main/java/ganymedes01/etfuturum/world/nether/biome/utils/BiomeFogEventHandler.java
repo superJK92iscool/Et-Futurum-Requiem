@@ -4,6 +4,7 @@ import org.lwjgl.opengl.GL11;
 
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import ganymedes01.etfuturum.EtFuturum;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
@@ -26,7 +27,7 @@ public class BiomeFogEventHandler {
 	@SubscribeEvent
 	public void renderBiomeFog(EntityViewRenderEvent.RenderFogEvent event) {
 
-		if (event.entity.dimension == -1 && !Loader.isModLoaded("netherlicious")) {
+		if (event.entity.dimension == -1 && !EtFuturum.hasNetherlicious) {
 			GL11.glFogi(GL11.GL_FOG_MODE, GL11.GL_EXP);
 			GL11.glFogf(GL11.GL_FOG_DENSITY, 0.05F); // Come back to
 
