@@ -6,16 +6,19 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import java.util.WeakHashMap;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.mutable.MutableFloat;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.Event.Result;
@@ -59,6 +62,7 @@ import ganymedes01.etfuturum.entities.ai.EntityAIOpenCustomDoor;
 import ganymedes01.etfuturum.inventory.ContainerEnchantment;
 import ganymedes01.etfuturum.items.ItemArrowTipped;
 import ganymedes01.etfuturum.lib.Reference;
+import ganymedes01.etfuturum.network.AttackYawMessage;
 import ganymedes01.etfuturum.network.BlackHeartParticlesMessage;
 import ganymedes01.etfuturum.recipes.ModRecipes;
 import ganymedes01.etfuturum.spectator.SpectatorMode;
@@ -150,7 +154,6 @@ import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.oredict.OreDictionary;
-import scala.actors.threadpool.Arrays;
 
 public class ServerEventHandler {
 
@@ -1078,36 +1081,6 @@ public class ServerEventHandler {
 		else
 			return false;
 	}
-
-	@SubscribeEvent
-	public void entityHurtEvent(LivingHurtEvent event) {
-		// If the attacker is a player spawn the hearts aligned and facing it
-		if (event.source instanceof EntityDamageSource) {
-			if(ConfigWorld.enableDmgIndicator) {
-				int amount = MathHelper.floor_float(Math.min(event.entityLiving.getHealth(), event.ammount) / 2F);
-				amount = (int) applyArmorCalculations(event.entityLiving, event.source, amount);
-				amount = (int) applyPotionDamageCalculations(event.entityLiving, event.source, amount);
-				if(amount > 0) {
-					EntityDamageSource src = (EntityDamageSource) event.source;
-					Entity attacker = src.getSourceOfDamage();
-					if (attacker instanceof EntityPlayer && !(attacker instanceof FakePlayer)) {
-						EntityPlayer player = (EntityPlayer) attacker;
-						Vec3 look = player.getLookVec();
-						look.rotateAroundY((float) Math.PI / 2);
-						for (int i = 0; i < amount; i++) {
-							double x = event.entityLiving.posX - (0.35D * look.xCoord / 2 * look.xCoord) + (i / 3);
-							double y = event.entityLiving.posY + (event.entityLiving.height * 0.75D);
-							double z = event.entityLiving.posZ - (0.35D * look.zCoord / 2 * look.zCoord) + (i / 3);
-							EtFuturum.networkWrapper.sendToAllAround(new BlackHeartParticlesMessage(x, y, z), new TargetPoint(player.worldObj.provider.dimensionId, x, y, z, 64));
-						}
-					}
-				}
-			}
-			if(ConfigWorld.enableNewMiscSounds && event.source.getDamageType().equals("thorns")) {
-				event.entity.worldObj.playSoundAtEntity(event.entity, Reference.MCAssetVer + ":enchant.thorns.hit", 1, 1);
-			}
-		}
-	}
 	
 	private float applyArmorCalculations(EntityLivingBase entity, DamageSource p_70655_1_, float p_70655_2_)
 	{
@@ -1214,8 +1187,36 @@ public class ServerEventHandler {
 		}
 		EntityLivingBase livingEntity = (EntityLivingBase)entity;
 		
-		if(ConfigBlocksItems.enableTotemUndying)
+		if(ConfigBlocksItems.enableTotemUndying) {
 			handleTotemCheck(livingEntity, event);
+		}
+
+		// If the attacker is a player spawn the hearts aligned and facing it
+		if (event.source instanceof EntityDamageSource) {
+			if(ConfigWorld.enableDmgIndicator) {
+				int amount = MathHelper.floor_float(Math.min(event.entityLiving.getHealth(), event.ammount) / 2F);
+				amount = (int) applyArmorCalculations(event.entityLiving, event.source, amount);
+				amount = (int) applyPotionDamageCalculations(event.entityLiving, event.source, amount);
+				if(amount > 0) {
+					EntityDamageSource src = (EntityDamageSource) event.source;
+					Entity attacker = src.getSourceOfDamage();
+					if (attacker instanceof EntityPlayer && !(attacker instanceof FakePlayer)) {
+						EntityPlayer player = (EntityPlayer) attacker;
+						Vec3 look = player.getLookVec();
+						look.rotateAroundY((float) Math.PI / 2);
+						for (int i = 0; i < amount; i++) {
+							double x = event.entityLiving.posX - (0.35D * look.xCoord / 2 * look.xCoord) + (i / 3);
+							double y = event.entityLiving.posY + (event.entityLiving.height * 0.75D);
+							double z = event.entityLiving.posZ - (0.35D * look.zCoord / 2 * look.zCoord) + (i / 3);
+							EtFuturum.networkWrapper.sendToAllAround(new BlackHeartParticlesMessage(x, y, z), new TargetPoint(player.worldObj.provider.dimensionId, x, y, z, 64));
+						}
+					}
+				}
+			}
+			if(ConfigWorld.enableNewMiscSounds && event.source.getDamageType().equals("thorns")) {
+				event.entity.worldObj.playSoundAtEntity(event.entity, Reference.MCAssetVer + ":enchant.thorns.hit", 1, 1);
+			}
+		}
 	}
 	
 	public void handleTotemCheck(final EntityLivingBase entity, final LivingHurtEvent event) {
@@ -1285,29 +1286,43 @@ public class ServerEventHandler {
 			playersClosedContainers.clear();
 	}
 
+	private Map<EntityPlayer, MutableFloat> lastAttackedAtYaw = new WeakHashMap<>();
+			
 	@SubscribeEvent
 	public void onElytraPostPlayerTick(TickEvent.PlayerTickEvent e) {
-		if (ConfigMixins.enableElytra && e.phase == TickEvent.Phase.END) {
-			boolean isElytraFlying = ((IElytraPlayer)e.player).etfu$isElytraFlying();
-			if (e.player instanceof EntityPlayerMP && isElytraFlying) {
-				((EntityPlayerMP)e.player).playerNetServerHandler.floatingTickCount = 0;
-			}
-			if (isElytraFlying != ((IElytraPlayer)e.player).etfu$lastElytraFlying()) {
-				float f = 0.6f;
-				float f1 = isElytraFlying ? 0.6f : 1.8f;
 
-				if (f != e.player.width || f1 != e.player.height) {
-					// Always reset hitbox. For future reference, Backlytra used world.func_147461_a to check that there was nothing in the bounding box.
-					float f2 = e.player.width;
-					e.player.width = f;
-					e.player.height = f1;
-					e.player.boundingBox.setBounds(e.player.boundingBox.minX, e.player.boundingBox.minY, e.player.boundingBox.minZ, e.player.boundingBox.minX + e.player.width, e.player.boundingBox.minY + e.player.height, e.player.boundingBox.minZ + e.player.width);
-
-					if (e.player.width > f2 && !e.player.worldObj.isRemote) {
-						e.player.moveEntity(f2 - e.player.width, 0.0D, f2 - e.player.width);
-					}
+		if(e.phase == TickEvent.Phase.END) {
+			if(ConfigFunctions.enableAttackedAtYawFix && !e.player.worldObj.isRemote && e.player instanceof EntityPlayerMP) {
+				if (!lastAttackedAtYaw.containsKey(e.player)) {
+					lastAttackedAtYaw.put(e.player, new MutableFloat(e.player.attackedAtYaw));
 				}
-				((IElytraPlayer)e.player).etfu$setLastElytraFlying(isElytraFlying);
+				if (Math.abs(lastAttackedAtYaw.get(e.player).floatValue()-e.player.attackedAtYaw) > 0.05F) {
+					EtFuturum.networkWrapper.sendTo(new AttackYawMessage(e.player.attackedAtYaw), (EntityPlayerMP) e.player);
+					lastAttackedAtYaw.get(e.player).setValue(e.player.attackedAtYaw);
+				}
+			}
+			if (ConfigMixins.enableElytra) {
+				boolean isElytraFlying = ((IElytraPlayer)e.player).etfu$isElytraFlying();
+				if (e.player instanceof EntityPlayerMP && isElytraFlying) {
+					((EntityPlayerMP)e.player).playerNetServerHandler.floatingTickCount = 0;
+				}
+				if (isElytraFlying != ((IElytraPlayer)e.player).etfu$lastElytraFlying()) {
+					float f = 0.6f;
+					float f1 = isElytraFlying ? 0.6f : 1.8f;
+
+					if (f != e.player.width || f1 != e.player.height) {
+						// Always reset hitbox. For future reference, Backlytra used world.func_147461_a to check that there was nothing in the bounding box.
+						float f2 = e.player.width;
+						e.player.width = f;
+						e.player.height = f1;
+						e.player.boundingBox.setBounds(e.player.boundingBox.minX, e.player.boundingBox.minY, e.player.boundingBox.minZ, e.player.boundingBox.minX + e.player.width, e.player.boundingBox.minY + e.player.height, e.player.boundingBox.minZ + e.player.width);
+
+						if (e.player.width > f2 && !e.player.worldObj.isRemote) {
+							e.player.moveEntity(f2 - e.player.width, 0.0D, f2 - e.player.width);
+						}
+					}
+					((IElytraPlayer)e.player).etfu$setLastElytraFlying(isElytraFlying);
+				}
 			}
 		}
 	}

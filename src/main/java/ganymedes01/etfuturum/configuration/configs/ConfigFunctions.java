@@ -126,6 +126,7 @@ public class ConfigFunctions extends ConfigBase {
 	public static boolean enableNewTextures;
 	public static boolean enableFillCommand;
 	public static boolean enableUpdateChecker;
+	public static boolean enableAttackedAtYawFix;
 	public static String[] extraDropRawOres = new String[] {"oreCopper", "oreTin"};
 
 	static final String catUpdateChecker = "update_checker";
@@ -170,6 +171,8 @@ public class ConfigFunctions extends ConfigBase {
 		enableHoeMining = cfg.getBoolean("enableHoeMining", catChanges, true, "Allows blocks like hay bales, leaves etc to mine faster with hoes");
 		hayBaleReducePercent = cfg.getInt("hayBaleReducePercent", catChanges, 20, 0, 99, "If enableHayBaleFalls is true, what percent should we keep for the fall damage?");
 		enableFillCommand = cfg.getBoolean("enableFillCommand", catChanges, true, "Enable the /fill command.");
+		enableAttackedAtYawFix = cfg.getBoolean("enableAttackedAtYawFix", catChanges, true, "Adds a packet to send the attackedAtYaw field value to the client, which allows the screen to tilt based on where damage came from, and either left or right for direction-less sources like drowning or burning, instead of tilting to the left no matter what.");
+		
 
 		//settings
 		enableNetheriteFlammable = cfg.getBoolean("enableNetheriteFlammable", catSettings, false, "Set to true to disable the fireproof item entity Netherite/ancient debris etc uses");
