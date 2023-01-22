@@ -6,6 +6,7 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.core.utils.Utils;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockButtonWood;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.IIcon;
@@ -20,7 +21,7 @@ public class BlockWoodButton extends BlockButtonWood implements IConfigurable {
 		this.meta = meta;
 		setBlockName(Utils.getUnlocalisedName("button_" + BlockWoodDoor.names[meta]));
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
-		
+		setStepSound(Block.soundTypeWood);
 	}
 
 	@Override
