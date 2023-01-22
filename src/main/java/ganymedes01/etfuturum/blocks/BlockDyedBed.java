@@ -32,6 +32,9 @@ public class BlockDyedBed extends BlockBed implements IConfigurable, ISubBlocksB
 		}
 		setHardness(0.2F);
 		String dyeName = ModRecipes.dye_names[dye];
+		if(dyeName.equals("light_gray")) {
+			dyeName = "silver";
+		}
 		setBlockName(Utils.getUnlocalisedName(dyeName + "_bed"));
 		disableStats();
 		setBlockTextureName(dyeName + "_bed");
