@@ -79,7 +79,7 @@ public class ContainerSmithingTable extends Container {
     }
 
     private boolean tryUpper(ItemStack newStack) {
-        return !ingot.getHasStack() && mergeItemStack(newStack, 1, 2, false) || !applicant.getHasStack() && mergeItemStack(newStack, 0, 1, false);
+        return !applicant.getHasStack() && mergeItemStack(newStack, 1, 1, false) || !ingot.getHasStack() && mergeItemStack(newStack, 0, 2, false);
     }
 
     public boolean unable(){
