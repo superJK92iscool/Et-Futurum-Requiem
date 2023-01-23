@@ -52,7 +52,8 @@ public class ConfigMixins extends ConfigBase {
 	protected void syncConfigOptions() {
 		Configuration cfg = configInstance;
 		if(EtFuturumMixinPlugin.side == MixinEnvironment.Side.CLIENT) {
-			furnaceCrackle = cfg.getBoolean("furnaceCrackle", catBackport, true, "(Client only) Allows vanilla furnaces to have crackling sounds.\nModified Client Classes: net.minecraft.block.BlockFurnace"); 
+			furnaceCrackle = cfg.getBoolean("furnaceCrackle", catBackport, true, "(Client only) Allows vanilla furnaces to have crackling sounds.\nModified Client Classes: net.minecraft.block.BlockFurnace");
+			boundedBlockBreakingParticles = cfg.getBoolean("boundedBlockBreakingParticles", catBackport, true, "In 1.14+, when breaking a block the block break particles stay within the outline, instead if always occupying the whole block space.\nMofified Classes: net.minecraft.client.particle.EffectRenderer");
 		}
 		
 		endPortalFix = cfg.getBoolean("endPortalFix", catBackport, true, "Makes the End Portal block (the actual portal, not the frame) have an item icon, proper hitbox and will not instantly destroy itself in other dimensions.\nModified classes: net.minecraft.block.BlockEndPortal");
@@ -66,7 +67,6 @@ public class ConfigMixins extends ConfigBase {
 		bouncyBeds = cfg.getBoolean("bouncyBeds", catBackport, true, "Makes beds bouncy. Should work with most modded beds. For continuity disabling this also disables EFR beds being bouncy.\nModified Classes: net.minecraft.block.BlockBed");
 		newHurtSounds = cfg.getBoolean("newHurtSounds", catBackport, true, "Damage sounds for walking into a berry bush, drowning or burning\nModified Classes: net.minecraft.entity.player.EntityPlayer net.minecraft.client.entity.EntityClientPlayerMP");
 		newMobSounds = cfg.getBoolean("newMobSounds", catBackport, true, "New sounds for the witch, snow golem, squid and wither skeleton.");
-		boundedBlockBreakingParticles = cfg.getBoolean("boundedBlockBreakingParticles", catBackport, true, "In 1.14+, when breaking a block the block break particles stay within the outline, instead if always occupying the whole block space.\nMofified Classes: net.minecraft.client.particle.EffectRenderer");
 
 
 		stepHeightFix = cfg.getBoolean("stepHeightFix", catFixes, true, "Makes the player able to step up even if a block would be above their head at the destination.\nModified classes: net.minecraft.entity.Entity");

@@ -157,14 +157,16 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 			mixins.add("entitysounds.MixinEntityWitch");
 		}
 		
-		if(ConfigMixins.boundedBlockBreakingParticles) {
-			mixins.add("client.MixinEffectRenderer");
-		}
-		
 		if(side == MixinEnvironment.Side.CLIENT) {
+			
+			if(ConfigMixins.boundedBlockBreakingParticles) {
+				mixins.add("client.MixinEffectRenderer");
+			}
+			
 			if(ConfigMixins.furnaceCrackle) {
 				mixins.add("client.MixinBlockFurnace");
 			}
+			
 			if(ConfigMixins.enableSpectatorMode) {
 				mixins.add("client.MixinEntityRenderer");
 				mixins.add("client.MixinEntityPlayer");
