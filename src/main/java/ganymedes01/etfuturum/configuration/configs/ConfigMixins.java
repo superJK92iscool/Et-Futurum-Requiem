@@ -19,6 +19,7 @@ public class ConfigMixins extends ConfigBase {
 	public static boolean bouncyBeds;
 	public static boolean newHurtSounds;
 	public static boolean newMobSounds;
+	public static boolean boundedBlockBreakingParticles;
 
 	static final String catBackport = "backported features";
 	static final String catOptimization = "optimizations";
@@ -65,6 +66,7 @@ public class ConfigMixins extends ConfigBase {
 		bouncyBeds = cfg.getBoolean("bouncyBeds", catBackport, true, "Makes beds bouncy. Should work with most modded beds. For continuity disabling this also disables EFR beds being bouncy.\nModified Classes: net.minecraft.block.BlockBed");
 		newHurtSounds = cfg.getBoolean("newHurtSounds", catBackport, true, "Damage sounds for walking into a berry bush, drowning or burning\nModified Classes: net.minecraft.entity.player.EntityPlayer net.minecraft.client.entity.EntityClientPlayerMP");
 		newMobSounds = cfg.getBoolean("newMobSounds", catBackport, true, "New sounds for the witch, snow golem, squid and wither skeleton.");
+		boundedBlockBreakingParticles = cfg.getBoolean("boundedBlockBreakingParticles", catBackport, true, "In 1.14+, when breaking a block the block break particles stay within the outline, instead if always occupying the whole block space.\nMofified Classes: net.minecraft.client.particle.EffectRenderer");
 
 
 		stepHeightFix = cfg.getBoolean("stepHeightFix", catFixes, true, "Makes the player able to step up even if a block would be above their head at the destination.\nModified classes: net.minecraft.entity.Entity");
