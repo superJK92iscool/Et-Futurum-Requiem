@@ -157,6 +157,10 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 			mixins.add("entitysounds.MixinEntityWitch");
 		}
 		
+		if(ConfigMixins.floorCeilingButtons) {
+			mixins.add("MixinBlockButton");
+		}
+		
 		if(side == MixinEnvironment.Side.CLIENT) {
 			
 			if(ConfigMixins.boundedBlockBreakingParticles) {
