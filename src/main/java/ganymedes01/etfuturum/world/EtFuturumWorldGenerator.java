@@ -48,7 +48,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 	
 	protected final WorldGenMinable deepslateBlobGen = new WorldGenDeepslateLayerBlob(ConfigWorld.maxDeepslatePerCluster, false);
 	protected final WorldGenMinable tuffGen = new WorldGenDeepslateLayerBlob(ConfigWorld.maxTuffPerCluster, true);
-	protected final WorldGenerator amethystGen = new WorldGenAmethystGeode();
+	protected WorldGenerator amethystGen;
 	
 	public final MapGenMesaMineshaft mesaMineshaftGen = new MapGenMesaMineshaft();
 
@@ -79,6 +79,9 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 				x = chunkX * 16 + rand.nextInt(16) + 8;
 				z = chunkZ * 16 + rand.nextInt(16) + 8;
 				if(ConfigWorld.enableAmethystGeodes && rand.nextInt(ConfigWorld.amethystRarity) == 0) {
+					if(amethystGen == null) { //This has to be down here because if it's in EtFuturumWorldGenerator(), it causes the static ExternalContent fields to be initialized too early
+						amethystGen = new WorldGenAmethystGeode();
+					}
 					amethystGen.generate(world, rand, x, MathHelper.getRandomIntegerInRange(rand, 6, ConfigWorld.amethystMaxY), z);
 				}
 			}

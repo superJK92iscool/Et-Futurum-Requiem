@@ -33,6 +33,7 @@ public class WorldGenAmethystGeode extends WorldGenerator {
 	private final int[] outerWallDistance;//geodeFeatureConfig.outerWallDistance
 	private final double filling, innerLayer, middleLayer, outerLayer;//geodeLayerThicknessConfig filling innerLayer middleLayer outerLayer
 	private final int[] pointOffset;//geodeFeatureConfig.pointOffset
+	private final double generateCrackChance;//geodeCrackConfig.generateCrackChance
 	private final double baseCrackSize;//geodeCrackConfig.baseCrackSize
 	private final int crackPointOffset;//geodeCrackConfig.crackPointOffset
 	private final double noiseMultiplier;//geodeFeatureConfig.noiseMultiplier
@@ -40,10 +41,10 @@ public class WorldGenAmethystGeode extends WorldGenerator {
 	private final double usePotentialPlacementsChance;//geodeFeatureConfig.usePotentialPlacementsChance
 	
 	public WorldGenAmethystGeode() {
-		this(-16, 16, 1, new int[] {3, 4}, new int[] {4, 5, 6}, 1.7D, 2.2D, 3.2D, 4.2D, new int[] {1, 2}, 2.0D, 2, 0.05D, 0.083D, 0.35D);
+		this(-16, 16, 1, new int[] {3, 4}, new int[] {4, 5, 6}, 1.7D, 2.2D, 3.2D, 4.2D, new int[] {1, 2}, 0.95D, 2.0D, 2, 0.05D, 0.083D, 0.35D);
 	}
 	
-	public WorldGenAmethystGeode(int minOffset, int maxOffset, int invalidMax, int[] distPoints, int[] outerWallDist, double fill, double inner, double middle, double outer, int[] pointOff, double baseCrack, int crackPointOff, double noiseAmp, double budChance, double potentialPlaceChance) {
+	public WorldGenAmethystGeode(int minOffset, int maxOffset, int invalidMax, int[] distPoints, int[] outerWallDist, double fill, double inner, double middle, double outer, int[] pointOff, double crackChance, double baseCrack, int crackPointOff, double noiseAmp, double budChance, double potentialPlaceChance) {
 		outerMeta = ConfigWorld.amethystOuterBlock == ExternalContent.netherlicious_basalt_bricks ? 6 : 0;
 		budBlocks = ImmutableList.of(ModBlocks.amethyst_cluster_1, ModBlocks.amethyst_cluster_2);
 		
@@ -57,6 +58,7 @@ public class WorldGenAmethystGeode extends WorldGenerator {
 		middleLayer = middle;
 		outerLayer = outer;
 		pointOffset = pointOff;
+		generateCrackChance = crackChance;
 		baseCrackSize = baseCrack;
 		crackPointOffset = crackPointOff;
 		noiseMultiplier = noiseAmp;
@@ -69,7 +71,7 @@ public class WorldGenAmethystGeode extends WorldGenerator {
 	 */
 	private boolean isInvalidCorner(World world, int x, int y, int z) {
 		Block block = world.getBlock(x, y, z);
-		return  block.isAir(world, x, y, z) || !block.isOpaqueCube() || world.canBlockSeeTheSky(x, y, z);
+		return block.isAir(world, x, y, z) || !block.isOpaqueCube() || world.canBlockSeeTheSky(x, y, z);
 	}
 	
 	/**
@@ -89,7 +91,7 @@ public class WorldGenAmethystGeode extends WorldGenerator {
 	      double middleLayerSqrt = 1.0D / Math.sqrt(middleLayer + outerWallMaxDiv);
 	      double outerLayerSqrt = 1.0D / Math.sqrt(outerLayer + outerWallMaxDiv);
 	      double l = 1.0D / Math.sqrt(baseCrackSize + random.nextDouble() / 2.0D + (distPoint > 3 ? outerWallMaxDiv : 0.0D));
-	      boolean bl = (double)random.nextFloat() < 0.95D;
+	      boolean bl = (double)random.nextFloat() < generateCrackChance;
 	      int m = 0;
 
 	      int r;
