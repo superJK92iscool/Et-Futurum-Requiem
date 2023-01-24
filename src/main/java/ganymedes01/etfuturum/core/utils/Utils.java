@@ -1,7 +1,9 @@
 package ganymedes01.etfuturum.core.utils;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 import ganymedes01.etfuturum.lib.Reference;
@@ -340,5 +342,9 @@ public class Utils {
 		x = Double.longBitsToDouble(l);
 		x *= 1.5D - d * x * x;
 		return x;
+	}
+	
+	public static <T> T getRandom(List<T> list, Random rand) {
+		return list.get(rand.nextInt(list.size()));
 	}
 }

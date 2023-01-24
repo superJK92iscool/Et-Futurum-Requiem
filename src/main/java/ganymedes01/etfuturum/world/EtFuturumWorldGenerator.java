@@ -27,6 +27,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenFlowers;
 import net.minecraft.world.gen.feature.WorldGenMinable;
+import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 
@@ -47,6 +48,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 	
 	protected final WorldGenMinable deepslateBlobGen = new WorldGenDeepslateLayerBlob(ConfigWorld.maxDeepslatePerCluster, false);
 	protected final WorldGenMinable tuffGen = new WorldGenDeepslateLayerBlob(ConfigWorld.maxTuffPerCluster, true);
+	protected final WorldGenerator amethystGen = new WorldGenAmethystGeode();
 	
 	public final MapGenMesaMineshaft mesaMineshaftGen = new MapGenMesaMineshaft();
 
@@ -77,7 +79,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 				x = chunkX * 16 + rand.nextInt(16) + 8;
 				z = chunkZ * 16 + rand.nextInt(16) + 8;
 				if(ConfigWorld.enableAmethystGeodes && rand.nextInt(ConfigWorld.amethystRarity) == 0) {
-					new WorldGenAmethystGeode().generate(world, rand, x, MathHelper.getRandomIntegerInRange(rand, 6, ConfigWorld.amethystMaxY), z);
+					amethystGen.generate(world, rand, x, MathHelper.getRandomIntegerInRange(rand, 6, ConfigWorld.amethystMaxY), z);
 				}
 			}
 			

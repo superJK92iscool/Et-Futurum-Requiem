@@ -7,8 +7,6 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.function.LongFunction;
 
-import javax.annotation.Nullable;
-
 import org.apache.commons.lang3.tuple.Pair;
 
 import ganymedes01.etfuturum.core.utils.Utils;
@@ -133,11 +131,6 @@ public class OctavePerlinNoiseSampler implements NoiseSampler {
       }
 
       return d;
-   }
-
-   @Nullable
-   public PerlinNoiseSampler getOctave(int octave) {
-      return this.octaveSamplers[this.octaveSamplers.length - 1 - octave];
    }
 
    public static double maintainPrecision(double value) {
