@@ -37,7 +37,8 @@ public class Vec3i implements Comparable<Vec3i> {
 
 	@Override
 	public int compareTo(Vec3i vec) {
-		return getY() == vec.getY() ? getZ() == vec.getZ() ? getX() - vec.getX() : getZ() - vec.getZ() : getY() - vec.getY();
+		return getY() == vec.getY() ? getZ() == vec.getZ() ? getX() - vec.getX() : getZ() - vec.getZ()
+				: getY() - vec.getY();
 	}
 
 	public int getX() {
@@ -53,25 +54,29 @@ public class Vec3i implements Comparable<Vec3i> {
 	}
 
 	public Vec3i crossProduct(Vec3i vec) {
-		return new Vec3i(getY() * vec.getZ() - getZ() * vec.getY(), getZ() * vec.getX() - getX() * vec.getZ(), getX() * vec.getY() - getY() * vec.getX());
+		return new Vec3i(getY() * vec.getZ() - getZ() * vec.getY(), getZ() * vec.getX() - getX() * vec.getZ(),
+				getX() * vec.getY() - getY() * vec.getX());
 	}
 
-	public double distanceSq(double toX, double toY, double toZ) {
-		double d3 = getX() - toX;
-		double d4 = getY() - toY;
-		double d5 = getZ() - toZ;
-		return d3 * d3 + d4 * d4 + d5 * d5;
+	public boolean isWithinDistance(Vec3i vec, double distance) {
+		return this.getSquaredDistance((double) vec.getX(), (double) vec.getY(), (double) vec.getZ(), false) < distance
+				* distance;
 	}
 
-	public double distanceSqToCenter(double xIn, double yIn, double zIn) {
-		double d3 = getX() + 0.5D - xIn;
-		double d4 = getY() + 0.5D - yIn;
-		double d5 = getZ() + 0.5D - zIn;
-		return d3 * d3 + d4 * d4 + d5 * d5;
+	public double getSquaredDistance(Vec3i vec) {
+		return this.getSquaredDistance((double) vec.getX(), (double) vec.getY(), (double) vec.getZ(), true);
 	}
 
-	public double distanceSq(Vec3i to) {
-		return this.distanceSq(to.getX(), to.getY(), to.getZ());
+	public double getSquaredDistance(Vec3i vec, boolean treatAsBlockPos) {
+		return this.getSquaredDistance((double) vec.x, (double) vec.y, (double) vec.z, treatAsBlockPos);
+	}
+
+	public double getSquaredDistance(double x, double y, double z, boolean treatAsBlockPos) {
+		double d = treatAsBlockPos ? 0.5D : 0.0D;
+		double e = (double) this.getX() + d - x;
+		double f = (double) this.getY() + d - y;
+		double g = (double) this.getZ() + d - z;
+		return e * e + f * f + g * g;
 	}
 
 	@Override

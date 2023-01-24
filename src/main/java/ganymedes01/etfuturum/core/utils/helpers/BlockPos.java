@@ -1,5 +1,9 @@
 package ganymedes01.etfuturum.core.utils.helpers;
 
+import java.util.Iterator;
+
+import com.google.common.collect.AbstractIterator;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.EnumFacing;
@@ -113,7 +117,8 @@ public class BlockPos extends Vec3i {
 	}
 
 	public BlockPos offset(EnumFacing facing, int n) {
-		return new BlockPos(getX() + facing.getFrontOffsetX() * n, getY() + facing.getFrontOffsetY() * n, getZ() + facing.getFrontOffsetZ() * n);
+		return new BlockPos(getX() + facing.getFrontOffsetX() * n, getY() + facing.getFrontOffsetY() * n,
+				getZ() + facing.getFrontOffsetZ() * n);
 	}
 
 	public BlockPos offset(ForgeDirection facing) {
@@ -125,7 +130,8 @@ public class BlockPos extends Vec3i {
 	}
 
 	public BlockPos crossProductBP(Vec3i vec) {
-		return new BlockPos(getY() * vec.getZ() - getZ() * vec.getY(), getZ() * vec.getX() - getX() * vec.getZ(), getX() * vec.getY() - getY() * vec.getX());
+		return new BlockPos(getY() * vec.getZ() - getZ() * vec.getY(), getZ() * vec.getX() - getX() * vec.getZ(),
+				getX() * vec.getY() - getY() * vec.getX());
 	}
 
 	public long toLong() {
@@ -143,9 +149,57 @@ public class BlockPos extends Vec3i {
 	public Vec3i crossProduct(Vec3i vec) {
 		return crossProductBP(vec);
 	}
-	
-	//Roadhog360 start
+
+	// Roadhog360 start
 	public static AxisAlignedBB getBB(BlockPos pos1, BlockPos pos2) {
-		return AxisAlignedBB.getBoundingBox((double)pos1.getX(), (double)pos1.getY(), (double)pos1.getZ(), (double)pos2.getX(), (double)pos2.getY(), (double)pos2.getZ());
+		return AxisAlignedBB.getBoundingBox((double) pos1.getX(), (double) pos1.getY(), (double) pos1.getZ(),
+				(double) pos2.getX(), (double) pos2.getY(), (double) pos2.getZ());
+	}
+
+	public static Iterable<BlockPos> iterate(BlockPos start, BlockPos end) {
+		return iterate(Math.min(start.getX(), end.getX()), Math.min(start.getY(), end.getY()),
+				Math.min(start.getZ(), end.getZ()), Math.max(start.getX(), end.getX()),
+				Math.max(start.getY(), end.getY()), Math.max(start.getZ(), end.getZ()));
+	}
+
+	public static Iterable<BlockPos> iterate(final int startX, final int startY, final int startZ, final int endX,
+			final int endY, final int endZ) {
+
+		return new Iterable<BlockPos>() {
+			public Iterator<BlockPos> iterator() {
+				return new AbstractIterator<BlockPos>() {
+					private boolean field_191534_b = true;
+					private int field_191535_c;
+					private int field_191536_d;
+					private int field_191537_e;
+
+					protected BlockPos computeNext() {
+						if (this.field_191534_b) {
+							this.field_191534_b = false;
+							this.field_191535_c = startX;
+							this.field_191536_d = startY;
+							this.field_191537_e = startZ;
+							return new BlockPos(startX, startY, startZ);
+						} else if (this.field_191535_c == endX && this.field_191536_d == endY
+								&& this.field_191537_e == endZ) {
+							return (BlockPos) this.endOfData();
+						} else {
+							if (this.field_191535_c < endX) {
+								++this.field_191535_c;
+							} else if (this.field_191536_d < endY) {
+								this.field_191535_c = startX;
+								++this.field_191536_d;
+							} else if (this.field_191537_e < endZ) {
+								this.field_191535_c = startX;
+								this.field_191536_d = startY;
+								++this.field_191537_e;
+							}
+
+							return new BlockPos(this.field_191535_c, this.field_191536_d, this.field_191537_e);
+						}
+					}
+				};
+			}
+		};
 	}
 }

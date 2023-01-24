@@ -117,7 +117,7 @@ public class ConfigWorld extends ConfigBase {
 		amethystDimensionBlacklist = amethystBlacklistProp.getIntList();
 		amethystDimensionBlacklistAsWhitelist = cfg.getBoolean("amethystDimensionBlacklistAsWhitelist", catGeneration, false, "Treat the amethyst dimension blacklist as a whitelist instead, so geodes will ONLY generate in those dimensions, instead of excluding those dimensions from generation.");
 		amethystRarity = cfg.getInt("amethystRarity", catGeneration, 53, 1, 128, "How rare should amethyst geodes be? 1/x chance per chunk, 1 means a geode attempts to appear every chunk");
-		amethystMaxY = cfg.getInt("amethystMaxY", catGeneration, 51, 10, 245, "Max Y level amethyst geodes should attempt to generate at");
+		amethystMaxY = cfg.getInt("amethystMaxY", catGeneration, 46, 6, 245, "Max Y level amethyst geodes should attempt to generate at");
 		
 		tileReplacementMode = cfg.getInt("tileReplacementMode", catMisc, 0, -1, 1, "Replace old Brewing Stands/Enchanting Tables/Daylight Sensors/Beacons with new one on the fly.\n-1 = Disabled, no conversion even if the replacement tile entities are on\n0 = Convert the vanilla tile entities to their Et Futurum versions\n1 = Convert Et Futurum replacement tile entities back to default ones. Useful if you want to turn those off.");
 	}

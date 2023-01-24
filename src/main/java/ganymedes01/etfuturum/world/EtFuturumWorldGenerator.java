@@ -20,6 +20,7 @@ import ganymedes01.etfuturum.world.structure.MapGenMesaMineshaft;
 import ganymedes01.etfuturum.world.structure.OceanMonument;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -76,7 +77,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 				x = chunkX * 16 + rand.nextInt(16) + 8;
 				z = chunkZ * 16 + rand.nextInt(16) + 8;
 				if(ConfigWorld.enableAmethystGeodes && rand.nextInt(ConfigWorld.amethystRarity) == 0) {
-					new WorldGenAmethystGeode().generate(world, rand, x, rand.nextInt(ConfigWorld.amethystMaxY - 9) + 9, z);
+					new WorldGenAmethystGeode().generate(world, rand, x, MathHelper.getRandomIntegerInRange(rand, 6, ConfigWorld.amethystMaxY), z);
 				}
 			}
 			

@@ -185,7 +185,7 @@ public class EntityShulkerBullet extends Entity
 		double d3 = (double)blockpos.getZ() + 0.5D;
 		EnumFacing enumfacing = null;
 
-		if (p_184569_1_ != null && blockpos.distanceSqToCenter(this.posX, this.posY, this.posZ) >= 4.0D)
+		if (p_184569_1_ != null && blockpos.getSquaredDistance(this.posX, this.posY, this.posZ, false) >= 4.0D)
 		{
 			BlockPos blockpos1 = new BlockPos(this);
 			List<EnumFacing> list = Lists.<EnumFacing>newArrayList();
