@@ -10,16 +10,15 @@ import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.client.DynamicResourcePack;
 import ganymedes01.etfuturum.client.DynamicResourcePack.GrayscaleType;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import ganymedes01.etfuturum.tileentities.TileEntityCauldronColoredWater;
 import ganymedes01.etfuturum.tileentities.TileEntityCauldronPotion;
 import net.minecraft.block.BlockCauldron;
-import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -30,7 +29,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -88,7 +86,7 @@ public class BlockPotionCauldron extends BlockCauldronTileEntity implements ISub
 					final ItemStack bottle = new ItemStack(Items.glass_bottle);
 					final List<Potion> effects = ((ItemPotion)item).getEffects(stack);
 					if(effects == null || !effects.equals(((ItemPotion)potionCauldron.potion.getItem()).getEffects(potionCauldron.potion))) {
-						EnumCauldronFillAction.EVAPORATE.getAction(world, x, y, z, false);
+						EnumCauldronFillAction.EVAPORATE.getAction(world, x, y, z, false);//TODO make this evaporate with buckets too
 						world.setBlock(x, y, z, Blocks.cauldron, 0, 3);
 						flag = true;
 					} else if(meta < 2) {
@@ -211,7 +209,9 @@ public class BlockPotionCauldron extends BlockCauldronTileEntity implements ISub
 		        float g = (float)(color >> 8 & 255) / 255.0F;
 		        float b = (float)(color & 255) / 255.0F;
 		        float liquidLevel = y + getRenderLiquidLevel(world.getBlockMetadata(x, y, z) + 1);
-				world.playSoundEffect(x + 0.5D, liquidLevel, z + 0.5D, Reference.MCAssetVer+":item.bottle."+(filling?"fill":"empty"), 1, 1);
+		        if(ConfigWorld.enableNewMiscSounds) {
+					world.playSoundEffect(x + 0.5D, liquidLevel, z + 0.5D, Reference.MCAssetVer+":item.bottle."+(filling?"fill":"empty"), 1, 1);
+		        }
 		        for(int i = 0; i < world.rand.nextInt(4) + 4; i++) {
 					world.spawnParticle("mobSpell", this.getParticleXYCoord(x, world.rand), liquidLevel, this.getParticleXYCoord(z, world.rand), r, g, b);
 		        }
