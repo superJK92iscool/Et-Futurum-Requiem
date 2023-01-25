@@ -17,7 +17,6 @@ import cpw.mods.fml.common.gameevent.InputEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.ClientTickEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
-import cpw.mods.fml.relauncher.ReflectionHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
@@ -37,11 +36,14 @@ import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
+import ganymedes01.etfuturum.core.utils.Logger;
 import ganymedes01.etfuturum.entities.EntityNewBoatWithChest;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.network.ChestBoatOpenInventoryMessage;
 import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockBasePressurePlate;
+import net.minecraft.block.BlockButton;
 import net.minecraft.block.BlockDoor;
 import net.minecraft.block.BlockFenceGate;
 import net.minecraft.block.BlockTrapDoor;
@@ -322,16 +324,20 @@ public class ClientEventHandler {
 	public void onPlaySoundEvent(PlaySoundEvent17 event)
 	{
 		if(event.sound != null && event.name != null && cpw.mods.fml.client.FMLClientHandler.instance().getWorldClient() != null) {
-			World world = cpw.mods.fml.client.FMLClientHandler.instance().getWorldClient();
-			int x = MathHelper.floor_float(event.sound.getXPosF());
-			int y = MathHelper.floor_float(event.sound.getYPosF());
-			int z = MathHelper.floor_float(event.sound.getZPosF());
-			Block block = world.getBlock(x, y, z);
+			final World world = cpw.mods.fml.client.FMLClientHandler.instance().getWorldClient();
+			final float soundX = event.sound.getXPosF();
+			final float soundY = event.sound.getYPosF();
+			final float soundZ = event.sound.getZPosF();
+			final int x = MathHelper.floor_float(soundX);
+			final int y = MathHelper.floor_float(soundY);
+			final int z = MathHelper.floor_float(soundZ);
+			final Block block = world.getBlock(x, y, z);
+			final int meta = world.getBlockMetadata(x, y, z);
 			
 			if(event.sound.getPitch() < 1.0F && world.getBlock(x, y, z) instanceof IMultiStepSound && (!((IMultiStepSound)block).requiresNewBlockSounds() || ConfigWorld.enableNewBlocksSounds)) {
 				
 				IMultiStepSound multiSoundBlock = (IMultiStepSound)block;
-				Block.SoundType newSound = multiSoundBlock.getStepSound(world, x, y, z, world.getBlockMetadata(x, y, z));
+				Block.SoundType newSound = multiSoundBlock.getStepSound(world, x, y, z, meta);
 				
 				if(newSound == null) return;
 				
@@ -369,7 +375,7 @@ public class ClientEventHandler {
 				Item itemblock = Item.getItemFromBlock(block);
 				if(itemblock == null)
 					return;
-				String name = itemblock.getUnlocalizedName(new ItemStack(itemblock, 1, world.getBlockMetadata(x, y, z) % 8)).toLowerCase();
+				String name = itemblock.getUnlocalizedName(new ItemStack(itemblock, 1, meta % 8)).toLowerCase();
 				if(name.contains("slab") && name.contains("nether") && name.contains("brick")) {
 					float soundVol = (block.stepSound.getVolume() + 1.0F) / (eventwithprefix[0].contains("step") ? 8F : 2F);
 					float soundPit = (block.stepSound.getPitch()) * (eventwithprefix[0].contains("step") ? 0.5F : 0.8F);
@@ -385,6 +391,7 @@ public class ClientEventHandler {
 				if(event.name.contains("random.door")) {
 					event.result = new PositionedSoundRecord(new ResourceLocation(getReplacementDoorSound(block, event.name)),
 							event.sound.getVolume(), event.sound.getPitch(), x + 0.5F, y + 0.5F, z + 0.5F);
+					return;
 				} else if (event.name.contains("random.chest")) {
 
 					String s = event.name;
@@ -397,10 +404,29 @@ public class ClientEventHandler {
 					}
 					
 					if(!s.equals(event.name)) {
-						event.result = new PositionedSoundRecord(new ResourceLocation(s), 
-								event.sound.getVolume(), event.sound.getPitch(), x + 0.5F, y + 0.5F, z + 0.5F);
+						event.result = new PositionedSoundRecord(new ResourceLocation(s), event.sound.getVolume(), event.sound.getPitch(), x + 0.5F, y + 0.5F, z + 0.5F);
+						return;
 					}
 				}
+				
+    			// --- Wooden Button --- //
+    			if (block instanceof BlockButton && (block.stepSound == Block.soundTypeWood || block.getClass().getSimpleName().toLowerCase().contains("wood")) && event.name.equals("random.click")) {
+    				String s = Reference.MCAssetVer+":block.wooden_button.click_" + (meta > 7 ? "on" : "off");
+					event.result = new PositionedSoundRecord(new ResourceLocation(s), event.sound.getVolume(), event.sound.getPitch(), soundX, soundY, soundZ);
+    				return;
+        		}
+    			
+    			// --- Wooden/Metal Pressure plate --- //
+    			if (block instanceof BlockBasePressurePlate && (block.getMaterial() == Material.wood || block.getMaterial() == Material.iron) && event.name.equals("random.click")) {
+    				String material = block.getMaterial() == Material.wood ? "wooden" : "metal";
+    				String s = Reference.MCAssetVer+":block."+material+"_pressure_plate.click_" + (meta == 1 ? "on" : "off");
+    				//By default, the pitch is 0.6F when on and 0.5F off. Wood pressure plates are 0.8F and 0.7F off. Metal is 0.9F on and 0.75F off.
+    				//Just in case another mod wants to change the pitch we'll just add our own on top of it.
+    				float soundAddition = meta == 1 && block.getMaterial() == Material.iron ? 0.25F : 0.2F;
+					event.result = new PositionedSoundRecord(new ResourceLocation(s), event.sound.getVolume(), event.sound.getPitch() + soundAddition, soundX, soundY, soundZ);
+    				return;
+        		}
+
 		    	// --- Book page turn --- //
 		    	if (Minecraft.getMinecraft().currentScreen instanceof GuiScreenBook && event.name.equals("gui.button.press")) {
 	    			GuiScreenBook gui = (GuiScreenBook)Minecraft.getMinecraft().currentScreen;

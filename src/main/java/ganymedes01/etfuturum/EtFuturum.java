@@ -287,6 +287,12 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "block.amethyst_block.hit", "block");
 		config.addSoundEvent(ver, "block.amethyst_block.chime", "block");
 		config.addSoundEvent(ver, "block.smithing_table.use", "player");
+		config.addSoundEvent(ver, "block.wooden_button.click_off", "block");
+		config.addSoundEvent(ver, "block.wooden_button.click_on", "block");
+		config.addSoundEvent(ver, "block.wooden_pressure_plate.click_off", "block");
+		config.addSoundEvent(ver, "block.wooden_pressure_plate.click_on", "block");
+		config.addSoundEvent(ver, "block.metal_pressure_plate.click_off", "block");
+		config.addSoundEvent(ver, "block.metal_pressure_plate.click_on", "block");
 	
 		config.addSoundEvent(ver, "item.crop.plant", "block");
 		config.addSoundEvent(ver, "block.crop.break", "block");
