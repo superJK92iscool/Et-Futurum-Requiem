@@ -72,6 +72,7 @@ import ganymedes01.etfuturum.world.EtFuturumWorldListener;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEndPortalFrame;
 import net.minecraft.block.BlockFarmland;
+import net.minecraft.block.BlockSign;
 import net.minecraft.block.BlockSoulSand;
 import net.minecraft.block.BlockTrapDoor;
 import net.minecraft.block.material.Material;
@@ -114,7 +115,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemPotion;
+import net.minecraft.item.ItemRedstone;
 import net.minecraft.item.ItemShears;
+import net.minecraft.item.ItemSign;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
 import net.minecraft.network.play.server.S29PacketSoundEffect;
@@ -682,14 +685,14 @@ public class ServerEventHandler {
 		EntityPlayer player = event.entityPlayer;
 		if ((event.action == Action.RIGHT_CLICK_BLOCK || event.action == Action.RIGHT_CLICK_AIR) && !SpectatorMode.isSpectator(player)) {
 			if (player != null) {
-				ItemStack heldStack = player.getHeldItem();
-				World world = event.world;
-				int x = event.x;
-				int y = event.y;
-				int z = event.z;
-				Block oldBlock = world.getBlock(x, y, z);
-				int meta = world.getBlockMetadata(x, y, z);
-				int side = event.face;
+				final ItemStack heldStack = player.getHeldItem();
+				final World world = event.world;
+				final int x = event.x;
+				final int y = event.y;
+				final int z = event.z;
+				final Block oldBlock = world.getBlock(x, y, z);
+				final int meta = world.getBlockMetadata(x, y, z);
+				final int side = event.face;
 				if (player.canPlayerEdit(x, y, z, side, heldStack))
 				{
 					if(event.getResult() == event.useItem) {
@@ -783,6 +786,107 @@ public class ServerEventHandler {
 								}
 							}
 						}
+						
+						// --- For blocks with no place sound (reeds, redstone, cake, beds etc) --- //
+						if(heldStack != null && !event.world.isRemote && ConfigWorld.enableSilentPlaceSounds)
+						{
+							Block block = null;
+							Item item = heldStack.getItem();
+							
+							if(item == Items.redstone) {
+								block = Blocks.redstone_wire;
+							} else if(item == Items.sign) {
+								block = side < 2 ? Blocks.standing_sign : Blocks.wall_sign;
+							} else if(item == Items.wooden_door && side == 1) {
+								block = Blocks.wooden_door;
+							} else if(item == Items.iron_door && side == 1) {
+								block = Blocks.iron_door;
+							} else if(item == Items.bed && side == 1) {//Because these only place if you click the top of a block, not the side of an adjacent one.
+								block = Blocks.bed;
+							}
+							
+							if(block != null) {
+								int xMutable = x;
+								int yMutable = y;
+								int zMutable = z;
+								
+								//Only the redstone wire item replaces snow, the other ones don't replace anything no matter what
+							    if (block != Blocks.redstone_wire || world.getBlock(xMutable, yMutable, zMutable) != Blocks.snow_layer)
+						        {
+							    	switch (event.face)
+							    	{
+							    	case 0:
+							    		--yMutable;
+							    		break;
+							    	case 1:
+							    		++yMutable;
+							    		break;
+							    	case 2:
+							    		--zMutable;
+							    		break;
+							    	case 3:
+							    		++zMutable;
+							    		break;
+							    	case 4:
+							    		--xMutable;
+							    		break;
+							    	case 5:
+							    		++xMutable;
+							    		break;
+							    	}
+							    	
+						            if (!world.isAirBlock(xMutable, yMutable, zMutable))
+						            {
+						            	// Can't put block here because it's not air
+						                return;
+						            }
+						        }
+							    
+							    //Beds place a little weird, make sure we've got the right conditions
+							    if(block == Blocks.bed) {
+						            int i1 = MathHelper.floor_double((double)(player.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
+						            byte b0 = 0;
+						            byte b1 = 0;
+
+							    	switch (i1)
+							    	{
+							    	case 0:
+							    		++b1;
+							    		break;
+							    	case 1:
+						            	--b0;
+							    		break;
+							    	case 2:
+							    		--b1;
+							    		break;
+							    	case 3:
+							    		++b0;
+							    		break;
+							    	}
+							    	
+							        if (!player.canPlayerEdit(xMutable + b0, yMutable, zMutable + b1, side, heldStack) || !block.canPlaceBlockAt(world, xMutable + b0, yMutable, zMutable + b1) ||
+							        		!world.isAirBlock(xMutable, yMutable, zMutable) || !world.isAirBlock(xMutable + b0, yMutable, zMutable + b1) ||
+							        		!World.doesBlockHaveSolidTopSurface(world, xMutable, yMutable - 1, zMutable) || !World.doesBlockHaveSolidTopSurface(world, xMutable + b0, yMutable - 1, zMutable + b1))
+							        {
+							            return;
+							        }
+							    }
+
+						        if (!player.canPlayerEdit(xMutable, yMutable, zMutable, side, heldStack))
+						        {
+						        	// Can't put it here because player is disallowed
+						            return;
+						        }
+								if (block.canPlaceBlockAt(world, xMutable, yMutable, zMutable))
+								{
+									// Here is where item would be consumed and block would be set
+									// Block is successfully placed
+								    world.playSoundEffect(xMutable+0.5, yMutable+0.5, zMutable+0.5, block.stepSound.func_150496_b(), (block.stepSound.getVolume() + 1.0F) / 2.0F, block.stepSound.getPitch() * 0.8F);
+								    return;
+								}
+							}
+						}
+
 						
 						//Seeds/Wart placing sounds
 						if(ConfigWorld.enableNewBlocksSounds && side == 1 && heldStack != null && heldStack.getItem() instanceof IPlantable && player.canPlayerEdit(x, y + 1, z, side, heldStack)) {

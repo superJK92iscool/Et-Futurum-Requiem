@@ -4,9 +4,11 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.blocks.IConfigurable;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.network.WoodSignOpenMessage;
 import ganymedes01.etfuturum.tileentities.TileEntityWoodSign;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
@@ -81,15 +83,21 @@ public class ItemWoodSign extends Item implements IConfigurable {
 			}
 			else
 			{
+				Block block;
 				if (p_77648_7_ == 1)
 				{
 					int i1 = MathHelper.floor_double((player.rotationYaw + 180.0F) * 16.0F / 360.0F + 0.5D) & 15;
+					block = ModBlocks.signs[meta];
 					p_77648_3_.setBlock(p_77648_4_, p_77648_5_, p_77648_6_, ModBlocks.signs[meta], i1, 3);
 				}
 				else
 				{
+					block = ModBlocks.wall_signs[meta];
 					p_77648_3_.setBlock(p_77648_4_, p_77648_5_, p_77648_6_, ModBlocks.wall_signs[meta], p_77648_7_, 3);
 				}
+				
+				//Disable the sound for continuity, so it doesn't play when the event-based player would not
+                if(ConfigWorld.enableSilentPlaceSounds)p_77648_3_.playSoundEffect((double)((float)p_77648_4_ + 0.5F), (double)((float)p_77648_5_ + 0.5F), (double)((float)p_77648_6_ + 0.5F), block.stepSound.func_150496_b(), (block.stepSound.getVolume() + 1.0F) / 2.0F, block.stepSound.getPitch() * 0.8F);
 
 				--itemStack.stackSize;
 				TileEntityWoodSign tileentitysign = (TileEntityWoodSign)p_77648_3_.getTileEntity(p_77648_4_, p_77648_5_, p_77648_6_);
