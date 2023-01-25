@@ -72,7 +72,6 @@ import ganymedes01.etfuturum.world.EtFuturumWorldListener;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEndPortalFrame;
 import net.minecraft.block.BlockFarmland;
-import net.minecraft.block.BlockSign;
 import net.minecraft.block.BlockSoulSand;
 import net.minecraft.block.BlockTrapDoor;
 import net.minecraft.block.material.Material;
@@ -113,11 +112,10 @@ import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemBucket;
 import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemPotion;
-import net.minecraft.item.ItemRedstone;
 import net.minecraft.item.ItemShears;
-import net.minecraft.item.ItemSign;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
 import net.minecraft.network.play.server.S29PacketSoundEffect;
@@ -131,6 +129,7 @@ import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.StatCollector;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
@@ -152,6 +151,7 @@ import net.minecraftforge.event.entity.player.ArrowLooseEvent;
 import net.minecraftforge.event.entity.player.ArrowNockEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.EntityInteractEvent;
+import net.minecraftforge.event.entity.player.FillBucketEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
@@ -697,7 +697,7 @@ public class ServerEventHandler {
 				{
 					if(event.getResult() == event.useItem) {
 						//Eye of Ender place sounds
-						if(heldStack != null && !event.world.isRemote && ConfigWorld.enableNewMiscSounds && heldStack.getItem() == Items.ender_eye && oldBlock == Blocks.end_portal_frame && !BlockEndPortalFrame.isEnderEyeInserted(meta))
+						if(heldStack != null && !world.isRemote && ConfigWorld.enableNewMiscSounds && heldStack.getItem() == Items.ender_eye && oldBlock == Blocks.end_portal_frame && !BlockEndPortalFrame.isEnderEyeInserted(meta))
 						{
 							world.playSoundEffect(x + .5F, y + .5F, z + .5F, Reference.MCAssetVer + ":block.end_portal_frame.fill", 1, 1);
 							int j1 = meta & 3;
@@ -788,7 +788,7 @@ public class ServerEventHandler {
 						}
 						
 						// --- For blocks with no place sound (reeds, redstone, cake, beds etc) --- //
-						if(heldStack != null && !event.world.isRemote && ConfigWorld.enableSilentPlaceSounds)
+						if(heldStack != null && !world.isRemote && ConfigWorld.enableSilentPlaceSounds)
 						{
 							Block block = null;
 							Item item = heldStack.getItem();
@@ -914,7 +914,7 @@ public class ServerEventHandler {
 						//Lava cauldron filling and cauldron filling noises
 						if(heldStack != null && canUse(player, world, x, y, z) && oldBlock == Blocks.cauldron) {
 							Item item = heldStack.getItem();
-							if (ConfigBlocksItems.enableLavaCauldrons && heldStack.getItem() == Items.lava_bucket && meta == 0) {
+							if (ConfigBlocksItems.enableLavaCauldrons && item == Items.lava_bucket && meta == 0) {
 								event.setResult(Result.DENY);
 								player.swingItem();
 								world.setBlock(x, y, z, ModBlocks.lava_cauldron);
@@ -928,21 +928,47 @@ public class ServerEventHandler {
 										--heldStack.stackSize;
 									}
 								}
+								return;
 							} else if(ConfigWorld.enableNewMiscSounds) {
 								String container = heldStack.getItem() == Items.water_bucket ? "bucket" : "";
 								String fillOrEmpty = "";
-								if(heldStack.getItem() == Items.water_bucket && meta < 3) {
+								if(item == Items.water_bucket && meta < 3) {
 									container = "bucket";
 									fillOrEmpty = "empty";
-								} else if(heldStack.getItem() == Items.glass_bottle || (heldStack.getItem() == Items.potionitem && heldStack.getItemDamage() == 0 && !heldStack.hasTagCompound())) {
+								} else if(item == Items.glass_bottle || (item == Items.potionitem && heldStack.getItemDamage() == 0 && !heldStack.hasTagCompound())) {
 									container = "bottle";
-									fillOrEmpty = meta < 3 && heldStack.getItem() == Items.potionitem ? "empty" : /* heldStack.getItem() == Items.glass_bottle && meta > 0 ? "fill" : */ "";
+									fillOrEmpty = meta < 3 && item == Items.potionitem ? "empty" : item == Items.glass_bottle && meta > 0 ? "fill" : "";
 								}//TODO add taking from cauldrons and evaporation
-								if(!container.equals("")) {
+								if(!container.equals("") && !fillOrEmpty.equals("")) {
 									world.playSoundEffect(x, y, z, Reference.MCAssetVer+":item."+container+"."+fillOrEmpty, 1, 1);
+									return;
 								}
 							}
 						}
+						
+						// --- Bottle fill sounds --- //
+						if (ConfigWorld.enableNewMiscSounds && !world.isRemote && heldStack != null && heldStack.getItem() == Items.glass_bottle && event.action == Action.RIGHT_CLICK_AIR) {
+							MovingObjectPosition movingobjectposition = getMovingObjectPositionFromPlayer(world, player, true);
+							
+							if (movingobjectposition != null && movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
+								int i = movingobjectposition.blockX;
+								int j = movingobjectposition.blockY;
+								int k = movingobjectposition.blockZ;
+								
+								if(!world.canMineBlock(player, i, j, k)) {return;}
+								if(!player.canPlayerEdit(i, j, k, movingobjectposition.sideHit, heldStack)) {return;}
+								
+								boolean isWater = false;
+								
+								if(world.getBlock(i, j, k).getMaterial() == Material.water) {isWater = true;}
+								
+								if(isWater) {
+									world.playSoundAtEntity(player, Reference.MCAssetVer+":item.bottle.fill", 1.0F, 1.0F);
+									return;
+								}
+							}
+						}
+
 						
 						if(ConfigBlocksItems.enableInvertedDaylightSensor && oldBlock == Blocks.daylight_detector && canUse(player, world, x, y, z)) {
 							player.swingItem();
@@ -988,6 +1014,46 @@ public class ServerEventHandler {
 			}
 		}
 	}
+	
+	@SubscribeEvent
+	public void onFillBucketEvent(FillBucketEvent event)
+	{
+		if(ConfigWorld.enableNewMiscSounds && event.current.getItem() instanceof ItemBucket) {//In case some weirdo mod fires this event but doesn't use ItemBucket
+			Block isFull = ((ItemBucket)event.current.getItem()).isFull;
+			MovingObjectPosition target = event.target;
+			int x = target.blockX;
+			int y = target.blockY;
+			int z = target.blockZ;
+			
+            if (!event.world.canMineBlock(event.entityPlayer, x, y, z))
+            {
+                return;
+            }
+
+            if (isFull == Blocks.air)
+            {
+                if (!event.entityPlayer.canPlayerEdit(x, y, z, target.sideHit, event.current))
+                {
+                    return;
+                }
+            }
+			
+			if (!event.world.isRemote) { //We assume lava sounds if it's not water because most modded liquids are molten metals
+				if (isFull.getMaterial() == Material.water) {// --- Pour water --- //
+					event.world.playSoundEffect(target.blockX + 0.5, target.blockY + 0.5, target.blockZ + 0.5, Reference.MCAssetVer+":item.bucket.empty", 1.0F, 1.0F);
+				} else if (isFull != Blocks.air) {// --- Pour something else --- //
+					event.world.playSoundEffect(target.blockX + 0.5, target.blockY + 0.5, target.blockZ + 0.5, Reference.MCAssetVer+":item.bucket.empty_lava", 1.0F, 1.0F);
+				} else if (isFull == Blocks.air) {
+					if (event.world.getBlock(target.blockX, target.blockY, target.blockZ).getMaterial() == Material.water) {// --- Fill with water --- //
+						event.world.playSoundEffect(target.blockX + 0.5, target.blockY + 0.5, target.blockZ + 0.5, Reference.MCAssetVer+":item.bucket.fill", 1.0F, 1.0F);
+					} else if (event.world.getBlock(target.blockX, target.blockY, target.blockZ).getMaterial().isLiquid()) {// --- Fill with something else --- //
+						event.world.playSoundEffect(target.blockX + 0.5, target.blockY + 0.5, target.blockZ + 0.5, Reference.MCAssetVer+":item.bucket.fill_lava", 1.0F, 1.0F);
+					}
+				}
+			}
+		}
+	}
+
 	
 	public static boolean canUse(EntityPlayer player, World world, int x, int y, int z) {
 		return !player.isSneaking() || player.getHeldItem() == null || player.getHeldItem().getItem().doesSneakBypassUse(world, x, y, z, player);
@@ -1539,6 +1605,31 @@ public class ServerEventHandler {
 		if(ConfigMixins.enableElytra)
 			e.world.getGameRules().addGameRule("disableElytraMovementCheck", "false");
 	}
+	
+	private static MovingObjectPosition getMovingObjectPositionFromPlayer(World worldIn, EntityPlayer playerIn, boolean useLiquids)
+	{
+		float f = 1.0F;
+		float f1 = playerIn.prevRotationPitch + (playerIn.rotationPitch - playerIn.prevRotationPitch) * f;
+		float f2 = playerIn.prevRotationYaw + (playerIn.rotationYaw - playerIn.prevRotationYaw) * f;
+		double d0 = playerIn.prevPosX + (playerIn.posX - playerIn.prevPosX) * (double)f;
+		double d1 = playerIn.prevPosY + (playerIn.posY - playerIn.prevPosY) * (double)f + (double)(worldIn.isRemote ? playerIn.getEyeHeight() - playerIn.getDefaultEyeHeight() : playerIn.getEyeHeight()); // isRemote check to revert changes to ray trace position due to adding the eye height clientside and player yOffset differences
+		double d2 = playerIn.prevPosZ + (playerIn.posZ - playerIn.prevPosZ) * (double)f;
+		Vec3 vec3 = Vec3.createVectorHelper(d0, d1, d2);
+		float f3 = MathHelper.cos(-f2 * 0.017453292F - (float)Math.PI);
+		float f4 = MathHelper.sin(-f2 * 0.017453292F - (float)Math.PI);
+		float f5 = -MathHelper.cos(-f1 * 0.017453292F);
+		float f6 = MathHelper.sin(-f1 * 0.017453292F);
+		float f7 = f4 * f5;
+		float f8 = f3 * f5;
+		double d3 = 5.0D;
+		if(playerIn instanceof EntityPlayerMP)
+		{
+			d3 = ((EntityPlayerMP)playerIn).theItemInWorldManager.getBlockReachDistance();
+		}
+		Vec3 vec31 = vec3.addVector((double)f7 * d3, (double)f6 * d3, (double)f8 * d3);
+		return worldIn.func_147447_a(vec3, vec31, useLiquids, !useLiquids, false);
+	}
+
 	
 	// UNUSED FUNCTIONS
 	//private boolean playerHasItem(final EntityPlayer player, final ItemStack ist, final boolean checkEnabled) {
