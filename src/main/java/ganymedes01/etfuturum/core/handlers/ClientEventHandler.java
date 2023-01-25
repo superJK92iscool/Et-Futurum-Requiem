@@ -12,12 +12,12 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
 import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.InputEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.ClientTickEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
+import cpw.mods.fml.relauncher.ReflectionHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
@@ -49,9 +49,11 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSound;
 import net.minecraft.client.audio.PositionedSoundRecord;
+import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.GuiScreenBook;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.particle.EntityDiggingFX;
 import net.minecraft.entity.Entity;
@@ -83,6 +85,7 @@ public class ClientEventHandler {
 	private Random rand = new Random();
 	private boolean showedDebugWarning;
 	public static boolean showDebugWarning;
+	private int currPage;
 	/*
 	 * Represents the two values that govern the last chime age in 1.17 and up.
 	 * Left = field_26997 (Seems to be related to pitch)
@@ -204,7 +207,12 @@ public class ClientEventHandler {
 		}
 		wasShowingDebugInfo = mc.gameSettings.showDebugInfo;
 		wasShowingProfiler = mc.gameSettings.showDebugProfilerChart;
+		
+		if(mc.currentScreen == null && currPage > -1) {
+			currPage = -1;
+		}
 	}
+	
 	private String getStringFor(BiomeGenBase biome) {
 		if(biome == null)
 			return null;
@@ -313,32 +321,12 @@ public class ClientEventHandler {
 	@SubscribeEvent
 	public void onPlaySoundEvent(PlaySoundEvent17 event)
 	{
-		if(event.sound != null && event.name != null && cpw.mods.fml.client.FMLClientHandler.instance().getWorldClient() != null
-				&& FMLCommonHandler.instance().getSide() == Side.CLIENT) {
+		if(event.sound != null && event.name != null && cpw.mods.fml.client.FMLClientHandler.instance().getWorldClient() != null) {
 			World world = cpw.mods.fml.client.FMLClientHandler.instance().getWorldClient();
 			int x = MathHelper.floor_float(event.sound.getXPosF());
 			int y = MathHelper.floor_float(event.sound.getYPosF());
 			int z = MathHelper.floor_float(event.sound.getZPosF());
 			Block block = world.getBlock(x, y, z);
-			
-			String[] eventwithprefix = event.name.split("\\.");
-			if (ConfigWorld.enableNewBlocksSounds && eventwithprefix.length > 1 &&
-					eventwithprefix[1].equals(Blocks.stone.stepSound.soundName)
-					&& event.sound.getPitch() < 1.0F) {
-				Item itemblock = Item.getItemFromBlock(block);
-				if(itemblock == null)
-					return;
-				String name = itemblock.getUnlocalizedName(new ItemStack(itemblock, 1, world.getBlockMetadata(x, y, z) % 8)).toLowerCase();
-				if(name.contains("slab") && name.contains("nether") && name.contains("brick")) {
-					float soundVol = (block.stepSound.getVolume() + 1.0F) / (eventwithprefix[0].contains("step") ? 8F : 2F);
-					float soundPit = (block.stepSound.getPitch()) * (eventwithprefix[0].contains("step") ? 0.5F : 0.8F);
-
-					boolean step = event.name.contains("step");
-					
-					event.result = new PositionedSoundRecord(new ResourceLocation(step ? ModSounds.soundNetherBricks.getStepResourcePath() : ModSounds.soundNetherBricks.getBreakSound()), soundVol, soundPit, x + 0.5F, y + 0.5F, z + 0.5F);
-					return;
-				}
-			}
 			
 			if(event.sound.getPitch() < 1.0F && world.getBlock(x, y, z) instanceof IMultiStepSound && (!((IMultiStepSound)block).requiresNewBlockSounds() || ConfigWorld.enableNewBlocksSounds)) {
 				
@@ -376,6 +364,23 @@ public class ClientEventHandler {
 				return;
 			}
 			
+			String[] eventwithprefix = event.name.split("\\.");
+			if (ConfigWorld.enableNewBlocksSounds && eventwithprefix.length > 1 && eventwithprefix[1].equals(Blocks.stone.stepSound.soundName) && event.sound.getPitch() < 1.0F) {
+				Item itemblock = Item.getItemFromBlock(block);
+				if(itemblock == null)
+					return;
+				String name = itemblock.getUnlocalizedName(new ItemStack(itemblock, 1, world.getBlockMetadata(x, y, z) % 8)).toLowerCase();
+				if(name.contains("slab") && name.contains("nether") && name.contains("brick")) {
+					float soundVol = (block.stepSound.getVolume() + 1.0F) / (eventwithprefix[0].contains("step") ? 8F : 2F);
+					float soundPit = (block.stepSound.getPitch()) * (eventwithprefix[0].contains("step") ? 0.5F : 0.8F);
+
+					boolean step = event.name.contains("step");
+					
+					event.result = new PositionedSoundRecord(new ResourceLocation(step ? ModSounds.soundNetherBricks.getStepResourcePath() : ModSounds.soundNetherBricks.getBreakSound()), soundVol, soundPit, x + 0.5F, y + 0.5F, z + 0.5F);
+					return;
+				}
+			}
+			
 			if(ConfigWorld.enableNewMiscSounds) {
 				if(event.name.contains("random.door")) {
 					event.result = new PositionedSoundRecord(new ResourceLocation(getReplacementDoorSound(block, event.name)),
@@ -396,6 +401,20 @@ public class ClientEventHandler {
 								event.sound.getVolume(), event.sound.getPitch(), x + 0.5F, y + 0.5F, z + 0.5F);
 					}
 				}
+		    	// --- Book page turn --- //
+		    	if (Minecraft.getMinecraft().currentScreen instanceof GuiScreenBook && event.name.equals("gui.button.press")) {
+	    			GuiScreenBook gui = (GuiScreenBook)Minecraft.getMinecraft().currentScreen;
+	    			// If there is a disagreement on page, play the page-turning sound
+	    			if (gui.currPage != this.currPage)
+	    			{
+	    				this.currPage = gui.currPage;
+	    				EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
+	    				player.playSound(Reference.MCAssetVer+":item.book.page_turn", 1.0F, 1.0F);
+	    				event.result = null;
+	    				return;
+	    			}  		
+		    	}
+
 			}
 
 			if(!EtFuturum.netherMusicNetherlicious) {

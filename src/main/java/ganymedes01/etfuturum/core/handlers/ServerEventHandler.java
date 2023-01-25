@@ -292,7 +292,9 @@ public class ServerEventHandler {
 			} else if(event.entity instanceof EntityLeashKnot) {
 				sound = "leash_knot";
 			}
-			event.world.playSoundAtEntity(event.entity, Reference.MCAssetVer+":entity."+sound+".place", 1.0F, 1.0F);
+			if(!sound.equals("")) {
+				event.world.playSoundAtEntity(event.entity, Reference.MCAssetVer+":entity."+sound+".place", 1.0F, 1.0F);
+			}
 		}
 		
 		if (ConfigBlocksItems.enableNewBoats && ConfigBlocksItems.replaceOldBoats) {

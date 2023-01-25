@@ -242,6 +242,7 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "item.totem.use", "player");
 		config.addSoundEvent(ver, "item.shovel.flatten", "player");
 		config.addSoundEvent(ver, "item.chorus_fruit.teleport", "player");
+		config.addSoundEvent(ver, "item.book.page_turn", "player");
 
 		config.addSoundEvent(ver, "item.armor.equip_leather", "player");
 		config.addSoundEvent(ver, "item.armor.equip_gold", "player");
