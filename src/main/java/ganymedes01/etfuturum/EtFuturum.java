@@ -767,8 +767,8 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "item.bucket.fill_lava", "player");
 		config.addSoundEvent(ver, "item.bucket.empty", "player");
 		config.addSoundEvent(ver, "item.bucket.empty_lava", "player");
-		config.addSoundEvent(ver, "item.bottle.empty", "player");
 		config.addSoundEvent(ver, "item.bottle.fill", "player");
+		config.addSoundEvent(ver, "item.bottle.empty", "player");
 
 		config.addSoundEvent(ver, "item.armor.equip_leather", "player");
 		config.addSoundEvent(ver, "item.armor.equip_gold", "player");

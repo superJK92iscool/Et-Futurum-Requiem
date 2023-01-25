@@ -911,18 +911,35 @@ public class ServerEventHandler {
 							}
 						}
 						
-						//Lava cauldron filling
-						if (ConfigBlocksItems.enableLavaCauldrons && heldStack != null && heldStack.getItem() == Items.lava_bucket) {
-							if(oldBlock == Blocks.cauldron && canUse(player, world, x, y, z) && meta == 0) {
+						//Lava cauldron filling and cauldron filling noises
+						if(heldStack != null && canUse(player, world, x, y, z) && oldBlock == Blocks.cauldron) {
+							Item item = heldStack.getItem();
+							if (ConfigBlocksItems.enableLavaCauldrons && heldStack.getItem() == Items.lava_bucket && meta == 0) {
 								event.setResult(Result.DENY);
 								player.swingItem();
 								world.setBlock(x, y, z, ModBlocks.lava_cauldron);
-								if (!player.capabilities.isCreativeMode) {
+								if(ConfigWorld.enableNewMiscSounds) {
+									world.playSoundEffect(x, y, z, Reference.MCAssetVer+":item.bucket.empty_lava", 1, 1);
+								}
+								if(!player.capabilities.isCreativeMode) {
 									if (heldStack.stackSize <= 1) {
 										player.inventory.setInventorySlotContents(player.inventory.currentItem, new ItemStack(Items.bucket));
 									} else {
 										--heldStack.stackSize;
 									}
+								}
+							} else if(ConfigWorld.enableNewMiscSounds) {
+								String container = heldStack.getItem() == Items.water_bucket ? "bucket" : "";
+								String fillOrEmpty = "";
+								if(heldStack.getItem() == Items.water_bucket && meta < 3) {
+									container = "bucket";
+									fillOrEmpty = "empty";
+								} else if(heldStack.getItem() == Items.glass_bottle || (heldStack.getItem() == Items.potionitem && heldStack.getItemDamage() == 0 && !heldStack.hasTagCompound())) {
+									container = "bottle";
+									fillOrEmpty = meta < 3 && heldStack.getItem() == Items.potionitem ? "empty" : /* heldStack.getItem() == Items.glass_bottle && meta > 0 ? "fill" : */ "";
+								}//TODO add taking from cauldrons and evaporation
+								if(!container.equals("")) {
+									world.playSoundEffect(x, y, z, Reference.MCAssetVer+":item."+container+"."+fillOrEmpty, 1, 1);
 								}
 							}
 						}
@@ -937,7 +954,7 @@ public class ServerEventHandler {
 						}
 						
 						if(ConfigBlocksItems.enablePotionCauldron && oldBlock == Blocks.cauldron && heldStack != null && meta == 0 && heldStack.getItem() == Items.potionitem
-								 && !ItemPotion.isSplash(heldStack.getItemDamage()) && !Items.potionitem.getEffects(heldStack).isEmpty()) {
+								 && (heldStack.hasTagCompound() || heldStack.getItemDamage() > 0) && !ItemPotion.isSplash(heldStack.getItemDamage()) && !Items.potionitem.getEffects(heldStack).isEmpty()) {
 							world.setBlock(x, y, z, ModBlocks.potion_cauldron); //If we don't cancel the use event, the new block is used, so the use code is in the block class.
 						}
 						

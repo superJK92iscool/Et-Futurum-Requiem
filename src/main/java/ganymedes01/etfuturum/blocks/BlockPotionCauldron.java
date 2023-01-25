@@ -11,6 +11,7 @@ import ganymedes01.etfuturum.client.DynamicResourcePack;
 import ganymedes01.etfuturum.client.DynamicResourcePack.GrayscaleType;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
+import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import ganymedes01.etfuturum.tileentities.TileEntityCauldronColoredWater;
 import ganymedes01.etfuturum.tileentities.TileEntityCauldronPotion;
@@ -87,11 +88,11 @@ public class BlockPotionCauldron extends BlockCauldronTileEntity implements ISub
 					final ItemStack bottle = new ItemStack(Items.glass_bottle);
 					final List<Potion> effects = ((ItemPotion)item).getEffects(stack);
 					if(effects == null || !effects.equals(((ItemPotion)potionCauldron.potion.getItem()).getEffects(potionCauldron.potion))) {
-						EnumCauldronFillAction.EVAPORATE.getAction(world, x, y, z, meta);
+						EnumCauldronFillAction.EVAPORATE.getAction(world, x, y, z, false);
 						world.setBlock(x, y, z, Blocks.cauldron, 0, 3);
 						flag = true;
 					} else if(meta < 2) {
-						EnumCauldronFillAction.CHANGE_LEVEL.getAction(world, x, y, z, meta);
+						EnumCauldronFillAction.CHANGE_LEVEL.getAction(world, x, y, z, true);
 						if(shouldFill) {
 							world.setBlockMetadataWithNotify(x, y, z, meta + 1, 3);
 						}
@@ -120,7 +121,7 @@ public class BlockPotionCauldron extends BlockCauldronTileEntity implements ISub
 						entityPlayer.dropPlayerItemWithRandomChoice(newPotion, false);
 					}
 				}
-				EnumCauldronFillAction.CHANGE_LEVEL.getAction(world, x, y, z, world.getBlockMetadata(x, y, z));
+				EnumCauldronFillAction.CHANGE_LEVEL.getAction(world, x, y, z, false);
 				if(world.getBlockMetadata(x, y, z) <= 0) {
 					world.setBlock(x, y, z, Blocks.cauldron, 0, 3);
 				} else {
@@ -204,13 +205,13 @@ public class BlockPotionCauldron extends BlockCauldronTileEntity implements ISub
 	public enum EnumCauldronFillAction {
 		CHANGE_LEVEL {
 			@Override
-			public void getAction(World world, int x, int y, int z, int meta) {
+			public void getAction(World world, int x, int y, int z, boolean filling) {
 				int color = ((TileEntityCauldronColoredWater)world.getTileEntity(x, y, z)).getWaterColor();
 		        float r = (float)(color >> 16 & 255) / 255.0F;
 		        float g = (float)(color >> 8 & 255) / 255.0F;
 		        float b = (float)(color & 255) / 255.0F;
 		        float liquidLevel = y + getRenderLiquidLevel(world.getBlockMetadata(x, y, z) + 1);
-		        world.playSound(x + 0.5D, liquidLevel, z + 0.5D, "random.splash", 0.15F, 1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.4F, false);
+				world.playSoundEffect(x + 0.5D, liquidLevel, z + 0.5D, Reference.MCAssetVer+":item.bottle."+(filling?"fill":"empty"), 1, 1);
 		        for(int i = 0; i < world.rand.nextInt(4) + 4; i++) {
 					world.spawnParticle("mobSpell", this.getParticleXYCoord(x, world.rand), liquidLevel, this.getParticleXYCoord(z, world.rand), r, g, b);
 		        }
@@ -218,7 +219,7 @@ public class BlockPotionCauldron extends BlockCauldronTileEntity implements ISub
 		},
 		EVAPORATE {
 			@Override
-			public void getAction(World world, int x, int y, int z, int meta) {
+			public void getAction(World world, int x, int y, int z, boolean filling) {
 		        float min = 0.25F;
 		        float max = getRenderLiquidLevel(world.getBlockMetadata(x, y, z) + 1);
 		        float liquidLevel = y + (min + world.rand.nextFloat() * (max - min));
@@ -229,7 +230,7 @@ public class BlockPotionCauldron extends BlockCauldronTileEntity implements ISub
 			}
 		};
 		
-		public abstract void getAction(World world, int x, int y, int z, int meta);
+		public abstract void getAction(World world, int x, int y, int z, boolean filling);
 		
 		protected float getParticleXYCoord(int coordinate, Random rand) {
 	        float min = 0.1875F;
