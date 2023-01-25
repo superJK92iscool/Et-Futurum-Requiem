@@ -26,6 +26,7 @@ import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
+import cpw.mods.fml.common.registry.GameRegistry.Type;
 import cpw.mods.fml.relauncher.Side;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
@@ -130,6 +131,7 @@ import net.minecraft.util.EntityDamageSourceIndirect;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.util.StatCollector;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
@@ -914,7 +916,7 @@ public class ServerEventHandler {
 						//Lava cauldron filling and cauldron filling noises
 						if(heldStack != null && canUse(player, world, x, y, z) && oldBlock == Blocks.cauldron) {
 							Item item = heldStack.getItem();
-							if (ConfigBlocksItems.enableLavaCauldrons && item == Items.lava_bucket && meta == 0) {
+							if (ConfigBlocksItems.enableLavaCauldrons && item instanceof ItemBucket && ((ItemBucket)item).isFull == Blocks.flowing_lava && meta == 0) {
 								event.setResult(Result.DENY);
 								player.swingItem();
 								world.setBlock(x, y, z, ModBlocks.lava_cauldron);
@@ -923,22 +925,22 @@ public class ServerEventHandler {
 								}
 								if(!player.capabilities.isCreativeMode) {
 									if (heldStack.stackSize <= 1) {
-										player.inventory.setInventorySlotContents(player.inventory.currentItem, new ItemStack(Items.bucket));
+										player.inventory.setInventorySlotContents(player.inventory.currentItem, new ItemStack(item.getContainerItem()));
 									} else {
 										--heldStack.stackSize;
 									}
 								}
 								return;
 							} else if(ConfigWorld.enableNewMiscSounds) {
-								String container = heldStack.getItem() == Items.water_bucket ? "bucket" : "";
+								String container = "";
 								String fillOrEmpty = "";
-								if(item == Items.water_bucket && meta < 3) {
+								if(item instanceof ItemBucket && ((ItemBucket)item).isFull == Blocks.flowing_water && meta < 3) {
 									container = "bucket";
 									fillOrEmpty = "empty";
 								} else if(item == Items.glass_bottle || (item == Items.potionitem && heldStack.getItemDamage() == 0 && !heldStack.hasTagCompound())) {
 									container = "bottle";
-									fillOrEmpty = meta < 3 && item == Items.potionitem ? "empty" : item == Items.glass_bottle && meta > 0 ? "fill" : "";
-								}//TODO add taking from cauldrons and evaporation
+									fillOrEmpty = /* meta < 3 && item == Items.potionitem ? "empty" : */ item == Items.glass_bottle && meta > 0 ? "fill" : "";
+								}//TODO add taking from cauldrons and evaporation, and filling a cauldron with regular potion bottles
 								if(!container.equals("") && !fillOrEmpty.equals("")) {
 									world.playSoundEffect(x, y, z, Reference.MCAssetVer+":item."+container+"."+fillOrEmpty, 1, 1);
 									return;
@@ -1061,17 +1063,62 @@ public class ServerEventHandler {
 	
 	@SubscribeEvent
 	public void onHoeUseEvent(UseHoeEvent event) {
+		if(isIC2Hoe(event.current)) return;
+		
+		World world = event.world;
+		int x = event.x;
+		int y = event.y;
+		int z = event.z;
+		boolean flag = false;
+		//If the result is ALLOW, the vanilla tilling code won't run, only the item is damaged.
+		//So I'll just do that and re-run the vanilla code since it's easier than creating a mixin.
+		//Also modded hoe behavior probably supplies their own sound so we'll try to only run this code for vanilla behaviors.
+		
 		if (ConfigBlocksItems.enableCoarseDirt) {
-			World world = event.world;
-			int x = event.x;
-			int y = event.y;
-			int z = event.z;
 			if (world.getBlock(x, y, z) == ModBlocks.coarse_dirt) {
 				world.setBlock(x, y, z, Blocks.dirt);
-				world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, Block.soundTypeGravel.getStepResourcePath(), 1.0F, 0.8F);
 				event.setResult(Result.ALLOW);
+				flag = true;
 			}
 		}
+		
+		if(ConfigWorld.enableNewMiscSounds) {
+			if(!flag) {
+	            Block block = world.getBlock(x, y, z);
+	            MovingObjectPosition position = getMovingObjectPositionFromPlayer(world, event.entityPlayer, false);
+	            
+	            if (position.typeOfHit == MovingObjectType.BLOCK && position.sideHit != 0 && world.getBlock(x, y + 1, z).isAir(world, x, y + 1, z) && (block == Blocks.grass || block == Blocks.dirt))
+	            {
+	                if (world.isRemote) {
+	    				flag = true;
+	                }
+	                else {
+	                    world.setBlock(x, y, z, Blocks.farmland);
+	    				flag = true;
+	                }
+	            }
+			}
+
+            if(flag) {
+    			world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, Reference.MCAssetVer+":item.hoe.till", 1.0F, 1.0F);
+            }
+		} else if(flag) {
+			world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, Block.soundTypeGravel.getStepResourcePath(), 1.0F, 0.8F);
+		}
+	}
+	
+	/**
+	 * Because whoever made IC2 is a dingbat and doesn't stop running their hoe code if the result is Result.ALLOW
+	 * This is an issue because the hoe is SUPPOSED to let only mod code run if the result is Result.ALLOW because that means the hoe is doing something else
+	 * This causes the IC2 electric hoe to instantly till the dirt after using a hoe to convert coarse dirt to regular dirt.
+	 * ... AND ALSO THEY DOn'T EVEN DAMAGE THE HOE IF RESULT IS ALLOW AND DAMAGEITEM DOES NOTHING TO IT IFJSDNJGUIHRSNGRMSG
+	 * So we just say screw it, IC2 hoes don't get to use the new sound code or till coarse dirt since they don't use the event properly...
+	 * 
+	 * @param event
+	 * @return 
+	 */
+	private final boolean isIC2Hoe(ItemStack current) {
+		return EtFuturum.hasIC2 && current != null && current.getItem() == ExternalContent.ic2_electric_hoe;
 	}
 
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
@@ -1606,7 +1653,7 @@ public class ServerEventHandler {
 			e.world.getGameRules().addGameRule("disableElytraMovementCheck", "false");
 	}
 	
-	private static MovingObjectPosition getMovingObjectPositionFromPlayer(World worldIn, EntityPlayer playerIn, boolean useLiquids)
+	static MovingObjectPosition getMovingObjectPositionFromPlayer(World worldIn, EntityPlayer playerIn, boolean useLiquids)
 	{
 		float f = 1.0F;
 		float f1 = playerIn.prevRotationPitch + (playerIn.rotationPitch - playerIn.prevRotationPitch) * f;

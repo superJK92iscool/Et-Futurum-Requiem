@@ -28,4 +28,6 @@ public class ExternalContent {
 	
 	public static final Block netherlicious_basalt_bricks = GameRegistry.findBlock("netherlicious", "BasaltBricks");
 
+	public static final Item ic2_electric_hoe = GameRegistry.findItem("IC2", "itemToolHoe");
+
 }

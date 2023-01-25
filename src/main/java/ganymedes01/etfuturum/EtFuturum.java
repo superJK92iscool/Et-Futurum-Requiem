@@ -11,8 +11,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import ganymedes01.etfuturum.command.CommandFill;
-import ganymedes01.etfuturum.network.*;
 import org.apache.commons.lang3.ArrayUtils;
 
 import com.google.common.collect.ImmutableList;
@@ -39,6 +37,7 @@ import ganymedes01.etfuturum.api.waila.WailaRegistrar;
 import ganymedes01.etfuturum.client.BuiltInResourcePack;
 import ganymedes01.etfuturum.client.DynamicResourcePack;
 import ganymedes01.etfuturum.client.sound.ModSounds;
+import ganymedes01.etfuturum.command.CommandFill;
 import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
@@ -51,6 +50,20 @@ import ganymedes01.etfuturum.core.utils.RawOreRegistry;
 import ganymedes01.etfuturum.core.utils.StrippedLogRegistry;
 import ganymedes01.etfuturum.entities.ModEntityList;
 import ganymedes01.etfuturum.lib.Reference;
+import ganymedes01.etfuturum.network.ArmourStandInteractHandler;
+import ganymedes01.etfuturum.network.ArmourStandInteractMessage;
+import ganymedes01.etfuturum.network.AttackYawHandler;
+import ganymedes01.etfuturum.network.AttackYawMessage;
+import ganymedes01.etfuturum.network.BlackHeartParticlesHandler;
+import ganymedes01.etfuturum.network.BlackHeartParticlesMessage;
+import ganymedes01.etfuturum.network.BoatMoveHandler;
+import ganymedes01.etfuturum.network.BoatMoveMessage;
+import ganymedes01.etfuturum.network.ChestBoatOpenInventoryHandler;
+import ganymedes01.etfuturum.network.ChestBoatOpenInventoryMessage;
+import ganymedes01.etfuturum.network.StartElytraFlyingHandler;
+import ganymedes01.etfuturum.network.StartElytraFlyingMessage;
+import ganymedes01.etfuturum.network.WoodSignOpenHandler;
+import ganymedes01.etfuturum.network.WoodSignOpenMessage;
 import ganymedes01.etfuturum.potion.ModPotions;
 import ganymedes01.etfuturum.recipes.BlastFurnaceRecipes;
 import ganymedes01.etfuturum.recipes.ModRecipes;
@@ -68,10 +81,8 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Block.SoundType;
 import net.minecraft.block.BlockBed;
 import net.minecraft.block.BlockCrops;
-import net.minecraft.block.BlockFlower;
 import net.minecraft.block.BlockHay;
 import net.minecraft.block.BlockLeaves;
-import net.minecraft.block.BlockLilyPad;
 import net.minecraft.block.BlockNetherWart;
 import net.minecraft.block.BlockOre;
 import net.minecraft.block.BlockSponge;
@@ -169,6 +180,7 @@ public class EtFuturum {
 	public static final boolean hasNP = Loader.isModLoaded("netheriteplus");
 	public static final boolean hasBotania = Loader.isModLoaded("Botania");
 	public static final boolean hasHEE = Loader.isModLoaded("HardcoreEnderExpansion");
+	public static final boolean hasIC2 = Loader.isModLoaded("IC2");
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
@@ -758,6 +770,7 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "item.axe.scrape", "player");
 		config.addSoundEvent(ver, "item.axe.wax_off", "player");
 		config.addSoundEvent(ver, "item.axe.strip", "player");
+		config.addSoundEvent(ver, "item.hoe.till", "player");
 		config.addSoundEvent(ver, "item.honeycomb.wax_on", "player");
 		config.addSoundEvent(ver, "item.totem.use", "player");
 		config.addSoundEvent(ver, "item.shovel.flatten", "player");

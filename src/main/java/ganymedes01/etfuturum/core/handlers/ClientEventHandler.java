@@ -3,6 +3,7 @@ package ganymedes01.etfuturum.core.handlers;
 import static ganymedes01.etfuturum.spectator.SpectatorMode.isSpectator;
 
 import java.io.File;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.WeakHashMap;
@@ -10,6 +11,8 @@ import java.util.WeakHashMap;
 import org.apache.commons.lang3.tuple.MutablePair;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
+
+import com.google.common.collect.Lists;
 
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -36,7 +39,6 @@ import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
-import ganymedes01.etfuturum.core.utils.Logger;
 import ganymedes01.etfuturum.entities.EntityNewBoatWithChest;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.network.ChestBoatOpenInventoryMessage;
@@ -64,10 +66,12 @@ import net.minecraft.event.ClickEvent;
 import net.minecraft.event.ClickEvent.Action;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -440,7 +444,6 @@ public class ClientEventHandler {
 	    				return;
 	    			}  		
 		    	}
-
 			}
 
 			if(!EtFuturum.netherMusicNetherlicious) {
