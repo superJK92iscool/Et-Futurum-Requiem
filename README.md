@@ -16,6 +16,10 @@ The mod (starting with version 2.4.1) comes in two flavors:
 * The regular version embeds Mixin 0.7.11, allowing the mod to run standalone. However, this makes the jar a bit larger, and can cause problems in certain use cases.
 * The version marked with `+nomixin` doesn't embed Mixin, which lets it avoid these problems. But it requires a separate [Mixin bootstrap mod](https://gist.github.com/makamys/7cb74cd71d93a4332d2891db2624e17c#mixin-bootstrap-mods) to be installed in order to run. If you have one installed already, getting this version is recommended.
 
+## Incompatibilities
+
+* [lwjgl3ify](https://github.com/GTNewHorizons/lwjgl3ify) will crash on startup unless the following line is added to `S:extensibleEnums` in its config: `net.minecraft.world.WorldSettings$GameType`
+
 ## Contributing
 
 Mixin code will not work if you do not add `--tweakClass org.spongepowered.asm.launch.MixinTweaker --mixin mixins.etfuturum.json` to your program arguments.
