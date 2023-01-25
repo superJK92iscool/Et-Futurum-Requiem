@@ -78,6 +78,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLeashKnot;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EntityTrackerEntry;
@@ -89,6 +90,8 @@ import net.minecraft.entity.ai.EntityAITempt;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.item.EntityBoat;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.item.EntityItemFrame;
+import net.minecraft.entity.item.EntityPainting;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.monster.EntitySkeleton;
@@ -144,6 +147,7 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent.SpecialSpawn;
 import net.minecraftforge.event.entity.player.ArrowLooseEvent;
 import net.minecraftforge.event.entity.player.ArrowNockEvent;
+import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.EntityInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -196,7 +200,7 @@ public class ServerEventHandler {
 		}
 
 
-		if (!event.entity.worldObj.isRemote && event.entity instanceof EntityPlayer && !(event.entity instanceof FakePlayer) && event.entity.worldObj != null && ConfigWorld.enableNewMiscSounds) {
+		if (ConfigWorld.enableNewMiscSounds && !event.entity.worldObj.isRemote && event.entity instanceof EntityPlayer && !(event.entity instanceof FakePlayer) && event.entity.worldObj != null) {
 			EntityPlayer player = (EntityPlayer) event.entity;
 
 			if(!armorTracker.containsKey(player)) {
@@ -251,12 +255,45 @@ public class ServerEventHandler {
 			}
 		}
 	}
+	@SubscribeEvent
+	public void onAttackEntityEvent(AttackEntityEvent event) { //Fires when a player presses the attack button on an entity
+		if (ConfigWorld.enableNewMiscSounds && !event.target.worldObj.isRemote)
+		{
+			// --- Left-click an item frame --- //
+			if (event.target instanceof EntityItemFrame)
+			{
+				EntityItemFrame itemframe = (EntityItemFrame)event.target;
+				if (itemframe.getDisplayedItem() != null) {
+					event.target.playSound(Reference.MCAssetVer+":entity.item_frame.remove_item", 1.0F, 1.0F);
+				} else {
+					event.target.playSound(Reference.MCAssetVer+":entity.item_frame.break", 1.0F, 1.0F);
+				}
+			} else if (event.target instanceof EntityPainting) { // --- Break a painting --- //
+				event.target.playSound(Reference.MCAssetVer+":entity.painting.break", 1.0F, 1.0F);
+			} else if (event.target instanceof EntityLeashKnot) { // --- Break a lead knot --- //
+				event.target.playSound(Reference.MCAssetVer+":entity.leash_knot.break", 1.0F, 1.0F);
+			}
+		}
+	}
+
 	
 	@SubscribeEvent
 	public void entityAdded(EntityJoinWorldEvent event) {
 		if(event.world.isRemote) return;
 
 		Chunk chunk = event.world.getChunkFromChunkCoords(MathHelper.floor_double(event.entity.posX) >> 4, MathHelper.floor_double(event.entity.posZ) >> 4);
+		
+		if(ConfigWorld.enableNewMiscSounds) {
+			String sound = "";
+			if(event.entity instanceof EntityItemFrame) {
+				sound = "item_frame";
+			} else if(event.entity instanceof EntityPainting) {
+				sound = "painting";
+			} else if(event.entity instanceof EntityLeashKnot) {
+				sound = "leash_knot";
+			}
+			event.world.playSoundAtEntity(event.entity, Reference.MCAssetVer+":entity."+sound+".place", 1.0F, 1.0F);
+		}
 		
 		if (ConfigBlocksItems.enableNewBoats && ConfigBlocksItems.replaceOldBoats) {
 			if (event.entity.getClass() == EntityBoat.class) {
@@ -654,7 +691,6 @@ public class ServerEventHandler {
 				if (player.canPlayerEdit(x, y, z, side, heldStack))
 				{
 					if(event.getResult() == event.useItem) {
-						
 						//Eye of Ender place sounds
 						if(heldStack != null && !event.world.isRemote && ConfigWorld.enableNewMiscSounds && heldStack.getItem() == Items.ender_eye && oldBlock == Blocks.end_portal_frame && !BlockEndPortalFrame.isEnderEyeInserted(meta))
 						{
@@ -1012,34 +1048,49 @@ public class ServerEventHandler {
 	@SubscribeEvent
 	public void interactEntityEvent(EntityInteractEvent event) {
 		ItemStack stack = event.entityPlayer.getCurrentEquippedItem();
-		if (stack == null)
-			return;
-		if (!(event.target instanceof EntityAnimal))
-			return;
+		World world = event.entityPlayer.worldObj;
 
-		EntityAnimal animal = (EntityAnimal) event.target;
-		if (!animal.isChild()) {
-			if (animal instanceof EntityPig) {
-				if (stack.getItem() == ModItems.beetroot && ConfigBlocksItems.enableBeetroot)
-					setAnimalInLove(animal, event.entityPlayer, stack);
-			} else if (animal instanceof EntityChicken)
-				if (stack.getItem() == ModItems.beetroot_seeds && ConfigBlocksItems.enableBeetroot)
-					setAnimalInLove(animal, event.entityPlayer, stack);
-		} else if (ConfigEntities.enableBabyGrowthBoost && isFoodItem(animal, stack))
-			feedBaby(animal, event.entityPlayer, stack);
-		
-		if(animal instanceof EntitySheep && stack.getItem() != Items.dye && !animal.worldObj.isRemote) {
-			EntitySheep sheep = ((EntitySheep)animal);
-			for(int oreID : OreDictionary.getOreIDs(stack)) {
-				int fleeceColour = ~ArrayUtils.indexOf(ModRecipes.ore_dyes, OreDictionary.getOreName(oreID)) & 15;
-				if(ArrayUtils.contains(ModRecipes.ore_dyes, OreDictionary.getOreName(oreID)) && sheep.getFleeceColor() != fleeceColour
-						&& !sheep.getSheared()) {
-					sheep.setFleeceColor(fleeceColour);
-					if(!event.entityPlayer.capabilities.isCreativeMode)
-						--stack.stackSize;
-					break;
+		Entity target = event.target;
+		if(target instanceof EntityAnimal && stack != null) {
+			EntityAnimal animal = (EntityAnimal) event.target;
+			if (!animal.isChild()) {
+				if (animal instanceof EntityPig) {
+					if (stack.getItem() == ModItems.beetroot && ConfigBlocksItems.enableBeetroot)
+						setAnimalInLove(animal, event.entityPlayer, stack);
+				} else if (animal instanceof EntityChicken)
+					if (stack.getItem() == ModItems.beetroot_seeds && ConfigBlocksItems.enableBeetroot)
+						setAnimalInLove(animal, event.entityPlayer, stack);
+			} else if (ConfigEntities.enableBabyGrowthBoost && isFoodItem(animal, stack)) {
+				feedBaby(animal, event.entityPlayer, stack);
+			}
+			
+			if(animal instanceof EntitySheep && stack.getItem() != Items.dye && !animal.worldObj.isRemote) {
+				EntitySheep sheep = ((EntitySheep)animal);
+				for(int oreID : OreDictionary.getOreIDs(stack)) {
+					int fleeceColour = ~ArrayUtils.indexOf(ModRecipes.ore_dyes, OreDictionary.getOreName(oreID)) & 15;
+					if(ArrayUtils.contains(ModRecipes.ore_dyes, OreDictionary.getOreName(oreID)) && sheep.getFleeceColor() != fleeceColour
+							&& !sheep.getSheared()) {
+						sheep.setFleeceColor(fleeceColour);
+						if(!event.entityPlayer.capabilities.isCreativeMode)
+							--stack.stackSize;
+						break;
+					}
 				}
 			}
+		}
+		
+		if (target instanceof EntityItemFrame) { // --- Add/Rotate within Item Frame --- //
+			EntityItemFrame itemframe = (EntityItemFrame)target;
+			
+			if (stack != null && itemframe.getDisplayedItem() == null) // This frame is empty and is getting an item placed inside.
+			{
+				world.playSoundEffect(target.posX, target.posY, target.posZ, Reference.MCAssetVer+":entity.item_frame.add_item", 1.0F, 1.0F);
+			} else if (itemframe.getDisplayedItem() != null) // There is an item in there, it's going to be rotated.
+			{
+				world.playSoundEffect(target.posX, target.posY, target.posZ, Reference.MCAssetVer+":entity.item_frame.rotate_item", 1.0F, 1.0F);
+			}
+		} else if (target instanceof EntityLeashKnot) { // --- Remove a Lead Knot --- //
+			world.playSoundEffect(target.posX + 0.5, target.posY + 0.5, target.posZ + 0.5, Reference.MCAssetVer+":entity.leash_knot.break", 1.0F, 1.0F);
 		}
 	}
 

@@ -217,9 +217,18 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "entity.squid.hurt", "neutral");
 		config.addSoundEvent(ver, "entity.squid.death", "neutral");
 		config.addSoundEvent(ver, "entity.squid.squirt", "neutral");
-		config.addSoundEvent(ver, "entity.witch.ambient", "neutral");
-		config.addSoundEvent(ver, "entity.witch.hurt", "neutral");
-		config.addSoundEvent(ver, "entity.witch.death", "neutral");
+		config.addSoundEvent(ver, "entity.witch.ambient", "hostile");
+		config.addSoundEvent(ver, "entity.witch.hurt", "hostile");
+		config.addSoundEvent(ver, "entity.witch.death", "hostile");
+		config.addSoundEvent(ver, "entity.item_frame.add_item", "player");
+		config.addSoundEvent(ver, "entity.item_frame.break", "player");
+		config.addSoundEvent(ver, "entity.item_frame.place", "player");
+		config.addSoundEvent(ver, "entity.item_frame.remove_item", "player");
+		config.addSoundEvent(ver, "entity.item_frame.rotate_item", "player");
+		config.addSoundEvent(ver, "entity.painting.break", "player");
+		config.addSoundEvent(ver, "entity.painting.place", "player");
+		config.addSoundEvent(ver, "entity.leash_knot.break", "player");
+		config.addSoundEvent(ver, "entity.leash_knot.place", "player");
 		
 		
 		config.addSoundEvent(ver, "entity.player.hurt_on_fire", "player");
