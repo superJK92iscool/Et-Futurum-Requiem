@@ -191,9 +191,6 @@ public class EtFuturum {
 			if(!((HashMap<String, ChestGenHooks>)chestInfo.get(null)).containsKey(NETHER_FORTRESS)) {
 				fortressWeightedField = Class.forName("net.minecraft.world.gen.structure.StructureNetherBridgePieces$Piece").getDeclaredField("field_111019_a");
 				fortressWeightedField.setAccessible(true);
-				Field modifiersField = Field.class.getDeclaredField("modifiers");
-				modifiersField.setAccessible(true);
-				modifiersField.setInt(fortressWeightedField, fortressWeightedField.getModifiers() & ~Modifier.FINAL);
 				((HashMap<String, ChestGenHooks>)chestInfo.get(null)).put(NETHER_FORTRESS, new ChestGenHooks(NETHER_FORTRESS, (WeightedRandomChestContent[]) fortressWeightedField.get(null), 2, 5));
 			}
 		} catch (Exception e) {
