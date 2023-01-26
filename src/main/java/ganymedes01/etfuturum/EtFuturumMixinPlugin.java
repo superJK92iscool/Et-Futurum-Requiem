@@ -1,27 +1,18 @@
 package ganymedes01.etfuturum;
 
+import ganymedes01.etfuturum.configuration.configs.*;
+import ganymedes01.etfuturum.lib.Reference;
+import net.minecraft.launchwrapper.Launch;
+import org.spongepowered.asm.lib.tree.ClassNode;
+import org.spongepowered.asm.mixin.MixinEnvironment;
+import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
+import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
+
 import java.io.File;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-
-import org.spongepowered.asm.lib.tree.ClassNode;
-import org.spongepowered.asm.mixin.MixinEnvironment;
-import org.spongepowered.asm.mixin.MixinEnvironment.Side;
-import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
-import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
-
-import cpw.mods.fml.common.FMLCommonHandler;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
-import ganymedes01.etfuturum.configuration.configs.ConfigEnchantsPotions;
-import ganymedes01.etfuturum.configuration.configs.ConfigEntities;
-import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
-import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
-import ganymedes01.etfuturum.configuration.configs.ConfigTweaks;
-import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
-import ganymedes01.etfuturum.lib.Reference;
-import net.minecraft.launchwrapper.Launch;
 
 public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 	
@@ -144,17 +135,17 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 		}
 		
 		if(ConfigMixins.newHurtSounds) {
-			mixins.add("entitysounds.MixinEntityPlayer");
+			mixins.add("sounds.MixinEntityPlayer");
 			if(side == MixinEnvironment.Side.CLIENT) {
-				mixins.add("entitysounds.client.MixinEntityClientPlayerMP");
+				mixins.add("sounds.client.MixinEntityClientPlayerMP");
 			}
 		}
 		
 		if(ConfigMixins.newMobSounds) {
-			mixins.add("entitysounds.MixinEntitySnowman");
-			mixins.add("entitysounds.MixinEntitySkeleton");
-			mixins.add("entitysounds.MixinEntitySquid");
-			mixins.add("entitysounds.MixinEntityWitch");
+			mixins.add("sounds.MixinEntitySnowman");
+			mixins.add("sounds.MixinEntitySkeleton");
+			mixins.add("sounds.MixinEntitySquid");
+			mixins.add("sounds.MixinEntityWitch");
 		}
 		
 		if(ConfigMixins.floorCeilingButtons) {
@@ -162,8 +153,12 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 		}
 		
 		if(ConfigMixins.newEnderEyeSounds) {
-			mixins.add("endereye.MixinItemEnderEye");
-			mixins.add("endereye.MixinEntityEnderEye");
+			mixins.add("sounds.MixinItemEnderEye");
+			mixins.add("sounds.MixinEntityEnderEye");
+		}
+
+		if(ConfigMixins.newEnchantingSounds) {
+			mixins.add("sounds.MixinContainerEnchantment");
 		}
 		
 		if(side == MixinEnvironment.Side.CLIENT) {

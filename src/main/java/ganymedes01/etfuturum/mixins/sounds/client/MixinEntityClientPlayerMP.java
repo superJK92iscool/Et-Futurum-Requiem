@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.mixins.entitysounds.client;
+package ganymedes01.etfuturum.mixins.sounds.client;
 
 import org.spongepowered.asm.mixin.Mixin;
 
@@ -7,8 +7,6 @@ import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.util.Session;
 import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.PlaySoundAtEntityEvent;
 
 @Mixin(EntityClientPlayerMP.class)
 /**

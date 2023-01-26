@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.mixins.entitysounds;
+package ganymedes01.etfuturum.mixins.sounds;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;

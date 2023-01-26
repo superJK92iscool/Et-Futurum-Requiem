@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.mixins.endereye;
+package ganymedes01.etfuturum.mixins.sounds;
 
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.entity.Entity;

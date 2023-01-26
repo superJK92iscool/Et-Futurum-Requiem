@@ -1,24 +1,21 @@
 package ganymedes01.etfuturum.inventory;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-
 import ganymedes01.etfuturum.ModBlocks;
+import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.enchantment.EnchantmentData;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Items;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ICrafting;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.InventoryBasic;
-import net.minecraft.inventory.Slot;
+import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 public class ContainerEnchantment extends Container {
 
@@ -227,6 +224,7 @@ public class ContainerEnchantment extends Container {
 
 				if (var6 != null) {
 					chargeForEnchant(player, rand, var5);
+					world.playSoundEffect(posX + 0.5F, posY + 0.5F, posZ + 0.5F, Reference.MCAssetVer+":block.enchantment_table.use", 1.0F, world.rand.nextFloat() * 0.1F + 0.9F);
 
 					if (var7)
 						slot0.func_150996_a(Items.enchanted_book);

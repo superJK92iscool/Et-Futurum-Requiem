@@ -1,14 +1,12 @@
 package ganymedes01.etfuturum.configuration.configs;
 
-import java.io.File;
-
-import org.spongepowered.asm.mixin.MixinEnvironment;
-import org.spongepowered.asm.mixin.MixinEnvironment.Side;
-
 import ganymedes01.etfuturum.EtFuturumMixinPlugin;
 import ganymedes01.etfuturum.configuration.ConfigBase;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.common.config.Configuration;
+import org.spongepowered.asm.mixin.MixinEnvironment;
+
+import java.io.File;
 
 public class ConfigMixins extends ConfigBase {
 	
@@ -17,11 +15,12 @@ public class ConfigMixins extends ConfigBase {
 	public static boolean furnaceCrackle;
 	public static boolean stepHeightFix;
 	public static boolean bouncyBeds;
+	public static boolean floorCeilingButtons;
 	public static boolean newHurtSounds;
 	public static boolean newMobSounds;
 	public static boolean newEnderEyeSounds;
+	public static boolean newEnchantingSounds;
 	public static boolean boundedBlockBreakingParticles;
-	public static boolean floorCeilingButtons;
 
 	static final String catBackport = "backported features";
 	static final String catOptimization = "optimizations";
@@ -67,10 +66,11 @@ public class ConfigMixins extends ConfigBase {
 		enableDoWeatherCycle = cfg.getBoolean("enableDoWeatherCycle", catBackport, true, "Add the doWeatherCycle game rule from 1.11+");
 		creativeFlightSpeedModifier = cfg.getFloat("creativeFlightSpeedModifier", catBackport, 2, 1, 4, "When greater than 1, boosts creative flight speed when sprinting, like in newer versions");
 		bouncyBeds = cfg.getBoolean("bouncyBeds", catBackport, true, "Makes beds bouncy. Should work with most modded beds. For continuity disabling this also disables EFR beds being bouncy.\nModified Classes: net.minecraft.block.BlockBed");
+		floorCeilingButtons = cfg.getBoolean("floorCeilingButtons", catBackport, true, "Allows ability to place buttons on the floor and ceiling. Note: Due to metadata limits, they won't rotate to face the player like how they were made to in more modern versions.\nModified Classes: net.minecraft.block.BlockButton");
 		newHurtSounds = cfg.getBoolean("newHurtSounds", catBackport, true, "Damage sounds for walking into a berry bush, drowning or burning\nModified Classes: net.minecraft.entity.player.EntityPlayer net.minecraft.client.entity.EntityClientPlayerMP");
 		newEnderEyeSounds = cfg.getBoolean("newEnderEyeSounds", catBackport, true, "New sounds for throwing an eye of ender, and for them breaking or dropping.\nModified Classes: net.minecraft.entity.item.EntityEnderEye net.minecraft.item.ItemEnderEye");
 		newMobSounds = cfg.getBoolean("newMobSounds", catBackport, true, "New sounds for the witch, snow golem, squid and wither skeleton.");
-		floorCeilingButtons = cfg.getBoolean("floorCeilingButtons", catBackport, true, "Allows ability to place buttons on the floor and ceiling. Note: Due to metadata limits, they won't rotate to face the player like how they were made to in more modern versions.\nModified Classes: net.minecraft.block.BlockButton");
+		newEnchantingSounds = cfg.getBoolean("newEnchantingSounds", catBackport, true, "Allows an enchantment sound to play on the vanilla enchantment table, and possibly a few modded ones...? This option does nothing to the Et Futurum Requiem enchantment tables.");
 
 
 		stepHeightFix = cfg.getBoolean("stepHeightFix", catFixes, true, "Makes the player able to step up even if a block would be above their head at the destination.\nModified classes: net.minecraft.entity.Entity");

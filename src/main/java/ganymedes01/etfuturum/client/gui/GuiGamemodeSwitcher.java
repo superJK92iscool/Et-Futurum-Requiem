@@ -24,7 +24,7 @@ import org.lwjgl.opengl.GL12;
 import java.util.*;
 
 public class GuiGamemodeSwitcher extends GuiScreen {
-    private static final ResourceLocation TEXTURE = Utils.getResource(Reference.MOD_ID + ":textures/gui/container/gamemode_switcher.png");
+    private static final ResourceLocation TEXTURE = Utils.getResource("textures/gui/container/gamemode_switcher.png");
 
     private static final int BUTTON_SIZE = 26;
 

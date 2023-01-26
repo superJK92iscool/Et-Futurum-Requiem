@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.mixins.entitysounds;
+package ganymedes01.etfuturum.mixins.sounds;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
@@ -8,8 +8,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import ganymedes01.etfuturum.blocks.BlockBerryBush;
 import ganymedes01.etfuturum.lib.Reference;
-import net.minecraft.client.entity.EntityClientPlayerMP;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;

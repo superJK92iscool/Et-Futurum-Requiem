@@ -1,34 +1,14 @@
 package ganymedes01.etfuturum;
 
-import java.io.File;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.lang3.ArrayUtils;
-
 import com.google.common.collect.ImmutableList;
-
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.FMLConstructionEvent;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.*;
 import cpw.mods.fml.common.event.FMLInterModComms.IMCEvent;
 import cpw.mods.fml.common.event.FMLInterModComms.IMCMessage;
-import cpw.mods.fml.common.event.FMLLoadCompleteEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -44,27 +24,10 @@ import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.proxy.CommonProxy;
-import ganymedes01.etfuturum.core.utils.BrewingFuelRegistry;
-import ganymedes01.etfuturum.core.utils.DeepslateOreRegistry;
-import ganymedes01.etfuturum.core.utils.HoeHelper;
-import ganymedes01.etfuturum.core.utils.RawOreRegistry;
-import ganymedes01.etfuturum.core.utils.StrippedLogRegistry;
+import ganymedes01.etfuturum.core.utils.*;
 import ganymedes01.etfuturum.entities.ModEntityList;
 import ganymedes01.etfuturum.lib.Reference;
-import ganymedes01.etfuturum.network.ArmourStandInteractHandler;
-import ganymedes01.etfuturum.network.ArmourStandInteractMessage;
-import ganymedes01.etfuturum.network.AttackYawHandler;
-import ganymedes01.etfuturum.network.AttackYawMessage;
-import ganymedes01.etfuturum.network.BlackHeartParticlesHandler;
-import ganymedes01.etfuturum.network.BlackHeartParticlesMessage;
-import ganymedes01.etfuturum.network.BoatMoveHandler;
-import ganymedes01.etfuturum.network.BoatMoveMessage;
-import ganymedes01.etfuturum.network.ChestBoatOpenInventoryHandler;
-import ganymedes01.etfuturum.network.ChestBoatOpenInventoryMessage;
-import ganymedes01.etfuturum.network.StartElytraFlyingHandler;
-import ganymedes01.etfuturum.network.StartElytraFlyingMessage;
-import ganymedes01.etfuturum.network.WoodSignOpenHandler;
-import ganymedes01.etfuturum.network.WoodSignOpenMessage;
+import ganymedes01.etfuturum.network.*;
 import ganymedes01.etfuturum.potion.ModPotions;
 import ganymedes01.etfuturum.recipes.BlastFurnaceRecipes;
 import ganymedes01.etfuturum.recipes.ModRecipes;
@@ -78,18 +41,8 @@ import ganymedes01.etfuturum.world.structure.OceanMonument;
 import makamys.mclib.core.MCLib;
 import makamys.mclib.ext.assetdirector.ADConfig;
 import makamys.mclib.ext.assetdirector.AssetDirectorAPI;
-import net.minecraft.block.Block;
+import net.minecraft.block.*;
 import net.minecraft.block.Block.SoundType;
-import net.minecraft.block.BlockBed;
-import net.minecraft.block.BlockCrops;
-import net.minecraft.block.BlockHay;
-import net.minecraft.block.BlockLeaves;
-import net.minecraft.block.BlockNetherWart;
-import net.minecraft.block.BlockOre;
-import net.minecraft.block.BlockSponge;
-import net.minecraft.block.BlockStem;
-import net.minecraft.block.BlockTrapDoor;
-import net.minecraft.block.BlockVine;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
@@ -106,6 +59,12 @@ import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.oredict.OreDictionary;
+import org.apache.commons.lang3.ArrayUtils;
+
+import java.io.File;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.*;
 
 @Mod(
 		modid = Reference.MOD_ID,
@@ -829,6 +788,7 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "block.amethyst_block.hit", "block");
 		config.addSoundEvent(ver, "block.amethyst_block.chime", "block");
 		config.addSoundEvent(ver, "block.smithing_table.use", "player");
+		config.addSoundEvent(ver, "block.enchantment_table.use", "player");
 		config.addSoundEvent(ver, "block.wooden_button.click_off", "block");
 		config.addSoundEvent(ver, "block.wooden_button.click_on", "block");
 		config.addSoundEvent(ver, "block.wooden_pressure_plate.click_off", "block");

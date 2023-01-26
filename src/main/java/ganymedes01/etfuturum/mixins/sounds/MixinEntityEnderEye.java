@@ -1,15 +1,13 @@
-package ganymedes01.etfuturum.mixins.endereye;
+package ganymedes01.etfuturum.mixins.sounds;
 
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import ganymedes01.etfuturum.core.utils.Logger;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityEnderEye;
 import net.minecraft.world.World;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(EntityEnderEye.class)
 public abstract class MixinEntityEnderEye extends Entity {
