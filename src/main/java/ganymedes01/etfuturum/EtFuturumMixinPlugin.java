@@ -191,6 +191,9 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 				mixins.add("elytra.client.MixinModelBiped");
 				mixins.add("elytra.client.MixinEntityRenderer");
 			}
+			if(ConfigBlocksItems.enablePigstep) {
+				mixins.add("MixinStructureNetherBridgePieces_Piece");
+			}
 		}
 		
 		return mixins;
