@@ -19,6 +19,7 @@ public class ConfigMixins extends ConfigBase {
 	public static boolean bouncyBeds;
 	public static boolean newHurtSounds;
 	public static boolean newMobSounds;
+	public static boolean newEnderEyeSounds;
 	public static boolean boundedBlockBreakingParticles;
 	public static boolean floorCeilingButtons;
 
@@ -67,6 +68,7 @@ public class ConfigMixins extends ConfigBase {
 		creativeFlightSpeedModifier = cfg.getFloat("creativeFlightSpeedModifier", catBackport, 2, 1, 4, "When greater than 1, boosts creative flight speed when sprinting, like in newer versions");
 		bouncyBeds = cfg.getBoolean("bouncyBeds", catBackport, true, "Makes beds bouncy. Should work with most modded beds. For continuity disabling this also disables EFR beds being bouncy.\nModified Classes: net.minecraft.block.BlockBed");
 		newHurtSounds = cfg.getBoolean("newHurtSounds", catBackport, true, "Damage sounds for walking into a berry bush, drowning or burning\nModified Classes: net.minecraft.entity.player.EntityPlayer net.minecraft.client.entity.EntityClientPlayerMP");
+		newEnderEyeSounds = cfg.getBoolean("newEnderEyeSounds", catBackport, true, "New sounds for throwing an eye of ender, and for them breaking or dropping.\nModified Classes: net.minecraft.entity.item.EntityEnderEye net.minecraft.item.ItemEnderEye");
 		newMobSounds = cfg.getBoolean("newMobSounds", catBackport, true, "New sounds for the witch, snow golem, squid and wither skeleton.");
 		floorCeilingButtons = cfg.getBoolean("floorCeilingButtons", catBackport, true, "Allows ability to place buttons on the floor and ceiling. Note: Due to metadata limits, they won't rotate to face the player like how they were made to in more modern versions.\nModified Classes: net.minecraft.block.BlockButton");
 

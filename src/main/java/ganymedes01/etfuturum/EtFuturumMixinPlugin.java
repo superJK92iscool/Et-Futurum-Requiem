@@ -161,6 +161,11 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 			mixins.add("MixinBlockButton");
 		}
 		
+		if(ConfigMixins.newEnderEyeSounds) {
+			mixins.add("endereye.MixinItemEnderEye");
+			mixins.add("endereye.MixinEntityEnderEye");
+		}
+		
 		if(side == MixinEnvironment.Side.CLIENT) {
 			
 			if(ConfigMixins.boundedBlockBreakingParticles) {

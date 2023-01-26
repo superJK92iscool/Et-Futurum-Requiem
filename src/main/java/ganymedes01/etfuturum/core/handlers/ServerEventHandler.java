@@ -26,7 +26,6 @@ import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
-import cpw.mods.fml.common.registry.GameRegistry.Type;
 import cpw.mods.fml.relauncher.Side;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
@@ -90,6 +89,7 @@ import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
 import net.minecraft.entity.ai.EntityAITempt;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.item.EntityBoat;
+import net.minecraft.entity.item.EntityEnderEye;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityItemFrame;
 import net.minecraft.entity.item.EntityPainting;
@@ -299,8 +299,10 @@ public class ServerEventHandler {
 			}
 			if(!sound.equals("")) {
 				event.world.playSoundAtEntity(event.entity, Reference.MCAssetVer+":entity."+sound+".place", 1.0F, 1.0F);
+				return;
 			}
 		}
+
 		
 		if (ConfigBlocksItems.enableNewBoats && ConfigBlocksItems.replaceOldBoats) {
 			if (event.entity.getClass() == EntityBoat.class) {

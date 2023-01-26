@@ -761,6 +761,8 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "entity.painting.place", "player");
 		config.addSoundEvent(ver, "entity.leash_knot.break", "player");
 		config.addSoundEvent(ver, "entity.leash_knot.place", "player");
+		config.addSoundEvent(ver, "entity.ender_eye.death", "player");
+		config.addSoundEvent(ver, "entity.ender_eye.launch", "player");
 		
 		
 		config.addSoundEvent(ver, "entity.player.hurt_on_fire", "player");
