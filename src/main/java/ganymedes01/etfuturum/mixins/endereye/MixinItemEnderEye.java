@@ -1,6 +1,5 @@
 package ganymedes01.etfuturum.mixins.endereye;
 
-import ganymedes01.etfuturum.core.utils.Logger;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;

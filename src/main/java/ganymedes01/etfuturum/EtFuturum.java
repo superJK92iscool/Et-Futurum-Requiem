@@ -749,6 +749,7 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "entity.witch.ambient", "hostile");
 		config.addSoundEvent(ver, "entity.witch.hurt", "hostile");
 		config.addSoundEvent(ver, "entity.witch.death", "hostile");
+		config.addSoundEvent(ver, "entity.witch.drink", "hostile");
 		config.addSoundEvent(ver, "entity.item_frame.add_item", "player");
 		config.addSoundEvent(ver, "entity.item_frame.break", "player");
 		config.addSoundEvent(ver, "entity.item_frame.place", "player");
@@ -758,8 +759,8 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "entity.painting.place", "player");
 		config.addSoundEvent(ver, "entity.leash_knot.break", "player");
 		config.addSoundEvent(ver, "entity.leash_knot.place", "player");
-		config.addSoundEvent(ver, "entity.ender_eye.death", "player");
-		config.addSoundEvent(ver, "entity.ender_eye.launch", "player");
+		config.addSoundEvent(ver, "entity.ender_eye.death", "neutral");
+		config.addSoundEvent(ver, "entity.ender_eye.launch", "neutral");
 		
 		
 		config.addSoundEvent(ver, "entity.player.hurt_on_fire", "player");
