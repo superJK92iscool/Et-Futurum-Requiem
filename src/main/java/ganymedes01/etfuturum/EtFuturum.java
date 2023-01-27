@@ -1,6 +1,20 @@
 package ganymedes01.etfuturum;
 
+import java.io.File;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang3.ArrayUtils;
+
 import com.google.common.collect.ImmutableList;
+
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -151,6 +165,9 @@ public class EtFuturum {
 			if(!((HashMap<String, ChestGenHooks>)chestInfo.get(null)).containsKey(NETHER_FORTRESS)) {
 				fortressWeightedField = Class.forName("net.minecraft.world.gen.structure.StructureNetherBridgePieces$Piece").getDeclaredField("field_111019_a");
 				fortressWeightedField.setAccessible(true);
+				Field modifiersField = Field.class.getDeclaredField("modifiers");
+				modifiersField.setAccessible(true);
+				modifiersField.setInt(fortressWeightedField, fortressWeightedField.getModifiers() & ~Modifier.FINAL);
 				((HashMap<String, ChestGenHooks>)chestInfo.get(null)).put(NETHER_FORTRESS, new ChestGenHooks(NETHER_FORTRESS, (WeightedRandomChestContent[]) fortressWeightedField.get(null), 2, 5));
 			}
 		} catch (Exception e) {
@@ -272,25 +289,23 @@ public class EtFuturum {
 		if(ConfigBlocksItems.enablePigstep) {
 			ChestGenHooks.addItem(NETHER_FORTRESS, new WeightedRandomChestContent(ModItems.pigstep_record, 0, 1, 1, 5));
 			
-			try {
-				Field contents = ChestGenHooks.class.getDeclaredField("contents");
-				contents.setAccessible(true);
-				ArrayList<WeightedRandomChestContent> fortressContentList;
-				fortressContentList = (ArrayList<WeightedRandomChestContent>)contents.get(ChestGenHooks.getInfo("netherFortress"));
-				if(!fortressContentList.isEmpty()) {
-					WeightedRandomChestContent[] fortressChest = new WeightedRandomChestContent[fortressContentList.size()];
-					for (int i = 0; i < fortressContentList.size(); i++) {
-					  fortressChest[i] = fortressContentList.get(i); 
+			if(fortressWeightedField != null) {
+				try {
+					Field contents = ChestGenHooks.class.getDeclaredField("contents");
+					contents.setAccessible(true);
+					ArrayList<WeightedRandomChestContent> fortressContentList;
+					fortressContentList = (ArrayList<WeightedRandomChestContent>)contents.get(ChestGenHooks.getInfo("netherFortress"));
+					if(!fortressContentList.isEmpty()) {
+						WeightedRandomChestContent[] fortressChest = new WeightedRandomChestContent[fortressContentList.size()];
+						for (int i = 0; i < fortressContentList.size(); i++) {
+						  fortressChest[i] = fortressContentList.get(i); 
+						}
+						fortressWeightedField.set(null, fortressChest);
 					}
-					
-					Class<?> setLootTableSignature = WeightedRandomChestContent[].class;
-					Method setLootTable = Class.forName("net.minecraft.world.gen.structure.StructureNetherBridgePieces$Piece").getDeclaredMethod("etfu$setLootTable", setLootTableSignature);
-					setLootTable.setAccessible(true);
-					setLootTable.invoke(null, new Object[] {fortressChest});
+				} catch (Exception e) {
+					System.out.println("Failed to fill Nether fortress loot table:");
+					e.printStackTrace();
 				}
-			} catch (Exception e) {
-				System.out.println("Failed to fill Nether fortress loot table:");
-				e.printStackTrace();
 			}
 		}
 
