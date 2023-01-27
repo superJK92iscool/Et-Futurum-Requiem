@@ -69,6 +69,8 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 //      if(oldFile.exists()) {
 //          ConfigBase.loadBaseConfig(oldFile);
 //      }
+		
+		CompatMisc.doLwjgl3ifyCompat();
 	}
 
 	@Override

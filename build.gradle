@@ -110,6 +110,11 @@ dependencies {
 	compileOnly "team.chisel:Chisel:2.9.5.12:deobf"
 	compileOnly "team.chisel.ctmlib:CTMLib:MC1.7.10-1.4.1.5:deobf"
 	
+	// 1.1.12 (for some reason the build failed when I used the version tag)
+	compileOnly("com.github.GTNewHorizons:lwjgl3ify:92b1e089c5:api") {
+		transitive = false
+	}
+	
 	shade('com.github.makamys:MCLib:0.3.7.1') {
 		exclude group: "codechicken"
 	}
