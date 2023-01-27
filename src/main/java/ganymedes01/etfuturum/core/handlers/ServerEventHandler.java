@@ -1,25 +1,5 @@
 package ganymedes01.etfuturum.core.handlers;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
-import java.util.WeakHashMap;
-
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.mutable.MutableFloat;
-
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.eventhandler.EventPriority;
@@ -36,28 +16,14 @@ import ganymedes01.etfuturum.api.elytra.IElytraPlayer;
 import ganymedes01.etfuturum.blocks.BlockMagma;
 import ganymedes01.etfuturum.blocks.BlockWitherRose;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
-import ganymedes01.etfuturum.configuration.configs.ConfigEnchantsPotions;
-import ganymedes01.etfuturum.configuration.configs.ConfigEntities;
-import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
-import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
-import ganymedes01.etfuturum.configuration.configs.ConfigTweaks;
-import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
+import ganymedes01.etfuturum.configuration.configs.*;
 import ganymedes01.etfuturum.core.utils.ExternalContent;
 import ganymedes01.etfuturum.core.utils.HoeHelper;
 import ganymedes01.etfuturum.core.utils.RawOreRegistry;
 import ganymedes01.etfuturum.core.utils.StrippedLogRegistry;
 import ganymedes01.etfuturum.core.utils.helpers.BlockAndMetadataMapping;
 import ganymedes01.etfuturum.core.utils.helpers.RawOreDropMapping;
-import ganymedes01.etfuturum.entities.EntityBoostingFireworkRocket;
-import ganymedes01.etfuturum.entities.EntityBrownMooshroom;
-import ganymedes01.etfuturum.entities.EntityEndermite;
-import ganymedes01.etfuturum.entities.EntityNewBoat;
-import ganymedes01.etfuturum.entities.EntityNewSnowGolem;
-import ganymedes01.etfuturum.entities.EntityRabbit;
-import ganymedes01.etfuturum.entities.EntityShulker;
-import ganymedes01.etfuturum.entities.EntityTippedArrow;
-import ganymedes01.etfuturum.entities.EntityZombieVillager;
+import ganymedes01.etfuturum.entities.*;
 import ganymedes01.etfuturum.entities.ai.EntityAIOpenCustomDoor;
 import ganymedes01.etfuturum.inventory.ContainerEnchantment;
 import ganymedes01.etfuturum.items.ItemArrowTipped;
@@ -69,19 +35,11 @@ import ganymedes01.etfuturum.spectator.SpectatorMode;
 import ganymedes01.etfuturum.tileentities.TileEntityGateway;
 import ganymedes01.etfuturum.world.DoWeatherCycleHelper;
 import ganymedes01.etfuturum.world.EtFuturumWorldListener;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockEndPortalFrame;
-import net.minecraft.block.BlockFarmland;
-import net.minecraft.block.BlockSoulSand;
-import net.minecraft.block.BlockTrapDoor;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLeashKnot;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EntityTrackerEntry;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAIOpenDoor;
 import net.minecraft.entity.ai.EntityAITargetNonTamed;
@@ -89,51 +47,23 @@ import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
 import net.minecraft.entity.ai.EntityAITempt;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.item.EntityBoat;
-import net.minecraft.entity.item.EntityEnderEye;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityItemFrame;
 import net.minecraft.entity.item.EntityPainting;
-import net.minecraft.entity.monster.EntityCreeper;
-import net.minecraft.entity.monster.EntityEnderman;
-import net.minecraft.entity.monster.EntitySkeleton;
-import net.minecraft.entity.monster.EntitySnowman;
-import net.minecraft.entity.monster.EntityWitch;
-import net.minecraft.entity.monster.EntityZombie;
-import net.minecraft.entity.passive.EntityAnimal;
-import net.minecraft.entity.passive.EntityChicken;
-import net.minecraft.entity.passive.EntityMooshroom;
-import net.minecraft.entity.passive.EntityPig;
-import net.minecraft.entity.passive.EntitySheep;
-import net.minecraft.entity.passive.EntityVillager;
-import net.minecraft.entity.passive.EntityWolf;
+import net.minecraft.entity.monster.*;
+import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemArmor;
-import net.minecraft.item.ItemBucket;
-import net.minecraft.item.ItemHoe;
-import net.minecraft.item.ItemPotion;
-import net.minecraft.item.ItemShears;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemTool;
+import net.minecraft.item.*;
 import net.minecraft.network.play.server.S29PacketSoundEffect;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.Direction;
-import net.minecraft.util.EntityDamageSource;
-import net.minecraft.util.EntityDamageSourceIndirect;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.*;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
-import net.minecraft.util.StatCollector;
-import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.Chunk;
@@ -149,20 +79,17 @@ import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent.SpecialSpawn;
-import net.minecraftforge.event.entity.player.ArrowLooseEvent;
-import net.minecraftforge.event.entity.player.ArrowNockEvent;
-import net.minecraftforge.event.entity.player.AttackEntityEvent;
-import net.minecraftforge.event.entity.player.EntityInteractEvent;
-import net.minecraftforge.event.entity.player.FillBucketEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.entity.player.*;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
-import net.minecraftforge.event.entity.player.PlayerPickupXpEvent;
-import net.minecraftforge.event.entity.player.UseHoeEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.oredict.OreDictionary;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.mutable.MutableFloat;
+
+import java.io.*;
+import java.util.*;
 
 public class ServerEventHandler {
 
@@ -228,8 +155,7 @@ public class ServerEventHandler {
 							&& (storedArmor == null // and either the NBT thinks there's not an item already there,
 									// or that the item is different in some way that's not its durability.
 									|| (!playerArmor.getItem().equals(storedArmor.getItem())
-											|| !(playerArmor.stackTagCompound == null && storedArmor.stackTagCompound != null
-													? false : playerArmor.stackTagCompound == null || playerArmor.stackTagCompound.equals(storedArmor.stackTagCompound))))) {
+											|| !((playerArmor.stackTagCompound != null || storedArmor.stackTagCompound == null) && (playerArmor.stackTagCompound == null || playerArmor.stackTagCompound.equals(storedArmor.stackTagCompound)))))) {
 						if(playerArmor.getItem() instanceof ItemArmor) {
 							String armorString = ((ItemArmor)playerArmor.getItem()).getArmorMaterial().name().toLowerCase();
 							if (armorString.contains("chain")) {
@@ -330,8 +256,8 @@ public class ServerEventHandler {
 		}
 	}
 	
-	private Set<Chunk> loadedChunks = Collections.newSetFromMap(new WeakHashMap<Chunk, Boolean>());
-	private Set<Long> debugCoords = new HashSet();
+	private final Set<Chunk> loadedChunks = Collections.newSetFromMap(new WeakHashMap<Chunk, Boolean>());
+	private final Set<Long> debugCoords = new HashSet();
 	
 	@SubscribeEvent
 	public void chunkLoad(ChunkEvent.Load event) {
@@ -954,7 +880,7 @@ public class ServerEventHandler {
 						if (ConfigWorld.enableNewMiscSounds && !world.isRemote && heldStack != null && heldStack.getItem() == Items.glass_bottle && event.action == Action.RIGHT_CLICK_AIR) {
 							MovingObjectPosition movingobjectposition = getMovingObjectPositionFromPlayer(world, player, true);
 							
-							if (movingobjectposition != null && movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
+							if (movingobjectposition != null && movingobjectposition.typeOfHit == MovingObjectType.BLOCK) {
 								int i = movingobjectposition.blockX;
 								int j = movingobjectposition.blockY;
 								int k = movingobjectposition.blockZ;

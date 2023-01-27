@@ -16,11 +16,13 @@ public class ConfigMixins extends ConfigBase {
 	public static boolean stepHeightFix;
 	public static boolean bouncyBeds;
 	public static boolean floorCeilingButtons;
+	public static boolean boundedBlockBreakingParticles;
 	public static boolean newHurtSounds;
 	public static boolean newMobSounds;
 	public static boolean newEnderEyeSounds;
 	public static boolean newEnchantingSounds;
-	public static boolean boundedBlockBreakingParticles;
+	public static boolean newFishingRodSounds;
+	public static boolean newBeaconSounds;
 
 	static final String catBackport = "backported features";
 	static final String catOptimization = "optimizations";
@@ -70,7 +72,9 @@ public class ConfigMixins extends ConfigBase {
 		newHurtSounds = cfg.getBoolean("newHurtSounds", catBackport, true, "Damage sounds for walking into a berry bush, drowning or burning\nModified Classes: net.minecraft.entity.player.EntityPlayer net.minecraft.client.entity.EntityClientPlayerMP");
 		newEnderEyeSounds = cfg.getBoolean("newEnderEyeSounds", catBackport, true, "New sounds for throwing an eye of ender, and for them breaking or dropping.\nModified Classes: net.minecraft.entity.item.EntityEnderEye net.minecraft.item.ItemEnderEye");
 		newMobSounds = cfg.getBoolean("newMobSounds", catBackport, true, "New sounds for the witch, snow golem, squid and wither skeleton.");
-		newEnchantingSounds = cfg.getBoolean("newEnchantingSounds", catBackport, true, "Allows an enchantment sound to play on the vanilla enchantment table, and possibly a few modded ones...? This option does nothing to the Et Futurum Requiem enchantment tables.");
+		newEnchantingSounds = cfg.getBoolean("newEnchantingSounds", catBackport, true, "Allows an enchantment sound to play on the vanilla enchantment table, and possibly a few modded ones...? This option does nothing to the Et Futurum Requiem enchantment tables.\nModified Classes: net.minecraft.inventory.ContainerEnchantment");
+		newFishingRodSounds = cfg.getBoolean("newFishingRodSounds", catBackport, true, "New sounds for casting and reeling in fishing rods.\nModified Classes: net.minecraft.item.ItemFishingRod");
+		newBeaconSounds = cfg.getBoolean("newBeaconSounds", catBackport, true, "Allows beacon ambience to play for beacons. Should include most modded beacons.\nModified Classes: net.minecraft.tileentity.TileEntityBeacon");
 
 
 		stepHeightFix = cfg.getBoolean("stepHeightFix", catFixes, true, "Makes the player able to step up even if a block would be above their head at the destination.\nModified classes: net.minecraft.entity.Entity");

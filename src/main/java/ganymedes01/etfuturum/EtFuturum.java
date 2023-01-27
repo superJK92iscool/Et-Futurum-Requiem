@@ -721,6 +721,8 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "entity.leash_knot.place", "player");
 		config.addSoundEvent(ver, "entity.ender_eye.death", "neutral");
 		config.addSoundEvent(ver, "entity.ender_eye.launch", "neutral");
+		config.addSoundEvent(ver, "entity.fishing_bobber.retrieve", "neutral");
+		config.addSoundEvent(ver, "entity.fishing_bobber.throw", "neutral");
 		
 		
 		config.addSoundEvent(ver, "entity.player.hurt_on_fire", "player");
@@ -793,6 +795,10 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "block.wooden_pressure_plate.click_on", "block");
 		config.addSoundEvent(ver, "block.metal_pressure_plate.click_off", "block");
 		config.addSoundEvent(ver, "block.metal_pressure_plate.click_on", "block");
+		config.addSoundEvent(ver, "block.beacon.activate", "block");
+		config.addSoundEvent(ver, "block.beacon.ambient", "block");
+		config.addSoundEvent(ver, "block.beacon.deactivate", "block");
+		config.addSoundEvent(ver, "block.beacon.power_select", "block");
 	
 		config.addSoundEvent(ver, "item.crop.plant", "block");
 		config.addSoundEvent(ver, "block.crop.break", "block");

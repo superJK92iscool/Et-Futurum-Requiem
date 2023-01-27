@@ -1,19 +1,5 @@
 package ganymedes01.etfuturum.core.handlers;
 
-import static ganymedes01.etfuturum.spectator.SpectatorMode.isSpectator;
-
-import java.io.File;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.WeakHashMap;
-
-import org.apache.commons.lang3.tuple.MutablePair;
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.opengl.GL11;
-
-import com.google.common.collect.Lists;
-
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.InputEvent;
@@ -43,12 +29,7 @@ import ganymedes01.etfuturum.entities.EntityNewBoatWithChest;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.network.ChestBoatOpenInventoryMessage;
 import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockBasePressurePlate;
-import net.minecraft.block.BlockButton;
-import net.minecraft.block.BlockDoor;
-import net.minecraft.block.BlockFenceGate;
-import net.minecraft.block.BlockTrapDoor;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSound;
@@ -66,12 +47,10 @@ import net.minecraft.event.ClickEvent;
 import net.minecraft.event.ClickEvent.Action;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.MathHelper;
-import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -84,6 +63,16 @@ import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.event.entity.PlaySoundAtEntityEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
+import org.apache.commons.lang3.tuple.MutablePair;
+import org.lwjgl.input.Keyboard;
+import org.lwjgl.opengl.GL11;
+
+import java.io.File;
+import java.util.Map;
+import java.util.Random;
+import java.util.WeakHashMap;
+
+import static ganymedes01.etfuturum.spectator.SpectatorMode.isSpectator;
 
 public class ClientEventHandler {
 

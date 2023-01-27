@@ -162,8 +162,20 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 		if(ConfigMixins.newEnchantingSounds) {
 			mixins.add("sounds.MixinContainerEnchantment");
 		}
+
+		if(ConfigMixins.newFishingRodSounds) {
+			mixins.add("sounds.MixinItemFishingRod");
+		}
+
+		if(ConfigMixins.newBeaconSounds) {
+			mixins.add("sounds.MixinTileEntityBeacon");
+		}
 		
 		if(side == MixinEnvironment.Side.CLIENT) {
+
+			if(ConfigMixins.newBeaconSounds) {
+				mixins.add("sounds.client.MixinTileEntityBeacon_AmbienceOnly");
+			}
 			
 			if(ConfigMixins.boundedBlockBreakingParticles) {
 				mixins.add("client.MixinEffectRenderer");
