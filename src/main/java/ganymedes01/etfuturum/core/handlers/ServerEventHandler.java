@@ -1268,7 +1268,8 @@ public class ServerEventHandler {
 			} else if (ConfigEntities.enableBabyGrowthBoost && isFoodItem(animal, stack)) {
 				feedBaby(animal, event.entityPlayer, stack);
 			}
-			
+
+			//Sheep dying with modded dyes
 			if(animal instanceof EntitySheep && stack.getItem() != Items.dye && !animal.worldObj.isRemote) {
 				EntitySheep sheep = ((EntitySheep)animal);
 				for(int oreID : OreDictionary.getOreIDs(stack)) {
@@ -1283,7 +1284,18 @@ public class ServerEventHandler {
 				}
 			}
 		}
-		
+
+		// --- Milk Mooshroom --- //
+		if (target instanceof EntityCow && stack != null && ConfigWorld.enableNewMiscSounds) {
+			if(target instanceof EntityMooshroom && stack.getItem() == Items.bowl) {
+				world.playSoundEffect(target.posX, target.posY, target.posZ, Reference.MCAssetVer+":entity.mooshroom.milk", 1.0F, 0.9F + (world.rand.nextInt(3) - 1) * 0.1F);
+			} else if(stack.getItem() == Items.bucket) {
+				world.playSoundEffect(target.posX, target.posY, target.posZ, Reference.MCAssetVer+":entity.cow.milk", 1.0F, 1.0F);
+			}
+			return;
+		}
+
+
 		if (target instanceof EntityItemFrame) { // --- Add/Rotate within Item Frame --- //
 			EntityItemFrame itemframe = (EntityItemFrame)target;
 			
@@ -1413,9 +1425,8 @@ public class ServerEventHandler {
 					brownmooshroom.copyLocationAndAnglesFrom(mooshroom);
 					brownmooshroom.onSpawnWithEgg(null);
 					mooshroom.worldObj.spawnEntityInWorld(brownmooshroom);
+					brownmooshroom.playSound(Reference.MCAssetVer+":entity.mooshroom.convert", 1 , 1);
 					mooshroom.setDead();
-					brownmooshroom.attackEntityFrom(DamageSource.onFire, 0);
-					//TODO: Cow won't flee for some reason
 				}                    
 			} else
 			if (ConfigEntities.enableBrownMooshroom && event.entity.ticksExisted > 40 && event.entity.getClass() == EntityBrownMooshroom.class) {
@@ -1425,8 +1436,8 @@ public class ServerEventHandler {
 					mooshroom.copyLocationAndAnglesFrom(brownmooshroom);
 					mooshroom.onSpawnWithEgg(null);
 					brownmooshroom.worldObj.spawnEntityInWorld(mooshroom);
+					mooshroom.playSound(Reference.MCAssetVer+":entity.mooshroom.convert", 1 , 1);
 					brownmooshroom.setDead();
-					mooshroom.attackEntityFrom(DamageSource.onFire, 0);
 				}
 			}
 	}

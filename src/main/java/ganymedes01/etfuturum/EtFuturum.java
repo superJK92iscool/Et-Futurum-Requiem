@@ -727,6 +727,10 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "entity.ender_eye.launch", "neutral");
 		config.addSoundEvent(ver, "entity.fishing_bobber.retrieve", "neutral");
 		config.addSoundEvent(ver, "entity.fishing_bobber.throw", "neutral");
+		config.addSoundEvent(ver, "entity.horse.eat", "neutral");
+		config.addSoundEvent(ver, "entity.cow.milk", "neutral");
+		config.addSoundEvent(ver, "entity.mooshroom.milk", "neutral");
+		config.addSoundEvent(ver, "entity.mooshroom.convert", "neutral");
 		
 		
 		config.addSoundEvent(ver, "entity.player.hurt_on_fire", "player");

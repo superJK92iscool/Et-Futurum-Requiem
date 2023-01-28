@@ -42,6 +42,8 @@ import net.minecraft.client.gui.GuiScreenBook;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.particle.EntityDiggingFX;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.event.ClickEvent;
 import net.minecraft.event.ClickEvent.Action;
@@ -533,15 +535,21 @@ public class ClientEventHandler {
 	@SubscribeEvent
 	public void onPlaySoundAtEntityEvent(PlaySoundAtEntityEvent event)
 	{
-		if(!event.entity.worldObj.isRemote) return;
+		if(!event.entity.worldObj.isRemote) {
+			// --- Horse eat --- //
+			if (ConfigWorld.enableNewMiscSounds && event.entity instanceof EntityHorse && event.name.equals("eating")) {
+				event.name = Reference.MCAssetVer + ":entity.horse.eat";
+			}
+			return;//This is the only code I want to run if !isRemote
+		}
 		
-		if(event.name != null && event.entity != null) {
+		if(event.name != null) {
 			int x = MathHelper.floor_double(event.entity.posX);
 			int y = MathHelper.floor_double(event.entity.posY - 0.20000000298023224D - event.entity.yOffset);
 			int z = MathHelper.floor_double(event.entity.posZ);
 			World world = FMLClientHandler.instance().getWorldClient();
 			Block block = world.getBlock(x, y, z);
-			
+
 			if(world.getBlock(x, y, z) instanceof IMultiStepSound && (!((IMultiStepSound)block).requiresNewBlockSounds() || ConfigWorld.enableNewBlocksSounds)) {
 				Block.SoundType stepSound = ((IMultiStepSound)block).getStepSound(world, x, y, z, world.getBlockMetadata(x, y, z));
 				if(stepSound == null) return;
