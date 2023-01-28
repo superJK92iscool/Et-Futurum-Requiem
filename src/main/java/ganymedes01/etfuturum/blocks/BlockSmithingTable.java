@@ -39,7 +39,7 @@ public class BlockSmithingTable extends Block implements IConfigurable {
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int p_149691_1_, int p_149691_2_)
 	{
-		return p_149691_1_ == 1 ? this.topIcon : (p_149691_1_ == 0 ? bottomIcon : (p_149691_1_ != 2 && p_149691_1_ != 4 ? this.blockIcon : this.sideIcon));
+		return p_149691_1_ == 1 ? this.topIcon : (p_149691_1_ == 0 ? bottomIcon : (p_149691_1_ != 2 && p_149691_1_ != 3 ? this.blockIcon : this.sideIcon));
 	}
 
 	@SideOnly(Side.CLIENT)
