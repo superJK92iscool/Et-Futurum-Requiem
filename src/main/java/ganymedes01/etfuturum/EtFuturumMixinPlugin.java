@@ -43,19 +43,6 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 		if(oldFile.exists()) {
 			launchConfigWarning = true;
 		}
-		
-		//TODO: Add options for...
-		//End gateway beam color
-		//Deepslate replaces cobblestone
-		//End portal overhaul
-		//Mixin Floor/Ceil buttons
-		//Mixin Floor/Ceil item frames
-		//Better end gateway rendering
-		//Mixin Damage sounds
-		//Mixin Remove vanilla dyes from oreDict pool
-		//Mixin for no parent achievement requirement
-		//Tweak for stone splatters in the ground like beta
-		//Mixin for cows having 1024 to output the opposite type baby
 
 		ConfigBlocksItems.configInstance.syncConfig();
 		ConfigEnchantsPotions.configInstance.syncConfig();
@@ -63,6 +50,7 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 		ConfigTweaks.configInstance.syncConfig();
 		ConfigWorld.configInstance.syncConfig();
 		ConfigEntities.configInstance.syncConfig();
+		ConfigSounds.configInstance.syncConfig();
 
 		ConfigMixins.configInstance.syncConfig();
 		

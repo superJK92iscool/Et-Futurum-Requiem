@@ -736,6 +736,12 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "entity.player.hurt_on_fire", "player");
 		config.addSoundEvent(ver, "entity.player.hurt_drown", "player");
 		config.addSoundEvent(ver, "entity.player.hurt_sweet_berry_bush", "player");
+		config.addSoundEvent(ver, "entity.player.attack.crit", "player");
+		config.addSoundEvent(ver, "entity.player.attack.knockback", "player");
+		config.addSoundEvent(ver, "entity.player.attack.nodamage", "player");
+		config.addSoundEvent(ver, "entity.player.attack.strong", "player");
+		config.addSoundEvent(ver, "entity.player.attack.sweep", "player");
+		config.addSoundEvent(ver, "entity.player.attack.weak", "player");
 		
 		config.addSoundEvent(ver, "item.axe.scrape", "player");
 		config.addSoundEvent(ver, "item.axe.wax_off", "player");

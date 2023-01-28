@@ -1083,7 +1083,7 @@ public class ServerEventHandler {
 	 * ... AND ALSO THEY DOn'T EVEN DAMAGE THE HOE IF RESULT IS ALLOW AND DAMAGEITEM DOES NOTHING TO IT IFJSDNJGUIHRSNGRMSG
 	 * So we just say screw it, IC2 hoes don't get to use the new sound code or till coarse dirt since they don't use the event properly...
 	 * 
-	 * @param event
+	 * @param current
 	 * @return 
 	 */
 	private final boolean isIC2Hoe(ItemStack current) {
@@ -1443,16 +1443,85 @@ public class ServerEventHandler {
 	}
 	@SubscribeEvent
 	public void livingHurtEvent(LivingHurtEvent event) {
-		Entity entity = event.entity;
-		if(ConfigFunctions.enableHayBaleFalls && entity != null
-				&& entity.worldObj.getBlock(MathHelper.floor_double(entity.posX), MathHelper.floor_double(entity.posY - 0.20000000298023224D - entity.yOffset), MathHelper.floor_double(entity.posZ)) == Blocks.hay_block
+		Entity targetEntity = event.entity;
+		if(targetEntity == null) return;
+		if(ConfigFunctions.enableHayBaleFalls
+				&& targetEntity.worldObj.getBlock(MathHelper.floor_double(targetEntity.posX), MathHelper.floor_double(targetEntity.posY - 0.20000000298023224D - targetEntity.yOffset), MathHelper.floor_double(targetEntity.posZ)) == Blocks.hay_block
 				&& event.source == DamageSource.fall) {
 			event.ammount *= ((float)ConfigFunctions.hayBaleReducePercent / (float)100);
 		}
-		if ((entity == null) || (!(entity instanceof EntityLivingBase))) {
+
+		// --- Attack a living entity --- //
+		if (ConfigSounds.newCombatSounds && event.source.damageType.equals("player")) {
+			EntityPlayer playerSource = (EntityPlayer) event.source.getEntity();
+			World world = playerSource.worldObj;
+			double x = targetEntity.posX;
+			double y = targetEntity.posY;
+			double z = targetEntity.posZ;
+
+			if (targetEntity.canAttackWithItem()) {
+				if (!targetEntity.hitByEntity(playerSource)) {
+					float attackDamage = (float) playerSource.getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttributeValue();
+					float enchantmentDamage = 0.0F;
+
+					if (targetEntity instanceof EntityLivingBase) {
+						enchantmentDamage = EnchantmentHelper.getEnchantmentModifierLiving(playerSource, (EntityLivingBase) targetEntity);
+					}
+
+					if (attackDamage > 0.0F || enchantmentDamage > 0.0F) {
+						boolean isStrongAttack = playerSource.getHeldItem() != null && event.ammount >= 4F;
+
+						// Knockback degree
+						//Unused variable
+//						int i = EnchantmentHelper.getKnockbackModifier(playerSource, (EntityLivingBase) targetEntity);
+
+						if (playerSource.isSprinting()) {
+							// --- Knockback attack sound --- //
+							world.playSoundEffect(x, y, z, Reference.MCAssetVer + ":entity.player.attack.knockback", 1, 1);
+//							++i;
+						}
+
+						boolean isCriticalHit = targetEntity instanceof EntityLivingBase && playerSource.fallDistance > 0.0F && !playerSource.onGround &&
+								!playerSource.isOnLadder() && !playerSource.isInWater() && !playerSource.isPotionActive(Potion.blindness) && playerSource.ridingEntity == null;
+						// Removed sprinting check because you can crit while sprinting in 1.7
+
+//						if (isCriticalHit) {
+//							attackDamage *= 1.5F;//Unused assignment
+//						}
+
+//						attackDamage += enchantmentDamage;//Unused assignment
+
+						boolean targetTakesDamage = !targetEntity.isEntityInvulnerable() && event.ammount > 0F;//targetEntity.attackEntityFrom(DamageSource.causePlayerDamage(playerSource), f);
+
+						if (targetTakesDamage) {
+							if (isCriticalHit) {
+								world.playSoundEffect(x, y, z, Reference.MCAssetVer + ":entity.player.attack.crit", 1, 1);
+							}
+
+							if (!isCriticalHit) {
+								if (isStrongAttack) // flag in 1.12 is playerSource.getCooledAttackStrength(0.5F) > 0.9F
+								{
+									// --- Strong attack sound --- //
+									world.playSoundEffect(x, y, z, Reference.MCAssetVer + ":entity.player.attack.strong", 1, 1);
+								} else {
+									// --- Weak attack sound --- //
+									world.playSoundEffect(x, y, z, Reference.MCAssetVer + ":entity.player.attack.weak", 1, 1);
+								}
+							}
+						} else {
+							// --- Damageless attack sound --- //
+							world.playSoundEffect(x, y, z, Reference.MCAssetVer + ":entity.player.attack.nodamage", 1, 1);
+						}
+					}
+				}
+			}
+		}
+
+
+		if (!(targetEntity instanceof EntityLivingBase)) {
 			return;
 		}
-		EntityLivingBase livingEntity = (EntityLivingBase)entity;
+		EntityLivingBase livingEntity = (EntityLivingBase)targetEntity;
 		
 		if(ConfigBlocksItems.enableTotemUndying) {
 			handleTotemCheck(livingEntity, event);
@@ -1501,7 +1570,7 @@ public class ServerEventHandler {
 			entity.clearActivePotions();
 			float healpercent = (float)ConfigFunctions.totemHealPercent / 100;
 			float sethp = entity.getMaxHealth() * healpercent;
-			entity.setHealth(sethp < .5F ? .5F : sethp);
+			entity.setHealth(Math.max(sethp, .5F));
 			event.ammount = 0;
 			entity.addPotionEffect(new PotionEffect(Potion.regeneration.id, 900, 1));
 			entity.addPotionEffect(new PotionEffect(Potion.fireResistance.id, 800, 1));
@@ -1553,7 +1622,7 @@ public class ServerEventHandler {
 			playersClosedContainers.clear();
 	}
 
-	private Map<EntityPlayer, MutableFloat> lastAttackedAtYaw = new WeakHashMap<>();
+	private final Map<EntityPlayer, MutableFloat> lastAttackedAtYaw = new WeakHashMap<>();
 			
 	@SubscribeEvent
 	public void onElytraPostPlayerTick(TickEvent.PlayerTickEvent e) {
