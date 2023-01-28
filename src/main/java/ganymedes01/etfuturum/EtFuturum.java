@@ -505,6 +505,10 @@ public class EtFuturum {
 		if(block.stepSound == Block.soundTypeGrass && block instanceof BlockVine) {
 			return ModSounds.soundVines;
 		}
+
+		if(block.stepSound == Block.soundTypeGrass && block instanceof BlockLilyPad) {
+			return ModSounds.soundWetGrass;
+		}
 		
 		if(block.stepSound == Block.soundTypeSand && namespace.contains("soul") && namespace.contains("sand")) {
 			return ModSounds.soundSoulSand;
@@ -754,6 +758,18 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "item.armor.equip_turtle", "player");
 		config.addSoundEvent(ver, "item.armor.equip_generic", "player");
 		config.addSoundEvent(ver, "item.armor.equip_elytra", "player");
+
+		config.addSoundEvent(ver, "block.note_block.banjo", "record");
+		config.addSoundEvent(ver, "block.note_block.bell", "record");
+		config.addSoundEvent(ver, "block.note_block.bit", "record");
+		config.addSoundEvent(ver, "block.note_block.chime", "record");
+		config.addSoundEvent(ver, "block.note_block.cow_bell", "record");
+		config.addSoundEvent(ver, "block.note_block.didgeridoo", "record");
+		config.addSoundEvent(ver, "block.note_block.flute", "record");
+		config.addSoundEvent(ver, "block.note_block.guitar", "record");
+		config.addSoundEvent(ver, "block.note_block.harp", "record");
+		config.addSoundEvent(ver, "block.note_block.iron_xylophone", "record");
+		config.addSoundEvent(ver, "block.note_block.xylophone", "record");
 		
 		config.addSoundEvent(ver, "block.barrel.open", "block");
 		config.addSoundEvent(ver, "block.barrel.close", "block");
@@ -862,6 +878,10 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "block.dripstone_block.break", "block");
 		config.addSoundEvent(ver, "block.pointed_dripstone.step", "neutral");
 		config.addSoundEvent(ver, "block.pointed_dripstone.break", "block");
+		config.addSoundEvent(ver, "block.wet_grass.step", "neutral");
+		config.addSoundEvent(ver, "block.wet_grass.break", "block");
+		config.addSoundEvent(ver, "block.wet_grass.place", "block");
+		config.addSoundEvent(ver, "block.lily_pad.place", "block");
 //      config.addSoundEvent(ver, "block.nylium.step", "neutral");
 //      config.addSoundEvent(ver, "block.nylium.break", "block");
 		config.addSoundEvent(ver, "block.fungus.step", "neutral");

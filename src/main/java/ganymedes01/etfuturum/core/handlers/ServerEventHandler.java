@@ -913,7 +913,34 @@ public class ServerEventHandler {
 							}
 						}
 
-						
+						// --- Lilypad sounds --- //
+						if (ConfigWorld.enableNewBlocksSounds && heldStack != null && Block.getBlockFromItem(heldStack.getItem()) instanceof BlockLilyPad)
+						{
+							Block block = Block.getBlockFromItem(heldStack.getItem());
+							MovingObjectPosition movingobjectposition = getMovingObjectPositionFromPlayer(world, player, true);
+							if (movingobjectposition == null) {return;}
+							else
+							{
+								if (movingobjectposition.typeOfHit == MovingObjectType.BLOCK)
+								{
+									int i = movingobjectposition.blockX;
+									int j = movingobjectposition.blockY;
+									int k = movingobjectposition.blockZ;
+
+									if(!world.canMineBlock(player, i + 1, j, k)) {return;}
+									if(!player.canPlayerEdit(i, j + 1, k, movingobjectposition.sideHit, heldStack)) {return;}
+
+									if(block.canBlockStay(world, i, j + 1, k) && event.action == Action.RIGHT_CLICK_AIR)
+									{
+										world.playSoundEffect(i + 0.5F, j + 0.5F, k + 0.5F, Reference.MCAssetVer+":block.lily_pad.place", 1.0F, 1.0F);
+										return;
+									}
+								}
+							}
+						}
+
+
+
 						if(ConfigBlocksItems.enableInvertedDaylightSensor && oldBlock == Blocks.daylight_detector && canUse(player, world, x, y, z)) {
 							player.swingItem();
 							world.setBlock(x, y, z, ModBlocks.inverted_daylight_detector, 15 - meta, 2);

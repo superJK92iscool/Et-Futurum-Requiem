@@ -81,12 +81,17 @@ public class ClientEventHandler {
 	private boolean showedDebugWarning;
 	public static boolean showDebugWarning;
 	private int currPage;
-	/*
+	/**
 	 * Represents the two values that govern the last chime age in 1.17 and up.
 	 * Left = field_26997 (Seems to be related to pitch)
 	 * Right = lastChimeAge
 	 */
-	private static final Map<Entity, MutablePair<Float, Integer>> amethystChimeCache = new WeakHashMap();
+	private static final Map<Entity, MutablePair<Float, Integer>> AMETHYST_CHIME_CACHE = new WeakHashMap<>();
+	/**
+	 * Used by sound events to get the unlocalized name for the specific state of a block. This is handled on the item's end of things.
+	 * So I use this "storage" stack to store the block I want the meta-name for, so I don't create new ItemStack instances constantly.
+	 */
+	private static final ItemStack STORAGE_STACK = new ItemStack((Item)null, 1, 0);
 
 	private static final boolean forceHideSnapshotWarning = Boolean.parseBoolean(System.getProperty("etfuturum.hideSnapshotWarning"));
 
@@ -316,8 +321,8 @@ public class ClientEventHandler {
 	@SubscribeEvent
 	public void onPlaySoundEvent(PlaySoundEvent17 event)
 	{
-		if(event.sound != null && event.name != null && cpw.mods.fml.client.FMLClientHandler.instance().getWorldClient() != null) {
-			final World world = cpw.mods.fml.client.FMLClientHandler.instance().getWorldClient();
+		if(event.sound != null && event.name != null && FMLClientHandler.instance().getWorldClient() != null) {
+			final World world = FMLClientHandler.instance().getWorldClient();
 			final float soundX = event.sound.getXPosF();
 			final float soundY = event.sound.getYPosF();
 			final float soundZ = event.sound.getZPosF();
@@ -365,11 +370,20 @@ public class ClientEventHandler {
 			
 			String[] eventwithprefix = event.name.split("\\.");
 			if (ConfigWorld.enableNewBlocksSounds && eventwithprefix.length > 1 && eventwithprefix[1].equals(Blocks.stone.stepSound.soundName) && event.sound.getPitch() < 1.0F) {
-				Item itemblock = Item.getItemFromBlock(block);
-				if(itemblock == null)
-					return;
-				String name = itemblock.getUnlocalizedName(new ItemStack(itemblock, 1, meta % 8)).toLowerCase();
-				if(name.contains("slab") && name.contains("nether") && name.contains("brick")) {
+				String blockName = "";
+				Item item = Item.getItemFromBlock(block);
+				if(item != null && item.getHasSubtypes()) {
+					try {
+						STORAGE_STACK.func_150996_a(item);
+						STORAGE_STACK.setItemDamage(world.getBlockMetadata(x, y, z) % 8);
+						blockName = item.getUnlocalizedName(STORAGE_STACK).toLowerCase();
+					} catch(Exception e) {/*In case a mod doesn't have a catch for invalid meta states and throws an error, just ignore it and proceed*/}
+				}
+
+				if(blockName.equals("")) {
+					blockName = block.getUnlocalizedName().toLowerCase();
+				}
+				if(blockName.contains("slab") && blockName.contains("nether") && blockName.contains("brick")) {
 					float soundVol = (block.stepSound.getVolume() + 1.0F) / (eventwithprefix[0].contains("step") ? 8F : 2F);
 					float soundPit = (block.stepSound.getPitch()) * (eventwithprefix[0].contains("step") ? 0.5F : 0.8F);
 
@@ -420,7 +434,48 @@ public class ClientEventHandler {
     				return;
         		}
 
-		    	// --- Book page turn --- //
+				// --- Note Blocks --- //
+				if (ConfigWorld.enableNewNoteBlockSounds && world.getBlock(MathHelper.floor_float(soundX), MathHelper.floor_float(soundY), MathHelper.floor_float(soundZ)) instanceof BlockNote &&
+						(event.name.equals("note.harp") || event.name.equals("note.snare") || event.name.equals("note.hat") || event.name.equals("note.bd"))) {
+					String instrumentToPlay = event.name;
+					String blockName = "";
+
+					Block blockBeneath = world.getBlock(
+							MathHelper.floor_float(soundX),
+							MathHelper.floor_float(soundY)-1,
+							MathHelper.floor_float(soundZ));
+					Item item = Item.getItemFromBlock(blockBeneath);
+					if(item != null && item.getHasSubtypes()) {
+						try {
+							STORAGE_STACK.func_150996_a(item);
+							STORAGE_STACK.setItemDamage(world.getBlockMetadata(MathHelper.floor_float(soundX), MathHelper.floor_float(soundY), MathHelper.floor_float(soundZ)));
+							blockName = item.getUnlocalizedName(STORAGE_STACK).toLowerCase();
+						} catch(Exception e) {/*In case a mod doesn't have a catch for invalid meta states and throws an error, just ignore it and proceed*/}
+					}
+
+					if(blockName.equals("")) {
+						blockName = blockBeneath.getUnlocalizedName().toLowerCase();
+					}
+
+					// Specific blocks
+					if (blockBeneath==Blocks.soul_sand)											{instrumentToPlay = Reference.MCAssetVer+":block.note_block.cow_bell";}
+					else if (blockName.contains("hay"))											{instrumentToPlay = Reference.MCAssetVer+":block.note_block.banjo";}
+					else if (EtFuturum.hasDictTag(blockBeneath, "blockGold"))			{instrumentToPlay = Reference.MCAssetVer+":block.note_block.bell";}
+					else if (EtFuturum.hasDictTag(blockBeneath, "blockEmerald"))		{instrumentToPlay = Reference.MCAssetVer+":block.note_block.bit";}
+					else if (blockName.contains("packed") && blockName.contains("ice"))			{instrumentToPlay = Reference.MCAssetVer+":block.note_block.chime";}
+					else if (blockName.contains("pumpkin"))										{instrumentToPlay = Reference.MCAssetVer+":block.note_block.didgeridoo";}
+					else if (blockBeneath.getMaterial() == Material.clay)						{instrumentToPlay = Reference.MCAssetVer+":block.note_block.flute";}
+					else if (EtFuturum.hasDictTag(blockBeneath, "blockIron"))			{instrumentToPlay = Reference.MCAssetVer+":block.note_block.iron_xylophone";}
+					else if (blockBeneath.getMaterial()==Material.cloth)						{instrumentToPlay = Reference.MCAssetVer+":block.note_block.guitar";}
+					else if (blockName.contains("bone") || blockName.contains("ivory"))			{instrumentToPlay = Reference.MCAssetVer+":block.note_block.xylophone";}
+					if(event.name.equals(instrumentToPlay)) return;
+
+					event.result = new PositionedSoundRecord(new ResourceLocation(instrumentToPlay), instrumentToPlay.equals(Reference.MCAssetVer+":block.note_block.iron_xylophone") ? 1F : event.sound.getVolume(), event.sound.getPitch(), soundX, soundY, soundZ);
+					return;
+				}
+
+
+				// --- Book page turn --- //
 		    	if (Minecraft.getMinecraft().currentScreen instanceof GuiScreenBook && event.name.equals("gui.button.press")) {
 	    			GuiScreenBook gui = (GuiScreenBook)Minecraft.getMinecraft().currentScreen;
 	    			// If there is a disagreement on page, play the page-turning sound
@@ -436,7 +491,7 @@ public class ClientEventHandler {
 			}
 
 			if(!EtFuturum.netherMusicNetherlicious) {
-				Minecraft mc = cpw.mods.fml.client.FMLClientHandler.instance().getClient();
+				Minecraft mc = FMLClientHandler.instance().getClient();
 				if (mc.thePlayer.dimension == -1 && event.name.equals("music.game.nether")) {
 					if(netherMusic == null || !mc.getSoundHandler().isSoundPlaying(netherMusic)) {
 						//World world = mc.theWorld; // unused variable
@@ -456,8 +511,8 @@ public class ClientEventHandler {
 					event.result = new PositionedSoundRecord(new ResourceLocation(Reference.MCAssetVer + ":" + "weather.rain" + (event.sound.getPitch() < 1.0F ? ".above" : "")), 
 							event.sound.getVolume(), event.sound.getPitch(), x + 0.5F, y + 0.5F, z + 0.5F);
 				} else if (event.name.equals("ambient.cave.cave")) {
-					if(ConfigWorld.enableNetherAmbience && cpw.mods.fml.client.FMLClientHandler.instance().getClientPlayerEntity().dimension == -1) {
-						BiomeGenBase biome = cpw.mods.fml.client.FMLClientHandler.instance().getWorldClient().getChunkFromBlockCoords(x, z).getBiomeGenForWorldCoords(x & 15, z & 15, cpw.mods.fml.client.FMLClientHandler.instance().getWorldClient().getWorldChunkManager());
+					if(ConfigWorld.enableNetherAmbience && FMLClientHandler.instance().getClientPlayerEntity().dimension == -1) {
+						BiomeGenBase biome = FMLClientHandler.instance().getWorldClient().getChunkFromBlockCoords(x, z).getBiomeGenForWorldCoords(x & 15, z & 15, FMLClientHandler.instance().getWorldClient().getWorldChunkManager());
 						if(getAmbienceMood(biome) != null) {
 							event.result = new PositionedSoundRecord(new ResourceLocation(getAmbienceMood(biome)), 
 									event.sound.getVolume(), event.sound.getPitch(), x + 0.5F, y + 0.5F, z + 0.5F);
@@ -484,7 +539,7 @@ public class ClientEventHandler {
 			int x = MathHelper.floor_double(event.entity.posX);
 			int y = MathHelper.floor_double(event.entity.posY - 0.20000000298023224D - event.entity.yOffset);
 			int z = MathHelper.floor_double(event.entity.posZ);
-			World world = cpw.mods.fml.client.FMLClientHandler.instance().getWorldClient();
+			World world = FMLClientHandler.instance().getWorldClient();
 			Block block = world.getBlock(x, y, z);
 			
 			if(world.getBlock(x, y, z) instanceof IMultiStepSound && (!((IMultiStepSound)block).requiresNewBlockSounds() || ConfigWorld.enableNewBlocksSounds)) {
@@ -507,17 +562,26 @@ public class ClientEventHandler {
 				if(event.name.equals(Block.soundTypePiston.getStepResourcePath())) {
 					String[] eventwithprefix = event.name.split("\\.");
 					if(eventwithprefix.length > 1) {
-						Item itemblock = Item.getItemFromBlock(block);
-						if(itemblock == null)
-							return;
-						String name = itemblock.getUnlocalizedName(new ItemStack(itemblock, 1, world.getBlockMetadata(x, y, z) % 8)).toLowerCase();
-						if(name.contains("slab") && name.contains("nether") && name.contains("brick")) {
+						String blockName = "";
+						Item item = Item.getItemFromBlock(block);
+						if(item != null && item.getHasSubtypes()) {
+							try {
+								STORAGE_STACK.func_150996_a(item);
+								STORAGE_STACK.setItemDamage(world.getBlockMetadata(x, y, z) % 8);
+								blockName = item.getUnlocalizedName(STORAGE_STACK).toLowerCase();
+							} catch(Exception e) {/*In case a mod doesn't have a catch for invalid meta states and throws an error, just ignore it and proceed*/}
+						}
+
+						if(blockName.equals("")) {
+							blockName = block.getUnlocalizedName().toLowerCase();
+						}
+						if(blockName.contains("slab") && blockName.contains("nether") && blockName.contains("brick")) {
 							event.name = ModSounds.soundNetherBricks.getStepResourcePath();
 							return;
 						}
 					}
 				} else if(ModSounds.soundAmethystBlock.getStepResourcePath().equals(event.name)) {
-					MutablePair<Float, Integer> pair = amethystChimeCache.get(event.entity);
+					MutablePair<Float, Integer> pair = AMETHYST_CHIME_CACHE.get(event.entity);
 					if(pair == null) {
 						pair = new MutablePair(0.0F, 0);
 					}
@@ -532,7 +596,7 @@ public class ClientEventHandler {
 						lastChimeAge = event.entity.ticksExisted;
 						pair.setLeft(field_26997);
 						pair.setRight(lastChimeAge);
-						amethystChimeCache.put(event.entity, pair);
+						AMETHYST_CHIME_CACHE.put(event.entity, pair);
 					}
 				}
 			}
