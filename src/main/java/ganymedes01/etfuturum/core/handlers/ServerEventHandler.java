@@ -17,10 +17,7 @@ import ganymedes01.etfuturum.blocks.BlockMagma;
 import ganymedes01.etfuturum.blocks.BlockWitherRose;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.*;
-import ganymedes01.etfuturum.core.utils.ExternalContent;
-import ganymedes01.etfuturum.core.utils.HoeHelper;
-import ganymedes01.etfuturum.core.utils.RawOreRegistry;
-import ganymedes01.etfuturum.core.utils.StrippedLogRegistry;
+import ganymedes01.etfuturum.core.utils.*;
 import ganymedes01.etfuturum.core.utils.helpers.BlockAndMetadataMapping;
 import ganymedes01.etfuturum.core.utils.helpers.RawOreDropMapping;
 import ganymedes01.etfuturum.entities.*;
@@ -68,6 +65,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.common.IPlantable;
+import net.minecraftforge.common.util.BlockSnapshot;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
@@ -572,18 +570,34 @@ public class ServerEventHandler {
 		return moddedDigSpeed - 1 < 0 ? 0 : moddedDigSpeed - 1;
 	}
 
+	@SubscribeEvent(priority=EventPriority.HIGHEST)
+	public void captureLastSideHit(PlayerInteractEvent event) {
+		//I need this because onPlaceBlock doesn't tell us what side we hit.
+		//Using a MovingObjectPosition doesn't work either because that event fires AFTER the trapdoor is placed, so the MOP hits the trapdoor.
+		if (ConfigFunctions.enableFloatingTrapDoors && event.action == Action.RIGHT_CLICK_BLOCK && !SpectatorMode.isSpectator(event.entityPlayer)) {
+			sideHit.set(event.face);
+		}
+	}
+
+	private final ThreadLocal<Integer> sideHit = new ThreadLocal<>();
+
 	@SubscribeEvent
 	public void onPlaceBlock(BlockEvent.PlaceEvent event) {
-		if(ConfigFunctions.enableFloatingTrapDoors && event.blockSnapshot.y - event.y != 0 && event.placedBlock instanceof BlockTrapDoor) {
+		if (ConfigFunctions.enableFloatingTrapDoors && event.placedBlock instanceof BlockTrapDoor && (sideHit.get() == 0 || sideHit.get() == 1)) {
 			int l = (MathHelper.floor_double(event.player.rotationYaw * 4.0F / 360.0F + 0.5D) + 1) & 3;
-			if(l == 0) {
-				l = 1;
-			} else if(l == 1) {
+			if (l == 0) {
 				l = 2;
-			} else if(l == 2) {
+			} else if (l == 3) {
+				l = 1;
+			} else if (l == 1) {
 				l = 0;
+			} else {
+				l = 3;
 			}
-			event.world.setBlockMetadataWithNotify(event.x, event.y, event.z, l, 3);
+			if (sideHit.get() == 0) {
+				l += 8;
+			}
+			event.world.setBlockMetadataWithNotify(event.x, event.y, event.z, l, 2);
 		}
 	}
 
