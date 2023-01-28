@@ -26,7 +26,8 @@ public class BeaconAmbientSound extends MovingSound {
 
     @Override
     public void update() {
-        if (this.beacon != null && (beacon.getWorldObj().getBlock(beacon.xCoord, beacon.yCoord, beacon.zCoord) instanceof BlockBeacon)) {//Even though we already check for the level in the block, we check this to be sure there's still a beacon at the sound we're playing. If it's no longer there, the sound should stop immediately.
+        //Somehow this class throws an NPE randomly so I there's a few NPE checks to be safe
+        if (this.beacon != null && beacon.getWorldObj() != null && beacon.getBlockType() instanceof BlockBeacon && Minecraft.getMinecraft().thePlayer != null) {
             EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
             float distance = MathHelper.sqrt_double((this.xPosF - player.posX) * (this.xPosF - player.posX) + (this.yPosF - player.posY) * (this.yPosF - player.posY) + (this.zPosF - player.posZ) * (this.zPosF - player.posZ));
             this.volume = MathHelper.clamp_float((1F - (distance / 7F)) * 0.9F, 0F, 1F);
