@@ -6,7 +6,7 @@ WARNING!
 
 Though this project is licensed under the LGPL-3.0 a lot of the code featured here is a direct copy or adaptation of Mojangs original code. So be careful with what you do with it.
 
-This project is jss2a98aj's fork of KryptonCaptain's Et Futurum build, as well as a merge of Roadhog360's changes he made to Et Futurum and never published anywhere. Makamys is a great help with helping me get the concept of Mixin code and various incredibly useful commits.
+This project is jss2a98aj's fork of KryptonCaptain's Et Futurum build, as well as a merge of my own (Roadhog460's) changes I made to Et Futurum and never published anywhere. Thanks to other incredible notable contributors such as makamys among various things, including helping setup mixins, contributed hugely useful changes like porting the expanded container code for Iron Shulker Boxes, and CI + nomixin to the gradle and GitHub scripts. And embeddedt who contributed some incredibly large-scale backports like the Backlytra port and spectator mode, the F3 gamemode switcher and other really good contributions.
 
 The mod uses MCLib's AssetDirector module to download assets from Mojang's servers. Check [its wiki page](https://github.com/makamys/MCLib/wiki/AssetDirector) for more information.
 
