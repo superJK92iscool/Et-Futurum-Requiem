@@ -402,59 +402,59 @@ public class EtFuturum {
 //			}
 		}
 
-//      if(ConfigBlocksItems.enableComposter) {
-//          registerComposting(ImmutableList.of(
-//                  new ItemStack(ModItems.beetroot_seeds),
-//                  new ItemStack(Blocks.tallgrass, 1, 1),
-//                  new ItemStack(Blocks.leaves, 1, OreDictionary.WILDCARD_VALUE),
-//                  new ItemStack(Items.melon_seeds),
-//                  new ItemStack(Items.pumpkin_seeds),
-//                  "treeSapling",
-//                  "treeLeaves",
-//                  new ItemStack(Items.wheat_seeds),
-//                  new ItemStack(ModItems.sweet_berries)
-//          ), 30);
-//
-//          registerComposting(ImmutableList.of(
-//                  new ItemStack(Blocks.cactus),
-//                  new ItemStack(Items.melon),
-//                  new ItemStack(Items.reeds),
-//                  new ItemStack(Blocks.double_plant, 1, 2),
-//                  new ItemStack(Blocks.vine)
-//          ), 50);
-//
-//          registerComposting(ImmutableList.of(
-//                  new ItemStack(Items.apple),
-//                  new ItemStack(ModItems.beetroot),
-//                  "cropCarrot",
-//                  new ItemStack(Blocks.cocoa),
-//                  new ItemStack(Blocks.tallgrass, 1, 2),
-//                  new ItemStack(Blocks.double_plant, 1, 3),
-//                  BlockFlower.class,
-//                  BlockLilyPad.class,
-//                  new ItemStack(Blocks.melon_block),
-//                  new ItemStack(Blocks.brown_mushroom),
-//                  new ItemStack(Blocks.red_mushroom),
-//                  new ItemStack(Items.nether_wart),
-//                  "cropPotato",
-//                  new ItemStack(Blocks.pumpkin),
-//                  "cropWheat"
-//          ), 65);
-//
-//          registerComposting(ImmutableList.of(
-//                  new ItemStack(Items.baked_potato),
-//                  new ItemStack(Items.bread),
-//                  new ItemStack(Items.cookie),
-//                  new ItemStack(Blocks.hay_block),
-//                  new ItemStack(Blocks.red_mushroom_block, 1, OreDictionary.WILDCARD_VALUE),
-//                  new ItemStack(Blocks.brown_mushroom_block, 1, OreDictionary.WILDCARD_VALUE)
-//          ), 85);
-//
-//          registerComposting(ImmutableList.of(
-//                  new ItemStack(Items.cake),
-//                  new ItemStack(Items.pumpkin_pie)
-//          ), 100);
-//      }
+      if(ConfigBlocksItems.enableComposter) {
+          registerComposting(ImmutableList.of(
+                  new ItemStack(ModItems.beetroot_seeds),
+                  new ItemStack(Blocks.tallgrass, 1, 1),
+                  new ItemStack(Blocks.leaves, 1, OreDictionary.WILDCARD_VALUE),
+                  new ItemStack(Items.melon_seeds),
+                  new ItemStack(Items.pumpkin_seeds),
+                  "treeSapling",
+                  "treeLeaves",
+                  new ItemStack(Items.wheat_seeds),
+                  new ItemStack(ModItems.sweet_berries)
+          ), 30);
+
+          registerComposting(ImmutableList.of(
+                  new ItemStack(Blocks.cactus),
+                  new ItemStack(Items.melon),
+                  new ItemStack(Items.reeds),
+                  new ItemStack(Blocks.double_plant, 1, 2),
+                  new ItemStack(Blocks.vine)
+          ), 50);
+
+          registerComposting(ImmutableList.of(
+                  new ItemStack(Items.apple),
+                  new ItemStack(ModItems.beetroot),
+                  "cropCarrot",
+                  new ItemStack(Blocks.cocoa),
+                  new ItemStack(Blocks.tallgrass, 1, 2),
+                  new ItemStack(Blocks.double_plant, 1, 3),
+                  BlockFlower.class,
+                  BlockLilyPad.class,
+                  new ItemStack(Blocks.melon_block),
+                  new ItemStack(Blocks.brown_mushroom),
+                  new ItemStack(Blocks.red_mushroom),
+                  new ItemStack(Items.nether_wart),
+                  "cropPotato",
+                  new ItemStack(Blocks.pumpkin),
+                  "cropWheat"
+          ), 65);
+
+          registerComposting(ImmutableList.of(
+                  new ItemStack(Items.baked_potato),
+                  new ItemStack(Items.bread),
+                  new ItemStack(Items.cookie),
+                  new ItemStack(Blocks.hay_block),
+                  new ItemStack(Blocks.red_mushroom_block, 1, OreDictionary.WILDCARD_VALUE),
+                  new ItemStack(Blocks.brown_mushroom_block, 1, OreDictionary.WILDCARD_VALUE)
+          ), 85);
+
+          registerComposting(ImmutableList.of(
+                  new ItemStack(Items.cake),
+                  new ItemStack(Items.pumpkin_pie)
+          ), 100);
+      }
 		
 //      if(ConfigurationHandler.enableNewNether)
 //        DimensionProviderNether.init(); // Come back to

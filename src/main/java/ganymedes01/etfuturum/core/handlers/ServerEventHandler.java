@@ -1498,9 +1498,8 @@ public class ServerEventHandler {
 								world.playSoundEffect(x, y, z, Reference.MCAssetVer + ":entity.player.attack.crit", 1, 1);
 							}
 
-							if (!isCriticalHit) {
-								if (isStrongAttack) // flag in 1.12 is playerSource.getCooledAttackStrength(0.5F) > 0.9F
-								{
+							if (!isCriticalHit) {// flag in 1.12 is playerSource.getCooledAttackStrength(0.5F) > 0.9F
+								if (isStrongAttack) {
 									// --- Strong attack sound --- //
 									world.playSoundEffect(x, y, z, Reference.MCAssetVer + ":entity.player.attack.strong", 1, 1);
 								} else {
