@@ -15,6 +15,7 @@ public class CompatMisc {
 			if(ConfigMixins.enableSpectatorMode) {
 				extensibleEnums.add("net.minecraft.world.WorldSettings$GameType");
 			}
+			extensibleEnums.add("ganymedes01.etfuturum.tileentities.TileEntityBanner$EnumBannerPattern");
 			
 			if(!extensibleEnums.isEmpty()) {
 				ConfigUtils utils = new ConfigUtils(null);
