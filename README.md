@@ -26,5 +26,5 @@ To enable incomplete test features, add `-Detfuturum.testing=true` to your JVM a
 
 The following flags can be added to the Gradle build command to modify the build.
 
-* `-Pnomixin`: build mod without Mixin embedded. The `+nomixin` suffix will be added to the version string.
+* `-Pall`: build all variations of the mod: normal, dev, nomixin, and dev-nomixin.
 * `-PuseCommitHashInVersion`: include commit hash in version string. Used by the CI.

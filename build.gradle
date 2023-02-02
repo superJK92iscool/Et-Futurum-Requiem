@@ -40,6 +40,8 @@ archivesBaseName = "Et_Futurum_Requiem"
 def modVersion = "2.4.2"
 version = project.hasProperty("useCommitHashInVersion") ? getCommitVersion(modVersion) : modVersion
 
+def buildAll = project.hasProperty("all")
+
 def getCommitVersion(modVersion){
 	try {
 		def commitHashProc = "git rev-parse --short HEAD".execute()
@@ -197,11 +199,13 @@ task devJarNoMixin(type: Jar) {
 	manifest = tasks.shadowJar.manifest
 }
 
-// we create dev jars by copying the output jars before they get obfuscated
-reobf.dependsOn devJar
+if(buildAll) {
+	// we create dev jars by copying the output jars before they get obfuscated
+	reobf.dependsOn devJar
 
-artifacts {
-	archives devJar, devJarNoMixin, shadowJarNoMixin
+	artifacts {
+		archives devJar, devJarNoMixin, shadowJarNoMixin
+	}
 }
 
 
