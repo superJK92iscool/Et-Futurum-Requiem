@@ -38,12 +38,7 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 group = "ganymedes01.etfuturum"
 archivesBaseName = "Et_Futurum_Requiem"
 def modVersion = "2.4.2"
-def embedMixin = !project.hasProperty("nomixin");
 version = project.hasProperty("useCommitHashInVersion") ? getCommitVersion(modVersion) : modVersion
-
-if(!embedMixin){
-	version += "+nomixin"
-}
 
 def getCommitVersion(modVersion){
 	try {
@@ -159,6 +154,26 @@ shadowJar {
 	}
 }
 
+task shadowJarNoMixin(type: Jar) {
+	dependsOn shadowJar
+	
+	classifier = ''
+	version += '+nomixin'
+	from(zipTree(tasks.shadowJar.archivePath)){
+		exclude "org/spongepowered/**"
+		exclude "META-INF/services/**"
+		exclude "mcmod.info" // we create a different mcmod.info in this task
+	}
+	from(sourceSets.main.resources.srcDirs) {
+		include "mcmod.info"
+		def metaNoMixin = meta.clone()
+		// add +nomixin to the end of the version in mcmod.info
+		metaNoMixin['commitVersion'] = meta['commitVersion'] + '+nomixin'
+		expand metaNoMixin.collectEntries { k, v -> [k, v.replaceAll("\u00A7.", "")] } // strip formatting
+	}
+	manifest = tasks.shadowJar.manifest
+}
+
 task devJar(type: Jar) {
 	dependsOn shadowJar
 	
@@ -169,10 +184,24 @@ task devJar(type: Jar) {
 	manifest = tasks.shadowJar.manifest
 }
 
-reobf.dependsOn devJar // we create a dev jar by copying the output jar before it gets obfuscated
+task devJarNoMixin(type: Jar) {
+	dependsOn devJar
+	
+	classifier = 'dev'
+	version += '+nomixin'
+	from zipTree(tasks.devJar.archivePath)
+	
+	exclude "org/spongepowered/**"
+	exclude "META-INF/services/**"
+	
+	manifest = tasks.shadowJar.manifest
+}
+
+// we create dev jars by copying the output jars before they get obfuscated
+reobf.dependsOn devJar
 
 artifacts {
-	archives devJar
+	archives devJar, devJarNoMixin, shadowJarNoMixin
 }
 
 
@@ -218,24 +247,13 @@ repositories {
 }
 
 dependencies {
-	if(embedMixin){
-		shadow('org.spongepowered:mixin:0.7.11-SNAPSHOT') {
-			// Mixin includes a lot of dependencies that are too up-to-date
-			exclude module: 'launchwrapper'
-			exclude module: 'guava'
-			exclude module: 'gson'
-			exclude module: 'commons-io'
-			exclude module: 'log4j-core'
-		}
-	} else {
-		compile('org.spongepowered:mixin:0.7.11-SNAPSHOT') {
-			// Mixin includes a lot of dependencies that are too up-to-date
-			exclude module: 'launchwrapper'
-			exclude module: 'guava'
-			exclude module: 'gson'
-			exclude module: 'commons-io'
-			exclude module: 'log4j-core'
-		}
+	shadow('org.spongepowered:mixin:0.7.11-SNAPSHOT') {
+		// Mixin includes a lot of dependencies that are too up-to-date
+		exclude module: 'launchwrapper'
+		exclude module: 'guava'
+		exclude module: 'gson'
+		exclude module: 'commons-io'
+		exclude module: 'log4j-core'
 	}
 }
 
