@@ -24,7 +24,7 @@ public class BlockCutCopperSlab extends BlockGenericSlab implements IConfigurabl
 		setBlockName(Utils.getUnlocalisedName("cut_copper_slab"));
 		setBlockTextureName("cut_copper");
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
-		setStepSound(ConfigSounds.enableNewBlockSounds ? ModSounds.soundCopper : Block.soundTypeMetal);
+		setStepSound(ConfigSounds.newBlockSounds ? ModSounds.soundCopper : Block.soundTypeMetal);
 		setTickRandomly(true);
 	}
 	

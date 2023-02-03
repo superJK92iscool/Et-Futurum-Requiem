@@ -41,7 +41,7 @@ public class BlockDyedBed extends BlockBed implements IConfigurable, ISubBlocksB
 		disableStats();
 		setBlockTextureName(dyeName + "_bed");
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
-		setStepSound(ConfigSounds.enableNewBlockSounds ? Block.soundTypeWood : Block.soundTypeCloth);
+		setStepSound(ConfigSounds.newBlockSounds ? Block.soundTypeWood : Block.soundTypeCloth);
 	}
 	
 //	@SideOnly(Side.CLIENT)

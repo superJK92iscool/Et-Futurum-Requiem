@@ -18,7 +18,7 @@ public class BlockBone extends BlockRotatedPillar implements IConfigurable {
 		super(Material.rock);
 		setHardness(1.5F);
 		setResistance(10.0F);
-		setStepSound(ConfigSounds.enableNewBlockSounds ? ModSounds.soundBoneBlock : soundTypeStone);
+		setStepSound(ConfigSounds.newBlockSounds ? ModSounds.soundBoneBlock : soundTypeStone);
 		setBlockTextureName("bone_block");
 		setBlockName(Utils.getUnlocalisedName("bone"));
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);

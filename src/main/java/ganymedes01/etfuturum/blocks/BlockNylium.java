@@ -17,7 +17,7 @@ public class BlockNylium extends Block implements IConfigurable {
 		setBlockName(Utils.getUnlocalisedName("copper_block"));
 		setBlockTextureName("copper_block");
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
-		setStepSound(ConfigSounds.enableNewBlockSounds ? ModSounds.soundCopper : Block.soundTypeMetal);
+		setStepSound(ConfigSounds.newBlockSounds ? ModSounds.soundCopper : Block.soundTypeMetal);
 	}
 
 	@Override

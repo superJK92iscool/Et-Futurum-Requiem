@@ -11,7 +11,7 @@ public class BlockDripstone extends Block implements IConfigurable {
 
 	public BlockDripstone() {
 		super(Material.rock);
-		this.setStepSound(ConfigSounds.enableNewBlockSounds ? ModSounds.soundDripstoneBlock : Block.soundTypeStone);
+		this.setStepSound(ConfigSounds.newBlockSounds ? ModSounds.soundDripstoneBlock : Block.soundTypeStone);
 		this.setHardness(1.5F);
 		this.setResistance(1F);
 		this.setHarvestLevel("pickaxe", 0);

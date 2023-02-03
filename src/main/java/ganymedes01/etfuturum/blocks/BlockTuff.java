@@ -18,7 +18,7 @@ public class BlockTuff extends Block implements IConfigurable {
 		setHardness(1.5F);
 		setResistance(6.0F);
 		setBlockTextureName("tuff");
-		setStepSound(ConfigSounds.enableNewBlockSounds ? ModSounds.soundTuff : soundTypePiston);
+		setStepSound(ConfigSounds.newBlockSounds ? ModSounds.soundTuff : soundTypePiston);
 		setBlockName(Utils.getUnlocalisedName("tuff"));
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
 	}

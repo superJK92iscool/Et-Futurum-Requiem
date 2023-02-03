@@ -15,7 +15,7 @@ public class BlockSmoothBasalt extends Block implements IConfigurable {
 		super(Material.rock);
 		setHardness(1.25F);
 		setResistance(4.2F);
-		setStepSound(ConfigSounds.enableNewBlockSounds ? ModSounds.soundBasalt : soundTypePiston);
+		setStepSound(ConfigSounds.newBlockSounds ? ModSounds.soundBasalt : soundTypePiston);
 		setBlockTextureName("smooth_basalt");
 		setBlockName(Utils.getUnlocalisedName("smooth_basalt"));
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);

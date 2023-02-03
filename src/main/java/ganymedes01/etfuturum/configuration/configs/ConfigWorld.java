@@ -73,7 +73,6 @@ public class ConfigWorld extends ConfigBase {
 		Configuration cfg = configInstance;
 		
 		enableDmgIndicator = cfg.getBoolean("enableDmgIndicator", catClient, true, "Heart Damage Indicator");
-		ConfigSounds.fixSilentPlaceSounds = cfg.getBoolean("enableSilentPlaceSounds", catClient, true, "For blocks like redstone/beds/doors that previously had no place sounds");
 		
 		enableAirDebris = cfg.getBoolean("enableAirDebris", catGeneration, false, "Can ancient debris generate next to air?");
 		maxStonesPerCluster = cfg.getInt("maxStonesPerCluster", catGeneration, 32, 0, 64, "Max vein size for Granite/Andesite/Diorite blocks in a cluster");

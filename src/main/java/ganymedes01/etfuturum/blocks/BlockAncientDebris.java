@@ -28,7 +28,7 @@ public class BlockAncientDebris extends Block implements IConfigurable, ISubBloc
 		setHarvestLevel("pickaxe", 3);
 		setHardness(30F);
 		setResistance(1200F);
-		setStepSound(ConfigSounds.enableNewBlockSounds ? ModSounds.soundAncientDebris : Block.soundTypeStone);
+		setStepSound(ConfigSounds.newBlockSounds ? ModSounds.soundAncientDebris : Block.soundTypeStone);
 		setBlockTextureName("ancient_debris");
 		setBlockName(Utils.getUnlocalisedName("ancient_debris"));
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);

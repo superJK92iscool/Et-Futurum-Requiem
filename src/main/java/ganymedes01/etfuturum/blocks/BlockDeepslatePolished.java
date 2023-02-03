@@ -17,7 +17,7 @@ public class BlockDeepslatePolished extends Block implements IConfigurable {
 		this.setBlockName(Utils.getUnlocalisedName("polished_deepslate"));
 		this.setBlockTextureName("polished_deepslate");
 		this.setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
-		this.setStepSound(ConfigSounds.enableNewBlockSounds ? ModSounds.soundDeepslate : soundTypeStone);
+		this.setStepSound(ConfigSounds.newBlockSounds ? ModSounds.soundDeepslate : soundTypeStone);
 	}
 
 	@Override

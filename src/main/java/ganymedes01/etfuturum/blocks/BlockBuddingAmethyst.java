@@ -20,7 +20,7 @@ public class BlockBuddingAmethyst extends BlockAmethystBlock {
 	public BlockBuddingAmethyst() {
 		setHardness(1.5F);
 		setResistance(1.5F);
-		setStepSound(ConfigSounds.enableNewBlockSounds ? ModSounds.soundAmethystBlock : soundTypeGlass);
+		setStepSound(ConfigSounds.newBlockSounds ? ModSounds.soundAmethystBlock : soundTypeGlass);
 		setBlockTextureName("budding_amethyst");
 		setBlockName(Utils.getUnlocalisedName("budding_amethyst"));
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);

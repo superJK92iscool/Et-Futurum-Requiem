@@ -36,7 +36,7 @@ public class BlockBerryBush extends BlockBush implements IConfigurable, ISubBloc
 	
 	public BlockBerryBush() {
 		super(Material.vine);
-		setStepSound(ConfigSounds.enableNewBlockSounds ? ModSounds.soundBerryBush : soundTypeGrass);
+		setStepSound(ConfigSounds.newBlockSounds ? ModSounds.soundBerryBush : soundTypeGrass);
 		setBlockName(Utils.getUnlocalisedName("sweet_berry_bush"));
 		setBlockTextureName("sweet_berry_bush");
 		setCreativeTab(null);

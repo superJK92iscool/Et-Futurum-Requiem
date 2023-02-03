@@ -23,7 +23,7 @@ public class BlockNetherite extends Block implements IConfigurable, ISubBlocksBl
 		setHarvestLevel("pickaxe", 3);
 		setHardness(50F);
 		setResistance(1200F);
-		setStepSound(ConfigSounds.enableNewBlockSounds ? ModSounds.soundNetherite : soundTypePiston);
+		setStepSound(ConfigSounds.newBlockSounds ? ModSounds.soundNetherite : soundTypePiston);
 		setBlockTextureName("netherite_block");
 		setBlockName(Utils.getUnlocalisedName("netherite_block"));
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);

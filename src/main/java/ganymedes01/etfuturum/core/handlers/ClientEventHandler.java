@@ -330,7 +330,7 @@ public class ClientEventHandler {
 			final Block block = world.getBlock(x, y, z);
 			final int meta = world.getBlockMetadata(x, y, z);
 			
-			if(event.sound.getPitch() < 1.0F && world.getBlock(x, y, z) instanceof IMultiStepSound && (!((IMultiStepSound)block).requiresNewBlockSounds() || ConfigSounds.enableNewBlockSounds)) {
+			if(event.sound.getPitch() < 1.0F && world.getBlock(x, y, z) instanceof IMultiStepSound && (!((IMultiStepSound)block).requiresNewBlockSounds() || ConfigSounds.newBlockSounds)) {
 				
 				IMultiStepSound multiSoundBlock = (IMultiStepSound)block;
 				Block.SoundType newSound = multiSoundBlock.getStepSound(world, x, y, z, meta);
@@ -367,7 +367,7 @@ public class ClientEventHandler {
 			}
 			
 			String[] eventwithprefix = event.name.split("\\.");
-			if (ConfigSounds.enableNewBlockSounds && eventwithprefix.length > 1 && eventwithprefix[1].equals(Blocks.stone.stepSound.soundName) && event.sound.getPitch() < 1.0F) {
+			if (ConfigSounds.newBlockSounds && eventwithprefix.length > 1 && eventwithprefix[1].equals(Blocks.stone.stepSound.soundName) && event.sound.getPitch() < 1.0F) {
 				String blockName = "";
 				Item item = Item.getItemFromBlock(block);
 				if(item != null && item.getHasSubtypes()) {
@@ -437,7 +437,7 @@ public class ClientEventHandler {
 			}
 
 			// --- Note Blocks --- //
-			if (ConfigSounds.noteBlockSounds && world.getBlock(MathHelper.floor_float(soundX), MathHelper.floor_float(soundY), MathHelper.floor_float(soundZ)) instanceof BlockNote &&
+			if (ConfigSounds.noteBlockNotes && world.getBlock(MathHelper.floor_float(soundX), MathHelper.floor_float(soundY), MathHelper.floor_float(soundZ)) instanceof BlockNote &&
 					(event.name.equals("note.harp") || event.name.equals("note.snare") || event.name.equals("note.hat") || event.name.equals("note.bd"))) {
 				String instrumentToPlay = event.name;
 				String blockName = "";
@@ -549,7 +549,7 @@ public class ClientEventHandler {
 			World world = FMLClientHandler.instance().getWorldClient();
 			Block block = world.getBlock(x, y, z);
 
-			if(world.getBlock(x, y, z) instanceof IMultiStepSound && (!((IMultiStepSound)block).requiresNewBlockSounds() || ConfigSounds.enableNewBlockSounds)) {
+			if(world.getBlock(x, y, z) instanceof IMultiStepSound && (!((IMultiStepSound)block).requiresNewBlockSounds() || ConfigSounds.newBlockSounds)) {
 				Block.SoundType stepSound = ((IMultiStepSound)block).getStepSound(world, x, y, z, world.getBlockMetadata(x, y, z));
 				if(stepSound == null) return;
 				
@@ -564,7 +564,7 @@ public class ClientEventHandler {
 					event.name = stepSound.getStepResourcePath();
 					return;
 				}
-			} else if(ConfigSounds.enableNewBlockSounds) {
+			} else if(ConfigSounds.newBlockSounds) {
 				if(event.name.equals(Block.soundTypePiston.getStepResourcePath())) {
 					String[] eventwithprefix = event.name.split("\\.");
 					if(eventwithprefix.length > 1) {

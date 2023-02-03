@@ -26,7 +26,7 @@ public class BlockLantern extends Block implements IConfigurable {
 		float f = 0.375F;
 		float f1 = f / 2.0F;
 		this.setHarvestLevel("pickaxe", 0);
-		this.setStepSound(ConfigSounds.enableNewBlockSounds ? ModSounds.soundLantern : soundTypeMetal);
+		this.setStepSound(ConfigSounds.newBlockSounds ? ModSounds.soundLantern : soundTypeMetal);
 		this.setHardness(3.5F);
 		this.setResistance(3.5F);
 		this.setLightLevel(1);

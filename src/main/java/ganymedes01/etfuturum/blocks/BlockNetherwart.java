@@ -15,7 +15,7 @@ public class BlockNetherwart extends Block implements IConfigurable {
 		super(Material.grass);
 		setHardness(1F);
 		setResistance(5F);
-		setStepSound(ConfigSounds.enableNewBlockSounds ? ModSounds.soundWartBlock : soundTypeWood);
+		setStepSound(ConfigSounds.newBlockSounds ? ModSounds.soundWartBlock : soundTypeWood);
 		setBlockTextureName("nether_wart_block");
 		setBlockName(Utils.getUnlocalisedName("nether_wart"));
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);

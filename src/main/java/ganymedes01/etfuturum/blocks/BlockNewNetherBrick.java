@@ -18,7 +18,7 @@ public class BlockNewNetherBrick extends BlockGeneric implements IConfigurable {
 		super(Material.rock, "", "cracked", "chiseled");
 		this.setResistance(6);
 		this.setHardness(2);
-		setStepSound(ConfigSounds.enableNewBlockSounds ? ModSounds.soundNetherBricks : soundTypePiston);
+		setStepSound(ConfigSounds.newBlockSounds ? ModSounds.soundNetherBricks : soundTypePiston);
 		this.setHarvestLevel("pickaxe", 0);
 		this.setBlockTextureName("nether_bricks");
 		setBlockName(Utils.getUnlocalisedName("red_netherbrick"));

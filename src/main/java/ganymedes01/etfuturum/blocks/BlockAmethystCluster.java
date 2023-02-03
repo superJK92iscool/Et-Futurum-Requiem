@@ -37,7 +37,7 @@ public class BlockAmethystCluster extends BlockAmethystBlock implements ISubBloc
 		super(Material.glass);
 		setHardness(1.5F);
 		setResistance(1.5F);
-		setStepSound(ConfigSounds.enableNewBlockSounds ? ModSounds.soundAmethystCluster : soundTypeGlass);
+		setStepSound(ConfigSounds.newBlockSounds ? ModSounds.soundAmethystCluster : soundTypeGlass);
 		setBlockTextureName("amethyst_cluster");
 		setBlockName(Utils.getUnlocalisedName("amethyst_cluster_" + (type + 1)));
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);

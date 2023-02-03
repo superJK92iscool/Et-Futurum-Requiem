@@ -82,7 +82,7 @@ public class ConfigSounds extends ConfigBase {
     public static boolean armorEquip;
     public static boolean paintingItemFramePlacing;
     public static boolean leashSounds;
-    public static boolean fixSilentPlace;
+    public static boolean fixSilentPlacing;
     public static boolean netherAmbience;
     public static boolean noteBlockNotes;
     public static boolean endPortalFillSounds;
@@ -96,6 +96,7 @@ public class ConfigSounds extends ConfigBase {
     public static boolean fluidInteract;
     public static boolean newBlockSounds;
     public static boolean hoeTilling;
+    public static boolean furnaceCrackling;
 
     public static float combatSoundStrongThreshold;
 
@@ -140,7 +141,8 @@ public class ConfigSounds extends ConfigBase {
         fluidInteract = cfg.getBoolean("fluidInteract", catBlocksItems, true, "Play a sound when filling or emptying a bucket/bottle. Plays sounds for filling/emptying cauldrons too but works on vanilla cauldrons only.");
         newBlockSounds = cfg.getBoolean("newBlockSounds", catBlocksItems, true, "Many blocks after 1.14 introduce a new step sound, if this is turned off most backported blocks will use the most suitable step sound present in vanilla 1.7.10.");
         hoeTilling = cfg.getBoolean("hoeTilling", catBlocksItems, true, "Sounds for hoes tilling farmland.");
-        fixSilentPlace = cfg.getBoolean("fixSilentPlace", catBlocksItems, true, "Add placing sounds for blocks that don't play one for some reason such as doors or restone dust.");
+        fixSilentPlacing = cfg.getBoolean("fixSilentPlacing", catBlocksItems, true, "Add placing sounds for blocks that don't play one for some reason such as doors or restone dust.");
+        furnaceCrackling = cfg.getBoolean("furnaceCrackling", catBlocksItems, true, "Adds furnace crackling to lit furnace blocks.");
 
         netherAmbience = cfg.getBoolean("netherAmbience", catAmbient, true, "Play new ambience in the Nether.");
         rainSounds = cfg.getBoolean("rainSounds", catAmbient, true, "Replace rain sounds with new, calm ones introduced in 1.11+");

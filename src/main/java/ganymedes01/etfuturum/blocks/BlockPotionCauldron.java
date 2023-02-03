@@ -10,6 +10,7 @@ import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.client.DynamicResourcePack;
 import ganymedes01.etfuturum.client.DynamicResourcePack.GrayscaleType;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.Reference;
@@ -209,7 +210,7 @@ public class BlockPotionCauldron extends BlockCauldronTileEntity implements ISub
 		        float g = (float)(color >> 8 & 255) / 255.0F;
 		        float b = (float)(color & 255) / 255.0F;
 		        float liquidLevel = y + getRenderLiquidLevel(world.getBlockMetadata(x, y, z) + 1);
-		        if(ConfigWorld.enableNewMiscSounds) {
+		        if(ConfigSounds.fluidInteract) {
 					world.playSoundEffect(x + 0.5D, liquidLevel, z + 0.5D, Reference.MCAssetVer+":item.bottle."+(filling?"fill":"empty"), 1, 1);
 		        }
 		        for(int i = 0; i < world.rand.nextInt(4) + 4; i++) {

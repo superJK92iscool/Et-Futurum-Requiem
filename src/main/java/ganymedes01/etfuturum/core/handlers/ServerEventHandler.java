@@ -730,7 +730,7 @@ public class ServerEventHandler {
 						}
 						
 						// --- For blocks with no place sound (reeds, redstone, cake, beds etc) --- //
-						if(ConfigSounds.fixSilentPlaceSounds && heldStack != null && !world.isRemote)
+						if(ConfigSounds.fixSilentPlacing && heldStack != null && !world.isRemote)
 						{
 							Block block = null;
 							Item item = heldStack.getItem();
@@ -912,7 +912,7 @@ public class ServerEventHandler {
 						}
 
 						// --- Lilypad sounds --- //
-						if (ConfigSounds.enableNewBlockSounds && heldStack != null && Block.getBlockFromItem(heldStack.getItem()) instanceof BlockLilyPad)
+						if (ConfigSounds.newBlockSounds && heldStack != null && Block.getBlockFromItem(heldStack.getItem()) instanceof BlockLilyPad)
 						{
 							Block block = Block.getBlockFromItem(heldStack.getItem());
 							MovingObjectPosition movingobjectposition = getMovingObjectPositionFromPlayer(world, player, true);

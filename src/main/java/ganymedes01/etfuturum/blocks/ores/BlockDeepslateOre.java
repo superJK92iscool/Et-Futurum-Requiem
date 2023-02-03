@@ -45,7 +45,7 @@ public class BlockDeepslateOre extends BlockOre implements IConfigurable {
 		//Block.blockRegistry.getNameFor does not work in preInit
 		to.setBlockName(Utils.getUnlocalisedName("deepslate_" + from.textureName.toLowerCase()));
 		to.setBlockTextureName("deepslate_" + from.textureName);
-		to.setStepSound(ConfigSounds.enableNewBlockSounds ? ModSounds.soundDeepslate : soundTypeStone);
+		to.setStepSound(ConfigSounds.newBlockSounds ? ModSounds.soundDeepslate : soundTypeStone);
 		to.setCreativeTab(((IConfigurable)to).isEnabled() ? EtFuturum.creativeTabBlocks : null);
 		to.setLightLevel(from.getLightValue() / 15F);
 		to.setLightOpacity(from.getLightOpacity());

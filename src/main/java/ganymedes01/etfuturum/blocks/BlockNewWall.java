@@ -93,7 +93,7 @@ public class BlockNewWall extends BlockWall implements IConfigurable, ISubBlocks
 
 	@Override
 	public SoundType getStepSound(IBlockAccess world, int x, int y, int z, int meta) {
-		if(blocks[meta % variations] instanceof IMultiStepSound && (!((IMultiStepSound)blocks[meta % variations]).requiresNewBlockSounds() || ConfigSounds.enableNewBlockSounds)) {
+		if(blocks[meta % variations] instanceof IMultiStepSound && (!((IMultiStepSound)blocks[meta % variations]).requiresNewBlockSounds() || ConfigSounds.newBlockSounds)) {
 			return ((IMultiStepSound)blocks[meta % variations]).getStepSound(world, x, y, z, metas[meta % variations]);
 		}
 		return null;

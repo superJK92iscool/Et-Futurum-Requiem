@@ -20,7 +20,7 @@ public class BlockLightningRod extends Block implements IConfigurable {
 		setBlockName(Utils.getUnlocalisedName("lightning_rod"));
 		setBlockTextureName("lightning_rod");
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
-		setStepSound(ConfigSounds.enableNewBlockSounds ? ModSounds.soundCopper : Block.soundTypeMetal);
+		setStepSound(ConfigSounds.newBlockSounds ? ModSounds.soundCopper : Block.soundTypeMetal);
 		setTickRandomly(true);
 	}
 

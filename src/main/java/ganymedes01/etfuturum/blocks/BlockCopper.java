@@ -33,7 +33,7 @@ public class BlockCopper extends BlockGeneric implements IConfigurable, IDegrada
 		setBlockTextureName("copper_block");
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
 		setFlippedNames(true);
-		setStepSound(ConfigSounds.enableNewBlockSounds ? ModSounds.soundCopper : Block.soundTypeMetal);
+		setStepSound(ConfigSounds.newBlockSounds ? ModSounds.soundCopper : Block.soundTypeMetal);
 		setTickRandomly(true);
 	}
 	
