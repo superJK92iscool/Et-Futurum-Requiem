@@ -21,10 +21,7 @@ import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.client.sound.NetherAmbienceLoop;
 import ganymedes01.etfuturum.client.sound.NetherAmbienceSound;
 import ganymedes01.etfuturum.configuration.ConfigBase;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
-import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
-import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
-import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
+import ganymedes01.etfuturum.configuration.configs.*;
 import ganymedes01.etfuturum.entities.EntityNewBoatWithChest;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.network.ChestBoatOpenInventoryMessage;
@@ -42,7 +39,6 @@ import net.minecraft.client.gui.GuiScreenBook;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.particle.EntityDiggingFX;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.event.ClickEvent;
@@ -158,7 +154,7 @@ public class ClientEventHandler {
 			showedDebugWarning = true;
 		}
 
-		if(ConfigWorld.enableNetherAmbience && !EtFuturum.netherAmbienceNetherlicious && player.dimension == -1) {
+		if(ConfigSounds.netherAmbience && !EtFuturum.netherAmbienceNetherlicious && player.dimension == -1) {
 			Chunk chunk = world.getChunkFromBlockCoords(MathHelper.floor_double(player.posX), MathHelper.floor_double(player.posZ));
 			if(!chunk.isChunkLoaded) {
 				if(ambienceLoop != null && FMLClientHandler.instance().getClient().getSoundHandler().isSoundPlaying(ambienceLoop)) {
@@ -334,7 +330,7 @@ public class ClientEventHandler {
 			final Block block = world.getBlock(x, y, z);
 			final int meta = world.getBlockMetadata(x, y, z);
 			
-			if(event.sound.getPitch() < 1.0F && world.getBlock(x, y, z) instanceof IMultiStepSound && (!((IMultiStepSound)block).requiresNewBlockSounds() || ConfigWorld.enableNewBlocksSounds)) {
+			if(event.sound.getPitch() < 1.0F && world.getBlock(x, y, z) instanceof IMultiStepSound && (!((IMultiStepSound)block).requiresNewBlockSounds() || ConfigSounds.enableNewBlockSounds)) {
 				
 				IMultiStepSound multiSoundBlock = (IMultiStepSound)block;
 				Block.SoundType newSound = multiSoundBlock.getStepSound(world, x, y, z, meta);
@@ -371,7 +367,7 @@ public class ClientEventHandler {
 			}
 			
 			String[] eventwithprefix = event.name.split("\\.");
-			if (ConfigWorld.enableNewBlocksSounds && eventwithprefix.length > 1 && eventwithprefix[1].equals(Blocks.stone.stepSound.soundName) && event.sound.getPitch() < 1.0F) {
+			if (ConfigSounds.enableNewBlockSounds && eventwithprefix.length > 1 && eventwithprefix[1].equals(Blocks.stone.stepSound.soundName) && event.sound.getPitch() < 1.0F) {
 				String blockName = "";
 				Item item = Item.getItemFromBlock(block);
 				if(item != null && item.getHasSubtypes()) {
@@ -395,101 +391,104 @@ public class ClientEventHandler {
 					return;
 				}
 			}
-			
-			if(ConfigWorld.enableNewMiscSounds) {
-				if(event.name.contains("random.door")) {
-					event.result = new PositionedSoundRecord(new ResourceLocation(getReplacementDoorSound(block, event.name)),
-							event.sound.getVolume(), event.sound.getPitch(), x + 0.5F, y + 0.5F, z + 0.5F);
-					return;
-				} else if (event.name.contains("random.chest")) {
 
-					String s = event.name;
-					String blockID = Block.blockRegistry.getNameForObject(block).split(":")[1].toLowerCase();
-					if(blockID.contains("chest") && (event.name.contains("open") || event.name.contains("close"))) {
-						if((blockID.contains("ender") && block.getMaterial().equals(Material.rock)))
-							s = Reference.MCAssetVer + ":" + "block.ender_chest." + (event.name.contains("close") ? "close" : "open");
-						else if(block.getMaterial().equals(Material.wood) && event.name.contains("close"))
-							s = Reference.MCAssetVer + ":" + "block.chest.close";
-					}
-					
-					if(!s.equals(event.name)) {
-						event.result = new PositionedSoundRecord(new ResourceLocation(s), event.sound.getVolume(), event.sound.getPitch(), x + 0.5F, y + 0.5F, z + 0.5F);
-						return;
-					}
+
+			//Opening and closing doors/chests
+			if(ConfigSounds.doorOpenClose && event.name.contains("random.door")) {
+				event.result = new PositionedSoundRecord(new ResourceLocation(getReplacementDoorSound(block, event.name)),
+						event.sound.getVolume(), event.sound.getPitch(), x + 0.5F, y + 0.5F, z + 0.5F);
+				return;
+			}
+			if (ConfigSounds.chestOpenClose && event.name.contains("random.chest")) {
+
+				String s = event.name;
+				String blockID = Block.blockRegistry.getNameForObject(block).split(":")[1].toLowerCase();
+				if (blockID.contains("chest") && (event.name.contains("open") || event.name.contains("close"))) {
+					if ((blockID.contains("ender") && block.getMaterial().equals(Material.rock)))
+						s = Reference.MCAssetVer + ":" + "block.ender_chest." + (event.name.contains("close") ? "close" : "open");
+					else if (block.getMaterial().equals(Material.wood) && event.name.contains("close"))
+						s = Reference.MCAssetVer + ":" + "block.chest.close";
 				}
-				
-    			// --- Wooden Button --- //
-    			if (block instanceof BlockButton && (block.stepSound == Block.soundTypeWood || block.getClass().getSimpleName().toLowerCase().contains("wood")) && event.name.equals("random.click")) {
-    				String s = Reference.MCAssetVer+":block.wooden_button.click_" + (meta > 7 ? "on" : "off");
+
+				if(!s.equals(event.name)) {
+					event.result = new PositionedSoundRecord(new ResourceLocation(s), event.sound.getVolume(), event.sound.getPitch(), x + 0.5F, y + 0.5F, z + 0.5F);
+					return;
+				}
+			}
+
+			if(ConfigSounds.pressurePlateButton) {
+				// --- Wooden Button --- //
+				if (block instanceof BlockButton && (block.stepSound == Block.soundTypeWood || block.getClass().getSimpleName().toLowerCase().contains("wood")) && event.name.equals("random.click")) {
+					String s = Reference.MCAssetVer + ":block.wooden_button.click_" + (meta > 7 ? "on" : "off");
 					event.result = new PositionedSoundRecord(new ResourceLocation(s), event.sound.getVolume(), event.sound.getPitch(), soundX, soundY, soundZ);
-    				return;
-        		}
-    			
-    			// --- Wooden/Metal Pressure plate --- //
-    			if (block instanceof BlockBasePressurePlate && (block.getMaterial() == Material.wood || block.getMaterial() == Material.iron) && event.name.equals("random.click")) {
-    				String material = block.getMaterial() == Material.wood ? "wooden" : "metal";
-    				String s = Reference.MCAssetVer+":block."+material+"_pressure_plate.click_" + (meta == 1 ? "on" : "off");
-    				//By default, the pitch is 0.6F when on and 0.5F off. Wood pressure plates are 0.8F and 0.7F off. Metal is 0.9F on and 0.75F off.
-    				//Just in case another mod wants to change the pitch we'll just add our own on top of it.
-    				float soundAddition = meta == 1 && block.getMaterial() == Material.iron ? 0.25F : 0.2F;
-					event.result = new PositionedSoundRecord(new ResourceLocation(s), event.sound.getVolume(), event.sound.getPitch() + soundAddition, soundX, soundY, soundZ);
-    				return;
-        		}
-
-				// --- Note Blocks --- //
-				if (ConfigWorld.enableNewNoteBlockSounds && world.getBlock(MathHelper.floor_float(soundX), MathHelper.floor_float(soundY), MathHelper.floor_float(soundZ)) instanceof BlockNote &&
-						(event.name.equals("note.harp") || event.name.equals("note.snare") || event.name.equals("note.hat") || event.name.equals("note.bd"))) {
-					String instrumentToPlay = event.name;
-					String blockName = "";
-
-					Block blockBeneath = world.getBlock(
-							MathHelper.floor_float(soundX),
-							MathHelper.floor_float(soundY)-1,
-							MathHelper.floor_float(soundZ));
-					Item item = Item.getItemFromBlock(blockBeneath);
-					if(item != null && item.getHasSubtypes()) {
-						try {
-							STORAGE_STACK.func_150996_a(item);
-							STORAGE_STACK.setItemDamage(world.getBlockMetadata(MathHelper.floor_float(soundX), MathHelper.floor_float(soundY), MathHelper.floor_float(soundZ)));
-							blockName = item.getUnlocalizedName(STORAGE_STACK).toLowerCase();
-						} catch(Exception e) {/*In case a mod doesn't have a catch for invalid meta states and throws an error, just ignore it and proceed*/}
-					}
-
-					if(blockName.equals("")) {
-						blockName = blockBeneath.getUnlocalizedName().toLowerCase();
-					}
-
-					// Specific blocks
-					if (blockBeneath==Blocks.soul_sand)											{instrumentToPlay = Reference.MCAssetVer+":block.note_block.cow_bell";}
-					else if (blockName.contains("hay"))											{instrumentToPlay = Reference.MCAssetVer+":block.note_block.banjo";}
-					else if (EtFuturum.hasDictTag(blockBeneath, "blockGold"))			{instrumentToPlay = Reference.MCAssetVer+":block.note_block.bell";}
-					else if (EtFuturum.hasDictTag(blockBeneath, "blockEmerald"))		{instrumentToPlay = Reference.MCAssetVer+":block.note_block.bit";}
-					else if (blockName.contains("packed") && blockName.contains("ice"))			{instrumentToPlay = Reference.MCAssetVer+":block.note_block.chime";}
-					else if (blockName.contains("pumpkin"))										{instrumentToPlay = Reference.MCAssetVer+":block.note_block.didgeridoo";}
-					else if (blockBeneath.getMaterial() == Material.clay)						{instrumentToPlay = Reference.MCAssetVer+":block.note_block.flute";}
-					else if (EtFuturum.hasDictTag(blockBeneath, "blockIron"))			{instrumentToPlay = Reference.MCAssetVer+":block.note_block.iron_xylophone";}
-					else if (blockBeneath.getMaterial()==Material.cloth)						{instrumentToPlay = Reference.MCAssetVer+":block.note_block.guitar";}
-					else if (blockName.contains("bone") || blockName.contains("ivory"))			{instrumentToPlay = Reference.MCAssetVer+":block.note_block.xylophone";}
-					if(event.name.equals(instrumentToPlay)) return;
-
-					event.result = new PositionedSoundRecord(new ResourceLocation(instrumentToPlay), instrumentToPlay.equals(Reference.MCAssetVer+":block.note_block.iron_xylophone") ? 1F : event.sound.getVolume(), event.sound.getPitch(), soundX, soundY, soundZ);
 					return;
 				}
 
+				// --- Wooden/Metal Pressure plate --- //
+				if (block instanceof BlockBasePressurePlate && (block.getMaterial() == Material.wood || block.getMaterial() == Material.iron) && event.name.equals("random.click")) {
+					String material = block.getMaterial() == Material.wood ? "wooden" : "metal";
+					String s = Reference.MCAssetVer + ":block." + material + "_pressure_plate.click_" + (meta == 1 ? "on" : "off");
+					//By default, the pitch is 0.6F when on and 0.5F off. Wood pressure plates are 0.8F and 0.7F off. Metal is 0.9F on and 0.75F off.
+					//Just in case another mod wants to change the pitch we'll just add our own on top of it.
+					float soundAddition = meta == 1 && block.getMaterial() == Material.iron ? 0.25F : 0.2F;
+					event.result = new PositionedSoundRecord(new ResourceLocation(s), event.sound.getVolume(), event.sound.getPitch() + soundAddition, soundX, soundY, soundZ);
+					return;
+				}
+			}
 
-				// --- Book page turn --- //
-		    	if (Minecraft.getMinecraft().currentScreen instanceof GuiScreenBook && event.name.equals("gui.button.press")) {
-	    			GuiScreenBook gui = (GuiScreenBook)Minecraft.getMinecraft().currentScreen;
-	    			// If there is a disagreement on page, play the page-turning sound
-	    			if (gui.currPage != this.currPage)
-	    			{
-	    				this.currPage = gui.currPage;
-	    				EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
-	    				player.playSound(Reference.MCAssetVer+":item.book.page_turn", 1.0F, 1.0F);
-	    				event.result = null;
-	    				return;
-	    			}  		
-		    	}
+			// --- Note Blocks --- //
+			if (ConfigSounds.noteBlockSounds && world.getBlock(MathHelper.floor_float(soundX), MathHelper.floor_float(soundY), MathHelper.floor_float(soundZ)) instanceof BlockNote &&
+					(event.name.equals("note.harp") || event.name.equals("note.snare") || event.name.equals("note.hat") || event.name.equals("note.bd"))) {
+				String instrumentToPlay = event.name;
+				String blockName = "";
+
+				Block blockBeneath = world.getBlock(
+						MathHelper.floor_float(soundX),
+						MathHelper.floor_float(soundY)-1,
+						MathHelper.floor_float(soundZ));
+				Item item = Item.getItemFromBlock(blockBeneath);
+				if(item != null && item.getHasSubtypes()) {
+					try {
+						STORAGE_STACK.func_150996_a(item);
+						STORAGE_STACK.setItemDamage(world.getBlockMetadata(MathHelper.floor_float(soundX), MathHelper.floor_float(soundY), MathHelper.floor_float(soundZ)));
+						blockName = item.getUnlocalizedName(STORAGE_STACK).toLowerCase();
+					} catch(Exception e) {/*In case a mod doesn't have a catch for invalid meta states and throws an error, just ignore it and proceed*/}
+				}
+
+				if(blockName.equals("")) {
+					blockName = blockBeneath.getUnlocalizedName().toLowerCase();
+				}
+
+				// Specific blocks
+				if (blockBeneath==Blocks.soul_sand)											{instrumentToPlay = Reference.MCAssetVer+":block.note_block.cow_bell";}
+				else if (blockName.contains("hay"))											{instrumentToPlay = Reference.MCAssetVer+":block.note_block.banjo";}
+				else if (EtFuturum.hasDictTag(blockBeneath, "blockGold"))			{instrumentToPlay = Reference.MCAssetVer+":block.note_block.bell";}
+				else if (EtFuturum.hasDictTag(blockBeneath, "blockEmerald"))		{instrumentToPlay = Reference.MCAssetVer+":block.note_block.bit";}
+				else if (blockName.contains("packed") && blockName.contains("ice"))			{instrumentToPlay = Reference.MCAssetVer+":block.note_block.chime";}
+				else if (blockName.contains("pumpkin"))										{instrumentToPlay = Reference.MCAssetVer+":block.note_block.didgeridoo";}
+				else if (blockBeneath.getMaterial() == Material.clay)						{instrumentToPlay = Reference.MCAssetVer+":block.note_block.flute";}
+				else if (EtFuturum.hasDictTag(blockBeneath, "blockIron"))			{instrumentToPlay = Reference.MCAssetVer+":block.note_block.iron_xylophone";}
+				else if (blockBeneath.getMaterial()==Material.cloth)						{instrumentToPlay = Reference.MCAssetVer+":block.note_block.guitar";}
+				else if (blockName.contains("bone") || blockName.contains("ivory"))			{instrumentToPlay = Reference.MCAssetVer+":block.note_block.xylophone";}
+				if(event.name.equals(instrumentToPlay)) return;
+
+				event.result = new PositionedSoundRecord(new ResourceLocation(instrumentToPlay), instrumentToPlay.equals(Reference.MCAssetVer+":block.note_block.iron_xylophone") ? 1F : event.sound.getVolume(), event.sound.getPitch(), soundX, soundY, soundZ);
+				return;
+			}
+
+
+			// --- Book page turn --- //
+			if (Minecraft.getMinecraft().currentScreen instanceof GuiScreenBook && event.name.equals("gui.button.press")) {
+				GuiScreenBook gui = (GuiScreenBook)Minecraft.getMinecraft().currentScreen;
+				// If there is a disagreement on page, play the page-turning sound
+				if (gui.currPage != this.currPage)
+				{
+					this.currPage = gui.currPage;
+					EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
+					player.playSound(Reference.MCAssetVer+":item.book.page_turn", 1.0F, 1.0F);
+					event.result = null;
+					return;
+				}
 			}
 
 			if(!EtFuturum.netherMusicNetherlicious) {
@@ -508,12 +507,12 @@ public class ClientEventHandler {
 				}
 			}
 			
-			if(ConfigWorld.enableNewAmbientSounds) {
+			if(ConfigSounds.rainSounds) {
 				if (event.name.equals("ambient.weather.rain")) {
-					event.result = new PositionedSoundRecord(new ResourceLocation(Reference.MCAssetVer + ":" + "weather.rain" + (event.sound.getPitch() < 1.0F ? ".above" : "")), 
+					event.result = new PositionedSoundRecord(new ResourceLocation(Reference.MCAssetVer + ":weather.rain" + (event.sound.getPitch() < 1.0F ? ".above" : "")),
 							event.sound.getVolume(), event.sound.getPitch(), x + 0.5F, y + 0.5F, z + 0.5F);
 				} else if (event.name.equals("ambient.cave.cave")) {
-					if(ConfigWorld.enableNetherAmbience && FMLClientHandler.instance().getClientPlayerEntity().dimension == -1) {
+					if(ConfigSounds.netherAmbience && FMLClientHandler.instance().getClientPlayerEntity().dimension == -1) {
 						BiomeGenBase biome = FMLClientHandler.instance().getWorldClient().getChunkFromBlockCoords(x, z).getBiomeGenForWorldCoords(x & 15, z & 15, FMLClientHandler.instance().getWorldClient().getWorldChunkManager());
 						if(getAmbienceMood(biome) != null) {
 							event.result = new PositionedSoundRecord(new ResourceLocation(getAmbienceMood(biome)), 
@@ -537,7 +536,7 @@ public class ClientEventHandler {
 	{
 		if(!event.entity.worldObj.isRemote) {
 			// --- Horse eat --- //
-			if (ConfigWorld.enableNewMiscSounds && event.entity instanceof EntityHorse && event.name.equals("eating")) {
+			if (ConfigSounds.horseEatCowMilk && event.entity instanceof EntityHorse && event.name.equals("eating")) {
 				event.name = Reference.MCAssetVer + ":entity.horse.eat";
 			}
 			return;//This is the only code I want to run if !isRemote
@@ -550,7 +549,7 @@ public class ClientEventHandler {
 			World world = FMLClientHandler.instance().getWorldClient();
 			Block block = world.getBlock(x, y, z);
 
-			if(world.getBlock(x, y, z) instanceof IMultiStepSound && (!((IMultiStepSound)block).requiresNewBlockSounds() || ConfigWorld.enableNewBlocksSounds)) {
+			if(world.getBlock(x, y, z) instanceof IMultiStepSound && (!((IMultiStepSound)block).requiresNewBlockSounds() || ConfigSounds.enableNewBlockSounds)) {
 				Block.SoundType stepSound = ((IMultiStepSound)block).getStepSound(world, x, y, z, world.getBlockMetadata(x, y, z));
 				if(stepSound == null) return;
 				
@@ -565,8 +564,7 @@ public class ClientEventHandler {
 					event.name = stepSound.getStepResourcePath();
 					return;
 				}
-			} else
-			if(ConfigWorld.enableNewBlocksSounds) {
+			} else if(ConfigSounds.enableNewBlockSounds) {
 				if(event.name.equals(Block.soundTypePiston.getStepResourcePath())) {
 					String[] eventwithprefix = event.name.split("\\.");
 					if(eventwithprefix.length > 1) {
@@ -719,5 +717,4 @@ public class ClientEventHandler {
 			}
 		}
 	}
-
 }

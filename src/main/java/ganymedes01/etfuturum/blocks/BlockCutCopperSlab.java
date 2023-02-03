@@ -6,7 +6,7 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
-import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
+import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -24,7 +24,7 @@ public class BlockCutCopperSlab extends BlockGenericSlab implements IConfigurabl
 		setBlockName(Utils.getUnlocalisedName("cut_copper_slab"));
 		setBlockTextureName("cut_copper");
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
-		setStepSound(ConfigWorld.enableNewBlocksSounds ? ModSounds.soundCopper : Block.soundTypeMetal);
+		setStepSound(ConfigSounds.enableNewBlockSounds ? ModSounds.soundCopper : Block.soundTypeMetal);
 		setTickRandomly(true);
 	}
 	

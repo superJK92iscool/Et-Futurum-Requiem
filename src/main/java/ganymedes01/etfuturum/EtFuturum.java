@@ -22,7 +22,7 @@ import ganymedes01.etfuturum.command.CommandFill;
 import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
-import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
+import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.proxy.CommonProxy;
 import ganymedes01.etfuturum.core.utils.*;
 import ganymedes01.etfuturum.entities.ModEntityList;
@@ -63,7 +63,6 @@ import org.apache.commons.lang3.ArrayUtils;
 
 import java.io.File;
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.*;
 
 @Mod(
@@ -141,6 +140,8 @@ public class EtFuturum {
 	public static final boolean hasBotania = Loader.isModLoaded("Botania");
 	public static final boolean hasHEE = Loader.isModLoaded("HardcoreEnderExpansion");
 	public static final boolean hasIC2 = Loader.isModLoaded("IC2");
+	public static final boolean hasSkinPort = Loader.isModLoaded("skinport");
+	public static final boolean hasEars = Loader.isModLoaded("ears");
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
@@ -363,7 +364,7 @@ public class EtFuturum {
 		ConfigBase.postInit();
 
 		//Because NP+ uses its own (worse) step sounds for this and it causes the check below that replaces these blocks to fail.
-		if(EtFuturum.hasNP && ConfigWorld.enableNewBlocksSounds) {
+		if(EtFuturum.hasNP && ConfigSounds.newBlockSounds) {
 			Blocks.nether_brick.setStepSound(ModSounds.soundNetherBricks);
 			Blocks.nether_brick_fence.setStepSound(ModSounds.soundNetherBricks);
 			Blocks.nether_brick_stairs.setStepSound(ModSounds.soundNetherBricks);
@@ -382,7 +383,7 @@ public class EtFuturum {
 				}
 			}
 
-			if(ConfigWorld.enableNewBlocksSounds) {
+			if(ConfigSounds.newBlockSounds) {
 				/*
 				 * SOUNDS
 				 */
@@ -554,9 +555,21 @@ public class EtFuturum {
 			to.setHarvestLevel(tool, level, i);
 		}
 	}
+
+	/**
+	 * Utility for running string.contains() on a list of strings.
+	 */
+	public static boolean stringListContainsPhrase(Set<String> set, String string) {
+		for(String stringInSet : set) {
+			if(string.contains(stringInSet)) {
+				return true;
+			}
+		}
+		return false;
+	}
 	
 	public static List<String> getOreStrings(ItemStack stack) {
-		final List<String> list = new ArrayList();
+		final List<String> list = new ArrayList<>();
 		for(int oreID : OreDictionary.getOreIDs(stack)) {
 			list.add(OreDictionary.getOreName(oreID));
 		}

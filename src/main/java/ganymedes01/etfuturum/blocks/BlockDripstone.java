@@ -2,7 +2,7 @@ package ganymedes01.etfuturum.blocks;
 
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
+import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -11,7 +11,7 @@ public class BlockDripstone extends Block implements IConfigurable {
 
 	public BlockDripstone() {
 		super(Material.rock);
-		this.setStepSound(ConfigWorld.enableNewBlocksSounds ? ModSounds.soundDripstoneBlock : Block.soundTypeStone);
+		this.setStepSound(ConfigSounds.enableNewBlockSounds ? ModSounds.soundDripstoneBlock : Block.soundTypeStone);
 		this.setHardness(1.5F);
 		this.setResistance(1F);
 		this.setHarvestLevel("pickaxe", 0);

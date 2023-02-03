@@ -65,7 +65,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.common.IPlantable;
-import net.minecraftforge.common.util.BlockSnapshot;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
@@ -130,7 +129,7 @@ public class ServerEventHandler {
 		}
 
 
-		if (ConfigWorld.enableNewMiscSounds && !event.entity.worldObj.isRemote && event.entity instanceof EntityPlayer && !(event.entity instanceof FakePlayer) && event.entity.worldObj != null) {
+		if (ConfigSounds.armorEquip && !event.entity.worldObj.isRemote && event.entity instanceof EntityPlayer && !(event.entity instanceof FakePlayer)) {
 			EntityPlayer player = (EntityPlayer) event.entity;
 
 			if(!armorTracker.containsKey(player)) {
@@ -145,37 +144,40 @@ public class ServerEventHandler {
 
 				String itemEquippedSound = "";
 				ItemStack storedArmor;
-				ItemStack playerArmor;
+				ItemStack currentArmor;
 				for(int i = 0; i < 4; i++) {
 					storedArmor = armorList.get(i);
-					playerArmor = player.getEquipmentInSlot(i+1);
-					if (playerArmor != null // Equipment is in the slot
-							&& (storedArmor == null // and either the NBT thinks there's not an item already there,
-									// or that the item is different in some way that's not its durability.
-									|| (!playerArmor.getItem().equals(storedArmor.getItem())
-											|| !((playerArmor.stackTagCompound != null || storedArmor.stackTagCompound == null) && (playerArmor.stackTagCompound == null || playerArmor.stackTagCompound.equals(storedArmor.stackTagCompound)))))) {
-						if(playerArmor.getItem() instanceof ItemArmor) {
-							String armorString = ((ItemArmor)playerArmor.getItem()).getArmorMaterial().name().toLowerCase();
-							if (armorString.contains("chain")) {
+					currentArmor = player.getEquipmentInSlot(i+1);
+					if (currentArmor != null && (storedArmor == null || (!currentArmor.getItem().equals(storedArmor.getItem()) ||
+							!((currentArmor.stackTagCompound != null || storedArmor.stackTagCompound == null) && (currentArmor.stackTagCompound == null || currentArmor.stackTagCompound.equals(storedArmor.stackTagCompound)))))) {
+						// Equipment is in the slot and either the NBT thinks there's not an item already there, or that the item is different in some way that's not its durability.
+						if(player.inventory.isItemValidForSlot(i, currentArmor)) {
+							String armorString = currentArmor.getUnlocalizedName().toLowerCase();
+							if (armorString.contains("chain") || EtFuturum.stringListContainsPhrase(ConfigSounds.newArmorEquipCustomRulesChain, armorString)) {
 								itemEquippedSound = "item.armor.equip_chain";
-							} else if (armorString.contains("diamond")) {
+							} else if (armorString.contains("diamond") || EtFuturum.stringListContainsPhrase(ConfigSounds.newArmorEquipCustomRulesDiamond, armorString)) {
 								itemEquippedSound = "item.armor.equip_diamond";
-							} else if (armorString.contains("gold")) {
+							} else if (armorString.contains("gold") || EtFuturum.stringListContainsPhrase(ConfigSounds.newArmorEquipCustomRulesGold, armorString)) {
 								itemEquippedSound = "item.armor.equip_gold";
-							} else if (armorString.contains("iron")) {
+							} else if (armorString.contains("iron") || EtFuturum.stringListContainsPhrase(ConfigSounds.newArmorEquipCustomRulesIron, armorString)) {
 								itemEquippedSound = "item.armor.equip_iron";
-							} else if (armorString.contains("leather")) {
+							} else if (armorString.contains("leather") || EtFuturum.stringListContainsPhrase(ConfigSounds.newArmorEquipCustomRulesLeather, armorString)) {
 								itemEquippedSound = "item.armor.equip_leather";
-							} else if (armorString.contains("netherite")) {
+							} else if (armorString.contains("netherite") || EtFuturum.stringListContainsPhrase(ConfigSounds.newArmorEquipCustomRulesNetherite, armorString)) {
 								itemEquippedSound = "item.armor.equip_netherite";
-							} else {
-								itemEquippedSound = "item.armor.equip_generic";
+							} else if (armorString.contains("elytra") || EtFuturum.stringListContainsPhrase(ConfigSounds.newArmorEquipCustomRulesElytra, armorString)) {
+								itemEquippedSound = "item.armor.equip_elytra";
+							} else if (EtFuturum.stringListContainsPhrase(ConfigSounds.newArmorEquipCustomRulesTurtle, armorString)) {
+								itemEquippedSound = "item.armor.equip_turtle";
+							} else if (currentArmor.getItem() instanceof ItemArmor || EtFuturum.stringListContainsPhrase(ConfigSounds.newArmorEquipCustomRulesGeneric, armorString)) {
+								itemEquippedSound = "item.armor.equip_generic";//Something not assigned a sound should be silent if it's not gear, and the user didn't specify that sound.
 							}
-						} else if(itemEquippedSound.equals("") && i == 2 && playerArmor.getItem().getUnlocalizedName().toLowerCase().contains("elytra")) {
-							itemEquippedSound = "item.armor.equip_elytra";
 						}
 					}
-					armorList.set(i, playerArmor);
+					armorList.set(i, currentArmor);
+					if(!itemEquippedSound.equals("")) { //We picked a sound, stop iterating.
+						break;
+					}
 				}
 				// Play a sound if one of the equipment pieces changed
 				if (!itemEquippedSound.equals("")) {
@@ -186,20 +188,19 @@ public class ServerEventHandler {
 	}
 	@SubscribeEvent
 	public void onAttackEntityEvent(AttackEntityEvent event) { //Fires when a player presses the attack button on an entity
-		if (ConfigWorld.enableNewMiscSounds && !event.target.worldObj.isRemote)
+		if (!event.target.worldObj.isRemote)
 		{
 			// --- Left-click an item frame --- //
-			if (event.target instanceof EntityItemFrame)
-			{
+			if (ConfigSounds.paintingItemFramePlacing && event.target instanceof EntityItemFrame) {
 				EntityItemFrame itemframe = (EntityItemFrame)event.target;
 				if (itemframe.getDisplayedItem() != null) {
 					event.target.playSound(Reference.MCAssetVer+":entity.item_frame.remove_item", 1.0F, 1.0F);
 				} else {
 					event.target.playSound(Reference.MCAssetVer+":entity.item_frame.break", 1.0F, 1.0F);
 				}
-			} else if (event.target instanceof EntityPainting) { // --- Break a painting --- //
+			} else if (ConfigSounds.paintingItemFramePlacing && event.target instanceof EntityPainting) { // --- Break a painting --- //
 				event.target.playSound(Reference.MCAssetVer+":entity.painting.break", 1.0F, 1.0F);
-			} else if (event.target instanceof EntityLeashKnot) { // --- Break a lead knot --- //
+			} else if (ConfigSounds.leashSounds && event.target instanceof EntityLeashKnot) { // --- Break a lead knot --- //
 				event.target.playSound(Reference.MCAssetVer+":entity.leash_knot.break", 1.0F, 1.0F);
 			}
 		}
@@ -211,20 +212,18 @@ public class ServerEventHandler {
 		if(event.world.isRemote) return;
 
 		Chunk chunk = event.world.getChunkFromChunkCoords(MathHelper.floor_double(event.entity.posX) >> 4, MathHelper.floor_double(event.entity.posZ) >> 4);
-		
-		if(ConfigWorld.enableNewMiscSounds) {
-			String sound = "";
-			if(event.entity instanceof EntityItemFrame) {
-				sound = "item_frame";
-			} else if(event.entity instanceof EntityPainting) {
-				sound = "painting";
-			} else if(event.entity instanceof EntityLeashKnot) {
-				sound = "leash_knot";
-			}
-			if(!sound.equals("")) {
-				event.world.playSoundAtEntity(event.entity, Reference.MCAssetVer+":entity."+sound+".place", 1.0F, 1.0F);
-				return;
-			}
+
+		String sound = "";
+		if(ConfigSounds.paintingItemFramePlacing && event.entity instanceof EntityItemFrame) {
+			sound = "item_frame";
+		} else if(ConfigSounds.paintingItemFramePlacing && event.entity instanceof EntityPainting) {
+			sound = "painting";
+		} else if(ConfigSounds.leashSounds && event.entity instanceof EntityLeashKnot) {
+			sound = "leash_knot";
+		}
+		if(!sound.equals("")) {
+			event.world.playSoundAtEntity(event.entity, Reference.MCAssetVer+":entity."+sound+".place", 1.0F, 1.0F);
+			return;
 		}
 
 		
@@ -641,8 +640,7 @@ public class ServerEventHandler {
 				{
 					if(event.getResult() == event.useItem) {
 						//Eye of Ender place sounds
-						if(heldStack != null && !world.isRemote && ConfigWorld.enableNewMiscSounds && heldStack.getItem() == Items.ender_eye && oldBlock == Blocks.end_portal_frame && !BlockEndPortalFrame.isEnderEyeInserted(meta))
-						{
+						if(ConfigSounds.endPortalFillSounds && heldStack != null && !world.isRemote && heldStack.getItem() == Items.ender_eye && oldBlock == Blocks.end_portal_frame && !BlockEndPortalFrame.isEnderEyeInserted(meta)) {
 							world.playSoundEffect(x + .5F, y + .5F, z + .5F, Reference.MCAssetVer + ":block.end_portal_frame.fill", 1, 1);
 							int j1 = meta & 3;
 							int j2 = 0;
@@ -732,7 +730,7 @@ public class ServerEventHandler {
 						}
 						
 						// --- For blocks with no place sound (reeds, redstone, cake, beds etc) --- //
-						if(heldStack != null && !world.isRemote && ConfigWorld.enableSilentPlaceSounds)
+						if(ConfigSounds.fixSilentPlaceSounds && heldStack != null && !world.isRemote)
 						{
 							Block block = null;
 							Item item = heldStack.getItem();
@@ -833,7 +831,7 @@ public class ServerEventHandler {
 
 						
 						//Seeds/Wart placing sounds
-						if(ConfigWorld.enableNewBlocksSounds && side == 1 && heldStack != null && heldStack.getItem() instanceof IPlantable && player.canPlayerEdit(x, y + 1, z, side, heldStack)) {
+						if(ConfigSounds.seedPlanting && side == 1 && heldStack != null && heldStack.getItem() instanceof IPlantable && player.canPlayerEdit(x, y + 1, z, side, heldStack)) {
 							/*
 							 * This code was adapted from AstroTibs' ASMC.
 							 * Used with permission!
@@ -862,7 +860,7 @@ public class ServerEventHandler {
 								event.setResult(Result.DENY);
 								player.swingItem();
 								world.setBlock(x, y, z, ModBlocks.lava_cauldron);
-								if(ConfigWorld.enableNewMiscSounds) {
+								if(ConfigSounds.fluidInteract) {
 									world.playSoundEffect(x, y, z, Reference.MCAssetVer+":item.bucket.empty_lava", 1, 1);
 								}
 								if(!player.capabilities.isCreativeMode) {
@@ -873,7 +871,7 @@ public class ServerEventHandler {
 									}
 								}
 								return;
-							} else if(ConfigWorld.enableNewMiscSounds) {
+							} else if(ConfigSounds.fluidInteract) {
 								String container = "";
 								String fillOrEmpty = "";
 								if(item instanceof ItemBucket && ((ItemBucket)item).isFull == Blocks.flowing_water && meta < 3) {
@@ -891,7 +889,7 @@ public class ServerEventHandler {
 						}
 						
 						// --- Bottle fill sounds --- //
-						if (ConfigWorld.enableNewMiscSounds && !world.isRemote && heldStack != null && heldStack.getItem() == Items.glass_bottle && event.action == Action.RIGHT_CLICK_AIR) {
+						if (ConfigSounds.fluidInteract && !world.isRemote && heldStack != null && heldStack.getItem() == Items.glass_bottle && event.action == Action.RIGHT_CLICK_AIR) {
 							MovingObjectPosition movingobjectposition = getMovingObjectPositionFromPlayer(world, player, true);
 							
 							if (movingobjectposition != null && movingobjectposition.typeOfHit == MovingObjectType.BLOCK) {
@@ -914,7 +912,7 @@ public class ServerEventHandler {
 						}
 
 						// --- Lilypad sounds --- //
-						if (ConfigWorld.enableNewBlocksSounds && heldStack != null && Block.getBlockFromItem(heldStack.getItem()) instanceof BlockLilyPad)
+						if (ConfigSounds.enableNewBlockSounds && heldStack != null && Block.getBlockFromItem(heldStack.getItem()) instanceof BlockLilyPad)
 						{
 							Block block = Block.getBlockFromItem(heldStack.getItem());
 							MovingObjectPosition movingobjectposition = getMovingObjectPositionFromPlayer(world, player, true);
@@ -989,7 +987,7 @@ public class ServerEventHandler {
 	@SubscribeEvent
 	public void onFillBucketEvent(FillBucketEvent event)
 	{
-		if(ConfigWorld.enableNewMiscSounds && event.current.getItem() instanceof ItemBucket) {//In case some weirdo mod fires this event but doesn't use ItemBucket
+		if(ConfigSounds.fluidInteract && event.current.getItem() instanceof ItemBucket) {//In case some weirdo mod fires this event but doesn't use ItemBucket
 			Block isFull = ((ItemBucket)event.current.getItem()).isFull;
 			MovingObjectPosition target = event.target;
 			int x = target.blockX;
@@ -1014,7 +1012,7 @@ public class ServerEventHandler {
 					event.world.playSoundEffect(target.blockX + 0.5, target.blockY + 0.5, target.blockZ + 0.5, Reference.MCAssetVer+":item.bucket.empty", 1.0F, 1.0F);
 				} else if (isFull != Blocks.air) {// --- Pour something else --- //
 					event.world.playSoundEffect(target.blockX + 0.5, target.blockY + 0.5, target.blockZ + 0.5, Reference.MCAssetVer+":item.bucket.empty_lava", 1.0F, 1.0F);
-				} else if (isFull == Blocks.air) {
+				} else {
 					if (event.world.getBlock(target.blockX, target.blockY, target.blockZ).getMaterial() == Material.water) {// --- Fill with water --- //
 						event.world.playSoundEffect(target.blockX + 0.5, target.blockY + 0.5, target.blockZ + 0.5, Reference.MCAssetVer+":item.bucket.fill", 1.0F, 1.0F);
 					} else if (event.world.getBlock(target.blockX, target.blockY, target.blockZ).getMaterial().isLiquid()) {// --- Fill with something else --- //
@@ -1051,7 +1049,7 @@ public class ServerEventHandler {
 			}
 		}
 		
-		if(ConfigWorld.enableNewMiscSounds) {
+		if(ConfigSounds.hoeTilling) {
 			if(!flag) {
 	            Block block = world.getBlock(x, y, z);
 	            MovingObjectPosition position = getMovingObjectPositionFromPlayer(world, event.entityPlayer, false);
@@ -1286,7 +1284,7 @@ public class ServerEventHandler {
 		}
 
 		// --- Milk Mooshroom --- //
-		if (target instanceof EntityCow && stack != null && ConfigWorld.enableNewMiscSounds) {
+		if (target instanceof EntityCow && stack != null && ConfigSounds.horseEatCowMilk) {
 			if(target instanceof EntityMooshroom && stack.getItem() == Items.bowl) {
 				world.playSoundEffect(target.posX, target.posY, target.posZ, Reference.MCAssetVer+":entity.mooshroom.milk", 1.0F, 0.9F + (world.rand.nextInt(3) - 1) * 0.1F);
 			} else if(stack.getItem() == Items.bucket) {
@@ -1296,7 +1294,7 @@ public class ServerEventHandler {
 		}
 
 
-		if (target instanceof EntityItemFrame) { // --- Add/Rotate within Item Frame --- //
+		if (ConfigSounds.paintingItemFramePlacing && target instanceof EntityItemFrame) { // --- Add/Rotate within Item Frame --- //
 			EntityItemFrame itemframe = (EntityItemFrame)target;
 			
 			if (stack != null && itemframe.getDisplayedItem() == null) // This frame is empty and is getting an item placed inside.
@@ -1306,7 +1304,10 @@ public class ServerEventHandler {
 			{
 				world.playSoundEffect(target.posX, target.posY, target.posZ, Reference.MCAssetVer+":entity.item_frame.rotate_item", 1.0F, 1.0F);
 			}
-		} else if (target instanceof EntityLeashKnot) { // --- Remove a Lead Knot --- //
+			return;
+		}
+
+		if (ConfigSounds.leashSounds && target instanceof EntityLeashKnot) { // --- Remove a Lead Knot --- //
 			world.playSoundEffect(target.posX + 0.5, target.posY + 0.5, target.posZ + 0.5, Reference.MCAssetVer+":entity.leash_knot.break", 1.0F, 1.0F);
 		}
 	}
@@ -1452,7 +1453,7 @@ public class ServerEventHandler {
 		}
 
 		// --- Attack a living entity --- //
-		if (ConfigSounds.newCombatSounds && event.source.damageType.equals("player")) {
+		if (ConfigSounds.combatSounds && event.source.damageType.equals("player")) {
 			EntityPlayer playerSource = (EntityPlayer) event.source.getEntity();
 			World world = playerSource.worldObj;
 			double x = targetEntity.posX;
@@ -1469,7 +1470,7 @@ public class ServerEventHandler {
 					}
 
 					if (attackDamage > 0.0F || enchantmentDamage > 0.0F) {
-						boolean isStrongAttack = playerSource.getHeldItem() != null && event.ammount >= 4F;
+						boolean isStrongAttack = playerSource.getHeldItem() != null && event.ammount >= ConfigSounds.combatSoundStrongThreshold;
 
 						// Knockback degree
 						//Unused variable
@@ -1548,7 +1549,7 @@ public class ServerEventHandler {
 					}
 				}
 			}
-			if(ConfigWorld.enableNewMiscSounds && event.source.getDamageType().equals("thorns")) {
+			if(ConfigSounds.thornsSounds && event.source.getDamageType().equals("thorns")) {
 				event.entity.worldObj.playSoundAtEntity(event.entity, Reference.MCAssetVer + ":enchant.thorns.hit", 1, 1);
 			}
 		}
@@ -1624,7 +1625,7 @@ public class ServerEventHandler {
 	private final Map<EntityPlayer, MutableFloat> lastAttackedAtYaw = new WeakHashMap<>();
 			
 	@SubscribeEvent
-	public void onElytraPostPlayerTick(TickEvent.PlayerTickEvent e) {
+	public void postPlayerTick(TickEvent.PlayerTickEvent e) {
 
 		if(e.phase == TickEvent.Phase.END) {
 			if(ConfigFunctions.enableAttackedAtYawFix && !e.player.worldObj.isRemote && e.player instanceof EntityPlayerMP) {

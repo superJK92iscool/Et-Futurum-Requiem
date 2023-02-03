@@ -2,7 +2,7 @@ package ganymedes01.etfuturum.blocks;
 
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
+import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.tileentities.TileEntityLightningRod;
 import net.minecraft.block.Block;
@@ -20,7 +20,7 @@ public class BlockLightningRod extends Block implements IConfigurable {
 		setBlockName(Utils.getUnlocalisedName("lightning_rod"));
 		setBlockTextureName("lightning_rod");
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
-		setStepSound(ConfigWorld.enableNewBlocksSounds ? ModSounds.soundCopper : Block.soundTypeMetal);
+		setStepSound(ConfigSounds.enableNewBlockSounds ? ModSounds.soundCopper : Block.soundTypeMetal);
 		setTickRandomly(true);
 	}
 

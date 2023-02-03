@@ -4,12 +4,11 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
+import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.IIcon;
 
 public class BlockLodestone extends Block implements IConfigurable {
@@ -25,7 +24,7 @@ public class BlockLodestone extends Block implements IConfigurable {
 		setBlockName(Utils.getUnlocalisedName("lodestone"));
 		setBlockTextureName("lodestone");
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
-		setStepSound(ConfigWorld.enableNewBlocksSounds ? ModSounds.soundLodestone : soundTypePiston);
+		setStepSound(ConfigSounds.enableNewBlockSounds ? ModSounds.soundLodestone : soundTypePiston);
 		setTickRandomly(true);
 	}
 	

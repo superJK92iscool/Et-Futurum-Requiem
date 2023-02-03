@@ -9,7 +9,7 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.blocks.IConfigurable;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
-import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
+import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.DeepslateOreRegistry;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
@@ -45,7 +45,7 @@ public class BlockDeepslateOre extends BlockOre implements IConfigurable {
 		//Block.blockRegistry.getNameFor does not work in preInit
 		to.setBlockName(Utils.getUnlocalisedName("deepslate_" + from.textureName.toLowerCase()));
 		to.setBlockTextureName("deepslate_" + from.textureName);
-		to.setStepSound(ConfigWorld.enableNewBlocksSounds ? ModSounds.soundDeepslate : soundTypeStone);
+		to.setStepSound(ConfigSounds.enableNewBlockSounds ? ModSounds.soundDeepslate : soundTypeStone);
 		to.setCreativeTab(((IConfigurable)to).isEnabled() ? EtFuturum.creativeTabBlocks : null);
 		to.setLightLevel(from.getLightValue() / 15F);
 		to.setLightOpacity(from.getLightOpacity());

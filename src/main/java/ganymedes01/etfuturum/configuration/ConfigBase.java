@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import ganymedes01.etfuturum.core.utils.Logger;
 import org.spongepowered.asm.mixin.MixinEnvironment;
 
 import cpw.mods.fml.client.event.ConfigChangedEvent;
@@ -96,6 +97,10 @@ public abstract class ConfigBase extends Configuration {
 		ConfigWorld.amethystOuterBlock = ConfigWorld.amethystOuterID == 0 || block == null ? ModBlocks.smooth_basalt : block;
 		if(!EtFuturum.hasIronChest) {
 			ConfigBlocksItems.enableShulkerBoxesIronChest = false;
+		}
+		if(EtFuturum.hasEars || EtFuturum.hasSkinPort) {
+			ConfigFunctions.enablePlayerSkinOverlay = false;
+			Logger.info("Et Futurum Requiem's skin backport was disabled as SkinPort/Ears was detected, to avoid conflicts.");
 		}
 	}
 

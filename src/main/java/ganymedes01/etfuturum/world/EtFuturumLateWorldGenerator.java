@@ -59,14 +59,11 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 						int redoZ = (int)(packedChunkCoords >> 32);
 						
 						Chunk cachedChunk = world.getChunkFromChunkCoords(redoX, redoZ);
-						Iterator<Integer> setIterator = posSet.iterator();
-						while(setIterator.hasNext()) {
-							int pos = setIterator.next();
-							
-							byte posX = (byte)((pos >> 12));
-							short posY = (short)((pos >> 4 & 0xFF));
-							byte posZ = (byte)((pos & 0xF));
-							
+						for (int pos : posSet) {
+							byte posX = (byte) ((pos >> 12));
+							short posY = (short) ((pos >> 4 & 0xFF));
+							byte posZ = (byte) ((pos & 0xF));
+
 							replaceBlockInChunk(cachedChunk, posX, posZ, redoX << 4 + posX, posY, redoZ << 4 + posZ);
 						}
 					}

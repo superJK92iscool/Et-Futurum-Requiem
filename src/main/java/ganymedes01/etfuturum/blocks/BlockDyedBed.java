@@ -9,11 +9,13 @@ import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModBlocks.ISubBlocksBlock;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
+import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.items.IRegistryName;
 import ganymedes01.etfuturum.items.block.ItemDyedBed;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.recipes.ModRecipes;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockBed;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -39,6 +41,7 @@ public class BlockDyedBed extends BlockBed implements IConfigurable, ISubBlocksB
 		disableStats();
 		setBlockTextureName(dyeName + "_bed");
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setStepSound(ConfigSounds.enableNewBlockSounds ? Block.soundTypeWood : Block.soundTypeCloth);
 	}
 	
 //	@SideOnly(Side.CLIENT)

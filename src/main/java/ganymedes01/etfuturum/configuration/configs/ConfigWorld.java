@@ -36,12 +36,6 @@ public class ConfigWorld extends ConfigBase {
 	public static boolean fossilDimensionBlacklistAsWhitelist;
 	public static int tileReplacementMode;
 	public static int maxStonesPerCluster;
-	public static boolean enableNewBlocksSounds;
-	public static boolean enableNewMiscSounds;
-	public static boolean enableNewAmbientSounds;
-	public static boolean enableSilentPlaceSounds;
-	public static boolean enableNetherAmbience;
-	public static boolean enableNewNoteBlockSounds;
 	public static int smallDebrisMax = 2;
 	public static boolean enableOceanMonuments;
 	public static int[] deepslateLayerDimensionBlacklist;
@@ -79,12 +73,7 @@ public class ConfigWorld extends ConfigBase {
 		Configuration cfg = configInstance;
 		
 		enableDmgIndicator = cfg.getBoolean("enableDmgIndicator", catClient, true, "Heart Damage Indicator");
-		enableNewBlocksSounds = cfg.getBoolean("enableNewBlocksSounds", catClient, true, "New Blocks sounds, such as the new place/break sounds added alongside new blocks. Additionally, this will attempt to apply the sounds to existing blocks, like custom Netherrack variants may have the step sound if named right.");
-		enableNewMiscSounds = cfg.getBoolean("enableNewMiscSounds", catClient, true, "New sounds like furnace crackling, chests etc.");
-		enableNewAmbientSounds = cfg.getBoolean("enableNewAmbientSounds", catClient, true, "New ambient sounds like rain, cave sounds");
-		enableSilentPlaceSounds = cfg.getBoolean("enableSilentPlaceSounds", catClient, true, "For blocks like redstone/beds/doors that previously had no place sounds");
-		enableNetherAmbience = cfg.getBoolean("enableNetherAmbience", catClient, true, "");
-		enableNewNoteBlockSounds = cfg.getBoolean("enableNewNoteBlockSounds", catClient, true, "The new instruments from 1.12 and 1.14 for note blocks");
+		ConfigSounds.fixSilentPlaceSounds = cfg.getBoolean("enableSilentPlaceSounds", catClient, true, "For blocks like redstone/beds/doors that previously had no place sounds");
 		
 		enableAirDebris = cfg.getBoolean("enableAirDebris", catGeneration, false, "Can ancient debris generate next to air?");
 		maxStonesPerCluster = cfg.getInt("maxStonesPerCluster", catGeneration, 32, 0, 64, "Max vein size for Granite/Andesite/Diorite blocks in a cluster");

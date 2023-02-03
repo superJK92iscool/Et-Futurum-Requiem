@@ -3,7 +3,7 @@ package ganymedes01.etfuturum.blocks;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
-import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
+import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
@@ -21,7 +21,7 @@ public class BlockAmethystBlock extends Block implements IConfigurable {
 		super(material);
 		setHardness(1.5F);
 		setResistance(1.5F);
-		setStepSound(ConfigWorld.enableNewBlocksSounds ? ModSounds.soundAmethystBlock : soundTypeGlass);
+		setStepSound(ConfigSounds.enableNewBlockSounds ? ModSounds.soundAmethystBlock : soundTypeGlass);
 		setBlockTextureName("amethyst_block");
 		setBlockName(Utils.getUnlocalisedName("amethyst_block"));
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);

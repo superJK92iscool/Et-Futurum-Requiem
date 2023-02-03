@@ -4,7 +4,7 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.blocks.IConfigurable;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
-import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
+import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.network.WoodSignOpenMessage;
 import ganymedes01.etfuturum.tileentities.TileEntityWoodSign;
@@ -97,7 +97,7 @@ public class ItemWoodSign extends Item implements IConfigurable {
 				}
 				
 				//Disable the sound for continuity, so it doesn't play when the event-based player would not
-                if(ConfigWorld.enableSilentPlaceSounds)p_77648_3_.playSoundEffect((double)((float)p_77648_4_ + 0.5F), (double)((float)p_77648_5_ + 0.5F), (double)((float)p_77648_6_ + 0.5F), block.stepSound.func_150496_b(), (block.stepSound.getVolume() + 1.0F) / 2.0F, block.stepSound.getPitch() * 0.8F);
+                if(ConfigSounds.fixSilentPlaceSounds)p_77648_3_.playSoundEffect((double)((float)p_77648_4_ + 0.5F), (double)((float)p_77648_5_ + 0.5F), (double)((float)p_77648_6_ + 0.5F), block.stepSound.func_150496_b(), (block.stepSound.getVolume() + 1.0F) / 2.0F, block.stepSound.getPitch() * 0.8F);
 
 				--itemStack.stackSize;
 				TileEntityWoodSign tileentitysign = (TileEntityWoodSign)p_77648_3_.getTileEntity(p_77648_4_, p_77648_5_, p_77648_6_);

@@ -7,7 +7,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks.ISubBlocksBlock;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
-import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
+import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.items.block.ItemBlockNewWall;
 import ganymedes01.etfuturum.lib.Reference;
@@ -93,7 +93,7 @@ public class BlockNewWall extends BlockWall implements IConfigurable, ISubBlocks
 
 	@Override
 	public SoundType getStepSound(IBlockAccess world, int x, int y, int z, int meta) {
-		if(blocks[meta % variations] instanceof IMultiStepSound && (!((IMultiStepSound)blocks[meta % variations]).requiresNewBlockSounds() || ConfigWorld.enableNewBlocksSounds)) {
+		if(blocks[meta % variations] instanceof IMultiStepSound && (!((IMultiStepSound)blocks[meta % variations]).requiresNewBlockSounds() || ConfigSounds.enableNewBlockSounds)) {
 			return ((IMultiStepSound)blocks[meta % variations]).getStepSound(world, x, y, z, metas[meta % variations]);
 		}
 		return null;

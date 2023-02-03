@@ -10,8 +10,7 @@ import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModBlocks.ISubBlocksBlock;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
-import ganymedes01.etfuturum.core.utils.Logger;
+import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.items.block.ItemAmethystCluster;
 import ganymedes01.etfuturum.lib.RenderIDs;
@@ -27,7 +26,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class BlockAmethystCluster extends BlockAmethystBlock implements ISubBlocksBlock, IMultiStepSound {
 	
@@ -39,7 +37,7 @@ public class BlockAmethystCluster extends BlockAmethystBlock implements ISubBloc
 		super(Material.glass);
 		setHardness(1.5F);
 		setResistance(1.5F);
-		setStepSound(ConfigWorld.enableNewBlocksSounds ? ModSounds.soundAmethystCluster : soundTypeGlass);
+		setStepSound(ConfigSounds.enableNewBlockSounds ? ModSounds.soundAmethystCluster : soundTypeGlass);
 		setBlockTextureName("amethyst_cluster");
 		setBlockName(Utils.getUnlocalisedName("amethyst_cluster_" + (type + 1)));
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
