@@ -623,6 +623,14 @@ public class ServerEventHandler {
 		}
 	}
 
+	@SubscribeEvent
+	public void onBoneMeal(BonemealEvent event) {
+		if(ConfigSounds.bonemealing && event.block instanceof IGrowable && !event.world.isRemote &&
+				((IGrowable)event.block).func_149851_a(event.world, event.x, event.y, event.z, false) && //Last arg should always be false because it typically checks for isRemote
+				((IGrowable)event.block).func_149852_a(event.world, event.world.rand, event.x, event.y, event.z)) {
+			event.world.playSoundEffect(event.x + .5F, event.y + .5F, event.z + .5F, Reference.MCAssetVer + ":item.bone_meal.use", 1, 1);
+		}
+	}
 	@SubscribeEvent(priority=EventPriority.HIGHEST)
 	public void onPlayerInteract(PlayerInteractEvent event) {
 		EntityPlayer player = event.entityPlayer;

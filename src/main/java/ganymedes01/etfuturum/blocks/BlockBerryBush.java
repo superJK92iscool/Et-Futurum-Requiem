@@ -10,9 +10,11 @@ import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
+import ganymedes01.etfuturum.core.utils.Logger;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.BlockBush;
+import net.minecraft.block.IGrowable;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
@@ -29,7 +31,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class BlockBerryBush extends BlockBush implements IConfigurable, ISubBlocksBlock {
+public class BlockBerryBush extends BlockBush implements IConfigurable, ISubBlocksBlock, IGrowable {
 
 	@SideOnly(Side.CLIENT)
 	private IIcon[] icons;
@@ -122,22 +124,11 @@ public class BlockBerryBush extends BlockBush implements IConfigurable, ISubBloc
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_)
 	{
 		int i = world.getBlockMetadata(x, y, z);
-		boolean flag = i == 3;
-		ItemStack heldItem = player.getHeldItem();
-		if (!flag && heldItem != null && heldItem.getItem() == Items.dye && heldItem.getItemDamage() == 15) {
-			world.setBlockMetadataWithNotify(x, y, z, i + 1, 2);
-			if (!player.capabilities.isCreativeMode && --heldItem.stackSize <= 0)
-			{
-				player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack)null);
-			}
-			return true;
-	   } else if (i > 1) {
-		   int j = 1 + world.rand.nextInt(2);
-		   ItemStack stack = new ItemStack(ModItems.sweet_berries, j + (flag ? 1 : 0));
+		if (i > 1 && (i != 2 || player.getHeldItem() == null || player.getHeldItem().getItem() != Items.dye || player.getHeldItem().getItemDamage() != 15)) {
+			//We check for if the plant is in the first berried stage (meta 2, the plant has berries on meta 2 and 3) and if we're holding bone meal.
+			//This is so we grow the berries to the final meta, 3 instead of picking them if the meta is 2.
 		   if (!world.isRemote && !world.restoringBlockSnapshots) {
-			   if (captureDrops.get()) {
-				   capturedDrops.get().add(stack);
-			   }
+			   ItemStack stack = new ItemStack(ModItems.sweet_berries, 1 + world.rand.nextInt(i));
 			   float f = 0.7F;
 			   double d0 = world.rand.nextFloat() * f + (1.0F - f) * 0.5D;
 			   double d1 = world.rand.nextFloat() * f + (1.0F - f) * 0.5D;
@@ -195,5 +186,23 @@ public class BlockBerryBush extends BlockBush implements IConfigurable, ISubBloc
 	@Override
 	public int getFireSpreadSpeed(IBlockAccess aWorld, int aX, int aY, int aZ, ForgeDirection aSide) {
 		return 60;
+	}
+
+	@Override
+	public boolean func_149851_a(World p_149851_1_, int p_149851_2_, int p_149851_3_, int p_149851_4_, boolean p_149851_5_) {
+		return p_149851_1_.getBlockMetadata(p_149851_2_, p_149851_3_, p_149851_4_) < 3;
+	}
+
+	@Override
+	public boolean func_149852_a(World p_149852_1_, Random p_149852_2_, int p_149852_3_, int p_149852_4_, int p_149852_5_) {
+		return true;
+	}
+
+	@Override
+	public void func_149853_b(World world, Random rand, int x, int y, int z) {
+		int i = world.getBlockMetadata(x, y, z);
+		if(i < 3) {
+			world.setBlockMetadataWithNotify(x, y, z, world.getBlockMetadata(x, y, z) + 1, 2);
+		}
 	}
 }

@@ -43,6 +43,7 @@ public class ConfigSounds extends ConfigBase {
             "iron:nickel",
             "iron:nickle",
             "iron:prometheum",
+            "iron:solar",
             "iron:steel",
             "iron:thaumium",
             "iron:tin",
@@ -97,6 +98,7 @@ public class ConfigSounds extends ConfigBase {
     public static boolean newBlockSounds;
     public static boolean hoeTilling;
     public static boolean furnaceCrackling;
+    public static boolean bonemealing;
 
     public static float combatSoundStrongThreshold;
 
@@ -130,6 +132,7 @@ public class ConfigSounds extends ConfigBase {
         armorEquip = cfg.getBoolean("armorEquip", catPlayer, true, "New sounds for equipping armor.");
         paintingItemFramePlacing = cfg.getBoolean("paintingItemFramePlacing", catPlayer, true, "New sounds for placing, interacting with, and destroying item frames or paintings.");
         leashSounds = cfg.getBoolean("leashSounds", catPlayer, true, "New sounds for placing, interacting with, and destroying item frames or paintings.");
+        bonemealing = cfg.getBoolean("bonemealing", catPlayer, true, "New sounds for using bone meal.");
         combatSoundStrongThreshold = cfg.getFloat("combatSoundStrongThreshold", catPlayer, 4.0F, 0, Float.MAX_VALUE, "Damage threshold for attacks to play the \"strong\" hit sound. 1 = half heart, 2 = full heart. 4 (default) = 2 hearts");
 
         noteBlockNotes = cfg.getBoolean("noteBlockNotes", catBlocksItems, true, "The new instruments from 1.12 and 1.14 for note blocks.");
