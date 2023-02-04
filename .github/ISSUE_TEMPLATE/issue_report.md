@@ -18,28 +18,28 @@ assignees: 'Roadhog360'
 
 
 ### Version number of Et-Futurum-Requiem (IMPORTANT)
-> _Specify the actual version, please don't just say "latest", tell us the version number of the mod in-game, or the name the jar had when downloading it._
+<!-- Specify the actual version, please don't just say "latest", tell us the version number of the mod in-game, or the name the jar had when downloading it. -->
 
 
 
 
 
 ### Describe the issue (IMPORTANT)
-> _A list of steps to reproduce the issue may be helpful too. Screenshots could also prove beneficial for visual issues._
+<!-- A list of steps to reproduce the issue may be helpful too. Screenshots could also prove beneficial for visual issues. -->
 
 
 
 
 
 ### Mod list (OPTIONAL)
-> _Crash reports contain the mod list to copy. Please use Pastebin or Gist if it is too large. If you don't have a crash report, open any world and hold F3 + C for 10 seconds to crash the game manually._
+<!-- Crash reports contain the mod list to copy. Please use Pastebin or Gist if it is too large. If you don't have a crash report, open any world and hold F3 + C for 10 seconds to crash the game manually. -->
 
 
 
 
 
 ### Additional Context (OPTIONAL)
-> _Any other info that may have been missed? If you suspect other mods to cause this issue, list them here and tell us why you suspect each of them._
+<!-- Any other info that may have been missed? If you suspect other mods to cause this issue, list them here and tell us why you suspect each of them. -->
 
 
 
