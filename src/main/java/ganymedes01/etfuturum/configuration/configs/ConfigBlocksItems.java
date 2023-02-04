@@ -2,6 +2,7 @@ package ganymedes01.etfuturum.configuration.configs;
 
 import java.io.File;
 
+import ganymedes01.etfuturum.EtFuturum;
 import org.apache.commons.lang3.ArrayUtils;
 
 import cpw.mods.fml.common.Loader;
@@ -108,6 +109,8 @@ public class ConfigBlocksItems extends ConfigBase {
 	public static boolean enableLoom;
 	public static boolean enableAmethyst;
 	public static boolean enableDyedBeds;
+	public static boolean enableTarget;
+	public static boolean enableSculk;
 	//Nether Update temp disabled
 	public static boolean enableCrimsonBlocks = false;
 	public static boolean enableWarpedBlocks = false;
@@ -183,6 +186,8 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableDeepslateOres = cfg.getBoolean("enableDeepslateOres", catBlockNatural, true, "Enable deepslate ores for copper ore and vanilla ores when deepslate generates over them.");
 		enableAmethyst = cfg.getBoolean("enableAmethyst", catBlockNatural, true, "Enables tinted glass, amethyst blocks, budding amethyst and amethyst crystals. Also enables the item too. Smooth basalt can be disabled by changing the world.cfg option for the basalt layer to something else.");
 
+//		enableSculk = cfg.getBoolean("enableSculk", catBlockNatural, true, "Enables sculk-related blocks.");
+
 		//Function Blocks
 		enableIronTrapdoor = cfg.getBoolean("enableIronTrapdoor", catBlockFunc, true, "");
 		enableSponge = cfg.getBoolean("enableSponge", catBlockFunc, true, "");
@@ -213,6 +218,8 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableColourfulBeacons = cfg.getBoolean("enableNewBeacon", catBlockFunc, true, "Beacon beam can be colored using stained glass");
 		enableInvertedDaylightSensor = cfg.getBoolean("enableInvertedSensor", catBlockFunc, true, "Inverted Daylight Sensor");
 		enableOldBaseDaylightSensor = cfg.getBoolean("enableOldBaseDaylightSensor", catBlockFunc, false, "Enable the old Et Futurum daylight sensor block. Should be enabled if you still have the old Et Futurum copy of the non-inverted daylight detector that need to be converted.");
+
+		enableTarget = cfg.getBoolean("enableTarget", catBlockFunc, true, "Enables target block from 1.16");
 		
 		//Misc Blocks
 		enableFences = cfg.getBoolean("enableFences", catBlockMisc, true, "Enables wood variant fences and gates");

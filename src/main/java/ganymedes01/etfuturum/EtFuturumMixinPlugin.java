@@ -158,6 +158,15 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 		if(ConfigMixins.newBeaconSounds) {
 			mixins.add("sounds.MixinTileEntityBeacon");
 		}
+
+		if(ConfigMixins.enableObservers) {
+			mixins.add("MixinWorld_Observer");
+			mixins.add("MixinWorldServer_Observer");
+		}
+
+		if(ConfigMixins.arrowFallingFix) {
+			mixins.add("MixinEntityArrow");
+		}
 		
 		if(side == MixinEnvironment.Side.CLIENT) {
 

@@ -105,6 +105,8 @@ public class ModBlocks {
 	public static final Block amethyst_cluster_1 = initBlock(new BlockAmethystCluster(0));
 	public static final Block amethyst_cluster_2 = initBlock(new BlockAmethystCluster(1));
 
+	public static final Block sculk = initBlock(new BlockSculk());
+	public static final Block sculk_catalyst = initBlock(new BlockSculkCatalyst());
 	public static final Block tinted_glass = initBlock(new BlockTintedGlass());
 	
 	//walls
@@ -140,6 +142,8 @@ public class ModBlocks {
 	public static final Block lava_cauldron = initBlock(new BlockLavaCauldron());
 	public static final Block potion_cauldron = initBlock(new BlockPotionCauldron());
 	public static final Block end_gateway = initBlock(new BlockEndGateway());
+	public static final Block observer = initBlock(new BlockObserver());
+	public static final Block target = initBlock(new BlockTarget());
 	
 	//slab/stairs
 	public static final Block red_sandstone_stairs = initBlock(new BlockGenericStairs(red_sandstone, 0).setBlockName(Utils.getUnlocalisedName("red_sandstone_stairs")));

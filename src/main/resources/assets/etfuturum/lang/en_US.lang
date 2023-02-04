@@ -53,6 +53,25 @@ gui.warn.configSplit2=When you're done, you can delete or rename the old config 
 gui.chat.update=%1$s version %2$s is available!
 gui.chat.update.download=Click here to download the update on %s!
 
+# Subtitles
+subtitle.footsteps=Footsteps
+subtitle.mob.hurt=%s hurts
+subtitle.mob.death=%s dies
+subtitle.mob.step=Footsteps
+
+subtitle.mob.bat.takeoff=Bat takes off
+subtitle.mob.chicken.say=Chicken clucks
+subtitle.mob.zombie.say=Zombie groans
+subtitle.mob.skeleton.say=Skeleton rattles
+subtitle.mob.spider.say=Spider hisses
+subtitle.random.pop=Item plops
+subtitle.random.orb=Experience gained
+subtitle.fall.small=Something trips
+subtitle.fall.big=Something fell
+
+subtitle.tile.piston.out=Piston moves
+subtitle.tile.piston.in=Piston moves
+
 # Entities
 entity.etfuturum.endermite.name=Endermite
 entity.etfuturum.wooden_armorstand.name=Armour Stand
@@ -335,6 +354,9 @@ tile.etfuturum.small_amethyst_bud.name=Small Amethyst Bud
 tile.etfuturum.medium_amethyst_bud.name=Medium Amethyst Bud
 tile.etfuturum.large_amethyst_bud.name=Large Amethyst Bud
 tile.etfuturum.amethyst_cluster.name=Amethyst Cluster
+
+tile.etfuturum.sculk.name=Sculk
+tile.etfuturum.sculk_catalyst.name=Sculk Catalyst
 
 tile.etfuturum.magma.name=Magma Block
 tile.etfuturum.nether_wart.name=Nether Wart Block
@@ -707,6 +729,9 @@ item.shulker_copper_silver_upgrade.name=Copper to Silver Shulker Box Upgrade
 item.shulker_silver_gold_upgrade.name=Silver to Gold Shulker Box Upgrade
 
 tile.etfuturum.tinted_glass.name=Tinted Glass
+
+tile.etfuturum.observer.name=Observer
+tile.etfuturum.target.name=Target
 
 util.totemBreak=§a§oYour Totem of Undying shatters...
 

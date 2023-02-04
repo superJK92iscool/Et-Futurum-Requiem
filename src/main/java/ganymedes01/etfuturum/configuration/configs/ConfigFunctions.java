@@ -127,6 +127,8 @@ public class ConfigFunctions extends ConfigBase {
 	public static boolean enableFillCommand;
 	public static boolean enableUpdateChecker;
 	public static boolean enableAttackedAtYawFix;
+	public static boolean enableSubtitles;
+	public static String subtitleBlacklist;
 	public static String[] extraDropRawOres = new String[] {"oreCopper", "oreTin"};
 
 	static final String catUpdateChecker = "update_checker";
@@ -195,6 +197,8 @@ public class ConfigFunctions extends ConfigBase {
 		enableGamemodeSwitcher = cfg.getBoolean("enableGamemodeSwitcher", catClient, true, "Enable the new F3+F4 gamemode switcher from 1.16+");
 		enableNewF3Behavior = cfg.getBoolean("enableNewF3Behavior", catClient, true, "Make F3 only show/hide info on release, and not if another key is pressed");
 		enableNewTextures = cfg.getBoolean("enableNewTextures", catClient, true, "Replace tall grass and sponge textures with modern version");
-		
+
+		enableSubtitles = cfg.getBoolean("enableSubtitles", catClient, false, "Enable subtitles");
+		subtitleBlacklist = cfg.getString("subtitleBlacklist", catClient, "^(dig\\.*)", "Regex of subtitles to blacklist");
 	}
 }

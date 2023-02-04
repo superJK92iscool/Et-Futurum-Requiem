@@ -1,6 +1,25 @@
 package ganymedes01.etfuturum;
 
 import com.google.common.collect.ImmutableList;
+import java.io.File;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.google.common.collect.ImmutableList;
+import ganymedes01.etfuturum.blocks.BlockSculk;
+import ganymedes01.etfuturum.blocks.BlockSculkCatalyst;
+import ganymedes01.etfuturum.network.*;
+import ganymedes01.etfuturum.spectator.SpectatorMode;
+import net.minecraft.block.*;
+import org.apache.commons.lang3.ArrayUtils;
+
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -121,6 +140,7 @@ public class EtFuturum {
 		MCLib.init();
 		
 		ADConfig config = new ADConfig();
+
 		getSounds(config);
 		
 		AssetDirectorAPI.register(config);
@@ -378,7 +398,8 @@ public class EtFuturum {
 				/*
 				 * HOE MINING
 				 */
-				if(block instanceof BlockLeaves || block instanceof BlockHay || block instanceof BlockSponge || block instanceof BlockNetherWart) {
+				if(block instanceof BlockLeaves || block instanceof BlockHay || block instanceof BlockSponge || block instanceof BlockNetherWart
+						|| block instanceof BlockSculk || block instanceof BlockSculkCatalyst) {
 					HoeHelper.addToHoeArray(block);
 				}
 			}
@@ -656,7 +677,7 @@ public class EtFuturum {
 		return null;
 	}
 	
-	private final static void getSounds(ADConfig config) {
+	private static void getSounds(ADConfig config) {
 		String ver = Reference.MCAssetVer.split("_")[1];
 		
 		config.addObject(ver, "minecraft/sounds/ambient/cave/cave14.ogg");
@@ -906,6 +927,12 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "block.wet_grass.break", "block");
 		config.addSoundEvent(ver, "block.wet_grass.place", "block");
 		config.addSoundEvent(ver, "block.lily_pad.place", "block");
+		config.addSoundEvent(ver, "block.sculk.break", "block");
+		config.addSoundEvent(ver, "block.sculk.place", "block");
+		config.addSoundEvent(ver, "block.sculk.step", "block");
+		config.addSoundEvent(ver, "block.sculk_catalyst.break", "block");
+		config.addSoundEvent(ver, "block.sculk_catalyst.place", "block");
+		config.addSoundEvent(ver, "block.sculk_catalyst.step", "block");
 //      config.addSoundEvent(ver, "block.nylium.step", "neutral");
 //      config.addSoundEvent(ver, "block.nylium.break", "block");
 		config.addSoundEvent(ver, "block.fungus.step", "neutral");

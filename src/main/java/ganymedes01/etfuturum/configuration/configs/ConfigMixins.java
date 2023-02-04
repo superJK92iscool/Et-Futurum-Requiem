@@ -23,6 +23,7 @@ public class ConfigMixins extends ConfigBase {
 	public static boolean newEnchantingSounds;
 	public static boolean newFishingRodSounds;
 	public static boolean newBeaconSounds;
+	public static boolean arrowFallingFix;
 
 	static final String catBackport = "backported features";
 	static final String catOptimization = "optimizations";
@@ -37,6 +38,7 @@ public class ConfigMixins extends ConfigBase {
 	public static boolean enableNewElytraTakeoffLogic;
 	public static boolean enableDoWeatherCycle;
 	public static float creativeFlightSpeedModifier;
+	public static boolean enableObservers;
 	
 	public ConfigMixins(File file) {
 		super(file);
@@ -63,6 +65,7 @@ public class ConfigMixins extends ConfigBase {
 		fenceWallConnectFix = cfg.getBoolean("fenceWallConnectFix", catBackport, true, "Makes vanilla fences connect to modded ones of the same material. Might have connection issue with mods that don't reference BlockFence super code.\nModified classes: net.minecraft.block.BlockFence net.minecraft.block.BlockWall");
 		avoidDroppingItemsWhenClosing = cfg.getBoolean("avoidDroppingItemsWhenClosing", catBackport, false, "Experimental: avoid dropping items when closing an inventory, like in modern versions.\nModified Classes: net.minecraft.entity.player.EntityPlayerMP");
 		enableSpectatorMode = cfg.getBoolean("enableSpectatorMode", catBackport, true, "VERY EXPERIMENTAL!\nModified Classes: net.minecraft.world.WorldSettings.GameType net.minecraft.entity.Entity net.minecraft.world.World net.minecraft.entity.player.EntityPlayer net.minecraft.network.NetHandlerPlayServer\nModified Client Classes: net.minecraft.client.renderer.EntityRenderer net.minecraft.entity.player.EntityPlayer net.minecraft.client.renderer.WorldRenderer");
+
 		enableElytra = cfg.getBoolean("enableElytra", catBackport, true, "Enables the elytra item.\nModified Classes: net.minecraft.entity.EntityLivingBase net.minecraft.entity.player.EntityPlayer net.minecraft.entity.EntityTrackerEntry net.minecraft.network.NetHandlerPlayServer net.minecraft.client.entity.AbstractClientPlayer net.minecraft.client.entity.EntityPlayerSP net.minecraft.client.model.ModelBiped net.minecraft.client.renderer.entity.RenderPlayer");
 		enableNewElytraTakeoffLogic = cfg.getBoolean("enableNewElytraTakeoffLogic", catBackport, true, "When enabled, the 1.15+ elytra takeoff logic is used, when disabled, the 1.9-1.14 elytra takeoff logic is used.");
 		enableDoWeatherCycle = cfg.getBoolean("enableDoWeatherCycle", catBackport, true, "Add the doWeatherCycle game rule from 1.11+");
@@ -75,9 +78,10 @@ public class ConfigMixins extends ConfigBase {
 		newEnchantingSounds = cfg.getBoolean("newEnchantingSounds", catBackport, true, "Allows an enchantment sound to play on the vanilla enchantment table, and possibly a few modded ones...? This option does nothing to the Et Futurum Requiem enchantment tables.\nModified Classes: net.minecraft.inventory.ContainerEnchantment");
 		newFishingRodSounds = cfg.getBoolean("newFishingRodSounds", catBackport, true, "New sounds for casting and reeling in fishing rods.\nModified Classes: net.minecraft.item.ItemFishingRod");
 		newBeaconSounds = cfg.getBoolean("newBeaconSounds", catBackport, true, "Allows beacon ambience to play for beacons. Should include most modded beacons.\nModified Classes: net.minecraft.tileentity.TileEntityBeacon");
-
+		enableObservers = cfg.getBoolean("enableObservers", catBackport, true, "Modified Classes:");
 
 		stepHeightFix = cfg.getBoolean("stepHeightFix", catFixes, true, "Makes the player able to step up even if a block would be above their head at the destination.\nModified classes: net.minecraft.entity.Entity");
+		arrowFallingFix = cfg.getBoolean("arrowFallingFix", catFixes, true, "Prevents arrows from falling off of blocks too easily\nModified classes: net.minecraft.entity.EntityArrow");
 	}
 	
 }

@@ -4,6 +4,7 @@ import java.io.File;
 
 import com.mojang.authlib.minecraft.MinecraftSessionService;
 
+import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -27,6 +28,7 @@ import ganymedes01.etfuturum.client.renderer.block.BlockPointedDripstoneRenderer
 import ganymedes01.etfuturum.client.renderer.block.BlockSlimeBlockRender;
 import ganymedes01.etfuturum.client.renderer.block.BlockStonecutterRenderer;
 import ganymedes01.etfuturum.client.renderer.block.BlockTrapDoorRenderer;
+import ganymedes01.etfuturum.client.renderer.block.*;
 import ganymedes01.etfuturum.client.renderer.entity.ArmourStandRenderer;
 import ganymedes01.etfuturum.client.renderer.entity.BrownMooshroomRenderer;
 import ganymedes01.etfuturum.client.renderer.entity.ChestBoatRenderer;
@@ -55,6 +57,7 @@ import ganymedes01.etfuturum.client.renderer.tileentity.TileEntityShulkerBoxRend
 import ganymedes01.etfuturum.client.renderer.tileentity.TileEntityWoodSignRenderer;
 import ganymedes01.etfuturum.client.skins.NewRenderPlayer;
 import ganymedes01.etfuturum.client.skins.NewSkinManager;
+import ganymedes01.etfuturum.client.subtitle.GuiSubtitles;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigEntities;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
@@ -62,7 +65,6 @@ import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.core.handlers.ClientEventHandler;
 import ganymedes01.etfuturum.core.utils.VersionChecker;
 import ganymedes01.etfuturum.entities.EntityArmourStand;
-import ganymedes01.etfuturum.entities.EntityBoostingFireworkRocket;
 import ganymedes01.etfuturum.entities.EntityBrownMooshroom;
 import ganymedes01.etfuturum.entities.EntityEndermite;
 import ganymedes01.etfuturum.entities.EntityHusk;
@@ -106,11 +108,16 @@ public class ClientProxy extends CommonProxy {
 			FMLCommonHandler.instance().bus().register(SpectatorModeClient.INSTANCE);
 			MinecraftForge.EVENT_BUS.register(SpectatorModeClient.INSTANCE);
 		}
-		
+
+		if(ConfigFunctions.enableSubtitles) {
+			GuiSubtitles.INSTANCE = new GuiSubtitles(FMLClientHandler.instance().getClient());
+			MinecraftForge.EVENT_BUS.register(GuiSubtitles.INSTANCE);
+		}
+
 		if(ConfigFunctions.enableUpdateChecker && !EtFuturum.SNAPSHOT_BUILD && !EtFuturum.DEV_ENVIRONMENT) {
 			FMLCommonHandler.instance().bus().register(VersionChecker.instance);
-		}
 //        MinecraftForge.EVENT_BUS.register(BiomeFogEventHandler.INSTANCE);
+		}
 	}
 
 	@Override
@@ -201,13 +208,16 @@ public class ClientProxy extends CommonProxy {
 		}
 		
 		RenderingRegistry.registerBlockHandler(new BlockChestRenderer());
+
+		if(ConfigMixins.enableObservers) {
+			RenderingRegistry.registerBlockHandler(new BlockObserverRenderer());
+		}
 		
 		if(EtFuturum.TESTING) {
 			ClientRegistry.bindTileEntitySpecialRenderer(TileEntityGateway.class, new TileEntityGatewayRenderer());
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	private void registerEntityRenderers() {
 		if (ConfigBlocksItems.enableArmourStand)
 			RenderingRegistry.registerEntityRenderingHandler(EntityArmourStand.class, new ArmourStandRenderer());
