@@ -108,4 +108,9 @@ public class BlockEndRod extends Block implements IConfigurable {
 	public int getRenderType() {
 		return RenderIDs.END_ROD;
 	}
+
+	public int getMobilityFlag()
+	{
+		return 0;
+	}
 }
