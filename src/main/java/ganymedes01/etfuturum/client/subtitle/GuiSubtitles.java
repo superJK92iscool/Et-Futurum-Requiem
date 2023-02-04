@@ -67,6 +67,10 @@ public class GuiSubtitles extends Gui {
             return null;
         if(name.startsWith("step.") || name.endsWith(".step"))
             name = "footsteps";
+        if(name.endsWith(".place"))
+            name = "block.placed";
+        if(name.contains("\\.dig\\.") || name.endsWith(".break"))
+            name = "block.destroyed";
         String key = "subtitle." + name;
         String translated = I18n.format(key);
         if(translated.equals(key)) {
@@ -86,8 +90,8 @@ public class GuiSubtitles extends Gui {
 
     @SubscribeEvent
     public void onPlaySound(SoundEvent.SoundSourceEvent e) {
-        String s = getSubtitleText(e.sound, e.name);
-        if(s == null)
+        String s = getSubtitleText(e.sound, e.name.toLowerCase());
+        if(s == null || e.sound.getAttenuationType() == ISound.AttenuationType.NONE)
             return;
         Vec3 soundVec = Vec3.createVectorHelper(e.sound.getXPosF(), e.sound.getYPosF(), e.sound.getZPosF());
 

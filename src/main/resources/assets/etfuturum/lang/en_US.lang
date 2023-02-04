@@ -58,6 +58,8 @@ subtitle.footsteps=Footsteps
 subtitle.mob.hurt=%s hurts
 subtitle.mob.death=%s dies
 subtitle.mob.step=Footsteps
+subtitle.block.destroyed=Block Placed or Broken
+subtitle.block.placed=Block Placed
 
 subtitle.mob.bat.takeoff=Bat takes off
 subtitle.mob.chicken.say=Chicken clucks
