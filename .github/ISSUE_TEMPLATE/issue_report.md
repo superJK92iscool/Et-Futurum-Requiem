@@ -3,7 +3,7 @@ name: Issue Report
 about: Thank you for reporting an issue, people like you help Et Futurum Requiem stay stable.
 title: ''
 labels: ''
-assignees: ''
+assignees: 'Roadhog360'
 
 ---
 
@@ -15,8 +15,6 @@ assignees: ''
 - [ ] This is a crash. Please upload, Pastebin, Gist or copypaste the whole crash report along with this issue.
 
 - [ ] This is a mod incompatibility. If I do this in vanilla Forge with only Et Futurum Requiem installed, it works normally.
-
-- [ ] This is a code problem. Please link the probably problematic lines of code in the issue and/or explain in detail what is wrong.
 
 
 ### Version number of Et-Futurum-Requiem (IMPORTANT)
