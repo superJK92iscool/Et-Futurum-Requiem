@@ -490,7 +490,7 @@ public class ServerEventHandler {
 		boolean flag = false;
 		float toolSpeed = 0;
 		float speedModifier = 0;
-		if(ConfigFunctions.enableHoeMining && HoeHelper.hoeArrayHas(event.block)) {
+		if(ConfigFunctions.enableHoeMining && HoeRegistry.hoeArrayHas(event.block)) {
 			ItemStack stack = event.entityPlayer.getHeldItem();
 			if(stack != null && stack.getItem() instanceof ItemHoe) {
 				try {

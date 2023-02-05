@@ -3,7 +3,6 @@ package ganymedes01.etfuturum;
 import com.google.common.collect.ImmutableList;
 import java.io.File;
 import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -12,7 +11,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.google.common.collect.ImmutableList;
 import ganymedes01.etfuturum.blocks.BlockSculk;
 import ganymedes01.etfuturum.blocks.BlockSculkCatalyst;
 import ganymedes01.etfuturum.network.*;
@@ -46,13 +44,11 @@ import ganymedes01.etfuturum.core.proxy.CommonProxy;
 import ganymedes01.etfuturum.core.utils.*;
 import ganymedes01.etfuturum.entities.ModEntityList;
 import ganymedes01.etfuturum.lib.Reference;
-import ganymedes01.etfuturum.network.*;
 import ganymedes01.etfuturum.potion.ModPotions;
 import ganymedes01.etfuturum.recipes.BlastFurnaceRecipes;
 import ganymedes01.etfuturum.recipes.ModRecipes;
 import ganymedes01.etfuturum.recipes.SmithingTableRecipes;
 import ganymedes01.etfuturum.recipes.SmokerRecipes;
-import ganymedes01.etfuturum.spectator.SpectatorMode;
 import ganymedes01.etfuturum.world.EtFuturumLateWorldGenerator;
 import ganymedes01.etfuturum.world.EtFuturumWorldGenerator;
 import ganymedes01.etfuturum.world.end.dimension.DimensionProviderEnd;
@@ -60,7 +56,6 @@ import ganymedes01.etfuturum.world.structure.OceanMonument;
 import makamys.mclib.core.MCLib;
 import makamys.mclib.ext.assetdirector.ADConfig;
 import makamys.mclib.ext.assetdirector.AssetDirectorAPI;
-import net.minecraft.block.*;
 import net.minecraft.block.Block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
@@ -78,10 +73,7 @@ import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.oredict.OreDictionary;
-import org.apache.commons.lang3.ArrayUtils;
 
-import java.io.File;
-import java.lang.reflect.Field;
 import java.util.*;
 
 @Mod(
@@ -327,51 +319,6 @@ public class EtFuturum {
 			}
 		}
 	}
-
-	private void registerComposting(ImmutableList<Object> items, int percent) {
-		String oredict = "compostChance" + percent;
-		ArrayList<ItemStack> oredictAdditions = new ArrayList<>();
-		ArrayList<Class<?>> classesToCheck = new ArrayList<>();
-		for(Object item : items) {
-			if(item instanceof ItemStack) {
-				oredictAdditions.add((ItemStack)item);
-			} else if(item instanceof String) {
-				oredictAdditions.addAll(OreDictionary.getOres((String) item));
-			} else if(item instanceof Class) {
-				classesToCheck.add((Class<?>)item);
-			}
-		}
-		if(classesToCheck.size() > 0) {
-			for(Object o : Item.itemRegistry) {
-				Item item = (Item)o;
-				for(Class<?> clz : classesToCheck) {
-					if(clz.isAssignableFrom(item.getClass())) {
-						oredictAdditions.add(new ItemStack(item, 1, OreDictionary.WILDCARD_VALUE));
-					}
-				}
-			}
-			for(Object o : Block.blockRegistry) {
-				Block block = (Block)o;
-				for(Class<?> clz : classesToCheck) {
-					if(clz.isAssignableFrom(block.getClass())) {
-						oredictAdditions.add(new ItemStack(block, 1, OreDictionary.WILDCARD_VALUE));
-					}
-				}
-			}
-		}
-		for(ItemStack stack : oredictAdditions) {
-			boolean exists = false;
-			for(int id : OreDictionary.getOreIDs(stack)) {
-				String name = OreDictionary.getOreName(id);
-				if(name.startsWith("compostChance") || name.equals("compostIgnore")) {
-					exists = true;
-					break;
-				}
-			}
-			if(!exists)
-				OreDictionary.registerOre(oredict, stack);
-		}
-	}
 	
 	@EventHandler
 	public void onLoadComplete(FMLLoadCompleteEvent e){
@@ -381,6 +328,7 @@ public class EtFuturum {
 		SmokerRecipes.init();
 		BlastFurnaceRecipes.init();
 		SmithingTableRecipes.init();
+		CompostingRegistry.init();
 		ConfigBase.postInit();
 
 		//Because NP+ uses its own (worse) step sounds for this and it causes the check below that replaces these blocks to fail.
@@ -400,7 +348,7 @@ public class EtFuturum {
 				 */
 				if(block instanceof BlockLeaves || block instanceof BlockHay || block instanceof BlockSponge || block instanceof BlockNetherWart
 						|| block instanceof BlockSculk || block instanceof BlockSculkCatalyst) {
-					HoeHelper.addToHoeArray(block);
+					HoeRegistry.addToHoeArray(block);
 				}
 			}
 
@@ -423,60 +371,6 @@ public class EtFuturum {
 //				block.blockMaterial = Material.wood;
 //			}
 		}
-
-      if(ConfigBlocksItems.enableComposter) {
-          registerComposting(ImmutableList.of(
-                  new ItemStack(ModItems.beetroot_seeds),
-                  new ItemStack(Blocks.tallgrass, 1, 1),
-                  new ItemStack(Blocks.leaves, 1, OreDictionary.WILDCARD_VALUE),
-                  new ItemStack(Items.melon_seeds),
-                  new ItemStack(Items.pumpkin_seeds),
-                  "treeSapling",
-                  "treeLeaves",
-                  new ItemStack(Items.wheat_seeds),
-                  new ItemStack(ModItems.sweet_berries)
-          ), 30);
-
-          registerComposting(ImmutableList.of(
-                  new ItemStack(Blocks.cactus),
-                  new ItemStack(Items.melon),
-                  new ItemStack(Items.reeds),
-                  new ItemStack(Blocks.double_plant, 1, 2),
-                  new ItemStack(Blocks.vine)
-          ), 50);
-
-          registerComposting(ImmutableList.of(
-                  new ItemStack(Items.apple),
-                  new ItemStack(ModItems.beetroot),
-                  "cropCarrot",
-                  new ItemStack(Blocks.cocoa),
-                  new ItemStack(Blocks.tallgrass, 1, 2),
-                  new ItemStack(Blocks.double_plant, 1, 3),
-                  BlockFlower.class,
-                  BlockLilyPad.class,
-                  new ItemStack(Blocks.melon_block),
-                  new ItemStack(Blocks.brown_mushroom),
-                  new ItemStack(Blocks.red_mushroom),
-                  new ItemStack(Items.nether_wart),
-                  "cropPotato",
-                  new ItemStack(Blocks.pumpkin),
-                  "cropWheat"
-          ), 65);
-
-          registerComposting(ImmutableList.of(
-                  new ItemStack(Items.baked_potato),
-                  new ItemStack(Items.bread),
-                  new ItemStack(Items.cookie),
-                  new ItemStack(Blocks.hay_block),
-                  new ItemStack(Blocks.red_mushroom_block, 1, OreDictionary.WILDCARD_VALUE),
-                  new ItemStack(Blocks.brown_mushroom_block, 1, OreDictionary.WILDCARD_VALUE)
-          ), 85);
-
-          registerComposting(ImmutableList.of(
-                  new ItemStack(Items.cake),
-                  new ItemStack(Items.pumpkin_pie)
-          ), 100);
-      }
 		
 //      if(ConfigurationHandler.enableNewNether)
 //        DimensionProviderNether.init(); // Come back to

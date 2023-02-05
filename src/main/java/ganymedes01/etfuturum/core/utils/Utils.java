@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
+import cpw.mods.fml.common.Loader;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
@@ -40,6 +41,10 @@ public class Utils {
 
 	public static String getConainerName(String name) {
 		return "container." + Reference.MOD_ID + "." + name;
+	}
+
+	public static String getModContainer() {
+		return Loader.instance().activeModContainer().getName();
 	}
 
 	@SuppressWarnings("unchecked")

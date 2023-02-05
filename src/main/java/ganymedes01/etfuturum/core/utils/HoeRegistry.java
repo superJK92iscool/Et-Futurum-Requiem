@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 import net.minecraft.block.Block;
 
-public class HoeHelper {
+public class HoeRegistry {
 	
-	private static ArrayList<Block> hoeBlocks = new ArrayList<Block>();
+	private static final ArrayList<Block> hoeBlocks = new ArrayList<Block>();
 	
 	public static void addToHoeArray(Block block) {
 		hoeBlocks.add(block);

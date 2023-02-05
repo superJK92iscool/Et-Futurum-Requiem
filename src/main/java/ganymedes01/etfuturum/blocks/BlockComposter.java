@@ -8,6 +8,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks.ISubBlocksBlock;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.core.utils.CompostingRegistry;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.items.block.ItemDecorationWorkbench;
 import ganymedes01.etfuturum.lib.Reference;
@@ -97,38 +98,27 @@ public class BlockComposter extends Block implements IConfigurable, ISubBlocksBl
 		if(meta < 6) {
 			meta = Math.min(meta, 7);
 			ItemStack stack = player.getCurrentEquippedItem();
-			for(String oreName : EtFuturum.getOreStrings(stack)) {
-				String chanceKey = "compostChance";
-				if(oreName.startsWith(chanceKey)) {
-					try {
-						if(!world.isRemote) {
-							int chance = Math.min(100, Math.max(1, Integer.valueOf(oreName.substring(chanceKey.length()))));
-							int chance2 = world.rand.nextInt(100);
-							if(chance2 < chance) {
-								world.setBlockMetadataWithNotify(x, y, z, meta + 1, 3);
-								world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, Reference.MCAssetVer + ":block.composter.fill_success", 1, 1);
-								if(meta == 5) {
-									world.scheduleBlockUpdate(x, y, z, this, world.rand.nextInt(10) + 10);
-								}
-							} else {
-								world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, Reference.MCAssetVer + ":block.composter.fill", 1, 1);
-							}
-							if(!player.capabilities.isCreativeMode) {
-								stack.stackSize--;
-							}
+			int chance = CompostingRegistry.getCompostingPercent(stack);
+			if(chance > 0) {
+				if(!world.isRemote) {
+					int rng = world.rand.nextInt(100);
+					if (rng < chance) {
+						world.setBlockMetadataWithNotify(x, y, z, meta + 1, 3);
+						world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, Reference.MCAssetVer + ":block.composter.fill_success", 1, 1);
+						if (meta == 5) {
+							world.scheduleBlockUpdate(x, y, z, this, world.rand.nextInt(10) + 10);
 						}
-						for(int i = 0; i < 5; i++) {
-							world.spawnParticle("happyVillager", ((world.rand.nextDouble() * 0.875D) + 0.125D) + x, 0.25D + (0.125D * Math.min(meta, 6)) + y, ((world.rand.nextDouble() * 0.875D) + 0.125D) + z, 0, 0, 0);
-						}
-						return true;
-					} catch(NumberFormatException e) {
-						String itemName = Item.itemRegistry.getNameForObject(stack.getItem());
-						System.out.println("Item " + itemName + " had an incorrectly formatted composter tag! Got " + oreName + " instead.");
-						System.out.println("It should be formatted starting with \"compostChance\" and then a number from 1 to 100. Example: compostChance75 for a 75% composting chance.");
-						e.printStackTrace();
-						return false;
+					} else {
+						world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, Reference.MCAssetVer + ":block.composter.fill", 1, 1);
+					}
+					if (!player.capabilities.isCreativeMode) {
+						stack.stackSize--;
 					}
 				}
+				for(int i = 0; i < 5; i++) {
+					world.spawnParticle("happyVillager", ((world.rand.nextDouble() * 0.875D) + 0.125D) + x, 0.25D + (0.125D * Math.min(meta, 6)) + y, ((world.rand.nextDouble() * 0.875D) + 0.125D) + z, 0, 0, 0);
+				}
+				return true;
 			}
 		} else if(meta == 7) {
 			if(!world.isRemote) {
