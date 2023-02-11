@@ -179,7 +179,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 			int z = chunkZ * 16 + rand.nextInt(16) + 8;
 			for (; y > 0; y--) {
 				if (!world.getBlock(x, y, z).isAir(world, x, y, z)) {
-					if (y > 0 && BlockChorusFlower.canPlantStay(world, x, y + 1, z)) {
+					if (BlockChorusFlower.canPlantStay(world, x, y + 1, z)) {
 						BlockChorusFlower.generatePlant(world, x, y + 1, z, rand, 8);
 						break;
 					}
