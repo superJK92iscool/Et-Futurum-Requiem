@@ -1,8 +1,11 @@
 package ganymedes01.etfuturum.spectator;
 
+import cpw.mods.fml.client.FMLClientHandler;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
+import cpw.mods.fml.relauncher.Side;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.core.utils.Logger;
 import ganymedes01.etfuturum.core.utils.helpers.SafeEnumHelperClient;
@@ -43,13 +46,14 @@ public class SpectatorMode {
 	public static boolean isSpectator(EntityPlayer player) {
 		if(player == null || player instanceof FakePlayer || player.worldObj == null)
 			return false;
-		if(player.worldObj.isRemote || !(player instanceof EntityPlayerMP)) {
-			if(player == Minecraft.getMinecraft().thePlayer && Minecraft.getMinecraft().playerController != null)
-				return Minecraft.getMinecraft().playerController.currentGameType == SPECTATOR_GAMETYPE;
+		if(FMLCommonHandler.instance().getSide() == Side.CLIENT) {
+			if(player == FMLClientHandler.instance().getClient().thePlayer && FMLClientHandler.instance().getClient().playerController != null)
+				return FMLClientHandler.instance().getClient().playerController.currentGameType == SPECTATOR_GAMETYPE;
 			return false;
 		}
-		return ((EntityPlayerMP)player).theItemInWorldManager.getGameType() == SPECTATOR_GAMETYPE;
+		return player instanceof EntityPlayerMP && ((EntityPlayerMP) player).theItemInWorldManager.getGameType() == SPECTATOR_GAMETYPE;
 	}
+
 	@SubscribeEvent
 	public void onInteract(PlayerInteractEvent event) {
 		if(isSpectator(event.entityPlayer)) {
