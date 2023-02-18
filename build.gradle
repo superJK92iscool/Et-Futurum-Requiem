@@ -37,7 +37,7 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 // SEMVER that gradle uses.
 group = "ganymedes01.etfuturum"
 archivesBaseName = "Et_Futurum_Requiem"
-def modVersion = "2.4.2"
+def modVersion = "2.4.4"
 version = project.hasProperty("useCommitHashInVersion") ? getCommitVersion(modVersion) : modVersion
 
 def buildAll = project.hasProperty("all")
