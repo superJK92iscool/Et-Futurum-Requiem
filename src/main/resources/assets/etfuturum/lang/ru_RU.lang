@@ -53,6 +53,27 @@ gui.warn.configSplit2=Когда закончите, Вы можете удал�
 gui.chat.update=%1$s доступна версия %2$s!
 gui.chat.update.download=Нажмите здесь, чтобы загрузить обновление на %s!
 
+# Subtitles
+subtitle.footsteps=Шаги
+subtitle.mob.hurt=%s ранен
+subtitle.mob.death=%s погибает
+subtitle.mob.step=Шаги
+subtitle.block.destroyed=Блок размещен или сломан
+subtitle.block.placed=Блок размещен
+
+subtitle.mob.bat.takeoff=Летучая мышь взлетает
+subtitle.mob.chicken.say=Курица кудахчет
+subtitle.mob.zombie.say=Зомби стонет
+subtitle.mob.skeleton.say=Скелет гремит
+subtitle.mob.spider.say=Паук шипит
+subtitle.random.pop=Предмет плюхается
+subtitle.random.orb=Получен опыт
+subtitle.fall.small=Кто-то споткнулся
+subtitle.fall.big=Что-то упало
+
+subtitle.tile.piston.out=Поршень движется
+subtitle.tile.piston.in=Поршень движется
+
 # Entities
 entity.etfuturum.endermite.name=Чешуйница Края
 entity.etfuturum.wooden_armorstand.name=Стойка для брони
