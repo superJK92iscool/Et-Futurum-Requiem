@@ -27,15 +27,10 @@ public class ItemShulkerBoxUpgrade extends ItemGeneric implements IConfigurable 
 		setUnlocalizedName(Utils.getUnlocalisedName("shulker_box_upgrade"));
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
 	}
-  public boolean onItemUse(ItemStack p_77648_1_, EntityPlayer p_77648_2_, World p_77648_3_, int p_77648_4_, int p_77648_5_, int p_77648_6_, int p_77648_7_, float p_77648_8_, float p_77648_9_, float p_77648_10_)
-  {
-	  System.out.println(getUnlocalizedName(p_77648_1_));
-	  return false;
-  }
 
 	@Override
 	public String getUnlocalizedName(ItemStack stack) {
-		return "item." + "shulker_" + types[Math.max(Math.min(stack.getItemDamage(), types.length - 1), 0)];
+		return "item.shulker_" + types[Math.max(Math.min(stack.getItemDamage(), types.length - 1), 0)];
 	}
 
 	@Override

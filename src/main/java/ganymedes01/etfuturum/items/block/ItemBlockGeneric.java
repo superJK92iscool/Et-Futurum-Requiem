@@ -36,7 +36,7 @@ public class ItemBlockGeneric extends ItemBlock {
 				name = ((BlockGeneric) field_150939_a).getNameFor(stack.getItemDamage());
 				flipped = ((BlockGeneric) field_150939_a).flippedNames();
 			}
-			if ("".equals(name))
+			if (name == null || name.length() == 0)
 				return getUnlocalizedName();
 			return flipped ? "tile." + Utils.getUnlocalisedName(name + "_" + getUnlocalizedName().split("\\.")[getUnlocalizedName().contains("etfuturum") ? 2 : 1]) : getUnlocalizedName() + "_" + name;
 		}

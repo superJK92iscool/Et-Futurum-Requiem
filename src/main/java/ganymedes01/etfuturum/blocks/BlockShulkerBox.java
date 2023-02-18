@@ -147,9 +147,7 @@ public class BlockShulkerBox extends BlockContainer implements IConfigurable, IS
 					ItemStack[] tempCopy = shulker.chestContents == null ? new ItemStack[shulker.getSizeInventory()] : ArrayUtils.clone(shulker.chestContents);
 					shulker.type = ShulkerBoxType.valueOf(upgrades[1].toUpperCase());
 					shulker.chestContents = new ItemStack[shulker.getSizeInventory()];
-					for(int i = 0; i < tempCopy.length; i++) {
-						shulker.chestContents[i] = tempCopy[i];
-					}
+					System.arraycopy(tempCopy, 0, shulker.chestContents, 0, tempCopy.length);
 					shulker.touch();
 					if(!player.capabilities.isCreativeMode) {
 						stack.stackSize--;
@@ -416,7 +414,7 @@ public class BlockShulkerBox extends BlockContainer implements IConfigurable, IS
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubBlocks(Item item, CreativeTabs tab, List subItems) {
-		for (byte i = 0; i <= (ConfigBlocksItems.enableShulkerBoxesIronChest ? 7 : 0); i++) {
+		for (byte i = 0; i <= (EtFuturum.hasIronChest && ConfigBlocksItems.enableShulkerBoxesIronChest ? 7 : 0); i++) {
 			for (byte j = 0; j <= (ConfigBlocksItems.enableDyedShulkerBoxes ? 16 : 0); j++) {
 				
 				NBTTagCompound tag = new NBTTagCompound();
