@@ -46,7 +46,7 @@ public class SpectatorMode {
 	public static boolean isSpectator(EntityPlayer player) {
 		if(player == null || player instanceof FakePlayer || player.worldObj == null)
 			return false;
-		if(FMLCommonHandler.instance().getSide() == Side.CLIENT) {
+		if(player.worldObj.isRemote) {
 			if(player == FMLClientHandler.instance().getClient().thePlayer && FMLClientHandler.instance().getClient().playerController != null)
 				return FMLClientHandler.instance().getClient().playerController.currentGameType == SPECTATOR_GAMETYPE;
 			return false;
