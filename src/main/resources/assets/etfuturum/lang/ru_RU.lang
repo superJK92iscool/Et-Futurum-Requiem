@@ -1,8 +1,8 @@
-# Creative Tab
+# Вкладки творческого меню (Creative Tab)
 itemGroup.etfuturum.items=Et Futurum: Предметы
 itemGroup.etfuturum.blocks=Et Futurum: Блоки
 
-# Enchantments
+# Зачарования (Enchantments)
 enchantment.frost_walker=Ледяная поступь
 enchantment.mending=Починка
 enchantment.waterWalker=Покоритель глубин
@@ -10,24 +10,24 @@ enchantment.binding_curse=§cПроклятие несъёмности
 enchantment.vanishing_curse=§cПроклятье утраты
 enchantment.swift_sneak=Проворство
 
-# Potions
+# Зелья (Potions)
 potion.levitation=Левитация
 potion.levitation.postfix=Зелье левитации
 
-# Gamemode selector
+# Переключатель режимов игры (Gamemode selector)
 
 debug.gamemodes.select_next=%s Следующий
 debug.gamemodes.press_f4=[ F4 ]
 
-# Gamemodes
+# Режимы игры (Gamemodes)
 gameMode.Spectator=Режим наблюдателя
 
-# Commands
+# Команды (Commands)
 commands.etfuturum.fill.usage=/fill <от> <до> <блок>
 commands.etfuturum.fill.outOfWorld=Невозможно размещать блоки за пределами мира
 commands.etfuturum.fill.success=Успешно заполнено %d блоков
 
-# Containers
+# Контейнеры (Containers/GUI)
 container.etfuturum.banner=Флаг
 container.enchant.lapis.one=1 лазурит
 container.enchant.lapis.many=Лазурита: %d
@@ -53,11 +53,20 @@ gui.warn.configSplit2=Когда закончите, Вы можете удал�
 gui.chat.update=%1$s доступна версия %2$s!
 gui.chat.update.download=Нажмите здесь, чтобы загрузить обновление на %s!
 
-# Subtitles
+# Субтитры (Subtitles)
 subtitle.game.tnt.primed=Зажигание динамита
 subtitle.game.player.swim=Игрок плавает
 subtitle.game.player.swim.splash=Игрок плескается
 subtitle.game.potion.smash=Пузырёк разбился
+subtitle.game.neutral.hurt=Звук получения урона
+
+subtitle.fireworks.launch=Запуск фейерверка
+subtitle.fireworks.blast=Взрыв фейерверка
+subtitle.fireworks.blast_far=Взрыв фейерверка (далеко)
+subtitle.fireworks.largeblast=Взрыв фейерверка (большой)
+subtitle.fireworks.largeblast_far=Взрыв фейерверка (большой) (далеко)
+subtitle.fireworks.twinkle=Потрескивание фейерверка
+subtitle.fireworks.twinkle_far=Потрескивание фейерверка (далеко)
 
 subtitle.fire.fire=Звук огня
 subtitle.fire.ignite=Огонь разгорается
@@ -65,8 +74,19 @@ subtitle.fire.ignite=Огонь разгорается
 subtitle.entity.player.attack.weak=Слабая атака
 subtitle.entity.player.attack.strong=Сильная атака
 subtitle.entity.player.attack.crit=Критическая атака
+
 subtitle.entity.fishing_bobber.throw=Бросание рыболовного поплавка
 subtitle.entity.fishing_bobber.retrieve=Возвращение рыболовного поплавка
+
+subtitle.entity.item_frame.add_item=Заполнение рамки
+subtitle.entity.item_frame.remove_item=Опустошение рамки
+subtitle.entity.item_frame.rotate_item=Поворот предмета в рамке
+
+
+subtitle.entity.rabbit.ambient=Писк кролика
+subtitle.entity.rabbit.death=Кролик погибает
+subtitle.entity.rabbit.hurt=Кролик получает урон
+subtitle.entity.rabbit.jump=Кролик прыгает
 subtitle.entity.husk.ambient=Кадавр стонет
 subtitle.entity.husk.hurt=Кадавр получает урон
 subtitle.entity.husk.death=Кадавр погибает
@@ -83,6 +103,13 @@ subtitle.entity.shulker.death=Шалкер погибает
 subtitle.entity.zombie_villager.ambient=Зомби-житель стонет
 subtitle.entity.zombie_villager.hurt=Зомби-житель получает урон
 subtitle.entity.zombie_villager.death=Зомби-житель погибает
+subtitle.entity.witch.ambient=Ведьма хохочет
+subtitle.entity.witch.drink=Ведьма пьет
+subtitle.entity.witch.hurt=Ведьма получает урон
+subtitle.entity.witch.death=Ведьма погибает
+subtitle.entity.squid.ambient=Спрут плавает
+subtitle.entity.squid.hurt=Спрут получает урон
+subtitle.entity.squid.death=Спрут погибает
 
 subtitle.random.fizz=Что-то потухло
 subtitle.random.drink=Глотание
@@ -90,11 +117,19 @@ subtitle.random.eat=Чавканье
 subtitle.random.explode=Взрыв
 subtitle.random.pop=Поднятие предмета
 subtitle.random.orb=Получен опыт
-subtitle.random.bow=Бросок
+subtitle.random.bow=Выстрел
+subtitle.random.bowhit=Попадание стрелы
+subtitle.random.click=Щелчок
+subtitle.random.chestopen=Сундук открывается
+subtitle.random.chest.close=Сундук закрывается
+subtitle.random.anvil_land=Звук наковальни
+
 
 subtitle.fall.small=Кто-то споткнулся
 subtitle.fall.big=Что-то упало
 subtitle.footsteps=Шаги
+
+subtitle.note.harp=Звучание нотного блока
 
 subtitle.liquid.water=Течение воды
 subtitle.liquid.lava=Течение лавы
@@ -102,7 +137,17 @@ subtitle.liquid.lavapop=Бурление лавы
 
 subtitle.item.bucket.empty=Ведро опустошено
 subtitle.item.bucket.fill=Ведро напоняется
+subtitle.item.bottle.empty=Пузырёк опустошен
+subtitle.item.bottle.fill=Пузырёк напоняется
 subtitle.item.hoe.till=Вспахивание мотыгой
+subtitle.item.elytra.flying=Звук полета на элитрах
+subtitle.item.armor.equip_generic=Звук надевания кожанной брони
+subtitle.item.armor.equip_iron=Звук надевания железной брони
+subtitle.item.armor.equip_gold=Звук надевания золотой брони
+subtitle.item.armor.equip_chain=Звук надевания кольчужной брони
+subtitle.item.armor.equip_diamond=Звук надевания алмазной брони
+subtitle.item.armor.equip_netherite=Звук надевания незеритовой брони
+subtitle.item.armor.equip_elytra=Звук надевания элитр
 
 subtitle.records.13=Играет пластинка "13"
 subtitle.records.cat=Играет пластинка "cat"
@@ -119,11 +164,29 @@ subtitle.records.wait=Играет пластинка "wait"
 
 subtitle.block.destroyed=Блок размещен или сломан
 subtitle.block.placed=Блок размещен
-subtitle.block.wooden_door.close=Закрытие двери
-subtitle.block.wooden_door.open=Открытие двери
+subtitle.block.wooden_door.close=Закрытие деревянной двери
+subtitle.block.wooden_door.open=Открытие деревянной двери
 subtitle.block.iron_door.close=Закрытие железной двери
 subtitle.block.iron_door.open=Открытие железной двери
 subtitle.block.beacon.deactivate=Звук маяка
+subtitle.block.wooden_trapdoor.close=Закрытие деревянного люка
+subtitle.block.wooden_trapdoor.open=Открытие деревянного люка
+subtitle.block.iron_trapdoor.close=Закрытие железного люка
+subtitle.block.iron_trapdoor.open=Открытие железного люка
+subtitle.block.wooden_pressure_plate.click_on=Щелчок деревянной нажимной пластины
+subtitle.block.wooden_pressure_plate.click_off=Щелчок деревянной нажимной пластины
+subtitle.block.metal_pressure_plate.click_on=Щелчок металической нажимной пластины
+subtitle.block.metal_pressure_plate.click_off=Щелчок металической нажимной пластины
+subtitle.block.ender_chest.open=Сундук Эндера открывается
+subtitle.block.ender_chest.close=Сундук Эндера закрывается
+subtitle.block.furnace.fire_crackle=Печь разгорается
+subtitle.block.blastfurnace.fire_crackle=Плавильная печь разгорается
+subtitle.block.smoker.smoke=Коптильня коптит
+subtitle.block.fence_gate.close=Калитка закрывается
+subtitle.block.fence_gate.open=Калитка открывается
+subtitle.block.shulker_box.open=Шалкеровый ящик открывается
+subtitle.block.shulker_box.close=Шалкеровый ящик закрывается
+
 
 subtitle.mob.hurt=%s получает урон
 subtitle.mob.death=%s погибает
@@ -132,10 +195,15 @@ subtitle.mob.step=Шаги
 subtitle.mob.bat.takeoff=Летучая мышь взлетает
 subtitle.mob.chicken.say=Курица кудахчет
 subtitle.mob.cow.say=Корова мычит
-subtitle.mob.horse.say=Лошадь ржет
+subtitle.mob.cat.hitt=Кот получает урон
+subtitle.mob.cat.purr=Кот мурчит
+subtitle.mob.cat.purreow=Кот мяукает и мурчит
+subtitle.mob.cat.meow=Кот мяукает
 subtitle.mob.pig.say=Свинья хрюкает
 subtitle.mob.sheep.say=Овца блеет
 subtitle.mob.silverfish.say=Чешуйница шипит
+subtitle.mob.silverfish.hit=Чешуйница получает урон
+subtitle.mob.silverfish.kill=Чешуйница погибает
 subtitle.mob.slime.big=Слизень прыгает
 subtitle.mob.slime.small=Слизень хлюпает
 subtitle.mob.blaze.breathe=Дыхание ифрита
@@ -150,12 +218,43 @@ subtitle.mob.villager.hit=Житель получает урон
 subtitle.mob.zombie.say=Зомби стонет
 subtitle.mob.skeleton.say=Скелет гремит
 subtitle.mob.spider.say=Паук шипит
-
+subtitle.mob.ghast.moan=Гаст плачет
+subtitle.mob.ghast.scream=Гаст кричит
+subtitle.mob.ghast.charge=Гаст стреляет
+subtitle.mob.ghast.fireball=Звук полета огненного шара
+subtitle.mob.zombiepig.zpig=Свинозомби рычит
+subtitle.mob.zombiepig.zpighurt=Свинозомби получает урон
+subtitle.mob.zombiepig.zpigangry=Свинозомби злиться
+subtitle.mob.zombiepig.zpigdeath=Свинозомби погибает
+subtitle.mob.endermen.idle=Эндермен урчит
+subtitle.mob.endermen.portal=Эндермен телепортировался
+subtitle.mob.endermen.hit=Эндермен получает урон
+subtitle.mob.endermen.death=Эндермен погибает
+subtitle.mob.magmacube.big=Адский слизень прыгает
+subtitle.mob.magmacube.small=Адский слизень хлюпает
+subtitle.mob.wolf.bark=Волк лает
+subtitle.mob.wolf.panting=Волк дышит
+subtitle.mob.wolf.shake=Волк отряхивается
+subtitle.mob.horse.idle=Лошадь ржет
+subtitle.mob.horse.angry=Лошадь злиться
+subtitle.mob.horse.hit=Лошадь получает урон
+subtitle.mob.horse.death=Лошадь погибает
+subtitle.mob.horse.eat=Лошадь ест
+subtitle.mob.horse.gallop=Лошадь скачет
+subtitle.mob.horse.jump=Лошадь прыгает
+subtitle.mob.horse.land=Лошадь приземляется
+subtitle.mob.horse.breathe=Дыхание лошади
+subtitle.mob.horse.wood=Лошадь ускоряется
+subtitle.mob.horse.soft=Лошадь гуляет
+subtitle.mob.horse.leather=Надевание седла
 
 subtitle.tile.piston.out=Поршень движется
 subtitle.tile.piston.in=Поршень движется
 
-# Entities
+subtitle.weather.rain=Идет дождь
+subtitle.ambient.weather.thunder=Гром
+
+# Сущности (Entities)
 entity.etfuturum.endermite.name=Чешуйница Края
 entity.etfuturum.wooden_armorstand.name=Стойка для брони
 entity.etfuturum.rabbit.name=Кролик
@@ -175,7 +274,7 @@ entity.etfuturum.guardian.name=Страж
 entity.etfuturum.elder_guardian.name=Древний страж
 entity.etfuturum.polar_bear.name=Белый медведь
 
-# Items
+# Предметы (Items)
 item.etfuturum.mutton_raw.name=Сырая баранина
 item.etfuturum.mutton_cooked.name=Приготовленная баранина
 item.etfuturum.prismarine_shard.name=Призмариновый осколок
@@ -240,7 +339,7 @@ item.etfuturum.acacia_chest_boat.name=Акациевая лодка с сунд�
 item.etfuturum.shulker_shell.name=Панцирь шалкера
 item.etfuturum.amethyst_shard.name=Осколок аметиста
 
-# Arrows
+# Стрелы (Arrows)
 item.etfuturum.tipped_arrow.name=Стрела с эффектом
 item.etfuturum.tipped_arrow.effect.empty.name=Несоздаваемая стрела
 item.etfuturum.tipped_arrow.potion.nightVision.name=Стрела ночного зрения
@@ -258,7 +357,7 @@ item.etfuturum.tipped_arrow.potion.damageBoost.name=Стрела силы
 item.etfuturum.tipped_arrow.potion.weakness.name=Стрела слабости
 
 
-# Blocks
+# Блоки (Blocks)
 tile.etfuturum.stone_granite.name=Гранит
 tile.etfuturum.stone_granite_smooth.name=Гладкий гранит
 tile.etfuturum.stone_diorite.name=Диорит
@@ -491,7 +590,7 @@ tile.etfuturum.wood_stripped_3.name=Обтёсанная кора тропиче
 tile.etfuturum.wood2_stripped_0.name=Обтёсанная акациевая кора
 tile.etfuturum.wood2_stripped_1.name=Обтёсанная кора тёмного дуба
 
-# pretend these don't have to exist for WAILA
+# притвориться, что они не должны существовать для WAILA (pretend these don't have to exist for WAILA)
 tile.etfuturum.log_stripped_4.name=Обтёсанная дубовая древесина
 tile.etfuturum.log_stripped_5.name=Обтёсанная еловая древесина
 tile.etfuturum.log_stripped_6.name=Обтёсанная берёзовая древесина
@@ -811,7 +910,7 @@ death.attack.hotFloor.player=%1$s попал в опасную зону благ
 death.attack.sweetBerryBush=%1$s искололся до смерти в кустах сладких ягод
 death.attack.sweetBerryBush.player=%1$s искололся до смерти в кустах сладких ягод, пытаясь спастись от %2$s
 
-# Banners
+# Знамена (Banners)
 item.banner.black.name=Чёрный флаг
 item.banner.blue.name=Синий флаг
 item.banner.brown.name=Коричневый флаг
@@ -1478,7 +1577,7 @@ item.banner.straight_cross.yellow=Жёлтый крест
 
 
 
-# vanilla overrides
+# Перезапись ванильных имен (vanilla overrides)
 tile.clayHardenedStained.black.name=Чёрная керамика
 tile.clayHardenedStained.red.name=Красная керамика
 tile.clayHardenedStained.green.name=Зелёная керамика
@@ -1546,7 +1645,7 @@ item.melon.name=Ломтик арбуза
 item.fish.cod.raw.name=Сырая треска
 item.fish.cod.cooked.name=Жареная треска
 
-# additional fixes
+# Дополнительные исправления (additional fixes)
 tile.etfuturum.lit_smoker.name=Коптильня
 tile.etfuturum.lit_blast_furnace.name=Плавильная печь
 tile.etfuturum.sign_spruce.name=Еловая табличка
@@ -1566,6 +1665,7 @@ subtitle.dig.stone=Блок размещен или сломан
 subtitle.dig.wood=Блок размещен или сломан
 subtitle.dig.cloth=Блок размещен или сломан
 subtitle.dig.glass=Блок размещен или сломан
+subtitle.dig.gravel=Блок размещен или сломан
 
 entity.EyeOfEnderSignal.name=Око Эндера
 entity.Arrow.name=Стрела
