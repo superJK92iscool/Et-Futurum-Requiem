@@ -22,6 +22,11 @@ debug.gamemodes.press_f4=[ F4 ]
 # Gamemodes
 gameMode.Spectator=旁观模式
 
+# Commands
+commands.etfuturum.fill.usage=/fill <from> <to> <block>
+commands.etfuturum.fill.outOfWorld=不能将方块放置在世界之外
+commands.etfuturum.fill.success=成功地填充了%d个方块
+
 # Containers/GUI
 container.etfuturum.banner=旗帜
 container.enchant.lapis.one=花费：1个青金石
@@ -48,6 +53,27 @@ gui.warn.configSplit2=当你完成上述操作后，你可以删除或重命名�
 gui.chat.update=%1$s 版本 %2$s 可用!
 gui.chat.update.download=请按此处下载 %s 的更新!
 
+# Subtitles
+subtitle.footsteps=脚步声
+subtitle.mob.hurt=%s：受伤
+subtitle.mob.death=%s：死亡
+subtitle.mob.step=脚步声
+subtitle.block.destroyed=方块：损坏中或被破坏
+subtitle.block.placed=方块：被放置
+
+subtitle.mobakeoff=蝙蝠：起飞
+subtitle.mob.chicken.say=鸡：咯咯叫
+subtitle.mob.zombie.say=僵尸：低吼
+subtitle.mob.skeleton.say=骷髅：咯咯声
+subtitle.mob.spider.say=蜘蛛：嘶嘶
+subtitle.random.pop=物品：噗通
+subtitle.random.orb=获得经验
+subtitle.fall.small=某物：摔倒
+subtitle.fall.big=某物：着地
+
+subtitle.tile.piston.out=活塞：移动
+subtitle.tile.piston.in=活塞：移动
+
 # Entities
 entity.etfuturum.endermite.name=末影螨
 entity.etfuturum.wooden_armorstand.name=盔甲架
@@ -60,6 +86,7 @@ entity.etfuturum.brown_mooshroom.name=棕色蘑菇
 entity.etfuturum.shulker.name=潜影贝
 entity.etfuturum.shulker_candy.name=潜影贝导弹
 entity.etfuturum.chest_boat.name=运输船
+entity.etfuturum.new_boat.name=船
 
 entity.etfuturum.stray.name=流浪者
 entity.etfuturum.husk.name=尸壳
@@ -330,6 +357,9 @@ tile.etfuturum.medium_amethyst_bud.name=中型紫晶芽
 tile.etfuturum.large_amethyst_bud.name=大型紫晶芽
 tile.etfuturum.amethyst_cluster.name=紫水晶簇
 
+tile.etfuturum.sculk.name=幽匿块
+tile.etfuturum.sculk_catalyst.name=幽匿催发体
+
 tile.etfuturum.magma.name=岩浆块
 tile.etfuturum.nether_wart.name=下界疣块
 tile.etfuturum.bone.name=骨块
@@ -491,6 +521,7 @@ tile.etfuturum.concrete_powder_brown.name=棕色混凝土粉末
 tile.etfuturum.concrete_powder_green.name=绿色混凝土粉末
 tile.etfuturum.concrete_powder_red.name=红色混凝土粉末
 tile.etfuturum.concrete_powder_black.name=黑色混凝土粉末
+
 tile.etfuturum.concrete_white.name=白色混凝土
 tile.etfuturum.concrete_orange.name=橙色混凝土
 tile.etfuturum.concrete_magenta.name=品红色混凝土
@@ -700,6 +731,9 @@ item.shulker_copper_silver_upgrade.name=升级：铜质>银质潜影盒
 item.shulker_silver_gold_upgrade.name=升级：银质>金质潜影盒
 
 tile.etfuturum.tinted_glass.name=遮光玻璃
+
+tile.etfuturum.observer.name=侦测器
+tile.etfuturum.target.name=标靶
 
 util.totemBreak=§a§o你的不死图腾碎掉了…
 
