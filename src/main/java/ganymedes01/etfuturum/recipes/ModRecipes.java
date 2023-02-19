@@ -859,7 +859,7 @@ public class ModRecipes {
 				output.getTagCompound().setByte("Color", (byte)(i + 1));
 				GameRegistry.addRecipe(new RecipeDyedShulkerBox(output, new Object[] {ModBlocks.shulker_box, ore_dyes[(byte)((~i & 15))]}));
 			}
-			if(ConfigBlocksItems.enableShulkerBoxesIronChest) {
+			if(EtFuturum.hasIronChest && ConfigBlocksItems.enableShulkerBoxesIronChest) {
 				addShapedRecipe(new ItemStack(ModItems.shulker_box_upgrade, 1, 0), "XXX", "XYX", "XXX", 'X', "ingotIron", 'Y', ModItems.shulker_shell);
 				addShapedRecipe(new ItemStack(ModItems.shulker_box_upgrade, 1, 1), "XXX", "XYX", "XXX", 'X', "ingotCopper", 'Y', ModItems.shulker_shell);
 				addShapedRecipe(new ItemStack(ModItems.shulker_box_upgrade, 1, 2), "XYX", "XXX", "XXX", 'X', "ingotGold", 'Y', "ingotIron");
