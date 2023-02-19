@@ -54,22 +54,103 @@ gui.chat.update=%1$s доступна версия %2$s!
 gui.chat.update.download=Нажмите здесь, чтобы загрузить обновление на %s!
 
 # Subtitles
+subtitle.game.tnt.primed=Зажигание динамита
+subtitle.game.player.swim=Игрок плавает
+subtitle.game.player.swim.splash=Игрок плескается
+subtitle.game.potion.smash=Пузырёк разбился
+
+subtitle.fire.fire=Звук огня
+subtitle.fire.ignite=Огонь разгорается
+
+subtitle.entity.player.attack.weak=Слабая атака
+subtitle.entity.player.attack.strong=Сильная атака
+subtitle.entity.player.attack.crit=Критическая атака
+subtitle.entity.fishing_bobber.throw=Бросание рыболовного поплавка
+subtitle.entity.fishing_bobber.retrieve=Возвращение рыболовного поплавка
+subtitle.entity.husk.ambient=Кадавр стонет
+subtitle.entity.husk.hurt=Кадавр получает урон
+subtitle.entity.husk.death=Кадавр погибает
+subtitle.entity.stray.ambient=Зимогор гремит
+subtitle.entity.stray.hurt=Зимогор получает урон
+subtitle.entity.stray.death=Зимогор погибает
+subtitle.entity.shulker.ambient=Звуки шалкера
+subtitle.entity.shulker.hurt=Шалкер получает урон
+subtitle.entity.shulker.hurt_closed=Стук по панцирю
+subtitle.entity.shulker.open=Панцирь шалкера открывается
+subtitle.entity.shulker.close=Панцирь шалкера закрывается
+subtitle.entity.shulker.teleport=Шалкер телепортируется
+subtitle.entity.shulker.death=Шалкер погибает
+subtitle.entity.zombie_villager.ambient=Зомби-житель стонет
+subtitle.entity.zombie_villager.hurt=Зомби-житель получает урон
+subtitle.entity.zombie_villager.death=Зомби-житель погибает
+
+subtitle.random.fizz=Что-то потухло
+subtitle.random.drink=Глотание
+subtitle.random.eat=Чавканье
+subtitle.random.explode=Взрыв
+subtitle.random.pop=Поднятие предмета
+subtitle.random.orb=Получен опыт
+subtitle.random.bow=Бросок
+
+subtitle.fall.small=Кто-то споткнулся
+subtitle.fall.big=Что-то упало
 subtitle.footsteps=Шаги
-subtitle.mob.hurt=%s ранен
-subtitle.mob.death=%s погибает
-subtitle.mob.step=Шаги
+
+subtitle.liquid.water=Течение воды
+subtitle.liquid.lava=Течение лавы
+subtitle.liquid.lavapop=Бурление лавы
+
+subtitle.item.bucket.empty=Ведро опустошено
+subtitle.item.bucket.fill=Ведро напоняется
+subtitle.item.hoe.till=Вспахивание мотыгой
+
+subtitle.records.13=Играет пластинка "13"
+subtitle.records.cat=Играет пластинка "cat"
+subtitle.records.blocks=Играет пластинка "blocks"
+subtitle.records.chirp=Играет пластинка "chirp"
+subtitle.records.far=Играет пластинка "far"
+subtitle.records.mall=Играет пластинка "mall"
+subtitle.records.mellohi=Играет пластинка "mellohi"
+subtitle.records.stal=Играет пластинка "stal"
+subtitle.records.strad=Играет пластинка "strad"
+subtitle.records.ward=Играет пластинка "ward"
+subtitle.records.11=Играет пластинка "11"
+subtitle.records.wait=Играет пластинка "wait"
+
 subtitle.block.destroyed=Блок размещен или сломан
 subtitle.block.placed=Блок размещен
+subtitle.block.wooden_door.close=Закрытие двери
+subtitle.block.wooden_door.open=Открытие двери
+subtitle.block.iron_door.close=Закрытие железной двери
+subtitle.block.iron_door.open=Открытие железной двери
+subtitle.block.beacon.deactivate=Звук маяка
+
+subtitle.mob.hurt=%s получает урон
+subtitle.mob.death=%s погибает
+subtitle.mob.step=Шаги
 
 subtitle.mob.bat.takeoff=Летучая мышь взлетает
 subtitle.mob.chicken.say=Курица кудахчет
+subtitle.mob.cow.say=Корова мычит
+subtitle.mob.horse.say=Лошадь ржет
+subtitle.mob.pig.say=Свинья хрюкает
+subtitle.mob.sheep.say=Овца блеет
+subtitle.mob.silverfish.say=Чешуйница шипит
+subtitle.mob.slime.big=Слизень прыгает
+subtitle.mob.slime.small=Слизень хлюпает
+subtitle.mob.blaze.breathe=Дыхание ифрита
+subtitle.mob.blaze.hit=Ифрит получает урон
+subtitle.mob.creeper.say=Крипер шипит
+subtitle.creeper.primed=Крипер взрывается
+subtitle.mob.villager.idle=Житель бормочет
+subtitle.mob.villager.haggle=Житель бормочет
+subtitle.mob.villager.yes=Житель соглашается
+subtitle.mob.villager.no=Житель не соглашается
+subtitle.mob.villager.hit=Житель получает урон
 subtitle.mob.zombie.say=Зомби стонет
 subtitle.mob.skeleton.say=Скелет гремит
 subtitle.mob.spider.say=Паук шипит
-subtitle.random.pop=Предмет плюхается
-subtitle.random.orb=Получен опыт
-subtitle.fall.small=Кто-то споткнулся
-subtitle.fall.big=Что-то упало
+
 
 subtitle.tile.piston.out=Поршень движется
 subtitle.tile.piston.in=Поршень движется
@@ -1479,6 +1560,12 @@ tile.etfuturum.wall_sign_jungle.name=Табличка из досок тропи
 tile.etfuturum.wall_sign_acacia.name=Акациевая табличка
 tile.etfuturum.wall_sign_dark_oak.name=Табличка из досок тёмного дуба
 tile.pressurePlate.name=Нажимная пластина
+
+subtitle.dig.grass=Блок размещен или сломан
+subtitle.dig.stone=Блок размещен или сломан
+subtitle.dig.wood=Блок размещен или сломан
+subtitle.dig.cloth=Блок размещен или сломан
+subtitle.dig.glass=Блок размещен или сломан
 
 entity.EyeOfEnderSignal.name=Око Эндера
 entity.Arrow.name=Стрела
