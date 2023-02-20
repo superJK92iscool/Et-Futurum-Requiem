@@ -76,6 +76,12 @@ public class GuiGamemodeSwitcher extends GuiScreen {
         }
         super.keyTyped(p_73869_1_, keycode);
     }
+    
+    @Override
+    public void handleInput() {
+    	super.handleInput();
+    	checkForClose();
+    }
 
     @Override
     public void initGui() {
@@ -121,12 +127,8 @@ public class GuiGamemodeSwitcher extends GuiScreen {
         return false;
     }
 
-
     @Override
     public void drawScreen(int mouseX, int mouseY, float delta) {
-        if (this.checkForClose()) {
-            return;
-        }
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         RenderHelper.disableStandardItemLighting();
         GL11.glDisable(GL11.GL_LIGHTING);
