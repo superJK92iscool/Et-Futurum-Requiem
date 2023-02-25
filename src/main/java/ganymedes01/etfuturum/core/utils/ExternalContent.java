@@ -30,4 +30,6 @@ public class ExternalContent {
 
 	public static final Item ic2_electric_hoe = GameRegistry.findItem("IC2", "itemToolHoe");
 
+	public static final Item thaumcraft_hoe_of_growth = GameRegistry.findItem("Thaumcraft", "ItemHoeElemental");
+
 }

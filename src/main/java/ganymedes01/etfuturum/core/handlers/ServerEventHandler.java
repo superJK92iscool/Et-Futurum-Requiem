@@ -1038,7 +1038,7 @@ public class ServerEventHandler {
 	
 	@SubscribeEvent
 	public void onHoeUseEvent(UseHoeEvent event) {
-		if(isIC2Hoe(event.current)) return;
+		if(isBannedHoe(event.current)) return;
 		
 		World world = event.world;
 		int x = event.x;
@@ -1062,7 +1062,7 @@ public class ServerEventHandler {
 	            Block block = world.getBlock(x, y, z);
 	            MovingObjectPosition position = getMovingObjectPositionFromPlayer(world, event.entityPlayer, false);
 	            
-	            if (position.typeOfHit == MovingObjectType.BLOCK && position.sideHit != 0 && world.getBlock(x, y + 1, z).isAir(world, x, y + 1, z) && (block == Blocks.grass || block == Blocks.dirt))
+	            if (position != null && position.typeOfHit == MovingObjectType.BLOCK && position.sideHit != 0 && world.getBlock(x, y + 1, z).isAir(world, x, y + 1, z) && (block == Blocks.grass || block == Blocks.dirt))
 	            {
 	                if (world.isRemote) {
 	    				flag = true;
@@ -1088,12 +1088,21 @@ public class ServerEventHandler {
 	 * This causes the IC2 electric hoe to instantly till the dirt after using a hoe to convert coarse dirt to regular dirt.
 	 * ... AND ALSO THEY DOn'T EVEN DAMAGE THE HOE IF RESULT IS ALLOW AND DAMAGEITEM DOES NOTHING TO IT IFJSDNJGUIHRSNGRMSG
 	 * So we just say screw it, IC2 hoes don't get to use the new sound code or till coarse dirt since they don't use the event properly...
+	 *
+	 * Also any other hoes here may want non-vanilla behavior that my code may override are also here.
 	 * 
 	 * @param current
 	 * @return 
 	 */
-	private final boolean isIC2Hoe(ItemStack current) {
-		return EtFuturum.hasIC2 && current != null && current.getItem() == ExternalContent.ic2_electric_hoe;
+	private final boolean isBannedHoe(ItemStack current) {
+		if(current == null) return true;//If a mod is stupid and puts null in the event for some reason
+		if(EtFuturum.hasIC2 && current.getItem() == ExternalContent.ic2_electric_hoe) {
+			return true;
+		}
+		if(EtFuturum.hasThaumcraft && current.getItem() == ExternalContent.thaumcraft_hoe_of_growth) {
+			return true;
+		}
+		return false;
 	}
 
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
