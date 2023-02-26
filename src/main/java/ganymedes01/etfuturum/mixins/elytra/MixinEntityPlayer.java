@@ -1,7 +1,11 @@
 package ganymedes01.etfuturum.mixins.elytra;
 
+import baubles.api.BaublesApi;
+import ganymedes01.etfuturum.CompatBaublesExpanded;
+import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.api.elytra.IElytraPlayer;
+import ganymedes01.etfuturum.configuration.configs.ConfigModCompat;
 import ganymedes01.etfuturum.items.equipment.ItemArmorElytra;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -27,18 +31,13 @@ public abstract class MixinEntityPlayer extends EntityLivingBase implements IEly
         super(p_i1594_1_);
     }
 
-    //Surpress false warning; it thinks itemstack can be null at the damageItem line when it can't.
-    @SuppressWarnings("null")
 	public void tickElytra() {
         boolean flag = etfu$isElytraFlying();
 
-        ItemStack itemstack = this.getEquipmentInSlot(3);
-        boolean flag2 = itemstack != null && itemstack.getItem() == ModItems.elytra;
-    	this.setHideCape(1, flag2);
-        if (flag2 && !capabilities.isFlying && !ItemArmorElytra.isBroken(itemstack)) {
+        ItemStack itemstack = ItemArmorElytra.getElytra(this);
+    	this.setHideCape(1, itemstack != null);
+        if (itemstack != null && !capabilities.isFlying && !ItemArmorElytra.isBroken(itemstack)) {
             if (flag && !this.onGround && !this.isRiding() && !this.isInWater()) {
-                flag = true;
-
                 if (!this.worldObj.isRemote && (this.etfu$ticksElytraFlying + 1) % 20 == 0) {
                     itemstack.damageItem(1, this);
                 }

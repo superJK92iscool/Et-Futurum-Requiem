@@ -112,7 +112,7 @@ public class ConfigSounds extends ConfigBase {
 
     public ConfigSounds(File file) {
         super(file);
-        setCategoryComment(catPlayer, "Sounds that players make.");
+        setCategoryComment(catPlayer, "");
         setCategoryComment(catBlocksItems, "Sounds for blocks and items.");
         setCategoryComment(catEntity, "Sounds for entities.");
         setCategoryComment(catAmbient, "Ambient sounds.");

@@ -51,6 +51,7 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 		ConfigWorld.configInstance.syncConfig();
 		ConfigEntities.configInstance.syncConfig();
 		ConfigSounds.configInstance.syncConfig();
+		ConfigModCompat.configInstance.syncConfig();
 
 		ConfigMixins.configInstance.syncConfig();
 		

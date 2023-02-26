@@ -1,6 +1,5 @@
 package ganymedes01.etfuturum;
 
-import com.google.common.collect.ImmutableList;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -13,6 +12,7 @@ import java.util.Map;
 
 import ganymedes01.etfuturum.blocks.BlockSculk;
 import ganymedes01.etfuturum.blocks.BlockSculkCatalyst;
+import ganymedes01.etfuturum.configuration.configs.ConfigModCompat;
 import ganymedes01.etfuturum.network.*;
 import ganymedes01.etfuturum.spectator.SpectatorMode;
 import net.minecraft.block.*;
@@ -154,6 +154,8 @@ public class EtFuturum {
 	public static final boolean hasIC2 = Loader.isModLoaded("IC2");
 	public static final boolean hasSkinPort = Loader.isModLoaded("skinport");
 	public static final boolean hasEars = Loader.isModLoaded("ears");
+	public static final boolean hasBaubles = Loader.isModLoaded("Baubles");
+	public static final boolean hasBaublesExpanded = hasBaubles && baubles.common.Baubles.MODNAME.equals("Baubles Expanded");
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
@@ -237,6 +239,10 @@ public class EtFuturum {
 				
 		
 		event.getModMetadata().logoFile = Reference.LOGO_FILE;
+
+		if(ConfigModCompat.elytraBaublesExpandedCompat > 0 && hasBaublesExpanded) {
+			CompatBaublesExpanded.preInit();
+		}
 	}
 
 	@EventHandler
@@ -317,6 +323,10 @@ public class EtFuturum {
 					}
 				}
 			}
+		}
+
+		if(ConfigModCompat.elytraBaublesExpandedCompat > 0 && hasBaublesExpanded) {
+			CompatBaublesExpanded.postInit();
 		}
 	}
 	

@@ -10,6 +10,7 @@
  */
 package ganymedes01.etfuturum.client.renderer.entity.elytra;
 
+import ganymedes01.etfuturum.items.equipment.ItemArmorElytra;
 import org.lwjgl.opengl.GL11;
 
 import cpw.mods.fml.relauncher.Side;
@@ -29,8 +30,8 @@ public class LayerBetterElytra {
 	protected static final ResourceLocation ENCHANTED_ITEM_GLINT_RES = new ResourceLocation("textures/misc/enchanted_item_glint.png");
 
 	public static void doRenderLayer(EntityLivingBase entityIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-		ItemStack itemstack = entityIn.getEquipmentInSlot(3);
-		if (entityIn instanceof AbstractClientPlayer && itemstack != null && itemstack.getItem() == ModItems.elytra) {
+		ItemStack itemstack = ItemArmorElytra.getElytra(entityIn);
+		if (entityIn instanceof AbstractClientPlayer && itemstack != null) {
 			AbstractClientPlayer player = (AbstractClientPlayer) entityIn;
 			GL11.glPushAttrib(-1);
 			/*

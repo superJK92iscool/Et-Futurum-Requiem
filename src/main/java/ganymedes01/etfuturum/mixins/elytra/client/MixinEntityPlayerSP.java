@@ -9,6 +9,7 @@ import ganymedes01.etfuturum.items.equipment.ItemArmorElytra;
 import ganymedes01.etfuturum.network.StartElytraFlyingMessage;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MovementInput;
 import net.minecraft.world.World;
@@ -30,9 +31,8 @@ public abstract class MixinEntityPlayerSP extends AbstractClientPlayer {
     @Inject(method = "onLivingUpdate", at = @At("TAIL"))
     private void startElytraFlying(CallbackInfo ci) {
          if (this.movementInput.jump && !etfu$lastIsJumping && !this.onGround && (ConfigMixins.enableNewElytraTakeoffLogic || this.motionY < 0.0D) && !((IElytraPlayer)this).etfu$isElytraFlying() && !this.capabilities.isFlying) {
-            ItemStack itemstack = this.getEquipmentInSlot(3);
-
-            if (itemstack != null && itemstack.getItem() == ModItems.elytra && !ItemArmorElytra.isBroken(itemstack)) {
+            ItemStack itemstack = ItemArmorElytra.getElytra(this);
+            if (itemstack != null && !ItemArmorElytra.isBroken(itemstack)) {
                 EtFuturum.networkWrapper.sendToServer(new StartElytraFlyingMessage());
                 //Minecraft.getMinecraft().getSoundHandler().playSound(new ElytraSound(e));
             }

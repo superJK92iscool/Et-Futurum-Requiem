@@ -1,28 +1,30 @@
 package ganymedes01.etfuturum.items.equipment;
 
+import baubles.api.BaubleType;
+import baubles.api.BaublesApi;
+import baubles.api.expanded.IBaubleExpanded;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import ganymedes01.etfuturum.CompatBaublesExpanded;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.blocks.IConfigurable;
-import ganymedes01.etfuturum.client.model.ModelElytra;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
+import ganymedes01.etfuturum.configuration.configs.ConfigModCompat;
+import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.world.generate.feature.WorldGenFossil;
+import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.BlockDispenser;
-import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.EnumHelper;
 
-public class ItemArmorElytra extends Item implements IConfigurable {
+public class ItemArmorElytra extends Item implements IConfigurable, IBaubleExpanded {
 
 	@SideOnly(Side.CLIENT)
 	private IIcon broken;
@@ -62,7 +64,7 @@ public class ItemArmorElytra extends Item implements IConfigurable {
 
 	@Override
 	public boolean isValidArmor(ItemStack stack, int armorType, Entity entity) {
-		return armorType == 1;
+		return ConfigModCompat.elytraBaublesExpandedCompat != 2 && armorType == 1 && entity instanceof EntityLivingBase && getElytra((EntityLivingBase) entity) == null;
 	}
 
 	@Override
@@ -81,5 +83,57 @@ public class ItemArmorElytra extends Item implements IConfigurable {
 	@Override
 	public boolean isEnabled() {
 		return ConfigMixins.enableElytra;
+	}
+
+	public static ItemStack getElytra(EntityLivingBase entity) {
+		ItemStack armorSlot = entity.getEquipmentInSlot(3);
+		if(armorSlot != null && armorSlot.getItem() instanceof ItemArmorElytra) {
+			return armorSlot;
+		}
+		if(ConfigModCompat.elytraBaublesExpandedCompat > 0 && EtFuturum.hasBaublesExpanded && entity instanceof EntityPlayer) {
+			for (int slotIndex : CompatBaublesExpanded.wingSlotIDs) {
+				ItemStack wings = BaublesApi.getBaubles((EntityPlayer) entity).getStackInSlot(slotIndex);
+				if (wings != null && wings.getItem() instanceof ItemArmorElytra) {
+					return wings;
+				}
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public BaubleType getBaubleType(ItemStack itemstack) {
+		return null;
+	}
+
+	@Override
+	public void onWornTick(ItemStack itemstack, EntityLivingBase player) {}
+
+	@Override
+	public void onEquipped(ItemStack itemstack, EntityLivingBase player) {
+		if(ConfigSounds.armorEquip) {
+			player.worldObj.playSoundAtEntity(player, Reference.MCAssetVer + ":item.armor.equip_elytra", 1, 1);
+		}
+	}
+
+	@Override
+	public void onUnequipped(ItemStack itemstack, EntityLivingBase player) {}
+
+	@Override
+	public boolean canEquip(ItemStack itemstack, EntityLivingBase player) {
+		return getElytra(player) == null;
+	}
+
+	@Override
+	public boolean canUnequip(ItemStack itemstack, EntityLivingBase player) {
+		return true;
+	}
+
+	@Override
+	public String[] getBaubleTypes(ItemStack itemstack) {
+		if(ConfigModCompat.elytraBaublesExpandedCompat == 0) {
+			return null;
+		}
+		return new String[] {"wings"};
 	}
 }
