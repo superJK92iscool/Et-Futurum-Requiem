@@ -1,6 +1,13 @@
 package ganymedes01.etfuturum;
 
-import baubles.api.expanded.BaubleExpandedSlots;
+//Do not change from * or it will break soft compat
+import baubles.api.*;
+import baubles.api.expanded.*;
+import ganymedes01.etfuturum.items.equipment.ItemArmorElytra;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
 
 public class CompatBaublesExpanded {
 
@@ -13,4 +20,31 @@ public class CompatBaublesExpanded {
     public static void postInit() {
         wingSlotIDs = BaubleExpandedSlots.getIndexesOfAssignedSlotsOfType(BaubleExpandedSlots.wingsType);
     }
+
+    public static ItemStack getElytraFromBaubles(EntityLivingBase entity) {
+        if(entity instanceof EntityPlayer) {
+            for(int slotIndex : wingSlotIDs) {
+                ItemStack wings = BaublesApi.getBaubles((EntityPlayer)entity).getStackInSlot(slotIndex);
+                if(wings != null && wings.getItem() instanceof ItemArmorElytra) {
+                    return wings;
+                }
+            }
+        }
+        return null;
+    }
+
+    public static boolean rightClickWings(ItemStack itemStackIn, EntityPlayer playerIn) {
+        IInventory baubles = BaublesApi.getBaubles(playerIn);
+        if(baubles == null) {
+            return false;
+        }
+        for(int slotIndex : wingSlotIDs) {
+            if(baubles.getStackInSlot(slotIndex) == null) {
+                baubles.setInventorySlotContents(slotIndex, itemStackIn.copy());
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

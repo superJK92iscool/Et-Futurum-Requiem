@@ -125,7 +125,7 @@ public class EtFuturum {
 	public static boolean SNAPSHOT_BUILD = false;
 	private static Side effectiveSide;
 	
-	static final Map<ItemStack, Integer> DEFAULT_COMPOST_CHANCES = new LinkedHashMap();
+	static final Map<ItemStack, Integer> DEFAULT_COMPOST_CHANCES = new LinkedHashMap<>();
 	
 	@EventHandler
 	public void onConstruction(FMLConstructionEvent event) {
@@ -155,8 +155,8 @@ public class EtFuturum {
 	public static final boolean hasSkinPort = Loader.isModLoaded("skinport");
 	public static final boolean hasEars = Loader.isModLoaded("ears");
 	public static final boolean hasBaubles = Loader.isModLoaded("Baubles");
-	public static final boolean hasBaublesExpanded = hasBaubles && baubles.common.Baubles.MODNAME.equals("Baubles Expanded");
-	
+	public static final boolean hasBaublesExpanded = Loader.isModLoaded("Baubles|Expanded");
+
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 
