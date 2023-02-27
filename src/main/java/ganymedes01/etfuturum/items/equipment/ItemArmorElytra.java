@@ -10,11 +10,9 @@ import ganymedes01.etfuturum.blocks.IConfigurable;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.configuration.configs.ConfigModCompat;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
-import ganymedes01.etfuturum.core.utils.Logger;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.BlockDispenser;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -23,7 +21,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -60,19 +57,14 @@ public class ItemArmorElytra extends Item implements IConfigurable, IBaubleExpan
 			return itemStackIn;
 		}
 		if(EtFuturum.hasBaublesExpanded && ConfigModCompat.elytraBaublesExpandedCompat != 0) {
-			if(CompatBaublesExpanded.rightClickWings(itemStackIn, playerIn)) {
-				if(!playerIn.capabilities.isCreativeMode) {
-					itemStackIn.stackSize--;
-				}
-				return itemStackIn;
-			}
+			itemStackIn = baubles.api.expanded.BaubleItemHelper.onBaubleRightClick(itemStackIn, worldIn, playerIn);
 		}
-		if(!EtFuturum.hasBaublesExpanded || ConfigModCompat.elytraBaublesExpandedCompat != 2) {
+		if((!EtFuturum.hasBaublesExpanded || ConfigModCompat.elytraBaublesExpandedCompat != 2) && itemStackIn.stackSize > 0 && getElytra(playerIn) == null) {
 			ItemStack itemStack = playerIn.getEquipmentInSlot(3);
 			if(itemStack == null) {
 				playerIn.setCurrentItemOrArmor(3, itemStackIn.copy());
 				if(!playerIn.capabilities.isCreativeMode) {
-					itemStackIn.stackSize--;
+					itemStackIn.stackSize = 0;
 				}
 				return itemStackIn;
 			}
@@ -119,19 +111,20 @@ public class ItemArmorElytra extends Item implements IConfigurable, IBaubleExpan
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List tooltip, boolean debug) {
-		if(EtFuturum.hasBaublesExpanded && ConfigModCompat.elytraBaublesExpandedCompat != 0) {
-			if(GuiScreen.isShiftKeyDown()) {
-				tooltip.add(StatCollector.translateToLocal("tooltip.compatibleslots"));
-
-				String[] types = getBaubleTypes(stack);
-				for (int i = 0; i < types.length; i++) {
-					String type = StatCollector.translateToLocal("slot." + types[i]);
-					if (i < types.length - 1) type += ",";
-					tooltip.add(type);
-				}
-			} else {
-				tooltip.add(StatCollector.translateToLocal("tooltip.shiftprompt"));
+		if(EtFuturum.hasBaublesExpanded) {
+			String[] slots;
+			switch(ConfigModCompat.elytraBaublesExpandedCompat) {
+				default:
+					slots = new String[] {"chestplate"};
+					break;
+				case 1:
+					slots = new String[] {"chestplate","wings"};
+					break;
+				case 2:
+					slots = new String[] {"wings"};
+					break;
 			}
+			baubles.api.expanded.BaubleItemHelper.addSlotInformation(tooltip, slots);
 		}
 	}
 

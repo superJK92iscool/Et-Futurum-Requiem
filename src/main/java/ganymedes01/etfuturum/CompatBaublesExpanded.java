@@ -6,7 +6,6 @@ import baubles.api.expanded.*;
 import ganymedes01.etfuturum.items.equipment.ItemArmorElytra;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 
 public class CompatBaublesExpanded {
@@ -31,20 +30,6 @@ public class CompatBaublesExpanded {
             }
         }
         return null;
-    }
-
-    public static boolean rightClickWings(ItemStack itemStackIn, EntityPlayer playerIn) {
-        IInventory baubles = BaublesApi.getBaubles(playerIn);
-        if(baubles == null) {
-            return false;
-        }
-        for(int slotIndex : wingSlotIDs) {
-            if(baubles.getStackInSlot(slotIndex) == null) {
-                baubles.setInventorySlotContents(slotIndex, itemStackIn.copy());
-                return true;
-            }
-        }
-        return false;
     }
 
 }
