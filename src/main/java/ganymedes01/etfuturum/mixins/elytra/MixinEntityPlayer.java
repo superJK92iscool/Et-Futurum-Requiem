@@ -1,11 +1,6 @@
 package ganymedes01.etfuturum.mixins.elytra;
 
-import baubles.api.BaublesApi;
-import ganymedes01.etfuturum.CompatBaublesExpanded;
-import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.api.elytra.IElytraPlayer;
-import ganymedes01.etfuturum.configuration.configs.ConfigModCompat;
 import ganymedes01.etfuturum.items.equipment.ItemArmorElytra;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
