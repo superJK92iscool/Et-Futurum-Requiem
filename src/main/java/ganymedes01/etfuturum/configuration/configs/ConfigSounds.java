@@ -99,6 +99,7 @@ public class ConfigSounds extends ConfigBase {
     public static boolean hoeTilling;
     public static boolean furnaceCrackling;
     public static boolean bonemealing;
+    public static boolean heavyWaterSplashing;
 
     public static float combatSoundStrongThreshold;
 
@@ -152,6 +153,7 @@ public class ConfigSounds extends ConfigBase {
         
         thornsSounds = cfg.getBoolean("thornsSounds", catEntity, true, "New sounds for being hurt by the Thorns enchantment.");
         horseEatCowMilk = cfg.getBoolean("horseEatCowMilk", catEntity, true, "Sounds for horses eating food and cows being milked.");
+        heavyWaterSplashing = cfg.getBoolean("heavyWaterSplashing", catEntity, true, "Play a more intense splash when the player lands in water at high speeds.");
 
         bookPageTurn = cfg.getBoolean("bookPageTurn", catMisc, true, "Changes the click in the book GUI to have a page turn sound instead of the menu click.");
         

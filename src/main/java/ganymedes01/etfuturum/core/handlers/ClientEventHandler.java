@@ -47,6 +47,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.launchwrapper.Launch;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
@@ -534,6 +535,7 @@ public class ClientEventHandler {
 	@SubscribeEvent
 	public void onPlaySoundAtEntityEvent(PlaySoundAtEntityEvent event)
 	{
+		Entity entity = event.entity;
 		if(!event.entity.worldObj.isRemote) {
 			// --- Horse eat --- //
 			if (ConfigSounds.horseEatCowMilk && event.entity instanceof EntityHorse && event.name.equals("eating")) {
@@ -541,7 +543,25 @@ public class ClientEventHandler {
 			}
 			return;//This is the only code I want to run if !isRemote
 		}
-		
+
+		// --- Player Splash --- //
+		if (event.name.equals("game.player.swim.splash") && ConfigSounds.waterSplashing)
+		{
+
+			// Water-striking speed to determine whether to play the large splash sound
+			float doWaterSplashEffect_f1 = (MathHelper.sqrt_double(entity.motionX * entity.motionX * 0.20000000298023224D + entity.motionY * entity.motionY + entity.motionZ * entity.motionZ * 0.20000000298023224D)) * (entity.riddenByEntity==null ? 0.2F : 0.9F);
+
+			if (doWaterSplashEffect_f1 > 1.0F) {doWaterSplashEffect_f1 = 1.0F;}
+
+			// Play fast splash sound instead
+			if (doWaterSplashEffect_f1 >= 0.25D)
+			{
+				event.name = Reference.MCAssetVer+":entity.player.splash.high_speed";
+				return;
+			}
+		}
+
+
 		if(event.name != null) {
 			int x = MathHelper.floor_double(event.entity.posX);
 			int y = MathHelper.floor_double(event.entity.posY - 0.20000000298023224D - event.entity.yOffset);

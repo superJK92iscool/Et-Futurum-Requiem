@@ -347,33 +347,31 @@ public class EtFuturum {
 			Blocks.nether_brick_fence.setStepSound(ModSounds.soundNetherBricks);
 			Blocks.nether_brick_stairs.setStepSound(ModSounds.soundNetherBricks);
 		}
-		
-		Iterator<Block> blockIterator = Block.blockRegistry.iterator();
+
 		//Block registry iterator
-		while(blockIterator.hasNext()) {
-			Block block = blockIterator.next();
-			if(ConfigFunctions.enableHoeMining) {
+		for (Block block : (Iterable<Block>) Block.blockRegistry) {
+			if (ConfigFunctions.enableHoeMining) {
 				/*
 				 * HOE MINING
 				 */
-				if(block instanceof BlockLeaves || block instanceof BlockHay || block instanceof BlockSponge || block instanceof BlockNetherWart
+				if (block instanceof BlockLeaves || block instanceof BlockHay || block instanceof BlockSponge || block instanceof BlockNetherWart
 						|| block instanceof BlockSculk || block instanceof BlockSculkCatalyst) {
 					HoeRegistry.addToHoeArray(block);
 				}
 			}
 
-			if(ConfigSounds.newBlockSounds) {
+			if (ConfigSounds.newBlockSounds) {
 				/*
 				 * SOUNDS
 				 */
 				String blockID = Block.blockRegistry.getNameForObject(block).split(":")[1].toLowerCase();
-				
+
 				SoundType sound = getCustomStepSound(block, blockID);
-				if(sound != null) {
+				if (sound != null) {
 					block.setStepSound(sound);
 				}
 			}
-			
+
 			/*
 			 * MATERIALS
 			 */
@@ -680,6 +678,7 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "entity.player.attack.strong", "player");
 		config.addSoundEvent(ver, "entity.player.attack.sweep", "player");
 		config.addSoundEvent(ver, "entity.player.attack.weak", "player");
+		config.addSoundEvent(ver, "entity.player.splash.high_speed", "player");
 		
 		config.addSoundEvent(ver, "item.axe.scrape", "player");
 		config.addSoundEvent(ver, "item.axe.wax_off", "player");
