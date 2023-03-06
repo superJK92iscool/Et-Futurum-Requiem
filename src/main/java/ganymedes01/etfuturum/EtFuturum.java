@@ -342,10 +342,13 @@ public class EtFuturum {
 		ConfigBase.postInit();
 
 		//Because NP+ uses its own (worse) step sounds for this and it causes the check below that replaces these blocks to fail.
-		if(EtFuturum.hasNP && ConfigSounds.newBlockSounds) {
-			Blocks.nether_brick.setStepSound(ModSounds.soundNetherBricks);
-			Blocks.nether_brick_fence.setStepSound(ModSounds.soundNetherBricks);
-			Blocks.nether_brick_stairs.setStepSound(ModSounds.soundNetherBricks);
+		if(ConfigSounds.newBlockSounds) {
+			if (EtFuturum.hasNP) {
+				Blocks.nether_brick.setStepSound(ModSounds.soundNetherBricks);
+				Blocks.nether_brick_fence.setStepSound(ModSounds.soundNetherBricks);
+				Blocks.nether_brick_stairs.setStepSound(ModSounds.soundNetherBricks);
+			}
+			Blocks.noteblock.setStepSound(Block.soundTypeWood);
 		}
 
 		//Block registry iterator
@@ -421,17 +424,19 @@ public class EtFuturum {
 			}
 			
 		}
+
+		if(block.stepSound == Block.soundTypeGrass) {
+			if(block instanceof BlockVine) {
+				return ModSounds.soundVines;
+			}
+
+			if(block instanceof BlockLilyPad) {
+				return ModSounds.soundWetGrass;
+			}
+		}
 		
 		if(block instanceof BlockCrops || block instanceof BlockStem) {
 			return ModSounds.soundCrops;
-		}
-		
-		if(block.stepSound == Block.soundTypeGrass && block instanceof BlockVine) {
-			return ModSounds.soundVines;
-		}
-
-		if(block.stepSound == Block.soundTypeGrass && block instanceof BlockLilyPad) {
-			return ModSounds.soundWetGrass;
 		}
 		
 		if(block.stepSound == Block.soundTypeSand && namespace.contains("soul") && namespace.contains("sand")) {
@@ -441,7 +446,11 @@ public class EtFuturum {
 		if(block.stepSound == Block.soundTypeMetal && (namespace.contains("copper") || namespace.contains("tin"))) {
 			return ModSounds.soundCopper;
 		}
-		
+
+		if(block.getMaterial() == Material.iron && block instanceof BlockHopper) {
+			return Block.soundTypeMetal;
+		}
+
 		return null;
 	}
 
