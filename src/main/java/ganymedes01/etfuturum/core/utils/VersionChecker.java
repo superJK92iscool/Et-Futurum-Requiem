@@ -120,7 +120,7 @@ public class VersionChecker extends Thread
     {
     	// Used to repeat the version check
     	if (
-    			(latestVersion.equals(null) || latestVersion.equals(""))
+    			(latestVersion == null || latestVersion.equals(""))
     			&& !warnaboutfailure // Skip the "run" if a failure was detected
     			&& !hasThreadStarted
     			)
