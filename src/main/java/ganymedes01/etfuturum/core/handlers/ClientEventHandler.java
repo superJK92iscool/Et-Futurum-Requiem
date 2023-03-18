@@ -545,7 +545,7 @@ public class ClientEventHandler {
 		}
 
 		// --- Player Splash --- //
-		if (event.name.equals("game.player.swim.splash") && ConfigSounds.heavyWaterSplashing)
+		if (ConfigSounds.heavyWaterSplashing && event.name.equals("game.player.swim.splash"))
 		{
 
 			// Water-striking speed to determine whether to play the large splash sound

@@ -188,8 +188,8 @@ public class ModRecipes {
 		
 		if(ConfigBlocksItems.enableNetherite) {
 			OreDictionary.registerOre("ingotNetherite", ModItems.netherite_ingot);
-			OreDictionary.registerOre("scrapNetherite", ModItems.netherite_scrap);
-			OreDictionary.registerOre("oreNetherite", ModBlocks.ancient_debris);
+			OreDictionary.registerOre("scrapDebris", ModItems.netherite_scrap);
+			OreDictionary.registerOre("oreDebris", ModBlocks.ancient_debris);
 			OreDictionary.registerOre("blockNetherite", ModBlocks.netherite_block);
 		}
 
