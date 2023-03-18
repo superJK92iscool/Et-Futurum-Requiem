@@ -535,6 +535,9 @@ public class ClientEventHandler {
 	@SubscribeEvent
 	public void onPlaySoundAtEntityEvent(PlaySoundAtEntityEvent event)
 	{
+
+		if(event.name == null) return; //Some mods fire null sounds, blech
+
 		Entity entity = event.entity;
 		if(!event.entity.worldObj.isRemote) {
 			// --- Horse eat --- //
