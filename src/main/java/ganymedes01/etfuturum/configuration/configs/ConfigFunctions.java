@@ -52,7 +52,6 @@ public class ConfigFunctions extends ConfigBase {
 			"DQMIIINext:ItemOokinaFukuroG",
 			"DQMIIINext:ItemOokinaFukuroR",
 			"DQMIIINext:ItemOokinaFukuroY",
-			"etfuturum:shulker_box",
 			"ExtraSimple:bedrockium",
 			"ExtraSimple:bedrockiumBlock",
 			"ExtraSimple:goldenBag",
