@@ -841,20 +841,32 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "block.lily_pad.place", "block");
 		config.addSoundEvent(ver, "block.sculk.break", "block");
 		config.addSoundEvent(ver, "block.sculk.place", "block");
-		config.addSoundEvent(ver, "block.sculk.step", "block");
+		config.addSoundEvent(ver, "block.sculk.step", "neutral");
 		config.addSoundEvent(ver, "block.sculk_catalyst.break", "block");
 		config.addSoundEvent(ver, "block.sculk_catalyst.place", "block");
-		config.addSoundEvent(ver, "block.sculk_catalyst.step", "block");
+		config.addSoundEvent(ver, "block.sculk_catalyst.step", "neutral");
 //      config.addSoundEvent(ver, "block.nylium.step", "neutral");
 //      config.addSoundEvent(ver, "block.nylium.break", "block");
 		config.addSoundEvent(ver, "block.fungus.step", "neutral");
 //      config.addSoundEvent(ver, "block.fungus.break", "block");
-//      config.addSoundEvent(ver, "block.stem.step", "neutral");
-//      config.addSoundEvent(ver, "block.stem.break", "block");
+      config.addSoundEvent(ver, "block.stem.step", "neutral");
+      config.addSoundEvent(ver, "block.stem.break", "block");
 //      config.addSoundEvent(ver, "block.shroomlight.step", "neutral");
 //      config.addSoundEvent(ver, "block.shroomlight.break", "block");
 //      config.addSoundEvent(ver, "block.honey_block.step", "neutral");
 //      config.addSoundEvent(ver, "block.honey_block.break", "block");
+		config.addSoundEvent(ver, "block.azalea.step", "neutral");
+		config.addSoundEvent(ver, "block.azalea.break", "block");
+		config.addSoundEvent(ver, "block.azalea_leaves.step", "neutral");
+		config.addSoundEvent(ver, "block.azalea_leaves.break", "block");
+		config.addSoundEvent(ver, "block.hanging_roots.step", "neutral");
+		config.addSoundEvent(ver, "block.hanging_roots.break", "block");
+		config.addSoundEvent(ver, "block.rooted_dirt.step", "neutral");
+		config.addSoundEvent(ver, "block.rooted_dirt.break", "block");
+		config.addSoundEvent(ver, "block.moss.step", "neutral");
+		config.addSoundEvent(ver, "block.moss.break", "block");
+		config.addSoundEvent(ver, "block.moss_carpet.step", "neutral");
+		config.addSoundEvent(ver, "block.moss_carpet.break", "block");
 	}
 
 }

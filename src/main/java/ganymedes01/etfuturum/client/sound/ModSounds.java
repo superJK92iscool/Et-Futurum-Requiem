@@ -93,9 +93,17 @@ public class ModSounds {
 //  public static final SoundType soundNylium = new CustomSound("nylium");
 //  public static final SoundType soundHoneyBlock = new CustomSound("honey_block");
 //  public static final SoundType soundFungus = new CustomSound("fungus");
-//  public static final SoundType soundStem = new CustomSound("stem");
 //  public static final SoundType soundShroomlight = new CustomSound("shroomlight");
-	
+
+	//Currently prep for Alterius Futurum
+	public static final SoundType soundAzaleaSapling = new CustomSound("azalea");
+	public static final SoundType soundAzaleaLeaves = new CustomSound("azalea_leaves");
+	public static final SoundType soundHangingRoots = new CustomSound("hanging_roots");
+	public static final SoundType soundRootedDirt = new CustomSound("rooted_dirt");
+	public static final SoundType soundMossBlock = new CustomSound("moss");
+	public static final SoundType soundMossCarpet = new CustomSound("moss_carpet");
+	public static final SoundType soundStem = new CustomSound("stem");
+
 	public static class CustomSound extends SoundType {
 
 		private final boolean placeSound;
