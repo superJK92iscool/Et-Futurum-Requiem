@@ -743,8 +743,10 @@ death.attack.sweetBerryBush=%1$s was poked to death by a sweet berry bush
 death.attack.sweetBerryBush.player=%1$s was poked to death by a sweet berry bush whilst trying to escape %2$s
 death.attack.stalactite=%1$s was skewered by a falling stalactite
 death.attack.stalactite.player=%1$s was skewered by a falling stalactite whilst trying to escape %2$s
-death.attack.stalactite=%1$s was impaled on a stalagmite
-death.attack.stalactite.player=%1$s was impaled on a stalagmite whilst trying to escape %2$s
+death.attack.stalagmite=%1$s was impaled on a stalagmite
+death.attack.stalagmite.player=%1$s was impaled on a stalagmite whilst trying to escape %2$s
+death.attack.flyIntoWall=%1$s experienced kinetic energy
+death.attack.flyIntoWall.player=%1$s experienced kinetic energy whilst trying to escape %2$s
 
 # Banners
 item.banner.black.name=Black Banner
