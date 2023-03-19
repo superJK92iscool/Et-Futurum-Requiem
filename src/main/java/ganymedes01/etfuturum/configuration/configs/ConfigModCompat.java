@@ -20,9 +20,8 @@ public class ConfigModCompat extends ConfigBase {
 
     public ConfigModCompat(File file) {
         super(file);
-        setCategoryComment(catMisc, "Sounds that players make.");
 
-        configCats.add(getCategory(catPlayer));
+        configCats.add(getCategory(catMisc));
     }
 
 
