@@ -336,9 +336,9 @@ public class ModRecipes {
 
 		if (ConfigBlocksItems.enablePrismarine) {
 
-			addShapedRecipe(new ItemStack(ModBlocks.prismarine, 1, 0), "xxx", "xyx", "xxx", 'x', "shardPrismarine", 'y', "dyeBlack");
-			addShapedRecipe(new ItemStack(ModBlocks.prismarine, 1, 1), "xx", "xx", 'x', "shardPrismarine");
-			addShapedRecipe(new ItemStack(ModBlocks.prismarine, 1, 2), "xxx", "xxx", "xxx", 'x', "shardPrismarine");
+			addShapedRecipe(new ItemStack(ModBlocks.prismarine, 1, 0), "xx", "xx", 'x', "shardPrismarine");
+			addShapedRecipe(new ItemStack(ModBlocks.prismarine, 1, 1), "xxx", "xxx", "xxx", 'x', "shardPrismarine");
+			addShapedRecipe(new ItemStack(ModBlocks.prismarine, 1, 2), "xxx", "xyx", "xxx", 'x', "shardPrismarine", 'y', "dyeBlack");
 			addShapedRecipe(new ItemStack(ModBlocks.sea_lantern), "xyx", "yyy", "xyx", 'x', "shardPrismarine", 'y', "crystalPrismarine");
 
 			addShapedRecipe(new ItemStack(ModBlocks.rough_prismarine_stairs, 4), "x  ", "xx ", "xxx", 'x', new ItemStack(ModBlocks.prismarine, 1, 0));
