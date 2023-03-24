@@ -4,9 +4,14 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.core.utils.Logger;
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import ganymedes01.etfuturum.core.utils.helpers.BlockState;
+import net.minecraft.entity.Entity;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.nbt.*;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -18,9 +23,9 @@ public abstract class NBTStructure {
     //Should trigger whenever the palette count does not match the map entry count, etc to prevent misuse and reduce possibility of user error
 
     private final NBTTagCompound compound;
-    private final Map<Integer, BlockState> palette;
-    private final Set<Pair<BlockPos, BlockState>> blocksInStructure;
-    private final BlockPos size;
+    private final Map<Integer, BlockState>[] palettes;
+    private final Set<Pair<BlockPos, BlockState>>[] blocksInStructure;
+    private final BlockPos[] sizes;
     private final float theIntegrity;
 
     public NBTStructure(String loc) {
@@ -31,65 +36,109 @@ public abstract class NBTStructure {
         InputStream file = EtFuturum.class.getResourceAsStream(loc);
         NBTTagCompound tempCompound = null;
         try {
-            assert file.available() > 0;
             tempCompound = CompressedStreamTools.readCompressed(file);
             file.close();
         } catch (IOException e) {
             Logger.error("Failed to find or read structure NBT file for " + loc);
             e.printStackTrace();
         }
-        compound = tempCompound;
-        size = getPosFromTagList(compound.getTagList("size", 3));
-        //TODO: Try compound.getIntArray on the above
-        palette = createPalette();
-        blocksInStructure = buildStructureMap();
         theIntegrity = MathHelper.clamp_float(integrity, 0, 1);
+        compound = tempCompound;
+        BlockPos size = getPosFromTagList(compound.getTagList("size", 3));
+        sizes = new BlockPos[] {size, new BlockPos(size.getZ(), size.getY(), size.getX())};
+        //sizes[0] is north and south, [1] (z/x flipped) is east/west
+        palettes = createPalettes();
+        blocksInStructure = buildStructureMaps();
     }
 
-    private Set<Pair<BlockPos, BlockState>> buildStructureMap() {
-        HashSet<Pair<BlockPos, BlockState>> set = new HashSet<>();
-        NBTTagList list = getCompound().getTagList("blocks", 10);
-        for(int i = 0; i < list.tagCount(); i++) {
-            NBTTagCompound comp = list.getCompoundTagAt(i);
-            set.add(new ImmutablePair<>(getPosFromTagList(comp.getTagList("pos", 3)), getPalette().get(comp.getInteger("state"))));
+    private Set<Pair<BlockPos, BlockState>>[] buildStructureMaps() {
+        Set<Pair<BlockPos, BlockState>>[] sets = new Set[] {null, null, null, null};
+        for(int facing = 0; facing < 4; facing++) {
+            Set<Pair<BlockPos, BlockState>> set = new HashSet<>();
+            NBTTagList list = getCompound().getTagList("blocks", 10);
+            BlockPos size = getSize(getFacingFromInt(facing));
+            for (int i = 0; i < list.tagCount(); i++) {
+                NBTTagCompound comp = list.getCompoundTagAt(i);
+                BlockPos pos = getPosFromTagList(comp.getTagList("pos", 3));
+                if(facing == 1) { //South
+                    pos = new BlockPos(size.getX() - pos.getX(), pos.getY(), size.getZ() - pos.getZ());
+                } else if (facing == 2) { //West
+                    pos = new BlockPos(pos.getZ(), pos.getY(), pos.getX());
+                } else if (facing == 3) { //East
+                    pos = new BlockPos(size.getX() - pos.getZ(), pos.getY(), size.getZ() - pos.getX());
+                }
+                set.add(new ImmutablePair<>(pos, getPalettes()[facing].get(comp.getInteger("state"))));
+            }
+            sets[facing] = set; //Add this to the structure map for this facing direction
         }
 
-        return set;
+        return sets;
     }
 
     public NBTTagCompound getCompound() {
         return compound;
     }
 
-    public Map<Integer, BlockState> getPalette() {
-        return palette;
+    public Map<Integer, BlockState>[] getPalettes() {
+        return palettes;
     }
 
-    public void buildStructure(World world, int x, int y, int z, Random rand) {
-        for(Pair<BlockPos, BlockState> pair : blocksInStructure) {
-            if(getIntegrity() == 1 || rand.nextFloat() < getIntegrity()) {
-                BlockPos pos = pair.getLeft();
-                BlockState state = getBlockState(pair.getRight());
-                Logger.info(state.getBlock() + " " + state.getMeta());
-                world.setBlock(pos.getX() + x, pos.getY() + y, pos.getZ() + z, state.getBlock(), state.getMeta(), 3);
+    public void buildStructure(World world, Random rand, int x, int y, int z) {
+        buildStructure(world, rand, x, y, z, getFacingFromInt(rand.nextInt(4)));
+    }
+    public void buildStructure(World world, Random rand, int x, int y, int z, ForgeDirection facing) {
+        Set<Pair<BlockPos, BlockState>> blockSet = blocksInStructure[getIntFromFacing(facing)];
+        Set<Pair<BlockPos, BlockState>> entitySet = new HashSet<>(); //Yes entities are stored in the BlockState class for simplicity because I don't want the map to use Object...
+        for(Pair<BlockPos, BlockState> pair : blockSet) {
+            if (pair.getRight().getType() == BlockState.BlockStateType.ENTITY) { //We want to do entities last
+                entitySet.add(pair);
+                continue;
             }
+            if (getIntegrity() == 1 || rand.nextFloat() < getIntegrity()) {
+                BlockPos pos = pair.getLeft();
+                setBlockState(world, rand, pos.getX() + x, pos.getY() + y, pos.getZ() + z, facing, pair.getRight());
+            }
+        }
+        for(Pair<BlockPos, BlockState> pair : entitySet) {
+            Entity entity = pair.getRight().createNewEntity(world);
+            entity.readFromNBT(pair.getRight().getCompound());
+            entity.setLocationAndAngles(pair.getLeft().getX() + x, pair.getLeft().getY() + y, pair.getLeft().getZ() + z, 0, 0);
+            world.spawnEntityInWorld(entity);
         }
     }
 
     /**
      * Intended to be overridden by structures that have special placement requirements for blocks
-     * Example: Fossils use this for their chance to replace the block with coal.
+     * You can also override this if you want more than one loot table per structure.
      */
-    public BlockState getBlockState(BlockState state) {
-        return state;
+    public void setBlockState(World world, Random rand, int x, int y, int z, ForgeDirection facing, BlockState state) {
+        world.setBlock(x, y, z, state.getBlock(), state.getMeta(), 3);
+        world.markBlockForUpdate(x, y, z);
+        if(state.getType() == BlockState.BlockStateType.BLOCK_ENTITY) {
+            TileEntity te = world.getTileEntity(x, y, z);
+            if(te != null) {
+                if (state.getCompound() != null) {
+                    state.getCompound().setInteger("x", x);
+                    state.getCompound().setInteger("y", y);
+                    state.getCompound().setInteger("z", z);
+                    te.readFromNBT(state.getCompound());
+                }
+                if(te instanceof IInventory && state.getLootTable() != null) {
+                    WeightedRandomChestContent.generateChestContents(world.rand, state.getLootTable().getItems(world.rand), (IInventory) te, state.getLootTable().getCount(world.rand));
+                }
+            }
+        }
     }
 
     public float getIntegrity() {
         return theIntegrity;
     }
 
-    public BlockPos getSize() {
-        return size;
+    public BlockPos getSize(ForgeDirection facing) {
+        if(facing.ordinal() < 2 || facing.ordinal() > 5) {
+            throw new IllegalArgumentException("ForgeDirection object must be NORTH, SOUTH, EAST or WEST!");
+        }
+        return facing == ForgeDirection.NORTH || facing == ForgeDirection.SOUTH ? sizes[0] : sizes[1];
     }
 
     public NBTTagCompound getPaletteFromIndex(int i) {
@@ -144,5 +193,32 @@ public abstract class NBTStructure {
         }
     }
 
-    public abstract Map<Integer, BlockState> createPalette();
+    /**
+     * 0 = North (-z)
+     * 1 = South (+z)
+     * 2 = West (-x)
+     * 3 = East (+x)
+     */
+    public ForgeDirection getFacingFromInt(int i) {
+        if(i < 0 || i > 3) {
+            throw new IllegalArgumentException("Facing int must be at least 0 and at most 3!");
+        }
+        return ForgeDirection.values()[i + 2];
+    }
+
+    public int getIntFromFacing(ForgeDirection dir) {
+        if(dir.ordinal() < 2 || dir.ordinal() > 5) {
+            throw new IllegalArgumentException("ForgeDirection object must be NORTH, SOUTH, EAST or WEST!");
+        }
+        return dir.ordinal() - 2;
+    }
+
+    private Map<Integer, BlockState>[] createPalettes() {
+        return new Map[] {createPalette(ForgeDirection.NORTH), createPalette(ForgeDirection.SOUTH), createPalette(ForgeDirection.WEST), createPalette(ForgeDirection.EAST)};
+    }
+
+    /**
+     * Ran four times for each direction. This populates four different versions of the palette for the different rotations.
+     */
+    public abstract Map<Integer, BlockState> createPalette(ForgeDirection facing);
 }

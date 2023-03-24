@@ -1,500 +1,123 @@
 package ganymedes01.etfuturum.world.generate.feature;
 
-import java.util.Random;
-
-import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
+import ganymedes01.etfuturum.ModBlocks;
+import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
+import ganymedes01.etfuturum.core.utils.helpers.BlockState;
+import ganymedes01.etfuturum.core.utils.helpers.BlockStateUtils;
+import ganymedes01.etfuturum.world.generate.NBTStructure;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
+import net.minecraftforge.common.util.ForgeDirection;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
+
+import java.util.*;
 
 public class WorldGenFossil extends WorldGenerator {
-	
-	public static Block bone = ConfigWorld.fossilBoneBlock;
-	
-	public WorldGenFossil() {
-	}
 
-	public boolean generateSpecificFossil(World world, Random random, int x, int y, int z, int rotation, int type, boolean hasCoal) {
-		Fossil fossil = getFossilFromType(type);
-		if(fossil != null && canFossilGenerateHere(world, x, y, z, fossil)) {
-			fossil.build(world, random, x, y, z, type, rotation, hasCoal);
-			return true;
-		}
-		return false;
-	}
-	
-	private boolean canFossilGenerateHere(World world, int x, int y, int z, Fossil fossil) {
-		int air = 0;
-		if(isInvalidCorner(world, x, y, z)) {
-			air++;
-		}
-		if(isInvalidCorner(world, x + fossil.getCorners()[0], y, z)) {
-			air++;
-		}
-		if(isInvalidCorner(world, x, y, z + fossil.getCorners()[2])) {
-			air++;
-		}
-		if(isInvalidCorner(world, x + fossil.getCorners()[0], y, z + fossil.getCorners()[2])) {
-			air++;
-		}
-		if(isInvalidCorner(world, x, y + fossil.getCorners()[1], z)) {
-			if(air++ >= 5) return false;
-		}
-		if(isInvalidCorner(world, x + fossil.getCorners()[0], y + fossil.getCorners()[1], z)) {
-			if(air++ >= 5) return false;
-		}
-		if(isInvalidCorner(world, x, y + fossil.getCorners()[1], z + fossil.getCorners()[2])) {
-			if(air++ >= 5) return false;
-		}
-		if(isInvalidCorner(world, x + fossil.getCorners()[0], y + fossil.getCorners()[1], z + fossil.getCorners()[2])) {
-			if(air++ >= 5) return false;
-		}
-		return air < 5;
-	}
-	
-	private boolean isInvalidCorner(World world, int x, int y, int z) {
-		Block block = world.getBlock(x, y, z);
-		return world.canBlockSeeTheSky(x, y, z) && block.isAir(world, x, y, z) && !block.isOpaqueCube();
-	}
-	
-	@Override
-	public boolean generate(World world, Random random, int x, int y, int z) {
-		return this.generateSpecificFossil(world, random, x, y, z, /*random.nextInt(5)*/0, random.nextInt(8), random.nextInt(2) == 1);
-	}
+    private final List<Pair<Fossil, Fossil>> fossils;
 
-	public Fossil getFossilFromType(int i) {
-		switch(i) {
-		case 0: return new Fossil_Skull_1();
-		case 1: return new Fossil_Skull_2();
-		case 2: return new Fossil_Skull_3();
-		case 3: return new Fossil_Skull_4();
-		case 4: return new Fossil_Spine_1();
-		case 5: return new Fossil_Spine_2();
-		case 6: return new Fossil_Spine_3();
-		case 7: return new Fossil_Spine_4();
-		default: return null;
-		}
-	}
-	
-public static abstract class Fossil {
-	
-	protected int[] corners;
-	
-	public Fossil() {
-	}
-	
-	public void fillBlocks(World world, Block block, int x, int y, int z, int xfrom, int yfrom, int zfrom, int xto, int yto, int zto, int meta, int flag, boolean hasCoal, Random rand, int facing) {
-		int swap;
+    public WorldGenFossil() {
+        Fossil fossilSkull1 = new Fossil("/data/structure/fossil/skull_1.nbt", false);
+        Fossil fossilSkullCoal1 = new Fossil("/data/structure/fossil/skull_1_coal.nbt", true);
+        Fossil fossilSkull2 = new Fossil("/data/structure/fossil/skull_2.nbt", false);
+        Fossil fossilSkullCoal2 = new Fossil("/data/structure/fossil/skull_2_coal.nbt", true);
+        Fossil fossilSkull3 = new Fossil("/data/structure/fossil/skull_3.nbt", false);
+        Fossil fossilSkullCoal3 = new Fossil("/data/structure/fossil/skull_3_coal.nbt", true);
+        Fossil fossilSkull4 = new Fossil("/data/structure/fossil/skull_4.nbt", false);
+        Fossil fossilSkullCoal4 = new Fossil("/data/structure/fossil/skull_4_coal.nbt", true);
 
-		int xadd1 = xfrom;
-		int xadd2 = xfrom + xto;
+        Fossil fossilSpine1 = new Fossil("/data/structure/fossil/spine_1.nbt", false);
+        Fossil fossilSpineCoal1 = new Fossil("/data/structure/fossil/spine_1_coal.nbt", true);
+        Fossil fossilSpine2 = new Fossil("/data/structure/fossil/spine_2.nbt", false);
+        Fossil fossilSpineCoal2 = new Fossil("/data/structure/fossil/spine_2_coal.nbt", true);
+        Fossil fossilSpine3 = new Fossil("/data/structure/fossil/spine_3.nbt", false);
+        Fossil fossilSpineCoal3 = new Fossil("/data/structure/fossil/spine_3_coal.nbt", true);
+        Fossil fossilSpine4 = new Fossil("/data/structure/fossil/spine_4.nbt", false);
+        Fossil fossilSpineCoal4 = new Fossil("/data/structure/fossil/spine_4_coal.nbt", true);
 
-		int zadd1 = zfrom;
-		int zadd2 = zfrom + zto;
+        fossils = new ArrayList<>();
 
-		if(facing == 2) {
-			xadd1 = xfrom + xto;
-			xadd2 = xfrom;
+        fossils.add(new ImmutablePair<Fossil, Fossil>(fossilSkull1, fossilSkullCoal1));
+        fossils.add(new ImmutablePair<Fossil, Fossil>(fossilSkull2, fossilSkullCoal2));
+        fossils.add(new ImmutablePair<Fossil, Fossil>(fossilSkull3, fossilSkullCoal3));
+        fossils.add(new ImmutablePair<Fossil, Fossil>(fossilSkull4, fossilSkullCoal4));
 
-			zadd1 = zfrom + zto;
-			zadd2 = zfrom;
-		}
-		if(facing == 1 || facing == 3) {
-			swap = xadd1;
-			xadd1 = zadd1;
-			zadd1 = swap;
+        fossils.add(new ImmutablePair<Fossil, Fossil>(fossilSpine1, fossilSpineCoal1));
+        fossils.add(new ImmutablePair<Fossil, Fossil>(fossilSpine2, fossilSpineCoal2));
+        fossils.add(new ImmutablePair<Fossil, Fossil>(fossilSpine3, fossilSpineCoal3));
+        fossils.add(new ImmutablePair<Fossil, Fossil>(fossilSpine4, fossilSpineCoal4));
+    }
 
-			swap = xadd2;
-			xadd2 = zadd2;
-			zadd2 = swap;
-		}
-		int i = x + xadd1;
-		while(i < x + xadd2) {
-			int j = y + yfrom;
-			while(j < y + yfrom + yto) {
-				int k = z + zadd1;
-				while(k < z + zadd2) {
-					if(world.getBlock(i, j, k) == null || world.getBlock(i, j, k).getBlockHardness(world, i, j, k) > -1) {
-						if(rand.nextFloat() < 0.9) {
-							if(hasCoal && rand.nextFloat() > 0.9) {
-								world.setBlock(i, j, k, Blocks.coal_ore, 0, flag);
-							} else {
-								world.setBlock(i, j, k, block, meta, flag);
-							}
-						}
-					}
-					k++;
-				}
-				j++;
-			}
-			i++;
-		}
-	}
+    @Override
+    public boolean generate(World world, Random rand, int x, int y, int z) {
+        Pair<Fossil, Fossil> fossilPair = fossils.get(rand.nextInt(fossils.size()));
+        ForgeDirection dir = ForgeDirection.getOrientation(rand.nextInt(4) + 2);
+        if(!canFossilGenerateHere(world, x, y, z, fossilPair.getLeft().getSize(dir), dir)) return false;
+        fossilPair.getLeft().buildStructure(world, rand, x, y, z, dir);
+        fossilPair.getRight().buildStructure(world, rand, x, y, z, dir);
+        return true;
+    }
 
-	/**
-	 * Three ints for the corners of the fossil. First is max X, second is max Y, third is max Z
-	 */
-	public abstract int[] getCorners();
-	
-	public abstract void build(World world, Random rand, int x, int y, int z, int type, int rotation, boolean hasCoal);
-	
-//  public abstract int[] getCorners();
-}
+    private boolean canFossilGenerateHere(World world, int x, int y, int z, BlockPos corners, ForgeDirection dir) {
+        int air = 0;
+        if(isInvalidCorner(world, x, y, z)) {
+            air++;
+        }
+        if(isInvalidCorner(world, x + corners.getX(), y, z)) {
+            air++;
+        }
+        if(isInvalidCorner(world, x, y, z + corners.getZ())) {
+            air++;
+        }
+        if(isInvalidCorner(world, x + corners.getX(), y, z + corners.getZ())) {
+            air++;
+        }
+        if(isInvalidCorner(world, x, y + corners.getY(), z)) {
+            air++;
+        }
+        if(isInvalidCorner(world, x + corners.getX(), y + corners.getY(), z)) {
+            if(air++ >= 5) return false;
+        }
+        if(isInvalidCorner(world, x, y + corners.getY(), z + corners.getZ())) {
+            if(air++ >= 5) return false;
+        }
+        if(isInvalidCorner(world, x + corners.getX(), y + corners.getY(), z + corners.getZ())) {
+            if(air++ >= 5) return false;
+        }
+        return air < 5;
+    }
 
-public class Fossil_Skull_1 extends Fossil {
+    private boolean isInvalidCorner(World world, int x, int y, int z) {
+        Block block = world.getBlock(x, y, z);
+        return block == Blocks.air || !block.isOpaqueCube();
+    }
 
-	@Override
-	public void build(World world, Random rand, int x, int y, int z, int type, int facing, boolean hasCoal) {
-		int rotation = (facing % 2) == 0 ? 4 : 8;
-		int rotation2 = (facing % 2) == 1 ? 4 : 8;
-		fillBlocks(world, bone, x, y, z, 1, 0, 1, 4, 1, 3, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 4, 0, 4, 1, 1, 2, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 1, 0, 4, 1, 1, 2, rotation, 3, hasCoal, rand, facing);
+    public class Fossil extends NBTStructure {
 
-		fillBlocks(world, bone, x, y, z, 0, 1, 2, 1, 3, 3, rotation2, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 5, 1, 2, 1, 3, 3, rotation2, 3, hasCoal, rand, facing);
-		
-		fillBlocks(world, bone, x, y, z, 1, 1, 0, 1, 1, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 4, 1, 0, 1, 1, 1, 0, 3, hasCoal, rand, facing);
-		
-		fillBlocks(world, bone, x, y, z, 1, 2, 0, 4, 1, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 2, 3, 0, 2, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 1, 4, 1, 4, 1, 5, rotation, 3, hasCoal, rand, facing);
-		
-		fillBlocks(world, bone, x, y, z, 0, 1, 1, 1, 3, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 0, 1, 5, 1, 3, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 5, 1, 1, 1, 3, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 5, 1, 5, 1, 3, 1, 0, 3, hasCoal, rand, facing);
-		
-		fillBlocks(world, bone, x, y, z, 1, 1, 6, 1, 3, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 2, 1, 6, 2, 3, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 4, 1, 6, 1, 3, 1, 0, 3, hasCoal, rand, facing);
-	}
+        private boolean coal;
 
-	@Override
-	public int[] getCorners() {
-		if(corners == null) {
-			corners = new int[] {5, 4, 6};
-		}
-		return corners;
-	}
-}
+        public Fossil(String loc, boolean isCoal) {
+            super(loc, isCoal ? 0.1F : 0.9F);
+        }
 
-public class Fossil_Skull_2 extends Fossil {
-
-	@Override
-	public void build(World world, Random rand, int x, int y, int z, int type, int facing, boolean hasCoal) {
-		int rotation = (facing % 2) == 0 ? 4 : 8;
-		int rotation2 = (facing % 2) == 1 ? 4 : 8;
-		fillBlocks(world, bone, x, y, z, 1, 0, 1, 5, 1, 3, rotation, 3, hasCoal, rand, facing);
-		
-		fillBlocks(world, bone, x, y, z, 1, 1, 4, 1, 3, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 2, 1, 4, 3, 3, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 5, 1, 4, 1, 3, 1, 0, 3, hasCoal, rand, facing);
-		
-		fillBlocks(world, bone, x, y, z, 6, 1, 1, 1, 3, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 6, 1, 2, 1, 3, 1, rotation2, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 6, 1, 3, 1, 3, 1, 0, 3, hasCoal, rand, facing);
-		
-		fillBlocks(world, bone, x, y, z, 0, 1, 1, 1, 3, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 0, 1, 2, 1, 3, 1, rotation2, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 0, 1, 3, 1, 3, 1, 0, 3, hasCoal, rand, facing);
-		
-		fillBlocks(world, bone, x, y, z, 1, 1, 0, 1, 3, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 2, 2, 0, 3, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 3, 3, 0, 1, 1, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 2, 4, 0, 1, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 4, 4, 0, 1, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 5, 1, 0, 1, 3, 1, 0, 3, hasCoal, rand, facing);
-
-		fillBlocks(world, bone, x, y, z, 1, 4, 1, 5, 1, 3, rotation, 3, hasCoal, rand, facing);
-	}
-
-	@Override
-	public int[] getCorners() {
-		if(corners == null) {
-			corners = new int[] {6, 4, 4};
-		}
-		return corners;
-	}
-}
-
-public class Fossil_Skull_3 extends Fossil {
-
-	@Override
-	public void build(World world, Random rand, int x, int y, int z, int type, int facing, boolean hasCoal) {
-		int rotation = (facing % 2) == 0 ? 4 : 8;
-		int rotation2 = (facing % 2) == 1 ? 4 : 8;
-		fillBlocks(world, bone, x, y, z, 1, 0, 1, 3, 1, 4, rotation, 3, hasCoal, rand, facing);
-		
-		fillBlocks(world, bone, x, y, z, 0, 0, 0, 1, 3, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 1, 1, 0, 3, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 2, 2, 0, 1, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 4, 0, 0, 1, 3, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 1, 1, 4, 3, 2, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 0, 1, 4, 1, 2, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 0, 1, 1, 1, 2, 3, rotation2, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 4, 1, 4, 1, 2, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 4, 1, 1, 1, 2, 3, rotation2, 3, hasCoal, rand, facing);
-
-		fillBlocks(world, bone, x, y, z, 4, 3, 0, 1, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 0, 3, 0, 1, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 1, 3, 0, 3, 1, 4, rotation, 3, hasCoal, rand, facing);
-	}
-
-	@Override
-	public int[] getCorners() {
-		if(corners == null) {
-			corners = new int[] {4, 3, 4};
-		}
-		return corners;
-	}
-}
-
-public class Fossil_Skull_4 extends Fossil {
-
-	@Override
-	public void build(World world, Random rand, int x, int y, int z, int type, int facing, boolean hasCoal) {
-		int rotation = (facing % 2) == 0 ? 4 : 8;
-		//int rotation2 = (facing % 2) == 1 ? 4 : 8; // unused variable
-		fillBlocks(world, bone, x, y, z, 1, 0, 1, 2, 1, 2, rotation, 3, hasCoal, rand, facing);
-
-		fillBlocks(world, bone, x, y, z, 0, 0, 0, 1, 3, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 1, 1, 0, 2, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 3, 0, 0, 1, 3, 1, 0, 3, hasCoal, rand, facing);
-
-		fillBlocks(world, bone, x, y, z, 3, 1, 1, 1, 2, 2, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 0, 1, 1, 1, 2, 2, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 1, 1, 3, 2, 2, 1, 0, 3, hasCoal, rand, facing);
-		
-		fillBlocks(world, bone, x, y, z, 1, 3, 0, 2, 1, 3, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 0, 3, 0, 1, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 3, 3, 0, 1, 1, 1, rotation, 3, hasCoal, rand, facing);
-	}
-
-	@Override
-	public int[] getCorners() {
-		if(corners == null) {
-			corners = new int[] {3, 3, 3};
-		}
-		return corners;
-	}
-}
-
-public class Fossil_Spine_1 extends Fossil {
-
-	@Override
-	public void build(World world, Random rand, int x, int y, int z, int type, int facing, boolean hasCoal) {
-		//int rotation = (facing % 2) == 0 ? 4 : 8; // unused variable
-		int rotation2 = (facing % 2) == 1 ? 4 : 8;
-		
-		fillBlocks(world, bone, x, y, z, 0, 0, 1, 1, 2, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 0, 0, 3, 1, 2, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 0, 0, 5, 1, 2, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 0, 0, 7, 1, 2, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 0, 0, 9, 1, 2, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 0, 0, 11, 1, 2, 1, 0, 3, hasCoal, rand, facing);
-		
-		fillBlocks(world, bone, x, y, z, 2, 0, 1, 1, 2, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 2, 0, 3, 1, 2, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 2, 0, 5, 1, 2, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 2, 0, 7, 1, 2, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 2, 0, 9, 1, 2, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 2, 0, 11, 1, 2, 1, 0, 3, hasCoal, rand, facing);
-
-		fillBlocks(world, bone, x, y, z, 1, 2, 0, 1, 1, 13, rotation2, 3, hasCoal, rand, facing);
-	}
-
-	@Override
-	public int[] getCorners() {
-		if(corners == null) {
-			corners = new int[] {2, 2, 12};
-		}
-		return corners;
-	}
-}
-
-public class Fossil_Spine_2 extends Fossil {
-
-	@Override
-	public void build(World world, Random rand, int x, int y, int z, int type, int facing, boolean hasCoal) {
-		int rotation = (facing % 2) == 0 ? 4 : 8;
-		int rotation2 = (facing % 2) == 1 ? 4 : 8;
-		
-		fillBlocks(world, bone, x, y, z, 1, 0, 1, 1, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 1, 0, 3, 1, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 1, 0, 5, 1, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 1, 0, 7, 1, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 1, 0, 9, 1, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 1, 0, 11, 1, 1, 1, rotation, 3, hasCoal, rand, facing);
-		
-		fillBlocks(world, bone, x, y, z, 3, 0, 1, 1, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 3, 0, 3, 1, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 3, 0, 5, 1, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 3, 0, 7, 1, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 3, 0, 9, 1, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 3, 0, 11, 1, 1, 1, rotation, 3, hasCoal, rand, facing);
-		
-		fillBlocks(world, bone, x, y, z, 1, 3, 1, 1, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 1, 3, 3, 1, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 1, 3, 5, 1, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 1, 3, 7, 1, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 1, 3, 9, 1, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 1, 3, 11, 1, 1, 1, rotation, 3, hasCoal, rand, facing);
-		
-		fillBlocks(world, bone, x, y, z, 3, 3, 1, 1, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 3, 3, 3, 1, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 3, 3, 5, 1, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 3, 3, 7, 1, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 3, 3, 9, 1, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 3, 3, 11, 1, 1, 1, rotation, 3, hasCoal, rand, facing);
-		
-		fillBlocks(world, bone, x, y, z, 0, 1, 1, 1, 2, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 0, 1, 3, 1, 2, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 0, 1, 5, 1, 2, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 0, 1, 7, 1, 2, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 0, 1, 9, 1, 2, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 0, 1, 11, 1, 2, 1, 0, 3, hasCoal, rand, facing);
-		
-		fillBlocks(world, bone, x, y, z, 4, 1, 1, 1, 2, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 4, 1, 3, 1, 2, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 4, 1, 5, 1, 2, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 4, 1, 7, 1, 2, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 4, 1, 9, 1, 2, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 4, 1, 11, 1, 2, 1, 0, 3, hasCoal, rand, facing);
-
-		fillBlocks(world, bone, x, y, z, 2, 3, 0, 1, 1, 13, rotation2, 3, hasCoal, rand, facing);
-	}
-
-	@Override
-	public int[] getCorners() {
-		if(corners == null) {
-			corners = new int[] {4, 3, 12};
-		}
-		return corners;
-	}
-}
-
-public class Fossil_Spine_3 extends Fossil {
-
-	@Override
-	public void build(World world, Random rand, int x, int y, int z, int type, int facing, boolean hasCoal) {
-		int rotation = (facing % 2) == 0 ? 4 : 8;
-		int rotation2 = (facing % 2) == 1 ? 4 : 8;
-		
-		fillBlocks(world, bone, x, y, z, 0, 0, 1, 1, 3, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 0, 0, 3, 1, 3, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 0, 0, 5, 1, 3, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 0, 0, 7, 1, 3, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 0, 0, 9, 1, 3, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 0, 0, 11, 1, 3, 1, 0, 3, hasCoal, rand, facing);
-		
-		fillBlocks(world, bone, x, y, z, 6, 0, 1, 1, 3, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 6, 0, 3, 1, 3, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 6, 0, 5, 1, 3, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 6, 0, 7, 1, 3, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 6, 0, 9, 1, 3, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 6, 0, 11, 1, 3, 1, 0, 3, hasCoal, rand, facing);
-		
-		fillBlocks(world, bone, x, y, z, 1, 0, 1, 1, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 1, 0, 3, 1, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 1, 0, 5, 1, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 1, 0, 7, 1, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 1, 0, 9, 1, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 1, 0, 11, 1, 1, 1, rotation, 3, hasCoal, rand, facing);
-		
-		fillBlocks(world, bone, x, y, z, 5, 0, 1, 1, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 5, 0, 3, 1, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 5, 0, 5, 1, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 5, 0, 7, 1, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 5, 0, 9, 1, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 5, 0, 11, 1, 1, 1, rotation, 3, hasCoal, rand, facing);
-		
-		fillBlocks(world, bone, x, y, z, 0, 3, 1, 3, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 0, 3, 3, 3, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 0, 3, 5, 3, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 0, 3, 7, 3, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 0, 3, 9, 3, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 0, 3, 11, 3, 1, 1, rotation, 3, hasCoal, rand, facing);
-		
-		fillBlocks(world, bone, x, y, z, 4, 3, 1, 3, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 4, 3, 3, 3, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 4, 3, 5, 3, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 4, 3, 7, 3, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 4, 3, 9, 3, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 4, 3, 11, 3, 1, 1, rotation, 3, hasCoal, rand, facing);
-		
-		fillBlocks(world, bone, x, y, z, 3, 3, 0, 1, 1, 13, rotation2, 3, hasCoal, rand, facing);
-	}
-
-	@Override
-	public int[] getCorners() {
-		if(corners == null) {
-			corners = new int[] {6, 3, 12};
-		}
-		return corners;
-	}
-}
-
-public class Fossil_Spine_4 extends Fossil {
-
-	@Override
-	public void build(World world, Random rand, int x, int y, int z, int type, int facing, boolean hasCoal) {
-		int rotation = (facing % 2) == 0 ? 4 : 8;
-		int rotation2 = (facing % 2) == 1 ? 4 : 8;
-		
-		fillBlocks(world, bone, x, y, z, 1, 0, 1, 2, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 1, 0, 3, 2, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 1, 0, 5, 2, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 1, 0, 7, 2, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 1, 0, 9, 2, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 1, 0, 11, 2, 1, 1, rotation, 3, hasCoal, rand, facing);
-		
-		fillBlocks(world, bone, x, y, z, 6, 0, 1, 2, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 6, 0, 3, 2, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 6, 0, 5, 2, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 6, 0, 7, 2, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 6, 0, 9, 2, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 6, 0, 11, 2, 1, 1, rotation, 3, hasCoal, rand, facing);
-		
-		fillBlocks(world, bone, x, y, z, 0, 1, 1, 1, 3, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 0, 1, 3, 1, 3, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 0, 1, 5, 1, 3, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 0, 1, 7, 1, 3, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 0, 1, 9, 1, 3, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 0, 1, 11, 1, 3, 1, 0, 3, hasCoal, rand, facing);
-		
-		fillBlocks(world, bone, x, y, z, 8, 1, 1, 1, 3, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 8, 1, 3, 1, 3, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 8, 1, 5, 1, 3, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 8, 1, 7, 1, 3, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 8, 1, 9, 1, 3, 1, 0, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 8, 1, 11, 1, 3, 1, 0, 3, hasCoal, rand, facing);
-
-		fillBlocks(world, bone, x, y, z, 0, 4, 1, 4, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 0, 4, 3, 4, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 0, 4, 5, 4, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 0, 4, 7, 4, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 0, 4, 9, 4, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 0, 4, 11, 4, 1, 1, rotation, 3, hasCoal, rand, facing);
-		
-		fillBlocks(world, bone, x, y, z, 5, 4, 1, 4, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 5, 4, 3, 4, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 5, 4, 5, 4, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 5, 4, 7, 4, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 5, 4, 9, 4, 1, 1, rotation, 3, hasCoal, rand, facing);
-		fillBlocks(world, bone, x, y, z, 5, 4, 11, 4, 1, 1, rotation, 3, hasCoal, rand, facing);
-		
-		fillBlocks(world, bone, x, y, z, 4, 4, 0, 1, 1, 13, rotation2, 3, hasCoal, rand, facing);
-	}
-
-	@Override
-	public int[] getCorners() {
-		if(corners == null) {
-			corners = new int[] {8, 4, 12};
-		}
-		return corners;
-	}
-}
+        @Override
+        public Map<Integer, BlockState> createPalette(ForgeDirection facing) {
+            Map<Integer, BlockState> map = new HashMap<>();
+            //Coal fossil, I check if the integrity is 0.1
+            //We check this way because Java compilers absolutely INSIST the super MUST be first for some stupid reason
+            if (getIntegrity() == 0.1F) {
+                map.put(0, new BlockState(Blocks.coal_ore, 0));
+            } else { //TODO: Configurable bone block
+                for (Pair<Integer, NBTTagCompound> pair : getPaletteNBT()) {
+                    String axis = pair.getRight().getCompoundTag("Properties").getString("axis");//Todo: Add helper function to get the properties
+                    map.put(pair.getLeft(), new BlockState(ModBlocks.bone_block, BlockStateUtils.getMetaFromState("axis", axis, facing)));
+                }
+            }
+            return map;
+        }
+    }
 }

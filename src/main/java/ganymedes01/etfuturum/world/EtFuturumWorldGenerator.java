@@ -49,6 +49,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 	protected final WorldGenMinable deepslateBlobGen = new WorldGenDeepslateLayerBlob(ConfigWorld.maxDeepslatePerCluster, false);
 	protected final WorldGenMinable tuffGen = new WorldGenDeepslateLayerBlob(ConfigWorld.maxTuffPerCluster, true);
 	protected WorldGenerator amethystGen;
+	protected final WorldGenerator fossils = new WorldGenFossil();
 	
 	public final MapGenMesaMineshaft mesaMineshaftGen = new MapGenMesaMineshaft();
 
@@ -136,7 +137,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 					biome = world.getBiomeGenForCoords(x, z);
 					biomeList = BiomeDictionary.getTypesForBiome(biome);
 					if(ConfigWorld.enableFossils && rand.nextInt(64) == 0 && (ArrayUtils.contains(biomeList, Type.SANDY) && ArrayUtils.contains(biomeList, Type.DRY) || ArrayUtils.contains(biomeList, Type.SWAMP))) {
-						new WorldGenFossil().generate(world, rand, x, rand.nextInt(9) + 41, z);
+						fossils.generate(world, rand, x, rand.nextInt(9) + 41, z);
 					}
 				}
 			}
