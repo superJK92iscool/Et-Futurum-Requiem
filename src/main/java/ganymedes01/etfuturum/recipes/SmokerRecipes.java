@@ -5,12 +5,9 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import net.minecraft.block.Block;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemFishFood;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
@@ -31,7 +28,7 @@ public class SmokerRecipes
 	}
 
 	@SuppressWarnings("unchecked")
-	public static void init() {
+	public static void seekRecipes() {
 		if (ConfigFunctions.enableAutoAddSmoker) {
 			Iterator<Entry<ItemStack, ItemStack>> iterator = FurnaceRecipes.smelting().getSmeltingList().entrySet().iterator();
 			while (iterator.hasNext()) {
@@ -44,24 +41,6 @@ public class SmokerRecipes
 					if (input.getItem() instanceof ItemFood || result.getItem() instanceof ItemFood) {
 						smeltingBase.addRecipe(input, result, result.getItem().getSmeltingExperience(result));
 					}
-				}
-			}
-		} else {
-			smeltingBase.addRecipe(Items.porkchop, new ItemStack(Items.cooked_porkchop), 0.35F);
-			smeltingBase.addRecipe(Items.beef, new ItemStack(Items.cooked_beef), 0.35F);
-			smeltingBase.addRecipe(Items.chicken, new ItemStack(Items.cooked_chicken), 0.35F);
-			smeltingBase.addRecipe(Items.potato, new ItemStack(Items.baked_potato), 0.35F);
-			smeltingBase.addRecipe(ModItems.raw_mutton, new ItemStack(ModItems.cooked_mutton), 0.35F);
-			ItemFishFood.FishType[] afishtype = ItemFishFood.FishType.values();
-			int i = afishtype.length;
-
-			for (int j = 0; j < i; ++j)
-			{
-				ItemFishFood.FishType fishtype = afishtype[j];
-
-				if (fishtype.func_150973_i())
-				{
-					smeltingBase.addRecipe(new ItemStack(Items.fish, 1, fishtype.func_150976_a()), new ItemStack(Items.cooked_fished /*pain*/, 1, fishtype.func_150976_a()), 0.35F);
 				}
 			}
 		}

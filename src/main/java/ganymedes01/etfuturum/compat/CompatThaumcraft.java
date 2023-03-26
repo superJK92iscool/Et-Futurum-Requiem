@@ -1,5 +1,7 @@
-package ganymedes01.etfuturum;
+package ganymedes01.etfuturum.compat;
 
+import ganymedes01.etfuturum.ModBlocks;
+import ganymedes01.etfuturum.ModItems;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -7,7 +9,7 @@ import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 
-public class CompatTC {
+public class CompatThaumcraft {
 	
 	public static void doAspects() {
 		//ThaumcraftApi.registerObjectTag(new ItemStack(), new AspectList() );

@@ -32,7 +32,7 @@ public class BlastFurnaceRecipes
 	}
 
 	@SuppressWarnings("unchecked")
-	public static void init() {
+	public static void seekRecipes() {
 		if(ConfigFunctions.enableAutoAddBlastFurnace) {
 			Iterator<Entry<ItemStack, ItemStack>> iterator = FurnaceRecipes.smelting().getSmeltingList().entrySet().iterator();
 			while (iterator.hasNext()) {
@@ -71,16 +71,8 @@ public class BlastFurnaceRecipes
 					}
 				}
 			}
-		} else {
-			smeltingBase.addRecipe(Blocks.iron_ore, new ItemStack(Items.iron_ingot), 0.7F);
-			smeltingBase.addRecipe(Blocks.gold_ore, new ItemStack(Items.gold_ingot), 1.0F);
-			smeltingBase.addRecipe(Blocks.diamond_ore, new ItemStack(Items.diamond), 1.0F);
-			smeltingBase.addRecipe(Blocks.emerald_ore, new ItemStack(Items.emerald), 1.0F);
-			smeltingBase.addRecipe(Blocks.coal_ore, new ItemStack(Items.coal), 0.1F);
-			smeltingBase.addRecipe(Blocks.redstone_ore, new ItemStack(Items.redstone), 0.7F);
-			smeltingBase.addRecipe(Blocks.lapis_ore, new ItemStack(Items.dye, 1, 4), 0.2F);
-			smeltingBase.addRecipe(Blocks.quartz_ore, new ItemStack(Items.quartz), 0.2F);
 		}
+
 		if(ConfigFunctions.enableMeltGear) {
 			Item[][] crafts = new Item[][] {
 				{Items.golden_helmet, Items.golden_chestplate, Items.golden_leggings, Items.golden_boots, Items.golden_sword, Items.golden_pickaxe,

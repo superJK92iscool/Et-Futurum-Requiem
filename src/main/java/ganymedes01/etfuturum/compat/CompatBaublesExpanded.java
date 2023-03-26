@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum;
+package ganymedes01.etfuturum.compat;
 
 //Do not change from * or it will break soft compat
 import baubles.api.*;

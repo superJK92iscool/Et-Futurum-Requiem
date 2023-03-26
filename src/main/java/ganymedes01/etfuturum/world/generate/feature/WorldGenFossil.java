@@ -59,13 +59,13 @@ public class WorldGenFossil extends WorldGenerator {
     public boolean generate(World world, Random rand, int x, int y, int z) {
         Pair<Fossil, Fossil> fossilPair = fossils.get(rand.nextInt(fossils.size()));
         ForgeDirection dir = ForgeDirection.getOrientation(rand.nextInt(4) + 2);
-        if(!canFossilGenerateHere(world, x, y, z, fossilPair.getLeft().getSize(dir), dir)) return false;
+        if(!canFossilGenerateHere(world, x, y, z, fossilPair.getLeft().getSize(dir))) return false;
         fossilPair.getLeft().buildStructure(world, rand, x, y, z, dir);
         fossilPair.getRight().buildStructure(world, rand, x, y, z, dir);
         return true;
     }
 
-    private boolean canFossilGenerateHere(World world, int x, int y, int z, BlockPos corners, ForgeDirection dir) {
+    private boolean canFossilGenerateHere(World world, int x, int y, int z, BlockPos corners) {
         int air = 0;
         if(isInvalidCorner(world, x, y, z)) {
             air++;

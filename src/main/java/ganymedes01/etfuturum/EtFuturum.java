@@ -12,6 +12,9 @@ import java.util.Map;
 
 import ganymedes01.etfuturum.blocks.BlockSculk;
 import ganymedes01.etfuturum.blocks.BlockSculkCatalyst;
+import ganymedes01.etfuturum.compat.CompatBaublesExpanded;
+import ganymedes01.etfuturum.compat.CompatCraftTweaker;
+import ganymedes01.etfuturum.compat.CompatThaumcraft;
 import ganymedes01.etfuturum.configuration.configs.ConfigModCompat;
 import ganymedes01.etfuturum.network.*;
 import ganymedes01.etfuturum.spectator.SpectatorMode;
@@ -156,6 +159,7 @@ public class EtFuturum {
 	public static final boolean hasEars = Loader.isModLoaded("ears");
 	public static final boolean hasBaubles = Loader.isModLoaded("Baubles");
 	public static final boolean hasBaublesExpanded = Loader.isModLoaded("Baubles|Expanded");
+	public static final boolean hasMineTweaker = Loader.isModLoaded("MineTweaker3");
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
@@ -276,8 +280,12 @@ public class EtFuturum {
 			BlockTrapDoor.disableValidation = true;
 		}
 		
-		if (EtFuturum.hasThaumcraft) {
-			CompatTC.doAspects();
+		if(EtFuturum.hasThaumcraft) {
+			CompatThaumcraft.doAspects();
+		}
+
+		if(EtFuturum.hasMineTweaker) {
+			CompatCraftTweaker.onPostInit();
 		}
 		
 		Items.blaze_rod.setFull3D();
@@ -335,8 +343,8 @@ public class EtFuturum {
 		DeepslateOreRegistry.init();
 		StrippedLogRegistry.init();
 		RawOreRegistry.init();
-		SmokerRecipes.init();
-		BlastFurnaceRecipes.init();
+		SmokerRecipes.seekRecipes();
+		BlastFurnaceRecipes.seekRecipes();
 		SmithingTableRecipes.init();
 		CompostingRegistry.init();
 		ConfigBase.postInit();

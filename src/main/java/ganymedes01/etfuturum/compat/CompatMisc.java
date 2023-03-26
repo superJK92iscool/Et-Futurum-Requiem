@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum;
+package ganymedes01.etfuturum.compat;
 
 import java.util.ArrayList;
 import java.util.List;

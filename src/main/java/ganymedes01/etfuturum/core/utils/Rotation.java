@@ -2,13 +2,14 @@ package ganymedes01.etfuturum.core.utils;
 
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.common.util.RotationHelper;
 
 public enum Rotation
 {
-    NONE("rotate_0"),
-    CLOCKWISE_90("rotate_90"),
-    CLOCKWISE_180("rotate_180"),
-    COUNTERCLOCKWISE_90("rotate_270");
+    NONE("rotate_0"),//North facing
+    CLOCKWISE_90("rotate_90"),//East
+    CLOCKWISE_180("rotate_180"),//South
+    COUNTERCLOCKWISE_90("rotate_270");//West
 
     private final String name;
     private static String[] rotationNames = new String[values().length];
@@ -147,7 +148,7 @@ public enum Rotation
                 return (p_185833_1_ + p_185833_2_ / 4) % p_185833_2_;
 
             case CLOCKWISE_180:
-                return (p_185833_1_ + p_185833_2_ / 2) % p_185833_2_;
+                return ((p_185833_1_ + p_185833_2_) / 2) % p_185833_2_;
 
             case COUNTERCLOCKWISE_90:
                 return (p_185833_1_ + p_185833_2_ * 3 / 4) % p_185833_2_;

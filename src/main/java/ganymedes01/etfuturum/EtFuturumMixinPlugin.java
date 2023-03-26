@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum;
 
+import ganymedes01.etfuturum.compat.CompatMisc;
 import ganymedes01.etfuturum.configuration.configs.*;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.launchwrapper.Launch;
