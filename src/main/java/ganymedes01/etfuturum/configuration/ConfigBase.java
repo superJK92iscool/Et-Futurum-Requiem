@@ -90,10 +90,8 @@ public abstract class ConfigBase extends Configuration {
 				System.err.println("Shulker ban list entry \"" + itemName + "\" is formatted incorrectly!");
 			}
 		}
-		
-		Block block = ConfigWorld.fossilBlockID == 1 ? ExternalContent.netherlicious_bone_block : ExternalContent.utd_bone_block;
-		ConfigWorld.fossilBoneBlock = ConfigWorld.fossilBlockID == 0 || block == null ? ModBlocks.bone_block : block;
-		block = ConfigWorld.amethystOuterID == 1 && ConfigBlocksItems.enableTuff ? ModBlocks.tuff : ExternalContent.netherlicious_basalt_bricks;
+
+		Block block = ConfigWorld.amethystOuterID == 1 && ConfigBlocksItems.enableTuff ? ModBlocks.tuff : ExternalContent.netherlicious_basalt_bricks;
 		ConfigWorld.amethystOuterBlock = ConfigWorld.amethystOuterID == 0 || block == null ? ModBlocks.smooth_basalt : block;
 		if(!EtFuturum.hasIronChest) {
 			ConfigBlocksItems.enableShulkerBoxesIronChest = false;

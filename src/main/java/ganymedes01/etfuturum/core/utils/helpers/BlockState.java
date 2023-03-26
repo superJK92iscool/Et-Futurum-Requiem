@@ -9,6 +9,7 @@ import net.minecraft.entity.EntityList;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ChestGenHooks;
+import net.minecraftforge.common.util.Constants;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -16,45 +17,35 @@ import java.lang.reflect.InvocationTargetException;
 public class BlockState {
 
     private final Object theObject;
-    private final NBTTagCompound theCompound;
+    private NBTTagCompound theCompound;
     private final BlockStateType type;
 
     private int theMeta;
-    private Object[] entityContructorArgs;
     private ChestGenHooks lootTable;
 
-    public BlockState(Block block, int meta, NBTTagCompound compound) {
-        if(!(block instanceof ITileEntityProvider)) {
-            throw new IllegalArgumentException("Tried to create a BlockState NBT with a block that isn't a block entity!");
-        }
-        theObject = block;
-        theMeta = meta;
-        type = BlockStateType.BLOCK_ENTITY;
-        theCompound = compound;
-    }
-
-    public BlockState(Block block, int meta, NBTTagCompound compound, ChestGenHooks info) {
-        if(!(block instanceof ITileEntityProvider)) {
-            throw new IllegalArgumentException("Tried to create a BlockState NBT with a block that isn't a block entity!");
-        }
-        theObject = block;
-        theMeta = meta;
-        type = BlockStateType.BLOCK_ENTITY;
-        theCompound = compound;
-        lootTable = info;
+    public BlockState(Block block, int meta, ChestGenHooks info) {
+        this(block, meta);
+        setLootTable(info);
     }
 
     public BlockState(Block block, int meta) {
         theObject = block;
         theMeta = meta;
         type = block instanceof ITileEntityProvider ? BlockStateType.BLOCK_ENTITY : BlockStateType.BLOCK;
-        theCompound = block instanceof ITileEntityProvider ? new NBTTagCompound() : null;
+    }
+
+    public BlockState(Block block) {
+        this(block, 0);
     }
 
     public BlockState(Class<? extends Entity> entity, NBTTagCompound compound) {
         theObject = entity;
         theCompound = compound;
         type = BlockStateType.ENTITY;
+    }
+
+    public BlockState(Class<? extends Entity> entity) {
+        this(entity, new NBTTagCompound());
     }
 
     public Block getBlock() {
@@ -71,14 +62,23 @@ public class BlockState {
         return theMeta;
     }
 
-    public NBTTagCompound getCompound() {
-        return theCompound;
-    }
     public Entity createNewEntity(World world) {
         if(type != BlockStateType.ENTITY) {
             throw new IllegalArgumentException("Tried to get entity instance from a block in a BlockState object!");
         }
         return EntityList.createEntityByName((String) EntityList.classToStringMapping.get(theObject), world);
+    }
+
+    public BlockStateType getType() {
+        return type;
+    }
+
+    public NBTTagCompound getCompound() {
+        return theCompound;
+    }
+
+    public void setCompound(NBTTagCompound blockTags) {
+        theCompound = blockTags;
     }
 
     /**
@@ -92,8 +92,11 @@ public class BlockState {
         return lootTable;
     }
 
-    public BlockStateType getType() {
-        return type;
+    public void setLootTable(ChestGenHooks info) {
+        if(type != BlockStateType.BLOCK_ENTITY) {
+            throw new IllegalArgumentException("Tried to set a loot table from a non-entity block!");
+        }
+        lootTable = info;
     }
 
     public enum BlockStateType {

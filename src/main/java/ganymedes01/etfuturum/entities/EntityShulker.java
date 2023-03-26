@@ -404,7 +404,7 @@ public class EntityShulker extends EntityGolem implements IMob {
 	{
 		super.setPosition(x, y, z);
 		
-		if (this.getDataWatcher() != null && this.ticksExisted != 0)
+		if (this.getDataWatcher() != null)
 		{
 			int xpos = MathHelper.floor_double(x);
 			int ypos = MathHelper.floor_double(y);
@@ -424,7 +424,6 @@ public class EntityShulker extends EntityGolem implements IMob {
 	{
 		if (this.isAIEnabled() && this.isEntityAlive())
 		{
-
 			for (int i = 0; i < 5; ++i)
 			{
 				int newx = (int) (MathHelper.floor_double(this.posX) + 8 - this.rand.nextInt(17));

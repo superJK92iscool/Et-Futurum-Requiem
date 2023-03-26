@@ -1,6 +1,9 @@
 package ganymedes01.etfuturum.world.generate.feature;
 
+import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.etfuturum.ModBlocks;
+import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
+import ganymedes01.etfuturum.core.utils.ExternalContent;
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import ganymedes01.etfuturum.core.utils.helpers.BlockState;
 import ganymedes01.etfuturum.core.utils.helpers.BlockStateUtils;
@@ -105,15 +108,20 @@ public class WorldGenFossil extends WorldGenerator {
         }
 
         @Override
+        public void init() {
+            coal = getLocation().contains("coal");
+        }
+
+        @Override
         public Map<Integer, BlockState> createPalette(ForgeDirection facing) {
             Map<Integer, BlockState> map = new HashMap<>();
-            //Coal fossil, I check if the integrity is 0.1
-            //We check this way because Java compilers absolutely INSIST the super MUST be first for some stupid reason
-            if (getIntegrity() == 0.1F) {
+            if (coal) {
                 map.put(0, new BlockState(Blocks.coal_ore, 0));
             } else { //TODO: Configurable bone block
                 for (Pair<Integer, NBTTagCompound> pair : getPaletteNBT()) {
-                    String axis = pair.getRight().getCompoundTag("Properties").getString("axis");//Todo: Add helper function to get the properties
+                    String axis = getProperties(pair.getRight()).get("axis");
+                    Block block = block = ConfigWorld.fossilBlockID == 1 ? GameRegistry.findBlock("netherlicious", "BoneBlock") : GameRegistry.findBlock("uptodate", "bone_block");
+                    ConfigWorld.fossilBoneBlock = ConfigWorld.fossilBlockID == 0 || block == null ? ModBlocks.bone_block : block;
                     map.put(pair.getLeft(), new BlockState(ModBlocks.bone_block, BlockStateUtils.getMetaFromState("axis", axis, facing)));
                 }
             }
