@@ -343,8 +343,6 @@ public class EtFuturum {
 		DeepslateOreRegistry.init();
 		StrippedLogRegistry.init();
 		RawOreRegistry.init();
-		SmokerRecipes.seekRecipes();
-		BlastFurnaceRecipes.seekRecipes();
 		SmithingTableRecipes.init();
 		CompostingRegistry.init();
 		ConfigBase.postInit();

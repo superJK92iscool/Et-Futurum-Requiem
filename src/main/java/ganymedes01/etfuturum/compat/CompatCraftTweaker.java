@@ -25,6 +25,9 @@ public class CompatCraftTweaker {
     public static void onPostInit() {
         MineTweakerAPI.registerClass(CTBlastFurnace.class);
         MineTweakerAPI.registerClass(CTSmoker.class);
+
+        MineTweakerImplementationAPI.onReloadEvent(new ReloadEventHandler());
+        MineTweakerImplementationAPI.onPostReload(new PostReloadEventHandler());
     }
 
     public static Object toObject(IIngredient iStack) {
@@ -53,5 +56,35 @@ public class CompatCraftTweaker {
 
     public static ItemStack[] getItemStacks(List<IItemStack> item) {
         return minetweaker.api.minecraft.MineTweakerMC.getItemStacks(item);
+    }
+    public static class ReloadEventHandler implements IEventHandler<MineTweakerImplementationAPI.ReloadEvent>
+    {
+        @Override
+        public void handle(MineTweakerImplementationAPI.ReloadEvent event)
+        {
+            BlastFurnaceRecipes.smelting().setReloadingCT(true);
+            BlastFurnaceRecipes.smelting().clearLists();
+            SmokerRecipes.smelting().setReloadingCT(true);
+            SmokerRecipes.smelting().clearLists();
+        }
+    }
+
+    /**
+     * Rebakes the Ore Dictionary, then refreshes recipes and ensures recipe lists are sorted.
+     */
+    public static class PostReloadEventHandler implements IEventHandler<MineTweakerImplementationAPI.ReloadEvent>
+    {
+        @Override
+        public void handle(MineTweakerImplementationAPI.ReloadEvent event)
+        {
+            // CraftTweaker doesn't rebake OreDictionary.stackToId when you /mt reload or when the client connects to a server...
+            // If your scripts change ore dicts, this can lead to issues where OreDictionary.getOreIDs(ItemStack) returns old unchanged ore ids.
+            // Technically, I could avoid this issue by avoiding OreDictionary.stackToId and only using methods that involve OreDictionary.idToStack.
+            // However, that would be slightly slower every time I want to check a stack's IDs. Rebaking the map means it's slower just once, and other mods may appreciate it.
+            OreDictionary.rebakeMap();
+
+            BlastFurnaceRecipes.smelting().setReloadingCT(false);
+            SmokerRecipes.smelting().setReloadingCT(false);
+        }
     }
 }

@@ -84,30 +84,30 @@ public class BlockPotionCauldron extends BlockCauldronTileEntity implements ISub
 
 				boolean flag = false;
 				final int meta = world.getBlockMetadata(x, y, z);
-					final ItemStack bottle = new ItemStack(Items.glass_bottle);
-					final List<Potion> effects = ((ItemPotion)item).getEffects(stack);
-					if(effects == null || !effects.equals(((ItemPotion)potionCauldron.potion.getItem()).getEffects(potionCauldron.potion))) {
-						EnumCauldronFillAction.EVAPORATE.getAction(world, x, y, z, false);//TODO make this evaporate with buckets too
-						world.setBlock(x, y, z, Blocks.cauldron, 0, 3);
-						flag = true;
-					} else if(meta < 2) {
-						EnumCauldronFillAction.CHANGE_LEVEL.getAction(world, x, y, z, true);
-						if(shouldFill) {
-							world.setBlockMetadataWithNotify(x, y, z, meta + 1, 3);
+				final ItemStack bottle = new ItemStack(Items.glass_bottle);
+				final List effects = ((ItemPotion)item).getEffects(stack);
+				if(effects == null || !effects.equals(((ItemPotion)potionCauldron.potion.getItem()).getEffects(potionCauldron.potion))) {
+					EnumCauldronFillAction.EVAPORATE.getAction(world, x, y, z, false);//TODO make this evaporate with buckets too
+					world.setBlock(x, y, z, Blocks.cauldron, 0, 3);
+					flag = true;
+				} else if(meta < 2) {
+					EnumCauldronFillAction.CHANGE_LEVEL.getAction(world, x, y, z, true);
+					if(shouldFill) {
+						world.setBlockMetadataWithNotify(x, y, z, meta + 1, 3);
+					}
+					flag = true;
+				}
+				if(flag && !entityPlayer.capabilities.isCreativeMode) {
+					if(stack.stackSize <= 1) {
+						entityPlayer.setCurrentItemOrArmor(0, bottle);
+					} else {
+						entityPlayer.inventory.decrStackSize(entityPlayer.inventory.currentItem, 1);
+						if(!entityPlayer.inventory.addItemStackToInventory(bottle)) {
+							entityPlayer.dropPlayerItemWithRandomChoice(bottle, false);
 						}
-						flag = true;
 					}
-					if(flag && !entityPlayer.capabilities.isCreativeMode) {
-						if(stack.stackSize <= 1) {
-						     entityPlayer.setCurrentItemOrArmor(0, bottle);
-						 } else {
-						     entityPlayer.inventory.decrStackSize(entityPlayer.inventory.currentItem, 1);
-						     if(!entityPlayer.inventory.addItemStackToInventory(bottle)) {
-						         entityPlayer.dropPlayerItemWithRandomChoice(bottle, false);
-						     }
-						 }
-					}
-					return flag;
+				}
+				return flag;
 			} else if(item == Items.glass_bottle) {
 				final ItemStack newPotion = potionCauldron.potion.copy();
 				if(stack.stackSize <= 1 && !entityPlayer.capabilities.isCreativeMode) {

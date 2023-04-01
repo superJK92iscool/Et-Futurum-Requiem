@@ -1,6 +1,9 @@
 package ganymedes01.etfuturum.compat.cthandlers;
 
 import ganymedes01.etfuturum.compat.CompatCraftTweaker;
+import ganymedes01.etfuturum.core.utils.ItemStackMap;
+import ganymedes01.etfuturum.recipes.SmokerRecipes;
+import ganymedes01.etfuturum.recipes.SmokerRecipes;
 import ganymedes01.etfuturum.recipes.SmokerRecipes;
 import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
@@ -10,6 +13,7 @@ import minetweaker.api.recipes.FurnaceRecipe;
 import minetweaker.api.recipes.IFurnaceRecipe;
 import minetweaker.mc1710.item.MCItemStack;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
@@ -19,8 +23,8 @@ import java.util.Map;
 import java.util.Set;
 
 /** Remember smoker recipes are output, THEN input, not input then output
- * mods.etfuturum.blastFurnace.addRecipe(<minecraft:gold_block>, <minecraft:iron_block>, 4.0D);
- * mods.etfuturum.blastFurnace.remove(<minecraft:gold_ore>, <minecraft:gold_ingot>);
+ * mods.etfuturum.Smoker.addRecipe(<minecraft:gold_block>, <minecraft:iron_block>, 4.0D);
+ * mods.etfuturum.Smoker.remove(<minecraft:gold_ore>, <minecraft:gold_ingot>);
  */
 
 @ZenClass("mods.etfuturum.smoker")
@@ -30,22 +34,29 @@ public class CTSmoker {
     public static void remove(IIngredient output, IIngredient input) {
         if (output == null) throw new IllegalArgumentException("output cannot be null");
 
-        Map<ItemStack, ItemStack> smeltingList = SmokerRecipes.smelting().getSmeltingList();
+        Map<ItemStack, ItemStack> furnaceSmeltingList = FurnaceRecipes.smelting().getSmeltingList();
+        ItemStackMap<ItemStack> smeltingList = new ItemStackMap<>();
+        smeltingList.putAll(furnaceSmeltingList);
+        smeltingList.putAll(SmokerRecipes.smelting().smeltingList);
 
-        List<ItemStack> toRemove = new ArrayList<ItemStack>();
-        List<ItemStack> toRemoveValues = new ArrayList<ItemStack>();
+        smeltingList.entrySet().removeIf(stack -> SmokerRecipes.smelting().smeltingBlacklist.contains(stack.getKey()));
+
+        List<ItemStack> toRemove = new ArrayList<>();
+        List<ItemStack> toRemoveValues = new ArrayList<>();
+        List<Float> toRemoveExperiences = new ArrayList<>();
         for (Map.Entry<ItemStack, ItemStack> entry : smeltingList.entrySet()) {
             if (output.matches(new MCItemStack(entry.getValue()))
                     && (input == null || input.matches(new MCItemStack(entry.getKey())))) {
                 toRemove.add(entry.getKey());
                 toRemoveValues.add(entry.getValue());
+                toRemoveExperiences.add(SmokerRecipes.smelting().getSmeltingExperience(entry.getValue()));
             }
         }
 
         if (toRemove.isEmpty()) {
             MineTweakerAPI.logWarning("No smoker recipes for " + output.toString());
         } else {
-            MineTweakerAPI.apply(new RemoveAction(toRemove, toRemoveValues));
+            MineTweakerAPI.apply(new RemoveAction(toRemove, toRemoveValues, toRemoveExperiences));
         }
     }
 
@@ -71,18 +82,6 @@ public class CTSmoker {
         MineTweakerAPI.apply(new AddRecipeAction(input, items2, output2, xp));
     }
 
-    public List<IFurnaceRecipe> getAll() {
-        List<IFurnaceRecipe> retList = new ArrayList<IFurnaceRecipe>();
-        for (Map.Entry<ItemStack, ItemStack> ent : (Set<Map.Entry<ItemStack, ItemStack>>) SmokerRecipes.smelting().getSmeltingList().entrySet()) {
-            retList.add(
-                    new FurnaceRecipe(
-                            new MCItemStack(ent.getKey()),
-                            new MCItemStack(ent.getValue()),
-                            SmokerRecipes.smelting().func_151398_b(ent.getValue())));
-        }
-        return retList;
-    }
-
     // ######################
     // ### Action classes ###
     // ######################
@@ -91,16 +90,18 @@ public class CTSmoker {
 
         private final List<ItemStack> items;
         private final List<ItemStack> values;
+        private final List<Float> exps;
 
-        public RemoveAction(List<ItemStack> items, List<ItemStack> values) {
+        public RemoveAction(List<ItemStack> items, List<ItemStack> values, List<Float> exps) {
             this.items = items;
             this.values = values;
+            this.exps = exps;
         }
 
         @Override
         public void apply() {
             for (ItemStack item : items) {
-                SmokerRecipes.smelting().getSmeltingList().remove(item);
+                SmokerRecipes.smelting().removeRecipe(item);
             }
         }
 
@@ -112,7 +113,7 @@ public class CTSmoker {
         @Override
         public void undo() {
             for (int i = 0; i < items.size(); i++) {
-                SmokerRecipes.smelting().getSmeltingList().put(items.get(i), values.get(i));
+                SmokerRecipes.smelting().addRecipe(items.get(i), values.get(i), exps.get(i));
             }
         }
 
@@ -161,7 +162,7 @@ public class CTSmoker {
         @Override
         public void undo() {
             for (ItemStack inputStack : input) {
-                SmokerRecipes.smelting().getSmeltingList().remove(inputStack);
+                SmokerRecipes.smelting().removeRecipe(inputStack);
             }
         }
 

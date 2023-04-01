@@ -1,17 +1,8 @@
 package ganymedes01.etfuturum.recipes;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import ganymedes01.etfuturum.ModItems;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
+import ganymedes01.etfuturum.core.utils.ItemStackMap;
+import ganymedes01.etfuturum.core.utils.ItemStackSet;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.oredict.OreDictionary;
@@ -19,9 +10,16 @@ import net.minecraftforge.oredict.OreDictionary;
 public class BlastFurnaceRecipes
 {
 	private static final BlastFurnaceRecipes smeltingBase = new BlastFurnaceRecipes();
+	private boolean reloadingCT;
+
 	/** The list of smelting results. */
-	public Map<ItemStack, ItemStack> smeltingList = new HashMap<ItemStack, ItemStack>();
-	public Map<ItemStack, Float> experienceList = new HashMap<ItemStack, Float>();
+	public final ItemStackMap<ItemStack> smeltingList = new ItemStackMap<ItemStack>();
+	public final ItemStackMap<Float> experienceList = new ItemStackMap<Float>();
+	public final ItemStackSet smeltingBlacklist = new ItemStackSet();
+
+
+	public final ItemStackMap<ItemStack> smeltingListCache = new ItemStackMap<ItemStack>();
+	public final ItemStackMap<Float> experienceListCache = new ItemStackMap<Float>();
 
 	/**
 	 * Used to call methods addSmelting and getSmeltingResult.
@@ -31,130 +29,126 @@ public class BlastFurnaceRecipes
 		return smeltingBase;
 	}
 
-	@SuppressWarnings("unchecked")
-	public static void seekRecipes() {
-		if(ConfigFunctions.enableAutoAddBlastFurnace) {
-			Iterator<Entry<ItemStack, ItemStack>> iterator = FurnaceRecipes.smelting().getSmeltingList().entrySet().iterator();
-			while (iterator.hasNext()) {
-				Entry<ItemStack, ItemStack> entry = iterator.next();
-				ItemStack input = entry.getKey(), result = entry.getValue();
-				if (input != null && result != null) {
-					boolean registerrecipe = false;
-					for (int id : OreDictionary.getOreIDs(input)) {
-						String oreName = OreDictionary.getOreName(id);
-						// It should not be possible for this to be null, but better safe than sorry...
-						if (oreName == null) continue;
-						// Any Type of Ores.
-						if (oreName.startsWith("ore")) {registerrecipe = true; break;}
-						// Thaumcraft Ore Cluster Items.
-						if (oreName.startsWith("cluster")) {registerrecipe = true; break;}
-						// IndustrialCraft2 Crushed Ore Items.
-						if (oreName.startsWith("crushed")) {registerrecipe = true; break;}
-					}
-					if (!registerrecipe) {
-						for (int id : OreDictionary.getOreIDs(result)) {
-							String oreName = OreDictionary.getOreName(id);
-							// It should not be possible for this to be null, but better safe than sorry...
-							if (oreName == null) continue;
-							// Outputs Ingots.
-							if (oreName.startsWith("ingot")) {registerrecipe = true; break;}
-							// Outputs GregTechs Quarter-of-Ingot Nuggets.
-							if (oreName.startsWith("chunkGt")) {registerrecipe = true; break;}
-							// Outputs normal Nuggets.
-							if (oreName.startsWith("nugget")) {registerrecipe = true; break;}
-							// Outputs Thaumcrafts Quicksilver Item, which weirdly enough is not registered as an Ingot, while still having Nuggets.
-							if (oreName.equalsIgnoreCase("quicksilver")) {registerrecipe = true; break;}
-						}
-					}
-					if (registerrecipe) {
-						smeltingBase.addRecipe(input, result, result.getItem().getSmeltingExperience(result));
-					}
-				}
-			}
-		}
-
-		if(ConfigFunctions.enableMeltGear) {
-			Item[][] crafts = new Item[][] {
-				{Items.golden_helmet, Items.golden_chestplate, Items.golden_leggings, Items.golden_boots, Items.golden_sword, Items.golden_pickaxe,
-					Items.golden_axe, Items.golden_shovel, Items.golden_hoe, Items.golden_horse_armor,
-				Items.iron_helmet, Items.iron_chestplate, Items.iron_leggings, Items.iron_boots, Items.iron_sword, Items.iron_pickaxe,
-					Items.iron_axe, Items.iron_shovel, Items.iron_hoe, Items.iron_horse_armor},
-				{Items.gold_nugget, ModItems.iron_nugget}};
-			for(int i = 0; i < crafts[0].length; i++) {
-				if(!ConfigBlocksItems.enableIronNugget && i > 9)
-					break;
-				smeltingBase.addRecipe(crafts[0][i], new ItemStack(crafts[1][i > 9 ? 1 : 0]), .1F);
-			}
-		}
+	public void clearLists() {
+		smeltingListCache.clear();
+		experienceListCache.clear();
 	}
 
-	public void addRecipe(Block p_151393_1_, ItemStack p_151393_2_, float p_151393_3_)
-	{
-		this.addRecipe(Item.getItemFromBlock(p_151393_1_), p_151393_2_, p_151393_3_);
-	}
-
-	public void addRecipe(Item p_151396_1_, ItemStack p_151396_2_, float p_151396_3_)
-	{
-		this.addRecipe(new ItemStack(p_151396_1_, 1, 32767), p_151396_2_, p_151396_3_);
-	}
-
-	public void addRecipe(ItemStack p_151394_1_, ItemStack p_151394_2_, float p_151394_3_)
-	{
-		this.smeltingList.put(p_151394_1_, p_151394_2_);
-		this.experienceList.put(p_151394_2_, Float.valueOf(p_151394_3_));
+	public void setReloadingCT(boolean val) {
+		reloadingCT = val;
 	}
 
 	/**
 	 * Returns the smelting result of an item.
 	 */
-	public ItemStack getSmeltingResult(ItemStack p_151395_1_)
+	public ItemStack getSmeltingResult(ItemStack input)
 	{
-		Iterator<Entry<ItemStack, ItemStack>> iterator = this.smeltingList.entrySet().iterator();
-		Entry<ItemStack, ItemStack> entry;
+		if(smeltingBlacklist.contains(input)) return null;
 
-		do
-		{
-			if (!iterator.hasNext())
-			{
-				return null;
+		if(!smeltingListCache.containsKey(input)) {
+			if(!smeltingList.containsKey(input)) {
+				ItemStack result = FurnaceRecipes.smelting().getSmeltingResult(input);
+				if(canAdd(input, result)) {
+					if (!reloadingCT) smeltingListCache.put(input, result);
+					return result;
+				}
 			}
-
-			entry = iterator.next();
+			ItemStack CTResult = smeltingList.get(input);
+			if(!reloadingCT) smeltingListCache.put(input, CTResult);
+			return CTResult;
 		}
-		while (!this.func_151397_a(p_151395_1_, entry.getKey()));
-
-		return entry.getValue();
+		return smeltingListCache.get(input);
 	}
 
-	private boolean func_151397_a(ItemStack p_151397_1_, ItemStack p_151397_2_)
+	public float getSmeltingExperience(ItemStack result)
 	{
-		return p_151397_2_.getItem() == p_151397_1_.getItem() && (p_151397_2_.getItemDamage() == 32767 || p_151397_2_.getItemDamage() == p_151397_1_.getItemDamage());
-	}
-
-	public Map<ItemStack, ItemStack> getSmeltingList()
-	{
-		return this.smeltingList;
-	}
-
-	public float func_151398_b(ItemStack p_151398_1_)
-	{
-		float ret = p_151398_1_.getItem().getSmeltingExperience(p_151398_1_);
+		float ret = result.getItem().getSmeltingExperience(result);
 		if (ret != -1) return ret;
 
-		Iterator<Entry<ItemStack, Float>> iterator = this.experienceList.entrySet().iterator();
-		Entry<ItemStack, Float> entry;
-
-		do
-		{
-			if (!iterator.hasNext())
-			{
-				return 0.0F;
+		if(!experienceListCache.containsKey(result) && !smeltingListCache.containsValue(result)) {
+			if(!experienceList.containsKey(result) && !smeltingList.containsValue(result)) {
+				float exp = FurnaceRecipes.smelting().func_151398_b(result);
+				if (!reloadingCT) experienceListCache.put(result, exp);
+				return exp;
 			}
-
-			entry = iterator.next();
+			float expCT = experienceList.get(result);
+			if(!reloadingCT) experienceListCache.put(result, expCT);
+			return expCT;
 		}
-		while (!this.func_151397_a(p_151398_1_, entry.getKey()));
+		return experienceListCache.get(result);
+	}
 
-		return entry.getValue().floatValue();
+	public void addRecipe(ItemStack input, ItemStack output, float exp) {
+		smeltingList.put(input, output);
+		experienceList.put(output, exp);
+		smeltingBlacklist.remove(input);
+	}
+
+	public void removeRecipe(ItemStack input) {
+		experienceList.remove(smeltingList.get(input));
+		smeltingList.remove(input);
+		smeltingBlacklist.add(input);
+	}
+
+	@SuppressWarnings("unchecked")
+	public boolean canAdd(ItemStack input, ItemStack result) {
+		if(ConfigFunctions.enableAutoAddBlastFurnace) {
+
+			if (input != null && result != null) {
+				for (int id : OreDictionary.getOreIDs(input)) {
+					String oreName = OreDictionary.getOreName(id);
+					// It should not be possible for this to be null, but better safe than sorry...
+					if (oreName == null) continue;
+					// Any Type of Ores.
+					if (oreName.startsWith("ore")) {
+						return true;
+					}
+					// Thaumcraft Ore Cluster Items.
+					if (oreName.startsWith("cluster")) {
+						return true;
+					}
+					// IndustrialCraft2 Crushed Ore Items.
+					if (oreName.startsWith("crushed")) {
+						return true;
+					}
+				}
+				for (int id : OreDictionary.getOreIDs(result)) {
+					String oreName = OreDictionary.getOreName(id);
+					// It should not be possible for this to be null, but better safe than sorry...
+					if (oreName == null) continue;
+					// Outputs Ingots.
+					if (oreName.startsWith("ingot")) {
+						return true;
+					}
+					// Outputs GregTechs Quarter-of-Ingot Nuggets.
+					if (oreName.startsWith("chunkGt")) {
+						return true;
+					}
+					// Outputs normal Nuggets.
+					if (oreName.startsWith("nugget")) {
+						return true;
+					}
+					// Outputs Thaumcrafts Quicksilver Item, which weirdly enough is not registered as an Ingot, while still having Nuggets.
+					if (oreName.equalsIgnoreCase("quicksilver")) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+
+//		if(ConfigFunctions.enableMeltGear) {
+//			Item[][] crafts = new Item[][] {
+//				{Items.golden_helmet, Items.golden_chestplate, Items.golden_leggings, Items.golden_boots, Items.golden_sword, Items.golden_pickaxe,
+//					Items.golden_axe, Items.golden_shovel, Items.golden_hoe, Items.golden_horse_armor,
+//				Items.iron_helmet, Items.iron_chestplate, Items.iron_leggings, Items.iron_boots, Items.iron_sword, Items.iron_pickaxe,
+//					Items.iron_axe, Items.iron_shovel, Items.iron_hoe, Items.iron_horse_armor},
+//				{Items.gold_nugget, ModItems.iron_nugget}};
+//			for(int i = 0; i < crafts[0].length; i++) {
+//				if(!ConfigBlocksItems.enableIronNugget && i > 9)
+//					break;
+//				smeltingBase.addRecipe(crafts[0][i], new ItemStack(crafts[1][i > 9 ? 1 : 0]), .1F);
+//			}
+//		}
 	}
 }
