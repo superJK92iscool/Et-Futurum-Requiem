@@ -70,8 +70,8 @@ public class SmokerRecipes {
 		float ret = result.getItem().getSmeltingExperience(result);
 		if (ret != -1) return ret;
 
-		if (!experienceListCache.containsKey(result) && !smeltingListCache.containsValue(result)) {
-			if (!experienceList.containsKey(result) && !smeltingList.containsValue(result)) {
+		if (!experienceListCache.containsKey(result)) {
+			if (!experienceList.containsKey(result)) {
 				float exp = FurnaceRecipes.smelting().func_151398_b(result);
 				if (!reloadingCT) experienceListCache.put(result, exp);
 				return exp;
@@ -95,7 +95,6 @@ public class SmokerRecipes {
 		smeltingBlacklist.add(input);
 	}
 
-	@SuppressWarnings("unchecked")
 	public boolean canAdd(ItemStack input, ItemStack result) {
 		if (ConfigFunctions.enableAutoAddSmoker) {
 			// Make sure there is no Nullpointers in there, yes there can be invalid Recipes in the Furnace List.
@@ -103,7 +102,7 @@ public class SmokerRecipes {
 			if (input != null && result != null) {
 				// If either the Input or the Result are Food, add a Smoker Recipe.
 				if (input.getItem() instanceof ItemFood || result.getItem() instanceof ItemFood) {
-					smeltingBase.addRecipe(input, result, getSmeltingExperience(result));
+					return true;
 				}
 			}
 		}

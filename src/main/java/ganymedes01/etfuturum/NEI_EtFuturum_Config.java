@@ -3,6 +3,7 @@ package ganymedes01.etfuturum;
 import java.awt.Rectangle;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 import codechicken.nei.NEIServerUtils;
 import codechicken.nei.recipe.FurnaceRecipeHandler;
@@ -12,13 +13,16 @@ import ganymedes01.etfuturum.client.gui.inventory.GuiBlastFurnace;
 import ganymedes01.etfuturum.client.gui.inventory.GuiSmoker;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.ItemStackMap;
+import ganymedes01.etfuturum.core.utils.Logger;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.recipes.BlastFurnaceRecipes;
 import ganymedes01.etfuturum.recipes.SmokerRecipes;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.util.StatCollector;
+import net.minecraft.world.World;
 
 /** DO NOT RENAME OR MOVE THIS FILE, IT HAS TO BE IN THIS LOCATION AND HAVE THIS NAME!!! (I wish that was not the case, but that is not my choice lol) */
 public class NEI_EtFuturum_Config implements codechicken.nei.api.IConfigureNEI {
@@ -64,9 +68,12 @@ public class NEI_EtFuturum_Config implements codechicken.nei.api.IConfigureNEI {
 		@Override
 		public void loadCraftingRecipes(String outputId, Object... results) {
 			if (outputId.equals(getOverlayIdentifier())) {
+				Logger.info("test1");
 				Map<ItemStack, ItemStack> furnaceSmeltingList = FurnaceRecipes.smelting().getSmeltingList();
 				ItemStackMap<ItemStack> recipes = new ItemStackMap<>();
-				recipes.putAll(furnaceSmeltingList);
+				for(Entry<ItemStack, ItemStack> entry : furnaceSmeltingList.entrySet()) {
+					if(SmokerRecipes.smelting().canAdd(entry.getKey(), entry.getValue())) recipes.put(entry.getKey(), entry.getValue());
+				}
 				recipes.putAll(SmokerRecipes.smelting().smeltingList);
 
 				recipes.entrySet().removeIf(stack -> SmokerRecipes.smelting().smeltingBlacklist.contains(stack.getKey()));
@@ -79,9 +86,12 @@ public class NEI_EtFuturum_Config implements codechicken.nei.api.IConfigureNEI {
 
 		@Override
 		public void loadCraftingRecipes(ItemStack result) {
+			Logger.info("test1");
 			Map<ItemStack, ItemStack> furnaceSmeltingList = FurnaceRecipes.smelting().getSmeltingList();
 			ItemStackMap<ItemStack> recipes = new ItemStackMap<>();
-			recipes.putAll(furnaceSmeltingList);
+			for(Entry<ItemStack, ItemStack> entry : furnaceSmeltingList.entrySet()) {
+				if(SmokerRecipes.smelting().canAdd(entry.getKey(), entry.getValue())) recipes.put(entry.getKey(), entry.getValue());
+			}
 			recipes.putAll(SmokerRecipes.smelting().smeltingList);
 
 			recipes.entrySet().removeIf(stack -> SmokerRecipes.smelting().smeltingBlacklist.contains(stack.getKey()));
@@ -95,7 +105,9 @@ public class NEI_EtFuturum_Config implements codechicken.nei.api.IConfigureNEI {
 		public void loadUsageRecipes(ItemStack ingredient) {
 			Map<ItemStack, ItemStack> furnaceSmeltingList = FurnaceRecipes.smelting().getSmeltingList();
 			ItemStackMap<ItemStack> recipes = new ItemStackMap<>();
-			recipes.putAll(furnaceSmeltingList);
+			for(Entry<ItemStack, ItemStack> entry : furnaceSmeltingList.entrySet()) {
+				if(SmokerRecipes.smelting().canAdd(entry.getKey(), entry.getValue())) recipes.put(entry.getKey(), entry.getValue());
+			}
 			recipes.putAll(SmokerRecipes.smelting().smeltingList);
 
 			recipes.entrySet().removeIf(stack -> SmokerRecipes.smelting().smeltingBlacklist.contains(stack.getKey()));
@@ -131,7 +143,9 @@ public class NEI_EtFuturum_Config implements codechicken.nei.api.IConfigureNEI {
 			if (outputId.equals(getOverlayIdentifier())) {
 				Map<ItemStack, ItemStack> furnaceSmeltingList = FurnaceRecipes.smelting().getSmeltingList();
 				ItemStackMap<ItemStack> recipes = new ItemStackMap<>();
-				recipes.putAll(furnaceSmeltingList);
+				for(Entry<ItemStack, ItemStack> entry : furnaceSmeltingList.entrySet()) {
+					if(BlastFurnaceRecipes.smelting().canAdd(entry.getKey(), entry.getValue())) recipes.put(entry.getKey(), entry.getValue());
+				}
 				recipes.putAll(BlastFurnaceRecipes.smelting().smeltingList);
 
 				recipes.entrySet().removeIf(stack -> BlastFurnaceRecipes.smelting().smeltingBlacklist.contains(stack.getKey()));
@@ -146,7 +160,9 @@ public class NEI_EtFuturum_Config implements codechicken.nei.api.IConfigureNEI {
 		public void loadCraftingRecipes(ItemStack result) {
 			Map<ItemStack, ItemStack> furnaceSmeltingList = FurnaceRecipes.smelting().getSmeltingList();
 			ItemStackMap<ItemStack> recipes = new ItemStackMap<>();
-			recipes.putAll(furnaceSmeltingList);
+			for(Entry<ItemStack, ItemStack> entry : furnaceSmeltingList.entrySet()) {
+				if(BlastFurnaceRecipes.smelting().canAdd(entry.getKey(), entry.getValue())) recipes.put(entry.getKey(), entry.getValue());
+			}
 			recipes.putAll(BlastFurnaceRecipes.smelting().smeltingList);
 
 			recipes.entrySet().removeIf(stack -> BlastFurnaceRecipes.smelting().smeltingBlacklist.contains(stack.getKey()));
@@ -160,7 +176,9 @@ public class NEI_EtFuturum_Config implements codechicken.nei.api.IConfigureNEI {
 		public void loadUsageRecipes(ItemStack ingredient) {
 			Map<ItemStack, ItemStack> furnaceSmeltingList = FurnaceRecipes.smelting().getSmeltingList();
 			ItemStackMap<ItemStack> recipes = new ItemStackMap<>();
-			recipes.putAll(furnaceSmeltingList);
+			for(Entry<ItemStack, ItemStack> entry : furnaceSmeltingList.entrySet()) {
+				if(BlastFurnaceRecipes.smelting().canAdd(entry.getKey(), entry.getValue())) recipes.put(entry.getKey(), entry.getValue());
+			}
 			recipes.putAll(BlastFurnaceRecipes.smelting().smeltingList);
 
 			recipes.entrySet().removeIf(stack -> BlastFurnaceRecipes.smelting().smeltingBlacklist.contains(stack.getKey()));
