@@ -118,11 +118,11 @@ public class WorldGenFossil extends WorldGenerator {
             if (coal) {
                 map.put(0, new BlockState(Blocks.coal_ore, 0));
             } else { //TODO: Configurable bone block
+                Block block = ConfigWorld.fossilBlockID == 1 ? GameRegistry.findBlock("netherlicious", "BoneBlock") : GameRegistry.findBlock("uptodate", "bone_block");
+                ConfigWorld.fossilBoneBlock = ConfigWorld.fossilBlockID == 0 || block == null ? ModBlocks.bone_block : block;
                 for (Pair<Integer, NBTTagCompound> pair : getPaletteNBT()) {
                     String axis = getProperties(pair.getRight()).get("axis");
-                    Block block = block = ConfigWorld.fossilBlockID == 1 ? GameRegistry.findBlock("netherlicious", "BoneBlock") : GameRegistry.findBlock("uptodate", "bone_block");
-                    ConfigWorld.fossilBoneBlock = ConfigWorld.fossilBlockID == 0 || block == null ? ModBlocks.bone_block : block;
-                    map.put(pair.getLeft(), new BlockState(ModBlocks.bone_block, BlockStateUtils.getMetaFromState("axis", axis, facing)));
+                    map.put(pair.getLeft(), new BlockState(block, BlockStateUtils.getMetaFromState("axis", axis, facing)));
                 }
             }
             return map;
