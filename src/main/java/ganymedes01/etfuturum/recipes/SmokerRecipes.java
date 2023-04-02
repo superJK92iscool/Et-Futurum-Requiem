@@ -100,10 +100,8 @@ public class SmokerRecipes {
 			// Make sure there is no Nullpointers in there, yes there can be invalid Recipes in the Furnace List.
 			// That was why DragonAPI somehow fixed a Bug in here, because Reika removes nulls from the List!
 			if (input != null && result != null) {
-				// If either the Input or the Result are Food, add a Smoker Recipe.
-				if (input.getItem() instanceof ItemFood || result.getItem() instanceof ItemFood) {
-					return true;
-				}
+				//If the result is a food, allow smelting.
+				return result.getItem() instanceof ItemFood;
 			}
 		}
 		return false;

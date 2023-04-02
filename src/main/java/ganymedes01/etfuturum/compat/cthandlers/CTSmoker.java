@@ -23,8 +23,8 @@ import java.util.Map;
 import java.util.Set;
 
 /** Remember smoker recipes are output, THEN input, not input then output
- * mods.etfuturum.Smoker.addRecipe(<minecraft:gold_block>, <minecraft:iron_block>, 4.0D);
- * mods.etfuturum.Smoker.remove(<minecraft:gold_ore>, <minecraft:gold_ingot>);
+ * mods.etfuturum.smoker.addRecipe(<minecraft:gold_block>, <minecraft:iron_block>, 4.0D);
+ * mods.etfuturum.smoker.remove(<minecraft:gold_ore>, <minecraft:gold_ingot>);
  */
 
 @ZenClass("mods.etfuturum.smoker")

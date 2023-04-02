@@ -90,7 +90,6 @@ public class BlastFurnaceRecipes
 		smeltingBlacklist.add(input);
 	}
 
-	@SuppressWarnings("unchecked")
 	public boolean canAdd(ItemStack input, ItemStack result) {
 		if(ConfigFunctions.enableAutoAddBlastFurnace) {
 

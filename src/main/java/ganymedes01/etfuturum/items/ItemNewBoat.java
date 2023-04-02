@@ -34,9 +34,6 @@ public class ItemNewBoat extends Item implements IConfigurable {
 		setTextureName("minecraft:" + type.getName() + suffix);
 		setUnlocalizedName(Utils.getUnlocalisedName(type.getName() + suffix));
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
-		if(!isChest && !ConfigBlocksItems.replaceOldBoats) {
-			this.setContainerItem(Items.wooden_shovel);
-		}
 	}
 
 	public ItemStack onItemRightClick(ItemStack p_77659_1_, World p_77659_2_, EntityPlayer p_77659_3_)

@@ -25,14 +25,13 @@ import net.minecraftforge.oredict.OreDictionary;
 public class SmithingTableRecipes {
 
     private static final SmithingTableRecipes instance = new SmithingTableRecipes();
-    private final List<SmithingTableRecipe> recipes = new ArrayList();
+    private final List<SmithingTableRecipe> recipes = new ArrayList<>();
 
     public static SmithingTableRecipes getInstance()
     {
         return instance;
     }
-    
-    //TODO: Add Netherite Plus support
+
     public static void init() {
     	if(ConfigBlocksItems.enableNetherite) {
 			SmithingTableRecipes.getInstance().addRecipeWithNBTCopy(new ItemStack(Items.diamond_pickaxe, 1, OreDictionary.WILDCARD_VALUE), "ingotNetherite", new ItemStack(ModItems.netherite_pickaxe));
@@ -63,29 +62,29 @@ public class SmithingTableRecipes {
     	instance.recipes.add(recipe);
     }
 
+	public List<SmithingTableRecipe> getRecipes() {
+		return recipes;
+	}
+
     public ItemStack findMatchingRecipe(InventoryCrafting p_82787_1_, World p_82787_2_)
     {
-		for (int j = 0; j < this.recipes.size(); ++j)
-		{
-			SmithingTableRecipe irecipe = (SmithingTableRecipe)this.recipes.get(j);
-
-		    if (irecipe.matches(p_82787_1_, p_82787_2_))
-		    {
-		        return irecipe.getCraftingResult(p_82787_1_);
-		    }
+		for (SmithingTableRecipe recipe : this.recipes) {
+			if (((SmithingTableRecipe) recipe).matches(p_82787_1_, p_82787_2_)) {
+				return ((SmithingTableRecipe) recipe).getCraftingResult(p_82787_1_);
+			}
 		}
 
 		return null;
     }
     
-    public class SmithingTableRecipe implements IRecipe {
+    public static class SmithingTableRecipe implements IRecipe {
 		/**
 		 * Should we copy the NBT values from the tool slot?
 		 */
-        private boolean copyNBT;
-        private Object input;
-        private Object material;
-        private ItemStack output;
+        private final boolean copyNBT;
+        private final Object input;
+        private final Object material;
+        private final ItemStack output;
 
 		public SmithingTableRecipe(Object toolSlot, Object materialSlot, ItemStack result, boolean copy) {
 			copyNBT = copy;
@@ -154,6 +153,10 @@ public class SmithingTableRecipes {
 
 	    @Override
 	    public ItemStack getRecipeOutput(){ return output; }
+
+		public Object getInputItem(){ return input; }
+
+		public Object getMaterial(){ return material; }
 
 	    /**
 	     * Used to check if a recipe matches current crafting inventory

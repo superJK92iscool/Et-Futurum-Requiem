@@ -2,6 +2,7 @@ package ganymedes01.etfuturum.compat;
 
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import ganymedes01.etfuturum.compat.cthandlers.CTBlastFurnace;
+import ganymedes01.etfuturum.compat.cthandlers.CTSmithingTable;
 import ganymedes01.etfuturum.compat.cthandlers.CTSmoker;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.recipes.BlastFurnaceRecipes;
@@ -25,6 +26,7 @@ public class CompatCraftTweaker {
     public static void onPostInit() {
         MineTweakerAPI.registerClass(CTBlastFurnace.class);
         MineTweakerAPI.registerClass(CTSmoker.class);
+        MineTweakerAPI.registerClass(CTSmithingTable.class);
 
         MineTweakerImplementationAPI.onReloadEvent(new ReloadEventHandler());
         MineTweakerImplementationAPI.onPostReload(new PostReloadEventHandler());
