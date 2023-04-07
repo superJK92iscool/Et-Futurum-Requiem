@@ -1,26 +1,24 @@
 package ganymedes01.etfuturum.compat.cthandlers;
 
 import ganymedes01.etfuturum.compat.CompatCraftTweaker;
-import ganymedes01.etfuturum.core.utils.ItemStackMap;
 import ganymedes01.etfuturum.recipes.SmithingTableRecipes;
-import ganymedes01.etfuturum.recipes.SmokerRecipes;
 import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
 import minetweaker.mc1710.item.MCItemStack;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.FurnaceRecipes;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraftforge.oredict.OreDictionary;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
 import java.util.*;
 
-/** Remember smoker recipes are output, THEN input, not input then output
+/** Remember smithing table recipes are output, THEN input, not input then output
  * mods.etfuturum.smithingTable.addRecipe(<IC2:itemToolBronzeSword>, <minecraft:iron_sword>, <ore:ingotBronze>);
- * mods.etfuturum.smithingTable.addRecipe(<minecraft:stone_sword>, <minecraft:wooden_sword>, <minecraft:cobblestone>);
+ * mods.etfuturum.smithingTable.addRecipeNoNBT(<minecraft:stone_sword>, <minecraft:wooden_sword>, <minecraft:cobblestone>);
+ *
+ * ALSO THIS CODE IS VERY SCUFFED I HAVE NO IDEA WHAT I AM DOING, CRAFTTWEAKER SUPPORT IS CONFUSING BUT NOBODY WOULD STOP ASKING FOR IT
+ * SO WARNING IF BAD CODE MAKES YOU CRINGE
  */
 
 @ZenClass("mods.etfuturum.smithingTable")
@@ -40,7 +38,7 @@ public class CTSmithingTable {
         }
 
         if (toRemove.isEmpty()) {
-            MineTweakerAPI.logWarning("No smoker recipes for " + output.toString());
+            MineTweakerAPI.logWarning("No smithing table recipes for " + output.toString());
         } else {
             MineTweakerAPI.apply(new RemoveAction(toRemove));
         }
@@ -48,15 +46,15 @@ public class CTSmithingTable {
 
     @ZenMethod
     public static void addRecipe(IItemStack output, IIngredient toolSlot, IIngredient ingredient) {
-        addRecipe(toolSlot, ingredient, output, true);
+        addRecipe(output, ingredient, toolSlot, true);
     }
 
     @ZenMethod
-    public static void addRecipeWithNoNBTCopy(IItemStack output, IIngredient toolSlot, IIngredient ingredient) {
-        addRecipe(toolSlot, ingredient, output, false);
+    public static void addRecipeNoNBT(IItemStack output, IIngredient toolSlot, IIngredient ingredient) {
+        addRecipe(output, ingredient, toolSlot, false);
     }
 
-    private static void addRecipe(IIngredient toolSlot, IIngredient ingredientSlot, IItemStack output, boolean copyNBT) {
+    private static void addRecipe(IItemStack output, IIngredient ingredientSlot, IIngredient toolSlot, boolean copyNBT) {
         Object toolSlotItem = getInternal(toolSlot);
         Object ingredientSlotItem = getInternal(ingredientSlot);
 
@@ -104,12 +102,12 @@ public class CTSmithingTable {
 
         @Override
         public String describe() {
-            return "Removing " + recipes.size() + " smoker recipes";
+            return "Removing " + recipes.size() + " smithing table recipes";
         }
 
         @Override
         public String describeUndo() {
-            return "Restoring " + recipes.size() + " smoker recipes";
+            return "Restoring " + recipes.size() + " smithing table recipes";
         }
 
         @Override
@@ -130,7 +128,7 @@ public class CTSmithingTable {
 
         @Override
         public void apply() {
-            SmithingTableRecipes.getInstance().addRecipe(recipe);
+            SmithingTableRecipes.getInstance().addRecipeNoNBT(recipe);
         }
 
         @Override
@@ -145,12 +143,12 @@ public class CTSmithingTable {
 
         @Override
         public String describe() {
-            return "Adding smoker recipe for " + output;
+            return "Adding smithing table recipe for " + output;
         }
 
         @Override
         public String describeUndo() {
-            return "Removing smoker recipe for " + output;
+            return "Removing smithing table recipe for " + output;
         }
 
         @Override

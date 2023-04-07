@@ -1,24 +1,17 @@
 package ganymedes01.etfuturum.recipes;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-import cpw.mods.fml.common.Loader;
-import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
-import ganymedes01.etfuturum.core.utils.ExternalContent;
-import ganymedes01.etfuturum.core.utils.Logger;
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -34,30 +27,30 @@ public class SmithingTableRecipes {
 
     public static void init() {
     	if(ConfigBlocksItems.enableNetherite) {
-			SmithingTableRecipes.getInstance().addRecipeWithNBTCopy(new ItemStack(Items.diamond_pickaxe, 1, OreDictionary.WILDCARD_VALUE), "ingotNetherite", new ItemStack(ModItems.netherite_pickaxe));
-			SmithingTableRecipes.getInstance().addRecipeWithNBTCopy(new ItemStack(Items.diamond_axe, 1, OreDictionary.WILDCARD_VALUE), "ingotNetherite", new ItemStack(ModItems.netherite_axe));
-			SmithingTableRecipes.getInstance().addRecipeWithNBTCopy(new ItemStack(Items.diamond_shovel, 1, OreDictionary.WILDCARD_VALUE), "ingotNetherite", new ItemStack(ModItems.netherite_spade));
-			SmithingTableRecipes.getInstance().addRecipeWithNBTCopy(new ItemStack(Items.diamond_sword, 1, OreDictionary.WILDCARD_VALUE), "ingotNetherite", new ItemStack(ModItems.netherite_sword));
-			SmithingTableRecipes.getInstance().addRecipeWithNBTCopy(new ItemStack(Items.diamond_hoe, 1, OreDictionary.WILDCARD_VALUE), "ingotNetherite", new ItemStack(ModItems.netherite_hoe));
+			SmithingTableRecipes.getInstance().addRecipe(new ItemStack(ModItems.netherite_pickaxe), "ingotNetherite", new ItemStack(Items.diamond_pickaxe, 1, OreDictionary.WILDCARD_VALUE));
+			SmithingTableRecipes.getInstance().addRecipe(new ItemStack(ModItems.netherite_axe), "ingotNetherite", new ItemStack(Items.diamond_axe, 1, OreDictionary.WILDCARD_VALUE));
+			SmithingTableRecipes.getInstance().addRecipe(new ItemStack(ModItems.netherite_spade), "ingotNetherite", new ItemStack(Items.diamond_shovel, 1, OreDictionary.WILDCARD_VALUE));
+			SmithingTableRecipes.getInstance().addRecipe(new ItemStack(ModItems.netherite_sword), "ingotNetherite", new ItemStack(Items.diamond_sword, 1, OreDictionary.WILDCARD_VALUE));
+			SmithingTableRecipes.getInstance().addRecipe(new ItemStack(ModItems.netherite_hoe), "ingotNetherite", new ItemStack(Items.diamond_hoe, 1, OreDictionary.WILDCARD_VALUE));
 
-			SmithingTableRecipes.getInstance().addRecipeWithNBTCopy(new ItemStack(Items.diamond_helmet, 1, OreDictionary.WILDCARD_VALUE), "ingotNetherite", new ItemStack(ModItems.netherite_helmet));
-			SmithingTableRecipes.getInstance().addRecipeWithNBTCopy(new ItemStack(Items.diamond_chestplate, 1, OreDictionary.WILDCARD_VALUE), "ingotNetherite", new ItemStack(ModItems.netherite_chestplate));
-			SmithingTableRecipes.getInstance().addRecipeWithNBTCopy(new ItemStack(Items.diamond_leggings, 1, OreDictionary.WILDCARD_VALUE), "ingotNetherite", new ItemStack(ModItems.netherite_leggings));
-			SmithingTableRecipes.getInstance().addRecipeWithNBTCopy(new ItemStack(Items.diamond_boots, 1, OreDictionary.WILDCARD_VALUE), "ingotNetherite", new ItemStack(ModItems.netherite_boots));
+			SmithingTableRecipes.getInstance().addRecipe(new ItemStack(ModItems.netherite_helmet), "ingotNetherite", new ItemStack(Items.diamond_helmet, 1, OreDictionary.WILDCARD_VALUE));
+			SmithingTableRecipes.getInstance().addRecipe(new ItemStack(ModItems.netherite_chestplate), "ingotNetherite", new ItemStack(Items.diamond_chestplate, 1, OreDictionary.WILDCARD_VALUE));
+			SmithingTableRecipes.getInstance().addRecipe(new ItemStack(ModItems.netherite_leggings), "ingotNetherite", new ItemStack(Items.diamond_leggings, 1, OreDictionary.WILDCARD_VALUE));
+			SmithingTableRecipes.getInstance().addRecipe(new ItemStack(ModItems.netherite_boots), "ingotNetherite", new ItemStack(Items.diamond_boots, 1, OreDictionary.WILDCARD_VALUE));
 		}
     }
 	
-	public void addRecipeWithNBTCopy(Object toolSlot, Object materialSlot, ItemStack result)
+	public void addRecipe(ItemStack result, Object materialSlot, Object toolSlot)
 	{
 		instance.recipes.add(new SmithingTableRecipe(toolSlot, materialSlot, result, true));
 	}
     
-    public void addRecipe(Object toolSlot, Object materialSlot, ItemStack result)
+    public void addRecipeNoNBT(ItemStack result, Object materialSlot, Object toolSlot)
     {
     	instance.recipes.add(new SmithingTableRecipe(toolSlot, materialSlot, result, false));
     }
     
-    public void addRecipe(SmithingTableRecipe recipe)
+    public void addRecipeNoNBT(SmithingTableRecipe recipe)
     {
     	instance.recipes.add(recipe);
     }

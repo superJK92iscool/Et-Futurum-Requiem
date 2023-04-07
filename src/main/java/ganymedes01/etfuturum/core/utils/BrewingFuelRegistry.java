@@ -1,20 +1,16 @@
 package ganymedes01.etfuturum.core.utils;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import ganymedes01.etfuturum.api.brewing.IBrewingFuel;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.OreDictionary;
 
 public class BrewingFuelRegistry {
 
-	private static final Map<ItemStack, Integer> fuels = new HashMap<ItemStack, Integer>();
-	private static final List<IBrewingFuel> advFuels = new ArrayList<IBrewingFuel>();
+	private static final ItemStackMap<Integer> fuels = new ItemStackMap<>();
+	private static final List<IBrewingFuel> advFuels = new ArrayList<>();
 
 	static {
 		fuels.put(new ItemStack(Items.blaze_powder), 30);
@@ -29,19 +25,21 @@ public class BrewingFuelRegistry {
 	}
 
 	public static boolean isFuel(ItemStack fuel) {
-		return getBrewAmount(fuel) > 0;
+		return getBrewingAmount(fuel) > 0;
 	}
 
-	public static int getBrewAmount(ItemStack fuel) {
-		for (IBrewingFuel advFuel : advFuels) {
-			int time = advFuel.getBrewingAmount(fuel);
-			if (time > 0)
-				return time;
+	public static int getBrewingAmount(ItemStack fuel) {
+		Integer time = fuels.get(fuel);
+		if(time != null && time > 0) {
+			return time;
 		}
 
-		for (Entry<ItemStack, Integer> entry : fuels.entrySet())
-			if (OreDictionary.itemMatches(entry.getKey(), fuel, false))
-				return entry.getValue();
+		for (IBrewingFuel advFuel : advFuels) {
+			time = advFuel.getBrewingAmount(fuel);
+			if (time > 0) {
+				return time;
+			}
+		}
 
 		return 0;
 	}

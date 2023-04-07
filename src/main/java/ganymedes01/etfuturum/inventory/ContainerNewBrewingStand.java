@@ -41,8 +41,8 @@ public class ContainerNewBrewingStand extends Container {
 	public void detectAndSendChanges() {
 		super.detectAndSendChanges();
 
-		for (int i = 0; i < crafters.size(); i++) {
-			ICrafting icrafting = (ICrafting) crafters.get(i);
+		for (Object crafter : crafters) {
+			ICrafting icrafting = (ICrafting) crafter;
 
 			if (prevBrewTime != tile.getBrewTime())
 				icrafting.sendProgressBarUpdate(this, 0, tile.getBrewTime());
