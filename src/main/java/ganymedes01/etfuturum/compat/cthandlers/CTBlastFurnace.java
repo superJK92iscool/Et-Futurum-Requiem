@@ -27,7 +27,7 @@ import java.util.*;
 public class CTBlastFurnace {
 
     @ZenMethod
-    public static void remove(IIngredient output, IIngredient input) {
+    public static void remove(IItemStack output, IIngredient input) {
         if (output == null) throw new IllegalArgumentException("output cannot be null");
 
         Map<ItemStack, ItemStack> furnaceSmeltingList = FurnaceRecipes.smelting().getSmeltingList();
@@ -57,7 +57,7 @@ public class CTBlastFurnace {
     }
 
     @ZenMethod
-    public static void remove(IIngredient output) {
+    public static void remove(IItemStack output) {
         remove(output, null);
     }
 

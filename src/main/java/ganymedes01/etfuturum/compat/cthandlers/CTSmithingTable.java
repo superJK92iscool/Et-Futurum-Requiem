@@ -13,6 +13,8 @@ import stanhebben.zenscript.annotations.ZenMethod;
 
 import java.util.*;
 
+import static ganymedes01.etfuturum.compat.CompatCraftTweaker.getInternal;
+
 /** Remember smithing table recipes are output, THEN input, not input then output
  * mods.etfuturum.smithingTable.addRecipe(<IC2:itemToolBronzeSword>, <minecraft:iron_sword>, <ore:ingotBronze>);
  * mods.etfuturum.smithingTable.addRecipeNoNBT(<minecraft:stone_sword>, <minecraft:wooden_sword>, <minecraft:cobblestone>);
@@ -63,14 +65,6 @@ public class CTSmithingTable {
         } else {
             MineTweakerAPI.apply(new AddRecipeAction(toolSlotItem, ingredientSlotItem, output, copyNBT));
         }
-    }
-
-    private static Object getInternal(IIngredient pattern) {
-        Object internal = pattern.getInternal();
-        if(internal instanceof String || internal instanceof ItemStack) {
-            return internal;
-        }
-        return null;
     }
 
     // ######################

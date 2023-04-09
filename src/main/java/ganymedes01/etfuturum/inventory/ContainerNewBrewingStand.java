@@ -82,7 +82,7 @@ public class ContainerNewBrewingStand extends Container {
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();
 
-            if ((slotIndex < 0 || slotIndex > 2) && slotIndex != 3 && slotIndex != 4)
+            if (slotIndex > 2 && slotIndex != 3 && slotIndex != 4)
             {
             	 if (((Slot) inventorySlots.get(4)).isItemValid(itemstack))
                  {
@@ -106,14 +106,14 @@ public class ContainerNewBrewingStand extends Container {
                         return null;
                     }
                 }
-                else if (slotIndex >= 5 && slotIndex < 32)
+                else if (slotIndex < 32)
                 {
                     if (!this.mergeItemStack(itemstack1, 32, 41, false))
                     {
                         return null;
                     }
                 }
-                else if (slotIndex >= 32 && slotIndex < 41)
+                else if (slotIndex < 41)
                 {
                     if (!this.mergeItemStack(itemstack1, 5, 32, false))
                     {
@@ -163,7 +163,7 @@ public class ContainerNewBrewingStand extends Container {
 
 		@Override
 		public boolean isItemValid(ItemStack stack) {
-			return stack != null && BrewingFuelRegistry.isFuel(stack);
+			return BrewingFuelRegistry.isFuel(stack);
 		}
 	}
 

@@ -98,7 +98,7 @@ public class BlockComposter extends Block implements IConfigurable, ISubBlocksBl
 		if(meta < 6) {
 			meta = Math.min(meta, 7);
 			ItemStack stack = player.getCurrentEquippedItem();
-			int chance = CompostingRegistry.getCompostingPercent(stack);
+			int chance = CompostingRegistry.getCompostChance(stack);
 			if(chance > 0) {
 				if(!world.isRemote) {
 					int rng = world.rand.nextInt(100);

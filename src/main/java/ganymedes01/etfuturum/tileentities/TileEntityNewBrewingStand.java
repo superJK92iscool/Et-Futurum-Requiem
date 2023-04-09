@@ -47,8 +47,9 @@ public class TileEntityNewBrewingStand extends TileEntityBrewingStand {
 	public void updateEntity() {
 		if (fuel <= 0 && inventory[4] != null) {
 			fuel = currentFuel = BrewingFuelRegistry.getBrewingAmount(inventory[4]);
-			if (--inventory[4].stackSize <= 0)
+			if (--inventory[4].stackSize <= 0) {
 				inventory[4] = inventory[4].getItem().hasContainerItem(inventory[4]) ? inventory[4].getItem().getContainerItem(inventory[4]) : null;
+			}
 			markDirty();
 		}
 

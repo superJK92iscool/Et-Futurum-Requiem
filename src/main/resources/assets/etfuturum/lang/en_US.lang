@@ -29,6 +29,8 @@ commands.etfuturum.fill.success=Successfully filled %d block(s)
 
 # Containers/GUI
 container.etfuturum.banner=Banner
+#This happens if someone removes lapis as a fuel with CT and does not add anything else
+container.enchant.rusrs=No fuels available ಠ_ಠ
 container.enchant.lapis.one=1 Lapis Lazuli
 container.enchant.lapis.many=%d Lapis Lazuli
 container.enchant.level.required=Level Requirement

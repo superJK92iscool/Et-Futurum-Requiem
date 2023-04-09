@@ -1,9 +1,7 @@
 package ganymedes01.etfuturum.compat;
 
 import cpw.mods.fml.relauncher.ReflectionHelper;
-import ganymedes01.etfuturum.compat.cthandlers.CTBlastFurnace;
-import ganymedes01.etfuturum.compat.cthandlers.CTSmithingTable;
-import ganymedes01.etfuturum.compat.cthandlers.CTSmoker;
+import ganymedes01.etfuturum.compat.cthandlers.*;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.recipes.BlastFurnaceRecipes;
 import ganymedes01.etfuturum.recipes.SmokerRecipes;
@@ -27,6 +25,9 @@ public class CompatCraftTweaker {
         MineTweakerAPI.registerClass(CTBlastFurnace.class);
         MineTweakerAPI.registerClass(CTSmoker.class);
         MineTweakerAPI.registerClass(CTSmithingTable.class);
+        MineTweakerAPI.registerClass(CTBrewingFuels.class);
+        MineTweakerAPI.registerClass(CTEnchantingFuels.class);
+        MineTweakerAPI.registerClass(CTComposting.class);
 
         MineTweakerImplementationAPI.onReloadEvent(new ReloadEventHandler());
         MineTweakerImplementationAPI.onPostReload(new PostReloadEventHandler());
@@ -59,6 +60,15 @@ public class CompatCraftTweaker {
     public static ItemStack[] getItemStacks(List<IItemStack> item) {
         return minetweaker.api.minecraft.MineTweakerMC.getItemStacks(item);
     }
+
+    public static Object getInternal(IIngredient pattern) {
+        Object internal = pattern.getInternal();
+        if(internal instanceof String || internal instanceof ItemStack) {
+            return internal;
+        }
+        return null;
+    }
+
     public static class ReloadEventHandler implements IEventHandler<MineTweakerImplementationAPI.ReloadEvent>
     {
         @Override

@@ -3,6 +3,8 @@ package ganymedes01.etfuturum.client.gui.inventory;
 import java.util.ArrayList;
 import java.util.Random;
 
+import ganymedes01.etfuturum.core.utils.EnchantingFuelRegistry;
+import net.minecraft.util.*;
 import org.lwjgl.util.glu.Project;
 
 import com.google.common.collect.Lists;
@@ -23,10 +25,6 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnchantmentNameParts;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
 @SideOnly(Side.CLIENT)
@@ -47,6 +45,14 @@ public class GuiEnchantment extends GuiContainer {
 	public float field_147076_A;
 	ItemStack field_147077_B;
 	private final String field_175380_I;
+
+	/**
+	 * How long has the player seen the "lapis lazuli" text?
+	 */
+	private int viewingTicks = 0;
+	private String singleFuelString;
+	private String manyFuelString;
+	private final Random displayRand = new Random();
 
 	public GuiEnchantment(InventoryPlayer p_i45502_1_, World worldIn, String p_i45502_3_) {
 		super(new ContainerEnchantment(p_i45502_1_, worldIn, 0, 0, 0));
@@ -70,6 +76,7 @@ public class GuiEnchantment extends GuiContainer {
 	@Override
 	public void updateScreen() {
 		super.updateScreen();
+		viewingTicks++;
 		func_147068_g();
 	}
 
@@ -216,36 +223,66 @@ public class GuiEnchantment extends GuiContainer {
 			if (func_146978_c(60, 14 + 19 * var6, 108, 17, mouseX, mouseY) && var7 > 0 && var8 >= 0) {
 				ArrayList<Object> var10 = Lists.newArrayList();
 				String var11;
-				if (var8 >= 0 && Enchantment.enchantmentsList[var8 & 255] != null) {
+				if (Enchantment.enchantmentsList[var8 & 255] != null) {
 					var11 = Enchantment.enchantmentsList[var8 & 255].getTranslatedName((var8 & 65280) >> 8);
-					var10.add(EnumChatFormatting.WHITE.toString() + EnumChatFormatting.ITALIC.toString() + I18n.format("container.enchant.clue", new Object[] { var11 }));
+					var10.add(EnumChatFormatting.WHITE.toString() + EnumChatFormatting.ITALIC.toString() + I18n.format("container.enchant.clue", var11));
 				}
 
 				if (!var4) {
-					if (var8 >= 0)
-						var10.add("");
+					var10.add("");
 
 					if (mc.thePlayer.experienceLevel < var7)
-						var10.add(EnumChatFormatting.RED.toString() + I18n.format("container.enchant.level.required", new Object[0]) + ": " + field_147075_G.enchantLevels[var6]);
+						var10.add(EnumChatFormatting.RED.toString() + I18n.format("container.enchant.level.required") + ": " + field_147075_G.enchantLevels[var6]);
 					else {
 						var11 = "";
 
-						if (var9 == 1)
-							var11 = I18n.format("container.enchant.lapis.one", new Object[0]);
-						else
-							var11 = I18n.format("container.enchant.lapis.many", new Object[] { Integer.valueOf(var9) });
+						if(EnchantingFuelRegistry.getFuels().isEmpty()) {
+							var11 = StatCollector.translateToLocal("container.enchant.rusrs");
+						} else {
+							if (viewingTicks > 40 || singleFuelString == null || manyFuelString == null) {
+								viewingTicks = 0;
+								while (true) {
+									ItemStack[] fuels = EnchantingFuelRegistry.getFuels().keySet().toArray(new ItemStack[]{});
+									String newString = fuels[displayRand.nextInt(fuels.length)].getUnlocalizedName() + ".name";
+									if (newString.equals("item.dyePowder.blue.name")) {
+										newString = "container.enchant.lapis.one";
+									}
+									//We only check against the first fuelString because the only time we use a different string is for lapis, so we don't need to compare it.
+									if (!newString.equals(singleFuelString)) {
+										//We add this so we can use the same I18n.format code on other items, not just lapis.
+										singleFuelString = newString;
+										if (newString.equals("container.enchant.lapis.one")) {
+											manyFuelString = "container.enchant.lapis.many";
+										} else {
+											manyFuelString = singleFuelString;
+										}
+										break;
+									}
+								}
+							}
+
+							String prefix = singleFuelString.equals("container.enchant.lapis.one") ? "" : "%s ";
+							String text1 = prefix + StatCollector.translateToLocal(singleFuelString);
+							String text2 = prefix + StatCollector.translateToLocal(manyFuelString);
+
+							if (var9 == 1) {
+								var11 = String.format(text1, 1);
+							} else {
+								var11 = String.format(text2, var9);
+							}
+						}
 
 						if (var5 >= var9)
-							var10.add(EnumChatFormatting.GRAY.toString() + "" + var11);
+							var10.add(EnumChatFormatting.GRAY + "" + var11);
 						else
-							var10.add(EnumChatFormatting.RED.toString() + "" + var11);
+							var10.add(EnumChatFormatting.RED + "" + var11);
 
 						if (var9 == 1)
-							var11 = I18n.format("container.enchant.level.one", new Object[0]);
+							var11 = I18n.format("container.enchant.level.one");
 						else
-							var11 = I18n.format("container.enchant.level.many", new Object[] { Integer.valueOf(var9) });
+							var11 = I18n.format("container.enchant.level.many", var9);
 
-						var10.add(EnumChatFormatting.GRAY.toString() + "" + var11);
+						var10.add(EnumChatFormatting.GRAY + "" + var11);
 					}
 				}
 

@@ -88,12 +88,10 @@ public class ItemStackMap<T> extends AbstractMap<ItemStack, T> {
         return tag != null && tag.getBoolean("*");
     }
 
-    @SuppressWarnings("unused")
     public ItemStackMap() {
         this.NBTSensitive = false;
     }
 
-    @SuppressWarnings("unused")
     public ItemStackMap(boolean NBTSensitive) {
         this.NBTSensitive = NBTSensitive;
     }

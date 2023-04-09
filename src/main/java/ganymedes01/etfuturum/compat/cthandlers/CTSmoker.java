@@ -31,7 +31,7 @@ import java.util.Set;
 public class CTSmoker {
 
     @ZenMethod
-    public static void remove(IIngredient output, IIngredient input) {
+    public static void remove(IItemStack output, IIngredient input) {
         if (output == null) throw new IllegalArgumentException("output cannot be null");
 
         Map<ItemStack, ItemStack> furnaceSmeltingList = FurnaceRecipes.smelting().getSmeltingList();
@@ -61,7 +61,7 @@ public class CTSmoker {
     }
 
     @ZenMethod
-    public static void remove(IIngredient output) {
+    public static void remove(IItemStack output) {
         remove(output, null);
     }
 
