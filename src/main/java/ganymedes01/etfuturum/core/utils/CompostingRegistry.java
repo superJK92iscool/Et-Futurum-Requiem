@@ -1,6 +1,7 @@
 package ganymedes01.etfuturum.core.utils;
 
 import com.google.common.collect.ImmutableList;
+import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFlower;
@@ -19,14 +20,15 @@ public class CompostingRegistry {
 
     public static void init() {
         registerComposting(ImmutableList.of(
-                new ItemStack(ModItems.beetroot_seeds),
                 new ItemStack(Blocks.tallgrass, 1, 1),
                 new ItemStack(Blocks.leaves, 1, OreDictionary.WILDCARD_VALUE),
                 new ItemStack(Items.melon_seeds),
                 new ItemStack(Items.pumpkin_seeds),
+                new ItemStack(Items.wheat_seeds),
+                new ItemStack(ModItems.beetroot_seeds),
+                "listAllSeeds",
                 "treeSapling",
                 "treeLeaves",
-                new ItemStack(Items.wheat_seeds),
                 new ItemStack(ModItems.sweet_berries)
         ), 30);
 
@@ -42,7 +44,7 @@ public class CompostingRegistry {
                 new ItemStack(Items.apple),
                 new ItemStack(ModItems.beetroot),
                 "cropCarrot",
-                new ItemStack(Blocks.cocoa),
+                new ItemStack(Items.dye, 1, 3),
                 new ItemStack(Blocks.tallgrass, 1, 2),
                 new ItemStack(Blocks.double_plant, 1, 0),
                 new ItemStack(Blocks.double_plant, 1, 1),
@@ -51,6 +53,10 @@ public class CompostingRegistry {
                 new ItemStack(Blocks.double_plant, 1, 5),
                 new ItemStack(Blocks.red_flower, 1, OreDictionary.WILDCARD_VALUE),
                 new ItemStack(Blocks.yellow_flower, 1, OreDictionary.WILDCARD_VALUE),
+                new ItemStack(ModBlocks.rose),
+                new ItemStack(ModBlocks.cornflower),
+                new ItemStack(ModBlocks.lily_of_the_valley),
+                new ItemStack(ModBlocks.wither_rose),
                 new ItemStack(Blocks.waterlily),
                 new ItemStack(Blocks.melon_block),
                 new ItemStack(Blocks.brown_mushroom),
@@ -67,10 +73,13 @@ public class CompostingRegistry {
                 new ItemStack(Items.cookie),
                 new ItemStack(Blocks.hay_block),
                 new ItemStack(Blocks.red_mushroom_block, 1, OreDictionary.WILDCARD_VALUE),
-                new ItemStack(Blocks.brown_mushroom_block, 1, OreDictionary.WILDCARD_VALUE)
+                new ItemStack(Blocks.brown_mushroom_block, 1, OreDictionary.WILDCARD_VALUE),
+                new ItemStack(ModBlocks.red_mushroom_block, 1, OreDictionary.WILDCARD_VALUE),
+                new ItemStack(ModBlocks.brown_mushroom_block, 1, OreDictionary.WILDCARD_VALUE)
         ), 85);
 
         registerComposting(ImmutableList.of(
+                new ItemStack(Blocks.cake),
                 new ItemStack(Items.cake),
                 new ItemStack(Items.pumpkin_pie)
         ), 100);

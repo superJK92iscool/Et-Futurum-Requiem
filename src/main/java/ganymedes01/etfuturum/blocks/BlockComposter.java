@@ -27,7 +27,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-public class BlockComposter extends Block implements IConfigurable, ISubBlocksBlock {
+public class BlockComposter extends Block implements IConfigurable {
 
 	@SideOnly(Side.CLIENT)
 	private IIcon topIcon;
@@ -158,11 +158,6 @@ public class BlockComposter extends Block implements IConfigurable, ISubBlocksBl
 	@Override
 	public boolean isEnabled() {
 		return ConfigBlocksItems.enableComposter;
-	}
-
-	@Override
-	public Class<? extends ItemBlock> getItemBlockClass() {
-		return ItemDecorationWorkbench.class;
 	}
 
 }
