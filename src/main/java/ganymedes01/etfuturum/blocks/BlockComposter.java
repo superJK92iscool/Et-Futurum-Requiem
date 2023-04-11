@@ -96,7 +96,6 @@ public class BlockComposter extends Block implements IConfigurable {
 		
 		int meta = world.getBlockMetadata(x, y, z);
 		if(meta < 6) {
-			meta = Math.min(meta, 7);
 			ItemStack stack = player.getCurrentEquippedItem();
 			int chance = CompostingRegistry.getCompostChance(stack);
 			if(chance > 0) {
@@ -123,7 +122,9 @@ public class BlockComposter extends Block implements IConfigurable {
 		} else if(meta == 7) {
 			if(!world.isRemote) {
 				EntityItem item = new EntityItem(world, x + 0.5D, y + 1, z + 0.5D, new ItemStack(Items.dye, 1, 15));
-				item.setVelocity(world.rand.nextDouble() * 0.5D, 0, world.rand.nextDouble() * 0.5D);
+				item.motionX = world.rand.nextDouble() * 0.5D;
+				item.motionY = 0;
+				item.motionZ = world.rand.nextDouble() * 0.5D;
 				world.spawnEntityInWorld(item);
 			}
 			world.playSound(x + 0.5D, y  + 0.5D, z + 0.5D, Reference.MCAssetVer + ":block.composter.empty", 1, 1, true);

@@ -76,7 +76,7 @@ import static ganymedes01.etfuturum.spectator.SpectatorMode.isSpectator;
 public class ClientEventHandler {
 
 	public static final ClientEventHandler INSTANCE = new ClientEventHandler();
-	private Random rand = new Random();
+	private final Random rand = new Random();
 	private boolean showedDebugWarning;
 	public static boolean showDebugWarning;
 	private int currPage;
@@ -106,7 +106,6 @@ public class ClientEventHandler {
 	BiomeGenBase ambienceBiome = null;
 
 	private boolean wasShowingDebugInfo, wasShowingProfiler;
-	private boolean pressedF3;
 	private boolean eligibleForDebugInfoSwap = false;
 
 	@SubscribeEvent
@@ -115,7 +114,7 @@ public class ClientEventHandler {
 		if(ConfigFunctions.enableNewF3Behavior) {
 			Minecraft mc = FMLClientHandler.instance().getClient();
 			if(Keyboard.getEventKey() == Keyboard.KEY_F3) {
-				pressedF3 = Keyboard.getEventKeyState();
+				boolean pressedF3 = Keyboard.getEventKeyState();
 				if(pressedF3)
 					eligibleForDebugInfoSwap = true;
 				if(!pressedF3 && eligibleForDebugInfoSwap) {
@@ -417,22 +416,20 @@ public class ClientEventHandler {
 				}
 			}
 
+			//We check what sound event to use by the pitch. These blocks fire 0.6F when turning on, and 0.5F when turning off. We use > 0.5F instead of == 0.6F to account for floating point precision.w
 			if(ConfigSounds.pressurePlateButton) {
 				// --- Wooden Button --- //
 				if (block instanceof BlockButton && (block.stepSound == Block.soundTypeWood || block.getClass().getSimpleName().toLowerCase().contains("wood")) && event.name.equals("random.click")) {
-					String s = Reference.MCAssetVer + ":block.wooden_button.click_" + (meta > 7 ? "on" : "off");
-					event.result = new PositionedSoundRecord(new ResourceLocation(s), event.sound.getVolume(), event.sound.getPitch(), soundX, soundY, soundZ);
+					String s = Reference.MCAssetVer + ":block.wooden_button.click_" + (event.sound.getPitch() > 0.5F ? "on" : "off");
+					event.result = new PositionedSoundRecord(new ResourceLocation(s), 1, 1, soundX, soundY, soundZ);
 					return;
 				}
 
 				// --- Wooden/Metal Pressure plate --- //
 				if (block instanceof BlockBasePressurePlate && (block.getMaterial() == Material.wood || block.getMaterial() == Material.iron) && event.name.equals("random.click")) {
 					String material = block.getMaterial() == Material.wood ? "wooden" : "metal";
-					String s = Reference.MCAssetVer + ":block." + material + "_pressure_plate.click_" + (meta == 1 ? "on" : "off");
-					//By default, the pitch is 0.6F when on and 0.5F off. Wood pressure plates are 0.8F and 0.7F off. Metal is 0.9F on and 0.75F off.
-					//Just in case another mod wants to change the pitch we'll just add our own on top of it.
-					float soundAddition = meta == 1 && block.getMaterial() == Material.iron ? 0.25F : 0.2F;
-					event.result = new PositionedSoundRecord(new ResourceLocation(s), event.sound.getVolume(), event.sound.getPitch() + soundAddition, soundX, soundY, soundZ);
+					String s = Reference.MCAssetVer + ":block." + material + "_pressure_plate.click_" + (event.sound.getPitch() > 0.5F ? "on" : "off");
+					event.result = new PositionedSoundRecord(new ResourceLocation(s), 1, 1, soundX, soundY, soundZ);
 					return;
 				}
 			}

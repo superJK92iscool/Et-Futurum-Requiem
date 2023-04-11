@@ -31,7 +31,7 @@ public class OceanMonument {
 
 	public static void makeMap() {
 		try {
-			InputStream is = EtFuturum.class.getResourceAsStream("/assets/OceanMonument.txt");
+			InputStream is = EtFuturum.class.getResourceAsStream("/assets/ocean_monument.txt");
 			BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
 			String s;

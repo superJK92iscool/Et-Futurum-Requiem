@@ -355,6 +355,8 @@ public class EtFuturum {
 				Blocks.nether_brick_stairs.setStepSound(ModSounds.soundNetherBricks);
 			}
 			Blocks.noteblock.setStepSound(Block.soundTypeWood);
+			Blocks.heavy_weighted_pressure_plate.setStepSound(Block.soundTypeMetal);
+			Blocks.light_weighted_pressure_plate.setStepSound(Block.soundTypeMetal);
 		}
 
 		//Block registry iterator

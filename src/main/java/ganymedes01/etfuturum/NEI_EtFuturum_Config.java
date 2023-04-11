@@ -13,7 +13,6 @@ import ganymedes01.etfuturum.client.gui.inventory.GuiBlastFurnace;
 import ganymedes01.etfuturum.client.gui.inventory.GuiSmoker;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.ItemStackMap;
-import ganymedes01.etfuturum.core.utils.Logger;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.recipes.BlastFurnaceRecipes;
 import ganymedes01.etfuturum.recipes.SmokerRecipes;
@@ -68,7 +67,6 @@ public class NEI_EtFuturum_Config implements codechicken.nei.api.IConfigureNEI {
 		@Override
 		public void loadCraftingRecipes(String outputId, Object... results) {
 			if (outputId.equals(getOverlayIdentifier())) {
-				Logger.info("test1");
 				Map<ItemStack, ItemStack> furnaceSmeltingList = FurnaceRecipes.smelting().getSmeltingList();
 				ItemStackMap<ItemStack> recipes = new ItemStackMap<>();
 				for(Entry<ItemStack, ItemStack> entry : furnaceSmeltingList.entrySet()) {
@@ -86,7 +84,6 @@ public class NEI_EtFuturum_Config implements codechicken.nei.api.IConfigureNEI {
 
 		@Override
 		public void loadCraftingRecipes(ItemStack result) {
-			Logger.info("test1");
 			Map<ItemStack, ItemStack> furnaceSmeltingList = FurnaceRecipes.smelting().getSmeltingList();
 			ItemStackMap<ItemStack> recipes = new ItemStackMap<>();
 			for(Entry<ItemStack, ItemStack> entry : furnaceSmeltingList.entrySet()) {
