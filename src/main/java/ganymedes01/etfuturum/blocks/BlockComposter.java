@@ -6,6 +6,7 @@ import java.util.Random;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
+import ganymedes01.etfuturum.EtFuturumLootTables;
 import ganymedes01.etfuturum.ModBlocks.ISubBlocksBlock;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.CompostingRegistry;
@@ -93,18 +94,21 @@ public class BlockComposter extends Block implements IConfigurable {
 	
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float clickX, float clickY, float clickZ)
 	{
-		
 		int meta = world.getBlockMetadata(x, y, z);
 		if(meta < 6) {
 			ItemStack stack = player.getCurrentEquippedItem();
 			int chance = CompostingRegistry.getCompostChance(stack);
 			if(chance > 0) {
 				if(!world.isRemote) {
-					int rng = world.rand.nextInt(100);
-					if (rng < chance) {
-						world.setBlockMetadataWithNotify(x, y, z, meta + 1, 3);
+					/*
+					 * Takes the chance (which can be up to 600) and multiplies it by 0.01F (same as dividing by 100) to see how many times it passes 100
+					 * Then I wrap it by 100 and check that against the chance to see if we should add one more to the fill level.
+					 */
+					int fillAmount = (int) (chance * .01F) + (world.rand.nextInt(100) < chance % 100 ? 1 : 0);
+					if (fillAmount > 0) {
+						world.setBlockMetadataWithNotify(x, y, z, Math.min(meta + fillAmount, 6), 3);
 						world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, Reference.MCAssetVer + ":block.composter.fill_success", 1, 1);
-						if (meta == 5) {
+						if (fillAmount + meta > 5) {
 							world.scheduleBlockUpdate(x, y, z, this, world.rand.nextInt(10) + 10);
 						}
 					} else {
@@ -115,13 +119,13 @@ public class BlockComposter extends Block implements IConfigurable {
 					}
 				}
 				for(int i = 0; i < 5; i++) {
-					world.spawnParticle("happyVillager", ((world.rand.nextDouble() * 0.875D) + 0.125D) + x, 0.25D + (0.125D * Math.min(meta, 6)) + y, ((world.rand.nextDouble() * 0.875D) + 0.125D) + z, 0, 0, 0);
+					world.spawnParticle("happyVillager", ((world.rand.nextDouble() * 0.875D) + 0.125D) + x, 0.25D + (0.125D * meta) + y, ((world.rand.nextDouble() * 0.875D) + 0.125D) + z, 0, 0, 0);
 				}
 				return true;
 			}
 		} else if(meta == 7) {
 			if(!world.isRemote) {
-				EntityItem item = new EntityItem(world, x + 0.5D, y + 1, z + 0.5D, new ItemStack(Items.dye, 1, 15));
+				EntityItem item = new EntityItem(world, x + 0.5D, y + 1, z + 0.5D, EtFuturumLootTables.COMPOSTER_LOOT.getOneItem(world.rand));
 				item.motionX = world.rand.nextDouble() * 0.5D;
 				item.motionY = 0;
 				item.motionZ = world.rand.nextDouble() * 0.5D;

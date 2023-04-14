@@ -1,7 +1,6 @@
 package ganymedes01.etfuturum.compat.cthandlers;
 
 import ganymedes01.etfuturum.compat.CompatCraftTweaker;
-import ganymedes01.etfuturum.core.utils.BrewingFuelRegistry;
 import ganymedes01.etfuturum.core.utils.CompostingRegistry;
 import ganymedes01.etfuturum.core.utils.ItemStackMap;
 import minetweaker.IUndoableAction;
@@ -53,9 +52,59 @@ public class CTComposting {
         MineTweakerAPI.apply(new AddAction(stack, toAdd, count));
     }
 
+    @ZenMethod
+    public static void removeAll() {
+        MineTweakerAPI.apply(new RemoveAllAction());
+    }
+
     // ######################
     // ### Action classes ###
     // ######################
+
+    private static class RemoveAllAction implements IUndoableAction {
+
+        private final ItemStackMap<Integer> items;
+
+        public RemoveAllAction() {
+            ItemStackMap<Integer> items = new ItemStackMap<>();
+            items.putAll(CompostingRegistry.getComposts());
+            this.items = items;
+        }
+
+        @Override
+        public void apply() {
+            for (ItemStack item : items.keySet()) {
+                CompostingRegistry.remove(item);
+            }
+        }
+
+        @Override
+        public boolean canUndo() {
+            return true;
+        }
+
+        @Override
+        public void undo() {
+            for(Map.Entry<ItemStack, Integer> entry : items.entrySet()) {
+                CompostingRegistry.registerCompostable(entry.getKey(), entry.getValue());
+            }
+        }
+
+        @Override
+        public String describe() {
+            return "Removing " + items.size() + " compostables";
+        }
+
+        @Override
+        public String describeUndo() {
+            return "Restoring " + items.size() + " compostables";
+        }
+
+        @Override
+        public Object getOverrideKey() {
+            return null;
+        }
+    }
 
     private static class RemoveAction implements IUndoableAction {
 
@@ -80,7 +129,7 @@ public class CTComposting {
         @Override
         public void undo() {
             for(Map.Entry<ItemStack, Integer> entry : items.entrySet()) {
-                CompostingRegistry.registerComposting(entry.getKey(), entry.getValue());
+                CompostingRegistry.registerCompostable(entry.getKey(), entry.getValue());
             }
         }
 
@@ -115,7 +164,7 @@ public class CTComposting {
         @Override
         public void apply() {
             for (ItemStack inputStack : stacks) {
-                CompostingRegistry.registerComposting(inputStack, count);
+                CompostingRegistry.registerCompostable(inputStack, count);
             }
         }
 

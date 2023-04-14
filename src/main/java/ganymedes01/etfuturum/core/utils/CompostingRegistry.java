@@ -4,8 +4,6 @@ import com.google.common.collect.ImmutableList;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockFlower;
-import net.minecraft.block.BlockLilyPad;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -19,7 +17,7 @@ public class CompostingRegistry {
     private static final ItemStackMap<Integer> COMPOSTING_REGISTRY = new ItemStackMap<>();
 
     public static void init() {
-        registerComposting(ImmutableList.of(
+        registerCompostable(ImmutableList.of(
                 new ItemStack(Blocks.tallgrass, 1, 1),
                 new ItemStack(Blocks.leaves, 1, OreDictionary.WILDCARD_VALUE),
                 new ItemStack(Items.melon_seeds),
@@ -32,7 +30,7 @@ public class CompostingRegistry {
                 new ItemStack(ModItems.sweet_berries)
         ), 30);
 
-        registerComposting(ImmutableList.of(
+        registerCompostable(ImmutableList.of(
                 new ItemStack(Blocks.cactus),
                 new ItemStack(Items.melon),
                 new ItemStack(Items.reeds),
@@ -40,7 +38,7 @@ public class CompostingRegistry {
                 new ItemStack(Blocks.vine)
         ), 50);
 
-        registerComposting(ImmutableList.of(
+        registerCompostable(ImmutableList.of(
                 new ItemStack(Items.apple),
                 new ItemStack(ModItems.beetroot),
                 "cropCarrot",
@@ -67,7 +65,7 @@ public class CompostingRegistry {
                 "cropWheat"
         ), 65);
 
-        registerComposting(ImmutableList.of(
+        registerCompostable(ImmutableList.of(
                 new ItemStack(Items.baked_potato),
                 new ItemStack(Items.bread),
                 new ItemStack(Items.cookie),
@@ -78,15 +76,26 @@ public class CompostingRegistry {
                 new ItemStack(ModBlocks.brown_mushroom_block, 1, OreDictionary.WILDCARD_VALUE)
         ), 85);
 
-        registerComposting(ImmutableList.of(
+        registerCompostable(ImmutableList.of(
                 new ItemStack(Blocks.cake),
                 new ItemStack(Items.cake),
                 new ItemStack(Items.pumpkin_pie)
         ), 100);
     }
 
-    public static void registerComposting(Object itemObj, int percent) {
-        if(percent <= 0 || percent > 100) {
+    /**
+     * Register an item to be compostable. The percent value is for how likely it is to successfully fill a layer.
+     * Values greater than 100 mean the composter fill more than one layer.
+     * In that case, the hundredth part of the number is how many layers will be filled, the last two digits = the % chance to fill an additional layer.
+     * The composter can hold 6 layers so the max value is 600.
+     *
+     * A fill chance of 50 is a 50% chance to fill one layer.
+     * A fill chance of 100 is a 100% chance to fill one layer.
+     * A fill chance of 150 will fill one layer and then has a 50% chance of filling another layer.
+     * A fill chance of 200 is a 100% chance to fill two layers.
+     */
+    public static void registerCompostable(Object itemObj, int percent) {
+        if(percent <= 0 || percent > 600) {
             throw new IllegalArgumentException("Tried to add a composter entry with percent value " + percent + " which is not allowed, should be above 0 and equal to or below 100!");
         }
         if(itemObj instanceof ItemStack) {
@@ -105,8 +114,8 @@ public class CompostingRegistry {
         }
     }
 
-    public static void registerComposting(List<Object> list, int percent) {
-        list.forEach(o -> registerComposting(o, percent));
+    public static void registerCompostable(List<Object> list, int percent) {
+        list.forEach(o -> registerCompostable(o, percent));
     }
 
     public static ItemStackMap<Integer> getComposts() {

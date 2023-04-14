@@ -215,10 +215,16 @@ public class ConfigBlocksItems extends ConfigBase {
 				"\nmods.etfuturum.smithingTable.addRecipeNoNBT(<etfuturum:sponge:1>, <minecraft:sponge>, <minecraft:water_bucket>); //Take a vanilla sponge and a water bucket, you will get an Et Futurum Requiem wet sponge.");
 		enableFletchingTable = cfg.getBoolean("enableFletchingTable", catBlockFunc, true, "Currently DOES NOT HAVE ANY FUNCTIONALITY. Decoration ONLY!");
 		enableComposter = cfg.getBoolean("enableComposter", catBlockFunc, true, "Allows certain items to be composted, which has a chance of adding a layer to the compost bin. Once full, bone meal may be harvested. It is compatible with CraftTweaker." +
+				"\nA value greater than 100 can add more than one layer to the composter. (The composter has 6 layers so max value is 600) EG 150 = 1 layer guaranteed and a 50% chance to fill another layer. And 600 = instantly fill the whole composter, or any remaining layers." +
 				"\nThe mod prefix is \"mods.etfuturum.composting\", and the function is \"addCompostable\" and an ItemStack or OreDictionary tag, then an integer for how likely the item is to add a compost layer. 100 = 100%, or guaranteed. You can remove compostables using the \"remove\" function and an ItemStack or an OreDictionary tag." +
+				"\nYou can use the \"removeAll\" function to remove all composting recipes, if you wanted to overhaul the composter's useage." +
 				"\nExamples:" +
-				"\nmods.etfuturum.composting.addCompostable(<minecraft:planks:*>, 100); //(Makes all planks have a 100% composting chance.)" +
-				"\nmods.etfuturum.composting.remove(<minecraft:leaves:*>); //(Removes all leaves as a compostable item)");
+				"\nmods.etfuturum.composting.addCompostable(<minecraft:planks:*>, 100); //(Makes all planks have a 100% chance to fill one layer.)" +
+				"\nmods.etfuturum.composting.addCompostable(<minecraft:bedrock>, 150); //(Makes bedrock fill one layer and have a 50% chance to fill another layer.)" +
+				"\nmods.etfuturum.composting.remove(<minecraft:leaves:*>); //(Removes all leaves as a compostable item)" +
+				"\n\nAdditionally the bone meal drop when harvesting a full composting bin can be changed. It drops one item from the \"composting\" loot table, and can be modified with CraftTweaker's \"addChestLoot\" function." +
+				"\nBy default bone meal is the only item in this loot table, with a weight of 10. You can learn more about CraftTweaker loot table modification here: https://www.mcdrama.net/archiveformal/MineTweaker3/wiki/tutorials/1710/loot_and_seeds.html"
+		);
 		enableCartographyTable = cfg.getBoolean("enableCartographyTable", catBlockFunc, true, "Currently DOES NOT HAVE ANY FUNCTIONALITY. Decoration ONLY!");
 		enableLoom = cfg.getBoolean("enableLoom", catBlockFunc, true, "Currently DOES NOT HAVE ANY FUNCTIONALITY. Decoration ONLY!");
 		enableDyedBeds = cfg.getBoolean("enableDyedBeds", catBlockFunc, true, "Ability to craft differently colored beds out of wool. Mixed wool colors = red bed");

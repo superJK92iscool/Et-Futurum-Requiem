@@ -336,6 +336,8 @@ public class EtFuturum {
 		if(ConfigModCompat.elytraBaublesExpandedCompat > 0 && hasBaublesExpanded) {
 			CompatBaublesExpanded.postInit();
 		}
+
+		EtFuturumLootTables.init();
 	}
 	
 	@EventHandler
