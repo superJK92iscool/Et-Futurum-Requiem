@@ -9,7 +9,6 @@ import ganymedes01.etfuturum.EtFuturumMixinPlugin;
 import ganymedes01.etfuturum.configuration.ConfigBase;
 import net.minecraft.item.Item;
 import net.minecraft.launchwrapper.Launch;
-import net.minecraftforge.common.config.ConfigCategory;
 import net.minecraftforge.common.config.Configuration;
 
 public class ConfigFunctions extends ConfigBase {
@@ -157,6 +156,7 @@ public class ConfigFunctions extends ConfigBase {
 	public static boolean enableUpdateChecker;
 	public static boolean enableAttackedAtYawFix;
 	public static boolean enableSubtitles;
+	public static byte elytraDataWatcherFlag;
 	public static String subtitleBlacklist;
 	public static String[] extraDropRawOres = new String[] {"oreCopper", "oreTin"};
 
@@ -215,7 +215,8 @@ public class ConfigFunctions extends ConfigBase {
 		totemHealPercent = cfg.getInt("totemHealPercent", catSettings, 5, 5, 100, "Percentage of max health for totem to set you at if you die with it. (5% is 0.05, 20 * 0.05 = 1, 1 health is one half-heart)");
 		registerRawItemAsOre = cfg.getBoolean("registerRawItemAsOre", catSettings, true, "Register the raw ore items in the OreDictionary as if they were the actual ore block. Such as raw iron being registered as an iron ore, etc...\nTurn this off if you have an ore dictionary converter mod or experience other issues.");
 		extraDropRawOres = cfg.getStringList("extraDropRawOres", catSettings, new String[] {"oreCopper", "oreTin"}, "OreDictionary values for ore blocks that should drop extra items (2-3) instead of the usual one, before fortune.");
-		
+		elytraDataWatcherFlag = (byte) cfg.getInt("elytraDataWatcherFlag", catSettings, 7, 0, 31, "The data watcher flag for the Elytra, used to sync the elytra animation with other players. In vanilla the max value is 7, players use 0-4, so you can set this to 6 or 7 by default. ASJCore increases the max value to 31.\nDo not change this value if you don't need to, or do not know what you're doing.");
+
 		//client
 		enableTransparentAmour = cfg.getBoolean("enableTransparentAmour", catClient, true, "Allow non-opaque armour");
 		enableBowRendering = cfg.getBoolean("enableBowRendering", catClient, true, "Bows render pulling animation in inventory");
