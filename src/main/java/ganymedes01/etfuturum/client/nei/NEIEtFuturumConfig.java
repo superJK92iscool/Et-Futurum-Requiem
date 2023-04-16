@@ -16,8 +16,9 @@ public class NEIEtFuturumConfig implements IConfigureNEI {
 			API.registerUsageHandler(new BannerPatternHandler());
 		}
 
-		if (ConfigBlocksItems.enableBeetroot)
+		if (ConfigBlocksItems.enableBeetroot) {
 			API.hideItem(new ItemStack(ModBlocks.beetroot));
+		}
 	}
 
 	@Override
