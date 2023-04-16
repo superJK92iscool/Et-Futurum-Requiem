@@ -187,7 +187,7 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableDeepslateOres = cfg.getBoolean("enableDeepslateOres", catBlockNatural, true, "Enable deepslate ores for copper ore and vanilla ores when deepslate generates over them.");
 		enableAmethyst = cfg.getBoolean("enableAmethyst", catBlockNatural, true, "Enables tinted glass, amethyst blocks, budding amethyst and amethyst crystals. Also enables the item too. Smooth basalt can be disabled by changing the world.cfg option for the basalt layer to something else.");
 
-//		enableSculk = cfg.getBoolean("enableSculk", catBlockNatural, true, "Enables sculk-related blocks.");
+//      enableSculk = cfg.getBoolean("enableSculk", catBlockNatural, true, "Enables sculk-related blocks.");
 
 		//Function Blocks
 		enableIronTrapdoor = cfg.getBoolean("enableIronTrapdoor", catBlockFunc, true, "");

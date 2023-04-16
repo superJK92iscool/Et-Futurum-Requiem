@@ -12,19 +12,19 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.NetHandlerPlayServer;
 
 public class StartElytraFlyingHandler implements IMessageHandler<StartElytraFlyingMessage, IMessage> {
-    @Override
-    public IMessage onMessage(StartElytraFlyingMessage message, MessageContext ctx) {
-        EntityPlayer player = ((NetHandlerPlayServer)ctx.netHandler).playerEntity;
-        if (!player.onGround && (ConfigMixins.enableNewElytraTakeoffLogic || player.motionY < 0.0D) && !((IElytraPlayer)player).etfu$isElytraFlying() && !player.isInWater()) {
-            ItemStack itemstack = ItemArmorElytra.getElytra(player);
+	@Override
+	public IMessage onMessage(StartElytraFlyingMessage message, MessageContext ctx) {
+		EntityPlayer player = ((NetHandlerPlayServer)ctx.netHandler).playerEntity;
+		if (!player.onGround && (ConfigMixins.enableNewElytraTakeoffLogic || player.motionY < 0.0D) && !((IElytraPlayer)player).etfu$isElytraFlying() && !player.isInWater()) {
+			ItemStack itemstack = ItemArmorElytra.getElytra(player);
 
-            if (itemstack != null && itemstack.getItem() == ModItems.elytra && !ItemArmorElytra.isBroken(itemstack)) {
-                ((IElytraPlayer)player).etfu$setElytraFlying(true);
-            }
-        } else {
-            ((IElytraPlayer)player).etfu$setElytraFlying(true);
-            ((IElytraPlayer)player).etfu$setElytraFlying(false);
-        }
-        return null;
-    }
+			if (itemstack != null && itemstack.getItem() == ModItems.elytra && !ItemArmorElytra.isBroken(itemstack)) {
+				((IElytraPlayer)player).etfu$setElytraFlying(true);
+			}
+		} else {
+			((IElytraPlayer)player).etfu$setElytraFlying(true);
+			((IElytraPlayer)player).etfu$setElytraFlying(false);
+		}
+		return null;
+	}
 }

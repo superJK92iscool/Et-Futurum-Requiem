@@ -18,32 +18,32 @@ public class MixinEntitySkeleton extends EntityMob {
 	}
 	
 	@Overwrite
-    protected String getLivingSound()
-    {
-        return getSkeletonType() == 1 ? Reference.MCAssetVer + ":entity.wither_skeleton.ambient" : "mob.skeleton.say";
-    }
+	protected String getLivingSound()
+	{
+		return getSkeletonType() == 1 ? Reference.MCAssetVer + ":entity.wither_skeleton.ambient" : "mob.skeleton.say";
+	}
 
 	@Overwrite
-    protected String getHurtSound()
-    {
-        return getSkeletonType() == 1 ? Reference.MCAssetVer + ":entity.wither_skeleton.hurt" : "mob.skeleton.hurt";
-    }
+	protected String getHurtSound()
+	{
+		return getSkeletonType() == 1 ? Reference.MCAssetVer + ":entity.wither_skeleton.hurt" : "mob.skeleton.hurt";
+	}
 
 	@Overwrite
-    protected String getDeathSound()
-    {
-        return getSkeletonType() == 1 ? Reference.MCAssetVer + ":entity.wither_skeleton.death" : "mob.skeleton.death";
-    }
+	protected String getDeathSound()
+	{
+		return getSkeletonType() == 1 ? Reference.MCAssetVer + ":entity.wither_skeleton.death" : "mob.skeleton.death";
+	}
 
 	@Overwrite
-    protected void func_145780_a(int p_145780_1_, int p_145780_2_, int p_145780_3_, Block p_145780_4_)
-    {
-        this.playSound(getSkeletonType() == 1 ? Reference.MCAssetVer + ":entity.wither_skeleton.step" : "mob.skeleton.step", 0.15F, 1.0F);
-    }
-    
-    @Shadow
-    public int getSkeletonType() {
-    	return 0;
-    }
+	protected void func_145780_a(int p_145780_1_, int p_145780_2_, int p_145780_3_, Block p_145780_4_)
+	{
+		this.playSound(getSkeletonType() == 1 ? Reference.MCAssetVer + ":entity.wither_skeleton.step" : "mob.skeleton.step", 0.15F, 1.0F);
+	}
+	
+	@Shadow
+	public int getSkeletonType() {
+		return 0;
+	}
 
 }

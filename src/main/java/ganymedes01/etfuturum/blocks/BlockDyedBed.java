@@ -44,14 +44,14 @@ public class BlockDyedBed extends BlockBed implements IConfigurable, ISubBlocksB
 		setStepSound(ConfigSounds.newBlockSounds ? Block.soundTypeWood : Block.soundTypeCloth);
 	}
 	
-//	@SideOnly(Side.CLIENT)
-//	public void getSubBlocks(Item p_149666_1_, CreativeTabs p_149666_2_, List p_149666_3_)
-//	{
-//		if(this == ModBlocks.beds[14] && p_149666_2_ != null) {
-//			p_149666_3_.add(new ItemStack(Items.bed, 1, 0));
-//		}
-//		super.getSubBlocks(p_149666_1_, p_149666_2_, p_149666_3_);
-//	}
+//  @SideOnly(Side.CLIENT)
+//  public void getSubBlocks(Item p_149666_1_, CreativeTabs p_149666_2_, List p_149666_3_)
+//  {
+//      if(this == ModBlocks.beds[14] && p_149666_2_ != null) {
+//          p_149666_3_.add(new ItemStack(Items.bed, 1, 0));
+//      }
+//      super.getSubBlocks(p_149666_1_, p_149666_2_, p_149666_3_);
+//  }
 
 	@Override
 	public void onFallenUpon(World world, int x, int y, int z, Entity entity, float fallDistance) {
@@ -73,11 +73,11 @@ public class BlockDyedBed extends BlockBed implements IConfigurable, ISubBlocksB
 		}
 	}
 
-    public boolean isBed(IBlockAccess world, int x, int y, int z, EntityLivingBase player)
-    {
-    	return true;
-    }
-    
+	public boolean isBed(IBlockAccess world, int x, int y, int z, EntityLivingBase player)
+	{
+		return true;
+	}
+	
 	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_)
 	{
 		return isBlockHeadOfBed(p_149650_1_) ? Item.getItemById(0) : Item.getItemFromBlock(this);

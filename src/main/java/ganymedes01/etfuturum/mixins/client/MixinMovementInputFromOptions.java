@@ -11,10 +11,10 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
 @Mixin(MovementInputFromOptions.class)
 public class MixinMovementInputFromOptions {
-    @ModifyConstant(method = "updatePlayerMoveState", constant = @Constant(doubleValue = 0.3D))
-    private double applySwiftSneakModifier(double constant) {
-        ItemStack leggings = Minecraft.getMinecraft().thePlayer.getEquipmentInSlot(2);
-        int ssLevel = EnchantmentHelper.getEnchantmentLevel(ModEnchantments.swiftSneak.effectId, leggings);
-        return constant + (ssLevel * 0.15);
-    }
+	@ModifyConstant(method = "updatePlayerMoveState", constant = @Constant(doubleValue = 0.3D))
+	private double applySwiftSneakModifier(double constant) {
+		ItemStack leggings = Minecraft.getMinecraft().thePlayer.getEquipmentInSlot(2);
+		int ssLevel = EnchantmentHelper.getEnchantmentLevel(ModEnchantments.swiftSneak.effectId, leggings);
+		return constant + (ssLevel * 0.15);
+	}
 }

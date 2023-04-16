@@ -90,8 +90,8 @@ public class BlockLavaCauldron extends BlockCauldron implements IConfigurable, I
 	@SideOnly(Side.CLIENT)
 	public void randomDisplayTick(World world, int x, int y, int z, Random random)
 	{
-        float min = 0.125F;
-        float max = 0.875F;
+		float min = 0.125F;
+		float max = 0.875F;
 		double d0 = x + (min + random.nextFloat() * (max - min));
 		double d1 = z + (min + random.nextFloat() * (max - min));
 		

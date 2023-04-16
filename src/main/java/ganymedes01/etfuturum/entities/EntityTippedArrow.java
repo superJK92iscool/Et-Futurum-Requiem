@@ -66,7 +66,7 @@ public class EntityTippedArrow extends EntityArrow implements IEntityAdditionalS
 			}
 		}
 	}
-    
+	
 	private void spawnPotionParticles(int particleCount) {
 		if(isEffectValid() && particleCount > 0) {
 			Color colour = new Color(ModItems.tipped_arrow.getColorFromItemStack(arrow, 0));
@@ -78,46 +78,46 @@ public class EntityTippedArrow extends EntityArrow implements IEntityAdditionalS
 	}
 
 	public void readEntityFromNBT(NBTTagCompound p_70037_1_)
-    {
-        super.readEntityFromNBT(p_70037_1_);
+	{
+		super.readEntityFromNBT(p_70037_1_);
 
-        if (p_70037_1_.hasKey("Potion", 10))
-        {
-            this.arrow = ItemStack.loadItemStackFromNBT(p_70037_1_.getCompoundTag("Potion"));
-        }
-        else
-        {
-            this.setPotionDamage(p_70037_1_.getInteger("potionValue"));
-        }
+		if (p_70037_1_.hasKey("Potion", 10))
+		{
+			this.arrow = ItemStack.loadItemStackFromNBT(p_70037_1_.getCompoundTag("Potion"));
+		}
+		else
+		{
+			this.setPotionDamage(p_70037_1_.getInteger("potionValue"));
+		}
 
-        if (this.arrow == null)
-        {
-            this.setDead();
-        }
-    }
+		if (this.arrow == null)
+		{
+			this.setDead();
+		}
+	}
 
-    public void setPotionDamage(int p_82340_1_)
-    {
-        if (this.arrow == null)
-        {
-            this.arrow = new ItemStack(ModItems.tipped_arrow, 1, 0);
-        }
+	public void setPotionDamage(int p_82340_1_)
+	{
+		if (this.arrow == null)
+		{
+			this.arrow = new ItemStack(ModItems.tipped_arrow, 1, 0);
+		}
 
-        this.arrow.setItemDamage(p_82340_1_);
-    }
+		this.arrow.setItemDamage(p_82340_1_);
+	}
 
-    /**
-     * (abstract) Protected helper method to write subclass entity data to NBT.
-     */
-    public void writeEntityToNBT(NBTTagCompound p_70014_1_)
-    {
-        super.writeEntityToNBT(p_70014_1_);
+	/**
+	 * (abstract) Protected helper method to write subclass entity data to NBT.
+	 */
+	public void writeEntityToNBT(NBTTagCompound p_70014_1_)
+	{
+		super.writeEntityToNBT(p_70014_1_);
 
-        if (this.arrow != null)
-        {
-            p_70014_1_.setTag("Potion", this.arrow.writeToNBT(new NBTTagCompound()));
-        }
-    }
+		if (this.arrow != null)
+		{
+			p_70014_1_.setTag("Potion", this.arrow.writeToNBT(new NBTTagCompound()));
+		}
+	}
 
 	@Override
 	public void onCollideWithPlayer(EntityPlayer player) {

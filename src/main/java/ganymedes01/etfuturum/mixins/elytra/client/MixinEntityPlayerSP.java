@@ -19,22 +19,22 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(EntityPlayerSP.class)
 public abstract class MixinEntityPlayerSP extends AbstractClientPlayer {
-    @Shadow public MovementInput movementInput;
-    private boolean etfu$lastIsJumping = false;
+	@Shadow public MovementInput movementInput;
+	private boolean etfu$lastIsJumping = false;
 
-    public MixinEntityPlayerSP(World p_i45074_1_, GameProfile p_i45074_2_) {
-        super(p_i45074_1_, p_i45074_2_);
-    }
+	public MixinEntityPlayerSP(World p_i45074_1_, GameProfile p_i45074_2_) {
+		super(p_i45074_1_, p_i45074_2_);
+	}
 
-    @Inject(method = "onLivingUpdate", at = @At("TAIL"))
-    private void startElytraFlying(CallbackInfo ci) {
-         if (this.movementInput.jump && !etfu$lastIsJumping && !this.onGround && (ConfigMixins.enableNewElytraTakeoffLogic || this.motionY < 0.0D) && !((IElytraPlayer)this).etfu$isElytraFlying() && !this.capabilities.isFlying) {
-            ItemStack itemstack = ItemArmorElytra.getElytra(this);
-            if (itemstack != null && !ItemArmorElytra.isBroken(itemstack)) {
-                EtFuturum.networkWrapper.sendToServer(new StartElytraFlyingMessage());
-                //Minecraft.getMinecraft().getSoundHandler().playSound(new ElytraSound(e));
-            }
-        }
-        etfu$lastIsJumping = this.movementInput.jump;
-    }
+	@Inject(method = "onLivingUpdate", at = @At("TAIL"))
+	private void startElytraFlying(CallbackInfo ci) {
+		 if (this.movementInput.jump && !etfu$lastIsJumping && !this.onGround && (ConfigMixins.enableNewElytraTakeoffLogic || this.motionY < 0.0D) && !((IElytraPlayer)this).etfu$isElytraFlying() && !this.capabilities.isFlying) {
+			ItemStack itemstack = ItemArmorElytra.getElytra(this);
+			if (itemstack != null && !ItemArmorElytra.isBroken(itemstack)) {
+				EtFuturum.networkWrapper.sendToServer(new StartElytraFlyingMessage());
+				//Minecraft.getMinecraft().getSoundHandler().playSound(new ElytraSound(e));
+			}
+		}
+		etfu$lastIsJumping = this.movementInput.jump;
+	}
 }

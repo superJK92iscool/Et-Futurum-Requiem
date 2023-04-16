@@ -17,96 +17,96 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(EntityPlayer.class)
 public abstract class MixinEntityPlayer extends EntityLivingBase implements IElytraPlayer {
-    @Shadow public abstract boolean isPlayerSleeping();
-    @Shadow protected int flyToggleTimer;
-    @Shadow public PlayerCapabilities capabilities;
-    @Shadow protected abstract void setHideCape(int par1, boolean par2);
+	@Shadow public abstract boolean isPlayerSleeping();
+	@Shadow protected int flyToggleTimer;
+	@Shadow public PlayerCapabilities capabilities;
+	@Shadow protected abstract void setHideCape(int par1, boolean par2);
 
-    public MixinEntityPlayer(World p_i1594_1_) {
-        super(p_i1594_1_);
-    }
+	public MixinEntityPlayer(World p_i1594_1_) {
+		super(p_i1594_1_);
+	}
 
 	public void tickElytra() {
-        boolean flag = etfu$isElytraFlying();
+		boolean flag = etfu$isElytraFlying();
 
-        ItemStack itemstack = ItemArmorElytra.getElytra(this);
-    	this.setHideCape(1, itemstack != null);
-        if (itemstack != null && !capabilities.isFlying && !ItemArmorElytra.isBroken(itemstack)) {
-            if (flag && !this.onGround && !this.isRiding() && !this.isInWater()) {
-                if (!this.worldObj.isRemote && (this.etfu$ticksElytraFlying + 1) % 20 == 0) {
-                    itemstack.damageItem(1, this);
-                }
-            } else {
-                flag = false;
-            }
-        } else {
-            flag = false;
-        }
-        
+		ItemStack itemstack = ItemArmorElytra.getElytra(this);
+		this.setHideCape(1, itemstack != null);
+		if (itemstack != null && !capabilities.isFlying && !ItemArmorElytra.isBroken(itemstack)) {
+			if (flag && !this.onGround && !this.isRiding() && !this.isInWater()) {
+				if (!this.worldObj.isRemote && (this.etfu$ticksElytraFlying + 1) % 20 == 0) {
+					itemstack.damageItem(1, this);
+				}
+			} else {
+				flag = false;
+			}
+		} else {
+			flag = false;
+		}
+		
 
-        if (!this.worldObj.isRemote) {
-            this.etfu$setElytraFlying(flag);
-        }
+		if (!this.worldObj.isRemote) {
+			this.etfu$setElytraFlying(flag);
+		}
 
-        if (this.etfu$isElytraFlying()) {
-            this.etfu$ticksElytraFlying = this.etfu$ticksElytraFlying + 1;
-        } else {
-            this.etfu$ticksElytraFlying = 0;
-        }
-    }
+		if (this.etfu$isElytraFlying()) {
+			this.etfu$ticksElytraFlying = this.etfu$ticksElytraFlying + 1;
+		} else {
+			this.etfu$ticksElytraFlying = 0;
+		}
+	}
 
-    @Inject(method = "getEyeHeight", at = @At("HEAD"), cancellable = true)
-    private void getElytraEyeHeight(CallbackInfoReturnable<Float> cir) {
-        if(this.etfu$isElytraFlying() && !this.isPlayerSleeping()) {
-            cir.setReturnValue(0.4f);
-        }
-    }
+	@Inject(method = "getEyeHeight", at = @At("HEAD"), cancellable = true)
+	private void getElytraEyeHeight(CallbackInfoReturnable<Float> cir) {
+		if(this.etfu$isElytraFlying() && !this.isPlayerSleeping()) {
+			cir.setReturnValue(0.4f);
+		}
+	}
 
-    private float etfu$ticksElytraFlying = 0;
-    private boolean etfu$lastElytraFlying = false;
+	private float etfu$ticksElytraFlying = 0;
+	private boolean etfu$lastElytraFlying = false;
 
-    /**
-     * FIXME: Since when can we just use a datawatcher value without reserving it?
-     */
-    @Override
-    public boolean etfu$isElytraFlying() {
-        return (this.getDataWatcher().getWatchableObjectByte(0) & (1 << 7)) != 0;
-    }
+	/**
+	 * FIXME: Since when can we just use a datawatcher value without reserving it?
+	 */
+	@Override
+	public boolean etfu$isElytraFlying() {
+		return (this.getDataWatcher().getWatchableObjectByte(0) & (1 << 7)) != 0;
+	}
 
-    @Override
-    public void etfu$setElytraFlying(boolean flag) {
-        byte b0 = this.getDataWatcher().getWatchableObjectByte(0);
+	@Override
+	public void etfu$setElytraFlying(boolean flag) {
+		byte b0 = this.getDataWatcher().getWatchableObjectByte(0);
 
-        if (flag) {
-            this.getDataWatcher().updateObject(0, (byte) (b0 | 1 << 7));
-        } else {
-            this.getDataWatcher().updateObject(0, (byte) (b0 & ~(1 << 7)));
-        }
-    }
+		if (flag) {
+			this.getDataWatcher().updateObject(0, (byte) (b0 | 1 << 7));
+		} else {
+			this.getDataWatcher().updateObject(0, (byte) (b0 & ~(1 << 7)));
+		}
+	}
 
-    @Override
-    public float etfu$getTicksElytraFlying() {
-        return etfu$ticksElytraFlying;
-    }
+	@Override
+	public float etfu$getTicksElytraFlying() {
+		return etfu$ticksElytraFlying;
+	}
 
-    @Override
-    public boolean etfu$lastElytraFlying() {
-        return etfu$lastElytraFlying;
-    }
+	@Override
+	public boolean etfu$lastElytraFlying() {
+		return etfu$lastElytraFlying;
+	}
 
-    @Override
-    public void etfu$setLastElytraFlying(boolean flag) {
-        etfu$lastElytraFlying = flag;
-    }
+	@Override
+	public void etfu$setLastElytraFlying(boolean flag) {
+		etfu$lastElytraFlying = flag;
+	}
 
-    @Inject(method = "writeEntityToNBT", at = @At("TAIL"))
-    private void writeElytra(NBTTagCompound p_70014_1_, CallbackInfo ci) {
-        p_70014_1_.setBoolean("FallFlying", etfu$isElytraFlying());
-    }
+	@Inject(method = "writeEntityToNBT", at = @At("TAIL"))
+	private void writeElytra(NBTTagCompound p_70014_1_, CallbackInfo ci) {
+		p_70014_1_.setBoolean("FallFlying", etfu$isElytraFlying());
+	}
 
-    @Inject(method = "readEntityFromNBT", at = @At("TAIL"))
-    private void readElytra(NBTTagCompound p_70014_1_, CallbackInfo ci) {
-        if(p_70014_1_.getBoolean("FallFlying"))
-            etfu$setElytraFlying(true);
-    }
+	@Inject(method = "readEntityFromNBT", at = @At("TAIL"))
+	private void readElytra(NBTTagCompound p_70014_1_, CallbackInfo ci) {
+		if(p_70014_1_.getBoolean("FallFlying"))
+			etfu$setElytraFlying(true);
+	}
 }

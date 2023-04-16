@@ -23,36 +23,36 @@ public abstract class MixinEntityPlayer extends EntityLivingBase {
 	private DamageSource lastDamageSource;
 
 	@Inject(method = "damageEntity", at = @At("HEAD"), cancellable = true)
-    public void captureLastDamageSource(DamageSource p_70097_1_, float p_70097_2_, CallbackInfo ci)
-    {
-    	lastDamageSource = p_70097_1_;
-    }
+	public void captureLastDamageSource(DamageSource p_70097_1_, float p_70097_2_, CallbackInfo ci)
+	{
+		lastDamageSource = p_70097_1_;
+	}
 
-    //Just in case this function is called elsewhere such as by another mod we add checks and reset the variable to prevent the wrong sound from being played.
+	//Just in case this function is called elsewhere such as by another mod we add checks and reset the variable to prevent the wrong sound from being played.
 	@Overwrite
-    protected String getHurtSound()
-    {
-    	if(lastDamageSource != null) {
-        	if(lastDamageSource.isFireDamage()) {
-        		return Reference.MCAssetVer + ":entity.player.hurt_on_fire";
-        	}
-        	if(lastDamageSource == DamageSource.drown) {
-        		return Reference.MCAssetVer + ":entity.player.hurt_drown";
-        	}
-        	if(lastDamageSource == BlockBerryBush.SWEET_BERRY_BUSH) {
-        		return Reference.MCAssetVer + ":entity.player.hurt_sweet_berry_bush";
-        	}
-    	}
-        return super.getHurtSound();
-    }
+	protected String getHurtSound()
+	{
+		if(lastDamageSource != null) {
+			if(lastDamageSource.isFireDamage()) {
+				return Reference.MCAssetVer + ":entity.player.hurt_on_fire";
+			}
+			if(lastDamageSource == DamageSource.drown) {
+				return Reference.MCAssetVer + ":entity.player.hurt_drown";
+			}
+			if(lastDamageSource == BlockBerryBush.SWEET_BERRY_BUSH) {
+				return Reference.MCAssetVer + ":entity.player.hurt_sweet_berry_bush";
+			}
+		}
+		return super.getHurtSound();
+	}
 
 	@Inject(method = "playSound", at = @At("HEAD"), cancellable = true)
-    public void overrideDamageSound(String p_85030_1_, float p_85030_2_, float p_85030_3_, CallbackInfo ci)
-    {
+	public void overrideDamageSound(String p_85030_1_, float p_85030_2_, float p_85030_3_, CallbackInfo ci)
+	{
 		if(p_85030_1_.equals(getHurtSound())) {
 			this.worldObj.playSoundAtEntity(this, p_85030_1_, p_85030_2_, p_85030_3_);
-    		lastDamageSource = null;
-    		ci.cancel();
+			lastDamageSource = null;
+			ci.cancel();
 		}
-    }
+	}
 }

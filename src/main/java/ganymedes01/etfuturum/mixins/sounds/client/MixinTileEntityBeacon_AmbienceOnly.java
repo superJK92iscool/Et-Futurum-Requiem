@@ -20,18 +20,18 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(TileEntityBeacon.class)
 public class MixinTileEntityBeacon_AmbienceOnly extends TileEntity {
 
-    @Shadow boolean field_146015_k;
+	@Shadow boolean field_146015_k;
 
-    /*
-     * We populate this field in MixinTileEntityBeacon... god that's cursed.
-     */
-    private boolean isNetherliciousBeacon;
+	/*
+	 * We populate this field in MixinTileEntityBeacon... god that's cursed.
+	 */
+	private boolean isNetherliciousBeacon;
 
-    @Inject(method = "updateEntity", at = @At(value = "INVOKE", target = "Lnet/minecraft/tileentity/TileEntityBeacon;func_146000_x()V", shift = At.Shift.BEFORE))
-    private void playAmbience(CallbackInfo ci) {
-        //worldObj.isRemote is always true since this is a client-only mixin, so we don't need to check it
-        if(!isNetherliciousBeacon && field_146015_k) {
-            Minecraft.getMinecraft().getSoundHandler().playSound(new BeaconAmbientSound((TileEntityBeacon) (Object) this));
-        }
-    }
+	@Inject(method = "updateEntity", at = @At(value = "INVOKE", target = "Lnet/minecraft/tileentity/TileEntityBeacon;func_146000_x()V", shift = At.Shift.BEFORE))
+	private void playAmbience(CallbackInfo ci) {
+		//worldObj.isRemote is always true since this is a client-only mixin, so we don't need to check it
+		if(!isNetherliciousBeacon && field_146015_k) {
+			Minecraft.getMinecraft().getSoundHandler().playSound(new BeaconAmbientSound((TileEntityBeacon) (Object) this));
+		}
+	}
 }

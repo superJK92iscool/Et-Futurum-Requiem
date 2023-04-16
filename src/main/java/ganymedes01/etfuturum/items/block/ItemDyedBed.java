@@ -65,7 +65,7 @@ public class ItemDyedBed extends ItemBlock {
 					}
 
 					//Disable the sound for continuity, so it doesn't play when the event-based player would not
-	                if(ConfigSounds.fixSilentPlacing)p_77648_3_.playSoundEffect((double)((float)p_77648_4_ + 0.5F), (double)((float)p_77648_5_ + 0.5F), (double)((float)p_77648_6_ + 0.5F), this.field_150939_a.stepSound.func_150496_b(), (this.field_150939_a.stepSound.getVolume() + 1.0F) / 2.0F, this.field_150939_a.stepSound.getPitch() * 0.8F);
+					if(ConfigSounds.fixSilentPlacing)p_77648_3_.playSoundEffect((double)((float)p_77648_4_ + 0.5F), (double)((float)p_77648_5_ + 0.5F), (double)((float)p_77648_6_ + 0.5F), this.field_150939_a.stepSound.func_150496_b(), (this.field_150939_a.stepSound.getVolume() + 1.0F) / 2.0F, this.field_150939_a.stepSound.getPitch() * 0.8F);
 					--p_77648_1_.stackSize;
 					return true;
 				}

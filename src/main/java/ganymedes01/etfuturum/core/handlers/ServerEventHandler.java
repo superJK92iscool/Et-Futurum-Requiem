@@ -181,7 +181,7 @@ public class ServerEventHandler {
 				}
 				// Play a sound if one of the equipment pieces changed
 				if (!itemEquippedSound.equals("")) {
-			        player.worldObj.playSoundAtEntity(player, Reference.MCAssetVer + ":" + itemEquippedSound, 1, 1);
+					player.worldObj.playSoundAtEntity(player, Reference.MCAssetVer + ":" + itemEquippedSound, 1, 1);
 				}
 			}
 		}
@@ -292,22 +292,22 @@ public class ServerEventHandler {
 				if (!tippedArrow.worldObj.isRemote && dmgSrc.getEntity() instanceof EntityLivingBase) {
 
 					List list = ((ItemArrowTipped) ModItems.tipped_arrow).getEffects(tippedArrow.getArrow());
-                    Iterator iterator1 = list.iterator();
+					Iterator iterator1 = list.iterator();
 
-                    while (iterator1.hasNext())
-                    {
-                        PotionEffect potioneffect = (PotionEffect)iterator1.next();
-                        int i = potioneffect.getPotionID();
+					while (iterator1.hasNext())
+					{
+						PotionEffect potioneffect = (PotionEffect)iterator1.next();
+						int i = potioneffect.getPotionID();
 
-                        if (Potion.potionTypes[i].isInstant())
-                        {
-                            Potion.potionTypes[i].affectEntity((EntityLivingBase)dmgSrc.getEntity(), event.entityLiving, potioneffect.getAmplifier(), 1D);
-                        }
-                        else
-                        {
-                            event.entityLiving.addPotionEffect(new PotionEffect(i, potioneffect.getDuration(), potioneffect.getAmplifier()));
-                        }
-                    }
+						if (Potion.potionTypes[i].isInstant())
+						{
+							Potion.potionTypes[i].affectEntity((EntityLivingBase)dmgSrc.getEntity(), event.entityLiving, potioneffect.getAmplifier(), 1D);
+						}
+						else
+						{
+							event.entityLiving.addPotionEffect(new PotionEffect(i, potioneffect.getDuration(), potioneffect.getAmplifier()));
+						}
+					}
 				}
 			}
 		}
@@ -761,78 +761,78 @@ public class ServerEventHandler {
 								int zMutable = z;
 								
 								//Only the redstone wire item replaces snow, the other ones don't replace anything no matter what
-							    if (block != Blocks.redstone_wire || world.getBlock(xMutable, yMutable, zMutable) != Blocks.snow_layer)
-						        {
-							    	switch (event.face)
-							    	{
-							    	case 0:
-							    		--yMutable;
-							    		break;
-							    	case 1:
-							    		++yMutable;
-							    		break;
-							    	case 2:
-							    		--zMutable;
-							    		break;
-							    	case 3:
-							    		++zMutable;
-							    		break;
-							    	case 4:
-							    		--xMutable;
-							    		break;
-							    	case 5:
-							    		++xMutable;
-							    		break;
-							    	}
-							    	
-						            if (!world.isAirBlock(xMutable, yMutable, zMutable))
-						            {
-						            	// Can't put block here because it's not air
-						                return;
-						            }
-						        }
-							    
-							    //Beds place a little weird, make sure we've got the right conditions
-							    if(block == Blocks.bed) {
-						            int i1 = MathHelper.floor_double((double)(player.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
-						            byte b0 = 0;
-						            byte b1 = 0;
+								if (block != Blocks.redstone_wire || world.getBlock(xMutable, yMutable, zMutable) != Blocks.snow_layer)
+								{
+									switch (event.face)
+									{
+									case 0:
+										--yMutable;
+										break;
+									case 1:
+										++yMutable;
+										break;
+									case 2:
+										--zMutable;
+										break;
+									case 3:
+										++zMutable;
+										break;
+									case 4:
+										--xMutable;
+										break;
+									case 5:
+										++xMutable;
+										break;
+									}
+									
+									if (!world.isAirBlock(xMutable, yMutable, zMutable))
+									{
+										// Can't put block here because it's not air
+										return;
+									}
+								}
+								
+								//Beds place a little weird, make sure we've got the right conditions
+								if(block == Blocks.bed) {
+									int i1 = MathHelper.floor_double((double)(player.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
+									byte b0 = 0;
+									byte b1 = 0;
 
-							    	switch (i1)
-							    	{
-							    	case 0:
-							    		++b1;
-							    		break;
-							    	case 1:
-						            	--b0;
-							    		break;
-							    	case 2:
-							    		--b1;
-							    		break;
-							    	case 3:
-							    		++b0;
-							    		break;
-							    	}
-							    	
-							        if (!player.canPlayerEdit(xMutable + b0, yMutable, zMutable + b1, side, heldStack) || !block.canPlaceBlockAt(world, xMutable + b0, yMutable, zMutable + b1) ||
-							        		!world.isAirBlock(xMutable, yMutable, zMutable) || !world.isAirBlock(xMutable + b0, yMutable, zMutable + b1) ||
-							        		!World.doesBlockHaveSolidTopSurface(world, xMutable, yMutable - 1, zMutable) || !World.doesBlockHaveSolidTopSurface(world, xMutable + b0, yMutable - 1, zMutable + b1))
-							        {
-							            return;
-							        }
-							    }
+									switch (i1)
+									{
+									case 0:
+										++b1;
+										break;
+									case 1:
+										--b0;
+										break;
+									case 2:
+										--b1;
+										break;
+									case 3:
+										++b0;
+										break;
+									}
+									
+									if (!player.canPlayerEdit(xMutable + b0, yMutable, zMutable + b1, side, heldStack) || !block.canPlaceBlockAt(world, xMutable + b0, yMutable, zMutable + b1) ||
+											!world.isAirBlock(xMutable, yMutable, zMutable) || !world.isAirBlock(xMutable + b0, yMutable, zMutable + b1) ||
+											!World.doesBlockHaveSolidTopSurface(world, xMutable, yMutable - 1, zMutable) || !World.doesBlockHaveSolidTopSurface(world, xMutable + b0, yMutable - 1, zMutable + b1))
+									{
+										return;
+									}
+								}
 
-						        if (!player.canPlayerEdit(xMutable, yMutable, zMutable, side, heldStack))
-						        {
-						        	// Can't put it here because player is disallowed
-						            return;
-						        }
+								if (!player.canPlayerEdit(xMutable, yMutable, zMutable, side, heldStack))
+								{
+									// Can't put it here because player is disallowed
+									return;
+								}
 								if (block.canPlaceBlockAt(world, xMutable, yMutable, zMutable))
 								{
 									// Here is where item would be consumed and block would be set
 									// Block is successfully placed
-								    world.playSoundEffect(xMutable+0.5, yMutable+0.5, zMutable+0.5, block.stepSound.func_150496_b(), (block.stepSound.getVolume() + 1.0F) / 2.0F, block.stepSound.getPitch() * 0.8F);
-								    return;
+									world.playSoundEffect(xMutable+0.5, yMutable+0.5, zMutable+0.5, block.stepSound.func_150496_b(), (block.stepSound.getVolume() + 1.0F) / 2.0F, block.stepSound.getPitch() * 0.8F);
+									return;
 								}
 							}
 						}
@@ -1002,18 +1002,18 @@ public class ServerEventHandler {
 			int y = target.blockY;
 			int z = target.blockZ;
 			
-            if (!event.world.canMineBlock(event.entityPlayer, x, y, z))
-            {
-                return;
-            }
+			if (!event.world.canMineBlock(event.entityPlayer, x, y, z))
+			{
+				return;
+			}
 
-            if (isFull == Blocks.air)
-            {
-                if (!event.entityPlayer.canPlayerEdit(x, y, z, target.sideHit, event.current))
-                {
-                    return;
-                }
-            }
+			if (isFull == Blocks.air)
+			{
+				if (!event.entityPlayer.canPlayerEdit(x, y, z, target.sideHit, event.current))
+				{
+					return;
+				}
+			}
 			
 			if (!event.world.isRemote) { //We assume lava sounds if it's not water because most modded liquids are molten metals
 				if (isFull.getMaterial() == Material.water) {// --- Pour water --- //
@@ -1059,24 +1059,24 @@ public class ServerEventHandler {
 		
 		if(ConfigSounds.hoeTilling) {
 			if(!flag) {
-	            Block block = world.getBlock(x, y, z);
-	            MovingObjectPosition position = getMovingObjectPositionFromPlayer(world, event.entityPlayer, false);
-	            
-	            if (position != null && position.typeOfHit == MovingObjectType.BLOCK && position.sideHit != 0 && world.getBlock(x, y + 1, z).isAir(world, x, y + 1, z) && (block == Blocks.grass || block == Blocks.dirt))
-	            {
-	                if (world.isRemote) {
-	    				flag = true;
-	                }
-	                else {
-	                    world.setBlock(x, y, z, Blocks.farmland);
-	    				flag = true;
-	                }
-	            }
+				Block block = world.getBlock(x, y, z);
+				MovingObjectPosition position = getMovingObjectPositionFromPlayer(world, event.entityPlayer, false);
+				
+				if (position != null && position.typeOfHit == MovingObjectType.BLOCK && position.sideHit != 0 && world.getBlock(x, y + 1, z).isAir(world, x, y + 1, z) && (block == Blocks.grass || block == Blocks.dirt))
+				{
+					if (world.isRemote) {
+						flag = true;
+					}
+					else {
+						world.setBlock(x, y, z, Blocks.farmland);
+						flag = true;
+					}
+				}
 			}
 
-            if(flag) {
-    			world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, Reference.MCAssetVer+":item.hoe.till", 1.0F, 1.0F);
-            }
+			if(flag) {
+				world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, Reference.MCAssetVer+":item.hoe.till", 1.0F, 1.0F);
+			}
 		} else if(flag) {
 			world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, Block.soundTypeGravel.getStepResourcePath(), 1.0F, 0.8F);
 		}
@@ -1491,23 +1491,23 @@ public class ServerEventHandler {
 
 						// Knockback degree
 						//Unused variable
-//						int i = EnchantmentHelper.getKnockbackModifier(playerSource, (EntityLivingBase) targetEntity);
+//                      int i = EnchantmentHelper.getKnockbackModifier(playerSource, (EntityLivingBase) targetEntity);
 
 						if (playerSource.isSprinting()) {
 							// --- Knockback attack sound --- //
 							world.playSoundEffect(x, y, z, Reference.MCAssetVer + ":entity.player.attack.knockback", 1, 1);
-//							++i;
+//                          ++i;
 						}
 
 						boolean isCriticalHit = targetEntity instanceof EntityLivingBase && playerSource.fallDistance > 0.0F && !playerSource.onGround &&
 								!playerSource.isOnLadder() && !playerSource.isInWater() && !playerSource.isPotionActive(Potion.blindness) && playerSource.ridingEntity == null;
 						// Removed sprinting check because you can crit while sprinting in 1.7
 
-//						if (isCriticalHit) {
-//							attackDamage *= 1.5F;//Unused assignment
-//						}
+//                      if (isCriticalHit) {
+//                          attackDamage *= 1.5F;//Unused assignment
+//                      }
 
-//						attackDamage += enchantmentDamage;//Unused assignment
+//                      attackDamage += enchantmentDamage;//Unused assignment
 
 						boolean targetTakesDamage = !targetEntity.isEntityInvulnerable() && event.ammount > 0F;//targetEntity.attackEntityFrom(DamageSource.causePlayerDamage(playerSource), f);
 

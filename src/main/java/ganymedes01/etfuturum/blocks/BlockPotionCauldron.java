@@ -50,13 +50,13 @@ public class BlockPotionCauldron extends BlockCauldronTileEntity implements ISub
 	{
 		if (random.nextInt(30) == 0) {
 			int color = ((TileEntityCauldronColoredWater)world.getTileEntity(x, y, z)).getWaterColor();
-	        float r = (float)(color >> 16 & 255) / 255.0F;
-	        float g = (float)(color >> 8 & 255) / 255.0F;
-	        float b = (float)(color & 255) / 255.0F;
-	        
-	        //Slightly decrease the bounds in which the particles can spawn so they don't go through the inside of the cauldron walls
-	        float min = 0.1875F;
-	        float max = 0.8125F;
+			float r = (float)(color >> 16 & 255) / 255.0F;
+			float g = (float)(color >> 8 & 255) / 255.0F;
+			float b = (float)(color & 255) / 255.0F;
+			
+			//Slightly decrease the bounds in which the particles can spawn so they don't go through the inside of the cauldron walls
+			float min = 0.1875F;
+			float max = 0.8125F;
 			double d0 = x + (min + random.nextFloat() * (max - min));
 			double d1 = z + (min + random.nextFloat() * (max - min));
 			world.spawnParticle("mobSpell", d0, y + BlockCauldron.getRenderLiquidLevel(world.getBlockMetadata(x, y, z) + 1), d1, r, g, b);
@@ -169,10 +169,10 @@ public class BlockPotionCauldron extends BlockCauldronTileEntity implements ISub
 		return RenderIDs.COLORED_CAULDRON;
 	}
 	
-    public IIcon grayscaleWaterIcon() {
-    	return blockIcon;
-    }
-    
+	public IIcon grayscaleWaterIcon() {
+		return blockIcon;
+	}
+	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister p_149651_1_)
@@ -190,11 +190,11 @@ public class BlockPotionCauldron extends BlockCauldronTileEntity implements ISub
 		return ConfigBlocksItems.enablePotionCauldron;
 	}
 	
-    static float getRenderLiquidLevel(int p_150025_0_)
-    {
-        int j = MathHelper.clamp_int(p_150025_0_, 0, 3);
-        return (float)(6 + 3 * j) / 16.0F;
-    }
+	static float getRenderLiquidLevel(int p_150025_0_)
+	{
+		int j = MathHelper.clamp_int(p_150025_0_, 0, 3);
+		return (float)(6 + 3 * j) / 16.0F;
+	}
 
 	@Override
 	public Class<? extends ItemBlock> getItemBlockClass() {
@@ -206,36 +206,36 @@ public class BlockPotionCauldron extends BlockCauldronTileEntity implements ISub
 			@Override
 			public void getAction(World world, int x, int y, int z, boolean filling) {
 				int color = ((TileEntityCauldronColoredWater)world.getTileEntity(x, y, z)).getWaterColor();
-		        float r = (float)(color >> 16 & 255) / 255.0F;
-		        float g = (float)(color >> 8 & 255) / 255.0F;
-		        float b = (float)(color & 255) / 255.0F;
-		        float liquidLevel = y + getRenderLiquidLevel(world.getBlockMetadata(x, y, z) + 1);
-		        if(ConfigSounds.fluidInteract) {
+				float r = (float)(color >> 16 & 255) / 255.0F;
+				float g = (float)(color >> 8 & 255) / 255.0F;
+				float b = (float)(color & 255) / 255.0F;
+				float liquidLevel = y + getRenderLiquidLevel(world.getBlockMetadata(x, y, z) + 1);
+				if(ConfigSounds.fluidInteract) {
 					world.playSoundEffect(x + 0.5D, liquidLevel, z + 0.5D, Reference.MCAssetVer+":item.bottle."+(filling?"fill":"empty"), 1, 1);
-		        }
-		        for(int i = 0; i < world.rand.nextInt(4) + 4; i++) {
+				}
+				for(int i = 0; i < world.rand.nextInt(4) + 4; i++) {
 					world.spawnParticle("mobSpell", this.getParticleXYCoord(x, world.rand), liquidLevel, this.getParticleXYCoord(z, world.rand), r, g, b);
-		        }
+				}
 			}
 		},
 		EVAPORATE {
 			@Override
 			public void getAction(World world, int x, int y, int z, boolean filling) {
-		        float min = 0.25F;
-		        float max = getRenderLiquidLevel(world.getBlockMetadata(x, y, z) + 1);
-		        float liquidLevel = y + (min + world.rand.nextFloat() * (max - min));
-		        world.playSound(x + 0.5D, liquidLevel, z + 0.5D, "random.fizz", 0.3F, (world.rand.nextFloat() * 0.6F) + 0.4F, false);
-		        for(int i = 0; i < world.rand.nextInt(4) + 4; i++) {
+				float min = 0.25F;
+				float max = getRenderLiquidLevel(world.getBlockMetadata(x, y, z) + 1);
+				float liquidLevel = y + (min + world.rand.nextFloat() * (max - min));
+				world.playSound(x + 0.5D, liquidLevel, z + 0.5D, "random.fizz", 0.3F, (world.rand.nextFloat() * 0.6F) + 0.4F, false);
+				for(int i = 0; i < world.rand.nextInt(4) + 4; i++) {
 					world.spawnParticle("explode", this.getParticleXYCoord(x, world.rand), liquidLevel, this.getParticleXYCoord(z, world.rand), 0, 0, 0);
-		        }
+				}
 			}
 		};
 		
 		public abstract void getAction(World world, int x, int y, int z, boolean filling);
 		
 		protected float getParticleXYCoord(int coordinate, Random rand) {
-	        float min = 0.1875F;
-	        float max = 0.8125F;
+			float min = 0.1875F;
+			float max = 0.8125F;
 			return coordinate + (min + rand.nextFloat() * (max - min));
 		}
 	}

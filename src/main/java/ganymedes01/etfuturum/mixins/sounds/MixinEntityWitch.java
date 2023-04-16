@@ -18,28 +18,28 @@ public class MixinEntityWitch extends EntityMob {
 		super(p_i1738_1_);
 	}
 
-    @Inject(method = "onLivingUpdate", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemPotion;getEffects(Lnet/minecraft/item/ItemStack;)Ljava/util/List;"))
-    public void playDrinkSound(CallbackInfo ci)
-    {
-        this.playSound(Reference.MCAssetVer+":entity.witch.drink", getSoundVolume(), getSoundPitch());
-    }
+	@Inject(method = "onLivingUpdate", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemPotion;getEffects(Lnet/minecraft/item/ItemStack;)Ljava/util/List;"))
+	public void playDrinkSound(CallbackInfo ci)
+	{
+		this.playSound(Reference.MCAssetVer+":entity.witch.drink", getSoundVolume(), getSoundPitch());
+	}
 
-    @Overwrite
-    protected String getHurtSound()
-    {
-        return Reference.MCAssetVer + ":entity.witch.hurt";
-    }
+	@Overwrite
+	protected String getHurtSound()
+	{
+		return Reference.MCAssetVer + ":entity.witch.hurt";
+	}
 
-    @Overwrite
-    protected String getDeathSound()
-    {
-        return Reference.MCAssetVer + ":entity.witch.death";
-    }
+	@Overwrite
+	protected String getDeathSound()
+	{
+		return Reference.MCAssetVer + ":entity.witch.death";
+	}
 
-    @Overwrite
-    protected String getLivingSound()
-    {
-        return Reference.MCAssetVer + ":entity.witch.ambient";
-    }
+	@Overwrite
+	protected String getLivingSound()
+	{
+		return Reference.MCAssetVer + ":entity.witch.ambient";
+	}
 
 }

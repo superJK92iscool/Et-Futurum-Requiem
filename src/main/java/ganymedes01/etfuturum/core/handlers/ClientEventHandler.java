@@ -458,16 +458,16 @@ public class ClientEventHandler {
 				}
 
 				// Specific blocks
-				if (blockBeneath==Blocks.soul_sand)											{instrumentToPlay = Reference.MCAssetVer+":block.note_block.cow_bell";}
-				else if (blockName.contains("hay"))											{instrumentToPlay = Reference.MCAssetVer+":block.note_block.banjo";}
-				else if (EtFuturum.hasDictTag(blockBeneath, "blockGold"))			{instrumentToPlay = Reference.MCAssetVer+":block.note_block.bell";}
-				else if (EtFuturum.hasDictTag(blockBeneath, "blockEmerald"))		{instrumentToPlay = Reference.MCAssetVer+":block.note_block.bit";}
-				else if (blockName.contains("packed") && blockName.contains("ice"))			{instrumentToPlay = Reference.MCAssetVer+":block.note_block.chime";}
-				else if (blockName.contains("pumpkin"))										{instrumentToPlay = Reference.MCAssetVer+":block.note_block.didgeridoo";}
-				else if (blockBeneath.getMaterial() == Material.clay)						{instrumentToPlay = Reference.MCAssetVer+":block.note_block.flute";}
-				else if (EtFuturum.hasDictTag(blockBeneath, "blockIron"))			{instrumentToPlay = Reference.MCAssetVer+":block.note_block.iron_xylophone";}
-				else if (blockBeneath.getMaterial()==Material.cloth)						{instrumentToPlay = Reference.MCAssetVer+":block.note_block.guitar";}
-				else if (blockName.contains("bone") || blockName.contains("ivory"))			{instrumentToPlay = Reference.MCAssetVer+":block.note_block.xylophone";}
+				if (blockBeneath==Blocks.soul_sand)                                         {instrumentToPlay = Reference.MCAssetVer+":block.note_block.cow_bell";}
+				else if (blockName.contains("hay"))                                         {instrumentToPlay = Reference.MCAssetVer+":block.note_block.banjo";}
+				else if (EtFuturum.hasDictTag(blockBeneath, "blockGold"))           {instrumentToPlay = Reference.MCAssetVer+":block.note_block.bell";}
+				else if (EtFuturum.hasDictTag(blockBeneath, "blockEmerald"))        {instrumentToPlay = Reference.MCAssetVer+":block.note_block.bit";}
+				else if (blockName.contains("packed") && blockName.contains("ice"))         {instrumentToPlay = Reference.MCAssetVer+":block.note_block.chime";}
+				else if (blockName.contains("pumpkin"))                                     {instrumentToPlay = Reference.MCAssetVer+":block.note_block.didgeridoo";}
+				else if (blockBeneath.getMaterial() == Material.clay)                       {instrumentToPlay = Reference.MCAssetVer+":block.note_block.flute";}
+				else if (EtFuturum.hasDictTag(blockBeneath, "blockIron"))           {instrumentToPlay = Reference.MCAssetVer+":block.note_block.iron_xylophone";}
+				else if (blockBeneath.getMaterial()==Material.cloth)                        {instrumentToPlay = Reference.MCAssetVer+":block.note_block.guitar";}
+				else if (blockName.contains("bone") || blockName.contains("ivory"))         {instrumentToPlay = Reference.MCAssetVer+":block.note_block.xylophone";}
 				if(event.name.equals(instrumentToPlay)) return;
 
 				event.result = new PositionedSoundRecord(new ResourceLocation(instrumentToPlay), instrumentToPlay.equals(Reference.MCAssetVer+":block.note_block.iron_xylophone") ? 1F : event.sound.getVolume(), event.sound.getPitch(), soundX, soundY, soundZ);

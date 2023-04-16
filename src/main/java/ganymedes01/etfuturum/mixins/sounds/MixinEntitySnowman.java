@@ -14,18 +14,18 @@ public class MixinEntitySnowman extends EntityGolem {
 		super(p_i1686_1_);
 	}
 
-    protected String getHurtSound()
-    {
-        return Reference.MCAssetVer + ":entity.snow_golem.hurt";
-    }
+	protected String getHurtSound()
+	{
+		return Reference.MCAssetVer + ":entity.snow_golem.hurt";
+	}
 
-    protected String getDeathSound()
-    {
-        return Reference.MCAssetVer + ":entity.snow_golem.death";
-    }
-    
-    protected String getLivingSound()
-    {
-        return Reference.MCAssetVer + ":entity.snow_golem.ambient";
-    }
+	protected String getDeathSound()
+	{
+		return Reference.MCAssetVer + ":entity.snow_golem.death";
+	}
+	
+	protected String getLivingSound()
+	{
+		return Reference.MCAssetVer + ":entity.snow_golem.ambient";
+	}
 }

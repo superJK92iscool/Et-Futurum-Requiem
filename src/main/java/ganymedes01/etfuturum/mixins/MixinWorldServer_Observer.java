@@ -12,10 +12,10 @@ import java.util.Set;
 @Mixin(WorldServer.class)
 public class MixinWorldServer_Observer implements IObserverWorldExtension {
 
-    @Shadow private Set pendingTickListEntriesHashSet;
+	@Shadow private Set pendingTickListEntriesHashSet;
 
-    @Override
-    public boolean etfu$hasScheduledUpdate(int x, int y, int z, Block block) {
-        return this.pendingTickListEntriesHashSet.contains(new NextTickListEntry(x, y, z, block));
-    }
+	@Override
+	public boolean etfu$hasScheduledUpdate(int x, int y, int z, Block block) {
+		return this.pendingTickListEntriesHashSet.contains(new NextTickListEntry(x, y, z, block));
+	}
 }

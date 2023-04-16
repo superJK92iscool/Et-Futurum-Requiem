@@ -80,139 +80,139 @@ public class WorldGenAmethystGeode extends WorldGenerator {
 	 * Some of them use a number provider to do .get to get a number in the range. If this would get two numbers I used nextBoolean() instead to be faster.
 	 */
 	public boolean generate(World world, Random random, int x, int y, int z) {
-	      BlockPos blockPos = new BlockPos(x, y, z);
-	      List<Pair<BlockPos, Integer>> list = Lists.newLinkedList();
-	      int distPoint = getRandom(distributionPoints, random);
-	      DoublePerlinNoiseSampler doublePerlinNoiseSampler = DoublePerlinNoiseSampler.create(random, -4, 1.0D);//Somehow this was (double[])(1.0D) which doesn't make sense. Decompiler weirdism?
-	      List<BlockPos> list2 = Lists.newLinkedList();
-	      double outerWallMaxDiv = (double)distPoint / (double)outerWallDistance[outerWallDistance.length-1];
-	      double fillingSqrt = 1.0D / Math.sqrt(filling);
-	      double innerLayerSqrt = 1.0D / Math.sqrt(innerLayer + outerWallMaxDiv);
-	      double middleLayerSqrt = 1.0D / Math.sqrt(middleLayer + outerWallMaxDiv);
-	      double outerLayerSqrt = 1.0D / Math.sqrt(outerLayer + outerWallMaxDiv);
-	      double l = 1.0D / Math.sqrt(baseCrackSize + random.nextDouble() / 2.0D + (distPoint > 3 ? outerWallMaxDiv : 0.0D));
-	      boolean bl = (double)random.nextFloat() < generateCrackChance;
-	      int m = 0;
+		  BlockPos blockPos = new BlockPos(x, y, z);
+		  List<Pair<BlockPos, Integer>> list = Lists.newLinkedList();
+		  int distPoint = getRandom(distributionPoints, random);
+		  DoublePerlinNoiseSampler doublePerlinNoiseSampler = DoublePerlinNoiseSampler.create(random, -4, 1.0D);//Somehow this was (double[])(1.0D) which doesn't make sense. Decompiler weirdism?
+		  List<BlockPos> list2 = Lists.newLinkedList();
+		  double outerWallMaxDiv = (double)distPoint / (double)outerWallDistance[outerWallDistance.length-1];
+		  double fillingSqrt = 1.0D / Math.sqrt(filling);
+		  double innerLayerSqrt = 1.0D / Math.sqrt(innerLayer + outerWallMaxDiv);
+		  double middleLayerSqrt = 1.0D / Math.sqrt(middleLayer + outerWallMaxDiv);
+		  double outerLayerSqrt = 1.0D / Math.sqrt(outerLayer + outerWallMaxDiv);
+		  double l = 1.0D / Math.sqrt(baseCrackSize + random.nextDouble() / 2.0D + (distPoint > 3 ? outerWallMaxDiv : 0.0D));
+		  boolean bl = (double)random.nextFloat() < generateCrackChance;
+		  int m = 0;
 
-	      int r;
-	      int s;
-	      BlockPos blockPos6;
-	      Block block2;
-	      for(r = 0; r < distPoint; ++r) {
-	         s = getRandom(outerWallDistance, random);
-	         int p = getRandom(outerWallDistance, random);
-	         int q = getRandom(outerWallDistance, random);
-	         blockPos6 = blockPos.add(s, p, q);
-	         if (isInvalidCorner(world, blockPos6.getX(), blockPos6.getY(), blockPos6.getZ())) {
-	            ++m;
-	            if (m > invalidBlocksThreshold) {
-	               return false; // Comment this line to disable the valid generation check for testing purposes.
-	            }
-	         }
+		  int r;
+		  int s;
+		  BlockPos blockPos6;
+		  Block block2;
+		  for(r = 0; r < distPoint; ++r) {
+			 s = getRandom(outerWallDistance, random);
+			 int p = getRandom(outerWallDistance, random);
+			 int q = getRandom(outerWallDistance, random);
+			 blockPos6 = blockPos.add(s, p, q);
+			 if (isInvalidCorner(world, blockPos6.getX(), blockPos6.getY(), blockPos6.getZ())) {
+				++m;
+				if (m > invalidBlocksThreshold) {
+				   return false; // Comment this line to disable the valid generation check for testing purposes.
+				}
+			 }
 
-	         list.add(Pair.of(blockPos6, getRandom(pointOffset, random)));
-	      }
+			 list.add(Pair.of(blockPos6, getRandom(pointOffset, random)));
+		  }
 
-	      if (bl) {
-	         r = random.nextInt(4);
-	         s = distPoint * 2 + 1;
-	         if (r == 0) {
-	            list2.add(blockPos.add(s, 7, 0));
-	            list2.add(blockPos.add(s, 5, 0));
-	            list2.add(blockPos.add(s, 1, 0));
-	         } else if (r == 1) {
-	            list2.add(blockPos.add(0, 7, s));
-	            list2.add(blockPos.add(0, 5, s));
-	            list2.add(blockPos.add(0, 1, s));
-	         } else if (r == 2) {
-	            list2.add(blockPos.add(s, 7, s));
-	            list2.add(blockPos.add(s, 5, s));
-	            list2.add(blockPos.add(s, 1, s));
-	         } else {
-	            list2.add(blockPos.add(0, 7, 0));
-	            list2.add(blockPos.add(0, 5, 0));
-	            list2.add(blockPos.add(0, 1, 0));
-	         }
-	      }
+		  if (bl) {
+			 r = random.nextInt(4);
+			 s = distPoint * 2 + 1;
+			 if (r == 0) {
+				list2.add(blockPos.add(s, 7, 0));
+				list2.add(blockPos.add(s, 5, 0));
+				list2.add(blockPos.add(s, 1, 0));
+			 } else if (r == 1) {
+				list2.add(blockPos.add(0, 7, s));
+				list2.add(blockPos.add(0, 5, s));
+				list2.add(blockPos.add(0, 1, s));
+			 } else if (r == 2) {
+				list2.add(blockPos.add(s, 7, s));
+				list2.add(blockPos.add(s, 5, s));
+				list2.add(blockPos.add(s, 1, s));
+			 } else {
+				list2.add(blockPos.add(0, 7, 0));
+				list2.add(blockPos.add(0, 5, 0));
+				list2.add(blockPos.add(0, 1, 0));
+			 }
+		  }
 
-	      List<BlockPos> list3 = Lists.newArrayList();
-	      Iterator var48 = BlockPos.iterate(blockPos.add(minGenOffset, minGenOffset, minGenOffset), blockPos.add(maxGenOffset, maxGenOffset, maxGenOffset)).iterator();
+		  List<BlockPos> list3 = Lists.newArrayList();
+		  Iterator var48 = BlockPos.iterate(blockPos.add(minGenOffset, minGenOffset, minGenOffset), blockPos.add(maxGenOffset, maxGenOffset, maxGenOffset)).iterator();
 
-	      while(true) {
-	         while(true) {
-	            double u;
-	            double v;
-	            BlockPos blockPos3;
-	            do {
-	               if (!var48.hasNext()) {
-	                  Iterator var51 = list3.iterator();
+		  while(true) {
+			 while(true) {
+				double u;
+				double v;
+				BlockPos blockPos3;
+				do {
+				   if (!var48.hasNext()) {
+					  Iterator var51 = list3.iterator();
 
-	                  while(true) {
-	                     while(var51.hasNext()) {
-	                        blockPos6 = (BlockPos)var51.next();
-	                        block2 = Utils.getRandom(budBlocks, random);
-	                        EnumFacing[] var53 = EnumFacing.values();
-	                        int var37 = var53.length;
+					  while(true) {
+						 while(var51.hasNext()) {
+							blockPos6 = (BlockPos)var51.next();
+							block2 = Utils.getRandom(budBlocks, random);
+							EnumFacing[] var53 = EnumFacing.values();
+							int var37 = var53.length;
 
-	                        for(int var54 = 0; var54 < var37; ++var54) {
-	                        	EnumFacing direction2 = var53[var54];
+							for(int var54 = 0; var54 < var37; ++var54) {
+								EnumFacing direction2 = var53[var54];
 
-	                           BlockPos blockPos7 = blockPos6.offset(direction2);
+							   BlockPos blockPos7 = blockPos6.offset(direction2);
 
-	                           if (world.isAirBlock(blockPos7.getX(), blockPos7.getY(), blockPos7.getZ())) {
-	                        	   world.setBlock(blockPos7.getX(), blockPos7.getY(), blockPos7.getZ(), block2, (random.nextBoolean() ? 0 : 6)/*picks a random bud size*/ + direction2.ordinal(), 2);
-	                              break;
-	                           }
-	                        }
-	                     }
+							   if (world.isAirBlock(blockPos7.getX(), blockPos7.getY(), blockPos7.getZ())) {
+								   world.setBlock(blockPos7.getX(), blockPos7.getY(), blockPos7.getZ(), block2, (random.nextBoolean() ? 0 : 6)/*picks a random bud size*/ + direction2.ordinal(), 2);
+								  break;
+							   }
+							}
+						 }
 
-	                     return true;
-	                  }
-	               }
+						 return true;
+					  }
+				   }
 
-	               blockPos3 = (BlockPos)var48.next();
-	               double t = doublePerlinNoiseSampler.sample((double)blockPos3.getX(), (double)blockPos3.getY(), (double)blockPos3.getZ()) * noiseMultiplier;
-	               u = 0.0D;
-	               v = 0.0D;
+				   blockPos3 = (BlockPos)var48.next();
+				   double t = doublePerlinNoiseSampler.sample((double)blockPos3.getX(), (double)blockPos3.getY(), (double)blockPos3.getZ()) * noiseMultiplier;
+				   u = 0.0D;
+				   v = 0.0D;
 
-	               Iterator var40;
-	               Pair pair;
-	               for(var40 = list.iterator(); var40.hasNext(); u += Utils.fastInverseSqrt(blockPos3.getSquaredDistance((Vec3i)pair.getLeft()) + (double)(Integer)pair.getRight()) + t) {
-	                  pair = (Pair)var40.next();
-	               } //Almost deleted this code for being unused, but the variable in the for loop is vital to later parts of the code.
+				   Iterator var40;
+				   Pair pair;
+				   for(var40 = list.iterator(); var40.hasNext(); u += Utils.fastInverseSqrt(blockPos3.getSquaredDistance((Vec3i)pair.getLeft()) + (double)(Integer)pair.getRight()) + t) {
+					  pair = (Pair)var40.next();
+				   } //Almost deleted this code for being unused, but the variable in the for loop is vital to later parts of the code.
 
-	               BlockPos blockPos4;
-	               for(var40 = list2.iterator(); var40.hasNext(); v += Utils.fastInverseSqrt(blockPos3.getSquaredDistance(blockPos4) + (double)crackPointOffset) + t) {
-	                  blockPos4 = (BlockPos)var40.next();
-	               } //Almost deleted this code for being unused, but the variable in the for loop is vital to later parts of the code.
-	            } while(u < outerLayerSqrt);
+				   BlockPos blockPos4;
+				   for(var40 = list2.iterator(); var40.hasNext(); v += Utils.fastInverseSqrt(blockPos3.getSquaredDistance(blockPos4) + (double)crackPointOffset) + t) {
+					  blockPos4 = (BlockPos)var40.next();
+				   } //Almost deleted this code for being unused, but the variable in the for loop is vital to later parts of the code.
+				} while(u < outerLayerSqrt);
 
-            	if(world.getBlock(blockPos3.getX(), blockPos3.getY(), blockPos3.getZ()).getBlockHardness(world, blockPos3.getX(), blockPos3.getY(), blockPos3.getZ()) != -1) {
-    	            if (bl && v >= l && u < fillingSqrt) {
-                		world.setBlockToAir(blockPos3.getX(), blockPos3.getY(), blockPos3.getZ());
-    	            } else if (u >= fillingSqrt) {
-    	               world.setBlockToAir(blockPos3.getX(), blockPos3.getY(), blockPos3.getZ());//FillingProvider
-    	               //Fun fact, comment out this line for some really odd shapes lol
-    	            } else if (u >= innerLayerSqrt) {
-     	               boolean bl2 = (double)random.nextFloat() < this.buddingAmethystChance;
-    	               if (bl2) {
-        	               world.setBlock(blockPos3.getX(), blockPos3.getY(), blockPos3.getZ(), ModBlocks.budding_amethyst);//AlternateInnerLayerProvider
-    	               } else {
-        	               world.setBlock(blockPos3.getX(), blockPos3.getY(), blockPos3.getZ(), ModBlocks.amethyst_block);//InnerLayerProvider
-    	               }
+				if(world.getBlock(blockPos3.getX(), blockPos3.getY(), blockPos3.getZ()).getBlockHardness(world, blockPos3.getX(), blockPos3.getY(), blockPos3.getZ()) != -1) {
+					if (bl && v >= l && u < fillingSqrt) {
+						world.setBlockToAir(blockPos3.getX(), blockPos3.getY(), blockPos3.getZ());
+					} else if (u >= fillingSqrt) {
+					   world.setBlockToAir(blockPos3.getX(), blockPos3.getY(), blockPos3.getZ());//FillingProvider
+					   //Fun fact, comment out this line for some really odd shapes lol
+					} else if (u >= innerLayerSqrt) {
+					   boolean bl2 = (double)random.nextFloat() < this.buddingAmethystChance;
+					   if (bl2) {
+						   world.setBlock(blockPos3.getX(), blockPos3.getY(), blockPos3.getZ(), ModBlocks.budding_amethyst);//AlternateInnerLayerProvider
+					   } else {
+						   world.setBlock(blockPos3.getX(), blockPos3.getY(), blockPos3.getZ(), ModBlocks.amethyst_block);//InnerLayerProvider
+					   }
 
-    	               //This boolean is always true and !true == false
+					   //This boolean is always true and !true == false
 						if ((/* !geodeFeatureConfig.placementsRequireLayer0Alternate || */bl2) && (double)random.nextFloat() < usePotentialPlacementsChance) {
-    	                  list3.add(new BlockPos(blockPos3));
-    	               }
-    	            } else if (u >= middleLayerSqrt) {
-     	               world.setBlock(blockPos3.getX(), blockPos3.getY(), blockPos3.getZ(), ModBlocks.calcite, 0, 2);//MiddleLayerProvider also TODO I need to make this layer configurable
-    	            } else if (u >= outerLayerSqrt) {
-     	               world.setBlock(blockPos3.getX(), blockPos3.getY(), blockPos3.getZ(), ConfigWorld.amethystOuterBlock, outerMeta, 2);//OuterLayerProvider
-    	            }
-    	         }
-	         }
-	      }
+						  list3.add(new BlockPos(blockPos3));
+					   }
+					} else if (u >= middleLayerSqrt) {
+					   world.setBlock(blockPos3.getX(), blockPos3.getY(), blockPos3.getZ(), ModBlocks.calcite, 0, 2);//MiddleLayerProvider also TODO I need to make this layer configurable
+					} else if (u >= outerLayerSqrt) {
+					   world.setBlock(blockPos3.getX(), blockPos3.getY(), blockPos3.getZ(), ConfigWorld.amethystOuterBlock, outerMeta, 2);//OuterLayerProvider
+					}
+				 }
+			 }
+		  }
 	   }
 
 	/*

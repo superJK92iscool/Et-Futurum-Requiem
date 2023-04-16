@@ -390,9 +390,9 @@ public class EtFuturum {
 			/*
 			 * MATERIALS
 			 */
-//			if(block == Blocks.bed && TESTING) {
-//				block.blockMaterial = Material.wood;
-//			}
+//          if(block == Blocks.bed && TESTING) {
+//              block.blockMaterial = Material.wood;
+//          }
 		}
 		
 //      if(ConfigurationHandler.enableNewNether)
@@ -861,8 +861,8 @@ public class EtFuturum {
 //      config.addSoundEvent(ver, "block.nylium.break", "block");
 		config.addSoundEvent(ver, "block.fungus.step", "neutral");
 //      config.addSoundEvent(ver, "block.fungus.break", "block");
-      config.addSoundEvent(ver, "block.stem.step", "neutral");
-      config.addSoundEvent(ver, "block.stem.break", "block");
+	  config.addSoundEvent(ver, "block.stem.step", "neutral");
+	  config.addSoundEvent(ver, "block.stem.break", "block");
 //      config.addSoundEvent(ver, "block.shroomlight.step", "neutral");
 //      config.addSoundEvent(ver, "block.shroomlight.break", "block");
 //      config.addSoundEvent(ver, "block.honey_block.step", "neutral");

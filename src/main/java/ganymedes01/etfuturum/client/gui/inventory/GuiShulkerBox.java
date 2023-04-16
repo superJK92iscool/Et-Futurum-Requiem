@@ -57,7 +57,7 @@ public class GuiShulkerBox extends GuiContainer {
 		
 		if(type == ShulkerBoxType.VANILLA) {
 			this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.inventoryRows * 18 + 17);
-	        this.drawTexturedModalRect(k, l + this.inventoryRows * 18 + 17, 0, 126, this.xSize, 96);
+			this.drawTexturedModalRect(k, l + this.inventoryRows * 18 + 17, 0, 126, this.xSize, 96);
 		} else {
 			this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
 		}
