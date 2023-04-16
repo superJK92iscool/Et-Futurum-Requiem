@@ -12,21 +12,21 @@ public class IMCSenderGTNH {
 
         if(ConfigBlocksItems.enableSmoker) {
             sendHandler("ganymedes01.etfuturum.NEI_EtFuturum_Config$NEI_Recipes_Smoker", "etfuturum:smoker");
-            sendCatalyst("ganymedes01.etfuturum.NEI_EtFuturum_Config$NEI_Recipes_Smoker", "etfuturum:smoker");
+            sendCatalyst("etfuturum.smoker", "etfuturum:smoker");
 
-            sendCatalyst("codechicken.nei.recipe.FuelRecipeHandler", "etfuturum:smoker");
+            sendCatalyst("fuel", "etfuturum:smoker");
         }
 
         if(ConfigBlocksItems.enableBlastFurnace) {
             sendHandler("ganymedes01.etfuturum.NEI_EtFuturum_Config$NEI_Recipes_BlastFurnace", "etfuturum:blast_furnace");
-            sendCatalyst("ganymedes01.etfuturum.NEI_EtFuturum_Config$NEI_Recipes_BlastFurnace", "etfuturum:blast_furnace");
+            sendCatalyst("etfuturum.blastfurnace", "etfuturum:blast_furnace");
 
-            sendCatalyst("codechicken.nei.recipe.FuelRecipeHandler", "etfuturum:blast_furnace");
+            sendCatalyst("fuel", "etfuturum:blast_furnace");
         }
 
         if (ConfigBlocksItems.enableBanners) {
-            sendHandler("ganymedes01.etfuturum.client.nei.BannerPatternhandler", "etfuturum:banner");
-            sendCatalyst("ganymedes01.etfuturum.client.nei.BannerPatternhandler", "etfuturum:banner");
+            sendHandler("ganymedes01.etfuturum.client.nei.BannerPatternHandler", "etfuturum:banner");
+            sendCatalyst("ganymedes01.etfuturum.client.nei.BannerPatternHandler", "minecraft:crafting_table");
         }
     }
 
@@ -51,7 +51,6 @@ public class IMCSenderGTNH {
         aNBT.setInteger("maxRecipesPerPage", maxRecipesPerPage);
         aNBT.setInteger("yShift", 6);
         FMLInterModComms.sendMessage("NotEnoughItems", "registerHandlerInfo", aNBT);
-
     }
 
     private static void sendCatalyst(String aName, String aStack, int aPriority) {

@@ -443,10 +443,14 @@ public class BlockShulkerBox extends BlockContainer implements IConfigurable, IS
 		TileEntityShulkerBox box = (TileEntityShulkerBox) world.getTileEntity(x, y, z);
 		
 		if(box != null) {
+			if(box.color > 0 || box.type.ordinal() > 0) {
+				stack.setTagCompound(new NBTTagCompound());
+			}
 			if(box.color > 0 && ConfigBlocksItems.enableDyedShulkerBoxes) {
-				if(!stack.hasTagCompound()) stack.setTagCompound(new NBTTagCompound());
-				stack.getTagCompound().setByte("Type", (byte) box.type.ordinal());
 				stack.getTagCompound().setByte("Color", box.color);
+			}
+			if(box.type.ordinal() > 0 && ConfigBlocksItems.enableShulkerBoxesIronChest && EtFuturum.hasIronChest) {
+				stack.getTagCompound().setByte("Type", (byte) box.type.ordinal());
 			}
 		}
 
