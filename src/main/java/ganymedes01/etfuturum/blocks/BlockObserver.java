@@ -9,6 +9,7 @@ import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.ducks.IObserverWorldExtension;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockButton;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -86,11 +87,6 @@ public class BlockObserver extends Block implements IConfigurable, IBlockObserve
 	}
 
 	@Override
-	public boolean renderAsNormalBlock() {
-		return false;
-	}
-
-	@Override
 	public boolean isEnabled() {
 		return ConfigMixins.enableObservers;
 	}
@@ -151,5 +147,10 @@ public class BlockObserver extends Block implements IConfigurable, IBlockObserve
 		if((metadata & 8) == 0)
 			return 0;
 		return (BlockPistonBase.getPistonOrientation(metadata) == p_149709_5_) ? 15 : 0;
+	}
+
+	public boolean isNormalCube(IBlockAccess world, int x, int y, int z)
+	{
+		return true;
 	}
 }
