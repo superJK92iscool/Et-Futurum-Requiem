@@ -174,7 +174,7 @@ public class ComposterHandler extends TemplateRecipeHandler implements ICrafting
 
     @Override
     public String getRecipeName() {
-        return I18n.format("tile.etfuturum.composter.name");
+        return I18n.format("efr.nei.composter");
     }
 
     /**
