@@ -58,7 +58,7 @@ public class ConfigMixins extends ConfigBase {
 		Configuration cfg = configInstance;
 		if(EtFuturumMixinPlugin.side == MixinEnvironment.Side.CLIENT) {
 			furnaceCrackle = cfg.getBoolean("furnaceCrackle", catBackport, true, "(Client only) Allows vanilla furnaces to have crackling sounds.\nModified Client Classes: net.minecraft.block.BlockFurnace");
-			boundedBlockBreakingParticles = cfg.getBoolean("boundedBlockBreakingParticles", catBackport, true, "In 1.14+, when breaking a block the block break particles stay within the outline, instead if always occupying the whole block space.\nMofified Classes: net.minecraft.client.particle.EffectRenderer");
+			boundedBlockBreakingParticles = cfg.getBoolean("boundedBlockBreakingParticles", catBackport, true, "In 1.14+, when breaking a block the block break particles stay within the outline, instead of always occupying the whole block space.\nMofified Classes: net.minecraft.client.particle.EffectRenderer");
 		}
 		
 		endPortalFix = cfg.getBoolean("endPortalFix", catBackport, true, "Makes the End Portal block (the actual portal, not the frame) have an item icon, proper hitbox and will not instantly destroy itself in other dimensions.\nModified classes: net.minecraft.block.BlockEndPortal");

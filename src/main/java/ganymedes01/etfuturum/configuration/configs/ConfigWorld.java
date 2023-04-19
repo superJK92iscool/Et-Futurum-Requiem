@@ -87,7 +87,7 @@ public class ConfigWorld extends ConfigBase {
 		deepslateReplacesDirt = cfg.getBoolean("deepslateReplacesDirt", catGeneration, true, "Whether or not Deepslate will overwrite dirt (Only works when deepslate generation mode is set to 0)");
 		deepslateGenerationMode = cfg.getInt("deepslateGenerationMode", catGeneration, 0, -1, 1, "If 0, deepslate replaces all stone below the specified value, with a shattering effect near the top similar to bedrock. If 1, it generates in clusters using the deepslate cluster settings. -1 disables Et Futurum deepslate generation entirely.");
 		enableOceanMonuments = cfg.getBoolean("enableOceanMonuments", catGeneration, true, "Note: Ocean monuments currently do not have guardians");
-		enableFossils = cfg.getBoolean("enableFossils", catGeneration, true, "Note: Fossils currently do not rotate");
+		enableFossils = cfg.getBoolean("enableFossils", catGeneration, true, "");
 		fossilBlockID  = cfg.getInt("fossilBoneBlock", catGeneration, 0, 0, 2, "0 = Et Futurum bone block\n1 = Netherlicious bone block\n2 = UpToDateMod bone block.\nIf the block does not exist, this option is ignored.");
 		amethystOuterID  = cfg.getInt("amethystOuterBlock", catGeneration, 0, 0, 2, "0 = Et Futurum smooth basalt block\n1 = Et Futurum tuff block\n2 = Netherlicious smooth basalt block\nSince there's no other way to get Et Futurum's smooth basalt, using an option other than 0, if they exist, will disable Et Futurum smooth basalt. If the selected block does not exist (disabled or mod not installed), this option does nothing.");
 		Property fossilBlacklistProp = cfg.get(catGeneration, "fossilDimensionBlacklist", new int[] {-1, 1});
