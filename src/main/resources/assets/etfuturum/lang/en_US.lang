@@ -1488,3 +1488,7 @@ tile.monsterStoneEgg.brick.name=Infested Stone Bricks
 tile.monsterStoneEgg.mossybrick.name=Infested Mossy Stone Bricks
 tile.monsterStoneEgg.crackedbrick.name=Infested Cracked Stone Bricks
 tile.monsterStoneEgg.chiseledbrick.name=Infested Chiseled Stone Bricks
+
+efr.nei.composter=Composter
+efr.nei.amount=Amount
+efr.nei.weight=Weight
