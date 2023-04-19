@@ -3,7 +3,6 @@ package ganymedes01.etfuturum;
 import java.awt.Rectangle;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.stream.Collectors;
 
 import codechicken.nei.NEIServerUtils;
 import codechicken.nei.recipe.FurnaceRecipeHandler;
@@ -11,17 +10,16 @@ import codechicken.nei.recipe.GuiCraftingRecipe;
 import codechicken.nei.recipe.GuiUsageRecipe;
 import ganymedes01.etfuturum.client.gui.inventory.GuiBlastFurnace;
 import ganymedes01.etfuturum.client.gui.inventory.GuiSmoker;
+import ganymedes01.etfuturum.compat.nei.ComposterHandler;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.ItemStackMap;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.recipes.BlastFurnaceRecipes;
 import ganymedes01.etfuturum.recipes.SmokerRecipes;
 import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.util.StatCollector;
-import net.minecraft.world.World;
 
 /** DO NOT RENAME OR MOVE THIS FILE, IT HAS TO BE IN THIS LOCATION AND HAVE THIS NAME!!! (I wish that was not the case, but that is not my choice lol) */
 public class NEI_EtFuturum_Config implements codechicken.nei.api.IConfigureNEI {
@@ -42,6 +40,12 @@ public class NEI_EtFuturum_Config implements codechicken.nei.api.IConfigureNEI {
 			// make it possible to use the "R" Key
 			GuiCraftingRecipe.craftinghandlers.add(handler);
 			// make it possible to use the "U" Key
+			GuiUsageRecipe.usagehandlers.add(handler);
+		}
+
+		if(ConfigBlocksItems.enableComposter) {
+			ComposterHandler handler = new ComposterHandler();
+			GuiCraftingRecipe.craftinghandlers.add(handler);
 			GuiUsageRecipe.usagehandlers.add(handler);
 		}
 	}

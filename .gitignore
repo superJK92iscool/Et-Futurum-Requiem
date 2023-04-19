@@ -30,7 +30,7 @@ Thumbs.db
 
 ## Jars (Icludes /libs so jars there don't get excluded)
 *.jar
-!libs/*
+!lib/*
 !/gradle/wrapper/gradle-wrapper.jar
 !/tools/mixin-0.8-SNAPSHOT.jar
 
@@ -76,3 +76,12 @@ README.txt
 /src/api
 /models
 logos
+
+.mixin.out/
+asm/
+config/
+crash-reports/
+logs/
+saves/
+options.txt
+usernamecache.json
