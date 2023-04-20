@@ -93,7 +93,7 @@ public class ComposterHandler extends TemplateRecipeHandler implements ICrafting
             i++;
             if (i == 9) {
                 max -= 9;
-                x = (168 - (18 * (max % 9))) >> 1;
+                x = (168 - (18 * Math.min(max, 9))) >> 1;
                 y += 18;
                 i = 0;
             }
