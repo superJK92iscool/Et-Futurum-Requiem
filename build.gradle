@@ -112,7 +112,7 @@ dependencies {
 		transitive = false
 	}
 	
-	shadow('com.github.makamys:MCLib:0.3.7.2') {
+	shadow('com.github.makamys:MCLib:0.3.7.3') {
 		exclude group: "codechicken"
 	}
 }
