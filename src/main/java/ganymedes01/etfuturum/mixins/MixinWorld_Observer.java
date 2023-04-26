@@ -76,10 +76,14 @@ public abstract class MixinWorld_Observer {
 		etfu$notifySurroundingObservers(p_147459_1_, p_147459_2_, p_147459_3_, p_147459_4_, sideExcept);
 	}
 
+	private static boolean etfu$shouldObserverNotify(int flag) {
+		return ((flag & 1) != 0 || (flag & 16) == 0);
+	}
+
 	@Inject(method = "markAndNotifyBlock", at = @At("TAIL"), remap = false)
 	private void notifyObserverOnSkippedNeighborUpdate(int x, int y, int z, Chunk chunk, Block oldBlock, Block newBlock, int flag, CallbackInfo ci) {
 		/* Ensure that observers are also notified */
-		if(!this.isRemote && (flag & 17) == 0) {
+		if(!this.isRemote && etfu$shouldObserverNotify(flag)) {
 			etfu$notifySurroundingObservers(x, y, z, newBlock, -1);
 		}
 	}
@@ -87,7 +91,7 @@ public abstract class MixinWorld_Observer {
 	@Inject(method = "setBlockMetadataWithNotify", at = @At("RETURN"))
 	private void notifyObserverOnSkippedNeighborUpdate(int x, int y, int z, int meta, int flag, CallbackInfoReturnable<Boolean> cir) {
 		/* Ensure that observers are also notified */
-		if(!this.isRemote && cir.getReturnValue() && (flag & 17) == 0) {
+		if(!this.isRemote && cir.getReturnValue() && etfu$shouldObserverNotify(flag)) {
 			etfu$notifySurroundingObservers(x, y, z, getBlock(x, y, z), -1);
 		}
 	}
