@@ -103,7 +103,8 @@ public class ItemNewBoat extends Item implements IConfigurable {
 				entityboat = new EntityNewBoat(p_77659_2_);
 			}
 			float yaw = (float)(((MathHelper.floor_double((double)(p_77659_3_.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3) - 1) * 90) + 90;
-			entityboat.setPositionAndRotation((double)((float)i + 0.5F), (double)((float)j + (p_77659_2_.getBlock(i, j-1, k).getMaterial() == Material.water ? 0.88F : 1.0F)), (double)((float)k + 0.5F), yaw, 0);
+			boolean isWater = p_77659_2_.getBlock(i, j, k).getMaterial() == Material.water;
+			entityboat.setPositionAndRotation(movingobjectposition.hitVec.xCoord,  movingobjectposition.hitVec.yCoord + (isWater ? -0.12 : 0), movingobjectposition.hitVec.zCoord, yaw, 0);
 			entityboat.motionX = entityboat.motionY = entityboat.motionZ = 0;
 			entityboat.setBoatType(type);
 			if(p_77659_1_.hasDisplayName()) {
