@@ -210,8 +210,9 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableSmithingTable = cfg.getBoolean("enableSmithingTable", catBlockFunc, true, "If this is disabled, netherite items will not be craftable unless added by CraftTweaker. This introduces the smithing GUI from versions prior to 1.20. It is compatible with CraftTweaker." +
 				"\nThe mod prefix is \"mods.etfuturum.smithingTable\", and the functions are \"addRecipe\" or \"addRecipeNoNBT\". \"addRecipe\" will copy all NBT data from the first slot to the output. (and damage if the first slot and output are damageable items) You can remove recipes using the \"remove\" function and an ItemStack." +
 				"\nCurrently CraftTweaker support is limited, so some features from CraftTweaker may not work. .noReturn() and .anyDamage().onlyDamaged() are known to not work." +
+				"\nHowever anyDamage() by itself does work, and is required for tool inputs to actually copy their damage over to the output." +
 				"\nExamples:" +
-				"\nmods.etfuturum.smithingTable.addRecipe(<IC2:itemToolBronzeSword>, <minecraft:iron_sword>, <ore:ingotBronze>); //(Use \"ingotBronze\" on iron sword to convert it toa bronze sword)" +
+				"\nmods.etfuturum.smithingTable.addRecipe(<IC2:itemToolBronzeSword>, <minecraft:iron_sword>.anyDamage(), <ore:ingotBronze>); //(Use \"ingotBronze\" on iron sword to convert it to a bronze sword)" +
 				"\nmods.etfuturum.smithingTable.addRecipeNoNBT(<etfuturum:sponge:1>, <minecraft:sponge>, <minecraft:water_bucket>); //Take a vanilla sponge and a water bucket, you will get an Et Futurum Requiem wet sponge.");
 		enableFletchingTable = cfg.getBoolean("enableFletchingTable", catBlockFunc, true, "Currently DOES NOT HAVE ANY FUNCTIONALITY. Decoration ONLY!");
 		enableComposter = cfg.getBoolean("enableComposter", catBlockFunc, true, "Allows certain items to be composted, which has a chance of adding a layer to the compost bin. Once full, bone meal may be harvested. It is compatible with CraftTweaker." +
