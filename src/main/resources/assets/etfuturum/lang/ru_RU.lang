@@ -29,6 +29,10 @@ commands.etfuturum.fill.success=Успешно заполнено %d блоко�
 
 # Контейнеры (Containers/GUI)
 container.etfuturum.banner=Флаг
+
+# Это происходит, если кто-то убирает лазурит в качестве топлива с CT и больше ничего не добавляет
+container.enchant.rusrs=Нет доступных видов "топлива" ಠ_ಠ
+
 container.enchant.lapis.one=1 лазурит
 container.enchant.lapis.many=Лазурита: %d
 container.enchant.level.required=Требуемый уровень
@@ -57,8 +61,16 @@ gui.chat.update.download=Нажмите здесь, чтобы загрузит�
 subtitle.game.tnt.primed=Зажигание динамита
 subtitle.game.player.swim=Игрок плавает
 subtitle.game.player.swim.splash=Игрок плескается
+subtitle.entity.player.splash.high_speed=Громкий всплеск
 subtitle.game.potion.smash=Пузырёк разбился
+
 subtitle.game.neutral.hurt=Звук получения урона
+subtitle.game.neutral.swim=Кто-то плавает
+subtitle.game.neutral.swim.splash=Всплеск
+
+subtitle.game.hostile.hurt=Звук получения урона
+subtitle.game.hostile.swim=Кто-то плавает
+subtitle.game.hostile.swim.splash=Всплеск
 
 subtitle.fireworks.launch=Запуск фейерверка
 subtitle.fireworks.blast=Взрыв фейерверка
@@ -74,6 +86,7 @@ subtitle.fire.ignite=Огонь разгорается
 subtitle.entity.player.attack.weak=Слабая атака
 subtitle.entity.player.attack.strong=Сильная атака
 subtitle.entity.player.attack.crit=Критическая атака
+subtitle.entity.player.attack.knockback=Отбрасывающая атака
 
 subtitle.entity.fishing_bobber.throw=Бросание рыболовного поплавка
 subtitle.entity.fishing_bobber.retrieve=Возвращение рыболовного поплавка
@@ -83,7 +96,7 @@ subtitle.entity.item_frame.remove_item=Опустошение рамки
 subtitle.entity.item_frame.rotate_item=Поворот предмета в рамке
 
 
-subtitle.entity.rabbit.ambient=Писк кролика
+subtitle.entity.rabbit.ambient=Кролик пищит
 subtitle.entity.rabbit.death=Кролик погибает
 subtitle.entity.rabbit.hurt=Кролик получает урон
 subtitle.entity.rabbit.jump=Кролик прыгает
@@ -110,6 +123,8 @@ subtitle.entity.witch.death=Ведьма погибает
 subtitle.entity.squid.ambient=Спрут плавает
 subtitle.entity.squid.hurt=Спрут получает урон
 subtitle.entity.squid.death=Спрут погибает
+subtitle.entity.boat.paddle_water=Звук весла по воде
+subtitle.entity.boat.paddle_land=Звук весла по земле
 
 subtitle.random.fizz=Что-то потухло
 subtitle.random.drink=Глотание
@@ -123,6 +138,7 @@ subtitle.random.click=Щелчок
 subtitle.random.chestopen=Сундук открывается
 subtitle.random.chest.close=Сундук закрывается
 subtitle.random.anvil_land=Звук наковальни
+subtitle.random.burp=Отрыжка
 
 
 subtitle.fall.small=Кто-то споткнулся
@@ -192,6 +208,7 @@ subtitle.mob.hurt=%s получает урон
 subtitle.mob.death=%s погибает
 subtitle.mob.step=Шаги
 
+subtitle.mob.bat.idle=Летучая мышь пищит
 subtitle.mob.bat.takeoff=Летучая мышь взлетает
 subtitle.mob.chicken.say=Курица кудахчет
 subtitle.mob.cow.say=Корова мычит
