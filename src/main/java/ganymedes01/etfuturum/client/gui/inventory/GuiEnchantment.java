@@ -1,9 +1,11 @@
 package ganymedes01.etfuturum.client.gui.inventory;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
 
 import ganymedes01.etfuturum.core.utils.EnchantingFuelRegistry;
+import net.minecraft.init.Items;
 import net.minecraft.util.*;
 import org.lwjgl.util.glu.Project;
 
@@ -50,15 +52,29 @@ public class GuiEnchantment extends GuiContainer {
 	 * How long has the player seen the "lapis lazuli" text?
 	 */
 	private int viewingTicks = 0;
-	private String singleFuelString;
-	private String manyFuelString;
+	private ItemStack displayItem;
+	private final ArrayList<ItemStack> displayStacks; //Stores the stacks in an array so we can more easily pick random elements and stuff
 	private final Random displayRand = new Random();
+	private static final ItemStack LAPIS = new ItemStack(Items.dye, 1, 4); //This is used to match with lapis to put it at the front of the list
 
 	public GuiEnchantment(InventoryPlayer p_i45502_1_, World worldIn, String p_i45502_3_) {
 		super(new ContainerEnchantment(p_i45502_1_, worldIn, 0, 0, 0));
 		field_175379_F = p_i45502_1_;
 		field_147075_G = (ContainerEnchantment) inventorySlots;
 		field_175380_I = p_i45502_3_;
+
+		displayStacks = new ArrayList<>(EnchantingFuelRegistry.getFuels().keySet());
+		if(!displayStacks.isEmpty()) {
+			for(int i = 1; i < displayStacks.size(); i++) {
+				ItemStack stack = displayStacks.get(i);
+				if(LAPIS.isItemEqual(stack)) {
+					displayStacks.remove(i);
+					displayStacks.add(0, stack);
+					break;
+				}
+			}
+			displayItem = displayStacks.get(0);
+		}
 	}
 
 	/**
@@ -66,8 +82,8 @@ public class GuiEnchantment extends GuiContainer {
 	 */
 	@Override
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-		fontRendererObj.drawString(field_175380_I == null ? I18n.format("container.enchant", new Object[0]) : field_175380_I, 12, 5, 4210752);
-		fontRendererObj.drawString(I18n.format(field_175379_F.getInventoryName(), new Object[0]), 8, ySize - 96 + 2, 4210752);
+		fontRendererObj.drawString(field_175380_I == null ? I18n.format("container.enchant") : field_175380_I, 12, 5, 4210752);
+		fontRendererObj.drawString(I18n.format(field_175379_F.getInventoryName()), 8, ySize - 96 + 2, 4210752);
 	}
 
 	/**
@@ -76,7 +92,9 @@ public class GuiEnchantment extends GuiContainer {
 	@Override
 	public void updateScreen() {
 		super.updateScreen();
-		viewingTicks++;
+		if(displayStacks.size() > 1) { //We only need this if there are 2 or more elements in the list
+			viewingTicks++;
+		}
 		func_147068_g();
 	}
 
@@ -239,31 +257,18 @@ public class GuiEnchantment extends GuiContainer {
 						if(EnchantingFuelRegistry.getFuels().isEmpty()) {
 							var11 = StatCollector.translateToLocal("container.enchant.rusrs");
 						} else {
-							if (viewingTicks > 40 || singleFuelString == null || manyFuelString == null) {
+							if (viewingTicks > 40) {
 								viewingTicks = 0;
-								while (true) {
-									ItemStack[] fuels = EnchantingFuelRegistry.getFuels().keySet().toArray(new ItemStack[]{});
-									String newString = fuels[displayRand.nextInt(fuels.length)].getUnlocalizedName() + ".name";
-									if (newString.equals("item.dyePowder.blue.name")) {
-										newString = "container.enchant.lapis.one";
-									}
-									//We only check against the first fuelString because the only time we use a different string is for lapis, so we don't need to compare it.
-									if (!newString.equals(singleFuelString)) {
-										//We add this so we can use the same I18n.format code on other items, not just lapis.
-										singleFuelString = newString;
-										if (newString.equals("container.enchant.lapis.one")) {
-											manyFuelString = "container.enchant.lapis.many";
-										} else {
-											manyFuelString = singleFuelString;
-										}
-										break;
-									}
-								}
+								ArrayList<ItemStack> tempList = new ArrayList<>(displayStacks);
+								tempList.remove(displayItem);
+								displayItem = tempList.get(displayRand.nextInt(tempList.size()));
+								//We don't want to display the same item name twice in a row (because then it looks like it's being displayed for a longer time)
 							}
 
-							String prefix = singleFuelString.equals("container.enchant.lapis.one") ? "" : "%s ";
-							String text1 = prefix + StatCollector.translateToLocal(singleFuelString);
-							String text2 = prefix + StatCollector.translateToLocal(manyFuelString);
+							String name = displayItem.getUnlocalizedName() + ".name";
+							String prefix = name.equals("container.enchant.lapis.one") ? "" : "%s ";
+							String text1 = prefix + StatCollector.translateToLocal(name);
+							String text2 = prefix + StatCollector.translateToLocal(name.equals("item.dyePowder.blue.name") ? "container.enchant.lapis.one" : name);
 
 							if (var9 == 1) {
 								var11 = String.format(text1, 1);
