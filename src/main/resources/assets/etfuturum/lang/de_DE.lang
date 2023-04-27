@@ -1,83 +1,218 @@
-# Creative Tab
-itemGroup.etfuturum=Et Futurum
+# Kreativ-Tab
+itemGroup.etfuturum.items=Et-Futurum-Items
+itemGroup.etfuturum.blocks=Et-Futurum-Blöcke
 
-# Enchantments
-enchantment.frost_walker=Frostläufer
-enchantment.mending=Reparierung
+# Verzauberungen
+enchantment.frost_walker=Eisläufer
+enchantment.mending=Reparatur
+enchantment.waterWalker=Wasserläufer
+enchantment.binding_curse=§cFluch der Bindung
+enchantment.vanishing_curse=§cFluch des Verschwindens
+enchantment.swift_sneak=Huschen
 
-# Containers
+# Effekte
+potion.levitation=Schwebekraft
+potion.levitation.postfix=Trank der Schwebekraft
+
+# Spielmodus-Auswahl
+
+debug.gamemodes.select_next=%s Nächster
+debug.gamemodes.press_f4=[ F4 ]
+
+# Spielmodi
+gameMode.Spectator=Zuschauermodus
+
+# Befehle
+commands.etfuturum.fill.usage=/fill <from> <to> <block>
+commands.etfuturum.fill.outOfWorld=Blöcke können nicht außerhalb der Welt platziert werden
+commands.etfuturum.fill.success=%s Blöcke wurden erfolgreich platziert
+
+# Container/GUI
 container.etfuturum.banner=Banner
-container.enchant.lapis.one=1 Lapis Lazuli
-container.enchant.lapis.many=%d Lapis Lazuli
-container.enchant.level.one=1 Verzauberungslevel
-container.enchant.level.many=%d Verzauberungslevel
+#Das passiert, wenn man Lapislazuli als Zaubermaterial mit CT entfernt, und nichts anderes hinzufügt
+container.enchant.rusrs=Kein Material verfügbar ಠ_ಠ
+container.enchant.lapis.one=1 Lapislazuli
+container.enchant.lapis.many=%d Lapislazuli
+container.enchant.level.required=Erforderliche Erfahrungsstufe
+container.enchant.level.one=1 Erfahrungsstufe
+container.enchant.level.many=%d Erfahrungsstufen
 container.enchant.clue=%s . . . ?
+container.etfuturum.blast_furnace=Schmelzofen
+container.etfuturum.smoker=Räucherofen
+container.etfuturum.barrel=Fass
+container.etfuturum.shulker_box=Shulker-Kiste
+container.etfuturum.chest_boat=Truhenboot
 
-# Entities
-entity.etfuturum.endermite.name=Endermilbe
+item.record.pigstep.desc=Lena Raine - Pigstep
+item.record.otherside.desc=Lena Raine - otherside
+
+gui.smithing.upgrade=Ausrüstung aufwerten
+gui.warn.continue=Fortsetzen...
+gui.warn.dismiss=Nicht erneut anzeigen.
+gui.warn.notice=HINWEIS:
+gui.warn.configSplit1=Da die gesamte Et-Futurum-Konfigurationsdatei sehr lang und schwierig zu navigieren ist, sind die Einstellungen jetzt auf mehrere Dateien verteilt. Dir wird diese Warnung angezeigt, weil du eine Datei aus einer früheren Version in "configs/etfuturum.cfg" hast. Es gibt kein System, um die Einstellungen automatisch zu übertragen, also wirf einen Blick in die neuen Dateien!
+gui.warn.configSplit2=Wenn du fertig bist, kannst du die alte Konfigurationsdatei löschen oder umbenennen, oder das Kästchen ankreuzen, um diese Warnung nicht länger anzuzeigen.
+gui.chat.update=%1$s Version %2$s ist verfügbar!
+gui.chat.update.download=Klicke hier um das Update von %s herunterzuladen!
+
+# Untertitel
+subtitle.footsteps=Schritte
+subtitle.mob.hurt=%s nimmt Schaden
+subtitle.mob.death=%s stirbt
+subtitle.mob.step=Schritte
+subtitle.block.destroyed=Block platziert oder zerstört
+subtitle.block.placed=Block platziert
+
+subtitle.mob.bat.takeoff=Fledermaus fliegt los
+subtitle.mob.chicken.say=Huhn gackert
+subtitle.mob.zombie.say=Zombie stöhnt
+subtitle.mob.skeleton.say=Skelett klappert
+subtitle.mob.spider.say=Spinne zischt
+subtitle.random.pop=Item plops /// Gegenstand aufgehoben
+subtitle.random.orb=Erfahrung erhalten
+subtitle.fall.small=Etwas stolpert
+subtitle.fall.big=Etwas fällt
+
+subtitle.tile.piston.out=Kolben arbeitet
+subtitle.tile.piston.in=Kolben arbeitet
+
+# Objekte
+entity.etfuturum.endermite.name=Endermite
 entity.etfuturum.wooden_armorstand.name=Rüstungsständer
-entity.etfuturum.rabbit.name=Hase
-entity.etfuturum.villager_zombie.name=Dorfbewohner Zombie
+entity.etfuturum.rabbit.name=Kaninchen
+entity.etfuturum.villager_zombie.name=Zombiedorfbewohner
 entity.etfuturum.end_crystal.name=Enderkristall
 entity.etfuturum.ender_dragon.name=Enderdrache
 entity.etfuturum.snow_golem.name=Schneegolem
+entity.etfuturum.brown_mooshroom.name=Braune Mooshroom
+entity.etfuturum.shulker.name=Shulker
+entity.etfuturum.shulker_candy.name=Shulker-Geschoss
+entity.etfuturum.chest_boat.name=Truhenboot
+entity.etfuturum.new_boat.name=Boot
 
-# Items
+entity.etfuturum.stray.name=Eiswanderer
+entity.etfuturum.husk.name=Wüstenzombie
+entity.etfuturum.guardian.name=Wächter
+entity.etfuturum.elder_guardian.name=Großer Wächter
+entity.etfuturum.polar_bear.name=Eisbär
+
+# Gegenstände
 item.etfuturum.mutton_raw.name=Rohes Hammelfleisch
-item.etfuturum.mutton_cooked.name=Gekochtes Hammelfleisch
+item.etfuturum.mutton_cooked.name=Gebratenes Hammelfleisch
 item.etfuturum.prismarine_shard.name=Prismarinscherbe
-item.etfuturum.prismarine_crystals.name=Prismarinkristall
+item.etfuturum.prismarine_crystals.name=Prismarinkristalle
 item.etfuturum.wooden_armorstand.name=Rüstungsständer
 item.etfuturum.rabbit_raw.name=Rohes Kaninchen
-item.etfuturum.rabbit_cooked.name=Gekochtes Kaninchen
+item.etfuturum.rabbit_cooked.name=Gebratenes Kaninchen
 item.etfuturum.rabbit_stew.name=Kaninchenragout
-item.etfuturum.rabbit_foot.name=Kaninchenpfote
+item.etfuturum.rabbit_foot.name=Hasenpfote
 item.etfuturum.rabbit_hide.name=Kaninchenfell
 item.etfuturum.beetroot.name=Rote Bete
-item.etfuturum.beetroot_seeds.name=Rote Bete-Samen
-item.etfuturum.beetroot_soup.name=Rote Bete-Suppe
+item.etfuturum.beetroot_seeds.name=Rote-Bete-Samen
+item.etfuturum.beetroot_soup.name=Borschtsch
 item.etfuturum.chorus_fruit.name=Chorusfrucht
 item.etfuturum.chorus_fruit_popped.name=Geplatzte Chorusfrucht
-item.etfuturum.dragon_breath.name=Atem des Drachen
-item.etfuturum.elytra.name=Elytra
+item.etfuturum.dragon_breath.name=Drachenatem
+item.etfuturum.elytra.name=Elytren
 item.etfuturum.end_crystal.name=Enderkristall
-potion.prefix.lingering=Verweilender
+item.etfuturum.nugget_iron.name=Eisenklumpen
+item.etfuturum.netherite_scrap.name=Netheritplatten
+item.etfuturum.netherite_ingot.name=Netheritbarren
+item.etfuturum.netherite_helmet.name=Netherithelm
+item.etfuturum.netherite_chestplate.name=Netheritharnisch
+item.etfuturum.netherite_leggings.name=Netheritbeinschutz
+item.etfuturum.netherite_boots.name=Netheritstiefel
+item.etfuturum.netherite_pickaxe.name=Netheritspitzhacke
+item.etfuturum.netherite_axe.name=Netheritaxt
+item.etfuturum.netherite_spade.name=Netheritschaufel
+item.etfuturum.netherite_sword.name=Netheritschwert
+item.etfuturum.netherite_hoe.name=Netherithacke
+potion.prefix.lingering=Verweil || TRANSLATION IN PROGRESS
+item.etfuturum.totem_of_undying.name=Totem der Unsterblichkeit
+item.etfuturum.item_sign_spruce.name=Fichtenholzschild
+item.etfuturum.item_sign_birch.name=Birkenholzschild
+item.etfuturum.item_sign_jungle.name=Tropenholzschild
+item.etfuturum.item_sign_acacia.name=Akazienholzschild
+item.etfuturum.item_sign_dark_oak.name=Schwarzeichenholzschild
+item.etfuturum.item_sign_warped.name=Wirrschild
+item.etfuturum.item_sign_crimson.name=Karmesinschild
+item.etfuturum.dye_white.name=Weißer Farbstoff
+item.etfuturum.dye_blue.name=Blauer Farbstoff
+item.etfuturum.dye_brown.name=Brauner Farbstoff
+item.etfuturum.dye_black.name=Schwarzer Farbstoff
+item.etfuturum.copper_ingot.name=Kupferbarren
+item.etfuturum.suspicious_stew.name=Seltsame Suppe
+item.etfuturum.sweet_berries.name=Süßbeeren
+item.etfuturum.raw_copper.name=Rohkupfer
+item.etfuturum.raw_iron.name=Roheisen
+item.etfuturum.raw_gold.name=Rohgold
+item.etfuturum.oak_boat.name=Eichenholzboot
+item.etfuturum.spruce_boat.name=Fichtenholzboot
+item.etfuturum.birch_boat.name=Birkenholzboot
+item.etfuturum.jungle_boat.name=Tropenholzboot
+item.etfuturum.dark_oak_boat.name=Schwarzeichenholzboot
+item.etfuturum.acacia_boat.name=Akazienholzboot
+item.etfuturum.oak_chest_boat.name=Eichenholztruhenboot
+item.etfuturum.spruce_chest_boat.name=Fichtenholztruhenboot
+item.etfuturum.birch_chest_boat.name=Birkenholztruhenboot
+item.etfuturum.jungle_chest_boat.name=Tropenholztruhenboot
+item.etfuturum.dark_oak_chest_boat.name=Schwarzeichenholztruhenboot
+item.etfuturum.acacia_chest_boat.name=Akazienholztruhenboot
+item.etfuturum.shulker_shell.name=Shulker-Schale
+item.etfuturum.amethyst_shard.name=Amethystscherbe
 
-# Arrows
-tipped_arrow.potion.nightVision.name=Pfeil der Nachtsicht
-tipped_arrow.potion.invisibility.name=Pfeil der Unsichtbarkeit
-tipped_arrow.potion.jump.name=Pfeil der Sprungkraft
-tipped_arrow.potion.fireResistance.name=Pfeil der Feuerresistenz
-tipped_arrow.potion.moveSpeed.name=Pfeil der Schnelligkeit
-tipped_arrow.potion.moveSlowdown.name=Pfeil der Langsamkeit
-tipped_arrow.potion.waterBreathing.name=Pfeil der Wasseratmung
-tipped_arrow.potion.heal.name=Pfeil der Heilung
-tipped_arrow.potion.harm.name=Pfeil der Schmerzen
-tipped_arrow.potion.poison.name=Pfeil des Gifts
-tipped_arrow.potion.regeneration.name=Pfeil der Regeneration
-tipped_arrow.potion.damageBoost.name=Pfeil der Stärke
-tipped_arrow.potion.weakness.name=Pfeil der Schwäche
+# Pfeile
+item.etfuturum.tipped_arrow.name=Getränkter Pfeil
+item.etfuturum.tipped_arrow.effect.empty.name=Nicht herstellbarer Getränkter Pfeil
+item.etfuturum.tipped_arrow.potion.nightVision.name=Pfeil der Nachtsicht
+item.etfuturum.tipped_arrow.potion.invisibility.name=Pfeil der Unsichtbarkeit
+item.etfuturum.tipped_arrow.potion.jump.name=Pfeil der Sprungkraft
+item.etfuturum.tipped_arrow.potion.fireResistance.name=Pfeil der Feuerresistenz
+item.etfuturum.tipped_arrow.potion.moveSpeed.name=Pfeil der Schnelligkeit
+item.etfuturum.tipped_arrow.potion.moveSlowdown.name=Pfeil der Langsamkeit
+item.etfuturum.tipped_arrow.potion.waterBreathing.name=Pfeil der Unterwasseratmung
+item.etfuturum.tipped_arrow.potion.heal.name=Pfeil der Heilung
+item.etfuturum.tipped_arrow.potion.harm.name=Pfeil des Schadens
+item.etfuturum.tipped_arrow.potion.poison.name=Pfeil der Vergiftung
+item.etfuturum.tipped_arrow.potion.regeneration.name=Pfeil der Regeneration
+item.etfuturum.tipped_arrow.potion.damageBoost.name=Pfeil der Stärke
+item.etfuturum.tipped_arrow.potion.weakness.name=Pfeil der Schwäche
 
-# Blocks
+
+# Blöcke
 tile.etfuturum.stone_granite.name=Granit
 tile.etfuturum.stone_granite_smooth.name=Polierter Granit
 tile.etfuturum.stone_diorite.name=Diorit
 tile.etfuturum.stone_diorite_smooth.name=Polierter Diorit
 tile.etfuturum.stone_andesite.name=Andesit
 tile.etfuturum.stone_andesite_smooth.name=Polierter Andesit
+tile.etfuturum.granite_slab.name=Granitstufe
+tile.etfuturum.polished_granite_slab.name=Polierte Granitstufe
+tile.etfuturum.diorite_slab.name=Dioritstufe
+tile.etfuturum.polished_diorite_slab.name=Polierte Dioritstufe
+tile.etfuturum.andesite_slab.name=Andesitstufe
+tile.etfuturum.polished_andesite_slab.name=Polierte Andesitstufe
+tile.etfuturum.granite_stairs.name=Granittreppe
+tile.etfuturum.polished_granite_stairs.name=Polierte Granittreppe
+tile.etfuturum.diorite_stairs.name=Diorittreppe
+tile.etfuturum.polished_diorite_stairs.name=Polierte Diorittreppe
+tile.etfuturum.andesite_stairs.name=Andesittreppe
+tile.etfuturum.polished_andesite_stairs.name=Polierte Andesittreppe
 tile.etfuturum.iron_trapdoor.name=Eisenfalltür
 tile.etfuturum.prismarine_block_rough.name=Prismarin
 tile.etfuturum.prismarine_block_bricks.name=Prismarinziegel
-tile.etfuturum.prismarine_block_dark.name=Dunkles Prismarin
+tile.etfuturum.prismarine_block_dark.name=Dunkler Prismarin
 tile.etfuturum.sea_lantern.name=Seelaterne
-tile.etfuturum.daylight_detector_inverted.name=Umgekehrter Tageslichtsensor
+tile.etfuturum.daylight_detector_inverted.name=Invertierter Tageslichtsensor
 tile.etfuturum.red_sandstone_default.name=Roter Sandstein
-tile.etfuturum.red_sandstone_chiseled.name=Gemeißelter Roter Sandstein
-tile.etfuturum.red_sandstone_smooth.name=Glatter Roter Sandstein
+tile.etfuturum.red_sandstone_chiseled.name=Gemeißelter roter Sandstein
+tile.etfuturum.red_sandstone_smooth.name=Geschnittener roter Sandstein
 tile.etfuturum.red_sandstone_slab.name=Rote Sandsteinstufe
+tile.etfuturum.cut_red_sandstone_slab.name=Geschnittene rote Sandsteinstufe
+tile.etfuturum.smooth_red_sandstone_slab.name=Glatte rote Sandsteinstufe
 tile.etfuturum.red_sandstone_stairs.name=Rote Sandsteintreppe
-tile.etfuturum.red_mushroom.name=Pilz
-tile.etfuturum.brown_mushroom.name=Pilz
+tile.etfuturum.red_mushroom.name=Roter Pilzblock
+tile.etfuturum.brown_mushroom.name=Brauner Pilzblock
 tile.etfuturum.coarse_dirt.name=Grobe Erde
 tile.etfuturum.slime.name=Schleimblock
 tile.etfuturum.sponge.name=Schwamm
@@ -105,20 +240,516 @@ tile.etfuturum.purpur_slab.name=Purpurstufe
 tile.etfuturum.purpur_pillar.name=Purpursäule
 tile.etfuturum.purpur_stairs.name=Purpurtreppe
 tile.etfuturum.end_bricks.name=Endsteinziegel
-tile.etfuturum.grass_path.name=Straßenblock
+tile.etfuturum.end_brick_slab.name=Endsteinziegelstufe
+tile.etfuturum.end_brick_stairs.name=Endsteinziegeltreppe
+tile.etfuturum.grass_path.name=Trampelpfad
 tile.etfuturum.end_rod.name=Endstab
-tile.etfuturum.chorus_flower.name=Chorusblume
+tile.etfuturum.chorus_flower.name=Chorusblüte
 tile.etfuturum.chorus_plant.name=Choruspflanze
-tile.etfuturum.crying_obsidian.name=Weinendes Obsidian
+tile.etfuturum.crying_obsidian.name=Weinender Obsidian
 tile.etfuturum.brewing_stand.name=Braustand
-tile.etfuturum.frosted_ice.name=Gefrorenes Eis
-tile.etfuturum.rose.name=Gefrostetes Eis
+tile.etfuturum.frosted_ice.name=Brüchiges Eis
+tile.etfuturum.rose.name=Rose
 tile.etfuturum.beacon.name=Leuchtfeuer
-tile.etfuturum.enchantment_table.name=Verzauberungstisch
+tile.etfuturum.enchantment_table.name=Zaubertisch
 tile.etfuturum.anvil.intact.name=Amboss
-tile.etfuturum.anvil.slightlyDamaged.name=Leicht beschädigter Amboss
-tile.etfuturum.anvil.veryDamaged.name=Schwer beschädigter Amboss
+tile.etfuturum.anvil.slightlyDamaged.name=Angeschlagener Amboss
+tile.etfuturum.anvil.veryDamaged.name=Beschädigter Amboss
 tile.etfuturum.daylight_sensor.name=Tageslichtsensor
+tile.etfuturum.ancient_debris.name=Antiker Schritt
+tile.etfuturum.netherite_block.name=Netheritblock
+tile.etfuturum.netherite_stairs.name=Treppe mit dem größten Swag || TRANSLATION IN PROGRESS
+tile.etfuturum.blue_ice.name=Blaueis
+tile.etfuturum.smooth_stone.name=Glatter Stein
+tile.etfuturum.smooth_sandstone.name=Glatter Sandstein
+tile.etfuturum.smooth_red_sandstone.name=Glatter roter Sandstein
+tile.etfuturum.smooth_sandstone_slab.name=Glatte Sandsteinstufe
+tile.etfuturum.smooth_red_sandstone_slab.name=Glatte rote Sandsteinstufe
+tile.etfuturum.smooth_sandstone_stairs.name=Glatte Sandsteintreppe
+tile.etfuturum.smooth_red_sandstone_stairs.name=Glatter rote Sandsteintreppe
+tile.etfuturum.smooth_quartz.name=Glatter Quarzblock
+tile.etfuturum.smooth_quartz_slab.name=Glatte Quarzstufe
+tile.etfuturum.smooth_quartz_stairs.name=Glatte Quarztreppe
+tile.etfuturum.quartz_bricks.name=Quarzziegel
+tile.etfuturum.stone_slab.name=Steinstufe
+tile.etfuturum.mossy_cobblestone_slab.name=Bemooste Bruchsteinstufe
+tile.etfuturum.mossy_stone_brick_slab.name=Bemooste Steinziegelstufe
+tile.etfuturum.cut_sandstone_slab.name=Geschnittene Sandsteinstufe
+tile.etfuturum.stone_stairs.name=Steintreppe
+tile.etfuturum.mossy_cobblestone_stairs.name=Bemooste Bruchsteintreppe
+tile.etfuturum.mossy_stone_brick_stairs.name=Bemooste Steinziegeltreppe
+tile.etfuturum.lily_of_the_valley.name=Maiglöckchen
+tile.etfuturum.cornflower.name=Kornblume
+tile.etfuturum.wither_rose.name=Wither-Rose
+tile.etfuturum.copper_ore.name=Kupfererz
+tile.etfuturum.deepslate_copper_ore.name=Tiefenschiefer-Kupfererz
+tile.etfuturum.deepslate_coal_ore.name=Tiefenschiefer-Steinkohle
+tile.etfuturum.deepslate_iron_ore.name=Tiefenschiefer-Eisenerz
+tile.etfuturum.deepslate_gold_ore.name=Tiefenschiefer-Golderz
+tile.etfuturum.deepslate_redstone_ore.name=Tiefenschiefer-Redstone-Erz
+tile.etfuturum.deepslate_lit_redstone_ore.name=Tiefenschiefer-Redstone-Erz
+tile.etfuturum.deepslate_lapis_ore.name=Tiefenschiefer-Lapislazulierz
+tile.etfuturum.deepslate_diamond_ore.name=Tiefenschiefer-Diamanterz
+tile.etfuturum.deepslate_emerald_ore.name=Tiefenschiefer-Smaragderz
+tile.etfuturum.copper_block.name=Kupferblock
+tile.etfuturum.exposed_copper.name=Angelaufener Kupferblock
+tile.etfuturum.weathered_copper.name=Verwitterter Kupferblock
+tile.etfuturum.oxidized_copper.name=Oxidierter Kupferblock
+tile.etfuturum.cut_copper.name=Geschnittener Kupferblock
+tile.etfuturum.exposed_cut_copper.name=Angelaufener geschnittener Kupferblock
+tile.etfuturum.weathered_cut_copper.name=Verwitterter geschnittener Kupferblock
+tile.etfuturum.oxidized_cut_copper.name=Oxidierter geschnittener Kupferblock
+tile.etfuturum.cut_copper_stairs.name=Geschnittene Kupfertreppe
+tile.etfuturum.exposed_cut_copper_stairs.name=Angelaufene geschnittene Kupfertreppe
+tile.etfuturum.weathered_cut_copper_stairs.name=Verwitterte geschnittene Kupfertreppe
+tile.etfuturum.oxidized_cut_copper_stairs.name=Oxidierte geschnittene Kupfertreppe
+tile.etfuturum.cut_copper_slab.name=Geschnittene Kupferstufe
+tile.etfuturum.exposed_cut_copper_slab.name=Angelaufene geschnittene Kupferstufe
+tile.etfuturum.weathered_cut_copper_slab.name=Verwitterte geschnittene Kupferstufe
+tile.etfuturum.oxidized_cut_copper_slab.name=Oxidierte geschnittene Kupferstufe
+tile.etfuturum.waxed_copper_block.name=Gewachster Kupferblock
+tile.etfuturum.waxed_exposed_copper.name=Gewachster angelaufener Kupferblock
+tile.etfuturum.waxed_weathered_copper.name=Gewachster verwitterter Kupferblock
+tile.etfuturum.waxed_oxidized_copper.name=Gewachster oxidierter Kupferblock
+tile.etfuturum.waxed_cut_copper.name=Gewachster geschnittener Kupferblock
+tile.etfuturum.waxed_exposed_cut_copper.name=Gewachster angelaufener geschnittener Kupferblock
+tile.etfuturum.waxed_weathered_cut_copper.name=Gewachster verwitterter geschnittener Kupferblock
+tile.etfuturum.waxed_oxidized_cut_copper.name=Gewachster oxidierter geschnittener Kupferblock
+tile.etfuturum.waxed_cut_copper_stairs.name=Gewachste geschnittene Kupfertreppe
+tile.etfuturum.waxed_exposed_cut_copper_stairs.name=Gewachste angelaufene geschnittene Kupfertreppe
+tile.etfuturum.waxed_weathered_cut_copper_stairs.name=Gewachste verwitterte geschnittene Kupfertreppe
+tile.etfuturum.waxed_oxidized_cut_copper_stairs.name=Gewachste oxidierte geschnittene Kupfertreppe
+tile.etfuturum.waxed_cut_copper_slab.name=Gewachste geschnittene Kupferstufe
+tile.etfuturum.waxed_exposed_cut_copper_slab.name=Gewachste angelaufene geschnittene Kupferstufe
+tile.etfuturum.waxed_weathered_cut_copper_slab.name=Gewachste verwitterte geschnittene Kupferstufe
+tile.etfuturum.waxed_oxidized_cut_copper_slab.name=Gewachste oxidierte geschnittene Kupferstufe
+tile.etfuturum.deepslate.name=Tiefenschiefer
+tile.etfuturum.cobbled_deepslate.name=Bruchtiefenschiefer
+tile.etfuturum.cobbled_deepslate_slab.name=Bruchtiefenschieferstufe
+tile.etfuturum.cobbled_deepslate_stairs.name=Bruchtiefenschiefertreppe
+tile.etfuturum.cobbled_deepslate_wall.name=Bruchtiefenschiefermauer
+tile.etfuturum.deepslate_chiseled.name=Gemeißelter Tiefenschiefer
+tile.etfuturum.polished_deepslate.name=Polierter Tiefenschiefer
+tile.etfuturum.polished_deepslate_slab.name=Polierte Tiefenschieferstufe
+tile.etfuturum.polished_deepslate_stairs.name=Polierte Tiefenschiefertreppe
+tile.etfuturum.polished_deepslate_wall.name=Polierte Tiefenschiefermauer
+tile.etfuturum.deepslate_bricks.name=Tiefenschieferziegel
+tile.etfuturum.deepslate_brick_slab.name=Tiefenschieferziegelstufe
+tile.etfuturum.deepslate_brick_stairs.name=Tiefenschieferziegeltreppe
+tile.etfuturum.deepslate_brick_wall.name=Tiefenschieferziegelmauer
+tile.etfuturum.deepslate_tiles.name=Tiefenschieferfliesen
+tile.etfuturum.deepslate_tile_slab.name=Tiefenschieferfliesenstufe
+tile.etfuturum.deepslate_tile_stairs.name=Tiefenschieferfliesentreppe
+tile.etfuturum.deepslate_tile_wall.name=Tiefenschieferfliesenmauer
+tile.etfuturum.deepslate_bricks_cracked.name=Rissige Tiefenschieferziegel
+tile.etfuturum.deepslate_tiles_cracked.name=Rissige Tiefenschieferfliesen
+tile.etfuturum.infested_deepslate.name=Befallener Tiefenschiefer
+tile.etfuturum.tuff.name=Tuffstein
+tile.etfuturum.raw_copper_block.name=Rohkupferblock
+tile.etfuturum.raw_iron_block.name=Roheisenblock
+tile.etfuturum.raw_gold_block.name=Rohgoldblock
+tile.etfuturum.end_gateway.name=Endtransitportal
+tile.etfuturum.end_portal.name=Endportal
+tile.etfuturum.smooth_basalt.name=Glatter Basalt
+tile.etfuturum.calcite.name=Kalzit
+tile.etfuturum.amethyst_block.name=Amethystblock
+tile.etfuturum.budding_amethyst.name=Amethystknospenblock
+tile.etfuturum.small_amethyst_bud.name=Kleine Amethystknospe
+tile.etfuturum.medium_amethyst_bud.name=Mittlere Amethystknospe
+tile.etfuturum.large_amethyst_bud.name=Große Amethystknospe
+tile.etfuturum.amethyst_cluster.name=Amethysthaufen
+
+tile.etfuturum.sculk.name=Sculk
+tile.etfuturum.sculk_catalyst.name=Sculk-Katalysator
+
+tile.etfuturum.magma.name=Magmablock
+tile.etfuturum.nether_wart.name=Netherwarzenblock
+tile.etfuturum.bone.name=Knochenblock
+
+tile.etfuturum.prismarine_stairs.name=Prismarintreppe
+tile.etfuturum.prismarine_stairs_brick.name=Prismarinziegeltreppe
+tile.etfuturum.prismarine_stairs_dark.name=Dunkle Prismarintreppe
+
+tile.etfuturum.rough_prismarine_slab.name=Prismarinstufe
+tile.etfuturum.brick_prismarine_slab.name=Prismarinziegelstufe
+tile.etfuturum.dark_prismarine_slab.name=Dunkle Prismarinstufe
+
+tile.etfuturum.log_stripped_0.name=Entrindeter Eichenstamm
+tile.etfuturum.log_stripped_1.name=Entrindeter Fichtenstamm
+tile.etfuturum.log_stripped_2.name=Entrindeter Birkenstamm
+tile.etfuturum.log_stripped_3.name=Entrindeter Tropenbaumstamm
+tile.etfuturum.log2_stripped_0.name=Entrindeter Akazienstamm
+tile.etfuturum.log2_stripped_1.name=Entrindeter Schwarzeichenstamm
+
+tile.etfuturum.trapdoor_spruce.name=Fichtenholzfalltür
+tile.etfuturum.trapdoor_birch.name=Birkenholzfalltür
+tile.etfuturum.trapdoor_jungle.name=Tropenholzfalltür
+tile.etfuturum.trapdoor_acacia.name=Akazienholzfalltür
+tile.etfuturum.trapdoor_dark_oak.name=Schwarzeichenholzfalltür
+
+tile.etfuturum.pressure_plate_spruce.name=Fichtenholzdruckplatte
+tile.etfuturum.pressure_plate_birch.name=Birkenholzdruckplatte
+tile.etfuturum.pressure_plate_jungle.name=Tropenholzdruckplatte
+tile.etfuturum.pressure_plate_acacia.name=Akazienholzdruckplatte
+tile.etfuturum.pressure_plate_dark_oak.name=Schwarzeichenholzdruckplatte
+
+tile.etfuturum.button_spruce.name=Fichtenholzknopf
+tile.etfuturum.button_birch.name=Birkenholzknopf
+tile.etfuturum.button_jungle.name=Tropenholzknopf
+tile.etfuturum.button_acacia.name=Akazienholzknopf
+tile.etfuturum.button_dark_oak.name=Schwarzeichenholzknopf
+
+tile.etfuturum.bark_0.name=Eichenholz
+tile.etfuturum.bark_1.name=Fichtenholz
+tile.etfuturum.bark_2.name=Birkenholz
+tile.etfuturum.bark_3.name=Tropenholz
+
+tile.etfuturum.bark2_0.name=Akazienholz
+tile.etfuturum.bark2_1.name=Schwarzeichenholz
+
+tile.etfuturum.wood_stripped_0.name=Entrindetes Eichenholz
+tile.etfuturum.wood_stripped_1.name=Entrindetes Fichtenholz
+tile.etfuturum.wood_stripped_2.name=Entrindetes Birkenholz
+tile.etfuturum.wood_stripped_3.name=Entrindetes Tropenholz
+
+tile.etfuturum.wood2_stripped_0.name=Entrindetes Akazienholz
+tile.etfuturum.wood2_stripped_1.name=Entrindetes Schwarzeichenholz
+
+# tue so, als müssten diese hier für WAILA nicht existieren
+tile.etfuturum.log_stripped_4.name=Entrindeter Eichenstamm
+tile.etfuturum.log_stripped_5.name=Entrindeter Fichtenstamm
+tile.etfuturum.log_stripped_6.name=Entrindeter Birkenstamm
+tile.etfuturum.log_stripped_7.name=Entrindeter Tropenbaumstamm
+tile.etfuturum.log_stripped_8.name=Entrindeter Eichenstamm
+tile.etfuturum.log_stripped_9.name=Entrindeter Fichtenstamm
+tile.etfuturum.log_stripped_10.name=Entrindeter Birkenstamm
+tile.etfuturum.log_stripped_11.name=Entrindeter Tropenbaumstamm
+tile.etfuturum.log_stripped_12.name=Entrindeter Eichenstamm
+tile.etfuturum.log_stripped_13.name=Entrindeter Fichtenstamm
+tile.etfuturum.log_stripped_14.name=Entrindeter Birkenstamm
+tile.etfuturum.log_stripped_15.name=Entrindeter Tropenbaumstamm
+
+tile.etfuturum.log2_stripped_4.name=Entrindeter Akazienstamm
+tile.etfuturum.log2_stripped_5.name=Entrindeter Schwarzeichenstamm
+tile.etfuturum.log2_stripped_8.name=Entrindeter Akazienstamm
+tile.etfuturum.log2_stripped_9.name=Entrindeter Schwarzeichenstamm
+tile.etfuturum.log2_stripped_12.name=Entrindeter Akazienstamm
+tile.etfuturum.log2_stripped_13.name=Entrindeter Schwarzeichenstamm
+
+tile.etfuturum.bark_4.name=Eichenholz
+tile.etfuturum.bark_5.name=Fichtenholz
+tile.etfuturum.bark_6.name=Birkenholz
+tile.etfuturum.bark_7.name=Tropenholz
+tile.etfuturum.bark_8.name=Eichenholz
+tile.etfuturum.bark_9.name=Fichtenholz
+tile.etfuturum.bark_10.name=Birkenholz
+tile.etfuturum.bark_11.name=Tropenholz
+tile.etfuturum.bark_12.name=Eichenholz
+tile.etfuturum.bark_13.name=Fichtenholz
+tile.etfuturum.bark_14.name=Birkenholz
+tile.etfuturum.bark_15.name=Tropenholz
+
+tile.etfuturum.bark2_4.name=Akazienholz
+tile.etfuturum.bark2_5.name=Schwarzeichenholz
+tile.etfuturum.bark2_8.name=Akazienholz
+tile.etfuturum.bark2_9.name=Schwarzeichenholz
+tile.etfuturum.bark2_12.name=Akazienholz
+tile.etfuturum.bark2_13.name=Schwarzeichenholz
+
+tile.etfuturum.wood_stripped_4.name=Entrindetes Eichenholz
+tile.etfuturum.wood_stripped_5.name=Entrindetes Fichtenholz
+tile.etfuturum.wood_stripped_6.name=Entrindetes Birkenholz
+tile.etfuturum.wood_stripped_7.name=Entrindetes Tropenholz
+tile.etfuturum.wood_stripped_8.name=Entrindetes Eichenholz
+tile.etfuturum.wood_stripped_9.name=Entrindetes Fichtenholz
+tile.etfuturum.wood_stripped_10.name=Entrindetes Birkenholz
+tile.etfuturum.wood_stripped_11.name=Entrindetes Tropenholz
+tile.etfuturum.wood_stripped_12.name=Entrindetes Eichenholz
+tile.etfuturum.wood_stripped_13.name=Entrindetes Fichtenholz
+tile.etfuturum.wood_stripped_14.name=Entrindetes Birkenholz
+tile.etfuturum.wood_stripped_15.name=Entrindetes Tropenholz
+
+tile.etfuturum.wood2_stripped_4.name=Entrindetes Akazienholz
+tile.etfuturum.wood2_stripped_5.name=Entrindetes Schwarzeichenholz
+tile.etfuturum.wood2_stripped_8.name=Entrindetes Akazienholz
+tile.etfuturum.wood2_stripped_9.name=Entrindetes Schwarzeichenholz
+tile.etfuturum.wood2_stripped_12.name=Entrindetes Akazienholz
+tile.etfuturum.wood2_stripped_13.name=Entrindetes Schwarzeichenholz
+
+
+tile.etfuturum.white_glazed_terracotta.name=Weiße glasierte Keramik
+tile.etfuturum.orange_glazed_terracotta.name=Orange glasierte Keramik
+tile.etfuturum.magenta_glazed_terracotta.name=Magenta glasierte Keramik
+tile.etfuturum.light_blue_glazed_terracotta.name=Hellblaue glasierte Keramik
+tile.etfuturum.yellow_glazed_terracotta.name=Gelbe glasierte Keramik
+tile.etfuturum.lime_glazed_terracotta.name=Hellgrüne glasierte Keramik
+tile.etfuturum.pink_glazed_terracotta.name=Rosa glasierte Keramik
+tile.etfuturum.gray_glazed_terracotta.name=Graue glasierte Keramik
+tile.etfuturum.light_gray_glazed_terracotta.name=Hellgraue glasierte Keramik
+tile.etfuturum.cyan_glazed_terracotta.name=Türkise glasierte Keramik
+tile.etfuturum.purple_glazed_terracotta.name=Violette glasierte Keramik
+tile.etfuturum.blue_glazed_terracotta.name=Blaue glasierte Keramik
+tile.etfuturum.brown_glazed_terracotta.name=Brauen glasierte Keramik
+tile.etfuturum.green_glazed_terracotta.name=Grüne glasierte Keramik
+tile.etfuturum.red_glazed_terracotta.name=Rote glasierte Keramik
+tile.etfuturum.black_glazed_terracotta.name=Schwarze glasierte Keramik
+
+tile.etfuturum.barrel.name=Fass
+tile.etfuturum.blast_furnace.name=Schmelzofen
+tile.etfuturum.smoker.name=Räucherofen
+tile.etfuturum.stonecutter.name=Steinsäge
+tile.etfuturum.smithing_table.name=Schmiedetisch
+tile.etfuturum.fletching_table.name=Bognertisch
+tile.etfuturum.composter.name=Komposter
+tile.etfuturum.cartography_table.name=Kartentisch
+tile.etfuturum.loom.name=Webstuhl
+tile.etfuturum.grindstone.name=Schleifstein
+tile.etfuturum.lectern.name=Lesepult
+tile.etfuturum.lantern.name=Laterne
+
+tile.etfuturum.concrete_powder_white.name=Weißer Trockenbeton
+tile.etfuturum.concrete_powder_orange.name=Oranger Trockenbeton
+tile.etfuturum.concrete_powder_magenta.name=Magenta Trockenbeton
+tile.etfuturum.concrete_powder_light_blue.name=Hellblauer Trockenbeton
+tile.etfuturum.concrete_powder_yellow.name=Gelber Trockenbeton
+tile.etfuturum.concrete_powder_lime.name=Hellgrüner Trockenbeton
+tile.etfuturum.concrete_powder_pink.name=Rosa Trockenbeton
+tile.etfuturum.concrete_powder_gray.name=Grauer Trockenbeton
+tile.etfuturum.concrete_powder_light_gray.name=Hellgrauer Trockenbeton
+tile.etfuturum.concrete_powder_cyan.name=Türkiser Trockenbeton
+tile.etfuturum.concrete_powder_purple.name=Violetter Trockenbeton
+tile.etfuturum.concrete_powder_blue.name=Blauer Trockenbeton
+tile.etfuturum.concrete_powder_brown.name=Brauner Trockenbeton
+tile.etfuturum.concrete_powder_green.name=Grüner Trockenbeton
+tile.etfuturum.concrete_powder_red.name=Roter Trockenbeton
+tile.etfuturum.concrete_powder_black.name=Schwarzer Trockenbeton
+
+tile.etfuturum.concrete_white.name=Weißer Beton
+tile.etfuturum.concrete_orange.name=Oranger Beton
+tile.etfuturum.concrete_magenta.name=Magenta Beton
+tile.etfuturum.concrete_light_blue.name=Hellblauer Beton
+tile.etfuturum.concrete_yellow.name=Gelber Beton
+tile.etfuturum.concrete_lime.name=Hellgrüner Beton
+tile.etfuturum.concrete_pink.name=Rosa Beton
+tile.etfuturum.concrete_gray.name=Grauer Beton
+tile.etfuturum.concrete_light_gray.name=Hellgrauer Beton
+tile.etfuturum.concrete_cyan.name=Türkiser Beton
+tile.etfuturum.concrete_purple.name=Violetter Beton
+tile.etfuturum.concrete_blue.name=Blauer Beton
+tile.etfuturum.concrete_brown.name=Brauner Beton
+tile.etfuturum.concrete_green.name=Grüner Beton
+tile.etfuturum.concrete_red.name=Roter Beton
+tile.etfuturum.concrete_black.name=Schwarzer Beton
+
+tile.etfuturum.white_bed.name=Weißes Bett
+tile.etfuturum.orange_bed.name=Oranges Bett
+tile.etfuturum.magenta_bed.name=Magenta Bett
+tile.etfuturum.light_blue_bed.name=Hellblaues Bett
+tile.etfuturum.yellow_bed.name=Gelbes Bett
+tile.etfuturum.lime_bed.name=Hellgrünes Bett
+tile.etfuturum.pink_bed.name=Rosa Bett
+tile.etfuturum.gray_bed.name=Graues Bett
+tile.etfuturum.silver_bed.name=Hellgraues Bett
+tile.etfuturum.cyan_bed.name=Türkises Bett
+tile.etfuturum.purple_bed.name=Violettes Bett
+tile.etfuturum.blue_bed.name=Blaues Bett
+tile.etfuturum.brown_bed.name=Braunes Bett
+tile.etfuturum.green_bed.name=Grünes Bett
+item.etfuturum.red_bed.name=Rotes Bett
+tile.etfuturum.black_bed.name=Schwarzes Bett
+
+tile.etfuturum.barrier.name=Barriere
+tile.etfuturum.red_netherbrick.name=Rote Netherziegel
+tile.etfuturum.red_netherbrick_slab.name=Rote Netherziegelstufe
+tile.etfuturum.red_netherbrick_stairs.name=Rote Netherziegeltreppe
+tile.etfuturum.red_netherbrick_chiseled.name=Gemeißelte Netherziegel
+tile.etfuturum.red_netherbrick_cracked.name=Rissige Netherziegel
+tile.etfuturum.nether_gold_ore.name=Nethergolderz
+tile.etfuturum.stone_brick_wall.name=Steinziegelmauer
+tile.etfuturum.mossy_stone_brick_wall.name=Bemooste Steinziegelmauer
+tile.etfuturum.sandstone_wall.name=Sandsteinmauer
+tile.etfuturum.brick_wall.name=Ziegelsteinmauer
+tile.etfuturum.nether_brick_wall.name=Netherziegelmauer
+tile.etfuturum.andesite_wall.name=Andesitmauer
+tile.etfuturum.diorite_wall.name=Dioritmauer
+tile.etfuturum.granite_wall.name=Granitmauer
+tile.etfuturum.red_sandstone_wall.name=Rote Sandsteinmauer
+tile.etfuturum.prismarine_wall.name=Prismarinmauer
+tile.etfuturum.red_nether_brick_wall.name=Rote Netherziegelmauer
+tile.etfuturum.end_brick_wall.name=Endsteinziegelmauer
+
+tile.etfuturum.shulker_box.name=Shulker-Kiste
+tile.etfuturum.white_shulker_box.name=Weiße Shulker-Kiste
+tile.etfuturum.orange_shulker_box.name=Orange Shulker-Kiste
+tile.etfuturum.magenta_shulker_box.name=Magenta Shulker-Kiste
+tile.etfuturum.light_blue_shulker_box.name=Hellblaue Shulker-Kiste
+tile.etfuturum.yellow_shulker_box.name=Gelbe Shulker-Kiste
+tile.etfuturum.lime_shulker_box.name=Hellgrüne Shulker-Kiste
+tile.etfuturum.pink_shulker_box.name=Rosa Shulker-Kiste
+tile.etfuturum.gray_shulker_box.name=Graue Shulker-Kiste
+tile.etfuturum.light_gray_shulker_box.name=Hellgraue Shulker-Kiste
+tile.etfuturum.cyan_shulker_box.name=Türkise Shulker-Kiste
+tile.etfuturum.purple_shulker_box.name=Violette Shulker-Kiste
+tile.etfuturum.blue_shulker_box.name=Blaue Shulker-Kiste
+tile.etfuturum.brown_shulker_box.name=Braune Shulker-Kiste
+tile.etfuturum.green_shulker_box.name=Grüne Shulker-Kiste
+tile.etfuturum.red_shulker_box.name=Rote Shulker-Kiste
+tile.etfuturum.black_shulker_box.name=Schwarze Shulker-Kiste
+
+tile.etfuturum.iron_shulker_box.name=Eisen-Shulker-Kiste
+tile.etfuturum.white_iron_shulker_box.name=Weiße Eisen-Shulker-Kiste
+tile.etfuturum.orange_iron_shulker_box.name=Orange Eisen-Shulker-Kiste
+tile.etfuturum.magenta_iron_shulker_box.name=Magenta Eisen-Shulker-Kiste
+tile.etfuturum.light_blue_iron_shulker_box.name=Hellblaue Eisen-Shulker-Kiste
+tile.etfuturum.yellow_iron_shulker_box.name=Gelbe Eisen-Shulker-Kiste
+tile.etfuturum.lime_iron_shulker_box.name=Hellgrüne Eisen-Shulker-Kiste
+tile.etfuturum.pink_iron_shulker_box.name=Rosa Eisen-Shulker-Kiste
+tile.etfuturum.gray_iron_shulker_box.name=Graue Eisen-Shulker-Kiste
+tile.etfuturum.light_gray_iron_shulker_box.name=Hellgraue Eisen-Shulker-Kiste
+tile.etfuturum.cyan_iron_shulker_box.name=Türkise Eisen-Shulker-Kiste
+tile.etfuturum.purple_iron_shulker_box.name=Violette Eisen-Shulker-Kiste
+tile.etfuturum.blue_iron_shulker_box.name=Blaue Eisen-Shulker-Kiste
+tile.etfuturum.brown_iron_shulker_box.name=Braune Eisen-Shulker-Kiste
+tile.etfuturum.green_iron_shulker_box.name=Grüne Eisen-Shulker-Kiste
+tile.etfuturum.red_iron_shulker_box.name=Rote Eisen-Shulker-Kiste
+tile.etfuturum.black_iron_shulker_box.name=Schwarze Eisen-Shulker-Kiste
+
+tile.etfuturum.gold_shulker_box.name=Gold-Shulker-Kiste
+tile.etfuturum.white_gold_shulker_box.name=Weiße Gold-Shulker-Kiste
+tile.etfuturum.orange_gold_shulker_box.name=Orange Gold-Shulker-Kiste
+tile.etfuturum.magenta_gold_shulker_box.name=Magenta Gold-Shulker-Kiste
+tile.etfuturum.light_blue_gold_shulker_box.name=Hellblaue Gold-Shulker-Kiste
+tile.etfuturum.yellow_gold_shulker_box.name=Gelbe Gold-Shulker-Kiste
+tile.etfuturum.lime_gold_shulker_box.name=Hellgrüne Gold-Shulker-Kiste
+tile.etfuturum.pink_gold_shulker_box.name=Rosa Gold-Shulker-Kiste
+tile.etfuturum.gray_gold_shulker_box.name=Graue Gold-Shulker-Kiste
+tile.etfuturum.light_gray_gold_shulker_box.name=Hellgraue Gold-Shulker-Kiste
+tile.etfuturum.cyan_gold_shulker_box.name=Türkise Gold-Shulker-Kiste
+tile.etfuturum.purple_gold_shulker_box.name=Violette Gold-Shulker-Kiste
+tile.etfuturum.blue_gold_shulker_box.name=Blaue Gold-Shulker-Kiste
+tile.etfuturum.brown_gold_shulker_box.name=Braune Gold-Shulker-Kiste
+tile.etfuturum.green_gold_shulker_box.name=Grüne Gold-Shulker-Kiste
+tile.etfuturum.red_gold_shulker_box.name=Rote Gold-Shulker-Kiste
+tile.etfuturum.black_gold_shulker_box.name=Schwarze Gold-Shulker-Kiste
+
+tile.etfuturum.diamond_shulker_box.name=Diamant-Shulker-Kiste
+tile.etfuturum.white_diamond_shulker_box.name=Weiße Diamant-Shulker-Kiste
+tile.etfuturum.orange_diamond_shulker_box.name=Orange Diamant-Shulker-Kiste
+tile.etfuturum.magenta_diamond_shulker_box.name=Magenta Diamant-Shulker-Kiste
+tile.etfuturum.light_blue_diamond_shulker_box.name=Hellblaue Diamant-Shulker-Kiste
+tile.etfuturum.yellow_diamond_shulker_box.name=Gelbe Diamant-Shulker-Kiste
+tile.etfuturum.lime_diamond_shulker_box.name=Hellgrüne Diamant-Shulker-Kiste
+tile.etfuturum.pink_diamond_shulker_box.name=Rosa Diamant-Shulker-Kiste
+tile.etfuturum.gray_diamond_shulker_box.name=Graue Diamant-Shulker-Kiste
+tile.etfuturum.light_gray_diamond_shulker_box.name=Hellgraue Diamant-Shulker-Kiste
+tile.etfuturum.cyan_diamond_shulker_box.name=Türkise Diamant-Shulker-Kiste
+tile.etfuturum.purple_diamond_shulker_box.name=Violette Diamant-Shulker-Kiste
+tile.etfuturum.blue_diamond_shulker_box.name=Blaue Diamant-Shulker-Kiste
+tile.etfuturum.brown_diamond_shulker_box.name=Braune Diamant-Shulker-Kiste
+tile.etfuturum.green_diamond_shulker_box.name=Grüne Diamant-Shulker-Kiste
+tile.etfuturum.red_diamond_shulker_box.name=Rote Diamant-Shulker-Kiste
+tile.etfuturum.black_diamond_shulker_box.name=Schwarze Diamant-Shulker-Kiste
+
+tile.etfuturum.copper_shulker_box.name=Kupfer-Shulker-Kiste
+tile.etfuturum.white_copper_shulker_box.name=Weiße Kupfer-Shulker-Kiste
+tile.etfuturum.orange_copper_shulker_box.name=Orange Kupfer-Shulker-Kiste
+tile.etfuturum.magenta_copper_shulker_box.name=Magenta Kupfer-Shulker-Kiste
+tile.etfuturum.light_blue_copper_shulker_box.name=Hellblaue Kupfer-Shulker-Kiste
+tile.etfuturum.yellow_copper_shulker_box.name=Gelbe Kupfer-Shulker-Kiste
+tile.etfuturum.lime_copper_shulker_box.name=Hellgrüne Kupfer-Shulker-Kiste
+tile.etfuturum.pink_copper_shulker_box.name=Rosa Kupfer-Shulker-Kiste
+tile.etfuturum.gray_copper_shulker_box.name=Graue Kupfer-Shulker-Kiste
+tile.etfuturum.light_gray_copper_shulker_box.name=Hellgraue Kupfer-Shulker-Kiste
+tile.etfuturum.cyan_copper_shulker_box.name=Türkise Kupfer-Shulker-Kiste
+tile.etfuturum.purple_copper_shulker_box.name=Violette Kupfer-Shulker-Kiste
+tile.etfuturum.blue_copper_shulker_box.name=Blaue Kupfer-Shulker-Kiste
+tile.etfuturum.brown_copper_shulker_box.name=Braune Kupfer-Shulker-Kiste
+tile.etfuturum.green_copper_shulker_box.name=Grüne Kupfer-Shulker-Kiste
+tile.etfuturum.red_copper_shulker_box.name=Rote Kupfer-Shulker-Kiste
+tile.etfuturum.black_copper_shulker_box.name=Schwarze Kupfer-Shulker-Kiste
+
+tile.etfuturum.silver_shulker_box.name=Silber-Shulker-Kiste
+tile.etfuturum.white_silver_shulker_box.name=Weiße Silber-Shulker-Kiste
+tile.etfuturum.orange_silver_shulker_box.name=Orange Silber-Shulker-Kiste
+tile.etfuturum.magenta_silver_shulker_box.name=Magenta Silber-Shulker-Kiste
+tile.etfuturum.light_blue_silver_shulker_box.name=Hellblaue Silber-Shulker-Kiste
+tile.etfuturum.yellow_silver_shulker_box.name=Gelbe Silber-Shulker-Kiste
+tile.etfuturum.lime_silver_shulker_box.name=Hellgrüne Silber-Shulker-Kiste
+tile.etfuturum.pink_silver_shulker_box.name=Rosa Silber-Shulker-Kiste
+tile.etfuturum.gray_silver_shulker_box.name=Graue Silber-Shulker-Kiste
+tile.etfuturum.light_gray_silver_shulker_box.name=Hellgraue Silber-Shulker-Kiste
+tile.etfuturum.cyan_silver_shulker_box.name=Türkise Silber-Shulker-Kiste
+tile.etfuturum.purple_silver_shulker_box.name=Violette Silber-Shulker-Kiste
+tile.etfuturum.blue_silver_shulker_box.name=Blaue Silber-Shulker-Kiste
+tile.etfuturum.brown_silver_shulker_box.name=Braune Silber-Shulker-Kiste
+tile.etfuturum.green_silver_shulker_box.name=Grüne Silber-Shulker-Kiste
+tile.etfuturum.red_silver_shulker_box.name=Rote Silber-Shulker-Kiste
+tile.etfuturum.black_silver_shulker_box.name=Schwarze Silber-Shulker-Kiste
+
+tile.etfuturum.crystal_shulker_box.name=Kristall-Shulker-Kiste
+tile.etfuturum.white_crystal_shulker_box.name=Weiße Kristall-Shulker-Kiste
+tile.etfuturum.orange_crystal_shulker_box.name=Orange Kristall-Shulker-Kiste
+tile.etfuturum.magenta_crystal_shulker_box.name=Magenta Kristall-Shulker-Kiste
+tile.etfuturum.light_blue_crystal_shulker_box.name=Hellblaue Kristall-Shulker-Kiste
+tile.etfuturum.yellow_crystal_shulker_box.name=Gelbe Kristall-Shulker-Kiste
+tile.etfuturum.lime_crystal_shulker_box.name=Hellgrüne Kristall-Shulker-Kiste
+tile.etfuturum.pink_crystal_shulker_box.name=Rosa Kristall-Shulker-Kiste
+tile.etfuturum.gray_crystal_shulker_box.name=Graue Kristall-Shulker-Kiste
+tile.etfuturum.light_gray_crystal_shulker_box.name=Hellgraue Kristall-Shulker-Kiste
+tile.etfuturum.cyan_crystal_shulker_box.name=Türkise Kristall-Shulker-Kiste
+tile.etfuturum.purple_crystal_shulker_box.name=Violette Kristall-Shulker-Kiste
+tile.etfuturum.blue_crystal_shulker_box.name=Blaue Kristall-Shulker-Kiste
+tile.etfuturum.brown_crystal_shulker_box.name=Braune Kristall-Shulker-Kiste
+tile.etfuturum.green_crystal_shulker_box.name=Grüne Kristall-Shulker-Kiste
+tile.etfuturum.red_crystal_shulker_box.name=Rote Kristall-Shulker-Kiste
+tile.etfuturum.black_crystal_shulker_box.name=Schwarze Kristall-Shulker-Kiste
+
+tile.etfuturum.obsidian_shulker_box.name=Obsidian-Shulker-Kiste
+tile.etfuturum.white_obsidian_shulker_box.name=Weiße Obsidian-Shulker-Kiste
+tile.etfuturum.orange_obsidian_shulker_box.name=Orange Obsidian-Shulker-Kiste
+tile.etfuturum.magenta_obsidian_shulker_box.name=Magenta Obsidian-Shulker-Kiste
+tile.etfuturum.light_blue_obsidian_shulker_box.name=Hellblaue Obsidian-Shulker-Kiste
+tile.etfuturum.yellow_obsidian_shulker_box.name=Gelbe Obsidian-Shulker-Kiste
+tile.etfuturum.lime_obsidian_shulker_box.name=Hellgrüne Obsidian-Shulker-Kiste
+tile.etfuturum.pink_obsidian_shulker_box.name=Rosa Obsidian-Shulker-Kiste
+tile.etfuturum.gray_obsidian_shulker_box.name=Graue Obsidian-Shulker-Kiste
+tile.etfuturum.light_gray_obsidian_shulker_box.name=Hellgraue Obsidian-Shulker-Kiste
+tile.etfuturum.cyan_obsidian_shulker_box.name=Türkise Obsidian-Shulker-Kiste
+tile.etfuturum.purple_obsidian_shulker_box.name=Violette Obsidian-Shulker-Kiste
+tile.etfuturum.blue_obsidian_shulker_box.name=Blaue Obsidian-Shulker-Kiste
+tile.etfuturum.brown_obsidian_shulker_box.name=Braune Obsidian-Shulker-Kiste
+tile.etfuturum.green_obsidian_shulker_box.name=Grüne Obsidian-Shulker-Kiste
+tile.etfuturum.red_obsidian_shulker_box.name=Rote Obsidian-Shulker-Kiste
+tile.etfuturum.black_obsidian_shulker_box.name=Schwarze Obsidian-Shulker-Kiste
+
+item.shulker_vanilla_iron_upgrade.name=Upgrade: Holz- zu Eisen-Shulker-Kiste
+item.shulker_vanilla_copper_upgrade.name=Upgrade: Holz- zu Kupfer-Shulker-Kiste
+item.shulker_iron_gold_upgrade.name=Upgrade: Eisen- zu Gold-Shulker-Kiste
+item.shulker_gold_diamond_upgrade.name=Upgrade: Gold- zu Diamant-Shulker-Kiste
+item.shulker_diamond_obsidian_upgrade.name=Upgrade: Diamant- zu Obsidian-Shulker-Kiste
+item.shulker_diamond_crystal_upgrade.name=Upgrade: Diamant- zu Kristall-Shulker-Kiste
+item.shulker_copper_iron_upgrade.name=Upgrade: Kupfer- zu Eisen-Shulker-Kiste
+item.shulker_copper_silver_upgrade.name=Upgrade: Kupfer- zu Silber-Shulker-Kiste
+item.shulker_silver_gold_upgrade.name=Upgrade: Silber- zu Gold-Shulker-Kiste
+
+tile.etfuturum.tinted_glass.name=Getöntes Glas
+
+tile.etfuturum.observer.name=Beobachter
+tile.etfuturum.target.name=Zielblock
+
+util.totemBreak=§a§oDein Totem der Unsterblichkeit zerbricht...
+
+death.attack.hotFloor=%1$s wurde der Boden zu heiß
+death.attack.hotFloor.player=%1$s geriet wegen %2$s in die Gefahrenzone
+death.attack.sweetBerryBush=%1$s hat sich an einem Süßbeerstrauch zu Tode gestochen
+death.attack.sweetBerryBush.player=%1$s hat sich beim Versuch, %2$s zu entkommen, an einem Süßbeerstrauch zu Tode gestochen
+death.attack.stalactite=%1$s wurde von einem fallenden Stalaktiten aufgespießt
+death.attack.stalactite.player=%1$s wurde während des Kampfes mit %2$s von einem fallenden Stalaktiten aufgespießt
+death.attack.stalactite=%1$s wurde auf einem Stalagmiten außgespießt
+death.attack.stalactite.player=%1$s wurde während des Kampfes mit %2$s auf einem Stalagmiten außgespießt
+death.attack.flyIntoWall=%1$s erfuhr kinetische Energie
+death.attack.flyIntoWall.player=%1$s erfuhr beim Versuch, %2$s zu entkommen, kinetische Energie
+
 
 # Banners
 item.banner.black.name=Schwarzes Banner
@@ -783,3 +1414,80 @@ item.banner.straight_cross.lightBlue=Hellblaugefärbtes Kreuz
 item.banner.straight_cross.magenta=Magentagefärbtes Kreuz
 item.banner.straight_cross.orange=Orangegefärbtes Kreuz
 item.banner.straight_cross.white=Weißgefärbtes Kreuz
+
+
+# vanilla overrides
+tile.clayHardenedStained.black.name=Schwarze Keramik
+tile.clayHardenedStained.red.name=Rote Keramik
+tile.clayHardenedStained.green.name=Grüne Keramik
+tile.clayHardenedStained.brown.name=Braune Keramik
+tile.clayHardenedStained.blue.name=Blaue Keramik
+tile.clayHardenedStained.purple.name=Violette Keramik
+tile.clayHardenedStained.cyan.name=Türkise Keramik
+tile.clayHardenedStained.silver.name=Hellgraue Keramik
+tile.clayHardenedStained.gray.name=Graue Keramik
+tile.clayHardenedStained.pink.name=Rosa Keramik
+tile.clayHardenedStained.lime.name=Hellgrüne Keramik
+tile.clayHardenedStained.yellow.name=Gelbe Keramik
+tile.clayHardenedStained.lightBlue.name=Hellblaue Keramik
+tile.clayHardenedStained.magenta.name=Magenta Keramik
+tile.clayHardenedStained.orange.name=Orange Keramik
+tile.clayHardenedStained.white.name=Weiße Keramik
+tile.clayHardened.name=Keramik
+
+tile.monsterStoneEgg.stone.name=Befallener Stein
+tile.monsterStoneEgg.cobble.name=Befallener Bruchstein
+tile.monsterStoneEgg.brick.name=Befallene Steinziegel
+tile.monsterStoneEgg.mossybrick.name=Befallene bemooste Steinziegel
+tile.monsterStoneEgg.crackedbrick.name=Befallene rissige Steinziegel
+tile.monsterStoneEgg.chiseledbrick.name=Befallener gemeißelte Steinziegel
+
+tile.log.name=Stamm
+tile.log.oak.name=Eichenstamm
+tile.log.spruce.name=Fichtenstamm
+tile.log.birch.name=Birkenstamm
+tile.log.jungle.name=Tropenbaumstamm
+tile.log.acacia.name=Akazienstamm
+tile.log.big_oak.name=Schwarzeichenstamm
+tile.wood.oak.name=Eichenholzbretter
+tile.wood.spruce.name=Fichtenholzbretter
+tile.wood.birch.name=Birkenholzbretter
+tile.wood.jungle.name=Tropenholzbretter
+tile.wood.acacia.name=Akazienholzbretter
+tile.wood.big_oak.name=Schwarzeichenholzbretter
+tile.woodSlab.oak.name=Eichenholzstufe
+tile.woodSlab.spruce.name=Fichtenholzstufe
+tile.woodSlab.birch.name=Birkenholzstufe
+tile.woodSlab.jungle.name=Tropenholzstufe
+tile.woodSlab.acacia.name=Akazienholzstufe
+tile.woodSlab.big_oak.name=Schwarzeichenholzstufe
+tile.stairsWood.name=Eichenholzholztreppe
+tile.stairsWoodSpruce.name=Fichtenholztreppe
+tile.stairsWoodBirch.name=Birkenholztreppe
+tile.stairsWoodJungle.name=Tropenholztreppe
+tile.stairsWoodAcacia.name=Akazienholztreppe
+tile.stairsWoodDarkOak.name=Schwarzeichenholztreppe
+tile.stoneSlab.stone.name=Glatte Steinstufe
+tile.stoneSlab.wood.name=Versteinerte Eichenholzstufe
+
+tile.trapdoor.name=Eichenholzfalltür
+tile.doublePlant.grass.name=Hohes Gras
+tile.quartzBlock.lines.name=Quarzsäule
+tile.mobSpawner.name=Spawner
+tile.stoneMoss.name=Bemooster Bruchstein
+tile.sandStone.smooth.name=Geschnittener Sandstein
+tile.netherBrick.name=Netherziegel
+tile.daylightDetector.name=Tageslichtsensor
+
+item.redstone.name=Redstone-Staub
+item.melon.name=Melonenscheibe
+tile.monsterStoneEgg.stone.name=Befallener Stein
+tile.monsterStoneEgg.cobble.name=Befallener Bruchstein
+tile.monsterStoneEgg.brick.name=Befallene Steinziegel
+tile.monsterStoneEgg.mossybrick.name=Befallene bemooste Steinziegel
+tile.monsterStoneEgg.crackedbrick.name=Befallene rissige Steinziegel
+tile.monsterStoneEgg.chiseledbrick.name=Befallener gemeißelte Steinziegel
+
+efr.nei.composter=Komposter
+efr.nei.amount=Menge
+efr.nei.weight=Gewicht
