@@ -50,7 +50,7 @@ public class SmithingTableRecipes {
 		instance.recipes.add(new SmithingTableRecipe(toolSlot, materialSlot, result, false));
 	}
 	
-	public void addRecipeNoNBT(SmithingTableRecipe recipe)
+	public void addRecipe(SmithingTableRecipe recipe)
 	{
 		instance.recipes.add(recipe);
 	}

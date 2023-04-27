@@ -7,7 +7,6 @@ import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
 import minetweaker.mc1710.item.MCItemStack;
-import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
@@ -122,7 +121,7 @@ public class CTSmithingTable {
 
 		@Override
 		public void apply() {
-			SmithingTableRecipes.getInstance().addRecipeNoNBT(recipe);
+			SmithingTableRecipes.getInstance().addRecipe(recipe);
 		}
 
 		@Override
