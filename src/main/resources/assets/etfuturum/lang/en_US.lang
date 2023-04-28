@@ -56,25 +56,230 @@ gui.chat.update=%1$s version %2$s is available!
 gui.chat.update.download=Click here to download the update on %s!
 
 # Subtitles
+
+subtitle.game.tnt.primed=TNT fired up
+subtitle.game.player.swim=Player swims
+subtitle.game.player.swim.splash=Player splashes
+subtitle.entity.player.splash.high_speed=High Splash
+subtitle.game.potion.smash=Potion Smashed
+
+subtitle.game.neutral.hurt=Damage
+subtitle.game.neutral.swim=Someone swims
+subtitle.game.neutral.swim.splash=Splash
+
+subtitle.game.hostile.hurt=Damage
+subtitle.game.hostile.swim=Someone swims
+subtitle.game.hostile.swim.splash=Splash
+
+subtitle.fireworks.launch=Fireworks launch
+subtitle.fireworks.blast=Firework Explosion
+subtitle.fireworks.blast_far=Firework Explosion (Far)
+subtitle.fireworks.largeblast=Firework Explosion (Large)
+subtitle.fireworks.largeblast_far=Firework Explosion (Large) (Far)
+subtitle.fireworks.twinkle=Fireworks crackle
+subtitle.fireworks.twinkle_far=Firework Crackle (Far)
+
+subtitle.fire.fire=Sound of Fire
+subtitle.fire.ignite=Fire ignite
+
+subtitle.entity.player.attack.weak=Weak Attack
+subtitle.entity.player.attack.strong=Strong Attack
+subtitle.entity.player.attack.crit=Critical Attack
+subtitle.entity.player.attack.knockback=Knockback Attack
+
+subtitle.entity.fishing_bobber.throw=Throwing a fishing bobber
+subtitle.entity.fishing_bobber.retrieve=Retrieve the fishing bobber
+
+subtitle.entity.item_frame.add_item=Frame Fill
+subtitle.entity.item_frame.remove_item=Empty Frame
+subtitle.entity.item_frame.rotate_item=Rotate Framed Item
+
+
+subtitle.entity.rabbit.ambient=Rabbit squeaks
+subtitle.entity.rabbit.death=Rabbit dies
+subtitle.entity.rabbit.hurt=Rabbit takes damage
+subtitle.entity.rabbit.jump=Rabbit Jump
+subtitle.entity.husk.ambient=Husk groans
+subtitle.entity.husk.hurt=Husk takes damage
+subtitle.entity.husk.death=Husk dies
+subtitle.entity.stray.ambient=Stray rattles
+subtitle.entity.stray.hurt=Stray takes damage
+subtitle.entity.stray.death=Stray dies
+subtitle.entity.shulker.ambient=Shulker lurk
+subtitle.entity.shulker.hurt=Shulker takes damage
+subtitle.entity.shulker.hurt_closed=Hit on the shell
+subtitle.entity.shulker.open=Shulker Shell Opens
+subtitle.entity.shulker.close=Shulker shell is closing
+subtitle.entity.shulker.teleport=Shulker teleports
+subtitle.entity.shulker.death=Shulker dies
+subtitle.entity.zombie_villager.ambient=Zombie villager groans
+subtitle.entity.zombie_villager.hurt=Zombie villager takes damage
+subtitle.entity.zombie_villager.death=Zombie villager dies
+subtitle.entity.witch.ambient=Witch laughs
+subtitle.entity.witch.drink=Witch Drinks
+subtitle.entity.witch.hurt=Witch takes damage
+subtitle.entity.witch.death=Witch dies
+subtitle.entity.squid.ambient=Squid swims
+subtitle.entity.squid.hurt=Squid takes damage
+subtitle.entity.squid.death=Squid dies
+
+subtitle.entity.boat.paddle_water=Sound of paddles on the water
+subtitle.entity.boat.paddle_land=Sound of paddles on the ground
+
+
+subtitle.random.fizz=Something fizz
+subtitle.random.drink=Drink
+subtitle.random.eat=Champing
+subtitle.random.explode=Explode
+subtitle.random.pop=Item Pickup
+subtitle.random.orb=Experience Gained
+subtitle.random.bow=Shot
+subtitle.random.bowhit=Arrow Hit
+subtitle.random.click=Click
+subtitle.random.chestopen=Chest opens
+subtitle.random.chest.close=Chest closes
+subtitle.random.anvil_land=Anvil Sound
+subtitle.random.burp=Burp
+
+subtitle.dig.grass=Block placed or broken
+subtitle.dig.stone=Block placed or broken
+subtitle.dig.wood=Block placed or broken
+subtitle.dig.cloth=Block placed or broken
+subtitle.dig.glass=Block placed or broken
+subtitle.dig.gravel=Block placed or broken
+
+
+subtitle.fall.small=Something trips
+subtitle.fall.big=Something fell
 subtitle.footsteps=Footsteps
+
+subtitle.note.harp=Note block sound
+
+subtitle.liquid.water=Flow of water
+subtitle.liquid.lava=Flow of Lava
+subtitle.liquid.lavapop=Lava seething
+
+subtitle.item.bucket.empty=Bucket empty
+subtitle.item.bucket.fill=Bucket fills up
+subtitle.item.bottle.empty=Bottle Empty
+subtitle.item.bottle.fill=Bottle Fills
+subtitle.item.hoe.till=Tilling with Hoe
+subtitle.item.elytra.flying=Elytra Flying Sound
+subtitle.item.armor.equip_generic=Leather armor Equip Sound
+subtitle.item.armor.equip_iron=Iron armor Equip Sound
+subtitle.item.armor.equip_gold=Gold Armor Sound Equip Sound
+subtitle.item.armor.equip_chain=Chainmail armor Equip Sound
+subtitle.item.armor.equip_diamond=Diamond armor Equip Sound
+subtitle.item.armor.equip_netherite=Netherite armor Equip Sound
+subtitle.item.armor.equip_elytra=Elytra Equip Sound
+
+subtitle.records.13=The "13" record is playing
+subtitle.records.cat=The "cat" record is playing
+subtitle.records.blocks=The "blocks" record is playing
+subtitle.records.chirp=The "chirp" record is playing
+subtitle.records.far=The record "far" is playing
+subtitle.records.mall=The "mall" record is playing
+subtitle.records.mellohi=Mellohi is playing
+subtitle.records.stal=The "stal" record is playing
+subtitle.records.strad=The "strad" record is playing
+subtitle.records.ward=The "ward" record is playing
+subtitle.records.11=The "11" record is playing
+subtitle.records.wait=The "wait" record is playing
+
+subtitle.block.destroyed=Block placed or broken
+subtitle.block.placed=Block Placed
+subtitle.block.wooden_door.close=Close Wooden Door
+subtitle.block.wooden_door.open=Opening Wooden Door
+subtitle.block.iron_door.close=Close Iron Door
+subtitle.block.iron_door.open=Opening Iron Door
+subtitle.block.beacon.deactivate=Beacon Sound
+subtitle.block.wooden_trapdoor.close=Closing a wooden trapdoor
+subtitle.block.wooden_trapdoor.open=Opening Wooden Trapdoor
+subtitle.block.iron_trapdoor.close=Closing Iron Trapdoor
+subtitle.block.iron_trapdoor.open=Opening Iron Trapdoor
+subtitle.block.wooden_pressure_plate.click_on=Wooden Pressure Plate Click
+subtitle.block.wooden_pressure_plate.click_off=Wooden Pressure Plate Click
+subtitle.block.metal_pressure_plate.click_on=Metal Pressure Plate Click
+subtitle.block.metal_pressure_plate.click_off=Metal Pressure Plate Click
+subtitle.block.ender_chest.open=Ender Chest Opens
+subtitle.block.ender_chest.close=Ender Chest is closing
+subtitle.block.furnace.fire_crackle=Fire crackle
+subtitle.block.blastfurnace.fire_crackle=Blastfurnace is blazing
+subtitle.block.smoker.smoke=Smoker smokes
+subtitle.block.fence_gate.close=Gate closes
+subtitle.block.fence_gate.open=Gate opens
+subtitle.block.shulker_box.open=Shulker box opens
+subtitle.block.shulker_box.close=Shulker box closes
+
+
 subtitle.mob.hurt=%s hurts
 subtitle.mob.death=%s dies
 subtitle.mob.step=Footsteps
-subtitle.block.destroyed=Block Placed or Broken
-subtitle.block.placed=Block Placed
 
+subtitle.mob.bat.idle=Bat squeaks
 subtitle.mob.bat.takeoff=Bat takes off
 subtitle.mob.chicken.say=Chicken clucks
+subtitle.mob.cow.say=Cow mooing
+subtitle.mob.cat.hitt=Cat takes damage
+subtitle.mob.cat.purr=Cat purr
+subtitle.mob.cat.purreow=Cat meows and purrs
+subtitle.mob.cat.meow=Cat meows
+subtitle.mob.pig.say=Pig grunts
+subtitle.mob.sheep.say=Sheep bleats
+subtitle.mob.silverfish.say=Silverfish hisses
+subtitle.mob.silverfish.hit=Silverfish take damage
+subtitle.mob.silverfish.kill=Silverfish dies
+subtitle.mob.slime.big=Slime jumps
+subtitle.mob.slime.small=Slime Squishes
+subtitle.mob.blaze.breathe=Blaze's Breath
+subtitle.mob.blaze.hit=Blaze takes damage
+subtitle.mob.creeper.say=Creeper hisses
+subtitle.creeper.primed=Creeper explodes
+subtitle.mob.villager.idle=Villager mumbles
+subtitle.mob.villager.haggle=Villager mumbles
+subtitle.mob.villager.yes=Villager agrees
+subtitle.mob.villager.no=Villager does not agree
+subtitle.mob.villager.hit=Villager takes damage
 subtitle.mob.zombie.say=Zombie groans
 subtitle.mob.skeleton.say=Skeleton rattles
 subtitle.mob.spider.say=Spider hisses
-subtitle.random.pop=Item plops
-subtitle.random.orb=Experience gained
-subtitle.fall.small=Something trips
-subtitle.fall.big=Something fell
+subtitle.mob.ghast.moan=Ghast cries
+subtitle.mob.ghast.scream=Ghast screams
+subtitle.mob.ghast.charge=Ghast fires
+subtitle.mob.ghast.fireball=Sound of a fireball flying
+subtitle.mob.zombieepig.zpig=Zombie Pig growls
+subtitle.mob.zombieepig.zpighurt=Zombiepig takes damage
+subtitle.mob.zombieepig.zpigangry=Pigangry=Pigangry
+subtitle.mob.zombieepig.zpigdeath=Zombiepig dies
+subtitle.mob.endermen.idle=Endermen purr
+subtitle.mob.endermen.portal=Endermen Teleported
+subtitle.mob.endermen.hit=Endermen take damage
+subtitle.mob.endermen.death=Endermen die
+subtitle.mob.magmacube.big=Magmacube Jumps
+subtitle.mob.magmacube.small=Magmacube Squishes
+subtitle.mob.wolf.bark=Wolf barks
+subtitle.mob.wolf.panting=Wolf panting
+subtitle.mob.wolf.shake=Wolf shakes off
+subtitle.mob.horse.idle=Horse neighs
+subtitle.mob.horse.angry=Angry Horse
+subtitle.mob.horse.hit=Horse takes damage
+subtitle.mob.horse.death=Horse dies
+subtitle.mob.horse.eat=Horse eats
+subtitle.mob.horse.gallop=Galloping Horse
+subtitle.mob.horse.jump=Horse Jump
+subtitle.mob.horse.land=Horse lands
+subtitle.mob.horse.breathe=Horse Breath
+subtitle.mob.horse.wood=Horse is accelerating
+subtitle.mob.horse.soft=Horse walking
+subtitle.mob.horse.leather=Putting on a saddle
 
-subtitle.tile.piston.out=Piston moves
-subtitle.tile.piston.in=Piston moves
+subtitle.tile.piston.out=Piston moving
+subtitle.tile.piston.in=Piston moving
+
+subtitle.weather.rain=Rain
+subtitle.ambient.weather.thunder=Thunder
+
+
 
 # Entities
 entity.etfuturum.endermite.name=Endermite
