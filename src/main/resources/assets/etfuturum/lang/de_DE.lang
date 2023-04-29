@@ -56,25 +56,223 @@ gui.chat.update=%1$s Version %2$s ist verfügbar!
 gui.chat.update.download=Klicke hier um das Update von %s herunterzuladen!
 
 # Untertitel
+subtitle.game.tnt.primed=TNT zischt
+subtitle.game.player.swim=Spieler schwimmt
+subtitle.game.player.swim.splash=Spieler platscht
+subtitle.entity.player.splash.high_speed=Großer Platscher
+subtitle.game.potion.smash=Flasche zerbricht
+
+subtitle.game.neutral.hurt=Schaden
+subtitle.game.neutral.swim=Schwimmen
+subtitle.game.neutral.swim.splash=Platschen
+
+subtitle.game.hostile.hurt=Schaden
+subtitle.game.hostile.swim=Schwimmen
+subtitle.game.hostile.swim.splash=Platschen
+
+subtitle.fireworks.launch=Feuerwerk zündet
+subtitle.fireworks.blast=Feuerwerk explodiert
+subtitle.fireworks.blast_far=Feuerwerk explodiert (Weit)
+subtitle.fireworks.largeblast=Feuerwerk explodiert (Groß)
+subtitle.fireworks.largeblast_far=Feuerwerk explodiert (Weit) (Groß)
+subtitle.fireworks.twinkle=Feuerwerk funkelt
+subtitle.fireworks.twinkle_far=Feuerwerk funkelt (Weit)
+
+subtitle.fire.fire=Feuer knistert
+subtitle.fire.ignite=Feuer entzündet sich
+
+subtitle.entity.player.attack.weak=Schwacher Angriff
+subtitle.entity.player.attack.strong=Starker Angriff
+subtitle.entity.player.attack.crit=Volltreffer
+subtitle.entity.player.attack.knockback=Rückstoßangriff
+
+subtitle.entity.fishing_bobber.throw=Schwimmer ausgeworfen
+subtitle.entity.fishing_bobber.retrieve=Schwimmer eingeholt
+
+subtitle.entity.item_frame.add_item=Rahmen gefüllt
+subtitle.entity.item_frame.remove_item=Rahmen geleert
+subtitle.entity.item_frame.rotate_item=Rahmen klickt
+
+subtitle.entity.rabbit.ambient=Kaninchen fiept
+subtitle.entity.rabbit.death=Kaninchen stirbt
+subtitle.entity.rabbit.hurt=Kaninchen nimmt Schaden
+subtitle.entity.rabbit.jump=Kaninchen hoppelt
+subtitle.entity.husk.ambient=Wüstenzombie stöhnt
+subtitle.entity.husk.hurt=Wüstenzombie nimmt Schaden
+subtitle.entity.husk.death=Wüstenzombie stirbt
+subtitle.entity.stray.ambient=Eiswanderer klappert
+subtitle.entity.stray.hurt=Eiswanderer nimmt Schaden
+subtitle.entity.stray.death=Eiswanderer stirbt
+subtitle.entity.shulker.ambient=Shulker lauert
+subtitle.entity.shulker.hurt=Shulker nimmt Schaden
+subtitle.entity.shulker.hurt_closed=Shulker-Schale nimmt Schaden
+subtitle.entity.shulker.open=Shulker öffnet
+subtitle.entity.shulker.close=Shulker schließt
+subtitle.entity.shulker.teleport=Shulker teleportiert
+subtitle.entity.shulker.death=Shulker stirbt
+subtitle.entity.zombie_villager.ambient=Zombiedorfbewohner stöhnt
+subtitle.entity.zombie_villager.hurt=Zombiedorfbewohner nimmt Schaden
+subtitle.entity.zombie_villager.death=Zombiedorfbewohner stirbt
+subtitle.entity.witch.ambient=Hexe kichert
+subtitle.entity.witch.drink=Hexe trinkt
+subtitle.entity.witch.hurt=Hexe nimmt Schaden
+subtitle.entity.witch.death=Hexe stirbt
+subtitle.entity.squid.ambient=Tintenfisch schwimmt
+subtitle.entity.squid.hurt=Tintenfisch nimmt Schaden
+subtitle.entity.squid.death=Tintenfisch stirbt
+
+subtitle.entity.boat.paddle_water=Ruder im Wasser
+subtitle.entity.boat.paddle_land=Ruder an Land
+
+subtitle.random.fizz=Etwas zischt
+subtitle.random.drink=Trinken
+subtitle.random.eat=Essen
+subtitle.random.explode=Explosion
+subtitle.random.pop=Gegenstand aufgehoben
+subtitle.random.orb=Erfahrung erhalten
+subtitle.random.bow=Schuss
+subtitle.random.bowhit=Pfeil trifft
+subtitle.random.click=Klicken
+subtitle.random.chestopen=Truhe öffnet
+subtitle.random.chest.close=Truhe schließt
+subtitle.random.anvil_land=Amboss gelandet
+subtitle.random.burp=Rülpser
+
+subtitle.dig.grass=Block platziert oder zerstört
+subtitle.dig.stone=Block platziert oder zerstört
+subtitle.dig.wood=Block platziert oder zerstört
+subtitle.dig.cloth=Block platziert oder zerstört
+subtitle.dig.glass=Block platziert oder zerstört
+subtitle.dig.gravel=Block platziert oder zerstört
+
+subtitle.fall.small=Etwas stolpert
+subtitle.fall.big=Etwas fällt
 subtitle.footsteps=Schritte
+
+subtitle.note.harp=Notenblock spielt
+
+subtitle.liquid.water=Wasser fließt
+subtitle.liquid.lava=Lava fließt
+subtitle.liquid.lavapop=Lava blubbert
+
+subtitle.item.bucket.empty=Eimer geleert
+subtitle.item.bucket.fill=Eimer gefüllt
+subtitle.item.bottle.empty=Flasche geleert
+subtitle.item.bottle.fill=Flasche gefüllt
+subtitle.item.hoe.till=Hacke pflügt
+subtitle.item.elytra.flying=Elytren rauschen
+subtitle.item.armor.equip_generic=Lederrüstung knirscht
+subtitle.item.armor.equip_iron=Eisenrüstung scheppert
+subtitle.item.armor.equip_gold=Goldrüstung klimpert
+subtitle.item.armor.equip_chain=Kettenrüstung rasselt
+subtitle.item.armor.equip_diamond=Diamantrüstung klirrt
+subtitle.item.armor.equip_netherite=Netheritrüstung scheppert
+subtitle.item.armor.equip_elytra=Elytren rascheln
+
+subtitle.records.13=Schallplatte "13" spielt
+subtitle.records.cat=Schallplatte "cat" spielt
+subtitle.records.blocks=Schallplatte "blocks" spielt
+subtitle.records.chirp=Schallplatte "chirp" spielt
+subtitle.records.far=Schallplatte "far" spielt
+subtitle.records.mall=Schallplatte "mall" spielt
+subtitle.records.mellohi=Schallplatte "mellohi" spielt
+subtitle.records.stal=Schallplatte "stal" spielt
+subtitle.records.strad=Schallplatte "strad" spielt
+subtitle.records.ward=Schallplatte "ward" spielt
+subtitle.records.11=Schallplatte "11" spielt
+subtitle.records.wait=Schallplatte "wait" spielt
+
+subtitle.block.destroyed=Block platziert oder zerstört
+subtitle.block.placed=Block platziert
+subtitle.block.wooden_door.close=Holztür schließt
+subtitle.block.wooden_door.open=Holztür öffnet
+subtitle.block.iron_door.close=Eisentür schließt
+subtitle.block.iron_door.open=Eisentür öffnet
+subtitle.block.beacon.deactivate=Leuchtfeuer deaktiviert
+subtitle.block.wooden_trapdoor.close=Holzfalltür schließt
+subtitle.block.wooden_trapdoor.open=Holzfalltür öffnet
+subtitle.block.iron_trapdoor.close=Eisenfalltür schließt
+subtitle.block.iron_trapdoor.open=Eisenfalltür öffnet
+subtitle.block.wooden_pressure_plate.click_on=Holzdruckplatte klickt
+subtitle.block.wooden_pressure_plate.click_off=Holzdruckplatte klickt
+subtitle.block.metal_pressure_plate.click_on=Wägeplatte klickt
+subtitle.block.metal_pressure_plate.click_off=Wägeplatte klickt
+subtitle.block.ender_chest.open=Endertruhe öffnet
+subtitle.block.ender_chest.close=Endertruhe schließt
+subtitle.block.furnace.fire_crackle=Ofen knistert
+subtitle.block.blastfurnace.fire_crackle=Schmelzofen knistert
+subtitle.block.smoker.smoke=Räucherofen räuchert
+subtitle.block.fence_gate.close=Tor schließt
+subtitle.block.fence_gate.open=Tor öffnet
+subtitle.block.shulker_box.open=Shulker-Kiste öffnet
+subtitle.block.shulker_box.close=Shulker-Kiste schließt
+
 subtitle.mob.hurt=%s nimmt Schaden
 subtitle.mob.death=%s stirbt
 subtitle.mob.step=Schritte
-subtitle.block.destroyed=Block platziert oder zerstört
-subtitle.block.placed=Block platziert
 
+subtitle.mob.bat.idle=Fledermaus kreischt
 subtitle.mob.bat.takeoff=Fledermaus fliegt los
 subtitle.mob.chicken.say=Huhn gackert
+subtitle.mob.cow.say=Kuh muht
+subtitle.mob.cat.hitt=Katze nimmt Schaden
+subtitle.mob.cat.purr=Katze schnurrt
+subtitle.mob.cat.purreow=Katze bettelt
+subtitle.mob.cat.meow=Katze miaut
+subtitle.mob.pig.say=Schwein grunzt
+subtitle.mob.sheep.say=Schaf määht
+subtitle.mob.silverfish.say=Silberfischchen zischt
+subtitle.mob.silverfish.hit=Silberfischchen nimmt Schaden
+subtitle.mob.silverfish.kill=Silberfischchen stirbt
+subtitle.mob.slime.big=Schleim hüpft
+subtitle.mob.slime.small=Schleim schwabbelt
+subtitle.mob.blaze.breathe=Lohe atmet
+subtitle.mob.blaze.hit=Lohe nimmt Schaden
+subtitle.mob.creeper.say=Creeper zischt
+subtitle.creeper.primed=Creeper explodiert
+subtitle.mob.villager.idle=Dorfbewohner murmelt
+subtitle.mob.villager.haggle=Dorfbewohner murmelt
+subtitle.mob.villager.yes=Dorfbewohner stimmt zu
+subtitle.mob.villager.no=Dorfbewohner lehnt ab
+subtitle.mob.villager.hit=Dorfbewohner nimmt Schaden
 subtitle.mob.zombie.say=Zombie stöhnt
 subtitle.mob.skeleton.say=Skelett klappert
 subtitle.mob.spider.say=Spinne zischt
-subtitle.random.pop=Gegenstand aufgehoben
-subtitle.random.orb=Erfahrung erhalten
-subtitle.fall.small=Etwas stolpert
-subtitle.fall.big=Etwas fällt
+subtitle.mob.ghast.moan=Ghast jammert
+subtitle.mob.ghast.scream=Ghast schreit
+subtitle.mob.ghast.charge=Ghast schießt
+subtitle.mob.ghast.fireball=Feuerball fliegt
+subtitle.mob.zombieepig.zpig=Schweinezombie grunzt
+subtitle.mob.zombieepig.zpighurt=Schweinezombie nimmt Schaden
+subtitle.mob.zombieepig.zpigangry=Schweinezombie grunzt verärgert
+subtitle.mob.zombieepig.zpigdeath=Schweinezombie stirbt
+subtitle.mob.endermen.idle=Enderman woopt
+subtitle.mob.endermen.portal=Enderman teleportiert
+subtitle.mob.endermen.hit=Enderman nimmt Schaden
+subtitle.mob.endermen.death=Endermite stirbt
+subtitle.mob.magmacube.big=Magmawürfel hüpft
+subtitle.mob.magmacube.small=Magmawürfel schwabbelt
+subtitle.mob.wolf.bark=Wolf bellt
+subtitle.mob.wolf.panting=Wolf hechelt
+subtitle.mob.wolf.shake=Wolf schüttelt sich
+subtitle.mob.horse.idle=Pferd wiehert
+subtitle.mob.horse.angry=Pferd wiehert
+subtitle.mob.horse.hit=Pferd nimmt Schaden
+subtitle.mob.horse.death=Pferd stirbt
+subtitle.mob.horse.eat=Pferd frisst
+subtitle.mob.horse.gallop=Pferd galoppiert
+subtitle.mob.horse.jump=Pferd springt
+subtitle.mob.horse.land=Pferd landet
+subtitle.mob.horse.breathe=Pferd schnaubt
+subtitle.mob.horse.wood=Pferd beschleunigt
+subtitle.mob.horse.soft=Pferd läuft
+subtitle.mob.horse.leather=Pferd gesattelt
 
 subtitle.tile.piston.out=Kolben arbeitet
 subtitle.tile.piston.in=Kolben arbeitet
+
+subtitle.weather.rain=Regen prasselt
+subtitle.ambient.weather.thunder=Donner grollt
 
 # Objekte
 entity.etfuturum.endermite.name=Endermite

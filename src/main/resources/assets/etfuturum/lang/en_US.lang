@@ -43,7 +43,7 @@ container.etfuturum.barrel=Barrel
 container.etfuturum.shulker_box=Shulker Box
 container.etfuturum.chest_boat=Boat with Chest
 
-item.record.pigstep.desc=Lena Raine - pigstep
+item.record.pigstep.desc=Lena Raine - Pigstep
 item.record.otherside.desc=Lena Raine - otherside
 
 gui.smithing.upgrade=Upgrade Gear
@@ -56,7 +56,6 @@ gui.chat.update=%1$s version %2$s is available!
 gui.chat.update.download=Click here to download the update on %s!
 
 # Subtitles
-
 subtitle.game.tnt.primed=TNT fired up
 subtitle.game.player.swim=Player swims
 subtitle.game.player.swim.splash=Player splashes
@@ -94,7 +93,6 @@ subtitle.entity.item_frame.add_item=Frame Fill
 subtitle.entity.item_frame.remove_item=Empty Frame
 subtitle.entity.item_frame.rotate_item=Rotate Framed Item
 
-
 subtitle.entity.rabbit.ambient=Rabbit squeaks
 subtitle.entity.rabbit.death=Rabbit dies
 subtitle.entity.rabbit.hurt=Rabbit takes damage
@@ -126,7 +124,6 @@ subtitle.entity.squid.death=Squid dies
 subtitle.entity.boat.paddle_water=Sound of paddles on the water
 subtitle.entity.boat.paddle_land=Sound of paddles on the ground
 
-
 subtitle.random.fizz=Something fizz
 subtitle.random.drink=Drink
 subtitle.random.eat=Champing
@@ -147,7 +144,6 @@ subtitle.dig.wood=Block placed or broken
 subtitle.dig.cloth=Block placed or broken
 subtitle.dig.glass=Block placed or broken
 subtitle.dig.gravel=Block placed or broken
-
 
 subtitle.fall.small=Something trips
 subtitle.fall.big=Something fell
@@ -211,7 +207,6 @@ subtitle.block.fence_gate.open=Gate opens
 subtitle.block.shulker_box.open=Shulker box opens
 subtitle.block.shulker_box.close=Shulker box closes
 
-
 subtitle.mob.hurt=%s hurts
 subtitle.mob.death=%s dies
 subtitle.mob.step=Footsteps
@@ -247,14 +242,14 @@ subtitle.mob.ghast.moan=Ghast cries
 subtitle.mob.ghast.scream=Ghast screams
 subtitle.mob.ghast.charge=Ghast fires
 subtitle.mob.ghast.fireball=Sound of a fireball flying
-subtitle.mob.zombieepig.zpig=Zombie Pig growls
-subtitle.mob.zombieepig.zpighurt=Zombiepig takes damage
-subtitle.mob.zombieepig.zpigangry=Pigangry=Pigangry
-subtitle.mob.zombieepig.zpigdeath=Zombiepig dies
-subtitle.mob.endermen.idle=Endermen purr
-subtitle.mob.endermen.portal=Endermen Teleported
-subtitle.mob.endermen.hit=Endermen take damage
-subtitle.mob.endermen.death=Endermen die
+subtitle.mob.zombieepig.zpig=Zombie Pigman growls
+subtitle.mob.zombieepig.zpighurt=Zombie Pigman takes damage
+subtitle.mob.zombieepig.zpigangry=Zombie Pigman growls angrily
+subtitle.mob.zombieepig.zpigdeath=Zombie Pigman dies
+subtitle.mob.endermen.idle=Enderman purr
+subtitle.mob.endermen.portal=Enderman Teleported
+subtitle.mob.endermen.hit=Enderman take damage
+subtitle.mob.endermen.death=Enderman die
 subtitle.mob.magmacube.big=Magmacube Jumps
 subtitle.mob.magmacube.small=Magmacube Squishes
 subtitle.mob.wolf.bark=Wolf barks
@@ -278,8 +273,6 @@ subtitle.tile.piston.in=Piston moving
 
 subtitle.weather.rain=Rain
 subtitle.ambient.weather.thunder=Thunder
-
-
 
 # Entities
 entity.etfuturum.endermite.name=Endermite
