@@ -77,6 +77,7 @@ public class ConfigSounds extends ConfigBase {
 	public static Set<String> newArmorEquipCustomRulesTurtle = new HashSet<>();
 	public static Set<String> newArmorEquipCustomRulesElytra = new HashSet<>();
 	public static Set<String> newArmorEquipCustomRulesGeneric = new HashSet<>();
+	public static Set<String> newArmorEquipCustomRulesNone = new HashSet<>();
 
 	public static boolean combatSounds;
 	public static boolean thornsSounds;
@@ -96,7 +97,6 @@ public class ConfigSounds extends ConfigBase {
 	public static boolean seedPlanting;
 	public static boolean fluidInteract;
 	public static boolean newBlockSounds;
-	public static boolean hoeTilling;
 	public static boolean furnaceCrackling;
 	public static boolean bonemealing;
 	public static boolean heavyWaterSplashing;
@@ -144,7 +144,6 @@ public class ConfigSounds extends ConfigBase {
 		seedPlanting = cfg.getBoolean("seedPlanting", catBlocksItems, true, "Planting seeds or nether wart onto farmland/soulsand.");
 		fluidInteract = cfg.getBoolean("fluidInteract", catBlocksItems, true, "Play a sound when filling or emptying a bucket/bottle. Plays sounds for filling/emptying cauldrons too but works on vanilla cauldrons only.");
 		newBlockSounds = cfg.getBoolean("newBlockSounds", catBlocksItems, true, "Many blocks after 1.14 introduce a new step sound, if this is turned off most backported blocks will use the most suitable step sound present in vanilla 1.7.10.");
-		hoeTilling = cfg.getBoolean("hoeTilling", catBlocksItems, true, "Sounds for hoes tilling farmland.");
 		fixSilentPlacing = cfg.getBoolean("fixSilentPlacing", catBlocksItems, true, "Add placing sounds for blocks that don't play one for some reason such as doors or restone dust.");
 		furnaceCrackling = cfg.getBoolean("furnaceCrackling", catBlocksItems, true, "Adds furnace crackling to lit furnace blocks.");
 
@@ -158,11 +157,11 @@ public class ConfigSounds extends ConfigBase {
 		bookPageTurn = cfg.getBoolean("bookPageTurn", catMisc, true, "Changes the click in the book GUI to have a page turn sound instead of the menu click.");
 		
 		Property newArmorEquipCustomRulesProp = cfg.get(catPlayer, "armorEquipCustomRules", DEFAULT_CUSTOM_ARMOR_EQUIP_RULES);
-		newArmorEquipCustomRulesProp.comment = "Used for custom armor to play custom equip sounds. First the sound you want to play, a colon, then a part of the unlocalized name. The string can be anywhere in the unlocalized name and is not case-sensitive.\nFor example, one of the default custom rules below is \"gold:copper\", which means any armor with \"copper\" anywhere in its unlocalized name will get the gold equip sound.\nAvailable sounds are: 'leather, chain, gold, iron, diamond, netherite, elytra, turtle_helmet, generic'. If a modded armor is not on the list it will use generic equip sounds automatically. Non-armor gear will not play a sound unless specified to do so.";
+		newArmorEquipCustomRulesProp.comment = "Used for custom armor to play custom equip sounds. First the sound you want to play, a colon, then a part of the unlocalized name. The string can be anywhere in the unlocalized name and is not case-sensitive.\nFor example, one of the default custom rules below is \"gold:copper\", which means any armor with \"copper\" anywhere in its unlocalized name will get the gold equip sound.\nAvailable sounds are: 'leather, chain, gold, iron, diamond, netherite, elytra, turtle_helmet, generic, none'. If a modded armor is not on the list it will use generic equip sounds automatically unless it's given the \"none\" type. Non-armor gear will not play a sound unless specified to do so.";
 
 		for(String rule : newArmorEquipCustomRulesProp.getStringList()) {
-			if(rule.split(":").length != 1 && !rule.startsWith("leather") && !rule.startsWith("chain") && !rule.startsWith("gold") && !rule.startsWith("iron") &&
-			 !rule.startsWith("diamond") && !rule.startsWith("netherite") && !rule.startsWith("elytra") && !rule.startsWith("turtle_helmet") && !rule.startsWith("generic")) {
+			if(rule.split(":").length != 1 && !rule.startsWith("leather") && !rule.startsWith("chain") && !rule.startsWith("gold") && !rule.startsWith("iron") && !rule.startsWith("diamond") &&
+					!rule.startsWith("netherite") && !rule.startsWith("elytra") && !rule.startsWith("turtle_helmet") && !rule.startsWith("generic") && !rule.startsWith("none")) {
 				Logger.error("Custom armor rule entry " + rule + " is invalid. Each entry should have ONE colon (:) and should start with a material type. Skipping.");
 				continue;
 			}
@@ -187,6 +186,8 @@ public class ConfigSounds extends ConfigBase {
 				newArmorEquipCustomRulesTurtle.add(material);
 			} else if (rule.startsWith("generic")) {
 				newArmorEquipCustomRulesGeneric.add(material);
+			} else if (rule.startsWith("none")) {
+				newArmorEquipCustomRulesNone.add(material);
 			}
 		}
 	}

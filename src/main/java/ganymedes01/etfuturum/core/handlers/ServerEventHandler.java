@@ -153,7 +153,9 @@ public class ServerEventHandler {
 						// Equipment is in the slot and either the NBT thinks there's not an item already there, or that the item is different in some way that's not its durability.
 						if(player.inventory.isItemValidForSlot(i, currentArmor)) {
 							String armorString = currentArmor.getUnlocalizedName().toLowerCase();
-							if (armorString.contains("chain") || EtFuturum.stringListContainsPhrase(ConfigSounds.newArmorEquipCustomRulesChain, armorString)) {
+							if(EtFuturum.stringListContainsPhrase(ConfigSounds.newArmorEquipCustomRulesNone, armorString)) {
+								continue;
+							} else if (armorString.contains("chain") || EtFuturum.stringListContainsPhrase(ConfigSounds.newArmorEquipCustomRulesChain, armorString)) {
 								itemEquippedSound = "item.armor.equip_chain";
 							} else if (armorString.contains("diamond") || EtFuturum.stringListContainsPhrase(ConfigSounds.newArmorEquipCustomRulesDiamond, armorString)) {
 								itemEquippedSound = "item.armor.equip_diamond";
@@ -1034,75 +1036,6 @@ public class ServerEventHandler {
 	
 	public static boolean canUse(EntityPlayer player, World world, int x, int y, int z) {
 		return !player.isSneaking() || player.getHeldItem() == null || player.getHeldItem().getItem().doesSneakBypassUse(world, x, y, z, player);
-	}
-	
-	@SubscribeEvent
-	public void onHoeUseEvent(UseHoeEvent event) {
-		if(isBannedHoe(event.current)) return;
-		
-		World world = event.world;
-		int x = event.x;
-		int y = event.y;
-		int z = event.z;
-		boolean flag = false;
-		//If the result is ALLOW, the vanilla tilling code won't run, only the item is damaged.
-		//So I'll just do that and re-run the vanilla code since it's easier than creating a mixin.
-		//Also modded hoe behavior probably supplies their own sound so we'll try to only run this code for vanilla behaviors.
-		
-		if (ConfigBlocksItems.enableCoarseDirt) {
-			if (world.getBlock(x, y, z) == ModBlocks.coarse_dirt) {
-				world.setBlock(x, y, z, Blocks.dirt);
-				event.setResult(Result.ALLOW);
-				flag = true;
-			}
-		}
-		
-		if(ConfigSounds.hoeTilling) {
-			if(!flag) {
-				Block block = world.getBlock(x, y, z);
-				MovingObjectPosition position = getMovingObjectPositionFromPlayer(world, event.entityPlayer, false);
-				
-				if (position != null && position.typeOfHit == MovingObjectType.BLOCK && position.sideHit != 0 && world.getBlock(x, y + 1, z).isAir(world, x, y + 1, z) && (block == Blocks.grass || block == Blocks.dirt))
-				{
-					if (world.isRemote) {
-						flag = true;
-					}
-					else {
-						world.setBlock(x, y, z, Blocks.farmland);
-						flag = true;
-					}
-				}
-			}
-
-			if(flag) {
-				world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, Reference.MCAssetVer+":item.hoe.till", 1.0F, 1.0F);
-			}
-		} else if(flag) {
-			world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, Block.soundTypeGravel.getStepResourcePath(), 1.0F, 0.8F);
-		}
-	}
-	
-	/**
-	 * Because whoever made IC2 is a dingbat and doesn't stop running their hoe code if the result is Result.ALLOW
-	 * This is an issue because the hoe is SUPPOSED to let only mod code run if the result is Result.ALLOW because that means the hoe is doing something else
-	 * This causes the IC2 electric hoe to instantly till the dirt after using a hoe to convert coarse dirt to regular dirt.
-	 * ... AND ALSO THEY DOn'T EVEN DAMAGE THE HOE IF RESULT IS ALLOW AND DAMAGEITEM DOES NOTHING TO IT IFJSDNJGUIHRSNGRMSG
-	 * So we just say screw it, IC2 hoes don't get to use the new sound code or till coarse dirt since they don't use the event properly...
-	 *
-	 * Also any other hoes here may want non-vanilla behavior that my code may override are also here.
-	 * 
-	 * @param current
-	 * @return 
-	 */
-	private final boolean isBannedHoe(ItemStack current) {
-		if(current == null) return true;//If a mod is stupid and puts null in the event for some reason
-		if(EtFuturum.hasIC2 && current.getItem() == ExternalContent.ic2_electric_hoe) {
-			return true;
-		}
-		if(EtFuturum.hasThaumcraft && current.getItem() == ExternalContent.thaumcraft_hoe_of_growth) {
-			return true;
-		}
-		return false;
 	}
 
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
