@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.items.block;
+package ganymedes01.etfuturum.items;
 
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
@@ -7,6 +7,7 @@ import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.network.WoodSignOpenMessage;
+import ganymedes01.etfuturum.recipes.ModRecipes;
 import ganymedes01.etfuturum.tileentities.TileEntityWoodSign;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,8 +25,8 @@ public class ItemWoodSign extends Item implements IConfigurable {
 	public ItemWoodSign(int i)
 	{
 		meta = i - 1;
-		setUnlocalizedName(Utils.getUnlocalisedName("item_sign_" + ModBlocks.woodTypes[i]));
-		setTextureName("minecraft:" + ModBlocks.woodTypes[i] + "_sign");
+		setUnlocalizedName(Utils.getUnlocalisedName("item_sign_" + ModRecipes.woodTypes[i]));
+		setTextureName("minecraft:" + ModRecipes.woodTypes[i] + "_sign");
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
 		this.maxStackSize = Items.sign.getItemStackLimit(new ItemStack(Items.sign));
 	}

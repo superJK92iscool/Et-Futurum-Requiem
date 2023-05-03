@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.items.block;
+package ganymedes01.etfuturum.blocks.itemblocks;
 
 import java.util.List;
 
@@ -20,9 +20,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
 
-public class ItemShulkerBox extends ItemBlock {
+public class ItemBlockShulkerBox extends ItemBlock {
 
-	public ItemShulkerBox(Block p_i45328_1_) {
+	public ItemBlockShulkerBox(Block p_i45328_1_) {
 		super(p_i45328_1_);
 		if(ConfigBlocksItems.enableShulkerBoxes) {
 			BlockDispenser.dispenseBehaviorRegistry.putObject(this, new DispenserBehaviourShulkerBox());

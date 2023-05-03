@@ -21,7 +21,7 @@ public class WorldGenDeepslateLayerBlob extends WorldGenMinable
 
 	public WorldGenDeepslateLayerBlob(int numberOfBlocks, boolean tuff)
 	{
-		super(tuff ? ModBlocks.tuff : ModBlocks.deepslate, numberOfBlocks);
+		super(tuff ? ModBlocks.TUFF.get() : ModBlocks.DEEPSLATE.get(), numberOfBlocks);
 		this.numberOfBlocks = numberOfBlocks;
 		this.tuff = tuff;
 	}
@@ -75,11 +75,11 @@ public class WorldGenDeepslateLayerBlob extends WorldGenMinable
 								{
 									block = world.getBlock(x, y, z);
 									
-									if(block.getMaterial() != Material.air && block != ModBlocks.deepslate && block != ModBlocks.tuff && block != ModBlocks.cobbled_deepslate) {
+									if(block.getMaterial() != Material.air && block != ModBlocks.DEEPSLATE.get() && block != ModBlocks.TUFF.get() && block != ModBlocks.COBBLED_DEEPSLATE.get()) {
 										if((block.isReplaceableOreGen(world, x, y, z, Blocks.stone))) {
 											world.setBlock(x, y, z, field_150519_a, 0, 2);
 										} else if(!tuff && ConfigTweaks.deepslateReplacesCobblestone && (block.isReplaceableOreGen(world, x, y, z, Blocks.cobblestone))) {
-											world.setBlock(x, y, z, ModBlocks.cobbled_deepslate, 0, 2);
+											world.setBlock(x, y, z, ModBlocks.COBBLED_DEEPSLATE.get(), 0, 2);
 										} else if(ConfigBlocksItems.enableDeepslateOres && block != Blocks.air) {
 											if((mapping = DeepslateOreRegistry.getOre(block, world.getBlockMetadata(x, y, z))) != null) {
 												world.setBlock(x, y, z, mapping.getBlock(), mapping.getMeta(), 2);

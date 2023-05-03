@@ -117,7 +117,7 @@ public class ConfigSounds extends ConfigBase {
 		setCategoryComment(catBlocksItems, "Sounds for blocks and items.");
 		setCategoryComment(catEntity, "Sounds for entities.");
 		setCategoryComment(catAmbient, "Ambient sounds.");
-		setCategoryComment(catMisc, "Sounds that don't fit in any other category.");
+		setCategoryComment(catMisc, "Sounds that don't fit in any other category.\nNote some sound settings may be in mixins.cfg");
 
 		configCats.add(getCategory(catPlayer));
 		configCats.add(getCategory(catBlocksItems));

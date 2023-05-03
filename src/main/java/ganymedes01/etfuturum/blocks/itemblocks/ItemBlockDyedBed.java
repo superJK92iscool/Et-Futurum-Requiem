@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.items.block;
+package ganymedes01.etfuturum.blocks.itemblocks;
 
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import net.minecraft.block.Block;
@@ -9,9 +9,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-public class ItemDyedBed extends ItemBlock {
+public class ItemBlockDyedBed extends ItemBlock {
 
-	public ItemDyedBed(Block p_i45328_1_) {
+	public ItemBlockDyedBed(Block p_i45328_1_) {
 		super(p_i45328_1_);
 	}
 

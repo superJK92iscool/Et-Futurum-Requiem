@@ -21,15 +21,15 @@ public class BlockSmoothSandstoneSlab extends BlockGenericSlab implements IConfi
 
 	@Override
 	public BlockGenericSlab[] getSlabTypes() {
-		return new BlockGenericSlab[] {(BlockGenericSlab)(meta == 0 ? ModBlocks.smooth_sandstone_slab : ModBlocks.smooth_red_sandstone_slab),
-				(BlockGenericSlab)(meta == 0 ? ModBlocks.double_smooth_sandstone_slab : ModBlocks.double_smooth_red_sandstone_slab)};
+		return new BlockGenericSlab[] {(BlockGenericSlab)(meta == 0 ? ModBlocks.SMOOTH_SANDSTONE_SLAB.get() : ModBlocks.SMOOTH_RED_SANDSTONE_SLAB.get()),
+				(BlockGenericSlab)(meta == 0 ? ModBlocks.DOUBLE_SMOOTH_SANDSTONE_SLAB.get() : ModBlocks.DOUBLE_SMOOTH_RED_SANDSTONE_SLAB.get())};
 	}
 
 	@Override
 	public IIcon[] getSlabIcons(int side) {
 		if(meta == 1)
-			return new IIcon[] {ModBlocks.smooth_red_sandstone.getIcon(side, 0)};
-		return new IIcon[] {ModBlocks.smooth_sandstone.getIcon(side, 0)};
+			return new IIcon[] {ModBlocks.SMOOTH_RED_SANDSTONE.get().getIcon(side, 0)};
+		return new IIcon[] {ModBlocks.SMOOTH_SANDSTONE.get().getIcon(side, 0)};
 	}
 
 	@Override

@@ -39,8 +39,8 @@ public class WorldGenMinableCustom extends WorldGenMinable
 		super(block, meta, number, target);
 		this.meta = meta;
 		
-		shouldAirGen = ConfigWorld.enableAirDebris || block != ModBlocks.ancient_debris;
-		hardAmountCap = block == ModBlocks.ancient_debris;
+		shouldAirGen = ConfigWorld.enableAirDebris || block != ModBlocks.ANCIENT_DEBRIS.get();
+		hardAmountCap = block == ModBlocks.ANCIENT_DEBRIS.get();
 		//TODO Mesa gen, block cap
 	}
 

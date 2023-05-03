@@ -49,10 +49,8 @@ import ganymedes01.etfuturum.core.utils.*;
 import ganymedes01.etfuturum.entities.ModEntityList;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.potion.ModPotions;
-import ganymedes01.etfuturum.recipes.BlastFurnaceRecipes;
 import ganymedes01.etfuturum.recipes.ModRecipes;
 import ganymedes01.etfuturum.recipes.SmithingTableRecipes;
-import ganymedes01.etfuturum.recipes.SmokerRecipes;
 import ganymedes01.etfuturum.world.EtFuturumLateWorldGenerator;
 import ganymedes01.etfuturum.world.EtFuturumWorldGenerator;
 import ganymedes01.etfuturum.world.end.dimension.DimensionProviderEnd;
@@ -101,7 +99,7 @@ public class EtFuturum {
 	public static CreativeTabs creativeTabItems = new CreativeTabs(Reference.MOD_ID + ".items") {
 		@Override
 		public Item getTabIconItem() {
-			return ConfigBlocksItems.enableNetherite ? ModItems.netherite_scrap : ConfigBlocksItems.enablePrismarine ? ModItems.prismarine_shard : Items.magma_cream;
+			return ConfigBlocksItems.enableNetherite ? ModItems.NETHERITE_SCRAP.get() : ConfigBlocksItems.enablePrismarine ? ModItems.PRISMARINE_SHARD.get() : Items.magma_cream;
 		}
 		
 		@SideOnly(Side.CLIENT)
@@ -117,7 +115,7 @@ public class EtFuturum {
 	public static CreativeTabs creativeTabBlocks = new CreativeTabs(Reference.MOD_ID + ".blocks") {
 		@Override
 		public Item getTabIconItem() {
-			return ConfigBlocksItems.enableSmoker ? Item.getItemFromBlock(ModBlocks.smoker) : ConfigBlocksItems.enableChorusFruit ? Item.getItemFromBlock(ModBlocks.chorus_flower) : Item.getItemFromBlock(Blocks.ender_chest);
+			return ConfigBlocksItems.enableSmoker ? Item.getItemFromBlock(ModBlocks.SMOKER.get()) : ConfigBlocksItems.enableChorusFruit ? Item.getItemFromBlock(ModBlocks.CHORUS_FLOWER.get()) : Item.getItemFromBlock(Blocks.ender_chest);
 		}
 	};
 	
@@ -177,7 +175,7 @@ public class EtFuturum {
 			System.out.println("Failed to get Nether fortress loot table:");
 			e.printStackTrace();
 		}
-		
+
 		ModBlocks.init();
 		ModItems.init();
 		ModEnchantments.init();
@@ -294,12 +292,12 @@ public class EtFuturum {
 		Blocks.trapped_chest.setCreativeTab(CreativeTabs.tabRedstone);
 		
 		if(ConfigBlocksItems.enableOtherside) {
-			ChestGenHooks.addItem(ChestGenHooks.STRONGHOLD_CORRIDOR, new WeightedRandomChestContent(ModItems.otherside_record, 0, 1, 1, 1));
-			ChestGenHooks.addItem(ChestGenHooks.DUNGEON_CHEST, new WeightedRandomChestContent(ModItems.otherside_record, 0, 1, 1, 1));
+			ChestGenHooks.addItem(ChestGenHooks.STRONGHOLD_CORRIDOR, new WeightedRandomChestContent(ModItems.OTHERSIDE_RECORD.get(), 0, 1, 1, 1));
+			ChestGenHooks.addItem(ChestGenHooks.DUNGEON_CHEST, new WeightedRandomChestContent(ModItems.OTHERSIDE_RECORD.get(), 0, 1, 1, 1));
 		}
 		
 		if(ConfigBlocksItems.enablePigstep) {
-			ChestGenHooks.addItem(NETHER_FORTRESS, new WeightedRandomChestContent(ModItems.pigstep_record, 0, 1, 1, 5));
+			ChestGenHooks.addItem(NETHER_FORTRESS, new WeightedRandomChestContent(ModItems.PIGSTEP_RECORD.get(), 0, 1, 1, 5));
 			
 			if(fortressWeightedField != null) {
 				try {
@@ -586,15 +584,15 @@ public class EtFuturum {
 			return new PotionEffect(Potion.field_76443_y.id, 7, 0);
 		}
 
-		if(item == Item.getItemFromBlock(ModBlocks.cornflower)) {
+		if(item == Item.getItemFromBlock(ModBlocks.CORNFLOWER.get())) {
 			return new PotionEffect(Potion.jump.id, 120, 0);
 		}
 
-		if(item == Item.getItemFromBlock(ModBlocks.lily_of_the_valley)) {
+		if(item == Item.getItemFromBlock(ModBlocks.LILY_OF_THE_VALLEY.get())) {
 			return new PotionEffect(Potion.poison.id, 240, 0);
 		}
 
-		if(item == Item.getItemFromBlock(ModBlocks.wither_rose)) {
+		if(item == Item.getItemFromBlock(ModBlocks.WITHER_ROSE.get())) {
 			return new PotionEffect(Potion.wither.id, 160, 0);
 		}
 		return null;

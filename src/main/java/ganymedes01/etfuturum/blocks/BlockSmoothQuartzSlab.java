@@ -19,12 +19,12 @@ public class BlockSmoothQuartzSlab extends BlockGenericSlab implements IConfigur
 
 	@Override
 	public BlockGenericSlab[] getSlabTypes() {
-		return new BlockGenericSlab[] {(BlockGenericSlab)ModBlocks.smooth_quartz_slab, (BlockGenericSlab)ModBlocks.double_smooth_quartz_slab};
+		return new BlockGenericSlab[] {(BlockGenericSlab) ModBlocks.SMOOTH_QUARTZ_SLAB.get(), (BlockGenericSlab) ModBlocks.DOUBLE_SMOOTH_QUARTZ_SLAB.get()};
 	}
 
 	@Override
 	public IIcon[] getSlabIcons(int side) {
-		return new IIcon[] {ModBlocks.smooth_quartz.getIcon(side, 0)};
+		return new IIcon[] {ModBlocks.SMOOTH_QUARTZ.get().getIcon(side, 0)};
 	}
 
 	@Override

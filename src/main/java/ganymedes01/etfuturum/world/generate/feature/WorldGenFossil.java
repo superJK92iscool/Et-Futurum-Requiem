@@ -3,7 +3,6 @@ package ganymedes01.etfuturum.world.generate.feature;
 import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
-import ganymedes01.etfuturum.core.utils.ExternalContent;
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import ganymedes01.etfuturum.core.utils.helpers.BlockState;
 import ganymedes01.etfuturum.core.utils.helpers.BlockStateUtils;
@@ -119,7 +118,7 @@ public class WorldGenFossil extends WorldGenerator {
 				map.put(0, new BlockState(Blocks.coal_ore, 0));
 			} else { //TODO: Configurable bone block
 				Block block = ConfigWorld.fossilBlockID == 1 ? GameRegistry.findBlock("netherlicious", "BoneBlock") : GameRegistry.findBlock("uptodate", "bone_block");
-				block = ConfigWorld.fossilBlockID == 0 || block == null ? ModBlocks.bone_block : block;
+				block = ConfigWorld.fossilBlockID == 0 || block == null ? ModBlocks.BONE.get() : block;
 				for (Pair<Integer, NBTTagCompound> pair : getPaletteNBT()) {
 					String axis = getProperties(pair.getRight()).get("axis");
 					map.put(pair.getLeft(), new BlockState(block, BlockStateUtils.getMetaFromState("axis", axis, facing)));

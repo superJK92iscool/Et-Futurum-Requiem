@@ -58,7 +58,7 @@ public class BlockColoredWaterCauldronRenderer implements ISimpleBlockRenderingH
 		float g = (float)(color >> 8 & 255) / 255.0F;
 		float b = (float)(color & 255) / 255.0F;
 		tessellator.setColorOpaque_F(r, g, b);
-		IIcon iicon = ((BlockPotionCauldron)ModBlocks.potion_cauldron).grayscaleWaterIcon();
+		IIcon iicon = ((BlockPotionCauldron) ModBlocks.POTION_CAULDRON.get()).grayscaleWaterIcon();
 		renderer.renderFaceYPos(block, (double)x, (double)((float)y - 1.0F + BlockCauldron.getRenderLiquidLevel(i1 + 1)), (double)z, iicon);
 		
 		return true;

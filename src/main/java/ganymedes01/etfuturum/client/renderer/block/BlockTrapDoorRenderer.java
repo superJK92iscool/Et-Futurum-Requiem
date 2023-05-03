@@ -1,9 +1,9 @@
 package ganymedes01.etfuturum.client.renderer.block;
 
+import ganymedes01.etfuturum.ModBlocks;
 import org.lwjgl.opengl.GL11;
 
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
-import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;

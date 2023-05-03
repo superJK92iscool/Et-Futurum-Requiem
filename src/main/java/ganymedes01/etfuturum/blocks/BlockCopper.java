@@ -10,7 +10,7 @@ import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.items.block.ItemBlockCopper;
+import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockCopper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;

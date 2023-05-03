@@ -74,22 +74,22 @@ public class StrippedLogRegistry {
 
 	public static void init() {
 		if(ConfigBlocksItems.enableStrippedLogs) {
-			strippedLogs.put(new BlockAndMetadataMapping(Blocks.log, 0), new BlockAndMetadataMapping(ModBlocks.log_stripped, 0));
-			strippedLogs.put(new BlockAndMetadataMapping(Blocks.log, 1), new BlockAndMetadataMapping(ModBlocks.log_stripped, 1));
-			strippedLogs.put(new BlockAndMetadataMapping(Blocks.log, 2), new BlockAndMetadataMapping(ModBlocks.log_stripped, 2));
-			strippedLogs.put(new BlockAndMetadataMapping(Blocks.log, 3), new BlockAndMetadataMapping(ModBlocks.log_stripped, 3));
+			strippedLogs.put(new BlockAndMetadataMapping(Blocks.log, 0), new BlockAndMetadataMapping(ModBlocks.LOG_STRIPPED.get(), 0));
+			strippedLogs.put(new BlockAndMetadataMapping(Blocks.log, 1), new BlockAndMetadataMapping(ModBlocks.LOG_STRIPPED.get(), 1));
+			strippedLogs.put(new BlockAndMetadataMapping(Blocks.log, 2), new BlockAndMetadataMapping(ModBlocks.LOG_STRIPPED.get(), 2));
+			strippedLogs.put(new BlockAndMetadataMapping(Blocks.log, 3), new BlockAndMetadataMapping(ModBlocks.LOG_STRIPPED.get(), 3));
 		
-			strippedLogs.put(new BlockAndMetadataMapping(Blocks.log2, 0), new BlockAndMetadataMapping(ModBlocks.log2_stripped, 0));
-			strippedLogs.put(new BlockAndMetadataMapping(Blocks.log2, 1), new BlockAndMetadataMapping(ModBlocks.log2_stripped, 1));
+			strippedLogs.put(new BlockAndMetadataMapping(Blocks.log2, 0), new BlockAndMetadataMapping(ModBlocks.LOG2_STRIPPED.get(), 0));
+			strippedLogs.put(new BlockAndMetadataMapping(Blocks.log2, 1), new BlockAndMetadataMapping(ModBlocks.LOG2_STRIPPED.get(), 1));
 		
 			if(ConfigBlocksItems.enableBarkLogs) {
-				strippedLogs.put(new BlockAndMetadataMapping(ModBlocks.log_bark, 0), new BlockAndMetadataMapping(ModBlocks.wood_stripped, 0));
-				strippedLogs.put(new BlockAndMetadataMapping(ModBlocks.log_bark, 1), new BlockAndMetadataMapping(ModBlocks.wood_stripped, 1));
-				strippedLogs.put(new BlockAndMetadataMapping(ModBlocks.log_bark, 2), new BlockAndMetadataMapping(ModBlocks.wood_stripped, 2));
-				strippedLogs.put(new BlockAndMetadataMapping(ModBlocks.log_bark, 3), new BlockAndMetadataMapping(ModBlocks.wood_stripped, 3));
+				strippedLogs.put(new BlockAndMetadataMapping(ModBlocks.BARK.get(), 0), new BlockAndMetadataMapping(ModBlocks.WOOD_STRIPPED.get(), 0));
+				strippedLogs.put(new BlockAndMetadataMapping(ModBlocks.BARK.get(), 1), new BlockAndMetadataMapping(ModBlocks.WOOD_STRIPPED.get(), 1));
+				strippedLogs.put(new BlockAndMetadataMapping(ModBlocks.BARK.get(), 2), new BlockAndMetadataMapping(ModBlocks.WOOD_STRIPPED.get(), 2));
+				strippedLogs.put(new BlockAndMetadataMapping(ModBlocks.BARK.get(), 3), new BlockAndMetadataMapping(ModBlocks.WOOD_STRIPPED.get(), 3));
 			
-				strippedLogs.put(new BlockAndMetadataMapping(ModBlocks.log2_bark, 0), new BlockAndMetadataMapping(ModBlocks.wood2_stripped, 0));
-				strippedLogs.put(new BlockAndMetadataMapping(ModBlocks.log2_bark, 1), new BlockAndMetadataMapping(ModBlocks.wood2_stripped, 1));
+				strippedLogs.put(new BlockAndMetadataMapping(ModBlocks.BARK2.get(), 0), new BlockAndMetadataMapping(ModBlocks.WOOD2_STRIPPED.get(), 0));
+				strippedLogs.put(new BlockAndMetadataMapping(ModBlocks.BARK2.get(), 1), new BlockAndMetadataMapping(ModBlocks.WOOD2_STRIPPED.get(), 1));
 			}
 		}
 	}

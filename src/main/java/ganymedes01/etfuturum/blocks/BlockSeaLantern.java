@@ -36,7 +36,7 @@ public class BlockSeaLantern extends Block implements IConfigurable {
 
 	@Override
 	public Item getItemDropped(int meta, Random rand, int fortune) {
-		return ModItems.prismarine_crystals;
+		return ModItems.PRISMARINE_CRYSTALS.get();
 	}
 
 	@Override

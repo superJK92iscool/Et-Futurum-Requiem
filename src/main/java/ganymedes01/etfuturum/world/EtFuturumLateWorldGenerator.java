@@ -6,11 +6,11 @@ import java.util.Map.Entry;
 import java.util.Random;
 import java.util.Set;
 
+import ganymedes01.etfuturum.ModBlocks;
 import org.apache.commons.lang3.ArrayUtils;
 
 import com.google.common.collect.Maps;
 
-import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigTweaks;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
@@ -92,7 +92,7 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 					for (int y = 0; y < chunk.getHeightValue(x, z); y++) {
 						ExtendedBlockStorage array = chunk.getBlockStorageArray()[y >> 4];
 						if(array != null && array.getExtBlockMetadata(x, y & 15, z) == 1 && array.getBlockByExtId(x, y & 15, z) == Blocks.dirt) {
-							array.func_150818_a(x, y & 15, z, ModBlocks.coarse_dirt);
+							array.func_150818_a(x, y & 15, z, ModBlocks.COARSE_DIRT.get());
 							array.setExtBlockMetadata(x, y & 15, z, 0);
 					}
 				}
@@ -128,18 +128,18 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 	}
 	
 	private void replaceBlockInChunk(Chunk chunk, Block block, int x, int z, int worldX, int worldY, int worldZ) {
-		if(block.getMaterial() != Material.air && block != ModBlocks.deepslate && block != ModBlocks.tuff && block != ModBlocks.cobbled_deepslate) {
+		if(block.getMaterial() != Material.air && block != ModBlocks.DEEPSLATE.get() && block != ModBlocks.TUFF.get() && block != ModBlocks.COBBLED_DEEPSLATE.get()) {
 			
 			ExtendedBlockStorage array = chunk.getBlockStorageArray()[worldY >> 4];
 			
 			if(array == null) return;
 			
-			if((block.isReplaceableOreGen(chunk.worldObj, worldX, worldY, worldZ, Blocks.stone) && (ConfigWorld.deepslateReplacesStones || block != ModBlocks.stone))
+			if((block.isReplaceableOreGen(chunk.worldObj, worldX, worldY, worldZ, Blocks.stone) && (ConfigWorld.deepslateReplacesStones || block != ModBlocks.STONE.get()))
 					|| (ConfigWorld.deepslateReplacesDirt && block == Blocks.dirt)) {
-				array.func_150818_a(x, worldY & 15, z, ModBlocks.deepslate);
+				array.func_150818_a(x, worldY & 15, z, ModBlocks.DEEPSLATE.get());
 				array.setExtBlockMetadata(x, worldY & 15, z, 0);
 			} else if(ConfigTweaks.deepslateReplacesCobblestone && block.isReplaceableOreGen(chunk.worldObj, worldX, worldY, worldZ, Blocks.cobblestone)) {
-				array.func_150818_a(x, worldY & 15, z, ModBlocks.cobbled_deepslate);
+				array.func_150818_a(x, worldY & 15, z, ModBlocks.COBBLED_DEEPSLATE.get());
 				array.setExtBlockMetadata(x, worldY & 15, z, 0);
 			} else if(!DeepslateOreRegistry.getOreMap().isEmpty()) {
 				BlockAndMetadataMapping mapping;

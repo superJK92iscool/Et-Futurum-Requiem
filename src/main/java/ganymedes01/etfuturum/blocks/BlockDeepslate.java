@@ -60,7 +60,7 @@ public class BlockDeepslate extends BlockRotatedPillar implements IConfigurable 
 	
 	@Override
 	public Item getItemDropped(int i, Random random, int j) {
-		return Item.getItemFromBlock(ModBlocks.cobbled_deepslate);
+		return Item.getItemFromBlock(ModBlocks.COBBLED_DEEPSLATE.get());
 	}
 
 	@Override

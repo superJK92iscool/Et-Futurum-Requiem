@@ -45,7 +45,7 @@ public class EntityBrownMooshroom extends EntityMooshroom {
 		}
 		if (effectID > 0 && itemstack != null && itemstack.getItem() == Items.bowl && this.getGrowingAge() >= 0)
 		{
-			ItemStack stew = new ItemStack(ModItems.suspicious_stew, 1, 0);
+			ItemStack stew = new ItemStack(ModItems.SUSPICIOUS_STEW.get(), 1, 0);
 			stew.stackTagCompound = new NBTTagCompound();
 			NBTTagList effectsList = new NBTTagList();
 			stew.stackTagCompound.setTag(ItemSuspiciousStew.effectsList, effectsList);

@@ -24,7 +24,7 @@ public class BlockPrismarineSlab extends BlockGenericSlab implements IConfigurab
 
 	@Override
 	public BlockGenericSlab[] getSlabTypes() {
-		return new BlockGenericSlab[] {(BlockGenericSlab)ModBlocks.prismarine_slab, (BlockGenericSlab)ModBlocks.double_prismarine_slab};
+		return new BlockGenericSlab[] {(BlockGenericSlab) ModBlocks.PRISMARINE_SLAB.get(), (BlockGenericSlab) ModBlocks.DOUBLE_PRISMARINE_SLAB.get()};
 	}
 	
 	@Override
@@ -43,7 +43,7 @@ public class BlockPrismarineSlab extends BlockGenericSlab implements IConfigurab
 	public IIcon[] getSlabIcons(int side) {
 		IIcon[] blocks = new IIcon[3];
 		for(int i = 0; i < 3; i++) {
-			blocks[i] = ModBlocks.prismarine.getIcon(side, i);
+			blocks[i] = ModBlocks.PRISMARINE_BLOCK.get().getIcon(side, i);
 		};
 		return blocks;
 	}

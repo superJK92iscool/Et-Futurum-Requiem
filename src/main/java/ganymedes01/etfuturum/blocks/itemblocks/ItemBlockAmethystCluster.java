@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.items.block;
+package ganymedes01.etfuturum.blocks.itemblocks;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -9,12 +9,12 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 
-public class ItemAmethystCluster extends ItemBlock {
+public class ItemBlockAmethystCluster extends ItemBlock {
 	
 	private static final String[] item_names = new String[] {"small_amethyst_bud", "medium_amethyst_bud", "large_amethyst_bud", "amethyst_cluster"};
-	private boolean secondCluster = field_150939_a == ModBlocks.amethyst_cluster_2;
+	private boolean secondCluster = field_150939_a == ModBlocks.AMETHYST_CLUSTER_2.get();
 	
-	public ItemAmethystCluster(Block p_i45328_1_) {
+	public ItemBlockAmethystCluster(Block p_i45328_1_) {
 		super(p_i45328_1_);
 		setHasSubtypes(true);
 	}

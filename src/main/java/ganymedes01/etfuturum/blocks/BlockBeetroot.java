@@ -34,12 +34,12 @@ public class BlockBeetroot extends BlockCrops implements IConfigurable {
 
 	@Override
 	protected Item func_149866_i() {
-		return ModItems.beetroot_seeds;
+		return ModItems.BEETROOT_SEEDS.get();
 	}
 
 	@Override
 	protected Item func_149865_P() {
-		return ModItems.beetroot;
+		return ModItems.BEETROOT.get();
 	}
 
 	@Override

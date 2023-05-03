@@ -4,19 +4,18 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+import ganymedes01.etfuturum.ModBlocks;
 import org.apache.commons.lang3.tuple.Pair;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
-import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.ExternalContent;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import ganymedes01.etfuturum.core.utils.helpers.DoublePerlinNoiseSampler;
 import ganymedes01.etfuturum.core.utils.helpers.Vec3i;
-import gnu.trove.list.array.TIntArrayList;
 import net.minecraft.block.Block;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
@@ -46,7 +45,7 @@ public class WorldGenAmethystGeode extends WorldGenerator {
 	
 	public WorldGenAmethystGeode(int minOffset, int maxOffset, int invalidMax, int[] distPoints, int[] outerWallDist, double fill, double inner, double middle, double outer, int[] pointOff, double crackChance, double baseCrack, int crackPointOff, double noiseAmp, double budChance, double potentialPlaceChance) {
 		outerMeta = ConfigWorld.amethystOuterBlock == ExternalContent.netherlicious_basalt_bricks ? 6 : 0;
-		budBlocks = ImmutableList.of(ModBlocks.amethyst_cluster_1, ModBlocks.amethyst_cluster_2);
+		budBlocks = ImmutableList.of(ModBlocks.AMETHYST_CLUSTER_1.get(), ModBlocks.AMETHYST_CLUSTER_2.get());
 		
 		minGenOffset = minOffset;
 		maxGenOffset = maxOffset;
@@ -196,9 +195,9 @@ public class WorldGenAmethystGeode extends WorldGenerator {
 					} else if (u >= innerLayerSqrt) {
 					   boolean bl2 = (double)random.nextFloat() < this.buddingAmethystChance;
 					   if (bl2) {
-						   world.setBlock(blockPos3.getX(), blockPos3.getY(), blockPos3.getZ(), ModBlocks.budding_amethyst);//AlternateInnerLayerProvider
+						   world.setBlock(blockPos3.getX(), blockPos3.getY(), blockPos3.getZ(), ModBlocks.BUDDING_AMETHYST.get());//AlternateInnerLayerProvider
 					   } else {
-						   world.setBlock(blockPos3.getX(), blockPos3.getY(), blockPos3.getZ(), ModBlocks.amethyst_block);//InnerLayerProvider
+						   world.setBlock(blockPos3.getX(), blockPos3.getY(), blockPos3.getZ(), ModBlocks.AMETHYST_BLOCK.get());//InnerLayerProvider
 					   }
 
 					   //This boolean is always true and !true == false
@@ -206,7 +205,7 @@ public class WorldGenAmethystGeode extends WorldGenerator {
 						  list3.add(new BlockPos(blockPos3));
 					   }
 					} else if (u >= middleLayerSqrt) {
-					   world.setBlock(blockPos3.getX(), blockPos3.getY(), blockPos3.getZ(), ModBlocks.calcite, 0, 2);//MiddleLayerProvider also TODO I need to make this layer configurable
+					   world.setBlock(blockPos3.getX(), blockPos3.getY(), blockPos3.getZ(), ModBlocks.CALCITE.get(), 0, 2);//MiddleLayerProvider also TODO I need to make this layer configurable
 					} else if (u >= outerLayerSqrt) {
 					   world.setBlock(blockPos3.getX(), blockPos3.getY(), blockPos3.getZ(), ConfigWorld.amethystOuterBlock, outerMeta, 2);//OuterLayerProvider
 					}

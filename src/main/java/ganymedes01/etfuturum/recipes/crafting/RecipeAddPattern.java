@@ -2,7 +2,7 @@ package ganymedes01.etfuturum.recipes.crafting;
 
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.items.block.ItemBanner;
+import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockBanner;
 import ganymedes01.etfuturum.lib.EnumColour;
 import ganymedes01.etfuturum.tileentities.TileEntityBanner;
 import ganymedes01.etfuturum.tileentities.TileEntityBanner.EnumBannerPattern;
@@ -23,7 +23,7 @@ public class RecipeAddPattern implements IRecipe {
 		for (int i = 0; i < grid.getSizeInventory(); i++) {
 			ItemStack slot = grid.getStackInSlot(i);
 
-			if (slot != null && slot.getItem() == Item.getItemFromBlock(ModBlocks.banner)) {
+			if (slot != null && slot.getItem() == Item.getItemFromBlock(ModBlocks.BANNER.get())) {
 				if (flag)
 					return false;
 				if (TileEntityBanner.getPatterns(slot) >= 6)
@@ -44,7 +44,7 @@ public class RecipeAddPattern implements IRecipe {
 		for (int i = 0; i < grid.getSizeInventory(); i++) {
 			ItemStack slot = grid.getStackInSlot(i);
 
-			if (slot != null && slot.getItem() == Item.getItemFromBlock(ModBlocks.banner)) {
+			if (slot != null && slot.getItem() == Item.getItemFromBlock(ModBlocks.BANNER.get())) {
 				banner = slot.copy();
 				banner.stackSize = 1;
 				break;
@@ -63,7 +63,7 @@ public class RecipeAddPattern implements IRecipe {
 				}
 			}
 
-			NBTTagCompound nbt = ItemBanner.getSubTag(banner, "BlockEntityTag", true);
+			NBTTagCompound nbt = ItemBlockBanner.getSubTag(banner, "BlockEntityTag", true);
 			NBTTagList nbttaglist;
 
 			if (nbt.hasKey("Patterns", 9))
@@ -121,7 +121,7 @@ public class RecipeAddPattern implements IRecipe {
 
 					for (int i = 0; i < grid.getSizeInventory() && flag; i++) {
 						ItemStack slot = grid.getStackInSlot(i);
-						if (slot != null && slot.getItem() != Item.getItemFromBlock(ModBlocks.banner))
+						if (slot != null && slot.getItem() != Item.getItemFromBlock(ModBlocks.BANNER.get()))
 							if (isDye(slot)) {
 								if (flag2) {
 									flag = false;
@@ -150,7 +150,7 @@ public class RecipeAddPattern implements IRecipe {
 						int i = l / 3;
 						int j1 = l % 3;
 						ItemStack slot = grid.getStackInSlot(l);
-						if (slot != null && slot.getItem() != Item.getItemFromBlock(ModBlocks.banner)) {
+						if (slot != null && slot.getItem() != Item.getItemFromBlock(ModBlocks.BANNER.get())) {
 							if (!isDye(slot)) {
 								flag = false;
 								break;

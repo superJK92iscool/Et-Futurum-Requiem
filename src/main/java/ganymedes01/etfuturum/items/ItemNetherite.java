@@ -18,7 +18,7 @@ public class ItemNetherite extends ItemUninflammable implements IConfigurable {
 	
 	@Override
 	public boolean isBeaconPayment(ItemStack stack) {
-		return this == ModItems.netherite_ingot;
+		return this == ModItems.NETHERITE_INGOT.get();
 	}
 	
 	@Override

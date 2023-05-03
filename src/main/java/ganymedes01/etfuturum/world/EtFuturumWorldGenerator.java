@@ -4,10 +4,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
+import ganymedes01.etfuturum.ModBlocks;
 import org.apache.commons.lang3.ArrayUtils;
 
 import cpw.mods.fml.common.IWorldGenerator;
-import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.blocks.BlockChorusFlower;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
@@ -38,12 +38,12 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 	protected final List<WorldGenMinable> stoneGen = new LinkedList<WorldGenMinable>();
 	protected final List<WorldGenFlowers> flowers = new LinkedList<WorldGenFlowers>();
 	
-	protected final WorldGenMinable copperGen = new WorldGenMinable(ModBlocks.copper_ore, ConfigWorld.maxCopperPerCluster);
+	protected final WorldGenMinable copperGen = new WorldGenMinable(ModBlocks.COPPER_ORE.get(), ConfigWorld.maxCopperPerCluster);
 	
-	protected final WorldGenMinable magmaGen = new WorldGenMinable(ModBlocks.magma_block, ConfigWorld.maxMagmaPerCluster, Blocks.netherrack);
-	protected final WorldGenMinable netherGoldGen = new WorldGenMinable(ModBlocks.nether_gold_ore, ConfigWorld.maxNetherGoldPerCluster, Blocks.netherrack);
-	protected final WorldGenMinable debrisGen = new WorldGenMinableCustom(ModBlocks.ancient_debris, ConfigWorld.debrisMax, Blocks.netherrack);
-	protected final WorldGenMinable smallDebrisGen = new WorldGenMinableCustom(ModBlocks.ancient_debris, ConfigWorld.smallDebrisMax, Blocks.netherrack);
+	protected final WorldGenMinable magmaGen = new WorldGenMinable(ModBlocks.MAGMA.get(), ConfigWorld.maxMagmaPerCluster, Blocks.netherrack);
+	protected final WorldGenMinable netherGoldGen = new WorldGenMinable(ModBlocks.NETHER_GOLD_ORE.get(), ConfigWorld.maxNetherGoldPerCluster, Blocks.netherrack);
+	protected final WorldGenMinable debrisGen = new WorldGenMinableCustom(ModBlocks.ANCIENT_DEBRIS.get(), ConfigWorld.debrisMax, Blocks.netherrack);
+	protected final WorldGenMinable smallDebrisGen = new WorldGenMinableCustom(ModBlocks.ANCIENT_DEBRIS.get(), ConfigWorld.smallDebrisMax, Blocks.netherrack);
 	protected final WorldGenMinable mesaGoldGen = new WorldGenMinable(Blocks.gold_ore, 8);
 	
 	protected final WorldGenMinable deepslateBlobGen = new WorldGenDeepslateLayerBlob(ConfigWorld.maxDeepslatePerCluster, false);
@@ -54,13 +54,13 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 	public final MapGenMesaMineshaft mesaMineshaftGen = new MapGenMesaMineshaft();
 
 	protected EtFuturumWorldGenerator() {
-		stoneGen.add(new WorldGenMinableCustom(ModBlocks.stone, 1, ConfigWorld.maxStonesPerCluster, Blocks.stone));
-		stoneGen.add(new WorldGenMinableCustom(ModBlocks.stone, 3, ConfigWorld.maxStonesPerCluster, Blocks.stone));
-		stoneGen.add(new WorldGenMinableCustom(ModBlocks.stone, 5, ConfigWorld.maxStonesPerCluster, Blocks.stone));
-		flowers.add(new WorldGenFlowers(ModBlocks.lily_of_the_valley));
-		flowers.add(new WorldGenFlowers(ModBlocks.cornflower));
-		flowers.add(new WorldGenFlowers(ModBlocks.sweet_berry_bush));
-		flowers.get(2).func_150550_a(ModBlocks.sweet_berry_bush, 3);
+		stoneGen.add(new WorldGenMinableCustom(ModBlocks.STONE.get(), 1, ConfigWorld.maxStonesPerCluster, Blocks.stone));
+		stoneGen.add(new WorldGenMinableCustom(ModBlocks.STONE.get(), 3, ConfigWorld.maxStonesPerCluster, Blocks.stone));
+		stoneGen.add(new WorldGenMinableCustom(ModBlocks.STONE.get(), 5, ConfigWorld.maxStonesPerCluster, Blocks.stone));
+		flowers.add(new WorldGenFlowers(ModBlocks.LILY_OF_THE_VALLEY.get()));
+		flowers.add(new WorldGenFlowers(ModBlocks.CORNFLOWER.get()));
+		flowers.add(new WorldGenFlowers(ModBlocks.SWEET_BERRY_BUSH.get()));
+		flowers.get(2).func_150550_a(ModBlocks.SWEET_BERRY_BUSH.get(), 3);
 	}
 
 	@Override

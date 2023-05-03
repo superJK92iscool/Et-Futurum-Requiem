@@ -7,7 +7,7 @@ import com.google.common.collect.Lists;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.items.block.ItemBanner;
+import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockBanner;
 import ganymedes01.etfuturum.lib.EnumColour;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -91,12 +91,12 @@ public class TileEntityBanner extends TileEntity {
 	}
 
 	public static int getBaseColor(ItemStack stack) {
-		NBTTagCompound nbttagcompound = ItemBanner.getSubTag(stack, "BlockEntityTag", false);
+		NBTTagCompound nbttagcompound = ItemBlockBanner.getSubTag(stack, "BlockEntityTag", false);
 		return nbttagcompound != null && nbttagcompound.hasKey("Base") ? nbttagcompound.getInteger("Base") : stack.getItemDamage();
 	}
 
 	public static int getPatterns(ItemStack stack) {
-		NBTTagCompound nbttagcompound = ItemBanner.getSubTag(stack, "BlockEntityTag", false);
+		NBTTagCompound nbttagcompound = ItemBlockBanner.getSubTag(stack, "BlockEntityTag", false);
 		return nbttagcompound != null && nbttagcompound.hasKey("Patterns") ? nbttagcompound.getTagList("Patterns", 10).tagCount() : 0;
 	}
 
@@ -119,7 +119,7 @@ public class TileEntityBanner extends TileEntity {
 	}
 
 	public static void removeBannerData(ItemStack stack) {
-		NBTTagCompound nbttagcompound = ItemBanner.getSubTag(stack, "BlockEntityTag", false);
+		NBTTagCompound nbttagcompound = ItemBlockBanner.getSubTag(stack, "BlockEntityTag", false);
 
 		if (nbttagcompound != null && nbttagcompound.hasKey("Patterns", 9)) {
 			NBTTagList nbttaglist = nbttagcompound.getTagList("Patterns", 10);
@@ -165,7 +165,7 @@ public class TileEntityBanner extends TileEntity {
 	}
 
 	public ItemStack createStack() {
-		ItemStack stack = new ItemStack(ModBlocks.banner, 1, getBaseColor());
+		ItemStack stack = new ItemStack(ModBlocks.BANNER.get(), 1, getBaseColor());
 		NBTTagCompound nbt = new NBTTagCompound();
 		writeToNBT(nbt);
 		nbt.removeTag("x");

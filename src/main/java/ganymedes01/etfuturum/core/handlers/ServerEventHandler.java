@@ -7,10 +7,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import cpw.mods.fml.relauncher.Side;
-import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.ModEnchantments;
-import ganymedes01.etfuturum.ModItems;
+import ganymedes01.etfuturum.*;
 import ganymedes01.etfuturum.api.elytra.IElytraEntityTrackerEntry;
 import ganymedes01.etfuturum.api.elytra.IElytraPlayer;
 import ganymedes01.etfuturum.blocks.BlockMagma;
@@ -113,7 +110,7 @@ public class ServerEventHandler {
 		double y = entity.posY;
 		double z = entity.posZ;
 		if(ConfigBlocksItems.enableMagmaBlock) {
-			if(!entity.isImmuneToFire() && !entity.isSneaking() && entity.onGround && entity.worldObj.getBlock(MathHelper.floor_double(x), (int)(y - .45D), MathHelper.floor_double(z)) == ModBlocks.magma_block) {
+			if(!entity.isImmuneToFire() && !entity.isSneaking() && entity.onGround && entity.worldObj.getBlock(MathHelper.floor_double(x), (int)(y - .45D), MathHelper.floor_double(z)) == ModBlocks.MAGMA.get()) {
 				if(ConfigEnchantsPotions.enableFrostWalker && EnchantmentHelper.getEnchantmentLevel(ConfigEnchantsPotions.frostWalkerID, entity.getEquipmentInSlot(1)) == 0) {
 					entity.attackEntityFrom(BlockMagma.HOT_FLOOR, 1);
 				}
@@ -293,7 +290,7 @@ public class ServerEventHandler {
 				EntityTippedArrow tippedArrow = (EntityTippedArrow) dmgSrc.getSourceOfDamage();
 				if (!tippedArrow.worldObj.isRemote && dmgSrc.getEntity() instanceof EntityLivingBase) {
 
-					List list = ((ItemArrowTipped) ModItems.tipped_arrow).getEffects(tippedArrow.getArrow());
+					List list = ((ItemArrowTipped) ModItems.TIPPED_ARROW.get()).getEffects(tippedArrow.getArrow());
 					Iterator iterator1 = list.iterator();
 
 					while (iterator1.hasNext())
@@ -326,7 +323,7 @@ public class ServerEventHandler {
 				continue;
 			if (stack.getItem() == Items.arrow)
 				return;
-			if (stack.getItem() == ModItems.tipped_arrow) {
+			if (stack.getItem() == ModItems.TIPPED_ARROW.get()) {
 				event.setCanceled(true);
 				event.entityPlayer.setItemInUse(event.result, event.result.getItem().getMaxItemUseDuration(event.result));
 				return;
@@ -342,7 +339,7 @@ public class ServerEventHandler {
 		IInventory invt = event.entityPlayer.inventory;
 		for (int i = 0; i < invt.getSizeInventory(); i++) {
 			ItemStack arrow = invt.getStackInSlot(i);
-			if (arrow != null && arrow.stackSize > 0 && arrow.getItem() == ModItems.tipped_arrow) {
+			if (arrow != null && arrow.stackSize > 0 && arrow.getItem() == ModItems.TIPPED_ARROW.get()) {
 				float charge = event.charge / 20.0F;
 				charge = (charge * charge + charge * 2.0F) / 3.0F;
 
@@ -430,10 +427,10 @@ public class ServerEventHandler {
 		if(ConfigFunctions.enableSilkTouchingMushrooms && event.isSilkTouching)
 			if (event.block == Blocks.brown_mushroom_block) {
 				event.drops.clear();
-				event.drops.add(new ItemStack(ModBlocks.brown_mushroom_block));
+				event.drops.add(new ItemStack(ModBlocks.BROWN_MUSHROOM.get()));
 			} else if (event.block == Blocks.red_mushroom_block) {
 				event.drops.clear();
-				event.drops.add(new ItemStack(ModBlocks.red_mushroom_block));
+				event.drops.add(new ItemStack(ModBlocks.RED_MUSHROOM.get()));
 			}
 
 		if(ConfigFunctions.enableSticksFromDeadBushes) {
@@ -869,7 +866,7 @@ public class ServerEventHandler {
 							if (ConfigBlocksItems.enableLavaCauldrons && item instanceof ItemBucket && ((ItemBucket)item).isFull == Blocks.flowing_lava && meta == 0) {
 								event.setResult(Result.DENY);
 								player.swingItem();
-								world.setBlock(x, y, z, ModBlocks.lava_cauldron);
+								world.setBlock(x, y, z, ModBlocks.LAVA_CAULDRON.get());
 								if(ConfigSounds.fluidInteract) {
 									world.playSoundEffect(x, y, z, Reference.MCAssetVer+":item.bucket.empty_lava", 1, 1);
 								}
@@ -951,7 +948,7 @@ public class ServerEventHandler {
 
 						if(ConfigBlocksItems.enableInvertedDaylightSensor && oldBlock == Blocks.daylight_detector && canUse(player, world, x, y, z)) {
 							player.swingItem();
-							world.setBlock(x, y, z, ModBlocks.inverted_daylight_detector, 15 - meta, 2);
+							world.setBlock(x, y, z, ModBlocks.DAYLIGHT_DETECTOR_INVERTED.get(), 15 - meta, 2);
 							if(!world.isRemote) {
 								event.setResult(Result.DENY);
 								event.setCanceled(true);
@@ -960,7 +957,7 @@ public class ServerEventHandler {
 						
 						if(ConfigBlocksItems.enablePotionCauldron && oldBlock == Blocks.cauldron && heldStack != null && meta == 0 && heldStack.getItem() == Items.potionitem
 								 && (heldStack.hasTagCompound() || heldStack.getItemDamage() > 0) && !ItemPotion.isSplash(heldStack.getItemDamage()) && !Items.potionitem.getEffects(heldStack).isEmpty()) {
-							world.setBlock(x, y, z, ModBlocks.potion_cauldron); //If we don't cancel the use event, the new block is used, so the use code is in the block class.
+							world.setBlock(x, y, z, ModBlocks.POTION_CAULDRON.get()); //If we don't cancel the use event, the new block is used, so the use code is in the block class.
 						}
 						
 						//Grass pathing/Log Stripping
@@ -971,7 +968,7 @@ public class ServerEventHandler {
 								if (ConfigBlocksItems.enableGrassPath && toolClasses.contains("shovel") && !world.getBlock(x, y + 1, z).getMaterial().isSolid() && (oldBlock == Blocks.grass || oldBlock == Blocks.dirt || oldBlock == Blocks.mycelium)) {
 									player.swingItem();
 									if(!world.isRemote) {
-										world.setBlock(x, y, z, ModBlocks.grass_path);
+										world.setBlock(x, y, z, ModBlocks.GRASS_PATH.get());
 										heldStack.damageItem(1, player);
 										world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, Reference.MCAssetVer + ":item.shovel.flatten", 1.0F, 1.0F);
 									}
@@ -1052,18 +1049,18 @@ public class ServerEventHandler {
 			int amount = rand.nextInt(3) + 1 + rand.nextInt(1 + event.lootingLevel);
 			for (int i = 0; i < amount; i++)
 				if (event.entityLiving.isBurning())
-					addDrop(new ItemStack(ModItems.cooked_mutton), event.entityLiving, event.drops);
+					addDrop(new ItemStack(ModItems.MUTTON_COOKED.get()), event.entityLiving, event.drops);
 				else
-					addDrop(new ItemStack(ModItems.raw_mutton), event.entityLiving, event.drops);
+					addDrop(new ItemStack(ModItems.MUTTON_RAW.get()), event.entityLiving, event.drops);
 		}
 		
 		if (ConfigBlocksItems.enableWitherRose && event.entity instanceof EntityLivingBase && event.source.getEntity() instanceof EntityWither) {
 			World world = event.entity.worldObj;
 			Entity entity = event.entity;
-			if(world.getGameRules().getGameRuleBooleanValue("mobGriefing") && ((BlockWitherRose)ModBlocks.wither_rose).canPlaceBlockAt(world, (int)entity.posX, (int)entity.posY, (int)entity.posZ)) {
-				world.setBlock((int)entity.posX, (int)entity.posY, (int)entity.posZ, ModBlocks.wither_rose);
+			if(world.getGameRules().getGameRuleBooleanValue("mobGriefing") && ((BlockWitherRose) ModBlocks.WITHER_ROSE.get()).canPlaceBlockAt(world, (int)entity.posX, (int)entity.posY, (int)entity.posZ)) {
+				world.setBlock((int)entity.posX, (int)entity.posY, (int)entity.posZ, ModBlocks.WITHER_ROSE.get());
 			} else {
-				addDrop(new ItemStack(ModBlocks.wither_rose, 1, 0), event.entityLiving, event.drops);
+				addDrop(new ItemStack(ModBlocks.WITHER_ROSE.get(), 1, 0), event.entityLiving, event.drops);
 			}
 		}
 	}
@@ -1172,11 +1169,11 @@ public class ServerEventHandler {
 		if (event.entity instanceof EntityPig) {
 			EntityPig pig = (EntityPig) event.entity;
 			if (ConfigBlocksItems.enableBeetroot)
-				pig.tasks.addTask(4, new EntityAITempt(pig, 1.2, ModItems.beetroot, false));
+				pig.tasks.addTask(4, new EntityAITempt(pig, 1.2, ModItems.BEETROOT.get(), false));
 		} else if (event.entity instanceof EntityChicken) {
 			EntityChicken chicken = (EntityChicken) event.entity;
 			if (ConfigBlocksItems.enableBeetroot)
-				chicken.tasks.addTask(3, new EntityAITempt(chicken, 1.0D, ModItems.beetroot_seeds, false));
+				chicken.tasks.addTask(3, new EntityAITempt(chicken, 1.0D, ModItems.BEETROOT_SEEDS.get(), false));
 		} else if (event.entity instanceof EntityWolf) {
 			EntityWolf wolf = (EntityWolf) event.entity;
 			if (ConfigEntities.enableRabbit)
@@ -1208,10 +1205,10 @@ public class ServerEventHandler {
 			EntityAnimal animal = (EntityAnimal) event.target;
 			if (!animal.isChild()) {
 				if (animal instanceof EntityPig) {
-					if (stack.getItem() == ModItems.beetroot && ConfigBlocksItems.enableBeetroot)
+					if (stack.getItem() == ModItems.BEETROOT.get() && ConfigBlocksItems.enableBeetroot)
 						setAnimalInLove(animal, event.entityPlayer, stack);
 				} else if (animal instanceof EntityChicken)
-					if (stack.getItem() == ModItems.beetroot_seeds && ConfigBlocksItems.enableBeetroot)
+					if (stack.getItem() == ModItems.BEETROOT_SEEDS.get() && ConfigBlocksItems.enableBeetroot)
 						setAnimalInLove(animal, event.entityPlayer, stack);
 			} else if (ConfigEntities.enableBabyGrowthBoost && isFoodItem(animal, stack)) {
 				feedBaby(animal, event.entityPlayer, stack);
@@ -1293,9 +1290,9 @@ public class ServerEventHandler {
 	private boolean isFoodItem(EntityAnimal animal, ItemStack food) {
 		if (animal.isBreedingItem(food))
 			return true;
-		else if (animal instanceof EntityPig && food.getItem() == ModItems.beetroot && ConfigBlocksItems.enableBeetroot)
+		if (animal instanceof EntityPig && food.getItem() == ModItems.BEETROOT.get() && ConfigBlocksItems.enableBeetroot)
 			return true;
-		else if (animal instanceof EntityChicken && food.getItem() == ModItems.beetroot_seeds && ConfigBlocksItems.enableBeetroot)
+		if (animal instanceof EntityChicken && food.getItem() == ModItems.BEETROOT_SEEDS.get() && ConfigBlocksItems.enableBeetroot)
 			return true;
 		else
 			return false;
@@ -1509,7 +1506,7 @@ public class ServerEventHandler {
 		if (entity.getHealth() > Math.round(event.ammount)) {
 			return;
 		}
-		if (entity.getHeldItem() == null || entity.getHeldItem().getItem() != ModItems.totem) {
+		if (entity.getHeldItem() == null || entity.getHeldItem().getItem() != ModItems.TOTEM_OF_UNDYING.get()) {
 			return;
 		}
 		
@@ -1541,7 +1538,7 @@ public class ServerEventHandler {
 	public void onDrops(BlockEvent.HarvestDropsEvent event) {
 		if(ConfigBlocksItems.enableSmoothStone && event.block == Blocks.double_stone_slab && event.blockMetadata == 8) {
 			event.drops.clear();
-			event.drops.add(new ItemStack(ModBlocks.smooth_stone, 1));
+			event.drops.add(new ItemStack(ModBlocks.SMOOTH_STONE.get(), 1));
 		}
 	}
 	

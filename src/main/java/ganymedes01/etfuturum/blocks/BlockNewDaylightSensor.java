@@ -38,7 +38,7 @@ public class BlockNewDaylightSensor extends BlockDaylightDetector implements ICo
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
 		if (!world.isRemote)
-			world.setBlock(x, y, z, ModBlocks.inverted_daylight_detector);
+			world.setBlock(x, y, z, ModBlocks.DAYLIGHT_DETECTOR_INVERTED.get());
 		return true;
 	}
 

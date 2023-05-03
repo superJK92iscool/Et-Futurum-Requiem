@@ -61,7 +61,7 @@ public class ModEnchantments {
 							Block blockUp = entity.worldObj.getBlock(x + i, y, z + j);
 							if(!blockUp.isNormalCube() && blockUp.getMaterial() != Material.water && (block == Blocks.water || block == Blocks.flowing_water)) {
 								if(entity.worldObj.getEntitiesWithinAABBExcludingEntity(entity, AxisAlignedBB.getBoundingBox(x + i, y - 1, z + j, x + i + 1, y, z + j + 1)).isEmpty()) {
-								entity.worldObj.setBlock(x + i, y - 1, z + j, ModBlocks.frosted_ice);
+								entity.worldObj.setBlock(x + i, y - 1, z + j, ModBlocks.FROSTED_ICE.get());
 								}
 							}
 						}

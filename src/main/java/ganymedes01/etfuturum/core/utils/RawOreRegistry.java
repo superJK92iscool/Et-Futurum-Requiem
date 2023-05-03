@@ -93,12 +93,12 @@ public class RawOreRegistry {
 	}
 
 	public static void init() {
-		if(((IConfigurable)(ModItems.raw_ore)).isEnabled()) {
+		if(((IConfigurable)(ModItems.RAW_ORE.get())).isEnabled()) {
 			if(ConfigBlocksItems.enableCopper || !OreDictionary.getOres("ingotCopper").isEmpty()) {
-				addOre("oreCopper", ModItems.raw_ore);
+				addOre("oreCopper", ModItems.RAW_ORE.get());
 			}
-			addOre("oreIron", ModItems.raw_ore, 1);
-			addOre("oreGold", ModItems.raw_ore, 2);
+			addOre("oreIron", ModItems.RAW_ORE.get(), 1);
+			addOre("oreGold", ModItems.RAW_ORE.get(), 2);
 		}
 	}
 

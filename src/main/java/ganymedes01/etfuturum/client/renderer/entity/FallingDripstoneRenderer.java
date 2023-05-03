@@ -1,8 +1,8 @@
 package ganymedes01.etfuturum.client.renderer.entity;
 
+import ganymedes01.etfuturum.ModBlocks;
 import org.lwjgl.opengl.GL11;
 
-import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.entities.EntityFallingDripstone;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
@@ -34,7 +34,7 @@ public class FallingDripstoneRenderer extends Render
 	public void doRender(EntityFallingDripstone p_76986_1_, double p_76986_2_, double p_76986_4_, double p_76986_6_, float p_76986_8_, float p_76986_9_)
 	{
 		World world = p_76986_1_.func_145807_e();
-		Block block = ModBlocks.pointed_dripstone;
+		Block block = ModBlocks.POINTED_DRIPSTONE.get();
 		int i = MathHelper.floor_double(p_76986_1_.posX);
 		int j = MathHelper.floor_double(p_76986_1_.posY);
 		int k = MathHelper.floor_double(p_76986_1_.posZ);
@@ -52,7 +52,7 @@ public class FallingDripstoneRenderer extends Render
 			tessellator.startDrawingQuads();
 			tessellator.setTranslation((double)((float)(-i) - 0.5F), (double)((float)(-j) - 0.5F), (double)((float)(-k) - 0.5F));
 			field_147920_a.setRenderBoundsFromBlock(block);
-			field_147920_a.drawCrossedSquares(ModBlocks.pointed_dripstone.getIcon(0, p_76986_1_.field_145814_a), i, j, k, 1.0F);
+			field_147920_a.drawCrossedSquares(ModBlocks.POINTED_DRIPSTONE.get().getIcon(0, p_76986_1_.field_145814_a), i, j, k, 1.0F);
 			tessellator.setTranslation(0.0D, 0.0D, 0.0D);
 			tessellator.draw();
 

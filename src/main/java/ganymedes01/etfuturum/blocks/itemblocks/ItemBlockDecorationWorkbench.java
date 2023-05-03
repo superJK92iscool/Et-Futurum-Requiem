@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.items.block;
+package ganymedes01.etfuturum.blocks.itemblocks;
 
 import java.util.List;
 
@@ -9,9 +9,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 
-public class ItemDecorationWorkbench extends ItemBlock {
+public class ItemBlockDecorationWorkbench extends ItemBlock {
 
-	public ItemDecorationWorkbench(Block p_i45328_1_) {
+	public ItemBlockDecorationWorkbench(Block p_i45328_1_) {
 		super(p_i45328_1_);
 	}
 

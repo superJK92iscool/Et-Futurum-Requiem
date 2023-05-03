@@ -7,12 +7,11 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.ModBlocks.ISubBlocksBlock;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.items.block.ItemAmethystCluster;
+import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockAmethystCluster;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -59,7 +58,7 @@ public class BlockAmethystCluster extends BlockAmethystBlock implements ISubBloc
 
 	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_)
 	{
-		return ModItems.amethyst_shard;
+		return ModItems.AMETHYST_SHARD.get();
 	}
 	
 	protected ItemStack createStackedBlock(int p_149644_1_)
@@ -87,7 +86,7 @@ public class BlockAmethystCluster extends BlockAmethystBlock implements ISubBloc
 	
 	public int quantityDropped(int meta, int fortune, Random random)
 	{
-		if(this == ModBlocks.amethyst_cluster_2 && meta >= 6) {
+		if(this == ModBlocks.AMETHYST_CLUSTER_2.get() && meta >= 6) {
 			int drop = quantityDropped(random);
 			if(fortune > 0 && harvestingWithPickaxe() && random.nextInt(2 + fortune) == 0) {
 				drop += 4 * fortune;
@@ -249,7 +248,7 @@ public class BlockAmethystCluster extends BlockAmethystBlock implements ISubBloc
 
 	@Override
 	public Class<? extends ItemBlock> getItemBlockClass() {
-		return ItemAmethystCluster.class;
+		return ItemBlockAmethystCluster.class;
 	}
 
 	private static final SoundType[] STEPSOUNDS = new SoundType[] {ModSounds.soundAmethystBudSmall, ModSounds.soundAmethystBudMed, ModSounds.soundAmethystBudLrg, null};

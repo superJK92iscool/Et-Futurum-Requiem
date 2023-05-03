@@ -6,13 +6,12 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.ModBlocks.ISubBlocksBlock;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.items.IRegistryName;
-import ganymedes01.etfuturum.items.block.ItemDyedBed;
+import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockDyedBed;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.recipes.ModRecipes;
 import net.minecraft.block.Block;
@@ -29,9 +28,6 @@ public class BlockDyedBed extends BlockBed implements IConfigurable, ISubBlocksB
 	
 	public BlockDyedBed(int dye) {
 		super();
-		if(dye == 14) {
-			dye = 15;
-		}
 		setHardness(0.2F);
 		String dyeName = ModRecipes.dye_names[dye];
 		if(dyeName.equals("light_gray")) {
@@ -102,7 +98,7 @@ public class BlockDyedBed extends BlockBed implements IConfigurable, ISubBlocksB
 	@Override
 	public Class<? extends ItemBlock> getItemBlockClass() {
 		// TODO Auto-generated method stub
-		return ItemDyedBed.class;
+		return ItemBlockDyedBed.class;
 	}
 
 	@Override

@@ -89,7 +89,7 @@ public class TileEntityNewBrewingStand extends TileEntityBrewingStand {
 
 			if (!itemstack.getItem().isPotionIngredient(itemstack))
 				return false;
-			else if (itemstack.getItem() == ModItems.dragon_breath) {
+			else if (itemstack.getItem() == ModItems.DRAGON_BREATH.get()) {
 				for (int i = 0; i < 3; i++)
 					if (inventory[i] != null && inventory[i].getItem() == Items.potionitem)
 						if (ItemPotion.isSplash(inventory[i].getItemDamage()))
@@ -130,8 +130,8 @@ public class TileEntityNewBrewingStand extends TileEntityBrewingStand {
 			for (int i = 0; i < 3; i++)
 				if (inventory[i] != null && inventory[i].getItem() instanceof ItemPotion) {
 					int j = inventory[i].getItemDamage();
-					if (ItemPotion.isSplash(j) && inventory[3].getItem() == ModItems.dragon_breath)
-						inventory[i] = new ItemStack(ModItems.lingering_potion, inventory[i].stackSize, inventory[i].getItemDamage());
+					if (ItemPotion.isSplash(j) && inventory[3].getItem() == ModItems.DRAGON_BREATH.get())
+						inventory[i] = new ItemStack(ModItems.LINGERING_POTION.get(), inventory[i].stackSize, inventory[i].getItemDamage());
 					else {
 						int k = applyIngredient(j, inventory[3]);
 						List<?> list = Items.potionitem.getEffects(j);

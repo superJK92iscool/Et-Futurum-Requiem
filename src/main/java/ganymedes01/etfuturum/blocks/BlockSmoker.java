@@ -8,7 +8,6 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
-import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.GUIsID;
 import ganymedes01.etfuturum.lib.Reference;
@@ -86,11 +85,11 @@ public class BlockSmoker extends BlockFurnace implements IConfigurable {
 
 		if (p_149931_0_)
 		{
-			p_149931_1_.setBlock(p_149931_2_, p_149931_3_, p_149931_4_, ModBlocks.lit_smoker);
+			p_149931_1_.setBlock(p_149931_2_, p_149931_3_, p_149931_4_, ModBlocks.LIT_SMOKER.get());
 		}
 		else
 		{
-			p_149931_1_.setBlock(p_149931_2_, p_149931_3_, p_149931_4_, ModBlocks.smoker);
+			p_149931_1_.setBlock(p_149931_2_, p_149931_3_, p_149931_4_, ModBlocks.SMOKER.get());
 		}
 
 		field_149934_M = false;
@@ -158,14 +157,14 @@ public class BlockSmoker extends BlockFurnace implements IConfigurable {
 	@Override
 	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_)
 	{
-		return Item.getItemFromBlock(ModBlocks.smoker);
+		return Item.getItemFromBlock(ModBlocks.SMOKER.get());
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public Item getItem(World p_149694_1_, int p_149694_2_, int p_149694_3_, int p_149694_4_)
 	{
-		return Item.getItemFromBlock(ModBlocks.smoker);
+		return Item.getItemFromBlock(ModBlocks.SMOKER.get());
 	}
 	
 	@Override

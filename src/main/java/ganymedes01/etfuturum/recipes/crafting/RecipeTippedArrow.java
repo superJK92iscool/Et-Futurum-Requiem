@@ -19,12 +19,12 @@ public class RecipeTippedArrow extends ShapedOreRecipe {
 	@Override
 	public ItemStack getCraftingResult(InventoryCrafting grid) {
 		ItemStack potion = grid.getStackInRowAndColumn(1, 1);
-		List<PotionEffect> effects = ((ItemLingeringPotion) ModItems.lingering_potion).getEffects(potion);
+		List<PotionEffect> effects = ((ItemLingeringPotion) ModItems.LINGERING_POTION.get()).getEffects(potion);
 		
 		if(potion.getItemDamage() == 0 && effects.isEmpty())
 			return null;
 
-		ItemStack stack = new ItemStack(ModItems.tipped_arrow, 8, potion.getItemDamage());
+		ItemStack stack = new ItemStack(ModItems.TIPPED_ARROW.get(), 8, potion.getItemDamage());
 		if (!effects.isEmpty() && potion.hasTagCompound() && potion.getTagCompound().hasKey("CustomPotionEffects", 9)) {
 			NBTTagCompound tag = new NBTTagCompound();
 			tag.setTag("CustomPotionEffects", potion.getTagCompound().getTagList("CustomPotionEffects", 10).copy());

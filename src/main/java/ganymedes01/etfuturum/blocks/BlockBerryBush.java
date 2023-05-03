@@ -5,12 +5,10 @@ import java.util.Random;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ganymedes01.etfuturum.ModBlocks.ISubBlocksBlock;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
-import ganymedes01.etfuturum.core.utils.Logger;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.BlockBush;
@@ -107,7 +105,7 @@ public class BlockBerryBush extends BlockBush implements IConfigurable, ISubBloc
 	@Override
 	@SideOnly(Side.CLIENT)
 	public Item getItem(World p_149694_1_, int p_149694_2_, int p_149694_3_, int p_149694_4_) {
-		return ModItems.sweet_berries;
+		return ModItems.SWEET_BERRIES.get();
 	}
 	
 	@Override
@@ -128,7 +126,7 @@ public class BlockBerryBush extends BlockBush implements IConfigurable, ISubBloc
 			//We check for if the plant is in the first berried stage (meta 2, the plant has berries on meta 2 and 3) and if we're holding bone meal.
 			//This is so we grow the berries to the final meta, 3 instead of picking them if the meta is 2.
 		   if (!world.isRemote && !world.restoringBlockSnapshots) {
-			   ItemStack stack = new ItemStack(ModItems.sweet_berries, 1 + world.rand.nextInt(i));
+			   ItemStack stack = new ItemStack(ModItems.SWEET_BERRIES.get(), 1 + world.rand.nextInt(i));
 			   float f = 0.7F;
 			   double d0 = world.rand.nextFloat() * f + (1.0F - f) * 0.5D;
 			   double d1 = world.rand.nextFloat() * f + (1.0F - f) * 0.5D;
@@ -165,7 +163,7 @@ public class BlockBerryBush extends BlockBush implements IConfigurable, ISubBloc
 	@Override
 	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_)
 	{
-		return ModItems.sweet_berries;
+		return ModItems.SWEET_BERRIES.get();
 	}
 	
 	@Override

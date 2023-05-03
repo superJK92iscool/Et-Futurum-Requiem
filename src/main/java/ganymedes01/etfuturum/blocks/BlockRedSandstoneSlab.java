@@ -24,12 +24,12 @@ public class BlockRedSandstoneSlab extends BlockGenericSlab implements IConfigur
 
 	@Override
 	public BlockGenericSlab[] getSlabTypes() {
-		return new BlockGenericSlab[] {(BlockGenericSlab)ModBlocks.red_sandstone_slab, (BlockGenericSlab)ModBlocks.double_red_sandstone_slab};
+		return new BlockGenericSlab[] {(BlockGenericSlab) ModBlocks.RED_SANDSTONE_SLAB.get(), (BlockGenericSlab) ModBlocks.DOUBLE_RED_SANDSTONE_SLAB.get()};
 	}
 
 	@Override
 	public IIcon[] getSlabIcons(int side) {
-		return new IIcon[] {ModBlocks.red_sandstone.getIcon(side, 0), ModBlocks.red_sandstone.getIcon(side, 2)};
+		return new IIcon[] {ModBlocks.RED_SANDSTONE.get().getIcon(side, 0), ModBlocks.RED_SANDSTONE.get().getIcon(side, 2)};
 	}
 	
 	@Override

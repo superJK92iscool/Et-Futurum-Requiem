@@ -3,7 +3,7 @@ package ganymedes01.etfuturum.blocks;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.items.block.ItemBlockRawOre;
+import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockRawOre;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemBlock;
 

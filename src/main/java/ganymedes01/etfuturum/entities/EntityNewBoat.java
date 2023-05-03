@@ -3,6 +3,7 @@ package ganymedes01.etfuturum.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import ganymedes01.etfuturum.ModItems;
 import org.apache.commons.lang3.ArrayUtils;
 
 import com.google.common.collect.Lists;
@@ -10,7 +11,6 @@ import com.google.common.collect.Lists;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.lib.Reference;

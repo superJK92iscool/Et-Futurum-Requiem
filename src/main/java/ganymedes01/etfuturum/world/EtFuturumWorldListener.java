@@ -25,36 +25,36 @@ public class EtFuturumWorldListener implements IWorldAccess {
 		world = theWorld;
 		if(ConfigBlocksItems.enableBrewingStands) {
 			if (ConfigWorld.tileReplacementMode == 0)
-				replacements.put(Blocks.brewing_stand, ModBlocks.brewing_stand);
+				replacements.put(Blocks.brewing_stand, ModBlocks.BREWING_STAND.get());
 			else if(ConfigWorld.tileReplacementMode == 1)
-				replacements.put(ModBlocks.brewing_stand, Blocks.brewing_stand);
+				replacements.put(ModBlocks.BREWING_STAND.get(), Blocks.brewing_stand);
 		}
 		
 
 		if(ConfigBlocksItems.enableColourfulBeacons) {
 			if (ConfigWorld.tileReplacementMode == 0)
-				replacements.put(Blocks.beacon, ModBlocks.beacon);
+				replacements.put(Blocks.beacon, ModBlocks.BEACON.get());
 			else if(ConfigWorld.tileReplacementMode == 1)
-				replacements.put(ModBlocks.beacon, Blocks.beacon);
+				replacements.put(ModBlocks.BEACON.get(), Blocks.beacon);
 		}
 
 		if(ConfigBlocksItems.enableEnchantingTable) {
 			if (ConfigWorld.tileReplacementMode == 0)
-				replacements.put(Blocks.enchanting_table, ModBlocks.enchanting_table);
+				replacements.put(Blocks.enchanting_table, ModBlocks.ENCHANTMENT_TABLE.get());
 			else if(ConfigWorld.tileReplacementMode == 1)
-				replacements.put(ModBlocks.enchanting_table, Blocks.enchanting_table);
+				replacements.put(ModBlocks.ENCHANTMENT_TABLE.get(), Blocks.enchanting_table);
 		}
 
 		if(ConfigBlocksItems.enableAnvil) {
 			if (ConfigWorld.tileReplacementMode == 0)
-				replacements.put(Blocks.anvil, ModBlocks.anvil);
+				replacements.put(Blocks.anvil, ModBlocks.ANVIL.get());
 			else if(ConfigWorld.tileReplacementMode == 1)
-				replacements.put(ModBlocks.anvil, Blocks.anvil);
+				replacements.put(ModBlocks.ANVIL.get(), Blocks.anvil);
 		}
 		
 		if(ConfigBlocksItems.enableInvertedDaylightSensor) {
 			if (ConfigWorld.tileReplacementMode == 0 || ConfigWorld.tileReplacementMode == 1)
-				replacements.put(ModBlocks.daylight_detector, Blocks.daylight_detector);
+				replacements.put(ModBlocks.DAYLIGHT_DETECTOR.get(), Blocks.daylight_detector);
 		}
 	}
 

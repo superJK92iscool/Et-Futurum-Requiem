@@ -224,8 +224,8 @@ public class BlockDeepslateOre extends BlockOre implements IConfigurable {
 	}
 
 	/**
-	 * Returns whether this block is collideable based on the arguments passed in 
-	 * @param par1 block metaData 
+	 * Returns whether this block is collideable based on the arguments passed in
+	 * @param par1 block metaData
 	 * @param par2 whether the player right-clicked while holding a boat
 	 */
 	@Override

@@ -1,8 +1,8 @@
 package ganymedes01.etfuturum.client.renderer.block;
 
+import ganymedes01.etfuturum.ModBlocks;
 import org.lwjgl.opengl.GL11;
 
-import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.blocks.BlockComposter;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.Block;
@@ -72,7 +72,7 @@ public class BlockComposterRenderer extends BlockModelBase {
 			int meta = Math.min(world.getBlockMetadata(x, y, z), 9);
 			if(!renderer.hasOverrideBlockTexture()) {
 				if(meta == 0) {
-					renderer.setOverrideBlockTexture(ModBlocks.composter.getIcon(0, 0));
+					renderer.setOverrideBlockTexture(ModBlocks.COMPOSTER.get().getIcon(0, 0));
 				} else if (meta == 7){
 					renderer.setOverrideBlockTexture(((BlockComposter)block).fullCompostIcon);
 				} else {

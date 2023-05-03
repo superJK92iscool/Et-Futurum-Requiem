@@ -28,7 +28,7 @@ public class WorldGenEndGateway extends WorldGenerator {
 
 					if (flag && flag1 && flag2)
 					{
-						worldIn.setBlock(genx, geny, genz, ModBlocks.end_gateway);
+						worldIn.setBlock(genx, geny, genz, ModBlocks.END_GATEWAY.get());
 					}
 					else if (flag1)
 					{

@@ -71,10 +71,10 @@ public class BlockConcretePowder extends BlockGenericSand implements IConfigurab
 				if (flag)
 				{
 					int l = world.getBlockMetadata(x, y, z);
-						world.setBlock(x, y, z, ModBlocks.concrete, l, 2);
+						world.setBlock(x, y, z, ModBlocks.CONCRETE.get(), l, 2);
 						world.markBlockForUpdate(x, y, z);
 					}
-				if (world.getBlock(x, y, z) == ModBlocks.concrete_powder) {
+				if (world.getBlock(x, y, z) == ModBlocks.CONCRETE_POWDER.get()) {
 					world.markBlockForUpdate(x, y, z);
 				}
 				

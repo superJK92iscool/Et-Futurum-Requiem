@@ -43,7 +43,7 @@ public class BlockNewBrewingStand extends BlockBrewingStand implements IConfigur
 	@Override
 	public Item getItemDropped(int meta, Random rand, int fortune) {
 		if (ConfigWorld.tileReplacementMode == -1)
-			return Item.getItemFromBlock(ModBlocks.brewing_stand);
+			return Item.getItemFromBlock(ModBlocks.BREWING_STAND.get());
 		return Items.brewing_stand;
 	}
 	
@@ -51,7 +51,7 @@ public class BlockNewBrewingStand extends BlockBrewingStand implements IConfigur
 	@SideOnly(Side.CLIENT)
 	public Item getItem(World world, int x, int y, int z) {
 		if (ConfigWorld.tileReplacementMode == -1)
-			return Item.getItemFromBlock(ModBlocks.brewing_stand);
+			return Item.getItemFromBlock(ModBlocks.BREWING_STAND.get());
 		return Items.brewing_stand;
 	}
 

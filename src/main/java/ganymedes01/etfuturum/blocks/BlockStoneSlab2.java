@@ -25,14 +25,14 @@ public class BlockStoneSlab2 extends BlockGenericSlab implements IConfigurable {
 
 	@Override
 	public BlockGenericSlab[] getSlabTypes() {
-		return new BlockGenericSlab[] {(BlockGenericSlab) ModBlocks.stone_slab, (BlockGenericSlab) ModBlocks.double_stone_slab};
+		return new BlockGenericSlab[] {(BlockGenericSlab) ModBlocks.STONE_SLAB_2.get(), (BlockGenericSlab) ModBlocks.DOUBLE_STONE_SLAB_2.get()};
 	}
 
 	@Override
 	public IIcon[] getSlabIcons(int side) {
 		IIcon[] blocks = new IIcon[6];
 		for(int i = 0; i < 6; i++) {
-			blocks[i] = ModBlocks.stone.getIcon(side, i + 1);
+			blocks[i] = ModBlocks.STONE.get().getIcon(side, i + 1);
 		};
 		return blocks;
 	}

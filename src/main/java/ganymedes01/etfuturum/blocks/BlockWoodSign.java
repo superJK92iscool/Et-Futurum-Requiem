@@ -8,6 +8,7 @@ import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
+import ganymedes01.etfuturum.recipes.ModRecipes;
 import net.minecraft.block.BlockSign;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -28,7 +29,7 @@ public class BlockWoodSign extends BlockSign implements IConfigurable {
 		setHardness(1.0F);
 		disableStats();
 		setStepSound(soundTypeWood);
-		setBlockName(Utils.getUnlocalisedName((!p_i45426_2_ ? "wall_" : "") + "sign_" + ModBlocks.woodTypes[i]));
+		setBlockName(Utils.getUnlocalisedName((!p_i45426_2_ ? "wall_" : "") + "sign_" + ModRecipes.woodTypes[i]));
 		setCreativeTab(null);
 		standing = p_i45426_2_;
 		meta = i;

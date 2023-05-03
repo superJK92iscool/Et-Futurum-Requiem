@@ -253,18 +253,18 @@ public class EntityRabbit extends EntityAnimal {
 		int j = rand.nextInt(2) + rand.nextInt(1 + fortune);
 
 		for (int i = 0; i < j; i++)
-			dropItem(ModItems.rabbit_hide, 1);
+			dropItem(ModItems.RABBIT_HIDE.get(), 1);
 
 		j = rand.nextInt(2);
 
 		for (int i = 0; i < j; i++)
 			if (isBurning())
-				dropItem(ModItems.cooked_rabbit, 1);
+				dropItem(ModItems.RABBIT_COOKED.get(), 1);
 			else
-				dropItem(ModItems.raw_rabbit, 1);
+				dropItem(ModItems.RABBIT_RAW.get(), 1);
 
 		if (rand.nextInt(100) <= 10 + fortune)
-			entityDropItem(new ItemStack(ModItems.rabbit_foot), 0.0F);
+			entityDropItem(new ItemStack(ModItems.RABBIT_FOOT.get()), 0.0F);
 	}
 
 	private boolean isRabbitBreedingItem(Item item) {

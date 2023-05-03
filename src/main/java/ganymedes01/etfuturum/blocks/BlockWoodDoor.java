@@ -5,10 +5,9 @@ import java.util.Random;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.ModBlocks.ISubBlocksBlock;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.items.block.ItemWoodDoor;
+import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockWoodDoor;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.BlockDoor;
 import net.minecraft.block.material.Material;
@@ -56,7 +55,7 @@ public class BlockWoodDoor extends BlockDoor implements ISubBlocksBlock, IConfig
 
 	@Override
 	public Class<? extends ItemBlock> getItemBlockClass() {
-		return ItemWoodDoor.class;
+		return ItemBlockWoodDoor.class;
 	}
 
 	@Override

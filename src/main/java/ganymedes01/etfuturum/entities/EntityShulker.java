@@ -3,9 +3,9 @@ package ganymedes01.etfuturum.entities;
 import java.util.List;
 import java.util.UUID;
 
+import ganymedes01.etfuturum.ModItems;
 import org.apache.commons.lang3.ArrayUtils;
 
-import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigTweaks;
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
@@ -656,7 +656,7 @@ public class EntityShulker extends EntityGolem implements IMob {
 
 	protected Item getDropItem()
 	{
-		return ConfigBlocksItems.enableShulkerBoxes ? ModItems.shulker_shell : null;
+		return ConfigBlocksItems.enableShulkerBoxes ? ModItems.SHULKER_SHELL.get() : null;
 	}
 	
 

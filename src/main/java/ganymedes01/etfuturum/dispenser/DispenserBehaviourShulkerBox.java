@@ -21,7 +21,7 @@ public class DispenserBehaviourShulkerBox extends BehaviorDefaultDispenseItem {
 		int z = coords.getZInt() + enumfacing.getFrontOffsetZ();
 		if(coords.getWorld().getBlock(x, y, z).isReplaceable(coords.getWorld(), x, y, z)) {
 			stack.stackSize--;
-			coords.getWorld().setBlock(x, y, z, ModBlocks.shulker_box);
+			coords.getWorld().setBlock(x, y, z, ModBlocks.SHULKER_BOX.get());
 			TileEntityShulkerBox box = (TileEntityShulkerBox) coords.getWorld().getTileEntity(x, y, z);
 			box.facing = enumfacing != EnumFacing.UP && coords.getWorld().getBlock(x, y - 1, z) == Blocks.air ? (byte) enumfacing.ordinal() : 1;
 			if(stack.hasTagCompound()) {

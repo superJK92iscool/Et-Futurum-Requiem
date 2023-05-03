@@ -5,13 +5,11 @@ import java.util.Random;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ganymedes01.etfuturum.ModBlocks.ISubBlocksBlock;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.client.DynamicResourcePack;
 import ganymedes01.etfuturum.client.DynamicResourcePack.GrayscaleType;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
-import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.lib.RenderIDs;
@@ -28,7 +26,6 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemPotion;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.potion.Potion;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
@@ -131,7 +128,7 @@ public class BlockPotionCauldron extends BlockCauldronTileEntity implements ISub
 				final int meta = world.getBlockMetadata(x, y, z);
 				final int tipmax = meta == 0 ? 16 : meta == 1 ? 32 : 64;
 				
-				ItemStack tippedArrow = new ItemStack(ModItems.tipped_arrow, Math.min(stack.stackSize, tipmax), potionCauldron.potion.getItemDamage());
+				ItemStack tippedArrow = new ItemStack(ModItems.TIPPED_ARROW.get(), Math.min(stack.stackSize, tipmax), potionCauldron.potion.getItemDamage());
 				final int setMeta = tippedArrow.stackSize >= tipmax ? -1 : meta - (tippedArrow.stackSize < 32 ? 1 : 2);
 
 				if (!Items.potionitem.getEffects(potionCauldron.potion).isEmpty() && potionCauldron.potion.hasTagCompound() && potionCauldron.potion.getTagCompound().hasKey("CustomPotionEffects", 9)) {

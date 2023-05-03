@@ -42,7 +42,7 @@ public class DeepslateOreRegistry {
 	/**
 	 * Adds a block to block pair to the deepslate mapping registry.
 	 * Assumes a metadata value of 0.
-	 * This is used when Et Futurum deepslate overwrites the specified block. 
+	 * This is used when Et Futurum deepslate overwrites the specified block.
 	 * 
 	 * @param from The block:0 to overwrite
 	 * @param to The block:0 deepslate changes it to
@@ -53,7 +53,7 @@ public class DeepslateOreRegistry {
 	
 	/**
 	 * Adds a block/metadata to block/metadata pair to the deepslate mapping registry.
-	 * This is used when Et Futurum deepslate overwrites the specified block. 
+	 * This is used when Et Futurum deepslate overwrites the specified block.
 	 * 
 	 * @param from The block to overwrite
 	 * @param fromMeta The block's meta to overwrite

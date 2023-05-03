@@ -32,11 +32,11 @@ public class BlockPurpurSlab extends BlockGenericSlab implements IConfigurable {
 
 	@Override
 	public BlockGenericSlab[] getSlabTypes() {
-		return new BlockGenericSlab[] {(BlockGenericSlab)ModBlocks.purpur_slab, (BlockGenericSlab)ModBlocks.double_purpur_slab};
+		return new BlockGenericSlab[] {(BlockGenericSlab) ModBlocks.PURPUR_SLAB.get(), (BlockGenericSlab) ModBlocks.DOUBLE_PURPUR_SLAB.get()};
 	}
 
 	@Override
 	public IIcon[] getSlabIcons(int side) {
-		return new IIcon[] {ModBlocks.purpur_block.getIcon(side, 0)};
+		return new IIcon[] {ModBlocks.PURPUR_BLOCK.get().getIcon(side, 0)};
 	}
 }

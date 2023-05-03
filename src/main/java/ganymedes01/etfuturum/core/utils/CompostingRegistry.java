@@ -23,11 +23,11 @@ public class CompostingRegistry {
 				new ItemStack(Items.melon_seeds),
 				new ItemStack(Items.pumpkin_seeds),
 				new ItemStack(Items.wheat_seeds),
-				new ItemStack(ModItems.beetroot_seeds),
+				new ItemStack(ModItems.BEETROOT_SEEDS.get()),
 				"listAllSeeds",
 				"treeSapling",
 				"treeLeaves",
-				new ItemStack(ModItems.sweet_berries)
+				new ItemStack(ModItems.SWEET_BERRIES.get())
 		), 30);
 
 		registerCompostable(ImmutableList.of(
@@ -40,7 +40,7 @@ public class CompostingRegistry {
 
 		registerCompostable(ImmutableList.of(
 				new ItemStack(Items.apple),
-				new ItemStack(ModItems.beetroot),
+				new ItemStack(ModItems.BEETROOT.get()),
 				"cropCarrot",
 				new ItemStack(Items.dye, 1, 3),
 				new ItemStack(Blocks.tallgrass, 1, 2),
@@ -51,10 +51,10 @@ public class CompostingRegistry {
 				new ItemStack(Blocks.double_plant, 1, 5),
 				new ItemStack(Blocks.red_flower, 1, OreDictionary.WILDCARD_VALUE),
 				new ItemStack(Blocks.yellow_flower, 1, OreDictionary.WILDCARD_VALUE),
-				new ItemStack(ModBlocks.rose),
-				new ItemStack(ModBlocks.cornflower),
-				new ItemStack(ModBlocks.lily_of_the_valley),
-				new ItemStack(ModBlocks.wither_rose),
+				new ItemStack(ModBlocks.ROSE.get()),
+				new ItemStack(ModBlocks.CORNFLOWER.get()),
+				new ItemStack(ModBlocks.LILY_OF_THE_VALLEY.get()),
+				new ItemStack(ModBlocks.WITHER_ROSE.get()),
 				new ItemStack(Blocks.waterlily),
 				new ItemStack(Blocks.melon_block),
 				new ItemStack(Blocks.brown_mushroom),
@@ -72,8 +72,8 @@ public class CompostingRegistry {
 				new ItemStack(Blocks.hay_block),
 				new ItemStack(Blocks.red_mushroom_block, 1, OreDictionary.WILDCARD_VALUE),
 				new ItemStack(Blocks.brown_mushroom_block, 1, OreDictionary.WILDCARD_VALUE),
-				new ItemStack(ModBlocks.red_mushroom_block, 1, OreDictionary.WILDCARD_VALUE),
-				new ItemStack(ModBlocks.brown_mushroom_block, 1, OreDictionary.WILDCARD_VALUE)
+				new ItemStack(ModBlocks.RED_MUSHROOM.get(), 1, OreDictionary.WILDCARD_VALUE),
+				new ItemStack(ModBlocks.BROWN_MUSHROOM.get(), 1, OreDictionary.WILDCARD_VALUE)
 		), 85);
 
 		registerCompostable(ImmutableList.of(

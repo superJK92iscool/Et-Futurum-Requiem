@@ -6,7 +6,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.ModBlocks.ISubBlocksBlock;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.Utils;
@@ -32,7 +31,7 @@ public class BlockNewAnvil extends BlockAnvil implements IConfigurable, ISubBloc
 	@Override
 	public Item getItemDropped(int meta, Random rand, int fortune) {
 		if (ConfigWorld.tileReplacementMode == -1)
-			return Item.getItemFromBlock(ModBlocks.anvil);
+			return Item.getItemFromBlock(ModBlocks.ANVIL.get());
 		return Item.getItemFromBlock(Blocks.anvil);
 	}
 
@@ -40,7 +39,7 @@ public class BlockNewAnvil extends BlockAnvil implements IConfigurable, ISubBloc
 	@SideOnly(Side.CLIENT)
 	public Item getItem(World world, int x, int y, int z) {
 		if (ConfigWorld.tileReplacementMode == -1)
-			return Item.getItemFromBlock(ModBlocks.anvil);
+			return Item.getItemFromBlock(ModBlocks.ANVIL.get());
 		return Item.getItemFromBlock(Blocks.anvil);
 	}
 

@@ -15,7 +15,7 @@ import net.minecraft.util.IIcon;
 public class LingeringPotionRenderer extends RenderSnowball {
 
 	public LingeringPotionRenderer() {
-		super(ModItems.lingering_potion);
+		super(ModItems.LINGERING_POTION.get());
 	}
 
 	@Override

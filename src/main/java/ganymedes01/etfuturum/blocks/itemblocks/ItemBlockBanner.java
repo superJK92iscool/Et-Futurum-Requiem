@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.items.block;
+package ganymedes01.etfuturum.blocks.itemblocks;
 
 import java.util.List;
 
@@ -20,9 +20,9 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
-public class ItemBanner extends ItemBlock {
+public class ItemBlockBanner extends ItemBlock {
 
-	public ItemBanner(Block block) {
+	public ItemBlockBanner(Block block) {
 		super(block);
 		setMaxDamage(0);
 		setMaxStackSize(16);

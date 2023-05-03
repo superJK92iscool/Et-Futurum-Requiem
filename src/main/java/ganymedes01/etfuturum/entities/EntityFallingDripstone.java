@@ -6,18 +6,10 @@ import java.util.Iterator;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.blocks.BlockPointedDripstone;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockFalling;
-import net.minecraft.block.ITileEntityProvider;
-import net.minecraft.block.material.Material;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.particle.EffectRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityFallingBlock;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -36,7 +28,7 @@ public class EntityFallingDripstone extends EntityFallingBlock {
 	}
 	
 	public EntityFallingDripstone(World p_i45318_1_, double p_i45318_2_, double p_i45318_4_, double p_i45318_6_) {
-		super(p_i45318_1_, p_i45318_2_, p_i45318_4_, p_i45318_6_, ModBlocks.pointed_dripstone);
+		super(p_i45318_1_, p_i45318_2_, p_i45318_4_, p_i45318_6_, ModBlocks.POINTED_DRIPSTONE.get());
 		this.fallHurtMax = 40;
 		this.fallHurtAmount = 4.0F;
 		hurtEntities = true;
@@ -45,7 +37,7 @@ public class EntityFallingDripstone extends EntityFallingBlock {
 	public void onUpdate()
 	{
 
-		Block block = ModBlocks.pointed_dripstone;
+		Block block = ModBlocks.POINTED_DRIPSTONE.get();
 		
 		this.prevPosX = this.posX;
 		this.prevPosY = this.posY;

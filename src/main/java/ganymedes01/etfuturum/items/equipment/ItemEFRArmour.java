@@ -37,7 +37,7 @@ public class ItemEFRArmour extends ItemArmor implements IConfigurable, ISpecialA
 	@Override
 	public boolean getIsRepairable(ItemStack par1ItemStack, ItemStack par2ItemStack)
 	{        
-		return ModItems.netherite_ingot == par2ItemStack.getItem() ? true : super.getIsRepairable(par1ItemStack, par2ItemStack);
+		return ModItems.NETHERITE_INGOT.get() == par2ItemStack.getItem() ? true : super.getIsRepairable(par1ItemStack, par2ItemStack);
 	}
 	
 	@Override

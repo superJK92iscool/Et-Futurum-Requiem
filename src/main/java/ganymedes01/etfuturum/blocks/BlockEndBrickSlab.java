@@ -19,12 +19,12 @@ public class BlockEndBrickSlab extends BlockGenericSlab implements IConfigurable
 
 	@Override
 	public BlockGenericSlab[] getSlabTypes() {
-		return new BlockGenericSlab[] {(BlockGenericSlab)ModBlocks.end_brick_slab, (BlockGenericSlab)ModBlocks.double_end_brick_slab};
+		return new BlockGenericSlab[] {(BlockGenericSlab) ModBlocks.END_BRICK_SLAB.get(), (BlockGenericSlab) ModBlocks.DOUBLE_END_BRICK_SLAB.get()};
 	}
 
 	@Override
 	public IIcon[] getSlabIcons(int side) {
-		return new IIcon[] {ModBlocks.end_bricks.getIcon(side, 0)};
+		return new IIcon[] {ModBlocks.END_BRICKS.get().getIcon(side, 0)};
 	}
 	
 	@Override

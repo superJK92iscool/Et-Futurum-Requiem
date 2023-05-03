@@ -3,10 +3,9 @@ package ganymedes01.etfuturum.blocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.ModBlocks.ISubBlocksBlock;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.items.block.ItemDecorationWorkbench;
+import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockDecorationWorkbench;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -102,6 +101,6 @@ public class BlockLoom extends Block implements IConfigurable, ISubBlocksBlock {
 
 	@Override
 	public Class<? extends ItemBlock> getItemBlockClass() {
-		return ItemDecorationWorkbench.class;
+		return ItemBlockDecorationWorkbench.class;
 	}
 }

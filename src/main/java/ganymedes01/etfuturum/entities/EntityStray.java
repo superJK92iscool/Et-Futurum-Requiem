@@ -121,7 +121,7 @@ public class EntityStray extends EntitySkeleton {
 		entityarrow.setDamage(p_82196_2_ * 2.0F + this.rand.nextGaussian() * 0.25D + this.worldObj.difficultySetting.getDifficultyId() * 0.11F);
 		
 		//final int diff = this.worldObj.difficultySetting.getDifficultyId(); // unused variable
-		entityarrow.setArrow(new ItemStack(ModItems.tipped_arrow, 1, 8202));//Temp
+		entityarrow.setArrow(new ItemStack(ModItems.TIPPED_ARROW.get(), 1, 8202));//Temp
 		
 		if (i > 0)
 		{

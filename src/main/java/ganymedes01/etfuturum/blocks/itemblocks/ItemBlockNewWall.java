@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.items.block;
+package ganymedes01.etfuturum.blocks.itemblocks;
 
 import ganymedes01.etfuturum.blocks.BlockNewWall;
 import net.minecraft.block.Block;

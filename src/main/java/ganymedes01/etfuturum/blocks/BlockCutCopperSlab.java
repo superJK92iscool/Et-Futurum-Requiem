@@ -46,7 +46,7 @@ public class BlockCutCopperSlab extends BlockGenericSlab implements IConfigurabl
 
 	@Override
 	public BlockGenericSlab[] getSlabTypes() {
-		return new BlockGenericSlab[] {(BlockGenericSlab)ModBlocks.cut_copper_slab, (BlockGenericSlab)ModBlocks.double_cut_copper_slab};
+		return new BlockGenericSlab[] {(BlockGenericSlab) ModBlocks.CUT_COPPER_SLAB.get(), (BlockGenericSlab) ModBlocks.DOUBLE_CUT_COPPER_SLAB.get()};
 	}
 
 	@Override
@@ -65,7 +65,7 @@ public class BlockCutCopperSlab extends BlockGenericSlab implements IConfigurabl
 	public IIcon[] getSlabIcons(int side) {
 		IIcon[] blocks = new IIcon[8];
 		for(int i = 0; i < blocks.length; i++) {
-			blocks[i] = ModBlocks.copper_block.getIcon(side, (i % 4) + 4);
+			blocks[i] = ModBlocks.COPPER_BLOCK.get().getIcon(side, (i % 4) + 4);
 		};
 		return blocks;
 	}

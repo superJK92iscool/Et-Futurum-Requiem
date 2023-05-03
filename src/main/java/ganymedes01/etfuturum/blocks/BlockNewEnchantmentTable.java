@@ -29,7 +29,7 @@ public class BlockNewEnchantmentTable extends BlockEnchantmentTable implements I
 	@Override
 	public Item getItemDropped(int meta, Random rand, int fortune) {
 		if (ConfigWorld.tileReplacementMode == -1)
-			return Item.getItemFromBlock(ModBlocks.enchanting_table);
+			return Item.getItemFromBlock(ModBlocks.ENCHANTMENT_TABLE.get());
 		return Item.getItemFromBlock(Blocks.enchanting_table);
 	}
 
@@ -37,7 +37,7 @@ public class BlockNewEnchantmentTable extends BlockEnchantmentTable implements I
 	@SideOnly(Side.CLIENT)
 	public Item getItem(World world, int x, int y, int z) {
 		if (ConfigWorld.tileReplacementMode == -1)
-			return Item.getItemFromBlock(ModBlocks.enchanting_table);
+			return Item.getItemFromBlock(ModBlocks.ENCHANTMENT_TABLE.get());
 		return Item.getItemFromBlock(Blocks.enchanting_table);
 	}
 

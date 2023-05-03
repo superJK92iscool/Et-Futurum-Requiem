@@ -17,7 +17,7 @@ public class NEIEtFuturumConfig implements IConfigureNEI {
 		}
 
 		if (ConfigBlocksItems.enableBeetroot) {
-			API.hideItem(new ItemStack(ModBlocks.beetroot));
+			API.hideItem(new ItemStack(ModBlocks.BEETROOTS.get()));
 		}
 	}
 

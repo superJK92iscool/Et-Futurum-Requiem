@@ -25,7 +25,7 @@ public class BlockTuff extends Block implements IConfigurable {
 
 	@Override
 	public boolean isReplaceableOreGen(World world, int x, int y, int z, Block target) {
-		boolean flag = target == Blocks.stone || target == ModBlocks.deepslate || this == target;
+		boolean flag = target == Blocks.stone || target == ModBlocks.DEEPSLATE.get() || this == target;
 		if(flag) {
 			BlockDeepslate.doDeepslateRedoCheck(world, x, y, z);
 		}

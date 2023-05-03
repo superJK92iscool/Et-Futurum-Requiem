@@ -19,7 +19,7 @@ public class RecipeDuplicatePattern implements IRecipe {
 			ItemStack slot = grid.getStackInSlot(i);
 
 			if (slot != null) {
-				if (slot.getItem() != Item.getItemFromBlock(ModBlocks.banner))
+				if (slot.getItem() != Item.getItemFromBlock(ModBlocks.BANNER.get()))
 					return false;
 
 				if (itemstack != null && itemstack1 != null)

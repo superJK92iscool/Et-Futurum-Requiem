@@ -56,9 +56,9 @@ public class BlockDeepslateRedstoneOre extends BlockDeepslateOre {
 	{
 		this.func_150186_m(p_150185_1_, p_150185_2_, p_150185_3_, p_150185_4_);
 
-		if (this == ModBlocks.deepslate_redstone_ore)
+		if (this == ModBlocks.DEEPSLATE_REDSTONE_ORE.get())
 		{
-			p_150185_1_.setBlock(p_150185_2_, p_150185_3_, p_150185_4_, ModBlocks.deepslate_lit_redstone_ore);
+			p_150185_1_.setBlock(p_150185_2_, p_150185_3_, p_150185_4_, ModBlocks.DEEPSLATE_LIT_REDSTONE_ORE.get());
 		}
 	}
 
@@ -68,9 +68,9 @@ public class BlockDeepslateRedstoneOre extends BlockDeepslateOre {
 	@Override
 	public void updateTick(World p_149674_1_, int p_149674_2_, int p_149674_3_, int p_149674_4_, Random p_149674_5_)
 	{
-		if (this == ModBlocks.deepslate_lit_redstone_ore)
+		if (this == ModBlocks.DEEPSLATE_LIT_REDSTONE_ORE.get())
 		{
-			p_149674_1_.setBlock(p_149674_2_, p_149674_3_, p_149674_4_, ModBlocks.deepslate_redstone_ore);
+			p_149674_1_.setBlock(p_149674_2_, p_149674_3_, p_149674_4_, ModBlocks.DEEPSLATE_REDSTONE_ORE.get());
 		}
 	}
 
@@ -125,7 +125,7 @@ public class BlockDeepslateRedstoneOre extends BlockDeepslateOre {
 	@Override
 	protected ItemStack createStackedBlock(int p_149644_1_)
 	{
-		return new ItemStack(ModBlocks.deepslate_redstone_ore);
+		return new ItemStack(ModBlocks.DEEPSLATE_REDSTONE_ORE.get());
 	}
 	
 	@Override

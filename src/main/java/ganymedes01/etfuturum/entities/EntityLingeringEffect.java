@@ -51,7 +51,7 @@ public class EntityLingeringEffect extends Entity implements IEntityAdditionalSp
 		if (!(e instanceof EntityLivingBase))
 			return;
 		EntityLivingBase entity = (EntityLivingBase) e;
-		List<PotionEffect> effects = ((ItemLingeringPotion) ModItems.lingering_potion).getEffects(stack);
+		List<PotionEffect> effects = ((ItemLingeringPotion) ModItems.LINGERING_POTION.get()).getEffects(stack);
 		boolean addedEffect = false;
 
 		for (PotionEffect effect : effects) {

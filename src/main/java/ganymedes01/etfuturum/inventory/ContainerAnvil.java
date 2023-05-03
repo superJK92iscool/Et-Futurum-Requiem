@@ -3,9 +3,9 @@ package ganymedes01.etfuturum.inventory;
 import java.util.Iterator;
 import java.util.Map;
 
+import ganymedes01.etfuturum.ModBlocks;
 import org.apache.commons.lang3.StringUtils;
 
-import ganymedes01.etfuturum.ModBlocks;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
@@ -33,7 +33,7 @@ public class ContainerAnvil extends ContainerRepair {
 
 	@Override
 	public boolean canInteractWith(EntityPlayer _player) {
-		return world.getBlock(x, y, z) != ModBlocks.anvil ? false : _player.getDistanceSq(x + 0.5D, y + 0.5D, z + 0.5D) <= 64.0D;
+		return world.getBlock(x, y, z) != ModBlocks.ANVIL.get() ? false : _player.getDistanceSq(x + 0.5D, y + 0.5D, z + 0.5D) <= 64.0D;
 	}
 
 	@Override

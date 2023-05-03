@@ -5,18 +5,13 @@ import java.io.IOException;
 
 import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
 import ganymedes01.etfuturum.ModItems;
-import ganymedes01.etfuturum.items.ItemArrowTipped;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
-import net.minecraft.potion.PotionHelper;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
@@ -69,7 +64,7 @@ public class EntityTippedArrow extends EntityArrow implements IEntityAdditionalS
 	
 	private void spawnPotionParticles(int particleCount) {
 		if(isEffectValid() && particleCount > 0) {
-			Color colour = new Color(ModItems.tipped_arrow.getColorFromItemStack(arrow, 0));
+			Color colour = new Color(ModItems.TIPPED_ARROW.get().getColorFromItemStack(arrow, 0));
 
 			for (int j = 0; j < particleCount; ++j) {
 				this.worldObj.spawnParticle("mobSpell", this.posX + (this.rand.nextDouble() - 0.5D) * (double)this.width, this.posY + this.rand.nextDouble() * (double)this.height - (double)this.yOffset, this.posZ + (this.rand.nextDouble() - 0.5D) * (double)this.width, colour.getRed() / 255F, colour.getGreen() / 255F, colour.getBlue() / 255F);
@@ -100,7 +95,7 @@ public class EntityTippedArrow extends EntityArrow implements IEntityAdditionalS
 	{
 		if (this.arrow == null)
 		{
-			this.arrow = new ItemStack(ModItems.tipped_arrow, 1, 0);
+			this.arrow = new ItemStack(ModItems.TIPPED_ARROW.get(), 1, 0);
 		}
 
 		this.arrow.setItemDamage(p_82340_1_);

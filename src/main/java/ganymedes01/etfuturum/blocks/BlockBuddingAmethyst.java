@@ -57,11 +57,11 @@ public class BlockBuddingAmethyst extends BlockAmethystBlock {
 			if(block instanceof BlockAmethystCluster && meta % 6 == facing.ordinal()) {
 				if(meta < 6) {
 					world.setBlockMetadataWithNotify(x + facing.getFrontOffsetX(), y + facing.getFrontOffsetY(), z + facing.getFrontOffsetZ(), meta + 6, 3);
-				} else if(block == ModBlocks.amethyst_cluster_1) {
-					world.setBlock(x + facing.getFrontOffsetX(), y + facing.getFrontOffsetY(), z + facing.getFrontOffsetZ(), ModBlocks.amethyst_cluster_2, meta - 6, 3);
+				} else if(block == ModBlocks.AMETHYST_CLUSTER_1.get()) {
+					world.setBlock(x + facing.getFrontOffsetX(), y + facing.getFrontOffsetY(), z + facing.getFrontOffsetZ(), ModBlocks.AMETHYST_CLUSTER_2.get(), meta - 6, 3);
 				}
 			} else if(canGrowIn(block)) {
-				world.setBlock(x + facing.getFrontOffsetX(), y + facing.getFrontOffsetY(), z + facing.getFrontOffsetZ(), ModBlocks.amethyst_cluster_1, facing.ordinal(), 3);
+				world.setBlock(x + facing.getFrontOffsetX(), y + facing.getFrontOffsetY(), z + facing.getFrontOffsetZ(), ModBlocks.AMETHYST_CLUSTER_1.get(), facing.ordinal(), 3);
 			}
 		}
 	}

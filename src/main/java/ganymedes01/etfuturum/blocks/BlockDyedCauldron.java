@@ -1,17 +1,13 @@
 package ganymedes01.etfuturum.blocks;
 
-import java.awt.Color;
-
 import org.apache.commons.lang3.ArrayUtils;
 
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.ModBlocks.ISubBlocksBlock;
 import ganymedes01.etfuturum.recipes.ModRecipes;
 import ganymedes01.etfuturum.tileentities.TileEntityCauldronDyed;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;

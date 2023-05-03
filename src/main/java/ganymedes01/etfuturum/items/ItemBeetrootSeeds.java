@@ -14,7 +14,7 @@ import net.minecraftforge.common.ChestGenHooks;
 public class ItemBeetrootSeeds extends ItemSeeds implements IConfigurable {
 
 	public ItemBeetrootSeeds() {
-		super(ModBlocks.beetroot, Blocks.farmland);
+		super(ModBlocks.BEETROOTS.get(), Blocks.farmland);
 		setTextureName("beetroot_seeds");
 		setUnlocalizedName(Utils.getUnlocalisedName("beetroot_seeds"));
 		setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);

@@ -67,7 +67,7 @@ public class BlockChorusPlant extends Block implements IConfigurable {
 	
 	public boolean canConnectTo(IBlockAccess world, int x, int y, int z) {
 		Block block = world.getBlock(x, y, z);
-		return block == this || block == ModBlocks.chorus_flower || canPlaceOn(block);
+		return block == this || block == ModBlocks.CHORUS_FLOWER.get() || canPlaceOn(block);
 	}
 
 	@Override
@@ -151,7 +151,7 @@ public class BlockChorusPlant extends Block implements IConfigurable {
 
 	@Override
 	public Item getItemDropped(int meta, Random rand, int fortune) {
-		return ModItems.chorus_fruit;
+		return ModItems.CHORUS_FRUIT.get();
 	}
 
 	@Override

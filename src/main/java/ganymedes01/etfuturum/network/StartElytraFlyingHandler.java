@@ -18,7 +18,7 @@ public class StartElytraFlyingHandler implements IMessageHandler<StartElytraFlyi
 		if (!player.onGround && (ConfigMixins.enableNewElytraTakeoffLogic || player.motionY < 0.0D) && !((IElytraPlayer)player).etfu$isElytraFlying() && !player.isInWater()) {
 			ItemStack itemstack = ItemArmorElytra.getElytra(player);
 
-			if (itemstack != null && itemstack.getItem() == ModItems.elytra && !ItemArmorElytra.isBroken(itemstack)) {
+			if (itemstack != null && itemstack.getItem() == ModItems.ELYTRA.get() && !ItemArmorElytra.isBroken(itemstack)) {
 				((IElytraPlayer)player).etfu$setElytraFlying(true);
 			}
 		} else {

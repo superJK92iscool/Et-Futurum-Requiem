@@ -29,12 +29,12 @@ public class BlockInfestedDeepslate extends BlockSilverfish implements IConfigur
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int p_149691_1_, int p_149691_2_)
 	{
-		return ModBlocks.deepslate.getBlockTextureFromSide(p_149691_1_);
+		return ModBlocks.DEEPSLATE.get().getBlockTextureFromSide(p_149691_1_);
 	}
 	
 	public static boolean func_150196_a(Block p_150196_0_)
 	{
-		return p_150196_0_ == ModBlocks.deepslate;
+		return p_150196_0_ == ModBlocks.DEEPSLATE.get();
 	}
 	
 	public static int func_150195_a(Block p_150195_0_, int p_150195_1_)
@@ -45,7 +45,7 @@ public class BlockInfestedDeepslate extends BlockSilverfish implements IConfigur
 	@Override
 	protected ItemStack createStackedBlock(int p_149644_1_)
 	{
-		return new ItemStack(ModBlocks.deepslate);
+		return new ItemStack(ModBlocks.DEEPSLATE.get());
 	}
 	
 	@Override

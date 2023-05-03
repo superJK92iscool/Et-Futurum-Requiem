@@ -83,7 +83,7 @@ public class EntityArmourStand extends EntityLiving {
 
 	@Override
 	public ItemStack getPickedResult(MovingObjectPosition target) {
-		return new ItemStack(ModItems.armour_stand);
+		return new ItemStack(ModItems.WOODEN_ARMORSTAND.get());
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -359,7 +359,7 @@ public class EntityArmourStand extends EntityLiving {
 	}
 
 	private void dropBlock() {
-		entityDropItem(new ItemStack(ModItems.armour_stand), 0.0F);
+		entityDropItem(new ItemStack(ModItems.WOODEN_ARMORSTAND.get()), 0.0F);
 		dropequipment();
 	}
 

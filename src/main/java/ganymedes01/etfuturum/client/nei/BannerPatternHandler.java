@@ -9,7 +9,7 @@ import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.items.block.ItemBanner;
+import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockBanner;
 import ganymedes01.etfuturum.lib.EnumColour;
 import ganymedes01.etfuturum.recipes.ModRecipes;
 import ganymedes01.etfuturum.tileentities.TileEntityBanner;
@@ -56,8 +56,8 @@ public class BannerPatternHandler extends TemplateRecipeHandler {
 			if (!pattern.hasValidCrafting())
 				continue;
 			if (pattern.hasCraftingStack()) {
-				arecipes.add(new CachedPatternRecipe(pattern, new String[] { "   ", "xy ", " z " }, Arrays.asList('x', pattern.getCraftingStack(), 'y', "dye", 'z', new ItemStack(ModBlocks.banner, 1, OreDictionary.WILDCARD_VALUE))).setRandomPermutations());
-				arecipes.add(new CachedPatternRecipe(pattern, new String[] { "   ", "xy ", "   " }, Arrays.asList('x', pattern.getCraftingStack(), 'y', new ItemStack(ModBlocks.banner, 1, OreDictionary.WILDCARD_VALUE))).setRandomPermutations());
+				arecipes.add(new CachedPatternRecipe(pattern, new String[] { "   ", "xy ", " z " }, Arrays.asList('x', pattern.getCraftingStack(), 'y', "dye", 'z', new ItemStack(ModBlocks.BANNER.get(), 1, OreDictionary.WILDCARD_VALUE))).setRandomPermutations());
+				arecipes.add(new CachedPatternRecipe(pattern, new String[] { "   ", "xy ", "   " }, Arrays.asList('x', pattern.getCraftingStack(), 'y', new ItemStack(ModBlocks.BANNER.get(), 1, OreDictionary.WILDCARD_VALUE))).setRandomPermutations());
 			} else {
 				String[] layers = pattern.getCraftingLayers();
 				String[] layersCopy = new String[] { layers[0], layers[1], layers[2] };
@@ -68,17 +68,17 @@ public class BannerPatternHandler extends TemplateRecipeHandler {
 						break;
 					}
 				}
-				arecipes.add(new CachedPatternRecipe(pattern, layersCopy, Arrays.asList('#', "dye", 'x', new ItemStack(ModBlocks.banner, 1, OreDictionary.WILDCARD_VALUE))));
+				arecipes.add(new CachedPatternRecipe(pattern, layersCopy, Arrays.asList('#', "dye", 'x', new ItemStack(ModBlocks.BANNER.get(), 1, OreDictionary.WILDCARD_VALUE))));
 			}
 		}
 	}
 
 	@Override
 	public void loadCraftingRecipes(ItemStack result) {
-		if (result.getItem() != Item.getItemFromBlock(ModBlocks.banner))
+		if (result.getItem() != Item.getItemFromBlock(ModBlocks.BANNER.get()))
 			return;
 
-		NBTTagCompound nbt = ItemBanner.getSubTag(result, "BlockEntityTag", false);
+		NBTTagCompound nbt = ItemBlockBanner.getSubTag(result, "BlockEntityTag", false);
 		if (nbt != null && nbt.hasKey("Patterns", 9)) {
 			NBTTagList patterns = nbt.getTagList("Patterns", 10);
 			for (int i = 0; i < patterns.tagCount(); i++) {
@@ -87,7 +87,7 @@ public class BannerPatternHandler extends TemplateRecipeHandler {
 				if (pattern == null)
 					continue;
 
-				ItemStack copy = new ItemStack(ModBlocks.banner, 1, result.getItemDamage());
+				ItemStack copy = new ItemStack(ModBlocks.BANNER.get(), 1, result.getItemDamage());
 				copy.setTagCompound(null);
 				EnumColour colour = patternNBT.hasKey("Color") ? EnumColour.fromDamage(patternNBT.getInteger("Color")) : null;
 				if (!pattern.hasValidCrafting())
@@ -115,7 +115,7 @@ public class BannerPatternHandler extends TemplateRecipeHandler {
 
 	@Override
 	public void loadUsageRecipes(ItemStack ingredient) {
-		if (ingredient.getItem() == Item.getItemFromBlock(ModBlocks.banner) && TileEntityBanner.getPatterns(ingredient) < 6)
+		if (ingredient.getItem() == Item.getItemFromBlock(ModBlocks.BANNER.get()) && TileEntityBanner.getPatterns(ingredient) < 6)
 			for (EnumBannerPattern pattern : EnumBannerPattern.values()) {
 				if (!pattern.hasValidCrafting())
 					continue;
@@ -144,7 +144,7 @@ public class BannerPatternHandler extends TemplateRecipeHandler {
 				if (!pattern.hasValidCrafting())
 					continue;
 				else if (pattern.hasCraftingStack() && OreDictionary.itemMatches(pattern.getCraftingStack(), ingredient, false)) {
-					ItemStack banner = new ItemStack(ModBlocks.banner, 1, OreDictionary.WILDCARD_VALUE);
+					ItemStack banner = new ItemStack(ModBlocks.BANNER.get(), 1, OreDictionary.WILDCARD_VALUE);
 					banner.stackSize = 1;
 					arecipes.add(new CachedPatternRecipe(pattern, new String[] { "   ", "xy ", " z " }, Arrays.asList('x', pattern.getCraftingStack(), 'y', "dye", 'z', banner)).setRandomPermutations());
 					arecipes.add(new CachedPatternRecipe(pattern, new String[] { "   ", "xy ", "   " }, Arrays.asList('x', pattern.getCraftingStack(), 'y', banner)).setRandomPermutations());
@@ -153,7 +153,7 @@ public class BannerPatternHandler extends TemplateRecipeHandler {
 						String oreName = OreDictionary.getOreName(oreID);
 						if (isNameDye(oreName))
 							if (pattern.hasCraftingStack()) {
-								ItemStack banner = new ItemStack(ModBlocks.banner, 1, OreDictionary.WILDCARD_VALUE);
+								ItemStack banner = new ItemStack(ModBlocks.BANNER.get(), 1, OreDictionary.WILDCARD_VALUE);
 								banner.stackSize = 1;
 								arecipes.add(new CachedPatternRecipe(pattern, new String[] { "   ", "xy ", " z " }, Arrays.asList('x', pattern.getCraftingStack(), 'y', oreName, 'z', banner)));
 							} else {
@@ -166,7 +166,7 @@ public class BannerPatternHandler extends TemplateRecipeHandler {
 										break;
 									}
 								}
-								ItemStack banner = new ItemStack(ModBlocks.banner, 1, OreDictionary.WILDCARD_VALUE);
+								ItemStack banner = new ItemStack(ModBlocks.BANNER.get(), 1, OreDictionary.WILDCARD_VALUE);
 								banner.stackSize = 1;
 								arecipes.add(new CachedPatternRecipe(pattern, layersCopy, Arrays.asList('#', oreName, 'x', banner)));
 							}
@@ -232,15 +232,15 @@ public class BannerPatternHandler extends TemplateRecipeHandler {
 			EnumColour colour = null;
 			ItemStack banner = null;
 			for (PositionedStack stack : getIngredients()) {
-				if (stack.item.getItem() == Item.getItemFromBlock(ModBlocks.banner))
+				if (stack.item.getItem() == Item.getItemFromBlock(ModBlocks.BANNER.get()))
 					banner = stack.item.copy();
 				if (colour == null)
 					colour = getEnumColour(stack.item);
 			}
 			if (banner == null)
-				banner = new ItemStack(ModBlocks.banner);
+				banner = new ItemStack(ModBlocks.BANNER.get());
 
-			NBTTagCompound nbt = ItemBanner.getSubTag(banner, "BlockEntityTag", true);
+			NBTTagCompound nbt = ItemBlockBanner.getSubTag(banner, "BlockEntityTag", true);
 			NBTTagList nbttaglist;
 			if (nbt.hasKey("Patterns", 9))
 				nbttaglist = nbt.getTagList("Patterns", 10);

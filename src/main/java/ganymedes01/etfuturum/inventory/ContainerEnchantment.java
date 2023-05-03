@@ -292,7 +292,7 @@ public class ContainerEnchantment extends Container {
 
 	@Override
 	public boolean canInteractWith(EntityPlayer player) {
-		return world.getBlock(posX, posY, posZ) == ModBlocks.enchanting_table && player.getDistanceSq(posX + 0.5D, posY + 0.5D, posZ + 0.5D) <= 64.0D;
+		return world.getBlock(posX, posY, posZ) == ModBlocks.ENCHANTMENT_TABLE.get() && player.getDistanceSq(posX + 0.5D, posY + 0.5D, posZ + 0.5D) <= 64.0D;
 	}
 
 	/**

@@ -85,12 +85,12 @@ public class BlockChorusFlower extends Block implements IConfigurable {
 			Block lowerBlock = world.getBlock(x, y - 1, z);
 			if (BlockChorusPlant.canPlaceOn(lowerBlock))
 				canGrowUp = true;
-			else if (lowerBlock == ModBlocks.chorus_plant) {
+			else if (lowerBlock == ModBlocks.CHORUS_PLANT.get()) {
 				int par8 = 1;
 				int height;
 				for (height = 0; height < 4; height++) {
 					Block b = world.getBlock(x, y - (par8 + 1), z);
-					if (b != ModBlocks.chorus_plant) {
+					if (b != ModBlocks.CHORUS_PLANT.get()) {
 						if (BlockChorusPlant.canPlaceOn(b))
 							isSegmentOnEndstone = true;
 						break;
@@ -108,7 +108,7 @@ public class BlockChorusFlower extends Block implements IConfigurable {
 				canGrowUp = true;
 
 			if (canGrowUp && areAllNeighborsEmpty(world, x, y + 1, z, ForgeDirection.DOWN) && world.isAirBlock(x, y + 2, z)) {
-				world.setBlock(x, y, z, ModBlocks.chorus_plant);
+				world.setBlock(x, y, z, ModBlocks.CHORUS_PLANT.get());
 				setFlower(world, x, y + 1, z, meta);
 			} else if (meta < 4) {
 				int tries = rand.nextInt(4);
@@ -126,7 +126,7 @@ public class BlockChorusFlower extends Block implements IConfigurable {
 					}
 				}
 				if (grew)
-					world.setBlock(x, y, z, ModBlocks.chorus_plant, 0, 3);
+					world.setBlock(x, y, z, ModBlocks.CHORUS_PLANT.get(), 0, 3);
 				else
 					setFlower(world, x, y, z, 5);
 			} else if (meta == 4)
@@ -152,12 +152,12 @@ public class BlockChorusFlower extends Block implements IConfigurable {
 
 	public static boolean canPlantStay(World world, int x, int y, int z) {
 		Block block = world.getBlock(x, y - 1, z);
-		if (block != ModBlocks.chorus_plant && !BlockChorusPlant.canPlaceOn(block)) {
+		if (block != ModBlocks.CHORUS_PLANT.get() && !BlockChorusPlant.canPlaceOn(block)) {
 			if (block.isAir(world, x, y - 1, z)) {
 				int adjecentCount = 0;
 				for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
 					Block adjecentBlock = world.getBlock(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ);
-					if (adjecentBlock == ModBlocks.chorus_plant)
+					if (adjecentBlock == ModBlocks.CHORUS_PLANT.get())
 						adjecentCount++;
 					else if (!adjecentBlock.isAir(world, x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ))
 						return false;
@@ -185,7 +185,7 @@ public class BlockChorusFlower extends Block implements IConfigurable {
 
 	public static void generatePlant(World worldIn, int x, int y, int z, Random rand, int p_185603_3_)
 	{
-		worldIn.setBlock(x, y, z, ModBlocks.chorus_plant);
+		worldIn.setBlock(x, y, z, ModBlocks.CHORUS_PLANT.get());
 		growTreeRecursive(worldIn, x, y, z, x, y, z, rand, p_185603_3_, 0);
 	}
 
@@ -206,7 +206,7 @@ public class BlockChorusFlower extends Block implements IConfigurable {
 				return;
 			}
 
-			worldIn.setBlock(x, y + j + 1, z, ModBlocks.chorus_plant);
+			worldIn.setBlock(x, y + j + 1, z, ModBlocks.CHORUS_PLANT.get());
 		}
 
 		boolean flag = false;
@@ -232,7 +232,7 @@ public class BlockChorusFlower extends Block implements IConfigurable {
 				if (Math.abs(bp1x - x1) < p_185601_4_ && Math.abs(bp1z - z1) < p_185601_4_ && worldIn.isAirBlock(bp1x, bp1y, bp1z) && worldIn.isAirBlock(bp1x, bp1y - 1, bp1z) && areAllNeighborsEmpty(worldIn, bp1x, bp1y, bp1z, ForgeDirection.getOpposite()))
 				{
 					flag = true;
-					worldIn.setBlock(bp1x, bp1y, bp1z, ModBlocks.chorus_plant);
+					worldIn.setBlock(bp1x, bp1y, bp1z, ModBlocks.CHORUS_PLANT.get());
 					growTreeRecursive(worldIn, bp1x, bp1y, bp1z, x1, y1, z1, rand, p_185601_4_, p_185601_5_ + 1);
 				}
 			}
@@ -240,7 +240,7 @@ public class BlockChorusFlower extends Block implements IConfigurable {
 
 		if (!flag)
 		{
-			worldIn.setBlock(x, y+i, z, ModBlocks.chorus_flower, 5, 2);
+			worldIn.setBlock(x, y+i, z, ModBlocks.CHORUS_FLOWER.get(), 5, 2);
 		}
 	}
 

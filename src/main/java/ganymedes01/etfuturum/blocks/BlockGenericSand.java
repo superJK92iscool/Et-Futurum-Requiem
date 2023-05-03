@@ -4,8 +4,7 @@ import java.util.List;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ganymedes01.etfuturum.ModBlocks.ISubBlocksBlock;
-import ganymedes01.etfuturum.items.block.ItemBlockGeneric;
+import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockGeneric;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;

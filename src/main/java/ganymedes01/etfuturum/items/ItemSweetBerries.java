@@ -81,13 +81,13 @@ public class ItemSweetBerries extends ItemFood implements IConfigurable {
 		{
 			return false;
 		}
-		else if (p_77648_3_.canPlaceEntityOnSide(ModBlocks.sweet_berry_bush, p_77648_4_, p_77648_5_, p_77648_6_, false, p_77648_7_, p_77648_2_, p_77648_1_))
+		else if (p_77648_3_.canPlaceEntityOnSide(ModBlocks.SWEET_BERRY_BUSH.get(), p_77648_4_, p_77648_5_, p_77648_6_, false, p_77648_7_, p_77648_2_, p_77648_1_))
 		{
-			int j1 = ModBlocks.sweet_berry_bush.onBlockPlaced(p_77648_3_, p_77648_4_, p_77648_5_, p_77648_6_, p_77648_7_, p_77648_8_, p_77648_9_, p_77648_10_, 0);
+			int j1 = ModBlocks.SWEET_BERRY_BUSH.get().onBlockPlaced(p_77648_3_, p_77648_4_, p_77648_5_, p_77648_6_, p_77648_7_, p_77648_8_, p_77648_9_, p_77648_10_, 0);
 
 			if (placeBlockAt(p_77648_1_, p_77648_2_, p_77648_3_, p_77648_4_, p_77648_5_, p_77648_6_, p_77648_7_, p_77648_8_, p_77648_9_, p_77648_10_, j1))
 			{
-				p_77648_3_.playSoundEffect(p_77648_4_ + 0.5F, p_77648_5_ + 0.5F, p_77648_6_ + 0.5F, ModBlocks.sweet_berry_bush.stepSound.func_150496_b(), (ModBlocks.sweet_berry_bush.stepSound.getVolume() + 1.0F) / 2.0F, ModBlocks.sweet_berry_bush.stepSound.getPitch() * 0.8F);
+				p_77648_3_.playSoundEffect(p_77648_4_ + 0.5F, p_77648_5_ + 0.5F, p_77648_6_ + 0.5F, ModBlocks.SWEET_BERRY_BUSH.get().stepSound.func_150496_b(), (ModBlocks.SWEET_BERRY_BUSH.get().stepSound.getVolume() + 1.0F) / 2.0F, ModBlocks.SWEET_BERRY_BUSH.get().stepSound.getPitch() * 0.8F);
 				--p_77648_1_.stackSize;
 			}
 
@@ -112,15 +112,15 @@ public class ItemSweetBerries extends ItemFood implements IConfigurable {
 	public boolean placeBlockAt(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int metadata)
 	{
 
-	   if (!world.setBlock(x, y, z, ModBlocks.sweet_berry_bush, metadata, 3))
+	   if (!world.setBlock(x, y, z, ModBlocks.SWEET_BERRY_BUSH.get(), metadata, 3))
 	   {
 		   return false;
 	   }
 
-	   if (world.getBlock(x, y, z) == ModBlocks.sweet_berry_bush)
+	   if (world.getBlock(x, y, z) == ModBlocks.SWEET_BERRY_BUSH.get())
 	   {
-		   ModBlocks.sweet_berry_bush.onBlockPlacedBy(world, x, y, z, player, stack);
-		   ModBlocks.sweet_berry_bush.onPostBlockPlaced(world, x, y, z, metadata);
+		   ModBlocks.SWEET_BERRY_BUSH.get().onBlockPlacedBy(world, x, y, z, player, stack);
+		   ModBlocks.SWEET_BERRY_BUSH.get().onPostBlockPlaced(world, x, y, z, metadata);
 	   }
 
 	   return true;

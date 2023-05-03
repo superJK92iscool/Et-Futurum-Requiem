@@ -87,7 +87,6 @@ import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox;
 import ganymedes01.etfuturum.tileentities.TileEntityWoodSign;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.entity.RenderSnowball;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.entity.player.EntityPlayer;
@@ -129,7 +128,7 @@ public class ClientProxy extends CommonProxy {
 
 	private void registerItemRenderers() {
 		if (ConfigBlocksItems.enableBanners) {
-			MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.banner), new ItemBannerRenderer());
+			MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.BANNER.get()), new ItemBannerRenderer());
 		}
 		if (ConfigFunctions.enableFancySkulls) {
 			MinecraftForgeClient.registerItemRenderer(Items.skull, new ItemSkullRenderer());
@@ -138,7 +137,7 @@ public class ClientProxy extends CommonProxy {
 			MinecraftForgeClient.registerItemRenderer(Items.bow, new ItemBowRenderer());
 		}
 		if(ConfigBlocksItems.enableShulkerBoxes) {
-			MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.shulker_box), new ItemShulkerBoxRenderer());
+			MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.SHULKER_BOX.get()), new ItemShulkerBoxRenderer());
 		}
 	}
 

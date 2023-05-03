@@ -25,7 +25,7 @@ import java.util.List;
 import static codechicken.lib.gui.GuiDraw.*;
 
 public class ComposterHandler extends TemplateRecipeHandler implements ICraftingHandler, IUsageHandler {
-    public final PositionedStack compooster = new PositionedStack(new ItemStack(ModBlocks.composter), 75, 78, false);
+    public final PositionedStack composter = new PositionedStack(new ItemStack(ModBlocks.COMPOSTER.get()), 75, 78, false);
     public final List<PositionedStack> outputs = new ArrayList<>();
     public final ItemStackMap<TableProps> props = new ItemStackMap<>();
 
@@ -43,7 +43,7 @@ public class ComposterHandler extends TemplateRecipeHandler implements ICrafting
 
         @Override
         public PositionedStack getResult() {
-            return compooster;
+            return composter;
         }
 
         @Override
@@ -55,7 +55,7 @@ public class ComposterHandler extends TemplateRecipeHandler implements ICrafting
     private void composeRecipeMap(ItemStack predicate) {
         List<ItemStack> inputs = new ArrayList<>(CompostingRegistry.getComposts().keySet());
         WeightedRandomChestContent[] tables = EtFuturumLootTables.COMPOSTER_LOOT.getItems(Minecraft.getMinecraft().thePlayer.worldObj.rand);
-        if (!itemCheck(predicate, inputs) && !tableCheck(predicate, tables) && !this.compooster.contains(predicate))
+        if (!itemCheck(predicate, inputs) && !tableCheck(predicate, tables) && !this.composter.contains(predicate))
             return;
         arecipes.clear();
         outputs.clear();
@@ -139,7 +139,7 @@ public class ComposterHandler extends TemplateRecipeHandler implements ICrafting
 
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
-        if (itemCheck(ingredient, CompostingRegistry.getComposts().keySet()) || this.compooster.contains(ingredient)) {
+        if (itemCheck(ingredient, CompostingRegistry.getComposts().keySet()) || this.composter.contains(ingredient)) {
             composeRecipeMap(ingredient);
         }
     }

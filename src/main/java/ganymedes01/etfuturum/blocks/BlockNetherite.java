@@ -1,13 +1,12 @@
 package ganymedes01.etfuturum.blocks;
 
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.ModBlocks.ISubBlocksBlock;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.entities.EntityItemUninflammable;
-import ganymedes01.etfuturum.items.block.ItemBlockUninflammable;
+import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockUninflammable;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.item.EntityItem;

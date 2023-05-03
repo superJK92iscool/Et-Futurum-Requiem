@@ -3,10 +3,10 @@ package ganymedes01.etfuturum.recipes.crafting;
 import java.util.ArrayList;
 import java.util.List;
 
+import ganymedes01.etfuturum.ModBlocks;
 import org.apache.commons.lang3.ArrayUtils;
 
-import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.items.block.ItemShulkerBox;
+import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockShulkerBox;
 import ganymedes01.etfuturum.recipes.ModRecipes;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
@@ -22,7 +22,7 @@ public class RecipeDyedShulkerBox extends ShapelessOreRecipe {
 		super(result, recipe);
 		List<ItemStack> stacks = new ArrayList<ItemStack>();
 		for(int i = 0; i <= 16; i++) {
-			ItemStack shulker = new ItemStack(ModBlocks.shulker_box);
+			ItemStack shulker = new ItemStack(ModBlocks.SHULKER_BOX.get());
 			if(i > 0) {
 				shulker.setTagCompound(new NBTTagCompound());
 				shulker.getTagCompound().setByte("Color", (byte)i);
@@ -52,7 +52,7 @@ public class RecipeDyedShulkerBox extends ShapelessOreRecipe {
 						break;
 					}
 				}
-				if(slot.getItem() == Item.getItemFromBlock(ModBlocks.shulker_box)) {
+				if(slot.getItem() == Item.getItemFromBlock(ModBlocks.SHULKER_BOX.get())) {
 					if(!box) {
 						box = true;
 					} else if(box) {
@@ -83,7 +83,7 @@ public class RecipeDyedShulkerBox extends ShapelessOreRecipe {
 					}
 				}
 				
-				if(box == null && slot.getItem() instanceof ItemShulkerBox) {
+				if(box == null && slot.getItem() instanceof ItemBlockShulkerBox) {
 					box = slot;
 				}
 			}

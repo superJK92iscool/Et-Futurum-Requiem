@@ -74,17 +74,17 @@ public class OceanMonument {
 				case 0:
 				case 1:
 				case 2:
-					block = ModBlocks.prismarine;
+					block = ModBlocks.PRISMARINE_BLOCK.get();
 					meta = value;
 					break;
 				case 3:
-					block = ModBlocks.sea_lantern;
+					block = ModBlocks.SEA_LANTERN.get();
 					break;
 				case 4:
 					block = Blocks.gold_block;
 					break;
 				case 5:
-					block = ConfigBlocksItems.enableSponge ? ModBlocks.sponge : Blocks.sponge;
+					block = ConfigBlocksItems.enableSponge ? ModBlocks.SPONGE.get() : Blocks.sponge;
 					meta = 1;
 					break;
 				case 6:
@@ -97,11 +97,11 @@ public class OceanMonument {
 		}
 
 		for (int i = 0; i < 7; i++) {
-			generatePillar(world, x + 5 * i + 4 * i, y, z, ModBlocks.prismarine, 1);
-			generatePillar(world, x, y, z + 5 * i + 4 * i, ModBlocks.prismarine, 1);
-			generatePillar(world, x + 54, y, z + 5 * i + 4 * i, ModBlocks.prismarine, 1);
+			generatePillar(world, x + 5 * i + 4 * i, y, z, ModBlocks.PRISMARINE_BLOCK.get(), 1);
+			generatePillar(world, x, y, z + 5 * i + 4 * i, ModBlocks.PRISMARINE_BLOCK.get(), 1);
+			generatePillar(world, x + 54, y, z + 5 * i + 4 * i, ModBlocks.PRISMARINE_BLOCK.get(), 1);
 			if (i != 3)
-				generatePillar(world, x + 5 * i + 4 * i, y, z + 54, ModBlocks.prismarine, 1);
+				generatePillar(world, x + 5 * i + 4 * i, y, z + 54, ModBlocks.PRISMARINE_BLOCK.get(), 1);
 		}
 	}
 
@@ -140,9 +140,9 @@ public class OceanMonument {
 						int meta = world.getBlockMetadata(x + i, y + j, z + k);
 
 						String s = "(" + i + ", " + j + ", " + k + ") - ";
-						if (b == ModBlocks.prismarine)
+						if (b == ModBlocks.PRISMARINE_BLOCK.get())
 							s += meta;
-						else if (b == ModBlocks.sea_lantern)
+						else if (b == ModBlocks.SEA_LANTERN.get())
 							s += 3;
 						else if (b == Blocks.gold_block)
 							s += 4;

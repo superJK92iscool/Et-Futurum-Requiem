@@ -28,7 +28,7 @@ public class BlockNewBeacon extends BlockBeacon implements IConfigurable {
 	@Override
 	public Item getItemDropped(int meta, Random rand, int fortune) {
 		if (ConfigWorld.tileReplacementMode == -1)
-			return Item.getItemFromBlock(ModBlocks.beacon);
+			return Item.getItemFromBlock(ModBlocks.BEACON.get());
 		return Item.getItemFromBlock(Blocks.beacon);
 	}
 
@@ -36,7 +36,7 @@ public class BlockNewBeacon extends BlockBeacon implements IConfigurable {
 	@SideOnly(Side.CLIENT)
 	public Item getItem(World world, int x, int y, int z) {
 		if (ConfigWorld.tileReplacementMode == -1)
-			return Item.getItemFromBlock(ModBlocks.beacon);
+			return Item.getItemFromBlock(ModBlocks.BEACON.get());
 		return Item.getItemFromBlock(Blocks.beacon);
 	}
 

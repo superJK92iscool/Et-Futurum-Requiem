@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.core.utils.Logger;
 import org.spongepowered.asm.mixin.MixinEnvironment;
 
@@ -12,7 +13,6 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.EtFuturumMixinPlugin;
-import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
@@ -91,8 +91,8 @@ public abstract class ConfigBase extends Configuration {
 			}
 		}
 
-		Block block = ConfigWorld.amethystOuterID == 1 && ConfigBlocksItems.enableTuff ? ModBlocks.tuff : ExternalContent.netherlicious_basalt_bricks;
-		ConfigWorld.amethystOuterBlock = ConfigWorld.amethystOuterID == 0 || block == null ? ModBlocks.smooth_basalt : block;
+		Block block = ConfigWorld.amethystOuterID == 1 && ConfigBlocksItems.enableTuff ? ModBlocks.TUFF.get() : ExternalContent.netherlicious_basalt_bricks;
+		ConfigWorld.amethystOuterBlock = ConfigWorld.amethystOuterID == 0 || block == null ? ModBlocks.SMOOTH_BASALT.get() : block;
 		if(!EtFuturum.hasIronChest) {
 			ConfigBlocksItems.enableShulkerBoxesIronChest = false;
 		}

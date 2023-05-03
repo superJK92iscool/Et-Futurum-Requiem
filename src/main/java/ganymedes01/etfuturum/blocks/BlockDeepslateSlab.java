@@ -42,14 +42,14 @@ public class BlockDeepslateSlab extends BlockGenericSlab implements IConfigurabl
 	
 	@Override
 	public BlockGenericSlab[] getSlabTypes() {
-		return brick ? new BlockGenericSlab[] {(BlockGenericSlab) ModBlocks.deepslate_brick_slab, (BlockGenericSlab) ModBlocks.double_deepslate_brick_slab}
-		: new BlockGenericSlab[] {(BlockGenericSlab) ModBlocks.deepslate_slab, (BlockGenericSlab) ModBlocks.double_deepslate_slab};
+		return brick ? new BlockGenericSlab[] {(BlockGenericSlab) ModBlocks.DEEPSLATE_BRICK_SLAB.get(), (BlockGenericSlab) ModBlocks.DOUBLE_DEEPSLATE_BRICK_SLAB.get()}
+		: new BlockGenericSlab[] {(BlockGenericSlab) ModBlocks.DEEPSLATE_SLAB.get(), (BlockGenericSlab) ModBlocks.DOUBLE_DEEPSLATE_SLAB.get()};
 	}
 
 	@Override
 	public IIcon[] getSlabIcons(int side) {
-		return brick ? new IIcon[] {ModBlocks.deepslate_bricks.getIcon(side, 0), ModBlocks.deepslate_bricks.getIcon(side, 2)}
-		: new IIcon[] {ModBlocks.cobbled_deepslate.getIcon(side, 0), ModBlocks.polished_deepslate.getIcon(side, 0)};
+		return brick ? new IIcon[] {ModBlocks.DEEPSLATE_BRICKS.get().getIcon(side, 0), ModBlocks.DEEPSLATE_BRICKS.get().getIcon(side, 2)}
+		: new IIcon[] {ModBlocks.COBBLED_DEEPSLATE.get().getIcon(side, 0), ModBlocks.POLISHED_DEEPSLATE.get().getIcon(side, 0)};
 	}
 
 	@Override

@@ -364,7 +364,7 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 		}
 		// Don't drop an empty Shulker Box in creative.
 		if ((!empty || !brokenInCreative) && worldObj.getGameRules().getGameRuleBooleanValue("doTileDrops")) {
-			ItemStack stack = new ItemStack(ModBlocks.shulker_box, 1);
+			ItemStack stack = new ItemStack(ModBlocks.SHULKER_BOX.get(), 1);
 			
 			writeToStack(stack);
 			

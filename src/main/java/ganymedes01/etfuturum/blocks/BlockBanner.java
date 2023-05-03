@@ -5,10 +5,9 @@ import java.util.ArrayList;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.ModBlocks.ISubBlocksBlock;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.items.block.ItemBanner;
+import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockBanner;
 import ganymedes01.etfuturum.tileentities.TileEntityBanner;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
@@ -198,7 +197,7 @@ public class BlockBanner extends BlockContainer implements ISubBlocksBlock, ICon
 
 	@Override
 	public Class<? extends ItemBlock> getItemBlockClass() {
-		return ItemBanner.class;
+		return ItemBlockBanner.class;
 	}
 
 	@Override

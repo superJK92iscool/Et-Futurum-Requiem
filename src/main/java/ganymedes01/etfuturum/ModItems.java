@@ -1,140 +1,104 @@
 package ganymedes01.etfuturum;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import cpw.mods.fml.common.registry.GameRegistry;
-import ganymedes01.etfuturum.blocks.IConfigurable;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigEntities;
+import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.entities.EntityNewBoat;
-import ganymedes01.etfuturum.items.IRegistryName;
-import ganymedes01.etfuturum.items.ItemAmethystShard;
-import ganymedes01.etfuturum.items.ItemArmorStand;
-import ganymedes01.etfuturum.items.ItemArrowTipped;
-import ganymedes01.etfuturum.items.ItemBeetroot;
-import ganymedes01.etfuturum.items.ItemBeetrootSeeds;
-import ganymedes01.etfuturum.items.ItemBeetrootSoup;
-import ganymedes01.etfuturum.items.ItemChorusFruit;
-import ganymedes01.etfuturum.items.ItemCopperIngot;
-import ganymedes01.etfuturum.items.ItemDragonBreath;
-import ganymedes01.etfuturum.items.ItemEndCrystal;
-import ganymedes01.etfuturum.items.ItemEtFuturumRecord;
-import ganymedes01.etfuturum.items.ItemLingeringPotion;
-import ganymedes01.etfuturum.items.ItemMuttonCooked;
-import ganymedes01.etfuturum.items.ItemMuttonRaw;
-import ganymedes01.etfuturum.items.ItemNetherite;
-import ganymedes01.etfuturum.items.ItemNewBoat;
-import ganymedes01.etfuturum.items.ItemNewDye;
-import ganymedes01.etfuturum.items.ItemNuggetIron;
-import ganymedes01.etfuturum.items.ItemPoppedChorusFruit;
-import ganymedes01.etfuturum.items.ItemPrismarineCrystals;
-import ganymedes01.etfuturum.items.ItemPrismarineShard;
-import ganymedes01.etfuturum.items.ItemRabbitCooked;
-import ganymedes01.etfuturum.items.ItemRabbitFoot;
-import ganymedes01.etfuturum.items.ItemRabbitHide;
-import ganymedes01.etfuturum.items.ItemRabbitRaw;
-import ganymedes01.etfuturum.items.ItemRabbitStew;
-import ganymedes01.etfuturum.items.ItemRawOre;
-import ganymedes01.etfuturum.items.ItemShulkerBoxUpgrade;
-import ganymedes01.etfuturum.items.ItemShulkerShell;
-import ganymedes01.etfuturum.items.ItemSuspiciousStew;
-import ganymedes01.etfuturum.items.ItemSweetBerries;
-import ganymedes01.etfuturum.items.ItemTotemUndying;
-import ganymedes01.etfuturum.items.block.ItemWoodSign;
-import ganymedes01.etfuturum.items.equipment.ItemArmorElytra;
-import ganymedes01.etfuturum.items.equipment.ItemEFRArmour;
-import ganymedes01.etfuturum.items.equipment.ItemEFRAxe;
-import ganymedes01.etfuturum.items.equipment.ItemEFRHoe;
-import ganymedes01.etfuturum.items.equipment.ItemEFRPickaxe;
-import ganymedes01.etfuturum.items.equipment.ItemEFRSpade;
-import ganymedes01.etfuturum.items.equipment.ItemEFRSword;
+import ganymedes01.etfuturum.items.*;
+import ganymedes01.etfuturum.items.ItemWoodSign;
+import ganymedes01.etfuturum.items.equipment.*;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemArmor;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.util.EnumHelper;
 
-public class ModItems {
-	
-	public static final Item.ToolMaterial NETHERITE_TOOL = EnumHelper.addToolMaterial("Netherite_Tool", ConfigBlocksItems.netheriteHarvestLevel, ConfigBlocksItems.netheriteToolDurability, ConfigBlocksItems.netheriteSpeed, ConfigBlocksItems.netheriteDamageBase, ConfigBlocksItems.netheriteEnchantability);
-	public static final ItemArmor.ArmorMaterial NETHERITE_ARMOUR = EnumHelper.addArmorMaterial("Netherite_Armour", ConfigBlocksItems.netheriteArmourDurabilityFactor, new int[]{ConfigBlocksItems.netheriteHelmetProtection, ConfigBlocksItems.netheriteChestplateProtection, ConfigBlocksItems.netheriteLeggingsProtection, ConfigBlocksItems.netheriteBootsProtection}, ConfigBlocksItems.netheriteEnchantability);
+public enum ModItems {
+	MUTTON_RAW(ConfigBlocksItems.enableMutton, new ItemMuttonRaw()),
+	MUTTON_COOKED(ConfigBlocksItems.enableMutton, new ItemMuttonCooked()),
+	PRISMARINE_SHARD(ConfigBlocksItems.enablePrismarine, new ItemPrismarineShard()),
+	PRISMARINE_CRYSTALS(ConfigBlocksItems.enablePrismarine, new ItemPrismarineCrystals()),
+	WOODEN_ARMORSTAND(ConfigBlocksItems.enableArmourStand, new ItemArmorStand()),
+	RABBIT_RAW(ConfigEntities.enableRabbit, new ItemRabbitRaw()),
+	RABBIT_COOKED(ConfigEntities.enableRabbit, new ItemRabbitCooked()),
+	RABBIT_FOOT(ConfigEntities.enableRabbit, new ItemRabbitFoot()),
+	RABBIT_HIDE(ConfigEntities.enableRabbit, new ItemRabbitHide()),
+	RABBIT_STEW(ConfigEntities.enableRabbit, new ItemRabbitStew()),
+	BEETROOT(ConfigBlocksItems.enableBeetroot, new ItemBeetroot()),
+	BEETROOT_SEEDS(ConfigBlocksItems.enableBeetroot, new ItemBeetrootSeeds()),
+	BEETROOT_SOUP(ConfigBlocksItems.enableBeetroot, new ItemBeetrootSoup()),
+	CHORUS_FRUIT(ConfigBlocksItems.enableChorusFruit, new ItemChorusFruit()),
+	CHORUS_FRUIT_POPPED(ConfigBlocksItems.enableChorusFruit, new ItemPoppedChorusFruit()),
+	TIPPED_ARROW(ConfigBlocksItems.enableTippedArrows, new ItemArrowTipped()),
+	LINGERING_POTION(ConfigBlocksItems.enableLingeringPotions, new ItemLingeringPotion()),
+	DRAGON_BREATH(ConfigBlocksItems.enableLingeringPotions, new ItemDragonBreath()),
+	ELYTRA(ConfigMixins.enableElytra, new ItemArmorElytra()),
+	END_CRYSTAL(ConfigEntities.enableDragonRespawn, new ItemEndCrystal()),
+	NUGGET_IRON(ConfigBlocksItems.enableIronNugget, new ItemNuggetIron()),
+	RAW_ORE(ConfigBlocksItems.enableRawOres, new ItemRawOre(false)),
+	//modded_raw_ore(true, new ItemRawOre(true)),
+	NETHERITE_SCRAP(ConfigBlocksItems.enableNetherite, new ItemNetherite(0)),
+	NETHERITE_INGOT(ConfigBlocksItems.enableNetherite, new ItemNetherite(1)),
+	NETHERITE_HELMET(ConfigBlocksItems.enableNetherite, new ItemEFRArmour(ModMaterials.NETHERITE_ARMOUR, 0, ConfigBlocksItems.netheriteHelmetDurability)),
+	NETHERITE_CHESTPLATE(ConfigBlocksItems.enableNetherite, new ItemEFRArmour(ModMaterials.NETHERITE_ARMOUR, 1, ConfigBlocksItems.netheriteChestplateDurability)),
+	NETHERITE_LEGGINGS(ConfigBlocksItems.enableNetherite, new ItemEFRArmour(ModMaterials.NETHERITE_ARMOUR, 2, ConfigBlocksItems.netheriteLeggingsDurability)),
+	NETHERITE_BOOTS(ConfigBlocksItems.enableNetherite, new ItemEFRArmour(ModMaterials.NETHERITE_ARMOUR, 3, ConfigBlocksItems.netheriteBootsDurability)),
+	NETHERITE_PICKAXE(ConfigBlocksItems.enableNetherite, new ItemEFRPickaxe(ModMaterials.NETHERITE_TOOL, ConfigBlocksItems.netheritePickaxeDurability)),
+	NETHERITE_SPADE(ConfigBlocksItems.enableNetherite, new ItemEFRSpade(ModMaterials.NETHERITE_TOOL, ConfigBlocksItems.netheriteSpadeDurability)),
+	NETHERITE_AXE(ConfigBlocksItems.enableNetherite, new ItemEFRAxe(ModMaterials.NETHERITE_TOOL, ConfigBlocksItems.netheriteAxeDurability)),
+	NETHERITE_HOE(ConfigBlocksItems.enableNetherite, new ItemEFRHoe(ModMaterials.NETHERITE_TOOL, ConfigBlocksItems.netheriteHoeDurability)),
+	NETHERITE_SWORD(ConfigBlocksItems.enableNetherite, new ItemEFRSword(ModMaterials.NETHERITE_TOOL, ConfigBlocksItems.netheriteSwordDurability)),
+	TOTEM_OF_UNDYING(ConfigBlocksItems.enableTotemUndying, new ItemTotemUndying()),
+	DYE(ConfigBlocksItems.enableNewDyes, new ItemNewDye()),
+	COPPER_INGOT(ConfigBlocksItems.enableCopper, new ItemCopperIngot()),
+	SUSPICIOUS_STEW(ConfigBlocksItems.enableSuspiciousStew, new ItemSuspiciousStew()),
+	SWEET_BERRIES(ConfigBlocksItems.enableSweetBerryBushes, new ItemSweetBerries()),
+	SHULKER_SHELL(ConfigBlocksItems.enableShulkerBoxes, new ItemShulkerShell()),
+	PIGSTEP_RECORD(ConfigBlocksItems.enablePigstep, new ItemEtFuturumRecord("pigstep")),
+	OTHERSIDE_RECORD(ConfigBlocksItems.enableOtherside, new ItemEtFuturumRecord("otherside")),
+	AMETHYST_SHARD(ConfigBlocksItems.enableAmethyst, new ItemAmethystShard()),
+	SHULKER_BOX_UPGRADE(EtFuturum.hasIronChest && ConfigBlocksItems.enableShulkerBoxesIronChest, new ItemShulkerBoxUpgrade()),
 
-	private static final List<Item> initList = new ArrayList<Item>();
-	
-	static {
-		NETHERITE_TOOL.setRepairItem(new ItemStack(ModItems.netherite_ingot));
-		NETHERITE_ARMOUR.customCraftingMaterial = ModItems.netherite_ingot;
-	}
+	ITEM_SIGN_SPRUCE(ConfigBlocksItems.enableSigns, new ItemWoodSign(1)),
+	ITEM_SIGN_BIRCH(ConfigBlocksItems.enableSigns, new ItemWoodSign(2)),
+	ITEM_SIGN_JUNGLE(ConfigBlocksItems.enableSigns, new ItemWoodSign(3)),
+	ITEM_SIGN_ACACIA(ConfigBlocksItems.enableSigns, new ItemWoodSign(4)),
+	ITEM_SIGN_DARK_OAK(ConfigBlocksItems.enableSigns, new ItemWoodSign(5)),
 
-	public static final Item raw_mutton = initItem(new ItemMuttonRaw());
-	public static final Item cooked_mutton = initItem(new ItemMuttonCooked());
-	public static final Item prismarine_shard = initItem(new ItemPrismarineShard());
-	public static final Item prismarine_crystals = initItem(new ItemPrismarineCrystals());
-	public static final Item armour_stand = initItem(new ItemArmorStand());
-	public static final Item raw_rabbit = initItem(new ItemRabbitRaw());
-	public static final Item cooked_rabbit = initItem(new ItemRabbitCooked());
-	public static final Item rabbit_foot = initItem(new ItemRabbitFoot());
-	public static final Item rabbit_hide = initItem(new ItemRabbitHide());
-	public static final Item rabbit_stew = initItem(new ItemRabbitStew());
-	public static final Item beetroot = initItem(new ItemBeetroot());
-	public static final Item beetroot_seeds = initItem(new ItemBeetrootSeeds());
-	public static final Item beetroot_soup = initItem(new ItemBeetrootSoup());
-	public static final Item chorus_fruit = initItem(new ItemChorusFruit());
-	public static final Item popped_chorus_fruit = initItem(new ItemPoppedChorusFruit());
-	public static final Item tipped_arrow = initItem(new ItemArrowTipped());
-	public static final Item lingering_potion = initItem(new ItemLingeringPotion());
-	public static final Item dragon_breath = initItem(new ItemDragonBreath());
-	public static final Item elytra = initItem(new ItemArmorElytra());
-	public static final Item end_crystal = initItem(new ItemEndCrystal());
+	OAK_BOAT(ConfigBlocksItems.enableNewBoats && !ConfigBlocksItems.replaceOldBoats, new ItemNewBoat(EntityNewBoat.Type.OAK, false)),
+	OAK_CHEST_BOAT(ConfigBlocksItems.enableNewBoats, new ItemNewBoat(EntityNewBoat.Type.OAK, true)),
+	SPRUCE_BOAT(ConfigBlocksItems.enableNewBoats, new ItemNewBoat(EntityNewBoat.Type.SPRUCE, false)),
+	SPRUCE_CHEST_BOAT(ConfigBlocksItems.enableNewBoats, new ItemNewBoat(EntityNewBoat.Type.SPRUCE, true)),
+	BIRCH_BOAT(ConfigBlocksItems.enableNewBoats, new ItemNewBoat(EntityNewBoat.Type.BIRCH, false)),
+	BIRCH_CHEST_BOAT(ConfigBlocksItems.enableNewBoats, new ItemNewBoat(EntityNewBoat.Type.BIRCH, true)),
+	JUNGLE_BOAT(ConfigBlocksItems.enableNewBoats, new ItemNewBoat(EntityNewBoat.Type.JUNGLE, false)),
+	JUNGLE_CHEST_BOAT(ConfigBlocksItems.enableNewBoats, new ItemNewBoat(EntityNewBoat.Type.JUNGLE, true)),
+	ACACIA_BOAT(ConfigBlocksItems.enableNewBoats, new ItemNewBoat(EntityNewBoat.Type.ACACIA, false)),
+	ACACIA_CHEST_BOAT(ConfigBlocksItems.enableNewBoats, new ItemNewBoat(EntityNewBoat.Type.ACACIA, true)),
+	DARK_OAK_BOAT(ConfigBlocksItems.enableNewBoats, new ItemNewBoat(EntityNewBoat.Type.DARK_OAK, false)),
+	DARK_OAK_CHEST_BOAT(ConfigBlocksItems.enableNewBoats, new ItemNewBoat(EntityNewBoat.Type.DARK_OAK, true));
 	
-	public static final Item iron_nugget = initItem(new ItemNuggetIron());
-	public static final Item raw_ore = initItem(new ItemRawOre(false));
-//  public static final Item modded_raw_ore = initItem(new ItemRawOre(true));
-	public static final Item netherite_scrap = initItem(new ItemNetherite(0));
-	public static final Item netherite_ingot = initItem(new ItemNetherite(1));
-	public static final Item netherite_helmet = initItem(new ItemEFRArmour(NETHERITE_ARMOUR, 0, ConfigBlocksItems.netheriteHelmetDurability));
-	public static final Item netherite_chestplate = initItem(new ItemEFRArmour(NETHERITE_ARMOUR, 1, ConfigBlocksItems.netheriteChestplateDurability));
-	public static final Item netherite_leggings = initItem(new ItemEFRArmour(NETHERITE_ARMOUR, 2, ConfigBlocksItems.netheriteLeggingsDurability));
-	public static final Item netherite_boots = initItem(new ItemEFRArmour(NETHERITE_ARMOUR, 3, ConfigBlocksItems.netheriteBootsDurability));
-	public static final Item netherite_pickaxe = initItem(new ItemEFRPickaxe(NETHERITE_TOOL, ConfigBlocksItems.netheritePickaxeDurability));
-	public static final Item netherite_spade = initItem(new ItemEFRSpade(NETHERITE_TOOL, ConfigBlocksItems.netheriteSpadeDurability));
-	public static final Item netherite_axe = initItem(new ItemEFRAxe(NETHERITE_TOOL, ConfigBlocksItems.netheriteAxeDurability));
-	public static final Item netherite_hoe = initItem(new ItemEFRHoe(NETHERITE_TOOL, ConfigBlocksItems.netheriteHoeDurability));
-	public static final Item netherite_sword = initItem(new ItemEFRSword(NETHERITE_TOOL, ConfigBlocksItems.netheriteSwordDurability));
-	public static final Item[] signs = new Item[ModBlocks.woodTypes.length - 1];
-	public static final Item totem = initItem(new ItemTotemUndying());
-	public static final Item new_dye = initItem(new ItemNewDye());
-	public static final Item copper_ingot = initItem(new ItemCopperIngot());
-	public static final Item suspicious_stew = initItem(new ItemSuspiciousStew());
-	public static final Item sweet_berries = initItem(new ItemSweetBerries());
-	public static final Item shulker_shell = initItem(new ItemShulkerShell());
-	public static final Item[] boats = new Item[EntityNewBoat.Type.values().length];
-	public static final Item[] chest_boats = new Item[EntityNewBoat.Type.values().length];
-	public static final Item pigstep_record = initItem(new ItemEtFuturumRecord("pigstep"));
-	public static final Item otherside_record = initItem(new ItemEtFuturumRecord("otherside"));
-	public static final Item amethyst_shard = initItem(new ItemAmethystShard());
-	public static final Item shulker_box_upgrade = initItem(new ItemShulkerBoxUpgrade());
+	public static final Item[] signs = new Item[] {ITEM_SIGN_SPRUCE.get(), ITEM_SIGN_BIRCH.get(), ITEM_SIGN_JUNGLE.get(), ITEM_SIGN_ACACIA.get(), ITEM_SIGN_DARK_OAK.get()};
+	public static final Item[] boats = new Item[] {OAK_BOAT.get(), SPRUCE_BOAT.get(), BIRCH_BOAT.get(), JUNGLE_BOAT.get(), ACACIA_BOAT.get(), DARK_OAK_BOAT.get()};
+	public static final Item[] chest_boats = new Item[] {OAK_BOAT.get(), SPRUCE_CHEST_BOAT.get(), BIRCH_CHEST_BOAT.get(), JUNGLE_CHEST_BOAT.get(), ACACIA_CHEST_BOAT.get(), DARK_OAK_CHEST_BOAT.get()};
 
-	static {
-		for (int i = 0; i < signs.length; i++)
-			signs[i] = initItem(new ItemWoodSign(i + 1));
-		for (int i = 0; i < boats.length; i++)
-			boats[i] = initItem(new ItemNewBoat(EntityNewBoat.Type.byId(i), false));
-		for (int i = 0; i < chest_boats.length; i++)
-			chest_boats[i] = initItem(new ItemNewBoat(EntityNewBoat.Type.byId(i), true));
-	}
-	
-	private static Item initItem(Item item) {
-		if(!(item instanceof IConfigurable) || ((IConfigurable)item).isEnabled())
-			initList.add(item);
-		return item;
-	}
-	
 	public static void init() {
-		for(Item item : initList) {
-			String name = item.getUnlocalizedName();
-			String[] strings = name.split("\\.");
-			String registryName = item instanceof IRegistryName ? ((IRegistryName)item).getRegistryName() : strings[strings.length - 1];
-			GameRegistry.registerItem(item, registryName);
+		for(ModItems item : values()) {
+			if(item.isEnabled()) { //Honestly what do you think it's doing lmfao
+				GameRegistry.registerItem(item.get(), item.name().toLowerCase());
+			}
 		}
+	}
+
+	final private boolean isEnabled;
+	final private Item theItem;
+
+	ModItems(boolean enabled, Item item) {
+		isEnabled = enabled;
+		theItem = item;
+	}
+
+	public boolean isEnabled() {
+		return isEnabled;
+	}
+	public Item get() {
+		return theItem;
 	}
 }

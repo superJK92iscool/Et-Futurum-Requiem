@@ -3,17 +3,16 @@ package ganymedes01.etfuturum.blocks;
 import java.util.ArrayList;
 import java.util.List;
 
+import ganymedes01.etfuturum.ModItems;
 import org.apache.commons.lang3.ArrayUtils;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.ModBlocks.ISubBlocksBlock;
-import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.items.ItemGeneric;
-import ganymedes01.etfuturum.items.block.ItemShulkerBox;
+import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockShulkerBox;
 import ganymedes01.etfuturum.lib.GUIsID;
 import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox;
 import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox.ShulkerBoxType;
@@ -140,7 +139,7 @@ public class BlockShulkerBox extends BlockContainer implements IConfigurable, IS
 		{
 			TileEntityShulkerBox shulker = (TileEntityShulkerBox) world.getTileEntity(x, y, z);
 
-			if(!player.isSneaking() && player.getHeldItem() != null && player.getHeldItem().getItem() == ModItems.shulker_box_upgrade) {
+			if(!player.isSneaking() && player.getHeldItem() != null && player.getHeldItem().getItem() == ModItems.SHULKER_BOX_UPGRADE.get()) {
 				ItemStack stack = player.getHeldItem();
 				String[] upgrades = ((ItemGeneric)player.getHeldItem().getItem()).types[stack.getItemDamage()].split("_");
 				if(upgrades[0].equals(shulker.type.toString().toLowerCase())) {
@@ -297,7 +296,7 @@ public class BlockShulkerBox extends BlockContainer implements IConfigurable, IS
 
 	@Override
 	public Class<? extends ItemBlock> getItemBlockClass() {
-		return ItemShulkerBox.class;
+		return ItemBlockShulkerBox.class;
 	}
 
 	public IIcon getIcon(int side, int metadata)
