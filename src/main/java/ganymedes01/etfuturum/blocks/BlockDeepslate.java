@@ -34,7 +34,7 @@ public class BlockDeepslate extends BlockRotatedPillar implements IConfigurable 
 		this.setResistance(6);
 		this.setBlockName(Utils.getUnlocalisedName("deepslate"));
 		this.setBlockTextureName("deepslate");
-		this.setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		this.setCreativeTab(EtFuturum.creativeTabBlocks);
 		this.setStepSound(ConfigSounds.newBlockSounds ? ModSounds.soundDeepslate : soundTypeStone);
 	}
 

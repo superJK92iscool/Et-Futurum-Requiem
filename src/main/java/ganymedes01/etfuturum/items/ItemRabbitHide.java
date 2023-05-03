@@ -11,7 +11,7 @@ public class ItemRabbitHide extends Item implements IConfigurable {
 	public ItemRabbitHide() {
 		setTextureName("rabbit_hide");
 		setUnlocalizedName(Utils.getUnlocalisedName("rabbit_hide"));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
+		setCreativeTab(EtFuturum.creativeTabItems);
 	}
 
 	@Override

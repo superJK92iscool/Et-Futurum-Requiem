@@ -28,7 +28,7 @@ public class BlockChorusPlant extends Block implements IConfigurable {
 		setStepSound(soundTypeWood);
 		setBlockTextureName("chorus_plant");
 		setBlockName(Utils.getUnlocalisedName("chorus_plant"));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
 	//Come back to: Make it so the dragon can destroy the fruits if the new end is on

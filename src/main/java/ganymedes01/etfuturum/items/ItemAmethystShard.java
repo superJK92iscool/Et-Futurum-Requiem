@@ -11,7 +11,7 @@ public class ItemAmethystShard extends Item implements IConfigurable {
 	public ItemAmethystShard() {
 		setTextureName("amethyst_shard");
 		setUnlocalizedName(Utils.getUnlocalisedName("amethyst_shard"));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
+		setCreativeTab(EtFuturum.creativeTabItems);
 	}
 	
 	@Override

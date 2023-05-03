@@ -10,7 +10,7 @@ public class BlockCornflower extends BlockFlowerBase implements IConfigurable {
 		setBlockName(Utils.getUnlocalisedName("cornflower"));
 		setStepSound(soundTypeGrass);
 		setBlockTextureName("cornflower");
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
 	@Override

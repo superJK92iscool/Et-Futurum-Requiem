@@ -17,7 +17,7 @@ public class ItemBeetrootSeeds extends ItemSeeds implements IConfigurable {
 		super(ModBlocks.BEETROOTS.get(), Blocks.farmland);
 		setTextureName("beetroot_seeds");
 		setUnlocalizedName(Utils.getUnlocalisedName("beetroot_seeds"));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
+		setCreativeTab(EtFuturum.creativeTabItems);
 
 		if (isEnabled()) {
 			ChestGenHooks.addItem(ChestGenHooks.MINESHAFT_CORRIDOR, new WeightedRandomChestContent(new ItemStack(this), 1, 2, 5));

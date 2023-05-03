@@ -34,7 +34,7 @@ public class BlockLantern extends Block implements IConfigurable {
 		this.setBlockBounds(0.5F - f1, r * 1, 0.5F - f1, 0.5F + f1, r * 7, 0.5F + f1);
 		this.setBlockName(Utils.getUnlocalisedName("lantern"));
 		this.setBlockTextureName("lantern");
-		this.setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		this.setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
 	@Override

@@ -12,7 +12,7 @@ public class ItemShulkerShell extends Item implements IConfigurable {
 		super();
 		setUnlocalizedName(Utils.getUnlocalisedName("shulker_shell"));
 		setTextureName("shulker_shell");
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
+		setCreativeTab(EtFuturum.creativeTabItems);
 	}
 
 	@Override

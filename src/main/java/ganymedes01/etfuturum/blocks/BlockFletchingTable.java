@@ -30,7 +30,7 @@ public class BlockFletchingTable extends Block implements IConfigurable, ISubBlo
 		this.setResistance(2.5F);
 		this.setBlockName(Utils.getUnlocalisedName("fletching_table"));
 		this.setBlockTextureName("fletching_table");
-		this.setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		this.setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 	
 	@SideOnly(Side.CLIENT)

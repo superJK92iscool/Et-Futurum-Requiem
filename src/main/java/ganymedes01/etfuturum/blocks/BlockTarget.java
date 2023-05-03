@@ -32,7 +32,7 @@ public class BlockTarget extends Block implements IConfigurable {
 		setStepSound(soundTypePiston);
 		setBlockTextureName("target");
 		setBlockName(Utils.getUnlocalisedName("target"));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 		setStepSound(soundTypeGrass);
 		HoeRegistry.addToHoeArray(this);
 	}

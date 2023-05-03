@@ -35,7 +35,7 @@ public class BlockStonecutter extends Block implements IConfigurable, ISubBlocks
 		this.setResistance(3.5F);
 		this.setBlockName(Utils.getUnlocalisedName("stonecutter"));
 		this.setBlockTextureName("stonecutter");
-		this.setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		this.setCreativeTab(EtFuturum.creativeTabBlocks);
 		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5625F, 1.0F);
 		this.setLightOpacity(0);
 		this.useNeighborBrightness = true;

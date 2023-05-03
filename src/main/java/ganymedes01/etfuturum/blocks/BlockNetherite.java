@@ -25,7 +25,7 @@ public class BlockNetherite extends Block implements IConfigurable, ISubBlocksBl
 		setStepSound(ConfigSounds.newBlockSounds ? ModSounds.soundNetherite : soundTypePiston);
 		setBlockTextureName("netherite_block");
 		setBlockName(Utils.getUnlocalisedName("netherite_block"));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 	
 	@Override

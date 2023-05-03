@@ -17,7 +17,7 @@ public class BlockCalcite extends Block implements IConfigurable {
 		setStepSound(ConfigSounds.newBlockSounds ? ModSounds.soundCalcite : soundTypePiston);
 		setBlockTextureName("calcite");
 		setBlockName(Utils.getUnlocalisedName("calcite"));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
 	@Override

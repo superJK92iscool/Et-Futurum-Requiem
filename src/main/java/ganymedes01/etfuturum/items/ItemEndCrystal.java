@@ -17,7 +17,7 @@ public class ItemEndCrystal extends ItemSimpleFoiled implements IConfigurable {
 	public ItemEndCrystal() {
 		setTextureName("end_crystal");
 		setUnlocalizedName(Utils.getUnlocalisedName("end_crystal"));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
+		setCreativeTab(EtFuturum.creativeTabItems);
 	}
 
 	@Override

@@ -39,7 +39,7 @@ public class BlockAmethystCluster extends BlockAmethystBlock implements ISubBloc
 		setStepSound(ConfigSounds.newBlockSounds ? ModSounds.soundAmethystCluster : soundTypeGlass);
 		setBlockTextureName("amethyst_cluster");
 		setBlockName(Utils.getUnlocalisedName("amethyst_cluster_" + (type + 1)));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 		setHarvestLevel("pickaxe", 0);
 		this.lightValue = 1;
 		this.type = type;

@@ -18,7 +18,7 @@ public class BlockNewStone extends BlockGeneric implements IConfigurable {
 		setBlockTextureName("stone");
 		setStepSound(soundTypePiston);
 		setBlockName(Utils.getUnlocalisedName("stone"));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
 	@Override

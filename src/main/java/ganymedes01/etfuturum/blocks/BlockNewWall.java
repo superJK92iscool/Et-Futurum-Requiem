@@ -37,7 +37,7 @@ public class BlockNewWall extends BlockWall implements IConfigurable, ISubBlocks
 		this.names = names;
 		variations = blocks.length;
 		setStepSound(blocks[0].stepSound);
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 		setBlockName(Utils.getUnlocalisedName(string));
 	}
 	

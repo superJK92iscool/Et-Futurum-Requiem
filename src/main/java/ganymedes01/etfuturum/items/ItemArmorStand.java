@@ -26,7 +26,7 @@ public class ItemArmorStand extends Item implements IConfigurable {
 		setMaxStackSize(16);
 		setTextureName("wooden_armorstand");
 		setUnlocalizedName(Utils.getUnlocalisedName("wooden_armorstand"));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
+		setCreativeTab(EtFuturum.creativeTabItems);
 	}
 
 	@Override

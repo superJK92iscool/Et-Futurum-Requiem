@@ -46,7 +46,7 @@ public class BlockComposter extends Block implements IConfigurable {
         this.setBlockName(Utils.getUnlocalisedName("composter"));
         this.setBlockTextureName("composter");
         this.setLightOpacity(500);
-        this.setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+        this.setCreativeTab(EtFuturum.creativeTabBlocks);
         this.setLightOpacity(0);
         this.useNeighborBrightness = true;
     }

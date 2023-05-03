@@ -20,7 +20,7 @@ public class BlockConcrete extends BlockGeneric implements IConfigurable {
 		this.setResistance(1.8F);
 		this.setBlockName(Utils.getUnlocalisedName("concrete"));
 		this.setBlockTextureName("concrete");
-		this.setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		this.setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
 	@Override

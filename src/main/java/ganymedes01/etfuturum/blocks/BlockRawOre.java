@@ -19,7 +19,7 @@ public class BlockRawOre extends BlockGeneric implements IConfigurable {
 		setResistance(6);
 		setBlockName(Utils.getUnlocalisedName("raw_ore_block"));
 		setBlockTextureName("raw");
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
 	public String getNameFor(int meta) {

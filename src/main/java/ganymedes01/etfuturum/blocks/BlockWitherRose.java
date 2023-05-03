@@ -26,7 +26,7 @@ public class BlockWitherRose extends BlockFlowerBase implements IConfigurable {
 		setBlockName(Utils.getUnlocalisedName("wither_rose"));
 		setStepSound(soundTypeGrass);
 		setBlockTextureName("wither_rose");
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 	
 	@Override

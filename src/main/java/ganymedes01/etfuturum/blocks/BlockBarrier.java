@@ -28,7 +28,7 @@ public class BlockBarrier extends Block implements IConfigurable {
 		this.setBlockName(Utils.getUnlocalisedName("barrier"));
 		this.useNeighborBrightness = true;
 		this.canBlockGrass = false;
-		this.setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		this.setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 	
 	@Override

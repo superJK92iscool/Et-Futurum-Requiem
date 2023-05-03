@@ -22,7 +22,7 @@ public class BlockInfestedDeepslate extends BlockSilverfish implements IConfigur
 	public BlockInfestedDeepslate() {
 		super();
 		setBlockName(Utils.getUnlocalisedName("infested_deepslate"));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 	
 	@Override

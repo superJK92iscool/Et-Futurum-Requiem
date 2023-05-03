@@ -18,7 +18,7 @@ public class BlockOreNetherGold extends Block implements IConfigurable {
 	public BlockOreNetherGold() {
 		super(Material.rock);
 		setStepSound(Block.soundTypeStone);
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 		setHardness(3.0F);
 		setResistance(5.0F);
 		setBlockTextureName("nether_gold_ore");

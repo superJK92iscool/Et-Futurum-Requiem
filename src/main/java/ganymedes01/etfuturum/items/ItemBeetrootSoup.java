@@ -13,7 +13,7 @@ public class ItemBeetrootSoup extends ItemSoup implements IConfigurable {
 		super(6);
 		setTextureName("beetroot_soup");
 		setUnlocalizedName(Utils.getUnlocalisedName("beetroot_soup"));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
+		setCreativeTab(EtFuturum.creativeTabItems);
 	}
 
 	@Override

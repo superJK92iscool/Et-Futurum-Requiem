@@ -12,7 +12,7 @@ public class ItemRabbitRaw extends ItemFood implements IConfigurable {
 		super(3, 0.3F, true);
 		setTextureName("rabbit_raw");
 		setUnlocalizedName(Utils.getUnlocalisedName("rabbit_raw"));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
+		setCreativeTab(EtFuturum.creativeTabItems);
 	}
 
 	@Override

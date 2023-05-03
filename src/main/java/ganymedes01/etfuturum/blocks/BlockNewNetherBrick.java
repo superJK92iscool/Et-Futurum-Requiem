@@ -22,7 +22,7 @@ public class BlockNewNetherBrick extends BlockGeneric implements IConfigurable {
 		this.setHarvestLevel("pickaxe", 0);
 		this.setBlockTextureName("nether_bricks");
 		setBlockName(Utils.getUnlocalisedName("red_netherbrick"));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 	
 	@Override

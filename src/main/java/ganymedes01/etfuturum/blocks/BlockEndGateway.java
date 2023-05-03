@@ -33,7 +33,7 @@ public class BlockEndGateway extends BlockContainer implements IConfigurable {
 		this.setResistance(3600000);
 		this.setBlockUnbreakable();
 		this.setBlockName(Utils.getUnlocalisedName("end_gateway"));
-		this.setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		this.setCreativeTab(EtFuturum.creativeTabBlocks);
 
 		Blocks.end_portal.setBlockName(Utils.getUnlocalisedName("end_portal"));
 	}

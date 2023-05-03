@@ -24,7 +24,7 @@ public class ItemRawOre extends ItemGeneric implements IConfigurable {
 		modded = mod;
 		setUnlocalizedName(Utils.getUnlocalisedName((mod ? "modded_" : "") + "raw_ore"));
 		setTextureName("raw");
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
+		setCreativeTab(EtFuturum.creativeTabItems);
 	}
 
 	@Override

@@ -22,7 +22,7 @@ public class BlockNewBeacon extends BlockBeacon implements IConfigurable {
 		setLightLevel(1.0F);
 		setBlockTextureName("beacon");
 		setBlockName(Utils.getUnlocalisedName("beacon"));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
 	@Override

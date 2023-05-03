@@ -18,7 +18,7 @@ public class ItemSweetBerries extends ItemFood implements IConfigurable {
 		super(2, 0.1f, false);
 		setTextureName("sweet_berries");
 		setUnlocalizedName(Utils.getUnlocalisedName("sweet_berries"));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
+		setCreativeTab(EtFuturum.creativeTabItems);
 	}
 
 	@Override

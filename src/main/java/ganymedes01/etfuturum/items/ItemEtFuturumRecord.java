@@ -13,7 +13,7 @@ public class ItemEtFuturumRecord extends ItemRecord implements IConfigurable, IR
 		super(recordName);
 		setTextureName("music_disc_" + recordName);
 		setUnlocalizedName("record");
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
+		setCreativeTab(EtFuturum.creativeTabItems);
 	}
 
 	@Override

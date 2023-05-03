@@ -15,7 +15,7 @@ public class BlockSmoothStone extends Block implements IConfigurable {
 		this.setStepSound(soundTypePiston);
 		this.setBlockName(Utils.getUnlocalisedName("smooth_stone"));
 		setBlockTextureName("stone_slab_top");
-		this.setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		this.setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
 	@Override

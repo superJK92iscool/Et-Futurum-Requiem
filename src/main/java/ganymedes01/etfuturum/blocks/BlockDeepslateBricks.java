@@ -22,7 +22,7 @@ public class BlockDeepslateBricks extends BlockGeneric implements IConfigurable,
 		this.setResistance(6);
 		this.setBlockName(Utils.getUnlocalisedName("deepslate_bricks"));
 		this.setBlockTextureName("deepslate_bricks");
-		this.setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		this.setCreativeTab(EtFuturum.creativeTabBlocks);
 		this.setStepSound(ConfigSounds.newBlockSounds ? ModSounds.soundDeepslateBricks : soundTypeStone);
 	}
 

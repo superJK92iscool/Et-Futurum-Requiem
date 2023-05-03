@@ -17,7 +17,7 @@ public class BlockPurpurSlab extends BlockGenericSlab implements IConfigurable {
 		setResistance(6);
 		setHardness(2.0F);
 		setBlockName(Utils.getUnlocalisedName("purpur_slab"));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
 	@Override

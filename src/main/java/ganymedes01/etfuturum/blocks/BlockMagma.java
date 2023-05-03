@@ -31,7 +31,7 @@ public class BlockMagma extends Block implements IConfigurable{
 		setLightLevel(0.2F);
 		setTickRandomly(true);
 		setBlockName(Utils.getUnlocalisedName("magma"));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 	
 	public static final DamageSource HOT_FLOOR = (new DamageSource("hotFloor")).setFireDamage();

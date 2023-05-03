@@ -11,7 +11,7 @@ public class ItemCopperIngot extends Item implements IConfigurable {
 	public ItemCopperIngot() {
 		setTextureName("copper_ingot");
 		setUnlocalizedName(Utils.getUnlocalisedName("copper_ingot"));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
+		setCreativeTab(EtFuturum.creativeTabItems);
 	}
 
 	@Override

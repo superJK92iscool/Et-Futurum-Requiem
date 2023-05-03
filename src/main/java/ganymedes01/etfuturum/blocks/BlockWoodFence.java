@@ -26,7 +26,7 @@ public class BlockWoodFence extends BlockFence implements IConfigurable {
 		setResistance(5.0F);
 		setStepSound(soundTypeWood);
 		setBlockName(Utils.getUnlocalisedName("fence_" + BlockWoodDoor.names[meta]));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
 	@Override

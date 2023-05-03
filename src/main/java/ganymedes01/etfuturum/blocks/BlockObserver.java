@@ -33,7 +33,7 @@ public class BlockObserver extends Block implements IConfigurable, IBlockObserve
 		this.setResistance(3F);
 		this.setBlockName(Utils.getUnlocalisedName("observer"));
 		this.setBlockTextureName("observer");
-		this.setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		this.setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
 	@Override

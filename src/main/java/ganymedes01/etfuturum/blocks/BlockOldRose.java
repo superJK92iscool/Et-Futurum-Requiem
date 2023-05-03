@@ -10,7 +10,7 @@ public class BlockOldRose extends BlockFlowerBase implements IConfigurable {
 	public BlockOldRose() {
 		setBlockName(Utils.getUnlocalisedName("rose"));
 		setBlockTextureName(Reference.MOD_ID + ":flower_rose");
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
 	@Override

@@ -15,7 +15,7 @@ public class BlockCopperOre extends BlockOre implements IConfigurable {
 		setBlockName(Utils.getUnlocalisedName("copper_ore"));
 		setBlockTextureName("copper_ore");
 		setHarvestLevel("pickaxe", 1);
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
 	@Override

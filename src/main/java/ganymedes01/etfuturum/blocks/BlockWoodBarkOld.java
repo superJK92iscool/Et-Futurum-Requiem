@@ -17,7 +17,7 @@ public class BlockWoodBarkOld extends BlockOldLog implements IConfigurable, ISub
 	
 	public BlockWoodBarkOld() {
 		setBlockName(Utils.getUnlocalisedName("bark"));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
 	@Override

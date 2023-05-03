@@ -21,7 +21,7 @@ public class BlockWoodButton extends BlockButtonWood implements IConfigurable {
 		this.meta = meta;
 		setBlockName(Utils.getUnlocalisedName("button_" + BlockWoodDoor.names[meta]));
 		setHardness(0.5F);
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 		setStepSound(Block.soundTypeWood);
 	}
 

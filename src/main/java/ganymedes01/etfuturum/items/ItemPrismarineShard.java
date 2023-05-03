@@ -11,7 +11,7 @@ public class ItemPrismarineShard extends Item implements IConfigurable {
 	public ItemPrismarineShard() {
 		setTextureName("prismarine_shard");
 		setUnlocalizedName(Utils.getUnlocalisedName("prismarine_shard"));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
+		setCreativeTab(EtFuturum.creativeTabItems);
 	}
 
 	@Override

@@ -19,7 +19,7 @@ public class BlockPrismarine extends BlockGeneric implements IConfigurable {
 		setResistance(10.0F);
 		setBlockTextureName("prismarine");
 		setBlockName(Utils.getUnlocalisedName("prismarine_block"));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
 	@Override

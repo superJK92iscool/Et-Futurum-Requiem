@@ -15,7 +15,7 @@ public class BlockStrippedOldWood extends BlockOldLog implements IConfigurable, 
 
 	public BlockStrippedOldWood() {
 		setBlockName(Utils.getUnlocalisedName("wood_stripped"));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
 	@Override

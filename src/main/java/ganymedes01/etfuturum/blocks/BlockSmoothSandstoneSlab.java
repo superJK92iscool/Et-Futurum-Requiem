@@ -16,7 +16,7 @@ public class BlockSmoothSandstoneSlab extends BlockGenericSlab implements IConfi
 		setResistance(6);
 		setHardness(2.0F);
 		setBlockName(Utils.getUnlocalisedName("smooth" + (meta == 1 ? "_red" : "") + "_sandstone_slab"));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
 	@Override

@@ -17,7 +17,7 @@ public class ItemNuggetIron extends Item implements IConfigurable {
 		super();
 		setTextureName("iron_nugget");
 		setUnlocalizedName(Utils.getUnlocalisedName("nugget_iron"));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
+		setCreativeTab(EtFuturum.creativeTabItems);
 	}
 	
 //    public boolean onItemUse(ItemStack p_77648_1_, EntityPlayer p_77648_2_, World p_77648_3_, int p_77648_4_, int p_77648_5_, int p_77648_6_, int p_77648_7_, float p_77648_8_, float p_77648_9_, float p_77648_10_)

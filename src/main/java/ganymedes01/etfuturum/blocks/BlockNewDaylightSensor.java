@@ -21,7 +21,7 @@ public class BlockNewDaylightSensor extends BlockDaylightDetector implements ICo
 		setStepSound(soundTypeWood);
 		setBlockTextureName("daylight_detector");
 		setBlockName(Utils.getUnlocalisedName("daylight_sensor"));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
 	@Override

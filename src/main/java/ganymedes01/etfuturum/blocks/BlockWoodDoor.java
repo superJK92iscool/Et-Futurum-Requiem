@@ -28,7 +28,7 @@ public class BlockWoodDoor extends BlockDoor implements ISubBlocksBlock, IConfig
 		setStepSound(soundTypeWood);
 		setBlockTextureName("door_" + name);
 		setBlockName(Utils.getUnlocalisedName("door_" + name));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
 	@Override

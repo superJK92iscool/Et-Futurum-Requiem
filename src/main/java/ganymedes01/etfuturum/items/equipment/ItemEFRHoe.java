@@ -19,7 +19,7 @@ public class ItemEFRHoe extends ItemHoe implements IConfigurable {
 		this.setMaxDamage(durabilityOverride > -1 ? durabilityOverride : material.getMaxUses());
 		this.setUnlocalizedName(Utils.getUnlocalisedName("netherite_hoe"));
 		this.setTextureName("netherite_hoe");
-		this.setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
+		this.setCreativeTab(EtFuturum.creativeTabItems);
 	}
 
 	@Override

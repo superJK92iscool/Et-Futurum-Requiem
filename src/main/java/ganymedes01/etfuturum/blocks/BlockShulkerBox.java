@@ -57,7 +57,7 @@ public class BlockShulkerBox extends BlockContainer implements IConfigurable, IS
 		this.setBlockName(Utils.getUnlocalisedName("shulker_box"));
 		this.setBlockTextureName("shulker_box");
 		this.isBlockContainer = true;
-		this.setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		this.setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
 	@Override

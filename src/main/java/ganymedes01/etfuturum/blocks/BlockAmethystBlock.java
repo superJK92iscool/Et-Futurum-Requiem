@@ -24,7 +24,7 @@ public class BlockAmethystBlock extends Block implements IConfigurable {
 		setStepSound(ConfigSounds.newBlockSounds ? ModSounds.soundAmethystBlock : soundTypeGlass);
 		setBlockTextureName("amethyst_block");
 		setBlockName(Utils.getUnlocalisedName("amethyst_block"));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
 	@Override

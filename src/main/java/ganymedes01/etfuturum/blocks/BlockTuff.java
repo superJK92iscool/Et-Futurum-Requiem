@@ -20,7 +20,7 @@ public class BlockTuff extends Block implements IConfigurable {
 		setBlockTextureName("tuff");
 		setStepSound(ConfigSounds.newBlockSounds ? ModSounds.soundTuff : soundTypePiston);
 		setBlockName(Utils.getUnlocalisedName("tuff"));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
 	@Override

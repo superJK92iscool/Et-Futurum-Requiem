@@ -27,7 +27,7 @@ public class BlockEndRod extends Block implements IConfigurable {
 		setLightLevel(0.9375F);
 		setBlockTextureName("end_rod");
 		setBlockName(Utils.getUnlocalisedName("end_rod"));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
 	@Override

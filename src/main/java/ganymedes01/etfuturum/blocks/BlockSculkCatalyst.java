@@ -29,7 +29,7 @@ public class BlockSculkCatalyst extends Block implements IConfigurable {
 		this.setResistance(3.0F);
 		this.setStepSound(ConfigSounds.newBlockSounds ? ModSounds.soundSculkCatalyst : soundTypeStone);
 		this.setBlockName(Utils.getUnlocalisedName("sculk_catalyst"));
-		this.setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		this.setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
 	@Override

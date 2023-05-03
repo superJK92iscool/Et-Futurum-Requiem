@@ -49,7 +49,7 @@ public class ItemArrowTipped extends Item implements IConfigurable {
 		setHasSubtypes(true);
 		setTextureName("tipped_arrow");
 		setUnlocalizedName(Utils.getUnlocalisedName("tipped_arrow"));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
+		setCreativeTab(EtFuturum.creativeTabItems);
 
 		if (ConfigBlocksItems.enableTippedArrows)
 			BlockDispenser.dispenseBehaviorRegistry.putObject(this, new DispenserBehaviourTippedArrow());

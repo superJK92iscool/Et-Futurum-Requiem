@@ -11,7 +11,7 @@ public class ItemPoppedChorusFruit extends Item implements IConfigurable {
 	public ItemPoppedChorusFruit() {
 		setTextureName("chorus_fruit_popped");
 		setUnlocalizedName(Utils.getUnlocalisedName("chorus_fruit_popped"));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
+		setCreativeTab(EtFuturum.creativeTabItems);
 	}
 
 	@Override

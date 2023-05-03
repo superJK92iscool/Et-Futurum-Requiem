@@ -31,7 +31,7 @@ public class ItemEFRArmour extends ItemArmor implements IConfigurable, ISpecialA
 		}
 		this.setUnlocalizedName(Utils.getUnlocalisedName("netherite_" + s));
 		this.setTextureName("netherite_" + s);
-		this.setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
+		this.setCreativeTab(EtFuturum.creativeTabItems);
 	}
 	
 	@Override

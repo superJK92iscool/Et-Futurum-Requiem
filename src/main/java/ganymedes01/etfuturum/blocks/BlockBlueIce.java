@@ -19,7 +19,7 @@ public class BlockBlueIce extends Block implements IConfigurable {
 		this.setResistance(2.8F);
 		this.setBlockName(Utils.getUnlocalisedName("blue_ice"));
 		this.setBlockTextureName("blue_ice");
-		this.setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		this.setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 	
 	@Override

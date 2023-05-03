@@ -22,7 +22,7 @@ public class ItemChorusFruit extends ItemFood implements IConfigurable {
 		setAlwaysEdible();
 		setTextureName("chorus_fruit");
 		setUnlocalizedName(Utils.getUnlocalisedName("chorus_fruit"));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
+		setCreativeTab(EtFuturum.creativeTabItems);
 	}
 
 	@Override

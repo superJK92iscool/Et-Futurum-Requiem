@@ -17,7 +17,7 @@ public class BlockDripstone extends Block implements IConfigurable {
 		this.setHarvestLevel("pickaxe", 0);
 		this.setBlockName(Utils.getUnlocalisedName("dripstone_block"));
 		this.setBlockTextureName("dripstone_block");
-		this.setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		this.setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
 	@Override

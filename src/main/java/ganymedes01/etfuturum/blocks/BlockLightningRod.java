@@ -19,7 +19,7 @@ public class BlockLightningRod extends Block implements IConfigurable {
 		setHarvestLevel("pickaxe", 1);
 		setBlockName(Utils.getUnlocalisedName("lightning_rod"));
 		setBlockTextureName("lightning_rod");
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 		setStepSound(ConfigSounds.newBlockSounds ? ModSounds.soundCopper : Block.soundTypeMetal);
 		setTickRandomly(true);
 	}

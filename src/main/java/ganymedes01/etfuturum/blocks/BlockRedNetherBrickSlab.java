@@ -14,7 +14,7 @@ public class BlockRedNetherBrickSlab extends BlockGenericSlab implements IConfig
 		setResistance(6);
 		setHardness(2.0F);
 		setBlockName(Utils.getUnlocalisedName("red_netherbrick_slab"));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
 	@Override

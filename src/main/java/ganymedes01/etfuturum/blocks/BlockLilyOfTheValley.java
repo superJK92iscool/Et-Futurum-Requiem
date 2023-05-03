@@ -10,7 +10,7 @@ public class BlockLilyOfTheValley extends BlockFlowerBase implements IConfigurab
 		setBlockName(Utils.getUnlocalisedName("lily_of_the_valley"));
 		setStepSound(soundTypeGrass);
 		setBlockTextureName("lily_of_the_valley");
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
 	@Override

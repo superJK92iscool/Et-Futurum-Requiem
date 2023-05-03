@@ -14,7 +14,7 @@ public class BlockPrismarineSlab extends BlockGenericSlab implements IConfigurab
 		setHardness(1.5F);
 		setResistance(6.0F);
 		setBlockName(Utils.getUnlocalisedName("prismarine_slab"));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
 	@Override

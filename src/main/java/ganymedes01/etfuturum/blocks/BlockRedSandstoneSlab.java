@@ -14,7 +14,7 @@ public class BlockRedSandstoneSlab extends BlockGenericSlab implements IConfigur
 		setResistance(6);
 		setHardness(2.0F);
 		setBlockName(Utils.getUnlocalisedName("red_sandstone_slab"));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
 	@Override

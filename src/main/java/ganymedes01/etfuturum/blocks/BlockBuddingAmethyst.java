@@ -23,7 +23,7 @@ public class BlockBuddingAmethyst extends BlockAmethystBlock {
 		setStepSound(ConfigSounds.newBlockSounds ? ModSounds.soundAmethystBlock : soundTypeGlass);
 		setBlockTextureName("budding_amethyst");
 		setBlockName(Utils.getUnlocalisedName("budding_amethyst"));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 		setTickRandomly(true);
 	}
 	

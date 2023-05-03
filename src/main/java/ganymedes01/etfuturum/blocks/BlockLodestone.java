@@ -23,7 +23,7 @@ public class BlockLodestone extends Block implements IConfigurable {
 		setHarvestLevel("pickaxe", 1);
 		setBlockName(Utils.getUnlocalisedName("lodestone"));
 		setBlockTextureName("lodestone");
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 		setStepSound(ConfigSounds.newBlockSounds ? ModSounds.soundLodestone : soundTypePiston);
 		setTickRandomly(true);
 	}

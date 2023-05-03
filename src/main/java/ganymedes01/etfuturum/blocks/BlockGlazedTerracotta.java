@@ -27,7 +27,7 @@ public class BlockGlazedTerracotta extends Block implements IConfigurable {
 		this.setResistance(1.4F);
 		setBlockName(Utils.getUnlocalisedName(ModRecipes.dye_names[meta] + "_glazed_terracotta"));
 		setBlockTextureName(ModRecipes.dye_names[meta] + "_glazed_terracotta");
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 		this.meta = meta;
 	}
 	@Override

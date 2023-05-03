@@ -14,7 +14,7 @@ public class ItemDragonBreath extends Item implements IConfigurable {
 		setTextureName("dragon_breath");
 		setContainerItem(Items.glass_bottle);
 		setUnlocalizedName(Utils.getUnlocalisedName("dragon_breath"));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
+		setCreativeTab(EtFuturum.creativeTabItems);
 	}
 
 	@Override

@@ -34,7 +34,7 @@ public class ItemArmorElytra extends Item implements IConfigurable, IBaubleExpan
 		setMaxStackSize(1);
 		setMaxDamage(432);
 		setTextureName("elytra");
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
+		setCreativeTab(EtFuturum.creativeTabItems);
 		setUnlocalizedName(Utils.getUnlocalisedName("elytra"));
 		BlockDispenser.dispenseBehaviorRegistry.putObject(this, BlockDispenser.dispenseBehaviorRegistry.getObject(Items.iron_chestplate));
 	}

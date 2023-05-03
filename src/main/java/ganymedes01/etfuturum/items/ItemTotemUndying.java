@@ -12,7 +12,7 @@ public class ItemTotemUndying extends Item implements IConfigurable {
 		setTextureName("totem");
 		setMaxStackSize(1);
 		setUnlocalizedName(Utils.getUnlocalisedName("totem_of_undying"));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
+		setCreativeTab(EtFuturum.creativeTabItems);
 	}
 
 	@Override

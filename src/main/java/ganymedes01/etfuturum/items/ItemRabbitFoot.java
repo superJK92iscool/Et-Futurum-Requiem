@@ -15,7 +15,7 @@ public class ItemRabbitFoot extends Item implements IConfigurable {
 	public ItemRabbitFoot() {
 		setTextureName("rabbit_foot");
 		setUnlocalizedName(Utils.getUnlocalisedName("rabbit_foot"));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
+		setCreativeTab(EtFuturum.creativeTabItems);
 
 		if (ConfigEntities.enableRabbit)
 			PotionHelper.potionRequirements.put(Potion.jump.getId(), "0 & 1 & !2 & 3");

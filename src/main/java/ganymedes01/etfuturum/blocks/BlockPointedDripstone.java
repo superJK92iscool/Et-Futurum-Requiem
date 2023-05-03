@@ -35,7 +35,7 @@ public class BlockPointedDripstone extends Block implements IConfigurable {
 		this.setHarvestLevel("pickaxe", 0);
 		this.setBlockName(Utils.getUnlocalisedName("pointed_dripstone"));
 		this.setBlockTextureName("pointed_dripstone");
-		this.setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		this.setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
 	@SideOnly(Side.CLIENT)

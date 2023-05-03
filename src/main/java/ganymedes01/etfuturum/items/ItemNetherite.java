@@ -13,7 +13,7 @@ public class ItemNetherite extends ItemUninflammable implements IConfigurable {
 		super();
 		setTextureName("netherite" + (type == 1 ? "_ingot" : "_scrap"));
 		setUnlocalizedName(Utils.getUnlocalisedName("netherite" + (type == 1 ? "_ingot" : "_scrap")));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
+		setCreativeTab(EtFuturum.creativeTabItems);
 	}
 	
 	@Override

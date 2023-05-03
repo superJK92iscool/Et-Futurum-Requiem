@@ -28,7 +28,7 @@ public class BlockSculk extends Block implements IConfigurable {
 		this.setStepSound(ConfigSounds.newBlockSounds ? ModSounds.soundSculk : ModSounds.soundSlime);
 		this.setBlockName(Utils.getUnlocalisedName("sculk"));
 		setBlockTextureName("sculk");
-		this.setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		this.setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
 	@Override

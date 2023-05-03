@@ -23,7 +23,7 @@ public class BlockCutCopperSlab extends BlockGenericSlab implements IConfigurabl
 		setHarvestLevel("pickaxe", 1);
 		setBlockName(Utils.getUnlocalisedName("cut_copper_slab"));
 		setBlockTextureName("cut_copper");
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 		setStepSound(ConfigSounds.newBlockSounds ? ModSounds.soundCopper : Block.soundTypeMetal);
 		setTickRandomly(true);
 	}

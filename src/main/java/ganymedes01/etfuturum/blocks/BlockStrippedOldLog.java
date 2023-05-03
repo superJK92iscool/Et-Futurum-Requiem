@@ -15,7 +15,7 @@ public class BlockStrippedOldLog extends BlockOldLog implements IConfigurable, I
 
 	public BlockStrippedOldLog() {
 		setBlockName(Utils.getUnlocalisedName("log_stripped"));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
 	@Override

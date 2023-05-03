@@ -18,7 +18,7 @@ public class BlockEndBricks extends Block implements IConfigurable {
 		setStepSound(soundTypePiston);
 		setBlockTextureName("end_bricks");
 		setBlockName(Utils.getUnlocalisedName("end_bricks"));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
 	@Override

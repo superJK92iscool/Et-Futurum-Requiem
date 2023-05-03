@@ -36,7 +36,7 @@ public class BlockLoom extends Block implements IConfigurable, ISubBlocksBlock {
 		this.setResistance(2.5F);
 		this.setBlockName(Utils.getUnlocalisedName("loom"));
 		this.setBlockTextureName("loom");
-		this.setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		this.setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
 	@Override

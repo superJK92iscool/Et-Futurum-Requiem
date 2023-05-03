@@ -15,7 +15,7 @@ public class BlockStoneSlab2 extends BlockGenericSlab implements IConfigurable {
 		setResistance(6F);
 		setStepSound(soundTypePiston);
 		setBlockName(Utils.getUnlocalisedName("stone_slab_2"));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
 	@Override

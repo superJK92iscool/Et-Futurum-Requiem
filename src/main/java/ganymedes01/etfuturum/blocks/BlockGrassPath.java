@@ -33,7 +33,7 @@ public class BlockGrassPath extends Block implements IConfigurable {
 		setStepSound(soundTypeGrass);
 		setBlockTextureName("grass_path");
 		setBlockName(Utils.getUnlocalisedName("grass_path"));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 		setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.9375F, 1.0F);
 	}
 

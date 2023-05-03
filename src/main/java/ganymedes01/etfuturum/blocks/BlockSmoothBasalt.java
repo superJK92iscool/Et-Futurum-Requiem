@@ -18,7 +18,7 @@ public class BlockSmoothBasalt extends Block implements IConfigurable {
 		setStepSound(ConfigSounds.newBlockSounds ? ModSounds.soundBasalt : soundTypePiston);
 		setBlockTextureName("smooth_basalt");
 		setBlockName(Utils.getUnlocalisedName("smooth_basalt"));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
 	@Override

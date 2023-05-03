@@ -18,7 +18,7 @@ public class BlockPurpur extends Block implements IConfigurable {
 		setStepSound(soundTypePiston);
 		setBlockTextureName("purpur_block");
 		setBlockName(Utils.getUnlocalisedName("purpur_block"));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
 	@Override

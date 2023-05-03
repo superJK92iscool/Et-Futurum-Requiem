@@ -32,7 +32,7 @@ public class BlockCartographyTable extends Block implements IConfigurable, ISubB
 		this.setResistance(2.5F);
 		this.setBlockName(Utils.getUnlocalisedName("cartography_table"));
 		this.setBlockTextureName("cartography_table");
-		this.setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		this.setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 	
 	@SideOnly(Side.CLIENT)

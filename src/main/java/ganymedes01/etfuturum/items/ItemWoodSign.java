@@ -27,7 +27,7 @@ public class ItemWoodSign extends Item implements IConfigurable {
 		meta = i - 1;
 		setUnlocalizedName(Utils.getUnlocalisedName("item_sign_" + ModRecipes.woodTypes[i]));
 		setTextureName("minecraft:" + ModRecipes.woodTypes[i] + "_sign");
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 		this.maxStackSize = Items.sign.getItemStackLimit(new ItemStack(Items.sign));
 	}
 	

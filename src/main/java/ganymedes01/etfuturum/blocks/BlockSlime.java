@@ -23,7 +23,7 @@ public class BlockSlime extends Block implements IConfigurable {
 		setBlockTextureName("slime");
 		setStepSound(ModSounds.soundSlime);
 		setBlockName(Utils.getUnlocalisedName("slime"));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
 	@Override

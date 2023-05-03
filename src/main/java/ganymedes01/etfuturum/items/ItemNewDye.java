@@ -15,7 +15,7 @@ public class ItemNewDye extends ItemGeneric implements IConfigurable {
 		super("white", "blue", "brown", "black");
 		setTextureName("dye");
 		setUnlocalizedName(Utils.getUnlocalisedName("dye"));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
+		setCreativeTab(EtFuturum.creativeTabItems);
 	}
 	@Override
 	public boolean isEnabled() {

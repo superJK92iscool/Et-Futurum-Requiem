@@ -30,7 +30,7 @@ public class BlockSmithingTable extends Block implements IConfigurable {
 		this.setResistance(2.5F);
 		this.setBlockName(Utils.getUnlocalisedName("smithing_table"));
 		this.setBlockTextureName("smithing_table");
-		this.setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		this.setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 	
 	@SideOnly(Side.CLIENT)

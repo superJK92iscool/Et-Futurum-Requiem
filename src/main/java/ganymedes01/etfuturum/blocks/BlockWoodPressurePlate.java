@@ -21,7 +21,7 @@ public class BlockWoodPressurePlate extends BlockPressurePlate implements IConfi
 		setHardness(0.5F);
 		setStepSound(soundTypeWood);
 		setBlockName(Utils.getUnlocalisedName("pressure_plate_" + BlockWoodDoor.names[meta]));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 		
 	}
 

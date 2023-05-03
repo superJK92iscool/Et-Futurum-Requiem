@@ -25,7 +25,7 @@ public class ItemShulkerBoxUpgrade extends ItemGeneric implements IConfigurable 
 
 		setTextureName("shulker_box_upgrade");
 		setUnlocalizedName(Utils.getUnlocalisedName("shulker_box_upgrade"));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabItems : null);
+		setCreativeTab(EtFuturum.creativeTabItems);
 	}
 
 	@Override

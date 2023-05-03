@@ -25,7 +25,7 @@ public class BlockNewAnvil extends BlockAnvil implements IConfigurable, ISubBloc
 		setResistance(2000.0F);
 		setStepSound(soundTypeAnvil);
 		setBlockName(Utils.getUnlocalisedName("anvil"));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
 	@Override

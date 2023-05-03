@@ -30,7 +30,7 @@ public class BlockAncientDebris extends Block implements IConfigurable, ISubBloc
 		setStepSound(ConfigSounds.newBlockSounds ? ModSounds.soundAncientDebris : Block.soundTypeStone);
 		setBlockTextureName("ancient_debris");
 		setBlockName(Utils.getUnlocalisedName("ancient_debris"));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 	
 	@Override

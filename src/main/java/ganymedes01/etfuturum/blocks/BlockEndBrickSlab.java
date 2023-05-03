@@ -14,7 +14,7 @@ public class BlockEndBrickSlab extends BlockGenericSlab implements IConfigurable
 		setResistance(9);
 		setHardness(3.0F);
 		setBlockName(Utils.getUnlocalisedName("end_brick_slab"));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
 	@Override

@@ -41,7 +41,7 @@ public class BlockBlastFurnace extends BlockFurnace implements IConfigurable {
 		this.setLightLevel(cooking ? .875F : 0);
 		this.setStepSound(soundTypePiston);
 		this.setBlockName(Utils.getUnlocalisedName((cooking ? "lit_" : "") + "blast_furnace"));
-		this.setCreativeTab(isEnabled() && !cooking ? EtFuturum.creativeTabBlocks : null);
+		this.setCreativeTab(!cooking ? EtFuturum.creativeTabBlocks : null);
 	}
 	
 	@Override

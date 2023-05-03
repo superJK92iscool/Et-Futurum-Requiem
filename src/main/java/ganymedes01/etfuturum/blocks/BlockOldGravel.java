@@ -15,7 +15,7 @@ public class BlockOldGravel extends BlockGravel implements IConfigurable {
 		setStepSound(soundTypeGravel);
 		setBlockTextureName("old_gravel");
 		setBlockName(Utils.getUnlocalisedName("old_gravel"));
-		setCreativeTab(isEnabled() ? EtFuturum.creativeTabBlocks : null);
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
 	@Override
