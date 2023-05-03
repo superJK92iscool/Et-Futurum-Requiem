@@ -30,7 +30,7 @@ Thumbs.db
 
 ## Jars (Icludes /libs so jars there don't get excluded)
 *.jar
-!lib/*
+!libs/*
 !/gradle/wrapper/gradle-wrapper.jar
 !/tools/mixin-0.8-SNAPSHOT.jar
 
