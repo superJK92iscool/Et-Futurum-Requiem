@@ -43,11 +43,11 @@ public class NEI_EtFuturum_Config implements codechicken.nei.api.IConfigureNEI {
 			GuiUsageRecipe.usagehandlers.add(handler);
 		}
 
-//		if(ConfigBlocksItems.enableComposter) {
-//			ComposterHandler handler = new ComposterHandler();
-//			GuiCraftingRecipe.craftinghandlers.add(handler);
-//			GuiUsageRecipe.usagehandlers.add(handler);
-//		}
+		if(ConfigBlocksItems.enableComposter) {
+			ComposterHandler handler = new ComposterHandler();
+			GuiCraftingRecipe.craftinghandlers.add(handler);
+			GuiUsageRecipe.usagehandlers.add(handler);
+		}
 	}
 	@Override
 	public String getName() {
