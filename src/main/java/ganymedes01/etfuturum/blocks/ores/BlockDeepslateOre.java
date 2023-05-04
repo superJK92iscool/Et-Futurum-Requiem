@@ -34,8 +34,10 @@ public class BlockDeepslateOre extends BlockOre implements IConfigurable {
 		super();
 		setAttribs(this, block);
 		base = block;
-		if(isEnabled() && (!(base instanceof IConfigurable) || ((IConfigurable)base).isEnabled()))
+		setCreativeTab(EtFuturum.creativeTabBlocks);
+		if(isEnabled() && (!(base instanceof IConfigurable) || ((IConfigurable)base).isEnabled())) {
 			addDeepslateMappings();
+		}
 	}
 	
 	public static void setAttribs(Block to, Block from) {
@@ -46,7 +48,6 @@ public class BlockDeepslateOre extends BlockOre implements IConfigurable {
 		to.setBlockName(Utils.getUnlocalisedName("deepslate_" + from.textureName.toLowerCase()));
 		to.setBlockTextureName("deepslate_" + from.textureName);
 		to.setStepSound(ConfigSounds.newBlockSounds ? ModSounds.soundDeepslate : soundTypeStone);
-		to.setCreativeTab(from.getCreativeTabToDisplayOn());
 		to.setLightLevel(from.getLightValue() / 15F);
 		to.setLightOpacity(from.getLightOpacity());
 		for(int i = 0; i < 16; i++) {
