@@ -3,7 +3,6 @@ package ganymedes01.etfuturum.blocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.GUIsID;
 import net.minecraft.block.Block;
@@ -13,7 +12,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-public class BlockSmithingTable extends Block implements IConfigurable {
+public class BlockSmithingTable extends Block {
 
 	@SideOnly(Side.CLIENT)
 	private IIcon topIcon;
@@ -46,11 +45,6 @@ public class BlockSmithingTable extends Block implements IConfigurable {
 		this.topIcon = p_149651_1_.registerIcon(this.getTextureName() + "_top");
 		this.sideIcon = p_149651_1_.registerIcon(this.getTextureName() + "_front");
 		this.bottomIcon = p_149651_1_.registerIcon(this.getTextureName() + "_bottom");
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableSmithingTable;
 	}
 
 	@Override

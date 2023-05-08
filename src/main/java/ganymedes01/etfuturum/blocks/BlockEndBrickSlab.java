@@ -2,12 +2,11 @@ package ganymedes01.etfuturum.blocks;
 
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.material.Material;
 import net.minecraft.util.IIcon;
 
-public class BlockEndBrickSlab extends BlockGenericSlab implements IConfigurable {
+public class BlockEndBrickSlab extends BlockGenericSlab {
 
 	public BlockEndBrickSlab(boolean p_i45410_1_) {
 		super(p_i45410_1_, Material.rock, "");
@@ -25,11 +24,6 @@ public class BlockEndBrickSlab extends BlockGenericSlab implements IConfigurable
 	@Override
 	public IIcon[] getSlabIcons(int side) {
 		return new IIcon[] {ModBlocks.END_BRICKS.get().getIcon(side, 0)};
-	}
-	
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableChorusFruit;
 	}
 
 }

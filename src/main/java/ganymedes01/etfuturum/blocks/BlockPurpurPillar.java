@@ -3,7 +3,6 @@ package ganymedes01.etfuturum.blocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.BlockRotatedPillar;
 import net.minecraft.block.material.Material;
@@ -13,7 +12,7 @@ import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 
-public class BlockPurpurPillar extends BlockRotatedPillar implements IConfigurable {
+public class BlockPurpurPillar extends BlockRotatedPillar {
 
 	public BlockPurpurPillar() {
 		super(Material.rock);
@@ -41,10 +40,5 @@ public class BlockPurpurPillar extends BlockRotatedPillar implements IConfigurab
 	public void registerBlockIcons(IIconRegister reg) {
 		super.registerBlockIcons(reg);
 		field_150164_N = reg.registerIcon(getTextureName() + "_top");
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableChorusFruit;
 	}
 }

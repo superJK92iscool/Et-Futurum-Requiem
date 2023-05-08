@@ -3,7 +3,6 @@ package ganymedes01.etfuturum.blocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import ganymedes01.etfuturum.recipes.ModRecipes;
@@ -15,7 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-public class BlockGlazedTerracotta extends Block implements IConfigurable {
+public class BlockGlazedTerracotta extends Block {
 	
 	private final int meta;
 	
@@ -67,11 +66,6 @@ public class BlockGlazedTerracotta extends Block implements IConfigurable {
 		case 15: mapColor =  MapColor.blackColor; break;
 		}
 		return mapColor;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableGlazedTerracotta;
 	}
 
 }

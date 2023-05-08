@@ -1,14 +1,13 @@
 package ganymedes01.etfuturum.blocks;
 
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 
-public class BlockNewStone extends BlockGeneric implements IConfigurable {
+public class BlockNewStone extends BlockGeneric {
 
 	public BlockNewStone() {
 		super(Material.rock, "", "granite", "granite_smooth", "diorite", "diorite_smooth", "andesite", "andesite_smooth");
@@ -24,10 +23,5 @@ public class BlockNewStone extends BlockGeneric implements IConfigurable {
 	@Override
 	public boolean isReplaceableOreGen(World world, int x, int y, int z, Block target) {
 		return this == target || target == Blocks.stone;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableStones;
 	}
 }

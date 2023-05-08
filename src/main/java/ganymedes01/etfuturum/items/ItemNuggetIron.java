@@ -1,17 +1,10 @@
 package ganymedes01.etfuturum.items;
 
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.blocks.IConfigurable;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.world.generate.feature.WorldGenFossil;
-import ganymedes01.etfuturum.world.generate.structure.WorldGenEndCityTest;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 
-public class ItemNuggetIron extends Item implements IConfigurable {
+public class ItemNuggetIron extends Item {
 
 	public ItemNuggetIron() {
 		super();
@@ -27,10 +20,5 @@ public class ItemNuggetIron extends Item implements IConfigurable {
 //          geode.generate(p_77648_3_, p_77648_3_.rand, p_77648_4_, p_77648_5_, p_77648_6_);
 //        return false;
 //    }
-	
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableIronNugget;
-	}
 
 }

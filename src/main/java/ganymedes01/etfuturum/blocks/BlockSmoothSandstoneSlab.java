@@ -2,12 +2,11 @@ package ganymedes01.etfuturum.blocks;
 
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.material.Material;
 import net.minecraft.util.IIcon;
 
-public class BlockSmoothSandstoneSlab extends BlockGenericSlab implements IConfigurable {
+public class BlockSmoothSandstoneSlab extends BlockGenericSlab {
 
 	private final int meta;
 	public BlockSmoothSandstoneSlab(int theMeta, boolean p_i45410_1_) {
@@ -30,11 +29,6 @@ public class BlockSmoothSandstoneSlab extends BlockGenericSlab implements IConfi
 		if(meta == 1)
 			return new IIcon[] {ModBlocks.SMOOTH_RED_SANDSTONE.get().getIcon(side, 0)};
 		return new IIcon[] {ModBlocks.SMOOTH_SANDSTONE.get().getIcon(side, 0)};
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return (ConfigBlocksItems.enableSmoothSandstone && meta == 0) || (ConfigBlocksItems.enableSmoothSandstone && ConfigBlocksItems.enableRedSandstone && meta == 1);
 	}
 
 }

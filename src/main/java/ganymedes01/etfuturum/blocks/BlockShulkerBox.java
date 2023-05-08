@@ -43,7 +43,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class BlockShulkerBox extends BlockContainer implements IConfigurable, ISubBlocksBlock {
+public class BlockShulkerBox extends BlockContainer implements ISubBlocksBlock {
 	
 //  @SideOnly(Side.CLIENT)
 	public IIcon[] colorIcons = new IIcon[17];
@@ -76,7 +76,7 @@ public class BlockShulkerBox extends BlockContainer implements IConfigurable, IS
 	{
 		TileEntityShulkerBox box = (TileEntityShulkerBox)world.getTileEntity(x, y, z);
 		if(stack.hasTagCompound()) {
-			box.type = TileEntityShulkerBox.ShulkerBoxType.values()[stack.getTagCompound().getByte("Type")];
+			box.type = ShulkerBoxType.values()[stack.getTagCompound().getByte("Type")];
 			box.chestContents = new ItemStack[box.getSizeInventory()];
 			
 			NBTTagList nbttaglist = stack.getTagCompound().getTagList("Items", 10);
@@ -454,10 +454,5 @@ public class BlockShulkerBox extends BlockContainer implements IConfigurable, IS
 		}
 
 		return stack;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableShulkerBoxes;
 	}
 }

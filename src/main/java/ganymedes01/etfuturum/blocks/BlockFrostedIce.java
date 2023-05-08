@@ -4,7 +4,6 @@ import java.util.Random;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ganymedes01.etfuturum.configuration.configs.ConfigEnchantsPotions;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockIce;
@@ -14,7 +13,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class BlockFrostedIce extends BlockIce implements IConfigurable {
+public class BlockFrostedIce extends BlockIce {
 
 	@SideOnly(Side.CLIENT)
 	private IIcon[] icons;
@@ -79,10 +78,5 @@ public class BlockFrostedIce extends BlockIce implements IConfigurable {
 		icons = new IIcon[4];
 		for (int i = 0; i < icons.length; i++)
 			icons[i] = reg.registerIcon(getTextureName() + "_" + i);
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return ConfigEnchantsPotions.enableFrostWalker;
 	}
 }

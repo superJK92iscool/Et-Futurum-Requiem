@@ -106,6 +106,7 @@ public enum ModItems {
 	public boolean isEnabled() {
 		return isEnabled;
 	}
+
 	public Item get() {
 		return theItem;
 	}

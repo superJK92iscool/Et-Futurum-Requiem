@@ -5,7 +5,6 @@ import java.util.Random;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
@@ -14,7 +13,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-public class BlockCutCopperSlab extends BlockGenericSlab implements IConfigurable, IDegradable {
+public class BlockCutCopperSlab extends BlockGenericSlab implements IDegradable {
 
 	public BlockCutCopperSlab(boolean p_i45410_1_) {
 		super(p_i45410_1_, Material.iron, "", "exposed", "weathered", "oxidized", "waxed", "waxed_exposed", "waxed_weathered", "waxed_oxidized");
@@ -37,11 +36,6 @@ public class BlockCutCopperSlab extends BlockGenericSlab implements IConfigurabl
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityPlayer, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_)
 	{
 		return tryWaxOnWaxOff(world, x, y, z, entityPlayer);
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableCopper;
 	}
 
 	@Override

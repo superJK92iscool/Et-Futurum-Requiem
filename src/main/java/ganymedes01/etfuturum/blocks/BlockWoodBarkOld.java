@@ -3,7 +3,6 @@ package ganymedes01.etfuturum.blocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockGeneric;
 import net.minecraft.block.BlockOldLog;
@@ -13,7 +12,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class BlockWoodBarkOld extends BlockOldLog implements IConfigurable, ISubBlocksBlock {
+public class BlockWoodBarkOld extends BlockOldLog implements ISubBlocksBlock {
 	
 	public BlockWoodBarkOld() {
 		setBlockName(Utils.getUnlocalisedName("bark"));
@@ -30,11 +29,6 @@ public class BlockWoodBarkOld extends BlockOldLog implements IConfigurable, ISub
 			this.field_150167_a[i] = iconRegister.registerIcon("log_" + field_150168_M[i]);
 			this.field_150166_b[i] = iconRegister.registerIcon("log_" + field_150168_M[i]);
 		}
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableBarkLogs;
 	}
 
 	@Override

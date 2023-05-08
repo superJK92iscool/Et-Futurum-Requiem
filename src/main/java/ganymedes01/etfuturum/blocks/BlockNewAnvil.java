@@ -6,7 +6,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.GUIsID;
@@ -18,7 +17,7 @@ import net.minecraft.item.ItemAnvilBlock;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.world.World;
 
-public class BlockNewAnvil extends BlockAnvil implements IConfigurable, ISubBlocksBlock {
+public class BlockNewAnvil extends BlockAnvil implements ISubBlocksBlock {
 
 	public BlockNewAnvil() {
 		setHardness(5.0F);
@@ -49,11 +48,6 @@ public class BlockNewAnvil extends BlockAnvil implements IConfigurable, ISubBloc
 			return true;
 		player.openGui(EtFuturum.instance, GUIsID.ANVIL, world, x, y, z);
 		return true;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableAnvil;
 	}
 
 	@Override

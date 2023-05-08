@@ -2,20 +2,17 @@ package ganymedes01.etfuturum.items;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 
 import com.google.common.collect.HashMultimap;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.blocks.IConfigurable;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.dispenser.DispenserBehaviourTippedArrow;
@@ -37,7 +34,7 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 
-public class ItemArrowTipped extends Item implements IConfigurable {
+public class ItemArrowTipped extends Item {
 	private static final Map field_77835_b = new LinkedHashMap();
 
 	@SideOnly(Side.CLIENT)
@@ -222,11 +219,6 @@ public class ItemArrowTipped extends Item implements IConfigurable {
 //
 //      Potion potion = Potion.potionTypes[effect.getPotionID()];
 //      return "tipped_arrow." + potion.getName();
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableTippedArrows;
 	}
 	
 	

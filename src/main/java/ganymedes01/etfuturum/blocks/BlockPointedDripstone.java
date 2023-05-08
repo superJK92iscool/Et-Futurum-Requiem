@@ -17,7 +17,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class BlockPointedDripstone extends Block implements IConfigurable {
+public class BlockPointedDripstone extends Block {
 
 	@SideOnly(Side.CLIENT)
 	private IIcon[] downIcons;
@@ -137,11 +137,6 @@ public class BlockPointedDripstone extends Block implements IConfigurable {
 	public IIcon getIcon(int side, int meta)
 	{
 		return meta < states ? downIcons[meta % states] : upIcons[meta % states];
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return EtFuturum.TESTING;
 	}
 	
 	public int getRenderType()

@@ -3,7 +3,6 @@ package ganymedes01.etfuturum.blocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockDecorationWorkbench;
 import ganymedes01.etfuturum.lib.RenderIDs;
@@ -18,7 +17,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockStonecutter extends Block implements IConfigurable, ISubBlocksBlock {
+public class BlockStonecutter extends Block implements ISubBlocksBlock {
 
 	@SideOnly(Side.CLIENT)
 	private IIcon sideIcon;
@@ -93,11 +92,6 @@ public class BlockStonecutter extends Block implements IConfigurable, ISubBlocks
 	public int getRenderType()
 	{
 		return RenderIDs.STONECUTTER;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableStonecutter;
 	}
 
 	@Override

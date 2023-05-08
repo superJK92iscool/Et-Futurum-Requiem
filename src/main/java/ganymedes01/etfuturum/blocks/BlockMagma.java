@@ -8,7 +8,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.client.InterpolatedIcon;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -19,7 +18,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class BlockMagma extends Block implements IConfigurable{
+public class BlockMagma extends Block {
 	
 	public BlockMagma()
 	{
@@ -35,11 +34,6 @@ public class BlockMagma extends Block implements IConfigurable{
 	}
 	
 	public static final DamageSource HOT_FLOOR = (new DamageSource("hotFloor")).setFireDamage();
-
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableMagmaBlock;
-	}
 	
 	@Override
 	public boolean isFireSource(World world, int x, int y, int z, ForgeDirection side) {

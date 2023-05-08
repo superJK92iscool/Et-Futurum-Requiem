@@ -6,7 +6,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.GUIsID;
@@ -16,7 +15,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.world.World;
 
-public class BlockNewEnchantmentTable extends BlockEnchantmentTable implements IConfigurable {
+public class BlockNewEnchantmentTable extends BlockEnchantmentTable {
 
 	public BlockNewEnchantmentTable() {
 		setHardness(5.0F);
@@ -47,10 +46,5 @@ public class BlockNewEnchantmentTable extends BlockEnchantmentTable implements I
 			return true;
 		player.openGui(EtFuturum.instance, GUIsID.ENCHANTING_TABLE, world, x, y, z);
 		return true;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableEnchantingTable;
 	}
 }

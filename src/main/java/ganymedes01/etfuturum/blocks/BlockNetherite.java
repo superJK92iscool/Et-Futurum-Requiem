@@ -2,7 +2,6 @@ package ganymedes01.etfuturum.blocks;
 
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.entities.EntityItemUninflammable;
@@ -15,7 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockNetherite extends Block implements IConfigurable, ISubBlocksBlock {
+public class BlockNetherite extends Block implements ISubBlocksBlock {
 
 	public BlockNetherite() {
 		super(Material.iron);
@@ -31,11 +30,6 @@ public class BlockNetherite extends Block implements IConfigurable, ISubBlocksBl
 	@Override
 	public boolean isBeaconBase(IBlockAccess world, int x, int y, int z, int bX, int bY, int bZ) {
 		return true;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableNetherite;
 	}
 
 	@Override

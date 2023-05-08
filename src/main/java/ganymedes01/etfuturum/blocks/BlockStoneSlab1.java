@@ -2,13 +2,12 @@ package ganymedes01.etfuturum.blocks;
 
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.IIcon;
 
-public class BlockStoneSlab1 extends BlockGenericSlab implements IConfigurable {
+public class BlockStoneSlab1 extends BlockGenericSlab {
 
 	public BlockStoneSlab1(boolean p_i45410_1_) {
 		super(p_i45410_1_, Material.rock, "stone", "mossy_cobblestone", "mossy_stone_brick", "cut_sandstone");
@@ -17,11 +16,6 @@ public class BlockStoneSlab1 extends BlockGenericSlab implements IConfigurable {
 		setStepSound(soundTypePiston);
 		setBlockName(Utils.getUnlocalisedName("stone_slab"));
 		setCreativeTab(EtFuturum.creativeTabBlocks);
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableExtraVanillaSlabs;
 	}
 
 	@Override

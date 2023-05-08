@@ -2,12 +2,11 @@ package ganymedes01.etfuturum.blocks;
 
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.material.Material;
 import net.minecraft.util.IIcon;
 
-public class BlockRedSandstoneSlab extends BlockGenericSlab implements IConfigurable {
+public class BlockRedSandstoneSlab extends BlockGenericSlab {
 
 	public BlockRedSandstoneSlab(boolean isDouble) {
 		super(isDouble, Material.rock, "", "cut");
@@ -15,11 +14,6 @@ public class BlockRedSandstoneSlab extends BlockGenericSlab implements IConfigur
 		setHardness(2.0F);
 		setBlockName(Utils.getUnlocalisedName("red_sandstone_slab"));
 		setCreativeTab(EtFuturum.creativeTabBlocks);
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableRedSandstone;
 	}
 
 	@Override

@@ -12,7 +12,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.world.EtFuturumLateWorldGenerator;
@@ -26,7 +25,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
 
-public class BlockDeepslate extends BlockRotatedPillar implements IConfigurable {
+public class BlockDeepslate extends BlockRotatedPillar {
 
 	public BlockDeepslate() {
 		super(Material.rock);
@@ -96,10 +95,5 @@ public class BlockDeepslate extends BlockRotatedPillar implements IConfigurable 
 			
 			posSet.add((int)((x & 0xF) << 12 | (y & 0xFF) << 4 | (z & 0xF)));
 		}
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableDeepslate;
 	}
 }

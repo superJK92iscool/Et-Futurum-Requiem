@@ -1,7 +1,6 @@
 package ganymedes01.etfuturum.blocks;
 
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -13,7 +12,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class BlockCoarseDirt extends Block implements IConfigurable {
+public class BlockCoarseDirt extends Block {
 
 	public BlockCoarseDirt() {
 		super(Material.ground);
@@ -40,11 +39,6 @@ public class BlockCoarseDirt extends Block implements IConfigurable {
 	@Override
 	public boolean canSustainPlant(IBlockAccess world, int x, int y, int z, ForgeDirection direction, IPlantable plant) {
 		return Blocks.dirt.canSustainPlant(world, x, y, z, direction, plant);
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableCoarseDirt;
 	}
 
 }

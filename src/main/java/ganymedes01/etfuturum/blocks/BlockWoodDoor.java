@@ -5,7 +5,6 @@ import java.util.Random;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockWoodDoor;
 import ganymedes01.etfuturum.lib.RenderIDs;
@@ -15,7 +14,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.world.World;
 
-public class BlockWoodDoor extends BlockDoor implements ISubBlocksBlock, IConfigurable {
+public class BlockWoodDoor extends BlockDoor implements ISubBlocksBlock {
 
 	public static final String[] names = new String[] { "oak", "spruce", "birch", "jungle", "acacia", "dark_oak" };
 
@@ -56,10 +55,5 @@ public class BlockWoodDoor extends BlockDoor implements ISubBlocksBlock, IConfig
 	@Override
 	public Class<? extends ItemBlock> getItemBlockClass() {
 		return ItemBlockWoodDoor.class;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableDoors;
 	}
 }

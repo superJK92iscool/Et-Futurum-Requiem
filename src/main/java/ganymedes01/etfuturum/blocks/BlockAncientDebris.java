@@ -4,7 +4,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.entities.EntityItemUninflammable;
@@ -18,7 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-public class BlockAncientDebris extends Block implements IConfigurable, ISubBlocksBlock {
+public class BlockAncientDebris extends Block implements ISubBlocksBlock {
 
 	@SideOnly(Side.CLIENT)
 	public IIcon iconTop;
@@ -44,11 +43,6 @@ public class BlockAncientDebris extends Block implements IConfigurable, ISubBloc
 	public void registerBlockIcons(IIconRegister register) {
 		blockIcon = register.registerIcon(this.getTextureName() + "_side");
 		iconTop = register.registerIcon(this.getTextureName() + "_top");
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableNetherite;
 	}
 
 	@Override

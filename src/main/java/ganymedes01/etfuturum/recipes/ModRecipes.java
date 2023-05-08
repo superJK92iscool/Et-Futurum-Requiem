@@ -23,6 +23,8 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.WeightedRandomChestContent;
+import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
@@ -49,6 +51,19 @@ public class ModRecipes {
 		registerOreDictionary();
 		registerRecipes();
 		tweakRecipes();
+		registerLoot();
+	}
+
+	private static void registerLoot() {
+		if (ModItems.BEETROOT_SEEDS.isEnabled()) {
+			ChestGenHooks.addItem(ChestGenHooks.MINESHAFT_CORRIDOR, new WeightedRandomChestContent(new ItemStack(ModItems.BEETROOT_SEEDS.get()), 1, 2, 5));
+			ChestGenHooks.addItem(ChestGenHooks.PYRAMID_DESERT_CHEST, new WeightedRandomChestContent(new ItemStack(ModItems.BEETROOT_SEEDS.get()), 1, 2, 5));
+			ChestGenHooks.addItem(ChestGenHooks.PYRAMID_JUNGLE_CHEST, new WeightedRandomChestContent(new ItemStack(ModItems.BEETROOT_SEEDS.get()), 1, 2, 5));
+			ChestGenHooks.addItem(ChestGenHooks.STRONGHOLD_CORRIDOR, new WeightedRandomChestContent(new ItemStack(ModItems.BEETROOT_SEEDS.get()), 1, 2, 5));
+			ChestGenHooks.addItem(ChestGenHooks.STRONGHOLD_LIBRARY, new WeightedRandomChestContent(new ItemStack(ModItems.BEETROOT_SEEDS.get()), 1, 2, 5));
+			ChestGenHooks.addItem(ChestGenHooks.STRONGHOLD_CROSSING, new WeightedRandomChestContent(new ItemStack(ModItems.BEETROOT_SEEDS.get()), 1, 2, 5));
+			ChestGenHooks.addItem(ChestGenHooks.DUNGEON_CHEST, new WeightedRandomChestContent(new ItemStack(ModItems.BEETROOT_SEEDS.get()), 1, 2, 5));
+		}
 	}
 
 	private static void tweakRecipes() {

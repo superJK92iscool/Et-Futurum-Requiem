@@ -8,7 +8,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.client.DynamicResourcePack;
 import ganymedes01.etfuturum.client.DynamicResourcePack.GrayscaleType;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.Reference;
@@ -31,7 +30,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-public class BlockPotionCauldron extends BlockCauldronTileEntity implements ISubBlocksBlock, IConfigurable {
+public class BlockPotionCauldron extends BlockCauldronTileEntity implements ISubBlocksBlock {
 	
 	public BlockPotionCauldron() {
 		super(Material.iron);
@@ -180,11 +179,6 @@ public class BlockPotionCauldron extends BlockCauldronTileEntity implements ISub
 	@Override
 	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
 		return new TileEntityCauldronPotion();
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enablePotionCauldron;
 	}
 	
 	static float getRenderLiquidLevel(int p_150025_0_)

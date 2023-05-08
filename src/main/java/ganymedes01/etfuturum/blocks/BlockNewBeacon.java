@@ -6,7 +6,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.tileentities.TileEntityNewBeacon;
@@ -16,7 +15,7 @@ import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class BlockNewBeacon extends BlockBeacon implements IConfigurable {
+public class BlockNewBeacon extends BlockBeacon {
 
 	public BlockNewBeacon() {
 		setLightLevel(1.0F);
@@ -43,10 +42,5 @@ public class BlockNewBeacon extends BlockBeacon implements IConfigurable {
 	@Override
 	public TileEntity createNewTileEntity(World world, int meta) {
 		return new TileEntityNewBeacon();
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableColourfulBeacons;
 	}
 }

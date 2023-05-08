@@ -25,7 +25,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockEndGateway extends BlockContainer implements IConfigurable {
+public class BlockEndGateway extends BlockContainer {
 
 	public BlockEndGateway() {
 		super(Material.portal);
@@ -140,10 +140,5 @@ public class BlockEndGateway extends BlockContainer implements IConfigurable {
 				worldIn.spawnParticle("portal", d0, d1, d2, d3, d4, d5);
 			}
 		}
-	}
-	
-	@Override
-	public boolean isEnabled() {
-		return EtFuturum.TESTING;
 	}
 }

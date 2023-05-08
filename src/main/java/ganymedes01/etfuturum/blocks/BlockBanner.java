@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockBanner;
 import ganymedes01.etfuturum.tileentities.TileEntityBanner;
@@ -25,7 +24,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.event.ForgeEventFactory;
 
-public class BlockBanner extends BlockContainer implements ISubBlocksBlock, IConfigurable {
+public class BlockBanner extends BlockContainer implements ISubBlocksBlock {
 
 	public BlockBanner() {
 		super(Material.wood);
@@ -198,11 +197,6 @@ public class BlockBanner extends BlockContainer implements ISubBlocksBlock, ICon
 	@Override
 	public Class<? extends ItemBlock> getItemBlockClass() {
 		return ItemBlockBanner.class;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableBanners;
 	}
 
 }

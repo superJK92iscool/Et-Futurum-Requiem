@@ -10,7 +10,6 @@ import com.google.common.collect.HashMultimap;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.blocks.IConfigurable;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.dispenser.DispenserBehaviourLingeringPotion;
@@ -35,7 +34,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
-public class ItemLingeringPotion extends ItemPotion implements IConfigurable {
+public class ItemLingeringPotion extends ItemPotion {
 
 	@SideOnly(Side.CLIENT)
 	private IIcon bottle;
@@ -225,10 +224,5 @@ public class ItemLingeringPotion extends ItemPotion implements IConfigurable {
 	@SideOnly(Side.CLIENT)
 	public boolean hasEffect(ItemStack stack, int pass) {
 		return super.hasEffect(stack, pass) && pass == 0;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableLingeringPotions;
 	}
 }

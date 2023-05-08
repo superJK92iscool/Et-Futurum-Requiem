@@ -5,7 +5,6 @@ import java.util.Random;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -13,7 +12,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.Item;
 import net.minecraft.util.IIcon;
 
-public class BlockSilkedMushroom extends Block implements IConfigurable {
+public class BlockSilkedMushroom extends Block {
 
 	private final Block block;
 
@@ -51,10 +50,5 @@ public class BlockSilkedMushroom extends Block implements IConfigurable {
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister reg) {
 		// Icons taken from original Block
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return ConfigFunctions.enableSilkTouchingMushrooms;
 	}
 }

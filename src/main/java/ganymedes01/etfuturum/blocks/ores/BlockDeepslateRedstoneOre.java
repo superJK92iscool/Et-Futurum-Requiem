@@ -127,9 +127,4 @@ public class BlockDeepslateRedstoneOre extends BlockDeepslateOre {
 	{
 		return new ItemStack(ModBlocks.DEEPSLATE_REDSTONE_ORE.get());
 	}
-	
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableDeepslate && ConfigBlocksItems.enableDeepslateOres;
-	}
 }

@@ -4,7 +4,6 @@ import java.util.Random;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.entities.EntityItemUninflammable;
 import ganymedes01.etfuturum.lib.RenderIDs;
@@ -18,7 +17,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-public class BlockLavaCauldron extends BlockCauldron implements IConfigurable, ISubBlocksBlock {
+public class BlockLavaCauldron extends BlockCauldron implements ISubBlocksBlock {
 
 	@SideOnly(Side.CLIENT)
 	public IIcon field_150029_a;
@@ -119,10 +118,5 @@ public class BlockLavaCauldron extends BlockCauldron implements IConfigurable, I
 	@Override
 	public Class<? extends ItemBlock> getItemBlockClass() {
 		return null;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableLavaCauldrons;
 	}
 }

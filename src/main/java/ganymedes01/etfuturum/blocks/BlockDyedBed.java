@@ -6,7 +6,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
@@ -24,7 +23,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockDyedBed extends BlockBed implements IConfigurable, ISubBlocksBlock, IRegistryName {
+public class BlockDyedBed extends BlockBed implements ISubBlocksBlock, IRegistryName {
 	
 	public BlockDyedBed(int dye) {
 		super();
@@ -88,11 +87,6 @@ public class BlockDyedBed extends BlockBed implements IConfigurable, ISubBlocksB
 	@Override
 	public String getItemIconName() {
 		return "bed_" + getTextureName().replace("_bed", "");
-	}
-	
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableDyedBeds;
 	}
 
 	@Override

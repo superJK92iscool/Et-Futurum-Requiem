@@ -1,7 +1,6 @@
 package ganymedes01.etfuturum.items;
 
 import java.util.Map;
-import java.util.Random;
 import java.util.UUID;
 
 import org.apache.commons.lang3.tuple.MutablePair;
@@ -10,7 +9,6 @@ import com.google.common.collect.Maps;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ganymedes01.etfuturum.blocks.IConfigurable;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.EnumRarity;
@@ -18,7 +16,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 
-public class ItemLodestoneCompass extends Item implements IConfigurable {
+public class ItemLodestoneCompass extends Item {
 	
 	public static final Map<UUID, MutablePair<Double, Double>> lodestoneCompasses = Maps.newHashMap();
 	
@@ -54,10 +52,5 @@ public class ItemLodestoneCompass extends Item implements IConfigurable {
 	public EnumRarity getRarity(ItemStack p_77613_1_)
 	{
 		return EnumRarity.common;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return true;
 	}
 }

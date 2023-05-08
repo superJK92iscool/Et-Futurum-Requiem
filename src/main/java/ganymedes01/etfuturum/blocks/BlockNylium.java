@@ -7,7 +7,7 @@ import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 
-public class BlockNylium extends Block implements IConfigurable {
+public class BlockNylium extends Block {
 
 	public BlockNylium(int meta) {
 		super(Material.rock);
@@ -18,11 +18,6 @@ public class BlockNylium extends Block implements IConfigurable {
 		setBlockTextureName("copper_block");
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 		setStepSound(ConfigSounds.newBlockSounds ? ModSounds.soundCopper : Block.soundTypeMetal);
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return false;
 	}
 
 }

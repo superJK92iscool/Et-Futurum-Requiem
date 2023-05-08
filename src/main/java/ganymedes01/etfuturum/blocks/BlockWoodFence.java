@@ -3,7 +3,6 @@ package ganymedes01.etfuturum.blocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
@@ -15,7 +14,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class BlockWoodFence extends BlockFence implements IConfigurable {
+public class BlockWoodFence extends BlockFence {
 
 	private final int meta;
 
@@ -50,11 +49,6 @@ public class BlockWoodFence extends BlockFence implements IConfigurable {
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int _meta) {
 		return Blocks.planks.getIcon(side, this.meta);
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableFences;
 	}
 	
 	@Override

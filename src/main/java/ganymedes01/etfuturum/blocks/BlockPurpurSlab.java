@@ -2,7 +2,6 @@ package ganymedes01.etfuturum.blocks;
 
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -10,7 +9,7 @@ import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 
-public class BlockPurpurSlab extends BlockGenericSlab implements IConfigurable {
+public class BlockPurpurSlab extends BlockGenericSlab {
 
 	public BlockPurpurSlab(boolean isDouble) {
 		super(isDouble, Material.rock, "");
@@ -23,11 +22,6 @@ public class BlockPurpurSlab extends BlockGenericSlab implements IConfigurable {
 	@Override
 	public boolean canEntityDestroy(IBlockAccess world, int x, int y, int z, Entity entity) {
 		return !(entity instanceof EntityDragon);
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableChorusFruit;
 	}
 
 	@Override

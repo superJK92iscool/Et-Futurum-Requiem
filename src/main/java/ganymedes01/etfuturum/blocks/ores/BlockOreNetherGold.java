@@ -3,8 +3,6 @@ package ganymedes01.etfuturum.blocks.ores;
 import java.util.Random;
 
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.blocks.IConfigurable;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -13,7 +11,7 @@ import net.minecraft.item.Item;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 
-public class BlockOreNetherGold extends Block implements IConfigurable {
+public class BlockOreNetherGold extends Block {
 
 	public BlockOreNetherGold() {
 		super(Material.rock);
@@ -23,11 +21,6 @@ public class BlockOreNetherGold extends Block implements IConfigurable {
 		setResistance(5.0F);
 		setBlockTextureName("nether_gold_ore");
 		setBlockName(Utils.getUnlocalisedName("nether_gold_ore"));
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableNetherGold;
 	}
 	
 	private Random rand = new Random();

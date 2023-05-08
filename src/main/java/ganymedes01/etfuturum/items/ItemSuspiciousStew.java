@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.items;
 
-import ganymedes01.etfuturum.blocks.IConfigurable;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemSoup;
@@ -12,7 +10,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 
-public class ItemSuspiciousStew extends ItemSoup implements IConfigurable {
+public class ItemSuspiciousStew extends ItemSoup {
 
 	public static final String effectsList = "Effects";
 	public static final String stewEffect = "EffectId";
@@ -35,11 +33,6 @@ public class ItemSuspiciousStew extends ItemSoup implements IConfigurable {
 	{
 		applyPotionEffects(p_77654_1_, p_77654_3_);
 		return super.onEaten(p_77654_1_, p_77654_2_, p_77654_3_);
-	}
-	
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableSuspiciousStew;
 	}
 
 	public void applyPotionEffects(ItemStack stack, EntityPlayer player) {

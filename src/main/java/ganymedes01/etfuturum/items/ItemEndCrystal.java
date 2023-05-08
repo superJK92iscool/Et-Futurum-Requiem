@@ -1,8 +1,6 @@
 package ganymedes01.etfuturum.items;
 
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.blocks.IConfigurable;
-import ganymedes01.etfuturum.configuration.configs.ConfigEntities;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.entities.EntityPlacedEndCrystal;
 import net.minecraft.block.Block;
@@ -12,7 +10,7 @@ import net.minecraft.item.ItemSimpleFoiled;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class ItemEndCrystal extends ItemSimpleFoiled implements IConfigurable {
+public class ItemEndCrystal extends ItemSimpleFoiled {
 
 	public ItemEndCrystal() {
 		setTextureName("end_crystal");
@@ -41,10 +39,5 @@ public class ItemEndCrystal extends ItemSimpleFoiled implements IConfigurable {
 			}
 
 		return false;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return ConfigEntities.enableDragonRespawn;
 	}
 }

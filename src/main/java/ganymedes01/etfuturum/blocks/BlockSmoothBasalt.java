@@ -9,7 +9,7 @@ import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 
-public class BlockSmoothBasalt extends Block implements IConfigurable {
+public class BlockSmoothBasalt extends Block {
 
 	public BlockSmoothBasalt() {
 		super(Material.rock);
@@ -19,11 +19,6 @@ public class BlockSmoothBasalt extends Block implements IConfigurable {
 		setBlockTextureName("smooth_basalt");
 		setBlockName(Utils.getUnlocalisedName("smooth_basalt"));
 		setCreativeTab(EtFuturum.creativeTabBlocks);
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableAmethyst && isSmoothBasaltUsed();
 	}
 	
 	/*

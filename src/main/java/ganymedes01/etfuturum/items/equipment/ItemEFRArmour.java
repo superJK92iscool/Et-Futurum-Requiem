@@ -4,8 +4,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModItems;
-import ganymedes01.etfuturum.blocks.IConfigurable;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.items.ItemUninflammable;
@@ -18,7 +16,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
 
-public class ItemEFRArmour extends ItemArmor implements IConfigurable, ISpecialArmor {
+public class ItemEFRArmour extends ItemArmor implements ISpecialArmor {
 
 	public ItemEFRArmour(ArmorMaterial material, int type, int durabilityOverride) {
 		super(material, 0, type);
@@ -46,11 +44,6 @@ public class ItemEFRArmour extends ItemArmor implements IConfigurable, ISpecialA
 	{
 		String wearingType = "netherite";
 		return this.armorType == 2 ? "textures/models/armor/" + wearingType + "_layer_2.png" : "textures/models/armor/" + wearingType + "_layer_1.png";
-	}
-	
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableNetherite;
 	}
 	
 	@Override

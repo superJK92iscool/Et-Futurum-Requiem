@@ -5,8 +5,6 @@ import java.util.Random;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.GUIsID;
 import ganymedes01.etfuturum.lib.RenderIDs;
@@ -28,7 +26,7 @@ import net.minecraft.util.Facing;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-public class BlockBarrel extends BlockContainer implements IConfigurable {
+public class BlockBarrel extends BlockContainer {
 
 	public BlockBarrel() {
 		super(Material.wood);
@@ -166,11 +164,6 @@ public class BlockBarrel extends BlockContainer implements IConfigurable {
 	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_)
 	{
 		return new TileEntityBarrel();
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableBarrel;
 	}
 
 }

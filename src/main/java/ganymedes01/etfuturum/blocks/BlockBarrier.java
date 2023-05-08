@@ -6,7 +6,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.client.particle.ParticleHandler;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -17,7 +16,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class BlockBarrier extends Block implements IConfigurable {
+public class BlockBarrier extends Block {
 	
 	public BlockBarrier() {
 		super(Material.rock);
@@ -73,12 +72,6 @@ public class BlockBarrier extends Block implements IConfigurable {
 	public boolean renderAsNormalBlock()
 	{
 		return false;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		return ConfigBlocksItems.enableBarrier;
 	}
 
 	@Override

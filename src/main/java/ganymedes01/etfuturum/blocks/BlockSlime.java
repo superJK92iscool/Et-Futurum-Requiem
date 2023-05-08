@@ -4,7 +4,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.lib.RenderIDs;
@@ -15,7 +14,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 
-public class BlockSlime extends Block implements IConfigurable {
+public class BlockSlime extends Block {
 
 	public BlockSlime() {
 		super(Material.clay);
@@ -75,10 +74,5 @@ public class BlockSlime extends Block implements IConfigurable {
 	@Override
 	public int getRenderType() {
 		return RenderIDs.SLIME_BLOCK;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableSlimeBlock;
 	}
 }

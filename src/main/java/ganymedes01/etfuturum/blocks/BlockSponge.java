@@ -10,7 +10,6 @@ import com.google.common.collect.Lists;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.world.WorldCoord;
 import net.minecraft.block.Block;
@@ -20,7 +19,7 @@ import net.minecraft.util.Tuple;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class BlockSponge extends BlockGeneric implements IConfigurable {
+public class BlockSponge extends BlockGeneric {
 
 	public BlockSponge() {
 		super(Material.sponge, "", "wet");
@@ -129,10 +128,5 @@ public class BlockSponge extends BlockGeneric implements IConfigurable {
 
 	private ForgeDirection getRandomDirection(Random rand) {
 		return ForgeDirection.VALID_DIRECTIONS[rand.nextInt(ForgeDirection.VALID_DIRECTIONS.length)];
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableSponge;
 	}
 }

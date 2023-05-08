@@ -6,7 +6,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.lib.RenderIDs;
@@ -21,7 +20,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class BlockChorusFlower extends Block implements IConfigurable {
+public class BlockChorusFlower extends Block {
 
 	@SideOnly(Side.CLIENT)
 	private IIcon deadIcon;
@@ -257,10 +256,5 @@ public class BlockChorusFlower extends Block implements IConfigurable {
 	@Override
 	public boolean canPlaceBlockAt(World world, int x, int y, int z) {
 		return canBlockStay(world, x, y, z);
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableChorusFruit;
 	}
 }

@@ -5,7 +5,6 @@ import java.util.Random;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.ExternalContent;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.RenderIDs;
@@ -20,7 +19,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockChorusPlant extends Block implements IConfigurable {
+public class BlockChorusPlant extends Block {
 
 	public BlockChorusPlant() {
 		super(Material.plants);
@@ -152,10 +151,5 @@ public class BlockChorusPlant extends Block implements IConfigurable {
 	@Override
 	public Item getItemDropped(int meta, Random rand, int fortune) {
 		return ModItems.CHORUS_FRUIT.get();
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableChorusFruit;
 	}
 }

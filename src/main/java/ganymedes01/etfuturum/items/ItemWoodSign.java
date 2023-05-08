@@ -2,8 +2,6 @@ package ganymedes01.etfuturum.items;
 
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.blocks.IConfigurable;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.network.WoodSignOpenMessage;
@@ -19,7 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-public class ItemWoodSign extends Item implements IConfigurable {
+public class ItemWoodSign extends Item {
 
 	private final int meta;
 	public ItemWoodSign(int i)
@@ -113,14 +111,5 @@ public class ItemWoodSign extends Item implements IConfigurable {
 				return true;
 			}
 		}
-	}
-
-	@Override
-	public boolean isEnabled() {
-//      if(meta == 5 && !EtFuturum.enableCrimsonBlocks)
-//          return false;
-//      if(meta == 6 && !EtFuturum.enableWarpedBlocks)
-//          return false;
-		return ConfigBlocksItems.enableSigns;
 	}
 }

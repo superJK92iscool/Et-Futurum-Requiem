@@ -6,9 +6,7 @@ import java.util.Random;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.blocks.IConfigurable;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.DeepslateOreRegistry;
 import ganymedes01.etfuturum.core.utils.Utils;
@@ -26,7 +24,7 @@ import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockDeepslateOre extends BlockOre implements IConfigurable {
+public class BlockDeepslateOre extends BlockOre {
 	
 	public Block base;
 
@@ -35,9 +33,7 @@ public class BlockDeepslateOre extends BlockOre implements IConfigurable {
 		setAttribs(this, block);
 		base = block;
 		setCreativeTab(EtFuturum.creativeTabBlocks);
-		if(isEnabled() && (!(base instanceof IConfigurable) || ((IConfigurable)base).isEnabled())) {
-			addDeepslateMappings();
-		}
+		addDeepslateMappings();
 	}
 	
 	public static void setAttribs(Block to, Block from) {
@@ -57,11 +53,6 @@ public class BlockDeepslateOre extends BlockOre implements IConfigurable {
 	
 	protected void addDeepslateMappings() {
 		DeepslateOreRegistry.addOre(base, 0, this, 0);
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return (base instanceof IConfigurable ? ((IConfigurable)base).isEnabled() : true) && ConfigBlocksItems.enableDeepslate && ConfigBlocksItems.enableDeepslateOres;
 	}
 	
 	@Override
@@ -226,8 +217,6 @@ public class BlockDeepslateOre extends BlockOre implements IConfigurable {
 
 	/**
 	 * Returns whether this block is collideable based on the arguments passed in
-	 * @param par1 block metaData
-	 * @param par2 whether the player right-clicked while holding a boat
 	 */
 	@Override
 	public boolean canCollideCheck(int p_149678_1_, boolean p_149678_2_)

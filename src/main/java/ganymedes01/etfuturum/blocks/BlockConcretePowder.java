@@ -4,7 +4,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -12,7 +11,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-public class BlockConcretePowder extends BlockGenericSand implements IConfigurable {
+public class BlockConcretePowder extends BlockGenericSand {
 
 	public BlockConcretePowder() {
 		super(Material.sand, "white", "orange", "magenta", "light_blue", "yellow", "lime", "pink", "gray", "light_gray", "cyan", "purple", "blue", "brown", "green", "red", "black");
@@ -89,12 +88,6 @@ public class BlockConcretePowder extends BlockGenericSand implements IConfigurab
 				icons[i] = reg.registerIcon(getTextureName());
 			else
 				icons[i] = reg.registerIcon( types[i] + "_" + getTextureName());
-	}
-	
-	@Override
-	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		return ConfigBlocksItems.enableConcrete;
 	}
 
 }

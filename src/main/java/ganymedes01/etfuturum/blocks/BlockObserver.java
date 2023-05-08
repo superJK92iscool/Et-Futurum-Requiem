@@ -4,12 +4,10 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.api.IBlockObserver;
-import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.ducks.IObserverWorldExtension;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockButton;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -22,7 +20,7 @@ import net.minecraft.world.World;
 
 import java.util.Random;
 
-public class BlockObserver extends Block implements IConfigurable, IBlockObserver {
+public class BlockObserver extends Block implements IBlockObserver {
 	@SideOnly(Side.CLIENT)
 	private IIcon observerFront, observerBack, observerTop, observerBackLit;
 
@@ -84,11 +82,6 @@ public class BlockObserver extends Block implements IConfigurable, IBlockObserve
 	@Override
 	public int getRenderType() {
 		return RenderIDs.OBSERVER;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return ConfigMixins.enableObservers;
 	}
 
 	@Override

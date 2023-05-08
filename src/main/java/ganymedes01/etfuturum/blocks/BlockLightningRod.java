@@ -10,7 +10,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class BlockLightningRod extends Block implements IConfigurable {
+public class BlockLightningRod extends Block {
 
 	public BlockLightningRod() {
 		super(Material.iron);
@@ -46,10 +46,5 @@ public class BlockLightningRod extends Block implements IConfigurable {
 	public boolean renderAsNormalBlock()
 	{
 		return false;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return EtFuturum.TESTING;
 	}
 }

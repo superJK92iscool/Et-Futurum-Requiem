@@ -7,7 +7,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockCopper;
@@ -22,7 +21,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-public class BlockCopper extends BlockGeneric implements IConfigurable, IDegradable {
+public class BlockCopper extends BlockGeneric implements IDegradable {
 
 	public BlockCopper() {
 		super(Material.iron, "", "exposed", "weathered", "oxidized", "cut", "exposed_cut", "weathered_cut", "oxidized_cut", "waxed", "waxed_exposed", "waxed_weathered", "waxed_oxidized", "waxed_cut", "waxed_exposed_cut", "waxed_weathered_cut", "waxed_oxidized_cut");
@@ -107,10 +106,5 @@ public class BlockCopper extends BlockGeneric implements IConfigurable, IDegrada
 	@Override
 	public Class<? extends ItemBlock> getItemBlockClass() {
 		return ItemBlockCopper.class;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableCopper;
 	}
 }

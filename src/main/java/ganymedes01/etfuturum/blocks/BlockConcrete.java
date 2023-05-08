@@ -3,14 +3,13 @@ package ganymedes01.etfuturum.blocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.recipes.ModRecipes;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
 
-public class BlockConcrete extends BlockGeneric implements IConfigurable {
+public class BlockConcrete extends BlockGeneric {
 
 	public BlockConcrete() {
 		super(Material.rock, ModRecipes.dye_names);
@@ -32,11 +31,6 @@ public class BlockConcrete extends BlockGeneric implements IConfigurable {
 				icons[i] = reg.registerIcon(getTextureName());
 			else
 				icons[i] = reg.registerIcon( types[i] + "_" + getTextureName());
-	}
-	
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableConcrete;
 	}
 
 }

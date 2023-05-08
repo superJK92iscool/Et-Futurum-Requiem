@@ -5,7 +5,6 @@ import java.util.List;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockNewWall;
@@ -22,7 +21,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockNewWall extends BlockWall implements IConfigurable, ISubBlocksBlock, IMultiStepSound {
+public class BlockNewWall extends BlockWall implements ISubBlocksBlock, IMultiStepSound {
 	
 	private Block[] blocks;
 	private int[] metas;
@@ -69,11 +68,6 @@ public class BlockNewWall extends BlockWall implements IConfigurable, ISubBlocks
 	public float getExplosionResistance(Entity par1Entity, World world, int x, int y, int z, double explosionX, double explosionY, double explosionZ)
 	{
 		return blocks[world.getBlockMetadata(x, y, z) % variations].getExplosionResistance(par1Entity, world, x, y, z, explosionX, explosionY, explosionZ) / 5;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return blocks[0] instanceof IConfigurable ? ((IConfigurable)blocks[0]).isEnabled() : ConfigBlocksItems.enableExtraVanillaWalls;
 	}
 
 	@Override

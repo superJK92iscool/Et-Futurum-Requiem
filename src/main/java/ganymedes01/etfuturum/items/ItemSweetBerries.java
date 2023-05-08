@@ -2,8 +2,6 @@ package ganymedes01.etfuturum.items;
 
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.blocks.IConfigurable;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,18 +10,13 @@ import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class ItemSweetBerries extends ItemFood implements IConfigurable {
+public class ItemSweetBerries extends ItemFood {
 
 	public ItemSweetBerries() {
 		super(2, 0.1f, false);
 		setTextureName("sweet_berries");
 		setUnlocalizedName(Utils.getUnlocalisedName("sweet_berries"));
 		setCreativeTab(EtFuturum.creativeTabItems);
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableSweetBerryBushes;
 	}
 
 	/**

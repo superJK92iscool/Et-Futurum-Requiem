@@ -1,22 +1,14 @@
 package ganymedes01.etfuturum.items;
 
-import org.apache.commons.lang3.ArrayUtils;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.blocks.IConfigurable;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox;
-import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox.ShulkerBoxType;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
-import net.minecraft.world.World;
 
-public class ItemShulkerBoxUpgrade extends ItemGeneric implements IConfigurable {
+public class ItemShulkerBoxUpgrade extends ItemGeneric {
 	
 	private static final int[] UPGRADE_IDS = new int[] {1, 4, 2, 3, 7, 6, 1, 5, 2};
 
@@ -39,11 +31,6 @@ public class ItemShulkerBoxUpgrade extends ItemGeneric implements IConfigurable 
 		icons = new IIcon[types.length];
 		for (int i = 0; i < types.length; i++)
 			icons[i] = reg.registerIcon("ironshulkerbox:" + types[i]);
-	}
-	
-	@Override
-	public boolean isEnabled() {
-		return EtFuturum.hasIronChest && ConfigBlocksItems.enableShulkerBoxesIronChest;
 	}
 
 }

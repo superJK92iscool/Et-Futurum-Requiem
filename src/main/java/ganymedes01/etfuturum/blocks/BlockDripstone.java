@@ -7,7 +7,7 @@ import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 
-public class BlockDripstone extends Block implements IConfigurable {
+public class BlockDripstone extends Block {
 
 	public BlockDripstone() {
 		super(Material.rock);
@@ -18,11 +18,6 @@ public class BlockDripstone extends Block implements IConfigurable {
 		this.setBlockName(Utils.getUnlocalisedName("dripstone_block"));
 		this.setBlockTextureName("dripstone_block");
 		this.setCreativeTab(EtFuturum.creativeTabBlocks);
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return EtFuturum.TESTING;
 	}
 
 }

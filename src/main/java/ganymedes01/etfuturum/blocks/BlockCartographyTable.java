@@ -3,7 +3,6 @@ package ganymedes01.etfuturum.blocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockDecorationWorkbench;
 import net.minecraft.block.Block;
@@ -15,7 +14,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class BlockCartographyTable extends Block implements IConfigurable, ISubBlocksBlock {
+public class BlockCartographyTable extends Block implements ISubBlocksBlock {
 
 	@SideOnly(Side.CLIENT)
 	private IIcon topIcon;
@@ -63,11 +62,6 @@ public class BlockCartographyTable extends Block implements IConfigurable, ISubB
 	@Override
 	public int getFireSpreadSpeed(IBlockAccess aWorld, int aX, int aY, int aZ, ForgeDirection aSide) {
 		return 20;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableCartographyTable;
 	}
 
 	@Override

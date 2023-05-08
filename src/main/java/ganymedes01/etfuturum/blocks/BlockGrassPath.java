@@ -5,7 +5,6 @@ import java.util.Random;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
@@ -19,7 +18,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class BlockGrassPath extends Block implements IConfigurable {
+public class BlockGrassPath extends Block {
 
 	@SideOnly(Side.CLIENT)
 	private IIcon sideIcon;
@@ -105,11 +104,6 @@ public class BlockGrassPath extends Block implements IConfigurable {
 	public void registerBlockIcons(IIconRegister reg) {
 		blockIcon = reg.registerIcon(getTextureName() + "_top");
 		sideIcon = reg.registerIcon(getTextureName() + "_side");
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableGrassPath;
 	}
 
 }

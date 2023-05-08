@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import ganymedes01.etfuturum.ModItems;
-import ganymedes01.etfuturum.blocks.IConfigurable;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.helpers.RawOreDropMapping;
 import net.minecraft.item.Item;
@@ -93,7 +92,7 @@ public class RawOreRegistry {
 	}
 
 	public static void init() {
-		if(((IConfigurable)(ModItems.RAW_ORE.get())).isEnabled()) {
+		if(ModItems.RAW_ORE.isEnabled()) {
 			if(ConfigBlocksItems.enableCopper || !OreDictionary.getOres("ingotCopper").isEmpty()) {
 				addOre("oreCopper", ModItems.RAW_ORE.get());
 			}

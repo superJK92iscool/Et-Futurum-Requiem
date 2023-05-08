@@ -7,7 +7,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.client.InterpolatedIcon;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.GUIsID;
@@ -26,7 +25,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-public class BlockBlastFurnace extends BlockFurnace implements IConfigurable {
+public class BlockBlastFurnace extends BlockFurnace {
 
 	private boolean isCooking;
 	private IIcon blockTop;
@@ -199,12 +198,6 @@ public class BlockBlastFurnace extends BlockFurnace implements IConfigurable {
 		}
 		player.openGui(EtFuturum.instance, GUIsID.BLAST_FURNACE, world, x, y, z);
 		return true;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		return ConfigBlocksItems.enableBlastFurnace;
 	}
 
 }

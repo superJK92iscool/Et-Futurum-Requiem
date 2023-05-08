@@ -7,7 +7,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.Reference;
@@ -29,7 +28,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class BlockBerryBush extends BlockBush implements IConfigurable, ISubBlocksBlock, IGrowable {
+public class BlockBerryBush extends BlockBush implements ISubBlocksBlock, IGrowable {
 
 	@SideOnly(Side.CLIENT)
 	private IIcon[] icons;
@@ -95,11 +94,6 @@ public class BlockBerryBush extends BlockBush implements IConfigurable, ISubBloc
 		if(meta > 3)
 			return icons[0];
 		return icons[meta];
-	}
-	
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableSweetBerryBushes;
 	}
 	
 	@Override

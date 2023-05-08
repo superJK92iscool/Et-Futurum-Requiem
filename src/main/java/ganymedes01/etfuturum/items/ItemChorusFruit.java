@@ -1,8 +1,6 @@
 package ganymedes01.etfuturum.items;
 
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.blocks.IConfigurable;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
@@ -15,7 +13,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.EnderTeleportEvent;
 
-public class ItemChorusFruit extends ItemFood implements IConfigurable {
+public class ItemChorusFruit extends ItemFood {
 
 	public ItemChorusFruit() {
 		super(4, 0.3F, false);
@@ -94,10 +92,5 @@ public class ItemChorusFruit extends ItemFood implements IConfigurable {
 		entity.worldObj.playSoundEffect(d3, d4, d5, Reference.MCAssetVer + ":item.chorus_fruit.teleport", 1.0F, 1.0F);
 		entity.playSound(Reference.MCAssetVer + ":item.chorus_fruit.teleport", 1.0F, 1.0F);
 		return true;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableChorusFruit;
 	}
 }

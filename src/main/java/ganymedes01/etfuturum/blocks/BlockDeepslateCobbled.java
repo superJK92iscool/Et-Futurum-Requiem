@@ -2,13 +2,12 @@ package ganymedes01.etfuturum.blocks;
 
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 
-public class BlockDeepslateCobbled extends Block implements IConfigurable {
+public class BlockDeepslateCobbled extends Block {
 
 	public BlockDeepslateCobbled() {
 		super(Material.rock);
@@ -18,10 +17,5 @@ public class BlockDeepslateCobbled extends Block implements IConfigurable {
 		this.setBlockTextureName("cobbled_deepslate");
 		this.setCreativeTab(EtFuturum.creativeTabBlocks);
 		this.setStepSound(ConfigSounds.newBlockSounds ? ModSounds.soundDeepslate : soundTypeStone);
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableDeepslate;
 	}
 }

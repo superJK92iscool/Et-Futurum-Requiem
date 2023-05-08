@@ -15,7 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-public class BlockInfestedDeepslate extends BlockSilverfish implements IConfigurable {
+public class BlockInfestedDeepslate extends BlockSilverfish {
 
 	public static final String[] icon_names = new String[] {"deepslate"};
 	
@@ -52,12 +52,6 @@ public class BlockInfestedDeepslate extends BlockSilverfish implements IConfigur
 	public int getDamageValue(World p_149643_1_, int p_149643_2_, int p_149643_3_, int p_149643_4_)
 	{
 		return 0;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return false;
-//      return ConfigurationHandler.enableDeepslate; // TODO Add infested stone config
 	}
 	
 	@Override

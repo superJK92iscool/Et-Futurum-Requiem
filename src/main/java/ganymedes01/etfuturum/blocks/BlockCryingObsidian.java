@@ -1,11 +1,10 @@
 package ganymedes01.etfuturum.blocks;
 
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.BlockObsidian;
 
-public class BlockCryingObsidian extends BlockObsidian implements IConfigurable {
+public class BlockCryingObsidian extends BlockObsidian {
 
 	public BlockCryingObsidian() {
 		setHardness(50.0F);
@@ -15,10 +14,5 @@ public class BlockCryingObsidian extends BlockObsidian implements IConfigurable 
 		setBlockTextureName("crying_obsidian");
 		setBlockName(Utils.getUnlocalisedName("crying_obsidian"));
 		setCreativeTab(EtFuturum.creativeTabBlocks);
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableCryingObsidian;
 	}
 }

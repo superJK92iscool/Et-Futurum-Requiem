@@ -6,7 +6,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.BlockDaylightDetector;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,7 +13,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.world.World;
 
-public class BlockNewDaylightSensor extends BlockDaylightDetector implements IConfigurable {
+public class BlockNewDaylightSensor extends BlockDaylightDetector {
 
 	public BlockNewDaylightSensor() {
 		setHardness(0.2F);
@@ -40,10 +39,5 @@ public class BlockNewDaylightSensor extends BlockDaylightDetector implements ICo
 		if (!world.isRemote)
 			world.setBlock(x, y, z, ModBlocks.DAYLIGHT_DETECTOR_INVERTED.get());
 		return true;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableInvertedDaylightSensor && ConfigBlocksItems.enableOldBaseDaylightSensor;
 	}
 }

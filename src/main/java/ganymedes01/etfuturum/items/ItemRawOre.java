@@ -7,15 +7,13 @@ import org.apache.commons.lang3.StringUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.blocks.IConfigurable;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
-public class ItemRawOre extends ItemGeneric implements IConfigurable {
+public class ItemRawOre extends ItemGeneric {
 	
 	private boolean modded;
 
@@ -30,11 +28,6 @@ public class ItemRawOre extends ItemGeneric implements IConfigurable {
 	@Override
 	public String getUnlocalizedName(ItemStack stack) {
 		return getUnlocalizedName().replace("_ore", "") + "_" + types[Math.max(Math.min(stack.getItemDamage(), types.length - 1), 0)];
-	}
-	
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableRawOres;
 	}
 
 	@Override

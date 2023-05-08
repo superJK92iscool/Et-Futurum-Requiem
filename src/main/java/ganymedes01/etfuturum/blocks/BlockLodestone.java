@@ -11,7 +11,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
 
-public class BlockLodestone extends Block implements IConfigurable {
+public class BlockLodestone extends Block {
 
 	@SideOnly(Side.CLIENT)
 	private IIcon topIcon;
@@ -39,11 +39,6 @@ public class BlockLodestone extends Block implements IConfigurable {
 	{
 		this.blockIcon = p_149651_1_.registerIcon(this.getTextureName() + "_side");
 		this.topIcon = p_149651_1_.registerIcon(this.getTextureName() + "_top");
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return true;
 	}
 
 }

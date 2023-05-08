@@ -4,7 +4,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.RenderIDs;
@@ -18,7 +17,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class BlockLantern extends Block implements IConfigurable {
+public class BlockLantern extends Block {
 
 	public BlockLantern() {
 		super(Material.iron);
@@ -35,11 +34,6 @@ public class BlockLantern extends Block implements IConfigurable {
 		this.setBlockName(Utils.getUnlocalisedName("lantern"));
 		this.setBlockTextureName("lantern");
 		this.setCreativeTab(EtFuturum.creativeTabBlocks);
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableLantern;
 	}
 	
 	@Override

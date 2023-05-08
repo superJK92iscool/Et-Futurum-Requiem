@@ -1,13 +1,12 @@
 package ganymedes01.etfuturum.blocks;
 
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockRawOre;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemBlock;
 
-public class BlockRawOre extends BlockGeneric implements IConfigurable {
+public class BlockRawOre extends BlockGeneric {
 
 	public BlockRawOre() {
 		super(Material.rock, "copper_block", "iron_block", "gold_block");
@@ -24,11 +23,6 @@ public class BlockRawOre extends BlockGeneric implements IConfigurable {
 
 	public String getNameFor(int meta) {
 		return types[Math.max(Math.min(meta, types.length - 1), 0)].replace("_ore_block", "");
-	}
-	
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableRawOres;
 	}
 
 	@Override

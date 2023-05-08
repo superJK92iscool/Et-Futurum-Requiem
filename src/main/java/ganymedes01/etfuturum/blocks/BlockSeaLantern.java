@@ -4,7 +4,6 @@ import java.util.Random;
 
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModItems;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
@@ -12,7 +11,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 import net.minecraft.util.MathHelper;
 
-public class BlockSeaLantern extends Block implements IConfigurable {
+public class BlockSeaLantern extends Block {
 
 	public BlockSeaLantern() {
 		super(Material.glass);
@@ -47,10 +46,5 @@ public class BlockSeaLantern extends Block implements IConfigurable {
 	@Override
 	protected boolean canSilkHarvest() {
 		return true;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enablePrismarine;
 	}
 }

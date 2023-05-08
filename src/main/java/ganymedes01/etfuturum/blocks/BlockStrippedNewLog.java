@@ -3,7 +3,6 @@ package ganymedes01.etfuturum.blocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockGeneric;
 import net.minecraft.block.BlockNewLog;
@@ -13,7 +12,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class BlockStrippedNewLog extends BlockNewLog implements IConfigurable, ISubBlocksBlock {
+public class BlockStrippedNewLog extends BlockNewLog implements ISubBlocksBlock {
 
 	public static final String[] icon_names = new String[] {"acacia", "dark_oak"};
 
@@ -32,11 +31,6 @@ public class BlockStrippedNewLog extends BlockNewLog implements IConfigurable, I
 			this.field_150167_a[i] = iconRegister.registerIcon("stripped_" + icon_names[i] + "_log");
 			this.field_150166_b[i] = iconRegister.registerIcon("stripped_" + icon_names[i] + "_log" + "_top");
 		}
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableStrippedLogs;
 	}
 
 	@Override

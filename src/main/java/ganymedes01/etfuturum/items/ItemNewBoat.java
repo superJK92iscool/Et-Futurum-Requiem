@@ -3,8 +3,6 @@ package ganymedes01.etfuturum.items;
 import java.util.List;
 
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.blocks.IConfigurable;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.entities.EntityNewBoatWithChest;
 import ganymedes01.etfuturum.entities.EntityNewBoat;
@@ -12,7 +10,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
@@ -21,7 +18,7 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
-public class ItemNewBoat extends Item implements IConfigurable {
+public class ItemNewBoat extends Item {
 
 	private final EntityNewBoat.Type type;
 	private final boolean isChest;
@@ -127,11 +124,6 @@ public class ItemNewBoat extends Item implements IConfigurable {
 		}
 
 		return p_77659_1_;
-	}
-	
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableNewBoats && (!ConfigBlocksItems.replaceOldBoats || isChest || type != EntityNewBoat.Type.OAK);
 	}
 
 }

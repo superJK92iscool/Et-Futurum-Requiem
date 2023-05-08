@@ -4,9 +4,7 @@ import java.util.Random;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.recipes.ModRecipes;
 import net.minecraft.block.BlockSign;
@@ -15,7 +13,7 @@ import net.minecraft.item.Item;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-public class BlockWoodSign extends BlockSign implements IConfigurable {
+public class BlockWoodSign extends BlockSign {
 	
 	public final int meta;
 	public final boolean standing;
@@ -56,15 +54,6 @@ public class BlockWoodSign extends BlockSign implements IConfigurable {
 	public Item getItem(World p_149694_1_, int p_149694_2_, int p_149694_3_, int p_149694_4_)
 	{
 		return ModItems.signs[meta - 1];
-	}
-
-	@Override
-	public boolean isEnabled() {
-//      if(meta == 6 && !EtFuturum.enableCrimsonBlocks)
-//          return false;
-//      if(meta == 7 && !EtFuturum.enableWarpedBlocks)
-//          return false;
-		return ConfigBlocksItems.enableSigns;
 	}
 
 }

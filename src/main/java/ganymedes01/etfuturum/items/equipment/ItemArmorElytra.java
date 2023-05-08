@@ -1,13 +1,12 @@
 package ganymedes01.etfuturum.items.equipment;
 
 import baubles.api.BaubleType;
+import baubles.api.expanded.BaubleItemHelper;
 import baubles.api.expanded.IBaubleExpanded;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.compat.CompatBaublesExpanded;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.blocks.IConfigurable;
-import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.configuration.configs.ConfigModCompat;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
@@ -25,7 +24,7 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-public class ItemArmorElytra extends Item implements IConfigurable, IBaubleExpanded {
+public class ItemArmorElytra extends Item implements IBaubleExpanded {
 
 	@SideOnly(Side.CLIENT)
 	private IIcon broken;
@@ -57,7 +56,7 @@ public class ItemArmorElytra extends Item implements IConfigurable, IBaubleExpan
 			return itemStackIn;
 		}
 		if(EtFuturum.hasBaublesExpanded && ConfigModCompat.elytraBaublesExpandedCompat != 0) {
-			itemStackIn = baubles.api.expanded.BaubleItemHelper.onBaubleRightClick(itemStackIn, worldIn, playerIn);
+			itemStackIn = BaubleItemHelper.onBaubleRightClick(itemStackIn, worldIn, playerIn);
 		}
 		if((!EtFuturum.hasBaublesExpanded || ConfigModCompat.elytraBaublesExpandedCompat != 2) && itemStackIn.stackSize > 0 && getElytra(playerIn) == null) {
 			ItemStack itemStack = playerIn.getEquipmentInSlot(3);
@@ -90,11 +89,6 @@ public class ItemArmorElytra extends Item implements IConfigurable, IBaubleExpan
 		broken = reg.registerIcon("broken_elytra");
 	}
 
-	@Override
-	public boolean isEnabled() {
-		return ConfigMixins.enableElytra;
-	}
-
 	public static ItemStack getElytra(EntityLivingBase entity) {
 		if(!EtFuturum.hasBaublesExpanded || ConfigModCompat.elytraBaublesExpandedCompat != 2) {
 			ItemStack armorSlot = entity.getEquipmentInSlot(3);
@@ -124,7 +118,7 @@ public class ItemArmorElytra extends Item implements IConfigurable, IBaubleExpan
 					slots = new String[] {"wings"};
 					break;
 			}
-			baubles.api.expanded.BaubleItemHelper.addSlotInformation(tooltip, slots);
+			BaubleItemHelper.addSlotInformation(tooltip, slots);
 		}
 	}
 

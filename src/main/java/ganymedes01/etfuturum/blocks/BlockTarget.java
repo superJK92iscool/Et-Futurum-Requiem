@@ -1,10 +1,8 @@
 package ganymedes01.etfuturum.blocks;
 
-import cpw.mods.fml.relauncher.ReflectionHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.HoeRegistry;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
@@ -22,7 +20,7 @@ import net.minecraft.world.World;
 
 import java.util.Random;
 
-public class BlockTarget extends Block implements IConfigurable {
+public class BlockTarget extends Block {
 	@SideOnly(Side.CLIENT)
 	private IIcon topIcon;
 	public BlockTarget() {
@@ -112,11 +110,6 @@ public class BlockTarget extends Block implements IConfigurable {
 	@Override
 	public int isProvidingWeakPower(IBlockAccess p_149709_1_, int p_149709_2_, int p_149709_3_, int p_149709_4_, int p_149709_5_) {
 		return p_149709_1_.getBlockMetadata(p_149709_2_, p_149709_3_, p_149709_4_);
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableTarget;
 	}
 
 

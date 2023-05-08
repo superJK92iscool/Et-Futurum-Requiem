@@ -5,9 +5,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.client.InterpolatedIcon;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
-import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -19,7 +17,7 @@ import net.minecraft.world.IBlockAccess;
 
 import java.util.Random;
 
-public class BlockSculk extends Block implements IConfigurable {
+public class BlockSculk extends Block {
 	private InterpolatedIcon sculkTexture;
 	public BlockSculk() {
 		super(Material.ground);
@@ -59,10 +57,5 @@ public class BlockSculk extends Block implements IConfigurable {
 	@Override
 	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_) {
 		return null;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableSculk;
 	}
 }

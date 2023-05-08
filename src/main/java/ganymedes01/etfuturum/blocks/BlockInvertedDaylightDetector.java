@@ -60,9 +60,4 @@ public class BlockInvertedDaylightDetector extends BlockNewDaylightSensor {
 	public void registerBlockIcons(IIconRegister reg) {
 		blockIcon = reg.registerIcon(getTextureName());
 	}
-
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableInvertedDaylightSensor;
-	}
 }

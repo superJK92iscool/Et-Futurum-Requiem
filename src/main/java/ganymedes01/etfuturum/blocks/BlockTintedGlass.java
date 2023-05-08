@@ -3,7 +3,6 @@ package ganymedes01.etfuturum.blocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockGlass;
@@ -12,7 +11,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 
 import java.util.Random;
 
-public class BlockTintedGlass extends BlockGlass implements IConfigurable {
+public class BlockTintedGlass extends BlockGlass {
 	public BlockTintedGlass() {
 		super(Material.glass, false);
 		setHardness(0.3f);
@@ -36,11 +35,6 @@ public class BlockTintedGlass extends BlockGlass implements IConfigurable {
 	@Override
 	public boolean renderAsNormalBlock() {
 		return false;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return ConfigBlocksItems.enableAmethyst;
 	}
 
 	@Override
