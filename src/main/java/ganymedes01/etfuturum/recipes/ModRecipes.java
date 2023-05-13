@@ -1,6 +1,5 @@
 package ganymedes01.etfuturum.recipes;
 
-import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
@@ -20,7 +19,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
-import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -299,11 +297,11 @@ public class ModRecipes {
 		addShapedRecipe(ModBlocks.MOSSY_COBBLESTONE_STAIRS.newItemStack(4), "x  ", "xx ", "xxx", 'x', new ItemStack(Blocks.mossy_cobblestone, 1, 0));
 		addShapedRecipe(ModBlocks.MOSSY_STONE_BRICK_STAIRS.newItemStack(4), "x  ", "xx ", "xxx", 'x', new ItemStack(Blocks.stonebrick, 1, 1));
 
-		int output = ConfigBlocksItems.enableDoorRecipeBuffs ? 3 : 1;
+		int output = ConfigFunctions.enableDoorRecipeBuffs ? 3 : 1;
 		for (int i = 0; i < ModBlocks.DOORS.length; i++) {
 			addShapedRecipe(ModBlocks.DOORS[i].newItemStack(output), "xx", "xx", "xx", 'x', new ItemStack(Blocks.planks, 1, i + 1));
 		}
-		if (ConfigBlocksItems.enableDoorRecipeBuffs) {
+		if (ConfigFunctions.enableDoorRecipeBuffs) {
 			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Items.wooden_door, 3), "xx", "xx", "xx", 'x', "plankWood"));
 			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Items.iron_door, 3), "xx", "xx", "xx", 'x', "ingotIron"));
 		}

@@ -157,6 +157,7 @@ public class ConfigFunctions extends ConfigBase {
 	public static boolean enableAttackedAtYawFix;
 	public static boolean enableSubtitles;
 	public static byte elytraDataWatcherFlag;
+	public static boolean enableDoorRecipeBuffs;
 	public static String subtitleBlacklist;
 	public static String[] extraDropRawOres = new String[] {"oreCopper", "oreTin"};
 
@@ -203,6 +204,7 @@ public class ConfigFunctions extends ConfigBase {
 		hayBaleReducePercent = cfg.getInt("hayBaleReducePercent", catChanges, 20, 0, 99, "If enableHayBaleFalls is true, what percent should we keep for the fall damage?");
 		enableFillCommand = cfg.getBoolean("enableFillCommand", catChanges, true, "Enable the /fill command.");
 		enableAttackedAtYawFix = cfg.getBoolean("enableAttackedAtYawFix", catChanges, true, "Adds a packet to send the attackedAtYaw field value to the client, which allows the screen to tilt based on where damage came from, and either left or right for direction-less sources like drowning or burning, instead of tilting to the left no matter what.");
+		enableDoorRecipeBuffs = cfg.getBoolean("enableDoorRecipeBuffs", catChanges, true, "Backports recipe buffs to doors (from 1 to 3)");
 		
 
 		//settings
