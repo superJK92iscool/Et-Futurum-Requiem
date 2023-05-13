@@ -2,6 +2,7 @@ package ganymedes01.etfuturum.blocks;
 
 import java.util.Random;
 
+import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.client.particle.ParticleHandler;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
@@ -110,6 +111,21 @@ public interface IDegradable {
 			   }
 		   }
 	}
+
+	String[] waxStrings = new String[] {"materialWax", "materialWaxcomb", "materialHoneycomb", "itemBeeswax"};
+
+	static boolean isWaxableMaterial(ItemStack stack) {
+		boolean slimeball = true;
+		for(String waxString : waxStrings) {
+			if(OreDictionary.doesOreNameExist(waxString)) {
+				slimeball = false;
+				if(EtFuturum.hasDictTag(stack, waxString)) {
+					return true;
+				}
+			}
+		}
+		return slimeball && EtFuturum.hasDictTag(stack, "slimeball");
+	}
 	
 	default boolean tryWaxOnWaxOff(World world, int x, int y, int z, EntityPlayer entityPlayer) {
 		boolean flag = false;
@@ -118,22 +134,15 @@ public interface IDegradable {
 		if(entityPlayer.getCurrentEquippedItem() != null) {
 			ItemStack heldStack = entityPlayer.getCurrentEquippedItem();
 			if(meta < 8) {
-				for(int oreID : OreDictionary.getOreIDs(heldStack)) {
-					if((OreDictionary.doesOreNameExist("materialWax") || OreDictionary.doesOreNameExist("materialWaxcomb"))
-							|| OreDictionary.doesOreNameExist("materialHoneycomb") || OreDictionary.doesOreNameExist("itemBeeswax") ?
-							OreDictionary.getOreName(oreID).equals("materialWax") || OreDictionary.getOreName(oreID).equals("materialWaxcomb") ||
-							OreDictionary.getOreName(oreID).equals("materialHoneycomb") || OreDictionary.getOreName(oreID).equals("itemBeeswax") :
-								OreDictionary.getOreName(oreID).equals("slimeball")) {
-						flag = true;
-						
-						if (!entityPlayer.capabilities.isCreativeMode && --heldStack.stackSize <= 0)
-						{
-							entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, (ItemStack)null);
-						}
-						
-						entityPlayer.inventoryContainer.detectAndSendChanges();
-						break;
+				if(isWaxableMaterial(heldStack)) {
+					flag = true;
+
+					if (!entityPlayer.capabilities.isCreativeMode && --heldStack.stackSize <= 0)
+					{
+						entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, (ItemStack)null);
 					}
+
+					entityPlayer.inventoryContainer.detectAndSendChanges();
 				}
 			}
 			if(heldStack.getItem().getToolClasses(heldStack).contains("axe") && (meta % 4 != 0 || meta > 7)) {
