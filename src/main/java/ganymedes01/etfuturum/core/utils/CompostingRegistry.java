@@ -72,8 +72,8 @@ public class CompostingRegistry {
 				new ItemStack(Blocks.hay_block),
 				new ItemStack(Blocks.red_mushroom_block, 1, OreDictionary.WILDCARD_VALUE),
 				new ItemStack(Blocks.brown_mushroom_block, 1, OreDictionary.WILDCARD_VALUE),
-				new ItemStack(ModBlocks.RED_MUSHROOM.get(), 1, OreDictionary.WILDCARD_VALUE),
-				new ItemStack(ModBlocks.BROWN_MUSHROOM.get(), 1, OreDictionary.WILDCARD_VALUE)
+				ModBlocks.RED_MUSHROOM.newItemStack(1, OreDictionary.WILDCARD_VALUE),
+				ModBlocks.BROWN_MUSHROOM.newItemStack(1, OreDictionary.WILDCARD_VALUE)
 		), 85);
 
 		registerCompostable(ImmutableList.of(

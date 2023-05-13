@@ -95,7 +95,7 @@ public class EntityTippedArrow extends EntityArrow implements IEntityAdditionalS
 	{
 		if (this.arrow == null)
 		{
-			this.arrow = new ItemStack(ModItems.TIPPED_ARROW.get(), 1, 0);
+			this.arrow = ModItems.TIPPED_ARROW.newItemStack(1, 0);
 		}
 
 		this.arrow.setItemDamage(p_82340_1_);

@@ -9,6 +9,10 @@ import ganymedes01.etfuturum.items.*;
 import ganymedes01.etfuturum.items.ItemWoodSign;
 import ganymedes01.etfuturum.items.equipment.*;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public enum ModItems {
 	MUTTON_RAW(ConfigBlocksItems.enableMutton, new ItemMuttonRaw()),
@@ -74,10 +78,10 @@ public enum ModItems {
 	ACACIA_CHEST_BOAT(ConfigBlocksItems.enableNewBoats, new ItemNewBoat(EntityNewBoat.Type.ACACIA, true)),
 	DARK_OAK_BOAT(ConfigBlocksItems.enableNewBoats, new ItemNewBoat(EntityNewBoat.Type.DARK_OAK, false)),
 	DARK_OAK_CHEST_BOAT(ConfigBlocksItems.enableNewBoats, new ItemNewBoat(EntityNewBoat.Type.DARK_OAK, true));
-	
-	public static final Item[] signs = new Item[] {ITEM_SIGN_SPRUCE.get(), ITEM_SIGN_BIRCH.get(), ITEM_SIGN_JUNGLE.get(), ITEM_SIGN_ACACIA.get(), ITEM_SIGN_DARK_OAK.get()};
-	public static final Item[] boats = new Item[] {OAK_BOAT.get(), SPRUCE_BOAT.get(), BIRCH_BOAT.get(), JUNGLE_BOAT.get(), ACACIA_BOAT.get(), DARK_OAK_BOAT.get()};
-	public static final Item[] chest_boats = new Item[] {OAK_BOAT.get(), SPRUCE_CHEST_BOAT.get(), BIRCH_CHEST_BOAT.get(), JUNGLE_CHEST_BOAT.get(), ACACIA_CHEST_BOAT.get(), DARK_OAK_CHEST_BOAT.get()};
+
+	public static final ModItems[] CHEST_BOATS = new ModItems[] {OAK_BOAT, SPRUCE_CHEST_BOAT, BIRCH_CHEST_BOAT, JUNGLE_CHEST_BOAT, ACACIA_CHEST_BOAT, DARK_OAK_CHEST_BOAT};
+	public static final ModItems[] BOATS = new ModItems[] {OAK_BOAT, SPRUCE_BOAT, BIRCH_BOAT, JUNGLE_BOAT, ACACIA_BOAT, DARK_OAK_BOAT};
+	public static final ModItems[] ITEM_SIGNS = new ModItems[] {ITEM_SIGN_SPRUCE, ITEM_SIGN_BIRCH, ITEM_SIGN_JUNGLE, ITEM_SIGN_ACACIA, ITEM_SIGN_DARK_OAK};
 
 	/*
 	 * Stand-in static final fields because some mods incorrectly referenced my code directly.
@@ -87,11 +91,28 @@ public enum ModItems {
 	//D-Mod
 	@Deprecated public static final Item sweet_berries = SWEET_BERRIES.get();
 
+	/*
+	 * Exists for the purpose of getting the ModItems entry from an EFR item, so we can get the enum information from it.
+	 * So if it's null it's not an EFR item, and if it isn't null, it's an EFR item.
+	 */
+	private static final Map<Item, ModItems> ITEM_TO_ENUM_MAP = new HashMap<>();
+	static final Map<Item, ModBlocks> ITEMBLOCK_TO_ENUM_MAP = new HashMap<>();
+
+	/**
+	 * Used by mod recipes to check if an item is enabled in a recipe.
+	 * We could just pass ModItems instances in but recipes can have ItemStacks too so we just simply use this one function on everything in the recipe.
+	 */
+	public static boolean isItemEnabled(Item item) {
+		return ITEM_TO_ENUM_MAP.get(item) == null || ITEM_TO_ENUM_MAP.get(item).isEnabled() || ITEMBLOCK_TO_ENUM_MAP.get(item) == null || ITEMBLOCK_TO_ENUM_MAP.get(item).isEnabled();
+	}
+
 	public static void init() {
 		for(ModItems item : values()) {
 			if(item.isEnabled()) { //Honestly what do you think it's doing lmfao
 				GameRegistry.registerItem(item.get(), item.name().toLowerCase());
 			}
+			//It is apparently illegal to access static members from an enum constructor or instance initializer
+			ITEM_TO_ENUM_MAP.put(item.get(), item);
 		}
 	}
 
@@ -106,8 +127,19 @@ public enum ModItems {
 	public boolean isEnabled() {
 		return isEnabled;
 	}
-
 	public Item get() {
 		return theItem;
+	}
+
+	public ItemStack newItemStack() {
+		return newItemStack(1);
+	}
+
+	public ItemStack newItemStack(int count) {
+		return newItemStack(count, 0);
+	}
+
+	public ItemStack newItemStack(int count, int meta) {
+		return new ItemStack(this.get(), count, meta);
 	}
 }

@@ -9,6 +9,7 @@ import java.util.Random;
 
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.recipes.ModRecipes;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.item.EntityMinecartChest;
@@ -862,10 +863,7 @@ public class StructureMesaMineshaftPieces {
 		}
 		
 		protected Block getFence() {
-			if(ConfigBlocksItems.enableFences) {
-				return ModBlocks.fences[4];
-			}
-			return Blocks.fence;
+			return ModBlocks.FENCE_DARK_OAK.isEnabled() ? ModBlocks.FENCE_DARK_OAK.get() : Blocks.fence;
 		}
 		
 		protected int getFenceMeta() {

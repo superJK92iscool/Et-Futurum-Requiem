@@ -28,12 +28,18 @@ public class BlockDeepslateOre extends BlockOre {
 	
 	public Block base;
 
-	public BlockDeepslateOre(Block block) {
+	public BlockDeepslateOre(Block block, boolean defaultMapping) {
 		super();
 		setAttribs(this, block);
 		base = block;
 		setCreativeTab(EtFuturum.creativeTabBlocks);
-		addDeepslateMappings();
+		if(defaultMapping) {
+			addDeepslateMappings();
+		}
+	}
+
+	public BlockDeepslateOre(Block block) {
+		this(block, true);
 	}
 	
 	public static void setAttribs(Block to, Block from) {

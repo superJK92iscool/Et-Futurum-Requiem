@@ -45,7 +45,7 @@ public class BlockWoodSign extends BlockSign {
 	@Override
 	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_)
 	{
-		return ModItems.signs[meta - 1];
+		return ModItems.ITEM_SIGNS[meta - 1].get();
 	}
 	
 
@@ -53,7 +53,7 @@ public class BlockWoodSign extends BlockSign {
 	@SideOnly(Side.CLIENT)
 	public Item getItem(World p_149694_1_, int p_149694_2_, int p_149694_3_, int p_149694_4_)
 	{
-		return ModItems.signs[meta - 1];
+		return ModItems.ITEM_SIGNS[meta - 1].get();
 	}
 
 }

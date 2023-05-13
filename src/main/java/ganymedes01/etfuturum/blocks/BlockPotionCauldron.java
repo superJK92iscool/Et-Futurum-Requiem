@@ -127,7 +127,7 @@ public class BlockPotionCauldron extends BlockCauldronTileEntity implements ISub
 				final int meta = world.getBlockMetadata(x, y, z);
 				final int tipmax = meta == 0 ? 16 : meta == 1 ? 32 : 64;
 				
-				ItemStack tippedArrow = new ItemStack(ModItems.TIPPED_ARROW.get(), Math.min(stack.stackSize, tipmax), potionCauldron.potion.getItemDamage());
+				ItemStack tippedArrow = ModItems.TIPPED_ARROW.newItemStack(Math.min(stack.stackSize, tipmax), potionCauldron.potion.getItemDamage());
 				final int setMeta = tippedArrow.stackSize >= tipmax ? -1 : meta - (tippedArrow.stackSize < 32 ? 1 : 2);
 
 				if (!Items.potionitem.getEffects(potionCauldron.potion).isEmpty() && potionCauldron.potion.hasTagCompound() && potionCauldron.potion.getTagCompound().hasKey("CustomPotionEffects", 9)) {

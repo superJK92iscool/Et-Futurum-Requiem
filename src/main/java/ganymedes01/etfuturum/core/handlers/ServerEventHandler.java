@@ -1060,7 +1060,7 @@ public class ServerEventHandler {
 			if(world.getGameRules().getGameRuleBooleanValue("mobGriefing") && ((BlockWitherRose) ModBlocks.WITHER_ROSE.get()).canPlaceBlockAt(world, (int)entity.posX, (int)entity.posY, (int)entity.posZ)) {
 				world.setBlock((int)entity.posX, (int)entity.posY, (int)entity.posZ, ModBlocks.WITHER_ROSE.get());
 			} else {
-				addDrop(new ItemStack(ModBlocks.WITHER_ROSE.get(), 1, 0), event.entityLiving, event.drops);
+				addDrop(ModBlocks.WITHER_ROSE.newItemStack(1, 0), event.entityLiving, event.drops);
 			}
 		}
 	}
@@ -1538,7 +1538,7 @@ public class ServerEventHandler {
 	public void onDrops(BlockEvent.HarvestDropsEvent event) {
 		if(ConfigBlocksItems.enableSmoothStone && event.block == Blocks.double_stone_slab && event.blockMetadata == 8) {
 			event.drops.clear();
-			event.drops.add(new ItemStack(ModBlocks.SMOOTH_STONE.get(), 1));
+			event.drops.add(ModBlocks.SMOOTH_STONE.newItemStack(1));
 		}
 	}
 	

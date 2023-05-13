@@ -1,6 +1,7 @@
 package ganymedes01.etfuturum.client.renderer.block;
 
 import ganymedes01.etfuturum.ModBlocks;
+import ganymedes01.etfuturum.recipes.ModRecipes;
 import org.lwjgl.opengl.GL11;
 
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
@@ -69,9 +70,9 @@ public class BlockTrapDoorRenderer implements ISimpleBlockRenderingHandler {
 			f2 = f5;
 		}
 		
-		if(block == ModBlocks.trapdoors[4])
+		if(block == ModBlocks.TRAPDOOR_DARK_OAK.get()) {
 			return Minecraft.isAmbientOcclusionEnabled() && block.getLightValue() == 0 ? (renderer.partialRenderBounds ? renderer.renderStandardBlockWithAmbientOcclusionPartial(block, x, y, z, f, f1, f2) : renderer.renderStandardBlockWithAmbientOcclusion(block, x, y, z, f, f1, f2)) : renderer.renderStandardBlockWithColorMultiplier(block, x, y, z, f, f1, f2);
-		
+		}
 
 		if (l <= 3) {
 			renderer.uvRotateEast = 3;

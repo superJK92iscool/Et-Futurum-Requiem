@@ -220,6 +220,6 @@ public class EntityNewBoatWithChest extends EntityNewBoat implements IInventory 
 	@Override
 	public Item getItemBoat()
 	{
-		return ConfigFunctions.dropVehiclesTogether ? ModItems.chest_boats[getBoatType().ordinal()] : super.getItemBoat();
+		return ConfigFunctions.dropVehiclesTogether ? ModItems.CHEST_BOATS[getBoatType().ordinal()].get() : super.getItemBoat();
 	}
 }

@@ -56,8 +56,8 @@ public class BannerPatternHandler extends TemplateRecipeHandler {
 			if (!pattern.hasValidCrafting())
 				continue;
 			if (pattern.hasCraftingStack()) {
-				arecipes.add(new CachedPatternRecipe(pattern, new String[] { "   ", "xy ", " z " }, Arrays.asList('x', pattern.getCraftingStack(), 'y', "dye", 'z', new ItemStack(ModBlocks.BANNER.get(), 1, OreDictionary.WILDCARD_VALUE))).setRandomPermutations());
-				arecipes.add(new CachedPatternRecipe(pattern, new String[] { "   ", "xy ", "   " }, Arrays.asList('x', pattern.getCraftingStack(), 'y', new ItemStack(ModBlocks.BANNER.get(), 1, OreDictionary.WILDCARD_VALUE))).setRandomPermutations());
+				arecipes.add(new CachedPatternRecipe(pattern, new String[] { "   ", "xy ", " z " }, Arrays.asList('x', pattern.getCraftingStack(), 'y', "dye", 'z', ModBlocks.BANNER.newItemStack(1, OreDictionary.WILDCARD_VALUE))).setRandomPermutations());
+				arecipes.add(new CachedPatternRecipe(pattern, new String[] { "   ", "xy ", "   " }, Arrays.asList('x', pattern.getCraftingStack(), 'y', ModBlocks.BANNER.newItemStack(1, OreDictionary.WILDCARD_VALUE))).setRandomPermutations());
 			} else {
 				String[] layers = pattern.getCraftingLayers();
 				String[] layersCopy = new String[] { layers[0], layers[1], layers[2] };
@@ -68,7 +68,7 @@ public class BannerPatternHandler extends TemplateRecipeHandler {
 						break;
 					}
 				}
-				arecipes.add(new CachedPatternRecipe(pattern, layersCopy, Arrays.asList('#', "dye", 'x', new ItemStack(ModBlocks.BANNER.get(), 1, OreDictionary.WILDCARD_VALUE))));
+				arecipes.add(new CachedPatternRecipe(pattern, layersCopy, Arrays.asList('#', "dye", 'x', ModBlocks.BANNER.newItemStack(1, OreDictionary.WILDCARD_VALUE))));
 			}
 		}
 	}
@@ -87,7 +87,7 @@ public class BannerPatternHandler extends TemplateRecipeHandler {
 				if (pattern == null)
 					continue;
 
-				ItemStack copy = new ItemStack(ModBlocks.BANNER.get(), 1, result.getItemDamage());
+				ItemStack copy = ModBlocks.BANNER.newItemStack(1, result.getItemDamage());
 				copy.setTagCompound(null);
 				EnumColour colour = patternNBT.hasKey("Color") ? EnumColour.fromDamage(patternNBT.getInteger("Color")) : null;
 				if (!pattern.hasValidCrafting())
@@ -144,7 +144,7 @@ public class BannerPatternHandler extends TemplateRecipeHandler {
 				if (!pattern.hasValidCrafting())
 					continue;
 				else if (pattern.hasCraftingStack() && OreDictionary.itemMatches(pattern.getCraftingStack(), ingredient, false)) {
-					ItemStack banner = new ItemStack(ModBlocks.BANNER.get(), 1, OreDictionary.WILDCARD_VALUE);
+					ItemStack banner = ModBlocks.BANNER.newItemStack(1, OreDictionary.WILDCARD_VALUE);
 					banner.stackSize = 1;
 					arecipes.add(new CachedPatternRecipe(pattern, new String[] { "   ", "xy ", " z " }, Arrays.asList('x', pattern.getCraftingStack(), 'y', "dye", 'z', banner)).setRandomPermutations());
 					arecipes.add(new CachedPatternRecipe(pattern, new String[] { "   ", "xy ", "   " }, Arrays.asList('x', pattern.getCraftingStack(), 'y', banner)).setRandomPermutations());
@@ -153,7 +153,7 @@ public class BannerPatternHandler extends TemplateRecipeHandler {
 						String oreName = OreDictionary.getOreName(oreID);
 						if (isNameDye(oreName))
 							if (pattern.hasCraftingStack()) {
-								ItemStack banner = new ItemStack(ModBlocks.BANNER.get(), 1, OreDictionary.WILDCARD_VALUE);
+								ItemStack banner = ModBlocks.BANNER.newItemStack(1, OreDictionary.WILDCARD_VALUE);
 								banner.stackSize = 1;
 								arecipes.add(new CachedPatternRecipe(pattern, new String[] { "   ", "xy ", " z " }, Arrays.asList('x', pattern.getCraftingStack(), 'y', oreName, 'z', banner)));
 							} else {
@@ -166,7 +166,7 @@ public class BannerPatternHandler extends TemplateRecipeHandler {
 										break;
 									}
 								}
-								ItemStack banner = new ItemStack(ModBlocks.BANNER.get(), 1, OreDictionary.WILDCARD_VALUE);
+								ItemStack banner = ModBlocks.BANNER.newItemStack(1, OreDictionary.WILDCARD_VALUE);
 								banner.stackSize = 1;
 								arecipes.add(new CachedPatternRecipe(pattern, layersCopy, Arrays.asList('#', oreName, 'x', banner)));
 							}

@@ -13,7 +13,12 @@ import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.tileentities.TileEntityWoodSign;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public enum ModBlocks {
 	CRYING_OBSIDIAN(ConfigBlocksItems.enableCryingObsidian, new BlockCryingObsidian()),
@@ -269,16 +274,19 @@ public enum ModBlocks {
 	GREEN_BED(ConfigBlocksItems.enableDyedBeds, new BlockDyedBed(13), ItemBlockDyedBed.class),
 	BLACK_BED(ConfigBlocksItems.enableDyedBeds, new BlockDyedBed(15), ItemBlockDyedBed.class);
 
-	public static final Block[] signs = new Block[] {SIGN_SPRUCE.get(), SIGN_BIRCH.get(), SIGN_JUNGLE.get(), SIGN_ACACIA.get(), SIGN_DARK_OAK.get()};
-	public static final Block[] wall_signs = new Block[] {WALL_SIGN_SPRUCE.get(), WALL_SIGN_BIRCH.get(), WALL_SIGN_JUNGLE.get(), WALL_SIGN_ACACIA.get(), WALL_SIGN_DARK_OAK.get()};
-	public static final Block[] trapdoors = new Block[] {TRAPDOOR_SPRUCE.get(), TRAPDOOR_BIRCH.get(), TRAPDOOR_JUNGLE.get(), TRAPDOOR_ACACIA.get(), TRAPDOOR_DARK_OAK.get()};
-	public static final Block[] buttons = new Block[] {BUTTON_SPRUCE.get(), BUTTON_BIRCH.get(), BUTTON_JUNGLE.get(), BUTTON_ACACIA.get(), BUTTON_DARK_OAK.get()};
-	public static final Block[] pressure_plates = new Block[] {PRESSURE_PLATE_SPRUCE.get(), PRESSURE_PLATE_BIRCH.get(), PRESSURE_PLATE_JUNGLE.get(), PRESSURE_PLATE_ACACIA.get(), PRESSURE_PLATE_DARK_OAK.get()};
-	public static final Block[] fences = new Block[] {FENCE_SPRUCE.get(), FENCE_BIRCH.get(), FENCE_JUNGLE.get(), FENCE_ACACIA.get(), FENCE_DARK_OAK.get()};
-	public static final Block[] fence_gates = new Block[] {FENCE_GATE_SPRUCE.get(), FENCE_GATE_BIRCH.get(), FENCE_GATE_JUNGLE.get(), FENCE_GATE_ACACIA.get(), FENCE_GATE_DARK_OAK.get()};
-	public static final Block[] doors = new Block[] {DOOR_SPRUCE.get(), DOOR_BIRCH.get(), DOOR_JUNGLE.get(), DOOR_ACACIA.get(), DOOR_DARK_OAK.get()};
-	public static final Block[] beds = new Block[] {WHITE_BED.get(), ORANGE_BED.get(), MAGENTA_BED.get(), LIGHT_BLUE_BED.get(), YELLOW_BED.get(), LIME_BED.get(), PINK_BED.get(), GRAY_BED.get(),
-			LIGHT_GRAY_BED.get(), CYAN_BED.get(), PURPLE_BED.get(), BLUE_BED.get(), BROWN_BED.get(), GREEN_BED.get(), BLACK_BED.get()};
+	public static final ModBlocks[] BEDS = new ModBlocks[] {WHITE_BED, ORANGE_BED, MAGENTA_BED, LIGHT_BLUE_BED, YELLOW_BED, LIME_BED, PINK_BED, GRAY_BED, LIGHT_GRAY_BED, CYAN_BED,
+			PURPLE_BED, BLUE_BED, BROWN_BED, GREEN_BED, BLACK_BED};
+	public static final ModBlocks[] DOORS = new ModBlocks[] {DOOR_SPRUCE, DOOR_BIRCH, DOOR_JUNGLE, DOOR_ACACIA, DOOR_DARK_OAK};
+	public static final ModBlocks[] FENCE_GATES = new ModBlocks[] {FENCE_GATE_SPRUCE, FENCE_GATE_BIRCH, FENCE_GATE_JUNGLE, FENCE_GATE_ACACIA, FENCE_GATE_DARK_OAK};
+	public static final ModBlocks[] FENCES = new ModBlocks[] {FENCE_SPRUCE, FENCE_BIRCH, FENCE_JUNGLE, FENCE_ACACIA, FENCE_DARK_OAK};
+	public static final ModBlocks[] PRESSURE_PLATES = new ModBlocks[] {PRESSURE_PLATE_SPRUCE, PRESSURE_PLATE_BIRCH, PRESSURE_PLATE_JUNGLE, PRESSURE_PLATE_ACACIA, PRESSURE_PLATE_DARK_OAK};
+	public static final ModBlocks[] BUTTONS = new ModBlocks[] {BUTTON_SPRUCE, BUTTON_BIRCH, BUTTON_JUNGLE, BUTTON_ACACIA, BUTTON_DARK_OAK};
+	public static final ModBlocks[] TRAPDOORS = new ModBlocks[] {TRAPDOOR_SPRUCE, TRAPDOOR_BIRCH, TRAPDOOR_JUNGLE, TRAPDOOR_ACACIA, TRAPDOOR_DARK_OAK};
+	public static final ModBlocks[] WALL_SIGNS = new ModBlocks[] {WALL_SIGN_SPRUCE, WALL_SIGN_BIRCH, WALL_SIGN_JUNGLE, WALL_SIGN_ACACIA, WALL_SIGN_DARK_OAK};
+	public static final ModBlocks[] STANDING_SIGNS = new ModBlocks[] {SIGN_SPRUCE, SIGN_BIRCH, SIGN_JUNGLE, SIGN_ACACIA, SIGN_DARK_OAK};
+	public static final ModBlocks[] TERRACOTTA = new ModBlocks[] {WHITE_GLAZED_TERRACOTTA, ORANGE_GLAZED_TERRACOTTA, MAGENTA_GLAZED_TERRACOTTA, LIGHT_BLUE_GLAZED_TERRACOTTA,
+			YELLOW_GLAZED_TERRACOTTA, LIME_GLAZED_TERRACOTTA, PINK_GLAZED_TERRACOTTA, GRAY_GLAZED_TERRACOTTA, LIGHT_GRAY_GLAZED_TERRACOTTA, CYAN_GLAZED_TERRACOTTA,
+			PURPLE_GLAZED_TERRACOTTA, BLUE_GLAZED_TERRACOTTA, BROWN_GLAZED_TERRACOTTA, GREEN_GLAZED_TERRACOTTA, RED_GLAZED_TERRACOTTA, BLACK_GLAZED_TERRACOTTA};
 
 	/*
 	 * Stand-in static final fields because some mods incorrectly referenced my code directly.
@@ -296,17 +304,37 @@ public enum ModBlocks {
 	@Deprecated public static final Block sea_lantern = SEA_LANTERN.get();
 	@Deprecated public static final Block red_sandstone = RED_SANDSTONE.get();
 
+	/**
+	 * Exists for the purpose of getting the ModBlocks entry from an EFR block, so we can get the enum information from it.
+	 * So if it's null it's not an EFR blocks, and if it isn't null, it's an EFR block.
+	 */
+	private static final Map<Block, ModBlocks> BLOCK_TO_ENUM_MAP = new HashMap<>();
+
+	/**
+	 * Used by mod recipes to check if a block is enabled in a recipe.
+	 * We could just pass ModBlocks instances in but recipes can have ItemStacks too so we just simply use this one function on everything in the recipe.
+	 */
+	public static boolean isBlockEnabled(Block block) {
+		return BLOCK_TO_ENUM_MAP.get(block) == null || BLOCK_TO_ENUM_MAP.get(block).isEnabled();
+	}
+
 	public static void init() {
 		for(ModBlocks block : values()) {
-			if(!block.isEnabled()) continue;
+			if(block.isEnabled()) {
+				if (block.getItemBlock() != null || !block.getHasItemBlock()) {
+					GameRegistry.registerBlock(block.get(), block.getItemBlock(), block.name().toLowerCase());
+					//This part is used if the getItemBlock() is not null, so we register a custom ItemBlock class as the ItemBlock
+					//It is also used if the getItemBlock() == null and getHasItemBlock() is false, meaning we WANT to register it as null, making the block have no inventory item.
+				} else {
+					GameRegistry.registerBlock(block.get(), block.name().toLowerCase());
+					//Used if getItemBlock() == null but getHasItemBlock() is true, registering it with a default inventory item.
+				}
+			}
 
-			if (block.getItemBlock() != null || !block.getHasItemBlock()) {
-				GameRegistry.registerBlock(block.get(), block.getItemBlock(), block.name().toLowerCase());
-				//This part is used if the getItemBlock() is not null, so we register a custom ItemBlock class as the ItemBlock
-				//It is also used if the getItemBlock() == null and getHasItemBlock() is false, meaning we WANT to register it as null, making the block have no inventory item.
-			} else {
-				GameRegistry.registerBlock(block.get(), block.name().toLowerCase());
-				//Used if getItemBlock() == null but getHasItemBlock() is true, registering it with a default inventory item.
+			BLOCK_TO_ENUM_MAP.put(block.get(), block);
+			if(Item.getItemFromBlock(block.get()) != null) { //Add it to the ItemBlock map if it has an ItemBlock
+				Item item = Item.getItemFromBlock(block.get());
+				ModItems.ITEMBLOCK_TO_ENUM_MAP.put(item, block);
 			}
 		}
 	}
@@ -349,5 +377,17 @@ public enum ModBlocks {
 	}
 	public boolean isEnabled() {
 		return isEnabled;
+	}
+
+	public ItemStack newItemStack() {
+		return newItemStack(1);
+	}
+
+	public ItemStack newItemStack(int count) {
+		return newItemStack(count, 0);
+	}
+
+	public ItemStack newItemStack(int count, int meta) {
+		return new ItemStack(this.get(), count, meta);
 	}
 }

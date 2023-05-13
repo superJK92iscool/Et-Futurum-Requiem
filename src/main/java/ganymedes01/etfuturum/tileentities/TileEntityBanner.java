@@ -165,7 +165,7 @@ public class TileEntityBanner extends TileEntity {
 	}
 
 	public ItemStack createStack() {
-		ItemStack stack = new ItemStack(ModBlocks.BANNER.get(), 1, getBaseColor());
+		ItemStack stack = ModBlocks.BANNER.newItemStack(1, getBaseColor());
 		NBTTagCompound nbt = new NBTTagCompound();
 		writeToNBT(nbt);
 		nbt.removeTag("x");

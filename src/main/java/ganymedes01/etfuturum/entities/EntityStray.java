@@ -55,20 +55,9 @@ public class EntityStray extends EntitySkeleton {
 	public IEntityLivingData onSpawnWithEgg(IEntityLivingData p_110161_1_)
 	{
 		p_110161_1_ = super.onSpawnWithEgg(p_110161_1_);
-		
-		if (this.getRNG().nextInt(4) > 3) //20% chance
-		{
-			this.tasks.addTask(4, this.aiAttackOnCollide);
-			this.setCurrentItemOrArmor(0, new ItemStack(Items.stone_sword));
-			this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(4.0D); //wither skel values
-			this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.27D); //0.25D default
-		}
-		else
-		{
 			this.tasks.addTask(4, this.aiArrowAttack);
 			this.addRandomArmor();
 			this.enchantEquipment();
-		}
 		
 		/*
 		this.tasks.addTask(4, this.aiArrowAttack );
@@ -121,7 +110,7 @@ public class EntityStray extends EntitySkeleton {
 		entityarrow.setDamage(p_82196_2_ * 2.0F + this.rand.nextGaussian() * 0.25D + this.worldObj.difficultySetting.getDifficultyId() * 0.11F);
 		
 		//final int diff = this.worldObj.difficultySetting.getDifficultyId(); // unused variable
-		entityarrow.setArrow(new ItemStack(ModItems.TIPPED_ARROW.get(), 1, 8202));//Temp
+		entityarrow.setArrow(ModItems.TIPPED_ARROW.newItemStack(1, 8202));//Temp
 		
 		if (i > 0)
 		{

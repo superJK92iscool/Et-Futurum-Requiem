@@ -86,13 +86,13 @@ public class ItemWoodSign extends Item {
 				if (p_77648_7_ == 1)
 				{
 					int i1 = MathHelper.floor_double((player.rotationYaw + 180.0F) * 16.0F / 360.0F + 0.5D) & 15;
-					block = ModBlocks.signs[meta];
-					p_77648_3_.setBlock(p_77648_4_, p_77648_5_, p_77648_6_, ModBlocks.signs[meta], i1, 3);
+					block = ModBlocks.STANDING_SIGNS[meta].get();
+					p_77648_3_.setBlock(p_77648_4_, p_77648_5_, p_77648_6_, ModBlocks.STANDING_SIGNS[meta].get(), i1, 3);
 				}
 				else
 				{
-					block = ModBlocks.wall_signs[meta];
-					p_77648_3_.setBlock(p_77648_4_, p_77648_5_, p_77648_6_, ModBlocks.wall_signs[meta], p_77648_7_, 3);
+					block = ModBlocks.WALL_SIGNS[meta].get();
+					p_77648_3_.setBlock(p_77648_4_, p_77648_5_, p_77648_6_, ModBlocks.WALL_SIGNS[meta].get(), p_77648_7_, 3);
 				}
 				
 				//Disable the sound for continuity, so it doesn't play when the event-based player would not
@@ -105,7 +105,7 @@ public class ItemWoodSign extends Item {
 				{
 					if(player instanceof EntityPlayerMP) {
 						tileentitysign.func_145912_a(player);
-						EtFuturum.networkWrapper.sendTo(new WoodSignOpenMessage(tileentitysign, (byte) (meta + (p_77648_7_ != 1 ? ModBlocks.signs.length : 0))), (EntityPlayerMP) player);
+						EtFuturum.networkWrapper.sendTo(new WoodSignOpenMessage(tileentitysign, (byte) (meta + (p_77648_7_ != 1 ? ModBlocks.STANDING_SIGNS.length : 0))), (EntityPlayerMP) player);
 					}
 				}
 				return true;

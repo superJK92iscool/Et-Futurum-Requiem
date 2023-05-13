@@ -5,6 +5,7 @@ import ganymedes01.etfuturum.ModItems;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
@@ -42,63 +43,63 @@ public class CompatThaumcraft {
 		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.PRISMARINE_SHARD.get()), new AspectList().add(Aspect.WATER, 1).add(Aspect.EARTH, 1) );
 		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.TOTEM_OF_UNDYING.get()), new AspectList().add(Aspect.ORDER, 2).add(Aspect.ENTROPY, 2).add(Aspect.LIFE, 5).add(Aspect.UNDEAD, 2) );
 
-		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.MUTTON_RAW.get(), 1, 32767), new AspectList().add(Aspect.BEAST, 2).add(Aspect.LIFE, 1).add(Aspect.EARTH, 1));
-		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.MUTTON_COOKED.get(), 1, 32767), new AspectList().add(Aspect.CRAFT, 1).add(Aspect.BEAST, 1).add(Aspect.LIFE, 2));
-		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.RABBIT_RAW.get(), 1, 32767), new AspectList().add(Aspect.BEAST, 2).add(Aspect.LIFE, 1).add(Aspect.EARTH, 1));
-		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.RABBIT_COOKED.get(), 1, 32767), new AspectList().add(Aspect.CRAFT, 1).add(Aspect.BEAST, 1).add(Aspect.LIFE, 2));
-		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.RABBIT_HIDE.get(), 1, 32767), new AspectList().add(Aspect.BEAST, 1).add(Aspect.ARMOR, 1));
-		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.RABBIT_FOOT.get(), 1, 32767), new AspectList().add(Aspect.BEAST, 1).add(Aspect.ARMOR, 1).add(Aspect.MOTION, 2));
+		ThaumcraftApi.registerObjectTag(ModItems.MUTTON_RAW.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList().add(Aspect.BEAST, 2).add(Aspect.LIFE, 1).add(Aspect.EARTH, 1));
+		ThaumcraftApi.registerObjectTag(ModItems.MUTTON_COOKED.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList().add(Aspect.CRAFT, 1).add(Aspect.BEAST, 1).add(Aspect.LIFE, 2));
+		ThaumcraftApi.registerObjectTag(ModItems.RABBIT_RAW.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList().add(Aspect.BEAST, 2).add(Aspect.LIFE, 1).add(Aspect.EARTH, 1));
+		ThaumcraftApi.registerObjectTag(ModItems.RABBIT_COOKED.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList().add(Aspect.CRAFT, 1).add(Aspect.BEAST, 1).add(Aspect.LIFE, 2));
+		ThaumcraftApi.registerObjectTag(ModItems.RABBIT_HIDE.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList().add(Aspect.BEAST, 1).add(Aspect.ARMOR, 1));
+		ThaumcraftApi.registerObjectTag(ModItems.RABBIT_FOOT.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList().add(Aspect.BEAST, 1).add(Aspect.ARMOR, 1).add(Aspect.MOTION, 2));
 		
 		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.TIPPED_ARROW.get()), new AspectList().add(Aspect.WEAPON, 1).add(Aspect.MAGIC, 2) );
 		
 		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.PIGSTEP_RECORD.get()), new AspectList().add(Aspect.SENSES, 4).add(Aspect.AIR, 4).add(Aspect.GREED, 4).add(Aspect.FIRE, 2).add(Aspect.BEAST, 2) );
 		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.OTHERSIDE_RECORD.get()), new AspectList().add(Aspect.SENSES, 4).add(Aspect.AIR, 4).add(Aspect.GREED, 4).add(Aspect.FIRE, 2).add(Aspect.ELDRITCH, 2) );
 		
-		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.LINGERING_POTION.get(),1,32767), new AspectList().add(Aspect.TRAP, 1).add(Aspect.WATER, 1).add(Aspect.MAGIC, 2) );
-		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.LINGERING_POTION.get(),1,0), new AspectList().add(Aspect.CRYSTAL, 1).add(Aspect.WATER, 1) );
+		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList().add(Aspect.TRAP, 1).add(Aspect.WATER, 1).add(Aspect.MAGIC, 2) );
+		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 0), new AspectList().add(Aspect.CRYSTAL, 1).add(Aspect.WATER, 1) );
 		//regen
-		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.LINGERING_POTION.get(),1,8193), new AspectList(new ItemStack(ModItems.LINGERING_POTION.get(),1,32767)).add(Aspect.HEAL, 3) );
-		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.LINGERING_POTION.get(),1,8225), new AspectList(new ItemStack(ModItems.LINGERING_POTION.get(),1,32767)).add(Aspect.HEAL, 6).add(Aspect.MAGIC, 2) );
-		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.LINGERING_POTION.get(),1,8257), new AspectList(new ItemStack(ModItems.LINGERING_POTION.get(),1,32767)).add(Aspect.HEAL, 3) );
+		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8193), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.HEAL, 3) );
+		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8225), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.HEAL, 6).add(Aspect.MAGIC, 2) );
+		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8257), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.HEAL, 3) );
 		//speed
-		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.LINGERING_POTION.get(),1,8194), new AspectList(new ItemStack(ModItems.LINGERING_POTION.get(),1,32767)).add(Aspect.MOTION, 3) );
-		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.LINGERING_POTION.get(),1,8226), new AspectList(new ItemStack(ModItems.LINGERING_POTION.get(),1,32767)).add(Aspect.MOTION, 6).add(Aspect.MAGIC, 2) );
-		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.LINGERING_POTION.get(),1,8258), new AspectList(new ItemStack(ModItems.LINGERING_POTION.get(),1,32767)).add(Aspect.MOTION, 3) );
+		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8194), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.MOTION, 3) );
+		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8226), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.MOTION, 6).add(Aspect.MAGIC, 2) );
+		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8258), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.MOTION, 3) );
 		//fire res
-		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.LINGERING_POTION.get(),1,8227), new AspectList(new ItemStack(ModItems.LINGERING_POTION.get(),1,32767)).add(Aspect.FIRE, 2).add(Aspect.ARMOR, 1) );
-		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.LINGERING_POTION.get(),1,8259), new AspectList(new ItemStack(ModItems.LINGERING_POTION.get(),1,32767)).add(Aspect.FIRE, 2).add(Aspect.ARMOR, 1) );
+		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8227), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.FIRE, 2).add(Aspect.ARMOR, 1) );
+		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8259), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.FIRE, 2).add(Aspect.ARMOR, 1) );
 		//poison
-		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.LINGERING_POTION.get(),1,8196), new AspectList(new ItemStack(ModItems.LINGERING_POTION.get(),1,32767)).add(Aspect.POISON, 3) );
-		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.LINGERING_POTION.get(),1,8228), new AspectList(new ItemStack(ModItems.LINGERING_POTION.get(),1,32767)).add(Aspect.POISON, 6).add(Aspect.MAGIC, 2) );
-		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.LINGERING_POTION.get(),1,8260), new AspectList(new ItemStack(ModItems.LINGERING_POTION.get(),1,32767)).add(Aspect.POISON, 3) );
+		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8196), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.POISON, 3) );
+		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8228), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.POISON, 6).add(Aspect.MAGIC, 2) );
+		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8260), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.POISON, 3) );
 		//healing
-		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.LINGERING_POTION.get(),1,8229), new AspectList(new ItemStack(ModItems.LINGERING_POTION.get(),1,32767)).add(Aspect.HEAL, 3) );
-		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.LINGERING_POTION.get(),1,8261), new AspectList(new ItemStack(ModItems.LINGERING_POTION.get(),1,32767)).add(Aspect.HEAL, 3) );
+		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8229), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.HEAL, 3) );
+		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8261), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.HEAL, 3) );
 		//NV
-		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.LINGERING_POTION.get(),1,8230), new AspectList(new ItemStack(ModItems.LINGERING_POTION.get(),1,32767)).add(Aspect.SENSES, 3) );
-		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.LINGERING_POTION.get(),1,8262), new AspectList(new ItemStack(ModItems.LINGERING_POTION.get(),1,32767)).add(Aspect.SENSES, 3) );
+		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8230), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.SENSES, 3) );
+		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8262), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.SENSES, 3) );
 		//weakness
-		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.LINGERING_POTION.get(),1,8232), new AspectList(new ItemStack(ModItems.LINGERING_POTION.get(),1,32767)).add(Aspect.DEATH, 3) );
-		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.LINGERING_POTION.get(),1,8264), new AspectList(new ItemStack(ModItems.LINGERING_POTION.get(),1,32767)).add(Aspect.DEATH, 3) );
+		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8232), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.DEATH, 3) );
+		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8264), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.DEATH, 3) );
 		//strength
-		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.LINGERING_POTION.get(),1,8201), new AspectList(new ItemStack(ModItems.LINGERING_POTION.get(),1,32767)).add(Aspect.WEAPON, 3) );
-		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.LINGERING_POTION.get(),1,8233), new AspectList(new ItemStack(ModItems.LINGERING_POTION.get(),1,32767)).add(Aspect.WEAPON, 6).add(Aspect.MAGIC, 2) );
-		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.LINGERING_POTION.get(),1,8264), new AspectList(new ItemStack(ModItems.LINGERING_POTION.get(),1,32767)).add(Aspect.WEAPON, 3) );
+		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8201), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.WEAPON, 3) );
+		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8233), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.WEAPON, 6).add(Aspect.MAGIC, 2) );
+		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8264), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.WEAPON, 3) );
 		//slowness
-		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.LINGERING_POTION.get(),1,8234), new AspectList(new ItemStack(ModItems.LINGERING_POTION.get(),1,32767)).add(Aspect.TRAP, 3) );
-		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.LINGERING_POTION.get(),1,8266), new AspectList(new ItemStack(ModItems.LINGERING_POTION.get(),1,32767)).add(Aspect.TRAP, 3) );
+		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8234), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.TRAP, 3) );
+		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8266), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.TRAP, 3) );
 		//leaping
-		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.LINGERING_POTION.get(),1,8235), new AspectList(new ItemStack(ModItems.LINGERING_POTION.get(),1,32767)).add(Aspect.FLIGHT, 3) );
-		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.LINGERING_POTION.get(),1,8267), new AspectList(new ItemStack(ModItems.LINGERING_POTION.get(),1,32767)).add(Aspect.FLIGHT, 3) );
+		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8235), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.FLIGHT, 3) );
+		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8267), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.FLIGHT, 3) );
 		//damage
-		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.LINGERING_POTION.get(),1,8236), new AspectList(new ItemStack(ModItems.LINGERING_POTION.get(),1,32767)).add(Aspect.DEATH, 3) );
-		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.LINGERING_POTION.get(),1,8268), new AspectList(new ItemStack(ModItems.LINGERING_POTION.get(),1,32767)).add(Aspect.DEATH, 3) );
+		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8236), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.DEATH, 3) );
+		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8268), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.DEATH, 3) );
 		//water breathing
-		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.LINGERING_POTION.get(),1,8237), new AspectList(new ItemStack(ModItems.LINGERING_POTION.get(),1,32767)).add(Aspect.AIR, 3) );
-		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.LINGERING_POTION.get(),1,8269), new AspectList(new ItemStack(ModItems.LINGERING_POTION.get(),1,32767)).add(Aspect.AIR, 3) );
+		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8237), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.AIR, 3) );
+		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8269), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.AIR, 3) );
 		//invis
-		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.LINGERING_POTION.get(),1,8238), new AspectList(new ItemStack(ModItems.LINGERING_POTION.get(),1,32767)).add(Aspect.SENSES, 3) );
-		ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.LINGERING_POTION.get(),1,8270), new AspectList(new ItemStack(ModItems.LINGERING_POTION.get(),1,32767)).add(Aspect.SENSES, 3) );
+		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8238), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.SENSES, 3) );
+		ThaumcraftApi.registerObjectTag(ModItems.LINGERING_POTION.newItemStack(1, 8270), new AspectList(ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)).add(Aspect.SENSES, 3) );
 		
 		
 		//blocks
@@ -113,41 +114,54 @@ public class CompatThaumcraft {
 		ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.END_ROD.get()), new AspectList().add(Aspect.LIGHT, 2).add(Aspect.FIRE, 1) );
 		ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.GRASS_PATH.get()), new AspectList(new ItemStack(Blocks.dirt)).add(Aspect.ORDER, 1) );
 		ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.FROSTED_ICE.get()), new AspectList(new ItemStack(Blocks.ice)).add(Aspect.ENTROPY, 1) );
-		ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.LOG_STRIPPED.get(),1,32767), new AspectList(new ItemStack(Blocks.log)) );
-		ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.LOG2_STRIPPED.get(),1,32767), new AspectList(new ItemStack(Blocks.log2)) );
+		ThaumcraftApi.registerObjectTag(ModBlocks.LOG_STRIPPED.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList(new ItemStack(Blocks.log)) );
+		ThaumcraftApi.registerObjectTag(ModBlocks.LOG2_STRIPPED.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList(new ItemStack(Blocks.log2)) );
 		ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.MAGMA.get()), new AspectList().add(Aspect.FIRE, 2).add(Aspect.EARTH, 1) );
 		ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.ROSE.get()), new AspectList(new ItemStack(Blocks.red_flower)) );
 		
 		ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.BROWN_MUSHROOM.get()), new AspectList(new ItemStack(Blocks.brown_mushroom)) );
 		ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.RED_MUSHROOM.get()), new AspectList(new ItemStack(Blocks.red_mushroom)) );
 		
-		ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.RED_SANDSTONE.get(), 1, 0), new AspectList(new ItemStack(Blocks.sandstone)) );
+		ThaumcraftApi.registerObjectTag(ModBlocks.RED_SANDSTONE.newItemStack(1, 0), new AspectList(new ItemStack(Blocks.sandstone)) );
 		//ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.red_sandstone, 1, 1), new AspectList(new ItemStack(Blocks.sandstone,1,1)) );
 		//ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.red_sandstone, 1, 2), new AspectList(new ItemStack(Blocks.sandstone,1,2)) );
 		
-		ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.SPONGE.get(),1,0), new AspectList().add(Aspect.EARTH, 1).add(Aspect.TRAP, 1).add(Aspect.VOID, 1) );
-		ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.SPONGE.get(),1,1), new AspectList().add(Aspect.EARTH, 1).add(Aspect.TRAP, 1).add(Aspect.WATER, 1) );
+		ThaumcraftApi.registerObjectTag(ModBlocks.SPONGE.newItemStack(1, 0), new AspectList().add(Aspect.EARTH, 1).add(Aspect.TRAP, 1).add(Aspect.VOID, 1) );
+		ThaumcraftApi.registerObjectTag(ModBlocks.SPONGE.newItemStack(1, 1), new AspectList().add(Aspect.EARTH, 1).add(Aspect.TRAP, 1).add(Aspect.WATER, 1) );
 		
-		ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.STONE.get(),1,32767), new AspectList(new ItemStack(Blocks.stone)) );
+		ThaumcraftApi.registerObjectTag(ModBlocks.STONE.newItemStack(1, OreDictionary.WILDCARD_VALUE), new AspectList(new ItemStack(Blocks.stone)) );
 		//ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.stone,1,3), new AspectList(new ItemStack(Blocks.stone)) );
 		//ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.stone,1,5), new AspectList(new ItemStack(Blocks.stone)) );
 		
 		// copies
 		
-		for (int i = 0; i < ModBlocks.trapdoors.length; i++)
-			ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.trapdoors[i]), new AspectList(new ItemStack(Blocks.trapdoor)) );
+		for (int i = 0; i < ModBlocks.TRAPDOORS.length; i++) {
+			ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.TRAPDOORS[i].get()), new AspectList(new ItemStack(Blocks.trapdoor)));
+		}
 		
-		for (int i = 0; i < ModBlocks.fence_gates.length; i++)
-			ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.fence_gates[i]), new AspectList(new ItemStack(Blocks.fence_gate)) );
+		for (int i = 0; i < ModBlocks.FENCE_GATES.length; i++) {
+			ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.FENCE_GATES[i].get()), new AspectList(new ItemStack(Blocks.fence_gate)));
+		}
 		
-		for (int i = 0; i < ModBlocks.doors.length; i++)
-			ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.doors[i]), new AspectList(new ItemStack(Items.wooden_door)) );
+		for (int i = 0; i < ModBlocks.DOORS.length; i++) {
+			ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.DOORS[i].get()), new AspectList(new ItemStack(Items.wooden_door)));
+		}
 		
-		for (int i = 0; i < ModBlocks.buttons.length; i++)
-			ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.buttons[i]), new AspectList(new ItemStack(Blocks.wooden_button)) );
+		for (int i = 0; i < ModBlocks.BUTTONS.length; i++) {
+			ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.BUTTONS[i].get()), new AspectList(new ItemStack(Blocks.wooden_button)));
+		}
+
+		for (int i = 0; i < ModBlocks.PRESSURE_PLATES.length; i++) {
+			ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.PRESSURE_PLATES[i].get()), new AspectList(new ItemStack(Blocks.wooden_pressure_plate)));
+		}
 		
-		for (int i = 0; i < ModItems.boats.length; i++)
-			ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.boats[i]), new AspectList(new ItemStack(Items.boat)) );
+		for (int i = 0; i < ModItems.BOATS.length; i++) {
+			ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.BOATS[i].get()), new AspectList(new ItemStack(Items.boat)));
+		}
+
+		for (int i = 0; i < ModItems.CHEST_BOATS.length; i++) {
+			ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.CHEST_BOATS[i].get()), new AspectList(new ItemStack(Items.boat)));
+		}
 		
 		for (int i = 0; i < 16; i++) {
 			//ConcreteRegistry.concretePowders.put(color, new BlockConcretePowder(color));
@@ -155,8 +169,8 @@ public class CompatThaumcraft {
 			//ConcreteRegistry.concretes.put(color, new BlockConcrete(color));
 			//GameRegistry.registerBlock(ConcreteRegistry.concretes.get(color), ItemBlockConcrete.class, "concrete_" + color.getUnlocalizedName());
 			
-			ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.CONCRETE_POWDER.get(), 8, i), new AspectList().add(Aspect.EARTH, 3).add(Aspect.ENTROPY, 2) );
-			ThaumcraftApi.registerObjectTag(new ItemStack(ModBlocks.CONCRETE.get(), 8, i), new AspectList(new ItemStack(ModBlocks.CONCRETE_POWDER.get(), 8, i)).add(Aspect.WATER, 1).add(Aspect.ORDER, 1) );
+			ThaumcraftApi.registerObjectTag(ModBlocks.CONCRETE_POWDER.newItemStack(8, i), new AspectList().add(Aspect.EARTH, 3).add(Aspect.ENTROPY, 2) );
+			ThaumcraftApi.registerObjectTag(ModBlocks.CONCRETE.newItemStack(8, i), new AspectList(ModBlocks.CONCRETE_POWDER.newItemStack(8, i)).add(Aspect.WATER, 1).add(Aspect.ORDER, 1) );
 			
 		}
 		

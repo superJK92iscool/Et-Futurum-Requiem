@@ -326,9 +326,9 @@ public class EntityNewBoat extends Entity {
 	public Item getItemBoat()
 	{
 		if(getBoatType() == Type.OAK) {
-			return ConfigBlocksItems.replaceOldBoats ? Items.boat : ModItems.boats[0];
+			return ConfigBlocksItems.replaceOldBoats ? Items.boat : ModItems.OAK_BOAT.get();
 		}
-		return ModItems.boats[getBoatType().ordinal()];
+		return ModItems.BOATS[getBoatType().ordinal()].get();
 	}
 
 	/**

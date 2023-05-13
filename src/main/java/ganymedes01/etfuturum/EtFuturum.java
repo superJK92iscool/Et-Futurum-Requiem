@@ -162,7 +162,6 @@ public class EtFuturum {
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-
 		try {
 			Field chestInfo = ChestGenHooks.class.getDeclaredField("chestInfo");
 			chestInfo.setAccessible(true);
