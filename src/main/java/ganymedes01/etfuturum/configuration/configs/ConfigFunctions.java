@@ -165,6 +165,7 @@ public class ConfigFunctions extends ConfigBase {
 	static final String catChanges = "changes";
 	static final String catSettings = "settings";
 	static final String catClient = "client";
+	static final String catCommands = "client";
 
 	public static final String PATH = configDir + File.separator + "functions.cfg";
 	public static final ConfigFunctions configInstance = new ConfigFunctions(new File(Launch.minecraftHome, PATH));
@@ -174,11 +175,13 @@ public class ConfigFunctions extends ConfigBase {
 		setCategoryComment(catUpdateChecker, "Category solely for the update checker, to make it easier to find and disable for those who don't want it.");
 		setCategoryComment(catChanges, "Changes to existing content.");
 		setCategoryComment(catSettings, "Settings for Et Futurum content.");
+		setCategoryComment(catCommands, "New commands");
 		setCategoryComment(catClient, "Client-side settings or changes.");
 
 		configCats.add(getCategory(catUpdateChecker));
 		configCats.add(getCategory(catChanges));
 		configCats.add(getCategory(catSettings));
+		configCats.add(getCategory(catCommands));
 		configCats.add(getCategory(catClient));
 	}
 
@@ -202,7 +205,6 @@ public class ConfigFunctions extends ConfigBase {
 		enableHayBaleFalls = cfg.getBoolean("enableHayBaleFalls", catChanges, true, "If true, fall damage on a hay bale will be reduced");
 		enableHoeMining = cfg.getBoolean("enableHoeMining", catChanges, true, "Allows blocks like hay bales, leaves etc to mine faster with hoes");
 		hayBaleReducePercent = cfg.getInt("hayBaleReducePercent", catChanges, 20, 0, 99, "If enableHayBaleFalls is true, what percent should we keep for the fall damage?");
-		enableFillCommand = cfg.getBoolean("enableFillCommand", catChanges, true, "Enable the /fill command.");
 		enableAttackedAtYawFix = cfg.getBoolean("enableAttackedAtYawFix", catChanges, true, "Adds a packet to send the attackedAtYaw field value to the client, which allows the screen to tilt based on where damage came from, and either left or right for direction-less sources like drowning or burning, instead of tilting to the left no matter what.");
 		enableDoorRecipeBuffs = cfg.getBoolean("enableDoorRecipeBuffs", catChanges, true, "Backports recipe buffs to doors (from 1 to 3)");
 		
@@ -229,6 +231,9 @@ public class ConfigFunctions extends ConfigBase {
 		enableGamemodeSwitcher = cfg.getBoolean("enableGamemodeSwitcher", catClient, true, "Enable the new F3+F4 gamemode switcher from 1.16+");
 		enableNewF3Behavior = cfg.getBoolean("enableNewF3Behavior", catClient, true, "Make F3 only show/hide info on release, and not if another key is pressed");
 		enableNewTextures = cfg.getBoolean("enableNewTextures", catClient, true, "Replace tall grass and sponge textures with modern version");
+
+		//commands
+		enableFillCommand = cfg.getBoolean("enableFillCommand", catCommands, true, "Enable the /fill command.");
 
 		enableSubtitles = cfg.getBoolean("enableSubtitles", catClient, false, "Enable subtitles");
 		subtitleBlacklist = cfg.getString("subtitleBlacklist", catClient, "^(dig\\.*)", "Regex of subtitles to blacklist");
