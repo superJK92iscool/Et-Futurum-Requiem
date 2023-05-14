@@ -5,7 +5,7 @@ import java.util.List;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModItems;
-import ganymedes01.etfuturum.core.utils.BrewingFuelRegistry;
+import ganymedes01.etfuturum.api.BrewingFuelRegistry;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.entity.item.EntityItem;

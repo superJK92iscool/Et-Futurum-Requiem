@@ -1,5 +1,7 @@
-package ganymedes01.etfuturum.core.utils;
+package ganymedes01.etfuturum.api;
 
+import ganymedes01.etfuturum.core.utils.ItemStackSet;
+import ganymedes01.etfuturum.core.utils.Logger;
 import net.minecraft.block.Block;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;

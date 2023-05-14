@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.api.elytra;
+package ganymedes01.etfuturum.elytra;
 
 public interface IElytraPlayer {
 	boolean etfu$isElytraFlying();

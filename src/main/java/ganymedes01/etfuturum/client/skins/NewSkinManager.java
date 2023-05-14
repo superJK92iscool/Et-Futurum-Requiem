@@ -9,7 +9,7 @@ import com.mojang.authlib.minecraft.MinecraftSessionService;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ganymedes01.etfuturum.api.client.ISkinDownloadCallback;
+import ganymedes01.etfuturum.client.skins.client.ISkinDownloadCallback;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.client.renderer.IImageBuffer;
 import net.minecraft.client.renderer.texture.ITextureObject;

@@ -1,11 +1,11 @@
-package ganymedes01.etfuturum.core.utils;
+package ganymedes01.etfuturum.api;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
-import ganymedes01.etfuturum.core.utils.helpers.RawOreDropMapping;
+import ganymedes01.etfuturum.api.mappings.RawOreDropMapping;
 import net.minecraft.item.Item;
 import net.minecraftforge.oredict.OreDictionary;
 

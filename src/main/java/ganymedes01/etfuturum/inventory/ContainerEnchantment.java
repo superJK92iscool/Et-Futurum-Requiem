@@ -1,7 +1,7 @@
 package ganymedes01.etfuturum.inventory;
 
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.core.utils.EnchantingFuelRegistry;
+import ganymedes01.etfuturum.api.EnchantingFuelRegistry;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.enchantment.EnchantmentData;
 import net.minecraft.enchantment.EnchantmentHelper;

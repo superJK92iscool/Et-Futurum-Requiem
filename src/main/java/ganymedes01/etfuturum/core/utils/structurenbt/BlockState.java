@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.core.utils.helpers;
+package ganymedes01.etfuturum.core.utils.structurenbt;
 
 import ganymedes01.etfuturum.core.utils.Logger;
 import ganymedes01.etfuturum.entities.EntityShulker;

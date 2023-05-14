@@ -1,9 +1,8 @@
 package ganymedes01.etfuturum.mixins.elytra;
 
-import ganymedes01.etfuturum.api.elytra.IElytraPlayer;
+import ganymedes01.etfuturum.elytra.IElytraPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.NetHandlerPlayServer;
-import net.minecraft.network.play.client.C03PacketPlayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;

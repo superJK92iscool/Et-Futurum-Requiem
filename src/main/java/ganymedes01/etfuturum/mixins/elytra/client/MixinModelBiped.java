@@ -1,6 +1,6 @@
 package ganymedes01.etfuturum.mixins.elytra.client;
 
-import ganymedes01.etfuturum.api.elytra.IElytraPlayer;
+import ganymedes01.etfuturum.elytra.IElytraPlayer;
 import ganymedes01.etfuturum.client.renderer.entity.elytra.LayerBetterElytra;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;

@@ -1,8 +1,7 @@
 package ganymedes01.etfuturum.compat.cthandlers;
 
 import ganymedes01.etfuturum.compat.CompatCraftTweaker;
-import ganymedes01.etfuturum.core.utils.EnchantingFuelRegistry;
-import ganymedes01.etfuturum.core.utils.ItemStackMap;
+import ganymedes01.etfuturum.api.EnchantingFuelRegistry;
 import ganymedes01.etfuturum.core.utils.ItemStackSet;
 import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
@@ -14,7 +13,6 @@ import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
 import java.util.List;
-import java.util.Map;
 
 import static ganymedes01.etfuturum.compat.CompatCraftTweaker.getInternal;
 

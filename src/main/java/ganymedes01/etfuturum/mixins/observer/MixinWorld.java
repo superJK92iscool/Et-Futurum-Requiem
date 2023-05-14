@@ -1,6 +1,6 @@
 package ganymedes01.etfuturum.mixins.observer;
 
-import ganymedes01.etfuturum.api.IBlockObserver;
+import ganymedes01.etfuturum.blocks.IBlockObserver;
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;

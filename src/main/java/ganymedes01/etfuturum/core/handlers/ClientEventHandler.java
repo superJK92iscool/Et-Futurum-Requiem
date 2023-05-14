@@ -10,7 +10,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.EtFuturumMixinPlugin;
-import ganymedes01.etfuturum.api.elytra.IElytraPlayer;
+import ganymedes01.etfuturum.elytra.IElytraPlayer;
 import ganymedes01.etfuturum.blocks.BlockShulkerBox;
 import ganymedes01.etfuturum.blocks.IMultiStepSound;
 import ganymedes01.etfuturum.client.OpenGLHelper;

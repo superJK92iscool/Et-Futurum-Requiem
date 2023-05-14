@@ -1,8 +1,7 @@
 package ganymedes01.etfuturum.client.renderer.entity.elytra;
 
-import ganymedes01.etfuturum.api.elytra.IClientElytraPlayer;
-import ganymedes01.etfuturum.api.elytra.IElytraPlayer;
-import net.minecraft.client.entity.AbstractClientPlayer;
+import ganymedes01.etfuturum.elytra.IClientElytraPlayer;
+import ganymedes01.etfuturum.elytra.IElytraPlayer;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;

@@ -1,8 +1,10 @@
-package ganymedes01.etfuturum.core.utils;
+package ganymedes01.etfuturum.api;
 
 import com.google.common.collect.ImmutableList;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
+import ganymedes01.etfuturum.core.utils.ItemStackMap;
+import ganymedes01.etfuturum.core.utils.Logger;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;

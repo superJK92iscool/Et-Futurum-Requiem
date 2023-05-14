@@ -1,6 +1,6 @@
 package ganymedes01.etfuturum.mixins.elytra;
 
-import ganymedes01.etfuturum.api.elytra.IElytraEntityTrackerEntry;
+import ganymedes01.etfuturum.elytra.IElytraEntityTrackerEntry;
 import net.minecraft.entity.EntityTrackerEntry;
 import org.spongepowered.asm.mixin.Mixin;
 

@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.api.waila;
+package ganymedes01.etfuturum.compat.waila;
 
 import cpw.mods.fml.common.event.FMLInterModComms;
 import ganymedes01.etfuturum.blocks.BlockPotionCauldron;

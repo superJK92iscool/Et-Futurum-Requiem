@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.core.utils;
+package ganymedes01.etfuturum.api;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.core.utils.helpers;
+package ganymedes01.etfuturum.api.mappings;
 
 import java.util.Random;
 

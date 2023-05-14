@@ -1,11 +1,11 @@
-package ganymedes01.etfuturum.core.utils;
+package ganymedes01.etfuturum.api;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
-import ganymedes01.etfuturum.core.utils.helpers.BlockAndMetadataMapping;
+import ganymedes01.etfuturum.api.mappings.BlockAndMetadataMapping;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 

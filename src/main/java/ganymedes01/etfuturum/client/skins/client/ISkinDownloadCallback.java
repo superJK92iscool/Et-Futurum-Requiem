@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.api.client;
+package ganymedes01.etfuturum.client.skins.client;
 
 import com.mojang.authlib.minecraft.MinecraftProfileTexture.Type;
 

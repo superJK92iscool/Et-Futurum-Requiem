@@ -1,9 +1,8 @@
 package ganymedes01.etfuturum.compat.cthandlers;
 
 import ganymedes01.etfuturum.compat.CompatCraftTweaker;
-import ganymedes01.etfuturum.core.utils.BrewingFuelRegistry;
+import ganymedes01.etfuturum.api.BrewingFuelRegistry;
 import ganymedes01.etfuturum.core.utils.ItemStackMap;
-import ganymedes01.etfuturum.recipes.BlastFurnaceRecipes;
 import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;

@@ -1,6 +1,6 @@
 package ganymedes01.etfuturum.mixins.elytra.client;
 
-import ganymedes01.etfuturum.api.elytra.IElytraPlayer;
+import ganymedes01.etfuturum.elytra.IElytraPlayer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.EntityRenderer;
 import org.lwjgl.opengl.GL11;

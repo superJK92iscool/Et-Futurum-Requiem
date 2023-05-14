@@ -9,7 +9,7 @@ import codechicken.nei.recipe.IUsageHandler;
 import codechicken.nei.recipe.TemplateRecipeHandler;
 import ganymedes01.etfuturum.EtFuturumLootTables;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.core.utils.CompostingRegistry;
+import ganymedes01.etfuturum.api.CompostingRegistry;
 import ganymedes01.etfuturum.core.utils.ItemStackMap;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.client.Minecraft;

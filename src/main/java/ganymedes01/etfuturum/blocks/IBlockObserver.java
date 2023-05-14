@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.api;
+package ganymedes01.etfuturum.blocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.world.World;

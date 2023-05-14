@@ -1,6 +1,6 @@
 package ganymedes01.etfuturum.client.sound;
 
-import ganymedes01.etfuturum.api.elytra.IElytraPlayer;
+import ganymedes01.etfuturum.elytra.IElytraPlayer;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.client.audio.MovingSound;
 import net.minecraft.client.entity.EntityPlayerSP;

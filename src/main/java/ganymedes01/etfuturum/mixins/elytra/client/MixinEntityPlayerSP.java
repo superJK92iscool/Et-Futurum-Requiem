@@ -2,7 +2,7 @@ package ganymedes01.etfuturum.mixins.elytra.client;
 
 import com.mojang.authlib.GameProfile;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.api.elytra.IElytraPlayer;
+import ganymedes01.etfuturum.elytra.IElytraPlayer;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.items.equipment.ItemArmorElytra;
 import ganymedes01.etfuturum.network.StartElytraFlyingMessage;

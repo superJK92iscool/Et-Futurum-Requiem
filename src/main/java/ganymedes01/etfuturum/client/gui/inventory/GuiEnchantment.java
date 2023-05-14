@@ -1,10 +1,9 @@
 package ganymedes01.etfuturum.client.gui.inventory;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Random;
 
-import ganymedes01.etfuturum.core.utils.EnchantingFuelRegistry;
+import ganymedes01.etfuturum.api.EnchantingFuelRegistry;
 import net.minecraft.init.Items;
 import net.minecraft.util.*;
 import org.lwjgl.util.glu.Project;

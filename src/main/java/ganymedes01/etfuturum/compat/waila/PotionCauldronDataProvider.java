@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.api.waila;
+package ganymedes01.etfuturum.compat.waila;
 
 import java.util.ArrayList;
 import java.util.List;

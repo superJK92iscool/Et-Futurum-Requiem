@@ -1,6 +1,6 @@
 package ganymedes01.etfuturum.mixins.elytra.client;
 
-import ganymedes01.etfuturum.api.elytra.IClientElytraPlayer;
+import ganymedes01.etfuturum.elytra.IClientElytraPlayer;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import org.spongepowered.asm.mixin.Mixin;
 

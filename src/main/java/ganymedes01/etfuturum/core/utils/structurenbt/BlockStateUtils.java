@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.core.utils.helpers;
+package ganymedes01.etfuturum.core.utils.structurenbt;
 
 import net.minecraft.block.Block;
 import net.minecraftforge.common.util.ForgeDirection;
