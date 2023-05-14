@@ -33,6 +33,10 @@ public class BlockDeepslateOre extends BlockOre {
 		setAttribs(this, block);
 		base = block;
 		setCreativeTab(EtFuturum.creativeTabBlocks);
+		if(getClass().getName().contains("etfuturum")) { //We only want to do this on my own stuff, not mods that extend it.
+			setBlockName(Utils.getUnlocalisedName("deepslate_" + block.textureName.toLowerCase()));
+			setBlockTextureName("deepslate_" + block.textureName);
+		}
 		if(defaultMapping) {
 			addDeepslateMappings();
 		}
@@ -47,8 +51,6 @@ public class BlockDeepslateOre extends BlockOre {
 		to.setHardness(from.blockHardness * 1.5F);
 		//We use the texture name because texture naming conventions look just like namespaced IDs.
 		//Block.blockRegistry.getNameFor does not work in preInit
-		to.setBlockName(Utils.getUnlocalisedName("deepslate_" + from.textureName.toLowerCase()));
-		to.setBlockTextureName("deepslate_" + from.textureName);
 		to.setStepSound(ConfigSounds.newBlockSounds ? ModSounds.soundDeepslate : soundTypeStone);
 		to.setLightLevel(from.getLightValue() / 15F);
 		to.setLightOpacity(from.getLightOpacity());
