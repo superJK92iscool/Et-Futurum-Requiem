@@ -93,7 +93,7 @@ public class RawOreRegistry {
 
 	public static void init() {
 		if(ModItems.RAW_ORE.isEnabled()) {
-			if(ConfigBlocksItems.enableCopper || !OreDictionary.getOres("ingotCopper").isEmpty()) {
+			if(ConfigBlocksItems.enableCopper || !OreDictionary.doesOreNameExist("ingotCopper")) {
 				addOre("oreCopper", ModItems.RAW_ORE.get());
 			}
 			addOre("oreIron", ModItems.RAW_ORE.get(), 1);
