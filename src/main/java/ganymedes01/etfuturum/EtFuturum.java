@@ -485,15 +485,12 @@ public class EtFuturum {
 	public static void copyAttribs(Block to, Block from) {
 		to.setHardness(from.blockHardness);
 		to.setResistance(from.blockResistance);
-		to.setBlockName(from.getUnlocalizedName().replace("tile.", ""));
-		to.setCreativeTab(from.displayOnCreativeTab);
 		to.setStepSound(from.stepSound);
-		to.setBlockTextureName(from.textureName);
+		to.setLightLevel(from.getLightValue() / 15F);
+		to.setLightOpacity(from.getLightOpacity());
 		//We do this because Forge methods cannot be Access Transformed
 		for(int i = 0; i < 16; i++) {
-			String tool = from.getHarvestTool(i);
-			int level = from.getHarvestLevel(i);
-			to.setHarvestLevel(tool, level, i);
+			to.setHarvestLevel(from.getHarvestTool(i), from.getHarvestLevel(i), i);
 		}
 	}
 
