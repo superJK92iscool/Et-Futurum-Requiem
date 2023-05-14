@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.mixins;
+package ganymedes01.etfuturum.mixins.stepfix;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.util.AxisAlignedBB;

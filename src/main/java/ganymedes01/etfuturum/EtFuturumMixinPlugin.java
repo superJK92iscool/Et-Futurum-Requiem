@@ -73,28 +73,33 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 		List<String> mixins = new ArrayList<>();
 		
 		if(ConfigMixins.endPortalFix) {
-			mixins.add("MixinBlockEndPortal");
+			mixins.add("endportal.MixinBlockEndPortal");
 		}
 		
 		if(ConfigMixins.fenceWallConnectFix) {
-			mixins.add("MixinBlockWall");
-			mixins.add("MixinBlockFence");
+			mixins.add("fencewallconnect.MixinBlockWall");
+			mixins.add("fencewallconnect.MixinBlockFence");
 		}
 
 		if(ConfigMixins.stepHeightFix) {
-			mixins.add("MixinEntity");
+			mixins.add("stepfix.MixinEntity");
 		}
 
 		if(ConfigMixins.enableSpectatorMode) {
-			mixins.add("MixinGameType");
-			mixins.add("MixinEntity_Spectator");
-			mixins.add("MixinWorld_Spectator");
-			mixins.add("MixinEntityPlayer_Spectator");
-			mixins.add("MixinNetHandlerPlayServer");
+			mixins.add("spectator.MixinGameType");
+			mixins.add("spectator.MixinEntity");
+			mixins.add("spectator.MixinWorld");
+			mixins.add("spectator.MixinEntityPlayer");
+			mixins.add("spectator.MixinNetHandlerPlayServer");
+			if(side == MixinEnvironment.Side.CLIENT) {
+				mixins.add("spectator.client.MixinEntityRenderer");
+				mixins.add("spectator.client.MixinEntityPlayer");
+				mixins.add("spectator.client.MixinWorldRenderer");
+			}
 		}
 
 		if(ConfigMixins.avoidDroppingItemsWhenClosing) {
-			mixins.add("MixinEntityPlayerMP");
+			mixins.add("closedrops.MixinEntityPlayerMP");
 		}
 
 		if(ConfigMixins.enableElytra) {
@@ -102,6 +107,13 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 			mixins.add("elytra.MixinEntityLivingBase");
 			mixins.add("elytra.MixinNetHandlerPlayServer");
 			mixins.add("elytra.MixinEntityTrackerEntry");
+			if(side == MixinEnvironment.Side.CLIENT) {
+				mixins.add("elytra.client.MixinAbstractClientPlayer");
+				mixins.add("elytra.client.MixinEntityPlayerSP");
+				mixins.add("elytra.client.MixinRenderPlayer");
+				mixins.add("elytra.client.MixinModelBiped");
+				mixins.add("elytra.client.MixinEntityRenderer");
+			}
 		}
 		
 		if(ConfigMixins.enableDoWeatherCycle) {
@@ -110,11 +122,11 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 		}
 
 		if(ConfigMixins.creativeFlightSpeedModifier > 1) {
-			mixins.add("MixinEntityPlayer_CreativeFlightSpeed");
+			mixins.add("flyspeed.MixinEntityPlayer");
 		}
 		
 		if(ConfigMixins.bouncyBeds) {
-			mixins.add("MixinBlockBed");
+			mixins.add("bouncybeds.MixinBlockBed");
 		}
 		
 		if(ConfigMixins.newHurtSounds) {
@@ -132,7 +144,7 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 		}
 		
 		if(ConfigMixins.floorCeilingButtons) {
-			mixins.add("MixinBlockButton");
+			mixins.add("floorceilbutton.MixinBlockButton");
 		}
 		
 		if(ConfigMixins.newEnderEyeSounds) {
@@ -157,42 +169,28 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 		}
 
 		if(ConfigMixins.enableObservers) {
-			mixins.add("MixinWorld_Observer");
-			mixins.add("MixinWorldServer_Observer");
+			mixins.add("observer.MixinWorld");
+			mixins.add("observer.MixinWorldServer");
 		}
 
 		if(ConfigMixins.arrowFallingFix) {
-			mixins.add("MixinEntityArrow");
+			mixins.add("fallingarrowfix.MixinEntityArrow");
 		}
 		
 		if(side == MixinEnvironment.Side.CLIENT) {
-
 			if(ConfigMixins.newBeaconSounds) {
 				mixins.add("sounds.client.MixinTileEntityBeacon_AmbienceOnly");
 			}
 			
 			if(ConfigMixins.boundedBlockBreakingParticles) {
-				mixins.add("client.MixinEffectRenderer");
+				mixins.add("boundedparticles.client.MixinEffectRenderer");
 			}
 			
 			if(ConfigMixins.furnaceCrackle) {
-				mixins.add("client.MixinBlockFurnace");
-			}
-			
-			if(ConfigMixins.enableSpectatorMode) {
-				mixins.add("client.MixinEntityRenderer");
-				mixins.add("client.MixinEntityPlayer");
-				mixins.add("client.MixinWorldRenderer_Spectator");
+				mixins.add("sounds.client.MixinBlockFurnace");
 			}
 			if(ConfigEnchantsPotions.enableSwiftSneak) {
-				mixins.add("client.MixinMovementInputFromOptions");
-			}
-			if(ConfigMixins.enableElytra) {
-				mixins.add("elytra.client.MixinAbstractClientPlayer");
-				mixins.add("elytra.client.MixinEntityPlayerSP");
-				mixins.add("elytra.client.MixinRenderPlayer");
-				mixins.add("elytra.client.MixinModelBiped");
-				mixins.add("elytra.client.MixinEntityRenderer");
+				mixins.add("swiftsneak.client.MixinMovementInputFromOptions");
 			}
 		}
 		

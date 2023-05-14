@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.mixins;
+package ganymedes01.etfuturum.mixins.closedrops;
 
 import ganymedes01.etfuturum.core.handlers.ServerEventHandler;
 import net.minecraft.entity.player.EntityPlayerMP;

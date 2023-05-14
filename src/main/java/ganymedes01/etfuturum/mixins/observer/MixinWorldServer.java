@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.mixins;
+package ganymedes01.etfuturum.mixins.observer;
 
 import ganymedes01.etfuturum.ducks.IObserverWorldExtension;
 import net.minecraft.block.Block;
@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import java.util.Set;
 
 @Mixin(WorldServer.class)
-public class MixinWorldServer_Observer implements IObserverWorldExtension {
+public class MixinWorldServer implements IObserverWorldExtension {
 
 	@Shadow private Set pendingTickListEntriesHashSet;
 

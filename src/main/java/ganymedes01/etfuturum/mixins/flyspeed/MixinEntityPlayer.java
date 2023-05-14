@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.mixins;
+package ganymedes01.etfuturum.mixins.flyspeed;
 
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import net.minecraft.entity.EntityLivingBase;
@@ -12,10 +12,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(EntityPlayer.class)
-public abstract class MixinEntityPlayer_CreativeFlightSpeed extends EntityLivingBase {
+public abstract class MixinEntityPlayer extends EntityLivingBase {
 	@Shadow public PlayerCapabilities capabilities;
 
-	public MixinEntityPlayer_CreativeFlightSpeed(World p_i1594_1_) {
+	public MixinEntityPlayer(World p_i1594_1_) {
 		super(p_i1594_1_);
 	}
 

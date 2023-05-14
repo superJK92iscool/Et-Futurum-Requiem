@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.mixins.client;
+package ganymedes01.etfuturum.mixins.sounds.client;
 
 import java.util.Random;
 

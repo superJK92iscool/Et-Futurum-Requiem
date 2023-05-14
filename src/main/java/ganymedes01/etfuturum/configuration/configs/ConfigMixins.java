@@ -2,8 +2,6 @@ package ganymedes01.etfuturum.configuration.configs;
 
 import ganymedes01.etfuturum.EtFuturumMixinPlugin;
 import ganymedes01.etfuturum.configuration.ConfigBase;
-import net.minecraft.launchwrapper.Launch;
-import net.minecraftforge.common.config.Configuration;
 import org.spongepowered.asm.mixin.MixinEnvironment;
 
 import java.io.File;

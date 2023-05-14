@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.core.utils.Logger;
@@ -13,8 +12,6 @@ import org.spongepowered.asm.mixin.MixinEnvironment;
 import ganymedes01.etfuturum.EtFuturumMixinPlugin;
 import ganymedes01.etfuturum.configuration.ConfigBase;
 import net.minecraft.item.Item;
-import net.minecraft.launchwrapper.Launch;
-import net.minecraftforge.common.config.Configuration;
 
 public class ConfigFunctions extends ConfigBase {
 

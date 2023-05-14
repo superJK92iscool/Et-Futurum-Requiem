@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.mixins;
+package ganymedes01.etfuturum.mixins.spectator;
 
 import ganymedes01.etfuturum.spectator.SpectatorMode;
 import net.minecraft.command.IEntitySelector;
@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(World.class)
-public class MixinWorld_Spectator {
+public class MixinWorld {
 	@Redirect(method = "getClosestPlayer", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/EntityPlayer;getDistanceSq(DDD)D"))
 	private double ignoreSpectatorsForClosest(EntityPlayer instance, double x, double y, double z) {
 		if(SpectatorMode.isSpectator(instance)) {

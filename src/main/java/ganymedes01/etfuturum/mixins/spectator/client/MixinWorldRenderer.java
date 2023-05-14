@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.mixins.client;
+package ganymedes01.etfuturum.mixins.spectator.client;
 
 import ganymedes01.etfuturum.spectator.SpectatorMode;
 import net.minecraft.block.Block;
@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(WorldRenderer.class)
-public class MixinWorldRenderer_Spectator {
+public class MixinWorldRenderer {
 	@Redirect(method = "updateRenderer", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/Block;getRenderType()I", ordinal = 0))
 	private int skipInsideRenderForSpectator(Block instance) {
 		if(SpectatorMode.isSpectator(Minecraft.getMinecraft().thePlayer)) {

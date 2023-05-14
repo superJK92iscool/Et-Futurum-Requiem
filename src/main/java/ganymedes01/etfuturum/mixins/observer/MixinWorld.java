@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.mixins;
+package ganymedes01.etfuturum.mixins.observer;
 
 import ganymedes01.etfuturum.api.IBlockObserver;
 import net.minecraft.block.Block;
@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(World.class)
-public abstract class MixinWorld_Observer {
+public abstract class MixinWorld {
 	@Shadow public boolean isRemote;
 
 	@Shadow public abstract boolean blockExists(int p_72899_1_, int p_72899_2_, int p_72899_3_);

@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.mixins.client;
+package ganymedes01.etfuturum.mixins.spectator.client;
 
 import ganymedes01.etfuturum.spectator.SpectatorMode;
 import net.minecraft.client.Minecraft;

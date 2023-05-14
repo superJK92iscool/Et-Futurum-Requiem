@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.mixins;
+package ganymedes01.etfuturum.mixins.fallingarrowfix;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.projectile.EntityArrow;

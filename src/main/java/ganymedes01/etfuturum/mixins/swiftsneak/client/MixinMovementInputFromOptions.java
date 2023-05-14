@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.mixins.client;
+package ganymedes01.etfuturum.mixins.swiftsneak.client;
 
 import ganymedes01.etfuturum.ModEnchantments;
 import net.minecraft.client.Minecraft;

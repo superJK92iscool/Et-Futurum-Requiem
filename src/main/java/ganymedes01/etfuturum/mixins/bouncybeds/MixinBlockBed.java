@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.mixins;
+package ganymedes01.etfuturum.mixins.bouncybeds;
 
 import org.spongepowered.asm.mixin.Mixin;
 

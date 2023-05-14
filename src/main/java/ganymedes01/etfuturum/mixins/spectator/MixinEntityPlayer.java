@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.mixins;
+package ganymedes01.etfuturum.mixins.spectator;
 
 import ganymedes01.etfuturum.spectator.SpectatorMode;
 import net.minecraft.entity.EntityLivingBase;
@@ -7,9 +7,9 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(EntityPlayer.class)
-public abstract class MixinEntityPlayer_Spectator extends EntityLivingBase {
+public abstract class MixinEntityPlayer extends EntityLivingBase {
 
-	public MixinEntityPlayer_Spectator(World p_i1595_1_) {
+	public MixinEntityPlayer(World p_i1595_1_) {
 		super(p_i1595_1_);
 	}
 
