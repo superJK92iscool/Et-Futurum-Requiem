@@ -3,8 +3,6 @@ package ganymedes01.etfuturum.configuration.configs;
 import java.io.File;
 
 import ganymedes01.etfuturum.configuration.ConfigBase;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.common.config.Configuration;
 
 public class ConfigEnchantsPotions extends ConfigBase {
@@ -20,8 +18,6 @@ public class ConfigEnchantsPotions extends ConfigBase {
 	static final String catEnchants = "enchantments";
 	static final String catPotions = "potions";
 
-	public static final String PATH = configDir + File.separator + "enchantspotions.cfg";
-	public static final ConfigEnchantsPotions configInstance = new ConfigEnchantsPotions(new File(Launch.minecraftHome, PATH));
 
 	public ConfigEnchantsPotions(File file) {
 		super(file);
@@ -34,18 +30,16 @@ public class ConfigEnchantsPotions extends ConfigBase {
 
 	@Override
 	protected void syncConfigOptions() {
-		Configuration cfg = configInstance;
-		
 		//enchants
-		enableFrostWalker = cfg.getBoolean("frostWalker", catEnchants, true, "");
-		frostWalkerID = cfg.getInt("frostWalkerID", catEnchants, 200, 0, 255, "");
-		enableMending = cfg.getBoolean("mending", catEnchants, true, "");
-		mendingID = cfg.getInt("mendingID", catEnchants, 201, 0, 255, "");
-		enableSwiftSneak = cfg.getBoolean("swiftSneak", catEnchants, true, "");
-		swiftSneakID = cfg.getInt("swiftSneakID", catEnchants, 202, 0, 255, "");
+		enableFrostWalker = getBoolean("frostWalker", catEnchants, true, "");
+		frostWalkerID = getInt("frostWalkerID", catEnchants, 200, 0, 255, "");
+		enableMending = getBoolean("mending", catEnchants, true, "");
+		mendingID = getInt("mendingID", catEnchants, 201, 0, 255, "");
+		enableSwiftSneak = getBoolean("swiftSneak", catEnchants, true, "");
+		swiftSneakID = getInt("swiftSneakID", catEnchants, 202, 0, 255, "");
 		
 		//potions
-		levitationID  = cfg.getInt("levitationID", catPotions, 27, 0, Byte.MAX_VALUE, "Since this is essential for Shulkers, this is tied to Shulkers being enabled instead of having its own option.");
+		levitationID  = getInt("levitationID", catPotions, 27, 0, Byte.MAX_VALUE, "Since this is essential for Shulkers, this is tied to Shulkers being enabled instead of having its own option.");
 	}
 
 }

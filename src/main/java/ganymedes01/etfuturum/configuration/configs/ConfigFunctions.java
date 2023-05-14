@@ -1,8 +1,13 @@
 package ganymedes01.etfuturum.configuration.configs;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
+import cpw.mods.fml.client.FMLClientHandler;
+import cpw.mods.fml.common.registry.GameRegistry;
+import ganymedes01.etfuturum.EtFuturum;
+import ganymedes01.etfuturum.core.utils.Logger;
 import org.spongepowered.asm.mixin.MixinEnvironment;
 
 import ganymedes01.etfuturum.EtFuturumMixinPlugin;
@@ -167,9 +172,6 @@ public class ConfigFunctions extends ConfigBase {
 	static final String catClient = "client";
 	static final String catCommands = "client";
 
-	public static final String PATH = configDir + File.separator + "functions.cfg";
-	public static final ConfigFunctions configInstance = new ConfigFunctions(new File(Launch.minecraftHome, PATH));
-
 	public ConfigFunctions(File file) {
 		super(file);
 		setCategoryComment(catUpdateChecker, "Category solely for the update checker, to make it easier to find and disable for those who don't want it.");
@@ -187,55 +189,78 @@ public class ConfigFunctions extends ConfigBase {
 
 	@Override
 	protected void syncConfigOptions() {
-		Configuration cfg = configInstance;
 		if(EtFuturumMixinPlugin.side == MixinEnvironment.Side.CLIENT) {
-			enableUpdateChecker = cfg.getBoolean("enableUpdateChecker", catUpdateChecker, true, "Check and print a chat message in-game if there's a new update available?");
+			enableUpdateChecker = getBoolean("enableUpdateChecker", catUpdateChecker, true, "Check and print a chat message in-game if there's a new update available?");
 		}
 		
 		//changes
-		enableExtraBurnableBlocks = cfg.getBoolean("enableExtraBurnableBlocks", catChanges, true, "Fences, gates and dead bushes burn");
-		enableUpdatedHarvestLevels = cfg.getBoolean("enableUpdatedHarvestLevels", catChanges, true, "Packed Ice, ladders and melons have preferred tools");
-		enableSilkTouchingMushrooms = cfg.getBoolean("enableSilkMushroom", catChanges, true, "Mushroom blocks can be silk-touched");
-		enableSticksFromDeadBushes = cfg.getBoolean("enableBushSticks", catChanges, true, "Dead Bushes drop sticks");
-		enableSkullDrop = cfg.getBoolean("enableSkullDrop", catChanges, true, "Skulls drop from charged creeper kills");
-		enableUpdatedFoodValues = cfg.getBoolean("enableUpdatedFood", catChanges, true, "Use updated food values");
-		enableShearableCobwebs = cfg.getBoolean("enableShearableCobwebs", catChanges, true, "");
-		enableStoneBrickRecipes = cfg.getBoolean("enableStoneBrickRecipes", catChanges, true, "Makes mossy, cracked and chiseled stone brick craftable");
-		enableFloatingTrapDoors = cfg.getBoolean("enableFloatingTrapDoors", catChanges, true, "");
-		enableHayBaleFalls = cfg.getBoolean("enableHayBaleFalls", catChanges, true, "If true, fall damage on a hay bale will be reduced");
-		enableHoeMining = cfg.getBoolean("enableHoeMining", catChanges, true, "Allows blocks like hay bales, leaves etc to mine faster with hoes");
-		hayBaleReducePercent = cfg.getInt("hayBaleReducePercent", catChanges, 20, 0, 99, "If enableHayBaleFalls is true, what percent should we keep for the fall damage?");
-		enableAttackedAtYawFix = cfg.getBoolean("enableAttackedAtYawFix", catChanges, true, "Adds a packet to send the attackedAtYaw field value to the client, which allows the screen to tilt based on where damage came from, and either left or right for direction-less sources like drowning or burning, instead of tilting to the left no matter what.");
-		enableDoorRecipeBuffs = cfg.getBoolean("enableDoorRecipeBuffs", catChanges, true, "Backports recipe buffs to doors (from 1 to 3)");
+		enableExtraBurnableBlocks = getBoolean("enableExtraBurnableBlocks", catChanges, true, "Fences, gates and dead bushes burn");
+		enableUpdatedHarvestLevels = getBoolean("enableUpdatedHarvestLevels", catChanges, true, "Packed Ice, ladders and melons have preferred tools");
+		enableSilkTouchingMushrooms = getBoolean("enableSilkMushroom", catChanges, true, "Mushroom blocks can be silk-touched");
+		enableSticksFromDeadBushes = getBoolean("enableBushSticks", catChanges, true, "Dead Bushes drop sticks");
+		enableSkullDrop = getBoolean("enableSkullDrop", catChanges, true, "Skulls drop from charged creeper kills");
+		enableUpdatedFoodValues = getBoolean("enableUpdatedFood", catChanges, true, "Use updated food values");
+		enableShearableCobwebs = getBoolean("enableShearableCobwebs", catChanges, true, "");
+		enableStoneBrickRecipes = getBoolean("enableStoneBrickRecipes", catChanges, true, "Makes mossy, cracked and chiseled stone brick craftable");
+		enableFloatingTrapDoors = getBoolean("enableFloatingTrapDoors", catChanges, true, "");
+		enableHayBaleFalls = getBoolean("enableHayBaleFalls", catChanges, true, "If true, fall damage on a hay bale will be reduced");
+		enableHoeMining = getBoolean("enableHoeMining", catChanges, true, "Allows blocks like hay bales, leaves etc to mine faster with hoes");
+		hayBaleReducePercent = getInt("hayBaleReducePercent", catChanges, 20, 0, 99, "If enableHayBaleFalls is true, what percent should we keep for the fall damage?");
+		enableAttackedAtYawFix = getBoolean("enableAttackedAtYawFix", catChanges, true, "Adds a packet to send the attackedAtYaw field value to the client, which allows the screen to tilt based on where damage came from, and either left or right for direction-less sources like drowning or burning, instead of tilting to the left no matter what.");
+		enableDoorRecipeBuffs = getBoolean("enableDoorRecipeBuffs", catChanges, true, "Backports recipe buffs to doors (from 1 to 3)");
 		
 
 		//settings
-		enableNetheriteFlammable = cfg.getBoolean("enableNetheriteFlammable", catSettings, false, "Set to true to disable the fireproof item entity Netherite/ancient debris etc uses");
-		enableRecipeForPrismarine = cfg.getBoolean("enablePrismarineRecipes", catSettings, true, "Recipe for prismarine if you want it without the temples, or want it craftable alongside temples.");
-		enableAutoAddSmoker = cfg.getBoolean("enableAutoAddSmoker", catSettings, true, "Seeks all available edible foods from the furnace and adds them to the smoker, if it's off it will only smelt things specified from CraftTweaker.");
-		enableAutoAddBlastFurnace = cfg.getBoolean("enableAutoAddBlastFurnace", catSettings, true, "Seeks all available smeltable ores, metals, etc (using OreDict tags like \"ore\", \"cluster\", \"ingot\", etc) from the furnace and adds them to the Blast Furnace, if it's off it will only smelt things specified from CraftTweaker.");
-		enableRecipeForTotem = cfg.getBoolean("enableRecipeForTotem", catSettings, false, "Recipe for totems since there's no other way to get them currently.");
-		shulkerBansString = cfg.getStringList("shulkerBans", catSettings, shulkerDefaultBans, "Things (namespaced:id) that should not go inside a Shulker Box. Used to ensure recursive storage, book banning and data overloads with certain items can be stopped. A default list is provided, but it might not cover everything so be sure to check with the mods you have. Be sure to check the default list for this frequently, it will be updated frequently.");
-		totemHealPercent = cfg.getInt("totemHealPercent", catSettings, 5, 5, 100, "Percentage of max health for totem to set you at if you die with it. (5% is 0.05, 20 * 0.05 = 1, 1 health is one half-heart)");
-		registerRawItemAsOre = cfg.getBoolean("registerRawItemAsOre", catSettings, true, "Register the raw ore items in the OreDictionary as if they were the actual ore block. Such as raw iron being registered as an iron ore, etc...\nTurn this off if you have an ore dictionary converter mod or experience other issues.");
-		extraDropRawOres = cfg.getStringList("extraDropRawOres", catSettings, new String[] {"oreCopper", "oreTin"}, "OreDictionary values for ore blocks that should drop extra items (2-3) instead of the usual one, before fortune.");
-		elytraDataWatcherFlag = (byte) cfg.getInt("elytraDataWatcherFlag", catSettings, 7, 0, 31, "The data watcher flag for the Elytra, used to sync the elytra animation with other players. In vanilla the max value is 7, players use 0-4, so you can set this to 6 or 7 by default. ASJCore increases the max value to 31.\nDo not change this value if you don't need to, or do not know what you're doing.");
+		enableNetheriteFlammable = getBoolean("enableNetheriteFlammable", catSettings, false, "Set to true to disable the fireproof item entity Netherite/ancient debris etc uses");
+		enableRecipeForPrismarine = getBoolean("enablePrismarineRecipes", catSettings, true, "Recipe for prismarine if you want it without the temples, or want it craftable alongside temples.");
+		enableAutoAddSmoker = getBoolean("enableAutoAddSmoker", catSettings, true, "Seeks all available edible foods from the furnace and adds them to the smoker, if it's off it will only smelt things specified from CraftTweaker.");
+		enableAutoAddBlastFurnace = getBoolean("enableAutoAddBlastFurnace", catSettings, true, "Seeks all available smeltable ores, metals, etc (using OreDict tags like \"ore\", \"cluster\", \"ingot\", etc) from the furnace and adds them to the Blast Furnace, if it's off it will only smelt things specified from CraftTweaker.");
+		enableRecipeForTotem = getBoolean("enableRecipeForTotem", catSettings, false, "Recipe for totems since there's no other way to get them currently.");
+		shulkerBansString = getStringList("shulkerBans", catSettings, shulkerDefaultBans, "Things (namespaced:id) that should not go inside a Shulker Box. Used to ensure recursive storage, book banning and data overloads with certain items can be stopped. A default list is provided, but it might not cover everything so be sure to check with the mods you have. Be sure to check the default list for this frequently, it will be updated frequently.");
+		totemHealPercent = getInt("totemHealPercent", catSettings, 5, 5, 100, "Percentage of max health for totem to set you at if you die with it. (5% is 0.05, 20 * 0.05 = 1, 1 health is one half-heart)");
+		registerRawItemAsOre = getBoolean("registerRawItemAsOre", catSettings, true, "Register the raw ore items in the OreDictionary as if they were the actual ore block. Such as raw iron being registered as an iron ore, etc...\nTurn this off if you have an ore dictionary converter mod or experience other issues.");
+		extraDropRawOres = getStringList("extraDropRawOres", catSettings, new String[] {"oreCopper", "oreTin"}, "OreDictionary values for ore blocks that should drop extra items (2-3) instead of the usual one, before fortune.");
+		elytraDataWatcherFlag = (byte) getInt("elytraDataWatcherFlag", catSettings, 7, 0, 31, "The data watcher flag for the Elytra, used to sync the elytra animation with other players. In vanilla the max value is 7, players use 0-4, so you can set this to 6 or 7 by default. ASJCore increases the max value to 31.\nDo not change this value if you don't need to, or do not know what you're doing.");
 
 		//client
-		enableTransparentAmour = cfg.getBoolean("enableTransparentAmour", catClient, true, "Allow non-opaque armour");
-		enableBowRendering = cfg.getBoolean("enableBowRendering", catClient, true, "Bows render pulling animation in inventory");
-		enableFancySkulls = cfg.getBoolean("enableFancySkulls", catClient, true, "Skulls render 3D in inventory");
-		enablePlayerSkinOverlay = cfg.getBoolean("enablePlayerSkinOverlay", catClient, true, "Allows use of 1.8 skin format, and Alex skins. Also includes some fixes from SkinPort. (Per SkinPort author's permission) Disable if skin is displaying oddly. Not compatible with OptiFine, use FastCraft instead.");
-		enableExtraF3HTooltips = cfg.getBoolean("enableExtraF3HTooltips", catClient, true, "Enables NBT tag count and item namespace label on F3 + H debug item labels");
-		shulkerBoxTooltipLines = cfg.getInt("shulkerBoxTooltipLines", catClient, 5, 0, Byte.MAX_VALUE, "The maximum amount of items a Shulker box can display on its tooltip. When the box has more stacks inside than this number, the rest of the stacks are displayed as \"And x more...\". Set to 0 to disable Shulker Box tooltips.");
-		enableGamemodeSwitcher = cfg.getBoolean("enableGamemodeSwitcher", catClient, true, "Enable the new F3+F4 gamemode switcher from 1.16+");
-		enableNewF3Behavior = cfg.getBoolean("enableNewF3Behavior", catClient, true, "Make F3 only show/hide info on release, and not if another key is pressed");
-		enableNewTextures = cfg.getBoolean("enableNewTextures", catClient, true, "Replace tall grass and sponge textures with modern version");
+		enableTransparentAmour = getBoolean("enableTransparentAmour", catClient, true, "Allow non-opaque armour");
+		enableBowRendering = getBoolean("enableBowRendering", catClient, true, "Bows render pulling animation in inventory");
+		enableFancySkulls = getBoolean("enableFancySkulls", catClient, true, "Skulls render 3D in inventory");
+		enablePlayerSkinOverlay = getBoolean("enablePlayerSkinOverlay", catClient, true, "Allows use of 1.8 skin format, and Alex skins. Also includes some fixes from SkinPort. (Per SkinPort author's permission) Disable if skin is displaying oddly. Not compatible with OptiFine, use FastCraft instead.");
+		enableExtraF3HTooltips = getBoolean("enableExtraF3HTooltips", catClient, true, "Enables NBT tag count and item namespace label on F3 + H debug item labels");
+		shulkerBoxTooltipLines = getInt("shulkerBoxTooltipLines", catClient, 5, 0, Byte.MAX_VALUE, "The maximum amount of items a Shulker box can display on its tooltip. When the box has more stacks inside than this number, the rest of the stacks are displayed as \"And x more...\". Set to 0 to disable Shulker Box tooltips.");
+		enableGamemodeSwitcher = getBoolean("enableGamemodeSwitcher", catClient, true, "Enable the new F3+F4 gamemode switcher from 1.16+");
+		enableNewF3Behavior = getBoolean("enableNewF3Behavior", catClient, true, "Make F3 only show/hide info on release, and not if another key is pressed");
+		enableNewTextures = getBoolean("enableNewTextures", catClient, true, "Replace tall grass and sponge textures with modern version");
 
 		//commands
-		enableFillCommand = cfg.getBoolean("enableFillCommand", catCommands, true, "Enable the /fill command.");
+		enableFillCommand = getBoolean("enableFillCommand", catCommands, true, "Enable the /fill command.");
 
-		enableSubtitles = cfg.getBoolean("enableSubtitles", catClient, false, "Enable subtitles");
-		subtitleBlacklist = cfg.getString("subtitleBlacklist", catClient, "^(dig\\.*)", "Regex of subtitles to blacklist");
+		enableSubtitles = getBoolean("enableSubtitles", catClient, false, "Enable subtitles");
+		subtitleBlacklist = getString("subtitleBlacklist", catClient, "^(dig\\.*)", "Regex of subtitles to blacklist");
+	}
+
+	protected void initValues() {
+		ConfigFunctions.shulkerBans = new ArrayList<Item>();
+		for(String itemName : ConfigFunctions.shulkerBansString) {
+			String[] nameAndID;
+			if(itemName.contains(":") && (nameAndID = itemName.split(":")).length == 2) {
+				Item item = GameRegistry.findItem(nameAndID[0], nameAndID[1]);
+				if(item != null) {
+					if(!ConfigFunctions.shulkerBans.contains(item)) {
+						ConfigFunctions.shulkerBans.add(item);
+					} else {
+						System.err.println("Shulker ban list entry \"" + itemName + "\" is already added!");
+					}
+				}
+			} else {
+				System.err.println("Shulker ban list entry \"" + itemName + "\" is formatted incorrectly!");
+			}
+		}
+		if(EtFuturum.hasEars || EtFuturum.hasSkinPort) {
+			ConfigFunctions.enablePlayerSkinOverlay = false;
+			Logger.warn("WARNING: Ears, SkinPort are in use, which introduce changes to player skins.");
+			Logger.warn("Et Futurum Requiem's skin backport has been disabled to prevent conflicts.");
+		}
 	}
 }

@@ -2,10 +2,14 @@ package ganymedes01.etfuturum.configuration;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import ganymedes01.etfuturum.ModBlocks;
+import ganymedes01.etfuturum.configuration.configs.*;
 import ganymedes01.etfuturum.core.utils.Logger;
+import net.minecraft.launchwrapper.Launch;
 import org.spongepowered.asm.mixin.MixinEnvironment;
 
 import cpw.mods.fml.client.event.ConfigChangedEvent;
@@ -13,9 +17,6 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.EtFuturumMixinPlugin;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
-import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
-import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.ExternalContent;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
@@ -25,31 +26,47 @@ import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 
 public abstract class ConfigBase extends Configuration {
-	
-	private static final String catClientLegacy = "client";
-	private static final String catBlockLegacy = "blocks";
-	private static final String catItemsLegacy = "items";
-	private static final String catEquipmentLegacy = "equipment";
-	private static final String catEnchantsLegacy = "enchants";
-	private static final String catEntityLegacy = "entity";
-	private static final String catReplacementLegacy = "replacement";
-	private static final String catFunctionLegacy = "function";
-	private static final String catWorldLegacy = "world";
-	
-	protected final List<ConfigCategory> configCats = new ArrayList<ConfigCategory>();
-	
-	public List<ConfigCategory> getConfigCats() {
-		return configCats;
-	}
+	protected final List<ConfigCategory> configCats = new ArrayList<>();
+	private static final Set<ConfigBase> CONFIGS = new HashSet<>();
 
-	protected static String configDir = "config" + File.separator + Reference.MOD_ID;
-	public static final String PATH = configDir + File.separator + "etfuturum.cfg";
+	public static final String configDir = "config" + File.separator + Reference.MOD_ID + File.separator;
+
+	public static final ConfigBase BLOCKS_ITEMS = new ConfigBlocksItems(new File(Launch.minecraftHome,  configDir + "blocksitems.cfg"));
+	public static final ConfigBase ENCHANTS_POTIONS = new ConfigEnchantsPotions(new File(Launch.minecraftHome, configDir + "enchantspotions.cfg"));
+	public static final ConfigBase FUNCTIONS = new ConfigFunctions(new File(Launch.minecraftHome, configDir + "functions.cfg"));
+	public static final ConfigBase TWEAKS = new ConfigTweaks(new File(Launch.minecraftHome, configDir + "tweaks.cfg"));
+	public static final ConfigBase WORLD = new ConfigWorld(new File(Launch.minecraftHome, configDir + "world.cfg"));
+	public static final ConfigBase ENTITIES = new ConfigEntities(new File(Launch.minecraftHome, configDir + "entities.cfg"));
+	public static final ConfigBase SOUNDS = new ConfigSounds(new File(Launch.minecraftHome, configDir + "sounds.cfg"));
+	public static final ConfigBase MOD_COMPAT = new ConfigModCompat(new File(Launch.minecraftHome, configDir + "modcompat.cfg"));
+	
+	public static final ConfigBase MIXINS = new ConfigMixins(new File(Launch.minecraftHome, configDir + "mixins.cfg"));
+
+	/**
+	 * 		ConfigBlocksItems.configInstance.syncConfig();
+	 * 		ConfigEnchantsPotions.configInstance.syncConfig();
+	 * 		ConfigFunctions.configInstance.syncConfig();
+	 * 		ConfigTweaks.configInstance.syncConfig();
+	 * 		ConfigWorld.configInstance.syncConfig();
+	 * 		ConfigEntities.configInstance.syncConfig();
+	 * 		ConfigSounds.configInstance.syncConfig();
+	 * 		ConfigModCompat.configInstance.syncConfig();
+	 *
+	 * 		ConfigMixins.configInstance.syncConfig();
+	 */
 	
 	public ConfigBase(File file) {
 		super(file);
+		CONFIGS.add(this);
+	}
+
+	public static void initializeConfigs() {
+		for(ConfigBase config : CONFIGS) {
+			config.syncConfig();
+		}
 	}
 	
-	public void syncConfig() {
+	private void syncConfig() {
 		syncConfigOptions();
 		
 		for(ConfigCategory cat : configCats) {
@@ -72,33 +89,15 @@ public abstract class ConfigBase extends Configuration {
 	}
 
 	protected abstract void syncConfigOptions();
+
+	/**
+	 * Used in case we need to wait till later to initialize some config values.
+	 */
+	protected void initValues() {}
 	
 	public static void postInit() {
-		ConfigFunctions.shulkerBans = new ArrayList<Item>();
-		for(String itemName : ConfigFunctions.shulkerBansString) {
-			String[] nameAndID;
-			if(itemName.contains(":") && (nameAndID = itemName.split(":")).length == 2) {
-				Item item = GameRegistry.findItem(nameAndID[0], nameAndID[1]);
-				if(item != null) {
-					if(!ConfigFunctions.shulkerBans.contains(item)) {
-						ConfigFunctions.shulkerBans.add(item);
-					} else {
-						System.err.println("Shulker ban list entry \"" + itemName + "\" is already added!");
-					}
-				}
-			} else {
-				System.err.println("Shulker ban list entry \"" + itemName + "\" is formatted incorrectly!");
-			}
-		}
-
-		Block block = ConfigWorld.amethystOuterID == 1 && ConfigBlocksItems.enableTuff ? ModBlocks.TUFF.get() : ExternalContent.netherlicious_basalt_bricks;
-		ConfigWorld.amethystOuterBlock = ConfigWorld.amethystOuterID == 0 || block == null ? ModBlocks.SMOOTH_BASALT.get() : block;
-		if(!EtFuturum.hasIronChest) {
-			ConfigBlocksItems.enableShulkerBoxesIronChest = false;
-		}
-		if(EtFuturum.hasEars || EtFuturum.hasSkinPort) {
-			ConfigFunctions.enablePlayerSkinOverlay = false;
-			Logger.info("Et Futurum Requiem's skin backport was disabled as SkinPort/Ears was detected, to avoid conflicts.");
+		for(ConfigBase config : CONFIGS) {
+			config.initValues();
 		}
 	}
 

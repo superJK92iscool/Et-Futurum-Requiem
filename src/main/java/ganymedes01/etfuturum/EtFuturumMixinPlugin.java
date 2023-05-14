@@ -1,6 +1,7 @@
 package ganymedes01.etfuturum;
 
 import ganymedes01.etfuturum.compat.CompatMisc;
+import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.configuration.configs.*;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.launchwrapper.Launch;
@@ -18,7 +19,6 @@ import java.util.Set;
 public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 	
 	public static boolean launchConfigWarning;
-	protected static boolean serverSide;
 	public static final MixinEnvironment.Side side = MixinEnvironment.getCurrentEnvironment().getSide();
 	
 	@Override
@@ -45,16 +45,7 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 			launchConfigWarning = true;
 		}
 
-		ConfigBlocksItems.configInstance.syncConfig();
-		ConfigEnchantsPotions.configInstance.syncConfig();
-		ConfigFunctions.configInstance.syncConfig();
-		ConfigTweaks.configInstance.syncConfig();
-		ConfigWorld.configInstance.syncConfig();
-		ConfigEntities.configInstance.syncConfig();
-		ConfigSounds.configInstance.syncConfig();
-		ConfigModCompat.configInstance.syncConfig();
-
-		ConfigMixins.configInstance.syncConfig();
+		ConfigBase.initializeConfigs();
 		
 //      if(oldFile.exists()) {
 //          ConfigBase.loadBaseConfig(oldFile);
