@@ -778,101 +778,21 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "block.beacon.ambient", "block");
 		config.addSoundEvent(ver, "block.beacon.deactivate", "block");
 		config.addSoundEvent(ver, "block.beacon.power_select", "block");
-	
-		config.addSoundEvent(ver, "item.crop.plant", "block");
-		config.addSoundEvent(ver, "block.crop.break", "block");
-		config.addSoundEvent(ver, "item.nether_wart.plant", "block");
-		config.addSoundEvent(ver, "block.nether_wart.break", "block");
-		config.addSoundEvent(ver, "block.lantern.step", "neutral");
-		config.addSoundEvent(ver, "block.lantern.break", "block");
-		config.addSoundEvent(ver, "block.lantern.place", "block");
-		config.addSoundEvent(ver, "block.deepslate.step", "neutral");
-		config.addSoundEvent(ver, "block.deepslate.break", "block");
-		config.addSoundEvent(ver, "block.deepslate.place", "block");
-		config.addSoundEvent(ver, "block.sweet_berry_bush.break", "block");
-		config.addSoundEvent(ver, "block.sweet_berry_bush.place", "block");
-		config.addSoundEvent(ver, "block.deepslate_bricks.step", "neutral");
-		config.addSoundEvent(ver, "block.deepslate_bricks.break", "block");
-		config.addSoundEvent(ver, "block.deepslate_tiles.step", "neutral");
-		config.addSoundEvent(ver, "block.deepslate_tiles.break", "block");
-		config.addSoundEvent(ver, "block.soul_sand.step", "neutral");
-		config.addSoundEvent(ver, "block.soul_sand.break", "block");
-		config.addSoundEvent(ver, "block.wart_block.step", "neutral");
-		config.addSoundEvent(ver, "block.wart_block.break", "block");
-		config.addSoundEvent(ver, "block.nether_bricks.step", "neutral");
-		config.addSoundEvent(ver, "block.nether_bricks.break", "block");
-		config.addSoundEvent(ver, "block.bone_block.step", "neutral");
-		config.addSoundEvent(ver, "block.bone_block.break", "block");
-		config.addSoundEvent(ver, "block.netherrack.step", "neutral");
-		config.addSoundEvent(ver, "block.netherrack.break", "block");
-		config.addSoundEvent(ver, "block.nether_ore.step", "neutral");
-		config.addSoundEvent(ver, "block.nether_ore.break", "block");
-		config.addSoundEvent(ver, "block.ancient_debris.step", "neutral");
-		config.addSoundEvent(ver, "block.ancient_debris.break", "block");
-		config.addSoundEvent(ver, "block.netherite_block.step", "neutral");
-		config.addSoundEvent(ver, "block.netherite_block.break", "block");
-		config.addSoundEvent(ver, "block.basalt.step", "neutral");
-		config.addSoundEvent(ver, "block.basalt.break", "block");
-		config.addSoundEvent(ver, "block.copper.step", "neutral");
-		config.addSoundEvent(ver, "block.copper.break", "block");
-		config.addSoundEvent(ver, "block.tuff.step", "neutral");
-		config.addSoundEvent(ver, "block.tuff.break", "block");
-		config.addSoundEvent(ver, "block.vine.step", "neutral");
-		config.addSoundEvent(ver, "block.vine.break", "block");
-		config.addSoundEvent(ver, "block.calcite.step", "neutral");
-		config.addSoundEvent(ver, "block.calcite.break", "block");
-		config.addSoundEvent(ver, "block.calcite.place", "block");
-		config.addSoundEvent(ver, "block.amethyst_block.step", "neutral");
-		config.addSoundEvent(ver, "block.amethyst_block.break", "block");
-		config.addSoundEvent(ver, "block.amethyst_block.place", "block");
-		config.addSoundEvent(ver, "block.small_amethyst_bud.break", "block");
-		config.addSoundEvent(ver, "block.small_amethyst_bud.place", "block");
-		config.addSoundEvent(ver, "block.medium_amethyst_bud.break", "block");
-		config.addSoundEvent(ver, "block.medium_amethyst_bud.place", "block");
-		config.addSoundEvent(ver, "block.large_amethyst_bud.break", "block");
-		config.addSoundEvent(ver, "block.large_amethyst_bud.place", "block");
-		config.addSoundEvent(ver, "block.amethyst_cluster.step", "neutral");
-		config.addSoundEvent(ver, "block.amethyst_cluster.break", "block");
-		config.addSoundEvent(ver, "block.amethyst_cluster.place", "block");
-		config.addSoundEvent(ver, "block.lodestone.step", "neutral");
-		config.addSoundEvent(ver, "block.lodestone.break", "block");
-		config.addSoundEvent(ver, "block.lodestone.place", "block");
-		config.addSoundEvent(ver, "block.dripstone_block.step", "neutral");
-		config.addSoundEvent(ver, "block.dripstone_block.break", "block");
-		config.addSoundEvent(ver, "block.pointed_dripstone.step", "neutral");
-		config.addSoundEvent(ver, "block.pointed_dripstone.break", "block");
-		config.addSoundEvent(ver, "block.wet_grass.step", "neutral");
-		config.addSoundEvent(ver, "block.wet_grass.break", "block");
-		config.addSoundEvent(ver, "block.wet_grass.place", "block");
-		config.addSoundEvent(ver, "block.lily_pad.place", "block");
-		config.addSoundEvent(ver, "block.sculk.break", "block");
-		config.addSoundEvent(ver, "block.sculk.place", "block");
-		config.addSoundEvent(ver, "block.sculk.step", "neutral");
-		config.addSoundEvent(ver, "block.sculk_catalyst.break", "block");
-		config.addSoundEvent(ver, "block.sculk_catalyst.place", "block");
-		config.addSoundEvent(ver, "block.sculk_catalyst.step", "neutral");
-//      config.addSoundEvent(ver, "block.nylium.step", "neutral");
-//      config.addSoundEvent(ver, "block.nylium.break", "block");
-		config.addSoundEvent(ver, "block.fungus.step", "neutral");
-//      config.addSoundEvent(ver, "block.fungus.break", "block");
-	  config.addSoundEvent(ver, "block.stem.step", "neutral");
-	  config.addSoundEvent(ver, "block.stem.break", "block");
-//      config.addSoundEvent(ver, "block.shroomlight.step", "neutral");
-//      config.addSoundEvent(ver, "block.shroomlight.break", "block");
-//      config.addSoundEvent(ver, "block.honey_block.step", "neutral");
-//      config.addSoundEvent(ver, "block.honey_block.break", "block");
-		config.addSoundEvent(ver, "block.azalea.step", "neutral");
-		config.addSoundEvent(ver, "block.azalea.break", "block");
-		config.addSoundEvent(ver, "block.azalea_leaves.step", "neutral");
-		config.addSoundEvent(ver, "block.azalea_leaves.break", "block");
-		config.addSoundEvent(ver, "block.hanging_roots.step", "neutral");
-		config.addSoundEvent(ver, "block.hanging_roots.break", "block");
-		config.addSoundEvent(ver, "block.rooted_dirt.step", "neutral");
-		config.addSoundEvent(ver, "block.rooted_dirt.break", "block");
-		config.addSoundEvent(ver, "block.moss.step", "neutral");
-		config.addSoundEvent(ver, "block.moss.break", "block");
-		config.addSoundEvent(ver, "block.moss_carpet.step", "neutral");
-		config.addSoundEvent(ver, "block.moss_carpet.break", "block");
+
+		//Automatically register block sounds for AssetDirector, but only if they contain the MC version (which means it needs to be registered here)
+		//Then we remove the mc version prefix and register that sound.
+
+		for(ModSounds.CustomSound sound : ModSounds.getSounds()) {
+			if(sound.getStepResourcePath().startsWith(Reference.MCAssetVer)) { //Step sound
+				config.addSoundEvent(ver, sound.getStepResourcePath().substring(Reference.MCAssetVer.length() + 1), "neutral");
+			}
+			if(sound.func_150496_b().startsWith(Reference.MCAssetVer)) { //Place sound
+				config.addSoundEvent(ver, sound.func_150496_b().substring(Reference.MCAssetVer.length() + 1), "block");
+			}
+			if(sound.getBreakSound().startsWith(Reference.MCAssetVer)) { //Break sound
+				config.addSoundEvent(ver, sound.getBreakSound().substring(Reference.MCAssetVer.length() + 1), "block");
+			}
+		}
 	}
 
 }

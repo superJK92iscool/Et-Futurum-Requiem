@@ -4,7 +4,16 @@ import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.block.Block.SoundType;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ModSounds {
+	
+	private static final List<CustomSound> SOUNDS_REGISTRY = new ArrayList<>();
+	
+	public static List<CustomSound> getSounds() {
+		return SOUNDS_REGISTRY;
+	}
 	
 	public static final SoundType soundSlime = new CustomSound("minecraft:mob.slime.big") {
 		@Override
@@ -115,6 +124,7 @@ public class ModSounds {
 		public CustomSound(String name, float volume, float pitch, boolean placeSound) {
 			super(name, volume, pitch);
 			this.placeSound = placeSound;
+			SOUNDS_REGISTRY.add(this);
 		}
 		
 		public CustomSound(String name, float volume, float pitch) {
@@ -122,7 +132,7 @@ public class ModSounds {
 		}
 		
 		public CustomSound(String name) {
-			this(name, 1, 1, false);
+			this(name, 1, 1);
 		}
 
 		@Override
