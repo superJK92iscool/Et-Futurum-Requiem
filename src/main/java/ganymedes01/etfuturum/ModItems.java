@@ -91,28 +91,11 @@ public enum ModItems {
 	//D-Mod
 	@Deprecated public static final Item sweet_berries = SWEET_BERRIES.get();
 
-	/*
-	 * Exists for the purpose of getting the ModItems entry from an EFR item, so we can get the enum information from it.
-	 * So if it's null it's not an EFR item, and if it isn't null, it's an EFR item.
-	 */
-	private static final Map<Item, ModItems> ITEM_TO_ENUM_MAP = new HashMap<>();
-	static final Map<Item, ModBlocks> ITEMBLOCK_TO_ENUM_MAP = new HashMap<>();
-
-	/**
-	 * Used by mod recipes to check if an item is enabled in a recipe.
-	 * We could just pass ModItems instances in but recipes can have ItemStacks too so we just simply use this one function on everything in the recipe.
-	 */
-	public static boolean isItemEnabled(Item item) {
-		return ITEM_TO_ENUM_MAP.get(item) == null || ITEM_TO_ENUM_MAP.get(item).isEnabled() || ITEMBLOCK_TO_ENUM_MAP.get(item) == null || ITEMBLOCK_TO_ENUM_MAP.get(item).isEnabled();
-	}
-
 	public static void init() {
 		for(ModItems item : values()) {
 			if(item.isEnabled()) { //Honestly what do you think it's doing lmfao
 				GameRegistry.registerItem(item.get(), item.name().toLowerCase());
 			}
-			//It is apparently illegal to access static members from an enum constructor or instance initializer
-			ITEM_TO_ENUM_MAP.put(item.get(), item);
 		}
 	}
 

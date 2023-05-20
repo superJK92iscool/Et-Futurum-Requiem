@@ -304,20 +304,6 @@ public enum ModBlocks {
 	@Deprecated public static final Block sea_lantern = SEA_LANTERN.get();
 	@Deprecated public static final Block red_sandstone = RED_SANDSTONE.get();
 
-	/**
-	 * Exists for the purpose of getting the ModBlocks entry from an EFR block, so we can get the enum information from it.
-	 * So if it's null it's not an EFR blocks, and if it isn't null, it's an EFR block.
-	 */
-	private static final Map<Block, ModBlocks> BLOCK_TO_ENUM_MAP = new HashMap<>();
-
-	/**
-	 * Used by mod recipes to check if a block is enabled in a recipe.
-	 * We could just pass ModBlocks instances in but recipes can have ItemStacks too so we just simply use this one function on everything in the recipe.
-	 */
-	public static boolean isBlockEnabled(Block block) {
-		return BLOCK_TO_ENUM_MAP.get(block) == null || BLOCK_TO_ENUM_MAP.get(block).isEnabled();
-	}
-
 	public static void init() {
 		for(ModBlocks block : values()) {
 			if(block.isEnabled()) {
@@ -329,12 +315,6 @@ public enum ModBlocks {
 					GameRegistry.registerBlock(block.get(), block.name().toLowerCase());
 					//Used if getItemBlock() == null but getHasItemBlock() is true, registering it with a default inventory item.
 				}
-			}
-
-			BLOCK_TO_ENUM_MAP.put(block.get(), block);
-			if(Item.getItemFromBlock(block.get()) != null) { //Add it to the ItemBlock map if it has an ItemBlock
-				Item item = Item.getItemFromBlock(block.get());
-				ModItems.ITEMBLOCK_TO_ENUM_MAP.put(item, block);
 			}
 		}
 	}

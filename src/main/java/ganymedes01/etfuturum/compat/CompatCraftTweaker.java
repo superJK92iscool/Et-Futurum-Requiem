@@ -94,6 +94,7 @@ public class CompatCraftTweaker {
 			// Technically, I could avoid this issue by avoiding OreDictionary.stackToId and only using methods that involve OreDictionary.idToStack.
 			// However, that would be slightly slower every time I want to check a stack's IDs. Rebaking the map means it's slower just once, and other mods may appreciate it.
 			OreDictionary.rebakeMap();
+			NEIEtFuturumConfig.clearCaches();
 
 			BlastFurnaceRecipes.smelting().setReloadingCT(false);
 			SmokerRecipes.smelting().setReloadingCT(false);

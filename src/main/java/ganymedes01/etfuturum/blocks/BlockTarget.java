@@ -27,7 +27,6 @@ public class BlockTarget extends Block {
 		super(Material.grass);
 		setHardness(0.5F);
 		setResistance(0.5F);
-		setStepSound(soundTypePiston);
 		setBlockTextureName("target");
 		setBlockName(Utils.getUnlocalisedName("target"));
 		setCreativeTab(EtFuturum.creativeTabBlocks);
@@ -112,8 +111,12 @@ public class BlockTarget extends Block {
 		return p_149709_1_.getBlockMetadata(p_149709_2_, p_149709_3_, p_149709_4_);
 	}
 
-
 	public boolean isNormalCube(IBlockAccess world, int x, int y, int z)
+	{
+		return true;
+	}
+
+	public boolean isNormalCube()
 	{
 		return true;
 	}

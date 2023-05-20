@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.client.nei;
+package ganymedes01.etfuturum.compat.nei;
 
 import java.awt.Rectangle;
 import java.util.ArrayList;
@@ -24,6 +24,11 @@ import net.minecraft.util.StatCollector;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class BannerPatternHandler extends TemplateRecipeHandler {
+
+	@Override
+	public String getOverlayIdentifier() {
+		return "etfuturum.banner";
+	}
 
 	@Override
 	public String getRecipeName() {

@@ -13,7 +13,7 @@ import java.util.Map;
 import ganymedes01.etfuturum.api.*;
 import ganymedes01.etfuturum.blocks.BlockSculk;
 import ganymedes01.etfuturum.blocks.BlockSculkCatalyst;
-import ganymedes01.etfuturum.client.nei.IMCSenderGTNH;
+import ganymedes01.etfuturum.compat.nei.IMCSenderGTNH;
 import ganymedes01.etfuturum.compat.CompatBaublesExpanded;
 import ganymedes01.etfuturum.compat.CompatCraftTweaker;
 import ganymedes01.etfuturum.compat.CompatThaumcraft;

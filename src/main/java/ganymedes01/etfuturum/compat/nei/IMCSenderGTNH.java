@@ -1,6 +1,7 @@
-package ganymedes01.etfuturum.client.nei;
+package ganymedes01.etfuturum.compat.nei;
 
 import cpw.mods.fml.common.event.FMLInterModComms;
+import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.lib.Reference;
@@ -10,23 +11,28 @@ public class IMCSenderGTNH {
 
 	public static void IMCSender() {
 
-		if(ConfigBlocksItems.enableSmoker) {
-			sendHandler("ganymedes01.etfuturum.NEI_EtFuturum_Config$NEI_Recipes_Smoker", "etfuturum:smoker");
+		if(ModBlocks.SMOKER.isEnabled()) {
+			sendHandler("ganymedes01.etfuturum.compat.nei.SmokerRecipeHandler", "etfuturum:smoker");
 			sendCatalyst("etfuturum.smoker", "etfuturum:smoker");
 
 			sendCatalyst("fuel", "etfuturum:smoker");
 		}
 
-		if(ConfigBlocksItems.enableBlastFurnace) {
-			sendHandler("ganymedes01.etfuturum.NEI_EtFuturum_Config$NEI_Recipes_BlastFurnace", "etfuturum:blast_furnace");
+		if(ModBlocks.BLAST_FURNACE.isEnabled()) {
+			sendHandler("ganymedes01.etfuturum.compat.nei.BlastFurnaceRecipeHandler", "etfuturum:blast_furnace");
 			sendCatalyst("etfuturum.blastfurnace", "etfuturum:blast_furnace");
 
 			sendCatalyst("fuel", "etfuturum:blast_furnace");
 		}
 
-		if (ConfigBlocksItems.enableBanners) {
-			sendHandler("ganymedes01.etfuturum.client.nei.BannerPatternHandler", "etfuturum:banner");
-			sendCatalyst("ganymedes01.etfuturum.client.nei.BannerPatternHandler", "minecraft:crafting_table");
+		if (ModBlocks.BANNER.isEnabled()) {
+			sendHandler("ganymedes01.etfuturum.compat.nei.BannerPatternHandler", "etfuturum:banner");
+			sendCatalyst("etfuturum.banner", "minecraft:crafting_table");
+		}
+
+		if (ModBlocks.COMPOSTER.isEnabled()) {
+			sendHandler("ganymedes01.etfuturum.compat.nei.ComposterHandler", "etfuturum:composter");
+			sendCatalyst("etfuturum.composter", "etfuturum:composter");
 		}
 	}
 

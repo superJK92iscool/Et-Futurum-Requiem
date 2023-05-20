@@ -724,43 +724,31 @@ public class ModRecipes {
 	}
 
 	private static void addShapedRecipe(ItemStack output, Object... objects) {
-		if(validateItems(objects)) {
+		if(validateItems(output) && validateItems(objects)) {
 			GameRegistry.addRecipe(new ShapedEtFuturumRecipe(output, objects));
 		}
 	}
 
 	private static void addShapelessRecipe(ItemStack output, Object... objects) {
-		if(validateItems(objects)) {
+		if(validateItems(output) && validateItems(objects)) {
 			GameRegistry.addRecipe(new ShapelessEtFuturumRecipe(output, objects));
 		}
 	}
 
 	private static boolean validateItems(Object... objects) {
 		for (Object object : objects) {
-//			if(objects[i] instanceof ModBlocks) {
-//				if(!((ModBlocks) objects[i]).isEnabled()) {
-//					return false;
-//				}
-//				objects[i] = ((ModBlocks) objects[i]).get();
-//			}
-//			if(objects[i] instanceof ModItems) {
-//				if(!((ModItems) objects[i]).isEnabled()) {
-//					return false;
-//				}
-//				objects[i] = ((ModItems) objects[i]).get();
-//			}
 			if (object instanceof ItemStack) {
-				if (!ModItems.isItemEnabled(((ItemStack) object).getItem())) {
+				if (Item.itemRegistry.getNameForObject(((ItemStack) object).getItem()) == null) {
 					return false;
 				}
 			}
 			if (object instanceof Item) {
-				if (!ModItems.isItemEnabled((Item) object)) {
+				if (Item.itemRegistry.getNameForObject(object) == null) {
 					return false;
 				}
 			}
 			if (object instanceof Block) {
-				if (!ModBlocks.isBlockEnabled((Block) object)) {
+				if (Block.blockRegistry.getNameForObject(object) == null) {
 					return false;
 				}
 			}
