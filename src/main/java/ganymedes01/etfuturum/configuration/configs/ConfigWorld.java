@@ -2,12 +2,11 @@ package ganymedes01.etfuturum.configuration.configs;
 
 import java.io.File;
 
-import ganymedes01.etfuturum.ModBlocks;
+import cpw.mods.fml.common.registry.GameRegistry;
+import ganymedes01.etfuturum.api.mappings.BlockAndMetadataMapping;
 import ganymedes01.etfuturum.configuration.ConfigBase;
-import ganymedes01.etfuturum.core.utils.ExternalContent;
+import ganymedes01.etfuturum.core.utils.Logger;
 import net.minecraft.block.Block;
-import net.minecraft.launchwrapper.Launch;
-import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 
 public class ConfigWorld extends ConfigBase {
@@ -15,10 +14,12 @@ public class ConfigWorld extends ConfigBase {
 	//TODO: CHANGE THIS
 	public static boolean enableNewNether;
 
-	public static Block fossilBoneBlock;
-	public static int fossilBlockID;
-	public static Block amethystOuterBlock;
-	public static int amethystOuterID;
+	public static String fossilBlockID;
+	public static String amethystOuterBlockID;
+	public static String amethystMiddleBlockID;
+	public static BlockAndMetadataMapping fossilBlock;
+	public static BlockAndMetadataMapping amethystOuterBlock;
+	public static BlockAndMetadataMapping amethystMiddleBlock;
 	
 	public static boolean enableDmgIndicator;
 	public static boolean enableAirDebris;
@@ -85,8 +86,36 @@ public class ConfigWorld extends ConfigBase {
 		deepslateGenerationMode = getInt("deepslateGenerationMode", catGeneration, 0, -1, 1, "If 0, deepslate replaces all stone below the specified value, with a shattering effect near the top similar to bedrock. If 1, it generates in clusters using the deepslate cluster settings. -1 disables Et Futurum deepslate generation entirely.");
 		enableOceanMonuments = getBoolean("enableOceanMonuments", catGeneration, true, "Note: Ocean monuments currently do not have guardians");
 		enableFossils = getBoolean("enableFossils", catGeneration, true, "");
-		fossilBlockID  = getInt("fossilBoneBlock", catGeneration, 0, 0, 2, "0 = Et Futurum bone block\n1 = Netherlicious bone block\n2 = UpToDateMod bone block.\nIf the block does not exist, this option is ignored.");
-		amethystOuterID  = getInt("amethystOuterBlock", catGeneration, 0, 0, 2, "0 = Et Futurum smooth basalt block\n1 = Et Futurum tuff block\n2 = Netherlicious smooth basalt block\nSince there's no other way to get Et Futurum's smooth basalt, using an option other than 0, if they exist, will disable Et Futurum smooth basalt. If the selected block does not exist (disabled or mod not installed), this option does nothing.");
+		if(hasKey(catGeneration, "fossilBoneBlock")) {
+			Property oldFossilIDProp = get(catGeneration, "fossilBoneBlock", 0);
+			int oldID = oldFossilIDProp.getInt();
+			switch(oldID) {
+				default: fossilBlockID = "etfuturum:bone"; break;
+				case 1: fossilBlockID = "netherlicious:BoneBlock"; break;
+				case 2: fossilBlockID = "uptodate:bone_block"; break;
+			}
+			getCategory(catGeneration).remove("fossilBoneBlock");
+			get(catGeneration, "fossilBlockID", "etfuturum:bone").set(fossilBlockID);
+			save();
+		}
+		fossilBlockID = getString("fossilBlockID", catGeneration, "etfuturum:bone", "Use a namespaced ID, + optionally meta (max 3) to choose the block that makes up fossils. The max meta is 3 because the rotations will change the meta. North/South is the meta + 4 and East/West is + 8.\nNetherlicious bone block is \"netherlicious:BoneBlock\" and UpToDate bone block is \"uptodate:bone_block\".\nIf the chosen block does not exist then fossils will not generate.");
+
+		if(hasKey(catGeneration, "amethystOuterBlock")) {
+			Property oldAmethystOuterIDProp = get(catGeneration, "amethystOuterBlock", 0);
+			int oldID = oldAmethystOuterIDProp.getInt();
+			switch(oldID) {
+				default: amethystOuterBlockID = "etfuturum:smooth_basalt"; break;
+				case 1: amethystOuterBlockID = "etfuturum:tuff"; break;
+				case 2: amethystOuterBlockID = "netherlicious:BasaltBricks:6"; break;
+			}
+			getCategory(catGeneration).remove("amethystOuterBlock");
+			get(catGeneration, "amethystOuterBlockID", "etfuturum:bone").set(amethystOuterBlockID);
+			save();
+		}
+		amethystOuterBlockID = getString("amethystOuterBlockID", catGeneration, "etfuturum:smooth_basalt", "Use a namespaced ID, + optionally meta (max 15) to choose the block that makes up the outer layer of amethyst geodes.\nThe outer layer was formerly \"etfuturum:tuff\" before it was changed in later 1.17 snapshots. Netherlicious smooth basalt is \"netherlicious:BasaltBricks:6\"\nIf the chosen block does not exist then amethyst geodes will not generate.");
+
+		amethystMiddleBlockID = getString("amethystMiddleBlockID", catGeneration, "etfuturum:calcite", "Use a namespaced ID, + optionally meta (max 15) to choose the block that makes up the middle layer of amethyst geodes.\nIf the chosen block does not exist then amethyst geodes will not generate.");
+
 		Property fossilBlacklistProp = get(catGeneration, "fossilDimensionBlacklist", new int[] {-1, 1});
 		fossilBlacklistProp.comment = "The dimensions the fossil structures should not spawn in.";
 		fossilDimensionBlacklist = fossilBlacklistProp.getIntList();
@@ -113,7 +142,67 @@ public class ConfigWorld extends ConfigBase {
 
 	@Override
 	protected void initValues() {
-		Block block = ConfigWorld.amethystOuterID == 1 && ConfigBlocksItems.enableTuff ? ModBlocks.TUFF.get() : ExternalContent.netherlicious_basalt_bricks;
-		ConfigWorld.amethystOuterBlock = ConfigWorld.amethystOuterID == 0 || block == null ? ModBlocks.SMOOTH_BASALT.get() : block;
+		String[] fossilBlockArray = fossilBlockID.split(":");
+		if((fossilBlockArray.length == 2 || fossilBlockArray.length == 3) && GameRegistry.findBlock(fossilBlockArray[0], fossilBlockArray[1]) != null) {
+			int meta = 0;
+			if (fossilBlockArray.length == 3) {
+				try {
+					meta = Integer.parseInt(fossilBlockArray[2]);
+				} catch (NumberFormatException e) {
+					Logger.error("Specified bone block for fossils: " + fossilBlockID + " has invalid metadata specified! (Not an integer)");
+					Logger.error("Defaulting to 0.");
+				}
+				if (meta > 3 || meta < 0) {
+					Logger.error("Specified bone block for fossils: " + fossilBlockID + " has invalid metadata specified! (Value cannot be greater than 3 or lower than 0)");
+					Logger.error("Defaulting to 0.");
+					meta = 0;
+				}
+			}
+			fossilBlock = new BlockAndMetadataMapping(GameRegistry.findBlock(fossilBlockArray[0], fossilBlockArray[1]), meta);
+		} else {
+			Logger.error("Fossil block " + fossilBlockID + " does not exist or is malformed, therefore fossils will not generate!");
+		}
+
+		String[] amethystOuterBlockArray = amethystOuterBlockID.split(":");
+		if((amethystOuterBlockArray.length == 2 || amethystOuterBlockArray.length == 3) && GameRegistry.findBlock(amethystOuterBlockArray[0], amethystOuterBlockArray[1]) != null) {
+			int meta = 0;
+			if (amethystOuterBlockArray.length == 3) {
+				try {
+					meta = Integer.parseInt(amethystOuterBlockArray[2]);
+				} catch (NumberFormatException e) {
+					Logger.error("Specified bone block for amethystOuters: " + amethystOuterBlockID + " has invalid metadata specified! (Not an integer)");
+					Logger.error("Defaulting to 0.");
+				}
+				if (meta > 15 || meta < 0) {
+					Logger.error("Specified bone block for amethystOuters: " + amethystOuterBlockID + " has invalid metadata specified! (Value cannot be greater than 15 or lower than 0)");
+					Logger.error("Defaulting to 0.");
+					meta = 0;
+				}
+			}
+			amethystOuterBlock = new BlockAndMetadataMapping(GameRegistry.findBlock(amethystOuterBlockArray[0], amethystOuterBlockArray[1]), meta);
+		} else {
+			Logger.error("Amethyst outer layer block " + fossilBlockID + " does not exist or is malformed, therefore amethyst geodes will not generate!");
+		}
+
+		String[] amethystMiddleBlockArray = amethystMiddleBlockID.split(":");
+		if((amethystMiddleBlockArray.length == 2 || amethystMiddleBlockArray.length == 3) && GameRegistry.findBlock(amethystMiddleBlockArray[0], amethystMiddleBlockArray[1]) != null) {
+			int meta = 0;
+			if (amethystMiddleBlockArray.length == 3) {
+				try {
+					meta = Integer.parseInt(amethystMiddleBlockArray[2]);
+				} catch (NumberFormatException e) {
+					Logger.error("Specified amethyst middle layer block: " + amethystMiddleBlockID + " has invalid metadata specified! (Not an integer)");
+					Logger.error("Defaulting to 0.");
+				}
+				if (meta > 15 || meta < 0) {
+					Logger.error("Specified amethyst middle layer block: " + amethystMiddleBlockID + " has invalid metadata specified! (Value cannot be greater than 15 or lower than 0)");
+					Logger.error("Defaulting to 0.");
+					meta = 0;
+				}
+			}
+			amethystMiddleBlock = new BlockAndMetadataMapping(GameRegistry.findBlock(amethystMiddleBlockArray[0], amethystMiddleBlockArray[1]), meta);
+		} else {
+			Logger.error("Amethyst middle layer block " + fossilBlockID + " does not exist or is malformed, therefore amethyst geodes will not generate!");
+		}
 	}
 }

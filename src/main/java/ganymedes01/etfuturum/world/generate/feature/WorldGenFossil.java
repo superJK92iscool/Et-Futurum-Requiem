@@ -2,6 +2,7 @@ package ganymedes01.etfuturum.world.generate.feature;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.etfuturum.ModBlocks;
+import ganymedes01.etfuturum.api.mappings.BlockAndMetadataMapping;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import ganymedes01.etfuturum.core.utils.structurenbt.BlockState;
@@ -21,8 +22,12 @@ import java.util.*;
 public class WorldGenFossil extends WorldGenerator {
 
 	private final List<Pair<Fossil, Fossil>> fossils;
+	private final BlockAndMetadataMapping bone;
 
-	public WorldGenFossil() {
+	public WorldGenFossil(BlockAndMetadataMapping bone) {
+
+		this.bone = bone;
+
 		Fossil fossilSkull1 = new Fossil("/data/structure/fossil/skull_1.nbt", false);
 		Fossil fossilSkullCoal1 = new Fossil("/data/structure/fossil/skull_1_coal.nbt", true);
 		Fossil fossilSkull2 = new Fossil("/data/structure/fossil/skull_2.nbt", false);
@@ -116,12 +121,10 @@ public class WorldGenFossil extends WorldGenerator {
 			Map<Integer, BlockState> map = new HashMap<>();
 			if (coal) {
 				map.put(0, new BlockState(Blocks.coal_ore, 0));
-			} else { //TODO: Configurable bone block
-				Block block = ConfigWorld.fossilBlockID == 1 ? GameRegistry.findBlock("netherlicious", "BoneBlock") : GameRegistry.findBlock("uptodate", "bone_block");
-				block = ConfigWorld.fossilBlockID == 0 || block == null ? ModBlocks.BONE.get() : block;
+			} else {
 				for (Pair<Integer, NBTTagCompound> pair : getPaletteNBT()) {
 					String axis = getProperties(pair.getRight()).get("axis");
-					map.put(pair.getLeft(), new BlockState(block, BlockStateUtils.getMetaFromState("axis", axis, facing)));
+					map.put(pair.getLeft(), new BlockState(bone.getBlock(), BlockStateUtils.getMetaFromState("axis", axis, facing) + bone.getMeta()));
 				}
 			}
 			return map;

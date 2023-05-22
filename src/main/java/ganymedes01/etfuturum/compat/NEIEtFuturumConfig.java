@@ -6,6 +6,7 @@ import codechicken.nei.recipe.FurnaceRecipeHandler;
 import codechicken.nei.recipe.GuiCraftingRecipe;
 import codechicken.nei.recipe.GuiUsageRecipe;
 import ganymedes01.etfuturum.ModBlocks;
+import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.compat.nei.BannerPatternHandler;
 import ganymedes01.etfuturum.compat.nei.BlastFurnaceRecipeHandler;
 import ganymedes01.etfuturum.compat.nei.ComposterHandler;
@@ -21,16 +22,16 @@ public class NEIEtFuturumConfig implements IConfigureNEI {
 
 	@Override
 	public void loadConfig() {
-		if (ConfigBlocksItems.enableBanners) {
+		if (ModBlocks.BANNER.isEnabled()) {
 			API.registerRecipeHandler(new BannerPatternHandler());
 			API.registerUsageHandler(new BannerPatternHandler());
 		}
 
-		if (ConfigBlocksItems.enableBeetroot) {
+		if (ModBlocks.BEETROOTS.isEnabled()) {
 			API.hideItem(new ItemStack(ModBlocks.BEETROOTS.get()));
 		}
 		
-		if(ConfigBlocksItems.enableSmoker) {
+		if(ModBlocks.SMOKER.isEnabled()) {
 			// Smoker
 			FurnaceRecipeHandler handler = SMOKER_HANDLER;
 			// make it possible to use the "R" Key
@@ -39,7 +40,7 @@ public class NEIEtFuturumConfig implements IConfigureNEI {
 			GuiUsageRecipe.usagehandlers.add(handler);
 		}
 
-		if(ConfigBlocksItems.enableBlastFurnace) {
+		if(ModBlocks.BLAST_FURNACE.isEnabled()) {
 			// Blast Furnace
 			FurnaceRecipeHandler handler = BLAST_FURNACE_HANDLER;
 			// make it possible to use the "R" Key
@@ -48,7 +49,7 @@ public class NEIEtFuturumConfig implements IConfigureNEI {
 			GuiUsageRecipe.usagehandlers.add(handler);
 		}
 
-		if(ConfigBlocksItems.enableComposter) {
+		if(ModBlocks.COMPOSTER.isEnabled()) {
 			ComposterHandler handler = new ComposterHandler();
 			GuiCraftingRecipe.craftinghandlers.add(handler);
 			GuiUsageRecipe.usagehandlers.add(handler);

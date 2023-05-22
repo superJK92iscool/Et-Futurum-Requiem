@@ -23,17 +23,22 @@ import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
 
 public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
-	
+
 	public static final EtFuturumLateWorldGenerator INSTANCE = new EtFuturumLateWorldGenerator();
+
 	public static final Map<Integer, Map<Long, List<Integer>>> deepslateRedoCache = Maps.newConcurrentMap();
+
+	protected EtFuturumLateWorldGenerator() {
+		super();
+	}
 
 	@Override
 	public void generate(Random rand, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
 		if(world.getWorldInfo().getTerrainType() != WorldType.FLAT || world.provider.dimensionId != 0 || world.getWorldInfo().getGeneratorOptions().contains("decoration")) {
-			if(ConfigBlocksItems.enableDeepslate && ConfigWorld.deepslateGenerationMode == 1 && world.provider.dimensionId != -1 && world.provider.dimensionId != 1) {
+			if(ModBlocks.DEEPSLATE.isEnabled() && ConfigWorld.deepslateGenerationMode == 1 && world.provider.dimensionId != -1 && world.provider.dimensionId != 1) {
 				generateOre(deepslateBlobGen, world, rand, chunkX, chunkZ, 1, 6, ConfigWorld.deepslateMaxY);
 			}
-			if(ConfigBlocksItems.enableTuff && world.provider.dimensionId != -1 && world.provider.dimensionId != 1) {
+			if(ModBlocks.TUFF.isEnabled() && world.provider.dimensionId != -1 && world.provider.dimensionId != 1) {
 				generateOre(tuffGen, world, rand, chunkX, chunkZ, 1, 6, ConfigWorld.deepslateMaxY);
 			}
 		}
@@ -74,7 +79,7 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 			stopRecording = false;
 		}
 		
-		if(ConfigBlocksItems.enableCoarseDirt && ConfigWorld.enableCoarseDirtReplacement) {
+		if(ModBlocks.COARSE_DIRT.isEnabled() && ConfigWorld.enableCoarseDirtReplacement) {
 			if(chunk == null) {
 				chunk = world.getChunkFromChunkCoords(chunkX, chunkZ);
 			}
@@ -151,7 +156,7 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 	public static boolean stopRecording;
 	
 	private boolean doesChunkSupportLayerDeepslate(WorldType terrain, int dimId) {
-		if(ConfigBlocksItems.enableDeepslate) {
+		if(ModBlocks.DEEPSLATE.isEnabled()) {
 			if (ConfigWorld.deepslateGenerationMode == 0 && ConfigWorld.deepslateMaxY > 0) {
 				if(terrain != WorldType.FLAT && ArrayUtils.contains(ConfigWorld.deepslateLayerDimensionBlacklist, dimId) == ConfigWorld.deepslateLayerDimensionBlacklistAsWhitelist) {
 					return true;

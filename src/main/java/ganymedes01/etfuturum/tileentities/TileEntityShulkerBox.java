@@ -10,6 +10,7 @@ import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.blocks.BlockShulkerBox;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
+import ganymedes01.etfuturum.configuration.configs.ConfigModCompat;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.inventory.ContainerChestGeneric;
 import ganymedes01.etfuturum.lib.Reference;
@@ -75,7 +76,7 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 	{
 		super.readFromNBT(nbt);
 
-		this.type = ConfigBlocksItems.enableShulkerBoxesIronChest ? ShulkerBoxType.values()[nbt.getByte("Type")] : ShulkerBoxType.VANILLA;
+		this.type = ConfigModCompat.shulkerBoxesIronChest ? ShulkerBoxType.values()[nbt.getByte("Type")] : ShulkerBoxType.VANILLA;
 		
 		if(this.chestContents == null || this.chestContents.length != this.getSizeInventory()) {
 			this.chestContents = new ItemStack[this.getSizeInventory()];
@@ -631,7 +632,7 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 	{
 		if (this.blockMetadata == -1)
 		{
-			if(ConfigBlocksItems.enableShulkerBoxesIronChest) {
+			if(ConfigModCompat.shulkerBoxesIronChest) {
 				this.blockMetadata = this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord);
 			} else {
 				blockMetadata = 0;

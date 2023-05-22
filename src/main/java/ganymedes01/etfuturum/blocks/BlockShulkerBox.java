@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ganymedes01.etfuturum.ModItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigModCompat;
 import org.apache.commons.lang3.ArrayUtils;
 
 import cpw.mods.fml.relauncher.Side;
@@ -413,7 +414,7 @@ public class BlockShulkerBox extends BlockContainer implements ISubBlocksBlock {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubBlocks(Item item, CreativeTabs tab, List subItems) {
-		for (byte i = 0; i <= (EtFuturum.hasIronChest && ConfigBlocksItems.enableShulkerBoxesIronChest ? 7 : 0); i++) {
+		for (byte i = 0; i <= (EtFuturum.hasIronChest && ConfigModCompat.shulkerBoxesIronChest ? 7 : 0); i++) {
 			for (byte j = 0; j <= (ConfigBlocksItems.enableDyedShulkerBoxes ? 16 : 0); j++) {
 				
 				NBTTagCompound tag = new NBTTagCompound();
@@ -448,7 +449,7 @@ public class BlockShulkerBox extends BlockContainer implements ISubBlocksBlock {
 			if(box.color > 0 && ConfigBlocksItems.enableDyedShulkerBoxes) {
 				stack.getTagCompound().setByte("Color", box.color);
 			}
-			if(box.type.ordinal() > 0 && ConfigBlocksItems.enableShulkerBoxesIronChest && EtFuturum.hasIronChest) {
+			if(box.type.ordinal() > 0 && ConfigModCompat.shulkerBoxesIronChest && EtFuturum.hasIronChest) {
 				stack.getTagCompound().setByte("Type", (byte) box.type.ordinal());
 			}
 		}

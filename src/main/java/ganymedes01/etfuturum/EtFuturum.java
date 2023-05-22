@@ -340,13 +340,15 @@ public class EtFuturum {
 	}
 	
 	@EventHandler
-	public void onLoadComplete(FMLLoadCompleteEvent e){
+	public void onLoadComplete(FMLLoadCompleteEvent e) {
+		ConfigBase.postInit();
 		DeepslateOreRegistry.init();
 		StrippedLogRegistry.init();
 		RawOreRegistry.init();
 		SmithingTableRecipes.init();
 		CompostingRegistry.init();
-		ConfigBase.postInit();
+
+		EtFuturumWorldGenerator.INSTANCE.postInit();
 
 		//Because NP+ uses its own (worse) step sounds for this and it causes the check below that replaces these blocks to fail.
 		if(ConfigSounds.newBlockSounds) {

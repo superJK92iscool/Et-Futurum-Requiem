@@ -16,6 +16,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import thaumcraft.common.config.ConfigBlocks;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -96,7 +97,7 @@ public enum ModBlocks {
 	DEEPSLATE_BRICKS(ConfigBlocksItems.enableDeepslate, new BlockDeepslateBricks(), ItemBlockDeepslate.class),
 	TUFF(ConfigBlocksItems.enableTuff, new BlockTuff()),
 	RAW_ORE_BLOCK(ConfigBlocksItems.enableRawOres, new BlockRawOre(), ItemBlockRawOre.class),
-	SMOOTH_BASALT(ConfigWorld.amethystOuterID == 0 ? ConfigBlocksItems.enableAmethyst : ConfigWorld.amethystOuterID == 1 ? !ConfigBlocksItems.enableTuff : !EtFuturum.hasNetherlicious, new BlockSmoothBasalt()),
+	SMOOTH_BASALT(ConfigBlocksItems.enableAmethyst, new BlockSmoothBasalt()),
 	CALCITE(ConfigBlocksItems.enableAmethyst, new BlockCalcite()),
 	AMETHYST_BLOCK(ConfigBlocksItems.enableAmethyst, new BlockAmethystBlock()),
 	BUDDING_AMETHYST(ConfigBlocksItems.enableAmethyst, new BlockBuddingAmethyst()),

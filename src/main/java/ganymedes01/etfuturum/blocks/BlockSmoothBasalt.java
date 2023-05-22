@@ -20,16 +20,4 @@ public class BlockSmoothBasalt extends Block {
 		setBlockName(Utils.getUnlocalisedName("smooth_basalt"));
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
-	
-	/*
-	 * Since the block ID check runs after the game loads, we need to write separate code to check for the config here.
-	 * This is because since the block check runs after the game loads, the variable won't be populated yet.
-	 */
-	private boolean isSmoothBasaltUsed() {
-		if(ConfigWorld.amethystOuterID == 0) {
-			return true;
-		}
-		return ConfigWorld.amethystOuterID == 1 ? !ConfigBlocksItems.enableTuff : !EtFuturum.hasNetherlicious;
-	}
-
 }

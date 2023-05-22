@@ -4,15 +4,13 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigEntities;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
+import ganymedes01.etfuturum.configuration.configs.ConfigModCompat;
 import ganymedes01.etfuturum.entities.EntityNewBoat;
 import ganymedes01.etfuturum.items.*;
 import ganymedes01.etfuturum.items.ItemWoodSign;
 import ganymedes01.etfuturum.items.equipment.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public enum ModItems {
 	MUTTON_RAW(ConfigBlocksItems.enableMutton, new ItemMuttonRaw()),
@@ -58,7 +56,7 @@ public enum ModItems {
 	PIGSTEP_RECORD(ConfigBlocksItems.enablePigstep, new ItemEtFuturumRecord("pigstep")),
 	OTHERSIDE_RECORD(ConfigBlocksItems.enableOtherside, new ItemEtFuturumRecord("otherside")),
 	AMETHYST_SHARD(ConfigBlocksItems.enableAmethyst, new ItemAmethystShard()),
-	SHULKER_BOX_UPGRADE(EtFuturum.hasIronChest && ConfigBlocksItems.enableShulkerBoxesIronChest, new ItemShulkerBoxUpgrade()),
+	SHULKER_BOX_UPGRADE(EtFuturum.hasIronChest && ConfigModCompat.shulkerBoxesIronChest, new ItemShulkerBoxUpgrade()),
 
 	ITEM_SIGN_SPRUCE(ConfigBlocksItems.enableSigns, new ItemWoodSign(1)),
 	ITEM_SIGN_BIRCH(ConfigBlocksItems.enableSigns, new ItemWoodSign(2)),

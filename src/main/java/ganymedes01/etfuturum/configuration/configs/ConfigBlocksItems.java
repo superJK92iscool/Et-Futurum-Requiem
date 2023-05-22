@@ -4,8 +4,6 @@ import java.io.File;
 
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.configuration.ConfigBase;
-import net.minecraft.launchwrapper.Launch;
-import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 
 public class ConfigBlocksItems extends ConfigBase {
@@ -114,7 +112,6 @@ public class ConfigBlocksItems extends ConfigBase {
 	
 	public static boolean enableShulkerBoxes;
 	public static boolean enableDyedShulkerBoxes = true;
-	public static boolean enableShulkerBoxesIronChest;
 	public static boolean enablePotionCauldron;
 	public static boolean enableNewBoats;
 	public static boolean newBoatPassengerSeat;
@@ -193,7 +190,6 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableSigns = getBoolean("enableSigns", catBlockFunc, true, "");
 		enableLavaCauldrons = getBoolean("enableLavaCauldrons", catBlockFunc, true, "Allow lava buckets to fill cauldrons");
 		enableShulkerBoxes = getBoolean("enableShulkerBoxes", catBlockFunc, true, "If Shulkers are disabled, a custom recipe will be required to obtain Shulker shells.");
-		enableShulkerBoxesIronChest = getBoolean("enableShulkerBoxesIronChest", catBlockFunc, true, "If Iron Chests is installed, allow Iron Shulker boxes to be crafted having all the same tiers as Iron Chests. This option does nothing if Iron Chests is not installed.");
 		enablePotionCauldron = getBoolean("enablePotionCauldron", catBlockFunc, true, "A port of potion cauldrons from Bedrock Edition. Used to make tipped arrows and store potions.");
 		//Note the above option has an extra check in preInit to ensure Iron Chests is loaded. We can't do this here because Loader doesn't even exist yet since we initialize these configs while Mixins and ASM are being applied.
 		enableStonecutter = getBoolean("enableStonecutter", catBlockFunc, true, "Currently DOES NOT HAVE ANY FUNCTIONALITY. Decoration ONLY!");
@@ -311,7 +307,7 @@ public class ConfigBlocksItems extends ConfigBase {
 	@Override
 	protected void initValues() {
 		if(!EtFuturum.hasIronChest) {
-			ConfigBlocksItems.enableShulkerBoxesIronChest = false;
+			ConfigModCompat.shulkerBoxesIronChest = false;
 		}
 	}
 }

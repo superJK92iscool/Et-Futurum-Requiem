@@ -5,13 +5,12 @@ import java.util.List;
 import java.util.Random;
 
 import ganymedes01.etfuturum.ModBlocks;
+import ganymedes01.etfuturum.api.mappings.BlockAndMetadataMapping;
 import org.apache.commons.lang3.tuple.Pair;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
-import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
-import ganymedes01.etfuturum.core.utils.ExternalContent;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import ganymedes01.etfuturum.core.utils.helpers.DoublePerlinNoiseSampler;
@@ -22,8 +21,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class WorldGenAmethystGeode extends WorldGenerator {
-	
-	private final int outerMeta;
+
 	private final List<Block> budBlocks;
 	
 	private final int minGenOffset, maxGenOffset;//geodeFeatureConfig.minGenOffset geodeFeatureConfig.maxGenOffset
@@ -38,13 +36,18 @@ public class WorldGenAmethystGeode extends WorldGenerator {
 	private final double noiseMultiplier;//geodeFeatureConfig.noiseMultiplier
 	private final double buddingAmethystChance;//Formerly known as geodeFeatureConfig.useAlternateLayer0Chance
 	private final double usePotentialPlacementsChance;//geodeFeatureConfig.usePotentialPlacementsChance
+
+	private final BlockAndMetadataMapping outerBlock;
+	private final BlockAndMetadataMapping middleBlock;
 	
-	public WorldGenAmethystGeode() {
-		this(-16, 16, 1, new int[] {3, 4}, new int[] {4, 5, 6}, 1.7D, 2.2D, 3.2D, 4.2D, new int[] {1, 2}, 0.95D, 2.0D, 2, 0.05D, 0.083D, 0.35D);
+	public WorldGenAmethystGeode(BlockAndMetadataMapping outerBlock, BlockAndMetadataMapping middleBlock) {
+		this(-16, 16, 1, new int[] {3, 4}, new int[] {4, 5, 6}, 1.7D, 2.2D, 3.2D, 4.2D, new int[] {1, 2}, 0.95D, 2.0D, 2, 0.05D, 0.083D, 0.35D, outerBlock, middleBlock);
 	}
 	
-	public WorldGenAmethystGeode(int minOffset, int maxOffset, int invalidMax, int[] distPoints, int[] outerWallDist, double fill, double inner, double middle, double outer, int[] pointOff, double crackChance, double baseCrack, int crackPointOff, double noiseAmp, double budChance, double potentialPlaceChance) {
-		outerMeta = ConfigWorld.amethystOuterBlock == ExternalContent.netherlicious_basalt_bricks ? 6 : 0;
+	private WorldGenAmethystGeode(int minOffset, int maxOffset, int invalidMax, int[] distPoints, int[] outerWallDist, double fill, double inner, double middle, double outer, int[] pointOff, double crackChance, double baseCrack, int crackPointOff, double noiseAmp, double budChance, double potentialPlaceChance, BlockAndMetadataMapping outerBlock, BlockAndMetadataMapping middleBlock) {
+		this.outerBlock = outerBlock;
+		this.middleBlock = middleBlock;
+
 		budBlocks = ImmutableList.of(ModBlocks.AMETHYST_CLUSTER_1.get(), ModBlocks.AMETHYST_CLUSTER_2.get());
 		
 		minGenOffset = minOffset;
@@ -135,7 +138,7 @@ public class WorldGenAmethystGeode extends WorldGenerator {
 		  }
 
 		  List<BlockPos> list3 = Lists.newArrayList();
-		  Iterator var48 = BlockPos.iterate(blockPos.add(minGenOffset, minGenOffset, minGenOffset), blockPos.add(maxGenOffset, maxGenOffset, maxGenOffset)).iterator();
+		  Iterator<BlockPos> var48 = BlockPos.iterate(blockPos.add(minGenOffset, minGenOffset, minGenOffset), blockPos.add(maxGenOffset, maxGenOffset, maxGenOffset)).iterator();
 
 		  while(true) {
 			 while(true) {
@@ -144,7 +147,7 @@ public class WorldGenAmethystGeode extends WorldGenerator {
 				BlockPos blockPos3;
 				do {
 				   if (!var48.hasNext()) {
-					  Iterator var51 = list3.iterator();
+					  Iterator<BlockPos> var51 = list3.iterator();
 
 					  while(true) {
 						 while(var51.hasNext()) {
@@ -153,16 +156,14 @@ public class WorldGenAmethystGeode extends WorldGenerator {
 							EnumFacing[] var53 = EnumFacing.values();
 							int var37 = var53.length;
 
-							for(int var54 = 0; var54 < var37; ++var54) {
-								EnumFacing direction2 = var53[var54];
+							 for (EnumFacing direction2 : var53) {
+								 BlockPos blockPos7 = blockPos6.offset(direction2);
 
-							   BlockPos blockPos7 = blockPos6.offset(direction2);
-
-							   if (world.isAirBlock(blockPos7.getX(), blockPos7.getY(), blockPos7.getZ())) {
-								   world.setBlock(blockPos7.getX(), blockPos7.getY(), blockPos7.getZ(), block2, (random.nextBoolean() ? 0 : 6)/*picks a random bud size*/ + direction2.ordinal(), 2);
-								  break;
-							   }
-							}
+								 if (world.isAirBlock(blockPos7.getX(), blockPos7.getY(), blockPos7.getZ())) {
+									 world.setBlock(blockPos7.getX(), blockPos7.getY(), blockPos7.getZ(), block2, (random.nextBoolean() ? 0 : 6)/*picks a random bud size*/ + direction2.ordinal(), 2);
+									 break;
+								 }
+							 }
 						 }
 
 						 return true;
@@ -205,9 +206,9 @@ public class WorldGenAmethystGeode extends WorldGenerator {
 						  list3.add(new BlockPos(blockPos3));
 					   }
 					} else if (u >= middleLayerSqrt) {
-					   world.setBlock(blockPos3.getX(), blockPos3.getY(), blockPos3.getZ(), ModBlocks.CALCITE.get(), 0, 2);//MiddleLayerProvider also TODO I need to make this layer configurable
+					   world.setBlock(blockPos3.getX(), blockPos3.getY(), blockPos3.getZ(), middleBlock.getBlock(), middleBlock.getMeta(), 2);//MiddleLayerProvider also TODO I need to make this layer configurable
 					} else if (u >= outerLayerSqrt) {
-					   world.setBlock(blockPos3.getX(), blockPos3.getY(), blockPos3.getZ(), ConfigWorld.amethystOuterBlock, outerMeta, 2);//OuterLayerProvider
+					   world.setBlock(blockPos3.getX(), blockPos3.getY(), blockPos3.getZ(), outerBlock.getBlock(), outerBlock.getMeta(), 2);//OuterLayerProvider
 					}
 				 }
 			 }

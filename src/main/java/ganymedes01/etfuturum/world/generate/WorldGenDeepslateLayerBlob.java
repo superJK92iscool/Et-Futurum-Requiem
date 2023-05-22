@@ -80,7 +80,7 @@ public class WorldGenDeepslateLayerBlob extends WorldGenMinable
 											world.setBlock(x, y, z, field_150519_a, 0, 2);
 										} else if(!tuff && ConfigTweaks.deepslateReplacesCobblestone && (block.isReplaceableOreGen(world, x, y, z, Blocks.cobblestone))) {
 											world.setBlock(x, y, z, ModBlocks.COBBLED_DEEPSLATE.get(), 0, 2);
-										} else if(ConfigBlocksItems.enableDeepslateOres && block != Blocks.air) {
+										} else if(ConfigBlocksItems.enableDeepslateOres) {
 											if((mapping = DeepslateOreRegistry.getOre(block, world.getBlockMetadata(x, y, z))) != null) {
 												world.setBlock(x, y, z, mapping.getBlock(), mapping.getMeta(), 2);
 											}
