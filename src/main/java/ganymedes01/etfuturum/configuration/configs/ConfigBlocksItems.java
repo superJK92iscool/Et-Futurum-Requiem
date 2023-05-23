@@ -87,6 +87,8 @@ public class ConfigBlocksItems extends ConfigBase {
 	public static boolean enableCopperSubItems;
 	public static boolean enableDeepslate;
 	public static boolean enableDeepslateOres;
+	public static boolean enableBasalt;
+	public static boolean enableCalcite;
 	public static boolean enableTuff;
 	public static boolean enableNewTileEntities;
 	public static boolean enableSuspiciousStew;
@@ -171,6 +173,8 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableCopper = getBoolean("enableCopper", catBlockNatural, true, "Copper ore and copper blocks, variants, and waxed variants. (Slime balls are used if no mod introduces wax)");
 		enableSweetBerryBushes = getBoolean("enableSweetBerryBushes", catBlockNatural, true, "");
 		enableDeepslate = getBoolean("enableDeepslate", catBlockNatural, true, "");
+		enableBasalt = getBoolean("enableBasalt", catBlockNatural, true, "");
+		enableCalcite = getBoolean("enableCalcite", catBlockNatural, true, "");
 		enableTuff = getBoolean("enableTuff", catBlockNatural, true, "");
 		enableDeepslateOres = getBoolean("enableDeepslateOres", catBlockNatural, true, "Enable deepslate ores for copper ore and vanilla ores when deepslate generates over them.");
 		enableAmethyst = getBoolean("enableAmethyst", catBlockNatural, true, "Enables tinted glass, amethyst blocks, budding amethyst and amethyst crystals. Also enables the item too. Smooth basalt can be disabled by changing the world.cfg option for the basalt layer to something else.");
