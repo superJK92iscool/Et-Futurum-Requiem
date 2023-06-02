@@ -19,11 +19,13 @@ import net.minecraft.world.World;
 
 import java.util.Random;
 
+import org.apache.commons.lang3.mutable.MutableInt;
+
 public class BlockObserver extends Block implements IBlockObserver {
 	@SideOnly(Side.CLIENT)
 	private IIcon observerFront, observerBack, observerTop, observerBackLit;
 	
-	private static int timesDisabled;
+	private static ThreadLocal<MutableInt> timesDisabled = ThreadLocal.withInitial(MutableInt::new);
 
 	public BlockObserver() {
 		super(Material.rock);
@@ -148,20 +150,24 @@ public class BlockObserver extends Block implements IBlockObserver {
 		return true;
 	}
 
-	/** <p>Disable notification of observers about chunk updates. Observer notifications add some overhead to chunk updates,
-	 *  so they should be disabled if it's reasonable to assume that no observers will see them (e.g. during world gen).</p>
+	/** <p>Disable notification of observers about chunk updates on the current thread. Observer notifications add
+	 *  some overhead to chunk updates, so they should be disabled if it's reasonable to assume that no observers will
+	 *  see them (e.g. during world gen).</p>
 	 *  
 	 *  <p>Calling this method will increase the disablification stack by one level. Each call should be followed by a
 	 *  {@link BlockObserver#enableNotifications()} call to restore the stack.</p> */
 	public static void disableNotifications() {
-		timesDisabled++;	
+		timesDisabled.get().increment();
 	}
 	
 	public static void enableNotifications() {
-		timesDisabled = Math.max(0, timesDisabled - 1);
+		MutableInt timesDisabledMut = timesDisabled.get();
+		int timesDisabledInt = timesDisabledMut.intValue();
+		timesDisabledInt = Math.max(0, timesDisabledInt - 1);
+		timesDisabledMut.setValue(timesDisabledInt);
 	}
 	
 	public static boolean areNotificationsEnabled() {
-		return timesDisabled == 0;
+		return timesDisabled.get().intValue() == 0;
 	}
 }
