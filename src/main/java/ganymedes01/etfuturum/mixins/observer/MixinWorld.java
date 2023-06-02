@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.mixins.observer;
 
+import ganymedes01.etfuturum.blocks.BlockObserver;
 import ganymedes01.etfuturum.blocks.IBlockObserver;
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
@@ -67,13 +68,17 @@ public abstract class MixinWorld {
 	@Inject(method = "notifyBlocksOfNeighborChange(IIILnet/minecraft/block/Block;)V", at = @At("TAIL"))
 	private void notifyObserversAfterNeighborUpdate(int p_147459_1_, int p_147459_2_, int p_147459_3_, Block p_147459_4_, CallbackInfo ci) {
 		/* Ensure that observers are also notified */
-		etfu$notifySurroundingObservers(p_147459_1_, p_147459_2_, p_147459_3_,  p_147459_4_, -1);
+		if(BlockObserver.areNotificationsEnabled()) {
+			etfu$notifySurroundingObservers(p_147459_1_, p_147459_2_, p_147459_3_,  p_147459_4_, -1);
+		}
 	}
 
 	@Inject(method = "notifyBlocksOfNeighborChange(IIILnet/minecraft/block/Block;I)V", at = @At("TAIL"))
 	private void notifyObserversAfterNeighborUpdate(int p_147459_1_, int p_147459_2_, int p_147459_3_, Block p_147459_4_, int sideExcept, CallbackInfo ci) {
 		/* Ensure that observers are also notified */
-		etfu$notifySurroundingObservers(p_147459_1_, p_147459_2_, p_147459_3_, p_147459_4_, sideExcept);
+		if(BlockObserver.areNotificationsEnabled()) {
+			etfu$notifySurroundingObservers(p_147459_1_, p_147459_2_, p_147459_3_, p_147459_4_, sideExcept);
+		}
 	}
 
 	private static boolean etfu$shouldObserverNotify(int flag) {
@@ -83,7 +88,7 @@ public abstract class MixinWorld {
 	@Inject(method = "markAndNotifyBlock", at = @At("TAIL"), remap = false)
 	private void notifyObserverOnSkippedNeighborUpdate(int x, int y, int z, Chunk chunk, Block oldBlock, Block newBlock, int flag, CallbackInfo ci) {
 		/* Ensure that observers are also notified */
-		if(!this.isRemote && etfu$shouldObserverNotify(flag)) {
+		if(BlockObserver.areNotificationsEnabled() && !this.isRemote && etfu$shouldObserverNotify(flag)) {
 			etfu$notifySurroundingObservers(x, y, z, newBlock, -1);
 		}
 	}
@@ -91,7 +96,7 @@ public abstract class MixinWorld {
 	@Inject(method = "setBlockMetadataWithNotify", at = @At("RETURN"))
 	private void notifyObserverOnSkippedNeighborUpdate(int x, int y, int z, int meta, int flag, CallbackInfoReturnable<Boolean> cir) {
 		/* Ensure that observers are also notified */
-		if(!this.isRemote && cir.getReturnValue() && etfu$shouldObserverNotify(flag)) {
+		if(BlockObserver.areNotificationsEnabled() && !this.isRemote && cir.getReturnValue() && etfu$shouldObserverNotify(flag)) {
 			etfu$notifySurroundingObservers(x, y, z, getBlock(x, y, z), -1);
 		}
 	}

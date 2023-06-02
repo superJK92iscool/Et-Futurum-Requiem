@@ -22,6 +22,8 @@ import java.util.Random;
 public class BlockObserver extends Block implements IBlockObserver {
 	@SideOnly(Side.CLIENT)
 	private IIcon observerFront, observerBack, observerTop, observerBackLit;
+	
+	private static int timesDisabled;
 
 	public BlockObserver() {
 		super(Material.rock);
@@ -144,5 +146,22 @@ public class BlockObserver extends Block implements IBlockObserver {
 	public boolean isNormalCube(IBlockAccess world, int x, int y, int z)
 	{
 		return true;
+	}
+
+	/** <p>Disable notification of observers about chunk updates. Observer notifications add some overhead to chunk updates,
+	 *  so they should be disabled if it's reasonable to assume that no observers will see them (e.g. during world gen).</p>
+	 *  
+	 *  <p>Calling this method will increase the disablification stack by one level. Each call should be followed by a
+	 *  {@link BlockObserver#enableNotifications()} call to restore the stack.</p> */
+	public static void disableNotifications() {
+		timesDisabled++;	
+	}
+	
+	public static void enableNotifications() {
+		timesDisabled = Math.max(0, timesDisabled - 1);
+	}
+	
+	public static boolean areNotificationsEnabled() {
+		return timesDisabled == 0;
 	}
 }
