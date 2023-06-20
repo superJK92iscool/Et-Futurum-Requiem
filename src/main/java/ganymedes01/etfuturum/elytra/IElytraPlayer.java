@@ -1,7 +1,6 @@
 package ganymedes01.etfuturum.elytra;
 
-public interface IElytraPlayer {
-	boolean etfu$isElytraFlying();
+public interface IElytraPlayer extends ganymedes01.etfuturum.api.elytra.IElytraPlayer {
 	void etfu$setElytraFlying(boolean flag);
 	float etfu$getTicksElytraFlying();
 
