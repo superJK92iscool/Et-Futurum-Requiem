@@ -31,7 +31,7 @@ public class IMCSenderGTNH {
 		}
 
 		if (ModBlocks.COMPOSTER.isEnabled()) {
-			sendHandler("ganymedes01.etfuturum.compat.nei.ComposterHandler", "etfuturum:composter");
+			sendHandler("ganymedes01.etfuturum.compat.nei.ComposterHandler", "etfuturum:composter", 1);
 			sendCatalyst("etfuturum.composter", "etfuturum:composter");
 		}
 	}

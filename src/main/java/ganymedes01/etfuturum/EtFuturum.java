@@ -38,7 +38,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.compat.waila.WailaRegistrar;
 import ganymedes01.etfuturum.client.BuiltInResourcePack;
-import ganymedes01.etfuturum.client.DynamicResourcePack;
+import ganymedes01.etfuturum.client.GrayscaleWaterResourcePack;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.command.CommandFill;
 import ganymedes01.etfuturum.configuration.ConfigBase;
@@ -182,7 +182,7 @@ public class EtFuturum {
 		SpectatorMode.init();
 		
 		if(event.getSide() == Side.CLIENT) {
-			DynamicResourcePack.inject();
+			GrayscaleWaterResourcePack.inject();
 			
 			if(ConfigFunctions.enableNewTextures) {
 				BuiltInResourcePack.register("vanilla_overrides");

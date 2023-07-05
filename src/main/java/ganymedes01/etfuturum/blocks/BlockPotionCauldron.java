@@ -6,8 +6,8 @@ import java.util.Random;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModItems;
-import ganymedes01.etfuturum.client.DynamicResourcePack;
-import ganymedes01.etfuturum.client.DynamicResourcePack.GrayscaleType;
+import ganymedes01.etfuturum.client.GrayscaleWaterResourcePack;
+import ganymedes01.etfuturum.client.GrayscaleWaterResourcePack.GrayscaleType;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.Reference;
@@ -173,7 +173,7 @@ public class BlockPotionCauldron extends BlockCauldronTileEntity implements ISub
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister p_149651_1_)
 	{
-		blockIcon = p_149651_1_.registerIcon(DynamicResourcePack.createGrayscaleName("water_still", GrayscaleType.TINT_INVERSE));
+		blockIcon = p_149651_1_.registerIcon(GrayscaleWaterResourcePack.createGrayscaleName("water_still", GrayscaleType.TINT_INVERSE));
 	}
 
 	@Override

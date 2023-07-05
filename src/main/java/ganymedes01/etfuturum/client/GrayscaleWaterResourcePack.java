@@ -23,7 +23,7 @@ import net.minecraft.client.resources.data.IMetadataSerializer;
 import net.minecraft.util.ResourceLocation;
 
 /** This resource pack will generate a grayscale version for any texture. The grayscale version of {name} is called {name}_grayscale. */
-public class DynamicResourcePack implements IResourcePack {
+public class GrayscaleWaterResourcePack implements IResourcePack {
 	
 	private static final String GRAYSCALE_SUFFIX = "_grayscale";
 	private static final HashMap<String, GrayscaleType> grayscaleTypes = new HashMap<>();
@@ -156,7 +156,7 @@ public class DynamicResourcePack implements IResourcePack {
 	
 	@SuppressWarnings("unchecked")
 	public static void inject() {
-		IResourcePack dynamicResourcePack = new DynamicResourcePack();
+		IResourcePack dynamicResourcePack = new GrayscaleWaterResourcePack();
 		Minecraft.getMinecraft().defaultResourcePacks.add(dynamicResourcePack);
 		IResourceManager resMan = Minecraft.getMinecraft().getResourceManager();
 		if(resMan instanceof SimpleReloadableResourceManager) {
