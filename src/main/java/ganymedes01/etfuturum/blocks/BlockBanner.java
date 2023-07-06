@@ -6,7 +6,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockBanner;
 import ganymedes01.etfuturum.tileentities.TileEntityBanner;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
@@ -14,7 +13,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
@@ -24,7 +22,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.event.ForgeEventFactory;
 
-public class BlockBanner extends BlockContainer implements ISubBlocksBlock {
+public class BlockBanner extends BlockContainer {
 
 	public BlockBanner() {
 		super(Material.wood);
@@ -192,11 +190,6 @@ public class BlockBanner extends BlockContainer implements ISubBlocksBlock {
 	@Override
 	public boolean getBlocksMovement(IBlockAccess world, int x, int y, int z) {
 		return true;
-	}
-
-	@Override
-	public Class<? extends ItemBlock> getItemBlockClass() {
-		return ItemBlockBanner.class;
 	}
 
 }

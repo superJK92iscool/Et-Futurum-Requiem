@@ -4,15 +4,13 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockGeneric;
 import net.minecraft.block.BlockNewLog;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class BlockStrippedNewLog extends BlockNewLog implements ISubBlocksBlock {
+public class BlockStrippedNewLog extends BlockNewLog {
 
 	public static final String[] icon_names = new String[] {"acacia", "dark_oak"};
 
@@ -33,11 +31,6 @@ public class BlockStrippedNewLog extends BlockNewLog implements ISubBlocksBlock 
 		}
 	}
 
-	@Override
-	public Class<? extends ItemBlock> getItemBlockClass() {
-		return ItemBlockGeneric.class;
-	}
-	
 	@Override
 	public boolean isFlammable(IBlockAccess aWorld, int aX, int aY, int aZ, ForgeDirection aSide) {
 		return true;

@@ -7,17 +7,15 @@ import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.entities.EntityItemUninflammable;
-import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockUninflammable;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-public class BlockAncientDebris extends Block implements ISubBlocksBlock {
+public class BlockAncientDebris extends Block {
 
 	@SideOnly(Side.CLIENT)
 	public IIcon iconTop;
@@ -45,11 +43,6 @@ public class BlockAncientDebris extends Block implements ISubBlocksBlock {
 		iconTop = register.registerIcon(this.getTextureName() + "_top");
 	}
 
-	@Override
-	public Class<? extends ItemBlock> getItemBlockClass() {
-		return ItemBlockUninflammable.class;
-	}
-	
 	@Override
 	protected void dropBlockAsItem(World world, int x, int y, int z, ItemStack stack) {
 		// do not drop items while restoring blockstates, prevents item dupe

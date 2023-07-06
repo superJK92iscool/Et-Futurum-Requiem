@@ -9,14 +9,12 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockCopper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
@@ -103,8 +101,4 @@ public class BlockCopper extends BlockGeneric implements IDegradable {
 		return this;
 	}
 
-	@Override
-	public Class<? extends ItemBlock> getItemBlockClass() {
-		return ItemBlockCopper.class;
-	}
 }

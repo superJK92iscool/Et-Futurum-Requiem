@@ -7,7 +7,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockNewWall;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFenceGate;
@@ -15,13 +14,12 @@ import net.minecraft.block.BlockWall;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockNewWall extends BlockWall implements ISubBlocksBlock, IMultiStepSound {
+public class BlockNewWall extends BlockWall implements IMultiStepSound {
 	
 	private Block[] blocks;
 	private int[] metas;
@@ -77,11 +75,6 @@ public class BlockNewWall extends BlockWall implements ISubBlocksBlock, IMultiSt
 	
 	public String getWallName(ItemStack stack) {
 		return "tile." + Utils.getUnlocalisedName(names != null && names.length > 0 ? names[stack.getItemDamage() % variations] : getUnlocalizedName().substring(6 + Reference.MOD_ID.length()));
-	}
-
-	@Override
-	public Class<? extends ItemBlock> getItemBlockClass() {
-		return ItemBlockNewWall.class;
 	}
 
 	@Override

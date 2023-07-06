@@ -20,7 +20,6 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.IIcon;
@@ -28,7 +27,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class BlockBerryBush extends BlockBush implements ISubBlocksBlock, IGrowable {
+public class BlockBerryBush extends BlockBush implements IGrowable {
 
 	@SideOnly(Side.CLIENT)
 	private IIcon[] icons;
@@ -159,12 +158,7 @@ public class BlockBerryBush extends BlockBush implements ISubBlocksBlock, IGrowa
 	{
 		return ModItems.SWEET_BERRIES.get();
 	}
-	
-	@Override
-	public Class<? extends ItemBlock> getItemBlockClass() {
-		return null;
-	}
-	
+
 	@Override
 	public boolean isFlammable(IBlockAccess aWorld, int aX, int aY, int aZ, ForgeDirection aSide) {
 		return true;

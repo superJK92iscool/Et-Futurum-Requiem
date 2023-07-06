@@ -6,10 +6,8 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockDeepslate;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 
@@ -38,11 +36,6 @@ public class BlockDeepslateBricks extends BlockGeneric implements IMultiStepSoun
 			else
 				icons[i] = reg.registerIcon(i == 4 ? "chiseled_deepslate" : types[i] + "_" + name);
 			}
-	}
-	
-	@Override
-	public Class<? extends ItemBlock> getItemBlockClass() {
-		return ItemBlockDeepslate.class;
 	}
 
 	@Override

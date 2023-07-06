@@ -8,12 +8,11 @@ import ganymedes01.etfuturum.tileentities.TileEntityCauldronDyed;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class BlockDyedCauldron extends BlockCauldronTileEntity implements ISubBlocksBlock {
+public class BlockDyedCauldron extends BlockCauldronTileEntity {
 
 	protected BlockDyedCauldron() {
 		super(Material.iron);
@@ -43,11 +42,6 @@ public class BlockDyedCauldron extends BlockCauldronTileEntity implements ISubBl
 	@Override
 	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
 		return new TileEntityCauldronDyed();
-	}
-
-	@Override
-	public Class<? extends ItemBlock> getItemBlockClass() {
-		return null;
 	}
 
 }

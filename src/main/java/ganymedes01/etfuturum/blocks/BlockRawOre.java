@@ -2,9 +2,7 @@ package ganymedes01.etfuturum.blocks;
 
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockRawOre;
 import net.minecraft.block.material.Material;
-import net.minecraft.item.ItemBlock;
 
 public class BlockRawOre extends BlockGeneric {
 
@@ -25,8 +23,4 @@ public class BlockRawOre extends BlockGeneric {
 		return types[Math.max(Math.min(meta, types.length - 1), 0)].replace("_ore_block", "");
 	}
 
-	@Override
-	public Class<? extends ItemBlock> getItemBlockClass() {
-		return ItemBlockRawOre.class;
-	}
 }

@@ -5,16 +5,14 @@ import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.entities.EntityItemUninflammable;
-import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockUninflammable;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockNetherite extends Block implements ISubBlocksBlock {
+public class BlockNetherite extends Block {
 
 	public BlockNetherite() {
 		super(Material.iron);
@@ -32,11 +30,6 @@ public class BlockNetherite extends Block implements ISubBlocksBlock {
 		return true;
 	}
 
-	@Override
-	public Class<? extends ItemBlock> getItemBlockClass() {
-		return ItemBlockUninflammable.class;
-	}
-	
 	@Override
 	protected void dropBlockAsItem(World world, int x, int y, int z, ItemStack stack) {
 		// do not drop items while restoring blockstates, prevents item dupe

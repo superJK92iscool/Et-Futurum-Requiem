@@ -6,15 +6,13 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockWoodDoor;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.BlockDoor;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.world.World;
 
-public class BlockWoodDoor extends BlockDoor implements ISubBlocksBlock {
+public class BlockWoodDoor extends BlockDoor {
 
 	public static final String[] names = new String[] { "oak", "spruce", "birch", "jungle", "acacia", "dark_oak" };
 
@@ -52,8 +50,4 @@ public class BlockWoodDoor extends BlockDoor implements ISubBlocksBlock {
 		return getTextureName();
 	}
 
-	@Override
-	public Class<? extends ItemBlock> getItemBlockClass() {
-		return ItemBlockWoodDoor.class;
-	}
 }

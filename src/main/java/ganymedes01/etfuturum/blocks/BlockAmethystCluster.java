@@ -26,7 +26,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockAmethystCluster extends BlockAmethystBlock implements ISubBlocksBlock, IMultiStepSound {
+public class BlockAmethystCluster extends BlockAmethystBlock implements IMultiStepSound {
 	
 	private final int type;
 	@SideOnly(Side.CLIENT)
@@ -244,11 +244,6 @@ public class BlockAmethystCluster extends BlockAmethystBlock implements ISubBloc
 	@Override
 	public int getRenderType() {
 		return RenderIDs.AMETHYST_CLUSTER;
-	}
-
-	@Override
-	public Class<? extends ItemBlock> getItemBlockClass() {
-		return ItemBlockAmethystCluster.class;
 	}
 
 	private static final SoundType[] STEPSOUNDS = new SoundType[] {ModSounds.soundAmethystBudSmall, ModSounds.soundAmethystBudMed, ModSounds.soundAmethystBudLrg, null};

@@ -4,15 +4,13 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockGeneric;
 import net.minecraft.block.BlockNewLog;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class BlockWoodBarkNew extends BlockNewLog implements ISubBlocksBlock {
+public class BlockWoodBarkNew extends BlockNewLog {
 
 	public BlockWoodBarkNew() {
 		setBlockName(Utils.getUnlocalisedName("bark2"));
@@ -31,11 +29,6 @@ public class BlockWoodBarkNew extends BlockNewLog implements ISubBlocksBlock {
 		}
 	}
 
-	@Override
-	public Class<? extends ItemBlock> getItemBlockClass() {
-		return ItemBlockGeneric.class;
-	}
-	
 	@Override
 	public boolean isFlammable(IBlockAccess aWorld, int aX, int aY, int aZ, ForgeDirection aSide) {
 		return true;

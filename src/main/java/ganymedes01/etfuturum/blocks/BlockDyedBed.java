@@ -5,11 +5,9 @@ import java.util.Random;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockDyedBed;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.recipes.ModRecipes;
 import net.minecraft.block.Block;
@@ -17,12 +15,11 @@ import net.minecraft.block.BlockBed;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockDyedBed extends BlockBed implements ISubBlocksBlock {
+public class BlockDyedBed extends BlockBed {
 	
 	public BlockDyedBed(int dye) {
 		super();
@@ -88,10 +85,4 @@ public class BlockDyedBed extends BlockBed implements ISubBlocksBlock {
 		return "bed_" + getTextureName().replace("_bed", "");
 	}
 
-	@Override
-	public Class<? extends ItemBlock> getItemBlockClass() {
-		// TODO Auto-generated method stub
-		return ItemBlockDyedBed.class;
-	}
-	
 }

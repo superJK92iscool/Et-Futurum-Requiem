@@ -21,7 +21,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemPotion;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -30,7 +29,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-public class BlockPotionCauldron extends BlockCauldronTileEntity implements ISubBlocksBlock {
+public class BlockPotionCauldron extends BlockCauldronTileEntity {
 	
 	public BlockPotionCauldron() {
 		super(Material.iron);
@@ -187,11 +186,6 @@ public class BlockPotionCauldron extends BlockCauldronTileEntity implements ISub
 		return (float)(6 + 3 * j) / 16.0F;
 	}
 
-	@Override
-	public Class<? extends ItemBlock> getItemBlockClass() {
-		return null;
-	}
-	
 	public enum EnumCauldronFillAction {
 		CHANGE_LEVEL {
 			@Override

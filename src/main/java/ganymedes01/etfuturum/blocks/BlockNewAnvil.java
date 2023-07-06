@@ -13,11 +13,9 @@ import net.minecraft.block.BlockAnvil;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemAnvilBlock;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.world.World;
 
-public class BlockNewAnvil extends BlockAnvil implements ISubBlocksBlock {
+public class BlockNewAnvil extends BlockAnvil {
 
 	public BlockNewAnvil() {
 		setHardness(5.0F);
@@ -48,11 +46,6 @@ public class BlockNewAnvil extends BlockAnvil implements ISubBlocksBlock {
 			return true;
 		player.openGui(EtFuturum.instance, GUIsID.ANVIL, world, x, y, z);
 		return true;
-	}
-
-	@Override
-	public Class<? extends ItemBlock> getItemBlockClass() {
-		return ItemAnvilBlock.class;
 	}
 
 }

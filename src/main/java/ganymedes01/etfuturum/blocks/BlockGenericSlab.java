@@ -5,18 +5,16 @@ import java.util.Random;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockGenericSlab;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-public abstract class BlockGenericSlab extends BlockSlab implements ISubBlocksBlock {
+public abstract class BlockGenericSlab extends BlockSlab {
 
 	public final String[] metaBlocks;
 	
@@ -27,11 +25,6 @@ public abstract class BlockGenericSlab extends BlockSlab implements ISubBlocksBl
 		opaque = field_150004_a;
 	}
 
-	@Override
-	public Class<? extends ItemBlock> getItemBlockClass() {
-		return ItemBlockGenericSlab.class;
-	}
-	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister p_149651_1_) {

@@ -12,12 +12,11 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-public class BlockLavaCauldron extends BlockCauldron implements ISubBlocksBlock {
+public class BlockLavaCauldron extends BlockCauldron {
 
 	@SideOnly(Side.CLIENT)
 	public IIcon field_150029_a;
@@ -115,8 +114,4 @@ public class BlockLavaCauldron extends BlockCauldron implements ISubBlocksBlock 
 		return RenderIDs.LAVA_CAULDRON;
 	}
 
-	@Override
-	public Class<? extends ItemBlock> getItemBlockClass() {
-		return null;
-	}
 }
