@@ -503,24 +503,20 @@ public class ClientEventHandler {
 					}
 				}
 			}
-			
-			if(ConfigSounds.rainSounds) {
-				if (event.name.equals("ambient.weather.rain")) {
-					event.result = new PositionedSoundRecord(new ResourceLocation(Reference.MCAssetVer + ":weather.rain" + (event.sound.getPitch() < 1.0F ? ".above" : "")),
-							event.sound.getVolume(), event.sound.getPitch(), x + 0.5F, y + 0.5F, z + 0.5F);
-				} else if (event.name.equals("ambient.cave.cave")) {
-					if(ConfigSounds.netherAmbience && FMLClientHandler.instance().getClientPlayerEntity().dimension == -1) {
-						BiomeGenBase biome = FMLClientHandler.instance().getWorldClient().getChunkFromBlockCoords(x, z).getBiomeGenForWorldCoords(x & 15, z & 15, FMLClientHandler.instance().getWorldClient().getWorldChunkManager());
-						if(getAmbienceMood(biome) != null) {
-							event.result = new PositionedSoundRecord(new ResourceLocation(getAmbienceMood(biome)), 
-									event.sound.getVolume(), event.sound.getPitch(), x + 0.5F, y + 0.5F, z + 0.5F);
-						}
-						else {
-							event.result = null;
-						}
-					} else if(new Random().nextInt(19) >= 13) {
-						event.result = new PositionedSoundRecord(new ResourceLocation(Reference.MOD_ID + ":ambient.cave"), 
+
+			if (ConfigSounds.rainSounds && event.name.equals("ambient.weather.rain")) {
+				event.result = new PositionedSoundRecord(new ResourceLocation(Reference.MCAssetVer + ":weather.rain" + (event.sound.getPitch() < 1.0F ? ".above" : "")),
+						event.sound.getVolume(), event.sound.getPitch(), x + 0.5F, y + 0.5F, z + 0.5F);
+			}
+			if (event.name.equals("ambient.cave.cave")) {
+				if(ConfigSounds.netherAmbience && FMLClientHandler.instance().getClientPlayerEntity().dimension == -1) {
+					BiomeGenBase biome = FMLClientHandler.instance().getWorldClient().getChunkFromBlockCoords(x, z).getBiomeGenForWorldCoords(x & 15, z & 15, FMLClientHandler.instance().getWorldClient().getWorldChunkManager());
+					if(getAmbienceMood(biome) != null) {
+						event.result = new PositionedSoundRecord(new ResourceLocation(getAmbienceMood(biome)),
 								event.sound.getVolume(), event.sound.getPitch(), x + 0.5F, y + 0.5F, z + 0.5F);
+					}
+					else {
+						event.result = null;
 					}
 				}
 			}

@@ -89,6 +89,7 @@ public class ConfigSounds extends ConfigBase {
 	public static boolean noteBlockNotes;
 	public static boolean endPortalFillSounds;
 	public static boolean rainSounds;
+	public static boolean caveAmbience;
 	public static boolean horseEatCowMilk;
 	public static boolean doorOpenClose;
 	public static boolean chestOpenClose;
@@ -146,6 +147,7 @@ public class ConfigSounds extends ConfigBase {
 
 		netherAmbience = getBoolean("netherAmbience", catAmbient, true, "Play new ambience in the Nether.");
 		rainSounds = getBoolean("rainSounds", catAmbient, true, "Replace rain sounds with new, calm ones introduced in 1.11+");
+		caveAmbience = getBoolean("caveAmbience", catAmbient, true, "Add new cave ambience, adding more eerie cave sounds that occasionally play underground or in dark areas.");
 		
 		thornsSounds = getBoolean("thornsSounds", catEntity, true, "New sounds for being hurt by the Thorns enchantment.");
 		horseEatCowMilk = getBoolean("horseEatCowMilk", catEntity, true, "Sounds for horses eating food and cows being milked.");

@@ -13,6 +13,7 @@ import java.util.Map;
 import ganymedes01.etfuturum.api.*;
 import ganymedes01.etfuturum.blocks.BlockSculk;
 import ganymedes01.etfuturum.blocks.BlockSculkCatalyst;
+import ganymedes01.etfuturum.client.DynamicLangSoundsResourcePack;
 import ganymedes01.etfuturum.compat.nei.IMCSenderGTNH;
 import ganymedes01.etfuturum.compat.CompatBaublesExpanded;
 import ganymedes01.etfuturum.compat.CompatCraftTweaker;
@@ -183,6 +184,7 @@ public class EtFuturum {
 		
 		if(event.getSide() == Side.CLIENT) {
 			GrayscaleWaterResourcePack.inject();
+			DynamicLangSoundsResourcePack.inject();
 			
 			if(ConfigFunctions.enableNewTextures) {
 				BuiltInResourcePack.register("vanilla_overrides");
