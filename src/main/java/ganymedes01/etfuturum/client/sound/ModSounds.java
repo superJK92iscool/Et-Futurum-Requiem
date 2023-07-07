@@ -101,8 +101,7 @@ public class ModSounds {
 	public static final SoundType soundWetGrass = new CustomSound("wet_grass", true);
 //  public static final SoundType soundNylium = new CustomSound("nylium");
 //  public static final SoundType soundHoneyBlock = new CustomSound("honey_block");
-//  public static final SoundType soundFungus = new CustomSound("fungus");
-//  public static final SoundType soundShroomlight = new CustomSound("shroomlight");
+//public static final SoundType soundShroomlight = new CustomSound("shroomlight");
 
 	//Currently prep for Alterius Futurum
 	public static final SoundType soundAzaleaSapling = new CustomSound("azalea");
@@ -112,6 +111,11 @@ public class ModSounds {
 	public static final SoundType soundMossBlock = new CustomSound("moss");
 	public static final SoundType soundMossCarpet = new CustomSound("moss_carpet");
 	public static final SoundType soundStem = new CustomSound("stem");
+	public static final SoundType soundFungus = new CustomSound("fungus");
+	public static final SoundType soundNetherWood = new CustomSound("nether_wood");
+	public static final SoundType soundCherrySapling = new CustomSound("cherry_sapling");
+	public static final SoundType soundCherryLeaves = new CustomSound("cherry_leaves");
+	public static final SoundType soundCherryWood = new CustomSound("cherry_wood");
 
 	public static class CustomSound extends SoundType {
 
