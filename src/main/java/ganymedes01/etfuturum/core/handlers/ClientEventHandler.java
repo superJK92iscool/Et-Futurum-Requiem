@@ -399,7 +399,6 @@ public class ClientEventHandler {
 				return;
 			}
 			if (ConfigSounds.chestOpenClose && event.name.contains("random.chest")) {
-
 				String s = event.name;
 				String blockID = Block.blockRegistry.getNameForObject(block).split(":")[1].toLowerCase();
 				if (blockID.contains("chest") && (event.name.contains("open") || event.name.contains("close"))) {

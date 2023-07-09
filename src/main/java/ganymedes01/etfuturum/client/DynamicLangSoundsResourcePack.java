@@ -15,6 +15,7 @@ import net.minecraft.client.resources.IResourcePack;
 import net.minecraft.client.resources.SimpleReloadableResourceManager;
 import net.minecraft.client.resources.data.IMetadataSection;
 import net.minecraft.client.resources.data.IMetadataSerializer;
+import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 
 import java.awt.image.BufferedImage;
@@ -29,7 +30,7 @@ public class DynamicLangSoundsResourcePack implements IResourcePack {
 	@Override
 	public Set<String> getResourceDomains() {
 		// No modded namespace support for now
-		return ImmutableSet.of("etfuturum");
+		return ImmutableSet.of("minecraft");
 	}
 
 	@Override
@@ -48,16 +49,16 @@ public class DynamicLangSoundsResourcePack implements IResourcePack {
 	}
 
 	public InputStream getInputStream(ResourceLocation resLoc) throws IOException {
+		if(resLoc.getResourcePath().equals("sounds.json")) {
+			return new ByteArrayInputStream(new JsonCreator().getJson().toString().getBytes());
+		}
 //		InputStream original = Minecraft.getMinecraft().getResourceManager().getResource(resLoc).getInputStream();
-		Logger.info(new JsonCreator().getJson().toString());
-		return new ByteArrayInputStream(new JsonCreator().getJson().toString().getBytes());
+//		return original;
+		return null;
 	}
 
 	public boolean resourceExists(ResourceLocation resLoc) {
-		if(resLoc.getResourcePath().startsWith("sounds.json")) {
-			return true;
-		}
-		return false;
+		return resLoc.getResourcePath().equals("sounds.json")/* || resLoc.getResourcePath().endsWith("lang")*/;
 	}
 
 	private boolean resourceExistsSomewhere(ResourceLocation resLoc) {
@@ -80,6 +81,11 @@ public class DynamicLangSoundsResourcePack implements IResourcePack {
 	public class JsonCreator {
 		private final JsonObject rootObject = new JsonObject();
 
+		private void setReplace(String cat) {
+			JsonObject soundCat = JsonUtil.getOrCreateObject(rootObject, cat);
+			soundCat.add("replace", new JsonPrimitive(true));
+		}
+
 		private void addSoundsToCategory(String cat, String... sounds) {
 			JsonObject soundCat = JsonUtil.getOrCreateObject(rootObject, cat);
 			JsonArray soundList = JsonUtil.getOrCreateArray(soundCat, "sounds");
@@ -88,9 +94,46 @@ public class DynamicLangSoundsResourcePack implements IResourcePack {
 			}
 		}
 
+		private void addSoundEventsToCategory(String cat, String... sounds) {
+			addSoundToCategoryWithSettings(cat, 1.0F, 1.0F, 1, false, true, sounds);
+		}
+
+		private void addSoundToCategoryWithSettings(String cat, float volume, float pitch, String... sounds) {
+			addSoundToCategoryWithSettings(cat, volume, pitch, 1, false, false, sounds);
+		}
+
+		private void addSoundToCategoryWithSettings(String cat, float volume, float pitch, int weight, String... sounds) {
+			addSoundToCategoryWithSettings(cat, volume, pitch, weight, false, false, sounds);
+		}
+
+		private void addSoundToCategoryWithSettings(String cat, float volume, float pitch, int weight, boolean stream, boolean isEvent, String... sounds) {
+			JsonObject soundCat = JsonUtil.getOrCreateObject(rootObject, cat);
+			JsonArray soundList = JsonUtil.getOrCreateArray(soundCat, "sounds");
+			for(String sound : sounds) {
+				JsonObject soundObj = new JsonObject();
+				soundObj.add("name", new JsonPrimitive(sound));
+				if(volume != 1.0F) {
+					soundObj.add("volume", new JsonPrimitive(MathHelper.clamp_float(volume, 0, 1)));
+				}
+				if(pitch != 1.0F) {
+					soundObj.add("pitch", new JsonPrimitive(pitch));
+				}
+				if(weight > 1) {
+					soundObj.add("weight", new JsonPrimitive(weight));
+				}
+				if(stream) {
+					soundObj.add("stream", new JsonPrimitive(true));
+				}
+				if(isEvent) {
+					soundObj.add("type", new JsonPrimitive("event"));
+				}
+				soundList.add(soundObj);
+			}
+		}
+
 		public JsonObject getJson() {
 			if(ConfigSounds.caveAmbience) {
-				addSoundsToCategory("minecraft:ambient.cave.cave",
+				addSoundsToCategory("ambient.cave.cave",
 						Reference.MCAssetVer + ":ambient/cave/cave14",
 						Reference.MCAssetVer + ":ambient/cave/cave15",
 						Reference.MCAssetVer + ":ambient/cave/cave16",

@@ -183,12 +183,15 @@ public class EtFuturum {
 		SpectatorMode.init();
 		
 		if(event.getSide() == Side.CLIENT) {
-			GrayscaleWaterResourcePack.inject();
-			DynamicLangSoundsResourcePack.inject();
-			
+
 			if(ConfigFunctions.enableNewTextures) {
 				BuiltInResourcePack.register("vanilla_overrides");
 			}
+
+			if(ConfigBlocksItems.enablePotionCauldron) {
+				GrayscaleWaterResourcePack.inject();
+			}
+			DynamicLangSoundsResourcePack.inject();
 		}
 		
 //      if(ConfigurationHandler.enableNewNether) {
