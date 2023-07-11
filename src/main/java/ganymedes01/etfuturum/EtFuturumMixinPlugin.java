@@ -177,6 +177,10 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 		if(ConfigMixins.arrowFallingFix) {
 			mixins.add("fallingarrowfix.MixinEntityArrow");
 		}
+
+		if(ConfigMixins.blockHopperInteraction) {
+			mixins.add("blockinventories.MixinTileEntityHopper");
+		}
 		
 		if(side == MixinEnvironment.Side.CLIENT) {
 			if(ConfigMixins.newBeaconSounds) {

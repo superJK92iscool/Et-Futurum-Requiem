@@ -4,17 +4,25 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.EtFuturumLootTables;
+import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.api.CompostingRegistry;
+import ganymedes01.etfuturum.api.inventory.FakeTileEntityProvider;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.lib.RenderIDs;
+import ganymedes01.etfuturum.tileentities.fake.TileEntityFakeInventory;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
@@ -24,7 +32,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import java.util.List;
 import java.util.Random;
 
-public class BlockComposter extends Block {
+public class BlockComposter extends Block implements FakeTileEntityProvider {
 
     @SideOnly(Side.CLIENT)
     private IIcon topIcon;
@@ -84,6 +92,25 @@ public class BlockComposter extends Block {
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
     }
 
+    public static void addToComposter(World world, int x, int y, int z, ItemStack stack) {
+        int chance = CompostingRegistry.getCompostChance(stack);
+        int meta = world.getBlockMetadata(x, y, z);
+        /*
+         * Takes the chance (which can be up to 600) and multiplies it by 0.01F (same as dividing by 100) to see how many times it passes 100
+         * Then I wrap it by 100 and check that against the chance to see if we should add one more to the fill level.
+         */
+        int fillAmount = (int) (chance * .01F) + (world.rand.nextInt(100) < chance % 100 ? 1 : 0);
+        if (fillAmount > 0) {
+            world.setBlockMetadataWithNotify(x, y, z, Math.min(meta + fillAmount, 6), 3);
+            world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, Reference.MCAssetVer + ":block.composter.fill_success", 1, 1);
+            if (fillAmount + meta > 5) {
+                world.scheduleBlockUpdate(x, y, z, ModBlocks.COMPOSTER.get(), world.rand.nextInt(10) + 10);
+            }
+        } else {
+            world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, Reference.MCAssetVer + ":block.composter.fill", 1, 1);
+        }
+    }
+
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float clickX, float clickY, float clickZ) {
         int meta = world.getBlockMetadata(x, y, z);
         if (meta < 6) {
@@ -91,20 +118,7 @@ public class BlockComposter extends Block {
             int chance = CompostingRegistry.getCompostChance(stack);
             if (chance > 0) {
                 if (!world.isRemote) {
-                    /*
-                     * Takes the chance (which can be up to 600) and multiplies it by 0.01F (same as dividing by 100) to see how many times it passes 100
-                     * Then I wrap it by 100 and check that against the chance to see if we should add one more to the fill level.
-                     */
-                    int fillAmount = (int) (chance * .01F) + (world.rand.nextInt(100) < chance % 100 ? 1 : 0);
-                    if (fillAmount > 0) {
-                        world.setBlockMetadataWithNotify(x, y, z, Math.min(meta + fillAmount, 6), 3);
-                        world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, Reference.MCAssetVer + ":block.composter.fill_success", 1, 1);
-                        if (fillAmount + meta > 5) {
-                            world.scheduleBlockUpdate(x, y, z, this, world.rand.nextInt(10) + 10);
-                        }
-                    } else {
-                        world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, Reference.MCAssetVer + ":block.composter.fill", 1, 1);
-                    }
+                    addToComposter(world, x, y, z, stack);
                     if (!player.capabilities.isCreativeMode) {
                         stack.stackSize--;
                     }
@@ -154,5 +168,114 @@ public class BlockComposter extends Block {
     @Override
     public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side) {
         return side != ForgeDirection.UP;
+    }
+
+    private static final int[] SLOTS_NONE = new int[0];
+    private static final int[] SLOTS_SINGLE = new int[]{0};
+
+    @Override
+    public TileEntity getFakeTileEntity(World world, int x, int y, int z) {
+        int meta = world.getBlockMetadata(x, y, z);
+        IInventory targetInv;
+        if(meta < 6)
+            targetInv = new InventoryEmptyComposter(world, x, y, z);
+        else if(meta == 7)
+            targetInv = new InventoryFullComposter(world, x, y, z);
+        else
+            targetInv = new InventoryDummy();
+        return new TileEntityFakeInventory(targetInv);
+    }
+
+    static class InventoryEmptyComposter extends InventoryBasic implements ISidedInventory {
+        private final World world;
+        private final int x;
+        private final int y;
+        private final int z;
+        private boolean dirty;
+        public InventoryEmptyComposter(World world, int x, int y, int z) {
+            super("composter", false, 1);
+            this.world = world;
+            this.x = x;
+            this.y = y;
+            this.z = z;
+        }
+
+        @Override
+        public int getInventoryStackLimit() {
+            return 1;
+        }
+
+        @Override
+        public int[] getAccessibleSlotsFromSide(int p_94128_1_) {
+            return p_94128_1_ == 1 ? SLOTS_SINGLE : SLOTS_NONE;
+        }
+
+        @Override
+        public boolean canInsertItem(int slot, ItemStack p_102007_2_, int side) {
+            return !this.dirty && side == 1 && CompostingRegistry.getCompostChance(p_102007_2_) > 0;
+        }
+
+        @Override
+        public boolean canExtractItem(int p_102008_1_, ItemStack p_102008_2_, int p_102008_3_) {
+            return false;
+        }
+
+        @Override
+        public void markDirty() {
+            ItemStack stack = this.getStackInSlot(0);
+            if(stack != null) {
+                this.dirty = true;
+                addToComposter(world, x, y, z, stack);
+                this.decrStackSize(0, stack.stackSize);
+            }
+        }
+    }
+
+    static class InventoryDummy extends InventoryBasic {
+        public InventoryDummy() {
+            super("dummy", false, 0);
+        }
+    }
+
+    static class InventoryFullComposter extends InventoryBasic implements ISidedInventory {
+        private final World world;
+        private final int x;
+        private final int y;
+        private final int z;
+        private boolean dirty;
+        public InventoryFullComposter(World world, int x, int y, int z) {
+            super("composter_full", false, 1);
+            this.world = world;
+            this.x = x;
+            this.y = y;
+            this.z = z;
+            this.setInventorySlotContents(0, new ItemStack(Items.dye, 1, 15));
+        }
+
+        @Override
+        public int getInventoryStackLimit() {
+            return 1;
+        }
+
+        @Override
+        public int[] getAccessibleSlotsFromSide(int p_94128_1_) {
+            return p_94128_1_ == 0 ? SLOTS_SINGLE : SLOTS_NONE;
+        }
+
+        @Override
+        public boolean canInsertItem(int slot, ItemStack p_102007_2_, int side) {
+            return false;
+        }
+
+        @Override
+        public boolean canExtractItem(int p_102008_1_, ItemStack p_102008_2_, int p_102008_3_) {
+            return !this.dirty && p_102008_3_ == 0;
+        }
+
+        @Override
+        public void markDirty() {
+            this.dirty = true;
+            world.setBlockMetadataWithNotify(x, y, z, 0, 3);
+        }
     }
 }
