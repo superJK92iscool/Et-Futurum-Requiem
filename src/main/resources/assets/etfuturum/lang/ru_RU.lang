@@ -29,10 +29,8 @@ commands.etfuturum.fill.success=Успешно заполнено %d блоко�
 
 # Контейнеры (Containers/GUI)
 container.etfuturum.banner=Флаг
-
 # Это происходит, если кто-то убирает лазурит в качестве топлива с CT и больше ничего не добавляет
 container.enchant.rusrs=Нет доступных видов "топлива" ಠ_ಠ
-
 container.enchant.lapis.one=1 лазурит
 container.enchant.lapis.many=Лазурита: %d
 container.enchant.level.required=Требуемый уровень
@@ -95,7 +93,6 @@ subtitle.entity.item_frame.add_item=Заполнение рамки
 subtitle.entity.item_frame.remove_item=Опустошение рамки
 subtitle.entity.item_frame.rotate_item=Поворот предмета в рамке
 
-
 subtitle.entity.rabbit.ambient=Кролик пищит
 subtitle.entity.rabbit.death=Кролик погибает
 subtitle.entity.rabbit.hurt=Кролик получает урон
@@ -123,6 +120,7 @@ subtitle.entity.witch.death=Ведьма погибает
 subtitle.entity.squid.ambient=Спрут плавает
 subtitle.entity.squid.hurt=Спрут получает урон
 subtitle.entity.squid.death=Спрут погибает
+
 subtitle.entity.boat.paddle_water=Звук весла по воде
 subtitle.entity.boat.paddle_land=Звук весла по земле
 
@@ -140,6 +138,12 @@ subtitle.random.chest.close=Сундук закрывается
 subtitle.random.anvil_land=Звук наковальни
 subtitle.random.burp=Отрыжка
 
+subtitle.dig.grass=Блок размещен или сломан
+subtitle.dig.stone=Блок размещен или сломан
+subtitle.dig.wood=Блок размещен или сломан
+subtitle.dig.cloth=Блок размещен или сломан
+subtitle.dig.glass=Блок размещен или сломан
+subtitle.dig.gravel=Блок размещен или сломан
 
 subtitle.fall.small=Кто-то споткнулся
 subtitle.fall.big=Что-то упало
@@ -202,7 +206,6 @@ subtitle.block.fence_gate.close=Калитка закрывается
 subtitle.block.fence_gate.open=Калитка открывается
 subtitle.block.shulker_box.open=Шалкеровый ящик открывается
 subtitle.block.shulker_box.close=Шалкеровый ящик закрывается
-
 
 subtitle.mob.hurt=%s получает урон
 subtitle.mob.death=%s погибает
@@ -447,7 +450,7 @@ tile.etfuturum.frosted_ice.name=Подмороженный лёд
 tile.etfuturum.rose.name=Роза
 tile.etfuturum.beacon.name=Маяк
 tile.etfuturum.enchantment_table.name=Стол зачарований
-tile.etfuturum.anvil.intact.name=Наковальня
+tile.etfuturum.anvil.name=Наковальня
 tile.etfuturum.anvil.slightlyDamaged.name=Повреждённая наковальня
 tile.etfuturum.anvil.veryDamaged.name=Сильно повреждённая наковальня
 tile.etfuturum.daylight_sensor.name=Датчик дневного света
@@ -553,6 +556,9 @@ tile.etfuturum.small_amethyst_bud.name=Малый аметистовый бут�
 tile.etfuturum.medium_amethyst_bud.name=Средний аметистовый бутон
 tile.etfuturum.large_amethyst_bud.name=Большой аметистовый бутон
 tile.etfuturum.amethyst_cluster.name=Аметистовый кластер
+
+tile.etfuturum.sculk.name=Скалк
+tile.etfuturum.sculk_catalyst.name=Скалк-катализатор
 
 tile.etfuturum.magma.name=Магмовый блок
 tile.etfuturum.nether_wart.name=Блок адского нароста
@@ -685,7 +691,6 @@ tile.etfuturum.brown_glazed_terracotta.name=Коричневая глазуро�
 tile.etfuturum.green_glazed_terracotta.name=Зелёная глазурованная керамика
 tile.etfuturum.red_glazed_terracotta.name=Красная глазурованная керамика
 tile.etfuturum.black_glazed_terracotta.name=Чёрная глазурованная керамика
-
 
 tile.etfuturum.barrel.name=Бочка
 tile.etfuturum.blast_furnace.name=Плавильная печь
@@ -915,6 +920,16 @@ tile.etfuturum.green_obsidian_shulker_box.name=Зелёный обсидиано
 tile.etfuturum.red_obsidian_shulker_box.name=Красный обсидиановый шалкеровый ящик
 tile.etfuturum.black_obsidian_shulker_box.name=Чёрный обсидиановый шалкеровый ящик
 
+item.shulker_vanilla_iron_upgrade.name=Улучшение шалкерового ящика до железного шалкерового ящика
+item.shulker_vanilla_copper_upgrade.name=Улучшение шалкерового ящика до медного шалкерового ящика
+item.shulker_iron_gold_upgrade.name=Улучшение железного шалкерового ящика до золотого шалкерового ящика
+item.shulker_gold_diamond_upgrade.name=Улучшение золотого шалкерового ящика до алмазного шалкерового ящика
+item.shulker_diamond_obsidian_upgrade.name=Улучшение алмазного шалкерового ящика до обсидианового шалкерового ящика
+item.shulker_diamond_crystal_upgrade.name=Улучшение алмазного шалкерового ящика до кристального шалкерового ящика
+item.shulker_copper_iron_upgrade.name=Улучшение медного шалкерового ящика до железного шалкерового ящика
+item.shulker_copper_silver_upgrade.name=Улучшение медного шалкерового ящика до серебряного шалкерового ящика
+item.shulker_silver_gold_upgrade.name=Улучшение серебряного шалкерового ящика до золотого шалкерового ящика
+
 tile.etfuturum.tinted_glass.name=Тонированное стекло
 
 tile.etfuturum.observer.name=Наблюдатель
@@ -926,6 +941,12 @@ death.attack.hotFloor=%1$s узнал, что пол - это лава
 death.attack.hotFloor.player=%1$s попал в опасную зону благодаря %2$s
 death.attack.sweetBerryBush=%1$s искололся до смерти в кустах сладких ягод
 death.attack.sweetBerryBush.player=%1$s искололся до смерти в кустах сладких ягод, пытаясь спастись от %2$s
+death.attack.stalactite=%1$s был пронзён обрушившимся сталактитом
+death.attack.stalactite.player=%1$s был пронзён обрушившимся сталактитом пытаясь спастись от %2$s
+death.attack.stalagmite=%1$s пронзён сталагмитом
+death.attack.stalagmite.player=%1$s пронзён сталагмитом пытаясь спастись от %2$s
+death.attack.flyIntoWall=%1$s познал кинетическую энергию
+death.attack.flyIntoWall.player=%1$s познал кинетическую энергию пытаясь спастись от %2$s
 
 # Знамена (Banners)
 item.banner.black.name=Чёрный флаг
@@ -1591,48 +1612,7 @@ item.banner.straight_cross.silver=Светло-серый крест
 item.banner.straight_cross.white=Белый крест
 item.banner.straight_cross.yellow=Жёлтый крест
 
-# Дополнительные исправления (additional fixes)
-tile.etfuturum.lit_smoker.name=Коптильня
-tile.etfuturum.lit_blast_furnace.name=Плавильная печь
-tile.etfuturum.sign_spruce.name=Еловая табличка
-tile.etfuturum.sign_birch.name=Берёзовая табличка
-tile.etfuturum.sign_jungle.name=Табличка из досок тропического дерева
-tile.etfuturum.sign_acacia.name=Акациевая табличка
-tile.etfuturum.sign_dark_oak.name=Табличка из досок тёмного дуба
-tile.etfuturum.wall_sign_spruce.name=Еловая табличка
-tile.etfuturum.wall_sign_birch.name=Берёзовая табличка
-tile.etfuturum.wall_sign_jungle.name=Табличка из досок тропического дерева
-tile.etfuturum.wall_sign_acacia.name=Акациевая табличка
-tile.etfuturum.wall_sign_dark_oak.name=Табличка из досок тёмного дуба
-tile.pressurePlate.name=Нажимная пластина
-
-subtitle.dig.grass=Блок размещен или сломан
-subtitle.dig.stone=Блок размещен или сломан
-subtitle.dig.wood=Блок размещен или сломан
-subtitle.dig.cloth=Блок размещен или сломан
-subtitle.dig.glass=Блок размещен или сломан
-subtitle.dig.gravel=Блок размещен или сломан
-
-entity.EyeOfEnderSignal.name=Око Эндера
-entity.Arrow.name=Стрела
-entity.MinecartHopper.name=Вагонетка с разгрузочной воронкой
-entity.etfuturum.lingering_effect.name=Оседающий эффект
-entity.ThrownEnderpearl.name=Жемчуг Эндера
-entity.MinecartRideable.name=Вагонетка
-entity.etfuturum.tipped_arrow.name=Стрела с эффектом
-entity.ThrownExpBottle.name=Пузырёк опыта
-entity.MinecartChest.name=Грузовая вагонетка
-entity.MinecartCommandBlock.name=Вагонетка с командным блоком
-entity.MinecartTNT.name=Вагонетка с динамитом
-entity.ThrownPotion.name=Зелье
-entity.LeashKnot.name=Узел поводка
-entity.etfuturum.fireproof_item.name=Огнеупорный предмет
-entity.etfuturum.lingering_potion.name=Оседающее зелье
-entity.WitherSkull.name=Череп Иссушителя
-entity.MinecartSpawner.name=Вагонетка со спаунером
-entity.EnderCrystal.name=Кристалл Края
-entity.FireworksRocketEntity.name=Фейерверк
-entity.MinecartFurnace.name=Самоходная вагонетка
-
-entity.etfuturum.new_boat.name=Лодка
-entity.etfuturum.new_boat_seat.name=Сиденье лодки
+efr.nei.composter=Компостер
+efr.nei.amount=Количество
+efr.nei.weight=Вес
+efr.decoration.only=Только декоративный
