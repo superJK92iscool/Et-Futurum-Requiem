@@ -160,6 +160,7 @@ public class ConfigFunctions extends ConfigBase {
 	public static boolean enableSubtitles;
 	public static byte elytraDataWatcherFlag;
 	public static boolean enableDoorRecipeBuffs;
+	public static boolean inventoryBedModels;
 	public static String subtitleBlacklist;
 	public static String[] extraDropRawOres = new String[] {"oreCopper", "oreTin"};
 
@@ -229,6 +230,7 @@ public class ConfigFunctions extends ConfigBase {
 		enableGamemodeSwitcher = getBoolean("enableGamemodeSwitcher", catClient, true, "Enable the new F3+F4 gamemode switcher from 1.16+");
 		enableNewF3Behavior = getBoolean("enableNewF3Behavior", catClient, true, "Make F3 only show/hide info on release, and not if another key is pressed");
 		enableNewTextures = getBoolean("enableNewTextures", catClient, true, "Replace tall grass and sponge textures with modern version");
+		inventoryBedModels = getBoolean("inventoryBedModels", catClient, true, "Render beds with a 3D inventory model instead of a 2D sprite.");
 
 		//commands
 		enableFillCommand = getBoolean("enableFillCommand", catCommands, true, "Enable the /fill command.");

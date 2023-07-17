@@ -211,6 +211,10 @@ public class ClientProxy extends CommonProxy {
 		if(ConfigMixins.enableObservers) {
 			RenderingRegistry.registerBlockHandler(new BlockObserverRenderer());
 		}
+
+		if(ConfigBlocksItems.enableDyedBeds && ConfigFunctions.inventoryBedModels) {
+			RenderingRegistry.registerBlockHandler(new BlockBed3DInventoryModelRenderer());
+		}
 		
 		if(EtFuturum.TESTING) {
 			ClientRegistry.bindTileEntitySpecialRenderer(TileEntityGateway.class, new TileEntityGatewayRenderer());

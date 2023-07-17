@@ -5,10 +5,12 @@ import java.util.Random;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
+import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.Reference;
+import ganymedes01.etfuturum.lib.RenderIDs;
 import ganymedes01.etfuturum.recipes.ModRecipes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBed;
@@ -82,7 +84,15 @@ public class BlockDyedBed extends BlockBed {
 	
 	@Override
 	public String getItemIconName() {
-		return "bed_" + getTextureName().replace("_bed", "");
+		return ConfigFunctions.inventoryBedModels ? null : "bed_" + getTextureName().replace("_bed", "");
+	}
+
+	/**
+	 * The type of render function that is called for this block
+	 */
+	public int getRenderType()
+	{
+		return ConfigFunctions.inventoryBedModels ? RenderIDs.BED_INVENTORY_MODEL : getRenderType();
 	}
 
 }

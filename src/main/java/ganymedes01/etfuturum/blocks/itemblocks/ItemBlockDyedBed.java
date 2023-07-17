@@ -13,6 +13,7 @@ public class ItemBlockDyedBed extends ItemBlock {
 
 	public ItemBlockDyedBed(Block p_i45328_1_) {
 		super(p_i45328_1_);
+		setMaxStackSize(1);
 	}
 
 	public boolean onItemUse(ItemStack p_77648_1_, EntityPlayer p_77648_2_, World p_77648_3_, int p_77648_4_, int p_77648_5_, int p_77648_6_, int p_77648_7_, float p_77648_8_, float p_77648_9_, float p_77648_10_)
