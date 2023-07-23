@@ -27,7 +27,6 @@ public abstract class MixinTileEntityBeacon extends TileEntity {
 
 	@Inject(method = "<init>()V", at = @At(value = "RETURN"))
 	private void test(CallbackInfo ci) {
-		Logger.info("getClass().getCanonicalName()");
 		isNetherliciousBeacon = getClass().getCanonicalName().toLowerCase().contains("netherlicious");
 	}
 
