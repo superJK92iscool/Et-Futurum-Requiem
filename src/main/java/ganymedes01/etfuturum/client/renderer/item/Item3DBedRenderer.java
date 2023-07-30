@@ -31,7 +31,7 @@ public class Item3DBedRenderer implements IItemRenderer {
 
 	@Override
 	public boolean shouldUseRenderHelper(ItemRenderType type, ItemStack item, ItemRendererHelper helper) {
-		return helper != ItemRendererHelper.BLOCK_3D;
+		return helper != ItemRendererHelper.BLOCK_3D || type == ItemRenderType.EQUIPPED;
 	}
 
 	@Override
