@@ -1,9 +1,10 @@
 package ganymedes01.etfuturum.compat;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.relauncher.ReflectionHelper;
+import cpw.mods.fml.relauncher.Side;
 import ganymedes01.etfuturum.compat.cthandlers.*;
-import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.recipes.BlastFurnaceRecipes;
 import ganymedes01.etfuturum.recipes.SmokerRecipes;
 import minetweaker.MineTweakerAPI;
@@ -94,7 +95,7 @@ public class CompatCraftTweaker {
 			// If your scripts change ore dicts, this can lead to issues where OreDictionary.getOreIDs(ItemStack) returns old unchanged ore ids.
 			// Technically, I could avoid this issue by avoiding OreDictionary.stackToId and only using methods that involve OreDictionary.idToStack.
 			// However, that would be slightly slower every time I want to check a stack's IDs. Rebaking the map means it's slower just once, and other mods may appreciate it.
-			if(Loader.isModLoaded("NotEnoughItems")) {
+			if (Loader.isModLoaded("NotEnoughItems") && FMLCommonHandler.instance().getSide() != Side.SERVER) {
 				NEIEtFuturumConfig.clearCaches();
 			}
 
