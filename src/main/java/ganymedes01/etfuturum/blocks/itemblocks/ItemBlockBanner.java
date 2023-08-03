@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.blocks.itemblocks;
 
-import java.util.List;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.lib.EnumColour;
@@ -19,6 +17,8 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 public class ItemBlockBanner extends ItemBlock {
 
@@ -91,7 +91,7 @@ public class ItemBlockBanner extends ItemBlock {
 
 	@Override
 	public String getItemStackDisplayName(ItemStack stack) {
-		return StatCollector.translateToLocal("item.banner." + getBaseColor(stack).getMojangName() + ".name");
+		return StatCollector.translateToLocal("item.banner." + getBaseColor(stack).getColorName() + ".name");
 	}
 
 	@Override
@@ -108,7 +108,7 @@ public class ItemBlockBanner extends ItemBlock {
 				EnumBannerPattern pattern = EnumBannerPattern.getPatternByID(nbt.getString("Pattern"));
 
 				if (pattern != null) {
-					tooltip.add(StatCollector.translateToLocal("item.banner." + pattern.getPatternName() + "." + color.getMojangName()));
+					tooltip.add(StatCollector.translateToLocal("item.banner." + pattern.getPatternName() + "." + color.getColorName()));
 				}
 			}
 		}

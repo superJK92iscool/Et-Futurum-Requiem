@@ -9,12 +9,12 @@ import net.minecraft.block.material.Material;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 
-public class BlockDeepslateSlab extends BlockGenericSlab implements IMultiStepSound {
-	
+public class BlockDeepslateSlab extends BasicVariantsSlab implements IMultiStepSound {
+
 	private final boolean brick;
 
 	public BlockDeepslateSlab(boolean isDouble, boolean isBrick) {
-		super(isDouble, Material.rock, isBrick ? (new String[] {"brick", "tile"}) : (new String[] {"cobbled", "polished"}));
+		super(isDouble, Material.rock, isBrick ? (new String[]{"brick", "tile"}) : (new String[]{"cobbled", "polished"}));
 		brick = isBrick;
 		this.setHardness(3);
 		this.setResistance(6);
@@ -38,11 +38,11 @@ public class BlockDeepslateSlab extends BlockGenericSlab implements IMultiStepSo
 
 		return "tile.etfuturum." + (!brick ? (metaBlocks[meta]) + "_" : "") + name.split("\\.")[2];
 	}
-	
+
 	@Override
-	public BlockGenericSlab[] getSlabTypes() {
-		return brick ? new BlockGenericSlab[] {(BlockGenericSlab) ModBlocks.DEEPSLATE_BRICK_SLAB.get(), (BlockGenericSlab) ModBlocks.DOUBLE_DEEPSLATE_BRICK_SLAB.get()}
-		: new BlockGenericSlab[] {(BlockGenericSlab) ModBlocks.DEEPSLATE_SLAB.get(), (BlockGenericSlab) ModBlocks.DOUBLE_DEEPSLATE_SLAB.get()};
+	public BasicVariantsSlab[] getSlabTypes() {
+		return brick ? new BasicVariantsSlab[]{(BasicVariantsSlab) ModBlocks.DEEPSLATE_BRICK_SLAB.get(), (BasicVariantsSlab) ModBlocks.DOUBLE_DEEPSLATE_BRICK_SLAB.get()}
+				: new BasicVariantsSlab[]{(BasicVariantsSlab) ModBlocks.DEEPSLATE_SLAB.get(), (BasicVariantsSlab) ModBlocks.DOUBLE_DEEPSLATE_SLAB.get()};
 	}
 
 	@Override

@@ -6,7 +6,7 @@ import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.material.Material;
 import net.minecraft.util.IIcon;
 
-public class BlockSmoothQuartzSlab extends BlockGenericSlab {
+public class BlockSmoothQuartzSlab extends BasicVariantsSlab {
 
 	public BlockSmoothQuartzSlab(boolean p_i45410_1_) {
 		super(p_i45410_1_, Material.rock, "");
@@ -17,8 +17,8 @@ public class BlockSmoothQuartzSlab extends BlockGenericSlab {
 	}
 
 	@Override
-	public BlockGenericSlab[] getSlabTypes() {
-		return new BlockGenericSlab[] {(BlockGenericSlab) ModBlocks.SMOOTH_QUARTZ_SLAB.get(), (BlockGenericSlab) ModBlocks.DOUBLE_SMOOTH_QUARTZ_SLAB.get()};
+	public BasicVariantsSlab[] getSlabTypes() {
+		return new BasicVariantsSlab[]{(BasicVariantsSlab) ModBlocks.SMOOTH_QUARTZ_SLAB.get(), (BasicVariantsSlab) ModBlocks.DOUBLE_SMOOTH_QUARTZ_SLAB.get()};
 	}
 
 	@Override

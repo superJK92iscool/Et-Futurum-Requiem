@@ -7,11 +7,10 @@ import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 
-public class BlockNewStone extends BlockGeneric {
+public class BlockNewStone extends BasicVariantsBlock {
 
 	public BlockNewStone() {
-		super(Material.rock, "", "granite", "granite_smooth", "diorite", "diorite_smooth", "andesite", "andesite_smooth");
-		startMeta = 1;
+		super(Material.rock, 1, "", "granite", "polished_granite", "diorite", "polished_diorite", "andesite", "polished_andesite");
 		setHardness(1.5F);
 		setResistance(6.0F);
 		setBlockTextureName("stone");

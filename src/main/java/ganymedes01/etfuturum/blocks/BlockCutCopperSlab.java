@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.blocks;
 
-import java.util.Random;
-
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.client.sound.ModSounds;
@@ -13,7 +11,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-public class BlockCutCopperSlab extends BlockGenericSlab implements IDegradable {
+import java.util.Random;
+
+public class BlockCutCopperSlab extends BasicVariantsSlab implements IDegradable {
 
 	public BlockCutCopperSlab(boolean p_i45410_1_) {
 		super(p_i45410_1_, Material.iron, "", "exposed", "weathered", "oxidized", "waxed", "waxed_exposed", "waxed_weathered", "waxed_oxidized");
@@ -39,8 +39,8 @@ public class BlockCutCopperSlab extends BlockGenericSlab implements IDegradable 
 	}
 
 	@Override
-	public BlockGenericSlab[] getSlabTypes() {
-		return new BlockGenericSlab[] {(BlockGenericSlab) ModBlocks.CUT_COPPER_SLAB.get(), (BlockGenericSlab) ModBlocks.DOUBLE_CUT_COPPER_SLAB.get()};
+	public BasicVariantsSlab[] getSlabTypes() {
+		return new BasicVariantsSlab[]{(BasicVariantsSlab) ModBlocks.CUT_COPPER_SLAB.get(), (BasicVariantsSlab) ModBlocks.DOUBLE_CUT_COPPER_SLAB.get()};
 	}
 
 	@Override
@@ -60,7 +60,7 @@ public class BlockCutCopperSlab extends BlockGenericSlab implements IDegradable 
 		IIcon[] blocks = new IIcon[8];
 		for(int i = 0; i < blocks.length; i++) {
 			blocks[i] = ModBlocks.COPPER_BLOCK.get().getIcon(side, (i % 4) + 4);
-		};
+		}
 		return blocks;
 	}
 	

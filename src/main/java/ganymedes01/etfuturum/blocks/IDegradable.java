@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.blocks;
 
-import java.util.Random;
-
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.client.particle.ParticleHandler;
 import ganymedes01.etfuturum.lib.Reference;
@@ -12,12 +10,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 
+import java.util.Random;
+
 public interface IDegradable {
 
 	/**
 	 * Returns an int relative to the meta values regular coppers use.
 	 * Used to streamline the process of copper waxing, dewaxing and degrading.
-	 * 
+	 *
 	 * Default copper blocks:
 	 * 0:  Regular, No degredation
 	 * 1:  Regular, Exposed
@@ -35,33 +35,33 @@ public interface IDegradable {
 	 * 13: Cut Waxed, Exposed
 	 * 14: Cut Waxed, Weathered
 	 * 15: Cut Waxed, Oxidized
-	 * 
+	 *
 	 * @param meta World meta
 	 * @return A copper meta value from above.
 	 */
-	public int getCopperMeta(int meta);
-	
+	int getCopperMeta(int meta);
+
 	/**
 	 * A getCopperMeta copy that takes the actual meta value of the block into account.
 	 * Used by slabs to wrap the meta data from 0-7 or 8-15.
-	 * 
-	 * @param meta Copper meta
+	 *
+	 * @param meta      Copper meta
 	 * @param worldMeta World meta (Is always the meta value from before the copper changed and is the actual block meta, not the copper ID)
 	 * @return A copper value from getCopperMeta.
 	 */
-	public default int getFinalCopperMeta(int meta, int worldMeta) {
+	default int getFinalCopperMeta(int meta, int worldMeta) {
 		return getCopperMeta(meta);
 	}
-	
-	
+
+
 	/**
 	 * Returns a block ID depending on the meta input.
 	 * Used for copper stairs to return the blocks, since they're different blocks and not meta.
-	 * 
+	 *
 	 * @param meta
 	 * @return
 	 */
-	public Block getCopperBlockFromMeta(int meta);
+	Block getCopperBlockFromMeta(int meta);
 
 	default void tickDegradation(World world, int x, int y, int z, Random random) {
 		if(!world.isRemote) {

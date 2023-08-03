@@ -6,7 +6,7 @@ import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.material.Material;
 import net.minecraft.util.IIcon;
 
-public class BlockPrismarineSlab extends BlockGenericSlab {
+public class BlockPrismarineSlab extends BasicVariantsSlab {
 
 	public BlockPrismarineSlab(boolean p_i45410_1_) {
 		super(p_i45410_1_, Material.rock, "rough", "brick", "dark");
@@ -17,8 +17,8 @@ public class BlockPrismarineSlab extends BlockGenericSlab {
 	}
 
 	@Override
-	public BlockGenericSlab[] getSlabTypes() {
-		return new BlockGenericSlab[] {(BlockGenericSlab) ModBlocks.PRISMARINE_SLAB.get(), (BlockGenericSlab) ModBlocks.DOUBLE_PRISMARINE_SLAB.get()};
+	public BasicVariantsSlab[] getSlabTypes() {
+		return new BasicVariantsSlab[]{(BasicVariantsSlab) ModBlocks.PRISMARINE_SLAB.get(), (BasicVariantsSlab) ModBlocks.DOUBLE_PRISMARINE_SLAB.get()};
 	}
 	
 	@Override

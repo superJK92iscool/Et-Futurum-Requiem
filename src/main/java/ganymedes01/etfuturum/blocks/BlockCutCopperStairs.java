@@ -1,24 +1,32 @@
 package ganymedes01.etfuturum.blocks;
 
-import java.util.Random;
-
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
-public class BlockCutCopperStairs extends BlockGenericStairs implements IDegradable {
+import java.util.Random;
+
+public class BlockCutCopperStairs extends BasicStairs implements IDegradable {
 
 	public BlockCutCopperStairs(int p_i45428_2_) {
 		super(ModBlocks.COPPER_BLOCK.get(), p_i45428_2_);
 		String name = "cut_copper_stairs";
 		String subtype;
-		switch(meta) {
-			default: subtype = ""; break;
-			case 5: subtype = "exposed"; break;
-			case 6: subtype = "weathered"; break;
-			case 7: subtype = "oxidized"; break;
+		switch (meta) {
+			default:
+				subtype = "";
+				break;
+			case 5:
+				subtype = "exposed";
+				break;
+			case 6:
+				subtype = "weathered";
+				break;
+			case 7:
+				subtype = "oxidized";
+				break;
 			case 12: subtype = "waxed"; break;
 			case 13: subtype = "waxed_exposed"; break;
 			case 14: subtype = "waxed_weathered"; break;

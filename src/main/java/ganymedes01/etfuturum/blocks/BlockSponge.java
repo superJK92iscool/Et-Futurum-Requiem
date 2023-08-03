@@ -1,12 +1,6 @@
 package ganymedes01.etfuturum.blocks;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Random;
-
 import com.google.common.collect.Lists;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
@@ -19,10 +13,15 @@ import net.minecraft.util.Tuple;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class BlockSponge extends BlockGeneric {
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Random;
+
+public class BlockSponge extends BasicVariantsBlock {
 
 	public BlockSponge() {
-		super(Material.sponge, "", "wet");
+		super(Material.sponge, "", "wet_sponge");
 		setHardness(0.6F);
 		setStepSound(soundTypeGrass);
 		setBlockTextureName("sponge");

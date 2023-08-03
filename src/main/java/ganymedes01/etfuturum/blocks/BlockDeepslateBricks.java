@@ -1,41 +1,22 @@
 package ganymedes01.etfuturum.blocks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 
-public class BlockDeepslateBricks extends BlockGeneric implements IMultiStepSound {
-	
+public class BlockDeepslateBricks extends BasicVariantsBlock implements IMultiStepSound {
+
 	public BlockDeepslateBricks() {
-		super(Material.rock, "", "cracked", "", "cracked", "chiseled");
+		super(Material.rock, "deepslate_bricks", "cracked_deepslate_bricks", "deepslate_tiles", "cracked_deepslate_tiles", "chiseled_deepslate");
 		this.setHardness(1.5F);
 		this.setResistance(6);
 		this.setBlockName(Utils.getUnlocalisedName("deepslate_bricks"));
 		this.setBlockTextureName("deepslate_bricks");
 		this.setCreativeTab(EtFuturum.creativeTabBlocks);
 		this.setStepSound(ConfigSounds.newBlockSounds ? ModSounds.soundDeepslateBricks : soundTypeStone);
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister reg) {
-		icons = new IIcon[types.length];
-		for (int i = 0; i < types.length; i++) {
-			String name = getTextureName();
-			if(i > 1)
-				name = name.replace("bricks", "tiles");
-			if ("".equals(types[i]))
-				icons[i] = reg.registerIcon(name);
-			else
-				icons[i] = reg.registerIcon(i == 4 ? "chiseled_deepslate" : types[i] + "_" + name);
-			}
 	}
 
 	@Override

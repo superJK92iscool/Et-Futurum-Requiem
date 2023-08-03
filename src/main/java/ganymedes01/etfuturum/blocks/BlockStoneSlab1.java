@@ -7,7 +7,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.IIcon;
 
-public class BlockStoneSlab1 extends BlockGenericSlab {
+public class BlockStoneSlab1 extends BasicVariantsSlab {
 
 	public BlockStoneSlab1(boolean p_i45410_1_) {
 		super(p_i45410_1_, Material.rock, "stone", "mossy_cobblestone", "mossy_stone_brick", "cut_sandstone");
@@ -19,8 +19,8 @@ public class BlockStoneSlab1 extends BlockGenericSlab {
 	}
 
 	@Override
-	public BlockGenericSlab[] getSlabTypes() {
-		return new BlockGenericSlab[] {(BlockGenericSlab) ModBlocks.DOUBLE_STONE_SLAB.get(), (BlockGenericSlab) ModBlocks.DOUBLE_STONE_SLAB.get()};
+	public BasicVariantsSlab[] getSlabTypes() {
+		return new BasicVariantsSlab[]{(BasicVariantsSlab) ModBlocks.DOUBLE_STONE_SLAB.get(), (BasicVariantsSlab) ModBlocks.DOUBLE_STONE_SLAB.get()};
 	}
 
 	@Override

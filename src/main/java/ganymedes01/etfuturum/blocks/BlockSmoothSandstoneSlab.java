@@ -6,9 +6,10 @@ import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.material.Material;
 import net.minecraft.util.IIcon;
 
-public class BlockSmoothSandstoneSlab extends BlockGenericSlab {
+public class BlockSmoothSandstoneSlab extends BasicVariantsSlab {
 
 	private final int meta;
+
 	public BlockSmoothSandstoneSlab(int theMeta, boolean p_i45410_1_) {
 		super(p_i45410_1_, Material.rock, "");
 		meta = theMeta;
@@ -19,9 +20,9 @@ public class BlockSmoothSandstoneSlab extends BlockGenericSlab {
 	}
 
 	@Override
-	public BlockGenericSlab[] getSlabTypes() {
-		return new BlockGenericSlab[] {(BlockGenericSlab)(meta == 0 ? ModBlocks.SMOOTH_SANDSTONE_SLAB.get() : ModBlocks.SMOOTH_RED_SANDSTONE_SLAB.get()),
-				(BlockGenericSlab)(meta == 0 ? ModBlocks.DOUBLE_SMOOTH_SANDSTONE_SLAB.get() : ModBlocks.DOUBLE_SMOOTH_RED_SANDSTONE_SLAB.get())};
+	public BasicVariantsSlab[] getSlabTypes() {
+		return new BasicVariantsSlab[]{(BasicVariantsSlab) (meta == 0 ? ModBlocks.SMOOTH_SANDSTONE_SLAB.get() : ModBlocks.SMOOTH_RED_SANDSTONE_SLAB.get()),
+				(BasicVariantsSlab) (meta == 0 ? ModBlocks.DOUBLE_SMOOTH_SANDSTONE_SLAB.get() : ModBlocks.DOUBLE_SMOOTH_RED_SANDSTONE_SLAB.get())};
 	}
 
 	@Override

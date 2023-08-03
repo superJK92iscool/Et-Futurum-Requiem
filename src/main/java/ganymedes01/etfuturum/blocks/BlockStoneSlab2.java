@@ -6,7 +6,7 @@ import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.material.Material;
 import net.minecraft.util.IIcon;
 
-public class BlockStoneSlab2 extends BlockGenericSlab {
+public class BlockStoneSlab2 extends BasicVariantsSlab {
 
 	public BlockStoneSlab2(boolean p_i45410_1_) {
 		super(p_i45410_1_, Material.rock, "granite", "polished_granite", "diorite", "polished_diorite", "andesite", "polished_andesite");
@@ -18,8 +18,8 @@ public class BlockStoneSlab2 extends BlockGenericSlab {
 	}
 
 	@Override
-	public BlockGenericSlab[] getSlabTypes() {
-		return new BlockGenericSlab[] {(BlockGenericSlab) ModBlocks.STONE_SLAB_2.get(), (BlockGenericSlab) ModBlocks.DOUBLE_STONE_SLAB_2.get()};
+	public BasicVariantsSlab[] getSlabTypes() {
+		return new BasicVariantsSlab[]{(BasicVariantsSlab) ModBlocks.STONE_SLAB_2.get(), (BasicVariantsSlab) ModBlocks.DOUBLE_STONE_SLAB_2.get()};
 	}
 
 	@Override

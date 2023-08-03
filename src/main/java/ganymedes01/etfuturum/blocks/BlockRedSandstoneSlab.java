@@ -6,7 +6,7 @@ import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.material.Material;
 import net.minecraft.util.IIcon;
 
-public class BlockRedSandstoneSlab extends BlockGenericSlab {
+public class BlockRedSandstoneSlab extends BasicVariantsSlab {
 
 	public BlockRedSandstoneSlab(boolean isDouble) {
 		super(isDouble, Material.rock, "", "cut");
@@ -17,8 +17,8 @@ public class BlockRedSandstoneSlab extends BlockGenericSlab {
 	}
 
 	@Override
-	public BlockGenericSlab[] getSlabTypes() {
-		return new BlockGenericSlab[] {(BlockGenericSlab) ModBlocks.RED_SANDSTONE_SLAB.get(), (BlockGenericSlab) ModBlocks.DOUBLE_RED_SANDSTONE_SLAB.get()};
+	public BasicVariantsSlab[] getSlabTypes() {
+		return new BasicVariantsSlab[]{(BasicVariantsSlab) ModBlocks.RED_SANDSTONE_SLAB.get(), (BasicVariantsSlab) ModBlocks.DOUBLE_RED_SANDSTONE_SLAB.get()};
 	}
 
 	@Override

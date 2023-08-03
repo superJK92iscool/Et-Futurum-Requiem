@@ -25,31 +25,20 @@ public class BlockDyedBed extends BlockBed {
 		super();
 		setHardness(0.2F);
 		String dyeName = ModRecipes.dye_names[dye];
-		if(dyeName.equals("light_gray")) {
-			dyeName = "silver";
-		}
 		setBlockName(Utils.getUnlocalisedName(dyeName + "_bed"));
 		disableStats();
 		setBlockTextureName(dyeName + "_bed");
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 		setStepSound(ConfigSounds.newBlockSounds ? Block.soundTypeWood : Block.soundTypeCloth);
 	}
-	
-//  @SideOnly(Side.CLIENT)
-//  public void getSubBlocks(Item p_149666_1_, CreativeTabs p_149666_2_, List p_149666_3_)
-//  {
-//      if(this == ModBlocks.beds[14] && p_149666_2_ != null) {
-//          p_149666_3_.add(new ItemStack(Items.bed, 1, 0));
-//      }
-//      super.getSubBlocks(p_149666_1_, p_149666_2_, p_149666_3_);
-//  }
 
 	@Override
 	public void onFallenUpon(World world, int x, int y, int z, Entity entity, float fallDistance) {
 		if (!entity.isSneaking() && ConfigMixins.bouncyBeds) {
 			entity.fallDistance /= 2;
-			if (entity.motionY < 0)
+			if (entity.motionY < 0) {
 				entity.getEntityData().setDouble(Reference.MOD_ID + ":bed_bounce", -entity.motionY * 0.66);
+			}
 		}
 	}
 
@@ -82,7 +71,7 @@ public class BlockDyedBed extends BlockBed {
 	
 	@Override
 	public String getItemIconName() {
-		return "bed_" + getTextureName().replace("_bed", "");
+		return getTextureName();
 	}
 
 }

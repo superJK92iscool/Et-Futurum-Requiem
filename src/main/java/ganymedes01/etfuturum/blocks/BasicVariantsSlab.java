@@ -5,6 +5,7 @@ import java.util.Random;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -14,11 +15,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-public abstract class BlockGenericSlab extends BlockSlab {
+public abstract class BasicVariantsSlab extends BlockSlab {
 
 	public final String[] metaBlocks;
-	
-	public BlockGenericSlab(boolean p_i45410_1_, Material p_i45410_2_, String... names) {
+
+	public BasicVariantsSlab(boolean p_i45410_1_, Material p_i45410_2_, String... names) {
 		super(p_i45410_1_, p_i45410_2_);
 		metaBlocks = names;
 		useNeighborBrightness = !field_150004_a;
@@ -33,7 +34,7 @@ public abstract class BlockGenericSlab extends BlockSlab {
 	
 	@Override
 	public String getUnlocalizedName() {
-		return "tile.etfuturum." + (field_150004_a ? "double_" : "") + super.getUnlocalizedName().split("\\.")[2];
+		return "tile." + Utils.getUnlocalisedName((field_150004_a ? "double_" : "") + super.getUnlocalizedName().split("\\.")[2]);
 	}
 
 	@Override
@@ -48,7 +49,7 @@ public abstract class BlockGenericSlab extends BlockSlab {
 		if(metaBlocks[meta].equals("")) {
 			return super.getUnlocalizedName();
 		}
-		return "tile.etfuturum." + metaBlocks[meta] + "_" + getUnlocalizedName().split("_")[field_150004_a ? 2 : 1];
+		return "tile." + Utils.getUnlocalisedName(metaBlocks[meta] + "_" + getUnlocalizedName().split("_")[field_150004_a ? 2 : 1]);
 	}
 
 	@Override
@@ -61,8 +62,8 @@ public abstract class BlockGenericSlab extends BlockSlab {
 			p_149666_3_.add(new ItemStack(p_149666_1_, 1, i));
 		}
 	}
-	
-	public abstract BlockGenericSlab[] getSlabTypes();
+
+	public abstract BasicVariantsSlab[] getSlabTypes();
 	
 	public abstract IIcon[] getSlabIcons(int side);
 	

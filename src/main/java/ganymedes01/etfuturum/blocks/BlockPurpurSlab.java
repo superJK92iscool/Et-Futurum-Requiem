@@ -9,7 +9,7 @@ import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 
-public class BlockPurpurSlab extends BlockGenericSlab {
+public class BlockPurpurSlab extends BasicVariantsSlab {
 
 	public BlockPurpurSlab(boolean isDouble) {
 		super(isDouble, Material.rock, "");
@@ -25,8 +25,8 @@ public class BlockPurpurSlab extends BlockGenericSlab {
 	}
 
 	@Override
-	public BlockGenericSlab[] getSlabTypes() {
-		return new BlockGenericSlab[] {(BlockGenericSlab) ModBlocks.PURPUR_SLAB.get(), (BlockGenericSlab) ModBlocks.DOUBLE_PURPUR_SLAB.get()};
+	public BasicVariantsSlab[] getSlabTypes() {
+		return new BasicVariantsSlab[]{(BasicVariantsSlab) ModBlocks.PURPUR_SLAB.get(), (BasicVariantsSlab) ModBlocks.DOUBLE_PURPUR_SLAB.get()};
 	}
 
 	@Override
