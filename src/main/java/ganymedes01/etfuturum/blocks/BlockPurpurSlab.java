@@ -1,18 +1,21 @@
 package ganymedes01.etfuturum.blocks;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 
-public class BlockPurpurSlab extends BasicVariantsSlab {
+public class BlockPurpurSlab extends BasicSlab {
 
 	public BlockPurpurSlab(boolean isDouble) {
-		super(isDouble, Material.rock, "");
+		super(isDouble, Material.rock, "purpur");
 		setResistance(6);
 		setHardness(2.0F);
 		setBlockName(Utils.getUnlocalisedName("purpur_slab"));
@@ -20,17 +23,15 @@ public class BlockPurpurSlab extends BasicVariantsSlab {
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
+	public void registerBlockIcons(IIconRegister reg) {
+		IIcon[] icon = new IIcon[getTypes().length];
+		icon[0] = ModBlocks.PURPUR_BLOCK.get().getIcon(2, 0);
+		setIcons(icon);
+	}
+
+	@Override
 	public boolean canEntityDestroy(IBlockAccess world, int x, int y, int z, Entity entity) {
 		return !(entity instanceof EntityDragon);
-	}
-
-	@Override
-	public BasicVariantsSlab[] getSlabTypes() {
-		return new BasicVariantsSlab[]{(BasicVariantsSlab) ModBlocks.PURPUR_SLAB.get(), (BasicVariantsSlab) ModBlocks.DOUBLE_PURPUR_SLAB.get()};
-	}
-
-	@Override
-	public IIcon[] getSlabIcons(int side) {
-		return new IIcon[] {ModBlocks.PURPUR_BLOCK.get().getIcon(side, 0)};
 	}
 }

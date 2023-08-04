@@ -4,7 +4,7 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.material.Material;
 
-public class BlockRawOre extends BasicVariantsBlock {
+public class BlockRawOre extends BasicSubtypesBlock {
 
 	public BlockRawOre() {
 		super(Material.rock, "raw_copper_block", "raw_iron_block", "raw_gold_block");

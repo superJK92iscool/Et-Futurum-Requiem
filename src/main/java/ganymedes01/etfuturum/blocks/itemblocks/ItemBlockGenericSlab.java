@@ -1,26 +1,29 @@
 package ganymedes01.etfuturum.blocks.itemblocks;
 
-import ganymedes01.etfuturum.blocks.BasicVariantsSlab;
+import ganymedes01.etfuturum.blocks.BasicSlab;
+import ganymedes01.etfuturum.blocks.ISubBlocksBlock;
+import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockSlab;
 import net.minecraft.item.ItemSlab;
 import net.minecraft.item.ItemStack;
 
 public class ItemBlockGenericSlab extends ItemSlab {
 
-	final String[] metaBlocks;
-
 	public ItemBlockGenericSlab(Block block) {
-		super(block, ((BasicVariantsSlab) block).getSlabTypes()[0], ((BasicVariantsSlab) block).getSlabTypes()[1], ((BasicVariantsSlab) block).isDouble());
+		super(block, (BlockSlab) block, ((BasicSlab) block).getDoubleSlab(), block == ((BasicSlab) block).getDoubleSlab());
 		this.setHasSubtypes(true);
-		metaBlocks = ((BasicVariantsSlab) block).metaBlocks;
 	}
 
 	@Override
-	public String getUnlocalizedName(ItemStack itemStack) {
-		return ((BasicVariantsSlab) Block.getBlockFromItem(itemStack.getItem())).func_150002_b(itemStack.getItemDamage()).replace("double_", "");
+	public String getUnlocalizedName(ItemStack stack) {
+		return addTilePrefix(((ISubBlocksBlock) field_150939_a).getNameFor(stack));
 	}
 
-	
+	private String addTilePrefix(String name) {
+		return "tile." + Utils.getUnlocalisedName(name);
+	}
+
 	@Override
 	public int getMetadata(int meta) {
 		return meta % 8;

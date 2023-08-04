@@ -1,15 +1,18 @@
 package ganymedes01.etfuturum.blocks;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
 
-public class BlockSmoothQuartzSlab extends BasicVariantsSlab {
+public class BlockSmoothQuartzSlab extends BasicSlab {
 
 	public BlockSmoothQuartzSlab(boolean p_i45410_1_) {
-		super(p_i45410_1_, Material.rock, "");
+		super(p_i45410_1_, Material.rock, "smooth_quartz");
 		setResistance(6);
 		setHardness(2.0F);
 		setBlockName(Utils.getUnlocalisedName("smooth_quartz_slab"));
@@ -17,13 +20,10 @@ public class BlockSmoothQuartzSlab extends BasicVariantsSlab {
 	}
 
 	@Override
-	public BasicVariantsSlab[] getSlabTypes() {
-		return new BasicVariantsSlab[]{(BasicVariantsSlab) ModBlocks.SMOOTH_QUARTZ_SLAB.get(), (BasicVariantsSlab) ModBlocks.DOUBLE_SMOOTH_QUARTZ_SLAB.get()};
+	@SideOnly(Side.CLIENT)
+	public void registerBlockIcons(IIconRegister reg) {
+		IIcon[] icon = new IIcon[getTypes().length];
+		blockIcon = icon[0] = ModBlocks.SMOOTH_QUARTZ.get().getIcon(2, 0);
+		setIcons(icon);
 	}
-
-	@Override
-	public IIcon[] getSlabIcons(int side) {
-		return new IIcon[] {ModBlocks.SMOOTH_QUARTZ.get().getIcon(side, 0)};
-	}
-
 }

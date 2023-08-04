@@ -7,7 +7,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 
-public class BlockNewStone extends BasicVariantsBlock {
+public class BlockNewStone extends BasicSubtypesBlock {
 
 	public BlockNewStone() {
 		super(Material.rock, 1, "", "granite", "polished_granite", "diorite", "polished_diorite", "andesite", "polished_andesite");

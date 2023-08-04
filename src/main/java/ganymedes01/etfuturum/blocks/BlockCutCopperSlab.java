@@ -1,22 +1,25 @@
 package ganymedes01.etfuturum.blocks;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
 import java.util.Random;
 
-public class BlockCutCopperSlab extends BasicVariantsSlab implements IDegradable {
+public class BlockCutCopperSlab extends BasicSlab implements IDegradable {
 
 	public BlockCutCopperSlab(boolean p_i45410_1_) {
-		super(p_i45410_1_, Material.iron, "", "exposed", "weathered", "oxidized", "waxed", "waxed_exposed", "waxed_weathered", "waxed_oxidized");
+		super(p_i45410_1_, Material.iron, "cut_copper", "exposed_cut_copper", "weathered_cut_copper", "oxidized_cut_copper", "waxed_cut_copper", "waxed_exposed_cut_copper",
+				"waxed_weathered_cut_copper", "waxed_oxidized_cut_copper");
 		setHardness(3);
 		setResistance(6);
 		setHarvestLevel("pickaxe", 1);
@@ -39,29 +42,12 @@ public class BlockCutCopperSlab extends BasicVariantsSlab implements IDegradable
 	}
 
 	@Override
-	public BasicVariantsSlab[] getSlabTypes() {
-		return new BasicVariantsSlab[]{(BasicVariantsSlab) ModBlocks.CUT_COPPER_SLAB.get(), (BasicVariantsSlab) ModBlocks.DOUBLE_CUT_COPPER_SLAB.get()};
-	}
-
-	@Override
-	public String func_150002_b(int meta)
-	{
-		meta %= 8;
-		
-		if(metaBlocks[meta].equals("")) {
-			return super.getUnlocalizedName();
+	@SideOnly(Side.CLIENT)
+	public void registerBlockIcons(IIconRegister reg) {
+		setIcons(new IIcon[4]);
+		for (int i = 0; i < getIcons().length; i++) {
+			getIcons()[i] = "".equals(getTypes()[i]) ? reg.registerIcon(getTextureName()) : reg.registerIcon(getTypes()[i]);
 		}
-		
-		return "tile.etfuturum." + metaBlocks[meta] + "_" + super.getUnlocalizedName().split("tile.etfuturum.")[1];
-	}
-
-	@Override
-	public IIcon[] getSlabIcons(int side) {
-		IIcon[] blocks = new IIcon[8];
-		for(int i = 0; i < blocks.length; i++) {
-			blocks[i] = ModBlocks.COPPER_BLOCK.get().getIcon(side, (i % 4) + 4);
-		}
-		return blocks;
 	}
 	
 	@Override

@@ -4,7 +4,7 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.material.Material;
 
-public class BlockPrismarine extends BasicVariantsBlock {
+public class BlockPrismarine extends BasicSubtypesBlock {
 
 	public BlockPrismarine() {
 		super(Material.rock, "prismarine", "prismarine_bricks", "dark_prismarine");

@@ -1,13 +1,15 @@
 package ganymedes01.etfuturum.blocks;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.IIcon;
 
-public class BlockStoneSlab1 extends BasicVariantsSlab {
+public class BlockStoneSlab1 extends BasicSlab {
 
 	public BlockStoneSlab1(boolean p_i45410_1_) {
 		super(p_i45410_1_, Material.rock, "stone", "mossy_cobblestone", "mossy_stone_brick", "cut_sandstone");
@@ -19,14 +21,22 @@ public class BlockStoneSlab1 extends BasicVariantsSlab {
 	}
 
 	@Override
-	public BasicVariantsSlab[] getSlabTypes() {
-		return new BasicVariantsSlab[]{(BasicVariantsSlab) ModBlocks.DOUBLE_STONE_SLAB.get(), (BasicVariantsSlab) ModBlocks.DOUBLE_STONE_SLAB.get()};
+	@SideOnly(Side.CLIENT)
+	public void registerBlockIcons(IIconRegister reg) {
+		IIcon[] icon = new IIcon[getTypes().length];
+		icon[0] = Blocks.stone.getIcon(2, 0);
+		icon[1] = Blocks.mossy_cobblestone.getIcon(2, 0);
+		icon[2] = Blocks.stonebrick.getIcon(2, 1);
+		icon[3] = Blocks.sandstone.getIcon(2, 2);
+		setIcons(icon);
 	}
 
 	@Override
-	public IIcon[] getSlabIcons(int side) {
-		return new IIcon[] {Blocks.stone.getIcon(side, 0),Blocks.mossy_cobblestone.getIcon(side, 0),
-				Blocks.stonebrick.getIcon(side, 1), Blocks.sandstone.getIcon(side, 2)};
+	@SideOnly(Side.CLIENT)
+	public IIcon getIcon(int side, int meta) {
+		if ((meta % 8) % getIcons().length == 3) {
+			return Blocks.sandstone.getIcon(side, 2);
+		}
+		return super.getIcon(side, meta);
 	}
-	
 }

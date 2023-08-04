@@ -1,20 +1,18 @@
 package ganymedes01.etfuturum.blocks;
 
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.material.Material;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 
-public class BlockDeepslateSlab extends BasicVariantsSlab implements IMultiStepSound {
+public class BlockDeepslateSlab extends BasicSlab implements IMultiStepSound {
 
 	private final boolean brick;
 
 	public BlockDeepslateSlab(boolean isDouble, boolean isBrick) {
-		super(isDouble, Material.rock, isBrick ? (new String[]{"brick", "tile"}) : (new String[]{"cobbled", "polished"}));
+		super(isDouble, Material.rock, isBrick ? (new String[]{"deepslate_bricks", "deepslate_tiles"}) : (new String[]{"cobbled_deepslate", "polished_deepslate"}));
 		brick = isBrick;
 		this.setHardness(3);
 		this.setResistance(6);
@@ -22,33 +20,6 @@ public class BlockDeepslateSlab extends BasicVariantsSlab implements IMultiStepS
 		this.setBlockTextureName("deepslate" + (isBrick ? "_brick" : "") + "_slab");
 		this.setCreativeTab(EtFuturum.creativeTabBlocks);
 		this.setStepSound(ConfigSounds.newBlockSounds ? isBrick ? ModSounds.soundDeepslateBricks : ModSounds.soundDeepslate : soundTypeStone);
-	}
-
-	@Override
-	public String func_150002_b(int meta)
-	{
-		meta %= 8;
-				
-		if(meta >= metaBlocks.length) {
-			meta = 0;
-		}
-		String name = super.getUnlocalizedName();
-		if(metaBlocks[meta].equals("tile"))
-			name = name.replace("brick", "tile");
-
-		return "tile.etfuturum." + (!brick ? (metaBlocks[meta]) + "_" : "") + name.split("\\.")[2];
-	}
-
-	@Override
-	public BasicVariantsSlab[] getSlabTypes() {
-		return brick ? new BasicVariantsSlab[]{(BasicVariantsSlab) ModBlocks.DEEPSLATE_BRICK_SLAB.get(), (BasicVariantsSlab) ModBlocks.DOUBLE_DEEPSLATE_BRICK_SLAB.get()}
-				: new BasicVariantsSlab[]{(BasicVariantsSlab) ModBlocks.DEEPSLATE_SLAB.get(), (BasicVariantsSlab) ModBlocks.DOUBLE_DEEPSLATE_SLAB.get()};
-	}
-
-	@Override
-	public IIcon[] getSlabIcons(int side) {
-		return brick ? new IIcon[] {ModBlocks.DEEPSLATE_BRICKS.get().getIcon(side, 0), ModBlocks.DEEPSLATE_BRICKS.get().getIcon(side, 2)}
-		: new IIcon[] {ModBlocks.COBBLED_DEEPSLATE.get().getIcon(side, 0), ModBlocks.POLISHED_DEEPSLATE.get().getIcon(side, 0)};
 	}
 
 	@Override

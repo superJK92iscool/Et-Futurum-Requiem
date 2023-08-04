@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.blocks;
 
-import java.util.List;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
@@ -19,15 +17,17 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockNewWall extends BlockWall implements IMultiStepSound {
-	
+import java.util.List;
+
+public class BasicWall extends BlockWall implements IMultiStepSound {
+
 	private Block[] blocks;
 	private int[] metas;
 	private String[] names;
-	
+
 	public int variations;
 
-	public BlockNewWall(String string, Block[] blocks, int[] metas, String[] names) {
+	public BasicWall(String string, Block[] blocks, int[] metas, String[] names) {
 		super(blocks[0]);
 		this.blocks = blocks;
 		this.metas = metas;
@@ -55,7 +55,7 @@ public class BlockNewWall extends BlockWall implements IMultiStepSound {
 	public boolean canConnectWallTo(IBlockAccess p_150091_1_, int p_150091_2_, int p_150091_3_, int p_150091_4_)
 	{
 		Block block = p_150091_1_.getBlock(p_150091_2_, p_150091_3_, p_150091_4_);
-		return block instanceof BlockFenceGate || block instanceof BlockNewWall || super.canConnectWallTo(p_150091_1_, p_150091_2_, p_150091_3_, p_150091_4_);
+		return block instanceof BlockFenceGate || block instanceof BasicWall || super.canConnectWallTo(p_150091_1_, p_150091_2_, p_150091_3_, p_150091_4_);
 	}
 	
 	public float getBlockHardness(World p_149712_1_, int p_149712_2_, int p_149712_3_, int p_149712_4_)

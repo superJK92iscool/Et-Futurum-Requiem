@@ -7,7 +7,7 @@ import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.material.Material;
 import net.minecraft.world.IBlockAccess;
 
-public class BlockDeepslateBricks extends BasicVariantsBlock implements IMultiStepSound {
+public class BlockDeepslateBricks extends BasicSubtypesBlock implements IMultiStepSound {
 
 	public BlockDeepslateBricks() {
 		super(Material.rock, "deepslate_bricks", "cracked_deepslate_bricks", "deepslate_tiles", "cracked_deepslate_tiles", "chiseled_deepslate");

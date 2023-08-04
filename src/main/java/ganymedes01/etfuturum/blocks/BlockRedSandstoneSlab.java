@@ -1,15 +1,18 @@
 package ganymedes01.etfuturum.blocks;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
 
-public class BlockRedSandstoneSlab extends BasicVariantsSlab {
+public class BlockRedSandstoneSlab extends BasicSlab {
 
 	public BlockRedSandstoneSlab(boolean isDouble) {
-		super(isDouble, Material.rock, "", "cut");
+		super(isDouble, Material.rock, "red_sandstone", "cut_red_sandstone");
 		setResistance(6);
 		setHardness(2.0F);
 		setBlockName(Utils.getUnlocalisedName("red_sandstone_slab"));
@@ -17,27 +20,17 @@ public class BlockRedSandstoneSlab extends BasicVariantsSlab {
 	}
 
 	@Override
-	public BasicVariantsSlab[] getSlabTypes() {
-		return new BasicVariantsSlab[]{(BasicVariantsSlab) ModBlocks.RED_SANDSTONE_SLAB.get(), (BasicVariantsSlab) ModBlocks.DOUBLE_RED_SANDSTONE_SLAB.get()};
+	@SideOnly(Side.CLIENT)
+	public void registerBlockIcons(IIconRegister reg) {
+		IIcon[] icon = new IIcon[getTypes().length];
+		icon[0] = ModBlocks.RED_SANDSTONE.get().getIcon(2, 0);
+		icon[1] = ModBlocks.RED_SANDSTONE.get().getIcon(2, 2);
+		setIcons(icon);
 	}
 
 	@Override
-	public IIcon[] getSlabIcons(int side) {
-		return new IIcon[] {ModBlocks.RED_SANDSTONE.get().getIcon(side, 0), ModBlocks.RED_SANDSTONE.get().getIcon(side, 2)};
-	}
-	
-	@Override
-	public String func_150002_b(int meta)
-	{
-		meta %= 8;
-				
-		if(meta >= metaBlocks.length) {
-			meta = 0;
-		}
-
-		if(metaBlocks[meta].equals("")) {
-			return super.getUnlocalizedName();
-		}
-		return "tile.etfuturum." + metaBlocks[meta] + "_" + super.getUnlocalizedName().split("\\.")[2];
+	@SideOnly(Side.CLIENT)
+	public IIcon getIcon(int side, int meta) {
+		return ModBlocks.RED_SANDSTONE.get().getIcon(side, (meta % 8) % getIcons().length == 0 ? 0 : 2);
 	}
 }

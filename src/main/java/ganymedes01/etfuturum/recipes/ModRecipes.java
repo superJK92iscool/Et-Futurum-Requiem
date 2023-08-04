@@ -6,7 +6,9 @@ import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.blocks.BlockStoneSlab2;
 import ganymedes01.etfuturum.blocks.IDegradable;
-import ganymedes01.etfuturum.configuration.configs.*;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
+import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.entities.EntityNewBoat;
 import ganymedes01.etfuturum.items.ItemSuspiciousStew;
@@ -259,7 +261,7 @@ public class ModRecipes {
 		addShapedRecipe(ModBlocks.STONE.newItemStack(4, 6), "xx", "xx", 'x', "stoneAndesite");
 		Block[] stone_stairs = new Block[]{ModBlocks.GRANITE_STAIRS.get(), ModBlocks.POLISHED_GRANITE_STAIRS.get(), ModBlocks.DIORITE_STAIRS.get(), ModBlocks.POLISHED_DIORITE_STAIRS.get(), ModBlocks.ANDESITE_STAIRS.get(), ModBlocks.POLISHED_ANDESITE_STAIRS.get()};
 		for (int i = 0; i < stone_stairs.length; i++) { //TODO: Rewrite this, this seems needlessly convoluted
-			String dictName = "stone" + StringUtils.capitalize(((BlockStoneSlab2) ModBlocks.STONE_SLAB_2.get()).metaBlocks[(i / 2) * 2]) + (i % 2 == 1 ? "Polished" : "");
+			String dictName = "stone" + StringUtils.capitalize(((BlockStoneSlab2) ModBlocks.STONE_SLAB_2.get()).types[(i / 2) * 2]) + (i % 2 == 1 ? "Polished" : "");
 			addShapedRecipe(ModBlocks.STONE_SLAB_2.newItemStack(6, i), "xxx", 'x', dictName);
 			addShapedRecipe(new ItemStack(stone_stairs[i], 4), "x  ", "xx ", "xxx", 'x', dictName);
 			if (i % 2 == 1) {

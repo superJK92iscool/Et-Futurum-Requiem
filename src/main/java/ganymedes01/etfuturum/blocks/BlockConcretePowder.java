@@ -8,7 +8,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class BlockConcretePowder extends BasicVariantsSand {
+public class BlockConcretePowder extends BasicSubtypesSand {
 
 	public BlockConcretePowder() {
 		super(Material.sand, "white_concrete_powder", "orange_concrete_powder", "magenta_concrete_powder", "light_blue_concrete_powder", "yellow_concrete_powder",

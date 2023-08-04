@@ -565,11 +565,11 @@ tile.etfuturum.nether_wart.name=Nether Wart Block
 tile.etfuturum.bone.name=Bone Block
 
 tile.etfuturum.prismarine_stairs.name=Prismarine Stairs
-tile.etfuturum.prismarine_stairs_brick.name=Prismarine Bricks Stairs
-tile.etfuturum.prismarine_stairs_dark.name=Dark Prismarine Stairs
+tile.etfuturum.prismarine_brick_stairs.name=Prismarine Bricks Stairs
+tile.etfuturum.dark_prismarine_stairs.name=Dark Prismarine Stairs
 
-tile.etfuturum.rough_prismarine_slab.name=Prismarine Slab
-tile.etfuturum.brick_prismarine_slab.name=Prismarine Bricks Slab
+tile.etfuturum.prismarine_slab.name=Prismarine Slab
+tile.etfuturum.prismarine_brick_slab.name=Prismarine Bricks Slab
 tile.etfuturum.dark_prismarine_slab.name=Dark Prismarine Slab
 
 tile.etfuturum.stripped_oak_log.name=Stripped Oak Log
@@ -694,8 +694,8 @@ tile.etfuturum.black_bed.name=Black Bed
 
 tile.etfuturum.barrier.name=Barrier
 tile.etfuturum.red_nether_bricks.name=Red Nether Bricks
-tile.etfuturum.red_nether_bricks_slab.name=Red Nether Brick Slab
-tile.etfuturum.red_nether_bricks_stairs.name=Red Nether Brick stairs
+tile.etfuturum.red_nether_brick_slab.name=Red Nether Brick Slab
+tile.etfuturum.red_nether_brick_stairs.name=Red Nether Brick stairs
 tile.etfuturum.chiseled_nether_bricks.name=Chiseled Nether Bricks
 tile.etfuturum.cracked_nether_bricks.name=Cracked Nether Bricks
 tile.etfuturum.nether_gold_ore.name=Nether Gold Ore

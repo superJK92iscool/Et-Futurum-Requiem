@@ -4,7 +4,7 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.material.Material;
 
-public class BlockConcrete extends BasicVariantsBlock {
+public class BlockConcrete extends BasicSubtypesBlock {
 
 	public BlockConcrete() {
 		super(Material.rock, "white_concrete", "orange_concrete", "magenta_concrete", "light_blue_concrete", "yellow_concrete", "lime_concrete", "pink_concrete",

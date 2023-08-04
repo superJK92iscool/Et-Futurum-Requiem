@@ -1,7 +1,6 @@
 package ganymedes01.etfuturum.blocks;
 
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
@@ -12,7 +11,7 @@ public class BlockCutCopperStairs extends BasicStairs implements IDegradable {
 
 	public BlockCutCopperStairs(int p_i45428_2_) {
 		super(ModBlocks.COPPER_BLOCK.get(), p_i45428_2_);
-		String name = "cut_copper_stairs";
+		String name = "cut_copper";
 		String subtype;
 		switch (meta) {
 			default:
@@ -27,13 +26,21 @@ public class BlockCutCopperStairs extends BasicStairs implements IDegradable {
 			case 7:
 				subtype = "oxidized";
 				break;
-			case 12: subtype = "waxed"; break;
-			case 13: subtype = "waxed_exposed"; break;
-			case 14: subtype = "waxed_weathered"; break;
-			case 15: subtype = "waxed_oxidized"; break;
+			case 12:
+				subtype = "waxed";
+				break;
+			case 13:
+				subtype = "waxed_exposed";
+				break;
+			case 14:
+				subtype = "waxed_weathered";
+				break;
+			case 15:
+				subtype = "waxed_oxidized";
+				break;
 		}
-		setBlockName(Utils.getUnlocalisedName(subtype + (subtype.equals("") ? "" : "_") + name));
-		setTickRandomly(meta < 7 ? true : false);
+		setBlockName(subtype + (subtype.equals("") ? "" : "_") + name);
+		setTickRandomly(meta < 7);
 	}
 	
 	@Override

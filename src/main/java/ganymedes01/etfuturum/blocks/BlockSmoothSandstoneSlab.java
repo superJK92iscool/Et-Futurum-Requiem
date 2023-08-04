@@ -1,17 +1,20 @@
 package ganymedes01.etfuturum.blocks;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
 
-public class BlockSmoothSandstoneSlab extends BasicVariantsSlab {
+public class BlockSmoothSandstoneSlab extends BasicSlab {
 
 	private final int meta;
 
 	public BlockSmoothSandstoneSlab(int theMeta, boolean p_i45410_1_) {
-		super(p_i45410_1_, Material.rock, "");
+		super(p_i45410_1_, Material.rock, "smooth" + (theMeta == 1 ? "_red" : "") + "_sandstone");
 		meta = theMeta;
 		setResistance(6);
 		setHardness(2.0F);
@@ -20,16 +23,16 @@ public class BlockSmoothSandstoneSlab extends BasicVariantsSlab {
 	}
 
 	@Override
-	public BasicVariantsSlab[] getSlabTypes() {
-		return new BasicVariantsSlab[]{(BasicVariantsSlab) (meta == 0 ? ModBlocks.SMOOTH_SANDSTONE_SLAB.get() : ModBlocks.SMOOTH_RED_SANDSTONE_SLAB.get()),
-				(BasicVariantsSlab) (meta == 0 ? ModBlocks.DOUBLE_SMOOTH_SANDSTONE_SLAB.get() : ModBlocks.DOUBLE_SMOOTH_RED_SANDSTONE_SLAB.get())};
+	@SideOnly(Side.CLIENT)
+	public void registerBlockIcons(IIconRegister reg) {
+		IIcon[] icon = new IIcon[getTypes().length];
+		blockIcon = icon[0] = this.meta == 1 ? ModBlocks.SMOOTH_RED_SANDSTONE.get().getIcon(2, 2) : ModBlocks.SMOOTH_SANDSTONE.get().getIcon(2, 2);
+		setIcons(icon);
 	}
 
 	@Override
-	public IIcon[] getSlabIcons(int side) {
-		if(meta == 1)
-			return new IIcon[] {ModBlocks.SMOOTH_RED_SANDSTONE.get().getIcon(side, 0)};
-		return new IIcon[] {ModBlocks.SMOOTH_SANDSTONE.get().getIcon(side, 0)};
+	@SideOnly(Side.CLIENT)
+	public IIcon getIcon(int side, int meta) {
+		return this.meta == 1 ? ModBlocks.SMOOTH_RED_SANDSTONE.get().getIcon(side, 2) : ModBlocks.SMOOTH_SANDSTONE.get().getIcon(side, 2);
 	}
-
 }

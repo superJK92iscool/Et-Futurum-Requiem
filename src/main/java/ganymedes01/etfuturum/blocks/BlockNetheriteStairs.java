@@ -1,7 +1,6 @@
 package ganymedes01.etfuturum.blocks;
 
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.entities.EntityItemUninflammable;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
@@ -11,7 +10,7 @@ public class BlockNetheriteStairs extends BasicStairs {
 
 	public BlockNetheriteStairs() {
 		super(ModBlocks.NETHERITE_BLOCK.get(), 0);
-		setBlockName(Utils.getUnlocalisedName("netherite_stairs"));
+		setBlockName("netherite");
 	}
 
 	@Override

@@ -2,7 +2,7 @@ package ganymedes01.etfuturum.blocks;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.block.Block;
+import net.minecraft.block.BlockFalling;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -12,18 +12,18 @@ import net.minecraft.util.IIcon;
 
 import java.util.List;
 
-public class BasicVariantsBlock extends Block implements ISubBlocksBlock {
+public class BasicSubtypesSand extends BlockFalling implements ISubBlocksBlock {
 	@SideOnly(Side.CLIENT)
 	private IIcon[] icons;
 	private final String[] types;
 
 	private final int startMeta;
 
-	public BasicVariantsBlock(Material material, String... types) {
+	public BasicSubtypesSand(Material material, String... types) {
 		this(material, 0, types);
 	}
 
-	public BasicVariantsBlock(Material material, int startMeta, String... types) {
+	public BasicSubtypesSand(Material material, int startMeta, String... types) {
 		super(material);
 		this.types = types;
 		this.startMeta = startMeta;
@@ -76,5 +76,6 @@ public class BasicVariantsBlock extends Block implements ISubBlocksBlock {
 		for (int i = 0; i < getIcons().length; i++) {
 			getIcons()[i] = "".equals(getTypes()[i]) ? reg.registerIcon(getTextureName()) : reg.registerIcon(getTypes()[i]);
 		}
+		blockIcon = getIcons()[0];
 	}
 }

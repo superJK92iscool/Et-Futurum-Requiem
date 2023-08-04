@@ -12,5 +12,4 @@ public class BlockRedSandstone extends BlockSandStone {
 		setBlockName(Utils.getUnlocalisedName("red_sandstone"));
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
-
 }
