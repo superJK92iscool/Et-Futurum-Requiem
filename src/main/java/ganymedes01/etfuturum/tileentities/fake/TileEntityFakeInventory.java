@@ -3,6 +3,7 @@ package ganymedes01.etfuturum.tileentities.fake;
 import ganymedes01.etfuturum.api.inventory.FakeTileEntityProvider;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 
@@ -10,10 +11,10 @@ import net.minecraft.tileentity.TileEntity;
  * Simple tile entity class for use with {@link FakeTileEntityProvider} that delegates all inventory calls
  * to the provided {@link IInventory}.
  */
-public final class TileEntityFakeInventory extends TileEntity implements IInventory {
-    private final IInventory delegate;
+public final class TileEntityFakeInventory extends TileEntity implements IInventory, ISidedInventory {
+    private final ISidedInventory delegate;
 
-    public TileEntityFakeInventory(IInventory delegate) {
+    public TileEntityFakeInventory(ISidedInventory delegate) {
         this.delegate = delegate;
     }
 
@@ -80,5 +81,20 @@ public final class TileEntityFakeInventory extends TileEntity implements IInvent
     @Override
     public void markDirty() {
         delegate.markDirty();
+    }
+
+    @Override
+    public int[] getAccessibleSlotsFromSide(int p_94128_1_) {
+        return delegate.getAccessibleSlotsFromSide(p_94128_1_);
+    }
+
+    @Override
+    public boolean canInsertItem(int p_102007_1_, ItemStack p_102007_2_, int p_102007_3_) {
+        return delegate.canInsertItem(p_102007_1_, p_102007_2_, p_102007_3_);
+    }
+
+    @Override
+    public boolean canExtractItem(int p_102008_1_, ItemStack p_102008_2_, int p_102008_3_) {
+        return delegate.canExtractItem(p_102008_1_, p_102008_2_, p_102008_3_);
     }
 }

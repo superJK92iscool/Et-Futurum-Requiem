@@ -176,7 +176,7 @@ public class BlockComposter extends Block implements FakeTileEntityProvider {
     @Override
     public TileEntity getFakeTileEntity(World world, int x, int y, int z) {
         int meta = world.getBlockMetadata(x, y, z);
-        IInventory targetInv;
+        ISidedInventory targetInv;
         if(meta < 6)
             targetInv = new InventoryEmptyComposter(world, x, y, z);
         else if(meta == 7)
@@ -231,9 +231,24 @@ public class BlockComposter extends Block implements FakeTileEntityProvider {
         }
     }
 
-    static class InventoryDummy extends InventoryBasic {
+    static class InventoryDummy extends InventoryBasic implements ISidedInventory {
         public InventoryDummy() {
             super("dummy", false, 0);
+        }
+
+        @Override
+        public int[] getAccessibleSlotsFromSide(int p_94128_1_) {
+            return new int[0];
+        }
+
+        @Override
+        public boolean canInsertItem(int p_102007_1_, ItemStack p_102007_2_, int p_102007_3_) {
+            return false;
+        }
+
+        @Override
+        public boolean canExtractItem(int p_102008_1_, ItemStack p_102008_2_, int p_102008_3_) {
+            return false;
         }
     }
 
