@@ -265,7 +265,7 @@ public class ModRecipes {
 			addShapedRecipe(ModBlocks.STONE_SLAB_2.newItemStack(6, i), "xxx", 'x', dictName);
 			addShapedRecipe(new ItemStack(stone_stairs[i], 4), "x  ", "xx ", "xxx", 'x', dictName);
 			if (i % 2 == 1) {
-				addShapedRecipe(new ItemStack(ModBlocks.STONE_WALL_2.get(), 6, i == 5 ? 2 : i == 3 ? 1 : 0), "xxx", "xxx", 'x', ModBlocks.STONE.newItemStack(1, i));
+				addShapedRecipe(ModBlocks.STONE_WALL_2.newItemStack(6, i == 5 ? 2 : i == 3 ? 1 : 0), "xxx", "xxx", 'x', ModBlocks.STONE.newItemStack(1, i));
 			}
 		}
 
@@ -337,7 +337,7 @@ public class ModRecipes {
 		}
 
 		for (int i = 0; i < ModBlocks.FENCE_GATES.length; i++) {
-			addShapedRecipe(new ItemStack(ModBlocks.FENCE_GATES[i].get()), "yxy", "yxy", 'x', new ItemStack(Blocks.planks, 1, i + 1), 'y', "stickWood");
+			addShapedRecipe(ModBlocks.FENCE_GATES[i].newItemStack(), "yxy", "yxy", 'x', new ItemStack(Blocks.planks, 1, i + 1), 'y', "stickWood");
 		}
 
 		for (EnumColour colour : EnumColour.values()) {
@@ -395,7 +395,7 @@ public class ModRecipes {
 				addShapelessRecipe(ModBlocks.BEDS[i].newItemStack(1), ModBlocks.BEDS[0].get(), ore_dyes[~j & 15]);
 			}
 		}
-		addShapelessRecipe(new ItemStack(Items.bed, 1), new ItemStack(ModBlocks.BEDS[0].get()), ore_dyes[1]);
+		addShapelessRecipe(new ItemStack(Items.bed, 1), ModBlocks.BEDS[0].newItemStack(), ore_dyes[1]);
 
 		addShapedRecipe(ModBlocks.MAGMA.newItemStack(), "xx", "xx", 'x', new ItemStack(Items.magma_cream));
 
@@ -501,11 +501,11 @@ public class ModRecipes {
 			if (i > 3)
 				j = i + 4;
 			if (j != 11) {
-				addShapedRecipe(new ItemStack(ModBlocks.COPPER_BLOCK.get(), 4, j + 4), "xx", "xx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, j));
+				addShapedRecipe(ModBlocks.COPPER_BLOCK.newItemStack(4, j + 4), "xx", "xx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, j));
 			}
 			if (i != 7) {
-				addShapedRecipe(ModBlocks.CUT_COPPER_SLAB.newItemStack(6, i), "xxx", 'x', new ItemStack(ModBlocks.COPPER_BLOCK.get(), 1, j + 4));
-				addShapedRecipe(new ItemStack(copper_stairs[i], 4), "x  ", "xx ", "xxx", 'x', new ItemStack(ModBlocks.COPPER_BLOCK.get(), 1, j + 4));
+				addShapedRecipe(ModBlocks.CUT_COPPER_SLAB.newItemStack(6, i), "xxx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, j + 4));
+				addShapedRecipe(new ItemStack(copper_stairs[i], 4), "x  ", "xx ", "xxx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, j + 4));
 			}
 
 			boolean slimeball = true;
@@ -522,9 +522,9 @@ public class ModRecipes {
 
 				if(OreDictionary.doesOreNameExist(waxString)) {
 					slimeball = false;
-					addShapelessRecipe(new ItemStack(ModBlocks.COPPER_BLOCK.get(), 1, i + 8), waxString, ModBlocks.COPPER_BLOCK.newItemStack(1, i));
+					addShapelessRecipe(ModBlocks.COPPER_BLOCK.newItemStack(1, i + 8), waxString, ModBlocks.COPPER_BLOCK.newItemStack(1, i));
 					if (i > 3) {
-						addShapelessRecipe(ModBlocks.CUT_COPPER_SLAB.newItemStack(1, i), waxString, new ItemStack(ModBlocks.CUT_COPPER_SLAB.get(), 1, i - 4));
+						addShapelessRecipe(ModBlocks.CUT_COPPER_SLAB.newItemStack(1, i), waxString, ModBlocks.CUT_COPPER_SLAB.newItemStack(1, i - 4));
 						addShapelessRecipe(new ItemStack(copper_stairs[i], 1), waxString, new ItemStack(copper_stairs[i - 4], 1));
 					}
 				}
@@ -593,10 +593,10 @@ public class ModRecipes {
 		}
 		if (!ConfigBlocksItems.replaceOldBoats) {
 			addShapelessRecipe(new ItemStack(Items.boat), ModItems.BOATS[0].get());
-			addShapelessRecipe(new ItemStack(ModItems.BOATS[0].get()), Items.wooden_shovel, Items.boat);
+			addShapelessRecipe(ModItems.BOATS[0].newItemStack(), Items.wooden_shovel, Items.boat);
 		}
 		for (int i = EntityNewBoat.Type.values().length - 1; i >= 0; i--) {
-			addShapedRecipe(new ItemStack(ModItems.CHEST_BOATS[i].get()), "c", "b", 'b', i == 0 && ConfigBlocksItems.replaceOldBoats ? Items.boat : ModItems.BOATS[i].get(), 'c', Blocks.chest);
+			addShapedRecipe(ModItems.CHEST_BOATS[i].newItemStack(), "c", "b", 'b', i == 0 && ConfigBlocksItems.replaceOldBoats ? Items.boat : ModItems.BOATS[i].get(), 'c', Blocks.chest);
 		}
 
 		addShapedRecipe(ModBlocks.SHULKER_BOX.newItemStack(), "x", "c", "x", 'x', ModItems.SHULKER_SHELL.newItemStack(), 'c', new ItemStack(Blocks.chest));
