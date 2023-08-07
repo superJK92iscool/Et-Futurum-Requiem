@@ -9,7 +9,6 @@ import ganymedes01.etfuturum.blocks.ores.BlockDeepslateRedstoneOre;
 import ganymedes01.etfuturum.blocks.ores.BlockOreNetherGold;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.*;
-import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.tileentities.TileEntityWoodSign;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -25,7 +24,8 @@ public enum ModBlocks {
 
 
 	STONE(ConfigBlocksItems.enableStones, new BlockNewStone(), ItemBlockGeneric.class),
-	PRISMARINE_BLOCK(ConfigBlocksItems.enablePrismarine, new BlockPrismarine(), ItemBlockGeneric.class),
+	PRISMARINE_BLOCK(ConfigBlocksItems.enablePrismarine, new BasicSubtypesBlock(Material.rock, "prismarine", "prismarine_bricks", "dark_prismarine")
+			.setHardness(1.5F).setResistance(10.0F), ItemBlockGeneric.class),
 	SEA_LANTERN(ConfigBlocksItems.enablePrismarine, new BlockSeaLantern()),
 	DAYLIGHT_DETECTOR_INVERTED(ConfigBlocksItems.enableInvertedDaylightSensor, new BlockInvertedDaylightDetector()),
 	RED_SANDSTONE(ConfigBlocksItems.enableRedSandstone, new BlockRedSandstone(), ItemBlockRedSandstone.class),
@@ -51,13 +51,14 @@ public enum ModBlocks {
 	BARRIER(ConfigBlocksItems.enableBarrier, new BlockBarrier()),
 	NETHER_GOLD_ORE(ConfigBlocksItems.enableNetherGold, new BlockOreNetherGold()),
 	BLUE_ICE(ConfigBlocksItems.enableBlueIce, new BlockBlueIce()),
-	SMOOTH_STONE(ConfigBlocksItems.enableSmoothStone, new BlockSmoothStone()),
+	SMOOTH_STONE(ConfigBlocksItems.enableSmoothStone, new BasicBlock(Material.rock).setUnlocalizedNameWithPrefix("smooth_stone")
+			.setBlockTextureName("stone_slab_top").setHardness(2F).setResistance(6F)),
 	SMOOTH_SANDSTONE(ConfigBlocksItems.enableSmoothSandstone, new BasicBlock(Material.rock).setUnlocalizedNameWithPrefix("smooth_sandstone")
-			.setHardness(2F).setResistance(6F).setBlockTextureName("sandstone_top")),
+			.setBlockTextureName("sandstone_top").setHardness(2F).setResistance(6F)),
 	SMOOTH_RED_SANDSTONE(ConfigBlocksItems.enableRedSandstone, new BasicBlock(Material.rock).setUnlocalizedNameWithPrefix("smooth_red_sandstone")
-			.setHardness(2F).setResistance(6F).setBlockTextureName("red_sandstone_top")),
+			.setBlockTextureName("red_sandstone_top").setHardness(2F).setResistance(6F)),
 	SMOOTH_QUARTZ(ConfigBlocksItems.enableSmoothQuartz, new BasicBlock(Material.rock).setUnlocalizedNameWithPrefix("smooth_quartz")
-			.setHardness(2F).setResistance(6F).setBlockTextureName("quartz_block_bottom")),
+			.setBlockTextureName("quartz_block_bottom").setHardness(2F).setResistance(6F)),
 	QUARTZ_BRICKS(ConfigBlocksItems.enableQuartzBricks, new BasicBlock(Material.rock).setNames("quartz_bricks")
 			.setHardness(.8F).setResistance(.8F)),
 	LOG_STRIPPED(ConfigBlocksItems.enableStrippedLogs, new BlockStrippedOldLog(), ItemBlockGeneric.class),
@@ -68,7 +69,7 @@ public enum ModBlocks {
 	WOOD2_STRIPPED(ConfigBlocksItems.enableStrippedLogs && ConfigBlocksItems.enableBarkLogs, new BlockStrippedNewWood(), ItemBlockGeneric.class),
 	CONCRETE(ConfigBlocksItems.enableConcrete, new BasicSubtypesBlock(Material.rock, "white_concrete", "orange_concrete", "magenta_concrete", "light_blue_concrete", "yellow_concrete", "lime_concrete", "pink_concrete",
 			"gray_concrete", "light_gray_concrete", "cyan_concrete", "purple_concrete", "blue_concrete", "brown_concrete", "green_concrete", "red_concrete", "black_concrete").setNames("concrete")
-			.setStepSound(Block.soundTypeStone).setHardness(1.8F).setResistance(1.8F),
+			.setHardness(1.8F).setResistance(1.8F),
 			ItemBlockGeneric.class),
 	CONCRETE_POWDER(ConfigBlocksItems.enableConcrete, new BlockConcretePowder(), ItemBlockGeneric.class),
 	COPPER_ORE(ConfigBlocksItems.enableCopper, new BlockCopperOre()),
@@ -101,7 +102,8 @@ public enum ModBlocks {
 	DEEPSLATE_BRICKS(ConfigBlocksItems.enableDeepslate, new BlockDeepslateBricks(), ItemBlockGeneric.class),
 	TUFF(ConfigBlocksItems.enableTuff, new BlockTuff()),
 	RAW_ORE_BLOCK(ConfigBlocksItems.enableRawOres, new BlockRawOre(), ItemBlockGeneric.class),
-	SMOOTH_BASALT(ConfigBlocksItems.enableBasalt, new BlockSmoothBasalt()),
+	SMOOTH_BASALT(ConfigBlocksItems.enableBasalt, new BasicBlock(Material.rock).setNames("smooth_basalt")
+			.setBlockSound(ModSounds.soundBasalt).setHardness(1.25F).setResistance(4.2F)),
 	CALCITE(ConfigBlocksItems.enableCalcite, new BasicBlock(Material.rock).setNames("calcite")
 			.setBlockSound(ModSounds.soundCalcite).setHardness(0.75F).setResistance(0.75F)),
 	AMETHYST_BLOCK(ConfigBlocksItems.enableAmethyst, new BlockAmethystBlock()),
@@ -170,25 +172,25 @@ public enum ModBlocks {
 	DOUBLE_SMOOTH_SANDSTONE_SLAB(ConfigBlocksItems.enableSmoothSandstone, new BlockSmoothSandstoneSlab(0, true), ItemBlockGenericSlab.class),
 	SMOOTH_RED_SANDSTONE_SLAB(ConfigBlocksItems.enableRedSandstone, new BlockSmoothSandstoneSlab(1, false), ItemBlockGenericSlab.class),
 	DOUBLE_SMOOTH_RED_SANDSTONE_SLAB(ConfigBlocksItems.enableSmoothSandstone, new BlockSmoothSandstoneSlab(1, true), ItemBlockGenericSlab.class),
-	PRISMARINE_SLAB(ConfigBlocksItems.enablePrismarine, new BasicSlab(false, Material.rock, "prismarine", "prismarine_bricks", "dark_prismarine")
-			.setHardness(1.5F).setResistance(6.0F).setBlockName(Utils.getUnlocalisedName("prismarine_slab")),
+	PRISMARINE_SLAB(ConfigBlocksItems.enablePrismarine, new BasicSlab(false, Material.rock, "prismarine", "prismarine_bricks", "dark_prismarine").setUnlocalizedNameWithPrefix("prismarine_slab")
+			.setHardness(1.5F).setResistance(6.0F),
 			ItemBlockGenericSlab.class),
-	DOUBLE_PRISMARINE_SLAB(ConfigBlocksItems.enablePrismarine, new BasicSlab(true, Material.rock, "prismarine", "prismarine_bricks", "dark_prismarine")
-			.setHardness(1.5F).setResistance(6.0F).setBlockName(Utils.getUnlocalisedName("prismarine_slab")),
+	DOUBLE_PRISMARINE_SLAB(ConfigBlocksItems.enablePrismarine, new BasicSlab(true, Material.rock, "prismarine", "prismarine_bricks", "dark_prismarine").setUnlocalizedNameWithPrefix("prismarine_slab")
+			.setHardness(1.5F).setResistance(6.0F),
 			ItemBlockGenericSlab.class),
 	SMOOTH_QUARTZ_SLAB(ConfigBlocksItems.enableSmoothQuartz, new BlockSmoothQuartzSlab(false), ItemBlockGenericSlab.class),
 	DOUBLE_SMOOTH_QUARTZ_SLAB(ConfigBlocksItems.enableSmoothQuartz, new BlockSmoothQuartzSlab(true), ItemBlockGenericSlab.class),
-	RED_NETHERBRICK_SLAB(ConfigBlocksItems.enableNewNetherBricks, new BasicSlab(false, Material.rock, "red_nether_bricks")
-			.setResistance(6).setHardness(2.0F).setBlockName(Utils.getUnlocalisedName("red_nether_brick_slab")),
+	RED_NETHERBRICK_SLAB(ConfigBlocksItems.enableNewNetherBricks, new BasicSlab(false, Material.rock, "red_nether_bricks").setUnlocalizedNameWithPrefix("red_nether_brick_slab")
+			.setResistance(6).setHardness(2.0F),
 			ItemBlockGenericSlab.class),
-	DOUBLE_RED_NETHERBRICK_SLAB(ConfigBlocksItems.enableNewNetherBricks, new BasicSlab(true, Material.rock, "red_nether_bricks")
-			.setResistance(6).setHardness(2.0F).setBlockName(Utils.getUnlocalisedName("red_nether_brick_slab")),
+	DOUBLE_RED_NETHERBRICK_SLAB(ConfigBlocksItems.enableNewNetherBricks, new BasicSlab(true, Material.rock, "red_nether_bricks").setUnlocalizedNameWithPrefix("red_nether_brick_slab")
+			.setResistance(6).setHardness(2.0F),
 			ItemBlockGenericSlab.class),
-	END_BRICK_SLAB(ConfigBlocksItems.enableChorusFruit, new BasicSlab(false, Material.rock, "end_bricks")
-			.setResistance(9).setHardness(3.0F).setBlockName(Utils.getUnlocalisedName("end_brick_slab")),
+	END_BRICK_SLAB(ConfigBlocksItems.enableChorusFruit, new BasicSlab(false, Material.rock, "end_bricks").setUnlocalizedNameWithPrefix("end_brick_slab")
+			.setResistance(9).setHardness(3.0F),
 			ItemBlockGenericSlab.class),
-	DOUBLE_END_BRICK_SLAB(ConfigBlocksItems.enableChorusFruit, new BasicSlab(true, Material.rock, "end_bricks")
-			.setResistance(9).setHardness(3.0F).setBlockName(Utils.getUnlocalisedName("end_brick_slab")),
+	DOUBLE_END_BRICK_SLAB(ConfigBlocksItems.enableChorusFruit, new BasicSlab(true, Material.rock, "end_bricks").setUnlocalizedNameWithPrefix("end_brick_slab")
+			.setResistance(9).setHardness(3.0F),
 			ItemBlockGenericSlab.class),
 	CUT_COPPER_SLAB(ConfigBlocksItems.enableCopper, new BlockCutCopperSlab(false), ItemBlockGenericSlab.class),
 	DOUBLE_CUT_COPPER_SLAB(ConfigBlocksItems.enableCopper, new BlockCutCopperSlab(true), ItemBlockGenericSlab.class),
@@ -208,7 +210,8 @@ public enum ModBlocks {
 	COBBLED_DEEPSLATE_STAIRS(ConfigBlocksItems.enableDeepslate, new BasicStairs(COBBLED_DEEPSLATE.get(), 0)),
 	POLISHED_DEEPSLATE_STAIRS(ConfigBlocksItems.enableDeepslate, new BasicStairs(POLISHED_DEEPSLATE.get(), 0)),
 	DEEPSLATE_BRICK_STAIRS(ConfigBlocksItems.enableDeepslate, new BasicStairs(DEEPSLATE_BRICKS.get(), 0)),
-	DEEPSLATE_TILE_STAIRS(ConfigBlocksItems.enableDeepslate, new BasicStairs(DEEPSLATE_BRICKS.get(), 2).setUnlocalizedNameWithPrefix("deepslate_tile").setStepSound(ModSounds.soundDeepslateTiles)),
+	DEEPSLATE_TILE_STAIRS(ConfigBlocksItems.enableDeepslate, new BasicStairs(DEEPSLATE_BRICKS.get(), 2).setUnlocalizedNameWithPrefix("deepslate_tile")
+			.setBlockSound(ModSounds.soundDeepslateTiles)),
 	IRON_TRAPDOOR(ConfigBlocksItems.enableIronTrapdoor, new BlockIronTrapdoor()),
 	MAGMA(ConfigBlocksItems.enableMagmaBlock, new BlockMagma()),
 	BARREL(ConfigBlocksItems.enableBarrel, new BlockBarrel()),

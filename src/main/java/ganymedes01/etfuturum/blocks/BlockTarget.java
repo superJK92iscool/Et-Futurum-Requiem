@@ -2,15 +2,12 @@ package ganymedes01.etfuturum.blocks;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.api.HoeRegistry;
-import ganymedes01.etfuturum.core.utils.Utils;
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.IProjectile;
-import net.minecraft.entity.projectile.*;
+import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
@@ -20,16 +17,15 @@ import net.minecraft.world.World;
 
 import java.util.Random;
 
-public class BlockTarget extends Block {
+public class BlockTarget extends BasicBlock {
 	@SideOnly(Side.CLIENT)
 	private IIcon topIcon;
+
 	public BlockTarget() {
 		super(Material.grass);
+		setNames("target");
 		setHardness(0.5F);
 		setResistance(0.5F);
-		setBlockTextureName("target");
-		setBlockName(Utils.getUnlocalisedName("target"));
-		setCreativeTab(EtFuturum.creativeTabBlocks);
 		setStepSound(soundTypeGrass);
 		HoeRegistry.addToHoeArray(this);
 	}
@@ -37,8 +33,8 @@ public class BlockTarget extends Block {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister p_149651_1_) {
-		this.blockIcon = p_149651_1_.registerIcon("target_side");
-		topIcon = p_149651_1_.registerIcon("target_top");
+		this.blockIcon = p_149651_1_.registerIcon(getTextureName() + "_side");
+		topIcon = p_149651_1_.registerIcon(getTextureName() + "_top");
 	}
 
 	@Override
