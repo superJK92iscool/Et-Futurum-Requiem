@@ -3,6 +3,7 @@ package ganymedes01.etfuturum.items;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.entities.EntityItemUninflammable;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -25,7 +26,7 @@ public class ItemUninflammable extends Item {
 		EntityItemUninflammable entity = new EntityItemUninflammable(world);
 		entity.copyDataFrom(location, true);
 		entity.copyLocationAndAnglesFrom(location);
-		entity.delayBeforeCanPickup = 40;
+		entity.delayBeforeCanPickup = ((EntityItem) location).delayBeforeCanPickup;
 		return entity;
 	}
 }

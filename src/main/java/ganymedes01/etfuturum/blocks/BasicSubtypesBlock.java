@@ -2,7 +2,7 @@ package ganymedes01.etfuturum.blocks;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.block.Block;
+import ganymedes01.etfuturum.EtFuturum;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -12,7 +12,7 @@ import net.minecraft.util.IIcon;
 
 import java.util.List;
 
-public class BasicSubtypesBlock extends Block implements ISubBlocksBlock {
+public class BasicSubtypesBlock extends BasicBlock implements ISubBlocksBlock {
 	@SideOnly(Side.CLIENT)
 	private IIcon[] icons;
 	private final String[] types;
@@ -25,8 +25,12 @@ public class BasicSubtypesBlock extends Block implements ISubBlocksBlock {
 
 	public BasicSubtypesBlock(Material material, int startMeta, String... types) {
 		super(material);
-		this.types = types;
 		this.startMeta = startMeta;
+		this.types = types;
+		setCreativeTab(EtFuturum.creativeTabBlocks);
+		if (!"".equals(types[0])) {
+			setNames(types[0]);
+		}
 	}
 
 	@Override

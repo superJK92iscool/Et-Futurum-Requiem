@@ -5,43 +5,31 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.client.InterpolatedIcon;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
-import ganymedes01.etfuturum.core.utils.Utils;
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.item.Item;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 
 import java.util.Random;
 
-public class BlockSculk extends Block {
-	private InterpolatedIcon sculkTexture;
+public class BlockSculk extends BasicBlock {
 	public BlockSculk() {
 		super(Material.ground);
-		this.setHardness(.6F);
-		this.setResistance(.2F);
-		this.setStepSound(ConfigSounds.newBlockSounds ? ModSounds.soundSculk : ModSounds.soundSlime);
-		this.setBlockName(Utils.getUnlocalisedName("sculk"));
-		setBlockTextureName("sculk");
-		this.setCreativeTab(EtFuturum.creativeTabBlocks);
+		setNames("sculk");
+		setHardness(.6F);
+		setResistance(.2F);
+		setBlockSound(ModSounds.soundSculk);
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister reg) {
-		sculkTexture = new InterpolatedIcon("sculk");
+		blockIcon = new InterpolatedIcon(getTextureName());
 		if(reg instanceof TextureMap) {
-			((TextureMap)reg).setTextureEntry("sculk", sculkTexture);
+			((TextureMap) reg).setTextureEntry(getTextureName(), (InterpolatedIcon) blockIcon);
 		}
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(int p_149691_1_, int p_149691_2_) {
-		return sculkTexture;
 	}
 
 	@Override

@@ -15,5 +15,4 @@ public class BlockCopperOre extends BlockOre {
 		setHarvestLevel("pickaxe", 1);
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
-
 }

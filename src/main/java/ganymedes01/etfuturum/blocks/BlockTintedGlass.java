@@ -17,6 +17,7 @@ public class BlockTintedGlass extends BlockGlass {
 		setHardness(0.3f);
 		setResistance(0.3f);
 		setLightOpacity(255);
+		setBlockTextureName("tinted_glass");
 		setBlockName(Utils.getUnlocalisedName("tinted_glass"));
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 		setStepSound(Block.soundTypeGlass);

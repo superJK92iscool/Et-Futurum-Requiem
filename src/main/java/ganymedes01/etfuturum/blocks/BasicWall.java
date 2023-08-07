@@ -21,9 +21,9 @@ import java.util.List;
 
 public class BasicWall extends BlockWall implements IMultiStepSound {
 
-	private Block[] blocks;
-	private int[] metas;
-	private String[] names;
+	private final Block[] blocks;
+	private final int[] metas;
+	private final String[] names;
 
 	public int variations;
 

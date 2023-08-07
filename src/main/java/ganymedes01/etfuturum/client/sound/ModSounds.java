@@ -25,17 +25,22 @@ public class ModSounds {
 		public String getStepResourcePath() {
 			return "minecraft:mob.slime.small";
 		}
+
+		@Override
+		public SoundType getDisabledSound() {
+			return this;
+		}
 	};
-	public static final SoundType soundLantern = new CustomSound("lantern", true);
-	public static final SoundType soundWartBlock = new CustomSound("wart_block");
-	public static final SoundType soundSoulSand = new CustomSound("soul_sand");
+	public static final SoundType soundLantern = new CustomSound("lantern", true).setDisabledSound(Block.soundTypeMetal);
+	public static final SoundType soundWartBlock = new CustomSound("wart_block").setDisabledSound(Block.soundTypeWood);
+	public static final SoundType soundSoulSand = new CustomSound("soul_sand").setDisabledSound(Block.soundTypeSand);
 	public static final SoundType soundNetherBricks = new CustomSound("nether_bricks");
 	public static final SoundType soundBoneBlock = new CustomSound("bone_block");
 	public static final SoundType soundNetherrack = new CustomSound("netherrack");
 	public static final SoundType soundNetherOre = new CustomSound("nether_ore");
 	public static final SoundType soundAncientDebris = new CustomSound("ancient_debris");
 	public static final SoundType soundBasalt = new CustomSound("basalt");
-	public static final SoundType soundNetherite = new CustomSound("netherite_block");
+	public static final SoundType soundNetherite = new CustomSound("netherite_block").setDisabledSound(Block.soundTypeMetal);
 	public static final SoundType soundCrops = new CustomSound("crop") {
 		@Override
 		public String getStepResourcePath() {
@@ -43,11 +48,10 @@ public class ModSounds {
 		}
 
 		@Override
-		public String func_150496_b()
-		{
+		public String func_150496_b() {
 			return Reference.MCAssetVer + ":item." + soundName + ".plant";
 		}
-	};
+	}.setDisabledSound(Block.soundTypeGrass);
 	public static final SoundType soundCropWarts = new CustomSound("nether_wart") {
 		@Override
 		public String getStepResourcePath() {
@@ -55,25 +59,24 @@ public class ModSounds {
 		}
 
 		@Override
-		public String func_150496_b()
-		{
+		public String func_150496_b() {
 			return Reference.MCAssetVer + ":item." + soundName + ".plant";
 		}
-	};
-	public static final SoundType soundCopper = new CustomSound("copper");
+	}.setDisabledSound(Block.soundTypeStone);
+	public static final SoundType soundCopper = new CustomSound("copper").setDisabledSound(Block.soundTypeMetal);
 	public static final SoundType soundBerryBush = new CustomSound("sweet_berry_bush", true) {
 		@Override
 		public String getStepResourcePath() {
 			return Block.soundTypeGrass.getStepResourcePath();
 		}
-	};
+	}.setDisabledSound(Block.soundTypeGrass);
 	public static final SoundType soundDeepslate = new CustomSound("deepslate", true);
 	public static final SoundType soundDeepslateBricks = new CustomSound("deepslate_bricks");
 	public static final SoundType soundDeepslateTiles = new CustomSound("deepslate_tiles");
 	public static final SoundType soundTuff = new CustomSound("tuff");
-	public static final SoundType soundSculk = new CustomSound("sculk");
+	public static final SoundType soundSculk = new CustomSound("sculk").setDisabledSound(soundSlime);
 	public static final SoundType soundSculkCatalyst = new CustomSound("sculk_catalyst");
-	public static final SoundType soundVines = new CustomSound("vine");
+	public static final SoundType soundVines = new CustomSound("vine").setDisabledSound(Block.soundTypeGrass);
 	public static final SoundType soundCalcite = new CustomSound("calcite", true);
 	public static final SoundType soundAmethystBlock = new CustomSound("amethyst_block", true);
 	public static final SoundType soundAmethystBudSmall = new CustomSound("small_amethyst_bud", true) {
@@ -81,45 +84,46 @@ public class ModSounds {
 		public String getStepResourcePath() {
 			return soundAmethystCluster.getStepResourcePath();
 		}
-	};
+	}.setDisabledSound(Block.soundTypeGlass);
 	public static final SoundType soundAmethystBudMed = new CustomSound("medium_amethyst_bud", true) {
 		@Override
 		public String getStepResourcePath() {
 			return soundAmethystCluster.getStepResourcePath();
 		}
-	};
+	}.setDisabledSound(Block.soundTypeGlass);
 	public static final SoundType soundAmethystBudLrg = new CustomSound("large_amethyst_bud", true) {
 		@Override
 		public String getStepResourcePath() {
 			return soundAmethystCluster.getStepResourcePath();
 		}
-	};
-	public static final SoundType soundAmethystCluster = new CustomSound("amethyst_cluster", true);
+	}.setDisabledSound(Block.soundTypeGlass);
+	public static final SoundType soundAmethystCluster = new CustomSound("amethyst_cluster", true).setDisabledSound(Block.soundTypeGlass);
 	public static final SoundType soundLodestone = new CustomSound("lodestone", true);
 	public static final SoundType soundDripstoneBlock = new CustomSound("dripstone_block");
 	public static final SoundType soundPointedDripstone = new CustomSound("pointed_dripstone");
-	public static final SoundType soundWetGrass = new CustomSound("wet_grass", true);
+	public static final SoundType soundWetGrass = new CustomSound("wet_grass", true).setDisabledSound(Block.soundTypeGrass);
 //  public static final SoundType soundNylium = new CustomSound("nylium");
 //  public static final SoundType soundHoneyBlock = new CustomSound("honey_block");
 //public static final SoundType soundShroomlight = new CustomSound("shroomlight");
 
 	//Currently prep for Alterius Futurum
-	public static final SoundType soundAzaleaSapling = new CustomSound("azalea");
-	public static final SoundType soundAzaleaLeaves = new CustomSound("azalea_leaves");
-	public static final SoundType soundHangingRoots = new CustomSound("hanging_roots");
-	public static final SoundType soundRootedDirt = new CustomSound("rooted_dirt");
-	public static final SoundType soundMossBlock = new CustomSound("moss");
-	public static final SoundType soundMossCarpet = new CustomSound("moss_carpet");
-	public static final SoundType soundStem = new CustomSound("stem");
-	public static final SoundType soundFungus = new CustomSound("fungus");
-	public static final SoundType soundNetherWood = new CustomSound("nether_wood");
-	public static final SoundType soundCherrySapling = new CustomSound("cherry_sapling");
-	public static final SoundType soundCherryLeaves = new CustomSound("cherry_leaves");
-	public static final SoundType soundCherryWood = new CustomSound("cherry_wood");
+	public static final SoundType soundAzaleaSapling = new CustomSound("azalea").setDisabledSound(Block.soundTypeGrass);
+	public static final SoundType soundAzaleaLeaves = new CustomSound("azalea_leaves").setDisabledSound(Block.soundTypeGrass);
+	public static final SoundType soundHangingRoots = new CustomSound("hanging_roots").setDisabledSound(Block.soundTypeGrass);
+	public static final SoundType soundRootedDirt = new CustomSound("rooted_dirt").setDisabledSound(Block.soundTypeGrass);
+	public static final SoundType soundMossBlock = new CustomSound("moss").setDisabledSound(Block.soundTypeGrass);
+	public static final SoundType soundMossCarpet = new CustomSound("moss_carpet").setDisabledSound(Block.soundTypeGrass);
+	public static final SoundType soundStem = new CustomSound("stem").setDisabledSound(Block.soundTypeWood);
+	public static final SoundType soundFungus = new CustomSound("fungus").setDisabledSound(Block.soundTypeGrass);
+	public static final SoundType soundNetherWood = new CustomSound("nether_wood").setDisabledSound(Block.soundTypeWood);
+	public static final SoundType soundCherrySapling = new CustomSound("cherry_sapling").setDisabledSound(Block.soundTypeGrass);
+	public static final SoundType soundCherryLeaves = new CustomSound("cherry_leaves").setDisabledSound(Block.soundTypeGrass);
+	public static final SoundType soundCherryWood = new CustomSound("cherry_wood").setDisabledSound(Block.soundTypeWood);
 
 	public static class CustomSound extends SoundType {
 
 		private final boolean placeSound;
+		private SoundType disabledSound;
 
 		public CustomSound(String name, boolean placeSound) {
 			this(name, 1, 1, placeSound);
@@ -129,6 +133,7 @@ public class ModSounds {
 			super(name, volume, pitch);
 			this.placeSound = placeSound;
 			SOUNDS_REGISTRY.add(this);
+			disabledSound = Block.soundTypeStone;
 		}
 		
 		public CustomSound(String name, float volume, float pitch) {
@@ -150,9 +155,17 @@ public class ModSounds {
 		}
 
 		@Override
-		public String func_150496_b()
-		{
+		public String func_150496_b() {
 			return placeSound ? Reference.MCAssetVer + ":block." + soundName + ".place" : this.getBreakSound();
+		}
+
+		public SoundType getDisabledSound() {
+			return disabledSound;
+		}
+
+		protected SoundType setDisabledSound(SoundType type) {
+			disabledSound = type;
+			return this;
 		}
 	}
 }

@@ -10,7 +10,7 @@ public class BlockNetheriteStairs extends BasicStairs {
 
 	public BlockNetheriteStairs() {
 		super(ModBlocks.NETHERITE_BLOCK.get(), 0);
-		setBlockName("netherite");
+		setUnlocalizedNameWithPrefix("netherite");
 	}
 
 	@Override

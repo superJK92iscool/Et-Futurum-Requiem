@@ -39,7 +39,7 @@ public class BlockCutCopperStairs extends BasicStairs implements IDegradable {
 				subtype = "waxed_oxidized";
 				break;
 		}
-		setBlockName(subtype + (subtype.equals("") ? "" : "_") + name);
+		setUnlocalizedNameWithPrefix(subtype + (subtype.equals("") ? "" : "_") + name);
 		setTickRandomly(meta < 7);
 	}
 	

@@ -13,16 +13,15 @@ public class BasicStairs extends BlockStairs {
 		super(p_i45428_1_, p_i45428_2_);
 		useNeighborBrightness = true;
 		meta = p_i45428_2_;
-		setCreativeTab(EtFuturum.creativeTabBlocks);
 		String name = p_i45428_1_.getUnlocalizedName().replace("tile.", "").replace("etfuturum.", "");
 		if (name.toLowerCase().endsWith("bricks") || name.toLowerCase().endsWith("tiles")) {
 			name = name.substring(0, name.length() - 1);
 		}
-		setBlockName(name);
+		setUnlocalizedNameWithPrefix(name);
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
-	@Override
-	public Block setBlockName(String p_149663_1_) {
-		return super.setBlockName(Utils.getUnlocalisedName(p_149663_1_) + "_stairs");
+	public Block setUnlocalizedNameWithPrefix(String name) {
+		return setBlockName(Utils.getUnlocalisedName(name) + "_stairs");
 	}
 }

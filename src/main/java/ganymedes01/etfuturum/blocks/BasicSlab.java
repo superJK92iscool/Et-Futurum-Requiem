@@ -2,6 +2,8 @@ package ganymedes01.etfuturum.blocks;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import ganymedes01.etfuturum.EtFuturum;
+import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -19,6 +21,7 @@ public class BasicSlab extends BlockSlab implements ISubBlocksBlock {
 	@SideOnly(Side.CLIENT)
 	private IIcon[] icons;
 	public final String[] types;
+	private final BasicSlab singleSlab;
 	private BasicSlab doubleSlab;
 	/**
 	 * Used to know the previous slab registered, so the slab knows what the double slab version is without passing it as a constructor argument every time
@@ -37,14 +40,46 @@ public class BasicSlab extends BlockSlab implements ISubBlocksBlock {
 		if (isDouble) {
 			doubleSlab = this;
 			previousSlab.doubleSlab = this;
+			singleSlab = previousSlab;
 			previousSlab = null;
 		} else {
-			previousSlab = this;
+			singleSlab = previousSlab = this;
+			setCreativeTab(EtFuturum.creativeTabBlocks);
 		}
+	}
+
+	public BasicSlab setUnlocalizedNameWithPrefix(String name) {
+		setBlockName(Utils.getUnlocalisedName(name));
+		return this;
+	}
+
+	public BasicSlab setNames(String name) {
+		setUnlocalizedNameWithPrefix(name);
+		setBlockTextureName(name);
+		return this;
+	}
+
+	public BasicSlab setToolClass(String toolClass, int level) {
+		for (int m = 0; m < 8; m++) {
+			setHarvestLevel(toolClass, level, m);
+		}
+		return this;
+	}
+
+	public BasicSlab setToolClass(String toolClass, int level, int meta) {
+		setHarvestLevel(toolClass, level, meta);
+		if (meta < 8) {
+			setHarvestLevel(toolClass, level, meta + 8);
+		}
+		return this;
 	}
 
 	public BasicSlab getDoubleSlab() {
 		return doubleSlab;
+	}
+
+	public BasicSlab getSingleSlab() {
+		return singleSlab;
 	}
 
 	@Override
@@ -106,11 +141,15 @@ public class BasicSlab extends BlockSlab implements ISubBlocksBlock {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public Item getItem(World p_149694_1_, int p_149694_2_, int p_149694_3_, int p_149694_4_) {
-		return Item.getItemFromBlock(this);
+		return Item.getItemFromBlock(singleSlab);
 	}
 
+	/*
+	 * Vanilla slabs don't override this so how the hell do they make double slabs drop the single variant?
+	 * If I could figure it out I likely won't need to store the single slab...
+	 */
 	@Override
 	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_) {
-		return Item.getItemFromBlock(this);
+		return Item.getItemFromBlock(singleSlab);
 	}
 }

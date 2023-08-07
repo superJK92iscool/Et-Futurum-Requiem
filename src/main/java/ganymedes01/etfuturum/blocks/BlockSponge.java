@@ -21,7 +21,7 @@ import java.util.Random;
 public class BlockSponge extends BasicSubtypesBlock {
 
 	public BlockSponge() {
-		super(Material.sponge, "", "wet_sponge");
+		super(Material.sponge, "sponge", "wet_sponge");
 		setHardness(0.6F);
 		setStepSound(soundTypeGrass);
 		setBlockTextureName("sponge");

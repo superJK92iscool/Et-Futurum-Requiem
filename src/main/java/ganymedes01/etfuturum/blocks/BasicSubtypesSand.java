@@ -2,6 +2,8 @@ package ganymedes01.etfuturum.blocks;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import ganymedes01.etfuturum.EtFuturum;
+import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -25,8 +27,20 @@ public class BasicSubtypesSand extends BlockFalling implements ISubBlocksBlock {
 
 	public BasicSubtypesSand(Material material, int startMeta, String... types) {
 		super(material);
-		this.types = types;
 		this.startMeta = startMeta;
+		this.types = types;
+		this.setCreativeTab(EtFuturum.creativeTabBlocks);
+	}
+
+	public BasicSubtypesSand setUnlocalizedNameWithPrefix(String name) {
+		setBlockName(Utils.getUnlocalisedName(name));
+		return this;
+	}
+
+	public BasicSubtypesSand setNames(String name) {
+		setUnlocalizedNameWithPrefix(name);
+		setBlockTextureName(name);
+		return this;
 	}
 
 	@Override

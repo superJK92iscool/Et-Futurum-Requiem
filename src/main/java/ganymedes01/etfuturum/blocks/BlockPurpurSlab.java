@@ -2,7 +2,6 @@ package ganymedes01.etfuturum.blocks;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.material.Material;
@@ -19,7 +18,6 @@ public class BlockPurpurSlab extends BasicSlab {
 		setResistance(6);
 		setHardness(2.0F);
 		setBlockName(Utils.getUnlocalisedName("purpur_slab"));
-		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
 	@Override

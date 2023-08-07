@@ -20,10 +20,9 @@ public class BlockGlazedTerracotta extends Block {
 	
 	public BlockGlazedTerracotta(int meta) {
 		super(Material.rock);
-		this.setHarvestLevel("pickaxe", 0);
-		this.setStepSound(soundTypeStone);
-		this.setHardness(1.4F);
-		this.setResistance(1.4F);
+		setStepSound(soundTypeStone);
+		setHardness(1.4F);
+		setResistance(1.4F);
 		setBlockName(Utils.getUnlocalisedName(ModRecipes.dye_names[meta] + "_glazed_terracotta"));
 		setBlockTextureName(ModRecipes.dye_names[meta] + "_glazed_terracotta");
 		setCreativeTab(EtFuturum.creativeTabBlocks);
