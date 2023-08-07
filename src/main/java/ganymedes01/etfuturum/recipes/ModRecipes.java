@@ -592,7 +592,7 @@ public class ModRecipes {
 					(ConfigBlocksItems.replaceOldBoats ? "x x" : "xyx"), "xxx", 'x', i == 0 ? "plankWood" : new ItemStack(Blocks.planks, 1, i), 'y', new ItemStack(Items.wooden_shovel, 1));
 		}
 		if (!ConfigBlocksItems.replaceOldBoats) {
-			addShapelessRecipe(new ItemStack(Items.boat), ModItems.BOATS[0]);
+			addShapelessRecipe(new ItemStack(Items.boat), ModItems.BOATS[0].get());
 			addShapelessRecipe(new ItemStack(ModItems.BOATS[0].get()), Items.wooden_shovel, Items.boat);
 		}
 		for (int i = EntityNewBoat.Type.values().length - 1; i >= 0; i--) {
