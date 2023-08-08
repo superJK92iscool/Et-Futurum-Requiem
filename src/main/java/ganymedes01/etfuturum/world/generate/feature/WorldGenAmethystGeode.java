@@ -1,24 +1,23 @@
 package ganymedes01.etfuturum.world.generate.feature;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
-
-import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.api.mappings.BlockAndMetadataMapping;
-import org.apache.commons.lang3.tuple.Pair;
-
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
-
+import ganymedes01.etfuturum.ModBlocks;
+import ganymedes01.etfuturum.api.mappings.BlockAndMetadataMapping;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import ganymedes01.etfuturum.core.utils.helpers.DoublePerlinNoiseSampler;
 import ganymedes01.etfuturum.core.utils.helpers.Vec3i;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
+import org.apache.commons.lang3.tuple.Pair;
+
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
 
 public class WorldGenAmethystGeode extends WorldGenerator {
 
@@ -73,7 +72,7 @@ public class WorldGenAmethystGeode extends WorldGenerator {
 	 */
 	private boolean isInvalidCorner(World world, int x, int y, int z) {
 		Block block = world.getBlock(x, y, z);
-		return block.isAir(world, x, y, z) || !block.isOpaqueCube() || world.canBlockSeeTheSky(x, y, z);
+		return block.getMaterial() != Material.rock || !block.isOpaqueCube();
 	}
 	
 	/**

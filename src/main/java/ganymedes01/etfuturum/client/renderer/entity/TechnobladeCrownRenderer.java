@@ -9,11 +9,10 @@ import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.util.ResourceLocation;
 
 public class TechnobladeCrownRenderer extends RenderPig {
-	private static final ResourceLocation saddledPigTextures = new ResourceLocation("textures/entity/pig/pig_saddle.png");
 	private static final ResourceLocation pigTextures = new ResourceLocation("textures/entity/pig/pig.png");
 	
 	private static final ResourceLocation crownTexture = new ResourceLocation("etfuturum:textures/entity/pig/technoblade_crown.png");
-	private ModelBase crown = new ModelTechnobladeCrown();
+	private final ModelBase crown = new ModelTechnobladeCrown();
 	private ModelBase prevRenderPassModel;
 
 	public TechnobladeCrownRenderer() {

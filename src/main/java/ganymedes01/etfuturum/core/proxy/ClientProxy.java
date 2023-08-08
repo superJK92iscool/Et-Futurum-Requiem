@@ -179,7 +179,7 @@ public class ClientProxy extends CommonProxy {
 		if (ConfigEntities.enableHusk)
 			RenderingRegistry.registerEntityRenderingHandler(EntityHusk.class, new HuskRenderer());
 		if (ConfigEntities.enableStray) {
-			RenderingRegistry.registerEntityRenderingHandler(EntityStray.class, new StrayOverlayRenderer());
+			RenderingRegistry.registerEntityRenderingHandler(EntityStray.class, new StrayRenderer());
 		}
 		
 		if (ConfigBlocksItems.enableLingeringPotions) {

@@ -29,9 +29,6 @@ repositories {
 apply plugin: 'forge'
 
 apply plugin: "com.github.johnrengelman.shadow"
-
-import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-
 // Bump this every new code update after a version release, even if not releasing yet, that
 // way SNAPSHOT's work properly as something like `2.1.2-SNAPSHOT` orders before `2.1.2 in
 // SEMVER that gradle uses.
@@ -98,7 +95,7 @@ dependencies {
 	// Can use `compileOnly` instead of `compile` if you want to require it at build time,
 	// but not require it in `runClient`/`runServer`
 	compileOnly "thaumcraft:Thaumcraft:1.7.10-4.2.3.5:dev"
-	compile "mcp.mobius.waila:Waila:1.5.11-RC2-NONEI_1.7.10:dev"
+	compileOnly "mcp.mobius.waila:Waila:1.5.11-RC2-NONEI_1.7.10:dev"
 	/** every file in libs/ gets forcibly compiled, please use another dir
 	compile files('libs/BaublesExpanded-2.1.2-dev.jar')
 	compile files('libs/CraftTweaker-1.7.10-3.1.0-legacy.jar')*/
