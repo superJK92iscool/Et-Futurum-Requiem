@@ -1,25 +1,30 @@
 package ganymedes01.etfuturum.client.renderer.entity;
 
-import org.lwjgl.opengl.GL11;
-
 import ganymedes01.etfuturum.client.model.ModelNewBoat;
 import ganymedes01.etfuturum.entities.EntityNewBoat;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
 
 public class NewBoatRenderer extends Render {
 
-	private static final ResourceLocation[] BOAT_TEXTURES = new ResourceLocation[] {new ResourceLocation("minecraft:textures/entity/boat/boat_oak.png"), new ResourceLocation("minecraft:textures/entity/boat/boat_spruce.png"), new ResourceLocation("minecraft:textures/entity/boat/boat_birch.png"), new ResourceLocation("minecraft:textures/entity/boat/boat_jungle.png"), new ResourceLocation("minecraft:textures/entity/boat/boat_acacia.png"), new ResourceLocation("minecraft:textures/entity/boat/boat_darkoak.png")};
+	private static final ResourceLocation[] BOAT_TEXTURES = new ResourceLocation[]{
+			new ResourceLocation("minecraft:textures/entity/boat/oak.png"),
+			new ResourceLocation("minecraft:textures/entity/boat/spruce.png"),
+			new ResourceLocation("minecraft:textures/entity/boat/birch.png"),
+			new ResourceLocation("minecraft:textures/entity/boat/jungle.png"),
+			new ResourceLocation("minecraft:textures/entity/boat/acacia.png"),
+			new ResourceLocation("minecraft:textures/entity/boat/dark_oak.png")};
 
 	public NewBoatRenderer() {
 		super();
 		this.shadowSize = 0.5F;
 	}
-	
+
 	protected ModelNewBoat modelBoat = new ModelNewBoat();
-	
+
 	@Override
 	public void doRender(Entity uncastedentity, double x, double y, double z, float entityYaw,
 			float partialTicks) {

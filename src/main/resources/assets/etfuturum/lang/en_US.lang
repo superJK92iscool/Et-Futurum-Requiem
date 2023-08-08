@@ -276,7 +276,7 @@ subtitle.ambient.weather.thunder=Thunder
 
 # Entities
 entity.etfuturum.endermite.name=Endermite
-entity.etfuturum.wooden_armorstand.name=Armour Stand
+entity.etfuturum.armor_stand.name=Armour Stand
 entity.etfuturum.rabbit.name=Rabbit
 entity.etfuturum.villager_zombie.name=Villager Zombie
 entity.etfuturum.end_crystal.name=End Crystal

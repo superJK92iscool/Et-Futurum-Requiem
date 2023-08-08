@@ -39,7 +39,7 @@ public class BlockConcretePowder extends BasicSubtypesSand {
 	
 	private void setBlock(World world, int x, int y, int z) {
 		for (ForgeDirection dir : ForgeDirection.values()) {
-			if (world.getBlock(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ).getMaterial() == Material.water) {
+			if (dir != ForgeDirection.DOWN && world.getBlock(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ).getMaterial() == Material.water) {
 				int l = world.getBlockMetadata(x, y, z);
 				world.setBlock(x, y, z, ModBlocks.CONCRETE.get(), l, 2);
 				world.markBlockForUpdate(x, y, z);
