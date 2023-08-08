@@ -1,22 +1,14 @@
 package ganymedes01.etfuturum.world;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
-
-import ganymedes01.etfuturum.ModBlocks;
-import org.apache.commons.lang3.ArrayUtils;
-
 import cpw.mods.fml.common.IWorldGenerator;
+import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.blocks.BlockChorusFlower;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.world.end.dimension.EndWorldProvider;
 import ganymedes01.etfuturum.world.generate.WorldGenDeepslateLayerBlob;
 import ganymedes01.etfuturum.world.generate.WorldGenMinableCustom;
 import ganymedes01.etfuturum.world.generate.feature.WorldGenAmethystGeode;
 import ganymedes01.etfuturum.world.generate.feature.WorldGenFossil;
-import ganymedes01.etfuturum.world.structure.MapGenMesaMineshaft;
 import ganymedes01.etfuturum.world.structure.OceanMonument;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -30,7 +22,11 @@ import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
-import thaumcraft.common.config.ConfigBlocks;
+import org.apache.commons.lang3.ArrayUtils;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
 
 public class EtFuturumWorldGenerator implements IWorldGenerator {
 
@@ -74,12 +70,12 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 
 	@Override
 	public void generate(Random rand, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
-		if(world.getWorldInfo().getTerrainType() != WorldType.FLAT || world.getWorldInfo().getGeneratorOptions().contains("decoration") || world.provider.dimensionId != 0) {
+		if (world.getWorldInfo().getTerrainType() != WorldType.FLAT || world.getWorldInfo().getGeneratorOptions().contains("decoration")) {
 			int x;
 			int z;
 			if (ModBlocks.STONE.isEnabled() && ConfigWorld.maxStonesPerCluster > 0 && world.provider.dimensionId != -1 && world.provider.dimensionId != 1) {
-				for(WorldGenMinable stoneGenerator : stoneGen) {
-					for(int i = 0; i < 10; i++) {
+				for (WorldGenMinable stoneGenerator : stoneGen) {
+					for (int i = 0; i < 10; i++) {
 						generateOre(stoneGenerator, world, rand, chunkX, chunkZ, 1, 0, 80);
 					}
 				}

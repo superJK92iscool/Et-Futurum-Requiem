@@ -1,12 +1,13 @@
 package ganymedes01.etfuturum.blocks.itemblocks;
 
+import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 
 public class ItemBlockRedSandstone extends ItemBlock {
 
-	private final String[] types = { "default", "chiseled", "smooth" };
+	private static final String[] names = new String[]{"", "chiseled", "cut"};
 
 	public ItemBlockRedSandstone(Block block) {
 		super(block);
@@ -15,7 +16,14 @@ public class ItemBlockRedSandstone extends ItemBlock {
 
 	@Override
 	public String getUnlocalizedName(ItemStack stack) {
-		return getUnlocalizedName() + "_" + types[Math.min(Math.max(0, stack.getItemDamage()), types.length - 1)];
+		int i = stack.getItemDamage() % 3;
+		switch (i) {
+			case 1:
+			case 2:
+				return "tile." + Utils.getUnlocalisedName(names[i] + "_red_sandstone");
+			default:
+				return getUnlocalizedName();
+		}
 	}
 
 	@Override

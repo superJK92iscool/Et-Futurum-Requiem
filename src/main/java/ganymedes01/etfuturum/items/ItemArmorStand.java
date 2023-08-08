@@ -1,9 +1,5 @@
 package ganymedes01.etfuturum.items;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
-
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.entities.EntityArmourStand;
@@ -18,12 +14,16 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
+
 public class ItemArmorStand extends Item {
 
 	public ItemArmorStand() {
 		setMaxStackSize(16);
-		setTextureName("wooden_armorstand");
-		setUnlocalizedName(Utils.getUnlocalisedName("wooden_armorstand"));
+		setTextureName("armor_stand");
+		setUnlocalizedName(Utils.getUnlocalisedName("armor_stand"));
 		setCreativeTab(EtFuturum.creativeTabItems);
 	}
 

@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.blocks;
 
-import java.util.Random;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
@@ -9,8 +7,13 @@ import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.BlockDoor;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.IconFlipped;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.Item;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+
+import java.util.Random;
 
 public class BlockWoodDoor extends BlockDoor {
 
@@ -23,8 +26,8 @@ public class BlockWoodDoor extends BlockDoor {
 		disableStats();
 		setHardness(3.0F);
 		setStepSound(soundTypeWood);
-		setBlockTextureName("door_" + name);
-		setBlockName(Utils.getUnlocalisedName("door_" + name));
+		setBlockTextureName(name + "_door");
+		setBlockName(Utils.getUnlocalisedName(name + "_door"));
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
@@ -50,4 +53,14 @@ public class BlockWoodDoor extends BlockDoor {
 		return getTextureName();
 	}
 
+
+	@SideOnly(Side.CLIENT)
+	public void registerBlockIcons(IIconRegister p_149651_1_) {
+		field_150017_a = new IIcon[2];
+		field_150016_b = new IIcon[2];
+		field_150017_a[0] = p_149651_1_.registerIcon(this.getTextureName() + "_top");
+		field_150016_b[0] = p_149651_1_.registerIcon(this.getTextureName() + "_bottom");
+		field_150017_a[1] = new IconFlipped(this.field_150017_a[0], true, false);
+		field_150016_b[1] = new IconFlipped(this.field_150016_b[0], true, false);
+	}
 }

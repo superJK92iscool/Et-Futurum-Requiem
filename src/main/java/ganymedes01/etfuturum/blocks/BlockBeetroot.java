@@ -46,6 +46,6 @@ public class BlockBeetroot extends BlockCrops {
 	public void registerBlockIcons(IIconRegister reg) {
 		icons = new IIcon[4];
 		for (int i = 0; i < icons.length; i++)
-			icons[i] = reg.registerIcon(getTextureName() + "_stage_" + i);
+			icons[i] = reg.registerIcon(getTextureName() + "_stage" + i);
 	}
 }

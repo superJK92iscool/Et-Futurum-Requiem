@@ -1,18 +1,11 @@
 package ganymedes01.etfuturum.world;
 
-import java.util.*;
-import java.util.Map.Entry;
-
-import ganymedes01.etfuturum.ModBlocks;
-import org.apache.commons.lang3.ArrayUtils;
-
 import com.google.common.collect.Maps;
-
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
-import ganymedes01.etfuturum.configuration.configs.ConfigTweaks;
-import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
+import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.api.DeepslateOreRegistry;
 import ganymedes01.etfuturum.api.mappings.BlockAndMetadataMapping;
+import ganymedes01.etfuturum.configuration.configs.ConfigTweaks;
+import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
@@ -21,6 +14,13 @@ import net.minecraft.world.WorldType;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
+import org.apache.commons.lang3.ArrayUtils;
+
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Random;
 
 public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 
@@ -34,11 +34,11 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 
 	@Override
 	public void generate(Random rand, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
-		if(world.getWorldInfo().getTerrainType() != WorldType.FLAT || world.provider.dimensionId != 0 || world.getWorldInfo().getGeneratorOptions().contains("decoration")) {
-			if(ModBlocks.DEEPSLATE.isEnabled() && ConfigWorld.deepslateGenerationMode == 1 && world.provider.dimensionId != -1 && world.provider.dimensionId != 1) {
+		if (world.getWorldInfo().getTerrainType() != WorldType.FLAT || world.getWorldInfo().getGeneratorOptions().contains("decoration")) {
+			if (ModBlocks.DEEPSLATE.isEnabled() && ConfigWorld.deepslateGenerationMode == 1 && world.provider.dimensionId != -1 && world.provider.dimensionId != 1) {
 				generateOre(deepslateBlobGen, world, rand, chunkX, chunkZ, 1, 6, ConfigWorld.deepslateMaxY);
 			}
-			if(ModBlocks.TUFF.isEnabled() && world.provider.dimensionId != -1 && world.provider.dimensionId != 1) {
+			if (ModBlocks.TUFF.isEnabled() && world.provider.dimensionId != -1 && world.provider.dimensionId != 1) {
 				generateOre(tuffGen, world, rand, chunkX, chunkZ, 1, 6, ConfigWorld.deepslateMaxY);
 			}
 		}

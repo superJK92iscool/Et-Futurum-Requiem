@@ -32,7 +32,7 @@ public class BlockBone extends BlockRotatedPillar {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister reg) {
-		super.registerBlockIcons(reg);
+		blockIcon = reg.registerIcon(this.getTextureName() + "_side");
 		field_150164_N = reg.registerIcon(getTextureName() + "_top");
 	}
 }

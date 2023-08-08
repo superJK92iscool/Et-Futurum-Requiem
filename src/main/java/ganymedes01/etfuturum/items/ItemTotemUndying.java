@@ -7,7 +7,7 @@ import net.minecraft.item.Item;
 public class ItemTotemUndying extends Item {
 
 	public ItemTotemUndying() {
-		setTextureName("totem");
+		setTextureName("totem_of_undying");
 		setMaxStackSize(1);
 		setUnlocalizedName(Utils.getUnlocalisedName("totem_of_undying"));
 		setCreativeTab(EtFuturum.creativeTabItems);
