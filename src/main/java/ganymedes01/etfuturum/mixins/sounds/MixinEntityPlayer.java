@@ -1,57 +1,75 @@
 package ganymedes01.etfuturum.mixins.sounds;
 
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
 import ganymedes01.etfuturum.blocks.BlockBerryBush;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(EntityPlayer.class)
 public abstract class MixinEntityPlayer extends EntityLivingBase {
-	
+
+	@Shadow
+	protected abstract String getDeathSound();
+
+	@Shadow
+	protected abstract String getHurtSound();
+
 	public MixinEntityPlayer(World p_i1594_1_) {
 		super(p_i1594_1_);
 	}
 
-	private DamageSource lastDamageSource;
+	@Unique
+	private DamageSource etfuturum$lastDamageSource;
 
 	@Inject(method = "damageEntity", at = @At("HEAD"), cancellable = true)
-	public void captureLastDamageSource(DamageSource p_70097_1_, float p_70097_2_, CallbackInfo ci)
-	{
-		lastDamageSource = p_70097_1_;
+	public void captureLastDamageSource(DamageSource p_70097_1_, float p_70097_2_, CallbackInfo ci) {
+		etfuturum$lastDamageSource = p_70097_1_;
 	}
 
-	//Just in case this function is called elsewhere such as by another mod we add checks and reset the variable to prevent the wrong sound from being played.
-	@Overwrite
-	protected String getHurtSound()
-	{
-		if(lastDamageSource != null) {
-			if(lastDamageSource.isFireDamage()) {
+	@Unique
+	private String etfuturum$getUniqueHurtSound() {
+		if (etfuturum$lastDamageSource != null) {
+			if (etfuturum$lastDamageSource.isFireDamage()) {
 				return Reference.MCAssetVer + ":entity.player.hurt_on_fire";
 			}
-			if(lastDamageSource == DamageSource.drown) {
+			if (etfuturum$lastDamageSource == DamageSource.drown) {
 				return Reference.MCAssetVer + ":entity.player.hurt_drown";
 			}
-			if(lastDamageSource == BlockBerryBush.SWEET_BERRY_BUSH) {
+			if (etfuturum$lastDamageSource == BlockBerryBush.SWEET_BERRY_BUSH) {
 				return Reference.MCAssetVer + ":entity.player.hurt_sweet_berry_bush";
 			}
 		}
-		return super.getHurtSound();
+		return null;
+	}
+
+	@Inject(method = "getHurtSound", at = @At("HEAD"), cancellable = true)
+	protected void getHurtSound(CallbackInfoReturnable<String> cir) {
+		if (etfuturum$getUniqueHurtSound() != null) {
+			cir.setReturnValue(etfuturum$getUniqueHurtSound());
+		}
+	}
+
+	@Inject(method = "getDeathSound", at = @At("HEAD"), cancellable = true)
+	protected void getDeathSound(CallbackInfoReturnable<String> cir) {
+		if (etfuturum$getUniqueHurtSound() != null) {
+			cir.setReturnValue(etfuturum$getUniqueHurtSound());
+		}
 	}
 
 	@Inject(method = "playSound", at = @At("HEAD"), cancellable = true)
-	public void overrideDamageSound(String p_85030_1_, float p_85030_2_, float p_85030_3_, CallbackInfo ci)
-	{
-		if(p_85030_1_.equals(getHurtSound())) {
+	public void overrideDamageSound(String p_85030_1_, float p_85030_2_, float p_85030_3_, CallbackInfo ci) {
+		if (etfuturum$lastDamageSource != null && (p_85030_1_.equals(getHurtSound()) || p_85030_1_.equals(getDeathSound()))) {
 			this.worldObj.playSoundAtEntity(this, p_85030_1_, p_85030_2_, p_85030_3_);
-			lastDamageSource = null;
+			etfuturum$lastDamageSource = null;
 			ci.cancel();
 		}
 	}
