@@ -1,8 +1,5 @@
 package ganymedes01.etfuturum.core.proxy;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.IGuiHandler;
 import cpw.mods.fml.common.registry.EntityRegistry;
@@ -11,55 +8,21 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.client.gui.inventory.*;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigEntities;
-import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.configuration.configs.ConfigTweaks;
 import ganymedes01.etfuturum.core.handlers.SculkEventHandler;
 import ganymedes01.etfuturum.core.handlers.ServerEventHandler;
 import ganymedes01.etfuturum.core.handlers.WorldEventHandler;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.core.utils.VersionChecker;
-import ganymedes01.etfuturum.entities.EntityArmourStand;
-import ganymedes01.etfuturum.entities.EntityBoostingFireworkRocket;
-import ganymedes01.etfuturum.entities.EntityBrownMooshroom;
-import ganymedes01.etfuturum.entities.EntityEndermite;
-import ganymedes01.etfuturum.entities.EntityHusk;
-import ganymedes01.etfuturum.entities.EntityItemUninflammable;
-import ganymedes01.etfuturum.entities.EntityLingeringEffect;
-import ganymedes01.etfuturum.entities.EntityLingeringPotion;
-import ganymedes01.etfuturum.entities.EntityNewBoat;
-import ganymedes01.etfuturum.entities.EntityNewBoatSeat;
-import ganymedes01.etfuturum.entities.EntityNewBoatWithChest;
-import ganymedes01.etfuturum.entities.EntityNewSnowGolem;
-import ganymedes01.etfuturum.entities.EntityPlacedEndCrystal;
-import ganymedes01.etfuturum.entities.EntityRabbit;
-import ganymedes01.etfuturum.entities.EntityRespawnedDragon;
-import ganymedes01.etfuturum.entities.EntityShulker;
-import ganymedes01.etfuturum.entities.EntityShulkerBullet;
-import ganymedes01.etfuturum.entities.EntityStray;
-import ganymedes01.etfuturum.entities.EntityTippedArrow;
-import ganymedes01.etfuturum.entities.EntityZombieVillager;
-import ganymedes01.etfuturum.entities.ModEntityList;
+import ganymedes01.etfuturum.entities.*;
 import ganymedes01.etfuturum.inventory.*;
 import ganymedes01.etfuturum.lib.GUIsID;
 import ganymedes01.etfuturum.spectator.SpectatorMode;
-import ganymedes01.etfuturum.tileentities.TileEntityBanner;
-import ganymedes01.etfuturum.tileentities.TileEntityBarrel;
-import ganymedes01.etfuturum.tileentities.TileEntityBlastFurnace;
-import ganymedes01.etfuturum.tileentities.TileEntityCauldronPotion;
-import ganymedes01.etfuturum.tileentities.TileEntityGateway;
-import ganymedes01.etfuturum.tileentities.TileEntityNewBeacon;
-import ganymedes01.etfuturum.tileentities.TileEntityNewBrewingStand;
-import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox;
-import ganymedes01.etfuturum.tileentities.TileEntitySmoker;
-import ganymedes01.etfuturum.tileentities.TileEntityWoodSign;
 import ganymedes01.etfuturum.tileentities.*;
 import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.monster.EntityMagmaCube;
-import net.minecraft.entity.monster.EntitySkeleton;
-import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -70,6 +33,9 @@ import net.minecraft.world.biome.BiomeGenBase.SpawnListEntry;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.MinecraftForge;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class CommonProxy implements IGuiHandler {
 
@@ -147,22 +113,12 @@ public class CommonProxy implements IGuiHandler {
 		
 		if (ConfigEntities.enableHusk) {
 			ModEntityList.registerEntity(EntityHusk.class, "husk", 4, EtFuturum.instance, 80, 3, true, 0x777561, 0xE0D991);
-			//change spawn weights
-			EntityRegistry.removeSpawn(EntityZombie.class, EnumCreatureType.monster, new BiomeGenBase[] { BiomeGenBase.desert, BiomeGenBase.desertHills });
-			
-			EntityRegistry.addSpawn(EntityZombie.class, 19, 4, 4, EnumCreatureType.monster, new BiomeGenBase[] { BiomeGenBase.desert, BiomeGenBase.desertHills });
-			EntityRegistry.addSpawn(EntityHusk.class, 80, 4, 4, EnumCreatureType.monster, new BiomeGenBase[] { BiomeGenBase.desert, BiomeGenBase.desertHills });
 		}
 		if (ConfigEntities.enableStray) {
 			ModEntityList.registerEntity(EntityStray.class, "stray", 5, EtFuturum.instance, 80, 3, true, 0x617778, 0xE6EAEA);
-			//change spawn weights
-			EntityRegistry.removeSpawn(EntitySkeleton.class, EnumCreatureType.monster, new BiomeGenBase[] { BiomeGenBase.icePlains, BiomeGenBase.iceMountains });
-			
-			EntityRegistry.addSpawn(EntitySkeleton.class, 20, 4, 4, EnumCreatureType.monster, new BiomeGenBase[] { BiomeGenBase.icePlains, BiomeGenBase.iceMountains });
-			EntityRegistry.addSpawn(EntityStray.class, 80, 4, 4, EnumCreatureType.monster, new BiomeGenBase[] { BiomeGenBase.icePlains, BiomeGenBase.iceMountains });
 		}
 		if (ConfigEntities.enableNetherEndermen) {
-			EntityRegistry.addSpawn(EntityEnderman.class, 1, 4, 4, EnumCreatureType.monster, new BiomeGenBase[] { BiomeGenBase.hell });
+			EntityRegistry.addSpawn(EntityEnderman.class, 1, 4, 4, EnumCreatureType.monster, BiomeDictionary.getBiomesForType(Type.NETHER));
 			EntityEnderman.setCarriable(Blocks.netherrack, true);
 		}
 		

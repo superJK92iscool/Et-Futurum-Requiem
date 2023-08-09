@@ -7,19 +7,22 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import cpw.mods.fml.relauncher.Side;
-import ganymedes01.etfuturum.*;
+import ganymedes01.etfuturum.EtFuturum;
+import ganymedes01.etfuturum.ModBlocks;
+import ganymedes01.etfuturum.ModEnchantments;
+import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.api.HoeRegistry;
 import ganymedes01.etfuturum.api.RawOreRegistry;
 import ganymedes01.etfuturum.api.StrippedLogRegistry;
-import ganymedes01.etfuturum.elytra.IElytraEntityTrackerEntry;
-import ganymedes01.etfuturum.elytra.IElytraPlayer;
+import ganymedes01.etfuturum.api.mappings.BlockAndMetadataMapping;
+import ganymedes01.etfuturum.api.mappings.RawOreDropMapping;
 import ganymedes01.etfuturum.blocks.BlockMagma;
 import ganymedes01.etfuturum.blocks.BlockWitherRose;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.*;
-import ganymedes01.etfuturum.core.utils.*;
-import ganymedes01.etfuturum.api.mappings.BlockAndMetadataMapping;
-import ganymedes01.etfuturum.api.mappings.RawOreDropMapping;
+import ganymedes01.etfuturum.core.utils.ExternalContent;
+import ganymedes01.etfuturum.elytra.IElytraEntityTrackerEntry;
+import ganymedes01.etfuturum.elytra.IElytraPlayer;
 import ganymedes01.etfuturum.entities.*;
 import ganymedes01.etfuturum.entities.ai.EntityAIOpenCustomDoor;
 import ganymedes01.etfuturum.inventory.ContainerEnchantment;
@@ -64,6 +67,7 @@ import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.Chunk;
+import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -1144,12 +1148,12 @@ public class ServerEventHandler {
 				int y = MathHelper.floor_double(event.y);
 				int z = MathHelper.floor_double(event.z);
 				World world = event.world;
-				
+
 				for(EnumFacing facing : EnumFacing.values()) {
 					Block block = world.getBlock(x + facing.getFrontOffsetX(), y + facing.getFrontOffsetY(), z + facing.getFrontOffsetZ());
 					byte color = -1;
 					int meta = world.getBlockMetadata(x + facing.getFrontOffsetX(), y + facing.getFrontOffsetY(), z + facing.getFrontOffsetZ());
-					
+
 					if(facing == EnumFacing.DOWN && block == ExternalContent.hee_end_stone) {
 						color = (byte) (meta == 2 ? 10 : meta == 1 ? 1 : 14);
 					} else if (block == ExternalContent.enderlicious_sand) {
@@ -1157,12 +1161,30 @@ public class ServerEventHandler {
 					} else if (block == ExternalContent.enderlicious_end_rock) {
 						color = (byte) (meta % 4 == 1 ? 13 : -1);
 					}
-						
-					if(color > -1) {
+
+					if (color > -1) {
 						shulker.setColor(color);
 						break;
 					}
 				}
+			}
+		} else if (ConfigEntities.enableStray && event.entity.getClass() == EntitySkeleton.class && event.world.rand.nextFloat() < .80F && event.world.canBlockSeeTheSky((int) event.x, (int) (event.y) + 1, (int) event.z)) {
+			BiomeDictionary.Type[] biomeTags = BiomeDictionary.getTypesForBiome(event.world.getBiomeGenForCoords((int) event.x, (int) event.z));
+			if (ArrayUtils.contains(biomeTags, BiomeDictionary.Type.COLD) && ArrayUtils.contains(biomeTags, BiomeDictionary.Type.SNOWY)) {
+				EntityStray stray = new EntityStray(event.world);
+				replaceEntity(event.entity, stray, event.world, event.world.getChunkFromChunkCoords((int) event.x, (int) event.z));
+				stray.onSpawnWithEgg(null);
+				event.setCanceled(true);
+				event.setResult(Result.DENY);
+			}
+		} else if (ConfigEntities.enableHusk && event.entity.getClass() == EntityZombie.class && event.world.rand.nextFloat() < .80F && event.world.canBlockSeeTheSky((int) event.x, (int) (event.y) + 1, (int) event.z)) {
+			BiomeDictionary.Type[] biomeTags = BiomeDictionary.getTypesForBiome(event.world.getBiomeGenForCoords((int) event.x, (int) event.z));
+			if (ArrayUtils.contains(biomeTags, BiomeDictionary.Type.HOT) && ArrayUtils.contains(biomeTags, BiomeDictionary.Type.DRY) && ArrayUtils.contains(biomeTags, BiomeDictionary.Type.SANDY)) {
+				EntityHusk husk = new EntityHusk(event.world);
+				replaceEntity(event.entity, husk, event.world, event.world.getChunkFromChunkCoords((int) event.x, (int) event.z));
+				husk.onSpawnWithEgg(null);
+				event.setCanceled(true);
+				event.setResult(Result.DENY);
 			}
 		}
 	}
@@ -1313,23 +1335,20 @@ public class ServerEventHandler {
 		return p_70655_2_;
 	}
 	
-	private float applyPotionDamageCalculations(EntityLivingBase entity, DamageSource p_70672_1_, float p_70672_2_)
-	{
-		if (p_70672_1_.isDamageAbsolute())
-		{
+	private float applyPotionDamageCalculations(EntityLivingBase entity, DamageSource p_70672_1_, float p_70672_2_) {
+		if (p_70672_1_.isDamageAbsolute()) {
 			return p_70672_2_;
 		}
-		if (entity instanceof EntityZombie)
-		{
-			//par2 = par2; // Forge: Noop Warning
-		}
+//		if (entity instanceof EntityZombie)
+//		{
+//			//par2 = par2; // Forge: Noop Warning
+//		}
 
 		int i;
 		int j;
 		float f1;
 
-		if (entity.isPotionActive(Potion.resistance) && p_70672_1_ != DamageSource.outOfWorld)
-		{
+		if (entity.isPotionActive(Potion.resistance) && p_70672_1_ != DamageSource.outOfWorld) {
 			i = (entity.getActivePotionEffect(Potion.resistance).getAmplifier() + 1) * 5;
 			j = 25 - i;
 			f1 = p_70672_2_ * j;

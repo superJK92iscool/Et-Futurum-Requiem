@@ -7,7 +7,6 @@ import ganymedes01.etfuturum.api.mappings.BlockAndMetadataMapping;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import ganymedes01.etfuturum.core.utils.helpers.DoublePerlinNoiseSampler;
-import ganymedes01.etfuturum.core.utils.helpers.Vec3i;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.util.EnumFacing;
@@ -130,89 +129,84 @@ public class WorldGenAmethystGeode extends WorldGenerator {
 				list2.add(blockPos.add(s, 5, s));
 				list2.add(blockPos.add(s, 1, s));
 			 } else {
-				list2.add(blockPos.add(0, 7, 0));
-				list2.add(blockPos.add(0, 5, 0));
-				list2.add(blockPos.add(0, 1, 0));
+				 list2.add(blockPos.add(0, 7, 0));
+				 list2.add(blockPos.add(0, 5, 0));
+				 list2.add(blockPos.add(0, 1, 0));
 			 }
 		  }
 
-		  List<BlockPos> list3 = Lists.newArrayList();
-		  Iterator<BlockPos> var48 = BlockPos.iterate(blockPos.add(minGenOffset, minGenOffset, minGenOffset), blockPos.add(maxGenOffset, maxGenOffset, maxGenOffset)).iterator();
+		List<BlockPos> list3 = Lists.newArrayList();
+		Iterator<BlockPos> var48 = BlockPos.iterate(blockPos.add(minGenOffset, minGenOffset, minGenOffset), blockPos.add(maxGenOffset, maxGenOffset, maxGenOffset)).iterator();
 
-		  while(true) {
-			 while(true) {
-				double u;
-				double v;
-				BlockPos blockPos3;
-				do {
-				   if (!var48.hasNext()) {
-					  Iterator<BlockPos> var51 = list3.iterator();
+		while (true) {
+			double u;
+			double v;
+			BlockPos blockPos3;
+			do {
+				if (!var48.hasNext()) {
 
-					  while(true) {
-						 while(var51.hasNext()) {
-							blockPos6 = (BlockPos)var51.next();
-							block2 = Utils.getRandom(budBlocks, random);
-							EnumFacing[] var53 = EnumFacing.values();
-							int var37 = var53.length;
+					for (BlockPos pos : list3) {
+						blockPos6 = pos;
+						block2 = Utils.getRandom(budBlocks, random);
+						EnumFacing[] var53 = EnumFacing.values();
 
-							 for (EnumFacing direction2 : var53) {
-								 BlockPos blockPos7 = blockPos6.offset(direction2);
+						for (EnumFacing direction2 : var53) {
+							BlockPos blockPos7 = blockPos6.offset(direction2);
 
-								 if (world.isAirBlock(blockPos7.getX(), blockPos7.getY(), blockPos7.getZ())) {
-									 world.setBlock(blockPos7.getX(), blockPos7.getY(), blockPos7.getZ(), block2, (random.nextBoolean() ? 0 : 6)/*picks a random bud size*/ + direction2.ordinal(), 2);
-									 break;
-								 }
-							 }
-						 }
-
-						 return true;
-					  }
-				   }
-
-				   blockPos3 = (BlockPos)var48.next();
-				   double t = doublePerlinNoiseSampler.sample((double)blockPos3.getX(), (double)blockPos3.getY(), (double)blockPos3.getZ()) * noiseMultiplier;
-				   u = 0.0D;
-				   v = 0.0D;
-
-				   Iterator var40;
-				   Pair pair;
-				   for(var40 = list.iterator(); var40.hasNext(); u += Utils.fastInverseSqrt(blockPos3.getSquaredDistance((Vec3i)pair.getLeft()) + (double)(Integer)pair.getRight()) + t) {
-					  pair = (Pair)var40.next();
-				   } //Almost deleted this code for being unused, but the variable in the for loop is vital to later parts of the code.
-
-				   BlockPos blockPos4;
-				   for(var40 = list2.iterator(); var40.hasNext(); v += Utils.fastInverseSqrt(blockPos3.getSquaredDistance(blockPos4) + (double)crackPointOffset) + t) {
-					  blockPos4 = (BlockPos)var40.next();
-				   } //Almost deleted this code for being unused, but the variable in the for loop is vital to later parts of the code.
-				} while(u < outerLayerSqrt);
-
-				if(world.getBlock(blockPos3.getX(), blockPos3.getY(), blockPos3.getZ()).getBlockHardness(world, blockPos3.getX(), blockPos3.getY(), blockPos3.getZ()) != -1) {
-					if (bl && v >= l && u < fillingSqrt) {
-						world.setBlockToAir(blockPos3.getX(), blockPos3.getY(), blockPos3.getZ());
-					} else if (u >= fillingSqrt) {
-					   world.setBlockToAir(blockPos3.getX(), blockPos3.getY(), blockPos3.getZ());//FillingProvider
-					   //Fun fact, comment out this line for some really odd shapes lol
-					} else if (u >= innerLayerSqrt) {
-					   boolean bl2 = (double)random.nextFloat() < this.buddingAmethystChance;
-					   if (bl2) {
-						   world.setBlock(blockPos3.getX(), blockPos3.getY(), blockPos3.getZ(), ModBlocks.BUDDING_AMETHYST.get());//AlternateInnerLayerProvider
-					   } else {
-						   world.setBlock(blockPos3.getX(), blockPos3.getY(), blockPos3.getZ(), ModBlocks.AMETHYST_BLOCK.get());//InnerLayerProvider
-					   }
-
-					   //This boolean is always true and !true == false
-						if ((/* !geodeFeatureConfig.placementsRequireLayer0Alternate || */bl2) && (double)random.nextFloat() < usePotentialPlacementsChance) {
-						  list3.add(new BlockPos(blockPos3));
-					   }
-					} else if (u >= middleLayerSqrt) {
-					   world.setBlock(blockPos3.getX(), blockPos3.getY(), blockPos3.getZ(), middleBlock.getBlock(), middleBlock.getMeta(), 2);//MiddleLayerProvider also TODO I need to make this layer configurable
-					} else if (u >= outerLayerSqrt) {
-					   world.setBlock(blockPos3.getX(), blockPos3.getY(), blockPos3.getZ(), outerBlock.getBlock(), outerBlock.getMeta(), 2);//OuterLayerProvider
+							if (world.isAirBlock(blockPos7.getX(), blockPos7.getY(), blockPos7.getZ())) {
+								world.setBlock(blockPos7.getX(), blockPos7.getY(), blockPos7.getZ(), block2, (random.nextBoolean() ? 0 : 6)/*picks a random bud size*/ + direction2.ordinal(), 2);
+								break;
+							}
+						}
 					}
-				 }
-			 }
-		  }
-	   }
+
+					return true;
+				}
+
+				blockPos3 = var48.next();
+				double t = doublePerlinNoiseSampler.sample(blockPos3.getX(), blockPos3.getY(), blockPos3.getZ()) * noiseMultiplier;
+				u = 0.0D;
+				v = 0.0D;
+
+				Iterator<Pair<BlockPos, Integer>> var40;
+				Pair<BlockPos, Integer> pair;
+				for (var40 = list.iterator(); var40.hasNext(); u += Utils.fastInverseSqrt(blockPos3.getSquaredDistance(pair.getLeft()) + (double) pair.getRight()) + t) {
+					pair = var40.next();
+				} //Almost deleted this code for being unused, but the variable in the for loop is vital to later parts of the code.
+
+				BlockPos blockPos4;
+				Iterator<BlockPos> var41;
+				for (var41 = list2.iterator(); var41.hasNext(); v += Utils.fastInverseSqrt(blockPos3.getSquaredDistance(blockPos4) + (double) crackPointOffset) + t) {
+					blockPos4 = var41.next();
+				} //Almost deleted this code for being unused, but the variable in the for loop is vital to later parts of the code.
+			} while (u < outerLayerSqrt);
+
+			if (world.getBlock(blockPos3.getX(), blockPos3.getY(), blockPos3.getZ()).getBlockHardness(world, blockPos3.getX(), blockPos3.getY(), blockPos3.getZ()) != -1) {
+				if (bl && v >= l && u < fillingSqrt) {
+					world.setBlockToAir(blockPos3.getX(), blockPos3.getY(), blockPos3.getZ());
+				} else if (u >= fillingSqrt) {
+					world.setBlockToAir(blockPos3.getX(), blockPos3.getY(), blockPos3.getZ());//FillingProvider
+					//Fun fact, comment out this line for some really odd shapes lol
+				} else if (u >= innerLayerSqrt) {
+					boolean bl2 = (double) random.nextFloat() < this.buddingAmethystChance;
+					if (bl2) {
+						world.setBlock(blockPos3.getX(), blockPos3.getY(), blockPos3.getZ(), ModBlocks.BUDDING_AMETHYST.get());//AlternateInnerLayerProvider
+					} else {
+						world.setBlock(blockPos3.getX(), blockPos3.getY(), blockPos3.getZ(), ModBlocks.AMETHYST_BLOCK.get());//InnerLayerProvider
+					}
+
+					//This boolean is always true and !true == false
+					if ((/* !geodeFeatureConfig.placementsRequireLayer0Alternate || */bl2) && (double) random.nextFloat() < usePotentialPlacementsChance) {
+						list3.add(new BlockPos(blockPos3));
+					}
+				} else if (u >= middleLayerSqrt) {
+					world.setBlock(blockPos3.getX(), blockPos3.getY(), blockPos3.getZ(), middleBlock.getBlock(), middleBlock.getMeta(), 2);//MiddleLayerProvider also TODO I need to make this layer configurable
+				} else if (u >= outerLayerSqrt) {
+					world.setBlock(blockPos3.getX(), blockPos3.getY(), blockPos3.getZ(), outerBlock.getBlock(), outerBlock.getMeta(), 2);//OuterLayerProvider
+				}
+			}
+		}
+	}
 
 	/*
 	 * Temporary until I can figure out how to do <T> for array[]s and I'll move this to Utils.

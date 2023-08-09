@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.entities;
 
-import java.util.Calendar;
-
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
@@ -10,17 +8,7 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIArrowAttack;
-import net.minecraft.entity.ai.EntityAIAttackOnCollide;
-import net.minecraft.entity.ai.EntityAIFleeSun;
-import net.minecraft.entity.ai.EntityAIHurtByTarget;
-import net.minecraft.entity.ai.EntityAILookIdle;
-import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
-import net.minecraft.entity.ai.EntityAIRestrictSun;
-import net.minecraft.entity.ai.EntityAISwimming;
-import net.minecraft.entity.ai.EntityAIWander;
-import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.ai.*;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -30,6 +18,8 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
+
+import java.util.Calendar;
 
 public class EntityStray extends EntitySkeleton {
 	
@@ -55,24 +45,16 @@ public class EntityStray extends EntitySkeleton {
 	public IEntityLivingData onSpawnWithEgg(IEntityLivingData p_110161_1_)
 	{
 		p_110161_1_ = super.onSpawnWithEgg(p_110161_1_);
-			this.tasks.addTask(4, this.aiArrowAttack);
-			this.addRandomArmor();
-			this.enchantEquipment();
-		
-		/*
-		this.tasks.addTask(4, this.aiArrowAttack );
+		this.tasks.addTask(4, this.aiArrowAttack);
 		this.addRandomArmor();
 		this.enchantEquipment();
-		*/
 
 		this.setCanPickUpLoot(this.rand.nextFloat() < 0.55F * this.worldObj.func_147462_b(this.posX, this.posY, this.posZ));
 
-		if (this.getEquipmentInSlot(4) == null)
-		{
+		if (this.getEquipmentInSlot(4) == null) {
 			Calendar calendar = this.worldObj.getCurrentDate();
 
-			if (calendar.get(2) + 1 == 10 && calendar.get(5) == 31 && this.rand.nextFloat() < 0.25F)
-			{
+			if (calendar.get(Calendar.MONTH) + 1 == 10 && calendar.get(Calendar.DATE) == 31 && this.rand.nextFloat() < 0.25F) {
 				this.setCurrentItemOrArmor(4, new ItemStack(this.rand.nextFloat() < 0.1F ? Blocks.lit_pumpkin : Blocks.pumpkin));
 				this.equipmentDropChances[4] = 0.0F;
 			}
@@ -93,9 +75,6 @@ public class EntityStray extends EntitySkeleton {
 		final boolean flag = super.attackEntityAsMob(entity);
 		if (flag) {
 			final int i = this.worldObj.difficultySetting.getDifficultyId();
-			if (this.getHeldItem() == null && this.isBurning() && this.rand.nextFloat() < i * 0.3f) {
-				entity.setFire(0 * i);
-			}
 			((EntityLivingBase)entity).addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 140 * i, 0));
 		}
 		return flag;
