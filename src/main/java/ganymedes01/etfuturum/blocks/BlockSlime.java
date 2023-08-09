@@ -5,16 +5,20 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+
+import java.util.Map;
+import java.util.WeakHashMap;
 
 public class BlockSlime extends Block {
+
+	private static final Map<Entity, ImmutablePair<Double, Integer>> SLIME_BOUNCE_CACHE = new WeakHashMap<>();
 
 	public BlockSlime() {
 		super(Material.clay);
@@ -35,24 +39,22 @@ public class BlockSlime extends Block {
 	public void onFallenUpon(World world, int x, int y, int z, Entity entity, float fallDistance) {
 		if (!entity.isSneaking()) {
 			entity.fallDistance = 0;
-			if (entity.motionY < 0)
-				entity.getEntityData().setDouble(Reference.MOD_ID + ":slime", -entity.motionY);
+			if (entity.motionY < 0.1) {
+				SLIME_BOUNCE_CACHE.put(entity, new ImmutablePair<>(-entity.motionY, entity.ticksExisted));
+			}
 		}
 	}
 
 	@Override
 	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
-		NBTTagCompound data = entity.getEntityData();
-		if (data.hasKey(Reference.MOD_ID + ":slime")) {
-			entity.motionY = data.getDouble(Reference.MOD_ID + ":slime");
-			data.removeTag(Reference.MOD_ID + ":slime");
-		}
-
-		if (Math.abs(entity.motionY) < 0.1 && !entity.isSneaking()) {
+		ImmutablePair<Double, Integer> pair = SLIME_BOUNCE_CACHE.get(entity);
+		if (pair != null && SLIME_BOUNCE_CACHE.get(entity).getRight() == entity.ticksExisted) {
+			entity.motionY = pair.getLeft();
 			double d = 0.4 + Math.abs(entity.motionY) * 0.2;
 			entity.motionX *= d;
 			entity.motionZ *= d;
 		}
+		SLIME_BOUNCE_CACHE.remove(entity);
 	}
 
 	@Override

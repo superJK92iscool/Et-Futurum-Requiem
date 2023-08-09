@@ -10,7 +10,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.EtFuturumMixinPlugin;
-import ganymedes01.etfuturum.elytra.IElytraPlayer;
 import ganymedes01.etfuturum.blocks.BlockShulkerBox;
 import ganymedes01.etfuturum.blocks.IMultiStepSound;
 import ganymedes01.etfuturum.client.OpenGLHelper;
@@ -21,7 +20,11 @@ import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.client.sound.NetherAmbienceLoop;
 import ganymedes01.etfuturum.client.sound.NetherAmbienceSound;
 import ganymedes01.etfuturum.configuration.ConfigBase;
-import ganymedes01.etfuturum.configuration.configs.*;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
+import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
+import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
+import ganymedes01.etfuturum.elytra.IElytraPlayer;
 import ganymedes01.etfuturum.entities.EntityNewBoatWithChest;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.network.ChestBoatOpenInventoryMessage;
@@ -603,7 +606,7 @@ public class ClientEventHandler {
 				} else if(ModSounds.soundAmethystBlock.getStepResourcePath().equals(event.name)) {
 					MutablePair<Float, Integer> pair = AMETHYST_CHIME_CACHE.get(event.entity);
 					if(pair == null) {
-						pair = new MutablePair(0.0F, 0);
+						pair = new MutablePair<>(0.0F, 0);
 					}
 					float field_26997 = pair.getLeft();
 					int lastChimeAge = pair.getRight();

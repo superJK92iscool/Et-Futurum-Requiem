@@ -951,8 +951,6 @@ public class ServerEventHandler {
 							}
 						}
 
-
-
 						if(ConfigBlocksItems.enableInvertedDaylightSensor && oldBlock == Blocks.daylight_detector && canUse(player, world, x, y, z)) {
 							player.swingItem();
 							world.setBlock(x, y, z, ModBlocks.DAYLIGHT_DETECTOR_INVERTED.get(), 15 - meta, 2);
