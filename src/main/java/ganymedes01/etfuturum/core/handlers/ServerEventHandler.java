@@ -960,6 +960,7 @@ public class ServerEventHandler {
 								event.setResult(Result.DENY);
 								event.setCanceled(true);
 							}
+							world.notifyBlockChange(x, y, z, ModBlocks.DAYLIGHT_DETECTOR_INVERTED.get());
 						}
 						
 						if(ConfigBlocksItems.enablePotionCauldron && oldBlock == Blocks.cauldron && heldStack != null && meta == 0 && heldStack.getItem() == Items.potionitem
