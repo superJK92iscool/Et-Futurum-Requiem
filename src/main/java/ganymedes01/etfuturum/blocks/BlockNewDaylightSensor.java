@@ -1,10 +1,7 @@
 package ganymedes01.etfuturum.blocks;
 
-import java.util.Random;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.BlockDaylightDetector;
@@ -13,14 +10,17 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.world.World;
 
+import java.util.Random;
+
 public class BlockNewDaylightSensor extends BlockDaylightDetector {
 
 	public BlockNewDaylightSensor() {
+		super();
 		setHardness(0.2F);
 		setStepSound(soundTypeWood);
 		setBlockTextureName("daylight_detector");
 		setBlockName(Utils.getUnlocalisedName("daylight_sensor"));
-		setCreativeTab(EtFuturum.creativeTabBlocks);
+		setCreativeTab(null);
 	}
 
 	@Override

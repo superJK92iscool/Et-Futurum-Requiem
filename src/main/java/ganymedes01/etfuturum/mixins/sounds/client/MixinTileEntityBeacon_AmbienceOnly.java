@@ -1,13 +1,11 @@
 package ganymedes01.etfuturum.mixins.sounds.client;
 
 import ganymedes01.etfuturum.client.sound.BeaconAmbientSound;
-import ganymedes01.etfuturum.core.utils.Logger;
+import ganymedes01.etfuturum.ducks.IsNetherliciousBeaconHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityBeacon;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -18,19 +16,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  * Minecraft.getMinecraft() is needed to play the custom sound class for the custom lowered attenuation distance.
  */
 @Mixin(TileEntityBeacon.class)
-public class MixinTileEntityBeacon_AmbienceOnly extends TileEntity {
+public abstract class MixinTileEntityBeacon_AmbienceOnly extends TileEntity implements IsNetherliciousBeaconHandler {
 
-	@Shadow boolean field_146015_k;
-
-	/*
-	 * We populate this field in MixinTileEntityBeacon... god that's cursed.
-	 */
-	private boolean isNetherliciousBeacon;
+	@Shadow
+	private boolean field_146015_k;
 
 	@Inject(method = "updateEntity", at = @At(value = "INVOKE", target = "Lnet/minecraft/tileentity/TileEntityBeacon;func_146000_x()V", shift = At.Shift.BEFORE))
 	private void playAmbience(CallbackInfo ci) {
 		//worldObj.isRemote is always true since this is a client-only mixin, so we don't need to check it
-		if(!isNetherliciousBeacon && field_146015_k) {
+		if (!etfuturum$isNetherliciousBeacon() && field_146015_k) {
 			Minecraft.getMinecraft().getSoundHandler().playSound(new BeaconAmbientSound((TileEntityBeacon) (Object) this));
 		}
 	}

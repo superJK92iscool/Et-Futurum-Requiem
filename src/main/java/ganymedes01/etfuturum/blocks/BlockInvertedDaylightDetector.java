@@ -16,6 +16,7 @@ public class BlockInvertedDaylightDetector extends BlockNewDaylightSensor {
 	private static final int[] invertedValues = { 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
 
 	public BlockInvertedDaylightDetector() {
+		super();
 		setBlockTextureName("daylight_detector_inverted_top");
 		setBlockName(Utils.getUnlocalisedName("daylight_detector_inverted"));
 	}

@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.blocks;
 
-import java.util.Random;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
@@ -15,13 +13,15 @@ import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
+import java.util.Random;
+
 public class BlockNewBeacon extends BlockBeacon {
 
 	public BlockNewBeacon() {
 		setLightLevel(1.0F);
 		setBlockTextureName("beacon");
 		setBlockName(Utils.getUnlocalisedName("beacon"));
-		setCreativeTab(EtFuturum.creativeTabBlocks);
+		setCreativeTab(ConfigWorld.tileReplacementMode == -1 ? EtFuturum.creativeTabBlocks : null);
 	}
 
 	@Override
