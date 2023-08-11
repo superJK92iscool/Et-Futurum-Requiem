@@ -3,6 +3,7 @@ package ganymedes01.etfuturum.blocks.itemblocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.lib.EnumColour;
+import ganymedes01.etfuturum.recipes.ModRecipes;
 import ganymedes01.etfuturum.tileentities.TileEntityBanner;
 import ganymedes01.etfuturum.tileentities.TileEntityBanner.EnumBannerPattern;
 import net.minecraft.block.Block;
@@ -91,7 +92,7 @@ public class ItemBlockBanner extends ItemBlock {
 
 	@Override
 	public String getItemStackDisplayName(ItemStack stack) {
-		return StatCollector.translateToLocal("item.banner." + getBaseColor(stack).getColorName() + ".name");
+		return StatCollector.translateToLocal("item.banner." + ModRecipes.dye_names[getBaseColor(stack).getDamage()] + ".name");
 	}
 
 	@Override
@@ -108,7 +109,7 @@ public class ItemBlockBanner extends ItemBlock {
 				EnumBannerPattern pattern = EnumBannerPattern.getPatternByID(nbt.getString("Pattern"));
 
 				if (pattern != null) {
-					tooltip.add(StatCollector.translateToLocal("item.banner." + pattern.getPatternName() + "." + color.getColorName()));
+					tooltip.add(StatCollector.translateToLocal("item.banner." + pattern.getPatternName() + "." + ModRecipes.dye_names[color.getDamage()]));
 				}
 			}
 		}

@@ -8,22 +8,22 @@ import java.awt.*;
 
 public enum EnumColour {
 
-	BLACK("black", MapColor.blackColor),
-	RED("red", MapColor.redColor),
-	GREEN("green", MapColor.greenColor),
-	BROWN("brown", MapColor.brownColor),
-	BLUE("blue", MapColor.blueColor),
-	PURPLE("purple", MapColor.purpleColor),
-	CYAN("cyan", MapColor.cyanColor),
-	LIGHT_GREY("light_gray", MapColor.silverColor),
-	GREY("gray", MapColor.grayColor),
-	PINK("pink", MapColor.pinkColor),
-	LIME("lime", MapColor.limeColor),
-	YELLOW("yellow", MapColor.yellowColor),
-	LIGHT_BLUE("light_blue", MapColor.lightBlueColor),
-	MAGENTA("magenta", MapColor.magentaColor),
-	ORANGE("orange", MapColor.adobeColor),
-	WHITE("white", MapColor.snowColor);
+	BLACK("Black", MapColor.blackColor),
+	RED("Red", MapColor.redColor),
+	GREEN("Green", MapColor.greenColor),
+	BROWN("Brown", MapColor.brownColor),
+	BLUE("Blue", MapColor.blueColor),
+	PURPLE("Purple", MapColor.purpleColor),
+	CYAN("Cyan", MapColor.cyanColor),
+	LIGHT_GREY("LightGray", MapColor.silverColor),
+	GREY("Gray", MapColor.grayColor),
+	PINK("Pink", MapColor.pinkColor),
+	LIME("Lime", MapColor.limeColor),
+	YELLOW("Yellow", MapColor.yellowColor),
+	LIGHT_BLUE("LightBlue", MapColor.lightBlueColor),
+	MAGENTA("Magenta", MapColor.magentaColor),
+	ORANGE("Orange", MapColor.adobeColor),
+	WHITE("White", MapColor.snowColor);
 
 	final String dye;
 	final String name;
@@ -33,10 +33,6 @@ public enum EnumColour {
 		dye = "dye" + name;
 		this.name = name;
 		this.mapColor = mapColor;
-	}
-
-	public String getColorName() {
-		return name;
 	}
 
 	public String getOreName() {
