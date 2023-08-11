@@ -2,7 +2,8 @@ package ganymedes01.etfuturum;
 
 import ganymedes01.etfuturum.compat.CompatMisc;
 import ganymedes01.etfuturum.configuration.ConfigBase;
-import ganymedes01.etfuturum.configuration.configs.*;
+import ganymedes01.etfuturum.configuration.configs.ConfigEnchantsPotions;
+import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.launchwrapper.Launch;
 import org.spongepowered.asm.lib.tree.ClassNode;
@@ -183,18 +184,18 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 		}
 		
 		if(side == MixinEnvironment.Side.CLIENT) {
-			if(ConfigMixins.newBeaconSounds) {
-				mixins.add("sounds.client.MixinTileEntityBeacon_AmbienceOnly");
+			if (ConfigMixins.adjustedAttenuation) {
+				mixins.add("sounds.client.MixinSoundManager_Attenuation");
 			}
-			
-			if(ConfigMixins.boundedBlockBreakingParticles) {
+
+			if (ConfigMixins.boundedBlockBreakingParticles) {
 				mixins.add("boundedparticles.client.MixinEffectRenderer");
 			}
-			
-			if(ConfigMixins.furnaceCrackle) {
+
+			if (ConfigMixins.furnaceCrackle) {
 				mixins.add("sounds.client.MixinBlockFurnace");
 			}
-			if(ConfigEnchantsPotions.enableSwiftSneak) {
+			if (ConfigEnchantsPotions.enableSwiftSneak) {
 				mixins.add("swiftsneak.client.MixinMovementInputFromOptions");
 			}
 		}

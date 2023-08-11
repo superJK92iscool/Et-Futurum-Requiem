@@ -1,10 +1,7 @@
 package ganymedes01.etfuturum.blocks;
 
-import java.util.*;
-
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
@@ -22,6 +19,10 @@ import net.minecraft.item.Item;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 public class BlockDeepslate extends BlockRotatedPillar {
 
@@ -77,7 +78,7 @@ public class BlockDeepslate extends BlockRotatedPillar {
 		if(!EtFuturumLateWorldGenerator.stopRecording && !world.getChunkFromBlockCoords(x, z).sendUpdates) {
 			Map<Long, List<Integer>> map = EtFuturumLateWorldGenerator.deepslateRedoCache.computeIfAbsent(world.provider.dimensionId, k -> Maps.newConcurrentMap());
 			List<Integer> posSet = map.computeIfAbsent(ChunkCoordIntPair.chunkXZ2Int(x >> 4, z >> 4), k -> Lists.newLinkedList());
-			posSet.add((int)((x & 0xF) << 12 | (y & 0xFF) << 4 | (z & 0xF)));
+			posSet.add((x & 0xF) << 12 | (y & 0xFF) << 4 | (z & 0xF));
 		}
 	}
 }

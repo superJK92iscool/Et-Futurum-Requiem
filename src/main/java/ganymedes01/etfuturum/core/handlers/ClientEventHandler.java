@@ -177,19 +177,19 @@ public class ClientEventHandler {
 				soundLoc = ambienceLoop.getPositionedSoundLocation().getResourceDomain() + ":" + ambienceLoop.getPositionedSoundLocation().getResourcePath();
 			}
 			
-			if(getAmbienceLoop(ambienceBiome) != null  && !mc.getSoundHandler().isSoundPlaying(ambienceLoop)) {
+			if (getAmbienceLoop(ambienceBiome) != null && !mc.getSoundHandler().isSoundPlaying(ambienceLoop)) {
 				Boolean flag = ambienceLoop == null || ambienceLoop.getVolume() <= 0;
-					ambienceLoop = new NetherAmbienceLoop(getAmbienceLoop(ambienceBiome));
-					mc.getSoundHandler().playSound(ambienceLoop);
-				if(flag) {
+				ambienceLoop = new NetherAmbienceLoop(getAmbienceLoop(ambienceBiome));
+				mc.getSoundHandler().playSound(ambienceLoop);
+				if (flag) {
 					ambienceLoop.fadeIn();
 				}
-			} else if (ambienceBiome == null || getAmbienceLoop(ambienceBiome) == null || !soundLoc.equals(getAmbienceLoop(ambienceBiome))) {
+			} else if (ambienceBiome == null || !soundLoc.equals(getAmbienceLoop(ambienceBiome))) {
 				ambienceLoop.stop();
-			} else if (mc.getSoundHandler().isSoundPlaying(ambienceLoop) && ambienceLoop.isStopping && soundLoc.equals(getAmbienceLoop(ambienceBiome))){
+			} else if (mc.getSoundHandler().isSoundPlaying(ambienceLoop) && ambienceLoop.isStopping && soundLoc.equals(getAmbienceLoop(ambienceBiome))) {
 				ambienceLoop.isStopping = false;
 			}
-			if(getAmbienceAdditions(ambienceBiome) != null && ambienceLoop != null && ticksToNextAmbience-- <= 0) {
+			if (getAmbienceAdditions(ambienceBiome) != null && ambienceLoop != null && ticksToNextAmbience-- <= 0) {
 				Minecraft.getMinecraft().getSoundHandler().playSound(new NetherAmbienceSound(new ResourceLocation(getAmbienceAdditions(ambienceBiome))));
 				ticksToNextAmbience = 50 + rand.nextInt(30) + 1;
 			}

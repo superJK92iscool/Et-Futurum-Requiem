@@ -1,6 +1,5 @@
 package ganymedes01.etfuturum.mixins.sounds;
 
-import ganymedes01.etfuturum.ducks.IsNetherliciousBeaconHandler;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityBeacon;
@@ -12,35 +11,37 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(TileEntityBeacon.class)
-public abstract class MixinTileEntityBeacon extends TileEntity implements IsNetherliciousBeaconHandler {
+public abstract class MixinTileEntityBeacon extends TileEntity {
 
 	@Shadow
 	private boolean field_146015_k;
 
 	@Unique
-	boolean etfuturum$isOn = false; //Used to store the previous powered state of the beacon, so we can tell when to play the on/off sound
+	boolean etfuturum$wasOn; //Used to store the previous powered state of the beacon, so we can tell when to play the on/off sound
 
 	@Unique
 	private boolean etfuturum$isNetherliciousBeacon;
 
 	@Inject(method = "updateEntity", at = @At(value = "INVOKE", target = "Lnet/minecraft/tileentity/TileEntityBeacon;func_146000_x()V", shift = At.Shift.BEFORE))
-	private void playActivateDeactivateSound(CallbackInfo ci) {
-		if (!etfuturum$isNetherliciousBeacon() && worldObj != null && !worldObj.isRemote) {
-			if (field_146015_k) {
-				if (!etfuturum$isOn) {
-					worldObj.playSoundEffect(xCoord + 0.5F, yCoord + 0.5F, zCoord + 0.5F, Reference.MCAssetVer + ":block.beacon.activate", 1, 1);
+	private void playBeaconSounds(CallbackInfo ci) {
+		if (!etfuturum$isNetherliciousBeacon) {
+			if (!worldObj.isRemote) {
+				if (field_146015_k != etfuturum$wasOn) {
+					String suffix = field_146015_k ? "activate" : "deactivate";
+					worldObj.playSoundEffect(xCoord + 0.5F, yCoord + 0.5F, zCoord + 0.5F, Reference.MCAssetVer + ":block.beacon." + suffix, 1, 1);
 				}
-			} else if (etfuturum$isOn) {
-				worldObj.playSoundEffect(xCoord + 0.5F, yCoord + 0.5F, zCoord + 0.5F, Reference.MCAssetVer + ":block.beacon.deactivate", 1, 1);
+				etfuturum$wasOn = field_146015_k;
 			}
-			etfuturum$isOn = field_146015_k;
+			if (field_146015_k) {
+				worldObj.playSound(xCoord + .5D, yCoord + .5D, zCoord + .5D, Reference.MCAssetVer + ":block.beacon.ambient", 1, 1, false);
+			}
 		}
 	}
 
 	@Inject(method = "setPrimaryEffect", at = @At(value = "FIELD", target = "Lnet/minecraft/tileentity/TileEntityBeacon;primaryEffect:I", ordinal = 1))
 	private void playPowerSelectNoise(CallbackInfo ci) {
 		//Somehow worldObj can be null, probably due to the weird stuff the client is doing to its own TileEntityBeacon instance while in the GUI
-		if (!etfuturum$isNetherliciousBeacon() && worldObj != null && !worldObj.isRemote) {
+		if (!etfuturum$isNetherliciousBeacon && worldObj != null && !worldObj.isRemote) {
 			worldObj.playSoundEffect(xCoord + 0.5F, yCoord + 0.5F, zCoord + 0.5F, Reference.MCAssetVer + ":block.beacon.power_select", 1, 1);
 		}
 	}
@@ -58,14 +59,9 @@ public abstract class MixinTileEntityBeacon extends TileEntity implements IsNeth
 	 */
 	@Override
 	public void invalidate() {
-		if (!etfuturum$isNetherliciousBeacon() && !worldObj.isRemote && worldObj.getTileEntity(xCoord, yCoord, zCoord) == null) {
+		if (!etfuturum$isNetherliciousBeacon && !worldObj.isRemote && worldObj.getTileEntity(xCoord, yCoord, zCoord) == null) {
 			worldObj.playSoundEffect(xCoord + 0.5F, yCoord + 0.5F, zCoord + 0.5F, Reference.MCAssetVer + ":block.beacon.deactivate", 1, 1);
 		}
 		super.invalidate();
-	}
-
-	@Override
-	public boolean etfuturum$isNetherliciousBeacon() {
-		return etfuturum$isNetherliciousBeacon;
 	}
 }
