@@ -1,15 +1,7 @@
 package ganymedes01.etfuturum.world.structure;
 
-import static net.minecraftforge.common.ChestGenHooks.MINESHAFT_CORRIDOR;
-
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
-
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
-import ganymedes01.etfuturum.recipes.ModRecipes;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.item.EntityMinecartChest;
@@ -24,6 +16,13 @@ import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraft.world.gen.structure.StructureComponent;
 import net.minecraftforge.common.ChestGenHooks;
+
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
+
+import static net.minecraftforge.common.ChestGenHooks.MINESHAFT_CORRIDOR;
 
 public class StructureMesaMineshaftPieces {
 
@@ -873,9 +872,9 @@ public class StructureMesaMineshaftPieces {
 		protected int skyLight(World p_189916_1_, int p_189916_2_, int p_189916_3_, int p_189916_4_, StructureBoundingBox p_189916_5_)
 		{
 			int i = this.getXWithOffset(p_189916_2_, p_189916_4_);
-			int j = this.getYWithOffset(p_189916_3_ + 1);
+			int j = this.getYWithOffset(p_189916_3_);
 			int k = this.getZWithOffset(p_189916_2_, p_189916_4_);
-			return !p_189916_5_.isVecInside(i, j, k) ? EnumSkyBlock.Sky.defaultLightValue : (int)(p_189916_1_.getBlockLightValue(i, j, k) * 15);
+			return !p_189916_5_.isVecInside(i, j, k) ? EnumSkyBlock.Sky.defaultLightValue : p_189916_1_.getBlockLightValue(i, j, k);
 		}
 		
 		protected void mineshaftWood(World p_189923_1_, StructureBoundingBox p_189923_2_, int p_189923_3_, int p_189923_4_, int p_189923_5_, int p_189923_6_)
