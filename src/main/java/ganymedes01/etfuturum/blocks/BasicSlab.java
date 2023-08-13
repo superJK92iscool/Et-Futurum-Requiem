@@ -4,7 +4,9 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.core.utils.Utils;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockSlab;
+import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -28,6 +30,7 @@ public class BasicSlab extends BlockSlab implements ISubBlocksBlock {
 	 * We store the previous slab we registered, so it can be passed to the double slab that registers after it.
 	 */
 	private static BasicSlab previousSlab;
+	private Block mapColorBase;
 
 	public BasicSlab(boolean isDouble, Material material, String... names) {
 		super(isDouble, material);
@@ -72,6 +75,16 @@ public class BasicSlab extends BlockSlab implements ISubBlocksBlock {
 			setHarvestLevel(toolClass, level, meta + 8);
 		}
 		return this;
+	}
+
+	public BasicSlab setMapColorBaseBlock(Block block) {
+		mapColorBase = block;
+		return this;
+	}
+
+	@Override
+	public MapColor getMapColor(int p_149728_1_) {
+		return mapColorBase == null ? super.getMapColor(p_149728_1_ % 8) : mapColorBase.getMapColor(p_149728_1_ % 8);
 	}
 
 	public BasicSlab getDoubleSlab() {

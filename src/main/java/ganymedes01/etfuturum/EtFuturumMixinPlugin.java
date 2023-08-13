@@ -184,6 +184,10 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 		}
 		
 		if(side == MixinEnvironment.Side.CLIENT) {
+			if (ConfigMixins.dustUnderFallingBlocks) {
+				mixins.add("blockfallingparticles.MixinBlockFalling");
+			}
+
 			if (ConfigMixins.adjustedAttenuation) {
 				mixins.add("sounds.client.MixinSoundManager_Attenuation");
 			}
@@ -195,6 +199,7 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 			if (ConfigMixins.furnaceCrackle) {
 				mixins.add("sounds.client.MixinBlockFurnace");
 			}
+
 			if (ConfigEnchantsPotions.enableSwiftSneak) {
 				mixins.add("swiftsneak.client.MixinMovementInputFromOptions");
 			}

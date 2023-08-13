@@ -156,21 +156,26 @@ public class CommonProxy implements IGuiHandler {
 				EntityRegistry.addSpawn(EntityShulker.class, 2, 1, 2, EnumCreatureType.monster, BiomeDictionary.getBiomesForType(Type.END));
 			}
 		}
-		
+
 //      {
 //          ModEntityList.registerEntity(EntityFallingDripstone.class, "falling_dripstone", 18, EtFuturum.instance, 64, 1, true);
 //      }
 
-		if(ConfigBlocksItems.enableNewBoats) {
+		if (ConfigBlocksItems.enableNewBoats) {
 			ModEntityList.registerEntity(EntityNewBoatWithChest.class, "chest_boat", 19, EtFuturum.instance, 64, 1, true);
 		}
 
-		if(ConfigMixins.enableElytra)
+		if (ConfigMixins.enableElytra) {
 			ModEntityList.registerEntity(EntityBoostingFireworkRocket.class, "boosting_firework_rocket", 20, EtFuturum.instance, 64, 1, true);
-		
+		}
+
+		if (ConfigBlocksItems.enableConcrete) {
+			ModEntityList.registerEntity(EntityFallingConcrete.class, "falling_concrete", 21, EtFuturum.instance, 64, 1, true);
+		}
+
 		//make magmas slightly more common, hopefully.
-		EntityRegistry.removeSpawn(EntityMagmaCube.class, EnumCreatureType.monster, new BiomeGenBase[] { BiomeGenBase.hell });
-		EntityRegistry.addSpawn(EntityMagmaCube.class, 2, 4, 4, EnumCreatureType.monster, new BiomeGenBase[] { BiomeGenBase.hell });
+		EntityRegistry.removeSpawn(EntityMagmaCube.class, EnumCreatureType.monster, new BiomeGenBase[]{BiomeGenBase.hell});
+		EntityRegistry.addSpawn(EntityMagmaCube.class, 2, 4, 4, EnumCreatureType.monster, new BiomeGenBase[]{BiomeGenBase.hell});
 	}
 	
 	public void registerRenderers() {};

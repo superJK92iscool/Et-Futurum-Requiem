@@ -1,15 +1,14 @@
 package ganymedes01.etfuturum.client.particle;
 
-import java.util.Random;
-
-import org.lwjgl.opengl.GL11;
-
 import ganymedes01.etfuturum.client.OpenGLHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import org.lwjgl.opengl.GL11;
+
+import java.util.Random;
 
 public class EtFuturumFXParticle extends EntityFX {
 
@@ -27,13 +26,15 @@ public class EtFuturumFXParticle extends EntityFX {
 	private float fadeTargetRed;
 	private float fadeTargetGreen;
 	private float fadeTargetBlue;
-	
+	float particleAngle;
+	float prevParticleAngle;
+
 	protected boolean usesSheet;
-	
+
 	protected static Random particleRand = new Random();
-	
+
 	public EtFuturumFXParticle(World world, double x, double y, double z, double mx, double my, double mz, int maxAge,
-			float scale, int color, ResourceLocation texture, int textures) {
+							   float scale, int color, ResourceLocation texture, int textures) {
 		super(world, x, y, z, 0, 0, 0);
 		this.posX = x;
 		this.posY = y;
@@ -70,7 +71,7 @@ public class EtFuturumFXParticle extends EntityFX {
 		float ipz = (float) ((this.prevPosZ + (this.posZ - this.prevPosZ) * partialTicks) - EntityFX.interpPosZ);
 
 		int prevTex = GL11.glGetInteger(GL11.GL_TEXTURE_BINDING_2D);
-		
+
 		if(!usesSheet) {
 			String domain = particleTexture.getResourceDomain();
 
@@ -79,11 +80,11 @@ public class EtFuturumFXParticle extends EntityFX {
 				domain = "minecraft";
 			}
 			particleTexture = new ResourceLocation(domain + ":" +
-			textureName.substring(0, textureName.length()-4) + "_" + currentTexture + textureName.substring(textureName.length()-4, textureName.length()));
+					textureName.substring(0, textureName.length() - 4) + "_" + currentTexture + textureName.substring(textureName.length() - 4));
 		}
-		
+
 		Minecraft.getMinecraft().getTextureManager().bindTexture(this.particleTexture);
-		
+
 		int prevCurrentTexture = usesSheet ? currentTexture : 0;
 		OpenGLHelper.enableBlend();
 		OpenGLHelper.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
@@ -108,12 +109,12 @@ public class EtFuturumFXParticle extends EntityFX {
 	public int getFXLayer() {
 		return 3;
 	}
-	
+
 	public void setColorFade(int rgb)
 	{
 		this.fadeTargetRed = (float)((rgb & 16711680) >> 16) / 255.0F;
-		this.fadeTargetGreen = (float)((rgb & 65280) >> 8) / 255.0F;
-		this.fadeTargetBlue = (float)((rgb & 255) >> 0) / 255.0F;
+		this.fadeTargetGreen = (float) ((rgb & 65280) >> 8) / 255.0F;
+		this.fadeTargetBlue = (float) (rgb & 255) / 255.0F;
 		this.fadingColor = true;
 	}
 
@@ -146,5 +147,4 @@ public class EtFuturumFXParticle extends EntityFX {
 			}
 		}
 	}
-
 }

@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.blocks;
 
-import java.util.Random;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
@@ -16,6 +14,8 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import java.util.Random;
 
 public class BlockEndRod extends Block {
 
@@ -40,8 +40,8 @@ public class BlockEndRod extends Block {
 		ForgeDirection dir = ForgeDirection.getOrientation(world.getBlockMetadata(x, y, z) % 6);
 		double d0 = (double)x + 0.55D - (double)(random.nextFloat() * 0.1F);
 		double d1 = (double)y + 0.55D - (double)(random.nextFloat() * 0.1F);
-		double d2 = (double)z + 0.55D - (double)(random.nextFloat() * 0.1F);
-		double d3 = (double)(0.4F - (random.nextFloat() + random.nextFloat()) * 0.4F);
+		double d2 = (double) z + 0.55D - (double) (random.nextFloat() * 0.1F);
+		double d3 = 0.4F - (random.nextFloat() + random.nextFloat()) * 0.4F;
 
 		if (random.nextInt(5) == 0)
 		{

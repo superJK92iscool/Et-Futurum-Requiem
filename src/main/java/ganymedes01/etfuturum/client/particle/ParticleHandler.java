@@ -1,9 +1,5 @@
 package ganymedes01.etfuturum.client.particle;
 
-import java.lang.reflect.Constructor;
-import java.util.Arrays;
-import java.util.Random;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
@@ -13,6 +9,10 @@ import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.util.ReportedException;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+
+import java.lang.reflect.Constructor;
+import java.util.Arrays;
+import java.util.Random;
 
 @SideOnly(Side.CLIENT)
 public enum ParticleHandler {
@@ -71,7 +71,7 @@ public enum ParticleHandler {
 			return new Object[] { 15, 0.075F + (rand.nextFloat() * 0.125F), 0xFFFFFFFF, texture, 1 };
 		}
 	},
-	
+
 	END_ROD(EndRodFX.class, ParticleData.VX_VY_VZ, int.class, float.class, int.class, ResourceLocation.class,
 			int.class) {
 		private final ResourceLocation texture = new ResourceLocation(
@@ -79,19 +79,30 @@ public enum ParticleHandler {
 
 		@Override
 		protected Object[] getAdditionalArgs(World world, Object... data) {
-			return new Object[] { 60 + rand.nextInt(12), .075F, 0xFFFFFFFF, texture, 8 };
+			return new Object[]{60 + rand.nextInt(12), .075F, 0xFFFFFFFF, texture, 8};
+		}
+	},
+
+	FALLING_DUST(FallingDustFX.class, ParticleData.VX_VY_VZ, int.class, float.class, int.class, ResourceLocation.class,
+			int.class) {
+		private final ResourceLocation texture = new ResourceLocation(
+				"minecraft:textures/particle/generic.png");
+
+		@Override
+		protected Object[] getAdditionalArgs(World world, Object... data) {
+			return new Object[]{60 + rand.nextInt(12), .1F, data[0], texture, 8};
 		}
 	};
-	
+
 	protected static Random rand = new Random();
 
 	private static final int REGULAR_ARG_NUM = 4;
 
-	private Constructor<? extends EntityFX> constructor;
+	private final Constructor<? extends EntityFX> constructor;
 
-	private ParticleData args;
+	private final ParticleData args;
 
-	private Class<?>[] additionalArgTypes;
+	private final Class<?>[] additionalArgTypes;
 
 	private boolean shouldAssignColor = false;
 
@@ -148,7 +159,7 @@ public enum ParticleHandler {
 	}
 
 	protected Object[] getAdditionalArgs(World world, Object... data) {
-		return new Object[0];
+		return data;
 	}
 
 	protected void onSpawn(EntityFX entityFX) {

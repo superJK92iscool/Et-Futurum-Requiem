@@ -3,8 +3,12 @@ package ganymedes01.etfuturum.blocks;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.core.utils.Utils;
+import ganymedes01.etfuturum.entities.EntityFallingConcrete;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockFalling;
+import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.item.EntityFallingBlock;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -46,6 +50,15 @@ public class BlockConcretePowder extends BasicSubtypesSand {
 			}
 		}
 		world.markBlockForUpdate(x, y, z);
+	}
+
+	@Override
+	public EntityFallingBlock getFallingBlock(World world, double x, double y, double z, BlockFalling block, int meta) {
+		return new EntityFallingConcrete(world, x, y, z, block, meta);
+	}
+
+	public MapColor getMapColor(int p_149728_1_) {
+		return MapColor.getMapColorForBlockColored(p_149728_1_);
 	}
 
 }

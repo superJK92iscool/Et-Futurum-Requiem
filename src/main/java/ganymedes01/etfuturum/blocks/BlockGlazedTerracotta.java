@@ -45,26 +45,7 @@ public class BlockGlazedTerracotta extends Block {
 	@Override
 	public MapColor getMapColor(int _meta)
 	{
-		MapColor mapColor = MapColor.airColor;
-		switch (this.meta) {
-		case 0: mapColor =  MapColor.snowColor; break;
-		case 1: mapColor =  MapColor.adobeColor; break;
-		case 2: mapColor =  MapColor.magentaColor; break;
-		case 3: mapColor =  MapColor.lightBlueColor; break;
-		case 4: mapColor =  MapColor.yellowColor; break;
-		case 5: mapColor =  MapColor.limeColor; break;
-		case 6: mapColor =  MapColor.pinkColor; break;
-		case 7: mapColor =  MapColor.grayColor; break;
-		case 8: mapColor =  MapColor.silverColor; break;
-		case 9: mapColor =  MapColor.cyanColor; break;
-		case 10: mapColor =  MapColor.purpleColor; break;
-		case 11: mapColor =  MapColor.blueColor; break;
-		case 12: mapColor =  MapColor.brownColor; break;
-		case 13: mapColor =  MapColor.greenColor; break;
-		case 14: mapColor =  MapColor.redColor; break;
-		case 15: mapColor =  MapColor.blackColor; break;
-		}
-		return mapColor;
+		return MapColor.getMapColorForBlockColored(meta);
 	}
 
 }

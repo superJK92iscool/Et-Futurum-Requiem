@@ -70,7 +70,7 @@ public enum ModBlocks {
 	WOOD2_STRIPPED(ConfigBlocksItems.enableStrippedLogs && ConfigBlocksItems.enableBarkLogs, new BlockStrippedNewWood(), ItemBlockGeneric.class),
 	CONCRETE(ConfigBlocksItems.enableConcrete, new BasicSubtypesBlock(Material.rock, "white_concrete", "orange_concrete", "magenta_concrete", "light_blue_concrete", "yellow_concrete", "lime_concrete", "pink_concrete",
 			"gray_concrete", "light_gray_concrete", "cyan_concrete", "purple_concrete", "blue_concrete", "brown_concrete", "green_concrete", "red_concrete", "black_concrete").setNames("concrete")
-			.setHardness(1.8F).setResistance(1.8F),
+			.setMapColorBaseBlock(Blocks.wool).setHardness(1.8F).setResistance(1.8F),
 			ItemBlockGeneric.class),
 	CONCRETE_POWDER(ConfigBlocksItems.enableConcrete, new BlockConcretePowder(), ItemBlockGeneric.class),
 	COPPER_ORE(ConfigBlocksItems.enableCopper, new BlockCopperOre()),
