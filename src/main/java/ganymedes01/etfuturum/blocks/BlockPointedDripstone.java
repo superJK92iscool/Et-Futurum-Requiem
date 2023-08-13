@@ -4,7 +4,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.Block;
@@ -29,7 +28,7 @@ public class BlockPointedDripstone extends Block {
 
 	public BlockPointedDripstone() {
 		super(Material.rock);
-		this.setStepSound(ConfigSounds.newBlockSounds ? ModSounds.soundPointedDripstone : Block.soundTypeStone);
+		Utils.setBlockSound(this, ModSounds.soundPointedDripstone);
 		this.setHardness(1.5F);
 		this.setResistance(3F);
 		this.setHarvestLevel("pickaxe", 0);

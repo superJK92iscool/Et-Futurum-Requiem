@@ -5,6 +5,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.client.InterpolatedIcon;
 import ganymedes01.etfuturum.client.sound.ModSounds;
+import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -19,7 +20,7 @@ public class BlockSculk extends BasicBlock {
 		setNames("sculk");
 		setHardness(.6F);
 		setResistance(.2F);
-		setBlockSound(ModSounds.soundSculk);
+		Utils.setBlockSound(this, ModSounds.soundSculk);
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 

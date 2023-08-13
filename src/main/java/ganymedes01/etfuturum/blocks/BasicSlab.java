@@ -82,6 +82,11 @@ public class BasicSlab extends BlockSlab implements ISubBlocksBlock {
 		return this;
 	}
 
+	public BasicSlab setBlockSound(SoundType type) {
+		Utils.setBlockSound(this, type);
+		return this;
+	}
+
 	@Override
 	public MapColor getMapColor(int p_149728_1_) {
 		return mapColorBase == null ? super.getMapColor(p_149728_1_ % 8) : mapColorBase.getMapColor(p_149728_1_ % 8);

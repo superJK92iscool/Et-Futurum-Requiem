@@ -4,7 +4,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.entities.EntityItemUninflammable;
 import net.minecraft.block.Block;
@@ -24,7 +23,7 @@ public class BlockAncientDebris extends Block {
 		setHarvestLevel("pickaxe", 3);
 		setHardness(30F);
 		setResistance(1200F);
-		setStepSound(ConfigSounds.newBlockSounds ? ModSounds.soundAncientDebris : Block.soundTypeStone);
+		Utils.setBlockSound(this, ModSounds.soundAncientDebris);
 		setBlockTextureName("ancient_debris");
 		setBlockName(Utils.getUnlocalisedName("ancient_debris"));
 		setCreativeTab(EtFuturum.creativeTabBlocks);

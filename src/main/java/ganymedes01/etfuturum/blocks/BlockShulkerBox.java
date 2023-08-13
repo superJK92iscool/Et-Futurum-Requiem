@@ -1,16 +1,11 @@
 package ganymedes01.etfuturum.blocks;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import ganymedes01.etfuturum.ModItems;
-import ganymedes01.etfuturum.configuration.configs.ConfigModCompat;
-import org.apache.commons.lang3.ArrayUtils;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
+import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigModCompat;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.items.ItemGeneric;
 import ganymedes01.etfuturum.lib.GUIsID;
@@ -41,6 +36,10 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import org.apache.commons.lang3.ArrayUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BlockShulkerBox extends BlockContainer {
 	
@@ -51,7 +50,6 @@ public class BlockShulkerBox extends BlockContainer {
 		super(Material.rock);
 		this.setStepSound(soundTypeStone);
 		this.setHardness(2.5F);
-		this.setHarvestLevel("pickaxe", 0);
 		this.setResistance(2.5F);
 		this.setBlockName(Utils.getUnlocalisedName("shulker_box"));
 		this.setBlockTextureName("shulker_box");

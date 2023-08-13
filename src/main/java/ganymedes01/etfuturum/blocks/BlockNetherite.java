@@ -2,7 +2,6 @@ package ganymedes01.etfuturum.blocks;
 
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.entities.EntityItemUninflammable;
 import net.minecraft.block.Block;
@@ -19,7 +18,7 @@ public class BlockNetherite extends Block {
 		setHarvestLevel("pickaxe", 3);
 		setHardness(50F);
 		setResistance(1200F);
-		setStepSound(ConfigSounds.newBlockSounds ? ModSounds.soundNetherite : soundTypePiston);
+		Utils.setBlockSound(this, ModSounds.soundNetherite);
 		setBlockTextureName("netherite_block");
 		setBlockName(Utils.getUnlocalisedName("netherite_block"));
 		setCreativeTab(EtFuturum.creativeTabBlocks);

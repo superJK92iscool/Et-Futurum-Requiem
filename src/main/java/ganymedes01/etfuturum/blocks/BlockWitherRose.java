@@ -1,13 +1,8 @@
 package ganymedes01.etfuturum.blocks;
 
-import static net.minecraftforge.common.EnumPlantType.Nether;
-
-import java.util.Random;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -19,18 +14,19 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
 
-public class BlockWitherRose extends BlockFlowerBase {
+import java.util.Random;
+
+import static net.minecraftforge.common.EnumPlantType.Nether;
+
+public class BlockWitherRose extends BasicFlower {
 
 	public BlockWitherRose() {
-		setBlockName(Utils.getUnlocalisedName("wither_rose"));
-		setStepSound(soundTypeGrass);
-		setBlockTextureName("wither_rose");
+		setNames("wither_rose");
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
-	
+
 	@Override
-	public void onEntityCollidedWithBlock(World w, int x, int y, int z, Entity ent)
-	{
+	public void onEntityCollidedWithBlock(World w, int x, int y, int z, Entity ent) {
 		if (ent instanceof EntityLivingBase && w.difficultySetting != EnumDifficulty.PEACEFUL) {
 			((EntityLivingBase)ent).addPotionEffect(new PotionEffect(Potion.wither.id, 120));
 		}

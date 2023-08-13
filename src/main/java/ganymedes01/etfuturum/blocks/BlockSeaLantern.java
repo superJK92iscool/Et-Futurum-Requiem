@@ -1,26 +1,21 @@
 package ganymedes01.etfuturum.blocks;
 
-import java.util.Random;
-
-import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModItems;
-import ganymedes01.etfuturum.core.utils.Utils;
-import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 import net.minecraft.util.MathHelper;
 
-public class BlockSeaLantern extends Block {
+import java.util.Random;
+
+public class BlockSeaLantern extends BasicBlock {
 
 	public BlockSeaLantern() {
 		super(Material.glass);
 		setHardness(0.3F);
 		setLightLevel(1.0F);
 		setStepSound(soundTypeGlass);
-		setBlockTextureName("sea_lantern");
-		setBlockName(Utils.getUnlocalisedName("sea_lantern"));
-		setCreativeTab(EtFuturum.creativeTabBlocks);
+		setNames("sea_lantern");
 	}
 
 	@Override

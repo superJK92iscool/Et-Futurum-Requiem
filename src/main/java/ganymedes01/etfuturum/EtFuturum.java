@@ -1,29 +1,5 @@
 package ganymedes01.etfuturum;
 
-import java.io.File;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
-import ganymedes01.etfuturum.api.*;
-import ganymedes01.etfuturum.blocks.BlockSculk;
-import ganymedes01.etfuturum.blocks.BlockSculkCatalyst;
-import ganymedes01.etfuturum.client.DynamicLangSoundsResourcePack;
-import ganymedes01.etfuturum.compat.nei.IMCSenderGTNH;
-import ganymedes01.etfuturum.compat.CompatBaublesExpanded;
-import ganymedes01.etfuturum.compat.CompatCraftTweaker;
-import ganymedes01.etfuturum.compat.CompatThaumcraft;
-import ganymedes01.etfuturum.configuration.configs.ConfigModCompat;
-import ganymedes01.etfuturum.network.*;
-import ganymedes01.etfuturum.spectator.SpectatorMode;
-import net.minecraft.block.*;
-import org.apache.commons.lang3.ArrayUtils;
-
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -37,21 +13,32 @@ import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ganymedes01.etfuturum.compat.waila.WailaRegistrar;
+import ganymedes01.etfuturum.api.*;
+import ganymedes01.etfuturum.blocks.BlockSculk;
+import ganymedes01.etfuturum.blocks.BlockSculkCatalyst;
 import ganymedes01.etfuturum.client.BuiltInResourcePack;
+import ganymedes01.etfuturum.client.DynamicLangSoundsResourcePack;
 import ganymedes01.etfuturum.client.GrayscaleWaterResourcePack;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.command.CommandFill;
+import ganymedes01.etfuturum.compat.CompatBaublesExpanded;
+import ganymedes01.etfuturum.compat.CompatCraftTweaker;
+import ganymedes01.etfuturum.compat.CompatThaumcraft;
+import ganymedes01.etfuturum.compat.nei.IMCSenderGTNH;
+import ganymedes01.etfuturum.compat.waila.WailaRegistrar;
 import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
+import ganymedes01.etfuturum.configuration.configs.ConfigModCompat;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.proxy.CommonProxy;
 import ganymedes01.etfuturum.entities.ModEntityList;
 import ganymedes01.etfuturum.lib.Reference;
+import ganymedes01.etfuturum.network.*;
 import ganymedes01.etfuturum.potion.ModPotions;
 import ganymedes01.etfuturum.recipes.ModRecipes;
 import ganymedes01.etfuturum.recipes.SmithingTableRecipes;
+import ganymedes01.etfuturum.spectator.SpectatorMode;
 import ganymedes01.etfuturum.world.EtFuturumLateWorldGenerator;
 import ganymedes01.etfuturum.world.EtFuturumWorldGenerator;
 import ganymedes01.etfuturum.world.end.dimension.DimensionProviderEnd;
@@ -59,6 +46,7 @@ import ganymedes01.etfuturum.world.structure.OceanMonument;
 import makamys.mclib.core.MCLib;
 import makamys.mclib.ext.assetdirector.ADConfig;
 import makamys.mclib.ext.assetdirector.AssetDirectorAPI;
+import net.minecraft.block.*;
 import net.minecraft.block.Block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
@@ -76,7 +64,10 @@ import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.oredict.OreDictionary;
+import org.apache.commons.lang3.ArrayUtils;
 
+import java.io.File;
+import java.lang.reflect.Field;
 import java.util.*;
 
 @Mod(
@@ -160,16 +151,18 @@ public class EtFuturum {
 	public static final boolean hasBaubles = Loader.isModLoaded("Baubles");
 	public static final boolean hasBaublesExpanded = Loader.isModLoaded("Baubles|Expanded");
 	public static final boolean hasMineTweaker = Loader.isModLoaded("MineTweaker3");
+	public static final boolean hasTConstruct = Loader.isModLoaded("TConstruct");
+	public static final boolean hasNatura = Loader.isModLoaded("Natura");
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		try {
 			Field chestInfo = ChestGenHooks.class.getDeclaredField("chestInfo");
 			chestInfo.setAccessible(true);
-			if(!((HashMap<String, ChestGenHooks>)chestInfo.get(null)).containsKey(NETHER_FORTRESS)) {
+			if (!((HashMap<String, ChestGenHooks>) chestInfo.get(null)).containsKey(NETHER_FORTRESS)) {
 				fortressWeightedField = Class.forName("net.minecraft.world.gen.structure.StructureNetherBridgePieces$Piece").getDeclaredField("field_111019_a");
 				fortressWeightedField.setAccessible(true);
-				((HashMap<String, ChestGenHooks>)chestInfo.get(null)).put(NETHER_FORTRESS, new ChestGenHooks(NETHER_FORTRESS, (WeightedRandomChestContent[]) fortressWeightedField.get(null), 2, 5));
+				((HashMap<String, ChestGenHooks>) chestInfo.get(null)).put(NETHER_FORTRESS, new ChestGenHooks(NETHER_FORTRESS, (WeightedRandomChestContent[]) fortressWeightedField.get(null), 2, 5));
 			}
 		} catch (Exception e) {
 			System.out.println("Failed to get Nether fortress loot table:");

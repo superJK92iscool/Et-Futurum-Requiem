@@ -2,7 +2,6 @@ package ganymedes01.etfuturum.blocks;
 
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.material.Material;
 import net.minecraft.world.IBlockAccess;
@@ -16,7 +15,7 @@ public class BlockDeepslateBricks extends BasicSubtypesBlock implements IMultiSt
 		this.setBlockName(Utils.getUnlocalisedName("deepslate_bricks"));
 		this.setBlockTextureName("deepslate_bricks");
 		this.setCreativeTab(EtFuturum.creativeTabBlocks);
-		this.setStepSound(ConfigSounds.newBlockSounds ? ModSounds.soundDeepslateBricks : soundTypeStone);
+		setBlockSound(ModSounds.soundDeepslateBricks);
 	}
 
 	@Override
@@ -24,7 +23,7 @@ public class BlockDeepslateBricks extends BasicSubtypesBlock implements IMultiSt
 		if(meta == 2 || meta == 3) {
 			return ModSounds.soundDeepslateTiles;
 		}
-		return this.stepSound;
+		return null;
 	}
 
 	@Override

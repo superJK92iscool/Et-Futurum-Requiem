@@ -24,7 +24,7 @@ public class BlockDeepslateSlab extends BasicSlab implements IMultiStepSound {
 	public SoundType getStepSound(IBlockAccess world, int x, int y, int z, int meta) {
 		if(brick && (meta % 8) == 1)
 			return ModSounds.soundDeepslateTiles;
-		return this.stepSound;
+		return null;
 	}
 
 	@Override

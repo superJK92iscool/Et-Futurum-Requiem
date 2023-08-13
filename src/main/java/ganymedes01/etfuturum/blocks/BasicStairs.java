@@ -1,8 +1,6 @@
 package ganymedes01.etfuturum.blocks;
 
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockStairs;
@@ -29,10 +27,7 @@ public class BasicStairs extends BlockStairs {
 	}
 
 	public BasicStairs setBlockSound(SoundType type) {
-		if (type instanceof ModSounds.CustomSound) {
-			setStepSound(ConfigSounds.newBlockSounds ? type : ((ModSounds.CustomSound) type).getDisabledSound());
-		}
-		setStepSound(type);
+		Utils.setBlockSound(this, type);
 		return this;
 	}
 }

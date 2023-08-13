@@ -1,13 +1,9 @@
 package ganymedes01.etfuturum.blocks;
 
-import java.util.ArrayList;
-import java.util.Random;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.BlockBush;
@@ -27,6 +23,9 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 public class BlockBerryBush extends BlockBush implements IGrowable {
 
 	@SideOnly(Side.CLIENT)
@@ -34,7 +33,7 @@ public class BlockBerryBush extends BlockBush implements IGrowable {
 	
 	public BlockBerryBush() {
 		super(Material.vine);
-		setStepSound(ConfigSounds.newBlockSounds ? ModSounds.soundBerryBush : soundTypeGrass);
+		Utils.setBlockSound(this, ModSounds.soundBerryBush);
 		setBlockName(Utils.getUnlocalisedName("sweet_berry_bush"));
 		setBlockTextureName("sweet_berry_bush");
 		setCreativeTab(null);

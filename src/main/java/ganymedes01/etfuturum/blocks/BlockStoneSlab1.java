@@ -2,7 +2,6 @@ package ganymedes01.etfuturum.blocks;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -15,9 +14,7 @@ public class BlockStoneSlab1 extends BasicSlab {
 		super(p_i45410_1_, Material.rock, "stone", "mossy_cobblestone", "mossy_stone_brick", "cut_sandstone");
 		setHardness(2F);
 		setResistance(6F);
-		setStepSound(soundTypePiston);
 		setBlockName(Utils.getUnlocalisedName("stone_slab"));
-		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
 	@Override

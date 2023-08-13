@@ -2,11 +2,8 @@ package ganymedes01.etfuturum.blocks;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.RenderIDs;
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.AxisAlignedBB;
@@ -16,17 +13,15 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-public class BlockSlime extends Block {
+public class BlockSlime extends BasicBlock {
 
 	private static final Map<Entity, ImmutablePair<Double, Integer>> SLIME_BOUNCE_CACHE = new WeakHashMap<>();
 
 	public BlockSlime() {
 		super(Material.clay);
 		setHardness(0.0F);
-		setBlockTextureName("slime");
-		setStepSound(ModSounds.soundSlime);
-		setBlockName(Utils.getUnlocalisedName("slime"));
-		setCreativeTab(EtFuturum.creativeTabBlocks);
+		setNames("slime");
+		setBlockSound(ModSounds.soundSlime);
 	}
 
 	@Override

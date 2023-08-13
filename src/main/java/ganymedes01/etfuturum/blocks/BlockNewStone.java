@@ -1,7 +1,6 @@
 package ganymedes01.etfuturum.blocks;
 
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
@@ -13,9 +12,7 @@ public class BlockNewStone extends BasicSubtypesBlock {
 		super(Material.rock, 1, "", "granite", "polished_granite", "diorite", "polished_diorite", "andesite", "polished_andesite");
 		setHardness(1.5F);
 		setResistance(6.0F);
-		setBlockTextureName("stone");
-		setStepSound(soundTypePiston);
-		setBlockName(Utils.getUnlocalisedName("stone"));
+		setNames("stone");
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 

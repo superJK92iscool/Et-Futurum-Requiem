@@ -2,6 +2,7 @@ package ganymedes01.etfuturum.mixins.blockfallingparticles;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.client.particle.ParticleHandler;
 import net.minecraft.block.Block;
@@ -31,7 +32,18 @@ public abstract class MixinBlockFalling extends Block {
 	private Map<Block, MapColor> etfuturum$getColorOverrides() {
 		if (COLOR_OVERRIDES.isEmpty()) {
 			COLOR_OVERRIDES.put(Blocks.gravel, MapColor.stoneColor);
-			COLOR_OVERRIDES.put(ModBlocks.OLD_GRAVEL.get(), MapColor.stoneColor);
+			if (ModBlocks.OLD_GRAVEL.isEnabled()) {
+				COLOR_OVERRIDES.put(ModBlocks.OLD_GRAVEL.get(), MapColor.stoneColor);
+			}
+			if (EtFuturum.hasTConstruct) {
+				COLOR_OVERRIDES.put(Block.getBlockFromName("TConstruct:GravelOre"), MapColor.stoneColor);
+			}
+			if (EtFuturum.hasNatura) {
+				COLOR_OVERRIDES.put(Block.getBlockFromName("Natura:heatsand"), MapColor.adobeColor);
+			}
+			if (EtFuturum.hasNetherlicious) {
+				COLOR_OVERRIDES.put(Block.getBlockFromName("netherlicious:Nether_Gravel"), MapColor.blackColor);
+			}
 		}
 		return COLOR_OVERRIDES;
 	}

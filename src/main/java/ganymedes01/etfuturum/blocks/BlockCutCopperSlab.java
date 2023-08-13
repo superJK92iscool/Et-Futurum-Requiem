@@ -3,7 +3,6 @@ package ganymedes01.etfuturum.blocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -24,7 +23,7 @@ public class BlockCutCopperSlab extends BasicSlab implements IDegradable {
 		setHarvestLevel("pickaxe", 1);
 		setBlockName(Utils.getUnlocalisedName("cut_copper_slab"));
 		setBlockTextureName("cut_copper");
-		setStepSound(ConfigSounds.newBlockSounds ? ModSounds.soundCopper : Block.soundTypeMetal);
+		setBlockSound(ModSounds.soundCopper);
 		setTickRandomly(true);
 	}
 	

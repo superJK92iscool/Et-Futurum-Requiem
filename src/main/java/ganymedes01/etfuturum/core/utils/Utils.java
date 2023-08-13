@@ -1,25 +1,24 @@
 package ganymedes01.etfuturum.core.utils;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
-
 import cpw.mods.fml.common.Loader;
+import ganymedes01.etfuturum.client.sound.ModSounds;
+import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.lib.Reference;
+import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.*;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.UUID;
 
 public class Utils {
 
@@ -347,8 +346,15 @@ public class Utils {
 		x *= 1.5D - d * x * x;
 		return x;
 	}
-	
+
 	public static <T> T getRandom(List<T> list, Random rand) {
 		return list.get(rand.nextInt(list.size()));
+	}
+
+	public static void setBlockSound(Block block, Block.SoundType type) {
+		if (type instanceof ModSounds.CustomSound) {
+			block.setStepSound(ConfigSounds.newBlockSounds ? type : ((ModSounds.CustomSound) type).getDisabledSound());
+		}
+		block.setStepSound(type);
 	}
 }

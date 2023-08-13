@@ -1,11 +1,7 @@
 package ganymedes01.etfuturum.blocks;
 
-import java.util.Random;
-
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
@@ -15,12 +11,13 @@ import net.minecraft.item.Item;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
+import java.util.Random;
+
 public class BlockBuddingAmethyst extends BlockAmethystBlock {
 	
 	public BlockBuddingAmethyst() {
 		setHardness(1.5F);
 		setResistance(1.5F);
-		setStepSound(ConfigSounds.newBlockSounds ? ModSounds.soundAmethystBlock : soundTypeGlass);
 		setBlockTextureName("budding_amethyst");
 		setBlockName(Utils.getUnlocalisedName("budding_amethyst"));
 		setCreativeTab(EtFuturum.creativeTabBlocks);
