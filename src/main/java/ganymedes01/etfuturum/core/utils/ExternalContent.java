@@ -2,18 +2,40 @@ package ganymedes01.etfuturum.core.utils;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
-import net.minecraft.item.Item;
 
-import javax.naming.ldap.ExtendedRequest;
 import java.util.function.Supplier;
 
 public class ExternalContent {
 
-	public static final Block enderlicious_end_rock = GameRegistry.findBlock("enderlicious", "EndRock");
-	public static final Block hee_end_stone = GameRegistry.findBlock("HardcoreEnderExpansion", "end_stone_terrain");
+	public enum Blocks {
 
-	public static final Block enderlicious_sand = GameRegistry.findBlock("enderlicious", "EndSand");
-	
-	public static final Block netherlicious_basalt_bricks = GameRegistry.findBlock("netherlicious", "BasaltBricks");
+		TCON_GRAVEL_ORE(() -> GameRegistry.findBlock("TConstruct", "GravelOre")),
+
+		NATURA_HEAT_SAND(() -> GameRegistry.findBlock("Natura", "heatsand")),
+
+		NETHERLICIOUS_NETHER_GRAVEL(() -> GameRegistry.findBlock("netherlicious", "Nether_Gravel")),
+
+		ENDERLICIOUS_END_ROCK(() -> GameRegistry.findBlock("enderlicious", "EndRock")),
+		ENDERLICIOUS_SAND(() -> GameRegistry.findBlock("enderlicious", "EndSand")),
+
+		HEE_END_STONE(() -> GameRegistry.findBlock("HardcoreEnderExpansion", "end_stone_terrain"));
+
+		private Block block;
+		private final Supplier<Block> blockSupplier;
+
+		Blocks(Supplier<Block> blockSupplier) {
+			this.blockSupplier = blockSupplier;
+		}
+
+		public Block get() {
+			if (block == null) {
+				block = blockSupplier.get();
+			}
+			return block;
+		}
+	}
+//	public enum Items {
+//
+//	}
 
 }

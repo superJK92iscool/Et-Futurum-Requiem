@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.blocks;
 
-import java.util.Random;
-
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
@@ -18,6 +16,8 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+
+import java.util.Random;
 
 public class BlockChorusPlant extends Block {
 
@@ -125,7 +125,7 @@ public class BlockChorusPlant extends Block {
 	}
 	
 	public static boolean canPlaceOn(Block block) {
-		return block == Blocks.end_stone || block == ExternalContent.enderlicious_end_rock || block == ExternalContent.hee_end_stone;
+		return block == Blocks.end_stone || block == ExternalContent.Blocks.ENDERLICIOUS_END_ROCK.get() || block == ExternalContent.Blocks.HEE_END_STONE.get();
 	}
 
 	@Override

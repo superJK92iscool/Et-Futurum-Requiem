@@ -1153,11 +1153,11 @@ public class ServerEventHandler {
 					byte color = -1;
 					int meta = world.getBlockMetadata(x + facing.getFrontOffsetX(), y + facing.getFrontOffsetY(), z + facing.getFrontOffsetZ());
 
-					if(facing == EnumFacing.DOWN && block == ExternalContent.hee_end_stone) {
+					if (facing == EnumFacing.DOWN && block == ExternalContent.Blocks.HEE_END_STONE.get()) {
 						color = (byte) (meta == 2 ? 10 : meta == 1 ? 1 : 14);
-					} else if (block == ExternalContent.enderlicious_sand) {
+					} else if (block == ExternalContent.Blocks.ENDERLICIOUS_SAND.get()) {
 						color = (byte) (meta == 1 ? 15 : 0);
-					} else if (block == ExternalContent.enderlicious_end_rock) {
+					} else if (block == ExternalContent.Blocks.HEE_END_STONE.get()) {
 						color = (byte) (meta % 4 == 1 ? 13 : -1);
 					}
 
