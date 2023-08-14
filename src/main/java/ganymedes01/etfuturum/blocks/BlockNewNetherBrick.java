@@ -6,7 +6,7 @@ import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.material.Material;
 
-public class BlockNewNetherBrick extends BasicSubtypesBlock {
+public class BlockNewNetherBrick extends BaseSubtypesBlock {
 
 	public BlockNewNetherBrick() {
 		super(Material.rock, "red_nether_bricks", "cracked_nether_bricks", "chiseled_nether_bricks");

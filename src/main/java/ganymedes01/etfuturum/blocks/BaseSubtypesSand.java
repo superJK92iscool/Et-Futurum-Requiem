@@ -17,30 +17,30 @@ import net.minecraft.world.World;
 import java.util.List;
 import java.util.Random;
 
-public class BasicSubtypesSand extends BlockFalling implements ISubBlocksBlock {
+public class BaseSubtypesSand extends BlockFalling implements ISubBlocksBlock {
 	@SideOnly(Side.CLIENT)
 	private IIcon[] icons;
 	private final String[] types;
 
 	private final int startMeta;
 
-	public BasicSubtypesSand(Material material, String... types) {
+	public BaseSubtypesSand(Material material, String... types) {
 		this(material, 0, types);
 	}
 
-	public BasicSubtypesSand(Material material, int startMeta, String... types) {
+	public BaseSubtypesSand(Material material, int startMeta, String... types) {
 		super(material);
 		this.startMeta = startMeta;
 		this.types = types;
 		this.setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
-	public BasicSubtypesSand setUnlocalizedNameWithPrefix(String name) {
+	public BaseSubtypesSand setUnlocalizedNameWithPrefix(String name) {
 		setBlockName(Utils.getUnlocalisedName(name));
 		return this;
 	}
 
-	public BasicSubtypesSand setNames(String name) {
+	public BaseSubtypesSand setNames(String name) {
 		setUnlocalizedNameWithPrefix(name);
 		setBlockTextureName(name);
 		return this;

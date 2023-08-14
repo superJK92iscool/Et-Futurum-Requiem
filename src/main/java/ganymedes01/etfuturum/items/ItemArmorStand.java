@@ -1,12 +1,9 @@
 package ganymedes01.etfuturum.items;
 
-import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.entities.EntityArmourStand;
 import ganymedes01.etfuturum.entities.Rotations;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
@@ -18,13 +15,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-public class ItemArmorStand extends Item {
+public class ItemArmorStand extends BaseItem {
 
 	public ItemArmorStand() {
+		super("armor_stand");
 		setMaxStackSize(16);
-		setTextureName("armor_stand");
-		setUnlocalizedName(Utils.getUnlocalisedName("armor_stand"));
-		setCreativeTab(EtFuturum.creativeTabItems);
 	}
 
 	@Override

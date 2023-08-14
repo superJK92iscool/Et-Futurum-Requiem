@@ -5,11 +5,11 @@ import baubles.api.expanded.BaubleItemHelper;
 import baubles.api.expanded.IBaubleExpanded;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ganymedes01.etfuturum.compat.CompatBaublesExpanded;
 import ganymedes01.etfuturum.EtFuturum;
+import ganymedes01.etfuturum.compat.CompatBaublesExpanded;
 import ganymedes01.etfuturum.configuration.configs.ConfigModCompat;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
-import ganymedes01.etfuturum.core.utils.Utils;
+import ganymedes01.etfuturum.items.BaseItem;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -17,24 +17,21 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
 import java.util.List;
 
-public class ItemArmorElytra extends Item implements IBaubleExpanded {
+public class ItemArmorElytra extends BaseItem implements IBaubleExpanded {
 
 	@SideOnly(Side.CLIENT)
 	private IIcon broken;
 
 	public ItemArmorElytra() {
+		super("elytra");
 		setMaxStackSize(1);
 		setMaxDamage(432);
-		setTextureName("elytra");
-		setCreativeTab(EtFuturum.creativeTabItems);
-		setUnlocalizedName(Utils.getUnlocalisedName("elytra"));
 		BlockDispenser.dispenseBehaviorRegistry.putObject(this, BlockDispenser.dispenseBehaviorRegistry.getObject(Items.iron_chestplate));
 	}
 

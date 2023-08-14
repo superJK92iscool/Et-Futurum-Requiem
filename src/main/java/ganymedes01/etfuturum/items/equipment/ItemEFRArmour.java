@@ -6,7 +6,7 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.items.ItemUninflammable;
+import ganymedes01.etfuturum.items.BaseUninflammableItem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -57,7 +57,7 @@ public class ItemEFRArmour extends ItemArmor implements ISpecialArmor {
 	{
 		if(!getUnlocalizedName().contains("netherite"))
 			return null;
-		return ItemUninflammable.createUninflammableItem(world, location);
+		return BaseUninflammableItem.createUninflammableItem(world, location);
 	}
 
 	@Override

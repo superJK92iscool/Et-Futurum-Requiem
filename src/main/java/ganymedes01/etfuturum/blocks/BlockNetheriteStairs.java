@@ -6,7 +6,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class BlockNetheriteStairs extends BasicStairs {
+public class BlockNetheriteStairs extends BaseStairs {
 
 	public BlockNetheriteStairs() {
 		super(ModBlocks.NETHERITE_BLOCK.get(), 0);

@@ -16,7 +16,7 @@ import net.minecraft.world.World;
 
 import java.util.Random;
 
-public class BlockSculkCatalyst extends BasicBlock {
+public class BlockSculkCatalyst extends BaseBlock {
 	private IIcon topIcon, bottomIcon, sideBloomIcon, topBloomIcon;
 
 	public BlockSculkCatalyst() {

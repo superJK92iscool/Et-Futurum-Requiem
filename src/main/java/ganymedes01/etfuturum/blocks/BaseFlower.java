@@ -12,20 +12,20 @@ import net.minecraft.util.IIcon;
 
 import java.util.List;
 
-public class BasicFlower extends BlockFlower {
+public class BaseFlower extends BlockFlower {
 
-	public BasicFlower() {
+	public BaseFlower() {
 		super(1);
 		setHardness(0.0F);
 		setStepSound(soundTypeGrass);
 	}
 
-	public BasicFlower setUnlocalizedNameWithPrefix(String name) {
+	public BaseFlower setUnlocalizedNameWithPrefix(String name) {
 		setBlockName(Utils.getUnlocalisedName(name));
 		return this;
 	}
 
-	public BasicFlower setNames(String name) {
+	public BaseFlower setNames(String name) {
 		setUnlocalizedNameWithPrefix(name);
 		setBlockTextureName(name);
 		return this;

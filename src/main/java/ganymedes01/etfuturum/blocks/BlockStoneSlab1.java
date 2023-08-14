@@ -8,7 +8,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.IIcon;
 
-public class BlockStoneSlab1 extends BasicSlab {
+public class BlockStoneSlab1 extends BaseSlab {
 
 	public BlockStoneSlab1(boolean p_i45410_1_) {
 		super(p_i45410_1_, Material.rock, "stone", "mossy_cobblestone", "mossy_stone_brick", "cut_sandstone");

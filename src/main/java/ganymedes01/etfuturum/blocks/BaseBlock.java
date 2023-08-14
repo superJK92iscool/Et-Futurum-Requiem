@@ -10,44 +10,44 @@ import net.minecraft.block.material.Material;
  * Because the standard block constructor is protected...
  * I also provide some extra helper functions and stuff :3
  */
-public class BasicBlock extends Block {
+public class BaseBlock extends Block {
 
 	private Block mapColorBase;
 
-	public BasicBlock(Material p_i45394_1_) {
+	public BaseBlock(Material p_i45394_1_) {
 		super(p_i45394_1_);
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
-	public BasicBlock setUnlocalizedNameWithPrefix(String name) {
+	public BaseBlock setUnlocalizedNameWithPrefix(String name) {
 		setBlockName(Utils.getUnlocalisedName(name));
 		return this;
 	}
 
-	public BasicBlock setNames(String name) {
+	public BaseBlock setNames(String name) {
 		setUnlocalizedNameWithPrefix(name);
 		setBlockTextureName(name);
 		return this;
 	}
 
-	public BasicBlock setToolClass(String toolClass, int level) {
+	public BaseBlock setToolClass(String toolClass, int level) {
 		for (int m = 0; m < 16; m++) {
 			setHarvestLevel(toolClass, level, m);
 		}
 		return this;
 	}
 
-	public BasicBlock setToolClass(String toolClass, int level, int meta) {
+	public BaseBlock setToolClass(String toolClass, int level, int meta) {
 		setHarvestLevel(toolClass, level, meta);
 		return this;
 	}
 
-	public BasicBlock setBlockSound(SoundType type) {
+	public BaseBlock setBlockSound(SoundType type) {
 		Utils.setBlockSound(this, type);
 		return this;
 	}
 
-	public BasicBlock setMapColorBaseBlock(Block block) {
+	public BaseBlock setMapColorBaseBlock(Block block) {
 		mapColorBase = block;
 		return this;
 	}

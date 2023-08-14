@@ -7,7 +7,7 @@ import net.minecraft.world.World;
 
 import java.util.Random;
 
-public class BlockCutCopperStairs extends BasicStairs implements IDegradable {
+public class BlockCutCopperStairs extends BaseStairs implements IDegradable {
 
 	public BlockCutCopperStairs(int p_i45428_2_) {
 		super(ModBlocks.COPPER_BLOCK.get(), p_i45428_2_);

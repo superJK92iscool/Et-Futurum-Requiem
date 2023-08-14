@@ -8,7 +8,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
 
-public class BlockSmoothSandstoneSlab extends BasicSlab {
+public class BlockSmoothSandstoneSlab extends BaseSlab {
 
 	private final int meta;
 

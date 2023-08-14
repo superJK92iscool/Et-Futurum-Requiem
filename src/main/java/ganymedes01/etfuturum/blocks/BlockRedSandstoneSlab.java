@@ -8,7 +8,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
 
-public class BlockRedSandstoneSlab extends BasicSlab {
+public class BlockRedSandstoneSlab extends BaseSlab {
 
 	public BlockRedSandstoneSlab(boolean isDouble) {
 		super(isDouble, Material.rock, "red_sandstone", "cut_red_sandstone");

@@ -1,7 +1,7 @@
 package ganymedes01.etfuturum.blocks.itemblocks;
 
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
-import ganymedes01.etfuturum.items.ItemUninflammable;
+import ganymedes01.etfuturum.items.BaseUninflammableItem;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemBlock;
@@ -21,7 +21,7 @@ public class ItemBlockUninflammable extends ItemBlock {
 
 	@Override
 	public Entity createEntity(World world, Entity location, ItemStack itemstack) {
-		return ItemUninflammable.createUninflammableItem(world, location);
+		return BaseUninflammableItem.createUninflammableItem(world, location);
 	}
 
 }

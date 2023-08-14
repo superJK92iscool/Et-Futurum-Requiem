@@ -7,7 +7,7 @@ import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigModCompat;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.items.ItemGeneric;
+import ganymedes01.etfuturum.items.BaseSubtypesItem;
 import ganymedes01.etfuturum.lib.GUIsID;
 import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox;
 import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox.ShulkerBoxType;
@@ -138,7 +138,7 @@ public class BlockShulkerBox extends BlockContainer {
 
 			if(!player.isSneaking() && player.getHeldItem() != null && player.getHeldItem().getItem() == ModItems.SHULKER_BOX_UPGRADE.get()) {
 				ItemStack stack = player.getHeldItem();
-				String[] upgrades = ((ItemGeneric)player.getHeldItem().getItem()).types[stack.getItemDamage()].split("_");
+				String[] upgrades = ((BaseSubtypesItem) player.getHeldItem().getItem()).types[stack.getItemDamage()].split("_");
 				if(upgrades[0].equals(shulker.type.toString().toLowerCase())) {
 					ItemStack[] tempCopy = shulker.chestContents == null ? new ItemStack[shulker.getSizeInventory()] : ArrayUtils.clone(shulker.chestContents);
 					shulker.type = ShulkerBoxType.valueOf(upgrades[1].toUpperCase());

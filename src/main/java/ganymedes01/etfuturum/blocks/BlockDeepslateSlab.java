@@ -6,7 +6,7 @@ import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.material.Material;
 import net.minecraft.world.IBlockAccess;
 
-public class BlockDeepslateSlab extends BasicSlab implements IMultiStepSound {
+public class BlockDeepslateSlab extends BaseSlab implements IMultiStepSound {
 
 	private final boolean brick;
 

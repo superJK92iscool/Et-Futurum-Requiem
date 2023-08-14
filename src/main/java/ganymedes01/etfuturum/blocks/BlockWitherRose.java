@@ -18,7 +18,7 @@ import java.util.Random;
 
 import static net.minecraftforge.common.EnumPlantType.Nether;
 
-public class BlockWitherRose extends BasicFlower {
+public class BlockWitherRose extends BaseFlower {
 
 	public BlockWitherRose() {
 		setNames("wither_rose");
@@ -28,7 +28,7 @@ public class BlockWitherRose extends BasicFlower {
 	@Override
 	public void onEntityCollidedWithBlock(World w, int x, int y, int z, Entity ent) {
 		if (ent instanceof EntityLivingBase && w.difficultySetting != EnumDifficulty.PEACEFUL) {
-			((EntityLivingBase)ent).addPotionEffect(new PotionEffect(Potion.wither.id, 120));
+			((EntityLivingBase) ent).addPotionEffect(new PotionEffect(Potion.wither.id, 120));
 		}
 	}
 	

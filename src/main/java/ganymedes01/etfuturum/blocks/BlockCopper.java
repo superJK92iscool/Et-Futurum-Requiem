@@ -15,7 +15,7 @@ import net.minecraft.world.World;
 
 import java.util.Random;
 
-public class BlockCopper extends BasicSubtypesBlock implements IDegradable {
+public class BlockCopper extends BaseSubtypesBlock implements IDegradable {
 
 	public BlockCopper() {
 		super(Material.iron, "copper_block", "exposed_copper", "weathered_copper", "oxidized_copper", "cut_copper", "exposed_cut_copper", "weathered_cut_copper",

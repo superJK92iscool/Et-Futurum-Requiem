@@ -11,17 +11,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityFlowerPot;
 import net.minecraft.world.World;
 
-public class ItemBlockFlower extends ItemBlock {
+public class BaseFlowerItemBlock extends ItemBlock {
 
-	public ItemBlockFlower(Block p_i45328_1_) {
+	public BaseFlowerItemBlock(Block p_i45328_1_) {
 		super(p_i45328_1_);
 	}
 
 	@Override
-	public boolean onItemUse(ItemStack heldStack, EntityPlayer entityPlayer, World world, int x, int y, int z, int p_77648_7_, float p_77648_8_, float p_77648_9_, float p_77648_10_)
-	{
-		if(this.canPlacePot(heldStack, entityPlayer, world, x, y, z)) {
-			if(!entityPlayer.isSwingInProgress)
+	public boolean onItemUse(ItemStack heldStack, EntityPlayer entityPlayer, World world, int x, int y, int z, int p_77648_7_, float p_77648_8_, float p_77648_9_, float p_77648_10_) {
+		if (this.canPlacePot(heldStack, entityPlayer, world, x, y, z)) {
+			if (!entityPlayer.isSwingInProgress)
 				entityPlayer.swingItem();
 			return true;
 		}

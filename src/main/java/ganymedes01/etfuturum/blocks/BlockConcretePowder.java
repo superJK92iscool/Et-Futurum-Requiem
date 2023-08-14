@@ -12,7 +12,7 @@ import net.minecraft.entity.item.EntityFallingBlock;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class BlockConcretePowder extends BasicSubtypesSand {
+public class BlockConcretePowder extends BaseSubtypesSand {
 
 	public BlockConcretePowder() {
 		super(Material.sand, "white_concrete_powder", "orange_concrete_powder", "magenta_concrete_powder", "light_blue_concrete_powder", "yellow_concrete_powder",

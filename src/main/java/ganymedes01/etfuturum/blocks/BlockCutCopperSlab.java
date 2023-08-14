@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 
 import java.util.Random;
 
-public class BlockCutCopperSlab extends BasicSlab implements IDegradable {
+public class BlockCutCopperSlab extends BaseSlab implements IDegradable {
 
 	public BlockCutCopperSlab(boolean p_i45410_1_) {
 		super(p_i45410_1_, Material.iron, "cut_copper", "exposed_cut_copper", "weathered_cut_copper", "oxidized_cut_copper", "waxed_cut_copper", "waxed_exposed_cut_copper",

@@ -13,7 +13,7 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-public class BlockSlime extends BasicBlock {
+public class BlockSlime extends BaseBlock {
 
 	private static final Map<Entity, ImmutablePair<Double, Integer>> SLIME_BOUNCE_CACHE = new WeakHashMap<>();
 

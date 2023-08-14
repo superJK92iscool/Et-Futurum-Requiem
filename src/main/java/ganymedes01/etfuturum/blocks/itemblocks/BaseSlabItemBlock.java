@@ -1,17 +1,17 @@
 package ganymedes01.etfuturum.blocks.itemblocks;
 
-import ganymedes01.etfuturum.blocks.BasicSlab;
+import ganymedes01.etfuturum.blocks.BaseSlab;
 import ganymedes01.etfuturum.blocks.ISubBlocksBlock;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemSlab;
 import net.minecraft.item.ItemStack;
 
-public class ItemBlockGenericSlab extends ItemSlab {
+public class BaseSlabItemBlock extends ItemSlab {
 
-	public ItemBlockGenericSlab(Block block) {
-		super(block, ((BasicSlab) block).getSingleSlab(), ((BasicSlab) block).getDoubleSlab(), block == ((BasicSlab) block).getDoubleSlab());
-		this.setHasSubtypes(true);
+	public BaseSlabItemBlock(Block block) {
+		super(block, ((BaseSlab) block).getSingleSlab(), ((BaseSlab) block).getDoubleSlab(), block == ((BaseSlab) block).getDoubleSlab());
+		this.setHasSubtypes(((ISubBlocksBlock) field_150939_a).getTypes().length > 1);
 	}
 
 	@Override

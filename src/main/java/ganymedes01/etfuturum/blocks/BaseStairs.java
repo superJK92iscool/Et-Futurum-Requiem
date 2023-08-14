@@ -5,11 +5,11 @@ import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockStairs;
 
-public class BasicStairs extends BlockStairs {
+public class BaseStairs extends BlockStairs {
 
 	protected final int meta;
 
-	public BasicStairs(Block p_i45428_1_, int p_i45428_2_) {
+	public BaseStairs(Block p_i45428_1_, int p_i45428_2_) {
 		super(p_i45428_1_, p_i45428_2_);
 		useNeighborBrightness = true;
 		meta = p_i45428_2_;
@@ -21,12 +21,12 @@ public class BasicStairs extends BlockStairs {
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
-	public BasicStairs setUnlocalizedNameWithPrefix(String name) {
+	public BaseStairs setUnlocalizedNameWithPrefix(String name) {
 		setBlockName(Utils.getUnlocalisedName(name) + "_stairs");
 		return this;
 	}
 
-	public BasicStairs setBlockSound(SoundType type) {
+	public BaseStairs setBlockSound(SoundType type) {
 		Utils.setBlockSound(this, type);
 		return this;
 	}

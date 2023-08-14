@@ -8,7 +8,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
 
-public class BlockSmoothQuartzSlab extends BasicSlab {
+public class BlockSmoothQuartzSlab extends BaseSlab {
 
 	public BlockSmoothQuartzSlab(boolean p_i45410_1_) {
 		super(p_i45410_1_, Material.rock, "smooth_quartz");

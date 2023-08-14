@@ -17,7 +17,7 @@ import net.minecraft.world.World;
 
 import java.util.Random;
 
-public class BlockTarget extends BasicBlock {
+public class BlockTarget extends BaseBlock {
 	@SideOnly(Side.CLIENT)
 	private IIcon topIcon;
 

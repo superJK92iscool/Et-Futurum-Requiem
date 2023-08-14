@@ -8,7 +8,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 
-public class BlockTuff extends BasicBlock {
+public class BlockTuff extends BaseBlock {
 
 	public BlockTuff() {
 		super(Material.rock);

@@ -11,7 +11,7 @@ import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 
-public class BlockPurpurSlab extends BasicSlab {
+public class BlockPurpurSlab extends BaseSlab {
 
 	public BlockPurpurSlab(boolean isDouble) {
 		super(isDouble, Material.rock, "purpur");

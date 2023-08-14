@@ -4,7 +4,7 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.items.ItemUninflammable;
+import ganymedes01.etfuturum.items.BaseUninflammableItem;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
@@ -37,6 +37,6 @@ public class ItemEFRPickaxe extends ItemPickaxe {
 	{
 		if(!getUnlocalizedName().contains("netherite"))
 			return null;
-		return ItemUninflammable.createUninflammableItem(world, location);
+		return BaseUninflammableItem.createUninflammableItem(world, location);
 	}
 }

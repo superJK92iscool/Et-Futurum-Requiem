@@ -18,7 +18,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Random;
 
-public class BlockSponge extends BasicSubtypesBlock {
+public class BlockSponge extends BaseSubtypesBlock {
 
 	public BlockSponge() {
 		super(Material.sponge, "sponge", "wet_sponge");

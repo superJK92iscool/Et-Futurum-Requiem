@@ -17,7 +17,7 @@ import java.util.Random;
 
 import static net.minecraftforge.common.util.ForgeDirection.UP;
 
-public class BlockMagma extends BasicBlock {
+public class BlockMagma extends BaseBlock {
 
 	public BlockMagma() {
 		super(Material.rock);

@@ -14,7 +14,7 @@ import net.minecraft.world.IBlockAccess;
 
 import java.util.Random;
 
-public class BlockSculk extends BasicBlock {
+public class BlockSculk extends BaseBlock {
 	public BlockSculk() {
 		super(Material.ground);
 		setNames("sculk");

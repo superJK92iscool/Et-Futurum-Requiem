@@ -1,16 +1,11 @@
 package ganymedes01.etfuturum.items;
 
-import java.util.List;
-
-import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.entities.EntityNewBoatWithChest;
 import ganymedes01.etfuturum.entities.EntityNewBoat;
+import ganymedes01.etfuturum.entities.EntityNewBoatWithChest;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
@@ -18,19 +13,18 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
-public class ItemNewBoat extends Item {
+import java.util.List;
+
+public class ItemNewBoat extends BaseItem {
 
 	private final EntityNewBoat.Type type;
 	private final boolean isChest;
-	
+
 	public ItemNewBoat(EntityNewBoat.Type type, boolean isChest) {
+		super(type.getName() + (isChest ? "_chest_boat" : "_boat"));
 		this.type = type;
 		this.isChest = isChest;
-		String suffix = isChest ? "_chest_boat" : "_boat";
 		setMaxStackSize(1);
-		setTextureName("minecraft:" + type.getName() + suffix);
-		setUnlocalizedName(Utils.getUnlocalisedName(type.getName() + suffix));
-		setCreativeTab(EtFuturum.creativeTabItems);
 	}
 
 	public ItemStack onItemRightClick(ItemStack p_77659_1_, World p_77659_2_, EntityPlayer p_77659_3_)

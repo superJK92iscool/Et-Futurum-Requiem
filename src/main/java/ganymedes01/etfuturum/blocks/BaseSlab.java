@@ -18,21 +18,21 @@ import net.minecraft.world.World;
 import java.util.List;
 import java.util.Random;
 
-public class BasicSlab extends BlockSlab implements ISubBlocksBlock {
+public class BaseSlab extends BlockSlab implements ISubBlocksBlock {
 
 	@SideOnly(Side.CLIENT)
 	private IIcon[] icons;
 	public final String[] types;
-	private final BasicSlab singleSlab;
-	private BasicSlab doubleSlab;
+	private final BaseSlab singleSlab;
+	private BaseSlab doubleSlab;
 	/**
 	 * Used to know the previous slab registered, so the slab knows what the double slab version is without passing it as a constructor argument every time
 	 * We store the previous slab we registered, so it can be passed to the double slab that registers after it.
 	 */
-	private static BasicSlab previousSlab;
+	private static BaseSlab previousSlab;
 	private Block mapColorBase;
 
-	public BasicSlab(boolean isDouble, Material material, String... names) {
+	public BaseSlab(boolean isDouble, Material material, String... names) {
 		super(isDouble, material);
 		if (names.length > 8) {
 			throw new IllegalArgumentException("Slabs can't have more than 8 subtypes! Tried to register a slab with " + names.length);
@@ -51,25 +51,25 @@ public class BasicSlab extends BlockSlab implements ISubBlocksBlock {
 		}
 	}
 
-	public BasicSlab setUnlocalizedNameWithPrefix(String name) {
+	public BaseSlab setUnlocalizedNameWithPrefix(String name) {
 		setBlockName(Utils.getUnlocalisedName(name));
 		return this;
 	}
 
-	public BasicSlab setNames(String name) {
+	public BaseSlab setNames(String name) {
 		setUnlocalizedNameWithPrefix(name);
 		setBlockTextureName(name);
 		return this;
 	}
 
-	public BasicSlab setToolClass(String toolClass, int level) {
+	public BaseSlab setToolClass(String toolClass, int level) {
 		for (int m = 0; m < 8; m++) {
 			setHarvestLevel(toolClass, level, m);
 		}
 		return this;
 	}
 
-	public BasicSlab setToolClass(String toolClass, int level, int meta) {
+	public BaseSlab setToolClass(String toolClass, int level, int meta) {
 		setHarvestLevel(toolClass, level, meta);
 		if (meta < 8) {
 			setHarvestLevel(toolClass, level, meta + 8);
@@ -77,12 +77,12 @@ public class BasicSlab extends BlockSlab implements ISubBlocksBlock {
 		return this;
 	}
 
-	public BasicSlab setMapColorBaseBlock(Block block) {
+	public BaseSlab setMapColorBaseBlock(Block block) {
 		mapColorBase = block;
 		return this;
 	}
 
-	public BasicSlab setBlockSound(SoundType type) {
+	public BaseSlab setBlockSound(SoundType type) {
 		Utils.setBlockSound(this, type);
 		return this;
 	}
@@ -92,11 +92,11 @@ public class BasicSlab extends BlockSlab implements ISubBlocksBlock {
 		return mapColorBase == null ? super.getMapColor(p_149728_1_ % 8) : mapColorBase.getMapColor(p_149728_1_ % 8);
 	}
 
-	public BasicSlab getDoubleSlab() {
+	public BaseSlab getDoubleSlab() {
 		return doubleSlab;
 	}
 
-	public BasicSlab getSingleSlab() {
+	public BaseSlab getSingleSlab() {
 		return singleSlab;
 	}
 

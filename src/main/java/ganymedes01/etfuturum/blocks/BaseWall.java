@@ -19,7 +19,7 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-public class BasicWall extends BlockWall implements IMultiStepSound {
+public class BaseWall extends BlockWall implements IMultiStepSound {
 
 	private final Block[] blocks;
 	private final int[] metas;
@@ -27,7 +27,7 @@ public class BasicWall extends BlockWall implements IMultiStepSound {
 
 	public int variations;
 
-	public BasicWall(String string, Block[] blocks, int[] metas, String[] names) {
+	public BaseWall(String string, Block[] blocks, int[] metas, String[] names) {
 		super(blocks[0]);
 		this.blocks = blocks;
 		this.metas = metas;
@@ -55,7 +55,7 @@ public class BasicWall extends BlockWall implements IMultiStepSound {
 	public boolean canConnectWallTo(IBlockAccess p_150091_1_, int p_150091_2_, int p_150091_3_, int p_150091_4_)
 	{
 		Block block = p_150091_1_.getBlock(p_150091_2_, p_150091_3_, p_150091_4_);
-		return block instanceof BlockFenceGate || block instanceof BasicWall || super.canConnectWallTo(p_150091_1_, p_150091_2_, p_150091_3_, p_150091_4_);
+		return block instanceof BlockFenceGate || block instanceof BaseWall || super.canConnectWallTo(p_150091_1_, p_150091_2_, p_150091_3_, p_150091_4_);
 	}
 	
 	public float getBlockHardness(World p_149712_1_, int p_149712_2_, int p_149712_3_, int p_149712_4_)

@@ -1,26 +1,21 @@
 package ganymedes01.etfuturum.items;
 
-import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.EnderTeleportEvent;
 
-public class ItemChorusFruit extends ItemFood {
+public class ItemChorusFruit extends BaseFood {
 
 	public ItemChorusFruit() {
 		super(4, 0.3F, false);
 		setAlwaysEdible();
-		setTextureName("chorus_fruit");
-		setUnlocalizedName(Utils.getUnlocalisedName("chorus_fruit"));
-		setCreativeTab(EtFuturum.creativeTabItems);
+		setNames("chorus_fruit");
 	}
 
 	@Override

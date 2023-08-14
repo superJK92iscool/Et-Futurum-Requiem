@@ -12,18 +12,18 @@ import net.minecraft.util.IIcon;
 
 import java.util.List;
 
-public class BasicSubtypesBlock extends BasicBlock implements ISubBlocksBlock {
+public class BaseSubtypesBlock extends BaseBlock implements ISubBlocksBlock {
 	@SideOnly(Side.CLIENT)
 	private IIcon[] icons;
 	private final String[] types;
 
 	private final int startMeta;
 
-	public BasicSubtypesBlock(Material material, String... types) {
+	public BaseSubtypesBlock(Material material, String... types) {
 		this(material, 0, types);
 	}
 
-	public BasicSubtypesBlock(Material material, int startMeta, String... types) {
+	public BaseSubtypesBlock(Material material, int startMeta, String... types) {
 		super(material);
 		this.startMeta = startMeta;
 		this.types = types;

@@ -1,46 +1,33 @@
 package ganymedes01.etfuturum.items;
 
-import java.util.List;
-
-import org.apache.commons.lang3.StringUtils;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
+import org.apache.commons.lang3.StringUtils;
 
-public class ItemRawOre extends ItemGeneric {
-	
-	private boolean modded;
+import java.util.List;
 
-	public ItemRawOre(boolean mod) {
-		super(mod ? new String[] {"tin", "aluminum", "lead", "silver"} : new String[] {"copper", "iron", "gold"});
-		modded = mod;
-		setUnlocalizedName(Utils.getUnlocalisedName((mod ? "modded_" : "") + "raw_ore"));
-		setTextureName("raw");
-		setCreativeTab(EtFuturum.creativeTabItems);
-	}
+/**
+ * Raw ore class that doesn't add the raw ores to the Creative menu if there would be no ore for them to base off of.
+ * Currently unused.
+ */
+public class ItemRawOre extends BaseSubtypesItem {
 
-	@Override
-	public String getUnlocalizedName(ItemStack stack) {
-		return getUnlocalizedName().replace("_ore", "") + "_" + types[Math.max(Math.min(stack.getItemDamage(), types.length - 1), 0)];
+	public ItemRawOre() {
+		super("raw_tin", "raw_aluminum", "raw_lead", "raw_silver");
+		setNames("modded_raw_ore");
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({"rawtypes", "unchecked"})
 	public void getSubItems(Item item, CreativeTabs tabs, List list) {
-		if(modded) {
-			super.getSubItems(item, tabs, list);
-		} else {
-			for (int i = 0; i < types.length; i++) {
-				if(!OreDictionary.getOres("ingot" + StringUtils.capitalize(types[i])).isEmpty()) {
-					list.add(new ItemStack(item, 1, i));
-				}
+		for (int i = 0; i < types.length; i++) {
+			if (!OreDictionary.getOres("ingot" + StringUtils.capitalize(types[i].replaceFirst("^raw_", ""))).isEmpty()) {
+				list.add(new ItemStack(item, 1, i));
 			}
 		}
 	}
