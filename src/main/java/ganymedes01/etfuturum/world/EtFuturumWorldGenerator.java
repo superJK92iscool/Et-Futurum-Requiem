@@ -17,13 +17,13 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.IChunkProvider;
-import net.minecraft.world.gen.feature.WorldGenFlowers;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import org.apache.commons.lang3.ArrayUtils;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -33,7 +33,6 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 	public static final EtFuturumWorldGenerator INSTANCE = new EtFuturumWorldGenerator();
 
 	protected final List<WorldGenMinable> stoneGen = new LinkedList<WorldGenMinable>();
-	protected final List<WorldGenFlowers> flowers = new LinkedList<WorldGenFlowers>();
 	
 	protected final WorldGenMinable copperGen = new WorldGenMinable(ModBlocks.COPPER_ORE.get(), ConfigWorld.maxCopperPerCluster);
 	
@@ -47,24 +46,46 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 	protected final WorldGenMinable tuffGen = new WorldGenDeepslateLayerBlob(ConfigWorld.maxTuffPerCluster, true);
 	protected WorldGenerator amethystGen;
 	protected WorldGenerator fossilGen;
+	private final LinkedList<BiomeGenBase> fossilBiomes;
 
 	protected EtFuturumWorldGenerator() {
 		stoneGen.add(new WorldGenMinableCustom(ModBlocks.STONE.get(), 1, ConfigWorld.maxStonesPerCluster, Blocks.stone));
 		stoneGen.add(new WorldGenMinableCustom(ModBlocks.STONE.get(), 3, ConfigWorld.maxStonesPerCluster, Blocks.stone));
 		stoneGen.add(new WorldGenMinableCustom(ModBlocks.STONE.get(), 5, ConfigWorld.maxStonesPerCluster, Blocks.stone));
-		flowers.add(new WorldGenFlowers(ModBlocks.LILY_OF_THE_VALLEY.get()));
-		flowers.add(new WorldGenFlowers(ModBlocks.CORNFLOWER.get()));
-		flowers.add(new WorldGenFlowers(ModBlocks.SWEET_BERRY_BUSH.get()));
-		flowers.get(2).func_150550_a(ModBlocks.SWEET_BERRY_BUSH.get(), 3);
+		//Add biomes that are only hot, AND dry AND sandy, and add all swamps.
+		fossilBiomes = new LinkedList<>(Arrays.asList(BiomeDictionary.getBiomesForType(Type.SANDY)));
+		fossilBiomes.retainAll(Arrays.asList(BiomeDictionary.getBiomesForType(Type.HOT)));
+		fossilBiomes.retainAll(Arrays.asList(BiomeDictionary.getBiomesForType(Type.DRY)));
+		fossilBiomes.addAll(Arrays.asList(BiomeDictionary.getBiomesForType(Type.SWAMP)));
 	}
 
 	public void postInit() {
-		if(ConfigWorld.enableAmethystGeodes && ModBlocks.AMETHYST_BLOCK.isEnabled() && ModBlocks.AMETHYST_CLUSTER_1.isEnabled() && ModBlocks.AMETHYST_CLUSTER_2.isEnabled()
+		if (ConfigWorld.enableAmethystGeodes && ModBlocks.AMETHYST_BLOCK.isEnabled() && ModBlocks.AMETHYST_CLUSTER_1.isEnabled() && ModBlocks.AMETHYST_CLUSTER_2.isEnabled()
 				&& ModBlocks.BUDDING_AMETHYST.isEnabled() && ConfigWorld.amethystOuterBlock != null && ConfigWorld.amethystMiddleBlock != null) {
 			amethystGen = new WorldGenAmethystGeode(ConfigWorld.amethystOuterBlock, ConfigWorld.amethystMiddleBlock);
 		}
-		if(ConfigWorld.enableFossils && ConfigWorld.fossilBlock != null) {
+		if (ConfigWorld.enableFossils && ConfigWorld.fossilBlock != null) {
 			fossilGen = new WorldGenFossil(ConfigWorld.fossilBlock);
+		}
+		if (ModBlocks.LILY_OF_THE_VALLEY.isEnabled()) {
+			BiomeGenBase[] biomes = BiomeDictionary.getBiomesForType(Type.FOREST);
+			biomes = ArrayUtils.removeElements(biomes, BiomeDictionary.getBiomesForType(Type.SNOWY));
+			for (BiomeGenBase biome : biomes) {
+				biome.addFlower(ModBlocks.LILY_OF_THE_VALLEY.get(), 0, 1);
+			}
+		}
+		if (ModBlocks.CORNFLOWER.isEnabled()) {
+			BiomeGenBase[] biomes = BiomeDictionary.getBiomesForType(Type.PLAINS);
+			biomes = ArrayUtils.removeElements(biomes, BiomeDictionary.getBiomesForType(Type.SAVANNA));
+			biomes = ArrayUtils.removeElements(biomes, BiomeDictionary.getBiomesForType(Type.SNOWY));
+			for (BiomeGenBase biome : biomes) {
+				biome.addFlower(ModBlocks.CORNFLOWER.get(), 0, 1);
+			}
+		}
+		if (ModBlocks.SWEET_BERRY_BUSH.isEnabled()) {
+			for (BiomeGenBase biome : BiomeDictionary.getBiomesForType(Type.CONIFEROUS)) {
+				biome.addFlower(ModBlocks.SWEET_BERRY_BUSH.get(), 3, 1);
+			}
 		}
 	}
 
@@ -99,44 +120,10 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 				}
 			}
 
-			BiomeGenBase biome;
-			Type[] biomeList;
-			if(ModBlocks.LILY_OF_THE_VALLEY.isEnabled()) {
-				x = chunkX * 16 + rand.nextInt(16) + 8;
-				z = chunkZ * 16 + rand.nextInt(16) + 8;
-				biome = world.getBiomeGenForCoords(x, z);
-				biomeList = BiomeDictionary.getTypesForBiome(biome);
-				if(ArrayUtils.contains(biomeList, Type.FOREST) && !ArrayUtils.contains(biomeList, Type.SNOWY) && world.getHeightValue(x, z) > 0) {
-					flowers.get(0).generate(world, rand, x, nextHeightInt(rand, world.getHeightValue(x, z) * 2), z);
-				}
-			}
-
-			if(ModBlocks.CORNFLOWER.isEnabled()) {
-				x = chunkX * 16 + rand.nextInt(16) + 8;
-				z = chunkZ * 16 + rand.nextInt(16) + 8;
-				biome = world.getBiomeGenForCoords(x, z);
-				biomeList = BiomeDictionary.getTypesForBiome(biome);
-				if (biome.biomeID == 132 || (ArrayUtils.contains(biomeList, Type.PLAINS) && !ArrayUtils.contains(biomeList, Type.SNOWY) && !ArrayUtils.contains(biomeList, Type.SAVANNA)) && world.getHeightValue(x, z) > 0) {
-					flowers.get(1).generate(world, rand, x, nextHeightInt(rand, world.getHeightValue(x, z) * 2), z);
-				}
-			}
-
-			if(ModBlocks.SWEET_BERRY_BUSH.isEnabled()) {
-				x = chunkX * 16 + rand.nextInt(16) + 8;
-				z = chunkZ * 16 + rand.nextInt(16) + 8;
-				biome = world.getBiomeGenForCoords(x, z);
-				biomeList = BiomeDictionary.getTypesForBiome(biome);
-				if(ArrayUtils.contains(biomeList, Type.CONIFEROUS) && world.getHeightValue(x, z) > 0) {
-					flowers.get(2).generate(world, rand, x, nextHeightInt(rand, world.getHeightValue(x, z) * 2), z);
-				}
-			}
-
 			if(fossilGen != null && ArrayUtils.contains(ConfigWorld.fossilDimensionBlacklist, world.provider.dimensionId) == ConfigWorld.fossilDimensionBlacklistAsWhitelist) {
 				x = chunkX * 16 + rand.nextInt(16) + 8;
 				z = chunkZ * 16 + rand.nextInt(16) + 8;
-				biome = world.getBiomeGenForCoords(x, z);
-				biomeList = BiomeDictionary.getTypesForBiome(biome);
-				if(rand.nextInt(64) == 0 && (ArrayUtils.contains(biomeList, Type.SANDY) && ArrayUtils.contains(biomeList, Type.DRY) || ArrayUtils.contains(biomeList, Type.SWAMP))) {
+				if (rand.nextInt(64) == 0 && fossilBiomes.contains(world.getBiomeGenForCoords(x, z))) {
 					fossilGen.generate(world, rand, x, rand.nextInt(9) + 41, z);
 				}
 			}
