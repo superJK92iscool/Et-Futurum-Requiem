@@ -1,18 +1,18 @@
 package ganymedes01.etfuturum.api;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.api.mappings.BlockAndMetadataMapping;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.oredict.OreDictionary;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * The registry for which blocks should convert into a deepslate ore. When the game reaches
@@ -54,22 +54,39 @@ public class DeepslateOreRegistry {
 	/**
 	 * Adds a block/metadata to block/metadata pair to the deepslate mapping registry.
 	 * This is used when Et Futurum deepslate overwrites the specified block.
-	 * 
-	 * @param from The block to overwrite
+	 *
+	 * @param from     The block to overwrite
 	 * @param fromMeta The block's meta to overwrite
-	 * @param to The block deepslate changes it to
-	 * @param toMeta The meta deepslate changes it to.
+	 * @param to       The block deepslate changes it to
+	 * @param toMeta   The meta deepslate changes it to
 	 */
 	public static void addOre(Block from, int fromMeta, Block to, int toMeta) {
 		BlockAndMetadataMapping inputMapping = new BlockAndMetadataMapping(from, fromMeta);
 		deepslateOres.put(inputMapping.hashCode(), new BlockAndMetadataMapping(to, toMeta));
 		inputOres.put(inputMapping.hashCode(), inputMapping);
 	}
-	
+
+	/**
+	 * Adds a block/metadata to block/metadata pair to the deepslate mapping registry.
+	 * This is used when Et Futurum deepslate overwrites the specified block.
+	 *
+	 * @param oreDict An OreDictionary tag to overwrite
+	 * @param to      The block deepslate changes it to
+	 * @param toMeta  The meta deepslate changes it to
+	 */
+	public static void addOre(String oreDict, Block to, int toMeta) {
+		for (ItemStack ore : OreDictionary.getOres(oreDict)) {
+			Block blockToAdd = Block.getBlockFromItem(ore.getItem());
+			if (blockToAdd != null) {
+				addOre(blockToAdd, ore.getItemDamage(), to, toMeta);
+			}
+		}
+	}
+
 	/**
 	 * Does deepslate replace this block?
 	 * Assumes the input has a meta value of zero.
-	 * 
+	 *
 	 * @param block
 	 * @return
 	 */

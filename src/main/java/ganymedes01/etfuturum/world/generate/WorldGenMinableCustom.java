@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.world.generate;
 
-import java.util.Random;
-
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import net.minecraft.block.Block;
@@ -10,6 +8,8 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenMinable;
+
+import java.util.Random;
 
 public class WorldGenMinableCustom extends WorldGenMinable
 {
@@ -47,14 +47,17 @@ public class WorldGenMinableCustom extends WorldGenMinable
 	@Override
 	public boolean generate(World p_76484_1_, Random p_76484_2_, int p_76484_3_, int p_76484_4_, int p_76484_5_)
 	{
-		float f = p_76484_2_.nextFloat() * (float)Math.PI;
+		if (ConfigWorld.deepslateReplacesStones && field_150519_a == ModBlocks.STONE.get() && p_76484_1_.getBlock(p_76484_3_, p_76484_4_, p_76484_5_) == ModBlocks.DEEPSLATE.get()) {
+			return false; //Don't even try to generate this vein if it starts in deepslate
+		}
+		float f = p_76484_2_.nextFloat() * (float) Math.PI;
 		double d0 = p_76484_3_ + 8 + MathHelper.sin(f) * this.numberOfBlocks / 8.0F;
 		double d1 = p_76484_3_ + 8 - MathHelper.sin(f) * this.numberOfBlocks / 8.0F;
 		double d2 = p_76484_5_ + 8 + MathHelper.cos(f) * this.numberOfBlocks / 8.0F;
 		double d3 = p_76484_5_ + 8 - MathHelper.cos(f) * this.numberOfBlocks / 8.0F;
 		double d4 = p_76484_4_ + p_76484_2_.nextInt(3) - 2;
 		double d5 = p_76484_4_ + p_76484_2_.nextInt(3) - 2;
-		
+
 		int places = 0;
 
 		for (int l = 0; l <= this.numberOfBlocks; ++l)
@@ -104,15 +107,19 @@ public class WorldGenMinableCustom extends WorldGenMinable
 	
 	private boolean canGenerate(World world, int x, int y, int z) {
 		Block block = world.getBlock(x, y, z);
-		
-		if(!block.isReplaceableOreGen(world, x, y, z, field_150518_c)) return false;
-		
-		if(!shouldAirGen) {
-			for(EnumFacing facing : EnumFacing.values()) {
-				if(world.isAirBlock(x + facing.getFrontOffsetX(), y + facing.getFrontOffsetY(), z + facing.getFrontOffsetZ())) {
+
+		if (!block.isReplaceableOreGen(world, x, y, z, field_150518_c)) return false;
+
+		if (!shouldAirGen) {
+			for (EnumFacing facing : EnumFacing.values()) {
+				if (world.isAirBlock(x + facing.getFrontOffsetX(), y + facing.getFrontOffsetY(), z + facing.getFrontOffsetZ())) {
 					return false;
 				}
 			}
+		}
+
+		if (ConfigWorld.deepslateReplacesStones && field_150519_a == ModBlocks.STONE.get() && world.getBlock(x, y, z) == ModBlocks.DEEPSLATE.get()) {
+			return false;
 		}
 		return true;
 	}

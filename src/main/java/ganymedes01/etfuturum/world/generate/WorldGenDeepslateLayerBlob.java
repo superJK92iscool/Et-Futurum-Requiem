@@ -1,17 +1,17 @@
 package ganymedes01.etfuturum.world.generate;
-import java.util.Random;
 
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
-import ganymedes01.etfuturum.configuration.configs.ConfigTweaks;
 import ganymedes01.etfuturum.api.DeepslateOreRegistry;
 import ganymedes01.etfuturum.api.mappings.BlockAndMetadataMapping;
+import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenMinable;
+
+import java.util.Random;
 
 public class WorldGenDeepslateLayerBlob extends WorldGenMinable
 {
@@ -71,19 +71,17 @@ public class WorldGenDeepslateLayerBlob extends WorldGenMinable
 							{
 								double d14 = (z + 0.5D - d8) / (d10 / 2.0D);
 
-								if (d12 * d12 + d13 * d13 + d14 * d14 < 1.0D)
-								{
+								if (d12 * d12 + d13 * d13 + d14 * d14 < 1.0D) {
 									block = world.getBlock(x, y, z);
-									
-									if(block.getMaterial() != Material.air && block != ModBlocks.DEEPSLATE.get() && block != ModBlocks.TUFF.get() && block != ModBlocks.COBBLED_DEEPSLATE.get()) {
-										if((block.isReplaceableOreGen(world, x, y, z, Blocks.stone))) {
-											world.setBlock(x, y, z, field_150519_a, 0, 2);
-										} else if(!tuff && ConfigTweaks.deepslateReplacesCobblestone && (block.isReplaceableOreGen(world, x, y, z, Blocks.cobblestone))) {
-											world.setBlock(x, y, z, ModBlocks.COBBLED_DEEPSLATE.get(), 0, 2);
-										} else if(ConfigBlocksItems.enableDeepslateOres) {
-											if((mapping = DeepslateOreRegistry.getOre(block, world.getBlockMetadata(x, y, z))) != null) {
-												world.setBlock(x, y, z, mapping.getBlock(), mapping.getMeta(), 2);
-											}
+
+									if ((ConfigWorld.deepslateReplacesStones || block != ModBlocks.STONE.get()) && block.getMaterial() != Material.air && block != ModBlocks.TUFF.get()) {
+										if (block.isReplaceableOreGen(world, x, y, z, Blocks.stone)) {
+											world.setBlock(x, y, z, field_150519_a);
+											continue;
+										}
+										mapping = DeepslateOreRegistry.getOre(block, world.getBlockMetadata(x, y, z));
+										if (mapping != null) {
+											world.setBlock(x, y, z, mapping.getBlock(), mapping.getMeta(), 2);
 										}
 									}
 								}

@@ -94,13 +94,6 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 		if (world.getWorldInfo().getTerrainType() != WorldType.FLAT || world.getWorldInfo().getGeneratorOptions().contains("decoration")) {
 			int x;
 			int z;
-			if (ModBlocks.STONE.isEnabled() && ConfigWorld.maxStonesPerCluster > 0 && world.provider.dimensionId != -1 && world.provider.dimensionId != 1) {
-				for (WorldGenMinable stoneGenerator : stoneGen) {
-					for (int i = 0; i < 10; i++) {
-						generateOre(stoneGenerator, world, rand, chunkX, chunkZ, 1, 0, 80);
-					}
-				}
-			}
 			
 			if(amethystGen != null && ArrayUtils.contains(ConfigWorld.amethystDimensionBlacklist, world.provider.dimensionId) == ConfigWorld.amethystDimensionBlacklistAsWhitelist) {
 				x = chunkX * 16 + rand.nextInt(16) + 8;
