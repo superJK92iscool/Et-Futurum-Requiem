@@ -3,6 +3,7 @@ package ganymedes01.etfuturum.mixins.blockfallingparticles;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModBlocks;
+import ganymedes01.etfuturum.api.fallingdustcolor.IFallingDustColor;
 import ganymedes01.etfuturum.client.particle.ParticleHandler;
 import ganymedes01.etfuturum.core.utils.ExternalContent;
 import net.minecraft.block.Block;
@@ -11,12 +12,11 @@ import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 
 import java.util.Random;
 
 @Mixin(BlockFalling.class)
-public abstract class MixinBlockFalling extends Block {
+public abstract class MixinBlockFalling extends Block implements IFallingDustColor {
 
 	protected MixinBlockFalling(Material p_i45394_1_) {
 		super(p_i45394_1_);
@@ -30,21 +30,21 @@ public abstract class MixinBlockFalling extends Block {
 				double d0 = (float) x + rand.nextFloat();
 				double d1 = (double) y - .05D;
 				double d2 = (float) z + rand.nextFloat();
-				ParticleHandler.FALLING_DUST.spawn(world, d0, d1, d2, 0, 0, 0, 1, etfuturum$getDustColor(world.getBlockMetadata(x, y, z)));
+				ParticleHandler.FALLING_DUST.spawn(world, d0, d1, d2, 0, 0, 0, 1, getDustColor(world.getBlockMetadata(x, y, z)));
 			}
 		}
 	}
 
-	@Unique
-	protected int etfuturum$getDustColor(int meta) {
-		if (this == Blocks.gravel || this == ModBlocks.OLD_GRAVEL.get() || this == ExternalContent.Blocks.TCON_GRAVEL_ORE.get()) {
-			return 0xFF807C7B;
-		}
+	@Override
+	public int getDustColor(int meta) {
 		if (this == ExternalContent.Blocks.NATURA_HEAT_SAND.get()) {
 			return 0xFFD87F33;
 		}
 		if (this == ExternalContent.Blocks.NETHERLICIOUS_NETHER_GRAVEL.get()) {
 			return 0xFF191919;
+		}
+		if (this == Blocks.gravel || this == ModBlocks.OLD_GRAVEL.get() || this == ExternalContent.Blocks.TCON_GRAVEL_ORE.get()) {
+			return 0xFF807C7B;
 		}
 		return getMapColor(meta).colorValue | 0xFF000000;
 	}
