@@ -5,6 +5,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 
@@ -88,6 +89,15 @@ public class EtFuturumFXParticle extends EntityFX {
 		int prevCurrentTexture = usesSheet ? currentTexture : 0;
 		OpenGLHelper.enableBlend();
 		OpenGLHelper.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+
+		Vec3 ipNormVec = Vec3.createVectorHelper(ipx, ipy, ipz).normalize();
+		double angle = Math.toDegrees(this.prevParticleAngle + (this.particleAngle - this.prevParticleAngle) * partialTicks);
+
+		GL11.glPushMatrix();
+		GL11.glTranslatef(ipx, ipy, ipz);
+		GL11.glRotated(angle, ipNormVec.xCoord, ipNormVec.yCoord, ipNormVec.zCoord);
+		GL11.glTranslatef(-ipx, -ipy, -ipz);
+
 		par1Tessellator.startDrawingQuads();
 		par1Tessellator.setBrightness(getBrightnessForRender(entityBrightness));
 		par1Tessellator.setColorRGBA_F(particleRed, particleGreen, particleBlue, particleAlpha);
@@ -100,6 +110,8 @@ public class EtFuturumFXParticle extends EntityFX {
 		par1Tessellator.addVertexWithUV(ipx + rx * this.scale - ryz * this.scale, ipy - rxz * this.scale,
 				ipz + rz * this.scale - rxy * this.scale, 0.0D, (prevCurrentTexture + 1) * this.relativeTextureHeight);
 		par1Tessellator.draw();
+
+		GL11.glPopMatrix();
 
 		OpenGLHelper.disableBlend();
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, prevTex);
