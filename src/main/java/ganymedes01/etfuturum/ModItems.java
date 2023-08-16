@@ -57,6 +57,8 @@ public enum ModItems {
 	OTHERSIDE_RECORD(ConfigBlocksItems.enableOtherside, new ItemEtFuturumRecord("otherside")),
 	AMETHYST_SHARD(ConfigBlocksItems.enableAmethyst, new BaseItem("amethyst_shard")),
 	SHULKER_BOX_UPGRADE(EtFuturum.hasIronChest && ConfigModCompat.shulkerBoxesIronChest, new ItemShulkerBoxUpgrade()),
+	HONEYCOMB(ConfigBlocksItems.enableAmethyst, new BaseItem("honeycomb")),
+	HONEY_BOTTLE(ConfigBlocksItems.enableAmethyst, new ItemHoneyBottle()),
 
 	ITEM_SIGN_SPRUCE(ConfigBlocksItems.enableSigns, new ItemWoodSign(1)),
 	ITEM_SIGN_BIRCH(ConfigBlocksItems.enableSigns, new ItemWoodSign(2)),

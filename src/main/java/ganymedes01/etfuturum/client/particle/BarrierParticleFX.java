@@ -2,6 +2,12 @@ package ganymedes01.etfuturum.client.particle;
 
 import java.util.Random;
 
+import cpw.mods.fml.client.FMLClientHandler;
+import ganymedes01.etfuturum.ModBlocks;
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -14,20 +20,26 @@ public class BarrierParticleFX extends EtFuturumFXParticle {
 		this.motionX = 0;
 		this.motionY = 0;
 		this.motionZ = 0;
-		particleMaxAge = maxAge + MathHelper.getRandomIntegerInRange(new Random(), 0, 10);
+		particleMaxAge = maxAge + particleRand.nextInt(20);
 	}
 	
 	@Override
-	public void onUpdate()
-	{
-		super.onUpdate();
+	public void onUpdate() {
 		this.prevPosX = this.posX;
 		this.prevPosY = this.posY;
 		this.prevPosZ = this.posZ;
-		
-		if (this.particleAge++ >= this.particleMaxAge/* || this.worldObj.getBlock((int)posX, (int)posY, (int)posZ) != ModBlocks.barrier*/)
-		{
-			this.setDead();
+
+		EntityPlayer player = FMLClientHandler.instance().getClient().thePlayer;
+		ItemStack heldItem = player.getHeldItem();
+
+		boolean decay = worldObj.getBlock((int) posX, (int) posY, (int) posZ) != ModBlocks.BARRIER.get() &&
+				(!player.capabilities.isCreativeMode || heldItem == null || heldItem.getItem() != Item.getItemFromBlock(ModBlocks.BARRIER.get()));
+		if (decay) {
+			if (this.particleAge++ >= this.particleMaxAge) {
+				this.setDead();
+			}
+		} else {
+			particleAge = 0;
 		}
 	}
 }

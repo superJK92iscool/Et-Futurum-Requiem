@@ -1,11 +1,5 @@
 package ganymedes01.etfuturum.tileentities;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
-
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.blocks.BlockShulkerBox;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
@@ -29,6 +23,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
+
+import java.util.*;
 
 public class TileEntityShulkerBox extends TileEntity implements IInventory {
 	private int ticksSinceSync;
@@ -68,7 +64,7 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 	@Override
 	public boolean isUseableByPlayer(EntityPlayer p_70300_1_)
 	{
-		return this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord) != this ? false : p_70300_1_.getDistanceSq(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D) <= 64.0D;
+		return this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord) == this && p_70300_1_.getDistanceSq(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D) <= 64.0D;
 	}
 
 	@Override
@@ -357,8 +353,8 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 		if (destroyed) return;
 		destroyed = true;
 		boolean empty = true;
-		for (int i = 0; i < chestContents.length; i++) {
-			if (chestContents[i] != null) {
+		for (ItemStack chestContent : chestContents) {
+			if (chestContent != null) {
 				empty = false;
 				break;
 			}
@@ -366,7 +362,7 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 		// Don't drop an empty Shulker Box in creative.
 		if ((!empty || !brokenInCreative) && worldObj.getGameRules().getGameRuleBooleanValue("doTileDrops")) {
 			ItemStack stack = ModBlocks.SHULKER_BOX.newItemStack(1);
-			
+
 			writeToStack(stack);
 			
 			EntityItem item = new EntityItem(worldObj, xCoord + .5D, yCoord + .5D, zCoord + .5D, stack);

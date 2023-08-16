@@ -93,78 +93,100 @@ public class ClientProxy extends CommonProxy {
 	}
 
 	private void registerBlockRenderers() {
-		if (ConfigBlocksItems.enableSlimeBlock)
+		if (ModBlocks.SLIME.isEnabled()) {
 			RenderingRegistry.registerBlockHandler(new BlockSlimeBlockRender());
+		}
 
-		if (ConfigBlocksItems.enableDoors)
+		if (ConfigBlocksItems.enableDoors) {
 			RenderingRegistry.registerBlockHandler(new BlockDoorRenderer());
+		}
 
-		if (ConfigBlocksItems.enableBanners)
+		if (ModBlocks.BANNER.isEnabled()) {
 			ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBanner.class, new TileEntityBannerRenderer());
+		}
 
-		if (ConfigFunctions.enableFancySkulls)
+		if (ConfigFunctions.enableFancySkulls) {
 			ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySkull.class, new TileEntityFancySkullRenderer());
+		}
 
-		if (ConfigBlocksItems.enableChorusFruit) {
+		if (ModBlocks.END_ROD.isEnabled()) {
 			RenderingRegistry.registerBlockHandler(new BlockEndRodRender());
+		}
+
+		if (ModBlocks.CHORUS_FLOWER.isEnabled()) {
 			RenderingRegistry.registerBlockHandler(new BlockChorusFlowerRender());
+		}
+
+		if (ModBlocks.CHORUS_PLANT.isEnabled()) {
 			RenderingRegistry.registerBlockHandler(new BlockChorusPlantRender());
 		}
 
-		if (ConfigBlocksItems.enableColourfulBeacons)
+		if (ModBlocks.BEACON.isEnabled()) {
 			ClientRegistry.bindTileEntitySpecialRenderer(TileEntityNewBeacon.class, new TileEntityNewBeaconRenderer());
+		}
 
-		if (ConfigBlocksItems.enableLantern)
+		if (ModBlocks.LANTERN.isEnabled()) {
 			RenderingRegistry.registerBlockHandler(new BlockLanternRenderer());
-		
-		if (ConfigBlocksItems.enableBarrel)
+		}
+
+		if (ModBlocks.BARREL.isEnabled()) {
 			RenderingRegistry.registerBlockHandler(new BlockBarrelRenderer());
-		
-		if (ConfigBlocksItems.enableTrapdoors)
+		}
+
+		if (ConfigBlocksItems.enableTrapdoors) {
 			RenderingRegistry.registerBlockHandler(new BlockTrapDoorRenderer());
-		
-		if(ConfigBlocksItems.enableSigns)
+		}
+
+		if (ConfigBlocksItems.enableSigns) {
 			ClientRegistry.bindTileEntitySpecialRenderer(TileEntityWoodSign.class, new TileEntityWoodSignRenderer());
+		}
 
-		if(ConfigBlocksItems.enableGlazedTerracotta)
+		if (ConfigBlocksItems.enableGlazedTerracotta) {
 			RenderingRegistry.registerBlockHandler(new BlockGlazedTerracottaRenderer());
-		
-		if(ConfigBlocksItems.enableLavaCauldrons)
-			RenderingRegistry.registerBlockHandler(new BlockLavaCauldronRenderer());
+		}
 
-		if(ConfigBlocksItems.enableShulkerBoxes) {
+		if (ModBlocks.LAVA_CAULDRON.isEnabled()) {
+			RenderingRegistry.registerBlockHandler(new BlockLavaCauldronRenderer());
+		}
+
+		if (ModBlocks.SHULKER_BOX.isEnabled()) {
 			ClientRegistry.bindTileEntitySpecialRenderer(TileEntityShulkerBox.class, new TileEntityShulkerBoxRenderer(new ModelShulker()));
 		}
-		
-		if(ConfigBlocksItems.enableStonecutter) {
+
+		if (ModBlocks.STONECUTTER.isEnabled()) {
 			RenderingRegistry.registerBlockHandler(new BlockStonecutterRenderer());
 		}
-		
-		if(ConfigBlocksItems.enableComposter) {
+
+		if (ModBlocks.COMPOSTER.isEnabled()) {
 			RenderingRegistry.registerBlockHandler(new BlockComposterRenderer());
 		}
-		
-		if(ConfigBlocksItems.enableLoom) {
+
+		if (ModBlocks.LOOM.isEnabled()) {
 			RenderingRegistry.registerBlockHandler(new BlockLoomRenderer());
 		}
-		
-		if(ConfigBlocksItems.enableAmethyst) {
+
+		if (ModBlocks.AMETHYST_CLUSTER_1.isEnabled() && ModBlocks.AMETHYST_CLUSTER_2.isEnabled()) {
 			RenderingRegistry.registerBlockHandler(new BlockAmethystClusterRenderer());
 		}
-		
-		{
+
+		if (ModBlocks.DRIPSTONE_BLOCK.isEnabled()) {
 			RenderingRegistry.registerBlockHandler(new BlockPointedDripstoneRenderer());
-			RenderingRegistry.registerBlockHandler(new BlockColoredWaterCauldronRenderer());
 		}
-		
+
+		RenderingRegistry.registerBlockHandler(new BlockColoredWaterCauldronRenderer());
+
 		RenderingRegistry.registerBlockHandler(new BlockChestRenderer());
 
-		if(ConfigMixins.enableObservers) {
+		if (ModBlocks.OBSERVER.isEnabled()) {
 			RenderingRegistry.registerBlockHandler(new BlockObserverRenderer());
 		}
-		
-		if(EtFuturum.TESTING) {
+
+		if (ModBlocks.END_GATEWAY.isEnabled()) {
 			ClientRegistry.bindTileEntitySpecialRenderer(TileEntityGateway.class, new TileEntityGatewayRenderer());
+		}
+
+		if (ModBlocks.HONEY_BLOCK.isEnabled()) {
+			RenderingRegistry.registerBlockHandler(new BlockHoneyRenderer());
 		}
 	}
 
@@ -195,22 +217,26 @@ public class ClientProxy extends CommonProxy {
 		if (ConfigEntities.enableBrownMooshroom)
 			RenderingRegistry.registerEntityRenderingHandler(EntityBrownMooshroom.class, new BrownMooshroomRenderer());
 
-		if(ConfigBlocksItems.enableNewBoats) {
+		if (ConfigBlocksItems.enableNewBoats) {
 			RenderingRegistry.registerEntityRenderingHandler(EntityNewBoat.class, new NewBoatRenderer());
 			RenderingRegistry.registerEntityRenderingHandler(EntityNewBoatWithChest.class, new ChestBoatRenderer());
 		}
-		
-		if(ConfigEntities.enableShulker) {
+
+		if (ConfigEntities.enableShulker) {
 			RenderingRegistry.registerEntityRenderingHandler(EntityShulker.class, new ShulkerRenderer());
 			RenderingRegistry.registerEntityRenderingHandler(EntityShulkerBullet.class, new ShulkerBulletRenderer());
 		}
-		
+
+		if (ConfigEntities.enableBees) {
+			RenderingRegistry.registerEntityRenderingHandler(EntityBee.class, new BeeRenderer());
+		}
+
 		RenderingRegistry.registerEntityRenderingHandler(EntityPig.class, new TechnobladeCrownRenderer());
-		
+
 //      {
 //          RenderingRegistry.registerEntityRenderingHandler(EntityFallingDripstone.class, new FallingDripstoneRenderer());
 //      }
-		
+
 		if (ConfigFunctions.enablePlayerSkinOverlay) {
 			TextureManager texManager = Minecraft.getMinecraft().renderEngine;
 			File skinFolder = new File(Minecraft.getMinecraft().fileAssets, "skins");

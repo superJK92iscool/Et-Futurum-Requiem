@@ -67,7 +67,7 @@ public class Utils {
 			NBTTagCompound nbttagcompound1 = tag.getCompoundTagAt(i);
 			int j = nbttagcompound1.getByte("Slot") & 255;
 
-			if (j >= 0 && j < stacks.length) {
+			if (j < stacks.length) {
 				stacks[j] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
 			}
 		}

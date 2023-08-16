@@ -1,8 +1,8 @@
 package ganymedes01.etfuturum.core.utils.helpers;
 
 import com.google.common.base.Objects;
-
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.Vec3;
 
 public class Vec3i implements Comparable<Vec3i> {
 
@@ -16,6 +16,14 @@ public class Vec3i implements Comparable<Vec3i> {
 
 	public Vec3i(double xIn, double yIn, double zIn) {
 		this(MathHelper.floor_double(xIn), MathHelper.floor_double(yIn), MathHelper.floor_double(zIn));
+	}
+
+	public Vec3i(BlockPos blockpos) {
+		this(blockpos.getX(), blockpos.getY(), blockpos.getZ());
+	}
+
+	public Vec3i(Vec3 vec) {
+		this(vec.xCoord, vec.yCoord, vec.zCoord);
 	}
 
 	@Override
@@ -62,11 +70,11 @@ public class Vec3i implements Comparable<Vec3i> {
 	}
 
 	public double getSquaredDistance(Vec3i vec) {
-		return this.getSquaredDistance((double) vec.getX(), (double) vec.getY(), (double) vec.getZ(), true);
+		return this.getSquaredDistance(vec.getX(), vec.getY(), vec.getZ(), true);
 	}
 
 	public double getSquaredDistance(Vec3i vec, boolean treatAsBlockPos) {
-		return this.getSquaredDistance((double) vec.x, (double) vec.y, (double) vec.z, treatAsBlockPos);
+		return this.getSquaredDistance(vec.x, vec.y, vec.z, treatAsBlockPos);
 	}
 
 	public double getSquaredDistance(double x, double y, double z, boolean treatAsBlockPos) {
@@ -75,6 +83,13 @@ public class Vec3i implements Comparable<Vec3i> {
 		double f = (double) this.getY() + d - y;
 		double g = (double) this.getZ() + d - z;
 		return e * e + f * f + g * g;
+	}
+
+	public int manhattanDistance(Vec3i p_218139_1_) {
+		float f = (float) Math.abs(p_218139_1_.getX() - this.getX());
+		float f1 = (float) Math.abs(p_218139_1_.getY() - this.getY());
+		float f2 = (float) Math.abs(p_218139_1_.getZ() - this.getZ());
+		return (int) (f + f1 + f2);
 	}
 
 	@Override

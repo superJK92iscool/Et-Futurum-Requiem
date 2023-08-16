@@ -1,10 +1,8 @@
 package ganymedes01.etfuturum.configuration.configs;
 
-import java.io.File;
-
 import ganymedes01.etfuturum.configuration.ConfigBase;
-import net.minecraft.launchwrapper.Launch;
-import net.minecraftforge.common.config.Configuration;
+
+import java.io.File;
 
 public class ConfigEntities extends ConfigBase {
 
@@ -20,6 +18,7 @@ public class ConfigEntities extends ConfigBase {
 	public static boolean enableDragonRespawn;
 	public static boolean enableNetherEndermen;
 	public static boolean enableShearableSnowGolems;
+	public static boolean enableBees;
 
 	static final String catHostile = "hostile";
 	static final String catNeutral = "neutral";
@@ -49,6 +48,9 @@ public class ConfigEntities extends ConfigBase {
 		enableBrownMooshroom = getBoolean("enableBrownMooshroom", catPassive, true, "Brown mooshroom variant.");
 
 		//neutral
+		enableBees = getBoolean("enableBees", catNeutral, true, "Bees, hives, and honey");
+
+		//hostile
 		enableEndermite = getBoolean("enableEndermite", catHostile, true, "Rarely spawns when the player lands from Ender Pearl throws");
 		enableHusk = getBoolean("enableHusks", catHostile, true, "Desert zombie variant");
 		enableStray = getBoolean("enableStrays", catHostile, true, "Tundra skeleton variant");

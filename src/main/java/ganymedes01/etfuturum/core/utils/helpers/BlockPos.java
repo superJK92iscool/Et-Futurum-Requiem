@@ -1,15 +1,18 @@
 package ganymedes01.etfuturum.core.utils.helpers;
 
-import java.util.Iterator;
-
 import com.google.common.collect.AbstractIterator;
-
+import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
+import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import java.util.Iterator;
 
 public class BlockPos extends Vec3i {
 
@@ -18,7 +21,7 @@ public class BlockPos extends Vec3i {
 	private static final int NUM_X_BITS = 26;
 	private static final int NUM_Z_BITS = NUM_X_BITS;
 	private static final int NUM_Y_BITS = 64 - NUM_X_BITS - NUM_Z_BITS;
-	private static final int Y_SHIFT = 0 + NUM_Z_BITS;
+	private static final int Y_SHIFT = NUM_Z_BITS;
 	private static final int X_SHIFT = Y_SHIFT + NUM_Y_BITS;
 	private static final long X_MASK = (1L << NUM_X_BITS) - 1L;
 	private static final long Y_MASK = (1L << NUM_Y_BITS) - 1L;
@@ -152,8 +155,8 @@ public class BlockPos extends Vec3i {
 
 	// Roadhog360 start
 	public static AxisAlignedBB getBB(BlockPos pos1, BlockPos pos2) {
-		return AxisAlignedBB.getBoundingBox((double) pos1.getX(), (double) pos1.getY(), (double) pos1.getZ(),
-				(double) pos2.getX(), (double) pos2.getY(), (double) pos2.getZ());
+		return AxisAlignedBB.getBoundingBox(pos1.getX(), pos1.getY(), pos1.getZ(),
+				pos2.getX(), pos2.getY(), pos2.getZ());
 	}
 
 	public static Iterable<BlockPos> iterate(BlockPos start, BlockPos end) {
@@ -162,8 +165,32 @@ public class BlockPos extends Vec3i {
 				Math.max(start.getY(), end.getY()), Math.max(start.getZ(), end.getZ()));
 	}
 
+	public static BlockPos readFromNBT(NBTTagCompound p_129240_) {
+		return new BlockPos(p_129240_.getInteger("X"), p_129240_.getInteger("Y"), p_129240_.getInteger("Z"));
+	}
+
+	public static NBTTagCompound writeToNBT(BlockPos p_129225_) {
+		NBTTagCompound compoundtag = new NBTTagCompound();
+		compoundtag.setInteger("X", p_129225_.getX());
+		compoundtag.setInteger("Y", p_129225_.getY());
+		compoundtag.setInteger("Z", p_129225_.getZ());
+		return compoundtag;
+	}
+
+	public TileEntity getTileEntity(World world) {
+		return world.getTileEntity(getX(), getY(), getZ());
+	}
+
+	public Block getBlock(World world) {
+		return world.getBlock(getX(), getY(), getZ());
+	}
+
+	public int getBlockMetadata(World world) {
+		return world.getBlockMetadata(getX(), getY(), getZ());
+	}
+
 	public static Iterable<BlockPos> iterate(final int startX, final int startY, final int startZ, final int endX,
-			final int endY, final int endZ) {
+											 final int endY, final int endZ) {
 
 		return new Iterable<BlockPos>() {
 			public Iterator<BlockPos> iterator() {

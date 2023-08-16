@@ -27,7 +27,7 @@ import net.minecraft.world.World;
 
 public class BlockBlastFurnace extends BlockFurnace {
 
-	private boolean isCooking;
+	private final boolean isCooking;
 	private IIcon blockTop;
 	public IIcon blockFront;
 	private static boolean field_149934_M;
@@ -38,8 +38,7 @@ public class BlockBlastFurnace extends BlockFurnace {
 		this.setHardness(3.5F);
 		this.setResistance(3.5F);
 		this.setLightLevel(cooking ? .875F : 0);
-		this.setStepSound(soundTypePiston);
-		this.setBlockName(Utils.getUnlocalisedName((cooking ? "lit_" : "") + "blast_furnace"));
+		this.setBlockName(Utils.getUnlocalisedName("blast_furnace"));
 		this.setCreativeTab(!cooking ? EtFuturum.creativeTabBlocks : null);
 	}
 	

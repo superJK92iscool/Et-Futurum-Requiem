@@ -9,6 +9,11 @@ public class ExternalContent {
 
 	public enum Blocks {
 
+		CFB_CAMPFIRE(() -> GameRegistry.findBlock("campfirebackport", "campfire")),
+		CFB_SOUL_CAMPFIRE(() -> GameRegistry.findBlock("campfirebackport", "soul_campfire")),
+		CFB_CAMPFIRE_BASE(() -> GameRegistry.findBlock("campfirebackport", "campfire_base")),
+		CFB_SOUL_CAMPFIRE_BASE(() -> GameRegistry.findBlock("campfirebackport", "soul_campfire_base")),
+
 		TCON_GRAVEL_ORE(() -> GameRegistry.findBlock("TConstruct", "GravelOre")),
 
 		NATURA_HEAT_SAND(() -> GameRegistry.findBlock("Natura", "heatsand")),

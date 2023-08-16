@@ -27,7 +27,6 @@ public class TileEntityCauldronPotion extends TileEntityCauldronColoredWater {
 		if(potion == null || !(potion.getItem() instanceof ItemPotion)) {
 			System.err.println("Cauldron @ " + xCoord + " " + yCoord + " " + zCoord + " had an invalid potion ItemStack. Resetting to a normal cauldron.");
 			resetCauldron();
-			return;
 		}
 	}
 	

@@ -1,13 +1,11 @@
 package ganymedes01.etfuturum.client.model;
 
-import org.lwjgl.opengl.GL11;
-
 import ganymedes01.etfuturum.entities.EntityNewBoat;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.client.renderer.GLAllocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.MathHelper;
+import org.lwjgl.opengl.GL11;
 
 public class ModelNewBoat extends ModelBase {
 	public ModelRenderer[] boatSides = new ModelRenderer[5];
@@ -17,7 +15,6 @@ public class ModelNewBoat extends ModelBase {
 	 * Part of the model rendered to make it seem like there's no water in the boat
 	 */
 	public ModelRenderer noWater;
-	private int patchList = GLAllocation.generateDisplayLists(1);
 
 	public ModelNewBoat()
 	{

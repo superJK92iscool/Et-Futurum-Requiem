@@ -14,6 +14,8 @@ import java.util.Random;
 
 public interface IDegradable {
 
+	int CHECK_RANGE = 4;
+
 	/**
 	 * Returns an int relative to the meta values regular coppers use.
 	 * Used to streamline the process of copper waxing, dewaxing and degrading.
@@ -77,24 +79,24 @@ public interface IDegradable {
 		   int k = 0;
 		   
 		   if(i < 7 && i % 4 != 3) {
-			   for(int x1 = -4; x1 <= 4; x1++) {
-				   for(int y1 = -4; y1 <= 4; y1++) {
-					   for(int z1 = -4; z1 <= 4; z1++) {
+			   for (int x1 = -CHECK_RANGE; x1 <= CHECK_RANGE; x1++) {
+				   for (int y1 = -CHECK_RANGE; y1 <= CHECK_RANGE; y1++) {
+					   for (int z1 = -CHECK_RANGE; z1 <= CHECK_RANGE; z1++) {
 						   Block block = world.getBlock(x1 + x, y1 + y, z1 + z);
-						   if(block instanceof IDegradable && (x1 != 0 || y1 != 0 || z1 != 0) && Math.abs(x1) + Math.abs(y1) + Math.abs(z1) <= 4) {
-							   int m = ((IDegradable)block).getCopperMeta(world.getBlockMetadata(x1 + x, y1 + y, z1 + z));
-							   
-							   if(m > 7)
+						   if (block instanceof IDegradable && (x1 != 0 || y1 != 0 || z1 != 0) && Math.abs(x1) + Math.abs(y1) + Math.abs(z1) <= CHECK_RANGE) {
+							   int m = ((IDegradable) block).getCopperMeta(world.getBlockMetadata(x1 + x, y1 + y, z1 + z));
+
+							   if (m > 7)
 								   continue;
-							   
+
 							   m %= 4;
-							   
+
 							   if (m < i % 4) {
-								  return;
+								   return;
 							   }
-					  
+
 							   if (m > i % 4) {
-								  ++k;
+								   ++k;
 							   } else {
 								  ++j;
 							   }

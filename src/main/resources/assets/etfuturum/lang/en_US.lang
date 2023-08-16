@@ -445,15 +445,8 @@ tile.etfuturum.end_rod.name=End Rod
 tile.etfuturum.chorus_flower.name=Chorus Flower
 tile.etfuturum.chorus_plant.name=Chorus Plant
 tile.etfuturum.crying_obsidian.name=Crying Obsidian
-tile.etfuturum.brewing_stand.name=Brewing Stand
 tile.etfuturum.frosted_ice.name=Frosted Ice
 tile.etfuturum.rose.name=Rose
-tile.etfuturum.beacon.name=Beacon
-tile.etfuturum.enchantment_table.name=Enchantment Table
-tile.etfuturum.anvil.intact.name=Anvil
-tile.etfuturum.anvil.slightlyDamaged.name=Slightly Damaged Anvil
-tile.etfuturum.anvil.veryDamaged.name=Very Damaged Anvil
-tile.etfuturum.daylight_sensor.name=Daylight Sensor
 tile.etfuturum.ancient_debris.name=Ancient Debris
 tile.etfuturum.netherite_block.name=Block of Netherite
 tile.etfuturum.netherite_stairs.name=Swaggiest stairs ever
@@ -1548,7 +1541,10 @@ item.banner.straight_cross.magenta=Magenta Cross
 item.banner.straight_cross.orange=Orange Cross
 item.banner.straight_cross.white=White Cross
 
-efr.nei.composter=Composter
+efr.nei.smoker=Smoking
+efr.nei.blast_furnace=Blasting
+efr.nei.composter=Composting
 efr.nei.amount=Amount
 efr.nei.weight=Weight
+
 efr.decoration.only=Decoration only

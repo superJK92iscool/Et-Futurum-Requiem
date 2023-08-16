@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.blocks;
 
-import java.util.Random;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
@@ -23,6 +21,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
+import java.util.Random;
+
 public class BlockSmoker extends BlockFurnace {
 
 	private boolean isCooking;
@@ -37,8 +37,7 @@ public class BlockSmoker extends BlockFurnace {
 		this.setHardness(3.5F);
 		this.setResistance(3.5F);
 		this.setLightLevel(cooking ? .875F : 0);
-		this.setStepSound(soundTypePiston);
-		this.setBlockName(Utils.getUnlocalisedName((cooking ? "lit_" : "") + "smoker"));
+		this.setBlockName(Utils.getUnlocalisedName("smoker"));
 		this.setCreativeTab(!cooking ? EtFuturum.creativeTabBlocks : null);
 	}
 	

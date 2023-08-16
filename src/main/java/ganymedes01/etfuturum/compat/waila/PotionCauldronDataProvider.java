@@ -1,8 +1,5 @@
 package ganymedes01.etfuturum.compat.waila;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import ganymedes01.etfuturum.tileentities.TileEntityCauldronPotion;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
@@ -14,6 +11,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PotionCauldronDataProvider implements IWailaDataProvider {
 
@@ -46,8 +46,7 @@ public class PotionCauldronDataProvider implements IWailaDataProvider {
 	}
 
 	@Override
-	public NBTTagCompound getNBTData(EntityPlayerMP player, TileEntity te, NBTTagCompound tag, World world, int x,
-			int y, int z) {
+	public NBTTagCompound getNBTData(EntityPlayerMP player, TileEntity te, NBTTagCompound tag, World world, int x, int y, int z) {
 		return tag;
 	}
 

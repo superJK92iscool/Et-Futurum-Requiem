@@ -6,12 +6,11 @@ import codechicken.nei.recipe.FurnaceRecipeHandler;
 import codechicken.nei.recipe.GuiCraftingRecipe;
 import codechicken.nei.recipe.GuiUsageRecipe;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.compat.nei.BannerPatternHandler;
 import ganymedes01.etfuturum.compat.nei.BlastFurnaceRecipeHandler;
 import ganymedes01.etfuturum.compat.nei.ComposterHandler;
 import ganymedes01.etfuturum.compat.nei.SmokerRecipeHandler;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.item.ItemStack;
 
@@ -27,11 +26,33 @@ public class NEIEtFuturumConfig implements IConfigureNEI {
 			API.registerUsageHandler(new BannerPatternHandler());
 		}
 
-		if (ModBlocks.BEETROOTS.isEnabled()) {
-			API.hideItem(new ItemStack(ModBlocks.BEETROOTS.get()));
+		if (ModBlocks.LIT_BLAST_FURNACE.isEnabled()) {
+			API.hideItem(new ItemStack(ModBlocks.LIT_BLAST_FURNACE.get()));
 		}
-		
-		if(ModBlocks.SMOKER.isEnabled()) {
+
+		if (ModBlocks.LIT_SMOKER.isEnabled()) {
+			API.hideItem(new ItemStack(ModBlocks.LIT_SMOKER.get()));
+		}
+
+		if (ConfigWorld.tileReplacementMode != -1) {
+			if (ModBlocks.BREWING_STAND.isEnabled()) {
+				API.hideItem(new ItemStack(ModBlocks.BREWING_STAND.get()));
+			}
+
+			if (ModBlocks.BEACON.isEnabled()) {
+				API.hideItem(new ItemStack(ModBlocks.BEACON.get()));
+			}
+
+			if (ModBlocks.ANVIL.isEnabled()) {
+				API.hideItem(new ItemStack(ModBlocks.ANVIL.get()));
+			}
+		}
+
+		if (ModBlocks.ENCHANTMENT_TABLE.isEnabled()) {
+			API.hideItem(new ItemStack(ModBlocks.ENCHANTMENT_TABLE.get()));
+		}
+
+		if (ModBlocks.SMOKER.isEnabled()) {
 			// Smoker
 			FurnaceRecipeHandler handler = SMOKER_HANDLER;
 			// make it possible to use the "R" Key

@@ -5,6 +5,7 @@ import cpw.mods.fml.common.network.IGuiHandler;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.etfuturum.EtFuturum;
+import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.client.gui.inventory.*;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigEntities;
@@ -23,19 +24,15 @@ import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.monster.EntityMagmaCube;
-import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.ContainerChest;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.biome.BiomeGenBase.SpawnListEntry;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.MinecraftForge;
-
-import java.util.LinkedList;
-import java.util.List;
+import org.apache.commons.lang3.ArrayUtils;
 
 public class CommonProxy implements IGuiHandler {
 
@@ -58,59 +55,58 @@ public class CommonProxy implements IGuiHandler {
 	}
 
 	public void registerEntities() {
-		if (ConfigBlocksItems.enableBanners)
+		if (ModBlocks.BREWING_STAND.isEnabled()) {
+			GameRegistry.registerTileEntity(TileEntityNewBrewingStand.class, Utils.getUnlocalisedName("brewing_stand"));
+		}
+		if (ModBlocks.BEACON.isEnabled()) {
+			GameRegistry.registerTileEntity(TileEntityNewBeacon.class, Utils.getUnlocalisedName("beacon"));
+		}
+		if (ModBlocks.BARREL.isEnabled()) {
+			GameRegistry.registerTileEntity(TileEntityBarrel.class, Utils.getUnlocalisedName("barrel"));
+		}
+		if (ModBlocks.SMOKER.isEnabled()) {
+			GameRegistry.registerTileEntity(TileEntitySmoker.class, Utils.getUnlocalisedName("smoker"));
+		}
+		if (ModBlocks.BLAST_FURNACE.isEnabled()) {
+			GameRegistry.registerTileEntity(TileEntityBlastFurnace.class, Utils.getUnlocalisedName("blast_furnace"));
+		}
+		if (ConfigBlocksItems.enableSigns) {
+			GameRegistry.registerTileEntity(TileEntityWoodSign.class, Utils.getUnlocalisedName("sign"));
+		}
+		if (ModBlocks.SCULK_CATALYST.isEnabled()) {
+			GameRegistry.registerTileEntity(TileEntitySculkCatalyst.class, Utils.getUnlocalisedName("sculk_catalyst"));
+		}
+		if (ModBlocks.END_GATEWAY.isEnabled()) {
+			GameRegistry.registerTileEntity(TileEntityGateway.class, Utils.getUnlocalisedName("end_gateway"));
+		}
+		if (ModBlocks.SHULKER_BOX.isEnabled()) {
+			GameRegistry.registerTileEntity(TileEntityShulkerBox.class, Utils.getUnlocalisedName("shulker_box"));
+		}
+		if (ModBlocks.POTION_CAULDRON.isEnabled()) {
+			GameRegistry.registerTileEntity(TileEntityCauldronPotion.class, Utils.getUnlocalisedName("potion_cauldron"));
+		}
+		if (ModBlocks.BANNER.isEnabled()) {
 			GameRegistry.registerTileEntity(TileEntityBanner.class, Utils.getUnlocalisedName("banner"));
+		}
+		if (ModBlocks.BEEHIVE.isEnabled() && ModBlocks.BEE_NEST.isEnabled()) {
+			GameRegistry.registerTileEntity(TileEntityBeeHive.class, Utils.getUnlocalisedName("hive"));
+		}
+		if (ConfigEntities.enableRabbit) {
+			ModEntityList.registerEntity(EntityRabbit.class, "rabbit", 3, EtFuturum.instance, 80, 3, true, 0x995F40, 0x734831);
+
+			EntityRegistry.addSpawn(EntityRabbit.class, 5, 3, 3, EnumCreatureType.creature, BiomeDictionary.getBiomesForType(Type.SANDY));
+			BiomeGenBase[] array = BiomeDictionary.getBiomesForType(Type.SNOWY);
+			array = ArrayUtils.addAll(array, BiomeDictionary.getBiomesForType(Type.PLAINS));
+			array = ArrayUtils.addAll(array, BiomeDictionary.getBiomesForType(Type.FOREST));
+			EntityRegistry.addSpawn(EntityRabbit.class, 10, 3, 3, EnumCreatureType.creature, array);
+		}
 		if (ConfigBlocksItems.enableArmourStand)
 			ModEntityList.registerEntity(EntityArmourStand.class, "wooden_armorstand", 0, EtFuturum.instance, 64, 1, true);
 		if (ConfigEntities.enableEndermite)
 			ModEntityList.registerEntity(EntityEndermite.class, "endermite", 1, EtFuturum.instance, 64, 1, true, 0x161616, 0x6E6E6E);
 		if (ConfigBlocksItems.enableTippedArrows)
 			ModEntityList.registerEntity(EntityTippedArrow.class, "tipped_arrow", 2, EtFuturum.instance, 64, 20, true);
-		if (ConfigBlocksItems.enableBrewingStands)
-			GameRegistry.registerTileEntity(TileEntityNewBrewingStand.class, Utils.getUnlocalisedName("brewing_stand"));
-		if (ConfigBlocksItems.enableColourfulBeacons)
-			GameRegistry.registerTileEntity(TileEntityNewBeacon.class, Utils.getUnlocalisedName("beacon"));
 
-		if (ConfigBlocksItems.enableBarrel)
-			GameRegistry.registerTileEntity(TileEntityBarrel.class, Utils.getUnlocalisedName("barrel"));
-		
-		if (ConfigBlocksItems.enableSmoker)
-			GameRegistry.registerTileEntity(TileEntitySmoker.class, Utils.getUnlocalisedName("smoker"));
-		if (ConfigBlocksItems.enableBlastFurnace)
-			GameRegistry.registerTileEntity(TileEntityBlastFurnace.class, Utils.getUnlocalisedName("blast_furnace"));
-		
-		if(ConfigBlocksItems.enableSigns)
-			GameRegistry.registerTileEntity(TileEntityWoodSign.class, Utils.getUnlocalisedName("sign"));
-
-		if(ConfigBlocksItems.enableSculk)
-			GameRegistry.registerTileEntity(TileEntitySculkCatalyst.class, Utils.getUnlocalisedName("sculk_catalyst"));
-		
-		//Come back to
-			GameRegistry.registerTileEntity(TileEntityGateway.class, Utils.getUnlocalisedName("end_gateway"));
-
-		if(ConfigBlocksItems.enableShulkerBoxes)
-			GameRegistry.registerTileEntity(TileEntityShulkerBox.class, Utils.getUnlocalisedName("shulker_box"));
-		
-		GameRegistry.registerTileEntity(TileEntityCauldronPotion.class, Utils.getUnlocalisedName("potion_cauldron"));
-		
-		if (ConfigEntities.enableRabbit) {
-			ModEntityList.registerEntity(EntityRabbit.class, "rabbit", 3, EtFuturum.instance, 80, 3, true, 0x995F40, 0x734831);
-
-			List<BiomeGenBase> biomes = new LinkedList<BiomeGenBase>();
-			label: for (BiomeGenBase biome : BiomeGenBase.getBiomeGenArray())
-				if (biome != null)
-					// Check if pigs can spawn on this biome
-					for (Object obj : biome.getSpawnableList(EnumCreatureType.creature))
-						if (obj instanceof SpawnListEntry) {
-							SpawnListEntry entry = (SpawnListEntry) obj;
-							if (entry.entityClass == EntityPig.class) {
-								biomes.add(biome);
-								continue label;
-							}
-						}
-			EntityRegistry.addSpawn(EntityRabbit.class, 10, 3, 3, EnumCreatureType.creature, biomes.toArray(new BiomeGenBase[biomes.size()]));
-		}
-		
 		if (ConfigEntities.enableHusk) {
 			ModEntityList.registerEntity(EntityHusk.class, "husk", 4, EtFuturum.instance, 80, 3, true, 0x777561, 0xE0D991);
 		}
@@ -140,18 +136,13 @@ public class CommonProxy implements IGuiHandler {
 		
 		if (ConfigEntities.enableBrownMooshroom)
 			ModEntityList.registerEntity(EntityBrownMooshroom.class, "brown_mooshroom", 12, EtFuturum.instance, 80, 3, true);
-
-		if(ConfigBlocksItems.enableNewBoats)
-			ModEntityList.registerEntity(EntityNewBoat.class, "new_boat", 13, EtFuturum.instance, 64, 1, true);
-		
-		ModEntityList.registerEntity(EntityNewBoatSeat.class, "new_boat_seat", 14, EtFuturum.instance, 64, 1, false);
 		
 		ModEntityList.registerEntity(EntityItemUninflammable.class, "fireproof_item", 15, EtFuturum.instance, 64, 1, true);
 		
 		if(ConfigEntities.enableShulker) {
 			ModEntityList.registerEntity(EntityShulker.class, "shulker", 16, EtFuturum.instance, 64, 1, false, 0x946794, 0x4D3852);
 			ModEntityList.registerEntity(EntityShulkerBullet.class, "shulker_candy", 17, EtFuturum.instance, 64, 1, true);
-			
+
 			if(ConfigTweaks.shulkersSpawnAnywhere) {
 				EntityRegistry.addSpawn(EntityShulker.class, 2, 1, 2, EnumCreatureType.monster, BiomeDictionary.getBiomesForType(Type.END));
 			}
@@ -162,7 +153,9 @@ public class CommonProxy implements IGuiHandler {
 //      }
 
 		if (ConfigBlocksItems.enableNewBoats) {
+			ModEntityList.registerEntity(EntityNewBoat.class, "new_boat", 13, EtFuturum.instance, 64, 1, true);
 			ModEntityList.registerEntity(EntityNewBoatWithChest.class, "chest_boat", 19, EtFuturum.instance, 64, 1, true);
+			ModEntityList.registerEntity(EntityNewBoatSeat.class, "new_boat_seat", 14, EtFuturum.instance, 64, 1, false);
 		}
 
 		if (ConfigMixins.enableElytra) {
@@ -171,6 +164,10 @@ public class CommonProxy implements IGuiHandler {
 
 		if (ConfigBlocksItems.enableConcrete) {
 			ModEntityList.registerEntity(EntityFallingConcrete.class, "falling_concrete", 21, EtFuturum.instance, 64, 1, true);
+		}
+
+		if (ConfigEntities.enableBees) {
+			ModEntityList.registerEntity(EntityBee.class, "bee", 22, EtFuturum.instance, 80, 3, true, 0xEDC343, 0x43241B);
 		}
 
 		//make magmas slightly more common, hopefully.

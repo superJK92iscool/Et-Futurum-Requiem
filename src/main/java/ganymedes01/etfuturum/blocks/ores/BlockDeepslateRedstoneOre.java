@@ -2,12 +2,15 @@ package ganymedes01.etfuturum.blocks.ores;
 
 import java.util.Random;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
@@ -115,16 +118,20 @@ public class BlockDeepslateRedstoneOre extends BlockDeepslateOre {
 				d1 = p_150186_2_ + 0 - d0;
 			}
 
-			if (d1 < p_150186_2_ || d1 > p_150186_2_ + 1 || d2 < 0.0D || d2 > p_150186_3_ + 1 || d3 < p_150186_4_ || d3 > p_150186_4_ + 1)
-			{
+			if (d1 < p_150186_2_ || d1 > p_150186_2_ + 1 || d2 < 0.0D || d2 > p_150186_3_ + 1 || d3 < p_150186_4_ || d3 > p_150186_4_ + 1) {
 				p_150186_1_.spawnParticle("reddust", d1, d2, d3, 0.0D, 0.0D, 0.0D);
 			}
 		}
 	}
 
 	@Override
-	protected ItemStack createStackedBlock(int p_149644_1_)
-	{
-		return new ItemStack(ModBlocks.DEEPSLATE_REDSTONE_ORE.get());
+	protected ItemStack createStackedBlock(int p_149644_1_) {
+		return ModBlocks.DEEPSLATE_REDSTONE_ORE.newItemStack();
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public Item getItem(World p_149694_1_, int p_149694_2_, int p_149694_3_, int p_149694_4_) {
+		return Item.getItemFromBlock(ModBlocks.DEEPSLATE_REDSTONE_ORE.get());
 	}
 }

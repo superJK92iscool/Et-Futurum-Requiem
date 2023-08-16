@@ -61,19 +61,18 @@ public class BlockStonecutter extends Block {
 	@Override
 	public void onBlockPlacedBy(World p_149689_1_, int p_149689_2_, int p_149689_3_, int p_149689_4_, EntityLivingBase p_149689_5_, ItemStack p_149689_6_)
 	{
-		int ordinal = MathHelper.floor_double((double)(p_149689_5_.rotationYaw / 90.0F) + 0.5D) & 3;
-
-		if (ordinal == 1)
-		{
-			ordinal = 3;
-		} else if (ordinal == 2)
-		{
-			ordinal = 1;
-		} else if (ordinal == 3)
-		{
-			ordinal = 2;
+		int ordinal = MathHelper.floor_double((double) (p_149689_5_.rotationYaw / 90.0F) + 0.5D) & 3;
+		switch (ordinal) {
+			case 1:
+				ordinal = 3;
+				break;
+			case 2:
+				ordinal = 1;
+				break;
+			case 3:
+				ordinal = 2;
+				break;
 		}
-		
 		p_149689_1_.setBlockMetadataWithNotify(p_149689_2_, p_149689_3_, p_149689_4_, ordinal, 2);
 	}
 

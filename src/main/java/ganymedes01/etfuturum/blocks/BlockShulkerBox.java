@@ -152,29 +152,34 @@ public class BlockShulkerBox extends BlockContainer {
 					return true;
 				}
 			}
-			ForgeDirection dir = ForgeDirection.getOrientation(((TileEntityShulkerBox)shulker).facing);
+			ForgeDirection dir = ForgeDirection.getOrientation(shulker.facing);
 			boolean flag;
-			if (((TileEntityShulkerBox)shulker).func_190591_p() == TileEntityShulkerBox.AnimationStatus.CLOSED)
-			{
+			if (shulker.func_190591_p() == TileEntityShulkerBox.AnimationStatus.CLOSED) {
 				AxisAlignedBB axisalignedbb = AxisAlignedBB.getBoundingBox(x, y, z, x + 1, y + 1, z + 1)
-				.addCoord((double)(0.5F * (float)dir.offsetX), (double)(0.5F * (float)dir.offsetY), (double)(0.5F * (float)dir.offsetZ));
-				axisalignedbb.addCoord(-(double)dir.offsetX, -(double)dir.offsetY, -(double)dir.offsetZ);
-				
+						.addCoord(0.5F * (float) dir.offsetX, 0.5F * (float) dir.offsetY, 0.5F * (float) dir.offsetZ);
+				axisalignedbb.addCoord(-(double) dir.offsetX, -(double) dir.offsetY, -(double) dir.offsetZ);
+
 				flag = canOpen(axisalignedbb, world, shulker);
-			}
-			else
-			{
+			} else {
 				flag = true;
 			}
 
-			if (flag)
-			{
+			if (flag) {
 				player.openGui(EtFuturum.instance, GUIsID.SHULKER_BOX, world, x, y, z);
 			}
 
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public void onBlockAdded(World p_149726_1_, int p_149726_2_, int p_149726_3_, int p_149726_4_) {
+		TileEntityShulkerBox shulker = (TileEntityShulkerBox) p_149726_1_.getTileEntity(p_149726_2_, p_149726_3_, p_149726_4_);
+		if (shulker.chestContents == null || shulker.chestContents.length != shulker.getSizeInventory()) {
+			shulker.chestContents = new ItemStack[shulker.getSizeInventory()];
+		}
+		super.onBlockAdded(p_149726_1_, p_149726_2_, p_149726_3_, p_149726_4_);
 	}
 
 //  public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z)
@@ -261,6 +266,7 @@ public class BlockShulkerBox extends BlockContainer {
 		TileEntityShulkerBox container = (TileEntityShulkerBox) world.getTileEntity(x, y, z);
 		if (container != null) container.onBlockDestroyed();
 	}
+
 	protected void dropBlockAsItem(World p_149642_1_, int p_149642_2_, int p_149642_3_, int p_149642_4_, ItemStack p_149642_5_)
 	{
 	}
@@ -312,11 +318,6 @@ public class BlockShulkerBox extends BlockContainer {
 	@SideOnly(Side.CLIENT)
 	public boolean addDestroyEffects(World world, int x, int y, int z, int metadata, EffectRenderer effectRenderer)
 	{
-		/*
-		 * We don't have the ability to accurately determine the entity that is
-		 * hitting the block. So, instead we're guessing based on who is
-		 * closest. This should be adequate most of the time.
-		 */
 
 		TileEntityShulkerBox TE = (TileEntityShulkerBox)world.getTileEntity(x, y, z);
 

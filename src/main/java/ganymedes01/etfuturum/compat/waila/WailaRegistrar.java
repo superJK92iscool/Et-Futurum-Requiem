@@ -15,6 +15,6 @@ public class WailaRegistrar {
 	}
 	
 	public static void register() {
-		FMLInterModComms.sendMessage("Waila", "register", "ganymedes01.etfuturum.api.waila.WailaRegistrar.wailaCallback");
+		FMLInterModComms.sendMessage("Waila", "register", "ganymedes01.etfuturum.compat.waila.WailaRegistrar.wailaCallback");
 	}
 }

@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.blocks;
 
-import java.util.List;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
@@ -14,6 +12,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 public class BlockInfestedDeepslate extends BlockSilverfish {
 
@@ -45,7 +45,7 @@ public class BlockInfestedDeepslate extends BlockSilverfish {
 	@Override
 	protected ItemStack createStackedBlock(int p_149644_1_)
 	{
-		return new ItemStack(ModBlocks.DEEPSLATE.get());
+		return ModBlocks.DEEPSLATE.newItemStack();
 	}
 	
 	@Override

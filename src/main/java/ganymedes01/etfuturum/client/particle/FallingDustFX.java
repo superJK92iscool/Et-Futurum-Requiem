@@ -9,8 +9,8 @@ public class FallingDustFX extends EtFuturumFXParticle {
 	float oSize;
 	final float rotSpeed;
 
-	public FallingDustFX(World world, double x, double y, double z, double mx, double my, double mz, int maxAge, float scale, int color, ResourceLocation texture, int textures) {
-		super(world, x, y, z, mx, my, mz, maxAge, scale, color, texture, textures);
+	public FallingDustFX(World world, double x, double y, double z, double mx, double my, double mz, int maxAge, float scale, int color, ResourceLocation texture) {
+		super(world, x, y, z, mx, my, mz, maxAge, scale, color, texture, 8);
 		float f = 0.9F;
 		this.particleScale *= 0.75F;
 		this.particleScale *= 0.9F;
@@ -19,18 +19,13 @@ public class FallingDustFX extends EtFuturumFXParticle {
 		this.particleMaxAge = (int) ((float) this.particleMaxAge * 0.9F);
 		this.rotSpeed = ((float) Math.random() - 0.5F) * 0.1F;
 		this.particleAngle = (float) Math.random() * ((float) Math.PI * 2F);
-		currentTexture = 7;
-		usesSheet = false;
 		noClip = false;
 	}
 
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
-		if (this.particleAge % Math.round(particleMaxAge / 8) == 0) {
-			if (currentTexture > 0)
-				this.currentTexture--;
-		}
+		this.setParticleTextureIndex(7 - this.particleAge * 8 / this.particleMaxAge);
 
 		this.prevParticleAngle = this.particleAngle;
 		this.particleAngle += (float) Math.PI * this.rotSpeed * 2.0F;
@@ -43,11 +38,11 @@ public class FallingDustFX extends EtFuturumFXParticle {
 	}
 
 	@Override
-	public void renderParticle(Tessellator par1Tessellator, float partialTicks, float rx, float rxz, float rz,
+	public void renderParticle(Tessellator tessellator, float partialTicks, float rx, float rxz, float rz,
 							   float ryz, float rxy) {
 		float f = ((float) this.particleAge + partialTicks) / (float) this.particleMaxAge * 32.0F;
 		f = MathHelper.clamp_float(f, 0.0F, 1.0F);
 		this.particleScale = this.oSize * f;
-		super.renderParticle(par1Tessellator, partialTicks, rx, rxz, rz, ryz, rxy);
+		super.renderParticle(tessellator, partialTicks, rx, rxz, rz, ryz, rxy);
 	}
 }

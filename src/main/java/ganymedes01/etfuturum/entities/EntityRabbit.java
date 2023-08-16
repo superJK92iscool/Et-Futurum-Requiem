@@ -12,16 +12,7 @@ import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIAttackOnCollide;
-import net.minecraft.entity.ai.EntityAIAvoidEntity;
-import net.minecraft.entity.ai.EntityAIMate;
-import net.minecraft.entity.ai.EntityAIPanic;
-import net.minecraft.entity.ai.EntityAISwimming;
-import net.minecraft.entity.ai.EntityAITempt;
-import net.minecraft.entity.ai.EntityAIWander;
-import net.minecraft.entity.ai.EntityAIWatchClosest;
-import net.minecraft.entity.ai.EntityJumpHelper;
-import net.minecraft.entity.ai.EntityMoveHelper;
+import net.minecraft.entity.ai.*;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.entity.player.EntityPlayer;
@@ -34,6 +25,11 @@ import net.minecraft.pathfinding.PathEntity;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraftforge.common.BiomeDictionary;
+import scala.actors.threadpool.Arrays;
+
+import java.util.List;
 
 public class EntityRabbit extends EntityAnimal {
 
@@ -118,7 +114,29 @@ public class EntityRabbit extends EntityAnimal {
 
 	@Override
 	public IEntityLivingData onSpawnWithEgg(IEntityLivingData livingdata) {
-		setRabbitType(rand.nextInt(6));
+		BiomeGenBase biome = worldObj.getBiomeGenForCoords((int) posX, (int) posZ);
+		List<BiomeDictionary.Type> types = Arrays.asList(BiomeDictionary.getTypesForBiome(biome));
+		if (types.contains(BiomeDictionary.Type.SANDY)) {
+			setRabbitType(RabbitTypes.GOLD.ordinal());
+		} else if (types.contains(BiomeDictionary.Type.SNOWY)) {
+			setRabbitType(rand.nextBoolean() ? RabbitTypes.WHITE.ordinal() : RabbitTypes.WHITE_SPLOTCHED.ordinal());
+		} else if (types.contains(BiomeDictionary.Type.PLAINS) || types.contains(BiomeDictionary.Type.FOREST)) {
+			int type = rand.nextInt(3);
+			switch (type) {
+				case 0:
+					type = RabbitTypes.BLACK.ordinal();
+					break;
+				case 1:
+					type = RabbitTypes.BROWN.ordinal();
+					break;
+				case 2:
+					type = RabbitTypes.SALT.ordinal();
+					break;
+			}
+			setRabbitType(type);
+		} else {
+			setRabbitType(rand.nextInt(6));
+		}
 		return super.onSpawnWithEgg(livingdata);
 	}
 
@@ -519,9 +537,17 @@ public class EntityRabbit extends EntityAnimal {
 			return false;
 		}
 	}
-	
-	public ItemStack getPickedResult(MovingObjectPosition target)
-	{
+
+	public ItemStack getPickedResult(MovingObjectPosition target) {
 		return ModEntityList.getEggFromEntity(this);
+	}
+
+	private enum RabbitTypes {
+		BROWN,
+		WHITE,
+		BLACK,
+		WHITE_SPLOTCHED,
+		GOLD,
+		SALT;
 	}
 }

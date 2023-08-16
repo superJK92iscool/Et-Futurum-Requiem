@@ -153,6 +153,7 @@ public class EtFuturum {
 	public static final boolean hasMineTweaker = Loader.isModLoaded("MineTweaker3");
 	public static final boolean hasTConstruct = Loader.isModLoaded("TConstruct");
 	public static final boolean hasNatura = Loader.isModLoaded("Natura");
+	public static final boolean hasCampfireBackport = Loader.isModLoaded("campfirebackport");
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
@@ -391,20 +392,39 @@ public class EtFuturum {
 //              block.blockMaterial = Material.wood;
 //          }
 		}
-		
+
 //      if(ConfigurationHandler.enableNewNether)
 //        DimensionProviderNether.init(); // Come back to
-		
-		if(TESTING) {
+
+		if (TESTING) {
 			DimensionProviderEnd.init(); // Come back to
 		}
 	}
-	
+
+	/**
+	 * As of 2.5.0, I removed some ItemBlocks that are just technical blocks (EG, lit EFR furnaces)
+	 * We need to use this event since unregistering specifically an ItemBlock from a block makes Forge mistakenly think a save is corrupted.
+	 * I add the EFR name check at the beginning just as a safety precaution.
+	 */
+
+	@EventHandler
+	public void onMissingMapping(FMLMissingMappingsEvent e) {
+		for (FMLMissingMappingsEvent.MissingMapping mapping : e.getAll()) {
+			if (mapping.name.startsWith("etfuturum")) {
+				if (Block.getBlockFromName(mapping.name) != null && mapping.type == GameRegistry.Type.ITEM) {
+					mapping.ignore();
+					mapping.skipItemBlock();
+				}
+			}
+		}
+	}
+
+
 	public SoundType getCustomStepSound(Block block, String namespace) {
-		
-		if(block.stepSound == Block.soundTypePiston || block.stepSound == Block.soundTypeStone) {
-			
-			if(namespace.contains("nether") && namespace.contains("brick")) {
+
+		if (block.stepSound == Block.soundTypePiston || block.stepSound == Block.soundTypeStone) {
+
+			if (namespace.contains("nether") && namespace.contains("brick")) {
 				return ModSounds.soundNetherBricks;
 			}
 			
@@ -682,8 +702,14 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "entity.cow.milk", "neutral");
 		config.addSoundEvent(ver, "entity.mooshroom.milk", "neutral");
 		config.addSoundEvent(ver, "entity.mooshroom.convert", "neutral");
-		
-		
+		config.addSoundEvent(ver, "entity.bee.loop", "neutral");
+		config.addSoundEvent(ver, "entity.bee.loop_aggressive", "neutral");
+		config.addSoundEvent(ver, "entity.bee.hurt", "neutral");
+		config.addSoundEvent(ver, "entity.bee.death", "neutral");
+		config.addSoundEvent(ver, "entity.bee.pollinate", "neutral");
+		config.addSoundEvent(ver, "entity.bee.sting", "neutral");
+
+
 		config.addSoundEvent(ver, "entity.player.hurt_on_fire", "player");
 		config.addSoundEvent(ver, "entity.player.hurt_drown", "player");
 		config.addSoundEvent(ver, "entity.player.hurt_sweet_berry_bush", "player");
@@ -711,6 +737,7 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "item.bottle.fill", "player");
 		config.addSoundEvent(ver, "item.bottle.empty", "player");
 		config.addSoundEvent(ver, "item.bone_meal.use", "player");
+		config.addSoundEvent(ver, "item.honey_bottle.drink", "player");
 
 		config.addSoundEvent(ver, "item.armor.equip_leather", "player");
 		config.addSoundEvent(ver, "item.armor.equip_gold", "player");
@@ -778,15 +805,21 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "block.beacon.ambient", "block");
 		config.addSoundEvent(ver, "block.beacon.deactivate", "block");
 		config.addSoundEvent(ver, "block.beacon.power_select", "block");
+		config.addSoundEvent(ver, "block.honey_block.slide", "neutral");
+		config.addSoundEvent(ver, "block.beehive.drip", "block");
+		config.addSoundEvent(ver, "block.beehive.enter", "neutral");
+		config.addSoundEvent(ver, "block.beehive.exit", "neutral");
+		config.addSoundEvent(ver, "block.beehive.work", "neutral");
+		config.addSoundEvent(ver, "block.beehive.shear", "player");
 
 		//Automatically register block sounds for AssetDirector, but only if they contain the MC version (which means it needs to be registered here)
 		//Then we remove the mc version prefix and register that sound.
 
-		for(ModSounds.CustomSound sound : ModSounds.getSounds()) {
-			if(sound.getStepResourcePath().startsWith(Reference.MCAssetVer)) { //Step sound
+		for (ModSounds.CustomSound sound : ModSounds.getSounds()) {
+			if (sound.getStepResourcePath().startsWith(Reference.MCAssetVer)) { //Step sound
 				config.addSoundEvent(ver, sound.getStepResourcePath().substring(Reference.MCAssetVer.length() + 1), "neutral");
 			}
-			if(sound.func_150496_b().startsWith(Reference.MCAssetVer)) { //Place sound
+			if (sound.func_150496_b().startsWith(Reference.MCAssetVer)) { //Place sound
 				config.addSoundEvent(ver, sound.func_150496_b().substring(Reference.MCAssetVer.length() + 1), "block");
 			}
 			if(sound.getBreakSound().startsWith(Reference.MCAssetVer)) { //Break sound

@@ -45,11 +45,11 @@ public class BlockSlime extends BaseBlock {
 		ImmutablePair<Double, Integer> pair = SLIME_BOUNCE_CACHE.get(entity);
 		if (pair != null && SLIME_BOUNCE_CACHE.get(entity).getRight() == entity.ticksExisted) {
 			entity.motionY = pair.getLeft();
-			double d = 0.4 + Math.abs(entity.motionY) * 0.2;
-			entity.motionX *= d;
-			entity.motionZ *= d;
 		}
 		SLIME_BOUNCE_CACHE.remove(entity);
+		double d = 0.4 + Math.abs(entity.motionY) * 0.2;
+		entity.motionX *= d;
+		entity.motionZ *= d;
 	}
 
 	@Override

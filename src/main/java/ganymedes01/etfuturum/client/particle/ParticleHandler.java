@@ -20,77 +20,83 @@ public enum ParticleHandler {
 	BARRIER(BarrierParticleFX.class, ParticleData.VX_VY_VZ, int.class, float.class, int.class, ResourceLocation.class,
 			int.class) {
 		private final ResourceLocation texture = new ResourceLocation(
-				"minecraft:textures/blocks/barrier.png");
+				"textures/blocks/barrier.png");
 
 		@Override
 		protected Object[] getAdditionalArgs(World world, Object... data) {
-			return new Object[] { 80, .45F, 0xFFFFFFFF, texture, 1 };
+			return new Object[]{80, 4.5F, 0xFFFFFFFF, texture, 1};
 		}
 	},
 	
 	WAX_ON(CopperGlowFX.class, ParticleData.VX_VY_VZ, int.class, float.class, int.class, ResourceLocation.class,
 			int.class) {
 		private final ResourceLocation texture = new ResourceLocation(
-				"minecraft:textures/particle/glow.png");
+				"textures/particle/glow.png");
 
 		@Override
 		protected Object[] getAdditionalArgs(World world, Object... data) {
-			return new Object[] { 30 + rand.nextInt(26), .15F, 0xFFFFA32C, texture, 1 };
+			return new Object[]{30 + rand.nextInt(26), 1, 0xFFFFA32C, texture, 1};
 		}
 	},
 	
 	WAX_OFF(CopperGlowFX.class, ParticleData.VX_VY_VZ, int.class, float.class, int.class, ResourceLocation.class,
 			int.class) {
 		private final ResourceLocation texture = new ResourceLocation(
-				"minecraft:textures/particle/glow.png");
+				"textures/particle/glow.png");
 
 		@Override
 		protected Object[] getAdditionalArgs(World world, Object... data) {
-			return new Object[] { 30 + rand.nextInt(26), .15F, 0xFFFFFFFF, texture, 1 };
+			return new Object[]{30 + rand.nextInt(26), 1, 0xFFFFFFFF, texture, 1};
 		}
 	},
 	
 	COPPER_SCRAPE(CopperGlowFX.class, ParticleData.VX_VY_VZ, int.class, float.class, int.class, ResourceLocation.class,
 			int.class) {
 		private final ResourceLocation texture = new ResourceLocation(
-				"minecraft:textures/particle/glow.png");
+				"textures/particle/glow.png");
 
 		@Override
 		protected Object[] getAdditionalArgs(World world, Object... data) {
-			return new Object[] { 30 + rand.nextInt(26), .15F, 0xFF78DAC1, texture, 1 };
+			return new Object[]{30 + rand.nextInt(26), 1, 0xFF78DAC1, texture, 1};
 		}
 	},
 	
 	DAMAGE_HEART(BlackHeartFX.class, ParticleData.VX_VY_VZ, int.class, float.class, int.class, ResourceLocation.class,
 			int.class) {
 		private final ResourceLocation texture = new ResourceLocation(
-				"minecraft:textures/particle/damage.png");
+				"textures/particle/damage.png");
 
 		@Override
 		protected Object[] getAdditionalArgs(World world, Object... data) {
-			return new Object[] { 15, 0.075F + (rand.nextFloat() * 0.125F), 0xFFFFFFFF, texture, 1 };
+			return new Object[]{15, 1 + (rand.nextFloat() * 0.125F), 0xFFFFFFFF, texture, 1};
 		}
 	},
 
 	END_ROD(EndRodFX.class, ParticleData.VX_VY_VZ, int.class, float.class, int.class, ResourceLocation.class,
 			int.class) {
 		private final ResourceLocation texture = new ResourceLocation(
-				"minecraft:textures/particle/glitter.png");
+				"textures/particle/glitter.png");
 
 		@Override
 		protected Object[] getAdditionalArgs(World world, Object... data) {
-			return new Object[]{60 + rand.nextInt(12), .075F, 0xFFFFFFFF, texture, 8};
+			return new Object[]{60 + rand.nextInt(12), 1, 0xFFFFFFFF, texture, 8};
 		}
 	},
 
-	FALLING_DUST(FallingDustFX.class, ParticleData.VX_VY_VZ, int.class, float.class, int.class, ResourceLocation.class,
-			int.class) {
+	FALLING_DUST(FallingDustFX.class, ParticleData.VX_VY_VZ, int.class, float.class, int.class, ResourceLocation.class) {
 		private final ResourceLocation texture = new ResourceLocation(
-				"minecraft:textures/particle/generic.png");
+				"textures/particle/particles.png");
 
 		@Override
 		protected Object[] getAdditionalArgs(World world, Object... data) {
-			return new Object[]{60 + rand.nextInt(12), .1F, data[0], texture, 8};
+			return new Object[]{60 + rand.nextInt(12), 1F, data[0], texture};
+		}
+	},
+
+	DRIP(CustomDripFX.class, ParticleData.VX_VY_VZ, String.class, int.class) {
+		@Override
+		protected Object[] getAdditionalArgs(World world, Object... data) {
+			return new Object[]{data[0], data[1]};
 		}
 	};
 
@@ -165,12 +171,12 @@ public enum ParticleHandler {
 	protected void onSpawn(EntityFX entityFX) {
 	}
 
-	public final void spawn(World world, double x, double y, double z) {
-		spawn(world, x, y, z, 0, 0, 0, 1);
+	public final EntityFX spawn(World world, double x, double y, double z) {
+		return spawn(world, x, y, z, 0, 0, 0, 1);
 	}
 
-	public final void spawn(World world, double x, double y, double z, double motionX, double motionY, double motionZ,
-			float scale, Object... data) {
+	public final EntityFX spawn(World world, double x, double y, double z, double motionX, double motionY, double motionZ,
+								float scale, Object... data) {
 		Object[] arguments = getArguments(world, x, y, z, motionX, motionY, motionZ, scale, data);
 		try {
 			EntityFX entityFX = constructor.newInstance(arguments);
@@ -179,6 +185,7 @@ public enum ParticleHandler {
 			}
 			onSpawn(entityFX);
 			Minecraft.getMinecraft().effectRenderer.addEffect(entityFX);
+			return entityFX;
 		} catch (Exception e) {
 			CrashReport crash = CrashReport.makeCrashReport(e, "Constructing EntityFX");
 			CrashReportCategory categorySpawnArguments = crash.makeCategory("Spawn Arguments");

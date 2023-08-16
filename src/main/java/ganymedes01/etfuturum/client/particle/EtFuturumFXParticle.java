@@ -1,6 +1,7 @@
 package ganymedes01.etfuturum.client.particle;
 
 import ganymedes01.etfuturum.client.OpenGLHelper;
+import ganymedes01.etfuturum.core.utils.RandomXoshiro256StarStar;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.client.renderer.Tessellator;
@@ -13,15 +14,10 @@ import java.util.Random;
 
 public class EtFuturumFXParticle extends EntityFX {
 
-	protected ResourceLocation particleTexture;
-	protected float scale;
 	protected int color;
 	protected int textures;
-	protected double relativeTextureHeight;
 	protected int currentTexture = 0;
-	protected int textureCounter = 0;
 	protected float entityBrightness;
-	private final String textureName;
 	private boolean fadingColor;
 	protected boolean fadeAway;
 	private float fadeTargetRed;
@@ -29,10 +25,10 @@ public class EtFuturumFXParticle extends EntityFX {
 	private float fadeTargetBlue;
 	float particleAngle;
 	float prevParticleAngle;
-
 	protected boolean usesSheet;
+	private final ResourceLocation[] resourceLocations;
 
-	protected static Random particleRand = new Random();
+	protected static final Random particleRand = new RandomXoshiro256StarStar();
 
 	public EtFuturumFXParticle(World world, double x, double y, double z, double mx, double my, double mz, int maxAge,
 							   float scale, int color, ResourceLocation texture, int textures) {
@@ -46,17 +42,18 @@ public class EtFuturumFXParticle extends EntityFX {
 		this.particleMaxAge = maxAge;
 		this.noClip = true;
 		this.color = color;
-		this.scale = scale;
+		this.particleScale = scale;
 		this.textures = textures;
-		this.relativeTextureHeight = usesSheet ? (1.0D / this.textures) : 1;
-		this.particleTexture = texture;
-		this.usesSheet = true;
-		fadingColor = false;
-		if(texture != null) {
-			textureName = texture.getResourcePath();
-		} else {
-			textureName = "null";
+		this.usesSheet = texture.toString().equals("minecraft:textures/particle/particles.png");
+		resourceLocations = new ResourceLocation[usesSheet ? 1 : textures];
+		if (textures == 1 || usesSheet) {
+			resourceLocations[0] = texture;
+		} else for (int i = 0; i < textures; i++) {
+			String textureName = texture.toString();
+			int length = textureName.length();
+			resourceLocations[i] = new ResourceLocation(textureName.substring(0, length - 4) + "_" + i + textureName.substring(length - 4));
 		}
+		fadingColor = false;
 
 		particleAlpha = (this.color >> 24 & 0xff) / 255F;
 		particleRed = (this.color >> 16 & 0xff) / 255F;
@@ -65,51 +62,50 @@ public class EtFuturumFXParticle extends EntityFX {
 	}
 
 	@Override
-	public void renderParticle(Tessellator par1Tessellator, float partialTicks, float rx, float rxz, float rz,
-			float ryz, float rxy) {
-		float ipx = (float) ((this.prevPosX + (this.posX - this.prevPosX) * partialTicks) - EntityFX.interpPosX);
-		float ipy = (float) ((this.prevPosY + (this.posY - this.prevPosY) * partialTicks) - EntityFX.interpPosY);
-		float ipz = (float) ((this.prevPosZ + (this.posZ - this.prevPosZ) * partialTicks) - EntityFX.interpPosZ);
-
+	public void renderParticle(Tessellator tessellator, float partialTicks, float rx, float rxz, float rz, float ryz, float rxy) {
 		int prevTex = GL11.glGetInteger(GL11.GL_TEXTURE_BINDING_2D);
 
-		if(!usesSheet) {
-			String domain = particleTexture.getResourceDomain();
+		Minecraft.getMinecraft().getTextureManager().bindTexture(resourceLocations[usesSheet ? 0 : currentTexture]);
 
-			if (domain == null || domain.length() == 0)
-			{
-				domain = "minecraft";
-			}
-			particleTexture = new ResourceLocation(domain + ":" +
-					textureName.substring(0, textureName.length() - 4) + "_" + currentTexture + textureName.substring(textureName.length() - 4));
-		}
-
-		Minecraft.getMinecraft().getTextureManager().bindTexture(this.particleTexture);
-
-		int prevCurrentTexture = usesSheet ? currentTexture : 0;
 		OpenGLHelper.enableBlend();
 		OpenGLHelper.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-
-		Vec3 ipNormVec = Vec3.createVectorHelper(ipx, ipy, ipz).normalize();
-		double angle = Math.toDegrees(this.prevParticleAngle + (this.particleAngle - this.prevParticleAngle) * partialTicks);
-
 		GL11.glPushMatrix();
-		GL11.glTranslatef(ipx, ipy, ipz);
-		GL11.glRotated(angle, ipNormVec.xCoord, ipNormVec.yCoord, ipNormVec.zCoord);
-		GL11.glTranslatef(-ipx, -ipy, -ipz);
+		float ipx = (float) (this.prevPosX + (this.posX - this.prevPosX) * partialTicks - EntityFX.interpPosX);
+		float ipy = (float) (this.prevPosY + (this.posY - this.prevPosY) * partialTicks - EntityFX.interpPosY);
+		float ipz = (float) (this.prevPosZ + (this.posZ - this.prevPosZ) * partialTicks - EntityFX.interpPosZ);
+		if (particleAngle != 0) {
+			Vec3 ipNormVec = Vec3.createVectorHelper(ipx, ipy, ipz).normalize();
+			double angle = Math.toDegrees(this.prevParticleAngle + (this.particleAngle - this.prevParticleAngle) * partialTicks);
 
-		par1Tessellator.startDrawingQuads();
-		par1Tessellator.setBrightness(getBrightnessForRender(entityBrightness));
-		par1Tessellator.setColorRGBA_F(particleRed, particleGreen, particleBlue, particleAlpha);
-		par1Tessellator.addVertexWithUV(ipx - rx * this.scale - ryz * this.scale, ipy - rxz * this.scale,
-				ipz - rz * this.scale - rxy * this.scale, 1.0D, (prevCurrentTexture + 1) * this.relativeTextureHeight);
-		par1Tessellator.addVertexWithUV(ipx - rx * this.scale + ryz * this.scale, ipy + rxz * this.scale,
-				ipz - rz * this.scale + rxy * this.scale, 1.0D, prevCurrentTexture * this.relativeTextureHeight);
-		par1Tessellator.addVertexWithUV(ipx + rx * this.scale + ryz * this.scale, ipy + rxz * this.scale,
-				ipz + rz * this.scale + rxy * this.scale, 0.0D, prevCurrentTexture * this.relativeTextureHeight);
-		par1Tessellator.addVertexWithUV(ipx + rx * this.scale - ryz * this.scale, ipy - rxz * this.scale,
-				ipz + rz * this.scale - rxy * this.scale, 0.0D, (prevCurrentTexture + 1) * this.relativeTextureHeight);
-		par1Tessellator.draw();
+			GL11.glTranslatef(ipx, ipy, ipz);
+			GL11.glRotated(angle, ipNormVec.xCoord, ipNormVec.yCoord, ipNormVec.zCoord);
+			GL11.glTranslatef(-ipx, -ipy, -ipz);
+		}
+
+		double f6;
+		double f7;
+		double f8;
+		double f9;
+		double f10 = 0.1D * particleScale;
+
+		if (usesSheet) {
+			f6 = this.particleTextureIndexX / 16.0D;
+			f7 = f6 + 0.0624375D;
+			f8 = this.particleTextureIndexY / 16.0D;
+			f9 = f8 + 0.0624375D;
+		} else {
+			f7 = f9 = 1.0D;
+			f6 = f8 = 0.0D;
+		}
+
+		tessellator.startDrawingQuads();
+		tessellator.setBrightness(getBrightnessForRender(entityBrightness));
+		tessellator.setColorRGBA_F(particleRed, particleGreen, particleBlue, particleAlpha);
+		tessellator.addVertexWithUV(ipx - rx * f10 - ryz * f10, ipy - rxz * f10, ipz - rz * f10 - rxy * f10, f7, f9);
+		tessellator.addVertexWithUV(ipx - rx * f10 + ryz * f10, ipy + rxz * f10, ipz - rz * f10 + rxy * f10, f7, f8);
+		tessellator.addVertexWithUV(ipx + rx * f10 + ryz * f10, ipy + rxz * f10, ipz + rz * f10 + rxy * f10, f6, f8);
+		tessellator.addVertexWithUV(ipx + rx * f10 - ryz * f10, ipy - rxz * f10, ipz + rz * f10 - rxy * f10, f6, f9);
+		tessellator.draw();
 
 		GL11.glPopMatrix();
 
@@ -117,14 +113,22 @@ public class EtFuturumFXParticle extends EntityFX {
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, prevTex);
 	}
 
+	public void setParticleTextureIndex(int p_70536_1_) {
+		if (!usesSheet) {
+			throw new RuntimeException("Invalid call to Particle.setMiscTex");
+		} else {
+			this.particleTextureIndexX = p_70536_1_ % 16;
+			this.particleTextureIndexY = p_70536_1_ / 16;
+		}
+	}
+
 	@Override
 	public int getFXLayer() {
 		return 3;
 	}
 
-	public void setColorFade(int rgb)
-	{
-		this.fadeTargetRed = (float)((rgb & 16711680) >> 16) / 255.0F;
+	public void setColorFade(int rgb) {
+		this.fadeTargetRed = (float) ((rgb & 16711680) >> 16) / 255.0F;
 		this.fadeTargetGreen = (float) ((rgb & 65280) >> 8) / 255.0F;
 		this.fadeTargetBlue = (float) (rgb & 255) / 255.0F;
 		this.fadingColor = true;
@@ -134,21 +138,11 @@ public class EtFuturumFXParticle extends EntityFX {
 	public void onUpdate() {
 		super.onUpdate();
 		entityBrightness = worldObj.getLightBrightness((int)posX, (int)posY, (int)posZ);
-		if (!this.onGround && usesSheet) {
-			this.textureCounter++;
-			if (this.textureCounter >= 3) {
-				this.textureCounter = 0;
-				this.currentTexture++;
-				if (this.currentTexture >= this.textures) {
-					this.currentTexture = 0;
-				}
-			}
-		}
 
 		if (particleAge > particleMaxAge / 2)
 		{
-			if(fadeAway) {
-				setAlphaF(1.0F - ((float)particleAge - (float)(particleMaxAge / 2)) / (float)particleMaxAge);
+			if (fadeAway) {
+				setAlphaF(1.0F - ((float) particleAge - (float) (particleMaxAge / 2)) / (float) particleMaxAge);
 			}
 
 			if (fadingColor)

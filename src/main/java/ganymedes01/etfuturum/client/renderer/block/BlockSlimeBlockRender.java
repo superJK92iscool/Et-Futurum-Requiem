@@ -1,8 +1,5 @@
 package ganymedes01.etfuturum.client.renderer.block;
 
-import ganymedes01.etfuturum.ModBlocks;
-import org.lwjgl.opengl.GL11;
-
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -12,6 +9,7 @@ import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.world.IBlockAccess;
+import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
 public class BlockSlimeBlockRender implements ISimpleBlockRenderingHandler {
@@ -62,11 +60,11 @@ public class BlockSlimeBlockRender implements ISimpleBlockRenderingHandler {
 
 	@Override
 	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
-		renderer.renderStandardBlock(ModBlocks.SLIME.get(), x, y, z);
+		renderer.renderStandardBlock(block, x, y, z);
 		float f = 0.0625F;
 		renderer.setRenderBounds(f * 3, f * 3, f * 3, f * 13, f * 13, f * 13);
 		renderer.renderAllFaces = true;
-		boolean flag = renderer.renderStandardBlock(ModBlocks.SLIME.get(), x, y, z);
+		boolean flag = renderer.renderStandardBlock(block, x, y, z);
 		renderer.renderAllFaces = false;
 		return flag;
 	}

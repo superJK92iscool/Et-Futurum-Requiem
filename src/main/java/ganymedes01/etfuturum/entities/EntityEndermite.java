@@ -1,20 +1,11 @@
 package ganymedes01.etfuturum.entities;
 
-import java.util.Collections;
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.command.IEntitySelector;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIAttackOnCollide;
-import net.minecraft.entity.ai.EntityAIHurtByTarget;
-import net.minecraft.entity.ai.EntityAILookIdle;
-import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
-import net.minecraft.entity.ai.EntityAISwimming;
-import net.minecraft.entity.ai.EntityAIWander;
-import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.ai.*;
 import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,6 +15,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 public class EntityEndermite extends EntityMob {
 
@@ -148,7 +141,7 @@ public class EntityEndermite extends EntityMob {
 					return entity instanceof EntityEnderman && ((EntityEnderman)entity).getEntityToAttack() == null;
 				}
 			});
-			Collections.sort(list, sorter);
+			list.sort(sorter);
 			if (!list.isEmpty()) {
 				for(EntityEnderman enderman : list) {
 					enderman.setTarget(this);
