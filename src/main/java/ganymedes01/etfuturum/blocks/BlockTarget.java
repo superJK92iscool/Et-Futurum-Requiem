@@ -24,9 +24,9 @@ public class BlockTarget extends BaseBlock {
 	public BlockTarget() {
 		super(Material.grass);
 		setNames("target");
+		setStepSound(soundTypeGrass);
 		setHardness(0.5F);
 		setResistance(0.5F);
-		setStepSound(soundTypeGrass);
 		HoeRegistry.addToHoeArray(this);
 	}
 
@@ -97,23 +97,33 @@ public class BlockTarget extends BaseBlock {
 		return true;
 	}
 
-	@Override
-	public int isProvidingStrongPower(IBlockAccess p_149748_1_, int p_149748_2_, int p_149748_3_, int p_149748_4_, int p_149748_5_) {
-		return isProvidingWeakPower(p_149748_1_, p_149748_2_, p_149748_3_, p_149748_4_, p_149748_5_);
+	/**
+	 * For some reason, returning FALSE will do the power updates??
+	 * This function should be named shouldNOTCheckPower?!
+	 */
+	public boolean shouldCheckWeakPower(IBlockAccess world, int x, int y, int z, int side) {
+		return false;
 	}
 
 	@Override
-	public int isProvidingWeakPower(IBlockAccess p_149709_1_, int p_149709_2_, int p_149709_3_, int p_149709_4_, int p_149709_5_) {
-		return p_149709_1_.getBlockMetadata(p_149709_2_, p_149709_3_, p_149709_4_);
+	public int isProvidingStrongPower(IBlockAccess world, int x, int y, int z, int meta) {
+		return isProvidingWeakPower(world, x, y, z, meta);
 	}
 
-	public boolean isNormalCube(IBlockAccess world, int x, int y, int z)
-	{
+	@Override
+	public int isProvidingWeakPower(IBlockAccess world, int x, int y, int z, int meta) {
+		return world.getBlockMetadata(x, y, z);
+	}
+
+	public boolean isNormalCube(IBlockAccess world, int x, int y, int z) {
 		return true;
 	}
 
-	public boolean isNormalCube()
-	{
+	public boolean isNormalCube() {
+		return true;
+	}
+
+	public boolean isOpaqueCube() {
 		return true;
 	}
 }

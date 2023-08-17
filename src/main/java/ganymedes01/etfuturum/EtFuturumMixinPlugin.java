@@ -175,15 +175,19 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 			mixins.add("observer.MixinChunk");
 		}
 
-		if(ConfigMixins.arrowFallingFix) {
+		if (ConfigMixins.arrowFallingFix) {
 			mixins.add("fallingarrowfix.MixinEntityArrow");
 		}
 
-		if(ConfigMixins.blockHopperInteraction) {
+		if (ConfigMixins.blockHopperInteraction) {
 			mixins.add("blockinventories.MixinTileEntityHopper");
 		}
-		
-		if(side == MixinEnvironment.Side.CLIENT) {
+
+		if (ConfigMixins.collidedThrowableFix) {
+			mixins.add("projectilecollidefix.MixinEntityThrowable");
+		}
+
+		if (side == MixinEnvironment.Side.CLIENT) {
 			if (ConfigMixins.dustUnderFallingBlocks) {
 				mixins.add("blockfallingparticles.MixinBlockFalling");
 			}

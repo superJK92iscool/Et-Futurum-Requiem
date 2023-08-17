@@ -39,6 +39,7 @@ public class ConfigMixins extends ConfigBase {
 	public static boolean arrowFallingFix;
 	public static boolean adjustedAttenuation;
 	public static boolean dustUnderFallingBlocks;
+	public static boolean collidedThrowableFix;
 
 	public ConfigMixins(File file) {
 		super(file);
@@ -85,6 +86,7 @@ public class ConfigMixins extends ConfigBase {
 
 		stepHeightFix = getBoolean("stepHeightFix", catFixes, true, "Makes the player able to step up even if a block would be above their head at the destination.\nModified classes: net.minecraft.entity.Entity");
 		arrowFallingFix = getBoolean("arrowFallingFix", catFixes, true, "Prevents arrows from falling off of blocks too easily\nModified classes: net.minecraft.entity.EntityArrow");
+		collidedThrowableFix = getBoolean("collidedThrowableFix", catFixes, true, "Fixes EntityThrowable entities not calling onEntityCollidedWithBlock, causing them to not trigger target blocks or chime amethyst.\nModified classes: net.minecraft.entity.projectile.EntityThrowable");
 	}
 	
 }

@@ -16,6 +16,7 @@ import ganymedes01.etfuturum.api.RawOreRegistry;
 import ganymedes01.etfuturum.api.StrippedLogRegistry;
 import ganymedes01.etfuturum.api.mappings.BlockAndMetadataMapping;
 import ganymedes01.etfuturum.api.mappings.RawOreDropMapping;
+import ganymedes01.etfuturum.blocks.BlockHoney;
 import ganymedes01.etfuturum.blocks.BlockMagma;
 import ganymedes01.etfuturum.blocks.BlockWitherRose;
 import ganymedes01.etfuturum.client.sound.ModSounds;
@@ -74,11 +75,8 @@ import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
-import net.minecraftforge.event.entity.living.EnderTeleportEvent;
-import net.minecraftforge.event.entity.living.LivingAttackEvent;
-import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent.SpecialSpawn;
 import net.minecraftforge.event.entity.player.*;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
@@ -96,8 +94,8 @@ public class ServerEventHandler {
 
 	public static final ServerEventHandler INSTANCE = new ServerEventHandler();
 	public static HashSet<EntityPlayerMP> playersClosedContainers = new HashSet<>();
-	private static final HashMap<EntityPlayer, List<ItemStack>> armorTracker = new HashMap<>();
-	
+	private static final Map<EntityPlayer, List<ItemStack>> armorTracker = new WeakHashMap<>();
+
 	private ServerEventHandler() {
 	}
 
@@ -107,12 +105,22 @@ public class ServerEventHandler {
 	}
 
 	@SubscribeEvent
+	public void livingJump(LivingEvent.LivingJumpEvent event) {
+		int x = MathHelper.floor_double(event.entity.posX);
+		int y = MathHelper.floor_double(event.entity.posY - 0.20000000298023224D - event.entity.yOffset);
+		int z = MathHelper.floor_double(event.entity.posZ);
+		if (event.entity.worldObj.getBlock(x, y, z) instanceof BlockHoney) {
+			event.entity.motionY *= .5D;
+		}
+	}
+
+	@SubscribeEvent
 	public void livingUpdate(LivingUpdateEvent event) {
 		EntityLivingBase entity = event.entityLiving;
 		if (entity.worldObj == null) return;
-		
+
 		ModEnchantments.onLivingUpdate(entity);
-		
+
 		double x = entity.posX;
 		double y = entity.posY;
 		double z = entity.posZ;
@@ -142,7 +150,7 @@ public class ServerEventHandler {
 				ItemStack playerLeggings = player.getEquipmentInSlot(2);
 				ItemStack playerChestplate = player.getEquipmentInSlot(3);
 				ItemStack playerHelmet = player.getEquipmentInSlot(4);
-				armorTracker.put(player, Arrays.asList(new ItemStack[] {playerBoots, playerLeggings, playerChestplate, playerHelmet}));
+				armorTracker.put(player, Arrays.asList(playerBoots, playerLeggings, playerChestplate, playerHelmet));
 			} else {
 				List<ItemStack> armorList = armorTracker.get(player);
 

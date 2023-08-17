@@ -103,6 +103,7 @@ public class ModSounds {
 	public static final SoundType soundPointedDripstone = new CustomSound("pointed_dripstone");
 	public static final SoundType soundWetGrass = new CustomSound("wet_grass", true).setDisabledSound(Block.soundTypeGrass);
 	public static final SoundType soundHoneyBlock = new CustomSound("honey_block").setDisabledSound(soundSlime);
+	public static final SoundType soundCoralBlock = new CustomSound("coral_block").setDisabledSound(soundSlime);
 //  public static final SoundType soundNylium = new CustomSound("nylium");
 //  public static final SoundType soundHoneyBlock = new CustomSound("honey_block");
 //public static final SoundType soundShroomlight = new CustomSound("shroomlight");

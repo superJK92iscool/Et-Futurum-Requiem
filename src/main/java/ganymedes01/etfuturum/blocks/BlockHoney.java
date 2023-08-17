@@ -8,7 +8,6 @@ import ganymedes01.etfuturum.entities.EntityNewBoat;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockSoulSand;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
@@ -31,13 +30,13 @@ public class BlockHoney extends BaseBlock {
 		super(Material.clay);
 		setNames("honey_block");
 		setBlockSound(ModSounds.soundHoneyBlock);
-		BlockSoulSand.getBlockFromItem(null);
 	}
 
 	/**
 	 * TODO
 	 * showJumpParticles and showSlideParticles use a packet in modern. I really don't see any reason to implement a packet for this.
-	 * That's why watching other entities slide on honey won't have particles.
+	 * That's why watching other entities slide on honey won't have particles. Keeping this here for reference.
+	 * Also items often fall off of the honey block on the clientside
 	 */
 
 

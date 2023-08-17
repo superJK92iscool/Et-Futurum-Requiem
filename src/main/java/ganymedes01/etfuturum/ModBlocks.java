@@ -239,9 +239,11 @@ public enum ModBlocks {
 	DRIPSTONE_BLOCK(EtFuturum.TESTING, new BaseBlock(Material.rock).setNames("dripstone_block")
 			.setBlockSound(ModSounds.soundDripstoneBlock).setHardness(1.5F).setResistance(1F)),
 	POINTED_DRIPSTONE(EtFuturum.TESTING, new BlockPointedDripstone()),
-	HONEY_BLOCK(EtFuturum.TESTING, new BlockHoney()),
-	BEEHIVE(EtFuturum.TESTING, new BlockBeeHive().setHiveType("beehive", true)),
-	BEE_NEST(EtFuturum.TESTING, new BlockBeeHive().setHiveType("bee_nest", true)),
+	HONEY_BLOCK(ConfigEntities.enableBees, new BlockHoney()),
+	HONEYCOMB_BLOCK(ConfigEntities.enableBees, new BaseBlock(Material.clay).setNames("honeycomb_block")
+			.setBlockSound(ModSounds.soundCoralBlock).setHardness(0.6F).setResistance(0.6F)),
+	BEEHIVE(ConfigEntities.enableBees, new BlockBeeHive().setHiveType("beehive", true)),
+	BEE_NEST(ConfigEntities.enableBees, new BlockBeeHive().setHiveType("bee_nest", true)),
 
 	//signs
 	SIGN_SPRUCE(ConfigBlocksItems.enableSigns, new BlockWoodSign(TileEntityWoodSign.class, true, 1), null),

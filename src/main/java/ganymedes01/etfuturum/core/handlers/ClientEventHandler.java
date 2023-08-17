@@ -27,6 +27,7 @@ import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.elytra.IElytraPlayer;
 import ganymedes01.etfuturum.entities.EntityNewBoatWithChest;
+import ganymedes01.etfuturum.items.ItemHoneyBottle;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.network.ChestBoatOpenInventoryMessage;
 import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox;
@@ -499,6 +500,8 @@ public class ClientEventHandler {
 		 * We have to do this because we don't want our new sound to be caught in the below logic, and get freeze in a loop of repeatedly replacing itself and firing events forever.
 		 * And no, unlike the regular play sound event, the result isn't a PositionedSoundRecord so we can't just supply a new one in the result. We can only override the name.
 		 * Because SOMEONE THOUGHT IT WOULD BE A GOOD IDEA TO MAKE IT SO YOU CAN ONLY CHANGE THE EVENT NAME AND NOT VOLUME OR PITCH???
+		 * So as a solution I need to play a new sound instead of modifying the event one, and I do this to "mark" the sound, making sure it doesn't get run through this logic.
+		 * Then we strip the ignore suffix and skip the custom sound logic. I don't like the way this works either but I don't think I have a choice lol, blame Forge
 		 */
 		if (event.name.endsWith(ignore_suffix)) {
 			event.name = event.name.replace(ignore_suffix, "");
@@ -514,60 +517,67 @@ public class ClientEventHandler {
 			return;//This is the only code I want to run if !isRemote
 		}
 
-		// --- Player Splash --- //
-		if (ConfigSounds.heavyWaterSplashing && event.name.equals("game.player.swim.splash"))
-		{
-
-			// Water-striking speed to determine whether to play the large splash sound
-			float doWaterSplashEffect_f1 = (MathHelper.sqrt_double(entity.motionX * entity.motionX * 0.20000000298023224D + entity.motionY * entity.motionY + entity.motionZ * entity.motionZ * 0.20000000298023224D)) * (entity.riddenByEntity==null ? 0.2F : 0.9F);
-
-			if (doWaterSplashEffect_f1 > 1.0F) {doWaterSplashEffect_f1 = 1.0F;}
-
-			// Play fast splash sound instead
-			if (doWaterSplashEffect_f1 >= 0.25D)
-			{
-				event.name = Reference.MCAssetVer+":entity.player.splash.high_speed";
+		if (event.entity instanceof EntityPlayer && event.name.equals("random.drink")) {
+			EntityPlayer player = (EntityPlayer) event.entity;
+			if (player.isUsingItem() && player.getHeldItem() != null && player.getHeldItem().getItem() instanceof ItemHoneyBottle) {
+				event.entity.playSound(Reference.MCAssetVer + ":item.honey_bottle.drink" + ignore_suffix, 1, 1);
+				event.setCanceled(true);
 				return;
 			}
 		}
 
-		if(event.name != null) {
-			int x = MathHelper.floor_double(event.entity.posX);
-			int y = MathHelper.floor_double(event.entity.posY - 0.20000000298023224D - event.entity.yOffset);
-			int z = MathHelper.floor_double(event.entity.posZ);
-			World world = FMLClientHandler.instance().getWorldClient();
-			Block block = world.getBlock(x, y, z);
+		// --- Player Splash --- //
+		if (ConfigSounds.heavyWaterSplashing && event.name.equals("game.player.swim.splash")) {
 
-			if (MultiBlockSoundRegistry.multiBlockSounds.containsKey(block) && block.stepSound.getStepResourcePath().equals(event.name)) {
-				MultiBlockSoundContainer obj = MultiBlockSoundRegistry.multiBlockSounds.get(block);
-				String newSoundString = obj.getSound(world, x, y, z, event.name, MultiBlockSoundRegistry.BlockSoundType.WALK);
-				float volume = obj.getVolume(world, x, y, z, event.volume, MultiBlockSoundRegistry.BlockSoundType.WALK);
-				float pitch = obj.getPitch(world, x, y, z, event.volume, MultiBlockSoundRegistry.BlockSoundType.WALK);
-				if (newSoundString != null || volume != -1 || pitch != -1) {
-					if (newSoundString == null) newSoundString = event.name;
-					if (volume == -1) volume = event.volume;
-					if (pitch == -1) pitch = event.pitch;
-					event.entity.playSound(newSoundString + ignore_suffix, volume, pitch);
-					event.setCanceled(true);
-				}
-			} else if (ConfigSounds.newBlockSounds && ModSounds.soundAmethystBlock.getStepResourcePath().equals(event.name)) {
-				MutablePair<Float, Integer> pair = AMETHYST_CHIME_CACHE.get(event.entity);
-				if (pair == null) {
-					pair = new MutablePair<>(0.0F, 0);
-				}
-				float field_26997 = pair.getLeft();
-				int lastChimeAge = pair.getRight();
-				if (event.entity.ticksExisted >= lastChimeAge + 20) {
-					field_26997 = (float) ((double) field_26997 * Math.pow(0.996999979019165D, (double) (event.entity.ticksExisted - lastChimeAge)));
-					field_26997 = Math.min(1.0F, field_26997 + 0.07F);
-					float f = 0.5F + field_26997 * event.entity.worldObj.rand.nextFloat() * 1.2F;
-					float g = 0.1F + field_26997 * 1.2F;
-					event.entity.playSound(Reference.MCAssetVer + ":block.amethyst_block.chime", g, f);
-					lastChimeAge = event.entity.ticksExisted;
-					pair.setLeft(field_26997);
-					pair.setRight(lastChimeAge);
-					AMETHYST_CHIME_CACHE.put(event.entity, pair);
-				}
+			// Water-striking speed to determine whether to play the large splash sound
+			float doWaterSplashEffect_f1 = (MathHelper.sqrt_double(entity.motionX * entity.motionX * 0.20000000298023224D + entity.motionY * entity.motionY + entity.motionZ * entity.motionZ * 0.20000000298023224D)) * (entity.riddenByEntity == null ? 0.2F : 0.9F);
+
+			if (doWaterSplashEffect_f1 > 1.0F) {
+				doWaterSplashEffect_f1 = 1.0F;
+			}
+
+			// Play fast splash sound instead
+			if (doWaterSplashEffect_f1 >= 0.25D) {
+				event.name = Reference.MCAssetVer + ":entity.player.splash.high_speed";
+				return;
+			}
+		}
+
+		int x = MathHelper.floor_double(event.entity.posX);
+		int y = MathHelper.floor_double(event.entity.posY - 0.20000000298023224D - event.entity.yOffset);
+		int z = MathHelper.floor_double(event.entity.posZ);
+		World world = FMLClientHandler.instance().getWorldClient();
+		Block block = world.getBlock(x, y, z);
+
+		if (MultiBlockSoundRegistry.multiBlockSounds.containsKey(block) && block.stepSound.getStepResourcePath().equals(event.name)) {
+			MultiBlockSoundContainer obj = MultiBlockSoundRegistry.multiBlockSounds.get(block);
+			String newSoundString = obj.getSound(world, x, y, z, event.name, MultiBlockSoundRegistry.BlockSoundType.WALK);
+			float volume = obj.getVolume(world, x, y, z, event.volume, MultiBlockSoundRegistry.BlockSoundType.WALK);
+			float pitch = obj.getPitch(world, x, y, z, event.volume, MultiBlockSoundRegistry.BlockSoundType.WALK);
+			if (newSoundString != null || volume != -1 || pitch != -1) {
+				if (newSoundString == null) newSoundString = event.name;
+				if (volume == -1) volume = event.volume;
+				if (pitch == -1) pitch = event.pitch;
+				event.entity.playSound(newSoundString + ignore_suffix, volume, pitch);
+				event.setCanceled(true);
+			}
+		} else if (ConfigSounds.newBlockSounds && ModSounds.soundAmethystBlock.getStepResourcePath().equals(event.name)) {
+			MutablePair<Float, Integer> pair = AMETHYST_CHIME_CACHE.get(event.entity);
+			if (pair == null) {
+				pair = new MutablePair<>(0.0F, 0);
+			}
+			float field_26997 = pair.getLeft();
+			int lastChimeAge = pair.getRight();
+			if (event.entity.ticksExisted >= lastChimeAge + 20) {
+				field_26997 = (float) ((double) field_26997 * Math.pow(0.996999979019165D, (double) (event.entity.ticksExisted - lastChimeAge)));
+				field_26997 = Math.min(1.0F, field_26997 + 0.07F);
+				float f = 0.5F + field_26997 * event.entity.worldObj.rand.nextFloat() * 1.2F;
+				float g = 0.1F + field_26997 * 1.2F;
+				event.entity.playSound(Reference.MCAssetVer + ":block.amethyst_block.chime", g, f);
+				lastChimeAge = event.entity.ticksExisted;
+				pair.setLeft(field_26997);
+				pair.setRight(lastChimeAge);
+				AMETHYST_CHIME_CACHE.put(event.entity, pair);
 			}
 		}
 	}

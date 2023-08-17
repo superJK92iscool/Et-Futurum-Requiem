@@ -88,7 +88,7 @@ public class ModRecipes {
 
 		if (ConfigBlocksItems.replaceOldBoats && ConfigBlocksItems.enableNewBoats) {
 			removeFirstRecipeFor(Items.boat);
-			Items.boat.setTextureName("minecraft:oak_boat");
+			Items.boat.setTextureName("oak_boat");
 			Items.boat.setUnlocalizedName(Utils.getUnlocalisedName("oak_boat"));
 		}
 
