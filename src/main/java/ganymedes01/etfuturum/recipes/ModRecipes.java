@@ -608,11 +608,13 @@ public class ModRecipes {
 		}
 
 		addShapedRecipe(ModBlocks.SHULKER_BOX.newItemStack(), "x", "c", "x", 'x', ModItems.SHULKER_SHELL.newItemStack(), 'c', new ItemStack(Blocks.chest));
-		for (int i = ore_dyes.length - 1; i >= 0; i--) {//Dyed box recipes
-			ItemStack shulker = ModBlocks.SHULKER_BOX.newItemStack();
-			shulker.setTagCompound(new NBTTagCompound());
-			shulker.getTagCompound().setByte("Color", (byte) (16 - i));
-			GameRegistry.addRecipe(new RecipeDyedShulkerBox(shulker, new Object[]{ModBlocks.SHULKER_BOX.get(), ore_dyes[i]}));
+		if (ModBlocks.SHULKER_BOX.isEnabled()) {
+			for (int i = ore_dyes.length - 1; i >= 0; i--) {//Dyed box recipes
+				ItemStack shulker = ModBlocks.SHULKER_BOX.newItemStack();
+				shulker.setTagCompound(new NBTTagCompound());
+				shulker.getTagCompound().setByte("Color", (byte) (16 - i));
+				GameRegistry.addRecipe(new RecipeDyedShulkerBox(shulker, new Object[]{ModBlocks.SHULKER_BOX.get(), ore_dyes[i]}));
+			}
 		}
 		addShapedRecipe(ModItems.SHULKER_BOX_UPGRADE.newItemStack(1, 0), "XXX", "XYX", "XXX", 'X', "ingotIron", 'Y', ModItems.SHULKER_SHELL.get());
 		addShapedRecipe(ModItems.SHULKER_BOX_UPGRADE.newItemStack(1, 1), "XXX", "XYX", "XXX", 'X', "ingotCopper", 'Y', ModItems.SHULKER_SHELL.get());
