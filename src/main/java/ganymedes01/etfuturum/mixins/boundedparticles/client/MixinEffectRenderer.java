@@ -1,12 +1,5 @@
 package ganymedes01.etfuturum.mixins.boundedparticles.client;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
-import org.spongepowered.asm.mixin.Shadow;
-
 import net.minecraft.block.Block;
 import net.minecraft.client.particle.EffectRenderer;
 import net.minecraft.client.particle.EntityDiggingFX;
@@ -14,6 +7,12 @@ import net.minecraft.client.particle.EntityFX;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.Shadow;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Mixin(EffectRenderer.class)
 public class MixinEffectRenderer {
@@ -60,15 +59,15 @@ public class MixinEffectRenderer {
 				double d = Math.min(1.0, box.maxX - box.minX);
 				double e = Math.min(1.0, box.maxY - box.minY);
 				double f = Math.min(1.0, box.maxZ - box.minZ);
-				int i = Math.max(2, MathHelper.ceiling_double_int(d / 0.25));
-				int j = Math.max(2, MathHelper.ceiling_double_int(e / 0.25));
-				int k = Math.max(2, MathHelper.ceiling_double_int(f / 0.25));
+				int i = Math.max(2, MathHelper.ceiling_double_int(d * 4));
+				int j = Math.max(2, MathHelper.ceiling_double_int(e * 4));
+				int k = Math.max(2, MathHelper.ceiling_double_int(f * 4));
 				for (int l = 0; l < i; ++l) {
 					for (int m = 0; m < j; ++m) {
 						for (int n = 0; n < k; ++n) {
-							double g = ((double) l + 0.5) / (double) i;
-							double h = ((double) m + 0.5) / (double) j;
-							double o = ((double) n + 0.5) / (double) k;
+							double g = ((double) l + 0.5D) / (double) i;
+							double h = ((double) m + 0.5D) / (double) j;
+							double o = ((double) n + 0.5D) / (double) k;
 							double p = g * d + box.minX;
 							double q = h * e + box.minY;
 							double r = o * f + box.minZ;
