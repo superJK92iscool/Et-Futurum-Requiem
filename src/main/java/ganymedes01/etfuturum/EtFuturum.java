@@ -14,6 +14,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.api.*;
+import ganymedes01.etfuturum.api.mappings.BasicMultiBlockSound;
 import ganymedes01.etfuturum.blocks.BlockSculk;
 import ganymedes01.etfuturum.blocks.BlockSculkCatalyst;
 import ganymedes01.etfuturum.client.BuiltInResourcePack;
@@ -349,12 +350,15 @@ public class EtFuturum {
 
 		EtFuturumWorldGenerator.INSTANCE.postInit();
 
-		//Because NP+ uses its own (worse) step sounds for this and it causes the check below that replaces these blocks to fail.
 		if(ConfigSounds.newBlockSounds) {
+			//Because NP+ uses its own (worse) step sounds for this and it causes the check below that replaces these blocks to fail.
 			if (EtFuturum.hasNP) {
 				Blocks.nether_brick.setStepSound(ModSounds.soundNetherBricks);
 				Blocks.nether_brick_fence.setStepSound(ModSounds.soundNetherBricks);
 				Blocks.nether_brick_stairs.setStepSound(ModSounds.soundNetherBricks);
+			}
+			if (EtFuturum.hasNatura) {
+				GameRegistry.findBlock("Natura", "NetherFurnace").setStepSound(ModSounds.soundNetherrack);
 			}
 			Blocks.noteblock.setStepSound(Block.soundTypeWood);
 			Blocks.heavy_weighted_pressure_plate.setStepSound(Block.soundTypeMetal);
@@ -383,6 +387,8 @@ public class EtFuturum {
 				if (sound != null) {
 					block.setStepSound(sound);
 				}
+
+				handleMultiBlockSoundRegistry();
 			}
 
 			/*
@@ -398,6 +404,59 @@ public class EtFuturum {
 
 		if (TESTING) {
 			DimensionProviderEnd.init(); // Come back to
+		}
+	}
+
+	private void handleMultiBlockSoundRegistry() {
+		{
+			BasicMultiBlockSound mbs = new BasicMultiBlockSound();
+			mbs.setTypes(6, ModSounds.soundNetherBricks);
+			mbs.setTypes(14, ModSounds.soundNetherBricks);
+			MultiBlockSoundRegistry.multiBlockSounds.put(Blocks.stone_slab, mbs);
+			MultiBlockSoundRegistry.multiBlockSounds.put(Blocks.double_stone_slab, mbs);
+		}
+
+		if (EtFuturum.hasTConstruct) {
+			BasicMultiBlockSound mbs = new BasicMultiBlockSound();
+			mbs.setTypes(2, ModSounds.soundNetherrack);
+			MultiBlockSoundRegistry.multiBlockSounds.put(GameRegistry.findBlock("TConstruct", "decoration.multibrick"), mbs);
+			MultiBlockSoundRegistry.multiBlockSounds.put(GameRegistry.findBlock("TConstruct", "decoration.multibrickfancy"), mbs);
+		}
+
+		if (ModBlocks.DEEPSLATE_BRICK_WALL.isEnabled()) {
+			BasicMultiBlockSound mbs = new BasicMultiBlockSound();
+			mbs.setTypes(1, ModSounds.soundDeepslateTiles);
+			MultiBlockSoundRegistry.multiBlockSounds.put(ModBlocks.DEEPSLATE_BRICK_WALL.get(), mbs);
+		}
+
+		if (ModBlocks.DEEPSLATE_BRICKS.isEnabled()) {
+			BasicMultiBlockSound mbs = new BasicMultiBlockSound();
+			mbs.setTypes(2, ModSounds.soundDeepslateTiles);
+			mbs.setTypes(3, ModSounds.soundDeepslateTiles);
+			MultiBlockSoundRegistry.multiBlockSounds.put(ModBlocks.DEEPSLATE_BRICKS.get(), mbs);
+		}
+
+		if (ModBlocks.DEEPSLATE_BRICK_SLAB.isEnabled()) {
+			BasicMultiBlockSound mbs = new BasicMultiBlockSound();
+			mbs.setTypes(1, ModSounds.soundDeepslateTiles);
+			mbs.setTypes(9, ModSounds.soundDeepslateTiles);
+			MultiBlockSoundRegistry.multiBlockSounds.put(ModBlocks.DEEPSLATE_BRICK_SLAB.get(), mbs);
+		}
+
+		if (ModBlocks.AMETHYST_CLUSTER_1.isEnabled()) {
+			BasicMultiBlockSound mbs = new BasicMultiBlockSound();
+			for (int i = 0; i < 6; i++) {
+				mbs.setTypes(i, ModSounds.soundAmethystBudSmall);
+			}
+			MultiBlockSoundRegistry.multiBlockSounds.put(ModBlocks.AMETHYST_CLUSTER_1.get(), mbs);
+		}
+
+		if (ModBlocks.AMETHYST_CLUSTER_2.isEnabled()) {
+			BasicMultiBlockSound mbs = new BasicMultiBlockSound();
+			for (int i = 0; i < 6; i++) {
+				mbs.setTypes(i, ModSounds.soundAmethystBudLrg);
+			}
+			MultiBlockSoundRegistry.multiBlockSounds.put(ModBlocks.AMETHYST_CLUSTER_2.get(), mbs);
 		}
 	}
 

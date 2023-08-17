@@ -1,26 +1,20 @@
 package ganymedes01.etfuturum.blocks;
 
-import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
-import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.tileentities.TileEntityLightningRod;
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class BlockLightningRod extends Block {
+public class BlockLightningRod extends BaseBlock {
 
 	public BlockLightningRod() {
 		super(Material.iron);
 		setHardness(3);
 		setResistance(6);
 		setHarvestLevel("pickaxe", 1);
-		setBlockName(Utils.getUnlocalisedName("lightning_rod"));
-		setBlockTextureName("lightning_rod");
-		setCreativeTab(EtFuturum.creativeTabBlocks);
-		setStepSound(ConfigSounds.newBlockSounds ? ModSounds.soundCopper : Block.soundTypeMetal);
+		setNames("lightning_rod");
+		setBlockSound(ModSounds.soundCopper);
 		setTickRandomly(true);
 	}
 

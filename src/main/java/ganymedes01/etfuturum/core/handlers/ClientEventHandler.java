@@ -10,8 +10,9 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.EtFuturumMixinPlugin;
+import ganymedes01.etfuturum.api.MultiBlockSoundRegistry;
+import ganymedes01.etfuturum.api.mappings.MultiBlockSoundContainer;
 import ganymedes01.etfuturum.blocks.BlockShulkerBox;
-import ganymedes01.etfuturum.blocks.IMultiStepSound;
 import ganymedes01.etfuturum.client.OpenGLHelper;
 import ganymedes01.etfuturum.client.gui.GuiConfigWarning;
 import ganymedes01.etfuturum.client.gui.GuiGamemodeSwitcher;
@@ -96,10 +97,10 @@ public class ClientEventHandler {
 
 	private static final boolean forceHideSnapshotWarning = Boolean.parseBoolean(System.getProperty("etfuturum.hideSnapshotWarning"));
 
-	
+
 	private ClientEventHandler() {
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	NetherAmbienceLoop ambienceLoop = null;
 	@SideOnly(Side.CLIENT)
@@ -131,7 +132,7 @@ public class ClientEventHandler {
 			}
 		}
 	}
-	
+
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
 	public void onClientTick(ClientTickEvent event)
@@ -139,11 +140,11 @@ public class ClientEventHandler {
 		World world = FMLClientHandler.instance().getWorldClient();
 		EntityPlayer player = FMLClientHandler.instance().getClientPlayerEntity();
 		Minecraft mc = FMLClientHandler.instance().getClient();
-		
+
 		if(world == null || event.phase == Phase.START || Minecraft.getMinecraft().isGamePaused()) {
 			return;
 		}
-		
+
 		if(!EtFuturum.DEV_ENVIRONMENT && EtFuturum.SNAPSHOT_BUILD && !showedDebugWarning && player.ticksExisted == 40) {
 			if(!forceHideSnapshotWarning) {
 				ChatComponentText text = new ChatComponentText("\u00a7c\u00a7l[Debug]: \u00a7rYou are using a pre-release version of \u00a7bEt \u00a7bFuturum \u00a7bRequiem\u00a7r. This version might not be stable, click here to go to GitHub to report bugs.");
@@ -171,12 +172,12 @@ public class ClientEventHandler {
 			//int y = MathHelper.floor_double(player.posY); // unused variable
 			int z = MathHelper.floor_double(player.posZ);
 			ambienceBiome = world.getBiomeGenForCoords(x, z);
-			
+
 			String soundLoc = "";
 			if(ambienceLoop != null) {
 				soundLoc = ambienceLoop.getPositionedSoundLocation().getResourceDomain() + ":" + ambienceLoop.getPositionedSoundLocation().getResourcePath();
 			}
-			
+
 			if (getAmbienceLoop(ambienceBiome) != null && !mc.getSoundHandler().isSoundPlaying(ambienceLoop)) {
 				Boolean flag = ambienceLoop == null || ambienceLoop.getVolume() <= 0;
 				ambienceLoop = new NetherAmbienceLoop(getAmbienceLoop(ambienceBiome));
@@ -207,16 +208,16 @@ public class ClientEventHandler {
 		}
 		wasShowingDebugInfo = mc.gameSettings.showDebugInfo;
 		wasShowingProfiler = mc.gameSettings.showDebugProfilerChart;
-		
+
 		if(mc.currentScreen == null && currPage > -1) {
 			currPage = -1;
 		}
 	}
-	
+
 	private String getStringFor(BiomeGenBase biome) {
 		if(biome == null)
 			return null;
-		
+
 //      if(string.contains("basalt_deltas")) {
 //          return basaltDeltas;
 //      }
@@ -230,13 +231,13 @@ public class ClientEventHandler {
 //          return soulSandValley;
 //      }
 		return "nether_wastes";
-		
+
 	}
 
 	private String getAmbience(BiomeGenBase biome) {
 		if(biome == null)
 			return null;
-		
+
 //      if(string.contains("basalt_deltas")) {
 //          return basaltDeltas;
 //      }
@@ -279,7 +280,7 @@ public class ClientEventHandler {
 		}
 		return Reference.MCAssetVer + ":music.nether." + getStringFor(biome);
 	}
-	
+
 	@SubscribeEvent
 	public void toolTipEvent(ItemTooltipEvent event) {
 		if(ConfigFunctions.enableExtraF3HTooltips && event.showAdvancedItemTooltips) {
@@ -289,7 +290,7 @@ public class ClientEventHandler {
 			}
 		}
 	}
-	
+
 	@SubscribeEvent
 	public void renderPlayerEventPre(RenderPlayerEvent.Pre event) {
 		if (ConfigFunctions.enableTransparentAmour) {
@@ -330,66 +331,29 @@ public class ClientEventHandler {
 			final int y = MathHelper.floor_float(soundY);
 			final int z = MathHelper.floor_float(soundZ);
 			final Block block = world.getBlock(x, y, z);
-			final int meta = world.getBlockMetadata(x, y, z);
-			
-			if(event.sound.getPitch() < 1.0F && world.getBlock(x, y, z) instanceof IMultiStepSound && (!((IMultiStepSound)block).requiresNewBlockSounds() || ConfigSounds.newBlockSounds)) {
-				
-				IMultiStepSound multiSoundBlock = (IMultiStepSound)block;
-				Block.SoundType newSound = multiSoundBlock.getStepSound(world, x, y, z, meta);
-				
-				if(newSound == null) return;
-				
-				Block.SoundType blockSound = block.stepSound;
-				
-				//Check if we're replacing a step sound, a break sound or a place sound? We also truncate the mod prefix so the string can actually match
-				//We'll use a variable to store the current block sound and truncate the prefix if it has one.
-				String newSoundString = null;
-				
-				String[][] blockSounds = new String[][] {{blockSound.getStepResourcePath(), blockSound.getBreakSound(), blockSound.func_150496_b()},
-					{newSound.getStepResourcePath(), newSound.getBreakSound(), newSound.func_150496_b()}};
-					
-				for(int i = 0; i < blockSounds[0].length; i++) {
-					String currentSound = blockSounds[0][i];
-					int index = currentSound.indexOf(':');
-					if(index != -1) {
-						currentSound = currentSound.substring(index+1);
-					}
-					if(event.name.equals(currentSound)) {
-						newSoundString = blockSounds[1][i];
-						break;
-					}
-				}
-				
-				if(newSoundString != null) {
-					float soundVol = (block.stepSound.getVolume() + 1.0F) / (event.name.contains("step") ? 8F : 2F);
-					float soundPit = (block.stepSound.getPitch()) * (event.name.contains("step") ? 0.5F : 0.8F);
-					event.result = new PositionedSoundRecord(new ResourceLocation(newSoundString), soundVol, soundPit, x + 0.5F, y + 0.5F, z + 0.5F);
-				}
-				return;
-			}
-			
-			String[] eventwithprefix = event.name.split("\\.");
-			if (ConfigSounds.newBlockSounds && eventwithprefix.length > 1 && eventwithprefix[1].equals(Blocks.stone.stepSound.soundName) && event.sound.getPitch() < 1.0F) {
-				String blockName = "";
-				Item item = Item.getItemFromBlock(block);
-				if(item != null && item.getHasSubtypes()) {
-					try {
-						STORAGE_STACK.func_150996_a(item);
-						STORAGE_STACK.setItemDamage(world.getBlockMetadata(x, y, z) % 8);
-						blockName = item.getUnlocalizedName(STORAGE_STACK).toLowerCase();
-					} catch(Exception e) {/*In case a mod doesn't have a catch for invalid meta states and throws an error, just ignore it and proceed*/}
-				}
 
-				if(blockName.equals("")) {
-					blockName = block.getUnlocalizedName().toLowerCase();
-				}
-				if(blockName.contains("slab") && blockName.contains("nether") && blockName.contains("brick")) {
-					float soundVol = (block.stepSound.getVolume() + 1.0F) / (eventwithprefix[0].contains("step") ? 8F : 2F);
-					float soundPit = (block.stepSound.getPitch()) * (eventwithprefix[0].contains("step") ? 0.5F : 0.8F);
+			final boolean hitSound = block.stepSound.getStepResourcePath().endsWith(event.name);
+			final boolean breakSound = block.stepSound.getBreakSound().endsWith(event.name);
+			final boolean placeSound = block.stepSound.func_150496_b().endsWith(event.name);
 
-					boolean step = event.name.contains("step");
-					
-					event.result = new PositionedSoundRecord(new ResourceLocation(step ? ModSounds.soundNetherBricks.getStepResourcePath() : ModSounds.soundNetherBricks.getBreakSound()), soundVol, soundPit, x + 0.5F, y + 0.5F, z + 0.5F);
+			if (MultiBlockSoundRegistry.multiBlockSounds.containsKey(block) && (hitSound || breakSound || placeSound)) {
+				MultiBlockSoundContainer obj = MultiBlockSoundRegistry.multiBlockSounds.get(block);
+				MultiBlockSoundRegistry.BlockSoundType type;
+				if (hitSound) {
+					type = MultiBlockSoundRegistry.BlockSoundType.HIT;
+				} else if (placeSound) {
+					type = MultiBlockSoundRegistry.BlockSoundType.PLACE;
+				} else {
+					type = MultiBlockSoundRegistry.BlockSoundType.BREAK;
+				}
+				String newSoundString = obj.getSound(world, x, y, z, event.name, type);
+				float volume = obj.getVolume(world, x, y, z, event.sound.getVolume(), type);
+				float pitch = obj.getPitch(world, x, y, z, event.sound.getPitch(), type);
+				if (newSoundString != null || volume != -1 || pitch != -1) {
+					if (newSoundString == null) newSoundString = event.name;
+					if (volume == -1) volume = event.sound.getVolume();
+					if (pitch == -1) pitch = event.sound.getPitch();
+					event.result = new PositionedSoundRecord(new ResourceLocation(newSoundString), volume, pitch, soundX, soundY, soundZ);
 					return;
 				}
 			}
@@ -525,15 +489,24 @@ public class ClientEventHandler {
 		}
 	}
 
+	private static final String ignore_suffix = "$etfuturum:ignore";
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
-	public void onPlaySoundAtEntityEvent(PlaySoundAtEntityEvent event)
-	{
+	public void onPlaySoundAtEntityEvent(PlaySoundAtEntityEvent event) {
+		if (event.name == null) return; //Some mods fire null sounds, blech
 
-		if(event.name == null) return; //Some mods fire null sounds, blech
+		/**
+		 * We have to do this because we don't want our new sound to be caught in the below logic, and get freeze in a loop of repeatedly replacing itself and firing events forever.
+		 * And no, unlike the regular play sound event, the result isn't a PositionedSoundRecord so we can't just supply a new one in the result. We can only override the name.
+		 * Because SOMEONE THOUGHT IT WOULD BE A GOOD IDEA TO MAKE IT SO YOU CAN ONLY CHANGE THE EVENT NAME AND NOT VOLUME OR PITCH???
+		 */
+		if (event.name.endsWith(ignore_suffix)) {
+			event.name = event.name.replace(ignore_suffix, "");
+			return;
+		}
 
 		Entity entity = event.entity;
-		if(!event.entity.worldObj.isRemote) {
+		if (!event.entity.worldObj.isRemote) {
 			// --- Horse eat --- //
 			if (ConfigSounds.horseEatCowMilk && event.entity instanceof EntityHorse && event.name.equals("eating")) {
 				event.name = Reference.MCAssetVer + ":entity.horse.eat";
@@ -558,7 +531,6 @@ public class ClientEventHandler {
 			}
 		}
 
-
 		if(event.name != null) {
 			int x = MathHelper.floor_double(event.entity.posX);
 			int y = MathHelper.floor_double(event.entity.posY - 0.20000000298023224D - event.entity.yOffset);
@@ -566,61 +538,35 @@ public class ClientEventHandler {
 			World world = FMLClientHandler.instance().getWorldClient();
 			Block block = world.getBlock(x, y, z);
 
-			if(world.getBlock(x, y, z) instanceof IMultiStepSound && (!((IMultiStepSound)block).requiresNewBlockSounds() || ConfigSounds.newBlockSounds)) {
-				Block.SoundType stepSound = ((IMultiStepSound)block).getStepSound(world, x, y, z, world.getBlockMetadata(x, y, z));
-				if(stepSound == null) return;
-				
-				String stepSoundString = block.stepSound.getStepResourcePath();
-				
-				int index = stepSoundString.indexOf(':');
-				if(index != -1) {
-					stepSoundString = stepSoundString.substring(index+1);
+			if (MultiBlockSoundRegistry.multiBlockSounds.containsKey(block) && block.stepSound.getStepResourcePath().equals(event.name)) {
+				MultiBlockSoundContainer obj = MultiBlockSoundRegistry.multiBlockSounds.get(block);
+				String newSoundString = obj.getSound(world, x, y, z, event.name, MultiBlockSoundRegistry.BlockSoundType.WALK);
+				float volume = obj.getVolume(world, x, y, z, event.volume, MultiBlockSoundRegistry.BlockSoundType.WALK);
+				float pitch = obj.getPitch(world, x, y, z, event.volume, MultiBlockSoundRegistry.BlockSoundType.WALK);
+				if (newSoundString != null || volume != -1 || pitch != -1) {
+					if (newSoundString == null) newSoundString = event.name;
+					if (volume == -1) volume = event.volume;
+					if (pitch == -1) pitch = event.pitch;
+					event.entity.playSound(newSoundString + ignore_suffix, volume, pitch);
+					event.setCanceled(true);
 				}
-				
-				if(event.name.equals(stepSoundString)) {
-					event.name = stepSound.getStepResourcePath();
-					return;
+			} else if (ConfigSounds.newBlockSounds && ModSounds.soundAmethystBlock.getStepResourcePath().equals(event.name)) {
+				MutablePair<Float, Integer> pair = AMETHYST_CHIME_CACHE.get(event.entity);
+				if (pair == null) {
+					pair = new MutablePair<>(0.0F, 0);
 				}
-			} else if(ConfigSounds.newBlockSounds) {
-				if(event.name.equals(Block.soundTypePiston.getStepResourcePath())) {
-					String[] eventwithprefix = event.name.split("\\.");
-					if(eventwithprefix.length > 1) {
-						String blockName = "";
-						Item item = Item.getItemFromBlock(block);
-						if(item != null && item.getHasSubtypes()) {
-							try {
-								STORAGE_STACK.func_150996_a(item);
-								STORAGE_STACK.setItemDamage(world.getBlockMetadata(x, y, z) % 8);
-								blockName = item.getUnlocalizedName(STORAGE_STACK).toLowerCase();
-							} catch(Exception e) {/*In case a mod doesn't have a catch for invalid meta states and throws an error, just ignore it and proceed*/}
-						}
-
-						if(blockName.equals("")) {
-							blockName = block.getUnlocalizedName().toLowerCase();
-						}
-						if(blockName.contains("slab") && blockName.contains("nether") && blockName.contains("brick")) {
-							event.name = ModSounds.soundNetherBricks.getStepResourcePath();
-							return;
-						}
-					}
-				} else if(ModSounds.soundAmethystBlock.getStepResourcePath().equals(event.name)) {
-					MutablePair<Float, Integer> pair = AMETHYST_CHIME_CACHE.get(event.entity);
-					if(pair == null) {
-						pair = new MutablePair<>(0.0F, 0);
-					}
-					float field_26997 = pair.getLeft();
-					int lastChimeAge = pair.getRight();
-					if (event.entity.ticksExisted >= lastChimeAge + 20) {
-						field_26997 = (float)((double)field_26997 * Math.pow(0.996999979019165D, (double)(event.entity.ticksExisted - lastChimeAge)));
-						field_26997 = Math.min(1.0F, field_26997 + 0.07F);
-						float f = 0.5F + field_26997 * event.entity.worldObj.rand.nextFloat() * 1.2F;
-						float g = 0.1F + field_26997 * 1.2F;
-						event.entity.playSound(Reference.MCAssetVer + ":block.amethyst_block.chime", g, f);
-						lastChimeAge = event.entity.ticksExisted;
-						pair.setLeft(field_26997);
-						pair.setRight(lastChimeAge);
-						AMETHYST_CHIME_CACHE.put(event.entity, pair);
-					}
+				float field_26997 = pair.getLeft();
+				int lastChimeAge = pair.getRight();
+				if (event.entity.ticksExisted >= lastChimeAge + 20) {
+					field_26997 = (float) ((double) field_26997 * Math.pow(0.996999979019165D, (double) (event.entity.ticksExisted - lastChimeAge)));
+					field_26997 = Math.min(1.0F, field_26997 + 0.07F);
+					float f = 0.5F + field_26997 * event.entity.worldObj.rand.nextFloat() * 1.2F;
+					float g = 0.1F + field_26997 * 1.2F;
+					event.entity.playSound(Reference.MCAssetVer + ":block.amethyst_block.chime", g, f);
+					lastChimeAge = event.entity.ticksExisted;
+					pair.setLeft(field_26997);
+					pair.setRight(lastChimeAge);
+					AMETHYST_CHIME_CACHE.put(event.entity, pair);
 				}
 			}
 		}

@@ -3,7 +3,6 @@ package ganymedes01.etfuturum.blocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
@@ -19,7 +18,7 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-public class BaseWall extends BlockWall implements IMultiStepSound {
+public class BaseWall extends BlockWall {
 
 	private final Block[] blocks;
 	private final int[] metas;
@@ -76,18 +75,4 @@ public class BaseWall extends BlockWall implements IMultiStepSound {
 	public String getWallName(ItemStack stack) {
 		return "tile." + Utils.getUnlocalisedName(names != null && names.length > 0 ? names[stack.getItemDamage() % variations] : getUnlocalizedName().substring(6 + Reference.MOD_ID.length()));
 	}
-
-	@Override
-	public SoundType getStepSound(IBlockAccess world, int x, int y, int z, int meta) {
-		if(blocks[meta % variations] instanceof IMultiStepSound && (!((IMultiStepSound)blocks[meta % variations]).requiresNewBlockSounds() || ConfigSounds.newBlockSounds)) {
-			return ((IMultiStepSound)blocks[meta % variations]).getStepSound(world, x, y, z, metas[meta % variations]);
-		}
-		return null;
-	}
-
-	@Override
-	public boolean requiresNewBlockSounds() {
-		return false;
-	}
-
 }

@@ -96,7 +96,9 @@ public enum ModBlocks {
 			.setBlockSound(ModSounds.soundDeepslate).setHardness(3.5F).setResistance(6).setCreativeTab(EtFuturum.creativeTabBlocks)),
 	POLISHED_DEEPSLATE(ConfigBlocksItems.enableDeepslate, new BaseBlock(Material.rock).setNames("polished_deepslate")
 			.setBlockSound(ModSounds.soundDeepslate).setHardness(3.5F).setResistance(6).setCreativeTab(EtFuturum.creativeTabBlocks)),
-	DEEPSLATE_BRICKS(ConfigBlocksItems.enableDeepslate, new BlockDeepslateBricks(), BaseItemBlock.class),
+	DEEPSLATE_BRICKS(ConfigBlocksItems.enableDeepslate, new BaseSubtypesBlock(Material.rock,
+			"deepslate_bricks", "cracked_deepslate_bricks", "deepslate_tiles", "cracked_deepslate_tiles", "chiseled_deepslate").setNames("deepslate_bricks")
+			.setBlockSound(ModSounds.soundDeepslateBricks).setHardness(1.5F).setResistance(6), BaseItemBlock.class),
 	TUFF(ConfigBlocksItems.enableTuff, new BlockTuff()),
 	RAW_ORE_BLOCK(ConfigBlocksItems.enableRawOres, new BaseSubtypesBlock(Material.rock, "raw_copper_block", "raw_iron_block", "raw_gold_block").setNames("raw_ore_block")
 			.setToolClass("pickaxe", 1, 0).setToolClass("pickaxe", 1, 1).setToolClass("pickaxe", 2, 2)
@@ -197,10 +199,14 @@ public enum ModBlocks {
 			BaseSlabItemBlock.class),
 	CUT_COPPER_SLAB(ConfigBlocksItems.enableCopper, new BlockCutCopperSlab(false), BaseSlabItemBlock.class),
 	DOUBLE_CUT_COPPER_SLAB(ConfigBlocksItems.enableCopper, new BlockCutCopperSlab(true), BaseSlabItemBlock.class),
-	DEEPSLATE_SLAB(ConfigBlocksItems.enableDeepslate, new BlockDeepslateSlab(false, false), BaseSlabItemBlock.class),
-	DOUBLE_DEEPSLATE_SLAB(ConfigBlocksItems.enableDeepslate, new BlockDeepslateSlab(true, false), BaseSlabItemBlock.class),
-	DEEPSLATE_BRICK_SLAB(ConfigBlocksItems.enableDeepslate, new BlockDeepslateSlab(false, true), BaseSlabItemBlock.class),
-	DOUBLE_DEEPSLATE_BRICK_SLAB(ConfigBlocksItems.enableDeepslate, new BlockDeepslateSlab(true, true), BaseSlabItemBlock.class),
+	DEEPSLATE_SLAB(ConfigBlocksItems.enableDeepslate, new BaseSlab(false, Material.rock, "cobbled_deepslate", "polished_deepslate").setNames("deepslate_slab")
+			.setBlockSound(ModSounds.soundDeepslate).setHardness(3).setResistance(6), BaseSlabItemBlock.class),
+	DOUBLE_DEEPSLATE_SLAB(ConfigBlocksItems.enableDeepslate, new BaseSlab(true, Material.rock, "cobbled_deepslate", "polished_deepslate").setNames("deepslate_slab")
+			.setBlockSound(ModSounds.soundDeepslate).setHardness(3).setResistance(6), BaseSlabItemBlock.class),
+	DEEPSLATE_BRICK_SLAB(ConfigBlocksItems.enableDeepslate, new BaseSlab(false, Material.rock, "deepslate_bricks", "deepslate_tiles").setNames("deepslate_brick_slab")
+			.setBlockSound(ModSounds.soundDeepslateBricks).setHardness(3).setResistance(6), BaseSlabItemBlock.class),
+	DOUBLE_DEEPSLATE_BRICK_SLAB(ConfigBlocksItems.enableDeepslate, new BaseSlab(true, Material.rock, "deepslate_bricks", "deepslate_tiles").setNames("deepslate_brick_slab")
+			.setBlockSound(ModSounds.soundDeepslateBricks).setHardness(3).setResistance(6), BaseSlabItemBlock.class),
 	NETHERITE_STAIRS(ConfigBlocksItems.enableNetherite, new BlockNetheriteStairs(), ItemBlockUninflammable.class),
 	CUT_COPPER_STAIRS(ConfigBlocksItems.enableCopper, new BlockCutCopperStairs(4)),
 	EXPOSED_CUT_COPPER_STAIRS(ConfigBlocksItems.enableCopper, new BlockCutCopperStairs(5)),

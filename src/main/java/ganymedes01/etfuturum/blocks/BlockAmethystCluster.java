@@ -2,11 +2,9 @@ package ganymedes01.etfuturum.blocks;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -15,16 +13,16 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import java.util.List;
 import java.util.Random;
 
-public class BlockAmethystCluster extends BlockAmethystBlock implements IMultiStepSound {
-	
+public class BlockAmethystCluster extends BlockAmethystBlock {
+
 	private final int type;
 	@SideOnly(Side.CLIENT)
 	private IIcon[] icons;
@@ -33,10 +31,8 @@ public class BlockAmethystCluster extends BlockAmethystBlock implements IMultiSt
 		super(Material.glass);
 		setHardness(1.5F);
 		setResistance(1.5F);
-		Utils.setBlockSound(this, ModSounds.soundAmethystCluster);
-		setBlockTextureName("amethyst_cluster");
-		setBlockName(Utils.getUnlocalisedName("amethyst_cluster_" + (type + 1)));
-		setCreativeTab(EtFuturum.creativeTabBlocks);
+		setBlockSound(type == 0 ? ModSounds.soundAmethystBudMed : ModSounds.soundAmethystCluster);
+		setNames("amethyst_cluster");
 		setHarvestLevel("pickaxe", 0);
 		this.lightValue = 1;
 		this.type = type;
@@ -188,14 +184,16 @@ public class BlockAmethystCluster extends BlockAmethystBlock implements IMultiSt
 	
 	@Override
 	public boolean canBlockStay(World world, int x, int y, int z) {
-		return this.canPlaceBlockOnSide(world, x, y, z, world.getBlockMetadata(x, y, z));
+		return this.canPlaceBlockOnSide(world, x, y, z, world.getBlockMetadata(x, y, z) % 6);
 	}
 	
 	@Override
-	public boolean canPlaceBlockOnSide(World world, int x, int y, int z, int side)
-	{
-		EnumFacing facing = EnumFacing.getFront(side);
-		return world.getBlock(x - facing.getFrontOffsetX(), y - facing.getFrontOffsetY(), z - facing.getFrontOffsetZ()).isOpaqueCube();
+	public boolean canPlaceBlockOnSide(World world, int x, int y, int z, int side) {
+		ForgeDirection dir = ForgeDirection.getOrientation(side);
+		int ox = x - dir.offsetX;
+		int oy = y - dir.offsetY;
+		int oz = z - dir.offsetZ;
+		return world.getBlock(ox, oy, oz).isSideSolid(world, ox, oy, oz, dir);
 	}
 	
 	@Override
@@ -241,16 +239,5 @@ public class BlockAmethystCluster extends BlockAmethystBlock implements IMultiSt
 	@Override
 	public int getRenderType() {
 		return RenderIDs.AMETHYST_CLUSTER;
-	}
-
-	private static final SoundType[] STEPSOUNDS = new SoundType[] {ModSounds.soundAmethystBudSmall, ModSounds.soundAmethystBudMed, ModSounds.soundAmethystBudLrg, null};
-	@Override
-	public SoundType getStepSound(IBlockAccess world, int x, int y, int z, int meta) {
-		return STEPSOUNDS[(meta < 6 ? 0 : 1) + (type == 0 ? 0 : 2)];
-	}
-
-	@Override
-	public boolean requiresNewBlockSounds() {
-		return true;
 	}
 }
