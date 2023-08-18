@@ -1,26 +1,26 @@
 package ganymedes01.etfuturum.entities.ai;
 
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.entities.IFlyingEntity;
+import ganymedes01.etfuturum.entities.INoGravityEntity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.util.MathHelper;
 
 public class FlyMoveHelper extends ExtendedEntityMoveHelper {
 	/**
-	 * Note: Since setNoGravity does not exist in 1.7.10 you must implement IFlyingEntity so this class can toggle gravity on the entity when it needs to.
+	 * Note: Since setNoGravity does not exist in 1.7.10 you must implement INoGravityEntity so this class can toggle gravity on the entity when it needs to.
 	 */
 	public FlyMoveHelper(EntityLiving p_i47418_1_) {
 		super(p_i47418_1_);
-		if (!(p_i47418_1_ instanceof IFlyingEntity)) {
-			throw new IllegalArgumentException("Entity using " + getClass().getName() + " MUST implement " + IFlyingEntity.class.getName() + "! Got " + p_i47418_1_ + " instead...");
+		if (!(p_i47418_1_ instanceof INoGravityEntity)) {
+			throw new IllegalArgumentException("Entity using " + getClass().getName() + " MUST implement " + INoGravityEntity.class.getName() + "! Got " + p_i47418_1_ + " instead...");
 		}
 	}
 
 	public void onUpdateMoveHelper() {
 		if (action == ExtendedEntityMoveHelper.Action.MOVE_TO) {
 			action = ExtendedEntityMoveHelper.Action.WAIT;
-			((IFlyingEntity) entity).setNoGravity(true);
+			((INoGravityEntity) entity).setNoGravity(true);
 			double d0 = posX - entity.posX;
 			double d1 = posY - entity.posY;
 			double d2 = posZ - entity.posZ;
@@ -49,7 +49,7 @@ public class FlyMoveHelper extends ExtendedEntityMoveHelper {
 			entity.rotationPitch = limitAngle(entity.rotationPitch, f2, 10.0F);
 			entity.setMoveForward(d1 > 0.0D ? f1 : -f1);
 		} else {
-			((IFlyingEntity) entity).setNoGravity(false);
+			((INoGravityEntity) entity).setNoGravity(false);
 			entity.setMoveForward(0.0F);
 			entity.moveStrafing = 0.0F;
 		}

@@ -18,7 +18,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.pathfinding.PathEntity;
-import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntity;
@@ -33,7 +32,7 @@ import javax.annotation.Nullable;
 import java.util.*;
 import java.util.function.Predicate;
 
-public class EntityBee extends EntityAnimal implements IFlyingEntity {
+public class EntityBee extends EntityAnimal implements INoGravityEntity {
 	private static final int DATA_FLAGS_ID = 13; //byte
 	private static final int ANGER_TIME = 14; //int
 	private UUID lastHurtBy;
@@ -52,7 +51,6 @@ public class EntityBee extends EntityAnimal implements IFlyingEntity {
 	private EntityBee.FindFlowerGoal findFlowerGoal;
 	private int underWaterTicks;
 
-	private final FlyingPathNavigator flyNavigator;
 	private int beeSoundTime = 0;
 
 	private boolean hasNoGravity;
@@ -62,7 +60,7 @@ public class EntityBee extends EntityAnimal implements IFlyingEntity {
 //		this.lookController = new EntityBee.BeeLookController(this);
 		setSize(0.7F, 0.7F);
 
-		flyNavigator = new FlyingPathNavigator(this, worldIn) {
+		navigator = new FlyingPathNavigator(this, worldIn) {
 			@Override
 			public boolean isSafeToStandAt(int p_75483_1_, int p_75483_2_, int p_75483_3_, int p_75483_4_, int p_75483_5_, int p_75483_6_, Vec3 p_75483_7_, double p_75483_8_, double p_75483_10_) {
 				int k1 = p_75483_1_ - p_75483_4_ / 2;
@@ -94,9 +92,9 @@ public class EntityBee extends EntityAnimal implements IFlyingEntity {
 		};
 		moveHelper = new FlyMoveHelper(this);
 		registerGoals();
-		flyNavigator.setBreakDoors(false);
-		flyNavigator.setEnterDoors(true);
-		flyNavigator.setCanSwim(false);
+		getNavigator().setBreakDoors(false);
+		getNavigator().setEnterDoors(true);
+		getNavigator().setCanSwim(false);
 	}
 
 	protected void entityInit() {
@@ -114,11 +112,6 @@ public class EntityBee extends EntityAnimal implements IFlyingEntity {
 			return -1F;
 		}
 		return 0.0F;
-	}
-
-	@Override
-	public PathNavigate getNavigator() {
-		return flyNavigator;
 	}
 
 	protected boolean isAIEnabled() {
@@ -417,6 +410,7 @@ public class EntityBee extends EntityAnimal implements IFlyingEntity {
 	}
 
 	protected void updateAITasks() {
+		super.updateAITasks();
 		if (this.isInWater()) {
 			++this.underWaterTicks;
 		} else {
@@ -446,7 +440,6 @@ public class EntityBee extends EntityAnimal implements IFlyingEntity {
 		if (!this.hasNectar()) {
 			++this.ticksWithoutNectarSinceExitingHive;
 		}
-		super.updateAITasks();
 	}
 
 	public void resetTicksWithoutNectar() {
@@ -801,7 +794,7 @@ public class EntityBee extends EntityAnimal implements IFlyingEntity {
 		for (int x1 = -range; x1 <= range; x1++) {
 			for (int y1 = -range; y1 <= range; y1++) {
 				for (int z1 = -range; z1 <= range; z1++) {
-					BlockPos pos = new BlockPos(x1, y1, z1);
+					BlockPos pos = beePos.add(x1, y1, z1);
 					if (predicate.test(pos)) {
 						posList.add(pos);
 					}
@@ -1015,7 +1008,7 @@ public class EntityBee extends EntityAnimal implements IFlyingEntity {
 			return this.canBeeStart();
 		}
 
-		public void updateTask() {
+//		public void updateTask() {
 //			if (EntityBee.this.rand.nextInt(30) == 0) {
 //				for(int i = 1; i <= 2; ++i) {
 //					BlockPos blockpos = (new BlockPos(EntityBee.this)).down(i);
@@ -1051,7 +1044,7 @@ public class EntityBee extends EntityAnimal implements IFlyingEntity {
 //					}
 //				}
 //			}
-		}
+//		}
 	}
 
 	abstract class PassiveGoal extends EntityAIBase {
@@ -1178,8 +1171,6 @@ public class EntityBee extends EntityAnimal implements IFlyingEntity {
 							} else {
 								flag1 = false;
 							}
-
-//							EntityBee.this.getLookController().setLookPosition(vec3d.getX(), vec3d.getY(), vec3d.getZ());
 						}
 
 						if (flag1) {
@@ -1272,7 +1263,9 @@ public class EntityBee extends EntityAnimal implements IFlyingEntity {
 
 		public void startExecuting() {
 			Vec3 vec3d = this.getRandomLocation();
-			EntityBee.this.getNavigator().setPath(EntityBee.this.getNavigator().getPathToXYZ(vec3d.xCoord, vec3d.yCoord, vec3d.zCoord), 1.0D);
+			if (vec3d != null) {
+				EntityBee.this.getNavigator().setPath(EntityBee.this.getNavigator().getPathToXYZ(vec3d.xCoord, vec3d.yCoord, vec3d.zCoord), 1.0D);
+			}
 
 		}
 

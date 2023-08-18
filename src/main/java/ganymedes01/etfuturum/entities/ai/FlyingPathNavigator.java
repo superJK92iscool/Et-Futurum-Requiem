@@ -19,8 +19,10 @@ public class FlyingPathNavigator extends PathNavigate {
 	public void updatePath() {
 		if (this.worldObj.getTotalWorldTime() - this.lastTimeUpdated > 20L) {
 			if (this.getPath() != null) {
-				this.currentPath = null;
-				this.currentPath = this.getPathToXYZ(getPath().getFinalPathPoint().xCoord, getPath().getFinalPathPoint().yCoord, getPath().getFinalPathPoint().zCoord);
+				int x = getPath().getFinalPathPoint().xCoord;
+				int y = getPath().getFinalPathPoint().yCoord;
+				int z = getPath().getFinalPathPoint().zCoord;
+				this.currentPath = this.getPathToXYZ(x, y, z);
 				this.lastTimeUpdated = this.worldObj.getTotalWorldTime();
 				this.tryUpdatePath = false;
 			}
@@ -43,7 +45,7 @@ public class FlyingPathNavigator extends PathNavigate {
 	public void onUpdateNavigation() {
 		++this.totalTicks;
 
-		if (!this.noPath()) {
+		if (tryUpdatePath) {
 			this.updatePath();
 		}
 
