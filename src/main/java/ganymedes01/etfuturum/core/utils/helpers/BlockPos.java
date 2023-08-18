@@ -5,10 +5,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -45,6 +42,10 @@ public class BlockPos extends Vec3i {
 
 	public BlockPos(Vec3i source) {
 		this(source.getX(), source.getY(), source.getZ());
+	}
+
+	public BlockPos(ChunkCoordinates coords) {
+		this(coords.posX, coords.posY, coords.posZ);
 	}
 
 	public BlockPos add(double x, double y, double z) {
@@ -228,5 +229,97 @@ public class BlockPos extends Vec3i {
 				};
 			}
 		};
+	}
+
+	public BlockPos toImmutable() {
+		return this;
+	}
+
+	public Vec3 newVec3() {
+		return Vec3.createVectorHelper(getX(), getY(), getZ());
+	}
+
+	public static class MutableBlockPos extends BlockPos {
+		protected int x;
+		protected int y;
+		protected int z;
+
+		public MutableBlockPos() {
+			this(0, 0, 0);
+		}
+
+		public MutableBlockPos(BlockPos pos) {
+			this(pos.getX(), pos.getY(), pos.getZ());
+		}
+
+		public MutableBlockPos(int x_, int y_, int z_) {
+			super(0, 0, 0);
+			this.x = x_;
+			this.y = y_;
+			this.z = z_;
+		}
+
+		public BlockPos add(double x, double y, double z) {
+			return super.add(x, y, z).toImmutable();
+		}
+
+		public BlockPos add(int x, int y, int z) {
+			return super.add(x, y, z).toImmutable();
+		}
+
+		public BlockPos offset(EnumFacing facing, int n) {
+			return super.offset(facing, n).toImmutable();
+		}
+
+		public BlockPos offset(EnumFacing p_190942_1_) {
+			return super.offset(p_190942_1_).toImmutable();
+		}
+
+		public int getX() {
+			return this.x;
+		}
+
+		public int getY() {
+			return this.y;
+		}
+
+		public int getZ() {
+			return this.z;
+		}
+
+		public BlockPos.MutableBlockPos setPos(int xIn, int yIn, int zIn) {
+			this.x = xIn;
+			this.y = yIn;
+			this.z = zIn;
+			return this;
+		}
+
+		public BlockPos.MutableBlockPos setPos(Entity entityIn) {
+			return this.setPos(entityIn.posX, entityIn.posY, entityIn.posZ);
+		}
+
+		public BlockPos.MutableBlockPos setPos(double xIn, double yIn, double zIn) {
+			return this.setPos(MathHelper.floor_double(xIn), MathHelper.floor_double(yIn), MathHelper.floor_double(zIn));
+		}
+
+		public BlockPos.MutableBlockPos setPos(Vec3i vec) {
+			return this.setPos(vec.getX(), vec.getY(), vec.getZ());
+		}
+
+		public BlockPos.MutableBlockPos move(EnumFacing facing) {
+			return this.move(facing, 1);
+		}
+
+		public BlockPos.MutableBlockPos move(EnumFacing facing, int p_189534_2_) {
+			return this.setPos(this.x + facing.getFrontOffsetX() * p_189534_2_, this.y + facing.getFrontOffsetY() * p_189534_2_, this.z + facing.getFrontOffsetZ() * p_189534_2_);
+		}
+
+		public void setY(int yIn) {
+			this.y = yIn;
+		}
+
+		public BlockPos toImmutable() {
+			return new BlockPos(this);
+		}
 	}
 }

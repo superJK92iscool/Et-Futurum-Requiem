@@ -65,12 +65,16 @@ public class Vec3i implements Comparable<Vec3i> {
 	}
 
 	public boolean isWithinDistance(Vec3i vec, double distance) {
-		return this.getSquaredDistance((double) vec.getX(), (double) vec.getY(), (double) vec.getZ(), false) < distance
+		return this.getSquaredDistance(vec.getX(), vec.getY(), vec.getZ(), false) < distance
 				* distance;
 	}
 
 	public double getSquaredDistance(Vec3i vec) {
 		return this.getSquaredDistance(vec.getX(), vec.getY(), vec.getZ(), true);
+	}
+
+	public double getSquaredDistance(Vec3 vec) {
+		return this.getSquaredDistance(vec.xCoord, vec.yCoord, vec.zCoord, true);
 	}
 
 	public double getSquaredDistance(Vec3i vec, boolean treatAsBlockPos) {

@@ -2,19 +2,23 @@ package ganymedes01.etfuturum.entities;
 
 import com.google.common.collect.Lists;
 import ganymedes01.etfuturum.blocks.BlockBeeHive;
+import ganymedes01.etfuturum.core.utils.EntityVectorUtils;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
-import ganymedes01.etfuturum.core.utils.helpers.Vec3i;
+import ganymedes01.etfuturum.entities.ai.FlyMoveHelper;
+import ganymedes01.etfuturum.entities.ai.FlyingPathNavigator;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.tileentities.TileEntityBeeHive;
 import net.minecraft.block.*;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.*;
+import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.pathfinding.PathEntity;
+import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntity;
@@ -25,12 +29,11 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import javax.annotation.Nullable;
+import java.util.*;
+import java.util.function.Predicate;
 
-public class EntityBee extends EntityAnimal {
+public class EntityBee extends EntityAnimal implements IFlyingEntity {
 	private static final int DATA_FLAGS_ID = 13; //byte
 	private static final int ANGER_TIME = 14; //int
 	private UUID lastHurtBy;
@@ -48,67 +51,58 @@ public class EntityBee extends EntityAnimal {
 	private EntityBee.FindBeehiveGoal findBeehiveGoal;
 	private EntityBee.FindFlowerGoal findFlowerGoal;
 	private int underWaterTicks;
-	private float nextFlap = 1.0F;
+
+	private final FlyingPathNavigator flyNavigator;
+	private int beeSoundTime = 0;
+
+	private boolean hasNoGravity;
 
 	public EntityBee(World worldIn) {
 		super(worldIn);
-//		this.moveController = new FlyingMovementController(this, 20, true);
 //		this.lookController = new EntityBee.BeeLookController(this);
-		setSize(0.4F, 0.4F);
+		setSize(0.7F, 0.7F);
+
+		flyNavigator = new FlyingPathNavigator(this, worldIn) {
+			@Override
+			public boolean isSafeToStandAt(int p_75483_1_, int p_75483_2_, int p_75483_3_, int p_75483_4_, int p_75483_5_, int p_75483_6_, Vec3 p_75483_7_, double p_75483_8_, double p_75483_10_) {
+				int k1 = p_75483_1_ - p_75483_4_ / 2;
+				int l1 = p_75483_3_ - p_75483_6_ / 2;
+
+				if (this.isPositionClear(k1, p_75483_2_, l1, p_75483_4_, p_75483_5_, p_75483_6_, p_75483_7_, p_75483_8_, p_75483_10_)) {
+					for (int i2 = k1; i2 < k1 + p_75483_4_; ++i2) {
+						for (int j2 = l1; j2 < l1 + p_75483_6_; ++j2) {
+							double d2 = (double) i2 + 0.5D - p_75483_7_.xCoord;
+							double d3 = (double) j2 + 0.5D - p_75483_7_.zCoord;
+
+							if (d2 * p_75483_8_ + d3 * p_75483_10_ >= 0.0D) {
+								Block block = this.worldObj.getBlock(i2, p_75483_2_ - 1, j2);
+								if (block.isAir(worldObj, i2, p_75483_2_ - 1, j2)) {
+									return true;
+								}
+							}
+						}
+					}
+				}
+				return false;
+			}
+
+			public void onUpdateNavigation() {
+				if (!EntityBee.this.pollinateGoal.isRunning()) {
+					super.onUpdateNavigation();
+				}
+			}
+		};
+		moveHelper = new FlyMoveHelper(this);
 		registerGoals();
+		flyNavigator.setBreakDoors(false);
+		flyNavigator.setEnterDoors(true);
+		flyNavigator.setCanSwim(false);
 	}
 
 	protected void entityInit() {
 		super.entityInit();
 		this.getDataWatcher().addObject(DATA_FLAGS_ID, (byte) 0);
 		this.getDataWatcher().addObject(ANGER_TIME, 0);
-	}
-
-	public void moveEntityWithHeading(float p_70612_1_, float p_70612_2_) {
-		if (this.isInWater()) {
-			this.moveFlying(p_70612_1_, p_70612_2_, 0.02F);
-			this.moveEntity(this.motionX, this.motionY, this.motionZ);
-			this.motionX *= 0.800000011920929D;
-			this.motionY *= 0.800000011920929D;
-			this.motionZ *= 0.800000011920929D;
-		} else if (this.handleLavaMovement()) {
-			this.moveFlying(p_70612_1_, p_70612_2_, 0.02F);
-			this.moveEntity(this.motionX, this.motionY, this.motionZ);
-			this.motionX *= 0.5D;
-			this.motionY *= 0.5D;
-			this.motionZ *= 0.5D;
-		} else {
-			float f2 = 0.91F;
-
-			if (this.onGround) {
-				f2 = this.worldObj.getBlock(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.boundingBox.minY) - 1, MathHelper.floor_double(this.posZ)).slipperiness * 0.91F;
-			}
-
-			float f3 = 0.16277136F / (f2 * f2 * f2);
-			this.moveFlying(p_70612_1_, p_70612_2_, this.onGround ? 0.1F * f3 : 0.02F);
-			f2 = 0.91F;
-
-			if (this.onGround) {
-				f2 = this.worldObj.getBlock(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.boundingBox.minY) - 1, MathHelper.floor_double(this.posZ)).slipperiness * 0.91F;
-			}
-
-			this.moveEntity(this.motionX, this.motionY, this.motionZ);
-			this.motionX *= f2;
-			this.motionY *= f2;
-			this.motionZ *= f2;
-		}
-
-		this.prevLimbSwingAmount = this.limbSwingAmount;
-		double d1 = this.posX - this.prevPosX;
-		double d0 = this.posZ - this.prevPosZ;
-		float f4 = MathHelper.sqrt_double(d1 * d1 + d0 * d0) * 4.0F;
-
-		if (f4 > 1.0F) {
-			f4 = 1.0F;
-		}
-
-		this.limbSwingAmount += (f4 - this.limbSwingAmount) * 0.4F;
-		this.limbSwing += this.limbSwingAmount;
 	}
 
 	public float getBlockPathWeight(int x, int y, int z) {
@@ -122,11 +116,20 @@ public class EntityBee extends EntityAnimal {
 		return 0.0F;
 	}
 
+	@Override
+	public PathNavigate getNavigator() {
+		return flyNavigator;
+	}
+
+	protected boolean isAIEnabled() {
+		return true;
+	}
+
 	protected void registerGoals() {
 		tasks.addTask(0, new EntityBee.StingGoal(this, EntityLivingBase.class, true));
 		tasks.addTask(1, new EntityBee.EnterBeehiveGoal());
 		tasks.addTask(2, new EntityAIMate(this, 1.0D));
-//		tasks.addTask(3, new EntityAITempt(this, 1.25D, Item.getItemFromBlock(Blocks.red_flower), false));//Temptime seems to already work
+//		tasks.addTask(3, new EntityAITempt(this, 1.25D, Item.getItemFromBlock(Blocks.red_flower), false));//Tempting seems to already work
 		this.pollinateGoal = new EntityBee.PollinateGoal();
 		tasks.addTask(4, this.pollinateGoal);
 		tasks.addTask(5, new EntityAIFollowParent(this, 1.25D));
@@ -202,6 +205,120 @@ public class EntityBee extends EntityAnimal {
 		}
 	}
 
+	public void moveEntityWithHeading(float p_70612_1_, float p_70612_2_) {
+		double d0;
+
+		if (this.isInWater()) {
+			d0 = this.posY;
+			this.moveFlying(p_70612_1_, p_70612_2_, this.isAIEnabled() ? 0.04F : 0.02F);
+			this.moveEntity(this.motionX, this.motionY, this.motionZ);
+			this.motionX *= 0.800000011920929D;
+			this.motionY *= 0.800000011920929D;
+			this.motionZ *= 0.800000011920929D;
+			if (!hasNoGravity()) {
+				this.motionY -= 0.02D;
+			}
+
+			if (this.isCollidedHorizontally && this.isOffsetPositionInLiquid(this.motionX, this.motionY + 0.6000000238418579D - this.posY + d0, this.motionZ)) {
+				this.motionY = 0.30000001192092896D;
+			}
+		} else if (this.handleLavaMovement()) {
+			d0 = this.posY;
+			this.moveFlying(p_70612_1_, p_70612_2_, 0.02F);
+			this.moveEntity(this.motionX, this.motionY, this.motionZ);
+			this.motionX *= 0.5D;
+			this.motionY *= 0.5D;
+			this.motionZ *= 0.5D;
+			if (!hasNoGravity()) {
+				this.motionY -= 0.02D;
+			}
+
+			if (this.isCollidedHorizontally && this.isOffsetPositionInLiquid(this.motionX, this.motionY + 0.6000000238418579D - this.posY + d0, this.motionZ)) {
+				this.motionY = 0.30000001192092896D;
+			}
+		} else {
+			float f2 = 0.91F;
+
+			if (this.onGround) {
+				f2 = this.worldObj.getBlock(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.boundingBox.minY) - 1, MathHelper.floor_double(this.posZ)).slipperiness * 0.91F;
+			}
+
+			float f3 = 0.16277136F / (f2 * f2 * f2);
+			float f4;
+
+			if (this.onGround) {
+				f4 = this.getAIMoveSpeed() * f3;
+			} else {
+				f4 = this.jumpMovementFactor;
+			}
+
+			this.moveFlying(p_70612_1_, p_70612_2_, f4);
+			f2 = 0.91F;
+
+			if (this.onGround) {
+				f2 = this.worldObj.getBlock(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.boundingBox.minY) - 1, MathHelper.floor_double(this.posZ)).slipperiness * 0.91F;
+			}
+
+			if (this.isOnLadder()) {
+				float f5 = 0.15F;
+
+				if (this.motionX < (double) (-f5)) {
+					this.motionX = -f5;
+				}
+
+				if (this.motionX > (double) f5) {
+					this.motionX = f5;
+				}
+
+				if (this.motionZ < (double) (-f5)) {
+					this.motionZ = -f5;
+				}
+
+				if (this.motionZ > (double) f5) {
+					this.motionZ = f5;
+				}
+
+				this.fallDistance = 0.0F;
+
+				if (this.motionY < -0.15D) {
+					this.motionY = -0.15D;
+				}
+			}
+
+			this.moveEntity(this.motionX, this.motionY, this.motionZ);
+
+			if (this.isCollidedHorizontally && this.isOnLadder()) {
+				this.motionY = 0.2D;
+			}
+
+			if (this.worldObj.isRemote && (!this.worldObj.blockExists((int) this.posX, 0, (int) this.posZ) || !this.worldObj.getChunkFromBlockCoords((int) this.posX, (int) this.posZ).isChunkLoaded)) {
+				if (this.posY > 0.0D) {
+					this.motionY = -0.1D;
+				} else {
+					this.motionY = 0.0D;
+				}
+			} else if (!hasNoGravity()) {
+				this.motionY -= 0.08D;
+			}
+
+			this.motionY *= 0.9800000190734863D;
+			this.motionX *= f2;
+			this.motionZ *= f2;
+		}
+
+		this.prevLimbSwingAmount = this.limbSwingAmount;
+		d0 = this.posX - this.prevPosX;
+		double d1 = this.posZ - this.prevPosZ;
+		float f6 = MathHelper.sqrt_double(d0 * d0 + d1 * d1) * 4.0F;
+
+		if (f6 > 1.0F) {
+			f6 = 1.0F;
+		}
+
+		this.limbSwingAmount += (f6 - this.limbSwingAmount) * 0.4F;
+		this.limbSwing += this.limbSwingAmount;
+	}
+
 	public boolean attackEntityAsMob(Entity entityIn) {
 		boolean flag = entityIn.attackEntityFrom(new EntityDamageSource("sting", this), (float) ((int) this.getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttributeValue()));
 		if (flag) {
@@ -229,9 +346,9 @@ public class EntityBee extends EntityAnimal {
 	}
 
 	public void onLivingUpdate() {
-		if (this.distanceWalkedOnStepModified > nextFlap && worldObj.isAirBlock((int) posX, (int) posY, (int) posZ)) {
-//			playSound(getLivingSound(), 1, 1);
-//			nextFlap = 0;
+		if ((this.isEntityAlive() && worldObj.isAirBlock((int) posX, (int) posY, (int) posZ)) && beeSoundTime-- <= 0) {
+			playSound(getLivingSound(), getSoundVolume(), getSoundPitch());
+			beeSoundTime = 70 + rand.nextInt(10);
 		}
 		super.onLivingUpdate();
 //		if (this.hasNectar() && this.getCropsGrownSincePollination() < 10 && this.rand.nextFloat() < 0.05F) {
@@ -247,31 +364,6 @@ public class EntityBee extends EntityAnimal {
 //		worldIn.addParticle(particleData, Utils.lerp(worldIn.rand.nextDouble(), p_226397_2_, p_226397_4_), posY, Utils.lerp(worldIn.rand.nextDouble(), p_226397_6_, p_226397_8_), 0.0D, 0.0D, 0.0D);
 //	}
 
-	private void startMovingTo(BlockPos pos) {
-		Vec3i vec3d = new BlockPos(pos);
-//		int i = 0;
-		BlockPos blockpos = new BlockPos(this);
-//		int j = vec3d.getY() - blockpos.getY();
-//		if (j > 2) {
-//			i = 4;
-//		} else if (j < -2) {
-//			i = -4;
-//		}
-
-		int k = 6;
-		int l = 8;
-		int i1 = blockpos.manhattanDistance(pos);
-		if (i1 < 15) {
-			k = i1 / 2;
-			l = i1 / 2;
-		}
-
-		Vec3 vec3d1 = RandomPositionGenerator.findRandomTarget(this, k, l/*, i, vec3d, (double)((float)Math.PI / 10F)*/);
-		if (vec3d1 != null) {
-//			this.getNavigator().setRangeMultiplier(0.5F);
-			this.getNavigator().tryMoveToXYZ(vec3d1.xCoord, vec3d1.yCoord, vec3d1.zCoord, 1.0D);
-		}
-	}
 
 	public BlockPos getFlowerPos() {
 		return this.savedFlowerPos;
@@ -325,7 +417,6 @@ public class EntityBee extends EntityAnimal {
 	}
 
 	protected void updateAITasks() {
-		boolean flag = this.hasStung();
 		if (this.isInWater()) {
 			++this.underWaterTicks;
 		} else {
@@ -336,7 +427,7 @@ public class EntityBee extends EntityAnimal {
 			this.attackEntityFrom(DamageSource.drown, 1.0F);
 		}
 
-		if (flag) {
+		if (hasStung()) {
 			++this.timeSinceSting;
 			if (this.timeSinceSting % 5 == 0 && this.rand.nextInt(MathHelper.clamp_int(1200 - this.timeSinceSting, 1, 1200)) == 0) {
 				this.attackEntityFrom(DamageSource.generic, this.getHealth());
@@ -355,7 +446,7 @@ public class EntityBee extends EntityAnimal {
 		if (!this.hasNectar()) {
 			++this.ticksWithoutNectarSinceExitingHive;
 		}
-
+		super.updateAITasks();
 	}
 
 	public void resetTicksWithoutNectar() {
@@ -513,24 +604,6 @@ public class EntityBee extends EntityAnimal {
 		this.getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(48.0D);
 	}
 
-//	protected PathNavigator createNavigator(World worldIn) {
-//		FlyingPathNavigator flyingpathgetNavigator() = new FlyingPathNavigator(this, worldIn) {
-//			public boolean canEntityStandOnPos(BlockPos pos) {
-//				return !this.worldObj.getBlockState(pos.down()).isAir();
-//			}
-//
-//			public void tick() {
-//				if (!EntityBee.this.pollinateGoal.isRunning()) {
-//					super.tick();
-//				}
-//			}
-//		};
-//		flyingpathgetNavigator().setCanOpenDoors(false);
-//		flyingpathgetNavigator().setCanSwim(false);
-//		flyingpathgetNavigator().setCanEnterDoors(true);
-//		return flyingpathgetNavigator();
-//	}
-
 	public boolean isBreedingItem(ItemStack stack) {
 		return isFlower(Block.getBlockFromItem(stack.getItem()), stack.getItemDamage());
 	}
@@ -552,6 +625,10 @@ public class EntityBee extends EntityAnimal {
 
 	@Override
 	protected void func_145780_a(final int p_145780_1_, final int p_145780_2_, final int p_145780_3_, final Block p_145780_4_) {
+	}
+
+	public int getTalkInterval() {
+		return 0;
 	}
 
 	public void playLivingSound() {
@@ -630,13 +707,23 @@ public class EntityBee extends EntityAnimal {
 		return pos.isWithinDistance(new BlockPos(this), distance);
 	}
 
+	@Override
+	public void setNoGravity(boolean gravity) {
+		hasNoGravity = gravity;
+	}
+
+	@Override
+	public boolean hasNoGravity() {
+		return hasNoGravity;
+	}
+
 	class AngerGoal extends EntityAIHurtByTarget {
 		AngerGoal(EntityBee beeIn) {
 			super(beeIn, true);
 		}
 
 		protected boolean isSuitableTarget(EntityLivingBase targetIn, boolean p_75296_2_) {
-			if (taskOwner instanceof EntityBee && this.taskOwner.canEntityBeSeen(targetIn) && ((EntityBee) taskOwner).setBeeAttacker(targetIn)) {
+			if (targetIn != null && this.taskOwner.canEntityBeSeen(targetIn) && ((EntityBee) taskOwner).setBeeAttacker(targetIn)) {
 				taskOwner.setAttackTarget(targetIn);
 				return true;
 			}
@@ -669,21 +756,65 @@ public class EntityBee extends EntityAnimal {
 		}
 	}
 
-//	class BeeLookController extends LookController {
-//		BeeLookController(MobEntity beeIn) {
-//			super(beeIn);
-//		}
-//
-//		public void updateTask() {
-//			if (!EntityBee.this.isAngry()) {
-//				super.updateTask();
-//			}
-//		}
-//
-//		protected boolean func_220680_b() {
-//			return !EntityBee.this.pollinateGoal.isRunning();
-//		}
-//	}
+	class BeeLookController extends EntityLookHelper {
+		BeeLookController(EntityMob beeIn) {
+			super(beeIn);
+		}
+
+		public void onUpdateLook() {
+			if (!isAngry()) {
+				super.onUpdateLook();
+			}
+		}
+	}
+
+	private void startMovingTo(BlockPos pos) {
+		Vec3 vec3d = pos.newVec3();
+		int i = 0;
+		BlockPos blockpos = new BlockPos(this);
+		int j = (int) vec3d.yCoord - blockpos.getY();
+		if (j > 2) {
+			i = 4;
+		} else if (j < -2) {
+			i = -4;
+		}
+
+		int k = 6;
+		int l = 8;
+		int i1 = blockpos.manhattanDistance(pos);
+		if (i1 < 15) {
+			k = i1 / 2;
+			l = i1 / 2;
+		}
+
+		Vec3 vec3d1 = EntityVectorUtils.func_226344_b_(this, k, l, i, vec3d, (float) Math.PI / 10F);
+		if (vec3d1 != null) {
+//			this.navigator.setRangeMultiplier(0.5F);
+			this.getNavigator().tryMoveToXYZ(vec3d1.xCoord, vec3d1.yCoord, vec3d1.zCoord, 1.0D);
+		}
+	}
+
+	private List<BlockPos> getBlocksInRange(Predicate<BlockPos> predicate, int range, boolean shuffle) {
+		final BlockPos beePos = new BlockPos(EntityBee.this);
+		final List<BlockPos> posList = Lists.newArrayList();
+
+		for (int x1 = -range; x1 <= range; x1++) {
+			for (int y1 = -range; y1 <= range; y1++) {
+				for (int z1 = -range; z1 <= range; z1++) {
+					BlockPos pos = new BlockPos(x1, y1, z1);
+					if (predicate.test(pos)) {
+						posList.add(pos);
+					}
+				}
+			}
+		}
+		if (shuffle) {
+			Collections.shuffle(posList);
+		} else {
+			posList.sort(Comparator.comparingDouble(pos -> pos.getSquaredDistance(beePos)));
+		}
+		return posList;
+	}
 
 	class EnterBeehiveGoal extends EntityBee.PassiveGoal {
 		private EnterBeehiveGoal() {
@@ -944,7 +1075,7 @@ public class EntityBee extends EntityAnimal {
 		private int pollinationTicks = 0;
 		private int lastPollinationTick = 0;
 		private boolean running;
-		private Vec3i nextTarget;
+		private Vec3 nextTarget;
 		private int ticks = 0;
 
 		PollinateGoal() {
@@ -1019,14 +1150,14 @@ public class EntityBee extends EntityAnimal {
 			EntityBee.this.remainingCooldownBeforeLocatingNewFlower = 200;
 		}
 
-		public void tick() {
+		public void updateTask() {
 			BlockPos beePos = new BlockPos(EntityBee.this);
 			++this.ticks;
 			if (this.ticks > 600) {
 				EntityBee.this.savedFlowerPos = null;
 			} else {
-				Vec3i vec3d = EntityBee.this.savedFlowerPos.add(0.5D, 0.6F, 0.5D);
-				if (vec3d.getSquaredDistance(beePos) > 1.0D) {
+				Vec3 vec3d = EntityBee.this.savedFlowerPos.add(0.5D, 0.6F, 0.5D).newVec3();
+				if (vec3d.squareDistanceTo(posX, posY, posZ) > 1.0D) {
 					this.nextTarget = vec3d;
 					this.moveToNextTarget();
 				} else {
@@ -1042,7 +1173,7 @@ public class EntityBee extends EntityAnimal {
 						if (flag) {
 							boolean flag2 = EntityBee.this.rand.nextInt(100) == 0;
 							if (flag2) {
-								this.nextTarget = new Vec3i(vec3d.getX() + (double) this.getRandomOffset(), vec3d.getY(), vec3d.getZ() + (double) this.getRandomOffset());
+								this.nextTarget = Vec3.createVectorHelper(vec3d.xCoord + (double) this.getRandomOffset(), vec3d.yCoord, vec3d.zCoord + (double) this.getRandomOffset());
 								EntityBee.this.getNavigator().clearPathEntity();
 							} else {
 								flag1 = false;
@@ -1060,14 +1191,13 @@ public class EntityBee extends EntityAnimal {
 							this.lastPollinationTick = this.pollinationTicks;
 							EntityBee.this.playSound(Reference.MCAssetVer + ":entity.bee.pollinate", 1.0F, 1.0F);
 						}
-
 					}
 				}
 			}
 		}
 
 		private void moveToNextTarget() {
-			EntityBee.this.getMoveHelper().setMoveTo(this.nextTarget.getX(), this.nextTarget.getY(), this.nextTarget.getZ(), (double) 0.35F);
+			EntityBee.this.getMoveHelper().setMoveTo(this.nextTarget.xCoord, this.nextTarget.yCoord, this.nextTarget.zCoord, 0.35F);
 		}
 
 		private float getRandomOffset() {
@@ -1075,27 +1205,12 @@ public class EntityBee extends EntityAnimal {
 		}
 
 		private Optional<BlockPos> getFlower() {
-			return this.findFlower(5.0D);
+			return this.findFlower(5);
 		}
 
-		private Optional<BlockPos> findFlower(double distance) {
-			BlockPos blockpos = new BlockPos(EntityBee.this);
-			BlockPos blockpos$mutable = new BlockPos(blockpos);
-
-			for (int i = 0; (double) i <= distance; i = i > 0 ? -i : 1 - i) {
-				for (int j = 0; (double) j < distance; ++j) {
-					for (int k = 0; k <= j; k = k > 0 ? -k : 1 - k) {
-						for (int l = k < j && k > -j ? j : 0; l <= j; l = l > 0 ? -l : 1 - l) {
-							blockpos$mutable = blockpos$mutable.add(k, i - 1, l);
-							if (blockpos.getSquaredDistance(blockpos$mutable) <= distance * distance && isFlower(blockpos$mutable.getBlock(worldObj), blockpos$mutable.getBlockMetadata(worldObj))) {
-								return Optional.of(blockpos$mutable);
-							}
-						}
-					}
-				}
-			}
-
-			return Optional.empty();
+		private Optional<BlockPos> findFlower(int distance) {
+			List<BlockPos> list = getBlocksInRange(pos -> isFlower(pos.getBlock(worldObj), pos.getBlockMetadata(worldObj)), distance, true);
+			return list.isEmpty() || list.get(0) == null ? Optional.empty() : Optional.of(list.get(0));
 		}
 	}
 
@@ -1127,7 +1242,7 @@ public class EntityBee extends EntityAnimal {
 
 		public void startExecuting() {
 			EntityBee.this.remainingCooldownBeforeLocatingNewHive = 200;
-			List<BlockPos> list = this.getNearbyFreeHives();
+			List<BlockPos> list = getBlocksInRange(EntityBee.this::doesHiveHaveSpace, 20, false);
 			if (!list.isEmpty()) {
 				for (BlockPos blockpos : list) {
 					if (!EntityBee.this.findBeehiveGoal.isPossibleHive(blockpos)) {
@@ -1139,26 +1254,6 @@ public class EntityBee extends EntityAnimal {
 				EntityBee.this.findBeehiveGoal.clearPossibleHives();
 				EntityBee.this.hivePos = list.get(0);
 			}
-		}
-
-		private static final int CHECK_RANGE = 20;
-
-		private List<BlockPos> getNearbyFreeHives() {
-			final BlockPos beePos = new BlockPos(EntityBee.this);
-			final List<BlockPos> posList = Lists.newArrayList();
-
-			for (int x1 = -CHECK_RANGE; x1 <= CHECK_RANGE; x1++) {
-				for (int y1 = -CHECK_RANGE; y1 <= CHECK_RANGE; y1++) {
-					for (int z1 = -CHECK_RANGE; z1 <= CHECK_RANGE; z1++) {
-						BlockPos pos = new BlockPos(x1, y1, z1);
-						if (worldObj.getBlock(x1, y1, z1) instanceof BlockBeeHive && doesHiveHaveSpace(pos)) {
-							posList.add(pos);
-						}
-					}
-				}
-			}
-			posList.sort(Comparator.comparingDouble(pos -> pos.getSquaredDistance(beePos)));
-			return posList;
 		}
 	}
 
@@ -1176,24 +1271,24 @@ public class EntityBee extends EntityAnimal {
 		}
 
 		public void startExecuting() {
-			Vec3i vec3d = this.getRandomLocation();
-			EntityBee.this.getNavigator().setPath(EntityBee.this.getNavigator().getPathToXYZ(vec3d.getX(), vec3d.getY(), vec3d.getZ()), 1.0D);
+			Vec3 vec3d = this.getRandomLocation();
+			EntityBee.this.getNavigator().setPath(EntityBee.this.getNavigator().getPathToXYZ(vec3d.xCoord, vec3d.yCoord, vec3d.zCoord), 1.0D);
 
 		}
 
-		private Vec3i getRandomLocation() {
+		@Nullable
+		private Vec3 getRandomLocation() {
 			Vec3 vec3d;
-			if (EntityBee.this.isHiveValid() && !EntityBee.this.isWithinDistance(EntityBee.this.hivePos, 40)) {
-				Vec3 vec3d1 = Vec3.createVectorHelper(getHivePos().getX(), getHivePos().getY(), getHivePos().getZ());
-				vec3d = vec3d1.subtract(getPosition(1)).normalize();
+			if (isHiveValid() && !isWithinDistance(hivePos, 40)) {
+				Vec3 vec3d1 = hivePos.newVec3();
+				vec3d = vec3d1.subtract(getPosition(1.0F)).normalize();
 			} else {
-				vec3d = EntityBee.this.getLook(0.0F);
+				vec3d = getLook(0.0F);
 			}
 
 			int i = 8;
-//			Vec3i vec3d2 = RandomPositionGenerator.findAirTarget(EntityBee.this, 8, 7, vec3d, ((float)Math.PI / 2F), 2, 1);
-//			return vec3d2 != null ? vec3d2 : RandomPositionGenerator.findGroundTarget(EntityBee.this, 8, 4, -2, vec3d, (double)((float)Math.PI / 2F));
-			return new Vec3i(RandomPositionGenerator.findRandomTarget(EntityBee.this, 8, 7));
+			Vec3 vec3d2 = EntityVectorUtils.findAirTarget(EntityBee.this, 8, 7, vec3d, ((float) Math.PI / 2F), 2, 1);
+			return vec3d2 != null ? vec3d2 : EntityVectorUtils.findGroundTarget(EntityBee.this, 8, 4, -2, vec3d, (float) Math.PI / 2F);
 		}
 	}
 }

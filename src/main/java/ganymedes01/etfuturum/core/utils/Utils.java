@@ -22,6 +22,8 @@ import java.util.UUID;
 
 public class Utils {
 
+	public static final float SQRT_2 = MathHelper.sqrt_float(2.0F);
+
 	public static String getUnlocalisedName(String name) {
 		return Reference.MOD_ID + "." + name;
 	}
