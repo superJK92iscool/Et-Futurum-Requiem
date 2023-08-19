@@ -2,13 +2,14 @@ package ganymedes01.etfuturum.entities.ai;
 
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.entities.INoGravityEntity;
+import ganymedes01.etfuturum.entities.attributes.EtFuturumEntityAttributes;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.util.MathHelper;
 
 public class FlyMoveHelper extends ExtendedEntityMoveHelper {
 	/**
-	 * Note: Since setNoGravity does not exist in 1.7.10 you must implement INoGravityEntity so this class can toggle gravity on the entity when it needs to.
+	 * Note: Since setNoGravity and moveVertical does not exist in 1.7.10 you must implement INoGravityEntity so this class can toggle gravity and moveVertical on the entity when it needs to.
 	 */
 	public FlyMoveHelper(EntityLiving p_i47418_1_) {
 		super(p_i47418_1_);
@@ -27,7 +28,8 @@ public class FlyMoveHelper extends ExtendedEntityMoveHelper {
 			double d3 = d0 * d0 + d1 * d1 + d2 * d2;
 
 			if (d3 < 2.500000277905201E-7D) {
-				entity.setMoveForward(0.0F); //Check notes in ExtendedEntityMoveHelper#onUpdateMoveHelper
+				((INoGravityEntity) entity).setMoveVertical(0.0F);
+				entity.setMoveForward(0.0F);
 				return;
 			}
 
@@ -38,18 +40,18 @@ public class FlyMoveHelper extends ExtendedEntityMoveHelper {
 			if (entity.onGround) {
 				f1 = (float) (speed * entity.getEntityAttribute(SharedMonsterAttributes.movementSpeed).getAttributeValue());
 			} else {
-				f1 = (float) (speed * .4D); //Truncated the double because 000000059604645 is probably just garbage we don't need
-//				f1 = (float)(speed * entity.getEntityAttribute(SharedMonsterAttributes.field_193334_e).getAttributeValue()); Fly speed attribute, default is 0.4000000059604645D
+				f1 = (float) (speed * entity.getEntityAttribute(EtFuturumEntityAttributes.flyingSpeed).getAttributeValue());
 			}
 
 			entity.setAIMoveSpeed(f1);
 			double d4 = MathHelper.sqrt_double(d0 * d0 + d2 * d2);
 			float f2 = (float) (-(Utils.atan2(d1, d4) * (180D / Math.PI)));
-			entity.rotationPitch = limitAngle(entity.rotationPitch, f2, 10.0F);
-			entity.setMoveForward(d1 > 0.0D ? f1 : -f1);
+//			entity.rotationPitch = limitAngle(entity.rotationPitch, f2, 10.0F);
+			((INoGravityEntity) entity).setMoveVertical(d1 > 0.0D ? f1 : -f1);
 		} else {
 			((INoGravityEntity) entity).setNoGravity(false);
-			entity.setMoveForward(0.0F); //Check notes in ExtendedEntityMoveHelper#onUpdateMoveHelper
+			((INoGravityEntity) entity).setMoveVertical(0.0F);
+			entity.setMoveForward(0.0F);
 		}
 	}
 }

@@ -1,12 +1,15 @@
 package ganymedes01.etfuturum.entities;
 
 import com.google.common.collect.Lists;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.blocks.BlockBeeHive;
 import ganymedes01.etfuturum.core.utils.EntityVectorUtils;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import ganymedes01.etfuturum.entities.ai.FlyMoveHelper;
 import ganymedes01.etfuturum.entities.ai.FlyingPathNavigator;
+import ganymedes01.etfuturum.entities.attributes.EtFuturumEntityAttributes;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.tileentities.TileEntityBeeHive;
 import net.minecraft.block.*;
@@ -52,6 +55,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 	private int underWaterTicks;
 
 	private boolean hasNoGravity;
+	private float moveVertical;
 
 	public EntityBee(World worldIn) {
 		super(worldIn);
@@ -99,6 +103,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		super.entityInit();
 		this.getDataWatcher().addObject(DATA_FLAGS_ID, (byte) 0);
 		this.getDataWatcher().addObject(ANGER_TIME, 0);
+
 	}
 
 	public float getBlockPathWeight(int x, int y, int z) {
@@ -196,12 +201,12 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		}
 	}
 
-	public void moveEntityWithHeading(float p_70612_1_, float p_70612_2_) {
+	public void moveEntityWithHeading(float moveForward, float moveStrafing) {
+		if (worldObj.isRemote) return;
 		double d0;
-
 		if (this.isInWater()) {
 			d0 = this.posY;
-			this.moveFlying(p_70612_1_, p_70612_2_, this.isAIEnabled() ? 0.04F : 0.02F);
+			this.moveFlying(moveForward, moveStrafing, this.isAIEnabled() ? 0.04F : 0.02F);
 			this.moveEntity(this.motionX, this.motionY, this.motionZ);
 			this.motionX *= 0.800000011920929D;
 			this.motionY *= 0.800000011920929D;
@@ -215,7 +220,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 			}
 		} else if (this.handleLavaMovement()) {
 			d0 = this.posY;
-			this.moveFlying(p_70612_1_, p_70612_2_, 0.02F);
+			this.moveFlying(moveForward, moveStrafing, 0.02F);
 			this.moveEntity(this.motionX, this.motionY, this.motionZ);
 			this.motionX *= 0.5D;
 			this.motionY *= 0.5D;
@@ -243,7 +248,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 				f4 = this.jumpMovementFactor;
 			}
 
-			this.moveFlying(p_70612_1_, p_70612_2_, f4);
+			this.moveFlying(moveForward, moveStrafing, f4);
 			f2 = 0.91F;
 
 			if (this.onGround) {
@@ -252,22 +257,8 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 
 			if (this.isOnLadder()) {
 				float f5 = 0.15F;
-
-				if (this.motionX < (double) (-f5)) {
-					this.motionX = -f5;
-				}
-
-				if (this.motionX > (double) f5) {
-					this.motionX = f5;
-				}
-
-				if (this.motionZ < (double) (-f5)) {
-					this.motionZ = -f5;
-				}
-
-				if (this.motionZ > (double) f5) {
-					this.motionZ = f5;
-				}
+				this.motionX = MathHelper.clamp_double(this.motionX, -f5, f5);
+				this.motionZ = MathHelper.clamp_double(this.motionZ, -f5, f5);
 
 				this.fallDistance = 0.0F;
 
@@ -310,6 +301,37 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		this.limbSwing += this.limbSwingAmount;
 	}
 
+	@Override
+	public void setMoveVertical(float moveVertical) {
+		this.moveVertical = moveVertical;
+	}
+
+	public void moveFlying(float moveForward, float moveStrafing, float varFloat) {
+		if (moveVertical != 0) {
+			float f3 = moveForward * moveForward + moveVertical * moveVertical + moveStrafing * moveStrafing;
+
+			if (f3 >= 1.0E-4F) {
+				f3 = MathHelper.sqrt_float(f3);
+
+				if (f3 < 1.0F) {
+					f3 = 1.0F;
+				}
+
+				f3 = varFloat / f3;
+				moveForward *= f3;
+				moveVertical *= f3;
+				moveStrafing *= f3;
+				float f4 = MathHelper.sin(this.rotationYaw * (float) Math.PI / 180.0F);
+				float f5 = MathHelper.cos(this.rotationYaw * (float) Math.PI / 180.0F);
+				this.motionX += moveForward * f5 - moveStrafing * f4;
+				this.motionY += moveVertical;
+				this.motionZ += moveStrafing * f5 + moveForward * f4;
+			}
+		} else {
+			super.moveFlying(moveForward, moveStrafing, varFloat);
+		}
+	}
+
 	public boolean attackEntityAsMob(Entity entityIn) {
 		boolean flag = entityIn.attackEntityFrom(new EntityDamageSource("sting", this), (float) ((int) this.getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttributeValue()));
 		if (flag) {
@@ -343,8 +365,11 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 //				this.addParticle(this.worldObj, this.getPosX() - (double)0.3F, this.getPosX() + (double)0.3F, this.getPosZ() - (double)0.3F, this.getPosZ() + (double)0.3F, this.getPosYHeight(0.5D), ParticleTypes.FALLING_NECTAR);
 //			}
 //		}
-
-		this.updateBodyPitch();
+		List<BlockPos> list = getBlocksInRange(pos -> pos.getBlock(worldObj) instanceof BlockBeeHive, 20, false);
+		if (!list.isEmpty()) {
+			getMoveHelper().setMoveTo(list.get(0).getX(), list.get(0).getY(), list.get(0).getZ(), 0.4D);
+		}
+		updateBodyPitch();
 	}
 
 //	private void addParticle(World worldIn, double p_226397_2_, double p_226397_4_, double p_226397_6_, double p_226397_8_, double posY, IParticleData particleData) {
@@ -381,6 +406,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		this.stayOutOfHiveCountdown = p_226450_1_;
 	}
 
+	@SideOnly(Side.CLIENT)
 	public float getBodyPitch(float p_226455_1_) {
 		return Utils.lerp(p_226455_1_, this.rollAmountO, this.rollAmount);
 	}
@@ -392,7 +418,6 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		} else {
 			this.rollAmount = Math.max(0.0F, this.rollAmount - 0.24F);
 		}
-
 	}
 
 	public void setRevengeTarget(EntityLivingBase livingBase) {
@@ -509,12 +534,6 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 			if (this.remainingCooldownBeforeLocatingNewFlower > 0) {
 				--this.remainingCooldownBeforeLocatingNewFlower;
 			}
-
-			boolean flag = this.isAngry() && !this.hasStung() && this.getAttackTarget() != null && this.getAttackTarget().getDistanceSq(posX, posY, posZ) < 4.0D;
-			this.setNearTarget(flag);
-			if (this.ticksExisted % 20 == 0 && !this.isHiveValid()) {
-				this.hivePos = null;
-			}
 		}
 
 	}
@@ -523,8 +542,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		if (!this.hasHive()) {
 			return false;
 		} else {
-			TileEntity tileentity = hivePos.getTileEntity(worldObj);
-			return tileentity instanceof TileEntityBeeHive;
+			return hivePos.getTileEntity(worldObj) instanceof TileEntityBeeHive;
 		}
 	}
 
@@ -583,12 +601,11 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
-//		this.getAttributeMap().registerAttribute(SharedMonsterAttributes.FLYING_SPEED);
-		this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(10.0D);
-//		this.getEntityAttribute(SharedMonsterAttributes.FLYING_SPEED).setBaseValue((double)0.6F);
-		this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue((double) 0.3F);
-		this.getAttributeMap().registerAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(2.0D);
-		this.getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(48.0D);
+		getAttributeMap().registerAttribute(EtFuturumEntityAttributes.flyingSpeed);
+		getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(10.0D);
+		getEntityAttribute(EtFuturumEntityAttributes.flyingSpeed).setBaseValue(0.6000000238418579D);
+		getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.30000001192092896D);
+		getAttributeMap().registerAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(2.0D);
 	}
 
 	public boolean isBreedingItem(ItemStack stack) {
@@ -695,8 +712,8 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 	}
 
 	@Override
-	public void setNoGravity(boolean gravity) {
-		hasNoGravity = gravity;
+	public void setNoGravity(boolean noGravity) {
+		hasNoGravity = noGravity;
 	}
 
 	@Override

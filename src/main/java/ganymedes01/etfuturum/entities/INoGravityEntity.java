@@ -1,7 +1,8 @@
 package ganymedes01.etfuturum.entities;
 
 public interface INoGravityEntity {
-	void setNoGravity(boolean gravity);
+	void setMoveVertical(float moveVertical);
 
+	void setNoGravity(boolean gravity);
 	boolean hasNoGravity();
 }

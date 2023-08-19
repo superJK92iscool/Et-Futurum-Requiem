@@ -58,12 +58,6 @@ public class ExtendedEntityMoveHelper extends EntityMoveHelper {
 		this.moveStrafe = that.moveStrafe;
 	}
 
-	/**
-	 * The functions marked with "check notes" seem to be related to moveForward, but aren't actually MoveForward in the versions I referenced which are 1.12/1.15
-	 * In 1.12 this is func_191989_p which seems to be used in a lot of the same places as MoveForward in 1.7.10. In 1.15 this function is called "setAISpeed" again...
-	 * But it sets a field called landMovementFactor. In 1.12 what is seemingly the same field is obfuscated. I'm not exactly sure what it does but this may be the key
-	 * to why the fly move helper is currently broken
-	 */
 	public void onUpdateMoveHelper() {
 		if (this.action == ExtendedEntityMoveHelper.Action.STRAFE) {
 			float f = (float) this.entity.getEntityAttribute(SharedMonsterAttributes.movementSpeed).getAttributeValue();
@@ -97,7 +91,7 @@ public class ExtendedEntityMoveHelper extends EntityMoveHelper {
 			}
 
 			this.entity.setAIMoveSpeed(f1);
-			this.entity.setMoveForward(this.moveForward); //Check notes on function
+			this.entity.setMoveForward(this.moveForward);
 			this.entity.moveStrafing = this.moveStrafe;
 			this.action = ExtendedEntityMoveHelper.Action.WAIT;
 		} else if (this.action == ExtendedEntityMoveHelper.Action.MOVE_TO) {
@@ -108,7 +102,7 @@ public class ExtendedEntityMoveHelper extends EntityMoveHelper {
 			double d3 = d0 * d0 + d2 * d2 + d1 * d1;
 
 			if (d3 < 2.500000277905201E-7D) {
-				this.entity.setMoveForward(0.0F); //Check notes on function
+				this.entity.setMoveForward(0.0F);
 				return;
 			}
 
@@ -127,13 +121,10 @@ public class ExtendedEntityMoveHelper extends EntityMoveHelper {
 				this.action = ExtendedEntityMoveHelper.Action.WAIT;
 			}
 		} else {
-			this.entity.setMoveForward(0.0F); //Check notes on function
+			this.entity.setMoveForward(0.0F);
 		}
 	}
 
-	/**
-	 * Limits the given angle to a upper and lower limit.
-	 */
 	protected float limitAngle(float p_75639_1_, float p_75639_2_, float p_75639_3_) {
 		float f = MathHelper.wrapAngleTo180_float(p_75639_2_ - p_75639_1_);
 

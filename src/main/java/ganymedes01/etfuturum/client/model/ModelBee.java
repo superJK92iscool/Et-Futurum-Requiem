@@ -56,15 +56,15 @@ public class ModelBee extends ModelBase {
 		this.leftWing.mirror = true;
 		this.body.addChild(this.leftWing);
 		this.leftWing.addBox(0.0F, 0.0F, 0.0F, 9, 0, 6, 0.001F);
-		this.frontLegs = new ModelRenderer(this);
+		this.frontLegs = new ModelRenderer(this, 26, 1);
 		this.frontLegs.setRotationPoint(1.5F, 3.0F, -2.0F);
 		this.body.addChild(this.frontLegs);
 		this.frontLegs.addBox(/*"frontLegBox", */-5.0F, 0.0F, 0.0F, 7, 2, 0/*, 0.0F, 26, 1*/);
-		this.middleLegs = new ModelRenderer(this);
+		this.middleLegs = new ModelRenderer(this, 26, 3);
 		this.middleLegs.setRotationPoint(1.5F, 3.0F, 0.0F);
 		this.body.addChild(this.middleLegs);
 		this.middleLegs.addBox(/*"midLegBox", */-5.0F, 0.0F, 0.0F, 7, 2, 0/*, 0.0F, 26, 3*/);
-		this.backLegs = new ModelRenderer(this);
+		this.backLegs = new ModelRenderer(this, 26, 5);
 		this.backLegs.setRotationPoint(1.5F, 3.0F, 2.0F);
 		this.body.addChild(this.backLegs);
 		this.backLegs.addBox(/*"backLegBox", */-5.0F, 0.0F, 0.0F, 7, 2, 0/*, 0.0F, 26, 5*/);

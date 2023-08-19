@@ -38,7 +38,7 @@ public class FlyingPathNavigator extends PathNavigate {
 		return canSwim && this.isInLiquid() || !this.theEntity.isRiding();
 	}
 
-	protected Vec3 getEntityPosition() {
+	public Vec3 getEntityPosition() {
 		return Vec3.createVectorHelper(this.theEntity.posX, this.theEntity.posY, this.theEntity.posZ);
 	}
 
