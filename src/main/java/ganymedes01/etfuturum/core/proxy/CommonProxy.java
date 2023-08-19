@@ -162,17 +162,13 @@ public class CommonProxy implements IGuiHandler {
 			ModEntityList.registerEntity(EntityBoostingFireworkRocket.class, "boosting_firework_rocket", 20, EtFuturum.instance, 64, 1, true);
 		}
 
-		if (ConfigBlocksItems.enableConcrete) {
-			ModEntityList.registerEntity(EntityFallingConcrete.class, "falling_concrete", 21, EtFuturum.instance, 64, 1, true);
-		}
-
 		if (ConfigEntities.enableBees) {
-			ModEntityList.registerEntity(EntityBee.class, "bee", 22, EtFuturum.instance, 80, 3, true, 0xEDC343, 0x43241B);
+			ModEntityList.registerEntity(EntityBee.class, "bee", 21, EtFuturum.instance, 80, 3, false, 0xEDC343, 0x43241B);
 		}
 
 		//make magmas slightly more common, hopefully.
-		EntityRegistry.removeSpawn(EntityMagmaCube.class, EnumCreatureType.monster, new BiomeGenBase[]{BiomeGenBase.hell});
-		EntityRegistry.addSpawn(EntityMagmaCube.class, 2, 4, 4, EnumCreatureType.monster, new BiomeGenBase[]{BiomeGenBase.hell});
+		EntityRegistry.removeSpawn(EntityMagmaCube.class, EnumCreatureType.monster, BiomeGenBase.hell);
+		EntityRegistry.addSpawn(EntityMagmaCube.class, 2, 4, 4, EnumCreatureType.monster, BiomeGenBase.hell);
 	}
 	
 	public void registerRenderers() {};

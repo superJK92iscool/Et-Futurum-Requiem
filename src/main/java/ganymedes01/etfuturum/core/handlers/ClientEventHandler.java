@@ -16,16 +16,14 @@ import ganymedes01.etfuturum.blocks.BlockShulkerBox;
 import ganymedes01.etfuturum.client.OpenGLHelper;
 import ganymedes01.etfuturum.client.gui.GuiConfigWarning;
 import ganymedes01.etfuturum.client.gui.GuiGamemodeSwitcher;
-import ganymedes01.etfuturum.client.sound.ElytraSound;
-import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.client.sound.NetherAmbienceLoop;
-import ganymedes01.etfuturum.client.sound.NetherAmbienceSound;
+import ganymedes01.etfuturum.client.sound.*;
 import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.elytra.IElytraPlayer;
+import ganymedes01.etfuturum.entities.EntityBee;
 import ganymedes01.etfuturum.entities.EntityNewBoatWithChest;
 import ganymedes01.etfuturum.items.ItemHoneyBottle;
 import ganymedes01.etfuturum.lib.Reference;
@@ -34,6 +32,7 @@ import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.MovingSound;
 import net.minecraft.client.audio.PositionedSound;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.entity.EntityClientPlayerMP;
@@ -63,6 +62,7 @@ import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.client.event.RenderPlayerEvent.SetArmorModel;
 import net.minecraftforge.client.event.sound.PlaySoundEvent17;
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.PlaySoundAtEntityEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
@@ -80,6 +80,7 @@ import static ganymedes01.etfuturum.spectator.SpectatorMode.isSpectator;
 public class ClientEventHandler {
 
 	public static final ClientEventHandler INSTANCE = new ClientEventHandler();
+	private final Minecraft mc = FMLClientHandler.instance().getClient();
 	private final Random rand = new Random();
 	private boolean showedDebugWarning;
 	public static boolean showDebugWarning;
@@ -116,7 +117,6 @@ public class ClientEventHandler {
 	@SideOnly(Side.CLIENT)
 	public void onKeyInput(InputEvent.KeyInputEvent event) {
 		if(ConfigFunctions.enableNewF3Behavior) {
-			Minecraft mc = FMLClientHandler.instance().getClient();
 			if(Keyboard.getEventKey() == Keyboard.KEY_F3) {
 				boolean pressedF3 = Keyboard.getEventKeyState();
 				if(pressedF3)
@@ -140,9 +140,8 @@ public class ClientEventHandler {
 	{
 		World world = FMLClientHandler.instance().getWorldClient();
 		EntityPlayer player = FMLClientHandler.instance().getClientPlayerEntity();
-		Minecraft mc = FMLClientHandler.instance().getClient();
 
-		if(world == null || event.phase == Phase.START || Minecraft.getMinecraft().isGamePaused()) {
+		if (world == null || event.phase == Phase.START || mc.isGamePaused()) {
 			return;
 		}
 
@@ -158,11 +157,11 @@ public class ClientEventHandler {
 			showedDebugWarning = true;
 		}
 
-		if(ConfigSounds.netherAmbience && !EtFuturum.netherAmbienceNetherlicious && player.dimension == -1) {
+		if (ConfigSounds.netherAmbience && !EtFuturum.netherAmbienceNetherlicious && world.provider.dimensionId == -1) {
 			Chunk chunk = world.getChunkFromBlockCoords(MathHelper.floor_double(player.posX), MathHelper.floor_double(player.posZ));
-			if(!chunk.isChunkLoaded) {
-				if(ambienceLoop != null && FMLClientHandler.instance().getClient().getSoundHandler().isSoundPlaying(ambienceLoop)) {
-					FMLClientHandler.instance().getClient().getSoundHandler().stopSound(ambienceLoop);
+			if (!chunk.isChunkLoaded) {
+				if (ambienceLoop != null && mc.getSoundHandler().isSoundPlaying(ambienceLoop)) {
+					mc.getSoundHandler().stopSound(ambienceLoop);
 				}
 				ambienceLoop = null;
 				ambienceBiome = null;
@@ -180,7 +179,7 @@ public class ClientEventHandler {
 			}
 
 			if (getAmbienceLoop(ambienceBiome) != null && !mc.getSoundHandler().isSoundPlaying(ambienceLoop)) {
-				Boolean flag = ambienceLoop == null || ambienceLoop.getVolume() <= 0;
+				boolean flag = ambienceLoop == null || ambienceLoop.getVolume() <= 0;
 				ambienceLoop = new NetherAmbienceLoop(getAmbienceLoop(ambienceBiome));
 				mc.getSoundHandler().playSound(ambienceLoop);
 				if (flag) {
@@ -192,7 +191,7 @@ public class ClientEventHandler {
 				ambienceLoop.isStopping = false;
 			}
 			if (getAmbienceAdditions(ambienceBiome) != null && ambienceLoop != null && ticksToNextAmbience-- <= 0) {
-				Minecraft.getMinecraft().getSoundHandler().playSound(new NetherAmbienceSound(new ResourceLocation(getAmbienceAdditions(ambienceBiome))));
+				mc.getSoundHandler().playSound(new NetherAmbienceSound(new ResourceLocation(getAmbienceAdditions(ambienceBiome))));
 				ticksToNextAmbience = 50 + rand.nextInt(30) + 1;
 			}
 		}
@@ -431,37 +430,37 @@ public class ClientEventHandler {
 				else if (blockName.contains("packed") && blockName.contains("ice"))         {instrumentToPlay = Reference.MCAssetVer+":block.note_block.chime";}
 				else if (blockName.contains("pumpkin"))                                     {instrumentToPlay = Reference.MCAssetVer+":block.note_block.didgeridoo";}
 				else if (blockBeneath.getMaterial() == Material.clay)                       {instrumentToPlay = Reference.MCAssetVer+":block.note_block.flute";}
-				else if (EtFuturum.hasDictTag(blockBeneath, "blockIron"))           {instrumentToPlay = Reference.MCAssetVer+":block.note_block.iron_xylophone";}
-				else if (blockBeneath.getMaterial()==Material.cloth)                        {instrumentToPlay = Reference.MCAssetVer+":block.note_block.guitar";}
-				else if (blockName.contains("bone") || blockName.contains("ivory"))         {instrumentToPlay = Reference.MCAssetVer+":block.note_block.xylophone";}
-				if(event.name.equals(instrumentToPlay)) return;
+				else if (EtFuturum.hasDictTag(blockBeneath, "blockIron"))           {instrumentToPlay = Reference.MCAssetVer+":block.note_block.iron_xylophone";} else if (blockBeneath.getMaterial() == Material.cloth) {
+					instrumentToPlay = Reference.MCAssetVer + ":block.note_block.guitar";
+				} else if (blockName.contains("bone") || blockName.contains("ivory")) {
+					instrumentToPlay = Reference.MCAssetVer + ":block.note_block.xylophone";
+				}
+				if (event.name.equals(instrumentToPlay)) return;
 
-				event.result = new PositionedSoundRecord(new ResourceLocation(instrumentToPlay), instrumentToPlay.equals(Reference.MCAssetVer+":block.note_block.iron_xylophone") ? 1F : event.sound.getVolume(), event.sound.getPitch(), soundX, soundY, soundZ);
+				event.result = new PositionedSoundRecord(new ResourceLocation(instrumentToPlay), instrumentToPlay.equals(Reference.MCAssetVer + ":block.note_block.iron_xylophone") ? 1F : event.sound.getVolume(), event.sound.getPitch(), soundX, soundY, soundZ);
 				return;
 			}
 
 
 			// --- Book page turn --- //
-			if (Minecraft.getMinecraft().currentScreen instanceof GuiScreenBook && event.name.equals("gui.button.press")) {
-				GuiScreenBook gui = (GuiScreenBook)Minecraft.getMinecraft().currentScreen;
+			if (mc.currentScreen instanceof GuiScreenBook && event.name.equals("gui.button.press")) {
+				GuiScreenBook gui = (GuiScreenBook) mc.currentScreen;
 				// If there is a disagreement on page, play the page-turning sound
-				if (gui.currPage != this.currPage)
-				{
+				if (gui.currPage != this.currPage) {
 					this.currPage = gui.currPage;
-					EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
-					player.playSound(Reference.MCAssetVer+":item.book.page_turn", 1.0F, 1.0F);
+					EntityClientPlayerMP player = mc.thePlayer;
+					player.playSound(Reference.MCAssetVer + ":item.book.page_turn", 1.0F, 1.0F);
 					event.result = null;
 					return;
 				}
 			}
 
 			if(!EtFuturum.netherMusicNetherlicious) {
-				Minecraft mc = FMLClientHandler.instance().getClient();
-				if (mc.thePlayer.dimension == -1 && event.name.equals("music.game.nether")) {
-					if(netherMusic == null || !mc.getSoundHandler().isSoundPlaying(netherMusic)) {
+				if (event.name.equals("music.game.nether") && world.provider.dimensionId == -1) {
+					if (netherMusic == null || !mc.getSoundHandler().isSoundPlaying(netherMusic)) {
 						//World world = mc.theWorld; // unused variable
-						String music = getMusic(mc.theWorld.getChunkFromBlockCoords((int)mc.thePlayer.posX, (int)mc.thePlayer.posZ).getBiomeGenForWorldCoords((int)mc.thePlayer.posX & 15, (int)mc.thePlayer.posZ & 15, mc.theWorld.getWorldChunkManager()));
-						if(music != null) {
+						String music = getMusic(mc.theWorld.getChunkFromBlockCoords((int) mc.thePlayer.posX, (int) mc.thePlayer.posZ).getBiomeGenForWorldCoords((int) mc.thePlayer.posX & 15, (int) mc.thePlayer.posZ & 15, mc.theWorld.getWorldChunkManager()));
+						if (music != null) {
 							netherMusic = PositionedSoundRecord.func_147673_a(new ResourceLocation(music));
 							event.result = netherMusic;
 						}
@@ -581,7 +580,7 @@ public class ClientEventHandler {
 			}
 		}
 	}
-	
+
 	private String getReplacementDoorSound(Block block, String string) {
 		Random random = new Random();
 		String closeOrOpen = random.nextBoolean() ? "open" : "close";
@@ -590,17 +589,17 @@ public class ClientEventHandler {
 				return Reference.MCAssetVer + ":block.wooden_door." + closeOrOpen;
 			else if(block.getMaterial() == Material.iron)
 				return Reference.MCAssetVer + ":block.iron_door." + closeOrOpen;
-		
+
 		if(block instanceof BlockTrapDoor)
 			if (block.getMaterial() == Material.wood/* || block.getMaterial() == EtFuturum.netherwood */)
 				return Reference.MCAssetVer + ":block.wooden_trapdoor." + closeOrOpen;
 			else if(block.getMaterial() == Material.iron)
 				return Reference.MCAssetVer + ":block.iron_trapdoor." + closeOrOpen;
-		
+
 		if(block instanceof BlockFenceGate)
 			if (block.getMaterial() == Material.wood/* || block.getMaterial() == EtFuturum.netherwood */)
 				return Reference.MCAssetVer + ":block.fence_gate." + closeOrOpen;
-				
+
 		return string;
 	}
 
@@ -609,21 +608,21 @@ public class ClientEventHandler {
 	public void onRenderTick(TickEvent.RenderTickEvent event) {
 		if (!ConfigMixins.enableElytra)
 			return;
-		EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
+		EntityPlayerSP player = mc.thePlayer;
 		if(!(player instanceof IElytraPlayer))
 			return;
 		if(((IElytraPlayer)player).etfu$isElytraFlying()) {
 			if(event.phase == Phase.START) {
 				prevYOffset = player.yOffset;
 				/* TODO find the right number here */
-				if(Minecraft.getMinecraft().gameSettings.thirdPersonView == 0)
+				if (mc.gameSettings.thirdPersonView == 0)
 					player.yOffset = 3.02f;
 			} else {
 				player.yOffset = prevYOffset;
 			}
 		}
 	}
-	
+
 	@SubscribeEvent
 	public void onLivingUpdateEvent(LivingUpdateEvent event)
 	{
@@ -633,7 +632,7 @@ public class ClientEventHandler {
 		if (ConfigMixins.enableElytra && entity instanceof EntityPlayerSP) {
 			IElytraPlayer e = (IElytraPlayer) entity;
 			if (e.etfu$isElytraFlying() && !e.etfu$lastElytraFlying()) {
-				Minecraft.getMinecraft().getSoundHandler().playSound(new ElytraSound((EntityPlayerSP) entity));
+				mc.getSoundHandler().playSound(new ElytraSound((EntityPlayerSP) entity));
 			}
 			/* lastElytraFlying is set by the shared handler in ServerEventHandler */
 		}
@@ -647,14 +646,14 @@ public class ClientEventHandler {
 			int x = MathHelper.floor_double(entity.posX);
 			int y = MathHelper.floor_double(entity.posY - 0.20000000298023224D - entity.yOffset);
 			int z = MathHelper.floor_double(entity.posZ);
-			
+
 			if(entity.worldObj.getBlock(x, y, z) instanceof BlockShulkerBox) {
 				TileEntityShulkerBox TE = (TileEntityShulkerBox) entity.worldObj.getTileEntity(x, y, z);
 				if (TE != null) {
 					if (world.isRemote && entity.isSprinting() && !entity.isInWater()) {
 						EntityDiggingFX dig = new EntityDiggingFX(world, entity.posX + (entity.worldObj.rand.nextFloat() - 0.5D) * entity.width, entity.boundingBox.minY + 0.1D, entity.posZ + (entity.worldObj.rand.nextFloat() - 0.5D) * entity.width, -entity.motionX * 4.0D, 1.5D, -entity.motionZ * 4.0D, TE.getBlockType(), 0);
-						dig.setParticleIcon(((BlockShulkerBox)TE.getBlockType()).colorIcons[TE.color]);
-						Minecraft.getMinecraft().effectRenderer.addEffect((dig).applyColourMultiplier(x, y, z));
+						dig.setParticleIcon(((BlockShulkerBox) TE.getBlockType()).colorIcons[TE.color]);
+						mc.effectRenderer.addEffect((dig).applyColourMultiplier(x, y, z));
 					}
 				}
 			}
@@ -662,7 +661,7 @@ public class ClientEventHandler {
 	}
 
 	public static int main_menu_display_count = 0;
-	
+
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
 	public void openMainMenu(GuiOpenEvent event) {
@@ -678,11 +677,24 @@ public class ClientEventHandler {
 				oldConfig.getCategory("warned").get("configWarningShown").comment = "";
 				oldConfig.save();
 			}
-		} else if(ConfigBlocksItems.enableNewBoats && event.gui instanceof GuiInventory) {
-			if(Minecraft.getMinecraft().thePlayer.ridingEntity instanceof EntityNewBoatWithChest) {
+		} else if (ConfigBlocksItems.enableNewBoats && event.gui instanceof GuiInventory) {
+			if (mc.thePlayer.ridingEntity instanceof EntityNewBoatWithChest) {
 				event.setCanceled(true);
 				EtFuturum.networkWrapper.sendToServer(new ChestBoatOpenInventoryMessage());
 			}
+		}
+	}
+
+	@SubscribeEvent
+	public void spawnEvent(EntityJoinWorldEvent event) {
+		/*
+		 * I play the sound with a delay as extra protection against ear-blasting, but some world things are null when this is called on the first tick of the world.
+		 * This line would actually trigger a crash in some mods (namely versions of EFR before 2.5.0 and thus some code Netherlicious copied from it) due to these null values.
+		 * Namely minecraft.thePlayer is null for the first world tick. So to be safe we also delay the sound so people who made the same mistake we did don't crash due to this sound.
+		 */
+		if (event.entity instanceof EntityBee) {
+			MovingSound sound = new BeeFlySound((EntityBee) event.entity);
+			mc.getSoundHandler().playDelayedSound(sound, 1);
 		}
 	}
 

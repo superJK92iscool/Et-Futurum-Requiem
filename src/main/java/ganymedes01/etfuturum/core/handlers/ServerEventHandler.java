@@ -18,7 +18,6 @@ import ganymedes01.etfuturum.api.mappings.BlockAndMetadataMapping;
 import ganymedes01.etfuturum.api.mappings.RawOreDropMapping;
 import ganymedes01.etfuturum.blocks.BlockHoney;
 import ganymedes01.etfuturum.blocks.BlockMagma;
-import ganymedes01.etfuturum.blocks.BlockWitherRose;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.*;
 import ganymedes01.etfuturum.core.utils.ExternalContent;
@@ -47,10 +46,7 @@ import net.minecraft.entity.ai.EntityAITargetNonTamed;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
 import net.minecraft.entity.ai.EntityAITempt;
 import net.minecraft.entity.boss.EntityWither;
-import net.minecraft.entity.item.EntityBoat;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.item.EntityItemFrame;
-import net.minecraft.entity.item.EntityPainting;
+import net.minecraft.entity.item.*;
 import net.minecraft.entity.monster.*;
 import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.EntityPlayer;
@@ -95,6 +91,7 @@ public class ServerEventHandler {
 	public static final ServerEventHandler INSTANCE = new ServerEventHandler();
 	public static HashSet<EntityPlayerMP> playersClosedContainers = new HashSet<>();
 	private static final Map<EntityPlayer, List<ItemStack>> armorTracker = new WeakHashMap<>();
+	private static final Set<EntityFallingBlock> fallingConcreteBlocks = new HashSet<>();
 
 	private ServerEventHandler() {
 	}
@@ -412,7 +409,7 @@ public class ServerEventHandler {
 				ContainerEnchantment.seeds.put(event.playerUUID, seed);
 			}
 			br.close();
-		} catch (Exception e) {
+		} catch (Exception ignored) {
 		}
 	}
 
@@ -775,17 +772,15 @@ public class ServerEventHandler {
 								int zMutable = z;
 								
 								//Only the redstone wire item replaces snow, the other ones don't replace anything no matter what
-								if (block != Blocks.redstone_wire || world.getBlock(xMutable, yMutable, zMutable) != Blocks.snow_layer)
-								{
-									switch (event.face)
-									{
-									case 0:
-										--yMutable;
-										break;
-									case 1:
-										++yMutable;
-										break;
-									case 2:
+								if (block != Blocks.redstone_wire || !world.getBlock(xMutable, yMutable, zMutable).isReplaceable(world, xMutable, yMutable, zMutable)) {
+									switch (event.face) {
+										case 0:
+											--yMutable;
+											break;
+										case 1:
+											++yMutable;
+											break;
+										case 2:
 										--zMutable;
 										break;
 									case 3:
@@ -1071,8 +1066,8 @@ public class ServerEventHandler {
 		if (ConfigBlocksItems.enableWitherRose && event.entity instanceof EntityLivingBase && event.source.getEntity() instanceof EntityWither) {
 			World world = event.entity.worldObj;
 			Entity entity = event.entity;
-			if(world.getGameRules().getGameRuleBooleanValue("mobGriefing") && ((BlockWitherRose) ModBlocks.WITHER_ROSE.get()).canPlaceBlockAt(world, (int)entity.posX, (int)entity.posY, (int)entity.posZ)) {
-				world.setBlock((int)entity.posX, (int)entity.posY, (int)entity.posZ, ModBlocks.WITHER_ROSE.get());
+			if (world.getGameRules().getGameRuleBooleanValue("mobGriefing") && ModBlocks.WITHER_ROSE.get().canPlaceBlockAt(world, (int) entity.posX, (int) entity.posY, (int) entity.posZ)) {
+				world.setBlock((int) entity.posX, (int) entity.posY, (int) entity.posZ, ModBlocks.WITHER_ROSE.get());
 			} else {
 				addDrop(ModBlocks.WITHER_ROSE.newItemStack(1, 0), event.entityLiving, event.drops);
 			}
@@ -1098,8 +1093,8 @@ public class ServerEventHandler {
 
 	private boolean isPoweredCreeper(DamageSource source) {
 		if (source.isExplosion() && source instanceof EntityDamageSource) {
-			Entity entity = ((EntityDamageSource) source).getEntity();
-			if (entity != null && entity instanceof EntityCreeper)
+			Entity entity = source.getEntity();
+			if (entity instanceof EntityCreeper)
 				return ((EntityCreeper) entity).getPowered();
 		}
 
@@ -1200,16 +1195,19 @@ public class ServerEventHandler {
 	public void spawnEvent(EntityJoinWorldEvent event) {
 		if (event.entity instanceof EntityPig) {
 			EntityPig pig = (EntityPig) event.entity;
-			if (ConfigBlocksItems.enableBeetroot)
+			if (ModItems.BEETROOT.isEnabled()) {
 				pig.tasks.addTask(4, new EntityAITempt(pig, 1.2, ModItems.BEETROOT.get(), false));
+			}
 		} else if (event.entity instanceof EntityChicken) {
 			EntityChicken chicken = (EntityChicken) event.entity;
-			if (ConfigBlocksItems.enableBeetroot)
+			if (ModItems.BEETROOT.isEnabled()) {
 				chicken.tasks.addTask(3, new EntityAITempt(chicken, 1.0D, ModItems.BEETROOT_SEEDS.get(), false));
+			}
 		} else if (event.entity instanceof EntityWolf) {
 			EntityWolf wolf = (EntityWolf) event.entity;
-			if (ConfigEntities.enableRabbit)
+			if (ConfigEntities.enableRabbit) {
 				wolf.targetTasks.addTask(4, new EntityAITargetNonTamed(wolf, EntityRabbit.class, 200, false));
+			}
 		} else if (event.entity instanceof EntityEnderman) {
 			EntityEnderman enderman = (EntityEnderman) event.entity;
 //          if (ConfigurationHandler.enableEndermite)
@@ -1224,6 +1222,8 @@ public class ServerEventHandler {
 					break;
 				}
 			}
+		} else if (ModBlocks.CONCRETE_POWDER.isEnabled() && event.entity instanceof EntityFallingBlock && ((EntityFallingBlock) event.entity).field_145811_e == ModBlocks.CONCRETE_POWDER.get()) {
+			fallingConcreteBlocks.add((EntityFallingBlock) event.entity);
 		}
 	}
 
@@ -1642,21 +1642,47 @@ public class ServerEventHandler {
 	
 	@SubscribeEvent
 	public void onPreWorldTick(TickEvent.WorldTickEvent e) {
+
+		if (ModBlocks.CONCRETE_POWDER.isEnabled() && ModBlocks.CONCRETE.isEnabled()) {
+			doConcreteTracking();
+		}
+
 		if (ConfigMixins.enableDoWeatherCycle && e.phase == TickEvent.Phase.START && e.side == Side.SERVER) {
 			DoWeatherCycleHelper.INSTANCE.isWorldTickInProgress = true;
 			DoWeatherCycleHelper.INSTANCE.isCommandInProgress = false;
 		}
 	}
 
+	private void doConcreteTracking() {
+		for (Iterator<EntityFallingBlock> iterator = fallingConcreteBlocks.iterator(); iterator.hasNext(); ) {
+			EntityFallingBlock block = iterator.next();
+			if (!block.isDead) {
+				int i = MathHelper.floor_double(block.posX);
+				int j = MathHelper.floor_double(block.posY);
+				int k = MathHelper.floor_double(block.posZ);
+
+				for (int jOff = 0; jOff <= (block.motionY < -1.0 ? 1 : 0); jOff++) { // If it's moving downward faster than a threshold speed: 1 in this case
+					if (block.worldObj.getBlock(i, j - jOff, k).getMaterial() == Material.water) {
+						block.worldObj.setBlock(i, j - jOff, k, ModBlocks.CONCRETE.get(), block.field_145814_a, 3);
+						block.setDead();
+						iterator.remove();
+					}
+				}
+			} else {
+				iterator.remove();
+			}
+		}
+	}
+
 	@SubscribeEvent
 	public void onPostWorldTick(TickEvent.WorldTickEvent e) {
 		if (ConfigMixins.enableElytra && e.phase == TickEvent.Phase.END && e.world instanceof WorldServer) {
-			WorldServer ws = (WorldServer)e.world;
-			for (EntityTrackerEntry ete : (Set<EntityTrackerEntry>)ws.getEntityTracker().trackedEntities) {
+			WorldServer ws = (WorldServer) e.world;
+			for (EntityTrackerEntry ete : (Set<EntityTrackerEntry>) ws.getEntityTracker().trackedEntities) {
 				if (ete.myEntity instanceof IElytraPlayer) {
 					IElytraPlayer elb = (IElytraPlayer) ete.myEntity;
 					boolean flying = elb.etfu$isElytraFlying();
-					if (!flying && ((IElytraEntityTrackerEntry)ete).etfu$getWasSendingVelUpdates()) {
+					if (!flying && ((IElytraEntityTrackerEntry) ete).etfu$getWasSendingVelUpdates()) {
 						ete.sendVelocityUpdates = false;
 					} else if (flying) {
 						if (!ete.sendVelocityUpdates) {

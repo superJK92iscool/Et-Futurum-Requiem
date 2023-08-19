@@ -6,8 +6,6 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.client.particle.ParticleHandler;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
-import ganymedes01.etfuturum.core.utils.structurenbt.BlockState;
 import ganymedes01.etfuturum.entities.EntityBee;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.tileentities.TileEntityBeeHive;
@@ -23,10 +21,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemShears;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.*;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.IIcon;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
@@ -81,10 +81,14 @@ public class BlockBeeHive extends BlockContainer {
 		world.setBlockMetadataWithNotify(x, y, z, ordinal, 2);
 		if (stack.hasTagCompound() && stack.getTagCompound().hasKey("BlockEntityTag")) {
 			NBTTagCompound compound = stack.getTagCompound().getCompoundTag("BlockEntityTag");
-			world.getTileEntity(x, y, z).readFromNBT(compound);
 			if (compound.hasKey("honeyLevel") && compound.getInteger("honeyLevel") == 5) {
 				updateHiveState(world, x, y, z, true);
 			}
+			TileEntity te = world.getTileEntity(x, y, z);
+			te.readFromNBT(compound);
+			te.xCoord = x;
+			te.yCoord = y;
+			te.zCoord = z;
 		}
 	}
 
@@ -100,11 +104,13 @@ public class BlockBeeHive extends BlockContainer {
 	}
 
 	public static void updateHiveState(World world, int x, int y, int z, boolean full) {
-		int meta = world.getBlockMetadata(x, y, z);
-		if (full && meta < 6) {
-			world.setBlockMetadataWithNotify(x, y, z, MathHelper.clamp_int(meta + 6, 8, 11), 2);
-		} else if (!full && meta > 5) {
-			world.setBlockMetadataWithNotify(x, y, z, MathHelper.clamp_int(meta - 6, 2, 4), 2);
+		if (world.getChunkFromBlockCoords(x, z).isChunkLoaded) {
+			int meta = world.getBlockMetadata(x, y, z);
+			if (full && meta < 6) {
+				world.setBlockMetadataWithNotify(x, y, z, MathHelper.clamp_int(meta + 6, 8, 11), 2);
+			} else if (!full && meta > 5) {
+				world.setBlockMetadataWithNotify(x, y, z, MathHelper.clamp_int(meta - 6, 2, 5), 2);
+			}
 		}
 	}
 
@@ -291,32 +297,23 @@ public class BlockBeeHive extends BlockContainer {
 		super.onBlockHarvested(world, x, y, z, meta, player);
 	}
 
-	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
-		return new ArrayList<>();
-	}
-
-	//	public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
-//		Entity entity = builder.get(LootParameters.THIS_ENTITY);
-//		if (entity instanceof TNTEntity || entity instanceof CreeperEntity || entity instanceof WitherSkullEntity || entity instanceof WitherEntity || entity instanceof TNTMinecartEntity) {
-//			TileEntity tileentity = builder.get(LootParameters.BLOCK_ENTITY);
-//			if (tileentity instanceof TileEntityBeeHive) {
-//				TileEntityBeeHive beehivetileentity = (TileEntityBeeHive)tileentity;
-//				beehivetileentity.angerBees((EntityPlayer)null, state, TileEntityBeeHive.State.EMERGENCY);
-//			}
-//		}
-//
-//		return super.getDrops(state, builder);
-//	}
-	public void onPostBlockPlaced(World world, int x, int y, int z, int meta) {
-		TileEntity tileentity = world.getTileEntity(x, y, z);
-		EnumFacing facing = EnumFacing.getFront(meta % 6);
-		if (world.getBlock(x + facing.getFrontOffsetX(), y, z + facing.getFrontOffsetZ()).getMaterial() == Material.fire) {
-			if (tileentity instanceof TileEntityBeeHive) {
-				((TileEntityBeeHive) tileentity).angerBees(null, TileEntityBeeHive.State.EMERGENCY);
+	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int meta, int fortune) {
+		if (this.harvesters.get() == null) {
+			TileEntity te = world.getTileEntity(x, y, z);
+			if (te instanceof TileEntityBeeHive) {
+				((TileEntityBeeHive) te).angerBees(null, TileEntityBeeHive.State.EMERGENCY);
 			}
 		}
+		return super.getDrops(world, x, y, z, meta, fortune);
+	}
+
+	public void onPostBlockPlaced(World world, int x, int y, int z, int meta) {
+		TileEntity tileentity = world.getTileEntity(x, y, z);
 		if (tileentity instanceof TileEntityBeeHive) {
-			((TileEntityBeeHive) tileentity).setHoneyLevel(((TileEntityBeeHive) tileentity).getHoneyLevel());
+			EnumFacing facing = EnumFacing.getFront(meta % 6);
+			if (world.getBlock(x + facing.getFrontOffsetX(), y, z + facing.getFrontOffsetZ()).getMaterial() == Material.fire) {
+				((TileEntityBeeHive) tileentity).angerBees(null, TileEntityBeeHive.State.EMERGENCY);
+			}
 		}
 		super.onPostBlockPlaced(world, x, y, z, meta);
 	}

@@ -51,8 +51,6 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 	private EntityBee.FindFlowerGoal findFlowerGoal;
 	private int underWaterTicks;
 
-	private int beeSoundTime = 0;
-
 	private boolean hasNoGravity;
 
 	public EntityBee(World worldIn) {
@@ -91,7 +89,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 			}
 		};
 		moveHelper = new FlyMoveHelper(this);
-		registerGoals();
+		addTasks();
 		getNavigator().setBreakDoors(false);
 		getNavigator().setEnterDoors(true);
 		getNavigator().setCanSwim(false);
@@ -118,7 +116,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		return true;
 	}
 
-	protected void registerGoals() {
+	protected void addTasks() {
 		tasks.addTask(0, new EntityBee.StingGoal(this, EntityLivingBase.class, true));
 		tasks.addTask(1, new EntityBee.EnterBeehiveGoal());
 		tasks.addTask(2, new EntityAIMate(this, 1.0D));
@@ -339,10 +337,6 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 	}
 
 	public void onLivingUpdate() {
-		if ((this.isEntityAlive() && worldObj.isAirBlock((int) posX, (int) posY, (int) posZ)) && beeSoundTime-- <= 0) {
-			playSound(getLivingSound(), getSoundVolume(), getSoundPitch());
-			beeSoundTime = 70 + rand.nextInt(10);
-		}
 		super.onLivingUpdate();
 //		if (this.hasNectar() && this.getCropsGrownSincePollination() < 10 && this.rand.nextFloat() < 0.05F) {
 //			for(int i = 0; i < this.rand.nextInt(2) + 1; ++i) {
@@ -628,7 +622,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 	}
 
 	protected String getLivingSound() {
-		return Reference.MCAssetVer + ":entity.bee.loop" + (isAngry() ? "_aggressive" : "");
+		return null;
 	}
 
 	protected String getHurtSound() {
@@ -697,7 +691,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 //	}
 
 	private boolean isWithinDistance(BlockPos pos, int distance) {
-		return pos.isWithinDistance(new BlockPos(this), distance);
+		return getPosition(1.0F).squareDistanceTo(pos.getX(), pos.getY(), pos.getZ()) <= distance * distance;
 	}
 
 	@Override

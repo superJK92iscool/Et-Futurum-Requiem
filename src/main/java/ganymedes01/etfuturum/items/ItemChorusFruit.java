@@ -25,8 +25,10 @@ public class ItemChorusFruit extends BaseFood {
 			double xx = player.posX + (player.getRNG().nextDouble() - 0.5D) * 64.0D;
 			double yy = player.posY + (player.getRNG().nextInt(64) - 32);
 			double zz = player.posZ + (player.getRNG().nextDouble() - 0.5D) * 64.0D;
-			if (teleportTo(player, xx, yy, zz))
+			if (teleportTo(player, xx, yy, zz)) {
+				player.fallDistance = 0;
 				break;
+			}
 		}
 		return result;
 	}

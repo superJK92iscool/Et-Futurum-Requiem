@@ -27,16 +27,16 @@ public class TileEntityBeeHive extends TileEntity {
 	private BlockPos flowerPos = null;
 	private int honeyLevel = 0;
 
-	public TileEntityBeeHive() {
-		super();
-	}
-
 	public void markDirty() {
 		if (this.isNearFire()) {
 			this.angerBees(null, TileEntityBeeHive.State.EMERGENCY);
 		}
 
 		super.markDirty();
+	}
+
+	public boolean shouldRefresh(Block oldBlock, Block newBlock, int oldMeta, int newMeta, World world, int x, int y, int z) {
+		return oldBlock != newBlock;
 	}
 
 	public boolean isNearFire() {
@@ -46,7 +46,6 @@ public class TileEntityBeeHive extends TileEntity {
 					return true;
 				}
 			}
-
 		}
 		return false;
 	}
@@ -60,7 +59,7 @@ public class TileEntityBeeHive extends TileEntity {
 	}
 
 	public void angerBees(EntityPlayer p_226963_1_, TileEntityBeeHive.State p_226963_3_) {
-		List<Entity> list = this.tryReleaseBee(p_226963_3_);
+		List<Entity> list = this.tryReleaseBees(p_226963_3_);
 		if (p_226963_1_ != null) {
 			for (Entity entity : list) {
 				if (entity instanceof EntityBee) {
@@ -78,11 +77,9 @@ public class TileEntityBeeHive extends TileEntity {
 
 	}
 
-	private List<Entity> tryReleaseBee(TileEntityBeeHive.State p_226965_2_) {
+	private List<Entity> tryReleaseBees(TileEntityBeeHive.State p_226965_2_) {
 		List<Entity> list = Lists.newArrayList();
-		this.bees.removeIf((p_226966_4_) -> {
-			return releaseBee(p_226966_4_.entityData, list, p_226965_2_);
-		});
+		this.bees.removeIf(p_226966_4_ -> releaseBee(p_226966_4_.entityData, list, p_226965_2_));
 		return list;
 	}
 
@@ -122,18 +119,21 @@ public class TileEntityBeeHive extends TileEntity {
 	}
 
 	public void tryEnterHive(Entity p_226962_1_, boolean p_226962_2_, int p_226962_3_) {
-		if (getBeeCount() < 3) {
-			p_226962_1_.ridingEntity = null;
+		if (getBeeCount() < 3 && p_226962_1_ instanceof EntityBee) {
 			p_226962_1_.riddenByEntity = null;
+			Entity living = ((EntityBee) p_226962_1_).getLeashedToEntity();
+			((EntityBee) p_226962_1_).clearLeashed(true, !(living instanceof EntityPlayer) || !((EntityPlayer) living).capabilities.isCreativeMode);
 			NBTTagCompound compoundnbt = new NBTTagCompound();
-//			p_226962_1_.writeUnlessPassenger(compoundnbt);
+			p_226962_1_.writeToNBT(compoundnbt);
+			compoundnbt.removeTag("Riding");
+			removeUniqueId(compoundnbt, "UUID");
+			//writeToNBT doesn't save the entity ID in its own NBT, it's probably saved somewhere else. So we manually add it to the tags for the beehive
+			compoundnbt.setString("id", (String) EntityList.classToStringMapping.get(p_226962_1_.getClass()));
 			this.bees.add(new TileEntityBeeHive.Bee(compoundnbt, p_226962_3_, p_226962_2_ ? 2400 : 600));
 			if (this.getWorldObj() != null) {
-				if (p_226962_1_ instanceof EntityBee) {
-					EntityBee beeentity = (EntityBee) p_226962_1_;
-					if (beeentity.hasFlower() && (!this.hasFlowerPos() || this.getWorldObj().rand.nextBoolean())) {
-						this.flowerPos = beeentity.getFlowerPos();
-					}
+				EntityBee beeentity = (EntityBee) p_226962_1_;
+				if (beeentity.hasFlower() && (!this.hasFlowerPos() || this.getWorldObj().rand.nextBoolean())) {
+					this.flowerPos = beeentity.getFlowerPos();
 				}
 
 				this.getWorldObj().playSoundEffect(xCoord + 0.5, yCoord + 0.5, zCoord + 0.5,
@@ -146,58 +146,50 @@ public class TileEntityBeeHive extends TileEntity {
 
 	private boolean releaseBee(NBTTagCompound p_226967_2_, List<Entity> p_226967_3_, TileEntityBeeHive.State p_226967_4_) {
 		if ((this.getWorldObj().isDaytime() && !this.getWorldObj().isRaining()) || p_226967_4_ == State.EMERGENCY) {
-			p_226967_2_.removeTag("Passengers");
-			p_226967_2_.removeTag("Leash");
-			removeUniqueId(p_226967_2_, "UUID");
-			EnumFacing direction = EnumFacing.getFront((getWorldObj().getBlockMetadata(xCoord, yCoord, zCoord) & 3) + 2);
+			EnumFacing direction = EnumFacing.getFront(getWorldObj().getBlockMetadata(xCoord, yCoord, zCoord) % 6);
 			boolean flag = !this.getWorldObj().isAirBlock(xCoord + direction.getFrontOffsetX(), yCoord, zCoord + direction.getFrontOffsetZ());
 			if (flag && p_226967_4_ != State.EMERGENCY) {
 				return false;
 			} else {
 				Entity entity = EntityList.createEntityFromNBT(p_226967_2_, getWorldObj());
-				if (entity != null) {
+				if (entity instanceof EntityBee) {
 					float f = entity.width;
 					double d0 = flag ? 0.0D : 0.55D + (double) (f / 2.0F);
 					double d1 = (double) xCoord + 0.5D + d0 * (double) direction.getFrontOffsetX();
 					double d2 = (double) yCoord + 0.5D - (double) (entity.height / 2.0F);
 					double d3 = (double) zCoord + 0.5D + d0 * (double) direction.getFrontOffsetZ();
 					entity.setLocationAndAngles(d1, d2, d3, entity.rotationYaw, entity.rotationPitch);
-					if (!(entity instanceof EntityBee)) {
-						return false;
-					} else {
-						EntityBee beeentity = (EntityBee) entity;
-						if (this.hasFlowerPos() && !beeentity.hasFlower() && this.getWorldObj().rand.nextFloat() < 0.9F) {
-							beeentity.setFlowerPos(this.flowerPos);
-						}
+					EntityBee beeentity = (EntityBee) entity;
+					if (this.hasFlowerPos() && !beeentity.hasFlower() && this.getWorldObj().rand.nextFloat() < 0.9F) {
+						beeentity.setFlowerPos(this.flowerPos);
+					}
 
-						if (p_226967_4_ == State.HONEY_DELIVERED) {
-							beeentity.onHoneyDelivered();
-							if (getWorldObj().getBlock(xCoord, yCoord, zCoord) instanceof BlockBeeHive) {
-								int i = getHoneyLevel();
-								if (i < 5) {
-									int j = this.getWorldObj().rand.nextInt(100) == 0 ? 2 : 1;
-									if (i + j > 5) {
-										--j;
-									}
-
-									setHoneyLevel(i + j);
-									BlockBeeHive.updateHiveState(getWorldObj(), xCoord, yCoord, zCoord, getHoneyLevel() == 5);
+					if (p_226967_4_ == State.HONEY_DELIVERED) {
+						beeentity.onHoneyDelivered();
+						if (getWorldObj().getBlock(xCoord, yCoord, zCoord) instanceof BlockBeeHive) {
+							int i = getHoneyLevel();
+							if (i < 5) {
+								int j = this.getWorldObj().rand.nextInt(100) == 0 ? 2 : 1;
+								if (i + j > 5) {
+									--j;
 								}
+
+								setHoneyLevel(i + j);
+								BlockBeeHive.updateHiveState(getWorldObj(), xCoord, yCoord, zCoord, getHoneyLevel() == 5);
 							}
 						}
-
-						beeentity.resetTicksWithoutNectar();
-						if (p_226967_3_ != null) {
-							p_226967_3_.add(beeentity);
-						}
-
-						this.getWorldObj().playSoundEffect(xCoord + 0.5, yCoord + 0.5, zCoord + 0.5,
-								Reference.MCAssetVer + ":block.beehive.exit", 1.0F, 1.0F);
-						getWorldObj().spawnEntityInWorld(entity);
 					}
-				} else {
-					return false;
+
+					beeentity.resetTicksWithoutNectar();
+					if (p_226967_3_ != null) {
+						p_226967_3_.add(beeentity);
+					}
+
+					this.getWorldObj().playSoundEffect(xCoord + 0.5, yCoord + 0.5, zCoord + 0.5,
+							Reference.MCAssetVer + ":block.beehive.exit", 1.0F, 1.0F);
+					getWorldObj().spawnEntityInWorld(entity);
 				}
+				return true;
 			}
 		}
 		return false;
@@ -215,7 +207,7 @@ public class TileEntityBeeHive extends TileEntity {
 			if (beehivetileentity$bee.ticksInHive > beehivetileentity$bee.minOccupationTicks) {
 				NBTTagCompound compoundnbt = beehivetileentity$bee.entityData;
 				TileEntityBeeHive.State beehivetileentity$state = compoundnbt.getBoolean("HasNectar") ? TileEntityBeeHive.State.HONEY_DELIVERED : TileEntityBeeHive.State.BEE_RELEASED;
-				if (releaseBee(compoundnbt, (List<Entity>) null, beehivetileentity$state)) {
+				if (releaseBee(compoundnbt, null, beehivetileentity$state)) {
 					iterator.remove();
 				}
 			} else {
@@ -225,16 +217,14 @@ public class TileEntityBeeHive extends TileEntity {
 	}
 
 	public void updateEntity() {
-		super.updateEntity();
 		if (!this.getWorldObj().isRemote) {
 			this.tickBees();
 			if (getBeeCount() > 0 && this.getWorldObj().rand.nextDouble() < 0.005D) {
-				double d0 = (double) xCoord + 0.5D;
-				double d1 = yCoord;
-				double d2 = (double) zCoord + 0.5D;
-				this.getWorldObj().playSound(d0, d1, d2, Reference.MCAssetVer + ":block.beehive.work", 1.0F, 1.0F, true);
+				this.getWorldObj().playSoundEffect(xCoord + 0.5, yCoord + 0.5, zCoord + 0.5,
+						Reference.MCAssetVer + ":block.beehive.work", 1.0F, 1.0F);
 			}
 		}
+		super.updateEntity();
 	}
 
 	public void readFromNBT(NBTTagCompound compound) {

@@ -4,7 +4,9 @@ import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityMoveHelper;
+import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.Vec3;
 
 public class ExtendedEntityMoveHelper extends EntityMoveHelper {
 	protected float moveForward;
@@ -56,6 +58,12 @@ public class ExtendedEntityMoveHelper extends EntityMoveHelper {
 		this.moveStrafe = that.moveStrafe;
 	}
 
+	/**
+	 * The functions marked with "check notes" seem to be related to moveForward, but aren't actually MoveForward in the versions I referenced which are 1.12/1.15
+	 * In 1.12 this is func_191989_p which seems to be used in a lot of the same places as MoveForward in 1.7.10. In 1.15 this function is called "setAISpeed" again...
+	 * But it sets a field called landMovementFactor. In 1.12 what is seemingly the same field is obfuscated. I'm not exactly sure what it does but this may be the key
+	 * to why the fly move helper is currently broken
+	 */
 	public void onUpdateMoveHelper() {
 		if (this.action == ExtendedEntityMoveHelper.Action.STRAFE) {
 			float f = (float) this.entity.getEntityAttribute(SharedMonsterAttributes.movementSpeed).getAttributeValue();
@@ -75,20 +83,21 @@ public class ExtendedEntityMoveHelper extends EntityMoveHelper {
 			float f6 = MathHelper.cos(this.entity.rotationYaw * 0.017453292F);
 			float f7 = f2 * f6 - f3 * f5;
 			float f8 = f3 * f6 + f2 * f5;
-//			PathNavigate pathnavigate = this.entity.getNavigator();
-//
-//			if (pathnavigate != null)
-//			{
-//				if (pathnavigate.isSafeToStandAt(entity.posX, entity.posY, entity.posZ, entity.posX, entity.posY, entity.posZ, entity.getPosition(0), 0, 0))
-//				{
-//					this.moveForward = 1.0F;
-//					this.moveStrafe = 0.0F;
-//					f1 = f;
-//				}
-//			}
+			PathNavigate pathnavigate = this.entity.getNavigator();
+
+			if (pathnavigate != null) {
+				int width = MathHelper.ceiling_float_int(entity.width);
+				Vec3 entityOrigin = pathnavigate.getEntityPosition();
+				if (pathnavigate.isSafeToStandAt(MathHelper.floor_double(entity.posX), MathHelper.floor_double(entity.posY), MathHelper.floor_double(entity.posZ),
+						width, MathHelper.ceiling_float_int(entity.height), width, entityOrigin, entityOrigin.xCoord, entityOrigin.zCoord)) {
+					this.moveForward = 1.0F;
+					this.moveStrafe = 0.0F;
+					f1 = f;
+				}
+			}
 
 			this.entity.setAIMoveSpeed(f1);
-			this.entity.setMoveForward(this.moveForward);
+			this.entity.setMoveForward(this.moveForward); //Check notes on function
 			this.entity.moveStrafing = this.moveStrafe;
 			this.action = ExtendedEntityMoveHelper.Action.WAIT;
 		} else if (this.action == ExtendedEntityMoveHelper.Action.MOVE_TO) {
@@ -99,7 +108,7 @@ public class ExtendedEntityMoveHelper extends EntityMoveHelper {
 			double d3 = d0 * d0 + d2 * d2 + d1 * d1;
 
 			if (d3 < 2.500000277905201E-7D) {
-				this.entity.setMoveForward(0.0F);
+				this.entity.setMoveForward(0.0F); //Check notes on function
 				return;
 			}
 
@@ -118,7 +127,7 @@ public class ExtendedEntityMoveHelper extends EntityMoveHelper {
 				this.action = ExtendedEntityMoveHelper.Action.WAIT;
 			}
 		} else {
-			this.entity.setMoveForward(0.0F);
+			this.entity.setMoveForward(0.0F); //Check notes on function
 		}
 	}
 

@@ -27,19 +27,18 @@ public class FlyMoveHelper extends ExtendedEntityMoveHelper {
 			double d3 = d0 * d0 + d1 * d1 + d2 * d2;
 
 			if (d3 < 2.500000277905201E-7D) {
-				entity.setMoveForward(0.0F);
-				entity.moveStrafing = 0.0F;
+				entity.setMoveForward(0.0F); //Check notes in ExtendedEntityMoveHelper#onUpdateMoveHelper
 				return;
 			}
 
 			float f = (float) (Utils.atan2(d2, d0) * (180D / Math.PI)) - 90.0F;
-			entity.rotationYaw = limitAngle(entity.rotationYaw, f, 10.0F);
+			entity.rotationYaw = -limitAngle(entity.rotationYaw, f, 10.0F);
 			float f1;
 
 			if (entity.onGround) {
 				f1 = (float) (speed * entity.getEntityAttribute(SharedMonsterAttributes.movementSpeed).getAttributeValue());
 			} else {
-				f1 = (float) (speed * 0.4D);
+				f1 = (float) (speed * .4D); //Truncated the double because 000000059604645 is probably just garbage we don't need
 //				f1 = (float)(speed * entity.getEntityAttribute(SharedMonsterAttributes.field_193334_e).getAttributeValue()); Fly speed attribute, default is 0.4000000059604645D
 			}
 
@@ -50,8 +49,7 @@ public class FlyMoveHelper extends ExtendedEntityMoveHelper {
 			entity.setMoveForward(d1 > 0.0D ? f1 : -f1);
 		} else {
 			((INoGravityEntity) entity).setNoGravity(false);
-			entity.setMoveForward(0.0F);
-			entity.moveStrafing = 0.0F;
+			entity.setMoveForward(0.0F); //Check notes in ExtendedEntityMoveHelper#onUpdateMoveHelper
 		}
 	}
 }

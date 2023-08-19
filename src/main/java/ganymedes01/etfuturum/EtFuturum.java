@@ -62,6 +62,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.WeightedRandomChestContent;
+import net.minecraft.world.World;
 import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.oredict.OreDictionary;
@@ -359,10 +360,18 @@ public class EtFuturum {
 			}
 			if (EtFuturum.hasNatura) {
 				GameRegistry.findBlock("Natura", "NetherFurnace").setStepSound(ModSounds.soundNetherrack);
+				GameRegistry.findBlock("Natura", "NetherLever").setStepSound(ModSounds.soundNetherrack);
 			}
 			Blocks.noteblock.setStepSound(Block.soundTypeWood);
 			Blocks.heavy_weighted_pressure_plate.setStepSound(Block.soundTypeMetal);
 			Blocks.light_weighted_pressure_plate.setStepSound(Block.soundTypeMetal);
+			Blocks.tripwire_hook.setStepSound(Block.soundTypeWood);
+			Blocks.jukebox.setStepSound(Block.soundTypeWood);
+			Blocks.lever.setStepSound(Block.soundTypeStone);
+			Blocks.powered_repeater.setStepSound(Block.soundTypeStone);
+			Blocks.unpowered_repeater.setStepSound(Block.soundTypeStone);
+			Blocks.powered_comparator.setStepSound(Block.soundTypeStone);
+			Blocks.unpowered_comparator.setStepSound(Block.soundTypeStone);
 		}
 
 		//Block registry iterator
@@ -417,10 +426,26 @@ public class EtFuturum {
 		}
 
 		if (EtFuturum.hasTConstruct) {
-			BasicMultiBlockSound mbs = new BasicMultiBlockSound();
-			mbs.setTypes(2, ModSounds.soundNetherrack);
-			MultiBlockSoundRegistry.multiBlockSounds.put(GameRegistry.findBlock("TConstruct", "decoration.multibrick"), mbs);
-			MultiBlockSoundRegistry.multiBlockSounds.put(GameRegistry.findBlock("TConstruct", "decoration.multibrickfancy"), mbs);
+			{
+				BasicMultiBlockSound mbs = new BasicMultiBlockSound();
+				mbs.setTypes(2, ModSounds.soundNetherrack);
+				MultiBlockSoundRegistry.multiBlockSounds.put(GameRegistry.findBlock("TConstruct", "decoration.multibrick"), mbs);
+				MultiBlockSoundRegistry.multiBlockSounds.put(GameRegistry.findBlock("TConstruct", "decoration.multibrickfancy"), mbs);
+			}
+			{
+				BasicMultiBlockSound mbs = new BasicMultiBlockSound() {
+					@Override
+					public float getPitch(World world, int x, int y, int z, float pitch, MultiBlockSoundRegistry.BlockSoundType type) {
+						if (type != MultiBlockSoundRegistry.BlockSoundType.WALK) {
+							return pitch * .67F;
+						}
+						return 1;
+					}
+				};
+				mbs.setTypes(3, ModSounds.soundCopper);
+				mbs.setTypes(5, ModSounds.soundCopper);
+				MultiBlockSoundRegistry.multiBlockSounds.put(GameRegistry.findBlock("TConstruct", "MetalBlock"), mbs);
+			}
 		}
 
 		if (ModBlocks.DEEPSLATE_BRICK_WALL.isEnabled()) {
@@ -510,7 +535,6 @@ public class EtFuturum {
 			else if(block instanceof BlockBed && (block.getMaterial() == Material.wood || block.getMaterial() == Material.cloth)) {
 				block.setStepSound(Block.soundTypeWood);
 			}
-			
 		}
 
 		if(block.stepSound == Block.soundTypeGrass) {
