@@ -153,7 +153,7 @@ public class ModelBee extends ModelBase {
 	}
 
 	public double getMovementLengthSquared(EntityBee entity) {
-		return entity.motionX * entity.motionY * entity.motionZ;
+		return entity.motionX * entity.motionX + entity.motionY * entity.motionY + entity.motionZ * entity.motionZ;
 	}
 
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {

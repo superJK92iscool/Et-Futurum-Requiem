@@ -38,7 +38,7 @@ public class FlyingPathFinder extends PathFinder {
 				boolean flag2 = facing.offsetY != 0;
 				boolean flag1 = facing2.offsetY != 0;
 				if (facing != facing2 && facing != facing2.getOpposite() && facing2 != facing.getOpposite() && booleans[facing.ordinal()] && booleans[facing2.ordinal()]) {
-					PathPoint pathpoint = this.openPointFlying(entity, currentPoint.xCoord - 1, currentPoint.yCoord, currentPoint.zCoord - 1);
+					PathPoint pathpoint = this.openPointFlying(entity, currentPoint.xCoord + facing.offsetX, currentPoint.yCoord + facing.offsetY, currentPoint.zCoord + facing.offsetZ);
 					if (pathpoint != null && !pathpoint.isFirst && pathpoint.distanceTo(targetPoint) < maxDistance) {
 						pathOptions[i++] = pathpoint;
 					}
@@ -57,7 +57,7 @@ public class FlyingPathFinder extends PathFinder {
 		float f = ((EntityCreature) entity).getBlockPathWeight(x, y, z);
 		PathPoint pathpoint = null;
 //		Vec3 vec = ((EntityCreature) entity).getPosition(1.0F);
-//		vec.yCoord += entity.getEyeHeight(); Experimental code to not put a path point if it's obstructed; bees seem to enjoy sticking to walls even with this code.
+//		vec.yCoord += entity.getEyeHeight(); //Experimental code to not put a path point if it's obstructed; bees seem to enjoy sticking to walls even with this code.
 		if (f >= 0.0F /*&& entity.worldObj.func_147447_a(vec, Vec3.createVectorHelper(x, y, z), false, true, false) == null*/) {
 			pathpoint = super.openPoint(x, y, z);
 			costMalusMap.put(pathpoint, f);

@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.core.handlers;
 
+import com.google.common.collect.Lists;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.InputEvent;
@@ -32,7 +33,7 @@ import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.MovingSound;
+import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.PositionedSound;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.entity.EntityClientPlayerMP;
@@ -71,6 +72,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
 import java.io.File;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.WeakHashMap;
@@ -83,7 +85,6 @@ public class ClientEventHandler {
 	private final Minecraft mc = FMLClientHandler.instance().getClient();
 	private final Random rand = new Random();
 	private boolean showedDebugWarning;
-	public static boolean showDebugWarning;
 	private int currPage;
 	/**
 	 * Represents the two values that govern the last chime age in 1.17 and up.
@@ -146,7 +147,7 @@ public class ClientEventHandler {
 		}
 
 		if(!EtFuturum.DEV_ENVIRONMENT && EtFuturum.SNAPSHOT_BUILD && !showedDebugWarning && player.ticksExisted == 40) {
-			if(!forceHideSnapshotWarning) {
+			if (!forceHideSnapshotWarning) {
 				ChatComponentText text = new ChatComponentText("\u00a7c\u00a7l[Debug]: \u00a7rYou are using a pre-release version of \u00a7bEt \u00a7bFuturum \u00a7bRequiem\u00a7r. This version might not be stable, click here to go to GitHub to report bugs.");
 				text.getChatStyle().setChatClickEvent(new ClickEvent(Action.OPEN_URL, "https://github.com/Roadhog360/Et-Futurum-Requiem/issues"));
 				player.addChatComponentMessage(text);
@@ -156,6 +157,8 @@ public class ClientEventHandler {
 			}
 			showedDebugWarning = true;
 		}
+
+		applyNextEntitySound();
 
 		if (ConfigSounds.netherAmbience && !EtFuturum.netherAmbienceNetherlicious && world.provider.dimensionId == -1) {
 			Chunk chunk = world.getChunkFromBlockCoords(MathHelper.floor_double(player.posX), MathHelper.floor_double(player.posZ));
@@ -685,21 +688,29 @@ public class ClientEventHandler {
 		}
 	}
 
+	private final List<ISound> soundList = Lists.newArrayList();
+
+	/**
+	 * We queue up the sounds like this for three reasons.
+	 * One: mc.thePlayer is NULL on first tick of world load even though sounds can play there, causing possible crashes with mod sound handlers
+	 * Two: SoundHandler is pretty sensitive and likes to CRASH when you play a new sound alongside others sometimes. This especially happens when playing multiple sounds at the same time
+	 * Somehow even though SoundHandler uses an iterator instance to iterate, which should be safe to modify, it gives a ConcurrentModificationException error sometimes.
+	 * This can happen in various places during their iterators, even during iterator.remove() which should never throw a comod error (?????)
+	 * And sometimes it just crashes when queueing multiple sounds. Of course when loading a world this will happen with bees and other sounds I add like this. Geez, SoundHandler is messed up...
+	 * Three: Ear blasting. Not only do we have the handful of SoundHandler problems above, but you get an earful too! Sometimes you can hear tickable sounds on the loading screen!
+	 * So that means if there were many bees without that fix your ears would get blasted on world load!
+	 */
+	private void applyNextEntitySound() {
+		if (!soundList.isEmpty()) {
+			mc.getSoundHandler().playSound(soundList.get(0));
+			soundList.remove(0);
+		}
+	}
+
 	@SubscribeEvent
 	public void spawnEvent(EntityJoinWorldEvent event) {
-		/*
-		 * I play the sound with a delay as extra protection against ear-blasting, but some world things are null when this is called on the first tick of the world.
-		 * This line would actually trigger a crash in some mods (namely versions of EFR before 2.5.0 and thus some code Netherlicious copied from it) due to these null values.
-		 * Namely minecraft.thePlayer is null for the first world tick. So to be safe we also delay the sound so people who made the same mistake we did don't crash due to this sound.
-		 * Also we ONLY do this on world load (which player == null) otherwise playing delayed sounds on the same tick causes a crash because ugh the sound system is sensitive for some reason
-		 */
 		if (event.entity instanceof EntityBee) {
-			MovingSound sound = new BeeFlySound((EntityBee) event.entity);
-			if (mc.thePlayer == null) {
-				mc.getSoundHandler().playDelayedSound(sound, 1);
-			} else {
-				mc.getSoundHandler().playSound(sound);
-			}
+			soundList.add(new BeeFlySound((EntityBee) event.entity));
 		}
 	}
 

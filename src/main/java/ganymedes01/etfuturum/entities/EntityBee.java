@@ -91,7 +91,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 			}
 		};
 		lookHelper = new BeeLookController(this);
-		moveHelper = new FlyMoveHelper(this);
+		moveHelper = new FlyMoveHelper(this, 10, true);
 		addTasks();
 		getNavigator().setBreakDoors(false);
 		getNavigator().setEnterDoors(true);
@@ -106,7 +106,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 	}
 
 	public float getBlockPathWeight(int x, int y, int z) {
-		return Math.min(getBlockWeight(worldObj.getBlock(x, y, z), x, y, z), getBlockWeight(worldObj.getBlock(x, y - 1, z), x, y, z));
+		return getBlockWeight(worldObj.getBlock(x, y, z), x, y, z);
 	}
 
 	private float getBlockWeight(Block block, int x, int y, int z) {
