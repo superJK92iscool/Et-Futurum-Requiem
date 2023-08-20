@@ -44,20 +44,6 @@ public class ExtendedEntityMoveHelper extends EntityMoveHelper {
 		this.speed = 0.25D;
 	}
 
-	public void read(EntityMoveHelper that) {
-		this.posX = that.posX;
-		this.posY = that.posY;
-		this.posZ = that.posZ;
-		this.speed = Math.max(that.speed, 1.0D);
-	}
-
-	public void readEx(ExtendedEntityMoveHelper that) {
-		read(that);
-		this.action = that.action;
-		this.moveForward = that.moveForward;
-		this.moveStrafe = that.moveStrafe;
-	}
-
 	public void onUpdateMoveHelper() {
 		if (this.action == ExtendedEntityMoveHelper.Action.STRAFE) {
 			float f = (float) this.entity.getEntityAttribute(SharedMonsterAttributes.movementSpeed).getAttributeValue();

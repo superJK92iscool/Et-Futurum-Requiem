@@ -163,7 +163,7 @@ public class CommonProxy implements IGuiHandler {
 		}
 
 		if (ConfigEntities.enableBees) {
-			ModEntityList.registerEntity(EntityBee.class, "bee", 21, EtFuturum.instance, 80, 3, false, 0xEDC343, 0x43241B);
+			ModEntityList.registerEntity(EntityBee.class, "bee", 21, EtFuturum.instance, 80, 1, true, 0xEDC343, 0x43241B);
 		}
 
 		//make magmas slightly more common, hopefully.

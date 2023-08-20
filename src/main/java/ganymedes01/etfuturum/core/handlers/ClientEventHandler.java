@@ -691,10 +691,15 @@ public class ClientEventHandler {
 		 * I play the sound with a delay as extra protection against ear-blasting, but some world things are null when this is called on the first tick of the world.
 		 * This line would actually trigger a crash in some mods (namely versions of EFR before 2.5.0 and thus some code Netherlicious copied from it) due to these null values.
 		 * Namely minecraft.thePlayer is null for the first world tick. So to be safe we also delay the sound so people who made the same mistake we did don't crash due to this sound.
+		 * Also we ONLY do this on world load (which player == null) otherwise playing delayed sounds on the same tick causes a crash because ugh the sound system is sensitive for some reason
 		 */
 		if (event.entity instanceof EntityBee) {
 			MovingSound sound = new BeeFlySound((EntityBee) event.entity);
-			mc.getSoundHandler().playDelayedSound(sound, 1);
+			if (mc.thePlayer == null) {
+				mc.getSoundHandler().playDelayedSound(sound, 1);
+			} else {
+				mc.getSoundHandler().playSound(sound);
+			}
 		}
 	}
 

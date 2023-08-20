@@ -15,7 +15,6 @@ import ganymedes01.etfuturum.tileentities.TileEntityBeeHive;
 import net.minecraft.block.*;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.*;
-import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -38,6 +37,7 @@ import java.util.function.Predicate;
 public class EntityBee extends EntityAnimal implements INoGravityEntity {
 	private static final int DATA_FLAGS_ID = 13; //byte
 	private static final int ANGER_TIME = 14; //int
+	private static final int NO_GRAVITY = 15; //byte (as boolean)
 	private UUID lastHurtBy;
 	private float rollAmount;
 	private float rollAmountO;
@@ -54,12 +54,10 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 	private EntityBee.FindFlowerGoal findFlowerGoal;
 	private int underWaterTicks;
 
-	private boolean hasNoGravity;
 	private float moveVertical;
 
 	public EntityBee(World worldIn) {
 		super(worldIn);
-//		this.lookController = new EntityBee.BeeLookController(this);
 		setSize(0.7F, 0.7F);
 
 		navigator = new FlyingPathNavigator(this, worldIn) {
@@ -92,6 +90,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 				}
 			}
 		};
+		lookHelper = new BeeLookController(this);
 		moveHelper = new FlyMoveHelper(this);
 		addTasks();
 		getNavigator().setBreakDoors(false);
@@ -103,16 +102,19 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		super.entityInit();
 		this.getDataWatcher().addObject(DATA_FLAGS_ID, (byte) 0);
 		this.getDataWatcher().addObject(ANGER_TIME, 0);
-
+		this.getDataWatcher().addObject(NO_GRAVITY, (byte) 1);
 	}
 
 	public float getBlockPathWeight(int x, int y, int z) {
-		return worldObj.isAirBlock(x, y, z) ? 10.0F : getPathWeight(worldObj.getBlock(x, y, z));
+		return Math.min(getBlockWeight(worldObj.getBlock(x, y, z), x, y, z), getBlockWeight(worldObj.getBlock(x, y - 1, z), x, y, z));
 	}
 
-	private float getPathWeight(Block block) {
-		if (block instanceof BlockFire || block.getMaterial().isLiquid() || block instanceof BlockCocoa || block instanceof BlockFence || block instanceof BlockWall) {
+	private float getBlockWeight(Block block, int x, int y, int z) {
+		if (block instanceof BlockFire || block.getMaterial().isLiquid() || block instanceof BlockCocoa || block instanceof BlockFence || block instanceof BlockWall || block.getMaterial().isLiquid()) {
 			return -1F;
+		}
+		if (block.getCollisionBoundingBoxFromPool(worldObj, x, y, z) == null) {
+			return 10.0F;
 		}
 		return 0.0F;
 	}
@@ -122,7 +124,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 	}
 
 	protected void addTasks() {
-		tasks.addTask(0, new EntityBee.StingGoal(this, EntityLivingBase.class, true));
+		tasks.addTask(0, new EntityBee.StingGoal(this, EntityLivingBase.class, 1.4D, true));
 		tasks.addTask(1, new EntityBee.EnterBeehiveGoal());
 		tasks.addTask(2, new EntityAIMate(this, 1.0D));
 //		tasks.addTask(3, new EntityAITempt(this, 1.25D, Item.getItemFromBlock(Blocks.red_flower), false));//Tempting seems to already work
@@ -137,13 +139,14 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		tasks.addTask(7, new EntityBee.FindPollinationTargetGoal());
 		tasks.addTask(8, new EntityBee.WanderGoal());
 		tasks.addTask(9, new EntityAISwimming(this));
-		tasks.addTask(1, (new EntityBee.AngerGoal(this))/*.setCallsForHelp(new Class[0])*/);
-		tasks.addTask(2, new EntityBee.AttackPlayerGoal(this));
+		targetTasks.addTask(1, (new EntityBee.AngerGoal(this))/*.setCallsForHelp(new Class[0])*/);
+		targetTasks.addTask(2, new EntityBee.AttackPlayerGoal(this));
 		getNavigator().setAvoidsWater(true);
 	}
 
 	public void writeEntityToNBT(NBTTagCompound compound) {
 		super.writeEntityToNBT(compound);
+		compound.setBoolean("HasNoGravity", this.hasNoGravity());
 		if (this.hasHive()) {
 			compound.setTag("HivePos", BlockPos.writeToNBT(this.getHivePos()));
 		}
@@ -177,6 +180,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		}
 
 		super.readEntityFromNBT(compound);
+		setNoGravity(compound.getBoolean("HasNoGravity"));
 		this.setHasNectar(compound.getBoolean("HasNectar"));
 		this.setHasStung(compound.getBoolean("HasStung"));
 		this.setAnger(compound.getInteger("Anger"));
@@ -202,7 +206,6 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 	}
 
 	public void moveEntityWithHeading(float moveForward, float moveStrafing) {
-		if (worldObj.isRemote) return;
 		double d0;
 		if (this.isInWater()) {
 			d0 = this.posY;
@@ -332,6 +335,28 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		}
 	}
 
+	public void knockBack(Entity p_70653_1_, float p_70653_2_, double p_70653_3_, double p_70653_5_) {
+		if (this.rand.nextDouble() >= this.getEntityAttribute(SharedMonsterAttributes.knockbackResistance).getAttributeValue()) {
+			this.isAirBorne = true;
+			float f1 = MathHelper.sqrt_double(p_70653_3_ * p_70653_3_ + p_70653_5_ * p_70653_5_);
+			float f2 = 0.4F;
+			this.motionX /= 2.0D;
+			this.motionZ /= 2.0D;
+			this.motionX -= p_70653_3_ / (double) f1 * (double) f2;
+			this.motionZ -= p_70653_5_ / (double) f1 * (double) f2;
+
+			if (!hasNoGravity()) {
+				this.motionY /= 2.0D;
+				this.motionY += f2;
+				if (this.motionY > 0.4000000059604645D) {
+					this.motionY = 0.4000000059604645D;
+				}
+			} else {
+				motionY += .1D;
+			}
+		}
+	}
+
 	public boolean attackEntityAsMob(Entity entityIn) {
 		boolean flag = entityIn.attackEntityFrom(new EntityDamageSource("sting", this), (float) ((int) this.getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttributeValue()));
 		if (flag) {
@@ -365,10 +390,6 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 //				this.addParticle(this.worldObj, this.getPosX() - (double)0.3F, this.getPosX() + (double)0.3F, this.getPosZ() - (double)0.3F, this.getPosZ() + (double)0.3F, this.getPosYHeight(0.5D), ParticleTypes.FALLING_NECTAR);
 //			}
 //		}
-		List<BlockPos> list = getBlocksInRange(pos -> pos.getBlock(worldObj) instanceof BlockBeeHive, 20, false);
-		if (!list.isEmpty()) {
-			getMoveHelper().setMoveTo(list.get(0).getX(), list.get(0).getY(), list.get(0).getZ(), 0.4D);
-		}
 		updateBodyPitch();
 	}
 
@@ -428,8 +449,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 
 	}
 
-	protected void updateAITasks() {
-		super.updateAITasks();
+	protected void updateAITick() {
 		if (this.isInWater()) {
 			++this.underWaterTicks;
 		} else {
@@ -443,16 +463,15 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		if (hasStung()) {
 			++this.timeSinceSting;
 			if (this.timeSinceSting % 5 == 0 && this.rand.nextInt(MathHelper.clamp_int(1200 - this.timeSinceSting, 1, 1200)) == 0) {
-				this.attackEntityFrom(DamageSource.generic, this.getHealth());
+				this.attackEntityFrom(DamageSource.generic, this.getHealth()); //Kills the bee after it's been a while when it stings someone
 			}
 		}
 
 		if (this.isAngry()) {
 			int i = this.getAnger();
 			this.setAnger(i - 1);
-			EntityLivingBase livingentity = this.getAttackTarget();
-			if (i == 0 && livingentity != null) {
-				this.setBeeAttacker(livingentity);
+			if (i == 0 && this.getAttackTarget() != null) {
+				this.setBeeAttacker(this.getAttackTarget());
 			}
 		}
 
@@ -713,12 +732,12 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 
 	@Override
 	public void setNoGravity(boolean noGravity) {
-		hasNoGravity = noGravity;
+		getDataWatcher().updateObject(NO_GRAVITY, noGravity ? (byte) 1 : (byte) 0);
 	}
 
 	@Override
 	public boolean hasNoGravity() {
-		return hasNoGravity;
+		return getDataWatcher().getWatchableObjectByte(NO_GRAVITY) == 1;
 	}
 
 	class AngerGoal extends EntityAIHurtByTarget {
@@ -761,7 +780,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 	}
 
 	class BeeLookController extends EntityLookHelper {
-		BeeLookController(EntityMob beeIn) {
+		BeeLookController(EntityBee beeIn) {
 			super(beeIn);
 		}
 
@@ -981,7 +1000,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 //			EntityBee.this.getNavigator().resetRangeMultiplier();
 		}
 
-		public void tick() {
+		public void updateTask() {
 			if (EntityBee.this.savedFlowerPos != null) {
 				++this.ticks;
 				if (this.ticks > 600) {
@@ -1099,7 +1118,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 				Optional<BlockPos> optional = this.getFlower();
 				if (optional.isPresent()) {
 					EntityBee.this.savedFlowerPos = optional.get();
-					EntityBee.this.getNavigator().tryMoveToXYZ((double) EntityBee.this.savedFlowerPos.getX() + 0.5D, (double) EntityBee.this.savedFlowerPos.getY() + 0.5D, (double) EntityBee.this.savedFlowerPos.getZ() + 0.5D, (double) 1.2F);
+					EntityBee.this.getNavigator().tryMoveToXYZ((double) EntityBee.this.savedFlowerPos.getX() + 0.5D, (double) EntityBee.this.savedFlowerPos.getY() + 0.5D, (double) EntityBee.this.savedFlowerPos.getZ() + 0.5D, 1.2F);
 					return true;
 				} else {
 					return false;
@@ -1216,9 +1235,9 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		}
 	}
 
-	class StingGoal extends EntityAINearestAttackableTarget {
-		StingGoal(EntityCreature creatureIn, Class classIn, /*double speedIn,*/ boolean useLongMemory) {
-			super(creatureIn, classIn, 10, useLongMemory);
+	class StingGoal extends EntityAIAttackOnCollide {
+		StingGoal(EntityCreature creatureIn, Class classIn, double speedIn, boolean useLongMemory) {
+			super(creatureIn, classIn, speedIn, useLongMemory);
 		}
 
 		public boolean shouldExecute() {
@@ -1277,7 +1296,6 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 			if (vec3d != null) {
 				EntityBee.this.getNavigator().setPath(EntityBee.this.getNavigator().getPathToXYZ(vec3d.xCoord, vec3d.yCoord, vec3d.zCoord), 1.0D);
 			}
-
 		}
 
 		@Nullable

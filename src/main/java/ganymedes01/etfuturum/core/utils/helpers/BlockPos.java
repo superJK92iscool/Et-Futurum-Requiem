@@ -210,7 +210,7 @@ public class BlockPos extends Vec3i {
 							return new BlockPos(startX, startY, startZ);
 						} else if (this.field_191535_c == endX && this.field_191536_d == endY
 								&& this.field_191537_e == endZ) {
-							return (BlockPos) this.endOfData();
+							return this.endOfData();
 						} else {
 							if (this.field_191535_c < endX) {
 								++this.field_191535_c;

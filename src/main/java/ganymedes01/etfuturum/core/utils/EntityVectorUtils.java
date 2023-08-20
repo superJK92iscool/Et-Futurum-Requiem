@@ -111,9 +111,8 @@ public class EntityVectorUtils {
 				BlockPos blockpos3 = new BlockPos((double) j + p_226339_0_.posX, (double) k + p_226339_0_.posY, (double) l + p_226339_0_.posZ);/* pathnavigator.canEntityStandOnPos(blockpos3) replaced with path weight calc I THINK this might be the same, this change could be dangerous, potentially */
 				if (blockpos3.getY() >= 0 && blockpos3.getY() <= p_226339_0_.worldObj.getHeight() && (!flag || p_226339_0_.isWithinHomeDistance(blockpos3.getX(), blockpos3.getY(), blockpos3.getZ())) && (!p_226339_12_ || getDoubleFunc(p_226339_0_).applyAsDouble(blockpos3) > 0)) {
 					if (p_226339_9_) {
-						blockpos3 = func_226342_a_(blockpos3, random.nextInt(p_226339_10_ + 1) + p_226339_11_, p_226339_0_.worldObj.getHeight(), (p_226341_1_) -> {
-							return p_226341_1_.getBlock(p_226339_0_.worldObj).getMaterial().isSolid();
-						});
+						blockpos3 = func_226342_a_(blockpos3, random.nextInt(p_226339_10_ + 1) + p_226339_11_, p_226339_0_.worldObj.getHeight(),
+								(p_226341_1_) -> p_226341_1_.getBlock(p_226339_0_.worldObj).getMaterial().isSolid());
 					}
 
 					if (p_226339_5_ || blockpos3.getBlock(p_226339_0_.worldObj).getMaterial() != Material.water) {

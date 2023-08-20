@@ -34,7 +34,7 @@ public class FlyMoveHelper extends ExtendedEntityMoveHelper {
 			}
 
 			float f = (float) (Utils.atan2(d2, d0) * (180D / Math.PI)) - 90.0F;
-			entity.rotationYaw = -limitAngle(entity.rotationYaw, f, 10.0F);
+			entity.rotationYaw = limitAngle(entity.rotationYaw, f, 10.0F);
 			float f1;
 
 			if (entity.onGround) {
@@ -46,7 +46,7 @@ public class FlyMoveHelper extends ExtendedEntityMoveHelper {
 			entity.setAIMoveSpeed(f1);
 			double d4 = MathHelper.sqrt_double(d0 * d0 + d2 * d2);
 			float f2 = (float) (-(Utils.atan2(d1, d4) * (180D / Math.PI)));
-//			entity.rotationPitch = limitAngle(entity.rotationPitch, f2, 10.0F);
+			entity.rotationPitch = limitAngle(entity.rotationPitch, f2, 10.0F);
 			((INoGravityEntity) entity).setMoveVertical(d1 > 0.0D ? f1 : -f1);
 		} else {
 			((INoGravityEntity) entity).setNoGravity(false);

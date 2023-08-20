@@ -2,33 +2,21 @@ package ganymedes01.etfuturum.entities.ai;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.pathfinding.PathNavigate;
+import net.minecraft.pathfinding.PathFinder;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 
-public class FlyingPathNavigator extends PathNavigate {
+public class FlyingPathNavigator extends ExtendedPathNavigator {
 
 	public FlyingPathNavigator(EntityLiving p_i1671_1_, World p_i1671_2_) {
 		super(p_i1671_1_, p_i1671_2_);
 	}
 
-	private long lastTimeUpdated;
-	protected boolean tryUpdatePath;
-
-	public void updatePath() {
-		if (this.worldObj.getTotalWorldTime() - this.lastTimeUpdated > 20L) {
-			if (this.getPath() != null) {
-				int x = getPath().getFinalPathPoint().xCoord;
-				int y = getPath().getFinalPathPoint().yCoord;
-				int z = getPath().getFinalPathPoint().zCoord;
-				this.currentPath = this.getPathToXYZ(x, y, z);
-				this.lastTimeUpdated = this.worldObj.getTotalWorldTime();
-				this.tryUpdatePath = false;
-			}
-		} else {
-			this.tryUpdatePath = true;
-		}
+	@Override
+	protected PathFinder getPathFinder() {
+		return new FlyingPathFinder(worldObj, this.canPassOpenWoodenDoors, this.getCanBreakDoors(), this.getAvoidsWater(), this.canSwim);
 	}
 
 	/**
@@ -151,8 +139,8 @@ public class FlyingPathNavigator extends PathNavigate {
 					double d3 = (double) j2 + 0.5D - p_75483_7_.zCoord;
 
 					if (d2 * p_75483_8_ + d3 * p_75483_10_ >= 0.0D) {
-						Block block = this.worldObj.getBlock(i2, p_75483_2_ - 1, j2);
-						if (block.isOpaqueCube()) {
+						Block block = this.worldObj.getBlock(i2, p_75483_2_, j2);
+						if (block.isSideSolid(worldObj, i2, p_75483_2_ - 1, j2, ForgeDirection.UP)) {
 							return true;
 						}
 					}

@@ -43,7 +43,7 @@ public class BeeFlySound extends MovingSound {
 			yPosF = (float) beeInstance.posY;
 			zPosF = (float) beeInstance.posZ;
 			float f = MathHelper.sqrt_double(beeInstance.motionX * beeInstance.motionX + beeInstance.motionZ * beeInstance.motionZ);
-			if ((double) f >= 0.01D) {
+			if (!beeInstance.onGround && (double) f >= 0.01D) {
 				this.field_147663_c = Utils.lerp(MathHelper.clamp_float(f, this.getMinPitch(), this.getMaxPitch()), this.getMinPitch(), this.getMaxPitch());
 				this.volume = Utils.lerp(MathHelper.clamp_float(f, 0.0F, 0.5F), 0.0F, 1.2F);
 			} else {

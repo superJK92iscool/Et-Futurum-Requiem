@@ -108,10 +108,7 @@ public class TileEntityBeeHive extends TileEntity {
 		for (int i = 1; i <= spacing; i++) {
 			Block block = world.getBlock(x, y - i, z);
 			if (block.isOpaqueCube()) break;
-			if (fires.isEmpty()) {
-				return block.getMaterial() == Material.fire;
-			}
-			if (fires.contains(block)) {
+			if (fires.contains(block) || (fires.isEmpty() && block.getMaterial() == Material.fire)) {
 				return true;
 			}
 		}
@@ -187,7 +184,8 @@ public class TileEntityBeeHive extends TileEntity {
 
 					this.getWorldObj().playSoundEffect(xCoord + 0.5, yCoord + 0.5, zCoord + 0.5,
 							Reference.MCAssetVer + ":block.beehive.exit", 1.0F, 1.0F);
-					getWorldObj().spawnEntityInWorld(entity);
+					getWorldObj().spawnEntityInWorld(beeentity);
+					beeentity.setNoGravity(true);
 				}
 				return true;
 			}
@@ -200,6 +198,9 @@ public class TileEntityBeeHive extends TileEntity {
 	}
 
 	private void tickBees() {
+		if (this.isNearFire()) {
+			this.angerBees(null, TileEntityBeeHive.State.EMERGENCY);
+		}
 		Iterator<TileEntityBeeHive.Bee> iterator = this.bees.iterator();
 
 		while (iterator.hasNext()) {

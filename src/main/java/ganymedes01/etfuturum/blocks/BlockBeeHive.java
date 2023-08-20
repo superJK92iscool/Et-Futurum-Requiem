@@ -198,9 +198,8 @@ public class BlockBeeHive extends BlockContainer {
 		ItemStack itemstack = player.getHeldItem();
 		TileEntity te = world.getTileEntity(x, y, z);
 		if (!(te instanceof TileEntityBeeHive)) return false;
-		int i = ((TileEntityBeeHive) te).getHoneyLevel();
 		boolean flag = false;
-		if (i >= 5 && itemstack != null) {
+		if (world.getBlockMetadata(x, y, z) > 6 && itemstack != null) {
 			if (itemstack.getItem() instanceof ItemShears) {
 				world.playSoundAtEntity(player, Reference.MCAssetVer + ":block.beehive.shear", 1.0F, 1.0F);
 				dropHoneyComb(world, x, y, z);
@@ -209,10 +208,11 @@ public class BlockBeeHive extends BlockContainer {
 			} else if (itemstack.getItem() == Items.glass_bottle) {
 				itemstack.stackSize--;
 				world.playSoundAtEntity(player, Reference.MCAssetVer + ":item.bottle.fill", 1.0F, 1.0F);
+				ItemStack bottle = ModItems.HONEY_BOTTLE.newItemStack();
 				if (itemstack.stackSize == 0) {
-					player.setCurrentItemOrArmor(0, ModItems.HONEY_BOTTLE.newItemStack());
-				} else if (!player.inventory.addItemStackToInventory(ModItems.HONEY_BOTTLE.newItemStack())) {
-					player.entityDropItem(ModItems.HONEY_BOTTLE.newItemStack(), 0);
+					player.setCurrentItemOrArmor(0, bottle);
+				} else if (!player.inventory.addItemStackToInventory(bottle)) {
+					player.entityDropItem(bottle, 0);
 				}
 
 				flag = true;
@@ -232,7 +232,7 @@ public class BlockBeeHive extends BlockContainer {
 //					CriteriaTriggers.SAFELY_HARVEST_HONEY.test((ServerEntityPlayer)player, pos, itemstack1);
 //				}
 			}
-			updateHiveState(world, x, y, z, ((TileEntityBeeHive) te).getHoneyLevel() == 5);
+			updateHiveState(world, x, y, z, false);
 			return true;
 		} else {
 			return super.onBlockActivated(world, x, y, z, player, p_149727_6_, p_149727_7_, p_149727_8_, p_149727_9_);

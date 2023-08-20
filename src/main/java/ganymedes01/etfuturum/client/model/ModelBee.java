@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.client.model;
 
+import ganymedes01.etfuturum.client.OpenGLHelper;
 import ganymedes01.etfuturum.entities.EntityBee;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
@@ -92,7 +93,7 @@ public class ModelBee extends ModelBase {
 		this.rightAntenna.rotateAngleX = 0.0F;
 		this.body.rotateAngleX = 0.0F;
 		this.body.rotationPointY = 19.0F;
-		boolean flag = entityIn.onGround && getMovementLengthSquared(entityIn) < 1.0E-7D;
+		boolean flag = entityIn.onGround && Math.abs(getMovementLengthSquared(entityIn)) < 0.05D;
 		if (flag) {
 			this.rightWing.rotateAngleY = -0.2618F;
 			this.rightWing.rotateAngleZ = 0.0F;
@@ -139,8 +140,9 @@ public class ModelBee extends ModelBase {
 	}
 
 	public static float func_228283_a_(float p_228283_0_, float p_228283_1_, float p_228283_2_) {
-		float f;
-		for (f = p_228283_1_ - p_228283_0_; f < -(float) Math.PI; f += ((float) Math.PI * 2F)) {
+		float f = p_228283_1_ - p_228283_0_;
+		while (f < -(float) Math.PI) {
+			f += ((float) Math.PI * 2F);
 		}
 
 		while (f >= (float) Math.PI) {
@@ -150,12 +152,20 @@ public class ModelBee extends ModelBase {
 		return p_228283_0_ + p_228283_2_ * f;
 	}
 
-	public double getMovementLengthSquared(Entity entity) {
-		return entity.motionX * entity.motionX + entity.motionY * entity.motionY + entity.motionZ * entity.motionZ;
+	public double getMovementLengthSquared(EntityBee entity) {
+		return entity.motionX * entity.motionY * entity.motionZ;
 	}
 
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
+		if (isChild) {
+			OpenGLHelper.scale(0.5f, 0.5f, 0.5f);
+			OpenGLHelper.translate(0.0f, 1.5f, 0.0f);
+		}
 		this.body.render(scale);
+		if (isChild) {
+			OpenGLHelper.scale(1.0F, 1.0F, 1.0F);
+			OpenGLHelper.translate(1.0F, 1.0F, 1.0F);
+		}
 	}
 }

@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.items;
 
+import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
@@ -11,6 +12,8 @@ public class ItemHoneyBottle extends BaseItem {
 	public ItemHoneyBottle() {
 		setNames("honey_bottle");
 		setContainerItem(Items.glass_bottle);
+		setMaxStackSize(16);
+		EntityXPOrb.getXPSplit(1);
 	}
 
 	public ItemStack onEaten(ItemStack p_77654_1_, World p_77654_2_, EntityPlayer p_77654_3_) {

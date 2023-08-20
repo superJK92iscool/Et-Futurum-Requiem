@@ -1,10 +1,6 @@
 package ganymedes01.etfuturum.entities;
 
-import java.util.List;
-import java.util.UUID;
-
 import com.google.common.collect.Lists;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.client.particle.ParticleHandler;
@@ -16,13 +12,12 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EntityDamageSourceIndirect;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.*;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
+
+import java.util.List;
+import java.util.UUID;
 
 public class EntityShulkerBullet extends Entity
 {
@@ -188,7 +183,7 @@ public class EntityShulkerBullet extends Entity
 		if (p_184569_1_ != null && blockpos.getSquaredDistance(this.posX, this.posY, this.posZ, false) >= 4.0D)
 		{
 			BlockPos blockpos1 = new BlockPos(this);
-			List<EnumFacing> list = Lists.<EnumFacing>newArrayList();
+			List<EnumFacing> list = Lists.newArrayList();
 
 			if (p_184569_1_.getFrontOffsetX() == 0)
 			{
