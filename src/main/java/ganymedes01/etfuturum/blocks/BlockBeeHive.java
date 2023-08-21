@@ -179,7 +179,6 @@ public class BlockBeeHive extends BlockContainer {
 		if (!list.isEmpty()) {
 			List<EntityPlayer> list1 = p_226881_1_.getEntitiesWithinAABB(EntityPlayer.class, box);
 			int i = list1.size();
-
 			for (EntityBee beeentity : list) {
 				if (beeentity.getAttackTarget() == null) {
 					beeentity.setBeeAttacker(list1.get(p_226881_1_.rand.nextInt(i)));

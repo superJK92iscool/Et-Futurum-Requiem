@@ -98,7 +98,9 @@ public enum ParticleHandler {
 		protected Object[] getAdditionalArgs(World world, Object... data) {
 			return new Object[]{data[0], data[1]};
 		}
-	};
+	},
+
+	BEE_NECTAR(BeeNectarFX.class, ParticleData.NONE);
 
 	protected static Random rand = new Random();
 

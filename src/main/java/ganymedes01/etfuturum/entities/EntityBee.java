@@ -6,6 +6,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.blocks.BlockBeeHive;
 import ganymedes01.etfuturum.blocks.BlockBerryBush;
 import ganymedes01.etfuturum.blocks.BlockChorusFlower;
+import ganymedes01.etfuturum.client.particle.ParticleHandler;
 import ganymedes01.etfuturum.core.utils.EntityVectorUtils;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
@@ -273,7 +274,9 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 				}
 			}
 
-			this.moveEntity(this.motionX, this.motionY, this.motionZ);
+			if (boundingBox != null) { //Somehow this randomly throws an NPE when bees first exit their hives, Entity.java:692
+				this.moveEntity(this.motionX, this.motionY, this.motionZ);
+			}
 
 			if (this.isCollidedHorizontally && this.isOnLadder()) {
 				this.motionY = 0.2D;
@@ -388,17 +391,17 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
-//		if (this.hasNectar() && this.getCropsGrownSincePollination() < 10 && this.rand.nextFloat() < 0.05F) {
-//			for(int i = 0; i < this.rand.nextInt(2) + 1; ++i) {
-//				this.addParticle(this.worldObj, this.getPosX() - (double)0.3F, this.getPosX() + (double)0.3F, this.getPosZ() - (double)0.3F, this.getPosZ() + (double)0.3F, this.getPosYHeight(0.5D), ParticleTypes.FALLING_NECTAR);
-//			}
-//		}
+		if (this.hasNectar() && this.getCropsGrownSincePollination() < 10 && this.rand.nextFloat() < 0.05F) {
+			for (int i = 0; i < this.rand.nextInt(2) + 1; ++i) {
+				addParticle(this.worldObj, this.posX - (double) 0.3F, this.posX + (double) 0.3F, this.posZ - (double) 0.3F, posZ + (double) 0.3F, posY + this.height * 0.5F);
+			}
+		}
 		updateBodyPitch();
 	}
 
-//	private void addParticle(World worldIn, double p_226397_2_, double p_226397_4_, double p_226397_6_, double p_226397_8_, double posY, IParticleData particleData) {
-//		worldIn.addParticle(particleData, Utils.lerp(worldIn.rand.nextDouble(), p_226397_2_, p_226397_4_), posY, Utils.lerp(worldIn.rand.nextDouble(), p_226397_6_, p_226397_8_), 0.0D, 0.0D, 0.0D);
-//	}
+	private void addParticle(World worldIn, double p_226397_2_, double p_226397_4_, double p_226397_6_, double p_226397_8_, double posY) {
+		ParticleHandler.BEE_NECTAR.spawn(worldIn, Utils.lerp(worldIn.rand.nextDouble(), p_226397_2_, p_226397_4_), posY, Utils.lerp(worldIn.rand.nextDouble(), p_226397_6_, p_226397_8_));
+	}
 
 	//TODO: Maybe fix [https://bugs.mojang.com/browse/MC-168267](MC-168267) and evaluate the contents of flower pots?
 	private boolean isFlower(BlockPos pos) {
@@ -710,7 +713,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 	public boolean setBeeAttacker(Entity attacker) {
 		this.setAnger(400 + this.rand.nextInt(400));
 		if (attacker instanceof EntityLivingBase) {
-			this.setRevengeTarget((EntityLiving) attacker);
+			this.setRevengeTarget((EntityLivingBase) attacker);
 		}
 
 		return true;
@@ -1068,11 +1071,11 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 					Block block = worldObj.getBlock(x, y, z);
 					if (block instanceof BlockCrops || block instanceof BlockStem || block instanceof BlockBerryBush) {
 						if (((IGrowable) block).func_149851_a(worldObj, x, y, z, false) && ((IGrowable) block).func_149852_a(worldObj, worldObj.rand, x, y, z)) {
-							((IGrowable) block).func_149853_b(worldObj, worldObj.rand, x, y, z);
-							playSound(Reference.MCAssetVer + ":entity.bee.pollinate", 1.0F, 1.0F);
+							//BlockCrops, BlockStem and BlockBerryBush should use the next meta for growth stage. We can change this later if incrementing the meta doesn't work with mod crops.
+							//For now we'll just increment instead of using the IGrowable grow event, since that often adds several growth stages.
+							worldObj.setBlockMetadataWithNotify(x, y, z, worldObj.getBlockMetadata(x, y, z) + 1, 2);
 							addCropCounter();
 							//TODO: Add cave vines as a pollinatable crop, when they get added
-							//Bees are supposed to pollinate one state according to the wiki, but I don't want to blidnly add 1 meta to modded blocks that might be setup a bit differently. So we'll bonemeal them for now.
 						}
 					}
 				}
