@@ -1,65 +1,53 @@
 package ganymedes01.etfuturum.client.renderer.block;
 
 import ganymedes01.etfuturum.ModBlocks;
-import org.lwjgl.opengl.GL11;
-
 import ganymedes01.etfuturum.blocks.BlockComposter;
-import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.world.IBlockAccess;
 
 public class BlockComposterRenderer extends BlockModelBase {
 
-	@Override
-	public void renderInventoryBlock(Block block, int metadata, int modelId, RenderBlocks renderer) {
-		renderInInventory(Tessellator.instance, renderer, block, metadata);
+	public BlockComposterRenderer(int modelID) {
+		super(modelID);
 	}
-	// To render a ISBRH part in the inventory - Credits to MinecraftForgeFrance
-	private void renderInInventory(Tessellator tessellator, RenderBlocks renderer, Block block, int metadata)
-	{
-		GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
-		tessellator.startDrawingQuads();
+
+	protected void renderStandardInventoryBlock(Block block, int meta, int modelID, RenderBlocks renderer, double minX, double minY, double minZ, double maxF, double maxY, double maxZ) {
 		renderer.setRenderBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
 
 		tessellator.setNormal(0.0F, -1.0F, 0.0F);
-		renderer.renderFaceYNeg(block, 0.0D, 0.0D, 0.0D, renderer.getBlockIconFromSideAndMetadata(block, 0, metadata));
+		renderer.renderFaceYNeg(block, 0.0D, 0.0D, 0.0D, renderer.getBlockIconFromSideAndMetadata(block, 0, meta));
 		tessellator.setNormal(0.0F, 1.0F, 0.0F);
-		renderer.renderFaceYPos(block, 0.0D, 0.0D, 0.0D, renderer.getBlockIconFromSideAndMetadata(block, 1, metadata));
+		renderer.renderFaceYPos(block, 0.0D, 0.0D, 0.0D, renderer.getBlockIconFromSideAndMetadata(block, 1, meta));
 		tessellator.setNormal(0.0F, 0.0F, -1.0F);
-		renderer.renderFaceZNeg(block, 0.0D, 0.0D, 0.0D, renderer.getBlockIconFromSideAndMetadata(block, 2, metadata));
+		renderer.renderFaceZNeg(block, 0.0D, 0.0D, 0.0D, renderer.getBlockIconFromSideAndMetadata(block, 2, meta));
 		tessellator.setNormal(0.0F, 0.0F, 1.0F);
-		renderer.renderFaceZPos(block, 0.0D, 0.0D, 0.0D, renderer.getBlockIconFromSideAndMetadata(block, 3, metadata));
+		renderer.renderFaceZPos(block, 0.0D, 0.0D, 0.0D, renderer.getBlockIconFromSideAndMetadata(block, 3, meta));
 		tessellator.setNormal(-1.0F, 0.0F, 0.0F);
-		renderer.renderFaceXNeg(block, 0.0D, 0.0D, 0.0D, renderer.getBlockIconFromSideAndMetadata(block, 4, metadata));
+		renderer.renderFaceXNeg(block, 0.0D, 0.0D, 0.0D, renderer.getBlockIconFromSideAndMetadata(block, 4, meta));
 		tessellator.setNormal(1.0F, 0.0F, 0.0F);
-		renderer.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, renderer.getBlockIconFromSideAndMetadata(block, 5, metadata));
+		renderer.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, renderer.getBlockIconFromSideAndMetadata(block, 5, meta));
 
 		renderer.setRenderBounds(0.875D, 0.125D, 0.125D, 0.125D, 1, 0.875D);
 		tessellator.setNormal(0.0F, 0.0F, -1.0F);
-		renderer.renderFaceZNeg(block, 0, 0, 0, renderer.getBlockIconFromSideAndMetadata(block, 2, metadata));
+		renderer.renderFaceZNeg(block, 0, 0, 0, renderer.getBlockIconFromSideAndMetadata(block, 2, meta));
 		tessellator.setNormal(0.0F, 0.0F, 1.0F);
-		renderer.renderFaceXPos(block, 0, 0, 0, renderer.getBlockIconFromSideAndMetadata(block, 3, metadata));
+		renderer.renderFaceXPos(block, 0, 0, 0, renderer.getBlockIconFromSideAndMetadata(block, 3, meta));
 		tessellator.setNormal(-1.0F, 0.0F, 0.0F);
-		renderer.renderFaceZPos(block, 0, 0, 0, renderer.getBlockIconFromSideAndMetadata(block, 4, metadata));
+		renderer.renderFaceZPos(block, 0, 0, 0, renderer.getBlockIconFromSideAndMetadata(block, 4, meta));
 		tessellator.setNormal(1.0F, 0.0F, 0.0F);
-		renderer.renderFaceXNeg(block, 0, 0, 0, renderer.getBlockIconFromSideAndMetadata(block, 5, metadata));
+		renderer.renderFaceXNeg(block, 0, 0, 0, renderer.getBlockIconFromSideAndMetadata(block, 5, meta));
 		
 		renderer.setRenderBounds(0, 0, 0, 1, 0.125D, 1);
 		tessellator.setNormal(0.0F, 1.0F, 0.0F);
-		renderer.renderFaceYPos(block, 0, 0, 0, renderer.getBlockIconFromSideAndMetadata(block, 0, metadata));
-		
-		tessellator.draw();
-		GL11.glTranslatef(0.5F, 0.5F, 0.5F);
+		renderer.renderFaceYPos(block, 0, 0, 0, renderer.getBlockIconFromSideAndMetadata(block, 0, meta));
 	}
 
 	@Override
-	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId,
-			RenderBlocks renderer) {
+	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
 		renderer.renderStandardBlock(block, x, y, z);
 
-		if(block.shouldSideBeRendered(renderer.blockAccess, x, y + 1, z, 1)) {
+		if (block.shouldSideBeRendered(renderer.blockAccess, x, y + 1, z, 1)) {
 			boolean prevRenderFaces = renderer.renderAllFaces;
 			renderer.renderAllFaces = true;
 			renderer.setRenderBounds(0.875D, 0.125D, 0.125D, 0.125D, 1, 0.875D);
@@ -93,15 +81,4 @@ public class BlockComposterRenderer extends BlockModelBase {
 		
 		return true;
 	}
-
-	@Override
-	public boolean shouldRender3DInInventory(int modelId) {
-		return true;
-	}
-
-	@Override
-	public int getRenderId() {
-		return RenderIDs.COMPOSTER;
-	}
-
 }

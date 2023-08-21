@@ -1,19 +1,18 @@
 package ganymedes01.etfuturum.client.renderer.block;
 
-import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.world.IBlockAccess;
 
 @SideOnly(Side.CLIENT)
-public class BlockDoorRenderer implements ISimpleBlockRenderingHandler {
+public class BlockDoorRenderer extends BlockModelBase {
 
-	@Override
-	public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
+	public BlockDoorRenderer(int modelID) {
+		super(modelID);
+		set2DInventory();
 	}
 
 	@Override
@@ -62,15 +61,5 @@ public class BlockDoorRenderer implements ISimpleBlockRenderingHandler {
 
 		renderer.flipTexture = false;
 		return true;
-	}
-
-	@Override
-	public boolean shouldRender3DInInventory(int modelId) {
-		return false;
-	}
-
-	@Override
-	public int getRenderId() {
-		return RenderIDs.DOOR;
 	}
 }

@@ -1,79 +1,38 @@
 package ganymedes01.etfuturum.client.renderer.block;
 
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.recipes.ModRecipes;
+import net.minecraft.block.Block;
+import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.world.IBlockAccess;
 import org.lwjgl.opengl.GL11;
 
-import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
-import ganymedes01.etfuturum.lib.RenderIDs;
-import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.EntityRenderer;
-import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.world.IBlockAccess;
+public class BlockTrapDoorRenderer extends BlockModelBase {
 
-public class BlockTrapDoorRenderer implements ISimpleBlockRenderingHandler {
+	public BlockTrapDoorRenderer(int modelID) {
+		super(modelID);
+	}
 
 	@Override
-	public void renderInventoryBlock(Block block, int metadata, int modelId, RenderBlocks renderer) {
-		
-		Tessellator tessellator = Tessellator.instance;
-		float f = 0.1875F;
-		float r = 0.0625F;
-		float e = f - (r * 1.5F);
-		GL11.glTranslatef(-.5F, -e, -.5F);
-		renderer.setRenderBounds(0.0F, 0.0F, 0.0F, 1.0F, f, 1.0F);
-
+	protected void renderStandardInventoryBlock(Block block, int meta, int modelID, RenderBlocks renderer, double minX, double minY, double minZ, double maxF, double maxY, double maxZ) {
+		GL11.glTranslatef(0, 0.40625F, 0);
 		renderer.uvRotateEast = 3;
 		renderer.uvRotateWest = 3;
 		renderer.uvRotateSouth = 3;
 		renderer.uvRotateNorth = 3;
-		tessellator.startDrawingQuads();
-		tessellator.setNormal(0.0F, -1.0F, 0.0F);
-		renderer.renderFaceYNeg(block, 0.0D, 0.0D, 0.0D, renderer.getBlockIconFromSideAndMetadata(block, 0, metadata));
-		tessellator.setNormal(0.0F, 1.0F, 0.0F);
-		renderer.renderFaceYPos(block, 0.0D, 0.0D, 0.0D, renderer.getBlockIconFromSideAndMetadata(block, 1, metadata));
-		tessellator.setNormal(0.0F, 0.0F, -1.0F);
-		renderer.renderFaceZNeg(block, 0.0D, 0.0D, 0.0D, renderer.getBlockIconFromSideAndMetadata(block, 2, metadata));
-		tessellator.setNormal(0.0F, 0.0F, 1.0F);
-		renderer.renderFaceZPos(block, 0.0D, 0.0D, 0.0D, renderer.getBlockIconFromSideAndMetadata(block, 3, metadata));
-		tessellator.setNormal(-1.0F, 0.0F, 0.0F);
-		renderer.renderFaceXNeg(block, 0.0D, 0.0D, 0.0D, renderer.getBlockIconFromSideAndMetadata(block, 4, metadata));
-		tessellator.setNormal(1.0F, 0.0F, 0.0F);
-		renderer.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, renderer.getBlockIconFromSideAndMetadata(block, 5, metadata));
-		tessellator.draw();
+		super.renderStandardInventoryBlock(block, meta, modelID, renderer, 0.0D, 0.0D, 0.0D, 1.0D, .1875D, 1.0F);
 		renderer.uvRotateEast = 0;
 		renderer.uvRotateWest = 0;
 		renderer.uvRotateSouth = 0;
 		renderer.uvRotateNorth = 0;
-		
-		GL11.glTranslatef(0, 0, 0);
 	}
 
 	@Override
-	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId,
-			RenderBlocks renderer) {
+	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
+		if (block == ModBlocks.TRAPDOOR_DARK_OAK.get()) {
+			return renderer.renderStandardBlock(block, x, y, z);
+		}
+
 		int l = renderer.blockAccess.getBlockMetadata(x, y, z);
-		int j = block.colorMultiplier(renderer.blockAccess, x, y, z);
-		float f = (j >> 16 & 255) / 255.0F;
-		float f1 = (j >> 8 & 255) / 255.0F;
-		float f2 = (j & 255) / 255.0F;
-
-		if (EntityRenderer.anaglyphEnable)
-		{
-			float f3 = (f * 30.0F + f1 * 59.0F + f2 * 11.0F) / 100.0F;
-			float f4 = (f * 30.0F + f1 * 70.0F) / 100.0F;
-			float f5 = (f * 30.0F + f2 * 70.0F) / 100.0F;
-			f = f3;
-			f1 = f4;
-			f2 = f5;
-		}
-		
-		if(block == ModBlocks.TRAPDOOR_DARK_OAK.get()) {
-			return Minecraft.isAmbientOcclusionEnabled() && block.getLightValue() == 0 ? (renderer.partialRenderBounds ? renderer.renderStandardBlockWithAmbientOcclusionPartial(block, x, y, z, f, f1, f2) : renderer.renderStandardBlockWithAmbientOcclusion(block, x, y, z, f, f1, f2)) : renderer.renderStandardBlockWithColorMultiplier(block, x, y, z, f, f1, f2);
-		}
-
 		if (l <= 3) {
 			renderer.uvRotateEast = 3;
 			renderer.uvRotateWest = 3;
@@ -110,7 +69,7 @@ public class BlockTrapDoorRenderer implements ISimpleBlockRenderingHandler {
 		}
 		
 		// 1 = west, 2 = east, 3 = north
-		
+
 		if (l == 0 || l == 4 || l == 8 || l == 12) {
 			renderer.uvRotateTop = 3;
 			renderer.uvRotateBottom = 3;
@@ -121,9 +80,8 @@ public class BlockTrapDoorRenderer implements ISimpleBlockRenderingHandler {
 			renderer.uvRotateTop = 2;
 			renderer.uvRotateBottom = 1;
 		}
-		
-		boolean flag;
-		flag = Minecraft.isAmbientOcclusionEnabled() && block.getLightValue() == 0 ? (renderer.partialRenderBounds ? renderer.renderStandardBlockWithAmbientOcclusionPartial(block, x, y, z, f, f1, f2) : renderer.renderStandardBlockWithAmbientOcclusion(block, x, y, z, f, f1, f2)) : renderer.renderStandardBlockWithColorMultiplier(block, x, y, z, f, f1, f2);
+
+		boolean flag = renderer.renderStandardBlock(block, x, y, z);
 		renderer.uvRotateTop = 0;
 		renderer.uvRotateBottom = 0;
 		renderer.uvRotateEast = 0;
@@ -132,16 +90,4 @@ public class BlockTrapDoorRenderer implements ISimpleBlockRenderingHandler {
 		renderer.uvRotateNorth = 0;
 		return flag;
 	}
-
-	@Override
-	public boolean shouldRender3DInInventory(int modelId) {
-		return true;
-	}
-
-	@Override
-	public int getRenderId() {
-		// TODO Auto-generated method stub
-		return RenderIDs.TRAP_DOOR;
-	}
-
 }

@@ -44,22 +44,22 @@ public class BlockColoredWaterCauldronRenderer implements ISimpleBlockRenderingH
 		tessellator.setColorOpaque_F(f, f1, f2);
 		IIcon iicon1 = block.getBlockTextureFromSide(2);
 		f4 = 0.125F;
-		renderer.renderFaceXPos(block, (double)((float)x - 1.0F + f4), (double)y, (double)z, iicon1);
-		renderer.renderFaceXNeg(block, (double)((float)x + 1.0F - f4), (double)y, (double)z, iicon1);
-		renderer.renderFaceZPos(block, (double)x, (double)y, (double)((float)z - 1.0F + f4), iicon1);
-		renderer.renderFaceZNeg(block, (double)x, (double)y, (double)((float)z + 1.0F - f4), iicon1);
+		renderer.renderFaceXPos(block, (double) x - 1.0F + f4, y, z, iicon1);
+		renderer.renderFaceXNeg(block, (double) x + 1.0F - f4, y, z, iicon1);
+		renderer.renderFaceZPos(block, x, y, (double) z - 1.0F + f4, iicon1);
+		renderer.renderFaceZNeg(block, x, y, (double) z + 1.0F - f4, iicon1);
 		IIcon iicon2 = BlockCauldron.getCauldronIcon("inner");
-		renderer.renderFaceYPos(block, (double)x, (double)((float)y - 1.0F + 0.25F), (double)z, iicon2);
-		renderer.renderFaceYNeg(block, (double)x, (double)((float)y + 1.0F - 0.75F), (double)z, iicon2);
+		renderer.renderFaceYPos(block, x, (double) y - 1.0F + 0.25F, z, iicon2);
+		renderer.renderFaceYNeg(block, x, (double) y + 1.0F - 0.75F, z, iicon2);
 		int i1 = renderer.blockAccess.getBlockMetadata(x, y, z);
 
 		int color = tile.getWaterColor();
-		float r = (float)(color >> 16 & 255) / 255.0F;
-		float g = (float)(color >> 8 & 255) / 255.0F;
-		float b = (float)(color & 255) / 255.0F;
+		float r = (float) (color >> 16 & 255) / 255.0F;
+		float g = (float) (color >> 8 & 255) / 255.0F;
+		float b = (float) (color & 255) / 255.0F;
 		tessellator.setColorOpaque_F(r, g, b);
 		IIcon iicon = ((BlockPotionCauldron) ModBlocks.POTION_CAULDRON.get()).grayscaleWaterIcon();
-		renderer.renderFaceYPos(block, (double)x, (double)((float)y - 1.0F + BlockCauldron.getRenderLiquidLevel(i1 + 1)), (double)z, iicon);
+		renderer.renderFaceYPos(block, x, (double) y - 1.0F + BlockCauldron.getRenderLiquidLevel(i1 + 1), z, iicon);
 		
 		return true;
 	}

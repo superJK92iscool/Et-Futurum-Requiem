@@ -22,6 +22,7 @@ import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.core.handlers.ClientEventHandler;
 import ganymedes01.etfuturum.core.utils.VersionChecker;
 import ganymedes01.etfuturum.entities.*;
+import ganymedes01.etfuturum.lib.RenderIDs;
 import ganymedes01.etfuturum.spectator.SpectatorModeClient;
 import ganymedes01.etfuturum.tileentities.*;
 import net.minecraft.block.BlockBed;
@@ -94,11 +95,11 @@ public class ClientProxy extends CommonProxy {
 
 	private void registerBlockRenderers() {
 		if (ModBlocks.SLIME.isEnabled()) {
-			RenderingRegistry.registerBlockHandler(new BlockSlimeBlockRender());
+			RenderingRegistry.registerBlockHandler(new BlockDoubleLayerRenderer(13, RenderIDs.SLIME_BLOCK));
 		}
 
 		if (ConfigBlocksItems.enableDoors) {
-			RenderingRegistry.registerBlockHandler(new BlockDoorRenderer());
+			RenderingRegistry.registerBlockHandler(new BlockDoorRenderer(RenderIDs.DOOR));
 		}
 
 		if (ModBlocks.BANNER.isEnabled()) {
@@ -110,7 +111,7 @@ public class ClientProxy extends CommonProxy {
 		}
 
 		if (ModBlocks.END_ROD.isEnabled()) {
-			RenderingRegistry.registerBlockHandler(new BlockEndRodRender());
+			RenderingRegistry.registerBlockHandler(new BlockEndRodRender(RenderIDs.END_ROD));
 		}
 
 		if (ModBlocks.CHORUS_FLOWER.isEnabled()) {
@@ -126,15 +127,15 @@ public class ClientProxy extends CommonProxy {
 		}
 
 		if (ModBlocks.LANTERN.isEnabled()) {
-			RenderingRegistry.registerBlockHandler(new BlockLanternRenderer());
+			RenderingRegistry.registerBlockHandler(new BlockLanternRenderer(RenderIDs.LANTERN));
 		}
 
 		if (ModBlocks.BARREL.isEnabled()) {
-			RenderingRegistry.registerBlockHandler(new BlockBarrelRenderer());
+			RenderingRegistry.registerBlockHandler(new BlockBarrelRenderer(RenderIDs.BARREL));
 		}
 
 		if (ConfigBlocksItems.enableTrapdoors) {
-			RenderingRegistry.registerBlockHandler(new BlockTrapDoorRenderer());
+			RenderingRegistry.registerBlockHandler(new BlockTrapDoorRenderer(RenderIDs.TRAP_DOOR));
 		}
 
 		if (ConfigBlocksItems.enableSigns) {
@@ -142,7 +143,7 @@ public class ClientProxy extends CommonProxy {
 		}
 
 		if (ConfigBlocksItems.enableGlazedTerracotta) {
-			RenderingRegistry.registerBlockHandler(new BlockGlazedTerracottaRenderer());
+			RenderingRegistry.registerBlockHandler(new BlockGlazedTerracottaRenderer(RenderIDs.GLAZED_TERRACOTTA));
 		}
 
 		if (ModBlocks.LAVA_CAULDRON.isEnabled()) {
@@ -154,15 +155,15 @@ public class ClientProxy extends CommonProxy {
 		}
 
 		if (ModBlocks.STONECUTTER.isEnabled()) {
-			RenderingRegistry.registerBlockHandler(new BlockStonecutterRenderer());
+			RenderingRegistry.registerBlockHandler(new BlockStonecutterRenderer(RenderIDs.STONECUTTER));
 		}
 
 		if (ModBlocks.COMPOSTER.isEnabled()) {
-			RenderingRegistry.registerBlockHandler(new BlockComposterRenderer());
+			RenderingRegistry.registerBlockHandler(new BlockComposterRenderer(RenderIDs.COMPOSTER));
 		}
 
 		if (ModBlocks.LOOM.isEnabled()) {
-			RenderingRegistry.registerBlockHandler(new BlockLoomRenderer());
+			RenderingRegistry.registerBlockHandler(new BlockLoomRenderer(RenderIDs.LOOM));
 		}
 
 		if (ModBlocks.AMETHYST_CLUSTER_1.isEnabled() && ModBlocks.AMETHYST_CLUSTER_2.isEnabled()) {
@@ -178,7 +179,7 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerBlockHandler(new BlockChestRenderer());
 
 		if (ModBlocks.OBSERVER.isEnabled()) {
-			RenderingRegistry.registerBlockHandler(new BlockObserverRenderer());
+			RenderingRegistry.registerBlockHandler(new BlockObserverRenderer(RenderIDs.OBSERVER));
 		}
 
 		if (ModBlocks.END_GATEWAY.isEnabled()) {
@@ -186,7 +187,7 @@ public class ClientProxy extends CommonProxy {
 		}
 
 		if (ModBlocks.HONEY_BLOCK.isEnabled()) {
-			RenderingRegistry.registerBlockHandler(new BlockHoneyRenderer());
+			RenderingRegistry.registerBlockHandler(new BlockDoubleLayerRenderer(15, RenderIDs.HONEY_BLOCK));
 		}
 	}
 

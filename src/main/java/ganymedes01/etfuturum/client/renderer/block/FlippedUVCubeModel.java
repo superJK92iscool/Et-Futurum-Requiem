@@ -15,8 +15,11 @@ public abstract class FlippedUVCubeModel extends BlockModelBase {
 	protected boolean uvFlipEast;
 	protected boolean uvFlipWest;
 
-	public boolean renderStandardBlockWithColorMultiplier(RenderBlocks renderer, Block p_147736_1_, int p_147736_2_, int p_147736_3_, int p_147736_4_, float p_147736_5_, float p_147736_6_, float p_147736_7_)
-	{
+	public FlippedUVCubeModel(int modelID) {
+		super(modelID);
+	}
+
+	public boolean renderStandardBlockWithColorMultiplier(RenderBlocks renderer, Block p_147736_1_, int p_147736_2_, int p_147736_3_, int p_147736_4_, float p_147736_5_, float p_147736_6_, float p_147736_7_) {
 		renderer.enableAO = false;
 		Tessellator tessellator = Tessellator.instance;
 		boolean flag = false;
@@ -27,15 +30,15 @@ public abstract class FlippedUVCubeModel extends BlockModelBase {
 		float f7 = f4 * p_147736_5_;
 		float f8 = f4 * p_147736_6_;
 		float f9 = f4 * p_147736_7_;
-		float f10 = f3;
-		float f11 = f5;
-		float f12 = f6;
-		float f13 = f3;
-		float f14 = f5;
-		float f15 = f6;
-		float f16 = f3;
-		float f17 = f5;
-		float f18 = f6;
+		float f10;
+		float f11;
+		float f12;
+		float f13;
+		float f14;
+		float f15;
+		float f16;
+		float f17;
+		float f18;
 		f10 = f3 * p_147736_5_;
 		f11 = f5 * p_147736_5_;
 		f12 = f6 * p_147736_5_;

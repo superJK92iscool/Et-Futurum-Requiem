@@ -1,20 +1,20 @@
 package ganymedes01.etfuturum.blocks;
 
-import java.util.Random;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.entities.EntityItemUninflammable;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.BlockCauldron;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+
+import java.util.Random;
 
 public class BlockLavaCauldron extends BlockCauldron {
 
@@ -54,20 +54,14 @@ public class BlockLavaCauldron extends BlockCauldron {
 	@Override
 	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity)
 	{
-		boolean flag = (int)entity.prevPosX != (int)entity.posX || (int)entity.prevPosY != (int)entity.posY || (int)entity.prevPosZ != (int)entity.posZ;
-
-		if ((flag || entity.ticksExisted % 25 == 0) && !(entity instanceof EntityItemUninflammable))
-		{
-			entity.motionY = 0.20000000298023224D;
-			entity.motionX = (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F;
-			entity.motionZ = (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F;
-			entity.playSound("random.fizz", 0.4F, 2.0F + world.rand.nextFloat() * 0.4F);
-		}
 		if (!world.isRemote) {
-			entity.attackEntityFrom(DamageSource.lava, 4.0F);
-			if(!entity.isImmuneToFire() && !(world.canBlockSeeTheSky(x, y + 1, z) && world.isRaining())) {
+			if (!entity.isImmuneToFire() && !(world.canBlockSeeTheSky(x, y + 1, z) && world.isRaining())) {
 				entity.setFire(15);
+				if (!(entity instanceof EntityLiving)) {
+					entity.playSound("random.fizz", 0.4F, 2.0F + world.rand.nextFloat() * 0.4F);
+				}
 			}
+			entity.attackEntityFrom(DamageSource.lava, 4.0F);
 		}
 	}
 	

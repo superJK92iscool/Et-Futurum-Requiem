@@ -6,7 +6,6 @@ import net.minecraft.block.Block;
 import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 
@@ -14,7 +13,6 @@ public class BlockPointedDripstoneRenderer implements ISimpleBlockRenderingHandl
 
 	@Override
 	public void renderInventoryBlock(Block block, int metadata, int modelId, RenderBlocks renderer) {
-		
 	}
 
 	@Override
@@ -39,12 +37,9 @@ public class BlockPointedDripstoneRenderer implements ISimpleBlockRenderingHandl
 		}
 
 		tessellator.setColorOpaque_F(f, f1, f2);
-		double d1 = (double)x;
-		double d2 = (double)y;
-		double d0 = (double)z;
 
 		IIcon iicon = block.getIcon(world, x, y, z, 0);
-		renderer.drawCrossedSquares(iicon, d1, d2, d0, 1.0F);
+		renderer.drawCrossedSquares(iicon, x, y, z, 1.0F);
 		return true;
 	}
 

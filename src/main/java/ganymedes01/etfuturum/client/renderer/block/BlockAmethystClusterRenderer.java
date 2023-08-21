@@ -14,7 +14,6 @@ public class BlockAmethystClusterRenderer implements ISimpleBlockRenderingHandle
 
 	@Override
 	public void renderInventoryBlock(Block block, int metadata, int modelId, RenderBlocks renderer) {
-
 	}
 
 	@Override
@@ -31,35 +30,34 @@ public class BlockAmethystClusterRenderer implements ISimpleBlockRenderingHandle
 		
 		IBlockAccess world = renderer.blockAccess;
 		  tessellator.setBrightness(block.getMixedBrightnessForBlock(world, x, y, z));
-//        tessellator.setBrightness(200);
 		  float f = 1.0F;
 		  int l = block.colorMultiplier(world, x, y, z);
 		  float f1 = (float)(l >> 16 & 255) / 255.0F;
 		  float f2 = (float)(l >> 8 & 255) / 255.0F;
 		  float f3 = (float)(l & 255) / 255.0F;
-		  if(EntityRenderer.anaglyphEnable) {
-			 float renX = (f1 * 30.0F + f2 * 59.0F + f3 * 11.0F) / 100.0F;
-			 float f5 = (f1 * 30.0F + f2 * 70.0F) / 100.0F;
-			 float renY = (f1 * 30.0F + f3 * 70.0F) / 100.0F;
-			 f1 = renX;
-			 f2 = f5;
-			 f3 = renY;
-		  }
+		if (EntityRenderer.anaglyphEnable) {
+			float renX = (f1 * 30.0F + f2 * 59.0F + f3 * 11.0F) / 100.0F;
+			float f5 = (f1 * 30.0F + f2 * 70.0F) / 100.0F;
+			float renY = (f1 * 30.0F + f3 * 70.0F) / 100.0F;
+			f1 = renX;
+			f2 = f5;
+			f3 = renY;
+		}
 
-		  tessellator.setColorOpaque_F(f * f1, f * f2, f * f3);
-		  double renX1 = (double)x;
-		  double renY1 = (double)y;
-		  double renZ = (double)z;
-		  if(block == Blocks.tallgrass) {
-			 long meta = (long)(x * 3129871) ^ (long)x * 116129781L ^ (long)y;
-			 meta = meta * meta * 42317861L + meta * 11L;
-			 renX1 += ((double)((float)(meta >> 16 & 15L) / 15.0F) - 0.5D) * 0.5D;
-			 renY1 += ((double)((float)(meta >> 20 & 15L) / 15.0F) - 1.0D) * 0.2D;
-			 renZ += ((double)((float)(meta >> 24 & 15L) / 15.0F) - 0.5D) * 0.5D;
-		  }
+		tessellator.setColorOpaque_F(f * f1, f * f2, f * f3);
+		double renX1 = x;
+		double renY1 = y;
+		double renZ = z;
+		if (block == Blocks.tallgrass) {
+			long meta = ((long) x * 3129871L) ^ (long) x * 116129781L ^ (long) y;
+			meta = meta * meta * 42317861L + meta * 11L;
+			renX1 += (((double) (meta >> 16 & 15L) / 15.0F) - 0.5D) * 0.5D;
+			renY1 += (((double) (meta >> 20 & 15L) / 15.0F) - 1.0D) * 0.2D;
+			renZ += (((double) (meta >> 24 & 15L) / 15.0F) - 0.5D) * 0.5D;
+		}
 
-		  int meta1 = world.getBlockMetadata(x, y, z);
-		  IIcon icon = renderer.getBlockIconFromSideAndMetadata(block, 0, meta1);
+		int meta1 = world.getBlockMetadata(x, y, z);
+		IIcon icon = renderer.getBlockIconFromSideAndMetadata(block, 0, meta1);
 		  if(renderer.hasOverrideBlockTexture()) {
 			 icon = renderer.overrideBlockTexture;
 		  }
@@ -93,29 +91,29 @@ public class BlockAmethystClusterRenderer implements ISimpleBlockRenderingHandle
 			  renderType = 2;
 			  verTop = renZ + 1.0D;
 			  verBot = renZ + 0.0D;
-			 break;
-		  case 4:
-			  renderType = 1;
-			  verTop = renX1 + 0.0D;
-			  verBot = renX1 + 1.0D;
 			  break;
+			  case 4:
+				  renderType = 1;
+				  verTop = renX1 + 0.0D;
+				  verBot = renX1 + 1.0D;
+				  break;
 		  }
 
-		  double fix = 0.45D;
-		  double minU = (double)icon.getMinU();
-		  double minV = (double)icon.getMinV();
-		  double maxU = (double)icon.getMaxU();
-		  double maxV = (double)icon.getMaxV();
-		  double yMin;
-		  double yMax;
-		  double xMin;
-		  double xMax;
-		  if(renderType == 0) {
-			 yMin = renX1 + 0.5D - fix;
-			 yMax = renX1 + 0.5D + fix;
-			 xMin = renZ + 0.5D - fix;
-			 xMax = renZ + 0.5D + fix;
-			 tessellator.addVertexWithUV(yMin, verTop, xMin, minU, minV);
+		double fix = 0.45D;
+		double minU = icon.getMinU();
+		double minV = icon.getMinV();
+		double maxU = icon.getMaxU();
+		double maxV = icon.getMaxV();
+		double yMin;
+		double yMax;
+		double xMin;
+		double xMax;
+		if (renderType == 0) {
+			yMin = renX1 + 0.5D - fix;
+			yMax = renX1 + 0.5D + fix;
+			xMin = renZ + 0.5D - fix;
+			xMax = renZ + 0.5D + fix;
+			tessellator.addVertexWithUV(yMin, verTop, xMin, minU, minV);
 			 tessellator.addVertexWithUV(yMin, verBot, xMin, minU, maxV);
 			 tessellator.addVertexWithUV(yMax, verBot, xMax, maxU, maxV);
 			 tessellator.addVertexWithUV(yMax, verTop, xMax, maxU, minV);

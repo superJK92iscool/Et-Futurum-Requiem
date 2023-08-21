@@ -12,15 +12,19 @@ import net.minecraft.world.IBlockAccess;
 @SideOnly(Side.CLIENT)
 public class BlockEndRodRender extends BlockModelBase {
 
+	public BlockEndRodRender(int modelID) {
+		super(modelID);
+	}
+
 	@Override
 	public void renderInventoryBlock(Block block, int meta, int modelID, RenderBlocks renderer) {
 		Tessellator tessellator = Tessellator.instance;
 		OpenGLHelper.translate(-0.5F, -0.5F, -0.5F);
 
-		double x = 7 / 16.0;
-		double y = 0;
-		double z = 7 / 16.0;
-		renderer.setRenderBounds(0, 1 / 16F, 0, 2 / 16F, 1, 2 / 16F);
+		double x = 0.4375D;
+		double y = 0.0D;
+		double z = 0.4375D;
+		renderer.setRenderBounds(0, 0.0625D, 0, 0.125D, 1, 0.125D);
 		tessellator.startDrawingQuads();
 		tessellator.setNormal(0.0F, -1.0F, 0.0F);
 		renderer.renderFaceYNeg(block, x, y, z, renderer.getBlockIconFromSideAndMetadata(block, 0, meta));
@@ -36,18 +40,18 @@ public class BlockEndRodRender extends BlockModelBase {
 		renderer.renderFaceXPos(block, x, y, z, renderer.getBlockIconFromSideAndMetadata(block, 5, meta));
 		tessellator.draw();
 
-		x = 4 / 16.0;
-		y = 0;
-		z = 4 / 16.0;
-		renderer.setRenderBounds(2 / 16F, 0, 2 / 16F, 6 / 16F, 1 / 16F, 6 / 16F);
+		x = 0.25D;
+		z = 0.25D;
+
+		renderer.setRenderBounds(0.125D, 0, 0.125D, 0.375D, 0.0625D, 0.375D);
 		tessellator.startDrawingQuads();
 		tessellator.setNormal(0.0F, -1.0F, 0.0F);
 		renderer.renderFaceYNeg(block, x, y, z, renderer.getBlockIconFromSideAndMetadata(block, 0, meta));
 		tessellator.setNormal(0.0F, 1.0F, 0.0F);
 		renderer.renderFaceYPos(block, x, y, z, renderer.getBlockIconFromSideAndMetadata(block, 1, meta));
-		x = .25;
-		y = -.5625;
-		z = .25;
+
+		y = -.5625D;
+
 		renderer.setRenderBounds(0.125D, 0.5625, 0.125D, 0.375D, 0.625D, 0.375D);
 		tessellator.setNormal(0.0F, 0.0F, -1.0F);
 		renderer.renderFaceZNeg(block, x, y, z, renderer.getBlockIconFromSideAndMetadata(block, 2, meta));
@@ -58,17 +62,11 @@ public class BlockEndRodRender extends BlockModelBase {
 		tessellator.setNormal(1.0F, 0.0F, 0.0F);
 		renderer.renderFaceXPos(block, x, y, z, renderer.getBlockIconFromSideAndMetadata(block, 5, meta));
 		tessellator.draw();
-		
 	}
 
 	@Override
 	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
-
-		Tessellator tessellator = Tessellator.instance;
 		int meta = world.getBlockMetadata(x, y, z) % 6;
-
-		float f1 = 0.125F;
-		float f2 = 0.0625F;
 
 		double x1 = 0;
 		double y1 = 0;

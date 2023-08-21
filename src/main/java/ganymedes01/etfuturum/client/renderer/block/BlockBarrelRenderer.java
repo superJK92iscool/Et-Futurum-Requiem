@@ -1,57 +1,25 @@
 package ganymedes01.etfuturum.client.renderer.block;
 
-import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
-import ganymedes01.etfuturum.client.OpenGLHelper;
-import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.world.IBlockAccess;
 
-public class BlockBarrelRenderer implements ISimpleBlockRenderingHandler {
+public class BlockBarrelRenderer extends BlockModelBase {
 
-	@Override
-	public void renderInventoryBlock(Block block, int meta, int modelID, RenderBlocks renderer) {
-		Tessellator tessellator = Tessellator.instance;
-		OpenGLHelper.translate(-0.5F, -0.5F, -0.5F);
+	public BlockBarrelRenderer(int modelID) {
+		super(modelID);
+	}
 
-		int metadata = BlockPistonBase.getPistonOrientation(meta);
-		switch(metadata) {
-		case 0: metadata = 1;
-		break;
-		case 1: metadata = 0;
-		break;
-		
-		default: metadata = meta;
-		break;
-		}
-		renderer.setRenderBounds(0, 0, 0, 1, 1, 1);
-		tessellator.startDrawingQuads();
-		tessellator.setNormal(0.0F, -1.0F, 0.0F);
-		renderer.renderFaceYNeg(block, 0.0D, 0.0D, 0.0D, renderer.getBlockIconFromSideAndMetadata(block, 0, metadata));
-		tessellator.setNormal(0.0F, 1.0F, 0.0F);
-		renderer.renderFaceYPos(block, 0.0D, 0.0D, 0.0D, renderer.getBlockIconFromSideAndMetadata(block, 1, metadata));
-		tessellator.setNormal(0.0F, 0.0F, -1.0F);
-		renderer.renderFaceZNeg(block, 0.0D, 0.0D, 0.0D, renderer.getBlockIconFromSideAndMetadata(block, 2, metadata));
-		tessellator.setNormal(0.0F, 0.0F, 1.0F);
-		renderer.renderFaceZPos(block, 0.0D, 0.0D, 0.0D, renderer.getBlockIconFromSideAndMetadata(block, 3, metadata));
-		tessellator.setNormal(-1.0F, 0.0F, 0.0F);
-		renderer.renderFaceXNeg(block, 0.0D, 0.0D, 0.0D, renderer.getBlockIconFromSideAndMetadata(block, 4, metadata));
-		tessellator.setNormal(1.0F, 0.0F, 0.0F);
-		renderer.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, renderer.getBlockIconFromSideAndMetadata(block, 5, metadata));
-		tessellator.draw();
-
-		OpenGLHelper.translate(0.5F, 0.5F, 0.5F);
-		OpenGLHelper.disableBlend();
+	protected void renderStandardInventoryBlock(Block block, int meta, int modelID, RenderBlocks renderer, double minX, double minY, double minZ, double maxF, double maxY, double maxZ) {
+		super.renderStandardInventoryBlock(block, 1, modelID, renderer, minX, minY, minZ, maxF, maxY, maxZ);
 	}
 
 	@Override
 	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
 		int l = BlockPistonBase.getPistonOrientation(renderer.blockAccess.getBlockMetadata(x, y, z));
 
-			switch (l)
-			{
+		switch (l) {
 			case 0:
 				renderer.uvRotateEast = 3;
 				renderer.uvRotateWest = 3;
@@ -97,16 +65,6 @@ public class BlockBarrelRenderer implements ISimpleBlockRenderingHandler {
 			renderer.uvRotateBottom = 0;
 
 		return true;
-	}
-
-	@Override
-	public boolean shouldRender3DInInventory(int modelId) {
-		return true;
-	}
-
-	@Override
-	public int getRenderId() {
-		return RenderIDs.BARREL;
 	}
 
 }
