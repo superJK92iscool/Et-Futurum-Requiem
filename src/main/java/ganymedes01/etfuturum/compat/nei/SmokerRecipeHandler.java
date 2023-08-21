@@ -107,7 +107,7 @@ public class SmokerRecipeHandler extends FurnaceRecipeHandler {
 
 	@Override
 	public String getRecipeName() {
-		return StatCollector.translateToLocal("tile.etfuturum.smoker.name");
+		return StatCollector.translateToLocal("efr.nei.smoker");
 	}
 
 	@Override

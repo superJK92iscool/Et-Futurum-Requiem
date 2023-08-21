@@ -5,7 +5,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
-import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.GUIsID;
 import net.minecraft.block.BlockEnchantmentTable;
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,7 +20,7 @@ public class BlockNewEnchantmentTable extends BlockEnchantmentTable {
 		setHardness(5.0F);
 		setResistance(2000.0F);
 		setBlockTextureName("enchanting_table");
-		setBlockName(Utils.getUnlocalisedName("enchantment_table"));
+		setBlockName("enchantmentTable");
 		setCreativeTab(ConfigWorld.tileReplacementMode == -1 ? EtFuturum.creativeTabBlocks : null);
 	}
 

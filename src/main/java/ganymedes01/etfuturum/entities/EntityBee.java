@@ -4,6 +4,8 @@ import com.google.common.collect.Lists;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.blocks.BlockBeeHive;
+import ganymedes01.etfuturum.blocks.BlockBerryBush;
+import ganymedes01.etfuturum.blocks.BlockChorusFlower;
 import ganymedes01.etfuturum.core.utils.EntityVectorUtils;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
@@ -17,6 +19,7 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.ai.*;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.pathfinding.PathEntity;
@@ -127,7 +130,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		tasks.addTask(0, new EntityBee.StingGoal(this, EntityLivingBase.class, 1.4D, true));
 		tasks.addTask(1, new EntityBee.EnterBeehiveGoal());
 		tasks.addTask(2, new EntityAIMate(this, 1.0D));
-//		tasks.addTask(3, new EntityAITempt(this, 1.25D, Item.getItemFromBlock(Blocks.red_flower), false));//Tempting seems to already work
+		tasks.addTask(3, new TemptBeeWithFlowerGoal(this, 1.25D, false));
 		this.pollinateGoal = new EntityBee.PollinateGoal();
 		tasks.addTask(4, this.pollinateGoal);
 		tasks.addTask(5, new EntityAIFollowParent(this, 1.25D));
@@ -397,6 +400,33 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 //		worldIn.addParticle(particleData, Utils.lerp(worldIn.rand.nextDouble(), p_226397_2_, p_226397_4_), posY, Utils.lerp(worldIn.rand.nextDouble(), p_226397_6_, p_226397_8_), 0.0D, 0.0D, 0.0D);
 //	}
 
+	//TODO: Maybe fix [https://bugs.mojang.com/browse/MC-168267](MC-168267) and evaluate the contents of flower pots?
+	private boolean isFlower(BlockPos pos) {
+		Block block = pos.getBlock(worldObj);
+		Block blockBelow = worldObj.getBlock(pos.getX(), pos.getY() - 1, pos.getZ());
+		if (block instanceof BlockDoublePlant && blockBelow instanceof BlockDoublePlant) {
+			int meta = pos.getBlockMetadata(worldObj);
+			int metaBelow = worldObj.getBlockMetadata(pos.getX(), pos.getY() - 1, pos.getZ());
+			return meta > 8 && (metaBelow != 2 && metaBelow != 3 || blockBelow != Blocks.double_plant); //Top half of plant and NOT grass or fern, or isn't Minecraft
+		}
+		return isValidFlower(block);
+	}
+
+	//TODO: These functions should detect flowering azalea saplings and flowering azalea leaves, cherry leaves, pink petals, mangrove propagules, and spore blossoms when added
+
+	private boolean isBreedingFlower(Block block, int meta) {
+		if (block instanceof BlockDoublePlant && block == Blocks.double_plant) {
+			return meta < 9;
+		}
+		return isValidFlower(block);
+	}
+
+	//Both flowers. For breeding the ItemBlock will have different metas, this is an issue for double plants so we handle them separately.
+	private boolean isValidFlower(Block block) {
+		if (block instanceof BlockFlower) {
+			return true;
+		} else return block instanceof BlockChorusFlower;
+	}
 
 	public BlockPos getFlowerPos() {
 		return this.savedFlowerPos;
@@ -628,22 +658,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 	}
 
 	public boolean isBreedingItem(ItemStack stack) {
-		return isFlower(Block.getBlockFromItem(stack.getItem()), stack.getItemDamage());
-	}
-
-	/**
-	 * Incomplete
-	 */
-	private boolean isFlower(Block block, int meta) {
-		if (block instanceof BlockFlower && !block.getUnlocalizedName().contains("wither")) {
-			return true;
-		} else if (block instanceof BlockDoublePlant) {
-			return true;
-//						if(block == Blocks.double_plant) {
-//
-//						}
-		}
-		return false;
+		return isBreedingFlower(Block.getBlockFromItem(stack.getItem()), stack.getItemDamage());
 	}
 
 	@Override
@@ -706,9 +721,16 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 			return false;
 		} else {
 			Entity entity = source.getEntity();
-			if (!this.worldObj.isRemote && entity instanceof EntityPlayer && !((EntityPlayer) entity).capabilities.isCreativeMode && this.canEntityBeSeen(entity)/* && !this.isAIDisabled()*/) {
+			if (!this.worldObj.isRemote && this.canEntityBeSeen(entity)/* && !this.isAIDisabled()*/) {
 				this.pollinateGoal.cancel();
-				this.setBeeAttacker(entity);
+				if (this.setBeeAttacker(entity) && (!(entity instanceof EntityPlayer) || !((EntityPlayer) entity).capabilities.isCreativeMode)) {
+					List<Entity> list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.expand(32.0D, 32.0D, 32.0D));
+					for (Entity entity1 : list) {
+						if (entity1 instanceof EntityBee) {
+							((EntityBee) entity1).setBeeAttacker(entity);
+						}
+					}
+				}
 			}
 
 			return super.attackEntityFrom(source, amount);
@@ -746,7 +768,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		}
 
 		protected boolean isSuitableTarget(EntityLivingBase targetIn, boolean p_75296_2_) {
-			if (targetIn != null && this.taskOwner.canEntityBeSeen(targetIn) && ((EntityBee) taskOwner).setBeeAttacker(targetIn)) {
+			if (targetIn != null && this.taskOwner.canEntityBeSeen(targetIn) && (!(targetIn instanceof EntityPlayer) || !((EntityPlayer) targetIn).capabilities.isCreativeMode) && ((EntityBee) taskOwner).setBeeAttacker(targetIn)) {
 				taskOwner.setAttackTarget(targetIn);
 				return true;
 			}
@@ -982,7 +1004,8 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		}
 
 		public boolean canBeeStart() {
-			return EntityBee.this.savedFlowerPos != null && !EntityBee.this.hasHome() && this.shouldMoveToFlower() && EntityBee.this.isFlower(savedFlowerPos.getBlock(worldObj), savedFlowerPos.getBlockMetadata(worldObj)) && !EntityBee.this.isWithinDistance(EntityBee.this.savedFlowerPos, 2);
+			return EntityBee.this.savedFlowerPos != null && !EntityBee.this.hasHome() && this.shouldMoveToFlower() && EntityBee.this.isFlower(savedFlowerPos)
+					&& !EntityBee.this.isWithinDistance(EntityBee.this.savedFlowerPos, 2);
 		}
 
 		public boolean canBeeContinue() {
@@ -1038,43 +1061,25 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 			return this.canBeeStart();
 		}
 
-//		public void updateTask() {
-//			if (EntityBee.this.rand.nextInt(30) == 0) {
-//				for(int i = 1; i <= 2; ++i) {
-//					BlockPos blockpos = (new BlockPos(EntityBee.this)).down(i);
-//					Block block = blockpos.getBlock(worldObj);
-//					boolean flag = false;
-//					IntegerProperty integerproperty = null;
-//					if (block.isIn(BlockTags.BEE_GROWABLES)) {
-//						if (block instanceof CropsBlock) {
-//							CropsBlock cropsblock = (CropsBlock)block;
-//							if (!cropsblock.isMaxAge(blockstate)) {
-//								flag = true;
-//								integerproperty = cropsblock.getAgeProperty();
-//							}
-//						} else if (block instanceof StemBlock) {
-//							int j = blockstate.get(StemBlock.AGE);
-//							if (j < 7) {
-//								flag = true;
-//								integerproperty = StemBlock.AGE;
-//							}
-//						} else if (block == Blocks.SWEET_BERRY_BUSH) {
-//							int k = blockstate.get(SweetBerryBushBlock.AGE);
-//							if (k < 3) {
-//								flag = true;
-//								integerproperty = SweetBerryBushBlock.AGE;
-//							}
-//						}
-//
-//						if (flag) {
-//							EntityBee.this.playSound(Reference.MCAssetVer + ":entity.bee.pollinate", 1.0F, 1.0F);
-////							EntityBee.this.worldObj.setBlockState(blockpos, blockstate.with(integerproperty, Integer.valueOf(blockstate.get(integerproperty) + 1)));
-//							EntityBee.this.addCropCounter();
-//						}
-//					}
-//				}
-//			}
-//		}
+		public void updateTask() {
+			if (EntityBee.this.rand.nextInt(30) == 0) {
+				for (int i = 1; i <= 2; ++i) {
+					int x = (int) posX;
+					int y = (int) posY - i;
+					int z = (int) posZ;
+					Block block = worldObj.getBlock(x, y, z);
+					if (block instanceof BlockCrops || block instanceof BlockStem || block instanceof BlockBerryBush) {
+						if (((IGrowable) block).func_149851_a(worldObj, x, y, z, false) && ((IGrowable) block).func_149852_a(worldObj, worldObj.rand, x, y, z)) {
+							((IGrowable) block).func_149853_b(worldObj, worldObj.rand, x, y, z);
+							playSound(Reference.MCAssetVer + ":entity.bee.pollinate", 1.0F, 1.0F);
+							addCropCounter();
+							//TODO: Add cave vines as a pollinatable crop, when they get added
+							//Bees are supposed to pollinate one state according to the wiki, but I don't want to blidnly add 1 meta to modded blocks that might be setup a bit differently. So we'll bonemeal them for now.
+						}
+					}
+				}
+			}
+		}
 	}
 
 	abstract class PassiveGoal extends EntityAIBase {
@@ -1135,7 +1140,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 				return false;
 			} else if (this.completedPollination()) {
 				return EntityBee.this.rand.nextFloat() < 0.2F;
-			} else if (EntityBee.this.ticksExisted % 20 == 0 && !EntityBee.this.isFlower(savedFlowerPos.getBlock(worldObj), savedFlowerPos.getBlockMetadata(worldObj))) {
+			} else if (EntityBee.this.ticksExisted % 20 == 0 && !EntityBee.this.isFlower(savedFlowerPos)) {
 				EntityBee.this.savedFlowerPos = null;
 				return false;
 			} else {
@@ -1230,7 +1235,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		}
 
 		private Optional<BlockPos> findFlower(int distance) {
-			List<BlockPos> list = getBlocksInRange(pos -> isFlower(pos.getBlock(worldObj), pos.getBlockMetadata(worldObj)), distance, true);
+			List<BlockPos> list = getBlocksInRange(EntityBee.this::isFlower, distance, true);
 			return list.isEmpty() || list.get(0) == null ? Optional.empty() : Optional.of(list.get(0));
 		}
 	}
@@ -1311,6 +1316,29 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 			int i = 8;
 			Vec3 vec3d2 = EntityVectorUtils.findAirTarget(EntityBee.this, 8, 7, vec3d, ((float) Math.PI / 2F), 2, 1);
 			return vec3d2 != null ? vec3d2 : EntityVectorUtils.findGroundTarget(EntityBee.this, 8, 4, -2, vec3d, (float) Math.PI / 2F);
+		}
+	}
+
+	class TemptBeeWithFlowerGoal extends EntityAITempt {
+
+		public TemptBeeWithFlowerGoal(EntityCreature p_i45316_1_, double p_i45316_2_, boolean p_i45316_5_) {
+			super(p_i45316_1_, p_i45316_2_, null, p_i45316_5_);
+		}
+
+		public boolean shouldExecute() {
+			if (this.delayTemptCounter > 0) {
+				--this.delayTemptCounter;
+				return false;
+			} else {
+				this.temptingPlayer = this.temptedEntity.worldObj.getClosestPlayerToEntity(this.temptedEntity, getEntityAttribute(EtFuturumEntityAttributes.flyingSpeed).getAttributeValue());
+
+				if (this.temptingPlayer == null) {
+					return false;
+				} else {
+					ItemStack itemstack = this.temptingPlayer.getCurrentEquippedItem();
+					return itemstack != null && isBreedingFlower(Block.getBlockFromItem(itemstack.getItem()), itemstack.getItemDamage());
+				}
+			}
 		}
 	}
 }

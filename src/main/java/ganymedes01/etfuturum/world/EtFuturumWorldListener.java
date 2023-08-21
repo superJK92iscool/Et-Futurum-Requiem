@@ -1,10 +1,6 @@
 package ganymedes01.etfuturum.world;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -16,6 +12,9 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IWorldAccess;
 import net.minecraft.world.World;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class EtFuturumWorldListener implements IWorldAccess {
 	
 	private final World world;
@@ -23,38 +22,51 @@ public class EtFuturumWorldListener implements IWorldAccess {
 	
 	public EtFuturumWorldListener(World theWorld) {
 		world = theWorld;
-		if(ConfigBlocksItems.enableBrewingStands) {
-			if (ConfigWorld.tileReplacementMode == 0)
+		if (ModBlocks.BREWING_STAND.isEnabled()) {
+			if (ConfigWorld.tileReplacementMode == 0) {
 				replacements.put(Blocks.brewing_stand, ModBlocks.BREWING_STAND.get());
-			else if(ConfigWorld.tileReplacementMode == 1)
+			} else if (ConfigWorld.tileReplacementMode == 1) {
 				replacements.put(ModBlocks.BREWING_STAND.get(), Blocks.brewing_stand);
+			}
 		}
-		
 
-		if(ConfigBlocksItems.enableColourfulBeacons) {
-			if (ConfigWorld.tileReplacementMode == 0)
+
+		if (ModBlocks.BEACON.isEnabled()) {
+			if (ConfigWorld.tileReplacementMode == 0) {
 				replacements.put(Blocks.beacon, ModBlocks.BEACON.get());
-			else if(ConfigWorld.tileReplacementMode == 1)
+			} else if (ConfigWorld.tileReplacementMode == 1) {
 				replacements.put(ModBlocks.BEACON.get(), Blocks.beacon);
+			}
 		}
 
-		if(ConfigBlocksItems.enableEnchantingTable) {
-			if (ConfigWorld.tileReplacementMode == 0)
+		if (ModBlocks.ENCHANTMENT_TABLE.isEnabled()) {
+			if (ConfigWorld.tileReplacementMode == 0) {
 				replacements.put(Blocks.enchanting_table, ModBlocks.ENCHANTMENT_TABLE.get());
-			else if(ConfigWorld.tileReplacementMode == 1)
+			} else if (ConfigWorld.tileReplacementMode == 1) {
 				replacements.put(ModBlocks.ENCHANTMENT_TABLE.get(), Blocks.enchanting_table);
+			}
 		}
 
-		if(ConfigBlocksItems.enableAnvil) {
-			if (ConfigWorld.tileReplacementMode == 0)
+		if (ModBlocks.ANVIL.isEnabled()) {
+			if (ConfigWorld.tileReplacementMode == 0) {
 				replacements.put(Blocks.anvil, ModBlocks.ANVIL.get());
-			else if(ConfigWorld.tileReplacementMode == 1)
+			} else if (ConfigWorld.tileReplacementMode == 1) {
 				replacements.put(ModBlocks.ANVIL.get(), Blocks.anvil);
+			}
 		}
-		
-		if(ConfigBlocksItems.enableInvertedDaylightSensor) {
-			if (ConfigWorld.tileReplacementMode == 0 || ConfigWorld.tileReplacementMode == 1)
+
+		if (ModBlocks.SPONGE.isEnabled()) {
+			if (ConfigWorld.tileReplacementMode == 0) {
+				replacements.put(Blocks.sponge, ModBlocks.SPONGE.get());
+			} else if (ConfigWorld.tileReplacementMode == 1) {
+				replacements.put(ModBlocks.SPONGE.get(), Blocks.sponge);
+			}
+		}
+
+		if (ModBlocks.DAYLIGHT_DETECTOR.isEnabled()) {
+			if (ConfigWorld.tileReplacementMode != -1) {
 				replacements.put(ModBlocks.DAYLIGHT_DETECTOR.get(), Blocks.daylight_detector);
+			}
 		}
 	}
 

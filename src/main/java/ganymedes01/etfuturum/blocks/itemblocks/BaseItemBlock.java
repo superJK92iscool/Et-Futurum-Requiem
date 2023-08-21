@@ -22,15 +22,11 @@ public class BaseItemBlock extends ItemBlock {
 	}
 
 	private String addTilePrefix(String name) {
-		return "tile." + Utils.getUnlocalisedName(name);
+		return name.startsWith("tile.") ? name : "tile." + Utils.getUnlocalisedName(name);
 	}
 
 	@Override
 	public int getMetadata(int meta) {
 		return meta % ((ISubBlocksBlock) field_150939_a).getTypes().length;
-	}
-
-	private String[] getTypes() {
-		return ((ISubBlocksBlock) field_150939_a).getTypes();
 	}
 }

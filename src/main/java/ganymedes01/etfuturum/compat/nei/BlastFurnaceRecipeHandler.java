@@ -6,9 +6,9 @@ import ganymedes01.etfuturum.client.gui.inventory.GuiBlastFurnace;
 import ganymedes01.etfuturum.core.utils.ItemStackMap;
 import ganymedes01.etfuturum.recipes.BlastFurnaceRecipes;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
-import net.minecraft.util.StatCollector;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -106,7 +106,7 @@ public class BlastFurnaceRecipeHandler extends FurnaceRecipeHandler {
 
 	@Override
 	public String getRecipeName() {
-		return StatCollector.translateToLocal("tile.etfuturum.blast_furnace.name");
+		return I18n.format("efr.nei.blast_furnace");
 	}
 
 	@Override

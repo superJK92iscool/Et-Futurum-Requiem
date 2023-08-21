@@ -4,19 +4,23 @@ import com.google.common.collect.Lists;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
+import ganymedes01.etfuturum.ModBlocks;
+import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.world.WorldCoord;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Tuple;
 import net.minecraft.world.World;
+import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.util.ForgeDirection;
+import org.apache.commons.lang3.ArrayUtils;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Random;
+import java.util.*;
 
 public class BlockSponge extends BaseSubtypesBlock {
 
@@ -27,6 +31,11 @@ public class BlockSponge extends BaseSubtypesBlock {
 		setBlockTextureName("sponge");
 		setBlockName(Utils.getUnlocalisedName("sponge"));
 		setCreativeTab(EtFuturum.creativeTabBlocks);
+	}
+
+	@Override
+	public String getNameFor(ItemStack stack) {
+		return stack.getItemDamage() == 1 ? getTypes()[1] : Blocks.sponge.getUnlocalizedName();
 	}
 
 	@Override
@@ -41,9 +50,14 @@ public class BlockSponge extends BaseSubtypesBlock {
 	}
 
 	protected void tryAbsorb(World worldIn, int x, int y, int z, boolean wet) {
-		if (!wet && absorb(worldIn, x, y, z)) {
-			worldIn.setBlockMetadataWithNotify(x, y, z, 1, 2);
-			worldIn.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(Blocks.water));
+		if (!ArrayUtils.contains(BiomeDictionary.getTypesForBiome(worldIn.getBiomeGenForCoords(x, z)), BiomeDictionary.Type.NETHER)) {
+			if (!wet && absorb(worldIn, x, y, z)) {
+				worldIn.setBlockMetadataWithNotify(x, y, z, 1, 2);
+				worldIn.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(Blocks.water));
+			}
+		} else if (wet) {
+			worldIn.playSoundEffect(x + .5D, y + .5D, z + .5D, "random.fizz", 1, 1);
+			worldIn.setBlockMetadataWithNotify(x, y, z, 0, 2);
 		}
 	}
 
@@ -125,7 +139,26 @@ public class BlockSponge extends BaseSubtypesBlock {
 		}
 	}
 
+	@Override
+	@SideOnly(Side.CLIENT)
+	@SuppressWarnings({"unchecked", "rawtypes"})
+	public void getSubBlocks(Item item, CreativeTabs tab, List list) {
+		list.add(new ItemStack(item, 1, 1));
+	}
+
 	private ForgeDirection getRandomDirection(Random rand) {
 		return ForgeDirection.VALID_DIRECTIONS[rand.nextInt(ForgeDirection.VALID_DIRECTIONS.length)];
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public Item getItem(World world, int x, int y, int z) {
+		int meta = world.getBlockMetadata(x, y, z);
+		return Item.getItemFromBlock(ConfigWorld.tileReplacementMode == -1 || meta == 1 ? ModBlocks.SPONGE.get() : Blocks.sponge);
+	}
+
+	@Override
+	public Item getItemDropped(int meta, Random rand, int fortune) {
+		return Item.getItemFromBlock(ConfigWorld.tileReplacementMode == -1 || meta == 1 ? ModBlocks.SPONGE.get() : Blocks.sponge);
 	}
 }

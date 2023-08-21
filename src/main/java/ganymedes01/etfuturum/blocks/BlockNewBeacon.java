@@ -5,7 +5,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
-import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.tileentities.TileEntityNewBeacon;
 import net.minecraft.block.BlockBeacon;
 import net.minecraft.init.Blocks;
@@ -20,7 +19,7 @@ public class BlockNewBeacon extends BlockBeacon {
 	public BlockNewBeacon() {
 		setLightLevel(1.0F);
 		setBlockTextureName("beacon");
-		setBlockName(Utils.getUnlocalisedName("beacon"));
+		setBlockName("beacon");
 		setCreativeTab(ConfigWorld.tileReplacementMode == -1 ? EtFuturum.creativeTabBlocks : null);
 	}
 

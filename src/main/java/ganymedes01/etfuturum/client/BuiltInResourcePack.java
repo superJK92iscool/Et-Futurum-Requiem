@@ -1,26 +1,9 @@
 package ganymedes01.etfuturum.client;
 
-import java.awt.image.BufferedImage;
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileFilter;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Enumeration;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
-
-import cpw.mods.fml.relauncher.ReflectionHelper;
-import org.apache.commons.io.filefilter.DirectoryFileFilter;
-
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
-
 import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.relauncher.ReflectionHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.AbstractResourcePack;
 import net.minecraft.client.resources.IResourceManager;
@@ -28,6 +11,17 @@ import net.minecraft.client.resources.IResourcePack;
 import net.minecraft.client.resources.SimpleReloadableResourceManager;
 import net.minecraft.client.resources.data.IMetadataSection;
 import net.minecraft.client.resources.data.IMetadataSerializer;
+import org.apache.commons.io.filefilter.DirectoryFileFilter;
+
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.nio.file.Files;
+import java.util.Enumeration;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 
 // Inspired by ResourceManagerHelper in fabric-resource-loader-v0
 
@@ -173,7 +167,7 @@ public abstract class BuiltInResourcePack extends AbstractResourcePack {
 
 		@Override
 		protected InputStream getInputStreamByName(String name) throws IOException {
-			return new BufferedInputStream(new FileInputStream(new File(this.resourcePackFile, getRootPath() + "/" + name)));
+			return new BufferedInputStream(Files.newInputStream(new File(this.resourcePackFile, getRootPath() + "/" + name).toPath()));
 		}
 
 		@Override

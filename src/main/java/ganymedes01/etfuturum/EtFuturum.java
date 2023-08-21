@@ -429,6 +429,7 @@ public class EtFuturum {
 			{
 				BasicMultiBlockSound mbs = new BasicMultiBlockSound();
 				mbs.setTypes(2, ModSounds.soundNetherrack);
+				mbs.setTypes(9, ModSounds.soundBoneBlock);
 				MultiBlockSoundRegistry.multiBlockSounds.put(GameRegistry.findBlock("TConstruct", "decoration.multibrick"), mbs);
 				MultiBlockSoundRegistry.multiBlockSounds.put(GameRegistry.findBlock("TConstruct", "decoration.multibrickfancy"), mbs);
 			}

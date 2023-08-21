@@ -2,11 +2,9 @@ package ganymedes01.etfuturum.client;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
-import ganymedes01.etfuturum.core.utils.Logger;
 import ganymedes01.etfuturum.lib.Reference;
 import makamys.mclib.json.JsonUtil;
 import net.minecraft.client.Minecraft;
@@ -22,7 +20,6 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
 import java.util.Set;
 
 public class DynamicLangSoundsResourcePack implements IResourcePack {
@@ -39,7 +36,7 @@ public class DynamicLangSoundsResourcePack implements IResourcePack {
 	}
 
 	@Override
-	public BufferedImage getPackImage() throws IOException {
+	public BufferedImage getPackImage() {
 		return null;
 	}
 

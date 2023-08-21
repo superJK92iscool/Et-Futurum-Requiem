@@ -5,7 +5,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
-import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.GUIsID;
 import ganymedes01.etfuturum.tileentities.TileEntityNewBrewingStand;
 import net.minecraft.block.BlockBrewingStand;
@@ -24,19 +23,23 @@ public class BlockNewBrewingStand extends BlockBrewingStand {
 		setHardness(0.5F);
 		setLightLevel(0.125F);
 		setBlockTextureName("brewing_stand");
-		setBlockName(Utils.getUnlocalisedName("brewing_stand"));
 		setCreativeTab(ConfigWorld.tileReplacementMode == -1 ? EtFuturum.creativeTabBlocks : null);
+	}
+
+	@Override
+	public String getUnlocalizedName() {
+		return Items.brewing_stand.getUnlocalizedName();
 	}
 
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
 		if (world.isRemote)
 			return true;
-		
+
 		TileEntityBrewingStand tile = (TileEntityBrewingStand) world.getTileEntity(x, y, z);
 		if (tile != null)
 			player.openGui(EtFuturum.instance, GUIsID.BREWING_STAND, world, x, y, z);
-		
+
 		return true;
 	}
 

@@ -28,7 +28,6 @@ commands.etfuturum.fill.outOfWorld=Cannot place blocks outside of world
 commands.etfuturum.fill.success=Successfully filled %d block(s)
 
 # Containers/GUI
-container.etfuturum.banner=Banner
 #This happens if someone removes lapis as a fuel with CT and does not add anything else
 container.enchant.rusrs=No fuels available ಠ_ಠ
 container.enchant.lapis.one=1 Lapis Lazuli
@@ -293,6 +292,7 @@ entity.etfuturum.husk.name=Husk
 entity.etfuturum.guardian.name=Guardian
 entity.etfuturum.elder_guardian.name=Elder Guardian
 entity.etfuturum.polar_bear.name=Polar Bear
+entity.etfuturum.bee.name=Bee
 
 # Items
 item.etfuturum.mutton.name=Raw Mutton
@@ -358,6 +358,8 @@ item.etfuturum.dark_oak_chest_boat.name=Dark Oak Boat with Chest
 item.etfuturum.acacia_chest_boat.name=Acacia Boat with Chest
 item.etfuturum.shulker_shell.name=Shulker Shell
 item.etfuturum.amethyst_shard.name=Amethyst Shard
+item.etfuturum.honeycomb.name=Honeycomb
+item.etfuturum.honey_bottle.name=Honey bottle
 
 # Arrows
 item.etfuturum.tipped_arrow.name=Tipped Arrow
@@ -415,11 +417,11 @@ tile.etfuturum.coarse_dirt.name=Coarse Dirt
 tile.etfuturum.slime.name=Slime Block
 tile.etfuturum.sponge.name=Sponge
 tile.etfuturum.wet_sponge.name=Wet Sponge
-tile.etfuturum.door_spruce.name=Spruce Door
-tile.etfuturum.door_birch.name=Birch Door
-tile.etfuturum.door_jungle.name=Jungle Door
-tile.etfuturum.door_acacia.name=Acacia Door
-tile.etfuturum.door_dark_oak.name=Dark Oak Door
+tile.etfuturum.spruce_door.name=Spruce Door
+tile.etfuturum.birch_door.name=Birch Door
+tile.etfuturum.jungle_door.name=Jungle Door
+tile.etfuturum.acacia_door.name=Acacia Door
+tile.etfuturum.dark_oak_door.name=Dark Oak Door
 tile.etfuturum.fence_oak.name=Oak Fence
 tile.etfuturum.fence_spruce.name=Spruce Fence
 tile.etfuturum.fence_birch.name=Birch Fence
@@ -557,6 +559,28 @@ tile.etfuturum.magma.name=Magma Block
 tile.etfuturum.nether_wart.name=Nether Wart Block
 tile.etfuturum.bone.name=Bone Block
 
+tile.etfuturum.tinted_glass.name=Tinted Glass
+tile.etfuturun.bee_nest.name=Bee Nest
+tile.etfuturum.beehive.name=Beehive
+tile.etfuturum.honey_block.name=Honey Block
+tile.etfuturum.honeycomb_block.name=Honeycomb Block
+
+tile.etfuturum.barrel.name=Barrel
+tile.etfuturum.blast_furnace.name=Blast Furnace
+tile.etfuturum.smoker.name=Smoker
+tile.etfuturum.stonecutter.name=Stonecutter
+tile.etfuturum.smithing_table.name=Smithing Table
+tile.etfuturum.fletching_table.name=Fletching Table
+tile.etfuturum.composter.name=Composter
+tile.etfuturum.cartography_table.name=Cartography Table
+tile.etfuturum.loom.name=Loom
+tile.etfuturum.grindstone.name=Grindstone
+tile.etfuturum.lectern.name=Lectern
+tile.etfuturum.lantern.name=Lantern
+
+tile.etfuturum.observer.name=Observer
+tile.etfuturum.target.name=Target
+
 tile.etfuturum.prismarine_stairs.name=Prismarine Stairs
 tile.etfuturum.prismarine_brick_stairs.name=Prismarine Bricks Stairs
 tile.etfuturum.dark_prismarine_stairs.name=Dark Prismarine Stairs
@@ -620,19 +644,6 @@ tile.etfuturum.brown_glazed_terracotta.name=Brown Glazed Terracotta
 tile.etfuturum.green_glazed_terracotta.name=Green Glazed Terracotta
 tile.etfuturum.red_glazed_terracotta.name=Red Glazed Terracotta
 tile.etfuturum.black_glazed_terracotta.name=Black Glazed Terracotta
-
-tile.etfuturum.barrel.name=Barrel
-tile.etfuturum.blast_furnace.name=Blast Furnace
-tile.etfuturum.smoker.name=Smoker
-tile.etfuturum.stonecutter.name=Stonecutter
-tile.etfuturum.smithing_table.name=Smithing Table
-tile.etfuturum.fletching_table.name=Fletching Table
-tile.etfuturum.composter.name=Composter
-tile.etfuturum.cartography_table.name=Cartography Table
-tile.etfuturum.loom.name=Loom
-tile.etfuturum.grindstone.name=Grindstone
-tile.etfuturum.lectern.name=Lectern
-tile.etfuturum.lantern.name=Lantern
 
 tile.etfuturum.white_concrete_powder.name=White Concrete Powder
 tile.etfuturum.orange_concrete_powder.name=Orange Concrete Powder
@@ -859,11 +870,6 @@ item.shulker_copper_iron_upgrade.name=Copper to Iron Shulker Box Upgrade
 item.shulker_copper_silver_upgrade.name=Copper to Silver Shulker Box Upgrade
 item.shulker_silver_gold_upgrade.name=Silver to Gold Shulker Box Upgrade
 
-tile.etfuturum.tinted_glass.name=Tinted Glass
-
-tile.etfuturum.observer.name=Observer
-tile.etfuturum.target.name=Target
-
 util.totemBreak=§a§oYour Totem of Undying shatters...
 
 death.attack.hotFloor=%1$s discovered floor was lava
@@ -876,6 +882,9 @@ death.attack.stalagmite=%1$s was impaled on a stalagmite
 death.attack.stalagmite.player=%1$s was impaled on a stalagmite whilst trying to escape %2$s
 death.attack.flyIntoWall=%1$s experienced kinetic energy
 death.attack.flyIntoWall.player=%1$s experienced kinetic energy whilst trying to escape %2$s
+death.attack.sting=%1$s was stung to death
+death.attack.sting.item=%1$s was stung to death by %2$s using %3$s
+death.attack.sting.player=%1$s was stung to death by %2$s
 
 # Banners
 item.banner.black.name=Black Banner
@@ -1544,6 +1553,7 @@ item.banner.straight_cross.white=White Cross
 efr.nei.smoker=Smoking
 efr.nei.blast_furnace=Blasting
 efr.nei.composter=Composting
+efr.nei.banner=Banners
 efr.nei.amount=Amount
 efr.nei.weight=Weight
 

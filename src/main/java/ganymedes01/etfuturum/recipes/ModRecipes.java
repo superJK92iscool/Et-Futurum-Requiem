@@ -203,26 +203,26 @@ public class ModRecipes {
 		}
 
 		registerOre("dye", ModItems.DYE.newItemStack(1, OreDictionary.WILDCARD_VALUE));
-		registerOre("dyeWhite", ModItems.DYE.newItemStack(1, 0));
+		registerOre("dyeWhite", ModItems.DYE.newItemStack());
 		registerOre("dyeBlue", ModItems.DYE.newItemStack(1, 1));
 		registerOre("dyeBrown", ModItems.DYE.newItemStack(1, 2));
 		registerOre("dyeBlack", ModItems.DYE.newItemStack(1, 3));
 
-		registerOre("oreCopper", ModBlocks.COPPER_ORE.newItemStack(1, 0));
-		registerOre("ingotCopper", ModItems.COPPER_INGOT.newItemStack(1, 0));
-		registerOre("blockCopper", ModBlocks.COPPER_BLOCK.newItemStack(1, 0));
+		registerOre("oreCopper", ModBlocks.COPPER_ORE.newItemStack());
+		registerOre("ingotCopper", ModItems.COPPER_INGOT.newItemStack());
+		registerOre("blockCopper", ModBlocks.COPPER_BLOCK.newItemStack());
 		registerOre("blockCopperCut", ModBlocks.COPPER_BLOCK.newItemStack(1, 4));
 
-		registerOre("cobblestone", ModBlocks.COBBLED_DEEPSLATE.newItemStack(1, 0));
+		registerOre("cobblestone", ModBlocks.COBBLED_DEEPSLATE.newItemStack());
 
-		registerOre("rawCopper", ModItems.RAW_ORE.newItemStack(1, 0));
-		registerOre("blockRawCopper", ModBlocks.RAW_ORE_BLOCK.newItemStack(1, 0));
+		registerOre("rawCopper", ModItems.RAW_ORE.newItemStack());
+		registerOre("blockRawCopper", ModBlocks.RAW_ORE_BLOCK.newItemStack());
 		registerOre("rawIron", ModItems.RAW_ORE.newItemStack(1, 1));
 		registerOre("blockRawIron", ModBlocks.RAW_ORE_BLOCK.newItemStack(1, 1));
 		registerOre("rawGold", ModItems.RAW_ORE.newItemStack(1, 2));
 		registerOre("blockRawGold", ModBlocks.RAW_ORE_BLOCK.newItemStack(1, 2));
 
-		registerOre("oreCopper", ModItems.RAW_ORE.newItemStack(1, 0)); //Todo: the registration of copper raw ore should be conditional because it is a configurable meta value, I may make the raw ore class itself provide enabled metas.
+		registerOre("oreCopper", ModItems.RAW_ORE.newItemStack()); //Todo: the registration of copper raw ore should be conditional because it is a configurable meta value, I may make the raw ore class itself provide enabled metas.
 		registerOre("oreIron", ModItems.RAW_ORE.newItemStack(1, 1));
 		registerOre("oreGold", ModItems.RAW_ORE.newItemStack(1, 2));
 
@@ -230,7 +230,11 @@ public class ModRecipes {
 		registerOre("record", ModItems.OTHERSIDE_RECORD.get());
 
 		registerOre("gemAmethyst", ModItems.AMETHYST_SHARD.get());
-		registerOre("blockGlassTinted", ModBlocks.TINTED_GLASS.newItemStack(1, 0));
+		registerOre("blockGlassTinted", ModBlocks.TINTED_GLASS.newItemStack());
+
+		for (String waxString : IDegradable.waxStrings) {
+			registerOre(waxString, ModItems.HONEYCOMB.get());
+		}
 	}
 
 	private static void registerRecipes() {
@@ -277,15 +281,15 @@ public class ModRecipes {
 			}
 		}
 
-		addShapedRecipe(ModBlocks.PRISMARINE_BLOCK.newItemStack(1, 0), "xx", "xx", 'x', "shardPrismarine");
+		addShapedRecipe(ModBlocks.PRISMARINE_BLOCK.newItemStack(), "xx", "xx", 'x', "shardPrismarine");
 		addShapedRecipe(ModBlocks.PRISMARINE_BLOCK.newItemStack(1, 1), "xxx", "xxx", "xxx", 'x', "shardPrismarine");
 		addShapedRecipe(ModBlocks.PRISMARINE_BLOCK.newItemStack(1, 2), "xxx", "xyx", "xxx", 'x', "shardPrismarine", 'y', "dyeBlack");
 		addShapedRecipe(ModBlocks.SEA_LANTERN.newItemStack(), "xyx", "yyy", "xyx", 'x', "shardPrismarine", 'y', "crystalPrismarine");
 
-		addShapedRecipe(ModBlocks.PRISMARINE_STAIRS.newItemStack(4), "x  ", "xx ", "xxx", 'x', ModBlocks.PRISMARINE_BLOCK.newItemStack(1, 0));
+		addShapedRecipe(ModBlocks.PRISMARINE_STAIRS.newItemStack(4), "x  ", "xx ", "xxx", 'x', ModBlocks.PRISMARINE_BLOCK.newItemStack());
 		addShapedRecipe(ModBlocks.PRISMARINE_STAIRS_BRICK.newItemStack(4), "x  ", "xx ", "xxx", 'x', ModBlocks.PRISMARINE_BLOCK.newItemStack(1, 1));
 		addShapedRecipe(ModBlocks.PRISMARINE_STAIRS_DARK.newItemStack(4), "x  ", "xx ", "xxx", 'x', ModBlocks.PRISMARINE_BLOCK.newItemStack(1, 2));
-		addShapedRecipe(ModBlocks.PRISMARINE_WALL.newItemStack(6, 0), "xxx", "xxx", 'x', ModBlocks.PRISMARINE_BLOCK.newItemStack(1, 0));
+		addShapedRecipe(ModBlocks.PRISMARINE_WALL.newItemStack(6), "xxx", "xxx", 'x', ModBlocks.PRISMARINE_BLOCK.newItemStack());
 
 		for (int i = 0; i < 3; i++) {
 			addShapedRecipe(ModBlocks.PRISMARINE_SLAB.newItemStack(6, i), "xxx", 'x', ModBlocks.PRISMARINE_BLOCK.newItemStack(1, i));
@@ -300,7 +304,7 @@ public class ModRecipes {
 		for (int i = 0; i < metaBlocks.length; i++) {
 			addShapedRecipe(ModBlocks.DOUBLE_STONE_SLAB.newItemStack(6, i), "xxx", 'x', new ItemStack(metaBlocks[i], 1, i != 0 ? i - 1 : i));
 		}
-		addShapedRecipe(new ItemStack(Blocks.stone_slab, 6, 0), "xxx", 'x', ModBlocks.SMOOTH_STONE.newItemStack(1, 0));
+		addShapedRecipe(new ItemStack(Blocks.stone_slab, 6, 0), "xxx", 'x', ModBlocks.SMOOTH_STONE.newItemStack());
 
 
 		addShapedRecipe(ModBlocks.STONE_STAIRS.newItemStack(4), "x  ", "xx ", "xxx", 'x', new ItemStack(Blocks.stone, 1, 0));
@@ -331,9 +335,9 @@ public class ModRecipes {
 		addShapedRecipe(ModBlocks.RED_SANDSTONE.newItemStack(1, 1), "x", "x", 'x', ModBlocks.RED_SANDSTONE_SLAB.newItemStack());
 		addShapedRecipe(ModBlocks.RED_SANDSTONE.newItemStack(4, 2), "xx", "xx", 'x', ModBlocks.RED_SANDSTONE.newItemStack());
 		addShapedRecipe(ModBlocks.RED_SANDSTONE_SLAB.newItemStack(6, 1), "xxx", 'x', ModBlocks.RED_SANDSTONE.newItemStack(1, 2));
-		addShapedRecipe(ModBlocks.RED_SANDSTONE_SLAB.newItemStack(6, 0), "xxx", 'x', ModBlocks.RED_SANDSTONE.newItemStack(1, OreDictionary.WILDCARD_VALUE));
+		addShapedRecipe(ModBlocks.RED_SANDSTONE_SLAB.newItemStack(6), "xxx", 'x', ModBlocks.RED_SANDSTONE.newItemStack(1, OreDictionary.WILDCARD_VALUE));
 		addShapedRecipe(ModBlocks.RED_SANDSTONE_STAIRS.newItemStack(4), "x  ", "xx ", "xxx", 'x', ModBlocks.RED_SANDSTONE.get());
-		addShapedRecipe(ModBlocks.RED_SANDSTONE_WALL.newItemStack(6, 0), "xxx", "xxx", 'x', ModBlocks.RED_SANDSTONE.newItemStack(1, 0));
+		addShapedRecipe(ModBlocks.RED_SANDSTONE_WALL.newItemStack(6), "xxx", "xxx", 'x', ModBlocks.RED_SANDSTONE.newItemStack());
 
 		if (ConfigBlocksItems.enableFences) {
 			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Blocks.fence, 3), "xyx", "xyx", 'x', "plankWood", 'y', "stickWood"));
@@ -361,16 +365,14 @@ public class ModRecipes {
 		addSmelting(ModItems.RABBIT_RAW.get(), ModItems.RABBIT_COOKED.newItemStack(), 0.35F);
 		addShapedRecipe(new ItemStack(Items.leather), "xx", "xx", 'x', ModItems.RABBIT_HIDE.get());
 
-		addShapelessRecipe(ModBlocks.SPONGE.newItemStack(), Blocks.sponge);
-		addShapelessRecipe(new ItemStack(Blocks.sponge), ModBlocks.SPONGE.get()); //For recipes that want the vanilla sponge you can convert it
-		addSmelting(ModBlocks.SPONGE.newItemStack(1, 1), ModBlocks.SPONGE.newItemStack(), 0.15F);
+		addSmelting(ModBlocks.SPONGE.newItemStack(1, 1), ConfigWorld.tileReplacementMode == -1 ? ModBlocks.SPONGE.newItemStack() : new ItemStack(Blocks.sponge), 0.15F);
 
 		addShapedRecipe(ModItems.BEETROOT_SOUP.newItemStack(), "xxx", "xxx", " y ", 'x', "cropBeetroot", 'y', "bowlWood");
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.dye, 1, 1), "cropBeetroot"));
 
 		addShapedRecipe(ModBlocks.END_BRICK_SLAB.newItemStack(6), "xxx", 'x', ModBlocks.END_BRICKS.get());
 		addShapedRecipe(ModBlocks.END_BRICK_STAIRS.newItemStack(4), "x  ", "xx ", "xxx", 'x', ModBlocks.END_BRICKS.get());
-		addShapedRecipe(ModBlocks.END_BRICK_WALL.newItemStack(6, 0), "xxx", "xxx", 'x', ModBlocks.END_BRICKS.newItemStack(1, 0));
+		addShapedRecipe(ModBlocks.END_BRICK_WALL.newItemStack(6), "xxx", "xxx", 'x', ModBlocks.END_BRICKS.newItemStack());
 
 		addShapedRecipe(ModBlocks.PURPUR_BLOCK.newItemStack(4), "xx", "xx", 'x', ModItems.CHORUS_FRUIT_POPPED.get());
 		addShapedRecipe(ModBlocks.PURPUR_STAIRS.newItemStack(4), "x  ", "xx ", "xxx", 'x', ModBlocks.PURPUR_BLOCK.get());
@@ -407,12 +409,12 @@ public class ModRecipes {
 
 		addShapedRecipe(ModBlocks.MAGMA.newItemStack(), "xx", "xx", 'x', new ItemStack(Items.magma_cream));
 
-		addShapedRecipe(ModBlocks.RED_NETHERBRICK.newItemStack(1, 0), "xi", "ix", 'x', Items.nether_wart, 'i', "ingotBrickNether");
+		addShapedRecipe(ModBlocks.RED_NETHERBRICK.newItemStack(), "xi", "ix", 'x', Items.nether_wart, 'i', "ingotBrickNether");
 		addShapedRecipe(ModBlocks.RED_NETHERBRICK.newItemStack(1, 2), "x", "x", 'x', new ItemStack(Blocks.stone_slab, 1, 6));
 		addSmelting(new ItemStack(Blocks.nether_brick, 1, 1), ModBlocks.RED_NETHERBRICK.newItemStack(), .1F);
-		addShapedRecipe(ModBlocks.RED_NETHERBRICK_STAIRS.newItemStack(4, 0), "x  ", "xx ", "xxx", 'x', ModBlocks.RED_NETHERBRICK.newItemStack(1, 0));
-		addShapedRecipe(ModBlocks.RED_NETHERBRICK_SLAB.newItemStack(6, 0), "xxx", 'x', ModBlocks.RED_NETHERBRICK.newItemStack(1, 0));
-		addShapedRecipe(ModBlocks.RED_NETHER_BRICK_WALL.newItemStack(6, 0), "xxx", "xxx", 'x', ModBlocks.RED_NETHERBRICK.newItemStack(1, 0));
+		addShapedRecipe(ModBlocks.RED_NETHERBRICK_STAIRS.newItemStack(4), "x  ", "xx ", "xxx", 'x', ModBlocks.RED_NETHERBRICK.newItemStack());
+		addShapedRecipe(ModBlocks.RED_NETHERBRICK_SLAB.newItemStack(6), "xxx", 'x', ModBlocks.RED_NETHERBRICK.newItemStack());
+		addShapedRecipe(ModBlocks.RED_NETHER_BRICK_WALL.newItemStack(6), "xxx", "xxx", 'x', ModBlocks.RED_NETHERBRICK.newItemStack());
 
 		addShapedRecipe(ModBlocks.NETHER_WART.newItemStack(), "xxx", "xxx", "xxx", 'x', Items.nether_wart);
 		addShapelessRecipe(new ItemStack(Items.nether_wart, 9), ModBlocks.NETHER_WART.get());
@@ -478,29 +480,29 @@ public class ModRecipes {
 		}
 
 		addSmelting(new ItemStack(Blocks.sandstone, 1, 0), ModBlocks.SMOOTH_SANDSTONE.newItemStack(), .1F);
-		addShapedRecipe(ModBlocks.SMOOTH_SANDSTONE_STAIRS.newItemStack(4, 0), "x  ", "xx ", "xxx", 'x', ModBlocks.SMOOTH_SANDSTONE.newItemStack(1, 0));
-		addShapedRecipe(ModBlocks.SMOOTH_SANDSTONE_SLAB.newItemStack(6, 0), "xxx", 'x', ModBlocks.SMOOTH_SANDSTONE.newItemStack(1, 0));
-		addSmelting(ModBlocks.RED_SANDSTONE.newItemStack(1, 0), ModBlocks.SMOOTH_RED_SANDSTONE.newItemStack(), .1F);
-		addShapedRecipe(ModBlocks.SMOOTH_RED_SANDSTONE_STAIRS.newItemStack(4, 0), "x  ", "xx ", "xxx", 'x', ModBlocks.SMOOTH_RED_SANDSTONE.newItemStack(1, 0));
-		addShapedRecipe(ModBlocks.SMOOTH_RED_SANDSTONE_SLAB.newItemStack(6, 0), "xxx", 'x', ModBlocks.SMOOTH_RED_SANDSTONE.newItemStack(1, 0));
+		addShapedRecipe(ModBlocks.SMOOTH_SANDSTONE_STAIRS.newItemStack(4), "x  ", "xx ", "xxx", 'x', ModBlocks.SMOOTH_SANDSTONE.newItemStack());
+		addShapedRecipe(ModBlocks.SMOOTH_SANDSTONE_SLAB.newItemStack(6), "xxx", 'x', ModBlocks.SMOOTH_SANDSTONE.newItemStack());
+		addSmelting(ModBlocks.RED_SANDSTONE.newItemStack(), ModBlocks.SMOOTH_RED_SANDSTONE.newItemStack(), .1F);
+		addShapedRecipe(ModBlocks.SMOOTH_RED_SANDSTONE_STAIRS.newItemStack(4), "x  ", "xx ", "xxx", 'x', ModBlocks.SMOOTH_RED_SANDSTONE.newItemStack());
+		addShapedRecipe(ModBlocks.SMOOTH_RED_SANDSTONE_SLAB.newItemStack(6), "xxx", 'x', ModBlocks.SMOOTH_RED_SANDSTONE.newItemStack());
 
 
 		addSmelting(new ItemStack(Blocks.quartz_block, 1, 0), ModBlocks.SMOOTH_QUARTZ.newItemStack(), .1F);
-		addShapedRecipe(ModBlocks.SMOOTH_QUARTZ_STAIRS.newItemStack(4, 0), "x  ", "xx ", "xxx", 'x', ModBlocks.SMOOTH_QUARTZ.newItemStack(1, 0));
+		addShapedRecipe(ModBlocks.SMOOTH_QUARTZ_STAIRS.newItemStack(4), "x  ", "xx ", "xxx", 'x', ModBlocks.SMOOTH_QUARTZ.newItemStack());
 
-		addShapedRecipe(ModBlocks.QUARTZ_BRICKS.newItemStack(4, 0), "xx", "xx", 'x', new ItemStack(Blocks.quartz_block, 1, 0));
+		addShapedRecipe(ModBlocks.QUARTZ_BRICKS.newItemStack(4), "xx", "xx", 'x', new ItemStack(Blocks.quartz_block, 1, 0));
 
-		addShapelessRecipe(ModItems.DYE.newItemStack(1, 0), ModBlocks.LILY_OF_THE_VALLEY.newItemStack(1, 0));
-		addShapelessRecipe(ModItems.DYE.newItemStack(1, 1), ModBlocks.CORNFLOWER.newItemStack(1, 0));
-		addShapelessRecipe(ModItems.DYE.newItemStack(1, 3), ModBlocks.WITHER_ROSE.newItemStack(1, 0));
-		addShapelessRecipe(ModItems.DYE.newItemStack(1, 0), new ItemStack(Items.dye, 1, 15));
+		addShapelessRecipe(ModItems.DYE.newItemStack(), ModBlocks.LILY_OF_THE_VALLEY.newItemStack());
+		addShapelessRecipe(ModItems.DYE.newItemStack(1, 1), ModBlocks.CORNFLOWER.newItemStack());
+		addShapelessRecipe(ModItems.DYE.newItemStack(1, 3), ModBlocks.WITHER_ROSE.newItemStack());
+		addShapelessRecipe(ModItems.DYE.newItemStack(), new ItemStack(Items.dye, 1, 15));
 		addShapelessRecipe(ModItems.DYE.newItemStack(1, 1), new ItemStack(Items.dye, 1, 4));
 		addShapelessRecipe(ModItems.DYE.newItemStack(1, 2), new ItemStack(Items.dye, 1, 3));
 		addShapelessRecipe(ModItems.DYE.newItemStack(1, 3), new ItemStack(Items.dye, 1, 0));
 
 		Block[] copper_stairs = new Block[]{ModBlocks.CUT_COPPER_STAIRS.get(), ModBlocks.EXPOSED_CUT_COPPER_STAIRS.get(), ModBlocks.WEATHERED_CUT_COPPER_STAIRS.get(), ModBlocks.OXIDIZED_CUT_COPPER_STAIRS.get(), ModBlocks.WAXED_CUT_COPPER_STAIRS.get(), ModBlocks.WAXED_EXPOSED_CUT_COPPER_STAIRS.get(), ModBlocks.WAXED_WEATHERED_CUT_COPPER_STAIRS.get(), ModBlocks.WAXED_OXIDIZED_CUT_COPPER_STAIRS.get()};
-		addShapedRecipe(ModBlocks.COPPER_BLOCK.newItemStack(1), "xxx", "xxx", "xxx", 'x', ModItems.COPPER_INGOT.newItemStack(1, 0));
-		addShapedRecipe(ModItems.COPPER_INGOT.newItemStack(9), "x", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 0));
+		addShapedRecipe(ModBlocks.COPPER_BLOCK.newItemStack(1), "xxx", "xxx", "xxx", 'x', ModItems.COPPER_INGOT.newItemStack());
+		addShapedRecipe(ModItems.COPPER_INGOT.newItemStack(9), "x", 'x', ModBlocks.COPPER_BLOCK.newItemStack());
 		addShapedRecipe(ModItems.COPPER_INGOT.newItemStack(9), "x", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 8));
 
 		addSmelting(ModBlocks.COPPER_ORE.newItemStack(), ModItems.COPPER_INGOT.newItemStack(), .7F);
@@ -540,25 +542,25 @@ public class ModRecipes {
 		}
 
 		addSmelting(ModBlocks.COBBLED_DEEPSLATE.get(), ModBlocks.DEEPSLATE.newItemStack(), 0.1F);
-		addSmelting(ModBlocks.DEEPSLATE_BRICKS.newItemStack(1, 0), ModBlocks.DEEPSLATE_BRICKS.newItemStack(1, 1), 0.1F);
+		addSmelting(ModBlocks.DEEPSLATE_BRICKS.newItemStack(), ModBlocks.DEEPSLATE_BRICKS.newItemStack(1, 1), 0.1F);
 		addSmelting(ModBlocks.DEEPSLATE_BRICKS.newItemStack(1, 2), ModBlocks.DEEPSLATE_BRICKS.newItemStack(1, 3), 0.1F);
 
-		addShapedRecipe(ModBlocks.POLISHED_DEEPSLATE.newItemStack(4, 0), "xx", "xx", 'x', ModBlocks.COBBLED_DEEPSLATE.newItemStack(1, 0));
-		addShapedRecipe(ModBlocks.DEEPSLATE_BRICKS.newItemStack(4, 0), "xx", "xx", 'x', ModBlocks.POLISHED_DEEPSLATE.newItemStack(1, 0));
-		addShapedRecipe(ModBlocks.DEEPSLATE_BRICKS.newItemStack(4, 2), "xx", "xx", 'x', ModBlocks.DEEPSLATE_BRICKS.newItemStack(1, 0));
-		addShapedRecipe(ModBlocks.DEEPSLATE_BRICKS.newItemStack(1, 4), "x", "x", 'x', ModBlocks.DEEPSLATE_SLAB.newItemStack(1, 0));
+		addShapedRecipe(ModBlocks.POLISHED_DEEPSLATE.newItemStack(4), "xx", "xx", 'x', ModBlocks.COBBLED_DEEPSLATE.newItemStack());
+		addShapedRecipe(ModBlocks.DEEPSLATE_BRICKS.newItemStack(4), "xx", "xx", 'x', ModBlocks.POLISHED_DEEPSLATE.newItemStack());
+		addShapedRecipe(ModBlocks.DEEPSLATE_BRICKS.newItemStack(4, 2), "xx", "xx", 'x', ModBlocks.DEEPSLATE_BRICKS.newItemStack());
+		addShapedRecipe(ModBlocks.DEEPSLATE_BRICKS.newItemStack(1, 4), "x", "x", 'x', ModBlocks.DEEPSLATE_SLAB.newItemStack());
 
-		addShapedRecipe(ModBlocks.COBBLED_DEEPSLATE_STAIRS.newItemStack(4, 0), "x  ", "xx ", "xxx", 'x', ModBlocks.COBBLED_DEEPSLATE.newItemStack(1, 0));
-		addShapedRecipe(ModBlocks.POLISHED_DEEPSLATE_STAIRS.newItemStack(4, 0), "x  ", "xx ", "xxx", 'x', ModBlocks.POLISHED_DEEPSLATE.newItemStack(1, 0));
-		addShapedRecipe(ModBlocks.DEEPSLATE_BRICK_STAIRS.newItemStack(4, 0), "x  ", "xx ", "xxx", 'x', ModBlocks.DEEPSLATE_BRICKS.newItemStack(1, 0));
-		addShapedRecipe(ModBlocks.DEEPSLATE_TILE_STAIRS.newItemStack(4, 0), "x  ", "xx ", "xxx", 'x', ModBlocks.DEEPSLATE_BRICKS.newItemStack(1, 2));
-		addShapedRecipe(ModBlocks.DEEPSLATE_SLAB.newItemStack(6, 0), "xxx", 'x', ModBlocks.COBBLED_DEEPSLATE.newItemStack(1, 0));
-		addShapedRecipe(ModBlocks.DEEPSLATE_SLAB.newItemStack(6, 1), "xxx", 'x', ModBlocks.POLISHED_DEEPSLATE.newItemStack(1, 0));
-		addShapedRecipe(ModBlocks.DEEPSLATE_BRICK_SLAB.newItemStack(4, 0), "xxx", 'x', ModBlocks.DEEPSLATE_BRICKS.newItemStack(1, 0));
+		addShapedRecipe(ModBlocks.COBBLED_DEEPSLATE_STAIRS.newItemStack(4), "x  ", "xx ", "xxx", 'x', ModBlocks.COBBLED_DEEPSLATE.newItemStack());
+		addShapedRecipe(ModBlocks.POLISHED_DEEPSLATE_STAIRS.newItemStack(4), "x  ", "xx ", "xxx", 'x', ModBlocks.POLISHED_DEEPSLATE.newItemStack());
+		addShapedRecipe(ModBlocks.DEEPSLATE_BRICK_STAIRS.newItemStack(4), "x  ", "xx ", "xxx", 'x', ModBlocks.DEEPSLATE_BRICKS.newItemStack());
+		addShapedRecipe(ModBlocks.DEEPSLATE_TILE_STAIRS.newItemStack(4), "x  ", "xx ", "xxx", 'x', ModBlocks.DEEPSLATE_BRICKS.newItemStack(1, 2));
+		addShapedRecipe(ModBlocks.DEEPSLATE_SLAB.newItemStack(6), "xxx", 'x', ModBlocks.COBBLED_DEEPSLATE.newItemStack());
+		addShapedRecipe(ModBlocks.DEEPSLATE_SLAB.newItemStack(6, 1), "xxx", 'x', ModBlocks.POLISHED_DEEPSLATE.newItemStack());
+		addShapedRecipe(ModBlocks.DEEPSLATE_BRICK_SLAB.newItemStack(4), "xxx", 'x', ModBlocks.DEEPSLATE_BRICKS.newItemStack());
 		addShapedRecipe(ModBlocks.DEEPSLATE_BRICK_SLAB.newItemStack(4, 1), "xxx", 'x', ModBlocks.DEEPSLATE_BRICKS.newItemStack(1, 2));
-		addShapedRecipe(ModBlocks.DEEPSLATE_WALL.newItemStack(6, 0), "xxx", "xxx", 'x', ModBlocks.COBBLED_DEEPSLATE.newItemStack(1, 0));
-		addShapedRecipe(ModBlocks.DEEPSLATE_WALL.newItemStack(6, 1), "xxx", "xxx", 'x', ModBlocks.POLISHED_DEEPSLATE.newItemStack(1, 0));
-		addShapedRecipe(ModBlocks.DEEPSLATE_BRICK_WALL.newItemStack(6, 0), "xxx", "xxx", 'x', ModBlocks.DEEPSLATE_BRICKS.newItemStack(1, 0));
+		addShapedRecipe(ModBlocks.DEEPSLATE_WALL.newItemStack(6), "xxx", "xxx", 'x', ModBlocks.COBBLED_DEEPSLATE.newItemStack());
+		addShapedRecipe(ModBlocks.DEEPSLATE_WALL.newItemStack(6, 1), "xxx", "xxx", 'x', ModBlocks.POLISHED_DEEPSLATE.newItemStack());
+		addShapedRecipe(ModBlocks.DEEPSLATE_BRICK_WALL.newItemStack(6), "xxx", "xxx", 'x', ModBlocks.DEEPSLATE_BRICKS.newItemStack());
 		addShapedRecipe(ModBlocks.DEEPSLATE_BRICK_WALL.newItemStack(6, 1), "xxx", "xxx", 'x', ModBlocks.DEEPSLATE_BRICKS.newItemStack(1, 2));
 
 		Item result = null;
@@ -569,10 +571,10 @@ public class ModRecipes {
 		}
 
 		if (result != null) {
-			addSmelting(ModItems.RAW_ORE.newItemStack(1, 0), new ItemStack(result, 1, 0), 0.7F);
+			addSmelting(ModItems.RAW_ORE.newItemStack(), new ItemStack(result, 1, 0), 0.7F);
 		}
-		addShapedRecipe(ModBlocks.RAW_ORE_BLOCK.newItemStack(1, 0), "xxx", "xxx", "xxx", 'x', ModItems.RAW_ORE.newItemStack(1, 0));
-		addShapedRecipe(ModItems.RAW_ORE.newItemStack(9, 0), "x", 'x', ModBlocks.RAW_ORE_BLOCK.newItemStack(1, 0));
+		addShapedRecipe(ModBlocks.RAW_ORE_BLOCK.newItemStack(), "xxx", "xxx", "xxx", 'x', ModItems.RAW_ORE.newItemStack());
+		addShapedRecipe(ModItems.RAW_ORE.newItemStack(9), "x", 'x', ModBlocks.RAW_ORE_BLOCK.newItemStack());
 		addShapedRecipe(ModBlocks.RAW_ORE_BLOCK.newItemStack(1, 1), "xxx", "xxx", "xxx", 'x', ModItems.RAW_ORE.newItemStack(1, 1));
 		addShapedRecipe(ModItems.RAW_ORE.newItemStack(9, 1), "x", 'x', ModBlocks.RAW_ORE_BLOCK.newItemStack(1, 1));
 		addSmelting(ModItems.RAW_ORE.newItemStack(1, 1), new ItemStack(Items.iron_ingot, 1, 0), 0.7F);
@@ -581,7 +583,7 @@ public class ModRecipes {
 		addSmelting(ModItems.RAW_ORE.newItemStack(1, 2), new ItemStack(Items.gold_ingot, 1, 0), 0.7F);
 
 		for (int i = 0; i < getStewFlowers().size(); i++) {
-			ItemStack stew = ModItems.SUSPICIOUS_STEW.newItemStack(1, 0);
+			ItemStack stew = ModItems.SUSPICIOUS_STEW.newItemStack();
 
 			PotionEffect effect = EtFuturum.getSuspiciousStewEffect(getStewFlowers().get(i));
 
@@ -616,7 +618,7 @@ public class ModRecipes {
 				GameRegistry.addRecipe(new RecipeDyedShulkerBox(shulker, new Object[]{ModBlocks.SHULKER_BOX.get(), ore_dyes[i]}));
 			}
 		}
-		addShapedRecipe(ModItems.SHULKER_BOX_UPGRADE.newItemStack(1, 0), "XXX", "XYX", "XXX", 'X', "ingotIron", 'Y', ModItems.SHULKER_SHELL.get());
+		addShapedRecipe(ModItems.SHULKER_BOX_UPGRADE.newItemStack(), "XXX", "XYX", "XXX", 'X', "ingotIron", 'Y', ModItems.SHULKER_SHELL.get());
 		addShapedRecipe(ModItems.SHULKER_BOX_UPGRADE.newItemStack(1, 1), "XXX", "XYX", "XXX", 'X', "ingotCopper", 'Y', ModItems.SHULKER_SHELL.get());
 		addShapedRecipe(ModItems.SHULKER_BOX_UPGRADE.newItemStack(1, 2), "XYX", "XXX", "XXX", 'X', "ingotGold", 'Y', "ingotIron");
 		addShapedRecipe(ModItems.SHULKER_BOX_UPGRADE.newItemStack(1, 3), "GXG", "GYG", "GXG", 'X', "gemDiamond", 'Y', "ingotGold", 'G', "blockGlassColorless");
@@ -648,9 +650,13 @@ public class ModRecipes {
 				removeFirstRecipeFor(Blocks.enchanting_table);
 			}
 
+			if (ModBlocks.SPONGE.isEnabled()) {
+				addShapelessRecipe(ModBlocks.SPONGE.newItemStack(), Blocks.sponge);
+				addShapelessRecipe(new ItemStack(Blocks.sponge), ModBlocks.SPONGE.get()); //For recipes that want the vanilla sponge you can convert it
+			}
 		}
 
-		addShapedRecipe(ModBlocks.STONE_WALL.newItemStack(6, 0), "BBB", "BBB", 'B', new ItemStack(Blocks.stonebrick, 1, 0));
+		addShapedRecipe(ModBlocks.STONE_WALL.newItemStack(6), "BBB", "BBB", 'B', new ItemStack(Blocks.stonebrick, 1, 0));
 		addShapedRecipe(ModBlocks.STONE_WALL.newItemStack(6, 1), "BBB", "BBB", 'B', new ItemStack(Blocks.stonebrick, 1, 1));
 		addShapedRecipe(ModBlocks.STONE_WALL.newItemStack(6, 2), "BBB", "BBB", 'B', new ItemStack(Blocks.sandstone, 1, 0));
 		addShapedRecipe(ModBlocks.STONE_WALL.newItemStack(6, 3), "BBB", "BBB", 'B', new ItemStack(Blocks.brick_block, 1, 0));
@@ -658,24 +664,30 @@ public class ModRecipes {
 		//TODO Nether brick wall should be individually toggleable because of Netherlicious
 		addShapedRecipe(ModBlocks.NETHER_BRICK_WALL.newItemStack(6), "BBB", "BBB", 'B', new ItemStack(Blocks.nether_brick));
 
-		addShapedRecipe(ModBlocks.SMITHING_TABLE.newItemStack(1, 0), "II", "PP", "PP", 'P', "plankWood", 'I', "ingotIron");
+		addShapedRecipe(ModBlocks.SMITHING_TABLE.newItemStack(), "II", "PP", "PP", 'P', "plankWood", 'I', "ingotIron");
 
-		addShapedRecipe(ModBlocks.FLETCHING_TABLE.newItemStack(1, 0), "FF", "PP", "PP", 'P', "plankWood", 'F', new ItemStack(Items.flint, 1, 0));
+		addShapedRecipe(ModBlocks.FLETCHING_TABLE.newItemStack(), "FF", "PP", "PP", 'P', "plankWood", 'F', new ItemStack(Items.flint, 1, 0));
 
-		addShapedRecipe(ModBlocks.STONECUTTER.newItemStack(1, 0), " I ", "SSS", 'S', "stone", 'I', "ingotIron");
+		addShapedRecipe(ModBlocks.STONECUTTER.newItemStack(), " I ", "SSS", 'S', "stone", 'I', "ingotIron");
 
-		addShapedRecipe(ModBlocks.COMPOSTER.newItemStack(1, 0), "S S", "S S", "SSS", 'S', "slabWood");
+		addShapedRecipe(ModBlocks.COMPOSTER.newItemStack(), "S S", "S S", "SSS", 'S', "slabWood");
 
-		addShapedRecipe(ModBlocks.CARTOGRAPHY_TABLE.newItemStack(1, 0), "pp", "PP", "PP", 'P', "plankWood", 'p', new ItemStack(Items.paper, 1, 0));
+		addShapedRecipe(ModBlocks.CARTOGRAPHY_TABLE.newItemStack(), "pp", "PP", "PP", 'P', "plankWood", 'p', new ItemStack(Items.paper, 1, 0));
 
-		addShapedRecipe(ModBlocks.LOOM.newItemStack(1, 0), "SS", "PP", 'P', "plankWood", 'S', new ItemStack(Items.string, 1, 0));
+		addShapedRecipe(ModBlocks.LOOM.newItemStack(), "SS", "PP", 'P', "plankWood", 'S', new ItemStack(Items.string, 1, 0));
 
-		addShapedRecipe(ModBlocks.AMETHYST_BLOCK.newItemStack(1, 0), "AA", "AA", 'A', "gemAmethyst");
+		addShapedRecipe(ModBlocks.AMETHYST_BLOCK.newItemStack(), "AA", "AA", 'A', "gemAmethyst");
 		addShapedRecipe(ModBlocks.TINTED_GLASS.newItemStack(2, 0), " A ", "AGA", " A ", 'A', "gemAmethyst", 'G', "blockGlassColorless");
 
-		addShapedRecipe(ModBlocks.TARGET.newItemStack(1, 0), " R ", "RHR", " R ", 'R', "dustRedstone", 'H', Blocks.hay_block);
+		addShapedRecipe(ModBlocks.TARGET.newItemStack(), " R ", "RHR", " R ", 'R', "dustRedstone", 'H', Blocks.hay_block);
 
-		addShapedRecipe(ModBlocks.OBSERVER.newItemStack(1, 0), "CCC", "RRQ", "CCC", 'R', "dustRedstone", 'C', "cobblestone", 'Q', "gemQuartz");
+		addShapedRecipe(ModBlocks.OBSERVER.newItemStack(), "CCC", "RRQ", "CCC", 'R', "dustRedstone", 'C', "cobblestone", 'Q', "gemQuartz");
+
+		addShapedRecipe(ModBlocks.HONEY_BLOCK.newItemStack(), "HH", "HH", 'H', ModItems.HONEY_BOTTLE.get());
+		for (String waxString : IDegradable.waxStrings) {
+			addShapedRecipe(ModBlocks.HONEYCOMB_BLOCK.newItemStack(), "HH", "HH", 'H', waxString);
+			addShapedRecipe(ModBlocks.BEEHIVE.newItemStack(), "WWW", "HHH", "WWW", 'W', "plankWood", 'H', waxString);
+		}
 	}
 
 	private static List<ItemStack> getStewFlowers() {
@@ -692,9 +704,9 @@ public class ModRecipes {
 		list.add(new ItemStack(Blocks.red_flower, 1, 6));
 		list.add(new ItemStack(Blocks.red_flower, 1, 7));
 
-			list.add(ModBlocks.LILY_OF_THE_VALLEY.newItemStack(1, 0));
-			list.add(ModBlocks.CORNFLOWER.newItemStack(1, 0));
-			list.add(ModBlocks.WITHER_ROSE.newItemStack(1, 0));
+		list.add(ModBlocks.LILY_OF_THE_VALLEY.newItemStack());
+		list.add(ModBlocks.CORNFLOWER.newItemStack());
+		list.add(ModBlocks.WITHER_ROSE.newItemStack());
 
 		return list;
 	}

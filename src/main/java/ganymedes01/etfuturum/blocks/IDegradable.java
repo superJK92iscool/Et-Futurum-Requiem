@@ -203,7 +203,7 @@ public interface IDegradable {
 
 				if (l == 1 && !world.getBlock(x, y - 1, z).isOpaqueCube())
 				{
-					d2 = y + 0 - d0;
+					d2 = y - d0;
 				}
 
 				if (l == 2 && !world.getBlock(x, y, z + 1).isOpaqueCube())
@@ -213,7 +213,7 @@ public interface IDegradable {
 
 				if (l == 3 && !world.getBlock(x, y, z - 1).isOpaqueCube())
 				{
-					d3 = z + 0 - d0;
+					d3 = z - d0;
 				}
 
 				if (l == 4 && !world.getBlock(x + 1, y, z).isOpaqueCube())
@@ -223,7 +223,7 @@ public interface IDegradable {
 
 				if (l == 5 && !world.getBlock(x - 1, y, z).isOpaqueCube())
 				{
-					d1 = x + 0 - d0;
+					d1 = x - d0;
 				}
 
 				if (d1 < x || d1 > x + 1 || d2 < 0.0D || d2 > y + 1 || d3 < z || d3 > z + 1)

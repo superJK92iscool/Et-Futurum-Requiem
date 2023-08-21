@@ -20,7 +20,7 @@ public class BaseSlabItemBlock extends ItemSlab {
 	}
 
 	private String addTilePrefix(String name) {
-		return "tile." + Utils.getUnlocalisedName(name);
+		return name.startsWith("tile.") ? name : "tile." + Utils.getUnlocalisedName(name);
 	}
 
 	@Override
