@@ -29,15 +29,19 @@ public abstract class BlockModelBase implements ISimpleBlockRenderingHandler {
 		OpenGLHelper.translate(-0.5F, -0.5F, -0.5F);
 
 		tessellator.startDrawingQuads();
-		renderStandardInventoryBlock(block, meta, modelID, renderer, block.getBlockBoundsMinX(), block.getBlockBoundsMinY(), block.getBlockBoundsMinZ(), block.getBlockBoundsMaxX(), block.getBlockBoundsMaxY(), block.getBlockBoundsMaxZ());
+		renderInventoryModel(block, meta, modelID, renderer, block.getBlockBoundsMinX(), block.getBlockBoundsMinY(), block.getBlockBoundsMinZ(), block.getBlockBoundsMaxX(), block.getBlockBoundsMaxY(), block.getBlockBoundsMaxZ());
 		tessellator.draw();
 
 		OpenGLHelper.translate(0.5F, 0.5F, 0.5F);
 		OpenGLHelper.disableBlend();
 	}
 
-	protected void renderStandardInventoryBlock(Block block, int meta, int modelID, RenderBlocks renderer, double minX, double minY, double minZ, double maxF, double maxY, double maxZ) {
-		renderer.setRenderBounds(minX, minY, minZ, maxF, maxY, maxZ);
+	protected void renderInventoryModel(Block block, int meta, int modelId, RenderBlocks renderer, double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
+		renderStandardInventoryCube(block, meta, modelID, renderer, block.getBlockBoundsMinX(), block.getBlockBoundsMinY(), block.getBlockBoundsMinZ(), block.getBlockBoundsMaxX(), block.getBlockBoundsMaxY(), block.getBlockBoundsMaxZ());
+	}
+
+	protected void renderStandardInventoryCube(Block block, int meta, int modelId, RenderBlocks renderer, double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
+		renderer.setRenderBounds(minX, minY, minZ, maxX, maxY, maxZ);
 		tessellator.setNormal(0.0F, -1.0F, 0.0F);
 		renderer.renderFaceYNeg(block, 0.0D, 0.0D, 0.0D, renderer.getBlockIconFromSideAndMetadata(block, 0, meta));
 		tessellator.setNormal(0.0F, 1.0F, 0.0F);
@@ -54,7 +58,11 @@ public abstract class BlockModelBase implements ISimpleBlockRenderingHandler {
 
 	@Override
 	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
-		renderer.setRenderBounds(block.getBlockBoundsMinX(), block.getBlockBoundsMinY(), block.getBlockBoundsMinZ(), block.getBlockBoundsMaxX(), block.getBlockBoundsMaxY(), block.getBlockBoundsMaxZ());
+		return renderStandardWorldCube(world, x, y, z, block, modelId, renderer, block.getBlockBoundsMinX(), block.getBlockBoundsMinY(), block.getBlockBoundsMinZ(), block.getBlockBoundsMaxX(), block.getBlockBoundsMaxY(), block.getBlockBoundsMaxZ());
+	}
+
+	protected boolean renderStandardWorldCube(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer, double minX, double minY, double minZ, double maxF, double maxY, double maxZ) {
+		renderer.setRenderBounds(minX, minY, minZ, maxF, maxY, maxZ);
 		return renderer.renderStandardBlock(block, x, y, z);
 	}
 
@@ -112,143 +120,12 @@ public abstract class BlockModelBase implements ISimpleBlockRenderingHandler {
 		float f13 = f3;
 		float f16 = f3;
 		int l = block.getMixedBrightnessForBlock(renderer.blockAccess, x, y, z);
-
-//        if(Minecraft.isAmbientOcclusionEnabled() && block.getLightValue() == 0) {
-//          if(renderer.partialRenderBounds) {
-//
-//          } else {
-//
-//
-//                boolean flag2;
-//                boolean flag3;
-//                boolean flag4;
-//                boolean flag5;
-//                int i1;
-//                float f7;
-//
-//                if (renderer.renderAllFaces || block.shouldSideBeRendered(renderer.blockAccess, x, y - 1, z, 0))
-//                {
-//                    if (renderer.renderMinY <= 0.0D)
-//                    {
-//                        --y;
-//                    }
-//
-//                    renderer.aoBrightnessXYNN = block.getMixedBrightnessForBlock(renderer.blockAccess, x - 1, y, z);
-//                    renderer.aoBrightnessYZNN = block.getMixedBrightnessForBlock(renderer.blockAccess, x, y, z - 1);
-//                    renderer.aoBrightnessYZNP = block.getMixedBrightnessForBlock(renderer.blockAccess, x, y, z + 1);
-//                    renderer.aoBrightnessXYPN = block.getMixedBrightnessForBlock(renderer.blockAccess, x + 1, y, z);
-//                    renderer.aoLightValueScratchXYNN = renderer.blockAccess.getBlock(x - 1, y, z).getAmbientOcclusionLightValue();
-//                    renderer.aoLightValueScratchYZNN = renderer.blockAccess.getBlock(x, y, z - 1).getAmbientOcclusionLightValue();
-//                    renderer.aoLightValueScratchYZNP = renderer.blockAccess.getBlock(x, y, z + 1).getAmbientOcclusionLightValue();
-//                    renderer.aoLightValueScratchXYPN = renderer.blockAccess.getBlock(x + 1, y, z).getAmbientOcclusionLightValue();
-//                    flag2 = renderer.blockAccess.getBlock(x + 1, y - 1, z).getCanBlockGrass();
-//                    flag3 = renderer.blockAccess.getBlock(x - 1, y - 1, z).getCanBlockGrass();
-//                    flag4 = renderer.blockAccess.getBlock(x, y - 1, z + 1).getCanBlockGrass();
-//                    flag5 = renderer.blockAccess.getBlock(x, y - 1, z - 1).getCanBlockGrass();
-//
-//                    if (!flag5 && !flag3)
-//                    {
-//                        renderer.aoLightValueScratchXYZNNN = renderer.aoLightValueScratchXYNN;
-//                        renderer.aoBrightnessXYZNNN = renderer.aoBrightnessXYNN;
-//                    }
-//                    else
-//                    {
-//                        renderer.aoLightValueScratchXYZNNN = renderer.blockAccess.getBlock(x - 1, y, z - 1).getAmbientOcclusionLightValue();
-//                        renderer.aoBrightnessXYZNNN = block.getMixedBrightnessForBlock(renderer.blockAccess, x - 1, y, z - 1);
-//                    }
-//
-//                    if (!flag4 && !flag3)
-//                    {
-//                        renderer.aoLightValueScratchXYZNNP = renderer.aoLightValueScratchXYNN;
-//                        renderer.aoBrightnessXYZNNP = renderer.aoBrightnessXYNN;
-//                    }
-//                    else
-//                    {
-//                        renderer.aoLightValueScratchXYZNNP = renderer.blockAccess.getBlock(x - 1, y, z + 1).getAmbientOcclusionLightValue();
-//                        renderer.aoBrightnessXYZNNP = block.getMixedBrightnessForBlock(renderer.blockAccess, x - 1, y, z + 1);
-//                    }
-//
-//                    if (!flag5 && !flag2)
-//                    {
-//                        renderer.aoLightValueScratchXYZPNN = renderer.aoLightValueScratchXYPN;
-//                        renderer.aoBrightnessXYZPNN = renderer.aoBrightnessXYPN;
-//                    }
-//                    else
-//                    {
-//                        renderer.aoLightValueScratchXYZPNN = renderer.blockAccess.getBlock(x + 1, y, z - 1).getAmbientOcclusionLightValue();
-//                        renderer.aoBrightnessXYZPNN = block.getMixedBrightnessForBlock(renderer.blockAccess, x + 1, y, z - 1);
-//                    }
-//
-//                    if (!flag4 && !flag2)
-//                    {
-//                        renderer.aoLightValueScratchXYZPNP = renderer.aoLightValueScratchXYPN;
-//                        renderer.aoBrightnessXYZPNP = renderer.aoBrightnessXYPN;
-//                    }
-//                    else
-//                    {
-//                        renderer.aoLightValueScratchXYZPNP = renderer.blockAccess.getBlock(x + 1, y, z + 1).getAmbientOcclusionLightValue();
-//                        renderer.aoBrightnessXYZPNP = block.getMixedBrightnessForBlock(renderer.blockAccess, x + 1, y, z + 1);
-//                    }
-//
-//                    if (renderer.renderMinY <= 0.0D)
-//                    {
-//                        ++y;
-//                    }
-//
-//                    i1 = l;
-//
-//                    if (renderer.renderMinY <= 0.0D || !renderer.blockAccess.getBlock(x, y - 1, z).isOpaqueCube())
-//                    {
-//                        i1 = block.getMixedBrightnessForBlock(renderer.blockAccess, x, y - 1, z);
-//                    }
-//
-//                    f7 = renderer.blockAccess.getBlock(x, y - 1, z).getAmbientOcclusionLightValue();
-//                    f3 = (renderer.aoLightValueScratchXYZNNP + renderer.aoLightValueScratchXYNN + renderer.aoLightValueScratchYZNP + f7) / 4.0F;
-//                    f6 = (renderer.aoLightValueScratchYZNP + f7 + renderer.aoLightValueScratchXYZPNP + renderer.aoLightValueScratchXYPN) / 4.0F;
-//                    f5 = (f7 + renderer.aoLightValueScratchYZNN + renderer.aoLightValueScratchXYPN + renderer.aoLightValueScratchXYZPNN) / 4.0F;
-//                    f4 = (renderer.aoLightValueScratchXYNN + renderer.aoLightValueScratchXYZNNN + f7 + renderer.aoLightValueScratchYZNN) / 4.0F;
-//                    renderer.brightnessTopLeft = renderer.getAoBrightness(renderer.aoBrightnessXYZNNP, renderer.aoBrightnessXYNN, renderer.aoBrightnessYZNP, i1);
-//                    renderer.brightnessTopRight = renderer.getAoBrightness(renderer.aoBrightnessYZNP, renderer.aoBrightnessXYZPNP, renderer.aoBrightnessXYPN, i1);
-//                    renderer.brightnessBottomRight = renderer.getAoBrightness(renderer.aoBrightnessYZNN, renderer.aoBrightnessXYPN, renderer.aoBrightnessXYZPNN, i1);
-//                    renderer.brightnessBottomLeft = renderer.getAoBrightness(renderer.aoBrightnessXYNN, renderer.aoBrightnessXYZNNN, renderer.aoBrightnessYZNN, i1);
-//
-//                    if (flag1)
-//                    {
-//                        renderer.colorRedTopLeft = renderer.colorRedBottomLeft = renderer.colorRedBottomRight = renderer.colorRedTopRight = r * 0.5F;
-//                        renderer.colorGreenTopLeft = renderer.colorGreenBottomLeft = renderer.colorGreenBottomRight = renderer.colorGreenTopRight = g * 0.5F;
-//                        renderer.colorBlueTopLeft = renderer.colorBlueBottomLeft = renderer.colorBlueBottomRight = renderer.colorBlueTopRight = b * 0.5F;
-//                    }
-//                    else
-//                    {
-//                        renderer.colorRedTopLeft = renderer.colorRedBottomLeft = renderer.colorRedBottomRight = renderer.colorRedTopRight = 0.5F;
-//                        renderer.colorGreenTopLeft = renderer.colorGreenBottomLeft = renderer.colorGreenBottomRight = renderer.colorGreenTopRight = 0.5F;
-//                        renderer.colorBlueTopLeft = renderer.colorBlueBottomLeft = renderer.colorBlueBottomRight = renderer.colorBlueTopRight = 0.5F;
-//                    }
-//
-//                    renderer.colorRedTopLeft *= f3;
-//                    renderer.colorGreenTopLeft *= f3;
-//                    renderer.colorBlueTopLeft *= f3;
-//                    renderer.colorRedBottomLeft *= f4;
-//                    renderer.colorGreenBottomLeft *= f4;
-//                    renderer.colorBlueBottomLeft *= f4;
-//                    renderer.colorRedBottomRight *= f5;
-//                    renderer.colorGreenBottomRight *= f5;
-//                    renderer.colorBlueBottomRight *= f5;
-//                    renderer.colorRedTopRight *= f6;
-//                    renderer.colorGreenTopRight *= f6;
-//                    renderer.colorBlueTopRight *= f6;
-//                    renderer.renderFaceYNeg(block, dx + offx, dy + offy, dz + offz, renderer.getBlockIcon(block, renderer.blockAccess, x, y, z, 0));
-//                }
-//          }
-//        } else {
-			if (renderer.renderAllFaces || block.shouldSideBeRendered(renderer.blockAccess, x, y - 1, z, 0))
-			{
-				tessellator.setBrightness(renderer.renderMinY + Math.abs(offy) > 0.0D ? l :
+		if (renderer.renderAllFaces || block.shouldSideBeRendered(renderer.blockAccess, x, y - 1, z, 0)) {
+			tessellator.setBrightness(renderer.renderMinY + Math.abs(offy) > 0.0D ? l :
 					block.getMixedBrightnessForBlock(renderer.blockAccess, x, MathHelper.floor_double(y - 1), z));
-				tessellator.setColorOpaque_F(f10, f13, f16);
-				renderer.renderFaceYNeg(block, dx + offx, dy + offy, dz + offz, renderer.getBlockIcon(block, renderer.blockAccess, x, y, z, 0));
-			}
-//        }
+			tessellator.setColorOpaque_F(f10, f13, f16);
+			renderer.renderFaceYNeg(block, dx + offx, dy + offy, dz + offz, renderer.getBlockIcon(block, renderer.blockAccess, x, y, z, 0));
+		}
 	}
 
 	/**

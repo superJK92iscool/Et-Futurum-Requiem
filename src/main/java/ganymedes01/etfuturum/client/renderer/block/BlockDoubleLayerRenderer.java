@@ -18,9 +18,9 @@ public class BlockDoubleLayerRenderer extends BlockModelBase {
 		innerSizeMin = (16 - secondSize) * 0.0625F;
 	}
 
-	protected void renderStandardInventoryBlock(Block block, int meta, int modelID, RenderBlocks renderer, double minX, double minY, double minZ, double maxF, double maxY, double maxZ) {
-		super.renderStandardInventoryBlock(block, meta, modelID, renderer, innerSizeMin, innerSizeMin, innerSizeMin, innerSizeMax, innerSizeMax, innerSizeMax);
-		super.renderStandardInventoryBlock(block, meta, modelID, renderer, minX, minY, minZ, maxF, maxY, maxZ);
+	protected void renderStandardInventoryCube(Block block, int meta, int modelID, RenderBlocks renderer, double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
+		super.renderStandardInventoryCube(block, meta, modelID, renderer, innerSizeMin, innerSizeMin, innerSizeMin, innerSizeMax, innerSizeMax, innerSizeMax);
+		super.renderStandardInventoryCube(block, meta, modelID, renderer, minX, minY, minZ, maxX, maxY, maxZ);
 	}
 
 	@Override

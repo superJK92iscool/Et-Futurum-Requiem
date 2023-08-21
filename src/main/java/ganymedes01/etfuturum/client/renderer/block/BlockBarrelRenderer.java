@@ -11,8 +11,8 @@ public class BlockBarrelRenderer extends BlockModelBase {
 		super(modelID);
 	}
 
-	protected void renderStandardInventoryBlock(Block block, int meta, int modelID, RenderBlocks renderer, double minX, double minY, double minZ, double maxF, double maxY, double maxZ) {
-		super.renderStandardInventoryBlock(block, 1, modelID, renderer, minX, minY, minZ, maxF, maxY, maxZ);
+	protected void renderStandardInventoryCube(Block block, int meta, int modelID, RenderBlocks renderer, double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
+		super.renderStandardInventoryCube(block, 1, modelID, renderer, minX, minY, minZ, maxX, maxY, maxZ);
 	}
 
 	@Override
@@ -56,15 +56,16 @@ public class BlockBarrelRenderer extends BlockModelBase {
 				break;
 		}
 
-			renderer.renderStandardBlock(block, x, y, z);
-			renderer.uvRotateEast = 0;
-			renderer.uvRotateWest = 0;
-			renderer.uvRotateSouth = 0;
-			renderer.uvRotateNorth = 0;
-			renderer.uvRotateTop = 0;
-			renderer.uvRotateBottom = 0;
+		boolean flag = renderer.renderStandardBlock(block, x, y, z);
 
-		return true;
+		renderer.uvRotateEast = 0;
+		renderer.uvRotateWest = 0;
+		renderer.uvRotateSouth = 0;
+		renderer.uvRotateNorth = 0;
+		renderer.uvRotateTop = 0;
+		renderer.uvRotateBottom = 0;
+
+		return flag;
 	}
 
 }

@@ -111,15 +111,15 @@ public class ClientProxy extends CommonProxy {
 		}
 
 		if (ModBlocks.END_ROD.isEnabled()) {
-			RenderingRegistry.registerBlockHandler(new BlockEndRodRender(RenderIDs.END_ROD));
+			RenderingRegistry.registerBlockHandler(new BlockEndRodRenderer(RenderIDs.END_ROD));
 		}
 
 		if (ModBlocks.CHORUS_FLOWER.isEnabled()) {
-			RenderingRegistry.registerBlockHandler(new BlockChorusFlowerRender());
+			RenderingRegistry.registerBlockHandler(new BlockChorusFlowerRenderer(RenderIDs.CHORUS_FLOWER));
 		}
 
 		if (ModBlocks.CHORUS_PLANT.isEnabled()) {
-			RenderingRegistry.registerBlockHandler(new BlockChorusPlantRender());
+			RenderingRegistry.registerBlockHandler(new BlockChorusPlantRenderer(RenderIDs.CHORUS_PLANT));
 		}
 
 		if (ModBlocks.BEACON.isEnabled()) {

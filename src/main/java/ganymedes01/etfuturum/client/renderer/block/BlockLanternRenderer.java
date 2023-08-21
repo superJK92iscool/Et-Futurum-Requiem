@@ -29,7 +29,7 @@ public class BlockLanternRenderer extends BlockModelBase {
 		renderFaceYPos(renderer, block, x, y, z, .25F, yoffset, .3125F);
 		renderFaceYNeg(renderer, block, x, y, z, .25F, yoffset, .3125F);
 		renderer.setRenderBounds(.125F, .5625F, .0625F, .375F, .5625F, .3125F);
-		renderFaceYPos(renderer, block, x, y, z, .25F, +yoffset, .3125F);
+		renderFaceYPos(renderer, block, x, y, z, .25F, yoffset, .3125F);
 		renderer.uvRotateBottom = 0;
 		renderer.uvRotateTop = 0;
 

@@ -12,7 +12,6 @@ import ganymedes01.etfuturum.compat.nei.ComposterHandler;
 import ganymedes01.etfuturum.compat.nei.SmokerRecipeHandler;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.lib.Reference;
-import net.minecraft.item.ItemStack;
 
 public class NEIEtFuturumConfig implements IConfigureNEI {
 
@@ -26,29 +25,23 @@ public class NEIEtFuturumConfig implements IConfigureNEI {
 			API.registerUsageHandler(new BannerPatternHandler());
 		}
 
-		if (ModBlocks.LIT_BLAST_FURNACE.isEnabled()) {
-			API.hideItem(new ItemStack(ModBlocks.LIT_BLAST_FURNACE.get()));
-		}
-
-		if (ModBlocks.LIT_SMOKER.isEnabled()) {
-			API.hideItem(new ItemStack(ModBlocks.LIT_SMOKER.get()));
-		}
-
 		if (ConfigWorld.tileReplacementMode != -1) {
 			if (ModBlocks.BREWING_STAND.isEnabled()) {
-				API.hideItem(new ItemStack(ModBlocks.BREWING_STAND.get()));
+				API.hideItem(ModBlocks.BREWING_STAND.newItemStack());
 			}
 
 			if (ModBlocks.BEACON.isEnabled()) {
-				API.hideItem(new ItemStack(ModBlocks.BEACON.get()));
+				API.hideItem(ModBlocks.BEACON.newItemStack());
 			}
 
 			if (ModBlocks.ANVIL.isEnabled()) {
-				API.hideItem(new ItemStack(ModBlocks.ANVIL.get()));
+				API.hideItem(ModBlocks.ANVIL.newItemStack());
+				API.hideItem(ModBlocks.ANVIL.newItemStack(1, 1));
+				API.hideItem(ModBlocks.ANVIL.newItemStack(1, 2));
 			}
 
 			if (ModBlocks.ENCHANTMENT_TABLE.isEnabled()) {
-				API.hideItem(new ItemStack(ModBlocks.ENCHANTMENT_TABLE.get()));
+				API.hideItem(ModBlocks.ENCHANTMENT_TABLE.newItemStack());
 			}
 		}
 

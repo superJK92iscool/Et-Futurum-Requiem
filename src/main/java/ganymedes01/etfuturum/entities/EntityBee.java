@@ -364,7 +364,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		boolean flag = entityIn.attackEntityFrom(new EntityDamageSource("sting", this), (float) ((int) this.getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttributeValue()));
 		if (flag) {
 //			this.applyEnchantments(this, entityIn);
-			if (entityIn instanceof EntityLiving) {
+			if (entityIn instanceof EntityLivingBase) {
 //				((EntityLiving)entityIn).setBeeStingCount(((EntityLiving)entityIn).getBeeStingCount() + 1);
 				int i = 0;
 				if (this.worldObj.difficultySetting == EnumDifficulty.NORMAL) {
@@ -374,7 +374,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 				}
 
 				if (i > 0) {
-					((EntityLiving) entityIn).addPotionEffect(new PotionEffect(Potion.poison.id, i * 20, 0));
+					((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(Potion.poison.id, i * 20, 0));
 				}
 			}
 
@@ -709,7 +709,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 
 	public boolean setBeeAttacker(Entity attacker) {
 		this.setAnger(400 + this.rand.nextInt(400));
-		if (attacker instanceof EntityLiving) {
+		if (attacker instanceof EntityLivingBase) {
 			this.setRevengeTarget((EntityLiving) attacker);
 		}
 
@@ -721,14 +721,12 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 			return false;
 		} else {
 			Entity entity = source.getEntity();
-			if (!this.worldObj.isRemote && this.canEntityBeSeen(entity)/* && !this.isAIDisabled()*/) {
+			if (!this.worldObj.isRemote && entity instanceof EntityLivingBase && (!(entity instanceof EntityPlayer) || !((EntityPlayer) entity).capabilities.isCreativeMode) && canEntityBeSeen(entity)) {
 				this.pollinateGoal.cancel();
-				if (this.setBeeAttacker(entity) && (!(entity instanceof EntityPlayer) || !((EntityPlayer) entity).capabilities.isCreativeMode)) {
-					List<Entity> list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.expand(32.0D, 32.0D, 32.0D));
-					for (Entity entity1 : list) {
-						if (entity1 instanceof EntityBee) {
-							((EntityBee) entity1).setBeeAttacker(entity);
-						}
+				List<Entity> list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.expand(32.0D, 32.0D, 32.0D));
+				for (Entity entity1 : list) {
+					if (entity1 instanceof EntityBee) {
+						((EntityBee) entity1).setBeeAttacker(entity);
 					}
 				}
 			}

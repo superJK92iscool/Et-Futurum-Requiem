@@ -10,9 +10,9 @@ public class BlockLoomRenderer extends BlockModelBase {
 		super(modelID);
 	}
 
-	protected void renderStandardInventoryBlock(Block block, int meta, int modelID, RenderBlocks renderer, double minX, double minY, double minZ, double maxF, double maxY, double maxZ) {
+	protected void renderStandardInventoryCube(Block block, int meta, int modelID, RenderBlocks renderer, double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
 		renderer.uvRotateTop = 1;
-		super.renderStandardInventoryBlock(block, 3, modelID, renderer, minX, minY, minZ, maxF, maxY, maxZ);
+		super.renderStandardInventoryCube(block, 3, modelID, renderer, minX, minY, minZ, maxX, maxY, maxZ);
 		renderer.uvRotateTop = 0;
 	}
 

@@ -29,7 +29,7 @@ public class RandomXoshiro256StarStar extends Random {
 
 	private static final AtomicLong uniq = new AtomicLong(System.nanoTime());
 
-	private static final long nextUniq() {
+	private static long nextUniq() {
 		return splitmix64_2(uniq.addAndGet(SPLITMIX1_MAGIC));
 	}
 

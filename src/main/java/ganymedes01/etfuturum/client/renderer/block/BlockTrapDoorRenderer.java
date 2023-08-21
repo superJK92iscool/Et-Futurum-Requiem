@@ -13,13 +13,13 @@ public class BlockTrapDoorRenderer extends BlockModelBase {
 	}
 
 	@Override
-	protected void renderStandardInventoryBlock(Block block, int meta, int modelID, RenderBlocks renderer, double minX, double minY, double minZ, double maxF, double maxY, double maxZ) {
+	protected void renderStandardInventoryCube(Block block, int meta, int modelID, RenderBlocks renderer, double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
 		GL11.glTranslatef(0, 0.40625F, 0);
 		renderer.uvRotateEast = 3;
 		renderer.uvRotateWest = 3;
 		renderer.uvRotateSouth = 3;
 		renderer.uvRotateNorth = 3;
-		super.renderStandardInventoryBlock(block, meta, modelID, renderer, 0.0D, 0.0D, 0.0D, 1.0D, .1875D, 1.0F);
+		super.renderStandardInventoryCube(block, meta, modelID, renderer, 0.0D, 0.0D, 0.0D, 1.0D, .1875D, 1.0F);
 		renderer.uvRotateEast = 0;
 		renderer.uvRotateWest = 0;
 		renderer.uvRotateSouth = 0;

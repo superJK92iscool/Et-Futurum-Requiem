@@ -11,8 +11,8 @@ public class BlockStonecutterRenderer extends BlockModelBase {
 		super(modelID);
 	}
 
-	protected void renderStandardInventoryBlock(Block block, int meta, int modelID, RenderBlocks renderer, double minX, double minY, double minZ, double maxF, double maxY, double maxZ) {
-		super.renderStandardInventoryBlock(block, meta, modelID, renderer, minX, minY, minZ, maxF, maxY, maxZ);
+	protected void renderStandardInventoryCube(Block block, int meta, int modelID, RenderBlocks renderer, double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
+		super.renderStandardInventoryCube(block, meta, modelID, renderer, minX, minY, minZ, maxX, maxY, maxZ);
 		renderer.setRenderBounds(0.0F, 0, 0.5F, 1.0F, 0.4375F, 0.5F);
 		renderer.renderFaceZNeg(block, 0, .5625D, 0, ((BlockStonecutter) block).sawIcon);
 		renderer.renderFaceZPos(block, 0, .5625D, 0, ((BlockStonecutter) block).sawIcon);
@@ -59,11 +59,7 @@ public class BlockStonecutterRenderer extends BlockModelBase {
 				renderer.flipTexture = true;
 			}
 			renderFaceXNeg(renderer, block, x, y, z, 0, .5625D, 0);
-			if(metadata == 2) {
-				renderer.flipTexture = true;
-			} else {
-				renderer.flipTexture = false;
-			}
+			renderer.flipTexture = metadata == 2;
 			renderFaceXPos(renderer, block, x, y, z, 0, .5625D, 0);
 		}
 

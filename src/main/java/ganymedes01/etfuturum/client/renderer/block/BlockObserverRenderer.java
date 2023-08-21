@@ -12,9 +12,9 @@ public class BlockObserverRenderer extends BlockModelBase {
 	}
 
 	@Override
-	protected void renderStandardInventoryBlock(Block block, int meta, int modelID, RenderBlocks renderer, double minX, double minY, double minZ, double maxF, double maxY, double maxZ) {
+	protected void renderStandardInventoryCube(Block block, int meta, int modelID, RenderBlocks renderer, double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
 		setRotation(5, renderer);
-		super.renderStandardInventoryBlock(block, 5, modelID, renderer, minX, minY, minZ, maxF, maxY, maxZ);
+		super.renderStandardInventoryCube(block, 5, modelID, renderer, minX, minY, minZ, maxX, maxY, maxZ);
 		resetRotation(renderer);
 	}
 

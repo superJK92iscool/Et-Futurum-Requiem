@@ -10,9 +10,9 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.world.IBlockAccess;
 
 @SideOnly(Side.CLIENT)
-public class BlockEndRodRender extends BlockModelBase {
+public class BlockEndRodRenderer extends BlockModelBase {
 
-	public BlockEndRodRender(int modelID) {
+	public BlockEndRodRenderer(int modelID) {
 		super(modelID);
 	}
 

@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 
-public class BlockPointedDripstoneRenderer implements ISimpleBlockRenderingHandler{
+public class BlockPointedDripstoneRenderer implements ISimpleBlockRenderingHandler {
 
 	@Override
 	public void renderInventoryBlock(Block block, int metadata, int modelId, RenderBlocks renderer) {
@@ -17,7 +17,7 @@ public class BlockPointedDripstoneRenderer implements ISimpleBlockRenderingHandl
 
 	@Override
 	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId,
-			RenderBlocks renderer) {
+									RenderBlocks renderer) {
 		//We need to do this because the majority of RenderBlocks functions use the Block.getIcon(side, meta) function.
 		Tessellator tessellator = Tessellator.instance;
 		tessellator.setBrightness(block.getMixedBrightnessForBlock(renderer.blockAccess, x, y, z));
