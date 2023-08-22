@@ -6,9 +6,9 @@ import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 
-public class BlockNewStone extends BaseSubtypesBlock {
+public class BlockBountifulStone extends BaseSubtypesBlock {
 
-	public BlockNewStone() {
+	public BlockBountifulStone() {
 		super(Material.rock, 1, "", "granite", "polished_granite", "diorite", "polished_diorite", "andesite", "polished_andesite");
 		setHardness(1.5F);
 		setResistance(6.0F);

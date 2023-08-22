@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.blocks;
 
+import com.google.common.collect.Lists;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
@@ -13,10 +14,8 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemShears;
@@ -28,6 +27,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+import net.minecraftforge.event.ForgeEventFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -159,20 +159,6 @@ public class BlockBeeHive extends BlockContainer {
 		}
 	}
 
-	public void harvestBlock(World worldIn, EntityPlayer player, int x, int y, int z, int meta) {
-		TileEntity te = worldIn.getTileEntity(x, y, z);
-		if (!worldIn.isRemote && te instanceof TileEntityBeeHive) {
-			TileEntityBeeHive beehivetileentity = (TileEntityBeeHive) te;
-			if (EnchantmentHelper.getEnchantmentLevel(Enchantment.silkTouch.effectId, player.getHeldItem()) == 0) {
-				beehivetileentity.angerBees(player, TileEntityBeeHive.State.EMERGENCY);
-				this.angerNearbyBees(worldIn, x, y, z);
-			}
-
-//			CriteriaTriggers.BEE_NEST_DESTROYED.test((ServerEntityPlayer)player, state.getBlock(), stack, beehivetileentity.getBeeCount());
-		}
-		super.harvestBlock(worldIn, player, x, y, z, meta);
-	}
-
 	private void angerNearbyBees(World p_226881_1_, int x, int y, int z) {
 		AxisAlignedBB box = AxisAlignedBB.getBoundingBox(x, y, z, x + 1, y + 1, z + 1).expand(8.0D, 6.0D, 8.0D);
 		List<EntityBee> list = p_226881_1_.getEntitiesWithinAABB(EntityBee.class, box);
@@ -266,44 +252,63 @@ public class BlockBeeHive extends BlockContainer {
 	}
 
 	public void onBlockHarvested(World world, int x, int y, int z, int meta, EntityPlayer player) {
-		if (!world.isRemote && player.capabilities.isCreativeMode && world.getGameRules().getGameRuleBooleanValue("doTileDrops")) {
+		if (!world.isRemote) {
 			TileEntity tileentity = world.getTileEntity(x, y, z);
 			if (tileentity instanceof TileEntityBeeHive) {
 				TileEntityBeeHive beehivetileentity = (TileEntityBeeHive) tileentity;
-				ItemStack itemstack = new ItemStack(this);
-				int i = beehivetileentity.getHoneyLevel();
-				boolean flag = !beehivetileentity.hasNoBees();
-				if (!flag && i == 0) {
-					return;
+				boolean silk = EnchantmentHelper.getSilkTouchModifier(player);
+				int fortune = EnchantmentHelper.getFortuneModifier(player);
+				boolean empty = beehivetileentity.hasNoBees() && beehivetileentity.getHoneyLevel() == 0;
+				if ((!empty && player.capabilities.isCreativeMode) || silk) {
+					ArrayList<ItemStack> itemStacks = getDrops(world, x, y, z, meta, fortune);
+					ForgeEventFactory.fireBlockHarvesting(itemStacks, world, this, x, y, z, meta, fortune, 1.0F, silk, player);
+					for (ItemStack stack : itemStacks) {
+						dropBlockAsItem(world, x, y, z, stack);
+					}
+				} else if (!beehivetileentity.hasNoBees()) {
+					angerNearbyBees(world, x, y, z);
+					beehivetileentity.angerBees(player, TileEntityBeeHive.State.EMERGENCY);
 				}
-
-				NBTTagCompound compoundnbt = new NBTTagCompound();
-				if (flag) {
-					compoundnbt.setTag("Bees", beehivetileentity.getBees());
-				}
-				if (i > 0) {
-					compoundnbt.setInteger("honeyLevel", i);
-				}
-				if (!compoundnbt.tagMap.isEmpty()) {
-					itemstack.setTagInfo("BlockEntityTag", compoundnbt);
-				}
-				EntityItem itementity = new EntityItem(world, x, y, z, itemstack);
-				itementity.delayBeforeCanPickup = 20;
-				world.spawnEntityInWorld(itementity);
+				beehivetileentity.destroyAllBees(); //Deletes all bees from the hive so breakBlock doesn't release duplicate bees
 			}
 		}
 
 		super.onBlockHarvested(world, x, y, z, meta, player);
 	}
 
-	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int meta, int fortune) {
-		if (this.harvesters.get() == null) {
-			TileEntity te = world.getTileEntity(x, y, z);
-			if (te instanceof TileEntityBeeHive) {
-				((TileEntityBeeHive) te).angerBees(null, TileEntityBeeHive.State.EMERGENCY);
+	public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
+		TileEntity te = world.getTileEntity(x, y, z);
+		if (te instanceof TileEntityBeeHive) {
+			((TileEntityBeeHive) te).angerBees(null, TileEntityBeeHive.State.EMERGENCY);
+		}
+		super.breakBlock(world, x, y, z, block, meta);
+	}
+
+	public void harvestBlock(World worldIn, EntityPlayer player, int x, int y, int z, int meta) {
+	}
+
+	@Override
+	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
+		return Lists.newArrayList(createHiveStack(world.getTileEntity(x, y, z)));
+	}
+
+	private ItemStack createHiveStack(TileEntity te) {
+		ItemStack itemStack = new ItemStack(this);
+		if (te instanceof TileEntityBeeHive) {
+			NBTTagCompound compoundnbt = new NBTTagCompound();
+			int honeyLevel = ((TileEntityBeeHive) te).getHoneyLevel();
+			boolean hasBees = !((TileEntityBeeHive) te).hasNoBees();
+			if (hasBees) {
+				compoundnbt.setTag("Bees", ((TileEntityBeeHive) te).getBees());
+			}
+			if (honeyLevel > 0) {
+				compoundnbt.setInteger("honeyLevel", honeyLevel);
+			}
+			if (!compoundnbt.tagMap.isEmpty()) {
+				itemStack.setTagInfo("BlockEntityTag", compoundnbt);
 			}
 		}
-		return super.getDrops(world, x, y, z, meta, fortune);
+		return itemStack;
 	}
 
 	public void onPostBlockPlaced(World world, int x, int y, int z, int meta) {

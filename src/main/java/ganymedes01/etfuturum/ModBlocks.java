@@ -18,7 +18,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 
 public enum ModBlocks {
-	STONE(ConfigBlocksItems.enableStones, new BlockNewStone(), BaseItemBlock.class),
+	STONE(ConfigBlocksItems.enableStones, new BlockBountifulStone(), BaseItemBlock.class),
 	PRISMARINE_BLOCK(ConfigBlocksItems.enablePrismarine, new BaseSubtypesBlock(Material.rock, "prismarine", "prismarine_bricks", "dark_prismarine")
 			.setHardness(1.5F).setResistance(10.0F), BaseItemBlock.class),
 	SEA_LANTERN(ConfigBlocksItems.enablePrismarine, new BlockSeaLantern()),

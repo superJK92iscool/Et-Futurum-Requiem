@@ -185,7 +185,6 @@ public class TileEntityBeeHive extends TileEntity {
 					this.getWorldObj().playSoundEffect(xCoord + 0.5, yCoord + 0.5, zCoord + 0.5,
 							Reference.MCAssetVer + ":block.beehive.exit", 1.0F, 1.0F);
 					getWorldObj().spawnEntityInWorld(beeentity);
-					beeentity.setNoGravity(true);
 				}
 				return true;
 			}
@@ -257,6 +256,10 @@ public class TileEntityBeeHive extends TileEntity {
 			compound.setInteger("honeyLevel", honeyLevel);
 		}
 		super.writeToNBT(compound);
+	}
+
+	public void destroyAllBees() {
+		bees.clear();
 	}
 
 	public NBTTagList getBees() {

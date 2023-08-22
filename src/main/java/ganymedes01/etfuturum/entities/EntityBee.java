@@ -274,7 +274,9 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 				}
 			}
 
-			if (boundingBox != null) { //Somehow this randomly throws an NPE when bees first exit their hives, Entity.java:692
+			if (boundingBox != null) {
+				//Somehow this randomly throws an NPE when bees first exit their hives, Entity.java:692
+				//Then after checking this NPE it somehow crashes at Entity.java:723 because specifically ONLY the last iterator runs even if the size is 0?! How is that even possible? How are regular entities not crash prone!>
 				this.moveEntity(this.motionX, this.motionY, this.motionZ);
 			}
 
