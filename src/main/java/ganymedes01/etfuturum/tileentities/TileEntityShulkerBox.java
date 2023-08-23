@@ -24,7 +24,10 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 
 public class TileEntityShulkerBox extends TileEntity implements IInventory {
 	private int ticksSinceSync;
@@ -222,19 +225,13 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 		++this.ticksSinceSync;
 		float f;
 
-		if (!this.worldObj.isRemote && this.numPlayersUsing != 0 && (this.ticksSinceSync + this.xCoord + this.yCoord + this.zCoord) % 200 == 0)
-		{
+		if (!this.worldObj.isRemote && this.numPlayersUsing != 0 && (this.ticksSinceSync + this.xCoord + this.yCoord + this.zCoord) % 200 == 0) {
 			this.numPlayersUsing = 0;
 			f = 5.0F;
 			List<EntityPlayer> list = this.worldObj.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(this.xCoord - f, this.yCoord - f, this.zCoord - f, this.xCoord + 1 + f, this.yCoord + 1 + f, this.zCoord + 1 + f));
-			Iterator<EntityPlayer> iterator = list.iterator();
 
-			while (iterator.hasNext())
-			{
-				EntityPlayer entityplayer = iterator.next();
-
-				if (entityplayer.openContainer instanceof ContainerChestGeneric)
-				{
+			for (EntityPlayer entityplayer : list) {
+				if (entityplayer.openContainer instanceof ContainerChestGeneric) {
 					++this.numPlayersUsing;
 				}
 			}
@@ -475,66 +472,53 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 		int ordinal = p_190588_1_.ordinal();
 		int opposite = ordinal = ordinal % 2 == 0 ? ordinal + 1 : ordinal - 1;
 		EnumFacing enumfacing = EnumFacing.getFront(opposite);
-		return func_191195_a(this.func_190587_b(p_190588_1_), (double)enumfacing.getFrontOffsetX(), (double)enumfacing.getFrontOffsetY(), (double)enumfacing.getFrontOffsetZ());
+		return func_191195_a(this.func_190587_b(p_190588_1_), enumfacing.getFrontOffsetX(), enumfacing.getFrontOffsetY(), enumfacing.getFrontOffsetZ());
 	}
 	
 	private void func_190589_G()
 	{
-		if (getBlockType() instanceof BlockShulkerBox)
-		{
+		if (getBlockType() instanceof BlockShulkerBox) {
 			EnumFacing enumfacing = EnumFacing.getFront(facing);
 			AxisAlignedBB axisalignedbb = this.func_190588_c(enumfacing).offset(xCoord, yCoord, zCoord);
-			List<Entity> list = this.worldObj.getEntitiesWithinAABBExcludingEntity((Entity)null, axisalignedbb);
-			
-			if (!list.isEmpty())
-			{
-				for (int i = 0; i < list.size(); ++i)
-				{
-					Entity entity = (Entity)list.get(i);
+			List<Entity> list = this.worldObj.getEntitiesWithinAABBExcludingEntity(null, axisalignedbb);
 
-					if (entity.canBePushed())
-					{
+			if (!list.isEmpty()) {
+				for (Entity value : list) {
+					Entity entity = (Entity) value;
+
+					if (entity.canBePushed()) {
 						double d0 = 0.0D;
 						double d1 = 0.0D;
 						double d2 = 0.0D;
 						AxisAlignedBB axisalignedbb1 = entity.boundingBox;
 
-						if(enumfacing.getFrontOffsetX() != 0) {
-							if (enumfacing.getFrontOffsetX() > 0)
-							{
+						if (enumfacing.getFrontOffsetX() != 0) {
+							if (enumfacing.getFrontOffsetX() > 0) {
 								d0 = axisalignedbb.maxX - axisalignedbb1.minX;
-							}
-							else
-							{
+							} else {
 								d0 = axisalignedbb1.maxX - axisalignedbb.minX;
 							}
 
 							d0 = d0 + 0.01D;
-						} else if(enumfacing.getFrontOffsetY() != 0) {
-							if (enumfacing.getFrontOffsetY() > 0)
-							{
+						} else if (enumfacing.getFrontOffsetY() != 0) {
+							if (enumfacing.getFrontOffsetY() > 0) {
 								d1 = axisalignedbb.maxY - axisalignedbb1.minY;
-							}
-							else
-							{
+							} else {
 								d1 = axisalignedbb1.maxY - axisalignedbb.minY;
 							}
 
-							d1 = d1+ 0.01D;
-						} else if(enumfacing.getFrontOffsetZ() != 0) {
-							if (enumfacing.getFrontOffsetZ() > 0)
-							{
+							d1 = d1 + 0.01D;
+						} else if (enumfacing.getFrontOffsetZ() != 0) {
+							if (enumfacing.getFrontOffsetZ() > 0) {
 								d2 = axisalignedbb.maxZ - axisalignedbb1.minZ;
-							}
-							else
-							{
+							} else {
 								d2 = axisalignedbb1.maxZ - axisalignedbb.minZ;
 							}
 
 							d2 = d2 + 0.01D;
 						}
 
-						entity.moveEntity(d0 * (double)enumfacing.getFrontOffsetX(), d1 * (double)enumfacing.getFrontOffsetY(), d2 * (double)enumfacing.getFrontOffsetZ());
+						entity.moveEntity(d0 * (double) enumfacing.getFrontOffsetX(), d1 * (double) enumfacing.getFrontOffsetY(), d2 * (double) enumfacing.getFrontOffsetZ());
 					}
 				}
 			}

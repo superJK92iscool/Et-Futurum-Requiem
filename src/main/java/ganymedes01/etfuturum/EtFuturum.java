@@ -251,11 +251,11 @@ public class EtFuturum {
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
 		ModRecipes.init();
-		
-		if(EtFuturum.hasWaila) {
+
+		if (EtFuturum.hasWaila) {
 			WailaRegistrar.register();
 		}
-		
+
 		proxy.registerEvents();
 		proxy.registerEntities();
 		proxy.registerRenderers();
@@ -263,11 +263,22 @@ public class EtFuturum {
 	}
 
 	@EventHandler
-	public void postInit(FMLPostInitializationEvent event) {
+	public void processIMCRequests(IMCEvent event) {
+		for (IMCMessage message : event.getMessages()) {
+			if (message.key.equals("register-brewing-fuel")) {
+				NBTTagCompound nbt = message.getNBTValue();
+				ItemStack stack = ItemStack.loadItemStackFromNBT(nbt.getCompoundTag("Fuel"));
+				int brews = nbt.getInteger("Brews");
+				BrewingFuelRegistry.registerFuel(stack, brews);
+			}
+		}
+	}
 
+	@EventHandler
+	public void postInit(FMLPostInitializationEvent event) {
 		if (ConfigFunctions.enableUpdatedFoodValues) {
-			((ItemFood)Items.carrot).healAmount = 3;
-			((ItemFood)Items.baked_potato).healAmount = 5;
+			((ItemFood) Items.carrot).healAmount = 3;
+			((ItemFood) Items.baked_potato).healAmount = 5;
 		}
 
 		if (ConfigFunctions.enableUpdatedHarvestLevels) {
@@ -568,22 +579,10 @@ public class EtFuturum {
 	}
 
 	@EventHandler
-	public void processIMCRequests(IMCEvent event) {
-		for (IMCMessage message : event.getMessages())
-			if (message.key.equals("register-brewing-fuel")) {
-				NBTTagCompound nbt = message.getNBTValue();
-				ItemStack stack = ItemStack.loadItemStackFromNBT(nbt.getCompoundTag("Fuel"));
-				int brews = nbt.getInteger("Brews");
-				BrewingFuelRegistry.registerFuel(stack, brews);
-			}
-	}
-
-	@EventHandler
 	public void serverStarting(FMLServerStartingEvent event) {
-		if(ConfigFunctions.enableFillCommand)
+		if (ConfigFunctions.enableFillCommand) {
 			event.registerServerCommand(new CommandFill());
-//        if (ConfigurationHandler.enablePlayerSkinOverlay)
-//            event.registerServerCommand(new SetPlayerModelCommand());
+		}
 	}
 	
 	public static void copyAttribs(Block to, Block from) {

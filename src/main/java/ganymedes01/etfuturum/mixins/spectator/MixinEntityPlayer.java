@@ -3,11 +3,17 @@ package ganymedes01.etfuturum.mixins.spectator;
 import ganymedes01.etfuturum.spectator.SpectatorMode;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(EntityPlayer.class)
 public abstract class MixinEntityPlayer extends EntityLivingBase {
+
+	@Shadow
+	public InventoryPlayer inventory;
 
 	public MixinEntityPlayer(World p_i1595_1_) {
 		super(p_i1595_1_);
@@ -15,7 +21,7 @@ public abstract class MixinEntityPlayer extends EntityLivingBase {
 
 	@Override
 	public boolean canBePushed() {
-		return !SpectatorMode.isSpectator((EntityPlayer)(Object)this);
+		return !SpectatorMode.isSpectator((EntityPlayer) (Object) this);
 	}
 
 	@Override
@@ -38,8 +44,12 @@ public abstract class MixinEntityPlayer extends EntityLivingBase {
 
 	@Override
 	public boolean handleWaterMovement() {
-		if(SpectatorMode.isSpectator((EntityPlayer)(Object)this))
+		if (SpectatorMode.isSpectator((EntityPlayer) (Object) this))
 			return false;
 		return super.handleWaterMovement();
+	}
+
+	public ItemStack getEquipmentInSlot(int p_71124_1_) {
+		return SpectatorMode.isSpectator((EntityPlayer) (Object) this) ? null : p_71124_1_ == 0 ? this.inventory.getCurrentItem() : this.inventory.armorInventory[p_71124_1_ - 1];
 	}
 }

@@ -38,6 +38,10 @@ import javax.annotation.Nullable;
 import java.util.*;
 import java.util.function.Predicate;
 
+/**
+ * Credit to thedarkcolour for permission for thedarkcolour to see how FutureMC bees work in 1.12 to see what makes bees work without 1.15 mechanics present, and what part of 1.15 mechanics need to be changed or cut.
+ * FutureMC was only referenced; no code was actually used from it; It is ARR but visible source.
+ */
 public class EntityBee extends EntityAnimal implements INoGravityEntity {
 	private static final int DATA_FLAGS_ID = 13; //byte
 	private static final int ANGER_TIME = 14; //int
@@ -274,11 +278,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 				}
 			}
 
-			if (boundingBox != null) {
-				//Somehow this randomly throws an NPE when bees first exit their hives, Entity.java:692
-				//Then after checking this NPE it somehow crashes at Entity.java:723 because specifically ONLY the last iterator runs even if the size is 0?! How is that even possible? How are regular entities not crash prone!>
-				this.moveEntity(this.motionX, this.motionY, this.motionZ);
-			}
+			this.moveEntity(this.motionX, this.motionY, this.motionZ);
 
 			if (this.isCollidedHorizontally && this.isOnLadder()) {
 				this.motionY = 0.2D;
@@ -412,7 +412,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		if (block instanceof BlockDoublePlant && blockBelow instanceof BlockDoublePlant) {
 			int meta = pos.getBlockMetadata(worldObj);
 			int metaBelow = worldObj.getBlockMetadata(pos.getX(), pos.getY() - 1, pos.getZ());
-			return meta > 8 && (metaBelow != 2 && metaBelow != 3 || blockBelow != Blocks.double_plant); //Top half of plant and NOT grass or fern, or isn't Minecraft
+			return meta >= 8 && (metaBelow != 2 && metaBelow != 3 || blockBelow != Blocks.double_plant); //Top half of plant and NOT grass or fern, or isn't Minecraft
 		}
 		return isValidFlower(block);
 	}
@@ -421,13 +421,13 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 
 	private boolean isBreedingFlower(Block block, int meta) {
 		if (block instanceof BlockDoublePlant && block == Blocks.double_plant) {
-			return meta < 9;
+			return meta < 8;
 		}
 		return isValidFlower(block);
 	}
 
 	//Both flowers. For breeding the ItemBlock will have different metas, this is an issue for double plants so we handle them separately.
-	private boolean isValidFlower(Block block) {
+	public static boolean isValidFlower(Block block) { //Todo: Make this a registry later
 		if (block instanceof BlockFlower) {
 			return true;
 		} else return block instanceof BlockChorusFlower;

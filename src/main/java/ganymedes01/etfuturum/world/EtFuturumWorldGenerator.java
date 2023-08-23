@@ -117,7 +117,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 				x = chunkX * 16 + rand.nextInt(16) + 8;
 				z = chunkZ * 16 + rand.nextInt(16) + 8;
 				if (rand.nextInt(64) == 0 && fossilBiomes.contains(world.getBiomeGenForCoords(x, z))) {
-					fossilGen.generate(world, rand, x, rand.nextInt(9) + 41, z);
+					fossilGen.generate(world, rand, x, MathHelper.getRandomIntegerInRange(rand, 49, 40), z);
 				}
 			}
 		}
@@ -176,7 +176,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 			if(chance > 1 || random.nextFloat() < chance) {
 				int heightRange = maxY - minY;
 				int xRand = chunkX * 16 + random.nextInt(16);
-				int yRand = random.nextInt(heightRange) + minY;
+				int yRand = MathHelper.getRandomIntegerInRange(random, minY, maxY);
 				int zRand = chunkZ * 16 + random.nextInt(16);
 				if(world.getBlock(xRand, yRand, zRand).isReplaceableOreGen(world, xRand, yRand, zRand, generateIn))
 					world.setBlock(xRand, yRand, zRand, block, meta, 3);
@@ -188,12 +188,10 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 		if(maxY <= 0 || minY < 0 || maxY < minY || gen.numberOfBlocks <= 0 || chance <= 0)
 			return;
 		
-		int heightRange = maxY - minY;
-		
 		for(int i = 0; i < (chance < 1 ? 1 : (int)chance); i++) {
 			if(chance >= 1 || random.nextFloat() < chance) {
 				int xRand = chunkX * 16 + random.nextInt(16);
-				int yRand = random.nextInt(heightRange) + minY;
+				int yRand = MathHelper.getRandomIntegerInRange(random, minY, maxY);
 				int zRand = chunkZ * 16 + random.nextInt(16);
 				
 				gen.generate(world, random, xRand, yRand, zRand);

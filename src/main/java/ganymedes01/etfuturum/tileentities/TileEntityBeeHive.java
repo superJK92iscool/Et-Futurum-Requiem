@@ -8,6 +8,7 @@ import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import ganymedes01.etfuturum.entities.EntityBee;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockBush;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
@@ -50,12 +51,19 @@ public class TileEntityBeeHive extends TileEntity {
 		return false;
 	}
 
+	/**
+	 * Should be greater than 1.
+	 */
+	public int maxHiveSize() {
+		return 3;
+	}
+
 	public boolean hasNoBees() {
 		return this.bees.isEmpty();
 	}
 
 	public boolean isFullOfBees() {
-		return getBeeCount() == 3;
+		return getBeeCount() == maxHiveSize();
 	}
 
 	public void angerBees(EntityPlayer p_226963_1_, TileEntityBeeHive.State p_226963_3_) {
@@ -116,14 +124,13 @@ public class TileEntityBeeHive extends TileEntity {
 	}
 
 	public void tryEnterHive(Entity p_226962_1_, boolean p_226962_2_, int p_226962_3_) {
-		if (getBeeCount() < 3 && p_226962_1_ instanceof EntityBee) {
+		if (getBeeCount() < maxHiveSize() && p_226962_1_ instanceof EntityBee) {
 			p_226962_1_.riddenByEntity = null;
 			Entity living = ((EntityBee) p_226962_1_).getLeashedToEntity();
 			((EntityBee) p_226962_1_).clearLeashed(true, !(living instanceof EntityPlayer) || !((EntityPlayer) living).capabilities.isCreativeMode);
 			NBTTagCompound compoundnbt = new NBTTagCompound();
 			p_226962_1_.writeToNBT(compoundnbt);
 			compoundnbt.removeTag("Riding");
-			removeUniqueId(compoundnbt, "UUID");
 			//writeToNBT doesn't save the entity ID in its own NBT, it's probably saved somewhere else. So we manually add it to the tags for the beehive
 			compoundnbt.setString("id", (String) EntityList.classToStringMapping.get(p_226962_1_.getClass()));
 			this.bees.add(new TileEntityBeeHive.Bee(compoundnbt, p_226962_3_, p_226962_2_ ? 2400 : 600));
@@ -132,9 +139,14 @@ public class TileEntityBeeHive extends TileEntity {
 				if (beeentity.hasFlower() && (!this.hasFlowerPos() || this.getWorldObj().rand.nextBoolean())) {
 					this.flowerPos = beeentity.getFlowerPos();
 				}
-
-				this.getWorldObj().playSoundEffect(xCoord + 0.5, yCoord + 0.5, zCoord + 0.5,
-						Reference.MCAssetVer + ":block.beehive.enter", 1.0F, 1.0F);
+				beeentity.ticksExisted = 0;
+				//We want to make sure the entity is spawned, before playing the noise. This is because hives can generate naturally or with saplings.
+				//Natural generation uses a dummy entity to generate bee data for the hive and then calls this function to add them, but doesn't actually spawn them.
+				//We don't want trees to make a loud bee pop, and since "fake" bees never spawn addedToChunk will be false for them, so that's why we do this.
+				if (beeentity.addedToChunk) {
+					this.getWorldObj().playSoundEffect(xCoord + 0.5, yCoord + 0.5, zCoord + 0.5,
+							Reference.MCAssetVer + ":block.beehive.enter", 1.0F, 1.0F);
+				}
 			}
 
 			p_226962_1_.setDead();
@@ -144,7 +156,7 @@ public class TileEntityBeeHive extends TileEntity {
 	private boolean releaseBee(NBTTagCompound p_226967_2_, List<Entity> p_226967_3_, TileEntityBeeHive.State p_226967_4_) {
 		if ((this.getWorldObj().isDaytime() && !this.getWorldObj().isRaining()) || p_226967_4_ == State.EMERGENCY) {
 			EnumFacing direction = EnumFacing.getFront(getWorldObj().getBlockMetadata(xCoord, yCoord, zCoord) % 6);
-			boolean flag = !this.getWorldObj().isAirBlock(xCoord + direction.getFrontOffsetX(), yCoord, zCoord + direction.getFrontOffsetZ());
+			boolean flag = getWorldObj().getBlock(xCoord + direction.getFrontOffsetX(), yCoord, zCoord + direction.getFrontOffsetZ()) instanceof BlockBush;
 			if (flag && p_226967_4_ != State.EMERGENCY) {
 				return false;
 			} else {

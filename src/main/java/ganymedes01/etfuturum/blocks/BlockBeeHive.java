@@ -26,7 +26,9 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.event.ForgeEventFactory;
 
 import java.util.ArrayList;
@@ -43,6 +45,8 @@ public class BlockBeeHive extends BlockContainer {
 	@SideOnly(Side.CLIENT)
 	protected IIcon frontIconHoney;
 
+	protected boolean isNest;
+
 	public BlockBeeHive() {
 		super(Material.wood);
 		setCreativeTab(EtFuturum.creativeTabBlocks);
@@ -55,6 +59,7 @@ public class BlockBeeHive extends BlockContainer {
 		if (type.contains("nest")) {
 			setResistance(0.3F);
 			setHardness(0.3F);
+			isNest = true;
 		} else {
 			setResistance(0.6F);
 			setHardness(0.6F);
@@ -320,5 +325,20 @@ public class BlockBeeHive extends BlockContainer {
 			}
 		}
 		super.onPostBlockPlaced(world, x, y, z, meta);
+	}
+
+	@Override
+	public boolean isFlammable(IBlockAccess aWorld, int aX, int aY, int aZ, ForgeDirection aSide) {
+		return true;
+	}
+
+	@Override
+	public int getFlammability(IBlockAccess aWorld, int aX, int aY, int aZ, ForgeDirection aSide) {
+		return isNest ? 30 : 5;
+	}
+
+	@Override
+	public int getFireSpreadSpeed(IBlockAccess aWorld, int aX, int aY, int aZ, ForgeDirection aSide) {
+		return 20;
 	}
 }

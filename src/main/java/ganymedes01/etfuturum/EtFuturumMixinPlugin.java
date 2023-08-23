@@ -3,6 +3,7 @@ package ganymedes01.etfuturum;
 import ganymedes01.etfuturum.compat.CompatMisc;
 import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.configuration.configs.ConfigEnchantsPotions;
+import ganymedes01.etfuturum.configuration.configs.ConfigEntities;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.launchwrapper.Launch;
@@ -92,7 +93,9 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 			mixins.add("spectator.MixinWorld");
 			mixins.add("spectator.MixinEntityPlayer");
 			mixins.add("spectator.MixinNetHandlerPlayServer");
-			if(side == MixinEnvironment.Side.CLIENT) {
+			mixins.add("spectator.MixinInventoryPlayer");
+			mixins.add("spectator.MixinContainerChest");
+			if (side == MixinEnvironment.Side.CLIENT) {
 				mixins.add("spectator.client.MixinEntityRenderer");
 				mixins.add("spectator.client.MixinEntityPlayer");
 				mixins.add("spectator.client.MixinWorldRenderer");
@@ -185,6 +188,10 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 
 		if (ConfigMixins.collidedThrowableFix) {
 			mixins.add("projectilecollidefix.MixinEntityThrowable");
+		}
+
+		if (ConfigMixins.postTreeGenEvent && ConfigEntities.enableBees) {
+			mixins.add("posttreegen.MixinWorldGenAbstractTree");
 		}
 
 		if (side == MixinEnvironment.Side.CLIENT) {

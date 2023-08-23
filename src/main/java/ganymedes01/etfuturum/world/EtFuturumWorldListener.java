@@ -84,7 +84,7 @@ public class EtFuturumWorldListener implements IWorldAccess {
 
 		tile = world.getTileEntity(x, y, z);
 		NBTTagCompound nbt = new NBTTagCompound();
-		if(tile != null) {
+		if (tile != null) {
 			tile.writeToNBT(nbt);
 			if (tile instanceof IInventory) {
 				IInventory invt = (IInventory) tile;
@@ -93,13 +93,13 @@ public class EtFuturumWorldListener implements IWorldAccess {
 				}
 			}
 		}
-		
-		world.setBlock(x, y, z, replacement, world.getBlockMetadata(x, y, z), 3);
+
+		world.setBlock(x, y, z, replacement, world.getBlockMetadata(x, y, z), 2);
 		TileEntity newTile = world.getTileEntity(x, y, z);
-		if(newTile != null) {
+		if (newTile != null) {
 			newTile.readFromNBT(nbt);
 		}
-			
+
 	}
 
 	@Override

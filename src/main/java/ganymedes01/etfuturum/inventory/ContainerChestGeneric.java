@@ -1,11 +1,12 @@
 package ganymedes01.etfuturum.inventory;
 
+import ganymedes01.etfuturum.spectator.SpectatorMode;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
 
 /** ContainerChest modified to use a custom row size. */
 public class ContainerChestGeneric extends Container
@@ -16,35 +17,34 @@ public class ContainerChestGeneric extends Container
 	public ContainerChestGeneric(IInventory p_i1806_1_, IInventory p_i1806_2_) {
 		this(p_i1806_1_, p_i1806_2_, 9, false);
 	}
-	
-	public ContainerChestGeneric(IInventory p_i1806_1_, IInventory p_i1806_2_, int rowSize, boolean slim)
-	{
+
+	public ContainerChestGeneric(IInventory p_i1806_1_, IInventory p_i1806_2_, int rowSize, boolean slim) {
 		this.chestInventory = p_i1806_2_;
 		this.rowSize = rowSize = Math.min(rowSize, p_i1806_2_.getSizeInventory());
-		if(p_i1806_2_.getSizeInventory() % rowSize != 0) {
+		if (p_i1806_2_.getSizeInventory() % rowSize != 0) {
 			throw new IllegalArgumentException("Non-rectangular inventory. " + p_i1806_2_.getSizeInventory() + " slots, " + rowSize + " columns.");
 		}
-		
-		int numRows = (int)Math.ceil(p_i1806_2_.getSizeInventory() / (float)rowSize);
-		p_i1806_2_.openInventory();
+
+		int numRows = (int) Math.ceil(p_i1806_2_.getSizeInventory() / (float) rowSize);
+		if (!(p_i1806_1_ instanceof InventoryPlayer) || !SpectatorMode.isSpectator(((InventoryPlayer) p_i1806_1_).player)) {
+			p_i1806_2_.openInventory();
+		}
 		int i = (numRows - 4) * 18;
 		int j;
 		int k;
-		
+
 		int padL = slim ? 12 : 8; // padding on left and right
 		int padT = slim ? 8 : 18; // padding on top
 		int sep1H = slim ? 4 : 13; // height of separator
-		int sep2H = slim ? 4 : 4; // height of separator
-		
+		int sep2H = 4; // height of separator
+
 		int width = rowSize * 18 + 2 * padL;
-		
+
 		int slotStartXOff = 0;
-		
-		for (j = 0; j < numRows; ++j)
-		{
-			for (k = 0; k < rowSize; ++k)
-			{
-				if(k + j * rowSize < chestInventory.getSizeInventory()) {
+
+		for (j = 0; j < numRows; ++j) {
+			for (k = 0; k < rowSize; ++k) {
+				if (k + j * rowSize < chestInventory.getSizeInventory()) {
 					this.addSlotToContainer(constructSlot(p_i1806_2_, k + j * rowSize, slotStartXOff + padL + k * 18, padT + j * 18));
 				}
 			}
@@ -147,10 +147,11 @@ public class ContainerChestGeneric extends Container
 	/**
 	 * Called when the container is closed.
 	 */
-	public void onContainerClosed(EntityPlayer p_75134_1_)
-	{
-		super.onContainerClosed(p_75134_1_);
-		this.chestInventory.closeInventory();
+	public void onContainerClosed(EntityPlayer p_75134_1_) {
+		if (!SpectatorMode.isSpectator(p_75134_1_)) {
+			super.onContainerClosed(p_75134_1_);
+			this.chestInventory.closeInventory();
+		}
 	}
 
 	/**

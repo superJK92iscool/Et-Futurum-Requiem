@@ -1,22 +1,20 @@
 package ganymedes01.etfuturum.spectator;
 
 import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
-import cpw.mods.fml.relauncher.Side;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.core.utils.Logger;
 import ganymedes01.etfuturum.core.utils.helpers.SafeEnumHelperClient;
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.command.IEntitySelector;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityEnderChest;
 import net.minecraft.world.WorldSettings;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
@@ -28,12 +26,7 @@ import net.minecraftforge.event.world.BlockEvent;
 
 public class SpectatorMode {
 	public static final SpectatorMode INSTANCE = new SpectatorMode();
-	public static final IEntitySelector EXCEPT_SPECTATING = new IEntitySelector() {
-		@Override
-		public boolean isEntityApplicable(Entity p_82704_1_) {
-			return !(p_82704_1_ instanceof EntityPlayer) || !isSpectator((EntityPlayer) p_82704_1_);
-		}
-	};
+	public static final IEntitySelector EXCEPT_SPECTATING = p_82704_1_ -> !(p_82704_1_ instanceof EntityPlayer) || !isSpectator((EntityPlayer) p_82704_1_);
 	SpectatorMode() {
 
 	}
@@ -60,14 +53,16 @@ public class SpectatorMode {
 			if(event.action != PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK)
 				event.setCanceled(true);
 			else {
-				if(!event.world.blockExists(event.x, event.y, event.z)) {
+				if (!event.world.blockExists(event.x, event.y, event.z)) {
 					return;
 				}
 				Block block = event.world.getBlock(event.x, event.y, event.z);
 				int meta = event.world.getBlockMetadata(event.x, event.y, event.z);
-				if(!block.hasTileEntity(meta) || !(event.world.getTileEntity(event.x, event.y, event.z) instanceof IInventory)) {
+				TileEntity te = event.world.getTileEntity(event.x, event.y, event.z);
+				if (!(te instanceof IInventory || te instanceof TileEntityEnderChest)) {
 					event.setCanceled(true);
 				}
+				Logger.info(block.getUnlocalizedName() + " " + meta);
 			}
 		}
 	}
@@ -106,7 +101,6 @@ public class SpectatorMode {
 				event.player.onGround = false;
 				event.player.setInvisible(true);
 			}
-
 		}
 	}
 

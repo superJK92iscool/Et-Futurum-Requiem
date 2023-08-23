@@ -27,9 +27,13 @@ public class WeightedRandomList<T> {
 	}
 
 	public T getRandom(Random rand) {
+		if (entries.size() == 1) {
+			return entries.get(0).object;
+		}
+
 		double r = rand.nextDouble() * accumulatedWeight;
 
-		for (Entry entry: entries) {
+		for (Entry entry : entries) {
 			if (entry.accumulatedWeight >= r) {
 				return entry.object;
 			}

@@ -511,18 +511,18 @@ public class ClientEventHandler {
 		}
 
 		Entity entity = event.entity;
-		if (!event.entity.worldObj.isRemote) {
+		if (!entity.worldObj.isRemote) {
 			// --- Horse eat --- //
-			if (ConfigSounds.horseEatCowMilk && event.entity instanceof EntityHorse && event.name.equals("eating")) {
+			if (ConfigSounds.horseEatCowMilk && entity instanceof EntityHorse && event.name.equals("eating")) {
 				event.name = Reference.MCAssetVer + ":entity.horse.eat";
 			}
 			return;//This is the only code I want to run if !isRemote
 		}
 
-		if (event.entity instanceof EntityPlayer && event.name.equals("random.drink")) {
-			EntityPlayer player = (EntityPlayer) event.entity;
+		if (entity instanceof EntityPlayer && event.name.equals("random.drink")) {
+			EntityPlayer player = (EntityPlayer) entity;
 			if (player.isUsingItem() && player.getHeldItem() != null && player.getHeldItem().getItem() instanceof ItemHoneyBottle) {
-				event.entity.playSound(Reference.MCAssetVer + ":item.honey_bottle.drink" + ignore_suffix, 1, 1);
+				entity.playSound(Reference.MCAssetVer + ":item.honey_bottle.drink" + ignore_suffix, 1, 1);
 				event.setCanceled(true);
 				return;
 			}
@@ -545,9 +545,9 @@ public class ClientEventHandler {
 			}
 		}
 
-		int x = MathHelper.floor_double(event.entity.posX);
-		int y = MathHelper.floor_double(event.entity.posY - 0.20000000298023224D - event.entity.yOffset);
-		int z = MathHelper.floor_double(event.entity.posZ);
+		int x = MathHelper.floor_double(entity.posX);
+		int y = MathHelper.floor_double(entity.posY - 0.20000000298023224D - entity.yOffset);
+		int z = MathHelper.floor_double(entity.posZ);
 		World world = FMLClientHandler.instance().getWorldClient();
 		Block block = world.getBlock(x, y, z);
 
@@ -560,26 +560,26 @@ public class ClientEventHandler {
 				if (newSoundString == null) newSoundString = event.name;
 				if (volume == -1) volume = event.volume;
 				if (pitch == -1) pitch = event.pitch;
-				event.entity.playSound(newSoundString + ignore_suffix, volume, pitch);
+				entity.playSound(newSoundString + ignore_suffix, volume, pitch);
 				event.setCanceled(true);
 			}
 		} else if (ConfigSounds.newBlockSounds && ModSounds.soundAmethystBlock.getStepResourcePath().equals(event.name)) {
-			MutablePair<Float, Integer> pair = AMETHYST_CHIME_CACHE.get(event.entity);
+			MutablePair<Float, Integer> pair = AMETHYST_CHIME_CACHE.get(entity);
 			if (pair == null) {
 				pair = new MutablePair<>(0.0F, 0);
 			}
 			float field_26997 = pair.getLeft();
 			int lastChimeAge = pair.getRight();
-			if (event.entity.ticksExisted >= lastChimeAge + 20) {
-				field_26997 = (float) ((double) field_26997 * Math.pow(0.996999979019165D, (double) (event.entity.ticksExisted - lastChimeAge)));
+			if (entity.ticksExisted >= lastChimeAge + 20) {
+				field_26997 = (float) ((double) field_26997 * Math.pow(0.996999979019165D, (double) (entity.ticksExisted - lastChimeAge)));
 				field_26997 = Math.min(1.0F, field_26997 + 0.07F);
-				float f = 0.5F + field_26997 * event.entity.worldObj.rand.nextFloat() * 1.2F;
+				float f = 0.5F + field_26997 * entity.worldObj.rand.nextFloat() * 1.2F;
 				float g = 0.1F + field_26997 * 1.2F;
-				event.entity.playSound(Reference.MCAssetVer + ":block.amethyst_block.chime", g, f);
-				lastChimeAge = event.entity.ticksExisted;
+				entity.playSound(Reference.MCAssetVer + ":block.amethyst_block.chime", g, f);
+				lastChimeAge = entity.ticksExisted;
 				pair.setLeft(field_26997);
 				pair.setRight(lastChimeAge);
-				AMETHYST_CHIME_CACHE.put(event.entity, pair);
+				AMETHYST_CHIME_CACHE.put(entity, pair);
 			}
 		}
 	}

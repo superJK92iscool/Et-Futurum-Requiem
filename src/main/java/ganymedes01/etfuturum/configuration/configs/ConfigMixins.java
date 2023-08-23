@@ -23,12 +23,6 @@ public class ConfigMixins extends ConfigBase {
 	public static boolean newBeaconSounds;
 	public static boolean hoeTilling;
 	public static boolean blockHopperInteraction;
-
-	static final String catBackport = "backported features";
-	static final String catOptimization = "optimizations";
-	static final String catFixes = "fixes";
-	static final String catMisc = "misc";
-
 	public static boolean avoidDroppingItemsWhenClosing;
 	public static boolean enableSpectatorMode;
 	public static boolean enableElytra;
@@ -40,6 +34,12 @@ public class ConfigMixins extends ConfigBase {
 	public static boolean adjustedAttenuation;
 	public static boolean dustUnderFallingBlocks;
 	public static boolean collidedThrowableFix;
+	public static boolean postTreeGenEvent;
+
+	static final String catBackport = "backported features";
+	static final String catOptimization = "optimizations";
+	static final String catFixes = "fixes";
+	static final String catMisc = "misc";
 
 	public ConfigMixins(File file) {
 		super(file);
@@ -47,7 +47,7 @@ public class ConfigMixins extends ConfigBase {
 		setCategoryComment(catOptimization, "Better implementations of existing features.\nThis is generally used when doing something through the Forge API would be slower or less practical than using a Mixin.");
 		setCategoryComment(catFixes, "Fixes to vanilla issues which are necessary for backports.");
 		setCategoryComment(catMisc, "Mixins that don't fit in any other category.");
-		
+
 		configCats.add(getCategory(catBackport));
 		configCats.add(getCategory(catOptimization));
 		configCats.add(getCategory(catFixes));
@@ -65,9 +65,9 @@ public class ConfigMixins extends ConfigBase {
 		endPortalFix = getBoolean("endPortalFix", catBackport, true, "Makes the End Portal block (the actual portal, not the frame) have an item icon, proper hitbox and will not instantly destroy itself in other dimensions.\nModified classes: net.minecraft.block.BlockEndPortal");
 		fenceWallConnectFix = getBoolean("fenceWallConnectFix", catBackport, true, "Makes vanilla fences connect to modded ones of the same material. Might have connection issue with mods that don't reference BlockFence super code.\nModified classes: net.minecraft.block.BlockFence net.minecraft.block.BlockWall");
 		avoidDroppingItemsWhenClosing = getBoolean("avoidDroppingItemsWhenClosing", catBackport, false, "Experimental: avoid dropping items when closing an inventory, like in modern versions.\nModified Classes: net.minecraft.entity.player.EntityPlayerMP");
-		enableSpectatorMode = getBoolean("enableSpectatorMode", catBackport, true, "VERY EXPERIMENTAL!\nModified Classes: net.minecraft.world.WorldSettings.GameType net.minecraft.entity.Entity net.minecraft.world.World net.minecraft.entity.player.EntityPlayer net.minecraft.network.NetHandlerPlayServer\nModified Client Classes: net.minecraft.client.renderer.EntityRenderer net.minecraft.entity.player.EntityPlayer net.minecraft.client.renderer.WorldRenderer");
+		enableSpectatorMode = getBoolean("enableSpectatorMode", catBackport, true, "VERY EXPERIMENTAL!\nModified Classes: net.minecraft.world.WorldSettings.GameType net.minecraft.entity.Entity net.minecraft.world.World net.minecraft.entity.player.EntityPlayer net.minecraft.network.NetHandlerPlayServer net.minecraft.entity.player.InventoryPlayer net.minecraft.inventory.ContainerChest\nModified Client Classes: net.minecraft.client.renderer.EntityRenderer net.minecraft.entity.player.EntityPlayer net.minecraft.client.renderer.WorldRenderer");
 		enableObservers = getBoolean("enableObservers", catBackport, true, "Modified Classes: net.minecraft.world.World net.minecraft.world.WorldServer");
-		blockHopperInteraction = getBoolean("blockHopperInteraction", catBackport, true, "Allows some blocks without tile entities (e.g. composters) to interact with hoppers. May still not interact with modded pipes.\nModified Classes:  net.minecraft.tileentity.TileEntityHopper");
+		blockHopperInteraction = getBoolean("blockHopperInteraction", catBackport, true, "Allows some blocks without tile entities (e.g. composters) to interact with hoppers. May still not interact with modded pipes.\nModified Classes: net.minecraft.tileentity.TileEntityHopper");
 
 		enableElytra = getBoolean("enableElytra", catBackport, true, "If you're getting crash related to the DataWatcher, try changing \"elytraDataWatcherFlag\" in functions.cfg and don't open an issue if changing that value fixes it.\nModified Classes: net.minecraft.entity.EntityLivingBase net.minecraft.entity.player.EntityPlayer net.minecraft.entity.EntityTrackerEntry net.minecraft.network.NetHandlerPlayServer net.minecraft.client.entity.AbstractClientPlayer net.minecraft.client.entity.EntityPlayerSP net.minecraft.client.model.ModelBiped net.minecraft.client.renderer.entity.RenderPlayer");
 		enableNewElytraTakeoffLogic = getBoolean("enableNewElytraTakeoffLogic", catBackport, true, "When enabled, the 1.15+ elytra takeoff logic is used, when disabled, the 1.9-1.14 elytra takeoff logic is used.");
@@ -83,6 +83,7 @@ public class ConfigMixins extends ConfigBase {
 		newBeaconSounds = getBoolean("newBeaconSounds", catBackport, true, "Allows beacon ambience to play for beacons. Should include most modded beacons.\nModified Classes: net.minecraft.tileentity.TileEntityBeacon");
 		hoeTilling = getBoolean("hoeTilling", catBackport, true, "Sounds for hoes tilling farmland.\nModified Classes: net.minecraft.item.ItemHoe");
 		dustUnderFallingBlocks = getBoolean("dustUnderFallingBlocks", catBackport, true, "Spawns a particle under falling blocks like sand or gravel that are suspended mid-air.\nModified Classes: net.minecraft.block.BlockFalling");
+		postTreeGenEvent = getBoolean("postTreeGenEvent", catBackport, true, "Fires an event after a tree generates, mainly for beehives to accurately know where most trees are. For now this option is disabled if bees are disabled.\nModified Classes: net.minecraft.world.gen.feature.WorldGenAbstractTree");
 
 		stepHeightFix = getBoolean("stepHeightFix", catFixes, true, "Makes the player able to step up even if a block would be above their head at the destination.\nModified classes: net.minecraft.entity.Entity");
 		arrowFallingFix = getBoolean("arrowFallingFix", catFixes, true, "Prevents arrows from falling off of blocks too easily\nModified classes: net.minecraft.entity.EntityArrow");
