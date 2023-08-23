@@ -58,6 +58,7 @@ tile.quartzBlock.lines.name=Кварцевый пилон
 tile.mobSpawner.name=Спаунер
 tile.stoneMoss.name=Замшелый булыжник
 tile.sandStone.smooth.name=Резной песчаник
+tile.sandStone.chiseled.name=Декоративный песчаник
 tile.netherBrick.name=Адские кирпичи
 tile.daylightDetector.name=Датчик дневного света
 
