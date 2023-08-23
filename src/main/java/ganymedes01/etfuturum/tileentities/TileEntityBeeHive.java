@@ -8,7 +8,6 @@ import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import ganymedes01.etfuturum.entities.EntityBee;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockBush;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
@@ -156,7 +155,8 @@ public class TileEntityBeeHive extends TileEntity {
 	private boolean releaseBee(NBTTagCompound p_226967_2_, List<Entity> p_226967_3_, TileEntityBeeHive.State p_226967_4_) {
 		if ((this.getWorldObj().isDaytime() && !this.getWorldObj().isRaining()) || p_226967_4_ == State.EMERGENCY) {
 			EnumFacing direction = EnumFacing.getFront(getWorldObj().getBlockMetadata(xCoord, yCoord, zCoord) % 6);
-			boolean flag = getWorldObj().getBlock(xCoord + direction.getFrontOffsetX(), yCoord, zCoord + direction.getFrontOffsetZ()) instanceof BlockBush;
+			Block front = getWorldObj().getBlock(xCoord + direction.getFrontOffsetX(), yCoord, zCoord + direction.getFrontOffsetZ());
+			boolean flag = front.isOpaqueCube() || front.getMaterial().isLiquid();
 			if (flag && p_226967_4_ != State.EMERGENCY) {
 				return false;
 			} else {

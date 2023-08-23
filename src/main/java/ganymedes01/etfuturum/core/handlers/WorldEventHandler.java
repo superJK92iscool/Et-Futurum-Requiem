@@ -4,11 +4,16 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import cpw.mods.fml.common.eventhandler.Event;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.relauncher.ReflectionHelper;
+import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.api.event.PostTreeGenerateEvent;
 import ganymedes01.etfuturum.api.mappings.BlockAndMetadataMapping;
 import ganymedes01.etfuturum.blocks.BlockBerryBush;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
+import ganymedes01.etfuturum.core.proxy.CommonProxy;
+import ganymedes01.etfuturum.core.utils.Logger;
 import ganymedes01.etfuturum.core.utils.WeightedRandomList;
 import ganymedes01.etfuturum.entities.EntityBee;
 import ganymedes01.etfuturum.tileentities.TileEntityBeeHive;
@@ -29,6 +34,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.event.terraingen.InitMapGenEvent;
 import net.minecraftforge.event.terraingen.SaplingGrowTreeEvent;
 
+import java.lang.reflect.Constructor;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -66,23 +72,28 @@ public class WorldEventHandler {
 		birchSaplingTrees.addEntry(new WorldGenForest(true, false), 0.0D); //It's the only entry in the list, it does not need a weight.
 		BEE_NEST_SAPLINGS.put(new BlockAndMetadataMapping(Blocks.sapling, 2), birchSaplingTrees); //Also yes that is really the name of the birch tree gen class lol
 
-		//Example of how to do modded tree gen. Slightly messy but this is just a proof of concept I'm saving for later, so I whipped up a quick and dirty way to get a modded sapling working.
-//		if(ReflectionHelper.getClass(CommonProxy.class.getClassLoader(), "mods.natura.worldgen.EucalyptusTreeGenShort") != null) {
-//			WeightedRandomList<WorldGenerator> eucalyptusSaplingTrees = new WeightedRandomList<>();
-//			try {
-//				Constructor<? super Object> constructor = ReflectionHelper.getClass(CommonProxy.class.getClassLoader(), "mods.natura.worldgen.EucalyptusTreeGenShort").getConstructor(int.class, int.class);
-//				eucalyptusSaplingTrees.addEntry((WorldGenerator) constructor.newInstance(0, 1), 0.0D); //It's the only entry in the list, it does not need a weight.
-//			} catch (InstantiationException e) {
-//				throw new RuntimeException(e);
-//			} catch (IllegalAccessException e) {
-//				throw new RuntimeException(e);
-//			} catch (NoSuchMethodException e) {
-//				throw new RuntimeException(e);
-//			} catch (InvocationTargetException e) {
-//				throw new RuntimeException(e);
-//			}
-//			BEE_NEST_SAPLINGS.put(new BlockAndMetadataMapping(GameRegistry.findBlock("Natura", "florasapling"), 1), eucalyptusSaplingTrees); //Also yes that is really the name of the birch tree gen class lol
-//		}
+		if (EtFuturum.hasNatura) {
+			try {
+				Constructor<? super Object> constructor;
+				WeightedRandomList<WorldGenerator> sakuraSaplingTrees = new WeightedRandomList<>();
+				constructor = ReflectionHelper.getClass(CommonProxy.class.getClassLoader(), "mods.natura.worldgen.SakuraTreeGen").getConstructor(boolean.class, int.class, int.class);
+				sakuraSaplingTrees.addEntry((WorldGenerator) constructor.newInstance(true, 1, 0), 0.0D);
+				BEE_NEST_SAPLINGS.put(new BlockAndMetadataMapping(GameRegistry.findBlock("Natura", "florasapling"), 3), sakuraSaplingTrees);
+
+				WeightedRandomList<WorldGenerator> mapleSaplingTrees = new WeightedRandomList<>();
+				constructor = ReflectionHelper.getClass(CommonProxy.class.getClassLoader(), "mods.natura.worldgen.RareTreeGen").getConstructor(boolean.class, int.class, int.class, int.class, int.class);
+				mapleSaplingTrees.addEntry((WorldGenerator) constructor.newInstance(true, 4, 2, 0, 0), 0.0D);
+				BEE_NEST_SAPLINGS.put(new BlockAndMetadataMapping(GameRegistry.findBlock("Natura", "Rare Sapling"), 0), mapleSaplingTrees);
+
+				WeightedRandomList<WorldGenerator> willowSaplingTrees = new WeightedRandomList<>();
+				constructor = ReflectionHelper.getClass(CommonProxy.class.getClassLoader(), "mods.natura.worldgen.WillowGen").getConstructor(boolean.class);
+				willowSaplingTrees.addEntry((WorldGenerator) constructor.newInstance(true), 0.0D);
+				BEE_NEST_SAPLINGS.put(new BlockAndMetadataMapping(GameRegistry.findBlock("Natura", "Rare Sapling"), 4), willowSaplingTrees);
+			} catch (Exception e) {
+				Logger.error("Could not add Natura saplings to the beehive grow list!");
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	private static boolean hasRegistered;
