@@ -6,6 +6,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.core.utils.helpers.SafeEnumHelperClient;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.command.IEntitySelector;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -48,10 +49,11 @@ public class SpectatorMode {
 	@SubscribeEvent
 	public void onInteract(PlayerInteractEvent event) {
 		if(isSpectator(event.entityPlayer)) {
-			if(event.action != PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK)
+			if (event.action != PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) {
 				event.setCanceled(true);
-			else {
+			} else {
 				if (!event.world.blockExists(event.x, event.y, event.z)) {
+					event.setCanceled(true); //I don't trust other mods not to do weird shit in this scenario
 					return;
 				}
 				TileEntity te = event.world.getTileEntity(event.x, event.y, event.z);
@@ -89,6 +91,13 @@ public class SpectatorMode {
 			boolean isSpec = isSpectator(event.player);
 			if(!isSpec && event.player.noClip) {
 				event.player.setInvisible(false);
+				if (event.player.worldObj.isRemote) {
+					//Reloads the player model, fixes empty hand under certain conditions when switching from spectator mode
+					//Just calls the render function for one frame to reload the player model. I do it this way to avoid access transforming, and to be sure the whole model is reloaded.
+					if (event.player == FMLClientHandler.instance().getClient().thePlayer && FMLClientHandler.instance().getClient().playerController != null) {
+						RenderManager.instance.renderEntityWithPosYaw(event.player, -180.0D, -180.0D, -180.0D, 0.0F, 0.0F);
+					}
+				}
 			}
 			event.player.noClip = isSpec;
 			/* reuse value for spectator check */
