@@ -4,6 +4,8 @@ import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.relauncher.ReflectionHelper;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.AbstractResourcePack;
 import net.minecraft.client.resources.IResourceManager;
@@ -16,33 +18,33 @@ import org.apache.commons.io.filefilter.DirectoryFileFilter;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.file.Files;
-import java.util.Enumeration;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 // Inspired by ResourceManagerHelper in fabric-resource-loader-v0
 
 public abstract class BuiltInResourcePack extends AbstractResourcePack {
-	
+
 	private static final Splitter entryNameSplitter = Splitter.on('/').omitEmptyStrings().limit(5);
-	
+
 	private String modid;
 	private final String id;
-	protected boolean enabled = true;
-	
+	protected boolean resourcesEnabled = true;
+	protected boolean langEnabled = true;
+
 	/**
 	 * <p>Register a built-in resource pack. This is a resource pack located in the JAR at {@code "resourcepacks/<id>"}.
-	 * 
+	 *
 	 * <p>The resource pack is "invisible", it will not show up in the resource pack GUI.
-	 * 
+	 *
 	 * @param id The name of the resource pack.
 	 */
 	public static BuiltInResourcePack register(String id) {
 		BuiltInResourcePack rp = BuiltInResourcePack.of(Loader.instance().activeModContainer().getSource(), Loader.instance().activeModContainer().getModId(), id);
-		inject(rp);
+		if (rp.isAllEnabled()) {
+			inject(rp);
+		}
 		return rp;
 	}
 	
@@ -78,7 +80,7 @@ public abstract class BuiltInResourcePack extends AbstractResourcePack {
 	protected String getRootPath() {
 		return "resourcepacks/" + id + "/";
 	}
-	
+
 	protected void addNamespaceIfLowerCase(Set<String> set, String ns) {
 		if (!ns.equals(ns.toLowerCase())) {
 			this.logNameNotLowercase(ns);
@@ -86,19 +88,24 @@ public abstract class BuiltInResourcePack extends AbstractResourcePack {
 			set.add(ns);
 		}
 	}
-	
-	public BuiltInResourcePack setEnabled(boolean enabled) {
-		this.enabled = enabled;
+
+	public BuiltInResourcePack setResourcesEnabled() {
+		this.resourcesEnabled = ConfigFunctions.enableNewTextures;
+		this.langEnabled = ConfigFunctions.enableLangReplacements;
 		return this;
 	}
-	
+
+	private boolean isAllEnabled() {
+		return resourcesEnabled && langEnabled;
+	}
+
 	@SuppressWarnings("unchecked")
 	private static void inject(IResourcePack resourcePack) {
 		List defaultResourcePacks = ReflectionHelper.getPrivateValue(Minecraft.class, Minecraft.getMinecraft(), "defaultResourcePacks", "field_110449_ao");
 		defaultResourcePacks.add(resourcePack);
 		IResourceManager resMan = Minecraft.getMinecraft().getResourceManager();
-		if(resMan instanceof SimpleReloadableResourceManager) {
-			((SimpleReloadableResourceManager)resMan).reloadResourcePack(resourcePack);
+		if (resMan instanceof SimpleReloadableResourceManager) {
+			((SimpleReloadableResourceManager) resMan).reloadResourcePack(resourcePack);
 		}
 	}
 	
@@ -139,7 +146,7 @@ public abstract class BuiltInResourcePack extends AbstractResourcePack {
 
 		@Override
 		protected boolean hasResourceName(String name) {
-			return enabled && zipFile.getEntry(getRootPath() + name) != null;
+			return resourcesEnabled && zipFile.getEntry(getRootPath() + name) != null;
 		}
 		
 	}
@@ -167,12 +174,71 @@ public abstract class BuiltInResourcePack extends AbstractResourcePack {
 
 		@Override
 		protected InputStream getInputStreamByName(String name) throws IOException {
+			if (name.endsWith("lang")) {
+				List<String> langFile = Lists.newArrayList();
+
+				//Reads the lang file, strips unneeded lines and adds it to a list to be compared against the ignore list
+				String currentLine;
+				File file = new File(this.resourcePackFile, getRootPath() + "/" + name);
+				BufferedReader reader = new BufferedReader(new FileReader(file));
+				while ((currentLine = reader.readLine()) != null) {
+					if (currentLine.startsWith("#") || currentLine.length() == 0) {
+						continue;
+					}
+					langFile.add(currentLine.trim());
+				}
+
+
+				List<String> ignoredKeys = Lists.newArrayList(); //Ignore these keys under certain conditions
+				if (!ConfigBlocksItems.enableDyedBeds) {
+					ignoredKeys.add("item.bed.name");
+					ignoredKeys.add("tile.bed.name");
+				}
+				if (!ConfigBlocksItems.enableSigns) {
+					ignoredKeys.add("item.sign.name");
+					ignoredKeys.add("tile.sign.name");
+				}
+				if (!ConfigBlocksItems.enableDoors) {
+					ignoredKeys.add("item.doorWood.name");
+					ignoredKeys.add("tile.doorWood.name");
+				}
+				if (!ConfigBlocksItems.enableTrapdoors) {
+					ignoredKeys.add("tile.trapdoor.name");
+				}
+				if (!ConfigBlocksItems.enableFences) {
+					ignoredKeys.add("tile.fence.name");
+					ignoredKeys.add("tile.fenceGate.name");
+				}
+
+				Iterator<String> iterator = langFile.listIterator();
+				while (iterator.hasNext()) {
+					String translation = iterator.next();
+					for (String removalCheck : ignoredKeys) {
+						if (translation.startsWith(removalCheck)) {
+							iterator.remove();
+						}
+					}
+				}
+				//Strips ignored entries
+
+				ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+				for (String line : langFile) {
+					baos.write((line + "\n").getBytes()); //Add a new line since otherwise the byte array output stream will not have any line breaks and everything goes into the first key
+				}
+				//Add the new lang file to a byte array output stream for the game to read
+
+				byte[] bytes = baos.toByteArray();
+
+				return new ByteArrayInputStream(bytes); //Ding fries are done
+			}
 			return new BufferedInputStream(Files.newInputStream(new File(this.resourcePackFile, getRootPath() + "/" + name).toPath()));
 		}
 
 		@Override
 		protected boolean hasResourceName(String name) {
-			return enabled && new File(this.resourcePackFile, getRootPath() + "/" + name).isFile();
+			if (!langEnabled && name.endsWith("lang")) return false;
+			return resourcesEnabled && new File(this.resourcePackFile, getRootPath() + "/" + name).isFile();
 		}
 		
 	}

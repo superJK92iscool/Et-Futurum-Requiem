@@ -89,7 +89,6 @@ public class ModRecipes {
 		if (ConfigBlocksItems.replaceOldBoats && ConfigBlocksItems.enableNewBoats) {
 			removeFirstRecipeFor(Items.boat);
 			Items.boat.setTextureName("oak_boat");
-			Items.boat.setUnlocalizedName(Utils.getUnlocalisedName("oak_boat"));
 		}
 
 		if (ConfigFunctions.enableExtraBurnableBlocks) {
@@ -98,14 +97,15 @@ public class ModRecipes {
 			Blocks.fire.setFireInfo(Blocks.deadbush, 60, 100);
 		}
 
-		if (ConfigBlocksItems.enableDyedBeds) {
-			Items.bed.setUnlocalizedName(Utils.getUnlocalisedName("red_bed"));
-		}
-
 		if (ModItems.RABBIT_FOOT.isEnabled()) {
 			PotionHelper.potionRequirements.put(Potion.jump.getId(), "0 & 1 & !2 & 3");
 			PotionHelper.potionAmplifiers.put(Potion.jump.getId(), "5");
 			Potion.jump.liquidColor = 0x22FF4C;
+		}
+
+		if (ConfigFunctions.enableLangReplacements) {
+			Blocks.wooden_button.setBlockName(Utils.getUnlocalisedName("oak_button"));
+			Blocks.wooden_pressure_plate.setBlockName(Utils.getUnlocalisedName("oak_pressure_plate"));
 		}
 	}
 

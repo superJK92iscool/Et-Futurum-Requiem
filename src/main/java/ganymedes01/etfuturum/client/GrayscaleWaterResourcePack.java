@@ -1,19 +1,7 @@
 package ganymedes01.etfuturum.client;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Set;
-
-import javax.imageio.ImageIO;
-
-import org.apache.commons.lang3.math.NumberUtils;
-
 import com.google.common.collect.ImmutableSet;
-
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.IResourcePack;
@@ -21,6 +9,16 @@ import net.minecraft.client.resources.SimpleReloadableResourceManager;
 import net.minecraft.client.resources.data.IMetadataSection;
 import net.minecraft.client.resources.data.IMetadataSerializer;
 import net.minecraft.util.ResourceLocation;
+import org.apache.commons.lang3.math.NumberUtils;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Set;
 
 /** This resource pack will generate a grayscale version for any texture. The grayscale version of {name} is called {name}_grayscale. */
 public class GrayscaleWaterResourcePack implements IResourcePack {
@@ -151,16 +149,18 @@ public class GrayscaleWaterResourcePack implements IResourcePack {
 
 	@Override
 	public String getPackName() {
-		return "Et Futurum Requiem dynamic resources";
+		return "Et Futurum Requiem dynamic greyscale water for potion cauldrons";
 	}
 	
 	@SuppressWarnings("unchecked")
 	public static void inject() {
-		IResourcePack dynamicResourcePack = new GrayscaleWaterResourcePack();
-		Minecraft.getMinecraft().defaultResourcePacks.add(dynamicResourcePack);
-		IResourceManager resMan = Minecraft.getMinecraft().getResourceManager();
-		if(resMan instanceof SimpleReloadableResourceManager) {
-			((SimpleReloadableResourceManager)resMan).reloadResourcePack(dynamicResourcePack);
+		if (ConfigBlocksItems.enablePotionCauldron) {
+			IResourcePack dynamicResourcePack = new GrayscaleWaterResourcePack();
+			Minecraft.getMinecraft().defaultResourcePacks.add(dynamicResourcePack);
+			IResourceManager resMan = Minecraft.getMinecraft().getResourceManager();
+			if (resMan instanceof SimpleReloadableResourceManager) {
+				((SimpleReloadableResourceManager) resMan).reloadResourcePack(dynamicResourcePack);
+			}
 		}
 	}
 	

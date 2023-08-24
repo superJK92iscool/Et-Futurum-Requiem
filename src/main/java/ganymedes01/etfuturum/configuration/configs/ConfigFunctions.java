@@ -1,17 +1,16 @@
 package ganymedes01.etfuturum.configuration.configs;
 
+import cpw.mods.fml.common.registry.GameRegistry;
+import ganymedes01.etfuturum.EtFuturum;
+import ganymedes01.etfuturum.EtFuturumMixinPlugin;
+import ganymedes01.etfuturum.configuration.ConfigBase;
+import ganymedes01.etfuturum.core.utils.Logger;
+import net.minecraft.item.Item;
+import org.spongepowered.asm.mixin.MixinEnvironment;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
-import cpw.mods.fml.common.registry.GameRegistry;
-import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.core.utils.Logger;
-import org.spongepowered.asm.mixin.MixinEnvironment;
-
-import ganymedes01.etfuturum.EtFuturumMixinPlugin;
-import ganymedes01.etfuturum.configuration.ConfigBase;
-import net.minecraft.item.Item;
 
 public class ConfigFunctions extends ConfigBase {
 
@@ -154,6 +153,7 @@ public class ConfigFunctions extends ConfigBase {
 	public static boolean dropVehiclesTogether;
 	public static boolean enableNewF3Behavior;
 	public static boolean enableNewTextures;
+	public static boolean enableLangReplacements;
 	public static boolean enableFillCommand;
 	public static boolean enableUpdateChecker;
 	public static boolean enableAttackedAtYawFix;
@@ -230,6 +230,7 @@ public class ConfigFunctions extends ConfigBase {
 		enableGamemodeSwitcher = getBoolean("enableGamemodeSwitcher", catClient, true, "Enable the new F3+F4 gamemode switcher from 1.16+");
 		enableNewF3Behavior = getBoolean("enableNewF3Behavior", catClient, true, "Make F3 only show/hide info on release, and not if another key is pressed");
 		enableNewTextures = getBoolean("enableNewTextures", catClient, true, "Replace tall grass and sponge textures with modern version");
+		enableLangReplacements = getBoolean("enableLangReplacements", catClient, true, "Replaces some lang keys with a more modern version, such as calling some old wood items \"oak\", calling beds \"Red Bed\", and so on. Full list of replaced keys can be seen in the mod jar at resources/resourcepacks/vanilla_overrides/assets/minecraft/lang");
 		inventoryBedModels = getBoolean("inventoryBedModels", catClient, true, "Render beds with a 3D inventory model instead of a 2D sprite.");
 
 		//commands

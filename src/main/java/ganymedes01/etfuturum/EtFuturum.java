@@ -18,7 +18,7 @@ import ganymedes01.etfuturum.api.mappings.BasicMultiBlockSound;
 import ganymedes01.etfuturum.blocks.BlockSculk;
 import ganymedes01.etfuturum.blocks.BlockSculkCatalyst;
 import ganymedes01.etfuturum.client.BuiltInResourcePack;
-import ganymedes01.etfuturum.client.DynamicLangSoundsResourcePack;
+import ganymedes01.etfuturum.client.DynamicSoundsResourcePack;
 import ganymedes01.etfuturum.client.GrayscaleWaterResourcePack;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.command.CommandFill;
@@ -180,14 +180,13 @@ public class EtFuturum {
 		
 		if(event.getSide() == Side.CLIENT) {
 
-			if(ConfigFunctions.enableNewTextures) {
+			if (ConfigFunctions.enableNewTextures || ConfigFunctions.enableLangReplacements) {
 				BuiltInResourcePack.register("vanilla_overrides");
 			}
 
-			if(ConfigBlocksItems.enablePotionCauldron) {
-				GrayscaleWaterResourcePack.inject();
-			}
-			DynamicLangSoundsResourcePack.inject();
+			GrayscaleWaterResourcePack.inject();
+
+			DynamicSoundsResourcePack.inject();
 		}
 		
 //      if(ConfigurationHandler.enableNewNether) {
@@ -372,6 +371,8 @@ public class EtFuturum {
 			if (EtFuturum.hasNatura) {
 				GameRegistry.findBlock("Natura", "NetherFurnace").setStepSound(ModSounds.soundNetherrack);
 				GameRegistry.findBlock("Natura", "NetherLever").setStepSound(ModSounds.soundNetherrack);
+				GameRegistry.findBlock("Natura", "NetherPressurePlate").setStepSound(ModSounds.soundNetherrack);
+				GameRegistry.findBlock("Natura", "NetherButton").setStepSound(ModSounds.soundNetherrack);
 			}
 			Blocks.noteblock.setStepSound(Block.soundTypeWood);
 			Blocks.heavy_weighted_pressure_plate.setStepSound(Block.soundTypeMetal);

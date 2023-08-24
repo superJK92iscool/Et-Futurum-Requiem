@@ -52,7 +52,6 @@ tile.stairsWoodDarkOak.name=Schwarzeichenholztreppe
 tile.stoneSlab.stone.name=Glatte Steinstufe
 tile.stoneSlab.wood.name=Versteinerte Eichenholzstufe
 
-tile.trapdoor.name=Eichenholzfalltür
 tile.doublePlant.grass.name=Hohes Gras
 tile.quartzBlock.lines.name=Quarzsäule
 tile.mobSpawner.name=Spawner
@@ -63,9 +62,10 @@ tile.daylightDetector.name=Tageslichtsensor
 
 item.redstone.name=Redstone-Staub
 item.melon.name=Melonenscheibe
-tile.monsterStoneEgg.stone.name=Befallener Stein
-tile.monsterStoneEgg.cobble.name=Befallener Bruchstein
-tile.monsterStoneEgg.brick.name=Befallene Steinziegel
-tile.monsterStoneEgg.mossybrick.name=Befallene bemooste Steinziegel
-tile.monsterStoneEgg.crackedbrick.name=Befallene rissige Steinziegel
-tile.monsterStoneEgg.chiseledbrick.name=Befallener gemeißelte Steinziegel
+
+
+item.bed.name=Rotes Bett
+tile.bed.name=Rotes Bett
+item.boat.name=Eichenholzboot
+tile.fence.name=Eichenholzzaun
+tile.trapdoor.name=Eichenholzfalltür

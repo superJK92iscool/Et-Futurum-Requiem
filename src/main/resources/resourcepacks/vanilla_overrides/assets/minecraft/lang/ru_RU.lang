@@ -52,7 +52,6 @@ tile.stairsWoodDarkOak.name=Ступеньки из досок тёмного д
 tile.stoneSlab.stone.name=Гладкая каменная плита
 tile.stoneSlab.wood.name=Окаменевшая дубовая плита
 
-tile.trapdoor.name=Дубовый люк
 tile.doublePlant.grass.name=Двойная высокая трава
 tile.quartzBlock.lines.name=Кварцевый пилон
 tile.mobSpawner.name=Спаунер
@@ -66,3 +65,10 @@ item.redstone.name=Красная пыль
 item.melon.name=Ломтик арбуза
 item.fish.cod.raw.name=Сырая треска
 item.fish.cod.cooked.name=Жареная треска
+
+
+item.bed.name=Красная кровать
+tile.bed.name=Красная кровать
+item.boat.name=Дубовая лодка
+tile.fence.name=Забор из дуба
+tile.trapdoor.name=Дубовый люк

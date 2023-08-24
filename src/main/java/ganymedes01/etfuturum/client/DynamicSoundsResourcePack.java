@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Set;
 
-public class DynamicLangSoundsResourcePack implements IResourcePack {
+public class DynamicSoundsResourcePack implements IResourcePack {
 
 	@Override
 	public Set<String> getResourceDomains() {
@@ -49,8 +49,6 @@ public class DynamicLangSoundsResourcePack implements IResourcePack {
 		if(resLoc.getResourcePath().equals("sounds.json")) {
 			return new ByteArrayInputStream(new JsonCreator().getJson().toString().getBytes());
 		}
-//		InputStream original = Minecraft.getMinecraft().getResourceManager().getResource(resLoc).getInputStream();
-//		return original;
 		return null;
 	}
 
@@ -67,11 +65,13 @@ public class DynamicLangSoundsResourcePack implements IResourcePack {
 
 	@SuppressWarnings("unchecked")
 	public static void inject() {
-		IResourcePack dynamicResourcePack = new DynamicLangSoundsResourcePack();
-		Minecraft.getMinecraft().defaultResourcePacks.add(dynamicResourcePack);
-		IResourceManager resMan = Minecraft.getMinecraft().getResourceManager();
-		if (resMan instanceof SimpleReloadableResourceManager) {
-			((SimpleReloadableResourceManager) resMan).reloadResourcePack(dynamicResourcePack);
+		if (ConfigSounds.caveAmbience) {
+			IResourcePack dynamicResourcePack = new DynamicSoundsResourcePack();
+			Minecraft.getMinecraft().defaultResourcePacks.add(dynamicResourcePack);
+			IResourceManager resMan = Minecraft.getMinecraft().getResourceManager();
+			if (resMan instanceof SimpleReloadableResourceManager) {
+				((SimpleReloadableResourceManager) resMan).reloadResourcePack(dynamicResourcePack);
+			}
 		}
 	}
 

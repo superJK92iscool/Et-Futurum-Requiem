@@ -8,6 +8,7 @@ import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.core.utils.helpers.SafeEnumHelperClient;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.command.IEntitySelector;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.IInventory;
@@ -25,18 +26,32 @@ import net.minecraftforge.event.world.BlockEvent;
 
 public class SpectatorMode {
 	public static final SpectatorMode INSTANCE = new SpectatorMode();
-	public static final IEntitySelector EXCEPT_SPECTATING = p_82704_1_ -> !(p_82704_1_ instanceof EntityPlayer) || !isSpectator((EntityPlayer) p_82704_1_);
-	SpectatorMode() {
+	public static final IEntitySelector EXCEPT_SPECTATING;
+
+	//TODO: DO NOT MAKE THIS A LAMBDA! INTELLIJ SUGGESTS IT BUT FOR SOME REASON IT CAUSES AN INITIALIZER EXCEPTION SPECIFICALLY IN THE LIVE GAME AND NOT IN DEV!
+	//Made that a TODO so the text would be extra bright and hard to miss.
+	static {
+		EXCEPT_SPECTATING = new IEntitySelector() {
+			@Override
+			public boolean isEntityApplicable(Entity p_82704_1_) {
+				return !(p_82704_1_ instanceof EntityPlayer) || !isSpectator((EntityPlayer) p_82704_1_);
+			}
+		};
+	}
+
+	private SpectatorMode() {
 
 	}
+
 	public static WorldSettings.GameType SPECTATOR_GAMETYPE = null;
+
 	public static void init() {
-		if(ConfigMixins.enableSpectatorMode)
+		if (ConfigMixins.enableSpectatorMode)
 			SPECTATOR_GAMETYPE = SafeEnumHelperClient.addGameType("spectator", 3, "Spectator");
 	}
 
 	public static boolean isSpectator(EntityPlayer player) {
-		if(player == null || player instanceof FakePlayer || player.worldObj == null)
+		if (player == null || player instanceof FakePlayer || player.worldObj == null)
 			return false;
 		if(player.worldObj.isRemote) {
 			if(player == FMLClientHandler.instance().getClient().thePlayer && FMLClientHandler.instance().getClient().playerController != null)
