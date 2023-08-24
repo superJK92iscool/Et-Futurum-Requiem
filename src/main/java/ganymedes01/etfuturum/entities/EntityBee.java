@@ -6,6 +6,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.blocks.BlockBeeHive;
 import ganymedes01.etfuturum.blocks.BlockBerryBush;
 import ganymedes01.etfuturum.blocks.BlockChorusFlower;
+import ganymedes01.etfuturum.blocks.BlockMagma;
 import ganymedes01.etfuturum.client.particle.ParticleHandler;
 import ganymedes01.etfuturum.core.utils.EntityVectorUtils;
 import ganymedes01.etfuturum.core.utils.Utils;
@@ -16,6 +17,7 @@ import ganymedes01.etfuturum.entities.attributes.EtFuturumEntityAttributes;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.tileentities.TileEntityBeeHive;
 import net.minecraft.block.*;
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.*;
 import net.minecraft.entity.passive.EntityAnimal;
@@ -114,15 +116,12 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 	}
 
 	public float getBlockPathWeight(int x, int y, int z) {
-		return getBlockWeight(worldObj.getBlock(x, y, z), x, y, z);
-	}
-
-	private float getBlockWeight(Block block, int x, int y, int z) {
-		if (block instanceof BlockFire || block.getMaterial().isLiquid() || block instanceof BlockCocoa || block instanceof BlockFence || block instanceof BlockWall || block.getMaterial().isLiquid()) {
-			return -1F;
-		}
-		if (block.getCollisionBoundingBoxFromPool(worldObj, x, y, z) == null) {
+		Block block = worldObj.getBlock(x, y, z);
+		if (block.getMaterial() == Material.air) {
 			return 10.0F;
+		}
+		if (block.getMaterial().isLiquid() || block instanceof BlockFire || block instanceof BlockCocoa || block instanceof BlockFence || block instanceof BlockWall || block instanceof BlockMagma) {
+			return -1F;
 		}
 		return 0.0F;
 	}
@@ -294,7 +293,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 				this.motionY -= 0.08D;
 			}
 
-			this.motionY *= 0.9800000190734863D;
+			this.motionY *= moveVertical != 0 ? 0.98D : 0.5D;
 			this.motionX *= f2;
 			this.motionZ *= f2;
 		}
