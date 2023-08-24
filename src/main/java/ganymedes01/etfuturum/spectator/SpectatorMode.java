@@ -5,9 +5,7 @@ import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
-import ganymedes01.etfuturum.core.utils.Logger;
 import ganymedes01.etfuturum.core.utils.helpers.SafeEnumHelperClient;
-import net.minecraft.block.Block;
 import net.minecraft.command.IEntitySelector;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -56,13 +54,10 @@ public class SpectatorMode {
 				if (!event.world.blockExists(event.x, event.y, event.z)) {
 					return;
 				}
-				Block block = event.world.getBlock(event.x, event.y, event.z);
-				int meta = event.world.getBlockMetadata(event.x, event.y, event.z);
 				TileEntity te = event.world.getTileEntity(event.x, event.y, event.z);
 				if (!(te instanceof IInventory || te instanceof TileEntityEnderChest)) {
 					event.setCanceled(true);
 				}
-				Logger.info(block.getUnlocalizedName() + " " + meta);
 			}
 		}
 	}
