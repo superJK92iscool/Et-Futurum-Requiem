@@ -1,9 +1,6 @@
 package ganymedes01.etfuturum.world.generate.feature;
 
-import cpw.mods.fml.common.registry.GameRegistry;
-import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.api.mappings.BlockAndMetadataMapping;
-import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import ganymedes01.etfuturum.core.utils.structurenbt.BlockState;
 import ganymedes01.etfuturum.core.utils.structurenbt.BlockStateUtils;
@@ -69,15 +66,15 @@ public class WorldGenFossil extends WorldGenerator {
 		return true;
 	}
 
-	private boolean canFossilGenerateHere(World world, int x, int y, int z, BlockPos corners) {
+	protected boolean canFossilGenerateHere(World world, int x, int y, int z, BlockPos corners) {
 		int air = 0;
-		if(isInvalidCorner(world, x, y, z)) {
+		if (isInvalidCorner(world, x, y, z)) {
 			air++;
 		}
-		if(isInvalidCorner(world, x + corners.getX(), y, z)) {
+		if (isInvalidCorner(world, x + corners.getX(), y, z)) {
 			air++;
 		}
-		if(isInvalidCorner(world, x, y, z + corners.getZ())) {
+		if (isInvalidCorner(world, x, y, z + corners.getZ())) {
 			air++;
 		}
 		if(isInvalidCorner(world, x + corners.getX(), y, z + corners.getZ())) {

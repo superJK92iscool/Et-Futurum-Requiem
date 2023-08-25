@@ -26,7 +26,7 @@ public class EtFuturumFXParticle extends EntityFX {
 	float particleAngle;
 	float prevParticleAngle;
 	protected boolean usesSheet;
-	private final ResourceLocation[] resourceLocations;
+	protected final ResourceLocation[] resourceLocations;
 
 	protected static final Random particleRand = new RandomXoshiro256StarStar();
 
@@ -44,8 +44,17 @@ public class EtFuturumFXParticle extends EntityFX {
 		this.color = color;
 		this.particleScale = scale;
 		this.textures = textures;
-		this.usesSheet = texture.toString().equals("minecraft:textures/particle/particles.png");
-		resourceLocations = new ResourceLocation[usesSheet ? 1 : textures];
+		resourceLocations = loadTextures(world, x, y, z, texture);
+		fadingColor = false;
+		particleAlpha = (this.color >> 24 & 0xff) / 255F;
+		particleRed = (this.color >> 16 & 0xff) / 255F;
+		particleGreen = (this.color >> 8 & 0xff) / 255F;
+		particleBlue = (this.color & 0xff) / 255F;
+	}
+
+	protected ResourceLocation[] loadTextures(World world, double x, double y, double z, ResourceLocation texture) {
+		this.usesSheet = texture != null && texture.toString().equals("minecraft:textures/particle/particles.png");
+		ResourceLocation[] newRS = new ResourceLocation[usesSheet ? 1 : textures];
 		if (textures == 1 || usesSheet) {
 			resourceLocations[0] = texture;
 		} else for (int i = 0; i < textures; i++) {
@@ -53,19 +62,14 @@ public class EtFuturumFXParticle extends EntityFX {
 			int length = textureName.length();
 			resourceLocations[i] = new ResourceLocation(textureName.substring(0, length - 4) + "_" + i + textureName.substring(length - 4));
 		}
-		fadingColor = false;
-
-		particleAlpha = (this.color >> 24 & 0xff) / 255F;
-		particleRed = (this.color >> 16 & 0xff) / 255F;
-		particleGreen = (this.color >> 8 & 0xff) / 255F;
-		particleBlue = (this.color & 0xff) / 255F;
+		return newRS;
 	}
 
 	@Override
 	public void renderParticle(Tessellator tessellator, float partialTicks, float rx, float rxz, float rz, float ryz, float rxy) {
 		int prevTex = GL11.glGetInteger(GL11.GL_TEXTURE_BINDING_2D);
 
-		Minecraft.getMinecraft().getTextureManager().bindTexture(resourceLocations[usesSheet ? 0 : currentTexture]);
+		Minecraft.getMinecraft().getTextureManager().bindTexture(resourceLocations[usesSheet ? 0 : currentTexture % textures]);
 
 		OpenGLHelper.enableBlend();
 		OpenGLHelper.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);

@@ -1,10 +1,13 @@
 package ganymedes01.etfuturum.blocks.itemblocks;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.blocks.ISubBlocksBlock;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.IIcon;
 
 public class BaseItemBlock extends ItemBlock {
 
@@ -28,5 +31,10 @@ public class BaseItemBlock extends ItemBlock {
 	@Override
 	public int getMetadata(int meta) {
 		return meta % ((ISubBlocksBlock) field_150939_a).getTypes().length;
+	}
+
+	@SideOnly(Side.CLIENT)
+	public IIcon getIconFromDamage(int p_77617_1_) {
+		return field_150939_a.getIcon(2, p_77617_1_);
 	}
 }

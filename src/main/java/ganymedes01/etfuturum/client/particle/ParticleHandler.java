@@ -17,14 +17,10 @@ import java.util.Random;
 @SideOnly(Side.CLIENT)
 public enum ParticleHandler {
 	
-	BARRIER(BarrierParticleFX.class, ParticleData.VX_VY_VZ, int.class, float.class, int.class, ResourceLocation.class,
-			int.class) {
-		private final ResourceLocation texture = new ResourceLocation(
-				"textures/blocks/barrier.png");
-
+	INVISIBLE_BLOCK_FX(InnerBlockParticleFX.class, ParticleData.VX_VY_VZ, int.class, float.class, int.class, int.class) {
 		@Override
 		protected Object[] getAdditionalArgs(World world, Object... data) {
-			return new Object[]{80, 4.5F, 0xFFFFFFFF, texture, 1};
+			return new Object[]{80, 4.5F, 0xFFFFFFFF, 1};
 		}
 	},
 	

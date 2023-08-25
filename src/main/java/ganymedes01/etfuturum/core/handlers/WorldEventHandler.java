@@ -114,7 +114,7 @@ public class WorldEventHandler {
 
 	@SubscribeEvent
 	public void onSaplingGrow(SaplingGrowTreeEvent event) {//5% chance to run this logic.
-		if (ModBlocks.BEE_NEST.isEnabled() && event.rand.nextFloat() <= 0.05F && isFlowerNearby(event.world, event.x, event.y, event.z)) {
+		if (ModBlocks.BEE_NEST.isEnabled() && event.world.provider.dimensionId != -1 && event.world.provider.dimensionId != 1 && event.rand.nextFloat() <= 0.05F && isFlowerNearby(event.world, event.x, event.y, event.z)) {
 			//TODO: Mangrove and cherry trees should be here when they are added. Maybe support modded saplings too
 			Block sapling = event.world.getBlock(event.x, event.y, event.z);
 			int saplingMeta = event.world.getBlockMetadata(event.x, event.y, event.z);
@@ -157,7 +157,7 @@ public class WorldEventHandler {
 	 */
 	@SubscribeEvent
 	public void onTreeGenerated(PostTreeGenerateEvent event) {
-		if (ModBlocks.BEE_NEST.isEnabled()) {
+		if (ModBlocks.BEE_NEST.isEnabled() && event.world.provider.dimensionId != -1 && event.world.provider.dimensionId != 1) {
 			BiomeGenBase biome = event.world.getBiomeGenForCoords(event.x, event.z);
 			if (BEE_NEST_BIOMES.containsKey(biome) && event.rand.nextFloat() <= BEE_NEST_BIOMES.get(biome)) {
 				tryPlaceBeeNest(event.world, event.x, event.y, event.z, event.rand, 3);
@@ -169,14 +169,8 @@ public class WorldEventHandler {
 
 	/**
 	 * Tries to place a bee nest at the tree at this location. Basically "walks" up the tree we started at until there's a leaf block above the adjacent air from it.
-	 *
-	 * @param world
-	 * @param x
-	 * @param y
-	 * @param z
-	 * @param rand
 	 */
-	private void tryPlaceBeeNest(World world, int x, int y, int z, Random rand, int minBees) {
+	public static void tryPlaceBeeNest(World world, int x, int y, int z, Random rand, int minBees) {
 		Block targetLog = world.getBlock(x, y, z);
 		int targetLogMeta = world.getBlockMetadata(x, y, z);
 		ForgeDirection hiveDir = VALID_HIVE_DIRS[rand.nextInt(VALID_HIVE_DIRS.length)];

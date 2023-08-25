@@ -69,7 +69,7 @@ public class WorldGenAmethystGeode extends WorldGenerator {
 	/**
 	 * This is used when generating amethyst so it doesn't generate in the middle of the air, ocean, hanging in trees, etc.
 	 */
-	private boolean isInvalidCorner(World world, int x, int y, int z) {
+	protected boolean isInvalidCorner(World world, int x, int y, int z) {
 		Block block = world.getBlock(x, y, z);
 		return block.getMaterial() != Material.rock || !block.isOpaqueCube();
 	}

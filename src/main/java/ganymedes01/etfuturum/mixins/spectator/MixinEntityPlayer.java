@@ -8,6 +8,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(EntityPlayer.class)
 public abstract class MixinEntityPlayer extends EntityLivingBase {
@@ -51,5 +54,12 @@ public abstract class MixinEntityPlayer extends EntityLivingBase {
 
 	public ItemStack getEquipmentInSlot(int p_71124_1_) {
 		return SpectatorMode.isSpectator((EntityPlayer) (Object) this) ? null : p_71124_1_ == 0 ? this.inventory.getCurrentItem() : this.inventory.armorInventory[p_71124_1_ - 1];
+	}
+
+	@Inject(method = "isCurrentToolAdventureModeExempt", at = @At(value = "HEAD"), cancellable = true)
+	public void isSpectating(int p_82246_1_, int p_82246_2_, int p_82246_3_, CallbackInfoReturnable<Boolean> cir) {
+		if (SpectatorMode.isSpectator((EntityPlayer) (Object) this)) {
+			cir.setReturnValue(false);
+		}
 	}
 }

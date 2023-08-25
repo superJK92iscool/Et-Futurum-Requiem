@@ -6,6 +6,7 @@ import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
+import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.client.gui.inventory.*;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigEntities;
@@ -43,14 +44,18 @@ public class CommonProxy implements IGuiHandler {
 		FMLCommonHandler.instance().bus().register(WorldEventHandler.INSTANCE);
 		MinecraftForge.TERRAIN_GEN_BUS.register(WorldEventHandler.INSTANCE);
 
-		if(ConfigMixins.enableSpectatorMode) {
+		if (ConfigMixins.enableSpectatorMode) {
 			FMLCommonHandler.instance().bus().register(SpectatorMode.INSTANCE);
 			MinecraftForge.EVENT_BUS.register(SpectatorMode.INSTANCE);
 		}
 
-		if(ConfigBlocksItems.enableSculk) {
+		if (ConfigBlocksItems.enableSculk) {
 			FMLCommonHandler.instance().bus().register(SculkEventHandler.INSTANCE);
 			MinecraftForge.EVENT_BUS.register(SculkEventHandler.INSTANCE);
+		}
+
+		if (ModItems.DEBUGGING_TOOL.isEnabled()) {
+			MinecraftForge.EVENT_BUS.register(ModItems.DEBUGGING_TOOL.get());
 		}
 	}
 

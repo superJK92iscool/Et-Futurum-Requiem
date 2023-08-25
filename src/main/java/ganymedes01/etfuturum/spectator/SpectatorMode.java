@@ -6,6 +6,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.core.utils.helpers.SafeEnumHelperClient;
+import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.command.IEntitySelector;
 import net.minecraft.entity.Entity;
@@ -125,8 +126,16 @@ public class SpectatorMode {
 
 	@SubscribeEvent
 	public void breakSpeed(PlayerEvent.BreakSpeed event) {
-		if(isSpectator(event.entityPlayer))
+		if (isSpectator(event.entityPlayer)) {
+			if (event.entityPlayer.worldObj.isRemote) {
+				EntityClientPlayerMP player = FMLClientHandler.instance().getClient().thePlayer;
+				if (event.entityPlayer == player && FMLClientHandler.instance().getClient().playerController != null) {
+					FMLClientHandler.instance().getClient().playerController.stepSoundTickCounter = 1;
+					FMLClientHandler.instance().getClient().playerController.isHittingBlock = false;
+				}
+			}
 			event.newSpeed = 0;
+		}
 	}
 
 	@SubscribeEvent(priority = EventPriority.LOWEST)

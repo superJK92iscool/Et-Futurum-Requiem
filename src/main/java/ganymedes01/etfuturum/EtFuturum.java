@@ -700,7 +700,6 @@ public class EtFuturum {
 	
 	private static void getSounds(ADConfig config) {
 		String ver = Reference.MCAssetVer.split("_")[1];
-		
 		config.addObject(ver, "minecraft/sounds/ambient/cave/cave14.ogg");
 		config.addObject(ver, "minecraft/sounds/ambient/cave/cave15.ogg");
 		config.addObject(ver, "minecraft/sounds/ambient/cave/cave16.ogg");

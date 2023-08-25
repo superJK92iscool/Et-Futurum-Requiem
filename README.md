@@ -18,9 +18,11 @@ The mod (starting with version 2.4.1) comes in two flavors:
 
 ## Contributing
 
-Mixin code will not work if you do not add `--tweakClass org.spongepowered.asm.launch.MixinTweaker --mixin mixins.etfuturum.json` to your program arguments.
+Mixin code will not work if you do not
+add `--tweakClass org.spongepowered.asm.launch.MixinTweaker --mixin mixins.etfuturum.json` to your program arguments.
 
-To enable incomplete test features, add `-Detfuturum.testing=true` to your JVM arguments.
+To enable incomplete test features, add `-Detfuturum.testing=true` to your JVM arguments. This also enables a debug item
+if you're running the game in a development environment.
 
 ### Build flags
 

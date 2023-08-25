@@ -43,7 +43,6 @@ public enum ModBlocks {
 	NETHER_WART(ConfigBlocksItems.enableNetherwartBlock, new BlockNetherwart()),
 	ANCIENT_DEBRIS(ConfigBlocksItems.enableNetherite, new BlockAncientDebris(), ItemBlockUninflammable.class),
 	NETHERITE_BLOCK(ConfigBlocksItems.enableNetherite, new BlockNetherite(), ItemBlockUninflammable.class),
-	BARRIER(ConfigBlocksItems.enableBarrier, new BlockBarrier()),
 	NETHER_GOLD_ORE(ConfigBlocksItems.enableNetherGold, new BlockOreNetherGold()),
 	BLUE_ICE(ConfigBlocksItems.enableBlueIce, new BlockBlueIce()),
 	SMOOTH_STONE(ConfigBlocksItems.enableSmoothStone, new BaseBlock(Material.rock).setUnlocalizedNameWithPrefix("smooth_stone")
@@ -139,7 +138,6 @@ public enum ModBlocks {
 	FROSTED_ICE(ConfigEnchantsPotions.enableFrostWalker, new BlockFrostedIce(), null),
 	LAVA_CAULDRON(ConfigBlocksItems.enableLavaCauldrons, new BlockLavaCauldron(), null),
 	POTION_CAULDRON(ConfigBlocksItems.enablePotionCauldron, new BlockPotionCauldron(), null),
-	END_GATEWAY(EtFuturum.TESTING, new BlockEndGateway()),
 	OBSERVER(ConfigMixins.enableObservers, new BlockObserver()),
 	TARGET(ConfigBlocksItems.enableTarget, new BlockTarget()),
 	RED_SANDSTONE_STAIRS(ConfigBlocksItems.enableRedSandstone, new BaseStairs(RED_SANDSTONE.get(), 0)),
@@ -207,7 +205,6 @@ public enum ModBlocks {
 			.setBlockSound(ModSounds.soundDeepslateBricks).setHardness(3).setResistance(6), BaseSlabItemBlock.class),
 	DOUBLE_DEEPSLATE_BRICK_SLAB(ConfigBlocksItems.enableDeepslate, new BaseSlab(true, Material.rock, "deepslate_bricks", "deepslate_tiles").setNames("deepslate_brick_slab")
 			.setBlockSound(ModSounds.soundDeepslateBricks).setHardness(3).setResistance(6), BaseSlabItemBlock.class),
-	NETHERITE_STAIRS(ConfigBlocksItems.enableNetherite, new BlockNetheriteStairs(), ItemBlockUninflammable.class),
 	CUT_COPPER_STAIRS(ConfigBlocksItems.enableCopper, new BlockCutCopperStairs(4)),
 	EXPOSED_CUT_COPPER_STAIRS(ConfigBlocksItems.enableCopper, new BlockCutCopperStairs(5)),
 	WEATHERED_CUT_COPPER_STAIRS(ConfigBlocksItems.enableCopper, new BlockCutCopperStairs(6)),
@@ -313,7 +310,14 @@ public enum ModBlocks {
 	CRYING_OBSIDIAN(ConfigBlocksItems.enableCryingObsidian, new BaseBlock(Material.rock).setNames("crying_obsidian")
 			.setToolClass("pickaxe", 3).setHardness(50.0F).setResistance(2000.0F)),
 	ROSE(ConfigTweaks.enableRoses, new BlockOldRose()),
-	OLD_GRAVEL(ConfigTweaks.enableOldGravel, new BlockOldGravel());
+	OLD_GRAVEL(ConfigTweaks.enableOldGravel, new BlockOldGravel()),
+
+	//Creative-only stuff
+
+	NETHERITE_STAIRS(ConfigBlocksItems.enableNetherite, new BlockNetheriteStairs(), ItemBlockUninflammable.class),
+	END_GATEWAY(EtFuturum.TESTING, new BlockEndGateway()),
+	LIGHT(true, new BlockLight(), BaseItemBlock.class),
+	BARRIER(ConfigBlocksItems.enableBarrier, new BlockBarrier());
 
 	public static final ModBlocks[] BEDS = new ModBlocks[]{WHITE_BED, ORANGE_BED, MAGENTA_BED, LIGHT_BLUE_BED, YELLOW_BED, LIME_BED, PINK_BED, GRAY_BED, LIGHT_GRAY_BED, CYAN_BED,
 			PURPLE_BED, BLUE_BED, BROWN_BED, GREEN_BED, BLACK_BED};
