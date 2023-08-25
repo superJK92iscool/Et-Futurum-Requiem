@@ -1548,7 +1548,9 @@ item.banner.straight_cross.light_gray=Светло-серый крест
 item.banner.straight_cross.white=Белый крест
 item.banner.straight_cross.yellow=Жёлтый крест
 
-efr.nei.composter=Компостер
+efr.nei.smoker=Копчение
+efr.nei.blast_furnace=Дутьё
+efr.nei.composter=Компостирование
 efr.nei.amount=Количество
 efr.nei.weight=Вес
 efr.decoration.only=Только декоративный
