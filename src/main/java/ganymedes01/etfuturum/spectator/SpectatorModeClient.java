@@ -6,13 +6,10 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraftforge.client.event.*;
 
 import static ganymedes01.etfuturum.spectator.SpectatorMode.isSpectator;
@@ -20,6 +17,7 @@ import static ganymedes01.etfuturum.spectator.SpectatorMode.isSpectator;
 public class SpectatorModeClient {
 	public static final SpectatorModeClient INSTANCE = new SpectatorModeClient();
 	private boolean doRefreshModel = false;
+	private boolean canSelect = false;
 
 	@SideOnly(Side.CLIENT)
 	private static void setBipedVisible(ModelBiped biped, boolean visible)
@@ -66,11 +64,10 @@ public class SpectatorModeClient {
 	@SideOnly(Side.CLIENT)
 	public void onOverlayRenderPre(RenderGameOverlayEvent.Pre event) {
 		if(isSpectator(Minecraft.getMinecraft().thePlayer)) {
-			if(event.type == RenderGameOverlayEvent.ElementType.HOTBAR ||
-					event.type == RenderGameOverlayEvent.ElementType.CROSSHAIRS) {
+			if (event.type == RenderGameOverlayEvent.ElementType.HOTBAR || (event.type == RenderGameOverlayEvent.ElementType.CROSSHAIRS && !canSelect)) {
 				event.setCanceled(true);
 			}
-			if(event.type == RenderGameOverlayEvent.ElementType.ALL) {
+			if (event.type == RenderGameOverlayEvent.ElementType.ALL) {
 				hadHeldItemTooltips = Minecraft.getMinecraft().gameSettings.heldItemTooltips;
 				Minecraft.getMinecraft().gameSettings.heldItemTooltips = false;
 			}
@@ -107,7 +104,7 @@ public class SpectatorModeClient {
 	public void onRenderFogDensity(EntityViewRenderEvent.FogDensity event) {
 		if(event.entity instanceof EntityPlayer) {
 			if(isSpectator((EntityPlayer)event.entity)) {
-				if(event.block.getMaterial() == Material.water || event.block.getMaterial() == Material.lava) {
+				if (event.block.getMaterial().isLiquid()) {
 					event.setCanceled(true);
 					event.density = 0;
 				}
@@ -119,9 +116,8 @@ public class SpectatorModeClient {
 	@SideOnly(Side.CLIENT)
 	public void onBlockHighlight(DrawBlockHighlightEvent event) {
 		if(isSpectator(event.player)) {
-			Block block = Minecraft.getMinecraft().theWorld.getBlock(event.target.blockX, event.target.blockY, event.target.blockZ);
-			int meta = Minecraft.getMinecraft().theWorld.getBlockMetadata(event.target.blockX, event.target.blockY, event.target.blockZ);
-			if(!block.hasTileEntity(meta) || !(Minecraft.getMinecraft().theWorld.getTileEntity(event.target.blockX, event.target.blockY, event.target.blockZ) instanceof IInventory)) {
+			canSelect = SpectatorMode.canSpectatorSelect(Minecraft.getMinecraft().theWorld.getTileEntity(event.target.blockX, event.target.blockY, event.target.blockZ));
+			if (!canSelect) {
 				event.setCanceled(true);
 			}
 		}

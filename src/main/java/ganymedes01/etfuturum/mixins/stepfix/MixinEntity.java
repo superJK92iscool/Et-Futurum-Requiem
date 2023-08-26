@@ -21,9 +21,10 @@ public class MixinEntity {
 			slice = @Slice(from = @At(value = "FIELD", opcode = Opcodes.GETFIELD, target = "Lnet/minecraft/entity/Entity;stepHeight:F", ordinal = 1))
 	)
 	private void saveOldBoundingBox(double x, double y, double z, CallbackInfo ci) {
-		etfu$savedBB = this.boundingBox.copy();
-		/* TODO the Math.abs call doesn't exist in 1.12, but without it the box would be shrunk. Why don't they need it? */
-		this.boundingBox.setBB(this.boundingBox.expand(Math.abs(x), 0, Math.abs(z)));
+		if (boundingBox != null) {
+			etfu$savedBB = this.boundingBox.copy();
+			this.boundingBox.setBB(this.boundingBox.addCoord(x + 0.01D, 0, z - 0.01D));
+		}
 	}
 
 	@Inject(method = "moveEntity",
@@ -31,9 +32,11 @@ public class MixinEntity {
 			slice = @Slice(from = @At(value = "FIELD", opcode = Opcodes.GETFIELD, target = "Lnet/minecraft/entity/Entity;stepHeight:F", ordinal = 1))
 	)
 	private void restoreOldBoundingBox(double x, double y, double z, CallbackInfo ci) {
-		if(etfu$savedBB == null)
-			throw new IllegalStateException("A conflict has occured with another mod's transformer");
-		this.boundingBox.setBB(etfu$savedBB);
-		etfu$savedBB = null;
+		if (boundingBox != null) {
+			if (etfu$savedBB == null)
+				throw new IllegalStateException("A conflict has occured with another mod's transformer");
+			this.boundingBox.setBB(etfu$savedBB);
+			etfu$savedBB = null;
+		}
 	}
 }
