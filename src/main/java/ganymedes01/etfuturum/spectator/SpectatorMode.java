@@ -130,13 +130,14 @@ public class SpectatorMode {
 			if (event.entityPlayer.worldObj.isRemote) {
 				EntityClientPlayerMP player = FMLClientHandler.instance().getClient().thePlayer;
 				if (event.entityPlayer == player && FMLClientHandler.instance().getClient().playerController != null) {
-					FMLClientHandler.instance().getClient().playerController.stepSoundTickCounter = 1;
+					FMLClientHandler.instance().getClient().playerController.stepSoundTickCounter = -5;
 					FMLClientHandler.instance().getClient().playerController.isHittingBlock = false;
 				}
 			}
 			event.newSpeed = 0;
 		}
 	}
+
 
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public void itemToss(ItemTossEvent event) {

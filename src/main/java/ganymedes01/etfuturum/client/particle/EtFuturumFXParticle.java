@@ -56,11 +56,11 @@ public class EtFuturumFXParticle extends EntityFX {
 		this.usesSheet = texture != null && texture.toString().equals("minecraft:textures/particle/particles.png");
 		ResourceLocation[] newRS = new ResourceLocation[usesSheet ? 1 : textures];
 		if (textures == 1 || usesSheet) {
-			resourceLocations[0] = texture;
+			newRS[0] = texture;
 		} else for (int i = 0; i < textures; i++) {
 			String textureName = texture.toString();
 			int length = textureName.length();
-			resourceLocations[i] = new ResourceLocation(textureName.substring(0, length - 4) + "_" + i + textureName.substring(length - 4));
+			newRS[i] = new ResourceLocation(textureName.substring(0, length - 4) + "_" + i + textureName.substring(length - 4));
 		}
 		return newRS;
 	}

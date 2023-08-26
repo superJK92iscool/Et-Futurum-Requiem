@@ -57,6 +57,7 @@ public class ConfigBlocksItems extends ConfigBase {
 	public static boolean enableSmoker;
 	public static boolean enableBlastFurnace;
 	public static boolean enableBarrier;
+	public static boolean enableLightBlock;
 	public static boolean enableNetherGold;
 	public static boolean enableSigns;
 	public static boolean enableSmoothStone;
@@ -253,8 +254,9 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableExtraVanillaWalls = getBoolean("enableExtraVanillaWalls", catBlockMisc, true, "Stairs for vanilla blocks: stone brick, mossy stone brick, sandstone, brick, nether brick");
 		enableCopperSubItems = getBoolean("enableCopperSubItems", catBlockMisc, true, "Copper sub-blocks and items. Disable copper but keep this on if you want the new copper items and blocks made of it, without the main ingot, ore or copper block itself.");
 		enableGlazedTerracotta = getBoolean("enableGlazedTerracotta", catBlockMisc, true, "");
-		enableBarrier = getBoolean("enableBarrier", catBlockMisc, true, "");
-		
+		enableBarrier = getBoolean("enableBarrier", catBlockMisc, true, "A solid, indestructible and invisible block. Can be seen when holding it in Creative mode.");
+		enableLightBlock = getBoolean("enableLightBlock", catBlockMisc, true, "Invisible light blocks. Only has a selection box when held, right click to change light level. Otherwise functionally identical to air and can be replaced by placing blocks into it. Invisible, but can be seen when holding it in Creative mode.");
+
 		//Misc Items
 		enableMutton = getBoolean("enableMutton", catItemMisc, true, "");
 		enableBeetroot = getBoolean("enableBeetroot", catItemMisc, true, "");
@@ -262,7 +264,7 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableTippedArrows = getBoolean("enableTippedArrows", catItemMisc, true, "");
 		enableLingeringPotions = getBoolean("enableLingeringPotions", catItemMisc, true, "");
 		enableRawOres = getBoolean("enableRawOres", catItemMisc, true, "If true, vanilla and Et Futurum copper ores will drop raw ore items.");
-		
+
 		enableTotemUndying = getBoolean("enableTotemUndying", catItemMisc, true, "");
 		enableSuspiciousStew = getBoolean("enableSuspiciousStew", catItemMisc, true, "");
 		enableNewDyes = getBoolean("enableNewDyes", catItemMisc, true, "");

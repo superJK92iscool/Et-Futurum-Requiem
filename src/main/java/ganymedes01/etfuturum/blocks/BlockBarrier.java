@@ -8,6 +8,7 @@ import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.EntityFX;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -91,7 +92,7 @@ public class BlockBarrier extends BaseBlock implements IFloatingParticleBlock {
 	{
 		return true;
 	}
-	
+
 	@Override
 	public boolean isNormalCube(IBlockAccess world, int x, int y, int z) {
 		return true;
@@ -100,6 +101,10 @@ public class BlockBarrier extends BaseBlock implements IFloatingParticleBlock {
 	@Override
 	public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side) {
 		return true;
+	}
+
+	public boolean canEntityDestroy(IBlockAccess world, int x, int y, int z, Entity entity) {
+		return false;
 	}
 
 	@Override

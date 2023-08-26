@@ -49,7 +49,7 @@ public class CommonProxy implements IGuiHandler {
 			MinecraftForge.EVENT_BUS.register(SpectatorMode.INSTANCE);
 		}
 
-		if (ConfigBlocksItems.enableSculk) {
+		if (ModBlocks.SCULK_CATALYST.isEnabled()) {
 			FMLCommonHandler.instance().bus().register(SculkEventHandler.INSTANCE);
 			MinecraftForge.EVENT_BUS.register(SculkEventHandler.INSTANCE);
 		}

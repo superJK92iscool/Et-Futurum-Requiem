@@ -110,8 +110,6 @@ public enum ModBlocks {
 	BUDDING_AMETHYST(ConfigBlocksItems.enableAmethyst, new BlockBuddingAmethyst()),
 	AMETHYST_CLUSTER_1(ConfigBlocksItems.enableAmethyst, new BlockAmethystCluster(0), ItemBlockAmethystCluster.class),
 	AMETHYST_CLUSTER_2(ConfigBlocksItems.enableAmethyst, new BlockAmethystCluster(1), ItemBlockAmethystCluster.class),
-	SCULK(ConfigBlocksItems.enableSculk && EtFuturum.TESTING, new BlockSculk()),
-	SCULK_CATALYST(ConfigBlocksItems.enableSculk && EtFuturum.TESTING, new BlockSculkCatalyst()),
 	TINTED_GLASS(ConfigBlocksItems.enableAmethyst, new BlockTintedGlass()),
 	STONE_WALL(ConfigBlocksItems.enableExtraVanillaWalls, new BaseWall("stone_wall", new Block[]{Blocks.stonebrick, Blocks.stonebrick, Blocks.sandstone, Blocks.brick_block}, new int[]{0, 1, 0, 0}, new String[]{"stone_brick_wall", "mossy_stone_brick_wall", "sandstone_wall", "brick_wall"}), BaseWallItemBlock.class),
 	NETHER_BRICK_WALL(ConfigBlocksItems.enableExtraVanillaWalls, new BaseWall("nether_brick_wall", new Block[]{Blocks.nether_brick}, new int[]{0}, null), BaseWallItemBlock.class),
@@ -307,16 +305,23 @@ public enum ModBlocks {
 	GREEN_BED(ConfigBlocksItems.enableDyedBeds, new BlockDyedBed(13), ItemBlockDyedBed.class),
 	BLACK_BED(ConfigBlocksItems.enableDyedBeds, new BlockDyedBed(15), ItemBlockDyedBed.class),
 
+	//Legacy blocks
+
 	CRYING_OBSIDIAN(ConfigBlocksItems.enableCryingObsidian, new BaseBlock(Material.rock).setNames("crying_obsidian")
 			.setToolClass("pickaxe", 3).setHardness(50.0F).setResistance(2000.0F)),
 	ROSE(ConfigTweaks.enableRoses, new BlockOldRose()),
 	OLD_GRAVEL(ConfigTweaks.enableOldGravel, new BlockOldGravel()),
 
+	//Unfinished stuff
+
+	SCULK(/*ConfigBlocksItems.enableSculk && */EtFuturum.TESTING, new BlockSculk()),
+	SCULK_CATALYST(/*ConfigBlocksItems.enableSculk && */EtFuturum.TESTING, new BlockSculkCatalyst()),
+
 	//Creative-only stuff
 
 	NETHERITE_STAIRS(ConfigBlocksItems.enableNetherite, new BlockNetheriteStairs(), ItemBlockUninflammable.class),
 	END_GATEWAY(EtFuturum.TESTING, new BlockEndGateway()),
-	LIGHT(true, new BlockLight(), BaseItemBlock.class),
+	LIGHT(ConfigBlocksItems.enableLightBlock, new BlockLight(), BaseItemBlock.class),
 	BARRIER(ConfigBlocksItems.enableBarrier, new BlockBarrier());
 
 	public static final ModBlocks[] BEDS = new ModBlocks[]{WHITE_BED, ORANGE_BED, MAGENTA_BED, LIGHT_BLUE_BED, YELLOW_BED, LIME_BED, PINK_BED, GRAY_BED, LIGHT_GRAY_BED, CYAN_BED,

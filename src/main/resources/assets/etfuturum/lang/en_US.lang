@@ -694,6 +694,7 @@ tile.etfuturum.green_bed.name=Green Bed
 tile.etfuturum.black_bed.name=Black Bed
 
 tile.etfuturum.barrier.name=Barrier
+tile.etfuturum.light.name=Light
 tile.etfuturum.red_nether_bricks.name=Red Nether Bricks
 tile.etfuturum.red_nether_brick_slab.name=Red Nether Brick Slab
 tile.etfuturum.red_nether_brick_stairs.name=Red Nether Brick stairs

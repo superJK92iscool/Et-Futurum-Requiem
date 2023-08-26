@@ -1,6 +1,5 @@
 package ganymedes01.etfuturum.core.handlers;
 
-import akka.util.Reflect;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
@@ -17,10 +16,12 @@ import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.common.util.FakePlayerFactory;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.event.entity.living.LivingDropsEvent;
 
 import java.lang.reflect.Method;
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+import java.util.WeakHashMap;
 
 /**
  * Manages events related to sculk mechanics. This is a separate class to keep the code clean.
@@ -69,7 +70,6 @@ public class SculkEventHandler {
 
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public void onDeath(LivingDeathEvent event) {
-		/*
 		if(event.entityLiving instanceof EntityLiving && !event.entityLiving.worldObj.isRemote && getXpMethod != null) {
 			TileEntitySculkCatalyst catalyst = findNearbyCatalyst(event.entityLiving);
 			if(catalyst == null)
@@ -87,6 +87,5 @@ public class SculkEventHandler {
 			catalyst.bloomWithExperience(experience);
 			sculkAffectedEntities.add(event.entityLiving);
 		}
-		 */
 	}
 }
