@@ -7,7 +7,6 @@ import cpw.mods.fml.common.gameevent.TickEvent;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.core.utils.helpers.SafeEnumHelperClient;
 import net.minecraft.client.entity.EntityClientPlayerMP;
-import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.command.IEntitySelector;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -73,7 +72,7 @@ public class SpectatorMode {
 					return;
 				}
 				TileEntity te = event.world.getTileEntity(event.x, event.y, event.z);
-				if (!(te instanceof IInventory || te instanceof TileEntityEnderChest)) {
+				if (!canSpectatorSelect(te)) {
 					event.setCanceled(true);
 				}
 			}
@@ -107,13 +106,6 @@ public class SpectatorMode {
 			boolean isSpec = isSpectator(event.player);
 			if(!isSpec && event.player.noClip) {
 				event.player.setInvisible(false);
-				if (event.player.worldObj.isRemote) {
-					//Reloads the player model, fixes empty hand under certain conditions when switching from spectator mode
-					//Just calls the render function for one frame to reload the player model. I do it this way to avoid access transforming, and to be sure the whole model is reloaded.
-					if (event.player == FMLClientHandler.instance().getClient().thePlayer && FMLClientHandler.instance().getClient().playerController != null) {
-						RenderManager.instance.renderEntityWithPosYaw(event.player, -180.0D, -180.0D, -180.0D, 0.0F, 0.0F);
-					}
-				}
 			}
 			event.player.noClip = isSpec;
 			/* reuse value for spectator check */
@@ -141,10 +133,14 @@ public class SpectatorMode {
 
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public void itemToss(ItemTossEvent event) {
-		if(isSpectator(event.player)) {
+		if (isSpectator(event.player)) {
 			event.setCanceled(true);
 			ItemStack item = event.entityItem.getEntityItem();
 			event.player.inventory.addItemStackToInventory(item);
 		}
+	}
+
+	public static boolean canSpectatorSelect(TileEntity te) {
+		return te instanceof IInventory || te instanceof TileEntityEnderChest;
 	}
 }

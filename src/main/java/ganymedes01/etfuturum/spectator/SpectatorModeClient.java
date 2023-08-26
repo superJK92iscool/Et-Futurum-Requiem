@@ -10,6 +10,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraftforge.client.event.*;
@@ -18,6 +19,7 @@ import static ganymedes01.etfuturum.spectator.SpectatorMode.isSpectator;
 
 public class SpectatorModeClient {
 	public static final SpectatorModeClient INSTANCE = new SpectatorModeClient();
+	private boolean doRefreshModel = false;
 
 	@SideOnly(Side.CLIENT)
 	private static void setBipedVisible(ModelBiped biped, boolean visible)
@@ -38,7 +40,13 @@ public class SpectatorModeClient {
 			setBipedVisible(event.renderer.modelBipedMain, false);
 			event.renderer.modelBipedMain.bipedHead.showModel = true;
 			event.renderer.modelBipedMain.bipedHeadwear.showModel = true;
+			doRefreshModel = true;
 		} else {
+//			Redraws the player model for one frame off-screen so
+			if (doRefreshModel && FMLClientHandler.instance().getClientPlayerEntity() == event.entityPlayer && !isSpectator(FMLClientHandler.instance().getClientPlayerEntity())) {
+				RenderManager.instance.renderEntityWithPosYaw(event.entityPlayer, -180.0D, -180.0D, -180.0D, 0.0F, 0.0F);
+				doRefreshModel = false;
+			}
 			setBipedVisible(event.renderer.modelBipedMain, true);
 		}
 	}
