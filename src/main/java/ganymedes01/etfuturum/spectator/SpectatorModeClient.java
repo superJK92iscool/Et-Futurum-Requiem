@@ -42,12 +42,13 @@ public class SpectatorModeClient {
 			event.renderer.modelBipedMain.bipedHeadwear.showModel = true;
 			doRefreshModel = true;
 		} else {
-//			Redraws the player model for one frame off-screen so
-			if (doRefreshModel && FMLClientHandler.instance().getClientPlayerEntity() == event.entityPlayer && !isSpectator(FMLClientHandler.instance().getClientPlayerEntity())) {
-				RenderManager.instance.renderEntityWithPosYaw(event.entityPlayer, -180.0D, -180.0D, -180.0D, 0.0F, 0.0F);
-				doRefreshModel = false;
-			}
 			setBipedVisible(event.renderer.modelBipedMain, true);
+//			Redraws the player model for one frame off-screen so it refreshes. Also make sure we only run this logic if this code is targeting the player we're playing as.
+//			This is because in some cases loading the player model in 3rd person or the inventory and then going back to another game mode makes the hand invisible.
+			if (doRefreshModel && FMLClientHandler.instance().getClientPlayerEntity() == event.entityPlayer && !isSpectator(FMLClientHandler.instance().getClientPlayerEntity())) {
+				doRefreshModel = false;
+				RenderManager.instance.renderEntityWithPosYaw(event.entityPlayer, -180.0D, -180.0D, -180.0D, 0.0F, 0.0F);
+			}
 		}
 	}
 
