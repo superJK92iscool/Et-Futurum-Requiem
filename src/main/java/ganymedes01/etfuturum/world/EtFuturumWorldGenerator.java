@@ -113,11 +113,11 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 				}
 			}
 
-			if(fossilGen != null && ArrayUtils.contains(ConfigWorld.fossilDimensionBlacklist, world.provider.dimensionId) == ConfigWorld.fossilDimensionBlacklistAsWhitelist) {
+			if (fossilGen != null && rand.nextInt(64) == 0 && ArrayUtils.contains(ConfigWorld.fossilDimensionBlacklist, world.provider.dimensionId) == ConfigWorld.fossilDimensionBlacklistAsWhitelist) {
 				x = chunkX * 16 + rand.nextInt(16) + 8;
 				z = chunkZ * 16 + rand.nextInt(16) + 8;
-				if (rand.nextInt(64) == 0 && fossilBiomes.contains(world.getBiomeGenForCoords(x, z))) {
-					fossilGen.generate(world, rand, x, MathHelper.getRandomIntegerInRange(rand, 49, 40), z);
+				if (fossilBiomes.contains(world.getBiomeGenForCoords(x, z))) {
+					fossilGen.generate(world, rand, x, MathHelper.getRandomIntegerInRange(rand, 40, 49), z);
 				}
 			}
 		}
