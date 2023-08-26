@@ -7,6 +7,7 @@ import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.player.EntityPlayer;
@@ -126,14 +127,10 @@ public class SpectatorModeClient {
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
 	public void onClientTick(TickEvent.ClientTickEvent event) {
-		EntityPlayer player = FMLClientHandler.instance().getClientPlayerEntity();
-		if (player != null && Minecraft.getMinecraft().playerController != null && event.phase == TickEvent.Phase.START) {
-			if (Minecraft.getMinecraft().playerController.currentGameType == SpectatorMode.SPECTATOR_GAMETYPE) {
-				if (!player.capabilities.isFlying) {
-					player.capabilities.isFlying = true;
-					player.sendPlayerAbilities();
-				}
-			}
+		EntityClientPlayerMP player = FMLClientHandler.instance().getClientPlayerEntity();
+		if (isSpectator(player) && !player.capabilities.isFlying) {
+			player.capabilities.isFlying = true;
+			player.sendPlayerAbilities();
 		}
 	}
 }
