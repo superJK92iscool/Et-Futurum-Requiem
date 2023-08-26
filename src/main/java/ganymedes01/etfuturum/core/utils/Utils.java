@@ -359,4 +359,18 @@ public class Utils {
 		}
 		block.setStepSound(type);
 	}
+
+	/**
+	 * This has to exist BECAUSE THE EQUIVALENT FUNCTION FOR IT IS CLIENT SIDED FOR NO DAMN REASON
+	 */
+	public static Vec3 getVec3FromEntity(Entity entity, float p_70666_1_) {
+		if (p_70666_1_ == 1.0F) {
+			return Vec3.createVectorHelper(entity.posX, entity.posY, entity.posZ);
+		} else {
+			double d0 = entity.prevPosX + (entity.posX - entity.prevPosX) * (double) p_70666_1_;
+			double d1 = entity.prevPosY + (entity.posY - entity.prevPosY) * (double) p_70666_1_;
+			double d2 = entity.prevPosZ + (entity.posZ - entity.prevPosZ) * (double) p_70666_1_;
+			return Vec3.createVectorHelper(d0, d1, d2);
+		}
+	}
 }

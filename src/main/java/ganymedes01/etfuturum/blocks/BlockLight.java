@@ -18,7 +18,7 @@ import java.util.List;
 public class BlockLight extends BlockBarrier implements ISubBlocksBlock {
 
 	@SideOnly(Side.CLIENT)
-	private final IIcon[] lightIcons = new IIcon[16];
+	private IIcon[] lightIcons;
 	private static final String[] types = new String[16];
 
 	public BlockLight() {
@@ -73,6 +73,7 @@ public class BlockLight extends BlockBarrier implements ISubBlocksBlock {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister reg) {
+		lightIcons = new IIcon[16];
 		for (int i = 0; i < types.length; i++) {
 			lightIcons[i] = reg.registerIcon(types[i]);
 		}

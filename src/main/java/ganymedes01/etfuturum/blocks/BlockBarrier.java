@@ -26,7 +26,6 @@ public class BlockBarrier extends BaseBlock implements IFloatingParticleBlock {
 	/**
 	 * Caches barrier particles spawned, so we don't just spam barrier particles
 	 */
-	@SideOnly(Side.CLIENT)
 	protected static final Map<BlockPos, EntityFX> INVISIBLE_BLOCK_FX_MAP = new WeakHashMap<>();
 
 	public BlockBarrier() {
@@ -44,7 +43,7 @@ public class BlockBarrier extends BaseBlock implements IFloatingParticleBlock {
 	{
 		return null;
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void randomDisplayTick(World world, int x, int y, int z, Random rand) {

@@ -751,7 +751,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 //	}
 
 	private boolean isWithinDistance(BlockPos pos, int distance) {
-		return getPosition(1.0F).squareDistanceTo(pos.getX(), pos.getY(), pos.getZ()) <= distance * distance;
+		return Utils.getVec3FromEntity(this, 1.0F).squareDistanceTo(pos.getX(), pos.getY(), pos.getZ()) <= distance * distance;
 	}
 
 	@Override
@@ -1310,7 +1310,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 			Vec3 vec3d;
 			if (isHiveValid() && !isWithinDistance(hivePos, 40)) {
 				Vec3 vec3d1 = hivePos.newVec3();
-				vec3d = vec3d1.subtract(getPosition(1.0F)).normalize();
+				vec3d = vec3d1.subtract(Utils.getVec3FromEntity(EntityBee.this, 1.0F)).normalize();
 			} else {
 				vec3d = getLook(0.0F);
 			}

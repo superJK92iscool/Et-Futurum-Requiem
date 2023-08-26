@@ -43,31 +43,31 @@ public class EntityVectorUtils {
 
 	@Nullable
 	public static Vec3 findRandomTargetBlockTowards(EntityCreature entitycreatureIn, int xz, int y, Vec3 targetVec3) {
-		Vec3 vec3d = targetVec3.subtract(entitycreatureIn.getPosition(1.0F));
+		Vec3 vec3d = targetVec3.subtract(Utils.getVec3FromEntity(entitycreatureIn, 1.0F));
 		return func_226339_a_(entitycreatureIn, xz, y, 0, vec3d, true, (double) ((float) Math.PI / 2F), getDoubleFunc(entitycreatureIn), false, 0, 0, true);
 	}
 
 	@Nullable
 	public static Vec3 findRandomTargetTowardsScaled(EntityCreature p_203155_0_, int xz, int p_203155_2_, Vec3 p_203155_3_, double p_203155_4_) {
-		Vec3 vec3d = p_203155_3_.subtract(p_203155_0_.getPosition(1.0F));
+		Vec3 vec3d = p_203155_3_.subtract(Utils.getVec3FromEntity(p_203155_0_, 1.0F));
 		return func_226339_a_(p_203155_0_, xz, p_203155_2_, 0, vec3d, true, p_203155_4_, getDoubleFunc(p_203155_0_), false, 0, 0, true);
 	}
 
 	@Nullable
 	public static Vec3 func_226344_b_(EntityCreature p_226344_0_, int p_226344_1_, int p_226344_2_, int p_226344_3_, Vec3 p_226344_4_, double p_226344_5_) {
-		Vec3 vec3d = p_226344_4_.subtract(p_226344_0_.getPosition(1.0F));
+		Vec3 vec3d = p_226344_4_.subtract(Utils.getVec3FromEntity(p_226344_0_, 1.0F));
 		return func_226339_a_(p_226344_0_, p_226344_1_, p_226344_2_, p_226344_3_, vec3d, false, p_226344_5_, getDoubleFunc(p_226344_0_), true, 0, 0, false);
 	}
 
 	@Nullable
 	public static Vec3 findRandomTargetBlockAwayFrom(EntityCreature entitycreatureIn, int xz, int y, Vec3 targetVec3) {
-		Vec3 vec3d = entitycreatureIn.getPosition(1.0F).subtract(targetVec3);
+		Vec3 vec3d = Utils.getVec3FromEntity(entitycreatureIn, 1.0F).subtract(targetVec3);
 		return func_226339_a_(entitycreatureIn, xz, y, 0, vec3d, true, (float) Math.PI / 2F, getDoubleFunc(entitycreatureIn), false, 0, 0, true);
 	}
 
 	@Nullable
 	public static Vec3 func_223548_b(EntityCreature p_223548_0_, int p_223548_1_, int p_223548_2_, Vec3 p_223548_3_) {
-		Vec3 vec3d = p_223548_0_.getPosition(1.0F).subtract(p_223548_3_);
+		Vec3 vec3d = Utils.getVec3FromEntity(p_223548_0_, 1.0F).subtract(p_223548_3_);
 		return func_226339_a_(p_223548_0_, p_223548_1_, p_223548_2_, 0, vec3d, false, (float) Math.PI / 2F, getDoubleFunc(p_223548_0_), true, 0, 0, true);
 	}
 
@@ -78,7 +78,7 @@ public class EntityVectorUtils {
 		if (p_226339_0_.hasHome()) {
 			double distCompare = (double) (p_226339_0_.func_110174_bM() + (float) p_226339_1_) + 1.0D;
 			Vec3 vec = Vec3.createVectorHelper(p_226339_0_.getHomePosition().posX, p_226339_0_.getHomePosition().posY, p_226339_0_.getHomePosition().posZ);
-			flag = p_226339_0_.getPosition(1.0F).squareDistanceTo(vec) < distCompare * distCompare;
+			flag = Utils.getVec3FromEntity(p_226339_0_, 1.0F).squareDistanceTo(vec) < distCompare * distCompare;
 		} else {
 			flag = false;
 		}
