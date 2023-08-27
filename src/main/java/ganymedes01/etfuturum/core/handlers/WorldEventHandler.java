@@ -133,8 +133,6 @@ public class WorldEventHandler {
 
 	/**
 	 * Checks if there is a valid bee flower within 2 blocks in each direction of the origin point, on the same Y level
-	 *
-	 * @return
 	 */
 	private boolean isFlowerNearby(World world, int x, int y, int z) {
 		for (int x1 = -2; x1 <= 2; x1++) {

@@ -17,7 +17,6 @@ import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 import org.apache.commons.lang3.ArrayUtils;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -47,19 +46,17 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 		if(doesChunkSupportLayerDeepslate(world.getWorldInfo().getTerrainType(), world.provider.dimensionId)) {
 			//Turn off recording here so the world gen isn't an infinite recursion loop of constantly checking the same blocks
 			stopRecording = true;
-			Map<Long, List<Integer>> map = deepslateRedoCache.get(world.provider.dimensionId);
+			Map<Long, List<Integer>> map = deepslateRedoCache.remove(world.provider.dimensionId);
 			if(map != null) {
-				Iterator<Entry<Long, List<Integer>>> mapIterator = map.entrySet().iterator();
-				while(mapIterator.hasNext()) {
-					Entry<Long, List<Integer>> set = mapIterator.next();
+				for (Entry<Long, List<Integer>> set : map.entrySet()) {
 					List<Integer> posSet = set.getValue();
-					
-					if(posSet != null) {
-						
+
+					if (posSet != null) {
+
 						long packedChunkCoords = set.getKey();
-						int redoX = (int)packedChunkCoords;
-						int redoZ = (int)(packedChunkCoords >> 32);
-						
+						int redoX = (int) packedChunkCoords;
+						int redoZ = (int) (packedChunkCoords >> 32);
+
 						Chunk cachedChunk = world.getChunkFromChunkCoords(redoX, redoZ);
 						for (int pos : posSet) {
 							byte posX = (byte) ((pos >> 12));
@@ -74,7 +71,6 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 									posX, posZ, redoX << 4 + posX, posY, redoZ << 4 + posZ, array);
 						}
 					}
-					mapIterator.remove();
 				}
 			}
 
