@@ -145,7 +145,7 @@ public class CommonProxy implements IGuiHandler {
 		ModEntityList.registerEntity(EntityItemUninflammable.class, "fireproof_item", 15, EtFuturum.instance, 64, 1, true);
 		
 		if(ConfigEntities.enableShulker) {
-			ModEntityList.registerEntity(EntityShulker.class, "shulker", 16, EtFuturum.instance, 64, 1, false, 0x946794, 0x4D3852);
+			ModEntityList.registerEntity(EntityShulker.class, "shulker", 16, EtFuturum.instance, 80, 1, false, 0x946794, 0x4D3852);
 			ModEntityList.registerEntity(EntityShulkerBullet.class, "shulker_candy", 17, EtFuturum.instance, 64, 1, true);
 
 			if(ConfigTweaks.shulkersSpawnAnywhere) {

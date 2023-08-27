@@ -107,6 +107,10 @@ public class ModRecipes {
 			Blocks.wooden_button.setBlockName(Utils.getUnlocalisedName("oak_button"));
 			Blocks.wooden_pressure_plate.setBlockName(Utils.getUnlocalisedName("oak_pressure_plate"));
 		}
+
+		if (ConfigBlocksItems.replaceOldBoats) {
+			Items.boat.setUnlocalizedName(Utils.getUnlocalisedName("oak_boat"));
+		}
 	}
 
 	private static void registerOreDictionary() {
