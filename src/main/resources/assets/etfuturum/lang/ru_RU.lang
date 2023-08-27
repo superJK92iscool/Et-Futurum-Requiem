@@ -691,6 +691,7 @@ tile.etfuturum.green_bed.name=Зеленая кровать
 tile.etfuturum.black_bed.name=Черная кровать
 
 tile.etfuturum.barrier.name=Барьер
+tile.etfuturum.light.name=Свет
 tile.etfuturum.red_nether_bricks.name=Красные адские кирпичи
 tile.etfuturum.red_nether_brick_slab.name=Плита из красного адского кирпича
 tile.etfuturum.red_nether_brick_stairs.name=Ступеньки из красного адского кирпича

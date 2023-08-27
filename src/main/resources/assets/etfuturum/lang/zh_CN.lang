@@ -701,6 +701,7 @@ tile.etfuturum.green_bed.name=绿色床
 tile.etfuturum.black_bed.name=黑色床
 
 tile.etfuturum.barrier.name=屏障
+tile.etfuturum.light.name=光
 tile.etfuturum.red_nether_bricks.name=红色下界砖块
 tile.etfuturum.red_nether_brick_slab.name=红色下界砖台阶
 tile.etfuturum.red_nether_brick_stairs.name=红色下界砖楼梯
