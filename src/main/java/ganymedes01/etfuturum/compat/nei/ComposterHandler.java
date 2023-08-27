@@ -14,8 +14,11 @@ import ganymedes01.etfuturum.core.utils.ItemStackMap;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.WeightedRandomChestContent;
+import net.minecraftforge.oredict.OreDictionary;
 import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
@@ -38,7 +41,7 @@ public class ComposterHandler extends TemplateRecipeHandler implements ICrafting
 
         @Override
         public List<PositionedStack> getIngredients() {
-            return inputs;
+            return this.getCycledIngredients(cycleticks / 20, this.inputs);
         }
 
         @Override
@@ -70,7 +73,7 @@ public class ComposterHandler extends TemplateRecipeHandler implements ICrafting
             x = 3;
             y = 3;
             for (int k = 0; k < size; ) {
-                slots.add(new PositionedStack(inputs.remove(0), x, y, false));
+                slots.add(this.resolveIngredient(inputs.remove(0), x, y));
                 x += 18;
                 k++;
                 if (k % 9 == 0) {
@@ -102,6 +105,18 @@ public class ComposterHandler extends TemplateRecipeHandler implements ICrafting
         for (List<PositionedStack> slots : in) {
             arecipes.add(new CompostedRecipe(slots));
         }
+    }
+
+    private PositionedStack resolveIngredient(ItemStack stack, int x, int y) {
+        if (stack.getItemDamage() == OreDictionary.WILDCARD_VALUE) {
+            List<ItemStack> stacks = new ArrayList<>();
+            Item item = stack.getItem();
+            for (CreativeTabs tab : item.getCreativeTabs()) {
+                item.getSubItems(item, tab, stacks);
+            }
+            return new PositionedStack(stacks, x, y, true);
+        }
+        else return new PositionedStack(stack, x, y, false);
     }
 
     private boolean itemCheck(ItemStack stack, Collection<ItemStack> inputs) {
