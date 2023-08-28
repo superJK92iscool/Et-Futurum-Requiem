@@ -194,6 +194,11 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 			mixins.add("posttreegen.MixinWorldGenAbstractTree");
 		}
 
+		if (ConfigMixins.ladderTrapdoors) {
+			mixins.add("laddertrapdoors.MixinBlockLadder");
+			mixins.add("laddertrapdoors.MixinBlockTrapdoor");
+		}
+
 		if (side == MixinEnvironment.Side.CLIENT) {
 			if (ConfigMixins.dustUnderFallingBlocks) {
 				mixins.add("blockfallingparticles.MixinBlockFalling");

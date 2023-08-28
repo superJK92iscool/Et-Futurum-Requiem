@@ -35,6 +35,7 @@ public class ConfigMixins extends ConfigBase {
 	public static boolean dustUnderFallingBlocks;
 	public static boolean collidedThrowableFix;
 	public static boolean postTreeGenEvent;
+	public static boolean ladderTrapdoors;
 
 	static final String catBackport = "backported features";
 	static final String catOptimization = "optimizations";
@@ -84,10 +85,10 @@ public class ConfigMixins extends ConfigBase {
 		hoeTilling = getBoolean("hoeTilling", catBackport, true, "Sounds for hoes tilling farmland.\nModified Classes: net.minecraft.item.ItemHoe");
 		dustUnderFallingBlocks = getBoolean("dustUnderFallingBlocks", catBackport, true, "Spawns a particle under falling blocks like sand or gravel that are suspended mid-air.\nModified Classes: net.minecraft.block.BlockFalling");
 		postTreeGenEvent = getBoolean("postTreeGenEvent", catBackport, true, "Fires an event after a tree generates, mainly for beehives to accurately know where most trees are. For now this option is disabled if bees are disabled.\nModified Classes: net.minecraft.world.gen.feature.WorldGenAbstractTree");
+		ladderTrapdoors = getBoolean("ladderTrapdoors", catBackport, true, "Trapdoors that are clapped open against a block with a ladder below them can be climbed up as if they themselves were a ladder. Also expands the ladder hitbox to match the width of trapdoors.\nModified Classes: net.minecraft.block.BlockLadder net.minecraft.block.BlockTrapdoor");
 
 		stepHeightFix = getBoolean("stepHeightFix", catFixes, true, "Makes the player able to step up even if a block would be above their head at the destination.\nModified classes: net.minecraft.entity.Entity");
 		arrowFallingFix = getBoolean("arrowFallingFix", catFixes, true, "Prevents arrows from falling off of blocks too easily\nModified classes: net.minecraft.entity.EntityArrow");
 		collidedThrowableFix = getBoolean("collidedThrowableFix", catFixes, true, "Fixes EntityThrowable entities not calling onEntityCollidedWithBlock, causing them to not trigger target blocks or chime amethyst.\nModified classes: net.minecraft.entity.projectile.EntityThrowable");
 	}
-	
 }

@@ -136,7 +136,6 @@ public class ModelBee extends ModelBase {
 		if (this.bodyPitch > 0.0F) {
 			this.body.rotateAngleX = func_228283_a_(this.body.rotateAngleX, 3.0915928F, this.bodyPitch);
 		}
-
 	}
 
 	public static float func_228283_a_(float p_228283_0_, float p_228283_1_, float p_228283_2_) {
