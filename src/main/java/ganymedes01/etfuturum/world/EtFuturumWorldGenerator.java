@@ -96,32 +96,32 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 			int z;
 			
 			if(amethystGen != null && ArrayUtils.contains(ConfigWorld.amethystDimensionBlacklist, world.provider.dimensionId) == ConfigWorld.amethystDimensionBlacklistAsWhitelist) {
-				x = chunkX * 16 + rand.nextInt(16) + 8;
-				z = chunkZ * 16 + rand.nextInt(16) + 8;
-				if(ConfigWorld.amethystRarity == 1 || rand.nextInt(ConfigWorld.amethystRarity) == 0) {
+				x = (chunkX << 4) + rand.nextInt(16) + 8;
+				z = (chunkZ << 4) + rand.nextInt(16) + 8;
+				if (ConfigWorld.amethystRarity == 1 || rand.nextInt(ConfigWorld.amethystRarity) == 0) {
 					amethystGen.generate(world, rand, x, MathHelper.getRandomIntegerInRange(rand, 6, ConfigWorld.amethystMaxY), z);
 				}
 			}
-			
+
 			if(ModBlocks.COPPER_ORE.isEnabled()) {
 				generateOre(copperGen, world, rand, chunkX, chunkZ, 8, 4, 80);
 			}
 
 			if(ConfigWorld.enableExtraMesaGold) {
-				if(ArrayUtils.contains(BiomeDictionary.getTypesForBiome(world.getBiomeGenForCoords(chunkX * 16, chunkZ * 16)), Type.MESA)) {
+				if (ArrayUtils.contains(BiomeDictionary.getTypesForBiome(world.getBiomeGenForCoords(chunkX << 4, chunkZ << 4)), Type.MESA)) {
 					generateOre(mesaGoldGen, world, rand, chunkX, chunkZ, 20, 32, 80);
 				}
 			}
 
 			if (fossilGen != null && rand.nextInt(64) == 0 && ArrayUtils.contains(ConfigWorld.fossilDimensionBlacklist, world.provider.dimensionId) == ConfigWorld.fossilDimensionBlacklistAsWhitelist) {
-				x = chunkX * 16 + rand.nextInt(16) + 8;
-				z = chunkZ * 16 + rand.nextInt(16) + 8;
+				x = (chunkX << 4) + rand.nextInt(16) + 8;
+				z = (chunkZ << 4) + rand.nextInt(16) + 8;
 				if (fossilBiomes.contains(world.getBiomeGenForCoords(x, z))) {
 					fossilGen.generate(world, rand, x, MathHelper.getRandomIntegerInRange(rand, 40, 49), z);
 				}
 			}
 		}
-		
+
 		if(world.provider.dimensionId == -1) {
 			if(ModBlocks.MAGMA.isEnabled()) {
 				this.generateOre(magmaGen, world, rand, chunkX, chunkZ, 4, 23, 37);
@@ -129,7 +129,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 
 //          if(ConfigurationHandler.enableBlackstone)
 //              this.generateOre(ModBlocks.blackstone, 0, world, rand, chunkX, chunkZ, 1, ConfigurationHandler.maxBlackstonePerCluster, 2, 5, 28, Blocks.netherrack);
-			
+
 			if(ModBlocks.NETHER_GOLD_ORE.isEnabled()) {
 				this.generateOre(netherGoldGen, world, rand, chunkX, chunkZ, 10, 10, 117);
 			}
@@ -142,9 +142,9 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 
 		if (ConfigWorld.enableOceanMonuments && ModBlocks.PRISMARINE_BLOCK.isEnabled() && ModBlocks.SEA_LANTERN.isEnabled() && world.provider.dimensionId != -1 && world.provider.dimensionId != 1)
 			if (OceanMonument.canSpawnAt(world, chunkX, chunkZ)) {
-				int x = chunkX * 16 + rand.nextInt(16) + 8;
+				int x = (chunkX << 4) + rand.nextInt(16) + 8;
 				int y = 256;
-				int z = chunkZ * 16 + rand.nextInt(16) + 8;
+				int z = (chunkZ << 4) + rand.nextInt(16) + 8;
 				for (; y > 0; y--)
 					if (!world.isAirBlock(x, y, z))
 						break;
@@ -154,9 +154,9 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 			}
 
 		if (ModBlocks.CHORUS_PLANT.isEnabled() && ModBlocks.CHORUS_FLOWER.isEnabled() && !(world.provider instanceof EndWorldProvider) && world.provider.dimensionId == 1) {
-			int x = chunkX * 16 + rand.nextInt(16) + 8;
-			int y = 256;
-			int z = chunkZ * 16 + rand.nextInt(16) + 8;
+			int x = (chunkX << 4) + rand.nextInt(16) + 8;
+			int y = world.getActualHeight();
+			int z = (chunkZ << 4) + rand.nextInt(16) + 8;
 			for (; y > 0; y--) {
 				if (!world.getBlock(x, y, z).isAir(world, x, y, z)) {
 					if (BlockChorusFlower.canPlantStay(world, x, y + 1, z)) {
@@ -167,32 +167,32 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 			}
 		}
 	}
-	
+
 	public void generateSingleOre(Block block, int meta, World world, Random random, int chunkX, int chunkZ, float chance, int minY, int maxY, Block generateIn) {
 		if(maxY <= 0 || minY < 0 || maxY < minY || chance <= 0)
 			return;
-		
+
 		for(int i = 0; i < (chance < 1 ? 1 : chance); i++) {
 			if(chance > 1 || random.nextFloat() < chance) {
 				int heightRange = maxY - minY;
-				int xRand = chunkX * 16 + random.nextInt(16);
+				int xRand = (chunkX << 4) + random.nextInt(16);
 				int yRand = MathHelper.getRandomIntegerInRange(random, minY, maxY);
-				int zRand = chunkZ * 16 + random.nextInt(16);
+				int zRand = (chunkZ << 4) + random.nextInt(16);
 				if(world.getBlock(xRand, yRand, zRand).isReplaceableOreGen(world, xRand, yRand, zRand, generateIn))
 					world.setBlock(xRand, yRand, zRand, block, meta, 3);
 			}
 		}
 	}
-	
+
 	public void generateOre(WorldGenMinable gen, World world, Random random, int chunkX, int chunkZ, float chance, int minY, int maxY) {
 		if(maxY <= 0 || minY < 0 || maxY < minY || gen.numberOfBlocks <= 0 || chance <= 0)
 			return;
-		
+
 		for(int i = 0; i < (chance < 1 ? 1 : (int)chance); i++) {
 			if(chance >= 1 || random.nextFloat() < chance) {
-				int xRand = chunkX * 16 + random.nextInt(16);
+				int xRand = (chunkX << 4) + random.nextInt(16);
 				int yRand = MathHelper.getRandomIntegerInRange(random, minY, maxY);
-				int zRand = chunkZ * 16 + random.nextInt(16);
+				int zRand = (chunkZ << 4) + random.nextInt(16);
 				
 				gen.generate(world, random, xRand, yRand, zRand);
 			}

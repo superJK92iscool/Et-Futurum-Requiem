@@ -68,7 +68,7 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 							if (array == null) continue;
 
 							replaceBlockInChunk(cachedChunk.worldObj, array.getBlockByExtId(posX, posY & 15, posZ),
-									posX, posZ, redoX << 4 + posX, posY, redoZ << 4 + posZ, array);
+									posX, posZ, (redoX << 4) + posX, posY, (redoZ << 4) + posZ, array);
 						}
 					}
 				}
