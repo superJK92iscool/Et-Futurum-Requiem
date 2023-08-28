@@ -1,6 +1,5 @@
 package ganymedes01.etfuturum.world.end;
 
-import cpw.mods.fml.common.Loader;
 import ganymedes01.etfuturum.EtFuturum;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.init.Blocks;
@@ -8,15 +7,13 @@ import net.minecraft.world.biome.BiomeEndDecorator;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.feature.WorldGenSpikes;
 
-public class EndBiomeDecorator extends BiomeEndDecorator {
+public class BiomeDecoratorEFREnd extends BiomeEndDecorator {
 
-	public EndBiomeDecorator()
-	{
+	public BiomeDecoratorEFREnd() {
 		this.spikeGen = new WorldGenSpikes(Blocks.end_stone);
 	}
 
-	protected void genDecorations(BiomeGenBase p_150513_1_)
-	{
+	protected void genDecorations(BiomeGenBase p_150513_1_) {
 		this.generateOres();
 
 		if(!EtFuturum.hasHEE) {

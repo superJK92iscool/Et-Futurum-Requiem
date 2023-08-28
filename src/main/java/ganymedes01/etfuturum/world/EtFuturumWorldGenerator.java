@@ -4,7 +4,7 @@ import cpw.mods.fml.common.IWorldGenerator;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.blocks.BlockChorusFlower;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
-import ganymedes01.etfuturum.world.end.dimension.EndWorldProvider;
+import ganymedes01.etfuturum.world.end.dimension.WorldProviderEFREnd;
 import ganymedes01.etfuturum.world.generate.WorldGenDeepslateLayerBlob;
 import ganymedes01.etfuturum.world.generate.WorldGenMinableCustom;
 import ganymedes01.etfuturum.world.generate.feature.WorldGenAmethystGeode;
@@ -14,9 +14,11 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldType;
+import net.minecraft.world.WorldProviderEnd;
+import net.minecraft.world.WorldProviderHell;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.IChunkProvider;
+import net.minecraft.world.gen.ChunkProviderFlat;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.common.BiomeDictionary;
@@ -91,11 +93,11 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 
 	@Override
 	public void generate(Random rand, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
-		if (world.getWorldInfo().getTerrainType() != WorldType.FLAT || world.getWorldInfo().getGeneratorOptions().contains("decoration")) {
+		if (!(world.getChunkProvider() instanceof ChunkProviderFlat) || world.getWorldInfo().getGeneratorOptions().contains("decoration")) {
 			int x;
 			int z;
-			
-			if(amethystGen != null && ArrayUtils.contains(ConfigWorld.amethystDimensionBlacklist, world.provider.dimensionId) == ConfigWorld.amethystDimensionBlacklistAsWhitelist) {
+
+			if (amethystGen != null && ArrayUtils.contains(ConfigWorld.amethystDimensionBlacklist, world.provider.dimensionId) == ConfigWorld.amethystDimensionBlacklistAsWhitelist) {
 				x = (chunkX << 4) + rand.nextInt(16) + 8;
 				z = (chunkZ << 4) + rand.nextInt(16) + 8;
 				if (ConfigWorld.amethystRarity == 1 || rand.nextInt(ConfigWorld.amethystRarity) == 0) {
@@ -120,17 +122,31 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 					fossilGen.generate(world, rand, x, MathHelper.getRandomIntegerInRange(rand, 40, 49), z);
 				}
 			}
+
+			if (ConfigWorld.enableOceanMonuments && ModBlocks.PRISMARINE_BLOCK.isEnabled() && ModBlocks.SEA_LANTERN.isEnabled()) {
+				if (OceanMonument.canSpawnAt(world, chunkX, chunkZ)) {
+					x = (chunkX << 4) + rand.nextInt(16) + 8;
+					z = (chunkZ << 4) + rand.nextInt(16) + 8;
+					int y;
+					for (y = world.getActualHeight(); y > 0; y--)
+						if (!world.isAirBlock(x, y, z))
+							break;
+					int monumentCeiling = y - (1 + rand.nextInt(3));
+					OceanMonument.buildTemple(world, x, monumentCeiling - 22, z);
+					return;
+				}
+			}
 		}
 
-		if(world.provider.dimensionId == -1) {
-			if(ModBlocks.MAGMA.isEnabled()) {
+		if (world.provider instanceof WorldProviderHell) {
+			if (ModBlocks.MAGMA.isEnabled()) {
 				this.generateOre(magmaGen, world, rand, chunkX, chunkZ, 4, 23, 37);
 			}
 
 //          if(ConfigurationHandler.enableBlackstone)
 //              this.generateOre(ModBlocks.blackstone, 0, world, rand, chunkX, chunkZ, 1, ConfigurationHandler.maxBlackstonePerCluster, 2, 5, 28, Blocks.netherrack);
 
-			if(ModBlocks.NETHER_GOLD_ORE.isEnabled()) {
+			if (ModBlocks.NETHER_GOLD_ORE.isEnabled()) {
 				this.generateOre(netherGoldGen, world, rand, chunkX, chunkZ, 10, 10, 117);
 			}
 
@@ -140,20 +156,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 			}
 		}
 
-		if (ConfigWorld.enableOceanMonuments && ModBlocks.PRISMARINE_BLOCK.isEnabled() && ModBlocks.SEA_LANTERN.isEnabled() && world.provider.dimensionId != -1 && world.provider.dimensionId != 1)
-			if (OceanMonument.canSpawnAt(world, chunkX, chunkZ)) {
-				int x = (chunkX << 4) + rand.nextInt(16) + 8;
-				int y = 256;
-				int z = (chunkZ << 4) + rand.nextInt(16) + 8;
-				for (; y > 0; y--)
-					if (!world.isAirBlock(x, y, z))
-						break;
-				int monumentCeiling = y - (1 + rand.nextInt(3));
-				OceanMonument.buildTemple(world, x, monumentCeiling - 22, z);
-				return;
-			}
-
-		if (ModBlocks.CHORUS_PLANT.isEnabled() && ModBlocks.CHORUS_FLOWER.isEnabled() && !(world.provider instanceof EndWorldProvider) && world.provider.dimensionId == 1) {
+		if (ModBlocks.CHORUS_PLANT.isEnabled() && ModBlocks.CHORUS_FLOWER.isEnabled() && !(world.provider instanceof WorldProviderEFREnd) && world.provider instanceof WorldProviderEnd) {
 			int x = (chunkX << 4) + rand.nextInt(16) + 8;
 			int y = world.getActualHeight();
 			int z = (chunkZ << 4) + rand.nextInt(16) + 8;

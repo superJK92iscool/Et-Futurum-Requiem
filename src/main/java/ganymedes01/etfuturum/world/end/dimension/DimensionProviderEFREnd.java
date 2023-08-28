@@ -2,7 +2,7 @@ package ganymedes01.etfuturum.world.end.dimension;
 
 import net.minecraftforge.common.DimensionManager;
 
-public class DimensionProviderEnd {
+public class DimensionProviderEFREnd {
 
 	public static void init() {
 		unregisterProviders();
@@ -15,7 +15,7 @@ public class DimensionProviderEnd {
 	}
 
 	private static void registerProviders() {
-		DimensionManager.registerProviderType(1, EndWorldProvider.class, true);
+		DimensionManager.registerProviderType(1, WorldProviderEFREnd.class, true);
 	}
 
 	private static void registerDimensions() {

@@ -1,13 +1,12 @@
 package ganymedes01.etfuturum.configuration.configs;
 
-import java.io.File;
-
 import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.etfuturum.api.mappings.BlockAndMetadataMapping;
 import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.core.utils.Logger;
-import net.minecraft.block.Block;
 import net.minecraftforge.common.config.Property;
+
+import java.io.File;
 
 public class ConfigWorld extends ConfigBase {
 
@@ -106,7 +105,9 @@ public class ConfigWorld extends ConfigBase {
 			switch(oldID) {
 				default: amethystOuterBlockID = "etfuturum:smooth_basalt"; break;
 				case 1: amethystOuterBlockID = "etfuturum:tuff"; break;
-				case 2: amethystOuterBlockID = "netherlicious:BasaltBricks:6"; break;
+				case 2:
+					amethystOuterBlockID = "netherlicious:BasaltBricks:6";
+					break;
 			}
 			getCategory(catGeneration).remove("amethystOuterBlock");
 			get(catGeneration, "amethystOuterBlockID", "etfuturum:bone").set(amethystOuterBlockID);
@@ -116,11 +117,11 @@ public class ConfigWorld extends ConfigBase {
 
 		amethystMiddleBlockID = getString("amethystMiddleBlockID", catGeneration, "etfuturum:calcite", "Use a namespaced ID, + optionally meta (max 15) to choose the block that makes up the middle layer of amethyst geodes.\nIf the chosen block does not exist then amethyst geodes will not generate.");
 
-		Property fossilBlacklistProp = get(catGeneration, "fossilDimensionBlacklist", new int[] {-1, 1});
-		fossilBlacklistProp.comment = "The dimensions the fossil structures should not spawn in.";
+		Property fossilBlacklistProp = get(catGeneration, "fossilDimensionBlacklist", new int[]{});
+		fossilBlacklistProp.comment = "The dimension IDs of the dimensions the fossil structures should not spawn in. Fossils will also not spawn in any dimension that is not an instance of WorldProviderSurface";
 		fossilDimensionBlacklist = fossilBlacklistProp.getIntList();
 		fossilDimensionBlacklistAsWhitelist = getBoolean("fossilDimensionBlacklistAsWhitelist", catGeneration, false, "Treat the fossil dimension blacklist as a whitelist instead, so fossils will ONLY generate in those dimensions, instead of excluding those dimensions from generation.");
-		Property deepslateBlacklistProp = get(catGeneration, "deepslateLayerDimensionBlacklist", new int[] {-1, 1});
+		Property deepslateBlacklistProp = get(catGeneration, "deepslateLayerDimensionBlacklist", new int[]{-1, 1});
 		deepslateBlacklistProp.comment = "The dimensions the deepslate layer (deepslate generation mode 0) should not spawn in. Does nothing if other deepslate generation modes are used.";
 		deepslateLayerDimensionBlacklist = deepslateBlacklistProp.getIntList();
 		deepslateLayerDimensionBlacklistAsWhitelist = getBoolean("deepslateLayerDimensionBlacklistAsWhitelist", catGeneration, false, "Treat the deepslate layer dimension blacklist as a whitelist instead, so it will ONLY generate in those dimensions, instead of excluding those dimensions from generation.");

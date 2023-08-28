@@ -10,6 +10,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldProviderSurface;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
@@ -87,7 +88,7 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 			doCoarseDirtGen(chunk);
 		}
 
-		if (world.getWorldInfo().getTerrainType() != WorldType.FLAT || world.getWorldInfo().getGeneratorOptions().contains("decoration") && world.provider.dimensionId != -1 && world.provider.dimensionId != 1) {
+		if (world.getWorldInfo().getTerrainType() != WorldType.FLAT || world.getWorldInfo().getGeneratorOptions().contains("decoration") && world.provider instanceof WorldProviderSurface) {
 			if (ModBlocks.DEEPSLATE.isEnabled() && ConfigWorld.deepslateGenerationMode == 1) {
 				generateOre(deepslateBlobGen, world, rand, chunkX, chunkZ, 1, 6, ConfigWorld.deepslateMaxY);
 			}

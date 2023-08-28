@@ -42,7 +42,7 @@ import ganymedes01.etfuturum.recipes.SmithingTableRecipes;
 import ganymedes01.etfuturum.spectator.SpectatorMode;
 import ganymedes01.etfuturum.world.EtFuturumLateWorldGenerator;
 import ganymedes01.etfuturum.world.EtFuturumWorldGenerator;
-import ganymedes01.etfuturum.world.end.dimension.DimensionProviderEnd;
+import ganymedes01.etfuturum.world.end.dimension.DimensionProviderEFREnd;
 import ganymedes01.etfuturum.world.structure.OceanMonument;
 import makamys.mclib.core.MCLib;
 import makamys.mclib.ext.assetdirector.ADConfig;
@@ -424,7 +424,7 @@ public class EtFuturum {
 //        DimensionProviderNether.init(); // Come back to
 
 		if (TESTING) {
-			DimensionProviderEnd.init(); // Come back to
+			DimensionProviderEFREnd.init(); // Come back to
 		}
 	}
 

@@ -5,10 +5,10 @@ import ganymedes01.etfuturum.world.nether.biome.utils.IBiomeColor;
 import net.minecraft.init.Blocks;
 import net.minecraftforge.common.BiomeDictionary;
 
-public class BiomeCrimsonForest extends EtFuturumNetherBiomeBase implements IBiomeColor {
+public class BiomeCrimsonForest extends NetherBiomeBase implements IBiomeColor {
 
 	private int FogSkyColor = 100000000; // Come back to
-	
+
 	public BiomeCrimsonForest(int id) {
 
 		super(id, new CrimsonForestDecorator());

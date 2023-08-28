@@ -1,8 +1,5 @@
 package ganymedes01.etfuturum.world.end.dimension;
 
-import java.util.List;
-import java.util.Random;
-
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import ganymedes01.etfuturum.blocks.BlockChorusFlower;
 import ganymedes01.etfuturum.world.end.gen.WorldGenEndIsland;
@@ -24,8 +21,13 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.ChunkProviderEvent;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 
-public class EndChunkProvider implements IChunkProvider {
-	/** RNG. */
+import java.util.List;
+import java.util.Random;
+
+public class ChunkProviderEFREnd implements IChunkProvider {
+	/**
+	 * RNG.
+	 */
 	private Random rand;
 	protected static final Block END_STONE = Blocks.end_stone;
 	protected static final Block AIR = Blocks.air;
@@ -33,7 +35,9 @@ public class EndChunkProvider implements IChunkProvider {
 	private final NoiseGeneratorOctaves lperlinNoise2;
 	private final NoiseGeneratorOctaves perlinNoise1;
 
-	/** A NoiseGeneratorOctaves used in generating terrain */
+	/**
+	 * A NoiseGeneratorOctaves used in generating terrain
+	 */
 	public NoiseGeneratorOctaves noiseGen5;
 
 	/** A NoiseGeneratorOctaves used in generating terrain */
@@ -55,8 +59,7 @@ public class EndChunkProvider implements IChunkProvider {
 	double[] br;
 	private final WorldGenEndIsland endIslands = new WorldGenEndIsland();
 
-	public EndChunkProvider(World worldObjIn, long seed)
-	{
+	public ChunkProviderEFREnd(World worldObjIn, long seed) {
 		this.worldObj = worldObjIn;
 		this.mapFeaturesEnabled = true; //come back to
 		this.rand = new Random(seed);
