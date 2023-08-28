@@ -25,8 +25,8 @@ import ganymedes01.etfuturum.command.CommandFill;
 import ganymedes01.etfuturum.compat.CompatBaublesExpanded;
 import ganymedes01.etfuturum.compat.CompatCraftTweaker;
 import ganymedes01.etfuturum.compat.CompatThaumcraft;
+import ganymedes01.etfuturum.compat.CompatWaila;
 import ganymedes01.etfuturum.compat.nei.IMCSenderGTNH;
-import ganymedes01.etfuturum.compat.waila.WailaRegistrar;
 import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
@@ -252,7 +252,7 @@ public class EtFuturum {
 		ModRecipes.init();
 
 		if (EtFuturum.hasWaila) {
-			WailaRegistrar.register();
+			CompatWaila.register();
 		}
 
 		proxy.registerEvents();
