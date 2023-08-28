@@ -130,7 +130,7 @@ public class SpectatorModeClient extends SpectatorMode {
 	@SideOnly(Side.CLIENT)
 	public void onBlockHighlight(DrawBlockHighlightEvent event) {
 		if(isSpectator(event.player)) {
-			canSelect = SpectatorMode.canSpectatorSelect(Minecraft.getMinecraft().theWorld.getTileEntity(event.target.blockX, event.target.blockY, event.target.blockZ));
+			canSelect = SpectatorMode.canSpectatorSelect(Minecraft.getMinecraft().theWorld.getTileEntity(event.target.blockX, event.target.blockY, event.target.blockZ)) || (event.target.entityHit != null && !SPECTATING_ENTITIES.containsKey(event.player));
 			if (!canSelect) {
 				event.setCanceled(true);
 			}

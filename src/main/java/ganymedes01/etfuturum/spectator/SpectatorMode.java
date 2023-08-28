@@ -6,7 +6,10 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.core.utils.helpers.SafeEnumHelperClient;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.client.settings.GameSettings;
 import net.minecraft.command.IEntitySelector;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -101,7 +104,12 @@ public class SpectatorMode {
 	@SubscribeEvent
 	public void onInteract(AttackEntityEvent event) {
 		if(isSpectator(event.entityPlayer)) {
-			SPECTATING_ENTITIES.put(event.entityPlayer, event.target);
+			if (!SPECTATING_ENTITIES.containsKey(event.entityPlayer)) {
+				SPECTATING_ENTITIES.put(event.entityPlayer, event.target);
+				if (event.entityPlayer instanceof EntityClientPlayerMP) {
+					Minecraft.getMinecraft().ingameGUI.func_110326_a(I18n.format("mount.onboard", GameSettings.getKeyDisplayString(Minecraft.getMinecraft().gameSettings.keyBindSneak.getKeyCode())), false);
+				}
+			}
 			event.setCanceled(true);
 		}
 	}
