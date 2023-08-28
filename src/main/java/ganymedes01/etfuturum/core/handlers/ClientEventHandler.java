@@ -702,8 +702,7 @@ public class ClientEventHandler {
 	 */
 	private void applyNextEntitySound() {
 		if (!soundList.isEmpty()) {
-			mc.getSoundHandler().playSound(soundList.get(0));
-			soundList.remove(0);
+			mc.getSoundHandler().playSound(soundList.remove(0));
 		}
 	}
 

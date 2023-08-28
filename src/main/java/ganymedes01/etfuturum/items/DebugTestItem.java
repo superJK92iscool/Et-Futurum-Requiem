@@ -10,7 +10,6 @@ import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.world.generate.feature.WorldGenAmethystGeode;
 import ganymedes01.etfuturum.world.generate.feature.WorldGenFossil;
 import net.minecraft.block.Block;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.EnumRarity;
@@ -99,18 +98,9 @@ public class DebugTestItem extends BaseItem {
 	@Override
 	public void addInformation(ItemStack p_77624_1_, EntityPlayer p_77624_2_, List p_77624_3_, boolean p_77624_4_) {
 		if (canUse(p_77624_2_)) {
-			boolean shiftHeld = GuiScreen.isShiftKeyDown();
 			p_77624_3_.add("\u00a7b\u00a7oA debug item used to test mechanics certain code.");
 			p_77624_3_.add("\u00a7a\u00a7oAttack\u00a7a\u00a7o a block to change the test subject.");
 			p_77624_3_.add("\u00a7b\u00a7oClick the \u00a7a\u00a7ouse item button\u00a7b\u00a7o to run the test.");
-			if (!shiftHeld) {
-				p_77624_3_.add("\u00a7c\u00a7oHold shift for disclaimer...");
-			} else {
-				p_77624_3_.add("");
-				p_77624_3_.add("\u00a7cThis is a DEBUG ITEM that may be destructive, so be careful what you do with it.");
-				p_77624_3_.add("\u00a7cIf you don't know how to use this, it is highly recommended you delete it.");
-				p_77624_3_.add("");
-			}
 		} else {
 			p_77624_3_.add("\u00a74\u00a7oYou must be in Creative mode to use this item.");
 		}
