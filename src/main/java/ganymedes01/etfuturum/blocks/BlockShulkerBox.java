@@ -19,11 +19,11 @@ import net.minecraft.client.particle.EffectRenderer;
 import net.minecraft.client.particle.EntityDiggingFX;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -36,6 +36,7 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.event.ForgeEventFactory;
 import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.ArrayList;
@@ -240,35 +241,29 @@ public class BlockShulkerBox extends BlockContainer {
 		return boxes.isEmpty();
 	}
 
-	public IInventory func_149951_m(World p_149951_1_, int p_149951_2_, int p_149951_3_, int p_149951_4_)
-	{
-		Object object = p_149951_1_.getTileEntity(p_149951_2_, p_149951_3_, p_149951_4_);
-
-		if(object == null)
-			return null;
-		
-		return (IInventory)object;
-	}
-	
-	public void dropBlockAsItemWithChance(World world, int x, int y, int z, int p_149690_5_, float p_149690_6_, int p_149690_7_)
-	{
-		super.dropBlockAsItemWithChance(world, x, y, z, p_149690_5_, p_149690_6_, p_149690_7_);
-	}
-	
 	@Override
-	public boolean removedByPlayer(World world, EntityPlayer player, int x, int y, int z) {
-		if (!((TileEntityShulkerBox)world.getTileEntity(x, y, z)).onBlockBreak(player)) return false;
-		return super.removedByPlayer(world, player, x, y, z);
-	}
-	
-	@Override
-	public void onBlockPreDestroy(World world, int x, int y, int z, int meta) {
-		TileEntityShulkerBox container = (TileEntityShulkerBox) world.getTileEntity(x, y, z);
-		if (container != null) container.onBlockDestroyed();
+	public void onBlockHarvested(World world, int x, int y, int z, int meta, EntityPlayer player) {
+		harvesters.set(player);
+		int fortune = EnchantmentHelper.getFortuneModifier(player);
+		ArrayList<ItemStack> drops = getDrops(world, x, y, z, meta, fortune);
+		if (ForgeEventFactory.fireBlockHarvesting(drops, world, this, x, y, z, meta, fortune, 1.0F, EnchantmentHelper.getSilkTouchModifier(player), player) > 0.0F) {
+			for (ItemStack stack : drops) {
+				if (stack != null) {
+					dropBlockAsItem(world, x, y, z, stack);
+				}
+			}
+		}
+		harvesters.remove();
 	}
 
-	protected void dropBlockAsItem(World p_149642_1_, int p_149642_2_, int p_149642_3_, int p_149642_4_, ItemStack p_149642_5_)
-	{
+	@Override
+	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
+		ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
+		TileEntityShulkerBox banner = Utils.getTileEntity(world, x, y, z, TileEntityShulkerBox.class);
+		if (banner != null) {
+			ret.add(banner.createItemStack(harvesters.get()));
+		}
+		return ret;
 	}
 
 	@Override

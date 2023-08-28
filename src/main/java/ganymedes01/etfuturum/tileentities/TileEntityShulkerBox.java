@@ -10,7 +10,6 @@ import ganymedes01.etfuturum.inventory.ContainerChestGeneric;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -346,9 +345,7 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 		return true;
 	}
 	
-	public void onBlockDestroyed() {
-		if (destroyed) return;
-		destroyed = true;
+	public ItemStack createItemStack(EntityPlayer player) {
 		boolean empty = true;
 		for (ItemStack chestContent : chestContents) {
 			if (chestContent != null) {
@@ -357,22 +354,13 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 			}
 		}
 		// Don't drop an empty Shulker Box in creative.
-		if ((!empty || !brokenInCreative) && worldObj.getGameRules().getGameRuleBooleanValue("doTileDrops")) {
-			ItemStack stack = ModBlocks.SHULKER_BOX.newItemStack(1);
-
-			writeToStack(stack);
-			
-			EntityItem item = new EntityItem(worldObj, xCoord + .5D, yCoord + .5D, zCoord + .5D, stack);
-			item.motionX = worldObj.rand.nextGaussian() * 0.05F;
-			item.motionY = worldObj.rand.nextGaussian() * 0.05F + 0.2F;
-			item.motionZ = worldObj.rand.nextGaussian() * 0.05F;
-			item.delayBeforeCanPickup = 10;
-			worldObj.spawnEntityInWorld(item);
+		if ((!empty || player == null || !player.capabilities.isCreativeMode) && worldObj.getGameRules().getGameRuleBooleanValue("doTileDrops")) {
+			return writeToStack(ModBlocks.SHULKER_BOX.newItemStack());
 		}
+		return null;
 	}
 	
 	public ItemStack writeToStack(ItemStack stack) {
-		
 		NBTTagList nbttaglist = new NBTTagList();
 
 		for (int l = 0; l < this.chestContents.length; ++l)
