@@ -10,19 +10,17 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.client.event.*;
 
-import static ganymedes01.etfuturum.spectator.SpectatorMode.isSpectator;
-
-public class SpectatorModeClient {
+public class SpectatorModeClient extends SpectatorMode {
 	public static final SpectatorModeClient INSTANCE = new SpectatorModeClient();
 	private boolean doRefreshModel = false;
 	private boolean canSelect = false;
 
 	@SideOnly(Side.CLIENT)
-	private static void setBipedVisible(ModelBiped biped, boolean visible)
-	{
+	private static void setBipedVisible(ModelBiped biped, boolean visible) {
 		biped.bipedHead.showModel = visible;
 		biped.bipedHeadwear.showModel = visible;
 		biped.bipedBody.showModel = visible;
@@ -35,26 +33,34 @@ public class SpectatorModeClient {
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
 	public void onRenderPlayerPre(RenderPlayerEvent.Pre event) {
-		if(isSpectator(event.entityPlayer)) {
-			setBipedVisible(event.renderer.modelBipedMain, false);
-			event.renderer.modelBipedMain.bipedHead.showModel = true;
-			event.renderer.modelBipedMain.bipedHeadwear.showModel = true;
-			doRefreshModel = true;
-		} else {
-			setBipedVisible(event.renderer.modelBipedMain, true);
-//			Redraws the player model for one frame off-screen so it refreshes. Also make sure we only run this logic if this code is targeting the player we're playing as.
-//			This is because in some cases loading the player model in 3rd person or the inventory and then going back to another game mode makes the hand invisible.
-			if (doRefreshModel && FMLClientHandler.instance().getClientPlayerEntity() == event.entityPlayer && !isSpectator(FMLClientHandler.instance().getClientPlayerEntity())) {
-				doRefreshModel = false;
-				RenderManager.instance.renderEntityWithPosYaw(event.entityPlayer, -180.0D, -180.0D, -180.0D, 0.0F, 0.0F);
+		if (!SPECTATING_ENTITIES.containsKey(event.entityPlayer)) {
+			if (isSpectator(event.entityPlayer)) {
+				setBipedVisible(event.renderer.modelBipedMain, false);
+				event.renderer.modelBipedMain.bipedHead.showModel = true;
+				event.renderer.modelBipedMain.bipedHeadwear.showModel = true;
+			} else {
+				setBipedVisible(event.renderer.modelBipedMain, true);
 			}
+		} else {
+			event.setCanceled(true);
 		}
 	}
 
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
 	public void onRenderPlayerArmor(RenderPlayerEvent.Specials.Pre event) {
-		if(isSpectator(event.entityPlayer)) {
+		if (isSpectator(event.entityPlayer)) {
+			event.setCanceled(true);
+		}
+	}
+
+	@SubscribeEvent
+	@SideOnly(Side.CLIENT)
+	public void onRenderEntity(RenderLivingEvent.Pre event) {
+		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+		Entity entity = event.entity;
+		Entity entity2 = SPECTATING_ENTITIES.get(player);
+		if (isSpectator(player) && SPECTATING_ENTITIES.containsKey(player) && SPECTATING_ENTITIES.get(player).equals(event.entity) && Minecraft.getMinecraft().gameSettings.thirdPersonView == 0) {
 			event.setCanceled(true);
 		}
 	}
@@ -64,7 +70,7 @@ public class SpectatorModeClient {
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	@SideOnly(Side.CLIENT)
 	public void onOverlayRenderPre(RenderGameOverlayEvent.Pre event) {
-		if(isSpectator(Minecraft.getMinecraft().thePlayer)) {
+		if (isSpectator(Minecraft.getMinecraft().thePlayer)) {
 			if (event.type == RenderGameOverlayEvent.ElementType.HOTBAR || (event.type == RenderGameOverlayEvent.ElementType.CROSSHAIRS && !canSelect)) {
 				event.setCanceled(true);
 			}
@@ -88,8 +94,15 @@ public class SpectatorModeClient {
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
 	public void onHandRender(RenderHandEvent event) {
-		if(isSpectator(Minecraft.getMinecraft().thePlayer))
+		if (isSpectator(Minecraft.getMinecraft().thePlayer)) {
 			event.setCanceled(true);
+			doRefreshModel = true;
+		} else if (doRefreshModel) {
+//			Redraws the player model for one frame off-screen so it refreshes. Also make sure we only run this logic if this code is targeting the player we're playing as.
+//			This is because in some cases loading the player model in 3rd person or the inventory and then going back to another game mode makes the hand invisible.
+			doRefreshModel = false;
+			RenderManager.instance.renderEntityWithPosYaw(Minecraft.getMinecraft().thePlayer, -180.0D, -180.0D, -180.0D, 0.0F, 0.0F);
+		}
 	}
 
 	@SubscribeEvent
@@ -128,9 +141,20 @@ public class SpectatorModeClient {
 	@SideOnly(Side.CLIENT)
 	public void onClientTick(TickEvent.ClientTickEvent event) {
 		EntityClientPlayerMP player = FMLClientHandler.instance().getClientPlayerEntity();
-		if (isSpectator(player) && !player.capabilities.isFlying) {
-			player.capabilities.isFlying = true;
-			player.sendPlayerAbilities();
+		if (isSpectator(player)) {
+			if (!player.capabilities.isFlying) {
+				player.capabilities.isFlying = true;
+				player.sendPlayerAbilities();
+			}
+
+			Entity entityToSpectate = SPECTATING_ENTITIES.get(player);
+			if (entityToSpectate != null) {
+				if (entityToSpectate.isDead || player.isSneaking()) {
+					SPECTATING_ENTITIES.remove(player);
+					return;
+				}
+				followEntity(player, entityToSpectate);
+			}
 		}
 	}
 }

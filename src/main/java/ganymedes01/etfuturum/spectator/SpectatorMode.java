@@ -9,6 +9,7 @@ import ganymedes01.etfuturum.core.utils.helpers.SafeEnumHelperClient;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.command.IEntitySelector;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.IInventory;
@@ -24,9 +25,13 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
 
+import java.util.Map;
+import java.util.WeakHashMap;
+
 public class SpectatorMode {
 	public static final SpectatorMode INSTANCE = new SpectatorMode();
 	public static final IEntitySelector EXCEPT_SPECTATING;
+	protected static final Map<EntityPlayer, Entity> SPECTATING_ENTITIES = new WeakHashMap<>();
 
 	//TODO: DO NOT MAKE THIS A LAMBDA! INTELLIJ SUGGESTS IT BUT FOR SOME REASON IT CAUSES AN INITIALIZER EXCEPTION SPECIFICALLY IN THE LIVE GAME AND NOT IN DEV!
 	//Made that a TODO so the text would be extra bright and hard to miss.
@@ -39,8 +44,8 @@ public class SpectatorMode {
 		};
 	}
 
-	private SpectatorMode() {
 
+	protected SpectatorMode() {
 	}
 
 	public static WorldSettings.GameType SPECTATOR_GAMETYPE = null;
@@ -96,6 +101,7 @@ public class SpectatorMode {
 	@SubscribeEvent
 	public void onInteract(AttackEntityEvent event) {
 		if(isSpectator(event.entityPlayer)) {
+			SPECTATING_ENTITIES.put(event.entityPlayer, event.target);
 			event.setCanceled(true);
 		}
 	}
@@ -104,15 +110,44 @@ public class SpectatorMode {
 	public void onPlayerTick(TickEvent.PlayerTickEvent event) {
 		if(event.phase == TickEvent.Phase.START) {
 			boolean isSpec = isSpectator(event.player);
-			if(!isSpec && event.player.noClip) {
+			if (!isSpec && event.player.noClip) {
 				event.player.setInvisible(false);
+				SPECTATING_ENTITIES.remove(event.player);
 			}
 			event.player.noClip = isSpec;
 			/* reuse value for spectator check */
-			if(isSpec) {
+			if (isSpec) {
 				event.player.onGround = false;
 				event.player.setInvisible(true);
 			}
+
+			Entity entityToSpectate = SPECTATING_ENTITIES.get(event.player);
+			if (entityToSpectate != null) {
+				if (entityToSpectate.isDead || event.player.isSneaking()) {
+					SPECTATING_ENTITIES.remove(event.player);
+					return;
+				}
+				followEntity(event.player, entityToSpectate);
+			}
+		}
+	}
+
+	protected void followEntity(EntityPlayer player, Entity entity) {
+		float pitch;
+		float yaw;
+		if (entity instanceof EntityLiving) {
+			pitch = ((EntityLiving) entity).cameraPitch;
+			yaw = ((EntityLiving) entity).rotationYawHead;
+		} else {
+			pitch = entity.rotationPitch;
+			yaw = entity.rotationYaw;
+		}
+		player.setLocationAndAngles(entity.posX, (entity.posY - player.yOffset) + entity.getEyeHeight(), entity.posZ, yaw, pitch);
+		player.motionX = entity.motionX;
+		player.motionY = entity.motionY;
+		player.motionZ = entity.motionZ;
+		if (player.isSprinting()) {
+			player.setSprinting(false);
 		}
 	}
 
