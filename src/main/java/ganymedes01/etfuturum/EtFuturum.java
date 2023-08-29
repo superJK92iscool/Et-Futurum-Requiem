@@ -366,10 +366,22 @@ public class EtFuturum {
 				Blocks.nether_brick_stairs.setStepSound(ModSounds.soundNetherBricks);
 			}
 			if (EtFuturum.hasNatura) {
-				GameRegistry.findBlock("Natura", "NetherFurnace").setStepSound(ModSounds.soundNetherrack);
-				GameRegistry.findBlock("Natura", "NetherLever").setStepSound(ModSounds.soundNetherrack);
-				GameRegistry.findBlock("Natura", "NetherPressurePlate").setStepSound(ModSounds.soundNetherrack);
-				GameRegistry.findBlock("Natura", "NetherButton").setStepSound(ModSounds.soundNetherrack);
+				Block block = GameRegistry.findBlock("Natura", "NetherFurnace");
+				if (block != null) {
+					block.setStepSound(ModSounds.soundNetherrack);
+				}
+				block = GameRegistry.findBlock("Natura", "NetherLever");
+				if (block != null) {
+					block.setStepSound(ModSounds.soundNetherrack);
+				}
+				block = GameRegistry.findBlock("Natura", "NetherPressurePlate");
+				if (block != null) {
+					block.setStepSound(ModSounds.soundNetherrack);
+				}
+				block = GameRegistry.findBlock("Natura", "NetherButton");
+				if (block != null) {
+					block.setStepSound(ModSounds.soundNetherrack);
+				}
 			}
 			Blocks.noteblock.setStepSound(Block.soundTypeWood);
 			Blocks.heavy_weighted_pressure_plate.setStepSound(Block.soundTypeMetal);
