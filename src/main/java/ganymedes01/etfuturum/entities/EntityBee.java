@@ -3,9 +3,8 @@ package ganymedes01.etfuturum.entities;
 import com.google.common.collect.Lists;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import ganymedes01.etfuturum.api.BeePlantRegistry;
 import ganymedes01.etfuturum.blocks.BlockBeeHive;
-import ganymedes01.etfuturum.blocks.BlockBerryBush;
-import ganymedes01.etfuturum.blocks.BlockChorusFlower;
 import ganymedes01.etfuturum.blocks.BlockMagma;
 import ganymedes01.etfuturum.client.particle.ParticleHandler;
 import ganymedes01.etfuturum.core.utils.EntityVectorUtils;
@@ -22,7 +21,6 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.ai.*;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.pathfinding.PathEntity;
@@ -404,32 +402,19 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		ParticleHandler.BEE_NECTAR.spawn(worldIn, Utils.lerp(worldIn.rand.nextDouble(), p_226397_2_, p_226397_4_), posY, Utils.lerp(worldIn.rand.nextDouble(), p_226397_6_, p_226397_8_));
 	}
 
-	//TODO: Maybe fix [https://bugs.mojang.com/browse/MC-168267](MC-168267) and evaluate the contents of flower pots?
-	private boolean isFlower(BlockPos pos) {
-		Block block = pos.getBlock(worldObj);
-		Block blockBelow = worldObj.getBlock(pos.getX(), pos.getY() - 1, pos.getZ());
-		if (block instanceof BlockDoublePlant && blockBelow instanceof BlockDoublePlant) {
-			int meta = pos.getBlockMetadata(worldObj);
-			int metaBelow = worldObj.getBlockMetadata(pos.getX(), pos.getY() - 1, pos.getZ());
-			return meta >= 8 && (metaBelow != 2 && metaBelow != 3 || blockBelow != Blocks.double_plant); //Top half of plant and NOT grass or fern, or isn't Minecraft
-		}
-		return isValidFlower(block);
-	}
-
-	//TODO: These functions should detect flowering azalea saplings and flowering azalea leaves, cherry leaves, pink petals, mangrove propagules, and spore blossoms when added
-
 	private boolean isBreedingFlower(Block block, int meta) {
-		if (block instanceof BlockDoublePlant && block == Blocks.double_plant) {
-			return meta < 8;
-		}
-		return isValidFlower(block);
+		return BeePlantRegistry.isFlower(block, meta);
 	}
 
+	//TODO: Maybe fix [https://bugs.mojang.com/browse/MC-168267](MC-168267) and evaluate the contents of flower pots?
 	//Both flowers. For breeding the ItemBlock will have different metas, this is an issue for double plants so we handle them separately.
-	public static boolean isValidFlower(Block block) { //Todo: Make this a registry later
-		if (block instanceof BlockFlower) {
-			return true;
-		} else return block instanceof BlockChorusFlower;
+	public static boolean isValidFlower(World world, int x, int y, int z) {
+		Block block = world.getBlock(x, y, z);
+		int meta = world.getBlockMetadata(x, y, z);
+		if (block instanceof BlockDoublePlant && meta > 8) {
+			return BeePlantRegistry.isFlower(world.getBlock(x, y - 1, z), world.getBlockMetadata(x, y - 1, z));
+		}
+		return BeePlantRegistry.isFlower(block, meta);
 	}
 
 	public BlockPos getFlowerPos() {
@@ -1006,7 +991,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		}
 
 		public boolean canBeeStart() {
-			return EntityBee.this.savedFlowerPos != null && !EntityBee.this.hasHome() && this.shouldMoveToFlower() && EntityBee.this.isFlower(savedFlowerPos)
+			return EntityBee.this.savedFlowerPos != null && !EntityBee.this.hasHome() && this.shouldMoveToFlower() && EntityBee.this.isValidFlower(worldObj, savedFlowerPos.getX(), savedFlowerPos.getY(), savedFlowerPos.getZ())
 					&& !EntityBee.this.isWithinDistance(EntityBee.this.savedFlowerPos, 2);
 		}
 
@@ -1070,14 +1055,11 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 					int y = (int) posY - i;
 					int z = (int) posZ;
 					Block block = worldObj.getBlock(x, y, z);
-					if (block instanceof BlockCrops || block instanceof BlockStem || block instanceof BlockBerryBush) {
-						if (((IGrowable) block).func_149851_a(worldObj, x, y, z, false) && ((IGrowable) block).func_149852_a(worldObj, worldObj.rand, x, y, z)) {
-							//BlockCrops, BlockStem and BlockBerryBush should use the next meta for growth stage. We can change this later if incrementing the meta doesn't work with mod crops.
-							//For now we'll just increment instead of using the IGrowable grow event, since that often adds several growth stages.
-							worldObj.setBlockMetadataWithNotify(x, y, z, worldObj.getBlockMetadata(x, y, z) + 1, 2);
-							addCropCounter();
-							//TODO: Add cave vines as a pollinatable crop, when they get added
-						}
+					if (BeePlantRegistry.isCrop(block) && ((IGrowable) block).func_149851_a(worldObj, x, y, z, false) && ((IGrowable) block).func_149852_a(worldObj, worldObj.rand, x, y, z)) {
+						//BlockCrops, BlockStem and BlockBerryBush should use the next meta for growth stage. We can change this later if incrementing the meta doesn't work with mod crops.
+						//For now we'll just increment instead of using the IGrowable grow event, since that often adds several growth stages.
+						worldObj.setBlockMetadataWithNotify(x, y, z, worldObj.getBlockMetadata(x, y, z) + 1, 2);
+						addCropCounter();
 					}
 				}
 			}
@@ -1142,7 +1124,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 				return false;
 			} else if (this.completedPollination()) {
 				return EntityBee.this.rand.nextFloat() < 0.2F;
-			} else if (EntityBee.this.ticksExisted % 20 == 0 && !EntityBee.this.isFlower(savedFlowerPos)) {
+			} else if (EntityBee.this.ticksExisted % 20 == 0 && !EntityBee.this.isValidFlower(worldObj, savedFlowerPos.getX(), savedFlowerPos.getY(), savedFlowerPos.getZ())) {
 				EntityBee.this.savedFlowerPos = null;
 				return false;
 			} else {
@@ -1237,7 +1219,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		}
 
 		private Optional<BlockPos> findFlower(int distance) {
-			List<BlockPos> list = getBlocksInRange(EntityBee.this::isFlower, distance, true);
+			List<BlockPos> list = getBlocksInRange(pos -> isValidFlower(worldObj, pos.getX(), pos.getY(), pos.getZ()), distance, true);
 			return list.isEmpty() || list.get(0) == null ? Optional.empty() : Optional.of(list.get(0));
 		}
 	}

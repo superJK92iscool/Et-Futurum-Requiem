@@ -16,6 +16,8 @@ public class BlockAndMetadataMapping {
 		this.block = ore;
 		if (meta != OreDictionary.WILDCARD_VALUE) {
 			this.meta = (meta & 15);
+		} else {
+			this.meta = OreDictionary.WILDCARD_VALUE;
 		}
 	}
 	

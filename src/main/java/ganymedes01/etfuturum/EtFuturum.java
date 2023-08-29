@@ -158,6 +158,7 @@ public class EtFuturum {
 	public static final boolean hasTConstruct = Loader.isModLoaded("TConstruct");
 	public static final boolean hasNatura = Loader.isModLoaded("Natura");
 	public static final boolean hasCampfireBackport = Loader.isModLoaded("campfirebackport");
+	public static final boolean hasBackInSlime = Loader.isModLoaded("bis");
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
@@ -256,6 +257,7 @@ public class EtFuturum {
 		RawOreRegistry.init();
 		SmithingTableRecipes.init();
 		CompostingRegistry.init();
+		BeePlantRegistry.init();
 
 		if (EtFuturum.hasWaila) {
 			CompatWaila.register();

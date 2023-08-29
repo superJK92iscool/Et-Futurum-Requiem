@@ -1,6 +1,9 @@
 package ganymedes01.etfuturum.world;
 
+import cpw.mods.fml.common.registry.GameRegistry;
+import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
+import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -66,6 +69,15 @@ public class EtFuturumWorldListener implements IWorldAccess {
 		if (ModBlocks.DAYLIGHT_DETECTOR.isEnabled()) {
 			if (ConfigWorld.tileReplacementMode != -1) {
 				replacements.put(ModBlocks.DAYLIGHT_DETECTOR.get(), Blocks.daylight_detector);
+			}
+		}
+
+		if (EtFuturum.hasBackInSlime && ConfigMixins.betterPistons) {
+			replacements.put(GameRegistry.findBlock("bis", "SlimePistonBase"), Blocks.piston);
+			replacements.put(GameRegistry.findBlock("bis", "StickySlimePistonBase"), Blocks.sticky_piston);
+			replacements.put(GameRegistry.findBlock("bis", "SlimePistonHead"), Blocks.piston_head);
+			if (ModBlocks.SLIME.isEnabled()) {
+				replacements.put(GameRegistry.findBlock("bis", "SlimeBlock"), ModBlocks.SLIME.get());
 			}
 		}
 	}

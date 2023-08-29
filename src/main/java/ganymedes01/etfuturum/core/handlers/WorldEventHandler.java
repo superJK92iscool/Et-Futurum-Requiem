@@ -8,9 +8,9 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
+import ganymedes01.etfuturum.api.BeePlantRegistry;
 import ganymedes01.etfuturum.api.event.PostTreeGenerateEvent;
 import ganymedes01.etfuturum.api.mappings.BlockAndMetadataMapping;
-import ganymedes01.etfuturum.blocks.BlockBerryBush;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.proxy.CommonProxy;
 import ganymedes01.etfuturum.core.utils.Logger;
@@ -19,11 +19,14 @@ import ganymedes01.etfuturum.entities.EntityBee;
 import ganymedes01.etfuturum.tileentities.TileEntityBeeHive;
 import ganymedes01.etfuturum.world.structure.MapGenMesaMineshaft;
 import ganymedes01.etfuturum.world.structure.StructureMesaMineshaftPieces;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockLeaves;
+import net.minecraft.block.BlockLog;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldProviderSurface;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.feature.WorldGenBigTree;
 import net.minecraft.world.gen.feature.WorldGenForest;
@@ -114,7 +117,7 @@ public class WorldEventHandler {
 
 	@SubscribeEvent
 	public void onSaplingGrow(SaplingGrowTreeEvent event) {//5% chance to run this logic.
-		if (ModBlocks.BEE_NEST.isEnabled() && event.world.provider.dimensionId != -1 && event.world.provider.dimensionId != 1 && event.rand.nextFloat() <= 0.05F && isFlowerNearby(event.world, event.x, event.y, event.z)) {
+		if (ModBlocks.BEE_NEST.isEnabled()/* && event.rand.nextFloat() <= 0.05F */ && isFlowerNearby(event.world, event.x, event.y, event.z)) {
 			//TODO: Mangrove and cherry trees should be here when they are added. Maybe support modded saplings too
 			Block sapling = event.world.getBlock(event.x, event.y, event.z);
 			int saplingMeta = event.world.getBlockMetadata(event.x, event.y, event.z);
@@ -137,10 +140,12 @@ public class WorldEventHandler {
 	private boolean isFlowerNearby(World world, int x, int y, int z) {
 		for (int x1 = -2; x1 <= 2; x1++) {
 			for (int z1 = -2; z1 <= 2; z1++) {
-				Block block = world.getBlock(x + x1, y, z + z1);
-				int meta = world.getBlockMetadata(x + x1, y, z + z1);
-				if (block instanceof BlockFlower || block instanceof BlockDoublePlant || block instanceof BlockBerryBush) { //Hardcoded for now, will be a registry later.
-					return true;
+				if (z1 != 0 || x1 != 0) {
+					Block block = world.getBlock(x + x1, y, z + z1);
+					int meta = world.getBlockMetadata(x + x1, y, z + z1);
+					if (BeePlantRegistry.isFlower(block, meta)) {
+						return true;
+					}
 				}
 			}
 		}
@@ -155,7 +160,7 @@ public class WorldEventHandler {
 	 */
 	@SubscribeEvent
 	public void onTreeGenerated(PostTreeGenerateEvent event) {
-		if (ModBlocks.BEE_NEST.isEnabled() && event.world.provider.dimensionId != -1 && event.world.provider.dimensionId != 1) {
+		if (ModBlocks.BEE_NEST.isEnabled() && event.world.provider instanceof WorldProviderSurface) {
 			BiomeGenBase biome = event.world.getBiomeGenForCoords(event.x, event.z);
 			if (BEE_NEST_BIOMES.containsKey(biome) && event.rand.nextFloat() <= BEE_NEST_BIOMES.get(biome)) {
 				tryPlaceBeeNest(event.world, event.x, event.y, event.z, event.rand, 3);
