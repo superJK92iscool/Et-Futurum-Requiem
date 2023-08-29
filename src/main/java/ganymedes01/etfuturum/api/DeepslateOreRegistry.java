@@ -2,7 +2,7 @@ package ganymedes01.etfuturum.api;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.api.mappings.BlockAndMetadataMapping;
+import ganymedes01.etfuturum.api.mappings.RegistryMapping;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -32,12 +32,12 @@ import java.util.Map.Entry;
  */
 public class DeepslateOreRegistry {
 
-	private static final Map<Integer, BlockAndMetadataMapping> deepslateOres = new HashMap<Integer, BlockAndMetadataMapping>();
+	private static final Map<Integer, RegistryMapping<Block>> deepslateOres = new HashMap<>();
 	/**
 	 * Temporarily stores the mapping an input hash is associated with so we can iterate
 	 * through it on the game load to copy furnace smelting and OreDict entries.
 	 */
-	private static final Map<Integer, BlockAndMetadataMapping> inputOres = new HashMap<Integer, BlockAndMetadataMapping>();
+	private static final Map<Integer, RegistryMapping<Block>> inputOres = new HashMap<>();
 
 	/**
 	 * Adds a block to block pair to the deepslate mapping registry.
@@ -61,8 +61,8 @@ public class DeepslateOreRegistry {
 	 * @param toMeta   The meta deepslate changes it to
 	 */
 	public static void addOre(Block from, int fromMeta, Block to, int toMeta) {
-		BlockAndMetadataMapping inputMapping = new BlockAndMetadataMapping(from, fromMeta);
-		deepslateOres.put(inputMapping.hashCode(), new BlockAndMetadataMapping(to, toMeta));
+		RegistryMapping<Block> inputMapping = new RegistryMapping<Block>(from, fromMeta);
+		deepslateOres.put(inputMapping.hashCode(), new RegistryMapping<Block>(to, toMeta));
 		inputOres.put(inputMapping.hashCode(), inputMapping);
 	}
 
@@ -103,31 +103,31 @@ public class DeepslateOreRegistry {
 	public static boolean hasOre(Block block, int meta) {
 		return deepslateOres.containsKey(block.hashCode() + meta);
 	}
-	
+
 	/**
 	 * Pass in a block, whatever deepslate will replace it with is the return.
 	 * Assumes a meta value of 0.
-	 * 
+	 *
 	 * @param block
 	 * @return A mapping containing the deepslate alternative of a block. This is
 	 * an instance of the BlockAndMetadataMapping class, containing a variable with
 	 * the block instance and the meta data it should be replaced with.
 	 */
-	public static BlockAndMetadataMapping getOre(Block block) {
+	public static RegistryMapping<Block> getOre(Block block) {
 		return getOre(block, 0);
 	}
 
-	
+
 	/**
 	 * Pass in a block, whatever deepslate will replace it with is the return.
-	 * 
+	 *
 	 * @param block
 	 * @param meta
 	 * @return A mapping containing the deepslate alternative of the input block. This is
 	 * an instance of the BlockAndMetadataMapping class, containing a variable with
 	 * the block instance and the meta data it should be replaced with.
 	 */
-	public static BlockAndMetadataMapping getOre(Block block, int meta) {
+	public static RegistryMapping<Block> getOre(Block block, int meta) {
 		return deepslateOres.get(block.hashCode() + meta);
 	}
 	
@@ -136,31 +136,31 @@ public class DeepslateOreRegistry {
 	 * The entire deepslate ore mapping, where the hash for a metadata/block pair is the key.
 	 * The key's return value is of the class BlockAndMetadataMapping, which just store
 	 * a Block instance, and a metadata value.
-	 * 
+	 *
 	 * Hashes are used so we don't have to create hundreds of BlockAndMetadataMapping
 	 * instances just to compare each block we replace.
-	 * 
+	 *
 	 * The hash is {@code block.hashCode() + meta}.
-	 * 
+	 *
 	 * Do not use this to add or get items from the map this way,
 	 * in case the key changes.
 	 */
-	public static Map<Integer, BlockAndMetadataMapping> getOreMap() {
+	public static Map<Integer, RegistryMapping<Block>> getOreMap() {
 		return deepslateOres;
 	}
 
 	public static void init() {
 		if (ConfigBlocksItems.enableDeepslateOres) { //Copy block settings from deepslate base blocks
-			for (Entry<Integer, BlockAndMetadataMapping> entry : getOreMap().entrySet()) {
-				
-				Block oreNorm = inputOres.get(entry.getKey()).getBlock();
+			for (Entry<Integer, RegistryMapping<Block>> entry : getOreMap().entrySet()) {
+
+				Block oreNorm = inputOres.get(entry.getKey()).getObject();
 				if (Block.blockRegistry.getNameForObject(oreNorm) == null || oreNorm == Blocks.air) continue;
-				Block oreDeep = entry.getValue().getBlock();
+				Block oreDeep = entry.getValue().getObject();
 				if (Block.blockRegistry.getNameForObject(oreDeep) == null || oreDeep == Blocks.air) continue;
-				
+
 				ItemStack
-				stackNorm = new ItemStack(oreNorm, 1, inputOres.get(entry.getKey()).getMeta()),
-				stackDeep = new ItemStack(oreDeep, 1, entry.getValue().getMeta());
+						stackNorm = new ItemStack(oreNorm, 1, inputOres.get(entry.getKey()).getMeta()),
+						stackDeep = new ItemStack(oreDeep, 1, entry.getValue().getMeta());
 
 				for(String oreName : EtFuturum.getOreStrings(stackNorm)) {
 					OreDictionary.registerOre(oreName.replace("Vanillastone", "Deepslate"), stackDeep.copy()); // Yes the .copy() is required!

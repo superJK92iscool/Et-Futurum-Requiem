@@ -1,6 +1,6 @@
 package ganymedes01.etfuturum.world.generate.feature;
 
-import ganymedes01.etfuturum.api.mappings.BlockAndMetadataMapping;
+import ganymedes01.etfuturum.api.mappings.RegistryMapping;
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import ganymedes01.etfuturum.core.utils.structurenbt.BlockState;
 import ganymedes01.etfuturum.core.utils.structurenbt.BlockStateUtils;
@@ -19,9 +19,9 @@ import java.util.*;
 public class WorldGenFossil extends WorldGenerator {
 
 	private final List<Pair<Fossil, Fossil>> fossils;
-	private final BlockAndMetadataMapping bone;
+	private final RegistryMapping<Block> bone;
 
-	public WorldGenFossil(BlockAndMetadataMapping bone) {
+	public WorldGenFossil(RegistryMapping<Block> bone) {
 
 		this.bone = bone;
 
@@ -121,7 +121,7 @@ public class WorldGenFossil extends WorldGenerator {
 			} else {
 				for (Pair<Integer, NBTTagCompound> pair : getPaletteNBT()) {
 					String axis = getProperties(pair.getRight()).get("axis");
-					map.put(pair.getLeft(), new BlockState(bone.getBlock(), BlockStateUtils.getMetaFromState("axis", axis, facing) + bone.getMeta()));
+					map.put(pair.getLeft(), new BlockState(bone.getObject(), BlockStateUtils.getMetaFromState("axis", axis, facing) + bone.getMeta()));
 				}
 			}
 			return map;

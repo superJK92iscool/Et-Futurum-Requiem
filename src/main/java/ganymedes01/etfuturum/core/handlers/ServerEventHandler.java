@@ -14,8 +14,8 @@ import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.api.HoeRegistry;
 import ganymedes01.etfuturum.api.RawOreRegistry;
 import ganymedes01.etfuturum.api.StrippedLogRegistry;
-import ganymedes01.etfuturum.api.mappings.BlockAndMetadataMapping;
 import ganymedes01.etfuturum.api.mappings.RawOreDropMapping;
+import ganymedes01.etfuturum.api.mappings.RegistryMapping;
 import ganymedes01.etfuturum.blocks.BlockHoney;
 import ganymedes01.etfuturum.blocks.BlockMagma;
 import ganymedes01.etfuturum.client.sound.ModSounds;
@@ -468,7 +468,7 @@ public class ServerEventHandler {
 					//For some reason this list is always empty for items which were added during the event being fired (see above)
 					mapping = RawOreRegistry.getOreMap().get(oreName);
 					if(mapping != null) {
-						event.drops.set(i, new ItemStack(mapping.getItem(), mapping.getDropAmount(event.world.rand, event.fortuneLevel), mapping.getMeta()));
+						event.drops.set(i, new ItemStack(mapping.getObject(), mapping.getDropAmount(event.world.rand, event.fortuneLevel), mapping.getMeta()));
 						break;
 					}
 				}
@@ -982,11 +982,11 @@ public class ServerEventHandler {
 										world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, Reference.MCAssetVer + ":item.shovel.flatten", 1.0F, 1.0F);
 									}
 								} else if (ConfigBlocksItems.enableStrippedLogs && toolClasses.contains("axe")) {
-									BlockAndMetadataMapping newBlock = StrippedLogRegistry.getLog(oldBlock, world.getBlockMetadata(x, y, z) % 4);
+									RegistryMapping<Block> newBlock = StrippedLogRegistry.getLog(oldBlock, world.getBlockMetadata(x, y, z) % 4);
 									if (newBlock != null) {
 										player.swingItem();
 										if(!world.isRemote) {
-											world.setBlock(x, y, z, newBlock.getBlock(), newBlock.getMeta() + ((meta / 4) * 4), 2);
+											world.setBlock(x, y, z, newBlock.getObject(), newBlock.getMeta() + ((meta / 4) * 4), 2);
 											heldStack.damageItem(1, player);
 											world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, Reference.MCAssetVer + ":item.axe.strip", 1.0F, 0.8F);
 										}

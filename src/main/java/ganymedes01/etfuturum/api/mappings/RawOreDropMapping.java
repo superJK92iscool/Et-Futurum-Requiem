@@ -1,18 +1,17 @@
 package ganymedes01.etfuturum.api.mappings;
 
-import java.util.Random;
-
-import org.apache.commons.lang3.ArrayUtils;
-
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
+import org.apache.commons.lang3.ArrayUtils;
 
-public class RawOreDropMapping extends ItemAndMetadataMapping {
-	
+import java.util.Random;
+
+public class RawOreDropMapping extends RegistryMapping<Item> {
+
 	private boolean exdrops;
-	
+
 	/**
 	 * Used by raw ores to keep a registry of what block drops which raw ores.
 	 * Args:

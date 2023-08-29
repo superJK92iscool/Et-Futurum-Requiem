@@ -1,9 +1,10 @@
 package ganymedes01.etfuturum.configuration.configs;
 
 import cpw.mods.fml.common.registry.GameRegistry;
-import ganymedes01.etfuturum.api.mappings.BlockAndMetadataMapping;
+import ganymedes01.etfuturum.api.mappings.RegistryMapping;
 import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.core.utils.Logger;
+import net.minecraft.block.Block;
 import net.minecraftforge.common.config.Property;
 
 import java.io.File;
@@ -16,10 +17,10 @@ public class ConfigWorld extends ConfigBase {
 	public static String fossilBlockID;
 	public static String amethystOuterBlockID;
 	public static String amethystMiddleBlockID;
-	public static BlockAndMetadataMapping fossilBlock;
-	public static BlockAndMetadataMapping amethystOuterBlock;
-	public static BlockAndMetadataMapping amethystMiddleBlock;
-	
+	public static RegistryMapping<Block> fossilBlock;
+	public static RegistryMapping<Block> amethystOuterBlock;
+	public static RegistryMapping<Block> amethystMiddleBlock;
+
 	public static boolean enableDmgIndicator;
 	public static boolean enableAirDebris;
 	public static int debrisMax = 3;
@@ -159,7 +160,7 @@ public class ConfigWorld extends ConfigBase {
 					meta = 0;
 				}
 			}
-			fossilBlock = new BlockAndMetadataMapping(GameRegistry.findBlock(fossilBlockArray[0], fossilBlockArray[1]), meta);
+			fossilBlock = new RegistryMapping<>(GameRegistry.findBlock(fossilBlockArray[0], fossilBlockArray[1]), meta);
 		} else {
 			Logger.error("Fossil block " + fossilBlockID + " does not exist or is malformed, therefore fossils will not generate!");
 		}
@@ -180,7 +181,7 @@ public class ConfigWorld extends ConfigBase {
 					meta = 0;
 				}
 			}
-			amethystOuterBlock = new BlockAndMetadataMapping(GameRegistry.findBlock(amethystOuterBlockArray[0], amethystOuterBlockArray[1]), meta);
+			amethystOuterBlock = new RegistryMapping<>(GameRegistry.findBlock(amethystOuterBlockArray[0], amethystOuterBlockArray[1]), meta);
 		} else {
 			Logger.error("Amethyst outer layer block " + fossilBlockID + " does not exist or is malformed, therefore amethyst geodes will not generate!");
 		}
@@ -201,7 +202,7 @@ public class ConfigWorld extends ConfigBase {
 					meta = 0;
 				}
 			}
-			amethystMiddleBlock = new BlockAndMetadataMapping(GameRegistry.findBlock(amethystMiddleBlockArray[0], amethystMiddleBlockArray[1]), meta);
+			amethystMiddleBlock = new RegistryMapping<>(GameRegistry.findBlock(amethystMiddleBlockArray[0], amethystMiddleBlockArray[1]), meta);
 		} else {
 			Logger.error("Amethyst middle layer block " + fossilBlockID + " does not exist or is malformed, therefore amethyst geodes will not generate!");
 		}

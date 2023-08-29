@@ -3,7 +3,7 @@ package ganymedes01.etfuturum.world;
 import com.google.common.collect.Maps;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.api.DeepslateOreRegistry;
-import ganymedes01.etfuturum.api.mappings.BlockAndMetadataMapping;
+import ganymedes01.etfuturum.api.mappings.RegistryMapping;
 import ganymedes01.etfuturum.configuration.configs.ConfigTweaks;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import net.minecraft.block.Block;
@@ -154,9 +154,9 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 				array.setExtBlockMetadata(x, worldY & 15, z, 0);
 				return;
 			}
-			BlockAndMetadataMapping mapping = DeepslateOreRegistry.getOre(block, array.getExtBlockMetadata(x, worldY & 15, z));
+			RegistryMapping<Block> mapping = DeepslateOreRegistry.getOre(block, array.getExtBlockMetadata(x, worldY & 15, z));
 			if (mapping != null) {
-				array.func_150818_a(x, worldY & 15, z, mapping.getBlock());
+				array.func_150818_a(x, worldY & 15, z, mapping.getObject());
 				array.setExtBlockMetadata(x, worldY & 15, z, mapping.getMeta());
 			}
 		}

@@ -3,7 +3,7 @@ package ganymedes01.etfuturum.world.generate.feature;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.api.mappings.BlockAndMetadataMapping;
+import ganymedes01.etfuturum.api.mappings.RegistryMapping;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import ganymedes01.etfuturum.core.utils.helpers.DoublePerlinNoiseSampler;
@@ -35,19 +35,19 @@ public class WorldGenAmethystGeode extends WorldGenerator {
 	private final double buddingAmethystChance;//Formerly known as geodeFeatureConfig.useAlternateLayer0Chance
 	private final double usePotentialPlacementsChance;//geodeFeatureConfig.usePotentialPlacementsChance
 
-	private final BlockAndMetadataMapping outerBlock;
-	private final BlockAndMetadataMapping middleBlock;
-	
-	public WorldGenAmethystGeode(BlockAndMetadataMapping outerBlock, BlockAndMetadataMapping middleBlock) {
-		this(-16, 16, 1, new int[] {3, 4}, new int[] {4, 5, 6}, 1.7D, 2.2D, 3.2D, 4.2D, new int[] {1, 2}, 0.95D, 2.0D, 2, 0.05D, 0.083D, 0.35D, outerBlock, middleBlock);
+	private final RegistryMapping<Block> outerBlock;
+	private final RegistryMapping<Block> middleBlock;
+
+	public WorldGenAmethystGeode(RegistryMapping<Block> outerBlock, RegistryMapping<Block> middleBlock) {
+		this(-16, 16, 1, new int[]{3, 4}, new int[]{4, 5, 6}, 1.7D, 2.2D, 3.2D, 4.2D, new int[]{1, 2}, 0.95D, 2.0D, 2, 0.05D, 0.083D, 0.35D, outerBlock, middleBlock);
 	}
-	
-	private WorldGenAmethystGeode(int minOffset, int maxOffset, int invalidMax, int[] distPoints, int[] outerWallDist, double fill, double inner, double middle, double outer, int[] pointOff, double crackChance, double baseCrack, int crackPointOff, double noiseAmp, double budChance, double potentialPlaceChance, BlockAndMetadataMapping outerBlock, BlockAndMetadataMapping middleBlock) {
+
+	private WorldGenAmethystGeode(int minOffset, int maxOffset, int invalidMax, int[] distPoints, int[] outerWallDist, double fill, double inner, double middle, double outer, int[] pointOff, double crackChance, double baseCrack, int crackPointOff, double noiseAmp, double budChance, double potentialPlaceChance, RegistryMapping<Block> outerBlock, RegistryMapping<Block> middleBlock) {
 		this.outerBlock = outerBlock;
 		this.middleBlock = middleBlock;
 
 		budBlocks = ImmutableList.of(ModBlocks.AMETHYST_CLUSTER_1.get(), ModBlocks.AMETHYST_CLUSTER_2.get());
-		
+
 		minGenOffset = minOffset;
 		maxGenOffset = maxOffset;
 		invalidBlocksThreshold = invalidMax;
@@ -200,9 +200,9 @@ public class WorldGenAmethystGeode extends WorldGenerator {
 						list3.add(new BlockPos(blockPos3));
 					}
 				} else if (u >= middleLayerSqrt) {
-					world.setBlock(blockPos3.getX(), blockPos3.getY(), blockPos3.getZ(), middleBlock.getBlock(), middleBlock.getMeta(), 2);//MiddleLayerProvider also TODO I need to make this layer configurable
+					world.setBlock(blockPos3.getX(), blockPos3.getY(), blockPos3.getZ(), middleBlock.getObject(), middleBlock.getMeta(), 2);//MiddleLayerProvider also TODO I need to make this layer configurable
 				} else if (u >= outerLayerSqrt) {
-					world.setBlock(blockPos3.getX(), blockPos3.getY(), blockPos3.getZ(), outerBlock.getBlock(), outerBlock.getMeta(), 2);//OuterLayerProvider
+					world.setBlock(blockPos3.getX(), blockPos3.getY(), blockPos3.getZ(), outerBlock.getObject(), outerBlock.getMeta(), 2);//OuterLayerProvider
 				}
 			}
 		}

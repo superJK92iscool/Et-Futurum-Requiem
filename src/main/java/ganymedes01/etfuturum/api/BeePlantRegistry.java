@@ -1,7 +1,7 @@
 package ganymedes01.etfuturum.api;
 
 import com.google.common.collect.Lists;
-import ganymedes01.etfuturum.api.mappings.BlockAndMetadataMapping;
+import ganymedes01.etfuturum.api.mappings.RegistryMapping;
 import ganymedes01.etfuturum.blocks.BlockBerryBush;
 import ganymedes01.etfuturum.blocks.BlockChorusFlower;
 import ganymedes01.etfuturum.configuration.configs.ConfigEntities;
@@ -13,7 +13,7 @@ import java.util.List;
 
 public class BeePlantRegistry {
 
-	private static final List<BlockAndMetadataMapping> BEE_FLOWERS = Lists.newArrayList();
+	private static final List<RegistryMapping<Block>> BEE_FLOWERS = Lists.newArrayList();
 	private static final List<Block> BEE_CROPS = Lists.newArrayList();
 
 	/**
@@ -26,7 +26,7 @@ public class BeePlantRegistry {
 		if (block instanceof BlockDoublePlant && meta > 7) {
 			throw new IllegalArgumentException("BlockDoublePlant can't have meta greater than 7, 8 and above are used by the top half. Bees will go to the top half if the bottom meta is valid.");
 		}
-		BEE_FLOWERS.add(new BlockAndMetadataMapping(block, meta));
+		BEE_FLOWERS.add(new RegistryMapping<>(block, meta));
 	}
 
 	public static void addCrop(Block block) {
@@ -37,7 +37,7 @@ public class BeePlantRegistry {
 	}
 
 	public static void removeFlower(Block block, int meta) {
-		BEE_FLOWERS.remove(new BlockAndMetadataMapping(block, meta));
+		BEE_FLOWERS.remove(new RegistryMapping<>(block, meta));
 	}
 
 	public static void removeCrop(Block block) {
@@ -45,7 +45,7 @@ public class BeePlantRegistry {
 	}
 
 	public static boolean isFlower(Block block, int meta) {
-		return BEE_FLOWERS.contains(new BlockAndMetadataMapping(block, meta));
+		return BEE_FLOWERS.contains(new RegistryMapping<>(block, meta));
 	}
 
 	public static boolean isCrop(Block block) {

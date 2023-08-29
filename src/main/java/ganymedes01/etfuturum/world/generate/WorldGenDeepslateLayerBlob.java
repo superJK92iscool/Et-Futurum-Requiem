@@ -2,7 +2,7 @@ package ganymedes01.etfuturum.world.generate;
 
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.api.DeepslateOreRegistry;
-import ganymedes01.etfuturum.api.mappings.BlockAndMetadataMapping;
+import ganymedes01.etfuturum.api.mappings.RegistryMapping;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -37,7 +37,7 @@ public class WorldGenDeepslateLayerBlob extends WorldGenMinable
 		double d4 = p_76484_4_ + p_76484_2_.nextInt(3) - 2;
 		double d5 = p_76484_4_ + p_76484_2_.nextInt(3) - 2;
 
-		BlockAndMetadataMapping mapping;
+		RegistryMapping<Block> mapping;
 		Block block;
 		
 		for (int l = 0; l <= numberOfBlocks; ++l)
@@ -81,7 +81,7 @@ public class WorldGenDeepslateLayerBlob extends WorldGenMinable
 										}
 										mapping = DeepslateOreRegistry.getOre(block, world.getBlockMetadata(x, y, z));
 										if (mapping != null) {
-											world.setBlock(x, y, z, mapping.getBlock(), mapping.getMeta(), 2);
+											world.setBlock(x, y, z, mapping.getObject(), mapping.getMeta(), 2);
 										}
 									}
 								}
