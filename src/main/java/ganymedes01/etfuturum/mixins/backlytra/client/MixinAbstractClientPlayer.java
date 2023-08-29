@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.mixins.elytra.client;
+package ganymedes01.etfuturum.mixins.backlytra.client;
 
 import ganymedes01.etfuturum.elytra.IClientElytraPlayer;
 import net.minecraft.client.entity.AbstractClientPlayer;

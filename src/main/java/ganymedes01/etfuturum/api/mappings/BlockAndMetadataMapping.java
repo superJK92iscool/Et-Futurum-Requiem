@@ -1,6 +1,7 @@
 package ganymedes01.etfuturum.api.mappings;
 
 import net.minecraft.block.Block;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class BlockAndMetadataMapping {
 	
@@ -13,7 +14,9 @@ public class BlockAndMetadataMapping {
 	 */
 	public BlockAndMetadataMapping(Block ore, int meta) {
 		this.block = ore;
-		this.meta = (meta & 15);
+		if (meta != OreDictionary.WILDCARD_VALUE) {
+			this.meta = (meta & 15);
+		}
 	}
 	
 	public Block getBlock() {
@@ -26,7 +29,7 @@ public class BlockAndMetadataMapping {
 	
 	@Override
 	public boolean equals(Object obj) {
-		return obj instanceof BlockAndMetadataMapping && block == ((BlockAndMetadataMapping)obj).block && meta == ((BlockAndMetadataMapping)obj).meta;
+		return obj instanceof BlockAndMetadataMapping && block == ((BlockAndMetadataMapping) obj).block && (meta == OreDictionary.WILDCARD_VALUE || ((BlockAndMetadataMapping) obj).meta == OreDictionary.WILDCARD_VALUE || meta == ((BlockAndMetadataMapping) obj).meta);
 	}
 	
 	@Override

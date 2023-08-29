@@ -107,16 +107,16 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 		}
 
 		if(ConfigMixins.enableElytra) {
-			mixins.add("elytra.MixinEntityPlayer");
-			mixins.add("elytra.MixinEntityLivingBase");
-			mixins.add("elytra.MixinNetHandlerPlayServer");
-			mixins.add("elytra.MixinEntityTrackerEntry");
-			if(side == MixinEnvironment.Side.CLIENT) {
-				mixins.add("elytra.client.MixinAbstractClientPlayer");
-				mixins.add("elytra.client.MixinEntityPlayerSP");
-				mixins.add("elytra.client.MixinRenderPlayer");
-				mixins.add("elytra.client.MixinModelBiped");
-				mixins.add("elytra.client.MixinEntityRenderer");
+			mixins.add("backlytra.MixinEntityPlayer");
+			mixins.add("backlytra.MixinEntityLivingBase");
+			mixins.add("backlytra.MixinNetHandlerPlayServer");
+			mixins.add("backlytra.MixinEntityTrackerEntry");
+			if (side == MixinEnvironment.Side.CLIENT) {
+				mixins.add("backlytra.client.MixinAbstractClientPlayer");
+				mixins.add("backlytra.client.MixinEntityPlayerSP");
+				mixins.add("backlytra.client.MixinRenderPlayer");
+				mixins.add("backlytra.client.MixinModelBiped");
+				mixins.add("backlytra.client.MixinEntityRenderer");
 			}
 		}
 		
@@ -197,6 +197,10 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 		if (ConfigMixins.ladderTrapdoors) {
 			mixins.add("laddertrapdoors.MixinBlockLadder");
 			mixins.add("laddertrapdoors.MixinBlockTrapdoor");
+		}
+
+		if (ConfigMixins.betterPistons) {
+			mixins.add("backinslime.MixinBlockPistonBase");
 		}
 
 		if (side == MixinEnvironment.Side.CLIENT) {

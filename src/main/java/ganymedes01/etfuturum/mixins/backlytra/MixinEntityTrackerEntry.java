@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.mixins.elytra;
+package ganymedes01.etfuturum.mixins.backlytra;
 
 import ganymedes01.etfuturum.elytra.IElytraEntityTrackerEntry;
 import net.minecraft.entity.EntityTrackerEntry;
