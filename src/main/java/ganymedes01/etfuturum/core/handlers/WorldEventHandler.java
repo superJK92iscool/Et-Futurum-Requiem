@@ -117,7 +117,7 @@ public class WorldEventHandler {
 
 	@SubscribeEvent
 	public void onSaplingGrow(SaplingGrowTreeEvent event) {//5% chance to run this logic.
-		if (ModBlocks.BEE_NEST.isEnabled()/* && event.rand.nextFloat() <= 0.05F */ && isFlowerNearby(event.world, event.x, event.y, event.z)) {
+		if (ModBlocks.BEE_NEST.isEnabled() && event.rand.nextFloat() <= 0.05F && isFlowerNearby(event.world, event.x, event.y, event.z)) {
 			//TODO: Mangrove and cherry trees should be here when they are added. Maybe support modded saplings too
 			Block sapling = event.world.getBlock(event.x, event.y, event.z);
 			int saplingMeta = event.world.getBlockMetadata(event.x, event.y, event.z);
