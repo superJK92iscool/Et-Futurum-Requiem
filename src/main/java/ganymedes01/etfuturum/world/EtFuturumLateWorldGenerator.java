@@ -15,6 +15,8 @@ import net.minecraft.world.WorldType;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
+import net.minecraft.world.gen.ChunkProviderFlat;
+import net.minecraft.world.gen.ChunkProviderServer;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -44,11 +46,13 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 	@Override
 	public void generate(Random rand, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
 		Chunk chunk = null;
-		if(doesChunkSupportLayerDeepslate(world.getWorldInfo().getTerrainType(), world.provider.dimensionId)) {
+		IChunkProvider provider = world.getChunkProvider() instanceof ChunkProviderServer ? ((ChunkProviderServer) world.getChunkProvider()).currentChunkProvider : world.getChunkProvider();
+		//Used to check if we're generating in a flat world
+		if (doesChunkSupportLayerDeepslate(world.getChunkProvider() instanceof ChunkProviderServer ? ((ChunkProviderServer) world.getChunkProvider()).currentChunkProvider : world.getChunkProvider(), world.provider.dimensionId)) {
 			//Turn off recording here so the world gen isn't an infinite recursion loop of constantly checking the same blocks
 			stopRecording = true;
 			Map<Long, List<Integer>> map = deepslateRedoCache.remove(world.provider.dimensionId);
-			if(map != null) {
+			if (map != null) {
 				for (Entry<Long, List<Integer>> set : map.entrySet()) {
 					List<Integer> posSet = set.getValue();
 
@@ -163,11 +167,11 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 	}
 	
 	public static boolean stopRecording;
-	
-	private boolean doesChunkSupportLayerDeepslate(WorldType terrain, int dimId) {
-		if(ModBlocks.DEEPSLATE.isEnabled()) {
+
+	private boolean doesChunkSupportLayerDeepslate(IChunkProvider provider, int dimId) {
+		if (ModBlocks.DEEPSLATE.isEnabled()) {
 			if (ConfigWorld.deepslateGenerationMode == 0 && ConfigWorld.deepslateMaxY > 0) {
-				return terrain != WorldType.FLAT && ArrayUtils.contains(ConfigWorld.deepslateLayerDimensionBlacklist, dimId) == ConfigWorld.deepslateLayerDimensionBlacklistAsWhitelist;
+				return !(provider instanceof ChunkProviderFlat) && ArrayUtils.contains(ConfigWorld.deepslateLayerDimensionBlacklist, dimId) == ConfigWorld.deepslateLayerDimensionBlacklistAsWhitelist;
 			}
 		}
 		return false;

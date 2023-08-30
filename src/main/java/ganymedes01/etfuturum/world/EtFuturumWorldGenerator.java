@@ -19,6 +19,7 @@ import net.minecraft.world.WorldProviderHell;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.ChunkProviderFlat;
+import net.minecraft.world.gen.ChunkProviderServer;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.common.BiomeDictionary;
@@ -93,7 +94,8 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 
 	@Override
 	public void generate(Random rand, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
-		if (!(world.getChunkProvider() instanceof ChunkProviderFlat) || world.getWorldInfo().getGeneratorOptions().contains("decoration")) {
+		IChunkProvider provider = world.getChunkProvider() instanceof ChunkProviderServer ? ((ChunkProviderServer) world.getChunkProvider()).currentChunkProvider : world.getChunkProvider();
+		if (!(provider instanceof ChunkProviderFlat) || world.getWorldInfo().getGeneratorOptions().contains("decoration")) {
 			int x;
 			int z;
 
