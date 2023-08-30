@@ -23,7 +23,7 @@ public class BeePlantRegistry {
 	 * @param block
 	 */
 	public static void addFlower(Block block, int meta) {
-		if (block instanceof BlockDoublePlant && meta > 7) {
+		if (block instanceof BlockDoublePlant && meta > 7 && meta != OreDictionary.WILDCARD_VALUE) {
 			throw new IllegalArgumentException("BlockDoublePlant can't have meta greater than 7, 8 and above are used by the top half. Bees will go to the top half if the bottom meta is valid.");
 		}
 		BEE_FLOWERS.add(new RegistryMapping<>(block, meta));

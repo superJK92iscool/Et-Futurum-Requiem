@@ -1,7 +1,7 @@
 package ganymedes01.etfuturum.mixins.backinslime;
 
 import com.google.common.collect.Lists;
-import ganymedes01.etfuturum.ModBlocks;
+import ganymedes01.etfuturum.api.PistonBehaviorRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.BlockPistonMoving;
@@ -13,6 +13,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityPiston;
 import net.minecraft.util.Facing;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -104,7 +105,14 @@ public class MixinBlockPistonBase extends Block {
 			}
 			world.setBlock(x, y, z, Blocks.piston_extension, side, 3);
 			world.setTileEntity(x, y, z, BlockPistonMoving.getTileEntity(this, side, side, false, true));
-			if (this.isSticky) {
+
+			int xoffset = ForgeDirection.getOrientation(side).offsetX * 2;
+			int yoffset = ForgeDirection.getOrientation(side).offsetY * 2;
+			int zoffset = ForgeDirection.getOrientation(side).offsetZ * 2;
+			Block blockToPull = world.getBlock(x + xoffset, y + yoffset, z + zoffset);
+			int metaToPull = world.getBlockMetadata(x + xoffset, y + yoffset, z + zoffset);
+
+			if (this.isSticky && !PistonBehaviorRegistry.isNonStickyBlock(blockToPull, metaToPull)) {
 				etfuturum$clearBlockLists();
 				if (etfuturum$getPushableBlocks(world, x + Facing.offsetsXForSide[side] * 2, y + Facing.offsetsYForSide[side] * 2, z + Facing.offsetsZForSide[side] * 2, Facing.oppositeSide[side], Facing.oppositeSide[side], x + Facing.offsetsXForSide[side], y + Facing.offsetsYForSide[side], z + Facing.offsetsZForSide[side]) == 0) {
 					world.setBlockToAir(x + Facing.offsetsXForSide[side], y + Facing.offsetsYForSide[side], z + Facing.offsetsZForSide[side]);
@@ -174,7 +182,7 @@ public class MixinBlockPistonBase extends Block {
 			etfuturum$pushedBlockList.add(pushedBlock);
 			etfuturum$pushedBlockData.add(pushedBlockCoords);
 
-			if (pushedBlock.equals(ModBlocks.SLIME.get()) || pushedBlock.equals(ModBlocks.HONEY_BLOCK.get())) {
+			if (PistonBehaviorRegistry.isStickyBlock(pushedBlock, pushedBlockMeta)) {
 				for (int i = 0; i < 6; ++i) {
 					if (i != side && i != ignoreSide) {
 						int attachedX = pushedBlockX + Facing.offsetsXForSide[i];
@@ -222,6 +230,7 @@ public class MixinBlockPistonBase extends Block {
 		Block block;
 		List<int[]> removedBlockCoords = new ArrayList<>();
 		List<Entity> launchedEntityList = new ArrayList<>();
+		List<Entity> pulledEntityList = new ArrayList<>();
 
 		for (int i = 0; i < etfuturum$pushedBlockList.size(); ++i) {
 			needsPusher = true;
@@ -255,11 +264,16 @@ public class MixinBlockPistonBase extends Block {
 				world.notifyBlocksOfNeighborChange(blockX, blockY, blockZ, block);
 			}
 
-			if (extending && block.equals(ModBlocks.SLIME.get())) {
-				for (Object o : world.getEntitiesWithinAABBExcludingEntity(null, this.getCollisionBoundingBoxFromPool(world, blockX, blockY, blockZ))) {
-					Entity entity = (Entity) o;
-					if (!launchedEntityList.contains(entity)) {
-						launchedEntityList.add(entity);
+			if (extending && PistonBehaviorRegistry.bouncesEntities(block, blockMeta)) {
+				for (Entity o : (List<Entity>) world.getEntitiesWithinAABBExcludingEntity(null, this.getCollisionBoundingBoxFromPool(world, blockX, blockY, blockZ))) {
+					if (!launchedEntityList.contains(o)) {
+						launchedEntityList.add(o);
+					}
+				}
+			} else if (side > 1 && PistonBehaviorRegistry.pullsEntities(block, blockMeta)) {
+				for (Entity o : (List<Entity>) world.getEntitiesWithinAABBExcludingEntity(null, this.getCollisionBoundingBoxFromPool(world, blockX, blockY, blockZ))) {
+					if (!pulledEntityList.contains(o)) {
+						pulledEntityList.add(o);
 					}
 				}
 			}
@@ -270,6 +284,11 @@ public class MixinBlockPistonBase extends Block {
 			entity.motionY += Facing.offsetsYForSide[side] * 1.1F;
 			entity.motionZ += Facing.offsetsZForSide[side] * 1.1F;
 		}
+		for (Entity entity : pulledEntityList) {
+			entity.motionX += Facing.offsetsXForSide[side] * .4F;
+			entity.posY += .15F; //Stops the entity falling through the block
+			entity.motionZ += Facing.offsetsZForSide[side] * .4F;
+		}
 
 		for (int[] blockCoords : removedBlockCoords) {
 			world.setBlockToAir(blockCoords[0], blockCoords[1], blockCoords[2]);
@@ -278,23 +297,37 @@ public class MixinBlockPistonBase extends Block {
 	}
 
 	@Unique
-	private boolean etfuturum$canPushBlockNested(Block block, World world, int x, int y, int z, int pushedSide, int sideToPushTo) {
-		if (block == Blocks.obsidian) {
-			return false;
-		} else {
-			if (block != Blocks.piston && block != Blocks.sticky_piston) {
-				if (block.getBlockHardness(world, x, y, z) == -1.0F) {
-					return false;
-				} else if (block.getMobilityFlag() == 2) {
-					return false;
-				} else if (block.getMobilityFlag() == 1) {
-					return pushedSide == sideToPushTo || pushedSide == Facing.oppositeSide[sideToPushTo];
-				}
-			} else {
-				return !BlockPistonBase.isExtended(world.getBlockMetadata(x, y, z));
+	private boolean etfuturum$canPushBlockNested(Block pushedBlock, World world, int x, int y, int z, int pushedSide, int sideToPushTo) {
+		int pushedMeta = world.getBlockMetadata(x, y, z);
+		if (sideToPushTo != pushedSide) {
+			if (PistonBehaviorRegistry.isNonStickyBlock(pushedBlock, pushedMeta)) {
+				return false;
 			}
-			return !(world.getBlock(x, y, z).hasTileEntity(world.getBlockMetadata(x, y, z)));
+
+			int xoffset = ForgeDirection.getOrientation(pushedSide).getOpposite().offsetX;
+			int yoffset = ForgeDirection.getOrientation(pushedSide).getOpposite().offsetY;
+			int zoffset = ForgeDirection.getOrientation(pushedSide).getOpposite().offsetZ;
+			Block stuckToBlock = world.getBlock(x + xoffset, y + yoffset, z + zoffset);
+			int stuckToMeta = world.getBlockMetadata(x + xoffset, y + yoffset, z + zoffset);
+
+			if (PistonBehaviorRegistry.isStickyBlock(pushedBlock, pushedMeta) && PistonBehaviorRegistry.isStickyBlock(stuckToBlock, stuckToMeta) && (pushedBlock != stuckToBlock || pushedMeta != stuckToMeta)) {
+				return false;
+			}
 		}
+		if (pushedBlock == Blocks.obsidian) {
+			return false;
+		}
+
+		if (pushedBlock != Blocks.piston && pushedBlock != Blocks.sticky_piston) {
+			if (pushedBlock.getBlockHardness(world, x, y, z) == -1.0F || pushedBlock.getMobilityFlag() == 2) {
+				return false;
+			} else if (pushedBlock.getMobilityFlag() == 1) {
+				return pushedSide == sideToPushTo || pushedSide == Facing.oppositeSide[sideToPushTo];
+			}
+		} else {
+			return !BlockPistonBase.isExtended(world.getBlockMetadata(x, y, z));
+		}
+		return !(world.getBlock(x, y, z).hasTileEntity(world.getBlockMetadata(x, y, z)));
 	}
 
 	@Unique

@@ -258,6 +258,7 @@ public class EtFuturum {
 		SmithingTableRecipes.init();
 		CompostingRegistry.init();
 		BeePlantRegistry.init();
+		PistonBehaviorRegistry.init();
 
 		if (EtFuturum.hasWaila) {
 			CompatWaila.register();

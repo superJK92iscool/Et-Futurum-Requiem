@@ -7,7 +7,7 @@ import net.minecraftforge.oredict.OreDictionary;
 public class RegistryMapping<T> {
 
 	private final T object;
-	private final int meta;
+	private final transient int meta;
 
 	/**
 	 * Used by certain areas of Et Futurum to store a block and meta mapping that can be matched with a new instance.
@@ -40,6 +40,6 @@ public class RegistryMapping<T> {
 
 	@Override
 	public int hashCode() {
-		return object.hashCode() + meta;
+		return object.hashCode();
 	}
 }
