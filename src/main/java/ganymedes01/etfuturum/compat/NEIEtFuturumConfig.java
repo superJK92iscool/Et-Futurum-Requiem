@@ -12,6 +12,8 @@ import ganymedes01.etfuturum.compat.nei.ComposterHandler;
 import ganymedes01.etfuturum.compat.nei.SmokerRecipeHandler;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.lib.Reference;
+import net.minecraft.block.BlockSlab;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class NEIEtFuturumConfig implements IConfigureNEI {
 
@@ -20,11 +22,6 @@ public class NEIEtFuturumConfig implements IConfigureNEI {
 
 	@Override
 	public void loadConfig() {
-		if (ModBlocks.BANNER.isEnabled()) {
-			API.registerRecipeHandler(new BannerPatternHandler());
-			API.registerUsageHandler(new BannerPatternHandler());
-		}
-
 		if (ConfigWorld.tileReplacementMode != -1) {
 			if (ModBlocks.BREWING_STAND.isEnabled()) {
 				API.hideItem(ModBlocks.BREWING_STAND.newItemStack());
@@ -43,6 +40,17 @@ public class NEIEtFuturumConfig implements IConfigureNEI {
 			if (ModBlocks.ENCHANTMENT_TABLE.isEnabled()) {
 				API.hideItem(ModBlocks.ENCHANTMENT_TABLE.newItemStack());
 			}
+		}
+
+		for (ModBlocks mb : ModBlocks.values()) {
+			if (mb.isEnabled() && mb.get() instanceof BlockSlab && mb.name().toLowerCase().contains("double")) {
+				API.hideItem(mb.newItemStack(1, OreDictionary.WILDCARD_VALUE));
+			}
+		}
+
+		if (ModBlocks.BANNER.isEnabled()) {
+			API.registerRecipeHandler(new BannerPatternHandler());
+			API.registerUsageHandler(new BannerPatternHandler());
 		}
 
 		if (ModBlocks.SMOKER.isEnabled()) {
