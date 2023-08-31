@@ -24,7 +24,7 @@ public class PistonBehaviorRegistry {
 
 	public static void addPistonBehavior(Block block, int meta, PistonAction action) {
 		if ((meta < 0 || meta > 15) && meta != OreDictionary.WILDCARD_VALUE) {
-			throw new IllegalArgumentException("Meta must be greater than 0 and less than 16");
+			throw new IllegalArgumentException("Meta must be between 0 and 15 (inclusive)");
 		}
 		BEHAVIOR_REGISTRY.put(new RegistryMapping<>(block, meta), action);
 	}

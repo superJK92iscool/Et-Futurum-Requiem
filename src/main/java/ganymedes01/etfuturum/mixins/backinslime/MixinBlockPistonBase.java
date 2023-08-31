@@ -16,14 +16,13 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import org.apache.commons.lang3.tuple.Pair;
 import org.spongepowered.asm.mixin.*;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
 
 /**
- * Code ported from Back in Slime, with DonBruce64's permission. This code remains mostly unchanged from the original version.
+ * Code ported from Back in Slime, with DonBruce64's permission.
+ * Many code tweaks have been made to make non-sticky blocks and allowing honey blocks to work without sticking to slime blocks.
+ * However the original Back in Slime mod made this all possible, so go give its code a look: https://github.com/DonBruce64/BackInSlime
  */
 @Mixin(BlockPistonBase.class)
 public class MixinBlockPistonBase extends Block {
@@ -46,12 +45,14 @@ public class MixinBlockPistonBase extends Block {
 		super(p_i45394_1_);
 	}
 
-	@Inject(method = "<init>", at = @At(value = "RETURN"))
-	private void setupLists(boolean p_i45443_1_, CallbackInfo ci) {
-		//TODO, list for sticky blocks here
-	}
-
 	/**
+	 * Notes: Added aheck for side != 7 like vanilla pistons added
+	 * <p>
+	 * Somehow this is 7 when initially placing a piston against power, and NO other time. Vanilla avoids a crash from invalid directions by not continuing if the side is 7.
+	 * I have no idea how back in slime doesn't crash past this point, it doesn't do this check. Why doesn't DonBruce64 need it?
+	 * This could be why DonBruce's pistons have an arm going down when initially placed against power though.
+	 * It could be that Facing.offsetFor#Side somehow doesn't throw ArrayIndexOutOfBoundsException when 7 is passed in, despite being an array, and instead returns down by default?
+	 *
 	 * @param world
 	 * @param x
 	 * @param y
@@ -63,6 +64,7 @@ public class MixinBlockPistonBase extends Block {
 	private void updatePistonState(World world, int x, int y, int z) {
 		int pistonMetadata = world.getBlockMetadata(x, y, z);
 		int side = BlockPistonBase.getPistonOrientation(pistonMetadata);
+		if(side == 7) return;
 		boolean isPowered = this.isIndirectlyPowered(world, x, y, z, side);
 
 		ForgeDirection dir = ForgeDirection.getOrientation(side);
@@ -167,10 +169,10 @@ public class MixinBlockPistonBase extends Block {
 	@Unique
 	private int etfuturum$getPushableBlocks(World world, int x, int y, int z, int ignoreSide, final int side, final int pistonX, final int pistonY, final int pistonZ) {
 		Block pushedBlock = world.getBlock(x, y, z);
+		int pushedBlockMeta = world.getBlockMetadata(x, y, z);
 		int pushedBlockX = x;
 		int pushedBlockY = y;
 		int pushedBlockZ = z;
-		int pushedBlockMeta = world.getBlockMetadata(pushedBlockX, pushedBlockY, pushedBlockZ);
 		int blocksPushed = 0;
 
 		while (blocksPushed < 13) {
@@ -188,7 +190,7 @@ public class MixinBlockPistonBase extends Block {
 
 			BlockPos pushedBlockCoords = new BlockPos(pushedBlockX, pushedBlockY, pushedBlockZ);
 			for (BlockPos pushedBlockPos : etfuturum$pushedBlockPosList) {
-				if (pushedBlockPos.equals(pushedBlockCoords)) {
+				if (pushedBlockPos.equals(pushedBlockCoords) && pushedBlockPos.getBlockMetadata(world) == pushedBlockMeta && pushedBlockPos.getBlock(world) == pushedBlock) {
 					return blocksPushed;
 				}
 			}
@@ -198,7 +200,7 @@ public class MixinBlockPistonBase extends Block {
 			etfuturum$pushedBlockPosList.add(pushedBlockCoords);
 
 			if (PistonBehaviorRegistry.isStickyBlock(pushedBlock, pushedBlockMeta)) {
-				for (ForgeDirection dir : ForgeDirection.values()) {
+				for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
 					if (dir.ordinal() != side && dir.ordinal() != ignoreSide) {
 						int attachedX = pushedBlockX + dir.offsetX;
 						int attachedY = pushedBlockY + dir.offsetY;
@@ -312,27 +314,25 @@ public class MixinBlockPistonBase extends Block {
 
 	@Unique
 	private boolean etfuturum$canPushBlockNested(Block pushedBlock, World world, int x, int y, int z, int pushedSide, int sideToPushTo) {
-		int pushedMeta = world.getBlockMetadata(x, y, z);
-		if (sideToPushTo != pushedSide) {
-			if (PistonBehaviorRegistry.isNonStickyBlock(pushedBlock, pushedMeta)) {
-				return false;
-			}
-
-			int xoffset = ForgeDirection.getOrientation(pushedSide).getOpposite().offsetX;
-			int yoffset = ForgeDirection.getOrientation(pushedSide).getOpposite().offsetY;
-			int zoffset = ForgeDirection.getOrientation(pushedSide).getOpposite().offsetZ;
-			Block stuckToBlock = world.getBlock(x + xoffset, y + yoffset, z + zoffset);
-			int stuckToMeta = world.getBlockMetadata(x + xoffset, y + yoffset, z + zoffset);
-
-			if (PistonBehaviorRegistry.isStickyBlock(pushedBlock, pushedMeta) && PistonBehaviorRegistry.isStickyBlock(stuckToBlock, stuckToMeta) && (pushedBlock != stuckToBlock || pushedMeta != stuckToMeta)) {
-				return false;
-			}
-		}
 		if (pushedBlock == Blocks.obsidian) {
 			return false;
-		}
+		} else if (pushedBlock != Blocks.piston && pushedBlock != Blocks.sticky_piston) {
+			int pushedMeta = world.getBlockMetadata(x, y, z);
+			if (sideToPushTo != pushedSide) {
+				if (PistonBehaviorRegistry.isNonStickyBlock(pushedBlock, pushedMeta)) {
+					return false;
+				}
 
-		if (pushedBlock != Blocks.piston && pushedBlock != Blocks.sticky_piston) {
+				int xoffset = ForgeDirection.getOrientation(pushedSide).getOpposite().offsetX;
+				int yoffset = ForgeDirection.getOrientation(pushedSide).getOpposite().offsetY;
+				int zoffset = ForgeDirection.getOrientation(pushedSide).getOpposite().offsetZ;
+				Block stuckToBlock = world.getBlock(x + xoffset, y + yoffset, z + zoffset);
+				int stuckToMeta = world.getBlockMetadata(x + xoffset, y + yoffset, z + zoffset);
+
+				if (PistonBehaviorRegistry.isStickyBlock(pushedBlock, pushedMeta) && PistonBehaviorRegistry.isStickyBlock(stuckToBlock, stuckToMeta) && (pushedBlock != stuckToBlock || pushedMeta != stuckToMeta)) {
+					return false;
+				}
+			}
 			if (pushedBlock.getBlockHardness(world, x, y, z) == -1.0F || pushedBlock.getMobilityFlag() == 2) {
 				return false;
 			} else if (pushedBlock.getMobilityFlag() == 1) {

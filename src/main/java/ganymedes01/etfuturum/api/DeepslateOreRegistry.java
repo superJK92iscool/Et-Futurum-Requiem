@@ -61,8 +61,11 @@ public class DeepslateOreRegistry {
 	 * @param toMeta   The meta deepslate changes it to
 	 */
 	public static void addOre(Block from, int fromMeta, Block to, int toMeta) {
-		RegistryMapping<Block> inputMapping = new RegistryMapping<Block>(from, fromMeta);
-		deepslateOres.put(inputMapping.hashCode(), new RegistryMapping<Block>(to, toMeta));
+		if (((fromMeta < 0 || fromMeta > 15) && fromMeta != OreDictionary.WILDCARD_VALUE) || ((toMeta < 0 || toMeta > 15) && toMeta != OreDictionary.WILDCARD_VALUE)) {
+			throw new IllegalArgumentException("Meta must be between 0 and 15 (inclusive)");
+		}
+		RegistryMapping<Block> inputMapping = new RegistryMapping<>(from, fromMeta);
+		deepslateOres.put(inputMapping.hashCode(), new RegistryMapping<>(to, toMeta));
 		inputOres.put(inputMapping.hashCode(), inputMapping);
 	}
 

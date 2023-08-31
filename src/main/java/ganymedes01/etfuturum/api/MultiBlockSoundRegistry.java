@@ -14,6 +14,6 @@ public class MultiBlockSoundRegistry {
 		BREAK,
 		PLACE,
 		WALK,
-		HIT;
+		HIT
 	}
 }
