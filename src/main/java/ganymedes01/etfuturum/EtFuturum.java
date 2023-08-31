@@ -159,6 +159,7 @@ public class EtFuturum {
 	public static final boolean hasNatura = Loader.isModLoaded("Natura");
 	public static final boolean hasCampfireBackport = Loader.isModLoaded("campfirebackport");
 	public static final boolean hasBackInSlime = Loader.isModLoaded("bis");
+	public static final boolean hasMineFactory = Loader.isModLoaded("MineFactoryReloaded");
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {

@@ -104,6 +104,10 @@ public class PistonBehaviorRegistry {
 			addPistonBehavior(GameRegistry.findBlock("TConstruct", "slime.gel"), PistonAction.BOUNCES_ENTITIES);
 			addPistonBehavior(GameRegistry.findBlock("TConstruct", "GlueBlock"), PistonAction.PULLS_ENTITIES);
 		}
+
+		if (EtFuturum.hasMineFactory) {
+			addPistonBehavior(GameRegistry.findBlock("MineFactoryReloaded", "pinkslime.block"), PistonAction.BOUNCES_ENTITIES);
+		}
 	}
 
 	public enum PistonAction {

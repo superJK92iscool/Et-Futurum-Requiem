@@ -15,17 +15,7 @@ public class ModSounds {
 		return SOUNDS_REGISTRY;
 	}
 	
-	public static final SoundType soundSlime = new CustomSound("minecraft:mob.slime.big") {
-		@Override
-		public String getBreakSound() {
-			return soundName;
-		}
-
-		@Override
-		public String getStepResourcePath() {
-			return "minecraft:mob.slime.small";
-		}
-
+	public static final SoundType soundSlime = new CustomSound("slime_block") {
 		@Override
 		public SoundType getDisabledSound() {
 			return this;
