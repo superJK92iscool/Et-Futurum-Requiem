@@ -147,8 +147,13 @@ public class ComposterHandler extends TemplateRecipeHandler implements ICrafting
 
     @Override
     public void loadUsageRecipes(String inputId, Object... ingredients) {
-        if (inputId.equals(this.getOverlayIdentifier())) composeRecipeMap(null);
-        else loadUsageRecipes((ItemStack) ingredients[0]);
+        if (!(ingredients[0] instanceof ItemStack)) {
+            if (inputId.equals(this.getOverlayIdentifier())) {
+                composeRecipeMap(null);
+            } else {
+                loadUsageRecipes((ItemStack) ingredients[0]);
+            }
+        }
     }
 
     @Override
