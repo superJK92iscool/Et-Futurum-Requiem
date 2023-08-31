@@ -182,12 +182,8 @@ public class ClientEventHandler {
 			}
 
 			if (getAmbienceLoop(ambienceBiome) != null && !mc.getSoundHandler().isSoundPlaying(ambienceLoop)) {
-				boolean flag = ambienceLoop == null || ambienceLoop.getVolume() <= 0;
 				ambienceLoop = new NetherAmbienceLoop(getAmbienceLoop(ambienceBiome));
 				mc.getSoundHandler().playSound(ambienceLoop);
-				if (flag) {
-					ambienceLoop.fadeIn();
-				}
 			} else if (ambienceBiome == null || !soundLoc.equals(getAmbienceLoop(ambienceBiome))) {
 				ambienceLoop.stop();
 			} else if (mc.getSoundHandler().isSoundPlaying(ambienceLoop) && ambienceLoop.isStopping && soundLoc.equals(getAmbienceLoop(ambienceBiome))) {
