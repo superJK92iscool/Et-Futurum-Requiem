@@ -2,6 +2,7 @@ package ganymedes01.etfuturum.mixins.backinslime;
 
 import com.google.common.collect.Lists;
 import ganymedes01.etfuturum.api.PistonBehaviorRegistry;
+import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.BlockPistonMoving;
@@ -11,16 +12,14 @@ import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityPiston;
-import net.minecraft.util.Facing;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import org.apache.commons.lang3.tuple.Pair;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -38,10 +37,15 @@ public class MixinBlockPistonBase extends Block {
 		return false;
 	}
 
+	@Shadow
+	private boolean tryExtend(World p_150072_1_, int p_150072_2_, int p_150072_3_, int p_150072_4_, int p_150072_5_) {
+		return false;
+	}
+
 	@Unique
-	private List<Block> etfuturum$pushedBlockList = Lists.newArrayList();
+	private List<Pair<Block, Integer>> etfuturum$pushedBlockList = Lists.newArrayList();
 	@Unique
-	private List<int[]> etfuturum$pushedBlockData = Lists.newArrayList();
+	private List<BlockPos> etfuturum$pushedBlockPosList = Lists.newArrayList();
 
 	protected MixinBlockPistonBase(Material p_i45394_1_) {
 		super(p_i45394_1_);
@@ -65,15 +69,24 @@ public class MixinBlockPistonBase extends Block {
 		int pistonMetadata = world.getBlockMetadata(x, y, z);
 		int side = BlockPistonBase.getPistonOrientation(pistonMetadata);
 		boolean isPowered = this.isIndirectlyPowered(world, x, y, z, side);
+
+		ForgeDirection dir = ForgeDirection.getOrientation(side);
+		int xoffset = dir.offsetX;
+		int yoffset = dir.offsetY;
+		int zoffset = dir.offsetZ;
+		int xoffset2 = dir.offsetX * 2;
+		int yoffset2 = dir.offsetY * 2;
+		int zoffset2 = dir.offsetZ * 2;
+		int oppositeSide = dir.getOpposite().ordinal();
 		if (isPowered && !BlockPistonBase.isExtended(pistonMetadata)) {
 			etfuturum$clearBlockLists();
-			if (etfuturum$getPushableBlocks(world, x + Facing.offsetsXForSide[side], y + Facing.offsetsYForSide[side], z + Facing.offsetsZForSide[side], Facing.oppositeSide[side], side, x, y, z) <= 12) {
+			if (etfuturum$getPushableBlocks(world, x + xoffset, y + yoffset, z + zoffset, oppositeSide, side, x, y, z) <= 12) {
 				world.addBlockEvent(x, y, z, this, 1, side); //push piston
 			}
 		} else if (!isPowered && BlockPistonBase.isExtended(pistonMetadata)) {
 			if (this.isSticky) {
 				etfuturum$clearBlockLists();
-				if (etfuturum$getPushableBlocks(world, x + Facing.offsetsXForSide[side] * 2, y + Facing.offsetsYForSide[side] * 2, z + Facing.offsetsZForSide[side] * 2, Facing.oppositeSide[side], Facing.oppositeSide[side], x + Facing.offsetsXForSide[side], y + Facing.offsetsYForSide[side], z + Facing.offsetsZForSide[side]) > 12) {
+				if (etfuturum$getPushableBlocks(world, x + xoffset2, y + yoffset2, z + zoffset2, oppositeSide, oppositeSide, x + xoffset, y + yoffset, z + zoffset) > 12) {
 					return;
 				}
 			}
@@ -98,38 +111,45 @@ public class MixinBlockPistonBase extends Block {
 			}
 		}
 
+		ForgeDirection dir = ForgeDirection.getOrientation(side);
+		int xoffset = dir.offsetX;
+		int yoffset = dir.offsetY;
+		int zoffset = dir.offsetZ;
+		int xoffset2 = dir.offsetX * 2;
+		int yoffset2 = dir.offsetY * 2;
+		int zoffset2 = dir.offsetZ * 2;
+		int oppositeSide = dir.getOpposite().ordinal();
 		if (extend == 0) {
-			TileEntity tileentity = world.getTileEntity(x + Facing.offsetsXForSide[side], y + Facing.offsetsYForSide[side], z + Facing.offsetsZForSide[side]);
+			TileEntity tileentity = world.getTileEntity(x + xoffset, y + yoffset, z + zoffset);
 			if (tileentity instanceof TileEntityPiston) {
 				((TileEntityPiston) tileentity).clearPistonTileEntity();
 			}
 			world.setBlock(x, y, z, Blocks.piston_extension, side, 3);
 			world.setTileEntity(x, y, z, BlockPistonMoving.getTileEntity(this, side, side, false, true));
 
-			int xoffset = ForgeDirection.getOrientation(side).offsetX * 2;
-			int yoffset = ForgeDirection.getOrientation(side).offsetY * 2;
-			int zoffset = ForgeDirection.getOrientation(side).offsetZ * 2;
-			Block blockToPull = world.getBlock(x + xoffset, y + yoffset, z + zoffset);
-			int metaToPull = world.getBlockMetadata(x + xoffset, y + yoffset, z + zoffset);
+			Block blockToPull = world.getBlock(x + xoffset2, y + yoffset2, z + zoffset2);
+			int metaToPull = world.getBlockMetadata(x + xoffset2, y + yoffset2, z + zoffset2);
 
 			if (this.isSticky && !PistonBehaviorRegistry.isNonStickyBlock(blockToPull, metaToPull)) {
 				etfuturum$clearBlockLists();
-				if (etfuturum$getPushableBlocks(world, x + Facing.offsetsXForSide[side] * 2, y + Facing.offsetsYForSide[side] * 2, z + Facing.offsetsZForSide[side] * 2, Facing.oppositeSide[side], Facing.oppositeSide[side], x + Facing.offsetsXForSide[side], y + Facing.offsetsYForSide[side], z + Facing.offsetsZForSide[side]) == 0) {
-					world.setBlockToAir(x + Facing.offsetsXForSide[side], y + Facing.offsetsYForSide[side], z + Facing.offsetsZForSide[side]);
+				if (etfuturum$getPushableBlocks(world, x + xoffset2, y + yoffset2, z + zoffset2, oppositeSide, oppositeSide, x + xoffset, y + yoffset, z + zoffset) == 0) {
+					world.setBlockToAir(x + xoffset, y + yoffset, z + zoffset);
 				} else {
-					etfuturum$pushBlocks(world, Facing.oppositeSide[side], false);
+					etfuturum$pushBlocks(world, oppositeSide, false);
 				}
 			}
 			world.playSoundEffect((double) x + 0.5D, (double) y + 0.5D, (double) z + 0.5D, "tile.piston.in", 0.5F, world.rand.nextFloat() * 0.15F + 0.6F);
 		} else if (extend == 1) {
 			etfuturum$clearBlockLists();
-			etfuturum$getPushableBlocks(world, x + Facing.offsetsXForSide[side], y + Facing.offsetsYForSide[side], z + Facing.offsetsZForSide[side], Facing.oppositeSide[side], side, x, y, z);
+			etfuturum$getPushableBlocks(world, x + xoffset, y + yoffset, z + zoffset, oppositeSide, side, x, y, z);
 			etfuturum$pushBlocks(world, side, true);
-			world.setBlock(x + Facing.offsetsXForSide[side], y + Facing.offsetsYForSide[side], z + Facing.offsetsZForSide[side], Blocks.piston_extension, side | (this.isSticky ? 8 : 0), 4);
-			world.setTileEntity(x + Facing.offsetsXForSide[side], y + Facing.offsetsYForSide[side], z + Facing.offsetsZForSide[side], BlockPistonMoving.getTileEntity(Blocks.piston_head, side | (this.isSticky ? 8 : 0), side, true, false));
-			//world.notifyBlocksOfNeighborChange(x + Facing.offsetsXForSide[side], y + Facing.offsetsYForSide[side], z + Facing.offsetsZForSide[side], BIS.slimePistonHead);
-			world.setBlockMetadataWithNotify(x, y, z, side | 8, 2);
-			world.playSoundEffect((double) x + 0.5D, (double) y + 0.5D, (double) z + 0.5D, "tile.piston.out", 0.5F, world.rand.nextFloat() * 0.25F + 0.6F);
+			boolean flag1 = world.setBlock(x + xoffset, y + yoffset, z + zoffset, Blocks.piston_extension, side | (this.isSticky ? 8 : 0), 4);
+			world.setTileEntity(x + xoffset, y + yoffset, z + zoffset, BlockPistonMoving.getTileEntity(Blocks.piston_head, side | (this.isSticky ? 8 : 0), side, true, false));
+			//world.notifyBlocksOfNeighborChange(x + xoffset, y + yoffset, z + zoffset, BIS.slimePistonHead);
+			boolean flag2 = world.setBlockMetadataWithNotify(x, y, z, side | 8, 2);
+			if (flag1 || flag2) {
+				world.playSoundEffect((double) x + 0.5D, (double) y + 0.5D, (double) z + 0.5D, "tile.piston.out", 0.5F, world.rand.nextFloat() * 0.25F + 0.6F);
+			}
 		}
 		return true;
 	}
@@ -171,30 +191,30 @@ public class MixinBlockPistonBase extends Block {
 				}
 			}
 
-			int[] pushedBlockCoords = new int[]{pushedBlockX, pushedBlockY, pushedBlockZ, pushedBlockMeta};
-			for (int[] etfuturum$pushedBlockDatum : etfuturum$pushedBlockData) {
-				if (Arrays.equals(etfuturum$pushedBlockDatum, pushedBlockCoords)) {
+			BlockPos pushedBlockCoords = new BlockPos(pushedBlockX, pushedBlockY, pushedBlockZ);
+			for (BlockPos pushedBlockPos : etfuturum$pushedBlockPosList) {
+				if (pushedBlockPos.equals(pushedBlockCoords)) {
 					return blocksPushed;
 				}
 			}
 
 			++blocksPushed;
-			etfuturum$pushedBlockList.add(pushedBlock);
-			etfuturum$pushedBlockData.add(pushedBlockCoords);
+			etfuturum$pushedBlockList.add(Pair.of(pushedBlock, pushedBlockMeta));
+			etfuturum$pushedBlockPosList.add(pushedBlockCoords);
 
 			if (PistonBehaviorRegistry.isStickyBlock(pushedBlock, pushedBlockMeta)) {
-				for (int i = 0; i < 6; ++i) {
-					if (i != side && i != ignoreSide) {
-						int attachedX = pushedBlockX + Facing.offsetsXForSide[i];
-						int attachedY = pushedBlockY + Facing.offsetsYForSide[i];
-						int attachedZ = pushedBlockZ + Facing.offsetsZForSide[i];
+				for (ForgeDirection dir : ForgeDirection.values()) {
+					if (dir.ordinal() != side && dir.ordinal() != ignoreSide) {
+						int attachedX = pushedBlockX + dir.offsetX;
+						int attachedY = pushedBlockY + dir.offsetY;
+						int attachedZ = pushedBlockZ + dir.offsetZ;
 //						int attachedMeta=world.getBlockMetadata(attachedX, attachedY, attachedZ);
 						Block attachedBlock = world.getBlock(attachedX, attachedY, attachedZ);
 
 						if (!(attachedX == pistonX && attachedY == pistonY && attachedZ == pistonZ)) {
-							if (etfuturum$canPushBlockNested(attachedBlock, world, attachedX, attachedY, attachedZ, i, side)) {
+							if (etfuturum$canPushBlockNested(attachedBlock, world, attachedX, attachedY, attachedZ, dir.ordinal(), side)) {
 								if (attachedBlock.getMobilityFlag() != 1) {
-									blocksPushed += etfuturum$getPushableBlocks(world, attachedX, attachedY, attachedZ, Facing.oppositeSide[i], side, pistonX, pistonY, pistonZ);
+									blocksPushed += etfuturum$getPushableBlocks(world, attachedX, attachedY, attachedZ, dir.getOpposite().ordinal(), side, pistonX, pistonY, pistonZ);
 								}
 							}
 						}
@@ -202,9 +222,9 @@ public class MixinBlockPistonBase extends Block {
 				}
 			}
 
-			pushedBlockX += Facing.offsetsXForSide[side];
-			pushedBlockY += Facing.offsetsYForSide[side];
-			pushedBlockZ += Facing.offsetsZForSide[side];
+			pushedBlockX += ForgeDirection.getOrientation(side).offsetX;
+			pushedBlockY += ForgeDirection.getOrientation(side).offsetY;
+			pushedBlockZ += ForgeDirection.getOrientation(side).offsetZ;
 			pushedBlockMeta = world.getBlockMetadata(pushedBlockX, pushedBlockY, pushedBlockZ);
 			pushedBlock = world.getBlock(pushedBlockX, pushedBlockY, pushedBlockZ);
 		}
@@ -222,38 +242,37 @@ public class MixinBlockPistonBase extends Block {
 	@Unique
 	private void etfuturum$pushBlocks(World world, int side, boolean extending) {
 		boolean needsPusher;
-		int blockX;
-		int blockY;
-		int blockZ;
-		int blockMeta;
-		int[] rearCoords;
-		Block block;
-		List<int[]> removedBlockCoords = new ArrayList<>();
-		List<Entity> launchedEntityList = new ArrayList<>();
-		List<Entity> pulledEntityList = new ArrayList<>();
+		ForgeDirection dir = ForgeDirection.getOrientation(side);
+		int xoffset = dir.offsetX;
+		int yoffset = dir.offsetY;
+		int zoffset = dir.offsetZ;
+		List<BlockPos> removedBlockCoords = Lists.newArrayList();
+		List<Entity> launchedEntityList = Lists.newArrayList();
+		List<Entity> pulledEntityList = Lists.newArrayList();
 
 		for (int i = 0; i < etfuturum$pushedBlockList.size(); ++i) {
 			needsPusher = true;
-			block = etfuturum$pushedBlockList.get(i);
-			blockX = etfuturum$pushedBlockData.get(i)[0];
-			blockY = etfuturum$pushedBlockData.get(i)[1];
-			blockZ = etfuturum$pushedBlockData.get(i)[2];
-			blockMeta = etfuturum$pushedBlockData.get(i)[3];
-			rearCoords = new int[]{blockX - Facing.offsetsXForSide[side], blockY - Facing.offsetsYForSide[side], blockZ - Facing.offsetsZForSide[side]};
+			Block block = etfuturum$pushedBlockList.get(i).getLeft();
+			int blockMeta = etfuturum$pushedBlockList.get(i).getRight();
+			BlockPos pos = etfuturum$pushedBlockPosList.get(i);
+			BlockPos rearPos = new BlockPos(pos.getX() - xoffset, pos.getY() - yoffset, pos.getZ() - zoffset);
+			int blockX = pos.getX();
+			int blockY = pos.getY();
+			int blockZ = pos.getZ();
 
-			for (int[] etfuturum$pushedBlockDatum : etfuturum$pushedBlockData) {
-				if (rearCoords[0] == etfuturum$pushedBlockDatum[0] && rearCoords[1] == etfuturum$pushedBlockDatum[1] && rearCoords[2] == etfuturum$pushedBlockDatum[2]) {
+			for (BlockPos pushedBlockPos : etfuturum$pushedBlockPosList) {
+				if (pushedBlockPos.equals(rearPos)) {
 					needsPusher = false;
 					break;
 				}
 			}
 			if (needsPusher) {
-				removedBlockCoords.add(etfuturum$pushedBlockData.get(i));
+				removedBlockCoords.add(etfuturum$pushedBlockPosList.get(i));
 			}
 
-			blockX += Facing.offsetsXForSide[side];
-			blockY += Facing.offsetsYForSide[side];
-			blockZ += Facing.offsetsZForSide[side];
+			blockX += xoffset;
+			blockY += yoffset;
+			blockZ += zoffset;
 			if (block.getMobilityFlag() == 1) {
 				float chance = block instanceof BlockSnow ? -1.0f : 1.0f;
 				block.dropBlockAsItemWithChance(world, blockX, blockY, blockZ, blockMeta, chance, 0);
@@ -280,19 +299,19 @@ public class MixinBlockPistonBase extends Block {
 		}
 
 		for (Entity entity : launchedEntityList) {
-			entity.motionX += Facing.offsetsXForSide[side] * 1.1F;
-			entity.motionY += Facing.offsetsYForSide[side] * 1.1F;
-			entity.motionZ += Facing.offsetsZForSide[side] * 1.1F;
+			entity.motionX += xoffset * 1.1F;
+			entity.motionY += yoffset * 1.1F;
+			entity.motionZ += zoffset * 1.1F;
 		}
 		for (Entity entity : pulledEntityList) {
-			entity.motionX += Facing.offsetsXForSide[side] * .4F;
+			entity.motionX += xoffset * .4F;
 			entity.posY += .15F; //Stops the entity falling through the block
-			entity.motionZ += Facing.offsetsZForSide[side] * .4F;
+			entity.motionZ += zoffset * .4F;
 		}
 
-		for (int[] blockCoords : removedBlockCoords) {
-			world.setBlockToAir(blockCoords[0], blockCoords[1], blockCoords[2]);
-			world.notifyBlocksOfNeighborChange(blockCoords[0], blockCoords[1], blockCoords[2], Blocks.air);
+		for (BlockPos blockCoords : removedBlockCoords) {
+			world.setBlockToAir(blockCoords.getX(), blockCoords.getY(), blockCoords.getZ());
+			world.notifyBlocksOfNeighborChange(blockCoords.getX(), blockCoords.getY(), blockCoords.getZ(), Blocks.air);
 		}
 	}
 
@@ -322,7 +341,7 @@ public class MixinBlockPistonBase extends Block {
 			if (pushedBlock.getBlockHardness(world, x, y, z) == -1.0F || pushedBlock.getMobilityFlag() == 2) {
 				return false;
 			} else if (pushedBlock.getMobilityFlag() == 1) {
-				return pushedSide == sideToPushTo || pushedSide == Facing.oppositeSide[sideToPushTo];
+				return pushedSide == sideToPushTo || pushedSide == ForgeDirection.OPPOSITES[sideToPushTo];
 			}
 		} else {
 			return !BlockPistonBase.isExtended(world.getBlockMetadata(x, y, z));
@@ -333,6 +352,6 @@ public class MixinBlockPistonBase extends Block {
 	@Unique
 	private void etfuturum$clearBlockLists() {
 		etfuturum$pushedBlockList.clear();
-		etfuturum$pushedBlockData.clear();
+		etfuturum$pushedBlockPosList.clear();
 	}
 }
