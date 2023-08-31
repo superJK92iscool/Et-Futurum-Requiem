@@ -37,11 +37,6 @@ public class MixinBlockPistonBase extends Block {
 		return false;
 	}
 
-	@Shadow
-	private boolean tryExtend(World p_150072_1_, int p_150072_2_, int p_150072_3_, int p_150072_4_, int p_150072_5_) {
-		return false;
-	}
-
 	@Unique
 	private List<Pair<Block, Integer>> etfuturum$pushedBlockList = Lists.newArrayList();
 	@Unique
