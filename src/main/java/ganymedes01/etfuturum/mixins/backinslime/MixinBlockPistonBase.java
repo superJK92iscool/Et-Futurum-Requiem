@@ -123,7 +123,7 @@ public class MixinBlockPistonBase extends Block {
 			Block blockToPull = world.getBlock(x + xoffset2, y + yoffset2, z + zoffset2);
 			int metaToPull = world.getBlockMetadata(x + xoffset2, y + yoffset2, z + zoffset2);
 
-			if (this.isSticky && !PistonBehaviorRegistry.isNonStickyBlock(blockToPull, metaToPull)) {
+			if (this.isSticky && blockToPull.getMobilityFlag() != 1 && !PistonBehaviorRegistry.isNonStickyBlock(blockToPull, metaToPull)) {
 				if (etfuturum$getPushableBlocks(world, x + xoffset2, y + yoffset2, z + zoffset2, oppositeSide, oppositeSide, x + xoffset, y + yoffset, z + zoffset, pushedBlockList, pushedBlockPosList) == 0) {
 					world.setBlockToAir(x + xoffset, y + yoffset, z + zoffset);
 				} else {
