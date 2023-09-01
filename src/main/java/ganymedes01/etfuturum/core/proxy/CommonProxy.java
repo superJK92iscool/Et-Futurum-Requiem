@@ -176,7 +176,8 @@ public class CommonProxy implements IGuiHandler {
 		EntityRegistry.addSpawn(EntityMagmaCube.class, 2, 4, 4, EnumCreatureType.monster, BiomeGenBase.hell);
 	}
 	
-	public void registerRenderers() {};
+	public void registerRenderers() {
+	}
 
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
