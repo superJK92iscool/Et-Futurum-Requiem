@@ -239,6 +239,19 @@ public class ModRecipes {
 		for (String waxString : IDegradable.waxStrings) {
 			registerOre(waxString, ModItems.HONEYCOMB.get());
 		}
+
+		if (ConfigBlocksItems.enableColourfulBeacons && EtFuturum.hasTConstruct) { //TCon lacks proper tagging for their glass; let's add the right tags so beacons can see it
+			for (int i = 0; i < ore_dyes.length; i++) {
+				String capitalizedColor = ore_dyes[15 - i].substring(3);
+				ItemStack glassBlock = new ItemStack(GameRegistry.findBlock("TConstruct", "GlassBlock.StainedClear"), 1, i);
+				ItemStack glassPane = new ItemStack(GameRegistry.findBlock("TConstruct", "GlassPaneClearStained"), 1, i);
+
+				OreDictionary.registerOre("blockGlass" + capitalizedColor, glassBlock);
+				OreDictionary.registerOre("blockGlass", glassBlock);
+				OreDictionary.registerOre("paneGlass" + capitalizedColor, glassPane);
+				OreDictionary.registerOre("paneGlass", glassPane);
+			}
+		}
 	}
 
 	private static void registerRecipes() {

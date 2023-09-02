@@ -1,17 +1,19 @@
 package ganymedes01.etfuturum.tileentities;
 
-import java.util.Arrays;
-import java.util.List;
-
 import com.google.common.collect.Lists;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import ganymedes01.etfuturum.EtFuturum;
+import ganymedes01.etfuturum.recipes.ModRecipes;
 import net.minecraft.block.Block;
 import net.minecraft.entity.passive.EntitySheep;
-import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityBeacon;
 import net.minecraft.util.AxisAlignedBB;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class TileEntityNewBeacon extends TileEntityBeacon {
 
@@ -42,31 +44,44 @@ public class TileEntityNewBeacon extends TileEntityBeacon {
 
 		for (int i = y + 1; i < worldObj.getActualHeight(); i++) {
 			Block iblockstate = worldObj.getBlock(x, i, z);
-			float[] colours;
+			float[] colors = null;
 
-			if (iblockstate == Blocks.stained_glass)
-				colours = EntitySheep.fleeceColorTable[worldObj.getBlockMetadata(x, i, z)];
-			else {
-				if (iblockstate != Blocks.stained_glass_pane) {
-					if (iblockstate.getLightOpacity() >= 15) {
-						segments.clear();
-						break;
+			Item itemBlock = Item.getItemFromBlock(iblockstate);
+			if (itemBlock != null) {
+				for (String tag : EtFuturum.getOreStrings(new ItemStack(itemBlock, 1, worldObj.getBlockMetadata(x, i, z)))) {
+					if (colors != null) break;
+					String tagLower = tag.toLowerCase();
+					for (int j = 0; j < 16; j++) {
+						String oreDye = ModRecipes.ore_dyes[15 - j].substring(3).toLowerCase();
+						if (tagLower.contains("glass") && tagLower.contains(oreDye)) {
+							if (!oreDye.contains("light") && tagLower.contains("light")) {
+								//Prevents Light Gray glass from getting the regular Gray color
+								continue;
+							}
+							colors = EntitySheep.fleeceColorTable[j];
+							break;
+						}
 					}
+				}
+			}
 
-					beamsegment.func_177262_a();
-					continue;
+			if (colors == null) {
+				if (iblockstate.getLightOpacity() >= 15) {
+					segments.clear();
+					break;
 				}
 
-				colours = EntitySheep.fleeceColorTable[worldObj.getBlockMetadata(x, i, z)];
+				beamsegment.func_177262_a();
+				continue;
 			}
 
 			if (!flag)
-				colours = new float[] { (beamsegment.getColor()[0] + colours[0]) / 2.0F, (beamsegment.getColor()[1] + colours[1]) / 2.0F, (beamsegment.getColor()[2] + colours[2]) / 2.0F };
+				colors = new float[]{(beamsegment.getColor()[0] + colors[0]) / 2.0F, (beamsegment.getColor()[1] + colors[1]) / 2.0F, (beamsegment.getColor()[2] + colors[2]) / 2.0F};
 
-			if (Arrays.equals(colours, beamsegment.getColor()))
+			if (Arrays.equals(colors, beamsegment.getColor()))
 				beamsegment.func_177262_a();
 			else {
-				beamsegment = new TileEntityNewBeacon.BeamSegment(colours);
+				beamsegment = new TileEntityNewBeacon.BeamSegment(colors);
 				segments.add(beamsegment);
 			}
 
