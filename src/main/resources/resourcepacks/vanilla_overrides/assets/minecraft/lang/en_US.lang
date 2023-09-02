@@ -64,6 +64,7 @@ item.redstone.name=Redstone Dust
 item.melon.name=Melon Slice
 item.fish.cod.raw.name=Raw Cod
 item.fish.cod.cooked.name=Cooked Cod
+item.seeds.name=Wheat Seeds
 
 #These keys only enable if their respective item is enabled EG Red Bed only if colored beds are enabled, and Oak Boat only if new boats are enabled and replaceOldBoats is not true
 

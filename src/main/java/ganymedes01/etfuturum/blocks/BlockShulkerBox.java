@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.blocks;
 
+import com.google.common.collect.Maps;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
@@ -7,6 +8,7 @@ import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigModCompat;
 import ganymedes01.etfuturum.core.utils.Utils;
+import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import ganymedes01.etfuturum.items.BaseSubtypesItem;
 import ganymedes01.etfuturum.lib.GUIsID;
 import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox;
@@ -41,6 +43,7 @@ import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class BlockShulkerBox extends BlockContainer {
 	
@@ -258,12 +261,35 @@ public class BlockShulkerBox extends BlockContainer {
 
 	@Override
 	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
-		ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
-		TileEntityShulkerBox banner = Utils.getTileEntity(world, x, y, z, TileEntityShulkerBox.class);
-		if (banner != null) {
-			ret.add(banner.createItemStack(harvesters.get()));
+		ArrayList<ItemStack> ret = new ArrayList<>();
+		TileEntity te = world.getTileEntity(x, y, z);
+		if (te instanceof TileEntityShulkerBox) {
+			ret.add(((TileEntityShulkerBox) te).createItemStack(harvesters.get()));
+		} else if (lastTickBroken == world.getTotalWorldTime()) {
+			ItemStack drop = cachedDrops.remove(new BlockPos(x, y, z));
+			if (drop != null) {
+				ret.add(drop);
+			}
+		} else {
+			cachedDrops.clear();
 		}
 		return ret;
+	}
+
+	private Map<BlockPos, ItemStack> cachedDrops = Maps.newHashMap();
+	private long lastTickBroken;
+
+	/**
+	 * Some ways the block can be broken (pushed by pistons for example) stupidly call the drop functions AFTER it gets broken!!
+	 * We need to do this or else pushing Shulkers with pistons, and possibly other scenarios will destroy the box.
+	 */
+	public void breakBlock(World world, int x, int y, int z, Block p_149749_5_, int p_149749_6_) {
+		TileEntity te = world.getTileEntity(x, y, z);
+		if (te instanceof TileEntityShulkerBox) {
+			cachedDrops.put(new BlockPos(x, y, z), ((TileEntityShulkerBox) te).createItemStack(null));
+			lastTickBroken = world.getTotalWorldTime();
+		}
+		super.breakBlock(world, x, y, z, p_149749_5_, p_149749_6_);
 	}
 
 	@Override
