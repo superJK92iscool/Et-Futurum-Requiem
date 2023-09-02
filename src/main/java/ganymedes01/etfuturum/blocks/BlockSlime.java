@@ -36,6 +36,7 @@ public class BlockSlime extends BaseBlock {
 			entity.fallDistance = 0;
 			if (entity.motionY < 0.1) {
 				SLIME_BOUNCE_CACHE.put(entity, -entity.motionY);
+				lastBounceTick = world.getTotalWorldTime();
 			}
 		}
 		super.onFallenUpon(world, x, y, z, entity, fallDistance);
