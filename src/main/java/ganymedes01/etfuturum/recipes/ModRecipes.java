@@ -241,15 +241,14 @@ public class ModRecipes {
 		}
 
 		if (ConfigBlocksItems.enableColourfulBeacons && EtFuturum.hasTConstruct) { //TCon lacks proper tagging for their glass; let's add the right tags so beacons can see it
+			Block glassBlock = GameRegistry.findBlock("TConstruct", "GlassBlock.StainedClear");
+			Block glassPane = GameRegistry.findBlock("TConstruct", "GlassPaneClearStained");
+			OreDictionary.registerOre("blockGlass", new ItemStack(glassBlock, 1, OreDictionary.WILDCARD_VALUE));
+			OreDictionary.registerOre("paneGlass", new ItemStack(glassPane, 1, OreDictionary.WILDCARD_VALUE));
 			for (int i = 0; i < ore_dyes.length; i++) {
 				String capitalizedColor = ore_dyes[15 - i].substring(3);
-				ItemStack glassBlock = new ItemStack(GameRegistry.findBlock("TConstruct", "GlassBlock.StainedClear"), 1, i);
-				ItemStack glassPane = new ItemStack(GameRegistry.findBlock("TConstruct", "GlassPaneClearStained"), 1, i);
-
-				OreDictionary.registerOre("blockGlass" + capitalizedColor, glassBlock);
-				OreDictionary.registerOre("blockGlass", glassBlock);
-				OreDictionary.registerOre("paneGlass" + capitalizedColor, glassPane);
-				OreDictionary.registerOre("paneGlass", glassPane);
+				OreDictionary.registerOre("blockGlass" + capitalizedColor, new ItemStack(glassBlock, 1, i));
+				OreDictionary.registerOre("paneGlass" + capitalizedColor, new ItemStack(glassPane, 1, i));
 			}
 		}
 	}
