@@ -36,9 +36,13 @@ public class Item3DBedRenderer implements IItemRenderer {
 
 	@Override
 	public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
-		GL11.glEnable(GL11.GL_ALPHA_TEST);
+		if (type == ItemRenderType.INVENTORY) {
+			GL11.glEnable(GL11.GL_ALPHA_TEST);
+		}
 		renderBed(type);
-		GL11.glDisable(GL11.GL_ALPHA_TEST);
+		if (type == ItemRenderType.INVENTORY) {
+			GL11.glDisable(GL11.GL_ALPHA_TEST);
+		}
 	}
 
 	private void renderBed(ItemRenderType type) {
