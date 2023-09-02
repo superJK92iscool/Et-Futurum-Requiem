@@ -8,14 +8,14 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
-import org.apache.commons.lang3.tuple.ImmutablePair;
 
 import java.util.Map;
 import java.util.WeakHashMap;
 
 public class BlockSlime extends BaseBlock {
 
-	private static final Map<Entity, ImmutablePair<Double, Integer>> SLIME_BOUNCE_CACHE = new WeakHashMap<>();
+	private static final Map<Entity, Double> SLIME_BOUNCE_CACHE = new WeakHashMap<>();
+	private long lastBounceTick;
 
 	public BlockSlime() {
 		super(Material.clay);
@@ -35,21 +35,26 @@ public class BlockSlime extends BaseBlock {
 		if (!entity.isSneaking()) {
 			entity.fallDistance = 0;
 			if (entity.motionY < 0.1) {
-				SLIME_BOUNCE_CACHE.put(entity, new ImmutablePair<>(-entity.motionY, entity.ticksExisted));
+				SLIME_BOUNCE_CACHE.put(entity, -entity.motionY);
 			}
 		}
+		super.onFallenUpon(world, x, y, z, entity, fallDistance);
 	}
 
 	@Override
 	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
-		ImmutablePair<Double, Integer> pair = SLIME_BOUNCE_CACHE.get(entity);
-		if (pair != null && SLIME_BOUNCE_CACHE.get(entity).getRight() == entity.ticksExisted) {
-			entity.motionY = pair.getLeft();
+		if (lastBounceTick == world.getTotalWorldTime()) {
+			Double bounce = SLIME_BOUNCE_CACHE.remove(entity);
+			if (bounce != null) {
+				entity.motionY = bounce;
+			}
+		} else {
+			SLIME_BOUNCE_CACHE.clear();
 		}
-		SLIME_BOUNCE_CACHE.remove(entity);
 		double d = 0.4 + Math.abs(entity.motionY) * 0.2;
 		entity.motionX *= d;
 		entity.motionZ *= d;
+		super.onEntityCollidedWithBlock(world, x, y, z, entity);
 	}
 
 	@Override

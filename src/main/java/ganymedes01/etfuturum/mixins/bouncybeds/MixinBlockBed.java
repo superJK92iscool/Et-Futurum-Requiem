@@ -1,12 +1,10 @@
 package ganymedes01.etfuturum.mixins.bouncybeds;
 
-import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBed;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.world.World;
-import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 
@@ -17,7 +15,8 @@ import java.util.WeakHashMap;
 public class MixinBlockBed extends Block {
 
 	@Unique
-	private static final Map<Entity, ImmutablePair<Double, Integer>> BED_BOUNCE_CACHE = new WeakHashMap<>();
+	private static final Map<Entity, Double> BED_BOUNCE_CACHE = new WeakHashMap<>();
+	private long lastBounceTick;
 
 	protected MixinBlockBed(Material p_i45394_1_) {
 		super(p_i45394_1_);
@@ -25,20 +24,26 @@ public class MixinBlockBed extends Block {
 
 	@Override
 	public void onFallenUpon(World world, int x, int y, int z, Entity entity, float fallDistance) {
-		if (!entity.isSneaking() && ConfigMixins.bouncyBeds) {
+		if (!entity.isSneaking()) {
 			entity.fallDistance /= 2;
 			if (entity.motionY < 0) {
-				BED_BOUNCE_CACHE.put(entity, new ImmutablePair<>(-entity.motionY * 0.66, entity.ticksExisted));
+				BED_BOUNCE_CACHE.put(entity, entity.motionY * -0.66);
+				lastBounceTick = world.getTotalWorldTime();
 			}
 		}
+		super.onFallenUpon(world, x, y, z, entity, fallDistance);
 	}
 
 	@Override
 	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
-		ImmutablePair<Double, Integer> pair = BED_BOUNCE_CACHE.get(entity);
-		if (ConfigMixins.bouncyBeds && pair != null && BED_BOUNCE_CACHE.get(entity).getRight() == entity.ticksExisted) {
-			entity.motionY = pair.getLeft();
+		if (lastBounceTick == world.getTotalWorldTime()) {
+			Double bounce = BED_BOUNCE_CACHE.remove(entity);
+			if (bounce != null) {
+				entity.motionY = bounce;
+			}
+		} else {
+			BED_BOUNCE_CACHE.clear();
 		}
-		BED_BOUNCE_CACHE.remove(entity);
+		super.onEntityCollidedWithBlock(world, x, y, z, entity);
 	}
 }
