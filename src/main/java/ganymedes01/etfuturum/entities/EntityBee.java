@@ -390,7 +390,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
-		if (this.hasNectar() && this.getCropsGrownSincePollination() < 10 && this.rand.nextFloat() < 0.05F) {
+		if (worldObj.isRemote && this.hasNectar() && this.getCropsGrownSincePollination() < 10 && this.rand.nextFloat() < 0.05F) {
 			for (int i = 0; i < this.rand.nextInt(2) + 1; ++i) {
 				addParticle(this.worldObj, this.posX - (double) 0.3F, this.posX + (double) 0.3F, this.posZ - (double) 0.3F, posZ + (double) 0.3F, posY + this.height * 0.5F);
 			}
