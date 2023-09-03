@@ -117,7 +117,7 @@ public class MixinBlockPistonBase extends Block {
 			if (tileentity instanceof TileEntityPiston) {
 				((TileEntityPiston) tileentity).clearPistonTileEntity();
 			}
-			world.setBlock(x, y, z, Blocks.piston_extension, side, 4);
+			world.setBlock(x, y, z, Blocks.piston_extension, side, 3);
 			world.setTileEntity(x, y, z, BlockPistonMoving.getTileEntity(this, side, side, false, true));
 
 			Block blockToPull = world.getBlock(x + xoffset2, y + yoffset2, z + zoffset2);
