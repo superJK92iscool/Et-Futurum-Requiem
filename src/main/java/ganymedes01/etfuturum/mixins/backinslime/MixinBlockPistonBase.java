@@ -117,7 +117,7 @@ public class MixinBlockPistonBase extends Block {
 			if (tileentity instanceof TileEntityPiston) {
 				((TileEntityPiston) tileentity).clearPistonTileEntity();
 			}
-			world.setBlock(x, y, z, Blocks.piston_extension, side, 3);
+			world.setBlock(x, y, z, Blocks.piston_extension, side, 4);
 			world.setTileEntity(x, y, z, BlockPistonMoving.getTileEntity(this, side, side, false, true));
 
 			Block blockToPull = world.getBlock(x + xoffset2, y + yoffset2, z + zoffset2);
@@ -137,7 +137,7 @@ public class MixinBlockPistonBase extends Block {
 			boolean flag1 = world.setBlock(x + xoffset, y + yoffset, z + zoffset, Blocks.piston_extension, side | (this.isSticky ? 8 : 0), 4);
 			world.setTileEntity(x + xoffset, y + yoffset, z + zoffset, BlockPistonMoving.getTileEntity(Blocks.piston_head, side | (this.isSticky ? 8 : 0), side, true, false));
 			//world.notifyBlocksOfNeighborChange(x + xoffset, y + yoffset, z + zoffset, BIS.slimePistonHead);
-			boolean flag2 = world.setBlockMetadataWithNotify(x, y, z, side | 8, 2);
+			boolean flag2 = world.setBlockMetadataWithNotify(x, y, z, side | 8, 3);
 			if (flag1 || flag2) {
 				world.playSoundEffect((double) x + 0.5D, (double) y + 0.5D, (double) z + 0.5D, "tile.piston.out", 0.5F, world.rand.nextFloat() * 0.25F + 0.6F);
 			}
