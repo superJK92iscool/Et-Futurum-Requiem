@@ -700,10 +700,8 @@ public class ModRecipes {
 		addShapedRecipe(ModBlocks.OBSERVER.newItemStack(), "CCC", "RRQ", "CCC", 'R', "dustRedstone", 'C', "cobblestone", 'Q', "gemQuartz");
 
 		addShapedRecipe(ModBlocks.HONEY_BLOCK.newItemStack(), "HH", "HH", 'H', ModItems.HONEY_BOTTLE.get());
-		for (String waxString : IDegradable.waxStrings) {
-			addShapedRecipe(ModBlocks.HONEYCOMB_BLOCK.newItemStack(), "HH", "HH", 'H', waxString);
-			addShapedRecipe(ModBlocks.BEEHIVE.newItemStack(), "WWW", "HHH", "WWW", 'W', "plankWood", 'H', waxString);
-		}
+		addShapedRecipe(ModBlocks.HONEYCOMB_BLOCK.newItemStack(), "HH", "HH", 'H', "materialHoneycomb");
+		addShapedRecipe(ModBlocks.BEEHIVE.newItemStack(), "WWW", "HHH", "WWW", 'W', "plankWood", 'H', "materialHoneycomb");
 	}
 
 	private static List<ItemStack> getStewFlowers() {
