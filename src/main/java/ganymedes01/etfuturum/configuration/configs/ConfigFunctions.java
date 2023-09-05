@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.configuration.configs;
 
+import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.EtFuturumMixinPlugin;
@@ -224,7 +225,7 @@ public class ConfigFunctions extends ConfigBase {
 		enableTransparentAmour = getBoolean("enableTransparentAmour", catClient, true, "Allow non-opaque armour");
 		enableBowRendering = getBoolean("enableBowRendering", catClient, true, "Bows render pulling animation in inventory");
 		enableFancySkulls = getBoolean("enableFancySkulls", catClient, true, "Skulls render 3D in inventory");
-		enablePlayerSkinOverlay = getBoolean("enablePlayerSkinOverlay", catClient, true, "Allows use of 1.8 skin format, and Alex skins. Also includes some fixes from SkinPort. (Per SkinPort author's permission) Disable if skin is displaying oddly. Not compatible with OptiFine, use FastCraft instead.");
+		enablePlayerSkinOverlay = getBoolean("enablePlayerSkinOverlay", catClient, false, "Allows use of 1.8 skin format, and Alex skins. Also includes some fixes from SkinPort. (Per SkinPort author's permission) Disable if skin is displaying oddly. Not compatible with OptiFine, use FastCraft instead.");
 		enableExtraF3HTooltips = getBoolean("enableExtraF3HTooltips", catClient, true, "Enables NBT tag count and item namespace label on F3 + H debug item labels");
 		shulkerBoxTooltipLines = getInt("shulkerBoxTooltipLines", catClient, 5, 0, Byte.MAX_VALUE, "The maximum amount of items a Shulker box can display on its tooltip. When the box has more stacks inside than this number, the rest of the stacks are displayed as \"And x more...\". Set to 0 to disable Shulker Box tooltips.");
 		enableGamemodeSwitcher = getBoolean("enableGamemodeSwitcher", catClient, true, "Enable the new F3+F4 gamemode switcher from 1.16+");
@@ -247,7 +248,7 @@ public class ConfigFunctions extends ConfigBase {
 			if(itemName.contains(":") && (nameAndID = itemName.split(":")).length == 2) {
 				Item item = GameRegistry.findItem(nameAndID[0], nameAndID[1]);
 				if(item != null) {
-					if(!ConfigFunctions.shulkerBans.contains(item)) {
+					if (!ConfigFunctions.shulkerBans.contains(item)) {
 						ConfigFunctions.shulkerBans.add(item);
 					} else {
 						System.err.println("Shulker ban list entry \"" + itemName + "\" is already added!");
@@ -257,10 +258,13 @@ public class ConfigFunctions extends ConfigBase {
 				System.err.println("Shulker ban list entry \"" + itemName + "\" is formatted incorrectly!");
 			}
 		}
-		if(EtFuturum.hasEars || EtFuturum.hasSkinPort) {
-			ConfigFunctions.enablePlayerSkinOverlay = false;
-			Logger.warn("WARNING: Ears, SkinPort are in use, which introduce changes to player skins.");
-			Logger.warn("Et Futurum Requiem's skin backport has been disabled to prevent conflicts.");
+		if (ConfigFunctions.enablePlayerSkinOverlay) {
+			if (EtFuturum.hasEars || EtFuturum.hasFoamFix || EtFuturum.hasSkinPort || EtFuturum.hasMorePlayerModels || EtFuturum.hasDragonBlockC || FMLClientHandler.instance().hasOptifine()) {
+				ConfigFunctions.enablePlayerSkinOverlay = false;
+				Logger.warn("Another skin backporting mod is in use, which introduce changes to player skins.");
+				Logger.warn("Either Ears, FoamFix, MorePlayerModels, SkinPort, Dragon Block C or OptiFine is installed.");
+				Logger.warn("Et Futurum Requiem's skin backport has been disabled to prevent conflicts.");
+			}
 		}
 	}
 }

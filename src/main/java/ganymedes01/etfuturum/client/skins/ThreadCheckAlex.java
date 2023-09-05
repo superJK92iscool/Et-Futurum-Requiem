@@ -1,15 +1,15 @@
 package ganymedes01.etfuturum.client.skins;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
 import java.io.BufferedInputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.UUID;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 
 public class ThreadCheckAlex extends Thread {
 	
@@ -23,7 +23,7 @@ public class ThreadCheckAlex extends Thread {
 	
 	@Override
 	public void run() {
-		boolean isAlex = false;
+		boolean isAlex;
 		try {
 			System.setProperty("https.protocols", "TLSv1,TLSv1.1,TLSv1.2");
 			JsonObject json = new Gson().fromJson(new InputStreamReader(new BufferedInputStream(new URL("https://sessionserver.mojang.com/session/minecraft/profile/" + uuid.toString().replaceAll("-", "")).openStream())), 

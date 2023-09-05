@@ -160,6 +160,9 @@ public class EtFuturum {
 	public static final boolean hasCampfireBackport = Loader.isModLoaded("campfirebackport");
 	public static final boolean hasBackInSlime = Loader.isModLoaded("bis");
 	public static final boolean hasMineFactory = Loader.isModLoaded("MineFactoryReloaded");
+	public static final boolean hasFoamFix = Loader.isModLoaded("foamfix");
+	public static final boolean hasMorePlayerModels = Loader.isModLoaded("moreplayermodels");
+	public static final boolean hasDragonBlockC = Loader.isModLoaded("jinryuudragonblockc");
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
