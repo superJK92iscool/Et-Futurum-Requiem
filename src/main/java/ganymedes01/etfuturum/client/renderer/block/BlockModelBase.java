@@ -6,6 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import org.lwjgl.opengl.GL11;
@@ -81,6 +82,23 @@ public abstract class BlockModelBase implements ISimpleBlockRenderingHandler {
 		return this;
 	}
 
+	public void renderRawFace(double x, double y, double z, double startX, double endX, double startY, double endY, double startZ, double endZ, double startU, double startV, double endU, double endV, IIcon iicon) {
+		double startUInterpolated = iicon.getInterpolatedU(startU);
+		double startVInterpolated = iicon.getInterpolatedV(startV);
+		double endUInterpolated = iicon.getInterpolatedU(endU);
+		double endVInterpolated = iicon.getInterpolatedV(endV);
+
+		tessellator.addVertexWithUV(x + startX, y + startY, z + startZ, startUInterpolated, endVInterpolated);
+		tessellator.addVertexWithUV(x + startX, y + endY, z + startZ, startUInterpolated, startVInterpolated);
+		tessellator.addVertexWithUV(x + endX, y + endY, z + endZ, endUInterpolated, startVInterpolated);
+		tessellator.addVertexWithUV(x + endX, y + startY, z + endZ, endUInterpolated, endVInterpolated);
+	}
+
+	public void renderRawDoubleSidedFace(double x, double y, double z, double startX, double endX, double startY, double endY, double startZ, double endZ, double startU, double startV, double endU, double endV, IIcon iicon) {
+		renderRawFace(x, y, z, startX, endX, startY, endY, startZ, endZ, startU, startV, endU, endV, iicon);
+		renderRawFace(x, y, z, endX, startX, startY, endY, endZ, startZ, startU, startV, endU, endV, iicon);
+	}
+
 	/**
 	 * Renders the YNeg face with proper shading like renderStandardBlock.
 	 */
@@ -110,20 +128,13 @@ public abstract class BlockModelBase implements ISimpleBlockRenderingHandler {
 			float f3 = (f * 30.0F + f1 * 59.0F + f2 * 11.0F) / 100.0F;
 			float f4 = (f * 30.0F + f1 * 70.0F) / 100.0F;
 			float f5 = (f * 30.0F + f2 * 70.0F) / 100.0F;
-			f = f3;
-			f1 = f4;
-			f2 = f5;
 		}
 
 		float f3 = 0.5F;
-		float f10 = f3;
-		float f13 = f3;
-		float f16 = f3;
 		int l = block.getMixedBrightnessForBlock(renderer.blockAccess, x, y, z);
 		if (renderer.renderAllFaces || block.shouldSideBeRendered(renderer.blockAccess, x, y - 1, z, 0)) {
-			tessellator.setBrightness(renderer.renderMinY + Math.abs(offy) > 0.0D ? l :
-					block.getMixedBrightnessForBlock(renderer.blockAccess, x, MathHelper.floor_double(y - 1), z));
-			tessellator.setColorOpaque_F(f10, f13, f16);
+			tessellator.setBrightness(renderer.renderMinY + Math.abs(offy) > 0.0D ? l : block.getMixedBrightnessForBlock(renderer.blockAccess, x, MathHelper.floor_double(y - 1), z));
+			tessellator.setColorOpaque_F(f3, f3, f3);
 			renderer.renderFaceYNeg(block, dx + offx, dy + offy, dz + offz, renderer.getBlockIcon(block, renderer.blockAccess, x, y, z, 0));
 		}
 	}
@@ -207,21 +218,14 @@ public abstract class BlockModelBase implements ISimpleBlockRenderingHandler {
 			float f3 = (f * 30.0F + f1 * 59.0F + f2 * 11.0F) / 100.0F;
 			float f4 = (f * 30.0F + f1 * 70.0F) / 100.0F;
 			float f5 = (f * 30.0F + f2 * 70.0F) / 100.0F;
-			f = f3;
-			f1 = f4;
-			f2 = f5;
 		}
 
 		float f5 = 0.8F;
-		float f11 = f5;
-		float f14 = f5;
-		float f17 = f5;
 		int l = block.getMixedBrightnessForBlock(renderer.blockAccess, x, y, z);
 
-		if (renderer.renderAllFaces || block.shouldSideBeRendered(renderer.blockAccess, x, y, z - 1, 2))
-		{
+		if (renderer.renderAllFaces || block.shouldSideBeRendered(renderer.blockAccess, x, y, z - 1, 2)) {
 			tessellator.setBrightness(renderer.renderMinZ + Math.abs(offz) > 0.0D ? l : block.getMixedBrightnessForBlock(renderer.blockAccess, x, y, z - 1));
-			tessellator.setColorOpaque_F(f11, f14, f17);
+			tessellator.setColorOpaque_F(f5, f5, f5);
 			renderer.renderFaceZNeg(block, dx + offx, dy + offy, dz + offz, renderer.getBlockIcon(block, renderer.blockAccess, x, y, z, 2));
 		}
 	}
@@ -256,21 +260,14 @@ public abstract class BlockModelBase implements ISimpleBlockRenderingHandler {
 			float f3 = (f * 30.0F + f1 * 59.0F + f2 * 11.0F) / 100.0F;
 			float f4 = (f * 30.0F + f1 * 70.0F) / 100.0F;
 			float f5 = (f * 30.0F + f2 * 70.0F) / 100.0F;
-			f = f3;
-			f1 = f4;
-			f2 = f5;
 		}
 
 		float f5 = 0.8F;
-		float f11 = f5;
-		float f14 = f5;
-		float f17 = f5;
 		int l = block.getMixedBrightnessForBlock(renderer.blockAccess, x, y, z);
 
-		if (renderer.renderAllFaces || block.shouldSideBeRendered(renderer.blockAccess, x, y, z + 1, 3))
-		{
+		if (renderer.renderAllFaces || block.shouldSideBeRendered(renderer.blockAccess, x, y, z + 1, 3)) {
 			tessellator.setBrightness(renderer.renderMaxZ - Math.abs(offz) < 1.0D ? l : block.getMixedBrightnessForBlock(renderer.blockAccess, x, y, z + 1));
-			tessellator.setColorOpaque_F(f11, f14, f17);
+			tessellator.setColorOpaque_F(f5, f5, f5);
 			renderer.renderFaceZPos(block, dx + offx, dy + offy, dz + offz, renderer.getBlockIcon(block, renderer.blockAccess, x, y, z, 3));
 		}
 	}
@@ -305,22 +302,15 @@ public abstract class BlockModelBase implements ISimpleBlockRenderingHandler {
 			float f3 = (f * 30.0F + f1 * 59.0F + f2 * 11.0F) / 100.0F;
 			float f4 = (f * 30.0F + f1 * 70.0F) / 100.0F;
 			float f5 = (f * 30.0F + f2 * 70.0F) / 100.0F;
-			f = f3;
-			f1 = f4;
-			f2 = f5;
 		}
 
 		float f6 = 0.6F;
-		float f12 = f6;
-		float f15 = f6;
-		float f18 = f6;
 
 		int l = block.getMixedBrightnessForBlock(renderer.blockAccess, x, y, z);
 
-		if (renderer.renderAllFaces || block.shouldSideBeRendered(renderer.blockAccess, x - 1, y, z, 4))
-		{
+		if (renderer.renderAllFaces || block.shouldSideBeRendered(renderer.blockAccess, x - 1, y, z, 4)) {
 			tessellator.setBrightness(renderer.renderMinX + Math.abs(offx) > 0.0D ? l : block.getMixedBrightnessForBlock(renderer.blockAccess, x - 1, y, z));
-			tessellator.setColorOpaque_F(f12, f15, f18);
+			tessellator.setColorOpaque_F(f6, f6, f6);
 			renderer.renderFaceXNeg(block, dx + offx, dy + offy, dz + offz, renderer.getBlockIcon(block, renderer.blockAccess, x, y, z, 4));
 		}
 	}
@@ -355,22 +345,15 @@ public abstract class BlockModelBase implements ISimpleBlockRenderingHandler {
 			float f3 = (f * 30.0F + f1 * 59.0F + f2 * 11.0F) / 100.0F;
 			float f4 = (f * 30.0F + f1 * 70.0F) / 100.0F;
 			float f5 = (f * 30.0F + f2 * 70.0F) / 100.0F;
-			f = f3;
-			f1 = f4;
-			f2 = f5;
 		}
 
 		float f6 = 0.6F;
-		float f12 = f6;
-		float f15 = f6;
-		float f18 = f6;
 
 		int l = block.getMixedBrightnessForBlock(renderer.blockAccess, x, y, z);
 
-		if (renderer.renderAllFaces || block.shouldSideBeRendered(renderer.blockAccess, x + 1, y, z, 5))
-		{
+		if (renderer.renderAllFaces || block.shouldSideBeRendered(renderer.blockAccess, x + 1, y, z, 5)) {
 			tessellator.setBrightness(renderer.renderMaxX - Math.abs(offx) < 1.0D ? l : block.getMixedBrightnessForBlock(renderer.blockAccess, x + 1, y, z));
-			tessellator.setColorOpaque_F(f12, f15, f18);
+			tessellator.setColorOpaque_F(f6, f6, f6);
 			renderer.renderFaceXPos(block, dx + offx, dy + offy, dz + offz, renderer.getBlockIcon(block, renderer.blockAccess, x, y, z, 5));
 		}
 	}

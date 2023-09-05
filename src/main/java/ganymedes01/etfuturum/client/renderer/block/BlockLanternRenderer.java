@@ -49,59 +49,17 @@ public class BlockLanternRenderer extends BlockModelBase {
 		double iIntU9 = iicon.getInterpolatedU(14);
 		double iIntV9 = iicon.getInterpolatedV(12);
 
-		tessellator.addVertexWithUV(x + (r * 7D), y + (r * (9D + i)), z + (r * 7D), iIntU8, iIntV9);
-		tessellator.addVertexWithUV(x + (r * 7D), y + (r * (11D + i)), z + (r * 7D), iIntU8, iIntV8);
-		tessellator.addVertexWithUV(x + (r * 9D), y + (r * (11D + i)), z + (r * 9D), iIntU9, iIntV8);
-		tessellator.addVertexWithUV(x + (r * 9D), y + (r * (9D + i)), z + (r * 9D), iIntU9, iIntV9);
-
-		tessellator.addVertexWithUV(x + (r * 9D), y + (r * (9D + i)), z + (r * 9D), iIntU8, iIntV9);
-		tessellator.addVertexWithUV(x + (r * 9D), y + (r * (11D + i)), z + (r * 9D), iIntU8, iIntV8);
-		tessellator.addVertexWithUV(x + (r * 7D), y + (r * (11D + i)), z + (r * 7D), iIntU9, iIntV8);
-		tessellator.addVertexWithUV(x + (r * 7D), y + (r * (9D + i)), z + (r * 7D), iIntU9, iIntV9);
-
-		//If meta is not 0, the other parts of the chain will appear
 		if (world.getBlockMetadata(x, y, z) == 0) {
-			tessellator.addVertexWithUV(x + (r * 7D), y + (r * 9D), z + (r * 9D), iIntU8, iIntV9);
-			tessellator.addVertexWithUV(x + (r * 7D), y + (r * 11D), z + (r * 9D), iIntU8, iIntV8);
-			tessellator.addVertexWithUV(x + (r * 9D), y + (r * 11D), z + (r * 7D), iIntU9, iIntV8);
-			tessellator.addVertexWithUV(x + (r * 9D), y + (r * 9D), z + (r * 7D), iIntU9, iIntV9);
-
-			tessellator.addVertexWithUV(x + (r * 9D), y + (r * 9D), z + (r * 7D), iIntU8, iIntV9);
-			tessellator.addVertexWithUV(x + (r * 9D), y + (r * 11D), z + (r * 7D), iIntU8, iIntV8);
-			tessellator.addVertexWithUV(x + (r * 7D), y + (r * 11D), z + (r * 9D), iIntU9, iIntV8);
-			tessellator.addVertexWithUV(x + (r * 7D), y + (r * 9D), z + (r * 9D), iIntU9, iIntV9);
+			//If meta is 0, there are two crossed chain links on the top of the lantern
+			renderRawDoubleSidedFace(x, y, z, 0.4375D, 0.5625, 0.5625D, 0.6875D, 0.4375D, 0.5625D, 11, 10, 14, 12, iicon);
+			renderRawDoubleSidedFace(x, y, z, 0.4375D, 0.5625D, 0.5625D, 0.6875D, 0.5625D, 0.4375D, 11, 10, 14, 12, iicon);
 		} else {
-			double iIntU10 = iicon.getInterpolatedU(11);
-			double iIntV10 = iicon.getInterpolatedV(1);
+			//If meta is not 0, there's only one chain link on the lantern itself, followed by two links attached above
+			renderRawDoubleSidedFace(x, y, z, 0.4375D, 0.5625D, 0.625D, 0.75D, 0.4375D, 0.5625D, 11, 10, 14, 12, iicon);
 
-			double iIntU11 = iicon.getInterpolatedU(14);
-			double iIntV11 = iicon.getInterpolatedV(5);
+			renderRawDoubleSidedFace(x, y, z, 0.5625D, 0.4375D, 0.6875D, 0.9375D, 0.4375D, 0.5625D, 11, 1, 14, 5, iicon);
 
-			tessellator.addVertexWithUV(x + (r * 9D), y + (r * 11D), z + (r * 7D), iIntU10, iIntV11);
-			tessellator.addVertexWithUV(x + (r * 9D), y + (r * 15D), z + (r * 7D), iIntU10, iIntV10);
-			tessellator.addVertexWithUV(x + (r * 7D), y + (r * 15D), z + (r * 9D), iIntU11, iIntV10);
-			tessellator.addVertexWithUV(x + (r * 7D), y + (r * 11D), z + (r * 9D), iIntU11, iIntV11);
-
-			tessellator.addVertexWithUV(x + (r * 7D), y + (r * 11D), z + (r * 9D), iIntU10, iIntV11);
-			tessellator.addVertexWithUV(x + (r * 7D), y + (r * 15D), z + (r * 9D), iIntU10, iIntV10);
-			tessellator.addVertexWithUV(x + (r * 9D), y + (r * 15D), z + (r * 7D), iIntU11, iIntV10);
-			tessellator.addVertexWithUV(x + (r * 9D), y + (r * 11D), z + (r * 7D), iIntU11, iIntV11);
-
-			double iIntU12 = iicon.getInterpolatedU(11);
-			double iIntV12 = iicon.getInterpolatedV(6);
-
-			double iIntU13 = iicon.getInterpolatedU(14);
-			double iIntV13 = iicon.getInterpolatedV(8);
-
-			tessellator.addVertexWithUV(x + (r * 7D), y + (r * 14D), z + (r * 7D), iIntU12, iIntV13);
-			tessellator.addVertexWithUV(x + (r * 7D), y + (r * 16D), z + (r * 7D), iIntU12, iIntV12);
-			tessellator.addVertexWithUV(x + (r * 9D), y + (r * 16D), z + (r * 9D), iIntU13, iIntV12);
-			tessellator.addVertexWithUV(x + (r * 9D), y + (r * 14D), z + (r * 9D), iIntU13, iIntV13);
-
-			tessellator.addVertexWithUV(x + (r * 9D), y + (r * 14D), z + (r * 9D), iIntU12, iIntV13);
-			tessellator.addVertexWithUV(x + (r * 9D), y + (r * 16D), z + (r * 9D), iIntU12, iIntV12);
-			tessellator.addVertexWithUV(x + (r * 7D), y + (r * 16D), z + (r * 7D), iIntU13, iIntV12);
-			tessellator.addVertexWithUV(x + (r * 7D), y + (r * 14D), z + (r * 7D), iIntU13, iIntV13);
+			renderRawDoubleSidedFace(x, y, z, 0.4375D, 0.5625D, 0.875D, 1D, 0.4375D, 0.5625D, 11, 6, 14, 8, iicon);
 		}
 
 		return true;
