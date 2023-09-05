@@ -3,7 +3,6 @@ package ganymedes01.etfuturum.client.renderer.block;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.client.OpenGLHelper;
-import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
@@ -254,15 +253,5 @@ public class BlockEndRodRenderer extends BlockModelBase {
 		renderer.uvRotateSouth = 0;
 		
 		return true;
-	}
-
-	@Override
-	public boolean shouldRender3DInInventory(int modelId) {
-		return true;
-	}
-
-	@Override
-	public int getRenderId() {
-		return RenderIDs.END_ROD;
 	}
 }

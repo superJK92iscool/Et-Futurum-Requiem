@@ -82,21 +82,86 @@ public abstract class BlockModelBase implements ISimpleBlockRenderingHandler {
 		return this;
 	}
 
-	public void renderRawFace(double x, double y, double z, double startX, double endX, double startY, double endY, double startZ, double endZ, double startU, double startV, double endU, double endV, IIcon iicon) {
-		double startUInterpolated = iicon.getInterpolatedU(startU);
-		double startVInterpolated = iicon.getInterpolatedV(startV);
-		double endUInterpolated = iicon.getInterpolatedU(endU);
-		double endVInterpolated = iicon.getInterpolatedV(endV);
+	public void renderRawFace(RenderBlocks renderer, Block block, double x, double y, double z, double startX, double endX, double startY, double endY, double startZ, double endZ, double startU, double startV, double endU, double endV, IIcon iicon) {
+		this.renderRawFace(renderer, block, x, y, z, startX, endX, startY, endY, startZ, endZ, startU, startV, endU, endV, iicon);
 
-		tessellator.addVertexWithUV(x + startX, y + startY, z + startZ, startUInterpolated, endVInterpolated);
-		tessellator.addVertexWithUV(x + startX, y + endY, z + startZ, startUInterpolated, startVInterpolated);
-		tessellator.addVertexWithUV(x + endX, y + endY, z + endZ, endUInterpolated, startVInterpolated);
-		tessellator.addVertexWithUV(x + endX, y + startY, z + endZ, endUInterpolated, endVInterpolated);
 	}
 
-	public void renderRawDoubleSidedFace(double x, double y, double z, double startX, double endX, double startY, double endY, double startZ, double endZ, double startU, double startV, double endU, double endV, IIcon iicon) {
-		renderRawFace(x, y, z, startX, endX, startY, endY, startZ, endZ, startU, startV, endU, endV, iicon);
-		renderRawFace(x, y, z, endX, startX, startY, endY, endZ, startZ, startU, startV, endU, endV, iicon);
+	public void renderRawFace(RenderBlocks renderer, Block block, double x, double y, double z, double startX, double endX, double startY, double endY, double startZ, double endZ, double startU, double startV, double endU, double endV, IIcon iicon, int rotate) {
+		double startUInterpolated;
+		double startVInterpolated;
+		double endUInterpolated;
+		double endVInterpolated;
+		double startUInterpolated2;
+		double startVInterpolated2;
+		double endUInterpolated2;
+		double endVInterpolated2;
+
+		double endX1 = endX;
+		double startX2 = startX;
+		double endX2 = endX;
+		double endZ1 = endZ;
+		double startZ2 = startZ;
+		double endZ2 = endZ;
+
+		switch (rotate) {
+			case 1:
+				endUInterpolated2 = startUInterpolated = iicon.getInterpolatedU(startU);
+				startVInterpolated2 = startVInterpolated = iicon.getInterpolatedV(startV);
+				startUInterpolated2 = endUInterpolated = iicon.getInterpolatedU(endU);
+				endVInterpolated2 = endVInterpolated = iicon.getInterpolatedV(endV);
+				endZ2 = startZ;
+				endZ1 = endZ;
+				startZ2 = endZ;
+				break;
+			case 2:
+				startUInterpolated2 = endUInterpolated = iicon.getInterpolatedU(startU);
+				endVInterpolated2 = endVInterpolated = iicon.getInterpolatedV(startV);
+				endUInterpolated2 = startUInterpolated = iicon.getInterpolatedU(endU);
+				startVInterpolated2 = startVInterpolated = iicon.getInterpolatedV(endV);
+				endX2 = startX;
+				endX1 = endX;
+				startX2 = endX;
+				break;
+			case 3:
+				endUInterpolated2 = endUInterpolated = iicon.getInterpolatedU(endU);
+				startVInterpolated2 = endVInterpolated = iicon.getInterpolatedV(endV);
+				startUInterpolated2 = startUInterpolated = iicon.getInterpolatedU(startU);
+				endVInterpolated2 = startVInterpolated = iicon.getInterpolatedV(startV);
+				break;
+			case 0:
+			default:
+				endUInterpolated2 = endUInterpolated = iicon.getInterpolatedU(startU);
+				startVInterpolated2 = endVInterpolated = iicon.getInterpolatedV(startV);
+				startUInterpolated2 = startUInterpolated = iicon.getInterpolatedU(endU);
+				endVInterpolated2 = startVInterpolated = iicon.getInterpolatedV(endV);
+				break;
+		}
+
+		tessellator.setBrightness(block.getMixedBrightnessForBlock(renderer.blockAccess, MathHelper.floor_double(x), MathHelper.floor_double(y), MathHelper.floor_double(z)));
+		tessellator.setColorOpaque_F(1, 1, 1);
+		tessellator.addVertexWithUV(x + startX, y + startY, z + startZ, startUInterpolated, startVInterpolated);
+		tessellator.addVertexWithUV(x + startX2, y + endY, z + startZ2, startUInterpolated2, startVInterpolated2);
+		tessellator.addVertexWithUV(x + endX1, y + endY, z + endZ1, endUInterpolated, endVInterpolated);
+		tessellator.addVertexWithUV(x + endX2, y + startY, z + endZ2, endUInterpolated2, endVInterpolated2);
+	}
+
+
+	public void renderRawDoubleSidedFace(RenderBlocks renderer, Block block, double x, double y, double z, double startX, double endX, double startY, double endY, double startZ, double endZ, double startU, double startV, double endU, double endV, IIcon iicon, int rotate) {
+		if (rotate == 1) {
+			renderRawFace(renderer, block, x, y, z, startX, endX, endY, startY, startZ, endZ, startU, startV, endU, endV, iicon, 1);
+			renderRawFace(renderer, block, x, y, z, endX, startX, endY, startY, startZ, endZ, endU, endV, startU, startV, iicon, 1);
+		} else if (rotate == 2) {
+			renderRawFace(renderer, block, x, y, z, startX, endX, endY, startY, startZ, endZ, startU, startV, endU, endV, iicon, 2);
+			renderRawFace(renderer, block, x, y, z, startX, endX, endY, startY, endZ, startZ, endU, endV, startU, startV, iicon, 2);
+		} else {
+			renderRawFace(renderer, block, x, y, z, startX, endX, startY, endY, startZ, endZ, startU, startV, endU, endV, iicon, rotate);
+			renderRawFace(renderer, block, x, y, z, endX, startX, startY, endY, endZ, startZ, startU, startV, endU, endV, iicon, rotate);
+		}
+	}
+
+	public void renderRawDoubleSidedFace(RenderBlocks renderer, Block block, double x, double y, double z, double startX, double endX, double startY, double endY, double startZ, double endZ, double startU, double startV, double endU, double endV, IIcon iicon) {
+		renderRawDoubleSidedFace(renderer, block, x, y, z, startX, endX, startY, endY, startZ, endZ, startU, startV, endU, endV, iicon, 0);
 	}
 
 	/**
@@ -112,23 +177,10 @@ public abstract class BlockModelBase implements ISimpleBlockRenderingHandler {
 	public void renderFaceYNeg(RenderBlocks renderer, Block block, double dx, double dy, double dz, double offx, double offy, double offz)
 	{
 		renderer.enableAO = false;
-		Tessellator tessellator = Tessellator.instance;
 
 		int x = MathHelper.floor_double(dx);
 		int y = MathHelper.floor_double(dy);
 		int z = MathHelper.floor_double(dz);
-
-		int m = block.colorMultiplier(renderer.blockAccess, x, y, z);
-		float f = (float)(m >> 16 & 255) / 255.0F;
-		float f1 = (float)(m >> 8 & 255) / 255.0F;
-		float f2 = (float)(m & 255) / 255.0F;
-
-		if (EntityRenderer.anaglyphEnable)
-		{
-			float f3 = (f * 30.0F + f1 * 59.0F + f2 * 11.0F) / 100.0F;
-			float f4 = (f * 30.0F + f1 * 70.0F) / 100.0F;
-			float f5 = (f * 30.0F + f2 * 70.0F) / 100.0F;
-		}
 
 		float f3 = 0.5F;
 		int l = block.getMixedBrightnessForBlock(renderer.blockAccess, x, y, z);
@@ -153,7 +205,6 @@ public abstract class BlockModelBase implements ISimpleBlockRenderingHandler {
 	public void renderFaceYPos(RenderBlocks renderer, Block block, double dx, double dy, double dz, double offx, double offy, double offz)
 	{
 		renderer.enableAO = false;
-		Tessellator tessellator = Tessellator.instance;
 
 		int x = MathHelper.floor_double(dx);
 		int y = MathHelper.floor_double(dy);
@@ -202,23 +253,10 @@ public abstract class BlockModelBase implements ISimpleBlockRenderingHandler {
 	public void renderFaceZNeg(RenderBlocks renderer, Block block, double dx, double dy, double dz, double offx, double offy, double offz)
 	{
 		renderer.enableAO = false;
-		Tessellator tessellator = Tessellator.instance;
 
 		int x = MathHelper.floor_double(dx);
 		int y = MathHelper.floor_double(dy);
 		int z = MathHelper.floor_double(dz);
-
-		int m = block.colorMultiplier(renderer.blockAccess, x, y, z);
-		float f = (float)(m >> 16 & 255) / 255.0F;
-		float f1 = (float)(m >> 8 & 255) / 255.0F;
-		float f2 = (float)(m & 255) / 255.0F;
-
-		if (EntityRenderer.anaglyphEnable)
-		{
-			float f3 = (f * 30.0F + f1 * 59.0F + f2 * 11.0F) / 100.0F;
-			float f4 = (f * 30.0F + f1 * 70.0F) / 100.0F;
-			float f5 = (f * 30.0F + f2 * 70.0F) / 100.0F;
-		}
 
 		float f5 = 0.8F;
 		int l = block.getMixedBrightnessForBlock(renderer.blockAccess, x, y, z);
@@ -244,23 +282,10 @@ public abstract class BlockModelBase implements ISimpleBlockRenderingHandler {
 	public void renderFaceZPos(RenderBlocks renderer, Block block, double dx, double dy, double dz, double offx, double offy, double offz)
 	{
 		renderer.enableAO = false;
-		Tessellator tessellator = Tessellator.instance;
 
 		int x = MathHelper.floor_double(dx);
 		int y = MathHelper.floor_double(dy);
 		int z = MathHelper.floor_double(dz);
-
-		int m = block.colorMultiplier(renderer.blockAccess, x, y, z);
-		float f = (float)(m >> 16 & 255) / 255.0F;
-		float f1 = (float)(m >> 8 & 255) / 255.0F;
-		float f2 = (float)(m & 255) / 255.0F;
-
-		if (EntityRenderer.anaglyphEnable)
-		{
-			float f3 = (f * 30.0F + f1 * 59.0F + f2 * 11.0F) / 100.0F;
-			float f4 = (f * 30.0F + f1 * 70.0F) / 100.0F;
-			float f5 = (f * 30.0F + f2 * 70.0F) / 100.0F;
-		}
 
 		float f5 = 0.8F;
 		int l = block.getMixedBrightnessForBlock(renderer.blockAccess, x, y, z);
@@ -286,23 +311,10 @@ public abstract class BlockModelBase implements ISimpleBlockRenderingHandler {
 	public void renderFaceXNeg(RenderBlocks renderer, Block block, double dx, double dy, double dz, double offx, double offy, double offz)
 	{
 		renderer.enableAO = false;
-		Tessellator tessellator = Tessellator.instance;
 
 		int x = MathHelper.floor_double(dx);
 		int y = MathHelper.floor_double(dy);
 		int z = MathHelper.floor_double(dz);
-
-		int m = block.colorMultiplier(renderer.blockAccess, x, y, z);
-		float f = (float)(m >> 16 & 255) / 255.0F;
-		float f1 = (float)(m >> 8 & 255) / 255.0F;
-		float f2 = (float)(m & 255) / 255.0F;
-
-		if (EntityRenderer.anaglyphEnable)
-		{
-			float f3 = (f * 30.0F + f1 * 59.0F + f2 * 11.0F) / 100.0F;
-			float f4 = (f * 30.0F + f1 * 70.0F) / 100.0F;
-			float f5 = (f * 30.0F + f2 * 70.0F) / 100.0F;
-		}
 
 		float f6 = 0.6F;
 
@@ -329,23 +341,10 @@ public abstract class BlockModelBase implements ISimpleBlockRenderingHandler {
 	public void renderFaceXPos(RenderBlocks renderer, Block block, double dx, double dy, double dz, double offx, double offy, double offz)
 	{
 		renderer.enableAO = false;
-		Tessellator tessellator = Tessellator.instance;
 
 		int x = MathHelper.floor_double(dx);
 		int y = MathHelper.floor_double(dy);
 		int z = MathHelper.floor_double(dz);
-
-		int m = block.colorMultiplier(renderer.blockAccess, x, y, z);
-		float f = (float)(m >> 16 & 255) / 255.0F;
-		float f1 = (float)(m >> 8 & 255) / 255.0F;
-		float f2 = (float)(m & 255) / 255.0F;
-
-		if (EntityRenderer.anaglyphEnable)
-		{
-			float f3 = (f * 30.0F + f1 * 59.0F + f2 * 11.0F) / 100.0F;
-			float f4 = (f * 30.0F + f1 * 70.0F) / 100.0F;
-			float f5 = (f * 30.0F + f2 * 70.0F) / 100.0F;
-		}
 
 		float f6 = 0.6F;
 

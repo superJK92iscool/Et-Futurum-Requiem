@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.client.renderer.block;
 
-import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
-import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.RenderBlocks;
@@ -10,7 +8,12 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 
-public class BlockAmethystClusterRenderer implements ISimpleBlockRenderingHandler {
+public class BlockAmethystClusterRenderer extends BlockModelBase {
+
+	public BlockAmethystClusterRenderer(int modelID) {
+		super(modelID);
+		set2DInventory();
+	}
 
 	@Override
 	public void renderInventoryBlock(Block block, int metadata, int modelId, RenderBlocks renderer) {
@@ -18,10 +21,10 @@ public class BlockAmethystClusterRenderer implements ISimpleBlockRenderingHandle
 
 	@Override
 	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId,
-			RenderBlocks renderer) {
-			renderBlockCrops(block, x, y, z, renderer);
-			return true;
-		}
+									RenderBlocks renderer) {
+		renderBlockCrops(block, x, y, z, renderer);
+		return true;
+	}
 
 	
 	private boolean renderBlockCrops(Block block, int x, int y, int z, RenderBlocks renderer)
@@ -179,15 +182,4 @@ public class BlockAmethystClusterRenderer implements ISimpleBlockRenderingHandle
 
 		  return true;
 	   }
-	
-
-	@Override
-	public boolean shouldRender3DInInventory(int modelId) {
-		return false;
-	}
-
-	@Override
-	public int getRenderId() {
-		return RenderIDs.AMETHYST_CLUSTER;
-	}
 }

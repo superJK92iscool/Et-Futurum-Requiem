@@ -1,9 +1,7 @@
 package ganymedes01.etfuturum.client.renderer.block;
 
-import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.blocks.BlockPotionCauldron;
-import ganymedes01.etfuturum.lib.RenderIDs;
 import ganymedes01.etfuturum.tileentities.TileEntityCauldronColoredWater;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCauldron;
@@ -13,7 +11,11 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 
-public class BlockColoredWaterCauldronRenderer implements ISimpleBlockRenderingHandler {
+public class BlockColoredWaterCauldronRenderer extends BlockModelBase {
+
+	public BlockColoredWaterCauldronRenderer(int modelID) {
+		super(modelID);
+	}
 
 	@Override
 	public void renderInventoryBlock(Block block, int metadata, int modelId, RenderBlocks renderer) {
@@ -62,16 +64,6 @@ public class BlockColoredWaterCauldronRenderer implements ISimpleBlockRenderingH
 		renderer.renderFaceYPos(block, x, (double) y - 1.0F + BlockCauldron.getRenderLiquidLevel(i1 + 1), z, iicon);
 		
 		return true;
-	}
-
-	@Override
-	public boolean shouldRender3DInInventory(int modelId) {
-		return false;
-	}
-
-	@Override
-	public int getRenderId() {
-		return RenderIDs.COLORED_CAULDRON;
 	}
 
 }

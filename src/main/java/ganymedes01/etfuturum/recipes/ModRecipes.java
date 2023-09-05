@@ -702,6 +702,8 @@ public class ModRecipes {
 		addShapedRecipe(ModBlocks.HONEY_BLOCK.newItemStack(), "HH", "HH", 'H', ModItems.HONEY_BOTTLE.get());
 		addShapedRecipe(ModBlocks.HONEYCOMB_BLOCK.newItemStack(), "HH", "HH", 'H', "materialHoneycomb");
 		addShapedRecipe(ModBlocks.BEEHIVE.newItemStack(), "WWW", "HHH", "WWW", 'W', "plankWood", 'H', "materialHoneycomb");
+
+		addShapedRecipe(ModBlocks.CHAIN.newItemStack(), "N", "G", "N", 'N', "nuggetIron", 'G', "ingotIron");
 	}
 
 	private static List<ItemStack> getStewFlowers() {

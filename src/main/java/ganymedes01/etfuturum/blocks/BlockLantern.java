@@ -3,15 +3,12 @@ package ganymedes01.etfuturum.blocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
+import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockFence;
-import net.minecraft.block.BlockSlab;
-import net.minecraft.block.BlockStairs;
-import net.minecraft.block.BlockWall;
 import net.minecraft.block.material.Material;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -47,62 +44,56 @@ public class BlockLantern extends Block {
 		else
 			this.setBlockBounds(0.5F - f1, r * 1, 0.5F - f1, 0.5F + f1, r * 8, 0.5F + f1);
 	}
-	
+
 	@Override
-	public boolean canPlaceBlockAt(World world, int x, int y, int z)
-	{
-		int i1 = world.getBlockMetadata(x, y + 1, z);
-		int stairMeta = world.getBlockMetadata(x, y + 1, z) & 7;
-		return  world.getBlock(x, y - 1, z).canPlaceTorchOnTop(world, x, y, z) ||
-				World.doesBlockHaveSolidTopSurface(world, x, y - 1, z) ||
-				world.isSideSolid(x, y + 1, z, ForgeDirection.DOWN) ||
-				world.getBlock(x, y + 1, z) instanceof BlockWall ||
-				world.getBlock(x, y + 1, z) instanceof BlockFence ||
-				((world.getBlock(x, y + 1, z) instanceof BlockStairs) && stairMeta <= 3) ||
-				((world.getBlock(x, y + 1, z) instanceof BlockSlab) && i1 <= 7);
+	public boolean canPlaceBlockAt(World world, int x, int y, int z) {
+		return canPlaceBelow(world, x, y, z) || canPlaceAbove(world, x, y, z);
 	}
-	
+
 	@Override
-	public int onBlockPlaced(World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int meta)
-	{
-		int i = 0;
-		if (side == 0) {
-			i = 1;
-		} else if (side > 0){
-			if (world.getBlock(x, y - 1, z).canPlaceTorchOnTop(world, x, y, z) || World.doesBlockHaveSolidTopSurface(world, x, y - 1, z)) {
-				i = 0;
-			} else {
-				i = 1;
-			}
+	public boolean canBlockStay(World world, int x, int y, int z) {
+		return canPlaceBlockAt(world, x, y, z);
+	}
+
+	private boolean canPlaceAbove(World world, int x, int y, int z) {
+		return world.isSideSolid(x, y + 1, z, ForgeDirection.DOWN) || (world.getBlock(x, y + 1, z) == ModBlocks.CHAIN.get() && world.getBlockMetadata(x, y + 1, z) == 0);
+	}
+
+	private boolean canPlaceBelow(World world, int x, int y, int z) {
+		return world.getBlock(x, y - 1, z).canPlaceTorchOnTop(world, x, y - 1, z) ||
+				World.doesBlockHaveSolidTopSurface(world, x, y - 1, z);
+	}
+
+	@Override
+	public int onBlockPlaced(World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int meta) {
+		switch (side) {
+			case 0:
+				return 1;
+			case 2:
+			case 3:
+			case 4:
+			case 5:
+				return canPlaceBelow(world, x, y, z) ? 0 : 1;
+			case 1:
+			default:
+				return 0;
 		}
-		return i;
 	}
+
 	@Override
-	public void onBlockAdded(World world, int x, int y, int z)
-	{
+	public void onBlockAdded(World world, int x, int y, int z) {
 		Block block = world.getBlock(x, y, z);
 		this.onNeighborBlockChange(world, x, y, z, block);
 	}
-	
-	@Override
-	public void onNeighborBlockChange(World world, int x, int y, int z, Block block)
-	{
-		int i = world.getBlockMetadata(x, y, z);
-		int i2 = world.getBlockMetadata(x, y + 1, z);
-		int stairMeta1 = i2 & 7;
-		
-		if (i == 0 && !world.getBlock(x, y - 1, z).canPlaceTorchOnTop(world, x, y, z) &&
-				!World.doesBlockHaveSolidTopSurface(world, x, y - 1, z)) {
-			this.setLanternToAir(world, x, y, z);
-		} else if (i == 1 && !world.isSideSolid(x, y + 1, z, ForgeDirection.DOWN) &&
-				!(world.getBlock(x, y + 1, z) instanceof BlockWall) &&
-				!(world.getBlock(x, y + 1, z) instanceof BlockFence) &&
-				!((world.getBlock(x, y + 1, z) instanceof BlockStairs) && stairMeta1 <= 3) && 
-				!((world.getBlock(x, y + 1, z) instanceof BlockSlab) && i2 <= 7)) {
-			this.setLanternToAir(world, x, y, z);
-		}
-	}
-	
+
+//	public void onNeighborBlockChange(World p_149695_1_, int p_149695_2_, int p_149695_3_, int p_149695_4_, Block p_149695_5_)
+//	{
+//		super.onNeighborBlockChange(p_149695_1_, p_149695_2_, p_149695_3_, p_149695_4_, p_149695_5_);
+//		if(!canBlockStay(p_149695_1_, p_149695_2_, p_149695_3_, p_149695_4_)) {
+//			setLanternToAir(p_149695_1_, p_149695_2_, p_149695_3_, p_149695_4_);
+//		}
+//	}
+
 	public void setLanternToAir(World world, int x, int y, int z) {
 		if (!world.isRemote) {
 			this.dropBlockAsItem(world, x, y, z, 0, 0);

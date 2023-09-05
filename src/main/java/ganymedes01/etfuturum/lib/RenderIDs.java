@@ -24,4 +24,5 @@ public class RenderIDs {
 	public static final int POINTED_DRIPSTONE = RenderingRegistry.getNextAvailableRenderId();
 	public static final int OBSERVER = RenderingRegistry.getNextAvailableRenderId();
 	public static final int HONEY_BLOCK = RenderingRegistry.getNextAvailableRenderId();
+	public static final int CHAIN = RenderingRegistry.getNextAvailableRenderId();
 }

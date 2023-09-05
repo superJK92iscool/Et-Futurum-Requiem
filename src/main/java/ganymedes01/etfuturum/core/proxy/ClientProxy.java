@@ -147,7 +147,7 @@ public class ClientProxy extends CommonProxy {
 		}
 
 		if (ModBlocks.LAVA_CAULDRON.isEnabled()) {
-			RenderingRegistry.registerBlockHandler(new BlockLavaCauldronRenderer());
+			RenderingRegistry.registerBlockHandler(new BlockLavaCauldronRenderer(RenderIDs.LAVA_CAULDRON));
 		}
 
 		if (ModBlocks.SHULKER_BOX.isEnabled()) {
@@ -167,14 +167,14 @@ public class ClientProxy extends CommonProxy {
 		}
 
 		if (ModBlocks.AMETHYST_CLUSTER_1.isEnabled() && ModBlocks.AMETHYST_CLUSTER_2.isEnabled()) {
-			RenderingRegistry.registerBlockHandler(new BlockAmethystClusterRenderer());
+			RenderingRegistry.registerBlockHandler(new BlockAmethystClusterRenderer(RenderIDs.AMETHYST_CLUSTER));
 		}
 
-		if (ModBlocks.DRIPSTONE_BLOCK.isEnabled()) {
-			RenderingRegistry.registerBlockHandler(new BlockPointedDripstoneRenderer());
+		if (ModBlocks.POINTED_DRIPSTONE.isEnabled()) {
+			RenderingRegistry.registerBlockHandler(new BlockPointedDripstoneRenderer(RenderIDs.POINTED_DRIPSTONE));
 		}
 
-		RenderingRegistry.registerBlockHandler(new BlockColoredWaterCauldronRenderer());
+		RenderingRegistry.registerBlockHandler(new BlockColoredWaterCauldronRenderer(RenderIDs.COLORED_CAULDRON));
 
 		RenderingRegistry.registerBlockHandler(new BlockChestRenderer());
 
@@ -188,6 +188,10 @@ public class ClientProxy extends CommonProxy {
 
 		if (ModBlocks.HONEY_BLOCK.isEnabled()) {
 			RenderingRegistry.registerBlockHandler(new BlockDoubleLayerRenderer(15, RenderIDs.HONEY_BLOCK));
+		}
+
+		if (ModBlocks.CHAIN.isEnabled()) {
+			RenderingRegistry.registerBlockHandler(new BlockChainRenderer(RenderIDs.CHAIN));
 		}
 	}
 

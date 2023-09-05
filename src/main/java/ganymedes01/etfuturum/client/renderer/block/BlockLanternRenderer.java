@@ -1,6 +1,5 @@
 package ganymedes01.etfuturum.client.renderer.block;
 
-import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.util.IIcon;
@@ -40,38 +39,18 @@ public class BlockLanternRenderer extends BlockModelBase {
 		renderFaceZPos(renderer, block, x, y, z, .3125F, -.4375F + yoffset, .3125F);
 
 		IIcon iicon = renderer.hasOverrideBlockTexture() ? renderer.overrideBlockTexture : renderer.getBlockIcon(block);
-		float r = 0.0625F;
-
 		//Lantern chain
-		double iIntU8 = iicon.getInterpolatedU(11);
-		double iIntV8 = iicon.getInterpolatedV(10);
-
-		double iIntU9 = iicon.getInterpolatedU(14);
-		double iIntV9 = iicon.getInterpolatedV(12);
-
 		if (world.getBlockMetadata(x, y, z) == 0) {
 			//If meta is 0, there are two crossed chain links on the top of the lantern
-			renderRawDoubleSidedFace(x, y, z, 0.4375D, 0.5625, 0.5625D, 0.6875D, 0.4375D, 0.5625D, 11, 10, 14, 12, iicon);
-			renderRawDoubleSidedFace(x, y, z, 0.4375D, 0.5625D, 0.5625D, 0.6875D, 0.5625D, 0.4375D, 11, 10, 14, 12, iicon);
+			renderRawDoubleSidedFace(renderer, block, x, y, z, 0.4375D, 0.5625D, 0.5625D, 0.6875D, 0.4375D, 0.5625D, 11, 10, 14, 12, iicon);
+			renderRawDoubleSidedFace(renderer, block, x, y, z, 0.4375D, 0.5625D, 0.5625D, 0.6875D, 0.5625D, 0.4375D, 11, 10, 14, 12, iicon);
 		} else {
 			//If meta is not 0, there's only one chain link on the lantern itself, followed by two links attached above
-			renderRawDoubleSidedFace(x, y, z, 0.4375D, 0.5625D, 0.625D, 0.75D, 0.4375D, 0.5625D, 11, 10, 14, 12, iicon);
-
-			renderRawDoubleSidedFace(x, y, z, 0.5625D, 0.4375D, 0.6875D, 0.9375D, 0.4375D, 0.5625D, 11, 1, 14, 5, iicon);
-
-			renderRawDoubleSidedFace(x, y, z, 0.4375D, 0.5625D, 0.875D, 1D, 0.4375D, 0.5625D, 11, 6, 14, 8, iicon);
+			renderRawDoubleSidedFace(renderer, block, x, y, z, 0.4375D, 0.5625D, 0.625D, 0.75D, 0.4375D, 0.5625D, 11, 10, 14, 12, iicon);
+			renderRawDoubleSidedFace(renderer, block, x, y, z, 0.5625D, 0.4375D, 0.6875D, 0.9375D, 0.4375D, 0.5625D, 11, 1, 14, 5, iicon);
+			renderRawDoubleSidedFace(renderer, block, x, y, z, 0.4375D, 0.5625D, 0.875D, 1D, 0.4375D, 0.5625D, 11, 6, 14, 8, iicon);
 		}
 
 		return true;
-	}
-
-	@Override
-	public boolean shouldRender3DInInventory(int modelId) {
-		return false;
-	}
-
-	@Override
-	public int getRenderId() {
-		return RenderIDs.LANTERN;
 	}
 }
