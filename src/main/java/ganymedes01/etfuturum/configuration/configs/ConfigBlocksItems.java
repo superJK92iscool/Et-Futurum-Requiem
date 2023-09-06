@@ -109,6 +109,7 @@ public class ConfigBlocksItems extends ConfigBase {
 	public static boolean enableDyedBeds;
 	public static boolean enableTarget;
 	public static boolean enableSculk;
+	public static boolean enableChain;
 	//Nether Update temp disabled
 	public static boolean enableCrimsonBlocks = false;
 	public static boolean enableWarpedBlocks = false;
@@ -256,6 +257,7 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableGlazedTerracotta = getBoolean("enableGlazedTerracotta", catBlockMisc, true, "");
 		enableBarrier = getBoolean("enableBarrier", catBlockMisc, true, "A solid, indestructible and invisible block. Can be seen when holding it in Creative mode.");
 		enableLightBlock = getBoolean("enableLightBlock", catBlockMisc, true, "Invisible light blocks. Only has a selection box when held, right click to change light level. Otherwise functionally identical to air and can be replaced by placing blocks into it. Invisible, but can be seen when holding it in Creative mode.");
+		enableChain = getBoolean("enableChain", catBlockMisc, true, "");
 
 		//Misc Items
 		enableMutton = getBoolean("enableMutton", catItemMisc, true, "");

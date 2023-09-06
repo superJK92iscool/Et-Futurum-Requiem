@@ -239,7 +239,7 @@ public enum ModBlocks {
 			.setBlockSound(ModSounds.soundCoralBlock).setHardness(0.6F).setResistance(0.6F)),
 	BEEHIVE(ConfigEntities.enableBees, new BlockBeeHive().setHiveType("beehive", true)),
 	BEE_NEST(ConfigEntities.enableBees, new BlockBeeHive().setHiveType("bee_nest", true)),
-	CHAIN(true, new BlockChain()),
+	CHAIN(ConfigBlocksItems.enableChain, new BlockChain()),
 
 	//signs
 	SIGN_SPRUCE(ConfigBlocksItems.enableSigns, new BlockWoodSign(TileEntityWoodSign.class, true, 1), null),
