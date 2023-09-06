@@ -27,7 +27,6 @@ public class ConfigWorld extends ConfigBase {
 	public static int maxNetherGoldPerCluster;
 	public static int maxMagmaPerCluster;
 	public static int maxCopperPerCluster;
-	public static boolean fullGrassPath;
 	public static int deepslateGenerationMode;
 	public static int maxDeepslatePerCluster;
 	public static int deepslateMaxY;

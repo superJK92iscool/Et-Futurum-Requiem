@@ -1,7 +1,6 @@
-package ganymedes01.etfuturum.client.skins.client;
+package ganymedes01.etfuturum.api.client;
 
 import com.mojang.authlib.minecraft.MinecraftProfileTexture.Type;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.resources.SkinManager.SkinAvailableCallback;
