@@ -3,11 +3,8 @@ package ganymedes01.etfuturum.blocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.client.InterpolatedIcon;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
@@ -24,7 +21,7 @@ public class BlockMagma extends BaseBlock {
 		setHardness(0.5F);
 		setResistance(0.5F);
 		setLightLevel(0.2F);
-		setNames("magma");
+		setNames("magma$i");
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 	
@@ -49,17 +46,5 @@ public class BlockMagma extends BaseBlock {
 				(block2 == Blocks.water || block2 == Blocks.flowing_water) ) {
 			world.spawnParticle("bubble", x + 0.5D, y + 1.1D, z + 0.5D, 0.0D, 1.0D, 0.0D);
 		}
-		
 	}
-	
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister p_149651_1_)
-	{
-		blockIcon = new InterpolatedIcon(textureName);
-		if(p_149651_1_ instanceof TextureMap) {
-			((TextureMap)p_149651_1_).setTextureEntry(textureName, (InterpolatedIcon)blockIcon);
-		}
-	}
-
 }

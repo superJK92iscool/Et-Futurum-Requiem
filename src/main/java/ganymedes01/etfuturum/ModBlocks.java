@@ -19,7 +19,7 @@ import net.minecraft.item.ItemStack;
 
 public enum ModBlocks {
 	STONE(ConfigBlocksItems.enableStones, new BlockBountifulStone()),
-	PRISMARINE_BLOCK(ConfigBlocksItems.enablePrismarine, new BaseSubtypesBlock(Material.rock, "prismarine", "prismarine_bricks", "dark_prismarine")
+	PRISMARINE_BLOCK(ConfigBlocksItems.enablePrismarine, new BaseSubtypesBlock(Material.rock, "prismarine$i", "prismarine_bricks", "dark_prismarine")
 			.setHardness(1.5F).setResistance(10.0F)),
 	SEA_LANTERN(ConfigBlocksItems.enablePrismarine, new BlockSeaLantern()),
 	DAYLIGHT_DETECTOR_INVERTED(ConfigBlocksItems.enableInvertedDaylightSensor, new BlockInvertedDaylightDetector(), null),

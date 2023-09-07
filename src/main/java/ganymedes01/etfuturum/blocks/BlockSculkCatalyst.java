@@ -2,9 +2,7 @@ package ganymedes01.etfuturum.blocks;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.tileentities.TileEntitySculkCatalyst;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -24,8 +22,7 @@ public class BlockSculkCatalyst extends BaseBlock {
 		setNames("sculk_catalyst");
 		setHardness(3.0F);
 		setResistance(3.0F);
-		Utils.setBlockSound(this, ModSounds.soundSculkCatalyst);
-		setCreativeTab(EtFuturum.creativeTabBlocks);
+		setBlockSound(ModSounds.soundSculkCatalyst);
 	}
 
 	@Override
