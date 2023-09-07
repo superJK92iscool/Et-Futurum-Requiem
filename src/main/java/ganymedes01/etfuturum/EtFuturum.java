@@ -418,6 +418,10 @@ public class EtFuturum {
 			Blocks.powered_comparator.setStepSound(Block.soundTypeStone);
 			Blocks.unpowered_comparator.setStepSound(Block.soundTypeStone);
 		}
+		if(ConfigBlocksItems.enableDyedBeds) {
+			Blocks.bed.blockMaterial = Material.wood;
+			Blocks.bed.setStepSound(Block.soundTypeWood);
+		}
 
 		//Block registry iterator
 		for (Block block : (Iterable<Block>) Block.blockRegistry) {
@@ -444,13 +448,6 @@ public class EtFuturum {
 
 				handleMultiBlockSoundRegistry();
 			}
-
-			/*
-			 * MATERIALS
-			 */
-//          if(block == Blocks.bed && TESTING) {
-//              block.blockMaterial = Material.wood;
-//          }
 		}
 
 //      if(ConfigurationHandler.enableNewNether)
@@ -588,10 +585,6 @@ public class EtFuturum {
 			
 			else if(namespace.contains("bone") || namespace.contains("ivory")) {
 				return ModSounds.soundBoneBlock;
-			}
-			
-			else if(block instanceof BlockBed && (block.getMaterial() == Material.wood || block.getMaterial() == Material.cloth)) {
-				block.setStepSound(Block.soundTypeWood);
 			}
 		}
 

@@ -8,6 +8,7 @@ import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.recipes.ModRecipes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBed;
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
 import net.minecraft.world.IBlockAccess;
@@ -19,13 +20,14 @@ public class BlockDyedBed extends BlockBed {
 	
 	public BlockDyedBed(int dye) {
 		super();
+		disableStats();
 		setHardness(0.2F);
 		String dyeName = ModRecipes.dye_names[dye];
 		setBlockName(Utils.getUnlocalisedName(dyeName + "_bed"));
-		disableStats();
 		setBlockTextureName(dyeName + "_bed");
 		setCreativeTab(EtFuturum.creativeTabBlocks);
-		setStepSound(ConfigSounds.newBlockSounds ? Block.soundTypeWood : Block.soundTypeCloth);
+		setStepSound(Block.soundTypeWood);
+		blockMaterial = Material.wood;
 	}
 
 	public boolean isBed(IBlockAccess world, int x, int y, int z, EntityLivingBase player)
