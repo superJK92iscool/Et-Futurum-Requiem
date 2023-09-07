@@ -100,10 +100,22 @@ public class EtFuturum {
 		
 		@SideOnly(Side.CLIENT)
 		@Override
-		public void displayAllReleventItems(List p_78018_1_)
-		{
-			for(int i : ModEntityList.eggIDs)
+		public void displayAllReleventItems(List p_78018_1_) {
+			int j = 1;
+			for (byte i = 1; i <= 3; i++) {
+				ItemStack firework = new ItemStack(Items.fireworks);
+				NBTTagCompound nbt = new NBTTagCompound();
+				NBTTagCompound nbt2 = new NBTTagCompound();
+				nbt2.setByte("Flight", i);
+				nbt.setTag("Fireworks", nbt2);
+				firework.setTagCompound(nbt);
+				p_78018_1_.add(firework);
+				j++;
+			}
+			for (int i : ModEntityList.eggIDs) {
 				p_78018_1_.add(new ItemStack(Items.spawn_egg, 1, i));
+				j++;
+			}
 			super.displayAllReleventItems(p_78018_1_);
 		}
 	};
@@ -112,6 +124,13 @@ public class EtFuturum {
 		@Override
 		public Item getTabIconItem() {
 			return ConfigBlocksItems.enableSmoker ? Item.getItemFromBlock(ModBlocks.SMOKER.get()) : ConfigBlocksItems.enableChorusFruit ? Item.getItemFromBlock(ModBlocks.CHORUS_FLOWER.get()) : Item.getItemFromBlock(Blocks.ender_chest);
+		}
+
+		@SideOnly(Side.CLIENT)
+		@Override
+		public void displayAllReleventItems(List p_78018_1_) {
+			p_78018_1_.add(new ItemStack(Blocks.mob_spawner));
+			super.displayAllReleventItems(p_78018_1_);
 		}
 	};
 	

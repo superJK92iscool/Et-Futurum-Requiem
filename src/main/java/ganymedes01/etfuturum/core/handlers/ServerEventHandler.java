@@ -59,6 +59,7 @@ import net.minecraft.network.play.server.S29PacketSoundEffect;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityMobSpawner;
 import net.minecraft.util.*;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.world.World;
@@ -963,20 +964,37 @@ public class ServerEventHandler {
 							}
 							world.notifyBlockChange(x, y, z, ModBlocks.DAYLIGHT_DETECTOR_INVERTED.get());
 						}
-						
-						if(ConfigBlocksItems.enablePotionCauldron && oldBlock == Blocks.cauldron && heldStack != null && meta == 0 && heldStack.getItem() == Items.potionitem
-								 && (heldStack.hasTagCompound() || heldStack.getItemDamage() > 0) && !ItemPotion.isSplash(heldStack.getItemDamage()) && !Items.potionitem.getEffects(heldStack).isEmpty()) {
+
+						if (ConfigBlocksItems.enablePotionCauldron && oldBlock == Blocks.cauldron && heldStack != null && meta == 0 && heldStack.getItem() == Items.potionitem
+								&& (heldStack.hasTagCompound() || heldStack.getItemDamage() > 0) && !ItemPotion.isSplash(heldStack.getItemDamage()) && !Items.potionitem.getEffects(heldStack).isEmpty()) {
 							world.setBlock(x, y, z, ModBlocks.POTION_CAULDRON.get()); //If we don't cancel the use event, the new block is used, so the use code is in the block class.
 						}
-						
+
+						if (ConfigFunctions.mobSpawnerEgging && oldBlock == Blocks.mob_spawner && heldStack != null && heldStack.getItem() == Items.spawn_egg) {
+							TileEntityMobSpawner tileEntityMobSpawner = (TileEntityMobSpawner) world.getTileEntity(x, y, z);
+							String entityName = EntityList.getStringFromID(heldStack.getItemDamage());
+							if (!entityName.equals(tileEntityMobSpawner.func_145881_a().getEntityNameToSpawn())) {
+								tileEntityMobSpawner.func_145881_a().setEntityName(entityName);
+								player.swingItem();
+								if (!world.isRemote) {
+									event.setResult(Result.ALLOW);
+									event.setCanceled(true);
+								}
+								world.markBlockForUpdate(x, y, z);
+								if (!player.capabilities.isCreativeMode) {
+									heldStack.stackSize--;
+								}
+							}
+						}
+
 						//Grass pathing/Log Stripping
 						//This is nested into the same function since they use similar checks
-						if(heldStack != null) {
+						if (heldStack != null) {
 							Set<String> toolClasses = heldStack.getItem().getToolClasses(heldStack);
 							if (toolClasses != null) {
 								if (ConfigBlocksItems.enableGrassPath && toolClasses.contains("shovel") && !world.getBlock(x, y + 1, z).getMaterial().isSolid() && (oldBlock == Blocks.grass || oldBlock == Blocks.dirt || oldBlock == Blocks.mycelium)) {
 									player.swingItem();
-									if(!world.isRemote) {
+									if (!world.isRemote) {
 										world.setBlock(x, y, z, ModBlocks.GRASS_PATH.get());
 										heldStack.damageItem(1, player);
 										world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, Reference.MCAssetVer + ":item.shovel.flatten", 1.0F, 1.0F);

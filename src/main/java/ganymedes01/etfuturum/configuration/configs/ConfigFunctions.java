@@ -162,8 +162,10 @@ public class ConfigFunctions extends ConfigBase {
 	public static byte elytraDataWatcherFlag;
 	public static boolean enableDoorRecipeBuffs;
 	public static boolean inventoryBedModels;
+	public static boolean mobSpawnerEgging;
+	public static boolean fireworkRecipeFixes;
 	public static String subtitleBlacklist;
-	public static String[] extraDropRawOres = new String[] {"oreCopper", "oreTin"};
+	public static String[] extraDropRawOres = new String[]{"oreCopper", "oreTin"};
 
 	static final String catUpdateChecker = "update_checker";
 	static final String catChanges = "changes";
@@ -207,7 +209,8 @@ public class ConfigFunctions extends ConfigBase {
 		hayBaleReducePercent = getInt("hayBaleReducePercent", catChanges, 20, 0, 99, "If enableHayBaleFalls is true, what percent should we keep for the fall damage?");
 		enableAttackedAtYawFix = getBoolean("enableAttackedAtYawFix", catChanges, true, "Adds a packet to send the attackedAtYaw field value to the client, which allows the screen to tilt based on where damage came from, and either left or right for direction-less sources like drowning or burning, instead of tilting to the left no matter what.");
 		enableDoorRecipeBuffs = getBoolean("enableDoorRecipeBuffs", catChanges, true, "Backports recipe buffs to doors (from 1 to 3)");
-		
+		mobSpawnerEgging = getBoolean("mobSpawnerEgging", catChanges, true, "Click a mob spawner with a vanilla or EFR egg, and it'll change the mob inside. Doesn't support modded eggs.");
+		fireworkRecipeFixes = getBoolean("fireworkRecipeFixes", catChanges, true, "Fixes fireworks not being able to have an extra duration without a star, and they'll output 3 instead of 1. Note: This currently does NOT update NEI, it'll still show the old recipe outputs.");
 
 		//settings
 		enableNetheriteFlammable = getBoolean("enableNetheriteFlammable", catSettings, false, "Set to true to disable the fireproof item entity Netherite/ancient debris etc uses");

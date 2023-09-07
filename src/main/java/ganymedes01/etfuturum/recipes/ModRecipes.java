@@ -22,6 +22,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.RecipeFireworks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.potion.Potion;
@@ -110,6 +111,17 @@ public class ModRecipes {
 
 		if (ConfigBlocksItems.replaceOldBoats) {
 			Items.boat.setUnlocalizedName(Utils.getUnlocalisedName("oak_boat"));
+		}
+
+		if (ConfigFunctions.fireworkRecipeFixes) {
+			for (int i = 0; i < CraftingManager.getInstance().getRecipeList().size(); i++) {
+				Object recipe = CraftingManager.getInstance().getRecipeList().get(i);
+				if (recipe != null && recipe.getClass() == RecipeFireworks.class) {
+					CraftingManager.getInstance().getRecipeList().remove(i);
+					CraftingManager.getInstance().getRecipeList().add(i, new RecipeFixedFireworks());
+					return;
+				}
+			}
 		}
 	}
 
@@ -809,7 +821,7 @@ public class ModRecipes {
 	}
 
 	private static void removeFirstRecipeFor(Item item, int meta) {
-		for (Object recipe : CraftingManager.getInstance().getRecipeList())
+		for (Object recipe : CraftingManager.getInstance().getRecipeList()) {
 			if (recipe != null) {
 				ItemStack stack = ((IRecipe) recipe).getRecipeOutput();
 				if (stack != null && stack.getItem() == item && (meta == -1 || meta == stack.getItemDamage())) {
@@ -817,6 +829,7 @@ public class ModRecipes {
 					return;
 				}
 			}
+		}
 	}
 
 }

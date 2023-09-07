@@ -13,6 +13,9 @@ import ganymedes01.etfuturum.compat.nei.SmokerRecipeHandler;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.BlockSlab;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class NEIEtFuturumConfig implements IConfigureNEI {
@@ -40,6 +43,17 @@ public class NEIEtFuturumConfig implements IConfigureNEI {
 			if (ModBlocks.ENCHANTMENT_TABLE.isEnabled()) {
 				API.hideItem(ModBlocks.ENCHANTMENT_TABLE.newItemStack());
 			}
+		}
+
+		API.hideItem(new ItemStack(Items.fireworks));
+		for (byte i = 1; i <= 3; i++) {
+			ItemStack firework = new ItemStack(Items.fireworks);
+			NBTTagCompound nbt = new NBTTagCompound();
+			NBTTagCompound nbt2 = new NBTTagCompound();
+			nbt2.setByte("Flight", i);
+			nbt.setTag("Fireworks", nbt2);
+			firework.setTagCompound(nbt);
+			API.addItemListEntry(firework);
 		}
 
 		for (ModBlocks mb : ModBlocks.values()) {
