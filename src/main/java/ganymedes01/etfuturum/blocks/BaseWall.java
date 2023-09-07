@@ -71,8 +71,13 @@ public class BaseWall extends BlockWall {
 	public int damageDropped(int meta) {
 		return meta % variations;
 	}
-	
+
 	public String getWallName(ItemStack stack) {
 		return "tile." + Utils.getUnlocalisedName(names != null && names.length > 0 ? names[stack.getItemDamage() % variations] : getUnlocalizedName().substring(6 + Reference.MOD_ID.length()));
+	}
+
+	@Override
+	public boolean canPlaceTorchOnTop(World world, int x, int y, int z) {
+		return true;
 	}
 }
