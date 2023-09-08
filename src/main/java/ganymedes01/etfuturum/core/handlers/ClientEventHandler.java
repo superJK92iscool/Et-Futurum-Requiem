@@ -311,8 +311,9 @@ public class ClientEventHandler {
 
 	@SubscribeEvent
 	public void renderPlayerEventPost(RenderPlayerEvent.Post event) {
-		if (ConfigFunctions.enableTransparentAmour)
+		if (ConfigFunctions.enableTransparentAmour) {
 			OpenGLHelper.disableBlend();
+		}
 	}
 
 	PositionedSound netherMusic;
