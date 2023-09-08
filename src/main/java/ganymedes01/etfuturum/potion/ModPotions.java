@@ -4,7 +4,8 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.configuration.configs.ConfigEnchantsPotions;
 import ganymedes01.etfuturum.configuration.configs.ConfigEntities;
-import ganymedes01.etfuturum.lib.Reference;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.attributes.BaseAttributeMap;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,16 +17,19 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ResourceLocation;
 
 public class ModPotions extends Potion {
-	protected ModPotions(int id, boolean isBad, int color) {
+
+	private final ResourceLocation icon;
+
+	protected ModPotions(String name, int id, boolean isBad, int color) {
 		super(id, isBad, color);
+		icon = new ResourceLocation("textures/mob_effect/" + name + ".png");
 	}
 
-	private static final ResourceLocation POTION_ICONS = new ResourceLocation(Reference.MOD_ID + ":textures/gui/container/potions.png");
 	public static Potion levitation;
-	
+
 	public static void init() {
-		if(ConfigEntities.enableShulker) {
-			levitation = new PotionLevitation(ConfigEnchantsPotions.levitationID, true, 0xFFFFFF);
+		if (ConfigEntities.enableShulker) {
+			levitation = new PotionLevitation("levitation", ConfigEnchantsPotions.levitationID, true, 0xFFFFFF);
 		}
 	}
 	
@@ -94,12 +98,12 @@ public class ModPotions extends Potion {
 		//This disables the default icon rendering.
 		return false;
 	}
-	
+
 	@SideOnly(Side.CLIENT)
-	public void renderInventoryEffect(int x, int y, PotionEffect effect, net.minecraft.client.Minecraft mc) {
+	public void renderInventoryEffect(int x, int y, PotionEffect effect, Minecraft mc) {
 		//Render our own icon. The image has to be really big (256x256) or it renders wrong for some reason.
-		mc.getTextureManager().bindTexture(POTION_ICONS);
-		int l = getStatusIconIndex();
-		mc.currentScreen.drawTexturedModalRect(x + 6, y + 7, l % 14 * 18, l / 14 * 18, 18, 18);
+		mc.getTextureManager().bindTexture(icon);
+		Gui.func_146110_a(x + 6, y + 7, 0, 0, 18, 18, 18, 18);
+
 	}
 }
