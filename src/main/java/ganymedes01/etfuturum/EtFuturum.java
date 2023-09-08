@@ -407,11 +407,11 @@ public class EtFuturum {
 					block.setStepSound(ModSounds.soundNetherrack);
 				}
 			}
+			Blocks.jukebox.setStepSound(Block.soundTypeWood);
 			Blocks.noteblock.setStepSound(Block.soundTypeWood);
 			Blocks.heavy_weighted_pressure_plate.setStepSound(Block.soundTypeMetal);
 			Blocks.light_weighted_pressure_plate.setStepSound(Block.soundTypeMetal);
 			Blocks.tripwire_hook.setStepSound(Block.soundTypeWood);
-			Blocks.jukebox.setStepSound(Block.soundTypeWood);
 			Blocks.lever.setStepSound(Block.soundTypeStone);
 			Blocks.powered_repeater.setStepSound(Block.soundTypeStone);
 			Blocks.unpowered_repeater.setStepSound(Block.soundTypeStone);

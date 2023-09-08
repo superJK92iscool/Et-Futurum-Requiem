@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.entities;
 
-import java.util.List;
-
 import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
 import ganymedes01.etfuturum.ModItems;
@@ -15,6 +13,8 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 
+import java.util.List;
+
 public class EntityLingeringEffect extends Entity implements IEntityAdditionalSpawnData {
 
 	private static final int TICKS_DATA_WATCHER = 10, WIDTH_DATA_WATCHER = 11, HEIGHT_DATA_WATCHER = 12;
@@ -22,6 +22,7 @@ public class EntityLingeringEffect extends Entity implements IEntityAdditionalSp
 	private EntityLivingBase thrower;
 	private ItemStack stack;
 	private final int MAX_TICKS = 30 * 20;
+	private int colorOverride;
 
 	public EntityLingeringEffect(World world) {
 		super(world);
@@ -39,6 +40,10 @@ public class EntityLingeringEffect extends Entity implements IEntityAdditionalSp
 		this(world);
 		this.stack = stack;
 		this.thrower = thrower;
+	}
+
+	public void setColorOverride(int color) {
+		colorOverride = color;
 	}
 
 	@Override
@@ -93,10 +98,10 @@ public class EntityLingeringEffect extends Entity implements IEntityAdditionalSp
 
 			if (ticksExisted % 5 == 0) {
 				double radius = 3 * ((double) (MAX_TICKS - ticks) / MAX_TICKS);
-				int colour = stack.getItem().getColorFromItemStack(stack, 0);
+				int colour = colorOverride > 0 ? colorOverride : stack.getItem().getColorFromItemStack(stack, 0);
 				float red = (colour >> 16 & 255) / 255.0F;
 				float green = (colour >> 8 & 255) / 255.0F;
-				float blue = (colour >> 0 & 255) / 255.0F;
+				float blue = (colour & 255) / 255.0F;
 				for (int i = 0; i < 30; i++) {
 					float variation = 0.75F + rand.nextFloat() * 0.25F;
 					worldObj.spawnParticle("mobSpell", posX - radius + rand.nextFloat() * radius * 2, posY, posZ - radius + rand.nextFloat() * radius * 2, red * variation, green * variation, blue * variation);
@@ -137,26 +142,37 @@ public class EntityLingeringEffect extends Entity implements IEntityAdditionalSp
 	@Override
 	public void writeSpawnData(ByteBuf buffer) {
 		ByteBufUtils.writeItemStack(buffer, stack);
+		buffer.writeInt(colorOverride);
 	}
 
 	@Override
 	public void readSpawnData(ByteBuf buffer) {
 		stack = ByteBufUtils.readItemStack(buffer);
+		colorOverride = buffer.readInt();
 	}
 
 	@Override
 	public void readEntityFromNBT(NBTTagCompound nbt) {
-		setTickCount(nbt.getInteger("Ticks"));
 		stack = ItemStack.loadItemStackFromNBT(nbt.getCompoundTag("Potion"));
-		if (stack == null)
+		if (stack == null) {
 			setDead();
+		} else {
+			setTickCount(nbt.getInteger("Ticks"));
+			if (nbt.hasKey("colorOverride")) {
+				colorOverride = nbt.getInteger("colorOverride");
+			}
+		}
 	}
 
 	@Override
 	public void writeEntityToNBT(NBTTagCompound nbt) {
-		nbt.setInteger("Ticks", dataWatcher.getWatchableObjectInt(TICKS_DATA_WATCHER));
-		if (stack != null)
+		if (stack != null) {
 			nbt.setTag("Potion", stack.writeToNBT(new NBTTagCompound()));
+			nbt.setInteger("Ticks", dataWatcher.getWatchableObjectInt(TICKS_DATA_WATCHER));
+			if (colorOverride > 0) {
+				nbt.setInteger("colorOverride", colorOverride);
+			}
+		}
 	}
 
 	public ItemStack getStack() {

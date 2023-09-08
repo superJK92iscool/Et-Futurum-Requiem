@@ -55,9 +55,12 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.*;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.play.server.S29PacketSoundEffect;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.PotionHelper;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityMobSpawner;
 import net.minecraft.util.*;
@@ -79,6 +82,7 @@ import net.minecraftforge.event.entity.player.*;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.event.world.ChunkEvent;
+import net.minecraftforge.event.world.ExplosionEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.oredict.OreDictionary;
 import org.apache.commons.lang3.ArrayUtils;
@@ -1652,12 +1656,45 @@ public class ServerEventHandler {
 							e.player.moveEntity(f2 - e.player.width, 0.0D, f2 - e.player.width);
 						}
 					}
-					((IElytraPlayer)e.player).etfu$setLastElytraFlying(isElytraFlying);
+					((IElytraPlayer) e.player).etfu$setLastElytraFlying(isElytraFlying);
 				}
 			}
 		}
 	}
-	
+
+	@SubscribeEvent
+	public void onExplosion(ExplosionEvent kaboom) {
+		if (ConfigBlocksItems.enableLingeringPotions && !kaboom.world.isRemote && kaboom.explosion.exploder instanceof EntityCreeper) {
+			EntityCreeper creeper = (EntityCreeper) kaboom.explosion.exploder;
+			Collection<PotionEffect> collection = creeper.getActivePotionEffects();
+			if (!collection.isEmpty()) {
+				ItemStack potion = new ItemStack(ModItems.LINGERING_POTION.get());
+				NBTTagCompound compound1 = new NBTTagCompound();
+				NBTTagList potionList = new NBTTagList();
+
+				for (PotionEffect potioneffect : collection) {
+					NBTTagCompound compound2 = new NBTTagCompound();
+					potioneffect.writeCustomPotionEffectToNBT(compound2);
+					potionList.appendTag(compound2);
+				}
+
+				compound1.setTag("CustomPotionEffects", potionList);
+				potion.setTagCompound(compound1);
+
+				EntityLingeringEffect entityareaeffectcloud = new EntityLingeringEffect(kaboom.world, potion, creeper);
+				entityareaeffectcloud.setPosition(creeper.posX, creeper.posY, creeper.posZ);
+				entityareaeffectcloud.setColorOverride(PotionHelper.calcPotionLiquidColor(collection));
+//				entityareaeffectcloud.setRadius(2.5F);
+//				entityareaeffectcloud.setRadiusOnUse(-0.5F);
+//				entityareaeffectcloud.setWaitTime(10);
+//				entityareaeffectcloud.setDuration(entityareaeffectcloud.getDuration() / 2);
+//				entityareaeffectcloud.setRadiusPerTick(-entityareaeffectcloud.getRadius() / (float)entityareaeffectcloud.getDuration());
+
+				kaboom.world.spawnEntityInWorld(entityareaeffectcloud);
+			}
+		}
+	}
+
 	@SubscribeEvent
 	public void onPreWorldTick(TickEvent.WorldTickEvent e) {
 
