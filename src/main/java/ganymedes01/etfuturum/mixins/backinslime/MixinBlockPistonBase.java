@@ -265,8 +265,11 @@ public class MixinBlockPistonBase extends Block {
 			blockY += yoffset;
 			blockZ += zoffset;
 			if (block.getMobilityFlag() == 1) {
-				float chance = block instanceof BlockSnow ? -1.0f : 1.0f;
-				block.dropBlockAsItemWithChance(world, blockX - xoffset, blockY - yoffset, blockZ - zoffset, blockMeta, chance, 0);
+				if (block instanceof BlockSnow)
+					block.dropBlockAsItemWithChance(world, blockX - xoffset, blockY - yoffset, blockZ - zoffset, blockMeta, -1.0F, 0);
+				else
+					block.dropBlockAsItem(world, blockX - xoffset, blockY - yoffset, blockZ - zoffset, blockMeta, 0);
+
 				world.setBlockToAir(blockX, blockY, blockZ);
 			} else {
 				world.setBlock(blockX, blockY, blockZ, Blocks.piston_extension, blockMeta, 4);
