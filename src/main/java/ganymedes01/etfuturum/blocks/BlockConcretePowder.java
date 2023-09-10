@@ -27,26 +27,21 @@ public class BlockConcretePowder extends BaseSubtypesSand {
 	@Override
 	public void onBlockAdded(World world, int x, int y, int z)
 	{
-		world.scheduleBlockUpdate(x, y, z, this, this.tickRate(world));
 		this.setBlock(world, x, y, z);
 	}
 			
 	@Override
 	public void onNeighborBlockChange(World world, int x, int y, int z, Block block)
 	{
-		world.scheduleBlockUpdate(x, y, z, this, this.tickRate(world));
 		this.setBlock(world, x, y, z);
 	}
 	
 	private void setBlock(World world, int x, int y, int z) {
 		for (ForgeDirection dir : ForgeDirection.values()) {
 			if (dir != ForgeDirection.DOWN && world.getBlock(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ).getMaterial() == Material.water) {
-				int l = world.getBlockMetadata(x, y, z);
-				world.setBlock(x, y, z, ModBlocks.CONCRETE.get(), l, 2);
-				world.markBlockForUpdate(x, y, z);
+				world.setBlock(x, y, z, ModBlocks.CONCRETE.get(), world.getBlockMetadata(x, y, z), 3);
 			}
 		}
-		world.markBlockForUpdate(x, y, z);
 	}
 
 	public MapColor getMapColor(int p_149728_1_) {
