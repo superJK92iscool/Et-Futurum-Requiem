@@ -39,8 +39,6 @@ public class MixinBlockPistonBase extends Block {
 	protected MixinBlockPistonBase(Material p_i45394_1_) {
 		super(p_i45394_1_);
 	}
-	List<BlockPos> markedForDeletionList = Lists.newArrayList();
-
 
 	/**
 	 * Notes: Added aheck for side != 7 like vanilla pistons added
@@ -187,7 +185,6 @@ public class MixinBlockPistonBase extends Block {
 			BlockPos pushedBlockCoords = new BlockPos(pushedBlockX, pushedBlockY, pushedBlockZ);
 			for (BlockPos pushedBlockPos : pushedBlockPosList) {
 				if (pushedBlockPos.equals(pushedBlockCoords) && pushedBlockPos.getBlockMetadata(world) == pushedBlockMeta && pushedBlockPos.getBlock(world) == pushedBlock) {
-					preclearDestroyables(world, markedForDeletionList);
 					return blocksPushed;
 				}
 			}
@@ -202,7 +199,7 @@ public class MixinBlockPistonBase extends Block {
 						int attachedX = pushedBlockX + dir.offsetX;
 						int attachedY = pushedBlockY + dir.offsetY;
 						int attachedZ = pushedBlockZ + dir.offsetZ;
-						int attachedMeta = world.getBlockMetadata(attachedX, attachedY, attachedZ);
+//						int attachedMeta=world.getBlockMetadata(attachedX, attachedY, attachedZ);
 						Block attachedBlock = world.getBlock(attachedX, attachedY, attachedZ);
 
 						if (!(attachedX == pistonX && attachedY == pistonY && attachedZ == pistonZ)) {
@@ -210,7 +207,6 @@ public class MixinBlockPistonBase extends Block {
 								if (attachedBlock.getMobilityFlag() != 1) {
 									blocksPushed += etfuturum$getPushableBlocks(world, attachedX, attachedY, attachedZ, dir.getOpposite().ordinal(), side, pistonX, pistonY, pistonZ, pushedBlockList, pushedBlockPosList);
 								}
-								preclearDestroyables(world, markedForDeletionList);
 							}
 						}
 					}
@@ -268,7 +264,14 @@ public class MixinBlockPistonBase extends Block {
 			blockX += xoffset;
 			blockY += yoffset;
 			blockZ += zoffset;
-			if (!(block.getMobilityFlag() == 1)) {
+			if (block.getMobilityFlag() == 1) {
+				if (block instanceof BlockSnow)
+					block.dropBlockAsItemWithChance(world, blockX - xoffset, blockY - yoffset, blockZ - zoffset, blockMeta, -1.0F, 0);
+				else
+					block.dropBlockAsItem(world, blockX - xoffset, blockY - yoffset, blockZ - zoffset, blockMeta, 0);
+
+				world.setBlockToAir(blockX, blockY, blockZ);
+			} else {
 				world.setBlock(blockX, blockY, blockZ, Blocks.piston_extension, blockMeta, 4);
 				world.setTileEntity(blockX, blockY, blockZ, BlockPistonMoving.getTileEntity(block, blockMeta, side, true, false));
 				world.notifyBlocksOfNeighborChange(blockX, blockY, blockZ, block);
@@ -314,12 +317,7 @@ public class MixinBlockPistonBase extends Block {
 			if (pushedBlock.getBlockHardness(world, x, y, z) == -1.0F || pushedBlock.getMobilityFlag() == 2) {
 				return false;
 			} else if (pushedBlock.getMobilityFlag() == 1) {
-				boolean flag1 = pushedSide == sideToPushTo || pushedSide == ForgeDirection.OPPOSITES[sideToPushTo];
-				if (flag1) {
-					BlockPos markedforDeletionCoords = new BlockPos(x, y, z);
-					markedForDeletionList.add(markedforDeletionCoords);
-					return true;
-				}
+				return pushedSide == sideToPushTo || pushedSide == ForgeDirection.OPPOSITES[sideToPushTo];
 			}
 		} else {
 			return !BlockPistonBase.isExtended(world.getBlockMetadata(x, y, z));
@@ -342,23 +340,4 @@ public class MixinBlockPistonBase extends Block {
 		}
 		return !(world.getBlock(x, y, z).hasTileEntity(world.getBlockMetadata(x, y, z)));
 	}
-
-	public void preclearDestroyables(World world, List<BlockPos> markedForDeletionList) {
-
-		for (BlockPos blockCoords : markedForDeletionList) {
-
-			Block block = world.getBlock(blockCoords.getX(), blockCoords.getY(), blockCoords.getZ());
-			int meta = world.getBlockMetadata(blockCoords.getX(), blockCoords.getY(), blockCoords.getZ());
-			if (block.getMobilityFlag() == 1) {
-				if (!(block instanceof BlockSnow))
-					block.dropBlockAsItem(world, blockCoords.getX(), blockCoords.getY(), blockCoords.getZ(), meta, 0);
-
-				world.setBlockToAir(blockCoords.getX(), blockCoords.getY(), blockCoords.getZ());
-				world.notifyBlocksOfNeighborChange(blockCoords.getX(), blockCoords.getY(), blockCoords.getZ(), Blocks.air);
-
-			}
-		}
-	}
-
 }
-
