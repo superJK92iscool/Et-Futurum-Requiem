@@ -174,7 +174,15 @@ public class MixinBlockPistonBase extends Block {
 				return blocksPushed;
 			} else if ((pushedBlockY == 0 && side == 0) || (pushedBlockY >= world.getHeight() - 1 && side == 1)) {
 				return 13;
-			} else if (!etfuturum$canPushBlockNested(pushedBlock, world, pushedBlockX, pushedBlockY, pushedBlockZ, side, side)) {
+			} else if (etfuturum$canPushBlockNested(pushedBlock, world, pushedBlockX, pushedBlockY, pushedBlockZ, side, side)) {
+				if (pushedBlock.getMobilityFlag() == 1)
+				{
+					float chance = pushedBlock instanceof BlockSnow ? -1.0F : 1.0F;
+					pushedBlock.dropBlockAsItemWithChance(world, pushedBlockX, pushedBlockY, pushedBlockZ, pushedBlockMeta, chance, 0);
+					world.setBlockToAir(pushedBlockX, pushedBlockY, pushedBlockZ);
+					return blocksPushed;
+				}
+			} else {
 				if (pushedBlockX == pistonX && pushedBlockY == pistonY && pushedBlockZ == pistonZ) {
 					return blocksPushed;
 				} else {
@@ -264,6 +272,17 @@ public class MixinBlockPistonBase extends Block {
 			blockX += xoffset;
 			blockY += yoffset;
 			blockZ += zoffset;
+
+			Block target = world.getBlock(blockX, blockY, blockZ);
+			if (target != null && target.getMobilityFlag() == 1) {
+				int targetMeta = world.getBlockMetadata(blockX, blockY, blockZ);
+				float chance = block instanceof BlockSnow ? -1.0f : 1.0f;
+
+				block.dropBlockAsItemWithChance(world, blockX - xoffset, blockY - yoffset, blockZ - zoffset, blockMeta, chance, 0);
+				target.dropBlockAsItem(world, blockX, blockY, blockZ, targetMeta, 0);
+				world.setBlockToAir(blockX, blockY, blockZ);
+			}
+
 			if (block.getMobilityFlag() == 1) {
 				if (block instanceof BlockSnow)
 					block.dropBlockAsItemWithChance(world, blockX - xoffset, blockY - yoffset, blockZ - zoffset, blockMeta, -1.0F, 0);
