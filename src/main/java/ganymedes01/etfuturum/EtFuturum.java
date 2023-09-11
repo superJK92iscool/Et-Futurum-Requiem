@@ -182,6 +182,7 @@ public class EtFuturum {
 	public static final boolean hasFoamFix = Loader.isModLoaded("foamfix");
 	public static final boolean hasMorePlayerModels = Loader.isModLoaded("moreplayermodels");
 	public static final boolean hasDragonBlockC = Loader.isModLoaded("jinryuudragonblockc");
+	public static final boolean hasBiomesOPlenty = Loader.isModLoaded("BiomesOPlenty");
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {

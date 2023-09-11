@@ -108,6 +108,10 @@ public class PistonBehaviorRegistry {
 		if (EtFuturum.hasMineFactory) {
 			addPistonBehavior(GameRegistry.findBlock("MineFactoryReloaded", "pinkslime.block"), PistonAction.BOUNCES_ENTITIES);
 		}
+
+		if (EtFuturum.hasBiomesOPlenty) {
+			addPistonBehavior(GameRegistry.findBlock("BiomesOPlenty", "honeyBlock"), PistonAction.PULLS_ENTITIES);
+		}
 	}
 
 	public enum PistonAction {
