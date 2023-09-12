@@ -147,20 +147,21 @@ public class MixinBlockPistonBase extends Block {
 					if (etfuturum$getPushableBlocks(world, x + xoffset2, y + yoffset2, z + zoffset2, oppositeSide, oppositeSide, x + xoffset, y + yoffset, z + zoffset, pushedBlockList, pushedBlockPosList) == 0) {
 						world.setBlockToAir(x + xoffset, y + yoffset, z + zoffset);
 					} else {
-						etfuturum$pushBlocks(world, oppositeSide, false, pushedBlockList, pushedBlockPosList);
+						etfuturum$pushBlocks(world, x + xoffset, y + yoffset, z + zoffset, oppositeSide, false, pushedBlockList, pushedBlockPosList);
 					}
 				}
 			}
 			world.playSoundEffect((double) x + 0.5D, (double) y + 0.5D, (double) z + 0.5D, "tile.piston.in", 0.5F, world.rand.nextFloat() * 0.15F + 0.6F);
 		} else if (extend == 1) {
 			etfuturum$getPushableBlocks(world, x + xoffset, y + yoffset, z + zoffset, oppositeSide, side, x, y, z, pushedBlockList, pushedBlockPosList);
-			etfuturum$pushBlocks(world, side, true, pushedBlockList, pushedBlockPosList);
-			boolean flag1 = world.setBlock(x + xoffset, y + yoffset, z + zoffset, Blocks.piston_extension, side | (this.isSticky ? 8 : 0), 4);
-			world.setTileEntity(x + xoffset, y + yoffset, z + zoffset, BlockPistonMoving.getTileEntity(Blocks.piston_head, side | (this.isSticky ? 8 : 0), side, true, false));
-			//world.notifyBlocksOfNeighborChange(x + xoffset, y + yoffset, z + zoffset, BIS.slimePistonHead);
-			boolean flag2 = world.setBlockMetadataWithNotify(x, y, z, side | 8, 3);
-			if (flag1 || flag2) {
-				world.playSoundEffect((double) x + 0.5D, (double) y + 0.5D, (double) z + 0.5D, "tile.piston.out", 0.5F, world.rand.nextFloat() * 0.25F + 0.6F);
+			if (etfuturum$pushBlocks(world, x + xoffset, y + yoffset, z + zoffset, side, true, pushedBlockList, pushedBlockPosList)) {
+				boolean flag1 = world.setBlock(x + xoffset, y + yoffset, z + zoffset, Blocks.piston_extension, side | (this.isSticky ? 8 : 0), 4);
+				world.setTileEntity(x + xoffset, y + yoffset, z + zoffset, BlockPistonMoving.getTileEntity(Blocks.piston_head, side | (this.isSticky ? 8 : 0), side, true, false));
+				//world.notifyBlocksOfNeighborChange(x + xoffset, y + yoffset, z + zoffset, BIS.slimePistonHead);
+				boolean flag2 = world.setBlockMetadataWithNotify(x, y, z, side | 8, 3);
+				if (flag1 || flag2) {
+					world.playSoundEffect((double) x + 0.5D, (double) y + 0.5D, (double) z + 0.5D, "tile.piston.out", 0.5F, world.rand.nextFloat() * 0.25F + 0.6F);
+				}
 			}
 		}
 		return true;
@@ -260,7 +261,7 @@ public class MixinBlockPistonBase extends Block {
 	 * @param extending Whether the piston is extending or retracting
 	 */
 	@Unique
-	private void etfuturum$pushBlocks(World world, int side, boolean extending, List<Pair<Block, Integer>> pushedBlockList, List<BlockPos> pushedBlockPosList) {
+	private boolean etfuturum$pushBlocks(World world, int pistonX, int pistonY, int pistonZ,  int side, boolean extending, List<Pair<Block, Integer>> pushedBlockList, List<BlockPos> pushedBlockPosList) {
 		boolean needsPusher;
 		ForgeDirection dir = ForgeDirection.getOrientation(side);
 		int xoffset = dir.offsetX;
@@ -269,6 +270,39 @@ public class MixinBlockPistonBase extends Block {
 		List<BlockPos> removedBlockCoords = Lists.newArrayList();
 		List<Entity> launchedEntityList = Lists.newArrayList();
 		List<Entity> pulledEntityList = Lists.newArrayList();
+
+		//Check for obstructions before moving blocks
+		for (BlockPos pushedBlockPos : pushedBlockPosList) {
+			List<BlockPos> obstructionsCoordsList = Lists.newArrayList();
+
+			int destinationX = pushedBlockPos.getX() + xoffset;
+			int destinationY = pushedBlockPos.getY() + yoffset;
+			int destinationZ = pushedBlockPos.getZ() + zoffset;
+			BlockPos obstructionCoords = new BlockPos(destinationX, destinationY, destinationZ);
+
+			if (!pushedBlockPosList.contains(obstructionCoords)) {
+				Block destination = world.getBlock(destinationX, destinationY, destinationZ);
+
+				if (destination.getMaterial() != Material.air) {
+					if (destination.getMobilityFlag() == 1) {
+						obstructionsCoordsList.add(obstructionCoords);
+					} else if (!(destinationX == pistonX && destinationY == pistonY && destinationZ == pistonZ)) {
+						return false;
+					}
+
+					//Clear pre-identified obstructions
+					for (BlockPos obstruction : obstructionsCoordsList) {
+						Block obstructionBlock = world.getBlock(obstruction.getX(), obstruction.getY(), obstruction.getZ());
+						int obstructionMeta = world.getBlockMetadata(obstruction.getX(), obstruction.getY(), obstruction.getZ());
+						float chance = obstructionBlock instanceof BlockSnow ? -1.0f : 1.0f;
+
+						obstructionBlock.dropBlockAsItemWithChance(world, obstruction.getX() - xoffset, obstruction.getY() - yoffset, obstruction.getZ() - zoffset, obstructionMeta, chance, 0);
+						destination.dropBlockAsItem(world, obstruction.getX(), obstruction.getY(), obstruction.getZ(), obstructionMeta, 0);
+						world.setBlockToAir(obstruction.getX(), obstruction.getY(), obstruction.getZ());
+					}
+				}
+			}
+		}
 
 		for (int i = 0; i < pushedBlockList.size(); ++i) {
 			needsPusher = true;
@@ -293,16 +327,6 @@ public class MixinBlockPistonBase extends Block {
 			blockX += xoffset;
 			blockY += yoffset;
 			blockZ += zoffset;
-
-			Block target = world.getBlock(blockX, blockY, blockZ);
-			if (target != null && target.getMobilityFlag() == 1) {
-				int targetMeta = world.getBlockMetadata(blockX, blockY, blockZ);
-				float chance = block instanceof BlockSnow ? -1.0f : 1.0f;
-
-				block.dropBlockAsItemWithChance(world, blockX - xoffset, blockY - yoffset, blockZ - zoffset, blockMeta, chance, 0);
-				target.dropBlockAsItem(world, blockX, blockY, blockZ, targetMeta, 0);
-				world.setBlockToAir(blockX, blockY, blockZ);
-			}
 
 			if (block.getMobilityFlag() == 1) {
 				if (block instanceof BlockSnow)
@@ -347,6 +371,7 @@ public class MixinBlockPistonBase extends Block {
 			world.setBlockToAir(blockCoords.getX(), blockCoords.getY(), blockCoords.getZ());
 			world.notifyBlocksOfNeighborChange(blockCoords.getX(), blockCoords.getY(), blockCoords.getZ(), Blocks.air);
 		}
+		return true;
 	}
 
 	@Unique
