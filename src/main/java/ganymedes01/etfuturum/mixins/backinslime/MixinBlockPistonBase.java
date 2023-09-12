@@ -6,18 +6,22 @@ import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.BlockPistonMoving;
+import net.minecraft.block.BlockPistonExtension;
 import net.minecraft.block.BlockSnow;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityPiston;
+import net.minecraft.util.Facing;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import org.apache.commons.lang3.tuple.Pair;
 import org.spongepowered.asm.mixin.*;
 
 import java.util.List;
+
+import static net.minecraft.block.BlockPistonExtension.getDirectionMeta;
 
 /**
  * Code ported from Back in Slime, with DonBruce64's permission.
@@ -261,7 +265,7 @@ public class MixinBlockPistonBase extends Block {
 	 * @param extending Whether the piston is extending or retracting
 	 */
 	@Unique
-	private boolean etfuturum$pushBlocks(World world, int pistonX, int pistonY, int pistonZ,  int side, boolean extending, List<Pair<Block, Integer>> pushedBlockList, List<BlockPos> pushedBlockPosList) {
+	private boolean etfuturum$pushBlocks(World world, int pistonX, int pistonY, int pistonZ, int side, boolean extending, List<Pair<Block, Integer>> pushedBlockList, List<BlockPos> pushedBlockPosList) {
 		boolean needsPusher;
 		ForgeDirection dir = ForgeDirection.getOrientation(side);
 		int xoffset = dir.offsetX;
@@ -270,10 +274,10 @@ public class MixinBlockPistonBase extends Block {
 		List<BlockPos> removedBlockCoords = Lists.newArrayList();
 		List<Entity> launchedEntityList = Lists.newArrayList();
 		List<Entity> pulledEntityList = Lists.newArrayList();
+		List<BlockPos> obstructionsCoordsList = Lists.newArrayList();
 
 		//Check for obstructions before moving blocks
 		for (BlockPos pushedBlockPos : pushedBlockPosList) {
-			List<BlockPos> obstructionsCoordsList = Lists.newArrayList();
 
 			int destinationX = pushedBlockPos.getX() + xoffset;
 			int destinationY = pushedBlockPos.getY() + yoffset;
@@ -281,27 +285,39 @@ public class MixinBlockPistonBase extends Block {
 			BlockPos obstructionCoords = new BlockPos(destinationX, destinationY, destinationZ);
 
 			if (!pushedBlockPosList.contains(obstructionCoords)) {
-				Block destination = world.getBlock(destinationX, destinationY, destinationZ);
+				Block destinationBlock = world.getBlock(destinationX, destinationY, destinationZ);
 
-				if (destination.getMaterial() != Material.air) {
-					if (destination.getMobilityFlag() == 1) {
+				if (destinationBlock.getMaterial() != Material.air) {
+					if (destinationBlock.getMobilityFlag() == 1) {
 						obstructionsCoordsList.add(obstructionCoords);
-					} else if (!(destinationX == pistonX && destinationY == pistonY && destinationZ == pistonZ)) {
+					} else if (destinationX == pistonX && destinationY == pistonY && destinationZ == pistonZ)
+					{
+						if (destinationBlock == Blocks.piston_head) {
+							BlockPistonExtension pistonHead = (BlockPistonExtension) destinationBlock;
+
+							if (pistonHead instanceof BlockPistonExtension) {
+								int destinationMeta = world.getBlockMetadata(destinationX, destinationY, destinationZ);
+
+								if (Facing.oppositeSide[getDirectionMeta(destinationMeta)] == side) {
+									continue;
+								}
+							}
+						}
+					} else {
 						return false;
-					}
-
-					//Clear pre-identified obstructions
-					for (BlockPos obstruction : obstructionsCoordsList) {
-						Block obstructionBlock = world.getBlock(obstruction.getX(), obstruction.getY(), obstruction.getZ());
-						int obstructionMeta = world.getBlockMetadata(obstruction.getX(), obstruction.getY(), obstruction.getZ());
-						float chance = obstructionBlock instanceof BlockSnow ? -1.0f : 1.0f;
-
-						obstructionBlock.dropBlockAsItemWithChance(world, obstruction.getX() - xoffset, obstruction.getY() - yoffset, obstruction.getZ() - zoffset, obstructionMeta, chance, 0);
-						destination.dropBlockAsItem(world, obstruction.getX(), obstruction.getY(), obstruction.getZ(), obstructionMeta, 0);
-						world.setBlockToAir(obstruction.getX(), obstruction.getY(), obstruction.getZ());
 					}
 				}
 			}
+		}
+		//Clear pre-identified obstructions
+		for (BlockPos obstruction : obstructionsCoordsList) {
+			Block obstructionBlock = world.getBlock(obstruction.getX(), obstruction.getY(), obstruction.getZ());
+			int obstructionMeta = world.getBlockMetadata(obstruction.getX(), obstruction.getY(), obstruction.getZ());
+			float chance = obstructionBlock instanceof BlockSnow ? -1.0f : 1.0f;
+
+			obstructionBlock.dropBlockAsItemWithChance(world, obstruction.getX() - xoffset, obstruction.getY() - yoffset, obstruction.getZ() - zoffset, obstructionMeta, chance, 0);
+			obstructionBlock.dropBlockAsItem(world, obstruction.getX(), obstruction.getY(), obstruction.getZ(), obstructionMeta, 0);
+			world.setBlockToAir(obstruction.getX(), obstruction.getY(), obstruction.getZ());
 		}
 
 		for (int i = 0; i < pushedBlockList.size(); ++i) {
