@@ -6,18 +6,22 @@ import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.BlockPistonMoving;
+import net.minecraft.block.BlockPistonExtension;
 import net.minecraft.block.BlockSnow;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityPiston;
+import net.minecraft.util.Facing;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import org.apache.commons.lang3.tuple.Pair;
 import org.spongepowered.asm.mixin.*;
 
 import java.util.List;
+
+import static net.minecraft.block.BlockPistonExtension.getDirectionMeta;
 
 /**
  * Code ported from Back in Slime, with DonBruce64's permission.
@@ -70,14 +74,33 @@ public class MixinBlockPistonBase extends Block {
 		int yoffset2 = dir.offsetY * 2;
 		int zoffset2 = dir.offsetZ * 2;
 		int oppositeSide = dir.getOpposite().ordinal();
+		Block block;
+		TileEntity tileentity1;
+
 		if (isPowered && !BlockPistonBase.isExtended(pistonMetadata)) {
 			if (etfuturum$getPushableBlocks(world, x + xoffset, y + yoffset, z + zoffset, oppositeSide, side, x, y, z, Lists.newArrayList(), Lists.newArrayList()) <= 12) {
 				world.addBlockEvent(x, y, z, this, 1, side); //push piston
 			}
 		} else if (!isPowered && BlockPistonBase.isExtended(pistonMetadata)) {
 			if (this.isSticky) {
+				block = world.getBlock(x + xoffset2, y + yoffset2, z + zoffset2);
+				tileentity1 = world.getTileEntity(x + xoffset2, y + yoffset2, z + zoffset2);
+
+				if (block == Blocks.piston_extension && tileentity1 instanceof TileEntityPiston) {
+					TileEntityPiston tileentitypiston = (TileEntityPiston) tileentity1;
+
+					if (tileentitypiston.getPistonOrientation() == side && tileentitypiston.isExtending()) {
+						Block storedBlock = tileentitypiston.getStoredBlockID();
+
+						if (storedBlock != null && storedBlock != Blocks.piston_extension) {
+							world.addBlockEvent(x, y, z, this, -1, side); //1-tick pull piston
+							return;
+						}
+					}
+				}
+
 				if (etfuturum$getPushableBlocks(world, x + xoffset2, y + yoffset2, z + zoffset2, oppositeSide, oppositeSide, x + xoffset, y + yoffset, z + zoffset, Lists.newArrayList(), Lists.newArrayList()) > 12) {
-					return;
+					return; //Can't pull
 				}
 			}
 			world.addBlockEvent(x, y, z, this, 0, side); //pull piston
@@ -112,7 +135,7 @@ public class MixinBlockPistonBase extends Block {
 		List<Pair<Block, Integer>> pushedBlockList = Lists.newArrayList();
 		List<BlockPos> pushedBlockPosList = Lists.newArrayList();
 
-		if (extend == 0) {
+		if (extend <= 0) {
 			TileEntity tileentity = world.getTileEntity(x + xoffset, y + yoffset, z + zoffset);
 			if (tileentity instanceof TileEntityPiston) {
 				((TileEntityPiston) tileentity).clearPistonTileEntity();
@@ -120,26 +143,29 @@ public class MixinBlockPistonBase extends Block {
 			world.setBlock(x, y, z, Blocks.piston_extension, side, 3);
 			world.setTileEntity(x, y, z, BlockPistonMoving.getTileEntity(this, side, side, false, true));
 
-			Block blockToPull = world.getBlock(x + xoffset2, y + yoffset2, z + zoffset2);
-			int metaToPull = world.getBlockMetadata(x + xoffset2, y + yoffset2, z + zoffset2);
+			if (this.isSticky && extend == 0) {
+				Block blockToPull = world.getBlock(x + xoffset2, y + yoffset2, z + zoffset2);
+				int metaToPull = world.getBlockMetadata(x + xoffset2, y + yoffset2, z + zoffset2);
 
-			if (this.isSticky && blockToPull.getMobilityFlag() != 1 && !PistonBehaviorRegistry.isNonStickyBlock(blockToPull, metaToPull)) {
-				if (etfuturum$getPushableBlocks(world, x + xoffset2, y + yoffset2, z + zoffset2, oppositeSide, oppositeSide, x + xoffset, y + yoffset, z + zoffset, pushedBlockList, pushedBlockPosList) == 0) {
-					world.setBlockToAir(x + xoffset, y + yoffset, z + zoffset);
-				} else {
-					etfuturum$pushBlocks(world, oppositeSide, false, pushedBlockList, pushedBlockPosList);
+				if (blockToPull.getMobilityFlag() != 1 && !PistonBehaviorRegistry.isNonStickyBlock(blockToPull, metaToPull)) {
+					if (etfuturum$getPushableBlocks(world, x + xoffset2, y + yoffset2, z + zoffset2, oppositeSide, oppositeSide, x + xoffset, y + yoffset, z + zoffset, pushedBlockList, pushedBlockPosList) == 0) {
+						world.setBlockToAir(x + xoffset, y + yoffset, z + zoffset);
+					} else {
+						etfuturum$pushBlocks(world, x + xoffset, y + yoffset, z + zoffset, oppositeSide, false, pushedBlockList, pushedBlockPosList);
+					}
 				}
 			}
 			world.playSoundEffect((double) x + 0.5D, (double) y + 0.5D, (double) z + 0.5D, "tile.piston.in", 0.5F, world.rand.nextFloat() * 0.15F + 0.6F);
 		} else if (extend == 1) {
 			etfuturum$getPushableBlocks(world, x + xoffset, y + yoffset, z + zoffset, oppositeSide, side, x, y, z, pushedBlockList, pushedBlockPosList);
-			etfuturum$pushBlocks(world, side, true, pushedBlockList, pushedBlockPosList);
-			boolean flag1 = world.setBlock(x + xoffset, y + yoffset, z + zoffset, Blocks.piston_extension, side | (this.isSticky ? 8 : 0), 4);
-			world.setTileEntity(x + xoffset, y + yoffset, z + zoffset, BlockPistonMoving.getTileEntity(Blocks.piston_head, side | (this.isSticky ? 8 : 0), side, true, false));
-			//world.notifyBlocksOfNeighborChange(x + xoffset, y + yoffset, z + zoffset, BIS.slimePistonHead);
-			boolean flag2 = world.setBlockMetadataWithNotify(x, y, z, side | 8, 3);
-			if (flag1 || flag2) {
-				world.playSoundEffect((double) x + 0.5D, (double) y + 0.5D, (double) z + 0.5D, "tile.piston.out", 0.5F, world.rand.nextFloat() * 0.25F + 0.6F);
+			if (etfuturum$pushBlocks(world, x + xoffset, y + yoffset, z + zoffset, side, true, pushedBlockList, pushedBlockPosList)) {
+				boolean flag1 = world.setBlock(x + xoffset, y + yoffset, z + zoffset, Blocks.piston_extension, side | (this.isSticky ? 8 : 0), 4);
+				world.setTileEntity(x + xoffset, y + yoffset, z + zoffset, BlockPistonMoving.getTileEntity(Blocks.piston_head, side | (this.isSticky ? 8 : 0), side, true, false));
+				//world.notifyBlocksOfNeighborChange(x + xoffset, y + yoffset, z + zoffset, BIS.slimePistonHead);
+				boolean flag2 = world.setBlockMetadataWithNotify(x, y, z, side | 8, 3);
+				if (flag1 || flag2) {
+					world.playSoundEffect((double) x + 0.5D, (double) y + 0.5D, (double) z + 0.5D, "tile.piston.out", 0.5F, world.rand.nextFloat() * 0.25F + 0.6F);
+				}
 			}
 		}
 		return true;
@@ -174,7 +200,15 @@ public class MixinBlockPistonBase extends Block {
 				return blocksPushed;
 			} else if ((pushedBlockY == 0 && side == 0) || (pushedBlockY >= world.getHeight() - 1 && side == 1)) {
 				return 13;
-			} else if (!etfuturum$canPushBlockNested(pushedBlock, world, pushedBlockX, pushedBlockY, pushedBlockZ, side, side)) {
+			} else if (etfuturum$canPushBlockNested(pushedBlock, world, pushedBlockX, pushedBlockY, pushedBlockZ, side, side)) {
+				if (pushedBlock.getMobilityFlag() == 1)
+				{
+					float chance = pushedBlock instanceof BlockSnow ? -1.0F : 1.0F;
+					pushedBlock.dropBlockAsItemWithChance(world, pushedBlockX, pushedBlockY, pushedBlockZ, pushedBlockMeta, chance, 0);
+					world.setBlockToAir(pushedBlockX, pushedBlockY, pushedBlockZ);
+					return blocksPushed;
+				}
+			} else {
 				if (pushedBlockX == pistonX && pushedBlockY == pistonY && pushedBlockZ == pistonZ) {
 					return blocksPushed;
 				} else {
@@ -231,7 +265,7 @@ public class MixinBlockPistonBase extends Block {
 	 * @param extending Whether the piston is extending or retracting
 	 */
 	@Unique
-	private void etfuturum$pushBlocks(World world, int side, boolean extending, List<Pair<Block, Integer>> pushedBlockList, List<BlockPos> pushedBlockPosList) {
+	private boolean etfuturum$pushBlocks(World world, int pistonX, int pistonY, int pistonZ, int side, boolean extending, List<Pair<Block, Integer>> pushedBlockList, List<BlockPos> pushedBlockPosList) {
 		boolean needsPusher;
 		ForgeDirection dir = ForgeDirection.getOrientation(side);
 		int xoffset = dir.offsetX;
@@ -240,6 +274,51 @@ public class MixinBlockPistonBase extends Block {
 		List<BlockPos> removedBlockCoords = Lists.newArrayList();
 		List<Entity> launchedEntityList = Lists.newArrayList();
 		List<Entity> pulledEntityList = Lists.newArrayList();
+		List<BlockPos> obstructionsCoordsList = Lists.newArrayList();
+
+		//Check for obstructions before moving blocks
+		for (BlockPos pushedBlockPos : pushedBlockPosList) {
+
+			int destinationX = pushedBlockPos.getX() + xoffset;
+			int destinationY = pushedBlockPos.getY() + yoffset;
+			int destinationZ = pushedBlockPos.getZ() + zoffset;
+			BlockPos obstructionCoords = new BlockPos(destinationX, destinationY, destinationZ);
+
+			if (!pushedBlockPosList.contains(obstructionCoords)) {
+				Block destinationBlock = world.getBlock(destinationX, destinationY, destinationZ);
+
+				if (destinationBlock.getMaterial() != Material.air) {
+					if (destinationBlock.getMobilityFlag() == 1) {
+						obstructionsCoordsList.add(obstructionCoords);
+					} else if (destinationX == pistonX && destinationY == pistonY && destinationZ == pistonZ)
+					{
+						if (destinationBlock == Blocks.piston_head) {
+							BlockPistonExtension pistonHead = (BlockPistonExtension) destinationBlock;
+
+							if (pistonHead instanceof BlockPistonExtension) {
+								int destinationMeta = world.getBlockMetadata(destinationX, destinationY, destinationZ);
+
+								if (Facing.oppositeSide[getDirectionMeta(destinationMeta)] == side) {
+									continue;
+								}
+							}
+						}
+					} else {
+						return false;
+					}
+				}
+			}
+		}
+		//Clear pre-identified obstructions
+		for (BlockPos obstruction : obstructionsCoordsList) {
+			Block obstructionBlock = world.getBlock(obstruction.getX(), obstruction.getY(), obstruction.getZ());
+			int obstructionMeta = world.getBlockMetadata(obstruction.getX(), obstruction.getY(), obstruction.getZ());
+			float chance = obstructionBlock instanceof BlockSnow ? -1.0f : 1.0f;
+
+			obstructionBlock.dropBlockAsItemWithChance(world, obstruction.getX() - xoffset, obstruction.getY() - yoffset, obstruction.getZ() - zoffset, obstructionMeta, chance, 0);
+			obstructionBlock.dropBlockAsItem(world, obstruction.getX(), obstruction.getY(), obstruction.getZ(), obstructionMeta, 0);
+			world.setBlockToAir(obstruction.getX(), obstruction.getY(), obstruction.getZ());
+		}
 
 		for (int i = 0; i < pushedBlockList.size(); ++i) {
 			needsPusher = true;
@@ -264,6 +343,7 @@ public class MixinBlockPistonBase extends Block {
 			blockX += xoffset;
 			blockY += yoffset;
 			blockZ += zoffset;
+
 			if (block.getMobilityFlag() == 1) {
 				float chance = block instanceof BlockSnow ? -1.0f : 1.0f;
 				block.dropBlockAsItemWithChance(world, blockX - xoffset, blockY - yoffset, blockZ - zoffset, blockMeta, chance, 0);
@@ -304,6 +384,7 @@ public class MixinBlockPistonBase extends Block {
 			world.setBlockToAir(blockCoords.getX(), blockCoords.getY(), blockCoords.getZ());
 			world.notifyBlocksOfNeighborChange(blockCoords.getX(), blockCoords.getY(), blockCoords.getZ(), Blocks.air);
 		}
+		return true;
 	}
 
 	@Unique
