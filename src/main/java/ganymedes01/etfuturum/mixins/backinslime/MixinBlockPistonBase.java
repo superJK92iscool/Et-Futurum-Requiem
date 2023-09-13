@@ -100,7 +100,7 @@ public class MixinBlockPistonBase extends Block {
 				}
 
 				if (etfuturum$getPushableBlocks(world, x + xoffset2, y + yoffset2, z + zoffset2, oppositeSide, oppositeSide, x + xoffset, y + yoffset, z + zoffset, Lists.newArrayList(), Lists.newArrayList()) > 12) {
-					return; //Can't pull
+					return; //Unable to pull
 				}
 			}
 			world.addBlockEvent(x, y, z, this, 0, side); //pull piston
@@ -203,10 +203,7 @@ public class MixinBlockPistonBase extends Block {
 			} else if (etfuturum$canPushBlockNested(pushedBlock, world, pushedBlockX, pushedBlockY, pushedBlockZ, side, side)) {
 				if (pushedBlock.getMobilityFlag() == 1)
 				{
-					float chance = pushedBlock instanceof BlockSnow ? -1.0F : 1.0F;
-					pushedBlock.dropBlockAsItemWithChance(world, pushedBlockX, pushedBlockY, pushedBlockZ, pushedBlockMeta, chance, 0);
-					world.setBlockToAir(pushedBlockX, pushedBlockY, pushedBlockZ);
-					return blocksPushed;
+					return ++blocksPushed;
 				}
 			} else {
 				if (pushedBlockX == pistonX && pushedBlockY == pistonY && pushedBlockZ == pistonZ) {
@@ -274,38 +271,41 @@ public class MixinBlockPistonBase extends Block {
 		List<BlockPos> removedBlockCoords = Lists.newArrayList();
 		List<Entity> launchedEntityList = Lists.newArrayList();
 		List<Entity> pulledEntityList = Lists.newArrayList();
-		List<BlockPos> obstructionsCoordsList = Lists.newArrayList();
 
 		//Check for obstructions before moving blocks
-		for (BlockPos pushedBlockPos : pushedBlockPosList) {
+		List<BlockPos> relocationCoordsList = Lists.newArrayList();
+		List<BlockPos> obstructionsCoordsList = Lists.newArrayList();
 
-			int destinationX = pushedBlockPos.getX() + xoffset;
-			int destinationY = pushedBlockPos.getY() + yoffset;
-			int destinationZ = pushedBlockPos.getZ() + zoffset;
+		if(extending) {
+			relocationCoordsList.add(new BlockPos(pistonX - xoffset, pistonY - yoffset, pistonZ - zoffset));
+		}
+		relocationCoordsList.addAll(pushedBlockPosList);
+
+		for (BlockPos relocationBlockPos : relocationCoordsList) {
+
+			int destinationX = relocationBlockPos.getX() + xoffset;
+			int destinationY = relocationBlockPos.getY() + yoffset;
+			int destinationZ = relocationBlockPos.getZ() + zoffset;
 			BlockPos obstructionCoords = new BlockPos(destinationX, destinationY, destinationZ);
+			Block destinationBlock = world.getBlock(destinationX, destinationY, destinationZ);
+
 
 			if (!pushedBlockPosList.contains(obstructionCoords)) {
-				Block destinationBlock = world.getBlock(destinationX, destinationY, destinationZ);
 
 				if (destinationBlock.getMaterial() != Material.air) {
 					if (destinationBlock.getMobilityFlag() == 1) {
 						obstructionsCoordsList.add(obstructionCoords);
-					} else if (destinationX == pistonX && destinationY == pistonY && destinationZ == pistonZ)
-					{
+						continue;
+					} else if (destinationX == pistonX && destinationY == pistonY && destinationZ == pistonZ) {
 						if (destinationBlock == Blocks.piston_head) {
 							BlockPistonExtension pistonHead = (BlockPistonExtension) destinationBlock;
+							int pistonHeadMeta = world.getBlockMetadata(destinationX, destinationY, destinationZ);
 
-							if (pistonHead instanceof BlockPistonExtension) {
-								int destinationMeta = world.getBlockMetadata(destinationX, destinationY, destinationZ);
-
-								if (Facing.oppositeSide[getDirectionMeta(destinationMeta)] == side) {
-									continue;
-								}
-							}
+							if (pistonHead instanceof BlockPistonExtension && Facing.oppositeSide[getDirectionMeta(pistonHeadMeta)] == side)
+								continue;
 						}
-					} else {
-						return false;
 					}
+					return false;
 				}
 			}
 		}
@@ -313,10 +313,9 @@ public class MixinBlockPistonBase extends Block {
 		for (BlockPos obstruction : obstructionsCoordsList) {
 			Block obstructionBlock = world.getBlock(obstruction.getX(), obstruction.getY(), obstruction.getZ());
 			int obstructionMeta = world.getBlockMetadata(obstruction.getX(), obstruction.getY(), obstruction.getZ());
-			float chance = obstructionBlock instanceof BlockSnow ? -1.0f : 1.0f;
-
-			obstructionBlock.dropBlockAsItemWithChance(world, obstruction.getX() - xoffset, obstruction.getY() - yoffset, obstruction.getZ() - zoffset, obstructionMeta, chance, 0);
-			obstructionBlock.dropBlockAsItem(world, obstruction.getX(), obstruction.getY(), obstruction.getZ(), obstructionMeta, 0);
+			float chance = obstructionBlock instanceof BlockSnow ? -1.0F : 1.0F;
+			
+			obstructionBlock.dropBlockAsItemWithChance(world, obstruction.getX(), obstruction.getY(), obstruction.getZ(), obstructionMeta, chance, 0);
 			world.setBlockToAir(obstruction.getX(), obstruction.getY(), obstruction.getZ());
 		}
 
