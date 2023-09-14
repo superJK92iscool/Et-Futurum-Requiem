@@ -3,11 +3,7 @@ package ganymedes01.etfuturum.mixins.backinslime;
 import com.google.common.collect.Lists;
 import ganymedes01.etfuturum.api.PistonBehaviorRegistry;
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockPistonBase;
-import net.minecraft.block.BlockPistonMoving;
-import net.minecraft.block.BlockPistonExtension;
-import net.minecraft.block.BlockSnow;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
@@ -345,7 +341,7 @@ public class MixinBlockPistonBase extends Block {
 
 			if (block.getMobilityFlag() == 1) {
 				float chance = block instanceof BlockSnow ? -1.0f : 1.0f;
-				block.dropBlockAsItemWithChance(world, blockX - xoffset, blockY - yoffset, blockZ - zoffset, blockMeta, chance, 0);
+				block.dropBlockAsItemWithChance(world, pos.getX(), pos.getY(), pos.getZ(), blockMeta, chance, 0);
 				world.setBlockToAir(blockX, blockY, blockZ);
 			} else {
 				world.setBlock(blockX, blockY, blockZ, Blocks.piston_extension, blockMeta, 4);
