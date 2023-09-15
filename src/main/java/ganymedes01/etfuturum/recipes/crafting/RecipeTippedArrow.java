@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.recipes.crafting;
 
-import java.util.List;
-
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.items.ItemLingeringPotion;
 import net.minecraft.inventory.InventoryCrafting;
@@ -9,6 +7,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
 import net.minecraftforge.oredict.ShapedOreRecipe;
+
+import java.util.List;
 
 public class RecipeTippedArrow extends ShapedOreRecipe {
 

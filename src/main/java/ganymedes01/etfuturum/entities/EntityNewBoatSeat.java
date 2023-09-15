@@ -1,8 +1,5 @@
 package ganymedes01.etfuturum.entities;
 
-import java.util.List;
-import java.util.UUID;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
@@ -12,6 +9,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
+
+import java.util.List;
+import java.util.UUID;
 
 public class EntityNewBoatSeat extends Entity {
 	

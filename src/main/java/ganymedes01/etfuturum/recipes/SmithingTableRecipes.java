@@ -1,9 +1,5 @@
 package ganymedes01.etfuturum.recipes;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import net.minecraft.block.Block;
@@ -14,6 +10,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class SmithingTableRecipes {
 

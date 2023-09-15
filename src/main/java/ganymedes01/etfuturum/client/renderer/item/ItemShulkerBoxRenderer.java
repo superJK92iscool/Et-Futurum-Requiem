@@ -2,7 +2,6 @@ package ganymedes01.etfuturum.client.renderer.item;
 
 import ganymedes01.etfuturum.client.OpenGLHelper;
 import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox;
-import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox.ShulkerBoxType;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;

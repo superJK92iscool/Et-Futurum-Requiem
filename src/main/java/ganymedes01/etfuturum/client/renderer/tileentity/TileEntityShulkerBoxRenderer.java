@@ -1,11 +1,6 @@
 package ganymedes01.etfuturum.client.renderer.tileentity;
 
-import java.util.Random;
-
-import org.lwjgl.opengl.GL11;
-
 import com.google.common.primitives.SignedBytes;
-
 import ganymedes01.etfuturum.client.model.ModelShulker;
 import ganymedes01.etfuturum.client.renderer.entity.ShulkerRenderer;
 import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox;
@@ -17,6 +12,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.ForgeDirection;
+import org.lwjgl.opengl.GL11;
+
+import java.util.Random;
 
 public class TileEntityShulkerBoxRenderer extends TileEntitySpecialRenderer {
 

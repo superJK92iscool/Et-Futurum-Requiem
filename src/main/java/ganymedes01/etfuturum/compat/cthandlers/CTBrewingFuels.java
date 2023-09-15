@@ -1,7 +1,7 @@
 package ganymedes01.etfuturum.compat.cthandlers;
 
-import ganymedes01.etfuturum.compat.CompatCraftTweaker;
 import ganymedes01.etfuturum.api.BrewingFuelRegistry;
+import ganymedes01.etfuturum.compat.CompatCraftTweaker;
 import ganymedes01.etfuturum.core.utils.ItemStackMap;
 import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
@@ -12,7 +12,8 @@ import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 
 import static ganymedes01.etfuturum.compat.CompatCraftTweaker.getInternal;
 

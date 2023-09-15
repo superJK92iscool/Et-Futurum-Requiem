@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.entities;
 
-import java.util.ArrayList;
-
 import net.minecraft.entity.monster.EntitySnowman;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -9,6 +7,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IShearable;
+
+import java.util.ArrayList;
 
 public class EntityNewSnowGolem extends EntitySnowman implements IShearable {
 

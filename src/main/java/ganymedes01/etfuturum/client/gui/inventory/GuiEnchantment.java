@@ -1,17 +1,9 @@
 package ganymedes01.etfuturum.client.gui.inventory;
 
-import java.util.ArrayList;
-import java.util.Random;
-
-import ganymedes01.etfuturum.api.EnchantingFuelRegistry;
-import net.minecraft.init.Items;
-import net.minecraft.util.*;
-import org.lwjgl.util.glu.Project;
-
 import com.google.common.collect.Lists;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import ganymedes01.etfuturum.api.EnchantingFuelRegistry;
 import ganymedes01.etfuturum.client.OpenGLHelper;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.inventory.ContainerEnchantment;
@@ -25,8 +17,14 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
+import org.lwjgl.util.glu.Project;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 @SideOnly(Side.CLIENT)
 public class GuiEnchantment extends GuiContainer {

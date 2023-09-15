@@ -3,7 +3,6 @@ package ganymedes01.etfuturum.client.gui;
 import com.google.common.collect.Lists;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.spectator.SpectatorMode;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
@@ -21,7 +20,9 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 public class GuiGamemodeSwitcher extends GuiScreen {
 	private static final ResourceLocation TEXTURE = Utils.getResource("textures/gui/container/gamemode_switcher.png");

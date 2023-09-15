@@ -1,8 +1,5 @@
 package ganymedes01.etfuturum;
 
-import java.util.Map;
-import java.util.WeakHashMap;
-
 import ganymedes01.etfuturum.configuration.configs.ConfigEnchantsPotions;
 import ganymedes01.etfuturum.enchantment.FrostWalker;
 import ganymedes01.etfuturum.enchantment.Mending;
@@ -18,6 +15,9 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.event.entity.player.PlayerPickupXpEvent;
+
+import java.util.Map;
+import java.util.WeakHashMap;
 
 public class ModEnchantments {
 

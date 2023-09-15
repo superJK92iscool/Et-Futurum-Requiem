@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.core.utils.structurenbt;
 
-import ganymedes01.etfuturum.core.utils.Logger;
-import ganymedes01.etfuturum.entities.EntityShulker;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.entity.Entity;
@@ -9,9 +7,6 @@ import net.minecraft.entity.EntityList;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ChestGenHooks;
-import net.minecraftforge.common.util.Constants;
-
-import java.lang.reflect.InvocationTargetException;
 
 /**Used to store the results of an unflattening in meta, to easily store it in a map after reading a structure NBT file.*/
 public class BlockState {

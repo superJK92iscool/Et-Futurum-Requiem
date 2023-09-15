@@ -1,11 +1,10 @@
 package ganymedes01.etfuturum.mixins.sounds;
 
-import org.spongepowered.asm.mixin.Mixin;
-
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.entity.monster.EntityGolem;
 import net.minecraft.entity.monster.EntitySnowman;
 import net.minecraft.world.World;
+import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(EntitySnowman.class)
 public class MixinEntitySnowman extends EntityGolem {

@@ -1,14 +1,11 @@
 package ganymedes01.etfuturum.blocks.ores;
 
-import java.util.List;
-import java.util.Random;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
+import ganymedes01.etfuturum.api.DeepslateOreRegistry;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
-import ganymedes01.etfuturum.api.DeepslateOreRegistry;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockOre;
@@ -23,6 +20,9 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+
+import java.util.List;
+import java.util.Random;
 
 public class BlockDeepslateOre extends BlockOre {
 	

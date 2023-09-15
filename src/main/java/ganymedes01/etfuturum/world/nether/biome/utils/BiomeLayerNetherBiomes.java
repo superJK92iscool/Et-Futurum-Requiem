@@ -1,13 +1,13 @@
 package ganymedes01.etfuturum.world.nether.biome.utils;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import ganymedes01.etfuturum.world.nether.dimension.BiomeLayerNether;
 import net.minecraft.util.WeightedRandom;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.layer.IntCache;
 import net.minecraftforge.common.BiomeManager.BiomeEntry;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BiomeLayerNetherBiomes extends BiomeLayerNether {
 

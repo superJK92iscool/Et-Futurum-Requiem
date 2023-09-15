@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.blocks.ores;
 
-import java.util.Random;
-
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
@@ -10,6 +8,8 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
+
+import java.util.Random;
 
 public class BlockOreNetherGold extends Block {
 

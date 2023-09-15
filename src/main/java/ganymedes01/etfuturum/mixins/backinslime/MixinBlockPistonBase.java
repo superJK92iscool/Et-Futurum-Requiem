@@ -226,7 +226,7 @@ public class MixinBlockPistonBase extends Block {
 						int attachedX = pushedBlockX + dir.offsetX;
 						int attachedY = pushedBlockY + dir.offsetY;
 						int attachedZ = pushedBlockZ + dir.offsetZ;
-//						int attachedMeta=world.getBlockMetadata(attachedX, attachedY, attachedZ);
+//                      int attachedMeta=world.getBlockMetadata(attachedX, attachedY, attachedZ);
 						Block attachedBlock = world.getBlock(attachedX, attachedY, attachedZ);
 
 						if (!(attachedX == pistonX && attachedY == pistonY && attachedZ == pistonZ)) {

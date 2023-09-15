@@ -1,8 +1,9 @@
 package ganymedes01.etfuturum.compat;
 
 //Do not change from * or it will break soft compat
-import baubles.api.*;
-import baubles.api.expanded.*;
+
+import baubles.api.BaublesApi;
+import baubles.api.expanded.BaubleExpandedSlots;
 import ganymedes01.etfuturum.items.equipment.ItemArmorElytra;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;

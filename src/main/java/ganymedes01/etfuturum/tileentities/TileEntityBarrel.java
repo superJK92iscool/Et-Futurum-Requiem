@@ -1,8 +1,5 @@
 package ganymedes01.etfuturum.tileentities;
 
-import java.util.Iterator;
-import java.util.List;
-
 import ganymedes01.etfuturum.blocks.BlockBarrel;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.Reference;
@@ -14,6 +11,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+
+import java.util.Iterator;
+import java.util.List;
 
 public class TileEntityBarrel extends TileEntity implements IInventory {
 	private int ticksSinceSync;

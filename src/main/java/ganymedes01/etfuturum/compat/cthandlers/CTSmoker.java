@@ -3,14 +3,10 @@ package ganymedes01.etfuturum.compat.cthandlers;
 import ganymedes01.etfuturum.compat.CompatCraftTweaker;
 import ganymedes01.etfuturum.core.utils.ItemStackMap;
 import ganymedes01.etfuturum.recipes.SmokerRecipes;
-import ganymedes01.etfuturum.recipes.SmokerRecipes;
-import ganymedes01.etfuturum.recipes.SmokerRecipes;
 import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
-import minetweaker.api.recipes.FurnaceRecipe;
-import minetweaker.api.recipes.IFurnaceRecipe;
 import minetweaker.mc1710.item.MCItemStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
@@ -20,7 +16,6 @@ import stanhebben.zenscript.annotations.ZenMethod;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /** Remember smoker recipes are output, THEN input, not input then output
  * mods.etfuturum.smoker.addRecipe(<minecraft:gold_block>, <minecraft:iron_block>, 4.0D);

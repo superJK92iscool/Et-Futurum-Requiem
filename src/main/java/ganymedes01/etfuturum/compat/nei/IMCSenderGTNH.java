@@ -2,8 +2,6 @@ package ganymedes01.etfuturum.compat.nei;
 
 import cpw.mods.fml.common.event.FMLInterModComms;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
-import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.nbt.NBTTagCompound;
 

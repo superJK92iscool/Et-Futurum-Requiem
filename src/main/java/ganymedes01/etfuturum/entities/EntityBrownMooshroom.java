@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.entities;
 
-import java.util.ArrayList;
-
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.items.ItemSuspiciousStew;
@@ -16,6 +14,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+
+import java.util.ArrayList;
 
 public class EntityBrownMooshroom extends EntityMooshroom {
 	

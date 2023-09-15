@@ -1,11 +1,5 @@
 package ganymedes01.etfuturum.entities;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-
 import cpw.mods.fml.common.registry.EntityRegistry;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.entity.Entity;
@@ -14,6 +8,8 @@ import net.minecraft.entity.EntityList.EntityEggInfo;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+
+import java.util.*;
 
 public class ModEntityList {
 

@@ -1,11 +1,11 @@
 package ganymedes01.etfuturum.world.nether.generate;
 
-import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
+
+import java.util.Random;
 
 public class HugeCrimsonFungi0 extends WorldGenAbstractTree {
 	/** The minimum height of a generated tree. */

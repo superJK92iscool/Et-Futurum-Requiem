@@ -1,8 +1,8 @@
 package ganymedes01.etfuturum.recipes.crafting;
 
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockBanner;
+import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.EnumColour;
 import ganymedes01.etfuturum.tileentities.TileEntityBanner;
 import ganymedes01.etfuturum.tileentities.TileEntityBanner.EnumBannerPattern;

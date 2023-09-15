@@ -1,17 +1,12 @@
 package ganymedes01.etfuturum.core.utils.helpers;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
-import java.util.SortedSet;
-import java.util.TreeSet;
-import java.util.function.LongFunction;
-
-import org.apache.commons.lang3.tuple.Pair;
-
 import ganymedes01.etfuturum.core.utils.Utils;
 import gnu.trove.list.TDoubleList;
 import gnu.trove.list.array.TDoubleArrayList;
+import org.apache.commons.lang3.tuple.Pair;
+
+import java.util.*;
+import java.util.function.LongFunction;
 
 public class OctavePerlinNoiseSampler implements NoiseSampler {
    private static final int field_31704 = 33554432;

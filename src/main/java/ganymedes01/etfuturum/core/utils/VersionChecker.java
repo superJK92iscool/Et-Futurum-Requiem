@@ -1,13 +1,5 @@
 package ganymedes01.etfuturum.core.utils;
 
-import java.io.InputStream;
-import java.net.URL;
-import java.nio.charset.Charset;
-import java.util.LinkedList;
-import java.util.List;
-
-import org.apache.commons.io.IOUtils;
-
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -21,6 +13,13 @@ import net.minecraft.event.HoverEvent;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
+import org.apache.commons.io.IOUtils;
+
+import java.io.InputStream;
+import java.net.URL;
+import java.nio.charset.Charset;
+import java.util.LinkedList;
+import java.util.List;
 /**
  * Adapted from Jabelar's tutorials
  * Taken from VillageNames with permission

@@ -1,15 +1,15 @@
 package ganymedes01.etfuturum.client.skins;
 
-import java.util.Map;
-import java.util.UUID;
-import java.util.WeakHashMap;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.Constants;
+
+import java.util.Map;
+import java.util.UUID;
+import java.util.WeakHashMap;
 
 @SideOnly(Side.CLIENT)
 public class PlayerModelManager {

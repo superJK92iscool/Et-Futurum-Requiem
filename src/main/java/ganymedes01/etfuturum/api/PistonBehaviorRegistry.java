@@ -16,7 +16,7 @@ public class PistonBehaviorRegistry {
 	 * These blocks will stick to sticky pistons and allow you to push clusters of blocks. They won't stick to each other however.
 	 */
 	private static final Map<RegistryMapping<Block>, PistonAction> BEHAVIOR_REGISTRY = Maps.newHashMap();
-//	private static final List<RegistryMapping<Block>> BEE_FLOWERS = Lists.newArrayList();
+//  private static final List<RegistryMapping<Block>> BEE_FLOWERS = Lists.newArrayList();
 
 	public static void addPistonBehavior(Block block, PistonAction action) {
 		addPistonBehavior(block, OreDictionary.WILDCARD_VALUE, action);

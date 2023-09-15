@@ -1,13 +1,13 @@
 package ganymedes01.etfuturum.client.gui;
 
-import java.util.Iterator;
-import java.util.List;
-
 import cpw.mods.fml.client.config.GuiCheckBox;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
 import net.minecraftforge.common.config.Configuration;
+
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Adapted from Biomes o' Plenty by Glitchfiend

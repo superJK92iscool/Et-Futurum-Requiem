@@ -1,7 +1,6 @@
 package ganymedes01.etfuturum.client.renderer.item;
 
 import com.mojang.authlib.GameProfile;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.client.OpenGLHelper;

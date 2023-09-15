@@ -1,15 +1,5 @@
 package ganymedes01.etfuturum.world.nether.dimension;
 
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.SHROOM;
-import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.NETHER_BRIDGE;
-import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.NETHER_CAVE;
-import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.FIRE;
-import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.GLOWSTONE;
-import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.NETHER_LAVA;
-
-import java.util.List;
-import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.entity.EnumCreatureType;
@@ -31,6 +21,14 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
+
+import java.util.List;
+import java.util.Random;
+
+import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.SHROOM;
+import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.NETHER_BRIDGE;
+import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.NETHER_CAVE;
+import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.*;
 
 public class NetherChunkProvider implements IChunkProvider {
 	private Random hellRNG;

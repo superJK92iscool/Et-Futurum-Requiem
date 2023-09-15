@@ -1,8 +1,5 @@
 package ganymedes01.etfuturum.blocks;
 
-import java.util.List;
-import java.util.Random;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModItems;
@@ -28,6 +25,9 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+
+import java.util.List;
+import java.util.Random;
 
 public class BlockPotionCauldron extends BlockCauldronTileEntity {
 	

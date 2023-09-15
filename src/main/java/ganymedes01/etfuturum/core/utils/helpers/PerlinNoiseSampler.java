@@ -1,9 +1,9 @@
 package ganymedes01.etfuturum.core.utils.helpers;
 
-import java.util.Random;
-
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.util.MathHelper;
+
+import java.util.Random;
 
 public final class PerlinNoiseSampler {
    private static final float field_31701 = 1.0E-7F;

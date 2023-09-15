@@ -67,7 +67,7 @@ public abstract class ExtendedPathNavigator extends PathNavigate {
 		int k2 = l + k1;
 		int l2 = i1 + k1;
 		int i3 = j1 + k1;
-//		ChunkCache chunkcache = new ChunkCache(worldObj, l1, i2, j2, k2, l2, i3, 0);
+//      ChunkCache chunkcache = new ChunkCache(worldObj, l1, i2, j2, k2, l2, i3, 0);
 		PathEntity pathentity = pathFinder.createEntityPathTo(theEntity, toPosX, toPosY, toPosZ, searchRange);
 		worldObj.theProfiler.endSection();
 		return pathentity;

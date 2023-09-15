@@ -1,14 +1,12 @@
 package ganymedes01.etfuturum.mixins.sounds;
 
 import ganymedes01.etfuturum.lib.Reference;
-import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemHoe;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ItemHoe.class)
 public abstract class MixinItemHoe extends Item {

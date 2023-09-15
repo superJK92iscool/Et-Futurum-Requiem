@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.entities;
 
-import java.util.List;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
@@ -23,6 +21,8 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 public class EntityArmourStand extends EntityLiving {
 

@@ -51,7 +51,7 @@ public class Item3DBedRenderer implements IItemRenderer {
 		tm.bindTexture(rl);
 
 		Tessellator tessellator = Tessellator.instance;
-//		boolean useInventoryTint = renderer.useInventoryTint;
+//      boolean useInventoryTint = renderer.useInventoryTint;
 		tessellator.startDrawingQuads();
 
 		int meta = 10;   // head facing north, foot is to the south

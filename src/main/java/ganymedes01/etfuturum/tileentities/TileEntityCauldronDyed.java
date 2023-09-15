@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.tileentities;
 
-import net.minecraft.item.ItemPotion;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;

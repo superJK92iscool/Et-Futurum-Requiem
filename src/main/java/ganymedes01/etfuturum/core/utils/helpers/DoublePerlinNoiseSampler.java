@@ -1,10 +1,10 @@
 package ganymedes01.etfuturum.core.utils.helpers;
 
-import java.util.Random;
-
 import gnu.trove.iterator.TDoubleIterator;
 import gnu.trove.list.TDoubleList;
 import gnu.trove.list.array.TDoubleArrayList;
+
+import java.util.Random;
 
 public class DoublePerlinNoiseSampler {
    private static final double DOMAIN_SCALE = 1.0181268882175227D;

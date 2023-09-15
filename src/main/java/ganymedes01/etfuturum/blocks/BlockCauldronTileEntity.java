@@ -1,8 +1,5 @@
 package ganymedes01.etfuturum.blocks;
 
-import java.util.List;
-import java.util.Random;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.BlockContainer;
@@ -14,6 +11,9 @@ import net.minecraft.item.Item;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+
+import java.util.List;
+import java.util.Random;
 
 public abstract class BlockCauldronTileEntity extends BlockContainer {
 

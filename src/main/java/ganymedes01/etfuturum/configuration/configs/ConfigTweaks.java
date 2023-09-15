@@ -1,10 +1,8 @@
 package ganymedes01.etfuturum.configuration.configs;
 
-import java.io.File;
-
 import ganymedes01.etfuturum.configuration.ConfigBase;
-import net.minecraft.launchwrapper.Launch;
-import net.minecraftforge.common.config.Configuration;
+
+import java.io.File;
 
 public class ConfigTweaks extends ConfigBase {
 

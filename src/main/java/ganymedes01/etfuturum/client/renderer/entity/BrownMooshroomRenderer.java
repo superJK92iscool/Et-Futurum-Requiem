@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.client.renderer.entity;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.model.ModelCow;
 import net.minecraft.client.model.ModelQuadruped;
 import net.minecraft.client.renderer.entity.RenderMooshroom;
@@ -9,6 +7,7 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.passive.EntityMooshroom;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
 
 public class BrownMooshroomRenderer extends RenderMooshroom {
 	public BrownMooshroomRenderer() {

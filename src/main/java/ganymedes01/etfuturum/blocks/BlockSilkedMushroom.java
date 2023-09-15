@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.blocks;
 
-import java.util.Random;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
@@ -11,6 +9,8 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.Item;
 import net.minecraft.util.IIcon;
+
+import java.util.Random;
 
 public class BlockSilkedMushroom extends Block {
 

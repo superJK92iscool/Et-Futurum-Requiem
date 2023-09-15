@@ -1,13 +1,12 @@
 package ganymedes01.etfuturum.mixins.observer;
 
+import ganymedes01.etfuturum.blocks.BlockObserver;
+import net.minecraft.world.chunk.Chunk;
+import net.minecraft.world.chunk.IChunkProvider;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import ganymedes01.etfuturum.blocks.BlockObserver;
-import net.minecraft.world.chunk.Chunk;
-import net.minecraft.world.chunk.IChunkProvider;
 
 @Mixin(Chunk.class)
 public abstract class MixinChunk {

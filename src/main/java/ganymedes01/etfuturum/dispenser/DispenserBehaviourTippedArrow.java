@@ -1,7 +1,6 @@
 package ganymedes01.etfuturum.dispenser;
 
 import ganymedes01.etfuturum.entities.EntityTippedArrow;
-import ganymedes01.etfuturum.items.ItemArrowTipped;
 import net.minecraft.dispenser.BehaviorDefaultDispenseItem;
 import net.minecraft.dispenser.BehaviorProjectileDispense;
 import net.minecraft.dispenser.IBlockSource;

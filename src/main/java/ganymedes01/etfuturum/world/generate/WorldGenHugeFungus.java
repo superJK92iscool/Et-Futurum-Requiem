@@ -1,9 +1,9 @@
 package ganymedes01.etfuturum.world.generate;
 
-import java.util.Random;
-
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
+
+import java.util.Random;
 
 public class WorldGenHugeFungus extends WorldGenAbstractTree {
 	/** The minimum height of a generated tree. */

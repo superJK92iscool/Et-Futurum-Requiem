@@ -1,13 +1,5 @@
 package ganymedes01.etfuturum.tileentities;
 
-import java.util.List;
-import java.util.Random;
-
-import javax.annotation.Nullable;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import ganymedes01.etfuturum.world.end.gen.WorldGenEndGateway;
 import ganymedes01.etfuturum.world.end.gen.WorldGenEndIsland;
@@ -27,6 +19,12 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldProviderEnd;
 import net.minecraft.world.chunk.Chunk;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import javax.annotation.Nullable;
+import java.util.List;
+import java.util.Random;
 
 public class TileEntityGateway extends TileEntity {
 		private static final Logger LOG = LogManager.getLogger();

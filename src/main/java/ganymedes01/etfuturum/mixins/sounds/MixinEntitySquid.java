@@ -1,11 +1,10 @@
 package ganymedes01.etfuturum.mixins.sounds;
 
-import org.spongepowered.asm.mixin.Mixin;
-
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.entity.passive.EntityWaterMob;
 import net.minecraft.world.World;
+import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(EntitySquid.class)
 public class MixinEntitySquid extends EntityWaterMob {

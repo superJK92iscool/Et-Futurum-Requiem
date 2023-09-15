@@ -1,8 +1,5 @@
 package ganymedes01.etfuturum.client.gui.inventory;
 
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.opengl.GL11;
-
 import ganymedes01.etfuturum.blocks.BlockWoodSign;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -12,6 +9,8 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.network.play.client.C12PacketUpdateSign;
 import net.minecraft.tileentity.TileEntitySign;
 import net.minecraft.util.ChatAllowedCharacters;
+import org.lwjgl.input.Keyboard;
+import org.lwjgl.opengl.GL11;
 
 public class GuiEditWoodSign extends GuiScreen {
 

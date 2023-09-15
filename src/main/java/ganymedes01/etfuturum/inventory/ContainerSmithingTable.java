@@ -1,7 +1,6 @@
 package ganymedes01.etfuturum.inventory;
 
 import ganymedes01.etfuturum.inventory.slot.SlotSmithingResult;
-import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.recipes.SmithingTableRecipes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;

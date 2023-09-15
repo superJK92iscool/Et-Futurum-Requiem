@@ -16,7 +16,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
-import java.io.*;
+import java.io.InputStream;
 import java.util.*;
 
 public abstract class NBTStructure {

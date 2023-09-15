@@ -1,11 +1,11 @@
 package ganymedes01.etfuturum.blocks;
 
-import java.util.Random;
-
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.BlockGravel;
 import net.minecraft.item.Item;
+
+import java.util.Random;
 
 public class BlockOldGravel extends BlockGravel {
 

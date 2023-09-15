@@ -1,7 +1,7 @@
 package ganymedes01.etfuturum.compat.cthandlers;
 
-import ganymedes01.etfuturum.compat.CompatCraftTweaker;
 import ganymedes01.etfuturum.api.EnchantingFuelRegistry;
+import ganymedes01.etfuturum.compat.CompatCraftTweaker;
 import ganymedes01.etfuturum.core.utils.ItemStackSet;
 import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;

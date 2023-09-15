@@ -1,8 +1,5 @@
 package ganymedes01.etfuturum.entities;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.blocks.BlockPointedDripstone;
 import net.minecraft.block.Block;
@@ -13,6 +10,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class EntityFallingDripstone extends EntityFallingBlock {
 	

@@ -16,10 +16,9 @@ import net.minecraft.util.Facing;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import org.apache.commons.lang3.mutable.MutableInt;
 
 import java.util.Random;
-
-import org.apache.commons.lang3.mutable.MutableInt;
 
 public class BlockObserver extends Block implements IBlockObserver {
 	@SideOnly(Side.CLIENT)

@@ -218,9 +218,9 @@ public class BlockBeeHive extends BlockContainer {
 				this.takeHoney((TileEntityBeeHive) te, player, TileEntityBeeHive.State.EMERGENCY);
 			} else {
 				this.takeHoney((TileEntityBeeHive) te);
-//				if (player instanceof ServerEntityPlayer) {
-//					CriteriaTriggers.SAFELY_HARVEST_HONEY.test((ServerEntityPlayer)player, pos, itemstack1);
-//				}
+//              if (player instanceof ServerEntityPlayer) {
+//                  CriteriaTriggers.SAFELY_HARVEST_HONEY.test((ServerEntityPlayer)player, pos, itemstack1);
+//              }
 			}
 			updateHiveState(world, x, y, z, false);
 			return true;

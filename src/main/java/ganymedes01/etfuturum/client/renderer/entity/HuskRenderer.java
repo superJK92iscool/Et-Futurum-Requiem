@@ -1,13 +1,12 @@
 package ganymedes01.etfuturum.client.renderer.entity;
 
-import org.lwjgl.opengl.GL11;
-
 import ganymedes01.etfuturum.entities.EntityHusk;
 import net.minecraft.client.model.ModelZombie;
 import net.minecraft.client.renderer.entity.RenderBiped;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
 
 public class HuskRenderer extends RenderBiped
 {

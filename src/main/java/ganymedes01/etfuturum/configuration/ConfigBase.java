@@ -1,22 +1,21 @@
 package ganymedes01.etfuturum.configuration;
 
+import cpw.mods.fml.client.event.ConfigChangedEvent;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import ganymedes01.etfuturum.EtFuturumMixinPlugin;
+import ganymedes01.etfuturum.configuration.configs.*;
+import ganymedes01.etfuturum.lib.Reference;
+import net.minecraft.launchwrapper.Launch;
+import net.minecraftforge.common.config.ConfigCategory;
+import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.common.config.Property;
+import org.spongepowered.asm.mixin.MixinEnvironment;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import ganymedes01.etfuturum.configuration.configs.*;
-import net.minecraft.launchwrapper.Launch;
-import org.spongepowered.asm.mixin.MixinEnvironment;
-
-import cpw.mods.fml.client.event.ConfigChangedEvent;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import ganymedes01.etfuturum.EtFuturumMixinPlugin;
-import ganymedes01.etfuturum.lib.Reference;
-import net.minecraftforge.common.config.ConfigCategory;
-import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.common.config.Property;
 
 public abstract class ConfigBase extends Configuration {
 	protected final List<ConfigCategory> configCats = new ArrayList<>();
@@ -36,16 +35,16 @@ public abstract class ConfigBase extends Configuration {
 	public static final ConfigBase MIXINS = new ConfigMixins(new File(Launch.minecraftHome, configDir + "mixins.cfg"));
 
 	/**
-	 * 		ConfigBlocksItems.configInstance.syncConfig();
-	 * 		ConfigEnchantsPotions.configInstance.syncConfig();
-	 * 		ConfigFunctions.configInstance.syncConfig();
-	 * 		ConfigTweaks.configInstance.syncConfig();
-	 * 		ConfigWorld.configInstance.syncConfig();
-	 * 		ConfigEntities.configInstance.syncConfig();
-	 * 		ConfigSounds.configInstance.syncConfig();
-	 * 		ConfigModCompat.configInstance.syncConfig();
+	 *      ConfigBlocksItems.configInstance.syncConfig();
+	 *      ConfigEnchantsPotions.configInstance.syncConfig();
+	 *      ConfigFunctions.configInstance.syncConfig();
+	 *      ConfigTweaks.configInstance.syncConfig();
+	 *      ConfigWorld.configInstance.syncConfig();
+	 *      ConfigEntities.configInstance.syncConfig();
+	 *      ConfigSounds.configInstance.syncConfig();
+	 *      ConfigModCompat.configInstance.syncConfig();
 	 *
-	 * 		ConfigMixins.configInstance.syncConfig();
+	 *      ConfigMixins.configInstance.syncConfig();
 	 */
 	
 	public ConfigBase(File file) {

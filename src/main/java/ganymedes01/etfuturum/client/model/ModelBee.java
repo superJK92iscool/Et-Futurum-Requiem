@@ -22,7 +22,7 @@ public class ModelBee extends ModelBase {
 	private float bodyPitch;
 
 	public ModelBee() {
-//		super(false, 24.0F, 0.0F);
+//      super(false, 24.0F, 0.0F);
 		this.textureWidth = 64;
 		this.textureHeight = 64;
 		this.body = new ModelRenderer(this);

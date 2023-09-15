@@ -1,11 +1,6 @@
 package ganymedes01.etfuturum.inventory;
 
-import java.util.Iterator;
-import java.util.Map;
-
 import ganymedes01.etfuturum.ModBlocks;
-import org.apache.commons.lang3.StringUtils;
-
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,6 +9,10 @@ import net.minecraft.inventory.ContainerRepair;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.Iterator;
+import java.util.Map;
 
 public class ContainerAnvil extends ContainerRepair {
 

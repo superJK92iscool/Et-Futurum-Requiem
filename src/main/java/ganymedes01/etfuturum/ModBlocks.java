@@ -289,7 +289,7 @@ public enum ModBlocks {
 	DOOR_ACACIA(ConfigBlocksItems.enableDoors, new BlockWoodDoor(4), ItemBlockWoodDoor.class),
 	DOOR_DARK_OAK(ConfigBlocksItems.enableDoors, new BlockWoodDoor(5), ItemBlockWoodDoor.class),
 
-//			"white", "orange", "magenta", "light_blue", "yellow", "lime", "pink", "gray", "light_gray", "cyan", "purple", "blue", "brown", "green", "red", "black"};
+//          "white", "orange", "magenta", "light_blue", "yellow", "lime", "pink", "gray", "light_gray", "cyan", "purple", "blue", "brown", "green", "red", "black"};
 	WHITE_BED(ConfigBlocksItems.enableDyedBeds, new BlockDyedBed(0), ItemBlockDyedBed.class),
 	ORANGE_BED(ConfigBlocksItems.enableDyedBeds, new BlockDyedBed(1), ItemBlockDyedBed.class),
 	MAGENTA_BED(ConfigBlocksItems.enableDyedBeds, new BlockDyedBed(2), ItemBlockDyedBed.class),

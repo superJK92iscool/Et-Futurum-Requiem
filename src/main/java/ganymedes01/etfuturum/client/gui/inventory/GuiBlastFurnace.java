@@ -1,13 +1,12 @@
 package ganymedes01.etfuturum.client.gui.inventory;
 
-import org.lwjgl.opengl.GL11;
-
 import ganymedes01.etfuturum.inventory.ContainerBlastFurnace;
 import ganymedes01.etfuturum.tileentities.TileEntityBlastFurnace;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
 
 public class GuiBlastFurnace extends GuiContainer
 {

@@ -15,9 +15,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ContainerChest.class)
 public abstract class MixinContainerChest extends Container {
 
-//	@Inject(method = "<init>", at = @At(value = "HEAD"))
-//	private void capturePlayerInventory(IInventory p_i1806_1_, IInventory p_i1806_2_, CallbackInfo ci) {
-//	}
+//  @Inject(method = "<init>", at = @At(value = "HEAD"))
+//  private void capturePlayerInventory(IInventory p_i1806_1_, IInventory p_i1806_2_, CallbackInfo ci) {
+//  }
 
 	@Redirect(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/inventory/IInventory;openInventory()V"))
 	//To capture the constructor params it requires me to have both IInventory args in the signature. chestInv == chestInvAgain

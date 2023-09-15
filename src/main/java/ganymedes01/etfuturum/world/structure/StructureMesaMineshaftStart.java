@@ -1,11 +1,11 @@
 package ganymedes01.etfuturum.world.structure;
 
-import java.util.LinkedList;
-import java.util.Random;
-
 import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.StructureComponent;
 import net.minecraft.world.gen.structure.StructureMineshaftStart;
+
+import java.util.LinkedList;
+import java.util.Random;
 
 public class StructureMesaMineshaftStart extends StructureMineshaftStart {
 		private static final String __OBFID = "CL_00000450";

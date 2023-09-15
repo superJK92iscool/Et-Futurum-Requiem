@@ -1,11 +1,11 @@
 package ganymedes01.etfuturum.world.end.gen;
 
-import java.util.Random;
-
 import ganymedes01.etfuturum.ModBlocks;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
+
+import java.util.Random;
 
 public class WorldGenEndGateway extends WorldGenerator {
 

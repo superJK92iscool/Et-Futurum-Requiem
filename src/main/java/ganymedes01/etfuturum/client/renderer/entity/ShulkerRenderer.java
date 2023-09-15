@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.client.renderer.entity;
 
-import org.lwjgl.opengl.GL11;
-
 import ganymedes01.etfuturum.client.model.ModelShulker;
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import ganymedes01.etfuturum.entities.EntityShulker;
@@ -10,6 +8,7 @@ import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
 
 public class ShulkerRenderer extends RenderLiving {
 

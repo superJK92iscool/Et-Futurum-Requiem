@@ -1,8 +1,6 @@
 package ganymedes01.etfuturum.client.renderer.entity;
 
 import ganymedes01.etfuturum.ModBlocks;
-import org.lwjgl.opengl.GL11;
-
 import ganymedes01.etfuturum.entities.EntityFallingDripstone;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
@@ -14,6 +12,7 @@ import net.minecraft.entity.item.EntityFallingBlock;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import org.lwjgl.opengl.GL11;
 
 public class FallingDripstoneRenderer extends Render
 {

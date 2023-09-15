@@ -1,12 +1,11 @@
 package ganymedes01.etfuturum.world.structure;
 
-import org.apache.commons.lang3.ArrayUtils;
-
 import net.minecraft.world.gen.structure.MapGenMineshaft;
 import net.minecraft.world.gen.structure.StructureMineshaftStart;
 import net.minecraft.world.gen.structure.StructureStart;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
+import org.apache.commons.lang3.ArrayUtils;
 
 /**
  * 

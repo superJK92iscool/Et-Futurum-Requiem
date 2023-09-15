@@ -1,9 +1,5 @@
 package ganymedes01.etfuturum.client.gui.inventory;
 
-import java.util.Arrays;
-
-import org.lwjgl.opengl.GL11;
-
 import ganymedes01.etfuturum.inventory.ContainerChestGeneric;
 import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox;
 import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox.ShulkerBoxType;
@@ -11,6 +7,9 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
+
+import java.util.Arrays;
 
 public class GuiShulkerBox extends GuiContainer {
 	

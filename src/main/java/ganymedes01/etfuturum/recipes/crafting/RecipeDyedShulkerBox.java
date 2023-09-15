@@ -1,11 +1,6 @@
 package ganymedes01.etfuturum.recipes.crafting;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import ganymedes01.etfuturum.ModBlocks;
-import org.apache.commons.lang3.ArrayUtils;
-
 import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockShulkerBox;
 import ganymedes01.etfuturum.recipes.ModRecipes;
 import net.minecraft.inventory.InventoryCrafting;
@@ -15,6 +10,10 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
+import org.apache.commons.lang3.ArrayUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RecipeDyedShulkerBox extends ShapelessOreRecipe {
 

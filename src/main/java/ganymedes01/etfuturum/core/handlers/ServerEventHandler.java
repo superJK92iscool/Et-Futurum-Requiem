@@ -1368,10 +1368,10 @@ public class ServerEventHandler {
 		if (p_70672_1_.isDamageAbsolute()) {
 			return p_70672_2_;
 		}
-//		if (entity instanceof EntityZombie)
-//		{
-//			//par2 = par2; // Forge: Noop Warning
-//		}
+//      if (entity instanceof EntityZombie)
+//      {
+//          //par2 = par2; // Forge: Noop Warning
+//      }
 
 		int i;
 		int j;
@@ -1684,11 +1684,11 @@ public class ServerEventHandler {
 				EntityLingeringEffect entityareaeffectcloud = new EntityLingeringEffect(kaboom.world, potion, creeper);
 				entityareaeffectcloud.setPosition(creeper.posX, creeper.posY, creeper.posZ);
 				entityareaeffectcloud.setColorOverride(PotionHelper.calcPotionLiquidColor(collection));
-//				entityareaeffectcloud.setRadius(2.5F);
-//				entityareaeffectcloud.setRadiusOnUse(-0.5F);
-//				entityareaeffectcloud.setWaitTime(10);
-//				entityareaeffectcloud.setDuration(entityareaeffectcloud.getDuration() / 2);
-//				entityareaeffectcloud.setRadiusPerTick(-entityareaeffectcloud.getRadius() / (float)entityareaeffectcloud.getDuration());
+//              entityareaeffectcloud.setRadius(2.5F);
+//              entityareaeffectcloud.setRadiusOnUse(-0.5F);
+//              entityareaeffectcloud.setWaitTime(10);
+//              entityareaeffectcloud.setDuration(entityareaeffectcloud.getDuration() / 2);
+//              entityareaeffectcloud.setRadiusPerTick(-entityareaeffectcloud.getRadius() / (float)entityareaeffectcloud.getDuration());
 
 				kaboom.world.spawnEntityInWorld(entityareaeffectcloud);
 			}

@@ -1,8 +1,8 @@
 package ganymedes01.etfuturum.world.nether.biome.decorator;
 
-import java.util.Random;
-
 import net.minecraft.world.World;
+
+import java.util.Random;
 
 public class NetherBiomeDecorator {
 

@@ -10,29 +10,21 @@ package ganymedes01.etfuturum.core.utils;
  * <http://www.gnu.org/licenses/>.
  */
 
-import static net.minecraftforge.oredict.OreDictionary.WILDCARD_VALUE;
-
-import java.util.AbstractMap;
-import java.util.AbstractSet;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.NoSuchElementException;
-import java.util.Set;
-import java.util.function.BiFunction;
-import java.util.function.Function;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import codechicken.nei.ItemStackSet;
+import com.google.common.base.Objects;
+import com.google.common.collect.Iterators;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-import com.google.common.base.Objects;
-import com.google.common.collect.Iterators;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.*;
+import java.util.function.BiFunction;
+import java.util.function.Function;
+
+import static net.minecraftforge.oredict.OreDictionary.WILDCARD_VALUE;
 
 /**
  * A map class for ItemStack keys with wildcard damage/NBT. Optimised for lookup.

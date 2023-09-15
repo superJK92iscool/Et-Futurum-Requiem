@@ -1,12 +1,12 @@
 package ganymedes01.etfuturum.client.skins;
 
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferInt;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.ImageBufferDownload;
+
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferInt;
 
 /**
  * Stolen from 1.8 and modified to work with 1.7.10

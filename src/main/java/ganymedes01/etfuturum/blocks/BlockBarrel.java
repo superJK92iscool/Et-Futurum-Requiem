@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.blocks;
 
-import java.util.Random;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
@@ -25,6 +23,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Facing;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+
+import java.util.Random;
 
 public class BlockBarrel extends BlockContainer {
 

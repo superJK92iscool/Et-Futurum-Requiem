@@ -1,10 +1,9 @@
 package ganymedes01.etfuturum.core.utils;
 
-import org.apache.logging.log4j.Level;
-
 import cpw.mods.fml.common.FMLLog;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.lib.Reference;
+import org.apache.logging.log4j.Level;
 
 public class Logger {
 	/*

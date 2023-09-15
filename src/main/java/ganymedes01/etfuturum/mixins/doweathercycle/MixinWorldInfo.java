@@ -1,12 +1,11 @@
 package ganymedes01.etfuturum.mixins.doweathercycle;
 
+import ganymedes01.etfuturum.world.DoWeatherCycleHelper;
+import net.minecraft.world.storage.WorldInfo;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import ganymedes01.etfuturum.world.DoWeatherCycleHelper;
-import net.minecraft.world.storage.WorldInfo;
 
 @Mixin(WorldInfo.class)
 public class MixinWorldInfo {

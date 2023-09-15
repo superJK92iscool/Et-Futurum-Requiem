@@ -365,9 +365,9 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 	public boolean attackEntityAsMob(Entity entityIn) {
 		boolean flag = entityIn.attackEntityFrom(new EntityDamageSource("sting", this), (float) ((int) this.getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttributeValue()));
 		if (flag) {
-//			this.applyEnchantments(this, entityIn);
+//          this.applyEnchantments(this, entityIn);
 			if (entityIn instanceof EntityLivingBase) {
-//				((EntityLiving)entityIn).setBeeStingCount(((EntityLiving)entityIn).getBeeStingCount() + 1);
+//              ((EntityLiving)entityIn).setBeeStingCount(((EntityLiving)entityIn).getBeeStingCount() + 1);
 				int i = 0;
 				if (this.worldObj.difficultySetting == EnumDifficulty.NORMAL) {
 					i = 10;
@@ -541,10 +541,10 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		return this.hivePos;
 	}
 
-//	protected void sendDebugPackets() {
-//		super.sendDebugPackets();
-//		DebugPacketSender.func_229749_a_(this);
-//	}
+//  protected void sendDebugPackets() {
+//      super.sendDebugPackets();
+//      DebugPacketSender.func_229749_a_(this);
+//  }
 
 	private int getCropsGrownSincePollination() {
 		return this.numCropsGrownSincePollination;
@@ -731,9 +731,9 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		return EnumCreatureAttribute.ARTHROPOD;
 	}
 
-//	protected void handleFluidJump(Tag<Fluid> fluidTag) {
-//		this.setMotion(this.getMotion().add(0.0D, 0.01D, 0.0D));
-//	}
+//  protected void handleFluidJump(Tag<Fluid> fluidTag) {
+//      this.setMotion(this.getMotion().add(0.0D, 0.01D, 0.0D));
+//  }
 
 	private boolean isWithinDistance(BlockPos pos, int distance) {
 		return Utils.getVec3FromEntity(this, 1.0F).squareDistanceTo(pos.getX(), pos.getY(), pos.getZ()) <= distance * distance;
@@ -821,7 +821,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 
 		Vec3 vec3d1 = EntityVectorUtils.func_226344_b_(this, k, l, i, vec3d, (float) Math.PI / 10F);
 		if (vec3d1 != null) {
-//			this.navigator.setRangeMultiplier(0.5F);
+//          this.navigator.setRangeMultiplier(0.5F);
 			this.getNavigator().tryMoveToXYZ(vec3d1.xCoord, vec3d1.yCoord, vec3d1.zCoord, 1.0D);
 		}
 	}
@@ -907,7 +907,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		public void resetTask() {
 			this.ticks = 0;
 			EntityBee.this.getNavigator().clearPathEntity();
-//			EntityBee.this.getNavigator().resetRangeMultiplier();
+//          EntityBee.this.getNavigator().resetRangeMultiplier();
 		}
 
 		public void updateTask() {
@@ -938,7 +938,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		}
 
 		private boolean startMovingToFar(BlockPos pos) {
-//			EntityBee.this.getNavigator().setRangeMultiplier(10.0F);
+//          EntityBee.this.getNavigator().setRangeMultiplier(10.0F);
 			EntityBee.this.getNavigator().tryMoveToXYZ(pos.getX(), pos.getY(), pos.getZ(), 1.0D);
 			return EntityBee.this.getNavigator().getPath() != null /*&& EntityBee.this.getNavigator().getPath().reachesTarget()*/;
 		}
@@ -1007,7 +1007,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		public void resetTask() {
 			this.ticks = 0;
 			EntityBee.this.getNavigator().clearPathEntity();
-//			EntityBee.this.getNavigator().resetRangeMultiplier();
+//          EntityBee.this.getNavigator().resetRangeMultiplier();
 		}
 
 		public void updateTask() {

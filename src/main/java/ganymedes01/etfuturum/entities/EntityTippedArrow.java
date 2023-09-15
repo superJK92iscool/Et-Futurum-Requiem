@@ -1,8 +1,5 @@
 package ganymedes01.etfuturum.entities;
 
-import java.awt.Color;
-import java.io.IOException;
-
 import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
 import ganymedes01.etfuturum.ModItems;
 import io.netty.buffer.ByteBuf;
@@ -14,6 +11,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+
+import java.awt.*;
+import java.io.IOException;
 
 public class EntityTippedArrow extends EntityArrow implements IEntityAdditionalSpawnData {
 

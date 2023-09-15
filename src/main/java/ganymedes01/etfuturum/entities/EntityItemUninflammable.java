@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.entities;
 
-import java.util.Iterator;
-
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.item.EntityItem;
@@ -11,6 +9,8 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.item.ItemExpireEvent;
+
+import java.util.Iterator;
 
 public class EntityItemUninflammable extends EntityItem {
 

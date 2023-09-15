@@ -1,8 +1,5 @@
 package ganymedes01.etfuturum.world.nether.biome.utils;
 
-import org.lwjgl.opengl.GL11;
-
-import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import ganymedes01.etfuturum.EtFuturum;
 import net.minecraft.block.Block;
@@ -19,6 +16,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
 import net.minecraftforge.common.ForgeModContainer;
+import org.lwjgl.opengl.GL11;
 
 public class BiomeFogEventHandler {
 

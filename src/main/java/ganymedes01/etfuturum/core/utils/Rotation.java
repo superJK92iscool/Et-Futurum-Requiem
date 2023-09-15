@@ -2,7 +2,6 @@ package ganymedes01.etfuturum.core.utils;
 
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.common.util.RotationHelper;
 
 public enum Rotation
 {

@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.blocks;
 
-import org.apache.commons.lang3.ArrayUtils;
-
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.recipes.ModRecipes;
 import ganymedes01.etfuturum.tileentities.TileEntityCauldronDyed;
@@ -11,6 +9,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import org.apache.commons.lang3.ArrayUtils;
 
 public class BlockDyedCauldron extends BlockCauldronTileEntity {
 

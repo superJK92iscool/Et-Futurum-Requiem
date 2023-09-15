@@ -1,16 +1,14 @@
 package ganymedes01.etfuturum.client.renderer.tileentity;
 
-import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.recipes.ModRecipes;
-import org.lwjgl.opengl.GL11;
-
 import ganymedes01.etfuturum.blocks.BlockWoodSign;
+import ganymedes01.etfuturum.recipes.ModRecipes;
 import ganymedes01.etfuturum.tileentities.TileEntityWoodSign;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.model.ModelSign;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
 
 public class TileEntityWoodSignRenderer extends TileEntitySpecialRenderer {
 

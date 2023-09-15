@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.tileentities;
 
-import java.util.List;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModItems;
@@ -19,6 +17,8 @@ import net.minecraft.potion.PotionHelper;
 import net.minecraft.tileentity.TileEntityBrewingStand;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.event.ForgeEventFactory;
+
+import java.util.List;
 
 /*
  * Class copied from vanilla and modified to fit my needs.

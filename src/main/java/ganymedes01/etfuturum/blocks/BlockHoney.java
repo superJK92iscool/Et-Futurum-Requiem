@@ -50,7 +50,7 @@ public class BlockHoney extends BaseBlock {
 	@Override
 	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
 		if (this.isSlidingDown(entity, x, y, z)) {
-//			this.maybeDoSlideAchievement(entity, x, y, z);
+//          this.maybeDoSlideAchievement(entity, x, y, z);
 			this.doSlideMovement(entity);
 			this.maybeDoSlideEffects(world, entity);
 		}
@@ -72,11 +72,11 @@ public class BlockHoney extends BaseBlock {
 		}
 	}
 
-//	private void maybeDoSlideAchievement(Entity p_53992_, int x, int y, int z) {
-//		if (p_53992_ instanceof ServerPlayer && p_53992_.level().getGameTime() % 20L == 0L) {
-//			CriteriaTriggers.HONEY_BLOCK_SLIDE.trigger((ServerPlayer)p_53992_, p_53992_.level().getBlockState(p_53993_));
-//		}
-//	}
+//  private void maybeDoSlideAchievement(Entity p_53992_, int x, int y, int z) {
+//      if (p_53992_ instanceof ServerPlayer && p_53992_.level().getGameTime() % 20L == 0L) {
+//          CriteriaTriggers.HONEY_BLOCK_SLIDE.trigger((ServerPlayer)p_53992_, p_53992_.level().getBlockState(p_53993_));
+//      }
+//  }
 
 	private void doSlideMovement(Entity p_54020_) {
 		if (p_54020_.motionY < -0.13D) {

@@ -1,10 +1,5 @@
 package ganymedes01.etfuturum.client.renderer.tileentity;
 
-import java.nio.FloatBuffer;
-import java.util.Random;
-
-import org.lwjgl.opengl.GL11;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
@@ -18,6 +13,10 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
+
+import java.nio.FloatBuffer;
+import java.util.Random;
 
 @SideOnly(Side.CLIENT)
 public class TileEntityGatewayRenderer extends TileEntitySpecialRenderer

@@ -10,16 +10,15 @@
  */
 package ganymedes01.etfuturum.client.renderer.entity.elytra;
 
-import ganymedes01.etfuturum.items.equipment.ItemArmorElytra;
-import org.lwjgl.opengl.GL11;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import ganymedes01.etfuturum.items.equipment.ItemArmorElytra;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
 public class LayerBetterElytra {

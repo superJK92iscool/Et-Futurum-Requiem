@@ -10,7 +10,8 @@ import minetweaker.mc1710.item.MCItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static ganymedes01.etfuturum.compat.CompatCraftTweaker.getInternal;
 

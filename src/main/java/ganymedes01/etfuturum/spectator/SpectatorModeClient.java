@@ -98,8 +98,8 @@ public class SpectatorModeClient extends SpectatorMode {
 			event.setCanceled(true);
 			doRefreshModel = true;
 		} else if (doRefreshModel) {
-//			Redraws the player model for one frame off-screen so it refreshes. Also make sure we only run this logic if this code is targeting the player we're playing as.
-//			This is because in some cases loading the player model in 3rd person or the inventory and then going back to another game mode makes the hand invisible.
+//          Redraws the player model for one frame off-screen so it refreshes. Also make sure we only run this logic if this code is targeting the player we're playing as.
+//          This is because in some cases loading the player model in 3rd person or the inventory and then going back to another game mode makes the hand invisible.
 			doRefreshModel = false;
 			RenderManager.instance.renderEntityWithPosYaw(Minecraft.getMinecraft().thePlayer, -180.0D, -180.0D, -180.0D, 0.0F, 0.0F);
 		}

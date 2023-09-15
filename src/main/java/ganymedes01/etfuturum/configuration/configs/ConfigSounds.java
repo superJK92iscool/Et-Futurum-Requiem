@@ -2,8 +2,6 @@ package ganymedes01.etfuturum.configuration.configs;
 
 import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.core.utils.Logger;
-import net.minecraft.launchwrapper.Launch;
-import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 
 import java.io.File;

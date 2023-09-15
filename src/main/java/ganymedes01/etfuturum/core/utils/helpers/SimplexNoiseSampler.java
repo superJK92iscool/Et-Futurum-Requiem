@@ -1,8 +1,8 @@
 package ganymedes01.etfuturum.core.utils.helpers;
 
-import java.util.Random;
-
 import net.minecraft.util.MathHelper;
+
+import java.util.Random;
 
 public class SimplexNoiseSampler {
    protected static final int[][] GRADIENTS = new int[][]{{1, 1, 0}, {-1, 1, 0}, {1, -1, 0}, {-1, -1, 0}, {1, 0, 1}, {-1, 0, 1}, {1, 0, -1}, {-1, 0, -1}, {0, 1, 1}, {0, -1, 1}, {0, 1, -1}, {0, -1, -1}, {1, 1, 0}, {0, -1, 1}, {-1, 1, 0}, {0, -1, -1}};

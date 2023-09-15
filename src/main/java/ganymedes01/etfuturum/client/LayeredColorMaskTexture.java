@@ -1,18 +1,5 @@
 package ganymedes01.etfuturum.client;
 
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
-
-import javax.imageio.ImageIO;
-
-import org.apache.commons.compress.utils.IOUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.lib.EnumColour;
@@ -21,6 +8,17 @@ import net.minecraft.client.renderer.texture.AbstractTexture;
 import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
+import org.apache.commons.compress.utils.IOUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
 
 @SideOnly(Side.CLIENT)
 public class LayeredColorMaskTexture extends AbstractTexture {

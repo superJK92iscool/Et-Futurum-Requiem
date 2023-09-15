@@ -1,14 +1,14 @@
 package ganymedes01.etfuturum.configuration;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
 import cpw.mods.fml.client.config.GuiConfig;
 import cpw.mods.fml.client.config.IConfigElement;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.launchwrapper.Launch;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ConfigGUI extends GuiConfig {
 
