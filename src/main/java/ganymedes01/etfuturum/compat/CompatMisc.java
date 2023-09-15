@@ -23,8 +23,8 @@ public class CompatMisc {
 				utils.addExtensibleEnum(e);
 			}
 
-		} catch(Throwable t) {
-			if(t instanceof NoClassDefFoundError) {
+		} catch (Throwable t) {
+			if (t instanceof NoClassDefFoundError) {
 				Logger.trace("Failed to apply lwjgl3ify compat: " + t + ". This is not an error unless lwjgl3ify is present.");
 			} else {
 				Logger.warn("Failed to apply lwjgl3ify compat");

@@ -17,9 +17,9 @@ import java.util.Random;
 public class NetherWorldChunkManager extends WorldChunkManager {
 	private GenLayer genBiomes;
 	private GenLayer biomeIndexLayer;
-	private BiomeCacheNether biomeCache;
+	private final BiomeCacheNether biomeCache;
 
-	private List<BiomeGenBase> biomesToSpawnIn;
+	private final List<BiomeGenBase> biomesToSpawnIn;
 
 	protected NetherWorldChunkManager() {
 		biomeCache = new BiomeCacheNether(this);
@@ -123,7 +123,7 @@ public class NetherWorldChunkManager extends WorldChunkManager {
 	 */
 	@Override
 	public BiomeGenBase[] getBiomesForGeneration(BiomeGenBase[] par1ArrayOfBiomeGenBase, int par2, int par3, int par4,
-			int par5) {
+												 int par5) {
 		IntCache.resetIntCache();
 
 		if (par1ArrayOfBiomeGenBase == null || par1ArrayOfBiomeGenBase.length < par4 * par5) {
@@ -146,7 +146,7 @@ public class NetherWorldChunkManager extends WorldChunkManager {
 	 */
 	@Override
 	public BiomeGenBase[] loadBlockGeneratorData(BiomeGenBase[] par1ArrayOfBiomeGenBase, int par2, int par3, int par4,
-			int par5) {
+												 int par5) {
 		return this.getBiomeGenAt(par1ArrayOfBiomeGenBase, par2, par3, par4, par5, true);
 	}
 
@@ -157,7 +157,7 @@ public class NetherWorldChunkManager extends WorldChunkManager {
 	 */
 	@Override
 	public BiomeGenBase[] getBiomeGenAt(BiomeGenBase[] par1ArrayOfBiomeGenBase, int par2, int par3, int par4, int par5,
-			boolean par6) {
+										boolean par6) {
 		IntCache.resetIntCache();
 
 		if (par1ArrayOfBiomeGenBase == null || par1ArrayOfBiomeGenBase.length < par4 * par5) {

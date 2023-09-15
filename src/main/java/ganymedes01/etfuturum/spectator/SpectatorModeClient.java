@@ -84,8 +84,8 @@ public class SpectatorModeClient extends SpectatorMode {
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	@SideOnly(Side.CLIENT)
 	public void onOverlayRenderPost(RenderGameOverlayEvent.Post event) {
-		if(isSpectator(Minecraft.getMinecraft().thePlayer)) {
-			if(event.type == RenderGameOverlayEvent.ElementType.ALL) {
+		if (isSpectator(Minecraft.getMinecraft().thePlayer)) {
+			if (event.type == RenderGameOverlayEvent.ElementType.ALL) {
 				Minecraft.getMinecraft().gameSettings.heldItemTooltips = hadHeldItemTooltips;
 			}
 		}
@@ -108,7 +108,7 @@ public class SpectatorModeClient extends SpectatorMode {
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
 	public void onFireRender(RenderBlockOverlayEvent event) {
-		if(isSpectator(Minecraft.getMinecraft().thePlayer))
+		if (isSpectator(Minecraft.getMinecraft().thePlayer))
 			event.setCanceled(true);
 	}
 
@@ -116,8 +116,8 @@ public class SpectatorModeClient extends SpectatorMode {
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
 	public void onRenderFogDensity(EntityViewRenderEvent.FogDensity event) {
-		if(event.entity instanceof EntityPlayer) {
-			if(isSpectator((EntityPlayer)event.entity)) {
+		if (event.entity instanceof EntityPlayer) {
+			if (isSpectator((EntityPlayer) event.entity)) {
 				if (event.block.getMaterial().isLiquid()) {
 					event.setCanceled(true);
 					event.density = 0;
@@ -129,7 +129,7 @@ public class SpectatorModeClient extends SpectatorMode {
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
 	public void onBlockHighlight(DrawBlockHighlightEvent event) {
-		if(isSpectator(event.player)) {
+		if (isSpectator(event.player)) {
 			canSelect = SpectatorMode.canSpectatorSelect(Minecraft.getMinecraft().theWorld.getTileEntity(event.target.blockX, event.target.blockY, event.target.blockZ)) || (event.target.entityHit != null && !SPECTATING_ENTITIES.containsKey(event.player));
 			if (!canSelect) {
 				event.setCanceled(true);

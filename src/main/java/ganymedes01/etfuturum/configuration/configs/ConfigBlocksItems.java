@@ -7,7 +7,7 @@ import net.minecraftforge.common.config.Property;
 import java.io.File;
 
 public class ConfigBlocksItems extends ConfigBase {
-	
+
 	public static boolean enableArmourStand;
 	public static int netheriteToolDurability;
 	public static int netheriteEnchantability;
@@ -28,7 +28,7 @@ public class ConfigBlocksItems extends ConfigBase {
 	public static int netheriteChestplateProtection;
 	public static int netheriteLeggingsProtection;
 	public static int netheriteBootsProtection;
-	
+
 	public static boolean enableBanners;
 	public static boolean enableBarkLogs;
 	public static boolean enableStones;
@@ -113,7 +113,7 @@ public class ConfigBlocksItems extends ConfigBase {
 	//Nether Update temp disabled
 	public static boolean enableCrimsonBlocks = false;
 	public static boolean enableWarpedBlocks = false;
-	
+
 	public static boolean enableShulkerBoxes;
 	public static boolean enableDyedShulkerBoxes = true;
 	public static boolean enablePotionCauldron;
@@ -124,7 +124,7 @@ public class ConfigBlocksItems extends ConfigBase {
 	public static boolean replaceOldBoats;
 	public static String[] newBoatEntityBlacklist;
 	public static boolean newBoatEntityBlacklistAsWhitelist;
-	
+
 	public static int endGatewaySpawnColor = 2;
 	public static int endGatewayEntryColor = 2;
 
@@ -134,7 +134,7 @@ public class ConfigBlocksItems extends ConfigBase {
 	public static final String catItemEquipment = "equipment";
 	public static final String catItemEntity = "entity items";
 	public static final String catItemMisc = "misc items";
-	
+
 	public ConfigBlocksItems(File file) {
 		super(file);
 		setCategoryComment(catBlockNatural, "Blocks that can generate naturally in your world. Check world.cfg for generation values.");
@@ -143,7 +143,7 @@ public class ConfigBlocksItems extends ConfigBase {
 		setCategoryComment(catItemEquipment, "Tools, armor, and other equipment items.");
 		setCategoryComment(catItemEntity, "Entity items. (Armor stand, boat, etc)");
 		setCategoryComment(catItemMisc, "Items that don't fit in any other category.");
-		
+
 		configCats.add(getCategory(catBlockNatural));
 		configCats.add(getCategory(catBlockFunc));
 		configCats.add(getCategory(catBlockMisc));
@@ -238,7 +238,7 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableOldBaseDaylightSensor = getBoolean("enableOldBaseDaylightSensor", catBlockFunc, false, "Enable the old Et Futurum daylight sensor block. Should be enabled if you still have the old Et Futurum copy of the non-inverted daylight detector that need to be converted.");
 
 		enableTarget = getBoolean("enableTarget", catBlockFunc, true, "Enables target block from 1.16");
-		
+
 		//Misc Blocks
 		enableFences = getBoolean("enableFences", catBlockMisc, true, "Enables wood variant fences and gates");
 		enableBanners = getBoolean("enableBanners", catBlockMisc, true, "");
@@ -270,16 +270,16 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableTotemUndying = getBoolean("enableTotemUndying", catItemMisc, true, "");
 		enableSuspiciousStew = getBoolean("enableSuspiciousStew", catItemMisc, true, "");
 		enableNewDyes = getBoolean("enableNewDyes", catItemMisc, true, "");
-		
+
 		enablePigstep = getBoolean("enablePigstep", catItemMisc, true, "Appears in Nether fortress chest loot.");
 		enableOtherside = getBoolean("enableOtherside", catItemMisc, true, "Appears in stronghold corridor and dungeon chests.");
-		
+
 		//Equipment Items
 		netheriteToolDurability = getInt("netheriteToolDurability", catItemEquipment, 2031, 1, Integer.MAX_VALUE, "");
 		netheriteEnchantability = getInt("netheriteEnchantability", catItemEquipment, 15, 1, Integer.MAX_VALUE, "");
 		netheriteHarvestLevel = getInt("netheriteHarvestLevel", catItemEquipment, 4, 0, Integer.MAX_VALUE, "Netherite harvest level, Diamond is 3");
 		netheriteSpeed = getFloat("netheriteSpeed", catItemEquipment, 9.0f, 0.1f, Float.MAX_VALUE, "Netherite mining speed, Diamond is 8.0");
-		netheriteDamageBase  = getFloat("netheriteDamageBase", catItemEquipment, 4.0f, 0.0f, Float.MAX_VALUE, "Neterite base damage, Diamond is 3.0");
+		netheriteDamageBase = getFloat("netheriteDamageBase", catItemEquipment, 4.0f, 0.0f, Float.MAX_VALUE, "Neterite base damage, Diamond is 3.0");
 		netheriteArmourDurabilityFactor = getInt("netheriteArmourDurabilityFactor", catItemEquipment, 37, 1, Integer.MAX_VALUE, "");
 		netheritePickaxeDurability = getInt("netheritePickaxeDurability", catItemEquipment, -1, -1, Integer.MAX_VALUE, "Override Netherite Pickaxe Durability, -1 to disable");
 		netheriteSwordDurability = getInt("netheriteSwordDurability", catItemEquipment, -1, -1, Integer.MAX_VALUE, "Override Netherite Sword Durability, -1 to disable");
@@ -298,23 +298,23 @@ public class ConfigBlocksItems extends ConfigBase {
 		//Entity Items
 		enableArmourStand = getBoolean("enableArmorStand", catItemEntity, true, "");
 		enableNewBoats = getBoolean("enableNewBoats", catItemEntity, true, "New boats from 1.9+, including the new rowing sounds. All vanilla wood variants included.");
-		
+
 		replaceOldBoats = getBoolean("replaceOldBoats", catItemEntity, true, "If true, old boats will be replaced with the new oak boat and the item sprite will also be changned. False means the new and old boat and item for it exists separately, and the new boats will use a wooden shovel in their crafting recipe. If this is enabled, a boat that has an entity in it will not be replaced until the entity gets out.\nTHIS WILL NOT WORK PROPERLY WITH BETTER BOATS INSTALLED");
 		newBoatMaxLandSpeed = getFloat("newBoatMaxLandSpeed", catItemEntity, 0.986F, 0.1F, 1, "The maximum speed a boat can travel by while on land. This option exists because boats are very very fast when travelling on slippery blocks. Land speed = 0.6, Regular/Packed Ice Speed = 0.98, Packed Ice Speed = 0.986. Anything smaller than 0.6 is really, REALLY slow on land.\nThe speed values are just block slipperiness values, and are averaged by the slippery blocks around the bottom of the boat. This option does nothing to old boats.");
 		newBoatSpeed = getFloat("newBoatSpeed", catItemEntity, 1F, 0.1F, 2, "The speed multiplier for boats while in water. Use this if you want to make the boats faster or slower. 1 = no speed change");
 		newBoatPassengerSeat = getBoolean("newBoatPassengerSeat", catItemEntity, true, "If disabled, only one person can sit in the new boat at a time. The new seat is actually an invisible entity that follows new boats.");
-		Property newBoatEntityBlacklistProp = get(catItemEntity, "newBoatEntityBlacklist", new String[] {});
+		Property newBoatEntityBlacklistProp = get(catItemEntity, "newBoatEntityBlacklist", new String[]{});
 		newBoatEntityBlacklistProp.comment = "What entities shouldn't be able to sit in the boat? You can either provide an entity ID (modid.entityid, for vanilla entities type just entity ID), or search for a string in the classpath (classpath:stringtofind).\nSeparate entries in the list by a new line. Note that players can always sit even if blacklisted, and some entities, like horses, water mobs or nonliving entities, will never be allowed to sit in boats.\nIt's a little hard to explain, a more detailed explanation and list of examples can be found here: https://pastebin.com/XNZ7VWKh";
 		newBoatEntityBlacklist = newBoatEntityBlacklistProp.getStringList();
 		newBoatEntityBlacklistAsWhitelist = getBoolean("newBoatEntityBlacklistAsWhitelist", catItemEntity, false, "Treat the entity blacklist as a whitelist, ONLY entities matching that criteria will be allowed.");
-		
+
 		//      endGatewaySpawnColor = getInt("endGatewaySpawnColor", catAbandoned, 2, 0, 15, "The color of the end gateway beam when the gateway first appears.");
 //      endGatewayEntryColor = getInt("endGatewayEntryColor", catAbandoned, 2, 0, 15, "The color of the end gateway beam when an entity enters it. Originally, this value was 4 (yellow) before version 1.11.");
 	}
 
 	@Override
 	protected void initValues() {
-		if(!EtFuturum.hasIronChest) {
+		if (!EtFuturum.hasIronChest) {
 			ConfigModCompat.shulkerBoxesIronChest = false;
 		}
 	}

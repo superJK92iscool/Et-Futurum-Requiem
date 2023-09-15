@@ -124,7 +124,7 @@ public class DebugTestItem extends BaseItem {
 		NONE(null, false),
 		FOSSIL("Fossil", true) {
 
-			WorldGenFossil fossil = new WorldGenFossil(ConfigWorld.fossilBlock) {
+			final WorldGenFossil fossil = new WorldGenFossil(ConfigWorld.fossilBlock) {
 				protected boolean canFossilGenerateHere(World world, int x, int y, int z, BlockPos corners) {
 					return true;
 				}
@@ -137,7 +137,7 @@ public class DebugTestItem extends BaseItem {
 		},
 		GEODE("Geode", true) {
 
-			WorldGenAmethystGeode fossil = new WorldGenAmethystGeode(ConfigWorld.amethystOuterBlock, ConfigWorld.amethystMiddleBlock) {
+			final WorldGenAmethystGeode fossil = new WorldGenAmethystGeode(ConfigWorld.amethystOuterBlock, ConfigWorld.amethystMiddleBlock) {
 				protected boolean isInvalidCorner(World world, int x, int y, int z) {
 					return false;
 				}

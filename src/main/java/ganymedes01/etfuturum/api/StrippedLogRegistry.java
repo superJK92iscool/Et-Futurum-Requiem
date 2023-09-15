@@ -11,16 +11,16 @@ import java.util.Map;
 public class StrippedLogRegistry {
 
 	private static final Map<RegistryMapping<Block>, RegistryMapping<Block>> strippedLogs = new HashMap<RegistryMapping<Block>, RegistryMapping<Block>>();
-	
+
 	/**
 	 * Adds a specified log and its metadata to be converted to another specified log and its metadata.
 	 * This is wrapped by 4, so you don't have to add each log multiple times for every different rotation.
 	 * For example, log:0 is mapped to convert to stripped_log:0, but the other rotations, 4 and 8 also work.
-	 * 
+	 *
 	 * @param from
 	 * @param fromMeta Wrapped by 4
 	 * @param to
-	 * @param toMeta Wrapped by 4
+	 * @param toMeta   Wrapped by 4
 	 */
 	public static void addLog(Block from, int fromMeta, Block to, int toMeta) {
 		addLog(new RegistryMapping<>(from, fromMeta % 4), new RegistryMapping<>(to, toMeta % 4));
@@ -29,10 +29,10 @@ public class StrippedLogRegistry {
 	private static void addLog(RegistryMapping<Block> from, RegistryMapping<Block> to) {
 		strippedLogs.put(from, to);
 	}
-	
+
 	/**
 	 * @param block
-	 * @param meta Wrapped by 4
+	 * @param meta  Wrapped by 4
 	 * @return True if this log and its metadata has a stripped variant.
 	 */
 	public static boolean hasLog(Block block, int meta) {
@@ -82,14 +82,14 @@ public class StrippedLogRegistry {
 			strippedLogs.put(new RegistryMapping<>(Blocks.log2, 1), new RegistryMapping<>(ModBlocks.LOG2_STRIPPED.get(), 1));
 		}
 
-		if(ModBlocks.BARK.isEnabled() && ModBlocks.WOOD_STRIPPED.isEnabled()) {
+		if (ModBlocks.BARK.isEnabled() && ModBlocks.WOOD_STRIPPED.isEnabled()) {
 			strippedLogs.put(new RegistryMapping<>(ModBlocks.BARK.get(), 0), new RegistryMapping<>(ModBlocks.WOOD_STRIPPED.get(), 0));
 			strippedLogs.put(new RegistryMapping<>(ModBlocks.BARK.get(), 1), new RegistryMapping<>(ModBlocks.WOOD_STRIPPED.get(), 1));
 			strippedLogs.put(new RegistryMapping<>(ModBlocks.BARK.get(), 2), new RegistryMapping<>(ModBlocks.WOOD_STRIPPED.get(), 2));
 			strippedLogs.put(new RegistryMapping<>(ModBlocks.BARK.get(), 3), new RegistryMapping<>(ModBlocks.WOOD_STRIPPED.get(), 3));
 		}
 
-		if(ModBlocks.BARK2.isEnabled() && ModBlocks.WOOD2_STRIPPED.isEnabled()) {
+		if (ModBlocks.BARK2.isEnabled() && ModBlocks.WOOD2_STRIPPED.isEnabled()) {
 			strippedLogs.put(new RegistryMapping<>(ModBlocks.BARK2.get(), 0), new RegistryMapping<>(ModBlocks.WOOD2_STRIPPED.get(), 0));
 			strippedLogs.put(new RegistryMapping<>(ModBlocks.BARK2.get(), 1), new RegistryMapping<>(ModBlocks.WOOD2_STRIPPED.get(), 1));
 		}

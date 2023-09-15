@@ -115,8 +115,7 @@ public class ComposterHandler extends TemplateRecipeHandler implements ICrafting
 				item.getSubItems(item, tab, stacks);
 			}
 			return new PositionedStack(stacks, x, y, true);
-		}
-		else return new PositionedStack(stack, x, y, false);
+		} else return new PositionedStack(stack, x, y, false);
 	}
 
 	private boolean itemCheck(ItemStack stack, Collection<ItemStack> inputs) {

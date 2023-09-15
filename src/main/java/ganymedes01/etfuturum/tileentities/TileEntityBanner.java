@@ -130,7 +130,7 @@ public class TileEntityBanner extends TileEntity {
 					stack.getTagCompound().removeTag("BlockEntityTag");
 
 					if (stack.getTagCompound().hasNoTags())
-						stack.setTagCompound((NBTTagCompound) null);
+						stack.setTagCompound(null);
 				}
 			}
 		}
@@ -175,7 +175,7 @@ public class TileEntityBanner extends TileEntity {
 		return stack;
 	}
 
-	public static enum EnumBannerPattern {
+	public enum EnumBannerPattern {
 		BASE("base", "b"),
 		SQUARE_BOTTOM_LEFT("square_bottom_left", "bl", "   ", "   ", "#  "),
 		SQUARE_BOTTOM_RIGHT("square_bottom_right", "br", "   ", "   ", "  #"),
@@ -221,19 +221,19 @@ public class TileEntityBanner extends TileEntity {
 		private final String[] craftingLayers;
 		private ItemStack patternCraftingStack;
 
-		private EnumBannerPattern(String name, String id) {
+		EnumBannerPattern(String name, String id) {
 			craftingLayers = new String[3];
 			patternName = name;
 			patternID = id;
 			patternCraftingStack = null;
 		}
 
-		private EnumBannerPattern(String name, String id, ItemStack craftingItem) {
+		EnumBannerPattern(String name, String id, ItemStack craftingItem) {
 			this(name, id);
 			patternCraftingStack = craftingItem;
 		}
 
-		private EnumBannerPattern(String name, String id, String craftingTop, String craftingMid, String craftingBot) {
+		EnumBannerPattern(String name, String id, String craftingTop, String craftingMid, String craftingBot) {
 			this(name, id);
 			craftingLayers[0] = craftingTop;
 			craftingLayers[1] = craftingMid;

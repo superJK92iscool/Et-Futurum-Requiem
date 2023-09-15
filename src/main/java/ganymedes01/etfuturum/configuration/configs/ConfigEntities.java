@@ -33,7 +33,7 @@ public class ConfigEntities extends ConfigBase {
 		setCategoryComment(catPassive, "Passive entities.");
 		setCategoryComment(catPlayer, "These settings affect the player directly.");
 		setCategoryComment(catMisc, "Entity settings that don't fit into any other category, typically entity settings.");
-		
+
 		configCats.add(getCategory(catHostile));
 		configCats.add(getCategory(catNeutral));
 		configCats.add(getCategory(catPassive));

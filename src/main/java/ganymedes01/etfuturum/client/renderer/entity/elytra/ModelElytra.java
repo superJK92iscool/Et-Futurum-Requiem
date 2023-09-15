@@ -14,8 +14,8 @@ import org.lwjgl.opengl.GL12;
 
 @SideOnly(Side.CLIENT)
 public class ModelElytra extends ModelBase {
-	private ModelRenderer rightWing;
-	private ModelRenderer leftWing = new ModelRenderer(this, 22, 0);
+	private final ModelRenderer rightWing;
+	private final ModelRenderer leftWing = new ModelRenderer(this, 22, 0);
 
 	public ModelElytra() {
 		this.leftWing.addBox(-10.0F, 0.0F, 0.0F, 10, 20, 2, 1.0F);
@@ -49,7 +49,7 @@ public class ModelElytra extends ModelBase {
 		float f2 = 0.0F;
 		float f3 = 0.0F;
 
-		if (entityIn instanceof IElytraPlayer && ((IElytraPlayer)entityIn).etfu$isElytraFlying()) {
+		if (entityIn instanceof IElytraPlayer && ((IElytraPlayer) entityIn).etfu$isElytraFlying()) {
 			float f4 = 1.0F;
 
 			if (entityIn.motionY < 0.0D) {
@@ -71,9 +71,9 @@ public class ModelElytra extends ModelBase {
 
 		if (entityIn instanceof IClientElytraPlayer) {
 			IClientElytraPlayer cep = (IClientElytraPlayer) entityIn;
-			cep.setRotateElytraX((float)(cep.getRotateElytraX() + (f - cep.getRotateElytraX()) * 0.1D));
-			cep.setRotateElytraY((float)(cep.getRotateElytraY() + (f3 - cep.getRotateElytraY()) * 0.1D));
-			cep.setRotateElytraZ((float)(cep.getRotateElytraZ() + (f1 - cep.getRotateElytraZ()) * 0.1D));
+			cep.setRotateElytraX((float) (cep.getRotateElytraX() + (f - cep.getRotateElytraX()) * 0.1D));
+			cep.setRotateElytraY((float) (cep.getRotateElytraY() + (f3 - cep.getRotateElytraY()) * 0.1D));
+			cep.setRotateElytraZ((float) (cep.getRotateElytraZ() + (f1 - cep.getRotateElytraZ()) * 0.1D));
 			this.leftWing.rotateAngleX = cep.getRotateElytraX();
 			this.leftWing.rotateAngleY = cep.getRotateElytraY();
 			this.leftWing.rotateAngleZ = cep.getRotateElytraZ();

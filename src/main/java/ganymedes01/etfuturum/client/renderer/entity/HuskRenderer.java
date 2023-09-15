@@ -8,16 +8,15 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
-public class HuskRenderer extends RenderBiped
-{
+public class HuskRenderer extends RenderBiped {
 	public static final ResourceLocation texture;
-	private float scale;
-	
+	private final float scale;
+
 	public HuskRenderer() {
 		super(new ModelZombie(), 0.4f);
 		this.scale = 1.1f;
 	}
-	
+
 	@Override
 	protected void preRenderCallback(EntityLivingBase par1EntityLiving, float par2) {
 		if ((par1EntityLiving instanceof EntityHusk)) {
@@ -29,6 +28,7 @@ public class HuskRenderer extends RenderBiped
 	protected ResourceLocation getEntityTexture(final Entity p_110775_1_) {
 		return texture;
 	}
+
 	static {
 		texture = new ResourceLocation("textures/entity/zombie/husk.png");
 	}

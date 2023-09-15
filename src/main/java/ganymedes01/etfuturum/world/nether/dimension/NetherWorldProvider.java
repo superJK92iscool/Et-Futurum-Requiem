@@ -19,10 +19,10 @@ public class NetherWorldProvider extends WorldProviderHell {
 //      if (WorldgenConfiguration.BigNether) {
 //          return new MaxHeightNetherChunkProvider(this.worldObj, this.worldObj.getSeed());
 //      } else {
-			return new NetherChunkProvider(this.worldObj, this.worldObj.getSeed());
+		return new NetherChunkProvider(this.worldObj, this.worldObj.getSeed());
 //      }
 	}
-	
+
 //  @Override
 //  protected void generateLightBrightnessTable() {
 //      float minBrightness = (float) (1.0F / 10000000.0F * Math.pow(75, 3.2F) + 0.002F);
@@ -38,7 +38,7 @@ public class NetherWorldProvider extends WorldProviderHell {
 //    {
 //        return true;
 //    }
-	
+
 	@Override
 	public boolean canRespawnHere() {
 		return false;
@@ -46,10 +46,7 @@ public class NetherWorldProvider extends WorldProviderHell {
 
 	@Override
 	public boolean canCoordinateBeSpawn(int x, int z) {
-		if (this.worldObj.getTopBlock(x, z) == Blocks.bedrock || this.worldObj.getTopBlock(x, z) == Blocks.air) {
-			return false;
-		}
-		return true;
+		return this.worldObj.getTopBlock(x, z) != Blocks.bedrock && this.worldObj.getTopBlock(x, z) != Blocks.air;
 	}
 
 	@Override

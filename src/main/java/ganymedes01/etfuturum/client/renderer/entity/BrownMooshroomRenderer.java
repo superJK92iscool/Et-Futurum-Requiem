@@ -18,16 +18,13 @@ public class BrownMooshroomRenderer extends RenderMooshroom {
 	private static final ResourceLocation mooshroomTextures = new ResourceLocation("textures/entity/cow/brown_mooshroom.png");
 
 	@Override
-	protected ResourceLocation getEntityTexture(EntityMooshroom p_110775_1_)
-	{
+	protected ResourceLocation getEntityTexture(EntityMooshroom p_110775_1_) {
 		return mooshroomTextures;
 	}
-	
+
 	@Override
-	protected void renderEquippedItems(EntityMooshroom p_77029_1_, float p_77029_2_)
-	{
-		if (!p_77029_1_.isChild())
-		{
+	protected void renderEquippedItems(EntityMooshroom p_77029_1_, float p_77029_2_) {
+		if (!p_77029_1_.isChild()) {
 			this.bindTexture(TextureMap.locationBlocksTexture);
 			GL11.glEnable(GL11.GL_CULL_FACE);
 			GL11.glPushMatrix();
@@ -40,7 +37,7 @@ public class BrownMooshroomRenderer extends RenderMooshroom {
 			this.field_147909_c.renderBlockAsItem(Blocks.brown_mushroom, 0, 1.0F);
 			GL11.glPopMatrix();
 			GL11.glPushMatrix();
-			((ModelQuadruped)this.mainModel).head.postRender(0.0625F);
+			((ModelQuadruped) this.mainModel).head.postRender(0.0625F);
 			GL11.glScalef(1.0F, -1.0F, 1.0F);
 			GL11.glTranslatef(0.0F, 0.75F, -0.2F);
 			GL11.glRotatef(12.0F, 0.0F, 1.0F, 0.0F);

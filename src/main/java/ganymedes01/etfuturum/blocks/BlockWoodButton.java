@@ -29,17 +29,17 @@ public class BlockWoodButton extends BlockButtonWood {
 	public IIcon getIcon(int side, int _meta) {
 		return Blocks.planks.getIcon(side, this.meta);
 	}
-	
+
 	@Override
 	public boolean isFlammable(IBlockAccess aWorld, int aX, int aY, int aZ, ForgeDirection aSide) {
 		return ConfigFunctions.enableExtraBurnableBlocks && meta < 6;
 	}
-	
+
 	@Override
 	public int getFlammability(IBlockAccess aWorld, int aX, int aY, int aZ, ForgeDirection aSide) {
 		return ConfigFunctions.enableExtraBurnableBlocks && meta < 6 ? 20 : 0;
 	}
-	
+
 	@Override
 	public int getFireSpreadSpeed(IBlockAccess aWorld, int aX, int aY, int aZ, ForgeDirection aSide) {
 		return ConfigFunctions.enableExtraBurnableBlocks && meta < 6 ? 5 : 0;

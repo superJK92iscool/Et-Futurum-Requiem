@@ -49,7 +49,7 @@ public class BlockNewBrewingStand extends BlockBrewingStand {
 			return Item.getItemFromBlock(ModBlocks.BREWING_STAND.get());
 		return Items.brewing_stand;
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public Item getItem(World world, int x, int y, int z) {
@@ -65,8 +65,7 @@ public class BlockNewBrewingStand extends BlockBrewingStand {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public String getItemIconName()
-	{
+	public String getItemIconName() {
 		return "brewing_stand";
 	}
 }

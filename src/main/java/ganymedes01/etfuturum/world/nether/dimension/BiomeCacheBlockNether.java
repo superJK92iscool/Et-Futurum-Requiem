@@ -4,25 +4,39 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class BiomeCacheBlockNether {
 
-	/** An array of chunk temperatures saved by this cache. */
+	/**
+	 * An array of chunk temperatures saved by this cache.
+	 */
 	public float[] temperatureValues;
 
-	/** An array of chunk rainfall values saved by this cache. */
+	/**
+	 * An array of chunk rainfall values saved by this cache.
+	 */
 	public float[] rainfallValues;
 
-	/** The array of biome types stored in this BiomeCacheBlock. */
+	/**
+	 * The array of biome types stored in this BiomeCacheBlock.
+	 */
 	public BiomeGenBase[] biomes;
 
-	/** The x coordinate of the BiomeCacheBlock. */
+	/**
+	 * The x coordinate of the BiomeCacheBlock.
+	 */
 	public int xPosition;
 
-	/** The z coordinate of the BiomeCacheBlock. */
+	/**
+	 * The z coordinate of the BiomeCacheBlock.
+	 */
 	public int zPosition;
 
-	/** The last time this BiomeCacheBlock was accessed, in milliseconds. */
+	/**
+	 * The last time this BiomeCacheBlock was accessed, in milliseconds.
+	 */
 	public long lastAccessTime;
 
-	/** The BiomeCache object that contains this BiomeCacheBlock */
+	/**
+	 * The BiomeCache object that contains this BiomeCacheBlock
+	 */
 	final BiomeCacheNether theBiomeCache;
 
 	public BiomeCacheBlockNether(BiomeCacheNether par1BiomeCache, int par2, int par3) {

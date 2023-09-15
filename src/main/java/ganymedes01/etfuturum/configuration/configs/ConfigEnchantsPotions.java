@@ -22,7 +22,7 @@ public class ConfigEnchantsPotions extends ConfigBase {
 		super(file);
 		setCategoryComment(catEnchants, "Settings for enchantments.");
 		setCategoryComment(catPotions, "Settings for potions. Potion IDs are very limited so it is highly recommended to use a potion ID expansion.");
-		
+
 		configCats.add(getCategory(catEnchants));
 		configCats.add(getCategory(catPotions));
 	}
@@ -36,9 +36,9 @@ public class ConfigEnchantsPotions extends ConfigBase {
 		mendingID = getInt("mendingID", catEnchants, 201, 0, 255, "");
 		enableSwiftSneak = getBoolean("swiftSneak", catEnchants, true, "");
 		swiftSneakID = getInt("swiftSneakID", catEnchants, 202, 0, 255, "");
-		
+
 		//potions
-		levitationID  = getInt("levitationID", catPotions, 27, 0, Byte.MAX_VALUE, "Since this is essential for Shulkers, this is tied to Shulkers being enabled instead of having its own option.");
+		levitationID = getInt("levitationID", catPotions, 27, 0, Byte.MAX_VALUE, "Since this is essential for Shulkers, this is tied to Shulkers being enabled instead of having its own option.");
 	}
 
 }

@@ -47,17 +47,17 @@ public class ClientProxy extends CommonProxy {
 		super.registerEvents();
 		FMLCommonHandler.instance().bus().register(ClientEventHandler.INSTANCE);
 		MinecraftForge.EVENT_BUS.register(ClientEventHandler.INSTANCE);
-		if(ConfigMixins.enableSpectatorMode) {
+		if (ConfigMixins.enableSpectatorMode) {
 			FMLCommonHandler.instance().bus().register(SpectatorModeClient.INSTANCE);
 			MinecraftForge.EVENT_BUS.register(SpectatorModeClient.INSTANCE);
 		}
 
-		if(ConfigFunctions.enableSubtitles) {
+		if (ConfigFunctions.enableSubtitles) {
 			GuiSubtitles.INSTANCE = new GuiSubtitles(FMLClientHandler.instance().getClient());
 			MinecraftForge.EVENT_BUS.register(GuiSubtitles.INSTANCE);
 		}
 
-		if(ConfigFunctions.enableUpdateChecker && !EtFuturum.SNAPSHOT_BUILD && !EtFuturum.DEV_ENVIRONMENT) {
+		if (ConfigFunctions.enableUpdateChecker && !EtFuturum.SNAPSHOT_BUILD && !EtFuturum.DEV_ENVIRONMENT) {
 			FMLCommonHandler.instance().bus().register(VersionChecker.instance);
 //        MinecraftForge.EVENT_BUS.register(BiomeFogEventHandler.INSTANCE);
 		}
@@ -202,20 +202,20 @@ public class ClientProxy extends CommonProxy {
 			RenderingRegistry.registerEntityRenderingHandler(EntityEndermite.class, new EndermiteRenderer());
 		if (ConfigEntities.enableRabbit)
 			RenderingRegistry.registerEntityRenderingHandler(EntityRabbit.class, new RabbitRenderer());
-		
+
 		if (ConfigEntities.enableHusk)
 			RenderingRegistry.registerEntityRenderingHandler(EntityHusk.class, new HuskRenderer());
 		if (ConfigEntities.enableStray) {
 			RenderingRegistry.registerEntityRenderingHandler(EntityStray.class, new StrayRenderer());
 		}
-		
+
 		if (ConfigBlocksItems.enableLingeringPotions) {
 			RenderingRegistry.registerEntityRenderingHandler(EntityLingeringPotion.class, new LingeringPotionRenderer());
 			RenderingRegistry.registerEntityRenderingHandler(EntityLingeringEffect.class, new LingeringEffectRenderer());
 		}
 		if (ConfigEntities.enableVillagerZombies)
 			RenderingRegistry.registerEntityRenderingHandler(EntityZombieVillager.class, new VillagerZombieRenderer());
-		
+
 		if (ConfigEntities.enableDragonRespawn)
 			RenderingRegistry.registerEntityRenderingHandler(EntityPlacedEndCrystal.class, new PlacedEndCrystalRenderer());
 

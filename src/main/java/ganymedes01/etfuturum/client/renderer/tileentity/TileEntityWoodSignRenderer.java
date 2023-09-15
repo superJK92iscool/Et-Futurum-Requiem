@@ -14,7 +14,7 @@ public class TileEntityWoodSignRenderer extends TileEntitySpecialRenderer {
 
 	private ResourceLocation signTexture;
 	private final ModelSign field_147514_c = new ModelSign();
-	
+
 	public void setTexture(int i) {
 		signTexture = new ResourceLocation("textures/entity/signs/" + ModRecipes.woodTypes[i] + ".png");
 	}
@@ -27,9 +27,8 @@ public class TileEntityWoodSignRenderer extends TileEntitySpecialRenderer {
 	 * textures.
 	 */
 	@Override
-	public void renderTileEntityAt(TileEntity p_147500_1_, double p_147500_2_, double p_147500_4_, double p_147500_6_, float p_147500_8_)
-	{
-		if(!(p_147500_1_.getBlockType() instanceof BlockWoodSign))
+	public void renderTileEntityAt(TileEntity p_147500_1_, double p_147500_2_, double p_147500_4_, double p_147500_6_, float p_147500_8_) {
+		if (!(p_147500_1_.getBlockType() instanceof BlockWoodSign))
 			return;
 		BlockWoodSign block = (BlockWoodSign) p_147500_1_.getBlockType();
 		setTexture(block.meta);
@@ -37,34 +36,28 @@ public class TileEntityWoodSignRenderer extends TileEntitySpecialRenderer {
 		float f1 = 0.6666667F;
 		float f3;
 
-		if (block.standing)
-		{
-			GL11.glTranslatef((float)p_147500_2_ + 0.5F, (float)p_147500_4_ + 0.75F * f1, (float)p_147500_6_ + 0.5F);
+		if (block.standing) {
+			GL11.glTranslatef((float) p_147500_2_ + 0.5F, (float) p_147500_4_ + 0.75F * f1, (float) p_147500_6_ + 0.5F);
 			float f2 = p_147500_1_.getBlockMetadata() * 360 / 16.0F;
 			GL11.glRotatef(-f2, 0.0F, 1.0F, 0.0F);
 			this.field_147514_c.signStick.showModel = true;
-		}
-		else
-		{
+		} else {
 			int j = p_147500_1_.getBlockMetadata();
 			f3 = 0.0F;
 
-			if (j == 2)
-			{
+			if (j == 2) {
 				f3 = 180.0F;
 			}
 
-			if (j == 4)
-			{
+			if (j == 4) {
 				f3 = 90.0F;
 			}
 
-			if (j == 5)
-			{
+			if (j == 5) {
 				f3 = -90.0F;
 			}
 
-			GL11.glTranslatef((float)p_147500_2_ + 0.5F, (float)p_147500_4_ + 0.75F * f1, (float)p_147500_6_ + 0.5F);
+			GL11.glTranslatef((float) p_147500_2_ + 0.5F, (float) p_147500_4_ + 0.75F * f1, (float) p_147500_6_ + 0.5F);
 			GL11.glRotatef(-f3, 0.0F, 1.0F, 0.0F);
 			GL11.glTranslatef(0.0F, -0.3125F, -0.4375F);
 			this.field_147514_c.signStick.showModel = false;
@@ -81,22 +74,18 @@ public class TileEntityWoodSignRenderer extends TileEntitySpecialRenderer {
 		GL11.glNormal3f(0.0F, 0.0F, -1.0F * f3);
 		GL11.glDepthMask(false);
 		byte b0 = 0;
-		TileEntityWoodSign sign = (TileEntityWoodSign)p_147500_1_;
-		for (int i = 0; i < sign.signText.length; ++i)
-		{
+		TileEntityWoodSign sign = (TileEntityWoodSign) p_147500_1_;
+		for (int i = 0; i < sign.signText.length; ++i) {
 			String colour = "";
 //          if (signType(sign)) {
 //              colour = "\u00A7f";
 //          }
 			String s = colour + sign.signText[i];
 
-			if (i == sign.lineBeingEdited)
-			{
-					s = "> " + s + " <";
+			if (i == sign.lineBeingEdited) {
+				s = "> " + s + " <";
 				fontrenderer.drawString(s, -fontrenderer.getStringWidth(s) / 2, i * 10 - sign.signText.length * 5, b0);
-			}
-			else
-			{
+			} else {
 				fontrenderer.drawString(s, -fontrenderer.getStringWidth(s) / 2, i * 10 - sign.signText.length * 5, b0);
 			}
 		}

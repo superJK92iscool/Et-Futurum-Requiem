@@ -25,7 +25,7 @@ public class ElytraSound extends MovingSound {
 	public void update() {
 		++this.field_189406_n;
 
-		if (!this.field_189405_m.isDead && (this.field_189406_n <= 20 || ((IElytraPlayer)field_189405_m).etfu$isElytraFlying())) {
+		if (!this.field_189405_m.isDead && (this.field_189406_n <= 20 || ((IElytraPlayer) field_189405_m).etfu$isElytraFlying())) {
 			this.xPosF = (float) this.field_189405_m.posX;
 			this.yPosF = (float) this.field_189405_m.posY;
 			this.zPosF = (float) this.field_189405_m.posZ;

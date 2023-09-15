@@ -19,16 +19,14 @@ import java.util.Map.Entry;
  * LoaderState.AVAILABLE, the registry cannot be added to. It is highly advised you use
  * the helper methods when getting an ore, or checking of one exists, instead of using {@code getOreMap()},
  * in the case the key changes to something more efficient.
- * 
+ * <p>
  * The getOre methods return a BlockAndMetadataMapping, which is used to store the block instance
  * and its desired meta value in the same object.
- * 
- * @apiNote
- * Example: {@code DeepslateOreRegistry.addOre(Blocks.iron_ore, ModBlocks.deepslate_iron_ore);}
+ *
+ * @author roadhog360
+ * @apiNote Example: {@code DeepslateOreRegistry.addOre(Blocks.iron_ore, ModBlocks.deepslate_iron_ore);}
  * would cause vanilla iron ore to convert into the "deepslate_iron_ore" block when
  * deepslate generates over it.
- * 
- * @author roadhog360
  */
 public class DeepslateOreRegistry {
 
@@ -43,14 +41,14 @@ public class DeepslateOreRegistry {
 	 * Adds a block to block pair to the deepslate mapping registry.
 	 * Assumes a metadata value of 0.
 	 * This is used when Et Futurum deepslate overwrites the specified block.
-	 * 
+	 *
 	 * @param from The block:0 to overwrite
-	 * @param to The block:0 deepslate changes it to
+	 * @param to   The block:0 deepslate changes it to
 	 */
-	public static void addOre(Block from,  Block to) {
+	public static void addOre(Block from, Block to) {
 		addOre(from, 0, to, 0);
 	}
-	
+
 	/**
 	 * Adds a block/metadata to block/metadata pair to the deepslate mapping registry.
 	 * This is used when Et Futurum deepslate overwrites the specified block.
@@ -99,7 +97,7 @@ public class DeepslateOreRegistry {
 
 	/**
 	 * Does deepslate replace this block?
-	 * 
+	 *
 	 * @param block
 	 * @return
 	 */
@@ -133,18 +131,17 @@ public class DeepslateOreRegistry {
 	public static RegistryMapping<Block> getOre(Block block, int meta) {
 		return deepslateOres.get(block.hashCode() + meta);
 	}
-	
+
 	/**
-	 * @return
-	 * The entire deepslate ore mapping, where the hash for a metadata/block pair is the key.
+	 * @return The entire deepslate ore mapping, where the hash for a metadata/block pair is the key.
 	 * The key's return value is of the class BlockAndMetadataMapping, which just store
 	 * a Block instance, and a metadata value.
-	 *
+	 * <p>
 	 * Hashes are used so we don't have to create hundreds of BlockAndMetadataMapping
 	 * instances just to compare each block we replace.
-	 *
+	 * <p>
 	 * The hash is {@code block.hashCode() + meta}.
-	 *
+	 * <p>
 	 * Do not use this to add or get items from the map this way,
 	 * in case the key changes.
 	 */
@@ -165,10 +162,10 @@ public class DeepslateOreRegistry {
 						stackNorm = new ItemStack(oreNorm, 1, inputOres.get(entry.getKey()).getMeta()),
 						stackDeep = new ItemStack(oreDeep, 1, entry.getValue().getMeta());
 
-				for(String oreName : EtFuturum.getOreStrings(stackNorm)) {
+				for (String oreName : EtFuturum.getOreStrings(stackNorm)) {
 					OreDictionary.registerOre(oreName.replace("Vanillastone", "Deepslate"), stackDeep.copy()); // Yes the .copy() is required!
 				}
-				
+
 				if (FurnaceRecipes.smelting().getSmeltingResult(stackNorm) != null) {
 					GameRegistry.addSmelting(stackDeep, FurnaceRecipes.smelting().getSmeltingResult(stackNorm), FurnaceRecipes.smelting().func_151398_b(stackNorm));
 				}

@@ -19,11 +19,11 @@ import java.util.Random;
 public class TileEntityShulkerBoxRenderer extends TileEntitySpecialRenderer {
 
 	public int tier = 0;
-	private Random random;
-	private RenderItem itemRenderer;
-	private static float[][] shifts = { { 0.3F, 0.45F, 0.3F }, { 0.7F, 0.45F, 0.3F }, { 0.3F, 0.45F, 0.7F }, { 0.7F, 0.45F, 0.7F }, { 0.3F, 0.1F, 0.3F },
-			{ 0.7F, 0.1F, 0.3F }, { 0.3F, 0.1F, 0.7F }, { 0.7F, 0.1F, 0.7F }, { 0.5F, 0.32F, 0.5F }, };
-	protected static final ResourceLocation[] DESTROY_STAGES = new ResourceLocation[] {
+	private final Random random;
+	private final RenderItem itemRenderer;
+	private static final float[][] shifts = {{0.3F, 0.45F, 0.3F}, {0.7F, 0.45F, 0.3F}, {0.3F, 0.45F, 0.7F}, {0.7F, 0.45F, 0.7F}, {0.3F, 0.1F, 0.3F},
+			{0.7F, 0.1F, 0.3F}, {0.3F, 0.1F, 0.7F}, {0.7F, 0.1F, 0.7F}, {0.5F, 0.32F, 0.5F},};
+	protected static final ResourceLocation[] DESTROY_STAGES = new ResourceLocation[]{
 			new ResourceLocation("textures/blocks/destroy_stage_0.png"), new ResourceLocation("textures/blocks/destroy_stage_1.png"),
 			new ResourceLocation("textures/blocks/destroy_stage_2.png"), new ResourceLocation("textures/blocks/destroy_stage_3.png"),
 			new ResourceLocation("textures/blocks/destroy_stage_4.png"), new ResourceLocation("textures/blocks/destroy_stage_5.png"),
@@ -31,8 +31,7 @@ public class TileEntityShulkerBoxRenderer extends TileEntitySpecialRenderer {
 			new ResourceLocation("textures/blocks/destroy_stage_8.png"), new ResourceLocation("textures/blocks/destroy_stage_9.png")};
 	private final ModelShulker modelShulker;
 
-	public TileEntityShulkerBoxRenderer(ModelShulker p_i47216_1_)
-	{
+	public TileEntityShulkerBoxRenderer(ModelShulker p_i47216_1_) {
 		this.modelShulker = p_i47216_1_;
 		this.random = new Random();
 		itemRenderer = new RenderItem() {
@@ -40,14 +39,17 @@ public class TileEntityShulkerBoxRenderer extends TileEntitySpecialRenderer {
 			public byte getMiniBlockCount(ItemStack stack, byte original) {
 				return SignedBytes.saturatedCast(Math.min(stack.stackSize / 32, 15) + 1);
 			}
+
 			@Override
 			public byte getMiniItemCount(ItemStack stack, byte original) {
 				return SignedBytes.saturatedCast(Math.min(stack.stackSize / 32, 7) + 1);
 			}
+
 			@Override
 			public boolean shouldBob() {
 				return false;
 			}
+
 			@Override
 			public boolean shouldSpreadItems() {
 				return false;
@@ -56,18 +58,16 @@ public class TileEntityShulkerBoxRenderer extends TileEntitySpecialRenderer {
 		itemRenderer.setRenderManager(RenderManager.instance);
 	}
 
-	public void renderTileEntityAt(TileEntityShulkerBox te, double x, double y, double z, float partialTicks, int destroyStage)
-	{
+	public void renderTileEntityAt(TileEntityShulkerBox te, double x, double y, double z, float partialTicks, int destroyStage) {
 		ForgeDirection enumfacing = ForgeDirection.UP;
-		
+
 		tier = te.type.ordinal();
 
-		if (te.hasWorldObj())
-		{
+		if (te.hasWorldObj()) {
 			int facing = te.facing;
 			enumfacing = ForgeDirection.values()[facing];
 		}
-		
+
 		GL11.glPushAttrib(GL11.GL_ENABLE_BIT);
 
 //        GlStateManager.enableDepth();
@@ -76,37 +76,32 @@ public class TileEntityShulkerBoxRenderer extends TileEntitySpecialRenderer {
 //        GlStateManager.disableCull();
 		GL11.glDisable(GL11.GL_CULL_FACE);
 		GL11.glEnable(GL11.GL_ALPHA_TEST); // Needed because the texture has transparent pixels
-		
-		if (destroyStage >= 0)
-		{
+
+		if (destroyStage >= 0) {
 			this.bindTexture(DESTROY_STAGES[destroyStage]);
 			GL11.glMatrixMode(5890);
 //            GL11.glPushMatrix();
 			GL11.glScalef(4.0F, 4.0F, 1.0F);
 			GL11.glTranslatef(0.0625F, 0.0625F, 0.0625F);
 			GL11.glMatrixMode(5888);
-		}
-		else
-		{
+		} else {
 			this.bindTexture(ShulkerRenderer.SHULKER_ENDERGOLEM_TEXTURES[te.color % ShulkerRenderer.SHULKER_ENDERGOLEM_TEXTURES.length + (tier % (TileEntityShulkerBox.tiers.length + 1) * 17)]);
 		}
 
 		GL11.glPushMatrix();
 //        GlStateManager.enableRescaleNormal();
 
-		if (destroyStage < 0)
-		{
+		if (destroyStage < 0) {
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		}
 
-		GL11.glTranslatef((float)x + 0.5F, (float)y + 1.5F, (float)z + 0.5F);
+		GL11.glTranslatef((float) x + 0.5F, (float) y + 1.5F, (float) z + 0.5F);
 		GL11.glScalef(1.0F, -1.0F, -1.0F);
 		GL11.glTranslatef(0.0F, 1.0F, 0.0F);
 		GL11.glScalef(0.9995F, 0.9995F, 0.9995F);
 		GL11.glTranslatef(0.0F, -1.0F, 0.0F);
 
-		switch (enumfacing)
-		{
+		switch (enumfacing) {
 			case DOWN:
 				GL11.glTranslatef(0.0F, 2.0F, 0.0F);
 				GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
@@ -148,8 +143,7 @@ public class TileEntityShulkerBoxRenderer extends TileEntitySpecialRenderer {
 		GL11.glPopMatrix();
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
-		if (destroyStage >= 0)
-		{
+		if (destroyStage >= 0) {
 			GL11.glMatrixMode(5890);
 			GL11.glPopMatrix();
 			GL11.glMatrixMode(5888);
@@ -195,13 +189,13 @@ public class TileEntityShulkerBoxRenderer extends TileEntitySpecialRenderer {
 			GL11.glPopMatrix();
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		}
-		
+
 		GL11.glPopAttrib();
 	}
 
 	@Override
 	public void renderTileEntityAt(TileEntity te, double x, double y, double z, float partialTicks) {
-		this.renderTileEntityAt((TileEntityShulkerBox)te, x, y, z, partialTicks, -1);
+		this.renderTileEntityAt((TileEntityShulkerBox) te, x, y, z, partialTicks, -1);
 	}
 
 }

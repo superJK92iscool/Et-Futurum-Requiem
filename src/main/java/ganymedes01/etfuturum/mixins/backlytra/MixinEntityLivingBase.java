@@ -15,9 +15,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(EntityLivingBase.class)
 public abstract class MixinEntityLivingBase extends Entity {
-	@Shadow public abstract boolean isClientWorld();
+	@Shadow
+	public abstract boolean isClientWorld();
 
-	private static DamageSource flyIntoWall = (new DamageSource("flyIntoWall")).setDamageBypassesArmor();
+	private static final DamageSource flyIntoWall = (new DamageSource("flyIntoWall")).setDamageBypassesArmor();
+
 	public MixinEntityLivingBase(World p_i1582_1_) {
 		super(p_i1582_1_);
 	}
@@ -26,7 +28,7 @@ public abstract class MixinEntityLivingBase extends Entity {
 	private void moveElytra(float p_70612_1_, float p_70612_2_, CallbackInfo ci) {
 		/* method is named incorrectly in these older mappings, it's really isServerWorld */
 		if (this.isClientWorld() && !this.isInWater() && !this.handleLavaMovement()) {
-			if (this instanceof IElytraPlayer && ((IElytraPlayer)this).etfu$isElytraFlying()) {
+			if (this instanceof IElytraPlayer && ((IElytraPlayer) this).etfu$isElytraFlying()) {
 				if (this.motionY > -0.5D) {
 					this.fallDistance = 1.0F;
 				}
@@ -76,7 +78,7 @@ public abstract class MixinEntityLivingBase extends Entity {
 				}
 
 				if (this.onGround && !this.worldObj.isRemote) {
-					((IElytraPlayer)this).etfu$setElytraFlying(false);
+					((IElytraPlayer) this).etfu$setElytraFlying(false);
 				}
 				ci.cancel();
 			}

@@ -18,9 +18,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(EntityPlayer.class)
 public abstract class MixinEntityPlayer extends EntityLivingBase implements IElytraPlayer {
-	@Shadow public abstract boolean isPlayerSleeping();
-	@Shadow public PlayerCapabilities capabilities;
-	@Shadow protected abstract void setHideCape(int par1, boolean par2);
+	@Shadow
+	public abstract boolean isPlayerSleeping();
+
+	@Shadow
+	public PlayerCapabilities capabilities;
+
+	@Shadow
+	protected abstract void setHideCape(int par1, boolean par2);
 
 	public MixinEntityPlayer(World p_i1594_1_) {
 		super(p_i1594_1_);
@@ -42,7 +47,7 @@ public abstract class MixinEntityPlayer extends EntityLivingBase implements IEly
 		} else {
 			flag = false;
 		}
-		
+
 
 		if (!this.worldObj.isRemote) {
 			this.etfu$setElytraFlying(flag);
@@ -57,7 +62,7 @@ public abstract class MixinEntityPlayer extends EntityLivingBase implements IEly
 
 	@Inject(method = "getEyeHeight", at = @At("HEAD"), cancellable = true)
 	private void getElytraEyeHeight(CallbackInfoReturnable<Float> cir) {
-		if(this.etfu$isElytraFlying() && !this.isPlayerSleeping()) {
+		if (this.etfu$isElytraFlying() && !this.isPlayerSleeping()) {
 			cir.setReturnValue(0.4f);
 		}
 	}
@@ -97,7 +102,7 @@ public abstract class MixinEntityPlayer extends EntityLivingBase implements IEly
 
 	@Inject(method = "readEntityFromNBT", at = @At("TAIL"))
 	private void readElytra(NBTTagCompound p_70014_1_, CallbackInfo ci) {
-		if(p_70014_1_.getBoolean("FallFlying"))
+		if (p_70014_1_.getBoolean("FallFlying"))
 			etfu$setElytraFlying(true);
 	}
 }

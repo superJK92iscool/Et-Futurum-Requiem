@@ -311,9 +311,9 @@ public class TileEntityBeeHive extends TileEntity {
 		}
 	}
 
-	public static enum State {
+	public enum State {
 		HONEY_DELIVERED,
 		BEE_RELEASED,
-		EMERGENCY;
+		EMERGENCY
 	}
 }

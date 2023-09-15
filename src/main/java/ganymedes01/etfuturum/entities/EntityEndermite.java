@@ -130,7 +130,7 @@ public class EntityEndermite extends EntityMob {
 			aggroEndermen(64);
 		}
 	}
-	
+
 	public void aggroEndermen(int range) {
 		double radius = range / 2.0;
 		int tagetChance = 10;
@@ -138,18 +138,18 @@ public class EntityEndermite extends EntityMob {
 			List<EntityEnderman> list = worldObj.getEntitiesWithinAABBExcludingEntity(this, AxisAlignedBB.getBoundingBox(posX - radius, posY - 4, posZ - radius, posX + radius, posY + 4, posZ + radius), new IEntitySelector() {
 				@Override
 				public boolean isEntityApplicable(Entity entity) {
-					return entity instanceof EntityEnderman && ((EntityEnderman)entity).getEntityToAttack() == null;
+					return entity instanceof EntityEnderman && ((EntityEnderman) entity).getEntityToAttack() == null;
 				}
 			});
 			list.sort(sorter);
 			if (!list.isEmpty()) {
-				for(EntityEnderman enderman : list) {
+				for (EntityEnderman enderman : list) {
 					enderman.setTarget(this);
 					enderman.setScreaming(true);
 				}
 			}
 		}
-		
+
 	}
 
 	@Override
@@ -170,9 +170,8 @@ public class EntityEndermite extends EntityMob {
 	public EnumCreatureAttribute getCreatureAttribute() {
 		return EnumCreatureAttribute.ARTHROPOD;
 	}
-	
-	public ItemStack getPickedResult(MovingObjectPosition target)
-	{
+
+	public ItemStack getPickedResult(MovingObjectPosition target) {
 		return ModEntityList.getEggFromEntity(this);
 	}
 }

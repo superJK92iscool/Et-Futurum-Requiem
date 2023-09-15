@@ -23,19 +23,17 @@ public class BlockConcretePowder extends BaseSubtypesSand {
 		this.setBlockTextureName("concrete_powder");
 		this.setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
-	
+
 	@Override
-	public void onBlockAdded(World world, int x, int y, int z)
-	{
+	public void onBlockAdded(World world, int x, int y, int z) {
 		this.setBlock(world, x, y, z);
 	}
-			
+
 	@Override
-	public void onNeighborBlockChange(World world, int x, int y, int z, Block block)
-	{
+	public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
 		this.setBlock(world, x, y, z);
 	}
-	
+
 	private void setBlock(World world, int x, int y, int z) {
 		for (ForgeDirection dir : ForgeDirection.values()) {
 			if (dir != ForgeDirection.DOWN && world.getBlock(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ).getMaterial() == Material.water) {

@@ -24,7 +24,7 @@ public class ModEnchantments {
 	public static Enchantment frostWalker;
 	public static Enchantment mending;
 	public static Enchantment swiftSneak;
-	
+
 	private static final Map<EntityLivingBase, double[]> prevMoveCache = new WeakHashMap();
 
 	public static void init() {
@@ -42,7 +42,7 @@ public class ModEnchantments {
 			return;
 		if (!ConfigEnchantsPotions.enableFrostWalker)
 			return;
-		
+
 		ItemStack boots = entity.getEquipmentInSlot(1);
 		int level = 0;
 		if ((level = EnchantmentHelper.getEnchantmentLevel(frostWalker.effectId, boots)) > 0 && entity.onGround) {
@@ -56,18 +56,18 @@ public class ModEnchantments {
 
 				for (int i = -radius; i <= radius; i++) {
 					for (int j = -radius; j <= radius; j++) {
-						if(i * i + j * j <= radius * radius) {
+						if (i * i + j * j <= radius * radius) {
 							Block block = entity.worldObj.getBlock(x + i, y - 1, z + j);
 							Block blockUp = entity.worldObj.getBlock(x + i, y, z + j);
-							if(!blockUp.isNormalCube() && blockUp.getMaterial() != Material.water && (block == Blocks.water || block == Blocks.flowing_water)) {
-								if(entity.worldObj.getEntitiesWithinAABBExcludingEntity(entity, AxisAlignedBB.getBoundingBox(x + i, y - 1, z + j, x + i + 1, y, z + j + 1)).isEmpty()) {
-								entity.worldObj.setBlock(x + i, y - 1, z + j, ModBlocks.FROSTED_ICE.get());
+							if (!blockUp.isNormalCube() && blockUp.getMaterial() != Material.water && (block == Blocks.water || block == Blocks.flowing_water)) {
+								if (entity.worldObj.getEntitiesWithinAABBExcludingEntity(entity, AxisAlignedBB.getBoundingBox(x + i, y - 1, z + j, x + i + 1, y, z + j + 1)).isEmpty()) {
+									entity.worldObj.setBlock(x + i, y - 1, z + j, ModBlocks.FROSTED_ICE.get());
 								}
 							}
 						}
 					}
 				}
-				prevMoveCache.put(entity, new double[] {entity.posX, entity.posZ});
+				prevMoveCache.put(entity, new double[]{entity.posX, entity.posZ});
 			}
 		} else {
 			prevMoveCache.remove(entity);

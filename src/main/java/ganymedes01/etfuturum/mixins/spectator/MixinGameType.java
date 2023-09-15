@@ -11,11 +11,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(WorldSettings.GameType.class)
 public class MixinGameType {
 	private boolean etfu$isSpectator() {
-		return (Object)this == SpectatorMode.SPECTATOR_GAMETYPE;
+		return (Object) this == SpectatorMode.SPECTATOR_GAMETYPE;
 	}
+
 	@Inject(method = "configurePlayerCapabilities", at = @At("HEAD"), cancellable = true)
 	public void configureSpecCaps(PlayerCapabilities caps, CallbackInfo ci) {
-		if(etfu$isSpectator()) {
+		if (etfu$isSpectator()) {
 			ci.cancel();
 			caps.allowFlying = true;
 			caps.isCreativeMode = true;

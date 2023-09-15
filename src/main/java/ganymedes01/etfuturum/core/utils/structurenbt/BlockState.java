@@ -8,7 +8,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ChestGenHooks;
 
-/**Used to store the results of an unflattening in meta, to easily store it in a map after reading a structure NBT file.*/
+/**
+ * Used to store the results of an unflattening in meta, to easily store it in a map after reading a structure NBT file.
+ */
 public class BlockState {
 
 	private final Object theObject;
@@ -44,21 +46,21 @@ public class BlockState {
 	}
 
 	public Block getBlock() {
-		if(type == BlockStateType.ENTITY) {
+		if (type == BlockStateType.ENTITY) {
 			throw new IllegalArgumentException("Tried to get block instance from ENTITY in a BlockState object!");
 		}
 		return (Block) theObject;
 	}
 
 	public int getMeta() {
-		if(type == BlockStateType.ENTITY) {
+		if (type == BlockStateType.ENTITY) {
 			throw new IllegalArgumentException("Tried to get metadata from ENTITY in a BlockState object!");
 		}
 		return theMeta;
 	}
 
 	public Entity createNewEntity(World world) {
-		if(type != BlockStateType.ENTITY) {
+		if (type != BlockStateType.ENTITY) {
 			throw new IllegalArgumentException("Tried to get entity instance from a block in a BlockState object!");
 		}
 		return EntityList.createEntityByName((String) EntityList.classToStringMapping.get(theObject), world);
@@ -81,14 +83,14 @@ public class BlockState {
 	 * Only works on IInventory block entities.
 	 */
 	public ChestGenHooks getLootTable() {
-		if(type != BlockStateType.BLOCK_ENTITY) {
+		if (type != BlockStateType.BLOCK_ENTITY) {
 			throw new IllegalArgumentException("Tried to get a loot table from a non-entity block!");
 		}
 		return lootTable;
 	}
 
 	public void setLootTable(ChestGenHooks info) {
-		if(type != BlockStateType.BLOCK_ENTITY) {
+		if (type != BlockStateType.BLOCK_ENTITY) {
 			throw new IllegalArgumentException("Tried to set a loot table from a non-entity block!");
 		}
 		lootTable = info;
@@ -97,6 +99,6 @@ public class BlockState {
 	public enum BlockStateType {
 		BLOCK,
 		BLOCK_ENTITY,
-		ENTITY;
+		ENTITY
 	}
 }

@@ -3,28 +3,23 @@ package ganymedes01.etfuturum.core.utils;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public enum Rotation
-{
+public enum Rotation {
 	NONE("rotate_0"),//North facing
 	CLOCKWISE_90("rotate_90"),//East
 	CLOCKWISE_180("rotate_180"),//South
 	COUNTERCLOCKWISE_90("rotate_270");//West
 
 	private final String name;
-	private static String[] rotationNames = new String[values().length];
+	private static final String[] rotationNames = new String[values().length];
 
-	private Rotation(String nameIn)
-	{
+	Rotation(String nameIn) {
 		this.name = nameIn;
 	}
 
-	public Rotation add(Rotation rotation)
-	{
-		switch (rotation)
-		{
+	public Rotation add(Rotation rotation) {
+		switch (rotation) {
 			case CLOCKWISE_180:
-				switch (this)
-				{
+				switch (this) {
 					case NONE:
 						return CLOCKWISE_180;
 
@@ -39,8 +34,7 @@ public enum Rotation
 				}
 
 			case COUNTERCLOCKWISE_90:
-				switch (this)
-				{
+				switch (this) {
 					case NONE:
 						return COUNTERCLOCKWISE_90;
 
@@ -55,8 +49,7 @@ public enum Rotation
 				}
 
 			case CLOCKWISE_90:
-				switch (this)
-				{
+				switch (this) {
 					case NONE:
 						return CLOCKWISE_90;
 
@@ -75,14 +68,11 @@ public enum Rotation
 		}
 	}
 
-	public EnumFacing rotate(EnumFacing facing)
-	{
-		if (facing.getFrontOffsetY() != 0)
-		{
+	public EnumFacing rotate(EnumFacing facing) {
+		if (facing.getFrontOffsetY() != 0) {
 			return facing;
 		}
-		switch (this)
-		{
+		switch (this) {
 			case CLOCKWISE_90:
 				return rotateY(facing);
 
@@ -96,11 +86,9 @@ public enum Rotation
 				return facing;
 		}
 	}
-	
-	public EnumFacing rotateY(EnumFacing facing)
-	{
-		switch (facing)
-		{
+
+	public EnumFacing rotateY(EnumFacing facing) {
+		switch (facing) {
 			case NORTH:
 				return EnumFacing.EAST;
 
@@ -117,11 +105,9 @@ public enum Rotation
 				throw new IllegalStateException("Unable to get Y-rotated facing of " + this);
 		}
 	}
-	
-	public EnumFacing rotateYCCW(EnumFacing facing)
-	{
-		switch (facing)
-		{
+
+	public EnumFacing rotateYCCW(EnumFacing facing) {
+		switch (facing) {
 			case NORTH:
 				return EnumFacing.WEST;
 
@@ -139,10 +125,8 @@ public enum Rotation
 		}
 	}
 
-	public int rotate(int p_185833_1_, int p_185833_2_)
-	{
-		switch (this)
-		{
+	public int rotate(int p_185833_1_, int p_185833_2_) {
+		switch (this) {
 			case CLOCKWISE_90:
 				return (p_185833_1_ + p_185833_2_ / 4) % p_185833_2_;
 
@@ -160,8 +144,7 @@ public enum Rotation
 	static {
 		int i = 0;
 
-		for (Rotation rotation : values())
-		{
+		for (Rotation rotation : values()) {
 			rotationNames[i++] = rotation.name;
 		}
 	}

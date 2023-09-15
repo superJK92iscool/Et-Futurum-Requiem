@@ -36,15 +36,15 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 	public static final EtFuturumWorldGenerator INSTANCE = new EtFuturumWorldGenerator();
 
 	protected final List<WorldGenMinable> stoneGen = new LinkedList<WorldGenMinable>();
-	
+
 	protected final WorldGenMinable copperGen = new WorldGenMinable(ModBlocks.COPPER_ORE.get(), ConfigWorld.maxCopperPerCluster);
-	
+
 	protected final WorldGenMinable magmaGen = new WorldGenMinable(ModBlocks.MAGMA.get(), ConfigWorld.maxMagmaPerCluster, Blocks.netherrack);
 	protected final WorldGenMinable netherGoldGen = new WorldGenMinable(ModBlocks.NETHER_GOLD_ORE.get(), ConfigWorld.maxNetherGoldPerCluster, Blocks.netherrack);
 	protected final WorldGenMinable debrisGen = new WorldGenMinableCustom(ModBlocks.ANCIENT_DEBRIS.get(), ConfigWorld.debrisMax, Blocks.netherrack);
 	protected final WorldGenMinable smallDebrisGen = new WorldGenMinableCustom(ModBlocks.ANCIENT_DEBRIS.get(), ConfigWorld.smallDebrisMax, Blocks.netherrack);
 	protected final WorldGenMinable mesaGoldGen = new WorldGenMinable(Blocks.gold_ore, 8);
-	
+
 	protected final WorldGenMinable deepslateBlobGen = new WorldGenDeepslateLayerBlob(ConfigWorld.maxDeepslatePerCluster, false);
 	protected final WorldGenMinable tuffGen = new WorldGenDeepslateLayerBlob(ConfigWorld.maxTuffPerCluster, true);
 	protected WorldGenerator amethystGen;
@@ -107,11 +107,11 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 				}
 			}
 
-			if(ModBlocks.COPPER_ORE.isEnabled()) {
+			if (ModBlocks.COPPER_ORE.isEnabled()) {
 				generateOre(copperGen, world, rand, chunkX, chunkZ, 8, 4, 80);
 			}
 
-			if(ConfigWorld.enableExtraMesaGold) {
+			if (ConfigWorld.enableExtraMesaGold) {
 				if (ArrayUtils.contains(BiomeDictionary.getTypesForBiome(world.getBiomeGenForCoords(chunkX << 4, chunkZ << 4)), Type.MESA)) {
 					generateOre(mesaGoldGen, world, rand, chunkX, chunkZ, 20, 32, 80);
 				}
@@ -152,7 +152,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 				this.generateOre(netherGoldGen, world, rand, chunkX, chunkZ, 10, 10, 117);
 			}
 
-			if(ModBlocks.ANCIENT_DEBRIS.isEnabled()) {
+			if (ModBlocks.ANCIENT_DEBRIS.isEnabled()) {
 				this.generateOre(debrisGen, world, rand, chunkX, chunkZ, 1, 8, 22);
 				this.generateOre(smallDebrisGen, world, rand, chunkX, chunkZ, 1, 8, 119);
 			}
@@ -174,31 +174,31 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 	}
 
 	public void generateSingleOre(Block block, int meta, World world, Random random, int chunkX, int chunkZ, float chance, int minY, int maxY, Block generateIn) {
-		if(maxY <= 0 || minY < 0 || maxY < minY || chance <= 0)
+		if (maxY <= 0 || minY < 0 || maxY < minY || chance <= 0)
 			return;
 
-		for(int i = 0; i < (chance < 1 ? 1 : chance); i++) {
-			if(chance > 1 || random.nextFloat() < chance) {
+		for (int i = 0; i < (chance < 1 ? 1 : chance); i++) {
+			if (chance > 1 || random.nextFloat() < chance) {
 				int heightRange = maxY - minY;
 				int xRand = (chunkX << 4) + random.nextInt(16);
 				int yRand = MathHelper.getRandomIntegerInRange(random, minY, maxY);
 				int zRand = (chunkZ << 4) + random.nextInt(16);
-				if(world.getBlock(xRand, yRand, zRand).isReplaceableOreGen(world, xRand, yRand, zRand, generateIn))
+				if (world.getBlock(xRand, yRand, zRand).isReplaceableOreGen(world, xRand, yRand, zRand, generateIn))
 					world.setBlock(xRand, yRand, zRand, block, meta, 3);
 			}
 		}
 	}
 
 	public void generateOre(WorldGenMinable gen, World world, Random random, int chunkX, int chunkZ, float chance, int minY, int maxY) {
-		if(maxY <= 0 || minY < 0 || maxY < minY || gen.numberOfBlocks <= 0 || chance <= 0)
+		if (maxY <= 0 || minY < 0 || maxY < minY || gen.numberOfBlocks <= 0 || chance <= 0)
 			return;
 
-		for(int i = 0; i < (chance < 1 ? 1 : (int)chance); i++) {
-			if(chance >= 1 || random.nextFloat() < chance) {
+		for (int i = 0; i < (chance < 1 ? 1 : (int) chance); i++) {
+			if (chance >= 1 || random.nextFloat() < chance) {
 				int xRand = (chunkX << 4) + random.nextInt(16);
 				int yRand = MathHelper.getRandomIntegerInRange(random, minY, maxY);
 				int zRand = (chunkZ << 4) + random.nextInt(16);
-				
+
 				gen.generate(world, random, xRand, yRand, zRand);
 			}
 		}

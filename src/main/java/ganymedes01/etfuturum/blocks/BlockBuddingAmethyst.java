@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 import java.util.Random;
 
 public class BlockBuddingAmethyst extends BlockAmethystBlock {
-	
+
 	public BlockBuddingAmethyst() {
 		setHardness(1.5F);
 		setResistance(1.5F);
@@ -23,41 +23,37 @@ public class BlockBuddingAmethyst extends BlockAmethystBlock {
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 		setTickRandomly(true);
 	}
-	
-	public int getMobilityFlag()
-	{
+
+	public int getMobilityFlag() {
 		return ConfigWorld.buddingAmethystMode == 0 ? 1 : 0;
 	}
 
-	public boolean canSilkHarvest(World world, EntityPlayer player, int x, int y, int z, int metadata)
-	{
+	public boolean canSilkHarvest(World world, EntityPlayer player, int x, int y, int z, int metadata) {
 		return ConfigWorld.buddingAmethystMode != 0;
 	}
-	
-	public int quantityDropped(Random p_149745_1_)
-	{
+
+	public int quantityDropped(Random p_149745_1_) {
 		return ConfigWorld.buddingAmethystMode == 2 ? 1 : 0;
 	}
 
-	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_)
-	{
+	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_) {
 		return ConfigWorld.buddingAmethystMode == 2 ? super.getItemDropped(p_149650_1_, p_149650_2_, p_149650_3_) : null;
 	}
-	
+
 	@Override
 	public void updateTick(World world, int x, int y, int z, Random rand) {
 		if (rand.nextInt(5) == 0) {
 			EnumFacing facing = EnumFacing.getFront(rand.nextInt(EnumFacing.values().length));
 			Block block = world.getBlock(x + facing.getFrontOffsetX(), y + facing.getFrontOffsetY(), z + facing.getFrontOffsetZ());
 			int meta = world.getBlockMetadata(x + facing.getFrontOffsetX(), y + facing.getFrontOffsetY(), z + facing.getFrontOffsetZ());
-			
-			if(block instanceof BlockAmethystCluster && meta % 6 == facing.ordinal()) {
-				if(meta < 6) {
+
+			if (block instanceof BlockAmethystCluster && meta % 6 == facing.ordinal()) {
+				if (meta < 6) {
 					world.setBlockMetadataWithNotify(x + facing.getFrontOffsetX(), y + facing.getFrontOffsetY(), z + facing.getFrontOffsetZ(), meta + 6, 3);
-				} else if(block == ModBlocks.AMETHYST_CLUSTER_1.get()) {
+				} else if (block == ModBlocks.AMETHYST_CLUSTER_1.get()) {
 					world.setBlock(x + facing.getFrontOffsetX(), y + facing.getFrontOffsetY(), z + facing.getFrontOffsetZ(), ModBlocks.AMETHYST_CLUSTER_2.get(), meta - 6, 3);
 				}
-			} else if(canGrowIn(block)) {
+			} else if (canGrowIn(block)) {
 				world.setBlock(x + facing.getFrontOffsetX(), y + facing.getFrontOffsetY(), z + facing.getFrontOffsetZ(), ModBlocks.AMETHYST_CLUSTER_1.get(), facing.ordinal(), 3);
 			}
 		}

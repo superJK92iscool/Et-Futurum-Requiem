@@ -22,47 +22,49 @@ public class ItemEFRArmour extends ItemArmor implements ISpecialArmor {
 		super(material, 0, type);
 		this.setMaxDamage(durabilityOverride > -1 ? durabilityOverride : material.getDurability(type));
 		String s = "helmet";
-		switch(type) {
-		case 1: s = "chestplate"; break;
-		case 2: s = "leggings"; break;
-		case 3: s = "boots"; break;
+		switch (type) {
+			case 1:
+				s = "chestplate";
+				break;
+			case 2:
+				s = "leggings";
+				break;
+			case 3:
+				s = "boots";
+				break;
 		}
 		this.setUnlocalizedName(Utils.getUnlocalisedName("netherite_" + s));
 		this.setTextureName("netherite_" + s);
 		this.setCreativeTab(EtFuturum.creativeTabItems);
 	}
-	
+
 	@Override
-	public boolean getIsRepairable(ItemStack par1ItemStack, ItemStack par2ItemStack)
-	{        
-		return ModItems.NETHERITE_INGOT.get() == par2ItemStack.getItem() ? true : super.getIsRepairable(par1ItemStack, par2ItemStack);
+	public boolean getIsRepairable(ItemStack par1ItemStack, ItemStack par2ItemStack) {
+		return ModItems.NETHERITE_INGOT.get() == par2ItemStack.getItem() || super.getIsRepairable(par1ItemStack, par2ItemStack);
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
-	public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type)
-	{
+	public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
 		String wearingType = "netherite";
 		return this.armorType == 2 ? "textures/models/armor/" + wearingType + "_layer_2.png" : "textures/models/armor/" + wearingType + "_layer_1.png";
 	}
-	
+
 	@Override
-	public boolean hasCustomEntity(ItemStack stack)
-	{
+	public boolean hasCustomEntity(ItemStack stack) {
 		return getUnlocalizedName().contains("netherite") && !ConfigFunctions.enableNetheriteFlammable;
 	}
-	
+
 	@Override
-	public Entity createEntity(World world, Entity location, ItemStack itemstack)
-	{
-		if(!getUnlocalizedName().contains("netherite"))
+	public Entity createEntity(World world, Entity location, ItemStack itemstack) {
+		if (!getUnlocalizedName().contains("netherite"))
 			return null;
 		return BaseUninflammableItem.createUninflammableItem(world, location);
 	}
 
 	@Override
-	public ArmorProperties getProperties(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, int slot){
-		ItemEFRArmour armorItem = (ItemEFRArmour)armor.getItem();
+	public ArmorProperties getProperties(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, int slot) {
+		ItemEFRArmour armorItem = (ItemEFRArmour) armor.getItem();
 		ArmorProperties ap = new ArmorProperties(0, source.isUnblockable() ? 0 : armorItem.damageReduceAmount / 25D, armorItem.getMaxDamage() + 1 - armor.getItemDamage());
 		return ap;
 	}
@@ -75,15 +77,14 @@ public class ItemEFRArmour extends ItemArmor implements ISpecialArmor {
 //    }
 
 	@Override
-	public int getArmorDisplay(EntityPlayer player, ItemStack armor, int slot) 
-	{
+	public int getArmorDisplay(EntityPlayer player, ItemStack armor, int slot) {
 		return this.damageReduceAmount;
 	}
 
 	@Override
 	public void damageArmor(EntityLivingBase entity, ItemStack stack, DamageSource source, int damage, int slot) {
-		if(!source.isUnblockable())
-			if(!source.isFireDamage() && getUnlocalizedName().contains("netherite"))
+		if (!source.isUnblockable())
+			if (!source.isFireDamage() && getUnlocalizedName().contains("netherite"))
 				stack.damageItem(damage, entity);
 	}
 }

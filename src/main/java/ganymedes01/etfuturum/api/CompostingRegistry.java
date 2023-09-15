@@ -90,26 +90,26 @@ public class CompostingRegistry {
 	 * Values greater than 100 mean the composter fill more than one layer.
 	 * In that case, the hundredth part of the number is how many layers will be filled, the last two digits = the % chance to fill an additional layer.
 	 * The composter can hold 6 layers so the max value is 600.
-	 *
+	 * <p>
 	 * A fill chance of 50 is a 50% chance to fill one layer.
 	 * A fill chance of 100 is a 100% chance to fill one layer.
 	 * A fill chance of 150 will fill one layer and then has a 50% chance of filling another layer.
 	 * A fill chance of 200 is a 100% chance to fill two layers.
 	 */
 	public static void registerCompostable(Object itemObj, int percent) {
-		if(percent <= 0 || percent > 600) {
+		if (percent <= 0 || percent > 600) {
 			throw new IllegalArgumentException("Tried to add a composter entry with percent value " + percent + " which is not allowed, should be above 0 and equal to or below 100!");
 		}
-		if(itemObj instanceof ItemStack) {
+		if (itemObj instanceof ItemStack) {
 			COMPOSTING_REGISTRY.put(((ItemStack) itemObj).copy(), percent);
-	   } else if(itemObj instanceof String) {
+		} else if (itemObj instanceof String) {
 //            OreDictionary.getOres((String) itemObj).forEach(itemStack -> COMPOSTING_REGISTRY.put(itemStack.copy(), percent));//For some reason this line does nothing
-			for(ItemStack oreStack : OreDictionary.getOres((String) itemObj)) { //This should be the same as the forEach above but for some reason the above just does nothing?
+			for (ItemStack oreStack : OreDictionary.getOres((String) itemObj)) { //This should be the same as the forEach above but for some reason the above just does nothing?
 				COMPOSTING_REGISTRY.put(oreStack.copy(), percent);
 			}
-		} else if(itemObj instanceof Item) {
-			COMPOSTING_REGISTRY.put(new ItemStack((Item)itemObj, 1, OreDictionary.WILDCARD_VALUE), percent);
-		} else if(itemObj instanceof Block && Item.getItemFromBlock((Block) itemObj) != null) {
+		} else if (itemObj instanceof Item) {
+			COMPOSTING_REGISTRY.put(new ItemStack((Item) itemObj, 1, OreDictionary.WILDCARD_VALUE), percent);
+		} else if (itemObj instanceof Block && Item.getItemFromBlock((Block) itemObj) != null) {
 			COMPOSTING_REGISTRY.put(new ItemStack(Item.getItemFromBlock((Block) itemObj), 1, OreDictionary.WILDCARD_VALUE), percent);
 		} else {
 			throw new IllegalArgumentException("Tried to add " + itemObj + " as a compostable, which is not an Itemstack, item, block or string.");
@@ -125,7 +125,7 @@ public class CompostingRegistry {
 	}
 
 	public static void remove(String stackOreDict) {
-		for(ItemStack stack : OreDictionary.getOres(stackOreDict)) {
+		for (ItemStack stack : OreDictionary.getOres(stackOreDict)) {
 			remove(stack);
 		}
 	}
@@ -135,8 +135,8 @@ public class CompostingRegistry {
 	}
 
 	public static boolean isCompostable(String stackOreDict) {
-		for(ItemStack stack : OreDictionary.getOres(stackOreDict)) {
-			if(isCompostable(stack)) return true;
+		for (ItemStack stack : OreDictionary.getOres(stackOreDict)) {
+			if (isCompostable(stack)) return true;
 		}
 		return false;
 	}
@@ -147,7 +147,7 @@ public class CompostingRegistry {
 
 	public static int getCompostChance(ItemStack stack) {
 		Integer percent = COMPOSTING_REGISTRY.get(stack);
-		if(percent != null) {
+		if (percent != null) {
 			return percent;
 		}
 

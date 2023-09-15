@@ -45,9 +45,9 @@ import java.util.Random;
 public class WorldEventHandler {
 
 	private int prevSize;
-	
+
 	public static final WorldEventHandler INSTANCE = new WorldEventHandler();
-	
+
 	private WorldEventHandler() {
 		//If the mangrove swamp or cherry grove is added, it should be a 5% (.05F chance)
 		//If the meadow is added, it should be a 100% (1F chance)
@@ -98,7 +98,7 @@ public class WorldEventHandler {
 			}
 		}
 	}
-	
+
 	private static boolean hasRegistered;
 
 	@SubscribeEvent

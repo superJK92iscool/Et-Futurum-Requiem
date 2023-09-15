@@ -30,12 +30,12 @@ public class EntityItemUninflammable extends EntityItem {
 	protected void dealFireDamage(int p_70081_1_) {
 		//ignore
 	}
-	
+
 	@Override
 	public void onUpdate() {
-		if(isBurning())
+		if (isBurning())
 			extinguish();
-		
+
 		ItemStack stack = this.getDataWatcher().getWatchableObjectItemStack(10);
 		if (stack != null && stack.getItem() != null) {
 			if (stack.getItem().onEntityItemUpdate(this)) {
@@ -45,7 +45,7 @@ public class EntityItemUninflammable extends EntityItem {
 
 		if (this.getEntityItem() == null) {
 			this.setDead();
-		} else if(ConfigFunctions.enableNetheriteFlammable) {
+		} else if (ConfigFunctions.enableNetheriteFlammable) {
 			EntityItem item = new EntityItem(this.worldObj);
 			item.copyDataFrom(this, true);
 			item.delayBeforeCanPickup = this.delayBeforeCanPickup;
@@ -65,14 +65,14 @@ public class EntityItemUninflammable extends EntityItem {
 			this.prevPosY = this.posY;
 			this.prevPosZ = this.posZ;
 			this.noClip = this.func_145771_j(this.posX, (this.boundingBox.minY + this.boundingBox.maxY) / 2.0D, this.posZ);
-			if(inlava) {
+			if (inlava) {
 				this.moveEntity(this.motionX, this.motionY + 0.036D, this.motionZ);
 			} else {
 				this.motionY -= 0.03999999910593033D;
 				this.moveEntity(this.motionX, this.motionY, this.motionZ);
 			}
-			boolean flag = (int)this.prevPosX != (int)this.posX || (int)this.prevPosY != (int)this.posY || (int)this.prevPosZ != (int)this.posZ;
-			
+			boolean flag = (int) this.prevPosX != (int) this.posX || (int) this.prevPosY != (int) this.posY || (int) this.prevPosZ != (int) this.posZ;
+
 			if (flag || this.ticksExisted % 25 == 0) {
 				if (!this.worldObj.isRemote) {
 					this.searchForOtherItemsNearby();
@@ -96,9 +96,9 @@ public class EntityItemUninflammable extends EntityItem {
 			++this.age;
 
 			ItemStack item = getDataWatcher().getWatchableObjectItemStack(10);
-	
+
 			if (!this.worldObj.isRemote && this.age >= lifespan) {
-				if (item != null) {   
+				if (item != null) {
 					ItemExpireEvent event = new ItemExpireEvent(this, (item.getItem() == null ? 6000 : item.getItem().getEntityLifespan(item, worldObj)));
 					if (MinecraftForge.EVENT_BUS.post(event)) {
 						lifespan += event.extraLife;
@@ -109,27 +109,27 @@ public class EntityItemUninflammable extends EntityItem {
 					this.setDead();
 				}
 			}
-	
+
 			if (item != null && item.stackSize <= 0) {
 				this.setDead();
 			}
 		}
 	}
-	
+
 	private void searchForOtherItemsNearby() {
 		Iterator<EntityItem> iterator = this.worldObj.getEntitiesWithinAABB(EntityItem.class, this.boundingBox.expand(0.5D, 0.0D, 0.5D)).iterator();
 
 		while (iterator.hasNext()) {
 			EntityItem entityitem = iterator.next();
 			this.combineItems(entityitem);
-		}        
+		}
 	}
-	
+
 	@Override
 	public boolean attackEntityFrom(DamageSource p_70097_1_, float p_70097_2_) {
-		if(p_70097_1_ == DamageSource.inFire || p_70097_1_ == DamageSource.onFire || p_70097_1_ == DamageSource.lava)
+		if (p_70097_1_ == DamageSource.inFire || p_70097_1_ == DamageSource.onFire || p_70097_1_ == DamageSource.lava)
 			return false;
-		
+
 		return super.attackEntityFrom(p_70097_1_, p_70097_2_);
 	}
 

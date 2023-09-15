@@ -7,12 +7,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.oredict.OreDictionary;
 
-public class BlastFurnaceRecipes
-{
+public class BlastFurnaceRecipes {
 	private static final BlastFurnaceRecipes smeltingBase = new BlastFurnaceRecipes();
 	private boolean reloadingCT;
 
-	/** The list of smelting results. */
+	/**
+	 * The list of smelting results.
+	 */
 	public final ItemStackMap<ItemStack> smeltingList = new ItemStackMap<ItemStack>();
 	public final ItemStackMap<Float> experienceList = new ItemStackMap<Float>();
 	public final ItemStackSet smeltingBlacklist = new ItemStackSet();
@@ -24,8 +25,7 @@ public class BlastFurnaceRecipes
 	/**
 	 * Used to call methods addSmelting and getSmeltingResult.
 	 */
-	public static BlastFurnaceRecipes smelting()
-	{
+	public static BlastFurnaceRecipes smelting() {
 		return smeltingBase;
 	}
 
@@ -41,38 +41,36 @@ public class BlastFurnaceRecipes
 	/**
 	 * Returns the smelting result of an item.
 	 */
-	public ItemStack getSmeltingResult(ItemStack input)
-	{
-		if(smeltingBlacklist.contains(input)) return null;
+	public ItemStack getSmeltingResult(ItemStack input) {
+		if (smeltingBlacklist.contains(input)) return null;
 
-		if(!smeltingListCache.containsKey(input)) {
-			if(!smeltingList.containsKey(input)) {
+		if (!smeltingListCache.containsKey(input)) {
+			if (!smeltingList.containsKey(input)) {
 				ItemStack result = FurnaceRecipes.smelting().getSmeltingResult(input);
-				if(canAdd(input, result)) {
+				if (canAdd(input, result)) {
 					if (!reloadingCT) smeltingListCache.put(input, result);
 					return result;
 				}
 			}
 			ItemStack CTResult = smeltingList.get(input);
-			if(!reloadingCT) smeltingListCache.put(input, CTResult);
+			if (!reloadingCT) smeltingListCache.put(input, CTResult);
 			return CTResult;
 		}
 		return smeltingListCache.get(input);
 	}
 
-	public float getSmeltingExperience(ItemStack result)
-	{
+	public float getSmeltingExperience(ItemStack result) {
 		float ret = result.getItem().getSmeltingExperience(result);
 		if (ret != -1) return ret;
 
-		if(!experienceListCache.containsKey(result)) {
-			if(!experienceList.containsKey(result)) {
+		if (!experienceListCache.containsKey(result)) {
+			if (!experienceList.containsKey(result)) {
 				float exp = FurnaceRecipes.smelting().func_151398_b(result);
 				if (!reloadingCT) experienceListCache.put(result, exp);
 				return exp;
 			}
 			float expCT = experienceList.get(result);
-			if(!reloadingCT) experienceListCache.put(result, expCT);
+			if (!reloadingCT) experienceListCache.put(result, expCT);
 			return expCT;
 		}
 		return experienceListCache.get(result);
@@ -91,7 +89,7 @@ public class BlastFurnaceRecipes
 	}
 
 	public boolean canAdd(ItemStack input, ItemStack result) {
-		if(ConfigFunctions.enableAutoAddBlastFurnace) {
+		if (ConfigFunctions.enableAutoAddBlastFurnace) {
 
 			if (input != null && result != null) {
 				for (int id : OreDictionary.getOreIDs(input)) {

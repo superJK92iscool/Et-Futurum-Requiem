@@ -18,7 +18,7 @@ public class BlockFletchingTable extends Block {
 	private IIcon topIcon;
 	@SideOnly(Side.CLIENT)
 	private IIcon sideIcon;
-	
+
 	public BlockFletchingTable() {
 		super(Material.wood);
 		this.setStepSound(soundTypeWood);
@@ -29,31 +29,29 @@ public class BlockFletchingTable extends Block {
 		this.setBlockTextureName("fletching_table");
 		this.setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
-	
+
 	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(int p_149691_1_, int p_149691_2_)
-	{
+	public IIcon getIcon(int p_149691_1_, int p_149691_2_) {
 		return p_149691_1_ == 1 ? this.topIcon : (p_149691_1_ == 0 ? Blocks.planks.getIcon(0, 2) : (p_149691_1_ != 2 && p_149691_1_ != 3 ? this.blockIcon : this.sideIcon));
 	}
 
 	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister p_149651_1_)
-	{
+	public void registerBlockIcons(IIconRegister p_149651_1_) {
 		this.blockIcon = p_149651_1_.registerIcon(this.getTextureName() + "_side");
 		this.topIcon = p_149651_1_.registerIcon(this.getTextureName() + "_top");
 		this.sideIcon = p_149651_1_.registerIcon(this.getTextureName() + "_front");
 	}
-	
+
 	@Override
 	public boolean isFlammable(IBlockAccess aWorld, int aX, int aY, int aZ, ForgeDirection aSide) {
 		return true;
 	}
-	
+
 	@Override
 	public int getFlammability(IBlockAccess aWorld, int aX, int aY, int aZ, ForgeDirection aSide) {
 		return 5;
 	}
-	
+
 	@Override
 	public int getFireSpreadSpeed(IBlockAccess aWorld, int aX, int aY, int aZ, ForgeDirection aSide) {
 		return 20;

@@ -20,8 +20,8 @@ public class RecipeTippedArrow extends ShapedOreRecipe {
 	public ItemStack getCraftingResult(InventoryCrafting grid) {
 		ItemStack potion = grid.getStackInRowAndColumn(1, 1);
 		List<PotionEffect> effects = ((ItemLingeringPotion) ModItems.LINGERING_POTION.get()).getEffects(potion);
-		
-		if(potion.getItemDamage() == 0 && effects.isEmpty())
+
+		if (potion.getItemDamage() == 0 && effects.isEmpty())
 			return null;
 
 		ItemStack stack = ModItems.TIPPED_ARROW.newItemStack(8, potion.getItemDamage());

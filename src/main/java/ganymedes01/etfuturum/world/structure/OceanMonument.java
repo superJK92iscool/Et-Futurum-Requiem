@@ -178,8 +178,7 @@ public class OceanMonument {
 		if (xx == i1 && zz == j1) {
 			if (worldObj.getWorldChunkManager().getBiomeGenAt(xx * 16 + 8, zz * 16 + 8) != BiomeGenBase.deepOcean)
 				return false;
-			if (worldObj.getWorldChunkManager().areBiomesViable(xx * 16 + 8, zz * 16 + 8, 29, validBiomes))
-				return true;
+			return worldObj.getWorldChunkManager().areBiomesViable(xx * 16 + 8, zz * 16 + 8, 29, validBiomes);
 		}
 
 		return false;

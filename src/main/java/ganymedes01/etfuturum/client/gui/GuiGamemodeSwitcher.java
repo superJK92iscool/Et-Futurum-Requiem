@@ -52,7 +52,7 @@ public class GuiGamemodeSwitcher extends GuiScreen {
 				return WorldSettings.GameType.ADVENTURE;
 			}
 			case ADVENTURE: {
-				if(ConfigMixins.enableSpectatorMode)
+				if (ConfigMixins.enableSpectatorMode)
 					return SpectatorMode.SPECTATOR_GAMETYPE;
 				else
 					return WorldSettings.GameType.CREATIVE;
@@ -62,7 +62,7 @@ public class GuiGamemodeSwitcher extends GuiScreen {
 	}
 
 	private WorldSettings.GameType getPreviousGameMode() {
-		if(previousGameType == null) {
+		if (previousGameType == null) {
 			previousGameType = Minecraft.getMinecraft().playerController.currentGameType == WorldSettings.GameType.CREATIVE ? WorldSettings.GameType.SURVIVAL : WorldSettings.GameType.CREATIVE;
 		}
 		return previousGameType;
@@ -70,14 +70,14 @@ public class GuiGamemodeSwitcher extends GuiScreen {
 
 	@Override
 	protected void keyTyped(char p_73869_1_, int keycode) {
-		if(keycode == Keyboard.KEY_F4) {
+		if (keycode == Keyboard.KEY_F4) {
 			this.mouseUsedForSelection = false;
 			this.gameMode = nextGameType(this.gameMode);
 			return;
 		}
 		super.keyTyped(p_73869_1_, keycode);
 	}
-	
+
 	@Override
 	public void handleInput() {
 		super.handleInput();
@@ -92,7 +92,7 @@ public class GuiGamemodeSwitcher extends GuiScreen {
 		map.put(WorldSettings.GameType.CREATIVE, new ItemStack(Blocks.grass));
 		map.put(WorldSettings.GameType.SURVIVAL, new ItemStack(Items.iron_sword));
 		map.put(WorldSettings.GameType.ADVENTURE, new ItemStack(Items.map));
-		if(ConfigMixins.enableSpectatorMode)
+		if (ConfigMixins.enableSpectatorMode)
 			map.put(SpectatorMode.SPECTATOR_GAMETYPE, new ItemStack(Items.ender_eye));
 
 		int i = 0;
@@ -139,7 +139,7 @@ public class GuiGamemodeSwitcher extends GuiScreen {
 		int j = this.height / 2 - 31 - 27;
 		func_146110_a(i, j, 0, 0, 125, 75, 128, 128);
 		super.drawScreen(mouseX, mouseY, delta);
-		if(this.gameMode != null) {
+		if (this.gameMode != null) {
 			drawCenteredString(mc.fontRenderer, I18n.format("gameMode." + this.gameMode.getName()), this.width / 2, this.height / 2 - 31 - 20, -1);
 		}
 		drawCenteredString(mc.fontRenderer, getSelectNextText(), this.width / 2, this.height / 2 + 5, 0xFFFFFF);
@@ -152,11 +152,11 @@ public class GuiGamemodeSwitcher extends GuiScreen {
 		RenderHelper.enableGUIStandardItemLighting();
 		for (GuiGamemodeButton buttonWidget : this.gameModeButtons) {
 			buttonWidget.render();
-			if(this.gameMode != null) {
+			if (this.gameMode != null) {
 				buttonWidget.setSelected(gameMode == buttonWidget.type);
 			}
 			if (mouseDidNotMove) continue;
-			if(mouseX < buttonWidget.x || mouseY < buttonWidget.y || mouseX >= (buttonWidget.x + BUTTON_SIZE) || mouseY >= (buttonWidget.y + BUTTON_SIZE))
+			if (mouseX < buttonWidget.x || mouseY < buttonWidget.y || mouseX >= (buttonWidget.x + BUTTON_SIZE) || mouseY >= (buttonWidget.y + BUTTON_SIZE))
 				continue;
 			this.gameMode = buttonWidget.type;
 		}
@@ -179,10 +179,13 @@ public class GuiGamemodeSwitcher extends GuiScreen {
 			this.x = x;
 			this.y = y;
 		}
+
 		private boolean isSelected = false;
+
 		void setSelected(boolean b) {
 			isSelected = b;
 		}
+
 		void render() {
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 			GL11.glDisable(GL11.GL_LIGHTING);
@@ -191,7 +194,7 @@ public class GuiGamemodeSwitcher extends GuiScreen {
 			GL11.glDisable(GL12.GL_RESCALE_NORMAL);
 			mc.getTextureManager().bindTexture(TEXTURE);
 			func_146110_a(this.x, this.y, 0, 75, 26, 26, 128, 128);
-			if(isSelected) {
+			if (isSelected) {
 				func_146110_a(this.x, this.y, 26, 75, 26, 26, 128, 128);
 			}
 			GL11.glDisable(GL11.GL_BLEND);

@@ -55,7 +55,7 @@ public class BlockStonecutterRenderer extends BlockModelBase {
 			renderFaceZPos(renderer, block, x, y, z, 0, .5625D, 0);
 		} else {
 			renderer.setRenderBounds(0.5F, 0.0F, 0F, 0.5F, 0.4375F, 1F);
-			if(metadata == 3) {
+			if (metadata == 3) {
 				renderer.flipTexture = true;
 			}
 			renderFaceXNeg(renderer, block, x, y, z, 0, .5625D, 0);
@@ -67,7 +67,7 @@ public class BlockStonecutterRenderer extends BlockModelBase {
 		renderer.clearOverrideBlockTexture();
 		renderer.flipTexture = false;
 		renderer.uvRotateTop = 0;
-		
+
 		return true;
 	}
 

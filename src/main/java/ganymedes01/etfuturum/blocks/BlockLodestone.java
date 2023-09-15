@@ -26,16 +26,14 @@ public class BlockLodestone extends Block {
 		Utils.setBlockSound(this, ModSounds.soundLodestone);
 		setTickRandomly(true);
 	}
-	
+
 	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(int p_149691_1_, int p_149691_2_)
-	{
+	public IIcon getIcon(int p_149691_1_, int p_149691_2_) {
 		return p_149691_1_ > 1 ? blockIcon : topIcon;
 	}
 
 	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister p_149651_1_)
-	{
+	public void registerBlockIcons(IIconRegister p_149651_1_) {
 		this.blockIcon = p_149651_1_.registerIcon(this.getTextureName() + "_side");
 		this.topIcon = p_149651_1_.registerIcon(this.getTextureName() + "_top");
 	}

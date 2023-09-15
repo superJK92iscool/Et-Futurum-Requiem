@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.MixinEnvironment;
 import java.io.File;
 
 public class ConfigMixins extends ConfigBase {
-	
+
 	public static boolean endPortalFix;
 	public static boolean fenceWallConnectFix;
 	public static boolean furnaceCrackle;
@@ -58,12 +58,12 @@ public class ConfigMixins extends ConfigBase {
 
 	@Override
 	protected void syncConfigOptions() {
-		if(EtFuturumMixinPlugin.side == MixinEnvironment.Side.CLIENT) {
+		if (EtFuturumMixinPlugin.side == MixinEnvironment.Side.CLIENT) {
 			furnaceCrackle = getBoolean("furnaceCrackle", catBackport, true, "Allows vanilla furnaces to have crackling sounds.\nModified Client Classes: net.minecraft.block.BlockFurnace");
 			boundedBlockBreakingParticles = getBoolean("boundedBlockBreakingParticles", catBackport, true, "In 1.14+, when breaking a block the block break particles stay within the outline, instead of always occupying the whole block space.\nMofified Classes: net.minecraft.client.particle.EffectRenderer");
 			adjustedAttenuation = getBoolean("adjustedAttenuation", catBackport, true, "Adjusts the attenuation distance of certain sounds. This needs to be a separate mixin due to the way it works.\nCurrently changes portal abience, and beacon ambience to have an attenuation distance of 8 blocks away, instead of 16.\nModified Classes: net.minecraft.client.audio.SoundManager");
 		}
-		
+
 		endPortalFix = getBoolean("endPortalFix", catBackport, true, "Makes the End Portal block (the actual portal, not the frame) have an item icon, proper hitbox and will not instantly destroy itself in other dimensions.\nModified classes: net.minecraft.block.BlockEndPortal");
 		fenceWallConnectFix = getBoolean("fenceWallConnectFix", catBackport, true, "Makes vanilla fences connect to modded ones of the same material. Might have connection issue with mods that don't reference BlockFence super code.\nModified classes: net.minecraft.block.BlockFence net.minecraft.block.BlockWall");
 		avoidDroppingItemsWhenClosing = getBoolean("avoidDroppingItemsWhenClosing", catBackport, false, "Experimental: avoid dropping items when closing an inventory, like in modern versions.\nModified Classes: net.minecraft.entity.player.EntityPlayerMP");

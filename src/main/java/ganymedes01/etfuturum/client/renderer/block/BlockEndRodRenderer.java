@@ -70,9 +70,8 @@ public class BlockEndRodRenderer extends BlockModelBase {
 		double x1 = 0;
 		double y1 = 0;
 		double z1 = 0;
-		
-		if (meta == 0 || meta == 1)
-		{
+
+		if (meta == 0 || meta == 1) {
 			x1 = .4375D;
 			y1 = meta == 0 ? -.0625D : 0;
 			z1 = .4375D;
@@ -117,9 +116,8 @@ public class BlockEndRodRenderer extends BlockModelBase {
 			renderFaceZNeg(renderer, block, x, y, z, x1, y1, z1);
 			renderFaceZPos(renderer, block, x, y, z, x1, y1, z1);
 		}
-		
-		if (meta == 0 || meta == 1)
-		{
+
+		if (meta == 0 || meta == 1) {
 			x1 = .3125D;
 			y1 = meta == 0 ? -.0625D : 0;
 			z1 = .4375D;
@@ -146,7 +144,7 @@ public class BlockEndRodRenderer extends BlockModelBase {
 			renderFaceXNeg(renderer, block, x, y, z, x1, y1, z1);
 			renderFaceXPos(renderer, block, x, y, z, x1, y1, z1);
 		}
-		
+
 		x1 = 0;
 		y1 = 0;
 		z1 = 0;
@@ -157,18 +155,17 @@ public class BlockEndRodRenderer extends BlockModelBase {
 		renderer.uvRotateNorth = 0;
 		renderer.uvRotateSouth = 0;
 
-		if (meta == 0 || meta == 1)
-		{
+		if (meta == 0 || meta == 1) {
 			x1 = .25;
 			y1 = meta == 0 ? .9375 : 0;
 			z1 = .25;
 			renderer.setRenderBounds(0.125D, 0, 0.125D, 0.375D, 0.0625D, 0.375D);
-		} else  if (meta == 2 || meta == 3) {
+		} else if (meta == 2 || meta == 3) {
 			x1 = .25;
 			y1 = -.25;
 			z1 = meta == 2 ? .9375 : 0;
 			renderer.setRenderBounds(0.125D, 0.625D, 0, .375, .875, .0625);
-		} else  if (meta == 4 || meta == 5) {
+		} else if (meta == 4 || meta == 5) {
 			x1 = meta == 4 ? 0 : -.9375;
 			y1 = -.25;
 			z1 = .25;
@@ -178,8 +175,7 @@ public class BlockEndRodRenderer extends BlockModelBase {
 		}
 
 		renderer.renderAllFaces = true;
-		if (meta == 0 || meta == 1)
-		{
+		if (meta == 0 || meta == 1) {
 			renderFaceYNeg(renderer, block, x, y, z, x1, y1, z1);
 			renderFaceYPos(renderer, block, x, y, z, x1, y1, z1);
 		} else if (meta == 2 || meta == 3) {
@@ -200,8 +196,8 @@ public class BlockEndRodRenderer extends BlockModelBase {
 		renderer.uvRotateWest = 0;
 		renderer.uvRotateNorth = 0;
 		renderer.uvRotateSouth = 0;
-		
-		if(meta == 0 || meta == 1) {
+
+		if (meta == 0 || meta == 1) {
 			x1 = .25;
 			y1 = meta == 0 ? .375 : -.5625;
 			z1 = .25;
@@ -226,7 +222,7 @@ public class BlockEndRodRenderer extends BlockModelBase {
 			renderer.setRenderBounds(0.5625, 0.125, 0.125, 0.625, 0.375, 0.375);
 		}
 
-		if(meta == 0 || meta == 1) {
+		if (meta == 0 || meta == 1) {
 			renderFaceZNeg(renderer, block, x, y, z, x1, y1, z1);
 			renderFaceZPos(renderer, block, x, y, z, x1, y1, z1);
 			renderFaceXNeg(renderer, block, x, y, z, x1, y1, z1);
@@ -236,14 +232,13 @@ public class BlockEndRodRenderer extends BlockModelBase {
 			renderFaceYPos(renderer, block, x, y, z, x1, y1, z1);
 			renderFaceXNeg(renderer, block, x, y, z, x1, y1, z1);
 			renderFaceXPos(renderer, block, x, y, z, x1, y1, z1);
-		}  else if (meta == 4 || meta == 5) {
+		} else if (meta == 4 || meta == 5) {
 			renderFaceYNeg(renderer, block, x, y, z, x1, y1, z1);
 			renderFaceYPos(renderer, block, x, y, z, x1, y1, z1);
 			renderFaceZNeg(renderer, block, x, y, z, x1, y1, z1);
 			renderFaceZPos(renderer, block, x, y, z, x1, y1, z1);
 		}
-		
-		
+
 
 		renderer.uvRotateBottom = 0;
 		renderer.uvRotateTop = 0;
@@ -251,7 +246,7 @@ public class BlockEndRodRenderer extends BlockModelBase {
 		renderer.uvRotateWest = 0;
 		renderer.uvRotateNorth = 0;
 		renderer.uvRotateSouth = 0;
-		
+
 		return true;
 	}
 }

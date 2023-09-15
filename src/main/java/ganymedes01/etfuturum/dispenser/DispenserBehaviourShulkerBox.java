@@ -13,28 +13,26 @@ import net.minecraft.util.EnumFacing;
 
 public class DispenserBehaviourShulkerBox extends BehaviorDefaultDispenseItem {
 
-	protected ItemStack dispenseStack(IBlockSource coords, ItemStack stack)
-	{
+	protected ItemStack dispenseStack(IBlockSource coords, ItemStack stack) {
 		EnumFacing enumfacing = BlockDispenser.func_149937_b(coords.getBlockMetadata());
 		int x = coords.getXInt() + enumfacing.getFrontOffsetX();
 		int y = coords.getYInt() + enumfacing.getFrontOffsetY();
 		int z = coords.getZInt() + enumfacing.getFrontOffsetZ();
-		if(coords.getWorld().getBlock(x, y, z).isReplaceable(coords.getWorld(), x, y, z)) {
+		if (coords.getWorld().getBlock(x, y, z).isReplaceable(coords.getWorld(), x, y, z)) {
 			stack.stackSize--;
 			coords.getWorld().setBlock(x, y, z, ModBlocks.SHULKER_BOX.get());
 			TileEntityShulkerBox box = (TileEntityShulkerBox) coords.getWorld().getTileEntity(x, y, z);
 			box.facing = enumfacing != EnumFacing.UP && coords.getWorld().getBlock(x, y - 1, z) == Blocks.air ? (byte) enumfacing.ordinal() : 1;
-			if(stack.hasTagCompound()) {
+			if (stack.hasTagCompound()) {
 				box.type = TileEntityShulkerBox.ShulkerBoxType.values()[stack.getTagCompound().getByte("Type")];
-				
+
 				NBTTagList nbttaglist = stack.getTagCompound().getTagList("Items", 10);
 				box.chestContents = new ItemStack[box.getSizeInventory()];
 				Utils.loadItemStacksFromNBT(nbttaglist, box.chestContents);
-				
+
 				box.color = stack.getTagCompound().getByte("Color");
 
-				if (stack.hasDisplayName())
-				{
+				if (stack.hasDisplayName()) {
 					box.func_145976_a(stack.getDisplayName());
 				}
 			}

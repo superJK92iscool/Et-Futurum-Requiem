@@ -28,7 +28,7 @@ public abstract class BuiltInResourcePack extends AbstractResourcePack {
 
 	private static final Splitter entryNameSplitter = Splitter.on('/').omitEmptyStrings().limit(5);
 
-	private String modid;
+	private final String modid;
 	private final String id;
 	protected boolean resourcesEnabled = true;
 	protected boolean langEnabled = true;
@@ -47,26 +47,26 @@ public abstract class BuiltInResourcePack extends AbstractResourcePack {
 		}
 		return rp;
 	}
-	
+
 	private static BuiltInResourcePack of(File file, String modid, String id) {
-		if(file.isDirectory()) {
+		if (file.isDirectory()) {
 			return new BuiltInFolderResourcePack(file, modid, id);
 		} else {
 			return new BuiltInFileResourcePack(file, modid, id);
 		}
 	}
-	
+
 	public BuiltInResourcePack(File file, String modid, String id) {
 		super(file);
 		this.modid = modid;
 		this.id = id;
 	}
-	
+
 	@Override
 	public String getPackName() {
 		return modid + "/" + id;
 	}
-	
+
 	@Override
 	public IMetadataSection getPackMetadata(IMetadataSerializer p_135058_1_, String p_135058_2_) throws IOException {
 		return null;
@@ -76,7 +76,7 @@ public abstract class BuiltInResourcePack extends AbstractResourcePack {
 	public BufferedImage getPackImage() throws IOException {
 		return null;
 	}
-	
+
 	protected String getRootPath() {
 		return "resourcepacks/" + id + "/";
 	}
@@ -108,11 +108,11 @@ public abstract class BuiltInResourcePack extends AbstractResourcePack {
 			((SimpleReloadableResourceManager) resMan).reloadResourcePack(resourcePack);
 		}
 	}
-	
+
 	private static class BuiltInFileResourcePack extends BuiltInResourcePack {
-		
+
 		private final ZipFile zipFile;
-		
+
 		public BuiltInFileResourcePack(File file, String modid, String id) {
 			super(file, modid, id);
 			try {
@@ -121,24 +121,24 @@ public abstract class BuiltInResourcePack extends AbstractResourcePack {
 				throw new RuntimeException(e);
 			}
 		}
-		
+
 		@Override
 		public Set<String> getResourceDomains() {
 			Set<String> domains = new HashSet<>();
-			
+
 			Enumeration<? extends ZipEntry> en = zipFile.entries();
-			while(en.hasMoreElements()) {
+			while (en.hasMoreElements()) {
 				ZipEntry entry = en.nextElement();
-				if(entry.getName().startsWith(getRootPath() + "assets/")) {
+				if (entry.getName().startsWith(getRootPath() + "assets/")) {
 					List<String> nameParts = Lists.newArrayList(entryNameSplitter.split(entry.getName()));
-					if(nameParts.size() > 3) {
+					if (nameParts.size() > 3) {
 						addNamespaceIfLowerCase(domains, nameParts.get(3));
 					}
 				}
 			}
 			return domains;
 		}
-		
+
 		@Override
 		protected InputStream getInputStreamByName(String name) throws IOException {
 			return zipFile.getInputStream(zipFile.getEntry(getRootPath() + name));
@@ -148,9 +148,9 @@ public abstract class BuiltInResourcePack extends AbstractResourcePack {
 		protected boolean hasResourceName(String name) {
 			return resourcesEnabled && zipFile.getEntry(getRootPath() + name) != null;
 		}
-		
+
 	}
-	
+
 	private static class BuiltInFolderResourcePack extends BuiltInResourcePack {
 
 		public BuiltInFolderResourcePack(File file, String modid, String id) {
@@ -160,15 +160,15 @@ public abstract class BuiltInResourcePack extends AbstractResourcePack {
 		@Override
 		public Set<String> getResourceDomains() {
 			Set<String> domains = new HashSet<>();
-			
+
 			File assetsDir = new File(this.resourcePackFile, getRootPath() + "assets/");
-			if(assetsDir.isDirectory()) {
-				File[] files = assetsDir.listFiles((FileFilter)DirectoryFileFilter.DIRECTORY);
-				for(File file : files) {
+			if (assetsDir.isDirectory()) {
+				File[] files = assetsDir.listFiles((FileFilter) DirectoryFileFilter.DIRECTORY);
+				for (File file : files) {
 					addNamespaceIfLowerCase(domains, file.getName());
 				}
 			}
-			
+
 			return domains;
 		}
 
@@ -240,7 +240,7 @@ public abstract class BuiltInResourcePack extends AbstractResourcePack {
 			if (!langEnabled && name.endsWith("lang")) return false;
 			return resourcesEnabled && new File(this.resourcePackFile, getRootPath() + "/" + name).isFile();
 		}
-		
+
 	}
-	
+
 }

@@ -36,8 +36,7 @@ public class BlockChorusFlower extends Block {
 	}
 
 	@Override
-	public void onEntityCollidedWithBlock(World w, int x, int y, int z, Entity ent)
-	{
+	public void onEntityCollidedWithBlock(World w, int x, int y, int z, Entity ent) {
 		if (ent instanceof EntityArrow) {
 			w.func_147480_a(x, y, z, true);
 		}
@@ -132,7 +131,7 @@ public class BlockChorusFlower extends Block {
 				setFlower(world, x, y, z, 5);
 		}
 	}
-	
+
 	private void setFlower(World world, int x, int y, int z, int age) {
 		world.setBlock(x, y, z, this, age, 3);
 		world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, Reference.MCAssetVer + ":block.chorus_flower." + (age < 5 ? "grow" : "death"), 1, 1);
@@ -143,7 +142,7 @@ public class BlockChorusFlower extends Block {
 		if (!canBlockStay(world, x, y, z))
 			world.func_147480_a(x, y, z, false);
 	}
-	
+
 	@Override
 	public boolean canBlockStay(World world, int x, int y, int z) {
 		return canPlantStay(world, x, y, z);
@@ -170,11 +169,9 @@ public class BlockChorusFlower extends Block {
 
 	public static boolean areAllNeighborsEmpty(World world, int x, int y, int z, ForgeDirection skip) {
 		ForgeDirection[] horizontal = {ForgeDirection.NORTH, ForgeDirection.SOUTH, ForgeDirection.WEST, ForgeDirection.EAST};
-		
-		for (ForgeDirection enumfacing : horizontal)
-		{
-			if (enumfacing != skip && !world.isAirBlock(x + enumfacing.offsetX, y + enumfacing.offsetY, z + enumfacing.offsetZ))
-			{
+
+		for (ForgeDirection enumfacing : horizontal) {
+			if (enumfacing != skip && !world.isAirBlock(x + enumfacing.offsetX, y + enumfacing.offsetY, z + enumfacing.offsetZ)) {
 				return false;
 			}
 		}
@@ -182,26 +179,21 @@ public class BlockChorusFlower extends Block {
 		return true;
 	}
 
-	public static void generatePlant(World worldIn, int x, int y, int z, Random rand, int p_185603_3_)
-	{
+	public static void generatePlant(World worldIn, int x, int y, int z, Random rand, int p_185603_3_) {
 		worldIn.setBlock(x, y, z, ModBlocks.CHORUS_PLANT.get());
 		growTreeRecursive(worldIn, x, y, z, x, y, z, rand, p_185603_3_, 0);
 	}
 
-	private static void growTreeRecursive(World worldIn, int x, int y, int z, int x1, int y1, int z1, Random rand, int p_185601_4_, int p_185601_5_)
-	{
+	private static void growTreeRecursive(World worldIn, int x, int y, int z, int x1, int y1, int z1, Random rand, int p_185601_4_, int p_185601_5_) {
 		int i = rand.nextInt(4) + 1;
 
-		if (p_185601_5_ == 0)
-		{
+		if (p_185601_5_ == 0) {
 			++i;
 		}
 
-		for (int j = 0; j < i; ++j)
-		{
+		for (int j = 0; j < i; ++j) {
 
-			if (!areAllNeighborsEmpty(worldIn, x, y + j + 1, z, null))
-			{
+			if (!areAllNeighborsEmpty(worldIn, x, y + j + 1, z, null)) {
 				return;
 			}
 
@@ -210,17 +202,14 @@ public class BlockChorusFlower extends Block {
 
 		boolean flag = false;
 
-		if (p_185601_5_ < 4)
-		{
+		if (p_185601_5_ < 4) {
 			int l = rand.nextInt(4);
 
-			if (p_185601_5_ == 0)
-			{
+			if (p_185601_5_ == 0) {
 				++l;
 			}
 
-			for (int k = 0; k < l; ++k)
-			{
+			for (int k = 0; k < l; ++k) {
 				ForgeDirection[] horizontal = {ForgeDirection.NORTH, ForgeDirection.SOUTH, ForgeDirection.WEST, ForgeDirection.EAST};
 				ForgeDirection ForgeDirection = horizontal[rand.nextInt(horizontal.length)];
 //                BlockPos blockpos1 = bp1.up(i).offset(ForgeDirection);
@@ -228,8 +217,7 @@ public class BlockChorusFlower extends Block {
 				int bp1y = y + ForgeDirection.offsetY + i;
 				int bp1z = z + ForgeDirection.offsetZ;
 
-				if (Math.abs(bp1x - x1) < p_185601_4_ && Math.abs(bp1z - z1) < p_185601_4_ && worldIn.isAirBlock(bp1x, bp1y, bp1z) && worldIn.isAirBlock(bp1x, bp1y - 1, bp1z) && areAllNeighborsEmpty(worldIn, bp1x, bp1y, bp1z, ForgeDirection.getOpposite()))
-				{
+				if (Math.abs(bp1x - x1) < p_185601_4_ && Math.abs(bp1z - z1) < p_185601_4_ && worldIn.isAirBlock(bp1x, bp1y, bp1z) && worldIn.isAirBlock(bp1x, bp1y - 1, bp1z) && areAllNeighborsEmpty(worldIn, bp1x, bp1y, bp1z, ForgeDirection.getOpposite())) {
 					flag = true;
 					worldIn.setBlock(bp1x, bp1y, bp1z, ModBlocks.CHORUS_PLANT.get());
 					growTreeRecursive(worldIn, bp1x, bp1y, bp1z, x1, y1, z1, rand, p_185601_4_, p_185601_5_ + 1);
@@ -237,9 +225,8 @@ public class BlockChorusFlower extends Block {
 			}
 		}
 
-		if (!flag)
-		{
-			worldIn.setBlock(x, y+i, z, ModBlocks.CHORUS_FLOWER.get(), 5, 2);
+		if (!flag) {
+			worldIn.setBlock(x, y + i, z, ModBlocks.CHORUS_FLOWER.get(), 5, 2);
 		}
 	}
 

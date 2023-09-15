@@ -12,7 +12,8 @@ import java.util.Set;
 @Mixin(WorldServer.class)
 public class MixinWorldServer implements IObserverWorldExtension {
 
-	@Shadow private Set pendingTickListEntriesHashSet;
+	@Shadow
+	private Set pendingTickListEntriesHashSet;
 
 	@Override
 	public boolean etfu$hasScheduledUpdate(int x, int y, int z, Block block) {

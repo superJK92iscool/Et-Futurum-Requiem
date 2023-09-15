@@ -29,7 +29,7 @@ public class CommandFill extends CommandBase {
 
 	@Override
 	public void processCommand(ICommandSender sender, String[] args) {
-		if(args.length < 7) {
+		if (args.length < 7) {
 			throw new WrongUsageException("commands.etfuturum.fill.usage");
 		}
 		EntityPlayerMP entityplayermp = getCommandSenderAsPlayer(sender);
@@ -42,38 +42,38 @@ public class CommandFill extends CommandBase {
 		int toZ = MathHelper.floor_double(func_110666_a(sender, entityplayermp.posZ, args[i++]));
 		Block block = CommandBase.getBlockByText(sender, args[i++]);
 		int meta = 0;
-		if(i < args.length) {
+		if (i < args.length) {
 			meta = CommandBase.parseIntBounded(sender, args[i++], 0, 15);
 		}
 		/* TODO: Implement other fill modes */
-		if(toX < fromX) {
+		if (toX < fromX) {
 			int tmp = toX;
 			toX = fromX;
 			fromX = tmp;
 		}
-		if(toY < fromY) {
+		if (toY < fromY) {
 			int tmp = toY;
 			toY = fromY;
 			fromY = tmp;
 		}
-		if(toZ < fromZ) {
+		if (toZ < fromZ) {
 			int tmp = toZ;
 			toZ = fromZ;
 			fromZ = tmp;
 		}
 		World world = sender.getEntityWorld();
-		if(!world.checkChunksExist(fromX, fromY, fromZ, toX, toY, toZ)) {
+		if (!world.checkChunksExist(fromX, fromY, fromZ, toX, toY, toZ)) {
 			throw new CommandException("commands.etfuturum.fill.outOfWorld");
 		}
 		int volume = (toX - fromX + 1) * (toY - fromY + 1) * (toZ - fromZ + 1);
-		for(int z = fromZ; z <= toZ; z++) {
-			for(int y = fromY; y <= toY; y++) {
-				for(int x = fromX; x <= toX; x++) {
+		for (int z = fromZ; z <= toZ; z++) {
+			for (int y = fromY; y <= toY; y++) {
+				for (int x = fromX; x <= toX; x++) {
 					TileEntity te = world.getTileEntity(x, y, z);
-					if(te instanceof IInventory) {
-						IInventory inv = ((IInventory)te);
+					if (te instanceof IInventory) {
+						IInventory inv = ((IInventory) te);
 						int size = inv.getSizeInventory();
-						for(int slot = 0; slot < size; slot++) {
+						for (int slot = 0; slot < size; slot++) {
 							inv.setInventorySlotContents(slot, null);
 						}
 					}

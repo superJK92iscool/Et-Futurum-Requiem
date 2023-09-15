@@ -17,7 +17,7 @@ import net.minecraft.stats.AchievementList;
 
 public class ContainerNewBrewingStand extends Container {
 
-	private TileEntityNewBrewingStand tile;
+	private final TileEntityNewBrewingStand tile;
 	private final Slot ingredientSlot;
 	private int prevBrewTime, prevFuel, prevCurrentFuel;
 
@@ -75,77 +75,53 @@ public class ContainerNewBrewingStand extends Container {
 	@Override
 	public ItemStack transferStackInSlot(EntityPlayer player, int slotIndex) {
 		ItemStack itemstack = null;
-		Slot slot = (Slot)this.inventorySlots.get(slotIndex);
+		Slot slot = (Slot) this.inventorySlots.get(slotIndex);
 
-		if (slot != null && slot.getHasStack())
-		{
+		if (slot != null && slot.getHasStack()) {
 			ItemStack itemstack1 = slot.getStack();
 			itemstack = itemstack1.copy();
 
-			if (slotIndex > 2 && slotIndex != 3 && slotIndex != 4)
-			{
-				 if (((Slot) inventorySlots.get(4)).isItemValid(itemstack))
-				 {
-					 if (!this.mergeItemStack(itemstack1, 4, 5, false))
-					 {
-						 return null;
-					 }
-				 }
-				else if (!this.ingredientSlot.getHasStack() && this.ingredientSlot.isItemValid(itemstack1)) {
+			if (slotIndex > 2 && slotIndex != 3 && slotIndex != 4) {
+				if (((Slot) inventorySlots.get(4)).isItemValid(itemstack)) {
+					if (!this.mergeItemStack(itemstack1, 4, 5, false)) {
+						return null;
+					}
+				} else if (!this.ingredientSlot.getHasStack() && this.ingredientSlot.isItemValid(itemstack1)) {
 					{
-						if (!this.mergeItemStack(itemstack1, 3, 4, false))
-						{
+						if (!this.mergeItemStack(itemstack1, 3, 4, false)) {
 							return null;
 						}
 					}
-				}
-				else if (PotionSlot.canHoldPotion(itemstack))
-				{
-					if (!this.mergeItemStack(itemstack1, 0, 3, false))
-					{
+				} else if (PotionSlot.canHoldPotion(itemstack)) {
+					if (!this.mergeItemStack(itemstack1, 0, 3, false)) {
 						return null;
 					}
-				}
-				else if (slotIndex < 32)
-				{
-					if (!this.mergeItemStack(itemstack1, 32, 41, false))
-					{
+				} else if (slotIndex < 32) {
+					if (!this.mergeItemStack(itemstack1, 32, 41, false)) {
 						return null;
 					}
-				}
-				else if (slotIndex < 41)
-				{
-					if (!this.mergeItemStack(itemstack1, 5, 32, false))
-					{
+				} else if (slotIndex < 41) {
+					if (!this.mergeItemStack(itemstack1, 5, 32, false)) {
 						return null;
 					}
-				}
-				else if (!this.mergeItemStack(itemstack1, 5, 41, false))
-				{
+				} else if (!this.mergeItemStack(itemstack1, 5, 41, false)) {
 					return null;
 				}
-			}
-			else
-			{
-				if (!this.mergeItemStack(itemstack1, 5, 41, true))
-				{
+			} else {
+				if (!this.mergeItemStack(itemstack1, 5, 41, true)) {
 					return null;
 				}
 
 				slot.onSlotChange(itemstack1, itemstack);
 			}
 
-			if (itemstack1.stackSize == 0)
-			{
-				slot.putStack((ItemStack)null);
-			}
-			else
-			{
+			if (itemstack1.stackSize == 0) {
+				slot.putStack(null);
+			} else {
 				slot.onSlotChanged();
 			}
 
-			if (itemstack1.stackSize == itemstack.stackSize)
-			{
+			if (itemstack1.stackSize == itemstack.stackSize) {
 				return null;
 			}
 

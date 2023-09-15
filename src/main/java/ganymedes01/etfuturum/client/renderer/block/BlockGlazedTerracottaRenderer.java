@@ -27,7 +27,7 @@ public class BlockGlazedTerracottaRenderer extends BlockModelBase {
 		renderer.uvRotateWest = 0;
 		renderer.uvRotateBottom = 0;
 	}
-	
+
 	@Override
 	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
 		renderer.setRenderBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
@@ -50,8 +50,8 @@ public class BlockGlazedTerracottaRenderer extends BlockModelBase {
 		renderer.uvRotateSouth = 0;
 		renderer.uvRotateWest = 0;
 		renderer.uvRotateBottom = 0;
-		
+
 		return flag;
-		
+
 	}
 }

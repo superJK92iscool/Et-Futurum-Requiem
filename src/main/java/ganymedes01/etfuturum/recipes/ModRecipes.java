@@ -547,10 +547,10 @@ public class ModRecipes {
 			}
 
 			boolean slimeball = true;
-			for(int k = 0; k <= IDegradable.waxStrings.length; k++) {
+			for (int k = 0; k <= IDegradable.waxStrings.length; k++) {
 				String waxString;
-				if(k == IDegradable.waxStrings.length) {
-					if(!slimeball) {
+				if (k == IDegradable.waxStrings.length) {
+					if (!slimeball) {
 						break;
 					}
 					waxString = "slimeball";
@@ -558,7 +558,7 @@ public class ModRecipes {
 					waxString = IDegradable.waxStrings[k];
 				}
 
-				if(OreDictionary.doesOreNameExist(waxString)) {
+				if (OreDictionary.doesOreNameExist(waxString)) {
 					slimeball = false;
 					addShapelessRecipe(ModBlocks.COPPER_BLOCK.newItemStack(1, i + 8), waxString, ModBlocks.COPPER_BLOCK.newItemStack(1, i));
 					if (i > 3) {
@@ -740,49 +740,49 @@ public class ModRecipes {
 	}
 
 	private static void registerOre(String oreName, ItemStack ore) {
-		if(validateItems(ore)) {
+		if (validateItems(ore)) {
 			OreDictionary.registerOre(oreName, ore);
 		}
 	}
 
 	private static void registerOre(String oreName, Item ore) {
-		if(validateItems(ore)) {
+		if (validateItems(ore)) {
 			OreDictionary.registerOre(oreName, ore);
 		}
 	}
 
 	private static void registerOre(String oreName, Block ore) {
-		if(validateItems(ore)) {
+		if (validateItems(ore)) {
 			OreDictionary.registerOre(oreName, ore);
 		}
 	}
 
 	private static void addSmelting(Item input, ItemStack output, float exp) {
-		if(validateItems(input) && validateItems(output)) {
+		if (validateItems(input) && validateItems(output)) {
 			GameRegistry.addSmelting(input, output, exp);
 		}
 	}
 
 	private static void addSmelting(Block input, ItemStack output, float exp) {
-		if(validateItems(input) && validateItems(output)) {
+		if (validateItems(input) && validateItems(output)) {
 			GameRegistry.addSmelting(input, output, exp);
 		}
 	}
 
 	private static void addSmelting(ItemStack input, ItemStack output, float exp) {
-		if(validateItems(input) && validateItems(output)) {
+		if (validateItems(input) && validateItems(output)) {
 			GameRegistry.addSmelting(input, output, exp);
 		}
 	}
 
 	private static void addShapedRecipe(ItemStack output, Object... objects) {
-		if(validateItems(output) && validateItems(objects)) {
+		if (validateItems(output) && validateItems(objects)) {
 			GameRegistry.addRecipe(new ShapedEtFuturumRecipe(output, objects));
 		}
 	}
 
 	private static void addShapelessRecipe(ItemStack output, Object... objects) {
-		if(validateItems(output) && validateItems(objects)) {
+		if (validateItems(output) && validateItems(objects)) {
 			GameRegistry.addRecipe(new ShapelessEtFuturumRecipe(output, objects));
 		}
 	}

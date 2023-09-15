@@ -47,22 +47,22 @@ public class ItemBlockBanner extends ItemBlock {
 		} else if (!block.getMaterial().isSolid()) {
 			return false;
 		} else {
-			switch(side) {
-			case 1:
-				y++;
-				break;
-			case 2:
-				z--;
-				break;
-			case 3:
-				z++;
-				break;
-			case 4:
-				x--;
-				break;
-			case 5:
-				x++;
-				break;
+			switch (side) {
+				case 1:
+					y++;
+					break;
+				case 2:
+					z--;
+					break;
+				case 3:
+					z++;
+					break;
+				case 4:
+					x--;
+					break;
+				case 5:
+					x++;
+					break;
 			}
 
 			if (!player.canPlayerEdit(x, y, z, side, stack)) {
@@ -77,7 +77,7 @@ public class ItemBlockBanner extends ItemBlock {
 					world.setBlock(x, y, z, field_150939_a, side, 3);
 				}
 
-				world.playSoundEffect((double)((float)x + 0.5F), (double)((float)y + 0.5F), (double)((float)z + 0.5F), field_150939_a.stepSound.func_150496_b(), (field_150939_a.stepSound.getVolume() + 1.0F) / 2.0F, field_150939_a.stepSound.getPitch() * 0.8F);
+				world.playSoundEffect((float) x + 0.5F, (float) y + 0.5F, (float) z + 0.5F, field_150939_a.stepSound.func_150496_b(), (field_150939_a.stepSound.getVolume() + 1.0F) / 2.0F, field_150939_a.stepSound.getPitch() * 0.8F);
 				stack.stackSize--;
 
 				TileEntityBanner banner = (TileEntityBanner) world.getTileEntity(x, y, z);

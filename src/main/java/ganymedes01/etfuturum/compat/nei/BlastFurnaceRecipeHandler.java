@@ -31,7 +31,7 @@ public class BlastFurnaceRecipeHandler extends FurnaceRecipeHandler {
 	@Override
 	public void loadCraftingRecipes(String outputId, Object... results) {
 		if (outputId.equals(getOverlayIdentifier())) {
-			if(basecache.isEmpty()) {
+			if (basecache.isEmpty()) {
 				Map<ItemStack, ItemStack> furnaceSmeltingList = FurnaceRecipes.smelting().getSmeltingList();
 				ItemStackMap<ItemStack> recipes = new ItemStackMap<>();
 				for (Map.Entry<ItemStack, ItemStack> entry : furnaceSmeltingList.entrySet()) {

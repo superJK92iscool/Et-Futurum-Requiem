@@ -23,7 +23,7 @@ public class BlockNetherite extends Block {
 		setBlockName(Utils.getUnlocalisedName("netherite_block"));
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
-	
+
 	@Override
 	public boolean isBeaconBase(IBlockAccess world, int x, int y, int z, int bX, int bY, int bZ) {
 		return true;

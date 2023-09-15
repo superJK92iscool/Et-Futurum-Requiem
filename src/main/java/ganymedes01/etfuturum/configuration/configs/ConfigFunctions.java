@@ -31,7 +31,7 @@ public class ConfigFunctions extends ConfigBase {
 	public static String[] shulkerBansString;
 	public static int shulkerBoxTooltipLines;
 	public static boolean enableExtraF3HTooltips;
-	public static final String[] shulkerDefaultBans = new String[] {
+	public static final String[] shulkerDefaultBans = new String[]{
 			"adventurebackpack:adventureBackpack",
 			"arsmagica2:essenceBag",
 			"arsmagica2:runeBag",
@@ -190,10 +190,10 @@ public class ConfigFunctions extends ConfigBase {
 
 	@Override
 	protected void syncConfigOptions() {
-		if(EtFuturumMixinPlugin.side == MixinEnvironment.Side.CLIENT) {
+		if (EtFuturumMixinPlugin.side == MixinEnvironment.Side.CLIENT) {
 			enableUpdateChecker = getBoolean("enableUpdateChecker", catUpdateChecker, true, "Check and print a chat message in-game if there's a new update available?");
 		}
-		
+
 		//changes
 		enableExtraBurnableBlocks = getBoolean("enableExtraBurnableBlocks", catChanges, true, "Fences, gates and dead bushes burn");
 		enableUpdatedHarvestLevels = getBoolean("enableUpdatedHarvestLevels", catChanges, true, "Packed Ice, ladders and melons have preferred tools");
@@ -221,7 +221,7 @@ public class ConfigFunctions extends ConfigBase {
 		shulkerBansString = getStringList("shulkerBans", catSettings, shulkerDefaultBans, "Things (namespaced:id) that should not go inside a Shulker Box. Used to ensure recursive storage, book banning and data overloads with certain items can be stopped. A default list is provided, but it might not cover everything so be sure to check with the mods you have. Be sure to check the default list for this frequently, it will be updated frequently.");
 		totemHealPercent = getInt("totemHealPercent", catSettings, 5, 5, 100, "Percentage of max health for totem to set you at if you die with it. (5% is 0.05, 20 * 0.05 = 1, 1 health is one half-heart)");
 		registerRawItemAsOre = getBoolean("registerRawItemAsOre", catSettings, true, "Register the raw ore items in the OreDictionary as if they were the actual ore block. Such as raw iron being registered as an iron ore, etc...\nTurn this off if you have an ore dictionary converter mod or experience other issues.");
-		extraDropRawOres = getStringList("extraDropRawOres", catSettings, new String[] {"oreCopper", "oreTin"}, "OreDictionary values for ore blocks that should drop extra items (2-3) instead of the usual one, before fortune.");
+		extraDropRawOres = getStringList("extraDropRawOres", catSettings, new String[]{"oreCopper", "oreTin"}, "OreDictionary values for ore blocks that should drop extra items (2-3) instead of the usual one, before fortune.");
 		elytraDataWatcherFlag = (byte) getInt("elytraDataWatcherFlag", catSettings, 7, 0, 31, "The data watcher flag for the Elytra, used to sync the elytra animation with other players. In vanilla the max value is 7, players use 0-4, so you can set this to 6 or 7 by default. ASJCore increases the max value to 31.\nDo not change this value if you don't need to, or do not know what you're doing.");
 
 		//client
@@ -246,11 +246,11 @@ public class ConfigFunctions extends ConfigBase {
 
 	protected void initValues() {
 		ConfigFunctions.shulkerBans = new ArrayList<Item>();
-		for(String itemName : ConfigFunctions.shulkerBansString) {
+		for (String itemName : ConfigFunctions.shulkerBansString) {
 			String[] nameAndID;
-			if(itemName.contains(":") && (nameAndID = itemName.split(":")).length == 2) {
+			if (itemName.contains(":") && (nameAndID = itemName.split(":")).length == 2) {
 				Item item = GameRegistry.findItem(nameAndID[0], nameAndID[1]);
-				if(item != null) {
+				if (item != null) {
 					if (!ConfigFunctions.shulkerBans.contains(item)) {
 						ConfigFunctions.shulkerBans.add(item);
 					} else {

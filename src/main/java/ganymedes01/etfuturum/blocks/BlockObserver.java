@@ -23,8 +23,8 @@ import java.util.Random;
 public class BlockObserver extends Block implements IBlockObserver {
 	@SideOnly(Side.CLIENT)
 	private IIcon observerFront, observerBack, observerTop, observerBackLit;
-	
-	private static ThreadLocal<MutableInt> timesDisabled = ThreadLocal.withInitial(MutableInt::new);
+
+	private static final ThreadLocal<MutableInt> timesDisabled = ThreadLocal.withInitial(MutableInt::new);
 
 	public BlockObserver() {
 		super(Material.rock);
@@ -41,13 +41,13 @@ public class BlockObserver extends Block implements IBlockObserver {
 	public IIcon getIcon(int side, int meta) {
 		int k = BlockPistonBase.getPistonOrientation(meta);
 		boolean powered = (meta & 0x8) != 0;
-		if(side == k)
+		if (side == k)
 			return this.observerFront;
-		else if(side == Facing.oppositeSide[k])
+		else if (side == Facing.oppositeSide[k])
 			return powered ? this.observerBackLit : this.observerBack;
 		else {
 			int topSide;
-			switch(k) {
+			switch (k) {
 				case 2:
 				case 3:
 				case 4:
@@ -65,20 +65,18 @@ public class BlockObserver extends Block implements IBlockObserver {
 	}
 
 	@Override
-	public void onBlockPlacedBy(World p_149689_1_, int p_149689_2_, int p_149689_3_, int p_149689_4_, EntityLivingBase p_149689_5_, ItemStack p_149689_6_)
-	{
+	public void onBlockPlacedBy(World p_149689_1_, int p_149689_2_, int p_149689_3_, int p_149689_4_, EntityLivingBase p_149689_5_, ItemStack p_149689_6_) {
 		int l = BlockPistonBase.determineOrientation(p_149689_1_, p_149689_2_, p_149689_3_, p_149689_4_, p_149689_5_);
 		p_149689_1_.setBlockMetadataWithNotify(p_149689_2_, p_149689_3_, p_149689_4_, Facing.oppositeSide[l], 2);
 	}
 
 	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister p_149651_1_)
-	{
+	public void registerBlockIcons(IIconRegister p_149651_1_) {
 		this.blockIcon = p_149651_1_.registerIcon("observer_side");
 		this.observerFront = p_149651_1_.registerIcon("observer_front");
-		this.observerTop = p_149651_1_.registerIcon( "observer_top");
-		this.observerBack = p_149651_1_.registerIcon( "observer_back");
-		this.observerBackLit = p_149651_1_.registerIcon( "observer_back_lit");
+		this.observerTop = p_149651_1_.registerIcon("observer_top");
+		this.observerBack = p_149651_1_.registerIcon("observer_back");
+		this.observerBackLit = p_149651_1_.registerIcon("observer_back_lit");
 	}
 
 	@Override
@@ -88,22 +86,21 @@ public class BlockObserver extends Block implements IBlockObserver {
 
 	@Override
 	public void observedNeighborChange(World world, int observerX, int observerY, int observerZ, Block changedBlock, int changedX, int changedY, int changedZ) {
-		if(world.isRemote)
+		if (world.isRemote)
 			return;
 		int myMeta = world.getBlockMetadata(observerX, observerY, observerZ);
 		int facing = BlockPistonBase.getPistonOrientation(myMeta);
 		int observedX = observerX + Facing.offsetsXForSide[facing];
 		int observedY = observerY + Facing.offsetsYForSide[facing];
 		int observedZ = observerZ + Facing.offsetsZForSide[facing];
-		if(observedX == changedX && observedY == changedY && observedZ == changedZ) {
-			if((myMeta & 8) == 0 && !((IObserverWorldExtension)world).etfu$hasScheduledUpdate(observerX, observerY, observerZ, this)) {
+		if (observedX == changedX && observedY == changedY && observedZ == changedZ) {
+			if ((myMeta & 8) == 0 && !((IObserverWorldExtension) world).etfu$hasScheduledUpdate(observerX, observerY, observerZ, this)) {
 				world.scheduleBlockUpdate(observerX, observerY, observerZ, this, 2);
 			}
 		}
 	}
 
-	protected void updateNeighborsInFront(World worldIn, int x, int y, int z)
-	{
+	protected void updateNeighborsInFront(World worldIn, int x, int y, int z) {
 		int facing = BlockPistonBase.getPistonOrientation(worldIn.getBlockMetadata(x, y, z));
 		int opposite = Facing.oppositeSide[facing];
 		int newX = x + Facing.offsetsXForSide[opposite];
@@ -117,7 +114,7 @@ public class BlockObserver extends Block implements IBlockObserver {
 	@Override
 	public void updateTick(World world, int x, int y, int z, Random rand) {
 		int meta = world.getBlockMetadata(x, y, z);
-		if((meta & 8) != 0) {
+		if ((meta & 8) != 0) {
 			world.setBlockMetadataWithNotify(x, y, z, meta & 7, 2);
 		} else {
 			world.setBlockMetadataWithNotify(x, y, z, meta | 8, 2);
@@ -139,33 +136,34 @@ public class BlockObserver extends Block implements IBlockObserver {
 	@Override
 	public int isProvidingWeakPower(IBlockAccess p_149709_1_, int p_149709_2_, int p_149709_3_, int p_149709_4_, int p_149709_5_) {
 		int metadata = p_149709_1_.getBlockMetadata(p_149709_2_, p_149709_3_, p_149709_4_);
-		if((metadata & 8) == 0)
+		if ((metadata & 8) == 0)
 			return 0;
 		return (BlockPistonBase.getPistonOrientation(metadata) == p_149709_5_) ? 15 : 0;
 	}
 
-	public boolean isNormalCube(IBlockAccess world, int x, int y, int z)
-	{
+	public boolean isNormalCube(IBlockAccess world, int x, int y, int z) {
 		return true;
 	}
 
-	/** <p>Disable notification of observers about chunk updates on the current thread. Observer notifications add
-	 *  some overhead to chunk updates, so they should be disabled if it's reasonable to assume that no observers will
-	 *  see them (e.g. during world gen).</p>
-	 *  
-	 *  <p>Calling this method will increase the disablification stack by one level. Each call should be followed by a
-	 *  {@link BlockObserver#enableNotifications()} call to restore the stack.</p> */
+	/**
+	 * <p>Disable notification of observers about chunk updates on the current thread. Observer notifications add
+	 * some overhead to chunk updates, so they should be disabled if it's reasonable to assume that no observers will
+	 * see them (e.g. during world gen).</p>
+	 *
+	 * <p>Calling this method will increase the disablification stack by one level. Each call should be followed by a
+	 * {@link BlockObserver#enableNotifications()} call to restore the stack.</p>
+	 */
 	public static void disableNotifications() {
 		timesDisabled.get().increment();
 	}
-	
+
 	public static void enableNotifications() {
 		MutableInt timesDisabledMut = timesDisabled.get();
 		int timesDisabledInt = timesDisabledMut.intValue();
 		timesDisabledInt = Math.max(0, timesDisabledInt - 1);
 		timesDisabledMut.setValue(timesDisabledInt);
 	}
-	
+
 	public static boolean areNotificationsEnabled() {
 		return timesDisabled.get().intValue() == 0;
 	}

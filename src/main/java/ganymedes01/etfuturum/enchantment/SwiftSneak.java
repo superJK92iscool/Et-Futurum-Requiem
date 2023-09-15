@@ -15,14 +15,12 @@ public class SwiftSneak extends Enchantment {
 	}
 
 	@Override
-	public int getMinEnchantability(int enchantmentLevel)
-	{
+	public int getMinEnchantability(int enchantmentLevel) {
 		return enchantmentLevel * 25;
 	}
 
 	@Override
-	public int getMaxEnchantability(int enchantmentLevel)
-	{
+	public int getMaxEnchantability(int enchantmentLevel) {
 		return this.getMinEnchantability(enchantmentLevel) + 50;
 	}
 

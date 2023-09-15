@@ -22,12 +22,12 @@ public class BiomeLayerNetherlZoom extends BiomeLayerNether {
 		for (int k2 = 0; k2 < l1 - 1; ++k2) {
 			j2 = k2 << 1;
 			int l2 = j2 * i2;
-			int i3 = aint[0 + (k2 + 0) * k1];
-			int j3 = aint[0 + (k2 + 1) * k1];
+			int i3 = aint[(k2) * k1];
+			int j3 = aint[(k2 + 1) * k1];
 
 			for (int k3 = 0; k3 < k1 - 1; ++k3) {
-				this.initChunkSeed(k3 + i1 << 1, k2 + j1 << 1);
-				int l3 = aint[k3 + 1 + (k2 + 0) * k1];
+				this.initChunkSeed((long) k3 + i1 << 1, (long) k2 + j1 << 1);
+				int l3 = aint[k3 + 1 + (k2) * k1];
 				int i4 = aint[k3 + 1 + (k2 + 1) * k1];
 				aint1[l2] = i3;
 				aint1[l2++ + i2] = this.choose(i3, j3);

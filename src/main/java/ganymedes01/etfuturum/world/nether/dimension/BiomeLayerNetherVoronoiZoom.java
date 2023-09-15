@@ -31,24 +31,24 @@ public class BiomeLayerNetherVoronoiZoom extends BiomeLayerNether {
 		int l2;
 
 		for (int i3 = 0; i3 < i2 - 1; ++i3) {
-			l2 = aint[0 + (i3 + 0) * l1];
-			int j3 = aint[0 + (i3 + 1) * l1];
+			l2 = aint[(i3) * l1];
+			int j3 = aint[(i3 + 1) * l1];
 
 			for (int k3 = 0; k3 < l1 - 1; ++k3) {
 				double d0 = i1 * 0.9D;
-				this.initChunkSeed(k3 + j1 << b0, i3 + k1 << b0);
+				this.initChunkSeed((long) k3 + j1 << b0, (long) i3 + k1 << b0);
 				double d1 = (this.nextInt(1024) / 1024.0D - 0.5D) * d0;
 				double d2 = (this.nextInt(1024) / 1024.0D - 0.5D) * d0;
-				this.initChunkSeed(k3 + j1 + 1 << b0, i3 + k1 << b0);
+				this.initChunkSeed((long) k3 + j1 + 1 << b0, (long) i3 + k1 << b0);
 				double d3 = (this.nextInt(1024) / 1024.0D - 0.5D) * d0 + i1;
 				double d4 = (this.nextInt(1024) / 1024.0D - 0.5D) * d0;
-				this.initChunkSeed(k3 + j1 << b0, i3 + k1 + 1 << b0);
+				this.initChunkSeed((long) k3 + j1 << b0, (long) i3 + k1 + 1 << b0);
 				double d5 = (this.nextInt(1024) / 1024.0D - 0.5D) * d0;
 				double d6 = (this.nextInt(1024) / 1024.0D - 0.5D) * d0 + i1;
-				this.initChunkSeed(k3 + j1 + 1 << b0, i3 + k1 + 1 << b0);
+				this.initChunkSeed((long) k3 + j1 + 1 << b0, (long) i3 + k1 + 1 << b0);
 				double d7 = (this.nextInt(1024) / 1024.0D - 0.5D) * d0 + i1;
 				double d8 = (this.nextInt(1024) / 1024.0D - 0.5D) * d0 + i1;
-				int l3 = aint[k3 + 1 + (i3 + 0) * l1];
+				int l3 = aint[k3 + 1 + (i3) * l1];
 				int i4 = aint[k3 + 1 + (i3 + 1) * l1];
 
 				for (int j4 = 0; j4 < i1; ++j4) {

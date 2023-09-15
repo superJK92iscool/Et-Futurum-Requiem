@@ -9,7 +9,7 @@ public class AttackYawHandler implements IMessageHandler<AttackYawMessage, IMess
 
 	@Override
 	public IMessage onMessage(AttackYawMessage message, MessageContext ctx) {
-		Minecraft.getMinecraft().thePlayer.attackedAtYaw = (float) message.attackedAtYaw;
+		Minecraft.getMinecraft().thePlayer.attackedAtYaw = message.attackedAtYaw;
 		return null;
 	}
 

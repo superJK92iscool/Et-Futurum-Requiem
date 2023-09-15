@@ -20,9 +20,9 @@ public class BlockLoomRenderer extends BlockModelBase {
 	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId,
 									RenderBlocks renderer) {
 		int meta = world.getBlockMetadata(x, y, z);
-		if(meta == 1) {
+		if (meta == 1) {
 			meta = 3;
-		} else if(meta == 3) {
+		} else if (meta == 3) {
 			meta = 1;
 		}
 		renderer.uvRotateTop = meta;

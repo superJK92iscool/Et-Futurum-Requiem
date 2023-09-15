@@ -14,7 +14,7 @@ public abstract class MixinChunk {
 	private void disableObserverNotifications(IChunkProvider provider1, IChunkProvider provider2, int x, int z, CallbackInfo ci) {
 		BlockObserver.disableNotifications();
 	}
-	
+
 	@Inject(method = "populateChunk", at = @At(value = "RETURN"))
 	private void enableObserverNotifications(IChunkProvider provider1, IChunkProvider provider2, int x, int z, CallbackInfo ci) {
 		BlockObserver.enableNotifications();

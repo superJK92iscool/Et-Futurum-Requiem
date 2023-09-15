@@ -22,10 +22,14 @@ public class ContainerEnchantment extends Container {
 
 	public static final Map<String, Integer> seeds = new HashMap<String, Integer>();
 
-	/** SlotEnchantmentTable object with ItemStack to be enchanted */
+	/**
+	 * SlotEnchantmentTable object with ItemStack to be enchanted
+	 */
 	public IInventory tableInventory;
 
-	/** current world (for bookshelf counting) */
+	/**
+	 * current world (for bookshelf counting)
+	 */
 	private final World world;
 	private final Random rand;
 	public int enchantmentSeed;
@@ -34,7 +38,9 @@ public class ContainerEnchantment extends Container {
 	private final int posY;
 	private final int posZ;
 
-	/** 3-member array storing the enchantment levels of each slot */
+	/**
+	 * 3-member array storing the enchantment levels of each slot
+	 */
 	public int[] enchantLevels;
 	public int[] field_178151_h;
 
@@ -57,7 +63,7 @@ public class ContainerEnchantment extends Container {
 		posZ = z;
 		rand = new Random();
 		enchantLevels = new int[3];
-		field_178151_h = new int[] { -1, -1, -1 };
+		field_178151_h = new int[]{-1, -1, -1};
 		this.world = world;
 		enchantmentSeed = getEnchantSeed(inventory.player);
 		addSlotToContainer(new Slot(tableInventory, 0, 15, 47) {
@@ -227,7 +233,7 @@ public class ContainerEnchantment extends Container {
 
 				if (var6 != null) {
 					chargeForEnchant(player, rand, var5);
-					world.playSoundEffect(posX + 0.5F, posY + 0.5F, posZ + 0.5F, Reference.MCAssetVer+":block.enchantment_table.use", 1.0F, world.rand.nextFloat() * 0.1F + 0.9F);
+					world.playSoundEffect(posX + 0.5F, posY + 0.5F, posZ + 0.5F, Reference.MCAssetVer + ":block.enchantment_table.use", 1.0F, world.rand.nextFloat() * 0.1F + 0.9F);
 
 					if (var7)
 						slot0.func_150996_a(Items.enchanted_book);
@@ -332,7 +338,7 @@ public class ContainerEnchantment extends Container {
 			}
 
 			if (var5.stackSize == 0)
-				var4.putStack((ItemStack) null);
+				var4.putStack(null);
 			else
 				var4.onSlotChanged();
 

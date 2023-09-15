@@ -13,7 +13,7 @@ public class WoodSignOpenMessage implements IMessage {
 
 	public WoodSignOpenMessage() {
 	}
-	
+
 	public WoodSignOpenMessage(TileEntityWoodSign tileentitysign, byte i) {
 		tileX = tileentitysign.xCoord;
 		tileY = tileentitysign.yCoord;

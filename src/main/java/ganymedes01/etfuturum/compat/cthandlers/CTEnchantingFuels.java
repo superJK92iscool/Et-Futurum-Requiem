@@ -24,16 +24,16 @@ public class CTEnchantingFuels {
 
 		Object internal = getInternal(fuel);
 
-		if(((internal instanceof String && EnchantingFuelRegistry.isFuel((String) internal)) || (internal instanceof ItemStack && EnchantingFuelRegistry.isFuel((ItemStack) internal)))) {
+		if (((internal instanceof String && EnchantingFuelRegistry.isFuel((String) internal)) || (internal instanceof ItemStack && EnchantingFuelRegistry.isFuel((ItemStack) internal)))) {
 			final ItemStackSet toRemove = new ItemStackSet();
-			for(ItemStack stack : EnchantingFuelRegistry.getFuels().keySet()) {
-				if(fuel.matches(new MCItemStack(stack))) {
+			for (ItemStack stack : EnchantingFuelRegistry.getFuels().keySet()) {
+				if (fuel.matches(new MCItemStack(stack))) {
 					toRemove.add(stack);
 				}
 			}
 			MineTweakerAPI.apply(new RemoveAction(toRemove));
 		} else {
-			MineTweakerAPI.logWarning("No enchanting fuels for " + fuel.toString());
+			MineTweakerAPI.logWarning("No enchanting fuels for " + fuel);
 		}
 	}
 
@@ -41,7 +41,7 @@ public class CTEnchantingFuels {
 	public static void addFuel(IIngredient fuel) {
 		List<IItemStack> items = fuel.getItems();
 		if (items == null) {
-			MineTweakerAPI.logError("Cannot turn " + fuel.toString() + " into a enchanting fuel");
+			MineTweakerAPI.logError("Cannot turn " + fuel + " into a enchanting fuel");
 			return;
 		}
 
@@ -77,7 +77,7 @@ public class CTEnchantingFuels {
 
 		@Override
 		public void undo() {
-			for(ItemStack stack : items.keySet()) {
+			for (ItemStack stack : items.keySet()) {
 				EnchantingFuelRegistry.registerFuel(stack);
 			}
 		}

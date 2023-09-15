@@ -45,8 +45,7 @@ public class BlockTintedGlass extends BlockGlass {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister reg)
-	{
+	public void registerBlockIcons(IIconRegister reg) {
 		this.blockIcon = reg.registerIcon("tinted_glass");
 	}
 }

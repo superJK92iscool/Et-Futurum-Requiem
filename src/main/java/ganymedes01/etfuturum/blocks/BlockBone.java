@@ -12,7 +12,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
 
 public class BlockBone extends BlockRotatedPillar {
-	
+
 	public BlockBone() {
 		super(Material.rock);
 		setHardness(1.5F);
@@ -28,7 +28,7 @@ public class BlockBone extends BlockRotatedPillar {
 	protected IIcon getSideIcon(int side) {
 		return blockIcon;
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister reg) {

@@ -9,8 +9,8 @@ import net.minecraft.entity.Entity;
 @SideOnly(Side.CLIENT)
 public class ModelElytra extends ModelBiped {
 
-	private ModelRenderer wingRight;
-	private ModelRenderer wingLeft;
+	private final ModelRenderer wingRight;
+	private final ModelRenderer wingLeft;
 
 	public ModelElytra() {
 		wingLeft = new ModelRenderer(this, 22, 0);

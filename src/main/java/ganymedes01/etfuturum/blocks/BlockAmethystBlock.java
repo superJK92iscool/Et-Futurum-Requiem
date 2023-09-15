@@ -22,11 +22,10 @@ public class BlockAmethystBlock extends BaseBlock {
 	}
 
 	@Override
-	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity ent)
-	{
+	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity ent) {
 		if (!world.isRemote && ent instanceof IProjectile) {
-			 ent.playSound(Reference.MCAssetVer + ":block.amethyst_block.hit", 1.0F, 0.5F + world.rand.nextFloat() * 1.2F);
-			 ent.playSound(Reference.MCAssetVer + ":block.amethyst_block.chime", 1.0F, 0.5F + world.rand.nextFloat() * 1.2F);
+			ent.playSound(Reference.MCAssetVer + ":block.amethyst_block.hit", 1.0F, 0.5F + world.rand.nextFloat() * 1.2F);
+			ent.playSound(Reference.MCAssetVer + ":block.amethyst_block.chime", 1.0F, 0.5F + world.rand.nextFloat() * 1.2F);
 		}
 	}
 }

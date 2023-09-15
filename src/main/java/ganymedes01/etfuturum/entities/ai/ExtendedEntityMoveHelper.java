@@ -145,10 +145,10 @@ public class ExtendedEntityMoveHelper extends EntityMoveHelper {
 		return this.posZ;
 	}
 
-	public static enum Action {
+	public enum Action {
 		WAIT,
 		MOVE_TO,
 		STRAFE,
-		JUMPING;
+		JUMPING
 	}
 }

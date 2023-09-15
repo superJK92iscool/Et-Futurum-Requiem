@@ -28,9 +28,9 @@ import java.util.List;
  */
 public class TileEntityNewBrewingStand extends TileEntityBrewingStand {
 
-	private static final int[] TOP_SLOTS = new int[] { 3 };
-	private static final int[] SLOTS_FOR_DOWN = new int[] {0, 1, 2};
-	private static final int[] OUTPUT_SLOTS = new int[] {0, 1, 2, 4};
+	private static final int[] TOP_SLOTS = new int[]{3};
+	private static final int[] SLOTS_FOR_DOWN = new int[]{0, 1, 2};
+	private static final int[] OUTPUT_SLOTS = new int[]{0, 1, 2, 4};
 
 	private ItemStack[] inventory = new ItemStack[5];
 	private int brewTime;
@@ -124,7 +124,7 @@ public class TileEntityNewBrewingStand extends TileEntityBrewingStand {
 	}
 
 	private void brewPotions() {
-		if (ForgeEventFactory.onPotionAttemptBreaw(new ItemStack[] { inventory[0], inventory[1], inventory[2], inventory[3] }))
+		if (ForgeEventFactory.onPotionAttemptBreaw(new ItemStack[]{inventory[0], inventory[1], inventory[2], inventory[3]}))
 			return;
 		if (canBrew()) {
 			for (int i = 0; i < 3; i++)
@@ -159,7 +159,7 @@ public class TileEntityNewBrewingStand extends TileEntityBrewingStand {
 			}
 
 			fuel--;
-			ForgeEventFactory.onPotionBrewed(new ItemStack[] { inventory[0], inventory[1], inventory[2], inventory[3] });
+			ForgeEventFactory.onPotionBrewed(new ItemStack[]{inventory[0], inventory[1], inventory[2], inventory[3]});
 			worldObj.playSound(xCoord, yCoord, zCoord, Reference.MCAssetVer + ":block.brewing_stand.brew", 1.0F, 1.0F, true);
 		}
 	}
@@ -258,8 +258,7 @@ public class TileEntityNewBrewingStand extends TileEntityBrewingStand {
 
 	@Override
 	public int[] getAccessibleSlotsFromSide(int side) {
-		if (side == 1)
-		{
+		if (side == 1) {
 			return TOP_SLOTS;
 		}
 		return side == 0 ? SLOTS_FOR_DOWN : OUTPUT_SLOTS;

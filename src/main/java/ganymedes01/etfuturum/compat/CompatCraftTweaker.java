@@ -65,17 +65,15 @@ public class CompatCraftTweaker {
 
 	public static Object getInternal(IIngredient pattern) {
 		Object internal = pattern.getInternal();
-		if(internal instanceof String || internal instanceof ItemStack) {
+		if (internal instanceof String || internal instanceof ItemStack) {
 			return internal;
 		}
 		return null;
 	}
 
-	public static class ReloadEventHandler implements IEventHandler<MineTweakerImplementationAPI.ReloadEvent>
-	{
+	public static class ReloadEventHandler implements IEventHandler<MineTweakerImplementationAPI.ReloadEvent> {
 		@Override
-		public void handle(MineTweakerImplementationAPI.ReloadEvent event)
-		{
+		public void handle(MineTweakerImplementationAPI.ReloadEvent event) {
 			BlastFurnaceRecipes.smelting().setReloadingCT(true);
 			BlastFurnaceRecipes.smelting().clearLists();
 			SmokerRecipes.smelting().setReloadingCT(true);
@@ -86,11 +84,9 @@ public class CompatCraftTweaker {
 	/**
 	 * Rebakes the Ore Dictionary, then refreshes recipes and ensures recipe lists are sorted.
 	 */
-	public static class PostReloadEventHandler implements IEventHandler<MineTweakerImplementationAPI.ReloadEvent>
-	{
+	public static class PostReloadEventHandler implements IEventHandler<MineTweakerImplementationAPI.ReloadEvent> {
 		@Override
-		public void handle(MineTweakerImplementationAPI.ReloadEvent event)
-		{
+		public void handle(MineTweakerImplementationAPI.ReloadEvent event) {
 			// CraftTweaker doesn't rebake OreDictionary.stackToId when you /mt reload or when the client connects to a server...
 			// If your scripts change ore dicts, this can lead to issues where OreDictionary.getOreIDs(ItemStack) returns old unchanged ore ids.
 			// Technically, I could avoid this issue by avoiding OreDictionary.stackToId and only using methods that involve OreDictionary.idToStack.

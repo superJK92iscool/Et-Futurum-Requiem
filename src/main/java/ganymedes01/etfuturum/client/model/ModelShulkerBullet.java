@@ -4,12 +4,10 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
-public class ModelShulkerBullet extends ModelBase
-{
+public class ModelShulkerBullet extends ModelBase {
 	public ModelRenderer renderer;
 
-	public ModelShulkerBullet()
-	{
+	public ModelShulkerBullet() {
 		this.textureWidth = 64;
 		this.textureHeight = 32;
 		this.renderer = new ModelRenderer(this);
@@ -22,8 +20,7 @@ public class ModelShulkerBullet extends ModelBase
 	/**
 	 * Sets the models various rotation angles then renders the model.
 	 */
-	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale)
-	{
+	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 		this.renderer.render(scale);
 	}
@@ -33,8 +30,7 @@ public class ModelShulkerBullet extends ModelBase
 	 * and legs, where par1 represents the time(so that arms and legs swing back and forth) and par2 represents how
 	 * "far" arms and legs can swing at most.
 	 */
-	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn)
-	{
+	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
 		super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
 		this.renderer.rotateAngleY = netHeadYaw * 0.017453292F;
 		this.renderer.rotateAngleX = headPitch * 0.017453292F;

@@ -22,10 +22,10 @@ public class CompatBaublesExpanded {
 	}
 
 	public static ItemStack getElytraFromBaubles(EntityLivingBase entity) {
-		if(entity instanceof EntityPlayer) {
-			for(int slotIndex : wingSlotIDs) {
-				ItemStack wings = BaublesApi.getBaubles((EntityPlayer)entity).getStackInSlot(slotIndex);
-				if(wings != null && wings.getItem() instanceof ItemArmorElytra) {
+		if (entity instanceof EntityPlayer) {
+			for (int slotIndex : wingSlotIDs) {
+				ItemStack wings = BaublesApi.getBaubles((EntityPlayer) entity).getStackInSlot(slotIndex);
+				if (wings != null && wings.getItem() instanceof ItemArmorElytra) {
 					return wings;
 				}
 			}

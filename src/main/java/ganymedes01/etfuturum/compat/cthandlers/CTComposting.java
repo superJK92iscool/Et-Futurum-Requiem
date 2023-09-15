@@ -25,16 +25,16 @@ public class CTComposting {
 
 		Object internal = getInternal(stack);
 
-		if(((internal instanceof String && CompostingRegistry.isCompostable((String) internal)) || (internal instanceof ItemStack && CompostingRegistry.isCompostable((ItemStack) internal)))) {
+		if (((internal instanceof String && CompostingRegistry.isCompostable((String) internal)) || (internal instanceof ItemStack && CompostingRegistry.isCompostable((ItemStack) internal)))) {
 			final ItemStackMap<Integer> toRemove = new ItemStackMap<>();
-			for(Map.Entry<ItemStack, Integer> compostEntry : CompostingRegistry.getComposts().entrySet()) {
-				if(stack.matches(new MCItemStack(compostEntry.getKey()))) {
+			for (Map.Entry<ItemStack, Integer> compostEntry : CompostingRegistry.getComposts().entrySet()) {
+				if (stack.matches(new MCItemStack(compostEntry.getKey()))) {
 					toRemove.put(compostEntry.getKey(), compostEntry.getValue());
 				}
 			}
 			MineTweakerAPI.apply(new RemoveAction(toRemove));
 		} else {
-			MineTweakerAPI.logWarning("No compostables for " + stack.toString());
+			MineTweakerAPI.logWarning("No compostables for " + stack);
 		}
 	}
 
@@ -42,7 +42,7 @@ public class CTComposting {
 	public static void addCompostable(IIngredient stack, int count) {
 		List<IItemStack> items = stack.getItems();
 		if (items == null) {
-			MineTweakerAPI.logError("Cannot make " + stack.toString() + " compostable");
+			MineTweakerAPI.logError("Cannot make " + stack + " compostable");
 			return;
 		}
 
@@ -85,7 +85,7 @@ public class CTComposting {
 
 		@Override
 		public void undo() {
-			for(Map.Entry<ItemStack, Integer> entry : items.entrySet()) {
+			for (Map.Entry<ItemStack, Integer> entry : items.entrySet()) {
 				CompostingRegistry.registerCompostable(entry.getKey(), entry.getValue());
 			}
 		}
@@ -128,7 +128,7 @@ public class CTComposting {
 
 		@Override
 		public void undo() {
-			for(Map.Entry<ItemStack, Integer> entry : items.entrySet()) {
+			for (Map.Entry<ItemStack, Integer> entry : items.entrySet()) {
 				CompostingRegistry.registerCompostable(entry.getKey(), entry.getValue());
 			}
 		}

@@ -56,18 +56,18 @@ public class BlockBanner extends BlockContainer {
 			setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
 
 			switch (meta) {
-			case 2:
-				setBlockBounds(f2, f, 1.0F - f4, f3, f1, 1.0F);
-				break;
-			case 3:
-				setBlockBounds(f2, f, 0.0F, f3, f1, f4);
-				break;
-			case 4:
-				setBlockBounds(1.0F - f4, f, f2, 1.0F, f1, f3);
-				break;
-			case 5:
-				setBlockBounds(0.0F, f, f2, f4, f1, f3);
-				break;
+				case 2:
+					setBlockBounds(f2, f, 1.0F - f4, f3, f1, 1.0F);
+					break;
+				case 3:
+					setBlockBounds(f2, f, 0.0F, f3, f1, f4);
+					break;
+				case 4:
+					setBlockBounds(1.0F - f4, f, f2, 1.0F, f1, f3);
+					break;
+				case 5:
+					setBlockBounds(0.0F, f, f2, f4, f1, f3);
+					break;
 			}
 		} else {
 			float f = 0.25F;
@@ -88,19 +88,19 @@ public class BlockBanner extends BlockContainer {
 			flag = !world.getBlock(x, y - 1, z).getMaterial().isSolid();
 		} else {
 			final int meta = world.getBlockMetadata(x, y, z);
-			switch(meta) {
-			case 2:
-				flag = !world.getBlock(x, y, z + 1).getMaterial().isSolid();
-				break;
-			case 3:
-				flag = !world.getBlock(x, y, z - 1).getMaterial().isSolid();
-				break;
-			case 4:
-				flag = !world.getBlock(x + 1, y, z).getMaterial().isSolid();
-				break;
-			case 5:
-				flag = !world.getBlock(x - 1, y, z).getMaterial().isSolid();
-				break;
+			switch (meta) {
+				case 2:
+					flag = !world.getBlock(x, y, z + 1).getMaterial().isSolid();
+					break;
+				case 3:
+					flag = !world.getBlock(x, y, z - 1).getMaterial().isSolid();
+					break;
+				case 4:
+					flag = !world.getBlock(x + 1, y, z).getMaterial().isSolid();
+					break;
+				case 5:
+					flag = !world.getBlock(x - 1, y, z).getMaterial().isSolid();
+					break;
 			}
 		}
 

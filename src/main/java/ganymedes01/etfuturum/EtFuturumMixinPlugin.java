@@ -22,18 +22,18 @@ import java.util.Set;
 public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 
 	public static final MixinEnvironment.Side side = MixinEnvironment.getCurrentEnvironment().getSide();
-	
+
 	@Override
 	public void onLoad(String mixinPackage) {
 		final String configDir = "config" + File.separator + Reference.MOD_ID;
-		
+
 //      File from before Et Futurum Requiem (Not in a subdirectory)
 		File olderFile = new File(Launch.minecraftHome, "config" + File.separator + "etfuturum.cfg");
 //      File from before Et Futurum Requiem 2.2.2
 		File oldFile = new File(Launch.minecraftHome, configDir + File.separator + "etfuturum.cfg");
 
 		oldFile.getParentFile().mkdirs();
-		if(olderFile.exists()) {            
+		if (olderFile.exists()) {
 			try {
 				Files.copy(olderFile.toPath(), oldFile.toPath());
 			} catch (Exception e) {
@@ -42,17 +42,17 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 			olderFile.delete();
 			ClientEventHandler.launchConfigWarning = true;
 		}
-		
-		if(oldFile.exists()) {
+
+		if (oldFile.exists()) {
 			ClientEventHandler.launchConfigWarning = true;
 		}
 
 		ConfigBase.initializeConfigs();
-		
+
 //      if(oldFile.exists()) {
 //          ConfigBase.loadBaseConfig(oldFile);
 //      }
-		
+
 		CompatMisc.doLwjgl3ifyCompat();
 	}
 
@@ -73,21 +73,21 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 	@Override
 	public List<String> getMixins() {
 		List<String> mixins = new ArrayList<>();
-		
-		if(ConfigMixins.endPortalFix) {
+
+		if (ConfigMixins.endPortalFix) {
 			mixins.add("endportal.MixinBlockEndPortal");
 		}
-		
-		if(ConfigMixins.fenceWallConnectFix) {
+
+		if (ConfigMixins.fenceWallConnectFix) {
 			mixins.add("fencewallconnect.MixinBlockWall");
 			mixins.add("fencewallconnect.MixinBlockFence");
 		}
 
-		if(ConfigMixins.stepHeightFix) {
+		if (ConfigMixins.stepHeightFix) {
 			mixins.add("stepfix.MixinEntity");
 		}
 
-		if(ConfigMixins.enableSpectatorMode) {
+		if (ConfigMixins.enableSpectatorMode) {
 			mixins.add("spectator.MixinGameType");
 			mixins.add("spectator.MixinEntity");
 			mixins.add("spectator.MixinWorld");
@@ -102,11 +102,11 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 			}
 		}
 
-		if(ConfigMixins.avoidDroppingItemsWhenClosing) {
+		if (ConfigMixins.avoidDroppingItemsWhenClosing) {
 			mixins.add("closedrops.MixinEntityPlayerMP");
 		}
 
-		if(ConfigMixins.enableElytra) {
+		if (ConfigMixins.enableElytra) {
 			mixins.add("backlytra.MixinEntityPlayer");
 			mixins.add("backlytra.MixinEntityLivingBase");
 			mixins.add("backlytra.MixinNetHandlerPlayServer");
@@ -119,60 +119,60 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 				mixins.add("backlytra.client.MixinEntityRenderer");
 			}
 		}
-		
-		if(ConfigMixins.enableDoWeatherCycle) {
+
+		if (ConfigMixins.enableDoWeatherCycle) {
 			mixins.add("doweathercycle.MixinCommandHandler");
 			mixins.add("doweathercycle.MixinWorldInfo");
 		}
 
-		if(ConfigMixins.creativeFlightSpeedModifier > 1) {
+		if (ConfigMixins.creativeFlightSpeedModifier > 1) {
 			mixins.add("flyspeed.MixinEntityPlayer");
 		}
-		
-		if(ConfigMixins.bouncyBeds) {
+
+		if (ConfigMixins.bouncyBeds) {
 			mixins.add("bouncybeds.MixinBlockBed");
 		}
-		
-		if(ConfigMixins.newHurtSounds) {
+
+		if (ConfigMixins.newHurtSounds) {
 			mixins.add("sounds.MixinEntityPlayer");
-			if(side == MixinEnvironment.Side.CLIENT) {
+			if (side == MixinEnvironment.Side.CLIENT) {
 				mixins.add("sounds.client.MixinEntityClientPlayerMP");
 			}
 		}
-		
-		if(ConfigMixins.newMobSounds) {
+
+		if (ConfigMixins.newMobSounds) {
 			mixins.add("sounds.MixinEntitySnowman");
 			mixins.add("sounds.MixinEntitySkeleton");
 			mixins.add("sounds.MixinEntitySquid");
 			mixins.add("sounds.MixinEntityWitch");
 		}
-		
-		if(ConfigMixins.floorCeilingButtons) {
+
+		if (ConfigMixins.floorCeilingButtons) {
 			mixins.add("floorceilbutton.MixinBlockButton");
 		}
-		
-		if(ConfigMixins.newEnderEyeSounds) {
+
+		if (ConfigMixins.newEnderEyeSounds) {
 			mixins.add("sounds.MixinItemEnderEye");
 			mixins.add("sounds.MixinEntityEnderEye");
 		}
 
-		if(ConfigMixins.newEnchantingSounds) {
+		if (ConfigMixins.newEnchantingSounds) {
 			mixins.add("sounds.MixinContainerEnchantment");
 		}
 
-		if(ConfigMixins.newFishingRodSounds) {
+		if (ConfigMixins.newFishingRodSounds) {
 			mixins.add("sounds.MixinItemFishingRod");
 		}
 
-		if(ConfigMixins.newBeaconSounds) {
+		if (ConfigMixins.newBeaconSounds) {
 			mixins.add("sounds.MixinTileEntityBeacon");
 		}
 
-		if(ConfigMixins.hoeTilling) {
+		if (ConfigMixins.hoeTilling) {
 			mixins.add("sounds.MixinItemHoe");
 		}
 
-		if(ConfigMixins.enableObservers) {
+		if (ConfigMixins.enableObservers) {
 			mixins.add("observer.MixinWorld");
 			mixins.add("observer.MixinWorldServer");
 			mixins.add("observer.MixinChunk");
@@ -224,7 +224,7 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 				mixins.add("swiftsneak.client.MixinMovementInputFromOptions");
 			}
 		}
-		
+
 		return mixins;
 	}
 

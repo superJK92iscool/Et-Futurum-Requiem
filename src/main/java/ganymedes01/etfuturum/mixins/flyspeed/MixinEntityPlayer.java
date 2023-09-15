@@ -13,7 +13,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(EntityPlayer.class)
 public abstract class MixinEntityPlayer extends EntityLivingBase {
-	@Shadow public PlayerCapabilities capabilities;
+	@Shadow
+	public PlayerCapabilities capabilities;
 
 	public MixinEntityPlayer(World p_i1594_1_) {
 		super(p_i1594_1_);

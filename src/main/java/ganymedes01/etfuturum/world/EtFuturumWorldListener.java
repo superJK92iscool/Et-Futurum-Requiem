@@ -19,10 +19,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class EtFuturumWorldListener implements IWorldAccess {
-	
+
 	private final World world;
 	private static final Map<Block, Block> replacements = new HashMap<>();
-	
+
 	public EtFuturumWorldListener(World theWorld) {
 		world = theWorld;
 		if (ModBlocks.BREWING_STAND.isEnabled()) {
@@ -87,11 +87,11 @@ public class EtFuturumWorldListener implements IWorldAccess {
 
 		if (replacements.isEmpty() || !world.blockExists(x, y, z))
 			return;
-		
+
 		Block replacement;
 		TileEntity tile;
-		
-		if((replacement = replacements.get(world.getBlock(x, y, z))) == null)
+
+		if ((replacement = replacements.get(world.getBlock(x, y, z))) == null)
 			return;
 
 		tile = world.getTileEntity(x, y, z);
@@ -117,47 +117,47 @@ public class EtFuturumWorldListener implements IWorldAccess {
 	@Override
 	public void markBlockForRenderUpdate(int p_147588_1_, int p_147588_2_, int p_147588_3_) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void markBlockRangeForRenderUpdate(int p_147585_1_, int p_147585_2_, int p_147585_3_, int p_147585_4_,
-			int p_147585_5_, int p_147585_6_) {
+											  int p_147585_5_, int p_147585_6_) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void playSound(String p_72704_1_, double p_72704_2_, double p_72704_4_, double p_72704_6_, float p_72704_8_,
-			float p_72704_9_) {
+						  float p_72704_9_) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void playSoundToNearExcept(EntityPlayer p_85102_1_, String p_85102_2_, double p_85102_3_, double p_85102_5_,
-			double p_85102_7_, float p_85102_9_, float p_85102_10_) {
+									  double p_85102_7_, float p_85102_9_, float p_85102_10_) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void spawnParticle(String p_72708_1_, double p_72708_2_, double p_72708_4_, double p_72708_6_,
-			double p_72708_8_, double p_72708_10_, double p_72708_12_) {
+							  double p_72708_8_, double p_72708_10_, double p_72708_12_) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void onEntityCreate(Entity p_72703_1_) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void onEntityDestroy(Entity p_72709_1_) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -168,27 +168,27 @@ public class EtFuturumWorldListener implements IWorldAccess {
 	@Override
 	public void broadcastSound(int p_82746_1_, int p_82746_2_, int p_82746_3_, int p_82746_4_, int p_82746_5_) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void playAuxSFX(EntityPlayer p_72706_1_, int p_72706_2_, int p_72706_3_, int p_72706_4_, int p_72706_5_,
-			int p_72706_6_) {
+						   int p_72706_6_) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void destroyBlockPartially(int p_147587_1_, int p_147587_2_, int p_147587_3_, int p_147587_4_,
-			int p_147587_5_) {
+									  int p_147587_5_) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void onStaticEntitiesChanged() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

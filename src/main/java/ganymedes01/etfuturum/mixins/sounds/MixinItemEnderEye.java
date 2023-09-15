@@ -20,5 +20,6 @@ public class MixinItemEnderEye extends Item {
 
 	//Because there's actually two different throw sounds, I'll just remove one. This redirect cancels the second sound.
 	@Redirect(method = "onItemRightClick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;playAuxSFXAtEntity(Lnet/minecraft/entity/player/EntityPlayer;IIIII)V"))
-	private void removeOtherThrowSound(World world, EntityPlayer player, int int1, int int2, int int3, int int4, int int5) {}
+	private void removeOtherThrowSound(World world, EntityPlayer player, int int1, int int2, int int3, int int4, int int5) {
+	}
 }

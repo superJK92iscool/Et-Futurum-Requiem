@@ -26,15 +26,14 @@ public class BlockCutCopperSlab extends BaseSlab implements IDegradable {
 		setBlockSound(ModSounds.soundCopper);
 		setTickRandomly(true);
 	}
-	
+
 	@Override
 	public void updateTick(World world, int x, int y, int z, Random rand) {
 		tickDegradation(world, x, y, z, rand);
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityPlayer, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_)
-	{
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityPlayer, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_) {
 		return tryWaxOnWaxOff(world, x, y, z, entityPlayer);
 	}
 
@@ -46,7 +45,7 @@ public class BlockCutCopperSlab extends BaseSlab implements IDegradable {
 			getIcons()[i] = "".equals(getTypes()[i]) ? reg.registerIcon(getTextureName()) : reg.registerIcon(getTypes()[i]);
 		}
 	}
-	
+
 	@Override
 	public int getFinalCopperMeta(int copperMeta, int worldMeta) {
 		return (copperMeta - (copperMeta > 11 ? 8 : 4)) + (worldMeta > 7 ? 8 : 0);
@@ -55,7 +54,7 @@ public class BlockCutCopperSlab extends BaseSlab implements IDegradable {
 	public int getCopperMeta(int meta) {
 		return meta % 8 + (meta % 8 < 4 ? 4 : 8);
 	}
-	
+
 	public Block getCopperBlockFromMeta(int meta) {
 		return this;
 	}

@@ -25,16 +25,16 @@ public class CTBrewingFuels {
 
 		Object internal = getInternal(fuel);
 
-		if(((internal instanceof String && BrewingFuelRegistry.isFuel((String) internal)) || (internal instanceof ItemStack && BrewingFuelRegistry.isFuel((ItemStack) internal)))) {
+		if (((internal instanceof String && BrewingFuelRegistry.isFuel((String) internal)) || (internal instanceof ItemStack && BrewingFuelRegistry.isFuel((ItemStack) internal)))) {
 			final ItemStackMap<Integer> toRemove = new ItemStackMap<>();
-			for(Map.Entry<ItemStack, Integer> fuelEntry : BrewingFuelRegistry.getFuels().entrySet()) {
-				if(fuel.matches(new MCItemStack(fuelEntry.getKey()))) {
+			for (Map.Entry<ItemStack, Integer> fuelEntry : BrewingFuelRegistry.getFuels().entrySet()) {
+				if (fuel.matches(new MCItemStack(fuelEntry.getKey()))) {
 					toRemove.put(fuelEntry.getKey(), fuelEntry.getValue());
 				}
 			}
 			MineTweakerAPI.apply(new RemoveAction(toRemove));
 		} else {
-			MineTweakerAPI.logWarning("No brewing fuels for " + fuel.toString());
+			MineTweakerAPI.logWarning("No brewing fuels for " + fuel);
 		}
 	}
 
@@ -42,7 +42,7 @@ public class CTBrewingFuels {
 	public static void addFuel(IIngredient fuel, int count) {
 		List<IItemStack> items = fuel.getItems();
 		if (items == null) {
-			MineTweakerAPI.logError("Cannot turn " + fuel.toString() + " into a brewing fuel");
+			MineTweakerAPI.logError("Cannot turn " + fuel + " into a brewing fuel");
 			return;
 		}
 
@@ -78,7 +78,7 @@ public class CTBrewingFuels {
 
 		@Override
 		public void undo() {
-			for(Map.Entry<ItemStack, Integer> entry : items.entrySet()) {
+			for (Map.Entry<ItemStack, Integer> entry : items.entrySet()) {
 				BrewingFuelRegistry.registerFuel(entry.getKey(), entry.getValue());
 			}
 		}

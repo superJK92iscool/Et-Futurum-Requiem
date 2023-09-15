@@ -31,16 +31,16 @@ public class SmokerRecipeHandler extends FurnaceRecipeHandler {
 	@Override
 	public void loadCraftingRecipes(String outputId, Object... results) {
 		if (outputId.equals(getOverlayIdentifier())) {
-			if(basecache.isEmpty()) {
-			Map<ItemStack, ItemStack> furnaceSmeltingList = FurnaceRecipes.smelting().getSmeltingList();
-			ItemStackMap<ItemStack> recipes = new ItemStackMap<>();
-			for (Map.Entry<ItemStack, ItemStack> entry : furnaceSmeltingList.entrySet()) {
-				if (SmokerRecipes.smelting().canAdd(entry.getKey(), entry.getValue()))
-					recipes.put(entry.getKey(), entry.getValue());
-			}
-			recipes.putAll(SmokerRecipes.smelting().smeltingList);
+			if (basecache.isEmpty()) {
+				Map<ItemStack, ItemStack> furnaceSmeltingList = FurnaceRecipes.smelting().getSmeltingList();
+				ItemStackMap<ItemStack> recipes = new ItemStackMap<>();
+				for (Map.Entry<ItemStack, ItemStack> entry : furnaceSmeltingList.entrySet()) {
+					if (SmokerRecipes.smelting().canAdd(entry.getKey(), entry.getValue()))
+						recipes.put(entry.getKey(), entry.getValue());
+				}
+				recipes.putAll(SmokerRecipes.smelting().smeltingList);
 
-			recipes.entrySet().removeIf(stack -> SmokerRecipes.smelting().smeltingBlacklist.contains(stack.getKey()));
+				recipes.entrySet().removeIf(stack -> SmokerRecipes.smelting().smeltingBlacklist.contains(stack.getKey()));
 
 
 				for (Map.Entry<ItemStack, ItemStack> recipe : recipes.entrySet()) {
@@ -57,7 +57,7 @@ public class SmokerRecipeHandler extends FurnaceRecipeHandler {
 
 	@Override
 	public void loadCraftingRecipes(ItemStack result) {
-		if(recipecache.isEmpty()) {
+		if (recipecache.isEmpty()) {
 			Map<ItemStack, ItemStack> furnaceSmeltingList = FurnaceRecipes.smelting().getSmeltingList();
 			ItemStackMap<ItemStack> recipes = new ItemStackMap<>();
 			for (Map.Entry<ItemStack, ItemStack> entry : furnaceSmeltingList.entrySet()) {
@@ -81,7 +81,7 @@ public class SmokerRecipeHandler extends FurnaceRecipeHandler {
 
 	@Override
 	public void loadUsageRecipes(ItemStack ingredient) {
-		if(usagecache.isEmpty()) {
+		if (usagecache.isEmpty()) {
 			Map<ItemStack, ItemStack> furnaceSmeltingList = FurnaceRecipes.smelting().getSmeltingList();
 			ItemStackMap<ItemStack> recipes = new ItemStackMap<>();
 			for (Map.Entry<ItemStack, ItemStack> entry : furnaceSmeltingList.entrySet()) {

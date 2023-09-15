@@ -18,32 +18,23 @@ public class WorldGenEndGateway extends WorldGenerator {
 		int xto = x + 1;
 		int yto = y + 2;
 		int zto = z + 1;
-		for(int genx = xfrom; genx <= xto; genx++) {
-			for(int geny = yfrom; geny <= yto; geny++) {
-				for(int genz = zfrom; genz <= zto; genz++) {
+		for (int genx = xfrom; genx <= xto; genx++) {
+			for (int geny = yfrom; geny <= yto; geny++) {
+				for (int genz = zfrom; genz <= zto; genz++) {
 					boolean flag = genx == x;
 					boolean flag1 = geny == y;
 					boolean flag2 = genz == z;
 					boolean flag3 = Math.abs(geny - y) == 2;
 
-					if (flag && flag1 && flag2)
-					{
+					if (flag && flag1 && flag2) {
 						worldIn.setBlock(genx, geny, genz, ModBlocks.END_GATEWAY.get());
-					}
-					else if (flag1)
-					{
+					} else if (flag1) {
 						worldIn.setBlock(genx, geny, genz, Blocks.air);
-					}
-					else if (flag3 && flag && flag2)
-					{
+					} else if (flag3 && flag && flag2) {
 						worldIn.setBlock(genx, geny, genz, Blocks.bedrock);
-					}
-					else if ((flag || flag2) && !flag3)
-					{
+					} else if ((flag || flag2) && !flag3) {
 						worldIn.setBlock(genx, geny, genz, Blocks.bedrock);
-					}
-					else
-					{
+					} else {
 						worldIn.setBlock(genx, geny, genz, Blocks.air);
 					}
 				}

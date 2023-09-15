@@ -27,9 +27,9 @@ public class NewBoatRenderer extends Render {
 
 	@Override
 	public void doRender(Entity uncastedentity, double x, double y, double z, float entityYaw,
-			float partialTicks) {
-		if(!(uncastedentity instanceof EntityNewBoat)) return;
-		EntityNewBoat entity = (EntityNewBoat)uncastedentity;
+						 float partialTicks) {
+		if (!(uncastedentity instanceof EntityNewBoat)) return;
+		EntityNewBoat entity = (EntityNewBoat) uncastedentity;
 		GL11.glPushMatrix();
 		this.setupTranslation(x, y, z);
 		this.setupRotation(entity, entityYaw, partialTicks);
@@ -59,37 +59,31 @@ public class NewBoatRenderer extends Render {
 
 	}
 
-	public void setupRotation(EntityNewBoat p_188311_1_, float p_188311_2_, float p_188311_3_)
-	{
+	public void setupRotation(EntityNewBoat p_188311_1_, float p_188311_2_, float p_188311_3_) {
 		GL11.glRotatef(180F - p_188311_2_, 0.0F, 1.0F, 0.0F);
-		float f = (float)p_188311_1_.getTimeSinceHit() - p_188311_3_;
+		float f = (float) p_188311_1_.getTimeSinceHit() - p_188311_3_;
 		float f1 = p_188311_1_.getDamageTaken() - p_188311_3_;
 
-		if (f1 < 0.0F)
-		{
+		if (f1 < 0.0F) {
 			f1 = 0.0F;
 		}
 
-		if (f > 0.0F)
-		{
-			GL11.glRotatef(MathHelper.sin(f) * f * f1 / 10.0F * (float)p_188311_1_.getForwardDirection(), 1.0F, 0.0F, 0.0F);
+		if (f > 0.0F) {
+			GL11.glRotatef(MathHelper.sin(f) * f * f1 / 10.0F * (float) p_188311_1_.getForwardDirection(), 1.0F, 0.0F, 0.0F);
 		}
 
 		GL11.glScalef(-1.0F, -1.0F, 1.0F);
 	}
 
-	protected ResourceLocation getEntityTexture(Entity entity)
-	{
-		return BOAT_TEXTURES[entity instanceof EntityNewBoat ? ((EntityNewBoat)entity).getBoatType().ordinal() : 0];
+	protected ResourceLocation getEntityTexture(Entity entity) {
+		return BOAT_TEXTURES[entity instanceof EntityNewBoat ? ((EntityNewBoat) entity).getBoatType().ordinal() : 0];
 	}
 
-	public void setupTranslation(double p_188309_1_, double p_188309_3_, double p_188309_5_)
-	{
-		GL11.glTranslatef((float)p_188309_1_, (float)p_188309_3_ + 0.375F, (float)p_188309_5_);
+	public void setupTranslation(double p_188309_1_, double p_188309_3_, double p_188309_5_) {
+		GL11.glTranslatef((float) p_188309_1_, (float) p_188309_3_ + 0.375F, (float) p_188309_5_);
 	}
 
-	public void renderMultipass(EntityNewBoat p_188300_1_, double p_188300_2_, double p_188300_4_, double p_188300_6_, float p_188300_8_, float p_188300_9_)
-	{
+	public void renderMultipass(EntityNewBoat p_188300_1_, double p_188300_2_, double p_188300_4_, double p_188300_6_, float p_188300_8_, float p_188300_9_) {
 		GL11.glPushMatrix();
 		this.setupTranslation(p_188300_2_, p_188300_4_, p_188300_6_);
 		this.setupRotation(p_188300_1_, p_188300_8_, p_188300_9_);

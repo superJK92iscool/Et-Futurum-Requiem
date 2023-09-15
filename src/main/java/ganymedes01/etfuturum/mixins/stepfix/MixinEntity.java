@@ -13,7 +13,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Entity.class)
 public class MixinEntity {
-	@Shadow @Final public AxisAlignedBB boundingBox;
+	@Shadow
+	@Final
+	public AxisAlignedBB boundingBox;
 	private AxisAlignedBB etfu$savedBB;
 
 	@Inject(method = "moveEntity",

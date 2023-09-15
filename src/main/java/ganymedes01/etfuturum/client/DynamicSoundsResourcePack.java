@@ -46,7 +46,7 @@ public class DynamicSoundsResourcePack implements IResourcePack {
 	}
 
 	public InputStream getInputStream(ResourceLocation resLoc) throws IOException {
-		if(resLoc.getResourcePath().equals("sounds.json")) {
+		if (resLoc.getResourcePath().equals("sounds.json")) {
 			return new ByteArrayInputStream(new JsonCreator().getJson().toString().getBytes());
 		}
 		return null;
@@ -59,7 +59,8 @@ public class DynamicSoundsResourcePack implements IResourcePack {
 	private boolean resourceExistsSomewhere(ResourceLocation resLoc) {
 		try {
 			return Minecraft.getMinecraft().getResourceManager().getResource(resLoc) != null;
-		} catch (IOException e) {}
+		} catch (IOException e) {
+		}
 		return false;
 	}
 
@@ -106,22 +107,22 @@ public class DynamicSoundsResourcePack implements IResourcePack {
 		private void addSoundToCategoryWithSettings(String cat, float volume, float pitch, int weight, boolean stream, boolean isEvent, String... sounds) {
 			JsonObject soundCat = JsonUtil.getOrCreateObject(rootObject, cat);
 			JsonArray soundList = JsonUtil.getOrCreateArray(soundCat, "sounds");
-			for(String sound : sounds) {
+			for (String sound : sounds) {
 				JsonObject soundObj = new JsonObject();
 				soundObj.add("name", new JsonPrimitive(sound));
-				if(volume != 1.0F) {
+				if (volume != 1.0F) {
 					soundObj.add("volume", new JsonPrimitive(MathHelper.clamp_float(volume, 0, 1)));
 				}
-				if(pitch != 1.0F) {
+				if (pitch != 1.0F) {
 					soundObj.add("pitch", new JsonPrimitive(pitch));
 				}
-				if(weight > 1) {
+				if (weight > 1) {
 					soundObj.add("weight", new JsonPrimitive(weight));
 				}
-				if(stream) {
+				if (stream) {
 					soundObj.add("stream", new JsonPrimitive(true));
 				}
-				if(isEvent) {
+				if (isEvent) {
 					soundObj.add("type", new JsonPrimitive("event"));
 				}
 				soundList.add(soundObj);
@@ -129,7 +130,7 @@ public class DynamicSoundsResourcePack implements IResourcePack {
 		}
 
 		public JsonObject getJson() {
-			if(ConfigSounds.caveAmbience) {
+			if (ConfigSounds.caveAmbience) {
 				addSoundsToCategory("ambient.cave.cave",
 						Reference.MCAssetVer + ":ambient/cave/cave14",
 						Reference.MCAssetVer + ":ambient/cave/cave15",

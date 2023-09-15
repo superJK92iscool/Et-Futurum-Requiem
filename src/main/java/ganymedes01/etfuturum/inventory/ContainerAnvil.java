@@ -32,7 +32,7 @@ public class ContainerAnvil extends ContainerRepair {
 
 	@Override
 	public boolean canInteractWith(EntityPlayer _player) {
-		return world.getBlock(x, y, z) != ModBlocks.ANVIL.get() ? false : _player.getDistanceSq(x + 0.5D, y + 0.5D, z + 0.5D) <= 64.0D;
+		return world.getBlock(x, y, z) == ModBlocks.ANVIL.get() && _player.getDistanceSq(x + 0.5D, y + 0.5D, z + 0.5D) <= 64.0D;
 	}
 
 	@Override
@@ -183,7 +183,7 @@ public class ContainerAnvil extends ContainerRepair {
 
 			boolean wasFixed = i > 0;
 			boolean wasRenamed = false;
-			
+
 			if (itemstack1 != null) {
 				if (StringUtils.isBlank(repairedItemName)) {
 					if (itemstack.hasDisplayName())

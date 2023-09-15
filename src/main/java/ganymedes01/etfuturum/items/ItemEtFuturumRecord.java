@@ -13,11 +13,10 @@ public class ItemEtFuturumRecord extends ItemRecord {
 		setUnlocalizedName("record");
 		setCreativeTab(EtFuturum.creativeTabItems);
 	}
-	
+
 	@Override
-	public ResourceLocation getRecordResource(String name)
-	{
+	public ResourceLocation getRecordResource(String name) {
 		return new ResourceLocation(Reference.MCAssetVer + ":music_disc." + recordName);
 	}
-	
+
 }

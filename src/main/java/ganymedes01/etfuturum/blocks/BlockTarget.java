@@ -45,10 +45,10 @@ public class BlockTarget extends BaseBlock {
 
 	@Override
 	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity e) {
-		if(world.isRemote)
+		if (world.isRemote)
 			return;
 		int power = world.getBlockMetadata(x, y, z);
-		if(power == 0 && e instanceof IProjectile) {
+		if (power == 0 && e instanceof IProjectile) {
 			int newMeta = determinePower(world, x, y, z, e);
 			world.setBlockMetadataWithNotify(x, y, z, newMeta, 3);
 			int delay = e instanceof EntityArrow ? 20 : 8;
@@ -67,7 +67,7 @@ public class BlockTarget extends BaseBlock {
 			double yDiff = Math.abs(fractionalPos(hit.hitVec.yCoord) - 0.5);
 			double zDiff = Math.abs(fractionalPos(hit.hitVec.zCoord) - 0.5);
 			double finalDiff;
-			switch(hit.sideHit) {
+			switch (hit.sideHit) {
 				default:
 				case 0:
 				case 1:

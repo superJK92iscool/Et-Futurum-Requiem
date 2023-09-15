@@ -10,7 +10,7 @@ import java.util.Set;
 
 public class ConfigSounds extends ConfigBase {
 
-	private static final String[] DEFAULT_CUSTOM_ARMOR_EQUIP_RULES = new String[] {
+	private static final String[] DEFAULT_CUSTOM_ARMOR_EQUIP_RULES = new String[]{
 			"leather:thermal_padding",
 			"leather:wool",
 			"chain:cultist",
@@ -146,18 +146,18 @@ public class ConfigSounds extends ConfigBase {
 		netherAmbience = getBoolean("netherAmbience", catAmbient, true, "Play new ambience in the Nether.");
 		rainSounds = getBoolean("rainSounds", catAmbient, true, "Replace rain sounds with new, calm ones introduced in 1.11+");
 		caveAmbience = getBoolean("caveAmbience", catAmbient, true, "Add new cave ambience, adding more eerie cave sounds that occasionally play underground or in dark areas.");
-		
+
 		thornsSounds = getBoolean("thornsSounds", catEntity, true, "New sounds for being hurt by the Thorns enchantment.");
 		horseEatCowMilk = getBoolean("horseEatCowMilk", catEntity, true, "Sounds for horses eating food and cows being milked.");
 		heavyWaterSplashing = getBoolean("heavyWaterSplashing", catEntity, true, "Play a more intense splash when the player lands in water at high speeds.");
 
 		bookPageTurn = getBoolean("bookPageTurn", catMisc, true, "Changes the click in the book GUI to have a page turn sound instead of the menu click.");
-		
+
 		Property newArmorEquipCustomRulesProp = get(catPlayer, "armorEquipCustomRules", DEFAULT_CUSTOM_ARMOR_EQUIP_RULES);
 		newArmorEquipCustomRulesProp.comment = "Used for custom armor to play custom equip sounds. First the sound you want to play, a colon, then a part of the unlocalized name. The string can be anywhere in the unlocalized name and is not case-sensitive.\nFor example, one of the default custom rules below is \"gold:copper\", which means any armor with \"copper\" anywhere in its unlocalized name will get the gold equip sound.\nAvailable sounds are: 'leather, chain, gold, iron, diamond, netherite, elytra, turtle_helmet, generic, none'. If a modded armor is not on the list it will use generic equip sounds automatically unless it's given the \"none\" type. Non-armor gear will not play a sound unless specified to do so.";
 
-		for(String rule : newArmorEquipCustomRulesProp.getStringList()) {
-			if(rule.split(":").length != 1 && !rule.startsWith("leather") && !rule.startsWith("chain") && !rule.startsWith("gold") && !rule.startsWith("iron") && !rule.startsWith("diamond") &&
+		for (String rule : newArmorEquipCustomRulesProp.getStringList()) {
+			if (rule.split(":").length != 1 && !rule.startsWith("leather") && !rule.startsWith("chain") && !rule.startsWith("gold") && !rule.startsWith("iron") && !rule.startsWith("diamond") &&
 					!rule.startsWith("netherite") && !rule.startsWith("elytra") && !rule.startsWith("turtle_helmet") && !rule.startsWith("generic") && !rule.startsWith("none")) {
 				Logger.error("Custom armor rule entry " + rule + " is invalid. Each entry should have ONE colon (:) and should start with a material type. Skipping.");
 				continue;
@@ -165,7 +165,7 @@ public class ConfigSounds extends ConfigBase {
 
 			String material = rule.split(":")[1].toLowerCase();
 
-			if(rule.startsWith("leather")) {
+			if (rule.startsWith("leather")) {
 				newArmorEquipCustomRulesLeather.add(material);
 			} else if (rule.startsWith("chain")) {
 				newArmorEquipCustomRulesChain.add(material);

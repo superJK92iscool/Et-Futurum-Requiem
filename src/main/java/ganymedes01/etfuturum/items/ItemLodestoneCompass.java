@@ -15,26 +15,23 @@ public class ItemLodestoneCompass extends Item {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister p_149651_1_)
-	{
+	public void registerIcons(IIconRegister p_149651_1_) {
 		frames = new IIcon[32];
-		for(int i = 0; i < frames.length; i++) {
+		for (int i = 0; i < frames.length; i++) {
 			frames[i] = p_149651_1_.registerIcon(getIconString() + "_" + String.format("%02d", i));
 		}
 		itemIcon = frames[0];
 	}
 
 	@SideOnly(Side.CLIENT)
-	public boolean hasEffect(ItemStack p_77636_1_)
-	{
+	public boolean hasEffect(ItemStack p_77636_1_) {
 		return true;
 	}
 
 	/**
 	 * Return an item rarity from EnumRarity
 	 */
-	public EnumRarity getRarity(ItemStack p_77613_1_)
-	{
+	public EnumRarity getRarity(ItemStack p_77613_1_) {
 		return EnumRarity.common;
 	}
 }

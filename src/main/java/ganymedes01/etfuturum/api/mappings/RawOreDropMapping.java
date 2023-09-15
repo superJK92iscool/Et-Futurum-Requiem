@@ -20,21 +20,21 @@ public class RawOreDropMapping extends RegistryMapping<Item> {
 	 */
 	public RawOreDropMapping(Item ore, int meta) {
 		super(ore, meta);
-		for(int oreID : OreDictionary.getOreIDs(new ItemStack(ore, 1, meta))) {
+		for (int oreID : OreDictionary.getOreIDs(new ItemStack(ore, 1, meta))) {
 			String oreName = OreDictionary.getOreName(oreID);
-			if(oreName != null && oreName.startsWith("ore")) {
+			if (oreName != null && oreName.startsWith("ore")) {
 				this.exdrops = ArrayUtils.contains(ConfigFunctions.extraDropRawOres, oreName);
-				if(exdrops) {
+				if (exdrops) {
 					break;
 				}
 			}
 		}
 	}
-	
+
 	public boolean getDropsExtra() {
 		return exdrops;
 	}
-	
+
 	public int getDropAmount(Random rand, int fortune) {
 		return getDropsExtra() ? rand.nextInt(3 * (fortune + 1) - 1) + 2 : rand.nextInt(1 + fortune) + 1;
 	}

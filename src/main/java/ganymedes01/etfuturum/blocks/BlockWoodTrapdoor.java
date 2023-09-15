@@ -11,7 +11,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
 
 public class BlockWoodTrapdoor extends BlockTrapDoor {
-	
+
 	private final int meta;
 
 	public BlockWoodTrapdoor(int meta) {
@@ -22,7 +22,7 @@ public class BlockWoodTrapdoor extends BlockTrapDoor {
 		setStepSound(soundTypeWood);
 		setBlockName(Utils.getUnlocalisedName("trapdoor_" + BlockWoodDoor.names[meta]));
 		setCreativeTab(EtFuturum.creativeTabBlocks);
-		
+
 	}
 	/*
 	@Override
@@ -31,13 +31,13 @@ public class BlockWoodTrapdoor extends BlockTrapDoor {
 		return Blocks.planks.getIcon(side, this.meta);
 	}
 	*/
-	
+
 	public IIcon[] icon = new IIcon[6];
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister ir) {
-		
+
 		//this.icon[0] = ir.registerIcon("minecraft:trapdoor");
 		this.icon[1] = ir.registerIcon("minecraft:spruce_trapdoor");
 		this.icon[2] = ir.registerIcon("minecraft:birch_trapdoor");
@@ -45,17 +45,16 @@ public class BlockWoodTrapdoor extends BlockTrapDoor {
 		this.icon[4] = ir.registerIcon("minecraft:acacia_trapdoor");
 		this.icon[5] = ir.registerIcon("minecraft:dark_oak_trapdoor");
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int _meta) {
 		return this.icon[this.meta];
 	}
 
-	
+
 	@Override
-	public int getRenderType()
-	{
+	public int getRenderType() {
 		return RenderIDs.TRAP_DOOR;
 	}
 

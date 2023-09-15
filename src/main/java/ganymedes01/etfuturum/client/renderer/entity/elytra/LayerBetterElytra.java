@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Quark Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Quark
- *
+ * <p>
  * Quark is Open Source and distributed under the
  * [ADD-LICENSE-HERE]
- *
+ * <p>
  * File Created @ [21/03/2016, 00:14:23 (GMT)]
  */
 package ganymedes01.etfuturum.client.renderer.entity.elytra;

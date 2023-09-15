@@ -53,9 +53,9 @@ public class BlockSculkCatalyst extends BaseBlock {
 	@Override
 	public IIcon getIcon(int side, int meta) {
 		boolean bloom = meta == 1;
-		if(side == 1) {
+		if (side == 1) {
 			return bloom ? topBloomIcon : topIcon;
-		} else if(side == 0) {
+		} else if (side == 0) {
 			return bottomIcon;
 		} else {
 			return bloom ? sideBloomIcon : blockIcon;

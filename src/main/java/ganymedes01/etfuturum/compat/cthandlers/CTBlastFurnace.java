@@ -17,7 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-/** Remember blast furnace recipes are output, THEN input, not input then output
+/**
+ * Remember blast furnace recipes are output, THEN input, not input then output
  * mods.etfuturum.blastFurnace.addRecipe(<minecraft:gold_block>, <minecraft:iron_block>, 4.0D);
  * mods.etfuturum.blastFurnace.remove(<minecraft:gold_ore>, <minecraft:gold_ingot>);
  */
@@ -49,7 +50,7 @@ public class CTBlastFurnace {
 		}
 
 		if (toRemove.isEmpty()) {
-			MineTweakerAPI.logWarning("No blast furnace recipes for " + output.toString());
+			MineTweakerAPI.logWarning("No blast furnace recipes for " + output);
 		} else {
 			MineTweakerAPI.apply(new RemoveAction(toRemove, toRemoveValues, toRemoveExperiences));
 		}
@@ -69,7 +70,7 @@ public class CTBlastFurnace {
 	public static void addRecipe(IItemStack output, IIngredient input, double xp) {
 		List<IItemStack> items = input.getItems();
 		if (items == null) {
-			MineTweakerAPI.logError("Cannot turn " + input.toString() + " into a blast furnace recipe");
+			MineTweakerAPI.logError("Cannot turn " + input + " into a blast furnace recipe");
 		}
 
 		ItemStack[] items2 = CompatCraftTweaker.getItemStacks(items);

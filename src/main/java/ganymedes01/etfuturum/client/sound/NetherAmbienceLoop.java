@@ -20,13 +20,13 @@ public class NetherAmbienceLoop extends PositionedSound implements ITickableSoun
 
 	@Override
 	public void update() {
-		if(isStopping) {
+		if (isStopping) {
 			volume -= 0.02F;
 		} else if (volume != 1 && (volume += 0.02F) > 1) {
 			volume = 1;
 		}
 	}
-	
+
 	public void stop() {
 		isStopping = true;
 	}

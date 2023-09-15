@@ -50,7 +50,7 @@ public class EntityTippedArrow extends EntityArrow implements IEntityAdditionalS
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
-		
+
 		if (this.worldObj.isRemote) {
 			if (this.inGround) {
 				if (this.ticksInGround % 5 == 0) {
@@ -61,40 +61,33 @@ public class EntityTippedArrow extends EntityArrow implements IEntityAdditionalS
 			}
 		}
 	}
-	
+
 	private void spawnPotionParticles(int particleCount) {
-		if(isEffectValid() && particleCount > 0) {
+		if (isEffectValid() && particleCount > 0) {
 			Color colour = new Color(ModItems.TIPPED_ARROW.get().getColorFromItemStack(arrow, 0));
 
 			for (int j = 0; j < particleCount; ++j) {
-				this.worldObj.spawnParticle("mobSpell", this.posX + (this.rand.nextDouble() - 0.5D) * (double)this.width, this.posY + this.rand.nextDouble() * (double)this.height - (double)this.yOffset, this.posZ + (this.rand.nextDouble() - 0.5D) * (double)this.width, colour.getRed() / 255F, colour.getGreen() / 255F, colour.getBlue() / 255F);
+				this.worldObj.spawnParticle("mobSpell", this.posX + (this.rand.nextDouble() - 0.5D) * (double) this.width, this.posY + this.rand.nextDouble() * (double) this.height - (double) this.yOffset, this.posZ + (this.rand.nextDouble() - 0.5D) * (double) this.width, colour.getRed() / 255F, colour.getGreen() / 255F, colour.getBlue() / 255F);
 			}
 		}
 	}
 
-	public void readEntityFromNBT(NBTTagCompound p_70037_1_)
-	{
+	public void readEntityFromNBT(NBTTagCompound p_70037_1_) {
 		super.readEntityFromNBT(p_70037_1_);
 
-		if (p_70037_1_.hasKey("Potion", 10))
-		{
+		if (p_70037_1_.hasKey("Potion", 10)) {
 			this.arrow = ItemStack.loadItemStackFromNBT(p_70037_1_.getCompoundTag("Potion"));
-		}
-		else
-		{
+		} else {
 			this.setPotionDamage(p_70037_1_.getInteger("potionValue"));
 		}
 
-		if (this.arrow == null)
-		{
+		if (this.arrow == null) {
 			this.setDead();
 		}
 	}
 
-	public void setPotionDamage(int p_82340_1_)
-	{
-		if (this.arrow == null)
-		{
+	public void setPotionDamage(int p_82340_1_) {
+		if (this.arrow == null) {
 			this.arrow = ModItems.TIPPED_ARROW.newItemStack(1, 0);
 		}
 
@@ -104,12 +97,10 @@ public class EntityTippedArrow extends EntityArrow implements IEntityAdditionalS
 	/**
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
-	public void writeEntityToNBT(NBTTagCompound p_70014_1_)
-	{
+	public void writeEntityToNBT(NBTTagCompound p_70014_1_) {
 		super.writeEntityToNBT(p_70014_1_);
 
-		if (this.arrow != null)
-		{
+		if (this.arrow != null) {
 			p_70014_1_.setTag("Potion", this.arrow.writeToNBT(new NBTTagCompound()));
 		}
 	}
@@ -132,7 +123,7 @@ public class EntityTippedArrow extends EntityArrow implements IEntityAdditionalS
 			}
 		}
 	}
-	
+
 	@Override
 	public void writeSpawnData(ByteBuf buffer) {
 		buffer.writeFloat(rotationYaw);
@@ -145,10 +136,10 @@ public class EntityTippedArrow extends EntityArrow implements IEntityAdditionalS
 		buffer.writeDouble(motionZ);
 
 		PacketBuffer pb = new PacketBuffer(buffer);
-		
+
 		try {
 			pb.writeItemStackToBuffer(arrow);
-		} catch(IOException e) {
+		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
 	}
@@ -167,10 +158,10 @@ public class EntityTippedArrow extends EntityArrow implements IEntityAdditionalS
 		posZ -= MathHelper.sin(rotationYaw / 180.0F * (float) Math.PI) * 0.16F;
 
 		PacketBuffer pb = new PacketBuffer(buffer);
-		
+
 		try {
 			arrow = pb.readItemStackFromBuffer();
-		} catch(IOException e) {
+		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
 	}

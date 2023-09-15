@@ -40,7 +40,7 @@ public class CommonProxy implements IGuiHandler {
 	public void registerEvents() {
 		FMLCommonHandler.instance().bus().register(ServerEventHandler.INSTANCE);
 		MinecraftForge.EVENT_BUS.register(ServerEventHandler.INSTANCE);
-		
+
 		FMLCommonHandler.instance().bus().register(WorldEventHandler.INSTANCE);
 		MinecraftForge.TERRAIN_GEN_BUS.register(WorldEventHandler.INSTANCE);
 
@@ -122,7 +122,7 @@ public class CommonProxy implements IGuiHandler {
 			EntityRegistry.addSpawn(EntityEnderman.class, 1, 4, 4, EnumCreatureType.monster, BiomeDictionary.getBiomesForType(Type.NETHER));
 			EntityEnderman.setCarriable(Blocks.netherrack, true);
 		}
-		
+
 		if (ConfigBlocksItems.enableLingeringPotions) {
 			ModEntityList.registerEntity(EntityLingeringPotion.class, "lingering_potion", 6, EtFuturum.instance, 64, 10, true);
 			ModEntityList.registerEntity(EntityLingeringEffect.class, "lingering_effect", 7, EtFuturum.instance, 64, 1, true);
@@ -138,17 +138,17 @@ public class CommonProxy implements IGuiHandler {
 
 		if (ConfigEntities.enableShearableSnowGolems)
 			ModEntityList.registerEntity(EntityNewSnowGolem.class, "snow_golem", 11, EtFuturum.instance, 80, 3, true);
-		
+
 		if (ConfigEntities.enableBrownMooshroom)
 			ModEntityList.registerEntity(EntityBrownMooshroom.class, "brown_mooshroom", 12, EtFuturum.instance, 80, 3, true);
-		
+
 		ModEntityList.registerEntity(EntityItemUninflammable.class, "fireproof_item", 15, EtFuturum.instance, 64, 1, true);
-		
-		if(ConfigEntities.enableShulker) {
+
+		if (ConfigEntities.enableShulker) {
 			ModEntityList.registerEntity(EntityShulker.class, "shulker", 16, EtFuturum.instance, 80, 1, false, 0x946794, 0x4D3852);
 			ModEntityList.registerEntity(EntityShulkerBullet.class, "shulker_candy", 17, EtFuturum.instance, 64, 1, true);
 
-			if(ConfigTweaks.shulkersSpawnAnywhere) {
+			if (ConfigTweaks.shulkersSpawnAnywhere) {
 				EntityRegistry.addSpawn(EntityShulker.class, 2, 1, 2, EnumCreatureType.monster, BiomeDictionary.getBiomesForType(Type.END));
 			}
 		}
@@ -175,7 +175,7 @@ public class CommonProxy implements IGuiHandler {
 		EntityRegistry.removeSpawn(EntityMagmaCube.class, EnumCreatureType.monster, BiomeGenBase.hell);
 		EntityRegistry.addSpawn(EntityMagmaCube.class, 2, 4, 4, EnumCreatureType.monster, BiomeGenBase.hell);
 	}
-	
+
 	public void registerRenderers() {
 	}
 
@@ -198,10 +198,11 @@ public class CommonProxy implements IGuiHandler {
 				return new ContainerChestGeneric(player.inventory, (TileEntityShulkerBox) world.getTileEntity(x, y, z), ((TileEntityShulkerBox) world.getTileEntity(x, y, z)).getRowSize(), ((TileEntityShulkerBox) world.getTileEntity(x, y, z)).getSizeInventory() != 27);
 			case GUIsID.SMITHING_TABLE:
 				return new ContainerSmithingTable(player.inventory, world);
-			default: return null;
+			default:
+				return null;
 		}
 	}
-	
+
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		switch (ID) {

@@ -135,7 +135,7 @@ public class ItemLingeringPotion extends ItemPotion {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({"rawtypes", "unchecked"})
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean isComplex) {
 		if (stack.getItemDamage() == 0)
 			return;
@@ -185,10 +185,10 @@ public class ItemLingeringPotion extends ItemPotion {
 					d1 = attributemodifier2.getAmount() * 100.0D;
 
 				if (d0 > 0.0D)
-					list.add(EnumChatFormatting.BLUE + StatCollector.translateToLocalFormatted("attribute.modifier.plus." + attributemodifier2.getOperation(), new Object[] { ItemStack.field_111284_a.format(d1), StatCollector.translateToLocal("attribute.name." + entry1.getKey()) }));
+					list.add(EnumChatFormatting.BLUE + StatCollector.translateToLocalFormatted("attribute.modifier.plus." + attributemodifier2.getOperation(), new Object[]{ItemStack.field_111284_a.format(d1), StatCollector.translateToLocal("attribute.name." + entry1.getKey())}));
 				else if (d0 < 0.0D) {
 					d1 *= -1.0D;
-					list.add(EnumChatFormatting.RED + StatCollector.translateToLocalFormatted("attribute.modifier.take." + attributemodifier2.getOperation(), new Object[] { ItemStack.field_111284_a.format(d1), StatCollector.translateToLocal("attribute.name." + entry1.getKey()) }));
+					list.add(EnumChatFormatting.RED + StatCollector.translateToLocalFormatted("attribute.modifier.take." + attributemodifier2.getOperation(), new Object[]{ItemStack.field_111284_a.format(d1), StatCollector.translateToLocal("attribute.name." + entry1.getKey())}));
 				}
 			}
 		}
@@ -196,7 +196,7 @@ public class ItemLingeringPotion extends ItemPotion {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({"rawtypes", "unchecked"})
 	public void getSubItems(Item item, CreativeTabs tab, List list) {
 		List<ItemStack> potions = new ArrayList<ItemStack>();
 		super.getSubItems(item, tab, potions);

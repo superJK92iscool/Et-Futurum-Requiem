@@ -77,7 +77,8 @@ public class TileEntityBannerRenderer extends TileEntitySpecialRenderer {
 		public long time;
 		public ResourceLocation texture;
 
-		TimedBannerTexture() {}
+		TimedBannerTexture() {
+		}
 	}
 
 	@Override

@@ -91,11 +91,12 @@ public enum ModItems {
 	 */
 
 	//D-Mod
-	@Deprecated public static final Item sweet_berries = SWEET_BERRIES.get();
+	@Deprecated
+	public static final Item sweet_berries = SWEET_BERRIES.get();
 
 	public static void init() {
-		for(ModItems item : values()) {
-			if(item.isEnabled()) { //Honestly what do you think it's doing lmfao
+		for (ModItems item : values()) {
+			if (item.isEnabled()) { //Honestly what do you think it's doing lmfao
 				GameRegistry.registerItem(item.get(), item.name().toLowerCase());
 			}
 		}
@@ -112,6 +113,7 @@ public enum ModItems {
 	public boolean isEnabled() {
 		return isEnabled;
 	}
+
 	public Item get() {
 		return theItem;
 	}

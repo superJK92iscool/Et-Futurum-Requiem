@@ -24,7 +24,7 @@ public class BlockLoom extends Block {
 	private IIcon sideIcon;
 	@SideOnly(Side.CLIENT)
 	private IIcon bottomIcon;
-	
+
 	public BlockLoom() {
 		super(Material.wood);
 		this.setStepSound(soundTypeWood);
@@ -37,8 +37,7 @@ public class BlockLoom extends Block {
 	}
 
 	@Override
-	public void onBlockPlacedBy(World p_149689_1_, int p_149689_2_, int p_149689_3_, int p_149689_4_, EntityLivingBase p_149689_5_, ItemStack p_149689_6_)
-	{
+	public void onBlockPlacedBy(World p_149689_1_, int p_149689_2_, int p_149689_3_, int p_149689_4_, EntityLivingBase p_149689_5_, ItemStack p_149689_6_) {
 		int ordinal = MathHelper.floor_double((double) (p_149689_5_.rotationYaw / 90.0F) + 0.5D) & 3;
 		switch (ordinal) {
 			case 1:
@@ -54,40 +53,37 @@ public class BlockLoom extends Block {
 
 		p_149689_1_.setBlockMetadataWithNotify(p_149689_2_, p_149689_3_, p_149689_4_, ordinal, 2);
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(int p_149691_1_, int p_149691_2_)
-	{
+	public IIcon getIcon(int p_149691_1_, int p_149691_2_) {
 		return p_149691_1_ == 1 ? this.topIcon : (p_149691_1_ == 0 ? this.bottomIcon : (p_149691_1_ != p_149691_2_ + 2 ? this.sideIcon : this.blockIcon));
 	}
 
 	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister p_149651_1_)
-	{
+	public void registerBlockIcons(IIconRegister p_149651_1_) {
 		this.blockIcon = p_149651_1_.registerIcon(this.getTextureName() + "_front");
 		this.topIcon = p_149651_1_.registerIcon(this.getTextureName() + "_top");
 		this.sideIcon = p_149651_1_.registerIcon(this.getTextureName() + "_side");
 		this.bottomIcon = p_149651_1_.registerIcon(this.getTextureName() + "_bottom");
 	}
-	
+
 	@Override
 	public boolean isFlammable(IBlockAccess aWorld, int aX, int aY, int aZ, ForgeDirection aSide) {
 		return true;
 	}
-	
+
 	@Override
 	public int getFlammability(IBlockAccess aWorld, int aX, int aY, int aZ, ForgeDirection aSide) {
 		return 5;
 	}
-	
+
 	@Override
 	public int getFireSpreadSpeed(IBlockAccess aWorld, int aX, int aY, int aZ, ForgeDirection aSide) {
 		return 20;
 	}
-	
-	public int getRenderType()
-	{
+
+	public int getRenderType() {
 		return RenderIDs.LOOM;
 	}
 

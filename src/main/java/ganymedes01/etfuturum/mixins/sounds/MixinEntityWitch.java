@@ -18,26 +18,22 @@ public class MixinEntityWitch extends EntityMob {
 	}
 
 	@Inject(method = "onLivingUpdate", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemPotion;getEffects(Lnet/minecraft/item/ItemStack;)Ljava/util/List;"))
-	public void playDrinkSound(CallbackInfo ci)
-	{
-		this.playSound(Reference.MCAssetVer+":entity.witch.drink", getSoundVolume(), getSoundPitch());
+	public void playDrinkSound(CallbackInfo ci) {
+		this.playSound(Reference.MCAssetVer + ":entity.witch.drink", getSoundVolume(), getSoundPitch());
 	}
 
 	@Overwrite
-	protected String getHurtSound()
-	{
+	protected String getHurtSound() {
 		return Reference.MCAssetVer + ":entity.witch.hurt";
 	}
 
 	@Overwrite
-	protected String getDeathSound()
-	{
+	protected String getDeathSound() {
 		return Reference.MCAssetVer + ":entity.witch.death";
 	}
 
 	@Overwrite
-	protected String getLivingSound()
-	{
+	protected String getLivingSound() {
 		return Reference.MCAssetVer + ":entity.witch.ambient";
 	}
 

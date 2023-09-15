@@ -21,7 +21,8 @@ public class ContainerSmithingTable extends Container {
 		addSlotToContainer(applicant);
 		addSlotToContainer(ingot);
 		result = addSlotToContainer(new SlotSmithingResult(inv.player, inputMatrix, resultInventory, 2, 134, 47));
-		for (int y = 0; y < 3; y++) for (int x = 0; x < 9; x++) addSlotToContainer(new Slot(inv, x + y * 9 + 9, 8 + x * 18, 84 + y * 18));
+		for (int y = 0; y < 3; y++)
+			for (int x = 0; x < 9; x++) addSlotToContainer(new Slot(inv, x + y * 9 + 9, 8 + x * 18, 84 + y * 18));
 		for (int y = 0; y < 9; y++) addSlotToContainer(new Slot(inv, y, 8 + y * 18, 142));
 	}
 
@@ -58,7 +59,7 @@ public class ContainerSmithingTable extends Container {
 			merged = tryUpper(newStack) || mergeItemStack(newStack, 3, 30, false);
 		}
 		if (!merged) return null;
-		if (newStack.stackSize == 0){
+		if (newStack.stackSize == 0) {
 			slot.putStack(null);
 		} else slot.onSlotChanged();
 		slot.onPickupFromSlot(player, newStack);
@@ -75,7 +76,7 @@ public class ContainerSmithingTable extends Container {
 		return !applicant.getHasStack() && mergeItemStack(newStack, 1, 1, false) || !ingot.getHasStack() && mergeItemStack(newStack, 0, 2, false);
 	}
 
-	public boolean unable(){
+	public boolean unable() {
 		return (applicant.getHasStack() || ingot.getHasStack()) && !result.getHasStack();
 	}
 }

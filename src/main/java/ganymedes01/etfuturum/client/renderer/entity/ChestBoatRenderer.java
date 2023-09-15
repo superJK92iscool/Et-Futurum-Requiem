@@ -7,6 +7,7 @@ import org.lwjgl.opengl.GL11;
 
 public class ChestBoatRenderer extends NewBoatRenderer {
 	private final TileEntityChest chest = new TileEntityChest();
+
 	@Override
 	protected void renderExtraBoatContents(EntityNewBoat boat, float partialTicks) {
 		GL11.glRotatef(180f, 0f, 1f, 0f);

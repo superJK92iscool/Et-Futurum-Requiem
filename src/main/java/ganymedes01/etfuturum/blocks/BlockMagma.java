@@ -24,26 +24,24 @@ public class BlockMagma extends BaseBlock {
 		setNames("magma$i");
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
-	
+
 	public static final DamageSource HOT_FLOOR = (new DamageSource("hotFloor")).setFireDamage();
-	
+
 	@Override
 	public boolean isFireSource(World world, int x, int y, int z, ForgeDirection side) {
 		return side == UP;
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void randomDisplayTick(World world, int x, int y, int z, Random rand) {
-		Block block1 = world.getBlock(x, y+1, z);
-		Block block2 = world.getBlock(x, y+2, z);
-		
-		if ((block1 == Blocks.water || block1 == Blocks.flowing_water) && block2.isAir(world, x, y+2, z)) {
+		Block block1 = world.getBlock(x, y + 1, z);
+		Block block2 = world.getBlock(x, y + 2, z);
+
+		if ((block1 == Blocks.water || block1 == Blocks.flowing_water) && block2.isAir(world, x, y + 2, z)) {
 			world.spawnParticle("explode", x + 0.5D, y + 1.0D, z + 0.5D, 0.0D, 0.0D, 0.0D);
-		}
-		
-		else if ((block1 == Blocks.water || block1 == Blocks.flowing_water) && 
-				(block2 == Blocks.water || block2 == Blocks.flowing_water) ) {
+		} else if ((block1 == Blocks.water || block1 == Blocks.flowing_water) &&
+				(block2 == Blocks.water || block2 == Blocks.flowing_water)) {
 			world.spawnParticle("bubble", x + 0.5D, y + 1.1D, z + 0.5D, 0.0D, 1.0D, 0.0D);
 		}
 	}

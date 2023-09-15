@@ -19,15 +19,15 @@ public class EnchantingFuelRegistry {
 	}
 
 	public static void registerFuel(Object itemObj) {
-		if(itemObj instanceof ItemStack) {
+		if (itemObj instanceof ItemStack) {
 			FUEL_REGISTRY.add(((ItemStack) itemObj).copy());
-		} else if(itemObj instanceof String) {
-			for(ItemStack oreStack : OreDictionary.getOres((String) itemObj)) {
+		} else if (itemObj instanceof String) {
+			for (ItemStack oreStack : OreDictionary.getOres((String) itemObj)) {
 				FUEL_REGISTRY.add(oreStack.copy());
 			}
-		} else if(itemObj instanceof Item) {
-			FUEL_REGISTRY.add(new ItemStack((Item)itemObj, 1, OreDictionary.WILDCARD_VALUE));
-		} else if(itemObj instanceof Block && Item.getItemFromBlock((Block) itemObj) != null) {
+		} else if (itemObj instanceof Item) {
+			FUEL_REGISTRY.add(new ItemStack((Item) itemObj, 1, OreDictionary.WILDCARD_VALUE));
+		} else if (itemObj instanceof Block && Item.getItemFromBlock((Block) itemObj) != null) {
 			FUEL_REGISTRY.add(new ItemStack(Item.getItemFromBlock((Block) itemObj), 1, OreDictionary.WILDCARD_VALUE));
 		} else {
 			throw new IllegalArgumentException("Tried to add " + itemObj + "as an enchanting fuel, which is not an Itemstack, item, block or string.");
@@ -39,7 +39,7 @@ public class EnchantingFuelRegistry {
 	}
 
 	public static void remove(String fuelOreDict) {
-		for(ItemStack stack : OreDictionary.getOres(fuelOreDict)) {
+		for (ItemStack stack : OreDictionary.getOres(fuelOreDict)) {
 			remove(stack);
 		}
 	}
@@ -49,8 +49,8 @@ public class EnchantingFuelRegistry {
 	}
 
 	public static boolean isFuel(String fuelOreDict) {
-		for(ItemStack stack : OreDictionary.getOres(fuelOreDict)) {
-			if(isFuel(stack)) return true;
+		for (ItemStack stack : OreDictionary.getOres(fuelOreDict)) {
+			if (isFuel(stack)) return true;
 		}
 		return false;
 	}

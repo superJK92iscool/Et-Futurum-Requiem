@@ -35,8 +35,7 @@ public class BlockEndRod extends Block {
 	}
 
 	@SideOnly(Side.CLIENT)
-	public void randomDisplayTick(World world, int x, int y, int z, Random random)
-	{
+	public void randomDisplayTick(World world, int x, int y, int z, Random random) {
 		AxisAlignedBB bb = getCollisionBoundingBoxFromPool(world, x, y, z);
 		double px = bb.minX + (random.nextDouble() * (bb.maxX - bb.minX));
 		double py = bb.minY + (random.nextDouble() * (bb.maxY - bb.minY));
@@ -57,21 +56,20 @@ public class BlockEndRod extends Block {
 		else if (dir == ForgeDirection.NORTH || dir == ForgeDirection.SOUTH)
 			setBlockBounds(0.375F, 0.375F, 0.0F, 0.625F, 0.625F, 1.0F);
 	}
-	
+
 	@Override
-	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z)
-	{
+	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
 		ForgeDirection dir = ForgeDirection.getOrientation(world.getBlockMetadata(x, y, z) % 6);
 
 		if (dir == ForgeDirection.DOWN || dir == ForgeDirection.UP)
-			return AxisAlignedBB.getBoundingBox(x+0.375F, y+0.0F, z+0.375F, x+0.625F, y+1.0F, z+0.625F);
+			return AxisAlignedBB.getBoundingBox(x + 0.375F, y + 0.0F, z + 0.375F, x + 0.625F, y + 1.0F, z + 0.625F);
 		else if (dir == ForgeDirection.WEST || dir == ForgeDirection.EAST)
-			return AxisAlignedBB.getBoundingBox(x+0.0F, y+0.375F, z+0.375F, x+1.0F, y+0.625F, z+0.625F);
+			return AxisAlignedBB.getBoundingBox(x + 0.0F, y + 0.375F, z + 0.375F, x + 1.0F, y + 0.625F, z + 0.625F);
 		else if (dir == ForgeDirection.NORTH || dir == ForgeDirection.SOUTH)
-			return AxisAlignedBB.getBoundingBox(x+0.375F, y+0.375F, z+0.0F, x+0.625F, y+0.625F, z+1.0F);
+			return AxisAlignedBB.getBoundingBox(x + 0.375F, y + 0.375F, z + 0.0F, x + 0.625F, y + 0.625F, z + 1.0F);
 		return null;
 	}
-	
+
 	@Override
 	public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z) {
 		return this.getCollisionBoundingBoxFromPool(world, x, y, z);
@@ -100,8 +98,7 @@ public class BlockEndRod extends Block {
 		return RenderIDs.END_ROD;
 	}
 
-	public int getMobilityFlag()
-	{
+	public int getMobilityFlag() {
 		return 0;
 	}
 }

@@ -8,13 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ModSounds {
-	
+
 	private static final List<CustomSound> SOUNDS_REGISTRY = new ArrayList<>();
-	
+
 	public static List<CustomSound> getSounds() {
 		return SOUNDS_REGISTRY;
 	}
-	
+
 	public static final SoundType soundSlime = new CustomSound("slime_block") {
 		@Override
 		public SoundType getDisabledSound() {
@@ -121,18 +121,18 @@ public class ModSounds {
 		public CustomSound(String name, boolean placeSound) {
 			this(name, 1, 1, placeSound);
 		}
-		
+
 		public CustomSound(String name, float volume, float pitch, boolean placeSound) {
 			super(name, volume, pitch);
 			this.placeSound = placeSound;
 			SOUNDS_REGISTRY.add(this);
 			disabledSound = Block.soundTypeStone;
 		}
-		
+
 		public CustomSound(String name, float volume, float pitch) {
 			this(name, volume, pitch, false);
 		}
-		
+
 		public CustomSound(String name) {
 			this(name, 1, 1);
 		}

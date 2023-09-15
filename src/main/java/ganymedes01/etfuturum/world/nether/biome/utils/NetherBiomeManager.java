@@ -14,7 +14,7 @@ public class NetherBiomeManager {
 	public static void init() {
 
 //      if (BiomeConfiguration.CrimsonForestID != -1) {
-			CrimsonForest = (new BiomeCrimsonForest(200)).setBiomeName("Crimson Forest");
+		CrimsonForest = (new BiomeCrimsonForest(200)).setBiomeName("Crimson Forest");
 //      }
 //      if (BiomeConfiguration.WarpedForestID != -1) {
 //          WarpedForest = (new DelirusCrux.Netherlicious.Biomes.WarpedForest(
@@ -29,8 +29,8 @@ public class NetherBiomeManager {
 //                  BiomeConfiguration.BasaltDeltasID)).setBiomeName("Basalt Deltas");
 //      } //Come back to
 
-			BiomeGenBase.hell.topBlock = Blocks.netherrack;
-			BiomeGenBase.hell.fillerBlock = Blocks.netherrack;
+		BiomeGenBase.hell.topBlock = Blocks.netherrack;
+		BiomeGenBase.hell.fillerBlock = Blocks.netherrack;
 
 	}
 }

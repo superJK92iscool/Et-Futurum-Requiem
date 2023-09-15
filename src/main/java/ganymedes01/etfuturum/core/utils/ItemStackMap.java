@@ -240,7 +240,6 @@ public class ItemStackMap<T> extends AbstractMap<ItemStack, T> {
 		private enum DetailIterState {
 
 			NOT_STARTED {
-
 				@Override
 				<T> Map.Entry<ItemStack, T> get(DetailIter<T> iter) {
 					throw new AssertionError("Should not call get on NOT_STARTED");
@@ -252,7 +251,6 @@ public class ItemStackMap<T> extends AbstractMap<ItemStack, T> {
 				}
 			},
 			WILDCARD {
-
 				@Override
 				<T> Map.Entry<ItemStack, T> get(DetailIter<T> iter) {
 					return new Map.Entry<ItemStack, T>() {
@@ -284,7 +282,6 @@ public class ItemStackMap<T> extends AbstractMap<ItemStack, T> {
 				}
 			},
 			DAMAGE {
-
 				@Override
 				<T> Map.Entry<ItemStack, T> get(DetailIter<T> iter) {
 					assert iter.damageIter != null;
@@ -305,7 +302,6 @@ public class ItemStackMap<T> extends AbstractMap<ItemStack, T> {
 				}
 			},
 			TAG {
-
 				@Override
 				<T> Map.Entry<ItemStack, T> get(DetailIter<T> iter) {
 					assert iter.tagIter != null;
@@ -320,7 +316,6 @@ public class ItemStackMap<T> extends AbstractMap<ItemStack, T> {
 				}
 			},
 			META {
-
 				@Override
 				<T> Map.Entry<ItemStack, T> get(DetailIter<T> iter) {
 					assert iter.metaIter != null;
@@ -337,7 +332,6 @@ public class ItemStackMap<T> extends AbstractMap<ItemStack, T> {
 				}
 			},
 			DONE {
-
 				@Override
 				<T> Map.Entry<ItemStack, T> get(DetailIter<T> iter) {
 					throw new AssertionError("Should not call get on DONE");

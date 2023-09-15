@@ -7,9 +7,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;
 
 public class ItemShulkerBoxRenderer implements IItemRenderer {
-	
+
 	private final TileEntityShulkerBox box = new TileEntityShulkerBox();
-	
+
 	public ItemShulkerBoxRenderer() {
 	}
 
@@ -25,12 +25,12 @@ public class ItemShulkerBoxRenderer implements IItemRenderer {
 
 	@Override
 	public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
-		
+
 		box.color = item.hasTagCompound() ? item.getTagCompound().getByte("Color") : 0;
 		box.type = TileEntityShulkerBox.ShulkerBoxType.values()[item.hasTagCompound() ? item.getTagCompound().getByte("Type") : 0];
 
 		OpenGLHelper.pushMatrix();
-		
+
 		switch (type) {
 			case ENTITY:
 				renderShulkerBox(-0.5F, -0.5F, -0.5F, 0, 1);
@@ -58,6 +58,6 @@ public class ItemShulkerBoxRenderer implements IItemRenderer {
 		OpenGLHelper.translate(x, y, z);
 
 		TileEntityRendererDispatcher.instance.renderTileEntityAt(box, 0, 0, 0, 0);
-		
+
 	}
 }

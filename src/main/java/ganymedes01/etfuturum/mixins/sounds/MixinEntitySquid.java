@@ -13,18 +13,15 @@ public class MixinEntitySquid extends EntityWaterMob {
 		super(p_i1695_1_);
 	}
 
-	protected String getHurtSound()
-	{
+	protected String getHurtSound() {
 		return Reference.MCAssetVer + ":entity.squid.hurt";
 	}
 
-	protected String getDeathSound()
-	{
+	protected String getDeathSound() {
 		return Reference.MCAssetVer + ":entity.squid.death";
 	}
-	
-	protected String getLivingSound()
-	{
+
+	protected String getLivingSound() {
 		return Reference.MCAssetVer + ":entity.squid.ambient";
 	}
 

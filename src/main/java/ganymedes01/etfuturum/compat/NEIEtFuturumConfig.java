@@ -76,7 +76,7 @@ public class NEIEtFuturumConfig implements IConfigureNEI {
 			GuiUsageRecipe.usagehandlers.add(handler);
 		}
 
-		if(ModBlocks.BLAST_FURNACE.isEnabled()) {
+		if (ModBlocks.BLAST_FURNACE.isEnabled()) {
 			// Blast Furnace
 			FurnaceRecipeHandler handler = BLAST_FURNACE_HANDLER;
 			// make it possible to use the "R" Key
@@ -85,7 +85,7 @@ public class NEIEtFuturumConfig implements IConfigureNEI {
 			GuiUsageRecipe.usagehandlers.add(handler);
 		}
 
-		if(ModBlocks.COMPOSTER.isEnabled()) {
+		if (ModBlocks.COMPOSTER.isEnabled()) {
 			ComposterHandler handler = new ComposterHandler();
 			GuiCraftingRecipe.craftinghandlers.add(handler);
 			GuiUsageRecipe.usagehandlers.add(handler);

@@ -6,29 +6,32 @@ import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import java.util.Random;
 
 public class WorldGenHugeFungus extends WorldGenAbstractTree {
-	/** The minimum height of a generated tree. */
+	/**
+	 * The minimum height of a generated tree.
+	 */
 	public final int minTreeHeight;
-	/** The minimum height of a generated tree. */
+	/**
+	 * The minimum height of a generated tree.
+	 */
 	public final int maxTreeHeight;
-	/** True if this tree should grow Vines. */
+	/**
+	 * True if this tree should grow Vines.
+	 */
 	public final boolean vinesGrow;
 
-	public WorldGenHugeFungus(boolean p_i2027_1_, boolean crimson)
-	{
+	public WorldGenHugeFungus(boolean p_i2027_1_, boolean crimson) {
 		this(p_i2027_1_, 4, 14, crimson);
 	}
 
-	public WorldGenHugeFungus(boolean p_i2028_1_, int minHeight, int maxHeight, boolean growVines)
-	{
+	public WorldGenHugeFungus(boolean p_i2028_1_, int minHeight, int maxHeight, boolean growVines) {
 		super(p_i2028_1_);
 		minTreeHeight = minHeight;
 		maxTreeHeight = maxHeight;
 		vinesGrow = growVines;
 	}
-	
+
 	@Override
-	public boolean generate(World world, Random rand, int x, int y, int z)
-	{
+	public boolean generate(World world, Random rand, int x, int y, int z) {
 		return true;
 //        int l = Math.abs(rand.nextInt(maxTreeHeight) - rand.nextInt(maxTreeHeight)) + this.minTreeHeight;
 //        boolean flag = true;
@@ -130,7 +133,7 @@ public class WorldGenHugeFungus extends WorldGenAbstractTree {
 //            return false;
 //        }
 	}
-	
+
 //    protected boolean isReplaceable(World world, int x, int y, int z)
 //    {
 //        return super.isReplaceable(world, x, y, z) || world.getBlock(x, y, z) instanceof BlockNylium || world.getBlock(x, y, z) instanceof BlockFungus;

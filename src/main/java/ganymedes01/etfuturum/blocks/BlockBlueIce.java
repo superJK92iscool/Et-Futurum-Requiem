@@ -20,10 +20,9 @@ public class BlockBlueIce extends Block {
 		this.setBlockTextureName("blue_ice");
 		this.setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
-	
+
 	@Override
-	public int quantityDropped(Random p_149745_1_)
-	{
+	public int quantityDropped(Random p_149745_1_) {
 		return 0;
 	}
 

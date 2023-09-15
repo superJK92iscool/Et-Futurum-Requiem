@@ -35,8 +35,8 @@ public class NewThreadDownloadImageData extends SimpleTexture {
 	private BufferedImage bufferedImage;
 	private Thread imageThread;
 	private boolean textureUploaded;
-	private NewImageBufferDownload imgDownload;
-	private ResourceLocation resLocationOld;
+	private final NewImageBufferDownload imgDownload;
+	private final ResourceLocation resLocationOld;
 
 	public NewThreadDownloadImageData(File file, String imageUrl, ResourceLocation texture, NewImageBufferDownload imgDownload, ResourceLocation resLocationOld, IImageBuffer imageBuffer) {
 		super(texture);
@@ -82,7 +82,7 @@ public class NewThreadDownloadImageData extends SimpleTexture {
 
 		if (imageThread == null)
 			if (field_152434_e != null && field_152434_e.isFile()) {
-				logger.debug("Loading http texture from local cache ({})", new Object[] { field_152434_e });
+				logger.debug("Loading http texture from local cache ({})", field_152434_e);
 
 				try {
 					bufferedImage = ImageIO.read(field_152434_e);
@@ -90,7 +90,7 @@ public class NewThreadDownloadImageData extends SimpleTexture {
 					if (imageBuffer != null)
 						setBufferedImage(imageBuffer.parseUserSkin(bufferedImage));
 				} catch (IOException ioexception) {
-					logger.error("Couldn\'t load skin " + field_152434_e, ioexception);
+					logger.error("Couldn't load skin " + field_152434_e, ioexception);
 					func_152433_a();
 				}
 			} else
@@ -103,7 +103,7 @@ public class NewThreadDownloadImageData extends SimpleTexture {
 			@Override
 			public void run() {
 				HttpURLConnection httpurlconnection = null;
-				NewThreadDownloadImageData.logger.debug("Downloading http texture from {} to {}", new Object[] { imageUrl, field_152434_e });
+				NewThreadDownloadImageData.logger.debug("Downloading http texture from {} to {}", imageUrl, field_152434_e);
 
 				try {
 					httpurlconnection = (HttpURLConnection) new URL(imageUrl).openConnection(Minecraft.getMinecraft().getProxy());
@@ -124,11 +124,9 @@ public class NewThreadDownloadImageData extends SimpleTexture {
 							bufferedimage = imageBuffer.parseUserSkin(bufferedimage);
 
 						NewThreadDownloadImageData.this.setBufferedImage(bufferedimage);
-						return;
 					}
 				} catch (Exception exception) {
-					NewThreadDownloadImageData.logger.error("Couldn\'t download http texture", exception);
-					return;
+					NewThreadDownloadImageData.logger.error("Couldn't download http texture", exception);
 				} finally {
 					if (httpurlconnection != null)
 						httpurlconnection.disconnect();

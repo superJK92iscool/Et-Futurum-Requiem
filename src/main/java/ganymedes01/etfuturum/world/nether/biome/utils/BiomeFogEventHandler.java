@@ -21,7 +21,7 @@ import org.lwjgl.opengl.GL11;
 public class BiomeFogEventHandler {
 
 	public static final BiomeFogEventHandler INSTANCE = new BiomeFogEventHandler();
-	
+
 	@SubscribeEvent
 	public void renderBiomeFog(EntityViewRenderEvent.RenderFogEvent event) {
 
@@ -59,7 +59,7 @@ public class BiomeFogEventHandler {
 	}
 
 	private static Vec3 postProcessColor(final World world, final EntityLivingBase player, float r, float g, float b,
-			final double renderPartialTicks) {
+										 final double renderPartialTicks) {
 		double darkScale = (player.lastTickPosY + (player.posY - player.lastTickPosY) * renderPartialTicks)
 				* world.provider.getVoidFogYFactor();
 		if (player.isPotionActive(Potion.blindness)) {
@@ -76,8 +76,8 @@ public class BiomeFogEventHandler {
 			final int duration = player.getActivePotionEffect(Potion.nightVision).getDuration();
 			final float brightness = (duration > 200) ? 1.0f
 					: (0.7f + MathHelper
-							.sin((float) ((duration - renderPartialTicks) * 3.141592653589793 * 0.20000000298023224))
-							* 0.3f);
+					.sin((float) ((duration - renderPartialTicks) * 3.141592653589793 * 0.20000000298023224))
+					* 0.3f);
 			float scale = 1.0f / r;
 			scale = Math.min(scale, 1.0f / g);
 			scale = Math.min(scale, 1.0f / b);
@@ -97,8 +97,8 @@ public class BiomeFogEventHandler {
 	}
 
 	private static Vec3 getFogBlendColour(final World world, final EntityLivingBase playerEntity, final int playerX,
-			final int playerY, final int playerZ, final float defR, final float defG, final float defB,
-			final double renderPartialTicks) {
+										  final int playerY, final int playerZ, final float defR, final float defG, final float defB,
+										  final double renderPartialTicks) {
 		final GameSettings settings = Minecraft.getMinecraft().gameSettings;
 		final int[] ranges = ForgeModContainer.blendRanges;
 		int distance = 0;
@@ -123,28 +123,28 @@ public class BiomeFogEventHandler {
 					if (x == -distance) {
 						final double xDiff = 1.0 - (playerEntity.posX - playerX);
 						rPart *= (float) xDiff;
-						gPart *= (float) xDiff;
-						bPart *= (float) xDiff;
-						weightPart *= (float) xDiff;
+						gPart *= rPart;
+						bPart *= rPart;
+						weightPart *= rPart;
 					} else if (x == distance) {
 						final double xDiff = playerEntity.posX - playerX;
 						rPart *= (float) xDiff;
-						gPart *= (float) xDiff;
-						bPart *= (float) xDiff;
-						weightPart *= (float) xDiff;
+						gPart *= rPart;
+						bPart *= rPart;
+						weightPart *= rPart;
 					}
 					if (z == -distance) {
 						final double zDiff = 1.0 - (playerEntity.posZ - playerZ);
 						rPart *= (float) zDiff;
-						gPart *= (float) zDiff;
-						bPart *= (float) zDiff;
-						weightPart *= (float) zDiff;
+						gPart *= rPart;
+						bPart *= rPart;
+						weightPart *= rPart;
 					} else if (z == distance) {
 						final double zDiff = playerEntity.posZ - playerZ;
 						rPart *= (float) zDiff;
-						gPart *= (float) zDiff;
-						bPart *= (float) zDiff;
-						weightPart *= (float) zDiff;
+						gPart *= rPart;
+						bPart *= rPart;
+						weightPart *= rPart;
 					}
 					rBiomeFog += rPart;
 					gBiomeFog += gPart;
@@ -179,7 +179,6 @@ public class BiomeFogEventHandler {
 		processedColor.zCoord = (bBiomeFog * weightBiomeFog + defB * weightDefault) / weightMixed;
 		return processedColor;
 	}
-	
 
 
 }

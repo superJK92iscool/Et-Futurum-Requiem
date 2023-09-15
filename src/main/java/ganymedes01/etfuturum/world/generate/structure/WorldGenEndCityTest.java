@@ -31,7 +31,7 @@ public class WorldGenEndCityTest extends WorldGenerator {
 		@Override
 		public Map<Integer, BlockState> createPalette(ForgeDirection facing) {
 			Map<Integer, BlockState> map = new HashMap<>();
-			for(Pair<Integer, NBTTagCompound> pair : getPaletteNBT()) {
+			for (Pair<Integer, NBTTagCompound> pair : getPaletteNBT()) {
 				//This was basically just a scapegoat to test some structure block functionality.
 				//None of these are mapped because I didn't ant to do a bunch of mapping work for a test.
 				BlockState state = getBlockNamespaceFromPaletteEntry(pair.getLeft()).equals("minecraft:air") ? new BlockState(Blocks.air) : getBlockNamespaceFromPaletteEntry(pair.getLeft()).equals("minecraft:chest") ? new BlockState(Blocks.chest, 1) : new BlockState(Blocks.stone);
@@ -42,11 +42,11 @@ public class WorldGenEndCityTest extends WorldGenerator {
 
 		@Override
 		public BlockState setStructureBlockAction(BlockPos pos, BlockState below, String data, ForgeDirection facing) {
-			if(data.equals("Chest")) {
+			if (data.equals("Chest")) {
 				below.setLootTable(ChestGenHooks.getInfo("netherFortress"));
 				return null;
 			}
-			if(data.equals("Sentry")) {
+			if (data.equals("Sentry")) {
 				NBTTagCompound comp = new NBTTagCompound();
 				comp.setByte("Color", (byte) 16);
 				return new BlockState(EntityShulker.class, comp);

@@ -18,18 +18,16 @@ public class BlockLightningRod extends BaseBlock {
 		setTickRandomly(true);
 	}
 
-	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_)
-	{
+	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
 		return new TileEntityLightningRod();
 	}
-	
+
 	/**
 	 * Is this block (a) opaque and (b) a full 1m cube?  This determines whether or not to render the shared face of two
 	 * adjacent blocks and also whether the player can attach torches, redstone wire, etc to this block.
 	 */
 	@Override
-	public boolean isOpaqueCube()
-	{
+	public boolean isOpaqueCube() {
 		return false;
 	}
 
@@ -37,8 +35,7 @@ public class BlockLightningRod extends BaseBlock {
 	 * If this block doesn't render as an ordinary block it will return False (examples: signs, buttons, stairs, etc)
 	 */
 	@Override
-	public boolean renderAsNormalBlock()
-	{
+	public boolean renderAsNormalBlock() {
 		return false;
 	}
 }

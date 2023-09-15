@@ -19,12 +19,11 @@ public class PotionLevitation extends ModPotions {
 				entity.motionY += 0.08D; //Counter falling velocity
 		}
 	}
-	
-	public boolean isReady(int p_76397_1_, int p_76397_2_)
-	{
+
+	public boolean isReady(int p_76397_1_, int p_76397_2_) {
 		return true;
 	}
-	
+
 	@Override
 	public boolean hasPacket() {
 		return true;

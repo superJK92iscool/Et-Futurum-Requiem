@@ -15,7 +15,6 @@ import net.minecraft.client.model.ModelBook;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -61,10 +60,10 @@ public class GuiEnchantment extends GuiContainer {
 		field_175380_I = p_i45502_3_;
 
 		displayStacks = new ArrayList<>(EnchantingFuelRegistry.getFuels().keySet());
-		if(!displayStacks.isEmpty()) {
-			for(int i = 1; i < displayStacks.size(); i++) {
+		if (!displayStacks.isEmpty()) {
+			for (int i = 1; i < displayStacks.size(); i++) {
 				ItemStack stack = displayStacks.get(i);
-				if(LAPIS.isItemEqual(stack)) {
+				if (LAPIS.isItemEqual(stack)) {
 					displayStacks.remove(i);
 					displayStacks.add(0, stack);
 					break;
@@ -89,7 +88,7 @@ public class GuiEnchantment extends GuiContainer {
 	@Override
 	public void updateScreen() {
 		super.updateScreen();
-		if(displayStacks.size() > 1) { //We only need this if there are 2 or more elements in the list
+		if (displayStacks.size() > 1) { //We only need this if there are 2 or more elements in the list
 			viewingTicks++;
 		}
 		func_147068_g();
@@ -164,7 +163,7 @@ public class GuiEnchantment extends GuiContainer {
 			var11 = 1.0F;
 
 		OpenGLHelper.enableRescaleNormal();
-		field_147072_E.render((Entity) null, 0.0F, var10, var11, var9, 0.0F, 0.0625F);
+		field_147072_E.render(null, 0.0F, var10, var11, var9, 0.0F, 0.0625F);
 		OpenGLHelper.disableRescaleNormal();
 		RenderHelper.disableStandardItemLighting();
 		OpenGLHelper.matrixMode(5889);
@@ -240,18 +239,18 @@ public class GuiEnchantment extends GuiContainer {
 				String var11;
 				if (Enchantment.enchantmentsList[var8 & 255] != null) {
 					var11 = Enchantment.enchantmentsList[var8 & 255].getTranslatedName((var8 & 65280) >> 8);
-					var10.add(EnumChatFormatting.WHITE.toString() + EnumChatFormatting.ITALIC.toString() + I18n.format("container.enchant.clue", var11));
+					var10.add(EnumChatFormatting.WHITE.toString() + EnumChatFormatting.ITALIC + I18n.format("container.enchant.clue", var11));
 				}
 
 				if (!var4) {
 					var10.add("");
 
 					if (mc.thePlayer.experienceLevel < var7)
-						var10.add(EnumChatFormatting.RED.toString() + I18n.format("container.enchant.level.required") + ": " + field_147075_G.enchantLevels[var6]);
+						var10.add(EnumChatFormatting.RED + I18n.format("container.enchant.level.required") + ": " + field_147075_G.enchantLevels[var6]);
 					else {
 						var11 = "";
 
-						if(EnchantingFuelRegistry.getFuels().isEmpty()) {
+						if (EnchantingFuelRegistry.getFuels().isEmpty()) {
 							var11 = StatCollector.translateToLocal("container.enchant.rusrs");
 						} else {
 							if (viewingTicks > 40) {
@@ -311,8 +310,10 @@ public class GuiEnchantment extends GuiContainer {
 		boolean var2 = false;
 
 		for (int var3 = 0; var3 < 3; ++var3)
-			if (field_147075_G.enchantLevels[var3] != 0)
+			if (field_147075_G.enchantLevels[var3] != 0) {
 				var2 = true;
+				break;
+			}
 
 		if (var2)
 			field_147080_z += 0.2F;

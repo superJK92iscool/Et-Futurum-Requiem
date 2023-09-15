@@ -22,9 +22,9 @@ public class BaseUninflammableItem extends BaseItem {
 	public Entity createEntity(World world, Entity location, ItemStack itemstack) {
 		return createUninflammableItem(world, location);
 	}
-	
+
 	public static Entity createUninflammableItem(World world, Entity location) {
-		if(ConfigFunctions.enableNetheriteFlammable)
+		if (ConfigFunctions.enableNetheriteFlammable)
 			return null;
 		EntityItemUninflammable entity = new EntityItemUninflammable(world);
 		entity.copyDataFrom(location, true);

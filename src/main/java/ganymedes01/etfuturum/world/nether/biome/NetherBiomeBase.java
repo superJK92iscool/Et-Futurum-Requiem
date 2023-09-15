@@ -23,7 +23,7 @@ public class NetherBiomeBase extends BiomeGenBase {
 		this.spawnableCreatureList.clear();
 		this.spawnableWaterCreatureList.clear();
 		this.spawnableCaveCreatureList.clear();
-		
+
 		this.spawnableMonsterList.add(new SpawnListEntry(EntityGhast.class, 50, 4, 4));
 		this.spawnableMonsterList.add(new SpawnListEntry(EntityPigZombie.class, 100, 4, 4));
 	}
@@ -35,7 +35,7 @@ public class NetherBiomeBase extends BiomeGenBase {
 	public void populateBig(World world, Random rand, int x, int z) {
 		decorator.populateBig(world, rand, x, z);
 	}
-	
+
 	@Override
 	public void decorate(World world, Random rand, int x, int z) {
 		decorator.decorate(world, rand, x, z);

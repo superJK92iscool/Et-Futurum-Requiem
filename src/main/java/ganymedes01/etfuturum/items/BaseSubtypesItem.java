@@ -36,7 +36,7 @@ public class BaseSubtypesItem extends BaseItem {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({"rawtypes", "unchecked"})
 	public void getSubItems(Item item, CreativeTabs tabs, List list) {
 		for (int i = 0; i < types.length; i++) {
 			list.add(new ItemStack(item, 1, i));

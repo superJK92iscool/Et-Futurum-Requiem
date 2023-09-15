@@ -20,90 +20,69 @@ import net.minecraft.world.World;
 public class ItemWoodSign extends Item {
 
 	private final int meta;
-	public ItemWoodSign(int i)
-	{
+
+	public ItemWoodSign(int i) {
 		meta = i - 1;
 		setUnlocalizedName(Utils.getUnlocalisedName("item_sign_" + ModRecipes.woodTypes[i]));
 		setTextureName("minecraft:" + ModRecipes.woodTypes[i] + "_sign");
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 		this.maxStackSize = Items.sign.getItemStackLimit(new ItemStack(Items.sign));
 	}
-	
+
 	@Override
-	public boolean onItemUse(ItemStack itemStack, EntityPlayer player, World p_77648_3_, int p_77648_4_, int p_77648_5_, int p_77648_6_, int p_77648_7_, float p_77648_8_, float p_77648_9_, float p_77648_10_)
-	{
-		
-		if (p_77648_7_ == 0)
-		{
+	public boolean onItemUse(ItemStack itemStack, EntityPlayer player, World p_77648_3_, int p_77648_4_, int p_77648_5_, int p_77648_6_, int p_77648_7_, float p_77648_8_, float p_77648_9_, float p_77648_10_) {
+
+		if (p_77648_7_ == 0) {
 			return false;
-		}
-		else if (!p_77648_3_.getBlock(p_77648_4_, p_77648_5_, p_77648_6_).getMaterial().isSolid())
-		{
+		} else if (!p_77648_3_.getBlock(p_77648_4_, p_77648_5_, p_77648_6_).getMaterial().isSolid()) {
 			return false;
-		}
-		else
-		{
-			if (p_77648_7_ == 1)
-			{
+		} else {
+			if (p_77648_7_ == 1) {
 				++p_77648_5_;
 			}
 
-			if (p_77648_7_ == 2)
-			{
+			if (p_77648_7_ == 2) {
 				--p_77648_6_;
 			}
 
-			if (p_77648_7_ == 3)
-			{
+			if (p_77648_7_ == 3) {
 				++p_77648_6_;
 			}
 
-			if (p_77648_7_ == 4)
-			{
+			if (p_77648_7_ == 4) {
 				--p_77648_4_;
 			}
 
-			if (p_77648_7_ == 5)
-			{
+			if (p_77648_7_ == 5) {
 				++p_77648_4_;
 			}
 
-			if (!player.canPlayerEdit(p_77648_4_, p_77648_5_, p_77648_6_, p_77648_7_, itemStack))
-			{
+			if (!player.canPlayerEdit(p_77648_4_, p_77648_5_, p_77648_6_, p_77648_7_, itemStack)) {
 				return false;
-			}
-			else if (!Blocks.standing_sign.canPlaceBlockAt(p_77648_3_, p_77648_4_, p_77648_5_, p_77648_6_))
-			{
+			} else if (!Blocks.standing_sign.canPlaceBlockAt(p_77648_3_, p_77648_4_, p_77648_5_, p_77648_6_)) {
 				return false;
-			}
-			else if (p_77648_3_.isRemote)
-			{
+			} else if (p_77648_3_.isRemote) {
 				return true;
-			}
-			else
-			{
+			} else {
 				Block block;
-				if (p_77648_7_ == 1)
-				{
+				if (p_77648_7_ == 1) {
 					int i1 = MathHelper.floor_double((player.rotationYaw + 180.0F) * 16.0F / 360.0F + 0.5D) & 15;
 					block = ModBlocks.STANDING_SIGNS[meta].get();
 					p_77648_3_.setBlock(p_77648_4_, p_77648_5_, p_77648_6_, ModBlocks.STANDING_SIGNS[meta].get(), i1, 3);
-				}
-				else
-				{
+				} else {
 					block = ModBlocks.WALL_SIGNS[meta].get();
 					p_77648_3_.setBlock(p_77648_4_, p_77648_5_, p_77648_6_, ModBlocks.WALL_SIGNS[meta].get(), p_77648_7_, 3);
 				}
-				
+
 				//Disable the sound for continuity, so it doesn't play when the event-based player would not
-				if(ConfigSounds.fixSilentPlacing)p_77648_3_.playSoundEffect((double)((float)p_77648_4_ + 0.5F), (double)((float)p_77648_5_ + 0.5F), (double)((float)p_77648_6_ + 0.5F), block.stepSound.func_150496_b(), (block.stepSound.getVolume() + 1.0F) / 2.0F, block.stepSound.getPitch() * 0.8F);
+				if (ConfigSounds.fixSilentPlacing)
+					p_77648_3_.playSoundEffect((float) p_77648_4_ + 0.5F, (float) p_77648_5_ + 0.5F, (float) p_77648_6_ + 0.5F, block.stepSound.func_150496_b(), (block.stepSound.getVolume() + 1.0F) / 2.0F, block.stepSound.getPitch() * 0.8F);
 
 				--itemStack.stackSize;
-				TileEntityWoodSign tileentitysign = (TileEntityWoodSign)p_77648_3_.getTileEntity(p_77648_4_, p_77648_5_, p_77648_6_);
+				TileEntityWoodSign tileentitysign = (TileEntityWoodSign) p_77648_3_.getTileEntity(p_77648_4_, p_77648_5_, p_77648_6_);
 
-				if (tileentitysign != null)
-				{
-					if(player instanceof EntityPlayerMP) {
+				if (tileentitysign != null) {
+					if (player instanceof EntityPlayerMP) {
 						tileentitysign.func_145912_a(player);
 						EtFuturum.networkWrapper.sendTo(new WoodSignOpenMessage(tileentitysign, (byte) (meta + (p_77648_7_ != 1 ? ModBlocks.STANDING_SIGNS.length : 0))), (EntityPlayerMP) player);
 					}

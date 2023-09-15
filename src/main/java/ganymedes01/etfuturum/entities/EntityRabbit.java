@@ -354,8 +354,8 @@ public class EntityRabbit extends EntityAnimal {
 
 	class AIPanic extends EntityAIPanic {
 
-		private double speed;
-		private EntityRabbit theEntity = EntityRabbit.this;
+		private final double speed;
+		private final EntityRabbit theEntity = EntityRabbit.this;
 
 		public AIPanic(double speed) {
 			super(EntityRabbit.this, speed);
@@ -369,7 +369,7 @@ public class EntityRabbit extends EntityAnimal {
 		}
 	}
 
-	static enum EnumMoveType {
+	enum EnumMoveType {
 		NONE(0.0F, 0.0F, 30, 1),
 		HOP(0.8F, 0.2F, 20, 10),
 		STEP(1.0F, 0.45F, 14, 14),
@@ -380,7 +380,7 @@ public class EntityRabbit extends EntityAnimal {
 		private final int duration;
 		private final int field_180085_i;
 
-		private EnumMoveType(float typeSpeed, float p_i45866_4_, int typeDuration, int p_i45866_6_) {
+		EnumMoveType(float typeSpeed, float p_i45866_4_, int typeDuration, int p_i45866_6_) {
 			speed = typeSpeed;
 			field_180077_g = p_i45866_4_;
 			duration = typeDuration;
@@ -406,7 +406,7 @@ public class EntityRabbit extends EntityAnimal {
 
 	public class RabbitJumpHelper extends EntityJumpHelper {
 
-		private EntityRabbit theEntity;
+		private final EntityRabbit theEntity;
 		private boolean field_180068_d = false;
 
 		public RabbitJumpHelper(EntityRabbit rabbit) {
@@ -437,7 +437,7 @@ public class EntityRabbit extends EntityAnimal {
 
 	class RabbitMoveHelper extends EntityMoveHelper {
 
-		private EntityRabbit theEntity = EntityRabbit.this;
+		private final EntityRabbit theEntity = EntityRabbit.this;
 		private double posX;
 		private double posY;
 		private double posZ;
@@ -548,6 +548,6 @@ public class EntityRabbit extends EntityAnimal {
 		BLACK,
 		WHITE_SPLOTCHED,
 		GOLD,
-		SALT;
+		SALT
 	}
 }

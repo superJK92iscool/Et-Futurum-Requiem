@@ -49,17 +49,17 @@ public class ItemArmorElytra extends BaseItem implements IBaubleExpanded {
 
 	@Override
 	public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
-		if(getElytra(playerIn) != null) {
+		if (getElytra(playerIn) != null) {
 			return itemStackIn;
 		}
-		if(EtFuturum.hasBaublesExpanded && ConfigModCompat.elytraBaublesExpandedCompat != 0) {
+		if (EtFuturum.hasBaublesExpanded && ConfigModCompat.elytraBaublesExpandedCompat != 0) {
 			itemStackIn = BaubleItemHelper.onBaubleRightClick(itemStackIn, worldIn, playerIn);
 		}
-		if((!EtFuturum.hasBaublesExpanded || ConfigModCompat.elytraBaublesExpandedCompat != 2) && itemStackIn.stackSize > 0 && getElytra(playerIn) == null) {
+		if ((!EtFuturum.hasBaublesExpanded || ConfigModCompat.elytraBaublesExpandedCompat != 2) && itemStackIn.stackSize > 0 && getElytra(playerIn) == null) {
 			ItemStack itemStack = playerIn.getEquipmentInSlot(3);
-			if(itemStack == null) {
+			if (itemStack == null) {
 				playerIn.setCurrentItemOrArmor(3, itemStackIn.copy());
-				if(!playerIn.capabilities.isCreativeMode) {
+				if (!playerIn.capabilities.isCreativeMode) {
 					itemStackIn.stackSize = 0;
 				}
 				return itemStackIn;
@@ -87,13 +87,13 @@ public class ItemArmorElytra extends BaseItem implements IBaubleExpanded {
 	}
 
 	public static ItemStack getElytra(EntityLivingBase entity) {
-		if(!EtFuturum.hasBaublesExpanded || ConfigModCompat.elytraBaublesExpandedCompat != 2) {
+		if (!EtFuturum.hasBaublesExpanded || ConfigModCompat.elytraBaublesExpandedCompat != 2) {
 			ItemStack armorSlot = entity.getEquipmentInSlot(3);
-			if(armorSlot != null && armorSlot.getItem() instanceof ItemArmorElytra) {
+			if (armorSlot != null && armorSlot.getItem() instanceof ItemArmorElytra) {
 				return armorSlot;
 			}
 		}
-		if(EtFuturum.hasBaublesExpanded && ConfigModCompat.elytraBaublesExpandedCompat != 0) {
+		if (EtFuturum.hasBaublesExpanded && ConfigModCompat.elytraBaublesExpandedCompat != 0) {
 			return CompatBaublesExpanded.getElytraFromBaubles(entity);
 		}
 		return null;
@@ -102,17 +102,17 @@ public class ItemArmorElytra extends BaseItem implements IBaubleExpanded {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List tooltip, boolean debug) {
-		if(EtFuturum.hasBaublesExpanded) {
+		if (EtFuturum.hasBaublesExpanded) {
 			String[] slots;
-			switch(ConfigModCompat.elytraBaublesExpandedCompat) {
+			switch (ConfigModCompat.elytraBaublesExpandedCompat) {
 				default:
-					slots = new String[] {"chestplate"};
+					slots = new String[]{"chestplate"};
 					break;
 				case 1:
-					slots = new String[] {"chestplate","wings"};
+					slots = new String[]{"chestplate", "wings"};
 					break;
 				case 2:
-					slots = new String[] {"wings"};
+					slots = new String[]{"wings"};
 					break;
 			}
 			BaubleItemHelper.addSlotInformation(tooltip, slots);
@@ -125,17 +125,19 @@ public class ItemArmorElytra extends BaseItem implements IBaubleExpanded {
 	}
 
 	@Override
-	public void onWornTick(ItemStack itemstack, EntityLivingBase player) {}
+	public void onWornTick(ItemStack itemstack, EntityLivingBase player) {
+	}
 
 	@Override
 	public void onEquipped(ItemStack itemstack, EntityLivingBase player) {
-		if(ConfigSounds.armorEquip) {
+		if (ConfigSounds.armorEquip) {
 			player.worldObj.playSoundAtEntity(player, Reference.MCAssetVer + ":item.armor.equip_elytra", 1, 1);
 		}
 	}
 
 	@Override
-	public void onUnequipped(ItemStack itemstack, EntityLivingBase player) {}
+	public void onUnequipped(ItemStack itemstack, EntityLivingBase player) {
+	}
 
 	@Override
 	public boolean canEquip(ItemStack itemstack, EntityLivingBase player) {
@@ -149,10 +151,10 @@ public class ItemArmorElytra extends BaseItem implements IBaubleExpanded {
 
 	@Override
 	public String[] getBaubleTypes(ItemStack itemstack) {
-		if(ConfigModCompat.elytraBaublesExpandedCompat == 0) {
+		if (ConfigModCompat.elytraBaublesExpandedCompat == 0) {
 			return null;
 		}
-		return new String[] {"wings"};
+		return new String[]{"wings"};
 	}
 
 }

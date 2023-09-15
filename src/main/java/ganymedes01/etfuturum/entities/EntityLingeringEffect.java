@@ -73,7 +73,8 @@ public class EntityLingeringEffect extends Entity implements IEntityAdditionalSp
 		if (addedEffect) {
 			int ticks = dataWatcher.getWatchableObjectInt(TICKS_DATA_WATCHER);
 			if (setTickCount(ticks + 5 * 20)) // Add 5 seconds to the expiration time (decreasing radius by 0.5 blocks)
-				return;
+			{
+			}
 		}
 	}
 

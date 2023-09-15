@@ -22,7 +22,7 @@ public class BlockTuff extends BaseBlock {
 	@Override
 	public boolean isReplaceableOreGen(World world, int x, int y, int z, Block target) {
 		boolean flag = target == Blocks.stone || target == ModBlocks.DEEPSLATE.get() || this == target;
-		if(flag) {
+		if (flag) {
 			BlockDeepslate.doDeepslateRedoCheck(world, x, y, z);
 		}
 		return flag;

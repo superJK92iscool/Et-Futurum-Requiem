@@ -117,6 +117,6 @@ public class PistonBehaviorRegistry {
 	public enum PistonAction {
 		NON_STICKY,
 		BOUNCES_ENTITIES,
-		PULLS_ENTITIES;
+		PULLS_ENTITIES
 	}
 }

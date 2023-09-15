@@ -29,8 +29,8 @@ public class TileEntityFancySkullRenderer extends TileEntitySpecialRenderer {
 
 	public static TileEntityFancySkullRenderer instance;
 
-	private ModelHead model1 = new ModelHead(32);
-	private ModelHead model2 = new ModelHead(64);
+	private final ModelHead model1 = new ModelHead(32);
+	private final ModelHead model2 = new ModelHead(64);
 
 	@Override
 	public void func_147497_a(TileEntityRendererDispatcher dispatcher) {

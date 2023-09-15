@@ -16,17 +16,24 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ModelBiped.class)
 public class MixinModelBiped {
-	@Shadow public ModelRenderer bipedHead;
-	@Shadow public ModelRenderer bipedHeadwear;
-	@Shadow public ModelRenderer bipedBody;
-	@Shadow public ModelRenderer bipedRightArm;
-	@Shadow public ModelRenderer bipedLeftArm;
-	@Shadow public ModelRenderer bipedRightLeg;
-	@Shadow public ModelRenderer bipedLeftLeg;
+	@Shadow
+	public ModelRenderer bipedHead;
+	@Shadow
+	public ModelRenderer bipedHeadwear;
+	@Shadow
+	public ModelRenderer bipedBody;
+	@Shadow
+	public ModelRenderer bipedRightArm;
+	@Shadow
+	public ModelRenderer bipedLeftArm;
+	@Shadow
+	public ModelRenderer bipedRightLeg;
+	@Shadow
+	public ModelRenderer bipedLeftLeg;
 
 	@Inject(method = "setRotationAngles", at = @At(value = "FIELD", target = "Lnet/minecraft/client/model/ModelBiped;isRiding:Z", ordinal = 0))
 	private void setElytraAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn, CallbackInfo ci) {
-		boolean flag = entityIn instanceof IElytraPlayer && ((IElytraPlayer)entityIn).etfu$getTicksElytraFlying() > 4;
+		boolean flag = entityIn instanceof IElytraPlayer && ((IElytraPlayer) entityIn).etfu$getTicksElytraFlying() > 4;
 
 		if (flag) {
 			limbSwing = ageInTicks;
@@ -64,8 +71,8 @@ public class MixinModelBiped {
 
 	@Inject(method = "setRotationAngles", at = @At("RETURN"))
 	private void renderElytra(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn, CallbackInfo ci) {
-		if (entityIn instanceof IElytraPlayer && (Minecraft.getMinecraft().gameSettings.thirdPersonView == 0 ? entityIn != Minecraft.getMinecraft().renderViewEntity : true)) {
-			LayerBetterElytra.doRenderLayer((EntityLivingBase)entityIn, limbSwing, limbSwingAmount, Minecraft.getMinecraft().timer.renderPartialTicks, ageInTicks, netHeadYaw, headPitch, 0.0625F);
+		if (entityIn instanceof IElytraPlayer && (Minecraft.getMinecraft().gameSettings.thirdPersonView != 0 || entityIn != Minecraft.getMinecraft().renderViewEntity)) {
+			LayerBetterElytra.doRenderLayer((EntityLivingBase) entityIn, limbSwing, limbSwingAmount, Minecraft.getMinecraft().timer.renderPartialTicks, ageInTicks, netHeadYaw, headPitch, 0.0625F);
 		}
 	}
 }

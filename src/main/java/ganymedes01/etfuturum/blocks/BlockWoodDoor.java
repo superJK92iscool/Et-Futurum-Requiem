@@ -17,7 +17,7 @@ import java.util.Random;
 
 public class BlockWoodDoor extends BlockDoor {
 
-	public static final String[] names = new String[] { "oak", "spruce", "birch", "jungle", "acacia", "dark_oak" };
+	public static final String[] names = new String[]{"oak", "spruce", "birch", "jungle", "acacia", "dark_oak"};
 
 	public BlockWoodDoor(int meta) {
 		super(Material.wood);

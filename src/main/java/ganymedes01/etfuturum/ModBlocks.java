@@ -289,7 +289,7 @@ public enum ModBlocks {
 	DOOR_ACACIA(ConfigBlocksItems.enableDoors, new BlockWoodDoor(4), ItemBlockWoodDoor.class),
 	DOOR_DARK_OAK(ConfigBlocksItems.enableDoors, new BlockWoodDoor(5), ItemBlockWoodDoor.class),
 
-//          "white", "orange", "magenta", "light_blue", "yellow", "lime", "pink", "gray", "light_gray", "cyan", "purple", "blue", "brown", "green", "red", "black"};
+	//          "white", "orange", "magenta", "light_blue", "yellow", "lime", "pink", "gray", "light_gray", "cyan", "purple", "blue", "brown", "green", "red", "black"};
 	WHITE_BED(ConfigBlocksItems.enableDyedBeds, new BlockDyedBed(0), ItemBlockDyedBed.class),
 	ORANGE_BED(ConfigBlocksItems.enableDyedBeds, new BlockDyedBed(1), ItemBlockDyedBed.class),
 	MAGENTA_BED(ConfigBlocksItems.enableDyedBeds, new BlockDyedBed(2), ItemBlockDyedBed.class),
@@ -334,8 +334,8 @@ public enum ModBlocks {
 	public static final ModBlocks[] BUTTONS = new ModBlocks[]{BUTTON_SPRUCE, BUTTON_BIRCH, BUTTON_JUNGLE, BUTTON_ACACIA, BUTTON_DARK_OAK};
 	public static final ModBlocks[] TRAPDOORS = new ModBlocks[]{TRAPDOOR_SPRUCE, TRAPDOOR_BIRCH, TRAPDOOR_JUNGLE, TRAPDOOR_ACACIA, TRAPDOOR_DARK_OAK};
 	public static final ModBlocks[] WALL_SIGNS = new ModBlocks[]{WALL_SIGN_SPRUCE, WALL_SIGN_BIRCH, WALL_SIGN_JUNGLE, WALL_SIGN_ACACIA, WALL_SIGN_DARK_OAK};
-	public static final ModBlocks[] STANDING_SIGNS = new ModBlocks[] {SIGN_SPRUCE, SIGN_BIRCH, SIGN_JUNGLE, SIGN_ACACIA, SIGN_DARK_OAK};
-	public static final ModBlocks[] TERRACOTTA = new ModBlocks[] {WHITE_GLAZED_TERRACOTTA, ORANGE_GLAZED_TERRACOTTA, MAGENTA_GLAZED_TERRACOTTA, LIGHT_BLUE_GLAZED_TERRACOTTA,
+	public static final ModBlocks[] STANDING_SIGNS = new ModBlocks[]{SIGN_SPRUCE, SIGN_BIRCH, SIGN_JUNGLE, SIGN_ACACIA, SIGN_DARK_OAK};
+	public static final ModBlocks[] TERRACOTTA = new ModBlocks[]{WHITE_GLAZED_TERRACOTTA, ORANGE_GLAZED_TERRACOTTA, MAGENTA_GLAZED_TERRACOTTA, LIGHT_BLUE_GLAZED_TERRACOTTA,
 			YELLOW_GLAZED_TERRACOTTA, LIME_GLAZED_TERRACOTTA, PINK_GLAZED_TERRACOTTA, GRAY_GLAZED_TERRACOTTA, LIGHT_GRAY_GLAZED_TERRACOTTA, CYAN_GLAZED_TERRACOTTA,
 			PURPLE_GLAZED_TERRACOTTA, BLUE_GLAZED_TERRACOTTA, BROWN_GLAZED_TERRACOTTA, GREEN_GLAZED_TERRACOTTA, RED_GLAZED_TERRACOTTA, BLACK_GLAZED_TERRACOTTA};
 
@@ -345,19 +345,24 @@ public enum ModBlocks {
 	 */
 
 	//Immersive Cavegen
-	@Deprecated public static final Block deepslate = DEEPSLATE.get();
+	@Deprecated
+	public static final Block deepslate = DEEPSLATE.get();
 
 	//D-Mod
-	@Deprecated public static final Block sweet_berry_bush = SWEET_BERRY_BUSH.get();
+	@Deprecated
+	public static final Block sweet_berry_bush = SWEET_BERRY_BUSH.get();
 
 	//WTF Cave Biomes
-	@Deprecated public static final Block prismarine = PRISMARINE_BLOCK.get();
-	@Deprecated public static final Block sea_lantern = SEA_LANTERN.get();
-	@Deprecated public static final Block red_sandstone = RED_SANDSTONE.get();
+	@Deprecated
+	public static final Block prismarine = PRISMARINE_BLOCK.get();
+	@Deprecated
+	public static final Block sea_lantern = SEA_LANTERN.get();
+	@Deprecated
+	public static final Block red_sandstone = RED_SANDSTONE.get();
 
 	public static void init() {
-		for(ModBlocks block : values()) {
-			if(block.isEnabled()) {
+		for (ModBlocks block : values()) {
+			if (block.isEnabled()) {
 				if (block.getItemBlock() != null || !block.getHasItemBlock()) {
 					GameRegistry.registerBlock(block.get(), block.getItemBlock(), block.name().toLowerCase());
 					//This part is used if the getItemBlock() is not ItemBlock.class, so we register a custom ItemBlock class as the ItemBlock
@@ -405,12 +410,15 @@ public enum ModBlocks {
 	public boolean getHasItemBlock() {
 		return hasItemBlock;
 	}
+
 	public Block get() {
 		return theBlock;
 	}
+
 	public Class<? extends ItemBlock> getItemBlock() {
 		return itemBlock;
 	}
+
 	public boolean isEnabled() {
 		return isEnabled;
 	}

@@ -32,10 +32,9 @@ public class BlockLantern extends Block {
 		this.setBlockTextureName("lantern");
 		this.setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
-	
+
 	@Override
-	public void setBlockBoundsBasedOnState(IBlockAccess p_149719_1_, int p_149719_2_, int p_149719_3_, int p_149719_4_)
-	{
+	public void setBlockBoundsBasedOnState(IBlockAccess p_149719_1_, int p_149719_2_, int p_149719_3_, int p_149719_4_) {
 		float r = 0.0625F;
 		float f = 0.375F;
 		float f1 = f / 2.0F;
@@ -103,26 +102,22 @@ public class BlockLantern extends Block {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public String getItemIconName()
-	{
+	public String getItemIconName() {
 		return "lantern";
 	}
-	
+
 	@Override
-	public int getRenderType()
-	{
+	public int getRenderType() {
 		return RenderIDs.LANTERN;
 	}
-	
+
 	@Override
-	public boolean isOpaqueCube()
-	{
+	public boolean isOpaqueCube() {
 		return false;
 	}
-	
+
 	@Override
-	public boolean renderAsNormalBlock()
-	{
+	public boolean renderAsNormalBlock() {
 		return false;
 	}
 

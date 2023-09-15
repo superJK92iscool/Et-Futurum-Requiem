@@ -7,7 +7,7 @@ import net.minecraftforge.common.BiomeDictionary;
 
 public class BiomeCrimsonForest extends NetherBiomeBase implements IBiomeColor {
 
-	private int FogSkyColor = 100000000; // Come back to
+	private final int FogSkyColor = 100000000; // Come back to
 
 	public BiomeCrimsonForest(int id) {
 
@@ -15,7 +15,7 @@ public class BiomeCrimsonForest extends NetherBiomeBase implements IBiomeColor {
 		this.setColor(0xFA9418);
 		this.topBlock = Blocks.grass;
 		this.fillerBlock = Blocks.netherrack;
-		
+
 		BiomeDictionary.registerBiomeType(this, BiomeDictionary.Type.NETHER);
 	}
 
@@ -24,12 +24,11 @@ public class BiomeCrimsonForest extends NetherBiomeBase implements IBiomeColor {
 		// TODO Auto-generated method stub
 		return this.FogSkyColor;
 	}
-	
+
 	@Override
-	public int getSkyColorByTemp(float par1)
-	{
+	public int getSkyColorByTemp(float par1) {
 		return this.FogSkyColor;
-		
+
 	}
 
 }

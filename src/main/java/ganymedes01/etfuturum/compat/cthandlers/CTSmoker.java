@@ -17,7 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-/** Remember smoker recipes are output, THEN input, not input then output
+/**
+ * Remember smoker recipes are output, THEN input, not input then output
  * mods.etfuturum.smoker.addRecipe(<minecraft:gold_block>, <minecraft:iron_block>, 4.0D);
  * mods.etfuturum.smoker.remove(<minecraft:gold_ore>, <minecraft:gold_ingot>);
  */
@@ -49,7 +50,7 @@ public class CTSmoker {
 		}
 
 		if (toRemove.isEmpty()) {
-			MineTweakerAPI.logWarning("No smoker recipes for " + output.toString());
+			MineTweakerAPI.logWarning("No smoker recipes for " + output);
 		} else {
 			MineTweakerAPI.apply(new RemoveAction(toRemove, toRemoveValues, toRemoveExperiences));
 		}
@@ -69,7 +70,7 @@ public class CTSmoker {
 	public static void addRecipe(IItemStack output, IIngredient input, double xp) {
 		List<IItemStack> items = input.getItems();
 		if (items == null) {
-			MineTweakerAPI.logError("Cannot turn " + input.toString() + " into a smoker recipe");
+			MineTweakerAPI.logError("Cannot turn " + input + " into a smoker recipe");
 		}
 
 		ItemStack[] items2 = CompatCraftTweaker.getItemStacks(items);

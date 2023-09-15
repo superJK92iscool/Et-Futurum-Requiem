@@ -42,19 +42,17 @@ public class BlockDeepslate extends BlockRotatedPillar {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	protected IIcon getTopIcon(int p_150161_1_)
-	{
+	protected IIcon getTopIcon(int p_150161_1_) {
 		return field_150164_N;
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister p_149651_1_)
-	{
+	public void registerBlockIcons(IIconRegister p_149651_1_) {
 		blockIcon = p_149651_1_.registerIcon(getTextureName());
 		field_150164_N = p_149651_1_.registerIcon(getTextureName() + "_top");
 	}
-	
+
 	@Override
 	public Item getItemDropped(int i, Random random, int j) {
 		return Item.getItemFromBlock(ModBlocks.COBBLED_DEEPSLATE.get());
@@ -67,14 +65,14 @@ public class BlockDeepslate extends BlockRotatedPillar {
 	 */
 	public boolean isReplaceableOreGen(World world, int x, int y, int z, Block target) {
 		boolean flag = target == Blocks.stone || this == target;
-		if(flag) {
+		if (flag) {
 			doDeepslateRedoCheck(world, x, y, z);
 		}
 		return flag;
 	}
-	
+
 	public static void doDeepslateRedoCheck(World world, int x, int y, int z) {
-		if(!EtFuturumLateWorldGenerator.stopRecording && !world.getChunkFromBlockCoords(x, z).sendUpdates) {
+		if (!EtFuturumLateWorldGenerator.stopRecording && !world.getChunkFromBlockCoords(x, z).sendUpdates) {
 			Map<Long, List<Integer>> map = EtFuturumLateWorldGenerator.deepslateRedoCache.computeIfAbsent(world.provider.dimensionId, k -> Maps.newConcurrentMap());
 			List<Integer> posSet = map.computeIfAbsent(ChunkCoordIntPair.chunkXZ2Int(x >> 4, z >> 4), k -> Lists.newLinkedList());
 			posSet.add((x & 0xF) << 12 | (y & 0xFF) << 4 | (z & 0xF));

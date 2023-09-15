@@ -10,8 +10,8 @@ public class ChestBoatOpenInventoryHandler implements IMessageHandler<ChestBoatO
 	@Override
 	public IMessage onMessage(ChestBoatOpenInventoryMessage message, MessageContext ctx) {
 		EntityPlayerMP player = ctx.getServerHandler().playerEntity;
-		if(player.ridingEntity instanceof EntityNewBoatWithChest)
-			player.displayGUIChest((EntityNewBoatWithChest)player.ridingEntity);
+		if (player.ridingEntity instanceof EntityNewBoatWithChest)
+			player.displayGUIChest((EntityNewBoatWithChest) player.ridingEntity);
 		return null;
 	}
 }

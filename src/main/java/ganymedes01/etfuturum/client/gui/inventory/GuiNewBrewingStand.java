@@ -16,7 +16,7 @@ import org.lwjgl.opengl.GL11;
 public class GuiNewBrewingStand extends GuiContainer {
 
 	private static final ResourceLocation TEXTURE = Utils.getResource(Reference.MOD_ID + ":textures/gui/container/brewing_stand.png");
-	private TileEntityNewBrewingStand tile;
+	private final TileEntityNewBrewingStand tile;
 
 	public GuiNewBrewingStand(InventoryPlayer playerInvt, TileEntityNewBrewingStand tile) {
 		super(new ContainerNewBrewingStand(playerInvt, tile));

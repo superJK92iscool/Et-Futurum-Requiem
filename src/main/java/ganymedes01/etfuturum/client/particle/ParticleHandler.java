@@ -16,14 +16,14 @@ import java.util.Random;
 
 @SideOnly(Side.CLIENT)
 public enum ParticleHandler {
-	
+
 	INVISIBLE_BLOCK_FX(InnerBlockParticleFX.class, ParticleData.VX_VY_VZ, int.class, float.class, int.class, int.class) {
 		@Override
 		protected Object[] getAdditionalArgs(World world, Object... data) {
 			return new Object[]{80, 4.5F, 0xFFFFFFFF, 1};
 		}
 	},
-	
+
 	WAX_ON(CopperGlowFX.class, ParticleData.VX_VY_VZ, int.class, float.class, int.class, ResourceLocation.class,
 			int.class) {
 		private final ResourceLocation texture = new ResourceLocation(
@@ -34,7 +34,7 @@ public enum ParticleHandler {
 			return new Object[]{30 + rand.nextInt(26), 1, 0xFFFFA32C, texture, 1};
 		}
 	},
-	
+
 	WAX_OFF(CopperGlowFX.class, ParticleData.VX_VY_VZ, int.class, float.class, int.class, ResourceLocation.class,
 			int.class) {
 		private final ResourceLocation texture = new ResourceLocation(
@@ -45,7 +45,7 @@ public enum ParticleHandler {
 			return new Object[]{30 + rand.nextInt(26), 1, 0xFFFFFFFF, texture, 1};
 		}
 	},
-	
+
 	COPPER_SCRAPE(CopperGlowFX.class, ParticleData.VX_VY_VZ, int.class, float.class, int.class, ResourceLocation.class,
 			int.class) {
 		private final ResourceLocation texture = new ResourceLocation(
@@ -56,7 +56,7 @@ public enum ParticleHandler {
 			return new Object[]{30 + rand.nextInt(26), 1, 0xFF78DAC1, texture, 1};
 		}
 	},
-	
+
 	DAMAGE_HEART(BlackHeartFX.class, ParticleData.VX_VY_VZ, int.class, float.class, int.class, ResourceLocation.class,
 			int.class) {
 		private final ResourceLocation texture = new ResourceLocation(
@@ -129,7 +129,7 @@ public enum ParticleHandler {
 	}
 
 	ParticleHandler(Class<? extends EntityFX> fxClass, float r, float g, float b, ParticleData args,
-			Class<?>... additionalArgTypes) {
+					Class<?>... additionalArgTypes) {
 		if (r != -1) {
 			shouldAssignColor = true;
 			this.r = r;
@@ -207,7 +207,7 @@ public enum ParticleHandler {
 	}
 
 	private Object[] getArguments(World world, double x, double y, double z, double motionX, double motionY,
-			double motionZ, float scale, Object... data) {
+								  double motionZ, float scale, Object... data) {
 		Object[] particleArgs = args.getArguments(motionX, motionY, motionZ, scale);
 		Object[] additionalArgs = getAdditionalArgs(world, data);
 		Object[] arguments = new Object[REGULAR_ARG_NUM + args.getArgumentCount() + additionalArgs.length];

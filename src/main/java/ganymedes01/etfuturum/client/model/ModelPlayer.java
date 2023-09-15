@@ -14,7 +14,7 @@ public class ModelPlayer extends ModelBiped {
 	 * https://www.curseforge.com/minecraft/mc-mods/skinport
 	 * Permission: https://www.curseforge.com/minecraft/mc-mods/skinport?comment=142
 	 */
-	
+
 	public ModelRenderer bipedLeftArmwear;
 	public ModelRenderer bipedRightArmwear;
 	public ModelRenderer bipedLeftLegwear;
@@ -22,8 +22,7 @@ public class ModelPlayer extends ModelBiped {
 	public ModelRenderer bipedBodyWear;
 	public boolean smallArms;
 
-	public ModelPlayer(float z, boolean smallArms)
-	{
+	public ModelPlayer(float z, boolean smallArms) {
 		super(z, 0.0F, 64, 64);
 
 		this.smallArms = smallArms;
@@ -32,8 +31,7 @@ public class ModelPlayer extends ModelBiped {
 		bipedCloak.setTextureSize(64, 32);
 		bipedCloak.addBox(-5.0F, 0.0F, -1.0F, 10, 16, 1, z);
 
-		if (smallArms)
-		{
+		if (smallArms) {
 			bipedLeftArm = new ModelRenderer(this, 32, 48);
 			bipedLeftArm.addBox(-1.0F, -2.0F, -2.0F, 3, 12, 4, z);
 			bipedLeftArm.setRotationPoint(5.0F, 2.5F, 0.0F);
@@ -49,9 +47,7 @@ public class ModelPlayer extends ModelBiped {
 			bipedRightArmwear = new ModelRenderer(this, 40, 32);
 			bipedRightArmwear.addBox(-2.0F, -2.0F, -2.0F, 3, 12, 4, z + 0.25F);
 			bipedRightArm.addChild(bipedRightArmwear);
-		}
-		else
-		{
+		} else {
 			bipedLeftArm = new ModelRenderer(this, 32, 48);
 			bipedLeftArm.addBox(-1.0F, -2.0F, -2.0F, 4, 12, 4, z);
 			bipedLeftArm.setRotationPoint(5.0F, 2.0F, 0.0F);
@@ -83,8 +79,7 @@ public class ModelPlayer extends ModelBiped {
 	}
 
 	@Override
-	public void render(Entity p_render_1_, float p_render_2_, float p_render_3_, float p_render_4_, float p_render_5_, float p_render_6_, float p_render_7_)
-	{
+	public void render(Entity p_render_1_, float p_render_2_, float p_render_3_, float p_render_4_, float p_render_5_, float p_render_6_, float p_render_7_) {
 		super.render(p_render_1_, p_render_2_, p_render_3_, p_render_4_, p_render_5_, p_render_6_, p_render_7_);
 
 		if (smallArms)

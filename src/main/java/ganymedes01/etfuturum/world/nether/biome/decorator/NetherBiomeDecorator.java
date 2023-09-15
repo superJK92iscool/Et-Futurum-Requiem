@@ -22,7 +22,7 @@ public class NetherBiomeDecorator {
 		this.z = z;
 		populate();
 	}
-	
+
 	public final void populateBig(World world, Random rand, int x, int z) {
 		this.world = world;
 		this.rand = rand;
@@ -45,7 +45,7 @@ public class NetherBiomeDecorator {
 
 	protected void populate() {
 	}
-	
+
 	protected void populateBig() {
 	}
 

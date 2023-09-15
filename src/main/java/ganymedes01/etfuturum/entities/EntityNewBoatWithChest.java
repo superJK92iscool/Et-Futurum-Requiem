@@ -14,6 +14,7 @@ import net.minecraft.world.World;
 public class EntityNewBoatWithChest extends EntityNewBoat implements IInventory {
 	private ItemStack[] boatItems = new ItemStack[27];
 	private boolean dropContentsWhenDead = true;
+
 	public EntityNewBoatWithChest(World world) {
 		super(world);
 	}
@@ -36,13 +37,13 @@ public class EntityNewBoatWithChest extends EntityNewBoat implements IInventory 
 	@Override
 	public ItemStack decrStackSize(int slot, int amount) {
 		ItemStack returnValue = null;
-		if(boatItems[slot] != null) {
-			if(boatItems[slot].stackSize <= amount) {
+		if (boatItems[slot] != null) {
+			if (boatItems[slot].stackSize <= amount) {
 				returnValue = boatItems[slot];
 				boatItems[slot] = null;
 			} else {
 				returnValue = boatItems[slot].splitStack(amount);
-				if(boatItems[slot].stackSize == 0)
+				if (boatItems[slot].stackSize == 0)
 					boatItems[slot] = null;
 			}
 		}
@@ -51,7 +52,7 @@ public class EntityNewBoatWithChest extends EntityNewBoat implements IInventory 
 
 	@Override
 	public ItemStack getStackInSlotOnClosing(int p_70304_1_) {
-		if(boatItems[p_70304_1_] != null) {
+		if (boatItems[p_70304_1_] != null) {
 			ItemStack is = boatItems[p_70304_1_];
 			boatItems[p_70304_1_] = null;
 			return is;
@@ -63,8 +64,7 @@ public class EntityNewBoatWithChest extends EntityNewBoat implements IInventory 
 	public void setInventorySlotContents(int p_70299_1_, ItemStack p_70299_2_) {
 		this.boatItems[p_70299_1_] = p_70299_2_;
 
-		if (p_70299_2_ != null && p_70299_2_.stackSize > this.getInventoryStackLimit())
-		{
+		if (p_70299_2_ != null && p_70299_2_.stackSize > this.getInventoryStackLimit()) {
 			p_70299_2_.stackSize = this.getInventoryStackLimit();
 		}
 	}
@@ -106,8 +106,7 @@ public class EntityNewBoatWithChest extends EntityNewBoat implements IInventory 
 		return true;
 	}
 
-	public void travelToDimension(int p_71027_1_)
-	{
+	public void travelToDimension(int p_71027_1_) {
 		this.dropContentsWhenDead = false;
 		super.travelToDimension(p_71027_1_);
 	}
@@ -115,41 +114,34 @@ public class EntityNewBoatWithChest extends EntityNewBoat implements IInventory 
 	/**
 	 * Will get destroyed next tick.
 	 */
-	public void setDead()
-	{
-		if (this.dropContentsWhenDead)
-		{
-			for (int i = 0; i < this.getSizeInventory(); ++i)
-			{
+	public void setDead() {
+		if (this.dropContentsWhenDead) {
+			for (int i = 0; i < this.getSizeInventory(); ++i) {
 				ItemStack itemstack = this.getStackInSlot(i);
 
-				if (itemstack != null)
-				{
+				if (itemstack != null) {
 					float f = this.rand.nextFloat() * 0.8F + 0.1F;
 					float f1 = this.rand.nextFloat() * 0.8F + 0.1F;
 					float f2 = this.rand.nextFloat() * 0.8F + 0.1F;
 
-					while (itemstack.stackSize > 0)
-					{
+					while (itemstack.stackSize > 0) {
 						int j = this.rand.nextInt(21) + 10;
 
-						if (j > itemstack.stackSize)
-						{
+						if (j > itemstack.stackSize) {
 							j = itemstack.stackSize;
 						}
 
 						itemstack.stackSize -= j;
-						EntityItem entityitem = new EntityItem(this.worldObj, this.posX + (double)f, this.posY + (double)f1, this.posZ + (double)f2, new ItemStack(itemstack.getItem(), j, itemstack.getItemDamage()));
+						EntityItem entityitem = new EntityItem(this.worldObj, this.posX + (double) f, this.posY + (double) f1, this.posZ + (double) f2, new ItemStack(itemstack.getItem(), j, itemstack.getItemDamage()));
 
-						if (itemstack.hasTagCompound())
-						{
-							entityitem.getEntityItem().setTagCompound((NBTTagCompound)itemstack.getTagCompound().copy());
+						if (itemstack.hasTagCompound()) {
+							entityitem.getEntityItem().setTagCompound((NBTTagCompound) itemstack.getTagCompound().copy());
 						}
 
 						float f3 = 0.05F;
-						entityitem.motionX = (double)((float)this.rand.nextGaussian() * f3);
-						entityitem.motionY = (double)((float)this.rand.nextGaussian() * f3 + 0.2F);
-						entityitem.motionZ = (double)((float)this.rand.nextGaussian() * f3);
+						entityitem.motionX = (float) this.rand.nextGaussian() * f3;
+						entityitem.motionY = (float) this.rand.nextGaussian() * f3 + 0.2F;
+						entityitem.motionZ = (float) this.rand.nextGaussian() * f3;
 						this.worldObj.spawnEntityInWorld(entityitem);
 					}
 				}
@@ -159,17 +151,14 @@ public class EntityNewBoatWithChest extends EntityNewBoat implements IInventory 
 		super.setDead();
 	}
 
-	protected void writeEntityToNBT(NBTTagCompound p_70014_1_)
-	{
+	protected void writeEntityToNBT(NBTTagCompound p_70014_1_) {
 		super.writeEntityToNBT(p_70014_1_);
 		NBTTagList nbttaglist = new NBTTagList();
 
-		for (int i = 0; i < this.boatItems.length; ++i)
-		{
-			if (this.boatItems[i] != null)
-			{
+		for (int i = 0; i < this.boatItems.length; ++i) {
+			if (this.boatItems[i] != null) {
 				NBTTagCompound nbttagcompound1 = new NBTTagCompound();
-				nbttagcompound1.setByte("Slot", (byte)i);
+				nbttagcompound1.setByte("Slot", (byte) i);
 				this.boatItems[i].writeToNBT(nbttagcompound1);
 				nbttaglist.appendTag(nbttagcompound1);
 			}
@@ -181,19 +170,16 @@ public class EntityNewBoatWithChest extends EntityNewBoat implements IInventory 
 	/**
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
-	protected void readEntityFromNBT(NBTTagCompound p_70037_1_)
-	{
+	protected void readEntityFromNBT(NBTTagCompound p_70037_1_) {
 		super.readEntityFromNBT(p_70037_1_);
 		NBTTagList nbttaglist = p_70037_1_.getTagList("Items", 10);
 		this.boatItems = new ItemStack[this.getSizeInventory()];
 
-		for (int i = 0; i < nbttaglist.tagCount(); ++i)
-		{
+		for (int i = 0; i < nbttaglist.tagCount(); ++i) {
 			NBTTagCompound nbttagcompound1 = nbttaglist.getCompoundTagAt(i);
 			int j = nbttagcompound1.getByte("Slot") & 255;
 
-			if (j >= 0 && j < this.boatItems.length)
-			{
+			if (j >= 0 && j < this.boatItems.length) {
 				this.boatItems[j] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
 			}
 		}
@@ -202,10 +188,8 @@ public class EntityNewBoatWithChest extends EntityNewBoat implements IInventory 
 	/**
 	 * First layer of player interaction
 	 */
-	public boolean interactFirst(EntityPlayer p_130002_1_)
-	{
-		if (!this.worldObj.isRemote && p_130002_1_.isSneaking())
-		{
+	public boolean interactFirst(EntityPlayer p_130002_1_) {
+		if (!this.worldObj.isRemote && p_130002_1_.isSneaking()) {
 			p_130002_1_.displayGUIChest(this);
 			return true;
 		}
@@ -218,8 +202,7 @@ public class EntityNewBoatWithChest extends EntityNewBoat implements IInventory 
 	}
 
 	@Override
-	public Item getItemBoat()
-	{
+	public Item getItemBoat() {
 		return ConfigFunctions.dropVehiclesTogether ? ModItems.CHEST_BOATS[getBoatType().ordinal()].get() : super.getItemBoat();
 	}
 }

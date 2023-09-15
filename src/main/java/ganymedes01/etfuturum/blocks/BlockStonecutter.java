@@ -37,21 +37,18 @@ public class BlockStonecutter extends Block {
 		this.setLightOpacity(0);
 		this.useNeighborBrightness = true;
 	}
-	
-	public void setBlockBoundsBasedOnState(IBlockAccess p_149719_1_, int p_149719_2_, int p_149719_3_, int p_149719_4_)
-	{
+
+	public void setBlockBoundsBasedOnState(IBlockAccess p_149719_1_, int p_149719_2_, int p_149719_3_, int p_149719_4_) {
 		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5625F, 1.0F);
 	}
-	
+
 	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(int p_149691_1_, int p_149691_2_)
-	{
+	public IIcon getIcon(int p_149691_1_, int p_149691_2_) {
 		return p_149691_1_ == 1 ? this.blockIcon : p_149691_1_ == 0 ? bottomIcon : this.sideIcon;
 	}
 
 	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister p_149651_1_)
-	{
+	public void registerBlockIcons(IIconRegister p_149651_1_) {
 		this.blockIcon = p_149651_1_.registerIcon(this.getTextureName() + "_top");
 		this.sideIcon = p_149651_1_.registerIcon(this.getTextureName() + "_side");
 		this.bottomIcon = p_149651_1_.registerIcon(this.getTextureName() + "_bottom");
@@ -59,8 +56,7 @@ public class BlockStonecutter extends Block {
 	}
 
 	@Override
-	public void onBlockPlacedBy(World p_149689_1_, int p_149689_2_, int p_149689_3_, int p_149689_4_, EntityLivingBase p_149689_5_, ItemStack p_149689_6_)
-	{
+	public void onBlockPlacedBy(World p_149689_1_, int p_149689_2_, int p_149689_3_, int p_149689_4_, EntityLivingBase p_149689_5_, ItemStack p_149689_6_) {
 		int ordinal = MathHelper.floor_double((double) (p_149689_5_.rotationYaw / 90.0F) + 0.5D) & 3;
 		switch (ordinal) {
 			case 1:
@@ -85,9 +81,8 @@ public class BlockStonecutter extends Block {
 	public boolean isOpaqueCube() {
 		return false;
 	}
-	
-	public int getRenderType()
-	{
+
+	public int getRenderType() {
 		return RenderIDs.STONECUTTER;
 	}
 

@@ -29,19 +29,19 @@ import java.util.WeakHashMap;
 public class SculkEventHandler {
 	public static final SculkEventHandler INSTANCE = new SculkEventHandler();
 
-	private final Method getXpMethod = ReflectionHelper.findMethod(EntityLivingBase.class, null, new String[] { "getExperiencePoints", "func_70693_a" }, EntityPlayer.class);
+	private final Method getXpMethod = ReflectionHelper.findMethod(EntityLivingBase.class, null, new String[]{"getExperiencePoints", "func_70693_a"}, EntityPlayer.class);
 
 	private final Set<Entity> sculkAffectedEntities = Collections.newSetFromMap(new WeakHashMap<>());
 
 	private TileEntitySculkCatalyst findNearbyCatalyst(Entity entity) {
 		TileEntitySculkCatalyst candidate = null;
 		double distance = 8 * 8;
-		for(TileEntity te : (List<TileEntity>)entity.worldObj.loadedTileEntityList) {
-			if(!(te instanceof TileEntitySculkCatalyst))
+		for (TileEntity te : (List<TileEntity>) entity.worldObj.loadedTileEntityList) {
+			if (!(te instanceof TileEntitySculkCatalyst))
 				continue;
 			double thisDistance = te.getDistanceFrom(entity.posX, entity.posY, entity.posZ);
-			if(thisDistance < distance) {
-				candidate = (TileEntitySculkCatalyst)te;
+			if (thisDistance < distance) {
+				candidate = (TileEntitySculkCatalyst) te;
 				distance = thisDistance;
 			}
 		}
@@ -50,10 +50,10 @@ public class SculkEventHandler {
 
 	@SubscribeEvent
 	public void onXpOrbSpawn(EntityJoinWorldEvent event) {
-		if(event.entity instanceof EntityXPOrb) {
+		if (event.entity instanceof EntityXPOrb) {
 			/* Rely on the orb spawning at the position of the entity */
-			for(Entity mob : sculkAffectedEntities) {
-				if(!mob.isDead && event.entity.getDistanceSq(mob.posX, mob.posY, mob.posZ) < 0.01) {
+			for (Entity mob : sculkAffectedEntities) {
+				if (!mob.isDead && event.entity.getDistanceSq(mob.posX, mob.posY, mob.posZ) < 0.01) {
 					event.setCanceled(true);
 					break;
 				}
@@ -63,23 +63,23 @@ public class SculkEventHandler {
 
 	@SubscribeEvent
 	public void onTick(TickEvent.ServerTickEvent event) {
-		if(event.phase == TickEvent.Phase.END && sculkAffectedEntities.size() > 0) {
+		if (event.phase == TickEvent.Phase.END && sculkAffectedEntities.size() > 0) {
 			sculkAffectedEntities.removeIf(e -> e.isDead);
 		}
 	}
 
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public void onDeath(LivingDeathEvent event) {
-		if(event.entityLiving instanceof EntityLiving && !event.entityLiving.worldObj.isRemote && getXpMethod != null) {
+		if (event.entityLiving instanceof EntityLiving && !event.entityLiving.worldObj.isRemote && getXpMethod != null) {
 			TileEntitySculkCatalyst catalyst = findNearbyCatalyst(event.entityLiving);
-			if(catalyst == null)
+			if (catalyst == null)
 				return;
-			FakePlayer player = FakePlayerFactory.getMinecraft((WorldServer)event.entityLiving.worldObj);
+			FakePlayer player = FakePlayerFactory.getMinecraft((WorldServer) event.entityLiving.worldObj);
 			player.setWorld(event.entityLiving.worldObj);
 			int experience;
 			try {
-				experience = (int)getXpMethod.invoke(event.entityLiving, player);
-			} catch(ReflectiveOperationException e) {
+				experience = (int) getXpMethod.invoke(event.entityLiving, player);
+			} catch (ReflectiveOperationException e) {
 				e.printStackTrace();
 				return;
 			}

@@ -5,12 +5,13 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class CrimsonForestDecorator extends NetherBiomeDecorator {
-//
+	//
 //  private final WorldGenerator genNetherrackSplatter = new BlockSplatter(Blocks.netherrack, 0, 128, ModBlocks.CrimsonNylium);
 //  private final WorldGenerator genWartSplatter = new BlockSplatter(ModBlocks.nether_wart_block, 0, 128, Blocks.grass);
 //
 	private final WorldGenerator genHugeCrimsonFungi = new HugeCrimsonFungi0(false, 8, 0, 0, true, Blocks.log, Blocks.leaves); // Come back to
-//  private final WorldGenerator genHugeCrimsonFungi1 = new HugeCrimsonFungi1(false, 5, 0, 0, true, ModBlocks.BackportLogs, ModBlocks.WartBlock);
+
+	//  private final WorldGenerator genHugeCrimsonFungi1 = new HugeCrimsonFungi1(false, 5, 0, 0, true, ModBlocks.BackportLogs, ModBlocks.WartBlock);
 //  private final WorldGenerator genHugeCrimsonFungi2 = new HugeCrimsonFungi2(false, 15, 0, 0, true, ModBlocks.BackportLogs, ModBlocks.WartBlock);
 //  private final WorldGenerator genHugeCrimsonFungi3 = new HugeCrimsonFungi3(false, 8, 0, 0, true, ModBlocks.BackportLogs, ModBlocks.WartBlock);
 //  private final WorldGenerator genHugeCrimsonFungi4 = new HugeCrimsonFungi4(false, 3, 0, 0, true, ModBlocks.BackportLogs, ModBlocks.WartBlock);
@@ -34,7 +35,8 @@ public class CrimsonForestDecorator extends NetherBiomeDecorator {
 	protected void populate() {
 //// lakes and stuff
 	}
-//
+
+	//
 	@Override
 	protected void decorate() {
 //      
@@ -445,7 +447,7 @@ public class CrimsonForestDecorator extends NetherBiomeDecorator {
 //              }
 //          }
 //
-		}
+	}
 //
 //  }
 

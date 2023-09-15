@@ -18,6 +18,7 @@ public class BlockAncientDebris extends Block {
 
 	@SideOnly(Side.CLIENT)
 	public IIcon iconTop;
+
 	public BlockAncientDebris() {
 		super(Material.rock);
 		setHarvestLevel("pickaxe", 3);
@@ -28,7 +29,7 @@ public class BlockAncientDebris extends Block {
 		setBlockName(Utils.getUnlocalisedName("ancient_debris"));
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int p_149691_2_) {

@@ -19,7 +19,7 @@ public interface IDegradable {
 	/**
 	 * Returns an int relative to the meta values regular coppers use.
 	 * Used to streamline the process of copper waxing, dewaxing and degrading.
-	 *
+	 * <p>
 	 * Default copper blocks:
 	 * 0:  Regular, No degredation
 	 * 1:  Regular, Exposed
@@ -66,90 +66,89 @@ public interface IDegradable {
 	Block getCopperBlockFromMeta(int meta);
 
 	default void tickDegradation(World world, int x, int y, int z, Random random) {
-		if(!world.isRemote) {
+		if (!world.isRemote) {
 			if (random.nextFloat() < 0.05688889F) {
 				this.tryDegrade(world, x, y, z, random);
 			}
 		}
 	}
-	
+
 	default void tryDegrade(World world, int x, int y, int z, Random random) {
-		   int i = getCopperMeta(world.getBlockMetadata(x, y, z));
-		   int j = 0;
-		   int k = 0;
-		   
-		   if(i < 7 && i % 4 != 3) {
-			   for (int x1 = -CHECK_RANGE; x1 <= CHECK_RANGE; x1++) {
-				   for (int y1 = -CHECK_RANGE; y1 <= CHECK_RANGE; y1++) {
-					   for (int z1 = -CHECK_RANGE; z1 <= CHECK_RANGE; z1++) {
-						   Block block = world.getBlock(x1 + x, y1 + y, z1 + z);
-						   if (block instanceof IDegradable && (x1 != 0 || y1 != 0 || z1 != 0) && Math.abs(x1) + Math.abs(y1) + Math.abs(z1) <= CHECK_RANGE) {
-							   int m = ((IDegradable) block).getCopperMeta(world.getBlockMetadata(x1 + x, y1 + y, z1 + z));
+		int i = getCopperMeta(world.getBlockMetadata(x, y, z));
+		int j = 0;
+		int k = 0;
 
-							   if (m > 7)
-								   continue;
+		if (i < 7 && i % 4 != 3) {
+			for (int x1 = -CHECK_RANGE; x1 <= CHECK_RANGE; x1++) {
+				for (int y1 = -CHECK_RANGE; y1 <= CHECK_RANGE; y1++) {
+					for (int z1 = -CHECK_RANGE; z1 <= CHECK_RANGE; z1++) {
+						Block block = world.getBlock(x1 + x, y1 + y, z1 + z);
+						if (block instanceof IDegradable && (x1 != 0 || y1 != 0 || z1 != 0) && Math.abs(x1) + Math.abs(y1) + Math.abs(z1) <= CHECK_RANGE) {
+							int m = ((IDegradable) block).getCopperMeta(world.getBlockMetadata(x1 + x, y1 + y, z1 + z));
 
-							   m %= 4;
+							if (m > 7)
+								continue;
 
-							   if (m < i % 4) {
-								   return;
-							   }
+							m %= 4;
 
-							   if (m > i % 4) {
-								   ++k;
-							   } else {
-								  ++j;
-							   }
-						   }
-					   }
-				   }
-			   }
+							if (m < i % 4) {
+								return;
+							}
 
-			   float f = (float)(k + 1) / (float)(k + j + 1);
-			   float g = f * f * (i % 4 == 0 ? 0.75F : 1F);
-			   if (random.nextFloat() < g) {
-				   Block block = getCopperBlockFromMeta(i + 1);
-				   world.setBlock(x, y, z, block, block instanceof BlockStairs ? world.getBlockMetadata(x, y, z) : getFinalCopperMeta(i + 1, world.getBlockMetadata(x, y, z)), 2);
-			   }
-		   }
+							if (m > i % 4) {
+								++k;
+							} else {
+								++j;
+							}
+						}
+					}
+				}
+			}
+
+			float f = (float) (k + 1) / (float) (k + j + 1);
+			float g = f * f * (i % 4 == 0 ? 0.75F : 1F);
+			if (random.nextFloat() < g) {
+				Block block = getCopperBlockFromMeta(i + 1);
+				world.setBlock(x, y, z, block, block instanceof BlockStairs ? world.getBlockMetadata(x, y, z) : getFinalCopperMeta(i + 1, world.getBlockMetadata(x, y, z)), 2);
+			}
+		}
 	}
 
-	String[] waxStrings = new String[] {"materialWax", "materialWaxcomb", "materialHoneycomb", "itemBeeswax"};
+	String[] waxStrings = new String[]{"materialWax", "materialWaxcomb", "materialHoneycomb", "itemBeeswax"};
 
 	static boolean isWaxableMaterial(ItemStack stack) {
 		boolean slimeball = true;
-		for(String waxString : waxStrings) {
-			if(OreDictionary.doesOreNameExist(waxString)) {
+		for (String waxString : waxStrings) {
+			if (OreDictionary.doesOreNameExist(waxString)) {
 				slimeball = false;
-				if(EtFuturum.hasDictTag(stack, waxString)) {
+				if (EtFuturum.hasDictTag(stack, waxString)) {
 					return true;
 				}
 			}
 		}
 		return slimeball && EtFuturum.hasDictTag(stack, "slimeball");
 	}
-	
+
 	default boolean tryWaxOnWaxOff(World world, int x, int y, int z, EntityPlayer entityPlayer) {
 		boolean flag = false;
 		boolean flag2 = false;
 		int meta = getCopperMeta(world.getBlockMetadata(x, y, z));
-		if(entityPlayer.getCurrentEquippedItem() != null) {
+		if (entityPlayer.getCurrentEquippedItem() != null) {
 			ItemStack heldStack = entityPlayer.getCurrentEquippedItem();
-			if(meta < 8) {
-				if(isWaxableMaterial(heldStack)) {
+			if (meta < 8) {
+				if (isWaxableMaterial(heldStack)) {
 					flag = true;
 
-					if (!entityPlayer.capabilities.isCreativeMode && --heldStack.stackSize <= 0)
-					{
-						entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, (ItemStack)null);
+					if (!entityPlayer.capabilities.isCreativeMode && --heldStack.stackSize <= 0) {
+						entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, null);
 					}
 
 					entityPlayer.inventoryContainer.detectAndSendChanges();
 				}
 			}
-			if(heldStack.getItem().getToolClasses(heldStack).contains("axe") && (meta % 4 != 0 || meta > 7)) {
+			if (heldStack.getItem().getToolClasses(heldStack).contains("axe") && (meta % 4 != 0 || meta > 7)) {
 				heldStack.damageItem(1, entityPlayer);
-				if(meta < 8) {
+				if (meta < 8) {
 					flag2 = true;
 				} else {
 					flag = true;
@@ -157,7 +156,7 @@ public interface IDegradable {
 			}
 			int waxMeta;
 			Block block;
-			if(flag && !flag2) {
+			if (flag && !flag2) {
 				waxMeta = meta > 7 ? meta % 8 : (meta % 8 + 8);
 				block = getCopperBlockFromMeta(waxMeta);
 				world.setBlock(x, y, z, block, block instanceof BlockStairs ? world.getBlockMetadata(x, y, z) : getFinalCopperMeta(waxMeta, world.getBlockMetadata(x, y, z)), 3);
@@ -170,64 +169,54 @@ public interface IDegradable {
 		}
 		return flag || flag2;
 	}
-	
+
 	/**
-	 * 
 	 * @param world
 	 * @param x
 	 * @param y
 	 * @param z
-	 * @param type 0: Wax on 1: Wax off 2: Oxidation Scrape
+	 * @param type  0: Wax on 1: Wax off 2: Oxidation Scrape
 	 */
-	default void spawnParticles(World world, int x, int y, int z, int type)
-	{
-		if(world.isRemote) {
+	default void spawnParticles(World world, int x, int y, int z, int type) {
+		if (world.isRemote) {
 			Random random = world.rand;
 			double d0 = 0.0625D;
 
 			int pitch = random.nextInt(3);
-			world.playSound((double)x + 0.5D, (double)y + 0.5D, (double)z + 0.5D, 
+			world.playSound((double) x + 0.5D, (double) y + 0.5D, (double) z + 0.5D,
 					Reference.MCAssetVer + ":item." + (type == 0 ? "honeycomb.wax_on" : type == 1 ? "axe.wax_off" : "axe.scrape"),
-					1F, (float)((pitch == 0 ? 0 : ((double)pitch / 10D)) + 0.9D), false);
-			
-			for (int l = 0; l < 10; ++l)
-			{
+					1F, (float) ((pitch == 0 ? 0 : ((double) pitch / 10D)) + 0.9D), false);
+
+			for (int l = 0; l < 10; ++l) {
 				double d1 = x + random.nextFloat();
 				double d2 = y + random.nextFloat();
 				double d3 = z + random.nextFloat();
 
-				if (l == 0 && !world.getBlock(x, y + 1, z).isOpaqueCube())
-				{
+				if (l == 0 && !world.getBlock(x, y + 1, z).isOpaqueCube()) {
 					d2 = y + 1 + d0;
 				}
 
-				if (l == 1 && !world.getBlock(x, y - 1, z).isOpaqueCube())
-				{
+				if (l == 1 && !world.getBlock(x, y - 1, z).isOpaqueCube()) {
 					d2 = y - d0;
 				}
 
-				if (l == 2 && !world.getBlock(x, y, z + 1).isOpaqueCube())
-				{
+				if (l == 2 && !world.getBlock(x, y, z + 1).isOpaqueCube()) {
 					d3 = z + 1 + d0;
 				}
 
-				if (l == 3 && !world.getBlock(x, y, z - 1).isOpaqueCube())
-				{
+				if (l == 3 && !world.getBlock(x, y, z - 1).isOpaqueCube()) {
 					d3 = z - d0;
 				}
 
-				if (l == 4 && !world.getBlock(x + 1, y, z).isOpaqueCube())
-				{
+				if (l == 4 && !world.getBlock(x + 1, y, z).isOpaqueCube()) {
 					d1 = x + 1 + d0;
 				}
 
-				if (l == 5 && !world.getBlock(x - 1, y, z).isOpaqueCube())
-				{
+				if (l == 5 && !world.getBlock(x - 1, y, z).isOpaqueCube()) {
 					d1 = x - d0;
 				}
 
-				if (d1 < x || d1 > x + 1 || d2 < 0.0D || d2 > y + 1 || d3 < z || d3 > z + 1)
-				{
+				if (d1 < x || d1 > x + 1 || d2 < 0.0D || d2 > y + 1 || d3 < z || d3 > z + 1) {
 					if (type == 0) {
 						ParticleHandler.WAX_ON.spawn(world, d1, d2, d3);
 					} else if (type == 1) {

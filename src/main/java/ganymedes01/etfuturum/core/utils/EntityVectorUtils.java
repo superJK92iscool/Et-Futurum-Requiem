@@ -44,7 +44,7 @@ public class EntityVectorUtils {
 	@Nullable
 	public static Vec3 findRandomTargetBlockTowards(EntityCreature entitycreatureIn, int xz, int y, Vec3 targetVec3) {
 		Vec3 vec3d = targetVec3.subtract(Utils.getVec3FromEntity(entitycreatureIn, 1.0F));
-		return func_226339_a_(entitycreatureIn, xz, y, 0, vec3d, true, (double) ((float) Math.PI / 2F), getDoubleFunc(entitycreatureIn), false, 0, 0, true);
+		return func_226339_a_(entitycreatureIn, xz, y, 0, vec3d, true, (float) Math.PI / 2F, getDoubleFunc(entitycreatureIn), false, 0, 0, true);
 	}
 
 	@Nullable

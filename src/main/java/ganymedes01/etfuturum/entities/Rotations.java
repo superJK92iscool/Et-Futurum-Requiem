@@ -51,6 +51,6 @@ public class Rotations {
 
 	@Override
 	public int hashCode() {
-		return (int)(x + y + z);
+		return (int) (x + y + z);
 	}
 }

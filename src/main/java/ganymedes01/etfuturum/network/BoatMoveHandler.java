@@ -13,11 +13,11 @@ public class BoatMoveHandler implements IMessageHandler<BoatMoveMessage, IMessag
 	@Override
 	public IMessage onMessage(BoatMoveMessage message, MessageContext ctx) {
 		WorldServer vehWorld = DimensionManager.getWorld(message.dimensionId);
-		if(vehWorld != null) {
+		if (vehWorld != null) {
 			Entity vehicle = vehWorld.getEntityByID(message.entityId);
-			if(vehicle == null)
+			if (vehicle == null)
 				return null;
-			if(vehicle.riddenByEntity != ctx.getServerHandler().playerEntity) {
+			if (vehicle.riddenByEntity != ctx.getServerHandler().playerEntity) {
 				/* Only take position updates from the riding player */
 				return null;
 			}
@@ -27,7 +27,7 @@ public class BoatMoveHandler implements IMessageHandler<BoatMoveMessage, IMessag
 			double deltaZ = message.z - vehicle.posZ;
 			double actualDelta = deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ;
 			MinecraftServer server = MinecraftServer.getServer();
-			if(Math.abs(expectedDelta - actualDelta) > 100.0D && !server.isSinglePlayer()) {
+			if (Math.abs(expectedDelta - actualDelta) > 100.0D && !server.isSinglePlayer()) {
 				System.err.println("Vehicle moved wrongly");
 				vehicle.setPositionAndRotation(vehicle.posX - 1, vehicle.posY, vehicle.posZ - 1, vehicle.rotationYaw, vehicle.rotationPitch);
 				ctx.getServerHandler().sendPacket(new S18PacketEntityTeleport(vehicle));

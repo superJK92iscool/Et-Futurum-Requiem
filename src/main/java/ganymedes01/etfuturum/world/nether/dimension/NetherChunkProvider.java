@@ -31,25 +31,25 @@ import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.NETH
 import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.*;
 
 public class NetherChunkProvider implements IChunkProvider {
-	private Random hellRNG;
-	private NoiseGeneratorOctaves netherNoiseGen1;
-	private NoiseGeneratorOctaves netherNoiseGen2;
-	private NoiseGeneratorOctaves netherNoiseGen3;
-	private NoiseGeneratorOctaves slowsandGravelNoiseGen;
-	private NoiseGeneratorOctaves netherrackNoiseGen;
-	private NoiseGeneratorOctaves netherrackExculsivityNoiseGen;
+	private final Random hellRNG;
+	private final NoiseGeneratorOctaves netherNoiseGen1;
+	private final NoiseGeneratorOctaves netherNoiseGen2;
+	private final NoiseGeneratorOctaves netherNoiseGen3;
+	private final NoiseGeneratorOctaves slowsandGravelNoiseGen;
+	private final NoiseGeneratorOctaves netherrackNoiseGen;
+	private final NoiseGeneratorOctaves netherrackExculsivityNoiseGen;
 	public NoiseGeneratorOctaves netherNoiseGen6;
 	public NoiseGeneratorOctaves netherNoiseGen7;
-	private World worldObj;
+	private final World worldObj;
 	private double[] noiseField;
 	public MapGenNetherBridge genNetherBridge = new MapGenNetherBridge();
-//  public NetherBridgeMobSpawns NetherBridgeSpawns = new NetherBridgeMobSpawns();
+	//  public NetherBridgeMobSpawns NetherBridgeSpawns = new NetherBridgeMobSpawns();
 	private double[] slowsandNoise = new double[256];
 	private double[] gravelNoise = new double[256];
 	private BiomeGenBase[] biomesForGeneration;
 	private double[] netherrackExclusivityNoise = new double[256];
 	private MapGenBase netherCaveGenerator = new MapGenCavesHell();
-//  private MapGenBase netherRavineGenerator = new MapGenNetherRavine();
+	//  private MapGenBase netherRavineGenerator = new MapGenNetherRavine();
 	double[] noiseData1;
 	double[] noiseData2;
 	double[] noiseData3;
@@ -100,17 +100,17 @@ public class NetherChunkProvider implements IChunkProvider {
 			for (int j1 = 0; j1 < b0; ++j1) {
 				for (int k1 = 0; k1 < 16; ++k1) {
 					double d0 = 0.125D;
-					double d1 = noiseField[((i1 + 0) * l + j1 + 0) * b2 + k1 + 0];
-					double d2 = noiseField[((i1 + 0) * l + j1 + 1) * b2 + k1 + 0];
-					double d3 = noiseField[((i1 + 1) * l + j1 + 0) * b2 + k1 + 0];
-					double d4 = noiseField[((i1 + 1) * l + j1 + 1) * b2 + k1 + 0];
-					double d5 = (noiseField[((i1 + 0) * l + j1 + 0) * b2 + k1 + 1] - d1) * d0;
-					double d6 = (noiseField[((i1 + 0) * l + j1 + 1) * b2 + k1 + 1] - d2) * d0;
-					double d7 = (noiseField[((i1 + 1) * l + j1 + 0) * b2 + k1 + 1] - d3) * d0;
+					double d1 = noiseField[((i1) * l + j1) * b2 + k1];
+					double d2 = noiseField[((i1) * l + j1 + 1) * b2 + k1];
+					double d3 = noiseField[((i1 + 1) * l + j1) * b2 + k1];
+					double d4 = noiseField[((i1 + 1) * l + j1 + 1) * b2 + k1];
+					double d5 = (noiseField[((i1) * l + j1) * b2 + k1 + 1] - d1) * d0;
+					double d6 = (noiseField[((i1) * l + j1 + 1) * b2 + k1 + 1] - d2) * d0;
+					double d7 = (noiseField[((i1 + 1) * l + j1) * b2 + k1 + 1] - d3) * d0;
 					double d8 = (noiseField[((i1 + 1) * l + j1 + 1) * b2 + k1 + 1] - d4) * d0;
 
 					//BiomeGenBase biome = worldObj.getBiomeGenForCoords(i1 + par1 * 16, j1 + par2 * 16); // unused variable
-					
+
 					for (int l1 = 0; l1 < 8; ++l1) {
 						double d9 = 0.25D;
 						double d10 = d1;
@@ -119,7 +119,7 @@ public class NetherChunkProvider implements IChunkProvider {
 						double d13 = (d4 - d2) * d9;
 
 						for (int i2 = 0; i2 < 4; ++i2) {
-							int j2 = i2 + i1 * 4 << 11 | 0 + j1 * 4 << 7 | k1 * 8 + l1;
+							int j2 = i2 + i1 * 4 << 11 | j1 * 4 << 7 | k1 * 8 + l1;
 							short short1 = 128;
 							double d14 = 0.25D;
 							double d15 = d10;
@@ -130,7 +130,7 @@ public class NetherChunkProvider implements IChunkProvider {
 
 								if (k1 * 8 + l1 < b1) {
 									l2 = Blocks.lava;
-									
+
 //                                  if (biome == NetherBiomeManager.InfernalDepths ) {
 //                                      
 //                                      l2 = ModBlocks.Blackstone;
@@ -139,8 +139,8 @@ public class NetherChunkProvider implements IChunkProvider {
 								}
 
 								if (d15 > 0.0D) {
-									l2 = Blocks.netherrack;                             
-									
+									l2 = Blocks.netherrack;
+
 //                                  if (biome == NetherBiomeManager.InfernalDepths ) {
 //                                      
 //                                      l2 = ModBlocks.Blackstone;
@@ -199,38 +199,36 @@ public class NetherChunkProvider implements IChunkProvider {
 				for (int k1 = 127; k1 >= 0; --k1) {
 					int l1 = (l * 16 + k) * 128 + k1;
 
-					if (k1 < 127 - hellRNG.nextInt(5) && k1 > 0 + hellRNG.nextInt(5)) {
+					if (k1 < 127 - hellRNG.nextInt(5) && k1 > hellRNG.nextInt(5)) {
 						Block b3 = blocks[l1];
 
 						if (b3 == Blocks.air) {
 							j1 = -1;
-							
-							if (blocks[l1 +1] == Blocks.netherrack) {
-								blocks[l1 +1] = biomegenbase.fillerBlock;
-								
+
+							if (blocks[l1 + 1] == Blocks.netherrack) {
+								blocks[l1 + 1] = biomegenbase.fillerBlock;
+
 							}
-							
-							if (blocks[l1 +2] == Blocks.netherrack) {
-								blocks[l1 +2] = biomegenbase.fillerBlock;
-								
+
+							if (blocks[l1 + 2] == Blocks.netherrack) {
+								blocks[l1 + 2] = biomegenbase.fillerBlock;
+
 							}
-							
-							if (blocks[l1 +3] == Blocks.netherrack) {
-								blocks[l1 +3] = biomegenbase.fillerBlock;
-								
+
+							if (blocks[l1 + 3] == Blocks.netherrack) {
+								blocks[l1 + 3] = biomegenbase.fillerBlock;
+
 							}
-							
+
 						}
-							
+
 //                      Biome Terrain Block for Top and Filler Block
 						else if (b3 == Blocks.netherrack) {
 							if (j1 == -1) {
 								if (i1 <= 0) {
 									b1 = Blocks.air;
 									b2 = Blocks.netherrack;
-								}
-
-								else if (k1 >= a0 - 4 && k1 <= a0 + 1) {
+								} else if (k1 >= a0 - 4 && k1 <= a0 + 1) {
 									b1 = biomegenbase.topBlock;
 									b2 = biomegenbase.fillerBlock;
 
@@ -298,14 +296,14 @@ public class NetherChunkProvider implements IChunkProvider {
 				par2 * 16, 16, 16);
 		this.replaceBlocksForBiome(par1, par2, blocks, biomesForGeneration);
 		netherCaveGenerator.func_151539_a(this, worldObj, par1, par2, blocks);
-		
+
 //      if (WorldgenConfiguration.Ravines) {
 //      netherRavineGenerator.func_151539_a(this, worldObj, par1, par2, blocks);
 //      }
-		
+
 		genNetherBridge.func_151539_a(this, worldObj, par1, par2, blocks);
 		Chunk chunk = new Chunk(worldObj, blocks, par1, par2);
-		BiomeGenBase[] abiomegenbase = worldObj.getWorldChunkManager().loadBlockGeneratorData((BiomeGenBase[]) null,
+		BiomeGenBase[] abiomegenbase = worldObj.getWorldChunkManager().loadBlockGeneratorData(null,
 				par1 * 16, par2 * 16, 16, 16);
 		byte[] abyte1 = chunk.getBiomeArray();
 
@@ -322,7 +320,7 @@ public class NetherChunkProvider implements IChunkProvider {
 	 * [empty] noise array, the position, and the size.
 	 */
 	private double[] initializeNoiseField(double[] par1ArrayOfDouble, int par2, int par3, int par4, int par5, int par6,
-			int par7) {
+										  int par7) {
 		// ChunkProviderEvent.InitNoiseField event = new
 		// ChunkProviderEvent.InitNoiseField(this, par1ArrayOfDouble, par2, par3, par4,
 		// par5, par6, par7);
@@ -483,8 +481,8 @@ public class NetherChunkProvider implements IChunkProvider {
 //          NetherliciousBiome Netherbiome = (NetherliciousBiome) biome;
 //          Netherbiome.populate(worldObj, this.hellRNG, par2 *16, par3 *16);
 //      }  // Come back to
-		
-		
+
+
 		boolean doGen = TerrainGen.populate(par1IChunkProvider, worldObj, hellRNG, par2, par3, false, NETHER_LAVA);
 
 //      if (!(biome == NetherBiomeManager.SoulSandValley)) {
@@ -510,7 +508,7 @@ public class NetherChunkProvider implements IChunkProvider {
 		i1 = hellRNG.nextInt(hellRNG.nextInt(10) + 1);
 
 		doGen = TerrainGen.populate(par1IChunkProvider, worldObj, hellRNG, par2, par3, false, GLOWSTONE);
-		
+
 //      if (!(biome == NetherBiomeManager.SoulSandValley)) {
 //          for (j1 = 0; doGen && j1 < i1; ++j1) {
 //              k1 = k + hellRNG.nextInt(16) + 8;
@@ -526,36 +524,34 @@ public class NetherChunkProvider implements IChunkProvider {
 //              (new ModifiedWorldGenGlowStone2()).generate(worldObj, hellRNG, k1, l1, i2);
 //          }
 //      } // Come back to
-		
+
 		MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Pre(worldObj, hellRNG, k, l));
 
-		 doGen = TerrainGen.decorate(worldObj, hellRNG, k, l, SHROOM);
-		 if (doGen && hellRNG.nextInt(1) == 0)
-		 {
-			 j1 = k + hellRNG.nextInt(16) + 8;
-			 k1 = hellRNG.nextInt(128);
-			 l1 = l + hellRNG.nextInt(16) + 8;
-			 (new WorldGenFlowers(Blocks.brown_mushroom)).generate(worldObj, hellRNG, j1, k1, l1);
-		 }
+		doGen = TerrainGen.decorate(worldObj, hellRNG, k, l, SHROOM);
+		if (doGen && hellRNG.nextInt(1) == 0) {
+			j1 = k + hellRNG.nextInt(16) + 8;
+			k1 = hellRNG.nextInt(128);
+			l1 = l + hellRNG.nextInt(16) + 8;
+			(new WorldGenFlowers(Blocks.brown_mushroom)).generate(worldObj, hellRNG, j1, k1, l1);
+		}
 
-		 if (doGen && hellRNG.nextInt(1) == 0)
-		 {
-			 j1 = k + hellRNG.nextInt(16) + 8;
-			 k1 = hellRNG.nextInt(128);
-			 l1 = l + hellRNG.nextInt(16) + 8;
-			 (new WorldGenFlowers(Blocks.red_mushroom)).generate(worldObj, hellRNG, j1, k1, l1);
-		 }
+		if (doGen && hellRNG.nextInt(1) == 0) {
+			j1 = k + hellRNG.nextInt(16) + 8;
+			k1 = hellRNG.nextInt(128);
+			l1 = l + hellRNG.nextInt(16) + 8;
+			(new WorldGenFlowers(Blocks.red_mushroom)).generate(worldObj, hellRNG, j1, k1, l1);
+		}
 
 //      if (WorldgenConfiguration.NetherQuartz) { // Come back to
-			WorldGenMinable worldgenminable = new WorldGenMinable(Blocks.quartz_ore, 13, Blocks.netherrack);
-			int j2;
+		WorldGenMinable worldgenminable = new WorldGenMinable(Blocks.quartz_ore, 13, Blocks.netherrack);
+		int j2;
 
-			for (k1 = 0; k1 < 16; ++k1) {
-				l1 = k + hellRNG.nextInt(16);
-				i2 = hellRNG.nextInt(108) + 10;
-				j2 = l + hellRNG.nextInt(16);
-				worldgenminable.generate(worldObj, hellRNG, l1, i2, j2);
-			}
+		for (k1 = 0; k1 < 16; ++k1) {
+			l1 = k + hellRNG.nextInt(16);
+			i2 = hellRNG.nextInt(108) + 10;
+			j2 = l + hellRNG.nextInt(16);
+			worldgenminable.generate(worldObj, hellRNG, l1, i2, j2);
+		}
 //      }
 
 		biome.decorate(worldObj, hellRNG, k, l);
@@ -621,7 +617,7 @@ public class NetherChunkProvider implements IChunkProvider {
 
 	@Override
 	public void recreateStructures(int par1, int par2) {
-		genNetherBridge.func_151539_a(this, worldObj, par1, par2, (Block[]) null);
+		genNetherBridge.func_151539_a(this, worldObj, par1, par2, null);
 	}
 
 	@Override

@@ -21,7 +21,7 @@ public class BlockWoodPressurePlate extends BlockPressurePlate {
 		setStepSound(soundTypeWood);
 		setBlockName(Utils.getUnlocalisedName("pressure_plate_" + BlockWoodDoor.names[meta]));
 		setCreativeTab(EtFuturum.creativeTabBlocks);
-		
+
 	}
 
 	@Override

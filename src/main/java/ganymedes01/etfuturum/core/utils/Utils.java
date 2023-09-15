@@ -102,7 +102,7 @@ public class Utils {
 
 	// Copied from 1.9 ProjectileHelper.class
 	public static MovingObjectPosition forwardsRaycast(Entity p_188802_0_, boolean p_188802_1_, boolean p_188802_2_,
-			Entity p_188802_3_) {
+													   Entity p_188802_3_) {
 		double d0 = p_188802_0_.posX;
 		double d1 = p_188802_0_.posY;
 		double d2 = p_188802_0_.posZ;
@@ -126,7 +126,7 @@ public class Utils {
 			double d6 = 0.0D;
 
 			for (int i = 0; i < list.size(); ++i) {
-				Entity entity1 = (Entity) list.get(i);
+				Entity entity1 = list.get(i);
 
 				if (entity1.canBeCollidedWith() && (p_188802_2_ || !entity1.isEntityEqual(p_188802_3_))
 						&& !entity1.noClip) {
@@ -160,10 +160,9 @@ public class Utils {
 		float f = MathHelper.sqrt_double(d0 * d0 + d2 * d2);
 		p_188803_0_.rotationYaw = (float) (atan2(d2, d0) * (180D / Math.PI)) + 90.0F;
 
-		for (p_188803_0_.rotationPitch = (float) (atan2((double) f, d1) * (180D / Math.PI))
+		for (p_188803_0_.rotationPitch = (float) (atan2(f, d1) * (180D / Math.PI))
 				- 90.0F; p_188803_0_.rotationPitch
-						- p_188803_0_.prevRotationPitch < -180.0F; p_188803_0_.prevRotationPitch -= 360.0F) {
-			;
+					 - p_188803_0_.prevRotationPitch < -180.0F; p_188803_0_.prevRotationPitch -= 360.0F) {
 		}
 
 		while (p_188803_0_.rotationPitch - p_188803_0_.prevRotationPitch >= 180.0F) {
@@ -282,7 +281,7 @@ public class Utils {
 	 * A two-dimensional lerp between values on the 4 corners of the unit square.
 	 * Arbitrary values are specified for the corners and the output is interpolated
 	 * between them.
-	 * 
+	 *
 	 * @param deltaX the x-coordinate on the unit square
 	 * @param deltaY the y-coordinate on the unit square
 	 * @param x0y0   the output if {@code deltaX} is 0 and {@code deltaY} is 0
@@ -298,7 +297,7 @@ public class Utils {
 	 * A three-dimensional lerp between values on the 8 corners of the unit cube.
 	 * Arbitrary values are specified for the corners and the output is interpolated
 	 * between them.
-	 * 
+	 *
 	 * @param deltaX the x-coordinate on the unit cube
 	 * @param deltaY the y-coordinate on the unit cube
 	 * @param deltaZ the z-coordinate on the unit cube
@@ -321,7 +320,7 @@ public class Utils {
 	 */
 
 	public static double lerp3(double deltaX, double deltaY, double deltaZ, double x0y0z0, double x1y0z0, double x0y1z0,
-			double x1y1z0, double x0y0z1, double x1y0z1, double x0y1z1, double x1y1z1) {
+							   double x1y1z0, double x0y0z1, double x1y0z1, double x0y1z1, double x1y1z1) {
 		return lerp(deltaZ, lerp2(deltaX, deltaY, x0y0z0, x1y0z0, x0y1z0, x1y1z0),
 				lerp2(deltaX, deltaY, x0y0z1, x1y0z1, x0y1z1, x1y1z1));
 	}

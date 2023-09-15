@@ -13,11 +13,11 @@ public class AttackYawMessage implements IMessage {
 	public AttackYawMessage(float yaw) {
 		attackedAtYaw = yaw;
 	}
-	
+
 	@Override
 	public void fromBytes(ByteBuf buf) {
 		attackedAtYaw = buf.readFloat();
-		
+
 	}
 
 	@Override

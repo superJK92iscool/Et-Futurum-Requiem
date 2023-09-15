@@ -28,13 +28,12 @@ public class BlockColoredWaterCauldronRenderer extends BlockModelBase {
 		Tessellator tessellator = Tessellator.instance;
 		tessellator.setBrightness(block.getMixedBrightnessForBlock(renderer.blockAccess, x, y, z));
 		int l = block.colorMultiplier(renderer.blockAccess, x, y, z);
-		float f = (float)(l >> 16 & 255) / 255.0F;
-		float f1 = (float)(l >> 8 & 255) / 255.0F;
-		float f2 = (float)(l & 255) / 255.0F;
+		float f = (float) (l >> 16 & 255) / 255.0F;
+		float f1 = (float) (l >> 8 & 255) / 255.0F;
+		float f2 = (float) (l & 255) / 255.0F;
 		float f4;
 
-		if (EntityRenderer.anaglyphEnable)
-		{
+		if (EntityRenderer.anaglyphEnable) {
 			float f3 = (f * 30.0F + f1 * 59.0F + f2 * 11.0F) / 100.0F;
 			f4 = (f * 30.0F + f1 * 70.0F) / 100.0F;
 			float f5 = (f * 30.0F + f2 * 70.0F) / 100.0F;
@@ -62,7 +61,7 @@ public class BlockColoredWaterCauldronRenderer extends BlockModelBase {
 		tessellator.setColorOpaque_F(r, g, b);
 		IIcon iicon = ((BlockPotionCauldron) ModBlocks.POTION_CAULDRON.get()).grayscaleWaterIcon();
 		renderer.renderFaceYPos(block, x, (double) y - 1.0F + BlockCauldron.getRenderLiquidLevel(i1 + 1), z, iicon);
-		
+
 		return true;
 	}
 

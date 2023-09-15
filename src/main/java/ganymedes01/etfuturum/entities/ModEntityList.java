@@ -14,7 +14,7 @@ import java.util.*;
 public class ModEntityList {
 
 	private static EntityData[] array = new EntityData[0];
-	private static Map<Integer, Class<? extends Entity>> map = new HashMap<Integer, Class<? extends Entity>>();
+	private static final Map<Integer, Class<? extends Entity>> map = new HashMap<Integer, Class<? extends Entity>>();
 	public static List<Integer> eggIDs = new ArrayList<Integer>();
 	public static Map<Class<? extends Entity>, Integer> eggIds = new HashMap<Class<? extends Entity>, Integer>();
 
@@ -31,15 +31,14 @@ public class ModEntityList {
 
 		if (id >= array.length) {
 			EntityData[] newArray = new EntityData[id + 5];
-			for (int i = 0; i < array.length; i++)
-				newArray[i] = array[i];
+			System.arraycopy(array, 0, newArray, 0, array.length);
 			array = newArray;
 		}
 		if (array[id] != null)
 			throw new IllegalArgumentException("ID " + id + " is already being used! Please report this error!");
 		array[id] = new EntityData(entityName, id, eggColour1, eggColour2, hasEgg);
 		map.put(id, entityClass);
-		if(eggColour1 != -1)
+		if (eggColour1 != -1)
 			registerEntityEgg(entityClass, eggColour1, eggColour2);
 	}
 
@@ -88,25 +87,23 @@ public class ModEntityList {
 		}
 		return list.toArray(new EntityData[list.size()]);
 	}
-	
+
 	public static int eggIDCounter = 499;
-	
-	public static void registerEntityEgg(Class<? extends Entity> entity, int primaryColor, int secondaryColor) 
-	{
+
+	public static void registerEntityEgg(Class<? extends Entity> entity, int primaryColor, int secondaryColor) {
 		int id = getUniqueEntityEggId();
 
 		EntityList.IDtoClassMapping.put(id, entity);
 		EntityList.entityEggs.put(id, new EntityEggInfo(id, primaryColor, secondaryColor));
 		eggIds.put(entity, id);
 	}
-	
+
 	public static ItemStack getEggFromEntity(Entity entity) {
 		return new ItemStack(Items.spawn_egg, 1, eggIds.get(entity.getClass()));
 	}
 
-	public static int getUniqueEntityEggId() 
-	{
-		while(EntityList.getClassFromID(++eggIDCounter) != null);
+	public static int getUniqueEntityEggId() {
+		while (EntityList.getClassFromID(++eggIDCounter) != null) ;
 		eggIDs.add(eggIDCounter);
 		return eggIDCounter;
 	}

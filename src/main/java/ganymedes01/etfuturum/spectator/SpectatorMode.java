@@ -61,8 +61,8 @@ public class SpectatorMode {
 	public static boolean isSpectator(EntityPlayer player) {
 		if (player == null || player instanceof FakePlayer || player.worldObj == null)
 			return false;
-		if(player.worldObj.isRemote) {
-			if(player == FMLClientHandler.instance().getClient().thePlayer && FMLClientHandler.instance().getClient().playerController != null)
+		if (player.worldObj.isRemote) {
+			if (player == FMLClientHandler.instance().getClient().thePlayer && FMLClientHandler.instance().getClient().playerController != null)
 				return FMLClientHandler.instance().getClient().playerController.currentGameType == SPECTATOR_GAMETYPE;
 			return false;
 		}
@@ -71,7 +71,7 @@ public class SpectatorMode {
 
 	@SubscribeEvent
 	public void onInteract(PlayerInteractEvent event) {
-		if(isSpectator(event.entityPlayer)) {
+		if (isSpectator(event.entityPlayer)) {
 			if (event.action != PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) {
 				event.setCanceled(true);
 			} else {
@@ -89,21 +89,21 @@ public class SpectatorMode {
 
 	@SubscribeEvent
 	public void onInteract(BlockEvent.PlaceEvent event) {
-		if(isSpectator(event.player)) {
+		if (isSpectator(event.player)) {
 			event.setCanceled(true);
 		}
 	}
 
 	@SubscribeEvent
 	public void onItemPickup(EntityItemPickupEvent event) {
-		if(isSpectator(event.entityPlayer)) {
+		if (isSpectator(event.entityPlayer)) {
 			event.setCanceled(true);
 		}
 	}
 
 	@SubscribeEvent
 	public void onInteract(AttackEntityEvent event) {
-		if(isSpectator(event.entityPlayer)) {
+		if (isSpectator(event.entityPlayer)) {
 			if (!SPECTATING_ENTITIES.containsKey(event.entityPlayer)) {
 				SPECTATING_ENTITIES.put(event.entityPlayer, event.target);
 				if (event.entityPlayer instanceof EntityClientPlayerMP) {
@@ -116,7 +116,7 @@ public class SpectatorMode {
 
 	@SubscribeEvent
 	public void onPlayerTick(TickEvent.PlayerTickEvent event) {
-		if(event.phase == TickEvent.Phase.START) {
+		if (event.phase == TickEvent.Phase.START) {
 			boolean isSpec = isSpectator(event.player);
 			if (!isSpec && event.player.noClip) {
 				event.player.setInvisible(false);

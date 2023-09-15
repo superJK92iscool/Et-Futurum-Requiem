@@ -36,18 +36,17 @@ public class TileEntityNewBeaconRenderer extends TileEntitySpecialRenderer {
 				BeamSegment beamsegment = list.get(i);
 				int l = j + beamsegment.getHeight();
 				bindTexture(BEAM_TEXTURE);
-				renderBeamSegment(x, y, z, partialTickTime, f1, (double)tile.getWorldObj().getTotalWorldTime(), j, beamsegment.getHeight(), beamsegment.getColor());
+				renderBeamSegment(x, y, z, partialTickTime, f1, (double) tile.getWorldObj().getTotalWorldTime(), j, beamsegment.getHeight(), beamsegment.getColor());
 				j = l;
 			}
 		}
 	}
-	public static void renderBeamSegment(double x, double y, double z, double partialTickTime, double shouldRender, double worldTime, int yOffset, int partialHeight, float[] color)
-	{
+
+	public static void renderBeamSegment(double x, double y, double z, double partialTickTime, double shouldRender, double worldTime, int yOffset, int partialHeight, float[] color) {
 		renderBeamSegment(x, y, z, partialTickTime, shouldRender, worldTime, yOffset, partialHeight, color, 0.2D, 0.25D);
 	}
 
-	public static void renderBeamSegment(double x, double y, double z, double partialTickTime, double shouldRender, double worldTime, int partialHeight, int height, float[] color, double p_188205_15_, double p_188205_17_)
-	{
+	public static void renderBeamSegment(double x, double y, double z, double partialTickTime, double shouldRender, double worldTime, int partialHeight, int height, float[] color, double p_188205_15_, double p_188205_17_) {
 		Tessellator tessellator = Tessellator.instance;
 		GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, 10497.0F);
 		GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, 10497.0F);
@@ -59,7 +58,7 @@ public class TileEntityNewBeaconRenderer extends TileEntitySpecialRenderer {
 		int i = partialHeight + height;
 		double d0 = worldTime + partialTickTime;
 		double d1 = height < 0 ? d0 : -d0;
-		double frac = d1 * 0.2D - (double)MathHelper.floor_double(d1 * 0.1D);
+		double frac = d1 * 0.2D - (double) MathHelper.floor_double(d1 * 0.1D);
 		double d2 = frac - MathHelper.floor_double(frac);
 		float f = color[0];
 		float f1 = color[1];
@@ -76,25 +75,25 @@ public class TileEntityNewBeaconRenderer extends TileEntitySpecialRenderer {
 		double d12 = 0.0D;
 		double d13 = 1.0D;
 		double d14 = -1.0D + d2;
-		double d15 = (double)height * shouldRender * (0.5D / p_188205_15_) + d14;
+		double d15 = (double) height * shouldRender * (0.5D / p_188205_15_) + d14;
 		tessellator.startDrawingQuads();
 		tessellator.setColorRGBA_F(f, f1, f2, 1.0F);
-		tessellator.addVertexWithUV(x + d4, y + (double)i, z + d5, 1.0D, d15);
-		tessellator.addVertexWithUV(x + d4, y + (double)partialHeight, z + d5, 1.0D, d14);
-		tessellator.addVertexWithUV(x + d6, y + (double)partialHeight, z + d7, 0.0D, d14);
-		tessellator.addVertexWithUV(x + d6, y + (double)i, z + d7, 0.0D, d15);
-		tessellator.addVertexWithUV(x + d10, y + (double)i, z + d11, 1.0D, d15);
-		tessellator.addVertexWithUV(x + d10, y + (double)partialHeight, z + d11, 1.0D, d14);
-		tessellator.addVertexWithUV(x + d8, y + (double)partialHeight, z + d9, 0.0D, d14);
-		tessellator.addVertexWithUV(x + d8, y + (double)i, z + d9, 0.0D, d15);
-		tessellator.addVertexWithUV(x + d6, y + (double)i, z + d7, 1.0D, d15);
-		tessellator.addVertexWithUV(x + d6, y + (double)partialHeight, z + d7, 1.0D, d14);
-		tessellator.addVertexWithUV(x + d10, y + (double)partialHeight, z + d11, 0.0D, d14);
-		tessellator.addVertexWithUV(x + d10, y + (double)i, z + d11, 0.0D, d15);
-		tessellator.addVertexWithUV(x + d8, y + (double)i, z + d9, 1.0D, d15);
-		tessellator.addVertexWithUV(x + d8, y + (double)partialHeight, z + d9, 1.0D, d14);
-		tessellator.addVertexWithUV(x + d4, y + (double)partialHeight, z + d5, 0.0D, d14);
-		tessellator.addVertexWithUV(x + d4, y + (double)i, z + d5, 0.0D, d15);
+		tessellator.addVertexWithUV(x + d4, y + (double) i, z + d5, 1.0D, d15);
+		tessellator.addVertexWithUV(x + d4, y + (double) partialHeight, z + d5, 1.0D, d14);
+		tessellator.addVertexWithUV(x + d6, y + (double) partialHeight, z + d7, 0.0D, d14);
+		tessellator.addVertexWithUV(x + d6, y + (double) i, z + d7, 0.0D, d15);
+		tessellator.addVertexWithUV(x + d10, y + (double) i, z + d11, 1.0D, d15);
+		tessellator.addVertexWithUV(x + d10, y + (double) partialHeight, z + d11, 1.0D, d14);
+		tessellator.addVertexWithUV(x + d8, y + (double) partialHeight, z + d9, 0.0D, d14);
+		tessellator.addVertexWithUV(x + d8, y + (double) i, z + d9, 0.0D, d15);
+		tessellator.addVertexWithUV(x + d6, y + (double) i, z + d7, 1.0D, d15);
+		tessellator.addVertexWithUV(x + d6, y + (double) partialHeight, z + d7, 1.0D, d14);
+		tessellator.addVertexWithUV(x + d10, y + (double) partialHeight, z + d11, 0.0D, d14);
+		tessellator.addVertexWithUV(x + d10, y + (double) i, z + d11, 0.0D, d15);
+		tessellator.addVertexWithUV(x + d8, y + (double) i, z + d9, 1.0D, d15);
+		tessellator.addVertexWithUV(x + d8, y + (double) partialHeight, z + d9, 1.0D, d14);
+		tessellator.addVertexWithUV(x + d4, y + (double) partialHeight, z + d5, 0.0D, d14);
+		tessellator.addVertexWithUV(x + d4, y + (double) i, z + d5, 0.0D, d15);
 		tessellator.draw();
 		OpenGLHelper.enableBlend();
 		OpenGlHelper.glBlendFunc(770, 771, 1, 0);
@@ -111,25 +110,25 @@ public class TileEntityNewBeaconRenderer extends TileEntitySpecialRenderer {
 		d11 = 0.0D;
 		d12 = 1.0D;
 		d13 = -1.0D + d2;
-		d14 = (double)height * shouldRender + d13;
+		d14 = (double) height * shouldRender + d13;
 		tessellator.startDrawingQuads();
 		tessellator.setColorRGBA_F(f, f1, f2, 0.125F);
-		tessellator.addVertexWithUV(x + d3, y + (double)i, z + d4, 1.0D, d14);
-		tessellator.addVertexWithUV(x + d3, y + (double)partialHeight, z + d4, 1.0D, d13);
-		tessellator.addVertexWithUV(x + d5, y + (double)partialHeight, z + d6, 0.0D, d13);
-		tessellator.addVertexWithUV(x + d5, y + (double)i, z + d6, 0.0D, d14);
-		tessellator.addVertexWithUV(x + d9, y + (double)i, z + d10, 1.0D, d14);
-		tessellator.addVertexWithUV(x + d9, y + (double)partialHeight, z + d10, 1.0D, d13);
-		tessellator.addVertexWithUV(x + d7, y + (double)partialHeight, z + d8, 0.0D, d13);
-		tessellator.addVertexWithUV(x + d7, y + (double)i, z + d8, 0.0D, d14);
-		tessellator.addVertexWithUV(x + d5, y + (double)i, z + d6, 1.0D, d14);
-		tessellator.addVertexWithUV(x + d5, y + (double)partialHeight, z + d6, 1.0D, d13);
-		tessellator.addVertexWithUV(x + d9, y + (double)partialHeight, z + d10, 0.0D, d13);
-		tessellator.addVertexWithUV(x + d9, y + (double)i, z + d10, 0.0D, d14);
-		tessellator.addVertexWithUV(x + d7, y + (double)i, z + d8, 1.0D, d14);
-		tessellator.addVertexWithUV(x + d7, y + (double)partialHeight, z + d8, 1.0D, d13);
-		tessellator.addVertexWithUV(x + d3, y + (double)partialHeight, z + d4, 0.0D, d13);
-		tessellator.addVertexWithUV(x + d3, y + (double)i, z + d4, 0.0D, d14);
+		tessellator.addVertexWithUV(x + d3, y + (double) i, z + d4, 1.0D, d14);
+		tessellator.addVertexWithUV(x + d3, y + (double) partialHeight, z + d4, 1.0D, d13);
+		tessellator.addVertexWithUV(x + d5, y + (double) partialHeight, z + d6, 0.0D, d13);
+		tessellator.addVertexWithUV(x + d5, y + (double) i, z + d6, 0.0D, d14);
+		tessellator.addVertexWithUV(x + d9, y + (double) i, z + d10, 1.0D, d14);
+		tessellator.addVertexWithUV(x + d9, y + (double) partialHeight, z + d10, 1.0D, d13);
+		tessellator.addVertexWithUV(x + d7, y + (double) partialHeight, z + d8, 0.0D, d13);
+		tessellator.addVertexWithUV(x + d7, y + (double) i, z + d8, 0.0D, d14);
+		tessellator.addVertexWithUV(x + d5, y + (double) i, z + d6, 1.0D, d14);
+		tessellator.addVertexWithUV(x + d5, y + (double) partialHeight, z + d6, 1.0D, d13);
+		tessellator.addVertexWithUV(x + d9, y + (double) partialHeight, z + d10, 0.0D, d13);
+		tessellator.addVertexWithUV(x + d9, y + (double) i, z + d10, 0.0D, d14);
+		tessellator.addVertexWithUV(x + d7, y + (double) i, z + d8, 1.0D, d14);
+		tessellator.addVertexWithUV(x + d7, y + (double) partialHeight, z + d8, 1.0D, d13);
+		tessellator.addVertexWithUV(x + d3, y + (double) partialHeight, z + d4, 0.0D, d13);
+		tessellator.addVertexWithUV(x + d3, y + (double) i, z + d4, 0.0D, d14);
 		tessellator.draw();
 		OpenGLHelper.enableLighting();
 		OpenGLHelper.enableTexture2D();

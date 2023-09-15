@@ -13,38 +13,32 @@ import net.minecraft.inventory.SlotFurnace;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityFurnace;
 
-public class ContainerSmoker extends Container
-{
-	private TileEntitySmoker tileFurnace;
+public class ContainerSmoker extends Container {
+	private final TileEntitySmoker tileFurnace;
 	private int lastCookTime;
 	private int lastBurnTime;
 	private int lastItemBurnTime;
 
-	public ContainerSmoker(InventoryPlayer p_i1812_1_, TileEntitySmoker p_i1812_2_)
-	{
+	public ContainerSmoker(InventoryPlayer p_i1812_1_, TileEntitySmoker p_i1812_2_) {
 		this.tileFurnace = p_i1812_2_;
 		this.addSlotToContainer(new Slot(p_i1812_2_, 0, 56, 17));
 		this.addSlotToContainer(new Slot(p_i1812_2_, 1, 56, 53));
 		this.addSlotToContainer(new SlotFurnace(p_i1812_1_.player, p_i1812_2_, 2, 116, 35));
 		int i;
 
-		for (i = 0; i < 3; ++i)
-		{
-			for (int j = 0; j < 9; ++j)
-			{
+		for (i = 0; i < 3; ++i) {
+			for (int j = 0; j < 9; ++j) {
 				this.addSlotToContainer(new Slot(p_i1812_1_, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
 			}
 		}
 
-		for (i = 0; i < 9; ++i)
-		{
+		for (i = 0; i < 9; ++i) {
 			this.addSlotToContainer(new Slot(p_i1812_1_, i, 8 + i * 18, 142));
 		}
 	}
 
 	@Override
-	public void addCraftingToCrafters(ICrafting p_75132_1_)
-	{
+	public void addCraftingToCrafters(ICrafting p_75132_1_) {
 		super.addCraftingToCrafters(p_75132_1_);
 		p_75132_1_.sendProgressBarUpdate(this, 0, this.tileFurnace.furnaceCookTime);
 		p_75132_1_.sendProgressBarUpdate(this, 1, this.tileFurnace.furnaceBurnTime);
@@ -55,26 +49,21 @@ public class ContainerSmoker extends Container
 	 * Looks for changes made in the container, sends them to every listener.
 	 */
 	@Override
-	public void detectAndSendChanges()
-	{
+	public void detectAndSendChanges() {
 		super.detectAndSendChanges();
 
-		for (int i = 0; i < this.crafters.size(); ++i)
-		{
-			ICrafting icrafting = (ICrafting)this.crafters.get(i);
+		for (int i = 0; i < this.crafters.size(); ++i) {
+			ICrafting icrafting = (ICrafting) this.crafters.get(i);
 
-			if (this.lastCookTime != this.tileFurnace.furnaceCookTime)
-			{
+			if (this.lastCookTime != this.tileFurnace.furnaceCookTime) {
 				icrafting.sendProgressBarUpdate(this, 0, this.tileFurnace.furnaceCookTime);
 			}
 
-			if (this.lastBurnTime != this.tileFurnace.furnaceBurnTime)
-			{
+			if (this.lastBurnTime != this.tileFurnace.furnaceBurnTime) {
 				icrafting.sendProgressBarUpdate(this, 1, this.tileFurnace.furnaceBurnTime);
 			}
 
-			if (this.lastItemBurnTime != this.tileFurnace.currentItemBurnTime)
-			{
+			if (this.lastItemBurnTime != this.tileFurnace.currentItemBurnTime) {
 				icrafting.sendProgressBarUpdate(this, 2, this.tileFurnace.currentItemBurnTime);
 			}
 		}
@@ -86,94 +75,67 @@ public class ContainerSmoker extends Container
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void updateProgressBar(int p_75137_1_, int p_75137_2_)
-	{
-		if (p_75137_1_ == 0)
-		{
+	public void updateProgressBar(int p_75137_1_, int p_75137_2_) {
+		if (p_75137_1_ == 0) {
 			this.tileFurnace.furnaceCookTime = p_75137_2_;
 		}
 
-		if (p_75137_1_ == 1)
-		{
+		if (p_75137_1_ == 1) {
 			this.tileFurnace.furnaceBurnTime = p_75137_2_;
 		}
 
-		if (p_75137_1_ == 2)
-		{
+		if (p_75137_1_ == 2) {
 			this.tileFurnace.currentItemBurnTime = p_75137_2_;
 		}
 	}
 
 	@Override
-	public boolean canInteractWith(EntityPlayer p_75145_1_)
-	{
+	public boolean canInteractWith(EntityPlayer p_75145_1_) {
 		return this.tileFurnace.isUseableByPlayer(p_75145_1_);
 	}
 
 	@Override
-	public ItemStack transferStackInSlot(EntityPlayer p_82846_1_, int p_82846_2_)
-	{
+	public ItemStack transferStackInSlot(EntityPlayer p_82846_1_, int p_82846_2_) {
 		ItemStack itemstack = null;
-		Slot slot = (Slot)this.inventorySlots.get(p_82846_2_);
+		Slot slot = (Slot) this.inventorySlots.get(p_82846_2_);
 
-		if (slot != null && slot.getHasStack())
-		{
+		if (slot != null && slot.getHasStack()) {
 			ItemStack itemstack1 = slot.getStack();
 			itemstack = itemstack1.copy();
 
-			if (p_82846_2_ == 2)
-			{
-				if (!this.mergeItemStack(itemstack1, 3, 39, true))
-				{
+			if (p_82846_2_ == 2) {
+				if (!this.mergeItemStack(itemstack1, 3, 39, true)) {
 					return null;
 				}
 
 				slot.onSlotChange(itemstack1, itemstack);
-			}
-			else if (p_82846_2_ != 1 && p_82846_2_ != 0)
-			{
-				if (SmokerRecipes.smelting().getSmeltingResult(itemstack1) != null)
-				{
-					if (!this.mergeItemStack(itemstack1, 0, 1, false))
-					{
+			} else if (p_82846_2_ != 1 && p_82846_2_ != 0) {
+				if (SmokerRecipes.smelting().getSmeltingResult(itemstack1) != null) {
+					if (!this.mergeItemStack(itemstack1, 0, 1, false)) {
 						return null;
 					}
-				}
-				else if (TileEntityFurnace.isItemFuel(itemstack1))
-				{
-					if (!this.mergeItemStack(itemstack1, 1, 2, false))
-					{
+				} else if (TileEntityFurnace.isItemFuel(itemstack1)) {
+					if (!this.mergeItemStack(itemstack1, 1, 2, false)) {
 						return null;
 					}
-				}
-				else if (p_82846_2_ >= 3 && p_82846_2_ < 30)
-				{
-					if (!this.mergeItemStack(itemstack1, 30, 39, false))
-					{
+				} else if (p_82846_2_ >= 3 && p_82846_2_ < 30) {
+					if (!this.mergeItemStack(itemstack1, 30, 39, false)) {
 						return null;
 					}
-				}
-				else if (p_82846_2_ >= 30 && p_82846_2_ < 39 && !this.mergeItemStack(itemstack1, 3, 30, false))
-				{
+				} else if (p_82846_2_ >= 30 && p_82846_2_ < 39 && !this.mergeItemStack(itemstack1, 3, 30, false)) {
 					return null;
 				}
-			}
-			else if (!this.mergeItemStack(itemstack1, 3, 39, false))
-			{
+			} else if (!this.mergeItemStack(itemstack1, 3, 39, false)) {
 				return null;
 			}
 
-			if (itemstack1.stackSize == 0)
-			{
-				slot.putStack((ItemStack)null);
-			}
-			else
-			{
+			if (itemstack1.stackSize == 0) {
+				slot.putStack(null);
+			} else {
 				slot.onSlotChanged();
 			}
 
-			if (itemstack1.stackSize == itemstack.stackSize)
-			{
+			if (itemstack1.stackSize == itemstack.stackSize) {
 				return null;
 			}
 

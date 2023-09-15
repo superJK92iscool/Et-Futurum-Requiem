@@ -8,13 +8,21 @@ import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import java.util.Random;
 
 public class HugeCrimsonFungi0 extends WorldGenAbstractTree {
-	/** The minimum height of a generated tree. */
+	/**
+	 * The minimum height of a generated tree.
+	 */
 	private final int minTreeHeight;
-	/** True if this tree should grow Vines. */
+	/**
+	 * True if this tree should grow Vines.
+	 */
 	private final boolean vinesGrow;
-	/** The metadata value of the wood to use in tree generation. */
+	/**
+	 * The metadata value of the wood to use in tree generation.
+	 */
 	private final int metaWood;
-	/** The metadata value of the leaves to use in tree generation. */
+	/**
+	 * The metadata value of the leaves to use in tree generation.
+	 */
 	private final int metaLeaves;
 
 	private static Block Log;
@@ -25,7 +33,7 @@ public class HugeCrimsonFungi0 extends WorldGenAbstractTree {
 	}
 
 	public HugeCrimsonFungi0(boolean notify, int height, int metaLog, int metaLeaf, boolean vine, Block log,
-			Block leaf) {
+							 Block leaf) {
 		super(notify);
 		this.minTreeHeight = height;
 		this.metaWood = metaLog;
@@ -106,9 +114,7 @@ public class HugeCrimsonFungi0 extends WorldGenAbstractTree {
 										this.setBlockAndNotifyAdequately(world, i2, k1, k2, Blocks.glowstone, // Come back to
 												0);
 										// Come back to: Fix lighting
-									}
-
-									else {
+									} else {
 
 										this.setBlockAndNotifyAdequately(world, i2, k1, k2, HugeCrimsonFungi0.Leaf,
 												this.metaLeaves);

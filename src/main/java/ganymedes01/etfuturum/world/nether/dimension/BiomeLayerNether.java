@@ -25,7 +25,7 @@ public abstract class BiomeLayerNether extends GenLayer {
 		BiomeLayerNetherVoronoiZoom genlayervoronoizoom = new BiomeLayerNetherVoronoiZoom(10L, ((obj)));
 		(obj).initWorldGenSeed(seed);
 		genlayervoronoizoom.initWorldGenSeed(seed);
-		return (new GenLayer[] { obj, genlayervoronoizoom });
+		return (new GenLayer[]{obj, genlayervoronoizoom});
 	}
 
 	public BiomeLayerNether(long seed) {

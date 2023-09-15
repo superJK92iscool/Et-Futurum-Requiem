@@ -29,18 +29,18 @@ public abstract class MixinEntityPlayer extends EntityLivingBase {
 
 	@Override
 	public boolean canBeCollidedWith() {
-		return !SpectatorMode.isSpectator((EntityPlayer)(Object)this);
+		return !SpectatorMode.isSpectator((EntityPlayer) (Object) this);
 	}
 
 	@Override
 	protected void collideWithNearbyEntities() {
-		if(!SpectatorMode.isSpectator((EntityPlayer)(Object)this))
+		if (!SpectatorMode.isSpectator((EntityPlayer) (Object) this))
 			super.collideWithNearbyEntities();
 	}
 
 	@Override
 	public boolean isOnLadder() {
-		if(SpectatorMode.isSpectator((EntityPlayer)(Object)this))
+		if (SpectatorMode.isSpectator((EntityPlayer) (Object) this))
 			return false;
 		return super.isOnLadder();
 	}

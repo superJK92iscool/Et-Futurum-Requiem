@@ -32,7 +32,7 @@ public class ModPotions extends Potion {
 			levitation = new PotionLevitation("levitation", ConfigEnchantsPotions.levitationID, true, 0xFFFFFF);
 		}
 	}
-	
+
 	/**
 	 * If true, the following potion which is an instance of EtFuturumPotion will have a packet sent to all players nearby.
 	 * We do this because some effects like levitation require the client to actually know the effect is on the entity.
@@ -51,16 +51,16 @@ public class ModPotions extends Potion {
 	@Override
 	public void applyAttributesModifiersToEntity(EntityLivingBase entity, BaseAttributeMap attributeMap, int potency) {
 		super.applyAttributesModifiersToEntity(entity, attributeMap, potency);
-		if(shouldSync(entity)) {
+		if (shouldSync(entity)) {
 			PotionEffect effect = entity.getActivePotionEffect(this);
-			if(effect != null) { // this could only be null if non-vanilla code called this method at the wrong time
+			if (effect != null) { // this could only be null if non-vanilla code called this method at the wrong time
 				MinecraftServer.getServer().getConfigurationManager().sendToAllNear(
 						entity.posX, entity.posY, entity.posZ, 80, entity.dimension,
 						new S1DPacketEntityEffect(entity.getEntityId(), effect));
 			}
 		}
 	}
-	
+
 	/**
 	 * This packet only cares about the ID, duration doesn't matter.
 	 * The potion is removed from the map at this point, but the packet just uses the ID, so we don't need the map anyways.
@@ -70,13 +70,13 @@ public class ModPotions extends Potion {
 	@Override
 	public void removeAttributesModifiersFromEntity(EntityLivingBase entity, BaseAttributeMap attributeMap, int potency) {
 		super.removeAttributesModifiersFromEntity(entity, attributeMap, potency);
-		if(shouldSync(entity)) {
+		if (shouldSync(entity)) {
 			MinecraftServer.getServer().getConfigurationManager().sendToAllNear(
 					entity.posX, entity.posY, entity.posZ, 80, entity.dimension,
 					new S1EPacketRemoveEntityEffect(entity.getEntityId(), new PotionEffect(id, 0)));
 		}
 	}
-	
+
 	/**
 	 * The super type of this method is vanilla potion effects, most of them are hard-coded into one class.
 	 * Empty method added with warning to prevent me accidentally messing up my potion by calling its parent.
@@ -87,7 +87,7 @@ public class ModPotions extends Potion {
 		System.err.println("Remove the super call from " + getClass());
 		System.err.println("If you are seeing this, this is an Et Futurum Requiem bug.");
 	}
-	
+
 	private boolean shouldSync(EntityLivingBase entity) {
 		// EntityPlayer's potion effects are already synced in EntityPlayerMP.
 		return hasPacket() && !(entity instanceof EntityPlayer);

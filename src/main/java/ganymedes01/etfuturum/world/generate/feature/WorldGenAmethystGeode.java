@@ -21,7 +21,7 @@ import java.util.Random;
 public class WorldGenAmethystGeode extends WorldGenerator {
 
 	private final List<Block> budBlocks;
-	
+
 	private final int minGenOffset, maxGenOffset;//geodeFeatureConfig.minGenOffset geodeFeatureConfig.maxGenOffset
 	private final int invalidBlocksThreshold;//geodeFeatureConfig.invalidBlocksThreshold
 	private final int[] distributionPoints;//geodeFeatureConfig.distributionPoints
@@ -65,7 +65,7 @@ public class WorldGenAmethystGeode extends WorldGenerator {
 		buddingAmethystChance = budChance;
 		usePotentialPlacementsChance = potentialPlaceChance;
 	}
-	
+
 	/**
 	 * This is used when generating amethyst so it doesn't generate in the middle of the air, ocean, hanging in trees, etc.
 	 */
@@ -73,67 +73,67 @@ public class WorldGenAmethystGeode extends WorldGenerator {
 		Block block = world.getBlock(x, y, z);
 		return block.getMaterial() != Material.rock || !block.isOpaqueCube();
 	}
-	
+
 	/**
 	 * Geode code from 1.17, ported to 1.7.10 by Roadhog360, with help of embeddedt to port the noise samplers by using Trove instead of FastUtil where applicable.
 	 * Note: Original variable locations are left as comments above the respective variable to make it easier to backtrack through the vanilla 1.17 code.
 	 * Some of them use a number provider to do .get to get a number in the range. If this would get two numbers I used nextBoolean() instead to be faster.
 	 */
 	public boolean generate(World world, Random random, int x, int y, int z) {
-		  BlockPos blockPos = new BlockPos(x, y, z);
-		  List<Pair<BlockPos, Integer>> list = Lists.newLinkedList();
-		  int distPoint = getRandom(distributionPoints, random);
-		  DoublePerlinNoiseSampler doublePerlinNoiseSampler = DoublePerlinNoiseSampler.create(random, -4, 1.0D);//Somehow this was (double[])(1.0D) which doesn't make sense. Decompiler weirdism?
-		  List<BlockPos> list2 = Lists.newLinkedList();
-		  double outerWallMaxDiv = (double)distPoint / (double)outerWallDistance[outerWallDistance.length-1];
-		  double fillingSqrt = 1.0D / Math.sqrt(filling);
-		  double innerLayerSqrt = 1.0D / Math.sqrt(innerLayer + outerWallMaxDiv);
-		  double middleLayerSqrt = 1.0D / Math.sqrt(middleLayer + outerWallMaxDiv);
-		  double outerLayerSqrt = 1.0D / Math.sqrt(outerLayer + outerWallMaxDiv);
-		  double l = 1.0D / Math.sqrt(baseCrackSize + random.nextDouble() / 2.0D + (distPoint > 3 ? outerWallMaxDiv : 0.0D));
-		  boolean bl = (double)random.nextFloat() < generateCrackChance;
-		  int m = 0;
+		BlockPos blockPos = new BlockPos(x, y, z);
+		List<Pair<BlockPos, Integer>> list = Lists.newLinkedList();
+		int distPoint = getRandom(distributionPoints, random);
+		DoublePerlinNoiseSampler doublePerlinNoiseSampler = DoublePerlinNoiseSampler.create(random, -4, 1.0D);//Somehow this was (double[])(1.0D) which doesn't make sense. Decompiler weirdism?
+		List<BlockPos> list2 = Lists.newLinkedList();
+		double outerWallMaxDiv = (double) distPoint / (double) outerWallDistance[outerWallDistance.length - 1];
+		double fillingSqrt = 1.0D / Math.sqrt(filling);
+		double innerLayerSqrt = 1.0D / Math.sqrt(innerLayer + outerWallMaxDiv);
+		double middleLayerSqrt = 1.0D / Math.sqrt(middleLayer + outerWallMaxDiv);
+		double outerLayerSqrt = 1.0D / Math.sqrt(outerLayer + outerWallMaxDiv);
+		double l = 1.0D / Math.sqrt(baseCrackSize + random.nextDouble() / 2.0D + (distPoint > 3 ? outerWallMaxDiv : 0.0D));
+		boolean bl = (double) random.nextFloat() < generateCrackChance;
+		int m = 0;
 
-		  int r;
-		  int s;
-		  BlockPos blockPos6;
-		  Block block2;
-		  for(r = 0; r < distPoint; ++r) {
-			 s = getRandom(outerWallDistance, random);
-			 int p = getRandom(outerWallDistance, random);
-			 int q = getRandom(outerWallDistance, random);
-			 blockPos6 = blockPos.add(s, p, q);
-			 if (isInvalidCorner(world, blockPos6.getX(), blockPos6.getY(), blockPos6.getZ())) {
+		int r;
+		int s;
+		BlockPos blockPos6;
+		Block block2;
+		for (r = 0; r < distPoint; ++r) {
+			s = getRandom(outerWallDistance, random);
+			int p = getRandom(outerWallDistance, random);
+			int q = getRandom(outerWallDistance, random);
+			blockPos6 = blockPos.add(s, p, q);
+			if (isInvalidCorner(world, blockPos6.getX(), blockPos6.getY(), blockPos6.getZ())) {
 				++m;
 				if (m > invalidBlocksThreshold) {
-				   return false; // Comment this line to disable the valid generation check for testing purposes.
+					return false; // Comment this line to disable the valid generation check for testing purposes.
 				}
-			 }
+			}
 
-			 list.add(Pair.of(blockPos6, getRandom(pointOffset, random)));
-		  }
+			list.add(Pair.of(blockPos6, getRandom(pointOffset, random)));
+		}
 
-		  if (bl) {
-			 r = random.nextInt(4);
-			 s = distPoint * 2 + 1;
-			 if (r == 0) {
+		if (bl) {
+			r = random.nextInt(4);
+			s = distPoint * 2 + 1;
+			if (r == 0) {
 				list2.add(blockPos.add(s, 7, 0));
 				list2.add(blockPos.add(s, 5, 0));
 				list2.add(blockPos.add(s, 1, 0));
-			 } else if (r == 1) {
+			} else if (r == 1) {
 				list2.add(blockPos.add(0, 7, s));
 				list2.add(blockPos.add(0, 5, s));
 				list2.add(blockPos.add(0, 1, s));
-			 } else if (r == 2) {
+			} else if (r == 2) {
 				list2.add(blockPos.add(s, 7, s));
 				list2.add(blockPos.add(s, 5, s));
 				list2.add(blockPos.add(s, 1, s));
-			 } else {
-				 list2.add(blockPos.add(0, 7, 0));
-				 list2.add(blockPos.add(0, 5, 0));
-				 list2.add(blockPos.add(0, 1, 0));
-			 }
-		  }
+			} else {
+				list2.add(blockPos.add(0, 7, 0));
+				list2.add(blockPos.add(0, 5, 0));
+				list2.add(blockPos.add(0, 1, 0));
+			}
+		}
 
 		List<BlockPos> list3 = Lists.newArrayList();
 		Iterator<BlockPos> var48 = BlockPos.iterate(blockPos.add(minGenOffset, minGenOffset, minGenOffset), blockPos.add(maxGenOffset, maxGenOffset, maxGenOffset)).iterator();

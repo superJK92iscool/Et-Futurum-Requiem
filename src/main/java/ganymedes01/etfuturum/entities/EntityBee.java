@@ -991,7 +991,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		}
 
 		public boolean canBeeStart() {
-			return EntityBee.this.savedFlowerPos != null && !EntityBee.this.hasHome() && this.shouldMoveToFlower() && EntityBee.this.isValidFlower(worldObj, savedFlowerPos.getX(), savedFlowerPos.getY(), savedFlowerPos.getZ())
+			return EntityBee.this.savedFlowerPos != null && !EntityBee.this.hasHome() && this.shouldMoveToFlower() && isValidFlower(worldObj, savedFlowerPos.getX(), savedFlowerPos.getY(), savedFlowerPos.getZ())
 					&& !EntityBee.this.isWithinDistance(EntityBee.this.savedFlowerPos, 2);
 		}
 
@@ -1124,7 +1124,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 				return false;
 			} else if (this.completedPollination()) {
 				return EntityBee.this.rand.nextFloat() < 0.2F;
-			} else if (EntityBee.this.ticksExisted % 20 == 0 && !EntityBee.this.isValidFlower(worldObj, savedFlowerPos.getX(), savedFlowerPos.getY(), savedFlowerPos.getZ())) {
+			} else if (EntityBee.this.ticksExisted % 20 == 0 && !isValidFlower(worldObj, savedFlowerPos.getX(), savedFlowerPos.getY(), savedFlowerPos.getZ())) {
 				EntityBee.this.savedFlowerPos = null;
 				return false;
 			} else {

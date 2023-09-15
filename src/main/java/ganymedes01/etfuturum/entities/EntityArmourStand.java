@@ -233,7 +233,6 @@ public class EntityArmourStand extends EntityLiving {
 				if (itemstack.getItem() == Items.skull || itemstack.getItem() == Item.getItemFromBlock(Blocks.pumpkin))
 					b0 = 4;
 			}
-			
 
 
 			byte b1 = 0;

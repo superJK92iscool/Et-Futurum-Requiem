@@ -19,19 +19,19 @@ public class BrewingFuelRegistry {
 	}
 
 	public static void registerFuel(Object itemObj, int count) {
-		if(count <= 0) {
+		if (count <= 0) {
 			throw new IllegalArgumentException("Tried to add a brewing fuel with " + count + " cycles??? It must be able to at least brew 1 set of potions...");
 		}
 
-		if(itemObj instanceof ItemStack) {
+		if (itemObj instanceof ItemStack) {
 			FUEL_REGISTRY.put(((ItemStack) itemObj).copy(), count);
-		} else if(itemObj instanceof String) {
-			for(ItemStack oreStack : OreDictionary.getOres((String) itemObj)) {
+		} else if (itemObj instanceof String) {
+			for (ItemStack oreStack : OreDictionary.getOres((String) itemObj)) {
 				FUEL_REGISTRY.put(oreStack.copy(), count);
 			}
-		} else if(itemObj instanceof Item) {
-			FUEL_REGISTRY.put(new ItemStack((Item)itemObj, 1, OreDictionary.WILDCARD_VALUE), count);
-		} else if(itemObj instanceof Block && Item.getItemFromBlock((Block) itemObj) != null) {
+		} else if (itemObj instanceof Item) {
+			FUEL_REGISTRY.put(new ItemStack((Item) itemObj, 1, OreDictionary.WILDCARD_VALUE), count);
+		} else if (itemObj instanceof Block && Item.getItemFromBlock((Block) itemObj) != null) {
 			FUEL_REGISTRY.put(new ItemStack(Item.getItemFromBlock((Block) itemObj), 1, OreDictionary.WILDCARD_VALUE), count);
 		} else {
 			throw new IllegalArgumentException("Tried to add " + itemObj + "as a brewing fuel, which is not an Itemstack, item, block or string.");
@@ -43,7 +43,7 @@ public class BrewingFuelRegistry {
 	}
 
 	public static void remove(String fuelOreDict) {
-		for(ItemStack stack : OreDictionary.getOres(fuelOreDict)) {
+		for (ItemStack stack : OreDictionary.getOres(fuelOreDict)) {
 			remove(stack);
 		}
 	}
@@ -53,8 +53,8 @@ public class BrewingFuelRegistry {
 	}
 
 	public static boolean isFuel(String fuelOreDict) {
-		for(ItemStack stack : OreDictionary.getOres(fuelOreDict)) {
-			if(isFuel(stack)) return true;
+		for (ItemStack stack : OreDictionary.getOres(fuelOreDict)) {
+			if (isFuel(stack)) return true;
 		}
 		return false;
 	}
@@ -65,7 +65,7 @@ public class BrewingFuelRegistry {
 
 	public static int getBrewingAmount(ItemStack fuel) {
 		Integer time = FUEL_REGISTRY.get(fuel);
-		if(time != null) {
+		if (time != null) {
 			return time;
 		}
 

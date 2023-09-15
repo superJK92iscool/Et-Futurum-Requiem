@@ -13,16 +13,14 @@ public class FrostWalker extends Enchantment {
 		Enchantment.addToBookList(this);
 		setName("frost_walker");
 	}
-	
+
 	@Override
-	public int getMinEnchantability(int enchantmentLevel)
-	{
+	public int getMinEnchantability(int enchantmentLevel) {
 		return enchantmentLevel * 10;
 	}
 
 	@Override
-	public int getMaxEnchantability(int enchantmentLevel)
-	{
+	public int getMaxEnchantability(int enchantmentLevel) {
 		return this.getMinEnchantability(enchantmentLevel) + 15;
 	}
 

@@ -21,7 +21,7 @@ public class BiomeLayerNetherBiomes extends BiomeLayerNether {
 		this.netherBiomes.add(new BiomeEntry(BiomeGenBase.hell, 30)); // Make weight configurable
 // Come back to
 //      if (BiomeConfiguration.CrimsonForestID != -1) {
-			this.netherBiomes.add(new BiomeEntry(NetherBiomeManager.CrimsonForest, 10));
+		this.netherBiomes.add(new BiomeEntry(NetherBiomeManager.CrimsonForest, 10));
 //      }
 //
 //      if (BiomeConfiguration.WarpedForestID != -1) {

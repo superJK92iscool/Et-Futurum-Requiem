@@ -55,13 +55,13 @@ public class ConfigWorld extends ConfigBase {
 	public static final String catClient = "client";
 	public static final String catGeneration = "generation";
 	public static final String catMisc = "miscellaneous";
-	
+
 	public ConfigWorld(File file) {
 		super(file);
 		setCategoryComment(catClient, "Client-side only effects.");
 		setCategoryComment(catGeneration, "Generation settings.");
 		setCategoryComment(catMisc, "For things that affect the world but don't belong in any other category.");
-		
+
 		configCats.add(getCategory(catClient));
 		configCats.add(getCategory(catGeneration));
 		configCats.add(getCategory(catMisc));
@@ -70,7 +70,7 @@ public class ConfigWorld extends ConfigBase {
 	@Override
 	protected void syncConfigOptions() {
 		enableDmgIndicator = getBoolean("enableDmgIndicator", catClient, true, "Heart Damage Indicator");
-		
+
 		enableAirDebris = getBoolean("enableAirDebris", catGeneration, false, "Can ancient debris generate next to air?");
 		maxStonesPerCluster = getInt("maxStonesPerCluster", catGeneration, 32, 0, 64, "Max vein size for Granite/Andesite/Diorite blocks in a cluster");
 		smallDebrisMax = getInt("smallDebrisMax", catGeneration, 2, 0, 64, "The max vein size for the first, typically smaller debris veins which generate from Y 8 to 119");
@@ -85,13 +85,19 @@ public class ConfigWorld extends ConfigBase {
 		deepslateGenerationMode = getInt("deepslateGenerationMode", catGeneration, 0, -1, 1, "If 0, deepslate replaces all stone below the specified value, with a shattering effect near the top similar to bedrock. If 1, it generates in clusters using the deepslate cluster settings. -1 disables Et Futurum deepslate generation entirely.");
 		enableOceanMonuments = getBoolean("enableOceanMonuments", catGeneration, true, "Note: Ocean monuments currently do not have guardians");
 		enableFossils = getBoolean("enableFossils", catGeneration, true, "");
-		if(hasKey(catGeneration, "fossilBoneBlock")) {
+		if (hasKey(catGeneration, "fossilBoneBlock")) {
 			Property oldFossilIDProp = get(catGeneration, "fossilBoneBlock", 0);
 			int oldID = oldFossilIDProp.getInt();
-			switch(oldID) {
-				default: fossilBlockID = "etfuturum:bone"; break;
-				case 1: fossilBlockID = "netherlicious:BoneBlock"; break;
-				case 2: fossilBlockID = "uptodate:bone_block"; break;
+			switch (oldID) {
+				default:
+					fossilBlockID = "etfuturum:bone";
+					break;
+				case 1:
+					fossilBlockID = "netherlicious:BoneBlock";
+					break;
+				case 2:
+					fossilBlockID = "uptodate:bone_block";
+					break;
 			}
 			getCategory(catGeneration).remove("fossilBoneBlock");
 			get(catGeneration, "fossilBlockID", "etfuturum:bone").set(fossilBlockID);
@@ -99,12 +105,16 @@ public class ConfigWorld extends ConfigBase {
 		}
 		fossilBlockID = getString("fossilBlockID", catGeneration, "etfuturum:bone", "Use a namespaced ID, + optionally meta (max 3) to choose the block that makes up fossils. The max meta is 3 because the rotations will change the meta. North/South is the meta + 4 and East/West is + 8.\nNetherlicious bone block is \"netherlicious:BoneBlock\" and UpToDate bone block is \"uptodate:bone_block\".\nIf the chosen block does not exist then fossils will not generate.");
 
-		if(hasKey(catGeneration, "amethystOuterBlock")) {
+		if (hasKey(catGeneration, "amethystOuterBlock")) {
 			Property oldAmethystOuterIDProp = get(catGeneration, "amethystOuterBlock", 0);
 			int oldID = oldAmethystOuterIDProp.getInt();
-			switch(oldID) {
-				default: amethystOuterBlockID = "etfuturum:smooth_basalt"; break;
-				case 1: amethystOuterBlockID = "etfuturum:tuff"; break;
+			switch (oldID) {
+				default:
+					amethystOuterBlockID = "etfuturum:smooth_basalt";
+					break;
+				case 1:
+					amethystOuterBlockID = "etfuturum:tuff";
+					break;
 				case 2:
 					amethystOuterBlockID = "netherlicious:BasaltBricks:6";
 					break;
@@ -130,21 +140,21 @@ public class ConfigWorld extends ConfigBase {
 		enableMesaMineshaft = getBoolean("enableMesaMineshaft", catGeneration, true, "Generates extra mineshafts in mesa biomes up to y80. If fences are enabled, dark oak wood is used.");
 		enableCoarseDirtReplacement = getBoolean("enableCoarseDirtReplacement", catGeneration, true, "Replaces coarse dirt in biomes it (dirt:1) generates in such as shattered savannas or mesa plateaus.");
 		enableAmethystGeodes = getBoolean("enableAmethystGeodes", catGeneration, true, "");
-		buddingAmethystMode  = getInt("buddingAmethystMode", catGeneration, 0, 0, 2, "0 = Budding amethyst cannot be obtained at all even with silk touch. When using this option, attempting to push them using a piston will break it.\n1 = Budding amethyst will drop if you use a silk touch pickaxe.\n2 = Budding amethyst does not need silk touch, just a pickaxe.");
-		Property amethystBlacklistProp = get(catGeneration, "amethystDimensionBlacklist", new int[] {-1, 1});
+		buddingAmethystMode = getInt("buddingAmethystMode", catGeneration, 0, 0, 2, "0 = Budding amethyst cannot be obtained at all even with silk touch. When using this option, attempting to push them using a piston will break it.\n1 = Budding amethyst will drop if you use a silk touch pickaxe.\n2 = Budding amethyst does not need silk touch, just a pickaxe.");
+		Property amethystBlacklistProp = get(catGeneration, "amethystDimensionBlacklist", new int[]{-1, 1});
 		amethystBlacklistProp.comment = "What dimensions should we ban amethyst geodes from generating in?";
 		amethystDimensionBlacklist = amethystBlacklistProp.getIntList();
 		amethystDimensionBlacklistAsWhitelist = getBoolean("amethystDimensionBlacklistAsWhitelist", catGeneration, false, "Treat the amethyst dimension blacklist as a whitelist instead, so geodes will ONLY generate in those dimensions, instead of excluding those dimensions from generation.");
 		amethystRarity = getInt("amethystRarity", catGeneration, 53, 1, 128, "How rare should amethyst geodes be? 1/x chance per chunk, 1 means a geode attempts to appear every chunk");
 		amethystMaxY = getInt("amethystMaxY", catGeneration, 46, 6, 245, "Max Y level amethyst geodes should attempt to generate at");
-		
+
 		tileReplacementMode = getInt("tileReplacementMode", catMisc, 0, -1, 1, "Replace old Brewing Stands/Enchanting Tables/Daylight Sensors/Beacons with new one on the fly.\n-1 = Disabled, no conversion even if the replacement tile entities are on\n0 = Convert the vanilla tile entities to their Et Futurum versions\n1 = Convert Et Futurum replacement tile entities back to default ones. Useful if you want to turn those off.");
 	}
 
 	@Override
 	protected void initValues() {
 		String[] fossilBlockArray = fossilBlockID.split(":");
-		if((fossilBlockArray.length == 2 || fossilBlockArray.length == 3) && GameRegistry.findBlock(fossilBlockArray[0], fossilBlockArray[1]) != null) {
+		if ((fossilBlockArray.length == 2 || fossilBlockArray.length == 3) && GameRegistry.findBlock(fossilBlockArray[0], fossilBlockArray[1]) != null) {
 			int meta = 0;
 			if (fossilBlockArray.length == 3) {
 				try {
@@ -165,7 +175,7 @@ public class ConfigWorld extends ConfigBase {
 		}
 
 		String[] amethystOuterBlockArray = amethystOuterBlockID.split(":");
-		if((amethystOuterBlockArray.length == 2 || amethystOuterBlockArray.length == 3) && GameRegistry.findBlock(amethystOuterBlockArray[0], amethystOuterBlockArray[1]) != null) {
+		if ((amethystOuterBlockArray.length == 2 || amethystOuterBlockArray.length == 3) && GameRegistry.findBlock(amethystOuterBlockArray[0], amethystOuterBlockArray[1]) != null) {
 			int meta = 0;
 			if (amethystOuterBlockArray.length == 3) {
 				try {
@@ -186,7 +196,7 @@ public class ConfigWorld extends ConfigBase {
 		}
 
 		String[] amethystMiddleBlockArray = amethystMiddleBlockID.split(":");
-		if((amethystMiddleBlockArray.length == 2 || amethystMiddleBlockArray.length == 3) && GameRegistry.findBlock(amethystMiddleBlockArray[0], amethystMiddleBlockArray[1]) != null) {
+		if ((amethystMiddleBlockArray.length == 2 || amethystMiddleBlockArray.length == 3) && GameRegistry.findBlock(amethystMiddleBlockArray[0], amethystMiddleBlockArray[1]) != null) {
 			int meta = 0;
 			if (amethystMiddleBlockArray.length == 3) {
 				try {

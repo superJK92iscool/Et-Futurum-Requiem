@@ -37,10 +37,9 @@ public class BlockBarrier extends BaseBlock implements IFloatingParticleBlock {
 		useNeighborBrightness = true;
 		canBlockGrass = false;
 	}
-	
+
 	@Override
-	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_)
-	{
+	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_) {
 		return null;
 	}
 
@@ -69,26 +68,22 @@ public class BlockBarrier extends BaseBlock implements IFloatingParticleBlock {
 	}
 
 	@Override
-	public boolean isOpaqueCube()
-	{
-		return false;
-	}
-	
-	@Override
-	public boolean renderAsNormalBlock()
-	{
+	public boolean isOpaqueCube() {
 		return false;
 	}
 
 	@Override
-	public boolean isNormalCube()
-	{
+	public boolean renderAsNormalBlock() {
+		return false;
+	}
+
+	@Override
+	public boolean isNormalCube() {
 		return true;
 	}
 
 	@Override
-	public boolean isBlockSolid(IBlockAccess p_149747_1_, int p_149747_2_, int p_149747_3_, int p_149747_4_, int p_149747_5_)
-	{
+	public boolean isBlockSolid(IBlockAccess p_149747_1_, int p_149747_2_, int p_149747_3_, int p_149747_4_, int p_149747_5_) {
 		return true;
 	}
 

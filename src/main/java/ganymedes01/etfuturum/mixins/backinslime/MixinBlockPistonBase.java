@@ -59,7 +59,7 @@ public class MixinBlockPistonBase extends Block {
 	private void updatePistonState(World world, int x, int y, int z) {
 		int pistonMetadata = world.getBlockMetadata(x, y, z);
 		int side = BlockPistonBase.getPistonOrientation(pistonMetadata);
-		if(side == 7) return;
+		if (side == 7) return;
 		boolean isPowered = this.isIndirectlyPowered(world, x, y, z, side);
 
 		ForgeDirection dir = ForgeDirection.getOrientation(side);
@@ -197,8 +197,7 @@ public class MixinBlockPistonBase extends Block {
 			} else if ((pushedBlockY == 0 && side == 0) || (pushedBlockY >= world.getHeight() - 1 && side == 1)) {
 				return 13;
 			} else if (etfuturum$canPushBlockNested(pushedBlock, world, pushedBlockX, pushedBlockY, pushedBlockZ, side, side)) {
-				if (pushedBlock.getMobilityFlag() == 1)
-				{
+				if (pushedBlock.getMobilityFlag() == 1) {
 					return ++blocksPushed;
 				}
 			} else {
@@ -272,7 +271,7 @@ public class MixinBlockPistonBase extends Block {
 		List<BlockPos> relocationCoordsList = Lists.newArrayList();
 		List<BlockPos> obstructionsCoordsList = Lists.newArrayList();
 
-		if(extending) {
+		if (extending) {
 			relocationCoordsList.add(new BlockPos(pistonX - xoffset, pistonY - yoffset, pistonZ - zoffset));
 		}
 		relocationCoordsList.addAll(pushedBlockPosList);
@@ -310,7 +309,7 @@ public class MixinBlockPistonBase extends Block {
 			Block obstructionBlock = world.getBlock(obstruction.getX(), obstruction.getY(), obstruction.getZ());
 			int obstructionMeta = world.getBlockMetadata(obstruction.getX(), obstruction.getY(), obstruction.getZ());
 			float chance = obstructionBlock instanceof BlockSnow ? -1.0F : 1.0F;
-			
+
 			obstructionBlock.dropBlockAsItemWithChance(world, obstruction.getX(), obstruction.getY(), obstruction.getZ(), obstructionMeta, chance, 0);
 			world.setBlockToAir(obstruction.getX(), obstruction.getY(), obstruction.getZ());
 		}

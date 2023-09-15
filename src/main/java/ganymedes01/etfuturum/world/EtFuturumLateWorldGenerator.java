@@ -108,25 +108,25 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 			}
 		}
 	}
-	
-	
+
+
 	private void doCoarseDirtGen(Chunk chunk) {
-			for (int x = 0; x < 16; x++) {
-				for (int z = 0; z < 16; z++) {
-					for (int y = 0; y < chunk.getHeightValue(x, z); y++) {
-						ExtendedBlockStorage array = chunk.getBlockStorageArray()[y >> 4];
-						if(array != null && array.getExtBlockMetadata(x, y & 15, z) == 1 && array.getBlockByExtId(x, y & 15, z) == Blocks.dirt) {
-							array.func_150818_a(x, y & 15, z, ModBlocks.COARSE_DIRT.get());
-							array.setExtBlockMetadata(x, y & 15, z, 0);
+		for (int x = 0; x < 16; x++) {
+			for (int z = 0; z < 16; z++) {
+				for (int y = 0; y < chunk.getHeightValue(x, z); y++) {
+					ExtendedBlockStorage array = chunk.getBlockStorageArray()[y >> 4];
+					if (array != null && array.getExtBlockMetadata(x, y & 15, z) == 1 && array.getBlockByExtId(x, y & 15, z) == Blocks.dirt) {
+						array.func_150818_a(x, y & 15, z, ModBlocks.COARSE_DIRT.get());
+						array.setExtBlockMetadata(x, y & 15, z, 0);
 					}
 				}
 			}
 		}
 	}
-	
-	
+
+
 	private void doDeepslateGen(Chunk chunk) {
-		
+
 		int worldX;
 		int worldZ;
 		final int chunkMultiplierX = chunk.xPosition << 4;
@@ -165,7 +165,7 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 			}
 		}
 	}
-	
+
 	public static boolean stopRecording;
 
 	private boolean doesChunkSupportLayerDeepslate(IChunkProvider provider, int dimId) {

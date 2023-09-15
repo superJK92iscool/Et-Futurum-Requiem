@@ -8,8 +8,7 @@ import net.minecraft.block.material.Material;
 
 public class BlockNetherwart extends Block {
 
-	public BlockNetherwart()
-	{
+	public BlockNetherwart() {
 		super(Material.grass);
 		setHardness(1F);
 		setResistance(5F);
@@ -18,5 +17,5 @@ public class BlockNetherwart extends Block {
 		setBlockName(Utils.getUnlocalisedName("nether_wart"));
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
-	
+
 }

@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 public class MixinWorldRenderer {
 	@Redirect(method = "updateRenderer", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/Block;getRenderType()I", ordinal = 0))
 	private int skipInsideRenderForSpectator(Block instance) {
-		if(SpectatorMode.isSpectator(Minecraft.getMinecraft().thePlayer)) {
+		if (SpectatorMode.isSpectator(Minecraft.getMinecraft().thePlayer)) {
 			return -1;
 		}
 		return instance.getRenderType();

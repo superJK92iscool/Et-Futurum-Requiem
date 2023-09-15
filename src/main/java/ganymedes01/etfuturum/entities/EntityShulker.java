@@ -47,7 +47,7 @@ public class EntityShulker extends EntityGolem implements IMob {
 	private float currentPeekAmount;
 	private BlockPos currentAttachmentPosition;
 	private int clientSideTeleportInterpolation;
-	
+
 	public EntityShulker(World p_i1686_1_) {
 		super(p_i1686_1_);
 		this.tasks.addTask(1, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
@@ -61,20 +61,17 @@ public class EntityShulker extends EntityGolem implements IMob {
 		persistenceRequired = true;
 	}
 
-	protected boolean canDespawn()
-	{
+	protected boolean canDespawn() {
 		return !isNoDespawnRequired();
 	}
 
 	@Override
-	protected float func_110146_f(float p_110146_1_, float p_110146_2_)
-	{
+	protected float func_110146_f(float p_110146_1_, float p_110146_2_) {
 		return 180;
 	}
-	
+
 	@Override
-	public IEntityLivingData onSpawnWithEgg(IEntityLivingData p_110161_1_)
-	{
+	public IEntityLivingData onSpawnWithEgg(IEntityLivingData p_110161_1_) {
 		this.renderYawOffset = 180.0F;
 		this.prevRenderYawOffset = 180.0F;
 		this.rotationYaw = 180.0F;
@@ -83,87 +80,75 @@ public class EntityShulker extends EntityGolem implements IMob {
 		this.prevRotationYawHead = 180.0F;
 		return super.onSpawnWithEgg(p_110161_1_);
 	}
-	
-	public void setLocationAndAngles(double p_70012_1_, double p_70012_3_, double p_70012_5_, float p_70012_7_, float p_70012_8_)
-	{
+
+	public void setLocationAndAngles(double p_70012_1_, double p_70012_3_, double p_70012_5_, float p_70012_7_, float p_70012_8_) {
 		super.setLocationAndAngles(p_70012_1_, p_70012_3_, p_70012_5_, p_70012_7_, p_70012_8_);
-		if(getAge() == 0) {
+		if (getAge() == 0) {
 			int x = MathHelper.floor_double(posX);
 			int y = MathHelper.floor_double(posY);
 			int z = MathHelper.floor_double(posZ);
 			this.setAttachmentPos(new BlockPos(x, y, z));
-			for (EnumFacing enumfacing1 : EnumFacing.values())
-			{
-				if (this.worldObj.isBlockNormalCubeDefault(x + enumfacing1.getFrontOffsetX(), y + enumfacing1.getFrontOffsetY(), z + enumfacing1.getFrontOffsetZ(), false))
-				{
-					this.getDataWatcher().updateObject(ATTACHED_FACE, (byte)enumfacing1.ordinal());
+			for (EnumFacing enumfacing1 : EnumFacing.values()) {
+				if (this.worldObj.isBlockNormalCubeDefault(x + enumfacing1.getFrontOffsetX(), y + enumfacing1.getFrontOffsetY(), z + enumfacing1.getFrontOffsetZ(), false)) {
+					this.getDataWatcher().updateObject(ATTACHED_FACE, (byte) enumfacing1.ordinal());
 					break;
 				}
 			}
 		}
 	}
 
-	protected void entityInit()
-	{
+	protected void entityInit() {
 		super.entityInit();
-		this.getDataWatcher().addObject(ATTACHED_FACE, (byte)0);
-		this.getDataWatcher().addObject(PEEK_TICK, (byte)0);
+		this.getDataWatcher().addObject(ATTACHED_FACE, (byte) 0);
+		this.getDataWatcher().addObject(PEEK_TICK, (byte) 0);
 		this.getDataWatcher().addObject(ATTACHED_X, 0);
 		this.getDataWatcher().addObject(ATTACHED_Y, -1);
 		this.getDataWatcher().addObject(ATTACHED_Z, 0);
-		this.getDataWatcher().addObject(COLOR, (byte)16);
+		this.getDataWatcher().addObject(COLOR, (byte) 16);
 	}
-	
+
 	public void setColor(byte color) {
 		getDataWatcher().updateObject(COLOR, (byte) Math.min(Math.max(color, 0), 16));
 	}
-	
+
 	public byte getColor() {
 		return getDataWatcher().getWatchableObjectByte(COLOR);
 	}
-	
-	protected String getLivingSound()
-	{
+
+	protected String getLivingSound() {
 		return Reference.MCAssetVer + ":entity.shulker.ambient";
 	}
-	
-	protected String getHurtSound()
-	{
+
+	protected String getHurtSound() {
 		return Reference.MCAssetVer + ":entity.shulker.hurt" + (isClosed() ? "_closed" : "");
 	}
 
-	protected String getDeathSound()
-	{
+	protected String getDeathSound() {
 		return Reference.MCAssetVer + ":entity.shulker.death";
 	}
-	
+
 	@Override
-	protected boolean canTriggerWalking()
-	{
+	protected boolean canTriggerWalking() {
 		return false;
 	}
-	
-	public boolean canBeCollidedWith()
-	{
+
+	public boolean canBeCollidedWith() {
 		return true;
 	}
 
 	@Override
-	public void playLivingSound()
-	{
-		if (!this.isClosed())
-		{
+	public void playLivingSound() {
+		if (!this.isClosed()) {
 			super.playLivingSound();
 		}
 	}
 
 	@Override
-	protected void applyEntityAttributes()
-	{
+	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
 		this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(30.0D);
 	}
-	
+
 //    protected EntityBodyHelper createBodyHelper()
 //    { //TODO: Check what the fuck this is supposed to do
 //        return new EntityShulker.BodyHelper(this);
@@ -172,10 +157,9 @@ public class EntityShulker extends EntityGolem implements IMob {
 	/**
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
-	public void readEntityFromNBT(NBTTagCompound compound)
-	{
+	public void readEntityFromNBT(NBTTagCompound compound) {
 		super.readEntityFromNBT(compound);
-		this.getDataWatcher().updateObject(ATTACHED_FACE, (byte)EnumFacing.getFront(compound.getByte("AttachFace")).ordinal());
+		this.getDataWatcher().updateObject(ATTACHED_FACE, (byte) EnumFacing.getFront(compound.getByte("AttachFace")).ordinal());
 		this.getDataWatcher().updateObject(PEEK_TICK, Byte.valueOf(compound.getByte("Peek")));
 
 		this.setAttachmentPos(new BlockPos(compound.getInteger("APX"), compound.getInteger("APY"), compound.getInteger("APZ")));
@@ -185,60 +169,53 @@ public class EntityShulker extends EntityGolem implements IMob {
 	/**
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
-	public void writeEntityToNBT(NBTTagCompound compound)
-	{
+	public void writeEntityToNBT(NBTTagCompound compound) {
 		super.writeEntityToNBT(compound);
 		compound.setByte("AttachFace", this.getDataWatcher().getWatchableObjectByte(ATTACHED_FACE));
 		compound.setByte("Peek", this.getDataWatcher().getWatchableObjectByte(PEEK_TICK));
-		
+
 		compound.setInteger("APX", this.getDataWatcher().getWatchableObjectInt(ATTACHED_X));
 		compound.setInteger("APY", this.getDataWatcher().getWatchableObjectInt(ATTACHED_Y));
 		compound.setInteger("APZ", this.getDataWatcher().getWatchableObjectInt(ATTACHED_Z));
 		compound.setByte("Color", getDataWatcher().getWatchableObjectByte(COLOR));
 	}
-	
-	public BlockPos getAttachmentPos()
-	{
+
+	public BlockPos getAttachmentPos() {
 		return new BlockPos(getDataWatcher().getWatchableObjectInt(ATTACHED_X), getDataWatcher().getWatchableObjectInt(ATTACHED_Y), getDataWatcher().getWatchableObjectInt(ATTACHED_Z));
 	}
+
 	/**
 	 * Called to update the entity's position/logic.
 	 */
-	public void onUpdate()
-	{
+	public void onUpdate() {
 		super.onUpdate();
 		BlockPos blockpos = getAttachmentPos();
-		
-		if(getColor() != 16 && worldObj.getBlock(blockpos.getX(), blockpos.getY(), blockpos.getZ()).getMaterial() == Material.water) {
+
+		if (getColor() != 16 && worldObj.getBlock(blockpos.getX(), blockpos.getY(), blockpos.getZ()).getMaterial() == Material.water) {
 			setColor((byte) 16);
 		}
 
-		if(worldObj.difficultySetting == EnumDifficulty.PEACEFUL && this.getAttackTarget() instanceof EntityPlayer) {
+		if (worldObj.difficultySetting == EnumDifficulty.PEACEFUL && this.getAttackTarget() instanceof EntityPlayer) {
 			this.setAttackTarget(null);
 		}
-		if (blockpos.getY() == -1 && !this.worldObj.isRemote)
-		{
+		if (blockpos.getY() == -1 && !this.worldObj.isRemote) {
 			blockpos = new BlockPos(this);
 			this.getDataWatcher().updateObject(ATTACHED_X, blockpos.getX());
 			this.getDataWatcher().updateObject(ATTACHED_Y, blockpos.getY());
 			this.getDataWatcher().updateObject(ATTACHED_Z, blockpos.getZ());
 		}
 
-		if (this.isRiding())
-		{
+		if (this.isRiding()) {
 			blockpos = null;
 			float f = this.ridingEntity.rotationYaw;
 			this.rotationYaw = f;
 			this.renderYawOffset = f;
 			this.prevRenderYawOffset = f;
 			this.clientSideTeleportInterpolation = 0;
-		}
-		else if (!this.worldObj.isRemote)
-		{
+		} else if (!this.worldObj.isRemote) {
 			Block iblockstate = this.worldObj.getBlock(blockpos.getX(), blockpos.getY(), blockpos.getZ());
 
-			if (iblockstate != Blocks.air)
-			{
+			if (iblockstate != Blocks.air) {
 //                if (iblockstate == Blocks.piston_extension)
 //                {
 //                    EnumFacing enumfacing = (EnumFacing)iblockstate.getValue(BlockPistonBase.FACING);
@@ -251,44 +228,35 @@ public class EntityShulker extends EntityGolem implements IMob {
 //                    blockpos = blockpos.offset(enumfacing3);
 //                    this.setAttachmentPos(blockpos);
 //                }
-				if (iblockstate == Blocks.piston_extension)
-				{
+				if (iblockstate == Blocks.piston_extension) {
 					EnumFacing enumfacing = EnumFacing.getFront(worldObj.getBlockMetadata(blockpos.getX(), blockpos.getY(), blockpos.getZ()));
 					blockpos = blockpos.offset(enumfacing);
 					this.setAttachmentPos(blockpos);
-				}
-				else if (iblockstate == Blocks.piston_head)
-				{
+				} else if (iblockstate == Blocks.piston_head) {
 					EnumFacing enumfacing3 = EnumFacing.getFront(worldObj.getBlockMetadata(blockpos.getX(), blockpos.getY(), blockpos.getZ()));
 					blockpos = blockpos.offset(enumfacing3);
 					this.setAttachmentPos(blockpos);
-				}
-				else
-				{
+				} else {
 					this.tryTeleportToNewPosition();
 				}
 			}
 
 			BlockPos blockpos1 = blockpos.offset(this.getAttachmentFacing());
 
-			if (!this.worldObj.isBlockNormalCubeDefault(blockpos1.getX(), blockpos1.getY(), blockpos1.getZ(), false))
-			{
+			if (!this.worldObj.isBlockNormalCubeDefault(blockpos1.getX(), blockpos1.getY(), blockpos1.getZ(), false)) {
 				boolean flag = false;
 
-				
-				for (EnumFacing enumfacing1 : EnumFacing.values())
-				{
+
+				for (EnumFacing enumfacing1 : EnumFacing.values()) {
 					if (this.worldObj.isBlockNormalCubeDefault(blockpos.getX() + enumfacing1.getFrontOffsetX(), blockpos.getY() + enumfacing1.getFrontOffsetY(),
-							blockpos.getZ() + enumfacing1.getFrontOffsetZ(), false))
-					{
-						this.getDataWatcher().updateObject(ATTACHED_FACE, (byte)enumfacing1.ordinal());
+							blockpos.getZ() + enumfacing1.getFrontOffsetZ(), false)) {
+						this.getDataWatcher().updateObject(ATTACHED_FACE, (byte) enumfacing1.ordinal());
 						flag = true;
 						break;
 					}
 				}
 
-				if (!flag)
-				{
+				if (!flag) {
 					this.tryTeleportToNewPosition();
 				}
 			}
@@ -297,51 +265,41 @@ public class EntityShulker extends EntityGolem implements IMob {
 			int opposite = ordinal = ordinal % 2 == 0 ? ordinal + 1 : ordinal - 1;
 			BlockPos blockpos2 = blockpos.offset(EnumFacing.getFront(opposite));
 
-			if (this.worldObj.isBlockNormalCubeDefault(blockpos2.getX(), blockpos2.getY(), blockpos2.getZ(), false))
-			{
+			if (this.worldObj.isBlockNormalCubeDefault(blockpos2.getX(), blockpos2.getY(), blockpos2.getZ(), false)) {
 				this.tryTeleportToNewPosition();
 			}
 		}
 
-		float f1 = (float)this.getPeekTick() * 0.01F;
+		float f1 = (float) this.getPeekTick() * 0.01F;
 		this.currentPeekAmount0 = this.currentPeekAmount;
 
-		if (this.currentPeekAmount > f1)
-		{
+		if (this.currentPeekAmount > f1) {
 			this.currentPeekAmount = MathHelper.clamp_float(this.currentPeekAmount - 0.05F, f1, 1.0F);
-		}
-		else if (this.currentPeekAmount < f1)
-		{
+		} else if (this.currentPeekAmount < f1) {
 			this.currentPeekAmount = MathHelper.clamp_float(this.currentPeekAmount + 0.05F, 0.0F, f1);
 		}
 
-		if (blockpos != null)
-		{
-			if (this.worldObj.isRemote)
-			{
-				if (this.clientSideTeleportInterpolation > 0 && this.currentAttachmentPosition != null)
-				{
+		if (blockpos != null) {
+			if (this.worldObj.isRemote) {
+				if (this.clientSideTeleportInterpolation > 0 && this.currentAttachmentPosition != null) {
 					--this.clientSideTeleportInterpolation;
-				}
-				else
-				{
+				} else {
 					this.currentAttachmentPosition = blockpos;
 				}
 			}
 
-			this.lastTickPosX = this.prevPosX = this.posX = (double)blockpos.getX() + 0.5D;
-			this.lastTickPosY = this.prevPosY = this.posY = (double)blockpos.getY();
-			this.lastTickPosZ = this.prevPosZ = this.posZ = (double)blockpos.getZ() + 0.5D;
-			double d3 = 0.5D - (double)MathHelper.sin((0.5F + this.currentPeekAmount) * (float)Math.PI) * 0.5D;
-			double d4 = 0.5D - (double)MathHelper.sin((0.5F + this.currentPeekAmount0) * (float)Math.PI) * 0.5D;
+			this.lastTickPosX = this.prevPosX = this.posX = (double) blockpos.getX() + 0.5D;
+			this.lastTickPosY = this.prevPosY = this.posY = blockpos.getY();
+			this.lastTickPosZ = this.prevPosZ = this.posZ = (double) blockpos.getZ() + 0.5D;
+			double d3 = 0.5D - (double) MathHelper.sin((0.5F + this.currentPeekAmount) * (float) Math.PI) * 0.5D;
+			double d4 = 0.5D - (double) MathHelper.sin((0.5F + this.currentPeekAmount0) * (float) Math.PI) * 0.5D;
 			double d5 = d3 - d4;
 			double d0 = 0.0D;
 			double d1 = 0.0D;
 			double d2 = 0.0D;
 			EnumFacing enumfacing2 = this.getAttachmentFacing();
 
-			switch (enumfacing2)
-			{
+			switch (enumfacing2) {
 				case DOWN:
 				default:
 					this.boundingBox.setBounds(this.posX - 0.5D, this.posY, this.posZ - 0.5D, this.posX + 0.5D, this.posY + 1.0D + d3, this.posZ + 0.5D);
@@ -372,16 +330,12 @@ public class EntityShulker extends EntityGolem implements IMob {
 					d0 = -d5;
 			}
 
-			if (d5 > 0.0D)
-			{
+			if (d5 > 0.0D) {
 				List<Entity> list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox);
 
-				if (!list.isEmpty())
-				{
-					for (Entity entity : list)
-					{
-						if (!(entity instanceof EntityShulker) && !entity.noClip)
-						{
+				if (!list.isEmpty()) {
+					for (Entity entity : list) {
+						if (!(entity instanceof EntityShulker) && !entity.noClip) {
 							entity.moveEntity(d0, d1, d2);
 						}
 					}
@@ -389,59 +343,49 @@ public class EntityShulker extends EntityGolem implements IMob {
 			}
 		}
 	}
-	
+
 	@Override
-	public void setPosition(double x, double y, double z)
-	{
+	public void setPosition(double x, double y, double z) {
 		super.setPosition(x, y, z);
-		
-		if (this.getDataWatcher() != null)
-		{
+
+		if (this.getDataWatcher() != null) {
 			int xpos = MathHelper.floor_double(x);
 			int ypos = MathHelper.floor_double(y);
 			int zpos = MathHelper.floor_double(z);
 			if (this.getDataWatcher().getWatchableObjectInt(ATTACHED_X) != xpos || this.getDataWatcher().getWatchableObjectInt(ATTACHED_Y) != ypos
-					|| this.getDataWatcher().getWatchableObjectInt(ATTACHED_Z) != zpos)
-			{
+					|| this.getDataWatcher().getWatchableObjectInt(ATTACHED_Z) != zpos) {
 				this.setAttachmentPos(new BlockPos(xpos, ypos, zpos));
-				if(!this.isRiding())
-					this.getDataWatcher().updateObject(PEEK_TICK, Byte.valueOf((byte)0));
+				if (!this.isRiding())
+					this.getDataWatcher().updateObject(PEEK_TICK, Byte.valueOf((byte) 0));
 				this.isAirBorne = true;
 			}
 		}
 	}
-	
-	protected boolean tryTeleportToNewPosition()
-	{
-		if (this.isAIEnabled() && this.isEntityAlive())
-		{
-			for (int i = 0; i < 5; ++i)
-			{
-				int newx = (int) (MathHelper.floor_double(this.posX) + 8 - this.rand.nextInt(17));
-				int newy = (int) (MathHelper.floor_double(this.posY) + 8 - this.rand.nextInt(17));
-				int newz = (int) (MathHelper.floor_double(this.posZ) + 8 - this.rand.nextInt(17));
+
+	protected boolean tryTeleportToNewPosition() {
+		if (this.isAIEnabled() && this.isEntityAlive()) {
+			for (int i = 0; i < 5; ++i) {
+				int newx = MathHelper.floor_double(this.posX) + 8 - this.rand.nextInt(17);
+				int newy = MathHelper.floor_double(this.posY) + 8 - this.rand.nextInt(17);
+				int newz = MathHelper.floor_double(this.posZ) + 8 - this.rand.nextInt(17);
 
 				if (newy > 0 && this.worldObj.isAirBlock(newx, newy, newz)
-						&& /* this.worldObj.isInsideBorder(this.worldObj.getWorldBorder(), this) && */this.worldObj.getCollidingBoundingBoxes(this, AxisAlignedBB.getBoundingBox(newx, newy, newz, newx + 1, newy + 1, newz + 1)).isEmpty())
-				{
+						&& /* this.worldObj.isInsideBorder(this.worldObj.getWorldBorder(), this) && */this.worldObj.getCollidingBoundingBoxes(this, AxisAlignedBB.getBoundingBox(newx, newy, newz, newx + 1, newy + 1, newz + 1)).isEmpty()) {
 					boolean flag = false;
 
-					for (EnumFacing enumfacing : EnumFacing.values())
-					{
+					for (EnumFacing enumfacing : EnumFacing.values()) {
 						if (this.worldObj.isBlockNormalCubeDefault(newx + enumfacing.getFrontOffsetX(), newy + enumfacing.getFrontOffsetY(),
-								newz + enumfacing.getFrontOffsetZ(), false))
-						{
-							this.getDataWatcher().updateObject(ATTACHED_FACE, (byte)enumfacing.ordinal());
+								newz + enumfacing.getFrontOffsetZ(), false)) {
+							this.getDataWatcher().updateObject(ATTACHED_FACE, (byte) enumfacing.ordinal());
 							flag = true;
 							break;
 						}
 					}
 
-					if (flag)
-					{
+					if (flag) {
 						this.playSound(Reference.MCAssetVer + ":entity.shulker.teleport", 1.0F, 1.0F);
 						this.setAttachmentPos(new BlockPos(newx, newy, newz));
-						this.getDataWatcher().updateObject(PEEK_TICK, Byte.valueOf((byte)0));
+						this.getDataWatcher().updateObject(PEEK_TICK, Byte.valueOf((byte) 0));
 						this.setAttackTarget(null);
 						return true;
 					}
@@ -452,10 +396,9 @@ public class EntityShulker extends EntityGolem implements IMob {
 		}
 		return true;
 	}
-	
+
 	@Override
-	public void onLivingUpdate()
-	{
+	public void onLivingUpdate() {
 		super.onLivingUpdate();
 		this.motionX = 0.0D;
 		this.motionY = 0.0D;
@@ -466,24 +409,19 @@ public class EntityShulker extends EntityGolem implements IMob {
 	}
 
 	public void func_145781_i(int key) {
-		if ((key == ATTACHED_X || key == ATTACHED_Y || key == ATTACHED_Z) && this.worldObj.isRemote && !this.isRiding())
-		{
+		if ((key == ATTACHED_X || key == ATTACHED_Y || key == ATTACHED_Z) && this.worldObj.isRemote && !this.isRiding()) {
 			BlockPos blockpos = this.getAttachmentPos();
 
-			if (blockpos.getY() != -1)
-			{
-				if (this.currentAttachmentPosition == null)
-				{
+			if (blockpos.getY() != -1) {
+				if (this.currentAttachmentPosition == null) {
 					this.currentAttachmentPosition = blockpos;
-				}
-				else if(this.ticksExisted > 0)
-				{
+				} else if (this.ticksExisted > 0) {
 					this.clientSideTeleportInterpolation = 6;
 				}
 
-				this.lastTickPosX = this.prevPosX = this.posX = (double)blockpos.getX() + 0.5D;
-				this.lastTickPosY = this.prevPosY = this.posY = (double)blockpos.getY();
-				this.lastTickPosZ = this.prevPosZ = this.posZ = (double)blockpos.getZ() + 0.5D;
+				this.lastTickPosX = this.prevPosX = this.posX = (double) blockpos.getX() + 0.5D;
+				this.lastTickPosY = this.prevPosY = this.posY = blockpos.getY();
+				this.lastTickPosZ = this.prevPosZ = this.posZ = (double) blockpos.getZ() + 0.5D;
 			}
 		}
 
@@ -494,23 +432,19 @@ public class EntityShulker extends EntityGolem implements IMob {
 	 * Called when the entity is attacked.
 	 */
 	@Override
-	public boolean attackEntityFrom(DamageSource source, float amount)
-	{
-		if (this.isClosed())
-		{
+	public boolean attackEntityFrom(DamageSource source, float amount) {
+		if (this.isClosed()) {
 			Entity entity = source.getSourceOfDamage();
 
-			if (entity instanceof EntityArrow)
-			{
+			if (entity instanceof EntityArrow) {
 				return false;
 			}
 		}
 
-		if (super.attackEntityFrom(source, amount))
-		{
-			if ((double)this.getHealth() < (double)this.getMaxHealth() * 0.5D && this.rand.nextInt(4) == 0) {
+		if (super.attackEntityFrom(source, amount)) {
+			if ((double) this.getHealth() < (double) this.getMaxHealth() * 0.5D && this.rand.nextInt(4) == 0) {
 				this.tryTeleportToNewPosition();
-			} else if(source.getSourceOfDamage() instanceof EntityShulkerBullet) {
+			} else if (source.getSourceOfDamage() instanceof EntityShulkerBullet) {
 				int x = MathHelper.floor_double(posX);
 				int y = MathHelper.floor_double(posY);
 				int z = MathHelper.floor_double(posZ);
@@ -518,8 +452,8 @@ public class EntityShulker extends EntityGolem implements IMob {
 				boolean teleported = this.tryTeleportToNewPosition();
 				if (isEntityAlive() && teleported && !prevClosed) { //1.17 reproduction mechanic remade by hand
 					int i = worldObj.selectEntitiesWithinAABB(EntityShulker.class, this.boundingBox.expand(8, 8, 8), IEntitySelector.selectAnything).size();
-					float f = (float)(i - 1) / 5.0F;
-					if(!(this.worldObj.rand.nextFloat() < f)) {
+					float f = (float) (i - 1) / 5.0F;
+					if (!(this.worldObj.rand.nextFloat() < f)) {
 						EntityShulker newShulker = new EntityShulker(worldObj);
 						newShulker.setPosition(x, y, z);
 						newShulker.setColor(getColor());
@@ -533,83 +467,67 @@ public class EntityShulker extends EntityGolem implements IMob {
 		return false;
 	}
 
-	public boolean isClosed()
-	{
+	public boolean isClosed() {
 		return this.getPeekTick() == 0;
 	}
 
-	public AxisAlignedBB getCollisionBox(Entity entityIn)
-	{
+	public AxisAlignedBB getCollisionBox(Entity entityIn) {
 		return null;
 	}
-	
+
 	@Override
-	public AxisAlignedBB getBoundingBox()
-	{
+	public AxisAlignedBB getBoundingBox() {
 		return isEntityAlive() ? boundingBox : null;
 	}
 
-	public EnumFacing getAttachmentFacing()
-	{
+	public EnumFacing getAttachmentFacing() {
 		return EnumFacing.getFront(this.getDataWatcher().getWatchableObjectByte(ATTACHED_FACE));
 	}
 
-	public void setAttachmentPos(BlockPos pos)
-	{
+	public void setAttachmentPos(BlockPos pos) {
 		this.getDataWatcher().updateObject(ATTACHED_X, pos.getX());
 		this.getDataWatcher().updateObject(ATTACHED_Y, pos.getY());
 		this.getDataWatcher().updateObject(ATTACHED_Z, pos.getZ());
 	}
 
-	public int getPeekTick()
-	{
+	public int getPeekTick() {
 		return this.getDataWatcher().getWatchableObjectByte(PEEK_TICK);
 	}
 
-	
-  public void updateArmorModifier(int p_184691_1_)
-  {
-	  if (!this.worldObj.isRemote)
-	  {
+
+	public void updateArmorModifier(int p_184691_1_) {
+		if (!this.worldObj.isRemote) {
 //          this.getEntityAttribute(SharedMonsterAttributes.ARMOR).removeModifier(COVERED_ARMOR_BONUS_MODIFIER);
 
-		  if (p_184691_1_ == 0)
-		  {
+			if (p_184691_1_ == 0) {
 //              this.getEntityAttribute(SharedMonsterAttributes.ARMOR).applyModifier(COVERED_ARMOR_BONUS_MODIFIER);
-			  this.playSound(Reference.MCAssetVer + ":entity.shulker.close", 1.0F, 1.0F);
-		  }
-		  else
-		  {
-			  this.playSound(Reference.MCAssetVer + ":entity.shulker.open", 1.0F, 1.0F);
-		  }
-	  }
+				this.playSound(Reference.MCAssetVer + ":entity.shulker.close", 1.0F, 1.0F);
+			} else {
+				this.playSound(Reference.MCAssetVer + ":entity.shulker.open", 1.0F, 1.0F);
+			}
+		}
 
-	  this.getDataWatcher().updateObject(PEEK_TICK, (byte)p_184691_1_);
-  }
-	
-	public int getTotalArmorValue()
-	{
+		this.getDataWatcher().updateObject(PEEK_TICK, (byte) p_184691_1_);
+	}
+
+	public int getTotalArmorValue() {
 		return isClosed() ? 20 : super.getTotalArmorValue();
 	}
 
-	public float getClientPeekAmount(float p_184688_1_)
-	{
+	public float getClientPeekAmount(float p_184688_1_) {
 		return this.currentPeekAmount0 + (this.currentPeekAmount - this.currentPeekAmount0) * p_184688_1_;
 	}
 
-	public int getClientTeleportInterp()
-	{
+	public int getClientTeleportInterp() {
 		return this.clientSideTeleportInterpolation;
 	}
 
-	public BlockPos getOldAttachPos()
-	{
+	public BlockPos getOldAttachPos() {
 		return this.currentAttachmentPosition;
 	}
 
 	@Override
-	public float getEyeHeight()
-	{
+	public float getEyeHeight() {
 		return 0.5F;
 	}
 
@@ -618,8 +536,7 @@ public class EntityShulker extends EntityGolem implements IMob {
 	 * use in wolves.
 	 */
 	@Override
-	public int getVerticalFaceSpeed()
-	{
+	public int getVerticalFaceSpeed() {
 		return 180;
 	}
 
@@ -628,89 +545,77 @@ public class EntityShulker extends EntityGolem implements IMob {
 //    {
 //        return 180;
 //    }
-	
+
 	@Override
-	public void applyEntityCollision(Entity entityIn)
-	{
+	public void applyEntityCollision(Entity entityIn) {
 	}
 
 	@Override
-	public float getCollisionBorderSize()
-	{
+	public float getCollisionBorderSize() {
 		return 0.0F;
 	}
-	
-	public boolean isAttachedToBlock()
-	{
+
+	public boolean isAttachedToBlock() {
 		return this.currentAttachmentPosition != null && this.getAttachmentPos().getY() != -1;
 	}
 
-	protected Item getDropItem()
-	{
+	protected Item getDropItem() {
 		return ConfigBlocksItems.enableShulkerBoxes ? ModItems.SHULKER_SHELL.get() : null;
 	}
-	
 
-	public void setRevengeTarget(EntityLivingBase p_70604_1_)
-	{
-		if(worldObj.difficultySetting != EnumDifficulty.PEACEFUL) {
+
+	public void setRevengeTarget(EntityLivingBase p_70604_1_) {
+		if (worldObj.difficultySetting != EnumDifficulty.PEACEFUL) {
 			super.setRevengeTarget(p_70604_1_);
 		}
 	}
-	
-	protected void dropFewItems(boolean p_70628_1_, int p_70628_2_)
-	{
+
+	protected void dropFewItems(boolean p_70628_1_, int p_70628_2_) {
 		Item item = this.getDropItem();
-		
+
 		float chance = rand.nextFloat();
-		
+
 		chance += p_70628_2_ * 0.0625;
 
-		if (item != null && chance > 0.5)
-		{
+		if (item != null && chance > 0.5) {
 			this.dropItem(item, 1);
 		}
 	}
-	
-	protected boolean isAIEnabled()
-	{
+
+	protected boolean isAIEnabled() {
 		return true;
 	}
-	
-	public ItemStack getPickedResult(MovingObjectPosition target)
-	{
+
+	public ItemStack getPickedResult(MovingObjectPosition target) {
 		return ModEntityList.getEggFromEntity(this);
 	}
 
-	public void travelToDimension(int p_71027_1_)
-	{
+	public void travelToDimension(int p_71027_1_) {
 		super.travelToDimension(p_71027_1_);
 		this.setAttachmentPos(new BlockPos(this));
 	}
-	
-	public void dismountEntity(Entity p_110145_1_)
-	{
+
+	public void dismountEntity(Entity p_110145_1_) {
 		super.dismountEntity(p_110145_1_);
-		int y = (int)posY;
-		if(worldObj.isAirBlock(MathHelper.floor_double(posX), y - 1, MathHelper.floor_double(posZ))) {
+		int y = (int) posY;
+		if (worldObj.isAirBlock(MathHelper.floor_double(posX), y - 1, MathHelper.floor_double(posZ))) {
 			y -= 1;
 		}
 		this.setAttachmentPos(new BlockPos(posX, y, posZ));
 	}
-	
-	public boolean interact(EntityPlayer p_70085_1_)
-	{
+
+	public boolean interact(EntityPlayer p_70085_1_) {
 		ItemStack stack = p_70085_1_.getCurrentEquippedItem();
-		if(ConfigTweaks.dyableShulkers && stack != null) {
-			if(stack.getItem() instanceof ItemBucket && ((ItemBucket)stack.getItem()).isFull == Blocks.flowing_water && getColor() != 16) {
-				setColor((byte)16);
+		if (ConfigTweaks.dyableShulkers && stack != null) {
+			if (stack.getItem() instanceof ItemBucket && ((ItemBucket) stack.getItem()).isFull == Blocks.flowing_water && getColor() != 16) {
+				setColor((byte) 16);
 				return true;
 			}
-			for(int oreID : OreDictionary.getOreIDs(stack)) {
-				byte color = (byte)(~ArrayUtils.indexOf(ModRecipes.ore_dyes, OreDictionary.getOreName(oreID)) & 15);
-				if(ArrayUtils.contains(ModRecipes.ore_dyes, OreDictionary.getOreName(oreID)) && getColor() != color) {
+			for (int oreID : OreDictionary.getOreIDs(stack)) {
+				byte color = (byte) (~ArrayUtils.indexOf(ModRecipes.ore_dyes, OreDictionary.getOreName(oreID)) & 15);
+				if (ArrayUtils.contains(ModRecipes.ore_dyes, OreDictionary.getOreName(oreID)) && getColor() != color) {
 					setColor(color);
-					if(!p_70085_1_.capabilities.isCreativeMode)
+					if (!p_70085_1_.capabilities.isCreativeMode)
 						--stack.stackSize;
 					return true;
 				}
@@ -719,54 +624,43 @@ public class EntityShulker extends EntityGolem implements IMob {
 		return super.interact(p_70085_1_);
 	}
 
-	class AIAttack extends EntityAIBase
-	{
+	class AIAttack extends EntityAIBase {
 		private int attackTime;
 
-		public AIAttack()
-		{
+		public AIAttack() {
 			this.setMutexBits(3);
 		}
 
-		public boolean shouldExecute()
-		{
+		public boolean shouldExecute() {
 			EntityLivingBase entitylivingbase = EntityShulker.this.getAttackTarget();
-			return entitylivingbase != null && entitylivingbase.isEntityAlive() ? EntityShulker.this.worldObj.difficultySetting != EnumDifficulty.PEACEFUL : false;
+			return entitylivingbase != null && entitylivingbase.isEntityAlive() && EntityShulker.this.worldObj.difficultySetting != EnumDifficulty.PEACEFUL;
 		}
 
-		public void startExecuting()
-		{
+		public void startExecuting() {
 			this.attackTime = 20;
 			EntityShulker.this.updateArmorModifier(100);
 		}
 
-		public void resetTask()
-		{
+		public void resetTask() {
 			EntityShulker.this.updateArmorModifier(0);
 		}
 
-		public void updateTask()
-		{
-			if (EntityShulker.this.worldObj.difficultySetting != EnumDifficulty.PEACEFUL)
-			{
+		public void updateTask() {
+			if (EntityShulker.this.worldObj.difficultySetting != EnumDifficulty.PEACEFUL) {
 				--this.attackTime;
 				EntityLivingBase entitylivingbase = EntityShulker.this.getAttackTarget();
 				EntityShulker.this.getLookHelper().setLookPositionWithEntity(entitylivingbase, 180.0F, 180.0F);
 				double d0 = EntityShulker.this.getDistanceSqToEntity(entitylivingbase);
 
-				if (d0 < 400.0D)
-				{
-					if (this.attackTime <= 0)
-					{
+				if (d0 < 400.0D) {
+					if (this.attackTime <= 0) {
 						this.attackTime = 20 + EntityShulker.this.rand.nextInt(10) * 20 / 2;
 						EntityShulkerBullet entityshulkerbullet = new EntityShulkerBullet(EntityShulker.this.worldObj, EntityShulker.this, entitylivingbase, EntityShulker.this.getAttachmentFacing());
 						EntityShulker.this.worldObj.spawnEntityInWorld(entityshulkerbullet);
 						EntityShulker.this.playSound(Reference.MCAssetVer + ":entity.shulker.shoot", 1, 1);
 					}
-				}
-				else
-				{
-					EntityShulker.this.setAttackTarget((EntityLivingBase)null);
+				} else {
+					EntityShulker.this.setAttackTarget(null);
 				}
 
 				super.updateTask();
@@ -774,30 +668,24 @@ public class EntityShulker extends EntityGolem implements IMob {
 		}
 	}
 
-	class AIAttackNearest extends EntityAINearestAttackableTarget
-	{
-		public AIAttackNearest(EntityShulker shulker)
-		{
+	class AIAttackNearest extends EntityAINearestAttackableTarget {
+		public AIAttackNearest(EntityShulker shulker) {
 			//TODO: Added arg 0
 			super(shulker, EntityPlayer.class, 0, true);
 		}
 
-		public boolean shouldExecute()
-		{
-			return EntityShulker.this.worldObj.difficultySetting == EnumDifficulty.PEACEFUL ? false : super.shouldExecute();
+		public boolean shouldExecute() {
+			return EntityShulker.this.worldObj.difficultySetting != EnumDifficulty.PEACEFUL && super.shouldExecute();
 		}
 
-		protected AxisAlignedBB getTargetableArea(double targetDistance)
-		{
-			EnumFacing enumfacing = ((EntityShulker)this.taskOwner).getAttachmentFacing();
+		protected AxisAlignedBB getTargetableArea(double targetDistance) {
+			EnumFacing enumfacing = ((EntityShulker) this.taskOwner).getAttachmentFacing();
 			return enumfacing.getFrontOffsetX() != 0 ? this.taskOwner.boundingBox.expand(4.0D, targetDistance, targetDistance) : (enumfacing.getFrontOffsetZ() != 0 ? this.taskOwner.boundingBox.expand(targetDistance, targetDistance, 4.0D) : this.taskOwner.boundingBox.expand(targetDistance, 4.0D, targetDistance));
 		}
 	}
 
-	static class AIDefenseAttack extends EntityAINearestAttackableTarget
-	{
-		public AIDefenseAttack(EntityShulker shulker)
-		{
+	static class AIDefenseAttack extends EntityAINearestAttackableTarget {
+		public AIDefenseAttack(EntityShulker shulker) {
 			super(shulker, EntityLivingBase.class, 10, true);
 //            super(shulker, EntityLivingBase.class, 10, true, false, new Predicate<EntityLivingBase>()
 //            {
@@ -808,52 +696,42 @@ public class EntityShulker extends EntityGolem implements IMob {
 //            });
 		}
 
-		public boolean shouldExecute()
-		{
-			return this.taskOwner.getTeam() == null ? false : super.shouldExecute();
+		public boolean shouldExecute() {
+			return this.taskOwner.getTeam() != null && super.shouldExecute();
 		}
 
-		protected AxisAlignedBB getTargetableArea(double targetDistance)
-		{
-			EnumFacing enumfacing = ((EntityShulker)this.taskOwner).getAttachmentFacing();
+		protected AxisAlignedBB getTargetableArea(double targetDistance) {
+			EnumFacing enumfacing = ((EntityShulker) this.taskOwner).getAttachmentFacing();
 			return enumfacing.getFrontOffsetX() != 0 ? this.taskOwner.boundingBox.expand(4.0D, targetDistance, targetDistance) : (enumfacing.getFrontOffsetZ() != 0 ? this.taskOwner.boundingBox.expand(targetDistance, targetDistance, 4.0D) : this.taskOwner.boundingBox.expand(targetDistance, 4.0D, targetDistance));
 		}
 	}
 
-	class AIPeek extends EntityAIBase
-	{
+	class AIPeek extends EntityAIBase {
 		private int peekTime;
 
-		public AIPeek()
-		{
+		public AIPeek() {
 		}
 
-		public boolean shouldExecute()
-		{
+		public boolean shouldExecute() {
 			return EntityShulker.this.getAttackTarget() == null && EntityShulker.this.rand.nextInt(40) == 0;
 		}
 
-		public boolean continueExecuting()
-		{
+		public boolean continueExecuting() {
 			return EntityShulker.this.getAttackTarget() == null && this.peekTime > 0;
 		}
 
-		public void startExecuting()
-		{
+		public void startExecuting() {
 			this.peekTime = 20 * (1 + EntityShulker.this.rand.nextInt(3));
 			EntityShulker.this.updateArmorModifier(30);
 		}
 
-		public void resetTask()
-		{
-			if (EntityShulker.this.getAttackTarget() == null)
-			{
+		public void resetTask() {
+			if (EntityShulker.this.getAttackTarget() == null) {
 				EntityShulker.this.updateArmorModifier(0);
 			}
 		}
 
-		public void updateTask()
-		{
+		public void updateTask() {
 			--this.peekTime;
 		}
 	}

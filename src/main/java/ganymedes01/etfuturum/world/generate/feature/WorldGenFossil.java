@@ -60,7 +60,7 @@ public class WorldGenFossil extends WorldGenerator {
 	public boolean generate(World world, Random rand, int x, int y, int z) {
 		Pair<Fossil, Fossil> fossilPair = fossils.get(rand.nextInt(fossils.size()));
 		ForgeDirection dir = ForgeDirection.getOrientation(rand.nextInt(4) + 2);
-		if(!canFossilGenerateHere(world, x, y, z, fossilPair.getLeft().getSize(dir))) return false;
+		if (!canFossilGenerateHere(world, x, y, z, fossilPair.getLeft().getSize(dir))) return false;
 		fossilPair.getLeft().buildStructure(world, rand, x, y, z, dir);
 		fossilPair.getRight().buildStructure(world, rand, x, y, z, dir);
 		return true;
@@ -77,20 +77,20 @@ public class WorldGenFossil extends WorldGenerator {
 		if (isInvalidCorner(world, x, y, z + corners.getZ())) {
 			air++;
 		}
-		if(isInvalidCorner(world, x + corners.getX(), y, z + corners.getZ())) {
+		if (isInvalidCorner(world, x + corners.getX(), y, z + corners.getZ())) {
 			air++;
 		}
-		if(isInvalidCorner(world, x, y + corners.getY(), z)) {
+		if (isInvalidCorner(world, x, y + corners.getY(), z)) {
 			air++;
 		}
-		if(isInvalidCorner(world, x + corners.getX(), y + corners.getY(), z)) {
-			if(air++ >= 5) return false;
+		if (isInvalidCorner(world, x + corners.getX(), y + corners.getY(), z)) {
+			if (air++ >= 5) return false;
 		}
-		if(isInvalidCorner(world, x, y + corners.getY(), z + corners.getZ())) {
-			if(air++ >= 5) return false;
+		if (isInvalidCorner(world, x, y + corners.getY(), z + corners.getZ())) {
+			if (air++ >= 5) return false;
 		}
-		if(isInvalidCorner(world, x + corners.getX(), y + corners.getY(), z + corners.getZ())) {
-			if(air++ >= 5) return false;
+		if (isInvalidCorner(world, x + corners.getX(), y + corners.getY(), z + corners.getZ())) {
+			if (air++ >= 5) return false;
 		}
 		return air < 5;
 	}

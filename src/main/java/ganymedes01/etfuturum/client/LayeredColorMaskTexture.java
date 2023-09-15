@@ -15,7 +15,6 @@ import org.apache.logging.log4j.Logger;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -24,7 +23,9 @@ import java.util.List;
 public class LayeredColorMaskTexture extends AbstractTexture {
 
 	private static final Logger field_174947_f = LogManager.getLogger();
-	/** The location of the texture. */
+	/**
+	 * The location of the texture.
+	 */
 	private final ResourceLocation textureLocation;
 	private final List<String> field_174949_h;
 	private final List<EnumColour> field_174950_i;
@@ -49,7 +50,7 @@ public class LayeredColorMaskTexture extends AbstractTexture {
 
 			bufferedimage = new BufferedImage(bufferedimage1.getWidth(), bufferedimage1.getHeight(), i);
 			Graphics graphics = bufferedimage.getGraphics();
-			graphics.drawImage(bufferedimage1, 0, 0, (ImageObserver) null);
+			graphics.drawImage(bufferedimage1, 0, 0, null);
 
 			for (int j = 0; j < field_174949_h.size() && j < field_174950_i.size(); ++j) {
 				String s = field_174949_h.get(j);
@@ -72,14 +73,14 @@ public class LayeredColorMaskTexture extends AbstractTexture {
 								}
 							}
 
-						bufferedimage.getGraphics().drawImage(bufferedimage2, 0, 0, (ImageObserver) null);
+						bufferedimage.getGraphics().drawImage(bufferedimage2, 0, 0, null);
 					}
-					
+
 					inputstream.close();
 				}
 			}
 		} catch (IOException ioexception) {
-			field_174947_f.error("Couldn\'t load layered image", ioexception);
+			field_174947_f.error("Couldn't load layered image", ioexception);
 			return;
 		}
 

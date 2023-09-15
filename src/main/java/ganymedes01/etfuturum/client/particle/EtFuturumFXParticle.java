@@ -141,16 +141,14 @@ public class EtFuturumFXParticle extends EntityFX {
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
-		entityBrightness = worldObj.getLightBrightness((int)posX, (int)posY, (int)posZ);
+		entityBrightness = worldObj.getLightBrightness((int) posX, (int) posY, (int) posZ);
 
-		if (particleAge > particleMaxAge / 2)
-		{
+		if (particleAge > particleMaxAge / 2) {
 			if (fadeAway) {
 				setAlphaF(1.0F - ((float) particleAge - (float) (particleMaxAge / 2)) / (float) particleMaxAge);
 			}
 
-			if (fadingColor)
-			{
+			if (fadingColor) {
 				particleRed += (fadeTargetRed - particleRed) * 0.2F;
 				particleGreen += (fadeTargetGreen - particleGreen) * 0.2F;
 				particleBlue += (fadeTargetBlue - particleBlue) * 0.2F;

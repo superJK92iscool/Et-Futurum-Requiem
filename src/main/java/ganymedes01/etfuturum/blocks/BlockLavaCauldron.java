@@ -26,7 +26,7 @@ public class BlockLavaCauldron extends BlockCauldron {
 	public IIcon field_150030_M;
 	@SideOnly(Side.CLIENT)
 	public IIcon lavaIcon;
-	
+
 	public BlockLavaCauldron() {
 		super();
 		this.setStepSound(Blocks.cauldron.stepSound);
@@ -36,10 +36,9 @@ public class BlockLavaCauldron extends BlockCauldron {
 		this.setLightLevel(1.0F);
 		this.setBlockName(Utils.getUnlocalisedName("lava_cauldron"));
 	}
-	
+
 	@Override
-	public boolean onBlockActivated(World p_149727_1_, int p_149727_2_, int p_149727_3_, int p_149727_4_, EntityPlayer p_149727_5_, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_)
-	{
+	public boolean onBlockActivated(World p_149727_1_, int p_149727_2_, int p_149727_3_, int p_149727_4_, EntityPlayer p_149727_5_, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_) {
 //      ItemStack item;
 //      if (p_149727_5_.getCurrentEquippedItem() != null) {
 //          item = p_149727_5_.getCurrentEquippedItem();
@@ -50,10 +49,9 @@ public class BlockLavaCauldron extends BlockCauldron {
 //      return true;
 		return super.onBlockActivated(p_149727_1_, p_149727_2_, p_149727_3_, p_149727_4_, p_149727_5_, p_149727_6_, p_149727_7_, p_149727_8_, p_149727_9_);
 	}
-	
+
 	@Override
-	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity)
-	{
+	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
 		if (!world.isRemote) {
 			if (!entity.isImmuneToFire() && !(world.canBlockSeeTheSky(x, y + 1, z) && world.isRaining())) {
 				entity.setFire(15);
@@ -64,47 +62,45 @@ public class BlockLavaCauldron extends BlockCauldron {
 			entity.attackEntityFrom(DamageSource.lava, 4.0F);
 		}
 	}
-	
+
 	@Override
-	public IIcon getIcon(int side, int meta)
-	{
+	public IIcon getIcon(int side, int meta) {
 		return Blocks.cauldron.getIcon(side, meta);
 	}
-	
+
 	@Override
-	public int tickRate(World world)
-	{
+	public int tickRate(World world) {
 		return 0;
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void randomDisplayTick(World world, int x, int y, int z, Random random)
-	{
+	public void randomDisplayTick(World world, int x, int y, int z, Random random) {
 		float min = 0.125F;
 		float max = 0.875F;
 		double d0 = x + (min + random.nextFloat() * (max - min));
 		double d1 = z + (min + random.nextFloat() * (max - min));
-		
+
 		if (world.canBlockSeeTheSky(x, y + 1, z) && world.isRaining()) {
 			world.spawnParticle("smoke", d0, y + 0.9375F, d1, 0.0D, 0.0D, 0.0D);
-		} if (random.nextInt(100) == 0) {
+		}
+		if (random.nextInt(100) == 0) {
 			world.spawnParticle("lava", d0, y + 0.9375F, d1, 0.0D, 0.0D, 0.0D);
 			world.playSound(x + .5, y + 1, z + 0.5, "liquid.lavapop", 0.2F + random.nextFloat() * 0.2F, 0.9F + random.nextFloat() * 0.15F, false);
-		} if (random.nextInt(200) == 0) {
+		}
+		if (random.nextInt(200) == 0) {
 			world.playSound(x + .5, y + 1, z + 0.5, "liquid.lava", 0.2F + random.nextFloat() * 0.2F, 0.9F + random.nextFloat() * 0.15F, false);
 		}
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister p_149651_1_) {
 		// Taking Icons from original Cauldron
 	}
-	
+
 	@Override
-	public int getRenderType()
-	{
+	public int getRenderType() {
 		return RenderIDs.LAVA_CAULDRON;
 	}
 

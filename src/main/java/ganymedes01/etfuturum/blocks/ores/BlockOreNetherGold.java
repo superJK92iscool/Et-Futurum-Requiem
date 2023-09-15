@@ -22,29 +22,25 @@ public class BlockOreNetherGold extends Block {
 		setBlockTextureName("nether_gold_ore");
 		setBlockName(Utils.getUnlocalisedName("nether_gold_ore"));
 	}
-	
-	private Random rand = new Random();
+
+	private final Random rand = new Random();
+
 	@Override
-	public int getExpDrop(IBlockAccess p_149690_1_, int p_149690_5_, int p_149690_7_)
-	{
+	public int getExpDrop(IBlockAccess p_149690_1_, int p_149690_5_, int p_149690_7_) {
 		return MathHelper.getRandomIntegerInRange(rand, 2, 5);
 	}
-	
+
 	@Override
-	public int quantityDropped(Random p_149745_1_)
-	{
+	public int quantityDropped(Random p_149745_1_) {
 		return 2 + p_149745_1_.nextInt(5);
 	}
-	
+
 	@Override
-	public int quantityDroppedWithBonus(int fortune, Random p_149679_2_)
-	{
-		if (fortune > 0)
-		{
+	public int quantityDroppedWithBonus(int fortune, Random p_149679_2_) {
+		if (fortune > 0) {
 			int j = p_149679_2_.nextInt(fortune + 2) - 1;
 
-			if (j < 0)
-			{
+			if (j < 0) {
 				j = 0;
 			}
 
@@ -54,15 +50,13 @@ public class BlockOreNetherGold extends Block {
 	}
 
 	@Override
-	protected boolean canSilkHarvest()
-	{
+	protected boolean canSilkHarvest() {
 		return true;
 	}
 
 	@Override
-	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_)
-	{
+	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_) {
 		return Items.gold_nugget;
 	}
-	
+
 }

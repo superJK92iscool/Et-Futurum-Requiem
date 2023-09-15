@@ -80,7 +80,7 @@ import java.util.function.Predicate;
 		version = Reference.VERSION_NUMBER,
 		dependencies = Reference.DEPENDENCIES,
 		guiFactory = "ganymedes01.etfuturum.configuration.ConfigGuiFactory"
-	)
+)
 
 public class EtFuturum {
 
@@ -97,7 +97,7 @@ public class EtFuturum {
 		public Item getTabIconItem() {
 			return ConfigBlocksItems.enableNetherite ? ModItems.NETHERITE_SCRAP.get() : ConfigBlocksItems.enablePrismarine ? ModItems.PRISMARINE_SHARD.get() : Items.magma_cream;
 		}
-		
+
 		@SideOnly(Side.CLIENT)
 		@Override
 		public void displayAllReleventItems(List p_78018_1_) {
@@ -119,7 +119,7 @@ public class EtFuturum {
 			super.displayAllReleventItems(p_78018_1_);
 		}
 	};
-	
+
 	public static CreativeTabs creativeTabBlocks = new CreativeTabs(Reference.MOD_ID + ".blocks") {
 		@Override
 		public Item getTabIconItem() {
@@ -133,28 +133,28 @@ public class EtFuturum {
 			super.displayAllReleventItems(p_78018_1_);
 		}
 	};
-	
+
 	public static boolean netherAmbienceNetherlicious;
 	public static boolean netherMusicNetherlicious;
-	
+
 	public static final boolean TESTING = Boolean.parseBoolean(System.getProperty("etfuturum.testing"));
 	public static final boolean DEV_ENVIRONMENT = (Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");
 	public static boolean SNAPSHOT_BUILD = false;
 	private static Side effectiveSide;
-	
+
 	static final Map<ItemStack, Integer> DEFAULT_COMPOST_CHANCES = new LinkedHashMap<>();
-	
+
 	@EventHandler
 	public void onConstruction(FMLConstructionEvent event) {
 		MCLib.init();
-		
+
 		ADConfig config = new ADConfig();
 
 		getSounds(config);
-		
+
 		AssetDirectorAPI.register(config);
 	}
-	
+
 	static final String NETHER_FORTRESS = "netherFortress";
 	private Field fortressWeightedField;
 
@@ -204,8 +204,8 @@ public class EtFuturum {
 		ModEnchantments.init();
 		ModPotions.init();
 		SpectatorMode.init();
-		
-		if(event.getSide() == Side.CLIENT) {
+
+		if (event.getSide() == Side.CLIENT) {
 
 			if (ConfigFunctions.enableNewTextures || ConfigFunctions.enableLangReplacements) {
 				BuiltInResourcePack.register("vanilla_overrides");
@@ -215,14 +215,14 @@ public class EtFuturum {
 
 			DynamicSoundsResourcePack.inject();
 		}
-		
+
 //      if(ConfigurationHandler.enableNewNether) {
 //          NetherBiomeManager.init(); // Come back to
 //      }
 
 		GameRegistry.registerWorldGenerator(EtFuturumWorldGenerator.INSTANCE, 0);
 		GameRegistry.registerWorldGenerator(EtFuturumLateWorldGenerator.INSTANCE, Integer.MAX_VALUE);
-		
+
 		OceanMonument.makeMap();
 
 		NetworkRegistry.INSTANCE.registerGuiHandler(instance, proxy);
@@ -264,11 +264,11 @@ public class EtFuturum {
 		event.getModMetadata().url = Reference.MOD_URL;
 
 		event.getModMetadata().description = Reference.DESCRIPTION; // description
-				
-		
+
+
 		event.getModMetadata().logoFile = Reference.LOGO_FILE;
 
-		if(ConfigModCompat.elytraBaublesExpandedCompat > 0 && hasBaublesExpanded) {
+		if (ConfigModCompat.elytraBaublesExpandedCompat > 0 && hasBaublesExpanded) {
 			CompatBaublesExpanded.preInit();
 		}
 	}
@@ -318,40 +318,40 @@ public class EtFuturum {
 			Blocks.ladder.setHarvestLevel("axe", 0);
 			Blocks.melon_block.setHarvestLevel("axe", 0);
 		}
-		
-		if(ConfigFunctions.enableFloatingTrapDoors) {
+
+		if (ConfigFunctions.enableFloatingTrapDoors) {
 			BlockTrapDoor.disableValidation = true;
 		}
-		
-		if(EtFuturum.hasThaumcraft) {
+
+		if (EtFuturum.hasThaumcraft) {
 			CompatThaumcraft.doAspects();
 		}
 
-		if(EtFuturum.hasMineTweaker) {
+		if (EtFuturum.hasMineTweaker) {
 			CompatCraftTweaker.onPostInit();
 		}
-		
+
 		Items.blaze_rod.setFull3D();
 		Blocks.trapped_chest.setCreativeTab(CreativeTabs.tabRedstone);
-		
-		if(ConfigBlocksItems.enableOtherside) {
+
+		if (ConfigBlocksItems.enableOtherside) {
 			ChestGenHooks.addItem(ChestGenHooks.STRONGHOLD_CORRIDOR, new WeightedRandomChestContent(ModItems.OTHERSIDE_RECORD.get(), 0, 1, 1, 1));
 			ChestGenHooks.addItem(ChestGenHooks.DUNGEON_CHEST, new WeightedRandomChestContent(ModItems.OTHERSIDE_RECORD.get(), 0, 1, 1, 1));
 		}
-		
-		if(ConfigBlocksItems.enablePigstep) {
+
+		if (ConfigBlocksItems.enablePigstep) {
 			ChestGenHooks.addItem(NETHER_FORTRESS, new WeightedRandomChestContent(ModItems.PIGSTEP_RECORD.get(), 0, 1, 1, 5));
-			
-			if(fortressWeightedField != null) {
+
+			if (fortressWeightedField != null) {
 				try {
 					Field contents = ChestGenHooks.class.getDeclaredField("contents");
 					contents.setAccessible(true);
 					ArrayList<WeightedRandomChestContent> fortressContentList;
-					fortressContentList = (ArrayList<WeightedRandomChestContent>)contents.get(ChestGenHooks.getInfo("netherFortress"));
-					if(!fortressContentList.isEmpty()) {
+					fortressContentList = (ArrayList<WeightedRandomChestContent>) contents.get(ChestGenHooks.getInfo("netherFortress"));
+					if (!fortressContentList.isEmpty()) {
 						WeightedRandomChestContent[] fortressChest = new WeightedRandomChestContent[fortressContentList.size()];
 						for (int i = 0; i < fortressContentList.size(); i++) {
-						  fortressChest[i] = fortressContentList.get(i); 
+							fortressChest[i] = fortressContentList.get(i);
 						}
 						fortressWeightedField.set(null, fortressChest);
 					}
@@ -362,28 +362,28 @@ public class EtFuturum {
 			}
 		}
 
-		if(ConfigBlocksItems.enableSmoothStone && EtFuturum.hasBluePower) {
+		if (ConfigBlocksItems.enableSmoothStone && EtFuturum.hasBluePower) {
 			Item stoneTile = GameRegistry.findItem("bluepower", "stone_tile");
-			if(stoneTile != null) {
+			if (stoneTile != null) {
 				Item stoneItem = Item.getItemFromBlock(Blocks.stone);
 				FurnaceRecipes.smelting().getSmeltingList().entrySet().removeIf((Predicate<Map.Entry<ItemStack, ItemStack>>) recipe -> recipe.getValue() != null && recipe.getValue().getItem() == stoneTile && recipe.getKey() != null && recipe.getKey().getItem() == stoneItem);
 			}
 		}
 
-		if(ConfigModCompat.elytraBaublesExpandedCompat > 0 && hasBaublesExpanded) {
+		if (ConfigModCompat.elytraBaublesExpandedCompat > 0 && hasBaublesExpanded) {
 			CompatBaublesExpanded.postInit();
 		}
 
 		EtFuturumLootTables.init();
 	}
-	
+
 	@EventHandler
 	public void onLoadComplete(FMLLoadCompleteEvent e) {
 		ConfigBase.postInit();
 
 		EtFuturumWorldGenerator.INSTANCE.postInit();
 
-		if(ConfigSounds.newBlockSounds) {
+		if (ConfigSounds.newBlockSounds) {
 			//Because NP+ uses its own (worse) step sounds for this and it causes the check below that replaces these blocks to fail.
 			if (EtFuturum.hasNP) {
 				Blocks.nether_brick.setStepSound(ModSounds.soundNetherBricks);
@@ -419,7 +419,7 @@ public class EtFuturum {
 			Blocks.powered_comparator.setStepSound(Block.soundTypeStone);
 			Blocks.unpowered_comparator.setStepSound(Block.soundTypeStone);
 		}
-		if(ConfigBlocksItems.enableDyedBeds) {
+		if (ConfigBlocksItems.enableDyedBeds) {
 			Blocks.bed.blockMaterial = Material.wood;
 			Blocks.bed.setStepSound(Block.soundTypeWood);
 		}
@@ -566,52 +566,42 @@ public class EtFuturum {
 
 			if (namespace.contains("nether") && namespace.contains("brick")) {
 				return ModSounds.soundNetherBricks;
-			}
-			
-			else if(namespace.contains("netherrack") || namespace.contains("hellfish")) {
-					return ModSounds.soundNetherrack;
-			}
-			
-			else if(block == Blocks.quartz_ore || (namespace.contains("nether") && (block instanceof BlockOre || namespace.contains("ore")))) {
+			} else if (namespace.contains("netherrack") || namespace.contains("hellfish")) {
+				return ModSounds.soundNetherrack;
+			} else if (block == Blocks.quartz_ore || (namespace.contains("nether") && (block instanceof BlockOre || namespace.contains("ore")))) {
 				return ModSounds.soundNetherOre;
-			}
-			
-			else if(namespace.contains("deepslate")) {
+			} else if (namespace.contains("deepslate")) {
 				return namespace.contains("brick") ? ModSounds.soundDeepslateBricks : ModSounds.soundDeepslate;
-			}
-			
-			else if(block instanceof BlockNetherWart || (namespace.contains("nether") && namespace.contains("wart"))) {
+			} else if (block instanceof BlockNetherWart || (namespace.contains("nether") && namespace.contains("wart"))) {
 				return ModSounds.soundCropWarts;
-			}
-			
-			else if(namespace.contains("bone") || namespace.contains("ivory")) {
+			} else if (namespace.contains("bone") || namespace.contains("ivory")) {
 				return ModSounds.soundBoneBlock;
 			}
 		}
 
-		if(block.stepSound == Block.soundTypeGrass) {
-			if(block instanceof BlockVine) {
+		if (block.stepSound == Block.soundTypeGrass) {
+			if (block instanceof BlockVine) {
 				return ModSounds.soundVines;
 			}
 
-			if(block instanceof BlockLilyPad) {
+			if (block instanceof BlockLilyPad) {
 				return ModSounds.soundWetGrass;
 			}
 		}
-		
-		if(block instanceof BlockCrops || block instanceof BlockStem) {
+
+		if (block instanceof BlockCrops || block instanceof BlockStem) {
 			return ModSounds.soundCrops;
 		}
-		
-		if(block.stepSound == Block.soundTypeSand && namespace.contains("soul") && namespace.contains("sand")) {
+
+		if (block.stepSound == Block.soundTypeSand && namespace.contains("soul") && namespace.contains("sand")) {
 			return ModSounds.soundSoulSand;
 		}
-		
-		if(block.stepSound == Block.soundTypeMetal && (namespace.contains("copper") || namespace.contains("tin"))) {
+
+		if (block.stepSound == Block.soundTypeMetal && (namespace.contains("copper") || namespace.contains("tin"))) {
 			return ModSounds.soundCopper;
 		}
 
-		if(block.getMaterial() == Material.iron && block instanceof BlockHopper) {
+		if (block.getMaterial() == Material.iron && block instanceof BlockHopper) {
 			return Block.soundTypeMetal;
 		}
 
@@ -624,7 +614,7 @@ public class EtFuturum {
 			event.registerServerCommand(new CommandFill());
 		}
 	}
-	
+
 	public static void copyAttribs(Block to, Block from) {
 		to.setHardness(from.blockHardness);
 		to.setResistance(from.blockResistance);
@@ -632,7 +622,7 @@ public class EtFuturum {
 		to.setLightLevel(from.getLightValue() / 15F);
 		to.setLightOpacity(from.getLightOpacity());
 		//We do this because Forge methods cannot be Access Transformed
-		for(int i = 0; i < 16; i++) {
+		for (int i = 0; i < 16; i++) {
 			to.setHarvestLevel(from.getHarvestTool(i), from.getHarvestLevel(i), i);
 		}
 	}
@@ -641,17 +631,17 @@ public class EtFuturum {
 	 * Utility for running string.contains() on a list of strings.
 	 */
 	public static boolean stringListContainsPhrase(Set<String> set, String string) {
-		for(String stringInSet : set) {
-			if(string.contains(stringInSet)) {
+		for (String stringInSet : set) {
+			if (string.contains(stringInSet)) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
 	public static List<String> getOreStrings(ItemStack stack) {
 		final List<String> list = new ArrayList<>();
-		for(int oreID : OreDictionary.getOreIDs(stack)) {
+		for (int oreID : OreDictionary.getOreIDs(stack)) {
 			list.add(OreDictionary.getOreName(oreID));
 		}
 		return list;
@@ -660,14 +650,14 @@ public class EtFuturum {
 	public static boolean hasDictTag(Block block, String... tags) {
 		return hasDictTag(new ItemStack(block), tags);
 	}
-	
+
 	public static boolean hasDictTag(Item item, String... tags) {
 		return hasDictTag(new ItemStack(item), tags);
 	}
-	
+
 	public static boolean hasDictTag(ItemStack stack, String... tags) {
-		for(String oreName : getOreStrings(stack)) {
-			if(ArrayUtils.contains(tags, oreName)) {
+		for (String oreName : getOreStrings(stack)) {
+			if (ArrayUtils.contains(tags, oreName)) {
 				return true;
 			}
 		}
@@ -677,66 +667,66 @@ public class EtFuturum {
 	public static boolean dictTagsContain(Block block, String stringToFind) {
 		return dictTagsContain(new ItemStack(block), stringToFind);
 	}
-	
+
 	public static boolean dictTagsContain(Item item, String stringToFind) {
 		return dictTagsContain(new ItemStack(item), stringToFind);
 	}
-	
+
 	public static boolean dictTagsContain(ItemStack stack, String stringToFind) {
-		for(String oreName : getOreStrings(stack)) {
-			if(oreName.contains(stringToFind)) {
+		for (String oreName : getOreStrings(stack)) {
+			if (oreName.contains(stringToFind)) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
 	public static PotionEffect getSuspiciousStewEffect(ItemStack stack) {
-		
-		if(stack == null)
+
+		if (stack == null)
 			return null;
 
 		Item item = stack.getItem();
 
-		if(item == Item.getItemFromBlock(Blocks.red_flower)) {
-			switch(stack.getItemDamage()) {
-			default:
-			case 0:
-				return new PotionEffect(Potion.nightVision.id, 100, 0);
-			case 1:
-				return new PotionEffect(Potion.field_76443_y.id, 7, 0);
-			case 2:
-				return new PotionEffect(Potion.fireResistance.id, 80, 0);
-			case 3:
-				return new PotionEffect(Potion.blindness.id, 160, 0);
-			case 4:
-			case 5:
-			case 6:
-			case 7:
-				return new PotionEffect(Potion.weakness.id, 180, 0);
-			case 8:
-				return new PotionEffect(Potion.regeneration.id, 160, 0);
+		if (item == Item.getItemFromBlock(Blocks.red_flower)) {
+			switch (stack.getItemDamage()) {
+				default:
+				case 0:
+					return new PotionEffect(Potion.nightVision.id, 100, 0);
+				case 1:
+					return new PotionEffect(Potion.field_76443_y.id, 7, 0);
+				case 2:
+					return new PotionEffect(Potion.fireResistance.id, 80, 0);
+				case 3:
+					return new PotionEffect(Potion.blindness.id, 160, 0);
+				case 4:
+				case 5:
+				case 6:
+				case 7:
+					return new PotionEffect(Potion.weakness.id, 180, 0);
+				case 8:
+					return new PotionEffect(Potion.regeneration.id, 160, 0);
 			}
 		}
 
-		if(item == Item.getItemFromBlock(Blocks.yellow_flower)) {
+		if (item == Item.getItemFromBlock(Blocks.yellow_flower)) {
 			return new PotionEffect(Potion.field_76443_y.id, 7, 0);
 		}
 
-		if(item == Item.getItemFromBlock(ModBlocks.CORNFLOWER.get())) {
+		if (item == Item.getItemFromBlock(ModBlocks.CORNFLOWER.get())) {
 			return new PotionEffect(Potion.jump.id, 120, 0);
 		}
 
-		if(item == Item.getItemFromBlock(ModBlocks.LILY_OF_THE_VALLEY.get())) {
+		if (item == Item.getItemFromBlock(ModBlocks.LILY_OF_THE_VALLEY.get())) {
 			return new PotionEffect(Potion.poison.id, 240, 0);
 		}
 
-		if(item == Item.getItemFromBlock(ModBlocks.WITHER_ROSE.get())) {
+		if (item == Item.getItemFromBlock(ModBlocks.WITHER_ROSE.get())) {
 			return new PotionEffect(Potion.wither.id, 160, 0);
 		}
 		return null;
 	}
-	
+
 	private static void getSounds(ADConfig config) {
 		String ver = Reference.MCAssetVer.split("_")[1];
 		config.addObject(ver, "minecraft/sounds/ambient/cave/cave14.ogg");
@@ -745,16 +735,16 @@ public class EtFuturum {
 		config.addObject(ver, "minecraft/sounds/ambient/cave/cave17.ogg");
 		config.addObject(ver, "minecraft/sounds/ambient/cave/cave18.ogg");
 		config.addObject(ver, "minecraft/sounds/ambient/cave/cave19.ogg");
-		
+
 		config.addSoundEvent(ver, "weather.rain", "weather");
 		config.addSoundEvent(ver, "weather.rain.above", "weather");
-		
+
 		config.addSoundEvent(ver, "music.nether.nether_wastes", "music");
-		
+
 		config.addSoundEvent(ver, "ambient.nether_wastes.additions", "ambient");
 		config.addSoundEvent(ver, "ambient.nether_wastes.loop", "ambient");
 		config.addSoundEvent(ver, "ambient.nether_wastes.mood", "ambient");
-		
+
 		config.addSoundEvent(ver, "music_disc.pigstep", "record");
 		config.addSoundEvent(ver, "music_disc.otherside", "record");
 
@@ -842,7 +832,7 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "entity.player.attack.sweep", "player");
 		config.addSoundEvent(ver, "entity.player.attack.weak", "player");
 		config.addSoundEvent(ver, "entity.player.splash.high_speed", "player");
-		
+
 		config.addSoundEvent(ver, "item.axe.scrape", "player");
 		config.addSoundEvent(ver, "item.axe.wax_off", "player");
 		config.addSoundEvent(ver, "item.axe.strip", "player");
@@ -882,7 +872,7 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "block.note_block.harp", "record");
 		config.addSoundEvent(ver, "block.note_block.iron_xylophone", "record");
 		config.addSoundEvent(ver, "block.note_block.xylophone", "record");
-		
+
 		config.addSoundEvent(ver, "block.barrel.open", "block");
 		config.addSoundEvent(ver, "block.barrel.close", "block");
 		config.addSoundEvent(ver, "block.chorus_flower.grow", "block");
@@ -944,7 +934,7 @@ public class EtFuturum {
 			if (sound.func_150496_b().startsWith(Reference.MCAssetVer)) { //Place sound
 				config.addSoundEvent(ver, sound.func_150496_b().substring(Reference.MCAssetVer.length() + 1), "block");
 			}
-			if(sound.getBreakSound().startsWith(Reference.MCAssetVer)) { //Break sound
+			if (sound.getBreakSound().startsWith(Reference.MCAssetVer)) { //Break sound
 				config.addSoundEvent(ver, sound.getBreakSound().substring(Reference.MCAssetVer.length() + 1), "block");
 			}
 		}

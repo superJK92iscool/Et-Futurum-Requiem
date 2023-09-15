@@ -95,7 +95,7 @@ public class ClientEventHandler {
 	 * Used by sound events to get the unlocalized name for the specific state of a block. This is handled on the item's end of things.
 	 * So I use this "storage" stack to store the block I want the meta-name for, so I don't create new ItemStack instances constantly.
 	 */
-	private static final ItemStack STORAGE_STACK = new ItemStack((Item)null, 1, 0);
+	private static final ItemStack STORAGE_STACK = new ItemStack((Item) null, 1, 0);
 
 	private static final boolean forceHideSnapshotWarning = Boolean.parseBoolean(System.getProperty("etfuturum.hideSnapshotWarning"));
 
@@ -116,19 +116,19 @@ public class ClientEventHandler {
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
 	public void onKeyInput(InputEvent.KeyInputEvent event) {
-		if(ConfigFunctions.enableNewF3Behavior) {
-			if(Keyboard.getEventKey() == Keyboard.KEY_F3) {
+		if (ConfigFunctions.enableNewF3Behavior) {
+			if (Keyboard.getEventKey() == Keyboard.KEY_F3) {
 				boolean pressedF3 = Keyboard.getEventKeyState();
-				if(pressedF3)
+				if (pressedF3)
 					eligibleForDebugInfoSwap = true;
-				if(!pressedF3 && eligibleForDebugInfoSwap) {
+				if (!pressedF3 && eligibleForDebugInfoSwap) {
 					mc.gameSettings.showDebugInfo = !mc.gameSettings.showDebugInfo;
 					mc.gameSettings.showDebugProfilerChart = GuiScreen.isShiftKeyDown();
 				}
-			} else if(Keyboard.getEventKeyState()) {
+			} else if (Keyboard.getEventKeyState()) {
 				/* Another key changed states besides F3 */
 				int key = Keyboard.getEventKey();
-				if(key != Keyboard.KEY_LSHIFT && key != Keyboard.KEY_RSHIFT)
+				if (key != Keyboard.KEY_LSHIFT && key != Keyboard.KEY_RSHIFT)
 					eligibleForDebugInfoSwap = false;
 			}
 		}
@@ -136,8 +136,7 @@ public class ClientEventHandler {
 
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
-	public void onClientTick(ClientTickEvent event)
-	{
+	public void onClientTick(ClientTickEvent event) {
 		World world = FMLClientHandler.instance().getWorldClient();
 		EntityPlayer player = FMLClientHandler.instance().getClientPlayerEntity();
 
@@ -145,7 +144,7 @@ public class ClientEventHandler {
 			return;
 		}
 
-		if(!EtFuturum.DEV_ENVIRONMENT && EtFuturum.SNAPSHOT_BUILD && !showedDebugWarning && player.ticksExisted == 40) {
+		if (!EtFuturum.DEV_ENVIRONMENT && EtFuturum.SNAPSHOT_BUILD && !showedDebugWarning && player.ticksExisted == 40) {
 			if (!forceHideSnapshotWarning) {
 				ChatComponentText text = new ChatComponentText("\u00a7c\u00a7l[Debug]: \u00a7rYou are using a pre-release version of \u00a7bEt \u00a7bFuturum \u00a7bRequiem\u00a7r. This version might not be stable, click here to go to GitHub to report bugs.");
 				text.getChatStyle().setChatClickEvent(new ClickEvent(Action.OPEN_URL, "https://github.com/Roadhog360/Et-Futurum-Requiem/issues"));
@@ -176,7 +175,7 @@ public class ClientEventHandler {
 			ambienceBiome = world.getBiomeGenForCoords(x, z);
 
 			String soundLoc = "";
-			if(ambienceLoop != null) {
+			if (ambienceLoop != null) {
 				soundLoc = ambienceLoop.getPositionedSoundLocation().getResourceDomain() + ":" + ambienceLoop.getPositionedSoundLocation().getResourcePath();
 			}
 
@@ -194,26 +193,26 @@ public class ClientEventHandler {
 			}
 		}
 
-		if(ConfigFunctions.enableGamemodeSwitcher && Keyboard.isCreated() && Keyboard.isKeyDown(Keyboard.KEY_F3) && Keyboard.isKeyDown(Keyboard.KEY_F4)) {
-			if(mc.currentScreen == null) {
+		if (ConfigFunctions.enableGamemodeSwitcher && Keyboard.isCreated() && Keyboard.isKeyDown(Keyboard.KEY_F3) && Keyboard.isKeyDown(Keyboard.KEY_F4)) {
+			if (mc.currentScreen == null) {
 				mc.displayGuiScreen(new GuiGamemodeSwitcher());
 			}
 		}
 
-		if(ConfigFunctions.enableNewF3Behavior && mc.gameSettings.showDebugInfo != wasShowingDebugInfo && Keyboard.isKeyDown(Keyboard.KEY_F3)) {
+		if (ConfigFunctions.enableNewF3Behavior && mc.gameSettings.showDebugInfo != wasShowingDebugInfo && Keyboard.isKeyDown(Keyboard.KEY_F3)) {
 			mc.gameSettings.showDebugInfo = wasShowingDebugInfo;
 			mc.gameSettings.showDebugProfilerChart = wasShowingProfiler;
 		}
 		wasShowingDebugInfo = mc.gameSettings.showDebugInfo;
 		wasShowingProfiler = mc.gameSettings.showDebugProfilerChart;
 
-		if(mc.currentScreen == null && currPage > -1) {
+		if (mc.currentScreen == null && currPage > -1) {
 			currPage = -1;
 		}
 	}
 
 	private String getStringFor(BiomeGenBase biome) {
-		if(biome == null)
+		if (biome == null)
 			return null;
 
 //      if(string.contains("basalt_deltas")) {
@@ -233,7 +232,7 @@ public class ClientEventHandler {
 	}
 
 	private String getAmbience(BiomeGenBase biome) {
-		if(biome == null)
+		if (biome == null)
 			return null;
 
 //      if(string.contains("basalt_deltas")) {
@@ -252,28 +251,28 @@ public class ClientEventHandler {
 	}
 
 	private String getAmbienceLoop(BiomeGenBase biome) {
-		if(biome == null) {
+		if (biome == null) {
 			return null;
 		}
 		return getAmbience(biome) + ".loop";
 	}
 
 	private String getAmbienceMood(BiomeGenBase biome) {
-		if(biome == null) {
+		if (biome == null) {
 			return null;
 		}
 		return getAmbience(biome) + ".mood";
 	}
 
 	private String getAmbienceAdditions(BiomeGenBase biome) {
-		if(biome == null) {
+		if (biome == null) {
 			return null;
 		}
 		return getAmbience(biome) + ".additions";
 	}
 
 	private String getMusic(BiomeGenBase biome) {
-		if(biome == null) {
+		if (biome == null) {
 			return null;
 		}
 		return Reference.MCAssetVer + ":music.nether." + getStringFor(biome);
@@ -281,9 +280,9 @@ public class ClientEventHandler {
 
 	@SubscribeEvent
 	public void toolTipEvent(ItemTooltipEvent event) {
-		if(ConfigFunctions.enableExtraF3HTooltips && event.showAdvancedItemTooltips) {
+		if (ConfigFunctions.enableExtraF3HTooltips && event.showAdvancedItemTooltips) {
 			event.toolTip.add("\u00a78" + Item.itemRegistry.getNameForObject(event.itemStack.getItem()));
-			if(event.itemStack.stackTagCompound != null && !event.itemStack.stackTagCompound.hasNoTags()) {
+			if (event.itemStack.stackTagCompound != null && !event.itemStack.stackTagCompound.hasNoTags()) {
 				event.toolTip.add("\u00a78NBT: " + event.itemStack.stackTagCompound.func_150296_c().size() + " Tag(s)");
 			}
 		}
@@ -299,10 +298,9 @@ public class ClientEventHandler {
 
 	@SubscribeEvent
 	public void renderPlayerSetArmour(SetArmorModel event) {
-		if(isSpectator(event.entityPlayer)) {
+		if (isSpectator(event.entityPlayer)) {
 			event.result = 0;
-		} else
-		if (ConfigFunctions.enableTransparentAmour) {
+		} else if (ConfigFunctions.enableTransparentAmour) {
 			OpenGLHelper.enableBlend();
 			OpenGLHelper.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		}
@@ -319,9 +317,8 @@ public class ClientEventHandler {
 
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
-	public void onPlaySoundEvent(PlaySoundEvent17 event)
-	{
-		if(event.sound != null && event.name != null && FMLClientHandler.instance().getWorldClient() != null) {
+	public void onPlaySoundEvent(PlaySoundEvent17 event) {
+		if (event.sound != null && event.name != null && FMLClientHandler.instance().getWorldClient() != null) {
 			final World world = FMLClientHandler.instance().getWorldClient();
 			final float soundX = event.sound.getXPosF();
 			final float soundY = event.sound.getYPosF();
@@ -359,7 +356,7 @@ public class ClientEventHandler {
 
 
 			//Opening and closing doors/chests
-			if(ConfigSounds.doorOpenClose && event.name.contains("random.door")) {
+			if (ConfigSounds.doorOpenClose && event.name.contains("random.door")) {
 				event.result = new PositionedSoundRecord(new ResourceLocation(getReplacementDoorSound(block, event.name)),
 						event.sound.getVolume(), event.sound.getPitch(), x + 0.5F, y + 0.5F, z + 0.5F);
 				return;
@@ -374,14 +371,14 @@ public class ClientEventHandler {
 						s = Reference.MCAssetVer + ":" + "block.chest.close";
 				}
 
-				if(!s.equals(event.name)) {
+				if (!s.equals(event.name)) {
 					event.result = new PositionedSoundRecord(new ResourceLocation(s), event.sound.getVolume(), event.sound.getPitch(), x + 0.5F, y + 0.5F, z + 0.5F);
 					return;
 				}
 			}
 
 			//We check what sound event to use by the pitch. These blocks fire 0.6F when turning on, and 0.5F when turning off. We use > 0.5F instead of == 0.6F to account for floating point precision.w
-			if(ConfigSounds.pressurePlateButton) {
+			if (ConfigSounds.pressurePlateButton) {
 				// --- Wooden Button --- //
 				if (block instanceof BlockButton && (block.stepSound == Block.soundTypeWood || block.getClass().getSimpleName().toLowerCase().contains("wood")) && event.name.equals("random.click")) {
 					String s = Reference.MCAssetVer + ":block.wooden_button.click_" + (event.sound.getPitch() > 0.5F ? "on" : "off");
@@ -406,30 +403,40 @@ public class ClientEventHandler {
 
 				Block blockBeneath = world.getBlock(
 						MathHelper.floor_float(soundX),
-						MathHelper.floor_float(soundY)-1,
+						MathHelper.floor_float(soundY) - 1,
 						MathHelper.floor_float(soundZ));
 				Item item = Item.getItemFromBlock(blockBeneath);
-				if(item != null && item.getHasSubtypes()) {
+				if (item != null && item.getHasSubtypes()) {
 					try {
 						STORAGE_STACK.func_150996_a(item);
 						STORAGE_STACK.setItemDamage(world.getBlockMetadata(MathHelper.floor_float(soundX), MathHelper.floor_float(soundY), MathHelper.floor_float(soundZ)));
 						blockName = item.getUnlocalizedName(STORAGE_STACK).toLowerCase();
-					} catch(Exception e) {/*In case a mod doesn't have a catch for invalid meta states and throws an error, just ignore it and proceed*/}
+					} catch (
+							Exception e) {/*In case a mod doesn't have a catch for invalid meta states and throws an error, just ignore it and proceed*/}
 				}
 
-				if(blockName.equals("")) {
+				if (blockName.equals("")) {
 					blockName = blockBeneath.getUnlocalizedName().toLowerCase();
 				}
 
 				// Specific blocks
-				if (blockBeneath==Blocks.soul_sand)                                         {instrumentToPlay = Reference.MCAssetVer+":block.note_block.cow_bell";}
-				else if (blockName.contains("hay"))                                         {instrumentToPlay = Reference.MCAssetVer+":block.note_block.banjo";}
-				else if (EtFuturum.hasDictTag(blockBeneath, "blockGold"))           {instrumentToPlay = Reference.MCAssetVer+":block.note_block.bell";}
-				else if (EtFuturum.hasDictTag(blockBeneath, "blockEmerald"))        {instrumentToPlay = Reference.MCAssetVer+":block.note_block.bit";}
-				else if (blockName.contains("packed") && blockName.contains("ice"))         {instrumentToPlay = Reference.MCAssetVer+":block.note_block.chime";}
-				else if (blockName.contains("pumpkin"))                                     {instrumentToPlay = Reference.MCAssetVer+":block.note_block.didgeridoo";}
-				else if (blockBeneath.getMaterial() == Material.clay)                       {instrumentToPlay = Reference.MCAssetVer+":block.note_block.flute";}
-				else if (EtFuturum.hasDictTag(blockBeneath, "blockIron"))           {instrumentToPlay = Reference.MCAssetVer+":block.note_block.iron_xylophone";} else if (blockBeneath.getMaterial() == Material.cloth) {
+				if (blockBeneath == Blocks.soul_sand) {
+					instrumentToPlay = Reference.MCAssetVer + ":block.note_block.cow_bell";
+				} else if (blockName.contains("hay")) {
+					instrumentToPlay = Reference.MCAssetVer + ":block.note_block.banjo";
+				} else if (EtFuturum.hasDictTag(blockBeneath, "blockGold")) {
+					instrumentToPlay = Reference.MCAssetVer + ":block.note_block.bell";
+				} else if (EtFuturum.hasDictTag(blockBeneath, "blockEmerald")) {
+					instrumentToPlay = Reference.MCAssetVer + ":block.note_block.bit";
+				} else if (blockName.contains("packed") && blockName.contains("ice")) {
+					instrumentToPlay = Reference.MCAssetVer + ":block.note_block.chime";
+				} else if (blockName.contains("pumpkin")) {
+					instrumentToPlay = Reference.MCAssetVer + ":block.note_block.didgeridoo";
+				} else if (blockBeneath.getMaterial() == Material.clay) {
+					instrumentToPlay = Reference.MCAssetVer + ":block.note_block.flute";
+				} else if (EtFuturum.hasDictTag(blockBeneath, "blockIron")) {
+					instrumentToPlay = Reference.MCAssetVer + ":block.note_block.iron_xylophone";
+				} else if (blockBeneath.getMaterial() == Material.cloth) {
 					instrumentToPlay = Reference.MCAssetVer + ":block.note_block.guitar";
 				} else if (blockName.contains("bone") || blockName.contains("ivory")) {
 					instrumentToPlay = Reference.MCAssetVer + ":block.note_block.xylophone";
@@ -454,7 +461,7 @@ public class ClientEventHandler {
 				}
 			}
 
-			if(!EtFuturum.netherMusicNetherlicious) {
+			if (!EtFuturum.netherMusicNetherlicious) {
 				if (event.name.equals("music.game.nether") && world.provider.dimensionId == -1) {
 					if (netherMusic == null || !mc.getSoundHandler().isSoundPlaying(netherMusic)) {
 						//World world = mc.theWorld; // unused variable
@@ -474,13 +481,12 @@ public class ClientEventHandler {
 						event.sound.getVolume(), event.sound.getPitch(), x + 0.5F, y + 0.5F, z + 0.5F);
 			}
 			if (event.name.equals("ambient.cave.cave")) {
-				if(ConfigSounds.netherAmbience && FMLClientHandler.instance().getClientPlayerEntity().dimension == -1) {
+				if (ConfigSounds.netherAmbience && FMLClientHandler.instance().getClientPlayerEntity().dimension == -1) {
 					BiomeGenBase biome = FMLClientHandler.instance().getWorldClient().getChunkFromBlockCoords(x, z).getBiomeGenForWorldCoords(x & 15, z & 15, FMLClientHandler.instance().getWorldClient().getWorldChunkManager());
-					if(getAmbienceMood(biome) != null) {
+					if (getAmbienceMood(biome) != null) {
 						event.result = new PositionedSoundRecord(new ResourceLocation(getAmbienceMood(biome)),
 								event.sound.getVolume(), event.sound.getPitch(), x + 0.5F, y + 0.5F, z + 0.5F);
-					}
-					else {
+					} else {
 						event.result = null;
 					}
 				}
@@ -489,6 +495,7 @@ public class ClientEventHandler {
 	}
 
 	private static final String ignore_suffix = "$etfuturum:ignore";
+
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
 	public void onPlaySoundAtEntityEvent(PlaySoundAtEntityEvent event) {
@@ -567,7 +574,7 @@ public class ClientEventHandler {
 			float field_26997 = pair.getLeft();
 			int lastChimeAge = pair.getRight();
 			if (entity.ticksExisted >= lastChimeAge + 20) {
-				field_26997 = (float) ((double) field_26997 * Math.pow(0.996999979019165D, (double) (entity.ticksExisted - lastChimeAge)));
+				field_26997 = (float) ((double) field_26997 * Math.pow(0.996999979019165D, entity.ticksExisted - lastChimeAge));
 				field_26997 = Math.min(1.0F, field_26997 + 0.07F);
 				float f = 0.5F + field_26997 * entity.worldObj.rand.nextFloat() * 1.2F;
 				float g = 0.1F + field_26997 * 1.2F;
@@ -583,19 +590,19 @@ public class ClientEventHandler {
 	private String getReplacementDoorSound(Block block, String string) {
 		Random random = new Random();
 		String closeOrOpen = random.nextBoolean() ? "open" : "close";
-		if(block instanceof BlockDoor)
+		if (block instanceof BlockDoor)
 			if (block.getMaterial() == Material.wood/* || block.getMaterial() == EtFuturum.netherwood */)
 				return Reference.MCAssetVer + ":block.wooden_door." + closeOrOpen;
-			else if(block.getMaterial() == Material.iron)
+			else if (block.getMaterial() == Material.iron)
 				return Reference.MCAssetVer + ":block.iron_door." + closeOrOpen;
 
-		if(block instanceof BlockTrapDoor)
+		if (block instanceof BlockTrapDoor)
 			if (block.getMaterial() == Material.wood/* || block.getMaterial() == EtFuturum.netherwood */)
 				return Reference.MCAssetVer + ":block.wooden_trapdoor." + closeOrOpen;
-			else if(block.getMaterial() == Material.iron)
+			else if (block.getMaterial() == Material.iron)
 				return Reference.MCAssetVer + ":block.iron_trapdoor." + closeOrOpen;
 
-		if(block instanceof BlockFenceGate)
+		if (block instanceof BlockFenceGate)
 			if (block.getMaterial() == Material.wood/* || block.getMaterial() == EtFuturum.netherwood */)
 				return Reference.MCAssetVer + ":block.fence_gate." + closeOrOpen;
 
@@ -603,15 +610,16 @@ public class ClientEventHandler {
 	}
 
 	private float prevYOffset;
+
 	@SubscribeEvent
 	public void onRenderTick(TickEvent.RenderTickEvent event) {
 		if (!ConfigMixins.enableElytra)
 			return;
 		EntityPlayerSP player = mc.thePlayer;
-		if(!(player instanceof IElytraPlayer))
+		if (!(player instanceof IElytraPlayer))
 			return;
-		if(((IElytraPlayer)player).etfu$isElytraFlying()) {
-			if(event.phase == Phase.START) {
+		if (((IElytraPlayer) player).etfu$isElytraFlying()) {
+			if (event.phase == Phase.START) {
 				prevYOffset = player.yOffset;
 				/* TODO find the right number here */
 				if (mc.gameSettings.thirdPersonView == 0)
@@ -623,8 +631,7 @@ public class ClientEventHandler {
 	}
 
 	@SubscribeEvent
-	public void onLivingUpdateEvent(LivingUpdateEvent event)
-	{
+	public void onLivingUpdateEvent(LivingUpdateEvent event) {
 		Entity entity = event.entityLiving;
 		World world = entity.worldObj;
 
@@ -640,13 +647,12 @@ public class ClientEventHandler {
 		 * and adjust slipperiness when entity is moving on block, so check
 		 * that the conditions are met first.
 		 */
-		if (entity.onGround && (entity.motionX != 0 || entity.motionZ != 0))
-		{
+		if (entity.onGround && (entity.motionX != 0 || entity.motionZ != 0)) {
 			int x = MathHelper.floor_double(entity.posX);
 			int y = MathHelper.floor_double(entity.posY - 0.20000000298023224D - entity.yOffset);
 			int z = MathHelper.floor_double(entity.posZ);
 
-			if(entity.worldObj.getBlock(x, y, z) instanceof BlockShulkerBox) {
+			if (entity.worldObj.getBlock(x, y, z) instanceof BlockShulkerBox) {
 				TileEntityShulkerBox TE = (TileEntityShulkerBox) entity.worldObj.getTileEntity(x, y, z);
 				if (TE != null) {
 					if (world.isRemote && entity.isSprinting() && !entity.isInWater()) {
@@ -665,7 +671,7 @@ public class ClientEventHandler {
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
 	public void openMainMenu(GuiOpenEvent event) {
-		if(event.gui instanceof GuiMainMenu) {
+		if (event.gui instanceof GuiMainMenu) {
 			this.showedDebugWarning = false;
 			if (launchConfigWarning && main_menu_display_count++ < 20) {
 				launchConfigWarning = false;

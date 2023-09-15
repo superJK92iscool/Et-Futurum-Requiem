@@ -174,8 +174,7 @@ public abstract class BlockModelBase implements ISimpleBlockRenderingHandler {
 	/**
 	 * Renders the YNeg face with proper shading like renderStandardBlock.
 	 */
-	public void renderFaceYNeg(RenderBlocks renderer, Block block, double dx, double dy, double dz, double offx, double offy, double offz)
-	{
+	public void renderFaceYNeg(RenderBlocks renderer, Block block, double dx, double dy, double dz, double offx, double offy, double offz) {
 		renderer.enableAO = false;
 
 		int x = MathHelper.floor_double(dx);
@@ -194,16 +193,14 @@ public abstract class BlockModelBase implements ISimpleBlockRenderingHandler {
 	/**
 	 * Renders the YPos face with proper shading like renderStandardBlock.
 	 */
-	public void renderFaceYPos(RenderBlocks renderer, Block block, double dx, double dy, double dz)
-	{
+	public void renderFaceYPos(RenderBlocks renderer, Block block, double dx, double dy, double dz) {
 		this.renderFaceYPos(renderer, block, dx, dy, dz, 0, 0, 0);
 	}
 
 	/**
 	 * Renders the YPos face with proper shading like renderStandardBlock.
 	 */
-	public void renderFaceYPos(RenderBlocks renderer, Block block, double dx, double dy, double dz, double offx, double offy, double offz)
-	{
+	public void renderFaceYPos(RenderBlocks renderer, Block block, double dx, double dy, double dz, double offx, double offy, double offz) {
 		renderer.enableAO = false;
 
 		int x = MathHelper.floor_double(dx);
@@ -211,12 +208,11 @@ public abstract class BlockModelBase implements ISimpleBlockRenderingHandler {
 		int z = MathHelper.floor_double(dz);
 
 		int m = block.colorMultiplier(renderer.blockAccess, x, y, z);
-		float f = (float)(m >> 16 & 255) / 255.0F;
-		float f1 = (float)(m >> 8 & 255) / 255.0F;
-		float f2 = (float)(m & 255) / 255.0F;
+		float f = (float) (m >> 16 & 255) / 255.0F;
+		float f1 = (float) (m >> 8 & 255) / 255.0F;
+		float f2 = (float) (m & 255) / 255.0F;
 
-		if (EntityRenderer.anaglyphEnable)
-		{
+		if (EntityRenderer.anaglyphEnable) {
 			float f3 = (f * 30.0F + f1 * 59.0F + f2 * 11.0F) / 100.0F;
 			float f4 = (f * 30.0F + f1 * 70.0F) / 100.0F;
 			float f5 = (f * 30.0F + f2 * 70.0F) / 100.0F;
@@ -231,8 +227,7 @@ public abstract class BlockModelBase implements ISimpleBlockRenderingHandler {
 		float f9 = f4 * f2;
 		int l = block.getMixedBrightnessForBlock(renderer.blockAccess, x, y, z);
 
-		if (renderer.renderAllFaces || block.shouldSideBeRendered(renderer.blockAccess, x, y + 1, z, 1))
-		{
+		if (renderer.renderAllFaces || block.shouldSideBeRendered(renderer.blockAccess, x, y + 1, z, 1)) {
 			tessellator.setBrightness(renderer.renderMaxY - Math.abs(offy) < 1.0D ? l : block.getMixedBrightnessForBlock(renderer.blockAccess, x, y + 1, z));
 			tessellator.setColorOpaque_F(f7, f8, f9);
 			renderer.renderFaceYPos(block, dx + offx, dy + offy, dz + offz, renderer.getBlockIcon(block, renderer.blockAccess, x, y, z, 1));
@@ -242,16 +237,14 @@ public abstract class BlockModelBase implements ISimpleBlockRenderingHandler {
 	/**
 	 * Renders the ZNeg face with proper shading like renderStandardBlock.
 	 */
-	public void renderFaceZNeg(RenderBlocks renderer, Block block, double dx, double dy, double dz)
-	{
+	public void renderFaceZNeg(RenderBlocks renderer, Block block, double dx, double dy, double dz) {
 		this.renderFaceZNeg(renderer, block, dx, dy, dz, 0, 0, 0);
 	}
 
 	/**
 	 * Renders the ZNeg face with proper shading like renderStandardBlock.
 	 */
-	public void renderFaceZNeg(RenderBlocks renderer, Block block, double dx, double dy, double dz, double offx, double offy, double offz)
-	{
+	public void renderFaceZNeg(RenderBlocks renderer, Block block, double dx, double dy, double dz, double offx, double offy, double offz) {
 		renderer.enableAO = false;
 
 		int x = MathHelper.floor_double(dx);
@@ -271,16 +264,14 @@ public abstract class BlockModelBase implements ISimpleBlockRenderingHandler {
 	/**
 	 * Renders the ZPos face with proper shading like renderStandardBlock.
 	 */
-	public void renderFaceZPos(RenderBlocks renderer, Block block, double dx, double dy, double dz)
-	{
+	public void renderFaceZPos(RenderBlocks renderer, Block block, double dx, double dy, double dz) {
 		this.renderFaceZPos(renderer, block, dx, dy, dz, 0, 0, 0);
 	}
 
 	/**
 	 * Renders the ZPos face with proper shading like renderStandardBlock.
 	 */
-	public void renderFaceZPos(RenderBlocks renderer, Block block, double dx, double dy, double dz, double offx, double offy, double offz)
-	{
+	public void renderFaceZPos(RenderBlocks renderer, Block block, double dx, double dy, double dz, double offx, double offy, double offz) {
 		renderer.enableAO = false;
 
 		int x = MathHelper.floor_double(dx);
@@ -300,16 +291,14 @@ public abstract class BlockModelBase implements ISimpleBlockRenderingHandler {
 	/**
 	 * Renders the XNeg face with proper shading like renderStandardBlock.
 	 */
-	public void renderFaceXNeg(RenderBlocks renderer, Block block, double dx, double dy, double dz)
-	{
+	public void renderFaceXNeg(RenderBlocks renderer, Block block, double dx, double dy, double dz) {
 		this.renderFaceXNeg(renderer, block, dx, dy, dz, 0, 0, 0);
 	}
 
 	/**
 	 * Renders the XNeg face with proper shading like renderStandardBlock.
 	 */
-	public void renderFaceXNeg(RenderBlocks renderer, Block block, double dx, double dy, double dz, double offx, double offy, double offz)
-	{
+	public void renderFaceXNeg(RenderBlocks renderer, Block block, double dx, double dy, double dz, double offx, double offy, double offz) {
 		renderer.enableAO = false;
 
 		int x = MathHelper.floor_double(dx);
@@ -330,16 +319,14 @@ public abstract class BlockModelBase implements ISimpleBlockRenderingHandler {
 	/**
 	 * Renders the XPos face with proper shading like renderStandardBlock.
 	 */
-	public void renderFaceXPos(RenderBlocks renderer, Block block, double dx, double dy, double dz)
-	{
+	public void renderFaceXPos(RenderBlocks renderer, Block block, double dx, double dy, double dz) {
 		this.renderFaceXPos(renderer, block, dx, dy, dz, 0, 0, 0);
 	}
 
 	/**
 	 * Renders the XPos face with proper shading like renderStandardBlock.
 	 */
-	public void renderFaceXPos(RenderBlocks renderer, Block block, double dx, double dy, double dz, double offx, double offy, double offz)
-	{
+	public void renderFaceXPos(RenderBlocks renderer, Block block, double dx, double dy, double dz, double offx, double offy, double offz) {
 		renderer.enableAO = false;
 
 		int x = MathHelper.floor_double(dx);

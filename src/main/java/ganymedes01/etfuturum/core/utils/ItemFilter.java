@@ -5,7 +5,7 @@ import net.minecraft.item.ItemStack;
 public interface ItemFilter {
 	boolean matches(ItemStack var1);
 
-	public interface ItemFilterProvider {
+	interface ItemFilterProvider {
 		codechicken.nei.api.ItemFilter getFilter();
 	}
 }

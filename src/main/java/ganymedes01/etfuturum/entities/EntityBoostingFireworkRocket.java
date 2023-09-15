@@ -28,29 +28,24 @@ public class EntityBoostingFireworkRocket extends EntityFireworkRocket {
 		this.boostedEntity = entityToBoost;
 	}
 
-	public boolean isInRangeToRenderDist(double p_70112_1_)
-	{
+	public boolean isInRangeToRenderDist(double p_70112_1_) {
 		return false;
 	}
-	
+
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
-		if(this.isAttachedToEntity()) {
-			if (this.boostedEntity == null)
-			{
+		if (this.isAttachedToEntity()) {
+			if (this.boostedEntity == null) {
 				Entity entity = this.worldObj.getEntityByID(this.dataWatcher.getWatchableObjectInt(BOOSTED_ENTITY_ID));
 
-				if (entity instanceof EntityLivingBase)
-				{
-					this.boostedEntity = (EntityLivingBase)entity;
+				if (entity instanceof EntityLivingBase) {
+					this.boostedEntity = (EntityLivingBase) entity;
 				}
 			}
 
-			if (this.boostedEntity != null)
-			{
-				if (this.boostedEntity instanceof IElytraPlayer && ((IElytraPlayer)this.boostedEntity).etfu$isElytraFlying())
-				{
+			if (this.boostedEntity != null) {
+				if (this.boostedEntity instanceof IElytraPlayer && ((IElytraPlayer) this.boostedEntity).etfu$isElytraFlying()) {
 					Vec3 vec3d = this.boostedEntity.getLookVec();
 					this.boostedEntity.motionX += vec3d.xCoord * 0.1D + (vec3d.xCoord * 1.5D - this.boostedEntity.motionX) * 0.5D;
 					this.boostedEntity.motionY += vec3d.yCoord * 0.1D + (vec3d.yCoord * 1.5D - this.boostedEntity.motionY) * 0.5D;
@@ -67,8 +62,7 @@ public class EntityBoostingFireworkRocket extends EntityFireworkRocket {
 		}
 	}
 
-	public boolean isAttachedToEntity()
-	{
+	public boolean isAttachedToEntity() {
 		return this.dataWatcher.getWatchableObjectInt(BOOSTED_ENTITY_ID) > 0;
 	}
 }

@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 import java.util.Random;
 
 public class BlockWoodSign extends BlockSign {
-	
+
 	public final int meta;
 	public final boolean standing;
 
@@ -32,27 +32,25 @@ public class BlockWoodSign extends BlockSign {
 		standing = p_i45426_2_;
 		meta = i;
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int _meta) {
 //      if(this.meta < 6)
-			return Blocks.planks.getIcon(side, this.meta);
+		return Blocks.planks.getIcon(side, this.meta);
 //      else
 //          return ModBlocks.nether_planks.getIcon(side, this.meta - 6);
 	}
 
 	@Override
-	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_)
-	{
+	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_) {
 		return ModItems.ITEM_SIGNS[meta - 1].get();
 	}
-	
+
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public Item getItem(World p_149694_1_, int p_149694_2_, int p_149694_3_, int p_149694_4_)
-	{
+	public Item getItem(World p_149694_1_, int p_149694_2_, int p_149694_3_, int p_149694_4_) {
 		return ModItems.ITEM_SIGNS[meta - 1].get();
 	}
 

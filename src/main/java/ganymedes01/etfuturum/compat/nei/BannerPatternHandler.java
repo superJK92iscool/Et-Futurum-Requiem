@@ -61,11 +61,11 @@ public class BannerPatternHandler extends TemplateRecipeHandler {
 			if (!pattern.hasValidCrafting())
 				continue;
 			if (pattern.hasCraftingStack()) {
-				arecipes.add(new CachedPatternRecipe(pattern, new String[] { "   ", "xy ", " z " }, Arrays.asList('x', pattern.getCraftingStack(), 'y', "dye", 'z', ModBlocks.BANNER.newItemStack(1, OreDictionary.WILDCARD_VALUE))).setRandomPermutations());
-				arecipes.add(new CachedPatternRecipe(pattern, new String[] { "   ", "xy ", "   " }, Arrays.asList('x', pattern.getCraftingStack(), 'y', ModBlocks.BANNER.newItemStack(1, OreDictionary.WILDCARD_VALUE))).setRandomPermutations());
+				arecipes.add(new CachedPatternRecipe(pattern, new String[]{"   ", "xy ", " z "}, Arrays.asList('x', pattern.getCraftingStack(), 'y', "dye", 'z', ModBlocks.BANNER.newItemStack(1, OreDictionary.WILDCARD_VALUE))).setRandomPermutations());
+				arecipes.add(new CachedPatternRecipe(pattern, new String[]{"   ", "xy ", "   "}, Arrays.asList('x', pattern.getCraftingStack(), 'y', ModBlocks.BANNER.newItemStack(1, OreDictionary.WILDCARD_VALUE))).setRandomPermutations());
 			} else {
 				String[] layers = pattern.getCraftingLayers();
-				String[] layersCopy = new String[] { layers[0], layers[1], layers[2] };
+				String[] layersCopy = new String[]{layers[0], layers[1], layers[2]};
 				for (int i = 0; i < 3; i++) {
 					String newLayer = layersCopy[i].replaceFirst(" ", "x");
 					if (!newLayer.equals(layersCopy[i])) {
@@ -99,12 +99,12 @@ public class BannerPatternHandler extends TemplateRecipeHandler {
 					continue;
 				if (pattern.hasCraftingStack()) {
 					if (colour != null)
-						arecipes.add(new CachedPatternRecipe(pattern, new String[] { "   ", "xy ", " z " }, Arrays.asList('x', pattern.getCraftingStack(), 'y', colour.getOreName(), 'z', copy)));
+						arecipes.add(new CachedPatternRecipe(pattern, new String[]{"   ", "xy ", " z "}, Arrays.asList('x', pattern.getCraftingStack(), 'y', colour.getOreName(), 'z', copy)));
 					else
-						arecipes.add(new CachedPatternRecipe(pattern, new String[] { "   ", "xy ", "   " }, Arrays.asList('x', pattern.getCraftingStack(), 'y', copy)));
+						arecipes.add(new CachedPatternRecipe(pattern, new String[]{"   ", "xy ", "   "}, Arrays.asList('x', pattern.getCraftingStack(), 'y', copy)));
 				} else {
 					String[] layers = pattern.getCraftingLayers();
-					String[] layersCopy = new String[] { layers[0], layers[1], layers[2] };
+					String[] layersCopy = new String[]{layers[0], layers[1], layers[2]};
 					for (int j = 0; j < 3; j++) {
 						String newLayer = layersCopy[j].replaceFirst(" ", "x");
 						if (!newLayer.equals(layersCopy[j])) {
@@ -127,11 +127,11 @@ public class BannerPatternHandler extends TemplateRecipeHandler {
 				else if (pattern.hasCraftingStack()) {
 					ItemStack banner = ingredient.copy();
 					banner.stackSize = 1;
-					arecipes.add(new CachedPatternRecipe(pattern, new String[] { "   ", "xy ", " z " }, Arrays.asList('x', pattern.getCraftingStack(), 'y', "dye", 'z', banner)));
-					arecipes.add(new CachedPatternRecipe(pattern, new String[] { "   ", "xy ", "   " }, Arrays.asList('x', pattern.getCraftingStack(), 'y', banner)));
+					arecipes.add(new CachedPatternRecipe(pattern, new String[]{"   ", "xy ", " z "}, Arrays.asList('x', pattern.getCraftingStack(), 'y', "dye", 'z', banner)));
+					arecipes.add(new CachedPatternRecipe(pattern, new String[]{"   ", "xy ", "   "}, Arrays.asList('x', pattern.getCraftingStack(), 'y', banner)));
 				} else {
 					String[] layers = pattern.getCraftingLayers();
-					String[] layersCopy = new String[] { layers[0], layers[1], layers[2] };
+					String[] layersCopy = new String[]{layers[0], layers[1], layers[2]};
 					for (int i = 0; i < 3; i++) {
 						String newLayer = layersCopy[i].replaceFirst(" ", "x");
 						if (!newLayer.equals(layersCopy[i])) {
@@ -151,8 +151,8 @@ public class BannerPatternHandler extends TemplateRecipeHandler {
 				else if (pattern.hasCraftingStack() && OreDictionary.itemMatches(pattern.getCraftingStack(), ingredient, false)) {
 					ItemStack banner = ModBlocks.BANNER.newItemStack(1, OreDictionary.WILDCARD_VALUE);
 					banner.stackSize = 1;
-					arecipes.add(new CachedPatternRecipe(pattern, new String[] { "   ", "xy ", " z " }, Arrays.asList('x', pattern.getCraftingStack(), 'y', "dye", 'z', banner)).setRandomPermutations());
-					arecipes.add(new CachedPatternRecipe(pattern, new String[] { "   ", "xy ", "   " }, Arrays.asList('x', pattern.getCraftingStack(), 'y', banner)).setRandomPermutations());
+					arecipes.add(new CachedPatternRecipe(pattern, new String[]{"   ", "xy ", " z "}, Arrays.asList('x', pattern.getCraftingStack(), 'y', "dye", 'z', banner)).setRandomPermutations());
+					arecipes.add(new CachedPatternRecipe(pattern, new String[]{"   ", "xy ", "   "}, Arrays.asList('x', pattern.getCraftingStack(), 'y', banner)).setRandomPermutations());
 				} else
 					for (int oreID : OreDictionary.getOreIDs(ingredient)) {
 						String oreName = OreDictionary.getOreName(oreID);
@@ -160,10 +160,10 @@ public class BannerPatternHandler extends TemplateRecipeHandler {
 							if (pattern.hasCraftingStack()) {
 								ItemStack banner = ModBlocks.BANNER.newItemStack(1, OreDictionary.WILDCARD_VALUE);
 								banner.stackSize = 1;
-								arecipes.add(new CachedPatternRecipe(pattern, new String[] { "   ", "xy ", " z " }, Arrays.asList('x', pattern.getCraftingStack(), 'y', oreName, 'z', banner)));
+								arecipes.add(new CachedPatternRecipe(pattern, new String[]{"   ", "xy ", " z "}, Arrays.asList('x', pattern.getCraftingStack(), 'y', oreName, 'z', banner)));
 							} else {
 								String[] layers = pattern.getCraftingLayers();
-								String[] layersCopy = new String[] { layers[0], layers[1], layers[2] };
+								String[] layersCopy = new String[]{layers[0], layers[1], layers[2]};
 								for (int i = 0; i < 3; i++) {
 									String newLayer = layersCopy[i].replaceFirst(" ", "x");
 									if (!newLayer.equals(layersCopy[i])) {

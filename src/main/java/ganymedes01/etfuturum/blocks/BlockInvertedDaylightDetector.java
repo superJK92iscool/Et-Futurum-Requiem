@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 
 public class BlockInvertedDaylightDetector extends BlockNewDaylightSensor {
 
-	private static final int[] invertedValues = { 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+	private static final int[] invertedValues = {15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
 
 	public BlockInvertedDaylightDetector() {
 		super();
@@ -45,7 +45,7 @@ public class BlockInvertedDaylightDetector extends BlockNewDaylightSensor {
 			light = Math.round(light * MathHelper.cos(angle));
 
 			light = invertedValues[Math.min(Math.max(0, light), 15)];
-			
+
 			if (meta != light)
 				world.setBlockMetadataWithNotify(x, y, z, light, 3);
 		}

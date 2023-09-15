@@ -12,7 +12,7 @@ public class ItemStackSet extends ItemStackMap<ItemStack> implements ItemFilter 
 		ItemStack[] arr$ = items;
 		int len$ = items.length;
 
-		for(int i$ = 0; i$ < len$; ++i$) {
+		for (int i$ = 0; i$ < len$; ++i$) {
 			ItemStack item = arr$[i$];
 			this.add(item);
 		}
@@ -24,7 +24,7 @@ public class ItemStackSet extends ItemStackMap<ItemStack> implements ItemFilter 
 		Item[] arr$ = items;
 		int len$ = items.length;
 
-		for(int i$ = 0; i$ < len$; ++i$) {
+		for (int i$ = 0; i$ < len$; ++i$) {
 			Item item = arr$[i$];
 			this.add(ItemStackMap.wildcard(item));
 		}
@@ -36,7 +36,7 @@ public class ItemStackSet extends ItemStackMap<ItemStack> implements ItemFilter 
 		Block[] arr$ = blocks;
 		int len$ = blocks.length;
 
-		for(int i$ = 0; i$ < len$; ++i$) {
+		for (int i$ = 0; i$ < len$; ++i$) {
 			Block block = arr$[i$];
 			this.add(ItemStackMap.wildcard(Item.getItemFromBlock(block)));
 		}

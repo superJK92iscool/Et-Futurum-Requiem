@@ -37,7 +37,7 @@ public class BlockComposterRenderer extends BlockModelBase {
 		renderer.renderFaceZPos(block, 0, 0, 0, renderer.getBlockIconFromSideAndMetadata(block, 4, meta));
 		tessellator.setNormal(1.0F, 0.0F, 0.0F);
 		renderer.renderFaceXNeg(block, 0, 0, 0, renderer.getBlockIconFromSideAndMetadata(block, 5, meta));
-		
+
 		renderer.setRenderBounds(0, 0, 0, 1, 0.125D, 1);
 		tessellator.setNormal(0.0F, 1.0F, 0.0F);
 		renderer.renderFaceYPos(block, 0, 0, 0, renderer.getBlockIconFromSideAndMetadata(block, 0, meta));
@@ -56,29 +56,29 @@ public class BlockComposterRenderer extends BlockModelBase {
 			this.renderFaceZPos(renderer, block, x, y, z);
 			this.renderFaceXNeg(renderer, block, x, y, z);
 			renderer.renderAllFaces = prevRenderFaces;
-			
+
 			int meta = Math.min(world.getBlockMetadata(x, y, z), 9);
-			if(!renderer.hasOverrideBlockTexture()) {
-				if(meta == 0) {
+			if (!renderer.hasOverrideBlockTexture()) {
+				if (meta == 0) {
 					renderer.setOverrideBlockTexture(ModBlocks.COMPOSTER.get().getIcon(0, 0));
-				} else if (meta == 7){
-					renderer.setOverrideBlockTexture(((BlockComposter)block).fullCompostIcon);
+				} else if (meta == 7) {
+					renderer.setOverrideBlockTexture(((BlockComposter) block).fullCompostIcon);
 				} else {
-					renderer.setOverrideBlockTexture(((BlockComposter)block).compostIcon);
+					renderer.setOverrideBlockTexture(((BlockComposter) block).compostIcon);
 				}
-				
+
 				double offset = 0.125D * Math.min(meta + 1, 7);
-				if(meta > 0) {
+				if (meta > 0) {
 					offset += 0.0625D;
 				}
-				
+
 				renderer.setRenderBounds(0, 0, 0, 1, offset, 1);
 				this.renderFaceYPos(renderer, block, x, y, z);
 			}
-			
+
 			renderer.clearOverrideBlockTexture();
 		}
-		
+
 		return true;
 	}
 }

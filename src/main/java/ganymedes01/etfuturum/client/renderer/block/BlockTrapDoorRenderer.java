@@ -67,7 +67,7 @@ public class BlockTrapDoorRenderer extends BlockModelBase {
 				renderer.uvRotateNorth = 3;
 			}
 		}
-		
+
 		// 1 = west, 2 = east, 3 = north
 
 		if (l == 0 || l == 4 || l == 8 || l == 12) {

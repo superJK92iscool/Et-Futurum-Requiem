@@ -19,7 +19,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(EntityPlayerSP.class)
 public abstract class MixinEntityPlayerSP extends AbstractClientPlayer {
-	@Shadow public MovementInput movementInput;
+	@Shadow
+	public MovementInput movementInput;
 	private boolean etfu$lastIsJumping = false;
 
 	public MixinEntityPlayerSP(World p_i45074_1_, GameProfile p_i45074_2_) {
@@ -28,7 +29,7 @@ public abstract class MixinEntityPlayerSP extends AbstractClientPlayer {
 
 	@Inject(method = "onLivingUpdate", at = @At("TAIL"))
 	private void startElytraFlying(CallbackInfo ci) {
-		 if (this.movementInput.jump && !etfu$lastIsJumping && !this.onGround && (ConfigMixins.enableNewElytraTakeoffLogic || this.motionY < 0.0D) && !((IElytraPlayer)this).etfu$isElytraFlying() && !this.capabilities.isFlying) {
+		if (this.movementInput.jump && !etfu$lastIsJumping && !this.onGround && (ConfigMixins.enableNewElytraTakeoffLogic || this.motionY < 0.0D) && !((IElytraPlayer) this).etfu$isElytraFlying() && !this.capabilities.isFlying) {
 			ItemStack itemstack = ItemArmorElytra.getElytra(this);
 			if (itemstack != null && !ItemArmorElytra.isBroken(itemstack)) {
 				EtFuturum.networkWrapper.sendToServer(new StartElytraFlyingMessage());

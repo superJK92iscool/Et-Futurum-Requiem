@@ -14,16 +14,15 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
-public class EntityHusk extends EntityZombie
-{
-	
+public class EntityHusk extends EntityZombie {
+
 	/*
 	 * We set this to true to force the brightness to be 0 in onLivingUpdate so the husk does not burn.
 	 * It is set back to false after onLivingUpdate, which is nested in onUpdate, so it will not affect
 	 * what other code sees when it gets the entity brightness.
 	 */
 	private boolean ignoreSunlight;
-	
+
 	public EntityHusk(final World p_i1745_1_) {
 		super(p_i1745_1_);
 		getNavigator().setBreakDoors(true);
@@ -40,30 +39,28 @@ public class EntityHusk extends EntityZombie
 		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityVillager.class, 0, false));
 		setSize(0.6F, 1.8F);
 	}
-	
-	
+
+
 	@Override
 	public boolean attackEntityAsMob(final Entity entity) {
 		final boolean flag = super.attackEntityAsMob(entity);
 		if (flag) {
 			final int i = this.worldObj.difficultySetting.getDifficultyId();
 			if (this.getHeldItem() == null && this.isBurning() && this.rand.nextFloat() < i * 0.3f) {
-				entity.setFire(0 * i);
+				entity.setFire(0);
 			}
-			((EntityLivingBase)entity).addPotionEffect(new PotionEffect(Potion.hunger.id, 140 * i, 0));
+			((EntityLivingBase) entity).addPotionEffect(new PotionEffect(Potion.hunger.id, 140 * i, 0));
 		}
 		return flag;
 	}
-	
-	public void onLivingUpdate()
-	{
+
+	public void onLivingUpdate() {
 		ignoreSunlight = true;
 		super.onLivingUpdate();
 		ignoreSunlight = false;
 	}
-	
-	public float getBrightness(float p_70013_1_)
-	{
+
+	public float getBrightness(float p_70013_1_) {
 		return ignoreSunlight ? 0F : super.getBrightness(p_70013_1_);
 	}
 	
@@ -138,29 +135,28 @@ public class EntityHusk extends EntityZombie
 		}
 	}
 	*/
-	
+
 	@Override
 	protected String getLivingSound() {
 		return Reference.MCAssetVer + ":entity.husk.ambient";
 	}
-	
+
 	@Override
 	protected String getHurtSound() {
 		return Reference.MCAssetVer + ":entity.husk.hurt";
 	}
-	
+
 	@Override
 	protected String getDeathSound() {
 		return Reference.MCAssetVer + ":entity.husk.death";
 	}
-	
+
 	@Override
 	protected void func_145780_a(final int p_145780_1_, final int p_145780_2_, final int p_145780_3_, final Block p_145780_4_) {
 		this.playSound(Reference.MCAssetVer + ":entity.husk.step", 0.15f, 1.0f);
 	}
-	
-	public ItemStack getPickedResult(MovingObjectPosition target)
-	{
+
+	public ItemStack getPickedResult(MovingObjectPosition target) {
 		return ModEntityList.getEggFromEntity(this);
 	}
 }
