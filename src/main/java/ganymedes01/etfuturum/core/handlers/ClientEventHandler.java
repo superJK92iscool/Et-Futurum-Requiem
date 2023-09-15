@@ -10,7 +10,6 @@ import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.EtFuturumMixinPlugin;
 import ganymedes01.etfuturum.api.MultiBlockSoundRegistry;
 import ganymedes01.etfuturum.api.mappings.MultiBlockSoundContainer;
 import ganymedes01.etfuturum.blocks.BlockShulkerBox;
@@ -661,17 +660,18 @@ public class ClientEventHandler {
 	}
 
 	public static int main_menu_display_count = 0;
+	public static boolean launchConfigWarning;
 
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
 	public void openMainMenu(GuiOpenEvent event) {
 		if(event.gui instanceof GuiMainMenu) {
 			this.showedDebugWarning = false;
-			if (EtFuturumMixinPlugin.launchConfigWarning && main_menu_display_count++ < 20) {
-				EtFuturumMixinPlugin.launchConfigWarning = false;
+			if (launchConfigWarning && main_menu_display_count++ < 20) {
+				launchConfigWarning = false;
 				Configuration oldConfig = new Configuration(new File(Launch.minecraftHome, ConfigBase.configDir + "etfuturum.cfg"));
 				oldConfig.setCategoryComment("warned", "This is added if we've warned you this file exists.\nUsed by versions that split the config into different files, rendering this file unused.\nThis was done because the current file was becoming difficult to navigate.");
-				if(!oldConfig.getBoolean("configWarningShown", "warned", false, "")) {
+				if (!oldConfig.getBoolean("configWarningShown", "warned", false, "")) {
 					event.gui = new GuiConfigWarning(event.gui, oldConfig);
 				}
 				oldConfig.getCategory("warned").get("configWarningShown").comment = "";

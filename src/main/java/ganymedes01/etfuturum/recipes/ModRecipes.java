@@ -51,8 +51,8 @@ public class ModRecipes {
 			RecipeSorter.register(Reference.MOD_ID + ".RecipeDuplicatePattern", RecipeDuplicatePattern.class, Category.SHAPELESS, "after:minecraft:shapeless");
 			RecipeSorter.register(Reference.MOD_ID + ".RecipeAddPattern", RecipeAddPattern.class, Category.SHAPED, "after:minecraft:shaped");
 		}
-		RecipeSorter.register("etfuturum:shaped", ShapedEtFuturumRecipe.class, RecipeSorter.Category.SHAPED, "before:minecraft:shaped");
-		RecipeSorter.register("etfuturum:shapeless", ShapelessEtFuturumRecipe.class, RecipeSorter.Category.SHAPELESS, "before:minecraft:shapeless");
+		RecipeSorter.register(Reference.MOD_ID + ":shaped", ShapedEtFuturumRecipe.class, RecipeSorter.Category.SHAPED, "before:minecraft:shaped");
+		RecipeSorter.register(Reference.MOD_ID + ":shapeless", ShapelessEtFuturumRecipe.class, RecipeSorter.Category.SHAPELESS, "before:minecraft:shapeless");
 
 		registerOreDictionary();
 		registerRecipes();
@@ -534,7 +534,7 @@ public class ModRecipes {
 		addShapedRecipe(ModItems.COPPER_INGOT.newItemStack(9), "x", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 8));
 
 		addSmelting(ModBlocks.COPPER_ORE.newItemStack(), ModItems.COPPER_INGOT.newItemStack(), .7F);
-		for (int i = 0; i <= 7; i++) {//TODO: Maybe make this not a loop as well like the other ones I put a TODO on, although this loop adds a ton of recipes
+		for (int i = 0; i < 8; i++) {//TODO: Maybe make this not a loop as well like the other ones I put a TODO on, although this loop adds a ton of recipes
 			int j = i;
 			if (i > 3)
 				j = i + 4;
@@ -762,7 +762,7 @@ public class ModRecipes {
 			GameRegistry.addSmelting(input, output, exp);
 		}
 	}
-	
+
 	private static void addSmelting(Block input, ItemStack output, float exp) {
 		if(validateItems(input) && validateItems(output)) {
 			GameRegistry.addSmelting(input, output, exp);
@@ -789,8 +789,10 @@ public class ModRecipes {
 
 	private static boolean validateItems(Object... objects) {
 		for (Object object : objects) {
+			if (object == null) return false;
+
 			if (object instanceof ItemStack) {
-				if (Item.itemRegistry.getNameForObject(((ItemStack) object).getItem()) == null) {
+				if (((ItemStack) object).getItem() == null || Item.itemRegistry.getNameForObject(((ItemStack) object).getItem()) == null) {
 					return false;
 				}
 			}
@@ -831,5 +833,4 @@ public class ModRecipes {
 			}
 		}
 	}
-
 }

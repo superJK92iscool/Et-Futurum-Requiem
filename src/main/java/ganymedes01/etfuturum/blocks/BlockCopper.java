@@ -23,7 +23,7 @@ public class BlockCopper extends BaseSubtypesBlock implements IDegradable {
 				"waxed_weathered_cut_copper", "waxed_oxidized_cut_copper");
 		setHardness(3);
 		setResistance(6);
-		setHarvestLevel("pickaxe_copper", 1);
+		setHarvestLevel("pickaxe", 1);
 		setBlockName(Utils.getUnlocalisedName("copper_block"));
 		setBlockTextureName("copper_block");
 		setCreativeTab(EtFuturum.creativeTabBlocks);

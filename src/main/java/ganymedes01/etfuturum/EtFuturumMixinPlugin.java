@@ -5,6 +5,7 @@ import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.configuration.configs.ConfigEnchantsPotions;
 import ganymedes01.etfuturum.configuration.configs.ConfigEntities;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
+import ganymedes01.etfuturum.core.handlers.ClientEventHandler;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.launchwrapper.Launch;
 import org.spongepowered.asm.lib.tree.ClassNode;
@@ -19,8 +20,7 @@ import java.util.List;
 import java.util.Set;
 
 public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
-	
-	public static boolean launchConfigWarning;
+
 	public static final MixinEnvironment.Side side = MixinEnvironment.getCurrentEnvironment().getSide();
 	
 	@Override
@@ -40,11 +40,11 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 				e.printStackTrace();
 			}
 			olderFile.delete();
-			launchConfigWarning = true;
+			ClientEventHandler.launchConfigWarning = true;
 		}
 		
 		if(oldFile.exists()) {
-			launchConfigWarning = true;
+			ClientEventHandler.launchConfigWarning = true;
 		}
 
 		ConfigBase.initializeConfigs();
