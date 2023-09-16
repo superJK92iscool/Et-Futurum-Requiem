@@ -4,9 +4,9 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.client.particle.ParticleHandler;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockStairs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -44,6 +44,20 @@ public interface IDegradable {
 	int getCopperMeta(int meta);
 
 	/**
+	 * BlockAccess-sensitive version of getCopperMeta
+	 *
+	 * @param world
+	 * @param x
+	 * @param y
+	 * @param z
+	 * @param meta
+	 * @return
+	 */
+	default int getCopperMeta(IBlockAccess world, int x, int y, int z, int meta) {
+		return getCopperMeta(meta);
+	}
+
+	/**
 	 * A getCopperMeta copy that takes the actual meta value of the block into account.
 	 * Used by slabs to wrap the meta data from 0-7 or 8-15.
 	 *
@@ -73,8 +87,12 @@ public interface IDegradable {
 		}
 	}
 
+	default boolean countTowardsDegredation(int meta, IBlockAccess world, int x, int y, int z) {
+		return meta < 8;
+	}
+
 	default void tryDegrade(World world, int x, int y, int z, Random random) {
-		int i = getCopperMeta(world.getBlockMetadata(x, y, z));
+		int i = getCopperMeta(world, x, y, z, world.getBlockMetadata(x, y, z));
 		int j = 0;
 		int k = 0;
 
@@ -84,9 +102,9 @@ public interface IDegradable {
 					for (int z1 = -CHECK_RANGE; z1 <= CHECK_RANGE; z1++) {
 						Block block = world.getBlock(x1 + x, y1 + y, z1 + z);
 						if (block instanceof IDegradable && (x1 != 0 || y1 != 0 || z1 != 0) && Math.abs(x1) + Math.abs(y1) + Math.abs(z1) <= CHECK_RANGE) {
-							int m = ((IDegradable) block).getCopperMeta(world.getBlockMetadata(x1 + x, y1 + y, z1 + z));
+							int m = ((IDegradable) block).getCopperMeta(world, x, y, z, world.getBlockMetadata(x1 + x, y1 + y, z1 + z));
 
-							if (m > 7)
+							if (!countTowardsDegredation(m, world, x, y, z))
 								continue;
 
 							m %= 4;
@@ -108,10 +126,13 @@ public interface IDegradable {
 			float f = (float) (k + 1) / (float) (k + j + 1);
 			float g = f * f * (i % 4 == 0 ? 0.75F : 1F);
 			if (random.nextFloat() < g) {
-				Block block = getCopperBlockFromMeta(i + 1);
-				world.setBlock(x, y, z, block, block instanceof BlockStairs ? world.getBlockMetadata(x, y, z) : getFinalCopperMeta(i + 1, world.getBlockMetadata(x, y, z)), 2);
+				setCopperBlock(getCopperBlockFromMeta(i + 1), getFinalCopperMeta(i + 1, world.getBlockMetadata(x, y, z)), world, x, y, z);
 			}
 		}
+	}
+
+	default void setCopperBlock(Block newBlock, int newMeta, World world, int x, int y, int z) {
+		world.setBlock(x, y, z, newBlock, newMeta, 2);
 	}
 
 	String[] waxStrings = new String[]{"materialWax", "materialWaxcomb", "materialHoneycomb", "itemBeeswax"};
@@ -132,7 +153,7 @@ public interface IDegradable {
 	default boolean tryWaxOnWaxOff(World world, int x, int y, int z, EntityPlayer entityPlayer) {
 		boolean flag = false;
 		boolean flag2 = false;
-		int meta = getCopperMeta(world.getBlockMetadata(x, y, z));
+		int meta = getCopperMeta(world, x, y, z, world.getBlockMetadata(x, y, z));
 		if (entityPlayer.getCurrentEquippedItem() != null) {
 			ItemStack heldStack = entityPlayer.getCurrentEquippedItem();
 			if (meta < 8) {
@@ -159,11 +180,11 @@ public interface IDegradable {
 			if (flag && !flag2) {
 				waxMeta = meta > 7 ? meta % 8 : (meta % 8 + 8);
 				block = getCopperBlockFromMeta(waxMeta);
-				world.setBlock(x, y, z, block, block instanceof BlockStairs ? world.getBlockMetadata(x, y, z) : getFinalCopperMeta(waxMeta, world.getBlockMetadata(x, y, z)), 3);
+				setCopperBlock(block, getFinalCopperMeta(waxMeta, world.getBlockMetadata(x, y, z)), world, x, y, z);
 				spawnParticles(world, x, y, z, meta < 8 ? 0 : 1);
 			} else if (!flag && flag2) {
 				block = getCopperBlockFromMeta(meta - 1);
-				world.setBlock(x, y, z, block, block instanceof BlockStairs ? world.getBlockMetadata(x, y, z) : getFinalCopperMeta(meta - 1, world.getBlockMetadata(x, y, z)), 3);
+				setCopperBlock(block, getFinalCopperMeta(meta - 1, world.getBlockMetadata(x, y, z)), world, x, y, z);
 				spawnParticles(world, x, y, z, 2);
 			}
 		}

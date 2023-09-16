@@ -68,8 +68,6 @@ public class BlockCutCopperStairs extends BaseStairs implements IDegradable {
 
 	public Block getCopperBlockFromMeta(int i) {
 		switch (i) {
-			case 4:
-				return ModBlocks.CUT_COPPER_STAIRS.get();
 			case 5:
 				return ModBlocks.EXPOSED_CUT_COPPER_STAIRS.get();
 			case 6:
@@ -87,5 +85,10 @@ public class BlockCutCopperStairs extends BaseStairs implements IDegradable {
 			default:
 				return ModBlocks.CUT_COPPER_STAIRS.get();
 		}
+	}
+
+	@Override
+	public int getFinalCopperMeta(int meta, int worldMeta) {
+		return worldMeta;
 	}
 }
