@@ -1133,6 +1133,9 @@ public class ServerEventHandler {
 
 	@SubscribeEvent
 	public void naturalSpawnEvent(SpecialSpawn event) {
+		if (!(event.entity instanceof EntityLiving) || EntityList.getEntityID(event.entity) != 0) {
+			return;
+		}
 		if (event.entityLiving instanceof EntityShulker) {
 			EntityShulker shulker = ((EntityShulker) event.entityLiving);
 			shulker.persistenceRequired = false;
@@ -1161,7 +1164,7 @@ public class ServerEventHandler {
 					}
 				}
 			}
-		} else if (ConfigEntities.enableStray && event.entity.getClass() == EntitySkeleton.class && event.world.rand.nextFloat() < .80F && event.world.canBlockSeeTheSky((int) event.x, (int) (event.y) + 1, (int) event.z)) {
+		} else if (ConfigEntities.enableStray && EntityList.getEntityID(event.entity) == 51 /*Skeleton ID*/ && event.world.rand.nextFloat() < .80F && event.world.canBlockSeeTheSky((int) event.x, (int) (event.y) + 1, (int) event.z)) {
 			BiomeDictionary.Type[] biomeTags = BiomeDictionary.getTypesForBiome(event.world.getBiomeGenForCoords((int) event.x, (int) event.z));
 			if (ArrayUtils.contains(biomeTags, BiomeDictionary.Type.COLD) && ArrayUtils.contains(biomeTags, BiomeDictionary.Type.SNOWY)) {
 				EntityStray stray = new EntityStray(event.world);
@@ -1170,7 +1173,7 @@ public class ServerEventHandler {
 				event.setCanceled(true);
 				event.setResult(Result.DENY);
 			}
-		} else if (ConfigEntities.enableHusk && event.entity.getClass() == EntityZombie.class && event.world.rand.nextFloat() < .80F && event.world.canBlockSeeTheSky((int) event.x, (int) (event.y) + 1, (int) event.z)) {
+		} else if (ConfigEntities.enableHusk && EntityList.getEntityID(event.entity) == 54 /*Zombie ID*/ && event.world.rand.nextFloat() < .80F && event.world.canBlockSeeTheSky((int) event.x, (int) (event.y) + 1, (int) event.z)) {
 			BiomeDictionary.Type[] biomeTags = BiomeDictionary.getTypesForBiome(event.world.getBiomeGenForCoords((int) event.x, (int) event.z));
 			if (ArrayUtils.contains(biomeTags, BiomeDictionary.Type.HOT) && ArrayUtils.contains(biomeTags, BiomeDictionary.Type.DRY) && ArrayUtils.contains(biomeTags, BiomeDictionary.Type.SANDY)) {
 				EntityHusk husk = new EntityHusk(event.world);
