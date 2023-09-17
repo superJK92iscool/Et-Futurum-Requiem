@@ -85,13 +85,12 @@ public class BlockLantern extends Block {
 		this.onNeighborBlockChange(world, x, y, z, block);
 	}
 
-//  public void onNeighborBlockChange(World p_149695_1_, int p_149695_2_, int p_149695_3_, int p_149695_4_, Block p_149695_5_)
-//  {
-//      super.onNeighborBlockChange(p_149695_1_, p_149695_2_, p_149695_3_, p_149695_4_, p_149695_5_);
-//      if(!canBlockStay(p_149695_1_, p_149695_2_, p_149695_3_, p_149695_4_)) {
-//          setLanternToAir(p_149695_1_, p_149695_2_, p_149695_3_, p_149695_4_);
-//      }
-//  }
+	public void onNeighborBlockChange(World p_149695_1_, int p_149695_2_, int p_149695_3_, int p_149695_4_, Block p_149695_5_) {
+		super.onNeighborBlockChange(p_149695_1_, p_149695_2_, p_149695_3_, p_149695_4_, p_149695_5_);
+		if (!canBlockStay(p_149695_1_, p_149695_2_, p_149695_3_, p_149695_4_)) {
+			setLanternToAir(p_149695_1_, p_149695_2_, p_149695_3_, p_149695_4_);
+		}
+	}
 
 	public void setLanternToAir(World world, int x, int y, int z) {
 		if (!world.isRemote) {
