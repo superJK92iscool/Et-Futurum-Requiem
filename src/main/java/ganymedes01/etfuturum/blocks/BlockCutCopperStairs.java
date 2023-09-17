@@ -3,6 +3,7 @@ package ganymedes01.etfuturum.blocks;
 import ganymedes01.etfuturum.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -88,7 +89,7 @@ public class BlockCutCopperStairs extends BaseStairs implements IDegradable {
 	}
 
 	@Override
-	public int getFinalCopperMeta(int meta, int worldMeta) {
+	public int getFinalCopperMeta(IBlockAccess world, int x, int y, int z, int meta, int worldMeta) {
 		return worldMeta;
 	}
 }

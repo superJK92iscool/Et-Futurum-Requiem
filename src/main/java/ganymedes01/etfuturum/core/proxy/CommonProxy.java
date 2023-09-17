@@ -18,7 +18,7 @@ import ganymedes01.etfuturum.core.handlers.WorldEventHandler;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.entities.*;
 import ganymedes01.etfuturum.inventory.*;
-import ganymedes01.etfuturum.lib.GUIsID;
+import ganymedes01.etfuturum.lib.GUIIDs;
 import ganymedes01.etfuturum.spectator.SpectatorMode;
 import ganymedes01.etfuturum.tileentities.*;
 import net.minecraft.client.gui.inventory.GuiChest;
@@ -176,27 +176,24 @@ public class CommonProxy implements IGuiHandler {
 		EntityRegistry.addSpawn(EntityMagmaCube.class, 2, 4, 4, EnumCreatureType.monster, BiomeGenBase.hell);
 	}
 
-	public void registerRenderers() {
-	}
-
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		switch (ID) {
-			case GUIsID.ENCHANTING_TABLE:
+			case GUIIDs.ENCHANTING_TABLE:
 				return new ContainerEnchantment(player.inventory, world, x, y, z);
-			case GUIsID.ANVIL:
+			case GUIIDs.ANVIL:
 				return new ContainerAnvil(player, world, x, y, z);
-			case GUIsID.BREWING_STAND:
+			case GUIIDs.BREWING_STAND:
 				return new ContainerNewBrewingStand(player.inventory, (TileEntityNewBrewingStand) world.getTileEntity(x, y, z));
-			case GUIsID.BARREL:
+			case GUIIDs.BARREL:
 				return new ContainerChest(player.inventory, (TileEntityBarrel) world.getTileEntity(x, y, z));
-			case GUIsID.SMOKER:
+			case GUIIDs.SMOKER:
 				return new ContainerSmoker(player.inventory, (TileEntitySmoker) world.getTileEntity(x, y, z));
-			case GUIsID.BLAST_FURNACE:
+			case GUIIDs.BLAST_FURNACE:
 				return new ContainerBlastFurnace(player.inventory, (TileEntityBlastFurnace) world.getTileEntity(x, y, z));
-			case GUIsID.SHULKER_BOX:
+			case GUIIDs.SHULKER_BOX:
 				return new ContainerChestGeneric(player.inventory, (TileEntityShulkerBox) world.getTileEntity(x, y, z), ((TileEntityShulkerBox) world.getTileEntity(x, y, z)).getRowSize(), ((TileEntityShulkerBox) world.getTileEntity(x, y, z)).getSizeInventory() != 27);
-			case GUIsID.SMITHING_TABLE:
+			case GUIIDs.SMITHING_TABLE:
 				return new ContainerSmithingTable(player.inventory, world);
 			default:
 				return null;
@@ -206,24 +203,27 @@ public class CommonProxy implements IGuiHandler {
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		switch (ID) {
-			case GUIsID.ENCHANTING_TABLE:
+			case GUIIDs.ENCHANTING_TABLE:
 				return new GuiEnchantment(player.inventory, world, null);
-			case GUIsID.ANVIL:
+			case GUIIDs.ANVIL:
 				return new GuiAnvil(player, world, x, y, z);
-			case GUIsID.BREWING_STAND:
+			case GUIIDs.BREWING_STAND:
 				return new GuiNewBrewingStand(player.inventory, (TileEntityNewBrewingStand) world.getTileEntity(x, y, z));
-			case GUIsID.BARREL:
+			case GUIIDs.BARREL:
 				return new GuiChest(player.inventory, (TileEntityBarrel) world.getTileEntity(x, y, z));
-			case GUIsID.SMOKER:
+			case GUIIDs.SMOKER:
 				return new GuiSmoker(player.inventory, (TileEntitySmoker) world.getTileEntity(x, y, z));
-			case GUIsID.BLAST_FURNACE:
+			case GUIIDs.BLAST_FURNACE:
 				return new GuiBlastFurnace(player.inventory, (TileEntityBlastFurnace) world.getTileEntity(x, y, z));
-			case GUIsID.SHULKER_BOX:
+			case GUIIDs.SHULKER_BOX:
 				return new GuiShulkerBox(player.inventory, (TileEntityShulkerBox) world.getTileEntity(x, y, z));
-			case GUIsID.SMITHING_TABLE:
+			case GUIIDs.SMITHING_TABLE:
 				return new GuiSmithingTable(new ContainerSmithingTable(player.inventory, world));
 			default:
 				return null;
 		}
+	}
+
+	public void registerRenderers() {
 	}
 }

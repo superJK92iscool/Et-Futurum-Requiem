@@ -58,6 +58,15 @@ public interface IDegradable {
 	}
 
 	/**
+	 * Deprecated, use getFinalCopperMeta(IBlockAccess world, int x, int y, int z, int meta, int worldMeta)
+	 */
+	@Deprecated
+	default int getFinalCopperMeta(int meta, int worldMeta) {
+		return getCopperMeta(meta);
+	}
+
+
+	/**
 	 * A getCopperMeta copy that takes the actual meta value of the block into account.
 	 * Used by slabs to wrap the meta data from 0-7 or 8-15.
 	 *
@@ -65,8 +74,8 @@ public interface IDegradable {
 	 * @param worldMeta World meta (Is always the meta value from before the copper changed and is the actual block meta, not the copper ID)
 	 * @return A copper value from getCopperMeta.
 	 */
-	default int getFinalCopperMeta(int meta, int worldMeta) {
-		return getCopperMeta(meta);
+	default int getFinalCopperMeta(IBlockAccess world, int x, int y, int z, int meta, int worldMeta) {
+		return getCopperMeta(world, x, y, z, meta);
 	}
 
 
@@ -126,7 +135,7 @@ public interface IDegradable {
 			float f = (float) (k + 1) / (float) (k + j + 1);
 			float g = f * f * (i % 4 == 0 ? 0.75F : 1F);
 			if (random.nextFloat() < g) {
-				setCopperBlock(getCopperBlockFromMeta(i + 1), getFinalCopperMeta(i + 1, world.getBlockMetadata(x, y, z)), world, x, y, z);
+				setCopperBlock(getCopperBlockFromMeta(i + 1), getFinalCopperMeta(world, x, y, z, i + 1, world.getBlockMetadata(x, y, z)), world, x, y, z);
 			}
 		}
 	}
@@ -180,11 +189,11 @@ public interface IDegradable {
 			if (flag && !flag2) {
 				waxMeta = meta > 7 ? meta % 8 : (meta % 8 + 8);
 				block = getCopperBlockFromMeta(waxMeta);
-				setCopperBlock(block, getFinalCopperMeta(waxMeta, world.getBlockMetadata(x, y, z)), world, x, y, z);
+				setCopperBlock(block, getFinalCopperMeta(world, x, y, z, waxMeta, world.getBlockMetadata(x, y, z)), world, x, y, z);
 				spawnParticles(world, x, y, z, meta < 8 ? 0 : 1);
 			} else if (!flag && flag2) {
 				block = getCopperBlockFromMeta(meta - 1);
-				setCopperBlock(block, getFinalCopperMeta(meta - 1, world.getBlockMetadata(x, y, z)), world, x, y, z);
+				setCopperBlock(block, getFinalCopperMeta(world, x, y, z, meta - 1, world.getBlockMetadata(x, y, z)), world, x, y, z);
 				spawnParticles(world, x, y, z, 2);
 			}
 		}

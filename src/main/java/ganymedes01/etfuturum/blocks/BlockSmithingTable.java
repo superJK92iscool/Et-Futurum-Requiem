@@ -4,7 +4,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.lib.GUIsID;
+import ganymedes01.etfuturum.lib.GUIIDs;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -48,7 +48,7 @@ public class BlockSmithingTable extends Block {
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float subX, float subY, float subZ) {
 		if (!world.isRemote)
-			player.openGui(EtFuturum.instance, GUIsID.SMITHING_TABLE, world, x, y, z);
+			player.openGui(EtFuturum.instance, GUIIDs.SMITHING_TABLE, world, x, y, z);
 		return true;
 	}
 }

@@ -6,7 +6,7 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.lib.GUIsID;
+import ganymedes01.etfuturum.lib.GUIIDs;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.tileentities.TileEntitySmoker;
 import net.minecraft.block.Block;
@@ -155,7 +155,7 @@ public class BlockSmoker extends BlockFurnace {
 		if (world.isRemote) {
 			return true;
 		}
-		player.openGui(EtFuturum.instance, GUIsID.SMOKER, world, x, y, z);
+		player.openGui(EtFuturum.instance, GUIIDs.SMOKER, world, x, y, z);
 		return true;
 	}
 

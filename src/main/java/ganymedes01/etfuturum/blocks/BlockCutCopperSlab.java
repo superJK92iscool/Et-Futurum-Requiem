@@ -9,6 +9,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -47,7 +48,7 @@ public class BlockCutCopperSlab extends BaseSlab implements IDegradable {
 	}
 
 	@Override
-	public int getFinalCopperMeta(int copperMeta, int worldMeta) {
+	public int getFinalCopperMeta(IBlockAccess world, int x, int y, int z, int copperMeta, int worldMeta) {
 		return (copperMeta - (copperMeta > 11 ? 8 : 4)) + (worldMeta > 7 ? 8 : 0);
 	}
 

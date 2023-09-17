@@ -4,7 +4,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.lib.GUIsID;
+import ganymedes01.etfuturum.lib.GUIIDs;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import ganymedes01.etfuturum.tileentities.TileEntityBarrel;
 import net.minecraft.block.Block;
@@ -80,7 +80,7 @@ public class BlockBarrel extends BlockContainer {
 		if (world.isRemote) {
 			return true;
 		}
-		player.openGui(EtFuturum.instance, GUIsID.BARREL, world, x, y, z);
+		player.openGui(EtFuturum.instance, GUIIDs.BARREL, world, x, y, z);
 		return true;
 	}
 

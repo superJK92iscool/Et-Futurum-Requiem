@@ -5,7 +5,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
-import ganymedes01.etfuturum.lib.GUIsID;
+import ganymedes01.etfuturum.lib.GUIIDs;
 import net.minecraft.block.BlockAnvil;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -43,7 +43,7 @@ public class BlockNewAnvil extends BlockAnvil {
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
 		if (world.isRemote)
 			return true;
-		player.openGui(EtFuturum.instance, GUIsID.ANVIL, world, x, y, z);
+		player.openGui(EtFuturum.instance, GUIIDs.ANVIL, world, x, y, z);
 		return true;
 	}
 

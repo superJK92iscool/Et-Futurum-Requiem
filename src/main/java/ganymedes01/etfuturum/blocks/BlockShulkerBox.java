@@ -8,7 +8,7 @@ import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigModCompat;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.items.BaseSubtypesItem;
-import ganymedes01.etfuturum.lib.GUIsID;
+import ganymedes01.etfuturum.lib.GUIIDs;
 import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox;
 import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox.ShulkerBoxType;
 import net.minecraft.block.Block;
@@ -158,7 +158,7 @@ public class BlockShulkerBox extends BlockContainer {
 			}
 
 			if (flag) {
-				player.openGui(EtFuturum.instance, GUIsID.SHULKER_BOX, world, x, y, z);
+				player.openGui(EtFuturum.instance, GUIIDs.SHULKER_BOX, world, x, y, z);
 			}
 
 			return true;

@@ -5,7 +5,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
-import ganymedes01.etfuturum.lib.GUIsID;
+import ganymedes01.etfuturum.lib.GUIIDs;
 import ganymedes01.etfuturum.tileentities.TileEntityNewBrewingStand;
 import net.minecraft.block.BlockBrewingStand;
 import net.minecraft.entity.player.EntityPlayer;
@@ -38,7 +38,7 @@ public class BlockNewBrewingStand extends BlockBrewingStand {
 
 		TileEntityBrewingStand tile = (TileEntityBrewingStand) world.getTileEntity(x, y, z);
 		if (tile != null)
-			player.openGui(EtFuturum.instance, GUIsID.BREWING_STAND, world, x, y, z);
+			player.openGui(EtFuturum.instance, GUIIDs.BREWING_STAND, world, x, y, z);
 
 		return true;
 	}
