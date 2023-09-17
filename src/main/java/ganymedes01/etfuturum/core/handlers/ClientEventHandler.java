@@ -666,15 +666,14 @@ public class ClientEventHandler {
 	}
 
 	public static int main_menu_display_count = 0;
-	public static boolean launchConfigWarning;
 
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
 	public void openMainMenu(GuiOpenEvent event) {
 		if (event.gui instanceof GuiMainMenu) {
 			this.showedDebugWarning = false;
-			if (launchConfigWarning && main_menu_display_count++ < 20) {
-				launchConfigWarning = false;
+			if (Reference.launchConfigWarning && main_menu_display_count++ < 20) {
+				Reference.launchConfigWarning = false;
 				Configuration oldConfig = new Configuration(new File(Launch.minecraftHome, ConfigBase.configDir + "etfuturum.cfg"));
 				oldConfig.setCategoryComment("warned", "This is added if we've warned you this file exists.\nUsed by versions that split the config into different files, rendering this file unused.\nThis was done because the current file was becoming difficult to navigate.");
 				if (!oldConfig.getBoolean("configWarningShown", "warned", false, "")) {

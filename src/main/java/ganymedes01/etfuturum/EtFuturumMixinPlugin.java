@@ -5,7 +5,6 @@ import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.configuration.configs.ConfigEnchantsPotions;
 import ganymedes01.etfuturum.configuration.configs.ConfigEntities;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
-import ganymedes01.etfuturum.core.handlers.ClientEventHandler;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.launchwrapper.Launch;
 import org.spongepowered.asm.lib.tree.ClassNode;
@@ -40,11 +39,11 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 				e.printStackTrace();
 			}
 			olderFile.delete();
-			ClientEventHandler.launchConfigWarning = true;
+			Reference.launchConfigWarning = true;
 		}
 
 		if (oldFile.exists()) {
-			ClientEventHandler.launchConfigWarning = true;
+			Reference.launchConfigWarning = true;
 		}
 
 		ConfigBase.initializeConfigs();
