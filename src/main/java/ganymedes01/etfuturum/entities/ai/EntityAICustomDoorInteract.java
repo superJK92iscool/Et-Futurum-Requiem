@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockDoor;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.init.Blocks;
 import net.minecraft.pathfinding.PathEntity;
 import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.pathfinding.PathPoint;
@@ -44,8 +45,9 @@ public abstract class EntityAICustomDoorInteract extends EntityAIBase {
 				if (theEntity.getDistanceSq(entityPosX, theEntity.posY, entityPosZ) <= 2.25D) {
 					field_151504_e = func_151503_a(entityPosX, entityPosY, entityPosZ);
 
-					if (field_151504_e != null)
+					if (field_151504_e != null) {
 						return true;
+					}
 				}
 			}
 
@@ -82,6 +84,10 @@ public abstract class EntityAICustomDoorInteract extends EntityAIBase {
 
 	private BlockDoor func_151503_a(int x, int y, int z) {
 		Block block = theEntity.worldObj.getBlock(x, y, z);
-		return block instanceof BlockDoor ? (BlockDoor) block : null;
+		return block instanceof BlockDoor && canOpen((BlockDoor) block, x, y, z) ? (BlockDoor) block : null;
+	}
+
+	private boolean canOpen(BlockDoor door, int x, int y, int z) {
+		return door != Blocks.iron_door;
 	}
 }

@@ -1197,14 +1197,11 @@ public class ServerEventHandler {
 			if (ModItems.BEETROOT.isEnabled()) {
 				chicken.tasks.addTask(3, new EntityAITempt(chicken, 1.0D, ModItems.BEETROOT_SEEDS.get(), false));
 			}
-		} else if (event.entity instanceof EntityWolf) {
+		} else if (ConfigEntities.enableRabbit && event.entity instanceof EntityWolf) {
 			EntityWolf wolf = (EntityWolf) event.entity;
-			if (ConfigEntities.enableRabbit) {
-				wolf.targetTasks.addTask(4, new EntityAITargetNonTamed(wolf, EntityRabbit.class, 200, false));
-			}
-		} else if (event.entity instanceof EntityEnderman) {
+			wolf.targetTasks.addTask(4, new EntityAITargetNonTamed(wolf, EntityRabbit.class, 200, false));
+		} else if (ConfigEntities.enableEndermite && event.entity instanceof EntityEnderman) {
 			EntityEnderman enderman = (EntityEnderman) event.entity;
-//          if (ConfigurationHandler.enableEndermite)
 			enderman.targetTasks.addTask(3, new EntityAINearestAttackableTarget(enderman, EntityEndermite.class, 100, false));
 		} else if (event.entity instanceof EntityVillager) {
 			EntityVillager villager = (EntityVillager) event.entity;
