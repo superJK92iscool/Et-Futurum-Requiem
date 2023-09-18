@@ -157,7 +157,7 @@ public class ConfigFunctions extends ConfigBase {
 	public static boolean enableLangReplacements;
 	public static boolean enableFillCommand;
 	public static boolean enableUpdateChecker;
-	public static boolean enableAttackedAtYawFix;
+	public static boolean enableAttackedAtYawFix = true; //Servers should always send the packet, it's up to the client to disable handling of this feature
 	public static boolean enableSubtitles;
 	public static byte elytraDataWatcherFlag;
 	public static boolean enableDoorRecipeBuffs;
@@ -192,6 +192,8 @@ public class ConfigFunctions extends ConfigBase {
 	protected void syncConfigOptions() {
 		if (EtFuturumMixinPlugin.side == MixinEnvironment.Side.CLIENT) {
 			enableUpdateChecker = getBoolean("enableUpdateChecker", catUpdateChecker, true, "Check and print a chat message in-game if there's a new update available?");
+
+			enableAttackedAtYawFix = getBoolean("enableAttackedAtYawFix", catChanges, true, "Adds a packet to send the attackedAtYaw field value to the client, which allows the screen to tilt based on where damage came from, and either left or right for direction-less sources like drowning or burning, instead of tilting to the left no matter what.");
 		}
 
 		//changes
@@ -207,7 +209,6 @@ public class ConfigFunctions extends ConfigBase {
 		enableHayBaleFalls = getBoolean("enableHayBaleFalls", catChanges, true, "If true, fall damage on a hay bale will be reduced");
 		enableHoeMining = getBoolean("enableHoeMining", catChanges, true, "Allows blocks like hay bales, leaves etc to mine faster with hoes");
 		hayBaleReducePercent = getInt("hayBaleReducePercent", catChanges, 20, 0, 99, "If enableHayBaleFalls is true, what percent should we keep for the fall damage?");
-		enableAttackedAtYawFix = getBoolean("enableAttackedAtYawFix", catChanges, true, "Adds a packet to send the attackedAtYaw field value to the client, which allows the screen to tilt based on where damage came from, and either left or right for direction-less sources like drowning or burning, instead of tilting to the left no matter what.");
 		enableDoorRecipeBuffs = getBoolean("enableDoorRecipeBuffs", catChanges, true, "Backports recipe buffs to doors (from 1 to 3)");
 		mobSpawnerEgging = getBoolean("mobSpawnerEgging", catChanges, true, "Click a mob spawner with a vanilla or EFR egg, and it'll change the mob inside. Doesn't support modded eggs.");
 		fireworkRecipeFixes = getBoolean("fireworkRecipeFixes", catChanges, true, "Fixes fireworks not being able to have an extra duration without a star, and they'll output 3 instead of 1. Note: This currently does NOT update NEI, it'll still show the old recipe outputs.");

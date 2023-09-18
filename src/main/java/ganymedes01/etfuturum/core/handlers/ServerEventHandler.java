@@ -1582,7 +1582,6 @@ public class ServerEventHandler {
 
 	@SubscribeEvent
 	public void postPlayerTick(TickEvent.PlayerTickEvent e) {
-
 		if (e.phase == TickEvent.Phase.END) {
 			if (ConfigFunctions.enableAttackedAtYawFix && !e.player.worldObj.isRemote && e.player instanceof EntityPlayerMP) {
 				if (!lastAttackedAtYaw.containsKey(e.player)) {
