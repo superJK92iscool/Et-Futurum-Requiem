@@ -106,7 +106,7 @@ public class SpectatorMode {
 		if (isSpectator(event.entityPlayer)) {
 			if (!SPECTATING_ENTITIES.containsKey(event.entityPlayer)) {
 				SPECTATING_ENTITIES.put(event.entityPlayer, event.target);
-				if (event.entityPlayer instanceof EntityClientPlayerMP) {
+				if (event.entityPlayer.worldObj.isRemote && event.entityPlayer instanceof EntityClientPlayerMP) {
 					Minecraft.getMinecraft().ingameGUI.func_110326_a(I18n.format("mount.onboard", GameSettings.getKeyDisplayString(Minecraft.getMinecraft().gameSettings.keyBindSneak.getKeyCode())), false);
 				}
 			}
