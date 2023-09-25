@@ -529,44 +529,80 @@ public class ModRecipes {
 		addShapelessRecipe(ModItems.DYE.newItemStack(1, 2), new ItemStack(Items.dye, 1, 3));
 		addShapelessRecipe(ModItems.DYE.newItemStack(1, 3), new ItemStack(Items.dye, 1, 0));
 
-		Block[] copper_stairs = new Block[]{ModBlocks.CUT_COPPER_STAIRS.get(), ModBlocks.EXPOSED_CUT_COPPER_STAIRS.get(), ModBlocks.WEATHERED_CUT_COPPER_STAIRS.get(), ModBlocks.OXIDIZED_CUT_COPPER_STAIRS.get(), ModBlocks.WAXED_CUT_COPPER_STAIRS.get(), ModBlocks.WAXED_EXPOSED_CUT_COPPER_STAIRS.get(), ModBlocks.WAXED_WEATHERED_CUT_COPPER_STAIRS.get(), ModBlocks.WAXED_OXIDIZED_CUT_COPPER_STAIRS.get()};
 		addShapedRecipe(ModBlocks.COPPER_BLOCK.newItemStack(1), "xxx", "xxx", "xxx", 'x', ModItems.COPPER_INGOT.newItemStack());
 		addShapedRecipe(ModItems.COPPER_INGOT.newItemStack(9), "x", 'x', ModBlocks.COPPER_BLOCK.newItemStack());
 		addShapedRecipe(ModItems.COPPER_INGOT.newItemStack(9), "x", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 8));
 
 		addSmelting(ModBlocks.COPPER_ORE.newItemStack(), ModItems.COPPER_INGOT.newItemStack(), .7F);
-		for (int i = 0; i < 8; i++) {//TODO: Maybe make this not a loop as well like the other ones I put a TODO on, although this loop adds a ton of recipes
-			int j = i;
-			if (i > 3)
-				j = i + 4;
-			if (j != 11) {
-				addShapedRecipe(ModBlocks.COPPER_BLOCK.newItemStack(4, j + 4), "xx", "xx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, j));
-			}
-			if (i != 7) {
-				addShapedRecipe(ModBlocks.CUT_COPPER_SLAB.newItemStack(6, i), "xxx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, j + 4));
-				addShapedRecipe(new ItemStack(copper_stairs[i], 4), "x  ", "xx ", "xxx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, j + 4));
+
+		//Copper block to cut copper block
+		addShapedRecipe(ModBlocks.COPPER_BLOCK.newItemStack(4, 4), "xx", "xx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1));
+		addShapedRecipe(ModBlocks.COPPER_BLOCK.newItemStack(4, 5), "xx", "xx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 1));
+		addShapedRecipe(ModBlocks.COPPER_BLOCK.newItemStack(4, 6), "xx", "xx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 2));
+		addShapedRecipe(ModBlocks.COPPER_BLOCK.newItemStack(4, 7), "xx", "xx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 3));
+
+		//Waxed copper block to waxed cut copper block
+		addShapedRecipe(ModBlocks.COPPER_BLOCK.newItemStack(4, 12), "xx", "xx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 8));
+		addShapedRecipe(ModBlocks.COPPER_BLOCK.newItemStack(4, 13), "xx", "xx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 9));
+		addShapedRecipe(ModBlocks.COPPER_BLOCK.newItemStack(4, 14), "xx", "xx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 10));
+		addShapedRecipe(ModBlocks.COPPER_BLOCK.newItemStack(4, 15), "xx", "xx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 11));
+
+		//Cut copper to cut copper slab
+		addShapedRecipe(ModBlocks.CUT_COPPER_SLAB.newItemStack(6), "xxx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 4));
+		addShapedRecipe(ModBlocks.CUT_COPPER_SLAB.newItemStack(6, 1), "xxx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 5));
+		addShapedRecipe(ModBlocks.CUT_COPPER_SLAB.newItemStack(6, 2), "xxx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 6));
+		addShapedRecipe(ModBlocks.CUT_COPPER_SLAB.newItemStack(6, 3), "xxx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 7));
+
+		//Waxed cut copper to waxed cut copper slab
+		addShapedRecipe(ModBlocks.CUT_COPPER_SLAB.newItemStack(6, 4), "xxx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 12));
+		addShapedRecipe(ModBlocks.CUT_COPPER_SLAB.newItemStack(6, 5), "xxx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 13));
+		addShapedRecipe(ModBlocks.CUT_COPPER_SLAB.newItemStack(6, 6), "xxx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 14));
+		addShapedRecipe(ModBlocks.CUT_COPPER_SLAB.newItemStack(6, 7), "xxx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 15));
+
+		//Cut copper to cut copper stairs
+		addShapedRecipe(ModBlocks.CUT_COPPER_STAIRS.newItemStack(4), "x  ", "xx ", "xxx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 4));
+		addShapedRecipe(ModBlocks.EXPOSED_CUT_COPPER_STAIRS.newItemStack(4), "x  ", "xx ", "xxx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 5));
+		addShapedRecipe(ModBlocks.WEATHERED_CUT_COPPER_STAIRS.newItemStack(4), "x  ", "xx ", "xxx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 6));
+		addShapedRecipe(ModBlocks.OXIDIZED_CUT_COPPER_STAIRS.newItemStack(4), "x  ", "xx ", "xxx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 7));
+
+		//Waxed cut copper to waxed cut copper stairs
+		addShapedRecipe(ModBlocks.WAXED_CUT_COPPER_STAIRS.newItemStack(4), "x  ", "xx ", "xxx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 12));
+		addShapedRecipe(ModBlocks.WAXED_EXPOSED_CUT_COPPER_STAIRS.newItemStack(4), "x  ", "xx ", "xxx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 13));
+		addShapedRecipe(ModBlocks.WAXED_WEATHERED_CUT_COPPER_STAIRS.newItemStack(4), "x  ", "xx ", "xxx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 14));
+		addShapedRecipe(ModBlocks.WAXED_OXIDIZED_CUT_COPPER_STAIRS.newItemStack(4), "x  ", "xx ", "xxx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 15));
+
+		boolean slimeball = true;
+		for (int k = 0; k <= IDegradable.waxStrings.length; k++) {
+			String waxString;
+			if (k == IDegradable.waxStrings.length) {
+				if (!slimeball) {
+					break;
+				}
+				waxString = "slimeball";
+			} else {
+				waxString = IDegradable.waxStrings[k];
 			}
 
-			boolean slimeball = true;
-			for (int k = 0; k <= IDegradable.waxStrings.length; k++) {
-				String waxString;
-				if (k == IDegradable.waxStrings.length) {
-					if (!slimeball) {
-						break;
-					}
-					waxString = "slimeball";
-				} else {
-					waxString = IDegradable.waxStrings[k];
-				}
+			if (OreDictionary.doesOreNameExist(waxString)) {
+				slimeball = false;
+				addShapelessRecipe(ModBlocks.COPPER_BLOCK.newItemStack(1, 8), waxString, ModBlocks.COPPER_BLOCK.newItemStack(1));
+				addShapelessRecipe(ModBlocks.COPPER_BLOCK.newItemStack(1, 9), waxString, ModBlocks.COPPER_BLOCK.newItemStack(1, 1));
+				addShapelessRecipe(ModBlocks.COPPER_BLOCK.newItemStack(1, 10), waxString, ModBlocks.COPPER_BLOCK.newItemStack(1, 2));
+				addShapelessRecipe(ModBlocks.COPPER_BLOCK.newItemStack(1, 11), waxString, ModBlocks.COPPER_BLOCK.newItemStack(1, 3));
+				addShapelessRecipe(ModBlocks.COPPER_BLOCK.newItemStack(1, 12), waxString, ModBlocks.COPPER_BLOCK.newItemStack(1, 4));
+				addShapelessRecipe(ModBlocks.COPPER_BLOCK.newItemStack(1, 13), waxString, ModBlocks.COPPER_BLOCK.newItemStack(1, 5));
+				addShapelessRecipe(ModBlocks.COPPER_BLOCK.newItemStack(1, 14), waxString, ModBlocks.COPPER_BLOCK.newItemStack(1, 6));
+				addShapelessRecipe(ModBlocks.COPPER_BLOCK.newItemStack(1, 15), waxString, ModBlocks.COPPER_BLOCK.newItemStack(1, 7));
 
-				if (OreDictionary.doesOreNameExist(waxString)) {
-					slimeball = false;
-					addShapelessRecipe(ModBlocks.COPPER_BLOCK.newItemStack(1, i + 8), waxString, ModBlocks.COPPER_BLOCK.newItemStack(1, i));
-					if (i > 3) {
-						addShapelessRecipe(ModBlocks.CUT_COPPER_SLAB.newItemStack(1, i), waxString, ModBlocks.CUT_COPPER_SLAB.newItemStack(1, i - 4));
-						addShapelessRecipe(new ItemStack(copper_stairs[i], 1), waxString, new ItemStack(copper_stairs[i - 4], 1));
-					}
-				}
+				addShapelessRecipe(ModBlocks.CUT_COPPER_SLAB.newItemStack(1, 4), waxString, ModBlocks.CUT_COPPER_SLAB.newItemStack(1));
+				addShapelessRecipe(ModBlocks.CUT_COPPER_SLAB.newItemStack(1, 5), waxString, ModBlocks.CUT_COPPER_SLAB.newItemStack(1, 1));
+				addShapelessRecipe(ModBlocks.CUT_COPPER_SLAB.newItemStack(1, 6), waxString, ModBlocks.CUT_COPPER_SLAB.newItemStack(1, 2));
+				addShapelessRecipe(ModBlocks.CUT_COPPER_SLAB.newItemStack(1, 7), waxString, ModBlocks.CUT_COPPER_SLAB.newItemStack(1, 3));
+
+				addShapelessRecipe(ModBlocks.WAXED_CUT_COPPER_STAIRS.newItemStack(), waxString, ModBlocks.CUT_COPPER_STAIRS.newItemStack());
+				addShapelessRecipe(ModBlocks.WAXED_EXPOSED_CUT_COPPER_STAIRS.newItemStack(), waxString, ModBlocks.EXPOSED_CUT_COPPER_STAIRS.newItemStack());
+				addShapelessRecipe(ModBlocks.WAXED_WEATHERED_CUT_COPPER_STAIRS.newItemStack(), waxString, ModBlocks.WEATHERED_CUT_COPPER_STAIRS.newItemStack());
+				addShapelessRecipe(ModBlocks.WAXED_OXIDIZED_CUT_COPPER_STAIRS.newItemStack(), waxString, ModBlocks.OXIDIZED_CUT_COPPER_STAIRS.newItemStack());
 			}
 		}
 
