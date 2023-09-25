@@ -154,7 +154,7 @@ public class FlyingPathFinder extends PathFinder {
 	}
 
 	private boolean isSafe(PathPoint p_227476_1_) {
-		return p_227476_1_ != null && costMalusMap.get(p_227476_1_) >= 0.0F;
+		return p_227476_1_ != null && costMalusMap.getOrDefault(p_227476_1_, 0.0F) >= 0.0F;
 	}
 
 	private boolean hasNotVisited(PathPoint p_227477_1_) {

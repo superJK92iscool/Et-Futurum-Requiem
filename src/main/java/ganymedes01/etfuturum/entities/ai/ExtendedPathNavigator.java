@@ -57,16 +57,16 @@ public abstract class ExtendedPathNavigator extends PathNavigate {
 
 	public PathEntity getEntityPathToXYZ(double toPosX, double toPosY, double toPosZ, float searchRange, boolean canBreakDoors, boolean canEnterDoors, boolean avoidsWater, boolean canSwim, double xOffset, double yOffset, double zOffset) {
 		worldObj.theProfiler.startSection("pathfind");
-		int l = MathHelper.floor_double(theEntity.posX + xOffset);
-		int i1 = MathHelper.floor_double(theEntity.posY + yOffset);
-		int j1 = MathHelper.floor_double(theEntity.posZ + zOffset);
-		int k1 = (int) (searchRange);
-		int l1 = l - k1;
-		int i2 = i1 - k1;
-		int j2 = j1 - k1;
-		int k2 = l + k1;
-		int l2 = i1 + k1;
-		int i3 = j1 + k1;
+//		int l = MathHelper.floor_double(theEntity.posX + xOffset);
+//		int i1 = MathHelper.floor_double(theEntity.posY + yOffset);
+//		int j1 = MathHelper.floor_double(theEntity.posZ + zOffset);
+//		int k1 = (int) (searchRange);
+//		int l1 = l - k1;
+//		int i2 = i1 - k1;
+//		int j2 = j1 - k1;
+//		int k2 = l + k1;
+//		int l2 = i1 + k1;
+//		int i3 = j1 + k1;
 //      ChunkCache chunkcache = new ChunkCache(worldObj, l1, i2, j2, k2, l2, i3, 0);
 		PathEntity pathentity = pathFinder.createEntityPathTo(theEntity, toPosX, toPosY, toPosZ, searchRange);
 		worldObj.theProfiler.endSection();
