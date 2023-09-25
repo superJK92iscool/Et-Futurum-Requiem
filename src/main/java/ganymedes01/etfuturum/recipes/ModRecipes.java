@@ -517,6 +517,7 @@ public class ModRecipes {
 
 		addSmelting(new ItemStack(Blocks.quartz_block, 1, 0), ModBlocks.SMOOTH_QUARTZ.newItemStack(), .1F);
 		addShapedRecipe(ModBlocks.SMOOTH_QUARTZ_STAIRS.newItemStack(4), "x  ", "xx ", "xxx", 'x', ModBlocks.SMOOTH_QUARTZ.newItemStack());
+		addShapedRecipe(ModBlocks.SMOOTH_QUARTZ_SLAB.newItemStack(6), "xxx", 'x', ModBlocks.SMOOTH_QUARTZ.newItemStack());
 
 		addShapedRecipe(ModBlocks.QUARTZ_BRICKS.newItemStack(4), "xx", "xx", 'x', new ItemStack(Blocks.quartz_block, 1, 0));
 
