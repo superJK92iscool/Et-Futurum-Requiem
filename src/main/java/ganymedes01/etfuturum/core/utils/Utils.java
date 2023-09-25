@@ -153,7 +153,7 @@ public class Utils {
 		return raytraceresult;
 	}
 
-	public static final void rotateTowardsMovement(Entity p_188803_0_, float p_188803_1_) {
+	public static void rotateTowardsMovement(Entity p_188803_0_, float p_188803_1_) {
 		double d0 = p_188803_0_.motionX;
 		double d1 = p_188803_0_.motionY;
 		double d2 = p_188803_0_.motionZ;

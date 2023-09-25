@@ -584,8 +584,8 @@ public class ModRecipes {
 		addShapedRecipe(ModBlocks.DEEPSLATE_TILE_STAIRS.newItemStack(4), "x  ", "xx ", "xxx", 'x', ModBlocks.DEEPSLATE_BRICKS.newItemStack(1, 2));
 		addShapedRecipe(ModBlocks.DEEPSLATE_SLAB.newItemStack(6), "xxx", 'x', ModBlocks.COBBLED_DEEPSLATE.newItemStack());
 		addShapedRecipe(ModBlocks.DEEPSLATE_SLAB.newItemStack(6, 1), "xxx", 'x', ModBlocks.POLISHED_DEEPSLATE.newItemStack());
-		addShapedRecipe(ModBlocks.DEEPSLATE_BRICK_SLAB.newItemStack(4), "xxx", 'x', ModBlocks.DEEPSLATE_BRICKS.newItemStack());
-		addShapedRecipe(ModBlocks.DEEPSLATE_BRICK_SLAB.newItemStack(4, 1), "xxx", 'x', ModBlocks.DEEPSLATE_BRICKS.newItemStack(1, 2));
+		addShapedRecipe(ModBlocks.DEEPSLATE_BRICK_SLAB.newItemStack(6), "xxx", 'x', ModBlocks.DEEPSLATE_BRICKS.newItemStack());
+		addShapedRecipe(ModBlocks.DEEPSLATE_BRICK_SLAB.newItemStack(6, 1), "xxx", 'x', ModBlocks.DEEPSLATE_BRICKS.newItemStack(1, 2));
 		addShapedRecipe(ModBlocks.DEEPSLATE_WALL.newItemStack(6), "xxx", "xxx", 'x', ModBlocks.COBBLED_DEEPSLATE.newItemStack());
 		addShapedRecipe(ModBlocks.DEEPSLATE_WALL.newItemStack(6, 1), "xxx", "xxx", 'x', ModBlocks.POLISHED_DEEPSLATE.newItemStack());
 		addShapedRecipe(ModBlocks.DEEPSLATE_BRICK_WALL.newItemStack(6), "xxx", "xxx", 'x', ModBlocks.DEEPSLATE_BRICKS.newItemStack());
