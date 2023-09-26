@@ -95,6 +95,8 @@ public class ModSounds {
 	public static final SoundType soundHoneyBlock = new CustomSound("honey_block").setDisabledSound(soundSlime);
 	public static final SoundType soundCoralBlock = new CustomSound("coral_block").setDisabledSound(soundSlime);
 	public static final SoundType soundChain = new CustomSound("chain").setDisabledSound(Block.soundTypeMetal);
+	public static final SoundType soundSponge = new CustomSound("sponge").setDisabledSound(Block.soundTypeGrass);
+	public static final SoundType soundWetSponge = new CustomSound("wet_sponge").setDisabledSound(Block.soundTypeGrass);
 //  public static final SoundType soundNylium = new CustomSound("nylium");
 //  public static final SoundType soundHoneyBlock = new CustomSound("honey_block");
 //public static final SoundType soundShroomlight = new CustomSound("shroomlight");

@@ -418,6 +418,7 @@ public class EtFuturum {
 			Blocks.unpowered_repeater.setStepSound(Block.soundTypeStone);
 			Blocks.powered_comparator.setStepSound(Block.soundTypeStone);
 			Blocks.unpowered_comparator.setStepSound(Block.soundTypeStone);
+			Blocks.sponge.setStepSound(ModSounds.soundSponge);
 		}
 		if (ConfigBlocksItems.enableDyedBeds) {
 			Blocks.bed.blockMaterial = Material.wood;
@@ -526,6 +527,12 @@ public class EtFuturum {
 				mbs.setTypes(i, ModSounds.soundAmethystBudLrg);
 			}
 			MultiBlockSoundRegistry.multiBlockSounds.put(ModBlocks.AMETHYST_CLUSTER_2.get(), mbs);
+		}
+
+		if (ModBlocks.SPONGE.isEnabled()) {
+			BasicMultiBlockSound mbs = new BasicMultiBlockSound();
+			mbs.setTypes(1, ModSounds.soundWetSponge);
+			MultiBlockSoundRegistry.multiBlockSounds.put(ModBlocks.SPONGE.get(), mbs);
 		}
 	}
 
@@ -923,6 +930,7 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "block.beehive.exit", "neutral");
 		config.addSoundEvent(ver, "block.beehive.work", "neutral");
 		config.addSoundEvent(ver, "block.beehive.shear", "player");
+		config.addSoundEvent(ver, "block.sponge.absorb", "block");
 
 		//Automatically register block sounds for AssetDirector, but only if they contain the MC version (which means it needs to be registered here)
 		//Then we remove the mc version prefix and register that sound.
@@ -939,5 +947,4 @@ public class EtFuturum {
 			}
 		}
 	}
-
 }

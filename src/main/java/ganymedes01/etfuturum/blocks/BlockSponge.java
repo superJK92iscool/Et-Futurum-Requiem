@@ -5,8 +5,11 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
+import ganymedes01.etfuturum.client.sound.ModSounds;
+import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.Utils;
+import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.world.WorldCoord;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -27,7 +30,7 @@ public class BlockSponge extends BaseSubtypesBlock {
 	public BlockSponge() {
 		super(Material.sponge, "sponge", "wet_sponge");
 		setHardness(0.6F);
-		setStepSound(soundTypeGrass);
+		setBlockSound(ModSounds.soundSponge);
 		setBlockTextureName("sponge");
 		setBlockName(Utils.getUnlocalisedName("sponge"));
 		setCreativeTab(EtFuturum.creativeTabBlocks);
@@ -53,7 +56,9 @@ public class BlockSponge extends BaseSubtypesBlock {
 		if (!ArrayUtils.contains(BiomeDictionary.getTypesForBiome(worldIn.getBiomeGenForCoords(x, z)), BiomeDictionary.Type.NETHER)) {
 			if (!wet && absorb(worldIn, x, y, z)) {
 				worldIn.setBlockMetadataWithNotify(x, y, z, 1, 2);
-				worldIn.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(Blocks.water));
+				if (ConfigSounds.newBlockSounds) {
+					worldIn.playSoundEffect(x + .5D, y + .5D, z + .5D, Reference.MCAssetVer + ":block.sponge.absorb", 1, 1);
+				}
 			}
 		} else if (wet) {
 			worldIn.playSoundEffect(x + .5D, y + .5D, z + .5D, "random.fizz", 1, 1);
