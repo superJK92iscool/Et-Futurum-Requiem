@@ -262,7 +262,8 @@ public class ConfigFunctions extends ConfigBase {
 				System.err.println("Shulker ban list entry \"" + itemName + "\" is formatted incorrectly!");
 			}
 		}
-		if (ConfigFunctions.enablePlayerSkinOverlay) {
+
+		if (EtFuturumMixinPlugin.side == MixinEnvironment.Side.CLIENT && ConfigFunctions.enablePlayerSkinOverlay) {
 			if (EtFuturum.hasEars || EtFuturum.hasFoamFix || EtFuturum.hasSkinPort || EtFuturum.hasMorePlayerModels || EtFuturum.hasDragonBlockC || FMLClientHandler.instance().hasOptifine()) {
 				ConfigFunctions.enablePlayerSkinOverlay = false;
 				Logger.warn("Another skin backporting mod is in use, which introduce changes to player skins.");

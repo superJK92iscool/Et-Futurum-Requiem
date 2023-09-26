@@ -1164,16 +1164,16 @@ public class ServerEventHandler {
 					}
 				}
 			}
-		} else if (ConfigEntities.enableStray && EntityList.getEntityID(event.entity) == 51 /*Skeleton ID*/ && event.world.rand.nextFloat() < .80F && event.world.canBlockSeeTheSky((int) event.x, (int) (event.y) + 1, (int) event.z)) {
+		} else if (ConfigEntities.enableStray && !ConfigWorld.oldStraySpawning && EntityList.getEntityID(event.entity) == 51 /*Skeleton ID*/ && event.world.rand.nextFloat() < .80F && event.world.canBlockSeeTheSky((int) event.x, (int) (event.y) + 1, (int) event.z)) {
 			BiomeDictionary.Type[] biomeTags = BiomeDictionary.getTypesForBiome(event.world.getBiomeGenForCoords((int) event.x, (int) event.z));
-			if (ArrayUtils.contains(biomeTags, BiomeDictionary.Type.COLD) && ArrayUtils.contains(biomeTags, BiomeDictionary.Type.SNOWY)) {
+			if (ArrayUtils.contains(biomeTags, BiomeDictionary.Type.SNOWY)) {
 				EntityStray stray = new EntityStray(event.world);
 				replaceEntity(event.entity, stray, event.world, event.world.getChunkFromChunkCoords((int) event.x, (int) event.z));
 				stray.onSpawnWithEgg(null);
 				event.setCanceled(true);
 				event.setResult(Result.DENY);
 			}
-		} else if (ConfigEntities.enableHusk && EntityList.getEntityID(event.entity) == 54 /*Zombie ID*/ && event.world.rand.nextFloat() < .80F && event.world.canBlockSeeTheSky((int) event.x, (int) (event.y) + 1, (int) event.z)) {
+		} else if (ConfigEntities.enableHusk && !ConfigWorld.oldHuskSpawning && EntityList.getEntityID(event.entity) == 54 /*Zombie ID*/ && event.world.rand.nextFloat() < .80F && event.world.canBlockSeeTheSky((int) event.x, (int) (event.y) + 1, (int) event.z)) {
 			BiomeDictionary.Type[] biomeTags = BiomeDictionary.getTypesForBiome(event.world.getBiomeGenForCoords((int) event.x, (int) event.z));
 			if (ArrayUtils.contains(biomeTags, BiomeDictionary.Type.HOT) && ArrayUtils.contains(biomeTags, BiomeDictionary.Type.DRY) && ArrayUtils.contains(biomeTags, BiomeDictionary.Type.SANDY)) {
 				EntityHusk husk = new EntityHusk(event.world);

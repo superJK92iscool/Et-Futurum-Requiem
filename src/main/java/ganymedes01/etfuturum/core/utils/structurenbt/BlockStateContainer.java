@@ -11,7 +11,7 @@ import net.minecraftforge.common.ChestGenHooks;
 /**
  * Used to store the results of an unflattening in meta, to easily store it in a map after reading a structure NBT file.
  */
-public class BlockState {
+public class BlockStateContainer {
 
 	private final Object theObject;
 	private NBTTagCompound theCompound;
@@ -20,28 +20,28 @@ public class BlockState {
 	private int theMeta;
 	private ChestGenHooks lootTable;
 
-	public BlockState(Block block, int meta, ChestGenHooks info) {
+	public BlockStateContainer(Block block, int meta, ChestGenHooks info) {
 		this(block, meta);
 		setLootTable(info);
 	}
 
-	public BlockState(Block block, int meta) {
+	public BlockStateContainer(Block block, int meta) {
 		theObject = block;
 		theMeta = meta;
 		type = block instanceof ITileEntityProvider ? BlockStateType.BLOCK_ENTITY : BlockStateType.BLOCK;
 	}
 
-	public BlockState(Block block) {
+	public BlockStateContainer(Block block) {
 		this(block, 0);
 	}
 
-	public BlockState(Class<? extends Entity> entity, NBTTagCompound compound) {
+	public BlockStateContainer(Class<? extends Entity> entity, NBTTagCompound compound) {
 		theObject = entity;
 		theCompound = compound;
 		type = BlockStateType.ENTITY;
 	}
 
-	public BlockState(Class<? extends Entity> entity) {
+	public BlockStateContainer(Class<? extends Entity> entity) {
 		this(entity, new NBTTagCompound());
 	}
 

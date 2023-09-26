@@ -3,7 +3,7 @@ package ganymedes01.etfuturum.world.generate;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.core.utils.Logger;
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
-import ganymedes01.etfuturum.core.utils.structurenbt.BlockState;
+import ganymedes01.etfuturum.core.utils.structurenbt.BlockStateContainer;
 import ganymedes01.etfuturum.entities.EntityShulker;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
@@ -24,8 +24,8 @@ public abstract class NBTStructure {
 	//Should trigger whenever the palette count does not match the map entry count, etc to prevent misuse and reduce possibility of user error
 
 	private final NBTTagCompound compound;
-	private final Map<Integer, BlockState>[] palettes = new Map[4];
-	private final Map<BlockPos, BlockState>[] buildMaps = new Map[4]; //For storing the results of iterating over the palette and BlockState coords
+	private final Map<Integer, BlockStateContainer>[] palettes = new Map[4];
+	private final Map<BlockPos, BlockStateContainer>[] buildMaps = new Map[4]; //For storing the results of iterating over the palette and BlockState coords
 	private final float theIntegrity;
 	private final BlockPos[] sizes;
 	private final String location;
@@ -57,13 +57,13 @@ public abstract class NBTStructure {
 	 */
 	private void createBuildMaps() {
 		for (int facing = 0; facing < 4; facing++) {
-			Map<BlockPos, BlockState> map = new HashMap<>();
+			Map<BlockPos, BlockStateContainer> map = new HashMap<>();
 			Map<BlockPos, String> structureBlocks = new HashMap<>();
 			NBTTagList list = getCompound().getTagList("blocks", 10);
 			for (int i = 0; i < list.tagCount(); i++) {
 				NBTTagCompound comp = list.getCompoundTagAt(i);
 				BlockPos pos = getListPosFromFacing(comp, facing);
-				BlockState state = getPalettes()[facing].get(comp.getInteger("state"));
+				BlockStateContainer state = getPalettes()[facing].get(comp.getInteger("state"));
 				boolean isStructureBlock = false;
 				if (comp.hasKey("nbt", 10)) {
 					if (comp.getCompoundTag("nbt").getString("id").equals("minecraft:structure_block")) {
@@ -71,7 +71,7 @@ public abstract class NBTStructure {
 						//If a structure block is in a structure file it only really stores a string, so we just save its string.
 						isStructureBlock = true;
 						structureBlocks.put(pos, comp.getCompoundTag("nbt").getString("metadata"));
-					} else if (state.getType() == BlockState.BlockStateType.BLOCK_ENTITY) {
+					} else if (state.getType() == BlockStateContainer.BlockStateType.BLOCK_ENTITY) {
 						setNBTAction(pos, state, comp.getCompoundTag("nbt"), getFacingFromInt(facing));
 					}
 				}
@@ -82,8 +82,8 @@ public abstract class NBTStructure {
 				}
 			}
 			for (Map.Entry<BlockPos, String> entry : structureBlocks.entrySet()) {
-				BlockState belowState = entry.getKey().getY() <= 0 ? null : map.get(entry.getKey().down());
-				BlockState state = setStructureBlockAction(entry.getKey(), belowState, entry.getValue(), getFacingFromInt(facing));
+				BlockStateContainer belowState = entry.getKey().getY() <= 0 ? null : map.get(entry.getKey().down());
+				BlockStateContainer state = setStructureBlockAction(entry.getKey(), belowState, entry.getValue(), getFacingFromInt(facing));
 				if (state != null) {
 					map.put(entry.getKey(), state);
 				}
@@ -110,7 +110,7 @@ public abstract class NBTStructure {
 	 * @param compound What the modern NBT tag for this block contains.
 	 * @param facing   Which direction the structure is rotated towards.
 	 */
-	public void setNBTAction(BlockPos pos, BlockState state, NBTTagCompound compound, ForgeDirection facing) {
+	public void setNBTAction(BlockPos pos, BlockStateContainer state, NBTTagCompound compound, ForgeDirection facing) {
 	}
 
 	/**
@@ -136,8 +136,8 @@ public abstract class NBTStructure {
 	 * @param facing Which direction the structure is rotated towards.
 	 * @return If you want this location to have a BlockState (remember BlockState can store an entity too)
 	 */
-	public BlockState setStructureBlockAction(BlockPos pos, BlockState below, String data, ForgeDirection facing) {
-		return new BlockState(Blocks.air);
+	public BlockStateContainer setStructureBlockAction(BlockPos pos, BlockStateContainer below, String data, ForgeDirection facing) {
+		return new BlockStateContainer(Blocks.air);
 	}
 
 	private BlockPos getListPosFromFacing(NBTTagCompound comp, int facing) {
@@ -157,7 +157,7 @@ public abstract class NBTStructure {
 		return compound;
 	}
 
-	public final Map<Integer, BlockState>[] getPalettes() {
+	public final Map<Integer, BlockStateContainer>[] getPalettes() {
 		return palettes;
 	}
 
@@ -166,17 +166,17 @@ public abstract class NBTStructure {
 	}
 
 	public final boolean buildStructure(World world, Random rand, int x, int y, int z, ForgeDirection facing) {
-		Map<BlockPos, BlockState> blockSet = buildMaps[getIntFromFacing(facing)];
-		Map<BlockPos, BlockState> entitySet = new HashMap<>(); //Yes entities are stored in the BlockState class for simplicity because I don't want the map to use Object...
-		for (Map.Entry<BlockPos, BlockState> entry : blockSet.entrySet()) {
-			if (entry.getValue().getType() == BlockState.BlockStateType.ENTITY) { //We want to do entities last
+		Map<BlockPos, BlockStateContainer> blockSet = buildMaps[getIntFromFacing(facing)];
+		Map<BlockPos, BlockStateContainer> entitySet = new HashMap<>(); //Yes entities are stored in the BlockState class for simplicity because I don't want the map to use Object...
+		for (Map.Entry<BlockPos, BlockStateContainer> entry : blockSet.entrySet()) {
+			if (entry.getValue().getType() == BlockStateContainer.BlockStateType.ENTITY) { //We want to do entities last
 				entitySet.put(entry.getKey(), entry.getValue());
 				continue;
 			}
 			BlockPos pos = entry.getKey();
 			setBlockState(world, rand, pos.getX() + x, pos.getY() + y, pos.getZ() + z, entry.getValue());
 		}
-		for (Map.Entry<BlockPos, BlockState> entry : entitySet.entrySet()) {
+		for (Map.Entry<BlockPos, BlockStateContainer> entry : entitySet.entrySet()) {
 			Entity entity = entry.getValue().createNewEntity(world);
 			BlockPos pos = entry.getKey();
 			entity.readFromNBT(entry.getValue().getCompound());
@@ -190,11 +190,11 @@ public abstract class NBTStructure {
 		return true;
 	}
 
-	private void setBlockState(World world, Random rand, int x, int y, int z, BlockState state) {
-		BlockState newState = getBlockState(world, rand, x, y, z, state);
+	private void setBlockState(World world, Random rand, int x, int y, int z, BlockStateContainer state) {
+		BlockStateContainer newState = getBlockState(world, rand, x, y, z, state);
 		if (newState != null) {
 			world.setBlock(x, y, z, state.getBlock(), state.getMeta(), 3);
-			if (state.getType() == BlockState.BlockStateType.BLOCK_ENTITY) {
+			if (state.getType() == BlockStateContainer.BlockStateType.BLOCK_ENTITY) {
 				TileEntity te = world.getTileEntity(x, y, z);
 				if (te != null) {
 					if (state.getCompound() != null) {
@@ -215,7 +215,7 @@ public abstract class NBTStructure {
 	 * Override if this block should turn into something else when placing itself.
 	 * null = nothing, don't use Blocks.air
 	 */
-	public BlockState getBlockState(World world, Random rand, int x, int y, int z, BlockState state) {
+	public BlockStateContainer getBlockState(World world, Random rand, int x, int y, int z, BlockStateContainer state) {
 		return getIntegrity() == 1 || getIntegrity() > rand.nextFloat() ? state : null;
 	}
 
@@ -340,7 +340,7 @@ public abstract class NBTStructure {
 	 * <p>
 	 * Also don't set NBT here just yet, the NBT is stored in the block map itself so if you want to give one of your block entities NBT, override that function instead.
 	 */
-	public abstract Map<Integer, BlockState> createPalette(ForgeDirection facing);
+	public abstract Map<Integer, BlockStateContainer> createPalette(ForgeDirection facing);
 
 	/**
 	 * Override this if you want code to run before the maps and palettes are built.

@@ -2,10 +2,11 @@ package ganymedes01.etfuturum.world.generate.feature;
 
 import ganymedes01.etfuturum.api.mappings.RegistryMapping;
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
-import ganymedes01.etfuturum.core.utils.structurenbt.BlockState;
+import ganymedes01.etfuturum.core.utils.structurenbt.BlockStateContainer;
 import ganymedes01.etfuturum.core.utils.structurenbt.BlockStateUtils;
 import ganymedes01.etfuturum.world.generate.NBTStructure;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockRotatedPillar;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
@@ -45,15 +46,15 @@ public class WorldGenFossil extends WorldGenerator {
 
 		fossils = new ArrayList<>();
 
-		fossils.add(new ImmutablePair<Fossil, Fossil>(fossilSkull1, fossilSkullCoal1));
-		fossils.add(new ImmutablePair<Fossil, Fossil>(fossilSkull2, fossilSkullCoal2));
-		fossils.add(new ImmutablePair<Fossil, Fossil>(fossilSkull3, fossilSkullCoal3));
-		fossils.add(new ImmutablePair<Fossil, Fossil>(fossilSkull4, fossilSkullCoal4));
+		fossils.add(new ImmutablePair<>(fossilSkull1, fossilSkullCoal1));
+		fossils.add(new ImmutablePair<>(fossilSkull2, fossilSkullCoal2));
+		fossils.add(new ImmutablePair<>(fossilSkull3, fossilSkullCoal3));
+		fossils.add(new ImmutablePair<>(fossilSkull4, fossilSkullCoal4));
 
-		fossils.add(new ImmutablePair<Fossil, Fossil>(fossilSpine1, fossilSpineCoal1));
-		fossils.add(new ImmutablePair<Fossil, Fossil>(fossilSpine2, fossilSpineCoal2));
-		fossils.add(new ImmutablePair<Fossil, Fossil>(fossilSpine3, fossilSpineCoal3));
-		fossils.add(new ImmutablePair<Fossil, Fossil>(fossilSpine4, fossilSpineCoal4));
+		fossils.add(new ImmutablePair<>(fossilSpine1, fossilSpineCoal1));
+		fossils.add(new ImmutablePair<>(fossilSpine2, fossilSpineCoal2));
+		fossils.add(new ImmutablePair<>(fossilSpine3, fossilSpineCoal3));
+		fossils.add(new ImmutablePair<>(fossilSpine4, fossilSpineCoal4));
 	}
 
 	@Override
@@ -114,17 +115,37 @@ public class WorldGenFossil extends WorldGenerator {
 		}
 
 		@Override
-		public Map<Integer, BlockState> createPalette(ForgeDirection facing) {
-			Map<Integer, BlockState> map = new HashMap<>();
+		public Map<Integer, BlockStateContainer> createPalette(ForgeDirection facing) {
+			Map<Integer, BlockStateContainer> map = new HashMap<>();
 			if (coal) {
-				map.put(0, new BlockState(Blocks.coal_ore, 0));
+				map.put(0, new BlockStateContainer(Blocks.coal_ore, 0));
 			} else {
 				for (Pair<Integer, NBTTagCompound> pair : getPaletteNBT()) {
 					String axis = getProperties(pair.getRight()).get("axis");
-					map.put(pair.getLeft(), new BlockState(bone.getObject(), BlockStateUtils.getMetaFromState("axis", axis, facing) + bone.getMeta()));
+					map.put(pair.getLeft(), new BlockStateContainer(bone.getObject(), getMetaFromStateOrQuartzPillar("axis", axis, facing) + bone.getMeta()));
 				}
 			}
 			return map;
 		}
+	}
+
+	private int getMetaFromStateOrQuartzPillar(String stateName, String state, ForgeDirection facing) {
+		if (bone.getObject() == Blocks.quartz_block || bone.getMeta() == 2) {
+			//For rotatable pillars like logs
+			if (stateName.equals("axis")) {
+				//NOTE: Different meta values for quartz pillar needed
+				switch (state) {
+					case "y":
+						return 2;
+					case "x":
+						return facing == ForgeDirection.NORTH || facing == ForgeDirection.SOUTH ? 3 : 4;
+					case "z":
+						return facing == ForgeDirection.NORTH || facing == ForgeDirection.SOUTH ? 4 : 3;
+				}
+			}
+		} else if (bone.getObject() instanceof BlockRotatedPillar) {
+			return BlockStateUtils.getMetaFromState(stateName, state, facing);
+		}
+		return bone.getMeta();
 	}
 }

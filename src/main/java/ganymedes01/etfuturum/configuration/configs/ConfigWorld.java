@@ -1,6 +1,7 @@
 package ganymedes01.etfuturum.configuration.configs;
 
 import cpw.mods.fml.common.registry.GameRegistry;
+import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.api.mappings.RegistryMapping;
 import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.core.utils.Logger;
@@ -51,6 +52,9 @@ public class ConfigWorld extends ConfigBase {
 	public static int amethystMaxY;
 	public static int[] amethystDimensionBlacklist;
 	public static boolean amethystDimensionBlacklistAsWhitelist;
+
+	public static boolean oldHuskSpawning;
+	public static boolean oldStraySpawning;
 
 	public static final String catClient = "client";
 	public static final String catGeneration = "generation";
@@ -149,71 +153,77 @@ public class ConfigWorld extends ConfigBase {
 		amethystMaxY = getInt("amethystMaxY", catGeneration, 46, 6, 245, "Max Y level amethyst geodes should attempt to generate at");
 
 		tileReplacementMode = getInt("tileReplacementMode", catMisc, 0, -1, 1, "Replace old Brewing Stands/Enchanting Tables/Daylight Sensors/Beacons with new one on the fly.\n-1 = Disabled, no conversion even if the replacement tile entities are on\n0 = Convert the vanilla tile entities to their Et Futurum versions\n1 = Convert Et Futurum replacement tile entities back to default ones. Useful if you want to turn those off.");
+		oldHuskSpawning = getBoolean("oldHuskSpawning", catMisc, false, "Enables the old husk spawning logic. Instead of replacing 80% of zombies exposed to the sky in the right biomes, they'll reduce the spawn rate of normal zombies and spawn anywhere in the correct biomes.\nOptiFine breaks the sky-exposure behavior so this option will be forced on when OptiFine is detected.");
+		oldStraySpawning = getBoolean("oldStraySpawning", catMisc, false, "Enables the old stray spawning logic. Instead of replacing 80% of skeletons exposed to the sky in the right biomes, they'll reduce the spawn rate of normal skeletons and spawn anywhere in the correct biomes.\nOptiFine breaks the sky-exposure behavior so this option will be forced on when OptiFine is detected.");
 	}
 
 	@Override
 	protected void initValues() {
-		String[] fossilBlockArray = fossilBlockID.split(":");
-		if ((fossilBlockArray.length == 2 || fossilBlockArray.length == 3) && GameRegistry.findBlock(fossilBlockArray[0], fossilBlockArray[1]) != null) {
-			int meta = 0;
-			if (fossilBlockArray.length == 3) {
-				try {
-					meta = Integer.parseInt(fossilBlockArray[2]);
-				} catch (NumberFormatException e) {
-					Logger.error("Specified bone block for fossils: " + fossilBlockID + " has invalid metadata specified! (Not an integer)");
-					Logger.error("Defaulting to 0.");
+		if (enableFossils) {
+			String[] fossilBlockArray = fossilBlockID.split(":");
+			if ((fossilBlockArray.length == 2 || fossilBlockArray.length == 3) && GameRegistry.findBlock(fossilBlockArray[0], fossilBlockArray[1]) != null) {
+				int meta = 0;
+				if (fossilBlockArray.length == 3) {
+					try {
+						meta = Integer.parseInt(fossilBlockArray[2]);
+					} catch (NumberFormatException e) {
+						Logger.error("Specified bone block for fossils: " + fossilBlockID + " has invalid metadata specified! (Not an integer)");
+						Logger.error("Defaulting to 0.");
+					}
+					if (meta > 3 || meta < 0) {
+						Logger.error("Specified bone block for fossils: " + fossilBlockID + " has invalid metadata specified! (Value cannot be greater than 3 or lower than 0)");
+						Logger.error("Defaulting to 0.");
+						meta = 0;
+					}
 				}
-				if (meta > 3 || meta < 0) {
-					Logger.error("Specified bone block for fossils: " + fossilBlockID + " has invalid metadata specified! (Value cannot be greater than 3 or lower than 0)");
-					Logger.error("Defaulting to 0.");
-					meta = 0;
-				}
+				fossilBlock = new RegistryMapping<>(GameRegistry.findBlock(fossilBlockArray[0], fossilBlockArray[1]), meta);
+			} else {
+				Logger.error("Fossil block " + fossilBlockID + " does not exist or is malformed, therefore fossils will not generate!");
 			}
-			fossilBlock = new RegistryMapping<>(GameRegistry.findBlock(fossilBlockArray[0], fossilBlockArray[1]), meta);
-		} else {
-			Logger.error("Fossil block " + fossilBlockID + " does not exist or is malformed, therefore fossils will not generate!");
 		}
 
-		String[] amethystOuterBlockArray = amethystOuterBlockID.split(":");
-		if ((amethystOuterBlockArray.length == 2 || amethystOuterBlockArray.length == 3) && GameRegistry.findBlock(amethystOuterBlockArray[0], amethystOuterBlockArray[1]) != null) {
-			int meta = 0;
-			if (amethystOuterBlockArray.length == 3) {
-				try {
-					meta = Integer.parseInt(amethystOuterBlockArray[2]);
-				} catch (NumberFormatException e) {
-					Logger.error("Specified bone block for amethystOuters: " + amethystOuterBlockID + " has invalid metadata specified! (Not an integer)");
-					Logger.error("Defaulting to 0.");
+		if (enableAmethystGeodes && ModBlocks.AMETHYST_BLOCK.isEnabled() && ModBlocks.AMETHYST_CLUSTER_1.isEnabled() && ModBlocks.AMETHYST_CLUSTER_2.isEnabled()) {
+			String[] amethystOuterBlockArray = amethystOuterBlockID.split(":");
+			if ((amethystOuterBlockArray.length == 2 || amethystOuterBlockArray.length == 3) && GameRegistry.findBlock(amethystOuterBlockArray[0], amethystOuterBlockArray[1]) != null) {
+				int meta = 0;
+				if (amethystOuterBlockArray.length == 3) {
+					try {
+						meta = Integer.parseInt(amethystOuterBlockArray[2]);
+					} catch (NumberFormatException e) {
+						Logger.error("Specified bone block for amethystOuters: " + amethystOuterBlockID + " has invalid metadata specified! (Not an integer)");
+						Logger.error("Defaulting to 0.");
+					}
+					if (meta > 15 || meta < 0) {
+						Logger.error("Specified bone block for amethystOuters: " + amethystOuterBlockID + " has invalid metadata specified! (Value cannot be greater than 15 or lower than 0)");
+						Logger.error("Defaulting to 0.");
+						meta = 0;
+					}
 				}
-				if (meta > 15 || meta < 0) {
-					Logger.error("Specified bone block for amethystOuters: " + amethystOuterBlockID + " has invalid metadata specified! (Value cannot be greater than 15 or lower than 0)");
-					Logger.error("Defaulting to 0.");
-					meta = 0;
-				}
+				amethystOuterBlock = new RegistryMapping<>(GameRegistry.findBlock(amethystOuterBlockArray[0], amethystOuterBlockArray[1]), meta);
+			} else {
+				Logger.error("Amethyst outer layer block " + fossilBlockID + " does not exist or is malformed, therefore amethyst geodes will not generate!");
 			}
-			amethystOuterBlock = new RegistryMapping<>(GameRegistry.findBlock(amethystOuterBlockArray[0], amethystOuterBlockArray[1]), meta);
-		} else {
-			Logger.error("Amethyst outer layer block " + fossilBlockID + " does not exist or is malformed, therefore amethyst geodes will not generate!");
-		}
 
-		String[] amethystMiddleBlockArray = amethystMiddleBlockID.split(":");
-		if ((amethystMiddleBlockArray.length == 2 || amethystMiddleBlockArray.length == 3) && GameRegistry.findBlock(amethystMiddleBlockArray[0], amethystMiddleBlockArray[1]) != null) {
-			int meta = 0;
-			if (amethystMiddleBlockArray.length == 3) {
-				try {
-					meta = Integer.parseInt(amethystMiddleBlockArray[2]);
-				} catch (NumberFormatException e) {
-					Logger.error("Specified amethyst middle layer block: " + amethystMiddleBlockID + " has invalid metadata specified! (Not an integer)");
-					Logger.error("Defaulting to 0.");
+			String[] amethystMiddleBlockArray = amethystMiddleBlockID.split(":");
+			if ((amethystMiddleBlockArray.length == 2 || amethystMiddleBlockArray.length == 3) && GameRegistry.findBlock(amethystMiddleBlockArray[0], amethystMiddleBlockArray[1]) != null) {
+				int meta = 0;
+				if (amethystMiddleBlockArray.length == 3) {
+					try {
+						meta = Integer.parseInt(amethystMiddleBlockArray[2]);
+					} catch (NumberFormatException e) {
+						Logger.error("Specified amethyst middle layer block: " + amethystMiddleBlockID + " has invalid metadata specified! (Not an integer)");
+						Logger.error("Defaulting to 0.");
+					}
+					if (meta > 15 || meta < 0) {
+						Logger.error("Specified amethyst middle layer block: " + amethystMiddleBlockID + " has invalid metadata specified! (Value cannot be greater than 15 or lower than 0)");
+						Logger.error("Defaulting to 0.");
+						meta = 0;
+					}
 				}
-				if (meta > 15 || meta < 0) {
-					Logger.error("Specified amethyst middle layer block: " + amethystMiddleBlockID + " has invalid metadata specified! (Value cannot be greater than 15 or lower than 0)");
-					Logger.error("Defaulting to 0.");
-					meta = 0;
-				}
+				amethystMiddleBlock = new RegistryMapping<>(GameRegistry.findBlock(amethystMiddleBlockArray[0], amethystMiddleBlockArray[1]), meta);
+			} else {
+				Logger.error("Amethyst middle layer block " + fossilBlockID + " does not exist or is malformed, therefore amethyst geodes will not generate!");
 			}
-			amethystMiddleBlock = new RegistryMapping<>(GameRegistry.findBlock(amethystMiddleBlockArray[0], amethystMiddleBlockArray[1]), meta);
-		} else {
-			Logger.error("Amethyst middle layer block " + fossilBlockID + " does not exist or is malformed, therefore amethyst geodes will not generate!");
 		}
 	}
 }

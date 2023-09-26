@@ -1,20 +1,20 @@
 package ganymedes01.etfuturum.core.proxy;
 
+import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.IGuiHandler;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.etfuturum.EtFuturum;
+import ganymedes01.etfuturum.EtFuturumMixinPlugin;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.client.gui.inventory.*;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
-import ganymedes01.etfuturum.configuration.configs.ConfigEntities;
-import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
-import ganymedes01.etfuturum.configuration.configs.ConfigTweaks;
+import ganymedes01.etfuturum.configuration.configs.*;
 import ganymedes01.etfuturum.core.handlers.SculkEventHandler;
 import ganymedes01.etfuturum.core.handlers.ServerEventHandler;
 import ganymedes01.etfuturum.core.handlers.WorldEventHandler;
+import ganymedes01.etfuturum.core.utils.Logger;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.entities.*;
 import ganymedes01.etfuturum.inventory.*;
@@ -25,6 +25,8 @@ import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.monster.EntityMagmaCube;
+import net.minecraft.entity.monster.EntitySkeleton;
+import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.ContainerChest;
@@ -34,6 +36,11 @@ import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.MinecraftForge;
 import org.apache.commons.lang3.ArrayUtils;
+import org.spongepowered.asm.mixin.MixinEnvironment;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class CommonProxy implements IGuiHandler {
 
@@ -112,12 +119,46 @@ public class CommonProxy implements IGuiHandler {
 		if (ConfigBlocksItems.enableTippedArrows)
 			ModEntityList.registerEntity(EntityTippedArrow.class, "tipped_arrow", 2, EtFuturum.instance, 64, 20, true);
 
+		if (EtFuturumMixinPlugin.side == MixinEnvironment.Side.CLIENT && FMLClientHandler.instance().hasOptifine()) {
+			if (!ConfigWorld.oldHuskSpawning) {
+				Logger.warn("OptiFine detected, old husk spawn logic will be enabled since OptiFine is stupid and breaks the default behavior.");
+				ConfigWorld.oldHuskSpawning = true;
+			}
+			if (!ConfigWorld.oldStraySpawning) {
+				Logger.warn("OptiFine detected, old stray spawn logic will be enabled since OptiFine is stupid and breaks the default behavior.");
+				ConfigWorld.oldStraySpawning = true;
+			}
+		}
+
 		if (ConfigEntities.enableHusk) {
 			ModEntityList.registerEntity(EntityHusk.class, "husk", 4, EtFuturum.instance, 80, 3, true, 0x777561, 0xE0D991);
+
+			if (ConfigWorld.oldHuskSpawning) {
+				List<BiomeGenBase> biomes = new ArrayList<>(Arrays.asList(BiomeDictionary.getBiomesForType(Type.SANDY)));
+				biomes.retainAll(Arrays.asList(BiomeDictionary.getBiomesForType(Type.DRY)));
+				biomes.retainAll(Arrays.asList(BiomeDictionary.getBiomesForType(Type.HOT)));
+
+				BiomeGenBase[] biomeArray = (BiomeGenBase[]) ArrayUtils.addAll(new BiomeGenBase[]{}, biomes.toArray());
+				//change spawn weights
+				EntityRegistry.removeSpawn(EntityZombie.class, EnumCreatureType.monster, biomeArray);
+
+				EntityRegistry.addSpawn(EntityZombie.class, 19, 4, 4, EnumCreatureType.monster, biomeArray);
+				EntityRegistry.addSpawn(EntityHusk.class, 80, 4, 4, EnumCreatureType.monster, biomeArray);
+			}
 		}
+
 		if (ConfigEntities.enableStray) {
 			ModEntityList.registerEntity(EntityStray.class, "stray", 5, EtFuturum.instance, 80, 3, true, 0x617778, 0xE6EAEA);
+
+			if (ConfigWorld.oldStraySpawning) {
+				//change spawn weights
+				EntityRegistry.removeSpawn(EntitySkeleton.class, EnumCreatureType.monster, BiomeDictionary.getBiomesForType(Type.SNOWY));
+
+				EntityRegistry.addSpawn(EntitySkeleton.class, 20, 4, 4, EnumCreatureType.monster, BiomeDictionary.getBiomesForType(Type.SNOWY));
+				EntityRegistry.addSpawn(EntityStray.class, 80, 4, 4, EnumCreatureType.monster, BiomeDictionary.getBiomesForType(Type.SNOWY));
+			}
 		}
+
 		if (ConfigEntities.enableNetherEndermen) {
 			EntityRegistry.addSpawn(EntityEnderman.class, 1, 4, 4, EnumCreatureType.monster, BiomeDictionary.getBiomesForType(Type.NETHER));
 			EntityEnderman.setCarriable(Blocks.netherrack, true);

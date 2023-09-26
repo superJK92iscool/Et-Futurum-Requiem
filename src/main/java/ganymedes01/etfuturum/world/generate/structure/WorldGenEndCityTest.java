@@ -1,7 +1,7 @@
 package ganymedes01.etfuturum.world.generate.structure;
 
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
-import ganymedes01.etfuturum.core.utils.structurenbt.BlockState;
+import ganymedes01.etfuturum.core.utils.structurenbt.BlockStateContainer;
 import ganymedes01.etfuturum.entities.EntityShulker;
 import ganymedes01.etfuturum.world.generate.NBTStructure;
 import net.minecraft.init.Blocks;
@@ -29,19 +29,19 @@ public class WorldGenEndCityTest extends WorldGenerator {
 		}
 
 		@Override
-		public Map<Integer, BlockState> createPalette(ForgeDirection facing) {
-			Map<Integer, BlockState> map = new HashMap<>();
+		public Map<Integer, BlockStateContainer> createPalette(ForgeDirection facing) {
+			Map<Integer, BlockStateContainer> map = new HashMap<>();
 			for (Pair<Integer, NBTTagCompound> pair : getPaletteNBT()) {
 				//This was basically just a scapegoat to test some structure block functionality.
 				//None of these are mapped because I didn't ant to do a bunch of mapping work for a test.
-				BlockState state = getBlockNamespaceFromPaletteEntry(pair.getLeft()).equals("minecraft:air") ? new BlockState(Blocks.air) : getBlockNamespaceFromPaletteEntry(pair.getLeft()).equals("minecraft:chest") ? new BlockState(Blocks.chest, 1) : new BlockState(Blocks.stone);
+				BlockStateContainer state = getBlockNamespaceFromPaletteEntry(pair.getLeft()).equals("minecraft:air") ? new BlockStateContainer(Blocks.air) : getBlockNamespaceFromPaletteEntry(pair.getLeft()).equals("minecraft:chest") ? new BlockStateContainer(Blocks.chest, 1) : new BlockStateContainer(Blocks.stone);
 				map.put(pair.getLeft(), state);
 			}
 			return map;
 		}
 
 		@Override
-		public BlockState setStructureBlockAction(BlockPos pos, BlockState below, String data, ForgeDirection facing) {
+		public BlockStateContainer setStructureBlockAction(BlockPos pos, BlockStateContainer below, String data, ForgeDirection facing) {
 			if (data.equals("Chest")) {
 				below.setLootTable(ChestGenHooks.getInfo("netherFortress"));
 				return null;
@@ -49,7 +49,7 @@ public class WorldGenEndCityTest extends WorldGenerator {
 			if (data.equals("Sentry")) {
 				NBTTagCompound comp = new NBTTagCompound();
 				comp.setByte("Color", (byte) 16);
-				return new BlockState(EntityShulker.class, comp);
+				return new BlockStateContainer(EntityShulker.class, comp);
 			}
 			return null;
 		}
