@@ -110,6 +110,7 @@ public class ConfigBlocksItems extends ConfigBase {
 	public static boolean enableTarget;
 	public static boolean enableSculk;
 	public static boolean enableChain;
+	public static boolean enableHoney;
 	//Nether Update temp disabled
 	public static boolean enableCrimsonBlocks = false;
 	public static boolean enableWarpedBlocks = false;
@@ -258,6 +259,7 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableBarrier = getBoolean("enableBarrier", catBlockMisc, true, "A solid, indestructible and invisible block. Can be seen when holding it in Creative mode.");
 		enableLightBlock = getBoolean("enableLightBlock", catBlockMisc, true, "Invisible light blocks. Only has a selection box when held, right click to change light level. Otherwise functionally identical to air and can be replaced by placing blocks into it. Invisible, but can be seen when holding it in Creative mode.");
 		enableChain = getBoolean("enableChain", catBlockMisc, true, "");
+		enableHoney = getBoolean("enableHoney", catBlockMisc, true, "Enables honey blocks, honeycomb blocks, honeycombs, and honey bottles. See entities.cfg for toggling bee nests, beehives, and bees.");
 
 		//Misc Items
 		enableMutton = getBoolean("enableMutton", catItemMisc, true, "");
