@@ -5,8 +5,8 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.IGuiHandler;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.relauncher.Side;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.EtFuturumMixinPlugin;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.client.gui.inventory.*;
@@ -36,7 +36,6 @@ import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.MinecraftForge;
 import org.apache.commons.lang3.ArrayUtils;
-import org.spongepowered.asm.mixin.MixinEnvironment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -100,9 +99,10 @@ public class CommonProxy implements IGuiHandler {
 		if (ModBlocks.BANNER.isEnabled()) {
 			GameRegistry.registerTileEntity(TileEntityBanner.class, Utils.getUnlocalisedName("banner"));
 		}
-		if (ModBlocks.BEEHIVE.isEnabled() && ModBlocks.BEE_NEST.isEnabled()) {
+		if (ModBlocks.BEEHIVE.isEnabled() || ModBlocks.BEE_NEST.isEnabled()) {
 			GameRegistry.registerTileEntity(TileEntityBeeHive.class, Utils.getUnlocalisedName("hive"));
 		}
+
 		if (ConfigEntities.enableRabbit) {
 			ModEntityList.registerEntity(EntityRabbit.class, "rabbit", 3, EtFuturum.instance, 80, 3, true, 0x995F40, 0x734831);
 
@@ -112,14 +112,20 @@ public class CommonProxy implements IGuiHandler {
 			array = ArrayUtils.addAll(array, BiomeDictionary.getBiomesForType(Type.FOREST));
 			EntityRegistry.addSpawn(EntityRabbit.class, 10, 3, 3, EnumCreatureType.creature, array);
 		}
-		if (ConfigBlocksItems.enableArmourStand)
-			ModEntityList.registerEntity(EntityArmourStand.class, "wooden_armorstand", 0, EtFuturum.instance, 64, 1, true);
-		if (ConfigEntities.enableEndermite)
-			ModEntityList.registerEntity(EntityEndermite.class, "endermite", 1, EtFuturum.instance, 64, 1, true, 0x161616, 0x6E6E6E);
-		if (ConfigBlocksItems.enableTippedArrows)
-			ModEntityList.registerEntity(EntityTippedArrow.class, "tipped_arrow", 2, EtFuturum.instance, 64, 20, true);
 
-		if (EtFuturumMixinPlugin.side == MixinEnvironment.Side.CLIENT && FMLClientHandler.instance().hasOptifine()) {
+		if (ConfigBlocksItems.enableArmourStand) {
+			ModEntityList.registerEntity(EntityArmourStand.class, "wooden_armorstand", 0, EtFuturum.instance, 64, 1, true);
+		}
+
+		if (ConfigEntities.enableEndermite) {
+			ModEntityList.registerEntity(EntityEndermite.class, "endermite", 1, EtFuturum.instance, 64, 1, true, 0x161616, 0x6E6E6E);
+		}
+
+		if (ConfigBlocksItems.enableTippedArrows) {
+			ModEntityList.registerEntity(EntityTippedArrow.class, "tipped_arrow", 2, EtFuturum.instance, 64, 20, true);
+		}
+
+		if (FMLCommonHandler.instance().getSide() == Side.CLIENT && FMLClientHandler.instance().hasOptifine()) {
 			if (!ConfigWorld.oldHuskSpawning) {
 				Logger.warn("OptiFine detected, old husk spawn logic will be enabled since OptiFine is stupid and breaks the default behavior.");
 				ConfigWorld.oldHuskSpawning = true;
