@@ -1690,7 +1690,7 @@ public class ServerEventHandler {
 		if (ConfigMixins.enableElytra && e.phase == TickEvent.Phase.END && e.world instanceof WorldServer) {
 			WorldServer ws = (WorldServer) e.world;
 			for (EntityTrackerEntry ete : (Set<EntityTrackerEntry>) ws.getEntityTracker().trackedEntities) {
-				if (ete.myEntity instanceof IElytraPlayer) {
+				if (ete != null && ete.myEntity instanceof IElytraPlayer) {
 					IElytraPlayer elb = (IElytraPlayer) ete.myEntity;
 					boolean flying = elb.etfu$isElytraFlying();
 					if (!flying && ((IElytraEntityTrackerEntry) ete).etfu$getWasSendingVelUpdates()) {
