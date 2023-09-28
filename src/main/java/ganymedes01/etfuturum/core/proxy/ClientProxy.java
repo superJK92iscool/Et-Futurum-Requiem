@@ -94,6 +94,9 @@ public class ClientProxy extends CommonProxy {
 	}
 
 	private void registerBlockRenderers() {
+		RenderingRegistry.registerBlockHandler(new BlockExtendedCrossedSquaresRenderer());
+		RenderingRegistry.registerBlockHandler(new BlockNewFenceRenderer());
+
 		if (ModBlocks.SLIME.isEnabled()) {
 			RenderingRegistry.registerBlockHandler(new BlockDoubleLayerRenderer(13, RenderIDs.SLIME_BLOCK));
 		}
@@ -135,7 +138,7 @@ public class ClientProxy extends CommonProxy {
 		}
 
 		if (ConfigBlocksItems.enableTrapdoors) {
-			RenderingRegistry.registerBlockHandler(new BlockTrapDoorRenderer(RenderIDs.TRAP_DOOR));
+			RenderingRegistry.registerBlockHandler(new BlockTrapDoorRenderer(RenderIDs.TRAPDOOR));
 		}
 
 		if (ConfigBlocksItems.enableSigns) {

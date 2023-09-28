@@ -11,9 +11,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityFlowerPot;
 import net.minecraft.world.World;
 
-public class BaseFlowerItemBlock extends ItemBlock {
+public class BasePotableItemBlock extends ItemBlock {
 
-	public BaseFlowerItemBlock(Block p_i45328_1_) {
+	public BasePotableItemBlock(Block p_i45328_1_) {
 		super(p_i45328_1_);
 	}
 
@@ -40,14 +40,14 @@ public class BaseFlowerItemBlock extends ItemBlock {
 	}
 
 	private boolean canPlacePot(ItemStack heldStack, EntityPlayer entityPlayer, World world, int x, int y, int z) {
-		if (world.getBlock(x, y, z) == Blocks.flower_pot && !entityPlayer.isSneaking()
-				&& world.getTileEntity(x, y, z) instanceof TileEntityFlowerPot) {
+		if (world.getBlock(x, y, z) == Blocks.flower_pot && !entityPlayer.isSneaking() && world.getTileEntity(x, y, z) instanceof TileEntityFlowerPot) {
 
 			TileEntityFlowerPot potTile = (TileEntityFlowerPot) world.getTileEntity(x, y, z);
-			Block block = Block.getBlockFromItem(heldStack.getItem());
+			Item potableItem = heldStack.getItem();
+			int potableMeta = heldStack.getItemDamage();
 
-			if (potTile.getFlowerPotItem() == null) {
-				potTile.func_145964_a(Item.getItemFromBlock(block), heldStack.getItemDamage());
+			if (potableItem != null && potTile.getFlowerPotItem() == null) {
+				potTile.func_145964_a(potableItem, potableMeta);
 				potTile.markDirty();
 
 				if (!world.setBlockMetadataWithNotify(x, y, z, heldStack.getItemDamage(), 2)) {

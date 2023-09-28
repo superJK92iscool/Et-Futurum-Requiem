@@ -13,6 +13,7 @@ import ganymedes01.etfuturum.tileentities.TileEntityWoodSign;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemAnvilBlock;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -40,7 +41,6 @@ public enum ModBlocks {
 	CHORUS_FLOWER(ConfigBlocksItems.enableChorusFruit, new BlockChorusFlower()),
 	BONE(ConfigBlocksItems.enableBoneBlock, new BlockBone()),
 	RED_NETHERBRICK(ConfigBlocksItems.enableNewNetherBricks, new BlockNewNetherBrick()), //Also contains chiseled and cracked nether bricks
-	NETHER_WART(ConfigBlocksItems.enableNetherwartBlock, new BlockNetherwart()),
 	ANCIENT_DEBRIS(ConfigBlocksItems.enableNetherite, new BlockAncientDebris(), ItemBlockUninflammable.class),
 	NETHERITE_BLOCK(ConfigBlocksItems.enableNetherite, new BlockNetherite(), ItemBlockUninflammable.class),
 	NETHER_GOLD_ORE(ConfigBlocksItems.enableNetherGold, new BlockOreNetherGold()),
@@ -241,55 +241,114 @@ public enum ModBlocks {
 	BEE_NEST(ConfigEntities.enableBees, new BlockBeeHive().setHiveType("bee_nest", true)),
 	CHAIN(ConfigBlocksItems.enableChain, new BlockChain()),
 
-	//signs
-	SIGN_SPRUCE(ConfigBlocksItems.enableSigns, new BlockWoodSign(TileEntityWoodSign.class, true, 1), null),
-	WALL_SIGN_SPRUCE(ConfigBlocksItems.enableSigns, new BlockWoodSign(TileEntityWoodSign.class, false, 1), null),
-	SIGN_BIRCH(ConfigBlocksItems.enableSigns, new BlockWoodSign(TileEntityWoodSign.class, true, 2), null),
-	WALL_SIGN_BIRCH(ConfigBlocksItems.enableSigns, new BlockWoodSign(TileEntityWoodSign.class, false, 2), null),
-	SIGN_JUNGLE(ConfigBlocksItems.enableSigns, new BlockWoodSign(TileEntityWoodSign.class, true, 3), null),
-	WALL_SIGN_JUNGLE(ConfigBlocksItems.enableSigns, new BlockWoodSign(TileEntityWoodSign.class, false, 3), null),
-	SIGN_ACACIA(ConfigBlocksItems.enableSigns, new BlockWoodSign(TileEntityWoodSign.class, true, 4), null),
-	WALL_SIGN_ACACIA(ConfigBlocksItems.enableSigns, new BlockWoodSign(TileEntityWoodSign.class, false, 4), null),
-	SIGN_DARK_OAK(ConfigBlocksItems.enableSigns, new BlockWoodSign(TileEntityWoodSign.class, true, 5), null),
-	WALL_SIGN_DARK_OAK(ConfigBlocksItems.enableSigns, new BlockWoodSign(TileEntityWoodSign.class, false, 5), null),
+	NETHER_ROOTS(ConfigBlocksItems.enableCrimsonBlocks || ConfigBlocksItems.enableWarpedBlocks, new BlockNetherRoots(), BaseSubtypesPotableItemBlock.class),
+	NETHER_FUNGUS(ConfigBlocksItems.enableCrimsonBlocks || ConfigBlocksItems.enableWarpedBlocks, new BlockNetherFungus(), BaseSubtypesPotableItemBlock.class),
+	NETHER_SPROUTS(ConfigBlocksItems.enableWarpedBlocks, new BlockNetherSprouts()),
+	NETHER_WART(ConfigBlocksItems.enableNetherwartBlock || ConfigBlocksItems.enableWarpedBlocks, new BlockNetherwart()),
+	NYLIUM(ConfigBlocksItems.enableCrimsonBlocks || ConfigBlocksItems.enableWarpedBlocks, new BlockNylium()),
+	CRIMSON_STEM(ConfigBlocksItems.enableCrimsonBlocks || ConfigBlocksItems.enableWarpedBlocks, new BlockNetherStem("crimson")),
+	WARPED_STEM(ConfigBlocksItems.enableCrimsonBlocks || ConfigBlocksItems.enableWarpedBlocks, new BlockNetherStem("warped")),
+	WEEPING_VINS(ConfigBlocksItems.enableCrimsonBlocks, new BlockWeepingVines()),
+	TWISTING_VINS(ConfigBlocksItems.enableWarpedBlocks, new BlockTwistingVines()),
 
-	TRAPDOOR_SPRUCE(ConfigBlocksItems.enableTrapdoors, new BlockWoodTrapdoor(1)),
-	TRAPDOOR_BIRCH(ConfigBlocksItems.enableTrapdoors, new BlockWoodTrapdoor(2)),
-	TRAPDOOR_JUNGLE(ConfigBlocksItems.enableTrapdoors, new BlockWoodTrapdoor(3)),
-	TRAPDOOR_ACACIA(ConfigBlocksItems.enableTrapdoors, new BlockWoodTrapdoor(4)),
-	TRAPDOOR_DARK_OAK(ConfigBlocksItems.enableTrapdoors, new BlockWoodTrapdoor(5)),
+	WOOD_PLANKS(ConfigBlocksItems.enableCrimsonBlocks || ConfigBlocksItems.enableWarpedBlocks,
+			new BlockWoodPlanks()),
+	WOOD_SLAB(ConfigBlocksItems.enableCrimsonBlocks || ConfigBlocksItems.enableWarpedBlocks,
+			new BlockWoodSlab(false)),
+	DOUBLE_WOOD_SLAB(ConfigBlocksItems.enableCrimsonBlocks || ConfigBlocksItems.enableWarpedBlocks,
+			new BlockWoodSlab(true)),
 
-	BUTTON_SPRUCE(ConfigBlocksItems.enableWoodRedstone, new BlockWoodButton(1)),
-	BUTTON_BIRCH(ConfigBlocksItems.enableWoodRedstone, new BlockWoodButton(2)),
-	BUTTON_JUNGLE(ConfigBlocksItems.enableWoodRedstone, new BlockWoodButton(3)),
-	BUTTON_ACACIA(ConfigBlocksItems.enableWoodRedstone, new BlockWoodButton(4)),
-	BUTTON_DARK_OAK(ConfigBlocksItems.enableWoodRedstone, new BlockWoodButton(5)),
+	//new wood stairs
+	CRIMSON_STAIRS(ConfigBlocksItems.enableCrimsonBlocks, new BaseStairs(WOOD_PLANKS.get(), 0).setBlockSound(ModSounds.soundNetherWood).setUnlocalizedNameWithPrefix("crimson")),
+	WARPED_STAIRS(ConfigBlocksItems.enableCrimsonBlocks, new BaseStairs(WOOD_PLANKS.get(), 1).setBlockSound(ModSounds.soundNetherWood).setUnlocalizedNameWithPrefix("warped")),
 
-	PRESSURE_PLATE_SPRUCE(ConfigBlocksItems.enableWoodRedstone, new BlockWoodPressurePlate(1)),
-	PRESSURE_PLATE_BIRCH(ConfigBlocksItems.enableWoodRedstone, new BlockWoodPressurePlate(2)),
-	PRESSURE_PLATE_JUNGLE(ConfigBlocksItems.enableWoodRedstone, new BlockWoodPressurePlate(3)),
-	PRESSURE_PLATE_ACACIA(ConfigBlocksItems.enableWoodRedstone, new BlockWoodPressurePlate(4)),
-	PRESSURE_PLATE_DARK_OAK(ConfigBlocksItems.enableWoodRedstone, new BlockWoodPressurePlate(5)),
-
+	//legacy fences
+	//This is left as-is because fences should really be meta states anyways, so new fences use a different class, so why touch this int-based constructor?
+	//Gany, did you waste 4 ID slots just because 1.8 did?
 	FENCE_SPRUCE(ConfigBlocksItems.enableFences, new BlockWoodFence(1)),
 	FENCE_BIRCH(ConfigBlocksItems.enableFences, new BlockWoodFence(2)),
 	FENCE_JUNGLE(ConfigBlocksItems.enableFences, new BlockWoodFence(3)),
 	FENCE_ACACIA(ConfigBlocksItems.enableFences, new BlockWoodFence(4)),
 	FENCE_DARK_OAK(ConfigBlocksItems.enableFences, new BlockWoodFence(5)),
 
-	FENCE_GATE_SPRUCE(ConfigBlocksItems.enableFences, new BlockWoodFenceGate(1)),
-	FENCE_GATE_BIRCH(ConfigBlocksItems.enableFences, new BlockWoodFenceGate(2)),
-	FENCE_GATE_JUNGLE(ConfigBlocksItems.enableFences, new BlockWoodFenceGate(3)),
-	FENCE_GATE_ACACIA(ConfigBlocksItems.enableFences, new BlockWoodFenceGate(4)),
-	FENCE_GATE_DARK_OAK(ConfigBlocksItems.enableFences, new BlockWoodFenceGate(5)),
+	//new fence, this can just be one block, meta states are fine, the fences above were made by ganymedes01 and not me hence the lack of meta usage
+	WOOD_FENCE(ConfigBlocksItems.enableCrimsonBlocks || ConfigBlocksItems.enableWarpedBlocks,
+			new BlockWoodFenceNew()),
 
-	DOOR_SPRUCE(ConfigBlocksItems.enableDoors, new BlockWoodDoor(1), ItemBlockWoodDoor.class),
-	DOOR_BIRCH(ConfigBlocksItems.enableDoors, new BlockWoodDoor(2), ItemBlockWoodDoor.class),
-	DOOR_JUNGLE(ConfigBlocksItems.enableDoors, new BlockWoodDoor(3), ItemBlockWoodDoor.class),
-	DOOR_ACACIA(ConfigBlocksItems.enableDoors, new BlockWoodDoor(4), ItemBlockWoodDoor.class),
-	DOOR_DARK_OAK(ConfigBlocksItems.enableDoors, new BlockWoodDoor(5), ItemBlockWoodDoor.class),
+	//legacy buttons
+	BUTTON_SPRUCE(ConfigBlocksItems.enableWoodRedstone, new BlockWoodButton("spruce", Blocks.planks, 1, true)),
+	BUTTON_BIRCH(ConfigBlocksItems.enableWoodRedstone, new BlockWoodButton("birch", Blocks.planks, 2, true)),
+	BUTTON_JUNGLE(ConfigBlocksItems.enableWoodRedstone, new BlockWoodButton("jungle", Blocks.planks, 3, true)),
+	BUTTON_ACACIA(ConfigBlocksItems.enableWoodRedstone, new BlockWoodButton("acacia", Blocks.planks, 4, true)),
+	BUTTON_DARK_OAK(ConfigBlocksItems.enableWoodRedstone, new BlockWoodButton("dark_oak", Blocks.planks, 5, true)),
 
-	//          "white", "orange", "magenta", "light_blue", "yellow", "lime", "pink", "gray", "light_gray", "cyan", "purple", "blue", "brown", "green", "red", "black"};
+	//new buttons (different ID format)
+	CRIMSON_BUTTON(ConfigBlocksItems.enableCrimsonBlocks, new BlockWoodButton("crimson", WOOD_PLANKS.get(), 0, false)),
+	WARPED_BUTTON(ConfigBlocksItems.enableWarpedBlocks, new BlockWoodButton("warped", WOOD_PLANKS.get(), 1, false)),
+
+	//legacy pressure plates
+	PRESSURE_PLATE_SPRUCE(ConfigBlocksItems.enableWoodRedstone, new BlockWoodPressurePlate("spruce", Blocks.planks, 1, true)),
+	PRESSURE_PLATE_BIRCH(ConfigBlocksItems.enableWoodRedstone, new BlockWoodPressurePlate("birch", Blocks.planks, 2, true)),
+	PRESSURE_PLATE_JUNGLE(ConfigBlocksItems.enableWoodRedstone, new BlockWoodPressurePlate("jungle", Blocks.planks, 3, true)),
+	PRESSURE_PLATE_ACACIA(ConfigBlocksItems.enableWoodRedstone, new BlockWoodPressurePlate("acacia", Blocks.planks, 4, true)),
+	PRESSURE_PLATE_DARK_OAK(ConfigBlocksItems.enableWoodRedstone, new BlockWoodPressurePlate("dark_oak", Blocks.planks, 5, true)),
+
+	//new pressure plates (different ID format)
+	CRIMSON_PRESSURE_PLATE(ConfigBlocksItems.enableCrimsonBlocks, new BlockWoodPressurePlate("crimson", WOOD_PLANKS.get(), 0, false)),
+	WARPED_PRESSURE_PLATE(ConfigBlocksItems.enableWarpedBlocks, new BlockWoodPressurePlate("warped", WOOD_PLANKS.get(), 1, false)),
+
+	//legacy fence gates
+	FENCE_GATE_SPRUCE(ConfigBlocksItems.enableFences, new BlockWoodFenceGate("spruce", Blocks.planks, 1, true)),
+	FENCE_GATE_BIRCH(ConfigBlocksItems.enableFences, new BlockWoodFenceGate("birch", Blocks.planks, 2, true)),
+	FENCE_GATE_JUNGLE(ConfigBlocksItems.enableFences, new BlockWoodFenceGate("jungle", Blocks.planks, 3, true)),
+	FENCE_GATE_ACACIA(ConfigBlocksItems.enableFences, new BlockWoodFenceGate("acacia", Blocks.planks, 4, true)),
+	FENCE_GATE_DARK_OAK(ConfigBlocksItems.enableFences, new BlockWoodFenceGate("dark_oak", Blocks.planks, 5, true)),
+
+	//new fence gates (different ID format)
+	CRIMSON_FENCE_GATE(ConfigBlocksItems.enableCrimsonBlocks, new BlockWoodFenceGate("crimson", WOOD_PLANKS.get(), 0, false)),
+	WARPED_FENCE_GATE(ConfigBlocksItems.enableWarpedBlocks, new BlockWoodFenceGate("warped", WOOD_PLANKS.get(), 1, false)),
+
+	//legacy doors
+	DOOR_SPRUCE(ConfigBlocksItems.enableDoors, new BlockWoodDoor("spruce"), ItemBlockWoodDoor.class),
+	DOOR_BIRCH(ConfigBlocksItems.enableDoors, new BlockWoodDoor("birch"), ItemBlockWoodDoor.class),
+	DOOR_JUNGLE(ConfigBlocksItems.enableDoors, new BlockWoodDoor("jungle"), ItemBlockWoodDoor.class),
+	DOOR_ACACIA(ConfigBlocksItems.enableDoors, new BlockWoodDoor("acacia"), ItemBlockWoodDoor.class),
+	DOOR_DARK_OAK(ConfigBlocksItems.enableDoors, new BlockWoodDoor("dark_oak"), ItemBlockWoodDoor.class),
+
+	//new doors (different ID format)
+	CRIMSON_DOOR(ConfigBlocksItems.enableCrimsonBlocks, new BlockWoodDoor("crimson"), ItemBlockWoodDoor.class),
+	WARPED_DOOR(ConfigBlocksItems.enableWarpedBlocks, new BlockWoodDoor("warped"), ItemBlockWoodDoor.class),
+
+	//legacy trapdoors
+	TRAPDOOR_SPRUCE(ConfigBlocksItems.enableTrapdoors, new BlockWoodTrapdoor("spruce")),
+	TRAPDOOR_BIRCH(ConfigBlocksItems.enableTrapdoors, new BlockWoodTrapdoor("birch")),
+	TRAPDOOR_JUNGLE(ConfigBlocksItems.enableTrapdoors, new BlockWoodTrapdoor("jungle")),
+	TRAPDOOR_ACACIA(ConfigBlocksItems.enableTrapdoors, new BlockWoodTrapdoor("acacia")),
+	TRAPDOOR_DARK_OAK(ConfigBlocksItems.enableTrapdoors, new BlockWoodTrapdoor("dark_oak")),
+
+	//new trapdoors (different ID format)
+	CRIMSON_TRAPDOOR(ConfigBlocksItems.enableCrimsonBlocks, new BlockWoodTrapdoor("crimson")),
+	WARPED_TRAPDOOR(ConfigBlocksItems.enableWarpedBlocks, new BlockWoodTrapdoor("warped")),
+
+	//legacy signs
+	SIGN_SPRUCE(ConfigBlocksItems.enableSigns, new BlockWoodSign(TileEntityWoodSign.class, true, "spruce", Blocks.planks, 1), null),
+	WALL_SIGN_SPRUCE(ConfigBlocksItems.enableSigns, new BlockWoodSign(TileEntityWoodSign.class, false, "spruce", Blocks.planks, 1), null),
+	SIGN_BIRCH(ConfigBlocksItems.enableSigns, new BlockWoodSign(TileEntityWoodSign.class, true, "birch", Blocks.planks, 2), null),
+	WALL_SIGN_BIRCH(ConfigBlocksItems.enableSigns, new BlockWoodSign(TileEntityWoodSign.class, false, "birch", Blocks.planks, 2), null),
+	SIGN_JUNGLE(ConfigBlocksItems.enableSigns, new BlockWoodSign(TileEntityWoodSign.class, true, "jungle", Blocks.planks, 3), null),
+	WALL_SIGN_JUNGLE(ConfigBlocksItems.enableSigns, new BlockWoodSign(TileEntityWoodSign.class, false, "jungle", Blocks.planks, 3), null),
+	SIGN_ACACIA(ConfigBlocksItems.enableSigns, new BlockWoodSign(TileEntityWoodSign.class, true, "acacia", Blocks.planks, 4), null),
+	WALL_SIGN_ACACIA(ConfigBlocksItems.enableSigns, new BlockWoodSign(TileEntityWoodSign.class, false, "acacia", Blocks.planks, 4), null),
+	SIGN_DARK_OAK(ConfigBlocksItems.enableSigns, new BlockWoodSign(TileEntityWoodSign.class, true, "dark_oak", Blocks.planks, 5), null),
+	WALL_SIGN_DARK_OAK(ConfigBlocksItems.enableSigns, new BlockWoodSign(TileEntityWoodSign.class, false, "dark_oak", Blocks.planks, 5), null),
+
+	//new wood signs (instead of a separate ItemBlock we use the standing sign as the ItemBlock
+	CRIMSON_SIGN(ConfigBlocksItems.enableCrimsonBlocks, new BlockWoodSign(TileEntityWoodSign.class, true, "crimson", WOOD_PLANKS.get(), 0), ItemBlockSign.class),
+	CRIMSON_WALL_SIGN(ConfigBlocksItems.enableCrimsonBlocks, new BlockWoodSign(TileEntityWoodSign.class, false, "crimson", WOOD_PLANKS.get(), 0), null),
+	WARPED_SIGN(ConfigBlocksItems.enableWarpedBlocks, new BlockWoodSign(TileEntityWoodSign.class, true, "warped", WOOD_PLANKS.get(), 1), ItemBlockSign.class),
+	WARPED_WALL_SIGN(ConfigBlocksItems.enableWarpedBlocks, new BlockWoodSign(TileEntityWoodSign.class, false, "warped", WOOD_PLANKS.get(), 1), null),
+
+
 	WHITE_BED(ConfigBlocksItems.enableDyedBeds, new BlockDyedBed(0), ItemBlockDyedBed.class),
 	ORANGE_BED(ConfigBlocksItems.enableDyedBeds, new BlockDyedBed(1), ItemBlockDyedBed.class),
 	MAGENTA_BED(ConfigBlocksItems.enableDyedBeds, new BlockDyedBed(2), ItemBlockDyedBed.class),
@@ -306,7 +365,7 @@ public enum ModBlocks {
 	GREEN_BED(ConfigBlocksItems.enableDyedBeds, new BlockDyedBed(13), ItemBlockDyedBed.class),
 	BLACK_BED(ConfigBlocksItems.enableDyedBeds, new BlockDyedBed(15), ItemBlockDyedBed.class),
 
-	//Legacy blocks
+	//Legacy "classic" blocks
 
 	CRYING_OBSIDIAN(ConfigBlocksItems.enableCryingObsidian, new BaseBlock(Material.rock).setNames("crying_obsidian")
 			.setToolClass("pickaxe", 3).setHardness(50.0F).setResistance(2000.0F)),
@@ -325,16 +384,16 @@ public enum ModBlocks {
 	LIGHT(ConfigBlocksItems.enableLightBlock, new BlockLight()),
 	BARRIER(ConfigBlocksItems.enableBarrier, new BlockBarrier());
 
+	public static final ModBlocks[] DOORS = new ModBlocks[]{DOOR_SPRUCE, DOOR_BIRCH, DOOR_JUNGLE, DOOR_ACACIA, DOOR_DARK_OAK, CRIMSON_DOOR, WARPED_DOOR};
+	public static final ModBlocks[] FENCE_GATES = new ModBlocks[]{FENCE_GATE_SPRUCE, FENCE_GATE_BIRCH, FENCE_GATE_JUNGLE, FENCE_GATE_ACACIA, FENCE_GATE_DARK_OAK, CRIMSON_FENCE_GATE, WARPED_FENCE_GATE};
+	public static final ModBlocks[] PRESSURE_PLATES = new ModBlocks[]{PRESSURE_PLATE_SPRUCE, PRESSURE_PLATE_BIRCH, PRESSURE_PLATE_JUNGLE, PRESSURE_PLATE_ACACIA, PRESSURE_PLATE_DARK_OAK, CRIMSON_PRESSURE_PLATE, CRIMSON_PRESSURE_PLATE};
+	public static final ModBlocks[] BUTTONS = new ModBlocks[]{BUTTON_SPRUCE, BUTTON_BIRCH, BUTTON_JUNGLE, BUTTON_ACACIA, BUTTON_DARK_OAK, CRIMSON_BUTTON, CRIMSON_BUTTON};
+	public static final ModBlocks[] TRAPDOORS = new ModBlocks[]{TRAPDOOR_SPRUCE, TRAPDOOR_BIRCH, TRAPDOOR_JUNGLE, TRAPDOOR_ACACIA, TRAPDOOR_DARK_OAK, CRIMSON_TRAPDOOR, CRIMSON_TRAPDOOR};
+
+	public static final ModBlocks[] FENCES = new ModBlocks[]{FENCE_SPRUCE, FENCE_BIRCH, FENCE_JUNGLE, FENCE_ACACIA, FENCE_DARK_OAK};
+
 	public static final ModBlocks[] BEDS = new ModBlocks[]{WHITE_BED, ORANGE_BED, MAGENTA_BED, LIGHT_BLUE_BED, YELLOW_BED, LIME_BED, PINK_BED, GRAY_BED, LIGHT_GRAY_BED, CYAN_BED,
 			PURPLE_BED, BLUE_BED, BROWN_BED, GREEN_BED, BLACK_BED};
-	public static final ModBlocks[] DOORS = new ModBlocks[]{DOOR_SPRUCE, DOOR_BIRCH, DOOR_JUNGLE, DOOR_ACACIA, DOOR_DARK_OAK};
-	public static final ModBlocks[] FENCE_GATES = new ModBlocks[]{FENCE_GATE_SPRUCE, FENCE_GATE_BIRCH, FENCE_GATE_JUNGLE, FENCE_GATE_ACACIA, FENCE_GATE_DARK_OAK};
-	public static final ModBlocks[] FENCES = new ModBlocks[]{FENCE_SPRUCE, FENCE_BIRCH, FENCE_JUNGLE, FENCE_ACACIA, FENCE_DARK_OAK};
-	public static final ModBlocks[] PRESSURE_PLATES = new ModBlocks[]{PRESSURE_PLATE_SPRUCE, PRESSURE_PLATE_BIRCH, PRESSURE_PLATE_JUNGLE, PRESSURE_PLATE_ACACIA, PRESSURE_PLATE_DARK_OAK};
-	public static final ModBlocks[] BUTTONS = new ModBlocks[]{BUTTON_SPRUCE, BUTTON_BIRCH, BUTTON_JUNGLE, BUTTON_ACACIA, BUTTON_DARK_OAK};
-	public static final ModBlocks[] TRAPDOORS = new ModBlocks[]{TRAPDOOR_SPRUCE, TRAPDOOR_BIRCH, TRAPDOOR_JUNGLE, TRAPDOOR_ACACIA, TRAPDOOR_DARK_OAK};
-	public static final ModBlocks[] WALL_SIGNS = new ModBlocks[]{WALL_SIGN_SPRUCE, WALL_SIGN_BIRCH, WALL_SIGN_JUNGLE, WALL_SIGN_ACACIA, WALL_SIGN_DARK_OAK};
-	public static final ModBlocks[] STANDING_SIGNS = new ModBlocks[]{SIGN_SPRUCE, SIGN_BIRCH, SIGN_JUNGLE, SIGN_ACACIA, SIGN_DARK_OAK};
 	public static final ModBlocks[] TERRACOTTA = new ModBlocks[]{WHITE_GLAZED_TERRACOTTA, ORANGE_GLAZED_TERRACOTTA, MAGENTA_GLAZED_TERRACOTTA, LIGHT_BLUE_GLAZED_TERRACOTTA,
 			YELLOW_GLAZED_TERRACOTTA, LIME_GLAZED_TERRACOTTA, PINK_GLAZED_TERRACOTTA, GRAY_GLAZED_TERRACOTTA, LIGHT_GRAY_GLAZED_TERRACOTTA, CYAN_GLAZED_TERRACOTTA,
 			PURPLE_GLAZED_TERRACOTTA, BLUE_GLAZED_TERRACOTTA, BROWN_GLAZED_TERRACOTTA, GREEN_GLAZED_TERRACOTTA, RED_GLAZED_TERRACOTTA, BLACK_GLAZED_TERRACOTTA};
@@ -392,7 +451,7 @@ public enum ModBlocks {
 				block instanceof ISubBlocksBlock && !(block instanceof BaseSlab) ? BaseItemBlock.class
 						: block instanceof BaseSlab ? BaseSlabItemBlock.class
 						: block instanceof BaseWall ? BaseWallItemBlock.class
-						: block instanceof BaseFlower ? BaseFlowerItemBlock.class
+						: block instanceof BaseFlower ? BasePotableItemBlock.class
 						: null);
 		hasItemBlock = true;
 	}
@@ -417,6 +476,10 @@ public enum ModBlocks {
 
 	public Class<? extends ItemBlock> getItemBlock() {
 		return itemBlock;
+	}
+
+	public Item getItem() {
+		return Item.getItemFromBlock(get());
 	}
 
 	public boolean isEnabled() {

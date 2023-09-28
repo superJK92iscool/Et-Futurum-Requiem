@@ -1,6 +1,7 @@
 package ganymedes01.etfuturum;
 
 import cpw.mods.fml.common.registry.GameRegistry;
+import ganymedes01.etfuturum.blocks.BlockWoodSign;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigEntities;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
@@ -60,12 +61,6 @@ public enum ModItems {
 	HONEYCOMB(ConfigBlocksItems.enableHoney, new BaseItem("honeycomb")),
 	HONEY_BOTTLE(ConfigBlocksItems.enableHoney, new ItemHoneyBottle()),
 
-	ITEM_SIGN_SPRUCE(ConfigBlocksItems.enableSigns, new ItemWoodSign(1)),
-	ITEM_SIGN_BIRCH(ConfigBlocksItems.enableSigns, new ItemWoodSign(2)),
-	ITEM_SIGN_JUNGLE(ConfigBlocksItems.enableSigns, new ItemWoodSign(3)),
-	ITEM_SIGN_ACACIA(ConfigBlocksItems.enableSigns, new ItemWoodSign(4)),
-	ITEM_SIGN_DARK_OAK(ConfigBlocksItems.enableSigns, new ItemWoodSign(5)),
-
 	OAK_BOAT(ConfigBlocksItems.enableNewBoats && !ConfigBlocksItems.replaceOldBoats, new ItemNewBoat(EntityNewBoat.Type.OAK, false)),
 	OAK_CHEST_BOAT(ConfigBlocksItems.enableNewBoats, new ItemNewBoat(EntityNewBoat.Type.OAK, true)),
 	SPRUCE_BOAT(ConfigBlocksItems.enableNewBoats, new ItemNewBoat(EntityNewBoat.Type.SPRUCE, false)),
@@ -78,6 +73,13 @@ public enum ModItems {
 	ACACIA_CHEST_BOAT(ConfigBlocksItems.enableNewBoats, new ItemNewBoat(EntityNewBoat.Type.ACACIA, true)),
 	DARK_OAK_BOAT(ConfigBlocksItems.enableNewBoats, new ItemNewBoat(EntityNewBoat.Type.DARK_OAK, false)),
 	DARK_OAK_CHEST_BOAT(ConfigBlocksItems.enableNewBoats, new ItemNewBoat(EntityNewBoat.Type.DARK_OAK, true)),
+
+	//legacy sign items -- new signs use their ItemBlock at the sign item instead
+	ITEM_SIGN_SPRUCE(ConfigBlocksItems.enableSigns, new ItemWoodSign((BlockWoodSign) ModBlocks.SIGN_SPRUCE.get())),
+	ITEM_SIGN_BIRCH(ConfigBlocksItems.enableSigns, new ItemWoodSign((BlockWoodSign) ModBlocks.SIGN_BIRCH.get())),
+	ITEM_SIGN_JUNGLE(ConfigBlocksItems.enableSigns, new ItemWoodSign((BlockWoodSign) ModBlocks.SIGN_JUNGLE.get())),
+	ITEM_SIGN_ACACIA(ConfigBlocksItems.enableSigns, new ItemWoodSign((BlockWoodSign) ModBlocks.SIGN_ACACIA.get())),
+	ITEM_SIGN_DARK_OAK(ConfigBlocksItems.enableSigns, new ItemWoodSign((BlockWoodSign) ModBlocks.SIGN_DARK_OAK.get())),
 
 	DEBUGGING_TOOL(EtFuturum.TESTING && EtFuturum.DEV_ENVIRONMENT, new DebugTestItem());
 

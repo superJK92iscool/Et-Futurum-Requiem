@@ -1,5 +1,7 @@
 package ganymedes01.etfuturum.core.handlers;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.eventhandler.EventPriority;
@@ -21,6 +23,7 @@ import ganymedes01.etfuturum.blocks.BlockMagma;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.*;
 import ganymedes01.etfuturum.core.utils.ExternalContent;
+import ganymedes01.etfuturum.core.utils.ItemStackSet;
 import ganymedes01.etfuturum.elytra.IElytraEntityTrackerEntry;
 import ganymedes01.etfuturum.elytra.IElytraPlayer;
 import ganymedes01.etfuturum.entities.*;
@@ -72,6 +75,7 @@ import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.event.FuelBurnTimeEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
@@ -1707,6 +1711,38 @@ public class ServerEventHandler {
 
 		if (ConfigMixins.enableDoWeatherCycle && e.phase == TickEvent.Phase.END && e.side == Side.SERVER) {
 			DoWeatherCycleHelper.INSTANCE.isWorldTickInProgress = false;
+		}
+	}
+
+	private final Map<Item, List<Integer>> NO_BURN_ITEMS = Maps.newHashMap();
+
+	@SubscribeEvent
+	public void fuelBurnTime(FuelBurnTimeEvent e) {
+		if (NO_BURN_ITEMS.isEmpty()) {
+			NO_BURN_ITEMS.put(ModBlocks.WOOD_PLANKS.getItem(), Lists.newArrayList(0, 1));
+			NO_BURN_ITEMS.put(ModBlocks.WOOD_FENCE.getItem(), Lists.newArrayList(0, 1));
+			NO_BURN_ITEMS.put(ModBlocks.WOOD_SLAB.getItem(), Lists.newArrayList(0, 1, 8, 9));
+
+			NO_BURN_ITEMS.put(ModBlocks.CRIMSON_STEM.getItem(), Lists.newArrayList(OreDictionary.WILDCARD_VALUE));
+			NO_BURN_ITEMS.put(ModBlocks.WARPED_STEM.getItem(), Lists.newArrayList(OreDictionary.WILDCARD_VALUE));
+			NO_BURN_ITEMS.put(ModBlocks.CRIMSON_STAIRS.getItem(), Lists.newArrayList(OreDictionary.WILDCARD_VALUE));
+			NO_BURN_ITEMS.put(ModBlocks.WARPED_STAIRS.getItem(), Lists.newArrayList(OreDictionary.WILDCARD_VALUE));
+			NO_BURN_ITEMS.put(ModBlocks.CRIMSON_FENCE_GATE.getItem(), Lists.newArrayList(OreDictionary.WILDCARD_VALUE));
+			NO_BURN_ITEMS.put(ModBlocks.WARPED_FENCE_GATE.getItem(), Lists.newArrayList(OreDictionary.WILDCARD_VALUE));
+			NO_BURN_ITEMS.put(ModBlocks.CRIMSON_BUTTON.getItem(), Lists.newArrayList(OreDictionary.WILDCARD_VALUE));
+			NO_BURN_ITEMS.put(ModBlocks.WARPED_BUTTON.getItem(), Lists.newArrayList(OreDictionary.WILDCARD_VALUE));
+			NO_BURN_ITEMS.put(ModBlocks.CRIMSON_PRESSURE_PLATE.getItem(), Lists.newArrayList(OreDictionary.WILDCARD_VALUE));
+			NO_BURN_ITEMS.put(ModBlocks.WARPED_PRESSURE_PLATE.getItem(), Lists.newArrayList(OreDictionary.WILDCARD_VALUE));
+			NO_BURN_ITEMS.put(ModBlocks.CRIMSON_DOOR.getItem(), Lists.newArrayList(OreDictionary.WILDCARD_VALUE));
+			NO_BURN_ITEMS.put(ModBlocks.WARPED_DOOR.getItem(), Lists.newArrayList(OreDictionary.WILDCARD_VALUE));
+			NO_BURN_ITEMS.put(ModBlocks.CRIMSON_TRAPDOOR.getItem(), Lists.newArrayList(OreDictionary.WILDCARD_VALUE));
+			NO_BURN_ITEMS.put(ModBlocks.WARPED_TRAPDOOR.getItem(), Lists.newArrayList(OreDictionary.WILDCARD_VALUE));
+		}
+		if (NO_BURN_ITEMS.containsKey(e.fuel.getItem())) {
+			if (NO_BURN_ITEMS.get(e.fuel.getItem()).contains(OreDictionary.WILDCARD_VALUE) || NO_BURN_ITEMS.get(e.fuel.getItem()).contains(e.fuel.getItemDamage())) {
+				e.burnTime = 0;
+				e.setResult(Result.DENY);
+			}
 		}
 	}
 

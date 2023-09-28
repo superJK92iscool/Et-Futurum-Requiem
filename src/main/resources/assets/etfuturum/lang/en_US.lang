@@ -327,13 +327,6 @@ item.etfuturum.netherite_sword.name=Netherite Sword
 item.etfuturum.netherite_hoe.name=Netherite Hoe
 potion.prefix.lingering=Lingering
 item.etfuturum.totem_of_undying.name=Totem of Undying
-item.etfuturum.item_sign_spruce.name=Spruce Sign
-item.etfuturum.item_sign_birch.name=Birch Sign
-item.etfuturum.item_sign_jungle.name=Jungle Sign
-item.etfuturum.item_sign_acacia.name=Acacia Sign
-item.etfuturum.item_sign_dark_oak.name=Dark Oak Sign
-item.etfuturum.item_sign_warped.name=Warped Sign
-item.etfuturum.item_sign_crimson.name=Crimson Sign
 item.etfuturum.white_dye.name=White Dye
 item.etfuturum.blue_dye.name=Blue Dye
 item.etfuturum.brown_dye.name=Brown Dye
@@ -417,21 +410,6 @@ tile.etfuturum.coarse_dirt.name=Coarse Dirt
 tile.etfuturum.slime.name=Slime Block
 tile.etfuturum.sponge.name=Sponge
 tile.etfuturum.wet_sponge.name=Wet Sponge
-tile.etfuturum.spruce_door.name=Spruce Door
-tile.etfuturum.birch_door.name=Birch Door
-tile.etfuturum.jungle_door.name=Jungle Door
-tile.etfuturum.acacia_door.name=Acacia Door
-tile.etfuturum.dark_oak_door.name=Dark Oak Door
-tile.etfuturum.fence_spruce.name=Spruce Fence
-tile.etfuturum.fence_birch.name=Birch Fence
-tile.etfuturum.fence_jungle.name=Jungle Fence
-tile.etfuturum.fence_acacia.name=Acacia Fence
-tile.etfuturum.fence_dark_oak.name=Dark Oak Fence
-tile.etfuturum.fence_gate_spruce.name=Spruce Fence Gate
-tile.etfuturum.fence_gate_birch.name=Birch Fence Gate
-tile.etfuturum.fence_gate_jungle.name=Jungle Fence Gate
-tile.etfuturum.fence_gate_acacia.name=Acacia Fence Gate
-tile.etfuturum.fence_gate_dark_oak.name=Dark Oak Fence Gate
 tile.etfuturum.old_gravel.name=Coarse Gravel
 tile.etfuturum.beetroots.name=Beetroots
 tile.etfuturum.purpur_block.name=Purpur Block
@@ -552,11 +530,27 @@ tile.etfuturum.large_amethyst_bud.name=Large Amethyst Bud
 tile.etfuturum.amethyst_cluster.name=Amethyst Cluster
 tile.etfuturum.chain.name=Chain
 
+tile.etfuturum.nether_wart_block.name=Nether Wart Block
+tile.etfuturum.warped_wart_block.name=Warped Wart Block
+
+tile.etfuturum.crimson_roots.name=Crimson Roots
+tile.etfuturum.warped_roots.name=Warped Roots
+
+tile.etfuturum.nether_sprouts.name=Nether Sprouts
+
+tile.etfuturum.crimson_fungus.name=Crimson Fungus
+tile.etfuturum.warped_fungus.name=Warped Fungus
+
+tile.etfuturum.crimson_nylium.name=Crimson Nylium
+tile.etfuturum.warped_nylium.name=Warped Nylium
+
+tile.etfuturum.weeping_vines.name=Weeping Vines
+tile.etfuturum.twisting_vines.name=Twisting Vines
+
 tile.etfuturum.sculk.name=Sculk
 tile.etfuturum.sculk_catalyst.name=Sculk Catalyst
 
 tile.etfuturum.magma.name=Magma Block
-tile.etfuturum.nether_wart.name=Nether Wart Block
 tile.etfuturum.bone.name=Bone Block
 
 tile.etfuturum.tinted_glass.name=Tinted Glass
@@ -589,12 +583,28 @@ tile.etfuturum.prismarine_slab.name=Prismarine Slab
 tile.etfuturum.prismarine_brick_slab.name=Prismarine Bricks Slab
 tile.etfuturum.dark_prismarine_slab.name=Dark Prismarine Slab
 
+
+tile.etfuturum.crimson_stem.name=Crimson Stem
+tile.etfuturum.warped_stem.name=Warped Stem
+
+tile.etfuturum.crimson_planks.name=Crimson Planks
+tile.etfuturum.warped_planks.name=Warped Planks
+
+tile.etfuturum.crimson_stairs.name=Crimson Stairs
+tile.etfuturum.warped_stairs.name=Warped Stairs
+
+tile.etfuturum.crimson_slab.name=Crimson Slab
+tile.etfuturum.warped_slab.name=Warped Slab
+
 tile.etfuturum.stripped_oak_log.name=Stripped Oak Log
 tile.etfuturum.stripped_spruce_log.name=Stripped Spruce Log
 tile.etfuturum.stripped_birch_log.name=Stripped Birch Log
 tile.etfuturum.stripped_jungle_log.name=Stripped Jungle Log
 tile.etfuturum.stripped_acacia_log.name=Stripped Acacia Log
 tile.etfuturum.stripped_dark_oak_log.name=Stripped Dark Oak Log
+
+tile.etfuturum.stripped_crimson_stem.name=Stripped Crimson Stem
+tile.etfuturum.stripped_warped_stem.name=Stripped Warped Stem
 
 tile.etfuturum.oak_wood.name=Oak Wood
 tile.etfuturum.spruce_wood.name=Spruce Wood
@@ -603,6 +613,9 @@ tile.etfuturum.jungle_wood.name=Jungle Wood
 tile.etfuturum.acacia_wood.name=Acacia Wood
 tile.etfuturum.dark_oak_wood.name=Dark Oak Wood
 
+tile.etfuturum.crimson_hyphae.name=Crimson Hyphae
+tile.etfuturum.warped_hyphae.name=Warped Hyphae
+
 tile.etfuturum.stripped_oak_wood.name=Stripped Oak Wood
 tile.etfuturum.stripped_spruce_wood.name=Stripped Spruce Wood
 tile.etfuturum.stripped_birch_wood.name=Stripped Birch Wood
@@ -610,23 +623,65 @@ tile.etfuturum.stripped_jungle_wood.name=Stripped Jungle Wood
 tile.etfuturum.stripped_acacia_wood.name=Stripped Acacia Wood
 tile.etfuturum.stripped_dark_oak_wood.name=Stripped Dark Oak Wood
 
-tile.etfuturum.trapdoor_spruce.name=Spruce Trapdoor
-tile.etfuturum.trapdoor_birch.name=Birch Trapdoor
-tile.etfuturum.trapdoor_jungle.name=Jungle Trapdoor
-tile.etfuturum.trapdoor_acacia.name=Acacia Trapdoor
-tile.etfuturum.trapdoor_dark_oak.name=Dark Oak Trapdoor
+tile.etfuturum.stripped_crimson_hyphae.name=Stripped Crimson Hyphae
+tile.etfuturum.stripped_warped_hyphae.name=Stripped Warped Hyphae
 
-tile.etfuturum.pressure_plate_spruce.name=Spruce Pressure Plate
-tile.etfuturum.pressure_plate_birch.name=Birch Pressure Plate
-tile.etfuturum.pressure_plate_jungle.name=Jungle Pressure Plate
-tile.etfuturum.pressure_plate_acacia.name=Acacia Pressure Plate
-tile.etfuturum.pressure_plate_dark_oak.name=Dark Oak Pressure Plate
+tile.etfuturum.spruce_fence.name=Spruce Fence
+tile.etfuturum.birch_fence.name=Birch Fence
+tile.etfuturum.jungle_fence.name=Jungle Fence
+tile.etfuturum.acacia_fence.name=Acacia Fence
+tile.etfuturum.dark_oak_fence.name=Dark Oak Fence
+tile.etfuturum.crimson_fence.name=Crimson Fence
+tile.etfuturum.warped_fence.name=Warped Fence
 
-tile.etfuturum.button_spruce.name=Spruce Button
-tile.etfuturum.button_birch.name=Birch Button
-tile.etfuturum.button_jungle.name=Jungle Button
-tile.etfuturum.button_acacia.name=Acacia Button
-tile.etfuturum.button_dark_oak.name=Dark Oak Button
+tile.etfuturum.spruce_fence_gate.name=Spruce Fence Gate
+tile.etfuturum.birch_fence_gate.name=Birch Fence Gate
+tile.etfuturum.jungle_fence_gate.name=Jungle Fence Gate
+tile.etfuturum.acacia_fence_gate.name=Acacia Fence Gate
+tile.etfuturum.dark_oak_fence_gate.name=Dark Oak Fence Gate
+tile.etfuturum.crimson_fence_gate.name=Crimson Fence Gate
+tile.etfuturum.warped_fence_gate.name=Warped Fence Gate
+
+tile.etfuturum.spruce_sign.name=Spruce Sign
+tile.etfuturum.birch_sign.name=Birch Sign
+tile.etfuturum.jungle_sign.name=Jungle Sign
+tile.etfuturum.acacia_sign.name=Acacia Sign
+tile.etfuturum.dark_oak_sign.name=Dark Oak Sign
+tile.etfuturum.warped_sign.name=Warped Sign
+tile.etfuturum.crimson_sign.name=Crimson Sign
+
+tile.etfuturum.spruce_door.name=Spruce Door
+tile.etfuturum.birch_door.name=Birch Door
+tile.etfuturum.jungle_door.name=Jungle Door
+tile.etfuturum.acacia_door.name=Acacia Door
+tile.etfuturum.dark_oak_door.name=Dark Oak Door
+tile.etfuturum.crimson_door.name=Crimson Door
+tile.etfuturum.warped_door.name=Warped Door
+
+tile.etfuturum.spruce_trapdoor.name=Spruce Trapdoor
+tile.etfuturum.birch_trapdoor.name=Birch Trapdoor
+tile.etfuturum.jungle_trapdoor.name=Jungle Trapdoor
+tile.etfuturum.acacia_trapdoor.name=Acacia Trapdoor
+tile.etfuturum.dark_oak_trapdoor.name=Dark Oak Trapdoor
+tile.etfuturum.crimson_trapdoor.name=Crimson Trapdoor
+tile.etfuturum.warped_trapdoor.name=Warped Trapdoor
+
+tile.etfuturum.spruce_pressure_plate.name=Spruce Pressure Plate
+tile.etfuturum.birch_pressure_plate.name=Birch Pressure Plate
+tile.etfuturum.jungle_pressure_plate.name=Jungle Pressure Plate
+tile.etfuturum.acacia_pressure_plate.name=Acacia Pressure Plate
+tile.etfuturum.dark_oak_pressure_plate.name=Dark Oak Pressure Plate
+tile.etfuturum.crimson_pressure_plate.name=Crimson Pressure Plate
+tile.etfuturum.warped_pressure_plate.name=Warped Pressure Plate
+
+tile.etfuturum.spruce_button.name=Spruce Button
+tile.etfuturum.birch_button.name=Birch Button
+tile.etfuturum.jungle_button.name=Jungle Button
+tile.etfuturum.acacia_button.name=Acacia Button
+tile.etfuturum.dark_oak_button.name=Dark Oak Button
+tile.etfuturum.crimson_button.name=Crimson Button
+tile.etfuturum.warped_button.name=Warped Button
+
 
 tile.etfuturum.white_glazed_terracotta.name=White Glazed Terracotta
 tile.etfuturum.orange_glazed_terracotta.name=Orange Glazed Terracotta

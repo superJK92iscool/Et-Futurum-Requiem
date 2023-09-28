@@ -12,7 +12,7 @@ public class RenderIDs {
 
 	public static final int LANTERN = RenderingRegistry.getNextAvailableRenderId();
 	public static final int BARREL = RenderingRegistry.getNextAvailableRenderId();
-	public static final int TRAP_DOOR = RenderingRegistry.getNextAvailableRenderId();
+	public static final int TRAPDOOR = RenderingRegistry.getNextAvailableRenderId();
 	public static final int GLAZED_TERRACOTTA = RenderingRegistry.getNextAvailableRenderId();
 	public static final int LAVA_CAULDRON = RenderingRegistry.getNextAvailableRenderId();
 	public static final int COLORED_CAULDRON = RenderingRegistry.getNextAvailableRenderId();
@@ -25,4 +25,7 @@ public class RenderIDs {
 	public static final int OBSERVER = RenderingRegistry.getNextAvailableRenderId();
 	public static final int HONEY_BLOCK = RenderingRegistry.getNextAvailableRenderId();
 	public static final int CHAIN = RenderingRegistry.getNextAvailableRenderId();
+
+	public static final int EXTENDED_CROSSED_SQUARES = RenderingRegistry.getNextAvailableRenderId();
+	public static final int FENCE = RenderingRegistry.getNextAvailableRenderId();
 }

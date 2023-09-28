@@ -2,9 +2,12 @@ package ganymedes01.etfuturum.blocks;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModItems;
+import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.recipes.ModRecipes;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockSign;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -15,43 +18,71 @@ import java.util.Random;
 
 public class BlockWoodSign extends BlockSign {
 
-	public final int meta;
+	protected static BlockWoodSign prevSign;
+	private BlockWoodSign wallSign;
+	private final BlockWoodSign standingSign;
+
+	private final Block baseBlock;
+	private final int meta;
+	public final String type;
+
 	public final boolean standing;
 
-	public BlockWoodSign(Class<?> p_i45426_1_, boolean p_i45426_2_, int i) {
+	public BlockWoodSign(Class<?> p_i45426_1_, boolean p_i45426_2_, String type, Block block, int meta) {
 		super(p_i45426_1_, p_i45426_2_);
-//      if(i >= 6) {
-//          EtFuturum.forceSetMaterial(this, EtFuturum.netherwood);
-//      }
-		setHarvestLevel("axe", 0);
+		this.meta = meta;
+		baseBlock = block;
+		this.type = type;
+		standing = p_i45426_2_;
+		if (standing) {
+			prevSign = this;
+			standingSign = this;
+		} else {
+			standingSign = prevSign;
+			wallSign = this;
+			prevSign.wallSign = this;
+		}
 		setHardness(1.0F);
 		disableStats();
-		setStepSound(soundTypeWood);
-		setBlockName(Utils.getUnlocalisedName((!p_i45426_2_ ? "wall_" : "") + "sign_" + ModRecipes.woodTypes[i]));
-		setCreativeTab(null);
-		standing = p_i45426_2_;
-		meta = i;
+		setBlockName(Utils.getUnlocalisedName(type + "_sign"));
+		if (type.equals("crimson") || type.equals("warped")) {
+			Utils.setBlockSound(this, ModSounds.soundNetherWood);
+		} else {
+			setStepSound(Block.soundTypeWood);
+		}
+		if (block != Blocks.planks && standing) { //Only apply this logic to new signs; old ones use a separate item.
+			setCreativeTab(EtFuturum.creativeTabBlocks);
+		}
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(int side, int _meta) {
-//      if(this.meta < 6)
-		return Blocks.planks.getIcon(side, this.meta);
-//      else
-//          return ModBlocks.nether_planks.getIcon(side, this.meta - 6);
+	public IIcon getIcon(int side, int meta) {
+		return baseBlock.getIcon(side, this.meta);
 	}
 
 	@Override
 	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_) {
-		return ModItems.ITEM_SIGNS[meta - 1].get();
+		if (baseBlock == Blocks.planks) {
+			return ModItems.ITEM_SIGNS[meta - 1].get();
+		}
+		//Only apply this logic to new signs; old ones use a separate item.
+		return Item.getItemFromBlock(standingSign);
 	}
 
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public Item getItem(World p_149694_1_, int p_149694_2_, int p_149694_3_, int p_149694_4_) {
-		return ModItems.ITEM_SIGNS[meta - 1].get();
+		return getItemDropped(0, null, 0);
 	}
 
+	public BlockWoodSign getWallSign() {
+		return wallSign;
+	}
+
+	@Override
+	public String getItemIconName() {
+		return type + "_sign";
+	}
 }

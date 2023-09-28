@@ -380,17 +380,35 @@ public class ClientEventHandler {
 			//We check what sound event to use by the pitch. These blocks fire 0.6F when turning on, and 0.5F when turning off. We use > 0.5F instead of == 0.6F to account for floating point precision.w
 			if (ConfigSounds.pressurePlateButton) {
 				// --- Wooden Button --- //
-				if (block instanceof BlockButton && (block.stepSound == Block.soundTypeWood || block.getClass().getSimpleName().toLowerCase().contains("wood")) && event.name.equals("random.click")) {
-					String s = Reference.MCAssetVer + ":block.wooden_button.click_" + (event.sound.getPitch() > 0.5F ? "on" : "off");
-					event.result = new PositionedSoundRecord(new ResourceLocation(s), 1, 1, soundX, soundY, soundZ);
+				if (block instanceof BlockButton && event.name.equals("random.click")) {
+					String s = null;
+					if (block.stepSound == Block.soundTypeWood) {
+						s = Reference.MCAssetVer + ":block.wooden_button.click";
+					} else if (block.stepSound == ModSounds.soundNetherWood) {
+						s = Reference.MCAssetVer + ":block.nether_wood_button.click";
+					}
+					if (s != null) {
+						event.result = new PositionedSoundRecord(new ResourceLocation(s + "_" + (event.sound.getPitch() > 0.5F ? "on" : "off")), 1, 1, soundX, soundY, soundZ);
+					}
 					return;
 				}
 
 				// --- Wooden/Metal Pressure plate --- //
-				if (block instanceof BlockBasePressurePlate && (block.getMaterial() == Material.wood || block.getMaterial() == Material.iron) && event.name.equals("random.click")) {
+				if (block instanceof BlockBasePressurePlate && event.name.equals("random.click")) {
 					String material = block.getMaterial() == Material.wood ? "wooden" : "metal";
-					String s = Reference.MCAssetVer + ":block." + material + "_pressure_plate.click_" + (event.sound.getPitch() > 0.5F ? "on" : "off");
-					event.result = new PositionedSoundRecord(new ResourceLocation(s), 1, 1, soundX, soundY, soundZ);
+
+					String s = null;
+					if (block.stepSound == Block.soundTypeMetal) {
+						s = Reference.MCAssetVer + ":block.metal_pressure_plate.click";
+					} else if (block.stepSound == Block.soundTypeWood) {
+						s = Reference.MCAssetVer + ":block.wooden_pressure_plate.click";
+					} else if (block.stepSound == ModSounds.soundNetherWood) {
+						s = Reference.MCAssetVer + ":block.nether_wood_pressure_plate.click";
+					}
+
+					if (s != null) {
+						event.result = new PositionedSoundRecord(new ResourceLocation(s + "_" + (event.sound.getPitch() > 0.5F ? "on" : "off")), 1, 1, soundX, soundY, soundZ);
+					}
 					return;
 				}
 			}
@@ -494,6 +512,43 @@ public class ClientEventHandler {
 		}
 	}
 
+	private String getReplacementDoorSound(Block block, String string) {
+		Random random = new Random();
+		String closeOrOpen = random.nextBoolean() ? "open" : "close";
+		if (block instanceof BlockDoor) {
+			if (block.getMaterial() == Material.wood) {
+				if (block.stepSound == ModSounds.soundNetherWood) {
+					return Reference.MCAssetVer + ":block.nether_wood_door." + closeOrOpen;
+				}
+				return Reference.MCAssetVer + ":block.wooden_door." + closeOrOpen;
+			} else if (block.getMaterial() == Material.iron) {
+				return Reference.MCAssetVer + ":block.iron_door." + closeOrOpen;
+			}
+		}
+
+		if (block instanceof BlockTrapDoor) {
+			if (block.getMaterial() == Material.wood) {
+				if (block.stepSound == ModSounds.soundNetherWood) {
+					return Reference.MCAssetVer + ":block.nether_wood_trapdoor." + closeOrOpen;
+				}
+				return Reference.MCAssetVer + ":block.wooden_trapdoor." + closeOrOpen;
+			} else if (block.getMaterial() == Material.iron) {
+				return Reference.MCAssetVer + ":block.iron_trapdoor." + closeOrOpen;
+			}
+		}
+
+		if (block instanceof BlockFenceGate) {
+			if (block.getMaterial() == Material.wood) {
+				if (block.stepSound == ModSounds.soundNetherWood) {
+					return Reference.MCAssetVer + ":block.nether_wood_fence_gate." + closeOrOpen;
+				}
+				return Reference.MCAssetVer + ":block.fence_gate." + closeOrOpen;
+			}
+		}
+
+		return string;
+	}
+
 	private static final String ignore_suffix = "$etfuturum:ignore";
 
 	@SideOnly(Side.CLIENT)
@@ -585,28 +640,6 @@ public class ClientEventHandler {
 				AMETHYST_CHIME_CACHE.put(entity, pair);
 			}
 		}
-	}
-
-	private String getReplacementDoorSound(Block block, String string) {
-		Random random = new Random();
-		String closeOrOpen = random.nextBoolean() ? "open" : "close";
-		if (block instanceof BlockDoor)
-			if (block.getMaterial() == Material.wood/* || block.getMaterial() == EtFuturum.netherwood */)
-				return Reference.MCAssetVer + ":block.wooden_door." + closeOrOpen;
-			else if (block.getMaterial() == Material.iron)
-				return Reference.MCAssetVer + ":block.iron_door." + closeOrOpen;
-
-		if (block instanceof BlockTrapDoor)
-			if (block.getMaterial() == Material.wood/* || block.getMaterial() == EtFuturum.netherwood */)
-				return Reference.MCAssetVer + ":block.wooden_trapdoor." + closeOrOpen;
-			else if (block.getMaterial() == Material.iron)
-				return Reference.MCAssetVer + ":block.iron_trapdoor." + closeOrOpen;
-
-		if (block instanceof BlockFenceGate)
-			if (block.getMaterial() == Material.wood/* || block.getMaterial() == EtFuturum.netherwood */)
-				return Reference.MCAssetVer + ":block.fence_gate." + closeOrOpen;
-
-		return string;
 	}
 
 	private float prevYOffset;

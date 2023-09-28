@@ -18,6 +18,7 @@ import ganymedes01.etfuturum.api.*;
 import ganymedes01.etfuturum.api.mappings.BasicMultiBlockSound;
 import ganymedes01.etfuturum.blocks.BlockSculk;
 import ganymedes01.etfuturum.blocks.BlockSculkCatalyst;
+import ganymedes01.etfuturum.blocks.BlockWoodSign;
 import ganymedes01.etfuturum.client.BuiltInResourcePack;
 import ganymedes01.etfuturum.client.DynamicSoundsResourcePack;
 import ganymedes01.etfuturum.client.GrayscaleWaterResourcePack;
@@ -35,6 +36,7 @@ import ganymedes01.etfuturum.configuration.configs.ConfigModCompat;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.proxy.CommonProxy;
 import ganymedes01.etfuturum.entities.ModEntityList;
+import ganymedes01.etfuturum.items.ItemWoodSign;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.network.*;
 import ganymedes01.etfuturum.potion.ModPotions;
@@ -128,9 +130,31 @@ public class EtFuturum {
 
 		@SideOnly(Side.CLIENT)
 		@Override
-		public void displayAllReleventItems(List p_78018_1_) {
-			p_78018_1_.add(new ItemStack(Blocks.mob_spawner));
-			super.displayAllReleventItems(p_78018_1_);
+		public void displayAllReleventItems(List list) {
+			list.add(new ItemStack(Blocks.mob_spawner));
+			super.displayAllReleventItems(list);
+
+			//Remove the sign items from the list; we'll add them back in a moment
+			Iterator<ItemStack> iterator = list.iterator();
+			while (iterator.hasNext()) {
+				ItemStack stack = iterator.next();
+				for (ModItems sign : ModItems.ITEM_SIGNS) {
+					if (stack.getItem() == sign.get()) {
+						iterator.remove();
+					}
+				}
+			}
+
+			//Add the sign items back but in a way so they are sorted by their block ID instead of their item ID.
+			//This allows them to be in the correct place instead of always at the bottom of the block ID list, since item IDs are always above block IDs
+			for (ModItems sign : ModItems.ITEM_SIGNS) {
+				for (ItemStack stack : (List<ItemStack>) list) {
+					if (Item.getIdFromItem(stack.getItem()) > Block.getIdFromBlock(((ItemWoodSign) sign.get()).getSignBlock())) {
+						list.add(list.indexOf(stack), sign.newItemStack());
+						break;
+					}
+				}
+			}
 		}
 	};
 
@@ -534,6 +558,38 @@ public class EtFuturum {
 			mbs.setTypes(1, ModSounds.soundWetSponge);
 			MultiBlockSoundRegistry.multiBlockSounds.put(ModBlocks.SPONGE.get(), mbs);
 		}
+
+		if (ModBlocks.WOOD_PLANKS.isEnabled()) {
+			BasicMultiBlockSound mbs = new BasicMultiBlockSound();
+			mbs.setTypes(0, ModSounds.soundNetherWood);
+			mbs.setTypes(1, ModSounds.soundNetherWood);
+			MultiBlockSoundRegistry.multiBlockSounds.put(ModBlocks.WOOD_PLANKS.get(), mbs);
+		}
+
+		if (ModBlocks.WOOD_FENCE.isEnabled()) {
+			BasicMultiBlockSound mbs = new BasicMultiBlockSound();
+			mbs.setTypes(0, ModSounds.soundNetherWood);
+			mbs.setTypes(1, ModSounds.soundNetherWood);
+			MultiBlockSoundRegistry.multiBlockSounds.put(ModBlocks.WOOD_FENCE.get(), mbs);
+		}
+
+		if (ModBlocks.WOOD_SLAB.isEnabled()) {
+			BasicMultiBlockSound mbs = new BasicMultiBlockSound();
+			mbs.setTypes(0, ModSounds.soundNetherWood);
+			mbs.setTypes(1, ModSounds.soundNetherWood);
+			mbs.setTypes(8, ModSounds.soundNetherWood);
+			mbs.setTypes(9, ModSounds.soundNetherWood);
+			MultiBlockSoundRegistry.multiBlockSounds.put(ModBlocks.WOOD_SLAB.get(), mbs);
+		}
+
+		if (ModBlocks.DOUBLE_WOOD_SLAB.isEnabled()) {
+			BasicMultiBlockSound mbs = new BasicMultiBlockSound();
+			mbs.setTypes(0, ModSounds.soundNetherWood);
+			mbs.setTypes(1, ModSounds.soundNetherWood);
+			mbs.setTypes(8, ModSounds.soundNetherWood);
+			mbs.setTypes(9, ModSounds.soundNetherWood);
+			MultiBlockSoundRegistry.multiBlockSounds.put(ModBlocks.DOUBLE_WOOD_SLAB.get(), mbs);
+		}
 	}
 
 	/**
@@ -896,16 +952,6 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "block.chest.close", "block");
 		config.addSoundEvent(ver, "block.ender_chest.open", "block");
 		config.addSoundEvent(ver, "block.ender_chest.close", "block");
-		config.addSoundEvent(ver, "block.wooden_door.open", "block");
-		config.addSoundEvent(ver, "block.wooden_door.close", "block");
-		config.addSoundEvent(ver, "block.iron_door.open", "block");
-		config.addSoundEvent(ver, "block.iron_door.close", "block");
-		config.addSoundEvent(ver, "block.wooden_trapdoor.open", "block");
-		config.addSoundEvent(ver, "block.wooden_trapdoor.close", "block");
-		config.addSoundEvent(ver, "block.iron_trapdoor.open", "block");
-		config.addSoundEvent(ver, "block.iron_trapdoor.close", "block");
-		config.addSoundEvent(ver, "block.fence_gate.open", "block");
-		config.addSoundEvent(ver, "block.fence_gate.close", "block");
 		config.addSoundEvent(ver, "block.composter.empty", "block");
 		config.addSoundEvent(ver, "block.composter.fill", "block");
 		config.addSoundEvent(ver, "block.composter.fill_success", "block");
@@ -914,12 +960,6 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "block.amethyst_block.chime", "block");
 		config.addSoundEvent(ver, "block.smithing_table.use", "player");
 		config.addSoundEvent(ver, "block.enchantment_table.use", "player");
-		config.addSoundEvent(ver, "block.wooden_button.click_off", "block");
-		config.addSoundEvent(ver, "block.wooden_button.click_on", "block");
-		config.addSoundEvent(ver, "block.wooden_pressure_plate.click_off", "block");
-		config.addSoundEvent(ver, "block.wooden_pressure_plate.click_on", "block");
-		config.addSoundEvent(ver, "block.metal_pressure_plate.click_off", "block");
-		config.addSoundEvent(ver, "block.metal_pressure_plate.click_on", "block");
 		config.addSoundEvent(ver, "block.beacon.activate", "block");
 		config.addSoundEvent(ver, "block.beacon.ambient", "block");
 		config.addSoundEvent(ver, "block.beacon.deactivate", "block");
@@ -931,6 +971,37 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "block.beehive.work", "neutral");
 		config.addSoundEvent(ver, "block.beehive.shear", "player");
 		config.addSoundEvent(ver, "block.sponge.absorb", "block");
+
+		config.addSoundEvent(ver, "block.fence_gate.open", "block");
+		config.addSoundEvent(ver, "block.fence_gate.close", "block");
+		config.addSoundEvent(ver, "block.nether_wood_fence_gate.open", "block");
+		config.addSoundEvent(ver, "block.nether_wood_fence_gate.close", "block");
+
+		config.addSoundEvent(ver, "block.wooden_door.open", "block");
+		config.addSoundEvent(ver, "block.wooden_door.close", "block");
+		config.addSoundEvent(ver, "block.nether_wood_door.open", "block");
+		config.addSoundEvent(ver, "block.nether_wood_door.close", "block");
+		config.addSoundEvent(ver, "block.iron_door.open", "block");
+		config.addSoundEvent(ver, "block.iron_door.close", "block");
+
+		config.addSoundEvent(ver, "block.wooden_trapdoor.open", "block");
+		config.addSoundEvent(ver, "block.wooden_trapdoor.close", "block");
+		config.addSoundEvent(ver, "block.nether_wood_trapdoor.open", "block");
+		config.addSoundEvent(ver, "block.nether_wood_trapdoor.close", "block");
+		config.addSoundEvent(ver, "block.iron_trapdoor.open", "block");
+		config.addSoundEvent(ver, "block.iron_trapdoor.close", "block");
+
+		config.addSoundEvent(ver, "block.wooden_button.click_off", "block");
+		config.addSoundEvent(ver, "block.wooden_button.click_on", "block");
+		config.addSoundEvent(ver, "block.nether_wood_button.click_off", "block");
+		config.addSoundEvent(ver, "block.nether_wood_button.click_on", "block");
+
+		config.addSoundEvent(ver, "block.wooden_pressure_plate.click_off", "block");
+		config.addSoundEvent(ver, "block.wooden_pressure_plate.click_on", "block");
+		config.addSoundEvent(ver, "block.nether_wood_pressure_plate.click_off", "block");
+		config.addSoundEvent(ver, "block.nether_wood_pressure_plate.click_on", "block");
+		config.addSoundEvent(ver, "block.metal_pressure_plate.click_off", "block");
+		config.addSoundEvent(ver, "block.metal_pressure_plate.click_on", "block");
 
 		//Automatically register block sounds for AssetDirector, but only if they contain the MC version (which means it needs to be registered here)
 		//Then we remove the mc version prefix and register that sound.

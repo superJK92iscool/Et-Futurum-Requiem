@@ -327,13 +327,6 @@ item.etfuturum.netherite_sword.name=Netheritschwert
 item.etfuturum.netherite_hoe.name=Netherithacke
 potion.prefix.lingering=Verweil || TRANSLATION IN PROGRESS
 item.etfuturum.totem_of_undying.name=Totem der Unsterblichkeit
-item.etfuturum.item_sign_spruce.name=Fichtenholzschild
-item.etfuturum.item_sign_birch.name=Birkenholzschild
-item.etfuturum.item_sign_jungle.name=Tropenholzschild
-item.etfuturum.item_sign_acacia.name=Akazienholzschild
-item.etfuturum.item_sign_dark_oak.name=Schwarzeichenholzschild
-item.etfuturum.item_sign_warped.name=Wirrschild
-item.etfuturum.item_sign_crimson.name=Karmesinschild
 item.etfuturum.dye_white.name=Weißer Farbstoff
 item.etfuturum.dye_blue.name=Blauer Farbstoff
 item.etfuturum.dye_brown.name=Brauner Farbstoff
@@ -415,21 +408,21 @@ tile.etfuturum.coarse_dirt.name=Grobe Erde
 tile.etfuturum.slime.name=Schleimblock
 tile.etfuturum.sponge.name=Schwamm
 tile.etfuturum.sponge_wet.name=Nasser Schwamm
-tile.etfuturum.door_spruce.name=Fichtenholztür
-tile.etfuturum.door_birch.name=Birkenholztür
-tile.etfuturum.door_jungle.name=Tropenholztür
-tile.etfuturum.door_acacia.name=Akazienholztür
-tile.etfuturum.door_dark_oak.name=Schwarzeichenholztür
-tile.etfuturum.fence_spruce.name=Fichtenholzzaun
-tile.etfuturum.fence_birch.name=Birkenholzzaun
-tile.etfuturum.fence_jungle.name=Tropenholzzaun
-tile.etfuturum.fence_acacia.name=Akazienholzzaun
-tile.etfuturum.fence_dark_oak.name=Schwarzeichenholzzaun
-tile.etfuturum.fence_gate_spruce.name=Fichtenholzzauntor
-tile.etfuturum.fence_gate_birch.name=Birkenholzzauntor
-tile.etfuturum.fence_gate_jungle.name=Tropenholzzauntor
-tile.etfuturum.fence_gate_acacia.name=Akazienholzzauntor
-tile.etfuturum.fence_gate_dark_oak.name=Schwarzeichenholzzauntor
+tile.etfuturum.spruce_door.name=Fichtenholztür
+tile.etfuturum.birch_door.name=Birkenholztür
+tile.etfuturum.jungle_door.name=Tropenholztür
+tile.etfuturum.acacia_door.name=Akazienholztür
+tile.etfuturum.dark_oak_door.name=Schwarzeichenholztür
+tile.etfuturum.spruce_fence.name=Fichtenholzzaun
+tile.etfuturum.birch_fence.name=Birkenholzzaun
+tile.etfuturum.jungle_fence.name=Tropenholzzaun
+tile.etfuturum.acacia_fence.name=Akazienholzzaun
+tile.etfuturum.dark_oak_fence.name=Schwarzeichenholzzaun
+tile.etfuturum.spruce_fence_gate.name=Fichtenholzzauntor
+tile.etfuturum.birch_fence_gate.name=Birkenholzzauntor
+tile.etfuturum.jungle_fence_gate.name=Tropenholzzauntor
+tile.etfuturum.acacia_fence_gate.name=Akazienholzzauntor
+tile.etfuturum.dark_oak_fence_gate.name=Schwarzeichenholzzauntor
 tile.etfuturum.old_gravel.name=Alter Kies
 tile.etfuturum.beetroots.name=Rote Bete
 tile.etfuturum.purpur_block.name=Purpurblock
@@ -556,11 +549,12 @@ tile.etfuturum.medium_amethyst_bud.name=Mittlere Amethystknospe
 tile.etfuturum.large_amethyst_bud.name=Große Amethystknospe
 tile.etfuturum.amethyst_cluster.name=Amethysthaufen
 
+tile.etfuturum.nether_wart_block.name=Netherwarzenblock
+
 tile.etfuturum.sculk.name=Sculk
 tile.etfuturum.sculk_catalyst.name=Sculk-Katalysator
 
 tile.etfuturum.magma.name=Magmablock
-tile.etfuturum.nether_wart.name=Netherwarzenblock
 tile.etfuturum.bone.name=Knochenblock
 
 tile.etfuturum.prismarine_stairs.name=Prismarintreppe
@@ -571,107 +565,52 @@ tile.etfuturum.rough_prismarine_slab.name=Prismarinstufe
 tile.etfuturum.brick_prismarine_slab.name=Prismarinziegelstufe
 tile.etfuturum.dark_prismarine_slab.name=Dunkle Prismarinstufe
 
-tile.etfuturum.log_stripped_0.name=Entrindeter Eichenstamm
-tile.etfuturum.log_stripped_1.name=Entrindeter Fichtenstamm
-tile.etfuturum.log_stripped_2.name=Entrindeter Birkenstamm
-tile.etfuturum.log_stripped_3.name=Entrindeter Tropenbaumstamm
-tile.etfuturum.log2_stripped_0.name=Entrindeter Akazienstamm
-tile.etfuturum.log2_stripped_1.name=Entrindeter Schwarzeichenstamm
+tile.etfuturum.stripped_oak_log.name=Entrindeter Eichenstamm
+tile.etfuturum.stripped_spruce_log.name=Entrindeter Fichtenstamm
+tile.etfuturum.stripped_birch_log.name=Entrindeter Birkenstamm
+tile.etfuturum.stripped_jungle_log.name=Entrindeter Tropenbaumstamm
+tile.etfuturum.stripped_acacia_log.name=Entrindeter Akazienstamm
+tile.etfuturum.stripped_dark_oak_log.name=Entrindeter Schwarzeichenstamm
 
-tile.etfuturum.trapdoor_spruce.name=Fichtenholzfalltür
-tile.etfuturum.trapdoor_birch.name=Birkenholzfalltür
-tile.etfuturum.trapdoor_jungle.name=Tropenholzfalltür
-tile.etfuturum.trapdoor_acacia.name=Akazienholzfalltür
-tile.etfuturum.trapdoor_dark_oak.name=Schwarzeichenholzfalltür
+tile.etfuturum.spruce_sign.name=Fichtenholzschild
+tile.etfuturum.birch_sign.name=Birkenholzschild
+tile.etfuturum.jungle_sign.name=Tropenholzschild
+tile.etfuturum.acacia_sign.name=Akazienholzschild
+tile.etfuturum.dark_oak_sign.name=Schwarzeichenholzschild
+tile.etfuturum.warped_sign.name=Wirrschild
+tile.etfuturum.crimson_sign.name=Karmesinschild
 
-tile.etfuturum.pressure_plate_spruce.name=Fichtenholzdruckplatte
-tile.etfuturum.pressure_plate_birch.name=Birkenholzdruckplatte
-tile.etfuturum.pressure_plate_jungle.name=Tropenholzdruckplatte
-tile.etfuturum.pressure_plate_acacia.name=Akazienholzdruckplatte
-tile.etfuturum.pressure_plate_dark_oak.name=Schwarzeichenholzdruckplatte
+tile.etfuturum.spruce_trapdoor.name=Fichtenholzfalltür
+tile.etfuturum.birch_trapdoor.name=Birkenholzfalltür
+tile.etfuturum.jungle_trapdoor.name=Tropenholzfalltür
+tile.etfuturum.acacia_trapdoor.name=Akazienholzfalltür
+tile.etfuturum.dark_oak_trapdoor.name=Schwarzeichenholzfalltür
 
-tile.etfuturum.button_spruce.name=Fichtenholzknopf
-tile.etfuturum.button_birch.name=Birkenholzknopf
-tile.etfuturum.button_jungle.name=Tropenholzknopf
-tile.etfuturum.button_acacia.name=Akazienholzknopf
-tile.etfuturum.button_dark_oak.name=Schwarzeichenholzknopf
+tile.etfuturum.spruce_pressure_plate.name=Fichtenholzdruckplatte
+tile.etfuturum.birch_pressure_plate.name=Birkenholzdruckplatte
+tile.etfuturum.jungle_pressure_plate.name=Tropenholzdruckplatte
+tile.etfuturum.acacia_pressure_plate.name=Akazienholzdruckplatte
+tile.etfuturum.dark_oak_pressure_plate.name=Schwarzeichenholzdruckplatte
 
-tile.etfuturum.bark_0.name=Eichenholz
-tile.etfuturum.bark_1.name=Fichtenholz
-tile.etfuturum.bark_2.name=Birkenholz
-tile.etfuturum.bark_3.name=Tropenholz
+tile.etfuturum.spruce_button.name=Fichtenholzknopf
+tile.etfuturum.birch_button.name=Birkenholzknopf
+tile.etfuturum.jungle_button.name=Tropenholzknopf
+tile.etfuturum.acacia_button.name=Akazienholzknopf
+tile.etfuturum.dark_oak_button.name=Schwarzeichenholzknopf
 
-tile.etfuturum.bark2_0.name=Akazienholz
-tile.etfuturum.bark2_1.name=Schwarzeichenholz
+tile.etfuturum.oak_wood.name=Eichenholz
+tile.etfuturum.spruce_wood.name=Fichtenholz
+tile.etfuturum.birch_wood.name=Birkenholz
+tile.etfuturum.jungle_wood.name=Tropenholz
+tile.etfuturum.acacia_wood.name=Akazienholz
+tile.etfuturum.dark_oak_wood.name=Schwarzeichenholz
 
-tile.etfuturum.wood_stripped_0.name=Entrindetes Eichenholz
-tile.etfuturum.wood_stripped_1.name=Entrindetes Fichtenholz
-tile.etfuturum.wood_stripped_2.name=Entrindetes Birkenholz
-tile.etfuturum.wood_stripped_3.name=Entrindetes Tropenholz
-
-tile.etfuturum.wood2_stripped_0.name=Entrindetes Akazienholz
-tile.etfuturum.wood2_stripped_1.name=Entrindetes Schwarzeichenholz
-
-# tue so, als müssten diese hier für WAILA nicht existieren
-tile.etfuturum.log_stripped_4.name=Entrindeter Eichenstamm
-tile.etfuturum.log_stripped_5.name=Entrindeter Fichtenstamm
-tile.etfuturum.log_stripped_6.name=Entrindeter Birkenstamm
-tile.etfuturum.log_stripped_7.name=Entrindeter Tropenbaumstamm
-tile.etfuturum.log_stripped_8.name=Entrindeter Eichenstamm
-tile.etfuturum.log_stripped_9.name=Entrindeter Fichtenstamm
-tile.etfuturum.log_stripped_10.name=Entrindeter Birkenstamm
-tile.etfuturum.log_stripped_11.name=Entrindeter Tropenbaumstamm
-tile.etfuturum.log_stripped_12.name=Entrindeter Eichenstamm
-tile.etfuturum.log_stripped_13.name=Entrindeter Fichtenstamm
-tile.etfuturum.log_stripped_14.name=Entrindeter Birkenstamm
-tile.etfuturum.log_stripped_15.name=Entrindeter Tropenbaumstamm
-
-tile.etfuturum.log2_stripped_4.name=Entrindeter Akazienstamm
-tile.etfuturum.log2_stripped_5.name=Entrindeter Schwarzeichenstamm
-tile.etfuturum.log2_stripped_8.name=Entrindeter Akazienstamm
-tile.etfuturum.log2_stripped_9.name=Entrindeter Schwarzeichenstamm
-tile.etfuturum.log2_stripped_12.name=Entrindeter Akazienstamm
-tile.etfuturum.log2_stripped_13.name=Entrindeter Schwarzeichenstamm
-
-tile.etfuturum.bark_4.name=Eichenholz
-tile.etfuturum.bark_5.name=Fichtenholz
-tile.etfuturum.bark_6.name=Birkenholz
-tile.etfuturum.bark_7.name=Tropenholz
-tile.etfuturum.bark_8.name=Eichenholz
-tile.etfuturum.bark_9.name=Fichtenholz
-tile.etfuturum.bark_10.name=Birkenholz
-tile.etfuturum.bark_11.name=Tropenholz
-tile.etfuturum.bark_12.name=Eichenholz
-tile.etfuturum.bark_13.name=Fichtenholz
-tile.etfuturum.bark_14.name=Birkenholz
-tile.etfuturum.bark_15.name=Tropenholz
-
-tile.etfuturum.bark2_4.name=Akazienholz
-tile.etfuturum.bark2_5.name=Schwarzeichenholz
-tile.etfuturum.bark2_8.name=Akazienholz
-tile.etfuturum.bark2_9.name=Schwarzeichenholz
-tile.etfuturum.bark2_12.name=Akazienholz
-tile.etfuturum.bark2_13.name=Schwarzeichenholz
-
-tile.etfuturum.wood_stripped_4.name=Entrindetes Eichenholz
-tile.etfuturum.wood_stripped_5.name=Entrindetes Fichtenholz
-tile.etfuturum.wood_stripped_6.name=Entrindetes Birkenholz
-tile.etfuturum.wood_stripped_7.name=Entrindetes Tropenholz
-tile.etfuturum.wood_stripped_8.name=Entrindetes Eichenholz
-tile.etfuturum.wood_stripped_9.name=Entrindetes Fichtenholz
-tile.etfuturum.wood_stripped_10.name=Entrindetes Birkenholz
-tile.etfuturum.wood_stripped_11.name=Entrindetes Tropenholz
-tile.etfuturum.wood_stripped_12.name=Entrindetes Eichenholz
-tile.etfuturum.wood_stripped_13.name=Entrindetes Fichtenholz
-tile.etfuturum.wood_stripped_14.name=Entrindetes Birkenholz
-tile.etfuturum.wood_stripped_15.name=Entrindetes Tropenholz
-
-tile.etfuturum.wood2_stripped_4.name=Entrindetes Akazienholz
-tile.etfuturum.wood2_stripped_5.name=Entrindetes Schwarzeichenholz
-tile.etfuturum.wood2_stripped_8.name=Entrindetes Akazienholz
-tile.etfuturum.wood2_stripped_9.name=Entrindetes Schwarzeichenholz
-tile.etfuturum.wood2_stripped_12.name=Entrindetes Akazienholz
-tile.etfuturum.wood2_stripped_13.name=Entrindetes Schwarzeichenholz
+tile.etfuturum.stripped_oak_wood.name=Entrindetes Eichenholz
+tile.etfuturum.stripped_spruce_wood.name=Entrindetes Fichtenholz
+tile.etfuturum.stripped_birch_wood.name=Entrindetes Birkenholz
+tile.etfuturum.stripped_jungle_wood.name=Entrindetes Tropenholz
+tile.etfuturum.stripped_acacia_wood.name=Entrindetes Akazienholz
+tile.etfuturum.stripped_dark_oak_wood.name=Entrindetes Schwarzeichenholz
 
 
 tile.etfuturum.white_glazed_terracotta.name=Weiße glasierte Keramik

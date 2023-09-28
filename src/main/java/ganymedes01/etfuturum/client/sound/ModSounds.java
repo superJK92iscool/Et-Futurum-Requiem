@@ -22,7 +22,6 @@ public class ModSounds {
 		}
 	};
 	public static final SoundType soundLantern = new CustomSound("lantern", true).setDisabledSound(Block.soundTypeMetal);
-	public static final SoundType soundWartBlock = new CustomSound("wart_block").setDisabledSound(Block.soundTypeWood);
 	public static final SoundType soundSoulSand = new CustomSound("soul_sand").setDisabledSound(Block.soundTypeSand);
 	public static final SoundType soundNetherBricks = new CustomSound("nether_bricks");
 	public static final SoundType soundBoneBlock = new CustomSound("bone_block");
@@ -97,9 +96,15 @@ public class ModSounds {
 	public static final SoundType soundChain = new CustomSound("chain").setDisabledSound(Block.soundTypeMetal);
 	public static final SoundType soundSponge = new CustomSound("sponge").setDisabledSound(Block.soundTypeGrass);
 	public static final SoundType soundWetSponge = new CustomSound("wet_sponge").setDisabledSound(Block.soundTypeGrass);
-//  public static final SoundType soundNylium = new CustomSound("nylium");
-//  public static final SoundType soundHoneyBlock = new CustomSound("honey_block");
-//public static final SoundType soundShroomlight = new CustomSound("shroomlight");
+	public static final SoundType soundNylium = new CustomSound("nylium");
+	public static final SoundType soundNetherRoots = new CustomSound("roots").setDisabledSound(Block.soundTypeGrass);
+	public static final SoundType soundNetherSprouts = new CustomSound("nether_sprouts").setDisabledSound(Block.soundTypeGrass);
+	public static final SoundType soundWartBlock = new CustomSound("wart_block").setDisabledSound(Block.soundTypeWood);
+	public static final SoundType soundShroomlight = new CustomSound("shroomlight").setDisabledSound(Block.soundTypeWood);
+	public static final SoundType soundWeepingVines = new CustomSound("weeping_vines").setDisabledSound(Block.soundTypeGrass);
+	public static final SoundType soundStem = new CustomSound("stem").setDisabledSound(Block.soundTypeWood);
+	public static final SoundType soundFungus = new CustomSound("fungus").setDisabledSound(Block.soundTypeGrass);
+	public static final SoundType soundNetherWood = new CustomSound("nether_wood").setDisabledSound(Block.soundTypeWood);
 
 	//Currently prep for Alterius Futurum
 	public static final SoundType soundAzaleaSapling = new CustomSound("azalea").setDisabledSound(Block.soundTypeGrass);
@@ -108,9 +113,6 @@ public class ModSounds {
 	public static final SoundType soundRootedDirt = new CustomSound("rooted_dirt").setDisabledSound(Block.soundTypeGrass);
 	public static final SoundType soundMossBlock = new CustomSound("moss").setDisabledSound(Block.soundTypeGrass);
 	public static final SoundType soundMossCarpet = new CustomSound("moss_carpet").setDisabledSound(Block.soundTypeGrass);
-	public static final SoundType soundStem = new CustomSound("stem").setDisabledSound(Block.soundTypeWood);
-	public static final SoundType soundFungus = new CustomSound("fungus").setDisabledSound(Block.soundTypeGrass);
-	public static final SoundType soundNetherWood = new CustomSound("nether_wood").setDisabledSound(Block.soundTypeWood);
 	public static final SoundType soundCherrySapling = new CustomSound("cherry_sapling").setDisabledSound(Block.soundTypeGrass);
 	public static final SoundType soundCherryLeaves = new CustomSound("cherry_leaves").setDisabledSound(Block.soundTypeGrass);
 	public static final SoundType soundCherryWood = new CustomSound("cherry_wood").setDisabledSound(Block.soundTypeWood);

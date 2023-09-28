@@ -14,7 +14,7 @@ public class WoodSignOpenMessage implements IMessage {
 	public WoodSignOpenMessage() {
 	}
 
-	public WoodSignOpenMessage(TileEntityWoodSign tileentitysign, byte i) {
+	public WoodSignOpenMessage(TileEntityWoodSign tileentitysign, int i) {
 		tileX = tileentitysign.xCoord;
 		tileY = tileentitysign.yCoord;
 		tileZ = tileentitysign.zCoord;
@@ -26,7 +26,7 @@ public class WoodSignOpenMessage implements IMessage {
 		this.tileX = buf.readInt();
 		this.tileY = buf.readInt();
 		this.tileZ = buf.readInt();
-		this.id = buf.readByte();
+		this.id = buf.readInt();
 	}
 
 	@Override
@@ -34,7 +34,7 @@ public class WoodSignOpenMessage implements IMessage {
 		buf.writeInt(this.tileX);
 		buf.writeInt(this.tileY);
 		buf.writeInt(this.tileZ);
-		buf.writeByte(this.id);
+		buf.writeInt(this.id);
 	}
 
 }

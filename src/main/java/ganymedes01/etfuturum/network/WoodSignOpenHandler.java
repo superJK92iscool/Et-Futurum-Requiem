@@ -9,6 +9,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.client.gui.inventory.GuiEditWoodSign;
 import ganymedes01.etfuturum.tileentities.TileEntityWoodSign;
+import net.minecraft.block.Block;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.tileentity.TileEntity;
 
@@ -21,10 +22,9 @@ public class WoodSignOpenHandler implements IMessageHandler<WoodSignOpenMessage,
 		if (world.blockExists(message.tileX, message.tileY, message.tileZ)) {
 			TileEntity tileEntity = FMLClientHandler.instance().getClient().theWorld.getTileEntity(message.tileX, message.tileY, message.tileZ);
 
-			if (tileEntity == null || !(tileEntity instanceof TileEntityWoodSign)) {
+			if (!(tileEntity instanceof TileEntityWoodSign)) {
 				tileEntity = new TileEntityWoodSign();
-				int i = message.id % ModBlocks.STANDING_SIGNS.length;
-				tileEntity.blockType = message.id >= ModBlocks.STANDING_SIGNS.length ? ModBlocks.WALL_SIGNS[i].get() : ModBlocks.STANDING_SIGNS[i].get();
+				tileEntity.blockType = Block.getBlockById(message.id);
 				tileEntity.setWorldObj(FMLClientHandler.instance().getClient().theWorld);
 				tileEntity.xCoord = message.tileX;
 				tileEntity.yCoord = message.tileY;

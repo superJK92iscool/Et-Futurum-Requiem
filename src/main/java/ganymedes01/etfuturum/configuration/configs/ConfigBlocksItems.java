@@ -112,8 +112,8 @@ public class ConfigBlocksItems extends ConfigBase {
 	public static boolean enableChain;
 	public static boolean enableHoney;
 	//Nether Update temp disabled
-	public static boolean enableCrimsonBlocks = false;
-	public static boolean enableWarpedBlocks = false;
+	public static boolean enableCrimsonBlocks;
+	public static boolean enableWarpedBlocks;
 
 	public static boolean enableShulkerBoxes;
 	public static boolean enableDyedShulkerBoxes = true;
@@ -260,6 +260,8 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableLightBlock = getBoolean("enableLightBlock", catBlockMisc, true, "Invisible light blocks. Only has a selection box when held, right click to change light level. Otherwise functionally identical to air and can be replaced by placing blocks into it. Invisible, but can be seen when holding it in Creative mode.");
 		enableChain = getBoolean("enableChain", catBlockMisc, true, "");
 		enableHoney = getBoolean("enableHoney", catBlockMisc, true, "Enables honey blocks, honeycomb blocks, honeycombs, and honey bottles. See entities.cfg for toggling bee nests, beehives, and bees.");
+		enableCrimsonBlocks = getBoolean("enableCrimsonBlocks", catBlockMisc, true, "Enables the crimson nylium, wood, and plants. The nether wart block is still a separate toggle. This must be on for the crimson forest biome to generate.");
+		enableWarpedBlocks = getBoolean("enableWarpedBlocks", catBlockMisc, true, "Enables the warped nylium, wood, and plants. This must be on for the warped forest biome to generate.");
 
 		//Misc Items
 		enableMutton = getBoolean("enableMutton", catItemMisc, true, "");

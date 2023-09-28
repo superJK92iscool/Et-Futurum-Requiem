@@ -2,6 +2,7 @@ package ganymedes01.etfuturum.api;
 
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.api.mappings.RegistryMapping;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 
@@ -93,7 +94,15 @@ public class StrippedLogRegistry {
 			strippedLogs.put(new RegistryMapping<>(ModBlocks.BARK2.get(), 0), new RegistryMapping<>(ModBlocks.WOOD2_STRIPPED.get(), 0));
 			strippedLogs.put(new RegistryMapping<>(ModBlocks.BARK2.get(), 1), new RegistryMapping<>(ModBlocks.WOOD2_STRIPPED.get(), 1));
 		}
+
+		if (ModBlocks.CRIMSON_STEM.isEnabled()) {
+			strippedLogs.put(new RegistryMapping<>(ModBlocks.CRIMSON_STEM.get(), 0), new RegistryMapping<>(ModBlocks.CRIMSON_STEM.get(), 2));
+			strippedLogs.put(new RegistryMapping<>(ModBlocks.CRIMSON_STEM.get(), 1), new RegistryMapping<>(ModBlocks.CRIMSON_STEM.get(), 3));
+		}
+
+		if (ModBlocks.WARPED_STEM.isEnabled()) {
+			strippedLogs.put(new RegistryMapping<>(ModBlocks.WARPED_STEM.get(), 0), new RegistryMapping<>(ModBlocks.WARPED_STEM.get(), 2));
+			strippedLogs.put(new RegistryMapping<>(ModBlocks.WARPED_STEM.get(), 1), new RegistryMapping<>(ModBlocks.WARPED_STEM.get(), 3));
+		}
 	}
-
-
 }

@@ -3,8 +3,10 @@ package ganymedes01.etfuturum.blocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
+import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.RenderIDs;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockDoor;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.IconFlipped;
@@ -17,18 +19,19 @@ import java.util.Random;
 
 public class BlockWoodDoor extends BlockDoor {
 
-	public static final String[] names = new String[]{"oak", "spruce", "birch", "jungle", "acacia", "dark_oak"};
-
-	public BlockWoodDoor(int meta) {
+	public BlockWoodDoor(String type) {
 		super(Material.wood);
-		String name = names[meta];
 
 		disableStats();
 		setHardness(3.0F);
-		setStepSound(soundTypeWood);
-		setBlockTextureName(name + "_door");
-		setBlockName(Utils.getUnlocalisedName(name + "_door"));
+		setBlockTextureName(type + "_door");
+		setBlockName(Utils.getUnlocalisedName(type + "_door"));
 		setCreativeTab(EtFuturum.creativeTabBlocks);
+		if (type.equals("crimson") || type.equals("warped")) {
+			Utils.setBlockSound(this, ModSounds.soundNetherWood);
+		} else {
+			setStepSound(Block.soundTypeWood);
+		}
 	}
 
 	@Override

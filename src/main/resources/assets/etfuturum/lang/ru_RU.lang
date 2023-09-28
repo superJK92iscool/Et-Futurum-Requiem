@@ -552,11 +552,12 @@ tile.etfuturum.large_amethyst_bud.name=Большой аметистовый б�
 tile.etfuturum.amethyst_cluster.name=Аметистовый кластер
 tile.etfuturum.chain.name=Цепь
 
+tile.etfuturum.nether_wart_block.name=Блок адского нароста
+
 tile.etfuturum.sculk.name=Скалк
 tile.etfuturum.sculk_catalyst.name=Скалк-катализатор
 
 tile.etfuturum.magma.name=Магмовый блок
-tile.etfuturum.nether_wart.name=Блок адского нароста
 tile.etfuturum.bone.name=Костяной блок
 
 tile.etfuturum.bee_nest.name=Пчелиное гнездо

@@ -111,10 +111,10 @@ public class GuiEditWoodSign extends GuiScreen {
 	 */
 	@Override
 	public void drawScreen(int p_73863_1_, int p_73863_2_, float p_73863_3_) {
-		this.drawDefaultBackground();
-		this.drawCenteredString(this.fontRendererObj, I18n.format("sign.edit"), this.width / 2, 40, 16777215);
 		if (!(tileSign.getBlockType() instanceof BlockWoodSign))
 			return;
+		this.drawDefaultBackground();
+		this.drawCenteredString(this.fontRendererObj, I18n.format("sign.edit"), this.width / 2, 40, 16777215);
 		GL11.glPushMatrix();
 		GL11.glTranslatef(this.width / 2, 0.0F, 50.0F);
 		float f1 = 93.75F;

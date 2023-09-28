@@ -2,7 +2,9 @@ package ganymedes01.etfuturum.blocks;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.core.utils.Utils;
+import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.BlockFlower;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -16,8 +18,8 @@ public class BaseFlower extends BlockFlower {
 
 	public BaseFlower() {
 		super(1);
-		setHardness(0.0F);
 		setStepSound(soundTypeGrass);
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
 	public BaseFlower setUnlocalizedNameWithPrefix(String name) {
@@ -49,5 +51,4 @@ public class BaseFlower extends BlockFlower {
 	public void registerBlockIcons(IIconRegister reg) {
 		blockIcon = reg.registerIcon(getTextureName());
 	}
-
 }

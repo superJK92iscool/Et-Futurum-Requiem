@@ -15,10 +15,6 @@ public class TileEntityWoodSignRenderer extends TileEntitySpecialRenderer {
 	private ResourceLocation signTexture;
 	private final ModelSign field_147514_c = new ModelSign();
 
-	public void setTexture(int i) {
-		signTexture = new ResourceLocation("textures/entity/signs/" + ModRecipes.woodTypes[i] + ".png");
-	}
-
 	/*
 	 * The following code is derived from Mojang's original sign code as I had no other choice as there was
 	 * no way for me to add in my texture without copying most of the code to add my own code to this class.
@@ -31,7 +27,6 @@ public class TileEntityWoodSignRenderer extends TileEntitySpecialRenderer {
 		if (!(p_147500_1_.getBlockType() instanceof BlockWoodSign))
 			return;
 		BlockWoodSign block = (BlockWoodSign) p_147500_1_.getBlockType();
-		setTexture(block.meta);
 		GL11.glPushMatrix();
 		float f1 = 0.6666667F;
 		float f3;
@@ -62,7 +57,7 @@ public class TileEntityWoodSignRenderer extends TileEntitySpecialRenderer {
 			GL11.glTranslatef(0.0F, -0.3125F, -0.4375F);
 			this.field_147514_c.signStick.showModel = false;
 		}
-		bindTexture(signTexture);
+		bindTexture(new ResourceLocation("textures/entity/signs/" + block.type + ".png"));
 		GL11.glPushMatrix();
 		GL11.glScalef(f1, -f1, -f1);
 		this.field_147514_c.renderSign();
