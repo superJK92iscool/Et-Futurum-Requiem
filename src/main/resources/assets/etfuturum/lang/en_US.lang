@@ -575,6 +575,14 @@ tile.etfuturum.lantern.name=Lantern
 tile.etfuturum.observer.name=Observer
 tile.etfuturum.target.name=Target
 
+tile.etfuturum.mud.name=Mud
+tile.etfuturum.packed_mud.name=Mud
+tile.etfuturum.mud_bricks.name=Mud Bricks
+tile.etfuturum.muddy_mangrove_roots.name=Muddy Mangrove Roots
+tile.etfuturum.mud_brick_stairs.name=Mud Brick Stairs
+tile.etfuturum.mud_brick_slab.name=Mud Brick Slab
+tile.etfuturum.mud_brick_wall.name=Mud Brick Wall
+
 tile.etfuturum.prismarine_stairs.name=Prismarine Stairs
 tile.etfuturum.prismarine_brick_stairs.name=Prismarine Bricks Stairs
 tile.etfuturum.dark_prismarine_stairs.name=Dark Prismarine Stairs

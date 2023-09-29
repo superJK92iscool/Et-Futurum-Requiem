@@ -106,6 +106,11 @@ public class ModSounds {
 	public static final SoundType soundFungus = new CustomSound("fungus").setDisabledSound(Block.soundTypeGrass);
 	public static final SoundType soundNetherWood = new CustomSound("nether_wood").setDisabledSound(Block.soundTypeWood);
 
+	public static final SoundType soundMud = new CustomSound("mud", true).setDisabledSound(Block.soundTypeGravel);
+	public static final SoundType soundMuddyMangroveRoots = new CustomSound("muddy_mangrove_roots", true).setDisabledSound(Block.soundTypeGravel);
+	public static final SoundType soundPackedMud = new CustomSound("packed_mud", true).setDisabledSound(Block.soundTypeStone);
+	public static final SoundType soundMudBricks = new CustomSound("mud_bricks", true).setDisabledSound(Block.soundTypeStone);
+
 	//Currently prep for Alterius Futurum
 	public static final SoundType soundAzaleaSapling = new CustomSound("azalea").setDisabledSound(Block.soundTypeGrass);
 	public static final SoundType soundAzaleaLeaves = new CustomSound("azalea_leaves").setDisabledSound(Block.soundTypeGrass);
