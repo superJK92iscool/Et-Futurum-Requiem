@@ -4,3 +4,13 @@
 build
 /libs
 .gradle
+.idea
+eclipse
+.classpath
+.project
+.settings
+bin
+.metadata
+*.bak
+classes
+tools
