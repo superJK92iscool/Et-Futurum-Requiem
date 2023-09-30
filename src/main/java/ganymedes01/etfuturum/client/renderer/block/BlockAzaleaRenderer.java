@@ -3,21 +3,15 @@ package ganymedes01.etfuturum.client.renderer.block;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.blocks.BlockAzalea;
-import ganymedes01.etfuturum.blocks.BlockNetherRoots;
-import ganymedes01.etfuturum.blocks.BlockNetherSprouts;
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.IIcon;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.IBlockAccess;
-import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
-public class RenderBlockAzaleaBush extends BlockModelBase {
+public class BlockAzaleaRenderer extends BlockModelBase {
 
-	public RenderBlockAzaleaBush(int modelID) {
+	public BlockAzaleaRenderer(int modelID) {
 		super(modelID);
 	}
 

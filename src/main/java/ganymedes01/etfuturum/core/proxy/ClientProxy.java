@@ -200,7 +200,7 @@ public class ClientProxy extends CommonProxy {
 		}
 
 		if(ModBlocks.AZALEA.isEnabled()){
-			RenderingRegistry.registerBlockHandler(new RenderBlockAzaleaBush(RenderIDs.AZALEA));
+			RenderingRegistry.registerBlockHandler(new BlockAzaleaRenderer(RenderIDs.AZALEA));
 		}
 	}
 
