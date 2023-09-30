@@ -2,6 +2,7 @@ package ganymedes01.etfuturum.world.nether.biome.utils;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import ganymedes01.etfuturum.EtFuturum;
+import ganymedes01.etfuturum.world.nether.dimension.WorldProviderEFRNether;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
@@ -23,43 +24,27 @@ public class BiomeFogEventHandler {
 	public static final BiomeFogEventHandler INSTANCE = new BiomeFogEventHandler();
 
 	@SubscribeEvent
-	public void renderBiomeFog(EntityViewRenderEvent.RenderFogEvent event) {
-
-		if (event.entity.dimension == -1 && !EtFuturum.hasNetherlicious) {
-			GL11.glFogi(GL11.GL_FOG_MODE, GL11.GL_EXP);
-			GL11.glFogf(GL11.GL_FOG_DENSITY, 0.05F); // Come back to
-
-		}
-	}
-
-	@SubscribeEvent
-	public void onGetFogColour(final EntityViewRenderEvent.FogColors event) {
-
-		if (event.entity instanceof EntityPlayer) {
+	public void onGetFogColor(final EntityViewRenderEvent.FogColors event) {
+		if (event.entity.worldObj.provider instanceof WorldProviderEFRNether && event.entity instanceof EntityPlayer) {
 			final EntityPlayer player = (EntityPlayer) event.entity;
 			final World world = player.worldObj;
 			final int x = MathHelper.floor_double(player.posX);
 			final int y = MathHelper.floor_double(player.posY);
 			final int z = MathHelper.floor_double(player.posZ);
-			final Block blockAtEyes = ActiveRenderInfo.getBlockAtEntityViewpoint(world, event.entity,
-					(float) event.renderPartialTicks);
+			final Block blockAtEyes = ActiveRenderInfo.getBlockAtEntityViewpoint(world, event.entity, (float) event.renderPartialTicks);
 			if (blockAtEyes.getMaterial() == Material.lava) {
 				return;
 			}
-			Vec3 mixedColor;
 
-			{
-				mixedColor = getFogBlendColour(world, player, x, y, z, event.red, event.green,
-						event.blue, event.renderPartialTicks);
-			}
+			Vec3 mixedColor = getFogBlendColour(world, player, x, y, z, event.red, event.green, event.blue, event.renderPartialTicks);
+
 			event.red = (float) mixedColor.xCoord;
 			event.green = (float) mixedColor.yCoord;
 			event.blue = (float) mixedColor.zCoord;
 		}
 	}
 
-	private static Vec3 postProcessColor(final World world, final EntityLivingBase player, float r, float g, float b,
-										 final double renderPartialTicks) {
+	private static Vec3 postProcessColor(final World world, final EntityLivingBase player, float r, float g, float b, final double renderPartialTicks) {
 		double darkScale = (player.lastTickPosY + (player.posY - player.lastTickPosY) * renderPartialTicks)
 				* world.provider.getVoidFogYFactor();
 		if (player.isPotionActive(Potion.blindness)) {
@@ -116,35 +101,35 @@ public class BiomeFogEventHandler {
 				if (biome instanceof IBiomeColor) {
 					final IBiomeColor biomeFog = (IBiomeColor) biome;
 					final int fogColour = biomeFog.getBiomeColour(playerX + x, playerY, playerZ + z);
-					float rPart = (fogColour & 0xFF0000) >> 16;
-					float gPart = (fogColour & 0xFF00) >> 8;
-					float bPart = fogColour & 0xFF;
+					float rPart = (float) ((fogColour & 0xFF0000) >> 16);
+					float gPart = (float) ((fogColour & 0xFF00) >> 8);
+					float bPart = (float) (fogColour & 0xFF);
 					float weightPart = 1.0f;
 					if (x == -distance) {
 						final double xDiff = 1.0 - (playerEntity.posX - playerX);
-						rPart *= (float) xDiff;
-						gPart *= rPart;
-						bPart *= rPart;
-						weightPart *= rPart;
+						rPart *= xDiff;
+						gPart *= xDiff;
+						bPart *= xDiff;
+						weightPart *= xDiff;
 					} else if (x == distance) {
 						final double xDiff = playerEntity.posX - playerX;
-						rPart *= (float) xDiff;
-						gPart *= rPart;
-						bPart *= rPart;
-						weightPart *= rPart;
+						rPart *= xDiff;
+						gPart *= xDiff;
+						bPart *= xDiff;
+						weightPart *= xDiff;
 					}
 					if (z == -distance) {
 						final double zDiff = 1.0 - (playerEntity.posZ - playerZ);
-						rPart *= (float) zDiff;
-						gPart *= rPart;
-						bPart *= rPart;
-						weightPart *= rPart;
+						rPart *= zDiff;
+						gPart *= zDiff;
+						bPart *= zDiff;
+						weightPart *= zDiff;
 					} else if (z == distance) {
 						final double zDiff = playerEntity.posZ - playerZ;
-						rPart *= (float) zDiff;
-						gPart *= rPart;
-						bPart *= rPart;
-						weightPart *= rPart;
+						rPart *= zDiff;
+						gPart *= zDiff;
+						bPart *= zDiff;
+						weightPart *= zDiff;
 					}
 					rBiomeFog += rPart;
 					gBiomeFog += gPart;
@@ -172,13 +157,11 @@ public class BiomeFogEventHandler {
 		rBiomeFog = (float) processedColor.xCoord;
 		gBiomeFog = (float) processedColor.yCoord;
 		bBiomeFog = (float) processedColor.zCoord;
-		final float weightMixed = distance * 2 * (distance * 2);
+		final float weightMixed = (float) (distance * 2 * (distance * 2));
 		final float weightDefault = weightMixed - weightBiomeFog;
 		processedColor.xCoord = (rBiomeFog * weightBiomeFog + defR * weightDefault) / weightMixed;
 		processedColor.yCoord = (gBiomeFog * weightBiomeFog + defG * weightDefault) / weightMixed;
 		processedColor.zCoord = (bBiomeFog * weightBiomeFog + defB * weightDefault) / weightMixed;
 		return processedColor;
 	}
-
-
 }

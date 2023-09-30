@@ -3,24 +3,25 @@ package ganymedes01.etfuturum.blocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.client.InterpolatedIcon;
+import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
-import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
-import ganymedes01.etfuturum.core.utils.Utils;
+import ganymedes01.etfuturum.world.generate.decorate.WorldGenNetherGrass;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockMushroom;
+import net.minecraft.block.BlockNetherrack;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -109,7 +110,13 @@ public class BlockNylium extends BaseSubtypesBlock implements IGrowable {
 	}
 
 	@Override
-	public boolean func_149851_a(World p_149851_1_, int p_149851_2_, int p_149851_3_, int p_149851_4_, boolean p_149851_5_) {
+	public boolean func_149851_a(World world, int x, int y, int z, boolean p_149851_5_) {
+		if (world.getBlockMetadata(x, y, z) == 0 && !ConfigBlocksItems.enableCrimsonBlocks) {
+			return false;
+		}
+		if (world.getBlockMetadata(x, y, z) == 1 && !ConfigBlocksItems.enableWarpedBlocks) {
+			return false;
+		}
 		return true;
 	}
 
@@ -118,39 +125,23 @@ public class BlockNylium extends BaseSubtypesBlock implements IGrowable {
 		return true;
 	}
 
+	private final WorldGenerator crimsonGrass = new WorldGenNetherGrass(true);
+	private final WorldGenerator warpedGrass = new WorldGenNetherGrass(false);
+
 	@Override
-	public void func_149853_b(World p_149853_1_, Random p_149853_2_, int p_149853_3_, int p_149853_4_, int p_149853_5_) {
-		int l = 0;
-
-		while (l < 128) {
-			int i1 = p_149853_3_;
-			int j1 = p_149853_4_ + 1;
-			int k1 = p_149853_5_;
-			int l1 = 0;
-
-			while (true) {
-				if (l1 < l / 16) {
-					i1 += p_149853_2_.nextInt(3) - 1;
-					j1 += (p_149853_2_.nextInt(3) - 1) * p_149853_2_.nextInt(3) / 2;
-					k1 += p_149853_2_.nextInt(3) - 1;
-
-					if (p_149853_1_.getBlock(i1, j1 - 1, k1) == Blocks.grass && !p_149853_1_.getBlock(i1, j1, k1).isNormalCube()) {
-						++l1;
-						continue;
-					}
-				} else if (p_149853_1_.getBlock(i1, j1, k1).blockMaterial == Material.air) {
-					if (p_149853_2_.nextInt(8) != 0) {
-						if (Blocks.tallgrass.canBlockStay(p_149853_1_, i1, j1, k1)) {
-							p_149853_1_.setBlock(i1, j1, k1, Blocks.tallgrass, 1, 3);
-						}
-					} else {
-						p_149853_1_.getBiomeGenForCoords(i1, k1).plantFlower(p_149853_1_, p_149853_2_, i1, j1, k1);
-					}
+	public void func_149853_b(World world, Random rand, int x, int y, int z) {
+		if (world.getBlockMetadata(x, y, z) == 0) {
+			crimsonGrass.generate(world, rand, x, y + 1, z);
+		} else {
+			if (rand.nextInt(40) == 0) {
+				int vineX = x + MathHelper.getRandomIntegerInRange(rand, -4, 4);
+				int vineZ = z + MathHelper.getRandomIntegerInRange(rand, -4, 4);
+				Block block = world.getBlock(x, y + 1, z);
+				if (block instanceof BlockNylium || block instanceof BlockNetherrack) {
+					world.setBlock(vineX, y + 1, vineZ, ModBlocks.TWISTING_VINES.get());
 				}
-
-				++l;
-				break;
 			}
+			warpedGrass.generate(world, rand, x, y + 1, z);
 		}
 	}
 }

@@ -24,16 +24,14 @@ public class BlockPackedMud extends BaseSubtypesBlock  {
 		setResistance(3);
 		setHarvestLevel("pickaxe", 0);
 		setCreativeTab(EtFuturum.creativeTabBlocks);
-		setStepSound(ConfigSounds.newBlockSounds ? ModSounds.soundPackedMud : Block.soundTypeMetal);
+		setBlockSound(ModSounds.soundPackedMud);
 	}
 
 	@Override
 	public float getBlockHardness(World world, int x, int y, int z) {
-		int meta = world.getBlockMetadata(x, y, z);
-		if(meta == 1){
+		if (world.getBlockMetadata(x, y, z) == 1) {
 			return 1.5F;
 		}
-
-		return 1.0F;
+		return blockHardness;
 	}
 }

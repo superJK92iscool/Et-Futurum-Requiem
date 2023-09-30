@@ -114,7 +114,8 @@ public enum ModBlocks {
 
 	// Mud
 	// TODO: Change Packed Mud vs Mud Bricks Sound
-	MUD(ConfigBlocksItems.enableMud, new BlockMud()),
+	MUD(ConfigBlocksItems.enableMud, new BaseBlock(Material.ground).setBlockSound(ModSounds.soundMud).setNames("mud")
+			.setHardness(0.5F).setResistance(0.5F).setCreativeTab(EtFuturum.creativeTabBlocks)),
 	MUDDY_MANGROVE_ROOTS(ConfigBlocksItems.enableMud, new BlockMuddyMangroveRoots()),
 	PACKED_MUD(ConfigBlocksItems.enableMud, new BlockPackedMud()),
 
@@ -213,7 +214,7 @@ public enum ModBlocks {
 			.setBlockSound(ModSounds.soundDeepslateBricks).setHardness(3).setResistance(6)),
 	MUD_BRICK_SLAB(ConfigBlocksItems.enableMud, new BaseSlab(false, Material.rock, "mud_bricks").setNames("mud_brick_slab")
 			.setBlockSound(ModSounds.soundMudBricks).setHardness(3).setResistance(6)),
-	MUD_BRICK_SLAB_SLAB(ConfigBlocksItems.enableMud, new BaseSlab(true, Material.rock, "mud_bricks").setNames("mud_brick_slab")
+	DOUBLE_MUD_BRICK_SLAB(ConfigBlocksItems.enableMud, new BaseSlab(true, Material.rock, "mud_bricks").setNames("mud_brick_slab")
 			.setBlockSound(ModSounds.soundMudBricks).setHardness(3).setResistance(6)),
 	CUT_COPPER_STAIRS(ConfigBlocksItems.enableCopper, new BlockCutCopperStairs(4)),
 	EXPOSED_CUT_COPPER_STAIRS(ConfigBlocksItems.enableCopper, new BlockCutCopperStairs(5)),
@@ -255,6 +256,9 @@ public enum ModBlocks {
 	BEE_NEST(ConfigEntities.enableBees, new BlockBeeHive().setHiveType("bee_nest", true)),
 	CHAIN(ConfigBlocksItems.enableChain, new BlockChain()),
 
+	SOUL_SOIL(ConfigBlocksItems.enableSoulSoil, new BlockSoulSoil()),
+	SHROOMLIGHT(ConfigBlocksItems.enableCrimsonBlocks || ConfigBlocksItems.enableWarpedBlocks, new BaseBlock(Material.gourd).setNames("shroomlight").setBlockSound(ModSounds.soundShroomlight)
+			.setResistance(1).setHardness(1).setLightLevel(1)),
 	NETHER_ROOTS(ConfigBlocksItems.enableCrimsonBlocks || ConfigBlocksItems.enableWarpedBlocks, new BlockNetherRoots(), BaseSubtypesPotableItemBlock.class),
 	NETHER_FUNGUS(ConfigBlocksItems.enableCrimsonBlocks || ConfigBlocksItems.enableWarpedBlocks, new BlockNetherFungus(), BaseSubtypesPotableItemBlock.class),
 	NETHER_SPROUTS(ConfigBlocksItems.enableWarpedBlocks, new BlockNetherSprouts()),
@@ -262,8 +266,8 @@ public enum ModBlocks {
 	NYLIUM(ConfigBlocksItems.enableCrimsonBlocks || ConfigBlocksItems.enableWarpedBlocks, new BlockNylium()),
 	CRIMSON_STEM(ConfigBlocksItems.enableCrimsonBlocks || ConfigBlocksItems.enableWarpedBlocks, new BlockNetherStem("crimson")),
 	WARPED_STEM(ConfigBlocksItems.enableCrimsonBlocks || ConfigBlocksItems.enableWarpedBlocks, new BlockNetherStem("warped")),
-	WEEPING_VINS(ConfigBlocksItems.enableCrimsonBlocks, new BlockWeepingVines()),
-	TWISTING_VINS(ConfigBlocksItems.enableWarpedBlocks, new BlockTwistingVines()),
+	WEEPING_VINES(ConfigBlocksItems.enableCrimsonBlocks, new BlockWeepingVines()),
+	TWISTING_VINES(ConfigBlocksItems.enableWarpedBlocks, new BlockTwistingVines()),
 
 	WOOD_PLANKS(ConfigBlocksItems.enableCrimsonBlocks || ConfigBlocksItems.enableWarpedBlocks,
 			new BlockWoodPlanks()),

@@ -25,6 +25,7 @@ import ganymedes01.etfuturum.entities.*;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import ganymedes01.etfuturum.spectator.SpectatorModeClient;
 import ganymedes01.etfuturum.tileentities.*;
+import ganymedes01.etfuturum.world.nether.biome.utils.BiomeFogEventHandler;
 import net.minecraft.block.BlockBed;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -59,8 +60,9 @@ public class ClientProxy extends CommonProxy {
 
 		if (ConfigFunctions.enableUpdateChecker && !EtFuturum.SNAPSHOT_BUILD && !EtFuturum.DEV_ENVIRONMENT) {
 			FMLCommonHandler.instance().bus().register(VersionChecker.instance);
-//        MinecraftForge.EVENT_BUS.register(BiomeFogEventHandler.INSTANCE);
 		}
+
+		MinecraftForge.EVENT_BUS.register(BiomeFogEventHandler.INSTANCE);
 	}
 
 	@Override

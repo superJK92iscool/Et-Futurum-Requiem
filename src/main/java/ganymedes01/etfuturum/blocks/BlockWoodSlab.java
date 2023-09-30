@@ -2,11 +2,14 @@ package ganymedes01.etfuturum.blocks;
 
 import com.google.common.collect.Lists;
 import ganymedes01.etfuturum.ModBlocks;
+import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.IBlockAccess;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import java.util.List;
 
@@ -33,5 +36,24 @@ public class BlockWoodSlab extends BaseSlab {
 	@Override
 	public IIcon getIcon(int p_149691_1_, int p_149691_2_) {
 		return basePlanks.getIcon(p_149691_1_, p_149691_2_ % 8);
+	}
+
+	@Override
+	public boolean isFlammable(IBlockAccess aWorld, int aX, int aY, int aZ, ForgeDirection aSide) {
+		if (ConfigFunctions.enableExtraBurnableBlocks) {
+			String type = types[aWorld.getBlockMetadata(aX, aY, aZ) % types.length];
+			return type.equals("crimson") || type.equals("warped");
+		}
+		return false;
+	}
+
+	@Override
+	public int getFlammability(IBlockAccess aWorld, int aX, int aY, int aZ, ForgeDirection aSide) {
+		return ConfigFunctions.enableExtraBurnableBlocks ? 20 : 0;
+	}
+
+	@Override
+	public int getFireSpreadSpeed(IBlockAccess aWorld, int aX, int aY, int aZ, ForgeDirection aSide) {
+		return ConfigFunctions.enableExtraBurnableBlocks ? 5 : 0;
 	}
 }

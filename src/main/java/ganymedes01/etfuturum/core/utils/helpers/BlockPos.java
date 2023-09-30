@@ -302,6 +302,18 @@ public class BlockPos extends Vec3i {
 			return this.setPos(MathHelper.floor_double(xIn), MathHelper.floor_double(yIn), MathHelper.floor_double(zIn));
 		}
 
+		public BlockPos.MutableBlockPos setWithOffset(Vec3i p_122160_, ForgeDirection p_122161_) {
+			return setPos(p_122160_.getX() + p_122161_.offsetX, p_122160_.getY() + p_122161_.offsetY, p_122160_.getZ() + p_122161_.offsetZ);
+		}
+
+		public BlockPos.MutableBlockPos setWithOffset(Vec3i p_122155_, int p_122156_, int p_122157_, int p_122158_) {
+			return setPos(p_122155_.getX() + p_122156_, p_122155_.getY() + p_122157_, p_122155_.getZ() + p_122158_);
+		}
+
+		public BlockPos.MutableBlockPos setWithOffset(Vec3i p_175307_, Vec3i p_175308_) {
+			return setPos(p_175307_.getX() + p_175308_.getX(), p_175307_.getY() + p_175308_.getY(), p_175307_.getZ() + p_175308_.getZ());
+		}
+
 		public BlockPos.MutableBlockPos setPos(Vec3i vec) {
 			return this.setPos(vec.getX(), vec.getY(), vec.getZ());
 		}

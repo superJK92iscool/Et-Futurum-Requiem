@@ -53,21 +53,37 @@ public class ConfigWorld extends ConfigBase {
 	public static int[] amethystDimensionBlacklist;
 	public static boolean amethystDimensionBlacklistAsWhitelist;
 
+	public static int crimsonForestID;
+	public static int warpedForestID;
+	public static int soulSandValleyID;
+	public static int basaltDeltasID;
+
+	public static int netherWastesWeight;
+	public static int crimsonForestWeight;
+	public static int warpedForestWeight;
+	public static int soulSandValleyWeight;
+	public static int basaltDeltasWeight;
+
+	public static boolean netherDimensionProvider;
+
 	public static boolean oldHuskSpawning;
 	public static boolean oldStraySpawning;
 
 	public static final String catClient = "client";
 	public static final String catGeneration = "generation";
+	public static final String catBiomes = "biomes";
 	public static final String catMisc = "miscellaneous";
 
 	public ConfigWorld(File file) {
 		super(file);
 		setCategoryComment(catClient, "Client-side only effects.");
 		setCategoryComment(catGeneration, "Generation settings.");
+		setCategoryComment(catBiomes, "Biome ID and weight settings. These do not disable the respective blocks, go to blocksitems.cfg to disable their blocks.");
 		setCategoryComment(catMisc, "For things that affect the world but don't belong in any other category.");
 
 		configCats.add(getCategory(catClient));
 		configCats.add(getCategory(catGeneration));
+		configCats.add(getCategory(catBiomes));
 		configCats.add(getCategory(catMisc));
 	}
 
@@ -151,6 +167,20 @@ public class ConfigWorld extends ConfigBase {
 		amethystDimensionBlacklistAsWhitelist = getBoolean("amethystDimensionBlacklistAsWhitelist", catGeneration, false, "Treat the amethyst dimension blacklist as a whitelist instead, so geodes will ONLY generate in those dimensions, instead of excluding those dimensions from generation.");
 		amethystRarity = getInt("amethystRarity", catGeneration, 53, 1, 128, "How rare should amethyst geodes be? 1/x chance per chunk, 1 means a geode attempts to appear every chunk");
 		amethystMaxY = getInt("amethystMaxY", catGeneration, 46, 6, 245, "Max Y level amethyst geodes should attempt to generate at");
+
+		crimsonForestID = getInt("crimsonForestID", catBiomes, 200, -1, 65536, "Set to -1 to disable the generation of Crimson Forests. To use an ID above 255, EndlessIDs is required.");
+		warpedForestID = getInt("warpedForestID", catBiomes, 201, -1, 65536, "Set to -1 to disable the generation of Warped Forests. To use an ID above 255, EndlessIDs is required.");
+		soulSandValleyID = getInt("soulSandValleyID", catBiomes, 202, -1, 65536, "Set to -1 to disable the generation of Soul Sand Valleys. To use an ID above 255, EndlessIDs is required.");
+		basaltDeltasID = getInt("basaltDeltasID", catBiomes, 203, -1, 65536, "Set to -1 to disable the generation of Basalt Deltas. To use an ID above 255, EndlessIDs is required.");
+
+
+		netherWastesWeight = getInt("netherWastesWeight", catBiomes, 30, 1, Byte.MAX_VALUE, "How likely the Nether Wastes biome should generate compared to other Nether biomes.");
+		crimsonForestWeight = getInt("crimsonForestWeight", catBiomes, 10, 1, Byte.MAX_VALUE, "How likely the Crimson Forest biome should generate compared to other Nether biomes.");
+		warpedForestWeight = getInt("warpedForestWeight", catBiomes, 10, 1, Byte.MAX_VALUE, "How likely the Warped Forest biome should generate compared to other Nether biomes.");
+		soulSandValleyWeight = getInt("soulSandValleyWeight", catBiomes, 10, 1, Byte.MAX_VALUE, "How likely the Soul Sand Valley biome should generate compared to other Nether biomes.");
+		basaltDeltasWeight = getInt("basaltDeltasWeight", catBiomes, 10, 1, Byte.MAX_VALUE, "How likely the Basalt Deltas biome should generate compared to other Nether biomes.");
+
+		netherDimensionProvider = getBoolean("netherDimensionProvider", catGeneration, true, "Enables the Nether dimension provider override needed for supplying custom biomes. This is partially ignored if Netherlicious is installed. Netherlicious has compat to generate my biomes.\nTurning this off or setting each individual biome ID to -1 will prevent my version of Nether biomes from generating. Don't forget to turn off my Nether blocks in blocksitems.cfg if you only want Netherlicious content.");
 
 		tileReplacementMode = getInt("tileReplacementMode", catMisc, 0, -1, 1, "Replace old Brewing Stands/Enchanting Tables/Daylight Sensors/Beacons with new one on the fly.\n-1 = Disabled, no conversion even if the replacement tile entities are on\n0 = Convert the vanilla tile entities to their Et Futurum versions\n1 = Convert Et Futurum replacement tile entities back to default ones. Useful if you want to turn those off.");
 		oldHuskSpawning = getBoolean("oldHuskSpawning", catMisc, false, "Enables the old husk spawning logic. Instead of replacing 80% of zombies exposed to the sky in the right biomes, they'll reduce the spawn rate of normal zombies and spawn anywhere in the correct biomes.\nOptiFine breaks the sky-exposure behavior so this option will be forced on when OptiFine is detected.");

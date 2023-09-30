@@ -89,6 +89,7 @@ public class ConfigBlocksItems extends ConfigBase {
 	public static boolean enableDeepslate;
 	public static boolean enableDeepslateOres;
 	public static boolean enableBasalt;
+	public static boolean enableSoulSoil;
 	public static boolean enableCalcite;
 	public static boolean enableTuff;
 	public static boolean enableNewTileEntities;
@@ -180,6 +181,7 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableSweetBerryBushes = getBoolean("enableSweetBerryBushes", catBlockNatural, true, "");
 		enableDeepslate = getBoolean("enableDeepslate", catBlockNatural, true, "");
 		enableBasalt = getBoolean("enableBasalt", catBlockNatural, true, "");
+		enableSoulSoil = getBoolean("enableSoulSoil", catBlockNatural, true, "Not required for the Soul Sand Valley to generate.");
 		enableCalcite = getBoolean("enableCalcite", catBlockNatural, true, "");
 		enableTuff = getBoolean("enableTuff", catBlockNatural, true, "");
 		enableDeepslateOres = getBoolean("enableDeepslateOres", catBlockNatural, true, "Enable deepslate ores for copper ore and vanilla ores when deepslate generates over them.");

@@ -18,7 +18,6 @@ import ganymedes01.etfuturum.api.*;
 import ganymedes01.etfuturum.api.mappings.BasicMultiBlockSound;
 import ganymedes01.etfuturum.blocks.BlockSculk;
 import ganymedes01.etfuturum.blocks.BlockSculkCatalyst;
-import ganymedes01.etfuturum.blocks.BlockWoodSign;
 import ganymedes01.etfuturum.client.BuiltInResourcePack;
 import ganymedes01.etfuturum.client.DynamicSoundsResourcePack;
 import ganymedes01.etfuturum.client.GrayscaleWaterResourcePack;
@@ -30,10 +29,7 @@ import ganymedes01.etfuturum.compat.CompatThaumcraft;
 import ganymedes01.etfuturum.compat.CompatWaila;
 import ganymedes01.etfuturum.compat.nei.IMCSenderGTNH;
 import ganymedes01.etfuturum.configuration.ConfigBase;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
-import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
-import ganymedes01.etfuturum.configuration.configs.ConfigModCompat;
-import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
+import ganymedes01.etfuturum.configuration.configs.*;
 import ganymedes01.etfuturum.core.proxy.CommonProxy;
 import ganymedes01.etfuturum.entities.ModEntityList;
 import ganymedes01.etfuturum.items.ItemWoodSign;
@@ -46,6 +42,8 @@ import ganymedes01.etfuturum.spectator.SpectatorMode;
 import ganymedes01.etfuturum.world.EtFuturumLateWorldGenerator;
 import ganymedes01.etfuturum.world.EtFuturumWorldGenerator;
 import ganymedes01.etfuturum.world.end.dimension.DimensionProviderEFREnd;
+import ganymedes01.etfuturum.world.nether.biome.utils.NetherBiomeManager;
+import ganymedes01.etfuturum.world.nether.dimension.DimensionProviderEFRNether;
 import ganymedes01.etfuturum.world.structure.OceanMonument;
 import makamys.mclib.core.MCLib;
 import makamys.mclib.ext.assetdirector.ADConfig;
@@ -138,7 +136,7 @@ public class EtFuturum {
 			Iterator<ItemStack> iterator = list.iterator();
 			while (iterator.hasNext()) {
 				ItemStack stack = iterator.next();
-				for (ModItems sign : ModItems.ITEM_SIGNS) {
+				for (ModItems sign : ModItems.OLD_SIGN_ITEMS) {
 					if (stack.getItem() == sign.get()) {
 						iterator.remove();
 					}
@@ -147,7 +145,7 @@ public class EtFuturum {
 
 			//Add the sign items back but in a way so they are sorted by their block ID instead of their item ID.
 			//This allows them to be in the correct place instead of always at the bottom of the block ID list, since item IDs are always above block IDs
-			for (ModItems sign : ModItems.ITEM_SIGNS) {
+			for (ModItems sign : ModItems.OLD_SIGN_ITEMS) {
 				for (ItemStack stack : (List<ItemStack>) list) {
 					if (Item.getIdFromItem(stack.getItem()) > Block.getIdFromBlock(((ItemWoodSign) sign.get()).getSignBlock())) {
 						list.add(list.indexOf(stack), sign.newItemStack());
@@ -240,9 +238,9 @@ public class EtFuturum {
 			DynamicSoundsResourcePack.inject();
 		}
 
-//      if(ConfigurationHandler.enableNewNether) {
-//          NetherBiomeManager.init(); // Come back to
-//      }
+		if (ConfigWorld.netherDimensionProvider) {
+			NetherBiomeManager.init();
+		}
 
 		GameRegistry.registerWorldGenerator(EtFuturumWorldGenerator.INSTANCE, 0);
 		GameRegistry.registerWorldGenerator(EtFuturumLateWorldGenerator.INSTANCE, Integer.MAX_VALUE);
@@ -452,13 +450,12 @@ public class EtFuturum {
 		//Block registry iterator
 		for (Block block : (Iterable<Block>) Block.blockRegistry) {
 			if (ConfigFunctions.enableHoeMining) {
-				/*
-				 * HOE MINING
-				 */
 				if (block instanceof BlockLeaves || block instanceof BlockHay || block instanceof BlockSponge || block instanceof BlockNetherWart
 						|| block instanceof BlockSculk || block instanceof BlockSculkCatalyst) {
 					HoeRegistry.addToHoeArray(block);
 				}
+				HoeRegistry.addToHoeArray(ModBlocks.SHROOMLIGHT.get());
+				HoeRegistry.addToHoeArray(ModBlocks.SPONGE.get());
 			}
 
 			if (ConfigSounds.newBlockSounds) {
@@ -476,8 +473,9 @@ public class EtFuturum {
 			}
 		}
 
-//      if(ConfigurationHandler.enableNewNether)
-//        DimensionProviderNether.init(); // Come back to
+		if (ConfigWorld.netherDimensionProvider && !hasNetherlicious) {
+			DimensionProviderEFRNether.init();
+		}
 
 		if (TESTING) {
 			DimensionProviderEFREnd.init(); // Come back to
@@ -589,6 +587,12 @@ public class EtFuturum {
 			mbs.setTypes(8, ModSounds.soundNetherWood);
 			mbs.setTypes(9, ModSounds.soundNetherWood);
 			MultiBlockSoundRegistry.multiBlockSounds.put(ModBlocks.DOUBLE_WOOD_SLAB.get(), mbs);
+		}
+
+		if (ModBlocks.PACKED_MUD.isEnabled()) {
+			BasicMultiBlockSound mbs = new BasicMultiBlockSound();
+			mbs.setTypes(1, ModSounds.soundMudBricks);
+			MultiBlockSoundRegistry.multiBlockSounds.put(ModBlocks.PACKED_MUD.get(), mbs);
 		}
 	}
 

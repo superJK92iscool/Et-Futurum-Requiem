@@ -96,13 +96,21 @@ public class StrippedLogRegistry {
 		}
 
 		if (ModBlocks.CRIMSON_STEM.isEnabled()) {
-			strippedLogs.put(new RegistryMapping<>(ModBlocks.CRIMSON_STEM.get(), 0), new RegistryMapping<>(ModBlocks.CRIMSON_STEM.get(), 2));
-			strippedLogs.put(new RegistryMapping<>(ModBlocks.CRIMSON_STEM.get(), 1), new RegistryMapping<>(ModBlocks.CRIMSON_STEM.get(), 3));
+			if (ConfigBlocksItems.enableStrippedLogs) {
+				strippedLogs.put(new RegistryMapping<>(ModBlocks.CRIMSON_STEM.get(), 0), new RegistryMapping<>(ModBlocks.CRIMSON_STEM.get(), 2));
+				if (ConfigBlocksItems.enableBarkLogs) {
+					strippedLogs.put(new RegistryMapping<>(ModBlocks.CRIMSON_STEM.get(), 1), new RegistryMapping<>(ModBlocks.CRIMSON_STEM.get(), 3));
+				}
+			}
 		}
 
 		if (ModBlocks.WARPED_STEM.isEnabled()) {
-			strippedLogs.put(new RegistryMapping<>(ModBlocks.WARPED_STEM.get(), 0), new RegistryMapping<>(ModBlocks.WARPED_STEM.get(), 2));
-			strippedLogs.put(new RegistryMapping<>(ModBlocks.WARPED_STEM.get(), 1), new RegistryMapping<>(ModBlocks.WARPED_STEM.get(), 3));
+			if (ConfigBlocksItems.enableStrippedLogs) {
+				strippedLogs.put(new RegistryMapping<>(ModBlocks.WARPED_STEM.get(), 0), new RegistryMapping<>(ModBlocks.WARPED_STEM.get(), 2));
+				if (ConfigBlocksItems.enableBarkLogs) {
+					strippedLogs.put(new RegistryMapping<>(ModBlocks.WARPED_STEM.get(), 1), new RegistryMapping<>(ModBlocks.WARPED_STEM.get(), 3));
+				}
+			}
 		}
 	}
 }

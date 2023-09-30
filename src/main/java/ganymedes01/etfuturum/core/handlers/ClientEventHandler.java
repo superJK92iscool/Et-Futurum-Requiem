@@ -22,6 +22,7 @@ import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
+import ganymedes01.etfuturum.core.utils.Logger;
 import ganymedes01.etfuturum.elytra.IElytraPlayer;
 import ganymedes01.etfuturum.entities.EntityBee;
 import ganymedes01.etfuturum.entities.EntityNewBoatWithChest;
@@ -556,7 +557,7 @@ public class ClientEventHandler {
 	public void onPlaySoundAtEntityEvent(PlaySoundAtEntityEvent event) {
 		if (event.name == null) return; //Some mods fire null sounds, blech
 
-		/**
+		/*
 		 * We have to do this because we don't want our new sound to be caught in the below logic, and get freeze in a loop of repeatedly replacing itself and firing events forever.
 		 * And no, unlike the regular play sound event, the result isn't a PositionedSoundRecord so we can't just supply a new one in the result. We can only override the name.
 		 * Because SOMEONE THOUGHT IT WOULD BE A GOOD IDEA TO MAKE IT SO YOU CAN ONLY CHANGE THE EVENT NAME AND NOT VOLUME OR PITCH???

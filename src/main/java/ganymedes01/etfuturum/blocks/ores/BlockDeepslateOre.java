@@ -5,6 +5,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.api.DeepslateOreRegistry;
 import ganymedes01.etfuturum.client.sound.ModSounds;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
@@ -32,14 +33,14 @@ public class BlockDeepslateOre extends BlockOre {
 		super();
 		setAttribs(this, block);
 		base = block;
-		if (getClass().getName().contains("etfuturum")) { //We only want to do this on my own stuff, not mods that extend it.
+		if (getClass().getName().startsWith("ganymedes01.etfuturum")) { //We only want to do this on my own stuff, not mods that extend it.
 			//We use the texture name because texture naming conventions look just like namespaced IDs.
 			//Block.blockRegistry.getNameFor does not work in preInit
 			setBlockName(Utils.getUnlocalisedName("deepslate_" + block.textureName.toLowerCase()));
 			setBlockTextureName("deepslate_" + block.textureName);
 			setCreativeTab(EtFuturum.creativeTabBlocks);
 		}
-		if (defaultMapping) {
+		if (defaultMapping && ConfigBlocksItems.enableDeepslateOres) {
 			addDeepslateMappings();
 		}
 	}

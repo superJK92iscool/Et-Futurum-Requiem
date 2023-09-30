@@ -37,7 +37,9 @@ public class CompostingRegistry {
 				new ItemStack(Items.melon),
 				new ItemStack(Items.reeds),
 				new ItemStack(Blocks.double_plant, 1, 2),
-				new ItemStack(Blocks.vine)
+				new ItemStack(Blocks.vine),
+				ModBlocks.NETHER_ROOTS.newItemStack(1, OreDictionary.WILDCARD_VALUE),
+				ModBlocks.NETHER_SPROUTS.newItemStack(1, OreDictionary.WILDCARD_VALUE)
 		), 50);
 
 		registerCompostable(ImmutableList.of(
@@ -64,7 +66,9 @@ public class CompostingRegistry {
 				new ItemStack(Items.nether_wart),
 				"cropPotato",
 				new ItemStack(Blocks.pumpkin),
-				"cropWheat"
+				"cropWheat",
+				ModBlocks.NETHER_FUNGUS.newItemStack(1, OreDictionary.WILDCARD_VALUE),
+				ModBlocks.SHROOMLIGHT.newItemStack()
 		), 65);
 
 		registerCompostable(ImmutableList.of(

@@ -6,7 +6,6 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.recipes.ModRecipes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSign;
 import net.minecraft.init.Blocks;
@@ -64,7 +63,7 @@ public class BlockWoodSign extends BlockSign {
 	@Override
 	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_) {
 		if (baseBlock == Blocks.planks) {
-			return ModItems.ITEM_SIGNS[meta - 1].get();
+			return ModItems.OLD_SIGN_ITEMS[meta - 1].get();
 		}
 		//Only apply this logic to new signs; old ones use a separate item.
 		return Item.getItemFromBlock(standingSign);

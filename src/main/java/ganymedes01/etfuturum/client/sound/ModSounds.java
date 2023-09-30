@@ -23,6 +23,7 @@ public class ModSounds {
 	};
 	public static final SoundType soundLantern = new CustomSound("lantern", true).setDisabledSound(Block.soundTypeMetal);
 	public static final SoundType soundSoulSand = new CustomSound("soul_sand").setDisabledSound(Block.soundTypeSand);
+	public static final SoundType soundSoulSoil = new CustomSound("soul_soil").setDisabledSound(Block.soundTypeGravel);
 	public static final SoundType soundNetherBricks = new CustomSound("nether_bricks");
 	public static final SoundType soundBoneBlock = new CustomSound("bone_block");
 	public static final SoundType soundNetherrack = new CustomSound("netherrack");
@@ -106,10 +107,10 @@ public class ModSounds {
 	public static final SoundType soundFungus = new CustomSound("fungus").setDisabledSound(Block.soundTypeGrass);
 	public static final SoundType soundNetherWood = new CustomSound("nether_wood").setDisabledSound(Block.soundTypeWood);
 
-	public static final SoundType soundMud = new CustomSound("mud", true).setDisabledSound(Block.soundTypeGravel);
-	public static final SoundType soundMuddyMangroveRoots = new CustomSound("muddy_mangrove_roots", true).setDisabledSound(Block.soundTypeGravel);
-	public static final SoundType soundPackedMud = new CustomSound("packed_mud", true).setDisabledSound(Block.soundTypeStone);
-	public static final SoundType soundMudBricks = new CustomSound("mud_bricks", true).setDisabledSound(Block.soundTypeStone);
+	public static final SoundType soundMud = new CustomSound("mud").setDisabledSound(Block.soundTypeGravel);
+	public static final SoundType soundMuddyMangroveRoots = new CustomSound("muddy_mangrove_roots").setDisabledSound(Block.soundTypeGravel);
+	public static final SoundType soundPackedMud = new CustomSound("packed_mud");
+	public static final SoundType soundMudBricks = new CustomSound("mud_bricks");
 
 	//Currently prep for Alterius Futurum
 	public static final SoundType soundAzaleaSapling = new CustomSound("azalea").setDisabledSound(Block.soundTypeGrass);

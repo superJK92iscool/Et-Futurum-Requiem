@@ -8,6 +8,7 @@ import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
+import cpw.mods.fml.relauncher.ReflectionHelper;
 import cpw.mods.fml.relauncher.Side;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
@@ -24,6 +25,7 @@ import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.*;
 import ganymedes01.etfuturum.core.utils.ExternalContent;
 import ganymedes01.etfuturum.core.utils.ItemStackSet;
+import ganymedes01.etfuturum.core.utils.Logger;
 import ganymedes01.etfuturum.elytra.IElytraEntityTrackerEntry;
 import ganymedes01.etfuturum.elytra.IElytraPlayer;
 import ganymedes01.etfuturum.entities.*;
@@ -38,6 +40,8 @@ import ganymedes01.etfuturum.spectator.SpectatorMode;
 import ganymedes01.etfuturum.tileentities.TileEntityGateway;
 import ganymedes01.etfuturum.world.DoWeatherCycleHelper;
 import ganymedes01.etfuturum.world.EtFuturumWorldListener;
+import ganymedes01.etfuturum.world.nether.biome.utils.NetherBiomeManager;
+import joptsimple.internal.Reflection;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.Enchantment;
@@ -58,6 +62,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.*;
+import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.play.server.S29PacketSoundEffect;
@@ -68,9 +73,17 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityMobSpawner;
 import net.minecraft.util.*;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
+import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldProviderHell;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.Chunk;
+import net.minecraft.world.chunk.IChunkProvider;
+import net.minecraft.world.gen.ChunkProviderServer;
+import net.minecraft.world.gen.structure.MapGenNetherBridge;
+import net.minecraft.world.gen.structure.MapGenStructureData;
+import net.minecraft.world.gen.structure.MapGenStructureIO;
+import net.minecraft.world.gen.structure.StructureStart;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.util.FakePlayer;
@@ -93,6 +106,9 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.mutable.MutableFloat;
 
 import java.io.*;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.*;
 
 public class ServerEventHandler {
@@ -636,8 +652,7 @@ public class ServerEventHandler {
 	@SubscribeEvent
 	public void onBoneMeal(BonemealEvent event) {
 		if (ConfigSounds.bonemealing && event.block instanceof IGrowable && !event.world.isRemote &&
-				((IGrowable) event.block).func_149851_a(event.world, event.x, event.y, event.z, false) && //Last arg should always be false because it typically checks for isRemote
-				((IGrowable) event.block).func_149852_a(event.world, event.world.rand, event.x, event.y, event.z)) {
+				((IGrowable) event.block).func_149851_a(event.world, event.x, event.y, event.z, false)) { //Last arg should always be false because it typically checks for isRemote
 			event.world.playSoundEffect(event.x + .5F, event.y + .5F, event.z + .5F, Reference.MCAssetVer + ":item.bone_meal.use", 1, 1);
 		}
 	}
@@ -1137,16 +1152,16 @@ public class ServerEventHandler {
 
 	@SubscribeEvent
 	public void naturalSpawnEvent(SpecialSpawn event) {
-		if (!(event.entity instanceof EntityLiving) || EntityList.getEntityID(event.entity) != 0) {
+		if (!(event.entity instanceof EntityLiving)) {
 			return;
 		}
+		int x = MathHelper.floor_double(event.x);
+		int y = MathHelper.floor_double(event.y);
+		int z = MathHelper.floor_double(event.z);
 		if (event.entityLiving instanceof EntityShulker) {
 			EntityShulker shulker = ((EntityShulker) event.entityLiving);
 			shulker.persistenceRequired = false;
 			if (ConfigTweaks.spawnAnywhereShulkerColors) {
-				int x = MathHelper.floor_double(event.x);
-				int y = MathHelper.floor_double(event.y);
-				int z = MathHelper.floor_double(event.z);
 				World world = event.world;
 
 				for (EnumFacing facing : EnumFacing.values()) {
@@ -1168,20 +1183,20 @@ public class ServerEventHandler {
 					}
 				}
 			}
-		} else if (ConfigEntities.enableStray && !ConfigWorld.oldStraySpawning && EntityList.getEntityID(event.entity) == 51 /*Skeleton ID*/ && event.world.rand.nextFloat() < .80F && event.world.canBlockSeeTheSky((int) event.x, (int) (event.y) + 1, (int) event.z)) {
-			BiomeDictionary.Type[] biomeTags = BiomeDictionary.getTypesForBiome(event.world.getBiomeGenForCoords((int) event.x, (int) event.z));
+		} else if (ConfigEntities.enableStray && !ConfigWorld.oldStraySpawning && EntityList.getEntityID(event.entity) == 51 /*Skeleton ID*/ && event.world.rand.nextFloat() < .80F && event.world.canBlockSeeTheSky(x, y + 1, z)) {
+			BiomeDictionary.Type[] biomeTags = BiomeDictionary.getTypesForBiome(event.world.getBiomeGenForCoords(x, z));
 			if (ArrayUtils.contains(biomeTags, BiomeDictionary.Type.SNOWY)) {
 				EntityStray stray = new EntityStray(event.world);
-				replaceEntity(event.entity, stray, event.world, event.world.getChunkFromChunkCoords((int) event.x, (int) event.z));
+				replaceEntity(event.entity, stray, event.world, event.world.getChunkFromChunkCoords(x, z));
 				stray.onSpawnWithEgg(null);
 				event.setCanceled(true);
 				event.setResult(Result.DENY);
 			}
-		} else if (ConfigEntities.enableHusk && !ConfigWorld.oldHuskSpawning && EntityList.getEntityID(event.entity) == 54 /*Zombie ID*/ && event.world.rand.nextFloat() < .80F && event.world.canBlockSeeTheSky((int) event.x, (int) (event.y) + 1, (int) event.z)) {
-			BiomeDictionary.Type[] biomeTags = BiomeDictionary.getTypesForBiome(event.world.getBiomeGenForCoords((int) event.x, (int) event.z));
+		} else if (ConfigEntities.enableHusk && !ConfigWorld.oldHuskSpawning && EntityList.getEntityID(event.entity) == 54 /*Zombie ID*/ && event.world.rand.nextFloat() < .80F && event.world.canBlockSeeTheSky(x, y + 1, z)) {
+			BiomeDictionary.Type[] biomeTags = BiomeDictionary.getTypesForBiome(event.world.getBiomeGenForCoords(x, z));
 			if (ArrayUtils.contains(biomeTags, BiomeDictionary.Type.HOT) && ArrayUtils.contains(biomeTags, BiomeDictionary.Type.DRY) && ArrayUtils.contains(biomeTags, BiomeDictionary.Type.SANDY)) {
 				EntityHusk husk = new EntityHusk(event.world);
-				replaceEntity(event.entity, husk, event.world, event.world.getChunkFromChunkCoords((int) event.x, (int) event.z));
+				replaceEntity(event.entity, husk, event.world, event.world.getChunkFromChunkCoords(x, z));
 				husk.onSpawnWithEgg(null);
 				event.setCanceled(true);
 				event.setResult(Result.DENY);
@@ -1189,8 +1204,82 @@ public class ServerEventHandler {
 		}
 	}
 
+	Method addRandomArmorMethod;
+	Method enchantEquipmentMethod;
+
+	@SubscribeEvent
+	public void naturalSpawnEvent(LivingPackSizeEvent event) {
+		//Handles logic for preventing wither skeletons from appearing in soul sand valleys unless they're in a Nether fortress.
+		int x = MathHelper.floor_double(event.entityLiving.posX);
+		int y = MathHelper.floor_double(event.entityLiving.posY);
+		int z = MathHelper.floor_double(event.entityLiving.posZ);
+		World world = event.entityLiving.worldObj;
+		if (ConfigWorld.soulSandValleyID != -1 && EntityList.getEntityID(event.entity) == 51 /*Skeleton ID*/ && ((EntitySkeleton) event.entity).getSkeletonType() == 1
+				&& !world.isRemote && world.provider instanceof WorldProviderHell && world.getBiomeGenForCoords(x, z) == NetherBiomeManager.soulSandValley) {
+			if (addRandomArmorMethod == null) {
+				addRandomArmorMethod = ReflectionHelper.findMethod(EntityLiving.class, null, new String[]{"func_82164_bB", "addRandomArmor"});
+			}
+			if (enchantEquipmentMethod == null) {
+				enchantEquipmentMethod = ReflectionHelper.findMethod(EntityLiving.class, null, new String[]{"func_82162_bC", "enchantEquipment"});
+			}
+
+			if (addRandomArmorMethod != null && enchantEquipmentMethod != null) {
+				List<MapGenNetherBridge> list = Lists.newArrayList();
+				try {
+					IChunkProvider provider;
+					if (world.getChunkProvider() instanceof ChunkProviderServer) {
+						provider = ((ChunkProviderServer) world.getChunkProvider()).currentChunkProvider;
+					} else {
+						provider = world.getChunkProvider();
+					}
+					//Netherlicious and myself override the world provider instead of extending ChunkProviderHell
+					//This should cover any world provider, for any WorldProviderHell dimension. Then we search for all Nether Fortress instances in that class.
+					//This is so no matter what a custom Nether override or modded dimension that uses WorldProviderHell names a fortress field, we can detect its Nether fortress.
+					//Is it overkill? Honestly yes, but I like to account for edgecases. There are also mods that build custom dimensions like Mystcraft or RFTools, and MultiWorld.
+					Field[] fields = provider.getClass().getFields();
+					for (Field field : fields) {
+						Object o = field.get(provider);
+						if (o instanceof MapGenNetherBridge) {
+							list.add((MapGenNetherBridge) o);
+						}
+						if (o instanceof List) {
+							for (Object o1 : (List) o) {
+								if (o1 instanceof MapGenNetherBridge) {
+									list.add((MapGenNetherBridge) o1);
+								}
+							}
+						}
+					}
+				} catch (IllegalAccessException ignored) {
+					return;
+				}
+				for (MapGenNetherBridge bridge : list) {
+					if (bridge.hasStructureAt(x, y, z)) {
+						return;
+					}
+				}
+				((EntitySkeleton) event.entity).setSkeletonType(0);
+				event.entity.setCurrentItemOrArmor(0, null);
+				event.entity.setCurrentItemOrArmor(1, null);
+				event.entity.setCurrentItemOrArmor(2, null);
+				event.entity.setCurrentItemOrArmor(3, null);
+				event.entity.setCurrentItemOrArmor(4, null);
+				try {
+					addRandomArmorMethod.invoke(event.entity);
+					enchantEquipmentMethod.invoke(event.entity);
+				} catch (Exception ignored) {
+				}
+//				((EntitySkeleton)event.entity).addRandomArmor();
+//				((EntitySkeleton)event.entity).enchantEquipment(); //Grrr, ATs refuse to apply to these for some reason, keeps throwing damn errors
+			}
+		}
+	}
+
 	@SubscribeEvent
 	public void spawnEvent(EntityJoinWorldEvent event) {
+		int x = MathHelper.floor_double(event.entity.posX);
+		int y = MathHelper.floor_double(event.entity.posY);
+		int z = MathHelper.floor_double(event.entity.posZ);
 		if (event.entity instanceof EntityPig) {
 			EntityPig pig = (EntityPig) event.entity;
 			if (ModItems.BEETROOT.isEnabled()) {
@@ -1722,6 +1811,7 @@ public class ServerEventHandler {
 			NO_BURN_ITEMS.put(ModBlocks.WOOD_PLANKS.getItem(), Lists.newArrayList(0, 1));
 			NO_BURN_ITEMS.put(ModBlocks.WOOD_FENCE.getItem(), Lists.newArrayList(0, 1));
 			NO_BURN_ITEMS.put(ModBlocks.WOOD_SLAB.getItem(), Lists.newArrayList(0, 1, 8, 9));
+			NO_BURN_ITEMS.put(ModBlocks.DOUBLE_WOOD_SLAB.getItem(), Lists.newArrayList(0, 1, 8, 9));
 
 			NO_BURN_ITEMS.put(ModBlocks.CRIMSON_STEM.getItem(), Lists.newArrayList(OreDictionary.WILDCARD_VALUE));
 			NO_BURN_ITEMS.put(ModBlocks.WARPED_STEM.getItem(), Lists.newArrayList(OreDictionary.WILDCARD_VALUE));
@@ -1737,6 +1827,8 @@ public class ServerEventHandler {
 			NO_BURN_ITEMS.put(ModBlocks.WARPED_DOOR.getItem(), Lists.newArrayList(OreDictionary.WILDCARD_VALUE));
 			NO_BURN_ITEMS.put(ModBlocks.CRIMSON_TRAPDOOR.getItem(), Lists.newArrayList(OreDictionary.WILDCARD_VALUE));
 			NO_BURN_ITEMS.put(ModBlocks.WARPED_TRAPDOOR.getItem(), Lists.newArrayList(OreDictionary.WILDCARD_VALUE));
+			NO_BURN_ITEMS.put(ModBlocks.CRIMSON_SIGN.getItem(), Lists.newArrayList(OreDictionary.WILDCARD_VALUE));
+			NO_BURN_ITEMS.put(ModBlocks.WARPED_SIGN.getItem(), Lists.newArrayList(OreDictionary.WILDCARD_VALUE));
 		}
 		if (NO_BURN_ITEMS.containsKey(e.fuel.getItem())) {
 			if (NO_BURN_ITEMS.get(e.fuel.getItem()).contains(OreDictionary.WILDCARD_VALUE) || NO_BURN_ITEMS.get(e.fuel.getItem()).contains(e.fuel.getItemDamage())) {

@@ -3,11 +3,14 @@ package ganymedes01.etfuturum.blocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
+import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
+import ganymedes01.etfuturum.world.generate.decorate.WorldGenHugeFungus;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
+import net.minecraft.block.IGrowable;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
@@ -16,12 +19,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import java.util.List;
+import java.util.Random;
 
-public class BlockNetherFungus extends BlockBush implements ISubBlocksBlock {
+public class BlockNetherFungus extends BlockBush implements ISubBlocksBlock, IGrowable {
 
 	private IIcon[] icons;
 	private final String[] types = new String[]{"crimson_fungus", "warped_fungus"};
@@ -94,5 +99,20 @@ public class BlockNetherFungus extends BlockBush implements ISubBlocksBlock {
 	@Override
 	public String getNameFor(ItemStack stack) {
 		return getTypes()[stack.getItemDamage() % types.length];
+	}
+
+	public boolean func_149851_a(World world, int x, int y, int z, boolean p_149851_5_) {
+		return world.getBlock(x, y - 1, z) == ModBlocks.NYLIUM.get() && world.getBlockMetadata(x, y, z) == world.getBlockMetadata(x, y - 1, z);
+	}
+
+	public boolean func_149852_a(World p_149852_1_, Random p_149852_2_, int p_149852_3_, int p_149852_4_, int p_149852_5_) {
+		return (double) p_149852_1_.rand.nextFloat() < 0.40D;
+	}
+
+	public void func_149853_b(World world, Random rand, int x, int y, int z) {
+		boolean crimson = world.getBlockMetadata(x, y, z) == 0;
+		WorldGenAbstractTree fungus = new WorldGenHugeFungus(true, 0, crimson ? 0 : 1,
+				crimson ? ModBlocks.CRIMSON_STEM.get() : ModBlocks.WARPED_STEM.get(), ModBlocks.NETHER_WART.get(), true);
+		fungus.generate(world, rand, x, y, z);
 	}
 }

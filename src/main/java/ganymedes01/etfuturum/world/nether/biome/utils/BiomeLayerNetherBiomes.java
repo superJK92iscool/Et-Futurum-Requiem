@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.world.nether.biome.utils;
 
+import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.world.nether.dimension.BiomeLayerNether;
 import net.minecraft.util.WeightedRandom;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -11,36 +12,23 @@ import java.util.List;
 
 public class BiomeLayerNetherBiomes extends BiomeLayerNether {
 
-	public List<BiomeEntry> netherBiomes = new ArrayList<BiomeEntry>();
+	public List<BiomeEntry> netherBiomes = new ArrayList<>();
 
 	public BiomeLayerNetherBiomes(long par1, BiomeLayerNether par3GenLayer) {
-
 		super(par1);
 		parent = par3GenLayer;
-
-		this.netherBiomes.add(new BiomeEntry(BiomeGenBase.hell, 30)); // Make weight configurable
-// Come back to
-//      if (BiomeConfiguration.CrimsonForestID != -1) {
-		this.netherBiomes.add(new BiomeEntry(NetherBiomeManager.CrimsonForest, 10));
-//      }
-//
-//      if (BiomeConfiguration.WarpedForestID != -1) {
-//          this.netherBiomes.add(
-//                  new BiomeEntry(NetherBiomeManager.WarpedForest, BiomeConfiguration.WarpedForestWeight));
-//      }
-//
-//      if (BiomeConfiguration.BasaltDeltasID != -1) {
-//          this.netherBiomes.add(
-//                  new BiomeEntry(NetherBiomeManager.BasaltDeltas, BiomeConfiguration.BasaltDeltasWeight));
-//      }
-//
-//      if (BiomeConfiguration.SoulSandValleyID != -1) {
-//          this.netherBiomes.add(
-//                  new BiomeEntry(NetherBiomeManager.SoulSandValley, BiomeConfiguration.SoulSandValleyWeight));
-//      }
+		this.netherBiomes.add(new BiomeEntry(BiomeGenBase.hell, ConfigWorld.netherWastesWeight));
+		if (NetherBiomeManager.crimsonForest != null) {
+			this.netherBiomes.add(new BiomeEntry(NetherBiomeManager.crimsonForest, ConfigWorld.crimsonForestWeight));
+		}
+		if (NetherBiomeManager.warpedForest != null) {
+			this.netherBiomes.add(new BiomeEntry(NetherBiomeManager.warpedForest, ConfigWorld.warpedForestWeight));
+		}
+		if (NetherBiomeManager.soulSandValley != null) {
+			this.netherBiomes.add(new BiomeEntry(NetherBiomeManager.soulSandValley, ConfigWorld.soulSandValleyWeight));
+		}
 //
 //      if (Loader.isModLoaded("BiomesOPlenty")) {
-//
 //          if (BiomeConfiguration.BoneyardGen) {
 //              if (Netherlicious.Boneyard != -1) {
 //                  this.netherBiomes.add(new BiomeEntry(BOPCBiomes.boneyard,
@@ -84,7 +72,6 @@ public class BiomeLayerNetherBiomes extends BiomeLayerNether {
 //          }
 //
 //      }
-
 	}
 
 	@Override
@@ -107,9 +94,7 @@ public class BiomeLayerNetherBiomes extends BiomeLayerNether {
 	}
 
 	private int getWeightedBiomeFromList(List<BiomeEntry> biomeList) {
-
-		return ((BiomeEntry) WeightedRandom.getItem(biomeList,
-				this.nextInt(WeightedRandom.getTotalWeight(biomeList)))).biome.biomeID;
+		return ((BiomeEntry) WeightedRandom.getItem(biomeList, this.nextInt(WeightedRandom.getTotalWeight(biomeList)))).biome.biomeID;
 	}
 
 }

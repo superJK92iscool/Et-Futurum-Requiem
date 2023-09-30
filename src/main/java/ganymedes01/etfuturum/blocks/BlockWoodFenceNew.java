@@ -1,7 +1,9 @@
 package ganymedes01.etfuturum.blocks;
 
+import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.client.sound.ModSounds;
+import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.Block;
@@ -34,6 +36,7 @@ public class BlockWoodFenceNew extends BlockFence implements ISubBlocksBlock {
 		for (int i = 0; i < types.length; i++) {
 			types[i] = types[i].replace("planks", "fence");
 		}
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
 	@Override
@@ -68,7 +71,7 @@ public class BlockWoodFenceNew extends BlockFence implements ISubBlocksBlock {
 	@Override
 	public boolean canConnectFenceTo(IBlockAccess world, int x, int y, int z) {
 		Block block = world.getBlock(x, y, z);
-		return super.canConnectFenceTo(world, x, y, z) || block instanceof BlockWoodFence || block instanceof BlockWoodFenceNew || block instanceof BlockWoodFenceGate;
+		return block instanceof BlockWoodFence || block instanceof BlockWoodFenceNew || block instanceof BlockWoodFenceGate || super.canConnectFenceTo(world, x, y, z);
 	}
 
 	@Override
@@ -89,5 +92,24 @@ public class BlockWoodFenceNew extends BlockFence implements ISubBlocksBlock {
 	@Override
 	public int getRenderType() {
 		return RenderIDs.FENCE;
+	}
+
+	@Override
+	public boolean isFlammable(IBlockAccess aWorld, int aX, int aY, int aZ, ForgeDirection aSide) {
+		if (ConfigFunctions.enableExtraBurnableBlocks) {
+			String type = types[aWorld.getBlockMetadata(aX, aY, aZ) % types.length];
+			return type.equals("crimson") || type.equals("warped");
+		}
+		return false;
+	}
+
+	@Override
+	public int getFlammability(IBlockAccess aWorld, int aX, int aY, int aZ, ForgeDirection aSide) {
+		return ConfigFunctions.enableExtraBurnableBlocks ? 20 : 0;
+	}
+
+	@Override
+	public int getFireSpreadSpeed(IBlockAccess aWorld, int aX, int aY, int aZ, ForgeDirection aSide) {
+		return ConfigFunctions.enableExtraBurnableBlocks ? 5 : 0;
 	}
 }
