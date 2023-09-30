@@ -8,7 +8,10 @@ import ganymedes01.etfuturum.client.sound.ModSounds;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.IPlantable;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class BlockMoss extends BaseBlock implements IGrowable {
 
@@ -116,75 +119,8 @@ public class BlockMoss extends BaseBlock implements IGrowable {
 		}
 	}
 
-	public boolean place(World worldIn, Random rand, int x, int y, int z) {
-		if (!worldIn.isAirBlock(x, y, z)) {
-			return false;
-		} else {
-			int chance = 0;
-			int xRandom = rand.nextInt(3) + 1;
-			int zRandom = rand.nextInt(3) + 1;
-
-			for (int xOffset = -xRandom; xOffset < xRandom; ++xOffset) {
-				for (int zOffset = -zRandom; zOffset < zRandom; ++zOffset) {
-					int newX = x + xOffset;
-					int newZ = z + zOffset;
-					chance += placeFeature(worldIn, rand, newX, y, newZ);
-				}
-			}
-
-			return chance > 0;
-		}
-	}
-
-	private int placeFeature(World worldIn, Random rand, int x, int y, int z) {
-		int chance = 0;
-		Block blockBelow = worldIn.getBlock(x, y - 1, z);
-
-		if (worldIn.isAirBlock(x, y, z) && isSolid(blockBelow)) {
-			createMossPatch(worldIn, rand, x, y - 1, z);
-
-			if (rand.nextFloat() < 0.8F) {
-				Block vegetationBlock = getVegetationBlock(rand);
-
-				if (vegetationBlock.canBlockStay(worldIn, x, y, z)) {
-					if (vegetationBlock == Blocks.double_plant && worldIn.isAirBlock(x, y + 1, z)) {
-						// Place tall grass or other double block manually
-						worldIn.setBlock(x, y, z, Blocks.double_plant, 2, 2);
-						worldIn.setBlock(x, y + 1, z, Blocks.double_plant, 10, 2);
-					} else {
-						worldIn.setBlock(x, y, z, vegetationBlock, 0, 2);
-					}
-
-					++chance;
-				}
-			}
-		}
-
-		return chance;
-	}
-
-	private void createMossPatch(World worldIn, Random rand, int x, int y, int z) {
-		if (worldIn.isAirBlock(x, y, z)) {
-			worldIn.setBlock(x, y, z, ModBlocks.MOSS_BLOCK.get(), 0, 2);
-		}
-	}
-
-	private Block getVegetationBlock(Random rand) {
-		int chance = rand.nextInt(100) + 1;
-		if (chance < 5) {
-			// Flowering Azalea
-			return ModBlocks.MOSS_CARPET.get();
-		} else if (chance < 15) {
-			// Azalea
-			return ModBlocks.MOSS_CARPET.get();
-		} else if (chance < 40) {
-			return ModBlocks.MOSS_CARPET.get();
-		} else {
-			return chance < 90 ? Blocks.tallgrass : Blocks.double_plant;
-		}
-	}
-
-	private boolean isSolid(Block block) {
-		return block.isNormalCube();
+	@Override
+	public boolean canSustainPlant(IBlockAccess world, int x, int y, int z, ForgeDirection direction, IPlantable plant) {
+		return Blocks.dirt.canSustainPlant(world, x, y, z, direction, plant);
 	}
 }
