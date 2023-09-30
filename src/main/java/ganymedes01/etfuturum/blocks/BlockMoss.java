@@ -95,8 +95,8 @@ public class BlockMoss extends BaseBlock implements IGrowable {
 								}
 							} else if (randomOption < AZALEA_BUSH + FLOWERING_AZALEA + DOUBLE_TALL_GRASS + MOSS_CARPET_WEIGHT) {
 								// Place Moss Carpet
-								if (ModBlocks.MOSS_LAYER.get().canBlockStay(world, i1, j1 + 1, k1)) {
-									world.setBlock(i1, j1 + 1, k1, ModBlocks.MOSS_LAYER.get(), 0, 2);
+								if (ModBlocks.MOSS_CARPET.get().canBlockStay(world, i1, j1 + 1, k1)) {
+									world.setBlock(i1, j1 + 1, k1, ModBlocks.MOSS_CARPET.get(), 0, 2);
 								}
 							} else {
 								// Place Tall Grass
@@ -173,12 +173,12 @@ public class BlockMoss extends BaseBlock implements IGrowable {
 		int chance = rand.nextInt(100) + 1;
 		if (chance < 5) {
 			// Flowering Azalea
-			return ModBlocks.MOSS_LAYER.get();
+			return ModBlocks.MOSS_CARPET.get();
 		} else if (chance < 15) {
 			// Azalea
-			return ModBlocks.MOSS_LAYER.get();
+			return ModBlocks.MOSS_CARPET.get();
 		} else if (chance < 40) {
-			return ModBlocks.MOSS_LAYER.get();
+			return ModBlocks.MOSS_CARPET.get();
 		} else {
 			return chance < 90 ? Blocks.tallgrass : Blocks.double_plant;
 		}
