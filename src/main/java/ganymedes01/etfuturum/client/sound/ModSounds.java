@@ -113,10 +113,9 @@ public class ModSounds {
 	public static final SoundType soundMudBricks = new CustomSound("mud_bricks");
 
 	public static final SoundType soundMoss = new CustomSound("moss", true).setDisabledSound(Block.soundTypeGrass);
-
+	public static final SoundType soundAzalea = new CustomSound("azalea").setDisabledSound(Block.soundTypeGrass);
 
 	//Currently prep for Alterius Futurum
-	public static final SoundType soundAzaleaSapling = new CustomSound("azalea").setDisabledSound(Block.soundTypeGrass);
 	public static final SoundType soundAzaleaLeaves = new CustomSound("azalea_leaves").setDisabledSound(Block.soundTypeGrass);
 	public static final SoundType soundHangingRoots = new CustomSound("hanging_roots").setDisabledSound(Block.soundTypeGrass);
 	public static final SoundType soundRootedDirt = new CustomSound("rooted_dirt").setDisabledSound(Block.soundTypeGrass);

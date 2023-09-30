@@ -35,7 +35,7 @@ public class BlockAzalea extends BaseBush implements ISubBlocksBlock {
 		setHardness(0.0F);
 		setResistance(0.0F);
 		setMapColorBaseBlock(Blocks.grass);
-		setBlockSound(ModSounds.soundMoss);
+		setBlockSound(ModSounds.soundAzalea);
 		setBlockName(Utils.getUnlocalisedName("azalea"));
 		setBlockTextureName("azalea");
 		setCreativeTab(EtFuturum.creativeTabBlocks);
