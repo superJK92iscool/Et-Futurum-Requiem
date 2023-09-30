@@ -8,7 +8,10 @@ import ganymedes01.etfuturum.client.sound.ModSounds;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.IPlantable;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class BlockMoss extends BaseBlock implements IGrowable {
 
@@ -116,5 +119,8 @@ public class BlockMoss extends BaseBlock implements IGrowable {
 		}
 	}
 
-	
+	@Override
+	public boolean canSustainPlant(IBlockAccess world, int x, int y, int z, ForgeDirection direction, IPlantable plant) {
+		return Blocks.dirt.canSustainPlant(world, x, y, z, direction, plant);
+	}
 }
