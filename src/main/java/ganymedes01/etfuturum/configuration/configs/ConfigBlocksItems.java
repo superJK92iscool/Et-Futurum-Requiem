@@ -118,6 +118,7 @@ public class ConfigBlocksItems extends ConfigBase {
 
 	// Wilds Update
 	public static boolean enableMud;
+	public static boolean enableMoss;
 
 	public static boolean enableShulkerBoxes;
 	public static boolean enableDyedShulkerBoxes = true;
@@ -187,6 +188,7 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableDeepslateOres = getBoolean("enableDeepslateOres", catBlockNatural, true, "Enable deepslate ores for copper ore and vanilla ores when deepslate generates over them.");
 		enableAmethyst = getBoolean("enableAmethyst", catBlockNatural, true, "Enables tinted glass, amethyst blocks, budding amethyst and amethyst crystals. Also enables the item too. Smooth basalt can be disabled by changing the world.cfg option for the basalt layer to something else.");
 		enableMud = getBoolean("enableMud", catBlockNatural, true, "Enables mud, mangrove root mud, packed mud and mud bricks [including slabs, walls, stairs]");
+		enableMoss = getBoolean("enableMud", catBlockNatural, true, "Enables moss blocks and carpets");
 
 //      enableSculk = getBoolean("enableSculk", catBlockNatural, true, "Enables sculk-related blocks.");
 

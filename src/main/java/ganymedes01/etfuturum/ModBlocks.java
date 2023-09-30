@@ -119,6 +119,9 @@ public enum ModBlocks {
 	MUDDY_MANGROVE_ROOTS(ConfigBlocksItems.enableMud, new BlockMuddyMangroveRoots()),
 	PACKED_MUD(ConfigBlocksItems.enableMud, new BlockPackedMud()),
 
+	MOSS_BLOCK(ConfigBlocksItems.enableMoss, new BlockMoss()),
+	MOSS_LAYER(ConfigBlocksItems.enableMoss, new BlockMossCarpet()),
+
 	STONE_WALL(ConfigBlocksItems.enableExtraVanillaWalls, new BaseWall("stone_wall", new Block[]{Blocks.stonebrick, Blocks.stonebrick, Blocks.sandstone, Blocks.brick_block}, new int[]{0, 1, 0, 0}, new String[]{"stone_brick_wall", "mossy_stone_brick_wall", "sandstone_wall", "brick_wall"})),
 	NETHER_BRICK_WALL(ConfigBlocksItems.enableExtraVanillaWalls, new BaseWall("nether_brick_wall", new Block[]{Blocks.nether_brick}, new int[]{0}, null)),
 	STONE_WALL_2(ConfigBlocksItems.enableStones, new BaseWall("stone_wall_2", new Block[]{STONE.get(), STONE.get(), STONE.get()}, new int[]{1, 3, 5}, new String[]{"granite_wall", "diorite_wall", "andesite_wall"})),
