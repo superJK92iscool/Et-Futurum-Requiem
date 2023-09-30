@@ -724,6 +724,8 @@ public class ModRecipes {
 		addShapedRecipe(ModBlocks.MUD_BRICK_SLAB.newItemStack(6, 0), "xxx", 'x', ModBlocks.PACKED_MUD.newItemStack(1, 1));
 		addShapedRecipe(ModBlocks.MUD_BRICK_WALL.newItemStack(6, 0), "xxx", "xxx", 'x', ModBlocks.PACKED_MUD.newItemStack(1, 1));
 
+		addShapedRecipe(ModBlocks.MOSS_BLOCK.newItemStack(1, 0), "xxx", "xyx", "xxx", 'x', new ItemStack(Blocks.vine, 1), 'y', new ItemStack(Blocks.dirt, 1));
+
 		Item result = null;
 		if (ModItems.COPPER_INGOT.isEnabled()) {
 			result = ModItems.COPPER_INGOT.get();
