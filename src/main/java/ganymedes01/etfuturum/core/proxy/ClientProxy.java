@@ -198,6 +198,10 @@ public class ClientProxy extends CommonProxy {
 		if (ModBlocks.CHAIN.isEnabled()) {
 			RenderingRegistry.registerBlockHandler(new BlockChainRenderer(RenderIDs.CHAIN));
 		}
+
+		if(ModBlocks.AZALEA.isEnabled()){
+			RenderingRegistry.registerBlockHandler(new BlockAzaleaRenderer(RenderIDs.AZALEA));
+		}
 	}
 
 	private void registerEntityRenderers() {
