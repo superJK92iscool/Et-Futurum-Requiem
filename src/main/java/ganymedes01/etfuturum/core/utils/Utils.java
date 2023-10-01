@@ -3,6 +3,7 @@ package ganymedes01.etfuturum.core.utils;
 import cpw.mods.fml.common.Loader;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
+import ganymedes01.etfuturum.core.utils.helpers.Vec3i;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -371,5 +372,12 @@ public class Utils {
 			double d2 = entity.prevPosZ + (entity.posZ - entity.prevPosZ) * (double) p_70666_1_;
 			return Vec3.createVectorHelper(d0, d1, d2);
 		}
+	}
+
+	public static int distManhattan(int x1, int y1, int z1, int x2, int y2, int z2) {
+		float f = (float) Math.abs(x2 - x1);
+		float f1 = (float) Math.abs(y2 - y1);
+		float f2 = (float) Math.abs(z2 - z1);
+		return (int) (f + f1 + f2);
 	}
 }

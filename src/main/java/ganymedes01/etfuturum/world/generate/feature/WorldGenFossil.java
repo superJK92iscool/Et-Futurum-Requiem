@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.world.generate.feature;
 
+import com.google.common.collect.Lists;
 import ganymedes01.etfuturum.api.mappings.RegistryMapping;
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import ganymedes01.etfuturum.core.utils.structurenbt.BlockStateContainer;
@@ -26,35 +27,12 @@ public class WorldGenFossil extends WorldGenerator {
 
 		this.bone = bone;
 
-		Fossil fossilSkull1 = new Fossil("/data/structure/fossil/skull_1.nbt", false);
-		Fossil fossilSkullCoal1 = new Fossil("/data/structure/fossil/skull_1_coal.nbt", true);
-		Fossil fossilSkull2 = new Fossil("/data/structure/fossil/skull_2.nbt", false);
-		Fossil fossilSkullCoal2 = new Fossil("/data/structure/fossil/skull_2_coal.nbt", true);
-		Fossil fossilSkull3 = new Fossil("/data/structure/fossil/skull_3.nbt", false);
-		Fossil fossilSkullCoal3 = new Fossil("/data/structure/fossil/skull_3_coal.nbt", true);
-		Fossil fossilSkull4 = new Fossil("/data/structure/fossil/skull_4.nbt", false);
-		Fossil fossilSkullCoal4 = new Fossil("/data/structure/fossil/skull_4_coal.nbt", true);
+		fossils = Lists.newArrayList();
 
-		Fossil fossilSpine1 = new Fossil("/data/structure/fossil/spine_1.nbt", false);
-		Fossil fossilSpineCoal1 = new Fossil("/data/structure/fossil/spine_1_coal.nbt", true);
-		Fossil fossilSpine2 = new Fossil("/data/structure/fossil/spine_2.nbt", false);
-		Fossil fossilSpineCoal2 = new Fossil("/data/structure/fossil/spine_2_coal.nbt", true);
-		Fossil fossilSpine3 = new Fossil("/data/structure/fossil/spine_3.nbt", false);
-		Fossil fossilSpineCoal3 = new Fossil("/data/structure/fossil/spine_3_coal.nbt", true);
-		Fossil fossilSpine4 = new Fossil("/data/structure/fossil/spine_4.nbt", false);
-		Fossil fossilSpineCoal4 = new Fossil("/data/structure/fossil/spine_4_coal.nbt", true);
-
-		fossils = new ArrayList<>();
-
-		fossils.add(new ImmutablePair<>(fossilSkull1, fossilSkullCoal1));
-		fossils.add(new ImmutablePair<>(fossilSkull2, fossilSkullCoal2));
-		fossils.add(new ImmutablePair<>(fossilSkull3, fossilSkullCoal3));
-		fossils.add(new ImmutablePair<>(fossilSkull4, fossilSkullCoal4));
-
-		fossils.add(new ImmutablePair<>(fossilSpine1, fossilSpineCoal1));
-		fossils.add(new ImmutablePair<>(fossilSpine2, fossilSpineCoal2));
-		fossils.add(new ImmutablePair<>(fossilSpine3, fossilSpineCoal3));
-		fossils.add(new ImmutablePair<>(fossilSpine4, fossilSpineCoal4));
+		for (int i = 1; i <= 4; i++) {
+			fossils.add(new ImmutablePair<>(new Fossil("/data/structure/fossil/skull_" + i + ".nbt"), new Fossil("/data/structure/fossil/skull_" + i + "_coal.nbt")));
+			fossils.add(new ImmutablePair<>(new Fossil("/data/structure/fossil/spine_" + i + ".nbt"), new Fossil("/data/structure/fossil/spine_" + i + "_coal.nbt")));
+		}
 	}
 
 	@Override
@@ -62,65 +40,61 @@ public class WorldGenFossil extends WorldGenerator {
 		Pair<Fossil, Fossil> fossilPair = fossils.get(rand.nextInt(fossils.size()));
 		ForgeDirection dir = ForgeDirection.getOrientation(rand.nextInt(4) + 2);
 		if (!canFossilGenerateHere(world, x, y, z, fossilPair.getLeft().getSize(dir))) return false;
-		fossilPair.getLeft().buildStructure(world, rand, x, y, z, dir);
-		fossilPair.getRight().buildStructure(world, rand, x, y, z, dir);
+		fossilPair.getLeft().placeStructure(world, rand, x, y, z, dir, 0.9F);
+		fossilPair.getRight().placeStructure(world, rand, x, y, z, dir, 0.1F);
 		return true;
 	}
 
 	protected boolean canFossilGenerateHere(World world, int x, int y, int z, BlockPos corners) {
 		int air = 0;
-		if (isInvalidCorner(world, x, y, z)) {
+		if (!validCorner(world, x, y, z)) {
 			air++;
 		}
-		if (isInvalidCorner(world, x + corners.getX(), y, z)) {
+		if (!validCorner(world, x + corners.getX(), y, z)) {
 			air++;
 		}
-		if (isInvalidCorner(world, x, y, z + corners.getZ())) {
+		if (!validCorner(world, x, y, z + corners.getZ())) {
 			air++;
 		}
-		if (isInvalidCorner(world, x + corners.getX(), y, z + corners.getZ())) {
+		if (!validCorner(world, x + corners.getX(), y, z + corners.getZ())) {
 			air++;
 		}
-		if (isInvalidCorner(world, x, y + corners.getY(), z)) {
+		if (!validCorner(world, x, y + corners.getY(), z)) {
 			air++;
 		}
-		if (isInvalidCorner(world, x + corners.getX(), y + corners.getY(), z)) {
+		if (!validCorner(world, x + corners.getX(), y + corners.getY(), z)) {
 			if (air++ >= 5) return false;
 		}
-		if (isInvalidCorner(world, x, y + corners.getY(), z + corners.getZ())) {
+		if (!validCorner(world, x, y + corners.getY(), z + corners.getZ())) {
 			if (air++ >= 5) return false;
 		}
-		if (isInvalidCorner(world, x + corners.getX(), y + corners.getY(), z + corners.getZ())) {
+		if (!validCorner(world, x + corners.getX(), y + corners.getY(), z + corners.getZ())) {
 			if (air++ >= 5) return false;
 		}
 		return air < 5;
 	}
 
-	private boolean isInvalidCorner(World world, int x, int y, int z) {
+	protected boolean validCorner(World world, int x, int y, int z) {
 		Block block = world.getBlock(x, y, z);
-		return block == Blocks.air || !block.isOpaqueCube();
+		return block != Blocks.air && block.isOpaqueCube();
 	}
 
 	public class Fossil extends NBTStructure {
 
-		private boolean coal;
-
-		public Fossil(String loc, boolean isCoal) {
-			super(loc, isCoal ? 0.1F : 0.9F);
+		public Fossil(String loc) {
+			super(loc);
 		}
 
 		@Override
-		public void init() {
-			coal = getLocation().contains("coal");
-		}
-
-		@Override
-		public Map<Integer, BlockStateContainer> createPalette(ForgeDirection facing) {
+		public Map<Integer, BlockStateContainer> createPalette(ForgeDirection facing, Set<Pair<Integer, NBTTagCompound>> paletteNBT) {
 			Map<Integer, BlockStateContainer> map = new HashMap<>();
-			if (coal) {
-				map.put(0, new BlockStateContainer(Blocks.coal_ore, 0));
-			} else {
-				for (Pair<Integer, NBTTagCompound> pair : getPaletteNBT()) {
+			for (Pair<Integer, NBTTagCompound> pair : paletteNBT) {
+				String namespace = getBlockNamespaceFromNBT(pair.getRight());
+				if (namespace.equals("minecraft:air")) {
+					map.put(pair.getLeft(), new BlockStateContainer(Blocks.air, 0));
+				} else if (namespace.equals("minecraft:coal_ore")) {
+					map.put(pair.getLeft(), new BlockStateContainer(Blocks.coal_ore, 0));
+				} else {
 					String axis = getProperties(pair.getRight()).get("axis");
 					map.put(pair.getLeft(), new BlockStateContainer(bone.getObject(), getMetaFromStateOrQuartzPillar("axis", axis, facing) + bone.getMeta()));
 				}

@@ -205,6 +205,7 @@ public class EtFuturum {
 	public static final boolean hasMorePlayerModels = Loader.isModLoaded("moreplayermodels");
 	public static final boolean hasDragonBlockC = Loader.isModLoaded("jinryuudragonblockc");
 	public static final boolean hasBiomesOPlenty = Loader.isModLoaded("BiomesOPlenty");
+	public static final boolean hasExtraUtils = Loader.isModLoaded("ExtraUtilities");
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {

@@ -2,9 +2,11 @@ package ganymedes01.etfuturum.world.nether.dimension;
 
 import cpw.mods.fml.common.eventhandler.Event;
 import ganymedes01.etfuturum.ModBlocks;
+import ganymedes01.etfuturum.world.generate.feature.WorldGenBasaltGlowstone;
 import ganymedes01.etfuturum.world.nether.biome.NetherBiomeBase;
 import ganymedes01.etfuturum.world.nether.biome.utils.NetherBiomeManager;
 import ganymedes01.etfuturum.world.nether.dimension.gen.MapGenCavesHellModified;
+import ganymedes01.etfuturum.world.nether.dimension.gen.MapGenRavineHell;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.entity.EnumCreatureType;
@@ -16,7 +18,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.MapGenBase;
-import net.minecraft.world.gen.MapGenCavesHell;
+import net.minecraft.world.gen.MapGenRavine;
 import net.minecraft.world.gen.NoiseGeneratorOctaves;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.structure.MapGenNetherBridge;
@@ -52,7 +54,7 @@ public class NetherChunkProvider implements IChunkProvider {
 	private BiomeGenBase[] biomesForGeneration;
 	private double[] netherrackExclusivityNoise = new double[256];
 	private MapGenBase netherCaveGenerator = new MapGenCavesHellModified();
-	//  private MapGenBase netherRavineGenerator = new MapGenNetherRavine();
+	private MapGenBase netherRavineGenerator = new MapGenRavineHell();
 	double[] noiseData1;
 	double[] noiseData2;
 	double[] noiseData3;
@@ -66,6 +68,15 @@ public class NetherChunkProvider implements IChunkProvider {
 
 	private double[] soulSoilNoise = new double[256];
 	private final NoiseGeneratorOctaves soulSoilNoiseGen;
+
+	private final WorldGenerator quartzOreGen = new WorldGenMinable(Blocks.quartz_ore, 13, Blocks.netherrack);
+	private final WorldGenerator redMushroomGen = new WorldGenFlowers(Blocks.red_mushroom);
+	private final WorldGenerator brownMushroomGen = new WorldGenFlowers(Blocks.brown_mushroom);
+	private final WorldGenerator glowstone1Gen = new WorldGenGlowStone1();
+	private final WorldGenerator glowstone2Gen = new WorldGenGlowStone2();
+	private final WorldGenerator basaltGlowstoneGen = new WorldGenBasaltGlowstone();
+	private final WorldGenerator fireGen = new WorldGenFire();
+	private final WorldGenerator lavaGen = new WorldGenHellLava(Blocks.flowing_lava, false);
 
 	public NetherChunkProvider(World par1World, long par2) {
 		worldObj = par1World;
@@ -331,9 +342,7 @@ public class NetherChunkProvider implements IChunkProvider {
 		this.replaceBlocksForBiome(par1, par2, blocks, abyte, biomesForGeneration);
 		netherCaveGenerator.func_151539_a(this, worldObj, par1, par2, blocks);
 
-//      if (WorldgenConfiguration.Ravines) {
-//      netherRavineGenerator.func_151539_a(this, worldObj, par1, par2, blocks);
-//      }
+		netherRavineGenerator.func_151539_a(this, worldObj, par1, par2, blocks); //TODO: Make this available for the vanilla Nether as a separate mixin
 
 		genNetherBridge.func_151539_a(this, worldObj, par1, par2, blocks);
 		Chunk chunk = new Chunk(worldObj, blocks, abyte, par1, par2);
@@ -514,19 +523,14 @@ public class NetherChunkProvider implements IChunkProvider {
 			Netherbiome.populate(worldObj, this.hellRNG, par2 * 16, par3 * 16);
 		}
 
-
 		boolean doGen = TerrainGen.populate(par1IChunkProvider, worldObj, hellRNG, par2, par3, false, NETHER_LAVA);
 		if (doGen) {
-			//Come back to; lava should not generate exposed to air in soul sand valley
-			//This might not even need a new instance
-//      if (!(biome == NetherBiomeManager.SoulSandValley)) {
 			for (i1 = 0; i1 < 8; ++i1) {
 				j1 = k + this.hellRNG.nextInt(16) + 8;
 				k1 = this.hellRNG.nextInt(120) + 4;
 				l1 = l + this.hellRNG.nextInt(16) + 8;
-				(new WorldGenHellLava(Blocks.flowing_lava, false)).generate(this.worldObj, this.hellRNG, j1, k1, l1);
+				lavaGen.generate(this.worldObj, this.hellRNG, j1, k1, l1);
 			}
-//      }
 		}
 
 		i1 = hellRNG.nextInt(hellRNG.nextInt(10) + 1) + 1;
@@ -538,54 +542,67 @@ public class NetherChunkProvider implements IChunkProvider {
 				k1 = k + hellRNG.nextInt(16) + 8;
 				l1 = hellRNG.nextInt(120) + 4;
 				i2 = l + hellRNG.nextInt(16) + 8;
-				(new WorldGenFire()).generate(worldObj, hellRNG, k1, l1, i2);
+				fireGen.generate(worldObj, hellRNG, k1, l1, i2);
 			}
 		}
 
 		i1 = hellRNG.nextInt(hellRNG.nextInt(10) + 1);
 
 		doGen = TerrainGen.populate(par1IChunkProvider, worldObj, hellRNG, par2, par3, false, GLOWSTONE);
-		if (doGen) { //Come back to for basalt deltas
+		if (doGen) {
 			for (j1 = 0; j1 < i1; ++j1) {
 				k1 = k + this.hellRNG.nextInt(16) + 8;
 				l1 = this.hellRNG.nextInt(120) + 4;
 				i2 = l + this.hellRNG.nextInt(16) + 8;
-				(new WorldGenGlowStone1()).generate(this.worldObj, this.hellRNG, k1, l1, i2);
+				if (biome == NetherBiomeManager.basaltDeltas) {
+					basaltGlowstoneGen.generate(this.worldObj, this.hellRNG, k1, l1, i2);
+				} else {
+					glowstone1Gen.generate(this.worldObj, this.hellRNG, k1, l1, i2);
+				}
 			}
+
+			//Not sure why this needs two identical glowstone classes, I'll use them in non-deltas instances just to be safe.
+			//Probably doesn't make a difference for seed parity but the classes are already there so might as well use them.
 
 			for (j1 = 0; j1 < 10; ++j1) {
 				k1 = k + this.hellRNG.nextInt(16) + 8;
 				l1 = this.hellRNG.nextInt(128);
 				i2 = l + this.hellRNG.nextInt(16) + 8;
-				(new WorldGenGlowStone2()).generate(this.worldObj, this.hellRNG, k1, l1, i2);
+				if (biome == NetherBiomeManager.basaltDeltas) {
+					basaltGlowstoneGen.generate(this.worldObj, this.hellRNG, k1, l1, i2);
+				} else {
+					glowstone2Gen.generate(this.worldObj, this.hellRNG, k1, l1, i2);
+				}
 			}
 		}
 
 		MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Pre(worldObj, hellRNG, k, l));
-
 		doGen = TerrainGen.decorate(worldObj, hellRNG, k, l, SHROOM);
 		if (doGen) {
-			hellRNG.nextInt(1); //I keep this
+			hellRNG.nextInt(1); //I keep this and other random calls in this class the same for seed parity reasons
 			j1 = k + hellRNG.nextInt(16) + 8;
-			k1 = hellRNG.nextInt(120);
+			k1 = hellRNG.nextInt(128);
 			l1 = l + hellRNG.nextInt(16) + 8;
-			(new WorldGenFlowers(Blocks.brown_mushroom)).generate(worldObj, hellRNG, j1, k1, l1);
+			if (k1 <= 124) { //Do this to fix mushrooms on the ceiling while keeping the same random calls
+				brownMushroomGen.generate(worldObj, hellRNG, j1, k1, l1);
+			}
 
 			hellRNG.nextInt(1);
 			j1 = k + hellRNG.nextInt(16) + 8;
-			k1 = hellRNG.nextInt(120);
+			k1 = hellRNG.nextInt(128);
 			l1 = l + hellRNG.nextInt(16) + 8;
-			(new WorldGenFlowers(Blocks.red_mushroom)).generate(worldObj, hellRNG, j1, k1, l1);
+			if (k1 <= 124) {
+				redMushroomGen.generate(worldObj, hellRNG, j1, k1, l1);
+			}
 		}
 
-		WorldGenMinable worldgenminable = new WorldGenMinable(Blocks.quartz_ore, 13, Blocks.netherrack);
 		int j2;
 
 		for (k1 = 0; k1 < 16; ++k1) {
 			l1 = k + hellRNG.nextInt(16);
 			i2 = hellRNG.nextInt(108) + 10;
 			j2 = l + hellRNG.nextInt(16);
-			worldgenminable.generate(worldObj, hellRNG, l1, i2, j2);
+			quartzOreGen.generate(worldObj, hellRNG, l1, i2, j2);
 		}
 
 		biome.decorate(worldObj, hellRNG, k, l);

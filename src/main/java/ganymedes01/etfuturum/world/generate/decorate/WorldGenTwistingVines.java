@@ -16,9 +16,9 @@ public class WorldGenTwistingVines extends WorldGenerator {
 		if (isInvalidPlacementLocation(world, x, y, z)) {
 			return false;
 		} else {
-			int spreadWidth = 10;
-			int spreadHeight = 6; //TODO: Verify these numbers
-			int maxHeight = 10;
+			int spreadWidth = 8;
+			int spreadHeight = 4;
+			int maxHeight = 8;
 
 			for (int l = 0; l < spreadWidth * spreadWidth; ++l) {
 				int xOff = x + MathHelper.getRandomIntegerInRange(rand, -spreadWidth, spreadWidth);

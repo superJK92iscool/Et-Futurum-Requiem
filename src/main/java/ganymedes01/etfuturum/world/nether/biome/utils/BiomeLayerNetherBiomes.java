@@ -27,6 +27,9 @@ public class BiomeLayerNetherBiomes extends BiomeLayerNether {
 		if (NetherBiomeManager.soulSandValley != null) {
 			this.netherBiomes.add(new BiomeEntry(NetherBiomeManager.soulSandValley, ConfigWorld.soulSandValleyWeight));
 		}
+		if (NetherBiomeManager.basaltDeltas != null) {
+			this.netherBiomes.add(new BiomeEntry(NetherBiomeManager.basaltDeltas, ConfigWorld.basaltDeltasWeight));
+		}
 //
 //      if (Loader.isModLoaded("BiomesOPlenty")) {
 //          if (BiomeConfiguration.BoneyardGen) {

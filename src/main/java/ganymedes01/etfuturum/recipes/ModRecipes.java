@@ -259,6 +259,10 @@ public class ModRecipes {
 		registerOre("gemAmethyst", ModItems.AMETHYST_SHARD.get());
 		registerOre("blockGlassTinted", ModBlocks.TINTED_GLASS.newItemStack());
 
+		registerOre("cobblestone", ModBlocks.BLACKSTONE.get());
+		registerOre("buttonStone", ModBlocks.POLISHED_BLACKSTONE_BUTTON.get());
+		registerOre("pressurePlateStone", ModBlocks.POLISHED_BLACKSTONE_PRESSURE_PLATE.get());
+
 		for (String waxString : IDegradable.waxStrings) {
 			registerOre(waxString, ModItems.HONEYCOMB.get());
 		}
@@ -286,6 +290,9 @@ public class ModRecipes {
 			GameRegistry.addShapedRecipe(new ItemStack(Blocks.stonebrick, 1, 3), "x", "x", 'x', new ItemStack(Blocks.stone_slab, 1, 5));
 			GameRegistry.addSmelting(new ItemStack(Blocks.stonebrick), new ItemStack(Blocks.stonebrick, 1, 2), 0.0F);
 		}
+
+		GameRegistry.addShapelessRecipe(new ItemStack(Blocks.mossy_cobblestone), new ItemStack(Blocks.cobblestone), ModBlocks.MOSS_BLOCK.newItemStack());
+		GameRegistry.addShapelessRecipe(new ItemStack(Blocks.stonebrick, 1, 1), new ItemStack(Blocks.stonebrick), ModBlocks.MOSS_BLOCK.newItemStack());
 
 		if (ConfigFunctions.enableRecipeForTotem) {
 			addShapedRecipe(ModItems.TOTEM_OF_UNDYING.newItemStack(), "EBE", "GBG", " G ", 'E', "gemEmerald", 'G', "ingotGold", 'B', "blockGold");
@@ -849,6 +856,30 @@ public class ModRecipes {
 		addShapedRecipe(ModBlocks.BEEHIVE.newItemStack(), "WWW", "HHH", "WWW", 'W', "plankWood", 'H', "materialHoneycomb");
 
 		addShapedRecipe(ModBlocks.CHAIN.newItemStack(), "N", "G", "N", 'N', "nuggetIron", 'G', "ingotIron");
+
+		addShapedRecipe(ModBlocks.BLACKSTONE.newItemStack(4, 1), "xx", "xx", 'x', ModBlocks.BLACKSTONE.newItemStack());
+		addShapedRecipe(ModBlocks.BLACKSTONE.newItemStack(4, 2), "xx", "xx", 'x', ModBlocks.BLACKSTONE.newItemStack(1, 1));
+		addShapedRecipe(ModBlocks.BLACKSTONE.newItemStack(1, 4), "x", "x", 'x', ModBlocks.BLACKSTONE_SLAB.newItemStack(1, 1));
+
+		addSmelting(ModBlocks.BLACKSTONE.newItemStack(1, 2), ModBlocks.BLACKSTONE.newItemStack(1, 3), 0.1F);
+
+		addShapedRecipe(ModBlocks.BLACKSTONE_SLAB.newItemStack(6), "xxx", 'x', ModBlocks.BLACKSTONE.newItemStack());
+		addShapedRecipe(ModBlocks.BLACKSTONE_SLAB.newItemStack(6, 1), "xxx", 'x', ModBlocks.BLACKSTONE.newItemStack(1, 1));
+		addShapedRecipe(ModBlocks.BLACKSTONE_SLAB.newItemStack(6, 2), "xxx", 'x', ModBlocks.BLACKSTONE.newItemStack(1, 2));
+
+		addShapedRecipe(ModBlocks.BLACKSTONE_STAIRS.newItemStack(4), "x  ", "xx ", "xxx", 'x', ModBlocks.BLACKSTONE.newItemStack());
+		addShapedRecipe(ModBlocks.POLISHED_BLACKSTONE_STAIRS.newItemStack(4), "x  ", "xx ", "xxx", 'x', ModBlocks.BLACKSTONE.newItemStack(1, 1));
+		addShapedRecipe(ModBlocks.POLISHED_BLACKSTONE_BRICK_STAIRS.newItemStack(4), "x  ", "xx ", "xxx", 'x', ModBlocks.BLACKSTONE.newItemStack(1, 2));
+
+		addShapedRecipe(ModBlocks.BLACKSTONE_WALL.newItemStack(6), "xxx", "xxx", 'x', ModBlocks.BLACKSTONE.newItemStack());
+		addShapedRecipe(ModBlocks.BLACKSTONE_WALL.newItemStack(6, 1), "xxx", "xxx", 'x', ModBlocks.BLACKSTONE.newItemStack(1, 1));
+		addShapedRecipe(ModBlocks.BLACKSTONE_WALL.newItemStack(6, 2), "xxx", "xxx", 'x', ModBlocks.BLACKSTONE.newItemStack(1, 2));
+
+		addShapedRecipe(ModBlocks.POLISHED_BLACKSTONE_BUTTON.newItemStack(1), "x", 'x', ModBlocks.BLACKSTONE.newItemStack(1, 1));
+		addShapedRecipe(ModBlocks.POLISHED_BLACKSTONE_PRESSURE_PLATE.newItemStack(1), "xx", 'x', ModBlocks.BLACKSTONE.newItemStack(1, 1));
+
+		addShapedRecipe(ModBlocks.BASALT.newItemStack(4, 1), "xx", "xx", 'x', ModBlocks.BASALT.newItemStack());
+		addSmelting(ModBlocks.BASALT.newItemStack(), ModBlocks.SMOOTH_BASALT.newItemStack(), 0.1F);
 	}
 
 	private static List<ItemStack> getStewFlowers() {

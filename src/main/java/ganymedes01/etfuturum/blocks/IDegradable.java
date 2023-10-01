@@ -113,8 +113,9 @@ public interface IDegradable {
 						if (block instanceof IDegradable && (x1 != 0 || y1 != 0 || z1 != 0) && Math.abs(x1) + Math.abs(y1) + Math.abs(z1) <= CHECK_RANGE) {
 							int m = ((IDegradable) block).getCopperMeta(world, x, y, z, world.getBlockMetadata(x1 + x, y1 + y, z1 + z));
 
-							if (!countTowardsDegredation(m, world, x, y, z))
+							if (!countTowardsDegredation(m, world, x + x1, y + y1, z + z1)) {
 								continue;
+							}
 
 							m %= 4;
 

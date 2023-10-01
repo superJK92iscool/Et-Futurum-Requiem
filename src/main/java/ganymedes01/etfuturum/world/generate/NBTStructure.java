@@ -4,7 +4,6 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.core.utils.Logger;
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import ganymedes01.etfuturum.core.utils.structurenbt.BlockStateContainer;
-import ganymedes01.etfuturum.entities.EntityShulker;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
@@ -26,15 +25,10 @@ public abstract class NBTStructure {
 	private final NBTTagCompound compound;
 	private final Map<Integer, BlockStateContainer>[] palettes = new Map[4];
 	private final Map<BlockPos, BlockStateContainer>[] buildMaps = new Map[4]; //For storing the results of iterating over the palette and BlockState coords
-	private final float theIntegrity;
 	private final BlockPos[] sizes;
 	private final String location;
 
 	public NBTStructure(String loc) {
-		this(loc, 1);
-	}
-
-	public NBTStructure(String loc, float integrity) {
 		try {
 			InputStream file = EtFuturum.class.getResourceAsStream(loc);
 			compound = CompressedStreamTools.readCompressed(file);
@@ -44,7 +38,6 @@ public abstract class NBTStructure {
 			throw new RuntimeException(e);
 		}
 		location = loc;
-		theIntegrity = integrity;
 		BlockPos size = getPosFromTagList(compound.getTagList("size", 3));
 		sizes = new BlockPos[]{size, new BlockPos(size.getZ(), size.getY(), size.getX())}; //sizes[0] is north and south, [1] (z/x flipped) is east/west
 		init();
@@ -63,7 +56,7 @@ public abstract class NBTStructure {
 			for (int i = 0; i < list.tagCount(); i++) {
 				NBTTagCompound comp = list.getCompoundTagAt(i);
 				BlockPos pos = getListPosFromFacing(comp, facing);
-				BlockStateContainer state = getPalettes()[facing].get(comp.getInteger("state"));
+				BlockStateContainer state = getBuildPalettes()[facing].get(comp.getInteger("state"));
 				boolean isStructureBlock = false;
 				if (comp.hasKey("nbt", 10)) {
 					if (comp.getCompoundTag("nbt").getString("id").equals("minecraft:structure_block")) {
@@ -157,15 +150,34 @@ public abstract class NBTStructure {
 		return compound;
 	}
 
-	public final Map<Integer, BlockStateContainer>[] getPalettes() {
+	public final Map<Integer, BlockStateContainer>[] getBuildPalettes() {
 		return palettes;
 	}
 
-	public final void buildStructure(World world, Random rand, int x, int y, int z) {
-		buildStructure(world, rand, x, y, z, getFacingFromInt(rand.nextInt(4)));
+	/**
+	 * Integrity is how likely a block is to generate. Should be between 0 and 1 (inclusive)
+	 * Compared by Random.nextFloat() <= integrity. You can override this behavior in setBlockState.
+	 *
+	 * @param world
+	 * @param rand
+	 * @param x
+	 * @param y
+	 * @param z
+	 * @param integrity
+	 */
+	public final boolean placeStructure(World world, Random rand, int x, int y, int z, float integrity) {
+		return placeStructure(world, rand, x, y, z, getFacingFromInt(rand.nextInt(4)), integrity);
 	}
 
-	public final boolean buildStructure(World world, Random rand, int x, int y, int z, ForgeDirection facing) {
+	public final boolean placeStructure(World world, Random rand, int x, int y, int z) {
+		return placeStructure(world, rand, x, y, z, getFacingFromInt(rand.nextInt(4)));
+	}
+
+	public final boolean placeStructure(World world, Random rand, int x, int y, int z, ForgeDirection facing) {
+		return placeStructure(world, rand, x, y, z, facing, 1);
+	}
+
+	public final boolean placeStructure(World world, Random rand, int x, int y, int z, ForgeDirection facing, float integrity) {
 		Map<BlockPos, BlockStateContainer> blockSet = buildMaps[getIntFromFacing(facing)];
 		Map<BlockPos, BlockStateContainer> entitySet = new HashMap<>(); //Yes entities are stored in the BlockState class for simplicity because I don't want the map to use Object...
 		for (Map.Entry<BlockPos, BlockStateContainer> entry : blockSet.entrySet()) {
@@ -174,7 +186,7 @@ public abstract class NBTStructure {
 				continue;
 			}
 			BlockPos pos = entry.getKey();
-			setBlockState(world, rand, pos.getX() + x, pos.getY() + y, pos.getZ() + z, entry.getValue());
+			setBlockState(world, rand, pos.getX() + x, pos.getY() + y, pos.getZ() + z, entry.getValue(), integrity);
 		}
 		for (Map.Entry<BlockPos, BlockStateContainer> entry : entitySet.entrySet()) {
 			Entity entity = entry.getValue().createNewEntity(world);
@@ -182,29 +194,31 @@ public abstract class NBTStructure {
 			entity.readFromNBT(entry.getValue().getCompound());
 			entity.setPosition(pos.getX() + x + 0.5D, pos.getY() + y, pos.getZ() + z + 0.5D);
 			world.spawnEntityInWorld(entity);
-			Logger.info(entity.posX + " " + entity.posY + " " + entity.posZ + " " + world.getBlock((int) entity.posX, (int) entity.posY, (int) entity.posZ).getUnlocalizedName());
-			if (entity instanceof EntityShulker) {
-				Logger.info(((EntityShulker) entity).getAttachmentPos().toString());
-			}
+//			Logger.info(entity.posX + " " + entity.posY + " " + entity.posZ + " " + world.getBlock((int) entity.posX, (int) entity.posY, (int) entity.posZ).getUnlocalizedName());
+//			if (entity instanceof EntityShulker) {
+//				Logger.info(((EntityShulker) entity).getAttachmentPos().toString());
+//			}
 		}
 		return true;
 	}
 
-	private void setBlockState(World world, Random rand, int x, int y, int z, BlockStateContainer state) {
-		BlockStateContainer newState = getBlockState(world, rand, x, y, z, state);
-		if (newState != null) {
-			world.setBlock(x, y, z, state.getBlock(), state.getMeta(), 3);
-			if (state.getType() == BlockStateContainer.BlockStateType.BLOCK_ENTITY) {
-				TileEntity te = world.getTileEntity(x, y, z);
-				if (te != null) {
-					if (state.getCompound() != null) {
-						state.getCompound().setInteger("x", x);
-						state.getCompound().setInteger("y", y);
-						state.getCompound().setInteger("z", z);
-						te.readFromNBT(state.getCompound());
-					}
-					if (te instanceof IInventory && state.getLootTable() != null) {
-						WeightedRandomChestContent.generateChestContents(world.rand, state.getLootTable().getItems(world.rand), (IInventory) te, state.getLootTable().getCount(world.rand));
+	protected void setBlockState(World world, Random rand, int x, int y, int z, BlockStateContainer state, float integrity) {
+		if (integrity >= 1 || (0 < integrity && rand.nextFloat() <= integrity)) {
+			BlockStateContainer newState = getBlockState(world, rand, x, y, z, state);
+			if (newState != null) {
+				world.setBlock(x, y, z, state.getBlock(), state.getMeta(), 3);
+				if (state.getType() == BlockStateContainer.BlockStateType.BLOCK_ENTITY) {
+					TileEntity te = world.getTileEntity(x, y, z);
+					if (te != null) {
+						if (state.getCompound() != null) {
+							state.getCompound().setInteger("x", x);
+							state.getCompound().setInteger("y", y);
+							state.getCompound().setInteger("z", z);
+							te.readFromNBT(state.getCompound());
+						}
+						if (te instanceof IInventory && state.getLootTable() != null) {
+							WeightedRandomChestContent.generateChestContents(world.rand, state.getLootTable().getItems(world.rand), (IInventory) te, state.getLootTable().getCount(world.rand));
+						}
 					}
 				}
 			}
@@ -215,8 +229,8 @@ public abstract class NBTStructure {
 	 * Override if this block should turn into something else when placing itself.
 	 * null = nothing, don't use Blocks.air
 	 */
-	public BlockStateContainer getBlockState(World world, Random rand, int x, int y, int z, BlockStateContainer state) {
-		return getIntegrity() == 1 || getIntegrity() > rand.nextFloat() ? state : null;
+	protected BlockStateContainer getBlockState(World world, Random rand, int x, int y, int z, BlockStateContainer state) {
+		return state;
 	}
 
 	public final BlockPos getSize(ForgeDirection facing) {
@@ -231,16 +245,20 @@ public abstract class NBTStructure {
 	}
 
 	public final String getBlockNamespaceFromPaletteEntry(int i) {
-		return getPaletteEntryFromIndex(i).getString("Name");
+		return getBlockNamespaceFromNBT(getPaletteEntryFromIndex(i));
 	}
 
-	public final int getPaletteCount() {
+	public final String getBlockNamespaceFromNBT(NBTTagCompound nbt) {
+		return nbt.getString("Name");
+	}
+
+	public final int getPaletteSize() {
 		return getCompound().getTagList("palette", 10).tagCount();
 	}
 
 	public final Set<Pair<Integer, NBTTagCompound>> getPaletteNBT() {
 		Set<Pair<Integer, NBTTagCompound>> set = new HashSet<>();
-		for (int i = 0; i < getPaletteCount(); i++) {
+		for (int i = 0; i < getPaletteSize(); i++) {
 			set.add(new ImmutablePair<>(i, getPaletteEntryFromIndex(i)));
 		}
 		return set;
@@ -317,18 +335,14 @@ public abstract class NBTStructure {
 	}
 
 	private void createPalettes() {
-		palettes[0] = createPalette(ForgeDirection.NORTH);
-		palettes[1] = createPalette(ForgeDirection.SOUTH);
-		palettes[2] = createPalette(ForgeDirection.WEST);
-		palettes[3] = createPalette(ForgeDirection.EAST);
+		palettes[0] = createPalette(ForgeDirection.NORTH, getPaletteNBT());
+		palettes[1] = createPalette(ForgeDirection.SOUTH, getPaletteNBT());
+		palettes[2] = createPalette(ForgeDirection.WEST, getPaletteNBT());
+		palettes[3] = createPalette(ForgeDirection.EAST, getPaletteNBT());
 	}
 
 	public final String getLocation() {
 		return location;
-	}
-
-	public final float getIntegrity() {
-		return theIntegrity;
 	}
 
 	/**
@@ -340,7 +354,7 @@ public abstract class NBTStructure {
 	 * <p>
 	 * Also don't set NBT here just yet, the NBT is stored in the block map itself so if you want to give one of your block entities NBT, override that function instead.
 	 */
-	public abstract Map<Integer, BlockStateContainer> createPalette(ForgeDirection facing);
+	public abstract Map<Integer, BlockStateContainer> createPalette(ForgeDirection facing, Set<Pair<Integer, NBTTagCompound>> paletteNBT);
 
 	/**
 	 * Override this if you want code to run before the maps and palettes are built.
