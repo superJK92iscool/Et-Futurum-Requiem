@@ -38,7 +38,7 @@ public class BlockWoodFence extends BlockFence {
 	@Override
 	public boolean canConnectFenceTo(IBlockAccess world, int x, int y, int z) {
 		Block block = world.getBlock(x, y, z);
-		return block instanceof BlockWoodFence || block instanceof BlockWoodFenceNew || block instanceof BlockWoodFenceGate || super.canConnectFenceTo(world, x, y, z);
+		return block instanceof BlockWoodFence || block instanceof BlockModernWoodFence || block instanceof BlockWoodFenceGate || super.canConnectFenceTo(world, x, y, z);
 	}
 
 	@Override

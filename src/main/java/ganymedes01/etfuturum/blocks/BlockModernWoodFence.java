@@ -2,9 +2,7 @@ package ganymedes01.etfuturum.blocks;
 
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
-import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFence;
@@ -21,17 +19,17 @@ import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.List;
 
-public class BlockWoodFenceNew extends BlockFence implements ISubBlocksBlock {
+public class BlockModernWoodFence extends BlockFence implements ISubBlocksBlock {
 
-	final BlockWoodPlanks basePlanks;
+	final BlockModernWoodPlanks basePlanks;
 	final String[] types;
 
-	public BlockWoodFenceNew() {
+	public BlockModernWoodFence() {
 		super(null, Material.wood);
 		setHardness(2.0F);
 		setResistance(5.0F);
 		setStepSound(Block.soundTypeWood);
-		basePlanks = (BlockWoodPlanks) ModBlocks.WOOD_PLANKS.get();
+		basePlanks = (BlockModernWoodPlanks) ModBlocks.WOOD_PLANKS.get();
 		types = ArrayUtils.clone(basePlanks.getTypes()); //We need to clone it to not ruin the regular plank type icons
 		for (int i = 0; i < types.length; i++) {
 			types[i] = types[i].replace("planks", "fence");
@@ -71,7 +69,7 @@ public class BlockWoodFenceNew extends BlockFence implements ISubBlocksBlock {
 	@Override
 	public boolean canConnectFenceTo(IBlockAccess world, int x, int y, int z) {
 		Block block = world.getBlock(x, y, z);
-		return block instanceof BlockWoodFence || block instanceof BlockWoodFenceNew || block instanceof BlockWoodFenceGate || super.canConnectFenceTo(world, x, y, z);
+		return block instanceof BlockWoodFence || block instanceof BlockModernWoodFence || block instanceof BlockWoodFenceGate || super.canConnectFenceTo(world, x, y, z);
 	}
 
 	@Override
@@ -97,8 +95,8 @@ public class BlockWoodFenceNew extends BlockFence implements ISubBlocksBlock {
 	@Override
 	public boolean isFlammable(IBlockAccess aWorld, int aX, int aY, int aZ, ForgeDirection aSide) {
 		if (ConfigFunctions.enableExtraBurnableBlocks) {
-			String type = types[aWorld.getBlockMetadata(aX, aY, aZ) % types.length];
-			return type.equals("crimson") || type.equals("warped");
+			int meta = aWorld.getBlockMetadata(aX, aY, aZ) % getTypes().length;
+			return meta > 1;
 		}
 		return false;
 	}

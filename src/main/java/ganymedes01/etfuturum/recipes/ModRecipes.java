@@ -46,7 +46,8 @@ public class ModRecipes {
 
 	public static final String[] ore_dyes = new String[]{"dyeBlack", "dyeRed", "dyeGreen", "dyeBrown", "dyeBlue", "dyePurple", "dyeCyan", "dyeLightGray", "dyeGray", "dyePink", "dyeLime", "dyeYellow", "dyeLightBlue", "dyeMagenta", "dyeOrange", "dyeWhite"};
 	public static final String[] dye_names = new String[]{"white", "orange", "magenta", "light_blue", "yellow", "lime", "pink", "gray", "light_gray", "cyan", "purple", "blue", "brown", "green", "red", "black"};
-	public static final String[] woodTypes = new String[]{"oak", "spruce", "birch", "jungle", "acacia", "dark_oak"/*, "crimson", "warped"*/};
+	public static final String[] woodTypes = new String[]{"oak", "spruce", "birch", "jungle", "acacia", "dark_oak"};
+	public static final String[] modernWoodTypes = new String[]{"crimson", "warped", "mangrove", "cherry"};
 
 	public static void init() {
 		if (ConfigBlocksItems.enableBanners) {
@@ -186,6 +187,9 @@ public class ModRecipes {
 		registerOre("fenceWood", ModBlocks.WOOD_FENCE.newItemStack(1, OreDictionary.WILDCARD_VALUE));
 		registerOre("stairWood", ModBlocks.CRIMSON_STAIRS.get());
 		registerOre("stairWood", ModBlocks.WARPED_STAIRS.get());
+		registerOre("stairWood", ModBlocks.MANGROVE_STAIRS.get());
+		registerOre("stairWood", ModBlocks.CHERRY_STAIRS.get());
+
 
 		for (int i = 0; i < 4; i++) {
 			registerOre("logWood", ModBlocks.LOG_STRIPPED.newItemStack(1, i));
@@ -197,6 +201,8 @@ public class ModRecipes {
 
 			registerOre("logWood", ModBlocks.CRIMSON_STEM.newItemStack(1, i));
 			registerOre("logWood", ModBlocks.WARPED_STEM.newItemStack(1, i));
+			registerOre("logWood", ModBlocks.MANGROVE.newItemStack(1, i));
+			registerOre("logWood", ModBlocks.CHERRY.newItemStack(1, i));
 		}
 
 		registerOre("stoneGranite", ModBlocks.STONE.newItemStack(1, 1));
@@ -399,17 +405,23 @@ public class ModRecipes {
 		//New logs, bark, stripped log and stripped bark to planks
 		addShapedRecipe(ModBlocks.WOOD_PLANKS.newItemStack(4), "x", 'x', ModBlocks.CRIMSON_STEM.newItemStack(1, OreDictionary.WILDCARD_VALUE));
 		addShapedRecipe(ModBlocks.WOOD_PLANKS.newItemStack(4, 1), "x", 'x', ModBlocks.WARPED_STEM.newItemStack(1, OreDictionary.WILDCARD_VALUE));
+		addShapedRecipe(ModBlocks.WOOD_PLANKS.newItemStack(4, 2), "x", 'x', ModBlocks.MANGROVE.newItemStack(1, OreDictionary.WILDCARD_VALUE));
+		addShapedRecipe(ModBlocks.WOOD_PLANKS.newItemStack(4, 3), "x", 'x', ModBlocks.CHERRY.newItemStack(1, OreDictionary.WILDCARD_VALUE));
 
 		if (ConfigBlocksItems.enableStrippedLogs && ConfigBlocksItems.enableBarkLogs) {
 			//New stripped logs to new stripped bark
 			addShapedRecipe(ModBlocks.CRIMSON_STEM.newItemStack(3, 3), "xx", "xx", 'x', ModBlocks.CRIMSON_STEM.newItemStack(2, 2));
 			addShapedRecipe(ModBlocks.WARPED_STEM.newItemStack(3, 3), "xx", "xx", 'x', ModBlocks.WARPED_STEM.newItemStack(2, 2));
+			addShapedRecipe(ModBlocks.MANGROVE.newItemStack(3, 3), "xx", "xx", 'x', ModBlocks.MANGROVE.newItemStack(2, 3));
+			addShapedRecipe(ModBlocks.CHERRY.newItemStack(3, 3), "xx", "xx", 'x', ModBlocks.CHERRY.newItemStack(2, 4));
 		}
 
 		if (ConfigBlocksItems.enableBarkLogs) {
 			//New logs to new bark
 			addShapedRecipe(ModBlocks.CRIMSON_STEM.newItemStack(3, 1), "xx", "xx", 'x', ModBlocks.CRIMSON_STEM.newItemStack(1));
 			addShapedRecipe(ModBlocks.WARPED_STEM.newItemStack(3, 1), "xx", "xx", 'x', ModBlocks.WARPED_STEM.newItemStack(1));
+			addShapedRecipe(ModBlocks.MANGROVE.newItemStack(3, 1), "xx", "xx", 'x', ModBlocks.MANGROVE.newItemStack(1));
+			addShapedRecipe(ModBlocks.CHERRY.newItemStack(3, 1), "xx", "xx", 'x', ModBlocks.CHERRY.newItemStack(1));
 		}
 
 		addShapedRecipe(ModBlocks.FENCE_SPRUCE.newItemStack(3), "xyx", "xyx", 'x', new ItemStack(Blocks.planks, 1, 1), 'y', "stickWood");
@@ -422,6 +434,12 @@ public class ModRecipes {
 		}
 		if (ConfigBlocksItems.enableWarpedBlocks) {
 			addShapedRecipe(ModBlocks.WOOD_FENCE.newItemStack(3, 1), "xyx", "xyx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 1), 'y', "stickWood");
+		}
+		if (ConfigBlocksItems.enableMangroveBlocks) {
+			addShapedRecipe(ModBlocks.WOOD_FENCE.newItemStack(3, 2), "xyx", "xyx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 2), 'y', "stickWood");
+		}
+		if (ConfigBlocksItems.enableCherryBlocks) {
+			addShapedRecipe(ModBlocks.WOOD_FENCE.newItemStack(3, 3), "xyx", "xyx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 3), 'y', "stickWood");
 		}
 
 		addShapedRecipe(ModBlocks.FENCE_GATE_SPRUCE.newItemStack(), "yxy", "yxy", 'x', new ItemStack(Blocks.planks, 1, 1), 'y', "stickWood");
@@ -440,6 +458,8 @@ public class ModRecipes {
 		addShapedRecipe(ModBlocks.DOOR_DARK_OAK.newItemStack(output), "xx", "xx", "xx", 'x', new ItemStack(Blocks.planks, 1, 5));
 		addShapedRecipe(ModBlocks.CRIMSON_DOOR.newItemStack(output), "xx", "xx", "xx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1));
 		addShapedRecipe(ModBlocks.WARPED_DOOR.newItemStack(output), "xx", "xx", "xx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 1));
+		addShapedRecipe(ModBlocks.MANGROVE_DOOR.newItemStack(output), "xx", "xx", "xx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 2));
+		addShapedRecipe(ModBlocks.CHERRY_DOOR.newItemStack(output), "xx", "xx", "xx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 3));
 
 		addShapedRecipe(ModBlocks.TRAPDOOR_SPRUCE.newItemStack(2), "xxx", "xxx", 'x', new ItemStack(Blocks.planks, 1, 1));
 		addShapedRecipe(ModBlocks.TRAPDOOR_BIRCH.newItemStack(2), "xxx", "xxx", 'x', new ItemStack(Blocks.planks, 1, 2));
@@ -448,6 +468,8 @@ public class ModRecipes {
 		addShapedRecipe(ModBlocks.TRAPDOOR_DARK_OAK.newItemStack(2), "xxx", "xxx", 'x', new ItemStack(Blocks.planks, 1, 5));
 		addShapedRecipe(ModBlocks.CRIMSON_TRAPDOOR.newItemStack(2), "xxx", "xxx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1));
 		addShapedRecipe(ModBlocks.WARPED_TRAPDOOR.newItemStack(2), "xxx", "xxx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 1));
+		addShapedRecipe(ModBlocks.MANGROVE_TRAPDOOR.newItemStack(2), "xxx", "xxx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 2));
+		addShapedRecipe(ModBlocks.CHERRY_TRAPDOOR.newItemStack(2), "xxx", "xxx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 3));
 
 		addShapedRecipe(ModBlocks.IRON_TRAPDOOR.newItemStack(), "xx", "xx", 'x', "ingotIron");
 
@@ -458,6 +480,8 @@ public class ModRecipes {
 		addShapedRecipe(ModBlocks.BUTTON_DARK_OAK.newItemStack(), "x", 'x', new ItemStack(Blocks.planks, 1, 5));
 		addShapedRecipe(ModBlocks.CRIMSON_BUTTON.newItemStack(), "x", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1));
 		addShapedRecipe(ModBlocks.WARPED_BUTTON.newItemStack(), "x", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 1));
+		addShapedRecipe(ModBlocks.MANGROVE_BUTTON.newItemStack(), "x", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 2));
+		addShapedRecipe(ModBlocks.CHERRY_BUTTON.newItemStack(), "x", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 3));
 
 		addShapedRecipe(ModBlocks.PRESSURE_PLATE_SPRUCE.newItemStack(), "xx", 'x', new ItemStack(Blocks.planks, 1, 1));
 		addShapedRecipe(ModBlocks.PRESSURE_PLATE_BIRCH.newItemStack(), "xx", 'x', new ItemStack(Blocks.planks, 1, 2));
@@ -466,6 +490,8 @@ public class ModRecipes {
 		addShapedRecipe(ModBlocks.PRESSURE_PLATE_DARK_OAK.newItemStack(), "xx", 'x', new ItemStack(Blocks.planks, 1, 5));
 		addShapedRecipe(ModBlocks.CRIMSON_PRESSURE_PLATE.newItemStack(), "xx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1));
 		addShapedRecipe(ModBlocks.WARPED_PRESSURE_PLATE.newItemStack(), "xx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 1));
+		addShapedRecipe(ModBlocks.MANGROVE_PRESSURE_PLATE.newItemStack(), "xx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 2));
+		addShapedRecipe(ModBlocks.CHERRY_PRESSURE_PLATE.newItemStack(), "xx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 3));
 
 		addShapedRecipe(ModItems.ITEM_SIGN_SPRUCE.newItemStack(3), "xxx", "xxx", " y ", 'x', new ItemStack(Blocks.planks, 1, 1), 'y', "stickWood");
 		addShapedRecipe(ModItems.ITEM_SIGN_BIRCH.newItemStack(3), "xxx", "xxx", " y ", 'x', new ItemStack(Blocks.planks, 1, 2), 'y', "stickWood");
@@ -474,6 +500,8 @@ public class ModRecipes {
 		addShapedRecipe(ModItems.ITEM_SIGN_DARK_OAK.newItemStack(3), "xxx", "xxx", " y ", 'x', new ItemStack(Blocks.planks, 1, 5), 'y', "stickWood");
 		addShapedRecipe(ModBlocks.CRIMSON_SIGN.newItemStack(3), "xxx", "xxx", " y ", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1), 'y', "stickWood");
 		addShapedRecipe(ModBlocks.WARPED_SIGN.newItemStack(3), "xxx", "xxx", " y ", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 1), 'y', "stickWood");
+		addShapedRecipe(ModBlocks.MANGROVE_SIGN.newItemStack(3), "xxx", "xxx", " y ", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 2), 'y', "stickWood");
+		addShapedRecipe(ModBlocks.CHERRY_SIGN.newItemStack(3), "xxx", "xxx", " y ", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 3), 'y', "stickWood");
 
 		if (ConfigFunctions.enableDoorRecipeBuffs) {
 			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Items.wooden_door, 3), "xx", "xx", "xx", 'x', "plankWood"));
