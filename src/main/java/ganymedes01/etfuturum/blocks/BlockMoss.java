@@ -40,12 +40,12 @@ public class BlockMoss extends BaseBlock implements IGrowable {
 	}
 
 	// Adjust the weights as needed
-	private static final int AZALEA_BUSH_WEIGHT = 5;
-	private static final int FLOWERING_AZALEA_WEIGHT = 5;
-	private static final int DOUBLE_TALL_GRASS_WEIGHT = 10;
-	private static final int MOSS_CARPET_WEIGHT = 20;
-	private static final int TALL_GRASS_WEIGHT = 10;
-	private static final int AIR_WEIGHT = 50;
+	private static final int AZALEA_BUSH_WEIGHT = 2;
+	private static final int FLOWERING_AZALEA_WEIGHT = 1;
+	private static final int DOUBLE_TALL_GRASS_WEIGHT = 1;
+	private static final int MOSS_CARPET_WEIGHT = 10;
+	private static final int TALL_GRASS_WEIGHT = 7;
+	private static final int AIR_WEIGHT = 79;
 
 	@Override
 	public void func_149853_b(World world, Random rand, int xCoord, int yCoord, int zCoord) {
