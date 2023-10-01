@@ -442,9 +442,10 @@ public class ModRecipes {
 			addShapedRecipe(ModBlocks.WOOD_FENCE.newItemStack(3, 3), "xyx", "xyx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 3), 'y', "stickWood");
 		}
 
-		for(int i = 0; i < modernWoodTypes.length; i++){
-			addShapedRecipe(ModBlocks.WOOD_SLAB.newItemStack(6, i), "xxx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, i));
-		}
+		addShapedRecipe(ModBlocks.WOOD_SLAB.newItemStack(6, 0), "xxx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 0));
+		addShapedRecipe(ModBlocks.WOOD_SLAB.newItemStack(6, 1), "xxx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 1));
+		addShapedRecipe(ModBlocks.WOOD_SLAB.newItemStack(6, 2), "xxx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 2));
+		addShapedRecipe(ModBlocks.WOOD_SLAB.newItemStack(6, 3), "xxx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 3));
 
 		addShapedRecipe(ModBlocks.CRIMSON_STAIRS.newItemStack(6), "x  ", "xx ", "xxx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 0));
 		addShapedRecipe(ModBlocks.WARPED_STAIRS.newItemStack(6), "x  ", "xx ", "xxx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 1));
