@@ -19,6 +19,8 @@ public class BlockWoodTrapdoor extends BlockTrapDoor {
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 		if (type.equals("crimson") || type.equals("warped")) {
 			Utils.setBlockSound(this, ModSounds.soundNetherWood);
+		} else if (type.equals("cherry")) {
+			Utils.setBlockSound(this, ModSounds.soundCherryWood);
 		} else {
 			setStepSound(Block.soundTypeWood);
 		}

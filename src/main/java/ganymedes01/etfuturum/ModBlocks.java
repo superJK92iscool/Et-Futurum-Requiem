@@ -284,7 +284,7 @@ public enum ModBlocks {
 	WEEPING_VINES(ConfigBlocksItems.enableCrimsonBlocks, new BlockWeepingVines()),
 	TWISTING_VINES(ConfigBlocksItems.enableWarpedBlocks, new BlockTwistingVines()),
 
-	MANGROVE(ConfigBlocksItems.enableMangroveBlocks, new BlockModernWood("mangrove",  ModSounds.soundMangroveWood)),
+	MANGROVE(ConfigBlocksItems.enableMangroveBlocks, new BlockModernWood("mangrove")),
 	CHERRY(ConfigBlocksItems.enableCherryBlocks, new BlockModernWood("cherry",  ModSounds.soundCherryWood)),
 
 	WOOD_PLANKS(ConfigBlocksItems.woodVariants,
@@ -297,8 +297,8 @@ public enum ModBlocks {
 	//new wood stairs
 	CRIMSON_STAIRS(ConfigBlocksItems.enableCrimsonBlocks, new BaseStairs(WOOD_PLANKS.get(), 0).setBlockSound(ModSounds.soundNetherWood).setUnlocalizedNameWithPrefix("crimson")),
 	WARPED_STAIRS(ConfigBlocksItems.enableWarpedBlocks, new BaseStairs(WOOD_PLANKS.get(), 1).setBlockSound(ModSounds.soundNetherWood).setUnlocalizedNameWithPrefix("warped")),
-	MANGROVE_STAIRS(ConfigBlocksItems.enableMangroveBlocks, new BaseStairs(WOOD_PLANKS.get(), 2).setBlockSound(ModSounds.soundNetherWood).setUnlocalizedNameWithPrefix("mangrove")),
-	CHERRY_STAIRS(ConfigBlocksItems.enableCherryBlocks, new BaseStairs(WOOD_PLANKS.get(), 3).setBlockSound(ModSounds.soundNetherWood).setUnlocalizedNameWithPrefix("cherry")),
+	MANGROVE_STAIRS(ConfigBlocksItems.enableMangroveBlocks, new BaseStairs(WOOD_PLANKS.get(), 2).setBlockSound(Block.soundTypeWood).setUnlocalizedNameWithPrefix("mangrove")),
+	CHERRY_STAIRS(ConfigBlocksItems.enableCherryBlocks, new BaseStairs(WOOD_PLANKS.get(), 3).setBlockSound(ModSounds.soundCherryWood).setUnlocalizedNameWithPrefix("cherry")),
 
 	//legacy fences
 	//This is left as-is because fences should really be meta states anyways, so new fences use a different class, so why touch this int-based constructor?
