@@ -118,7 +118,7 @@ public class ModSounds {
 	public static final SoundType soundHangingRoots = new CustomSound("hanging_roots").setDisabledSound(Block.soundTypeGrass);
 	public static final SoundType soundRootedDirt = new CustomSound("rooted_dirt").setDisabledSound(Block.soundTypeGrass);
 	public static final SoundType soundMoss = new CustomSound("moss").setDisabledSound(Block.soundTypeGrass);
-	public static final SoundType soundMossCarpet = new CustomSound("moss_carpet").setDisabledSound(Block.soundTypeGrass)
+	public static final SoundType soundMossCarpet = new CustomSound("moss_carpet").setDisabledSound(Block.soundTypeGrass);
 
 	//Currently prep for Alterius Futurum
 	public static final SoundType soundCherrySapling = new CustomSound("cherry_sapling").setDisabledSound(Block.soundTypeGrass);
