@@ -17,10 +17,11 @@ public class BlockMuddyMangroveRoots extends BlockRotatedPillar {
 		super(Material.ground);
 		setHardness(0.7F);
 		setResistance(0.7F);
-		setStepSound(ConfigSounds.newBlockSounds ? ModSounds.soundMuddyMangroveRoots : soundTypeGravel);
+		Utils.setBlockSound(this, ModSounds.soundMud);
 		setBlockTextureName("muddy_mangrove_roots");
 		setBlockName(Utils.getUnlocalisedName("muddy_mangrove_roots"));
 		setCreativeTab(EtFuturum.creativeTabBlocks);
+		setHarvestLevel("shovel", 0);
 	}
 
 	@Override

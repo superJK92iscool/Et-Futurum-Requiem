@@ -7,7 +7,6 @@ import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -20,17 +19,10 @@ public class BlockMossCarpet extends BaseBlock {
 		setBlockTextureName("moss_block");
 		setBlockName(Utils.getUnlocalisedName("moss_carpet"));
 		setHarvestLevel("hoe", 0);
-		setBlockSound(ModSounds.soundMoss);
+		setBlockSound(ModSounds.soundMossCarpet);
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.0625F, 1.0F);
 		this.func_150154_b(0);
-	}
-
-	public AxisAlignedBB getCollisionBoundingBoxFromPool(World p_149668_1_, int p_149668_2_, int p_149668_3_, int p_149668_4_)
-	{
-		byte b0 = 0;
-		float f = 0.0625F;
-		return AxisAlignedBB.getBoundingBox((double)p_149668_2_ + this.minX, (double)p_149668_3_ + this.minY, (double)p_149668_4_ + this.minZ, (double)p_149668_2_ + this.maxX, (double)((float)p_149668_3_ + (float)b0 * f), (double)p_149668_4_ + this.maxZ);
 	}
 
 	public boolean isOpaqueCube()
@@ -41,18 +33,6 @@ public class BlockMossCarpet extends BaseBlock {
 	public boolean renderAsNormalBlock()
 	{
 		return false;
-	}
-
-	public void setBlockBoundsForItemRender()
-	{
-		this.func_150089_b(0);
-	}
-
-	protected void func_150089_b(int p_150089_1_)
-	{
-		byte b0 = 0;
-		float f = (float)(1 * (1 + b0)) / 16.0F;
-		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, f, 1.0F);
 	}
 
 	protected void func_150154_b(int p_150154_1_)

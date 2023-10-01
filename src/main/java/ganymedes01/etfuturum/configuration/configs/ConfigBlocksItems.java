@@ -88,8 +88,6 @@ public class ConfigBlocksItems extends ConfigBase {
 	public static boolean enableCopperSubItems;
 	public static boolean enableDeepslate;
 	public static boolean enableDeepslateOres;
-	public static boolean enableBasalt;
-	public static boolean enableSoulSoil;
 	public static boolean enableCalcite;
 	public static boolean enableTuff;
 	public static boolean enableNewTileEntities;
@@ -110,11 +108,15 @@ public class ConfigBlocksItems extends ConfigBase {
 	public static boolean enableDyedBeds;
 	public static boolean enableTarget;
 	public static boolean enableSculk;
-	public static boolean enableChain;
 	public static boolean enableHoney;
-	//Nether Update temp disabled
+
+	public static boolean enableChain;
 	public static boolean enableCrimsonBlocks;
 	public static boolean enableWarpedBlocks;
+	public static boolean enableBlackstone;
+	public static boolean enableBasalt;
+	public static boolean enableSoulSoil;
+	public static boolean enableSoulLighting;
 
 	// Wilds Update
 	public static boolean enableMud;
@@ -181,8 +183,6 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableCopper = getBoolean("enableCopper", catBlockNatural, true, "Copper ore and copper blocks, variants, and waxed variants. (Slime balls are used if no mod introduces wax)");
 		enableSweetBerryBushes = getBoolean("enableSweetBerryBushes", catBlockNatural, true, "");
 		enableDeepslate = getBoolean("enableDeepslate", catBlockNatural, true, "");
-		enableBasalt = getBoolean("enableBasalt", catBlockNatural, true, "");
-		enableSoulSoil = getBoolean("enableSoulSoil", catBlockNatural, true, "Not required for the Soul Sand Valley to generate.");
 		enableCalcite = getBoolean("enableCalcite", catBlockNatural, true, "");
 		enableTuff = getBoolean("enableTuff", catBlockNatural, true, "");
 		enableDeepslateOres = getBoolean("enableDeepslateOres", catBlockNatural, true, "Enable deepslate ores for copper ore and vanilla ores when deepslate generates over them.");
@@ -268,8 +268,28 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableLightBlock = getBoolean("enableLightBlock", catBlockMisc, true, "Invisible light blocks. Only has a selection box when held, right click to change light level. Otherwise functionally identical to air and can be replaced by placing blocks into it. Invisible, but can be seen when holding it in Creative mode.");
 		enableChain = getBoolean("enableChain", catBlockMisc, true, "");
 		enableHoney = getBoolean("enableHoney", catBlockMisc, true, "Enables honey blocks, honeycomb blocks, honeycombs, and honey bottles. See entities.cfg for toggling bee nests, beehives, and bees.");
-		enableCrimsonBlocks = getBoolean("enableCrimsonBlocks", catBlockMisc, true, "Enables the crimson nylium, wood, and plants. The nether wart block is still a separate toggle. This must be on for the crimson forest biome to generate.");
-		enableWarpedBlocks = getBoolean("enableWarpedBlocks", catBlockMisc, true, "Enables the warped nylium, wood, and plants. This must be on for the warped forest biome to generate.");
+
+		enableCrimsonBlocks = getBoolean("enableCrimsonBlocks", catBlockMisc, true, "Enables the crimson nylium, wood, and plants. This must be on for the crimson forest biome to generate unless Netherlicious is installed.\nThe nether wart block is still a separate toggle, both this and the wart toggle must be turned off to disable the nether wart block, because crimson trees need the wart blocks.");
+		enableWarpedBlocks = getBoolean("enableWarpedBlocks", catBlockMisc, true, "Enables the warped nylium, wood, and plants. This must be on for the warped forest biome to generate unless Netherlicious is installed.");
+		enableBlackstone = getBoolean("enableBlackstone", catBlockMisc, true, "This must be on for the basalt deltas biome to generate unless Netherlicious is installed.");
+		enableSoulSoil = getBoolean("enableSoulSoil", catBlockNatural, true, "Not required for the Soul Sand Valley to generate.");
+		enableSoulLighting = getBoolean("enableSoulLighting", catBlockNatural, true, "Soul torches and soul lanterns.");
+		enableBasalt = getBoolean("enableBasalt", catBlockNatural, true, "This must be on for the basalt deltas biome to generate unless Netherlicious is installed.");
+
+		if (enableCrimsonBlocks) {
+			enableNetherwartBlock = true;
+		}
+
+		boolean masterNetherToggle = getBoolean("masterNetherToggle", catBlockNatural, true,
+				"Set this to false to easily turn off all Nether blocks. This also turns off all Nether biomes because they require the blocks to generate.\n" +
+						"My biomes have compat with Netherlicious (read world.cfg for more info) but if you don't want any compat at all turn this off.\n" +
+						"This disables the following toggles: enableCrimsonBlocks, enableWarpedBlocks, enableBlackstone, enableSoulSoil, enableSoulLighting and enableBasalt.\n" +
+						"Amethyst geodes use smooth basalt so go to world.cfg to change the outer block to something else or they won't generate.\n" +
+						"This also turns off Nether wart blocks even though they older, because Netherlicious also has those.");
+
+		if (!masterNetherToggle) {
+			enableCrimsonBlocks = enableWarpedBlocks = enableNetherwartBlock = enableBlackstone = enableSoulSoil = enableSoulLighting = enableBasalt = false;
+		}
 
 		//Misc Items
 		enableMutton = getBoolean("enableMutton", catItemMisc, true, "");

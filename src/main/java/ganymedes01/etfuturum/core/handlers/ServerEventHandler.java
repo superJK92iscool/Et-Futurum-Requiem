@@ -21,6 +21,7 @@ import ganymedes01.etfuturum.api.mappings.RawOreDropMapping;
 import ganymedes01.etfuturum.api.mappings.RegistryMapping;
 import ganymedes01.etfuturum.blocks.BlockHoney;
 import ganymedes01.etfuturum.blocks.BlockMagma;
+import ganymedes01.etfuturum.client.particle.ParticleHandler;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.*;
 import ganymedes01.etfuturum.core.utils.ExternalContent;
@@ -951,7 +952,7 @@ public class ServerEventHandler {
 							}
 						}
 
-						if (ConfigBlocksItems.enableInvertedDaylightSensor && oldBlock == Blocks.daylight_detector && canUse(player, world, x, y, z)) {
+						if (ModBlocks.DAYLIGHT_DETECTOR_INVERTED.isEnabled() && oldBlock == Blocks.daylight_detector && canUse(player, world, x, y, z)) {
 							player.swingItem();
 							world.setBlock(x, y, z, ModBlocks.DAYLIGHT_DETECTOR_INVERTED.get(), 15 - meta, 2);
 							if (!world.isRemote) {
@@ -961,9 +962,17 @@ public class ServerEventHandler {
 							world.notifyBlockChange(x, y, z, ModBlocks.DAYLIGHT_DETECTOR_INVERTED.get());
 						}
 
-						if (ConfigBlocksItems.enablePotionCauldron && oldBlock == Blocks.cauldron && heldStack != null && meta == 0 && heldStack.getItem() == Items.potionitem
-								&& (heldStack.hasTagCompound() || heldStack.getItemDamage() > 0) && !ItemPotion.isSplash(heldStack.getItemDamage()) && !Items.potionitem.getEffects(heldStack).isEmpty()) {
-							world.setBlock(x, y, z, ModBlocks.POTION_CAULDRON.get()); //If we don't cancel the use event, the new block is used, so the use code is in the block class.
+						if (heldStack != null && heldStack.getItem() == Items.potionitem) {
+							if ((heldStack.hasTagCompound() || heldStack.getItemDamage() > 0) && !Items.potionitem.getEffects(heldStack).isEmpty()) {
+								if (ModBlocks.POTION_CAULDRON.isEnabled() && oldBlock == Blocks.cauldron && meta == 0 && !ItemPotion.isSplash(heldStack.getItemDamage())) {
+									world.setBlock(x, y, z, ModBlocks.POTION_CAULDRON.get());
+									//If we don't cancel the use event, the new block is used, so the use code is in the block class.
+								}
+							}
+						}
+
+						if (heldStack != null) {
+							doMudConversion(world, x, y, z, player, oldBlock, meta, heldStack);
 						}
 
 						if (ConfigFunctions.mobSpawnerEgging && oldBlock == Blocks.mob_spawner && heldStack != null && heldStack.getItem() == Items.spawn_egg) {
@@ -980,6 +989,7 @@ public class ServerEventHandler {
 								if (!player.capabilities.isCreativeMode) {
 									heldStack.stackSize--;
 								}
+								return;
 							}
 						}
 
@@ -1012,6 +1022,68 @@ public class ServerEventHandler {
 				}
 			}
 		}
+	}
+
+	private boolean doMudConversion(World world, int x, int y, int z, EntityPlayer player, Block oldBlock, int meta, ItemStack heldStack) {
+		boolean isValid = heldStack.getItem() == Items.potionitem && heldStack.getItemDamage() == 0 && Items.potionitem.getEffects(heldStack) == null;
+		if (!isValid && EtFuturum.hasExtraUtils) {
+			int itemDamage = heldStack.getItemDamage();
+			isValid = heldStack.getItem() == ExternalContent.Items.EXTRAUTILS_WATERING_CAN.get() && (itemDamage == 0 || itemDamage == 3);
+		}
+		if (ModBlocks.MUD.isEnabled() && isValid && ((oldBlock == Blocks.dirt && meta != 2) || oldBlock == ModBlocks.COARSE_DIRT.get())) { //TODO: Rooted dirt
+			world.setBlock(x, y, z, ModBlocks.MUD.get());
+			world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, Reference.MCAssetVer + ":item.bottle.empty", 1.0F, 1.0F);
+			player.swingItem();
+			if (world.isRemote) {
+				double d0 = 0.0625D;
+				for (int l = 0; l < 10; ++l) {
+					double d1 = x + world.rand.nextFloat();
+					double d2 = y + world.rand.nextFloat();
+					double d3 = z + world.rand.nextFloat();
+
+					if (l == 0 && !world.getBlock(x, y + 1, z).isOpaqueCube()) {
+						d2 = y + 1 + d0;
+					}
+
+					if (l == 1 && !world.getBlock(x, y - 1, z).isOpaqueCube()) {
+						d2 = y - d0;
+					}
+
+					if (l == 2 && !world.getBlock(x, y, z + 1).isOpaqueCube()) {
+						d3 = z + 1 + d0;
+					}
+
+					if (l == 3 && !world.getBlock(x, y, z - 1).isOpaqueCube()) {
+						d3 = z - d0;
+					}
+
+					if (l == 4 && !world.getBlock(x + 1, y, z).isOpaqueCube()) {
+						d1 = x + 1 + d0;
+					}
+
+					if (l == 5 && !world.getBlock(x - 1, y, z).isOpaqueCube()) {
+						d1 = x - d0;
+					}
+
+					if (d1 < x || d1 > x + 1 || d2 < 0.0D || d2 > y + 1 || d3 < z || d3 > z + 1) {
+						world.spawnParticle("splash", d1, d2, d3, 0, 0, 0);
+					}
+				}
+			}
+			if (!player.capabilities.isCreativeMode && heldStack.getItem() == Items.potionitem) {
+				final ItemStack bottle = new ItemStack(Items.glass_bottle);
+				if (heldStack.stackSize <= 1) {
+					player.setCurrentItemOrArmor(0, bottle);
+				} else {
+					player.inventory.decrStackSize(player.inventory.currentItem, 1);
+					if (!player.inventory.addItemStackToInventory(bottle)) {
+						player.dropPlayerItemWithRandomChoice(bottle, false);
+					}
+				}
+			}
+			return true;
+		}
+		return false;
 	}
 
 	@SubscribeEvent
@@ -1241,13 +1313,6 @@ public class ServerEventHandler {
 						Object o = field.get(provider);
 						if (o instanceof MapGenNetherBridge) {
 							list.add((MapGenNetherBridge) o);
-						}
-						if (o instanceof List) {
-							for (Object o1 : (List) o) {
-								if (o1 instanceof MapGenNetherBridge) {
-									list.add((MapGenNetherBridge) o1);
-								}
-							}
 						}
 					}
 				} catch (IllegalAccessException ignored) {

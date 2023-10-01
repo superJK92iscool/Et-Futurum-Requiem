@@ -28,6 +28,7 @@ public class ModSounds {
 	public static final SoundType soundBoneBlock = new CustomSound("bone_block");
 	public static final SoundType soundNetherrack = new CustomSound("netherrack");
 	public static final SoundType soundNetherOre = new CustomSound("nether_ore");
+	public static final SoundType soundGildedBlackstone = new CustomSound("gilded_blackstone");
 	public static final SoundType soundAncientDebris = new CustomSound("ancient_debris");
 	public static final SoundType soundBasalt = new CustomSound("basalt");
 	public static final SoundType soundNetherite = new CustomSound("netherite_block").setDisabledSound(Block.soundTypeMetal);
@@ -112,13 +113,14 @@ public class ModSounds {
 	public static final SoundType soundPackedMud = new CustomSound("packed_mud");
 	public static final SoundType soundMudBricks = new CustomSound("mud_bricks");
 
-	public static final SoundType soundMoss = new CustomSound("moss", true).setDisabledSound(Block.soundTypeGrass);
 	public static final SoundType soundAzalea = new CustomSound("azalea").setDisabledSound(Block.soundTypeGrass);
-
-	//Currently prep for Alterius Futurum
 	public static final SoundType soundAzaleaLeaves = new CustomSound("azalea_leaves").setDisabledSound(Block.soundTypeGrass);
 	public static final SoundType soundHangingRoots = new CustomSound("hanging_roots").setDisabledSound(Block.soundTypeGrass);
 	public static final SoundType soundRootedDirt = new CustomSound("rooted_dirt").setDisabledSound(Block.soundTypeGrass);
+	public static final SoundType soundMoss = new CustomSound("moss").setDisabledSound(Block.soundTypeGrass);
+	public static final SoundType soundMossCarpet = new CustomSound("moss_carpet").setDisabledSound(Block.soundTypeGrass)
+
+	//Currently prep for Alterius Futurum
 	public static final SoundType soundCherrySapling = new CustomSound("cherry_sapling").setDisabledSound(Block.soundTypeGrass);
 	public static final SoundType soundCherryLeaves = new CustomSound("cherry_leaves").setDisabledSound(Block.soundTypeGrass);
 	public static final SoundType soundCherryWood = new CustomSound("cherry_wood").setDisabledSound(Block.soundTypeWood);

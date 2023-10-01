@@ -2,6 +2,7 @@ package ganymedes01.etfuturum.core.utils;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
+import net.minecraft.item.Item;
 
 import java.util.function.Supplier;
 
@@ -39,8 +40,22 @@ public class ExternalContent {
 			return block;
 		}
 	}
-//  public enum Items {
-//
-//  }
 
+	public enum Items {
+		EXTRAUTILS_WATERING_CAN(() -> GameRegistry.findItem("ExtraUtilities", "watering_can"));
+
+		private Item item;
+		private final Supplier<Item> blockSupplier;
+
+		Items(Supplier<Item> blockSupplier) {
+			this.blockSupplier = blockSupplier;
+		}
+
+		public Item get() {
+			if (item == null) {
+				item = blockSupplier.get();
+			}
+			return item;
+		}
+	}
 }

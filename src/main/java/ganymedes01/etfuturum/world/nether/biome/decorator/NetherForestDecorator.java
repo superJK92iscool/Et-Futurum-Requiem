@@ -2,12 +2,14 @@ package ganymedes01.etfuturum.world.nether.biome.decorator;
 
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.blocks.BlockNylium;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.world.generate.decorate.WorldGenHugeFungus;
 import ganymedes01.etfuturum.world.generate.decorate.WorldGenNetherGrass;
 import ganymedes01.etfuturum.world.generate.decorate.WorldGenTwistingVines;
 import ganymedes01.etfuturum.world.generate.decorate.WorldGenWeepingVines;
 import ganymedes01.etfuturum.world.generate.decorate.WorldGenBlockSplatter;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
@@ -50,18 +52,13 @@ public class NetherForestDecorator extends NetherBiomeDecorator {
 	}
 
 	@Override
-	public void populateBig(World world, Random rand, int chunkX, int chunkZ) {
-
-	}
-
-	@Override
 	public void decorate(World world, Random rand, int chunkX, int chunkZ) {
 		{
 			int x = chunkX + rand.nextInt(16) + 8;
-			int y = 32 + rand.nextInt(88);
+			int y = MathHelper.getRandomIntegerInRange(rand, 32, world.provider.getActualHeight() - 8);
 			int z = chunkZ + rand.nextInt(16) + 8;
 
-			if (rand.nextBoolean()) {
+			if (wartSplatterGenerator != null && rand.nextBoolean()) {
 				wartSplatterGenerator.generate(world, rand, x, y, z);
 			} else {
 				netherrackSplatterGenerator.generate(world, rand, x, y, z);
@@ -70,7 +67,7 @@ public class NetherForestDecorator extends NetherBiomeDecorator {
 
 		for (int attempt = 0; attempt < 12; attempt++) {
 			int x = chunkX + rand.nextInt(16) + 8;
-			int y = 32 + rand.nextInt(68);
+			int y = MathHelper.getRandomIntegerInRange(rand, 32, world.provider.getActualHeight() - 24);
 			int z = chunkZ + rand.nextInt(16) + 8;
 
 			while (y-- > 32) {
@@ -89,7 +86,7 @@ public class NetherForestDecorator extends NetherBiomeDecorator {
 
 		for (int attempt = 0; attempt < 48; attempt++) {
 			int x = chunkX + rand.nextInt(16) + 8;
-			int y = 32 + rand.nextInt(88);
+			int y = MathHelper.getRandomIntegerInRange(rand, 32, world.provider.getActualHeight() - 8);
 			int z = chunkZ + rand.nextInt(16) + 8;
 
 			vineGenerator.generate(world, rand, x, y, z);
@@ -97,7 +94,7 @@ public class NetherForestDecorator extends NetherBiomeDecorator {
 
 		for (int attempt = 0; attempt < 24; attempt++) {
 			int x = chunkX + rand.nextInt(16) + 8;
-			int y = 32 + rand.nextInt(88);
+			int y = MathHelper.getRandomIntegerInRange(rand, 32, world.provider.getActualHeight() - 8);
 			int z = chunkZ + rand.nextInt(16) + 8;
 
 			grassGenerator.generate(world, rand, x, y, z);

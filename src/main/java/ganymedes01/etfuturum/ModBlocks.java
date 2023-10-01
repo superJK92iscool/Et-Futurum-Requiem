@@ -11,6 +11,7 @@ import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.*;
 import ganymedes01.etfuturum.tileentities.TileEntityWoodSign;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockPressurePlate;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -102,6 +103,7 @@ public enum ModBlocks {
 	RAW_ORE_BLOCK(ConfigBlocksItems.enableRawOres, new BaseSubtypesBlock(Material.rock, "raw_copper_block", "raw_iron_block", "raw_gold_block").setNames("raw_ore_block")
 			.setToolClass("pickaxe", 1, 0).setToolClass("pickaxe", 1, 1).setToolClass("pickaxe", 2, 2)
 			.setHardness(5).setResistance(6)),
+	BASALT(ConfigBlocksItems.enableBasalt, new BlockBasalt()),
 	SMOOTH_BASALT(ConfigBlocksItems.enableBasalt, new BaseBlock(Material.rock).setNames("smooth_basalt")
 			.setBlockSound(ModSounds.soundBasalt).setHardness(1.25F).setResistance(4.2F)),
 	CALCITE(ConfigBlocksItems.enableCalcite, new BaseBlock(Material.rock).setNames("calcite")
@@ -112,10 +114,7 @@ public enum ModBlocks {
 	AMETHYST_CLUSTER_2(ConfigBlocksItems.enableAmethyst, new BlockAmethystCluster(1), ItemBlockAmethystCluster.class),
 	TINTED_GLASS(ConfigBlocksItems.enableAmethyst, new BlockTintedGlass()),
 
-	// Mud
-	// TODO: Change Packed Mud vs Mud Bricks Sound
-	MUD(ConfigBlocksItems.enableMud, new BaseBlock(Material.ground).setBlockSound(ModSounds.soundMud).setNames("mud")
-			.setHardness(0.5F).setResistance(0.5F).setCreativeTab(EtFuturum.creativeTabBlocks)),
+	MUD(ConfigBlocksItems.enableMud, new BlockMud()),
 	MUDDY_MANGROVE_ROOTS(ConfigBlocksItems.enableMud, new BlockMuddyMangroveRoots()),
 	PACKED_MUD(ConfigBlocksItems.enableMud, new BlockPackedMud()),
 
@@ -259,6 +258,19 @@ public enum ModBlocks {
 	BEEHIVE(ConfigEntities.enableBees, new BlockBeeHive().setHiveType("beehive", true)),
 	BEE_NEST(ConfigEntities.enableBees, new BlockBeeHive().setHiveType("bee_nest", true)),
 	CHAIN(ConfigBlocksItems.enableChain, new BlockChain()),
+
+	BLACKSTONE(ConfigBlocksItems.enableBlackstone, new BlockBlackstone()),
+	GILDED_BLACKSTONE(ConfigBlocksItems.enableBlackstone, new BlockGildedBlackstone()),
+	BLACKSTONE_SLAB(ConfigBlocksItems.enableBlackstone, new BlockBlackstoneSlab(false)),
+	DOUBLE_BLACKSTONE_SLAB(ConfigBlocksItems.enableBlackstone, new BlockBlackstoneSlab(true)),
+
+	BLACKSTONE_STAIRS(ConfigBlocksItems.enableBlackstone, new BaseStairs(ModBlocks.BLACKSTONE.get(), 0)),
+	POLISHED_BLACKSTONE_STAIRS(ConfigBlocksItems.enableBlackstone, new BaseStairs(ModBlocks.BLACKSTONE.get(), 1).setUnlocalizedNameWithPrefix("polished_blackstone")),
+	POLISHED_BLACKSTONE_BRICK_STAIRS(ConfigBlocksItems.enableBlackstone, new BaseStairs(ModBlocks.BLACKSTONE.get(), 2).setUnlocalizedNameWithPrefix("polished_blackstone_brick")),
+
+	BLACKSTONE_WALL(ConfigBlocksItems.enableBlackstone, new BaseWall("blackstone_wall", new Block[]{ModBlocks.BLACKSTONE.get(), ModBlocks.BLACKSTONE.get(), ModBlocks.BLACKSTONE.get()}, new int[]{0, 1, 2}, new String[]{"blackstone_wall", "polished_blackstone_wall", "polished_blackstone_brick_wall"})),
+	POLISHED_BLACKSTONE_PRESSURE_PLATE(ConfigBlocksItems.enableBlackstone, new BlockPolishedBlackstonePressurePlate()),
+	POLISHED_BLACKSTONE_BUTTON(ConfigBlocksItems.enableBlackstone, new BlockPolishedBlackstoneButton()),
 
 	SOUL_SOIL(ConfigBlocksItems.enableSoulSoil, new BlockSoulSoil()),
 	SHROOMLIGHT(ConfigBlocksItems.enableCrimsonBlocks || ConfigBlocksItems.enableWarpedBlocks, new BaseBlock(Material.gourd).setNames("shroomlight").setBlockSound(ModSounds.soundShroomlight)

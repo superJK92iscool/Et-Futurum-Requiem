@@ -47,10 +47,6 @@ public class NetherBiomeBase extends BiomeGenBase implements IBiomeColor {
 		decorator.populate(world, rand, x, z);
 	}
 
-	public void populateBig(World world, Random rand, int x, int z) {
-		decorator.populateBig(world, rand, x, z);
-	}
-
 	@Override
 	public void decorate(World world, Random rand, int x, int z) {
 		decorator.decorate(world, rand, x, z);
