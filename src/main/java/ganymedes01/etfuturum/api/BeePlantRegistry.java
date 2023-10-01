@@ -1,6 +1,7 @@
 package ganymedes01.etfuturum.api;
 
 import com.google.common.collect.Lists;
+import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.api.mappings.RegistryMapping;
 import ganymedes01.etfuturum.blocks.BlockBerryBush;
 import ganymedes01.etfuturum.blocks.BlockChorusFlower;
@@ -67,7 +68,9 @@ public class BeePlantRegistry {
 			addFlower(Blocks.double_plant, 1);
 			addFlower(Blocks.double_plant, 4);
 			addFlower(Blocks.double_plant, 5);
-			//TODO: This should have flowering azalea saplings and flowering azalea leaves, cherry leaves, pink petals, mangrove propagules, and spore blossoms as flowers, when added
+
+			addFlower(ModBlocks.AZALEA.get(), 1);
+			//TODO: This should have flowering azalea leaves, cherry leaves, pink petals, mangrove propagules, and spore blossoms as flowers, when added
 		}
 	}
 }

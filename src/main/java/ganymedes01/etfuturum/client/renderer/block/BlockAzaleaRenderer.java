@@ -2,10 +2,8 @@ package ganymedes01.etfuturum.client.renderer.block;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ganymedes01.etfuturum.blocks.BlockAzalea;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 
 @SideOnly(Side.CLIENT)
@@ -15,53 +13,30 @@ public class BlockAzaleaRenderer extends BlockModelBase {
 		super(modelID);
 	}
 
-	@Override
-	public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
-		IIcon sideIcon = ((BlockAzalea) block).sideIcon;
-		IIcon topIcon = ((BlockAzalea) block).topIcon;
-
-		// Prepare the tessellator
-		tessellator.startDrawingQuads();
-
-		// Render the sides and top with the specified icons
-		renderer.setRenderBoundsFromBlock(block);
-		renderer.setOverrideBlockTexture(sideIcon); // Set the side icon
-		renderer.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, sideIcon);
-		renderer.renderFaceXNeg(block, 0.0D, 0.0D, 0.0D, sideIcon);
-		renderer.renderFaceZPos(block, 0.0D, 0.0D, 0.0D, sideIcon);
-		renderer.renderFaceZNeg(block, 0.0D, 0.0D, 0.0D, sideIcon);
-		renderer.clearOverrideBlockTexture(); // Clear the override texture
-
-		renderer.setOverrideBlockTexture(topIcon); // Set the top icon
-		renderer.renderFaceYPos(block, 0.0D, 0.0D, 0.0D, topIcon);
-		renderer.clearOverrideBlockTexture(); // Clear the override texture
-
-		// Finish tessellating
-		tessellator.draw();
+	protected void renderInventoryModel(Block block, int meta, int modelId, RenderBlocks renderer, double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
+		//We have to render each side manually because the bottom side gets rendered even though we set shouldSideBeRendered to false on side 0 (bottom)
+		renderer.setRenderBounds(0, 0, 0, 1, 1, 1);
+		tessellator.setNormal(0.0F, 1.0F, 0.0F);
+		renderer.renderFaceYPos(block, 0.0D, 0.0D, 0.0D, renderer.getBlockIconFromSideAndMetadata(block, 1, meta));
+		tessellator.setNormal(0.0F, 0.0F, -1.0F);
+		renderer.renderFaceZNeg(block, 0.0D, 0.0D, 0.0D, renderer.getBlockIconFromSideAndMetadata(block, 2, meta));
+		tessellator.setNormal(0.0F, 0.0F, 1.0F);
+		renderer.renderFaceZPos(block, 0.0D, 0.0D, 0.0D, renderer.getBlockIconFromSideAndMetadata(block, 3, meta));
+		tessellator.setNormal(-1.0F, 0.0F, 0.0F);
+		renderer.renderFaceXNeg(block, 0.0D, 0.0D, 0.0D, renderer.getBlockIconFromSideAndMetadata(block, 4, meta));
+		tessellator.setNormal(1.0F, 0.0F, 0.0F);
+		renderer.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, renderer.getBlockIconFromSideAndMetadata(block, 5, meta));
+		renderer.drawCrossedSquares(block.getBlockTextureFromSide(0), 0, 0, 0, 1.0F);
 	}
 
 	@Override
 	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
-		IIcon sideIcon = ((BlockAzalea) block).sideIcon;
-		IIcon topIcon = ((BlockAzalea) block).topIcon;
-
-		// Render the sides and top with the specified icons
-		renderer.setRenderBoundsFromBlock(block);
-		renderer.setOverrideBlockTexture(sideIcon); // Set the side icon
-		renderer.renderFaceXPos(block, x, y, z, sideIcon);
-		renderer.renderFaceXNeg(block, x, y, z, sideIcon);
-		renderer.renderFaceZPos(block, x, y, z, sideIcon);
-		renderer.renderFaceZNeg(block, x, y, z, sideIcon);
-
-		renderer.setOverrideBlockTexture(topIcon); // Set the top icon
-		renderer.renderFaceYPos(block, x, y, z, topIcon);
-
-		return true;
-	}
-
-	@Override
-	public boolean shouldRender3DInInventory(int modelId) {
-		return true;
+		//We don't need to cull the bottom (0) face because we do that in
+		renderer.drawCrossedSquares(block.getBlockTextureFromSide(0), x, y, z, 1.0F);
+		renderer.renderFromInside = true;
+		renderStandardWorldCube(world, x, y, z, block, modelId, renderer, 0, 0, 0, 1, 1, 1);
+		renderer.renderFromInside = false;
+		return renderStandardWorldCube(world, x, y, z, block, modelId, renderer, 0, 0, 0, 1, 1, 1);
 	}
 
 }

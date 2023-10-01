@@ -22,7 +22,6 @@ public class BlockMossCarpet extends BaseBlock {
 		setBlockSound(ModSounds.soundMossCarpet);
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.0625F, 1.0F);
-		this.func_150154_b(0);
 	}
 
 	public boolean isOpaqueCube()
@@ -33,13 +32,6 @@ public class BlockMossCarpet extends BaseBlock {
 	public boolean renderAsNormalBlock()
 	{
 		return false;
-	}
-
-	protected void func_150154_b(int p_150154_1_)
-	{
-		int j = p_150154_1_ & 7;
-		float f = (float)(2 * (1 + j)) / 16.0F;
-		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, f, 1.0F);
 	}
 
 	public boolean canPlaceBlockAt(World p_149742_1_, int p_149742_2_, int p_149742_3_, int p_149742_4_)

@@ -6,40 +6,40 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.RenderIDs;
-import net.minecraft.block.Block;
+import net.minecraft.block.BlockBush;
+import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.init.Blocks;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.EnumPlantType;
 
-public class BlockAzalea extends BaseBush implements ISubBlocksBlock {
+import java.util.List;
+
+public class BlockAzalea extends BlockBush implements ISubBlocksBlock {
 
 
 	@SideOnly(Side.CLIENT)
-	public IIcon sideIcon;
+	public IIcon[] sideIcons;
 	@SideOnly(Side.CLIENT)
-	public IIcon topIcon;
+	public IIcon[] topIcons;
 	public int meta;
 
-
-	private IIcon[] icons;
 	private final String[] types = new String[]{"azalea", "flowering_azalea"};
 
-	public BlockAzalea(int meta) {
+	public BlockAzalea() {
 		super(Material.wood);
-
 		setHardness(0.0F);
 		setResistance(0.0F);
-		setMapColorBaseBlock(Blocks.grass);
-		setBlockSound(ModSounds.soundAzalea);
+		Utils.setBlockSound(this, ModSounds.soundAzalea);
 		setBlockName(Utils.getUnlocalisedName("azalea"));
 		setBlockTextureName("azalea");
 		setCreativeTab(EtFuturum.creativeTabBlocks);
-		this.meta = meta;
+		setBlockBounds(0, 0, 0, 1, 1, 1);
 	}
 
 	@Override
@@ -48,35 +48,27 @@ public class BlockAzalea extends BaseBush implements ISubBlocksBlock {
 	}
 
 	@Override
-	public boolean canPlaceBlockAt(World world, int x, int y, int z) {
-		return super.canPlaceBlockAt(world, x, y, z) && canBlockStay(world, x, y, z);
+	public EnumPlantType getPlantType(IBlockAccess world, int x, int y, int z) {
+		return EnumPlantType.Plains;
 	}
 
 	@Override
 	public boolean canBlockStay(World world, int x, int y, int z) {
-		return world.getBlock(x, y - 1, z).getMaterial() == Material.grass || world.getBlock(x, y - 1, z).getMaterial() == Material.grass; // Azalea can only be placed on grass
+		return world.getBlock(x, y - 1, z).getMaterial() == Material.clay || super.canBlockStay(world, x, y, z);
 	}
 
-	@Override
-	public boolean canPlaceBlockOn(Block block) {
-		return block.getMaterial() == Material.grass;
-	}
+	public void addCollisionBoxesToList(World p_149743_1_, int p_149743_2_, int p_149743_3_, int p_149743_4_, AxisAlignedBB p_149743_5_, List p_149743_6_, Entity p_149743_7_) {
+		setBlockBounds(0.0F, 0.5F, 0.0F, 1.0F, 1.0F, 1.0F);
+		super.addCollisionBoxesToList(p_149743_1_, p_149743_2_, p_149743_3_, p_149743_4_, p_149743_5_, p_149743_6_, p_149743_7_);
+		setBlockBounds(0.4375F, 0.5F, 0.4375F, 0.5625F, 1.0F, 0.5625F);
+		super.addCollisionBoxesToList(p_149743_1_, p_149743_2_, p_149743_3_, p_149743_4_, p_149743_5_, p_149743_6_, p_149743_7_);
 
-	@Override
-	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
-		return AxisAlignedBB.getBoundingBox(x, y, z, x + 1, y + 1, z + 1);
+		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
 	}
 
 	@Override
 	public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z) {
-		// Define the dimensions of the top and bottom parts of the block
-		double minX = x + 0.0;
-		double minZ = z + 0.0;
-		double maxX = x + 1.0;
-		double maxYTop = y + 0.5;
-		double maxZ = z + 1.0;
-
-		return AxisAlignedBB.getBoundingBox(minX, maxYTop, minZ, maxX, maxYTop + 0.5, maxZ);
+		return AxisAlignedBB.getBoundingBox(x + 0.0F, y + 0.5F, z + 0.0F, x + 1.0F, y + 1.0F, z + 1.0F);
 	}
 
 	@Override
@@ -84,32 +76,42 @@ public class BlockAzalea extends BaseBush implements ISubBlocksBlock {
 		return false;
 	}
 
-//	@Override
-//	public int getRenderBlockPass() {
-//		return RenderIDs.AZALEA;
-//	}
+	@Override
+	public int getRenderType() {
+		return RenderIDs.AZALEA;
+	}
+
+	@Override
+	public boolean shouldSideBeRendered(IBlockAccess p_149646_1_, int p_149646_2_, int p_149646_3_, int p_149646_4_, int p_149646_5_) {
+		return p_149646_5_ != 0 && super.shouldSideBeRendered(p_149646_1_, p_149646_2_, p_149646_3_, p_149646_4_, p_149646_5_);
+	}
 
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister p_149651_1_) {
 		this.blockIcon = p_149651_1_.registerIcon(this.getTextureName() + "_plant");
-		this.sideIcon = p_149651_1_.registerIcon(this.getTextureName() + "_side");
-		this.topIcon = p_149651_1_.registerIcon(this.getTextureName() + "_top");
+
+		sideIcons = new IIcon[2];
+		topIcons = new IIcon[2];
+		sideIcons[0] = p_149651_1_.registerIcon(this.getTextureName() + "_side");
+		sideIcons[1] = p_149651_1_.registerIcon("flowering_" + this.getTextureName() + "_side");
+		topIcons[0] = p_149651_1_.registerIcon(this.getTextureName() + "_top");
+		topIcons[1] = p_149651_1_.registerIcon("flowering_" + this.getTextureName() + "_top");
 	}
 
 	@Override
 	public IIcon[] getIcons() {
-		return icons;
+		return sideIcons;
 	}
 
 	@Override
 	public IIcon getIcon(int side, int meta) {
-		if(side == 1){
-			return this.sideIcon;
+		if (side == 0) {
+			return this.blockIcon;
 		}
-		if(side == 2){
-			return this.topIcon;
+		if (side == 1) {
+			return topIcons[meta % topIcons.length];
 		}
-		return this.blockIcon;
+		return sideIcons[meta % topIcons.length];
 	}
 
 	@Override
@@ -120,5 +122,10 @@ public class BlockAzalea extends BaseBush implements ISubBlocksBlock {
 	@Override
 	public String getNameFor(ItemStack stack) {
 		return getTypes()[stack.getItemDamage() % types.length];
+	}
+
+	@Override
+	public MapColor getMapColor(int p_149728_1_) {
+		return MapColor.grassColor;
 	}
 }
