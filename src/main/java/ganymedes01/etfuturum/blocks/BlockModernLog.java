@@ -21,7 +21,7 @@ import java.util.List;
 public class BlockModernLog extends BlockLog implements ISubBlocksBlock {
 
 	protected final String type;
-	private final String[] types;
+	protected String[] types;
 
 	public BlockModernLog(String type) {
 		super();

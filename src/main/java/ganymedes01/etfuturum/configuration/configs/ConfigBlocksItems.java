@@ -220,9 +220,10 @@ public class ConfigBlocksItems extends ConfigBase {
 
 		enableMangroveBlocks = getBoolean("enableMangroveBlocks", catBlockNatural, true, "Enables mangrove wood and all of its wood subtypes, and muddy mangrove roots (if mud is enabled).");
 		enableCherryBlocks = getBoolean("enableCherryBlocks", catBlockNatural, true, "Enables cherry wood and all of its wood subtypes.");
+		enableBambooBlocks = getBoolean("enableBambooBlocks", catBlockNatural, true, "Enables bamboo wood and all of its wood subtypes.");
 
 		// Check if we enable wood variants at all
-		woodVariants = enableCrimsonBlocks || enableWarpedBlocks || enableMangroveBlocks || enableCherryBlocks;
+		woodVariants = enableCrimsonBlocks || enableWarpedBlocks || enableMangroveBlocks || enableCherryBlocks || enableBambooBlocks;
 
 //      enableSculk = getBoolean("enableSculk", catBlockNatural, true, "Enables sculk-related blocks.");
 

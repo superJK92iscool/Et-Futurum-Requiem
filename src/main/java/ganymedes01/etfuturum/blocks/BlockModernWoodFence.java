@@ -2,6 +2,7 @@ package ganymedes01.etfuturum.blocks;
 
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.Block;
@@ -15,9 +16,10 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import org.apache.commons.lang3.ArrayUtils;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.ArrayList;
 
 public class BlockModernWoodFence extends BlockFence implements ISubBlocksBlock {
 
@@ -30,16 +32,35 @@ public class BlockModernWoodFence extends BlockFence implements ISubBlocksBlock 
 		setResistance(5.0F);
 		setStepSound(Block.soundTypeWood);
 		basePlanks = (BlockModernWoodPlanks) ModBlocks.WOOD_PLANKS.get();
-		types = ArrayUtils.clone(basePlanks.getTypes()); //We need to clone it to not ruin the regular plank type icons
-		for (int i = 0; i < types.length; i++) {
-			types[i] = types[i].replace("planks", "fence");
+		ArrayList<String> typesList = new ArrayList<>(Arrays.asList(basePlanks.getTypes()));
+		if (typesList.size() >= 6) {
+			typesList.remove(5); // Remove Mosaic
+		}
+
+		types = new String[typesList.size()];
+		for (int i = 0; i < typesList.size(); i++) {
+			types[i] = typesList.get(i).replace("planks", "fence");
 		}
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
 	@Override
-	public void getSubBlocks(Item p_149666_1_, CreativeTabs p_149666_2_, List p_149666_3_) {
-		ModBlocks.WOOD_PLANKS.get().getSubBlocks(p_149666_1_, p_149666_2_, p_149666_3_);
+	public void getSubBlocks(Item item, CreativeTabs p_149666_2_, List list) {
+		if (ConfigBlocksItems.enableCrimsonBlocks) {
+			list.add(new ItemStack(item, 1, 0));
+		}
+		if (ConfigBlocksItems.enableWarpedBlocks) {
+			list.add(new ItemStack(item, 1, 1));
+		}
+		if (ConfigBlocksItems.enableMangroveBlocks) {
+			list.add(new ItemStack(item, 1, 2));
+		}
+		if (ConfigBlocksItems.enableCherryBlocks) {
+			list.add(new ItemStack(item, 1, 3));
+		}
+		if (ConfigBlocksItems.enableBambooBlocks) {
+			list.add(new ItemStack(item, 1, 4));
+		}
 	}
 
 	@Override
@@ -48,8 +69,7 @@ public class BlockModernWoodFence extends BlockFence implements ISubBlocksBlock 
 	}
 
 	@Override
-	public void registerBlockIcons(IIconRegister ignored) {
-	}
+	public void registerBlockIcons(IIconRegister ignored) {}
 
 	@Override
 	public int getDamageValue(World p_149643_1_, int p_149643_2_, int p_149643_3_, int p_149643_4_) {

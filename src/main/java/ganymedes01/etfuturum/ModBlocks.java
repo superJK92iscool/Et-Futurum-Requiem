@@ -291,12 +291,15 @@ public enum ModBlocks {
 	WARPED_STEM(ConfigBlocksItems.enableWarpedBlocks, new BlockNetherStem("warped")),
 	MANGROVE_LOG(ConfigBlocksItems.enableMangroveBlocks, new BlockModernLog("mangrove")),
 	CHERRY_LOG(ConfigBlocksItems.enableCherryBlocks, new BlockModernLog("cherry", ModSounds.soundCherryWood)),
+	BAMBOO_BLOCK(ConfigBlocksItems.enableBambooBlocks, new BlockBambooBlock("bamboo", ModSounds.soundBambooWood)),
 
 	//new wood stairs
 	CRIMSON_STAIRS(ConfigBlocksItems.enableCrimsonBlocks, new BaseStairs(WOOD_PLANKS.get(), 0).setBlockSound(ModSounds.soundNetherWood).setUnlocalizedNameWithPrefix("crimson")),
 	WARPED_STAIRS(ConfigBlocksItems.enableWarpedBlocks, new BaseStairs(WOOD_PLANKS.get(), 1).setBlockSound(ModSounds.soundNetherWood).setUnlocalizedNameWithPrefix("warped")),
 	MANGROVE_STAIRS(ConfigBlocksItems.enableMangroveBlocks, new BaseStairs(WOOD_PLANKS.get(), 2).setBlockSound(Block.soundTypeWood).setUnlocalizedNameWithPrefix("mangrove")),
 	CHERRY_STAIRS(ConfigBlocksItems.enableCherryBlocks, new BaseStairs(WOOD_PLANKS.get(), 3).setBlockSound(ModSounds.soundCherryWood).setUnlocalizedNameWithPrefix("cherry")),
+	BAMBOO_STAIRS(ConfigBlocksItems.enableBambooBlocks, new BaseStairs(WOOD_PLANKS.get(), 4).setBlockSound(ModSounds.soundBambooWood).setUnlocalizedNameWithPrefix("bamboo")),
+	BAMBOO_MOSAIC_STAIRS(ConfigBlocksItems.enableBambooBlocks, new BaseStairs(WOOD_PLANKS.get(), 5).setBlockSound(ModSounds.soundBambooWood).setUnlocalizedNameWithPrefix("bamboo_mosaic")),
 
 	//legacy fences
 	//This is left as-is because fences should really be meta states anyways, so new fences use a different class, so why touch this int-based constructor?
@@ -320,8 +323,9 @@ public enum ModBlocks {
 	//new buttons (different ID format)
 	CRIMSON_BUTTON(ConfigBlocksItems.enableCrimsonBlocks, new BlockWoodButton("crimson", WOOD_PLANKS.get(), 0, false)),
 	WARPED_BUTTON(ConfigBlocksItems.enableWarpedBlocks, new BlockWoodButton("warped", WOOD_PLANKS.get(), 1, false)),
-	MANGROVE_BUTTON(ConfigBlocksItems.enableWarpedBlocks, new BlockWoodButton("mangrove", WOOD_PLANKS.get(), 2, true)),
-	CHERRY_BUTTON(ConfigBlocksItems.enableWarpedBlocks, new BlockWoodButton("cherry", WOOD_PLANKS.get(), 3, true)),
+	MANGROVE_BUTTON(ConfigBlocksItems.enableMangroveBlocks, new BlockWoodButton("mangrove", WOOD_PLANKS.get(), 2, true)),
+	CHERRY_BUTTON(ConfigBlocksItems.enableCherryBlocks, new BlockWoodButton("cherry", WOOD_PLANKS.get(), 3, true)),
+	BAMBOO_BUTTON(ConfigBlocksItems.enableBambooBlocks, new BlockWoodButton("bamboo", WOOD_PLANKS.get(), 4, true)),
 
 	//legacy pressure plates
 	PRESSURE_PLATE_SPRUCE(ConfigBlocksItems.enableWoodRedstone, new BlockWoodPressurePlate("spruce", Blocks.planks, 1, true)),
@@ -335,6 +339,7 @@ public enum ModBlocks {
 	WARPED_PRESSURE_PLATE(ConfigBlocksItems.enableWarpedBlocks, new BlockWoodPressurePlate("warped", WOOD_PLANKS.get(), 1, false)),
 	MANGROVE_PRESSURE_PLATE(ConfigBlocksItems.enableMangroveBlocks, new BlockWoodPressurePlate("mangrove", WOOD_PLANKS.get(), 2, true)),
 	CHERRY_PRESSURE_PLATE(ConfigBlocksItems.enableCherryBlocks, new BlockWoodPressurePlate("cherry", WOOD_PLANKS.get(), 3, true)),
+	BAMBOO_PRESSURE_PLATE(ConfigBlocksItems.enableBambooBlocks, new BlockWoodPressurePlate("bamboo", WOOD_PLANKS.get(), 4, true)),
 
 	//legacy fence gates
 	FENCE_GATE_SPRUCE(ConfigBlocksItems.enableFences, new BlockWoodFenceGate("spruce", Blocks.planks, 1, true)),
@@ -348,6 +353,7 @@ public enum ModBlocks {
 	WARPED_FENCE_GATE(ConfigBlocksItems.enableWarpedBlocks, new BlockWoodFenceGate("warped", WOOD_PLANKS.get(), 1, false)),
 	MANGROVE_FENCE_GATE(ConfigBlocksItems.enableMangroveBlocks, new BlockWoodFenceGate("mangrove", WOOD_PLANKS.get(), 2, true)),
 	CHERRY_FENCE_GATE(ConfigBlocksItems.enableCherryBlocks, new BlockWoodFenceGate("cherry", WOOD_PLANKS.get(), 3, true)),
+	BAMBOO_FENCE_GATE(ConfigBlocksItems.enableBambooBlocks, new BlockWoodFenceGate("bamboo", WOOD_PLANKS.get(), 4, true)),
 
 	//legacy doors
 	DOOR_SPRUCE(ConfigBlocksItems.enableDoors, new BlockWoodDoor("spruce"), ItemBlockWoodDoor.class),
@@ -361,6 +367,7 @@ public enum ModBlocks {
 	WARPED_DOOR(ConfigBlocksItems.enableWarpedBlocks, new BlockWoodDoor("warped"), ItemBlockWoodDoor.class),
 	MANGROVE_DOOR(ConfigBlocksItems.enableMangroveBlocks, new BlockWoodDoor("mangrove"), ItemBlockWoodDoor.class),
 	CHERRY_DOOR(ConfigBlocksItems.enableCherryBlocks, new BlockWoodDoor("cherry"), ItemBlockWoodDoor.class),
+	BAMBOO_DOOR(ConfigBlocksItems.enableBambooBlocks, new BlockWoodDoor("bamboo"), ItemBlockWoodDoor.class),
 
 	//legacy trapdoors
 	TRAPDOOR_SPRUCE(ConfigBlocksItems.enableTrapdoors, new BlockWoodTrapdoor("spruce")),
@@ -374,6 +381,7 @@ public enum ModBlocks {
 	WARPED_TRAPDOOR(ConfigBlocksItems.enableWarpedBlocks, new BlockWoodTrapdoor("warped")),
 	MANGROVE_TRAPDOOR(ConfigBlocksItems.enableMangroveBlocks, new BlockWoodTrapdoor("mangrove")),
 	CHERRY_TRAPDOOR(ConfigBlocksItems.enableCherryBlocks, new BlockWoodTrapdoor("cherry")),
+	BAMBOO_TRAPDOOR(ConfigBlocksItems.enableBambooBlocks, new BlockWoodTrapdoor("bamboo")),
 
 	//legacy signs
 	SIGN_SPRUCE(ConfigBlocksItems.enableSigns, new BlockWoodSign(TileEntityWoodSign.class, true, "spruce", Blocks.planks, 1), null),
@@ -396,7 +404,8 @@ public enum ModBlocks {
 	MANGROVE_WALL_SIGN(ConfigBlocksItems.enableMangroveBlocks, new BlockWoodSign(TileEntityWoodSign.class, false, "mangrove", WOOD_PLANKS.get(), 2), null),
 	CHERRY_SIGN(ConfigBlocksItems.enableCherryBlocks, new BlockWoodSign(TileEntityWoodSign.class, true, "cherry", WOOD_PLANKS.get(), 3), ItemBlockSign.class),
 	CHERRY_WALL_SIGN(ConfigBlocksItems.enableCherryBlocks, new BlockWoodSign(TileEntityWoodSign.class, false, "cherry", WOOD_PLANKS.get(), 3), null),
-
+	BAMBOO_SIGN(ConfigBlocksItems.enableBambooBlocks, new BlockWoodSign(TileEntityWoodSign.class, true, "bamboo", WOOD_PLANKS.get(), 4), ItemBlockSign.class),
+	BAMBOO_WALL_SIGN(ConfigBlocksItems.enableBambooBlocks, new BlockWoodSign(TileEntityWoodSign.class, false, "bamboo", WOOD_PLANKS.get(), 4), null),
 
 	WHITE_BED(ConfigBlocksItems.enableDyedBeds, new BlockDyedBed(0), ItemBlockDyedBed.class),
 	ORANGE_BED(ConfigBlocksItems.enableDyedBeds, new BlockDyedBed(1), ItemBlockDyedBed.class),
@@ -433,11 +442,11 @@ public enum ModBlocks {
 	LIGHT(ConfigBlocksItems.enableLightBlock, new BlockLight()),
 	BARRIER(ConfigBlocksItems.enableBarrier, new BlockBarrier());
 
-	public static final ModBlocks[] DOORS = new ModBlocks[]{DOOR_SPRUCE, DOOR_BIRCH, DOOR_JUNGLE, DOOR_ACACIA, DOOR_DARK_OAK, CRIMSON_DOOR, WARPED_DOOR, MANGROVE_DOOR, CHERRY_DOOR};
-	public static final ModBlocks[] FENCE_GATES = new ModBlocks[]{FENCE_GATE_SPRUCE, FENCE_GATE_BIRCH, FENCE_GATE_JUNGLE, FENCE_GATE_ACACIA, FENCE_GATE_DARK_OAK, CRIMSON_FENCE_GATE, WARPED_FENCE_GATE, MANGROVE_FENCE_GATE, CHERRY_FENCE_GATE};
-	public static final ModBlocks[] PRESSURE_PLATES = new ModBlocks[]{PRESSURE_PLATE_SPRUCE, PRESSURE_PLATE_BIRCH, PRESSURE_PLATE_JUNGLE, PRESSURE_PLATE_ACACIA, PRESSURE_PLATE_DARK_OAK, CRIMSON_PRESSURE_PLATE, WARPED_PRESSURE_PLATE, MANGROVE_PRESSURE_PLATE, CHERRY_PRESSURE_PLATE};
-	public static final ModBlocks[] BUTTONS = new ModBlocks[]{BUTTON_SPRUCE, BUTTON_BIRCH, BUTTON_JUNGLE, BUTTON_ACACIA, BUTTON_DARK_OAK, CRIMSON_BUTTON, WARPED_BUTTON, MANGROVE_BUTTON, CHERRY_BUTTON};
-	public static final ModBlocks[] TRAPDOORS = new ModBlocks[]{TRAPDOOR_SPRUCE, TRAPDOOR_BIRCH, TRAPDOOR_JUNGLE, TRAPDOOR_ACACIA, TRAPDOOR_DARK_OAK, CRIMSON_TRAPDOOR, WARPED_TRAPDOOR, MANGROVE_TRAPDOOR, CHERRY_TRAPDOOR};
+	public static final ModBlocks[] DOORS = new ModBlocks[]{DOOR_SPRUCE, DOOR_BIRCH, DOOR_JUNGLE, DOOR_ACACIA, DOOR_DARK_OAK, CRIMSON_DOOR, WARPED_DOOR, MANGROVE_DOOR, CHERRY_DOOR, BAMBOO_DOOR};
+	public static final ModBlocks[] FENCE_GATES = new ModBlocks[]{FENCE_GATE_SPRUCE, FENCE_GATE_BIRCH, FENCE_GATE_JUNGLE, FENCE_GATE_ACACIA, FENCE_GATE_DARK_OAK, CRIMSON_FENCE_GATE, WARPED_FENCE_GATE, MANGROVE_FENCE_GATE, CHERRY_FENCE_GATE, BAMBOO_FENCE_GATE};
+	public static final ModBlocks[] PRESSURE_PLATES = new ModBlocks[]{PRESSURE_PLATE_SPRUCE, PRESSURE_PLATE_BIRCH, PRESSURE_PLATE_JUNGLE, PRESSURE_PLATE_ACACIA, PRESSURE_PLATE_DARK_OAK, CRIMSON_PRESSURE_PLATE, WARPED_PRESSURE_PLATE, MANGROVE_PRESSURE_PLATE, CHERRY_PRESSURE_PLATE, BAMBOO_PRESSURE_PLATE};
+	public static final ModBlocks[] BUTTONS = new ModBlocks[]{BUTTON_SPRUCE, BUTTON_BIRCH, BUTTON_JUNGLE, BUTTON_ACACIA, BUTTON_DARK_OAK, CRIMSON_BUTTON, WARPED_BUTTON, MANGROVE_BUTTON, CHERRY_BUTTON, BAMBOO_BUTTON};
+	public static final ModBlocks[] TRAPDOORS = new ModBlocks[]{TRAPDOOR_SPRUCE, TRAPDOOR_BIRCH, TRAPDOOR_JUNGLE, TRAPDOOR_ACACIA, TRAPDOOR_DARK_OAK, CRIMSON_TRAPDOOR, WARPED_TRAPDOOR, MANGROVE_TRAPDOOR, CHERRY_TRAPDOOR, BAMBOO_TRAPDOOR};
 
 	public static final ModBlocks[] FENCES = new ModBlocks[]{FENCE_SPRUCE, FENCE_BIRCH, FENCE_JUNGLE, FENCE_ACACIA, FENCE_DARK_OAK};
 

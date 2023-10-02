@@ -120,6 +120,11 @@ public class ModSounds {
 	public static final SoundType soundMoss = new CustomSound("moss").setDisabledSound(Block.soundTypeGrass);
 	public static final SoundType soundMossCarpet = new CustomSound("moss_carpet").setDisabledSound(Block.soundTypeGrass);
 
+	public static final SoundType soundBambooWood = new CustomSound("bamboo_wood").setDisabledSound(Block.soundTypeWood);
+	public static final SoundType soundBambooWoodTrapdoor = new CustomSound("bamboo_wood_trapdoor").setDisabledSound(Block.soundTypeWood);
+	public static final SoundType soundBambooWoodButton = new CustomSound("bamboo_wood_button").setDisabledSound(Block.soundTypeWood);
+	public static final SoundType soundBambooWoodFence = new CustomSound("bamboo_wood_fence").setDisabledSound(Block.soundTypeWood);
+
 	//Currently prep for Alterius Futurum
 	public static final SoundType soundCherrySapling = new CustomSound("cherry_sapling").setDisabledSound(Block.soundTypeGrass);
 	public static final SoundType soundCherryLeaves = new CustomSound("cherry_leaves").setDisabledSound(Block.soundTypeGrass);
