@@ -10,7 +10,9 @@ import net.minecraft.block.BlockBush;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
@@ -72,6 +74,18 @@ public class BlockAzalea extends BlockBush implements ISubBlocksBlock {
 	}
 
 	@Override
+	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
+		return AxisAlignedBB.getBoundingBox(x + 0.0F, y + 0.5F, z + 0.0F, x + 1.0F, y + 1.0F, z + 1.0F);
+	}
+
+	@Override
+	public void getSubBlocks(Item item, CreativeTabs tab, List list) {
+		for (int i = 0; i < getTypes().length; i++) {
+			list.add(new ItemStack(item, 1, i));
+		}
+	}
+
+	@Override
 	public boolean isReplaceable(IBlockAccess world, int x, int y, int z) {
 		return false;
 	}
@@ -96,6 +110,11 @@ public class BlockAzalea extends BlockBush implements ISubBlocksBlock {
 		sideIcons[1] = p_149651_1_.registerIcon("flowering_" + this.getTextureName() + "_side");
 		topIcons[0] = p_149651_1_.registerIcon(this.getTextureName() + "_top");
 		topIcons[1] = p_149651_1_.registerIcon("flowering_" + this.getTextureName() + "_top");
+	}
+
+	@Override
+	public int damageDropped(int meta) {
+		return meta % getTypes().length;
 	}
 
 	@Override

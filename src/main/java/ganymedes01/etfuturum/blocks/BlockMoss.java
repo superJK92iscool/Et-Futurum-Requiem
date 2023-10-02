@@ -40,12 +40,12 @@ public class BlockMoss extends BaseBlock implements IGrowable {
 	}
 
 	// Adjust the weights as needed
-	private static final int AZALEA_BUSH_WEIGHT = 5;       // Adjust this weight as needed
-	private static final int FLOWERING_AZALEA_WEIGHT = 5;  // Adjust this weight as needed
-	private static final int DOUBLE_TALL_GRASS_WEIGHT = 10; // Adjust this weight as needed
-	private static final int MOSS_CARPET_WEIGHT = 30;      // Adjust this weight as needed
-	private static final int TALL_GRASS_WEIGHT = 15;        // Adjust this weight as needed
-	private static final int AIR_WEIGHT = 25;              // Adjust this weight as needed
+	private static final int AZALEA_BUSH_WEIGHT = 2;
+	private static final int FLOWERING_AZALEA_WEIGHT = 1;
+	private static final int DOUBLE_TALL_GRASS_WEIGHT = 1;
+	private static final int MOSS_CARPET_WEIGHT = 10;
+	private static final int TALL_GRASS_WEIGHT = 7;
+	private static final int AIR_WEIGHT = 79;
 
 	@Override
 	public void func_149853_b(World world, Random rand, int xCoord, int yCoord, int zCoord) {
@@ -91,18 +91,17 @@ public class BlockMoss extends BaseBlock implements IGrowable {
 							);
 
 							if (randomOption < AZALEA_BUSH_WEIGHT) {
-								if (Blocks.red_flower.canBlockStay(world, i1, j1 + 1, k1)) {
-									world.setBlock(i1, j1 + 1, k1, Blocks.red_flower, 0, 2);
+								if (ModBlocks.AZALEA.get().canBlockStay(world, i1, j1 + 1, k1)) {
+									world.setBlock(i1, j1 + 1, k1, ModBlocks.AZALEA.get(), 0, 2);
 								}
 							} else if (randomOption < AZALEA_BUSH_WEIGHT + FLOWERING_AZALEA_WEIGHT) {
-								if (Blocks.yellow_flower.canBlockStay(world, i1, j1 + 1, k1)) {
-									world.setBlock(i1, j1 + 1, k1, Blocks.yellow_flower, 0, 2);
+								if (ModBlocks.AZALEA.get().canBlockStay(world, i1, j1 + 1, k1)) {
+									world.setBlock(i1, j1 + 1, k1, ModBlocks.AZALEA.get(), 1, 2);
 								}
 							} else if (randomOption < AZALEA_BUSH_WEIGHT + FLOWERING_AZALEA_WEIGHT + DOUBLE_TALL_GRASS_WEIGHT) {
 								// Double Tall Grass
 								if (Blocks.double_plant.canBlockStay(world, i1, j1 + 1, k1)) {
-									// TODO: Fix only bottom half of Double Tall Grass placing
-									world.setBlock(i1, j1 + 1, k1, Blocks.double_plant, 2, 2); // Use metadata 2 for double tall grass
+									Blocks.double_plant.func_149889_c(world, i1, j1 + 1, k1, 2, 2);
 								}
 							} else if (randomOption < AZALEA_BUSH_WEIGHT + FLOWERING_AZALEA_WEIGHT + DOUBLE_TALL_GRASS_WEIGHT + MOSS_CARPET_WEIGHT) {
 								// Place Moss Carpet
