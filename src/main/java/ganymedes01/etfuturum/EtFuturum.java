@@ -564,7 +564,6 @@ public class EtFuturum {
 			mbs.setTypes(1, ModSounds.soundNetherWood);
 			mbs.setTypes(3, ModSounds.soundCherryWood);
 			mbs.setTypes(4, ModSounds.soundBambooWood);
-			mbs.setTypes(5, ModSounds.soundBambooWood);
 			MultiBlockSoundRegistry.multiBlockSounds.put(ModBlocks.WOOD_PLANKS.get(), mbs);
 		}
 
@@ -583,13 +582,11 @@ public class EtFuturum {
 			mbs.setTypes(1, ModSounds.soundNetherWood);
 			mbs.setTypes(3, ModSounds.soundNetherWood);
 			mbs.setTypes(4, ModSounds.soundBambooWood);
-			mbs.setTypes(5, ModSounds.soundBambooWood);
 
 			mbs.setTypes(8, ModSounds.soundNetherWood);
 			mbs.setTypes(9, ModSounds.soundNetherWood);
 			mbs.setTypes(11, ModSounds.soundCherryWood);
 			mbs.setTypes(12, ModSounds.soundBambooWood);
-			mbs.setTypes(13, ModSounds.soundBambooWood);
 			MultiBlockSoundRegistry.multiBlockSounds.put(ModBlocks.WOOD_SLAB.get(), mbs);
 		}
 
@@ -599,13 +596,11 @@ public class EtFuturum {
 			mbs.setTypes(1, ModSounds.soundNetherWood);
 			mbs.setTypes(3, ModSounds.soundCherryWood);
 			mbs.setTypes(4, ModSounds.soundBambooWood);
-			mbs.setTypes(5, ModSounds.soundBambooWood);
 
 			mbs.setTypes(8, ModSounds.soundNetherWood);
 			mbs.setTypes(9, ModSounds.soundNetherWood);
 			mbs.setTypes(11, ModSounds.soundCherryWood);
 			mbs.setTypes(12, ModSounds.soundBambooWood);
-			mbs.setTypes(13, ModSounds.soundBambooWood);
 			MultiBlockSoundRegistry.multiBlockSounds.put(ModBlocks.DOUBLE_WOOD_SLAB.get(), mbs);
 		}
 

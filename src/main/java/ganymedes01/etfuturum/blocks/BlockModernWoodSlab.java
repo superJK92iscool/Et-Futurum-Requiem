@@ -17,7 +17,7 @@ public class BlockModernWoodSlab extends BaseSlab {
 	final BlockModernWoodPlanks basePlanks;
 
 	public BlockModernWoodSlab(boolean isDouble) {
-		super(isDouble, Material.wood, "crimson", "warped", "mangrove", "cherry", "bamboo", "bamboo_mosaic");
+		super(isDouble, Material.wood, "crimson", "warped", "mangrove", "cherry", "bamboo");
 		basePlanks = (BlockModernWoodPlanks) ModBlocks.WOOD_PLANKS.get();
 		setHardness(2.0F);
 		setResistance(5.0F);

@@ -413,7 +413,6 @@ public class ModRecipes {
 		addShapedRecipe(ModBlocks.WOOD_PLANKS.newItemStack(4, 2), "x", 'x', ModBlocks.MANGROVE_LOG.newItemStack(1, OreDictionary.WILDCARD_VALUE));
 		addShapedRecipe(ModBlocks.WOOD_PLANKS.newItemStack(4, 3), "x", 'x', ModBlocks.CHERRY_LOG.newItemStack(1, OreDictionary.WILDCARD_VALUE));
 		addShapedRecipe(ModBlocks.WOOD_PLANKS.newItemStack(2, 4), "x", 'x', ModBlocks.BAMBOO_BLOCK.newItemStack(1, OreDictionary.WILDCARD_VALUE));
-		addShapedRecipe(ModBlocks.WOOD_PLANKS.newItemStack(1, 5), "x", "x", 'x', ModBlocks.WOOD_SLAB.newItemStack(1, 4));
 
 		if (ConfigBlocksItems.enableStrippedLogs && ConfigBlocksItems.enableBarkLogs) {
 			//New stripped logs to new stripped bark
@@ -457,14 +456,17 @@ public class ModRecipes {
 		addShapedRecipe(ModBlocks.WOOD_SLAB.newItemStack(6, 2), "xxx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 2));
 		addShapedRecipe(ModBlocks.WOOD_SLAB.newItemStack(6, 3), "xxx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 3));
 		addShapedRecipe(ModBlocks.WOOD_SLAB.newItemStack(6, 4), "xxx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 4));
-		addShapedRecipe(ModBlocks.WOOD_SLAB.newItemStack(6, 5), "xxx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 5));
 
 		addShapedRecipe(ModBlocks.CRIMSON_STAIRS.newItemStack(6), "x  ", "xx ", "xxx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 0));
 		addShapedRecipe(ModBlocks.WARPED_STAIRS.newItemStack(6), "x  ", "xx ", "xxx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 1));
 		addShapedRecipe(ModBlocks.MANGROVE_STAIRS.newItemStack(6), "x  ", "xx ", "xxx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 2));
 		addShapedRecipe(ModBlocks.CHERRY_STAIRS.newItemStack(6), "x  ", "xx ", "xxx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 3));
 		addShapedRecipe(ModBlocks.BAMBOO_STAIRS.newItemStack(6), "x  ", "xx ", "xxx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 4));
-		addShapedRecipe(ModBlocks.BAMBOO_MOSAIC_STAIRS.newItemStack(6), "x  ", "xx ", "xxx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 5));
+
+		// Bamboo Mosaic
+		addShapedRecipe(ModBlocks.BAMBOO_MOSAIC.newItemStack(1, 0), "x", "x", 'x', ModBlocks.WOOD_SLAB.newItemStack(1, 4));
+		addShapedRecipe(ModBlocks.BAMBOO_MOSAIC_SLAB.newItemStack(6, 5), "xxx", 'x', ModBlocks.BAMBOO_MOSAIC.newItemStack(1, 0));
+		addShapedRecipe(ModBlocks.BAMBOO_MOSAIC_STAIRS.newItemStack(4), "x  ", "xx ", "xxx", 'x', ModBlocks.BAMBOO_MOSAIC.newItemStack(1, 0));
 
 		addShapedRecipe(ModBlocks.FENCE_GATE_SPRUCE.newItemStack(), "yxy", "yxy", 'x', new ItemStack(Blocks.planks, 1, 1), 'y', "stickWood");
 		addShapedRecipe(ModBlocks.FENCE_GATE_BIRCH.newItemStack(), "yxy", "yxy", 'x', new ItemStack(Blocks.planks, 1, 2), 'y', "stickWood");

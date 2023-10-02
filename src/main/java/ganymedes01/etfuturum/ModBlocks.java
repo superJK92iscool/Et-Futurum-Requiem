@@ -299,7 +299,15 @@ public enum ModBlocks {
 	MANGROVE_STAIRS(ConfigBlocksItems.enableMangroveBlocks, new BaseStairs(WOOD_PLANKS.get(), 2).setBlockSound(Block.soundTypeWood).setUnlocalizedNameWithPrefix("mangrove")),
 	CHERRY_STAIRS(ConfigBlocksItems.enableCherryBlocks, new BaseStairs(WOOD_PLANKS.get(), 3).setBlockSound(ModSounds.soundCherryWood).setUnlocalizedNameWithPrefix("cherry")),
 	BAMBOO_STAIRS(ConfigBlocksItems.enableBambooBlocks, new BaseStairs(WOOD_PLANKS.get(), 4).setBlockSound(ModSounds.soundBambooWood).setUnlocalizedNameWithPrefix("bamboo")),
-	BAMBOO_MOSAIC_STAIRS(ConfigBlocksItems.enableBambooBlocks, new BaseStairs(WOOD_PLANKS.get(), 5).setBlockSound(ModSounds.soundBambooWood).setUnlocalizedNameWithPrefix("bamboo_mosaic")),
+
+
+	//Not plank, but like plank
+	BAMBOO_MOSAIC(ConfigBlocksItems.woodVariants, new BasePlank("bamboo_mosaic", ModSounds.soundBambooWood)),
+	BAMBOO_MOSAIC_SLAB(ConfigBlocksItems.woodVariants, new BaseSlab(false, Material.wood, "bamboo_mosaic").setNames("bamboo_mosaic_slab")
+			.setBlockSound(ModSounds.soundBambooWood).setHardness(2).setResistance(3)),
+	DOUBLE_BAMBOO_MOSAIC_SLAB(ConfigBlocksItems.woodVariants, new BaseSlab(true, Material.wood, "bamboo_mosaic").setNames("bamboo_mosaic_slab")
+			.setBlockSound(ModSounds.soundBambooWood).setHardness(2).setResistance(3)),
+	BAMBOO_MOSAIC_STAIRS(ConfigBlocksItems.enableBambooBlocks, new BaseStairs(BAMBOO_MOSAIC.get(), 0).setBlockSound(ModSounds.soundBambooWood).setUnlocalizedNameWithPrefix("bamboo_mosaic")),
 
 	//legacy fences
 	//This is left as-is because fences should really be meta states anyways, so new fences use a different class, so why touch this int-based constructor?
