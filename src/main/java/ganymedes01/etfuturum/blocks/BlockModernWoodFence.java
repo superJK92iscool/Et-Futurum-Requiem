@@ -103,11 +103,11 @@ public class BlockModernWoodFence extends BlockFence implements ISubBlocksBlock 
 
 	@Override
 	public int getFlammability(IBlockAccess aWorld, int aX, int aY, int aZ, ForgeDirection aSide) {
-		return ConfigFunctions.enableExtraBurnableBlocks ? 20 : 0;
+		return isFlammable(aWorld, aX, aY, aZ, aSide) ? 20 : 0;
 	}
 
 	@Override
 	public int getFireSpreadSpeed(IBlockAccess aWorld, int aX, int aY, int aZ, ForgeDirection aSide) {
-		return ConfigFunctions.enableExtraBurnableBlocks ? 5 : 0;
+		return isFlammable(aWorld, aX, aY, aZ, aSide) ? 5 : 0;
 	}
 }

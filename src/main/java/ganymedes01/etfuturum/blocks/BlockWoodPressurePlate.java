@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.blocks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
@@ -10,7 +8,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockPressurePlate;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -55,11 +52,11 @@ public class BlockWoodPressurePlate extends BlockPressurePlate {
 
 	@Override
 	public int getFlammability(IBlockAccess aWorld, int aX, int aY, int aZ, ForgeDirection aSide) {
-		return ConfigFunctions.enableExtraBurnableBlocks && flammable ? 20 : 0;
+		return isFlammable(aWorld, aX, aY, aZ, aSide) ? 20 : 0;
 	}
 
 	@Override
 	public int getFireSpreadSpeed(IBlockAccess aWorld, int aX, int aY, int aZ, ForgeDirection aSide) {
-		return ConfigFunctions.enableExtraBurnableBlocks && flammable ? 5 : 0;
+		return isFlammable(aWorld, aX, aY, aZ, aSide) ? 5 : 0;
 	}
 }

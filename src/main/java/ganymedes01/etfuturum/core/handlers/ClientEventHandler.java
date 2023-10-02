@@ -22,7 +22,6 @@ import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
-import ganymedes01.etfuturum.core.utils.Logger;
 import ganymedes01.etfuturum.elytra.IElytraPlayer;
 import ganymedes01.etfuturum.entities.EntityBee;
 import ganymedes01.etfuturum.entities.EntityNewBoatWithChest;
@@ -387,6 +386,8 @@ public class ClientEventHandler {
 						s = Reference.MCAssetVer + ":block.wooden_button.click";
 					} else if (block.stepSound == ModSounds.soundNetherWood) {
 						s = Reference.MCAssetVer + ":block.nether_wood_button.click";
+					} else if (block.stepSound == ModSounds.soundCherryWood) {
+						s = Reference.MCAssetVer + ":block.cherry_wood_button.click";
 					}
 					if (s != null) {
 						event.result = new PositionedSoundRecord(new ResourceLocation(s + "_" + (event.sound.getPitch() > 0.5F ? "on" : "off")), 1, 1, soundX, soundY, soundZ);
@@ -405,6 +406,8 @@ public class ClientEventHandler {
 						s = Reference.MCAssetVer + ":block.wooden_pressure_plate.click";
 					} else if (block.stepSound == ModSounds.soundNetherWood) {
 						s = Reference.MCAssetVer + ":block.nether_wood_pressure_plate.click";
+					} else if (block.stepSound == ModSounds.soundCherryWood) {
+						s = Reference.MCAssetVer + ":block.cherry_wood_pressure_plate.click";
 					}
 
 					if (s != null) {
@@ -521,6 +524,9 @@ public class ClientEventHandler {
 				if (block.stepSound == ModSounds.soundNetherWood) {
 					return Reference.MCAssetVer + ":block.nether_wood_door." + closeOrOpen;
 				}
+				if (block.stepSound == ModSounds.soundCherryWood) {
+					return Reference.MCAssetVer + ":block.cherry_wood_door." + closeOrOpen;
+				}
 				return Reference.MCAssetVer + ":block.wooden_door." + closeOrOpen;
 			} else if (block.getMaterial() == Material.iron) {
 				return Reference.MCAssetVer + ":block.iron_door." + closeOrOpen;
@@ -532,6 +538,9 @@ public class ClientEventHandler {
 				if (block.stepSound == ModSounds.soundNetherWood) {
 					return Reference.MCAssetVer + ":block.nether_wood_trapdoor." + closeOrOpen;
 				}
+				if (block.stepSound == ModSounds.soundCherryWood) {
+					return Reference.MCAssetVer + ":block.cherry_wood_trapdoor." + closeOrOpen;
+				}
 				return Reference.MCAssetVer + ":block.wooden_trapdoor." + closeOrOpen;
 			} else if (block.getMaterial() == Material.iron) {
 				return Reference.MCAssetVer + ":block.iron_trapdoor." + closeOrOpen;
@@ -542,6 +551,9 @@ public class ClientEventHandler {
 			if (block.getMaterial() == Material.wood) {
 				if (block.stepSound == ModSounds.soundNetherWood) {
 					return Reference.MCAssetVer + ":block.nether_wood_fence_gate." + closeOrOpen;
+				}
+				if (block.stepSound == ModSounds.soundCherryWood) {
+					return Reference.MCAssetVer + ":block.cherry_wood_fence_gate." + closeOrOpen;
 				}
 				return Reference.MCAssetVer + ":block.fence_gate." + closeOrOpen;
 			}

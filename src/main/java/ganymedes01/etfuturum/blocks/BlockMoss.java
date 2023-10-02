@@ -1,17 +1,19 @@
 package ganymedes01.etfuturum.blocks;
 
-import java.util.Random;
-
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockBush;
+import net.minecraft.block.IGrowable;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import java.util.Random;
 
 public class BlockMoss extends BaseBlock implements IGrowable {
 
@@ -117,7 +119,6 @@ public class BlockMoss extends BaseBlock implements IGrowable {
 						}
 					}
 					++l1;
-					continue;
 				} else {
 					++l;
 					break;

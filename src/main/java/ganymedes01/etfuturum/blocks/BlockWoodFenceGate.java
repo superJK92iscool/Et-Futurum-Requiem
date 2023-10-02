@@ -8,7 +8,6 @@ import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFenceGate;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -49,11 +48,11 @@ public class BlockWoodFenceGate extends BlockFenceGate {
 
 	@Override
 	public int getFlammability(IBlockAccess aWorld, int aX, int aY, int aZ, ForgeDirection aSide) {
-		return ConfigFunctions.enableExtraBurnableBlocks && flammable ? 20 : 0;
+		return isFlammable(aWorld, aX, aY, aZ, aSide) ? 20 : 0;
 	}
 
 	@Override
 	public int getFireSpreadSpeed(IBlockAccess aWorld, int aX, int aY, int aZ, ForgeDirection aSide) {
-		return ConfigFunctions.enableExtraBurnableBlocks && flammable ? 5 : 0;
+		return isFlammable(aWorld, aX, aY, aZ, aSide) ? 5 : 0;
 	}
 }

@@ -284,11 +284,11 @@ public enum ModBlocks {
 	WEEPING_VINES(ConfigBlocksItems.enableCrimsonBlocks, new BlockWeepingVines()),
 	TWISTING_VINES(ConfigBlocksItems.enableWarpedBlocks, new BlockTwistingVines()),
 
-	MANGROVE(ConfigBlocksItems.enableMangroveBlocks, new BlockModernWood("mangrove")),
-	CHERRY(ConfigBlocksItems.enableCherryBlocks, new BlockModernWood("cherry",  ModSounds.soundCherryWood)),
+	MANGROVE(ConfigBlocksItems.enableMangroveBlocks, new BlockModernLog("mangrove")),
+	CHERRY(ConfigBlocksItems.enableCherryBlocks, new BlockModernLog("cherry", ModSounds.soundCherryWood)),
 
 	WOOD_PLANKS(ConfigBlocksItems.woodVariants,
-			new BlockModernWoodPlanks( new String[]{"crimson_planks", "warped_planks", "mangrove_planks", "cherry_planks"})),
+			new BlockModernWoodPlanks(new String[]{"crimson_planks", "warped_planks", "mangrove_planks", "cherry_planks"})),
 	WOOD_SLAB(ConfigBlocksItems.woodVariants,
 			new BlockModernWoodSlab(false)),
 	DOUBLE_WOOD_SLAB(ConfigBlocksItems.woodVariants,
@@ -310,8 +310,7 @@ public enum ModBlocks {
 	FENCE_DARK_OAK(ConfigBlocksItems.enableFences, new BlockWoodFence(5)),
 
 	//new fence, this can just be one block, meta states are fine, the fences above were made by ganymedes01 and not me hence the lack of meta usage
-	WOOD_FENCE(ConfigBlocksItems.woodVariants,
-			new BlockModernWoodFence()),
+	WOOD_FENCE(ConfigBlocksItems.woodVariants, new BlockModernWoodFence()),
 
 	//legacy buttons
 	BUTTON_SPRUCE(ConfigBlocksItems.enableWoodRedstone, new BlockWoodButton("spruce", Blocks.planks, 1, true)),
