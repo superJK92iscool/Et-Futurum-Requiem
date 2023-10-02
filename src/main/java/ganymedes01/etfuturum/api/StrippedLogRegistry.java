@@ -112,5 +112,23 @@ public class StrippedLogRegistry {
 				}
 			}
 		}
+
+		if (ModBlocks.MANGROVE.isEnabled()) {
+			if (ConfigBlocksItems.enableStrippedLogs) {
+				strippedLogs.put(new RegistryMapping<>(ModBlocks.MANGROVE.get(), 0), new RegistryMapping<>(ModBlocks.MANGROVE.get(), 2));
+				if (ConfigBlocksItems.enableBarkLogs) {
+					strippedLogs.put(new RegistryMapping<>(ModBlocks.MANGROVE.get(), 1), new RegistryMapping<>(ModBlocks.MANGROVE.get(), 3));
+				}
+			}
+		}
+
+		if (ModBlocks.CHERRY.isEnabled()) {
+			if (ConfigBlocksItems.enableStrippedLogs) {
+				strippedLogs.put(new RegistryMapping<>(ModBlocks.CHERRY.get(), 0), new RegistryMapping<>(ModBlocks.CHERRY.get(), 2));
+				if (ConfigBlocksItems.enableBarkLogs) {
+					strippedLogs.put(new RegistryMapping<>(ModBlocks.CHERRY.get(), 1), new RegistryMapping<>(ModBlocks.CHERRY.get(), 3));
+				}
+			}
+		}
 	}
 }

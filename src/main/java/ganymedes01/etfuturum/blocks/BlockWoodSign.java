@@ -46,6 +46,8 @@ public class BlockWoodSign extends BlockSign {
 		setBlockName(Utils.getUnlocalisedName(type + "_sign"));
 		if (type.equals("crimson") || type.equals("warped")) {
 			Utils.setBlockSound(this, ModSounds.soundNetherWood);
+		} else if (type.equals("cherry")) {
+			Utils.setBlockSound(this, ModSounds.soundCherryWood);
 		} else {
 			setStepSound(Block.soundTypeWood);
 		}

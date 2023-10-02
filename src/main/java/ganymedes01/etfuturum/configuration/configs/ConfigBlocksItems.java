@@ -121,6 +121,11 @@ public class ConfigBlocksItems extends ConfigBase {
 	// Wilds Update
 	public static boolean enableMud;
 	public static boolean enableMoss;
+	public static boolean enableMangroveBlocks;
+
+	// 1.20
+	public static boolean enableCherryBlocks;
+	public static boolean enableBambooBlocks;
 
 	public static boolean enableShulkerBoxes;
 	public static boolean enableDyedShulkerBoxes = true;
@@ -135,6 +140,8 @@ public class ConfigBlocksItems extends ConfigBase {
 
 	public static int endGatewaySpawnColor = 2;
 	public static int endGatewayEntryColor = 2;
+
+	public static boolean woodVariants;
 
 	public static final String catBlockNatural = "natural blocks";
 	public static final String catBlockFunc = "function blocks";
@@ -188,7 +195,9 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableDeepslateOres = getBoolean("enableDeepslateOres", catBlockNatural, true, "Enable deepslate ores for copper ore and vanilla ores when deepslate generates over them.");
 		enableAmethyst = getBoolean("enableAmethyst", catBlockNatural, true, "Enables tinted glass, amethyst blocks, budding amethyst and amethyst crystals. Also enables the item too. Smooth basalt can be disabled by changing the world.cfg option for the basalt layer to something else.");
 		enableMud = getBoolean("enableMud", catBlockNatural, true, "Enables mud, mangrove root mud, packed mud and mud bricks [including slabs, walls, stairs]");
-		enableMoss = getBoolean("enableMud", catBlockNatural, true, "Enables moss blocks and carpets");
+		enableMoss = getBoolean("enableMoss", catBlockNatural, true, "Enables moss blocks and carpets");
+		enableMangroveBlocks = getBoolean("enableMangroveBlocks", catBlockNatural, true, "Enables mangrove blocks [including slabs, walls, stairs]");
+		enableCherryBlocks = getBoolean("enableCherryBlocks", catBlockNatural, true, "Enables cherry blocks [including slabs, walls, stairs]");
 
 //      enableSculk = getBoolean("enableSculk", catBlockNatural, true, "Enables sculk-related blocks.");
 
@@ -342,6 +351,9 @@ public class ConfigBlocksItems extends ConfigBase {
 
 		//      endGatewaySpawnColor = getInt("endGatewaySpawnColor", catAbandoned, 2, 0, 15, "The color of the end gateway beam when the gateway first appears.");
 //      endGatewayEntryColor = getInt("endGatewayEntryColor", catAbandoned, 2, 0, 15, "The color of the end gateway beam when an entity enters it. Originally, this value was 4 (yellow) before version 1.11.");
+
+		// Check if we enable wood variants at all
+		woodVariants = enableCrimsonBlocks || enableWarpedBlocks || enableCherryBlocks || enableMangroveBlocks;
 	}
 
 	@Override
