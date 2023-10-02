@@ -279,20 +279,18 @@ public enum ModBlocks {
 	NETHER_SPROUTS(ConfigBlocksItems.enableWarpedBlocks, new BlockNetherSprouts()),
 	NETHER_WART(ConfigBlocksItems.enableNetherwartBlock || ConfigBlocksItems.enableWarpedBlocks, new BlockNetherwart()),
 	NYLIUM(ConfigBlocksItems.enableCrimsonBlocks || ConfigBlocksItems.enableWarpedBlocks, new BlockNylium()),
-	CRIMSON_STEM(ConfigBlocksItems.enableCrimsonBlocks, new BlockNetherStem("crimson")),
-	WARPED_STEM(ConfigBlocksItems.enableWarpedBlocks, new BlockNetherStem("warped")),
 	WEEPING_VINES(ConfigBlocksItems.enableCrimsonBlocks, new BlockWeepingVines()),
 	TWISTING_VINES(ConfigBlocksItems.enableWarpedBlocks, new BlockTwistingVines()),
 
-	MANGROVE(ConfigBlocksItems.enableMangroveBlocks, new BlockModernLog("mangrove")),
-	CHERRY(ConfigBlocksItems.enableCherryBlocks, new BlockModernLog("cherry", ModSounds.soundCherryWood)),
+	WOOD_PLANKS(ConfigBlocksItems.woodVariants, new BlockModernWoodPlanks()),
+	WOOD_SLAB(ConfigBlocksItems.woodVariants, new BlockModernWoodSlab(false)),
+	DOUBLE_WOOD_SLAB(ConfigBlocksItems.woodVariants, new BlockModernWoodSlab(true)),
 
-	WOOD_PLANKS(ConfigBlocksItems.woodVariants,
-			new BlockModernWoodPlanks(new String[]{"crimson_planks", "warped_planks", "mangrove_planks", "cherry_planks"})),
-	WOOD_SLAB(ConfigBlocksItems.woodVariants,
-			new BlockModernWoodSlab(false)),
-	DOUBLE_WOOD_SLAB(ConfigBlocksItems.woodVariants,
-			new BlockModernWoodSlab(true)),
+	//new wood logs
+	CRIMSON_STEM(ConfigBlocksItems.enableCrimsonBlocks, new BlockNetherStem("crimson")),
+	WARPED_STEM(ConfigBlocksItems.enableWarpedBlocks, new BlockNetherStem("warped")),
+	MANGROVE_LOG(ConfigBlocksItems.enableMangroveBlocks, new BlockModernLog("mangrove")),
+	CHERRY_LOG(ConfigBlocksItems.enableCherryBlocks, new BlockModernLog("cherry", ModSounds.soundCherryWood)),
 
 	//new wood stairs
 	CRIMSON_STAIRS(ConfigBlocksItems.enableCrimsonBlocks, new BaseStairs(WOOD_PLANKS.get(), 0).setBlockSound(ModSounds.soundNetherWood).setUnlocalizedNameWithPrefix("crimson")),

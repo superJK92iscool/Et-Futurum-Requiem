@@ -14,8 +14,8 @@ import net.minecraftforge.common.util.ForgeDirection;
 import java.util.List;
 
 public class BlockModernWoodPlanks extends BaseSubtypesBlock {
-	public BlockModernWoodPlanks(String[] types) {
-		super(Material.wood, types);
+	public BlockModernWoodPlanks() {
+		super(Material.wood, "crimson_planks", "warped_planks", "mangrove_planks", "cherry_planks");
 		setHardness(2.0F);
 		setResistance(5.0F);
 		setStepSound(soundTypeWood);

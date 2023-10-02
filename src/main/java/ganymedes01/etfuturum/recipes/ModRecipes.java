@@ -5,8 +5,6 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.blocks.BaseSlab;
-import ganymedes01.etfuturum.blocks.BlockWoodBarkOld;
-import ganymedes01.etfuturum.blocks.BlockWoodButton;
 import ganymedes01.etfuturum.blocks.IDegradable;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
@@ -201,8 +199,8 @@ public class ModRecipes {
 
 			registerOre("logWood", ModBlocks.CRIMSON_STEM.newItemStack(1, i));
 			registerOre("logWood", ModBlocks.WARPED_STEM.newItemStack(1, i));
-			registerOre("logWood", ModBlocks.MANGROVE.newItemStack(1, i));
-			registerOre("logWood", ModBlocks.CHERRY.newItemStack(1, i));
+			registerOre("logWood", ModBlocks.MANGROVE_LOG.newItemStack(1, i));
+			registerOre("logWood", ModBlocks.CHERRY_LOG.newItemStack(1, i));
 		}
 
 		registerOre("stoneGranite", ModBlocks.STONE.newItemStack(1, 1));
@@ -405,23 +403,23 @@ public class ModRecipes {
 		//New logs, bark, stripped log and stripped bark to planks
 		addShapedRecipe(ModBlocks.WOOD_PLANKS.newItemStack(4), "x", 'x', ModBlocks.CRIMSON_STEM.newItemStack(1, OreDictionary.WILDCARD_VALUE));
 		addShapedRecipe(ModBlocks.WOOD_PLANKS.newItemStack(4, 1), "x", 'x', ModBlocks.WARPED_STEM.newItemStack(1, OreDictionary.WILDCARD_VALUE));
-		addShapedRecipe(ModBlocks.WOOD_PLANKS.newItemStack(4, 2), "x", 'x', ModBlocks.MANGROVE.newItemStack(1, OreDictionary.WILDCARD_VALUE));
-		addShapedRecipe(ModBlocks.WOOD_PLANKS.newItemStack(4, 3), "x", 'x', ModBlocks.CHERRY.newItemStack(1, OreDictionary.WILDCARD_VALUE));
+		addShapedRecipe(ModBlocks.WOOD_PLANKS.newItemStack(4, 2), "x", 'x', ModBlocks.MANGROVE_LOG.newItemStack(1, OreDictionary.WILDCARD_VALUE));
+		addShapedRecipe(ModBlocks.WOOD_PLANKS.newItemStack(4, 3), "x", 'x', ModBlocks.CHERRY_LOG.newItemStack(1, OreDictionary.WILDCARD_VALUE));
 
 		if (ConfigBlocksItems.enableStrippedLogs && ConfigBlocksItems.enableBarkLogs) {
 			//New stripped logs to new stripped bark
 			addShapedRecipe(ModBlocks.CRIMSON_STEM.newItemStack(3, 3), "xx", "xx", 'x', ModBlocks.CRIMSON_STEM.newItemStack(2, 2));
 			addShapedRecipe(ModBlocks.WARPED_STEM.newItemStack(3, 3), "xx", "xx", 'x', ModBlocks.WARPED_STEM.newItemStack(2, 2));
-			addShapedRecipe(ModBlocks.MANGROVE.newItemStack(3, 3), "xx", "xx", 'x', ModBlocks.MANGROVE.newItemStack(2, 3));
-			addShapedRecipe(ModBlocks.CHERRY.newItemStack(3, 3), "xx", "xx", 'x', ModBlocks.CHERRY.newItemStack(2, 4));
+			addShapedRecipe(ModBlocks.MANGROVE_LOG.newItemStack(3, 3), "xx", "xx", 'x', ModBlocks.MANGROVE_LOG.newItemStack(2, 3));
+			addShapedRecipe(ModBlocks.CHERRY_LOG.newItemStack(3, 3), "xx", "xx", 'x', ModBlocks.CHERRY_LOG.newItemStack(2, 4));
 		}
 
 		if (ConfigBlocksItems.enableBarkLogs) {
 			//New logs to new bark
 			addShapedRecipe(ModBlocks.CRIMSON_STEM.newItemStack(3, 1), "xx", "xx", 'x', ModBlocks.CRIMSON_STEM.newItemStack(1));
 			addShapedRecipe(ModBlocks.WARPED_STEM.newItemStack(3, 1), "xx", "xx", 'x', ModBlocks.WARPED_STEM.newItemStack(1));
-			addShapedRecipe(ModBlocks.MANGROVE.newItemStack(3, 1), "xx", "xx", 'x', ModBlocks.MANGROVE.newItemStack(1));
-			addShapedRecipe(ModBlocks.CHERRY.newItemStack(3, 1), "xx", "xx", 'x', ModBlocks.CHERRY.newItemStack(1));
+			addShapedRecipe(ModBlocks.MANGROVE_LOG.newItemStack(3, 1), "xx", "xx", 'x', ModBlocks.MANGROVE_LOG.newItemStack(1));
+			addShapedRecipe(ModBlocks.CHERRY_LOG.newItemStack(3, 1), "xx", "xx", 'x', ModBlocks.CHERRY_LOG.newItemStack(1));
 		}
 
 		addShapedRecipe(ModBlocks.FENCE_SPRUCE.newItemStack(3), "xyx", "xyx", 'x', new ItemStack(Blocks.planks, 1, 1), 'y', "stickWood");
