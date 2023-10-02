@@ -300,7 +300,6 @@ public enum ModBlocks {
 	CHERRY_STAIRS(ConfigBlocksItems.enableCherryBlocks, new BaseStairs(WOOD_PLANKS.get(), 3).setBlockSound(ModSounds.soundCherryWood).setUnlocalizedNameWithPrefix("cherry")),
 	BAMBOO_STAIRS(ConfigBlocksItems.enableBambooBlocks, new BaseStairs(WOOD_PLANKS.get(), 4).setBlockSound(ModSounds.soundBambooWood).setUnlocalizedNameWithPrefix("bamboo")),
 
-
 	//Not plank, but like plank
 	BAMBOO_MOSAIC(ConfigBlocksItems.woodVariants, new BasePlank("bamboo_mosaic", ModSounds.soundBambooWood)),
 	BAMBOO_MOSAIC_SLAB(ConfigBlocksItems.woodVariants, new BaseSlab(false, Material.wood, "bamboo_mosaic").setNames("bamboo_mosaic_slab")
@@ -319,6 +318,7 @@ public enum ModBlocks {
 	FENCE_DARK_OAK(ConfigBlocksItems.enableFences, new BlockWoodFence(5)),
 
 	//new fence, this can just be one block, meta states are fine, the fences above were made by ganymedes01 and not me hence the lack of meta usage
+	// TODO: Fix Bamboo Fence Rendering
 	WOOD_FENCE(ConfigBlocksItems.woodVariants, new BlockModernWoodFence()),
 
 	//legacy buttons
