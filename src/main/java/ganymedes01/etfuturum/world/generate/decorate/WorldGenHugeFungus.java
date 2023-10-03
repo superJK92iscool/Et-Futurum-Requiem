@@ -3,6 +3,9 @@ package ganymedes01.etfuturum.world.generate.decorate;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.blocks.BlockNylium;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockFlower;
+import net.minecraft.block.BlockLeavesBase;
+import net.minecraft.block.BlockSapling;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.MathHelper;
@@ -66,7 +69,8 @@ public class WorldGenHugeFungus extends WorldGenAbstractTree {
 
 	@Override
 	protected boolean isReplaceable(World world, int x, int y, int z) {
-		return world.getBlock(x, y, z).isReplaceable(world, x, y, z);
+		Block block = world.getBlock(x, y, z);
+		return block instanceof BlockLeavesBase || block instanceof BlockSapling || block instanceof BlockFlower || block.isReplaceable(world, x, y, z);
 	}
 
 	private void placeStem(World world, Random rand, int x, int y, int z, int p_285249_, boolean p_285355_) {
