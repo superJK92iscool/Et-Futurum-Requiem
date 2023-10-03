@@ -242,7 +242,7 @@ public class ClientEventHandler {
 							CustomParticles.spawnWarpedSpore(mc.theWorld, i1, j1, k1);
 						} else if (biome == NetherBiomeManager.basaltDeltas) {
 							CustomParticles.spawnAshParticle(mc.theWorld, i1, j1, k1);
-						} else if (biome == NetherBiomeManager.soulSandValley && rand.nextFloat() <= 0.001F) {
+						} else if (biome == NetherBiomeManager.soulSandValley && rand.nextFloat() <= 0.005F) {
 							CustomParticles.spawnAshParticle(mc.theWorld, i1, j1, k1);
 						}
 					}
@@ -252,13 +252,15 @@ public class ClientEventHandler {
 			byte b0 = 16;
 			BiomeGenBase biome = currentBiome;
 
-			int density = 200;
+			int density = 0;
 			if (biome == NetherBiomeManager.crimsonForest) {
 				density = 100;
 			} else if (biome == NetherBiomeManager.warpedForest) {
 				density = 75;
 			} else if (biome == NetherBiomeManager.soulSandValley) {
 				density = 1;
+			} else if (biome == NetherBiomeManager.basaltDeltas) {
+				density = 200;
 			}
 
 			for (int l = 0; l < density; ++l) {
