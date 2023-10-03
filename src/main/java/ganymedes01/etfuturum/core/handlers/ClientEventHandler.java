@@ -27,7 +27,6 @@ import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
-import ganymedes01.etfuturum.core.utils.Logger;
 import ganymedes01.etfuturum.core.utils.RandomXoshiro256StarStar;
 import ganymedes01.etfuturum.elytra.IElytraPlayer;
 import ganymedes01.etfuturum.entities.EntityBee;
@@ -79,7 +78,6 @@ import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import org.apache.commons.lang3.tuple.MutablePair;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
-import sun.misc.SharedSecrets;
 
 import java.io.File;
 import java.util.*;
@@ -223,12 +221,6 @@ public class ClientEventHandler {
 	PositionedSound musicOverride;
 
 	private void handleBiomeParticles() {
-		if (mc.thePlayer.isSneaking()) {
-			Exception e = new Exception();
-			for (int i = 0; i < 1; i++) {
-				Logger.info(SharedSecrets.getJavaLangAccess().getStackTraceElement(e, 4).getMethodName());
-			}
-		}
 		if (mc.gameSettings.particleSetting == 0) { //Fancy particle logic
 			byte b0 = 16;
 
