@@ -3,7 +3,7 @@ package ganymedes01.etfuturum.entities;
 import com.google.common.collect.Lists;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ganymedes01.etfuturum.client.particle.ParticleHandler;
+import ganymedes01.etfuturum.client.particle.CustomParticles;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import ganymedes01.etfuturum.lib.Reference;
@@ -287,7 +287,7 @@ public class EntityShulkerBullet extends Entity {
 			Utils.rotateTowardsMovement(this, 0.5F);
 
 			if (this.worldObj.isRemote) {
-				ParticleHandler.END_ROD.spawn(worldObj, this.posX - this.motionX, this.posY - this.motionY + 0.15D, this.posZ - this.motionZ);
+				CustomParticles.spawnEndRodParticle(worldObj, this.posX - this.motionX, this.posY - this.motionY + 0.15D, this.posZ - this.motionZ);
 			} else if (this.target != null && !this.target.isDead) {
 				if (this.steps > 0) {
 					--this.steps;

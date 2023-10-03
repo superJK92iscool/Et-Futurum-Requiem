@@ -12,11 +12,7 @@ public class CustomDripFX extends EntityFX {
 	private boolean dripSoundPlayed;
 	private int bobTimer;
 
-	public CustomDripFX(World p_i1203_1_, double p_i1203_2_, double p_i1203_4_, double p_i1203_6_, double d1, double d2, double d3, String dripSound, int color) {
-		this(p_i1203_1_, p_i1203_2_, p_i1203_4_, p_i1203_6_, 0, 0, 0, dripSound, color, false);
-	}
-
-	public CustomDripFX(World p_i1203_1_, double p_i1203_2_, double p_i1203_4_, double p_i1203_6_, double d1, double d2, double d3, String dripSound, int color, boolean splashes) {
+	public CustomDripFX(World p_i1203_1_, double p_i1203_2_, double p_i1203_4_, double p_i1203_6_, String dripSound, int color, boolean splashes) {
 		super(p_i1203_1_, p_i1203_2_, p_i1203_4_, p_i1203_6_, 0, 0, 0);
 		this.motionX = this.motionY = this.motionZ = 0.0D;
 		particleAlpha = (color >> 24 & 0xff) / 255F;

@@ -42,7 +42,7 @@ public class DynamicSoundsResourcePack implements IResourcePack {
 
 	@Override
 	public String getPackName() {
-		return "Et Futurum Requiem dynamic sounds.json and lang";
+		return "Et Futurum Requiem dynamic sounds.json";
 	}
 
 	public InputStream getInputStream(ResourceLocation resLoc) throws IOException {
@@ -93,18 +93,18 @@ public class DynamicSoundsResourcePack implements IResourcePack {
 		}
 
 		private void addSoundEventsToCategory(String cat, String... sounds) {
-			addSoundToCategoryWithSettings(cat, 1.0F, 1.0F, 1, false, true, sounds);
+			addSoundsToCategoryWithSettings(cat, 1.0F, 1.0F, 1, false, true, sounds);
 		}
 
-		private void addSoundToCategoryWithSettings(String cat, float volume, float pitch, String... sounds) {
-			addSoundToCategoryWithSettings(cat, volume, pitch, 1, false, false, sounds);
+		private void addSoundsToCategoryWithSettings(String cat, float volume, float pitch, String... sounds) {
+			addSoundsToCategoryWithSettings(cat, volume, pitch, 1, false, false, sounds);
 		}
 
-		private void addSoundToCategoryWithSettings(String cat, float volume, float pitch, int weight, String... sounds) {
-			addSoundToCategoryWithSettings(cat, volume, pitch, weight, false, false, sounds);
+		private void addSoundsToCategoryWithSettings(String cat, float volume, float pitch, int weight, String... sounds) {
+			addSoundsToCategoryWithSettings(cat, volume, pitch, weight, false, false, sounds);
 		}
 
-		private void addSoundToCategoryWithSettings(String cat, float volume, float pitch, int weight, boolean stream, boolean isEvent, String... sounds) {
+		private void addSoundsToCategoryWithSettings(String cat, float volume, float pitch, int weight, boolean stream, boolean isEvent, String... sounds) {
 			JsonObject soundCat = JsonUtil.getOrCreateObject(rootObject, cat);
 			JsonArray soundList = JsonUtil.getOrCreateArray(soundCat, "sounds");
 			for (String sound : sounds) {

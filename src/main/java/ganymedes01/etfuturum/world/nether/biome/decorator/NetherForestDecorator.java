@@ -2,12 +2,7 @@ package ganymedes01.etfuturum.world.nether.biome.decorator;
 
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.blocks.BlockNylium;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
-import ganymedes01.etfuturum.world.generate.decorate.WorldGenHugeFungus;
-import ganymedes01.etfuturum.world.generate.decorate.WorldGenNetherGrass;
-import ganymedes01.etfuturum.world.generate.decorate.WorldGenTwistingVines;
-import ganymedes01.etfuturum.world.generate.decorate.WorldGenWeepingVines;
-import ganymedes01.etfuturum.world.generate.decorate.WorldGenBlockSplatter;
+import ganymedes01.etfuturum.world.generate.decorate.*;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -92,7 +87,7 @@ public class NetherForestDecorator extends NetherBiomeDecorator {
 			vineGenerator.generate(world, rand, x, y, z);
 		}
 
-		for (int attempt = 0; attempt < 24; attempt++) {
+		for (int attempt = 0; attempt < 18; attempt++) {
 			int x = chunkX + rand.nextInt(16) + 8;
 			int y = MathHelper.getRandomIntegerInRange(rand, 32, world.provider.getActualHeight() - 8);
 			int z = chunkZ + rand.nextInt(16) + 8;

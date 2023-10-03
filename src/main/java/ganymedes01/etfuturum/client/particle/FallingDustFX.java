@@ -2,15 +2,14 @@ package ganymedes01.etfuturum.client.particle;
 
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.MathHelper;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
 public class FallingDustFX extends EtFuturumFXParticle {
 	float oSize;
 	final float rotSpeed;
 
-	public FallingDustFX(World world, double x, double y, double z, double mx, double my, double mz, int maxAge, float scale, int color, ResourceLocation texture) {
-		super(world, x, y, z, mx, my, mz, maxAge, scale, color, texture, 8);
+	public FallingDustFX(World world, double x, double y, double z, int color) {
+		super(world, x, y, z, 0, 0, 0, 60 + CustomParticles.rand.nextInt(12), 1, color, "textures/particle/particles.png", 8);
 		float f = 0.9F;
 		this.particleScale *= 0.75F;
 		this.particleScale *= 0.9F;

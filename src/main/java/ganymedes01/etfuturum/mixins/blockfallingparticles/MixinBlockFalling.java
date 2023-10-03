@@ -4,7 +4,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.api.fallingdustcolor.IFallingDustColor;
-import ganymedes01.etfuturum.client.particle.ParticleHandler;
+import ganymedes01.etfuturum.client.particle.CustomParticles;
 import ganymedes01.etfuturum.core.utils.ExternalContent;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
@@ -30,7 +30,7 @@ public abstract class MixinBlockFalling extends Block implements IFallingDustCol
 				double d0 = (float) x + rand.nextFloat();
 				double d1 = (double) y - .05D;
 				double d2 = (float) z + rand.nextFloat();
-				ParticleHandler.FALLING_DUST.spawn(world, d0, d1, d2, 0, 0, 0, 1, getDustColor(world.getBlockMetadata(x, y, z)));
+				CustomParticles.spawnFallingDustParticle(world, x, y, z, getDustColor(world.getBlockMetadata(x, y, z)));
 			}
 		}
 	}

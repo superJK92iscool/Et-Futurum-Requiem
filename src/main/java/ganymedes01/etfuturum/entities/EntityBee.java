@@ -6,7 +6,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.api.BeePlantRegistry;
 import ganymedes01.etfuturum.blocks.BlockBeeHive;
 import ganymedes01.etfuturum.blocks.BlockMagma;
-import ganymedes01.etfuturum.client.particle.ParticleHandler;
+import ganymedes01.etfuturum.client.particle.CustomParticles;
 import ganymedes01.etfuturum.core.utils.EntityVectorUtils;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
@@ -399,7 +399,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 	}
 
 	private void addParticle(World worldIn, double p_226397_2_, double p_226397_4_, double p_226397_6_, double p_226397_8_, double posY) {
-		ParticleHandler.BEE_NECTAR.spawn(worldIn, Utils.lerp(worldIn.rand.nextDouble(), p_226397_2_, p_226397_4_), posY, Utils.lerp(worldIn.rand.nextDouble(), p_226397_6_, p_226397_8_));
+		CustomParticles.spawnBeeNectarParticle(worldIn, Utils.lerp(worldIn.rand.nextDouble(), p_226397_2_, p_226397_4_), posY, Utils.lerp(worldIn.rand.nextDouble(), p_226397_6_, p_226397_8_));
 	}
 
 	private boolean isBreedingFlower(Block block, int meta) {

@@ -5,7 +5,7 @@ import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ganymedes01.etfuturum.client.particle.ParticleHandler;
+import ganymedes01.etfuturum.client.particle.CustomParticles;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.World;
@@ -22,7 +22,7 @@ public class BlackHeartParticlesHandler implements IMessageHandler<BlackHeartPar
 	private void handleMessage(BlackHeartParticlesMessage message) {
 		if (ConfigWorld.enableDmgIndicator) {
 			World world = Minecraft.getMinecraft().theWorld;
-			ParticleHandler.DAMAGE_HEART.spawn(world, message.x, message.y, message.z);
+			CustomParticles.spawnBlackHeartParticle(world, message.x, message.y, message.z);
 		}
 	}
 }

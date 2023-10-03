@@ -39,12 +39,14 @@ public class SoulSandValleyDecorator extends NetherBiomeDecorator {
 			netherFossilGenerator = new WorldGenNetherFossil(ConfigWorld.fossilBlock);
 		}
 
-		if (netherFossilGenerator != null) {
-			int x = chunkX + rand.nextInt(16) + 8;
-			int y = MathHelper.getRandomIntegerInRange(rand, 32, world.provider.getActualHeight() - 8);
-			int z = chunkZ + rand.nextInt(16) + 8;
+		if (ConfigWorld.fossilBlock != null) {
+			for (int attempt = 0; attempt < 3; attempt++) {
+				int x = chunkX + rand.nextInt(16) + 8;
+				int y = MathHelper.getRandomIntegerInRange(rand, 32, world.provider.getActualHeight() - 8);
+				int z = chunkZ + rand.nextInt(16) + 8;
 
-			netherFossilGenerator.generate(world, rand, x, y, z);
+				netherFossilGenerator.generate(world, rand, x, y, z);
+			}
 		}
 
 		if (ModBlocks.BASALT.isEnabled() && rand.nextInt(6) == 0) {

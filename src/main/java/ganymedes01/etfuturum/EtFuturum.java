@@ -65,11 +65,9 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ChestGenHooks;
-import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.oredict.OreDictionary;
 import org.apache.commons.lang3.ArrayUtils;
 
-import java.io.File;
 import java.lang.reflect.Field;
 import java.util.*;
 import java.util.function.Predicate;
@@ -155,9 +153,6 @@ public class EtFuturum {
 			}
 		}
 	};
-
-	public static boolean netherAmbienceNetherlicious;
-	public static boolean netherMusicNetherlicious;
 
 	public static final boolean TESTING = Boolean.parseBoolean(System.getProperty("etfuturum.testing"));
 	public static final boolean DEV_ENVIRONMENT = (Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");
@@ -257,15 +252,6 @@ public class EtFuturum {
 		networkWrapper.registerMessage(ChestBoatOpenInventoryHandler.class, ChestBoatOpenInventoryMessage.class, 5, Side.SERVER);
 		networkWrapper.registerMessage(StartElytraFlyingHandler.class, StartElytraFlyingMessage.class, 6, Side.SERVER);
 		networkWrapper.registerMessage(AttackYawHandler.class, AttackYawMessage.class, 7, Side.CLIENT);
-
-		if (EtFuturum.hasNetherlicious) {
-			File file = new File(event.getModConfigurationDirectory() + "/Netherlicious/Biome_Sound_Configuration.cfg");
-			if (file.exists()) {
-				Configuration netherliciousSoundConfig = new Configuration(file);
-				netherAmbienceNetherlicious = netherliciousSoundConfig.get("1 nether ambience", "Allow Biome specific sounds to play", true).getBoolean();
-				netherMusicNetherlicious = netherliciousSoundConfig.get("2 biome music", "1 Replace the Music System in the Nether, to allow Biome specific Music. Default Music will still play sometimes", true).getBoolean();
-			}
-		}
 
 		//Define mod data here instead of in mcmod.info, adapted from Village Names.
 		//Thanks AstroTibs!
@@ -816,10 +802,29 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "weather.rain.above", "weather");
 
 		config.addSoundEvent(ver, "music.nether.nether_wastes", "music");
-
 		config.addSoundEvent(ver, "ambient.nether_wastes.additions", "ambient");
 		config.addSoundEvent(ver, "ambient.nether_wastes.loop", "ambient");
 		config.addSoundEvent(ver, "ambient.nether_wastes.mood", "ambient");
+
+		config.addSoundEvent(ver, "music.nether.crimson_forest", "music");
+		config.addSoundEvent(ver, "ambient.crimson_forest.additions", "ambient");
+		config.addSoundEvent(ver, "ambient.crimson_forest.loop", "ambient");
+		config.addSoundEvent(ver, "ambient.crimson_forest.mood", "ambient");
+
+		config.addSoundEvent(ver, "music.nether.warped_forest", "music");
+		config.addSoundEvent(ver, "ambient.warped_forest.additions", "ambient");
+		config.addSoundEvent(ver, "ambient.warped_forest.loop", "ambient");
+		config.addSoundEvent(ver, "ambient.warped_forest.mood", "ambient");
+
+		config.addSoundEvent(ver, "music.nether.soul_sand_valley", "music");
+		config.addSoundEvent(ver, "ambient.soul_sand_valley.additions", "ambient");
+		config.addSoundEvent(ver, "ambient.soul_sand_valley.loop", "ambient");
+		config.addSoundEvent(ver, "ambient.soul_sand_valley.mood", "ambient");
+
+		config.addSoundEvent(ver, "music.nether.basalt_deltas", "music");
+		config.addSoundEvent(ver, "ambient.basalt_deltas.additions", "ambient");
+		config.addSoundEvent(ver, "ambient.basalt_deltas.loop", "ambient");
+		config.addSoundEvent(ver, "ambient.basalt_deltas.mood", "ambient");
 
 		config.addSoundEvent(ver, "music_disc.pigstep", "record");
 		config.addSoundEvent(ver, "music_disc.otherside", "record");

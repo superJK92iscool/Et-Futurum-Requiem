@@ -3,7 +3,7 @@ package ganymedes01.etfuturum.blocks;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ganymedes01.etfuturum.client.particle.ParticleHandler;
+import ganymedes01.etfuturum.client.particle.CustomParticles;
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
@@ -52,7 +52,7 @@ public class BlockBarrier extends BaseBlock implements IFloatingParticleBlock {
 		if (player.capabilities.isCreativeMode && heldItem != null && heldItem.getItem() == Item.getItemFromBlock(this)) {
 			BlockPos pos = new BlockPos(x, y, z);
 			if (!INVISIBLE_BLOCK_FX_MAP.containsKey(pos) || INVISIBLE_BLOCK_FX_MAP.get(pos).isDead) {
-				EntityFX particle = ParticleHandler.INVISIBLE_BLOCK_FX.spawn(world, x + .5F, y + .5F, z + .5F);
+				EntityFX particle = CustomParticles.spawnInvisibleBlockParticle(world, x + .5F, y + .5F, z + .5F);
 				INVISIBLE_BLOCK_FX_MAP.put(pos, particle);
 			}
 		}

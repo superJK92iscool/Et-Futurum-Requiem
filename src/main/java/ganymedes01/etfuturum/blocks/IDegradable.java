@@ -1,7 +1,7 @@
 package ganymedes01.etfuturum.blocks;
 
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.client.particle.ParticleHandler;
+import ganymedes01.etfuturum.client.particle.CustomParticles;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
@@ -249,11 +249,11 @@ public interface IDegradable {
 
 				if (d1 < x || d1 > x + 1 || d2 < 0.0D || d2 > y + 1 || d3 < z || d3 > z + 1) {
 					if (type == 0) {
-						ParticleHandler.WAX_ON.spawn(world, d1, d2, d3);
+						CustomParticles.spawnCopperWaxOnParticle(world, d1, d2, d3);
 					} else if (type == 1) {
-						ParticleHandler.WAX_OFF.spawn(world, d1, d2, d3);
+						CustomParticles.spawnCopperWaxOffParticle(world, d1, d2, d3);
 					} else {
-						ParticleHandler.COPPER_SCRAPE.spawn(world, d1, d2, d3);
+						CustomParticles.spawnCopperScrapeParticle(world, d1, d2, d3);
 					}
 				}
 			}

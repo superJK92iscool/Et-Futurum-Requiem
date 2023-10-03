@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.core.handlers;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -16,12 +17,17 @@ import ganymedes01.etfuturum.blocks.BlockShulkerBox;
 import ganymedes01.etfuturum.client.OpenGLHelper;
 import ganymedes01.etfuturum.client.gui.GuiConfigWarning;
 import ganymedes01.etfuturum.client.gui.GuiGamemodeSwitcher;
-import ganymedes01.etfuturum.client.sound.*;
+import ganymedes01.etfuturum.client.particle.CustomParticles;
+import ganymedes01.etfuturum.client.sound.AmbienceLoop;
+import ganymedes01.etfuturum.client.sound.BeeFlySound;
+import ganymedes01.etfuturum.client.sound.ElytraSound;
+import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
+import ganymedes01.etfuturum.core.utils.RandomXoshiro256StarStar;
 import ganymedes01.etfuturum.elytra.IElytraPlayer;
 import ganymedes01.etfuturum.entities.EntityBee;
 import ganymedes01.etfuturum.entities.EntityNewBoatWithChest;
@@ -29,6 +35,8 @@ import ganymedes01.etfuturum.items.ItemHoneyBottle;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.network.ChestBoatOpenInventoryMessage;
 import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox;
+import ganymedes01.etfuturum.world.nether.biome.utils.NetherBiomeManager;
+import ganymedes01.etfuturum.world.nether.dimension.WorldProviderEFRNether;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
@@ -55,6 +63,7 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldProviderHell;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.client.event.GuiOpenEvent;
@@ -71,10 +80,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
 import java.io.File;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.WeakHashMap;
+import java.util.*;
 
 import static ganymedes01.etfuturum.spectator.SpectatorMode.isSpectator;
 
@@ -82,7 +88,7 @@ public class ClientEventHandler {
 
 	public static final ClientEventHandler INSTANCE = new ClientEventHandler();
 	private final Minecraft mc = FMLClientHandler.instance().getClient();
-	private final Random rand = new Random();
+	private final Random rand = new RandomXoshiro256StarStar();
 	private boolean showedDebugWarning;
 	private int currPage;
 	/**
@@ -101,14 +107,12 @@ public class ClientEventHandler {
 
 
 	private ClientEventHandler() {
+		netherAmbienceLoops = new HashMap<>();
+		netherAmbienceLoops.put(NetherBiomeManager.crimsonForest, new AmbienceLoop("crimson_forest", 50, 90));
+		netherAmbienceLoops.put(NetherBiomeManager.warpedForest, new AmbienceLoop("warped_forest", 50, 90));
+		netherAmbienceLoops.put(NetherBiomeManager.soulSandValley, new AmbienceLoop("soul_sand_valley", 70, 110));
+		netherAmbienceLoops.put(NetherBiomeManager.basaltDeltas, new AmbienceLoop("basalt_deltas", 60, 100));
 	}
-
-	@SideOnly(Side.CLIENT)
-	NetherAmbienceLoop ambienceLoop = null;
-	@SideOnly(Side.CLIENT)
-	int ticksToNextAmbience = rand.nextInt(80) + 1;
-	@SideOnly(Side.CLIENT)
-	BiomeGenBase ambienceBiome = null;
 
 	private boolean wasShowingDebugInfo, wasShowingProfiler;
 	private boolean eligibleForDebugInfoSwap = false;
@@ -158,38 +162,27 @@ public class ClientEventHandler {
 
 		applyNextEntitySound();
 
-		if (ConfigSounds.netherAmbience && !EtFuturum.netherAmbienceNetherlicious && world.provider.dimensionId == -1) {
+		if (ConfigSounds.netherAmbience && world.provider.dimensionId == -1 && (world.provider.getClass() == WorldProviderHell.class || world.provider.getClass() == WorldProviderEFRNether.class)) {
 			Chunk chunk = world.getChunkFromBlockCoords(MathHelper.floor_double(player.posX), MathHelper.floor_double(player.posZ));
 			if (!chunk.isChunkLoaded) {
-				if (ambienceLoop != null && mc.getSoundHandler().isSoundPlaying(ambienceLoop)) {
-					mc.getSoundHandler().stopSound(ambienceLoop);
+				if (netherAmbienceLoop != null && mc.getSoundHandler().isSoundPlaying(netherAmbienceLoop)) {
+					mc.getSoundHandler().stopSound(netherAmbienceLoop);
 				}
-				ambienceLoop = null;
-				ambienceBiome = null;
+				netherAmbienceLoop = null;
+				currentBiome = null;
+				prevAmbientBiome = null;
 				return;
 			}
 
 			int x = MathHelper.floor_double(player.posX);
-			//int y = MathHelper.floor_double(player.posY); // unused variable
 			int z = MathHelper.floor_double(player.posZ);
-			ambienceBiome = world.getBiomeGenForCoords(x, z);
+			currentBiome = world.getBiomeGenForCoords(x, z);
 
-			String soundLoc = "";
-			if (ambienceLoop != null) {
-				soundLoc = ambienceLoop.getPositionedSoundLocation().getResourceDomain() + ":" + ambienceLoop.getPositionedSoundLocation().getResourcePath();
-			}
+			handleBiomeParticles();
 
-			if (getAmbienceLoop(ambienceBiome) != null && !mc.getSoundHandler().isSoundPlaying(ambienceLoop)) {
-				ambienceLoop = new NetherAmbienceLoop(getAmbienceLoop(ambienceBiome));
-				mc.getSoundHandler().playSound(ambienceLoop);
-			} else if (ambienceBiome == null || !soundLoc.equals(getAmbienceLoop(ambienceBiome))) {
-				ambienceLoop.stop();
-			} else if (mc.getSoundHandler().isSoundPlaying(ambienceLoop) && ambienceLoop.isStopping && soundLoc.equals(getAmbienceLoop(ambienceBiome))) {
-				ambienceLoop.isStopping = false;
-			}
-			if (getAmbienceAdditions(ambienceBiome) != null && ambienceLoop != null && ticksToNextAmbience-- <= 0) {
-				mc.getSoundHandler().playSound(new NetherAmbienceSound(new ResourceLocation(getAmbienceAdditions(ambienceBiome))));
-				ticksToNextAmbience = 50 + rand.nextInt(30) + 1;
+			if (player.ticksExisted % 5 == 4) {
+				handleNetherAmbienceLoop();
+				prevAmbientBiome = currentBiome;
 			}
 		}
 
@@ -211,71 +204,124 @@ public class ClientEventHandler {
 		}
 	}
 
-	private String getStringFor(BiomeGenBase biome) {
-		if (biome == null)
-			return null;
+	@SideOnly(Side.CLIENT)
+	private final AmbienceLoop defaultNetherAmbienceLoop = new AmbienceLoop("nether_wastes", 40, 80);
+	@SideOnly(Side.CLIENT)
+	private final List<String> netherAmbienceLoopNames = ImmutableList.of("nether_wastes", "crimson_forest", "warped_forest", "soul_sand_valley", "basalt_deltas");
 
-//      if(string.contains("basalt_deltas")) {
-//          return basaltDeltas;
-//      }
-//      if(string.contains("warped_forest")) {
-//          return warpedForest;
-//      }
-//      if(string.contains("crimson_forest")) {
-//          return crimsonForest;
-//      }
-//      if(string.contains("soul_sand_valley")) {
-//          return soulSandValley;
-//      }
-		return "nether_wastes";
+	@SideOnly(Side.CLIENT)
+	private Map<BiomeGenBase, AmbienceLoop> netherAmbienceLoops;
+	@SideOnly(Side.CLIENT)
+	private AmbienceLoop netherAmbienceLoop;
+	@SideOnly(Side.CLIENT)
+	private BiomeGenBase prevAmbientBiome;
+	@SideOnly(Side.CLIENT)
+	private BiomeGenBase currentBiome;
+	@SideOnly(Side.CLIENT)
+	PositionedSound musicOverride;
 
+	private void handleBiomeParticles() {
+		if (mc.gameSettings.particleSetting == 0) { //Fancy particle logic
+			byte b0 = 16;
+
+			for (int l = 0; l < 200; ++l) {
+				double i1 = mc.thePlayer.posX + MathHelper.getRandomDoubleInRange(rand, -b0, b0);
+				double j1 = mc.thePlayer.posY + MathHelper.getRandomDoubleInRange(rand, -b0, b0);
+				double k1 = mc.thePlayer.posZ + MathHelper.getRandomDoubleInRange(rand, -b0, b0);
+				int x = MathHelper.floor_double(i1);
+				int y = MathHelper.floor_double(j1);
+				int z = MathHelper.floor_double(k1);
+				Block block = mc.theWorld.getBlock(x, y, z);
+
+				if (block.getMaterial() == Material.air) {
+					if (j1 >= 0 && j1 <= 255) {
+						BiomeGenBase biome = mc.theWorld.getBiomeGenForCoords(x, z);
+						if (biome == NetherBiomeManager.crimsonForest && rand.nextBoolean()) {
+							CustomParticles.spawnCrimsonSpore(mc.theWorld, i1, j1, k1);
+						} else if (biome == NetherBiomeManager.warpedForest && rand.nextFloat() <= 0.375F) {
+							CustomParticles.spawnWarpedSpore(mc.theWorld, i1, j1, k1);
+						} else if (biome == NetherBiomeManager.basaltDeltas) {
+							CustomParticles.spawnAshParticle(mc.theWorld, i1, j1, k1);
+						} else if (biome == NetherBiomeManager.soulSandValley && rand.nextFloat() <= 0.001F) {
+							CustomParticles.spawnAshParticle(mc.theWorld, i1, j1, k1);
+						}
+					}
+				}
+			}
+		} else if (mc.gameSettings.particleSetting == 1) { //Fast particle logic (check biome at the player position once instead of at every particle
+			byte b0 = 16;
+			BiomeGenBase biome = currentBiome;
+
+			int density = 200;
+			if (biome == NetherBiomeManager.crimsonForest) {
+				density = 100;
+			} else if (biome == NetherBiomeManager.warpedForest) {
+				density = 75;
+			} else if (biome == NetherBiomeManager.soulSandValley) {
+				density = 1;
+			}
+
+			for (int l = 0; l < density; ++l) {
+				double i1 = mc.thePlayer.posX + MathHelper.getRandomDoubleInRange(rand, -b0, b0);
+				double j1 = mc.thePlayer.posY + MathHelper.getRandomDoubleInRange(rand, -b0, b0);
+				double k1 = mc.thePlayer.posZ + MathHelper.getRandomDoubleInRange(rand, -b0, b0);
+				int x = MathHelper.floor_double(i1);
+				int y = MathHelper.floor_double(j1);
+				int z = MathHelper.floor_double(k1);
+				Block block = mc.theWorld.getBlock(x, y, z);
+
+				if (block.getMaterial() == Material.air) {
+					if (j1 >= 0 && j1 <= 255) {
+						if (biome == NetherBiomeManager.crimsonForest) {
+							CustomParticles.spawnCrimsonSpore(mc.theWorld, i1, j1, k1);
+						} else if (biome == NetherBiomeManager.warpedForest) {
+							CustomParticles.spawnWarpedSpore(mc.theWorld, i1, j1, k1);
+						} else if (biome == NetherBiomeManager.basaltDeltas) {
+							CustomParticles.spawnAshParticle(mc.theWorld, i1, j1, k1);
+						} else if (biome == NetherBiomeManager.soulSandValley) {
+							CustomParticles.spawnAshParticle(mc.theWorld, i1, j1, k1);
+						}
+					}
+				}
+			}
+		}
 	}
 
-	private String getAmbience(BiomeGenBase biome) {
-		if (biome == null)
-			return null;
-
-//      if(string.contains("basalt_deltas")) {
-//          return basaltDeltas;
-//      }
-//      if(string.contains("warped_forest")) {
-//          return warpedForest;
-//      }
-//      if(string.contains("crimson_forest")) {
-//          return crimsonForest;
-//      }
-//      if(string.contains("soul_sand_valley")) {
-//          return soulSandValley;
-//      }
-		return Reference.MCAssetVer + ":ambient." + getStringFor(biome);
+	private void handleNetherAmbienceLoop() {
+		if (netherAmbienceLoop == null || !mc.getSoundHandler().isSoundPlaying(netherAmbienceLoop)) {
+			if (netherAmbienceLoop != null) {
+				mc.getSoundHandler().stopSound(netherAmbienceLoop);
+			}
+			netherAmbienceLoop = netherAmbienceLoops.getOrDefault(currentBiome, defaultNetherAmbienceLoop).createNew();
+			netherAmbienceLoop.skipFadeIn();
+			mc.getSoundHandler().playSound(netherAmbienceLoop);
+			return;
+		}
+		if (prevAmbientBiome != currentBiome) {
+			netherAmbienceLoop.fadeOut();
+			netherAmbienceLoop = netherAmbienceLoops.getOrDefault(currentBiome, defaultNetherAmbienceLoop).createNew();
+			mc.getSoundHandler().playSound(netherAmbienceLoop);
+		}
 	}
 
-	private String getAmbienceLoop(BiomeGenBase biome) {
-		if (biome == null) {
+	private String getAmbienceMood() {
+		if (netherAmbienceLoop == null || !netherAmbienceLoop.hasCaveSoundOverride()) {
 			return null;
 		}
-		return getAmbience(biome) + ".loop";
+		if (netherAmbienceLoopNames.contains(netherAmbienceLoop.getName())) {
+			return Reference.MCAssetVer + ":ambient." + netherAmbienceLoop.getName() + ".mood";
+		}
+		return null;
 	}
 
-	private String getAmbienceMood(BiomeGenBase biome) {
-		if (biome == null) {
+	private String getAmbientMusicOverride() {
+		if (netherAmbienceLoop == null || !netherAmbienceLoop.hasMusicOverride()) {
 			return null;
 		}
-		return getAmbience(biome) + ".mood";
-	}
-
-	private String getAmbienceAdditions(BiomeGenBase biome) {
-		if (biome == null) {
-			return null;
+		if (netherAmbienceLoopNames.contains(netherAmbienceLoop.getName())) {
+			return Reference.MCAssetVer + ":music.nether." + netherAmbienceLoop.getName();
 		}
-		return getAmbience(biome) + ".additions";
-	}
-
-	private String getMusic(BiomeGenBase biome) {
-		if (biome == null) {
-			return null;
-		}
-		return Reference.MCAssetVer + ":music.nether." + getStringFor(biome);
+		return null;
 	}
 
 	@SubscribeEvent
@@ -312,8 +358,6 @@ public class ClientEventHandler {
 			OpenGLHelper.disableBlend();
 		}
 	}
-
-	PositionedSound netherMusic;
 
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
@@ -483,34 +527,29 @@ public class ClientEventHandler {
 				}
 			}
 
-			if (!EtFuturum.netherMusicNetherlicious) {
-				if (event.name.equals("music.game.nether") && world.provider.dimensionId == -1) {
-					if (netherMusic == null || !mc.getSoundHandler().isSoundPlaying(netherMusic)) {
-						//World world = mc.theWorld; // unused variable
-						String music = getMusic(mc.theWorld.getChunkFromBlockCoords((int) mc.thePlayer.posX, (int) mc.thePlayer.posZ).getBiomeGenForWorldCoords((int) mc.thePlayer.posX & 15, (int) mc.thePlayer.posZ & 15, mc.theWorld.getWorldChunkManager()));
-						if (music != null) {
-							netherMusic = PositionedSoundRecord.func_147673_a(new ResourceLocation(music));
-							event.result = netherMusic;
-						}
-					} else {
-						event.result = null;
-					}
-				}
-			}
-
 			if (ConfigSounds.rainSounds && event.name.equals("ambient.weather.rain")) {
 				event.result = new PositionedSoundRecord(new ResourceLocation(Reference.MCAssetVer + ":weather.rain" + (event.sound.getPitch() < 1.0F ? ".above" : "")),
 						event.sound.getVolume(), event.sound.getPitch(), x + 0.5F, y + 0.5F, z + 0.5F);
 			}
-			if (event.name.equals("ambient.cave.cave")) {
-				if (ConfigSounds.netherAmbience && FMLClientHandler.instance().getClientPlayerEntity().dimension == -1) {
-					BiomeGenBase biome = FMLClientHandler.instance().getWorldClient().getChunkFromBlockCoords(x, z).getBiomeGenForWorldCoords(x & 15, z & 15, FMLClientHandler.instance().getWorldClient().getWorldChunkManager());
-					if (getAmbienceMood(biome) != null) {
-						event.result = new PositionedSoundRecord(new ResourceLocation(getAmbienceMood(biome)),
-								event.sound.getVolume(), event.sound.getPitch(), x + 0.5F, y + 0.5F, z + 0.5F);
-					} else {
-						event.result = null;
+
+			if (event.name.startsWith("music.game")) { //Just override overworld or Nether music, not other music types
+				if (musicOverride == null || !mc.getSoundHandler().isSoundPlaying(musicOverride)) {
+					String music = getAmbientMusicOverride();
+					if (music != null) {
+						musicOverride = PositionedSoundRecord.func_147673_a(new ResourceLocation(music));
+						event.result = musicOverride;
 					}
+				} else {
+					event.result = null;
+				}
+			}
+
+			if (event.name.equals("ambient.cave.cave")) {
+				if (getAmbienceMood() != null) {
+					event.result = new PositionedSoundRecord(new ResourceLocation(getAmbienceMood()),
+							event.sound.getVolume(), event.sound.getPitch(), x + 0.5F, y + 0.5F, z + 0.5F);
+				} else {
+					event.result = null;
 				}
 			}
 		}

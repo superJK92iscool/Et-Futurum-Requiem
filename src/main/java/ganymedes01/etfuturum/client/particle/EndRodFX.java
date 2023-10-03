@@ -1,13 +1,11 @@
 package ganymedes01.etfuturum.client.particle;
 
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
 public class EndRodFX extends EtFuturumFXParticle {
 
-	public EndRodFX(World world, double x, double y, double z, double mx, double my, double mz, int maxAge, float scale,
-					int color, ResourceLocation texture, int textures) {
-		super(world, x, y, z, mx, my, mz, maxAge, scale, color, texture, textures);
+	public EndRodFX(World world, double x, double y, double z) {
+		super(world, x, y, z, 0, 0, 0, 60 + CustomParticles.rand.nextInt(12), 1, 0xFFFFFFFF, "textures/particle/glitter.png", 8);
 		motionX = particleRand.nextGaussian() * 0.0005D;
 		motionY = particleRand.nextGaussian() * 0.0005D;
 		motionZ = particleRand.nextGaussian() * 0.0005D;
