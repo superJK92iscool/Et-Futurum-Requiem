@@ -1863,6 +1863,8 @@ public class ServerEventHandler {
 
 	@SubscribeEvent
 	public void fuelBurnTime(FuelBurnTimeEvent e) {
+		if (e.fuel == null) return;
+
 		if (NO_BURN_ITEMS.isEmpty()) {
 			NO_BURN_ITEMS.put(ModBlocks.WOOD_PLANKS.getItem(), ImmutableList.of(0, 1));
 			NO_BURN_ITEMS.put(ModBlocks.WOOD_FENCE.getItem(), ImmutableList.of(0, 1));
@@ -1890,13 +1892,8 @@ public class ServerEventHandler {
 			if (NO_BURN_ITEMS.get(e.fuel.getItem()).contains(OreDictionary.WILDCARD_VALUE) || NO_BURN_ITEMS.get(e.fuel.getItem()).contains(e.fuel.getItemDamage())) {
 				e.burnTime = 0;
 				e.setResult(Result.DENY);
-				return;
 			}
 		}
-
-		//I know this is deprecated but I'd rather have all the fuel logic in one place, and IFuelHandler can't allow me to cancel fuels so yeah
-
-
 	}
 
 	@SubscribeEvent

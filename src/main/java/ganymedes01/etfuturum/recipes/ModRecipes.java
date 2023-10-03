@@ -203,11 +203,6 @@ public class ModRecipes {
 			registerOre("logWood", ModBlocks.WARPED_STEM.newItemStack(1, i));
 			registerOre("logWood", ModBlocks.MANGROVE_LOG.newItemStack(1, i));
 			registerOre("logWood", ModBlocks.CHERRY_LOG.newItemStack(1, i));
-
-			// No Bark
-			if(i < 2){
-				registerOre("logWood", ModBlocks.BAMBOO_BLOCK.newItemStack(1, i));
-			}
 		}
 
 		registerOre("stoneGranite", ModBlocks.STONE.newItemStack(1, 1));
@@ -391,6 +386,20 @@ public class ModRecipes {
 		addShapedRecipe(new ItemStack(Blocks.planks, 4, 4), "x", 'x', ModBlocks.WOOD2_STRIPPED.newItemStack(1));
 		addShapedRecipe(new ItemStack(Blocks.planks, 4, 5), "x", 'x', ModBlocks.WOOD2_STRIPPED.newItemStack(1, 1));
 
+		for (int i = 0; i < 4; i++) {
+			addSmelting(ModBlocks.LOG_STRIPPED.newItemStack(1, i), new ItemStack(Items.coal, 1, 1), 0.15F);
+			addSmelting(ModBlocks.LOG2_STRIPPED.newItemStack(1, i), new ItemStack(Items.coal, 1, 1), 0.15F);
+			addSmelting(ModBlocks.WOOD_STRIPPED.newItemStack(1, i), new ItemStack(Items.coal, 1, 1), 0.15F);
+			addSmelting(ModBlocks.WOOD2_STRIPPED.newItemStack(1, i), new ItemStack(Items.coal, 1, 1), 0.15F);
+			addSmelting(ModBlocks.BARK.newItemStack(1, i), new ItemStack(Items.coal, 1, 1), 0.15F);
+			addSmelting(ModBlocks.BARK2.newItemStack(1, i), new ItemStack(Items.coal, 1, 1), 0.15F);
+
+			addSmelting(ModBlocks.CRIMSON_STEM.newItemStack(1, i), new ItemStack(Items.coal, 1, 1), 0.15F);
+			addSmelting(ModBlocks.WARPED_STEM.newItemStack(1, i), new ItemStack(Items.coal, 1, 1), 0.15F);
+			addSmelting(ModBlocks.MANGROVE_LOG.newItemStack(1, i), new ItemStack(Items.coal, 1, 1), 0.15F);
+			addSmelting(ModBlocks.CHERRY_LOG.newItemStack(1, i), new ItemStack(Items.coal, 1, 1), 0.15F);
+		}
+
 		//Logs to bark
 		addShapedRecipe(ModBlocks.BARK.newItemStack(3), "xx", "xx", 'x', new ItemStack(Blocks.log, 1));
 		addShapedRecipe(ModBlocks.BARK.newItemStack(3, 1), "xx", "xx", 'x', new ItemStack(Blocks.log, 1, 1));
@@ -457,11 +466,11 @@ public class ModRecipes {
 		addShapedRecipe(ModBlocks.WOOD_SLAB.newItemStack(6, 3), "xxx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 3));
 		addShapedRecipe(ModBlocks.WOOD_SLAB.newItemStack(6, 4), "xxx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 4));
 
-		addShapedRecipe(ModBlocks.CRIMSON_STAIRS.newItemStack(6), "x  ", "xx ", "xxx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 0));
-		addShapedRecipe(ModBlocks.WARPED_STAIRS.newItemStack(6), "x  ", "xx ", "xxx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 1));
-		addShapedRecipe(ModBlocks.MANGROVE_STAIRS.newItemStack(6), "x  ", "xx ", "xxx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 2));
-		addShapedRecipe(ModBlocks.CHERRY_STAIRS.newItemStack(6), "x  ", "xx ", "xxx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 3));
-		addShapedRecipe(ModBlocks.BAMBOO_STAIRS.newItemStack(6), "x  ", "xx ", "xxx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 4));
+		addShapedRecipe(ModBlocks.CRIMSON_STAIRS.newItemStack(4), "x  ", "xx ", "xxx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 0));
+		addShapedRecipe(ModBlocks.WARPED_STAIRS.newItemStack(4), "x  ", "xx ", "xxx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 1));
+		addShapedRecipe(ModBlocks.MANGROVE_STAIRS.newItemStack(4), "x  ", "xx ", "xxx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 2));
+		addShapedRecipe(ModBlocks.CHERRY_STAIRS.newItemStack(4), "x  ", "xx ", "xxx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 3));
+		addShapedRecipe(ModBlocks.BAMBOO_STAIRS.newItemStack(4), "x  ", "xx ", "xxx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 4));
 
 		// Bamboo Mosaic
 		addShapedRecipe(ModBlocks.BAMBOO_MOSAIC.newItemStack(1, 0), "x", "x", 'x', ModBlocks.WOOD_SLAB.newItemStack(1, 4));

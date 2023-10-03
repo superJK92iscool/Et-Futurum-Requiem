@@ -240,9 +240,9 @@ public class ClientEventHandler {
 							CustomParticles.spawnCrimsonSpore(mc.theWorld, i1, j1, k1);
 						} else if (biome == NetherBiomeManager.warpedForest && rand.nextFloat() <= 0.375F) {
 							CustomParticles.spawnWarpedSpore(mc.theWorld, i1, j1, k1);
-						} else if (biome == NetherBiomeManager.basaltDeltas) {
-							CustomParticles.spawnAshParticle(mc.theWorld, i1, j1, k1);
 						} else if (biome == NetherBiomeManager.soulSandValley && rand.nextFloat() <= 0.005F) {
+							CustomParticles.spawnAshParticle(mc.theWorld, i1, j1, k1);
+						} else if (biome == NetherBiomeManager.basaltDeltas) {
 							CustomParticles.spawnAshParticle(mc.theWorld, i1, j1, k1);
 						}
 					}

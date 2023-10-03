@@ -153,7 +153,7 @@ public class WorldGenHugeFungus extends WorldGenAbstractTree {
 		}
 	}
 
-	private void placeHatBlock(World world, Random rand, BlockPos.MutableBlockPos pos, float p_225054_, float p_225055_, float p_225056_) {
+	private void placeHatBlock(World world, Random rand, BlockPos pos, float p_225054_, float p_225055_, float p_225056_) {
 		if (rand.nextFloat() < p_225054_) {
 			world.setBlock(pos.getX(), pos.getY(), pos.getZ(), ModBlocks.SHROOMLIGHT.get(), 0, 3);
 		} else if (rand.nextFloat() < p_225055_) {

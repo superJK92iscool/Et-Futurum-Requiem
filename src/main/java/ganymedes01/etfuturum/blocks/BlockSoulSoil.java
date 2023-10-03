@@ -10,11 +10,12 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public class BlockSoulSoil extends BaseBlock {
 	public BlockSoulSoil() {
-		super(Material.sand);
+		super(Material.ground);
 		setHardness(0.5F);
 		setResistance(0.5F);
 		setNames("soul_soil");
 		setBlockSound(ModSounds.soundSoulSoil);
+		setHarvestLevel("shovel", 0);
 	}
 
 	@Override

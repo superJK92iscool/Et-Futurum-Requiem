@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.client.particle;
 
+import ganymedes01.etfuturum.core.utils.RandomXoshiro256StarStar;
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.world.World;
 
@@ -12,6 +13,7 @@ public class BeeNectarFX extends EntityFX {
 
 	public BeeNectarFX(World p_i1203_1_, double p_i1203_2_, double p_i1203_4_, double p_i1203_6_) {
 		super(p_i1203_1_, p_i1203_2_, p_i1203_4_, p_i1203_6_, 0, 0, 0);
+		rand = new RandomXoshiro256StarStar();
 		setRBGColorF(red, green, blue);
 		this.motionX = this.motionY = this.motionZ = 0.0D;
 
