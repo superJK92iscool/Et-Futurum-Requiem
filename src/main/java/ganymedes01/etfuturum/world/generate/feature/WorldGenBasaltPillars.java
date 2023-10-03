@@ -1,14 +1,12 @@
 package ganymedes01.etfuturum.world.generate.feature;
 
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
-import net.minecraftforge.common.util.ForgeDirection;
 
 import java.util.Random;
 
-public class WorldGenBasaltPillar extends WorldGenerator {
+public class WorldGenBasaltPillars extends WorldGenerator {
 	@Override
 	public boolean generate(World world, Random rand, int x, int y, int z) {
 		if (world.isAirBlock(x, y, z) && !world.isAirBlock(x, y + 1, z)) {

@@ -2,7 +2,7 @@ package ganymedes01.etfuturum.world.nether.biome.decorator;
 
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
-import ganymedes01.etfuturum.world.generate.feature.WorldGenBasaltPillar;
+import ganymedes01.etfuturum.world.generate.feature.WorldGenBasaltPillars;
 import ganymedes01.etfuturum.world.generate.feature.WorldGenNetherFossil;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -19,7 +19,7 @@ public class SoulSandValleyDecorator extends NetherBiomeDecorator {
 
 	public SoulSandValleyDecorator() {
 		crimsonGrassGenerator = new WorldGenFlowers(ModBlocks.NETHER_ROOTS.get());
-		pillarGenerator = new WorldGenBasaltPillar();
+		pillarGenerator = new WorldGenBasaltPillars();
 	}
 
 	@Override
