@@ -3,7 +3,6 @@ package ganymedes01.etfuturum.world.generate.feature;
 import com.google.common.collect.ImmutableList;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.MathHelper;
@@ -68,14 +67,15 @@ public class WorldGenDeltas extends WorldGenerator {
 		return flag;
 	}
 
-	private static final ImmutableList<Block> CANNOT_REPLACE = ImmutableList.of(
-			Blocks.bedrock, Blocks.nether_brick, Blocks.nether_brick_fence, Blocks.nether_brick_stairs, ModBlocks.NETHER_WART.get(), Blocks.chest, Blocks.mob_spawner);
+	//	private static final ImmutableList<Block> CANNOT_REPLACE = ImmutableList.of(
+//			Blocks.bedrock, Blocks.nether_brick, Blocks.nether_brick_fence, Blocks.nether_brick_stairs, ModBlocks.NETHER_WART.get(), Blocks.chest, Blocks.mob_spawner);
+	private static final ImmutableList<Block> CAN_REPLACE = ImmutableList.of(ModBlocks.BLACKSTONE.get(), ModBlocks.BASALT.get());
 
 	private static boolean isClear(World world, int x, int y, int z) {
 		Block block = world.getBlock(x, y, z);
 		if (block == Blocks.lava) {
 			return false;
-		} else if (CANNOT_REPLACE.contains(block)) {
+		} else if (/*CANNOT_REPLACE.contains(block)*/!CAN_REPLACE.contains(block)) {
 			return false;
 		} else {
 			for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {

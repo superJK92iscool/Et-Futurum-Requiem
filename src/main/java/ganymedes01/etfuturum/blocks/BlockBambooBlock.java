@@ -2,18 +2,14 @@ package ganymedes01.etfuturum.blocks;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ganymedes01.etfuturum.client.InterpolatedIcon;
-import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
-import net.minecraftforge.common.util.ForgeDirection;
 
 import java.util.List;
 
@@ -36,11 +32,6 @@ public class BlockBambooBlock extends BlockModernLog implements ISubBlocksBlock 
 	@Override
 	public boolean canSustainLeaves(IBlockAccess world, int x, int y, int z) {
 		return false;
-	}
-
-	@Override
-	public boolean isFlammable(IBlockAccess aWorld, int aX, int aY, int aZ, ForgeDirection aSide) {
-		return true;
 	}
 
 	@Override

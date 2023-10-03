@@ -24,7 +24,7 @@ public class BasaltDeltasDecorator extends NetherBiomeDecorator {
 
 	@Override
 	public void populate(World world, Random rand, int chunkX, int chunkZ) {
-		for (int attempt = 0; attempt < 60; attempt++) {
+		for (int attempt = 0; attempt < 15; attempt++) {
 			int x = chunkX + rand.nextInt(16) + 8;
 			int y = MathHelper.getRandomIntegerInRange(rand, 32, world.provider.getActualHeight() - 24);
 			int z = chunkZ + rand.nextInt(16) + 8;
@@ -38,10 +38,10 @@ public class BasaltDeltasDecorator extends NetherBiomeDecorator {
 			deltaGenerator.generate(world, rand, x, y, z);
 		}
 
-		for (int segment = 0; segment < 4; segment++) {
-			for (int attempt = 0; attempt < 18; attempt++) {
+		for (int segment = 0; segment < 5; segment++) {
+			for (int attempt = 0; attempt < 12; attempt++) {
 				int x = chunkX + rand.nextInt(16) + 8;
-				int y = MathHelper.getRandomIntegerInRange(rand, 32 + (segment * 22), 54 + (segment * 22));
+				int y = MathHelper.getRandomIntegerInRange(rand, 32 + (segment * 18), 54 + (segment * 18));
 				int z = chunkZ + rand.nextInt(16) + 8;
 
 				if (world.getBiomeGenForCoords(x, z) != NetherBiomeManager.basaltDeltas) continue;

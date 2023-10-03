@@ -27,6 +27,7 @@ import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
+import ganymedes01.etfuturum.core.utils.Logger;
 import ganymedes01.etfuturum.core.utils.RandomXoshiro256StarStar;
 import ganymedes01.etfuturum.elytra.IElytraPlayer;
 import ganymedes01.etfuturum.entities.EntityBee;
@@ -78,6 +79,7 @@ import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import org.apache.commons.lang3.tuple.MutablePair;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
+import sun.misc.SharedSecrets;
 
 import java.io.File;
 import java.util.*;
@@ -110,8 +112,8 @@ public class ClientEventHandler {
 		netherAmbienceLoops = new HashMap<>();
 		netherAmbienceLoops.put(NetherBiomeManager.crimsonForest, new AmbienceLoop("crimson_forest", 50, 90));
 		netherAmbienceLoops.put(NetherBiomeManager.warpedForest, new AmbienceLoop("warped_forest", 50, 90));
-		netherAmbienceLoops.put(NetherBiomeManager.soulSandValley, new AmbienceLoop("soul_sand_valley", 70, 110));
-		netherAmbienceLoops.put(NetherBiomeManager.basaltDeltas, new AmbienceLoop("basalt_deltas", 60, 100));
+		netherAmbienceLoops.put(NetherBiomeManager.soulSandValley, new AmbienceLoop("soul_sand_valley", 50, 90));
+		netherAmbienceLoops.put(NetherBiomeManager.basaltDeltas, new AmbienceLoop("basalt_deltas", 50, 90));
 	}
 
 	private boolean wasShowingDebugInfo, wasShowingProfiler;
@@ -221,6 +223,12 @@ public class ClientEventHandler {
 	PositionedSound musicOverride;
 
 	private void handleBiomeParticles() {
+		if (mc.thePlayer.isSneaking()) {
+			Exception e = new Exception();
+			for (int i = 0; i < 1; i++) {
+				Logger.info(SharedSecrets.getJavaLangAccess().getStackTraceElement(e, 4).getMethodName());
+			}
+		}
 		if (mc.gameSettings.particleSetting == 0) { //Fancy particle logic
 			byte b0 = 16;
 
@@ -432,6 +440,8 @@ public class ClientEventHandler {
 						s = Reference.MCAssetVer + ":block.nether_wood_button.click";
 					} else if (block.stepSound == ModSounds.soundCherryWood) {
 						s = Reference.MCAssetVer + ":block.cherry_wood_button.click";
+					} else if (block.stepSound == ModSounds.soundBambooWood) {
+						s = Reference.MCAssetVer + ":block.bamboo_wood_button.click";
 					}
 					if (s != null) {
 						event.result = new PositionedSoundRecord(new ResourceLocation(s + "_" + (event.sound.getPitch() > 0.5F ? "on" : "off")), 1, 1, soundX, soundY, soundZ);
@@ -452,6 +462,8 @@ public class ClientEventHandler {
 						s = Reference.MCAssetVer + ":block.nether_wood_pressure_plate.click";
 					} else if (block.stepSound == ModSounds.soundCherryWood) {
 						s = Reference.MCAssetVer + ":block.cherry_wood_pressure_plate.click";
+					} else if (block.stepSound == ModSounds.soundBambooWood) {
+						s = Reference.MCAssetVer + ":block.bamboo_wood_pressure_plate.click";
 					}
 
 					if (s != null) {
@@ -566,6 +578,9 @@ public class ClientEventHandler {
 				if (block.stepSound == ModSounds.soundCherryWood) {
 					return Reference.MCAssetVer + ":block.cherry_wood_door." + closeOrOpen;
 				}
+				if (block.stepSound == ModSounds.soundBambooWood) {
+					return Reference.MCAssetVer + ":block.bamboo_wood_door." + closeOrOpen;
+				}
 				return Reference.MCAssetVer + ":block.wooden_door." + closeOrOpen;
 			} else if (block.getMaterial() == Material.iron) {
 				return Reference.MCAssetVer + ":block.iron_door." + closeOrOpen;
@@ -580,6 +595,9 @@ public class ClientEventHandler {
 				if (block.stepSound == ModSounds.soundCherryWood) {
 					return Reference.MCAssetVer + ":block.cherry_wood_trapdoor." + closeOrOpen;
 				}
+				if (block.stepSound == ModSounds.soundBambooWood) {
+					return Reference.MCAssetVer + ":block.bamboo_wood_trapdoor." + closeOrOpen;
+				}
 				return Reference.MCAssetVer + ":block.wooden_trapdoor." + closeOrOpen;
 			} else if (block.getMaterial() == Material.iron) {
 				return Reference.MCAssetVer + ":block.iron_trapdoor." + closeOrOpen;
@@ -593,6 +611,9 @@ public class ClientEventHandler {
 				}
 				if (block.stepSound == ModSounds.soundCherryWood) {
 					return Reference.MCAssetVer + ":block.cherry_wood_fence_gate." + closeOrOpen;
+				}
+				if (block.stepSound == ModSounds.soundBambooWood) {
+					return Reference.MCAssetVer + ":block.bamboo_wood_fence_gate." + closeOrOpen;
 				}
 				return Reference.MCAssetVer + ":block.fence_gate." + closeOrOpen;
 			}

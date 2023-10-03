@@ -1002,6 +1002,8 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "block.nether_wood_fence_gate.close", "block");
 		config.addSoundEvent(ver, "block.cherry_wood_fence_gate.open", "block");
 		config.addSoundEvent(ver, "block.cherry_wood_fence_gate.close", "block");
+		config.addSoundEvent(ver, "block.bamboo_wood_fence_gate.open", "block");
+		config.addSoundEvent(ver, "block.bamboo_wood_fence_gate.close", "block");
 
 		config.addSoundEvent(ver, "block.wooden_door.open", "block");
 		config.addSoundEvent(ver, "block.wooden_door.close", "block");
@@ -1009,6 +1011,8 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "block.nether_wood_door.close", "block");
 		config.addSoundEvent(ver, "block.cherry_wood_door.open", "block");
 		config.addSoundEvent(ver, "block.cherry_wood_door.close", "block");
+		config.addSoundEvent(ver, "block.bamboo_wood_door.open", "block");
+		config.addSoundEvent(ver, "block.bamboo_wood_door.close", "block");
 		config.addSoundEvent(ver, "block.iron_door.open", "block");
 		config.addSoundEvent(ver, "block.iron_door.close", "block");
 
@@ -1018,6 +1022,8 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "block.nether_wood_trapdoor.close", "block");
 		config.addSoundEvent(ver, "block.cherry_wood_trapdoor.open", "block");
 		config.addSoundEvent(ver, "block.cherry_wood_trapdoor.close", "block");
+		config.addSoundEvent(ver, "block.bamboo_wood_trapdoor.open", "block");
+		config.addSoundEvent(ver, "block.bamboo_wood_trapdoor.close", "block");
 		config.addSoundEvent(ver, "block.iron_trapdoor.open", "block");
 		config.addSoundEvent(ver, "block.iron_trapdoor.close", "block");
 
@@ -1027,6 +1033,8 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "block.nether_wood_button.click_on", "block");
 		config.addSoundEvent(ver, "block.cherry_wood_button.click_off", "block");
 		config.addSoundEvent(ver, "block.cherry_wood_button.click_on", "block");
+		config.addSoundEvent(ver, "block.bamboo_wood_button.click_off", "block");
+		config.addSoundEvent(ver, "block.bamboo_wood_button.click_on", "block");
 
 		config.addSoundEvent(ver, "block.wooden_pressure_plate.click_off", "block");
 		config.addSoundEvent(ver, "block.wooden_pressure_plate.click_on", "block");

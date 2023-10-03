@@ -166,7 +166,7 @@ public class WorldGenHugeFungus extends WorldGenAbstractTree {
 
 	private void placeHatDropBlock(World world, Random rand, BlockPos pos, boolean p_225069_) {
 		if (world.getBlock(pos.getX(), pos.getY() - 1, pos.getZ()) == hat
-				|| world.getBlockMetadata(pos.getX(), pos.getY() - 1, pos.getZ()) == hatMeta) {
+				&& world.getBlockMetadata(pos.getX(), pos.getY() - 1, pos.getZ()) == hatMeta) {
 			setBlockAndNotifyAdequately(world, pos.getX(), pos.getY(), pos.getZ(), hat, hatMeta);
 		} else if ((double) rand.nextFloat() < 0.15D) {
 			setBlockAndNotifyAdequately(world, pos.getX(), pos.getY(), pos.getZ(), hat, hatMeta);
@@ -174,7 +174,6 @@ public class WorldGenHugeFungus extends WorldGenAbstractTree {
 				tryPlaceWeepingVines(pos, world, rand);
 			}
 		}
-
 	}
 
 	private static void tryPlaceWeepingVines(BlockPos pos, World world, Random rand) {

@@ -19,7 +19,6 @@ import net.minecraft.world.WorldProviderHell;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.ChunkProviderFlat;
-import net.minecraft.world.gen.ChunkProviderServer;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.common.BiomeDictionary;
@@ -94,8 +93,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 
 	@Override
 	public void generate(Random rand, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
-		IChunkProvider provider = world.getChunkProvider() instanceof ChunkProviderServer ? ((ChunkProviderServer) world.getChunkProvider()).currentChunkProvider : world.getChunkProvider();
-		if (!(provider instanceof ChunkProviderFlat) || world.getWorldInfo().getGeneratorOptions().contains("decoration")) {
+		if (!isFlatWorld(chunkGenerator) || world.getWorldInfo().getGeneratorOptions().contains("decoration")) {
 			int x;
 			int z;
 
@@ -208,5 +206,9 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 		if (i <= 1)
 			return 1;
 		return rand.nextInt(i);
+	}
+
+	protected final boolean isFlatWorld(IChunkProvider chunkProvider) {
+		return chunkProvider instanceof ChunkProviderFlat && !chunkProvider.getClass().getName().equals("com.rwtema.extrautils.worldgen.Underdark.ChunkProviderUnderdark");
 	}
 }

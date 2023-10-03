@@ -3,10 +3,8 @@ package ganymedes01.etfuturum.world.generate.feature;
 import com.google.common.collect.ImmutableList;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
@@ -99,16 +97,17 @@ public class WorldGenBasaltColumns extends WorldGenerator {
 		return 0;
 	}
 
-	private static final ImmutableList<Block> CANNOT_PLACE_ON = ImmutableList.of(
-			Blocks.lava, Blocks.flowing_lava, Blocks.bedrock, ModBlocks.MAGMA.get(), Blocks.soul_sand, Blocks.nether_brick, Blocks.nether_brick_fence,
-			Blocks.nether_brick_stairs, ModBlocks.NETHER_WART.get(), Blocks.chest, Blocks.mob_spawner);
+//	private static final ImmutableList<Block> CANNOT_PLACE_ON = ImmutableList.of(
+//			Blocks.lava, Blocks.flowing_lava, Blocks.bedrock, ModBlocks.MAGMA.get(), Blocks.soul_sand, Blocks.nether_brick, Blocks.nether_brick_fence,
+//			Blocks.nether_brick_stairs, ModBlocks.NETHER_WART.get(), Blocks.chest, Blocks.mob_spawner);
+private static final ImmutableList<Block> CAN_PLACE_ON = ImmutableList.of(ModBlocks.BLACKSTONE.get(), ModBlocks.BASALT.get());
 
 	private static boolean canPlaceAt(World world, int seaLevel, int x, int y, int z) {
 		if (!isAirOrLavaOcean(world, seaLevel, x, y, z)) {
 			return false;
 		} else {
 			Block block = world.getBlock(x, y - 1, z);
-			return !block.isAir(world, x, y, z) && !CANNOT_PLACE_ON.contains(block);
+			return !block.isAir(world, x, y, z)/* && !CANNOT_PLACE_ON.contains(block)*/ && CAN_PLACE_ON.contains(block);
 		}
 	}
 
@@ -116,7 +115,7 @@ public class WorldGenBasaltColumns extends WorldGenerator {
 		while (y < world.getActualHeight() && p_65176_ > 0) {
 			--p_65176_;
 			Block block = world.getBlock(x, y, z);
-			if (CANNOT_PLACE_ON.contains(block)) {
+			if (/*CANNOT_PLACE_ON.contains(block)*/!CAN_PLACE_ON.contains(block)) {
 				return 0;
 			}
 

@@ -87,7 +87,7 @@ public class NetherForestDecorator extends NetherBiomeDecorator {
 			vineGenerator.generate(world, rand, x, y, z);
 		}
 
-		for (int attempt = 0; attempt < 18; attempt++) {
+		for (int attempt = 0; attempt < 12; attempt++) {
 			int x = chunkX + rand.nextInt(16) + 8;
 			int y = MathHelper.getRandomIntegerInRange(rand, 32, world.provider.getActualHeight() - 8);
 			int z = chunkZ + rand.nextInt(16) + 8;

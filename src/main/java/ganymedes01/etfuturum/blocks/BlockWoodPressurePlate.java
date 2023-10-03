@@ -31,6 +31,8 @@ public class BlockWoodPressurePlate extends BlockPressurePlate {
 			Utils.setBlockSound(this, ModSounds.soundNetherWood);
 		} else if (type.equals("cherry")) {
 			Utils.setBlockSound(this, ModSounds.soundCherryWood);
+		} else if (type.equals("bamboo")) {
+			Utils.setBlockSound(this, ModSounds.soundBambooWood);
 		} else {
 			setStepSound(Block.soundTypeWood);
 		}
