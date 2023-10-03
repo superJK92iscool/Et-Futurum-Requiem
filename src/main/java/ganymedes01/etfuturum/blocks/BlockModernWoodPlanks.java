@@ -15,7 +15,7 @@ import java.util.List;
 
 public class BlockModernWoodPlanks extends BaseSubtypesBlock {
 	public BlockModernWoodPlanks() {
-		super(Material.wood, "crimson_planks", "warped_planks", "mangrove_planks", "cherry_planks");
+		super(Material.wood, "crimson_planks", "warped_planks", "mangrove_planks", "cherry_planks", "bamboo_planks");
 		setHardness(2.0F);
 		setResistance(5.0F);
 		setStepSound(soundTypeWood);
@@ -35,6 +35,9 @@ public class BlockModernWoodPlanks extends BaseSubtypesBlock {
 		}
 		if (ConfigBlocksItems.enableCherryBlocks) {
 			list.add(new ItemStack(item, 1, 3));
+		}
+		if (ConfigBlocksItems.enableBambooBlocks) {
+			list.add(new ItemStack(item, 1, 4));
 		}
 	}
 

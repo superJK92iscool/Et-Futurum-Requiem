@@ -130,5 +130,11 @@ public class StrippedLogRegistry {
 				}
 			}
 		}
+
+		if (ModBlocks.BAMBOO_BLOCK.isEnabled()) {
+			if (ConfigBlocksItems.enableStrippedLogs) {
+				strippedLogs.put(new RegistryMapping<>(ModBlocks.BAMBOO_BLOCK.get(), 0), new RegistryMapping<>(ModBlocks.BAMBOO_BLOCK.get(), 1));
+			}
+		}
 	}
 }
