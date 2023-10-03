@@ -204,7 +204,7 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 
 		if (side == MixinEnvironment.Side.CLIENT) {
 			if (ConfigMixins.dustUnderFallingBlocks) {
-				mixins.add("blockfallingparticles.MixinBlockFalling");
+				mixins.add("blockfallingparticles.client.MixinBlockFalling");
 			}
 
 			if (ConfigMixins.adjustedAttenuation) {
@@ -221,6 +221,10 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 
 			if (ConfigEnchantsPotions.enableSwiftSneak) {
 				mixins.add("swiftsneak.client.MixinMovementInputFromOptions");
+			}
+
+			if (ConfigMixins.flowerPotFixes) {
+				mixins.add("flowerpotfix.client.MixinRenderBlocks");
 			}
 		}
 

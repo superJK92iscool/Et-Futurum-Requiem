@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.mixins.blockfallingparticles;
+package ganymedes01.etfuturum.mixins.blockfallingparticles.client;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

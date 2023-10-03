@@ -28,7 +28,6 @@ import net.minecraft.entity.monster.EntityMagmaCube;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.inventory.ContainerChest;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -166,8 +165,10 @@ public class CommonProxy implements IGuiHandler {
 		}
 
 		if (ConfigEntities.enableNetherEndermen) {
-			EntityRegistry.addSpawn(EntityEnderman.class, 1, 4, 4, EnumCreatureType.monster, BiomeDictionary.getBiomesForType(Type.NETHER));
-			EntityEnderman.setCarriable(Blocks.netherrack, true);
+			EntityRegistry.addSpawn(EntityEnderman.class, 1, 4, 4, EnumCreatureType.monster, BiomeGenBase.hell);
+			if (ModBlocks.NYLIUM.isEnabled()) {
+				EntityEnderman.setCarriable(ModBlocks.NYLIUM.get(), true);
+			}
 		}
 
 		if (ConfigBlocksItems.enableLingeringPotions) {
