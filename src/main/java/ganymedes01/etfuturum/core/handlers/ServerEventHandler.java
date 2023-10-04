@@ -1267,8 +1267,9 @@ public class ServerEventHandler {
 		}
 	}
 
-	Method addRandomArmorMethod;
-	Method enchantEquipmentMethod;
+	private Method addRandomArmorMethod;
+	private Method enchantEquipmentMethod;
+	private Map<Class<? extends IChunkProvider>, Field[]> chunkProviderFieldsCache = new WeakHashMap<>();
 
 	@SubscribeEvent
 	public void naturalSpawnEvent(LivingPackSizeEvent event) {
@@ -1299,7 +1300,14 @@ public class ServerEventHandler {
 					//This should cover any world provider, for any WorldProviderHell dimension. Then we search for all Nether Fortress instances in that class.
 					//This is so no matter what a custom Nether override or modded dimension that uses WorldProviderHell names a fortress field, we can detect its Nether fortress.
 					//Is it overkill? Honestly yes, but I like to account for edgecases. There are also mods that build custom dimensions like Mystcraft or RFTools, and MultiWorld.
-					Field[] fields = provider.getClass().getFields();
+					Field[] fields;
+					if (chunkProviderFieldsCache.containsKey(provider.getClass())) {
+						fields = chunkProviderFieldsCache.get(provider.getClass());
+					} else {
+						fields = provider.getClass().getFields();
+						chunkProviderFieldsCache.put(provider.getClass(), fields);
+					}
+
 					for (Field field : fields) {
 						Object o = field.get(provider);
 						if (o instanceof MapGenNetherBridge) {
@@ -1506,7 +1514,7 @@ public class ServerEventHandler {
 			i = 20;
 		}
 
-		if (i > 0 && i <= 20) {
+		if (i > 0) {
 			j = 25 - i;
 			f1 = p_70672_2_ * j;
 			p_70672_2_ = f1 / 25.0F;
