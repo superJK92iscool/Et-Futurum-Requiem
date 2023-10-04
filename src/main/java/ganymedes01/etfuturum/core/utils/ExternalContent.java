@@ -20,6 +20,7 @@ public class ExternalContent {
 		NATURA_HEAT_SAND(() -> GameRegistry.findBlock("Natura", "heatsand")),
 
 		NETHERLICIOUS_NETHER_GRAVEL(() -> GameRegistry.findBlock("netherlicious", "Nether_Gravel")),
+		NETHERLICIOUS_SOUL_SOIL(() -> GameRegistry.findBlock("netherlicious", "SoulSoil")),
 
 		ENDERLICIOUS_END_ROCK(() -> GameRegistry.findBlock("enderlicious", "EndRock")),
 		ENDERLICIOUS_SAND(() -> GameRegistry.findBlock("enderlicious", "EndSand")),

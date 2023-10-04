@@ -202,6 +202,14 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 			mixins.add("backinslime.MixinBlockPistonBase");
 		}
 
+		if (ConfigMixins.soulFire) {
+			mixins.add("soulfire.MixinBlockFire");
+			mixins.add("soulfire.MixinEntity");
+			if (side == MixinEnvironment.Side.CLIENT) {
+				mixins.add("soulfire.MixinRenderBlocks");
+			}
+		}
+
 		if (side == MixinEnvironment.Side.CLIENT) {
 			if (ConfigMixins.dustUnderFallingBlocks) {
 				mixins.add("blockfallingparticles.client.MixinBlockFalling");

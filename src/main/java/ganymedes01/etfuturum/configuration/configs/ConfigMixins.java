@@ -38,6 +38,7 @@ public class ConfigMixins extends ConfigBase {
 	public static boolean ladderTrapdoors;
 	public static boolean betterPistons;
 	public static boolean flowerPotFixes;
+	public static boolean soulFire;
 
 	static final String catBackport = "backported features";
 	static final String catOptimization = "optimizations";
@@ -63,6 +64,8 @@ public class ConfigMixins extends ConfigBase {
 			furnaceCrackle = getBoolean("furnaceCrackle", catBackport, true, "Allows vanilla furnaces to have crackling sounds.\nModified Client Classes: net.minecraft.block.BlockFurnace");
 			boundedBlockBreakingParticles = getBoolean("boundedBlockBreakingParticles", catBackport, true, "In 1.14+, when breaking a block the block break particles stay within the outline, instead of always occupying the whole block space.\nMofified Classes: net.minecraft.client.particle.EffectRenderer");
 			adjustedAttenuation = getBoolean("adjustedAttenuation", catBackport, true, "Adjusts the attenuation distance of certain sounds. This needs to be a separate mixin due to the way it works.\nCurrently changes portal abience, and beacon ambience to have an attenuation distance of 8 blocks away, instead of 16.\nModified Classes: net.minecraft.client.audio.SoundManager");
+
+			flowerPotFixes = getBoolean("flowerPotFixes", catFixes, true, "Fixes flower pots having several restrictions limiting what they'll render inside of them. Required for crimson roots or azalea to render correctly in the flower pot.\nModified Classes: net.minecraft.client.renderer.RenderBlock");
 		}
 
 		endPortalFix = getBoolean("endPortalFix", catBackport, true, "Makes the End Portal block (the actual portal, not the frame) have an item icon, proper hitbox and will not instantly destroy itself in other dimensions.\nModified classes: net.minecraft.block.BlockEndPortal");
@@ -89,10 +92,10 @@ public class ConfigMixins extends ConfigBase {
 		ladderTrapdoors = getBoolean("ladderTrapdoors", catBackport, true, "Trapdoors that are clapped open against a block with a ladder below them can be climbed up as if they themselves were a ladder. Also expands the ladder hitbox to match the width of trapdoors.\nModified Classes: net.minecraft.block.BlockLadder net.minecraft.block.BlockTrapdoor");
 		enableElytra = getBoolean("enableElytra", catBackport, true, "A port of Backlytra with various fixes. The original author of this is unascribed: https://legacy.curseforge.com/minecraft/mc-mods/backlytra\nIf you're getting crash related to the DataWatcher, try changing \"elytraDataWatcherFlag\" in functions.cfg and don't open an issue if changing that value fixes it.\nModified Classes: net.minecraft.entity.EntityLivingBase net.minecraft.entity.player.EntityPlayer net.minecraft.entity.EntityTrackerEntry net.minecraft.network.NetHandlerPlayServer\nModified Client Classes: net.minecraft.client.entity.AbstractClientPlayer net.minecraft.client.entity.EntityPlayerSP net.minecraft.client.model.ModelBiped net.minecraft.client.renderer.entity.RenderPlayer");
 		betterPistons = getBoolean("betterPistons", catBackport, true, "A port of Back in Slime, similar to how the elytra is a port of Backlytra. Allows pistons to interact with slime blocks. The original author of this is DonBruce64: https://legacy.curseforge.com/minecraft/mc-mods/back-in-slime-slime-blocks-for-1-7.\nModified Classes: net.minecraft.block.BlockPistonBase");
+		soulFire = getBoolean("soulFire", catBackport, true, "Is not a new block, but rather a mixin for fire. Allows fire to stay ignited on soul soil. Does double damage when standing in it, and does not spread to other blocks.\nEven if this is off fire can still stay ignited on soul soil, but do be mindful that fire will spread from soul soil if this option is disabled.\nModified Classes: net.minecraft.block.BlockFire net.minecraft.entity.Entity\nModified Client Classes: net.minecraft.client.renderer.RenderBlocks");
 
 		stepHeightFix = getBoolean("stepHeightFix", catFixes, true, "Makes the player able to step up even if a block would be above their head at the destination.\nModified classes: net.minecraft.entity.Entity");
 		arrowFallingFix = getBoolean("arrowFallingFix", catFixes, true, "Prevents arrows from falling off of blocks too easily\nModified classes: net.minecraft.entity.EntityArrow");
 		collidedThrowableFix = getBoolean("collidedThrowableFix", catFixes, true, "Fixes EntityThrowable entities not calling onEntityCollidedWithBlock, causing them to not trigger target blocks or chime amethyst.\nModified classes: net.minecraft.entity.projectile.EntityThrowable");
-		flowerPotFixes = getBoolean("flowerPotFixes", catFixes, true, "Fixes flower pots having several restrictions limiting what they'll render inside of them. Required for crimson roots or azalea to render correctly in the flower pot.");
 	}
 }
