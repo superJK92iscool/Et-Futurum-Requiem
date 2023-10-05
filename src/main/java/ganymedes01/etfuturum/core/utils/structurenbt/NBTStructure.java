@@ -1,9 +1,8 @@
-package ganymedes01.etfuturum.world.generate;
+package ganymedes01.etfuturum.core.utils.structurenbt;
 
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.core.utils.Logger;
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
-import ganymedes01.etfuturum.core.utils.structurenbt.BlockStateContainer;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
@@ -18,7 +17,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import java.io.InputStream;
 import java.util.*;
 
-public abstract class NBTStructure {
+public class NBTStructure {
 	//TODO: Add crashes when the wrong args are used
 	//Should trigger whenever the palette count does not match the map entry count, etc to prevent misuse and reduce possibility of user error
 
@@ -27,8 +26,14 @@ public abstract class NBTStructure {
 	private final Map<BlockPos, BlockStateContainer>[] buildMaps = new Map[4]; //For storing the results of iterating over the palette and BlockState coords
 	private final BlockPos[] sizes;
 	private final String location;
+	private final BlockStateConverter converter;
 
 	public NBTStructure(String loc) {
+		this(loc, BlockStateConverter.DEFAULT_INSTANCE);
+	}
+
+	public NBTStructure(String loc, BlockStateConverter converter) {
+		this.converter = converter;
 		try {
 			InputStream file = EtFuturum.class.getResourceAsStream(loc);
 			compound = CompressedStreamTools.readCompressed(file);
@@ -248,7 +253,7 @@ public abstract class NBTStructure {
 		return getBlockNamespaceFromNBT(getPaletteEntryFromIndex(i));
 	}
 
-	public final String getBlockNamespaceFromNBT(NBTTagCompound nbt) {
+	public static String getBlockNamespaceFromNBT(NBTTagCompound nbt) {
 		return nbt.getString("Name");
 	}
 
@@ -268,7 +273,7 @@ public abstract class NBTStructure {
 		return getProperties(getPaletteEntryFromIndex(index));
 	}
 
-	public final Map<String, String> getProperties(NBTTagCompound compound) {
+	public static Map<String, String> getProperties(NBTTagCompound compound) {
 		Map<String, String> map = new HashMap<>();
 		for (Map.Entry<String, NBTBase> props : (Set<Map.Entry<String, NBTBase>>) compound.getCompoundTag("Properties").tagMap.entrySet()) {
 			if (props.getValue().getId() == 8) {
@@ -289,7 +294,7 @@ public abstract class NBTStructure {
 	 * Gets a properties from the "properties" portion of a BlockState palette entry in structure NBT
 	 * Returns NULL if the block has no state properties.
 	 */
-	public final String getBlockProperty(NBTTagCompound nbt, String property) {
+	public static String getBlockProperty(NBTTagCompound nbt, String property) {
 		if (!nbt.hasKey("properties")) return null;
 		return nbt.getCompoundTag("properties").getString(property);
 	}
@@ -298,14 +303,14 @@ public abstract class NBTStructure {
 	 * Used for converting the NBTTagLists found in structure NBT that contain exactly 3 ints, to a BlockPos.
 	 * This should ONLY be used on NBTTagLists that contain no more or less than 3 integers.
 	 */
-	public final BlockPos getPosFromTagList(NBTTagList list) {
+	public static BlockPos getPosFromTagList(NBTTagList list) {
 		if (list.tagCount() != 3 && list.getId() != 3) {
 			throw new IllegalArgumentException("This is not a BlockPos taglist!");
 		}
 		return new BlockPos(getIntFromTagList(list, 0), getIntFromTagList(list, 1), getIntFromTagList(list, 2));
 	}
 
-	protected int getIntFromTagList(NBTTagList list, int index) {
+	protected static int getIntFromTagList(NBTTagList list, int index) {
 		if (index >= 0 && index < list.tagCount()) {
 			NBTBase nbtbase = (NBTBase) list.tagList.get(index);
 			return nbtbase.getId() == 3 ? ((NBTTagInt) nbtbase).func_150287_d() : 0;
@@ -346,7 +351,7 @@ public abstract class NBTStructure {
 	}
 
 	/**
-	 * Ran four times for each direction. This populates four different versions of the palette for the different rotations.
+	 * Ran four times for each direction, for each palette. This populates four different versions of the palette for the different rotations.
 	 * <p>
 	 * NOTE: If the palette entry is minecraft:structure_block it doesn't matter what you put here, it's handled later because they store special data.
 	 * I recommend you don't map it to anything, or just set it to null as it won't make a difference.
@@ -354,7 +359,9 @@ public abstract class NBTStructure {
 	 * <p>
 	 * Also don't set NBT here just yet, the NBT is stored in the block map itself so if you want to give one of your block entities NBT, override that function instead.
 	 */
-	public abstract Map<Integer, BlockStateContainer> createPalette(ForgeDirection facing, Set<Pair<Integer, NBTTagCompound>> paletteNBT);
+	protected Map<Integer, BlockStateContainer> createPalette(ForgeDirection facing, Set<Pair<Integer, NBTTagCompound>> paletteNBT) {
+		return converter.processPalette(facing, paletteNBT);
+	}
 
 	/**
 	 * Override this if you want code to run before the maps and palettes are built.

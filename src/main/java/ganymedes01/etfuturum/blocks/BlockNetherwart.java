@@ -6,12 +6,11 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.api.HoeRegistry;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
-import ganymedes01.etfuturum.core.utils.Utils;
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.IBlockAccess;
 
 import java.util.List;
 
@@ -36,5 +35,10 @@ public class BlockNetherwart extends BaseSubtypesBlock {
 		if (ConfigBlocksItems.enableWarpedBlocks) {
 			list.add(new ItemStack(item, 1, 1));
 		}
+	}
+
+	@Override
+	public boolean isLeaves(IBlockAccess world, int x, int y, int z) {
+		return true;
 	}
 }

@@ -2,8 +2,8 @@ package ganymedes01.etfuturum.world.generate.structure;
 
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import ganymedes01.etfuturum.core.utils.structurenbt.BlockStateContainer;
+import ganymedes01.etfuturum.core.utils.structurenbt.NBTStructure;
 import ganymedes01.etfuturum.entities.EntityShulker;
-import ganymedes01.etfuturum.world.generate.NBTStructure;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;

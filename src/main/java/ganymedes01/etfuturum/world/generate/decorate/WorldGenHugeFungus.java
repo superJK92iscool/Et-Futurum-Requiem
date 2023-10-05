@@ -117,7 +117,7 @@ public class WorldGenHugeFungus extends WorldGenAbstractTree {
 			}
 
 			if (p_285265_) {
-				++l;
+				l++;
 			}
 
 			for (int i1 = -l; i1 <= l; ++i1) {

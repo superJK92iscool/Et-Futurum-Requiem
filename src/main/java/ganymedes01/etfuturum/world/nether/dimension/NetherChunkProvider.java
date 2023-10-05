@@ -1,7 +1,9 @@
 package ganymedes01.etfuturum.world.nether.dimension;
 
 import cpw.mods.fml.common.eventhandler.Event;
+import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
+import ganymedes01.etfuturum.core.utils.ExternalContent;
 import ganymedes01.etfuturum.world.generate.feature.WorldGenBasaltGlowstone;
 import ganymedes01.etfuturum.world.nether.biome.NetherBiomeBase;
 import ganymedes01.etfuturum.world.nether.biome.utils.NetherBiomeManager;
@@ -18,7 +20,6 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.MapGenBase;
-import net.minecraft.world.gen.MapGenRavine;
 import net.minecraft.world.gen.NoiseGeneratorOctaves;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.structure.MapGenNetherBridge;
@@ -106,12 +107,13 @@ public class NetherChunkProvider implements IChunkProvider {
 	/**
 	 * Generates the shape of the terrain in the nether.
 	 */
-	public void generateNetherTerrain(int par1, int par2, Block[] blocks, byte[] abyte) {
+	public void generateNetherTerrain(int par1, int par2, Block[] blocks, byte[] abyte, BiomeGenBase[] biomesForGeneration) {
 		byte b0 = 4;
 		byte b1 = 32;
 		int k = b0 + 1;
 		byte b2 = 17;
 		int l = b0 + 1;
+		BiomeGenBase biomegenbase = biomesForGeneration[l + k * 16];
 		noiseField = this.initializeNoiseField(noiseField, par1 * b0, 0, par2 * b0, k, b2, l);
 
 		for (int i1 = 0; i1 < b0; ++i1) {
@@ -155,6 +157,10 @@ public class NetherChunkProvider implements IChunkProvider {
 
 								if (d15 > 0.0D) {
 									l2 = Blocks.netherrack;
+								}
+
+								if (EtFuturum.hasNatura && biomegenbase == BiomeGenBase.hell && d15 > 56.0D) {
+									l2 = ExternalContent.Blocks.NATURA_TAINTED_SOIL.get();
 								}
 
 								blocks[j2] = l2;
@@ -216,15 +222,20 @@ public class NetherChunkProvider implements IChunkProvider {
 				}
 				int i1 = (int) (netherrackExclusivityNoise[k + l * 16] / 3.0D + 3.0D + hellRNG.nextDouble() * 0.25D);
 				int j1 = -1;
-				Block b1, b2;
+				Block topBlock, fillerBlock;
 				if (soulSoilFlag) {
-					b1 = b2 = ModBlocks.SOUL_SOIL.get();
+					topBlock = fillerBlock = ModBlocks.SOUL_SOIL.get();
 				} else {
-					b1 = biomegenbase.topBlock;
-					b2 = biomegenbase.fillerBlock;
+					topBlock = biomegenbase.topBlock;
+					fillerBlock = biomegenbase.fillerBlock;
 				}
 				byte topMeta = (byte) biomegenbase.field_150604_aj;
 				byte fillerMeta = (byte) biomegenbase.field_76754_C;
+
+				if (biomegenbase == BiomeGenBase.hell && EtFuturum.hasNatura) {
+					fillerBlock = ExternalContent.Blocks.NATURA_TAINTED_SOIL.get();
+					fillerMeta = 0;
+				}
 
 				for (int k1 = 127; k1 >= 0; --k1) {
 					int l1 = (l * 16 + k) * 128 + k1;
@@ -255,57 +266,67 @@ public class NetherChunkProvider implements IChunkProvider {
 						else if (b3 == Blocks.netherrack) {
 							if (j1 == -1) {
 								if (i1 <= 0) {
-									b1 = Blocks.air;
-									b2 = Blocks.netherrack;
+									topBlock = Blocks.air;
+									fillerBlock = Blocks.netherrack;
 									topMeta = fillerMeta = 0;
 								} else if (k1 >= a0 - 4 && k1 <= a0 + 1) {
 									if (soulSoilFlag) {
-										b2 = b1 = ModBlocks.SOUL_SOIL.get();
+										fillerBlock = topBlock = ModBlocks.SOUL_SOIL.get();
 									} else {
-										b1 = biomegenbase.topBlock;
-										b2 = biomegenbase.fillerBlock;
+										topBlock = biomegenbase.topBlock;
+										fillerBlock = biomegenbase.fillerBlock;
 									}
 									topMeta = (byte) biomegenbase.field_150604_aj;
-									fillerMeta = (byte) biomegenbase.field_76754_C;
+
+									if (biomegenbase == BiomeGenBase.hell && EtFuturum.hasNatura) {
+										fillerBlock = ExternalContent.Blocks.NATURA_TAINTED_SOIL.get();
+										fillerMeta = 0;
+									} else {
+										fillerMeta = (byte) biomegenbase.field_76754_C;
+									}
 
 									if (gravelFlag) {
-										b1 = Blocks.gravel;
+										topBlock = Blocks.gravel;
 										topMeta = 0;
 									}
 
 									if (gravelFlag) {
-										b2 = Blocks.netherrack;
+										fillerBlock = Blocks.netherrack;
 										fillerMeta = 0;
 									}
 
 									if (soulSandFlag) {
-										b1 = Blocks.soul_sand;
+										topBlock = Blocks.soul_sand;
 										topMeta = 0;
 									}
 
 									if (soulSandFlag) {
-										b2 = Blocks.soul_sand;
+										if (EtFuturum.hasNatura) {
+											fillerBlock = ExternalContent.Blocks.NATURA_HEAT_SAND.get();
+										} else {
+											fillerBlock = Blocks.soul_sand;
+										}
 										fillerMeta = 0;
 									}
 								}
 
-								if (k1 < b0 && b1 == Blocks.air) {
-									b1 = Blocks.lava;
+								if (k1 < b0 && topBlock == Blocks.air) {
+									topBlock = Blocks.lava;
 									topMeta = 0;
 								}
 
 								j1 = i1;
 
 								if (k1 >= b0 - 1) {
-									blocks[l1] = b1;
+									blocks[l1] = topBlock;
 									metas[l1] = topMeta;
 								} else {
-									blocks[l1] = b2;
+									blocks[l1] = fillerBlock;
 									metas[l1] = fillerMeta;
 								}
 							} else if (j1 > 0) {
 								--j1;
-								blocks[l1] = b2;
+								blocks[l1] = fillerBlock;
 								metas[l1] = fillerMeta;
 							}
 						}
@@ -336,9 +357,9 @@ public class NetherChunkProvider implements IChunkProvider {
 		hellRNG.setSeed(par1 * 341873128712L + par2 * 132897987541L);
 		byte[] abyte = new byte[32768];
 		Block[] blocks = new Block[32768];
-		this.generateNetherTerrain(par1, par2, blocks, abyte);
 		biomesForGeneration = worldObj.getWorldChunkManager().loadBlockGeneratorData(biomesForGeneration, par1 * 16,
 				par2 * 16, 16, 16);
+		this.generateNetherTerrain(par1, par2, blocks, abyte, biomesForGeneration);
 		this.replaceBlocksForBiome(par1, par2, blocks, abyte, biomesForGeneration);
 		netherCaveGenerator.func_151539_a(this, worldObj, par1, par2, blocks);
 
@@ -362,8 +383,7 @@ public class NetherChunkProvider implements IChunkProvider {
 	 * generates a subset of the level's terrain data. Takes 7 arguments: the
 	 * [empty] noise array, the position, and the size.
 	 */
-	private double[] initializeNoiseField(double[] par1ArrayOfDouble, int par2, int par3, int par4, int par5, int par6,
-										  int par7) {
+	private double[] initializeNoiseField(double[] par1ArrayOfDouble, int par2, int par3, int par4, int par5, int par6, int par7) {
 		ChunkProviderEvent.InitNoiseField event = new
 				ChunkProviderEvent.InitNoiseField(this, par1ArrayOfDouble, par2, par3, par4,
 				par5, par6, par7);
@@ -576,23 +596,25 @@ public class NetherChunkProvider implements IChunkProvider {
 			}
 		}
 
-		MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Pre(worldObj, hellRNG, k, l));
-		doGen = TerrainGen.decorate(worldObj, hellRNG, k, l, SHROOM);
-		if (doGen) {
-			hellRNG.nextInt(1); //I keep this and other random calls in this class the same for seed parity reasons
-			j1 = k + hellRNG.nextInt(16) + 8;
-			k1 = hellRNG.nextInt(128);
-			l1 = l + hellRNG.nextInt(16) + 8;
-			if (k1 <= 124) { //Do this to fix mushrooms on the ceiling while keeping the same random calls
-				brownMushroomGen.generate(worldObj, hellRNG, j1, k1, l1);
-			}
+		if (!EtFuturum.hasNatura) {
+			MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Pre(worldObj, hellRNG, k, l));
+			doGen = TerrainGen.decorate(worldObj, hellRNG, k, l, SHROOM);
+			if (doGen) {
+				hellRNG.nextInt(1); //I keep this and other random calls in this class the same for seed parity reasons
+				j1 = k + hellRNG.nextInt(16) + 8;
+				k1 = hellRNG.nextInt(128);
+				l1 = l + hellRNG.nextInt(16) + 8;
+				if (k1 <= 124) { //Do this to fix mushrooms on the ceiling while keeping the same random calls
+					brownMushroomGen.generate(worldObj, hellRNG, j1, k1, l1);
+				}
 
-			hellRNG.nextInt(1);
-			j1 = k + hellRNG.nextInt(16) + 8;
-			k1 = hellRNG.nextInt(128);
-			l1 = l + hellRNG.nextInt(16) + 8;
-			if (k1 <= 124) {
-				redMushroomGen.generate(worldObj, hellRNG, j1, k1, l1);
+				hellRNG.nextInt(1);
+				j1 = k + hellRNG.nextInt(16) + 8;
+				k1 = hellRNG.nextInt(128);
+				l1 = l + hellRNG.nextInt(16) + 8;
+				if (k1 <= 124) {
+					redMushroomGen.generate(worldObj, hellRNG, j1, k1, l1);
+				}
 			}
 		}
 

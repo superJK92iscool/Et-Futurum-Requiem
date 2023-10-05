@@ -166,9 +166,9 @@ public class CommonProxy implements IGuiHandler {
 
 		if (ConfigEntities.enableNetherEndermen) {
 			EntityRegistry.addSpawn(EntityEnderman.class, 1, 4, 4, EnumCreatureType.monster, BiomeGenBase.hell);
-			if (ModBlocks.NYLIUM.isEnabled()) {
-				EntityEnderman.setCarriable(ModBlocks.NYLIUM.get(), true);
-			}
+//			if (ModBlocks.NYLIUM.isEnabled()) {
+//				EntityEnderman.setCarriable(ModBlocks.NYLIUM.get(), true);
+//			}
 		}
 
 		if (ConfigBlocksItems.enableLingeringPotions) {
