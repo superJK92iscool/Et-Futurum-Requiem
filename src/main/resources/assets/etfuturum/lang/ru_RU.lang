@@ -565,32 +565,94 @@ tile.etfuturum.warped_nylium.name=Искажённый нилий
 tile.etfuturum.weeping_vines.name=Плакучая лоза
 tile.etfuturum.twisting_vines.name=Вьющаяся лоза
 
+tile.etfuturum.azalea.name=Азалия
+tile.etfuturum.flowering_azalea.name=Цветущая азалия
+
 tile.etfuturum.crimson_stem.name=Багровый стебель
 tile.etfuturum.warped_stem.name=Искажённый стебель
+tile.etfuturum.mangrove_log.name=Мангровое бревно
+tile.etfuturum.cherry_log.name=Вишнёвое бревно
+tile.etfuturum.bamboo_block.name=Блок бамбука
+
 tile.etfuturum.crimson_planks.name=Багровые доски
 tile.etfuturum.warped_planks.name=Искажённые доски
+tile.etfuturum.mangrove_planks.name=Мангровые доски
+tile.etfuturum.cherry_planks.name=Вишнёвые доски
+tile.etfuturum.bamboo_planks.name=Бамбуковые доски
+tile.etfuturum.bamboo_mosaic.name=Бамбуковая мозаика
+
 tile.etfuturum.crimson_stairs.name=Багровые ступеньки
 tile.etfuturum.warped_stairs.name=Искажённые ступеньки
+tile.etfuturum.mangrove_stairs.name=Мангровые ступеньки
+tile.etfuturum.cherry_stairs.name=Вишнёвые ступеньки
+tile.etfuturum.bamboo_stairs.name=Бамбуковые ступеньки
+tile.etfuturum.bamboo_mosaic_stairs.name=Ступеньки из бамбуковой мозаики
+
 tile.etfuturum.crimson_slab.name=Багровая плита
 tile.etfuturum.warped_slab.name=Искажённая плита
+tile.etfuturum.mangrove_slab.name=Мангровая плита
+tile.etfuturum.cherry_slab.name=Вишнёвая плита
+tile.etfuturum.bamboo_slab.name=Бамбуковая плита
+tile.etfuturum.bamboo_mosaic_slab.name=Плита из бамбуковой мозаики
+
 tile.etfuturum.stripped_crimson_stem.name=Обтёсанный багровый стебель
 tile.etfuturum.stripped_warped_stem.name=Обтёсанный Искажённый стебель
+tile.etfuturum.stripped_mangrove_log.name=Обтёсанное мангровое бревно
+tile.etfuturum.stripped_cherry_log.name=Обтёсанное вишнёвое бревно
+tile.etfuturum.stripped_bamboo_block.name=Блок обтёсанного бамбука
+
 tile.etfuturum.crimson_hyphae.name=Багровые гифы
 tile.etfuturum.warped_hyphae.name=Искажённые гифы
+tile.etfuturum.mangrove_wood.name=Мангровое дерево
+tile.etfuturum.cherry_wood.name=Вишня
+
 tile.etfuturum.crimson_fence.name=Багровый забор
 tile.etfuturum.warped_fence.name=Искажённый забор
+tile.etfuturum.mangrove_fence.name=Мангровый забор
+tile.etfuturum.cherry_fence.name=Вишнёвый забор
+tile.etfuturum.bamboo_fence.name=Бамбуковый забор
+
 tile.etfuturum.crimson_fence_gate.name=Багровая калитка
 tile.etfuturum.warped_fence_gate.name=Искажённая калитка
+tile.etfuturum.mangrove_fence_gate.name=Мангровая калитка
+tile.etfuturum.cherry_fence_gate.name=Вишнёвая калитка
+tile.etfuturum.bamboo_fence_gate.name=Бамбуковая калитка
+
 tile.etfuturum.stripped_crimson_hyphae.name=Обтёсанные багровые гифы
 tile.etfuturum.stripped_warped_hyphae.name=Обтёсанные искажённые гифы
+tile.etfuturum.stripped_mangrove_wood.name=Обтёсанная мангровая древесина
+tile.etfuturum.stripped_cherry_wood.name=Обтёсанная вишнёвая древесина
+
+tile.etfuturum.mangrove_sign.name=Мангровая табличка
+tile.etfuturum.cherry_sign.name=Вишнёвая табличка
+tile.etfuturum.bamboo_sign.name=Бамбуковая табличка
+
 tile.etfuturum.crimson_door.name=Багровая дверь
 tile.etfuturum.warped_door.name=Искажённая дверь
+tile.etfuturum.mangrove_door.name=Мангровая дверь
+tile.etfuturum.cherry_door.name=Вишнёвая дверь
+tile.etfuturum.bamboo_door.name=Бамбуковая дверь
+
 tile.etfuturum.crimson_trapdoor.name=Багровый люк
 tile.etfuturum.warped_trapdoor.name=Искажённый люк
+tile.etfuturum.mangrove_trapdoor.name=Мангровый люк
+tile.etfuturum.cherry_trapdoor.name=Вишнёвый люк
+tile.etfuturum.bamboo_trapdoor.name=Бамбуковый люк
+
 tile.etfuturum.crimson_pressure_plate.name=Багровая нажимная плита
 tile.etfuturum.warped_pressure_plate.name=Искажённая нажимная плита
+tile.etfuturum.mangrove_pressure_plate.name=Мангровая нажимная плита
+tile.etfuturum.polished_blackstone_pressure_plate.name=Нажимная плита из полированного чернита
+tile.etfuturum.cherry_pressure_plate.name=Вишнёвая нажимная плита
+tile.etfuturum.bamboo_pressure_plate.name=Бамбуковая нажимная плита
+
 tile.etfuturum.crimson_button.name=Багровая кнопка
 tile.etfuturum.warped_button.name=Искажённая кнопка
+tile.etfuturum.mangrove_button.name=Мангровая кнопка
+tile.etfuturum.polished_blackstone_button.name=Кнопка из полированного чернита
+tile.etfuturum.cherry_button.name=Вишнёвая кнопка
+tile.etfuturum.bamboo_button.name=Бамбуковая кнопка
+
 
 tile.etfuturum.sculk.name=Скалк
 tile.etfuturum.sculk_catalyst.name=Скалк-катализатор
@@ -917,6 +979,35 @@ tile.etfuturum.muddy_mangrove_roots.name=Грязные мангровые ко�
 tile.etfuturum.mud_brick_stairs.name=Саманные ступеньки
 tile.etfuturum.mud_brick_slab.name=Саманная плита
 tile.etfuturum.mud_brick_wall.name=Саманная ограда
+
+tile.etfuturum.moss_block.name=Блок мха
+tile.etfuturum.moss_carpet.name=Моховой ковёр
+
+tile.etfuturum.shroomlight.name=Грибосвет
+
+tile.etfuturum.soul_soil.name=Почва душ
+
+tile.etfuturum.basalt.name=Базальт
+tile.etfuturum.polished_basalt.name=Полированный базальт
+
+tile.etfuturum.blackstone.name=Чернит
+tile.etfuturum.polished_blackstone.name=Полированный Чернит
+tile.etfuturum.polished_blackstone_bricks.name=Полированно-чернитные кирпичи
+tile.etfuturum.cracked_polished_blackstone_bricks.name=Потрескавшиеся полированно-чернитные кирпичи
+tile.etfuturum.chiseled_polished_blackstone.name=Резной полированный чернит
+tile.etfuturum.gilded_blackstone.name=Золочёный чернит
+
+tile.etfuturum.blackstone_stairs.name=Чернитные ступеньки
+tile.etfuturum.polished_blackstone_stairs.name=Ступеньки из полированного чернита
+tile.etfuturum.polished_blackstone_brick_stairs.name=Ступеньки из полированно-чернитного кирпича
+
+tile.etfuturum.blackstone_slab.name=Чернитная плита
+tile.etfuturum.polished_blackstone_slab.name=Плита из полированного чернита
+tile.etfuturum.polished_blackstone_brick_slab.name=Плита из полированно-чернитного кирпича
+
+tile.etfuturum.blackstone_wall.name=Чернитная ограда
+tile.etfuturum.polished_blackstone_wall.name=Ограда из полированного чернита
+tile.etfuturum.polished_blackstone_brick_wall.name=Ограда из полированно-чернитного кирпича
 
 util.totemBreak=§a§oВаш тотем бессмертия раскололся...
 

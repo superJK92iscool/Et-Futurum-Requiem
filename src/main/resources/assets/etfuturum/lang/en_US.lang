@@ -756,6 +756,7 @@ tile.etfuturum.dark_oak_pressure_plate.name=Dark Oak Pressure Plate
 tile.etfuturum.crimson_pressure_plate.name=Crimson Pressure Plate
 tile.etfuturum.warped_pressure_plate.name=Warped Pressure Plate
 tile.etfuturum.mangrove_pressure_plate.name=Mangrove Pressure Plate
+tile.etfuturum.polished_blackstone_pressure_plate.name=Polished Blackstone Pressure Plate
 tile.etfuturum.cherry_pressure_plate.name=Cherry Pressure Plate
 tile.etfuturum.bamboo_pressure_plate.name=Bamboo Pressure Plate
 
@@ -768,6 +769,7 @@ tile.etfuturum.dark_oak_button.name=Dark Oak Button
 tile.etfuturum.crimson_button.name=Crimson Button
 tile.etfuturum.warped_button.name=Warped Button
 tile.etfuturum.mangrove_button.name=Mangrove Button
+tile.etfuturum.polished_blackstone_button.name=Polished Blackstone Button
 tile.etfuturum.cherry_button.name=Cherry Button
 tile.etfuturum.bamboo_button.name=Bamboo Button
 
