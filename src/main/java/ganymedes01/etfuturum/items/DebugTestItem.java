@@ -9,9 +9,11 @@ import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.world.generate.feature.WorldGenAmethystGeode;
 import ganymedes01.etfuturum.world.generate.feature.WorldGenFossil;
+import ganymedes01.etfuturum.world.generate.structure.WorldGenEndCityTest;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -153,6 +155,14 @@ public class DebugTestItem extends BaseItem {
 			protected boolean runAction(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
 				WorldEventHandler.tryPlaceBeeNest(world, x, y, z, world.rand, 3);
 				return true;
+			}
+		},
+		END_CITY_TEST("End City Test", true) {
+			@Override
+			protected boolean runAction(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+				boolean run = new WorldGenEndCityTest().generate(world, world.rand, x, y, z);
+				world.setBlock(x, y, z, Blocks.redstone_block);
+				return run;
 			}
 		};
 

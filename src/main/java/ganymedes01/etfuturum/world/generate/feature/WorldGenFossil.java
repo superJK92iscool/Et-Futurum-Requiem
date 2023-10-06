@@ -3,6 +3,7 @@ package ganymedes01.etfuturum.world.generate.feature;
 import com.google.common.collect.Lists;
 import ganymedes01.etfuturum.api.mappings.RegistryMapping;
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
+import ganymedes01.etfuturum.core.utils.structurenbt.EFRBlockStateConverter;
 import ganymedes01.etfuturum.core.utils.structurenbt.NBTStructure;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -27,8 +28,10 @@ public class WorldGenFossil extends WorldGenerator {
 		fossils = Lists.newArrayList();
 
 		for (int i = 1; i <= 4; i++) {
-			fossils.add(new ImmutablePair<>(new NBTStructure("/data/structure/fossil/skull_" + i + ".nbt"), new NBTStructure("/data/structure/fossil/skull_" + i + "_coal.nbt")));
-			fossils.add(new ImmutablePair<>(new NBTStructure("/data/structure/fossil/spine_" + i + ".nbt"), new NBTStructure("/data/structure/fossil/spine_" + i + "_coal.nbt")));
+			fossils.add(new ImmutablePair<>(new NBTStructure("/data/structure/fossil/skull_" + i + ".nbt", EFRBlockStateConverter.INSTANCE),
+					new NBTStructure("/data/structure/fossil/skull_" + i + "_coal.nbt", EFRBlockStateConverter.INSTANCE)));
+			fossils.add(new ImmutablePair<>(new NBTStructure("/data/structure/fossil/spine_" + i + ".nbt", EFRBlockStateConverter.INSTANCE),
+					new NBTStructure("/data/structure/fossil/spine_" + i + "_coal.nbt", EFRBlockStateConverter.INSTANCE)));
 		}
 	}
 

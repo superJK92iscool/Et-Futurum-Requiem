@@ -2,20 +2,16 @@ package ganymedes01.etfuturum.world.generate.structure;
 
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import ganymedes01.etfuturum.core.utils.structurenbt.BlockStateContainer;
+import ganymedes01.etfuturum.core.utils.structurenbt.EFRBlockStateConverter;
 import ganymedes01.etfuturum.core.utils.structurenbt.NBTStructure;
 import ganymedes01.etfuturum.entities.EntityShulker;
-import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.common.util.ForgeDirection;
-import org.apache.commons.lang3.tuple.Pair;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
-import java.util.Set;
 
 public class WorldGenEndCityTest extends WorldGenerator {
 	@Override
@@ -25,20 +21,7 @@ public class WorldGenEndCityTest extends WorldGenerator {
 
 	private class Test extends NBTStructure {
 		public Test() {
-			super("/data/structure/end_city/third_floor_2.nbt");
-			//This file is not in the jar, do not initialize the class without adding it back first or it will crash the game
-		}
-
-		@Override
-		public Map<Integer, BlockStateContainer> createPalette(ForgeDirection facing, Set<Pair<Integer, NBTTagCompound>> paletteNBT) {
-			Map<Integer, BlockStateContainer> map = new HashMap<>();
-			for (Pair<Integer, NBTTagCompound> pair : getPaletteNBT()) {
-				//This was basically just a scapegoat to test some structure block functionality.
-				//None of these are mapped because I didn't ant to do a bunch of mapping work for a test.
-				BlockStateContainer state = getBlockNamespaceFromPaletteEntry(pair.getLeft()).equals("minecraft:air") ? new BlockStateContainer(Blocks.air) : getBlockNamespaceFromPaletteEntry(pair.getLeft()).equals("minecraft:chest") ? new BlockStateContainer(Blocks.chest, 1) : new BlockStateContainer(Blocks.stone);
-				map.put(pair.getLeft(), state);
-			}
-			return map;
+			super("/data/structure/end_city/tower_top.nbt", EFRBlockStateConverter.INSTANCE);
 		}
 
 		@Override

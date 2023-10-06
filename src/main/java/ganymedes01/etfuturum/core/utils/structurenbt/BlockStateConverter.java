@@ -31,12 +31,7 @@ public class BlockStateConverter {
 			if (block == null) {
 				block = Blocks.stone;
 			}
-			if (!properties.isEmpty()) { //TODO, a version of getMetaFromState that supports multiple properties
-				int meta = getMetaFromStateWithSubtypeAddition(namespace, properties, dir);
-				map.put(pair.getLeft(), new BlockStateContainer(block, meta));
-			} else {
-				map.put(pair.getLeft(), new BlockStateContainer(block, 0));
-			}
+			map.put(pair.getLeft(), new BlockStateContainer(block, getMetaFromStateWithSubtypeAdditions(namespace, properties, dir)));
 		}
 		return map;
 	}
@@ -50,7 +45,7 @@ public class BlockStateConverter {
 	 * The facing direction can only be NORTH, SOUTH, EAST, or WEST.
 	 */
 	public int getMetaFromState(String blockName, Map<String, String> blockStates, ForgeDirection dir) {
-		String truncatedName = blockName.substring(0, blockName.indexOf(":"));
+		String truncatedName = blockName.substring(blockName.indexOf(":") + 1);
 		//For rotatable pillars like logs
 		if (blockStates.containsKey("axis")) {
 			String axis = blockStates.get("axis");
@@ -61,7 +56,7 @@ public class BlockStateConverter {
 					case "x":
 						return dir == ForgeDirection.NORTH || dir == ForgeDirection.SOUTH ? 3 : 4;
 					case "z":
-						return dir == ForgeDirection.EAST || dir == ForgeDirection.WEST ? 4 : 3;
+						return dir == ForgeDirection.NORTH || dir == ForgeDirection.SOUTH ? 4 : 3;
 				}
 			} else {
 				switch (axis) {
@@ -70,7 +65,7 @@ public class BlockStateConverter {
 					case "x":
 						return dir == ForgeDirection.NORTH || dir == ForgeDirection.SOUTH ? 4 : 8;
 					case "z":
-						return dir == ForgeDirection.EAST || dir == ForgeDirection.WEST ? 8 : 4;
+						return dir == ForgeDirection.NORTH || dir == ForgeDirection.SOUTH ? 8 : 4;
 				}
 			}
 		}
@@ -82,7 +77,7 @@ public class BlockStateConverter {
 				int meta = 0; //temporary
 				if (truncatedName.endsWith("wall_torch")) {
 					meta = 1;
-				} else if ("upper".equals(blockStates.get("half"))) { //For stairs. Shape is ignored because that's handled by the renderer in this version.
+				} else if ("top".equals(blockStates.get("half"))) { //For stairs. Shape is ignored because that's handled by the renderer in this version.
 					meta = 4;
 				}
 				switch (facing) {
@@ -181,9 +176,11 @@ public class BlockStateConverter {
 			}
 		} else if (blockStates.containsKey("layers")) {
 			return Integer.parseInt(blockStates.get("layers"));
+		} else if (blockStates.containsKey("power")) {
+			return Integer.parseInt(blockStates.get("power"));
 		}
 		//TODO: Map the large mushrooms to the states that exist in 1.7.10, for now I skipped them because they're fucking weird
-		//TODO: Trapdoors, fence gates, buttons, pressure plates, melon and pumpkin stems, water, lava, daylight sensors, doors, repeaters, comparaters, skulls, signs, beds
+		//TODO: Trapdoors, fence gates, buttons, pressure plates, melon and pumpkin stems, water, lava, daylight sensors, doors, repeaters, comparaters, skulls, signs, beds, tripwires, tripwire hooks
 		//Water and lava might need some extra work as well.
 		return 0;
 	}
@@ -230,11 +227,11 @@ public class BlockStateConverter {
 	 * @param dir
 	 * @return
 	 */
-	public int getMetaFromStateWithSubtypeAddition(String blockName, Map<String, String> blockStates, ForgeDirection dir) {
+	public int getMetaFromStateWithSubtypeAdditions(String blockName, Map<String, String> blockStates, ForgeDirection dir) {
 		int meta = getMetaFromState(blockName, blockStates, dir);
 		if (blockName.startsWith("minecraft:")) {
-			blockName = blockName.substring(0, blockName.indexOf(":"));
-			switch (blockName) {
+			String truncatedName = blockName.replace("minecraft:", "");
+			switch (truncatedName) {
 				case "coarse_dirt":
 					meta = 1;
 					break;
@@ -257,37 +254,37 @@ public class BlockStateConverter {
 
 				case "oak_sapling":
 					meta = 0;
-					if (getMetaFromState(blockName, blockStates, dir) > 7) {
+					if (getMetaFromState(truncatedName, blockStates, dir) > 7) {
 						meta += 8;
 					}
 					break;
 				case "spruce_sapling":
 					meta = 1;
-					if (getMetaFromState(blockName, blockStates, dir) > 7) {
+					if (getMetaFromState(truncatedName, blockStates, dir) > 7) {
 						meta += 8;
 					}
 					break;
 				case "birch_sapling":
 					meta = 2;
-					if (getMetaFromState(blockName, blockStates, dir) > 7) {
+					if (getMetaFromState(truncatedName, blockStates, dir) > 7) {
 						meta += 8;
 					}
 					break;
 				case "jungle_sapling":
 					meta = 3;
-					if (getMetaFromState(blockName, blockStates, dir) > 7) {
+					if (getMetaFromState(truncatedName, blockStates, dir) > 7) {
 						meta += 8;
 					}
 					break;
 				case "acacia_sapling":
 					meta = 4;
-					if (getMetaFromState(blockName, blockStates, dir) > 7) {
+					if (getMetaFromState(truncatedName, blockStates, dir) > 7) {
 						meta += 8;
 					}
 					break;
 				case "dark_oak_sapling":
 					meta = 5;
-					if (getMetaFromState(blockName, blockStates, dir) > 7) {
+					if (getMetaFromState(truncatedName, blockStates, dir) > 7) {
 						meta += 8;
 					}
 					break;
@@ -611,7 +608,7 @@ public class BlockStateConverter {
 	}
 
 	public Block getBlockFromNamespace(String blockName, Map<String, String> blockStates) {
-		String truncatedName = blockName.substring(0, blockName.indexOf(":"));
+		String truncatedName = blockName.substring(blockName.indexOf(":") + 1);
 		if (blockName.startsWith("minecraft:")) {
 			switch (truncatedName) {
 				case "grass_block":
@@ -870,6 +867,8 @@ public class BlockStateConverter {
 				case "potted_acacia_sapling":
 				case "potted_dark_oak_sapling":
 					return Blocks.flower_pot;
+
+				//TODO: tripwires, redstone wires
 
 				case "oak_pressure_plate":
 					return Blocks.wooden_pressure_plate;

@@ -3,6 +3,7 @@ package ganymedes01.etfuturum.world.generate.feature;
 import com.google.common.collect.Lists;
 import ganymedes01.etfuturum.api.mappings.RegistryMapping;
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
+import ganymedes01.etfuturum.core.utils.structurenbt.EFRBlockStateConverter;
 import ganymedes01.etfuturum.core.utils.structurenbt.NBTStructure;
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
@@ -19,7 +20,7 @@ public class WorldGenNetherFossil extends WorldGenFossil {
 		super(bone);
 		fossils = Lists.newArrayList();
 		for (int i = 1; i <= 14; i++) {
-			fossils.add(new NBTStructure("/data/structure/nether_fossils/fossil_" + i + ".nbt"));
+			fossils.add(new NBTStructure("/data/structure/nether_fossils/fossil_" + i + ".nbt", EFRBlockStateConverter.INSTANCE));
 		}
 	}
 

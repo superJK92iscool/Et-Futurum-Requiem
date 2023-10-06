@@ -211,7 +211,7 @@ public class NBTStructure {
 		if (integrity >= 1 || (0 < integrity && rand.nextFloat() <= integrity)) {
 			BlockStateContainer newState = getBlockState(world, rand, x, y, z, state);
 			if (newState != null) {
-				world.setBlock(x, y, z, state.getBlock(), state.getMeta(), 3);
+				world.setBlock(x, y, z, state.getBlock(), state.getMeta(), 2);
 				if (state.getType() == BlockStateContainer.BlockStateType.BLOCK_ENTITY) {
 					TileEntity te = world.getTileEntity(x, y, z);
 					if (te != null) {
