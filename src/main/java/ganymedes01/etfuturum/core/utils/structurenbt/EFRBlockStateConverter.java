@@ -24,15 +24,17 @@ public class EFRBlockStateConverter extends BlockStateConverter {
 
 	@Override
 	public int getMetaFromStateWithSubtypeAdditions(String blockName, Map<String, String> blockStates, ForgeDirection dir) {
+		int meta = getMetaFromState(blockName, blockStates, dir);
 		String truncatedName = blockName.substring(blockName.indexOf(":") + 1);
 		switch (truncatedName) {
 			case "bone_block":
 				if (ConfigWorld.fossilBlock != null) {
 					if (ConfigWorld.fossilBlock.getObject() == Blocks.quartz_block && ConfigWorld.fossilBlock.getMeta() == 2) {
-						return 0;
+						return meta;
 					}
-					return ConfigWorld.fossilBlock.getMeta();
+					return meta + ConfigWorld.fossilBlock.getMeta();
 				}
+				break;
 			default:
 				break;
 		}
