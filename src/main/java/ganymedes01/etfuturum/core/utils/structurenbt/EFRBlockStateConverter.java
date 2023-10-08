@@ -19,6 +19,7 @@ public class EFRBlockStateConverter extends BlockStateConverter {
 				return super.getMetaFromState("minecraft:quartz_pillar", blockStates, dir);
 			}
 		}
+		//TODO: Beetroot should be age * 2
 		return super.getMetaFromState(blockName, blockStates, dir);
 	}
 
@@ -45,7 +46,15 @@ public class EFRBlockStateConverter extends BlockStateConverter {
 		String truncatedName = blockName.substring(blockName.indexOf(":") + 1);
 		String nameToFind = truncatedName;
 
+		switch (truncatedName) { //Blocks we don't have but are used in a structure.
+			case "dragon_head":
+			case "dragon_wall_head":
+				return Blocks.air;
+		}
+
 		switch (truncatedName) {
+			case "stone":
+				return Blocks.stone;
 			case "bone_block":
 				if (ConfigWorld.fossilBlock != null) {
 					return ConfigWorld.fossilBlock.getObject();

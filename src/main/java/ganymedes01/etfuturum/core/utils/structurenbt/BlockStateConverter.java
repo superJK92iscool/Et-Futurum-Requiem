@@ -28,12 +28,19 @@ public class BlockStateConverter {
 
 			Map<String, String> properties = NBTStructure.getProperties(pair.getRight());
 			Block block = getBlockFromNamespace(namespace, properties);
-			if (block == null) {
-				block = Blocks.stone;
+			if (block != null) {
+				map.put(pair.getLeft(), createBlockStateContainer(namespace, block, properties, dir));
 			}
-			map.put(pair.getLeft(), new BlockStateContainer(block, getMetaFromStateWithSubtypeAdditions(namespace, properties, dir)));
 		}
 		return map;
+	}
+
+	/**
+	 * Note that blockName is the ID of the block in the palette mapping, not the object you're mapping it to.
+	 * TODO: This will be used for mapping BlockState data to what was TE data in 1.7.10.
+	 */
+	public BlockStateContainer createBlockStateContainer(String blockName, Block block, Map<String, String> blockStates, ForgeDirection dir) {
+		return new BlockStateContainer(block, getMetaFromStateWithSubtypeAdditions(blockName, blockStates, dir));
 	}
 
 	/**
@@ -68,49 +75,125 @@ public class BlockStateConverter {
 						return dir == ForgeDirection.NORTH || dir == ForgeDirection.SOUTH ? 8 : 4;
 				}
 			}
-		}
-		//For blocks that can face in different directions
-		//Note not every block that uses this state has the same meta values in 1.7.10, there will be a lot
-		else if (blockStates.containsKey("facing")) {
+		} else if (truncatedName.endsWith("torch") && Boolean.parseBoolean(blockStates.get("standing"))) {
+			return 5;
+			//For blocks that can face in different directions
+			//Note not every block that uses this state has the same meta values in 1.7.10, there will be a lot
+		} else if (blockStates.containsKey("facing")) {
 			String facing = blockStates.get("facing");
 			if (truncatedName.endsWith("wall_torch") || truncatedName.endsWith("stairs")) {
-				int meta = 0; //temporary
+				int meta = 0;
 				if (truncatedName.endsWith("wall_torch")) {
 					meta = 1;
-				} else if ("top".equals(blockStates.get("half"))) { //For stairs. Shape is ignored because that's handled by the renderer in this version.
+				} else if ("top".equals(blockStates.get("half"))) {
+					//For stairs. Shape is ignored because that's handled by the renderer in this version.
+					//Unfortunately some stair shapes like a square of corner stairs are simply impossible in 1.7.10.
 					meta = 4;
 				}
 				switch (facing) {
 					case "east":
-						return meta + ((dir.ordinal() - 2) % 4);
+						return meta + (dir == ForgeDirection.NORTH ? 0 : dir == ForgeDirection.SOUTH ? 1 : dir == ForgeDirection.WEST ? 2 : dir == ForgeDirection.EAST ? 3 : 0);
 					case "west":
-						return meta + (((dir.ordinal() - 2) + 1) % 4);
+						return meta + (dir == ForgeDirection.NORTH ? 1 : dir == ForgeDirection.SOUTH ? 0 : dir == ForgeDirection.WEST ? 3 : dir == ForgeDirection.EAST ? 2 : 1);
 					case "south":
-						return meta + (((dir.ordinal() - 2) + 2) % 4);
+						return meta + (dir == ForgeDirection.NORTH ? 2 : dir == ForgeDirection.SOUTH ? 3 : dir == ForgeDirection.WEST ? 0 : dir == ForgeDirection.EAST ? 1 : 2);
 					case "north":
-						return meta + (((dir.ordinal() - 2) + 3) % 4);
+						return meta + (dir == ForgeDirection.NORTH ? 3 : dir == ForgeDirection.SOUTH ? 2 : dir == ForgeDirection.WEST ? 1 : dir == ForgeDirection.EAST ? 0 : 3);
 				}
 			} else if (truncatedName.equals("end_portal_frame")) {
+				int meta = 0;
+				if (Boolean.parseBoolean(blockStates.get("eye"))) {
+					meta = 4;
+				}
 				switch (facing) {
 					case "south":
-						return ((dir.ordinal() - 2) % 4); //These probably don't rotate properly
+						return meta + (dir == ForgeDirection.NORTH ? 0 : dir == ForgeDirection.SOUTH ? 2 : dir == ForgeDirection.WEST ? 3 : dir == ForgeDirection.EAST ? 1 : 0);
 					case "west":
-						return (((dir.ordinal() - 2) + 1) % 4);
+						return meta + (dir == ForgeDirection.NORTH ? 1 : dir == ForgeDirection.SOUTH ? 3 : dir == ForgeDirection.WEST ? 2 : dir == ForgeDirection.EAST ? 0 : 1);
 					case "north":
-						return (((dir.ordinal() - 2) + 2) % 4);
+						return meta + (dir == ForgeDirection.NORTH ? 2 : dir == ForgeDirection.SOUTH ? 0 : dir == ForgeDirection.WEST ? 1 : dir == ForgeDirection.EAST ? 3 : 2);
 					case "east":
-						return (((dir.ordinal() - 2) + 3) % 4);
+						return meta + (dir == ForgeDirection.NORTH ? 3 : dir == ForgeDirection.SOUTH ? 1 : dir == ForgeDirection.WEST ? 0 : dir == ForgeDirection.EAST ? 2 : 3);
 				}
 			} else if (truncatedName.endsWith("anvil")) {
 				switch (facing) {
-					case "west":
-						return ((dir.ordinal() - 2) % 4); //These probably don't rotate properly
 					case "north":
-						return (((dir.ordinal() - 2) + 1) % 4);
+						return dir == ForgeDirection.NORTH ? 0 : dir == ForgeDirection.SOUTH ? 2 : dir == ForgeDirection.WEST ? 1 : dir == ForgeDirection.EAST ? 3 : 0;
 					case "east":
-						return (((dir.ordinal() - 2) + 2) % 4);
+						return dir == ForgeDirection.NORTH ? 1 : dir == ForgeDirection.SOUTH ? 3 : dir == ForgeDirection.WEST ? 0 : dir == ForgeDirection.EAST ? 2 : 1;
 					case "south":
-						return (((dir.ordinal() - 2) + 3) % 4);
+						return dir == ForgeDirection.NORTH ? 2 : dir == ForgeDirection.SOUTH ? 0 : dir == ForgeDirection.WEST ? 3 : dir == ForgeDirection.EAST ? 1 : 2;
+					case "west":
+						return dir == ForgeDirection.NORTH ? 3 : dir == ForgeDirection.SOUTH ? 1 : dir == ForgeDirection.WEST ? 2 : dir == ForgeDirection.EAST ? 0 : 3;
+				}
+			} else if (truncatedName.endsWith("trapdoor")) {
+				int meta = 0;
+				if ("top".equals(blockStates.get("half"))) {
+					meta += 8;
+				}
+				if (Boolean.parseBoolean(blockStates.get("open"))) {
+					meta += 4;
+				}
+				switch (facing) {
+					case "north":
+						return meta + (dir == ForgeDirection.NORTH ? 0 : dir == ForgeDirection.SOUTH ? 1 : dir == ForgeDirection.WEST ? 2 : dir == ForgeDirection.EAST ? 3 : 0);
+					case "south":
+						return meta + (dir == ForgeDirection.NORTH ? 1 : dir == ForgeDirection.SOUTH ? 0 : dir == ForgeDirection.WEST ? 3 : dir == ForgeDirection.EAST ? 2 : 1);
+					case "west":
+						return meta + (dir == ForgeDirection.NORTH ? 2 : dir == ForgeDirection.SOUTH ? 3 : dir == ForgeDirection.WEST ? 0 : dir == ForgeDirection.EAST ? 1 : 2);
+					case "east":
+						return meta + (dir == ForgeDirection.NORTH ? 3 : dir == ForgeDirection.SOUTH ? 2 : dir == ForgeDirection.WEST ? 1 : dir == ForgeDirection.EAST ? 0 : 3);
+				}
+			} else if (truncatedName.endsWith("door")) {
+				int meta = 0;
+				if (truncatedName.endsWith("door") && "upper".equals(blockStates.get("half"))) {
+					final int rightMeta = dir == ForgeDirection.NORTH || dir == ForgeDirection.SOUTH ? 9 : 8;
+					final int leftMeta = dir == ForgeDirection.NORTH || dir == ForgeDirection.SOUTH ? 8 : 9;
+					return "right".equals(blockStates.get("hinge")) ? rightMeta : leftMeta;
+				} else if (Boolean.parseBoolean(blockStates.get("open"))) {
+					meta += 4;
+				}
+				switch (facing) {
+					case "east":
+						return meta + (dir == ForgeDirection.NORTH ? 0 : dir == ForgeDirection.SOUTH ? 2 : dir == ForgeDirection.WEST ? 1 : dir == ForgeDirection.EAST ? 3 : 0);
+					case "south":
+						return meta + (dir == ForgeDirection.NORTH ? 1 : dir == ForgeDirection.SOUTH ? 3 : dir == ForgeDirection.WEST ? 0 : dir == ForgeDirection.EAST ? 2 : 1);
+					case "west":
+						return meta + (dir == ForgeDirection.NORTH ? 2 : dir == ForgeDirection.SOUTH ? 0 : dir == ForgeDirection.WEST ? 3 : dir == ForgeDirection.EAST ? 1 : 2);
+					case "north":
+						return meta + (dir == ForgeDirection.NORTH ? 3 : dir == ForgeDirection.SOUTH ? 1 : dir == ForgeDirection.WEST ? 2 : dir == ForgeDirection.EAST ? 0 : 3);
+				}
+			} else if (truncatedName.endsWith("bed")) {
+				int meta = 0;
+				if ("head".equals(blockStates.get("part"))) {
+					meta += 8;
+				}
+				switch (facing) {
+					case "south":
+						return meta + (dir == ForgeDirection.NORTH ? 0 : dir == ForgeDirection.SOUTH ? 2 : dir == ForgeDirection.WEST ? 3 : dir == ForgeDirection.EAST ? 1 : 0);
+					case "west":
+						return meta + (dir == ForgeDirection.NORTH ? 1 : dir == ForgeDirection.SOUTH ? 3 : dir == ForgeDirection.WEST ? 2 : dir == ForgeDirection.EAST ? 0 : 1);
+					case "north":
+						return meta + (dir == ForgeDirection.NORTH ? 2 : dir == ForgeDirection.SOUTH ? 0 : dir == ForgeDirection.WEST ? 1 : dir == ForgeDirection.EAST ? 3 : 2);
+					case "east":
+						return meta + (dir == ForgeDirection.NORTH ? 3 : dir == ForgeDirection.SOUTH ? 1 : dir == ForgeDirection.WEST ? 0 : dir == ForgeDirection.EAST ? 2 : 3);
+				}
+			} else if (truncatedName.endsWith("button")) {
+				switch (facing) {
+//				case "down":
+//					return 0;
+//				case "up": //TODO: These go in EFR's mappings, the states are also "ceiling and floor" in the "face" state.
+//					return 5;
+					case "north":
+						return dir == ForgeDirection.NORTH ? 4 : dir == ForgeDirection.SOUTH ? 3 : dir == ForgeDirection.WEST ? 2 : dir == ForgeDirection.EAST ? 1 : 0;
+					case "south":
+						return dir == ForgeDirection.NORTH ? 3 : dir == ForgeDirection.SOUTH ? 4 : dir == ForgeDirection.WEST ? 1 : dir == ForgeDirection.EAST ? 2 : 0;
+					case "west":
+						return dir == ForgeDirection.NORTH ? 2 : dir == ForgeDirection.SOUTH ? 1 : dir == ForgeDirection.WEST ? 4 : dir == ForgeDirection.EAST ? 3 : 0;
+					case "east":
+						return dir == ForgeDirection.NORTH ? 1 : dir == ForgeDirection.SOUTH ? 2 : dir == ForgeDirection.WEST ? 3 : dir == ForgeDirection.EAST ? 4 : 0;
+					default:
+						return 0;
 				}
 			} else {
 				switch (facing) {
@@ -119,13 +202,13 @@ public class BlockStateConverter {
 					case "up":
 						return 1;
 					case "north":
-						return ((dir.ordinal() - 2) % 4) + 2;
+						return dir == ForgeDirection.NORTH ? 2 : dir == ForgeDirection.SOUTH ? 3 : dir == ForgeDirection.WEST ? 4 : dir == ForgeDirection.EAST ? 5 : 0;
 					case "south":
-						return (((dir.ordinal() - 2) + 1) % 4) + 2;
+						return dir == ForgeDirection.NORTH ? 3 : dir == ForgeDirection.SOUTH ? 2 : dir == ForgeDirection.WEST ? 5 : dir == ForgeDirection.EAST ? 4 : 0;
 					case "west":
-						return (((dir.ordinal() - 2) + 2) % 4) + 2;
+						return dir == ForgeDirection.NORTH ? 4 : dir == ForgeDirection.SOUTH ? 5 : dir == ForgeDirection.WEST ? 2 : dir == ForgeDirection.EAST ? 3 : 0;
 					case "east":
-						return (((dir.ordinal() - 2) + 3) % 4) + 2;
+						return dir == ForgeDirection.NORTH ? 5 : dir == ForgeDirection.SOUTH ? 4 : dir == ForgeDirection.WEST ? 3 : dir == ForgeDirection.EAST ? 2 : 0;
 				}
 			}
 		} else if (blockStates.containsKey("stage") && (truncatedName.endsWith("sapling") || truncatedName.equals("mangrove_propagule"))) {
@@ -152,36 +235,49 @@ public class BlockStateConverter {
 			}
 			switch (blockStates.get("shape")) {
 				case "north_south":
-					meta = (dir == ForgeDirection.NORTH || dir == ForgeDirection.SOUTH ? 0 : 1);
-					break;
+					return meta + (dir == ForgeDirection.NORTH || dir == ForgeDirection.SOUTH ? 0 : 1);
 				case "east_west":
-					meta = (dir == ForgeDirection.EAST || dir == ForgeDirection.WEST ? 1 : 0);
-					break;
+					return meta + (dir == ForgeDirection.NORTH || dir == ForgeDirection.SOUTH ? 1 : 0);
 				case "ascending_east":
-					return meta + ((dir.ordinal() - 2) % 4) + 2; //This math probably doesn't work, these four states should go from 2-5
+					return meta + (dir == ForgeDirection.NORTH ? 2 : dir == ForgeDirection.SOUTH ? 3 : dir == ForgeDirection.WEST ? 4 : dir == ForgeDirection.EAST ? 5 : 0);
 				case "ascending_west":
-					return meta + (((dir.ordinal() - 2) + 1) % 4) + 2;
+					return meta + (dir == ForgeDirection.NORTH ? 3 : dir == ForgeDirection.SOUTH ? 2 : dir == ForgeDirection.WEST ? 5 : dir == ForgeDirection.EAST ? 4 : 0);
 				case "ascending_north":
-					return meta + (((dir.ordinal() - 2) + 2) % 4) + 2;
+					return meta + (dir == ForgeDirection.NORTH ? 4 : dir == ForgeDirection.SOUTH ? 5 : dir == ForgeDirection.WEST ? 2 : dir == ForgeDirection.EAST ? 3 : 0);
 				case "ascending_south":
-					return meta + (((dir.ordinal() - 2) + 3) % 4) + 2;
+					return meta + (dir == ForgeDirection.NORTH ? 5 : dir == ForgeDirection.SOUTH ? 4 : dir == ForgeDirection.WEST ? 3 : dir == ForgeDirection.EAST ? 2 : 0);
 				case "south_east":
-					return meta + ((dir.ordinal() - 2) % 4) + 6; //Same as above but the states should go from 6-9
+					return dir == ForgeDirection.NORTH ? 6 : dir == ForgeDirection.SOUTH ? 7 : dir == ForgeDirection.WEST ? 8 : dir == ForgeDirection.EAST ? 9 : 0;
 				case "south_west":
-					return meta + (((dir.ordinal() - 2) + 1) % 4) + 6; //Shouldn't need to conditionally remove these because other rail types never reach these anyways
+					return dir == ForgeDirection.NORTH ? 7 : dir == ForgeDirection.SOUTH ? 6 : dir == ForgeDirection.WEST ? 9 : dir == ForgeDirection.EAST ? 8 : 0;
 				case "north_west":
-					return meta + (((dir.ordinal() - 2) + 2) % 4) + 6;
+					return dir == ForgeDirection.NORTH ? 8 : dir == ForgeDirection.SOUTH ? 9 : dir == ForgeDirection.WEST ? 6 : dir == ForgeDirection.EAST ? 7 : 0;
 				case "north_east":
-					return meta + (((dir.ordinal() - 2) + 3) % 4) + 6;
+					return dir == ForgeDirection.NORTH ? 9 : dir == ForgeDirection.SOUTH ? 8 : dir == ForgeDirection.WEST ? 7 : dir == ForgeDirection.EAST ? 6 : 0;
 			}
+
+		} else if (truncatedName.equals("brewing_stand")) {
+			int meta = 0;
+			meta |= Boolean.parseBoolean(blockStates.get("has_bottle_0")) ? 0x1 : 0;
+			meta |= Boolean.parseBoolean(blockStates.get("has_bottle_1")) ? 0x2 : 0;
+			meta |= Boolean.parseBoolean(blockStates.get("has_bottle_2")) ? 0x4 : 0;
+			return meta;
 		} else if (blockStates.containsKey("layers")) {
 			return Integer.parseInt(blockStates.get("layers"));
 		} else if (blockStates.containsKey("power")) {
 			return Integer.parseInt(blockStates.get("power"));
+		} else if (blockStates.containsKey("level")) {
+			return Integer.parseInt(blockStates.get("level"));
+		} else if (blockStates.containsKey("age")) {
+			return Integer.parseInt(blockStates.get("age"));
+		} else if (blockStates.containsKey("rotation")) {
+			return Integer.parseInt(blockStates.get("rotation"));
+		} else if (blockStates.containsKey("moisture")) {
+			return Integer.parseInt(blockStates.get("moisture")) == 7 ? 1 : 0;
 		}
 		//TODO: Map the large mushrooms to the states that exist in 1.7.10, for now I skipped them because they're fucking weird
-		//TODO: Trapdoors, fence gates, buttons, pressure plates, melon and pumpkin stems, water, lava, daylight sensors, doors, repeaters, comparaters, skulls, signs, beds, tripwires, tripwire hooks
-		//Water and lava might need some extra work as well.
+		//TODO: Fence gates, pressure plates (maybe, it only has "temporary" states), daylight sensors, repeaters, comparators, skulls, tripwires, tripwire hooks, vines, brewing stand
+		//Should we map the "pressed" states of things like pressure plates or buttons, or the state of sleeping in a bed? Should "temporary" states be mapped at all?
 		return 0;
 	}
 
@@ -234,6 +330,9 @@ public class BlockStateConverter {
 			switch (truncatedName) {
 				case "coarse_dirt":
 					meta = 1;
+					break;
+				case "podzol":
+					meta = 2;
 					break;
 
 				case "spruce_planks":
@@ -293,17 +392,17 @@ public class BlockStateConverter {
 					break;
 
 				case "spruce_log":
-					meta = 1;
+					meta += 1;
 					break;
 				case "birch_log":
-					meta = 2;
+					meta += 2;
 					break;
 				case "jungle_log":
-					meta = 3;
+					meta += 3;
 					break;
 
 				case "dark_oak_log":
-					meta = 1;
+					meta += 1;
 					break;
 
 				case "spruce_leaves":
@@ -403,32 +502,14 @@ public class BlockStateConverter {
 				case "smooth_sandstone":
 					meta = 9;
 					break;
-				case "smooth_quartz":
-					meta = 10;
-					break;
 
-				case "carved_pumpkin":
-				case "jack_o_lantern":
-					meta -= 2;
-					break;
-
-				case "podzol":
-					meta = 2;
-					break;
-				case "anvil":
-					if (meta > 1) {
-						meta -= 2;
-					}
-					break;
 				case "chipped_anvil":
 					if (meta > 1) {
-						meta -= 2;
 						meta += 4;
 					}
 					break;
 				case "damaged_anvil":
 					if (meta > 1) {
-						meta -= 2;
 						meta += 8;
 					}
 					break;
@@ -442,7 +523,7 @@ public class BlockStateConverter {
 				case "infested_mossy_stone_bricks":
 					meta = 3;
 					break;
-				case "infested_bracked_stone_bricks":
+				case "infested_cracked_stone_bricks":
 					meta = 4;
 					break;
 				case "infested_chiseled_stone_bricks":
@@ -706,15 +787,15 @@ public class BlockStateConverter {
 				case "stone_brick_slab":
 				case "nether_brick_slab":
 				case "quartz_slab":
-
-				case "smooth_stone":
-				case "smooth_sandstone":
-				case "smooth_quartz":
 					if (blockStates.containsKey("type") && blockStates.get("type").equals("double")) {
 						return Blocks.double_stone_slab;
 					} else {
 						return Blocks.stone_slab;
 					}
+
+				case "smooth_stone":
+				case "smooth_sandstone":
+					return Blocks.double_stone_slab;
 
 				case "bricks":
 					return Blocks.brick_block;
@@ -793,7 +874,9 @@ public class BlockStateConverter {
 
 				case "daylight_detector":
 					if (blockStates.containsKey("inverted") && Boolean.parseBoolean(blockStates.get("inverted"))) {
-						return Blocks.stone; //There is no inverted daylight detector in 1.7.10
+						return Blocks.stone; //There is no inverted daylight detector in 1.7.10, this goes in the EFR mapping.
+					} else {
+						return Blocks.daylight_detector;
 					}
 
 				case "nether_quartz_ore":
@@ -883,13 +966,9 @@ public class BlockStateConverter {
 				case "oak_door":
 					return Blocks.wooden_door;
 				case "oak_sign":
-					if (blockStates.containsKey("rotation")) {
-						//TODO: Verify this. Do standing signs have a block tag not on the wiki?
-						//The wiki only shows the data "facing" for wall signs, and "rotation" for standing signs. Is this the proper way to check?
-						return Blocks.standing_sign;
-					} else {
-						return Blocks.wall_sign;
-					}
+					return Blocks.standing_sign;
+				case "oak_wall_sign":
+					return Blocks.wall_sign;
 
 				case "red_bed":
 					return Blocks.bed;

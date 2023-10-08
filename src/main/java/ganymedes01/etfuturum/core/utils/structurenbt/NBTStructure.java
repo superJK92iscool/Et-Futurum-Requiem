@@ -215,12 +215,13 @@ public class NBTStructure {
 				if (state.getType() == BlockStateContainer.BlockStateType.BLOCK_ENTITY) {
 					TileEntity te = world.getTileEntity(x, y, z);
 					if (te != null) {
-						if (state.getCompound() != null) {
-							state.getCompound().setInteger("x", x);
-							state.getCompound().setInteger("y", y);
-							state.getCompound().setInteger("z", z);
-							te.readFromNBT(state.getCompound());
-						}
+						NBTTagCompound nbt = state.getCompound() != null ? state.getCompound() : new NBTTagCompound();
+						nbt.setInteger("x", x);
+						nbt.setInteger("y", y);
+						nbt.setInteger("z", z);
+						te.blockType = state.getBlock();
+						te.blockMetadata = state.getMeta();
+						te.readFromNBT(getTileEntityNBT(world, rand, x, y, z, state, integrity, nbt));
 						if (te instanceof IInventory && state.getLootTable() != null) {
 							WeightedRandomChestContent.generateChestContents(world.rand, state.getLootTable().getItems(world.rand), (IInventory) te, state.getLootTable().getCount(world.rand));
 						}
@@ -228,6 +229,12 @@ public class NBTStructure {
 				}
 			}
 		}
+	}
+
+	//TODO: Tile NBT is specific to the position of the block instead of a palette mapping, make sure we can access that here. We need to store the modern NBT and the locations of them.
+	//This will likely be a new field in BlockStateContainer for the modern NBT. Should probably also have default NBT parsing for chests and signs.
+	protected NBTTagCompound getTileEntityNBT(World world, Random rand, int x, int y, int z, BlockStateContainer state, float integrity, NBTTagCompound nbt) {
+		return nbt;
 	}
 
 	/**
@@ -333,13 +340,19 @@ public class NBTStructure {
 	}
 
 	public final int getIntFromFacing(ForgeDirection dir) {
+//		switch (dir) {
+//			case NORTH: return 0;
+//			case EAST: return 1;
+//			case SOUTH: return 2;
+//			case WEST: return 3;
+//		}
 		if (dir.ordinal() < 2 || dir.ordinal() > 5) {
 			throw new IllegalArgumentException("ForgeDirection object for structure must be NORTH, SOUTH, EAST or WEST!");
 		}
 		return dir.ordinal() - 2;
 	}
 
-	private void createPalettes() {
+	private void createPalettes() { //These should probably be rearranged
 		palettes[0] = createPalette(ForgeDirection.NORTH, getPaletteNBT());
 		palettes[1] = createPalette(ForgeDirection.SOUTH, getPaletteNBT());
 		palettes[2] = createPalette(ForgeDirection.WEST, getPaletteNBT());

@@ -9,7 +9,7 @@ import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.world.generate.feature.WorldGenAmethystGeode;
 import ganymedes01.etfuturum.world.generate.feature.WorldGenFossil;
-import ganymedes01.etfuturum.world.generate.structure.WorldGenEndCityTest;
+import ganymedes01.etfuturum.world.generate.structure.WorldGenNBTStructureTesting;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -157,10 +157,10 @@ public class DebugTestItem extends BaseItem {
 				return true;
 			}
 		},
-		END_CITY_TEST("End City Test", true) {
+		NBT_STRUCTURE_TEST("NBT Structure Test", true) {
 			@Override
 			protected boolean runAction(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
-				boolean run = new WorldGenEndCityTest().generate(world, world.rand, x, y, z);
+				boolean run = new WorldGenNBTStructureTesting().generate(world, world.rand, x, y, z);
 				world.setBlock(x, y, z, Blocks.redstone_block);
 				return run;
 			}
