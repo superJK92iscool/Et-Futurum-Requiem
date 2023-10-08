@@ -339,7 +339,7 @@ public class BlockStateConverter {
 			meta |= Boolean.parseBoolean(blockStates.get("has_bottle_2")) ? 0x4 : 0;
 			return meta;
 		} else if (truncatedName.endsWith("mushroom_block")) {
-			getHugeMushroomMetaFromState(blockName, blockStates, dir);
+			return getHugeMushroomMetaFromState(blockName, blockStates, dir);
 		} else if (blockStates.containsKey("layers")) {
 			return Integer.parseInt(blockStates.get("layers"));
 		} else if (blockStates.containsKey("power")) {
