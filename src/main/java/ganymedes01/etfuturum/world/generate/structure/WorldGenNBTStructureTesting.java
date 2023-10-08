@@ -48,7 +48,7 @@ public class WorldGenNBTStructureTesting extends WorldGenerator {
 
 	private class Test extends NBTStructure {
 		public Test() {
-			super("/data/structure/test_structures/test_structure_2.nbt", EFRBlockStateConverter.INSTANCE);
+			super("/data/structure/test_structures/test_structure_3.nbt", EFRBlockStateConverter.INSTANCE);
 		}
 
 		@Override

@@ -144,9 +144,27 @@ public class BlockStateConverter {
 					case "east":
 						return meta + (dir == ForgeDirection.NORTH ? 3 : dir == ForgeDirection.SOUTH ? 2 : dir == ForgeDirection.WEST ? 1 : dir == ForgeDirection.EAST ? 0 : 3);
 				}
+			} else if (truncatedName.endsWith("tripwire_hook")) {
+				int meta = 0;
+				if (Boolean.parseBoolean(blockStates.get("attached"))) {
+					meta += 4;
+				}
+				if (Boolean.parseBoolean(blockStates.get("powered"))) {
+					meta += 8;
+				}
+				switch (facing) {
+					case "south":
+						return meta + (dir == ForgeDirection.NORTH ? 0 : dir == ForgeDirection.SOUTH ? 2 : dir == ForgeDirection.WEST ? 3 : dir == ForgeDirection.EAST ? 1 : 0);
+					case "west":
+						return meta + (dir == ForgeDirection.NORTH ? 1 : dir == ForgeDirection.SOUTH ? 3 : dir == ForgeDirection.WEST ? 2 : dir == ForgeDirection.EAST ? 0 : 1);
+					case "north":
+						return meta + (dir == ForgeDirection.NORTH ? 2 : dir == ForgeDirection.SOUTH ? 0 : dir == ForgeDirection.WEST ? 1 : dir == ForgeDirection.EAST ? 3 : 2);
+					case "east":
+						return meta + (dir == ForgeDirection.NORTH ? 3 : dir == ForgeDirection.SOUTH ? 1 : dir == ForgeDirection.WEST ? 0 : dir == ForgeDirection.EAST ? 2 : 3);
+				}
 			} else if (truncatedName.endsWith("door")) {
 				int meta = 0;
-				if (truncatedName.endsWith("door") && "upper".equals(blockStates.get("half"))) {
+				if ("upper".equals(blockStates.get("half"))) {
 					final int rightMeta = dir == ForgeDirection.NORTH || dir == ForgeDirection.SOUTH ? 9 : 8;
 					final int leftMeta = dir == ForgeDirection.NORTH || dir == ForgeDirection.SOUTH ? 8 : 9;
 					return "right".equals(blockStates.get("hinge")) ? rightMeta : leftMeta;
@@ -163,6 +181,21 @@ public class BlockStateConverter {
 					case "north":
 						return meta + (dir == ForgeDirection.NORTH ? 3 : dir == ForgeDirection.SOUTH ? 1 : dir == ForgeDirection.WEST ? 2 : dir == ForgeDirection.EAST ? 0 : 3);
 				}
+			} else if (truncatedName.endsWith("fence_gate")) {
+				int meta = 0;
+				if (Boolean.parseBoolean(blockStates.get("open"))) {
+					meta += 4;
+				}
+				switch (facing) {
+					case "south":
+						return meta + (dir == ForgeDirection.NORTH ? 0 : dir == ForgeDirection.SOUTH ? 2 : dir == ForgeDirection.WEST ? 3 : dir == ForgeDirection.EAST ? 1 : 0);
+					case "west":
+						return meta + (dir == ForgeDirection.NORTH ? 1 : dir == ForgeDirection.SOUTH ? 3 : dir == ForgeDirection.WEST ? 2 : dir == ForgeDirection.EAST ? 0 : 1);
+					case "north":
+						return meta + (dir == ForgeDirection.NORTH ? 2 : dir == ForgeDirection.SOUTH ? 0 : dir == ForgeDirection.WEST ? 1 : dir == ForgeDirection.EAST ? 3 : 2);
+					case "east":
+						return meta + (dir == ForgeDirection.NORTH ? 3 : dir == ForgeDirection.SOUTH ? 1 : dir == ForgeDirection.WEST ? 0 : dir == ForgeDirection.EAST ? 2 : 3);
+				}
 			} else if (truncatedName.endsWith("bed")) {
 				int meta = 0;
 				if ("head".equals(blockStates.get("part"))) {
@@ -178,22 +211,59 @@ public class BlockStateConverter {
 					case "east":
 						return meta + (dir == ForgeDirection.NORTH ? 3 : dir == ForgeDirection.SOUTH ? 1 : dir == ForgeDirection.WEST ? 0 : dir == ForgeDirection.EAST ? 2 : 3);
 				}
-			} else if (truncatedName.endsWith("button")) {
+			} else if (truncatedName.endsWith("repeater") || truncatedName.endsWith("comparator")) {
+				int meta = 0;
+				if (blockStates.containsKey("delay")) {
+					meta = 4 * (Integer.parseInt(blockStates.get("delay")) - 1);
+				}
+				if (truncatedName.endsWith("comparator")) {
+					if ("subtract".equals(blockStates.get("mode"))) {
+						meta += 4;
+					}
+					if (Boolean.parseBoolean(blockStates.get("powered"))) {
+						meta += 8;
+					}
+				}
+				//"locked" and "powered" state for repeater is ignored because it's not a meta in 1.7.10
 				switch (facing) {
-//				case "down":
-//					return 0;
-//				case "up": //TODO: These go in EFR's mappings, the states are also "ceiling and floor" in the "face" state.
-//					return 5;
-					case "north":
-						return dir == ForgeDirection.NORTH ? 4 : dir == ForgeDirection.SOUTH ? 3 : dir == ForgeDirection.WEST ? 2 : dir == ForgeDirection.EAST ? 1 : 0;
 					case "south":
-						return dir == ForgeDirection.NORTH ? 3 : dir == ForgeDirection.SOUTH ? 4 : dir == ForgeDirection.WEST ? 1 : dir == ForgeDirection.EAST ? 2 : 0;
+						return meta + (dir == ForgeDirection.NORTH ? 0 : dir == ForgeDirection.SOUTH ? 2 : dir == ForgeDirection.WEST ? 3 : dir == ForgeDirection.EAST ? 1 : 0);
 					case "west":
-						return dir == ForgeDirection.NORTH ? 2 : dir == ForgeDirection.SOUTH ? 1 : dir == ForgeDirection.WEST ? 4 : dir == ForgeDirection.EAST ? 3 : 0;
+						return meta + (dir == ForgeDirection.NORTH ? 1 : dir == ForgeDirection.SOUTH ? 3 : dir == ForgeDirection.WEST ? 2 : dir == ForgeDirection.EAST ? 0 : 1);
+					case "north":
+						return meta + (dir == ForgeDirection.NORTH ? 2 : dir == ForgeDirection.SOUTH ? 0 : dir == ForgeDirection.WEST ? 1 : dir == ForgeDirection.EAST ? 3 : 2);
 					case "east":
-						return dir == ForgeDirection.NORTH ? 1 : dir == ForgeDirection.SOUTH ? 2 : dir == ForgeDirection.WEST ? 3 : dir == ForgeDirection.EAST ? 4 : 0;
+						return meta + (dir == ForgeDirection.NORTH ? 3 : dir == ForgeDirection.SOUTH ? 1 : dir == ForgeDirection.WEST ? 0 : dir == ForgeDirection.EAST ? 2 : 3);
+				}
+			} else if (truncatedName.endsWith("button")) {
+				int meta = 0;
+				switch (facing) {
+					case "north":
+						return meta + (dir == ForgeDirection.NORTH ? 4 : dir == ForgeDirection.SOUTH ? 3 : dir == ForgeDirection.WEST ? 2 : dir == ForgeDirection.EAST ? 1 : 0);
+					case "south":
+						return meta + (dir == ForgeDirection.NORTH ? 3 : dir == ForgeDirection.SOUTH ? 4 : dir == ForgeDirection.WEST ? 1 : dir == ForgeDirection.EAST ? 2 : 0);
+					case "west":
+						return meta + (dir == ForgeDirection.NORTH ? 2 : dir == ForgeDirection.SOUTH ? 1 : dir == ForgeDirection.WEST ? 4 : dir == ForgeDirection.EAST ? 3 : 0);
+					case "east":
+						return meta + (dir == ForgeDirection.NORTH ? 1 : dir == ForgeDirection.SOUTH ? 2 : dir == ForgeDirection.WEST ? 3 : dir == ForgeDirection.EAST ? 4 : 0);
 					default:
 						return 0;
+				}
+			} else if (truncatedName.endsWith("pressure_plate")) {
+				//Weighted pressure plates have the "power" tag so they get processed at the bottom instead.
+				if (Boolean.parseBoolean(blockStates.get("powered"))) {
+					return 1;
+				}
+			} else if (truncatedName.endsWith("vine")) {
+				switch (facing) {
+					case "south":
+						return dir == ForgeDirection.NORTH ? 1 : dir == ForgeDirection.SOUTH ? 4 : dir == ForgeDirection.WEST ? 8 : dir == ForgeDirection.EAST ? 2 : 0;
+					case "west":
+						return dir == ForgeDirection.NORTH ? 2 : dir == ForgeDirection.SOUTH ? 8 : dir == ForgeDirection.WEST ? 4 : dir == ForgeDirection.EAST ? 1 : 0;
+					case "north":
+						return dir == ForgeDirection.NORTH ? 4 : dir == ForgeDirection.SOUTH ? 1 : dir == ForgeDirection.WEST ? 2 : dir == ForgeDirection.EAST ? 8 : 0;
+					case "east":
+						return dir == ForgeDirection.NORTH ? 8 : dir == ForgeDirection.SOUTH ? 2 : dir == ForgeDirection.WEST ? 1 : dir == ForgeDirection.EAST ? 4 : 0;
 				}
 			} else {
 				switch (facing) {
@@ -230,7 +300,7 @@ public class BlockStateConverter {
 			}
 		} else if (blockStates.containsKey("shape") && truncatedName.endsWith("rail")) {
 			int meta = 0;
-			if (blockStates.containsKey("powered") && Boolean.parseBoolean(blockStates.get("powered"))) {
+			if (Boolean.parseBoolean(blockStates.get("powered"))) {
 				meta = 8;
 			}
 			switch (blockStates.get("shape")) {
@@ -255,13 +325,21 @@ public class BlockStateConverter {
 				case "north_east":
 					return dir == ForgeDirection.NORTH ? 9 : dir == ForgeDirection.SOUTH ? 8 : dir == ForgeDirection.WEST ? 7 : dir == ForgeDirection.EAST ? 6 : 0;
 			}
-
+		} else if (truncatedName.equals("tripwire")) {
+			int meta = 0;
+			meta |= Boolean.parseBoolean(blockStates.get("powered")) ? 0x1 : 0;
+//			meta |= Boolean.parseBoolean(blockStates.get("")) ? 0x2 : 0; //Suspended bit, not present in modern
+			meta |= Boolean.parseBoolean(blockStates.get("attached")) ? 0x4 : 0;
+			meta |= Boolean.parseBoolean(blockStates.get("disarmed")) ? 0x8 : 0;
+			return meta;
 		} else if (truncatedName.equals("brewing_stand")) {
 			int meta = 0;
 			meta |= Boolean.parseBoolean(blockStates.get("has_bottle_0")) ? 0x1 : 0;
 			meta |= Boolean.parseBoolean(blockStates.get("has_bottle_1")) ? 0x2 : 0;
 			meta |= Boolean.parseBoolean(blockStates.get("has_bottle_2")) ? 0x4 : 0;
 			return meta;
+		} else if (truncatedName.endsWith("mushroom_block")) {
+			getHugeMushroomMetaFromState(blockName, blockStates, dir);
 		} else if (blockStates.containsKey("layers")) {
 			return Integer.parseInt(blockStates.get("layers"));
 		} else if (blockStates.containsKey("power")) {
@@ -275,10 +353,49 @@ public class BlockStateConverter {
 		} else if (blockStates.containsKey("moisture")) {
 			return Integer.parseInt(blockStates.get("moisture")) == 7 ? 1 : 0;
 		}
-		//TODO: Map the large mushrooms to the states that exist in 1.7.10, for now I skipped them because they're fucking weird
-		//TODO: Fence gates, pressure plates (maybe, it only has "temporary" states), daylight sensors, repeaters, comparators, skulls, tripwires, tripwire hooks, vines, brewing stand
+		//TODO: skulls
 		//Should we map the "pressed" states of things like pressure plates or buttons, or the state of sleeping in a bed? Should "temporary" states be mapped at all?
 		return 0;
+	}
+
+	public int getHugeMushroomMetaFromState(String blockName, Map<String, String> blockStates, ForgeDirection dir) {
+		boolean up = Boolean.parseBoolean(blockStates.get("up"));
+		boolean down = Boolean.parseBoolean(blockStates.get("down"));
+		boolean north = Boolean.parseBoolean(blockStates.get("north"));
+		boolean east = Boolean.parseBoolean(blockStates.get("east"));
+		boolean south = Boolean.parseBoolean(blockStates.get("south"));
+		boolean west = Boolean.parseBoolean(blockStates.get("west"));
+		if (!up && !down && !north && !east && !south && !west) {
+			return 0;
+		}
+		if (up) {
+			if (east) {
+				if (north) {
+					return 3;
+				}
+				if (south) {
+					return 9;
+				}
+				return 6;
+			}
+			if (west) {
+				if (north) {
+					return 1;
+				}
+				if (south) {
+					return 7;
+				}
+				return 4;
+			}
+			if (north) {
+				return 2;
+			}
+			if (south) {
+				return 8;
+			}
+			return 5;
+		}
+		return 14;
 	}
 
 	/**
@@ -514,6 +631,11 @@ public class BlockStateConverter {
 					}
 					break;
 
+				case "attached_pumpkin_stem":
+				case "attached_melon_stem":
+					meta = 7;
+					break;
+
 				case "infested_cobblestone":
 					meta = 1;
 					break;
@@ -533,11 +655,26 @@ public class BlockStateConverter {
 				case "mossy_stone_bricks":
 					meta = 1;
 					break;
-				case "bracked_stone_bricks":
+				case "cracked_stone_bricks":
 					meta = 2;
 					break;
 				case "chiseled_stone_bricks":
 					meta = 3;
+					break;
+
+				case "mushroom_stem":
+					boolean up = Boolean.parseBoolean(blockStates.get("up"));
+					boolean down = Boolean.parseBoolean(blockStates.get("down"));
+					boolean north = Boolean.parseBoolean(blockStates.get("north"));
+					boolean east = Boolean.parseBoolean(blockStates.get("east"));
+					boolean south = Boolean.parseBoolean(blockStates.get("south"));
+					boolean west = Boolean.parseBoolean(blockStates.get("west"));
+					if (north && east && south && west) {
+						if (up && down) {
+							return 15;
+						}
+						return 10;
+					}
 					break;
 
 				case "mossy_cobblestone_wall":
@@ -804,7 +941,7 @@ public class BlockStateConverter {
 					return Blocks.mob_spawner;
 
 				case "furnace":
-					if (blockStates.containsKey("lit") && Boolean.parseBoolean(blockStates.get("lit"))) {
+					if (Boolean.parseBoolean(blockStates.get("lit"))) {
 						return Blocks.furnace;
 					}
 					break;
@@ -813,7 +950,7 @@ public class BlockStateConverter {
 					return Blocks.stone_stairs;
 
 				case "redstone_ore":
-					if (blockStates.containsKey("lit") && Boolean.parseBoolean(blockStates.get("lit"))) {
+					if (Boolean.parseBoolean(blockStates.get("lit"))) {
 						return Blocks.lit_redstone_ore;
 					}
 
@@ -822,7 +959,7 @@ public class BlockStateConverter {
 					return Blocks.torch;
 				case "redstone_wall_torch":
 				case "redstone_torch":
-					if (blockStates.containsKey("lit") && !Boolean.parseBoolean(blockStates.get("lit"))) {
+					if (!Boolean.parseBoolean(blockStates.get("lit"))) {
 						return Blocks.unlit_redstone_torch;
 					}
 					return Blocks.redstone_torch;
@@ -852,7 +989,7 @@ public class BlockStateConverter {
 				case "chiseled_stone_bricks":
 					return Blocks.stonebrick;
 
-				case "mushroom_stem": //TODO: Verify how to check if a stem is a red or brown mushroom stem
+				case "mushroom_stem":
 					return Blocks.red_mushroom_block;
 
 				case "melon":
@@ -865,7 +1002,7 @@ public class BlockStateConverter {
 					return Blocks.nether_brick;
 
 				case "redstone_lamp":
-					if (blockStates.containsKey("lit") && Boolean.parseBoolean(blockStates.get("lit"))) {
+					if (Boolean.parseBoolean(blockStates.get("lit"))) {
 						return Blocks.lit_redstone_lamp;
 					}
 
@@ -873,7 +1010,7 @@ public class BlockStateConverter {
 					return Blocks.cobblestone_wall;
 
 				case "daylight_detector":
-					if (blockStates.containsKey("inverted") && Boolean.parseBoolean(blockStates.get("inverted"))) {
+					if (Boolean.parseBoolean(blockStates.get("inverted"))) {
 						return Blocks.stone; //There is no inverted daylight detector in 1.7.10, this goes in the EFR mapping.
 					} else {
 						return Blocks.daylight_detector;
@@ -898,14 +1035,14 @@ public class BlockStateConverter {
 					return Blocks.double_plant;
 
 				case "repeater":
-					if (blockStates.containsKey("powered") && Boolean.parseBoolean(blockStates.get("powered"))) {
+					if (Boolean.parseBoolean(blockStates.get("powered"))) {
 						return Blocks.powered_repeater;
 					} else {
 						return Blocks.unpowered_repeater;
 					}
 
 				case "comparator":
-					if (blockStates.containsKey("powered") && Boolean.parseBoolean(blockStates.get("powered"))) {
+					if (Boolean.parseBoolean(blockStates.get("powered"))) {
 						return Blocks.powered_comparator;
 					} else {
 						return Blocks.unpowered_comparator;
@@ -950,8 +1087,6 @@ public class BlockStateConverter {
 				case "potted_acacia_sapling":
 				case "potted_dark_oak_sapling":
 					return Blocks.flower_pot;
-
-				//TODO: tripwires, redstone wires
 
 				case "oak_pressure_plate":
 					return Blocks.wooden_pressure_plate;
