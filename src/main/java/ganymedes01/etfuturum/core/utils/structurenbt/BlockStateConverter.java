@@ -2,6 +2,7 @@ package ganymedes01.etfuturum.core.utils.structurenbt;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -40,7 +41,130 @@ public class BlockStateConverter {
 	 * TODO: This will be used for mapping BlockState data to what was TE data in 1.7.10.
 	 */
 	public BlockStateContainer createBlockStateContainer(String blockName, Block block, Map<String, String> blockStates, ForgeDirection dir) {
-		return new BlockStateContainer(block, getMetaFromStateWithSubtypeAdditions(blockName, blockStates, dir));
+		BlockStateContainer bsc = new BlockStateContainer(block, getMetaFromStateWithSubtypeAdditions(blockName, blockStates, dir));
+		NBTTagCompound nbt = null;
+		if (block instanceof ITileEntityProvider) {
+			String truncatedName = blockName.substring(blockName.indexOf(":") + 1);
+			if (truncatedName.startsWith("potted")) {
+				Block pottedBlock = null;
+				int pottedMeta = 0;
+				switch (truncatedName.replace("potted_", "")) {
+					case "dandelion":
+						pottedBlock = Blocks.yellow_flower;
+						break;
+					case "poppy":
+						pottedBlock = Blocks.red_flower;
+						break;
+					case "blue_orchid":
+						pottedBlock = Blocks.red_flower;
+						pottedMeta = 1;
+						break;
+					case "allium":
+						pottedBlock = Blocks.red_flower;
+						pottedMeta = 2;
+						break;
+					case "azure_bluet":
+						pottedBlock = Blocks.red_flower;
+						pottedMeta = 3;
+						break;
+					case "oxeye_daisy":
+						pottedBlock = Blocks.red_flower;
+						pottedMeta = 8;
+						break;
+					case "red_tulip":
+						pottedBlock = Blocks.red_flower;
+						pottedMeta = 4;
+						break;
+					case "orange_tulip":
+						pottedBlock = Blocks.red_flower;
+						pottedMeta = 5;
+						break;
+					case "white_tulip":
+						pottedBlock = Blocks.red_flower;
+						pottedMeta = 6;
+						break;
+					case "pink_tulip":
+						pottedBlock = Blocks.red_flower;
+						pottedMeta = 7;
+						break;
+					case "fern":
+						pottedBlock = Blocks.tallgrass;
+						pottedMeta = 2;
+						break;
+					case "cactus":
+						pottedBlock = Blocks.cactus;
+						break;
+					case "dead_bush":
+						pottedBlock = Blocks.deadbush;
+						break;
+					case "red_mushroom":
+						pottedBlock = Blocks.red_mushroom;
+						break;
+					case "brown_mushroom":
+						pottedBlock = Blocks.brown_mushroom;
+						break;
+					case "oak_sapling":
+						pottedBlock = Blocks.brown_mushroom;
+						break;
+					case "spruce_sapling":
+						pottedBlock = Blocks.brown_mushroom;
+						pottedMeta = 1;
+						break;
+					case "birch_sapling":
+						pottedBlock = Blocks.brown_mushroom;
+						pottedMeta = 2;
+						break;
+					case "jungle_sapling":
+						pottedBlock = Blocks.brown_mushroom;
+						pottedMeta = 3;
+						break;
+					case "acacia_sapling":
+						pottedBlock = Blocks.brown_mushroom;
+						pottedMeta = 4;
+						break;
+					case "dark_oak_sapling":
+						pottedBlock = Blocks.brown_mushroom;
+						pottedMeta = 5;
+						break;
+					default:
+						break;
+				}
+				if (pottedBlock != null) {
+					nbt = new NBTTagCompound();
+					nbt.setInteger("Item", Block.getIdFromBlock(pottedBlock));
+					nbt.setInteger("Data", pottedMeta);
+				}
+			} else if ((truncatedName.endsWith("skull") || truncatedName.endsWith("head"))) {
+				nbt = new NBTTagCompound();
+				if (!truncatedName.contains("wall")) {
+					if (blockStates.containsKey("rotation")) {
+						nbt.setByte("Rot", (byte) getRotationFromDir(Integer.parseInt(blockStates.get("rotation")), dir));
+					}
+				}
+				int type = 0;
+				switch (truncatedName.replace("_head", "").replace("_skull", "").replace("_wall", "")) {
+					case "wither_skeleton":
+						type = 1;
+						break;
+					case "zombie":
+						type = 2;
+						break;
+					case "player":
+						type = 3;
+						break;
+					case "creeper":
+						type = 4;
+						break;
+					default:
+						break;
+				}
+				nbt.setByte("SkullType", (byte) (type & 255));
+			}
+		}
+		if (nbt != null) {
+			bsc.setCompound(nbt);
+		}
+		return bsc;
 	}
 
 	/**
@@ -79,6 +203,8 @@ public class BlockStateConverter {
 			return 5;
 			//For blocks that can face in different directions
 			//Note not every block that uses this state has the same meta values in 1.7.10, there will be a lot
+		} else if ((truncatedName.contains("skull") || truncatedName.contains("head")) && !truncatedName.contains("wall")) {
+			return 1;
 		} else if (blockStates.containsKey("facing")) {
 			String facing = blockStates.get("facing");
 			if (truncatedName.endsWith("wall_torch") || truncatedName.endsWith("stairs")) {
@@ -349,7 +475,7 @@ public class BlockStateConverter {
 		} else if (blockStates.containsKey("age")) {
 			return Integer.parseInt(blockStates.get("age"));
 		} else if (blockStates.containsKey("rotation")) {
-			return Integer.parseInt(blockStates.get("rotation"));
+			return getRotationFromDir(Integer.parseInt(blockStates.get("rotation")), dir);
 		} else if (blockStates.containsKey("moisture")) {
 			return Integer.parseInt(blockStates.get("moisture")) == 7 ? 1 : 0;
 		}
@@ -429,6 +555,20 @@ public class BlockStateConverter {
 	 */
 	protected final boolean blockStatesContain(Map<String, String> blockStates, String string) {
 		return blockStates.keySet().stream().anyMatch(stateName -> stateName.contains(string));
+	}
+
+	protected final int getRotationFromDir(int rotation, ForgeDirection dir) {
+		switch (dir) {
+			case NORTH:
+				return rotation;
+			case SOUTH:
+				return (rotation + 8) % 16;
+			case EAST:
+				return (4 - rotation) % 16;
+			case WEST:
+				return (12 - rotation) % 16;
+		}
+		return 0;
 	}
 
 	/**
@@ -573,6 +713,49 @@ public class BlockStateConverter {
 					break;
 				case "oxeye_daisy":
 					meta = 8;
+					break;
+
+				case "potted_blue_orchid":
+					meta = 1;
+					break;
+				case "potted_allium":
+					meta = 2;
+					break;
+				case "potted_azure_bluet":
+					meta = 3;
+					break;
+				case "potted_oxeye_daisy":
+					meta = 8;
+					break;
+				case "potted_red_tulip":
+					meta = 4;
+					break;
+				case "potted_orange_tulip":
+					meta = 5;
+					break;
+				case "potted_white_tulip":
+					meta = 6;
+					break;
+				case "potted_pink_tulip":
+					meta = 7;
+					break;
+				case "potted_fern":
+					meta = 2;
+					break;
+				case "potted_spruce_sapling":
+					meta = 1;
+					break;
+				case "potted_birch_sapling":
+					meta = 2;
+					break;
+				case "potted_jungle_sapling":
+					meta = 3;
+					break;
+				case "potted_acacia_sapling":
+					meta = 4;
+					break;
+				case "potted_dark_oak_sapling":
+					meta = 5;
 					break;
 
 				case "spruce_slab":
@@ -1052,12 +1235,12 @@ public class BlockStateConverter {
 				case "skeleton_wall_skull":
 				case "wither_skeleton_skull":
 				case "wither_skeleton_wall_skull":
-				case "zombie_skull":
-				case "zombie_wall_skull":
-				case "player_skull":
-				case "player_wall_skull":
-				case "creeper_skull":
-				case "creeper_wall_skull":
+				case "zombie_head":
+				case "zombie_wall_head":
+				case "player_head":
+				case "player_wall_head":
+				case "creeper_head":
+				case "creeper_wall_head":
 					return Blocks.skull;
 
 				case "attached_pumpkin_stem":

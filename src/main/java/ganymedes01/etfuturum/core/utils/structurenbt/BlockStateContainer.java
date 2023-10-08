@@ -4,12 +4,13 @@ import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ChestGenHooks;
 
 /**
- * Used to store the results of an unflattening in meta, to easily store it in a map after reading a structure NBT file.
+ * Used to store the results of an unflattening an ID and meta, to easily store it in a map after reading a structure NBT's palette.
  */
 public class BlockStateContainer {
 
@@ -83,14 +84,15 @@ public class BlockStateContainer {
 	 * Only works on IInventory block entities.
 	 */
 	public ChestGenHooks getLootTable() {
-		if (type != BlockStateType.BLOCK_ENTITY) {
+		if (type != BlockStateType.BLOCK_ENTITY && (type != BlockStateType.ENTITY || !theObject.getClass().isInstance(IInventory.class))) {
 			throw new IllegalArgumentException("Tried to get a loot table from a non-entity block!");
 		}
 		return lootTable;
 	}
 
 	public void setLootTable(ChestGenHooks info) {
-		if (type != BlockStateType.BLOCK_ENTITY) {
+		//Dead warning; if it's not BLOCK_ENTITY it can be ENTITY or BLOCK, so IntelliJ's warning is wrong here.
+		if (type != BlockStateType.BLOCK_ENTITY && (type != BlockStateType.ENTITY || !theObject.getClass().isInstance(IInventory.class))) {
 			throw new IllegalArgumentException("Tried to set a loot table from a non-entity block!");
 		}
 		lootTable = info;

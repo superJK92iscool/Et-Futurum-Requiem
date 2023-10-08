@@ -209,7 +209,7 @@ public class NBTStructure {
 
 	protected void setBlockState(World world, Random rand, int x, int y, int z, BlockStateContainer state, float integrity) {
 		if (integrity >= 1 || (0 < integrity && rand.nextFloat() <= integrity)) {
-			BlockStateContainer newState = getBlockState(world, rand, x, y, z, state);
+			BlockStateContainer newState = getBlockStateContainer(world, rand, x, y, z, state);
 			if (newState != null) {
 				world.setBlock(x, y, z, state.getBlock(), state.getMeta(), 2);
 				if (state.getType() == BlockStateContainer.BlockStateType.BLOCK_ENTITY) {
@@ -222,6 +222,7 @@ public class NBTStructure {
 						te.blockType = state.getBlock();
 						te.blockMetadata = state.getMeta();
 						te.readFromNBT(getTileEntityNBT(world, rand, x, y, z, state, integrity, nbt));
+						te.markDirty();
 						if (te instanceof IInventory && state.getLootTable() != null) {
 							WeightedRandomChestContent.generateChestContents(world.rand, state.getLootTable().getItems(world.rand), (IInventory) te, state.getLootTable().getCount(world.rand));
 						}
@@ -241,7 +242,7 @@ public class NBTStructure {
 	 * Override if this block should turn into something else when placing itself.
 	 * null = nothing, don't use Blocks.air
 	 */
-	protected BlockStateContainer getBlockState(World world, Random rand, int x, int y, int z, BlockStateContainer state) {
+	protected BlockStateContainer getBlockStateContainer(World world, Random rand, int x, int y, int z, BlockStateContainer state) {
 		return state;
 	}
 
