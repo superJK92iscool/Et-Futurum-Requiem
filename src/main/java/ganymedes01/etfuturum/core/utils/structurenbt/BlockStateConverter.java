@@ -571,6 +571,34 @@ public class BlockStateConverter {
 		return 0;
 	}
 
+	public ForgeDirection getItemFrameDirFromRotation(int rotation) {
+		switch (rotation) {
+			case 0:
+				return ForgeDirection.NORTH;
+			case 1:
+				return ForgeDirection.EAST;
+			case 2:
+				return ForgeDirection.SOUTH;
+			case 3:
+			default:
+				return ForgeDirection.WEST;
+		}
+	}
+
+	public int getItemFrameRotationFromDir(ForgeDirection dir) {
+		switch (dir) {
+			case NORTH:
+				return 0;
+			case EAST:
+				return 1;
+			case SOUTH:
+				return 2;
+			case WEST:
+			default:
+				return 3;
+		}
+	}
+
 	/**
 	 * Calls getMetaFromState and adds the metadata for sub-blocks as well (eg minecraft:black_wool adds to 15)
 	 * This intentionally contains duplicate switch case statements and more individualized math functions just to make it easier to read what it's doing at a glance.

@@ -1,13 +1,18 @@
 package ganymedes01.etfuturum.core.utils.structurenbt;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.core.utils.Logger;
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
+import net.minecraft.block.BlockSign;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityHanging;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.nbt.*;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.MathHelper;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -26,7 +31,7 @@ public class NBTStructure {
 	private final Map<BlockPos, BlockStateContainer>[] buildMaps = new Map[4]; //For storing the results of iterating over the palette and BlockState coords
 	private final BlockPos[] sizes;
 	private final String location;
-	private final BlockStateConverter converter;
+	protected final BlockStateConverter converter;
 
 	public NBTStructure(String loc) {
 		this(loc, BlockStateConverter.DEFAULT_INSTANCE);
@@ -70,11 +75,11 @@ public class NBTStructure {
 						isStructureBlock = true;
 						structureBlocks.put(pos, comp.getCompoundTag("nbt").getString("metadata"));
 					} else if (state.getType() == BlockStateContainer.BlockStateType.BLOCK_ENTITY) {
-						setNBTAction(pos, state, comp.getCompoundTag("nbt"), getFacingFromInt(facing));
+						getNBTAction(pos, state, comp.getCompoundTag("nbt"), getFacingFromInt(facing));
 					}
 				}
 
-				//Structure blocks don't exist in 1.7.10 and should not generate naturally anyways.
+				//Structure blocks don't exist in 1.7.10 and should not generate anyways.
 				if (!isStructureBlock) {
 					map.put(pos, state);
 				}
@@ -91,24 +96,54 @@ public class NBTStructure {
 	}
 
 	/**
-	 * Fires whenever a block has NBT stored in it. Specify what you want to set the NBT to.
-	 * By default we return null. This is because many block entities use entirely different NBT tags in modern versions.
-	 * Additionally, inventory data won't work from modern versions. So you have to specify what to make the NBT yourself.
+	 * Fires when building the palette of a structure, when a tile entity with NBT data is found.
+	 * Most NBT data in modern versions is different from the format in 1.7.10, modernCompound exists solely as a reference and should not be directly applied.
 	 * <p>
 	 * You can use state.setCompound() to give the BlockState an NBT tag. Fair warning, the "compound" arg gives the NBT compound from the modern version of the block.
 	 * So if you just used state.setCompound(compound) do not expect it to work at all, it exists as a reference to build your own NBT from.
 	 * <p>
-	 * Do NOT set the X, Y, or Z coords for the block. The game will do it for you.
-	 * The structure can generate anywhere, you don't know the world coords of this block yet.
-	 * <p>
-	 * null = We don't set anything for this block, the game will just create the default NBT for the block.
+	 * Do NOT set the X, Y, or Z coords for the block. The NBT structure generator will do it for you.
 	 *
-	 * @param pos      The position (relative to the structure) of the block. This is a structure pos, NOT the world pos!
-	 * @param state    The BlockState (block/meta)
-	 * @param compound What the modern NBT tag for this block contains.
-	 * @param facing   Which direction the structure is rotated towards.
+	 * @param pos            The position (relative to the structure) of the block. This is NOT the world pos, this is the pos the block is relative to the structure's origin. (0, 0, 0)
+	 * @param state          The BlockState. (block/meta) Use BlockStateContainer#setCompound to set the block's NBT tags. Note that just setting it to modernCompound usually will not work.
+	 * @param modernCompound What the modern NBT tag for this block contains.
+	 * @param facing         Which direction the structure is rotated towards.
 	 */
-	public void setNBTAction(BlockPos pos, BlockStateContainer state, NBTTagCompound compound, ForgeDirection facing) {
+	public void getNBTAction(BlockPos pos, BlockStateContainer state, NBTTagCompound modernCompound, ForgeDirection facing) {
+		if (state.getBlock() instanceof BlockSign) {
+			NBTTagCompound signText = new NBTTagCompound();
+			if (modernCompound.hasKey("front_text")) { //Post 1.20 sign data
+				NBTTagCompound frontTextCompound = modernCompound.getCompoundTag("front_text");
+				if (frontTextCompound.hasKey("messages")) {
+					NBTTagList list = frontTextCompound.getTagList("messages", 8);
+					for (int i = 0; i < 4; i++) {
+						signText.setString("Text" + (i + 1), getJsonTextValue(list.getStringTagAt(i)));
+					}
+					state.setCompound(signText);
+				}
+			} else if (modernCompound.hasKey("Text1") && modernCompound.hasKey("Text2")
+					&& modernCompound.hasKey("Text3") && modernCompound.hasKey("Text4")) { //Pre-1.20 sign text format. Untested but should theoretically work.
+				for (int i = 1; i <= 4; i++) {
+					signText.setString("Text" + i, getJsonTextValue(modernCompound.getString("Text" + i)));
+				}
+				state.setCompound(signText);
+			}
+		}
+	}
+
+	/**
+	 * Converts a '{"text":""}' JSON component to a string. Used by signs to turn the JSON text into "regular" text.
+	 * Example input: '{"text":"foo"}' will return 'foo'. Returns an empty string if the input is not a JSON string that is also named "text"
+	 *
+	 * @param jsonComponent
+	 * @return
+	 */
+	protected String getJsonTextValue(String jsonComponent) {
+		try {
+			return new Gson().fromJson(jsonComponent, JsonObject.class).get("text").getAsString();
+		} catch (Exception e) {
+			return "";
+		}
 	}
 
 	/**
@@ -197,7 +232,7 @@ public class NBTStructure {
 			Entity entity = entry.getValue().createNewEntity(world);
 			BlockPos pos = entry.getKey();
 			entity.readFromNBT(entry.getValue().getCompound());
-			entity.setPosition(pos.getX() + x + 0.5D, pos.getY() + y, pos.getZ() + z + 0.5D);
+			onEntityCreated(entity, entry.getValue().getCompound(), x, y, z, pos, facing);
 			world.spawnEntityInWorld(entity);
 //			Logger.info(entity.posX + " " + entity.posY + " " + entity.posZ + " " + world.getBlock((int) entity.posX, (int) entity.posY, (int) entity.posZ).getUnlocalizedName());
 //			if (entity instanceof EntityShulker) {
@@ -205,6 +240,16 @@ public class NBTStructure {
 //			}
 		}
 		return true;
+	}
+
+	protected final void onEntityCreated(Entity entity, NBTTagCompound containerCompound, int x, int y, int z, BlockPos offsetPos, ForgeDirection dir) {
+		entity.setPosition(offsetPos.getX() + x + 0.5D, offsetPos.getY() + y, offsetPos.getZ() + z + 0.5D);
+		if (entity instanceof EntityHanging) {
+			ForgeDirection hangingDir = converter.getItemFrameDirFromRotation(((EntityHanging) entity).hangingDirection);
+			((EntityHanging) entity).field_146063_b = MathHelper.floor_double(offsetPos.getX() + x) + hangingDir.offsetX;
+			((EntityHanging) entity).field_146064_c = MathHelper.floor_double(offsetPos.getY() + y);
+			((EntityHanging) entity).field_146062_d = MathHelper.floor_double(offsetPos.getZ() + z) + hangingDir.offsetZ;
+		}
 	}
 
 	protected void setBlockState(World world, Random rand, int x, int y, int z, BlockStateContainer state, float integrity) {
@@ -221,7 +266,7 @@ public class NBTStructure {
 						nbt.setInteger("z", z);
 						te.blockType = state.getBlock();
 						te.blockMetadata = state.getMeta();
-						te.readFromNBT(getTileEntityNBT(world, rand, x, y, z, state, integrity, nbt));
+						te.readFromNBT(getTileEntityNBTPostPlace(world, rand, x, y, z, state, integrity, nbt));
 						te.markDirty();
 						if (te instanceof IInventory && state.getLootTable() != null) {
 							WeightedRandomChestContent.generateChestContents(world.rand, state.getLootTable().getItems(world.rand), (IInventory) te, state.getLootTable().getCount(world.rand));
@@ -232,9 +277,21 @@ public class NBTStructure {
 		}
 	}
 
-	//TODO: Tile NBT is specific to the position of the block instead of a palette mapping, make sure we can access that here. We need to store the modern NBT and the locations of them.
-	//This will likely be a new field in BlockStateContainer for the modern NBT. Should probably also have default NBT parsing for chests and signs.
-	protected NBTTagCompound getTileEntityNBT(World world, Random rand, int x, int y, int z, BlockStateContainer state, float integrity, NBTTagCompound nbt) {
+	/**
+	 * Used for specifying a custom NBT compound for a tile entity, separate from the build map.
+	 * Use this if you need to add metadata to the block without baking it into the build map.
+	 *
+	 * @param world
+	 * @param rand
+	 * @param x
+	 * @param y
+	 * @param z
+	 * @param state
+	 * @param integrity
+	 * @param nbt
+	 * @return The tag compound that will be applied to the tile entity. If you create a new NBTTagCompound instance don't forget to set the x y and z coords in the new compound.
+	 */
+	protected NBTTagCompound getTileEntityNBTPostPlace(World world, Random rand, int x, int y, int z, BlockStateContainer state, float integrity, NBTTagCompound nbt) {
 		return nbt;
 	}
 
@@ -369,7 +426,7 @@ public class NBTStructure {
 	 * <p>
 	 * NOTE: If the palette entry is minecraft:structure_block it doesn't matter what you put here, it's handled later because they store special data.
 	 * I recommend you don't map it to anything, or just set it to null as it won't make a difference.
-	 * Override setStructureBlockAction if you want something to appear where a BlockState is.
+	 * Override setStructureBlockAction if you want something to appear where a structure block is.
 	 * <p>
 	 * Also don't set NBT here just yet, the NBT is stored in the block map itself so if you want to give one of your block entities NBT, override that function instead.
 	 */

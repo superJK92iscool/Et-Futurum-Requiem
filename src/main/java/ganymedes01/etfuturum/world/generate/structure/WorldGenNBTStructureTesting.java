@@ -4,7 +4,10 @@ import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import ganymedes01.etfuturum.core.utils.structurenbt.BlockStateContainer;
 import ganymedes01.etfuturum.core.utils.structurenbt.EFRBlockStateConverter;
 import ganymedes01.etfuturum.core.utils.structurenbt.NBTStructure;
+import ganymedes01.etfuturum.entities.EntityShulker;
+import net.minecraft.entity.item.EntityItemFrame;
 import net.minecraft.init.Blocks;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.common.ChestGenHooks;
@@ -52,16 +55,20 @@ public class WorldGenNBTStructureTesting extends WorldGenerator {
 		}
 
 		@Override
-		public BlockStateContainer setStructureBlockAction(BlockPos pos, BlockStateContainer below, String data, ForgeDirection facing) {
+		public BlockStateContainer setStructureBlockAction(BlockPos pos, BlockStateContainer below, String data, ForgeDirection dir) {
+			if (data.equals("Elytra")) {
+				NBTTagCompound comp = new NBTTagCompound();
+				comp.setByte("Direction", (byte) (converter.getItemFrameRotationFromDir(dir)));
+				return new BlockStateContainer(EntityItemFrame.class, comp);
+			}
 			if (data.equals("Chest")) {
 				below.setLootTable(ChestGenHooks.getInfo("netherFortress"));
-				return new BlockStateContainer(Blocks.air, 0);
 			}
-//			if (data.equals("Sentry")) {
-//				NBTTagCompound comp = new NBTTagCompound();
-//				comp.setByte("Color", (byte) 16);
-//				return new BlockStateContainer(EntityShulker.class, comp);
-//			}
+			if (data.equals("Sentry")) {
+				NBTTagCompound comp = new NBTTagCompound();
+				comp.setByte("Color", (byte) 16);
+				return new BlockStateContainer(EntityShulker.class, comp);
+			}
 			return new BlockStateContainer(Blocks.air, 0);
 		}
 	}
