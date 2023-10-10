@@ -9,8 +9,10 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -27,13 +29,24 @@ public abstract class MixinBlockFire extends Block implements ISoulFireInfo {
 		super(m);
 	}
 
+	@Unique
+	private boolean etfuturum$isVanillaFire() {
+		return ((Object) this) == Blocks.fire;
+	}
+
 	@Inject(method = "updateTick", at = @At(value = "HEAD"), cancellable = true)
 	private void shouldSpread(World world, int x, int y, int z, Random p_149674_5_, CallbackInfo ci) {
-		if ((Object) this == Blocks.fire) { //Only want to do this to vanilla fire, not modded fire.
-			if (isSoulFire(world, x, y, z)) { //For some reason if I put them together IntelliJ has a false warning
-				ci.cancel();
-			}
+		if (etfuturum$isVanillaFire() && isSoulFire(world, x, y, z)) { //Only want to do this to vanilla fire, not modded fire.
+			ci.cancel();
 		}
+	}
+
+	@Override
+	public int getLightValue(IBlockAccess world, int x, int y, int z) {
+		if (etfuturum$isVanillaFire() && isSoulFire(world, x, y, z)) { //Only want to do this to vanilla fire, not modded fire.
+			return 10;
+		}
+		return super.getLightValue(world, x, y, z);
 	}
 
 	@Inject(method = "registerBlockIcons", at = @At(value = "HEAD"))
