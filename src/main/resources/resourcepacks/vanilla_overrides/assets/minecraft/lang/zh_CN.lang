@@ -62,9 +62,22 @@ tile.daylightDetector.name=阳光探测器
 
 item.redstone.name=红石粉
 item.melon.name=西瓜片
+item.fish.cod.raw.name=生鳕鱼
+item.fish.cod.cooked.name=熟鳕鱼
+item.seeds.name=小麦种子
 
+#These keys only enable if their respective item is enabled EG Red Bed only if colored beds are enabled, and Oak Boat only if new boats are enabled and replaceOldBoats is not true
+
+#These two have to exist as a new EFR key, because in 1.7.10 stone and wood pressure plates and buttons share the same key.
+tile.etfuturum.oak_pressure_plate.name=橡木压力板
+tile.etfuturum.oak_button.name=橡木按钮
 
 item.bed.name=红色床
 tile.bed.name=红色床
+item.sign.name=橡木告示牌
+tile.sign.name=橡木告示牌
+item.doorWood.name=橡木门
+tile.doorWood.name=橡木门
 tile.fence.name=橡木栅栏
+tile.fenceGate.name=橡木栅栏门
 tile.trapdoor.name=橡木活板门
