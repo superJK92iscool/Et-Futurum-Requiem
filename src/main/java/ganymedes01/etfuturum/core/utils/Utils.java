@@ -3,7 +3,6 @@ package ganymedes01.etfuturum.core.utils;
 import cpw.mods.fml.common.Loader;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
-import ganymedes01.etfuturum.core.utils.helpers.Vec3i;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -379,5 +378,23 @@ public class Utils {
 		float f1 = (float) Math.abs(y2 - y1);
 		float f2 = (float) Math.abs(z2 - z1);
 		return (int) (f + f1 + f2);
+	}
+
+	public static void main(String args[]) {
+		int i, j;
+//outer loop
+		outer:
+		//label
+		for (i = 1; i <= 5; i++) {
+			System.out.println();
+//inner loop
+			inner:
+			//label
+			for (j = 1; j <= 10; j++) {
+				System.out.print(j + " ");
+				if (j == 9)
+					break inner;
+			}
+		}
 	}
 }

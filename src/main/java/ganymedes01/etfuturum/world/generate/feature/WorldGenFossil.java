@@ -1,7 +1,6 @@
 package ganymedes01.etfuturum.world.generate.feature;
 
 import com.google.common.collect.Lists;
-import ganymedes01.etfuturum.api.mappings.RegistryMapping;
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import ganymedes01.etfuturum.core.utils.structurenbt.EFRBlockStateConverter;
 import ganymedes01.etfuturum.core.utils.structurenbt.NBTStructure;
@@ -19,11 +18,8 @@ import java.util.Random;
 public class WorldGenFossil extends WorldGenerator {
 
 	private final List<Pair<NBTStructure, NBTStructure>> fossils;
-	private final RegistryMapping<Block> bone;
 
-	public WorldGenFossil(RegistryMapping<Block> bone) {
-
-		this.bone = bone;
+	public WorldGenFossil() {
 
 		fossils = Lists.newArrayList();
 

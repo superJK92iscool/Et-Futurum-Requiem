@@ -1,10 +1,6 @@
 package ganymedes01.etfuturum.api.mappings;
 
-import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.OreDictionary;
-import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.Random;
 
@@ -20,19 +16,14 @@ public class RawOreDropMapping extends RegistryMapping<Item> {
 	 */
 	public RawOreDropMapping(Item ore, int meta) {
 		super(ore, meta);
-		for (int oreID : OreDictionary.getOreIDs(new ItemStack(ore, 1, meta))) {
-			String oreName = OreDictionary.getOreName(oreID);
-			if (oreName != null && oreName.startsWith("ore")) {
-				this.exdrops = ArrayUtils.contains(ConfigFunctions.extraDropRawOres, oreName);
-				if (exdrops) {
-					break;
-				}
-			}
-		}
 	}
 
 	public boolean getDropsExtra() {
 		return exdrops;
+	}
+
+	public void setDropsExtra(boolean exdrops) {
+		this.exdrops = exdrops;
 	}
 
 	public int getDropAmount(Random rand, int fortune) {

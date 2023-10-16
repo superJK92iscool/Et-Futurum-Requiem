@@ -744,6 +744,23 @@ public class EtFuturum {
 		return false;
 	}
 
+	public static boolean dictTagsStartWith(Block block, String stringToFind) {
+		return dictTagsContain(new ItemStack(block), stringToFind);
+	}
+
+	public static boolean dictTagsStartWith(Item item, String stringToFind) {
+		return dictTagsContain(new ItemStack(item), stringToFind);
+	}
+
+	public static boolean dictTagsStartWith(ItemStack stack, String stringToFind) {
+		for (String oreName : getOreStrings(stack)) {
+			if (oreName.startsWith(stringToFind)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public static boolean dictTagsContain(Block block, String stringToFind) {
 		return dictTagsContain(new ItemStack(block), stringToFind);
 	}

@@ -81,6 +81,10 @@ public enum ModItems {
 	ITEM_SIGN_ACACIA(ConfigBlocksItems.enableSigns, new ItemWoodSign((BlockWoodSign) ModBlocks.SIGN_ACACIA.get())),
 	ITEM_SIGN_DARK_OAK(ConfigBlocksItems.enableSigns, new ItemWoodSign((BlockWoodSign) ModBlocks.SIGN_DARK_OAK.get())),
 
+	//Mod Support
+	MODDED_RAW_ORE(ConfigBlocksItems.enableRawOres, new ItemModdedRawOre()),
+
+	//Debug Item
 	DEBUGGING_TOOL(EtFuturum.TESTING && EtFuturum.DEV_ENVIRONMENT, new DebugTestItem());
 
 	public static final ModItems[] CHEST_BOATS = new ModItems[]{OAK_CHEST_BOAT, SPRUCE_CHEST_BOAT, BIRCH_CHEST_BOAT, JUNGLE_CHEST_BOAT, ACACIA_CHEST_BOAT, DARK_OAK_CHEST_BOAT};

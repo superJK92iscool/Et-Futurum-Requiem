@@ -11,6 +11,7 @@ import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.entities.EntityNewBoat;
+import ganymedes01.etfuturum.items.ItemModdedRawOre;
 import ganymedes01.etfuturum.items.ItemSuspiciousStew;
 import ganymedes01.etfuturum.lib.EnumColour;
 import ganymedes01.etfuturum.lib.Reference;
@@ -35,6 +36,7 @@ import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
@@ -255,9 +257,29 @@ public class ModRecipes {
 		registerOre("rawGold", ModItems.RAW_ORE.newItemStack(1, 2));
 		registerOre("blockRawGold", ModBlocks.RAW_ORE_BLOCK.newItemStack(1, 2));
 
-		registerOre("oreCopper", ModItems.RAW_ORE.newItemStack()); //Todo: the registration of copper raw ore should be conditional because it is a configurable meta value, I may make the raw ore class itself provide enabled metas.
-		registerOre("oreIron", ModItems.RAW_ORE.newItemStack(1, 1));
-		registerOre("oreGold", ModItems.RAW_ORE.newItemStack(1, 2));
+		if (ConfigFunctions.registerRawItemAsOre) {
+			registerOre("oreCopper", ModItems.RAW_ORE.newItemStack()); //Todo: the registration of copper raw ore should be conditional because it is a configurable meta value, I may make the raw ore class itself provide enabled metas.
+			registerOre("oreIron", ModItems.RAW_ORE.newItemStack(1, 1));
+			registerOre("oreGold", ModItems.RAW_ORE.newItemStack(1, 2));
+		}
+
+		//Insert alternate Mythril spelling to list. Yes I know "mithril" is technically the primary spelling but "mythril" is used by most mods, so "mithril" is secondary to it here.
+		for (int i = 0; i < ItemModdedRawOre.ores.length; i++) {
+			String type = ItemModdedRawOre.ores[i];
+			int variations = (type.equals("ingotMythril") ? 2 : 1);
+			for (int j = 0; j < variations; j++) { //If it's mythril, we'll run this once more, changing the spelling to mithril to account for both tags.
+				if (!OreDictionary.getOres(type).isEmpty()) {
+					registerOre(type.replace("ingot", "raw"), ModItems.MODDED_RAW_ORE.newItemStack(1, i));
+					registerOre(type.replace("ingot", "blockRaw"), ModBlocks.MODDED_RAW_ORE_BLOCK.newItemStack(1, i));
+					if (ConfigFunctions.registerRawItemAsOre) {
+						registerOre(type.replace("ingot", "ore"), ModItems.MODDED_RAW_ORE.newItemStack(1, i));
+					}
+				}
+				if (j == 1) {
+					type = "ingotMithril"; //Redoes it once more for mithril spelling
+				}
+			}
+		}
 
 		registerOre("record", ModItems.PIGSTEP_RECORD.get());
 		registerOre("record", ModItems.OTHERSIDE_RECORD.get());
@@ -805,24 +827,38 @@ public class ModRecipes {
 
 		addShapedRecipe(ModBlocks.MOSS_BLOCK.newItemStack(1, 0), "xxx", "xyx", "xxx", 'x', new ItemStack(Blocks.vine, 1), 'y', new ItemStack(Blocks.dirt, 1));
 
-		Item result = null;
+		ItemStack result = null;
 		if (ModItems.COPPER_INGOT.isEnabled()) {
-			result = ModItems.COPPER_INGOT.get();
+			result = ModItems.COPPER_INGOT.newItemStack();
 		} else if (!OreDictionary.getOres("ingotCopper").isEmpty()) {
-			result = OreDictionary.getOres("ingotCopper").get(0).getItem();
+			result = OreDictionary.getOres("ingotCopper").get(0);
 		}
 
-		if (result != null) {
-			addSmelting(ModItems.RAW_ORE.newItemStack(), new ItemStack(result, 1, 0), 0.7F);
-		}
 		addShapedRecipe(ModBlocks.RAW_ORE_BLOCK.newItemStack(), "xxx", "xxx", "xxx", 'x', ModItems.RAW_ORE.newItemStack());
 		addShapedRecipe(ModItems.RAW_ORE.newItemStack(9), "x", 'x', ModBlocks.RAW_ORE_BLOCK.newItemStack());
+		if (result != null) {
+			addSmelting(ModItems.RAW_ORE.newItemStack(), result, 0.7F);
+		}
+
 		addShapedRecipe(ModBlocks.RAW_ORE_BLOCK.newItemStack(1, 1), "xxx", "xxx", "xxx", 'x', ModItems.RAW_ORE.newItemStack(1, 1));
 		addShapedRecipe(ModItems.RAW_ORE.newItemStack(9, 1), "x", 'x', ModBlocks.RAW_ORE_BLOCK.newItemStack(1, 1));
 		addSmelting(ModItems.RAW_ORE.newItemStack(1, 1), new ItemStack(Items.iron_ingot, 1, 0), 0.7F);
+
 		addShapedRecipe(ModBlocks.RAW_ORE_BLOCK.newItemStack(1, 2), "xxx", "xxx", "xxx", 'x', ModItems.RAW_ORE.newItemStack(1, 2));
 		addShapedRecipe(ModItems.RAW_ORE.newItemStack(9, 2), "x", 'x', ModBlocks.RAW_ORE_BLOCK.newItemStack(1, 2));
 		addSmelting(ModItems.RAW_ORE.newItemStack(1, 2), new ItemStack(Items.gold_ingot, 1, 0), 0.7F);
+
+		String[] ores = ArrayUtils.clone(ItemModdedRawOre.ores);
+		if (OreDictionary.getOres("oreMythril").isEmpty() && !OreDictionary.getOres("oreMithril").isEmpty()) {
+			ores[ArrayUtils.indexOf(ores, "ingotMythril")] = "ingotMithril";
+		}
+		for (int i = 0; i < ores.length; i++) {
+			if (!OreDictionary.getOres(ores[i]).isEmpty()) {
+				addShapedRecipe(ModBlocks.MODDED_RAW_ORE_BLOCK.newItemStack(1, i), "xxx", "xxx", "xxx", 'x', ModItems.MODDED_RAW_ORE.newItemStack(1, i));
+				addShapedRecipe(ModItems.MODDED_RAW_ORE.newItemStack(9, i), "x", 'x', ModBlocks.MODDED_RAW_ORE_BLOCK.newItemStack(1, i));
+				addSmelting(ModItems.MODDED_RAW_ORE.newItemStack(1, i), OreDictionary.getOres(ores[i]).get(0), 0.7F);
+			}
+		}
 
 		for (int i = 0; i < getStewFlowers().size(); i++) {
 			ItemStack stew = ModItems.SUSPICIOUS_STEW.newItemStack();

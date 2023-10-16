@@ -36,7 +36,7 @@ public class SoulSandValleyDecorator extends NetherBiomeDecorator {
 	@Override
 	public void decorate(World world, Random rand, int chunkX, int chunkZ) {
 		if (netherFossilGenerator == null && ConfigWorld.fossilBlock != null) {
-			netherFossilGenerator = new WorldGenNetherFossil(ConfigWorld.fossilBlock);
+			netherFossilGenerator = new WorldGenNetherFossil();
 		}
 
 		if (ConfigWorld.fossilBlock != null) {

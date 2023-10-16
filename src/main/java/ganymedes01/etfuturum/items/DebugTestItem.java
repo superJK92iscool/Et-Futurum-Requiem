@@ -126,7 +126,7 @@ public class DebugTestItem extends BaseItem {
 		NONE(null, false),
 		FOSSIL("Fossil", true) {
 
-			final WorldGenFossil fossil = new WorldGenFossil(ConfigWorld.fossilBlock) {
+			final WorldGenFossil fossil = new WorldGenFossil() {
 				protected boolean canFossilGenerateHere(World world, int x, int y, int z, BlockPos corners) {
 					return true;
 				}

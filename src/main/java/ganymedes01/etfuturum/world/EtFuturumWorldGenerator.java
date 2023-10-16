@@ -67,7 +67,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 			amethystGen = new WorldGenAmethystGeode(ConfigWorld.amethystOuterBlock, ConfigWorld.amethystMiddleBlock);
 		}
 		if (ConfigWorld.enableFossils && ConfigWorld.fossilBlock != null) {
-			fossilGen = new WorldGenFossil(ConfigWorld.fossilBlock);
+			fossilGen = new WorldGenFossil();
 		}
 		if (ModBlocks.LILY_OF_THE_VALLEY.isEnabled()) {
 			BiomeGenBase[] biomes = BiomeDictionary.getBiomesForType(Type.FOREST);

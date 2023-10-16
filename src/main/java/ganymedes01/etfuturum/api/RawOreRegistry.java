@@ -3,8 +3,11 @@ package ganymedes01.etfuturum.api;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.api.mappings.RawOreDropMapping;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
+import ganymedes01.etfuturum.items.ItemModdedRawOre;
 import net.minecraft.item.Item;
 import net.minecraftforge.oredict.OreDictionary;
+import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,7 +24,7 @@ import java.util.Map;
  */
 public class RawOreRegistry {
 
-	public static final Map<String, RawOreDropMapping> rawOreRegistry = new HashMap<String, RawOreDropMapping>();
+	public static final Map<String, RawOreDropMapping> rawOreRegistry = new HashMap<>();
 
 	/**
 	 * What item should blocks that have this OreDict tag drop?
@@ -42,7 +45,11 @@ public class RawOreRegistry {
 	 * @param ore
 	 */
 	public static void addOre(String oreDict, Item ore, int meta) {
-		addOre(oreDict, new RawOreDropMapping(ore, meta));
+		RawOreDropMapping mapping = new RawOreDropMapping(ore, meta);
+		if (oreDict.startsWith("ore") && ArrayUtils.contains(ConfigFunctions.extraDropRawOres, oreDict)) {
+			mapping.setDropsExtra(true);
+		}
+		addOre(oreDict, mapping);
 	}
 
 	private static void addOre(String oreDict, RawOreDropMapping map) {
@@ -90,12 +97,18 @@ public class RawOreRegistry {
 
 	public static void init() {
 		if (ModItems.RAW_ORE.isEnabled()) {
-			if (ConfigBlocksItems.enableCopper || !OreDictionary.doesOreNameExist("ingotCopper")) {
+			if (ConfigBlocksItems.enableCopper || OreDictionary.doesOreNameExist("ingotCopper")) {
 				addOre("oreCopper", ModItems.RAW_ORE.get());
 			}
 			addOre("oreIron", ModItems.RAW_ORE.get(), 1);
 			addOre("oreGold", ModItems.RAW_ORE.get(), 2);
 		}
+		if (ModItems.MODDED_RAW_ORE.isEnabled()) {
+			for (int i = 0; i < ItemModdedRawOre.names.length; i++) {
+				if (!OreDictionary.getOres(ItemModdedRawOre.ores[i]).isEmpty()) {
+					addOre(ItemModdedRawOre.ores[i].replace("ingot", "ore"), ModItems.MODDED_RAW_ORE.get(), i);
+				}
+			}
+		}
 	}
-
 }

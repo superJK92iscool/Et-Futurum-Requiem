@@ -1,9 +1,11 @@
 package ganymedes01.etfuturum.configuration.configs;
 
 import cpw.mods.fml.common.registry.GameRegistry;
+import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.api.mappings.RegistryMapping;
 import ganymedes01.etfuturum.configuration.ConfigBase;
+import ganymedes01.etfuturum.core.utils.ExternalContent;
 import ganymedes01.etfuturum.core.utils.Logger;
 import net.minecraft.block.Block;
 import net.minecraftforge.common.config.Property;
@@ -123,7 +125,7 @@ public class ConfigWorld extends ConfigBase {
 			get(catGeneration, "fossilBlockID", "etfuturum:bone").set(fossilBlockID);
 			save();
 		}
-		fossilBlockID = getString("fossilBlockID", catGeneration, "etfuturum:bone", "Use a namespaced ID, + optionally meta (max 3) to choose the block that makes up fossils. The max meta is 3 because the rotations will change the meta. North/South is the meta + 4 and East/West is + 8.\nNetherlicious bone block is \"netherlicious:BoneBlock\" and UpToDate bone block is \"uptodate:bone_block\".\nIf the chosen block does not exist then fossils will not generate.");
+		fossilBlockID = getString("fossilBlockID", catGeneration, "etfuturum:bone", "Use a namespaced ID, + optionally meta (max 3) to choose the block that makes up fossils. The max meta is 3 because the rotations will change the meta. North/South is the meta + 4 and East/West is + 8.\nNetherlicious bone block is \"netherlicious:BoneBlock\" and UpToDate bone block is \"uptodate:bone_block\".\nIf the chosen block does not exist then fossils will not generate. If Netherlicious is installed, its bone block will be used if this is set to \"etfutrum:bone_block\" and Et Futurum Requiem bone blocks are disabled.");
 
 		if (hasKey(catGeneration, "amethystOuterBlock")) {
 			Property oldAmethystOuterIDProp = get(catGeneration, "amethystOuterBlock", 0);
@@ -190,25 +192,29 @@ public class ConfigWorld extends ConfigBase {
 	@Override
 	protected void initValues() {
 		if (enableFossils) {
-			String[] fossilBlockArray = fossilBlockID.split(":");
-			if ((fossilBlockArray.length == 2 || fossilBlockArray.length == 3) && GameRegistry.findBlock(fossilBlockArray[0], fossilBlockArray[1]) != null) {
-				int meta = 0;
-				if (fossilBlockArray.length == 3) {
-					try {
-						meta = Integer.parseInt(fossilBlockArray[2]);
-					} catch (NumberFormatException e) {
-						Logger.error("Specified bone block for fossils: " + fossilBlockID + " has invalid metadata specified! (Not an integer)");
-						Logger.error("Defaulting to 0.");
-					}
-					if (meta > 3 || meta < 0) {
-						Logger.error("Specified bone block for fossils: " + fossilBlockID + " has invalid metadata specified! (Value cannot be greater than 3 or lower than 0)");
-						Logger.error("Defaulting to 0.");
-						meta = 0;
-					}
-				}
-				fossilBlock = new RegistryMapping<>(GameRegistry.findBlock(fossilBlockArray[0], fossilBlockArray[1]), meta);
+			if (EtFuturum.hasNetherlicious && fossilBlockID.equals("etfuturum:bone_block") && !ModBlocks.BONE.isEnabled()) {
+				fossilBlock = new RegistryMapping<>(ExternalContent.Blocks.NETHERLICIOUS_BONE_BLOCK.get(), 0);
 			} else {
-				Logger.error("Fossil block " + fossilBlockID + " does not exist or is malformed, therefore fossils will not generate!");
+				String[] fossilBlockArray = fossilBlockID.split(":");
+				if ((fossilBlockArray.length == 2 || fossilBlockArray.length == 3) && GameRegistry.findBlock(fossilBlockArray[0], fossilBlockArray[1]) != null) {
+					int meta = 0;
+					if (fossilBlockArray.length == 3) {
+						try {
+							meta = Integer.parseInt(fossilBlockArray[2]);
+						} catch (NumberFormatException e) {
+							Logger.error("Specified bone block for fossils: " + fossilBlockID + " has invalid metadata specified! (Not an integer)");
+							Logger.error("Defaulting to 0.");
+						}
+						if (meta > 3 || meta < 0) {
+							Logger.error("Specified bone block for fossils: " + fossilBlockID + " has invalid metadata specified! (Value cannot be greater than 3 or lower than 0)");
+							Logger.error("Defaulting to 0.");
+							meta = 0;
+						}
+					}
+					fossilBlock = new RegistryMapping<>(GameRegistry.findBlock(fossilBlockArray[0], fossilBlockArray[1]), meta);
+				} else {
+					Logger.error("Fossil block " + fossilBlockID + " does not exist or is malformed, therefore fossils will not generate!");
+				}
 			}
 		}
 

@@ -371,6 +371,25 @@ item.etfuturum.tipped_arrow.potion.regeneration.name=Arrow of Regeneration
 item.etfuturum.tipped_arrow.potion.damageBoost.name=Arrow of Strength
 item.etfuturum.tipped_arrow.potion.weakness.name=Arrow of Weakness
 
+# Mod support items
+
+item.shulker_vanilla_iron_upgrade.name=Vanilla to Iron Shulker Box Upgrade
+item.shulker_vanilla_copper_upgrade.name=Vanilla to Copper Shulker Box Upgrade
+item.shulker_iron_gold_upgrade.name=Iron to Gold Shulker Box Upgrade
+item.shulker_gold_diamond_upgrade.name=Gold to Diamond Shulker Box Upgrade
+item.shulker_diamond_obsidian_upgrade.name=Diamond to Obsidian Shulker Box Upgrade
+item.shulker_diamond_crystal_upgrade.name=Diamond to Crystal Shulker Box Upgrade
+item.shulker_copper_iron_upgrade.name=Copper to Iron Shulker Box Upgrade
+item.shulker_copper_silver_upgrade.name=Copper to Silver Shulker Box Upgrade
+item.shulker_silver_gold_upgrade.name=Silver to Gold Shulker Box Upgrade
+
+item.etfuturum.raw_aluminum.name=Raw Aluminum
+item.etfuturum.raw_tin.name=Raw Tin
+item.etfuturum.raw_silver.name=Raw Silver
+item.etfuturum.raw_lead.name=Raw Lead
+item.etfuturum.raw_nickel.name=Raw Nickel
+item.etfuturum.raw_platinum.name=Raw Platinum
+item.etfuturum.raw_mythril.name=Raw Mythril
 
 # Blocks
 tile.etfuturum.granite.name=Granite
@@ -880,6 +899,10 @@ tile.etfuturum.green_shulker_box.name=Green Shulker Box
 tile.etfuturum.red_shulker_box.name=Red Shulker Box
 tile.etfuturum.black_shulker_box.name=Black Shulker Box
 
+util.totemBreak=§a§oYour Totem of Undying shatters...
+
+# Mod support blocks
+
 tile.etfuturum.iron_shulker_box.name=Iron Shulker Box
 tile.etfuturum.white_iron_shulker_box.name=White Iron Shulker Box
 tile.etfuturum.orange_iron_shulker_box.name=Orange Iron Shulker Box
@@ -1006,17 +1029,15 @@ tile.etfuturum.green_obsidian_shulker_box.name=Green Obsidian Shulker Box
 tile.etfuturum.red_obsidian_shulker_box.name=Red Obsidian Shulker Box
 tile.etfuturum.black_obsidian_shulker_box.name=Black Obsidian Shulker Box
 
-item.shulker_vanilla_iron_upgrade.name=Vanilla to Iron Shulker Box Upgrade
-item.shulker_vanilla_copper_upgrade.name=Vanilla to Copper Shulker Box Upgrade
-item.shulker_iron_gold_upgrade.name=Iron to Gold Shulker Box Upgrade
-item.shulker_gold_diamond_upgrade.name=Gold to Diamond Shulker Box Upgrade
-item.shulker_diamond_obsidian_upgrade.name=Diamond to Obsidian Shulker Box Upgrade
-item.shulker_diamond_crystal_upgrade.name=Diamond to Crystal Shulker Box Upgrade
-item.shulker_copper_iron_upgrade.name=Copper to Iron Shulker Box Upgrade
-item.shulker_copper_silver_upgrade.name=Copper to Silver Shulker Box Upgrade
-item.shulker_silver_gold_upgrade.name=Silver to Gold Shulker Box Upgrade
+tile.etfuturum.raw_aluminum_block.name=Raw Aluminum Block
+tile.etfuturum.raw_tin_block.name=Raw Tin Block
+tile.etfuturum.raw_silver_block.name=Raw Silver Block
+tile.etfuturum.raw_lead_block.name=Raw Lead Block
+tile.etfuturum.raw_nickel_block.name=Raw Nickel Block
+tile.etfuturum.raw_platinum_block.name=Raw Platinum Block
+tile.etfuturum.raw_mythril_block.name=Raw Mythril Block
 
-util.totemBreak=§a§oYour Totem of Undying shatters...
+# Damage types
 
 death.attack.hotFloor=%1$s discovered floor was lava
 death.attack.hotFloor.player=%1$s walked into danger zone due to %2$s

@@ -446,7 +446,7 @@ public class ServerEventHandler {
 		}
 	}
 
-	@SubscribeEvent
+	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public void harvestEvent(BlockEvent.HarvestDropsEvent event) {
 		if (ConfigFunctions.enableSilkTouchingMushrooms && event.isSilkTouching)
 			if (event.block == Blocks.brown_mushroom_block) {
@@ -460,26 +460,21 @@ public class ServerEventHandler {
 		if (ConfigFunctions.enableSticksFromDeadBushes) {
 			if (event.block == Blocks.deadbush) {
 				boolean isShears = event.harvester != null && event.harvester.getCurrentEquippedItem() != null && event.harvester.getCurrentEquippedItem().getItem() instanceof ItemShears;
-				if (event.harvester == null || event.harvester.getCurrentEquippedItem() == null || !isShears)
-					for (int i = 0; i < event.world.rand.nextInt(3); i++)
-						event.drops.add(new ItemStack(Items.stick));
+				if (event.harvester == null || event.harvester.getCurrentEquippedItem() == null || !isShears) {
+					event.drops.add(new ItemStack(Items.stick, event.world.rand.nextInt(3)));
+				}
 			}
 		}
 
-//      if(event.block == Blocks.iron_ore) {
-//          event.drops.add(new ItemStack(ModBlocks.copper_ore, 1, 1));
-//      } //Debug code, see below
-
 		if (ConfigBlocksItems.enableRawOres && !event.isSilkTouching) {
-			RawOreDropMapping mapping = null;
 			//Looks at the list of drops, and replaces all drops with its respective raw ore
 			//For example all oreIron in the drops turn into Raw Iron
 			for (int i = 0; i < event.drops.size(); i++) {
 				ItemStack stack = event.drops.get(i);
 				for (String oreName : EtFuturum.getOreStrings(stack)) {
-					//For some reason this list is always empty for items which were added during the event being fired (see above)
-					mapping = RawOreRegistry.getOreMap().get(oreName);
-					if (mapping != null) {
+					//For some reason this list is always empty for items which were added during the event being fired
+					RawOreDropMapping mapping = RawOreRegistry.getOreMap().get(oreName);
+					if (mapping != null && stack != null && !EtFuturum.dictTagsStartWith(stack, "raw")) {
 						event.drops.set(i, new ItemStack(mapping.getObject(), mapping.getDropAmount(event.world.rand, event.fortuneLevel), mapping.getMeta()));
 						break;
 					}
