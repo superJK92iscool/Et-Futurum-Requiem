@@ -6,6 +6,7 @@ import cpw.mods.fml.relauncher.ReflectionHelper;
 import cpw.mods.fml.relauncher.Side;
 import ganymedes01.etfuturum.compat.cthandlers.*;
 import ganymedes01.etfuturum.recipes.BlastFurnaceRecipes;
+import ganymedes01.etfuturum.recipes.ModRecipes;
 import ganymedes01.etfuturum.recipes.SmokerRecipes;
 import minetweaker.MineTweakerAPI;
 import minetweaker.MineTweakerImplementationAPI;
@@ -78,6 +79,8 @@ public class CompatCraftTweaker {
 			BlastFurnaceRecipes.smelting().clearLists();
 			SmokerRecipes.smelting().setReloadingCT(true);
 			SmokerRecipes.smelting().clearLists();
+
+			ModRecipes.unregisterModdedRawOres();
 		}
 	}
 
@@ -99,6 +102,8 @@ public class CompatCraftTweaker {
 
 			BlastFurnaceRecipes.smelting().setReloadingCT(false);
 			SmokerRecipes.smelting().setReloadingCT(false);
+
+			ModRecipes.registerModdedRawOres();
 		}
 	}
 }

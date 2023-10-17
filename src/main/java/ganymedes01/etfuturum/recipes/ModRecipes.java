@@ -22,6 +22,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.RecipeFireworks;
 import net.minecraft.nbt.NBTTagCompound;
@@ -40,6 +41,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class ModRecipes {
@@ -261,24 +263,6 @@ public class ModRecipes {
 			registerOre("oreCopper", ModItems.RAW_ORE.newItemStack()); //Todo: the registration of copper raw ore should be conditional because it is a configurable meta value, I may make the raw ore class itself provide enabled metas.
 			registerOre("oreIron", ModItems.RAW_ORE.newItemStack(1, 1));
 			registerOre("oreGold", ModItems.RAW_ORE.newItemStack(1, 2));
-		}
-
-		//Insert alternate Mythril spelling to list. Yes I know "mithril" is technically the primary spelling but "mythril" is used by most mods, so "mithril" is secondary to it here.
-		for (int i = 0; i < ItemModdedRawOre.ores.length; i++) {
-			String type = ItemModdedRawOre.ores[i];
-			int variations = (type.equals("ingotMythril") ? 2 : 1);
-			for (int j = 0; j < variations; j++) { //If it's mythril, we'll run this once more, changing the spelling to mithril to account for both tags.
-				if (!OreDictionary.getOres(type).isEmpty()) {
-					registerOre(type.replace("ingot", "raw"), ModItems.MODDED_RAW_ORE.newItemStack(1, i));
-					registerOre(type.replace("ingot", "blockRaw"), ModBlocks.MODDED_RAW_ORE_BLOCK.newItemStack(1, i));
-					if (ConfigFunctions.registerRawItemAsOre) {
-						registerOre(type.replace("ingot", "ore"), ModItems.MODDED_RAW_ORE.newItemStack(1, i));
-					}
-				}
-				if (type.equals("ingotMythril")) {
-					type = "ingotMithril"; //Redoes it once more for mithril spelling
-				}
-			}
 		}
 
 		registerOre("record", ModItems.PIGSTEP_RECORD.get());
@@ -848,17 +832,7 @@ public class ModRecipes {
 		addShapedRecipe(ModItems.RAW_ORE.newItemStack(9, 2), "x", 'x', ModBlocks.RAW_ORE_BLOCK.newItemStack(1, 2));
 		addSmelting(ModItems.RAW_ORE.newItemStack(1, 2), new ItemStack(Items.gold_ingot, 1, 0), 0.7F);
 
-		String[] ores = ArrayUtils.clone(ItemModdedRawOre.ores);
-		if (OreDictionary.getOres("oreMythril").isEmpty() && !OreDictionary.getOres("oreMithril").isEmpty()) {
-			ores[ArrayUtils.indexOf(ores, "ingotMythril")] = "ingotMithril";
-		}
-		for (int i = 0; i < ores.length; i++) {
-			if (!OreDictionary.getOres(ores[i]).isEmpty()) {
-				addShapedRecipe(ModBlocks.MODDED_RAW_ORE_BLOCK.newItemStack(1, i), "xxx", "xxx", "xxx", 'x', ModItems.MODDED_RAW_ORE.newItemStack(1, i));
-				addShapedRecipe(ModItems.MODDED_RAW_ORE.newItemStack(9, i), "x", 'x', ModBlocks.MODDED_RAW_ORE_BLOCK.newItemStack(1, i));
-				addSmelting(ModItems.MODDED_RAW_ORE.newItemStack(1, i), OreDictionary.getOres(ores[i]).get(0), 0.7F);
-			}
-		}
+		registerModdedRawOres();
 
 		for (int i = 0; i < getStewFlowers().size(); i++) {
 			ItemStack stew = ModItems.SUSPICIOUS_STEW.newItemStack();
@@ -990,6 +964,53 @@ public class ModRecipes {
 
 		addShapedRecipe(ModBlocks.BASALT.newItemStack(4, 1), "xx", "xx", 'x', ModBlocks.BASALT.newItemStack());
 		addSmelting(ModBlocks.BASALT.newItemStack(), ModBlocks.SMOOTH_BASALT.newItemStack(), 0.1F);
+	}
+
+	public static void unregisterModdedRawOres() {
+		for (int i = 0; i < ItemModdedRawOre.ores.length; i++) {
+			removeFirstRecipeFor(ModItems.MODDED_RAW_ORE.get(), i);
+			removeFirstRecipeFor(ModBlocks.MODDED_RAW_ORE_BLOCK.get(), i);
+			ItemStack stack = ModItems.MODDED_RAW_ORE.newItemStack(1, i);
+			Iterator<ItemStack> iterator = (Iterator<ItemStack>) FurnaceRecipes.smelting().getSmeltingList().keySet().iterator();
+			while (iterator.hasNext()) {
+				ItemStack smeltingInput = iterator.next();
+				if (stack.getItem() == smeltingInput.getItem() && stack.getItemDamage() == smeltingInput.getItemDamage()) {
+					iterator.remove();
+				}
+			}
+		}
+	}
+
+	public static void registerModdedRawOres() {
+		//Insert alternate Mythril spelling to list. Yes I know "mithril" is technically the primary spelling but "mythril" is used by most mods, so "mithril" is secondary to it here.
+		for (int i = 0; i < ItemModdedRawOre.ores.length; i++) {
+			String type = ItemModdedRawOre.ores[i];
+			int variations = (type.equals("ingotMythril") ? 2 : 1);
+			for (int j = 0; j < variations; j++) { //If it's mythril, we'll run this once more, changing the spelling to mithril to account for both tags.
+				if (!OreDictionary.getOres(type).isEmpty()) {
+					registerOre(type.replace("ingot", "raw"), ModItems.MODDED_RAW_ORE.newItemStack(1, i));
+					registerOre(type.replace("ingot", "blockRaw"), ModBlocks.MODDED_RAW_ORE_BLOCK.newItemStack(1, i));
+					if (ConfigFunctions.registerRawItemAsOre) {
+						registerOre(type.replace("ingot", "ore"), ModItems.MODDED_RAW_ORE.newItemStack(1, i));
+					}
+				}
+				if (type.equals("ingotMythril")) {
+					type = "ingotMithril"; //Redoes it once more for mithril spelling
+				}
+			}
+		}
+
+		String[] ores = ArrayUtils.clone(ItemModdedRawOre.ores);
+		if (OreDictionary.getOres("oreMythril").isEmpty() && !OreDictionary.getOres("oreMithril").isEmpty()) {
+			ores[ArrayUtils.indexOf(ores, "ingotMythril")] = "ingotMithril";
+		}
+		for (int i = 0; i < ores.length; i++) {
+			if (!OreDictionary.getOres(ores[i]).isEmpty()) {
+				addShapedRecipe(ModBlocks.MODDED_RAW_ORE_BLOCK.newItemStack(1, i), "xxx", "xxx", "xxx", 'x', ModItems.MODDED_RAW_ORE.newItemStack(1, i));
+				addShapedRecipe(ModItems.MODDED_RAW_ORE.newItemStack(9, i), "x", 'x', ModBlocks.MODDED_RAW_ORE_BLOCK.newItemStack(1, i));
+				addSmelting(ModItems.MODDED_RAW_ORE.newItemStack(1, i), OreDictionary.getOres(ores[i]).get(0), 0.7F);
+			}
+		}
 	}
 
 	private static List<ItemStack> getStewFlowers() {
