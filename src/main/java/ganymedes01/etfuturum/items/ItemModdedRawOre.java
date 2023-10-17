@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class ItemModdedRawOre extends BaseSubtypesItem {
 
-	public static final String[] names = new String[]{"raw_aluminum", "raw_tin", "raw_silver", "raw_lead", "raw_nickel", "raw_platinum", "raw_mythril"};
+	public static final String[] names = new String[]{"raw_aluminum", "raw_tin", "raw_silver", "raw_lead", "raw_nickel", "raw_platinum", "raw_mythril", "raw_uranium"};
 	public static final String[] ores = new String[names.length];
 
 	static {

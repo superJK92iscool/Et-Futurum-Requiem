@@ -390,6 +390,7 @@ item.etfuturum.raw_lead.name=Raw Lead
 item.etfuturum.raw_nickel.name=Raw Nickel
 item.etfuturum.raw_platinum.name=Raw Platinum
 item.etfuturum.raw_mythril.name=Raw Mythril
+item.etfuturum.raw_uranium.name=Raw Uranium
 
 # Blocks
 tile.etfuturum.granite.name=Granite
@@ -1036,6 +1037,7 @@ tile.etfuturum.raw_lead_block.name=Raw Lead Block
 tile.etfuturum.raw_nickel_block.name=Raw Nickel Block
 tile.etfuturum.raw_platinum_block.name=Raw Platinum Block
 tile.etfuturum.raw_mythril_block.name=Raw Mythril Block
+tile.etfuturum.raw_uranium_block.name=Raw Uranium Block
 
 # Damage types
 

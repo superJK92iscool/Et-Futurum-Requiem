@@ -275,7 +275,7 @@ public class ModRecipes {
 						registerOre(type.replace("ingot", "ore"), ModItems.MODDED_RAW_ORE.newItemStack(1, i));
 					}
 				}
-				if (j == 1) {
+				if (type.equals("ingotMythril")) {
 					type = "ingotMithril"; //Redoes it once more for mithril spelling
 				}
 			}

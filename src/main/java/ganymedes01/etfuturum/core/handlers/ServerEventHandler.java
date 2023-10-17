@@ -446,7 +446,7 @@ public class ServerEventHandler {
 		}
 	}
 
-	@SubscribeEvent(priority = EventPriority.LOWEST)
+	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public void harvestEvent(BlockEvent.HarvestDropsEvent event) {
 		if (ConfigFunctions.enableSilkTouchingMushrooms && event.isSilkTouching)
 			if (event.block == Blocks.brown_mushroom_block) {
