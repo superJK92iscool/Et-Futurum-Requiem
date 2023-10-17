@@ -81,6 +81,7 @@ public class CompatCraftTweaker {
 			SmokerRecipes.smelting().clearLists();
 
 			ModRecipes.unregisterModdedRawOres();
+			ModRecipes.registerModdedRawOres();
 		}
 	}
 
@@ -102,8 +103,6 @@ public class CompatCraftTweaker {
 
 			BlastFurnaceRecipes.smelting().setReloadingCT(false);
 			SmokerRecipes.smelting().setReloadingCT(false);
-
-			ModRecipes.registerModdedRawOres();
 		}
 	}
 }
