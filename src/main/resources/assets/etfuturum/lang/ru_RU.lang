@@ -850,7 +850,7 @@ tile.etfuturum.green_shulker_box.name=Зелёный шалкеровый ящи
 tile.etfuturum.red_shulker_box.name=Красный шалкеровый ящик
 tile.etfuturum.black_shulker_box.name=Чёрный шалкеровый ящик
 
-util.totemBreak=§a§oYour Totem of Undying shatters...
+util.totemBreak=§a§oВаш тотем бессмертия раскололся...
 
 # Поддержка модовых блоков (Mod support blocks)
 
