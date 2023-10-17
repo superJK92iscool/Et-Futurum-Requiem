@@ -985,17 +985,21 @@ public class ModRecipes {
 		//Insert alternate Mythril spelling to list. Yes I know "mithril" is technically the primary spelling but "mythril" is used by most mods, so "mithril" is secondary to it here.
 		for (int i = 0; i < ItemModdedRawOre.ores.length; i++) {
 			String type = ItemModdedRawOre.ores[i];
-			int variations = (type.equals("ingotMythril") ? 2 : 1);
-			for (int j = 0; j < variations; j++) { //If it's mythril, we'll run this once more, changing the spelling to mithril to account for both tags.
-				if (!OreDictionary.getOres(type).isEmpty()) {
-					registerOre(type.replace("ingot", "raw"), ModItems.MODDED_RAW_ORE.newItemStack(1, i));
-					registerOre(type.replace("ingot", "blockRaw"), ModBlocks.MODDED_RAW_ORE_BLOCK.newItemStack(1, i));
-					if (ConfigFunctions.registerRawItemAsOre) {
-						registerOre(type.replace("ingot", "ore"), ModItems.MODDED_RAW_ORE.newItemStack(1, i));
+			if (OreDictionary.getOres(type.replace("ingot", "raw")).isEmpty()) {
+				//This can run post-load, so don't register multiple tags if the raw ore already got one.
+				//We have to do this since it is impossible to remove OreDictionary entries.
+				int variations = (type.equals("ingotMythril") ? 2 : 1);
+				for (int j = 0; j < variations; j++) { //If it's mythril, we'll run this once more, changing the spelling to mithril to account for both tags.
+					if (!OreDictionary.getOres(type).isEmpty()) {
+						registerOre(type.replace("ingot", "raw"), ModItems.MODDED_RAW_ORE.newItemStack(1, i));
+						registerOre(type.replace("ingot", "blockRaw"), ModBlocks.MODDED_RAW_ORE_BLOCK.newItemStack(1, i));
+						if (ConfigFunctions.registerRawItemAsOre) {
+							registerOre(type.replace("ingot", "ore"), ModItems.MODDED_RAW_ORE.newItemStack(1, i));
+						}
 					}
-				}
-				if (type.equals("ingotMythril")) {
-					type = "ingotMithril"; //Redoes it once more for mithril spelling
+					if (type.equals("ingotMythril")) {
+						type = "ingotMithril"; //Redoes it once more for mithril spelling
+					}
 				}
 			}
 		}
