@@ -396,6 +396,8 @@ item.etfuturum.raw_nickel.name=粗镍
 item.etfuturum.raw_platinum.name=粗铂
 item.etfuturum.raw_mythril.name=粗秘银
 item.etfuturum.raw_uranium.name=粗铀
+item.etfuturum.raw_tungsten.name=粗钨
+item.etfuturum.raw_titanium.name=粗钛
 
 # Blocks
 tile.etfuturum.granite.name=花岗岩
@@ -1050,6 +1052,19 @@ tile.etfuturum.raw_nickel_block.name=粗镍块
 tile.etfuturum.raw_platinum_block.name=粗铂块
 tile.etfuturum.raw_mythril_block.name=粗秘银块
 tile.etfuturum.raw_uranium_block.name=粗铀块
+tile.etfuturum.raw_tungsten_block.name=粗钨块
+tile.etfuturum.raw_titanium_block.name=粗钛块
+
+tile.etfuturum.deepslate_aluminum_ore.name=深层铝矿石
+tile.etfuturum.deepslate_tin_ore.name=深层锡矿石
+tile.etfuturum.deepslate_silver_ore.name=深层银矿石
+tile.etfuturum.deepslate_lead_ore.name=深层铅矿石
+tile.etfuturum.deepslate_nickel_ore.name=深层镍矿石
+tile.etfuturum.deepslate_platinum_ore.name=深层铂矿石
+tile.etfuturum.deepslate_mythril_ore.name=深层秘银矿石
+tile.etfuturum.deepslate_uranium_ore.name=深层铀矿石
+tile.etfuturum.deepslate_tungsten_ore.name=深层钨矿石
+tile.etfuturum.deepslate_titanium_ore.name=深层钛矿石
 
 # Damage types
 
