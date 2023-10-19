@@ -40,7 +40,7 @@ public class BlockDeepslateOre extends BlockOre {
 			setBlockTextureName("deepslate_" + block.textureName);
 			setCreativeTab(EtFuturum.creativeTabBlocks);
 		}
-		if (defaultMapping && ConfigBlocksItems.enableDeepslateOres) {
+		if (defaultMapping && ConfigBlocksItems.enableDeepslate && ConfigBlocksItems.enableDeepslateOres) {
 			addDeepslateMappings();
 		}
 	}

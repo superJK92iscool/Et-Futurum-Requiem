@@ -68,12 +68,15 @@ public class DeepslateOreRegistry {
 	}
 
 	/**
-	 * Adds a block/metadata to block/metadata pair to the deepslate mapping registry.
+	 * Adds a block to block pair to the deepslate mapping registry.
 	 * This is used when Et Futurum deepslate overwrites the specified block.
+	 * <p>
+	 * Note this does not actually look at the tags for an item, it just replaces everything in that tag.
+	 * CraftTweaker OreDictionary additions/removals may not work. For best results, please restart the game before reporting issues.
 	 *
-	 * @param oreDict An OreDictionary tag to overwrite
-	 * @param to      The block deepslate changes it to
-	 * @param toMeta  The meta deepslate changes it to
+	 * @param oreDict The oreDict tag to overwrite
+	 * @param to   The block deepslate changes it to
+	 * @param toMeta   The metadata deepslate changes it to
 	 */
 	public static void addOre(String oreDict, Block to, int toMeta) {
 		for (ItemStack ore : OreDictionary.getOres(oreDict)) {
@@ -82,6 +85,20 @@ public class DeepslateOreRegistry {
 				addOre(blockToAdd, ore.getItemDamage(), to, toMeta);
 			}
 		}
+	}
+
+	/**
+	 * Adds a block to block pair to the deepslate mapping registry.
+	 * This is used when Et Futurum deepslate overwrites the specified block.
+	 * <p>
+	 * Note this does not actually look at the tags for an item, it just replaces everything in that tag.
+	 * CraftTweaker OreDictionary additions/removals may not work. For best results, please restart the game before reporting issues.
+	 *
+	 * @param oreDict The oreDict tag to overwrite
+	 * @param to      The block:0 deepslate changes it to
+	 */
+	public static void addOre(String oreDict, Block to) {
+		addOre(oreDict, to, 0);
 	}
 
 	/**

@@ -3,10 +3,7 @@ package ganymedes01.etfuturum;
 import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.etfuturum.blocks.*;
 import ganymedes01.etfuturum.blocks.itemblocks.*;
-import ganymedes01.etfuturum.blocks.ores.BlockCopperOre;
-import ganymedes01.etfuturum.blocks.ores.BlockDeepslateOre;
-import ganymedes01.etfuturum.blocks.ores.BlockDeepslateRedstoneOre;
-import ganymedes01.etfuturum.blocks.ores.BlockOreNetherGold;
+import ganymedes01.etfuturum.blocks.ores.*;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.*;
 import ganymedes01.etfuturum.tileentities.TileEntityWoodSign;
@@ -67,7 +64,7 @@ public enum ModBlocks {
 			BaseItemBlock.class),
 	CONCRETE_POWDER(ConfigBlocksItems.enableConcrete, new BlockConcretePowder()),
 	COPPER_ORE(ConfigBlocksItems.enableCopper, new BlockCopperOre()),
-	DEEPSLATE_COPPER_ORE(ConfigBlocksItems.enableCopper && ConfigBlocksItems.enableDeepslate && ConfigBlocksItems.enableDeepslateOres, new BlockDeepslateOre(COPPER_ORE.get())),
+	DEEPSLATE_COPPER_ORE((ConfigBlocksItems.enableCopper || ConfigModCompat.moddedDeepslateOres) && ConfigBlocksItems.enableDeepslate && ConfigBlocksItems.enableDeepslateOres, new BlockDeepslateOre(COPPER_ORE.get())),
 	CORNFLOWER(ConfigBlocksItems.enableCornflower, new BaseFlower().setNames("cornflower")),
 	LILY_OF_THE_VALLEY(ConfigBlocksItems.enableLilyOfTheValley, new BaseFlower().setNames("lily_of_the_valley")),
 	WITHER_ROSE(ConfigBlocksItems.enableWitherRose, new BlockWitherRose()),
@@ -451,6 +448,7 @@ public enum ModBlocks {
 
 	//Mod support
 	MODDED_RAW_ORE_BLOCK(ConfigBlocksItems.enableRawOres && ConfigModCompat.moddedRawOres, new BlockModdedRawOre()),
+	MODDED_DEEPSLATE_ORE(ConfigModCompat.moddedDeepslateOres && ConfigBlocksItems.enableDeepslate && ConfigBlocksItems.enableDeepslateOres, new BlockModdedDeepslateOre()),
 	;
 
 	public static final ModBlocks[] DOORS = new ModBlocks[]{DOOR_SPRUCE, DOOR_BIRCH, DOOR_JUNGLE, DOOR_ACACIA, DOOR_DARK_OAK, CRIMSON_DOOR, WARPED_DOOR, MANGROVE_DOOR, CHERRY_DOOR, BAMBOO_DOOR};

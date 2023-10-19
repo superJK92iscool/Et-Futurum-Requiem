@@ -380,21 +380,23 @@ public class Utils {
 		return (int) (f + f1 + f2);
 	}
 
-	public static void main(String args[]) {
-		int i, j;
-//outer loop
-		outer:
-		//label
-		for (i = 1; i <= 5; i++) {
-			System.out.println();
-//inner loop
-			inner:
-			//label
-			for (j = 1; j <= 10; j++) {
-				System.out.print(j + " ");
-				if (j == 9)
-					break inner;
+	/**
+	 * Converts namespaced strings into a readable list. Used by the configs.
+	 *
+	 * @param names
+	 * @return
+	 */
+	public static String getNamesForConfig(String... names) {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < names.length; i++) {
+			sb.append(", ");
+			if (i == names.length - 1) {
+				sb.append("and ");
 			}
+			sb.append(names[i].split("_")[0]);
+			sb.append(" ");
+			sb.append(names[i].split("_")[1]);
 		}
+		return sb.toString();
 	}
 }

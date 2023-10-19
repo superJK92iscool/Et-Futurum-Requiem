@@ -391,6 +391,8 @@ item.etfuturum.raw_nickel.name=Raw Nickel
 item.etfuturum.raw_platinum.name=Raw Platinum
 item.etfuturum.raw_mythril.name=Raw Mythril
 item.etfuturum.raw_uranium.name=Raw Uranium
+item.etfuturum.raw_tungsten.name=Raw Tungsten
+item.etfuturum.raw_titanium.name=Raw Titanium
 
 # Blocks
 tile.etfuturum.granite.name=Granite
@@ -1038,6 +1040,19 @@ tile.etfuturum.raw_nickel_block.name=Raw Nickel Block
 tile.etfuturum.raw_platinum_block.name=Raw Platinum Block
 tile.etfuturum.raw_mythril_block.name=Raw Mythril Block
 tile.etfuturum.raw_uranium_block.name=Raw Uranium Block
+tile.etfuturum.raw_tungsten_block.name=Raw Tungsten Block
+tile.etfuturum.raw_titanium_block.name=Raw Titanium Block
+
+tile.etfuturum.deepslate_aluminum_ore.name=Deepslate Aluminum Ore
+tile.etfuturum.deepslate_tin_ore.name=Deepslate Tin Ore
+tile.etfuturum.deepslate_silver_ore.name=Deepslate Silver Ore
+tile.etfuturum.deepslate_lead_ore.name=Deepslate Lead Ore
+tile.etfuturum.deepslate_nickel_ore.name=Deepslate Nickel Ore
+tile.etfuturum.deepslate_platinum_ore.name=Deepslate Platinum Ore
+tile.etfuturum.deepslate_mythril_ore.name=Deepslate Mythril Ore
+tile.etfuturum.deepslate_uranium_ore.name=Deepslate Uranium Ore
+tile.etfuturum.deepslate_tungsten_ore.name=Deepslate Tungsten Ore
+tile.etfuturum.deepslate_titanium_ore.name=Deepslate Titanium Ore
 
 # Damage types
 

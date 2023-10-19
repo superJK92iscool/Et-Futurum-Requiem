@@ -832,8 +832,6 @@ public class ModRecipes {
 		addShapedRecipe(ModItems.RAW_ORE.newItemStack(9, 2), "x", 'x', ModBlocks.RAW_ORE_BLOCK.newItemStack(1, 2));
 		addSmelting(ModItems.RAW_ORE.newItemStack(1, 2), new ItemStack(Items.gold_ingot, 1, 0), 0.7F);
 
-		registerModdedRawOres();
-
 		for (int i = 0; i < getStewFlowers().size(); i++) {
 			ItemStack stew = ModItems.SUSPICIOUS_STEW.newItemStack();
 
@@ -964,6 +962,27 @@ public class ModRecipes {
 
 		addShapedRecipe(ModBlocks.BASALT.newItemStack(4, 1), "xx", "xx", 'x', ModBlocks.BASALT.newItemStack());
 		addSmelting(ModBlocks.BASALT.newItemStack(), ModBlocks.SMOOTH_BASALT.newItemStack(), 0.1F);
+
+		registerModdedRawOres();
+		registerModdedDeepslateOres();
+	}
+
+	public static void unregisterModdedDeepslateOres() {
+		if (ModBlocks.DEEPSLATE_COPPER_ORE.isEnabled()) {
+
+		}
+		if (ModBlocks.MODDED_DEEPSLATE_ORE.isEnabled()) {
+
+		}
+	}
+
+	public static void registerModdedDeepslateOres() {
+		if (ModBlocks.DEEPSLATE_COPPER_ORE.isEnabled()) {
+
+		}
+		if (ModBlocks.MODDED_DEEPSLATE_ORE.isEnabled()) {
+
+		}
 	}
 
 	public static void unregisterModdedRawOres() {
@@ -1086,7 +1105,7 @@ public class ModRecipes {
 		}
 	}
 
-	private static boolean validateItems(Object... objects) {
+	public static boolean validateItems(Object... objects) {
 		for (Object object : objects) {
 			if (object == null) return false;
 
