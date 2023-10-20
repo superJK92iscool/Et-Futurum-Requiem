@@ -202,6 +202,10 @@ public class ClientProxy extends CommonProxy {
 		if(ModBlocks.AZALEA.isEnabled()){
 			RenderingRegistry.registerBlockHandler(new BlockAzaleaRenderer(RenderIDs.AZALEA));
 		}
+
+		if (ModBlocks.DEEPSLATE_CERTUS_QUARTZ_ORE.isEnabled()) {
+			RenderingRegistry.registerBlockHandler(new BlockEmissiveLayerRenderer(RenderIDs.EMISSIVE_DOUBLE_LAYER, false));
+		}
 	}
 
 	private void registerEntityRenderers() {
