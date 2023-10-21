@@ -388,10 +388,7 @@ public class EtFuturum {
 		}
 
 		EtFuturumLootTables.init();
-	}
 
-	@EventHandler
-	public void onLoadComplete(FMLLoadCompleteEvent e) {
 		ModRecipes.init();
 		DeepslateOreRegistry.init();
 		StrippedLogRegistry.init();
@@ -400,7 +397,10 @@ public class EtFuturum {
 		CompostingRegistry.init();
 		BeePlantRegistry.init();
 		PistonBehaviorRegistry.init();
+	}
 
+	@EventHandler
+	public void onLoadComplete(FMLLoadCompleteEvent e) {
 		ConfigBase.postInit();
 
 		EtFuturumWorldGenerator.INSTANCE.postInit();

@@ -977,10 +977,10 @@ public class ModRecipes {
 				DeepslateOreRegistry.addOreByOreDict("oreCopper", ModBlocks.DEEPSLATE_COPPER_ORE.get());
 			}
 			if (ModBlocks.DEEPSLATE_IRON_ORE.isEnabled()) {
-				DeepslateOreRegistry.addOreByOreDict("oreIron", ModBlocks.DEEPSLATE_COPPER_ORE.get());
+				DeepslateOreRegistry.addOreByOreDict("oreIron", ModBlocks.DEEPSLATE_IRON_ORE.get());
 			}
 			if (ModBlocks.DEEPSLATE_GOLD_ORE.isEnabled()) {
-				DeepslateOreRegistry.addOreByOreDict("oreGold", ModBlocks.DEEPSLATE_COPPER_ORE.get());
+				DeepslateOreRegistry.addOreByOreDict("oreGold", ModBlocks.DEEPSLATE_GOLD_ORE.get());
 			}
 
 			//Insert alternate Mythril spelling to list. Yes I know "mithril" is technically the primary spelling but "mythril" is used by most mods, so "mithril" is secondary to it here.
