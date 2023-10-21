@@ -390,6 +390,7 @@ item.etfuturum.raw_nickel.name=Необработанный никель
 item.etfuturum.raw_platinum.name=Необработанная платина
 item.etfuturum.raw_mythril.name=Необработанный мифрил
 item.etfuturum.raw_uranium.name=Необработанный уран
+item.etfuturum.raw_thorium.name=Необработанный торий
 item.etfuturum.raw_tungsten.name=Необработанный вольфрам
 item.etfuturum.raw_titanium.name=Необработанный титан
 
@@ -990,6 +991,7 @@ tile.etfuturum.raw_nickel_block.name=Блок необработанного н�
 tile.etfuturum.raw_platinum_block.name=Блок необработанной платины
 tile.etfuturum.raw_mythril_block.name=Блок необработанного мифрила
 tile.etfuturum.raw_uranium_block.name=Блок необработанного урана
+tile.etfuturum.raw_thorium_block.name=Блок необработанного тория
 tile.etfuturum.raw_tungsten_block.name=Блок необработанного вольфрама
 tile.etfuturum.raw_titanium_block.name=Блок необработанного титана
 
@@ -1001,8 +1003,21 @@ tile.etfuturum.deepslate_nickel_ore.name=Глубинная никелевая �
 tile.etfuturum.deepslate_platinum_ore.name=Глубинная платиновая руда
 tile.etfuturum.deepslate_mythril_ore.name=Глубинная мифриловая руда
 tile.etfuturum.deepslate_uranium_ore.name=Глубинная урановая руда
+tile.etfuturum.deepslate_thorium_ore.name=Глубинная ториевая руда
 tile.etfuturum.deepslate_tungsten_ore.name=Глубинная вольфрамовая руда
 tile.etfuturum.deepslate_titanium_ore.name=Глубинная титановая руда
+
+tile.etfuturum.deepslate_certus_quartz_ore.name=Глубинная руда истинного кварца
+tile.etfuturum.deepslate_charged_certus_quartz_ore.name=Глубинная заряженная руда истинного кварца
+
+tile.etfuturum.deepslate_cinnabar_ore.name=Глубинная киноварь
+tile.etfuturum.air_infused_deepslate.name=Глубинная грозовая руда
+tile.etfuturum.fire_infused_deepslate.name=Глубинная огненная руда
+tile.etfuturum.water_infused_deepslate.name=Глубинная ледяная руда
+tile.etfuturum.earth_infused_deepslate.name=Глубинная руда земляного кристалла
+tile.etfuturum.order_infused_deepslate.name=Глубинная руда кристалла порядка
+tile.etfuturum.entropy_infused_deepslate.name=Глубинная энтропийная руда
+tile.etfuturum.amber_bearing_deepslate.name=Глубинная янтарная руда
 
 tile.etfuturum.tinted_glass.name=Тонированное стекло
 
