@@ -129,7 +129,7 @@ public class BlockEmissiveLayerRenderer extends BlockModelBase {
 
 		int l = block.getMixedBrightnessForBlock(renderer.blockAccess, x, y, z);
 		if (renderer.renderAllFaces || block.shouldSideBeRendered(renderer.blockAccess, x, y - 1, z, 0)) {
-			tessellator.setBrightness(Math.max(minBrightness, renderer.renderMinY > 0.0D ? l : block.getMixedBrightnessForBlock(renderer.blockAccess, x, MathHelper.floor_double(y - 1), z)));
+			tessellator.setBrightness(floorMixedBrightness(minBrightness, renderer.renderMinY > 0.0D ? l : block.getMixedBrightnessForBlock(renderer.blockAccess, x, MathHelper.floor_double(y - 1), z)));
 			tessellator.setColorOpaque_F(f7, f8, f9);
 			renderer.renderFaceYNeg(block, dx, dy, dz, icon);
 		}
@@ -166,7 +166,7 @@ public class BlockEmissiveLayerRenderer extends BlockModelBase {
 		int l = block.getMixedBrightnessForBlock(renderer.blockAccess, x, y, z);
 
 		if (renderer.renderAllFaces || block.shouldSideBeRendered(renderer.blockAccess, x, y + 1, z, 1)) {
-			tessellator.setBrightness(Math.max(minBrightness, renderer.renderMaxY < 1.0D ? l : block.getMixedBrightnessForBlock(renderer.blockAccess, x, y + 1, z)));
+			tessellator.setBrightness(floorMixedBrightness(minBrightness, renderer.renderMaxY < 1.0D ? l : block.getMixedBrightnessForBlock(renderer.blockAccess, x, y + 1, z)));
 			tessellator.setColorOpaque_F(f7, f8, f9);
 			renderer.renderFaceYPos(block, dx, dy, dz, icon);
 		}
@@ -204,7 +204,7 @@ public class BlockEmissiveLayerRenderer extends BlockModelBase {
 		int l = block.getMixedBrightnessForBlock(renderer.blockAccess, x, y, z);
 
 		if (renderer.renderAllFaces || block.shouldSideBeRendered(renderer.blockAccess, x, y, z - 1, 2)) {
-			tessellator.setBrightness(Math.max(minBrightness, renderer.renderMinZ > 0.0D ? l : block.getMixedBrightnessForBlock(renderer.blockAccess, x, y, z - 1)));
+			tessellator.setBrightness(floorMixedBrightness(minBrightness, renderer.renderMinZ > 0.0D ? l : block.getMixedBrightnessForBlock(renderer.blockAccess, x, y, z - 1)));
 			tessellator.setColorOpaque_F(f7, f8, f9);
 			renderer.renderFaceZNeg(block, dx, dy, dz, icon);
 		}
@@ -242,7 +242,7 @@ public class BlockEmissiveLayerRenderer extends BlockModelBase {
 		int l = block.getMixedBrightnessForBlock(renderer.blockAccess, x, y, z);
 
 		if (renderer.renderAllFaces || block.shouldSideBeRendered(renderer.blockAccess, x, y, z + 1, 3)) {
-			tessellator.setBrightness(Math.max(minBrightness, renderer.renderMaxZ < 1.0D ? l : block.getMixedBrightnessForBlock(renderer.blockAccess, x, y, z + 1)));
+			tessellator.setBrightness(floorMixedBrightness(minBrightness, renderer.renderMaxZ < 1.0D ? l : block.getMixedBrightnessForBlock(renderer.blockAccess, x, y, z + 1)));
 			tessellator.setColorOpaque_F(f7, f8, f9);
 			renderer.renderFaceZPos(block, dx, dy, dz, icon);
 		}
@@ -280,7 +280,7 @@ public class BlockEmissiveLayerRenderer extends BlockModelBase {
 		int l = block.getMixedBrightnessForBlock(renderer.blockAccess, x, y, z);
 
 		if (renderer.renderAllFaces || block.shouldSideBeRendered(renderer.blockAccess, x - 1, y, z, 4)) {
-			tessellator.setBrightness(Math.max(minBrightness, renderer.renderMinX > 0.0D ? l : block.getMixedBrightnessForBlock(renderer.blockAccess, x - 1, y, z)));
+			tessellator.setBrightness(floorMixedBrightness(minBrightness, renderer.renderMinX > 0.0D ? l : block.getMixedBrightnessForBlock(renderer.blockAccess, x - 1, y, z)));
 			tessellator.setColorOpaque_F(f7, f8, f9);
 			renderer.renderFaceXNeg(block, dx, dy, dz, icon);
 		}
@@ -318,10 +318,18 @@ public class BlockEmissiveLayerRenderer extends BlockModelBase {
 		int l = block.getMixedBrightnessForBlock(renderer.blockAccess, x, y, z);
 
 		if (renderer.renderAllFaces || block.shouldSideBeRendered(renderer.blockAccess, x + 1, y, z, 5)) {
-			tessellator.setBrightness(Math.max(minBrightness, renderer.renderMaxX < 1.0D ? l : block.getMixedBrightnessForBlock(renderer.blockAccess, x + 1, y, z)));
+			tessellator.setBrightness(floorMixedBrightness(minBrightness, renderer.renderMaxX < 1.0D ? l : block.getMixedBrightnessForBlock(renderer.blockAccess, x + 1, y, z)));
 			tessellator.setColorOpaque_F(f7, f8, f9);
 			renderer.renderFaceXPos(block, dx, dy, dz, icon);
 		}
+	}
+
+	private int floorMixedBrightness(int minBrightness, int brightness) {
+		//Max value is 240 because 15 (max light value) * 16 = 240
+		int sky = MathHelper.clamp_int(((brightness >>> 16) & 0xFF), minBrightness * 16, 240);
+		int block = MathHelper.clamp_int(brightness & 0xFF, minBrightness * 16, 240);
+
+		return ((sky & 0xFF) << 16) | (block & 0xFF);
 	}
 
 	private IIcon getIconOrEmissiveLayerIcon(Block block, RenderBlocks renderer, int side, int meta, boolean emissive) {

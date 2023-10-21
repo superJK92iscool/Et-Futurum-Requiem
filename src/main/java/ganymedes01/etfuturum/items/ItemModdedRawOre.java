@@ -2,13 +2,13 @@ package ganymedes01.etfuturum.items;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
-import net.minecraftforge.oredict.OreDictionary;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
@@ -19,7 +19,7 @@ import java.util.List;
 public class ItemModdedRawOre extends BaseSubtypesItem {
 
 	public static final String[] names = new String[]{"raw_aluminum", "raw_tin", "raw_silver", "raw_lead", "raw_nickel", "raw_platinum", "raw_mythril",
-			"raw_uranium", "raw_tungsten", "raw_titanium"};
+			"raw_uranium", "raw_thorium", "raw_tungsten", "raw_titanium"};
 	public static final String[] ores = new String[names.length];
 
 	static {
@@ -37,11 +37,9 @@ public class ItemModdedRawOre extends BaseSubtypesItem {
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item, CreativeTabs tabs, List list) {
 		for (int i = 0; i < ores.length; i++) {
-			if (!OreDictionary.getOres(ores[i]).isEmpty()) {
-				list.add(new ItemStack(item, 1, i));
-			} else if (ores[i].equals("ingotMythril") && !OreDictionary.getOres("ingotMithril").isEmpty()) {
-				//If Mythril is empty but Mithril isn't, we'll add the raw ore anyways since it's Mythril and Mithril
-				list.add(new ItemStack(item, 1, i));
+			ItemStack stack = new ItemStack(item, 1, i);
+			if (!EtFuturum.getOreStrings(stack).isEmpty()) {
+				list.add(stack);
 			}
 		}
 	}

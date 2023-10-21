@@ -309,15 +309,6 @@ public class EtFuturum {
 
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
-		ModRecipes.init();
-		DeepslateOreRegistry.init();
-		StrippedLogRegistry.init();
-		RawOreRegistry.init();
-		SmithingTableRecipes.init();
-		CompostingRegistry.init();
-		BeePlantRegistry.init();
-		PistonBehaviorRegistry.init();
-
 		if (ConfigFunctions.enableUpdatedFoodValues) {
 			((ItemFood) Items.carrot).healAmount = 3;
 			((ItemFood) Items.baked_potato).healAmount = 5;
@@ -401,6 +392,15 @@ public class EtFuturum {
 
 	@EventHandler
 	public void onLoadComplete(FMLLoadCompleteEvent e) {
+		ModRecipes.init();
+		DeepslateOreRegistry.init();
+		StrippedLogRegistry.init();
+		RawOreRegistry.init();
+		SmithingTableRecipes.init();
+		CompostingRegistry.init();
+		BeePlantRegistry.init();
+		PistonBehaviorRegistry.init();
+
 		ConfigBase.postInit();
 
 		EtFuturumWorldGenerator.INSTANCE.postInit();

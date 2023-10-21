@@ -78,10 +78,10 @@ public class DeepslateOreRegistry {
 	 * @param to   The block deepslate changes it to
 	 * @param toMeta   The metadata deepslate changes it to
 	 */
-	public static void addOre(String oreDict, Block to, int toMeta) {
+	public static void addOreByOreDict(String oreDict, Block to, int toMeta) {
 		for (ItemStack ore : OreDictionary.getOres(oreDict)) {
 			Block blockToAdd = Block.getBlockFromItem(ore.getItem());
-			if (blockToAdd != null) {
+			if (blockToAdd != null && blockToAdd != to) {
 				addOre(blockToAdd, ore.getItemDamage(), to, toMeta);
 			}
 		}
@@ -97,8 +97,8 @@ public class DeepslateOreRegistry {
 	 * @param oreDict The oreDict tag to overwrite
 	 * @param to      The block:0 deepslate changes it to
 	 */
-	public static void addOre(String oreDict, Block to) {
-		addOre(oreDict, to, 0);
+	public static void addOreByOreDict(String oreDict, Block to) {
+		addOreByOreDict(oreDict, to, 0);
 	}
 
 	/**

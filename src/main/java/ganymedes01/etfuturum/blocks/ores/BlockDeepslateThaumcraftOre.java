@@ -27,7 +27,7 @@ public class BlockDeepslateThaumcraftOre extends BaseSubtypesBlock implements IE
 	private IIcon infusedOverlay;
 
 	public BlockDeepslateThaumcraftOre() {
-		super(Material.rock, "deepslate_cinnibar_ore", "air_infused_deepslate", "fire_infused_deepslate", "water_infused_deepslate", "earth_infused_deepslate",
+		super(Material.rock, "deepslate_cinnabar_ore", "air_infused_deepslate", "fire_infused_deepslate", "water_infused_deepslate", "earth_infused_deepslate",
 				"order_infused_deepslate", "entropy_infused_deepslate", "amber_bearing_deepslate");
 		setBlockSound(ModSounds.soundDeepslate);
 		this.setResistance(5.0F);
@@ -78,7 +78,7 @@ public class BlockDeepslateThaumcraftOre extends BaseSubtypesBlock implements IE
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister reg) {
 		setIcons(new IIcon[3]);
-		getIcons()[0] = reg.registerIcon(Reference.MOD_ID + ":deepslate_cinnibar_ore");
+		getIcons()[0] = reg.registerIcon(Reference.MOD_ID + ":deepslate_cinnabar_ore");
 		getIcons()[1] = reg.registerIcon(Reference.MOD_ID + ":infused_deepslate");
 		getIcons()[2] = reg.registerIcon(Reference.MOD_ID + ":amber_bearing_deepslate");
 		infusedOverlay = reg.registerIcon("thaumcraft:infusedore");
@@ -103,7 +103,7 @@ public class BlockDeepslateThaumcraftOre extends BaseSubtypesBlock implements IE
 
 	@Override
 	public int getEmissiveMinBrightness(IBlockAccess world, int x, int y, int z) {
-		return 1;
+		return 15;
 	}
 
 	@Override
