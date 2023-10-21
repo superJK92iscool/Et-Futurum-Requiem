@@ -35,7 +35,7 @@ public class EtFuturumFXParticle extends EntityFX {
 		super(world, x, y, z, 0, 0, 0);
 		rand = new RandomXoshiro256StarStar();
 		this.textures = textures;
-		resourceLocations = loadTextures(world, x, y, z, new ResourceLocation(texture));
+		resourceLocations = loadTextures(world, x, y, z, texture == null ? null : new ResourceLocation(texture));
 		this.posX = x;
 		this.posY = y;
 		this.posZ = z;
