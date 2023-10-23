@@ -3,6 +3,7 @@ package ganymedes01.etfuturum.mixins.backlytra.client;
 import ganymedes01.etfuturum.client.renderer.entity.elytra.LayerBetterElytra;
 import ganymedes01.etfuturum.elytra.IElytraPlayer;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
@@ -71,7 +72,7 @@ public class MixinModelBiped {
 
 	@Inject(method = "setRotationAngles", at = @At("RETURN"))
 	private void renderElytra(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn, CallbackInfo ci) {
-		if (entityIn instanceof IElytraPlayer && (Minecraft.getMinecraft().gameSettings.thirdPersonView != 0 || entityIn != Minecraft.getMinecraft().renderViewEntity)) {
+		if (entityIn instanceof IElytraPlayer && (Minecraft.getMinecraft().gameSettings.thirdPersonView != 0 || Minecraft.getMinecraft().currentScreen instanceof GuiInventory/* || entityIn != Minecraft.getMinecraft().renderViewEntity*/)) {
 			LayerBetterElytra.doRenderLayer((EntityLivingBase) entityIn, limbSwing, limbSwingAmount, Minecraft.getMinecraft().timer.renderPartialTicks, ageInTicks, netHeadYaw, headPitch, 0.0625F);
 		}
 	}
