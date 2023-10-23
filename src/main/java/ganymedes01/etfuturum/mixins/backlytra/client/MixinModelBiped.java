@@ -72,7 +72,7 @@ public class MixinModelBiped {
 
 	@Inject(method = "setRotationAngles", at = @At("RETURN"))
 	private void renderElytra(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn, CallbackInfo ci) {
-		if (entityIn instanceof IElytraPlayer && (Minecraft.getMinecraft().gameSettings.thirdPersonView != 0 || Minecraft.getMinecraft().currentScreen instanceof GuiInventory/* || entityIn != Minecraft.getMinecraft().renderViewEntity*/)) {
+		if (entityIn instanceof IElytraPlayer && (Minecraft.getMinecraft().gameSettings.thirdPersonView != 0 || Minecraft.getMinecraft().currentScreen instanceof GuiInventory)) {
 			LayerBetterElytra.doRenderLayer((EntityLivingBase) entityIn, limbSwing, limbSwingAmount, Minecraft.getMinecraft().timer.renderPartialTicks, ageInTicks, netHeadYaw, headPitch, 0.0625F);
 		}
 	}
