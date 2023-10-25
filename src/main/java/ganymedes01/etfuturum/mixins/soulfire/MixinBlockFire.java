@@ -49,6 +49,7 @@ public abstract class MixinBlockFire extends Block implements ISoulFireInfo {
 		return super.getLightValue(world, x, y, z);
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Inject(method = "registerBlockIcons", at = @At(value = "HEAD"))
 	private void addSoulFireIcon(IIconRegister reg, CallbackInfo ci) {
 		soulFireIcons = new IIcon[2];
