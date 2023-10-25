@@ -116,6 +116,7 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 				mixins.add("backlytra.client.MixinRenderPlayer");
 				mixins.add("backlytra.client.MixinModelBiped");
 				mixins.add("backlytra.client.MixinEntityRenderer");
+				mixins.add("backlytra.client.MixinGuiInventory");
 			}
 		}
 
