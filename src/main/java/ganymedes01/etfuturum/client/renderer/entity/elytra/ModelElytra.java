@@ -33,13 +33,14 @@ public class ModelElytra extends ModelBase {
 	public void render(Entity entityIn, float p_78088_2_, float limbSwing, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		GL11.glDisable(GL12.GL_RESCALE_NORMAL);
 		GL11.glDisable(GL11.GL_CULL_FACE);
-		this.leftWing.render(scale);
 
 		if (Minecraft.getMinecraft().gameSettings.thirdPersonView == 0 && entityIn == Minecraft.getMinecraft().thePlayer) {
 			if (ClientProxy.isRenderingInventoryPlayer) {
+				this.leftWing.render(scale);
 				this.rightWing.render(scale);
 			}
 		} else {
+			this.leftWing.render(scale);
 			this.rightWing.render(scale);
 		}
 	}
