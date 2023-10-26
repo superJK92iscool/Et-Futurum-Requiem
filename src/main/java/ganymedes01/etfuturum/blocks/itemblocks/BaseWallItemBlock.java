@@ -17,7 +17,7 @@ public class BaseWallItemBlock extends ItemBlock {
 	}
 
 	public String getUnlocalizedName(ItemStack p_77667_1_) {
-		return ((BaseWall) field_150939_a).getWallName(p_77667_1_);
+		return ((BaseWall) field_150939_a).getNameFor(p_77667_1_);
 	}
 
 }

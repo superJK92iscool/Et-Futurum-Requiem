@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.blocks.ores;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.blocks.BaseSubtypesBlock;
 import ganymedes01.etfuturum.blocks.IEmissiveLayerBlock;
 import ganymedes01.etfuturum.client.sound.ModSounds;
@@ -9,7 +7,6 @@ import ganymedes01.etfuturum.core.utils.ExternalContent;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.Item;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
@@ -65,12 +62,8 @@ public class BlockDeepslateCertusQuartzOre extends BaseSubtypesBlock implements 
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister reg) {
-		setIcons(new IIcon[getTypes().length]);
-		for (int i = 0; i < getTypes().length; i++) {
-			getIcons()[i] = reg.registerIcon(Reference.MOD_ID + ":" + getTypes()[i]);
-		}
+	public String getTextureDomain() {
+		return Reference.MOD_ID;
 	}
 
 	@Override

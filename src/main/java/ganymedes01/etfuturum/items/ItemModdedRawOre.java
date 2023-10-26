@@ -4,11 +4,9 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.lib.Reference;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
@@ -45,11 +43,7 @@ public class ItemModdedRawOre extends BaseSubtypesItem {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister reg) {
-		icons = new IIcon[types.length];
-		for (int i = 0; i < types.length; i++) {
-			icons[i] = reg.registerIcon(Reference.MOD_ID + ":" + types[i]);
-		}
+	public String getTextureDomain() {
+		return Reference.MOD_ID;
 	}
 }

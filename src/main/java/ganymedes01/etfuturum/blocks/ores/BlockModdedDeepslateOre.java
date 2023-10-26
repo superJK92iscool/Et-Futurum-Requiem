@@ -8,11 +8,9 @@ import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
@@ -57,11 +55,7 @@ public class BlockModdedDeepslateOre extends BaseSubtypesBlock {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister reg) {
-		setIcons(new IIcon[getTypes().length]);
-		for (int i = 0; i < getTypes().length; i++) {
-			getIcons()[i] = reg.registerIcon(Reference.MOD_ID + ":" + getTypes()[i]);
-		}
+	public String getTextureDomain() {
+		return Reference.MOD_ID;
 	}
 }

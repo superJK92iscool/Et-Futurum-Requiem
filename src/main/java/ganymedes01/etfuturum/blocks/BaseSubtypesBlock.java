@@ -91,7 +91,7 @@ public class BaseSubtypesBlock extends BaseBlock implements ISubBlocksBlock {
 				((TextureMap) reg).setTextureEntry(getTypes()[i], icon);
 				getIcons()[i] = icon;
 			} else {
-				getIcons()[i] = "".equals(getTypes()[i]) ? reg.registerIcon(getTextureName()) : reg.registerIcon(getTypes()[i]);
+				getIcons()[i] = "".equals(getTypes()[i]) ? reg.registerIcon(getTextureName()) : reg.registerIcon((getTextureDomain().isEmpty() ? "" : getTextureDomain() + ":") + getTypes()[i]);
 			}
 		}
 	}

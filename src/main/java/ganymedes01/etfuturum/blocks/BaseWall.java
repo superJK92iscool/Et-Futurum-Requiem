@@ -18,7 +18,7 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-public class BaseWall extends BlockWall {
+public class BaseWall extends BlockWall implements ISubBlocksBlock {
 
 	private final Block[] blocks;
 	private final int[] metas;
@@ -67,12 +67,23 @@ public class BaseWall extends BlockWall {
 		return meta % variations;
 	}
 
-	public String getWallName(ItemStack stack) {
-		return "tile." + Utils.getUnlocalisedName(names != null && names.length > 0 ? names[stack.getItemDamage() % variations] : getUnlocalizedName().substring(6 + Reference.MOD_ID.length()));
-	}
-
 	@Override
 	public boolean canPlaceTorchOnTop(World world, int x, int y, int z) {
 		return true;
+	}
+
+	@Override
+	public IIcon[] getIcons() {
+		return new IIcon[0];
+	}
+
+	@Override
+	public String[] getTypes() {
+		return names;
+	}
+
+	@Override
+	public String getNameFor(ItemStack stack) {
+		return "tile." + getNameDomain() + "." + (names != null && names.length > 0 ? names[stack.getItemDamage() % variations] : getUnlocalizedName().substring(6 + Reference.MOD_ID.length()));
 	}
 }

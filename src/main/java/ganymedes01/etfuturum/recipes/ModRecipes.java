@@ -1047,23 +1047,21 @@ public class ModRecipes {
 		//Insert alternate Mythril spelling to list. Yes I know "mithril" is technically the primary spelling but "mythril" is used by most mods, so "mithril" is secondary to it here.
 		for (int i = 0; i < ItemModdedRawOre.ores.length; i++) {
 			String type = ItemModdedRawOre.ores[i];
-			if (EtFuturum.getOreStrings(ModItems.MODDED_RAW_ORE.newItemStack(1, i)).isEmpty()) {
-				//This can run post-load, so don't register multiple tags if the raw ore already got one.
-				//We have to do this since it is impossible to remove OreDictionary entries.
-				//Well it's probably *technically* possible but I don't want to do it, PR an OD remover if you need EFR to do it.
-				//For now just restart your game to clear entries that would no longer get a tag.
-				int variations = (type.endsWith("Mythril") ? 2 : 1);
+			//This can run post-load, so don't register multiple tags if the raw ore already got one.
+			//We have to do this since it is impossible to remove OreDictionary entries.
+			//Well it's probably *technically* possible but I don't want to do it, PR an OD remover if you need EFR to do it.
+			//For now just restart your game to clear entries that would no longer get a tag.
+			int variations = (type.endsWith("Mythril") ? 2 : 1);
+			if (!OreDictionary.getOres(type).isEmpty() && !EtFuturum.getOreStrings(ModItems.MODDED_RAW_ORE.newItemStack(1, i)).isEmpty()) {
 				for (int j = 0; j < variations; j++) { //If it's mythril, we'll run this once more, changing the spelling to mithril to account for both tags.
-					if (!OreDictionary.getOres(type).isEmpty() && !EtFuturum.getOreStrings(ModItems.MODDED_RAW_ORE.newItemStack(1, i)).isEmpty()) {
-						registerOre(type.replace("ingot", "raw"), ModItems.MODDED_RAW_ORE.newItemStack(1, i));
-						registerOre(type.replace("ingot", "blockRaw"), ModBlocks.MODDED_RAW_ORE_BLOCK.newItemStack(1, i));
-						if (ConfigFunctions.registerRawItemAsOre) {
-							registerOre(type.replace("ingot", "ore"), ModItems.MODDED_RAW_ORE.newItemStack(1, i));
-						}
+					registerOre(type.replace("ingot", "raw"), ModItems.MODDED_RAW_ORE.newItemStack(1, i));
+					registerOre(type.replace("ingot", "blockRaw"), ModBlocks.MODDED_RAW_ORE_BLOCK.newItemStack(1, i));
+					if (ConfigFunctions.registerRawItemAsOre) {
+						registerOre(type.replace("ingot", "ore"), ModItems.MODDED_RAW_ORE.newItemStack(1, i));
 					}
-					if (type.endsWith("Mythril")) {
-						type = type.replace("Mythril", "Mithril"); //Redoes it once more for mithril spelling
-					}
+				}
+				if (type.endsWith("Mythril")) {
+					type = type.replace("Mythril", "Mithril"); //Redoes it once more for mithril spelling
 				}
 			}
 		}
@@ -1072,6 +1070,7 @@ public class ModRecipes {
 		if (OreDictionary.getOres("oreMythril").isEmpty() && !OreDictionary.getOres("oreMithril").isEmpty()) {
 			ores[ArrayUtils.indexOf(ores, "ingotMythril")] = "ingotMithril";
 		}
+
 		for (int i = 0; i < ores.length; i++) {
 			if (!OreDictionary.getOres(ores[i]).isEmpty()) {
 				addShapedRecipe(ModBlocks.MODDED_RAW_ORE_BLOCK.newItemStack(1, i), "xxx", "xxx", "xxx", 'x', ModItems.MODDED_RAW_ORE.newItemStack(1, i));
