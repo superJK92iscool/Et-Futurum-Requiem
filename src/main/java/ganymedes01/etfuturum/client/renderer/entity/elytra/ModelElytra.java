@@ -2,10 +2,8 @@ package ganymedes01.etfuturum.client.renderer.entity.elytra;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ganymedes01.etfuturum.core.proxy.ClientProxy;
 import ganymedes01.etfuturum.elytra.IClientElytraPlayer;
 import ganymedes01.etfuturum.elytra.IElytraPlayer;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
@@ -34,15 +32,8 @@ public class ModelElytra extends ModelBase {
 		GL11.glDisable(GL12.GL_RESCALE_NORMAL);
 		GL11.glDisable(GL11.GL_CULL_FACE);
 
-		if (Minecraft.getMinecraft().gameSettings.thirdPersonView == 0 && entityIn == Minecraft.getMinecraft().thePlayer) {
-			if (ClientProxy.isRenderingInventoryPlayer) {
-				this.leftWing.render(scale);
-				this.rightWing.render(scale);
-			}
-		} else {
-			this.leftWing.render(scale);
-			this.rightWing.render(scale);
-		}
+		this.leftWing.render(scale);
+		this.rightWing.render(scale);
 	}
 
 	/**
@@ -54,7 +45,8 @@ public class ModelElytra extends ModelBase {
 	@Override
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
 		super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
-		float f = 0.2617994F;
+
+		float f = 0.2617994F; // 15 degrees in radians
 		float f1 = -0.2617994F;
 		float f2 = 0.0F;
 		float f3 = 0.0F;
@@ -67,7 +59,7 @@ public class ModelElytra extends ModelBase {
 				f4 = 1.0F - (float) Math.pow(-vec3d.yCoord, 1.5D);
 			}
 
-			f = f4 * 0.34906584F + (1.0F - f4) * f;
+			f = f4 * 0.34906584F + (1.0F - f4) * f; // 20 degrees in radians
 			f1 = f4 * -((float) Math.PI / 2F) + (1.0F - f4) * f1;
 		} else if (entityIn.isSneaking()) {
 			f = ((float) Math.PI * 2F / 9F);

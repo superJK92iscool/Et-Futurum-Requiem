@@ -2,11 +2,9 @@ package ganymedes01.etfuturum.mixins.backlytra.client;
 
 import ganymedes01.etfuturum.client.renderer.entity.elytra.LayerBetterElytra;
 import ganymedes01.etfuturum.elytra.IElytraPlayer;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.MathHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -70,9 +68,8 @@ public class MixinModelBiped {
 	}
 
 	@Inject(method = "setRotationAngles", at = @At("RETURN"))
-	private void renderElytra(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn, CallbackInfo ci) {
-		if (entityIn instanceof IElytraPlayer/* && (Minecraft.getMinecraft().gameSettings.thirdPersonView != 0 || Minecraft.getMinecraft().currentScreen instanceof GuiInventory || entityIn != Minecraft.getMinecraft().thePlayer)*/) {
-			LayerBetterElytra.doRenderLayer((EntityLivingBase) entityIn, limbSwing, limbSwingAmount, Minecraft.getMinecraft().timer.renderPartialTicks, ageInTicks, netHeadYaw, headPitch, 0.0625F);
-		}
+	private void hookVars(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn, CallbackInfo ci) {
+		LayerBetterElytra.netHeadYaw = netHeadYaw;
+		LayerBetterElytra.headPitch = headPitch;
 	}
 }

@@ -18,6 +18,7 @@ import ganymedes01.etfuturum.client.OpenGLHelper;
 import ganymedes01.etfuturum.client.gui.GuiConfigWarning;
 import ganymedes01.etfuturum.client.gui.GuiGamemodeSwitcher;
 import ganymedes01.etfuturum.client.particle.CustomParticles;
+import ganymedes01.etfuturum.client.renderer.entity.elytra.LayerBetterElytra;
 import ganymedes01.etfuturum.client.sound.AmbienceLoop;
 import ganymedes01.etfuturum.client.sound.BeeFlySound;
 import ganymedes01.etfuturum.client.sound.ElytraSound;
@@ -51,6 +52,7 @@ import net.minecraft.client.gui.GuiScreenBook;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.particle.EntityDiggingFX;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.event.ClickEvent;
@@ -346,6 +348,10 @@ public class ClientEventHandler {
 
 	@SubscribeEvent
 	public void renderPlayerSetArmour(SetArmorModel event) {
+		if (event.entityPlayer instanceof IElytraPlayer) {
+			LayerBetterElytra.doRenderLayer(event.entityLiving, event.entityPlayer.limbSwing, event.entityPlayer.limbSwingAmount, Minecraft.getMinecraft().timer.renderPartialTicks, event.entityPlayer.getAge(), 0.0625F);
+		}
+
 		if (isSpectator(event.entityPlayer)) {
 			event.result = 0;
 		} else if (ConfigFunctions.enableTransparentAmour) {
