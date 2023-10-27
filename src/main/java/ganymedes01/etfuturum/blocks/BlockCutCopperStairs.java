@@ -16,7 +16,7 @@ public class BlockCutCopperStairs extends BaseStairs implements IDegradable {
 
 	public BlockCutCopperStairs(Block baseBlock, int p_i45428_2_) {
 		super(baseBlock, p_i45428_2_);
-		setUnlocalizedNameWithPrefix(((ISubBlocksBlock) ModBlocks.COPPER_BLOCK.get()).getTypes()[p_i45428_2_]);
+		setUnlocalizedNameWithPrefix(((ISubBlocksBlock) baseBlock).getTypes()[p_i45428_2_]);
 		setTickRandomly(meta < 7);
 	}
 
