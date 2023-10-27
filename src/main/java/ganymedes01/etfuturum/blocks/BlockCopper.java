@@ -50,7 +50,7 @@ public class BlockCopper extends BaseSubtypesBlock implements IDegradable {
 	public void registerBlockIcons(IIconRegister reg) {
 		setIcons(new IIcon[8]);
 		for (int i = 0; i < getIcons().length; i++) {
-			getIcons()[i] = reg.registerIcon(getTypes()[i]);
+			getIcons()[i] = reg.registerIcon((getTextureDomain().isEmpty() ? "" : getTextureDomain() + ":") + getTypes()[i]);
 		}
 	}
 
