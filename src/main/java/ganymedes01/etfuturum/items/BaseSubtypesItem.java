@@ -2,7 +2,7 @@ package ganymedes01.etfuturum.items;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ganymedes01.etfuturum.core.utils.Utils;
+import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -25,7 +25,7 @@ public class BaseSubtypesItem extends BaseItem {
 
 	@Override
 	public String getUnlocalizedName(ItemStack stack) {
-		return "item." + Utils.getUnlocalisedName(types[stack.getItemDamage() % types.length]);
+		return "item." + getNameDomain() + "." + types[stack.getItemDamage() % types.length];
 	}
 
 	@Override
@@ -48,7 +48,15 @@ public class BaseSubtypesItem extends BaseItem {
 	public void registerIcons(IIconRegister reg) {
 		icons = new IIcon[types.length];
 		for (int i = 0; i < types.length; i++) {
-			icons[i] = reg.registerIcon(types[i]);
+			icons[i] = reg.registerIcon((getTextureDomain().isEmpty() ? "" : getTextureDomain() + ":") + types[i]);
 		}
+	}
+
+	public String getTextureDomain() {
+		return "";
+	}
+
+	public String getNameDomain() {
+		return Reference.MOD_ID;
 	}
 }

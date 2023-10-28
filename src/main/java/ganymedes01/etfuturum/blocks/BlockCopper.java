@@ -18,9 +18,13 @@ import java.util.Random;
 public class BlockCopper extends BaseSubtypesBlock implements IDegradable {
 
 	public BlockCopper() {
-		super(Material.iron, "copper_block", "exposed_copper", "weathered_copper", "oxidized_copper", "cut_copper", "exposed_cut_copper", "weathered_cut_copper",
+		this("copper_block", "exposed_copper", "weathered_copper", "oxidized_copper", "cut_copper", "exposed_cut_copper", "weathered_cut_copper",
 				"oxidized_cut_copper", "waxed_copper_block", "waxed_exposed_copper", "waxed_weathered_copper", "waxed_oxidized_copper", "waxed_cut_copper", "waxed_exposed_cut_copper",
 				"waxed_weathered_cut_copper", "waxed_oxidized_cut_copper");
+	}
+
+	public BlockCopper(String... types) {
+		super(Material.iron, types);
 		setHardness(3);
 		setResistance(6);
 		setHarvestLevel("pickaxe", 1);
@@ -46,7 +50,7 @@ public class BlockCopper extends BaseSubtypesBlock implements IDegradable {
 	public void registerBlockIcons(IIconRegister reg) {
 		setIcons(new IIcon[8]);
 		for (int i = 0; i < getIcons().length; i++) {
-			getIcons()[i] = "".equals(getTypes()[i]) ? reg.registerIcon(getTextureName()) : reg.registerIcon(getTypes()[i]);
+			getIcons()[i] = reg.registerIcon((getTextureDomain().isEmpty() ? "" : getTextureDomain() + ":") + getTypes()[i]);
 		}
 	}
 

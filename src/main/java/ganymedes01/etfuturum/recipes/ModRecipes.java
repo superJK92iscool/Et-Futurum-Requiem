@@ -40,7 +40,6 @@ import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
@@ -992,11 +991,11 @@ public class ModRecipes {
 				//For now just restart your game to clear entries that would no longer get a tag.
 				int variations = (type.endsWith("Mythril") ? 2 : 1);
 				for (int j = 0; j < variations; j++) { //If it's mythril, we'll run this once more, changing the spelling to mithril to account for both tags.
-					if (!OreDictionary.getOres(type).isEmpty() && !EtFuturum.getOreStrings(ModBlocks.MODDED_DEEPSLATE_ORE.newItemStack(1, i)).isEmpty()) {
-						registerOre(type, ModBlocks.MODDED_DEEPSLATE_ORE.newItemStack(1, i));
+					if (!OreDictionary.getOres(type).isEmpty()) { //Make sure an ore is present.
+//						registerOre(type, ModBlocks.MODDED_DEEPSLATE_ORE.newItemStack(1, i));
+						DeepslateOreRegistry.addOreByOreDict(type, ModBlocks.MODDED_DEEPSLATE_ORE.get(), i);
 					}
 					//We put this outside of the if statement so additional tags added with CT get added.
-					DeepslateOreRegistry.addOreByOreDict(type, ModBlocks.MODDED_DEEPSLATE_ORE.get(), i);
 					if (type.endsWith("Mythril")) {
 						type = type.replace("Mythril", "Mithril"); //Redoes it once more for mithril spelling
 					}
@@ -1047,36 +1046,33 @@ public class ModRecipes {
 		//Insert alternate Mythril spelling to list. Yes I know "mithril" is technically the primary spelling but "mythril" is used by most mods, so "mithril" is secondary to it here.
 		for (int i = 0; i < ItemModdedRawOre.ores.length; i++) {
 			String type = ItemModdedRawOre.ores[i];
-			if (EtFuturum.getOreStrings(ModItems.MODDED_RAW_ORE.newItemStack(1, i)).isEmpty()) {
-				//This can run post-load, so don't register multiple tags if the raw ore already got one.
-				//We have to do this since it is impossible to remove OreDictionary entries.
-				//Well it's probably *technically* possible but I don't want to do it, PR an OD remover if you need EFR to do it.
-				//For now just restart your game to clear entries that would no longer get a tag.
-				int variations = (type.endsWith("Mythril") ? 2 : 1);
-				for (int j = 0; j < variations; j++) { //If it's mythril, we'll run this once more, changing the spelling to mithril to account for both tags.
-					if (!OreDictionary.getOres(type).isEmpty() && !EtFuturum.getOreStrings(ModItems.MODDED_RAW_ORE.newItemStack(1, i)).isEmpty()) {
-						registerOre(type.replace("ingot", "raw"), ModItems.MODDED_RAW_ORE.newItemStack(1, i));
-						registerOre(type.replace("ingot", "blockRaw"), ModBlocks.MODDED_RAW_ORE_BLOCK.newItemStack(1, i));
-						if (ConfigFunctions.registerRawItemAsOre) {
-							registerOre(type.replace("ingot", "ore"), ModItems.MODDED_RAW_ORE.newItemStack(1, i));
-						}
+			//This can run post-load, so don't register multiple tags if the raw ore already got one.
+			//We have to do this since it is impossible to remove OreDictionary entries.
+			//Well it's probably *technically* possible but I don't want to do it, PR an OD remover if you need EFR to do it.
+			//For now just restart your game to clear entries that would no longer get a tag.
+			int variations = (type.endsWith("Mythril") ? 2 : 1);
+			for (int j = 0; j < variations; j++) { //If it's mythril, we'll run this once more, changing the spelling to mithril to account for both tags.
+				if (!OreDictionary.getOres(type).isEmpty() && !OreDictionary.getOres(type.replace("ingot", "ore")).isEmpty()) { //Make sure an ingot AND ore is present
+					registerOre(type.replace("ingot", "raw"), ModItems.MODDED_RAW_ORE.newItemStack(1, i));
+					registerOre(type.replace("ingot", "blockRaw"), ModBlocks.MODDED_RAW_ORE_BLOCK.newItemStack(1, i));
+					if (ConfigFunctions.registerRawItemAsOre) {
+						registerOre(type.replace("ingot", "ore"), ModItems.MODDED_RAW_ORE.newItemStack(1, i));
 					}
-					if (type.endsWith("Mythril")) {
-						type = type.replace("Mythril", "Mithril"); //Redoes it once more for mithril spelling
-					}
+				}
+				if (type.endsWith("Mythril")) {
+					type = type.replace("Mythril", "Mithril"); //Redoes it once more for mithril spelling
 				}
 			}
 		}
 
-		String[] ores = ArrayUtils.clone(ItemModdedRawOre.ores);
-		if (OreDictionary.getOres("oreMythril").isEmpty() && !OreDictionary.getOres("oreMithril").isEmpty()) {
-			ores[ArrayUtils.indexOf(ores, "ingotMythril")] = "ingotMithril";
-		}
-		for (int i = 0; i < ores.length; i++) {
-			if (!OreDictionary.getOres(ores[i]).isEmpty()) {
+		for (int i = 0; i < ItemModdedRawOre.ores.length; i++) {
+			if (!OreDictionary.getOres(ItemModdedRawOre.ores[i]).isEmpty()) {
 				addShapedRecipe(ModBlocks.MODDED_RAW_ORE_BLOCK.newItemStack(1, i), "xxx", "xxx", "xxx", 'x', ModItems.MODDED_RAW_ORE.newItemStack(1, i));
 				addShapedRecipe(ModItems.MODDED_RAW_ORE.newItemStack(9, i), "x", 'x', ModBlocks.MODDED_RAW_ORE_BLOCK.newItemStack(1, i));
-				addSmelting(ModItems.MODDED_RAW_ORE.newItemStack(1, i), OreDictionary.getOres(ores[i]).get(0), 0.7F);
+				addSmelting(ModItems.MODDED_RAW_ORE.newItemStack(1, i), OreDictionary.getOres(ItemModdedRawOre.ores[i]).get(0), 0.7F);
+				if (ItemModdedRawOre.ores[i].endsWith("Mythril") && !OreDictionary.getOres("oreMithril").isEmpty()) {
+					addSmelting(ModItems.MODDED_RAW_ORE.newItemStack(1, i), OreDictionary.getOres("oreMithril").get(0), 0.7F);
+				}
 			}
 		}
 	}

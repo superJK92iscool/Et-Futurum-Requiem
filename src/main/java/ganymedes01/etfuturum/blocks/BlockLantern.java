@@ -8,9 +8,7 @@ import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.RenderIDs;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockFence;
-import net.minecraft.block.BlockWall;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -58,8 +56,9 @@ public class BlockLantern extends Block {
 
 	private boolean canPlaceAbove(World world, int x, int y, int z) {
 		Block above = world.getBlock(x, y + 1, z);
+		int aboveMeta = world.getBlockMetadata(x, y + 1, z);
 		return world.isSideSolid(x, y + 1, z, ForgeDirection.DOWN) || (above == ModBlocks.CHAIN.get() && world.getBlockMetadata(x, y + 1, z) == 0)
-				|| above instanceof BlockFence || above instanceof BlockWall;
+				|| above instanceof BlockFence || above instanceof BlockWall || (above instanceof BlockSlab && aboveMeta < 8) || (above instanceof BlockStairs && aboveMeta < 4);
 	}
 
 	private boolean canPlaceBelow(World world, int x, int y, int z) {

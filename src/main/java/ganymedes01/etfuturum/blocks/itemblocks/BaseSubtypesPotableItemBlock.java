@@ -3,7 +3,6 @@ package ganymedes01.etfuturum.blocks.itemblocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.blocks.ISubBlocksBlock;
-import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
@@ -23,7 +22,7 @@ public class BaseSubtypesPotableItemBlock extends BasePotableItemBlock {
 	}
 
 	private String addTilePrefix(String name) {
-		return name.startsWith("tile.") ? name : "tile." + Utils.getUnlocalisedName(name);
+		return name.startsWith("tile.") ? name : "tile." + ((ISubBlocksBlock) field_150939_a).getNameDomain() + "." + name;
 	}
 
 	@Override

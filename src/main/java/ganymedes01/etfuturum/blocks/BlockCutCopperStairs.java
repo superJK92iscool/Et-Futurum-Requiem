@@ -11,36 +11,12 @@ import java.util.Random;
 public class BlockCutCopperStairs extends BaseStairs implements IDegradable {
 
 	public BlockCutCopperStairs(int p_i45428_2_) {
-		super(ModBlocks.COPPER_BLOCK.get(), p_i45428_2_);
-		String name = "cut_copper";
-		String subtype;
-		switch (meta) {
-			default:
-				subtype = "";
-				break;
-			case 5:
-				subtype = "exposed";
-				break;
-			case 6:
-				subtype = "weathered";
-				break;
-			case 7:
-				subtype = "oxidized";
-				break;
-			case 12:
-				subtype = "waxed";
-				break;
-			case 13:
-				subtype = "waxed_exposed";
-				break;
-			case 14:
-				subtype = "waxed_weathered";
-				break;
-			case 15:
-				subtype = "waxed_oxidized";
-				break;
-		}
-		setUnlocalizedNameWithPrefix(subtype + (subtype.equals("") ? "" : "_") + name);
+		this(ModBlocks.COPPER_BLOCK.get(), p_i45428_2_);
+	}
+
+	public BlockCutCopperStairs(Block baseBlock, int p_i45428_2_) {
+		super(baseBlock, p_i45428_2_);
+		setUnlocalizedNameWithPrefix(((ISubBlocksBlock) baseBlock).getTypes()[p_i45428_2_]);
 		setTickRandomly(meta < 7);
 	}
 
