@@ -50,6 +50,7 @@ public abstract class MixinBlockFire extends Block implements ISoulFireInfo {
 	}
 
 	@Inject(method = "registerBlockIcons", at = @At(value = "HEAD"))
+	@SideOnly(Side.CLIENT)
 	private void addSoulFireIcon(IIconRegister reg, CallbackInfo ci) {
 		soulFireIcons = new IIcon[2];
 		soulFireIcons[0] = reg.registerIcon("soul_fire_0");
@@ -57,6 +58,7 @@ public abstract class MixinBlockFire extends Block implements ISoulFireInfo {
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public IIcon getSoulFireIcon(int type) {
 		return soulFireIcons[type % soulFireIcons.length];
 	}

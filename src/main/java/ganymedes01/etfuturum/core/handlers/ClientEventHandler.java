@@ -554,8 +554,6 @@ public class ClientEventHandler {
 				if (getAmbienceMood() != null) {
 					event.result = new PositionedSoundRecord(new ResourceLocation(getAmbienceMood()),
 							event.sound.getVolume(), event.sound.getPitch(), x + 0.5F, y + 0.5F, z + 0.5F);
-				} else {
-					event.result = null;
 				}
 			}
 		}

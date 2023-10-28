@@ -45,7 +45,7 @@ public class DynamicSoundsResourcePack implements IResourcePack {
 		return "Et Futurum Requiem dynamic sounds.json";
 	}
 
-	public InputStream getInputStream(ResourceLocation resLoc) throws IOException {
+	public InputStream getInputStream(ResourceLocation resLoc) {
 		if (resLoc.getResourcePath().equals("sounds.json")) {
 			return new ByteArrayInputStream(new JsonCreator().getJson().toString().getBytes());
 		}
@@ -54,14 +54,6 @@ public class DynamicSoundsResourcePack implements IResourcePack {
 
 	public boolean resourceExists(ResourceLocation resLoc) {
 		return resLoc.getResourcePath().equals("sounds.json")/* || resLoc.getResourcePath().endsWith("lang")*/;
-	}
-
-	private boolean resourceExistsSomewhere(ResourceLocation resLoc) {
-		try {
-			return Minecraft.getMinecraft().getResourceManager().getResource(resLoc) != null;
-		} catch (IOException e) {
-		}
-		return false;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -74,6 +66,10 @@ public class DynamicSoundsResourcePack implements IResourcePack {
 				((SimpleReloadableResourceManager) resMan).reloadResourcePack(dynamicResourcePack);
 			}
 		}
+	}
+
+	public static boolean shouldGenerateJson() {
+		return ConfigSounds.caveAmbience;
 	}
 
 	public class JsonCreator {
