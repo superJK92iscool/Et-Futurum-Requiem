@@ -105,8 +105,9 @@ public class RawOreRegistry {
 		}
 		if (ModItems.MODDED_RAW_ORE.isEnabled()) {
 			for (int i = 0; i < ItemModdedRawOre.names.length; i++) {
-				if (!OreDictionary.getOres(ItemModdedRawOre.ores[i]).isEmpty()) {
-					addOre(ItemModdedRawOre.ores[i].replace("ingot", "ore"), ModItems.MODDED_RAW_ORE.get(), i);
+				addOre(ItemModdedRawOre.ores[i].replace("ingot", "ore"), ModItems.MODDED_RAW_ORE.get(), i);
+				if (ItemModdedRawOre.ores[i].endsWith("Mythril")) {
+					addOre("oreMithril", ModItems.MODDED_RAW_ORE.get(), i);
 				}
 			}
 		}

@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.recipes;
 
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
@@ -10,6 +11,7 @@ import ganymedes01.etfuturum.blocks.IDegradable;
 import ganymedes01.etfuturum.blocks.ores.BlockModdedDeepslateOre;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
+import ganymedes01.etfuturum.configuration.configs.ConfigModCompat;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.utils.ExternalContent;
 import ganymedes01.etfuturum.core.utils.Utils;
@@ -813,13 +815,6 @@ public class ModRecipes {
 
 		addShapedRecipe(ModBlocks.MOSS_BLOCK.newItemStack(1, 0), "xxx", "xyx", "xxx", 'x', new ItemStack(Blocks.vine, 1), 'y', new ItemStack(Blocks.dirt, 1));
 
-		ItemStack result = null;
-		if (ModItems.COPPER_INGOT.isEnabled()) {
-			result = ModItems.COPPER_INGOT.newItemStack();
-		} else if (!OreDictionary.getOres("ingotCopper").isEmpty()) {
-			result = OreDictionary.getOres("ingotCopper").get(0);
-		}
-
 		for (int i = 0; i < getStewFlowers().size(); i++) {
 			ItemStack stew = ModItems.SUSPICIOUS_STEW.newItemStack();
 
@@ -951,7 +946,28 @@ public class ModRecipes {
 		addShapedRecipe(ModBlocks.BASALT.newItemStack(4, 1), "xx", "xx", 'x', ModBlocks.BASALT.newItemStack());
 		addSmelting(ModBlocks.BASALT.newItemStack(), ModBlocks.SMOOTH_BASALT.newItemStack(), 0.1F);
 
+		if (Loader.isModLoaded("lotr")) {//LoTR ores and ingots stupidly lack dictionary entries; let's add them so the code below can find them.
+			if (ConfigModCompat.moddedRawOres) {
+				registerOre("oreCopper", GameRegistry.findBlock("lotr", "tile.oreCopper"));
+				registerOre("ingotCopper", GameRegistry.findItem("lotr", "item.copper"));
+
+				registerOre("oreTin", GameRegistry.findBlock("lotr", "tile.oreTin"));
+				registerOre("ingotTin", GameRegistry.findItem("lotr", "item.tin"));
+				registerOre("oreSilver", GameRegistry.findBlock("lotr", "tile.oreSilver"));
+				registerOre("ingotSilver", GameRegistry.findItem("lotr", "item.silver"));
+				registerOre("oreMithril", GameRegistry.findBlock("lotr", "tile.oreMithril"));
+				registerOre("ingotMithril", GameRegistry.findItem("lotr", "item.mithril"));
+			}
+		}
+
 		registerModdedDeepslateOres();
+
+		ItemStack result = null;
+		if (ModItems.COPPER_INGOT.isEnabled()) {
+			result = ModItems.COPPER_INGOT.newItemStack();
+		} else if (!OreDictionary.getOres("ingotCopper").isEmpty()) {
+			result = OreDictionary.getOres("ingotCopper").get(0);
+		}
 
 		addShapedRecipe(ModBlocks.RAW_ORE_BLOCK.newItemStack(), "xxx", "xxx", "xxx", 'x', ModItems.RAW_ORE.newItemStack());
 		addShapedRecipe(ModItems.RAW_ORE.newItemStack(9), "x", 'x', ModBlocks.RAW_ORE_BLOCK.newItemStack());
@@ -989,8 +1005,7 @@ public class ModRecipes {
 				//We have to do this since it is impossible to remove OreDictionary entries.
 				//Well it's probably *technically* possible but I don't want to do it, PR an OD remover if you need EFR to do it.
 				//For now just restart your game to clear entries that would no longer get a tag.
-				int variations = (type.endsWith("Mythril") ? 2 : 1);
-				for (int j = 0; j < variations; j++) { //If it's mythril, we'll run this once more, changing the spelling to mithril to account for both tags.
+				for (int j = 0; j < 1; j++) { //If it's mythril, we'll run this once more, changing the spelling to mithril to account for both tags.
 					if (!OreDictionary.getOres(type).isEmpty()) { //Make sure an ore is present.
 //						registerOre(type, ModBlocks.MODDED_DEEPSLATE_ORE.newItemStack(1, i));
 						DeepslateOreRegistry.addOreByOreDict(type, ModBlocks.MODDED_DEEPSLATE_ORE.get(), i);
@@ -998,6 +1013,7 @@ public class ModRecipes {
 					//We put this outside of the if statement so additional tags added with CT get added.
 					if (type.endsWith("Mythril")) {
 						type = type.replace("Mythril", "Mithril"); //Redoes it once more for mithril spelling
+						j = -1;
 					}
 				}
 			}
@@ -1050,8 +1066,9 @@ public class ModRecipes {
 			//We have to do this since it is impossible to remove OreDictionary entries.
 			//Well it's probably *technically* possible but I don't want to do it, PR an OD remover if you need EFR to do it.
 			//For now just restart your game to clear entries that would no longer get a tag.
-			int variations = (type.endsWith("Mythril") ? 2 : 1);
-			for (int j = 0; j < variations; j++) { //If it's mythril, we'll run this once more, changing the spelling to mithril to account for both tags.
+			for (int j = 0; j < 1; j++) { //If it's mythril, we'll run this once more, changing the spelling to mithril to account for both tags.
+				boolean one = !OreDictionary.getOres(type).isEmpty();
+				boolean two = !OreDictionary.getOres(type.replace("ingot", "ore")).isEmpty();
 				if (!OreDictionary.getOres(type).isEmpty() && !OreDictionary.getOres(type.replace("ingot", "ore")).isEmpty()) { //Make sure an ingot AND ore is present
 					registerOre(type.replace("ingot", "raw"), ModItems.MODDED_RAW_ORE.newItemStack(1, i));
 					registerOre(type.replace("ingot", "blockRaw"), ModBlocks.MODDED_RAW_ORE_BLOCK.newItemStack(1, i));
@@ -1061,6 +1078,7 @@ public class ModRecipes {
 				}
 				if (type.endsWith("Mythril")) {
 					type = type.replace("Mythril", "Mithril"); //Redoes it once more for mithril spelling
+					j = -1;
 				}
 			}
 		}
