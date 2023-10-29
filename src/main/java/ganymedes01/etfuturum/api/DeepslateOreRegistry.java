@@ -4,7 +4,9 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.api.mappings.RegistryMapping;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.core.utils.Logger;
 import net.minecraft.block.Block;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
@@ -59,8 +61,11 @@ public class DeepslateOreRegistry {
 	 * @param toMeta   The meta deepslate changes it to
 	 */
 	public static void addOre(Block from, int fromMeta, Block to, int toMeta) {
+		if (from instanceof ITileEntityProvider || to instanceof ITileEntityProvider) {
+			throw new IllegalArgumentException("Block Entities are not supported for the deepslate ore registry!");
+		}
 		if (((fromMeta < 0 || fromMeta > 15) && fromMeta != OreDictionary.WILDCARD_VALUE) || ((toMeta < 0 || toMeta > 15) && toMeta != OreDictionary.WILDCARD_VALUE)) {
-			throw new IllegalArgumentException("Meta must be between 0 and 15 (inclusive)");
+			throw new IllegalArgumentException("Meta must be between 0 and 15 (inclusive), you may be trying to add an ItemStack-only meta value (maybe used for Block Entity data?");
 		}
 		RegistryMapping<Block> inputMapping = new RegistryMapping<>(from, fromMeta);
 		deepslateOres.put(inputMapping.hashCode(), new RegistryMapping<>(to, toMeta));
@@ -79,11 +84,33 @@ public class DeepslateOreRegistry {
 	 * @param toMeta   The metadata deepslate changes it to
 	 */
 	public static void addOreByOreDict(String oreDict, Block to, int toMeta) {
+		boolean hasBadEntry = false;
+//		HashMap<String, String> ignoredEntries = Maps.newHashMap();
 		for (ItemStack ore : OreDictionary.getOres(oreDict)) {
 			Block blockToAdd = Block.getBlockFromItem(ore.getItem());
-			if (blockToAdd != null && blockToAdd != to) {
-				addOre(blockToAdd, ore.getItemDamage(), to, toMeta);
+			if (blockToAdd != Blocks.air && blockToAdd != null && blockToAdd != to) {
+				try {
+					addOre(blockToAdd, ore.getItemDamage(), to, toMeta);
+				} catch (IllegalArgumentException e) {
+//					ignoredEntries.putIfAbsent(Block.blockRegistry.getNameForObject(blockToAdd) + ":" + (ore.getItemDamage() == OreDictionary.WILDCARD_VALUE ? "*" : ore.getItemDamage()),
+//							Block.blockRegistry.getNameForObject(to) + ":" + (toMeta == OreDictionary.WILDCARD_VALUE ? "*" : toMeta) + " (" + (e.getMessage().contains("Block Entities") ? "is block entity" : "meta out of 0-15 range") + ")");
+					hasBadEntry = true;
+				}
 			}
+		}
+		if (/*!ignoredEntries.isEmpty()*/ hasBadEntry) {
+			Logger.warn(oreDict + " had one ore more entries which are either block entities or supplying a meta outside of 0-15. Check the contents of the OreDict tag for more info.");
+			Logger.warn("Ignoring those entries instead of crashing, since this could be an unintended side effect of adding by OreDict string.");
+//			StringBuilder builder = new StringBuilder();
+//			int i = 0;
+//			for(Entry<String, String> entry : ignoredEntries.entrySet()) {
+//				i++;
+//				builder.append(entry.getKey()).append(" to ").append(entry.getValue());
+//				if(i != ignoredEntries.size()) {
+//					builder.append(", ");
+//				}
+//			}
+//			Logger.debug("All ignored entries for " + oreDict + ": " + builder);
 		}
 	}
 
