@@ -29,4 +29,9 @@ public class RawOreDropMapping extends RegistryMapping<Item> {
 	public int getDropAmount(Random rand, int fortune) {
 		return getDropsExtra() ? rand.nextInt(3 * (fortune + 1) - 1) + 2 : rand.nextInt(1 + fortune) + 1;
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		return ((RawOreDropMapping) o).exdrops == exdrops && super.equals(o);
+	}
 }
