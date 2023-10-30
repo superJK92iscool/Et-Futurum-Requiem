@@ -8,7 +8,6 @@ import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.IBlockAccess;
@@ -41,10 +40,5 @@ public class BlockNetherwart extends BaseSubtypesBlock {
 	@Override
 	public boolean isLeaves(IBlockAccess world, int x, int y, int z) {
 		return true;
-	}
-
-	public boolean canCreatureSpawn(EnumCreatureType type, IBlockAccess world, int x, int y, int z) {
-		//ARGH I WANT TO ONLY PREVENT CERTAIN NETHER MOBS BUT THIS FUNCTION STUPIDLY LACKS THE ACTUAL DAMN ENTITY BEING PASSED IN! CURSE YOU FORGE!
-		return type != EnumCreatureType.monster && world.getBlockMetadata(x, y, z) == 0;
 	}
 }

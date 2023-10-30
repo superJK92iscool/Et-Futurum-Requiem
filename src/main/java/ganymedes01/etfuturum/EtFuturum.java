@@ -401,6 +401,7 @@ public class EtFuturum {
 
 	@EventHandler
 	public void onLoadComplete(FMLLoadCompleteEvent e) {
+
 		ConfigBase.postInit();
 
 		EtFuturumWorldGenerator.INSTANCE.postInit();

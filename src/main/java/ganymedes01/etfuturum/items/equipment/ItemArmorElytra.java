@@ -9,6 +9,7 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.compat.CompatBaublesExpanded;
 import ganymedes01.etfuturum.configuration.configs.ConfigModCompat;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
+import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.items.BaseItem;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.BlockDispenser;
@@ -102,7 +103,11 @@ public class ItemArmorElytra extends BaseItem implements IBaubleExpanded {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List tooltip, boolean debug) {
-		if (EtFuturum.hasBaublesExpanded) {
+		if (Utils.badBetterFPSAlgorithm()) {
+			tooltip.add("\u00a7cBetterFPS is configured poorly.");
+			tooltip.add("\u00a7cCheck the chat warning for more info.");
+			tooltip.add("\u00a7cElytra flight has been disabled.");
+		} else if (EtFuturum.hasBaublesExpanded) {
 			String[] slots;
 			switch (ConfigModCompat.elytraBaublesExpandedCompat) {
 				default:

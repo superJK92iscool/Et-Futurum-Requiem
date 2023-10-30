@@ -3,6 +3,7 @@ package ganymedes01.etfuturum.mixins.backlytra.client;
 import com.mojang.authlib.GameProfile;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
+import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.elytra.IElytraPlayer;
 import ganymedes01.etfuturum.items.equipment.ItemArmorElytra;
 import ganymedes01.etfuturum.network.StartElytraFlyingMessage;
@@ -22,6 +23,7 @@ public abstract class MixinEntityPlayerSP extends AbstractClientPlayer {
 	@Shadow
 	public MovementInput movementInput;
 	private boolean etfu$lastIsJumping = false;
+	private boolean etfu$lastIsFlying = false;
 
 	public MixinEntityPlayerSP(World p_i45074_1_, GameProfile p_i45074_2_) {
 		super(p_i45074_1_, p_i45074_2_);
@@ -29,13 +31,16 @@ public abstract class MixinEntityPlayerSP extends AbstractClientPlayer {
 
 	@Inject(method = "onLivingUpdate", at = @At("TAIL"))
 	private void startElytraFlying(CallbackInfo ci) {
-		if (this.movementInput.jump && !etfu$lastIsJumping && !this.onGround && (ConfigMixins.enableNewElytraTakeoffLogic || this.motionY < 0.0D) && !((IElytraPlayer) this).etfu$isElytraFlying() && !this.capabilities.isFlying) {
-			ItemStack itemstack = ItemArmorElytra.getElytra(this);
-			if (itemstack != null && !ItemArmorElytra.isBroken(itemstack)) {
-				EtFuturum.networkWrapper.sendToServer(new StartElytraFlyingMessage());
-				//Minecraft.getMinecraft().getSoundHandler().playSound(new ElytraSound(e));
+		if (!Utils.badBetterFPSAlgorithm()) {
+			if (this.movementInput.jump && !etfu$lastIsJumping && !this.onGround && (ConfigMixins.enableNewElytraTakeoffLogic || this.motionY < 0.0D) && !((IElytraPlayer) this).etfu$isElytraFlying() && !etfu$lastIsFlying) {
+				ItemStack itemstack = ItemArmorElytra.getElytra(this);
+				if (itemstack != null && !ItemArmorElytra.isBroken(itemstack)) {
+					EtFuturum.networkWrapper.sendToServer(new StartElytraFlyingMessage());
+					//Minecraft.getMinecraft().getSoundHandler().playSound(new ElytraSound(e));
+				}
 			}
+			etfu$lastIsJumping = this.movementInput.jump;
+			etfu$lastIsFlying = this.capabilities.isFlying;
 		}
-		etfu$lastIsJumping = this.movementInput.jump;
 	}
 }

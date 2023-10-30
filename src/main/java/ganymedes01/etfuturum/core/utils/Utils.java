@@ -15,10 +15,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 
 public class Utils {
 
@@ -398,5 +395,18 @@ public class Utils {
 			sb.append(names[i].split("_")[1]);
 		}
 		return sb.toString();
+	}
+
+	private static String betterFpsAlgo;
+
+	public static boolean badBetterFPSAlgorithm() {
+		if (betterFpsAlgo == null) {
+			betterFpsAlgo = "";
+			try {
+				betterFpsAlgo = (String) Class.forName("me.guichaguri.betterfps.BetterFpsHelper").getField("ALGORITHM_NAME").get(null);
+			} catch (IllegalAccessException | NoSuchFieldException | ClassNotFoundException ignored) {
+			}
+		}
+		return Objects.equals(betterFpsAlgo, "rivens-half") || Objects.equals(betterFpsAlgo, "taylors");
 	}
 }

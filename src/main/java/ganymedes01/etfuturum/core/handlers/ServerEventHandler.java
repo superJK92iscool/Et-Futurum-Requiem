@@ -1335,6 +1335,22 @@ public class ServerEventHandler {
 	}
 
 	@SubscribeEvent
+	public void spawnEvent(LivingSpawnEvent.CheckSpawn event) {
+		if (event.world.provider instanceof WorldProviderHell) {
+			int x = MathHelper.floor_double(event.x);
+			int y = MathHelper.floor_double(event.y);
+			int z = MathHelper.floor_double(event.z);
+			World world = event.world;
+
+			if (world.getBlock(x, y - 1, z) == ModBlocks.NETHER_WART.get() && world.getBlockMetadata(x, y, z) == 0) {
+				if (!(event.entity instanceof EntityFlying)) {
+					event.setCanceled(true);
+				}
+			}
+		}
+	}
+
+	@SubscribeEvent
 	public void spawnEvent(EntityJoinWorldEvent event) {
 		int x = MathHelper.floor_double(event.entity.posX);
 		int y = MathHelper.floor_double(event.entity.posY);
