@@ -6,8 +6,18 @@ import net.minecraftforge.oredict.OreDictionary;
 
 public class RegistryMapping<T> {
 
-	private final T object;
-	private final transient int meta;
+	private static final RegistryMapping keyInstance = new RegistryMapping<>();
+	private T object;
+	private transient int meta;
+
+	/**
+	 * Used by the mutable key instance to create a mutable key instance without a parameterized type, bypassing the below restrictions.
+	 * Not intended for general use.
+	 */
+	private RegistryMapping() {
+		object = null;
+		meta = 0;
+	}
 
 	/**
 	 * Used by certain areas of Et Futurum to store a block and meta mapping that can be matched with a new instance.
@@ -17,12 +27,8 @@ public class RegistryMapping<T> {
 		if (!(obj instanceof Block) && !(obj instanceof Item)) {
 			throw new IllegalArgumentException("RegistryMapping must be either an item or a block!");
 		}
-		object = obj;
-		if (object instanceof Item || meta == OreDictionary.WILDCARD_VALUE) {
-			this.meta = meta;
-		} else {
-			this.meta = meta & 15;
-		}
+		setObject(obj);
+		setMeta(meta);
 	}
 
 	public T getObject() {
@@ -40,6 +46,34 @@ public class RegistryMapping<T> {
 
 	@Override
 	public int hashCode() {
-		return object.hashCode();
+		return object.hashCode() + (meta == OreDictionary.WILDCARD_VALUE ? 0 : meta + 1);
+	}
+
+	/**
+	 * Returns a recycled RegistryMapping instance of the specified type. This does NOT CREATE A NEW INSTANCE!
+	 * This is used by things like deepslate registry as a key object without spamming the garbage collector with tons of new instances.
+	 * So you should use "new RegistryMapping<?></?>(obj, meta) to create a new RegistryMapping, again, this DOES NOT CREATE A NEW INSTANCE!
+	 *
+	 * @param object
+	 * @param meta
+	 * @param <E>
+	 * @return
+	 */
+	public static <E> RegistryMapping<E> getKeyFor(E object, int meta) {
+		return keyInstance.setObject(object).setMeta(meta);
+	}
+
+	private RegistryMapping<T> setObject(T obj) {
+		this.object = obj;
+		return this;
+	}
+
+	private RegistryMapping<T> setMeta(int meta) {
+		if (object instanceof Item || meta == OreDictionary.WILDCARD_VALUE) {
+			this.meta = meta;
+		} else {
+			this.meta = meta & 15;
+		}
+		return this;
 	}
 }

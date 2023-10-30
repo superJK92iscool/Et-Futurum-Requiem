@@ -46,7 +46,7 @@ public class RawOreRegistry {
 	 */
 	public static void addOre(String oreDict, Item ore, int meta) {
 		RawOreDropMapping mapping = new RawOreDropMapping(ore, meta);
-		if (oreDict.startsWith("ore") && ArrayUtils.contains(ConfigFunctions.extraDropRawOres, oreDict)) {
+		if (ArrayUtils.contains(ConfigFunctions.extraDropRawOres, oreDict)) {
 			mapping.setDropsExtra(true);
 		}
 		addOre(oreDict, mapping);

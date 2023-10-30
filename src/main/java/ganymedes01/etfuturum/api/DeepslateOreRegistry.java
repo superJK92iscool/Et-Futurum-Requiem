@@ -32,12 +32,7 @@ import java.util.Map.Entry;
  */
 public class DeepslateOreRegistry {
 
-	private static final Map<Integer, RegistryMapping<Block>> deepslateOres = new HashMap<>();
-	/**
-	 * Temporarily stores the mapping an input hash is associated with so we can iterate
-	 * through it on the game load to copy furnace smelting and OreDict entries.
-	 */
-	private static final Map<Integer, RegistryMapping<Block>> inputOres = new HashMap<>();
+	private static final Map<RegistryMapping<Block>, RegistryMapping<Block>> deepslateOres = new HashMap<>();
 
 	/**
 	 * Adds a block to block pair to the deepslate mapping registry.
@@ -67,9 +62,7 @@ public class DeepslateOreRegistry {
 		if (((fromMeta < 0 || fromMeta > 15) && fromMeta != OreDictionary.WILDCARD_VALUE) || ((toMeta < 0 || toMeta > 15) && toMeta != OreDictionary.WILDCARD_VALUE)) {
 			throw new IllegalArgumentException("Meta must be between 0 and 15 (inclusive), you may be trying to add an ItemStack-only meta value (maybe used for Block Entity data?");
 		}
-		RegistryMapping<Block> inputMapping = new RegistryMapping<>(from, fromMeta);
-		deepslateOres.put(inputMapping.hashCode(), new RegistryMapping<>(to, toMeta));
-		inputOres.put(inputMapping.hashCode(), inputMapping);
+		deepslateOres.put(new RegistryMapping<>(from, fromMeta), new RegistryMapping<>(to, toMeta));
 	}
 
 	/**
@@ -146,7 +139,7 @@ public class DeepslateOreRegistry {
 	 * @return
 	 */
 	public static boolean hasOre(Block block, int meta) {
-		return deepslateOres.containsKey(block.hashCode() + meta);
+		return getOre(block, meta) != null;
 	}
 
 	/**
@@ -173,7 +166,7 @@ public class DeepslateOreRegistry {
 	 * the block instance and the meta data it should be replaced with.
 	 */
 	public static RegistryMapping<Block> getOre(Block block, int meta) {
-		return deepslateOres.get(block.hashCode() + meta);
+		return deepslateOres.get(RegistryMapping.getKeyFor(block, meta));
 	}
 
 	/**
@@ -189,21 +182,21 @@ public class DeepslateOreRegistry {
 	 * Do not use this to add or get items from the map this way,
 	 * in case the key changes.
 	 */
-	public static Map<Integer, RegistryMapping<Block>> getOreMap() {
+	public static Map<RegistryMapping<Block>, RegistryMapping<Block>> getOreMap() {
 		return deepslateOres;
 	}
 
 	public static void init() {
 		if (ConfigBlocksItems.enableDeepslateOres) { //Copy block settings from deepslate base blocks
-			for (Entry<Integer, RegistryMapping<Block>> entry : getOreMap().entrySet()) {
+			for (Entry<RegistryMapping<Block>, RegistryMapping<Block>> entry : getOreMap().entrySet()) {
 
-				Block oreNorm = inputOres.get(entry.getKey()).getObject();
+				Block oreNorm = entry.getKey().getObject();
 				if (Block.blockRegistry.getNameForObject(oreNorm) == null || oreNorm == Blocks.air) continue;
 				Block oreDeep = entry.getValue().getObject();
 				if (Block.blockRegistry.getNameForObject(oreDeep) == null || oreDeep == Blocks.air) continue;
 
 				ItemStack
-						stackNorm = new ItemStack(oreNorm, 1, inputOres.get(entry.getKey()).getMeta()),
+						stackNorm = new ItemStack(oreNorm, 1, entry.getKey().getMeta()),
 						stackDeep = new ItemStack(oreDeep, 1, entry.getValue().getMeta());
 
 				for (String oreName : EtFuturum.getOreStrings(stackNorm)) {
@@ -214,7 +207,6 @@ public class DeepslateOreRegistry {
 					GameRegistry.addSmelting(stackDeep, FurnaceRecipes.smelting().getSmeltingResult(stackNorm), FurnaceRecipes.smelting().func_151398_b(stackNorm));
 				}
 			}
-			inputOres.clear();
 		}
 	}
 
