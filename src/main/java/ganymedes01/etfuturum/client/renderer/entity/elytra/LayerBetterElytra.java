@@ -26,8 +26,10 @@ public class LayerBetterElytra {
 	private static final ResourceLocation TEXTURE_ELYTRA = new ResourceLocation("textures/entity/elytra.png");
 	private static final ModelElytra modelElytra = new ModelElytra();
 	protected static final ResourceLocation ENCHANTED_ITEM_GLINT_RES = new ResourceLocation("textures/misc/enchanted_item_glint.png");
+	public static float netHeadYaw = 0.0F;
+	public static float headPitch = 0.0F;
 
-	public static void doRenderLayer(EntityLivingBase entityIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+	public static void doRenderLayer(EntityLivingBase entityIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float scale) {
 		ItemStack itemstack = ItemArmorElytra.getElytra(entityIn);
 		if (entityIn instanceof AbstractClientPlayer && itemstack != null) {
 			AbstractClientPlayer player = (AbstractClientPlayer) entityIn;

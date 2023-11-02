@@ -43,6 +43,8 @@ import java.io.File;
 
 public class ClientProxy extends CommonProxy {
 
+	public static boolean isRenderingInventoryPlayer = false;
+
 	@Override
 	public void registerEvents() {
 		super.registerEvents();
