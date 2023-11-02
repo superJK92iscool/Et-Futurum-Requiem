@@ -20,7 +20,7 @@ public class EnchantingFuelRegistry {
 	}
 
 	public static void registerFuel(Object itemObj) {
-		if (itemObj instanceof String || ModRecipes.validateItems(itemObj)) {
+		if (ModRecipes.validateItems(itemObj)) {
 			if (itemObj instanceof ItemStack) {
 				FUEL_REGISTRY.add(((ItemStack) itemObj).copy());
 			} else if (itemObj instanceof String) {

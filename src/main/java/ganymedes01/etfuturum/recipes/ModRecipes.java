@@ -1184,6 +1184,7 @@ public class ModRecipes {
 	public static boolean validateItems(Object... objects) {
 		for (Object object : objects) {
 			if (object == null || object == Blocks.air) return false;
+			if (object instanceof String) continue;
 
 			if (object instanceof ItemStack) {
 				if (((ItemStack) object).getItem() == null || Item.itemRegistry.getNameForObject(((ItemStack) object).getItem()) == null) {

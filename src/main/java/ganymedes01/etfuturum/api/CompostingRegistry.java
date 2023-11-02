@@ -106,7 +106,7 @@ public class CompostingRegistry {
 			throw new IllegalArgumentException("Tried to add a composter entry with percent value " + percent + " which is not allowed, should be above 0 and equal to or below 600!");
 		}
 
-		if (itemObj instanceof String || ModRecipes.validateItems(itemObj)) {
+		if (ModRecipes.validateItems(itemObj)) {
 			if (itemObj instanceof ItemStack) {
 				COMPOSTING_REGISTRY.put(((ItemStack) itemObj).copy(), percent);
 			} else if (itemObj instanceof String) {

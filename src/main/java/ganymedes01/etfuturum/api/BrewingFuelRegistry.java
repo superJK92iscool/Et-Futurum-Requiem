@@ -24,7 +24,7 @@ public class BrewingFuelRegistry {
 			throw new IllegalArgumentException("Tried to add a brewing fuel with " + count + " cycles??? It must be able to at least brew 1 set of potions...");
 		}
 
-		if (itemObj instanceof String || ModRecipes.validateItems(itemObj)) {
+		if (ModRecipes.validateItems(itemObj)) {
 			if (itemObj instanceof ItemStack) {
 				FUEL_REGISTRY.put(((ItemStack) itemObj).copy(), count);
 			} else if (itemObj instanceof String) {
