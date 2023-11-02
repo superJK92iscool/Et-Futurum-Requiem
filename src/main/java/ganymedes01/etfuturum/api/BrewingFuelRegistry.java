@@ -2,6 +2,7 @@ package ganymedes01.etfuturum.api;
 
 import ganymedes01.etfuturum.core.utils.ItemStackMap;
 import ganymedes01.etfuturum.core.utils.Logger;
+import ganymedes01.etfuturum.recipes.ModRecipes;
 import net.minecraft.block.Block;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -23,18 +24,20 @@ public class BrewingFuelRegistry {
 			throw new IllegalArgumentException("Tried to add a brewing fuel with " + count + " cycles??? It must be able to at least brew 1 set of potions...");
 		}
 
-		if (itemObj instanceof ItemStack) {
-			FUEL_REGISTRY.put(((ItemStack) itemObj).copy(), count);
-		} else if (itemObj instanceof String) {
-			for (ItemStack oreStack : OreDictionary.getOres((String) itemObj)) {
-				FUEL_REGISTRY.put(oreStack.copy(), count);
+		if (itemObj instanceof String || ModRecipes.validateItems(itemObj)) {
+			if (itemObj instanceof ItemStack) {
+				FUEL_REGISTRY.put(((ItemStack) itemObj).copy(), count);
+			} else if (itemObj instanceof String) {
+				for (ItemStack oreStack : OreDictionary.getOres((String) itemObj)) {
+					FUEL_REGISTRY.put(oreStack.copy(), count);
+				}
+			} else if (itemObj instanceof Item) {
+				FUEL_REGISTRY.put(new ItemStack((Item) itemObj, 1, OreDictionary.WILDCARD_VALUE), count);
+			} else if (itemObj instanceof Block && Item.getItemFromBlock((Block) itemObj) != null) {
+				FUEL_REGISTRY.put(new ItemStack(Item.getItemFromBlock((Block) itemObj), 1, OreDictionary.WILDCARD_VALUE), count);
+			} else {
+				throw new IllegalArgumentException("Tried to add " + itemObj + "as a brewing fuel, which is not an Itemstack, item, block or string.");
 			}
-		} else if (itemObj instanceof Item) {
-			FUEL_REGISTRY.put(new ItemStack((Item) itemObj, 1, OreDictionary.WILDCARD_VALUE), count);
-		} else if (itemObj instanceof Block && Item.getItemFromBlock((Block) itemObj) != null) {
-			FUEL_REGISTRY.put(new ItemStack(Item.getItemFromBlock((Block) itemObj), 1, OreDictionary.WILDCARD_VALUE), count);
-		} else {
-			throw new IllegalArgumentException("Tried to add " + itemObj + "as a brewing fuel, which is not an Itemstack, item, block or string.");
 		}
 	}
 

@@ -1,13 +1,14 @@
 package ganymedes01.etfuturum.api;
 
 import cpw.mods.fml.common.registry.GameRegistry;
-import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.api.mappings.RegistryMapping;
+import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Logger;
+import ganymedes01.etfuturum.recipes.ModRecipes;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.oredict.OreDictionary;
@@ -81,7 +82,7 @@ public class DeepslateOreRegistry {
 //		HashMap<String, String> ignoredEntries = Maps.newHashMap();
 		for (ItemStack ore : OreDictionary.getOres(oreDict)) {
 			Block blockToAdd = Block.getBlockFromItem(ore.getItem());
-			if (blockToAdd != Blocks.air && blockToAdd != null && blockToAdd != to) {
+			if (blockToAdd != to && ModRecipes.validateItems(blockToAdd, to)) {
 				try {
 					addOre(blockToAdd, ore.getItemDamage(), to, toMeta);
 				} catch (IllegalArgumentException e) {
@@ -191,17 +192,22 @@ public class DeepslateOreRegistry {
 			for (Entry<RegistryMapping<Block>, RegistryMapping<Block>> entry : getOreMap().entrySet()) {
 
 				Block oreNorm = entry.getKey().getObject();
-				if (Block.blockRegistry.getNameForObject(oreNorm) == null || oreNorm == Blocks.air) continue;
 				Block oreDeep = entry.getValue().getObject();
-				if (Block.blockRegistry.getNameForObject(oreDeep) == null || oreDeep == Blocks.air) continue;
+				if (!ModRecipes.validateItems(oreNorm, oreDeep)) continue;
+
+				boolean saltyModOre = oreDeep.getClass().getName().toLowerCase().contains("saltymod");
+
+				if (ConfigSounds.newBlockSounds && (oreDeep.stepSound == Block.soundTypeStone || saltyModOre)) {
+					oreDeep.setStepSound(ModSounds.soundDeepslate);//SaltyMod introduces a deepslate salt ore but it assumes an old resource domain, making it silent on new EFR versions
+				}
 
 				ItemStack
 						stackNorm = new ItemStack(oreNorm, 1, entry.getKey().getMeta()),
 						stackDeep = new ItemStack(oreDeep, 1, entry.getValue().getMeta());
 
-				for (String oreName : EtFuturum.getOreStrings(stackNorm)) {
-					OreDictionary.registerOre(oreName.replace("Vanillastone", "Deepslate"), stackDeep.copy()); // Yes the .copy() is required!
-				}
+//				for (String oreName : EtFuturum.getOreStrings(stackNorm)) {
+//					OreDictionary.registerOre(oreName.replace("Vanillastone", "Deepslate"), stackDeep.copy()); // Yes the .copy() is required!
+//				}
 
 				if (FurnaceRecipes.smelting().getSmeltingResult(stackNorm) != null) {
 					GameRegistry.addSmelting(stackDeep, FurnaceRecipes.smelting().getSmeltingResult(stackNorm), FurnaceRecipes.smelting().func_151398_b(stackNorm));

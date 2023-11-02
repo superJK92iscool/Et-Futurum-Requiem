@@ -987,17 +987,23 @@ public class ModRecipes {
 	}
 
 	public static void registerModdedDeepslateOres() {
-		if (ModBlocks.MODDED_DEEPSLATE_ORE.isEnabled()) {
-			if (ModBlocks.DEEPSLATE_COPPER_ORE.isEnabled()) {
-				DeepslateOreRegistry.addOreByOreDict("oreCopper", ModBlocks.DEEPSLATE_COPPER_ORE.get());
-			}
-			if (ModBlocks.DEEPSLATE_IRON_ORE.isEnabled()) {
-				DeepslateOreRegistry.addOreByOreDict("oreIron", ModBlocks.DEEPSLATE_IRON_ORE.get());
-			}
-			if (ModBlocks.DEEPSLATE_GOLD_ORE.isEnabled()) {
-				DeepslateOreRegistry.addOreByOreDict("oreGold", ModBlocks.DEEPSLATE_GOLD_ORE.get());
-			}
+		if (ModBlocks.DEEPSLATE_COPPER_ORE.isEnabled()) {
+			DeepslateOreRegistry.addOreByOreDict("oreCopper", ModBlocks.DEEPSLATE_COPPER_ORE.get());
+			registerOre("oreCopper", ModBlocks.DEEPSLATE_COPPER_ORE.newItemStack());
+			registerOre("oreDeepslateCopper", ModBlocks.DEEPSLATE_COPPER_ORE.newItemStack());
+		}
+		if (ModBlocks.DEEPSLATE_IRON_ORE.isEnabled()) {
+			DeepslateOreRegistry.addOreByOreDict("oreIron", ModBlocks.DEEPSLATE_IRON_ORE.get());
+			registerOre("oreIron", ModBlocks.DEEPSLATE_IRON_ORE.newItemStack());
+			registerOre("oreDeepslateIron", ModBlocks.DEEPSLATE_IRON_ORE.newItemStack());
+		}
+		if (ModBlocks.DEEPSLATE_GOLD_ORE.isEnabled()) {
+			DeepslateOreRegistry.addOreByOreDict("oreGold", ModBlocks.DEEPSLATE_GOLD_ORE.get());
+			registerOre("oreGold", ModBlocks.DEEPSLATE_GOLD_ORE.newItemStack());
+			registerOre("oreDeepslateGold", ModBlocks.DEEPSLATE_GOLD_ORE.newItemStack());
+		}
 
+		if (ModBlocks.MODDED_DEEPSLATE_ORE.isEnabled()) {
 			//Insert alternate Mythril spelling to list. Yes I know "mithril" is technically the primary spelling but "mythril" is used by most mods, so "mithril" is secondary to it here.
 			for (int i = 0; i < BlockModdedDeepslateOre.ores.length; i++) {
 				String type = BlockModdedDeepslateOre.ores[i];
@@ -1009,6 +1015,8 @@ public class ModRecipes {
 					if (!OreDictionary.getOres(type).isEmpty()) { //Make sure an ore is present.
 //						registerOre(type, ModBlocks.MODDED_DEEPSLATE_ORE.newItemStack(1, i));
 						DeepslateOreRegistry.addOreByOreDict(type, ModBlocks.MODDED_DEEPSLATE_ORE.get(), i);
+						registerOre(type, ModBlocks.MODDED_DEEPSLATE_ORE.newItemStack(1, i));
+						registerOre(type.replace("ore", "oreDeepslate"), ModBlocks.MODDED_DEEPSLATE_ORE.newItemStack(1, i));
 					}
 					//We put this outside of the if statement so additional tags added with CT get added.
 					if (type.endsWith("Mythril")) {
@@ -1019,18 +1027,27 @@ public class ModRecipes {
 			}
 			if (ModBlocks.DEEPSLATE_CERTUS_QUARTZ_ORE.isEnabled()) {
 				registerOre("oreCertus", ModBlocks.DEEPSLATE_CERTUS_QUARTZ_ORE.newItemStack());
+				registerOre("oreDeepslateCertus", ModBlocks.DEEPSLATE_CERTUS_QUARTZ_ORE.newItemStack());
 				DeepslateOreRegistry.addOre(ExternalContent.Blocks.AE2_CERTUS_QUARTZ_ORE.get(), ModBlocks.DEEPSLATE_CERTUS_QUARTZ_ORE.get());
 				DeepslateOreRegistry.addOre(ExternalContent.Blocks.AE2_CHARGED_CERTUS_QUARTZ_ORE.get(), 0, ModBlocks.DEEPSLATE_CERTUS_QUARTZ_ORE.get(), 1);
 			}
 			if (ModBlocks.DEEPSLATE_THAUMCRAFT_ORE.isEnabled()) {
 				registerOre("oreCinnabar", ModBlocks.DEEPSLATE_THAUMCRAFT_ORE.newItemStack());
+				registerOre("oreDeepslateCinnabar", ModBlocks.DEEPSLATE_THAUMCRAFT_ORE.newItemStack());
 				registerOre("oreInfusedAir", ModBlocks.DEEPSLATE_THAUMCRAFT_ORE.newItemStack(1, 1));
+				registerOre("oreDeepslateInfusedAir", ModBlocks.DEEPSLATE_THAUMCRAFT_ORE.newItemStack(1, 1));
 				registerOre("oreInfusedFire", ModBlocks.DEEPSLATE_THAUMCRAFT_ORE.newItemStack(1, 2));
+				registerOre("oreDeepslateInfusedFire", ModBlocks.DEEPSLATE_THAUMCRAFT_ORE.newItemStack(1, 2));
 				registerOre("oreInfusedWater", ModBlocks.DEEPSLATE_THAUMCRAFT_ORE.newItemStack(1, 3));
+				registerOre("oreDeepslateInfusedWater", ModBlocks.DEEPSLATE_THAUMCRAFT_ORE.newItemStack(1, 3));
 				registerOre("oreInfusedEarth", ModBlocks.DEEPSLATE_THAUMCRAFT_ORE.newItemStack(1, 4));
+				registerOre("oreDeepslateInfusedEarth", ModBlocks.DEEPSLATE_THAUMCRAFT_ORE.newItemStack(1, 4));
 				registerOre("oreInfusedOrder", ModBlocks.DEEPSLATE_THAUMCRAFT_ORE.newItemStack(1, 5));
+				registerOre("oreDeepslateInfusedOrder", ModBlocks.DEEPSLATE_THAUMCRAFT_ORE.newItemStack(1, 5));
 				registerOre("oreInfusedEntropy", ModBlocks.DEEPSLATE_THAUMCRAFT_ORE.newItemStack(1, 6));
+				registerOre("oreDeepslateInfusedEntropy", ModBlocks.DEEPSLATE_THAUMCRAFT_ORE.newItemStack(1, 6));
 				registerOre("oreAmber", ModBlocks.DEEPSLATE_THAUMCRAFT_ORE.newItemStack(1, 7));
+				registerOre("oreDeepslateAmber", ModBlocks.DEEPSLATE_THAUMCRAFT_ORE.newItemStack(1, 7));
 				DeepslateOreRegistry.addOre(ExternalContent.Blocks.THAUMCRAFT_ORE.get(), ModBlocks.DEEPSLATE_THAUMCRAFT_ORE.get());
 				DeepslateOreRegistry.addOre(ExternalContent.Blocks.THAUMCRAFT_ORE.get(), 1, ModBlocks.DEEPSLATE_THAUMCRAFT_ORE.get(), 1);
 				DeepslateOreRegistry.addOre(ExternalContent.Blocks.THAUMCRAFT_ORE.get(), 2, ModBlocks.DEEPSLATE_THAUMCRAFT_ORE.get(), 2);
@@ -1135,13 +1152,13 @@ public class ModRecipes {
 	}
 
 	private static void addSmelting(Item input, ItemStack output, float exp) {
-		if (validateItems(input) && validateItems(output)) {
+		if (validateItems(input, output)) {
 			GameRegistry.addSmelting(input, output, exp);
 		}
 	}
 
 	private static void addSmelting(Block input, ItemStack output, float exp) {
-		if (validateItems(input) && validateItems(output)) {
+		if (validateItems(input, output)) {
 			GameRegistry.addSmelting(input, output, exp);
 		}
 	}
@@ -1153,20 +1170,20 @@ public class ModRecipes {
 	}
 
 	private static void addShapedRecipe(ItemStack output, Object... objects) {
-		if (validateItems(output) && validateItems(objects)) {
+		if (validateItems(output, objects)) {
 			GameRegistry.addRecipe(new ShapedEtFuturumRecipe(output, objects));
 		}
 	}
 
 	private static void addShapelessRecipe(ItemStack output, Object... objects) {
-		if (validateItems(output) && validateItems(objects)) {
+		if (validateItems(output, objects)) {
 			GameRegistry.addRecipe(new ShapelessEtFuturumRecipe(output, objects));
 		}
 	}
 
 	public static boolean validateItems(Object... objects) {
 		for (Object object : objects) {
-			if (object == null) return false;
+			if (object == null || object == Blocks.air) return false;
 
 			if (object instanceof ItemStack) {
 				if (((ItemStack) object).getItem() == null || Item.itemRegistry.getNameForObject(((ItemStack) object).getItem()) == null) {

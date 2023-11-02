@@ -2,6 +2,7 @@ package ganymedes01.etfuturum.api;
 
 import ganymedes01.etfuturum.core.utils.ItemStackSet;
 import ganymedes01.etfuturum.core.utils.Logger;
+import ganymedes01.etfuturum.recipes.ModRecipes;
 import net.minecraft.block.Block;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -19,18 +20,20 @@ public class EnchantingFuelRegistry {
 	}
 
 	public static void registerFuel(Object itemObj) {
-		if (itemObj instanceof ItemStack) {
-			FUEL_REGISTRY.add(((ItemStack) itemObj).copy());
-		} else if (itemObj instanceof String) {
-			for (ItemStack oreStack : OreDictionary.getOres((String) itemObj)) {
-				FUEL_REGISTRY.add(oreStack.copy());
+		if (itemObj instanceof String || ModRecipes.validateItems(itemObj)) {
+			if (itemObj instanceof ItemStack) {
+				FUEL_REGISTRY.add(((ItemStack) itemObj).copy());
+			} else if (itemObj instanceof String) {
+				for (ItemStack oreStack : OreDictionary.getOres((String) itemObj)) {
+					FUEL_REGISTRY.add(oreStack.copy());
+				}
+			} else if (itemObj instanceof Item) {
+				FUEL_REGISTRY.add(new ItemStack((Item) itemObj, 1, OreDictionary.WILDCARD_VALUE));
+			} else if (itemObj instanceof Block && Item.getItemFromBlock((Block) itemObj) != null) {
+				FUEL_REGISTRY.add(new ItemStack(Item.getItemFromBlock((Block) itemObj), 1, OreDictionary.WILDCARD_VALUE));
+			} else {
+				throw new IllegalArgumentException("Tried to add " + itemObj + "as an enchanting fuel, which is not an Itemstack, item, block or string.");
 			}
-		} else if (itemObj instanceof Item) {
-			FUEL_REGISTRY.add(new ItemStack((Item) itemObj, 1, OreDictionary.WILDCARD_VALUE));
-		} else if (itemObj instanceof Block && Item.getItemFromBlock((Block) itemObj) != null) {
-			FUEL_REGISTRY.add(new ItemStack(Item.getItemFromBlock((Block) itemObj), 1, OreDictionary.WILDCARD_VALUE));
-		} else {
-			throw new IllegalArgumentException("Tried to add " + itemObj + "as an enchanting fuel, which is not an Itemstack, item, block or string.");
 		}
 	}
 

@@ -5,6 +5,7 @@ import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.core.utils.ItemStackMap;
 import ganymedes01.etfuturum.core.utils.Logger;
+import ganymedes01.etfuturum.recipes.ModRecipes;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -104,19 +105,22 @@ public class CompostingRegistry {
 		if (percent <= 0 || percent > 600) {
 			throw new IllegalArgumentException("Tried to add a composter entry with percent value " + percent + " which is not allowed, should be above 0 and equal to or below 600!");
 		}
-		if (itemObj instanceof ItemStack) {
-			COMPOSTING_REGISTRY.put(((ItemStack) itemObj).copy(), percent);
-		} else if (itemObj instanceof String) {
+
+		if (itemObj instanceof String || ModRecipes.validateItems(itemObj)) {
+			if (itemObj instanceof ItemStack) {
+				COMPOSTING_REGISTRY.put(((ItemStack) itemObj).copy(), percent);
+			} else if (itemObj instanceof String) {
 //            OreDictionary.getOres((String) itemObj).forEach(itemStack -> COMPOSTING_REGISTRY.put(itemStack.copy(), percent));//For some reason this line does nothing
-			for (ItemStack oreStack : OreDictionary.getOres((String) itemObj)) { //This should be the same as the forEach above but for some reason the above just does nothing?
-				COMPOSTING_REGISTRY.put(oreStack.copy(), percent);
+				for (ItemStack oreStack : OreDictionary.getOres((String) itemObj)) { //This should be the same as the forEach above but for some reason the above just does nothing?
+					COMPOSTING_REGISTRY.put(oreStack.copy(), percent);
+				}
+			} else if (itemObj instanceof Item) {
+				COMPOSTING_REGISTRY.put(new ItemStack((Item) itemObj, 1, OreDictionary.WILDCARD_VALUE), percent);
+			} else if (itemObj instanceof Block && Item.getItemFromBlock((Block) itemObj) != null) {
+				COMPOSTING_REGISTRY.put(new ItemStack(Item.getItemFromBlock((Block) itemObj), 1, OreDictionary.WILDCARD_VALUE), percent);
+			} else {
+				throw new IllegalArgumentException("Tried to add " + itemObj + " as a compostable, which is not an Itemstack, item, block or string.");
 			}
-		} else if (itemObj instanceof Item) {
-			COMPOSTING_REGISTRY.put(new ItemStack((Item) itemObj, 1, OreDictionary.WILDCARD_VALUE), percent);
-		} else if (itemObj instanceof Block && Item.getItemFromBlock((Block) itemObj) != null) {
-			COMPOSTING_REGISTRY.put(new ItemStack(Item.getItemFromBlock((Block) itemObj), 1, OreDictionary.WILDCARD_VALUE), percent);
-		} else {
-			throw new IllegalArgumentException("Tried to add " + itemObj + " as a compostable, which is not an Itemstack, item, block or string.");
 		}
 	}
 

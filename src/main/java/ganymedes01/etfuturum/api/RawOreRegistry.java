@@ -5,6 +5,7 @@ import ganymedes01.etfuturum.api.mappings.RawOreDropMapping;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.items.ItemModdedRawOre;
+import ganymedes01.etfuturum.recipes.ModRecipes;
 import net.minecraft.item.Item;
 import net.minecraftforge.oredict.OreDictionary;
 import org.apache.commons.lang3.ArrayUtils;
@@ -45,11 +46,13 @@ public class RawOreRegistry {
 	 * @param ore
 	 */
 	public static void addOre(String oreDict, Item ore, int meta) {
-		RawOreDropMapping mapping = new RawOreDropMapping(ore, meta);
-		if (ArrayUtils.contains(ConfigFunctions.extraDropRawOres, oreDict)) {
-			mapping.setDropsExtra(true);
+		if (ModRecipes.validateItems(ore)) {
+			RawOreDropMapping mapping = new RawOreDropMapping(ore, meta);
+			if (ArrayUtils.contains(ConfigFunctions.extraDropRawOres, oreDict)) {
+				mapping.setDropsExtra(true);
+			}
+			addOre(oreDict, mapping);
 		}
-		addOre(oreDict, mapping);
 	}
 
 	private static void addOre(String oreDict, RawOreDropMapping map) {

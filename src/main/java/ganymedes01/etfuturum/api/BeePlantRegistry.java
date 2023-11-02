@@ -6,6 +6,7 @@ import ganymedes01.etfuturum.api.mappings.RegistryMapping;
 import ganymedes01.etfuturum.blocks.BlockBerryBush;
 import ganymedes01.etfuturum.blocks.BlockChorusFlower;
 import ganymedes01.etfuturum.configuration.configs.ConfigEntities;
+import ganymedes01.etfuturum.recipes.ModRecipes;
 import net.minecraft.block.*;
 import net.minecraft.init.Blocks;
 import net.minecraftforge.oredict.OreDictionary;
@@ -27,7 +28,9 @@ public class BeePlantRegistry {
 		if (block instanceof BlockDoublePlant && meta > 7 && meta != OreDictionary.WILDCARD_VALUE) {
 			throw new IllegalArgumentException("BlockDoublePlant can't have meta greater than 7, 8 and above are used by the top half. Bees will go to the top half if the bottom meta is valid.");
 		}
-		BEE_FLOWERS.add(new RegistryMapping<>(block, meta));
+		if (ModRecipes.validateItems(block)) {
+			BEE_FLOWERS.add(new RegistryMapping<>(block, meta));
+		}
 	}
 
 	public static void addCrop(Block block) {
