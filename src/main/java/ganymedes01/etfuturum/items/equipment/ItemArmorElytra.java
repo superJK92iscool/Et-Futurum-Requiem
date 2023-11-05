@@ -21,6 +21,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import net.minecraft.client.resources.I18n;
 
 import java.util.List;
 
@@ -104,9 +105,9 @@ public class ItemArmorElytra extends BaseItem implements IBaubleExpanded {
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List tooltip, boolean debug) {
 		if (Utils.badBetterFPSAlgorithm()) {
-			tooltip.add("\u00a7cBetterFPS is configured poorly.");
-			tooltip.add("\u00a7cCheck the chat warning for more info.");
-			tooltip.add("\u00a7cElytra flight has been disabled.");
+			tooltip.add(I18n.format("efr.elytra.BetterFPS.warn1"));
+			tooltip.add(I18n.format("efr.elytra.BetterFPS.warn2"));
+			tooltip.add(I18n.format("efr.elytra.BetterFPS.warn3"));
 		} else if (EtFuturum.hasBaublesExpanded) {
 			String[] slots;
 			switch (ConfigModCompat.elytraBaublesExpandedCompat) {

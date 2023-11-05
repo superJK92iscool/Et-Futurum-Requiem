@@ -1757,3 +1757,16 @@ efr.nei.amount=Amount
 efr.nei.weight=Weight
 
 efr.decoration.only=Decoration only
+
+efr.prerelease.version=§c§l[Debug]: §rYou are using a pre-release version of §bEt §bFuturum §bRequiem§r. This version might not be stable, click here to go to GitHub to report bugs.
+efr.WARN.prerelease.version=WARNING: a pre-release version of Et Futurum Requiem is in use! This build may not be stable, expect more bugs than usual.
+efr.WARN.prerelease.version.bugs=Be sure to report bugs at https://github.com/Roadhog360/Et-Futurum-Requiem/issues
+efr.CRITICAL.badBetterFPSAlgorithm1=§4§l[CRITICAL]: §bBetterFPS §ris configured with a bad math algorithm.
+efr.CRITICAL.badBetterFPSAlgorithm2= "rivens-half" or "taylors" should not be used to prevent damage to your world. It is highly advised that you go into its config and change "algorithm" to something else, preferably "vanilla".
+efr.CRITICAL.badBetterFPSAlgorithm3= This is being shown to you because the aforementioned math algorithms are buggy and generate incorrect numbers, leading to possible save bricking.
+efr.elytra.flight.disabled=Elytra flight has been disabled for your own safety.
+efr.elytra.BetterFPS.warn1=§cBetterFPS is configured poorly.
+efr.elytra.BetterFPS.warn2=§cCheck the chat warning for more info.
+efr.elytra.BetterFPS.warn3=§cElytra flight has been disabled.
+
+

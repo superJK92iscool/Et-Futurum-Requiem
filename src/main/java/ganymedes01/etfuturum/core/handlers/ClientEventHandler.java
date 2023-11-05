@@ -63,6 +63,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.launchwrapper.Launch;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldProviderHell;
@@ -153,21 +154,21 @@ public class ClientEventHandler {
 		if (player.ticksExisted == 40) {
 			if (!EtFuturum.DEV_ENVIRONMENT && EtFuturum.SNAPSHOT_BUILD && !showedDebugWarning) {
 				if (!forceHideSnapshotWarning) {
-					ChatComponentText text = new ChatComponentText("\u00a7c\u00a7l[Debug]: \u00a7rYou are using a pre-release version of \u00a7bEt \u00a7bFuturum \u00a7bRequiem\u00a7r. This version might not be stable, click here to go to GitHub to report bugs.");
+					ChatComponentText text = new ChatComponentText(I18n.format("efr.prerelease.version"));
 					text.getChatStyle().setChatClickEvent(new ClickEvent(Action.OPEN_URL, "https://github.com/Roadhog360/Et-Futurum-Requiem/issues"));
 					player.addChatComponentMessage(text);
 				} else {
-					System.out.println("WARNING: a pre-release version of Et Futurum Requiem is in use! This build may not be stable, expect more bugs than usual.");
-					System.out.println("Be sure to report bugs at https://github.com/Roadhog360/Et-Futurum-Requiem/issues");
+					System.out.println(I18n.format("efr.WARN.prerelease.version"));
+					System.out.println(I18n.format("efr.WARN.prerelease.version.bugs"));
 				}
 				showedDebugWarning = true;
 			}
 			if (ModItems.ELYTRA.isEnabled() && Utils.badBetterFPSAlgorithm()) {
-				ChatComponentText text = new ChatComponentText("\u00a74\u00a7l[CRITICAL]: \u00a7bBetterFPS \u00a7ris configured with a bad math algorithm." +
-						" \"rivens-half\" or \"taylors\" should not be used to prevent damage to your world. It is highly advised that you go into its config and change \"algorithm\" to something else, preferably \"vanilla\"." +
-						" This is being shown to you because the aforementioned math algorithms are buggy and generate incorrect numbers, leading to possible save bricking.");
+				ChatComponentText text = new ChatComponentText(I18n.format("efr.CRITICAL.badBetterFPSAlgorithm1") +
+						I18n.format("efr.CRITICAL.badBetterFPSAlgorithm2") +
+						I18n.format("efr.CRITICAL.badBetterFPSAlgorithm3"));
 				player.addChatComponentMessage(text);
-				text = new ChatComponentText("Elytra flight has been disabled for your own safety.");
+				text = new ChatComponentText(I18n.format("efr.elytra.flight.disabled"));
 				text.setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED).setBold(true));
 				player.addChatComponentMessage(text);
 			}

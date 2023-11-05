@@ -18,8 +18,7 @@ public class ItemBlockDecorationWorkbench extends ItemBlock {
 
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, EntityPlayer player, List lore, boolean f3h) {
-		String decorationOnly = I18n.format("efr.decoration.only");
-		lore.add("\u00a7o" + decorationOnly);
+		lore.add("\u00a7o" + I18n.format("efr.decoration.only"));
 	}
 
 }
