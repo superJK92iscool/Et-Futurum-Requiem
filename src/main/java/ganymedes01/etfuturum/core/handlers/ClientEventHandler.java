@@ -154,19 +154,19 @@ public class ClientEventHandler {
 		if (player.ticksExisted == 40) {
 			if (!EtFuturum.DEV_ENVIRONMENT && EtFuturum.SNAPSHOT_BUILD && !showedDebugWarning) {
 				if (!forceHideSnapshotWarning) {
-					ChatComponentText text = new ChatComponentText(I18n.format("efr.prerelease.version"));
+					ChatComponentText text = new ChatComponentText(I18n.format("efr.warn.prerelease.version"));
 					text.getChatStyle().setChatClickEvent(new ClickEvent(Action.OPEN_URL, "https://github.com/Roadhog360/Et-Futurum-Requiem/issues"));
 					player.addChatComponentMessage(text);
 				} else {
-					System.out.println(I18n.format("efr.WARN.prerelease.version"));
-					System.out.println(I18n.format("efr.WARN.prerelease.version.bugs"));
+					System.out.println(I18n.format("efr.log.prerelease.version"));
+					System.out.println(I18n.format("efr.warn.prerelease.version.bugs"));
 				}
 				showedDebugWarning = true;
 			}
 			if (ModItems.ELYTRA.isEnabled() && Utils.badBetterFPSAlgorithm()) {
-				ChatComponentText text = new ChatComponentText(I18n.format("efr.CRITICAL.badBetterFPSAlgorithm1") +
-						I18n.format("efr.CRITICAL.badBetterFPSAlgorithm2") +
-						I18n.format("efr.CRITICAL.badBetterFPSAlgorithm3"));
+				ChatComponentText text = new ChatComponentText(I18n.format("efr.critical.badBetterFPSAlgorithm1") +
+						I18n.format("efr.critical.badBetterFPSAlgorithm2") +
+						I18n.format("efr.critical.badBetterFPSAlgorithm3"));
 				player.addChatComponentMessage(text);
 				text = new ChatComponentText(I18n.format("efr.elytra.flight.disabled"));
 				text.setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED).setBold(true));
