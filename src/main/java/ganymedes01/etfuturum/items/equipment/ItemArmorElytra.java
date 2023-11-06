@@ -105,9 +105,9 @@ public class ItemArmorElytra extends BaseItem implements IBaubleExpanded {
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List tooltip, boolean debug) {
 		if (Utils.badBetterFPSAlgorithm()) {
-			tooltip.add(I18n.format("efr.elytra.BetterFPS.warn1"));
-			tooltip.add(I18n.format("efr.elytra.BetterFPS.warn2"));
-			tooltip.add(I18n.format("efr.elytra.BetterFPS.warn3"));
+			tooltip.add(I18n.format("efr.elytra.betterfps.warn1"));
+			tooltip.add(I18n.format("efr.elytra.betterfps.warn2"));
+			tooltip.add(I18n.format("efr.elytra.betterfps.warn3"));
 		} else if (EtFuturum.hasBaublesExpanded) {
 			String[] slots;
 			switch (ConfigModCompat.elytraBaublesExpandedCompat) {

@@ -164,9 +164,9 @@ public class ClientEventHandler {
 				showedDebugWarning = true;
 			}
 			if (ModItems.ELYTRA.isEnabled() && Utils.badBetterFPSAlgorithm()) {
-				ChatComponentText text = new ChatComponentText(I18n.format("efr.critical.badBetterFPSAlgorithm1") +
-						I18n.format("efr.critical.badBetterFPSAlgorithm2") +
-						I18n.format("efr.critical.badBetterFPSAlgorithm3"));
+				ChatComponentText text = new ChatComponentText(I18n.format("efr.critical.badbetterfpsalgorithm1") +
+						I18n.format("efr.critical.badbetterfpsalgorithm2") +
+						I18n.format("efr.critical.badbetterfpsalgorithm3"));
 				player.addChatComponentMessage(text);
 				text = new ChatComponentText(I18n.format("efr.elytra.flight.disabled"));
 				text.setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED).setBold(true));
