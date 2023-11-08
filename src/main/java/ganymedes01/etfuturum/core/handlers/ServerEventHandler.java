@@ -1342,7 +1342,7 @@ public class ServerEventHandler {
 			int z = MathHelper.floor_double(event.z);
 			World world = event.world;
 
-			if (world.getBlock(x, y - 1, z) == ModBlocks.NETHER_WART.get() && world.getBlockMetadata(x, y, z) == 0) {
+			if (world.getBlock(x, y - 1, z) == ModBlocks.NETHER_WART.get() && world.getBlockMetadata(x, y - 1, z) == 0) {
 				if (!(event.entity instanceof EntityFlying)) {
 					event.setResult(Result.DENY);
 				}
