@@ -1744,7 +1744,21 @@ item.banner.straight_cross.yellow=Жёлтый крест
 efr.nei.smoker=Копчение
 efr.nei.blast_furnace=Дутьё
 efr.nei.composter=Компостирование
+efr.nei.banner=Флаг
 efr.nei.amount=Количество
 efr.nei.weight=Вес
+
 efr.decoration.only=Только декоративный
-efr.nei.banner=Флаг
+
+efr.warn.prerelease.version=§c§l[Отладка]: §rВы используете предварительную версию §bEt §bFuturum §bRequiem§r. Эта версия может быть нестабильной. Нажмите здесь, чтобы перейти на GitHub и сообщить об ошибках.
+efr.log.prerelease.version=ВНИМАНИЕ: используется предварительная версия Et Futurum Requiem! Эта сборка может быть нестабильной, ожидайте больше ошибок, чем обычно.
+efr.warn.prerelease.version.bugs=Обязательно сообщайте об ошибках по адресу https://github.com/Roadhog360/Et-Futurum-Requiem/issues.
+efr.critical.badbetterfpsalgorithm1=§4§l[КРИТИЧНО]: §bBetterFPS §rнастроен с плохим алгоритмом.
+efr.critical.badbetterfpsalgorithm2= "rivens-half" или "taylors" не должны использоваться для предотвращения ущерба вашему миру. Настоятельно рекомендуется зайти в его конфигурацию и изменить "algorithm" на что-нибудь другое, желательно "vanilla".
+efr.critical.badbetterfpsalgorithm3= Это показано вам, потому что вышеупомянутые математические алгоритмы содержат ошибки и генерируют неверные числа, что приводит к возможному блокированию сохранения.
+efr.elytra.flight.disabled=Полет элитр отключен в целях вашей безопасности.
+efr.elytra.betterfps.warn1=§cBetterFPS настроен плохо.
+efr.elytra.betterfps.warn2=§cПроверьте предупреждение чата для получения дополнительной информации.
+efr.elytra.betterfps.warn3=§cПолет элитр отключен.
+
+
