@@ -1344,7 +1344,7 @@ public class ServerEventHandler {
 
 			if (world.getBlock(x, y - 1, z) == ModBlocks.NETHER_WART.get() && world.getBlockMetadata(x, y, z) == 0) {
 				if (!(event.entity instanceof EntityFlying)) {
-					event.setCanceled(true);
+					event.setResult(Result.DENY);
 				}
 			}
 		}
