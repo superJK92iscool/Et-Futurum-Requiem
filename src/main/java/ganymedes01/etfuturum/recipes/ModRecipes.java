@@ -150,6 +150,9 @@ public class ModRecipes {
 		OreDictionary.registerOre("pressurePlateGold", new ItemStack(Blocks.light_weighted_pressure_plate));
 		OreDictionary.registerOre("bowlWood", new ItemStack(Items.bowl));
 
+		registerOre("soulSand", Blocks.soul_sand);
+		registerOre("soulSoil", ModBlocks.SOUL_SOIL.get());
+
 		registerOre("nuggetIron", ModItems.NUGGET_IRON.get());
 
 		registerOre("foodMuttonraw", ModItems.MUTTON_RAW.get());

@@ -435,6 +435,10 @@ public class EtFuturum {
 			Blocks.bed.blockMaterial = Material.wood;
 			Blocks.bed.setStepSound(Block.soundTypeWood);
 		}
+		Block saltOre = GameRegistry.findBlock("SaltMod", "saltDeepslateOre");
+		if (saltOre != null) {
+			saltOre.setStepSound(ModSounds.soundDeepslate);
+		}
 
 		//Block registry iterator
 		for (Block block : (Iterable<Block>) Block.blockRegistry) {
@@ -631,9 +635,7 @@ public class EtFuturum {
 
 
 	public SoundType getCustomStepSound(Block block, String namespace) {
-
 		if (block.stepSound == Block.soundTypePiston || block.stepSound == Block.soundTypeStone) {
-
 			if (namespace.contains("nether") && namespace.contains("brick")) {
 				return ModSounds.soundNetherBricks;
 			} else if (namespace.contains("netherrack") || namespace.contains("hellfish")) {
