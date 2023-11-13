@@ -37,6 +37,9 @@ container.enchant.level.required=等级要求
 container.enchant.level.one=+ 1级经验
 container.enchant.level.many=+ %d级经验
 container.enchant.clue=%s…？
+container.etfuturum.blast_furnace=高炉
+container.etfuturum.smoker=烟熏炉
+container.etfuturum.barrel=木桶
 container.etfuturum.shulker_box=潜影盒
 container.etfuturum.chest_boat=运输船
 
@@ -399,6 +402,9 @@ item.etfuturum.raw_uranium.name=粗铀
 item.etfuturum.raw_thorium.name=粗钍
 item.etfuturum.raw_tungsten.name=粗钨
 item.etfuturum.raw_titanium.name=粗钛
+item.etfuturum.raw_zinc.name=粗锌
+item.etfuturum.raw_magnesium.name=粗镁
+item.etfuturum.raw_boron.name=粗硼
 
 # Blocks
 tile.etfuturum.granite.name=花岗岩
@@ -1056,6 +1062,9 @@ tile.etfuturum.raw_uranium_block.name=粗铀块
 tile.etfuturum.raw_thorium_block.name=粗钍块
 tile.etfuturum.raw_tungsten_block.name=粗钨块
 tile.etfuturum.raw_titanium_block.name=粗钛块
+tile.etfuturum.raw_zinc_block.name=粗锌块
+tile.etfuturum.raw_magnesium_block.name=粗镁块
+tile.etfuturum.raw_boron_block.name=粗硼块
 
 tile.etfuturum.deepslate_aluminum_ore.name=深层铝矿石
 tile.etfuturum.deepslate_tin_ore.name=深层锡矿石
@@ -1067,6 +1076,9 @@ tile.etfuturum.deepslate_mythril_ore.name=深层秘银矿石
 tile.etfuturum.deepslate_uranium_ore.name=深层铀矿石
 tile.etfuturum.deepslate_tungsten_ore.name=深层钨矿石
 tile.etfuturum.deepslate_titanium_ore.name=深层钛矿石
+tile.etfuturum.deepslate_zinc_ore.name=深层锌矿石
+tile.etfuturum.deepslate_magnesium_ore.name=深层镁矿石
+tile.etfuturum.deepslate_boron_ore.name=深层硼矿石
 
 tile.etfuturum.deepslate_certus_quartz_ore.name=深层赛特斯石英矿石
 tile.etfuturum.deepslate_charged_certus_quartz_ore.name=深层充能赛特斯石英矿石
