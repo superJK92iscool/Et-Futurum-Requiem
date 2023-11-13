@@ -394,6 +394,9 @@ item.etfuturum.raw_uranium.name=Raw Uranium
 item.etfuturum.raw_thorium.name=Raw Thorium
 item.etfuturum.raw_tungsten.name=Raw Tungsten
 item.etfuturum.raw_titanium.name=Raw Titanium
+item.etfuturum.raw_zinc.name=Raw Zinc
+item.etfuturum.raw_magnesium.name=Raw Magnesium
+item.etfuturum.raw_boron.name=Raw Boron
 
 # Blocks
 tile.etfuturum.granite.name=Granite
@@ -1044,6 +1047,9 @@ tile.etfuturum.raw_uranium_block.name=Raw Uranium Block
 tile.etfuturum.raw_thorium_block.name=Raw Thorium Block
 tile.etfuturum.raw_tungsten_block.name=Raw Tungsten Block
 tile.etfuturum.raw_titanium_block.name=Raw Titanium Block
+tile.etfuturum.raw_zinc_block.name=Raw Zinc Block
+tile.etfuturum.raw_magnesium_block.name=Raw Magnesium Block
+tile.etfuturum.raw_boron_block.name=Raw Boron Block
 
 tile.etfuturum.deepslate_aluminum_ore.name=Deepslate Aluminum Ore
 tile.etfuturum.deepslate_tin_ore.name=Deepslate Tin Ore
@@ -1056,6 +1062,9 @@ tile.etfuturum.deepslate_uranium_ore.name=Deepslate Uranium Ore
 tile.etfuturum.deepslate_thorium_ore.name=Deepslate Thorium Ore
 tile.etfuturum.deepslate_tungsten_ore.name=Deepslate Tungsten Ore
 tile.etfuturum.deepslate_titanium_ore.name=Deepslate Titanium Ore
+tile.etfuturum.deepslate_zinc_ore.name=Deepslate Zinc Ore
+tile.etfuturum.deepslate_magnesium_ore.name=Deepslate Magnesium Ore
+tile.etfuturum.deepslate_boron_ore.name=Deepslate Boron Ore
 
 tile.etfuturum.deepslate_certus_quartz_ore.name=Deepslate Certus Quartz Ore
 tile.etfuturum.deepslate_charged_certus_quartz_ore.name=Deepslate Charged Certus Quartz Ore
