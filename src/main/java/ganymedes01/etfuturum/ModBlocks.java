@@ -117,6 +117,7 @@ public enum ModBlocks {
 	MOSS_BLOCK(ConfigBlocksItems.enableMoss, new BlockMoss()),
 	MOSS_CARPET(ConfigBlocksItems.enableMoss, new BlockMossCarpet()),
 	AZALEA(ConfigBlocksItems.enableMoss, new BlockAzalea()),
+	AZALEA_LEAVES(ConfigBlocksItems.enableMoss, new BlockAzaleaLeaves()),
 
 	STONE_WALL(ConfigBlocksItems.enableExtraVanillaWalls, new BaseWall("stone_wall", new Block[]{Blocks.stonebrick, Blocks.stonebrick, Blocks.sandstone, Blocks.brick_block}, new int[]{0, 1, 0, 0}, new String[]{"stone_brick_wall", "mossy_stone_brick_wall", "sandstone_wall", "brick_wall"})),
 	NETHER_BRICK_WALL(ConfigBlocksItems.enableExtraVanillaWalls, new BaseWall("nether_brick_wall", new Block[]{Blocks.nether_brick}, new int[]{0}, null)),
@@ -278,6 +279,8 @@ public enum ModBlocks {
 	WEEPING_VINES(ConfigBlocksItems.enableCrimsonBlocks, new BlockWeepingVines()),
 	TWISTING_VINES(ConfigBlocksItems.enableWarpedBlocks, new BlockTwistingVines()),
 
+	SAPLING(ConfigBlocksItems.enableCherryBlocks && ConfigBlocksItems.enableMangroveBlocks, new BlockModernSapling(), ItemBlockModernSapling.class),
+	LEAVES(ConfigBlocksItems.enableCherryBlocks && ConfigBlocksItems.enableMangroveBlocks, new BlockModernLeaves()),
 	WOOD_PLANKS(ConfigBlocksItems.woodVariants, new BlockModernWoodPlanks()),
 	WOOD_SLAB(ConfigBlocksItems.woodVariants, new BlockModernWoodSlab(false)),
 	DOUBLE_WOOD_SLAB(ConfigBlocksItems.woodVariants, new BlockModernWoodSlab(true)),
@@ -517,10 +520,11 @@ public enum ModBlocks {
 
 	ModBlocks(Boolean enabled, Block block) {
 		this(enabled, block,
-				block instanceof ISubBlocksBlock && !(block instanceof BaseSlab) ? BaseItemBlock.class
-						: block instanceof BaseSlab ? BaseSlabItemBlock.class
-						: block instanceof BaseWall ? BaseWallItemBlock.class
+				block instanceof BaseSlab ? BaseSlabItemBlock.class
+//						: block instanceof BaseWall ? BaseWallItemBlock.class
 						: block instanceof BaseFlower ? BasePotableItemBlock.class
+						: block instanceof BaseLeaves ? BaseLeavesItemBlock.class
+						: block instanceof ISubBlocksBlock ? BaseItemBlock.class
 						: null);
 		hasItemBlock = true;
 	}

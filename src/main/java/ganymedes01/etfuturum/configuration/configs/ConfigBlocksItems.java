@@ -193,7 +193,7 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableCalcite = getBoolean("enableCalcite", catBlockNatural, true, "");
 		enableTuff = getBoolean("enableTuff", catBlockNatural, true, "");
 		enableDeepslateOres = getBoolean("enableDeepslateOres", catBlockNatural, true, "Enable deepslate ores for copper ore and vanilla ores when deepslate generates over them.");
-		enableAmethyst = getBoolean("enableAmethyst", catBlockNatural, true, "Enables tinted glass, amethyst blocks, budding amethyst and amethyst crystals. Also enables the item too. Smooth basalt can be disabled by changing the world.cfg option for the basalt layer to something else.");
+		enableAmethyst = getBoolean("enableAmethyst", catBlockNatural, true, "Enables tinted glass, amethyst blocks, budding amethyst and amethyst crystals. Also enables the item too.");
 		enableMud = getBoolean("enableMud", catBlockNatural, true, "Enables mud, packed mud and mud bricks, as well as the mud brick stairs, slabs and walls.");
 		enableMoss = getBoolean("enableMoss", catBlockNatural, true, "Enables moss blocks and carpets");
 		enableCrimsonBlocks = getBoolean("enableCrimsonBlocks", catBlockMisc, true, "Enables the crimson nylium, wood, and plants. This must be on for the crimson forest biome to generate unless Netherlicious is installed.\nThe nether wart block is still a separate toggle, both this and the wart toggle must be turned off to disable the nether wart block, because crimson trees need the wart blocks.");

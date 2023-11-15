@@ -550,6 +550,22 @@ public class EtFuturum {
 			MultiBlockSoundRegistry.multiBlockSounds.put(ModBlocks.SPONGE.get(), mbs);
 		}
 
+		if (ModBlocks.SAPLING.isEnabled()) {
+			BasicMultiBlockSound mbs = new BasicMultiBlockSound();
+			mbs.setTypes(1, ModSounds.soundCherrySapling);
+			mbs.setTypes(9, ModSounds.soundCherrySapling);
+			MultiBlockSoundRegistry.multiBlockSounds.put(ModBlocks.SAPLING.get(), mbs);
+		}
+
+		if (ModBlocks.LEAVES.isEnabled()) {
+			BasicMultiBlockSound mbs = new BasicMultiBlockSound();
+			mbs.setTypes(1, ModSounds.soundCherryLeaves);
+			mbs.setTypes(5, ModSounds.soundCherryLeaves);
+			mbs.setTypes(9, ModSounds.soundCherryLeaves);
+			mbs.setTypes(13, ModSounds.soundCherryLeaves);
+			MultiBlockSoundRegistry.multiBlockSounds.put(ModBlocks.LEAVES.get(), mbs);
+		}
+
 		if (ModBlocks.WOOD_PLANKS.isEnabled()) {
 			BasicMultiBlockSound mbs = new BasicMultiBlockSound();
 			mbs.setTypes(0, ModSounds.soundNetherWood);

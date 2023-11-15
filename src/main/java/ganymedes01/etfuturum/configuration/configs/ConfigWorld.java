@@ -226,11 +226,11 @@ public class ConfigWorld extends ConfigBase {
 					try {
 						meta = Integer.parseInt(amethystOuterBlockArray[2]);
 					} catch (NumberFormatException e) {
-						Logger.error("Specified bone block for amethystOuters: " + amethystOuterBlockID + " has invalid metadata specified! (Not an integer)");
+						Logger.error("Specified block for amethystOuterLayer: " + amethystOuterBlockID + " has invalid metadata specified! (Not an integer)");
 						Logger.error("Defaulting to 0.");
 					}
 					if (meta > 15 || meta < 0) {
-						Logger.error("Specified bone block for amethystOuters: " + amethystOuterBlockID + " has invalid metadata specified! (Value cannot be greater than 15 or lower than 0)");
+						Logger.error("Specified block for amethystOuterLayer: " + amethystOuterBlockID + " has invalid metadata specified! (Value cannot be greater than 15 or lower than 0)");
 						Logger.error("Defaulting to 0.");
 						meta = 0;
 					}
@@ -247,11 +247,11 @@ public class ConfigWorld extends ConfigBase {
 					try {
 						meta = Integer.parseInt(amethystMiddleBlockArray[2]);
 					} catch (NumberFormatException e) {
-						Logger.error("Specified amethyst middle layer block: " + amethystMiddleBlockID + " has invalid metadata specified! (Not an integer)");
+						Logger.error("Specified block for amethystMiddleLayer: " + amethystMiddleBlockID + " has invalid metadata specified! (Not an integer)");
 						Logger.error("Defaulting to 0.");
 					}
 					if (meta > 15 || meta < 0) {
-						Logger.error("Specified amethyst middle layer block: " + amethystMiddleBlockID + " has invalid metadata specified! (Value cannot be greater than 15 or lower than 0)");
+						Logger.error("Specified block for amethystMiddleLayer: " + amethystMiddleBlockID + " has invalid metadata specified! (Value cannot be greater than 15 or lower than 0)");
 						Logger.error("Defaulting to 0.");
 						meta = 0;
 					}
