@@ -279,7 +279,7 @@ public enum ModBlocks {
 	WEEPING_VINES(ConfigBlocksItems.enableCrimsonBlocks, new BlockWeepingVines()),
 	TWISTING_VINES(ConfigBlocksItems.enableWarpedBlocks, new BlockTwistingVines()),
 
-	SAPLING(ConfigBlocksItems.enableCherryBlocks && ConfigBlocksItems.enableMangroveBlocks, new BlockModernSapling(), ItemBlockModernSapling.class),
+	SAPLING(ConfigBlocksItems.enableCherryBlocks && ConfigBlocksItems.enableMangroveBlocks, new BlockModernSapling()),
 	LEAVES(ConfigBlocksItems.enableCherryBlocks && ConfigBlocksItems.enableMangroveBlocks, new BlockModernLeaves()),
 	WOOD_PLANKS(ConfigBlocksItems.woodVariants, new BlockModernWoodPlanks()),
 	WOOD_SLAB(ConfigBlocksItems.woodVariants, new BlockModernWoodSlab(false)),
@@ -494,7 +494,7 @@ public enum ModBlocks {
 	public static final ModBlocks[] VALUES = values();
 
 	public static void init() {
-		for (ModBlocks block : values()) {
+		for (ModBlocks block : VALUES) {
 			if (block.isEnabled()) {
 				if (block.getItemBlock() != null || !block.getHasItemBlock()) {
 					GameRegistry.registerBlock(block.get(), block.getItemBlock(), block.name().toLowerCase());

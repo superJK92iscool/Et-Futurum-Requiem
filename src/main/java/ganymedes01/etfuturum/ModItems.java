@@ -103,7 +103,7 @@ public enum ModItems {
 	public static final ModItems[] VALUES = values();
 
 	public static void init() {
-		for (ModItems item : values()) {
+		for (ModItems item : VALUES) {
 			if (item.isEnabled()) { //Honestly what do you think it's doing lmfao
 				GameRegistry.registerItem(item.get(), item.name().toLowerCase());
 			}
