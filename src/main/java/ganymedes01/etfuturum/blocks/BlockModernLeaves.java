@@ -31,6 +31,10 @@ public class BlockModernLeaves extends BaseLeaves {
 		}
 	}
 
+	public int getRange(int meta) {
+		return meta == 1 ? 7 : 4;
+	}
+
 	@Override
 	public int quantityDropped(int meta, int fortune, Random random) {
 		if (meta % 4 == 0) {
