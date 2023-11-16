@@ -90,7 +90,7 @@ public class BlockChorusPlant extends Block {
 		boolean flag = world.isAirBlock(x, y + 1, z);
 		boolean flag1 = world.isAirBlock(x, y - 1, z);
 
-		for (EnumFacing enumfacing : EnumFacing.values()) {
+		for (EnumFacing enumfacing : Utils.ENUM_FACING_VALUES) {
 			if (enumfacing.getFrontOffsetY() != 0) continue;
 
 			Block block = world.getBlock(x + enumfacing.getFrontOffsetX(), y, z + enumfacing.getFrontOffsetZ());

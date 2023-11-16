@@ -100,6 +100,8 @@ public enum ModItems {
 	@Deprecated
 	public static final Item sweet_berries = SWEET_BERRIES.get();
 
+	public static final ModItems[] VALUES = values();
+
 	public static void init() {
 		for (ModItems item : values()) {
 			if (item.isEnabled()) { //Honestly what do you think it's doing lmfao

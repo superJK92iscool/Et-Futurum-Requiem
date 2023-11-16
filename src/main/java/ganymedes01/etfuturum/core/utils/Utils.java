@@ -13,12 +13,18 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.*;
 
 public class Utils {
 
+	/**
+	 * Note: Includes UNKNOWN, use ForgeDirection.VALID_DIRECTIONS to exclude it
+	 */
+	public static final ForgeDirection[] FORGE_DIRECTIONS = ForgeDirection.values();
+	public static final EnumFacing[] ENUM_FACING_VALUES = EnumFacing.values();
 	public static final float SQRT_2 = MathHelper.sqrt_float(2.0F);
 
 	public static String getUnlocalisedName(String name) {

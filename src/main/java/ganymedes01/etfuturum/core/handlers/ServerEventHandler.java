@@ -25,6 +25,7 @@ import ganymedes01.etfuturum.blocks.BlockMagma;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.*;
 import ganymedes01.etfuturum.core.utils.ExternalContent;
+import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.elytra.IElytraEntityTrackerEntry;
 import ganymedes01.etfuturum.elytra.IElytraPlayer;
 import ganymedes01.etfuturum.entities.*;
@@ -1222,7 +1223,7 @@ public class ServerEventHandler {
 			if (ConfigTweaks.spawnAnywhereShulkerColors) {
 				World world = event.world;
 
-				for (EnumFacing facing : EnumFacing.values()) {
+				for (EnumFacing facing : Utils.ENUM_FACING_VALUES) {
 					Block block = world.getBlock(x + facing.getFrontOffsetX(), y + facing.getFrontOffsetY(), z + facing.getFrontOffsetZ());
 					byte color = -1;
 					int meta = world.getBlockMetadata(x + facing.getFrontOffsetX(), y + facing.getFrontOffsetY(), z + facing.getFrontOffsetZ());

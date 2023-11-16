@@ -491,6 +491,8 @@ public enum ModBlocks {
 	@Deprecated
 	public static final Block red_sandstone = RED_SANDSTONE.get();
 
+	public static final ModBlocks[] VALUES = values();
+
 	public static void init() {
 		for (ModBlocks block : values()) {
 			if (block.isEnabled()) {

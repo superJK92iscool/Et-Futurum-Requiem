@@ -18,7 +18,7 @@ import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.entities.EntityNewBoat;
 import ganymedes01.etfuturum.items.ItemModdedRawOre;
 import ganymedes01.etfuturum.items.ItemSuspiciousStew;
-import ganymedes01.etfuturum.lib.EnumColour;
+import ganymedes01.etfuturum.lib.EnumColor;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.recipes.crafting.*;
 import net.minecraft.block.Block;
@@ -578,7 +578,7 @@ public class ModRecipes {
 			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Blocks.nether_brick_fence, 6), "xyx", "xyx", 'x', Blocks.nether_brick, 'y', "ingotBrickNether"));
 		}
 
-		for (EnumColour colour : EnumColour.values()) {
+		for (EnumColor colour : EnumColor.VALUES) {
 			addShapedRecipe(ModBlocks.BANNER.newItemStack(1, colour.getDamage()), "xxx", "xxx", " y ", 'x', new ItemStack(Blocks.wool, 1, colour.getDamage()), 'y', "stickWood");
 		}
 		GameRegistry.addRecipe(new RecipeDuplicatePattern());
@@ -833,7 +833,7 @@ public class ModRecipes {
 			addShapelessRecipe(stew, Blocks.red_mushroom, Blocks.brown_mushroom, Items.bowl, getStewFlowers().get(i));
 		}
 
-		for (int i = EntityNewBoat.Type.values().length - 1; i >= 0; i--) {
+		for (int i = EntityNewBoat.Type.VALUES.length - 1; i >= 0; i--) {
 			addShapedRecipe(new ItemStack(i == 0 && ConfigBlocksItems.replaceOldBoats ? Items.boat : ModItems.BOATS[i].get(), 1),
 					(ConfigBlocksItems.replaceOldBoats ? "x x" : "xyx"), "xxx", 'x', i == 0 ? "plankWood" : new ItemStack(Blocks.planks, 1, i), 'y', new ItemStack(Items.wooden_shovel, 1));
 		}
@@ -841,7 +841,7 @@ public class ModRecipes {
 			addShapelessRecipe(new ItemStack(Items.boat), ModItems.BOATS[0].get());
 			addShapelessRecipe(ModItems.BOATS[0].newItemStack(), Items.wooden_shovel, Items.boat);
 		}
-		for (int i = EntityNewBoat.Type.values().length - 1; i >= 0; i--) {
+		for (int i = EntityNewBoat.Type.VALUES.length - 1; i >= 0; i--) {
 			addShapedRecipe(ModItems.CHEST_BOATS[i].newItemStack(), "c", "b", 'b', i == 0 && ConfigBlocksItems.replaceOldBoats ? Items.boat : ModItems.BOATS[i].get(), 'c', Blocks.chest);
 		}
 

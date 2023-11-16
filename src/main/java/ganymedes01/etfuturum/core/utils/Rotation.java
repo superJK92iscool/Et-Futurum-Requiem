@@ -10,7 +10,8 @@ public enum Rotation {
 	COUNTERCLOCKWISE_90("rotate_270");//West
 
 	private final String name;
-	private static final String[] rotationNames = new String[values().length];
+	private static final String[] ROTATION_NAMES = new String[values().length];
+	public static final Rotation[] VALUES = values();
 
 	Rotation(String nameIn) {
 		this.name = nameIn;
@@ -77,7 +78,7 @@ public enum Rotation {
 				return rotateY(facing);
 
 			case CLOCKWISE_180:
-				return EnumFacing.values()[ForgeDirection.values()[facing.ordinal()].getOpposite().ordinal()];
+				return Utils.ENUM_FACING_VALUES[ForgeDirection.VALID_DIRECTIONS[facing.ordinal()].getOpposite().ordinal()];
 
 			case COUNTERCLOCKWISE_90:
 				return rotateYCCW(facing);
@@ -145,7 +146,7 @@ public enum Rotation {
 		int i = 0;
 
 		for (Rotation rotation : values()) {
-			rotationNames[i++] = rotation.name;
+			ROTATION_NAMES[i++] = rotation.name;
 		}
 	}
 }

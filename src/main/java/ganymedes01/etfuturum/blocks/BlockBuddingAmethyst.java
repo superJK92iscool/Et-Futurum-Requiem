@@ -43,7 +43,7 @@ public class BlockBuddingAmethyst extends BlockAmethystBlock {
 	@Override
 	public void updateTick(World world, int x, int y, int z, Random rand) {
 		if (rand.nextInt(5) == 0) {
-			EnumFacing facing = EnumFacing.getFront(rand.nextInt(EnumFacing.values().length));
+			EnumFacing facing = EnumFacing.getFront(rand.nextInt(Utils.ENUM_FACING_VALUES.length));
 			Block block = world.getBlock(x + facing.getFrontOffsetX(), y + facing.getFrontOffsetY(), z + facing.getFrontOffsetZ());
 			int meta = world.getBlockMetadata(x + facing.getFrontOffsetX(), y + facing.getFrontOffsetY(), z + facing.getFrontOffsetZ());
 

@@ -41,7 +41,7 @@ public class MixinBlockButton extends Block {
 	 */
 	@Overwrite
 	public boolean canPlaceBlockOnSide(World p_149707_1_, int p_149707_2_, int p_149707_3_, int p_149707_4_, int p_149707_5_) {
-		for (ForgeDirection dir : ForgeDirection.values()) {
+		for (ForgeDirection dir : VALID_DIRECTIONS) {
 			if (ForgeDirection.getOrientation(p_149707_5_) == dir && p_149707_1_.isSideSolid(p_149707_2_ - dir.offsetX, p_149707_3_ - dir.offsetY, p_149707_4_ - dir.offsetZ, dir)) {
 				return true;
 			}
@@ -55,7 +55,7 @@ public class MixinBlockButton extends Block {
 	 */
 	@Overwrite
 	public boolean canPlaceBlockAt(World p_149742_1_, int p_149742_2_, int p_149742_3_, int p_149742_4_) {
-		for (ForgeDirection dir : ForgeDirection.values()) {
+		for (ForgeDirection dir : VALID_DIRECTIONS) {
 			if (p_149742_1_.isSideSolid(p_149742_2_ - dir.offsetX, p_149742_3_ - dir.offsetY, p_149742_4_ - dir.offsetZ, dir)) {
 				return true;
 			}
@@ -73,7 +73,7 @@ public class MixinBlockButton extends Block {
 		int k1 = p_149660_1_.getBlockMetadata(p_149660_2_, p_149660_3_, p_149660_4_) & 8;
 		int j1 = 0;
 
-		for (ForgeDirection dir : ForgeDirection.values()) {
+		for (ForgeDirection dir : VALID_DIRECTIONS) {
 			if (dir == ForgeDirection.getOrientation(p_149660_5_) && p_149660_1_.isSideSolid(p_149660_2_ - dir.offsetX, p_149660_3_ - dir.offsetY, p_149660_4_ - dir.offsetZ, dir)) {
 				switch (dir) {
 					case NORTH:

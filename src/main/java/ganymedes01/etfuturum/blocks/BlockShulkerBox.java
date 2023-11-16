@@ -72,7 +72,7 @@ public class BlockShulkerBox extends BlockContainer {
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack) {
 		TileEntityShulkerBox box = (TileEntityShulkerBox) world.getTileEntity(x, y, z);
 		if (stack.hasTagCompound()) {
-			box.type = ShulkerBoxType.values()[stack.getTagCompound().getByte("Type")];
+			box.type = ShulkerBoxType.VALUES[stack.getTagCompound().getByte("Type")];
 			box.chestContents = new ItemStack[box.getSizeInventory()];
 
 			NBTTagList nbttaglist = stack.getTagCompound().getTagList("Items", 10);
