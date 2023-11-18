@@ -566,39 +566,23 @@ public class EtFuturum {
 			MultiBlockSoundRegistry.multiBlockSounds.put(ModBlocks.LEAVES.get(), mbs);
 		}
 
-		if (ModBlocks.WOOD_PLANKS.isEnabled()) {
+		{
 			BasicMultiBlockSound mbs = new BasicMultiBlockSound();
 			mbs.setTypes(0, ModSounds.soundNetherWood);
 			mbs.setTypes(1, ModSounds.soundNetherWood);
 			mbs.setTypes(3, ModSounds.soundCherryWood);
 			mbs.setTypes(4, ModSounds.soundBambooWood);
-			MultiBlockSoundRegistry.multiBlockSounds.put(ModBlocks.WOOD_PLANKS.get(), mbs);
+
+			if (ModBlocks.WOOD_PLANKS.isEnabled()) {
+				MultiBlockSoundRegistry.multiBlockSounds.put(ModBlocks.WOOD_PLANKS.get(), mbs);
+			}
+
+			if (ModBlocks.WOOD_FENCE.isEnabled()) {
+				MultiBlockSoundRegistry.multiBlockSounds.put(ModBlocks.WOOD_FENCE.get(), mbs);
+			}
 		}
 
-		if (ModBlocks.WOOD_FENCE.isEnabled()) {
-			BasicMultiBlockSound mbs = new BasicMultiBlockSound();
-			mbs.setTypes(0, ModSounds.soundNetherWood);
-			mbs.setTypes(1, ModSounds.soundNetherWood);
-			mbs.setTypes(3, ModSounds.soundCherryWood);
-			mbs.setTypes(4, ModSounds.soundBambooWood);
-			MultiBlockSoundRegistry.multiBlockSounds.put(ModBlocks.WOOD_FENCE.get(), mbs);
-		}
-
-		if (ModBlocks.WOOD_SLAB.isEnabled()) {
-			BasicMultiBlockSound mbs = new BasicMultiBlockSound();
-			mbs.setTypes(0, ModSounds.soundNetherWood);
-			mbs.setTypes(1, ModSounds.soundNetherWood);
-			mbs.setTypes(3, ModSounds.soundNetherWood);
-			mbs.setTypes(4, ModSounds.soundBambooWood);
-
-			mbs.setTypes(8, ModSounds.soundNetherWood);
-			mbs.setTypes(9, ModSounds.soundNetherWood);
-			mbs.setTypes(11, ModSounds.soundCherryWood);
-			mbs.setTypes(12, ModSounds.soundBambooWood);
-			MultiBlockSoundRegistry.multiBlockSounds.put(ModBlocks.WOOD_SLAB.get(), mbs);
-		}
-
-		if (ModBlocks.DOUBLE_WOOD_SLAB.isEnabled()) {
+		{
 			BasicMultiBlockSound mbs = new BasicMultiBlockSound();
 			mbs.setTypes(0, ModSounds.soundNetherWood);
 			mbs.setTypes(1, ModSounds.soundNetherWood);
@@ -609,7 +593,14 @@ public class EtFuturum {
 			mbs.setTypes(9, ModSounds.soundNetherWood);
 			mbs.setTypes(11, ModSounds.soundCherryWood);
 			mbs.setTypes(12, ModSounds.soundBambooWood);
-			MultiBlockSoundRegistry.multiBlockSounds.put(ModBlocks.DOUBLE_WOOD_SLAB.get(), mbs);
+
+			if (ModBlocks.WOOD_SLAB.isEnabled()) {
+				MultiBlockSoundRegistry.multiBlockSounds.put(ModBlocks.WOOD_SLAB.get(), mbs);
+			}
+
+			if (ModBlocks.DOUBLE_WOOD_SLAB.isEnabled()) {
+				MultiBlockSoundRegistry.multiBlockSounds.put(ModBlocks.DOUBLE_WOOD_SLAB.get(), mbs);
+			}
 		}
 
 		if (ModBlocks.PACKED_MUD.isEnabled()) {

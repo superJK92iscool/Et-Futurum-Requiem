@@ -19,6 +19,7 @@ import net.minecraft.world.WorldProviderHell;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.ChunkProviderFlat;
+import net.minecraft.world.gen.feature.WorldGenFlowers;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.common.BiomeDictionary;
@@ -48,17 +49,18 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 	protected final WorldGenMinable tuffGen = new WorldGenDeepslateLayerBlob(ConfigWorld.maxTuffPerCluster, true);
 	protected WorldGenerator amethystGen;
 	protected WorldGenerator fossilGen;
-	private final LinkedList<BiomeGenBase> fossilBiomes;
+	protected WorldGenerator berryBushGen;
+	protected WorldGenerator cornflowerGen;
+	protected WorldGenerator lilyValleyGen;
+	private List<BiomeGenBase> fossilBiomes;
+	private List<BiomeGenBase> berryBushBiomes;
+	private List<BiomeGenBase> cornflowerBiomes;
+	private List<BiomeGenBase> lilyValleyBiomes;
 
 	protected EtFuturumWorldGenerator() {
 		stoneGen.add(new WorldGenMinableCustom(ModBlocks.STONE.get(), 1, ConfigWorld.maxStonesPerCluster, Blocks.stone));
 		stoneGen.add(new WorldGenMinableCustom(ModBlocks.STONE.get(), 3, ConfigWorld.maxStonesPerCluster, Blocks.stone));
 		stoneGen.add(new WorldGenMinableCustom(ModBlocks.STONE.get(), 5, ConfigWorld.maxStonesPerCluster, Blocks.stone));
-		//Add biomes that are only hot, AND dry AND sandy, and add all swamps.
-		fossilBiomes = new LinkedList<>(Arrays.asList(BiomeDictionary.getBiomesForType(Type.SANDY)));
-		fossilBiomes.retainAll(Arrays.asList(BiomeDictionary.getBiomesForType(Type.HOT)));
-		fossilBiomes.retainAll(Arrays.asList(BiomeDictionary.getBiomesForType(Type.DRY)));
-		fossilBiomes.addAll(Arrays.asList(BiomeDictionary.getBiomesForType(Type.SWAMP)));
 	}
 
 	public void postInit() {
@@ -66,27 +68,39 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 				&& ModBlocks.BUDDING_AMETHYST.isEnabled() && ConfigWorld.amethystOuterBlock != null && ConfigWorld.amethystMiddleBlock != null) {
 			amethystGen = new WorldGenAmethystGeode(ConfigWorld.amethystOuterBlock, ConfigWorld.amethystMiddleBlock);
 		}
+
 		if (ConfigWorld.enableFossils && ConfigWorld.fossilBlock != null) {
 			fossilGen = new WorldGenFossil();
 		}
-		if (ModBlocks.LILY_OF_THE_VALLEY.isEnabled()) {
-			BiomeGenBase[] biomes = BiomeDictionary.getBiomesForType(Type.FOREST);
-			biomes = ArrayUtils.removeElements(biomes, BiomeDictionary.getBiomesForType(Type.SNOWY));
-			for (BiomeGenBase biome : biomes) {
-				biome.addFlower(ModBlocks.LILY_OF_THE_VALLEY.get(), 0, 1);
-			}
-		}
-		if (ModBlocks.CORNFLOWER.isEnabled()) {
-			BiomeGenBase[] biomes = BiomeDictionary.getBiomesForType(Type.PLAINS);
-			biomes = ArrayUtils.removeElements(biomes, BiomeDictionary.getBiomesForType(Type.SAVANNA));
-			biomes = ArrayUtils.removeElements(biomes, BiomeDictionary.getBiomesForType(Type.SNOWY));
-			for (BiomeGenBase biome : biomes) {
-				biome.addFlower(ModBlocks.CORNFLOWER.get(), 0, 1);
-			}
-		}
+
+		//Add biomes that are only hot, AND dry AND sandy, and add all swamps.
+		fossilBiomes = new LinkedList<>(Arrays.asList(BiomeDictionary.getBiomesForType(Type.SANDY)));
+		fossilBiomes.retainAll(Arrays.asList(BiomeDictionary.getBiomesForType(Type.HOT)));
+		fossilBiomes.retainAll(Arrays.asList(BiomeDictionary.getBiomesForType(Type.DRY)));
+		fossilBiomes.addAll(Arrays.asList(BiomeDictionary.getBiomesForType(Type.SWAMP)));
+
 		if (ModBlocks.SWEET_BERRY_BUSH.isEnabled()) {
-			for (BiomeGenBase biome : BiomeDictionary.getBiomesForType(Type.CONIFEROUS)) {
-				biome.addFlower(ModBlocks.SWEET_BERRY_BUSH.get(), 3, 1);
+			berryBushBiomes = new LinkedList<>(Arrays.asList(BiomeDictionary.getBiomesForType(Type.CONIFEROUS)));
+			berryBushGen = new WorldGenFlowers(ModBlocks.SWEET_BERRY_BUSH.get());
+			((WorldGenFlowers) berryBushGen).func_150550_a(ModBlocks.SWEET_BERRY_BUSH.get(), 3);
+		}
+
+		if (ModBlocks.LILY_OF_THE_VALLEY.isEnabled()) {
+			BiomeGenBase[] lilyValleyBiomeArray = BiomeDictionary.getBiomesForType(Type.FOREST);
+			lilyValleyBiomeArray = ArrayUtils.removeElements(lilyValleyBiomeArray, BiomeDictionary.getBiomesForType(Type.SNOWY));
+			lilyValleyBiomes = Arrays.asList(lilyValleyBiomeArray);
+			lilyValleyGen = new WorldGenFlowers(ModBlocks.LILY_OF_THE_VALLEY.get());
+		}
+
+		if (ModBlocks.CORNFLOWER.isEnabled()) {
+			BiomeGenBase[] cornflowerBiomeArray = BiomeDictionary.getBiomesForType(Type.PLAINS);
+			cornflowerBiomeArray = ArrayUtils.removeElements(cornflowerBiomeArray, BiomeDictionary.getBiomesForType(Type.SAVANNA));
+			cornflowerBiomeArray = ArrayUtils.removeElements(cornflowerBiomeArray, BiomeDictionary.getBiomesForType(Type.SNOWY));
+			cornflowerBiomeArray = ArrayUtils.removeElements(cornflowerBiomeArray, BiomeDictionary.getBiomesForType(Type.SANDY));
+			cornflowerBiomes = Arrays.asList(cornflowerBiomeArray);
+			cornflowerGen = new WorldGenFlowers(ModBlocks.CORNFLOWER.get());
+			for (BiomeGenBase biome : cornflowerBiomes) {
+				biome.addFlower(ModBlocks.CORNFLOWER.get(), 0, 5);
 			}
 		}
 	}
@@ -112,6 +126,30 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 			if (ConfigWorld.enableExtraMesaGold) {
 				if (ArrayUtils.contains(BiomeDictionary.getTypesForBiome(world.getBiomeGenForCoords(chunkX << 4, chunkZ << 4)), Type.MESA)) {
 					generateOre(mesaGoldGen, world, rand, chunkX, chunkZ, 20, 32, 80);
+				}
+			}
+
+			if (lilyValleyGen != null) {
+				x = (chunkX << 4) + rand.nextInt(16) + 8;
+				z = (chunkZ << 4) + rand.nextInt(16) + 8;
+				if (world.getHeightValue(x, z) > 0 && lilyValleyBiomes.contains(world.getBiomeGenForCoords(x, z))) {
+					lilyValleyGen.generate(world, rand, x, nextHeightInt(rand, world.getHeightValue(x, z) * 2), z);
+				}
+			}
+
+			if (cornflowerGen != null) {
+				x = (chunkX << 4) + rand.nextInt(16) + 8;
+				z = (chunkZ << 4) + rand.nextInt(16) + 8;
+				if (world.getHeightValue(x, z) > 0 && cornflowerBiomes.contains(world.getBiomeGenForCoords(x, z))) {
+					cornflowerGen.generate(world, rand, x, nextHeightInt(rand, world.getHeightValue(x, z) * 2), z);
+				}
+			}
+
+			if (berryBushGen != null) {
+				x = (chunkX << 4) + rand.nextInt(16) + 8;
+				z = (chunkZ << 4) + rand.nextInt(16) + 8;
+				if (world.getHeightValue(x, z) > 0 && berryBushBiomes.contains(world.getBiomeGenForCoords(x, z))) {
+					berryBushGen.generate(world, rand, x, nextHeightInt(rand, world.getHeightValue(x, z) * 2), z);
 				}
 			}
 

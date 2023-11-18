@@ -2,7 +2,6 @@ package ganymedes01.etfuturum.world.generate.decorate;
 
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLog;
 import net.minecraft.init.Blocks;
@@ -70,7 +69,6 @@ public class WorldGenCherryTrees extends WorldGenAbstractTree {
 			placeFoliage(world, x, y + treeHeight, z, rand);
 		}
 
-		BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
 		ForgeDirection direction = ForgeDirection.VALID_DIRECTIONS[rand.nextInt(4) + 2];
 		this.generateBranch(world, x, y, z, rand, height, direction, secondBranchOffsetFromTop, secondBranchOffsetFromTop < treeHeight - 1);
 		if (flag1) {
@@ -112,7 +110,7 @@ public class WorldGenCherryTrees extends WorldGenAbstractTree {
 			mutableX += logDir.offsetX;
 			mutableY += logDir.offsetY;
 			mutableZ += logDir.offsetZ;
-			setBlockAndNotifyAdequately(world, mutableX, mutableY, mutableZ, ModBlocks.CHERRY_LOG.get(), logDir.offsetY != 0 ? 0 : logDir.offsetX != 0 ? 4 : logDir.offsetZ != 0 ? 8 : 0);
+			setBlockAndNotifyAdequately(world, mutableX, mutableY, mutableZ, ModBlocks.CHERRY_LOG.get(), logDir.offsetX != 0 ? 4 : logDir.offsetZ != 0 ? 8 : 0);
 		}
 	}
 
