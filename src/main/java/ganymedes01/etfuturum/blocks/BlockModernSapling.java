@@ -2,6 +2,7 @@ package ganymedes01.etfuturum.blocks;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.world.generate.decorate.WorldGenCherryTrees;
 import net.minecraft.block.Block;
@@ -24,6 +25,7 @@ public class BlockModernSapling extends BlockSapling implements ISubBlocksBlock 
 
 	public BlockModernSapling() {
 		setStepSound(Block.soundTypeGrass);
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
 	@SideOnly(Side.CLIENT)

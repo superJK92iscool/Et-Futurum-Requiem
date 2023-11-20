@@ -3,6 +3,7 @@ package ganymedes01.etfuturum.blocks;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.client.particle.CustomParticles;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
@@ -20,6 +21,7 @@ public class BlockModernLeaves extends BaseLeaves {
 
 	public BlockModernLeaves() {
 		super("mangrove", "cherry");
+		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
 	/**

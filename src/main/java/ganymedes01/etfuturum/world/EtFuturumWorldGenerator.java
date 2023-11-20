@@ -193,7 +193,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 				Block block = world.getBlock(x, y - 1, z);
 				if (y > 0 && block.canSustainPlant(world, x, y - 1, z, ForgeDirection.UP, (IPlantable) ModBlocks.SAPLING.get())) {
 					BiomeGenBase biome = world.getBiomeGenForCoords(x, z);
-					int rng = cherryForestBiomes.contains(biome) ? 64 : cherryPlainsBiomes.contains(biome) ? 80 : 0;
+					int rng = cherryForestBiomes.contains(biome) ? ConfigWorld.cherryTreeForestRarity : cherryPlainsBiomes.contains(biome) ? ConfigWorld.cherryTreePlainsRarity : 0;
 					if (rng > 0 && rand.nextInt(rng) == 0) {
 						if (cherryTreeGen.generate(world, rand, x, y, z)) {
 							cherryTreeGen.func_150524_b(world, rand, x, y, z);

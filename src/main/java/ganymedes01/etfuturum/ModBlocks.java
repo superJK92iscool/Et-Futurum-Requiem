@@ -300,10 +300,10 @@ public enum ModBlocks {
 	BAMBOO_STAIRS(ConfigBlocksItems.enableBambooBlocks, new BaseStairs(WOOD_PLANKS.get(), 4).setBlockSound(ModSounds.soundBambooWood).setUnlocalizedNameWithPrefix("bamboo")),
 
 	//Not plank, but like plank
-	BAMBOO_MOSAIC(ConfigBlocksItems.woodVariants, new BlockBambooMosaic()),
-	BAMBOO_MOSAIC_SLAB(ConfigBlocksItems.woodVariants, new BaseSlab(false, Material.wood, "bamboo_mosaic").setNames("bamboo_mosaic_slab")
+	BAMBOO_MOSAIC(ConfigBlocksItems.enableBambooBlocks, new BlockBambooMosaic()),
+	BAMBOO_MOSAIC_SLAB(ConfigBlocksItems.enableBambooBlocks, new BaseSlab(false, Material.wood, "bamboo_mosaic").setNames("bamboo_mosaic_slab")
 			.setBlockSound(ModSounds.soundBambooWood).setHardness(2).setResistance(3)),
-	DOUBLE_BAMBOO_MOSAIC_SLAB(ConfigBlocksItems.woodVariants, new BaseSlab(true, Material.wood, "bamboo_mosaic").setNames("bamboo_mosaic_slab")
+	DOUBLE_BAMBOO_MOSAIC_SLAB(ConfigBlocksItems.enableBambooBlocks, new BaseSlab(true, Material.wood, "bamboo_mosaic").setNames("bamboo_mosaic_slab")
 			.setBlockSound(ModSounds.soundBambooWood).setHardness(2).setResistance(3)),
 	BAMBOO_MOSAIC_STAIRS(ConfigBlocksItems.enableBambooBlocks, new BaseStairs(BAMBOO_MOSAIC.get(), 0).setBlockSound(ModSounds.soundBambooWood).setUnlocalizedNameWithPrefix("bamboo_mosaic")),
 
