@@ -7,6 +7,7 @@ import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.world.end.dimension.WorldProviderEFREnd;
 import ganymedes01.etfuturum.world.generate.WorldGenDeepslateLayerBlob;
 import ganymedes01.etfuturum.world.generate.WorldGenMinableCustom;
+import ganymedes01.etfuturum.world.generate.decorate.WorldGenCherryTrees;
 import ganymedes01.etfuturum.world.generate.feature.WorldGenAmethystGeode;
 import ganymedes01.etfuturum.world.generate.feature.WorldGenFossil;
 import ganymedes01.etfuturum.world.structure.OceanMonument;
@@ -19,11 +20,14 @@ import net.minecraft.world.WorldProviderHell;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.ChunkProviderFlat;
+import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraft.world.gen.feature.WorldGenFlowers;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
+import net.minecraftforge.common.IPlantable;
+import net.minecraftforge.common.util.ForgeDirection;
 import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.Arrays;
@@ -56,6 +60,11 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 	private List<BiomeGenBase> berryBushBiomes;
 	private List<BiomeGenBase> cornflowerBiomes;
 	private List<BiomeGenBase> lilyValleyBiomes;
+
+	//trees
+	protected WorldGenAbstractTree cherryTreeGen;
+	private List<BiomeGenBase> cherryPlainsBiomes;
+	private List<BiomeGenBase> cherryForestBiomes;
 
 	protected EtFuturumWorldGenerator() {
 		stoneGen.add(new WorldGenMinableCustom(ModBlocks.STONE.get(), 1, ConfigWorld.maxStonesPerCluster, Blocks.stone));
@@ -97,11 +106,35 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 			cornflowerBiomeArray = ArrayUtils.removeElements(cornflowerBiomeArray, BiomeDictionary.getBiomesForType(Type.SAVANNA));
 			cornflowerBiomeArray = ArrayUtils.removeElements(cornflowerBiomeArray, BiomeDictionary.getBiomesForType(Type.SNOWY));
 			cornflowerBiomeArray = ArrayUtils.removeElements(cornflowerBiomeArray, BiomeDictionary.getBiomesForType(Type.SANDY));
+			cornflowerBiomeArray = ArrayUtils.add(cornflowerBiomeArray, BiomeGenBase.getBiome(BiomeGenBase.forest.biomeID + 128));
 			cornflowerBiomes = Arrays.asList(cornflowerBiomeArray);
 			cornflowerGen = new WorldGenFlowers(ModBlocks.CORNFLOWER.get());
 			for (BiomeGenBase biome : cornflowerBiomes) {
 				biome.addFlower(ModBlocks.CORNFLOWER.get(), 0, 5);
 			}
+		}
+
+		if (ModBlocks.CHERRY_LOG.isEnabled() && ModBlocks.LEAVES.isEnabled()) {
+			BiomeGenBase[] cherryForestBiomeArray = BiomeDictionary.getBiomesForType(Type.FOREST);
+			cherryForestBiomeArray = ArrayUtils.removeElements(cherryForestBiomeArray, BiomeDictionary.getBiomesForType(Type.COLD));
+			cherryForestBiomeArray = ArrayUtils.removeElements(cherryForestBiomeArray, BiomeDictionary.getBiomesForType(Type.HOT));
+			cherryForestBiomeArray = ArrayUtils.removeElements(cherryForestBiomeArray, BiomeDictionary.getBiomesForType(Type.SNOWY));
+			cherryForestBiomeArray = ArrayUtils.removeElements(cherryForestBiomeArray, BiomeDictionary.getBiomesForType(Type.JUNGLE));
+			cherryForestBiomeArray = ArrayUtils.removeElements(cherryForestBiomeArray, BiomeDictionary.getBiomesForType(Type.CONIFEROUS));
+			cherryForestBiomeArray = ArrayUtils.removeElements(cherryForestBiomeArray, BiomeGenBase.birchForest, BiomeGenBase.birchForestHills);
+			cherryForestBiomes = Arrays.asList(cherryForestBiomeArray);
+			cherryForestBiomes.remove(BiomeGenBase.birchForest);
+			cherryForestBiomes.remove(BiomeGenBase.birchForestHills);
+
+			BiomeGenBase[] cherryPlainsBiomeArray = BiomeDictionary.getBiomesForType(Type.PLAINS);
+			cherryPlainsBiomeArray = ArrayUtils.removeElements(cherryPlainsBiomeArray, BiomeDictionary.getBiomesForType(Type.SNOWY));
+			cherryPlainsBiomeArray = ArrayUtils.removeElements(cherryPlainsBiomeArray, BiomeDictionary.getBiomesForType(Type.CONIFEROUS));
+			cherryPlainsBiomeArray = ArrayUtils.removeElements(cherryPlainsBiomeArray, BiomeDictionary.getBiomesForType(Type.SANDY));
+			cherryPlainsBiomeArray = ArrayUtils.removeElements(cherryPlainsBiomeArray, BiomeDictionary.getBiomesForType(Type.HOT));
+			cherryPlainsBiomeArray = ArrayUtils.removeElements(cherryPlainsBiomeArray, BiomeDictionary.getBiomesForType(Type.COLD));
+			cherryPlainsBiomes = Arrays.asList(cherryPlainsBiomeArray);
+
+			cherryTreeGen = new WorldGenCherryTrees(false);
 		}
 	}
 
@@ -150,6 +183,22 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 				z = (chunkZ << 4) + rand.nextInt(16) + 8;
 				if (world.getHeightValue(x, z) > 0 && berryBushBiomes.contains(world.getBiomeGenForCoords(x, z))) {
 					berryBushGen.generate(world, rand, x, nextHeightInt(rand, world.getHeightValue(x, z) * 2), z);
+				}
+			}
+
+			if (cherryTreeGen != null) {
+				x = (chunkX << 4) + rand.nextInt(16) + 8;
+				z = (chunkZ << 4) + rand.nextInt(16) + 8;
+				int y = world.getHeightValue(x, z);
+				Block block = world.getBlock(x, y - 1, z);
+				if (y > 0 && block.canSustainPlant(world, x, y - 1, z, ForgeDirection.UP, (IPlantable) ModBlocks.SAPLING.get())) {
+					BiomeGenBase biome = world.getBiomeGenForCoords(x, z);
+					int rng = cherryForestBiomes.contains(biome) ? 64 : cherryPlainsBiomes.contains(biome) ? 80 : 0;
+					if (rng > 0 && rand.nextInt(rng) == 0) {
+						if (cherryTreeGen.generate(world, rand, x, y, z)) {
+							cherryTreeGen.func_150524_b(world, rand, x, y, z);
+						}
+					}
 				}
 			}
 

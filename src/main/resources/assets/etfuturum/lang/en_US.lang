@@ -646,8 +646,17 @@ tile.etfuturum.prismarine_stairs.name=Prismarine Stairs
 tile.etfuturum.prismarine_brick_stairs.name=Prismarine Bricks Stairs
 tile.etfuturum.dark_prismarine_stairs.name=Dark Prismarine Stairs
 
+tile.etfuturum.mangrove_propagule.name=Mangrove Propagule
+tile.etfuturum.cherry_sapling.name=Cherry Sapling
+
 tile.etfuturum.azalea.name=Azalea
 tile.etfuturum.flowering_azalea.name=Flowering Azalea
+
+tile.etfuturum.azalea_leaves.name=Azalea Leaves
+tile.etfuturum.flowering_azalea_leaves.name=Flowering Azalea Leaves
+
+tile.etfuturum.mangrove_leaves.name=Mangrove Leaves
+tile.etfuturum.cherry_leaves.name=Cherry Leaves
 
 tile.etfuturum.crimson_stem.name=Crimson Stem
 tile.etfuturum.warped_stem.name=Warped Stem

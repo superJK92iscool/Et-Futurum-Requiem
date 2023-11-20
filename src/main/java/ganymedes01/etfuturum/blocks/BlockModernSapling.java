@@ -54,20 +54,20 @@ public class BlockModernSapling extends BlockSapling implements ISubBlocksBlock 
 		if (!net.minecraftforge.event.terraingen.TerrainGen.saplingGrowTree(p_149878_1_, p_149878_5_, p_149878_2_, p_149878_3_, p_149878_4_))
 			return;
 		int l = p_149878_1_.getBlockMetadata(p_149878_2_, p_149878_3_, p_149878_4_) & 7;
-		WorldGenAbstractTree tree;
+		WorldGenAbstractTree tree = null;
 
-		switch (l) {
-			default:
-			case 1:
-				tree = cherry;
+		if (ConfigBlocksItems.enableCherryBlocks) {
+			tree = cherry;
 		}
 
-		Block block = p_149878_1_.getBlock(p_149878_2_, p_149878_3_, p_149878_4_);
-		int meta = p_149878_1_.getBlockMetadata(p_149878_2_, p_149878_3_, p_149878_4_);
-		p_149878_1_.setBlock(p_149878_2_, p_149878_3_, p_149878_4_, Blocks.air);
-		boolean success = tree.generate(p_149878_1_, p_149878_5_, p_149878_2_, p_149878_3_, p_149878_4_);
-		if (!success) {
-			p_149878_1_.setBlock(p_149878_2_, p_149878_3_, p_149878_4_, block, meta, 2);
+		if (tree != null) {
+			Block block = p_149878_1_.getBlock(p_149878_2_, p_149878_3_, p_149878_4_);
+			int meta = p_149878_1_.getBlockMetadata(p_149878_2_, p_149878_3_, p_149878_4_);
+			p_149878_1_.setBlock(p_149878_2_, p_149878_3_, p_149878_4_, Blocks.air);
+			boolean success = tree.generate(p_149878_1_, p_149878_5_, p_149878_2_, p_149878_3_, p_149878_4_);
+			if (!success) {
+				p_149878_1_.setBlock(p_149878_2_, p_149878_3_, p_149878_4_, block, meta, 2);
+			}
 		}
 	}
 

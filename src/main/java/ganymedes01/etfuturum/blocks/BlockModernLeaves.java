@@ -1,13 +1,17 @@
 package ganymedes01.etfuturum.blocks;
 
+import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModBlocks;
+import ganymedes01.etfuturum.client.particle.CustomParticles;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 
 import java.util.List;
 import java.util.Random;
@@ -58,5 +62,18 @@ public class BlockModernLeaves extends BaseLeaves {
 
 	public int getRenderColor(int p_149741_1_) {
 		return p_149741_1_ % 4 == 0 ? 0x92C648 : 0xFFFFFF;
+	}
+
+	@Override
+	public void randomDisplayTick(World world, int x, int y, int z, Random rand) {
+		if (world.getBlockMetadata(x, y, z) % 4 == 1) {
+			if (FMLClientHandler.instance().getClient().gameSettings.particleSetting == 0) {
+				if (world.getBlock(x, y - 1, z).getMaterial() == Material.air && rand.nextInt(10) == 0) {
+					CustomParticles.spawnCherryLeaf(world, x + rand.nextFloat(), y, z + rand.nextFloat());
+				}
+			}
+			return;
+		}
+		super.randomDisplayTick(world, x, y, z, rand);
 	}
 }
