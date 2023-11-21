@@ -37,6 +37,7 @@ public class BlockModernLeaves extends BaseLeaves {
 		}
 	}
 
+	@Override
 	public int getRange(int meta) {
 		return meta == 1 ? 7 : 4;
 	}

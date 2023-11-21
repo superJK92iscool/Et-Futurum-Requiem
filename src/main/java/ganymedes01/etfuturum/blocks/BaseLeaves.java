@@ -102,9 +102,10 @@ public abstract class BaseLeaves extends BlockLeaves implements ISubBlocksBlock 
 	public void updateTick(World p_149674_1_, int p_149674_2_, int p_149674_3_, int p_149674_4_, Random p_149674_5_) {
 		if (!p_149674_1_.isRemote) {
 			int l = p_149674_1_.getBlockMetadata(p_149674_2_, p_149674_3_, p_149674_4_);
+			int decayRange = getRange(l % 4);
 
 			if ((l & 8) != 0 && (l & 4) == 0) {
-				int b0 = getRange(l % 4);
+				int b0 = decayRange;
 				int i1 = b0 + 1;
 				byte b1 = 32;
 				int j1 = b1 * b1;
@@ -139,7 +140,7 @@ public abstract class BaseLeaves extends BlockLeaves implements ISubBlocksBlock 
 						}
 					}
 
-					for (l1 = 1; l1 <= 4; ++l1) {
+					for (l1 = 1; l1 <= decayRange; ++l1) {
 						for (i2 = -b0; i2 <= b0; ++i2) {
 							for (j2 = -b0; j2 <= b0; ++j2) {
 								for (int k2 = -b0; k2 <= b0; ++k2) {
