@@ -89,9 +89,9 @@ public class ClientProxy extends CommonProxy {
 		}
 		if (ConfigFunctions.inventoryBedModels) {
 			MinecraftForgeClient.registerItemRenderer(Items.bed, new Item3DBedRenderer((BlockBed) Blocks.bed));
-			if (ConfigBlocksItems.enableDyedBeds) {
-				for (int i = 0; i < ModBlocks.BEDS.length; i++) {
-					MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.BEDS[i].get()), new Item3DBedRenderer((BlockBed) ModBlocks.BEDS[i].get()));
+			for (ModBlocks bed : ModBlocks.BEDS) {
+				if (bed.isEnabled()) {
+					MinecraftForgeClient.registerItemRenderer(bed.getItem(), new Item3DBedRenderer((BlockBed) bed.get()));
 				}
 			}
 		}

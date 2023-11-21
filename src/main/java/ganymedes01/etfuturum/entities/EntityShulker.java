@@ -1,7 +1,6 @@
 package ganymedes01.etfuturum.entities;
 
 import ganymedes01.etfuturum.ModItems;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigTweaks;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
@@ -561,7 +560,7 @@ public class EntityShulker extends EntityGolem implements IMob {
 	}
 
 	protected Item getDropItem() {
-		return ConfigBlocksItems.enableShulkerBoxes ? ModItems.SHULKER_SHELL.get() : null;
+		return ModItems.SHULKER_SHELL.isEnabled() ? ModItems.SHULKER_SHELL.get() : null;
 	}
 
 
@@ -576,7 +575,7 @@ public class EntityShulker extends EntityGolem implements IMob {
 
 		float chance = rand.nextFloat();
 
-		chance += p_70628_2_ * 0.0625;
+		chance += (float) (p_70628_2_ * 0.0625);
 
 		if (item != null && chance > 0.5) {
 			this.dropItem(item, 1);

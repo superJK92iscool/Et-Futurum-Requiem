@@ -23,7 +23,7 @@ public abstract class BlockModelBase implements ISimpleBlockRenderingHandler {
 
 	@Override
 	public void renderInventoryBlock(Block block, int meta, int modelID, RenderBlocks renderer) {
-		if (block.getRenderType() == 2) {
+		if (block.getRenderBlockPass() == 2) {
 			OpenGLHelper.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			OpenGLHelper.enableBlend();
 		}

@@ -1123,16 +1123,18 @@ public class ServerEventHandler {
 		}
 
 		Random rand = event.entityLiving.worldObj.rand;
-		if (ConfigBlocksItems.enableMutton && event.entityLiving.worldObj.getGameRules().getGameRuleBooleanValue("doMobLoot") && event.entityLiving instanceof EntitySheep) {
+		if (ModItems.MUTTON_RAW.isEnabled() && ModItems.MUTTON_COOKED.isEnabled()
+				&& event.entityLiving.worldObj.getGameRules().getGameRuleBooleanValue("doMobLoot") && event.entityLiving instanceof EntitySheep) {
 			int amount = rand.nextInt(3) + 1 + rand.nextInt(1 + event.lootingLevel);
 			for (int i = 0; i < amount; i++)
-				if (event.entityLiving.isBurning())
+				if (event.entityLiving.isBurning()) {
 					addDrop(new ItemStack(ModItems.MUTTON_COOKED.get()), event.entityLiving, event.drops);
-				else
+				} else {
 					addDrop(new ItemStack(ModItems.MUTTON_RAW.get()), event.entityLiving, event.drops);
+				}
 		}
 
-		if (ConfigBlocksItems.enableWitherRose && event.entity instanceof EntityLivingBase && event.source.getEntity() instanceof EntityWither) {
+		if (ModBlocks.WITHER_ROSE.isEnabled() && event.entity instanceof EntityLivingBase && event.source.getEntity() instanceof EntityWither) {
 			World world = event.entity.worldObj;
 			Entity entity = event.entity;
 			if (world.getGameRules().getGameRuleBooleanValue("mobGriefing") && ModBlocks.WITHER_ROSE.get().canPlaceBlockAt(world, (int) entity.posX, (int) entity.posY, (int) entity.posZ)) {
