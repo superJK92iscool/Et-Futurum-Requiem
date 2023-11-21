@@ -105,8 +105,7 @@ public abstract class BaseLeaves extends BlockLeaves implements ISubBlocksBlock 
 			int decayRange = getRange(l % 4);
 
 			if ((l & 8) != 0 && (l & 4) == 0) {
-				int b0 = decayRange;
-				int i1 = b0 + 1;
+				int i1 = decayRange + 1;
 				byte b1 = 32;
 				int j1 = b1 * b1;
 				int k1 = b1 / 2;
@@ -121,9 +120,9 @@ public abstract class BaseLeaves extends BlockLeaves implements ISubBlocksBlock 
 					int i2;
 					int j2;
 
-					for (l1 = -b0; l1 <= b0; ++l1) {
-						for (i2 = -b0; i2 <= b0; ++i2) {
-							for (j2 = -b0; j2 <= b0; ++j2) {
+					for (l1 = -decayRange; l1 <= decayRange; ++l1) {
+						for (i2 = -decayRange; i2 <= decayRange; ++i2) {
+							for (j2 = -decayRange; j2 <= decayRange; ++j2) {
 								Block block = p_149674_1_.getBlock(p_149674_2_ + l1, p_149674_3_ + i2, p_149674_4_ + j2);
 
 								int i = (l1 + k1) * j1 + (i2 + k1) * b1 + j2 + k1;
@@ -141,9 +140,9 @@ public abstract class BaseLeaves extends BlockLeaves implements ISubBlocksBlock 
 					}
 
 					for (l1 = 1; l1 <= decayRange; ++l1) {
-						for (i2 = -b0; i2 <= b0; ++i2) {
-							for (j2 = -b0; j2 <= b0; ++j2) {
-								for (int k2 = -b0; k2 <= b0; ++k2) {
+						for (i2 = -decayRange; i2 <= decayRange; ++i2) {
+							for (j2 = -decayRange; j2 <= decayRange; ++j2) {
+								for (int k2 = -decayRange; k2 <= decayRange; ++k2) {
 									if (this.field_150128_a[(i2 + k1) * j1 + (j2 + k1) * b1 + k2 + k1] == l1 - 1) {
 										int i = (i2 + k1 - 1) * j1 + (j2 + k1) * b1 + k2 + k1;
 										if (this.field_150128_a[i] == -2) {
