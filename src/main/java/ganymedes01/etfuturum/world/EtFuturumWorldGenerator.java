@@ -63,8 +63,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 
 	//trees
 	protected WorldGenAbstractTree cherryTreeGen;
-	private List<BiomeGenBase> cherryPlainsBiomes;
-	private List<BiomeGenBase> cherryForestBiomes;
+	private List<BiomeGenBase> cherryBiomes;
 
 	protected EtFuturumWorldGenerator() {
 		stoneGen.add(new WorldGenMinableCustom(ModBlocks.STONE.get(), 1, ConfigWorld.maxStonesPerCluster, Blocks.stone));
@@ -115,24 +114,8 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 		}
 
 		if (ModBlocks.CHERRY_LOG.isEnabled() && ModBlocks.LEAVES.isEnabled()) {
-			BiomeGenBase[] cherryForestBiomeArray = BiomeDictionary.getBiomesForType(Type.FOREST);
-			cherryForestBiomeArray = ArrayUtils.removeElements(cherryForestBiomeArray, BiomeDictionary.getBiomesForType(Type.COLD));
-			cherryForestBiomeArray = ArrayUtils.removeElements(cherryForestBiomeArray, BiomeDictionary.getBiomesForType(Type.HOT));
-			cherryForestBiomeArray = ArrayUtils.removeElements(cherryForestBiomeArray, BiomeDictionary.getBiomesForType(Type.SNOWY));
-			cherryForestBiomeArray = ArrayUtils.removeElements(cherryForestBiomeArray, BiomeDictionary.getBiomesForType(Type.JUNGLE));
-			cherryForestBiomeArray = ArrayUtils.removeElements(cherryForestBiomeArray, BiomeDictionary.getBiomesForType(Type.CONIFEROUS));
-			cherryForestBiomeArray = ArrayUtils.removeElements(cherryForestBiomeArray, BiomeGenBase.birchForest, BiomeGenBase.birchForestHills);
-			cherryForestBiomes = Arrays.asList(cherryForestBiomeArray);
-			cherryForestBiomes.remove(BiomeGenBase.birchForest);
-			cherryForestBiomes.remove(BiomeGenBase.birchForestHills);
-
-			BiomeGenBase[] cherryPlainsBiomeArray = BiomeDictionary.getBiomesForType(Type.PLAINS);
-			cherryPlainsBiomeArray = ArrayUtils.removeElements(cherryPlainsBiomeArray, BiomeDictionary.getBiomesForType(Type.SNOWY));
-			cherryPlainsBiomeArray = ArrayUtils.removeElements(cherryPlainsBiomeArray, BiomeDictionary.getBiomesForType(Type.CONIFEROUS));
-			cherryPlainsBiomeArray = ArrayUtils.removeElements(cherryPlainsBiomeArray, BiomeDictionary.getBiomesForType(Type.SANDY));
-			cherryPlainsBiomeArray = ArrayUtils.removeElements(cherryPlainsBiomeArray, BiomeDictionary.getBiomesForType(Type.HOT));
-			cherryPlainsBiomeArray = ArrayUtils.removeElements(cherryPlainsBiomeArray, BiomeDictionary.getBiomesForType(Type.COLD));
-			cherryPlainsBiomes = Arrays.asList(cherryPlainsBiomeArray);
+			BiomeGenBase[] cherryPlainsBiomeArray = BiomeDictionary.getBiomesForType(Type.MOUNTAIN);
+			cherryBiomes = Arrays.asList(cherryPlainsBiomeArray);
 
 			cherryTreeGen = new WorldGenCherryTrees(false);
 		}
@@ -193,7 +176,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 				Block block = world.getBlock(x, y - 1, z);
 				if (y > 0 && block.canSustainPlant(world, x, y - 1, z, ForgeDirection.UP, (IPlantable) ModBlocks.SAPLING.get())) {
 					BiomeGenBase biome = world.getBiomeGenForCoords(x, z);
-					int rng = cherryForestBiomes.contains(biome) ? ConfigWorld.cherryTreeForestRarity : cherryPlainsBiomes.contains(biome) ? ConfigWorld.cherryTreePlainsRarity : 0;
+					int rng = cherryBiomes.contains(biome) ? ConfigWorld.cherryTreeRarity : 0;
 					if (rng > 0 && rand.nextInt(rng) == 0) {
 						if (cherryTreeGen.generate(world, rand, x, y, z)) {
 							cherryTreeGen.func_150524_b(world, rand, x, y, z);
