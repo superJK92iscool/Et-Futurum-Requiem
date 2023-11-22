@@ -162,13 +162,23 @@ public class WorldGenCherryTrees extends WorldGenAbstractTree {
 
 	private void generateSquareWithHangingLeaves(World world, Random random, int x, int y, int z, int radius, int height) {
 		generateSquare(world, random, x, y, z, radius, height);
-		int offy = y - radius - 1;
+		int my = y - radius - 1;
 		for (int mx = x - radius; mx <= x + radius; mx++) {
 			for (int mz = z - radius; mz <= z + radius; mz++) {
-				if (random.nextFloat() < HANGING_LEAVES_CHANCE && world.getBlock(mx, offy + 1, mz) == ModBlocks.LEAVES.get() && world.getBlockMetadata(mx, offy + 1, mz) == 1) {
-					placeLeaves(world, mx, offy, mz);
+				if (random.nextFloat() < HANGING_LEAVES_CHANCE) {
+					int offset;
+					for (offset = 0; offset <= 3; offset++) {
+						if (offset == 3) {
+							return;
+						}
+						if (world.getBlock(mx, my + offset, mz).isReplaceable(world, mx, my + offset, mz)
+								&& world.getBlock(mx, my + offset + 1, mz) == ModBlocks.LEAVES.get() && world.getBlockMetadata(mx, my + offset + 1, mz) == 1) {
+							break;
+						}
+					}
+					placeLeaves(world, mx, my + offset, mz);
 					if (random.nextFloat() < HANGING_LEAVES_EXTENSION_CHANCE) {
-						placeLeaves(world, mx, offy - 1, mz);
+						placeLeaves(world, mx, my + offset - 1, mz);
 					}
 				}
 			}
