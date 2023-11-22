@@ -73,7 +73,21 @@ public class BeePlantRegistry {
 			addFlower(Blocks.double_plant, 5);
 
 			addFlower(ModBlocks.AZALEA.get(), 1);
-			//TODO: This should have flowering azalea leaves, cherry leaves, pink petals, mangrove propagules, and spore blossoms as flowers, when added
+			addFlower(ModBlocks.AZALEA.get(), 9);
+			addFlower(ModBlocks.AZALEA_LEAVES.get(), 1);
+			addFlower(ModBlocks.AZALEA_LEAVES.get(), 5);
+			addFlower(ModBlocks.AZALEA_LEAVES.get(), 9);
+			addFlower(ModBlocks.AZALEA_LEAVES.get(), 13);
+
+			addFlower(ModBlocks.SAPLING.get(), 0); //Mangrove propagule
+			addFlower(ModBlocks.SAPLING.get(), 8);
+
+			addFlower(ModBlocks.LEAVES.get(), 1); //Cherry leaves
+			addFlower(ModBlocks.LEAVES.get(), 5);
+			addFlower(ModBlocks.LEAVES.get(), 9);
+			addFlower(ModBlocks.LEAVES.get(), 13);
+
+			//TODO: This should have pink petals, and spore blossoms as flowers, when added
 		}
 	}
 }
