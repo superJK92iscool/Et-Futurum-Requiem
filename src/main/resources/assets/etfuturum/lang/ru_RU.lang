@@ -590,8 +590,17 @@ tile.etfuturum.warped_nylium.name=Искажённый нилий
 tile.etfuturum.weeping_vines.name=Плакучая лоза
 tile.etfuturum.twisting_vines.name=Вьющаяся лоза
 
+tile.etfuturum.mangrove_propagule.name=Мангровый отросток
+tile.etfuturum.cherry_sapling.name=Саженец вишни
+
 tile.etfuturum.azalea.name=Азалия
 tile.etfuturum.flowering_azalea.name=Цветущая азалия
+
+tile.etfuturum.azalea_leaves.name=Листья азалии
+tile.etfuturum.flowering_azalea_leaves.name=Листья цветущей азалии
+
+tile.etfuturum.mangrove_leaves.name=Мангровые листья
+tile.etfuturum.cherry_leaves.name=Вишнёвые листья
 
 tile.etfuturum.crimson_stem.name=Багровый стебель
 tile.etfuturum.warped_stem.name=Искажённый стебель
