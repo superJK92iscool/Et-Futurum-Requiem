@@ -616,9 +616,9 @@ tile.etfuturum.lantern.name=灯笼
 tile.etfuturum.observer.name=侦测器
 tile.etfuturum.target.name=标靶
 
-tile.etfuturum.prismarine_stairs.name=海晶石楼梯
-tile.etfuturum.prismarine_brick_stairs.name=海晶石砖楼梯
-tile.etfuturum.dark_prismarine_stairs.name=暗海晶石楼梯
+tile.etfuturum.prismarine_slab.name=海晶石台阶
+tile.etfuturum.prismarine_brick_slab.name=海晶石砖台阶
+tile.etfuturum.dark_prismarine_slab.name=暗海晶石台阶
 
 tile.etfuturum.mud.name=泥巴
 tile.etfuturum.packed_mud.name=泥坯
@@ -657,12 +657,21 @@ tile.etfuturum.blackstone_wall.name=黑石墙
 tile.etfuturum.polished_blackstone_wall.name=磨制黑石墙
 tile.etfuturum.polished_blackstone_brick_wall.name=磨制黑石砖墙
 
-tile.etfuturum.prismarine_slab.name=海晶石台阶
-tile.etfuturum.prismarine_brick_slab.name=海晶石砖台阶
-tile.etfuturum.dark_prismarine_slab.name=暗海晶石台阶
+tile.etfuturum.prismarine_stairs.name=海晶石楼梯
+tile.etfuturum.prismarine_brick_stairs.name=海晶石砖楼梯
+tile.etfuturum.dark_prismarine_stairs.name=暗海晶石楼梯
+
+tile.etfuturum.mangrove_propagule.name=红树胎生苗
+tile.etfuturum.cherry_sapling.name=樱花树苗
 
 tile.etfuturum.azalea.name=杜鹃花丛
 tile.etfuturum.flowering_azalea.name=盛开的杜鹃花丛
+
+tile.etfuturum.azalea_leaves.name=杜鹃树叶
+tile.etfuturum.flowering_azalea_leaves.name=盛开的杜鹃树叶
+
+tile.etfuturum.mangrove_leaves.name=红树树叶
+tile.etfuturum.cherry_leaves.name=樱花树叶
 
 tile.etfuturum.crimson_stem.name=绯红菌柄
 tile.etfuturum.warped_stem.name=诡异菌柄
