@@ -623,6 +623,8 @@ tile.etfuturum.dark_prismarine_slab.name=暗海晶石台阶
 tile.etfuturum.mud.name=泥巴
 tile.etfuturum.packed_mud.name=泥坯
 tile.etfuturum.mud_bricks.name=泥砖
+
+tile.etfuturum.mangrove_roots.name=红树根
 tile.etfuturum.muddy_mangrove_roots.name=沾泥的红树根
 tile.etfuturum.mud_brick_stairs.name=泥砖楼梯
 tile.etfuturum.mud_brick_slab.name=泥砖台阶
@@ -660,6 +662,8 @@ tile.etfuturum.polished_blackstone_brick_wall.name=磨制黑石砖墙
 tile.etfuturum.prismarine_stairs.name=海晶石楼梯
 tile.etfuturum.prismarine_brick_stairs.name=海晶石砖楼梯
 tile.etfuturum.dark_prismarine_stairs.name=暗海晶石楼梯
+
+tile.etfuturum.pink_petals.name=粉红色花簇
 
 tile.etfuturum.mangrove_propagule.name=红树胎生苗
 tile.etfuturum.cherry_sapling.name=樱花树苗
