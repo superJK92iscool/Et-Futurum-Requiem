@@ -205,6 +205,14 @@ public class ClientProxy extends CommonProxy {
 			RenderingRegistry.registerBlockHandler(new BlockAzaleaRenderer(RenderIDs.AZALEA));
 		}
 
+		if (ModBlocks.MANGROVE_ROOTS.isEnabled()) {
+			RenderingRegistry.registerBlockHandler(new BlockMangroveRootsRenderer(RenderIDs.MANGROVE_ROOTS));
+		}
+
+		if (ModBlocks.PINK_PETALS.isEnabled()) {
+			RenderingRegistry.registerBlockHandler(new BlockPinkPetalsRenderer(RenderIDs.PINK_PETALS));
+		}
+
 		RenderingRegistry.registerBlockHandler(new BlockEmissiveLayerRenderer(RenderIDs.EMISSIVE_DOUBLE_LAYER, false));
 	}
 

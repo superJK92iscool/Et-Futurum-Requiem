@@ -111,8 +111,9 @@ public enum ModBlocks {
 	TINTED_GLASS(ConfigBlocksItems.enableAmethyst, new BlockTintedGlass()),
 
 	MUD(ConfigBlocksItems.enableMud, new BlockMud()),
-	MUDDY_MANGROVE_ROOTS(ConfigBlocksItems.enableMud, new BlockMuddyMangroveRoots()),
 	PACKED_MUD(ConfigBlocksItems.enableMud, new BlockPackedMud()),
+	MANGROVE_ROOTS(ConfigBlocksItems.enableMangroveBlocks, new BlockMangroveRoots()),
+	MUDDY_MANGROVE_ROOTS(ConfigBlocksItems.enableMangroveBlocks, new BlockMuddyMangroveRoots()),
 
 	MOSS_BLOCK(ConfigBlocksItems.enableMoss, new BlockMoss()),
 	MOSS_CARPET(ConfigBlocksItems.enableMoss, new BlockMossCarpet()),
@@ -279,6 +280,7 @@ public enum ModBlocks {
 	WEEPING_VINES(ConfigBlocksItems.enableCrimsonBlocks, new BlockWeepingVines()),
 	TWISTING_VINES(ConfigBlocksItems.enableWarpedBlocks, new BlockTwistingVines()),
 
+	PINK_PETALS(ConfigBlocksItems.enableCherryBlocks, new BlockPinkPetals()),
 	SAPLING(ConfigBlocksItems.enableCherryBlocks || ConfigBlocksItems.enableMangroveBlocks, new BlockModernSapling()),
 	LEAVES(ConfigBlocksItems.enableCherryBlocks || ConfigBlocksItems.enableMangroveBlocks, new BlockModernLeaves()),
 	WOOD_PLANKS(ConfigBlocksItems.woodVariants, new BlockModernWoodPlanks()),

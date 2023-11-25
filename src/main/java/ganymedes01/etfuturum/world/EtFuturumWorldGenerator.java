@@ -10,6 +10,7 @@ import ganymedes01.etfuturum.world.generate.WorldGenMinableCustom;
 import ganymedes01.etfuturum.world.generate.decorate.WorldGenCherryTrees;
 import ganymedes01.etfuturum.world.generate.feature.WorldGenAmethystGeode;
 import ganymedes01.etfuturum.world.generate.feature.WorldGenFossil;
+import ganymedes01.etfuturum.world.generate.feature.WorldGenPinkPetals;
 import ganymedes01.etfuturum.world.structure.OceanMonument;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -56,6 +57,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 	protected WorldGenerator berryBushGen;
 	protected WorldGenerator cornflowerGen;
 	protected WorldGenerator lilyValleyGen;
+	protected WorldGenerator pinkPetalsGen;
 	private List<BiomeGenBase> fossilBiomes;
 	private List<BiomeGenBase> berryBushBiomes;
 	private List<BiomeGenBase> cornflowerBiomes;
@@ -113,11 +115,21 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 			}
 		}
 
-		if (ModBlocks.CHERRY_LOG.isEnabled() && ModBlocks.LEAVES.isEnabled()) {
-			BiomeGenBase[] cherryPlainsBiomeArray = BiomeDictionary.getBiomesForType(Type.MOUNTAIN);
-			cherryBiomes = Arrays.asList(cherryPlainsBiomeArray);
+		BiomeGenBase[] cherryPlainsBiomeArray = BiomeDictionary.getBiomesForType(Type.MOUNTAIN);
 
+		if (ModBlocks.CHERRY_LOG.isEnabled() && ModBlocks.LEAVES.isEnabled()) {
+			cherryBiomes = Arrays.asList(cherryPlainsBiomeArray);
 			cherryTreeGen = new WorldGenCherryTrees(false);
+		}
+
+		if (ModBlocks.PINK_PETALS.isEnabled()) {
+			pinkPetalsGen = new WorldGenPinkPetals(ModBlocks.PINK_PETALS.get());
+			for (BiomeGenBase biome : cherryBiomes) {
+				biome.addFlower(ModBlocks.PINK_PETALS.get(), 0, 1);
+				biome.addFlower(ModBlocks.PINK_PETALS.get(), 4, 1);
+				biome.addFlower(ModBlocks.PINK_PETALS.get(), 8, 1);
+				biome.addFlower(ModBlocks.PINK_PETALS.get(), 12, 1);
+			}
 		}
 	}
 
@@ -180,6 +192,9 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 					if (rng > 0 && rand.nextInt(rng) == 0) {
 						if (cherryTreeGen.generate(world, rand, x, y, z)) {
 							cherryTreeGen.func_150524_b(world, rand, x, y, z);
+							if (pinkPetalsGen != null) {
+								pinkPetalsGen.generate(world, rand, x, y, z);
+							}
 						}
 					}
 				}

@@ -608,6 +608,8 @@ tile.etfuturum.dark_prismarine_slab.name=Dark Prismarine Slab
 tile.etfuturum.mud.name=Mud
 tile.etfuturum.packed_mud.name=Mud
 tile.etfuturum.mud_bricks.name=Mud Bricks
+
+tile.etfuturum.mangrove_roots.name=Mangrove Roots
 tile.etfuturum.muddy_mangrove_roots.name=Muddy Mangrove Roots
 tile.etfuturum.mud_brick_stairs.name=Mud Brick Stairs
 tile.etfuturum.mud_brick_slab.name=Mud Brick Slab
@@ -645,6 +647,8 @@ tile.etfuturum.polished_blackstone_brick_wall.name=Polished Blackstone Brick Wal
 tile.etfuturum.prismarine_stairs.name=Prismarine Stairs
 tile.etfuturum.prismarine_brick_stairs.name=Prismarine Bricks Stairs
 tile.etfuturum.dark_prismarine_stairs.name=Dark Prismarine Stairs
+
+tile.etfuturum.pink_petals.name=Pink Petals
 
 tile.etfuturum.mangrove_propagule.name=Mangrove Propagule
 tile.etfuturum.cherry_sapling.name=Cherry Sapling

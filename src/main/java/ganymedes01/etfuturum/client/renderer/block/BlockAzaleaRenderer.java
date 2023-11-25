@@ -33,9 +33,10 @@ public class BlockAzaleaRenderer extends BlockModelBase {
 	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
 		//We don't need to cull the bottom (0) face because we do that in
 		renderer.drawCrossedSquares(block.getBlockTextureFromSide(0), x, y, z, 1.0F);
+		boolean prev = renderer.renderAllFaces;
 		renderer.renderFromInside = true;
 		renderStandardWorldCube(world, x, y, z, block, modelId, renderer, 0, 0, 0, 1, 1, 1);
-		renderer.renderFromInside = false;
+		renderer.renderFromInside = prev;
 		return renderStandardWorldCube(world, x, y, z, block, modelId, renderer, 0, 0, 0, 1, 1, 1);
 	}
 

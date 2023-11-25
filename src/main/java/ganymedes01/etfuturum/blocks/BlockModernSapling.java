@@ -53,13 +53,19 @@ public class BlockModernSapling extends BlockSapling implements ISubBlocksBlock 
 	private static final WorldGenAbstractTree cherry = new WorldGenCherryTrees(true);
 
 	public void func_149878_d(World p_149878_1_, int p_149878_2_, int p_149878_3_, int p_149878_4_, Random p_149878_5_) {
-		if (!net.minecraftforge.event.terraingen.TerrainGen.saplingGrowTree(p_149878_1_, p_149878_5_, p_149878_2_, p_149878_3_, p_149878_4_))
+		if (!net.minecraftforge.event.terraingen.TerrainGen.saplingGrowTree(p_149878_1_, p_149878_5_, p_149878_2_, p_149878_3_, p_149878_4_)) {
 			return;
+		}
+
 		int l = p_149878_1_.getBlockMetadata(p_149878_2_, p_149878_3_, p_149878_4_) & 7;
 		WorldGenAbstractTree tree = null;
 
-		if (ConfigBlocksItems.enableCherryBlocks) {
-			tree = cherry;
+		switch (l) {
+			case 1:
+				if (ConfigBlocksItems.enableCherryBlocks) {
+					tree = cherry;
+				}
+				break;
 		}
 
 		if (tree != null) {
