@@ -590,6 +590,8 @@ tile.etfuturum.warped_nylium.name=Искажённый нилий
 tile.etfuturum.weeping_vines.name=Плакучая лоза
 tile.etfuturum.twisting_vines.name=Вьющаяся лоза
 
+tile.etfuturum.pink_petals.name=Розовые лепестки
+
 tile.etfuturum.mangrove_propagule.name=Мангровый отросток
 tile.etfuturum.cherry_sapling.name=Саженец вишни
 
@@ -1045,6 +1047,8 @@ tile.etfuturum.target.name=Мишень
 tile.etfuturum.mud.name=Грязь
 tile.etfuturum.packed_mud.name=Плотная грязь
 tile.etfuturum.mud_bricks.name=Саманные кирпичи
+
+tile.etfuturum.mangrove_roots.name=Мангровые корни
 tile.etfuturum.muddy_mangrove_roots.name=Грязные мангровые корни
 tile.etfuturum.mud_brick_stairs.name=Саманные ступеньки
 tile.etfuturum.mud_brick_slab.name=Саманная плита
