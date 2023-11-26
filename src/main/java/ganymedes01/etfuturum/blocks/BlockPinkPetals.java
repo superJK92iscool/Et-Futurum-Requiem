@@ -80,6 +80,16 @@ public class BlockPinkPetals extends BaseFlower implements IGrowable {
 	}
 
 	@Override
+	public int getDamageValue(World p_149643_1_, int p_149643_2_, int p_149643_3_, int p_149643_4_) {
+		return 0;
+	}
+
+	@Override
+	public int damageDropped(int p_149692_1_) {
+		return 0;
+	}
+
+	@Override
 	public void setBlockBoundsBasedOnState(IBlockAccess p_149719_1_, int p_149719_2_, int p_149719_3_, int p_149719_4_) {
 		setBlockBounds(0, 0, 0, 1, 0.1875F, 1);
 	}

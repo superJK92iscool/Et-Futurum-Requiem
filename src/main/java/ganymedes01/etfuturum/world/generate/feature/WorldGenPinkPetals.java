@@ -16,7 +16,8 @@ public class WorldGenPinkPetals extends WorldGenerator {
 	}
 
 	public boolean generate(World p_76484_1_, Random p_76484_2_, int p_76484_3_, int p_76484_4_, int p_76484_5_) {
-		for (int tries = 0; tries < p_76484_2_.nextInt(256) + 128; ++tries) {
+		int maxTries = p_76484_2_.nextInt(256) + 256;
+		for (int tries = 0; tries <= maxTries; ++tries) {
 			int x = p_76484_3_ + p_76484_2_.nextInt(8) - p_76484_2_.nextInt(8);
 			int y = p_76484_4_ + p_76484_2_.nextInt(4) - p_76484_2_.nextInt(4);
 			int z = p_76484_5_ + p_76484_2_.nextInt(8) - p_76484_2_.nextInt(8);

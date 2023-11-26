@@ -9,6 +9,10 @@ import net.minecraft.block.BlockRotatedPillar;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.IBlockAccess;
+import net.minecraftforge.common.EnumPlantType;
+import net.minecraftforge.common.IPlantable;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class BlockMuddyMangroveRoots extends BlockRotatedPillar {
 
@@ -21,6 +25,11 @@ public class BlockMuddyMangroveRoots extends BlockRotatedPillar {
 		setBlockName(Utils.getUnlocalisedName("muddy_mangrove_roots"));
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 		setHarvestLevel("shovel", 0);
+	}
+
+	@Override
+	public boolean canSustainPlant(IBlockAccess world, int x, int y, int z, ForgeDirection direction, IPlantable plantable) {
+		return direction == ForgeDirection.UP && plantable.getPlantType(world, x, y, z) == EnumPlantType.Plains;
 	}
 
 	@Override

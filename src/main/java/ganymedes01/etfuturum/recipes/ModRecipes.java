@@ -992,6 +992,8 @@ public class ModRecipes {
 			}
 		}
 
+		addShapelessRecipe(new ItemStack(Items.dye, 1, 9), ModBlocks.PINK_PETALS.get());
+
 		registerModdedDeepslateOres();
 
 		ItemStack result = null;

@@ -17,7 +17,18 @@ public class BlockPinkPetalsRenderer extends BlockModelBase {
 		int count = meta % 4;
 		int rotation = meta / 4;
 		renderer.uvRotateTop = rotation;
-		renderer.uvRotateBottom = rotation;
+		switch (rotation) {
+			case 0:
+			case 3:
+				renderer.uvRotateBottom = rotation;
+				break;
+			case 1:
+				renderer.uvRotateBottom = 2;
+				break;
+			case 2:
+				renderer.uvRotateBottom = 1;
+				break;
+		}
 
 		int m = world.getBiomeGenForCoords(x, z).getBiomeGrassColor(x, y, z);
 		float r = (float) (m >> 16 & 255) / 255.0F;
@@ -72,10 +83,10 @@ public class BlockPinkPetalsRenderer extends BlockModelBase {
 				renderer.setRenderBounds(minX, y, minZ, maxX, y, maxZ);
 				break;
 			case 1:
-				renderer.setRenderBounds(minZ, y, 1 - minX, maxZ, y, 1 - maxX);
+				renderer.setRenderBounds(1 - minZ, y, minX, 1 - maxZ, y, maxX);
 				break;
 			case 2:
-				renderer.setRenderBounds(1 - minZ, y, minX, 1 - maxZ, y, maxX);
+				renderer.setRenderBounds(minZ, y, 1 - minX, maxZ, y, 1 - maxX);
 				break;
 			case 3:
 				renderer.setRenderBounds(1 - minX, y, 1 - minZ, 1 - maxX, y, 1 - maxZ);
@@ -96,15 +107,15 @@ public class BlockPinkPetalsRenderer extends BlockModelBase {
 						0, startV, 1, 7, icon, r * brightnessOffset2, g * brightnessOffset2, b * brightnessOffset2);
 				break;
 			case 1:
-				renderRawDoubleSidedFace(renderer, block, x, y, z, zoff, (0.0625 + zoff), 0, geoHeight, 1 - xoff, 1 - (0.0625D + xoff),
+				renderRawDoubleSidedFace(renderer, block, x, y, z, 1D - zoff, 1D - (0.0625 + zoff), 0, geoHeight, xoff, (0.0625D + xoff),
 						0, startV, 1, 7, icon, r * brightnessOffset1, g * brightnessOffset1, b * brightnessOffset1);
-				renderRawDoubleSidedFace(renderer, block, x, y, z, zoff, (0.0625 + zoff), 0, geoHeight, 1 - (0.0625D + xoff), 1 - xoff,
+				renderRawDoubleSidedFace(renderer, block, x, y, z, 1D - zoff, 1D - (0.0625 + zoff), 0, geoHeight, (0.0625D + xoff), xoff,
 						0, startV, 1, 7, icon, r * brightnessOffset2, g * brightnessOffset2, b * brightnessOffset2);
 				break;
 			case 2:
-				renderRawDoubleSidedFace(renderer, block, x, y, z, 1 - zoff, 1 - (0.0625 + zoff), 0, geoHeight, xoff, (0.0625D + xoff),
+				renderRawDoubleSidedFace(renderer, block, x, y, z, zoff, (0.0625 + zoff), 0, geoHeight, 1D - xoff, 1D - (0.0625D + xoff),
 						0, startV, 1, 7, icon, r * brightnessOffset1, g * brightnessOffset1, b * brightnessOffset1);
-				renderRawDoubleSidedFace(renderer, block, x, y, z, 1 - zoff, 1 - (0.0625 + zoff), 0, geoHeight, (0.0625D + xoff), xoff,
+				renderRawDoubleSidedFace(renderer, block, x, y, z, zoff, (0.0625 + zoff), 0, geoHeight, 1D - (0.0625D + xoff), 1D - xoff,
 						0, startV, 1, 7, icon, r * brightnessOffset2, g * brightnessOffset2, b * brightnessOffset2);
 				break;
 			case 3:
