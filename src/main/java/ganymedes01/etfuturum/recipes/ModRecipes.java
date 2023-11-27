@@ -421,8 +421,6 @@ public class ModRecipes {
 			addSmelting(ModBlocks.BARK.newItemStack(1, i), new ItemStack(Items.coal, 1, 1), 0.15F);
 			addSmelting(ModBlocks.BARK2.newItemStack(1, i), new ItemStack(Items.coal, 1, 1), 0.15F);
 
-			addSmelting(ModBlocks.CRIMSON_STEM.newItemStack(1, i), new ItemStack(Items.coal, 1, 1), 0.15F);
-			addSmelting(ModBlocks.WARPED_STEM.newItemStack(1, i), new ItemStack(Items.coal, 1, 1), 0.15F);
 			addSmelting(ModBlocks.MANGROVE_LOG.newItemStack(1, i), new ItemStack(Items.coal, 1, 1), 0.15F);
 			addSmelting(ModBlocks.CHERRY_LOG.newItemStack(1, i), new ItemStack(Items.coal, 1, 1), 0.15F);
 		}
