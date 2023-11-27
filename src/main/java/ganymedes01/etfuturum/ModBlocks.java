@@ -280,7 +280,7 @@ public enum ModBlocks {
 	WEEPING_VINES(ConfigBlocksItems.enableCrimsonBlocks, new BlockWeepingVines()),
 	TWISTING_VINES(ConfigBlocksItems.enableWarpedBlocks, new BlockTwistingVines()),
 
-	PINK_PETALS(ConfigBlocksItems.enableCherryBlocks, new BlockPinkPetals()),
+	PINK_PETALS(ConfigBlocksItems.enableCherryBlocks, new BlockPinkPetals(), ItemBlock.class), //Should not be potable
 	SAPLING(ConfigBlocksItems.enableCherryBlocks || ConfigBlocksItems.enableMangroveBlocks, new BlockModernSapling()),
 	LEAVES(ConfigBlocksItems.enableCherryBlocks || ConfigBlocksItems.enableMangroveBlocks, new BlockModernLeaves()),
 	WOOD_PLANKS(ConfigBlocksItems.woodVariants, new BlockModernWoodPlanks()),
