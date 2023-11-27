@@ -49,13 +49,13 @@ public class BlockPinkPetals extends BaseFlower implements IGrowable {
 		int ordinal = MathHelper.floor_double((double) (p_149689_5_.rotationYaw / 90.0F) + 0.5D) & 3;
 		switch (ordinal) {
 			case 1:
-				ordinal = 8;
+				ordinal = 4;
 				break;
 			case 2:
 				ordinal = 12;
 				break;
 			case 3:
-				ordinal = 4;
+				ordinal = 8;
 				break;
 		}
 		p_149689_1_.setBlockMetadataWithNotify(p_149689_2_, p_149689_3_, p_149689_4_, ordinal, 2);
