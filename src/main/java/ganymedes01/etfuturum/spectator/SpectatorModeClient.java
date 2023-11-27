@@ -59,7 +59,7 @@ public class SpectatorModeClient extends SpectatorMode {
 	public void onRenderEntity(RenderLivingEvent.Pre event) {
 		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
 		Entity entity2 = SPECTATING_ENTITIES.get(player);
-		if (isSpectator(player) && SPECTATING_ENTITIES.containsKey(player) && entity2.equals(event.entity) && Minecraft.getMinecraft().gameSettings.thirdPersonView == 0) {
+		if (isSpectator(player) && entity2 != null && entity2.equals(event.entity) && Minecraft.getMinecraft().gameSettings.thirdPersonView == 0) {
 			event.setCanceled(true);
 		}
 	}
