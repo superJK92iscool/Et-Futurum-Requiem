@@ -53,8 +53,8 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiScreenBook;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.particle.EntityDiggingFX;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.event.ClickEvent;
@@ -63,7 +63,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.launchwrapper.Launch;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldProviderHell;
@@ -215,6 +214,8 @@ public class ClientEventHandler {
 
 		if (mc.currentScreen == null && currPage > -1) {
 			currPage = -1;
+		} else {
+			netherAmbienceLoop = null;
 		}
 	}
 
