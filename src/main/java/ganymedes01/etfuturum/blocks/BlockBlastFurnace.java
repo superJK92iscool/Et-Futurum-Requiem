@@ -4,7 +4,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.client.InterpolatedIcon;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.GUIIDs;
@@ -13,7 +12,6 @@ import ganymedes01.etfuturum.tileentities.TileEntityBlastFurnace;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFurnace;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -74,10 +72,7 @@ public class BlockBlastFurnace extends BlockFurnace {
 	public void registerBlockIcons(IIconRegister p_149651_1_) {
 		this.blockIcon = p_149651_1_.registerIcon("blast_furnace_side");
 		if (isCooking) {
-			blockFront = new InterpolatedIcon("blast_furnace_front_on");
-			if (p_149651_1_ instanceof TextureMap) {
-				((TextureMap) p_149651_1_).setTextureEntry("blast_furnace_front_on", (InterpolatedIcon) blockFront);
-			}
+			this.blockIcon = p_149651_1_.registerIcon("blast_furnace_front_on");
 		} else {
 			this.blockFront = p_149651_1_.registerIcon("blast_furnace_front");
 		}

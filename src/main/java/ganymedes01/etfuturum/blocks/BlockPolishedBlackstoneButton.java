@@ -6,7 +6,6 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.BlockButtonStone;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.IIcon;
 
 public class BlockPolishedBlackstoneButton extends BlockButtonStone {

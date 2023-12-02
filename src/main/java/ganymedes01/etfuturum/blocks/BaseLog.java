@@ -3,12 +3,10 @@ package ganymedes01.etfuturum.blocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.client.InterpolatedIcon;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.BlockLog;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -18,12 +16,12 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 import java.util.List;
 
-public class BlockModernLog extends BlockLog implements ISubBlocksBlock {
+public class BaseLog extends BlockLog implements ISubBlocksBlock {
 
 	protected final String type;
 	protected String[] types;
 
-	public BlockModernLog(String type) {
+	public BaseLog(String type) {
 		super();
 		this.type = type;
 		types = new String[]{type + "_log", type + "_wood", "stripped_" + type + "_log", "stripped_" + type + "_wood"};
@@ -32,9 +30,9 @@ public class BlockModernLog extends BlockLog implements ISubBlocksBlock {
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
-	public BlockModernLog(String type, SoundType sound) {
-		this(type);
-		Utils.setBlockSound(this, sound);
+	public BaseLog setBlockSound(SoundType type) {
+		Utils.setBlockSound(this, type);
+		return this;
 	}
 
 	@Override
@@ -42,16 +40,6 @@ public class BlockModernLog extends BlockLog implements ISubBlocksBlock {
 	public void registerBlockIcons(IIconRegister iconRegister) {
 		field_150167_a = new IIcon[types.length];
 		field_150166_b = new IIcon[types.length];
-
-		if (types[0].contains("stem")) {
-			InterpolatedIcon animatedStem = new InterpolatedIcon(getTypes()[0]);
-			if (iconRegister instanceof TextureMap) {
-				((TextureMap) iconRegister).setTextureEntry(getTypes()[0], animatedStem);
-			}
-			blockIcon = field_150166_b[1] = field_150167_a[0] = field_150167_a[1] = animatedStem;
-		} else {
-			blockIcon = field_150166_b[1] = field_150167_a[0] = field_150167_a[1] = iconRegister.registerIcon(types[0]);
-		}
 
 		blockIcon = field_150166_b[1] = field_150167_a[0] = field_150167_a[1] = iconRegister.registerIcon(types[0]);
 		field_150166_b[3] = field_150167_a[2] = field_150167_a[3] = iconRegister.registerIcon(types[2]);

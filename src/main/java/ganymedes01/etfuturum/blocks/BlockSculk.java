@@ -10,7 +10,7 @@ import java.util.Random;
 public class BlockSculk extends BaseBlock {
 	public BlockSculk() {
 		super(Material.ground);
-		setNames("sculk$i");
+		setNames("sculk");
 		setHardness(.6F);
 		setResistance(.2F);
 		setBlockSound(ModSounds.soundSculk);

@@ -1,15 +1,10 @@
 package ganymedes01.etfuturum.blocks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.client.InterpolatedIcon;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.client.renderer.texture.TextureMap;
 
 /**
  * Because the standard block constructor is protected...
@@ -18,7 +13,6 @@ import net.minecraft.client.renderer.texture.TextureMap;
 public class BaseBlock extends Block {
 
 	private Block mapColorBase;
-	private boolean interpolatedIcon;
 
 	public BaseBlock(Material p_i45394_1_) {
 		super(p_i45394_1_);
@@ -32,18 +26,10 @@ public class BaseBlock extends Block {
 
 	@Override
 	public Block setBlockTextureName(String name) {
-		if (name.endsWith("$i")) {
-			interpolatedIcon = true;
-			name = name.substring(0, name.length() - 2);
-		}
 		return super.setBlockTextureName(name);
 	}
 
 	public BaseBlock setNames(String name) {
-		if (name.endsWith("$i")) {
-			interpolatedIcon = true;
-			name = name.substring(0, name.length() - 2);
-		}
 		setUnlocalizedNameWithPrefix(name);
 		setBlockTextureName(name);
 		return this;
@@ -74,18 +60,5 @@ public class BaseBlock extends Block {
 	@Override
 	public MapColor getMapColor(int p_149728_1_) {
 		return mapColorBase == null ? super.getMapColor(p_149728_1_) : mapColorBase.getMapColor(p_149728_1_);
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister p_149651_1_) {
-		if (interpolatedIcon) {
-			blockIcon = new InterpolatedIcon(textureName);
-			if (p_149651_1_ instanceof TextureMap) {
-				((TextureMap) p_149651_1_).setTextureEntry(textureName, (InterpolatedIcon) blockIcon);
-			}
-		} else {
-			super.registerBlockIcons(p_149651_1_);
-		}
 	}
 }

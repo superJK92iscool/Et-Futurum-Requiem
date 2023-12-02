@@ -5,14 +5,15 @@ import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class BlockNetherStem extends BlockModernLog implements ISubBlocksBlock {
+public class BlockNetherStem extends BaseLog {
 
 	public BlockNetherStem(String type) {
-		super(type, ModSounds.soundStem);
-		setBlockName(Utils.getUnlocalisedName(type + "_stem"));
+		super(type);
 		for (int i = 0; i < getTypes().length; i++) {
 			getTypes()[i] = getTypes()[i].replace("log", "stem").replace("wood", "hyphae");
 		}
+		setBlockName(Utils.getUnlocalisedName(type + "_stem"));
+		setBlockSound(ModSounds.soundStem);
 	}
 
 	@Override

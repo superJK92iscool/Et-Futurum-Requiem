@@ -2,10 +2,8 @@ package ganymedes01.etfuturum.blocks;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ganymedes01.etfuturum.client.InterpolatedIcon;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -16,7 +14,6 @@ import java.util.List;
 public class BaseSubtypesBlock extends BaseBlock implements ISubBlocksBlock {
 	@SideOnly(Side.CLIENT)
 	private IIcon[] icons;
-	private final boolean[] interpolatedIcons;
 	private final String[] types;
 
 	private final int startMeta;
@@ -28,13 +25,6 @@ public class BaseSubtypesBlock extends BaseBlock implements ISubBlocksBlock {
 	public BaseSubtypesBlock(Material material, int startMeta, String... types) {
 		super(material);
 		this.startMeta = startMeta;
-		interpolatedIcons = new boolean[types.length];
-		for (int i = 0; i < types.length; i++) {
-			if (types[i].endsWith("$i")) {
-				interpolatedIcons[i] = true;
-				types[i] = types[i].substring(0, types[i].length() - 2);
-			}
-		}
 		this.types = types;
 		if (!"".equals(types[0])) {
 			setNames(types[0]);
@@ -86,13 +76,7 @@ public class BaseSubtypesBlock extends BaseBlock implements ISubBlocksBlock {
 	public void registerBlockIcons(IIconRegister reg) {
 		setIcons(new IIcon[getTypes().length]);
 		for (int i = 0; i < getIcons().length; i++) {
-			if (interpolatedIcons[i] && reg instanceof TextureMap) {
-				InterpolatedIcon icon = new InterpolatedIcon(getTypes()[i]);
-				((TextureMap) reg).setTextureEntry(getTypes()[i], icon);
-				getIcons()[i] = icon;
-			} else {
-				getIcons()[i] = "".equals(getTypes()[i]) ? reg.registerIcon(getTextureName()) : reg.registerIcon((getTextureDomain().isEmpty() ? "" : getTextureDomain() + ":") + getTypes()[i]);
-			}
+			getIcons()[i] = "".equals(getTypes()[i]) ? reg.registerIcon(getTextureName()) : reg.registerIcon((getTextureDomain().isEmpty() ? "" : getTextureDomain() + ":") + getTypes()[i]);
 		}
 	}
 }

@@ -3,7 +3,6 @@ package ganymedes01.etfuturum.blocks;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.init.Blocks;

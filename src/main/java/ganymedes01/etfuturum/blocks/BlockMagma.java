@@ -22,7 +22,7 @@ public class BlockMagma extends BaseBlock {
 		setHardness(0.5F);
 		setResistance(0.5F);
 		setLightLevel(0.2F);
-		setNames("magma$i");
+		setNames("magma");
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 

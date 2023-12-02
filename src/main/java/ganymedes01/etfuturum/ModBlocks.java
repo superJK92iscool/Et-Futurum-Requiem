@@ -17,7 +17,7 @@ import net.minecraft.item.ItemStack;
 
 public enum ModBlocks {
 	STONE(ConfigBlocksItems.enableStones, new BlockBountifulStone()),
-	PRISMARINE_BLOCK(ConfigBlocksItems.enablePrismarine, new BaseSubtypesBlock(Material.rock, "prismarine$i", "prismarine_bricks", "dark_prismarine")
+	PRISMARINE_BLOCK(ConfigBlocksItems.enablePrismarine, new BaseSubtypesBlock(Material.rock, "prismarine", "prismarine_bricks", "dark_prismarine")
 			.setHardness(1.5F).setResistance(10.0F)),
 	SEA_LANTERN(ConfigBlocksItems.enablePrismarine, new BlockSeaLantern()),
 	DAYLIGHT_DETECTOR_INVERTED(ConfigBlocksItems.enableInvertedDaylightSensor, new BlockInvertedDaylightDetector(), null),
@@ -290,9 +290,9 @@ public enum ModBlocks {
 	//new wood logs
 	CRIMSON_STEM(ConfigBlocksItems.enableCrimsonBlocks, new BlockNetherStem("crimson")),
 	WARPED_STEM(ConfigBlocksItems.enableWarpedBlocks, new BlockNetherStem("warped")),
-	MANGROVE_LOG(ConfigBlocksItems.enableMangroveBlocks, new BlockModernLog("mangrove")),
-	CHERRY_LOG(ConfigBlocksItems.enableCherryBlocks, new BlockModernLog("cherry", ModSounds.soundCherryWood)),
-	BAMBOO_BLOCK(ConfigBlocksItems.enableBambooBlocks, new BlockBambooBlock("bamboo", ModSounds.soundBambooWood)),
+	MANGROVE_LOG(ConfigBlocksItems.enableMangroveBlocks, new BaseLog("mangrove")),
+	CHERRY_LOG(ConfigBlocksItems.enableCherryBlocks, new BaseLog("cherry").setBlockSound(ModSounds.soundCherryWood)),
+	BAMBOO_BLOCK(ConfigBlocksItems.enableBambooBlocks, new BlockBambooBlock("bamboo").setBlockSound(ModSounds.soundBambooWood)),
 
 	//new wood stairs
 	CRIMSON_STAIRS(ConfigBlocksItems.enableCrimsonBlocks, new BaseStairs(WOOD_PLANKS.get(), 0).setBlockSound(ModSounds.soundNetherWood).setUnlocalizedNameWithPrefix("crimson")),

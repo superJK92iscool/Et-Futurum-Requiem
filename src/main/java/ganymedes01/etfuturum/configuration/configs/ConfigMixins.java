@@ -39,6 +39,7 @@ public class ConfigMixins extends ConfigBase {
 	public static boolean betterPistons;
 	public static boolean flowerPotFixes;
 	public static boolean soulFire;
+	public static boolean interpolatedTextures;
 
 	static final String catBackport = "backported features";
 	static final String catOptimization = "optimizations";
@@ -62,10 +63,11 @@ public class ConfigMixins extends ConfigBase {
 	protected void syncConfigOptions() {
 		if (EtFuturumMixinPlugin.side == MixinEnvironment.Side.CLIENT) {
 			furnaceCrackle = getBoolean("furnaceCrackle", catBackport, true, "Allows vanilla furnaces to have crackling sounds.\nModified Client Classes: net.minecraft.block.BlockFurnace");
-			boundedBlockBreakingParticles = getBoolean("boundedBlockBreakingParticles", catBackport, true, "In 1.14+, when breaking a block the block break particles stay within the outline, instead of always occupying the whole block space.\nMofified Classes: net.minecraft.client.particle.EffectRenderer");
-			adjustedAttenuation = getBoolean("adjustedAttenuation", catBackport, true, "Adjusts the attenuation distance of certain sounds. This needs to be a separate mixin due to the way it works.\nCurrently changes portal abience, and beacon ambience to have an attenuation distance of 8 blocks away, instead of 16.\nModified Classes: net.minecraft.client.audio.SoundManager");
+			boundedBlockBreakingParticles = getBoolean("boundedBlockBreakingParticles", catBackport, true, "In 1.14+, when breaking a block, the block break particles stay within the outline, instead of always occupying the whole block space.\nMofified Client Classes: net.minecraft.client.particle.EffectRenderer");
+			adjustedAttenuation = getBoolean("adjustedAttenuation", catBackport, true, "Adjusts the attenuation distance of certain sounds. This needs to be a separate mixin due to the way it works.\nCurrently changes portal abience, and beacon ambience to have an attenuation distance of 8 blocks away, instead of 16.\nModified Client Classes: net.minecraft.client.audio.SoundManager");
+			interpolatedTextures = getBoolean("interpolatedTextures", catBackport, true, "Adds support for the \"interpolate\" flag in .mcmeta files. If turned off, stuff like Nether stems, magma etc will not have smooth texture animations! Modified Client Classes: net.minecraft.client.renderer.texture.TextureMap");
 
-			flowerPotFixes = getBoolean("flowerPotFixes", catFixes, true, "Fixes flower pots having several restrictions limiting what they'll render inside of them. Required for crimson roots or azalea to render correctly in the flower pot.\nModified Classes: net.minecraft.client.renderer.RenderBlock");
+			flowerPotFixes = getBoolean("flowerPotFixes", catFixes, true, "Fixes flower pots having several restrictions limiting what they'll render inside of them. Required for crimson roots or azalea to render correctly in the flower pot.\nModified Client Classes: net.minecraft.client.renderer.RenderBlock");
 		}
 
 		endPortalFix = getBoolean("endPortalFix", catBackport, true, "Makes the End Portal block (the actual portal, not the frame) have an item icon, proper hitbox and will not instantly destroy itself in other dimensions.\nModified classes: net.minecraft.block.BlockEndPortal");

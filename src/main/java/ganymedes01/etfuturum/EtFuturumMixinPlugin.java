@@ -234,6 +234,10 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 			if (ConfigMixins.flowerPotFixes) {
 				mixins.add("flowerpotfix.client.MixinRenderBlocks");
 			}
+
+			if (ConfigMixins.interpolatedTextures) {
+				mixins.add("interpolatedtexturemap.MixinTextureMap");
+			}
 		}
 
 		return mixins;
