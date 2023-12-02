@@ -14,12 +14,11 @@ import net.minecraft.util.ResourceLocation;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.lang.reflect.Field;
+import java.io.File;
 import java.util.Map;
 
 @Mixin(TextureMap.class)
@@ -32,9 +31,6 @@ public abstract class MixinTextureMap extends AbstractTexture implements ITickab
 	@Shadow
 	@Final
 	private Map mapRegisteredSprites;
-
-	@Unique
-	private Field mcmetaJsonField;
 
 	@Inject(method = "registerIcon", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/texture/TextureAtlasSprite;<init>(Ljava/lang/String;)V"), cancellable = true)
 	private void registerInterpolatedIcon(String textureName, CallbackInfoReturnable<IIcon> cir) {
@@ -49,26 +45,20 @@ public abstract class MixinTextureMap extends AbstractTexture implements ITickab
 				domain = "minecraft";
 				unprefixedName = textureName;
 			}
-			prefixedTextureName = domain + ":textures/" + (textureType == 0 ? "blocks/" : "items/") + unprefixedName + ".png";
+			prefixedTextureName = domain + ":textures" + File.separatorChar + (textureType == 0 ? "blocks" : "items") + File.separatorChar + unprefixedName + ".png";
 			IResource resource = Minecraft.getMinecraft().getResourceManager().getResource(new ResourceLocation(prefixedTextureName));
 			if (resource instanceof SimpleResource) {
 				//This returns IMetadataSections, which seems to already remove unused mcmeta fields in 1.7.10
 				//I'm just running this to poplate the mcmetaJson field more easily; this does it for us
 				resource.getMetadata("");
-				if (mcmetaJsonField == null) {
-					mcmetaJsonField = SimpleResource.class.getDeclaredField("mcmetaJson"); //Forge field, cannot use ATs
-					mcmetaJsonField.setAccessible(true);
-				}
-				JsonObject mcmetaJson = (JsonObject) mcmetaJsonField.get(resource);
+				JsonObject mcmetaJson = ((SimpleResource) resource).mcmetaJson;
 				JsonObject animationJson;
-				if (mcmetaJson != null && (animationJson = mcmetaJson.getAsJsonObject("animation")) != null
-						&& animationJson.has("interpolate") && animationJson.getAsJsonPrimitive("interpolate").getAsBoolean()) {
+				if (mcmetaJson != null && (animationJson = mcmetaJson.getAsJsonObject("animation")) != null && animationJson.getAsJsonPrimitive("interpolate").getAsBoolean()) {
 					InterpolatedIcon interpolatedIcon = new InterpolatedIcon(textureName);
 					mapRegisteredSprites.put(textureName, interpolatedIcon);
 					cir.setReturnValue(interpolatedIcon);
 				}
 			}
-		} catch (Exception ignored) {
-		} //Should quietly fail, no need to failhard
+		} catch (Exception ignored) {/*Should quietly fail, no need to failhard*/}
 	}
 }

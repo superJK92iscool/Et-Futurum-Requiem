@@ -4,7 +4,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFenceGate;
 import net.minecraft.block.BlockWall;
@@ -30,11 +29,11 @@ public class BaseWall extends BlockWall implements ISubBlocksBlock {
 		super(blocks[0]);
 		this.blocks = blocks;
 		this.metas = metas;
-		this.names = names;
 		variations = blocks.length;
 		setStepSound(blocks[0].stepSound);
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 		setBlockName(Utils.getUnlocalisedName(string));
+		this.names = names == null ? new String[]{getUnlocalizedName().substring(6 + getNameDomain().length())} : names;
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -84,6 +83,6 @@ public class BaseWall extends BlockWall implements ISubBlocksBlock {
 
 	@Override
 	public String getNameFor(ItemStack stack) {
-		return "tile." + getNameDomain() + "." + (names != null && names.length > 0 ? names[stack.getItemDamage() % variations] : getUnlocalizedName().substring(6 + Reference.MOD_ID.length()));
+		return "tile." + getNameDomain() + "." + names[stack.getItemDamage() % variations];
 	}
 }
