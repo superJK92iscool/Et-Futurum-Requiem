@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.mixins.interpolatedtexturemap;
+package ganymedes01.etfuturum.mixins.interpolatedtexturemap.client;
 
 import com.google.gson.JsonObject;
 import ganymedes01.etfuturum.client.InterpolatedIcon;

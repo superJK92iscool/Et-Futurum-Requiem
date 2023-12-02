@@ -236,7 +236,7 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 			}
 
 			if (ConfigMixins.interpolatedTextures) {
-				mixins.add("interpolatedtexturemap.MixinTextureMap");
+				mixins.add("interpolatedtexturemap.client.MixinTextureMap");
 			}
 		}
 
