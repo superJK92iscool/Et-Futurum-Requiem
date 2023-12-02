@@ -18,7 +18,6 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.lang.reflect.Field;
 import java.util.Map;
@@ -37,9 +36,8 @@ public abstract class MixinTextureMap extends AbstractTexture implements ITickab
 	@Unique
 	private Field mcmetaJsonField;
 
-	@Inject(method = "registerIcon", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/texture/TextureAtlasSprite;<init>(Ljava/lang/String;)V"),
-			locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
-	private void registerInterpolatedIcon(String textureName, CallbackInfoReturnable<IIcon> cir, Object icon) {
+	@Inject(method = "registerIcon", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/texture/TextureAtlasSprite;<init>(Ljava/lang/String;)V"), cancellable = true)
+	private void registerInterpolatedIcon(String textureName, CallbackInfoReturnable<IIcon> cir) {
 		try {
 			String prefixedTextureName;
 			String unprefixedName;
@@ -71,6 +69,6 @@ public abstract class MixinTextureMap extends AbstractTexture implements ITickab
 				}
 			}
 		} catch (Exception ignored) {
-		} //Should quietly fail, no need to fail hard
+		} //Should quietly fail, no need to failhard
 	}
 }
