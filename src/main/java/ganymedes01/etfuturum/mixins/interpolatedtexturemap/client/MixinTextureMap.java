@@ -58,8 +58,6 @@ public abstract class MixinTextureMap extends AbstractTexture implements ITickab
 					cir.setReturnValue(interpolatedIcon);
 				}
 			}
-		} catch (Exception ignored) {/*Should quietly fail, no need to failhard*/
-			ignored.printStackTrace();
-		}
+		} catch (Exception ignored) {/*Should quietly fail, no need to failhard*/}
 	}
 }
