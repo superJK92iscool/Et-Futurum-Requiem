@@ -18,7 +18,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.io.File;
 import java.util.Map;
 
 @Mixin(TextureMap.class)
@@ -45,7 +44,7 @@ public abstract class MixinTextureMap extends AbstractTexture implements ITickab
 				domain = "minecraft";
 				unprefixedName = textureName;
 			}
-			prefixedTextureName = domain + ":textures" + File.separatorChar + (textureType == 0 ? "blocks" : "items") + File.separatorChar + unprefixedName + ".png";
+			prefixedTextureName = domain + ":textures/" + (textureType == 0 ? "blocks" : "items") + "/" + unprefixedName + ".png";
 			IResource resource = Minecraft.getMinecraft().getResourceManager().getResource(new ResourceLocation(prefixedTextureName));
 			if (resource instanceof SimpleResource) {
 				//This returns IMetadataSections, which seems to already remove unused mcmeta fields in 1.7.10
@@ -59,6 +58,8 @@ public abstract class MixinTextureMap extends AbstractTexture implements ITickab
 					cir.setReturnValue(interpolatedIcon);
 				}
 			}
-		} catch (Exception ignored) {/*Should quietly fail, no need to failhard*/}
+		} catch (Exception ignored) {/*Should quietly fail, no need to failhard*/
+			ignored.printStackTrace();
+		}
 	}
 }
