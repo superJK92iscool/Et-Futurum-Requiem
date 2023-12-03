@@ -43,8 +43,7 @@ public abstract class MixinTextureMap extends AbstractTexture implements ITickab
 				//I'm just running this to poplate the mcmetaJson field more easily; this does it for us
 				if (resource.getMetadata("animation") != null) {
 					JsonObject mcmetaJson = ((SimpleResource) resource).mcmetaJson;
-					JsonObject animationJson;
-					if (mcmetaJson != null && (animationJson = mcmetaJson.getAsJsonObject("animation")) != null && animationJson.getAsJsonPrimitive("interpolate").getAsBoolean()) {
+					if (mcmetaJson.getAsJsonObject("animation").getAsJsonPrimitive("interpolate").getAsBoolean()) {
 						InterpolatedIcon interpolatedIcon = new InterpolatedIcon(textureName);
 						mapRegisteredSprites.put(textureName, interpolatedIcon);
 						cir.setReturnValue(interpolatedIcon);
