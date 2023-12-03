@@ -31,31 +31,24 @@ public abstract class MixinTextureMap extends AbstractTexture implements ITickab
 	@Final
 	private Map mapRegisteredSprites;
 
+	@Shadow
+	protected abstract ResourceLocation completeResourceLocation(ResourceLocation p_147634_1_, int p_147634_2_);
+
 	@Inject(method = "registerIcon", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/texture/TextureAtlasSprite;<init>(Ljava/lang/String;)V"), cancellable = true)
 	private void registerInterpolatedIcon(String textureName, CallbackInfoReturnable<IIcon> cir) {
 		try {
-			String prefixedTextureName;
-			String unprefixedName;
-			String domain;
-			if (textureName.contains(":")) {
-				domain = textureName.split(":")[0];
-				unprefixedName = textureName.substring(textureName.indexOf(":") + 1);
-			} else {
-				domain = "minecraft";
-				unprefixedName = textureName;
-			}
-			prefixedTextureName = domain + ":textures/" + (textureType == 0 ? "blocks" : "items") + "/" + unprefixedName + ".png";
-			IResource resource = Minecraft.getMinecraft().getResourceManager().getResource(new ResourceLocation(prefixedTextureName));
+			IResource resource = Minecraft.getMinecraft().getResourceManager().getResource(completeResourceLocation(new ResourceLocation(textureName), 0));
 			if (resource instanceof SimpleResource) {
 				//This returns IMetadataSections, which seems to already remove unused mcmeta fields in 1.7.10
 				//I'm just running this to poplate the mcmetaJson field more easily; this does it for us
-				resource.getMetadata("");
-				JsonObject mcmetaJson = ((SimpleResource) resource).mcmetaJson;
-				JsonObject animationJson;
-				if (mcmetaJson != null && (animationJson = mcmetaJson.getAsJsonObject("animation")) != null && animationJson.getAsJsonPrimitive("interpolate").getAsBoolean()) {
-					InterpolatedIcon interpolatedIcon = new InterpolatedIcon(textureName);
-					mapRegisteredSprites.put(textureName, interpolatedIcon);
-					cir.setReturnValue(interpolatedIcon);
+				if (resource.getMetadata("") != null) {
+					JsonObject mcmetaJson = ((SimpleResource) resource).mcmetaJson;
+					JsonObject animationJson;
+					if (mcmetaJson != null && (animationJson = mcmetaJson.getAsJsonObject("animation")) != null && animationJson.getAsJsonPrimitive("interpolate").getAsBoolean()) {
+						InterpolatedIcon interpolatedIcon = new InterpolatedIcon(textureName);
+						mapRegisteredSprites.put(textureName, interpolatedIcon);
+						cir.setReturnValue(interpolatedIcon);
+					}
 				}
 			}
 		} catch (Exception ignored) {/*Should quietly fail, no need to failhard*/}
