@@ -41,7 +41,7 @@ public abstract class MixinTextureMap extends AbstractTexture implements ITickab
 			if (resource instanceof SimpleResource) {
 				//This returns IMetadataSections, which seems to already remove unused mcmeta fields in 1.7.10
 				//I'm just running this to poplate the mcmetaJson field more easily; this does it for us
-				if (resource.getMetadata("") != null) {
+				if (resource.getMetadata("animation") != null) {
 					JsonObject mcmetaJson = ((SimpleResource) resource).mcmetaJson;
 					JsonObject animationJson;
 					if (mcmetaJson != null && (animationJson = mcmetaJson.getAsJsonObject("animation")) != null && animationJson.getAsJsonPrimitive("interpolate").getAsBoolean()) {
