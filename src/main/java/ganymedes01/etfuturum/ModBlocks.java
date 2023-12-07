@@ -5,7 +5,9 @@ import ganymedes01.etfuturum.blocks.*;
 import ganymedes01.etfuturum.blocks.itemblocks.*;
 import ganymedes01.etfuturum.blocks.ores.*;
 import ganymedes01.etfuturum.client.sound.ModSounds;
+import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.configuration.configs.*;
+import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.tileentities.TileEntityWoodSign;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -86,7 +88,7 @@ public enum ModBlocks {
 	RED_GLAZED_TERRACOTTA(ConfigBlocksItems.enableGlazedTerracotta, new BlockGlazedTerracotta(14)),
 	BLACK_GLAZED_TERRACOTTA(ConfigBlocksItems.enableGlazedTerracotta, new BlockGlazedTerracotta(15)),
 	COPPER_BLOCK(ConfigBlocksItems.enableCopper, new BlockCopper()),
-	LIGHTNING_ROD(EtFuturum.TESTING, new BlockLightningRod()),
+	LIGHTNING_ROD(Reference.TESTING, new BlockLightningRod()),
 	DEEPSLATE(ConfigBlocksItems.enableDeepslate, new BlockDeepslate()),
 	COBBLED_DEEPSLATE(ConfigBlocksItems.enableDeepslate, new BaseBlock(Material.rock).setNames("cobbled_deepslate")
 			.setBlockSound(ModSounds.soundDeepslate).setHardness(3.5F).setResistance(6).setCreativeTab(EtFuturum.creativeTabBlocks)),
@@ -247,9 +249,9 @@ public enum ModBlocks {
 	FLETCHING_TABLE(ConfigBlocksItems.enableFletchingTable, new BlockFletchingTable(), ItemBlockDecorationWorkbench.class),
 	CARTOGRAPHY_TABLE(ConfigBlocksItems.enableCartographyTable, new BlockCartographyTable(), ItemBlockDecorationWorkbench.class),
 	LOOM(ConfigBlocksItems.enableLoom, new BlockLoom(), ItemBlockDecorationWorkbench.class),
-	DRIPSTONE_BLOCK(EtFuturum.TESTING, new BaseBlock(Material.rock).setNames("dripstone_block")
+	DRIPSTONE_BLOCK(Reference.TESTING, new BaseBlock(Material.rock).setNames("dripstone_block")
 			.setBlockSound(ModSounds.soundDripstoneBlock).setHardness(1.5F).setResistance(1F)),
-	POINTED_DRIPSTONE(EtFuturum.TESTING, new BlockPointedDripstone()),
+	POINTED_DRIPSTONE(Reference.TESTING, new BlockPointedDripstone()),
 	HONEY_BLOCK(ConfigBlocksItems.enableHoney, new BlockHoney()),
 	HONEYCOMB_BLOCK(ConfigBlocksItems.enableHoney, new BaseBlock(Material.clay).setNames("honeycomb_block")
 			.setBlockSound(ModSounds.soundCoralBlock).setHardness(0.6F).setResistance(0.6F)),
@@ -441,21 +443,21 @@ public enum ModBlocks {
 
 	//Unfinished stuff
 
-	SCULK(/*ConfigBlocksItems.enableSculk && */EtFuturum.TESTING, new BlockSculk()),
-	SCULK_CATALYST(/*ConfigBlocksItems.enableSculk && */EtFuturum.TESTING, new BlockSculkCatalyst()),
+	SCULK(/*ConfigBlocksItems.enableSculk && */Reference.TESTING, new BlockSculk()),
+	SCULK_CATALYST(/*ConfigBlocksItems.enableSculk && */Reference.TESTING, new BlockSculkCatalyst()),
 
 	//Creative-only stuff
 
 	NETHERITE_STAIRS(ConfigBlocksItems.enableNetherite, new BlockNetheriteStairs(), ItemBlockUninflammable.class),
-	END_GATEWAY(EtFuturum.TESTING, new BlockEndGateway()),
+	END_GATEWAY(Reference.TESTING, new BlockEndGateway()),
 	LIGHT(ConfigBlocksItems.enableLightBlock, new BlockLight()),
 	BARRIER(ConfigBlocksItems.enableBarrier, new BlockBarrier()),
 
 	//Mod support
 	MODDED_RAW_ORE_BLOCK(ConfigBlocksItems.enableRawOres && ConfigModCompat.moddedRawOres, new BlockModdedRawOre()),
 	MODDED_DEEPSLATE_ORE(ConfigModCompat.moddedDeepslateOres && ConfigBlocksItems.enableDeepslate && ConfigBlocksItems.enableDeepslateOres, new BlockModdedDeepslateOre()),
-	DEEPSLATE_CERTUS_QUARTZ_ORE(EtFuturum.hasAE2 && ConfigModCompat.moddedDeepslateOres && ConfigBlocksItems.enableDeepslate && ConfigBlocksItems.enableDeepslateOres, new BlockDeepslateCertusQuartzOre()),
-	DEEPSLATE_THAUMCRAFT_ORE(EtFuturum.hasThaumcraft && ConfigModCompat.moddedDeepslateOres && ConfigBlocksItems.enableDeepslate && ConfigBlocksItems.enableDeepslateOres, new BlockDeepslateThaumcraftOre()),
+	DEEPSLATE_CERTUS_QUARTZ_ORE(ModsList.APPLIED_ENERGISTICS_2.isLoaded() && ConfigModCompat.moddedDeepslateOres && ConfigBlocksItems.enableDeepslate && ConfigBlocksItems.enableDeepslateOres, new BlockDeepslateCertusQuartzOre()),
+	DEEPSLATE_THAUMCRAFT_ORE(ModsList.THAUMCRAFT.isLoaded() && ConfigModCompat.moddedDeepslateOres && ConfigBlocksItems.enableDeepslate && ConfigBlocksItems.enableDeepslateOres, new BlockDeepslateThaumcraftOre()),
 	;
 
 	public static final ModBlocks[] DOORS = new ModBlocks[]{DOOR_SPRUCE, DOOR_BIRCH, DOOR_JUNGLE, DOOR_ACACIA, DOOR_DARK_OAK, CRIMSON_DOOR, WARPED_DOOR, MANGROVE_DOOR, CHERRY_DOOR, BAMBOO_DOOR};

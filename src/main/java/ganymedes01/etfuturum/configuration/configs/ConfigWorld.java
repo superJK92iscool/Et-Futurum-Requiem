@@ -1,11 +1,11 @@
 package ganymedes01.etfuturum.configuration.configs;
 
 import cpw.mods.fml.common.registry.GameRegistry;
-import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.api.mappings.RegistryMapping;
+import ganymedes01.etfuturum.compat.ExternalContent;
+import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.configuration.ConfigBase;
-import ganymedes01.etfuturum.core.utils.ExternalContent;
 import ganymedes01.etfuturum.core.utils.Logger;
 import net.minecraft.block.Block;
 import net.minecraftforge.common.config.Property;
@@ -194,7 +194,7 @@ public class ConfigWorld extends ConfigBase {
 	@Override
 	protected void initValues() {
 		if (enableFossils) {
-			if (EtFuturum.hasNetherlicious && fossilBlockID.equals("etfuturum:bone_block") && !ModBlocks.BONE.isEnabled()) {
+			if (ModsList.NETHERLICIOUS.isLoaded() && fossilBlockID.equals("etfuturum:bone_block") && !ModBlocks.BONE.isEnabled()) {
 				fossilBlock = new RegistryMapping<>(ExternalContent.Blocks.NETHERLICIOUS_BONE_BLOCK.get(), 0);
 			} else {
 				String[] fossilBlockArray = fossilBlockID.split(":");

@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.core.utils;
+package ganymedes01.etfuturum.compat;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;

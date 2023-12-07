@@ -5,7 +5,6 @@ import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
-import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.client.model.ModelShulker;
 import ganymedes01.etfuturum.client.renderer.block.*;
@@ -22,6 +21,7 @@ import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.core.handlers.ClientEventHandler;
 import ganymedes01.etfuturum.core.utils.VersionChecker;
 import ganymedes01.etfuturum.entities.*;
+import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import ganymedes01.etfuturum.spectator.SpectatorModeClient;
 import ganymedes01.etfuturum.tileentities.*;
@@ -60,7 +60,7 @@ public class ClientProxy extends CommonProxy {
 			MinecraftForge.EVENT_BUS.register(GuiSubtitles.INSTANCE);
 		}
 
-		if (ConfigFunctions.enableUpdateChecker && !EtFuturum.SNAPSHOT_BUILD && !EtFuturum.DEV_ENVIRONMENT) {
+		if (ConfigFunctions.enableUpdateChecker && !Reference.SNAPSHOT_BUILD && !Reference.DEV_ENVIRONMENT) {
 			FMLCommonHandler.instance().bus().register(VersionChecker.instance);
 		}
 

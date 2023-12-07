@@ -9,11 +9,12 @@ import ganymedes01.etfuturum.api.DeepslateOreRegistry;
 import ganymedes01.etfuturum.blocks.BaseSlab;
 import ganymedes01.etfuturum.blocks.IDegradable;
 import ganymedes01.etfuturum.blocks.ores.BlockModdedDeepslateOre;
+import ganymedes01.etfuturum.compat.ExternalContent;
+import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.configuration.configs.ConfigModCompat;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
-import ganymedes01.etfuturum.core.utils.ExternalContent;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.entities.EntityNewBoat;
 import ganymedes01.etfuturum.items.ItemModdedRawOre;
@@ -291,7 +292,7 @@ public class ModRecipes {
 			registerOre(waxString, ModItems.HONEYCOMB.get());
 		}
 
-		if (ConfigBlocksItems.enableColourfulBeacons && EtFuturum.hasTConstruct) { //TCon lacks proper tagging for their glass; let's add the right tags so beacons can see it
+		if (ConfigBlocksItems.enableColourfulBeacons && ModsList.TINKERS_CONSTRUCT.isLoaded()) { //TCon lacks proper tagging for their glass; let's add the right tags so beacons can see it
 			Block glassBlock = GameRegistry.findBlock("TConstruct", "GlassBlock.StainedClear");
 			Block glassPane = GameRegistry.findBlock("TConstruct", "GlassPaneClearStained");
 			OreDictionary.registerOre("blockGlass", new ItemStack(glassBlock, 1, OreDictionary.WILDCARD_VALUE));
@@ -378,7 +379,7 @@ public class ModRecipes {
 			addShapedRecipe(ModBlocks.PRISMARINE_SLAB.newItemStack(6, i), "xxx", 'x', ModBlocks.PRISMARINE_BLOCK.newItemStack(1, i));
 		}
 
-		if (!EtFuturum.hasBotania) {
+		if (!ModsList.BOTANIA.isLoaded()) {
 			addShapedRecipe(ModItems.PRISMARINE_SHARD.newItemStack(4), "xy", "zx", 'x', "gemQuartz", 'y', "dyeBlue", 'z', "dyeGreen");
 			addShapedRecipe(ModItems.PRISMARINE_CRYSTALS.newItemStack(4), "xy", "yx", 'x', "gemQuartz", 'y', "dustGlowstone");
 		}
@@ -697,7 +698,7 @@ public class ModRecipes {
 		addSmelting(ModBlocks.NETHER_GOLD_ORE.newItemStack(), new ItemStack(Items.gold_ingot), .1F);
 
 		addSmelting(new ItemStack(Blocks.stone), ModBlocks.SMOOTH_STONE.newItemStack(), .1F);
-		if (EtFuturum.hasBluePower) {
+		if (ModsList.BLUEPOWER.isLoaded()) {
 			Item stoneTile = GameRegistry.findItem("bluepower", "stone_tile");
 			if (stoneTile != null) {
 				addShapedRecipe(new ItemStack(stoneTile, 4), "xx", 'x', ModBlocks.SMOOTH_STONE.newItemStack());

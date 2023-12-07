@@ -1,6 +1,6 @@
 package ganymedes01.etfuturum.configuration.configs;
 
-import ganymedes01.etfuturum.EtFuturum;
+import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.configuration.ConfigBase;
 import net.minecraftforge.common.config.Property;
 
@@ -359,7 +359,7 @@ public class ConfigBlocksItems extends ConfigBase {
 
 	@Override
 	protected void initValues() {
-		if (!EtFuturum.hasIronChest) {
+		if (!ModsList.IRON_CHEST.isLoaded()) {
 			ConfigModCompat.shulkerBoxesIronChest = false;
 		}
 	}

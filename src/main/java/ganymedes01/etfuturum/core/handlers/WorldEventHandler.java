@@ -6,11 +6,11 @@ import cpw.mods.fml.common.eventhandler.Event;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.ReflectionHelper;
-import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.api.BeePlantRegistry;
 import ganymedes01.etfuturum.api.event.PostTreeGenerateEvent;
 import ganymedes01.etfuturum.api.mappings.RegistryMapping;
+import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.proxy.CommonProxy;
 import ganymedes01.etfuturum.core.utils.Logger;
@@ -75,7 +75,7 @@ public class WorldEventHandler {
 		birchSaplingTrees.addEntry(new WorldGenForest(true, false), 0.0D); //It's the only entry in the list, it does not need a weight.
 		BEE_NEST_SAPLINGS.put(new RegistryMapping<>(Blocks.sapling, 2), birchSaplingTrees); //Also yes that is really the name of the birch tree gen class lol
 
-		if (EtFuturum.hasNatura) {
+		if (ModsList.NATURA.isLoaded()) {
 			try {
 				Constructor<? super Object> constructor;
 				WeightedRandomList<WorldGenerator> sakuraSaplingTrees = new WeightedRandomList<>();

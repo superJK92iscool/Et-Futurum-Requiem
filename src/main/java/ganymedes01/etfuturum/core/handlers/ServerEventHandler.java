@@ -23,8 +23,9 @@ import ganymedes01.etfuturum.api.mappings.RegistryMapping;
 import ganymedes01.etfuturum.blocks.BlockHoney;
 import ganymedes01.etfuturum.blocks.BlockMagma;
 import ganymedes01.etfuturum.client.sound.ModSounds;
+import ganymedes01.etfuturum.compat.ExternalContent;
+import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.configuration.configs.*;
-import ganymedes01.etfuturum.core.utils.ExternalContent;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.elytra.IElytraEntityTrackerEntry;
 import ganymedes01.etfuturum.elytra.IElytraPlayer;
@@ -1013,7 +1014,7 @@ public class ServerEventHandler {
 
 	private boolean doMudConversion(World world, int x, int y, int z, EntityPlayer player, Block oldBlock, int meta, ItemStack heldStack) {
 		boolean isValid = heldStack.getItem() == Items.potionitem && heldStack.getItemDamage() == 0 && Items.potionitem.getEffects(heldStack) == null;
-		if (!isValid && EtFuturum.hasExtraUtils) {
+		if (!isValid && ModsList.EXTRA_UTILITIES.isLoaded()) {
 			int itemDamage = heldStack.getItemDamage();
 			isValid = heldStack.getItem() == ExternalContent.Items.EXTRAUTILS_WATERING_CAN.get() && (itemDamage == 0 || itemDamage == 3);
 		}

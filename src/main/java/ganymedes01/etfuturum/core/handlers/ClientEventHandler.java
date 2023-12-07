@@ -151,7 +151,7 @@ public class ClientEventHandler {
 		}
 
 		if (player.ticksExisted == 40) {
-			if (!EtFuturum.DEV_ENVIRONMENT && EtFuturum.SNAPSHOT_BUILD && !showedDebugWarning) {
+			if (!Reference.DEV_ENVIRONMENT && Reference.SNAPSHOT_BUILD && !showedDebugWarning) {
 				if (!forceHideSnapshotWarning) {
 					ChatComponentText text = new ChatComponentText(I18n.format("efr.warn.prerelease.version"));
 					text.getChatStyle().setChatClickEvent(new ClickEvent(Action.OPEN_URL, "https://github.com/Roadhog360/Et-Futurum-Requiem/issues"));
