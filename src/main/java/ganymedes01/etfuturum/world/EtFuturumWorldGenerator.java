@@ -119,8 +119,10 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 			}
 		}
 
-		bambooGen = new WorldGenBamboo(ModBlocks.BAMBOO.get());
-		bambooBiomes = new LinkedList<>(Arrays.asList(BiomeDictionary.getBiomesForType(Type.JUNGLE)));
+		if (ModBlocks.BAMBOO.isEnabled()) {
+			bambooGen = new WorldGenBamboo(ModBlocks.BAMBOO.get());
+			bambooBiomes = Arrays.asList(BiomeDictionary.getBiomesForType(Type.JUNGLE));
+		}
 
 		BiomeGenBase[] cherryPlainsBiomeArray = BiomeDictionary.getBiomesForType(Type.MOUNTAIN);
 

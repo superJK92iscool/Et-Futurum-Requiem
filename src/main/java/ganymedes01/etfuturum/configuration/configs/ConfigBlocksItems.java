@@ -218,9 +218,9 @@ public class ConfigBlocksItems extends ConfigBase {
 			enableCrimsonBlocks = enableWarpedBlocks = enableNetherwartBlock = enableBlackstone = enableSoulSoil = enableSoulLighting = enableBasalt = false;
 		}
 
-		enableMangroveBlocks = getBoolean("enableMangroveBlocks", catBlockNatural, true, "Enables mangrove wood and all of its wood subtypes, and muddy mangrove roots (if mud is enabled).");
+		enableMangroveBlocks = getBoolean("enableMangroveBlocks", catBlockNatural, true, "Enables mangrove wood and all of its wood subtypes, and the roots (+ muddy versions).");
 		enableCherryBlocks = getBoolean("enableCherryBlocks", catBlockNatural, true, "Enables cherry wood and all of its wood subtypes.");
-		enableBambooBlocks = getBoolean("enableBambooBlocks", catBlockNatural, true, "Enables bamboo wood and all of its wood subtypes.");
+		enableBambooBlocks = getBoolean("enableBambooBlocks", catBlockNatural, true, "Enables bamboo wood and all of its wood subtypes, including the bamboo stalks themselves.");
 
 		// Check if we enable wood variants at all
 		woodVariants = enableCrimsonBlocks || enableWarpedBlocks || enableMangroveBlocks || enableCherryBlocks || enableBambooBlocks;
