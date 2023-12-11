@@ -28,7 +28,7 @@ public class BlockBambooRenderer extends BlockModelBase {
 		renderer.setRenderBounds(1 - stemSize, 1, 0, 1, 1, stemSize);
 		renderFaceYPos(renderer, block, x, y, z, stemSize - (1 - offsetX), 0, offsetZ);
 
-		int textureIndex = (int) (Utils.hashPos(x, y, z) % 4);
+		int textureIndex = (int) Math.abs(Utils.hashPos(x, (int) (y * 2654435761L), z) % 4);
 		float textureOffset = 0.0625F * (textureIndex * 3);
 		float textureOffsetX = offsetX - textureOffset;
 		float textureOffsetZ = offsetZ - textureOffset;

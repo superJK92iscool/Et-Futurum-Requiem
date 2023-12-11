@@ -183,8 +183,8 @@ public class BlockBamboo extends BaseBlock implements IPlantable, IGrowable {
 	private static Vec3 OFFSET_VEC = Vec3.createVectorHelper(0.5D, 0D, 0.5D);
 
 	public static Vec3 getOffset(int x, int z) {
-		OFFSET_VEC.xCoord = 0.5F + ((float) ((Utils.cantor(x, z) % 34) - 14) * 0.0125F);
-		OFFSET_VEC.zCoord = 0.5F + ((float) ((Utils.cantor(z, x) % 34) - 14) * 0.0125F);
+		OFFSET_VEC.xCoord = 0.5F + ((float) (Math.abs(Utils.cantor(x * 2654435761L, z * -2654435761L)) % 65 - 32) * 0.0125F);
+		OFFSET_VEC.zCoord = 0.5F + ((float) (Math.abs(Utils.cantor(z * 2654435761L, x * -2654435761L)) % 65 - 32) * 0.0125F);
 		return OFFSET_VEC;
 	}
 
