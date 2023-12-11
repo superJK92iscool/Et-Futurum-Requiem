@@ -213,6 +213,10 @@ public class ClientProxy extends CommonProxy {
 			RenderingRegistry.registerBlockHandler(new BlockPinkPetalsRenderer(RenderIDs.PINK_PETALS));
 		}
 
+		if (ModBlocks.BAMBOO.isEnabled()) {
+			RenderingRegistry.registerBlockHandler(new BlockBambooRenderer(RenderIDs.BAMBOO));
+		}
+
 		RenderingRegistry.registerBlockHandler(new BlockEmissiveLayerRenderer(RenderIDs.EMISSIVE_DOUBLE_LAYER, false));
 	}
 

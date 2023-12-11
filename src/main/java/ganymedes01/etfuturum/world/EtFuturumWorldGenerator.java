@@ -7,10 +7,11 @@ import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.world.end.dimension.WorldProviderEFREnd;
 import ganymedes01.etfuturum.world.generate.WorldGenDeepslateLayerBlob;
 import ganymedes01.etfuturum.world.generate.WorldGenMinableCustom;
+import ganymedes01.etfuturum.world.generate.decorate.WorldGenBamboo;
 import ganymedes01.etfuturum.world.generate.decorate.WorldGenCherryTrees;
+import ganymedes01.etfuturum.world.generate.decorate.WorldGenPinkPetals;
 import ganymedes01.etfuturum.world.generate.feature.WorldGenAmethystGeode;
 import ganymedes01.etfuturum.world.generate.feature.WorldGenFossil;
-import ganymedes01.etfuturum.world.generate.feature.WorldGenPinkPetals;
 import ganymedes01.etfuturum.world.structure.OceanMonument;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -58,10 +59,13 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 	protected WorldGenerator cornflowerGen;
 	protected WorldGenerator lilyValleyGen;
 	protected WorldGenerator pinkPetalsGen;
+	protected WorldGenerator bambooGen;
 	private List<BiomeGenBase> fossilBiomes;
 	private List<BiomeGenBase> berryBushBiomes;
 	private List<BiomeGenBase> cornflowerBiomes;
 	private List<BiomeGenBase> lilyValleyBiomes;
+	;
+	private List<BiomeGenBase> bambooBiomes;
 
 	//trees
 	protected WorldGenAbstractTree cherryTreeGen;
@@ -114,6 +118,9 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 				biome.addFlower(ModBlocks.CORNFLOWER.get(), 0, 5);
 			}
 		}
+
+		bambooGen = new WorldGenBamboo(ModBlocks.BAMBOO.get());
+		bambooBiomes = new LinkedList<>(Arrays.asList(BiomeDictionary.getBiomesForType(Type.JUNGLE)));
 
 		BiomeGenBase[] cherryPlainsBiomeArray = BiomeDictionary.getBiomesForType(Type.MOUNTAIN);
 
@@ -178,6 +185,22 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 				z = (chunkZ << 4) + rand.nextInt(16) + 8;
 				if (world.getHeightValue(x, z) > 0 && berryBushBiomes.contains(world.getBiomeGenForCoords(x, z))) {
 					berryBushGen.generate(world, rand, x, nextHeightInt(rand, world.getHeightValue(x, z) * 2), z);
+				}
+			}
+
+			if (bambooGen != null) {
+				x = (chunkX << 4) + rand.nextInt(16) + 8;
+				z = (chunkZ << 4) + rand.nextInt(16) + 8;
+				int y = world.getHeightValue(x, z);
+				if (y > 0 && bambooBiomes.contains(world.getBiomeGenForCoords(x, z))) {
+					int count = rand.nextInt(256);
+					count = count < 240 ? 16 : count;
+					for (int i = 0; i < count; i++) {
+						int xoff = x + rand.nextInt(10) - rand.nextInt(10);
+						int yoff = y + rand.nextInt(4) - rand.nextInt(4);
+						int zoff = z + rand.nextInt(10) - rand.nextInt(10);
+						bambooGen.generate(world, rand, xoff, yoff, zoff);
+					}
 				}
 			}
 

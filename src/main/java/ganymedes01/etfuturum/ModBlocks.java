@@ -284,6 +284,7 @@ public enum ModBlocks {
 
 	PINK_PETALS(ConfigBlocksItems.enableCherryBlocks, new BlockPinkPetals(), ItemBlock.class), //Should not be potable
 	SAPLING(ConfigBlocksItems.enableCherryBlocks || ConfigBlocksItems.enableMangroveBlocks, new BlockModernSapling()),
+	BAMBOO_SAPLING(ConfigBlocksItems.enableBambooBlocks, new BlockBambooShoot(), null),
 	LEAVES(ConfigBlocksItems.enableCherryBlocks || ConfigBlocksItems.enableMangroveBlocks, new BlockModernLeaves()),
 	WOOD_PLANKS(ConfigBlocksItems.woodVariants, new BlockModernWoodPlanks()),
 	WOOD_SLAB(ConfigBlocksItems.woodVariants, new BlockModernWoodSlab(false)),
@@ -295,6 +296,7 @@ public enum ModBlocks {
 	MANGROVE_LOG(ConfigBlocksItems.enableMangroveBlocks, new BaseLog("mangrove")),
 	CHERRY_LOG(ConfigBlocksItems.enableCherryBlocks, new BaseLog("cherry").setBlockSound(ModSounds.soundCherryWood)),
 	BAMBOO_BLOCK(ConfigBlocksItems.enableBambooBlocks, new BlockBambooBlock("bamboo").setBlockSound(ModSounds.soundBambooWood)),
+	BAMBOO(ConfigBlocksItems.enableBambooBlocks, new BlockBamboo(), null),
 
 	//new wood stairs
 	CRIMSON_STAIRS(ConfigBlocksItems.enableCrimsonBlocks, new BaseStairs(WOOD_PLANKS.get(), 0).setBlockSound(ModSounds.soundNetherWood).setUnlocalizedNameWithPrefix("crimson")),

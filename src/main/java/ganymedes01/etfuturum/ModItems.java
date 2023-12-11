@@ -62,6 +62,7 @@ public enum ModItems {
 	SHULKER_BOX_UPGRADE(ModsList.IRON_CHEST.isLoaded() && ConfigModCompat.shulkerBoxesIronChest, new ItemShulkerBoxUpgrade()),
 	HONEYCOMB(ConfigBlocksItems.enableHoney, new BaseItem("honeycomb")),
 	HONEY_BOTTLE(ConfigBlocksItems.enableHoney, new ItemHoneyBottle()),
+	BAMBOO(ConfigBlocksItems.enableBambooBlocks, new ItemBamboo()),
 
 	OAK_BOAT(ConfigBlocksItems.enableNewBoats && !ConfigBlocksItems.replaceOldBoats, new ItemNewBoat(EntityNewBoat.Type.OAK, false)),
 	OAK_CHEST_BOAT(ConfigBlocksItems.enableNewBoats, new ItemNewBoat(EntityNewBoat.Type.OAK, true)),

@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.world.generate.feature;
+package ganymedes01.etfuturum.world.generate.decorate;
 
 import net.minecraft.block.Block;
 import net.minecraft.world.World;

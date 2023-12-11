@@ -151,13 +151,19 @@ public class ModRecipes {
 		OreDictionary.registerOre("fenceGateWood", new ItemStack(Blocks.fence_gate));
 		OreDictionary.registerOre("buttonWood", new ItemStack(Blocks.wooden_button));
 		OreDictionary.registerOre("pressurePlateWood", new ItemStack(Blocks.wooden_pressure_plate));
+		OreDictionary.registerOre("bedWood", new ItemStack(Items.bed));
 		OreDictionary.registerOre("doorIron", new ItemStack(Items.iron_door));
 		OreDictionary.registerOre("buttonStone", new ItemStack(Blocks.stone_button));
 		OreDictionary.registerOre("pressurePlateStone", new ItemStack(Blocks.stone_pressure_plate));
 		OreDictionary.registerOre("pressurePlateIron", new ItemStack(Blocks.heavy_weighted_pressure_plate));
 		OreDictionary.registerOre("pressurePlateGold", new ItemStack(Blocks.light_weighted_pressure_plate));
+
 		OreDictionary.registerOre("bowlWood", new ItemStack(Items.bowl));
 		OreDictionary.registerOre("soulSand", Blocks.soul_sand);
+
+		for (ModBlocks bed : ModBlocks.BEDS) {
+			registerOre("bedWood", bed.get());
+		}
 
 		registerOre("treeLeaves", ModBlocks.LEAVES.newItemStack(1, OreDictionary.WILDCARD_VALUE));
 		registerOre("treeLeaves", ModBlocks.AZALEA_LEAVES.newItemStack(1, OreDictionary.WILDCARD_VALUE));
@@ -501,6 +507,9 @@ public class ModRecipes {
 		addShapedRecipe(ModBlocks.MANGROVE_STAIRS.newItemStack(4), "x  ", "xx ", "xxx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 2));
 		addShapedRecipe(ModBlocks.CHERRY_STAIRS.newItemStack(4), "x  ", "xx ", "xxx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 3));
 		addShapedRecipe(ModBlocks.BAMBOO_STAIRS.newItemStack(4), "x  ", "xx ", "xxx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 4));
+
+		addShapedRecipe(ModBlocks.BAMBOO_BLOCK.newItemStack(), "bbb", "bbb", "bbb", 'b', ModItems.BAMBOO.newItemStack());
+		addShapedRecipe(new ItemStack(Items.stick), "b", "b", 'b', ModItems.BAMBOO.newItemStack());
 
 		// Bamboo Mosaic
 		addShapedRecipe(ModBlocks.BAMBOO_MOSAIC.newItemStack(1, 0), "x", "x", 'x', ModBlocks.WOOD_SLAB.newItemStack(1, 4));
