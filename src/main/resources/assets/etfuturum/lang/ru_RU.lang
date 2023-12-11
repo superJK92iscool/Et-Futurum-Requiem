@@ -353,6 +353,7 @@ item.etfuturum.shulker_shell.name=Панцирь шалкера
 item.etfuturum.amethyst_shard.name=Осколок аметиста
 item.etfuturum.honeycomb.name=Пчелиные соты
 item.etfuturum.honey_bottle.name=Бутылочка мёда
+item.etfuturum.bamboo.name=Бамбук
 
 # Стрелы (Arrows)
 item.etfuturum.tipped_arrow.name=Стрела с эффектом
