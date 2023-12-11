@@ -40,6 +40,7 @@ public class ConfigMixins extends ConfigBase {
 	public static boolean flowerPotFixes;
 	public static boolean soulFire;
 	public static boolean interpolatedTextures;
+	public static boolean hideSingleLevelEnchants;
 
 	static final String catBackport = "backported features";
 	static final String catOptimization = "optimizations";
@@ -67,7 +68,7 @@ public class ConfigMixins extends ConfigBase {
 			adjustedAttenuation = getBoolean("adjustedAttenuation", catBackport, true, "Adjusts the attenuation distance of certain sounds. This needs to be a separate mixin due to the way it works.\nCurrently changes portal abience, and beacon ambience to have an attenuation distance of 8 blocks away, instead of 16.\nModified Client Classes: net.minecraft.client.audio.SoundManager");
 			interpolatedTextures = getBoolean("interpolatedTextures", catBackport, true, "Adds support for the \"interpolate\" flag in .mcmeta files. If turned off, stuff like Nether stems, magma etc will not have smooth texture animations! Modified Client Classes: net.minecraft.client.renderer.texture.TextureMap");
 
-			flowerPotFixes = getBoolean("flowerPotFixes", catFixes, true, "Fixes flower pots having several restrictions limiting what they'll render inside of them. Required for crimson roots or azalea to render correctly in the flower pot.\nModified Client Classes: net.minecraft.client.renderer.RenderBlock");
+			flowerPotFixes = getBoolean("flowerPotFixes", catFixes, true, "Fixes flower pots having several restrictions limiting what they'll render inside of them. Required for crimson roots or azalea to render correctly in the flower pot, among other custom blocks.\nModified Client Classes: net.minecraft.client.renderer.RenderBlock");
 		}
 
 		endPortalFix = getBoolean("endPortalFix", catBackport, true, "Makes the End Portal block (the actual portal, not the frame) have an item icon, proper hitbox and will not instantly destroy itself in other dimensions.\nModified classes: net.minecraft.block.BlockEndPortal");
@@ -99,5 +100,6 @@ public class ConfigMixins extends ConfigBase {
 		stepHeightFix = getBoolean("stepHeightFix", catFixes, true, "Makes the player able to step up even if a block would be above their head at the destination.\nModified classes: net.minecraft.entity.Entity");
 		arrowFallingFix = getBoolean("arrowFallingFix", catFixes, true, "Prevents arrows from falling off of blocks too easily\nModified classes: net.minecraft.entity.EntityArrow");
 		collidedThrowableFix = getBoolean("collidedThrowableFix", catFixes, true, "Fixes EntityThrowable entities not calling onEntityCollidedWithBlock, causing them to not trigger target blocks or chime amethyst.\nModified classes: net.minecraft.entity.projectile.EntityThrowable");
+		hideSingleLevelEnchants = getBoolean("hideSingleLevelEnchants", catFixes, true, "Fixes enchantments with only one possible level displaying a level in their name. E.G. \"Silk Touch I\" becomes \"Silk Touch\".\nModified Classes: net.minecraft.enchantment.Enchantment");
 	}
 }

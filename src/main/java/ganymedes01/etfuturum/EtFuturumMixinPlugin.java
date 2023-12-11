@@ -210,6 +210,10 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 			}
 		}
 
+		if (ConfigMixins.hideSingleLevelEnchants) {
+			mixins.add("singlelevel.MixinEnchantment");
+		}
+
 		if (side == MixinEnvironment.Side.CLIENT) {
 			if (ConfigMixins.dustUnderFallingBlocks) {
 				mixins.add("blockfallingparticles.client.MixinBlockFalling");

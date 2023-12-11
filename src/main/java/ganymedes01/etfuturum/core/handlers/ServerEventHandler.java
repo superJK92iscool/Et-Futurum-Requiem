@@ -1,8 +1,6 @@
 package ganymedes01.etfuturum.core.handlers;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.eventhandler.EventPriority;
@@ -26,6 +24,8 @@ import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.compat.ExternalContent;
 import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.configuration.configs.*;
+import ganymedes01.etfuturum.core.utils.ItemStackMap;
+import ganymedes01.etfuturum.core.utils.ItemStackSet;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.elytra.IElytraEntityTrackerEntry;
 import ganymedes01.etfuturum.elytra.IElytraPlayer;
@@ -1882,40 +1882,61 @@ public class ServerEventHandler {
 		}
 	}
 
-	private final Map<Item, List<Integer>> NO_BURN_ITEMS = Maps.newHashMap();
+	private final ItemStackSet NO_BURN_ITEMS = new ItemStackSet();
+	private final ItemStackMap<Integer> BURN_TIME_REMAPPING = new ItemStackMap<>();
 
 	@SubscribeEvent
 	public void fuelBurnTime(FuelBurnTimeEvent e) {
-		if (e.fuel == null) return;
+		if (e.fuel == null || e.fuel.getItem() == null || Item.itemRegistry.getNameForObject(e.fuel.getItem()) == null)
+			return;
 
 		if (NO_BURN_ITEMS.isEmpty()) {
-			NO_BURN_ITEMS.put(ModBlocks.WOOD_PLANKS.getItem(), ImmutableList.of(0, 1));
-			NO_BURN_ITEMS.put(ModBlocks.WOOD_FENCE.getItem(), ImmutableList.of(0, 1));
-			NO_BURN_ITEMS.put(ModBlocks.WOOD_SLAB.getItem(), ImmutableList.of(0, 1, 8, 9));
-			NO_BURN_ITEMS.put(ModBlocks.DOUBLE_WOOD_SLAB.getItem(), ImmutableList.of(0, 1, 8, 9));
+			NO_BURN_ITEMS.add(ModBlocks.WOOD_PLANKS.newItemStack(1, 0));
+			NO_BURN_ITEMS.add(ModBlocks.WOOD_PLANKS.newItemStack(1, 1));
+			NO_BURN_ITEMS.add(ModBlocks.WOOD_FENCE.newItemStack(1, 0));
+			NO_BURN_ITEMS.add(ModBlocks.WOOD_FENCE.newItemStack(1, 1));
 
-			NO_BURN_ITEMS.put(ModBlocks.CRIMSON_STEM.getItem(), ImmutableList.of(OreDictionary.WILDCARD_VALUE));
-			NO_BURN_ITEMS.put(ModBlocks.WARPED_STEM.getItem(), ImmutableList.of(OreDictionary.WILDCARD_VALUE));
-			NO_BURN_ITEMS.put(ModBlocks.CRIMSON_STAIRS.getItem(), ImmutableList.of(OreDictionary.WILDCARD_VALUE));
-			NO_BURN_ITEMS.put(ModBlocks.WARPED_STAIRS.getItem(), ImmutableList.of(OreDictionary.WILDCARD_VALUE));
-			NO_BURN_ITEMS.put(ModBlocks.CRIMSON_FENCE_GATE.getItem(), ImmutableList.of(OreDictionary.WILDCARD_VALUE));
-			NO_BURN_ITEMS.put(ModBlocks.WARPED_FENCE_GATE.getItem(), ImmutableList.of(OreDictionary.WILDCARD_VALUE));
-			NO_BURN_ITEMS.put(ModBlocks.CRIMSON_BUTTON.getItem(), ImmutableList.of(OreDictionary.WILDCARD_VALUE));
-			NO_BURN_ITEMS.put(ModBlocks.WARPED_BUTTON.getItem(), ImmutableList.of(OreDictionary.WILDCARD_VALUE));
-			NO_BURN_ITEMS.put(ModBlocks.CRIMSON_PRESSURE_PLATE.getItem(), ImmutableList.of(OreDictionary.WILDCARD_VALUE));
-			NO_BURN_ITEMS.put(ModBlocks.WARPED_PRESSURE_PLATE.getItem(), ImmutableList.of(OreDictionary.WILDCARD_VALUE));
-			NO_BURN_ITEMS.put(ModBlocks.CRIMSON_DOOR.getItem(), ImmutableList.of(OreDictionary.WILDCARD_VALUE));
-			NO_BURN_ITEMS.put(ModBlocks.WARPED_DOOR.getItem(), ImmutableList.of(OreDictionary.WILDCARD_VALUE));
-			NO_BURN_ITEMS.put(ModBlocks.CRIMSON_TRAPDOOR.getItem(), ImmutableList.of(OreDictionary.WILDCARD_VALUE));
-			NO_BURN_ITEMS.put(ModBlocks.WARPED_TRAPDOOR.getItem(), ImmutableList.of(OreDictionary.WILDCARD_VALUE));
-			NO_BURN_ITEMS.put(ModBlocks.CRIMSON_SIGN.getItem(), ImmutableList.of(OreDictionary.WILDCARD_VALUE));
-			NO_BURN_ITEMS.put(ModBlocks.WARPED_SIGN.getItem(), ImmutableList.of(OreDictionary.WILDCARD_VALUE));
+			NO_BURN_ITEMS.add(ModBlocks.WOOD_SLAB.newItemStack(1, 0));
+			NO_BURN_ITEMS.add(ModBlocks.WOOD_SLAB.newItemStack(1, 1));
+			NO_BURN_ITEMS.add(ModBlocks.WOOD_SLAB.newItemStack(1, 8));
+			NO_BURN_ITEMS.add(ModBlocks.WOOD_SLAB.newItemStack(1, 9));
+
+			NO_BURN_ITEMS.add(ModBlocks.DOUBLE_WOOD_SLAB.newItemStack(1, 0));
+			NO_BURN_ITEMS.add(ModBlocks.DOUBLE_WOOD_SLAB.newItemStack(1, 1));
+			NO_BURN_ITEMS.add(ModBlocks.DOUBLE_WOOD_SLAB.newItemStack(1, 8));
+			NO_BURN_ITEMS.add(ModBlocks.DOUBLE_WOOD_SLAB.newItemStack(1, 9));
+
+			NO_BURN_ITEMS.add(ModBlocks.CRIMSON_STEM.newItemStack(1, OreDictionary.WILDCARD_VALUE));
+			NO_BURN_ITEMS.add(ModBlocks.WARPED_STEM.newItemStack(1, OreDictionary.WILDCARD_VALUE));
+			NO_BURN_ITEMS.add(ModBlocks.CRIMSON_STAIRS.newItemStack(1, OreDictionary.WILDCARD_VALUE));
+			NO_BURN_ITEMS.add(ModBlocks.WARPED_STAIRS.newItemStack(1, OreDictionary.WILDCARD_VALUE));
+			NO_BURN_ITEMS.add(ModBlocks.CRIMSON_FENCE_GATE.newItemStack(1, OreDictionary.WILDCARD_VALUE));
+			NO_BURN_ITEMS.add(ModBlocks.WARPED_FENCE_GATE.newItemStack(1, OreDictionary.WILDCARD_VALUE));
+			NO_BURN_ITEMS.add(ModBlocks.CRIMSON_BUTTON.newItemStack(1, OreDictionary.WILDCARD_VALUE));
+			NO_BURN_ITEMS.add(ModBlocks.WARPED_BUTTON.newItemStack(1, OreDictionary.WILDCARD_VALUE));
+			NO_BURN_ITEMS.add(ModBlocks.CRIMSON_PRESSURE_PLATE.newItemStack(1, OreDictionary.WILDCARD_VALUE));
+			NO_BURN_ITEMS.add(ModBlocks.WARPED_PRESSURE_PLATE.newItemStack(1, OreDictionary.WILDCARD_VALUE));
+			NO_BURN_ITEMS.add(ModBlocks.CRIMSON_DOOR.newItemStack(1, OreDictionary.WILDCARD_VALUE));
+			NO_BURN_ITEMS.add(ModBlocks.WARPED_DOOR.newItemStack(1, OreDictionary.WILDCARD_VALUE));
+			NO_BURN_ITEMS.add(ModBlocks.CRIMSON_TRAPDOOR.newItemStack(1, OreDictionary.WILDCARD_VALUE));
+			NO_BURN_ITEMS.add(ModBlocks.WARPED_TRAPDOOR.newItemStack(1, OreDictionary.WILDCARD_VALUE));
+			NO_BURN_ITEMS.add(ModBlocks.CRIMSON_SIGN.newItemStack(1, OreDictionary.WILDCARD_VALUE));
+			NO_BURN_ITEMS.add(ModBlocks.WARPED_SIGN.newItemStack(1, OreDictionary.WILDCARD_VALUE));
 		}
-		if (NO_BURN_ITEMS.containsKey(e.fuel.getItem())) {
-			if (NO_BURN_ITEMS.get(e.fuel.getItem()).contains(OreDictionary.WILDCARD_VALUE) || NO_BURN_ITEMS.get(e.fuel.getItem()).contains(e.fuel.getItemDamage())) {
-				e.burnTime = 0;
-				e.setResult(Result.DENY);
-			}
+		if (NO_BURN_ITEMS.contains(e.fuel)) {
+			e.burnTime = 0;
+			e.setResult(Result.DENY);
+			return;
+		}
+
+		if (BURN_TIME_REMAPPING.isEmpty()) {
+			BURN_TIME_REMAPPING.put(ModItems.BAMBOO.newItemStack(1, OreDictionary.WILDCARD_VALUE), 50);
+		}
+
+		Integer time = BURN_TIME_REMAPPING.get(e.fuel);
+		if (time != null) {
+			e.burnTime = time;
+			e.setResult(Result.ALLOW);
 		}
 	}
 
