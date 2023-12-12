@@ -28,7 +28,7 @@ commands.etfuturum.fill.outOfWorld=Cannot place blocks outside of world
 commands.etfuturum.fill.success=Successfully filled %d block(s)
 
 # Containers/GUI
-#This happens if someone removes lapis as a fuel with CT and does not add anything else
+#This happens if someone removes lapis as a fuel with CT and does not add anything else				 
 container.enchant.rusrs=No fuels available ಠ_ಠ
 container.enchant.lapis.one=1 Lapis Lazuli
 container.enchant.lapis.many=%d Lapis Lazuli
@@ -607,7 +607,7 @@ tile.etfuturum.prismarine_brick_slab.name=Prismarine Bricks Slab
 tile.etfuturum.dark_prismarine_slab.name=Dark Prismarine Slab
 
 tile.etfuturum.mud.name=Mud
-tile.etfuturum.packed_mud.name=Mud
+tile.etfuturum.packed_mud.name=Packed Mud
 tile.etfuturum.mud_bricks.name=Mud Bricks
 
 tile.etfuturum.mangrove_roots.name=Mangrove Roots
@@ -1791,5 +1791,3 @@ efr.elytra.flight.disabled=Elytra flight has been disabled for your own safety.
 efr.elytra.betterfps.warn1=§cBetterFPS is configured poorly.
 efr.elytra.betterfps.warn2=§cCheck the chat warning for more info.
 efr.elytra.betterfps.warn3=§cElytra flight has been disabled.
-
-
