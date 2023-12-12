@@ -3,6 +3,7 @@ package ganymedes01.etfuturum.world.generate.decorate;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.blocks.BlockBamboo;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
@@ -25,7 +26,7 @@ public class WorldGenBamboo extends WorldGenerator {
 		}
 
 		for (int i = 1; i <= height; i++) {
-			if (!world.isAirBlock(x, y + i, z)) {
+			if (!canReplace(world, x, y + i, z)) {
 				return false;
 			}
 		}
@@ -44,5 +45,10 @@ public class WorldGenBamboo extends WorldGenerator {
 			world.setBlock(x, y + i, z, bamboo, meta, 2);
 		}
 		return true;
+	}
+
+	private boolean canReplace(World world, int x, int y, int z) {
+		Block block = world.getBlock(x, y, z);
+		return block.getMaterial() == Material.air || (!block.getMaterial().isLiquid() && block.isReplaceable(world, x, y, z));
 	}
 }

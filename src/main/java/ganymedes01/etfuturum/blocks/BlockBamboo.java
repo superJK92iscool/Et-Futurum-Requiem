@@ -36,6 +36,7 @@ public class BlockBamboo extends BaseBlock implements IPlantable, IGrowable {
 		setHardness(1);
 		setResistance(1);
 		setTickRandomly(true);
+		setLightOpacity(0);
 	}
 
 	@Override
@@ -229,6 +230,8 @@ public class BlockBamboo extends BaseBlock implements IPlantable, IGrowable {
 	public boolean isOpaqueCube() {
 		return false;
 	}
+
+	;
 
 	@Override
 	public boolean isFlammable(IBlockAccess world, int x, int y, int z, ForgeDirection face) {
