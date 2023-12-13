@@ -127,7 +127,12 @@ public class ModSounds {
 	public static final SoundType soundPinkPetals = new CustomSound("pink_petals").setDisabledSound(Block.soundTypeGrass);
 	public static final SoundType soundBamboo = new CustomSound("bamboo").setDisabledSound(Block.soundTypeGrass);
 	public static final SoundType soundBambooWood = new CustomSound("bamboo_wood").setDisabledSound(Block.soundTypeWood);
-	public static final SoundType soundBambooSapling = new CustomSound("bamboo_sapling").setDisabledSound(Block.soundTypeGrass);
+	public static final SoundType soundBambooSapling = new CustomSound("bamboo_sapling") {
+		@Override
+		public String getStepResourcePath() {
+			return Block.soundTypeGrass.getStepResourcePath();
+		}
+	}.setDisabledSound(Block.soundTypeGrass);
 
 	public static class CustomSound extends SoundType {
 
