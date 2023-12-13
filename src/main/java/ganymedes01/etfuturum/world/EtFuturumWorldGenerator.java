@@ -85,33 +85,36 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 		}
 
 		if (ConfigWorld.enableFossils && ConfigWorld.fossilBlock != null) {
+			//Add biomes that are only hot, AND dry AND sandy, and add all swamps.
+			BiomeGenBase[] fossilBiomesArray = BiomeDictionary.getBiomesForType(Type.SANDY);
+			for (BiomeGenBase biome : fossilBiomesArray) {
+				if (!ArrayUtils.contains(BiomeDictionary.getBiomesForType(Type.HOT), biome) || !ArrayUtils.contains(BiomeDictionary.getBiomesForType(Type.DRY), biome)) {
+					fossilBiomesArray = ArrayUtils.removeElement(fossilBiomesArray, biome);
+					break;
+				}
+			}
+			fossilBiomesArray = ArrayUtils.addAll(fossilBiomesArray, BiomeDictionary.getBiomesForType(Type.SWAMP));
+			fossilBiomesArray = excludeBiomesFromTypes(fossilBiomesArray, Type.NETHER, Type.END);
+			fossilBiomes = Arrays.asList(fossilBiomesArray);
 			fossilGen = new WorldGenFossil();
 		}
 
-		//Add biomes that are only hot, AND dry AND sandy, and add all swamps.
-		fossilBiomes = new LinkedList<>(Arrays.asList(BiomeDictionary.getBiomesForType(Type.SANDY)));
-		fossilBiomes.retainAll(Arrays.asList(BiomeDictionary.getBiomesForType(Type.HOT)));
-		fossilBiomes.retainAll(Arrays.asList(BiomeDictionary.getBiomesForType(Type.DRY)));
-		fossilBiomes.addAll(Arrays.asList(BiomeDictionary.getBiomesForType(Type.SWAMP)));
-
 		if (ModBlocks.SWEET_BERRY_BUSH.isEnabled()) {
-			berryBushBiomes = new LinkedList<>(Arrays.asList(BiomeDictionary.getBiomesForType(Type.CONIFEROUS)));
+			berryBushBiomes = Arrays.asList(excludeBiomesFromTypesWithDefaults(BiomeDictionary.getBiomesForType(Type.CONIFEROUS)));
 			berryBushGen = new WorldGenFlowers(ModBlocks.SWEET_BERRY_BUSH.get());
 			((WorldGenFlowers) berryBushGen).func_150550_a(ModBlocks.SWEET_BERRY_BUSH.get(), 3);
 		}
 
 		if (ModBlocks.LILY_OF_THE_VALLEY.isEnabled()) {
 			BiomeGenBase[] lilyValleyBiomeArray = BiomeDictionary.getBiomesForType(Type.FOREST);
-			lilyValleyBiomeArray = ArrayUtils.removeElements(lilyValleyBiomeArray, BiomeDictionary.getBiomesForType(Type.SNOWY));
+			lilyValleyBiomeArray = excludeBiomesFromTypes(lilyValleyBiomeArray, Type.JUNGLE, Type.DRY, Type.HOT, Type.SNOWY, Type.COLD);
 			lilyValleyBiomes = Arrays.asList(lilyValleyBiomeArray);
 			lilyValleyGen = new WorldGenFlowers(ModBlocks.LILY_OF_THE_VALLEY.get());
 		}
 
 		if (ModBlocks.CORNFLOWER.isEnabled()) {
 			BiomeGenBase[] cornflowerBiomeArray = BiomeDictionary.getBiomesForType(Type.PLAINS);
-			cornflowerBiomeArray = ArrayUtils.removeElements(cornflowerBiomeArray, BiomeDictionary.getBiomesForType(Type.SAVANNA));
-			cornflowerBiomeArray = ArrayUtils.removeElements(cornflowerBiomeArray, BiomeDictionary.getBiomesForType(Type.SNOWY));
-			cornflowerBiomeArray = ArrayUtils.removeElements(cornflowerBiomeArray, BiomeDictionary.getBiomesForType(Type.SANDY));
+			cornflowerBiomeArray = excludeBiomesFromTypes(cornflowerBiomeArray, Type.SAVANNA, Type.SNOWY, Type.SAVANNA);
 			cornflowerBiomeArray = ArrayUtils.add(cornflowerBiomeArray, BiomeGenBase.getBiome(BiomeGenBase.forest.biomeID + 128));
 			cornflowerBiomes = Arrays.asList(cornflowerBiomeArray);
 			cornflowerGen = new WorldGenFlowers(ModBlocks.CORNFLOWER.get());
@@ -129,13 +132,13 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 				BiomeDictionary.registerBiomeType(BiomeGenBase.getBiome(151), Type.JUNGLE);
 			}
 			bambooGen = new WorldGenBamboo(ModBlocks.BAMBOO.get());
-			bambooBiomes = Arrays.asList(BiomeDictionary.getBiomesForType(Type.JUNGLE));
+			bambooBiomes = Arrays.asList(excludeBiomesFromTypesWithDefaults(BiomeDictionary.getBiomesForType(Type.JUNGLE)));
 		}
 
-		BiomeGenBase[] cherryPlainsBiomeArray = BiomeDictionary.getBiomesForType(Type.MOUNTAIN);
-
 		if (ModBlocks.CHERRY_LOG.isEnabled() && ModBlocks.LEAVES.isEnabled()) {
-			cherryBiomes = Arrays.asList(cherryPlainsBiomeArray);
+			BiomeGenBase[] cherryBiomeArray = BiomeDictionary.getBiomesForType(Type.MOUNTAIN);
+			cherryBiomeArray = excludeBiomesFromTypesWithDefaults(cherryBiomeArray, Type.SNOWY, Type.HOT, Type.SANDY, Type.MESA, Type.SPARSE);
+			cherryBiomes = Arrays.asList(cherryBiomeArray);
 			cherryTreeGen = new WorldGenCherryTrees(false);
 		}
 
@@ -148,6 +151,18 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 				biome.addFlower(ModBlocks.PINK_PETALS.get(), 12, 1);
 			}
 		}
+	}
+
+
+	private static BiomeGenBase[] excludeBiomesFromTypesWithDefaults(BiomeGenBase[] list, BiomeDictionary.Type... typesBlacklist) {
+		return excludeBiomesFromTypes(list, ArrayUtils.addAll(typesBlacklist, Type.NETHER, Type.END, Type.DEAD, Type.SPOOKY, Type.WASTELAND));
+	}
+
+	private static BiomeGenBase[] excludeBiomesFromTypes(BiomeGenBase[] list, BiomeDictionary.Type... typesBlacklist) {
+		for (BiomeDictionary.Type typeToBlacklist : typesBlacklist) {
+			list = ArrayUtils.removeElements(list, BiomeDictionary.getBiomesForType(typeToBlacklist));
+		}
+		return list;
 	}
 
 	@Override
