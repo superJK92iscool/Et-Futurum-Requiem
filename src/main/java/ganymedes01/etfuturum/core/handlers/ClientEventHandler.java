@@ -197,6 +197,8 @@ public class ClientEventHandler {
 				handleNetherAmbienceLoop();
 				prevAmbientBiome = currentBiome;
 			}
+		} else {
+			netherAmbienceLoop = null;
 		}
 
 		if (ConfigFunctions.enableGamemodeSwitcher && Keyboard.isCreated() && Keyboard.isKeyDown(Keyboard.KEY_F3) && Keyboard.isKeyDown(Keyboard.KEY_F4)) {
@@ -214,8 +216,6 @@ public class ClientEventHandler {
 
 		if (mc.currentScreen == null && currPage > -1) {
 			currPage = -1;
-		} else {
-			netherAmbienceLoop = null;
 		}
 	}
 
