@@ -184,8 +184,9 @@ public class BlockBamboo extends BaseBlock implements IPlantable, IGrowable {
 	private static Vec3 OFFSET_VEC = Vec3.createVectorHelper(0.5D, 0D, 0.5D);
 
 	public static Vec3 getOffset(int x, int z) {
-		OFFSET_VEC.xCoord = 0.5F + ((float) (Math.abs(Utils.cantor(x * 2654435761L, z * -2654435761L)) % 65 - 32) * 0.0125F);
-		OFFSET_VEC.zCoord = 0.5F + ((float) (Math.abs(Utils.cantor(z * 2654435761L, x * -2654435761L)) % 65 - 32) * 0.0125F);
+		OFFSET_VEC.xCoord = 0.1875D + ((double) (Math.abs(Utils.cantor(x * 2654435761L, z * -2654435761L)) % 41) * 0.015625D);
+		OFFSET_VEC.zCoord = 0.1875D + ((double) (Math.abs(Utils.cantor(z * 2654435761L, x * -2654435761L)) % 41) * 0.015625D);
+		//0.8125
 		return OFFSET_VEC;
 	}
 
@@ -193,7 +194,7 @@ public class BlockBamboo extends BaseBlock implements IPlantable, IGrowable {
 	public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z) {
 		Vec3 offsetBox = getOffset(x, z);
 		int meta = world.getBlockMetadata(x, y, z);
-		double size = getStalkSize(meta) == 1 ? 0.25D : 0.1875D;
+		double size = 0.1875D;
 		if (getLeavesSize(meta) == 2) {
 			size += 0.125D;
 		}
@@ -205,7 +206,7 @@ public class BlockBamboo extends BaseBlock implements IPlantable, IGrowable {
 	public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z) {
 		Vec3 offsetBox = getOffset(x, z);
 		int meta = world.getBlockMetadata(x, y, z);
-		double size = getStalkSize(meta) == 1 ? 0.25D : 0.1875D;
+		double size = 0.1875D;
 		if (getLeavesSize(meta) == 2) {
 			size += 0.125D;
 		}
