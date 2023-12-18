@@ -1,0 +1,4 @@
+Iron Shulker Box templates by Roadhog360
+Boron, Zinc and Magnesium textures by Moe, all others by Roadhog360 (edited from existing ore textures)
+
+All textures in this folder can be considered free to use as long as credit is provided, and exempt from other restrictions that may come from the LGPL license, as long as credit is provided. Meaning, these textures can be used by any modpack and in any mod regardless of license or source visibility as long as credit is provided to the original authors. Credit can be provided on the mod's credits page, or as a text file like this one.
