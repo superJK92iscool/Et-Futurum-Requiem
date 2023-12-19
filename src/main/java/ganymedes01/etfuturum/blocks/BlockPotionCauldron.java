@@ -119,7 +119,7 @@ public class BlockPotionCauldron extends BlockCauldronTileEntity {
 					world.setBlockMetadataWithNotify(x, y, z, world.getBlockMetadata(x, y, z) - 1, 3);
 				}
 				return true;
-			} else if (item == Items.arrow) {
+			} else if (item == Items.arrow && ModItems.TIPPED_ARROW.isEnabled()) {
 				final int meta = world.getBlockMetadata(x, y, z);
 				final int tipmax = meta == 0 ? 16 : meta == 1 ? 32 : 64;
 
@@ -149,6 +149,9 @@ public class BlockPotionCauldron extends BlockCauldronTileEntity {
 				} else {
 					world.setBlockMetadataWithNotify(x, y, z, setMeta, 3);
 				}
+
+				float liquidLevel = y + getRenderLiquidLevel(world.getBlockMetadata(x, y, z) + 1);
+				world.playSoundEffect(x + 0.5D, liquidLevel, z + 0.5D, "game.player.swim.splash", 1, 1);
 				return true;
 			}
 		}
