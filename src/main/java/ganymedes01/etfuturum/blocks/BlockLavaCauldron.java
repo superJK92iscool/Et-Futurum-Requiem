@@ -18,21 +18,11 @@ import java.util.Random;
 
 public class BlockLavaCauldron extends BlockCauldron {
 
-	@SideOnly(Side.CLIENT)
-	public IIcon field_150029_a;
-	@SideOnly(Side.CLIENT)
-	public IIcon field_150028_b;
-	@SideOnly(Side.CLIENT)
-	public IIcon field_150030_M;
-	@SideOnly(Side.CLIENT)
-	public IIcon lavaIcon;
-
 	public BlockLavaCauldron() {
 		super();
 		this.setStepSound(Blocks.cauldron.stepSound);
 		this.setHardness(2);
 		this.setResistance(2);
-		this.setTickRandomly(true);
 		this.setLightLevel(1.0F);
 		this.setBlockName(Utils.getUnlocalisedName("lava_cauldron"));
 	}
@@ -52,20 +42,15 @@ public class BlockLavaCauldron extends BlockCauldron {
 
 	@Override
 	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
-		if (!world.isRemote) {
-			if (!entity.isImmuneToFire() && !(world.canBlockSeeTheSky(x, y + 1, z) && world.isRaining())) {
-				entity.setFire(15);
-				if (!(entity instanceof EntityLiving)) {
-					entity.playSound("random.fizz", 0.4F, 2.0F + world.rand.nextFloat() * 0.4F);
+		if (!world.isRemote && !entity.isImmuneToFire()) {
+			if (!(entity instanceof EntityLiving) && !entity.isBurning()) {
+				entity.playSound("random.fizz", 0.4F, 2.0F + world.rand.nextFloat() * 0.4F);
+				if (!world.isRaining() && !world.canBlockSeeTheSky(x, y + 1, z)) {
+					entity.setFire(15);
 				}
 			}
 			entity.attackEntityFrom(DamageSource.lava, 4.0F);
 		}
-	}
-
-	@Override
-	public IIcon getIcon(int side, int meta) {
-		return Blocks.cauldron.getIcon(side, meta);
 	}
 
 	@Override
@@ -91,6 +76,11 @@ public class BlockLavaCauldron extends BlockCauldron {
 		if (random.nextInt(200) == 0) {
 			world.playSound(x + .5, y + 1, z + 0.5, "liquid.lava", 0.2F + random.nextFloat() * 0.2F, 0.9F + random.nextFloat() * 0.15F, false);
 		}
+	}
+
+	@Override
+	public IIcon getIcon(int side, int meta) {
+		return Blocks.cauldron.getIcon(side, meta);
 	}
 
 	@Override
