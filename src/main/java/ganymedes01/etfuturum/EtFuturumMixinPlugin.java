@@ -214,6 +214,10 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 			mixins.add("singlelevel.MixinEnchantment");
 		}
 
+		if (ConfigMixins.fireproofItems) {
+			mixins.add("uninflammableitem.MixinEntityItem");
+		}
+
 		if (side == MixinEnvironment.Side.CLIENT) {
 			if (ConfigMixins.dustUnderFallingBlocks) {
 				mixins.add("blockfallingparticles.client.MixinBlockFalling");

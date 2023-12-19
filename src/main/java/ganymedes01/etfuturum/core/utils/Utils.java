@@ -13,8 +13,11 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.oredict.OreDictionary;
+import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.*;
 
@@ -432,5 +435,16 @@ public class Utils {
 	 */
 	public static long cantor(long a, long b) {
 		return (a + b + 1) * (a + b) / 2 + b;
+	}
+
+	public static BiomeGenBase[] excludeBiomesFromTypesWithDefaults(BiomeGenBase[] list, BiomeDictionary.Type... typesBlacklist) {
+		return excludeBiomesFromTypes(list, ArrayUtils.addAll(typesBlacklist, BiomeDictionary.Type.NETHER, BiomeDictionary.Type.END, BiomeDictionary.Type.DEAD, BiomeDictionary.Type.SPOOKY, BiomeDictionary.Type.WASTELAND));
+	}
+
+	public static BiomeGenBase[] excludeBiomesFromTypes(BiomeGenBase[] list, BiomeDictionary.Type... typesBlacklist) {
+		for (BiomeDictionary.Type typeToBlacklist : typesBlacklist) {
+			list = ArrayUtils.removeElements(list, BiomeDictionary.getBiomesForType(typeToBlacklist));
+		}
+		return list;
 	}
 }

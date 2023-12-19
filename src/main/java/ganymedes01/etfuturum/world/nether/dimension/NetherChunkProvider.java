@@ -4,6 +4,8 @@ import cpw.mods.fml.common.eventhandler.Event;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.compat.ExternalContent;
 import ganymedes01.etfuturum.compat.ModsList;
+import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
+import ganymedes01.etfuturum.world.generate.decorate.WorldGenSoulFire;
 import ganymedes01.etfuturum.world.generate.feature.WorldGenBasaltGlowstone;
 import ganymedes01.etfuturum.world.nether.biome.NetherBiomeBase;
 import ganymedes01.etfuturum.world.nether.biome.utils.NetherBiomeManager;
@@ -77,6 +79,7 @@ public class NetherChunkProvider implements IChunkProvider {
 	private final WorldGenerator glowstone2Gen = new WorldGenGlowStone2();
 	private final WorldGenerator basaltGlowstoneGen = new WorldGenBasaltGlowstone();
 	private final WorldGenerator fireGen = new WorldGenFire();
+	private final WorldGenerator soulFireGen = new WorldGenSoulFire();
 	private final WorldGenerator lavaGen = new WorldGenHellLava(Blocks.flowing_lava, false);
 
 	public NetherChunkProvider(World par1World, long par2) {
@@ -562,7 +565,7 @@ public class NetherChunkProvider implements IChunkProvider {
 				k1 = k + hellRNG.nextInt(16) + 8;
 				l1 = hellRNG.nextInt(120) + 4;
 				i2 = l + hellRNG.nextInt(16) + 8;
-				fireGen.generate(worldObj, hellRNG, k1, l1, i2);
+				(biome == NetherBiomeManager.soulSandValley && ConfigMixins.soulFire ? soulFireGen : fireGen).generate(worldObj, hellRNG, k1, l1, i2);
 			}
 		}
 
