@@ -26,6 +26,7 @@ import ganymedes01.etfuturum.compat.*;
 import ganymedes01.etfuturum.compat.nei.IMCSenderGTNH;
 import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.configuration.configs.*;
+import ganymedes01.etfuturum.core.handlers.WorldEventHandler;
 import ganymedes01.etfuturum.core.proxy.CommonProxy;
 import ganymedes01.etfuturum.entities.ModEntityList;
 import ganymedes01.etfuturum.items.ItemWoodSign;
@@ -255,6 +256,22 @@ public class EtFuturum {
 		proxy.registerEntities();
 		proxy.registerRenderers();
 		IMCSenderGTNH.IMCSender();
+
+		if (ModsList.MULTIPART.isLoaded()) {
+			int[] metaSideMap = new int[]{0, 4, 5, 2, 3, 1, -1, -1};
+			int[] sideMetaMap = new int[]{0, 5, 3, 4, 1, 2};
+
+			try {
+				Class button = ReflectionHelper.getClass(getClass().getClassLoader(), "codechicken.multipart.minecraft.ButtonPart");
+				Field metaSideMapField = ReflectionHelper.findField(button, "metaSideMap");
+				metaSideMapField.setAccessible(true);
+				metaSideMapField.set(null, metaSideMap);
+				Field sideMetaMapField = ReflectionHelper.findField(button, "sideMetaMap");
+				sideMetaMapField.setAccessible(true);
+				sideMetaMapField.set(null, sideMetaMap);
+			} catch (Exception ignored) {
+			}
+		}
 	}
 
 	@EventHandler
@@ -354,6 +371,7 @@ public class EtFuturum {
 		ConfigBase.postInit();
 
 		EtFuturumWorldGenerator.INSTANCE.postInit();
+		WorldEventHandler.INSTANCE.postInit();
 
 		if (ConfigSounds.newBlockSounds) {
 			//Because NP+ uses its own (worse) step sounds for this and it causes the check below that replaces these blocks to fail.

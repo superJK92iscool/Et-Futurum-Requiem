@@ -31,6 +31,7 @@ public enum ModsList {
 	BIOMES_O_PLENTY("BiomesOPlenty"),
 	EXTRA_UTILITIES("ExtraUtilities"),
 	APPLIED_ENERGISTICS_2("appliedenergistics2"),
+	MULTIPART("McMultipart"),
 	;
 
 	private final String modID;
@@ -43,7 +44,11 @@ public enum ModsList {
 
 	public boolean isLoaded() {
 		if (isLoaded == null) {
-			isLoaded = Loader.isModLoaded(modID);
+			if (Loader.instance() != null) {
+				isLoaded = Loader.isModLoaded(modID);
+			} else {
+				return false;
+			}
 		}
 		return isLoaded;
 	}
