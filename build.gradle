@@ -91,6 +91,11 @@ compileJava {
 	options.encoding = "UTF-8"
 }
 
+configurations {
+    // By default only compileClasspath extends shadow, make runtime extend it too
+    compile.extendsFrom(shadow)
+}
+
 dependencies {
 	// Can use `compileOnly` instead of `compile` if you want to require it at build time,
 	// but not require it in `runClient`/`runServer`
