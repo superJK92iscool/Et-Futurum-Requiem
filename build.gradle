@@ -310,3 +310,9 @@ sourceSets {
 		ext.refMap = refMapForYourConfig
 	}
 }
+
+runClient {
+    // Workaround for Mixin not detecting mod (https://github.com/SpongePowered/Mixin/issues/207)
+    // (Fixed in UniMix, so this should be removed if we ever switch to it.)
+    args("--mods=" + java.nio.file.Paths.get("$projectDir").resolve(minecraft.runDir).normalize().relativize(shadowJar.archivePath.toPath()))
+}
