@@ -1,8 +1,10 @@
+---
 name: Issue Report
 about: Thank you for reporting an issue, people like you help Et Futurum Requiem stay stable. Credits to GregTech New Horizons for this template format
 title: ''
 labels: ''
 assignees: 'Roadhog360'
+---
 
 body:
 - type: checkboxes
