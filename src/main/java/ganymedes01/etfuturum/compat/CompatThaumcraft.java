@@ -9,6 +9,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
+import thaumcraft.common.config.Config;
 
 public class CompatThaumcraft {
 
@@ -195,6 +196,10 @@ public class CompatThaumcraft {
 
 	public static void doRecipes() {
 		// TODO is there supposed to be Thaumcraft related Recipes? If so, what would they be?
+	}
+
+	public static int getHasteEnchID() {
+		return Config.enchHaste.effectId;
 	}
 
 }
