@@ -1,18 +1,17 @@
 name: Report Bug
-description: "Report a bug that does not abruptly end a game session or prevent the start of the game."
+description: "Report a crash, mod conflict, or any other type of bug."
 labels: []
 assignees: Roadhog360
 body:
 - type: markdown
   attributes:
     value: 'Thank you for opening a bug report! Please answer all required questions completely and accurately, and read the optional questions to see if they apply to your issue.
-    If you\'d like to join our Discord server, you can find an invite link for that [here](https://discord.gg/jBHQn3Nmsh).
+    
     If you want to suggest a change, please do not open an issue. Use the [discussions page](https://github.com/Roadhog360/Et-Futurum-Requiem/discussions) instead. Issues that are suggestions will be closed and locked.'
-body:
 - type: checkboxes
   id: initial
   attributes:
-    label: checklist
+    label: Initial Questions
     description: Please mark them so we can better handle this report
     options:
       - label: "I used a translator, such as Google Translate, to post this issue."
