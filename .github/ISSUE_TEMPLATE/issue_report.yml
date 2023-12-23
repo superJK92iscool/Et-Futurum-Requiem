@@ -1,10 +1,13 @@
----
-name: Issue Report
-about: Thank you for reporting an issue, people like you help Et Futurum Requiem stay stable. Credits to GregTech New Horizons for this template format
-title: ''
-labels: ''
-assignees: 'Roadhog360'
----
+name: Report Bug
+description: "Report a bug that does not abruptly end a game session or prevent the start of the game."
+labels: []
+assignees: Roadhog360
+body:
+- type: markdown
+  attributes:
+    value: 'Thank you for opening a bug report! Please answer all required questions completely and accurately, and read the optional questions to see if they apply to your issue.
+If you\'d like to join our Discord server, you can find an invite link for that [here](https://discord.gg/jBHQn3Nmsh).
+If you want to suggest a change, please do not open an issue. Use the [discussions page](https://github.com/Roadhog360/Et-Futurum-Requiem/discussions) instead. Issues that are suggestions will be closed and locked.'
 
 body:
 - type: checkboxes
@@ -15,7 +18,7 @@ body:
     options:
       - label: "I used a translator, such as Google Translate, to post this issue."
         required: false
-      - label: "I have searched this issue tracker and there is nothing similar already. Posting on a closed issue saying the bug still exists will prompt us to investigate and reopen it once we confirm your report."
+      - label: "I have searched this issue tracker and there is nothing similar already, and this is not on the [list of known issues](https://github.com/Roadhog360/Et-Futurum-Requiem/issues/146). Posting on a closed issue saying the bug still exists will prompt us to investigate and reopen it once we confirm your report."
         required: true
       - label: "I have verified that this issue occurs in a SUPPORTED environment, meaning I can reproduce this WITHOUT OptiFine, and without Bukkit+Forge server software like MCPC+, KCauldron, Crucible, Mohist etc"
         required: true
