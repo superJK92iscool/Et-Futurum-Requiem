@@ -18,20 +18,20 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 import java.util.Random;
 
-public class BlockGrassPath extends Block {
+public class BlockDirtPath extends Block {
 
 	@SideOnly(Side.CLIENT)
 	private IIcon sideIcon;
 
-	public BlockGrassPath() {
+	public BlockDirtPath() {
 		super(Material.grass);
 		setHardness(0.6F);
 		setLightOpacity(255);
 		setHarvestLevel("shovel", 0);
 		useNeighborBrightness = true;
 		setStepSound(soundTypeGrass);
-		setBlockTextureName("grass_path");
-		setBlockName(Utils.getUnlocalisedName("grass_path"));
+		setBlockTextureName("dirt_path");
+		setBlockName(Utils.getUnlocalisedName("dirt_path"));
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 		setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.9375F, 1.0F);
 	}
@@ -68,7 +68,7 @@ public class BlockGrassPath extends Block {
 	@SideOnly(Side.CLIENT)
 	public boolean shouldSideBeRendered(IBlockAccess p_149646_1_, int p_149646_2_, int p_149646_3_, int p_149646_4_, int p_149646_5_) {
 		Block block = p_149646_1_.getBlock(p_149646_2_, p_149646_3_, p_149646_4_);
-		if (block instanceof BlockGrassPath || block instanceof BlockFarmland) {
+		if (block instanceof BlockDirtPath || block instanceof BlockFarmland) {
 			return false;
 		}
 		return super.shouldSideBeRendered(p_149646_1_, p_149646_2_, p_149646_3_, p_149646_4_, p_149646_5_);

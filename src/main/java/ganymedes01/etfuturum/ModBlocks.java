@@ -34,7 +34,7 @@ public enum ModBlocks {
 	PURPUR_BLOCK(ConfigBlocksItems.enableChorusFruit, new BlockPurpur()),
 	PURPUR_PILLAR(ConfigBlocksItems.enableChorusFruit, new BlockPurpurPillar()),
 	END_BRICKS(ConfigBlocksItems.enableChorusFruit, new BlockEndBricks()),
-	GRASS_PATH(ConfigBlocksItems.enableGrassPath, new BlockGrassPath()),
+	GRASS_PATH(ConfigBlocksItems.enableGrassPath, new BlockDirtPath()),
 	END_ROD(ConfigBlocksItems.enableChorusFruit, new BlockEndRod()),
 	CHORUS_PLANT(ConfigBlocksItems.enableChorusFruit, new BlockChorusPlant()),
 	CHORUS_FLOWER(ConfigBlocksItems.enableChorusFruit, new BlockChorusFlower()),
