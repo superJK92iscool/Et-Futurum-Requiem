@@ -8,7 +8,6 @@ body:
     value: 'Thank you for opening a bug report! Please answer all required questions completely and accurately, and read the optional questions to see if they apply to your issue.
     If you\'d like to join our Discord server, you can find an invite link for that [here](https://discord.gg/jBHQn3Nmsh).
     If you want to suggest a change, please do not open an issue. Use the [discussions page](https://github.com/Roadhog360/Et-Futurum-Requiem/discussions) instead. Issues that are suggestions will be closed and locked.'
-
 body:
 - type: checkboxes
   id: initial
