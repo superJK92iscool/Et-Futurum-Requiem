@@ -110,6 +110,9 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 			mixins.add("backlytra.MixinEntityLivingBase");
 			mixins.add("backlytra.MixinNetHandlerPlayServer");
 			mixins.add("backlytra.MixinEntityTrackerEntry");
+			if (doesClassExist("thaumcraft/common/lib/events/EventHandlerEntity")) {
+				mixins.add("backlytra.thaumcraft.MixinEventHandlerEntity");
+			}
 			if (side == MixinEnvironment.Side.CLIENT) {
 				mixins.add("backlytra.client.MixinAbstractClientPlayer");
 				mixins.add("backlytra.client.MixinEntityPlayerSP");
@@ -259,4 +262,7 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 	public void postApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo) {
 	}
 
+	private boolean doesClassExist(String path) {
+		return EtFuturum.class.getResource("/" + path + ".class") != null;
+	}
 }

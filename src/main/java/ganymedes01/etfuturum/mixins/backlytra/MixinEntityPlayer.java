@@ -1,11 +1,8 @@
 package ganymedes01.etfuturum.mixins.backlytra;
 
-import ganymedes01.etfuturum.compat.CompatThaumcraft;
-import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.elytra.IElytraPlayer;
 import ganymedes01.etfuturum.items.equipment.ItemArmorElytra;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -62,22 +59,6 @@ public abstract class MixinEntityPlayer extends EntityLivingBase implements IEly
 
 		if (this.etfu$isElytraFlying()) {
 			this.etfu$ticksElytraFlying += 1;
-			if (ModsList.THAUMCRAFT.isLoaded() && inventory.armorItemInSlot(0) != null && moveForward > 0.0F) {
-				//Counteract haste boots Thaumcraft enchantment.
-				//Since Thaumcraft applies the speed no matter what, this causes practically limitless elytra flight.
-				int haste = EnchantmentHelper.getEnchantmentLevel(CompatThaumcraft.getHasteEnchID(), inventory.armorItemInSlot(0));
-				if (haste > 0) {
-					float bonus = haste * 0.015F;
-					if (isAirBorne) {
-						bonus *= 0.5F;
-					}
-					if (isInWater()) {
-						bonus *= 0.5F;
-					}
-					//Apply the same code for movement, but use -1.0F instead of 1.0F so it does the exact opposite so it cancels the Thaumcraft movement.
-					moveFlying(0.0F, -1.0F, bonus);
-				}
-			}
 		} else {
 			this.etfu$ticksElytraFlying = 0;
 		}
