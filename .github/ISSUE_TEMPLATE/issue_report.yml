@@ -14,8 +14,6 @@ body:
     label: Initial Questions
     description: Please mark them so we can better handle this report
     options:
-      - label: "I used a translator, such as Google Translate, to post this issue."
-        required: false
       - label: "I have searched this issue tracker and there is nothing similar already, and this is not on the [list of known issues](https://github.com/Roadhog360/Et-Futurum-Requiem/issues/146). Posting on a closed issue saying the bug still exists will prompt us to investigate and reopen it once we confirm your report."
         required: true
       - label: "I have verified that this issue occurs in a SUPPORTED environment, meaning I can reproduce this WITHOUT OptiFine, and without Bukkit+Forge server software like KCauldron, Thermos, Crucible, Mohist etc"
