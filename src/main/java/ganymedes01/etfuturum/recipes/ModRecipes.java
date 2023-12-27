@@ -1187,13 +1187,13 @@ public class ModRecipes {
 	}
 
 	private static void addSmelting(Item input, ItemStack output, float exp) {
-		if (validateItems(input, output)) {
+		if (validateItems(input) && validateItems(output)) {
 			GameRegistry.addSmelting(input, output, exp);
 		}
 	}
 
 	private static void addSmelting(Block input, ItemStack output, float exp) {
-		if (validateItems(input, output)) {
+		if (validateItems(input) && validateItems(output)) {
 			GameRegistry.addSmelting(input, output, exp);
 		}
 	}
@@ -1205,13 +1205,13 @@ public class ModRecipes {
 	}
 
 	private static void addShapedRecipe(ItemStack output, Object... objects) {
-		if (validateItems(output, objects)) {
+		if (validateItems(output) && validateItems(objects)) {
 			GameRegistry.addRecipe(new ShapedEtFuturumRecipe(output, objects));
 		}
 	}
 
 	private static void addShapelessRecipe(ItemStack output, Object... objects) {
-		if (validateItems(output, objects)) {
+		if (validateItems(output) && validateItems(objects)) {
 			GameRegistry.addRecipe(new ShapelessEtFuturumRecipe(output, objects));
 		}
 	}
