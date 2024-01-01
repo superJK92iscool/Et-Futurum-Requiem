@@ -257,17 +257,26 @@ public class EtFuturum {
 		proxy.registerRenderers();
 		IMCSenderGTNH.IMCSender();
 
-		if (ModsList.MULTIPART.isLoaded()) {
-			int[] metaSideMap = new int[]{0, 4, 5, 2, 3, 1, -1, -1};
-			int[] sideMetaMap = new int[]{0, 5, 3, 4, 1, 2};
-
+//		if(ModsList.MULTIPART.isLoaded()) { Code to test new compare version funcs
+//			int test = ModsList.MULTIPART.compareVersion("1.4.1");
+//			String test2 = ModsList.MULTIPART.getVersion();
+//		}
+		if (ModsList.MULTIPART.isLoaded() && ModsList.MULTIPART.isVersionNewer("1.4.1")) {
 			try {
 				Class button = ReflectionHelper.getClass(getClass().getClassLoader(), "codechicken.multipart.minecraft.ButtonPart");
+
 				Field metaSideMapField = ReflectionHelper.findField(button, "metaSideMap");
 				metaSideMapField.setAccessible(true);
+				int[] metaSideMap = (int[]) metaSideMapField.get(null);
+				metaSideMap[0] = 1;
+				metaSideMap[5] = 0;
 				metaSideMapField.set(null, metaSideMap);
+
 				Field sideMetaMapField = ReflectionHelper.findField(button, "sideMetaMap");
 				sideMetaMapField.setAccessible(true);
+				int[] sideMetaMap = (int[]) sideMetaMapField.get(null);
+				sideMetaMap[0] = 5;
+				sideMetaMap[1] = 0;
 				sideMetaMapField.set(null, sideMetaMap);
 			} catch (Exception ignored) {
 			}

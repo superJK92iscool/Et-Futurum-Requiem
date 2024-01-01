@@ -1,7 +1,7 @@
 package ganymedes01.etfuturum.compat;
 
-import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.versioning.ComparableVersion;
 
 public enum ModsList {
 	ENDERLICIOUS("enderlicious"),
@@ -44,21 +44,35 @@ public enum ModsList {
 
 	public boolean isLoaded() {
 		if (isLoaded == null) {
-			if (Loader.instance() != null) {
-				isLoaded = Loader.isModLoaded(modID);
-			} else {
-				return false;
-			}
+			isLoaded = Loader.isModLoaded(modID);
 		}
 		return isLoaded;
 	}
 
 	public String getVersion() {
-		if (isLoaded() && version == null) {
-			version = FMLCommonHandler.instance().findContainerFor(modID).getVersion();
+		if (isLoaded()) {
+			if (version == null) {
+				version = Loader.instance().getIndexedModList().get(modID).getProcessedVersion().getVersionString();
+			}
 		} else {
 			throw new RuntimeException("Cannot get version for mod that is not loaded!");
 		}
 		return version;
+	}
+
+	public int compareVersion(String compareTo) {
+		return new ComparableVersion(getVersion()).compareTo(new ComparableVersion(compareTo));
+	}
+
+	public boolean isVersionNewer(String compareTo) {
+		return compareVersion(compareTo) > 0;
+	}
+
+	public boolean isVersionEqual(String compareTo) {
+		return compareVersion(compareTo) == 0;
+	}
+
+	public boolean isVersionOlder(String compareTo) {
+		return compareVersion(compareTo) < 0;
 	}
 }
