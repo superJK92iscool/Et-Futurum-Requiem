@@ -99,6 +99,13 @@ public class ModRecipes {
 			Items.iron_door.setMaxStackSize(64);
 		}
 
+		if (ConfigFunctions.enableDoorRecipeBuffs) {
+			removeFirstRecipeFor(Items.wooden_door);
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Items.wooden_door, 3), "xx", "xx", "xx", 'x', "plankWood"));
+			removeFirstRecipeFor(Items.iron_door);
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Items.iron_door, 3), "xx", "xx", "xx", 'x', "ingotIron"));
+		}
+
 		if (ConfigBlocksItems.enableFences) {
 			removeFirstRecipeFor(Blocks.fence);
 			removeFirstRecipeFor(Blocks.nether_brick_fence);
@@ -590,11 +597,6 @@ public class ModRecipes {
 		addShapedRecipe(ModBlocks.MANGROVE_SIGN.newItemStack(3), "xxx", "xxx", " y ", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 2), 'y', "stickWood");
 		addShapedRecipe(ModBlocks.CHERRY_SIGN.newItemStack(3), "xxx", "xxx", " y ", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 3), 'y', "stickWood");
 		addShapedRecipe(ModBlocks.BAMBOO_SIGN.newItemStack(3), "xxx", "xxx", " y ", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 4), 'y', "stickWood");
-
-		if (ConfigFunctions.enableDoorRecipeBuffs) {
-			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Items.wooden_door, 3), "xx", "xx", "xx", 'x', "plankWood"));
-			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Items.iron_door, 3), "xx", "xx", "xx", 'x', "ingotIron"));
-		}
 
 		addShapedRecipe(ModBlocks.RED_SANDSTONE.newItemStack(), "xx", "xx", 'x', new ItemStack(Blocks.sand, 1, 1));
 		addShapedRecipe(ModBlocks.RED_SANDSTONE.newItemStack(1, 1), "x", "x", 'x', ModBlocks.RED_SANDSTONE_SLAB.newItemStack());
