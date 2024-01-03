@@ -18,9 +18,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-public class WorldGenAmethystGeode extends WorldGenerator {
-
-	private final List<Block> budBlocks;
+public class WorldGenGeode extends WorldGenerator {
 
 	private final int minGenOffset, maxGenOffset;//geodeFeatureConfig.minGenOffset geodeFeatureConfig.maxGenOffset
 	private final int invalidBlocksThreshold;//geodeFeatureConfig.invalidBlocksThreshold
@@ -37,16 +35,27 @@ public class WorldGenAmethystGeode extends WorldGenerator {
 
 	private final RegistryMapping<Block> outerBlock;
 	private final RegistryMapping<Block> middleBlock;
+	private final List<Block> budBlocks;
+	private final Block innerBlock;
+	private final Block innerBuddingBlock;
 
-	public WorldGenAmethystGeode(RegistryMapping<Block> outerBlock, RegistryMapping<Block> middleBlock) {
-		this(-16, 16, 1, new int[]{3, 4}, new int[]{4, 5, 6}, 1.7D, 2.2D, 3.2D, 4.2D, new int[]{1, 2}, 0.95D, 2.0D, 2, 0.05D, 0.083D, 0.35D, outerBlock, middleBlock);
+	public WorldGenGeode(RegistryMapping<Block> outerBlock, RegistryMapping<Block> middleBlock, Block innerBlock, Block innerBuddingBlock, Block bud1, Block bud2) {
+		this(-16, 16, 1, new int[]{3, 4}, new int[]{4, 5, 6}, 1.7D, 2.2D, 3.2D, 4.2D, new int[]{1, 2}, 0.95D, 2.0D, 2, 0.05D, 0.083D, 0.35D,
+				outerBlock, middleBlock, innerBlock, innerBuddingBlock, bud1, bud2);
 	}
 
-	private WorldGenAmethystGeode(int minOffset, int maxOffset, int invalidMax, int[] distPoints, int[] outerWallDist, double fill, double inner, double middle, double outer, int[] pointOff, double crackChance, double baseCrack, int crackPointOff, double noiseAmp, double budChance, double potentialPlaceChance, RegistryMapping<Block> outerBlock, RegistryMapping<Block> middleBlock) {
+	public WorldGenGeode(RegistryMapping<Block> outerBlock, RegistryMapping<Block> middleBlock) {
+		this(outerBlock, outerBlock, ModBlocks.AMETHYST_BLOCK.get(), ModBlocks.BUDDING_AMETHYST.get(), ModBlocks.AMETHYST_CLUSTER_1.get(), ModBlocks.AMETHYST_CLUSTER_2.get());
+	}
+
+	private WorldGenGeode(int minOffset, int maxOffset, int invalidMax, int[] distPoints, int[] outerWallDist, double fill, double inner, double middle, double outer, int[] pointOff, double crackChance, double baseCrack, int crackPointOff, double noiseAmp, double budChance, double potentialPlaceChance,
+						  RegistryMapping<Block> outerBlock, RegistryMapping<Block> middleBlock, Block innerBlock, Block innerBuddingBlock, Block bud1, Block bud2) {
 		this.outerBlock = outerBlock;
 		this.middleBlock = middleBlock;
+		this.innerBlock = innerBlock;
+		this.innerBuddingBlock = innerBuddingBlock;
 
-		budBlocks = ImmutableList.of(ModBlocks.AMETHYST_CLUSTER_1.get(), ModBlocks.AMETHYST_CLUSTER_2.get());
+		budBlocks = ImmutableList.of(bud1, bud2);
 
 		minGenOffset = minOffset;
 		maxGenOffset = maxOffset;
@@ -190,9 +199,9 @@ public class WorldGenAmethystGeode extends WorldGenerator {
 				} else if (u >= innerLayerSqrt) {
 					boolean bl2 = (double) random.nextFloat() < this.buddingAmethystChance;
 					if (bl2) {
-						world.setBlock(blockPos3.getX(), blockPos3.getY(), blockPos3.getZ(), ModBlocks.BUDDING_AMETHYST.get());//AlternateInnerLayerProvider
+						world.setBlock(blockPos3.getX(), blockPos3.getY(), blockPos3.getZ(), innerBuddingBlock);//AlternateInnerLayerProvider
 					} else {
-						world.setBlock(blockPos3.getX(), blockPos3.getY(), blockPos3.getZ(), ModBlocks.AMETHYST_BLOCK.get());//InnerLayerProvider
+						world.setBlock(blockPos3.getX(), blockPos3.getY(), blockPos3.getZ(), innerBlock);//InnerLayerProvider
 					}
 
 					//This boolean is always true and !true == false

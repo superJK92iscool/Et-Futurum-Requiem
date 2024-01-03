@@ -7,8 +7,8 @@ import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.core.handlers.WorldEventHandler;
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import ganymedes01.etfuturum.lib.Reference;
-import ganymedes01.etfuturum.world.generate.feature.WorldGenAmethystGeode;
 import ganymedes01.etfuturum.world.generate.feature.WorldGenFossil;
+import ganymedes01.etfuturum.world.generate.feature.WorldGenGeode;
 import ganymedes01.etfuturum.world.generate.structure.WorldGenNBTStructureTesting;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
@@ -139,7 +139,7 @@ public class DebugTestItem extends BaseItem {
 		},
 		GEODE("Geode", true) {
 
-			final WorldGenAmethystGeode fossil = new WorldGenAmethystGeode(ConfigWorld.amethystOuterBlock, ConfigWorld.amethystMiddleBlock) {
+			final WorldGenGeode fossil = new WorldGenGeode(ConfigWorld.amethystOuterBlock, ConfigWorld.amethystMiddleBlock) {
 				protected boolean isInvalidCorner(World world, int x, int y, int z) {
 					return false;
 				}

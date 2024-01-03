@@ -12,8 +12,8 @@ import ganymedes01.etfuturum.world.generate.WorldGenMinableCustom;
 import ganymedes01.etfuturum.world.generate.decorate.WorldGenBamboo;
 import ganymedes01.etfuturum.world.generate.decorate.WorldGenCherryTrees;
 import ganymedes01.etfuturum.world.generate.decorate.WorldGenPinkPetals;
-import ganymedes01.etfuturum.world.generate.feature.WorldGenAmethystGeode;
 import ganymedes01.etfuturum.world.generate.feature.WorldGenFossil;
+import ganymedes01.etfuturum.world.generate.feature.WorldGenGeode;
 import ganymedes01.etfuturum.world.structure.OceanMonument;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -82,7 +82,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 	public void postInit() {
 		if (ConfigWorld.enableAmethystGeodes && ModBlocks.AMETHYST_BLOCK.isEnabled() && ModBlocks.AMETHYST_CLUSTER_1.isEnabled() && ModBlocks.AMETHYST_CLUSTER_2.isEnabled()
 				&& ModBlocks.BUDDING_AMETHYST.isEnabled() && ConfigWorld.amethystOuterBlock != null && ConfigWorld.amethystMiddleBlock != null) {
-			amethystGen = new WorldGenAmethystGeode(ConfigWorld.amethystOuterBlock, ConfigWorld.amethystMiddleBlock);
+			amethystGen = new WorldGenGeode(ConfigWorld.amethystOuterBlock, ConfigWorld.amethystMiddleBlock);
 		}
 
 		if (ConfigWorld.enableFossils && ConfigWorld.fossilBlock != null) {
