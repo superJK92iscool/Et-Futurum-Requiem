@@ -6,28 +6,34 @@ import ganymedes01.etfuturum.blocks.BaseBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.particle.EffectRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Random;
 
-public abstract class BlockBaseDeepslateOre extends BaseBlock {
-	public BlockBaseDeepslateOre(Material p_i45394_1_) {
+public abstract class BaseDeepslateOre extends BaseBlock {
+	public BaseDeepslateOre(Material p_i45394_1_) {
 		super(p_i45394_1_);
 	}
 
 	@Override
 	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_) {
-		Item item = getBase().getItemDropped(p_149650_1_, p_149650_2_, p_149650_3_);
-		return Block.getBlockFromItem(item) == getBase() ? Item.getItemFromBlock(this) : item;
+		return checkDrop(getBase().getItemDropped(p_149650_1_, p_149650_2_, p_149650_3_));
+	}
+
+	@Override
+	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
+		ArrayList<ItemStack> list = getBase().getDrops(world, x, y, z, metadata, fortune);
+		list.forEach(this::checkDrop);
+		return list;
 	}
 
 	/**
@@ -43,13 +49,9 @@ public abstract class BlockBaseDeepslateOre extends BaseBlock {
 		return getBase().quantityDroppedWithBonus(i, p_149745_1_);
 	}
 
-	public void dropBlockAsItemWithChance(World p_149690_1_, int p_149690_2_, int p_149690_3_, int p_149690_4_, int p_149690_5_, float p_149690_6_, int p_149690_7_) {
-		super.dropBlockAsItemWithChance(p_149690_1_, p_149690_2_, p_149690_3_, p_149690_4_, p_149690_5_, p_149690_6_, p_149690_7_);
-	}
-
 	@Override
-	public int getExpDrop(IBlockAccess p_149690_1_, int p_149690_5_, int p_149690_7_) {
-		return getBase().getExpDrop(p_149690_1_, p_149690_5_, p_149690_7_);
+	public int quantityDropped(int meta, int fortune, Random random) {
+		return getBase().quantityDropped(meta, fortune, random);
 	}
 
 	/**
@@ -60,30 +62,9 @@ public abstract class BlockBaseDeepslateOre extends BaseBlock {
 		return getBase().damageDropped(p_149692_1_);
 	}
 
-	/**
-	 * Updates the blocks bounds based on its current state. Args: world, x, y, z
-	 */
 	@Override
-	public void setBlockBoundsBasedOnState(IBlockAccess p_149719_1_, int p_149719_2_, int p_149719_3_, int p_149719_4_) {
-		getBase().setBlockBoundsBasedOnState(p_149719_1_, p_149719_2_, p_149719_3_, p_149719_4_);
-	}
-
-	/**
-	 * The type of render function that is called for this block
-	 */
-	@Override
-	public int getRenderType() {
-		return getBase().getRenderType();
-	}
-
-	/**
-	 * Adds all intersecting collision boxes to a list. (Be sure to only add boxes to the list if they intersect the
-	 * mask.) Parameters: World, X, Y, Z, mask, list, colliding entity
-	 */
-	@Override
-	@SuppressWarnings({"rawtypes"})
-	public void addCollisionBoxesToList(World p_149743_1_, int p_149743_2_, int p_149743_3_, int p_149743_4_, AxisAlignedBB p_149743_5_, List p_149743_6_, Entity p_149743_7_) {
-		getBase().addCollisionBoxesToList(p_149743_1_, p_149743_2_, p_149743_3_, p_149743_4_, p_149743_5_, p_149743_6_, p_149743_7_);
+	public int getExpDrop(IBlockAccess world, int metadata, int fortune) {
+		return getBase().getExpDrop(world, metadata, fortune);
 	}
 
 	/**
@@ -109,14 +90,6 @@ public abstract class BlockBaseDeepslateOre extends BaseBlock {
 	@Override
 	public void onBlockDestroyedByPlayer(World p_149664_1_, int p_149664_2_, int p_149664_3_, int p_149664_4_, int p_149664_5_) {
 		getBase().onBlockDestroyedByPlayer(p_149664_1_, p_149664_2_, p_149664_3_, p_149664_4_, p_149664_5_);
-	}
-
-	/**
-	 * Returns how much this block can resist explosions from the passed in entity.
-	 */
-	@Override
-	public float getExplosionResistance(Entity p_149638_1_) {
-		return getBase().getExplosionResistance(p_149638_1_);
 	}
 
 	/**
@@ -202,13 +175,9 @@ public abstract class BlockBaseDeepslateOre extends BaseBlock {
 		getBase().onBlockDestroyedByExplosion(p_149723_1_, p_149723_2_, p_149723_3_, p_149723_4_, p_149723_5_);
 	}
 
-	/**
-	 * Ray traces through the blocks collision from start vector to end vector returning a ray trace hit. Args: world,
-	 * x, y, z, startVec, endVec
-	 */
 	@Override
-	public MovingObjectPosition collisionRayTrace(World p_149731_1_, int p_149731_2_, int p_149731_3_, int p_149731_4_, Vec3 p_149731_5_, Vec3 p_149731_6_) {
-		return getBase().collisionRayTrace(p_149731_1_, p_149731_2_, p_149731_3_, p_149731_4_, p_149731_5_, p_149731_6_);
+	public boolean addDestroyEffects(World world, int x, int y, int z, int meta, EffectRenderer effectRenderer) {
+		return getBase().addDestroyEffects(world, x, y, z, meta, effectRenderer);
 	}
 
 	@Override
@@ -218,10 +187,28 @@ public abstract class BlockBaseDeepslateOre extends BaseBlock {
 
 	@Override
 	public float getExplosionResistance(Entity par1Entity, World world, int x, int y, int z, double explosionX, double explosionY, double explosionZ) {
-		return getBase().getExplosionResistance(par1Entity, world, x, y, z, explosionX, explosionY, explosionZ) * 1.5F;
+		return getBase().getExplosionResistance(par1Entity, world, x, y, z, explosionX, explosionY, explosionZ);
+	}
+
+	/**
+	 * Used to replace the base ore with the deepslate version in drop lists.
+	 * If it drops the base ore block, replace it with the base deepslate block (eg iron ore drop is swapped for deepslate iron ore drop)
+	 */
+	protected ItemStack checkDrop(ItemStack drop) {
+		drop.func_150996_a(checkDrop(drop.getItem()));
+		return drop;
+	}
+
+	protected Item checkDrop(Item drop) {
+		Block droppedBlock = Block.getBlockFromItem(drop);
+		if (droppedBlock == getBase()) {
+			Item thisAsItem = Item.getItemFromBlock(this);
+			if (thisAsItem != null) {
+				return thisAsItem;
+			}
+		}
+		return drop;
 	}
 
 	protected abstract Block getBase();
-
-	protected abstract int getBaseMeta();
 }

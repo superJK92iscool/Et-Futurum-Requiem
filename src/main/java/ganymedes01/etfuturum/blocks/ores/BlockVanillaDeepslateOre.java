@@ -1,13 +1,12 @@
 package ganymedes01.etfuturum.blocks.ores;
 
-import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.api.DeepslateOreRegistry;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
-import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
+import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 
-public class BlockVanillaDeepslateOre extends BlockBaseDeepslateOre {
+public class BlockVanillaDeepslateOre extends BaseDeepslateOre {
 
 	public Block base;
 
@@ -15,6 +14,7 @@ public class BlockVanillaDeepslateOre extends BlockBaseDeepslateOre {
 		super(block.getMaterial());
 		copyAttribs(block);
 		base = block;
+		//We don't do this stuff in the constructor normally since modded blocks might not be loaded right now, but vanilla blocks are here so it's fine.
 		if (getClass().getName().startsWith("ganymedes01.etfuturum")) { //We only want to do this on my own stuff, not mods that extend it.
 			//We use the texture name because texture naming conventions look just like namespaced IDs.
 			//Block.blockRegistry.getNameFor does not work in preInit
@@ -38,13 +38,13 @@ public class BlockVanillaDeepslateOre extends BlockBaseDeepslateOre {
 	 */
 	@Deprecated
 	public static void setAttribs(Block to, Block from) {
-		EtFuturum.copyAttribs(to, from);
+		Utils.copyAttribs(to, from);
 		to.setHardness(from.blockHardness * 1.5F);
-		to.setStepSound(ConfigSounds.newBlockSounds ? ModSounds.soundDeepslate : soundTypeStone);
+		Utils.setBlockSound(to, ModSounds.soundDeepslate);
 	}
 
 	protected void copyAttribs(Block from) {
-		EtFuturum.copyAttribs(this, from);
+		Utils.copyAttribs(this, from);
 		setHardness(from.blockHardness * 1.5F);
 		setBlockSound(ModSounds.soundDeepslate);
 	}
@@ -56,10 +56,5 @@ public class BlockVanillaDeepslateOre extends BlockBaseDeepslateOre {
 	@Override
 	protected Block getBase() {
 		return base;
-	}
-
-	@Override
-	protected int getBaseMeta() {
-		return 0;
 	}
 }

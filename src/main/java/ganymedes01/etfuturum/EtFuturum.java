@@ -682,18 +682,6 @@ public class EtFuturum {
 		}
 	}
 
-	public static void copyAttribs(Block to, Block from) {
-		to.setHardness(from.blockHardness);
-		to.setResistance(from.blockResistance);
-		to.setStepSound(from.stepSound);
-		to.setLightLevel(from.getLightValue() / 15F);
-		to.setLightOpacity(from.getLightOpacity());
-		//We do this because Forge methods cannot be Access Transformed
-		for (int i = 0; i < 16; i++) {
-			to.setHarvestLevel(from.getHarvestTool(i), from.getHarvestLevel(i), i);
-		}
-	}
-
 	/**
 	 * Utility for running string.contains() on a list of strings.
 	 */
