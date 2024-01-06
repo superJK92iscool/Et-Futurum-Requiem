@@ -71,11 +71,7 @@ public class BlockBlastFurnace extends BlockFurnace {
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister p_149651_1_) {
 		this.blockIcon = p_149651_1_.registerIcon("blast_furnace_side");
-		if (isCooking) {
-			this.blockIcon = p_149651_1_.registerIcon("blast_furnace_front_on");
-		} else {
-			this.blockFront = p_149651_1_.registerIcon("blast_furnace_front");
-		}
+		this.blockFront = p_149651_1_.registerIcon(isCooking ? "blast_furnace_front_on" : "blast_furnace_front");
 		this.blockTop = p_149651_1_.registerIcon("blast_furnace_top");
 	}
 
