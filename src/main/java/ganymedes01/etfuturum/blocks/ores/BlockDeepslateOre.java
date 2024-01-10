@@ -6,12 +6,17 @@ import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 
-public class BlockVanillaDeepslateOre extends BaseDeepslateOre {
+/**
+ * Should only be used for vanilla ores, or ores registered by this mod.
+ * This is because it references the block passed in, in the constructor a lot.
+ * So referencing other modded blocks would cause crashes, use BaseDeepslateOre for registering deepslate ores for other mods.
+ */
+public class BlockDeepslateOre extends BaseDeepslateOre {
 
 	public Block base;
 
-	public BlockVanillaDeepslateOre(Block block, boolean defaultMapping) {
-		super(block.getMaterial());
+	public BlockDeepslateOre(Block block, boolean defaultMapping) {
+		super();
 		copyAttribs(block);
 		base = block;
 		//We don't do this stuff in the constructor normally since modded blocks might not be loaded right now, but vanilla blocks are here so it's fine.
@@ -23,9 +28,10 @@ public class BlockVanillaDeepslateOre extends BaseDeepslateOre {
 		if (defaultMapping && ConfigBlocksItems.enableDeepslate && ConfigBlocksItems.enableDeepslateOres) {
 			addDeepslateMappings();
 		}
+		setBlockSound(ModSounds.soundDeepslate);
 	}
 
-	public BlockVanillaDeepslateOre(Block block) {
+	public BlockDeepslateOre(Block block) {
 		this(block, true);
 	}
 
@@ -46,7 +52,6 @@ public class BlockVanillaDeepslateOre extends BaseDeepslateOre {
 	protected void copyAttribs(Block from) {
 		Utils.copyAttribs(this, from);
 		setHardness(from.blockHardness * 1.5F);
-		setBlockSound(ModSounds.soundDeepslate);
 	}
 
 	protected void addDeepslateMappings() {
@@ -56,5 +61,10 @@ public class BlockVanillaDeepslateOre extends BaseDeepslateOre {
 	@Override
 	protected Block getBase() {
 		return base;
+	}
+
+	@Override
+	public String getTextureDomain() {
+		return "";
 	}
 }

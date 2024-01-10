@@ -1,21 +1,24 @@
-package ganymedes01.etfuturum.blocks.ores;
+package ganymedes01.etfuturum.blocks.ores.modded;
 
 import ganymedes01.etfuturum.blocks.IEmissiveLayerBlock;
-import ganymedes01.etfuturum.client.sound.ModSounds;
+import ganymedes01.etfuturum.blocks.ores.BaseSubtypesDeepslateOre;
 import ganymedes01.etfuturum.compat.ExternalContent;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 
 public class BlockDeepslateCertusQuartzOre extends BaseSubtypesDeepslateOre implements IEmissiveLayerBlock {
 
 	public BlockDeepslateCertusQuartzOre() {
-		super(Material.rock, "deepslate_certus_quartz_ore", "deepslate_charged_certus_quartz_ore");
-		setBlockSound(ModSounds.soundDeepslate);
-		this.setResistance(5.0F);
+		super("deepslate_certus_quartz_ore", "deepslate_charged_certus_quartz_ore");
+		setResistance(5.0F);
 		setHardness(4.5F);
+	}
+
+	@Override
+	public String getTextureSubfolder() {
+		return "ae2";
 	}
 
 	@Override

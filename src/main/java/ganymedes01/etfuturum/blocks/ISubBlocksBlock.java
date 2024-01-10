@@ -18,6 +18,10 @@ public interface ISubBlocksBlock {
 		return "";
 	}
 
+	default String getTextureSubfolder() {
+		return "";
+	}
+
 	default String getNameDomain() {
 		return Reference.MOD_ID;
 	}

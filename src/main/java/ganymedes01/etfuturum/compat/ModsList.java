@@ -11,6 +11,7 @@ public enum ModsList {
 	WAILA("Waila"),
 	THAUMCRAFT("Thaumcraft"),
 	BLUEPOWER("bluepower"),
+	PROJECT_RED_EXPLORATION("ProjRed|Exploration"),
 	NETHERITEPLUS("netheriteplus"),
 	BOTANIA("Botania"),
 	HARDCORE_ENDER_EXPANSION("HardcoreEnderExpansion"),
@@ -31,7 +32,9 @@ public enum ModsList {
 	BIOMES_O_PLENTY("BiomesOPlenty"),
 	EXTRA_UTILITIES("ExtraUtilities"),
 	APPLIED_ENERGISTICS_2("appliedenergistics2"),
+	ARS_MAGICA_2("arsmagica2"),
 	MULTIPART("McMultipart"),
+	DRACONIC_EVOLUTION("DraconicEvolution"),
 	;
 
 	private final String modID;

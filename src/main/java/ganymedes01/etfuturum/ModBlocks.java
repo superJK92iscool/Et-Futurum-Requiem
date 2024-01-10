@@ -3,7 +3,11 @@ package ganymedes01.etfuturum;
 import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.etfuturum.blocks.*;
 import ganymedes01.etfuturum.blocks.itemblocks.*;
-import ganymedes01.etfuturum.blocks.ores.*;
+import ganymedes01.etfuturum.blocks.ores.BlockCopperOre;
+import ganymedes01.etfuturum.blocks.ores.BlockDeepslateOre;
+import ganymedes01.etfuturum.blocks.ores.BlockDeepslateRedstoneOre;
+import ganymedes01.etfuturum.blocks.ores.BlockOreNetherGold;
+import ganymedes01.etfuturum.blocks.ores.modded.*;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.configuration.configs.*;
@@ -66,7 +70,7 @@ public enum ModBlocks {
 			BaseItemBlock.class),
 	CONCRETE_POWDER(ConfigBlocksItems.enableConcrete, new BlockConcretePowder()),
 	COPPER_ORE(ConfigBlocksItems.enableCopper, new BlockCopperOre()),
-	DEEPSLATE_COPPER_ORE((ConfigBlocksItems.enableCopper || ConfigModCompat.moddedDeepslateOres) && ConfigBlocksItems.enableDeepslate && ConfigBlocksItems.enableDeepslateOres, new BlockVanillaDeepslateOre(COPPER_ORE.get())),
+	DEEPSLATE_COPPER_ORE((ConfigBlocksItems.enableCopper || ConfigModCompat.moddedDeepslateOres) && ConfigBlocksItems.enableDeepslate && ConfigBlocksItems.enableDeepslateOres, new BlockDeepslateOre(COPPER_ORE.get())),
 	CORNFLOWER(ConfigBlocksItems.enableCornflower, new BaseFlower().setNames("cornflower")),
 	LILY_OF_THE_VALLEY(ConfigBlocksItems.enableLilyOfTheValley, new BaseFlower().setNames("lily_of_the_valley")),
 	WITHER_ROSE(ConfigBlocksItems.enableWitherRose, new BlockWitherRose()),
@@ -132,14 +136,14 @@ public enum ModBlocks {
 	DEEPSLATE_WALL(ConfigBlocksItems.enableDeepslate, new BaseWall("deepslate_wall", new Block[]{COBBLED_DEEPSLATE.get(), POLISHED_DEEPSLATE.get()}, new int[]{0, 0}, new String[]{"cobbled_deepslate_wall", "polished_deepslate_wall"})),
 	DEEPSLATE_BRICK_WALL(ConfigBlocksItems.enableDeepslate, new BaseWall("deepslate_brick_wall", new Block[]{DEEPSLATE_BRICKS.get(), DEEPSLATE_BRICKS.get()}, new int[]{0, 2}, new String[]{"deepslate_brick_wall", "deepslate_tile_wall"})),
 	MUD_BRICK_WALL(ConfigBlocksItems.enableMud, new BaseWall("mud_brick_wall", new Block[]{PACKED_MUD.get()}, new int[]{1}, new String[]{"mud_brick_wall"})),
-	DEEPSLATE_COAL_ORE(ConfigBlocksItems.enableDeepslate && ConfigBlocksItems.enableDeepslateOres, new BlockVanillaDeepslateOre(Blocks.coal_ore)),
-	DEEPSLATE_IRON_ORE(ConfigBlocksItems.enableDeepslate && ConfigBlocksItems.enableDeepslateOres, new BlockVanillaDeepslateOre(Blocks.iron_ore)),
-	DEEPSLATE_GOLD_ORE(ConfigBlocksItems.enableDeepslate && ConfigBlocksItems.enableDeepslateOres, new BlockVanillaDeepslateOre(Blocks.gold_ore)),
+	DEEPSLATE_COAL_ORE(ConfigBlocksItems.enableDeepslate && ConfigBlocksItems.enableDeepslateOres, new BlockDeepslateOre(Blocks.coal_ore)),
+	DEEPSLATE_IRON_ORE(ConfigBlocksItems.enableDeepslate && ConfigBlocksItems.enableDeepslateOres, new BlockDeepslateOre(Blocks.iron_ore)),
+	DEEPSLATE_GOLD_ORE(ConfigBlocksItems.enableDeepslate && ConfigBlocksItems.enableDeepslateOres, new BlockDeepslateOre(Blocks.gold_ore)),
 	DEEPSLATE_REDSTONE_ORE(ConfigBlocksItems.enableDeepslate && ConfigBlocksItems.enableDeepslateOres, new BlockDeepslateRedstoneOre(false)),
 	DEEPSLATE_LIT_REDSTONE_ORE(ConfigBlocksItems.enableDeepslate && ConfigBlocksItems.enableDeepslateOres, new BlockDeepslateRedstoneOre(true), null),
-	DEEPSLATE_LAPIS_ORE(ConfigBlocksItems.enableDeepslate && ConfigBlocksItems.enableDeepslateOres, new BlockVanillaDeepslateOre(Blocks.lapis_ore)),
-	DEEPSLATE_DIAMOND_ORE(ConfigBlocksItems.enableDeepslate && ConfigBlocksItems.enableDeepslateOres, new BlockVanillaDeepslateOre(Blocks.diamond_ore)),
-	DEEPSLATE_EMERALD_ORE(ConfigBlocksItems.enableDeepslate && ConfigBlocksItems.enableDeepslateOres, new BlockVanillaDeepslateOre(Blocks.emerald_ore)),
+	DEEPSLATE_LAPIS_ORE(ConfigBlocksItems.enableDeepslate && ConfigBlocksItems.enableDeepslateOres, new BlockDeepslateOre(Blocks.lapis_ore)),
+	DEEPSLATE_DIAMOND_ORE(ConfigBlocksItems.enableDeepslate && ConfigBlocksItems.enableDeepslateOres, new BlockDeepslateOre(Blocks.diamond_ore)),
+	DEEPSLATE_EMERALD_ORE(ConfigBlocksItems.enableDeepslate && ConfigBlocksItems.enableDeepslateOres, new BlockDeepslateOre(Blocks.emerald_ore)),
 	BREWING_STAND(ConfigBlocksItems.enableBrewingStands, new BlockNewBrewingStand()),
 	BEACON(ConfigBlocksItems.enableColourfulBeacons, new BlockNewBeacon()),
 	ENCHANTMENT_TABLE(ConfigBlocksItems.enableEnchantingTable, new BlockNewEnchantmentTable()),
@@ -457,10 +461,25 @@ public enum ModBlocks {
 
 	//Mod support
 	MODDED_RAW_ORE_BLOCK(ConfigBlocksItems.enableRawOres && ConfigModCompat.moddedRawOres, new BlockModdedRawOre()),
-	MODDED_DEEPSLATE_ORE(ConfigModCompat.moddedDeepslateOres && ConfigBlocksItems.enableDeepslate && ConfigBlocksItems.enableDeepslateOres, new BlockModdedDeepslateOre()),
-	DEEPSLATE_CERTUS_QUARTZ_ORE(ModsList.APPLIED_ENERGISTICS_2.isLoaded() && ConfigModCompat.moddedDeepslateOres && ConfigBlocksItems.enableDeepslate && ConfigBlocksItems.enableDeepslateOres, new BlockDeepslateCertusQuartzOre()),
-	DEEPSLATE_THAUMCRAFT_ORE(ModsList.THAUMCRAFT.isLoaded() && ConfigModCompat.moddedDeepslateOres && ConfigBlocksItems.enableDeepslate && ConfigBlocksItems.enableDeepslateOres, new BlockDeepslateThaumcraftOre()),
+	MODDED_DEEPSLATE_ORE(enableModdedDeepslateOres(), new BlockModdedDeepslateOre()),
+
+	DEEPSLATE_CERTUS_QUARTZ_ORE(enableModdedDeepslateOres(ModsList.APPLIED_ENERGISTICS_2.isLoaded()), new BlockDeepslateCertusQuartzOre()),
+	DEEPSLATE_DRACONIUM_ORE(enableModdedDeepslateOres(ModsList.DRACONIC_EVOLUTION.isLoaded()), new BlockDeepslateDraconiumOre()),
+
+	DEEPSLATE_AM2_ORE(enableModdedDeepslateOres(ModsList.ARS_MAGICA_2.isLoaded()), new BlockDeepslateArsMagicaOre()),
+	DEEPSLATE_THAUMCRAFT_ORE(enableModdedDeepslateOres(ModsList.THAUMCRAFT.isLoaded()), new BlockDeepslateThaumcraftOre()),
+	DEEPSLATE_BOP_ORE(enableModdedDeepslateOres(ModsList.BIOMES_O_PLENTY.isLoaded()), new BlockDeepslateBiomesOPlentyOre()),
+	DEEPSLATE_PROJRED_ORE(enableModdedDeepslateOres(ModsList.PROJECT_RED_EXPLORATION.isLoaded()), new BlockDeepslateProjectRedOre()),
+	DEEPSLATE_BLUEPOWER_ORE(enableModdedDeepslateOres(ModsList.BLUEPOWER.isLoaded()), new BlockDeepslateBluePowerOre()),
 	;
+
+	private static boolean enableModdedDeepslateOres() {
+		return enableModdedDeepslateOres(true);
+	}
+
+	private static boolean enableModdedDeepslateOres(boolean isModLoaded) { //Won't store as static variable to prevent accidental early initialization
+		return ConfigModCompat.moddedDeepslateOres && ConfigBlocksItems.enableDeepslate && ConfigBlocksItems.enableDeepslateOres && isModLoaded;
+	}
 
 	public static final ModBlocks[] DOORS = new ModBlocks[]{DOOR_SPRUCE, DOOR_BIRCH, DOOR_JUNGLE, DOOR_ACACIA, DOOR_DARK_OAK, CRIMSON_DOOR, WARPED_DOOR, MANGROVE_DOOR, CHERRY_DOOR, BAMBOO_DOOR};
 	public static final ModBlocks[] FENCE_GATES = new ModBlocks[]{FENCE_GATE_SPRUCE, FENCE_GATE_BIRCH, FENCE_GATE_JUNGLE, FENCE_GATE_ACACIA, FENCE_GATE_DARK_OAK, CRIMSON_FENCE_GATE, WARPED_FENCE_GATE, MANGROVE_FENCE_GATE, CHERRY_FENCE_GATE, BAMBOO_FENCE_GATE};

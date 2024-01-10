@@ -26,7 +26,6 @@ import static net.minecraft.block.BlockPistonExtension.getDirectionMeta;
  */
 @Mixin(BlockPistonBase.class)
 public class MixinBlockPistonBase extends Block {
-
 	@Shadow
 	@Final
 	private boolean isSticky;

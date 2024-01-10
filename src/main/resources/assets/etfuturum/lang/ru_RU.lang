@@ -372,32 +372,6 @@ item.etfuturum.tipped_arrow.potion.regeneration.name=Стрела регенер
 item.etfuturum.tipped_arrow.potion.damageBoost.name=Стрела силы
 item.etfuturum.tipped_arrow.potion.weakness.name=Стрела слабости
 
-# Поддержка модовых предметов (Mod support items)
-item.shulker_vanilla_iron_upgrade.name=Улучшение шалкерового ящика до железного шалкерового ящика
-item.shulker_vanilla_copper_upgrade.name=Улучшение шалкерового ящика до медного шалкерового ящика
-item.shulker_iron_gold_upgrade.name=Улучшение железного шалкерового ящика до золотого шалкерового ящика
-item.shulker_gold_diamond_upgrade.name=Улучшение золотого шалкерового ящика до алмазного шалкерового ящика
-item.shulker_diamond_obsidian_upgrade.name=Улучшение алмазного шалкерового ящика до обсидианового шалкерового ящика
-item.shulker_diamond_crystal_upgrade.name=Улучшение алмазного шалкерового ящика до кристального шалкерового ящика
-item.shulker_copper_iron_upgrade.name=Улучшение медного шалкерового ящика до железного шалкерового ящика
-item.shulker_copper_silver_upgrade.name=Улучшение медного шалкерового ящика до серебряного шалкерового ящика
-item.shulker_silver_gold_upgrade.name=Улучшение серебряного шалкерового ящика до золотого шалкерового ящика
-
-item.etfuturum.raw_aluminum.name=Необработанный алюминий
-item.etfuturum.raw_tin.name=Необработанное олово
-item.etfuturum.raw_silver.name=Необработанное серебро
-item.etfuturum.raw_lead.name=Необработанный свинец
-item.etfuturum.raw_nickel.name=Необработанный никель
-item.etfuturum.raw_platinum.name=Необработанная платина
-item.etfuturum.raw_mythril.name=Необработанный мифрил
-item.etfuturum.raw_uranium.name=Необработанный уран
-item.etfuturum.raw_thorium.name=Необработанный торий
-item.etfuturum.raw_tungsten.name=Необработанный вольфрам
-item.etfuturum.raw_titanium.name=Необработанный титан
-item.etfuturum.raw_zinc.name=Необработанный цинк
-item.etfuturum.raw_magnesium.name=Необработанный магний
-item.etfuturum.raw_boron.name=Необработанный бор
-
 # Блоки (Blocks)
 tile.etfuturum.granite.name=Гранит
 tile.etfuturum.polished_granite.name=Полированный гранит
@@ -869,176 +843,6 @@ tile.etfuturum.red_shulker_box.name=Красный шалкеровый ящик
 tile.etfuturum.black_shulker_box.name=Чёрный шалкеровый ящик
 
 util.totemBreak=§a§oВаш тотем бессмертия раскололся...
-
-# Поддержка модовых блоков (Mod support blocks)
-
-tile.etfuturum.iron_shulker_box.name=Железный шалкеровый ящик
-tile.etfuturum.white_iron_shulker_box.name=Белый железный шалкеровый ящик
-tile.etfuturum.orange_iron_shulker_box.name=Оранжевый железный шалкеровый ящик
-tile.etfuturum.magenta_iron_shulker_box.name=Пурпурный железный шалкеровый ящик
-tile.etfuturum.light_blue_iron_shulker_box.name=Светло-синий железный шалкеровый ящик
-tile.etfuturum.yellow_iron_shulker_box.name=Жёлтый железный шалкеровый ящик
-tile.etfuturum.lime_iron_shulker_box.name=Лаймовый железный шалкеровый ящик
-tile.etfuturum.pink_iron_shulker_box.name=Розовый железный шалкеровый ящик
-tile.etfuturum.gray_iron_shulker_box.name=Серый железный шалкеровый ящик
-tile.etfuturum.light_gray_iron_shulker_box.name=Светло-серый железный шалкеровый ящик
-tile.etfuturum.cyan_iron_shulker_box.name=Бирюзовый железный шалкеровый ящик
-tile.etfuturum.purple_iron_shulker_box.name=Фиолетовый железный шалкеровый ящик
-tile.etfuturum.blue_iron_shulker_box.name=Синий железный шалкеровый ящик
-tile.etfuturum.brown_iron_shulker_box.name=Коричневый железный шалкеровый ящик
-tile.etfuturum.green_iron_shulker_box.name=Зелёный железный шалкеровый ящик
-tile.etfuturum.red_iron_shulker_box.name=Красный железный шалкеровый ящик
-tile.etfuturum.black_iron_shulker_box.name=Чёрный железный шалкеровый ящик
-
-tile.etfuturum.gold_shulker_box.name=Золотой шалкеровый ящик
-tile.etfuturum.white_gold_shulker_box.name=Белый золотой шалкеровый ящик
-tile.etfuturum.orange_gold_shulker_box.name=Оранжевый золотой шалкеровый ящик
-tile.etfuturum.magenta_gold_shulker_box.name=Пурпурный золотой шалкеровый ящик
-tile.etfuturum.light_blue_gold_shulker_box.name=Светло-синий золотой шалкеровый ящик
-tile.etfuturum.yellow_gold_shulker_box.name=Жёлтый золотой шалкеровый ящик
-tile.etfuturum.lime_gold_shulker_box.name=Лаймовый золотой шалкеровый ящик
-tile.etfuturum.pink_gold_shulker_box.name=Розовый золотой шалкеровый ящик
-tile.etfuturum.gray_gold_shulker_box.name=Серый золотой шалкеровый ящик
-tile.etfuturum.light_gray_gold_shulker_box.name=Светло-серый золотой шалкеровый ящик
-tile.etfuturum.cyan_gold_shulker_box.name=Бирюзовый золотой шалкеровый ящик
-tile.etfuturum.purple_gold_shulker_box.name=Фиолетовый золотой шалкеровый ящик
-tile.etfuturum.blue_gold_shulker_box.name=Синий золотой шалкеровый ящик
-tile.etfuturum.brown_gold_shulker_box.name=Коричневый золотой шалкеровый ящик
-tile.etfuturum.green_gold_shulker_box.name=Зелёный золотой шалкеровый ящик
-tile.etfuturum.red_gold_shulker_box.name=Красный золотой шалкеровый ящик
-tile.etfuturum.black_gold_shulker_box.name=Чёрный золотой шалкеровый ящик
-
-tile.etfuturum.diamond_shulker_box.name=Алмазный шалкеровый ящик
-tile.etfuturum.white_diamond_shulker_box.name=Белый алмазный шалкеровый ящик
-tile.etfuturum.orange_diamond_shulker_box.name=Оранжевый алмазный шалкеровый ящик
-tile.etfuturum.magenta_diamond_shulker_box.name=Пурпурный алмазный шалкеровый ящик
-tile.etfuturum.light_blue_diamond_shulker_box.name=Светло-синий алмазный шалкеровый ящик
-tile.etfuturum.yellow_diamond_shulker_box.name=Жёлтый алмазный шалкеровый ящик
-tile.etfuturum.lime_diamond_shulker_box.name=Лаймовый алмазный шалкеровый ящик
-tile.etfuturum.pink_diamond_shulker_box.name=Розовый алмазный шалкеровый ящик
-tile.etfuturum.gray_diamond_shulker_box.name=Серый алмазный шалкеровый ящик
-tile.etfuturum.light_gray_diamond_shulker_box.name=Светло-серый алмазный шалкеровый ящик
-tile.etfuturum.cyan_diamond_shulker_box.name=Бирюзовый алмазный шалкеровый ящик
-tile.etfuturum.purple_diamond_shulker_box.name=Фиолетовый алмазный шалкеровый ящик
-tile.etfuturum.blue_diamond_shulker_box.name=Синий алмазный шалкеровый ящик
-tile.etfuturum.brown_diamond_shulker_box.name=Коричневый алмазный шалкеровый ящик
-tile.etfuturum.green_diamond_shulker_box.name=Зелёный алмазный шалкеровый ящик
-tile.etfuturum.red_diamond_shulker_box.name=Красный алмазный шалкеровый ящик
-tile.etfuturum.black_diamond_shulker_box.name=Чёрный алмазный шалкеровый ящик
-
-tile.etfuturum.copper_shulker_box.name=Медный шалкеровый ящик
-tile.etfuturum.white_copper_shulker_box.name=Белый медный шалкеровый ящик
-tile.etfuturum.orange_copper_shulker_box.name=Оранжевый медный шалкеровый ящик
-tile.etfuturum.magenta_copper_shulker_box.name=Пурпурный медный шалкеровый ящик
-tile.etfuturum.light_blue_copper_shulker_box.name=Светло-синий медный шалкеровый ящик
-tile.etfuturum.yellow_copper_shulker_box.name=Жёлтый медный шалкеровый ящик
-tile.etfuturum.lime_copper_shulker_box.name=Лаймовый медный шалкеровый ящик
-tile.etfuturum.pink_copper_shulker_box.name=Розовый медный шалкеровый ящик
-tile.etfuturum.gray_copper_shulker_box.name=Серый медный шалкеровый ящик
-tile.etfuturum.light_gray_copper_shulker_box.name=Светло-серый медный шалкеровый ящик
-tile.etfuturum.cyan_copper_shulker_box.name=Бирюзовый медный шалкеровый ящик
-tile.etfuturum.purple_copper_shulker_box.name=Фиолетовый медный шалкеровый ящик
-tile.etfuturum.blue_copper_shulker_box.name=Синий медный шалкеровый ящик
-tile.etfuturum.brown_copper_shulker_box.name=Коричневый медный шалкеровый ящик
-tile.etfuturum.green_copper_shulker_box.name=Зелёный медный шалкеровый ящик
-tile.etfuturum.red_copper_shulker_box.name=Красный медный шалкеровый ящик
-tile.etfuturum.black_copper_shulker_box.name=Чёрный медный шалкеровый ящик
-
-tile.etfuturum.silver_shulker_box.name=Серебряный шалкеровый ящик
-tile.etfuturum.white_silver_shulker_box.name=Белый серебряный шалкеровый ящик
-tile.etfuturum.orange_silver_shulker_box.name=Оранжевый серебряный шалкеровый ящик
-tile.etfuturum.magenta_silver_shulker_box.name=Пурпурный серебряный шалкеровый ящик
-tile.etfuturum.light_blue_silver_shulker_box.name=Светло-синий серебряный шалкеровый ящик
-tile.etfuturum.yellow_silver_shulker_box.name=Жёлтый серебряный шалкеровый ящик
-tile.etfuturum.lime_silver_shulker_box.name=Лаймовый серебряный шалкеровый ящик
-tile.etfuturum.pink_silver_shulker_box.name=Розовый серебряный шалкеровый ящик
-tile.etfuturum.gray_silver_shulker_box.name=Серый серебряный шалкеровый ящик
-tile.etfuturum.light_gray_silver_shulker_box.name=Светло-серый серебряный шалкеровый ящик
-tile.etfuturum.cyan_silver_shulker_box.name=Бирюзовый серебряный шалкеровый ящик
-tile.etfuturum.purple_silver_shulker_box.name=Фиолетовый серебряный шалкеровый ящик
-tile.etfuturum.blue_silver_shulker_box.name=Синий серебряный шалкеровый ящик
-tile.etfuturum.brown_silver_shulker_box.name=Коричневый серебряный шалкеровый ящик
-tile.etfuturum.green_silver_shulker_box.name=Зелёный серебряный шалкеровый ящик
-tile.etfuturum.red_silver_shulker_box.name=Красный серебряный шалкеровый ящик
-tile.etfuturum.black_silver_shulker_box.name=Чёрный серебряный шалкеровый ящик
-
-tile.etfuturum.crystal_shulker_box.name=Кристальный шалкеровый ящик
-tile.etfuturum.white_crystal_shulker_box.name=Белый кристальный шалкеровый ящик
-tile.etfuturum.orange_crystal_shulker_box.name=Оранжевый кристальный шалкеровый ящик
-tile.etfuturum.magenta_crystal_shulker_box.name=Пурпурный кристальный шалкеровый ящик
-tile.etfuturum.light_blue_crystal_shulker_box.name=Светло-синий кристальный шалкеровый ящик
-tile.etfuturum.yellow_crystal_shulker_box.name=Жёлтый кристальный шалкеровый ящик
-tile.etfuturum.lime_crystal_shulker_box.name=Лаймовый кристальный шалкеровый ящик
-tile.etfuturum.pink_crystal_shulker_box.name=Розовый кристальный шалкеровый ящик
-tile.etfuturum.gray_crystal_shulker_box.name=Серый кристальный шалкеровый ящик
-tile.etfuturum.light_gray_crystal_shulker_box.name=Светло-серый кристальный шалкеровый ящик
-tile.etfuturum.cyan_crystal_shulker_box.name=Бирюзовый кристальный шалкеровый ящик
-tile.etfuturum.purple_crystal_shulker_box.name=Фиолетовый кристальный шалкеровый ящик
-tile.etfuturum.blue_crystal_shulker_box.name=Синий кристальный шалкеровый ящик
-tile.etfuturum.brown_crystal_shulker_box.name=Коричневый кристальный шалкеровый ящик
-tile.etfuturum.green_crystal_shulker_box.name=Зелёный кристальный шалкеровый ящик
-tile.etfuturum.red_crystal_shulker_box.name=Красный кристальный шалкеровый ящик
-tile.etfuturum.black_crystal_shulker_box.name=Чёрный кристальный шалкеровый ящик
-
-tile.etfuturum.obsidian_shulker_box.name=Обсидиановый шалкеровый ящик
-tile.etfuturum.white_obsidian_shulker_box.name=Белый обсидиановый шалкеровый ящик
-tile.etfuturum.orange_obsidian_shulker_box.name=Оранжевый обсидиановый шалкеровый ящик
-tile.etfuturum.magenta_obsidian_shulker_box.name=Пурпурный обсидиановый шалкеровый ящик
-tile.etfuturum.light_blue_obsidian_shulker_box.name=Светло-синий обсидиановый шалкеровый ящик
-tile.etfuturum.yellow_obsidian_shulker_box.name=Жёлтый обсидиановый шалкеровый ящик
-tile.etfuturum.lime_obsidian_shulker_box.name=Лаймовый обсидиановый шалкеровый ящик
-tile.etfuturum.pink_obsidian_shulker_box.name=Розовый обсидиановый шалкеровый ящик
-tile.etfuturum.gray_obsidian_shulker_box.name=Серый обсидиановый шалкеровый ящик
-tile.etfuturum.light_gray_obsidian_shulker_box.name=Светло-серый обсидиановый шалкеровый ящик
-tile.etfuturum.cyan_obsidian_shulker_box.name=Бирюзовый обсидиановый шалкеровый ящик
-tile.etfuturum.purple_obsidian_shulker_box.name=Фиолетовый обсидиановый шалкеровый ящик
-tile.etfuturum.blue_obsidian_shulker_box.name=Синий обсидиановый шалкеровый ящик
-tile.etfuturum.brown_obsidian_shulker_box.name=Коричневый обсидиановый шалкеровый ящик
-tile.etfuturum.green_obsidian_shulker_box.name=Зелёный обсидиановый шалкеровый ящик
-tile.etfuturum.red_obsidian_shulker_box.name=Красный обсидиановый шалкеровый ящик
-tile.etfuturum.black_obsidian_shulker_box.name=Чёрный обсидиановый шалкеровый ящик
-
-tile.etfuturum.raw_aluminum_block.name=Блок необработанного алюминия
-tile.etfuturum.raw_tin_block.name=Блок необработанного олова
-tile.etfuturum.raw_silver_block.name=Блок необработанного серебра
-tile.etfuturum.raw_lead_block.name=Блок необработанного свинца
-tile.etfuturum.raw_nickel_block.name=Блок необработанного никеля
-tile.etfuturum.raw_platinum_block.name=Блок необработанной платины
-tile.etfuturum.raw_mythril_block.name=Блок необработанного мифрила
-tile.etfuturum.raw_uranium_block.name=Блок необработанного урана
-tile.etfuturum.raw_thorium_block.name=Блок необработанного тория
-tile.etfuturum.raw_tungsten_block.name=Блок необработанного вольфрама
-tile.etfuturum.raw_titanium_block.name=Блок необработанного титана
-tile.etfuturum.raw_zinc_block.name=Блок необработанного цинка
-tile.etfuturum.raw_magnesium_block.name=Блок необработанного магния
-tile.etfuturum.raw_boron_block.name=Блок необработанного бора
-
-tile.etfuturum.deepslate_aluminum_ore.name=Глубинная алюминиевая руда
-tile.etfuturum.deepslate_tin_ore.name=Глубинная оловянная руда
-tile.etfuturum.deepslate_silver_ore.name=Глубинная серебряная руда
-tile.etfuturum.deepslate_lead_ore.name=Глубинная свинцовая руда
-tile.etfuturum.deepslate_nickel_ore.name=Глубинная никелевая руда
-tile.etfuturum.deepslate_platinum_ore.name=Глубинная платиновая руда
-tile.etfuturum.deepslate_mythril_ore.name=Глубинная мифриловая руда
-tile.etfuturum.deepslate_uranium_ore.name=Глубинная урановая руда
-tile.etfuturum.deepslate_thorium_ore.name=Глубинная ториевая руда
-tile.etfuturum.deepslate_tungsten_ore.name=Глубинная вольфрамовая руда
-tile.etfuturum.deepslate_titanium_ore.name=Глубинная титановая руда
-tile.etfuturum.deepslate_zinc_ore.name=Глубинная цинковая руда
-tile.etfuturum.deepslate_magnesium_ore.name=Глубинная магниевая руда
-tile.etfuturum.deepslate_boron_ore.name=Глубинная борная руда
-
-tile.etfuturum.deepslate_certus_quartz_ore.name=Глубинная руда истинного кварца
-tile.etfuturum.deepslate_charged_certus_quartz_ore.name=Глубинная заряженная руда истинного кварца
-
-tile.etfuturum.deepslate_cinnabar_ore.name=Глубинная киноварь
-tile.etfuturum.air_infused_deepslate.name=Глубинная грозовая руда
-tile.etfuturum.fire_infused_deepslate.name=Глубинная огненная руда
-tile.etfuturum.water_infused_deepslate.name=Глубинная ледяная руда
-tile.etfuturum.earth_infused_deepslate.name=Глубинная руда земляного кристалла
-tile.etfuturum.order_infused_deepslate.name=Глубинная руда кристалла порядка
-tile.etfuturum.entropy_infused_deepslate.name=Глубинная энтропийная руда
-tile.etfuturum.amber_bearing_deepslate.name=Глубинная янтарная руда
 
 tile.etfuturum.tinted_glass.name=Тонированное стекло
 
@@ -1784,4 +1588,202 @@ efr.elytra.betterfps.warn1=§cBetterFPS настроен плохо.
 efr.elytra.betterfps.warn2=§cПроверьте предупреждение чата для получения дополнительной информации.
 efr.elytra.betterfps.warn3=§cПолет элитр отключен.
 
+###############################
+# BEGIN MOD SUPPORT LANG KEYS #
+###############################
 
+# Поддержка модовых блоков (Mod support blocks)
+
+tile.etfuturum.iron_shulker_box.name=Железный шалкеровый ящик
+tile.etfuturum.white_iron_shulker_box.name=Белый железный шалкеровый ящик
+tile.etfuturum.orange_iron_shulker_box.name=Оранжевый железный шалкеровый ящик
+tile.etfuturum.magenta_iron_shulker_box.name=Пурпурный железный шалкеровый ящик
+tile.etfuturum.light_blue_iron_shulker_box.name=Светло-синий железный шалкеровый ящик
+tile.etfuturum.yellow_iron_shulker_box.name=Жёлтый железный шалкеровый ящик
+tile.etfuturum.lime_iron_shulker_box.name=Лаймовый железный шалкеровый ящик
+tile.etfuturum.pink_iron_shulker_box.name=Розовый железный шалкеровый ящик
+tile.etfuturum.gray_iron_shulker_box.name=Серый железный шалкеровый ящик
+tile.etfuturum.light_gray_iron_shulker_box.name=Светло-серый железный шалкеровый ящик
+tile.etfuturum.cyan_iron_shulker_box.name=Бирюзовый железный шалкеровый ящик
+tile.etfuturum.purple_iron_shulker_box.name=Фиолетовый железный шалкеровый ящик
+tile.etfuturum.blue_iron_shulker_box.name=Синий железный шалкеровый ящик
+tile.etfuturum.brown_iron_shulker_box.name=Коричневый железный шалкеровый ящик
+tile.etfuturum.green_iron_shulker_box.name=Зелёный железный шалкеровый ящик
+tile.etfuturum.red_iron_shulker_box.name=Красный железный шалкеровый ящик
+tile.etfuturum.black_iron_shulker_box.name=Чёрный железный шалкеровый ящик
+
+tile.etfuturum.gold_shulker_box.name=Золотой шалкеровый ящик
+tile.etfuturum.white_gold_shulker_box.name=Белый золотой шалкеровый ящик
+tile.etfuturum.orange_gold_shulker_box.name=Оранжевый золотой шалкеровый ящик
+tile.etfuturum.magenta_gold_shulker_box.name=Пурпурный золотой шалкеровый ящик
+tile.etfuturum.light_blue_gold_shulker_box.name=Светло-синий золотой шалкеровый ящик
+tile.etfuturum.yellow_gold_shulker_box.name=Жёлтый золотой шалкеровый ящик
+tile.etfuturum.lime_gold_shulker_box.name=Лаймовый золотой шалкеровый ящик
+tile.etfuturum.pink_gold_shulker_box.name=Розовый золотой шалкеровый ящик
+tile.etfuturum.gray_gold_shulker_box.name=Серый золотой шалкеровый ящик
+tile.etfuturum.light_gray_gold_shulker_box.name=Светло-серый золотой шалкеровый ящик
+tile.etfuturum.cyan_gold_shulker_box.name=Бирюзовый золотой шалкеровый ящик
+tile.etfuturum.purple_gold_shulker_box.name=Фиолетовый золотой шалкеровый ящик
+tile.etfuturum.blue_gold_shulker_box.name=Синий золотой шалкеровый ящик
+tile.etfuturum.brown_gold_shulker_box.name=Коричневый золотой шалкеровый ящик
+tile.etfuturum.green_gold_shulker_box.name=Зелёный золотой шалкеровый ящик
+tile.etfuturum.red_gold_shulker_box.name=Красный золотой шалкеровый ящик
+tile.etfuturum.black_gold_shulker_box.name=Чёрный золотой шалкеровый ящик
+
+tile.etfuturum.diamond_shulker_box.name=Алмазный шалкеровый ящик
+tile.etfuturum.white_diamond_shulker_box.name=Белый алмазный шалкеровый ящик
+tile.etfuturum.orange_diamond_shulker_box.name=Оранжевый алмазный шалкеровый ящик
+tile.etfuturum.magenta_diamond_shulker_box.name=Пурпурный алмазный шалкеровый ящик
+tile.etfuturum.light_blue_diamond_shulker_box.name=Светло-синий алмазный шалкеровый ящик
+tile.etfuturum.yellow_diamond_shulker_box.name=Жёлтый алмазный шалкеровый ящик
+tile.etfuturum.lime_diamond_shulker_box.name=Лаймовый алмазный шалкеровый ящик
+tile.etfuturum.pink_diamond_shulker_box.name=Розовый алмазный шалкеровый ящик
+tile.etfuturum.gray_diamond_shulker_box.name=Серый алмазный шалкеровый ящик
+tile.etfuturum.light_gray_diamond_shulker_box.name=Светло-серый алмазный шалкеровый ящик
+tile.etfuturum.cyan_diamond_shulker_box.name=Бирюзовый алмазный шалкеровый ящик
+tile.etfuturum.purple_diamond_shulker_box.name=Фиолетовый алмазный шалкеровый ящик
+tile.etfuturum.blue_diamond_shulker_box.name=Синий алмазный шалкеровый ящик
+tile.etfuturum.brown_diamond_shulker_box.name=Коричневый алмазный шалкеровый ящик
+tile.etfuturum.green_diamond_shulker_box.name=Зелёный алмазный шалкеровый ящик
+tile.etfuturum.red_diamond_shulker_box.name=Красный алмазный шалкеровый ящик
+tile.etfuturum.black_diamond_shulker_box.name=Чёрный алмазный шалкеровый ящик
+
+tile.etfuturum.copper_shulker_box.name=Медный шалкеровый ящик
+tile.etfuturum.white_copper_shulker_box.name=Белый медный шалкеровый ящик
+tile.etfuturum.orange_copper_shulker_box.name=Оранжевый медный шалкеровый ящик
+tile.etfuturum.magenta_copper_shulker_box.name=Пурпурный медный шалкеровый ящик
+tile.etfuturum.light_blue_copper_shulker_box.name=Светло-синий медный шалкеровый ящик
+tile.etfuturum.yellow_copper_shulker_box.name=Жёлтый медный шалкеровый ящик
+tile.etfuturum.lime_copper_shulker_box.name=Лаймовый медный шалкеровый ящик
+tile.etfuturum.pink_copper_shulker_box.name=Розовый медный шалкеровый ящик
+tile.etfuturum.gray_copper_shulker_box.name=Серый медный шалкеровый ящик
+tile.etfuturum.light_gray_copper_shulker_box.name=Светло-серый медный шалкеровый ящик
+tile.etfuturum.cyan_copper_shulker_box.name=Бирюзовый медный шалкеровый ящик
+tile.etfuturum.purple_copper_shulker_box.name=Фиолетовый медный шалкеровый ящик
+tile.etfuturum.blue_copper_shulker_box.name=Синий медный шалкеровый ящик
+tile.etfuturum.brown_copper_shulker_box.name=Коричневый медный шалкеровый ящик
+tile.etfuturum.green_copper_shulker_box.name=Зелёный медный шалкеровый ящик
+tile.etfuturum.red_copper_shulker_box.name=Красный медный шалкеровый ящик
+tile.etfuturum.black_copper_shulker_box.name=Чёрный медный шалкеровый ящик
+
+tile.etfuturum.silver_shulker_box.name=Серебряный шалкеровый ящик
+tile.etfuturum.white_silver_shulker_box.name=Белый серебряный шалкеровый ящик
+tile.etfuturum.orange_silver_shulker_box.name=Оранжевый серебряный шалкеровый ящик
+tile.etfuturum.magenta_silver_shulker_box.name=Пурпурный серебряный шалкеровый ящик
+tile.etfuturum.light_blue_silver_shulker_box.name=Светло-синий серебряный шалкеровый ящик
+tile.etfuturum.yellow_silver_shulker_box.name=Жёлтый серебряный шалкеровый ящик
+tile.etfuturum.lime_silver_shulker_box.name=Лаймовый серебряный шалкеровый ящик
+tile.etfuturum.pink_silver_shulker_box.name=Розовый серебряный шалкеровый ящик
+tile.etfuturum.gray_silver_shulker_box.name=Серый серебряный шалкеровый ящик
+tile.etfuturum.light_gray_silver_shulker_box.name=Светло-серый серебряный шалкеровый ящик
+tile.etfuturum.cyan_silver_shulker_box.name=Бирюзовый серебряный шалкеровый ящик
+tile.etfuturum.purple_silver_shulker_box.name=Фиолетовый серебряный шалкеровый ящик
+tile.etfuturum.blue_silver_shulker_box.name=Синий серебряный шалкеровый ящик
+tile.etfuturum.brown_silver_shulker_box.name=Коричневый серебряный шалкеровый ящик
+tile.etfuturum.green_silver_shulker_box.name=Зелёный серебряный шалкеровый ящик
+tile.etfuturum.red_silver_shulker_box.name=Красный серебряный шалкеровый ящик
+tile.etfuturum.black_silver_shulker_box.name=Чёрный серебряный шалкеровый ящик
+
+tile.etfuturum.crystal_shulker_box.name=Кристальный шалкеровый ящик
+tile.etfuturum.white_crystal_shulker_box.name=Белый кристальный шалкеровый ящик
+tile.etfuturum.orange_crystal_shulker_box.name=Оранжевый кристальный шалкеровый ящик
+tile.etfuturum.magenta_crystal_shulker_box.name=Пурпурный кристальный шалкеровый ящик
+tile.etfuturum.light_blue_crystal_shulker_box.name=Светло-синий кристальный шалкеровый ящик
+tile.etfuturum.yellow_crystal_shulker_box.name=Жёлтый кристальный шалкеровый ящик
+tile.etfuturum.lime_crystal_shulker_box.name=Лаймовый кристальный шалкеровый ящик
+tile.etfuturum.pink_crystal_shulker_box.name=Розовый кристальный шалкеровый ящик
+tile.etfuturum.gray_crystal_shulker_box.name=Серый кристальный шалкеровый ящик
+tile.etfuturum.light_gray_crystal_shulker_box.name=Светло-серый кристальный шалкеровый ящик
+tile.etfuturum.cyan_crystal_shulker_box.name=Бирюзовый кристальный шалкеровый ящик
+tile.etfuturum.purple_crystal_shulker_box.name=Фиолетовый кристальный шалкеровый ящик
+tile.etfuturum.blue_crystal_shulker_box.name=Синий кристальный шалкеровый ящик
+tile.etfuturum.brown_crystal_shulker_box.name=Коричневый кристальный шалкеровый ящик
+tile.etfuturum.green_crystal_shulker_box.name=Зелёный кристальный шалкеровый ящик
+tile.etfuturum.red_crystal_shulker_box.name=Красный кристальный шалкеровый ящик
+tile.etfuturum.black_crystal_shulker_box.name=Чёрный кристальный шалкеровый ящик
+
+tile.etfuturum.obsidian_shulker_box.name=Обсидиановый шалкеровый ящик
+tile.etfuturum.white_obsidian_shulker_box.name=Белый обсидиановый шалкеровый ящик
+tile.etfuturum.orange_obsidian_shulker_box.name=Оранжевый обсидиановый шалкеровый ящик
+tile.etfuturum.magenta_obsidian_shulker_box.name=Пурпурный обсидиановый шалкеровый ящик
+tile.etfuturum.light_blue_obsidian_shulker_box.name=Светло-синий обсидиановый шалкеровый ящик
+tile.etfuturum.yellow_obsidian_shulker_box.name=Жёлтый обсидиановый шалкеровый ящик
+tile.etfuturum.lime_obsidian_shulker_box.name=Лаймовый обсидиановый шалкеровый ящик
+tile.etfuturum.pink_obsidian_shulker_box.name=Розовый обсидиановый шалкеровый ящик
+tile.etfuturum.gray_obsidian_shulker_box.name=Серый обсидиановый шалкеровый ящик
+tile.etfuturum.light_gray_obsidian_shulker_box.name=Светло-серый обсидиановый шалкеровый ящик
+tile.etfuturum.cyan_obsidian_shulker_box.name=Бирюзовый обсидиановый шалкеровый ящик
+tile.etfuturum.purple_obsidian_shulker_box.name=Фиолетовый обсидиановый шалкеровый ящик
+tile.etfuturum.blue_obsidian_shulker_box.name=Синий обсидиановый шалкеровый ящик
+tile.etfuturum.brown_obsidian_shulker_box.name=Коричневый обсидиановый шалкеровый ящик
+tile.etfuturum.green_obsidian_shulker_box.name=Зелёный обсидиановый шалкеровый ящик
+tile.etfuturum.red_obsidian_shulker_box.name=Красный обсидиановый шалкеровый ящик
+tile.etfuturum.black_obsidian_shulker_box.name=Чёрный обсидиановый шалкеровый ящик
+
+tile.etfuturum.raw_aluminum_block.name=Блок необработанного алюминия
+tile.etfuturum.raw_tin_block.name=Блок необработанного олова
+tile.etfuturum.raw_silver_block.name=Блок необработанного серебра
+tile.etfuturum.raw_lead_block.name=Блок необработанного свинца
+tile.etfuturum.raw_nickel_block.name=Блок необработанного никеля
+tile.etfuturum.raw_platinum_block.name=Блок необработанной платины
+tile.etfuturum.raw_mythril_block.name=Блок необработанного мифрила
+tile.etfuturum.raw_uranium_block.name=Блок необработанного урана
+tile.etfuturum.raw_thorium_block.name=Блок необработанного тория
+tile.etfuturum.raw_tungsten_block.name=Блок необработанного вольфрама
+tile.etfuturum.raw_titanium_block.name=Блок необработанного титана
+tile.etfuturum.raw_zinc_block.name=Блок необработанного цинка
+tile.etfuturum.raw_magnesium_block.name=Блок необработанного магния
+tile.etfuturum.raw_boron_block.name=Блок необработанного бора
+
+tile.etfuturum.deepslate_aluminum_ore.name=Глубинная алюминиевая руда
+tile.etfuturum.deepslate_tin_ore.name=Глубинная оловянная руда
+tile.etfuturum.deepslate_silver_ore.name=Глубинная серебряная руда
+tile.etfuturum.deepslate_lead_ore.name=Глубинная свинцовая руда
+tile.etfuturum.deepslate_nickel_ore.name=Глубинная никелевая руда
+tile.etfuturum.deepslate_platinum_ore.name=Глубинная платиновая руда
+tile.etfuturum.deepslate_mythril_ore.name=Глубинная мифриловая руда
+tile.etfuturum.deepslate_uranium_ore.name=Глубинная урановая руда
+tile.etfuturum.deepslate_thorium_ore.name=Глубинная ториевая руда
+tile.etfuturum.deepslate_tungsten_ore.name=Глубинная вольфрамовая руда
+tile.etfuturum.deepslate_titanium_ore.name=Глубинная титановая руда
+tile.etfuturum.deepslate_zinc_ore.name=Глубинная цинковая руда
+tile.etfuturum.deepslate_magnesium_ore.name=Глубинная магниевая руда
+tile.etfuturum.deepslate_boron_ore.name=Глубинная борная руда
+
+tile.etfuturum.ae2.deepslate_certus_quartz_ore.name=Глубинная руда истинного кварца
+tile.etfuturum.ae2.deepslate_charged_certus_quartz_ore.name=Глубинная заряженная руда истинного кварца
+
+tile.etfuturum.thaumcraft.deepslate_cinnabar_ore.name=Глубинная киноварь
+tile.etfuturum.thaumcraft.air_infused_deepslate.name=Глубинная грозовая руда
+tile.etfuturum.thaumcraft.fire_infused_deepslate.name=Глубинная огненная руда
+tile.etfuturum.thaumcraft.water_infused_deepslate.name=Глубинная ледяная руда
+tile.etfuturum.thaumcraft.earth_infused_deepslate.name=Глубинная руда земляного кристалла
+tile.etfuturum.thaumcraft.order_infused_deepslate.name=Глубинная руда кристалла порядка
+tile.etfuturum.thaumcraft.entropy_infused_deepslate.name=Глубинная энтропийная руда
+tile.etfuturum.thaumcraft.amber_bearing_deepslate.name=Глубинная янтарная руда
+
+# Поддержка модовых предметов (Mod support items)
+item.shulker_vanilla_iron_upgrade.name=Улучшение шалкерового ящика до железного шалкерового ящика
+item.shulker_vanilla_copper_upgrade.name=Улучшение шалкерового ящика до медного шалкерового ящика
+item.shulker_iron_gold_upgrade.name=Улучшение железного шалкерового ящика до золотого шалкерового ящика
+item.shulker_gold_diamond_upgrade.name=Улучшение золотого шалкерового ящика до алмазного шалкерового ящика
+item.shulker_diamond_obsidian_upgrade.name=Улучшение алмазного шалкерового ящика до обсидианового шалкерового ящика
+item.shulker_diamond_crystal_upgrade.name=Улучшение алмазного шалкерового ящика до кристального шалкерового ящика
+item.shulker_copper_iron_upgrade.name=Улучшение медного шалкерового ящика до железного шалкерового ящика
+item.shulker_copper_silver_upgrade.name=Улучшение медного шалкерового ящика до серебряного шалкерового ящика
+item.shulker_silver_gold_upgrade.name=Улучшение серебряного шалкерового ящика до золотого шалкерового ящика
+
+item.etfuturum.raw_aluminum.name=Необработанный алюминий
+item.etfuturum.raw_tin.name=Необработанное олово
+item.etfuturum.raw_silver.name=Необработанное серебро
+item.etfuturum.raw_lead.name=Необработанный свинец
+item.etfuturum.raw_nickel.name=Необработанный никель
+item.etfuturum.raw_platinum.name=Необработанная платина
+item.etfuturum.raw_mythril.name=Необработанный мифрил
+item.etfuturum.raw_uranium.name=Необработанный уран
+item.etfuturum.raw_thorium.name=Необработанный торий
+item.etfuturum.raw_tungsten.name=Необработанный вольфрам
+item.etfuturum.raw_titanium.name=Необработанный титан
+item.etfuturum.raw_zinc.name=Необработанный цинк
+item.etfuturum.raw_magnesium.name=Необработанный магний
+item.etfuturum.raw_boron.name=Необработанный бор

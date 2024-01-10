@@ -76,7 +76,9 @@ public class BaseSubtypesBlock extends BaseBlock implements ISubBlocksBlock {
 	public void registerBlockIcons(IIconRegister reg) {
 		setIcons(new IIcon[getTypes().length]);
 		for (int i = 0; i < getIcons().length; i++) {
-			getIcons()[i] = "".equals(getTypes()[i]) ? reg.registerIcon(getTextureName()) : reg.registerIcon((getTextureDomain().isEmpty() ? "" : getTextureDomain() + ":") + getTypes()[i]);
+			getIcons()[i] = "".equals(getTypes()[i]) ? reg.registerIcon(getTextureName()) :
+					reg.registerIcon((getTextureDomain().isEmpty() ? "" : getTextureDomain() + ":")
+							+ (getTextureSubfolder().isEmpty() ? "" : getTextureSubfolder() + "/") + getTypes()[i]);
 		}
 	}
 }

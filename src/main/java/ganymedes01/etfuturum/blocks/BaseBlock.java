@@ -2,6 +2,7 @@ package ganymedes01.etfuturum.blocks;
 
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.core.utils.Utils;
+import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -20,13 +21,14 @@ public class BaseBlock extends Block {
 	}
 
 	public BaseBlock setUnlocalizedNameWithPrefix(String name) {
-		setBlockName(Utils.getUnlocalisedName(name));
+		setBlockName((getNameDomain().isEmpty() ? "" : getNameDomain() + ".") + name);
 		return this;
 	}
 
 	@Override
 	public Block setBlockTextureName(String name) {
-		return super.setBlockTextureName(name);
+		return super.setBlockTextureName((getTextureDomain().isEmpty() ? "" : getTextureDomain() + ":")
+				+ (getTextureSubfolder().isEmpty() ? "" : getTextureSubfolder() + "/") + name);
 	}
 
 	public BaseBlock setNames(String name) {
@@ -60,5 +62,17 @@ public class BaseBlock extends Block {
 	@Override
 	public MapColor getMapColor(int p_149728_1_) {
 		return mapColorBase == null ? super.getMapColor(p_149728_1_) : mapColorBase.getMapColor(p_149728_1_);
+	}
+
+	public String getTextureDomain() {
+		return "";
+	}
+
+	public String getTextureSubfolder() {
+		return "";
+	}
+
+	public String getNameDomain() {
+		return Reference.MOD_ID;
 	}
 }

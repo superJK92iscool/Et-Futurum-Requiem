@@ -3,6 +3,8 @@ package ganymedes01.etfuturum.blocks.ores;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.blocks.BaseBlock;
+import ganymedes01.etfuturum.client.sound.ModSounds;
+import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -20,8 +22,9 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public abstract class BaseDeepslateOre extends BaseBlock {
-	public BaseDeepslateOre(Material p_i45394_1_) {
-		super(p_i45394_1_);
+	public BaseDeepslateOre() {
+		super(Material.rock);
+		setBlockSound(ModSounds.soundDeepslate);
 	}
 
 	@Override
@@ -208,6 +211,16 @@ public abstract class BaseDeepslateOre extends BaseBlock {
 			}
 		}
 		return drop;
+	}
+
+	@Override
+	public String getNameDomain() {
+		return super.getNameDomain() + (getTextureSubfolder().isEmpty() ? "" : (super.getNameDomain().isEmpty() ? "" : ".") + getTextureSubfolder());
+	}
+
+	@Override
+	public String getTextureDomain() {
+		return Reference.MOD_ID;
 	}
 
 	protected abstract Block getBase();

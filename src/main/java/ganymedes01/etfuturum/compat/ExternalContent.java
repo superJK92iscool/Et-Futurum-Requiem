@@ -9,12 +9,6 @@ import java.util.function.Supplier;
 public class ExternalContent {
 
 	public enum Blocks {
-
-		AE2_CERTUS_QUARTZ_ORE(() -> GameRegistry.findBlock("appliedenergistics2", "tile.OreQuartz")),
-		AE2_CHARGED_CERTUS_QUARTZ_ORE(() -> GameRegistry.findBlock("appliedenergistics2", "tile.OreQuartzCharged")),
-
-		THAUMCRAFT_ORE(() -> GameRegistry.findBlock("Thaumcraft", "blockCustomOre")),
-
 		CFB_CAMPFIRE(() -> GameRegistry.findBlock("campfirebackport", "campfire")),
 		CFB_SOUL_CAMPFIRE(() -> GameRegistry.findBlock("campfirebackport", "soul_campfire")),
 		CFB_CAMPFIRE_BASE(() -> GameRegistry.findBlock("campfirebackport", "campfire_base")),
@@ -32,7 +26,26 @@ public class ExternalContent {
 		ENDERLICIOUS_END_ROCK(() -> GameRegistry.findBlock("enderlicious", "EndRock")),
 		ENDERLICIOUS_SAND(() -> GameRegistry.findBlock("enderlicious", "EndSand")),
 
-		HEE_END_STONE(() -> GameRegistry.findBlock("HardcoreEnderExpansion", "end_stone_terrain"));
+		HEE_END_STONE(() -> GameRegistry.findBlock("HardcoreEnderExpansion", "end_stone_terrain")),
+
+		AE2_CERTUS_QUARTZ_ORE(() -> GameRegistry.findBlock("appliedenergistics2", "tile.OreQuartz")),
+		AE2_CHARGED_CERTUS_QUARTZ_ORE(() -> GameRegistry.findBlock("appliedenergistics2", "tile.OreQuartzCharged")),
+
+		ARS_MAGICA_2_ORE(() -> GameRegistry.findBlock("arsmagica2", "vinteumOre")),
+
+		THAUMCRAFT_ORE(() -> GameRegistry.findBlock("Thaumcraft", "blockCustomOre")),
+
+		BOP_GEM_ORE(() -> GameRegistry.findBlock("BiomesOPlenty", "gemOre")),
+
+		DRACONIUM_ORE(() -> GameRegistry.findBlock("DraconicEvolution", "draconiumOre")),
+
+		PROJECT_RED_ORE(() -> GameRegistry.findBlock("ProjRed|Exploration", "projectred.exploration.ore")),
+
+		BP_TESLATITE_ORE(() -> GameRegistry.findBlock("bluepower", "teslatite_ore")),
+		BP_RUBY_ORE(() -> GameRegistry.findBlock("bluepower", "ruby_ore")),
+		BP_SAPPHIRE_ORE(() -> GameRegistry.findBlock("bluepower", "sapphire_ore")),
+		BP_AMETHYST_ORE(() -> GameRegistry.findBlock("bluepower", "amethyst_ore")),
+		/*BP_MALACHITE_ORE(() -> GameRegistry.findBlock("bluepower", "malachite_ore")), Unused malachite texture in files? I'll have this set up here in case a fork or something uses it*/;
 
 		private Block block;
 		private final Supplier<Block> blockSupplier;

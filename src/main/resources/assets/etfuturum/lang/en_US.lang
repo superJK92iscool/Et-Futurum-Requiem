@@ -372,33 +372,6 @@ item.etfuturum.tipped_arrow.potion.regeneration.name=Arrow of Regeneration
 item.etfuturum.tipped_arrow.potion.damageBoost.name=Arrow of Strength
 item.etfuturum.tipped_arrow.potion.weakness.name=Arrow of Weakness
 
-# Mod support items
-
-item.shulker_vanilla_iron_upgrade.name=Vanilla to Iron Shulker Box Upgrade
-item.shulker_vanilla_copper_upgrade.name=Vanilla to Copper Shulker Box Upgrade
-item.shulker_iron_gold_upgrade.name=Iron to Gold Shulker Box Upgrade
-item.shulker_gold_diamond_upgrade.name=Gold to Diamond Shulker Box Upgrade
-item.shulker_diamond_obsidian_upgrade.name=Diamond to Obsidian Shulker Box Upgrade
-item.shulker_diamond_crystal_upgrade.name=Diamond to Crystal Shulker Box Upgrade
-item.shulker_copper_iron_upgrade.name=Copper to Iron Shulker Box Upgrade
-item.shulker_copper_silver_upgrade.name=Copper to Silver Shulker Box Upgrade
-item.shulker_silver_gold_upgrade.name=Silver to Gold Shulker Box Upgrade
-
-item.etfuturum.raw_aluminum.name=Raw Aluminum
-item.etfuturum.raw_tin.name=Raw Tin
-item.etfuturum.raw_silver.name=Raw Silver
-item.etfuturum.raw_lead.name=Raw Lead
-item.etfuturum.raw_nickel.name=Raw Nickel
-item.etfuturum.raw_platinum.name=Raw Platinum
-item.etfuturum.raw_mythril.name=Raw Mythril
-item.etfuturum.raw_uranium.name=Raw Uranium
-item.etfuturum.raw_thorium.name=Raw Thorium
-item.etfuturum.raw_tungsten.name=Raw Tungsten
-item.etfuturum.raw_titanium.name=Raw Titanium
-item.etfuturum.raw_zinc.name=Raw Zinc
-item.etfuturum.raw_magnesium.name=Raw Magnesium
-item.etfuturum.raw_boron.name=Raw Boron
-
 # Blocks
 tile.etfuturum.granite.name=Granite
 tile.etfuturum.polished_granite.name=Polished Granite
@@ -921,176 +894,6 @@ tile.etfuturum.red_shulker_box.name=Red Shulker Box
 tile.etfuturum.black_shulker_box.name=Black Shulker Box
 
 util.totemBreak=§a§oYour Totem of Undying shatters...
-
-# Mod support blocks
-
-tile.etfuturum.iron_shulker_box.name=Iron Shulker Box
-tile.etfuturum.white_iron_shulker_box.name=White Iron Shulker Box
-tile.etfuturum.orange_iron_shulker_box.name=Orange Iron Shulker Box
-tile.etfuturum.magenta_iron_shulker_box.name=Magenta Iron Shulker Box
-tile.etfuturum.light_blue_iron_shulker_box.name=Light Blue Iron Shulker Box
-tile.etfuturum.yellow_iron_shulker_box.name=Yellow Iron Shulker Box
-tile.etfuturum.lime_iron_shulker_box.name=Lime Iron Shulker Box
-tile.etfuturum.pink_iron_shulker_box.name=Pink Iron Shulker Box
-tile.etfuturum.gray_iron_shulker_box.name=Gray Iron Shulker Box
-tile.etfuturum.light_gray_iron_shulker_box.name=Light Gray Iron Shulker Box
-tile.etfuturum.cyan_iron_shulker_box.name=Cyan Iron Shulker Box
-tile.etfuturum.purple_iron_shulker_box.name=Purple Iron Shulker Box
-tile.etfuturum.blue_iron_shulker_box.name=Blue Iron Shulker Box
-tile.etfuturum.brown_iron_shulker_box.name=Brown Iron Shulker Box
-tile.etfuturum.green_iron_shulker_box.name=Green Iron Shulker Box
-tile.etfuturum.red_iron_shulker_box.name=Red Iron Shulker Box
-tile.etfuturum.black_iron_shulker_box.name=Black Iron Shulker Box
-
-tile.etfuturum.gold_shulker_box.name=Gold Shulker Box
-tile.etfuturum.white_gold_shulker_box.name=White Gold Shulker Box
-tile.etfuturum.orange_gold_shulker_box.name=Orange Gold Shulker Box
-tile.etfuturum.magenta_gold_shulker_box.name=Magenta Gold Shulker Box
-tile.etfuturum.light_blue_gold_shulker_box.name=Light Blue Gold Shulker Box
-tile.etfuturum.yellow_gold_shulker_box.name=Yellow Gold Shulker Box
-tile.etfuturum.lime_gold_shulker_box.name=Lime Gold Shulker Box
-tile.etfuturum.pink_gold_shulker_box.name=Pink Gold Shulker Box
-tile.etfuturum.gray_gold_shulker_box.name=Gray Gold Shulker Box
-tile.etfuturum.light_gray_gold_shulker_box.name=Light Gray Gold Shulker Box
-tile.etfuturum.cyan_gold_shulker_box.name=Cyan Gold Shulker Box
-tile.etfuturum.purple_gold_shulker_box.name=Purple Gold Shulker Box
-tile.etfuturum.blue_gold_shulker_box.name=Blue Gold Shulker Box
-tile.etfuturum.brown_gold_shulker_box.name=Brown Gold Shulker Box
-tile.etfuturum.green_gold_shulker_box.name=Green Gold Shulker Box
-tile.etfuturum.red_gold_shulker_box.name=Red Gold Shulker Box
-tile.etfuturum.black_gold_shulker_box.name=Black Gold Shulker Box
-
-tile.etfuturum.diamond_shulker_box.name=Diamond Shulker Box
-tile.etfuturum.white_diamond_shulker_box.name=White Diamond Shulker Box
-tile.etfuturum.orange_diamond_shulker_box.name=Orange Diamond Shulker Box
-tile.etfuturum.magenta_diamond_shulker_box.name=Magenta Diamond Shulker Box
-tile.etfuturum.light_blue_diamond_shulker_box.name=Light Blue Diamond Shulker Box
-tile.etfuturum.yellow_diamond_shulker_box.name=Yellow Diamond Shulker Box
-tile.etfuturum.lime_diamond_shulker_box.name=Lime Diamond Shulker Box
-tile.etfuturum.pink_diamond_shulker_box.name=Pink Diamond Shulker Box
-tile.etfuturum.gray_diamond_shulker_box.name=Gray Diamond Shulker Box
-tile.etfuturum.light_gray_diamond_shulker_box.name=Light Gray Diamond Shulker Box
-tile.etfuturum.cyan_diamond_shulker_box.name=Cyan Diamond Shulker Box
-tile.etfuturum.purple_diamond_shulker_box.name=Purple Diamond Shulker Box
-tile.etfuturum.blue_diamond_shulker_box.name=Blue Diamond Shulker Box
-tile.etfuturum.brown_diamond_shulker_box.name=Brown Diamond Shulker Box
-tile.etfuturum.green_diamond_shulker_box.name=Green Diamond Shulker Box
-tile.etfuturum.red_diamond_shulker_box.name=Red Diamond Shulker Box
-tile.etfuturum.black_diamond_shulker_box.name=Black Diamond Shulker Box
-
-tile.etfuturum.copper_shulker_box.name=Copper Shulker Box
-tile.etfuturum.white_copper_shulker_box.name=White Copper Shulker Box
-tile.etfuturum.orange_copper_shulker_box.name=Orange Copper Shulker Box
-tile.etfuturum.magenta_copper_shulker_box.name=Magenta Copper Shulker Box
-tile.etfuturum.light_blue_copper_shulker_box.name=Light Blue Copper Shulker Box
-tile.etfuturum.yellow_copper_shulker_box.name=Yellow Copper Shulker Box
-tile.etfuturum.lime_copper_shulker_box.name=Lime Copper Shulker Box
-tile.etfuturum.pink_copper_shulker_box.name=Pink Copper Shulker Box
-tile.etfuturum.gray_copper_shulker_box.name=Gray Copper Shulker Box
-tile.etfuturum.light_gray_copper_shulker_box.name=Light Gray Copper Shulker Box
-tile.etfuturum.cyan_copper_shulker_box.name=Cyan Copper Shulker Box
-tile.etfuturum.purple_copper_shulker_box.name=Purple Copper Shulker Box
-tile.etfuturum.blue_copper_shulker_box.name=Blue Copper Shulker Box
-tile.etfuturum.brown_copper_shulker_box.name=Brown Copper Shulker Box
-tile.etfuturum.green_copper_shulker_box.name=Green Copper Shulker Box
-tile.etfuturum.red_copper_shulker_box.name=Red Copper Shulker Box
-tile.etfuturum.black_copper_shulker_box.name=Black Copper Shulker Box
-
-tile.etfuturum.silver_shulker_box.name=Silver Shulker Box
-tile.etfuturum.white_silver_shulker_box.name=White Silver Shulker Box
-tile.etfuturum.orange_silver_shulker_box.name=Orange Silver Shulker Box
-tile.etfuturum.magenta_silver_shulker_box.name=Magenta Silver Shulker Box
-tile.etfuturum.light_blue_silver_shulker_box.name=Light Blue Silver Shulker Box
-tile.etfuturum.yellow_silver_shulker_box.name=Yellow Silver Shulker Box
-tile.etfuturum.lime_silver_shulker_box.name=Lime Silver Shulker Box
-tile.etfuturum.pink_silver_shulker_box.name=Pink Silver Shulker Box
-tile.etfuturum.gray_silver_shulker_box.name=Gray Silver Shulker Box
-tile.etfuturum.light_gray_silver_shulker_box.name=Light Gray Silver Shulker Box
-tile.etfuturum.cyan_silver_shulker_box.name=Cyan Silver Shulker Box
-tile.etfuturum.purple_silver_shulker_box.name=Purple Silver Shulker Box
-tile.etfuturum.blue_silver_shulker_box.name=Blue Silver Shulker Box
-tile.etfuturum.brown_silver_shulker_box.name=Brown Silver Shulker Box
-tile.etfuturum.green_silver_shulker_box.name=Green Silver Shulker Box
-tile.etfuturum.red_silver_shulker_box.name=Red Silver Shulker Box
-tile.etfuturum.black_silver_shulker_box.name=Black Silver Shulker Box
-
-tile.etfuturum.crystal_shulker_box.name=Crystal Shulker Box
-tile.etfuturum.white_crystal_shulker_box.name=White Crystal Shulker Box
-tile.etfuturum.orange_crystal_shulker_box.name=Orange Crystal Shulker Box
-tile.etfuturum.magenta_crystal_shulker_box.name=Magenta Crystal Shulker Box
-tile.etfuturum.light_blue_crystal_shulker_box.name=Light Blue Crystal Shulker Box
-tile.etfuturum.yellow_crystal_shulker_box.name=Yellow Crystal Shulker Box
-tile.etfuturum.lime_crystal_shulker_box.name=Lime Crystal Shulker Box
-tile.etfuturum.pink_crystal_shulker_box.name=Pink Crystal Shulker Box
-tile.etfuturum.gray_crystal_shulker_box.name=Gray Crystal Shulker Box
-tile.etfuturum.light_gray_crystal_shulker_box.name=Light Gray Crystal Shulker Box
-tile.etfuturum.cyan_crystal_shulker_box.name=Cyan Crystal Shulker Box
-tile.etfuturum.purple_crystal_shulker_box.name=Purple Crystal Shulker Box
-tile.etfuturum.blue_crystal_shulker_box.name=Blue Crystal Shulker Box
-tile.etfuturum.brown_crystal_shulker_box.name=Brown Crystal Shulker Box
-tile.etfuturum.green_crystal_shulker_box.name=Green Crystal Shulker Box
-tile.etfuturum.red_crystal_shulker_box.name=Red Crystal Shulker Box
-tile.etfuturum.black_crystal_shulker_box.name=Black Crystal Shulker Box
-
-tile.etfuturum.obsidian_shulker_box.name=Obsidian Shulker Box
-tile.etfuturum.white_obsidian_shulker_box.name=White Obsidian Shulker Box
-tile.etfuturum.orange_obsidian_shulker_box.name=Orange Obsidian Shulker Box
-tile.etfuturum.magenta_obsidian_shulker_box.name=Magenta Obsidian Shulker Box
-tile.etfuturum.light_blue_obsidian_shulker_box.name=Light Blue Obsidian Shulker Box
-tile.etfuturum.yellow_obsidian_shulker_box.name=Yellow Obsidian Shulker Box
-tile.etfuturum.lime_obsidian_shulker_box.name=Lime Obsidian Shulker Box
-tile.etfuturum.pink_obsidian_shulker_box.name=Pink Obsidian Shulker Box
-tile.etfuturum.gray_obsidian_shulker_box.name=Gray Obsidian Shulker Box
-tile.etfuturum.light_gray_obsidian_shulker_box.name=Light Gray Obsidian Shulker Box
-tile.etfuturum.cyan_obsidian_shulker_box.name=Cyan Obsidian Shulker Box
-tile.etfuturum.purple_obsidian_shulker_box.name=Purple Obsidian Shulker Box
-tile.etfuturum.blue_obsidian_shulker_box.name=Blue Obsidian Shulker Box
-tile.etfuturum.brown_obsidian_shulker_box.name=Brown Obsidian Shulker Box
-tile.etfuturum.green_obsidian_shulker_box.name=Green Obsidian Shulker Box
-tile.etfuturum.red_obsidian_shulker_box.name=Red Obsidian Shulker Box
-tile.etfuturum.black_obsidian_shulker_box.name=Black Obsidian Shulker Box
-
-tile.etfuturum.raw_aluminum_block.name=Raw Aluminum Block
-tile.etfuturum.raw_tin_block.name=Raw Tin Block
-tile.etfuturum.raw_silver_block.name=Raw Silver Block
-tile.etfuturum.raw_lead_block.name=Raw Lead Block
-tile.etfuturum.raw_nickel_block.name=Raw Nickel Block
-tile.etfuturum.raw_platinum_block.name=Raw Platinum Block
-tile.etfuturum.raw_mythril_block.name=Raw Mythril Block
-tile.etfuturum.raw_uranium_block.name=Raw Uranium Block
-tile.etfuturum.raw_thorium_block.name=Raw Thorium Block
-tile.etfuturum.raw_tungsten_block.name=Raw Tungsten Block
-tile.etfuturum.raw_titanium_block.name=Raw Titanium Block
-tile.etfuturum.raw_zinc_block.name=Raw Zinc Block
-tile.etfuturum.raw_magnesium_block.name=Raw Magnesium Block
-tile.etfuturum.raw_boron_block.name=Raw Boron Block
-
-tile.etfuturum.deepslate_aluminum_ore.name=Deepslate Aluminum Ore
-tile.etfuturum.deepslate_tin_ore.name=Deepslate Tin Ore
-tile.etfuturum.deepslate_silver_ore.name=Deepslate Silver Ore
-tile.etfuturum.deepslate_lead_ore.name=Deepslate Lead Ore
-tile.etfuturum.deepslate_nickel_ore.name=Deepslate Nickel Ore
-tile.etfuturum.deepslate_platinum_ore.name=Deepslate Platinum Ore
-tile.etfuturum.deepslate_mythril_ore.name=Deepslate Mythril Ore
-tile.etfuturum.deepslate_uranium_ore.name=Deepslate Uranium Ore
-tile.etfuturum.deepslate_thorium_ore.name=Deepslate Thorium Ore
-tile.etfuturum.deepslate_tungsten_ore.name=Deepslate Tungsten Ore
-tile.etfuturum.deepslate_titanium_ore.name=Deepslate Titanium Ore
-tile.etfuturum.deepslate_zinc_ore.name=Deepslate Zinc Ore
-tile.etfuturum.deepslate_magnesium_ore.name=Deepslate Magnesium Ore
-tile.etfuturum.deepslate_boron_ore.name=Deepslate Boron Ore
-
-tile.etfuturum.deepslate_certus_quartz_ore.name=Deepslate Certus Quartz Ore
-tile.etfuturum.deepslate_charged_certus_quartz_ore.name=Deepslate Charged Certus Quartz Ore
-
-tile.etfuturum.deepslate_cinnabar_ore.name=Deepslate Cinnabar Ore
-tile.etfuturum.air_infused_deepslate.name=Air Infused Deepslate
-tile.etfuturum.fire_infused_deepslate.name=Fire Infused Deepslate
-tile.etfuturum.water_infused_deepslate.name=Water Infused Deepslate
-tile.etfuturum.earth_infused_deepslate.name=Earth Infused Deepslate
-tile.etfuturum.order_infused_deepslate.name=Order Infused Deepslate
-tile.etfuturum.entropy_infused_deepslate.name=Entropy Infused Deepslate
-tile.etfuturum.amber_bearing_deepslate.name=Amber Bearing Deepslate
 
 # Damage types
 
@@ -1791,3 +1594,224 @@ efr.elytra.flight.disabled=Elytra flight has been disabled for your own safety.
 efr.elytra.betterfps.warn1=§cBetterFPS is configured poorly.
 efr.elytra.betterfps.warn2=§cCheck the chat warning for more info.
 efr.elytra.betterfps.warn3=§cElytra flight has been disabled.
+
+###############################
+# BEGIN MOD SUPPORT LANG KEYS #
+###############################
+
+# Mod support blocks
+
+tile.etfuturum.iron_shulker_box.name=Iron Shulker Box
+tile.etfuturum.white_iron_shulker_box.name=White Iron Shulker Box
+tile.etfuturum.orange_iron_shulker_box.name=Orange Iron Shulker Box
+tile.etfuturum.magenta_iron_shulker_box.name=Magenta Iron Shulker Box
+tile.etfuturum.light_blue_iron_shulker_box.name=Light Blue Iron Shulker Box
+tile.etfuturum.yellow_iron_shulker_box.name=Yellow Iron Shulker Box
+tile.etfuturum.lime_iron_shulker_box.name=Lime Iron Shulker Box
+tile.etfuturum.pink_iron_shulker_box.name=Pink Iron Shulker Box
+tile.etfuturum.gray_iron_shulker_box.name=Gray Iron Shulker Box
+tile.etfuturum.light_gray_iron_shulker_box.name=Light Gray Iron Shulker Box
+tile.etfuturum.cyan_iron_shulker_box.name=Cyan Iron Shulker Box
+tile.etfuturum.purple_iron_shulker_box.name=Purple Iron Shulker Box
+tile.etfuturum.blue_iron_shulker_box.name=Blue Iron Shulker Box
+tile.etfuturum.brown_iron_shulker_box.name=Brown Iron Shulker Box
+tile.etfuturum.green_iron_shulker_box.name=Green Iron Shulker Box
+tile.etfuturum.red_iron_shulker_box.name=Red Iron Shulker Box
+tile.etfuturum.black_iron_shulker_box.name=Black Iron Shulker Box
+
+tile.etfuturum.gold_shulker_box.name=Gold Shulker Box
+tile.etfuturum.white_gold_shulker_box.name=White Gold Shulker Box
+tile.etfuturum.orange_gold_shulker_box.name=Orange Gold Shulker Box
+tile.etfuturum.magenta_gold_shulker_box.name=Magenta Gold Shulker Box
+tile.etfuturum.light_blue_gold_shulker_box.name=Light Blue Gold Shulker Box
+tile.etfuturum.yellow_gold_shulker_box.name=Yellow Gold Shulker Box
+tile.etfuturum.lime_gold_shulker_box.name=Lime Gold Shulker Box
+tile.etfuturum.pink_gold_shulker_box.name=Pink Gold Shulker Box
+tile.etfuturum.gray_gold_shulker_box.name=Gray Gold Shulker Box
+tile.etfuturum.light_gray_gold_shulker_box.name=Light Gray Gold Shulker Box
+tile.etfuturum.cyan_gold_shulker_box.name=Cyan Gold Shulker Box
+tile.etfuturum.purple_gold_shulker_box.name=Purple Gold Shulker Box
+tile.etfuturum.blue_gold_shulker_box.name=Blue Gold Shulker Box
+tile.etfuturum.brown_gold_shulker_box.name=Brown Gold Shulker Box
+tile.etfuturum.green_gold_shulker_box.name=Green Gold Shulker Box
+tile.etfuturum.red_gold_shulker_box.name=Red Gold Shulker Box
+tile.etfuturum.black_gold_shulker_box.name=Black Gold Shulker Box
+
+tile.etfuturum.diamond_shulker_box.name=Diamond Shulker Box
+tile.etfuturum.white_diamond_shulker_box.name=White Diamond Shulker Box
+tile.etfuturum.orange_diamond_shulker_box.name=Orange Diamond Shulker Box
+tile.etfuturum.magenta_diamond_shulker_box.name=Magenta Diamond Shulker Box
+tile.etfuturum.light_blue_diamond_shulker_box.name=Light Blue Diamond Shulker Box
+tile.etfuturum.yellow_diamond_shulker_box.name=Yellow Diamond Shulker Box
+tile.etfuturum.lime_diamond_shulker_box.name=Lime Diamond Shulker Box
+tile.etfuturum.pink_diamond_shulker_box.name=Pink Diamond Shulker Box
+tile.etfuturum.gray_diamond_shulker_box.name=Gray Diamond Shulker Box
+tile.etfuturum.light_gray_diamond_shulker_box.name=Light Gray Diamond Shulker Box
+tile.etfuturum.cyan_diamond_shulker_box.name=Cyan Diamond Shulker Box
+tile.etfuturum.purple_diamond_shulker_box.name=Purple Diamond Shulker Box
+tile.etfuturum.blue_diamond_shulker_box.name=Blue Diamond Shulker Box
+tile.etfuturum.brown_diamond_shulker_box.name=Brown Diamond Shulker Box
+tile.etfuturum.green_diamond_shulker_box.name=Green Diamond Shulker Box
+tile.etfuturum.red_diamond_shulker_box.name=Red Diamond Shulker Box
+tile.etfuturum.black_diamond_shulker_box.name=Black Diamond Shulker Box
+
+tile.etfuturum.copper_shulker_box.name=Copper Shulker Box
+tile.etfuturum.white_copper_shulker_box.name=White Copper Shulker Box
+tile.etfuturum.orange_copper_shulker_box.name=Orange Copper Shulker Box
+tile.etfuturum.magenta_copper_shulker_box.name=Magenta Copper Shulker Box
+tile.etfuturum.light_blue_copper_shulker_box.name=Light Blue Copper Shulker Box
+tile.etfuturum.yellow_copper_shulker_box.name=Yellow Copper Shulker Box
+tile.etfuturum.lime_copper_shulker_box.name=Lime Copper Shulker Box
+tile.etfuturum.pink_copper_shulker_box.name=Pink Copper Shulker Box
+tile.etfuturum.gray_copper_shulker_box.name=Gray Copper Shulker Box
+tile.etfuturum.light_gray_copper_shulker_box.name=Light Gray Copper Shulker Box
+tile.etfuturum.cyan_copper_shulker_box.name=Cyan Copper Shulker Box
+tile.etfuturum.purple_copper_shulker_box.name=Purple Copper Shulker Box
+tile.etfuturum.blue_copper_shulker_box.name=Blue Copper Shulker Box
+tile.etfuturum.brown_copper_shulker_box.name=Brown Copper Shulker Box
+tile.etfuturum.green_copper_shulker_box.name=Green Copper Shulker Box
+tile.etfuturum.red_copper_shulker_box.name=Red Copper Shulker Box
+tile.etfuturum.black_copper_shulker_box.name=Black Copper Shulker Box
+
+tile.etfuturum.silver_shulker_box.name=Silver Shulker Box
+tile.etfuturum.white_silver_shulker_box.name=White Silver Shulker Box
+tile.etfuturum.orange_silver_shulker_box.name=Orange Silver Shulker Box
+tile.etfuturum.magenta_silver_shulker_box.name=Magenta Silver Shulker Box
+tile.etfuturum.light_blue_silver_shulker_box.name=Light Blue Silver Shulker Box
+tile.etfuturum.yellow_silver_shulker_box.name=Yellow Silver Shulker Box
+tile.etfuturum.lime_silver_shulker_box.name=Lime Silver Shulker Box
+tile.etfuturum.pink_silver_shulker_box.name=Pink Silver Shulker Box
+tile.etfuturum.gray_silver_shulker_box.name=Gray Silver Shulker Box
+tile.etfuturum.light_gray_silver_shulker_box.name=Light Gray Silver Shulker Box
+tile.etfuturum.cyan_silver_shulker_box.name=Cyan Silver Shulker Box
+tile.etfuturum.purple_silver_shulker_box.name=Purple Silver Shulker Box
+tile.etfuturum.blue_silver_shulker_box.name=Blue Silver Shulker Box
+tile.etfuturum.brown_silver_shulker_box.name=Brown Silver Shulker Box
+tile.etfuturum.green_silver_shulker_box.name=Green Silver Shulker Box
+tile.etfuturum.red_silver_shulker_box.name=Red Silver Shulker Box
+tile.etfuturum.black_silver_shulker_box.name=Black Silver Shulker Box
+
+tile.etfuturum.crystal_shulker_box.name=Crystal Shulker Box
+tile.etfuturum.white_crystal_shulker_box.name=White Crystal Shulker Box
+tile.etfuturum.orange_crystal_shulker_box.name=Orange Crystal Shulker Box
+tile.etfuturum.magenta_crystal_shulker_box.name=Magenta Crystal Shulker Box
+tile.etfuturum.light_blue_crystal_shulker_box.name=Light Blue Crystal Shulker Box
+tile.etfuturum.yellow_crystal_shulker_box.name=Yellow Crystal Shulker Box
+tile.etfuturum.lime_crystal_shulker_box.name=Lime Crystal Shulker Box
+tile.etfuturum.pink_crystal_shulker_box.name=Pink Crystal Shulker Box
+tile.etfuturum.gray_crystal_shulker_box.name=Gray Crystal Shulker Box
+tile.etfuturum.light_gray_crystal_shulker_box.name=Light Gray Crystal Shulker Box
+tile.etfuturum.cyan_crystal_shulker_box.name=Cyan Crystal Shulker Box
+tile.etfuturum.purple_crystal_shulker_box.name=Purple Crystal Shulker Box
+tile.etfuturum.blue_crystal_shulker_box.name=Blue Crystal Shulker Box
+tile.etfuturum.brown_crystal_shulker_box.name=Brown Crystal Shulker Box
+tile.etfuturum.green_crystal_shulker_box.name=Green Crystal Shulker Box
+tile.etfuturum.red_crystal_shulker_box.name=Red Crystal Shulker Box
+tile.etfuturum.black_crystal_shulker_box.name=Black Crystal Shulker Box
+
+tile.etfuturum.obsidian_shulker_box.name=Obsidian Shulker Box
+tile.etfuturum.white_obsidian_shulker_box.name=White Obsidian Shulker Box
+tile.etfuturum.orange_obsidian_shulker_box.name=Orange Obsidian Shulker Box
+tile.etfuturum.magenta_obsidian_shulker_box.name=Magenta Obsidian Shulker Box
+tile.etfuturum.light_blue_obsidian_shulker_box.name=Light Blue Obsidian Shulker Box
+tile.etfuturum.yellow_obsidian_shulker_box.name=Yellow Obsidian Shulker Box
+tile.etfuturum.lime_obsidian_shulker_box.name=Lime Obsidian Shulker Box
+tile.etfuturum.pink_obsidian_shulker_box.name=Pink Obsidian Shulker Box
+tile.etfuturum.gray_obsidian_shulker_box.name=Gray Obsidian Shulker Box
+tile.etfuturum.light_gray_obsidian_shulker_box.name=Light Gray Obsidian Shulker Box
+tile.etfuturum.cyan_obsidian_shulker_box.name=Cyan Obsidian Shulker Box
+tile.etfuturum.purple_obsidian_shulker_box.name=Purple Obsidian Shulker Box
+tile.etfuturum.blue_obsidian_shulker_box.name=Blue Obsidian Shulker Box
+tile.etfuturum.brown_obsidian_shulker_box.name=Brown Obsidian Shulker Box
+tile.etfuturum.green_obsidian_shulker_box.name=Green Obsidian Shulker Box
+tile.etfuturum.red_obsidian_shulker_box.name=Red Obsidian Shulker Box
+tile.etfuturum.black_obsidian_shulker_box.name=Black Obsidian Shulker Box
+
+tile.etfuturum.raw_aluminum_block.name=Raw Aluminum Block
+tile.etfuturum.raw_tin_block.name=Raw Tin Block
+tile.etfuturum.raw_silver_block.name=Raw Silver Block
+tile.etfuturum.raw_lead_block.name=Raw Lead Block
+tile.etfuturum.raw_nickel_block.name=Raw Nickel Block
+tile.etfuturum.raw_platinum_block.name=Raw Platinum Block
+tile.etfuturum.raw_mythril_block.name=Raw Mythril Block
+tile.etfuturum.raw_uranium_block.name=Raw Uranium Block
+tile.etfuturum.raw_thorium_block.name=Raw Thorium Block
+tile.etfuturum.raw_tungsten_block.name=Raw Tungsten Block
+tile.etfuturum.raw_titanium_block.name=Raw Titanium Block
+tile.etfuturum.raw_zinc_block.name=Raw Zinc Block
+tile.etfuturum.raw_magnesium_block.name=Raw Magnesium Block
+tile.etfuturum.raw_boron_block.name=Raw Boron Block
+
+tile.etfuturum.deepslate_aluminum_ore.name=Deepslate Aluminum Ore
+tile.etfuturum.deepslate_tin_ore.name=Deepslate Tin Ore
+tile.etfuturum.deepslate_silver_ore.name=Deepslate Silver Ore
+tile.etfuturum.deepslate_lead_ore.name=Deepslate Lead Ore
+tile.etfuturum.deepslate_nickel_ore.name=Deepslate Nickel Ore
+tile.etfuturum.deepslate_platinum_ore.name=Deepslate Platinum Ore
+tile.etfuturum.deepslate_mythril_ore.name=Deepslate Mythril Ore
+tile.etfuturum.deepslate_uranium_ore.name=Deepslate Uranium Ore
+tile.etfuturum.deepslate_thorium_ore.name=Deepslate Thorium Ore
+tile.etfuturum.deepslate_tungsten_ore.name=Deepslate Tungsten Ore
+tile.etfuturum.deepslate_titanium_ore.name=Deepslate Titanium Ore
+tile.etfuturum.deepslate_zinc_ore.name=Deepslate Zinc Ore
+tile.etfuturum.deepslate_magnesium_ore.name=Deepslate Magnesium Ore
+tile.etfuturum.deepslate_boron_ore.name=Deepslate Boron Ore
+
+tile.etfuturum.deepslate_certus_quartz_ore.name=Deepslate Certus Quartz Ore
+tile.etfuturum.deepslate_charged_certus_quartz_ore.name=Deepslate Charged Certus Quartz Ore
+
+tile.etfuturum.draconic.deepslate_draconium_ore.name=Deepslate Draconium Ore
+
+tile.etfuturum.thaumcraft.deepslate_cinnabar_ore.name=Deepslate Cinnabar Ore
+tile.etfuturum.thaumcraft.air_infused_deepslate.name=Air Infused Deepslate
+tile.etfuturum.thaumcraft.fire_infused_deepslate.name=Fire Infused Deepslate
+tile.etfuturum.thaumcraft.water_infused_deepslate.name=Water Infused Deepslate
+tile.etfuturum.thaumcraft.earth_infused_deepslate.name=Earth Infused Deepslate
+tile.etfuturum.thaumcraft.order_infused_deepslate.name=Order Infused Deepslate
+tile.etfuturum.thaumcraft.entropy_infused_deepslate.name=Entropy Infused Deepslate
+tile.etfuturum.thaumcraft.amber_bearing_deepslate.name=Amber Bearing Deepslate
+
+tile.etfuturum.bop.deepslate_ruby_ore.name=Deepslate Ruby Ore
+tile.etfuturum.bop.deepslate_peridot_ore.name=Deepslate Peridot Ore
+tile.etfuturum.bop.deepslate_topaz_ore.name=Deepslate Topaz Ore
+tile.etfuturum.bop.deepslate_tanzanite_ore.name=Deepslate Tanzanite Ore
+tile.etfuturum.bop.deepslate_malachite_ore.name=Deepslate Malachite Ore
+tile.etfuturum.bop.deepslate_sapphire_ore.name=Deepslate Sapphire Ore
+tile.etfuturum.bop.deepslate_amber_ore.name=Deepslate Amber Ore
+
+tile.etfuturum.projectred.deepslate_ruby_ore.name=Deepslate Ruby Ore
+tile.etfuturum.projectred.deepslate_sapphire_ore.name=Deepslate Sapphire Ore
+tile.etfuturum.projectred.deepslate_peridot_ore.name=Deepslate Peridot Ore
+tile.etfuturum.projectred.deepslate_electrotine_ore.name=Deepslate Electrotine Ore
+
+tile.etfuturum.bluepower.deepslate_teslatite_ore.name=Deepslate Teslatite Ore
+tile.etfuturum.bluepower.deepslate_ruby_ore.name=Deepslate Ruby Ore
+tile.etfuturum.bluepower.deepslate_sapphire_ore.name=Deepslate Sapphire Ore
+tile.etfuturum.bluepower.deepslate_amethyst_ore.name=Deepslate Amethyst Ore
+
+# Mod support items
+
+item.shulker_vanilla_iron_upgrade.name=Vanilla to Iron Shulker Box Upgrade
+item.shulker_vanilla_copper_upgrade.name=Vanilla to Copper Shulker Box Upgrade
+item.shulker_iron_gold_upgrade.name=Iron to Gold Shulker Box Upgrade
+item.shulker_gold_diamond_upgrade.name=Gold to Diamond Shulker Box Upgrade
+item.shulker_diamond_obsidian_upgrade.name=Diamond to Obsidian Shulker Box Upgrade
+item.shulker_diamond_crystal_upgrade.name=Diamond to Crystal Shulker Box Upgrade
+item.shulker_copper_iron_upgrade.name=Copper to Iron Shulker Box Upgrade
+item.shulker_copper_silver_upgrade.name=Copper to Silver Shulker Box Upgrade
+item.shulker_silver_gold_upgrade.name=Silver to Gold Shulker Box Upgrade
+
+item.etfuturum.raw_aluminum.name=Raw Aluminum
+item.etfuturum.raw_tin.name=Raw Tin
+item.etfuturum.raw_silver.name=Raw Silver
+item.etfuturum.raw_lead.name=Raw Lead
+item.etfuturum.raw_nickel.name=Raw Nickel
+item.etfuturum.raw_platinum.name=Raw Platinum
+item.etfuturum.raw_mythril.name=Raw Mythril
+item.etfuturum.raw_uranium.name=Raw Uranium
+item.etfuturum.raw_thorium.name=Raw Thorium
+item.etfuturum.raw_tungsten.name=Raw Tungsten
+item.etfuturum.raw_titanium.name=Raw Titanium
+item.etfuturum.raw_zinc.name=Raw Zinc
+item.etfuturum.raw_magnesium.name=Raw Magnesium
+item.etfuturum.raw_boron.name=Raw Boron

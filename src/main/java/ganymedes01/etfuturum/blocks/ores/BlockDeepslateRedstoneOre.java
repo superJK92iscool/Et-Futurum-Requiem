@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 
 import java.util.Random;
 
-public class BlockDeepslateRedstoneOre extends BlockVanillaDeepslateOre {
+public class BlockDeepslateRedstoneOre extends BlockDeepslateOre {
 
 	public boolean isLit;
 

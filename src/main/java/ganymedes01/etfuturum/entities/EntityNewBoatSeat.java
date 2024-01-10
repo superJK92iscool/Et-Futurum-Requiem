@@ -34,13 +34,13 @@ public class EntityNewBoatSeat extends Entity {
 
 	@Override
 	public void entityInit() {
-		dataWatcher.addObject(17, boat == null ? new Integer(0) : boat.getEntityId()); //Attached boat ID
+		dataWatcher.addObject(17, boat == null ? 0 : boat.getEntityId()); //Attached boat ID
 	}
 
 	public void setBoat(EntityNewBoat newBoat) {
 		boat = newBoat;
 		if (newBoat != null) {
-			dataWatcher.updateObject(17, new Integer(newBoat.getEntityId()));
+			dataWatcher.updateObject(17, newBoat.getEntityId());
 			this.boatUUID = newBoat.getPersistentID();
 		}
 	}

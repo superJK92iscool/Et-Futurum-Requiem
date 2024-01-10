@@ -8,7 +8,7 @@ import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.api.DeepslateOreRegistry;
 import ganymedes01.etfuturum.blocks.BaseSlab;
 import ganymedes01.etfuturum.blocks.IDegradable;
-import ganymedes01.etfuturum.blocks.ores.BlockModdedDeepslateOre;
+import ganymedes01.etfuturum.blocks.ores.modded.BlockModdedDeepslateOre;
 import ganymedes01.etfuturum.compat.ExternalContent;
 import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;

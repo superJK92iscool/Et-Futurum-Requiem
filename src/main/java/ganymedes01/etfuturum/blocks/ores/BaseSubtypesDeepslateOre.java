@@ -3,6 +3,7 @@ package ganymedes01.etfuturum.blocks.ores;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.blocks.BaseSubtypesBlock;
+import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
@@ -21,9 +22,9 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public abstract class BaseSubtypesDeepslateOre extends BaseSubtypesBlock {
-
-	public BaseSubtypesDeepslateOre(Material material, String... types) {
-		super(material, types);
+	public BaseSubtypesDeepslateOre(String... types) {
+		super(Material.rock, types);
+		setBlockSound(ModSounds.soundDeepslate);
 	}
 
 	@Override
@@ -121,11 +122,12 @@ public abstract class BaseSubtypesDeepslateOre extends BaseSubtypesBlock {
 
 	/**
 	 * Checks to see if its valid to put this block at the specified coordinates. Args: world, x, y, z
+	 * TODO: Find a way to capture metadata then uncomment this
 	 */
-	@Override
-	public boolean canPlaceBlockAt(World world, int x, int y, int z) {
-		return getBase(world.getBlockMetadata(x, y, z)).canPlaceBlockAt(world, x, y, z);
-	}
+//	@Override
+//	public boolean canPlaceBlockAt(World world, int x, int y, int z) {
+//		return getBase(0).canPlaceBlockAt(world, x, y, z);
+//	}
 
 	/**
 	 * Called whenever the block is added into the world. Args: world, x, y, z
@@ -206,6 +208,11 @@ public abstract class BaseSubtypesDeepslateOre extends BaseSubtypesBlock {
 
 	protected int getBaseMeta(int meta) {
 		return 0;
+	}
+
+	@Override
+	public String getNameDomain() {
+		return super.getNameDomain() + (getTextureSubfolder().isEmpty() ? "" : (super.getNameDomain().isEmpty() ? "" : ".") + getTextureSubfolder());
 	}
 
 	@Override

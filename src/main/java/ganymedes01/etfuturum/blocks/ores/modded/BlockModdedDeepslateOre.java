@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.blocks.ores;
+package ganymedes01.etfuturum.blocks.ores.modded;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
