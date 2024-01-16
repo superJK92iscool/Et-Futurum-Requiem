@@ -1771,8 +1771,10 @@ tile.etfuturum.deepslate_zinc_ore.name=深层锌矿石
 tile.etfuturum.deepslate_magnesium_ore.name=深层镁矿石
 tile.etfuturum.deepslate_boron_ore.name=深层硼矿石
 
-tile.etfuturum.deepslate_certus_quartz_ore.name=深层赛特斯石英矿石
-tile.etfuturum.deepslate_charged_certus_quartz_ore.name=深层充能赛特斯石英矿石
+tile.etfuturum.ae2.deepslate_certus_quartz_ore.name=深层赛特斯石英矿石
+tile.etfuturum.ae2.deepslate_charged_certus_quartz_ore.name=深层充能赛特斯石英矿石
+
+tile.etfuturum.draconic.deepslate_draconium_ore.name=深层龙矿
 
 tile.etfuturum.deepslate_cinnabar_ore.name=深层朱砂矿石
 tile.etfuturum.air_infused_deepslate.name=风之蕴魔深板岩
@@ -1782,6 +1784,24 @@ tile.etfuturum.earth_infused_deepslate.name=地之蕴魔深板岩
 tile.etfuturum.order_infused_deepslate.name=秩序蕴魔深板岩
 tile.etfuturum.entropy_infused_deepslate.name=混沌蕴魔深板岩
 tile.etfuturum.amber_bearing_deepslate.name=深层琥珀矿石
+
+tile.etfuturum.bop.deepslate_ruby_ore.name=深层红宝石矿石
+tile.etfuturum.bop.deepslate_peridot_ore.name=深层橄榄石矿石
+tile.etfuturum.bop.deepslate_topaz_ore.name=深层黄玉矿石
+tile.etfuturum.bop.deepslate_tanzanite_ore.name=深层坦桑石矿石
+tile.etfuturum.bop.deepslate_malachite_ore.name=深层孔雀石矿石
+tile.etfuturum.bop.deepslate_sapphire_ore.name=深层蓝宝石矿石
+tile.etfuturum.bop.deepslate_amber_ore.name=深层琥珀矿石
+
+tile.etfuturum.projectred.deepslate_ruby_ore.name=深层红宝石矿石
+tile.etfuturum.projectred.deepslate_sapphire_ore.name=深层蓝宝石矿石
+tile.etfuturum.projectred.deepslate_peridot_ore.name=深层橄榄石矿石
+tile.etfuturum.projectred.deepslate_electrotine_ore.name=深层蓝石矿石
+
+tile.etfuturum.bluepower.deepslate_teslatite_ore.name=深层蓝石矿石
+tile.etfuturum.bluepower.deepslate_ruby_ore.name=深层红宝石矿石
+tile.etfuturum.bluepower.deepslate_sapphire_ore.name=深层蓝宝石矿石
+tile.etfuturum.bluepower.deepslate_amethyst_ore.name=深层紫晶矿石
 
 # Mod support items
 
