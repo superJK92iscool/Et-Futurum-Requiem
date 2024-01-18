@@ -1,11 +1,8 @@
 package ganymedes01.etfuturum.entities;
 
-import ganymedes01.etfuturum.ModItems;
-import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -179,7 +176,7 @@ public class EntityNewBoatWithChest extends EntityNewBoat implements IInventory 
 			NBTTagCompound nbttagcompound1 = nbttaglist.getCompoundTagAt(i);
 			int j = nbttagcompound1.getByte("Slot") & 255;
 
-			if (j >= 0 && j < this.boatItems.length) {
+			if (j < this.boatItems.length) {
 				this.boatItems[j] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
 			}
 		}
@@ -198,11 +195,10 @@ public class EntityNewBoatWithChest extends EntityNewBoat implements IInventory 
 
 	@Override
 	protected float getDefaultRiderOffset() {
-		return 0.2f;
+		return -0.2f;
 	}
 
-	@Override
-	public Item getItemBoat() {
-		return ConfigFunctions.dropVehiclesTogether ? ModItems.CHEST_BOATS[getBoatType().ordinal()].get() : super.getItemBoat();
+	public float getChestHeight() {
+		return -0.2f;
 	}
 }

@@ -1,11 +1,13 @@
 package ganymedes01.etfuturum.items;
 
+import com.google.common.collect.Maps;
 import ganymedes01.etfuturum.entities.EntityNewBoat;
 import ganymedes01.etfuturum.entities.EntityNewBoatWithChest;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
@@ -14,16 +16,38 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
 import java.util.List;
+import java.util.Map;
+import java.util.function.Supplier;
 
 public class ItemNewBoat extends BaseItem {
 
-	private final EntityNewBoat.Type type;
+	@Deprecated
+	private EntityNewBoat.Type type;
 	private final boolean isChest;
 
+	private final String name;
+	private final String domain;
+
+	public static final Map<String, BoatInfo> BOAT_INFO = Maps.newHashMap();
+
+	@Deprecated
 	public ItemNewBoat(EntityNewBoat.Type type, boolean isChest) {
 		super(type.getName() + (isChest ? "_chest_boat" : "_boat"));
 		this.type = type;
+		this.name = type.getName();
+		this.domain = "minecraft";
 		this.isChest = isChest;
+		BOAT_INFO.put("minecraft:" + type.getName().toLowerCase() + (isChest ? "_chest" : ""),
+				new BoatInfo(new ItemStack(this), () -> Item.getItemFromBlock(Blocks.planks), type.ordinal(), false));
+		setMaxStackSize(1);
+	}
+
+	public ItemNewBoat(String domain, String name, Supplier<Item> plank, int plankMeta, boolean isChest, boolean isRaft) {
+		super(name + (isChest ? "_chest" : "") + (isRaft ? "_raft" : "_boat"));
+		this.name = name;
+		this.domain = domain;
+		this.isChest = isChest;
+		BOAT_INFO.put(domain + ":" + name + (isChest ? "_chest" : ""), new BoatInfo(new ItemStack(this), plank, plankMeta, isRaft));
 		setMaxStackSize(1);
 	}
 
@@ -88,7 +112,7 @@ public class ItemNewBoat extends BaseItem {
 			boolean isWater = p_77659_2_.getBlock(i, j, k).getMaterial() == Material.water;
 			entityboat.setPositionAndRotation(movingobjectposition.hitVec.xCoord, movingobjectposition.hitVec.yCoord + (isWater ? -0.12 : 0), movingobjectposition.hitVec.zCoord, p_77659_3_.rotationYaw, 0);
 			entityboat.motionX = entityboat.motionY = entityboat.motionZ = 0;
-			entityboat.setBoatType(type);
+			entityboat.setBoatType(domain, name);
 			if (p_77659_1_.hasDisplayName()) {
 				entityboat.setBoatName(p_77659_1_.getDisplayName());
 			}
@@ -109,4 +133,29 @@ public class ItemNewBoat extends BaseItem {
 		return p_77659_1_;
 	}
 
+	public class BoatInfo {
+		private final ItemStack boatItem;
+		private final Supplier<Item> plank;
+		private final int plankMeta;
+		private final boolean raft;
+
+		public BoatInfo(ItemStack boatItem, Supplier<Item> plank, int plankMeta, boolean raft) {
+			this.boatItem = boatItem;
+			this.plank = plank;
+			this.plankMeta = plankMeta;
+			this.raft = raft;
+		}
+
+		public ItemStack getBoatItem() {
+			return boatItem.copy();
+		}
+
+		public ItemStack getPlank() {
+			return new ItemStack(plank.get(), 1, plankMeta);
+		}
+
+		public boolean isRaft() {
+			return raft;
+		}
+	}
 }

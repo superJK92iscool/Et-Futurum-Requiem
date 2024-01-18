@@ -7,10 +7,10 @@ import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigEntities;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.configuration.configs.ConfigModCompat;
-import ganymedes01.etfuturum.entities.EntityNewBoat;
 import ganymedes01.etfuturum.items.*;
 import ganymedes01.etfuturum.items.equipment.*;
 import ganymedes01.etfuturum.lib.Reference;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -64,18 +64,24 @@ public enum ModItems {
 	HONEY_BOTTLE(ConfigBlocksItems.enableHoney, new ItemHoneyBottle()),
 	BAMBOO(ConfigBlocksItems.enableBambooBlocks, new ItemBamboo()),
 
-	OAK_BOAT(ConfigBlocksItems.enableNewBoats && !ConfigBlocksItems.replaceOldBoats, new ItemNewBoat(EntityNewBoat.Type.OAK, false)),
-	OAK_CHEST_BOAT(ConfigBlocksItems.enableNewBoats, new ItemNewBoat(EntityNewBoat.Type.OAK, true)),
-	SPRUCE_BOAT(ConfigBlocksItems.enableNewBoats, new ItemNewBoat(EntityNewBoat.Type.SPRUCE, false)),
-	SPRUCE_CHEST_BOAT(ConfigBlocksItems.enableNewBoats, new ItemNewBoat(EntityNewBoat.Type.SPRUCE, true)),
-	BIRCH_BOAT(ConfigBlocksItems.enableNewBoats, new ItemNewBoat(EntityNewBoat.Type.BIRCH, false)),
-	BIRCH_CHEST_BOAT(ConfigBlocksItems.enableNewBoats, new ItemNewBoat(EntityNewBoat.Type.BIRCH, true)),
-	JUNGLE_BOAT(ConfigBlocksItems.enableNewBoats, new ItemNewBoat(EntityNewBoat.Type.JUNGLE, false)),
-	JUNGLE_CHEST_BOAT(ConfigBlocksItems.enableNewBoats, new ItemNewBoat(EntityNewBoat.Type.JUNGLE, true)),
-	ACACIA_BOAT(ConfigBlocksItems.enableNewBoats, new ItemNewBoat(EntityNewBoat.Type.ACACIA, false)),
-	ACACIA_CHEST_BOAT(ConfigBlocksItems.enableNewBoats, new ItemNewBoat(EntityNewBoat.Type.ACACIA, true)),
-	DARK_OAK_BOAT(ConfigBlocksItems.enableNewBoats, new ItemNewBoat(EntityNewBoat.Type.DARK_OAK, false)),
-	DARK_OAK_CHEST_BOAT(ConfigBlocksItems.enableNewBoats, new ItemNewBoat(EntityNewBoat.Type.DARK_OAK, true)),
+	OAK_BOAT(ConfigBlocksItems.enableNewBoats && !ConfigBlocksItems.replaceOldBoats, new ItemNewBoat("minecraft", "oak", () -> Item.getItemFromBlock(Blocks.planks), 0, false, false)),
+	OAK_CHEST_BOAT(ConfigBlocksItems.enableNewBoats, new ItemNewBoat("minecraft", "oak", () -> Item.getItemFromBlock(Blocks.planks), 0, true, false)),
+	SPRUCE_BOAT(ConfigBlocksItems.enableNewBoats, new ItemNewBoat("minecraft", "spruce", () -> Item.getItemFromBlock(Blocks.planks), 1, false, false)),
+	SPRUCE_CHEST_BOAT(ConfigBlocksItems.enableNewBoats, new ItemNewBoat("minecraft", "spruce", () -> Item.getItemFromBlock(Blocks.planks), 1, true, false)),
+	BIRCH_BOAT(ConfigBlocksItems.enableNewBoats, new ItemNewBoat("minecraft", "spruce", () -> Item.getItemFromBlock(Blocks.planks), 2, false, false)),
+	BIRCH_CHEST_BOAT(ConfigBlocksItems.enableNewBoats, new ItemNewBoat("minecraft", "birch", () -> Item.getItemFromBlock(Blocks.planks), 2, true, false)),
+	JUNGLE_BOAT(ConfigBlocksItems.enableNewBoats, new ItemNewBoat("minecraft", "jungle", () -> Item.getItemFromBlock(Blocks.planks), 3, false, false)),
+	JUNGLE_CHEST_BOAT(ConfigBlocksItems.enableNewBoats, new ItemNewBoat("minecraft", "jungle", () -> Item.getItemFromBlock(Blocks.planks), 3, true, false)),
+	ACACIA_BOAT(ConfigBlocksItems.enableNewBoats, new ItemNewBoat("minecraft", "acacia", () -> Item.getItemFromBlock(Blocks.planks), 4, false, false)),
+	ACACIA_CHEST_BOAT(ConfigBlocksItems.enableNewBoats, new ItemNewBoat("minecraft", "acacia", () -> Item.getItemFromBlock(Blocks.planks), 4, true, false)),
+	DARK_OAK_BOAT(ConfigBlocksItems.enableNewBoats, new ItemNewBoat("minecraft", "dark_oak", () -> Item.getItemFromBlock(Blocks.planks), 5, false, false)),
+	DARK_OAK_CHEST_BOAT(ConfigBlocksItems.enableNewBoats, new ItemNewBoat("minecraft", "dark_oak", () -> Item.getItemFromBlock(Blocks.planks), 5, true, false)),
+	CHERRY_BOAT(ConfigBlocksItems.enableNewBoats, new ItemNewBoat("minecraft", "cherry", ModBlocks.WOOD_PLANKS::getItem, 2, false, false)),
+	CHERRY_CHEST_BOAT(ConfigBlocksItems.enableNewBoats, new ItemNewBoat("minecraft", "cherry", ModBlocks.WOOD_PLANKS::getItem, 2, true, false)),
+	MANGROVE_OAK_BOAT(ConfigBlocksItems.enableNewBoats, new ItemNewBoat("minecraft", "mangrove", ModBlocks.WOOD_PLANKS::getItem, 3, false, false)),
+	MANGROVE_CHEST_BOAT(ConfigBlocksItems.enableNewBoats, new ItemNewBoat("minecraft", "mangrove", ModBlocks.WOOD_PLANKS::getItem, 3, true, false)),
+	BAMBOO_RAFT(ConfigBlocksItems.enableNewBoats, new ItemNewBoat("minecraft", "bamboo", ModBlocks.WOOD_PLANKS::getItem, 4, false, true)),
+	BAMBOO_CHEST_RAFT(ConfigBlocksItems.enableNewBoats, new ItemNewBoat("minecraft", "bamboo", ModBlocks.WOOD_PLANKS::getItem, 4, true, true)),
 
 	//legacy sign items -- new signs use their ItemBlock at the sign item instead
 	ITEM_SIGN_SPRUCE(ConfigBlocksItems.enableSigns, new ItemWoodSign((BlockWoodSign) ModBlocks.SIGN_SPRUCE.get())),

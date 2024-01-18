@@ -7,6 +7,7 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
+import ganymedes01.etfuturum.items.ItemNewBoat;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.network.BoatMoveMessage;
 import net.minecraft.block.Block;
@@ -37,7 +38,13 @@ public class EntityNewBoat extends Entity {
 //    private static final DataParameter<Float> DAMAGE_TAKEN = EntityDataManager.<Float>createKey(EntityNewBoat.class, DataSerializers.FLOAT);
 //    private static final DataParameter<Integer> BOAT_TYPE = EntityDataManager.<Integer>createKey(EntityNewBoat.class, DataSerializers.VARINT);
 //    private static final DataParameter<Boolean>[] DATA_ID_PADDLE = new DataParameter[] {EntityDataManager.createKey(EntityNewBoat.class, DataSerializers.BOOLEAN), EntityDataManager.createKey(EntityNewBoat.class, DataSerializers.BOOLEAN)};
-	private static final int[] DATA_ID_PADDLE = new int[]{21, 22};
+	private static final int[] DATA_ID_PADDLE = new int[]{23, 24};
+	private static final int DATA_ID_LAST_HIT = 17;
+	private static final int DATA_ID_FORWARD = 18;
+	private static final int DATA_ID_DAMAGE_TAKEN = 19;
+	private static final int DATA_ID_OLD_TYPE = 20;
+	private static final int DATA_ID_TYPE = 21;
+	private static final int DATA_ID_RESOURCELOCATION = 22;
 	private final float[] paddlePositions;
 
 	/**
@@ -70,6 +77,11 @@ public class EntityNewBoat extends Entity {
 	private EntityNewBoatSeat seat;
 	private EntityNewBoatSeat seatToSpawn;
 	private String entityName;
+
+	protected String resourceDomain = "minecraft";
+	protected ResourceLocation resourceLocation;
+	protected ItemNewBoat.BoatInfo boatInfo = ItemNewBoat.BOAT_INFO.get("minecraft:oak");
+
 
 	public EntityNewBoat(World p_i1704_1_) {
 		super(p_i1704_1_);
@@ -106,13 +118,15 @@ public class EntityNewBoat extends Entity {
 	}
 
 	protected void entityInit() {
-		this.dataWatcher.addObject(17, new Integer(0)); //Time since hit?
-		this.dataWatcher.addObject(18, new Integer(1)); //Forward direction?
-		this.dataWatcher.addObject(19, new Float(0.0F)); //Damage taken?
+		this.dataWatcher.addObject(DATA_ID_LAST_HIT, 0);
+		this.dataWatcher.addObject(DATA_ID_FORWARD, 1);
+		this.dataWatcher.addObject(DATA_ID_DAMAGE_TAKEN, 0.0F);
 		// ET FUTURUM START
-		this.dataWatcher.addObject(20, new Integer(0)); //Boat Type
+		this.dataWatcher.addObject(DATA_ID_OLD_TYPE, 0);
+		this.dataWatcher.addObject(DATA_ID_TYPE, "oak");
+		this.dataWatcher.addObject(DATA_ID_RESOURCELOCATION, "minecraft:textures/entity/boat/oak.png");
 		for (int i = 0; i < DATA_ID_PADDLE.length; ++i) {
-			dataWatcher.addObject(DATA_ID_PADDLE[i], new Byte((byte) 0));
+			dataWatcher.addObject(DATA_ID_PADDLE[i], (byte) 0);
 		}
 	}
 
@@ -246,7 +260,7 @@ public class EntityNewBoat extends Entity {
 
 			if (flag || this.getDamageTaken() > 40.0F) {
 				if (!flag && this.worldObj.getGameRules().getGameRuleBooleanValue("doMobLoot")) {
-					ItemStack boat = new ItemStack(getItemBoat());
+					ItemStack boat = getBoatDrop();
 					if (this.entityName != null) {
 						boat.setStackDisplayName(this.entityName);
 					}
@@ -286,13 +300,6 @@ public class EntityNewBoat extends Entity {
 		} else if (entityIn.boundingBox.minY <= this.boundingBox.minY) {
 			super.applyEntityCollision(entityIn);
 		}
-	}
-
-	public Item getItemBoat() {
-		if (getBoatType() == Type.OAK) {
-			return ConfigBlocksItems.replaceOldBoats ? Items.boat : ModItems.OAK_BOAT.get();
-		}
-		return ModItems.BOATS[getBoatType().ordinal()].get();
 	}
 
 	/**
@@ -557,8 +564,8 @@ public class EntityNewBoat extends Entity {
 	}
 
 	public void setPaddleState(boolean p_184445_1_, boolean p_184445_2_) {
-		this.dataWatcher.updateObject(DATA_ID_PADDLE[0], new Byte((byte) (p_184445_1_ ? 1 : 0)));
-		this.dataWatcher.updateObject(DATA_ID_PADDLE[1], new Byte((byte) (p_184445_2_ ? 1 : 0)));
+		this.dataWatcher.updateObject(DATA_ID_PADDLE[0], (byte) (p_184445_1_ ? 1 : 0));
+		this.dataWatcher.updateObject(DATA_ID_PADDLE[1], (byte) (p_184445_2_ ? 1 : 0));
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -876,11 +883,11 @@ public class EntityNewBoat extends Entity {
 		if (entityToUpdate instanceof EntityAnimal && this.getPassengers().size() > 1) {
 			j = entityToUpdate.getEntityId() % 2 == 0 ? 90 : 270;
 		}
-		float f = MathHelper.wrapAngleTo180_float(((EntityLivingBase) entityToUpdate).rotationYawHead - this.rotationYaw) + j;
-		float f1 = MathHelper.clamp_float(f, -105.0F + j, 105.0F + j % 360);
-		entityToUpdate.prevRotationYaw += f1 - f;
-		entityToUpdate.rotationYaw += f1 - f;
 		if (entityToUpdate instanceof EntityLivingBase) {
+			float f = MathHelper.wrapAngleTo180_float(((EntityLivingBase) entityToUpdate).rotationYawHead - this.rotationYaw) + j;
+			float f1 = MathHelper.clamp_float(f, -105.0F + j, 105.0F + j % 360);
+			entityToUpdate.prevRotationYaw += f1 - f;
+			entityToUpdate.rotationYaw += f1 - f;
 			((EntityLivingBase) entityToUpdate).rotationYawHead += f1 - f;
 			((EntityLivingBase) entityToUpdate).prevRotationYawHead += f1 - f;
 			((EntityLivingBase) entityToUpdate).renderYawOffset = this.rotationYaw + j;
@@ -894,10 +901,12 @@ public class EntityNewBoat extends Entity {
 	@Override
 	protected void readEntityFromNBT(NBTTagCompound compound) {
 		if (compound.hasKey("Type", 8)) {
-			this.setBoatType(EntityNewBoat.Type.getTypeFromString(compound.getString("Type")));
+			this.setBoatType(compound.hasKey("Domain", 8) ? compound.getString("Domain") : "minecraft", compound.getString("Type"));
+		} else {
+			this.setBoatType("minecraft", "oak");
 		}
 
-		if (compound.hasKey("Seat") && !worldObj.isRemote && ConfigBlocksItems.newBoatPassengerSeat && shouldHaveSeat()) { //TODO add seat config
+		if (ConfigBlocksItems.newBoatPassengerSeat && compound.hasKey("Seat") && !worldObj.isRemote && shouldHaveSeat()) { //TODO add seat config
 			Entity entity = EntityList.createEntityFromNBT(compound.getCompoundTag("Seat"), worldObj);
 			if (entity instanceof EntityNewBoatSeat && entity.riddenByEntity == null) {
 				((EntityNewBoatSeat) entity).setBoat(this);
@@ -915,7 +924,8 @@ public class EntityNewBoat extends Entity {
 	 */
 	@Override
 	protected void writeEntityToNBT(NBTTagCompound compound) {
-		compound.setString("Type", this.getBoatType().getName());
+		compound.setString("Type", getBoatType());
+		compound.setString("Domain", resourceDomain);
 		if (hasSeat() && ConfigBlocksItems.newBoatPassengerSeat && shouldHaveSeat()) {
 			String s = EntityList.getEntityString(seat);
 			NBTTagCompound seatData = new NBTTagCompound();
@@ -951,7 +961,7 @@ public class EntityNewBoat extends Entity {
 
 						if (this.worldObj.getGameRules().getGameRuleBooleanValue("doMobLoot")) {
 							for (int i = 0; i < 3; ++i) {
-								this.entityDropItem(new ItemStack(Item.getItemFromBlock(Blocks.planks), 1, this.getBoatType().getMetadata()), 0.0F);
+								this.entityDropItem(getPlankToDrop(), 0.0F);
 							}
 
 							for (int j = 0; j < 2; ++j) {
@@ -976,50 +986,91 @@ public class EntityNewBoat extends Entity {
 	 * Sets the damage taken from the last hit.
 	 */
 	public void setDamageTaken(float p_70266_1_) {
-		this.dataWatcher.updateObject(19, Float.valueOf(p_70266_1_));
+		this.dataWatcher.updateObject(DATA_ID_DAMAGE_TAKEN, p_70266_1_);
 	}
 
 	/**
 	 * Gets the damage taken from the last hit.
 	 */
 	public float getDamageTaken() {
-		return this.dataWatcher.getWatchableObjectFloat(19);
+		return this.dataWatcher.getWatchableObjectFloat(DATA_ID_DAMAGE_TAKEN);
 	}
 
 	/**
 	 * Sets the time to count down from since the last time entity was hit.
 	 */
 	public void setTimeSinceHit(int p_70265_1_) {
-		this.dataWatcher.updateObject(17, Integer.valueOf(p_70265_1_));
+		this.dataWatcher.updateObject(DATA_ID_LAST_HIT, p_70265_1_);
 	}
 
 	/**
 	 * Gets the time since the last hit.
 	 */
 	public int getTimeSinceHit() {
-		return this.dataWatcher.getWatchableObjectInt(17);
+		return this.dataWatcher.getWatchableObjectInt(DATA_ID_LAST_HIT);
 	}
 
 	/**
 	 * Sets the forward direction of the entity.
 	 */
 	public void setForwardDirection(int p_70269_1_) {
-		this.dataWatcher.updateObject(18, Integer.valueOf(p_70269_1_));
+		this.dataWatcher.updateObject(DATA_ID_FORWARD, p_70269_1_);
 	}
 
 	/**
 	 * Gets the forward direction of the entity.
 	 */
 	public int getForwardDirection() {
-		return this.dataWatcher.getWatchableObjectInt(18);
+		return this.dataWatcher.getWatchableObjectInt(DATA_ID_FORWARD);
 	}
 
+	public ItemStack getBoatDrop() {
+		ItemStack boatItem = boatInfo.getBoatItem();
+		if (ConfigBlocksItems.replaceOldBoats) {
+			if (boatItem.getItem() == ModItems.OAK_BOAT.get()) {
+				boatItem.func_150996_a(Items.boat);
+			}
+		} else {
+			if (boatItem.getItem() == Items.boat) {
+				boatItem.func_150996_a(ModItems.OAK_BOAT.get());
+			}
+		}
+		return boatItem;
+	}
+
+	@Deprecated
+	public Item getItemBoat() {
+		return getBoatDrop().getItem();
+	}
+
+	public ItemStack getPlankToDrop() {
+		return boatInfo.getPlank();
+	}
+
+	public boolean isRaft() {
+		return boatInfo.isRaft();
+	}
+
+	public void setBoatType(String domain, String boatType) {
+		getDataWatcher().updateObject(DATA_ID_TYPE, boatType);
+		resourceDomain = domain;
+
+		boatInfo = ItemNewBoat.BOAT_INFO.get(domain + ":" + boatType + (ConfigFunctions.dropVehiclesTogether && this instanceof EntityNewBoatWithChest ? "_chest" : ""));
+		if (boatInfo == null) {
+			boatInfo = ItemNewBoat.BOAT_INFO.get("minecraft:oak" + boatType + (ConfigFunctions.dropVehiclesTogether && this instanceof EntityNewBoatWithChest ? "_chest" : ""));
+			resourceDomain = "minecraft";
+			getDataWatcher().updateObject(DATA_ID_TYPE, "oak");
+		}
+		getDataWatcher().updateObject(DATA_ID_RESOURCELOCATION, resourceDomain + ":textures/entity/boat/" + getBoatType() + ".png");
+	}
+
+	public String getBoatType() {
+		return getDataWatcher().getWatchableObjectString(DATA_ID_TYPE);
+	}
+
+	@Deprecated
 	public void setBoatType(EntityNewBoat.Type boatType) {
-		getDataWatcher().updateObject(20, boatType.ordinal());
-	}
-
-	public EntityNewBoat.Type getBoatType() {
-		return EntityNewBoat.Type.byId(getDataWatcher().getWatchableObjectInt(20));
+		setBoatType("minecraft", boatType.name);
 	}
 
 	public void updateInputs(boolean p_184442_1_, boolean p_184442_2_, boolean p_184442_3_, boolean p_184442_4_) {
@@ -1037,6 +1088,18 @@ public class EntityNewBoat extends Entity {
 		this.entityName = p_96094_1_;
 	}
 
+	/**
+	 * Provided through the entity as a way for modders to be able to easily make modded boats withing needing a base class to attach a renderer to
+	 *
+	 * @return
+	 */
+	public ResourceLocation getResourceLocation() {
+		if (resourceLocation == null) {
+			resourceLocation = new ResourceLocation(getDataWatcher().getWatchableObjectString(DATA_ID_RESOURCELOCATION));
+		}
+		return resourceLocation;
+	}
+
 	public enum Status {
 		IN_WATER,
 		UNDER_WATER,
@@ -1045,6 +1108,7 @@ public class EntityNewBoat extends Entity {
 		IN_AIR
 	}
 
+	@Deprecated
 	public enum Type {
 		OAK(0, "oak"),
 		SPRUCE(1, "spruce"),
