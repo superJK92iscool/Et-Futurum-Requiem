@@ -246,7 +246,8 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 				}
 			}
 
-			if (ConfigWorld.enableOceanMonuments && ModBlocks.PRISMARINE_BLOCK.isEnabled() && ModBlocks.SEA_LANTERN.isEnabled()) {
+			if (ConfigWorld.enableOceanMonuments && ModBlocks.PRISMARINE_BLOCK.isEnabled() && ModBlocks.SEA_LANTERN.isEnabled()
+					&& !(world.provider instanceof WorldProviderEnd) && !(world.provider instanceof WorldProviderHell)) {
 				if (OceanMonument.canSpawnAt(world, chunkX, chunkZ)) {
 					x = (chunkX << 4) + rand.nextInt(16) + 8;
 					z = (chunkZ << 4) + rand.nextInt(16) + 8;
