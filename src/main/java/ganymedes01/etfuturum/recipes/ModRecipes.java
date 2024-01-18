@@ -240,7 +240,10 @@ public class ModRecipes {
 			registerOre("logWood", ModBlocks.BARK.newItemStack(1, i));
 			registerOre("logWood", ModBlocks.BARK2.newItemStack(1, i));
 
-			if (i == 0 || (i % 2 == 1 && ConfigBlocksItems.enableStrippedLogs) || (i >= 2 && ConfigBlocksItems.enableBarkLogs)) {
+			if (i == 0
+					|| (i == 1 && ConfigBlocksItems.enableStrippedLogs)
+					|| (i == 2 && ConfigBlocksItems.enableBarkLogs)
+					|| (i == 3 && ConfigBlocksItems.enableStrippedLogs && ConfigBlocksItems.enableBarkLogs)) {
 				registerOre("logWood", ModBlocks.CRIMSON_STEM.newItemStack(1, i));
 				registerOre("logWood", ModBlocks.WARPED_STEM.newItemStack(1, i));
 				registerOre("logWood", ModBlocks.MANGROVE_LOG.newItemStack(1, i));
