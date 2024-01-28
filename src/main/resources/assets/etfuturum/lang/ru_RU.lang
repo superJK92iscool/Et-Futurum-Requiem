@@ -1753,6 +1753,8 @@ tile.etfuturum.deepslate_boron_ore.name=Глубинная борная руда
 tile.etfuturum.ae2.deepslate_certus_quartz_ore.name=Глубинная руда истинного кварца
 tile.etfuturum.ae2.deepslate_charged_certus_quartz_ore.name=Глубинная заряженная руда истинного кварца
 
+tile.etfuturum.draconic.deepslate_draconium_ore.name=Глубинная дракониевая руда
+
 tile.etfuturum.thaumcraft.deepslate_cinnabar_ore.name=Глубинная киноварь
 tile.etfuturum.thaumcraft.air_infused_deepslate.name=Глубинная грозовая руда
 tile.etfuturum.thaumcraft.fire_infused_deepslate.name=Глубинная огненная руда
@@ -1761,6 +1763,24 @@ tile.etfuturum.thaumcraft.earth_infused_deepslate.name=Глубинная руд
 tile.etfuturum.thaumcraft.order_infused_deepslate.name=Глубинная руда кристалла порядка
 tile.etfuturum.thaumcraft.entropy_infused_deepslate.name=Глубинная энтропийная руда
 tile.etfuturum.thaumcraft.amber_bearing_deepslate.name=Глубинная янтарная руда
+
+tile.etfuturum.bop.deepslate_ruby_ore.name=Глубинная рубиновая руда
+tile.etfuturum.bop.deepslate_peridot_ore.name=Глубинная перидотовая руда
+tile.etfuturum.bop.deepslate_topaz_ore.name=Глубинная топазовая руда
+tile.etfuturum.bop.deepslate_tanzanite_ore.name=Глубинная танзанитовая руда
+tile.etfuturum.bop.deepslate_malachite_ore.name=Глубинная малахитовая руда
+tile.etfuturum.bop.deepslate_sapphire_ore.name=Глубинная сапфировая руда
+tile.etfuturum.bop.deepslate_amber_ore.name=Глубинная янтарная руда
+
+tile.etfuturum.projectred.deepslate_ruby_ore.name=Глубинная рубиновая руда
+tile.etfuturum.projectred.deepslate_sapphire_ore.name=Глубинная сапфировая руда
+tile.etfuturum.projectred.deepslate_peridot_ore.name=Глубинная перидотовая руда
+tile.etfuturum.projectred.deepslate_electrotine_ore.name=Глубинная электротиновая руда
+
+tile.etfuturum.bluepower.deepslate_teslatite_ore.name=Глубинная теслатитовая руда
+tile.etfuturum.bluepower.deepslate_ruby_ore.name=Глубинная рубиновая руда
+tile.etfuturum.bluepower.deepslate_sapphire_ore.name=Глубинная сапфировая руда
+tile.etfuturum.bluepower.deepslate_amethyst_ore.name=Глубинная аметистовая руда
 
 # Поддержка модовых предметов (Mod support items)
 item.shulker_vanilla_iron_upgrade.name=Улучшение шалкерового ящика до железного шалкерового ящика
