@@ -1220,16 +1220,20 @@ public class ServerEventHandler {
 		int x = MathHelper.floor_double(event.x);
 		int y = MathHelper.floor_double(event.y);
 		int z = MathHelper.floor_double(event.z);
+		World world = event.world;
+		EntityLivingBase entity = event.entityLiving;
 		if (event.entityLiving instanceof EntityShulker) {
 			EntityShulker shulker = ((EntityShulker) event.entityLiving);
 			shulker.persistenceRequired = false;
 			if (ConfigTweaks.spawnAnywhereShulkerColors) {
-				World world = event.world;
-
 				for (EnumFacing facing : Utils.ENUM_FACING_VALUES) {
-					Block block = world.getBlock(x + facing.getFrontOffsetX(), y + facing.getFrontOffsetY(), z + facing.getFrontOffsetZ());
+					int offX = x + facing.getFrontOffsetX();
+					int offY = y + facing.getFrontOffsetY();
+					int offZ = z + facing.getFrontOffsetZ();
+
+					Block block = world.getBlock(offX, offY, offZ);
 					byte color = -1;
-					int meta = world.getBlockMetadata(x + facing.getFrontOffsetX(), y + facing.getFrontOffsetY(), z + facing.getFrontOffsetZ());
+					int meta = world.getBlockMetadata(offX, offY, offZ);
 
 					if (facing == EnumFacing.DOWN && block == ExternalContent.Blocks.HEE_END_STONE.get()) {
 						color = (byte) (meta == 2 ? 10 : meta == 1 ? 1 : 14);
@@ -1245,20 +1249,22 @@ public class ServerEventHandler {
 					}
 				}
 			}
-		} else if (ConfigEntities.enableStray && !ConfigWorld.oldStraySpawning && EntityList.getEntityID(event.entity) == 51 /*Skeleton ID*/ && event.world.rand.nextFloat() < .80F && event.world.canBlockSeeTheSky(x, y + 1, z)) {
-			BiomeDictionary.Type[] biomeTags = BiomeDictionary.getTypesForBiome(event.world.getBiomeGenForCoords(x, z));
+		} else if (ConfigEntities.enableStray && !ConfigWorld.oldStraySpawning && EntityList.getEntityID(entity) == 51 /*Skeleton ID*/ && world.rand.nextFloat() < .80F && world.canBlockSeeTheSky(x, y + 1, z)) {
+			Chunk chunk = world.getChunkFromBlockCoords(x, z);
+			BiomeDictionary.Type[] biomeTags = BiomeDictionary.getTypesForBiome(chunk.getBiomeGenForWorldCoords(x & 15, z & 15, world.getWorldChunkManager()));
 			if (ArrayUtils.contains(biomeTags, BiomeDictionary.Type.SNOWY)) {
-				EntityStray stray = new EntityStray(event.world);
-				replaceEntity(event.entity, stray, event.world, event.world.getChunkFromChunkCoords(x, z));
+				EntityStray stray = new EntityStray(world);
+				replaceEntity(entity, stray, world, chunk);
 				stray.onSpawnWithEgg(null);
 				event.setCanceled(true);
 				event.setResult(Result.DENY);
 			}
-		} else if (ConfigEntities.enableHusk && !ConfigWorld.oldHuskSpawning && EntityList.getEntityID(event.entity) == 54 /*Zombie ID*/ && event.world.rand.nextFloat() < .80F && event.world.canBlockSeeTheSky(x, y + 1, z)) {
-			BiomeDictionary.Type[] biomeTags = BiomeDictionary.getTypesForBiome(event.world.getBiomeGenForCoords(x, z));
+		} else if (ConfigEntities.enableHusk && !ConfigWorld.oldHuskSpawning && EntityList.getEntityID(entity) == 54 /*Zombie ID*/ && world.rand.nextFloat() < .80F && world.canBlockSeeTheSky(x, y + 1, z)) {
+			Chunk chunk = world.getChunkFromBlockCoords(x, z);
+			BiomeDictionary.Type[] biomeTags = BiomeDictionary.getTypesForBiome(chunk.getBiomeGenForWorldCoords(x & 15, z & 15, world.getWorldChunkManager()));
 			if (ArrayUtils.contains(biomeTags, BiomeDictionary.Type.HOT) && ArrayUtils.contains(biomeTags, BiomeDictionary.Type.DRY) && ArrayUtils.contains(biomeTags, BiomeDictionary.Type.SANDY)) {
-				EntityHusk husk = new EntityHusk(event.world);
-				replaceEntity(event.entity, husk, event.world, event.world.getChunkFromChunkCoords(x, z));
+				EntityHusk husk = new EntityHusk(world);
+				replaceEntity(entity, husk, world, chunk);
 				husk.onSpawnWithEgg(null);
 				event.setCanceled(true);
 				event.setResult(Result.DENY);
@@ -1268,7 +1274,7 @@ public class ServerEventHandler {
 
 	private Method addRandomArmorMethod;
 	private Method enchantEquipmentMethod;
-	private Map<Class<? extends IChunkProvider>, Field[]> chunkProviderFieldsCache = new WeakHashMap<>();
+	private final Map<Class<? extends IChunkProvider>, Field[]> chunkProviderFieldsCache = new WeakHashMap<>();
 
 	@SubscribeEvent
 	public void naturalSpawnEvent(LivingPackSizeEvent event) {
