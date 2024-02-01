@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.client.renderer.block;
 
+import com.gtnewhorizons.angelica.api.ThreadSafeISBRH;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModBlocks;
@@ -13,6 +14,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import java.util.Random;
 
 @SideOnly(Side.CLIENT)
+@ThreadSafeISBRH(perThread = false)
 public class BlockChorusPlantRenderer extends BlockChorusFlowerRenderer {
 
 	private final Random rand = new RandomXoshiro256StarStar();
