@@ -42,7 +42,7 @@ public class BlockLanternRenderer extends BlockModelBase {
 
 		IIcon iicon = renderer.hasOverrideBlockTexture() ? renderer.overrideBlockTexture : renderer.getBlockIcon(block);
 		//Lantern chain
-		if (world.getBlockMetadata(x, y, z) == 0) {
+		if (world.getBlockMetadata(x, y, z) % 2 == 0) {
 			//If meta is 0, there are two crossed chain links on the top of the lantern
 			renderRawDoubleSidedFace(renderer, block, x, y, z, 0.4375D, 0.5625D, 0.5625D, 0.6875D, 0.4375D, 0.5625D, 11, 10, 14, 12, iicon);
 			renderRawDoubleSidedFace(renderer, block, x, y, z, 0.4375D, 0.5625D, 0.5625D, 0.6875D, 0.5625D, 0.4375D, 11, 10, 14, 12, iicon);

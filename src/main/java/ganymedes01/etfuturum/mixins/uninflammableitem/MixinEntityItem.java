@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
 
-@Mixin(EntityItem.class)
+@Mixin(value = EntityItem.class, priority = 1001)
 public abstract class MixinEntityItem extends Entity {
 
 	@Shadow
@@ -56,9 +56,12 @@ public abstract class MixinEntityItem extends Entity {
 	private void floatLava(EntityItem instance, double mx, double my, double mz) {
 		double buoyancy = 0;
 		if (isImmuneToFire && this.worldObj.getBlock(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY), MathHelper.floor_double(this.posZ)).getMaterial() == Material.lava) {
-			motionY += 0.04D; //Cancels the gravity applied to the item
-			my += 0.04D; //Also do this; I want to use the variables for compatibility sake
+			motionY += 0.04D; //Necessary to do this too or the ingot floats slightly below the lava for some reason
+			//Yes I tried setting my to += 0.08D it DOES NOT FIX IT
+			my += 0.04D;
 			buoyancy = 0.3D;
+			mx *= 0.5D;
+			mz *= 0.5D;
 		}
 		moveEntity(mx, my + buoyancy, mz);
 	}

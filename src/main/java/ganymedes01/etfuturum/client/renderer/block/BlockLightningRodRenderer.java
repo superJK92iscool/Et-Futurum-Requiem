@@ -1,10 +1,12 @@
 package ganymedes01.etfuturum.client.renderer.block;
 
+import com.gtnewhorizons.angelica.api.ThreadSafeISBRH;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.world.IBlockAccess;
 
+@ThreadSafeISBRH(perThread = false)
 public class BlockLightningRodRenderer implements ISimpleBlockRenderingHandler {
 
 	@Override

@@ -38,13 +38,14 @@ public class EntityNewBoat extends Entity {
 //    private static final DataParameter<Float> DAMAGE_TAKEN = EntityDataManager.<Float>createKey(EntityNewBoat.class, DataSerializers.FLOAT);
 //    private static final DataParameter<Integer> BOAT_TYPE = EntityDataManager.<Integer>createKey(EntityNewBoat.class, DataSerializers.VARINT);
 //    private static final DataParameter<Boolean>[] DATA_ID_PADDLE = new DataParameter[] {EntityDataManager.createKey(EntityNewBoat.class, DataSerializers.BOOLEAN), EntityDataManager.createKey(EntityNewBoat.class, DataSerializers.BOOLEAN)};
-	private static final int[] DATA_ID_PADDLE = new int[]{23, 24};
+	private static final int[] DATA_ID_PADDLE = new int[]{24, 25};
 	private static final int DATA_ID_LAST_HIT = 17;
 	private static final int DATA_ID_FORWARD = 18;
 	private static final int DATA_ID_DAMAGE_TAKEN = 19;
 	private static final int DATA_ID_OLD_TYPE = 20;
 	private static final int DATA_ID_TYPE = 21;
 	private static final int DATA_ID_RESOURCELOCATION = 22;
+	private static final int DATA_ID_RAFT = 23;
 	private final float[] paddlePositions;
 
 	/**
@@ -125,6 +126,7 @@ public class EntityNewBoat extends Entity {
 		this.dataWatcher.addObject(DATA_ID_OLD_TYPE, 0);
 		this.dataWatcher.addObject(DATA_ID_TYPE, "oak");
 		this.dataWatcher.addObject(DATA_ID_RESOURCELOCATION, "minecraft:textures/entity/boat/oak.png");
+		this.dataWatcher.addObject(DATA_ID_RAFT, (byte) 0);
 		for (int i = 0; i < DATA_ID_PADDLE.length; ++i) {
 			dataWatcher.addObject(DATA_ID_PADDLE[i], (byte) 0);
 		}
@@ -1048,7 +1050,7 @@ public class EntityNewBoat extends Entity {
 	}
 
 	public boolean isRaft() {
-		return boatInfo.isRaft();
+		return getDataWatcher().getWatchableObjectByte(DATA_ID_RAFT) == 1;
 	}
 
 	public void setBoatType(String domain, String boatType) {
@@ -1057,10 +1059,11 @@ public class EntityNewBoat extends Entity {
 
 		boatInfo = ItemNewBoat.BOAT_INFO.get(domain + ":" + boatType + (ConfigFunctions.dropVehiclesTogether && this instanceof EntityNewBoatWithChest ? "_chest" : ""));
 		if (boatInfo == null) {
-			boatInfo = ItemNewBoat.BOAT_INFO.get("minecraft:oak" + boatType + (ConfigFunctions.dropVehiclesTogether && this instanceof EntityNewBoatWithChest ? "_chest" : ""));
+			boatInfo = ItemNewBoat.BOAT_INFO.get("minecraft:oak" + (ConfigFunctions.dropVehiclesTogether && this instanceof EntityNewBoatWithChest ? "_chest" : ""));
 			resourceDomain = "minecraft";
 			getDataWatcher().updateObject(DATA_ID_TYPE, "oak");
 		}
+		getDataWatcher().updateObject(DATA_ID_RAFT, boatInfo.isRaft() ? (byte) 1 : (byte) 0);
 		getDataWatcher().updateObject(DATA_ID_RESOURCELOCATION, resourceDomain + ":textures/entity/boat/" + getBoatType() + ".png");
 	}
 
