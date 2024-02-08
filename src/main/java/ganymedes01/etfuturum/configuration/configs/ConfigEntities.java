@@ -64,7 +64,7 @@ public class ConfigEntities extends ConfigBase {
 		enableVillagerTurnsIntoWitch = getBoolean("enableVillagerTurnsIntoWitch", catMisc, true, "Villagers turn into Witches when struck by lightning");
 		enableDragonRespawn = getBoolean("enableDragonRespawn", catMisc, true, "Crude implementation of respawning the dragon using four End crystals.");
 		enableNetherEndermen = getBoolean("enableNetherEndermen", catMisc, true, "Allow endermen to rarely spawn in the Nether");
-		enableLightLevel0 = getBoolean("enableLightLevel0", catMisc, false, "This config reducec the required light level for mobs to spawn to light level 0, like in Minecraft 1.18+.");
+		enableLightLevel0 = getBoolean("enableLightLevel0", catMisc, false, "This config reduces the required light level for mobs to spawn to light level 0, like in Minecraft 1.18+.");
 	}
 
 }
