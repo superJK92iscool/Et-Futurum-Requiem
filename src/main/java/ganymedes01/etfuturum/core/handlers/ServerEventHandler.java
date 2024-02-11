@@ -1955,6 +1955,19 @@ public class ServerEventHandler {
 			e.world.getGameRules().addGameRule("disableElytraMovementCheck", "false");
 	}
 
+	@SubscribeEvent
+	public void onEntitySpawn(LivingSpawnEvent.CheckSpawn event) {
+		if (ConfigEntities.enableLightLevel0 && event.entityLiving instanceof IMob) {
+			int x = MathHelper.floor_double(event.entityLiving.posX);
+			int y = MathHelper.floor_double(event.entityLiving.boundingBox.minY);
+			int z = MathHelper.floor_double(event.entityLiving.posZ);
+			
+			if (event.entityLiving.worldObj.getBlockLightValue(x, y, z) > 0) {
+				event.setResult(Result.DENY);
+			}
+		}
+	}
+
 	static MovingObjectPosition getMovingObjectPositionFromPlayer(World worldIn, EntityPlayer playerIn, boolean useLiquids) {
 		float f = 1.0F;
 		float f1 = playerIn.prevRotationPitch + (playerIn.rotationPitch - playerIn.prevRotationPitch) * f;
