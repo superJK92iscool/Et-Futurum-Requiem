@@ -128,7 +128,6 @@ dependencies {
 
 minecraft {
 	version = "1.7.10-10.13.4.1614-1.7.10"
-	runDir = "eclipse/assets"
 	replaceIn 'ganymedes01/etfuturum/lib/Reference.java'
 	meta.each { k, v -> replace "@${k.toUpperCase()}@", v }
 }
