@@ -35,6 +35,9 @@ public enum ModsList {
 	ARS_MAGICA_2("arsmagica2"),
 	MULTIPART("McMultipart"),
 	DRACONIC_EVOLUTION("DraconicEvolution"),
+
+	NOT_ENOUGH_IDS("neid"),
+	ENDLESS_IDS("endlessids"),
 	;
 
 	private final String modID;
@@ -71,8 +74,16 @@ public enum ModsList {
 		return compareVersion(compareTo) > 0;
 	}
 
+	public boolean isVersionNewerOrEqual(String compareTo) {
+		return compareVersion(compareTo) >= 0;
+	}
+
 	public boolean isVersionEqual(String compareTo) {
 		return compareVersion(compareTo) == 0;
+	}
+
+	public boolean isVersionOlderOrEqual(String compareTo) {
+		return compareVersion(compareTo) <= 0;
 	}
 
 	public boolean isVersionOlder(String compareTo) {
