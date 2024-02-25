@@ -1734,9 +1734,17 @@ public class ServerEventHandler {
 
 	@SubscribeEvent
 	public void onDrops(BlockEvent.HarvestDropsEvent event) {
-		if (ConfigBlocksItems.enableSmoothStone && event.block == Blocks.double_stone_slab && event.blockMetadata == 8) {
-			event.drops.clear();
-			event.drops.add(ModBlocks.SMOOTH_STONE.newItemStack(1));
+		if (event.block == Blocks.double_stone_slab) {
+			if (ModBlocks.SMOOTH_STONE.isEnabled() && event.blockMetadata == 8) {
+				event.drops.clear();
+				event.drops.add(ModBlocks.SMOOTH_STONE.newItemStack(1));
+			} else if (ModBlocks.SMOOTH_SANDSTONE.isEnabled() && event.blockMetadata == 9) {
+				event.drops.clear();
+				event.drops.add(ModBlocks.SMOOTH_SANDSTONE.newItemStack(1));
+			} else if (ModBlocks.SMOOTH_QUARTZ.isEnabled() && event.blockMetadata == 15) {
+				event.drops.clear();
+				event.drops.add(ModBlocks.SMOOTH_QUARTZ.newItemStack(1));
+			}
 		}
 	}
 
