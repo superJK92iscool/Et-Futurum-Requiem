@@ -57,7 +57,7 @@ public class DeepslateOreRegistry {
 	 * @param toMeta   The meta deepslate changes it to
 	 */
 	public static void addOre(Block from, int fromMeta, Block to, int toMeta) {
-		if (from instanceof ITileEntityProvider || to instanceof ITileEntityProvider) {
+		if (from.hasTileEntity(fromMeta) || to.hasTileEntity(toMeta)) {
 			throw new IllegalArgumentException("Block Entities are not supported for the deepslate ore registry!");
 		}
 		if (!Utils.isMetaInBlockBoundsIgnoreWildcard(fromMeta) || !Utils.isMetaInBlockBoundsIgnoreWildcard(toMeta)) {
