@@ -1098,12 +1098,19 @@ public class ModRecipes {
 				DeepslateOreRegistry.addOre(ExternalContent.Blocks.THAUMCRAFT_ORE.get(), 7, ModBlocks.DEEPSLATE_THAUMCRAFT_ORE.get(), 7);
 			}
 			if (ModBlocks.DEEPSLATE_BOP_ORE.isEnabled()) {
+				registerOre("oreDeepslateRuby", ModBlocks.DEEPSLATE_BOP_ORE.newItemStack());
 				registerOre("oreRuby", ModBlocks.DEEPSLATE_BOP_ORE.newItemStack());
+				registerOre("oreDeepslatePeridot", ModBlocks.DEEPSLATE_BOP_ORE.newItemStack(1, 1));
 				registerOre("orePeridot", ModBlocks.DEEPSLATE_BOP_ORE.newItemStack(1, 1));
+				registerOre("oreDeepslateTopaz", ModBlocks.DEEPSLATE_BOP_ORE.newItemStack(1, 2));
 				registerOre("oreTopaz", ModBlocks.DEEPSLATE_BOP_ORE.newItemStack(1, 2));
+				registerOre("oreDeepslateTanzanite", ModBlocks.DEEPSLATE_BOP_ORE.newItemStack(1, 3));
 				registerOre("oreTanzanite", ModBlocks.DEEPSLATE_BOP_ORE.newItemStack(1, 3));
+				registerOre("oreDeepslateMalachite", ModBlocks.DEEPSLATE_BOP_ORE.newItemStack(1, 4));
 				registerOre("oreMalachite", ModBlocks.DEEPSLATE_BOP_ORE.newItemStack(1, 4));
+				registerOre("oreDeepslateSapphire", ModBlocks.DEEPSLATE_BOP_ORE.newItemStack(1, 5));
 				registerOre("oreSapphire", ModBlocks.DEEPSLATE_BOP_ORE.newItemStack(1, 5));
+				registerOre("oreDeepslateAmber", ModBlocks.DEEPSLATE_BOP_ORE.newItemStack(1, 6));
 				registerOre("oreAmber", ModBlocks.DEEPSLATE_BOP_ORE.newItemStack(1, 6));
 				DeepslateOreRegistry.addOre(ExternalContent.Blocks.BOP_GEM_ORE.get(), 2, ModBlocks.DEEPSLATE_BOP_ORE.get(), 0);
 				DeepslateOreRegistry.addOre(ExternalContent.Blocks.BOP_GEM_ORE.get(), 4, ModBlocks.DEEPSLATE_BOP_ORE.get(), 1);
