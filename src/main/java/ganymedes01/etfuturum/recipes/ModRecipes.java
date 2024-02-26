@@ -998,6 +998,12 @@ public class ModRecipes {
 			}
 		}
 
+		if (Loader.isModLoaded("BigReactors")) {
+			if (ConfigModCompat.moddedRawOres) {
+				registerOre("oreUranium", GameRegistry.findBlock("BigReactors", "YelloriteOre"));
+			}
+		}
+
 		addShapelessRecipe(new ItemStack(Items.dye, 1, 9), ModBlocks.PINK_PETALS.get());
 
 		registerModdedDeepslateOres();
