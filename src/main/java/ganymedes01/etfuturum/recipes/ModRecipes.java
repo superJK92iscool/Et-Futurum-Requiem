@@ -1097,6 +1097,34 @@ public class ModRecipes {
 				DeepslateOreRegistry.addOre(ExternalContent.Blocks.THAUMCRAFT_ORE.get(), 6, ModBlocks.DEEPSLATE_THAUMCRAFT_ORE.get(), 6);
 				DeepslateOreRegistry.addOre(ExternalContent.Blocks.THAUMCRAFT_ORE.get(), 7, ModBlocks.DEEPSLATE_THAUMCRAFT_ORE.get(), 7);
 			}
+			if (ModBlocks.DEEPSLATE_BOP_ORE.isEnabled()) {
+				registerOre("oreDeepslateRuby", ModBlocks.DEEPSLATE_BOP_ORE.newItemStack());
+				registerOre("oreRuby", ModBlocks.DEEPSLATE_BOP_ORE.newItemStack());
+				registerOre("oreDeepslatePeridot", ModBlocks.DEEPSLATE_BOP_ORE.newItemStack(1, 1));
+				registerOre("orePeridot", ModBlocks.DEEPSLATE_BOP_ORE.newItemStack(1, 1));
+				registerOre("oreDeepslateTopaz", ModBlocks.DEEPSLATE_BOP_ORE.newItemStack(1, 2));
+				registerOre("oreTopaz", ModBlocks.DEEPSLATE_BOP_ORE.newItemStack(1, 2));
+				registerOre("oreDeepslateTanzanite", ModBlocks.DEEPSLATE_BOP_ORE.newItemStack(1, 3));
+				registerOre("oreTanzanite", ModBlocks.DEEPSLATE_BOP_ORE.newItemStack(1, 3));
+				registerOre("oreDeepslateMalachite", ModBlocks.DEEPSLATE_BOP_ORE.newItemStack(1, 4));
+				registerOre("oreMalachite", ModBlocks.DEEPSLATE_BOP_ORE.newItemStack(1, 4));
+				registerOre("oreDeepslateSapphire", ModBlocks.DEEPSLATE_BOP_ORE.newItemStack(1, 5));
+				registerOre("oreSapphire", ModBlocks.DEEPSLATE_BOP_ORE.newItemStack(1, 5));
+				registerOre("oreDeepslateAmber", ModBlocks.DEEPSLATE_BOP_ORE.newItemStack(1, 6));
+				registerOre("oreAmber", ModBlocks.DEEPSLATE_BOP_ORE.newItemStack(1, 6));
+				DeepslateOreRegistry.addOre(ExternalContent.Blocks.BOP_GEM_ORE.get(), 2, ModBlocks.DEEPSLATE_BOP_ORE.get(), 0);
+				DeepslateOreRegistry.addOre(ExternalContent.Blocks.BOP_GEM_ORE.get(), 4, ModBlocks.DEEPSLATE_BOP_ORE.get(), 1);
+				DeepslateOreRegistry.addOre(ExternalContent.Blocks.BOP_GEM_ORE.get(), 6, ModBlocks.DEEPSLATE_BOP_ORE.get(), 2);
+				DeepslateOreRegistry.addOre(ExternalContent.Blocks.BOP_GEM_ORE.get(), 8, ModBlocks.DEEPSLATE_BOP_ORE.get(), 3);
+				DeepslateOreRegistry.addOre(ExternalContent.Blocks.BOP_GEM_ORE.get(), 10, ModBlocks.DEEPSLATE_BOP_ORE.get(), 4);
+				DeepslateOreRegistry.addOre(ExternalContent.Blocks.BOP_GEM_ORE.get(), 12, ModBlocks.DEEPSLATE_BOP_ORE.get(), 5);
+				DeepslateOreRegistry.addOre(ExternalContent.Blocks.BOP_GEM_ORE.get(), 14, ModBlocks.DEEPSLATE_BOP_ORE.get(), 6);
+			}
+			if (ModBlocks.DEEPSLATE_DRACONIUM_ORE.isEnabled()) {
+				registerOre("oreDeepslateDraconium", ModBlocks.DEEPSLATE_DRACONIUM_ORE.newItemStack());
+				registerOre("oreDraconium", ModBlocks.DEEPSLATE_DRACONIUM_ORE.newItemStack());
+				DeepslateOreRegistry.addOre(ExternalContent.Blocks.DRACONIUM_ORE.get(), ModBlocks.DEEPSLATE_DRACONIUM_ORE.get());
+			}
 		}
 	}
 
@@ -1124,8 +1152,6 @@ public class ModRecipes {
 			//Well it's probably *technically* possible but I don't want to do it, PR an OD remover if you need EFR to do it.
 			//For now just restart your game to clear entries that would no longer get a tag.
 			for (int j = 0; j < 1; j++) { //If it's mythril, we'll run this once more, changing the spelling to mithril to account for both tags.
-				boolean one = !OreDictionary.getOres(type).isEmpty();
-				boolean two = !OreDictionary.getOres(type.replace("ingot", "ore")).isEmpty();
 				if (!OreDictionary.getOres(type).isEmpty() && !OreDictionary.getOres(type.replace("ingot", "ore")).isEmpty()) { //Make sure an ingot AND ore is present
 					registerOre(type.replace("ingot", "raw"), ModItems.MODDED_RAW_ORE.newItemStack(1, i));
 					registerOre(type.replace("ingot", "blockRaw"), ModBlocks.MODDED_RAW_ORE_BLOCK.newItemStack(1, i));
