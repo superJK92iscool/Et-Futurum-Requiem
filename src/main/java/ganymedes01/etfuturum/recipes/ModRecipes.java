@@ -998,9 +998,9 @@ public class ModRecipes {
 			}
 		}
 
-		if (Loader.isModLoaded("BigReactors")) {
+		if (ModsList.BIG_REACTORS.isLoaded()) {
 			if (ConfigModCompat.moddedRawOres) {
-				registerOre("oreUranium", GameRegistry.findBlock("BigReactors", "YelloriteOre"));
+				registerOre("oreUranium", ExternalContent.Blocks.BR_YELLORITE_ORE.get());
 			}
 		}
 

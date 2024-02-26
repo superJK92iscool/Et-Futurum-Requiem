@@ -35,6 +35,7 @@ public enum ModsList {
 	ARS_MAGICA_2("arsmagica2"),
 	MULTIPART("McMultipart"),
 	DRACONIC_EVOLUTION("DraconicEvolution"),
+	BIG_REACTORS("BigReactors"),
 
 	NOT_ENOUGH_IDS("neid"),
 	ENDLESS_IDS("endlessids"),
