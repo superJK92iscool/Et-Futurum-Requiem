@@ -1120,6 +1120,11 @@ public class ModRecipes {
 				DeepslateOreRegistry.addOre(ExternalContent.Blocks.BOP_GEM_ORE.get(), 12, ModBlocks.DEEPSLATE_BOP_ORE.get(), 5);
 				DeepslateOreRegistry.addOre(ExternalContent.Blocks.BOP_GEM_ORE.get(), 14, ModBlocks.DEEPSLATE_BOP_ORE.get(), 6);
 			}
+			if (ModBlocks.DEEPSLATE_DRACONIUM_ORE.isEnabled()) {
+				registerOre("oreDeepslateDraconium", ModBlocks.DEEPSLATE_DRACONIUM_ORE.newItemStack());
+				registerOre("oreDraconium", ModBlocks.DEEPSLATE_DRACONIUM_ORE.newItemStack());
+				DeepslateOreRegistry.addOre(ExternalContent.Blocks.DRACONIUM_ORE.get(), ModBlocks.DEEPSLATE_DRACONIUM_ORE.get());
+			}
 		}
 	}
 
