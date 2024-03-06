@@ -1049,7 +1049,7 @@ public class ModRecipes {
 			registerOre("oreDeepslateGold", ModBlocks.DEEPSLATE_GOLD_ORE.newItemStack());
 		}
 
-		if (ModBlocks.MODDED_DEEPSLATE_ORE.isEnabled()) {
+		if (ModBlocks.MODDED_DEEPSLATE_ORE.isEnabled() && ConfigBlocksItems.enableDeepslateOres) {
 			//Insert alternate Mythril spelling to list. Yes I know "mithril" is technically the primary spelling but "mythril" is used by most mods, so "mithril" is secondary to it here.
 			for (int i = 0; i < BlockModdedDeepslateOre.ores.length; i++) {
 				String type = BlockModdedDeepslateOre.ores[i];
@@ -1103,6 +1103,34 @@ public class ModRecipes {
 				DeepslateOreRegistry.addOre(ExternalContent.Blocks.THAUMCRAFT_ORE.get(), 6, ModBlocks.DEEPSLATE_THAUMCRAFT_ORE.get(), 6);
 				DeepslateOreRegistry.addOre(ExternalContent.Blocks.THAUMCRAFT_ORE.get(), 7, ModBlocks.DEEPSLATE_THAUMCRAFT_ORE.get(), 7);
 			}
+			if (ModBlocks.DEEPSLATE_PROJRED_ORE.isEnabled()) {
+				registerOre("oreDeepslateRuby", ModBlocks.DEEPSLATE_PROJRED_ORE.newItemStack());
+				registerOre("oreRuby", ModBlocks.DEEPSLATE_PROJRED_ORE.newItemStack());
+				registerOre("oreDeepslateSapphire", ModBlocks.DEEPSLATE_PROJRED_ORE.newItemStack(1, 1));
+				registerOre("oreSapphire", ModBlocks.DEEPSLATE_PROJRED_ORE.newItemStack(1, 1));
+				registerOre("oreDeepslatePeridot", ModBlocks.DEEPSLATE_PROJRED_ORE.newItemStack(1, 2));
+				registerOre("orePeridot", ModBlocks.DEEPSLATE_PROJRED_ORE.newItemStack(1, 2));
+				registerOre("oreDeepslateElectrotine", ModBlocks.DEEPSLATE_PROJRED_ORE.newItemStack(1, 3));
+				registerOre("oreElectrotine", ModBlocks.DEEPSLATE_PROJRED_ORE.newItemStack(1, 3));
+				DeepslateOreRegistry.addOre(ExternalContent.Blocks.PROJECT_RED_ORE.get(), ModBlocks.DEEPSLATE_PROJRED_ORE.get());
+				DeepslateOreRegistry.addOre(ExternalContent.Blocks.PROJECT_RED_ORE.get(), 1, ModBlocks.DEEPSLATE_PROJRED_ORE.get(), 1);
+				DeepslateOreRegistry.addOre(ExternalContent.Blocks.PROJECT_RED_ORE.get(), 2, ModBlocks.DEEPSLATE_PROJRED_ORE.get(), 2);
+				DeepslateOreRegistry.addOre(ExternalContent.Blocks.PROJECT_RED_ORE.get(), 3, ModBlocks.DEEPSLATE_PROJRED_ORE.get(), 3);
+			}
+			if (ModBlocks.DEEPSLATE_BLUEPOWER_ORE.isEnabled()) {
+				registerOre("oreDeepslateTeslatite", ModBlocks.DEEPSLATE_BLUEPOWER_ORE.newItemStack());
+				registerOre("oreTeslatite", ModBlocks.DEEPSLATE_BLUEPOWER_ORE.newItemStack());
+				registerOre("oreDeepslateRuby", ModBlocks.DEEPSLATE_BLUEPOWER_ORE.newItemStack(1, 1));
+				registerOre("oreRuby", ModBlocks.DEEPSLATE_BLUEPOWER_ORE.newItemStack(1, 1));
+				registerOre("oreDeepslateSapphire", ModBlocks.DEEPSLATE_BLUEPOWER_ORE.newItemStack(1, 2));
+				registerOre("oreSapphire", ModBlocks.DEEPSLATE_BLUEPOWER_ORE.newItemStack(1, 2));
+				registerOre("oreDeepslateAmethyst", ModBlocks.DEEPSLATE_BLUEPOWER_ORE.newItemStack(1, 3));
+				registerOre("oreAmethyst", ModBlocks.DEEPSLATE_BLUEPOWER_ORE.newItemStack(1, 3));
+				DeepslateOreRegistry.addOre(ExternalContent.Blocks.BP_TESLATITE_ORE.get(), ModBlocks.DEEPSLATE_BLUEPOWER_ORE.get());
+				DeepslateOreRegistry.addOre(ExternalContent.Blocks.BP_RUBY_ORE.get(), 1, ModBlocks.DEEPSLATE_BLUEPOWER_ORE.get(), 1);
+				DeepslateOreRegistry.addOre(ExternalContent.Blocks.BP_SAPPHIRE_ORE.get(), 2, ModBlocks.DEEPSLATE_BLUEPOWER_ORE.get(), 2);
+				DeepslateOreRegistry.addOre(ExternalContent.Blocks.BP_AMETHYST_ORE.get(), 3, ModBlocks.DEEPSLATE_BLUEPOWER_ORE.get(), 3);
+			}
 			if (ModBlocks.DEEPSLATE_BOP_ORE.isEnabled()) {
 				registerOre("oreDeepslateRuby", ModBlocks.DEEPSLATE_BOP_ORE.newItemStack());
 				registerOre("oreRuby", ModBlocks.DEEPSLATE_BOP_ORE.newItemStack());
@@ -1130,6 +1158,17 @@ public class ModRecipes {
 				registerOre("oreDeepslateDraconium", ModBlocks.DEEPSLATE_DRACONIUM_ORE.newItemStack());
 				registerOre("oreDraconium", ModBlocks.DEEPSLATE_DRACONIUM_ORE.newItemStack());
 				DeepslateOreRegistry.addOre(ExternalContent.Blocks.DRACONIUM_ORE.get(), ModBlocks.DEEPSLATE_DRACONIUM_ORE.get());
+			}
+			if (ModBlocks.DEEPSLATE_AM2_ORE.isEnabled()) {
+				registerOre("oreDeepslateVinteum", ModBlocks.DEEPSLATE_AM2_ORE.newItemStack());
+				registerOre("oreVinteum", ModBlocks.DEEPSLATE_AM2_ORE.newItemStack());
+				registerOre("oreDeepslateChimerite", ModBlocks.DEEPSLATE_AM2_ORE.newItemStack(1, 1));
+				registerOre("oreChimerite", ModBlocks.DEEPSLATE_AM2_ORE.newItemStack(1, 1));
+				registerOre("oreDeepslateBlueTopaz", ModBlocks.DEEPSLATE_AM2_ORE.newItemStack(1, 2));
+				registerOre("oreBlueTopaz", ModBlocks.DEEPSLATE_AM2_ORE.newItemStack(1, 2));
+				DeepslateOreRegistry.addOre(ExternalContent.Blocks.ARS_MAGICA_2_ORE.get(), ModBlocks.DEEPSLATE_AM2_ORE.get());
+				DeepslateOreRegistry.addOre(ExternalContent.Blocks.ARS_MAGICA_2_ORE.get(), 1, ModBlocks.DEEPSLATE_AM2_ORE.get(), 1);
+				DeepslateOreRegistry.addOre(ExternalContent.Blocks.ARS_MAGICA_2_ORE.get(), 2, ModBlocks.DEEPSLATE_AM2_ORE.get(), 2);
 			}
 		}
 	}
