@@ -221,6 +221,10 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 			mixins.add("uninflammableitem.MixinEntityItem");
 		}
 
+		if (false) { //Does not work for some reason, investigate in 2.6.1
+			mixins.add("darkspawns.MixinEntityMob");
+		}
+
 		if (side == MixinEnvironment.Side.CLIENT) {
 			if (ConfigMixins.dustUnderFallingBlocks) {
 				mixins.add("blockfallingparticles.client.MixinBlockFalling");
