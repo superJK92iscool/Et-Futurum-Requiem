@@ -126,6 +126,10 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 			mixins.add("doweathercycle.MixinCommandHandler");
 			mixins.add("doweathercycle.MixinWorldInfo");
 		}
+		
+		if (ConfigMixins.enableRandomTickSpeed) {
+			mixins.add("randomtickspeed.MixinWorldServer");
+		}
 
 		if (ConfigMixins.creativeFlightSpeedModifier > 1) {
 			mixins.add("flyspeed.MixinEntityPlayer");

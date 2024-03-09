@@ -31,6 +31,7 @@ import ganymedes01.etfuturum.elytra.IElytraEntityTrackerEntry;
 import ganymedes01.etfuturum.elytra.IElytraPlayer;
 import ganymedes01.etfuturum.entities.*;
 import ganymedes01.etfuturum.entities.ai.EntityAIOpenCustomDoor;
+import ganymedes01.etfuturum.gamerule.RandomTickSpeed;
 import ganymedes01.etfuturum.inventory.ContainerEnchantment;
 import ganymedes01.etfuturum.items.ItemArrowTipped;
 import ganymedes01.etfuturum.lib.Reference;
@@ -1754,6 +1755,10 @@ public class ServerEventHandler {
 
 		if (ConfigMixins.enableDoWeatherCycle && !event.world.isRemote && !event.world.getGameRules().hasRule("doWeatherCycle")) {
 			event.world.getGameRules().addGameRule("doWeatherCycle", "true");
+		}
+		
+		if(ConfigMixins.enableRandomTickSpeed) {
+			RandomTickSpeed.registerGamerule(event.world);
 		}
 	}
 
