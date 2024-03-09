@@ -31,6 +31,7 @@ import ganymedes01.etfuturum.elytra.IElytraEntityTrackerEntry;
 import ganymedes01.etfuturum.elytra.IElytraPlayer;
 import ganymedes01.etfuturum.entities.*;
 import ganymedes01.etfuturum.entities.ai.EntityAIOpenCustomDoor;
+import ganymedes01.etfuturum.gamerule.DoWeatherCycle;
 import ganymedes01.etfuturum.gamerule.RandomTickSpeed;
 import ganymedes01.etfuturum.inventory.ContainerEnchantment;
 import ganymedes01.etfuturum.items.ItemArrowTipped;
@@ -40,7 +41,6 @@ import ganymedes01.etfuturum.network.BlackHeartParticlesMessage;
 import ganymedes01.etfuturum.recipes.ModRecipes;
 import ganymedes01.etfuturum.spectator.SpectatorMode;
 import ganymedes01.etfuturum.tileentities.TileEntityGateway;
-import ganymedes01.etfuturum.world.DoWeatherCycleHelper;
 import ganymedes01.etfuturum.world.EtFuturumWorldListener;
 import ganymedes01.etfuturum.world.nether.biome.utils.NetherBiomeManager;
 import net.minecraft.block.*;
@@ -1753,8 +1753,8 @@ public class ServerEventHandler {
 	public void loadWorldEvent(WorldEvent.Load event) {
 		event.world.addWorldAccess(new EtFuturumWorldListener(event.world));
 
-		if (ConfigMixins.enableDoWeatherCycle && !event.world.isRemote && !event.world.getGameRules().hasRule("doWeatherCycle")) {
-			event.world.getGameRules().addGameRule("doWeatherCycle", "true");
+		if (ConfigMixins.enableDoWeatherCycle) {
+			DoWeatherCycle.registerGamerule(event.world);
 		}
 		
 		if(ConfigMixins.enableRandomTickSpeed) {
@@ -1858,8 +1858,8 @@ public class ServerEventHandler {
 		}
 
 		if (ConfigMixins.enableDoWeatherCycle && e.phase == TickEvent.Phase.START && e.side == Side.SERVER) {
-			DoWeatherCycleHelper.INSTANCE.isWorldTickInProgress = true;
-			DoWeatherCycleHelper.INSTANCE.isCommandInProgress = false;
+			DoWeatherCycle.INSTANCE.isWorldTickInProgress = true;
+			DoWeatherCycle.INSTANCE.isCommandInProgress = false;
 		}
 	}
 
@@ -1905,7 +1905,7 @@ public class ServerEventHandler {
 		}
 
 		if (ConfigMixins.enableDoWeatherCycle && e.phase == TickEvent.Phase.END && e.side == Side.SERVER) {
-			DoWeatherCycleHelper.INSTANCE.isWorldTickInProgress = false;
+			DoWeatherCycle.INSTANCE.isWorldTickInProgress = false;
 		}
 	}
 
