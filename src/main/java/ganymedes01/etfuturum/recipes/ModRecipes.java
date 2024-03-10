@@ -1115,7 +1115,7 @@ public class ModRecipes {
 				DeepslateOreRegistry.addOre(ExternalContent.Blocks.PROJECT_RED_ORE.get(), ModBlocks.DEEPSLATE_PROJRED_ORE.get());
 				DeepslateOreRegistry.addOre(ExternalContent.Blocks.PROJECT_RED_ORE.get(), 1, ModBlocks.DEEPSLATE_PROJRED_ORE.get(), 1);
 				DeepslateOreRegistry.addOre(ExternalContent.Blocks.PROJECT_RED_ORE.get(), 2, ModBlocks.DEEPSLATE_PROJRED_ORE.get(), 2);
-				DeepslateOreRegistry.addOre(ExternalContent.Blocks.PROJECT_RED_ORE.get(), 3, ModBlocks.DEEPSLATE_PROJRED_ORE.get(), 3);
+				DeepslateOreRegistry.addOre(ExternalContent.Blocks.PROJECT_RED_ORE.get(), 6, ModBlocks.DEEPSLATE_PROJRED_ORE.get(), 3);
 			}
 			if (ModBlocks.DEEPSLATE_BLUEPOWER_ORE.isEnabled()) {
 				registerOre("oreDeepslateTeslatite", ModBlocks.DEEPSLATE_BLUEPOWER_ORE.newItemStack());
