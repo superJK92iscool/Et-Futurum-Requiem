@@ -1,7 +1,7 @@
 package ganymedes01.etfuturum.world.nether.biome.utils;
 
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigExperiments;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
 import ganymedes01.etfuturum.world.nether.biome.BiomeBasaltDeltas;
 import ganymedes01.etfuturum.world.nether.biome.BiomeCrimsonForest;
@@ -20,10 +20,10 @@ public class NetherBiomeManager {
 	public static BiomeGenBase basaltDeltas;
 
 	public static void init() {
-		if (ConfigWorld.crimsonForestID != -1 && ConfigBlocksItems.enableCrimsonBlocks) {
+		if (ConfigWorld.crimsonForestID != -1 && ConfigExperiments.enableCrimsonBlocks) {
 			crimsonForest = new BiomeCrimsonForest(ConfigWorld.crimsonForestID).setBiomeName("Crimson Forest");
 		}
-		if (ConfigWorld.warpedForestID != -1 && ConfigBlocksItems.enableWarpedBlocks) {
+		if (ConfigWorld.warpedForestID != -1 && ConfigExperiments.enableWarpedBlocks) {
 			warpedForest = new BiomeWarpedForest(ConfigWorld.warpedForestID).setBiomeName("Warped Forest");
 		}
 		if (ConfigWorld.soulSandValleyID != -1) {

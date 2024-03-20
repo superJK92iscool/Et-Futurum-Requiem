@@ -11,13 +11,11 @@ import ganymedes01.etfuturum.blocks.IDegradable;
 import ganymedes01.etfuturum.blocks.ores.modded.BlockModdedDeepslateOre;
 import ganymedes01.etfuturum.compat.ExternalContent;
 import ganymedes01.etfuturum.compat.ModsList;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
-import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
-import ganymedes01.etfuturum.configuration.configs.ConfigModCompat;
-import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
+import ganymedes01.etfuturum.configuration.configs.*;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.entities.EntityNewBoat;
 import ganymedes01.etfuturum.items.ItemModdedRawOre;
+import ganymedes01.etfuturum.items.ItemNewBoat;
 import ganymedes01.etfuturum.items.ItemSuspiciousStew;
 import ganymedes01.etfuturum.lib.EnumColor;
 import ganymedes01.etfuturum.lib.Reference;
@@ -48,6 +46,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 public class ModRecipes {
 
@@ -65,9 +64,9 @@ public class ModRecipes {
 		RecipeSorter.register(Reference.MOD_ID + ":shaped", ShapedEtFuturumRecipe.class, RecipeSorter.Category.SHAPED, "before:minecraft:shaped");
 		RecipeSorter.register(Reference.MOD_ID + ":shapeless", ShapelessEtFuturumRecipe.class, RecipeSorter.Category.SHAPELESS, "before:minecraft:shapeless");
 
-		modernWoodTypesEnabled[0] = ConfigBlocksItems.enableCrimsonBlocks;
-		modernWoodTypesEnabled[1] = ConfigBlocksItems.enableWarpedBlocks;
-		modernWoodTypesEnabled[2] = ConfigBlocksItems.enableMangroveBlocks;
+		modernWoodTypesEnabled[0] = ConfigExperiments.enableCrimsonBlocks;
+		modernWoodTypesEnabled[1] = ConfigExperiments.enableWarpedBlocks;
+		modernWoodTypesEnabled[2] = ConfigExperiments.enableMangroveBlocks;
 		modernWoodTypesEnabled[3] = ConfigBlocksItems.enableCherryBlocks;
 		modernWoodTypesEnabled[4] = ConfigBlocksItems.enableBambooBlocks;
 
@@ -491,15 +490,15 @@ public class ModRecipes {
 		addShapedRecipe(ModBlocks.FENCE_ACACIA.newItemStack(3), "xyx", "xyx", 'x', new ItemStack(Blocks.planks, 1, 4), 'y', "stickWood");
 		addShapedRecipe(ModBlocks.FENCE_DARK_OAK.newItemStack(3), "xyx", "xyx", 'x', new ItemStack(Blocks.planks, 1, 5), 'y', "stickWood");
 
-		if (ConfigBlocksItems.enableCrimsonBlocks) {
+		if (ConfigExperiments.enableCrimsonBlocks) {
 			addShapedRecipe(ModBlocks.WOOD_FENCE.newItemStack(3), "xyx", "xyx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1), 'y', "stickWood");
 			addShapedRecipe(ModBlocks.WOOD_SLAB.newItemStack(6, 0), "xxx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 0));
 		}
-		if (ConfigBlocksItems.enableWarpedBlocks) {
+		if (ConfigExperiments.enableWarpedBlocks) {
 			addShapedRecipe(ModBlocks.WOOD_FENCE.newItemStack(3, 1), "xyx", "xyx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 1), 'y', "stickWood");
 			addShapedRecipe(ModBlocks.WOOD_SLAB.newItemStack(6, 1), "xxx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 1));
 		}
-		if (ConfigBlocksItems.enableMangroveBlocks) {
+		if (ConfigExperiments.enableMangroveBlocks) {
 			addShapedRecipe(ModBlocks.WOOD_FENCE.newItemStack(3, 2), "xyx", "xyx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 2), 'y', "stickWood");
 			addShapedRecipe(ModBlocks.WOOD_SLAB.newItemStack(6, 2), "xxx", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 2));
 		}
@@ -868,9 +867,20 @@ public class ModRecipes {
 			addShapelessRecipe(stew, Blocks.red_mushroom, Blocks.brown_mushroom, Items.bowl, getStewFlowers().get(i));
 		}
 
-		for (int i = EntityNewBoat.Type.VALUES.length - 1; i >= 0; i--) {
-			addShapedRecipe(new ItemStack(i == 0 && ConfigBlocksItems.replaceOldBoats ? Items.boat : ModItems.BOATS[i].get(), 1),
-					(ConfigBlocksItems.replaceOldBoats ? "x x" : "xyx"), "xxx", 'x', i == 0 ? "plankWood" : new ItemStack(Blocks.planks, 1, i), 'y', new ItemStack(Items.wooden_shovel, 1));
+		for (Map.Entry<String, ItemNewBoat.BoatInfo> entry : ItemNewBoat.BOAT_INFO.entrySet()) {
+			String key = entry.getKey();
+			if (key == null) continue;
+			boolean isOak = entry.getKey().equals("minecraft:oak");
+			ItemStack boat = (isOak && ConfigBlocksItems.replaceOldBoats ? new ItemStack(Items.boat) : entry.getValue().getBoatItem());
+			if (key.endsWith("_chest")) {
+				ItemStack inputBoat = ItemNewBoat.BOAT_INFO.get(key.substring(0, key.indexOf("_chest"))).getBoatItem();
+				addShapelessRecipe(boat, "chestWood", inputBoat);
+			} else {
+				addShapedRecipe(boat,
+						(ConfigBlocksItems.replaceOldBoats ? "x x" : "xyx"), "xxx",
+						'x', isOak ? "plankWood" : entry.getValue().getPlank(),
+						'y', new ItemStack(Items.wooden_shovel, 1));
+			}
 		}
 		if (!ConfigBlocksItems.replaceOldBoats) {
 			addShapelessRecipe(new ItemStack(Items.boat), ModItems.BOATS[0].get());
@@ -1005,6 +1015,8 @@ public class ModRecipes {
 		}
 
 		addShapelessRecipe(new ItemStack(Items.dye, 1, 9), ModBlocks.PINK_PETALS.get());
+
+		addShapelessRecipe(ModBlocks.SOUL_SOIL.newItemStack(5), Blocks.dirt, Blocks.soul_sand, Blocks.soul_sand, Blocks.soul_sand, Blocks.soul_sand);
 
 		registerModdedDeepslateOres();
 

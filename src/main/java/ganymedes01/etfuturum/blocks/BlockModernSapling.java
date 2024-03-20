@@ -4,6 +4,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigExperiments;
 import ganymedes01.etfuturum.world.generate.decorate.WorldGenCherryTrees;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSapling;
@@ -30,7 +31,7 @@ public class BlockModernSapling extends BlockSapling implements ISubBlocksBlock 
 
 	@SideOnly(Side.CLIENT)
 	public void getSubBlocks(Item p_149666_1_, CreativeTabs p_149666_2_, List p_149666_3_) {
-		if (ConfigBlocksItems.enableMangroveBlocks) {
+		if (ConfigExperiments.enableMangroveBlocks) {
 			p_149666_3_.add(new ItemStack(p_149666_1_, 1, 0));
 		}
 		if (ConfigBlocksItems.enableCherryBlocks) {

@@ -196,7 +196,7 @@ public class EtFuturum {
 			DynamicSoundsResourcePack.inject();
 		}
 
-		if (ConfigWorld.netherDimensionProvider) {
+		if (ConfigExperiments.netherDimensionProvider) {
 			NetherBiomeManager.init();
 		}
 
@@ -394,11 +394,11 @@ public class EtFuturum {
 
 		CompatMisc.runModHooksLoadComplete();
 
-		if (ConfigWorld.netherDimensionProvider && !ModsList.NETHERLICIOUS.isLoaded()) {
+		if (ConfigExperiments.netherDimensionProvider && !ModsList.NETHERLICIOUS.isLoaded()) {
 			DimensionProviderEFRNether.init();
 		}
 
-		if (Reference.TESTING) {
+		if (ConfigExperiments.endDimensionProvider) {
 			DimensionProviderEFREnd.init(); // Come back to
 		}
 	}

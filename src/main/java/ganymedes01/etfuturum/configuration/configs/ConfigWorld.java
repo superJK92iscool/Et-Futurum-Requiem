@@ -67,8 +67,6 @@ public class ConfigWorld extends ConfigBase {
 	public static int soulSandValleyWeight;
 	public static int basaltDeltasWeight;
 
-	public static boolean netherDimensionProvider;
-
 	public static boolean oldHuskSpawning;
 	public static boolean oldStraySpawning;
 
@@ -81,7 +79,7 @@ public class ConfigWorld extends ConfigBase {
 		super(file);
 		setCategoryComment(catClient, "Client-side only effects.");
 		setCategoryComment(catGeneration, "Generation settings.");
-		setCategoryComment(catBiomes, "Biome ID and weight settings. These do not disable the respective blocks, go to blocksitems.cfg to disable their blocks.");
+		setCategoryComment(catBiomes, "Biome ID and weight settings. These do not disable the respective blocks, go to blocksitems.cfg to disable their blocks. Nether biomes can currently only be enabled via experiments.cfg");
 		setCategoryComment(catMisc, "For things that affect the world but don't belong in any other category.");
 
 		configCats.add(getCategory(catClient));
@@ -183,8 +181,6 @@ public class ConfigWorld extends ConfigBase {
 		warpedForestWeight = getInt("warpedForestWeight", catBiomes, 10, 1, Byte.MAX_VALUE, "How likely the Warped Forest biome should generate compared to other Nether biomes.");
 		soulSandValleyWeight = getInt("soulSandValleyWeight", catBiomes, 10, 1, Byte.MAX_VALUE, "How likely the Soul Sand Valley biome should generate compared to other Nether biomes.");
 		basaltDeltasWeight = getInt("basaltDeltasWeight", catBiomes, 10, 1, Byte.MAX_VALUE, "How likely the Basalt Deltas biome should generate compared to other Nether biomes.");
-
-		netherDimensionProvider = getBoolean("netherDimensionProvider", catGeneration, true, "Enables the Nether dimension provider override needed for supplying custom biomes. This is partially ignored if Netherlicious is installed. Netherlicious has compat to generate Et Futurum Requiem biomes with Netherlicious blocks.\nThis is so you can have vanilla-style biomes in Netherlicious while Requiem is installed. Turning this off or setting each individual biome ID to -1 will prevent my version of Nether biomes from generating. Don't forget to turn off my Nether blocks in blocksitems.cfg if you only want Netherlicious style biomes.");
 
 		tileReplacementMode = getInt("tileReplacementMode", catMisc, 0, -1, 1, "Replace old Brewing Stands/Enchanting Tables/Daylight Sensors/Beacons with new one on the fly.\n-1 = Disabled, no conversion even if the replacement tile entities are on\n0 = Convert the vanilla tile entities to their Et Futurum versions\n1 = Convert Et Futurum replacement tile entities back to default ones. Useful if you want to turn those off.");
 		oldHuskSpawning = getBoolean("oldHuskSpawning", catMisc, false, "Enables the old husk spawning logic. Instead of replacing 80% of zombies exposed to the sky in the right biomes, they'll reduce the spawn rate of normal zombies and spawn anywhere in the correct biomes.\nOptiFine breaks the sky-exposure behavior so this option will be forced on when OptiFine is detected.");

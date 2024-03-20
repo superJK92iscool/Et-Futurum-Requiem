@@ -107,12 +107,9 @@ public class ConfigBlocksItems extends ConfigBase {
 	public static boolean enableAmethyst;
 	public static boolean enableDyedBeds;
 	public static boolean enableTarget;
-	public static boolean enableSculk;
 	public static boolean enableHoney;
 
 	public static boolean enableChain;
-	public static boolean enableCrimsonBlocks;
-	public static boolean enableWarpedBlocks;
 	public static boolean enableBlackstone;
 	public static boolean enableBasalt;
 	public static boolean enableSoulSoil;
@@ -120,8 +117,6 @@ public class ConfigBlocksItems extends ConfigBase {
 
 	// Wilds Update
 	public static boolean enableMud;
-	public static boolean enableMoss;
-	public static boolean enableMangroveBlocks;
 
 	// 1.20
 	public static boolean enableCherryBlocks;
@@ -195,15 +190,15 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableDeepslateOres = getBoolean("enableDeepslateOres", catBlockNatural, true, "Enable deepslate ores for copper ore and vanilla ores when deepslate generates over them.");
 		enableAmethyst = getBoolean("enableAmethyst", catBlockNatural, true, "Enables tinted glass, amethyst blocks, budding amethyst and amethyst crystals. Also enables the item too.");
 		enableMud = getBoolean("enableMud", catBlockNatural, true, "Enables mud, packed mud and mud bricks, as well as the mud brick stairs, slabs and walls.");
-		enableMoss = getBoolean("enableMoss", catBlockNatural, true, "Enables moss blocks and carpets");
-		enableCrimsonBlocks = getBoolean("enableCrimsonBlocks", catBlockMisc, true, "Enables the crimson nylium, wood, and plants. This must be on for the crimson forest biome to generate unless Netherlicious is installed.\nThe nether wart block is still a separate toggle, both this and the wart toggle must be turned off to disable the nether wart block, because crimson trees need the wart blocks.");
-		enableWarpedBlocks = getBoolean("enableWarpedBlocks", catBlockMisc, true, "Enables the warped nylium, wood, and plants. This must be on for the warped forest biome to generate unless Netherlicious is installed.");
+//		enableMoss = getBoolean("enableMoss", catBlockNatural, true, "Enables moss blocks and carpets");
+//		enableCrimsonBlocks = getBoolean("enableCrimsonBlocks", catBlockMisc, true, "Enables the crimson nylium, wood, and plants. This must be on for the crimson forest biome to generate unless Netherlicious is installed.\nThe nether wart block is still a separate toggle, both this and the wart toggle must be turned off to disable the nether wart block, because crimson trees need the wart blocks.");
+//		enableWarpedBlocks = getBoolean("enableWarpedBlocks", catBlockMisc, true, "Enables the warped nylium, wood, and plants. This must be on for the warped forest biome to generate unless Netherlicious is installed.");
 		enableBlackstone = getBoolean("enableBlackstone", catBlockMisc, true, "This must be on for the basalt deltas biome to generate unless Netherlicious is installed.");
 		enableSoulSoil = getBoolean("enableSoulSoil", catBlockNatural, true, "Not required for the Soul Sand Valley to generate.");
 		enableSoulLighting = getBoolean("enableSoulLighting", catBlockNatural, true, "Soul torches and soul lanterns.");
 		enableBasalt = getBoolean("enableBasalt", catBlockNatural, true, "This must be on for the basalt deltas biome to generate unless Netherlicious is installed.");
 
-		if (enableCrimsonBlocks) {
+		if (ConfigExperiments.enableCrimsonBlocks) {
 			enableNetherwartBlock = true;
 		}
 
@@ -215,17 +210,17 @@ public class ConfigBlocksItems extends ConfigBase {
 						"This also turns off Nether wart blocks even though they are older, because Netherlicious also has those.");
 
 		if (!masterNetherToggle) {
-			enableCrimsonBlocks = enableWarpedBlocks = enableNetherwartBlock = enableBlackstone = enableSoulSoil = enableSoulLighting = enableBasalt = false;
+			ConfigExperiments.enableCrimsonBlocks = ConfigExperiments.enableWarpedBlocks = enableNetherwartBlock = enableBlackstone = enableSoulSoil = enableSoulLighting = enableBasalt = false;
 		}
 
-		enableMangroveBlocks = getBoolean("enableMangroveBlocks", catBlockNatural, true, "Enables mangrove wood and all of its wood subtypes, and the roots (+ muddy versions).");
+//		enableMangroveBlocks = getBoolean("enableMangroveBlocks", catBlockNatural, true, "Enables mangrove wood and all of its wood subtypes, and the roots (+ muddy versions).");
 		enableCherryBlocks = getBoolean("enableCherryBlocks", catBlockNatural, true, "Enables cherry wood and all of its wood subtypes.");
 		enableBambooBlocks = getBoolean("enableBambooBlocks", catBlockNatural, true, "Enables bamboo wood and all of its wood subtypes, including the bamboo stalks themselves.");
 
-		// Check if we enable wood variants at all
-		woodVariants = enableCrimsonBlocks || enableWarpedBlocks || enableMangroveBlocks || enableCherryBlocks || enableBambooBlocks;
+		// Check if we enable wood variants at all. Used by blocks where all the wood is 1 ID
+		woodVariants = ConfigExperiments.enableCrimsonBlocks || ConfigExperiments.enableWarpedBlocks || ConfigExperiments.enableMangroveBlocks || enableCherryBlocks || enableBambooBlocks;
 
-//      enableSculk = getBoolean("enableSculk", catBlockNatural, true, "Enables sculk-related blocks.");
+//		enableSculk = getBoolean("enableSculk", catBlockNatural, true, "Enables sculk-related blocks.");
 
 		//Function Blocks
 		enableIronTrapdoor = getBoolean("enableIronTrapdoor", catBlockFunc, true, "");

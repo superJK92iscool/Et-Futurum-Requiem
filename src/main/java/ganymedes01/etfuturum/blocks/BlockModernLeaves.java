@@ -7,6 +7,7 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.client.particle.CustomParticles;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigExperiments;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -29,7 +30,7 @@ public class BlockModernLeaves extends BaseLeaves {
 	 */
 	@SideOnly(Side.CLIENT)
 	public void getSubBlocks(Item p_149666_1_, CreativeTabs p_149666_2_, List p_149666_3_) {
-		if (ConfigBlocksItems.enableMangroveBlocks) {
+		if (ConfigExperiments.enableMangroveBlocks) {
 			p_149666_3_.add(new ItemStack(p_149666_1_, 1, 0));
 		}
 		if (ConfigBlocksItems.enableCherryBlocks) {

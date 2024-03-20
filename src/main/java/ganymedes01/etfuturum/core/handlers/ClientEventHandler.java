@@ -25,10 +25,8 @@ import ganymedes01.etfuturum.client.sound.BeeFlySound;
 import ganymedes01.etfuturum.client.sound.ElytraSound;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.ConfigBase;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
-import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
-import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
-import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
+import ganymedes01.etfuturum.configuration.configs.*;
+import ganymedes01.etfuturum.core.utils.Logger;
 import ganymedes01.etfuturum.core.utils.RandomXoshiro256StarStar;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.elytra.IElytraPlayer;
@@ -151,14 +149,17 @@ public class ClientEventHandler {
 		}
 
 		if (player.ticksExisted == 40) {
-			if (!Reference.DEV_ENVIRONMENT && Reference.SNAPSHOT_BUILD && !showedDebugWarning) {
-				if (!forceHideSnapshotWarning) {
-					ChatComponentText text = new ChatComponentText(I18n.format("efr.warn.prerelease.version"));
+			if (!Reference.DEV_ENVIRONMENT && !ConfigExperiments.getEnabledElements().isEmpty() && !showedDebugWarning) {
+				if (!forceHideSnapshotWarning && !Reference.TESTING) {
+					ChatComponentText text = new ChatComponentText(I18n.format("efr.warn.experimental", ConfigExperiments.buildLoadedExperimentsList(true)));
+					player.addChatComponentMessage(text);
+					text = new ChatComponentText(I18n.format("efr.warn.experimental.bugs"));
+					text.getChatStyle().setColor(EnumChatFormatting.AQUA);
 					text.getChatStyle().setChatClickEvent(new ClickEvent(Action.OPEN_URL, "https://github.com/Roadhog360/Et-Futurum-Requiem/issues"));
 					player.addChatComponentMessage(text);
 				} else {
-					System.out.println(I18n.format("efr.log.prerelease.version"));
-					System.out.println(I18n.format("efr.warn.prerelease.version.bugs"));
+					Logger.warn(I18n.format("efr.log.experimental", ConfigExperiments.buildLoadedExperimentsList(false)));
+					Logger.warn(I18n.format("efr.log.experimental.bugs"));
 				}
 				showedDebugWarning = true;
 			}

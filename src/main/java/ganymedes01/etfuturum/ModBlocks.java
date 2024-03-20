@@ -11,7 +11,6 @@ import ganymedes01.etfuturum.blocks.ores.modded.*;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.configuration.configs.*;
-import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.tileentities.TileEntityWoodSign;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -92,7 +91,7 @@ public enum ModBlocks {
 	RED_GLAZED_TERRACOTTA(ConfigBlocksItems.enableGlazedTerracotta, new BlockGlazedTerracotta(14)),
 	BLACK_GLAZED_TERRACOTTA(ConfigBlocksItems.enableGlazedTerracotta, new BlockGlazedTerracotta(15)),
 	COPPER_BLOCK(ConfigBlocksItems.enableCopper, new BlockCopper()),
-	LIGHTNING_ROD(Reference.TESTING, new BlockLightningRod()),
+	LIGHTNING_ROD(ConfigExperiments.enableLightningRod, new BlockLightningRod()),
 	DEEPSLATE(ConfigBlocksItems.enableDeepslate, new BlockDeepslate()),
 	COBBLED_DEEPSLATE(ConfigBlocksItems.enableDeepslate, new BaseBlock(Material.rock).setNames("cobbled_deepslate")
 			.setBlockSound(ModSounds.soundDeepslate).setHardness(3.5F).setResistance(6).setCreativeTab(EtFuturum.creativeTabBlocks)),
@@ -118,13 +117,13 @@ public enum ModBlocks {
 
 	MUD(ConfigBlocksItems.enableMud, new BlockMud()),
 	PACKED_MUD(ConfigBlocksItems.enableMud, new BlockPackedMud()),
-	MANGROVE_ROOTS(ConfigBlocksItems.enableMangroveBlocks, new BlockMangroveRoots()),
-	MUDDY_MANGROVE_ROOTS(ConfigBlocksItems.enableMangroveBlocks, new BlockMuddyMangroveRoots()),
+	MANGROVE_ROOTS(ConfigExperiments.enableMangroveBlocks, new BlockMangroveRoots()),
+	MUDDY_MANGROVE_ROOTS(ConfigExperiments.enableMangroveBlocks, new BlockMuddyMangroveRoots()),
 
-	MOSS_BLOCK(ConfigBlocksItems.enableMoss, new BlockMoss()),
-	MOSS_CARPET(ConfigBlocksItems.enableMoss, new BlockMossCarpet()),
-	AZALEA(ConfigBlocksItems.enableMoss, new BlockAzalea()),
-	AZALEA_LEAVES(ConfigBlocksItems.enableMoss, new BlockAzaleaLeaves()),
+	MOSS_BLOCK(ConfigExperiments.enableMossAzalea, new BlockMoss()),
+	MOSS_CARPET(ConfigExperiments.enableMossAzalea, new BlockMossCarpet()),
+	AZALEA(ConfigExperiments.enableMossAzalea, new BlockAzalea()),
+	AZALEA_LEAVES(ConfigExperiments.enableMossAzalea, new BlockAzaleaLeaves()),
 
 	STONE_WALL(ConfigBlocksItems.enableExtraVanillaWalls, new BaseWall("stone_wall", new Block[]{Blocks.stonebrick, Blocks.stonebrick, Blocks.sandstone, Blocks.brick_block}, new int[]{0, 1, 0, 0}, new String[]{"stone_brick_wall", "mossy_stone_brick_wall", "sandstone_wall", "brick_wall"})),
 	NETHER_BRICK_WALL(ConfigBlocksItems.enableExtraVanillaWalls, new BaseWall("nether_brick_wall", new Block[]{Blocks.nether_brick}, new int[]{0}, null)),
@@ -253,9 +252,9 @@ public enum ModBlocks {
 	FLETCHING_TABLE(ConfigBlocksItems.enableFletchingTable, new BlockFletchingTable(), ItemBlockDecorationWorkbench.class),
 	CARTOGRAPHY_TABLE(ConfigBlocksItems.enableCartographyTable, new BlockCartographyTable(), ItemBlockDecorationWorkbench.class),
 	LOOM(ConfigBlocksItems.enableLoom, new BlockLoom(), ItemBlockDecorationWorkbench.class),
-	DRIPSTONE_BLOCK(Reference.TESTING, new BaseBlock(Material.rock).setNames("dripstone_block")
+	DRIPSTONE_BLOCK(ConfigExperiments.enableDripstone, new BaseBlock(Material.rock).setNames("dripstone_block")
 			.setBlockSound(ModSounds.soundDripstoneBlock).setHardness(1.5F).setResistance(1F)),
-	POINTED_DRIPSTONE(Reference.TESTING, new BlockPointedDripstone()),
+	POINTED_DRIPSTONE(ConfigExperiments.enableDripstone, new BlockPointedDripstone()),
 	HONEY_BLOCK(ConfigBlocksItems.enableHoney, new BlockHoney()),
 	HONEYCOMB_BLOCK(ConfigBlocksItems.enableHoney, new BaseBlock(Material.clay).setNames("honeycomb_block")
 			.setBlockSound(ModSounds.soundCoralBlock).setHardness(0.6F).setResistance(0.6F)),
@@ -277,35 +276,35 @@ public enum ModBlocks {
 	POLISHED_BLACKSTONE_BUTTON(ConfigBlocksItems.enableBlackstone, new BlockPolishedBlackstoneButton()),
 
 	SOUL_SOIL(ConfigBlocksItems.enableSoulSoil, new BlockSoulSoil()),
-	SHROOMLIGHT(ConfigBlocksItems.enableCrimsonBlocks || ConfigBlocksItems.enableWarpedBlocks, new BlockShroomlight()),
-	NETHER_ROOTS(ConfigBlocksItems.enableCrimsonBlocks || ConfigBlocksItems.enableWarpedBlocks, new BlockNetherRoots(), BaseSubtypesPotableItemBlock.class),
-	NETHER_FUNGUS(ConfigBlocksItems.enableCrimsonBlocks || ConfigBlocksItems.enableWarpedBlocks, new BlockNetherFungus(), BaseSubtypesPotableItemBlock.class),
-	NETHER_SPROUTS(ConfigBlocksItems.enableWarpedBlocks, new BlockNetherSprouts()),
-	NETHER_WART(ConfigBlocksItems.enableNetherwartBlock || ConfigBlocksItems.enableWarpedBlocks, new BlockNetherwart()),
-	NYLIUM(ConfigBlocksItems.enableCrimsonBlocks || ConfigBlocksItems.enableWarpedBlocks, new BlockNylium()),
-	WEEPING_VINES(ConfigBlocksItems.enableCrimsonBlocks, new BlockWeepingVines()),
-	TWISTING_VINES(ConfigBlocksItems.enableWarpedBlocks, new BlockTwistingVines()),
+	SHROOMLIGHT(ConfigExperiments.enableCrimsonBlocks || ConfigExperiments.enableWarpedBlocks, new BlockShroomlight()),
+	NETHER_ROOTS(ConfigExperiments.enableCrimsonBlocks || ConfigExperiments.enableWarpedBlocks, new BlockNetherRoots(), BaseSubtypesPotableItemBlock.class),
+	NETHER_FUNGUS(ConfigExperiments.enableCrimsonBlocks || ConfigExperiments.enableWarpedBlocks, new BlockNetherFungus(), BaseSubtypesPotableItemBlock.class),
+	NETHER_SPROUTS(ConfigExperiments.enableWarpedBlocks, new BlockNetherSprouts()),
+	NETHER_WART(ConfigBlocksItems.enableNetherwartBlock || ConfigExperiments.enableWarpedBlocks, new BlockNetherwart()),
+	NYLIUM(ConfigExperiments.enableCrimsonBlocks || ConfigExperiments.enableWarpedBlocks, new BlockNylium()),
+	WEEPING_VINES(ConfigExperiments.enableCrimsonBlocks, new BlockWeepingVines()),
+	TWISTING_VINES(ConfigExperiments.enableWarpedBlocks, new BlockTwistingVines()),
 
 	PINK_PETALS(ConfigBlocksItems.enableCherryBlocks, new BlockPinkPetals(), ItemBlock.class), //Should not be potable
-	SAPLING(ConfigBlocksItems.enableCherryBlocks || ConfigBlocksItems.enableMangroveBlocks, new BlockModernSapling()),
+	SAPLING(ConfigBlocksItems.enableCherryBlocks || ConfigExperiments.enableMangroveBlocks, new BlockModernSapling()),
 	BAMBOO_SAPLING(ConfigBlocksItems.enableBambooBlocks, new BlockBambooShoot(), null),
-	LEAVES(ConfigBlocksItems.enableCherryBlocks || ConfigBlocksItems.enableMangroveBlocks, new BlockModernLeaves()),
+	LEAVES(ConfigBlocksItems.enableCherryBlocks || ConfigExperiments.enableMangroveBlocks, new BlockModernLeaves()),
 	WOOD_PLANKS(ConfigBlocksItems.woodVariants, new BlockModernWoodPlanks()),
 	WOOD_SLAB(ConfigBlocksItems.woodVariants, new BlockModernWoodSlab(false)),
 	DOUBLE_WOOD_SLAB(ConfigBlocksItems.woodVariants, new BlockModernWoodSlab(true)),
 
 	//new wood logs
-	CRIMSON_STEM(ConfigBlocksItems.enableCrimsonBlocks, new BlockNetherStem("crimson")),
-	WARPED_STEM(ConfigBlocksItems.enableWarpedBlocks, new BlockNetherStem("warped")),
-	MANGROVE_LOG(ConfigBlocksItems.enableMangroveBlocks, new BaseLog("mangrove")),
+	CRIMSON_STEM(ConfigExperiments.enableCrimsonBlocks, new BlockNetherStem("crimson")),
+	WARPED_STEM(ConfigExperiments.enableWarpedBlocks, new BlockNetherStem("warped")),
+	MANGROVE_LOG(ConfigExperiments.enableMangroveBlocks, new BaseLog("mangrove")),
 	CHERRY_LOG(ConfigBlocksItems.enableCherryBlocks, new BaseLog("cherry").setBlockSound(ModSounds.soundCherryWood)),
 	BAMBOO_BLOCK(ConfigBlocksItems.enableBambooBlocks, new BlockBambooBlock("bamboo").setBlockSound(ModSounds.soundBambooWood)),
 	BAMBOO(ConfigBlocksItems.enableBambooBlocks, new BlockBamboo(), null),
 
 	//new wood stairs
-	CRIMSON_STAIRS(ConfigBlocksItems.enableCrimsonBlocks, new BaseStairs(WOOD_PLANKS.get(), 0).setBlockSound(ModSounds.soundNetherWood).setUnlocalizedNameWithPrefix("crimson")),
-	WARPED_STAIRS(ConfigBlocksItems.enableWarpedBlocks, new BaseStairs(WOOD_PLANKS.get(), 1).setBlockSound(ModSounds.soundNetherWood).setUnlocalizedNameWithPrefix("warped")),
-	MANGROVE_STAIRS(ConfigBlocksItems.enableMangroveBlocks, new BaseStairs(WOOD_PLANKS.get(), 2).setBlockSound(Block.soundTypeWood).setUnlocalizedNameWithPrefix("mangrove")),
+	CRIMSON_STAIRS(ConfigExperiments.enableCrimsonBlocks, new BaseStairs(WOOD_PLANKS.get(), 0).setBlockSound(ModSounds.soundNetherWood).setUnlocalizedNameWithPrefix("crimson")),
+	WARPED_STAIRS(ConfigExperiments.enableWarpedBlocks, new BaseStairs(WOOD_PLANKS.get(), 1).setBlockSound(ModSounds.soundNetherWood).setUnlocalizedNameWithPrefix("warped")),
+	MANGROVE_STAIRS(ConfigExperiments.enableMangroveBlocks, new BaseStairs(WOOD_PLANKS.get(), 2).setBlockSound(Block.soundTypeWood).setUnlocalizedNameWithPrefix("mangrove")),
 	CHERRY_STAIRS(ConfigBlocksItems.enableCherryBlocks, new BaseStairs(WOOD_PLANKS.get(), 3).setBlockSound(ModSounds.soundCherryWood).setUnlocalizedNameWithPrefix("cherry")),
 	BAMBOO_STAIRS(ConfigBlocksItems.enableBambooBlocks, new BaseStairs(WOOD_PLANKS.get(), 4).setBlockSound(ModSounds.soundBambooWood).setUnlocalizedNameWithPrefix("bamboo")),
 
@@ -338,9 +337,9 @@ public enum ModBlocks {
 	BUTTON_DARK_OAK(ConfigBlocksItems.enableWoodRedstone, new BlockWoodButton("dark_oak", Blocks.planks, 5, true)),
 
 	//new buttons (different ID format)
-	CRIMSON_BUTTON(ConfigBlocksItems.enableCrimsonBlocks, new BlockWoodButton("crimson", WOOD_PLANKS.get(), 0, false)),
-	WARPED_BUTTON(ConfigBlocksItems.enableWarpedBlocks, new BlockWoodButton("warped", WOOD_PLANKS.get(), 1, false)),
-	MANGROVE_BUTTON(ConfigBlocksItems.enableMangroveBlocks, new BlockWoodButton("mangrove", WOOD_PLANKS.get(), 2, true)),
+	CRIMSON_BUTTON(ConfigExperiments.enableCrimsonBlocks, new BlockWoodButton("crimson", WOOD_PLANKS.get(), 0, false)),
+	WARPED_BUTTON(ConfigExperiments.enableWarpedBlocks, new BlockWoodButton("warped", WOOD_PLANKS.get(), 1, false)),
+	MANGROVE_BUTTON(ConfigExperiments.enableMangroveBlocks, new BlockWoodButton("mangrove", WOOD_PLANKS.get(), 2, true)),
 	CHERRY_BUTTON(ConfigBlocksItems.enableCherryBlocks, new BlockWoodButton("cherry", WOOD_PLANKS.get(), 3, true)),
 	BAMBOO_BUTTON(ConfigBlocksItems.enableBambooBlocks, new BlockWoodButton("bamboo", WOOD_PLANKS.get(), 4, true)),
 
@@ -352,9 +351,9 @@ public enum ModBlocks {
 	PRESSURE_PLATE_DARK_OAK(ConfigBlocksItems.enableWoodRedstone, new BlockWoodPressurePlate("dark_oak", Blocks.planks, 5, true)),
 
 	//new pressure plates (different ID format)
-	CRIMSON_PRESSURE_PLATE(ConfigBlocksItems.enableCrimsonBlocks, new BlockWoodPressurePlate("crimson", WOOD_PLANKS.get(), 0, false)),
-	WARPED_PRESSURE_PLATE(ConfigBlocksItems.enableWarpedBlocks, new BlockWoodPressurePlate("warped", WOOD_PLANKS.get(), 1, false)),
-	MANGROVE_PRESSURE_PLATE(ConfigBlocksItems.enableMangroveBlocks, new BlockWoodPressurePlate("mangrove", WOOD_PLANKS.get(), 2, true)),
+	CRIMSON_PRESSURE_PLATE(ConfigExperiments.enableCrimsonBlocks, new BlockWoodPressurePlate("crimson", WOOD_PLANKS.get(), 0, false)),
+	WARPED_PRESSURE_PLATE(ConfigExperiments.enableWarpedBlocks, new BlockWoodPressurePlate("warped", WOOD_PLANKS.get(), 1, false)),
+	MANGROVE_PRESSURE_PLATE(ConfigExperiments.enableMangroveBlocks, new BlockWoodPressurePlate("mangrove", WOOD_PLANKS.get(), 2, true)),
 	CHERRY_PRESSURE_PLATE(ConfigBlocksItems.enableCherryBlocks, new BlockWoodPressurePlate("cherry", WOOD_PLANKS.get(), 3, true)),
 	BAMBOO_PRESSURE_PLATE(ConfigBlocksItems.enableBambooBlocks, new BlockWoodPressurePlate("bamboo", WOOD_PLANKS.get(), 4, true)),
 
@@ -366,9 +365,9 @@ public enum ModBlocks {
 	FENCE_GATE_DARK_OAK(ConfigBlocksItems.enableFences, new BlockWoodFenceGate("dark_oak", Blocks.planks, 5, true)),
 
 	//new fence gates (different ID format)
-	CRIMSON_FENCE_GATE(ConfigBlocksItems.enableCrimsonBlocks, new BlockWoodFenceGate("crimson", WOOD_PLANKS.get(), 0, false)),
-	WARPED_FENCE_GATE(ConfigBlocksItems.enableWarpedBlocks, new BlockWoodFenceGate("warped", WOOD_PLANKS.get(), 1, false)),
-	MANGROVE_FENCE_GATE(ConfigBlocksItems.enableMangroveBlocks, new BlockWoodFenceGate("mangrove", WOOD_PLANKS.get(), 2, true)),
+	CRIMSON_FENCE_GATE(ConfigExperiments.enableCrimsonBlocks, new BlockWoodFenceGate("crimson", WOOD_PLANKS.get(), 0, false)),
+	WARPED_FENCE_GATE(ConfigExperiments.enableWarpedBlocks, new BlockWoodFenceGate("warped", WOOD_PLANKS.get(), 1, false)),
+	MANGROVE_FENCE_GATE(ConfigExperiments.enableMangroveBlocks, new BlockWoodFenceGate("mangrove", WOOD_PLANKS.get(), 2, true)),
 	CHERRY_FENCE_GATE(ConfigBlocksItems.enableCherryBlocks, new BlockWoodFenceGate("cherry", WOOD_PLANKS.get(), 3, true)),
 	BAMBOO_FENCE_GATE(ConfigBlocksItems.enableBambooBlocks, new BlockWoodFenceGate("bamboo", WOOD_PLANKS.get(), 4, true)),
 
@@ -380,9 +379,9 @@ public enum ModBlocks {
 	DOOR_DARK_OAK(ConfigBlocksItems.enableDoors, new BlockWoodDoor("dark_oak"), ItemBlockWoodDoor.class),
 
 	//new doors (different ID format)
-	CRIMSON_DOOR(ConfigBlocksItems.enableCrimsonBlocks, new BlockWoodDoor("crimson"), ItemBlockWoodDoor.class),
-	WARPED_DOOR(ConfigBlocksItems.enableWarpedBlocks, new BlockWoodDoor("warped"), ItemBlockWoodDoor.class),
-	MANGROVE_DOOR(ConfigBlocksItems.enableMangroveBlocks, new BlockWoodDoor("mangrove"), ItemBlockWoodDoor.class),
+	CRIMSON_DOOR(ConfigExperiments.enableCrimsonBlocks, new BlockWoodDoor("crimson"), ItemBlockWoodDoor.class),
+	WARPED_DOOR(ConfigExperiments.enableWarpedBlocks, new BlockWoodDoor("warped"), ItemBlockWoodDoor.class),
+	MANGROVE_DOOR(ConfigExperiments.enableMangroveBlocks, new BlockWoodDoor("mangrove"), ItemBlockWoodDoor.class),
 	CHERRY_DOOR(ConfigBlocksItems.enableCherryBlocks, new BlockWoodDoor("cherry"), ItemBlockWoodDoor.class),
 	BAMBOO_DOOR(ConfigBlocksItems.enableBambooBlocks, new BlockWoodDoor("bamboo"), ItemBlockWoodDoor.class),
 
@@ -394,9 +393,9 @@ public enum ModBlocks {
 	TRAPDOOR_DARK_OAK(ConfigBlocksItems.enableTrapdoors, new BlockWoodTrapdoor("dark_oak")),
 
 	//new trapdoors (different ID format)
-	CRIMSON_TRAPDOOR(ConfigBlocksItems.enableCrimsonBlocks, new BlockWoodTrapdoor("crimson")),
-	WARPED_TRAPDOOR(ConfigBlocksItems.enableWarpedBlocks, new BlockWoodTrapdoor("warped")),
-	MANGROVE_TRAPDOOR(ConfigBlocksItems.enableMangroveBlocks, new BlockWoodTrapdoor("mangrove")),
+	CRIMSON_TRAPDOOR(ConfigExperiments.enableCrimsonBlocks, new BlockWoodTrapdoor("crimson")),
+	WARPED_TRAPDOOR(ConfigExperiments.enableWarpedBlocks, new BlockWoodTrapdoor("warped")),
+	MANGROVE_TRAPDOOR(ConfigExperiments.enableMangroveBlocks, new BlockWoodTrapdoor("mangrove")),
 	CHERRY_TRAPDOOR(ConfigBlocksItems.enableCherryBlocks, new BlockWoodTrapdoor("cherry")),
 	BAMBOO_TRAPDOOR(ConfigBlocksItems.enableBambooBlocks, new BlockWoodTrapdoor("bamboo")),
 
@@ -413,12 +412,12 @@ public enum ModBlocks {
 	WALL_SIGN_DARK_OAK(ConfigBlocksItems.enableSigns, new BlockWoodSign(TileEntityWoodSign.class, false, "dark_oak", Blocks.planks, 5), null),
 
 	//new wood signs (instead of a separate ItemBlock we use the standing sign as the ItemBlock
-	CRIMSON_SIGN(ConfigBlocksItems.enableCrimsonBlocks, new BlockWoodSign(TileEntityWoodSign.class, true, "crimson", WOOD_PLANKS.get(), 0), ItemBlockSign.class),
-	CRIMSON_WALL_SIGN(ConfigBlocksItems.enableCrimsonBlocks, new BlockWoodSign(TileEntityWoodSign.class, false, "crimson", WOOD_PLANKS.get(), 0), null),
-	WARPED_SIGN(ConfigBlocksItems.enableWarpedBlocks, new BlockWoodSign(TileEntityWoodSign.class, true, "warped", WOOD_PLANKS.get(), 1), ItemBlockSign.class),
-	WARPED_WALL_SIGN(ConfigBlocksItems.enableWarpedBlocks, new BlockWoodSign(TileEntityWoodSign.class, false, "warped", WOOD_PLANKS.get(), 1), null),
-	MANGROVE_SIGN(ConfigBlocksItems.enableMangroveBlocks, new BlockWoodSign(TileEntityWoodSign.class, true, "mangrove", WOOD_PLANKS.get(), 2), ItemBlockSign.class),
-	MANGROVE_WALL_SIGN(ConfigBlocksItems.enableMangroveBlocks, new BlockWoodSign(TileEntityWoodSign.class, false, "mangrove", WOOD_PLANKS.get(), 2), null),
+	CRIMSON_SIGN(ConfigExperiments.enableCrimsonBlocks, new BlockWoodSign(TileEntityWoodSign.class, true, "crimson", WOOD_PLANKS.get(), 0), ItemBlockSign.class),
+	CRIMSON_WALL_SIGN(ConfigExperiments.enableCrimsonBlocks, new BlockWoodSign(TileEntityWoodSign.class, false, "crimson", WOOD_PLANKS.get(), 0), null),
+	WARPED_SIGN(ConfigExperiments.enableWarpedBlocks, new BlockWoodSign(TileEntityWoodSign.class, true, "warped", WOOD_PLANKS.get(), 1), ItemBlockSign.class),
+	WARPED_WALL_SIGN(ConfigExperiments.enableWarpedBlocks, new BlockWoodSign(TileEntityWoodSign.class, false, "warped", WOOD_PLANKS.get(), 1), null),
+	MANGROVE_SIGN(ConfigExperiments.enableMangroveBlocks, new BlockWoodSign(TileEntityWoodSign.class, true, "mangrove", WOOD_PLANKS.get(), 2), ItemBlockSign.class),
+	MANGROVE_WALL_SIGN(ConfigExperiments.enableMangroveBlocks, new BlockWoodSign(TileEntityWoodSign.class, false, "mangrove", WOOD_PLANKS.get(), 2), null),
 	CHERRY_SIGN(ConfigBlocksItems.enableCherryBlocks, new BlockWoodSign(TileEntityWoodSign.class, true, "cherry", WOOD_PLANKS.get(), 3), ItemBlockSign.class),
 	CHERRY_WALL_SIGN(ConfigBlocksItems.enableCherryBlocks, new BlockWoodSign(TileEntityWoodSign.class, false, "cherry", WOOD_PLANKS.get(), 3), null),
 	BAMBOO_SIGN(ConfigBlocksItems.enableBambooBlocks, new BlockWoodSign(TileEntityWoodSign.class, true, "bamboo", WOOD_PLANKS.get(), 4), ItemBlockSign.class),
@@ -449,13 +448,13 @@ public enum ModBlocks {
 
 	//Unfinished stuff
 
-	SCULK(/*ConfigBlocksItems.enableSculk && */Reference.TESTING, new BlockSculk()),
-	SCULK_CATALYST(/*ConfigBlocksItems.enableSculk && */Reference.TESTING, new BlockSculkCatalyst()),
+	SCULK(ConfigExperiments.enableSculk, new BlockSculk()),
+	SCULK_CATALYST(ConfigExperiments.enableSculk, new BlockSculkCatalyst()),
 
 	//Creative-only stuff
 
 	NETHERITE_STAIRS(ConfigBlocksItems.enableNetherite, new BlockNetheriteStairs()),
-	END_GATEWAY(Reference.TESTING, new BlockEndGateway()),
+	END_GATEWAY(ConfigExperiments.endDimensionProvider, new BlockEndGateway()),
 	LIGHT(ConfigBlocksItems.enableLightBlock, new BlockLight()),
 	BARRIER(ConfigBlocksItems.enableBarrier, new BlockBarrier()),
 

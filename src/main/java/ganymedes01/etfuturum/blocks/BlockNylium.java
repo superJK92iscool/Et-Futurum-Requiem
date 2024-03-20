@@ -5,7 +5,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigExperiments;
 import ganymedes01.etfuturum.world.generate.decorate.WorldGenNetherGrass;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockMushroom;
@@ -76,10 +76,10 @@ public class BlockNylium extends BaseSubtypesBlock implements IGrowable {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubBlocks(Item item, CreativeTabs tab, List list) {
-		if (ConfigBlocksItems.enableCrimsonBlocks) {
+		if (ConfigExperiments.enableCrimsonBlocks) {
 			list.add(new ItemStack(item, 1, 0));
 		}
-		if (ConfigBlocksItems.enableWarpedBlocks) {
+		if (ConfigExperiments.enableWarpedBlocks) {
 			list.add(new ItemStack(item, 1, 1));
 		}
 	}
@@ -111,10 +111,10 @@ public class BlockNylium extends BaseSubtypesBlock implements IGrowable {
 
 	@Override
 	public boolean func_149851_a(World world, int x, int y, int z, boolean p_149851_5_) {
-		if (world.getBlockMetadata(x, y, z) == 0 && !ConfigBlocksItems.enableCrimsonBlocks) {
+		if (world.getBlockMetadata(x, y, z) == 0 && !ConfigExperiments.enableCrimsonBlocks) {
 			return false;
 		}
-		if (world.getBlockMetadata(x, y, z) == 1 && !ConfigBlocksItems.enableWarpedBlocks) {
+		if (world.getBlockMetadata(x, y, z) == 1 && !ConfigExperiments.enableWarpedBlocks) {
 			return false;
 		}
 		return true;

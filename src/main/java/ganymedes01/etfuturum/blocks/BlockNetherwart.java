@@ -6,6 +6,7 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.api.HoeRegistry;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigExperiments;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -32,7 +33,7 @@ public class BlockNetherwart extends BaseSubtypesBlock {
 		if (ConfigBlocksItems.enableNetherwartBlock) {
 			list.add(new ItemStack(item, 1, 0));
 		}
-		if (ConfigBlocksItems.enableWarpedBlocks) {
+		if (ConfigExperiments.enableWarpedBlocks) {
 			list.add(new ItemStack(item, 1, 1));
 		}
 	}

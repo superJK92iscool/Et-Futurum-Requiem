@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.world;
 
+import com.google.common.collect.Lists;
 import cpw.mods.fml.common.IWorldGenerator;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.blocks.BlockChorusFlower;
@@ -24,10 +25,7 @@ import net.minecraft.world.WorldProviderHell;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.ChunkProviderFlat;
-import net.minecraft.world.gen.feature.WorldGenAbstractTree;
-import net.minecraft.world.gen.feature.WorldGenFlowers;
-import net.minecraft.world.gen.feature.WorldGenMinable;
-import net.minecraft.world.gen.feature.WorldGenerator;
+import net.minecraft.world.gen.feature.*;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.IPlantable;
@@ -55,6 +53,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 
 	protected final WorldGenMinable deepslateBlobGen = new WorldGenDeepslateLayerBlob(ConfigWorld.maxDeepslatePerCluster, false);
 	protected final WorldGenMinable tuffGen = new WorldGenDeepslateLayerBlob(ConfigWorld.maxTuffPerCluster, true);
+
 	protected WorldGenerator amethystGen;
 	protected WorldGenerator fossilGen;
 	protected WorldGenerator berryBushGen;
@@ -62,12 +61,14 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 	protected WorldGenerator lilyValleyGen;
 	protected WorldGenerator pinkPetalsGen;
 	protected WorldGenerator bambooGen;
+	protected WorldGenerator mudGen;
+
 	private List<BiomeGenBase> fossilBiomes;
 	private List<BiomeGenBase> berryBushBiomes;
 	private List<BiomeGenBase> cornflowerBiomes;
 	private List<BiomeGenBase> lilyValleyBiomes;
-	;
 	private List<BiomeGenBase> bambooBiomes;
+	private List<BiomeGenBase> mudBiomes;
 
 	//trees
 	protected WorldGenAbstractTree cherryTreeGen;
@@ -152,6 +153,18 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 				biome.addFlower(ModBlocks.PINK_PETALS.get(), 12, 1);
 			}
 		}
+
+		if (ModBlocks.MUD.isEnabled()) {
+			mudGen = new WorldGenClay(4);
+			((WorldGenClay) mudGen).field_150546_a = ModBlocks.MUD.get();
+
+			if (ModsList.BIOMES_O_PLENTY.isLoaded()) { //BoP replaces vanilla swamps with a BoP version but forgets to tag them
+				BiomeDictionary.registerBiomeType(BiomeGenBase.getBiome(6), Type.SWAMP); //Gets biomes by ID so we get the BOP version
+				BiomeDictionary.registerBiomeType(BiomeGenBase.getBiome(134), Type.SWAMP);
+			}
+
+			mudBiomes = Lists.newArrayList(BiomeDictionary.getBiomesForType(Type.SWAMP));
+		}
 	}
 
 
@@ -235,6 +248,15 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 							}
 						}
 					}
+				}
+			}
+
+			if (mudGen != null) {
+				x = (chunkX << 4) + rand.nextInt(16) + 8;
+				z = (chunkZ << 4) + rand.nextInt(16) + 8;
+				int y = world.getHeightValue(x, z);
+				if (y > 0 && mudBiomes.contains(world.getBiomeGenForCoords(x, z))) {
+					mudGen.generate(world, rand, x, world.getTopSolidOrLiquidBlock(x, z), z);
 				}
 			}
 

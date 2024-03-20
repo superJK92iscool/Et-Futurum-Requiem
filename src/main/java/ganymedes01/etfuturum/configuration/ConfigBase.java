@@ -23,6 +23,8 @@ public abstract class ConfigBase extends Configuration {
 
 	public static final String configDir = "config" + File.separator + Reference.MOD_ID + File.separator;
 
+	public static final ConfigBase EXPERIMENTS = new ConfigExperiments(createConfigFile("experiments"));
+
 	public static final ConfigBase BLOCKS_ITEMS = new ConfigBlocksItems(createConfigFile("blocksitems"));
 	public static final ConfigBase ENCHANTS_POTIONS = new ConfigEnchantsPotions(createConfigFile("enchantspotions"));
 	public static final ConfigBase FUNCTIONS = new ConfigFunctions(createConfigFile("functions"));
@@ -54,14 +56,14 @@ public abstract class ConfigBase extends Configuration {
 
 		for (ConfigCategory cat : configCats) {
 			if (EtFuturumMixinPlugin.side == MixinEnvironment.Side.SERVER) {
-				if (cat.getName().contains("client")) {
+				if (cat.getName().toLowerCase().contains("client")) {
 					for (Property prop : cat.getOrderedValues()) {
 						cat.remove(prop.getName());
 					}
 				}
 			}
 
-			if (cat.isEmpty()) {
+			if (cat.isEmpty() && !cat.getName().toLowerCase().contains("experiment")) {
 				removeCategory(cat);
 			}
 		}
