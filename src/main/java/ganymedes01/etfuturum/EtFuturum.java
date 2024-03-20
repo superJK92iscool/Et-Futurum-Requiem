@@ -338,6 +338,10 @@ public class EtFuturum {
 		CompostingRegistry.init();
 		BeePlantRegistry.init();
 		PistonBehaviorRegistry.init();
+
+		if (ModsList.TINKERS_CONSTRUCT.isLoaded()) {
+			CompatTinkersConstruct.postInit();
+		}
 	}
 
 	@EventHandler
