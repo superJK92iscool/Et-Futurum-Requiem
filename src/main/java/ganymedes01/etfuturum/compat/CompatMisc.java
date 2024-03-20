@@ -104,7 +104,7 @@ public class CompatMisc {
 
 
 	public static void runModHooksLoadComplete() {
-		if (ModBlocks.SPONGE.isEnabled()) {
+		if (ModBlocks.SPONGE.isEnabled() && ModsList.BIOMES_O_PLENTY.isLoaded()) {
 			try {
 				Field featureMapField = Class.forName("biomesoplenty.common.world.generation.WorldGenFieldAssociation").getDeclaredField("featureMap");
 				Map featureMap = (Map) featureMapField.get(null); //Get the list of BOP world generators
@@ -122,8 +122,7 @@ public class CompatMisc {
 
 				splotchBlockField.set(worldGenerator, ModBlocks.SPONGE.get()); //Change the info to generate the EFR sponge
 				splotchBlockMetaField.set(worldGenerator, 1);
-			} catch (Exception e) {
-				throw new RuntimeException(e);
+			} catch (Exception ignored) {
 			}
 		}
 
