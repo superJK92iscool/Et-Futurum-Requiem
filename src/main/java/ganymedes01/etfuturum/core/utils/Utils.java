@@ -8,6 +8,7 @@ import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -502,5 +503,11 @@ public class Utils {
 		for (int i = 0; i < 16; i++) {
 			to.setHarvestLevel(from.getHarvestTool(i), from.getHarvestLevel(i), i);
 		}
+	}
+
+	//STUPIDLY POINTLESSLY CLIENTSIDED FUNCTION STRIKES AGAIN AAAGH
+	public static boolean hasPotionEffect(ItemStack p_hasEffect_1_) {
+		List var2 = Items.potionitem.getEffects(p_hasEffect_1_);
+		return var2 != null && !var2.isEmpty();
 	}
 }

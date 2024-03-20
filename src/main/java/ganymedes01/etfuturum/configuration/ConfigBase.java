@@ -23,33 +23,24 @@ public abstract class ConfigBase extends Configuration {
 
 	public static final String configDir = "config" + File.separator + Reference.MOD_ID + File.separator;
 
-	public static final ConfigBase BLOCKS_ITEMS = new ConfigBlocksItems(new File(Launch.minecraftHome, configDir + "blocksitems.cfg"));
-	public static final ConfigBase ENCHANTS_POTIONS = new ConfigEnchantsPotions(new File(Launch.minecraftHome, configDir + "enchantspotions.cfg"));
-	public static final ConfigBase FUNCTIONS = new ConfigFunctions(new File(Launch.minecraftHome, configDir + "functions.cfg"));
-	public static final ConfigBase TWEAKS = new ConfigTweaks(new File(Launch.minecraftHome, configDir + "tweaks.cfg"));
-	public static final ConfigBase WORLD = new ConfigWorld(new File(Launch.minecraftHome, configDir + "world.cfg"));
-	public static final ConfigBase ENTITIES = new ConfigEntities(new File(Launch.minecraftHome, configDir + "entities.cfg"));
-	public static final ConfigBase SOUNDS = new ConfigSounds(new File(Launch.minecraftHome, configDir + "sounds.cfg"));
-	public static final ConfigBase MOD_COMPAT = new ConfigModCompat(new File(Launch.minecraftHome, configDir + "modcompat.cfg"));
+	public static final ConfigBase BLOCKS_ITEMS = new ConfigBlocksItems(createConfigFile("blocksitems"));
+	public static final ConfigBase ENCHANTS_POTIONS = new ConfigEnchantsPotions(createConfigFile("enchantspotions"));
+	public static final ConfigBase FUNCTIONS = new ConfigFunctions(createConfigFile("functions"));
+	public static final ConfigBase TWEAKS = new ConfigTweaks(createConfigFile("tweaks"));
+	public static final ConfigBase WORLD = new ConfigWorld(createConfigFile("world"));
+	public static final ConfigBase ENTITIES = new ConfigEntities(createConfigFile("entities"));
+	public static final ConfigBase SOUNDS = new ConfigSounds(createConfigFile("sounds"));
+	public static final ConfigBase MOD_COMPAT = new ConfigModCompat(createConfigFile("modcompat"));
 
-	public static final ConfigBase MIXINS = new ConfigMixins(new File(Launch.minecraftHome, configDir + "mixins.cfg"));
-
-	/**
-	 * ConfigBlocksItems.configInstance.syncConfig();
-	 * ConfigEnchantsPotions.configInstance.syncConfig();
-	 * ConfigFunctions.configInstance.syncConfig();
-	 * ConfigTweaks.configInstance.syncConfig();
-	 * ConfigWorld.configInstance.syncConfig();
-	 * ConfigEntities.configInstance.syncConfig();
-	 * ConfigSounds.configInstance.syncConfig();
-	 * ConfigModCompat.configInstance.syncConfig();
-	 * <p>
-	 * ConfigMixins.configInstance.syncConfig();
-	 */
+	public static final ConfigBase MIXINS = new ConfigMixins(createConfigFile("mixins"));
 
 	public ConfigBase(File file) {
 		super(file);
 		CONFIGS.add(this);
+	}
+
+	private static File createConfigFile(String name) {
+		return new File(Launch.minecraftHome, configDir + name + ".cfg");
 	}
 
 	public static void initializeConfigs() {

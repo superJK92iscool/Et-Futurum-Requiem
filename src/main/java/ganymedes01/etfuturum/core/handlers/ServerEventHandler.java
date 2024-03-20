@@ -954,12 +954,10 @@ public class ServerEventHandler {
 							world.notifyBlockChange(x, y, z, ModBlocks.DAYLIGHT_DETECTOR_INVERTED.get());
 						}
 
-						if (heldStack != null && heldStack.getItem() == Items.potionitem) {
-							if ((heldStack.hasTagCompound() || heldStack.getItemDamage() > 0) && !Items.potionitem.getEffects(heldStack).isEmpty()) {
-								if (ModBlocks.POTION_CAULDRON.isEnabled() && oldBlock == Blocks.cauldron && meta == 0 && !ItemPotion.isSplash(heldStack.getItemDamage())) {
-									world.setBlock(x, y, z, ModBlocks.POTION_CAULDRON.get());
-									//If we don't cancel the use event, the new block is used, so the use code is in the block class.
-								}
+						if (heldStack != null && heldStack.getItem() == Items.potionitem && Utils.hasPotionEffect(heldStack)) {
+							if (ModBlocks.POTION_CAULDRON.isEnabled() && oldBlock == Blocks.cauldron && meta == 0 && !ItemPotion.isSplash(heldStack.getItemDamage())) {
+								world.setBlock(x, y, z, ModBlocks.POTION_CAULDRON.get());
+								//If we don't cancel the use event, the new block is used, so the use code is in the block class.
 							}
 						}
 
