@@ -5,13 +5,16 @@ import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
+import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IWorldAccess;
 import net.minecraft.world.World;
 
@@ -84,6 +87,7 @@ public class EtFuturumWorldListener implements IWorldAccess {
 
 	@Override
 	public void markBlockForUpdate(int x, int y, int z) {
+		handleBasaltFromLava(x, y, z);
 
 		if (replacements.isEmpty() || !world.blockExists(x, y, z))
 			return;
@@ -114,6 +118,28 @@ public class EtFuturumWorldListener implements IWorldAccess {
 			newTile.readFromNBT(nbt);
 		}
 
+	}
+
+	private void handleBasaltFromLava(int x, int y, int z) { //Don't support Netherlicious blocks, this can be handled on their end
+		if (ModBlocks.BASALT.isEnabled()) {
+			if (world.getBlock(x, y, z).getMaterial() == Material.lava) {
+				Block soulsand = ModBlocks.SOUL_SOIL.isEnabled() ? ModBlocks.SOUL_SOIL.get() : Blocks.soul_sand;
+				if (world.getBlock(x, y - 1, z) == soulsand) {
+					Block ice = ModBlocks.BLUE_ICE.isEnabled() ? ModBlocks.BLUE_ICE.get() : Blocks.packed_ice;
+					for (EnumFacing facing : Utils.ENUM_FACING_VALUES) {
+						if (facing == EnumFacing.DOWN) continue;
+						if (world.getBlock(x + facing.getFrontOffsetX(), y + facing.getFrontOffsetY(), z + facing.getFrontOffsetZ()) == ice) {
+							world.playSoundEffect((float) x + 0.5F, (float) y + 0.5F, (float) z + 0.5F, "random.fizz", 0.5F, 2.6F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.8F);
+							for (int l = 0; l < 8; ++l) {
+								world.spawnParticle("largesmoke", (double) x + Math.random(), (double) y + 1.2D, (double) z + Math.random(), 0.0D, 0.0D, 0.0D);
+							}
+							world.setBlock(x, y, z, ModBlocks.BASALT.get());
+							return;
+						}
+					}
+				}
+			}
+		}
 	}
 
 	@Override

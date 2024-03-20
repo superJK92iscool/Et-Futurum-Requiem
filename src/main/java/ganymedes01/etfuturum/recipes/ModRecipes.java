@@ -1016,7 +1016,9 @@ public class ModRecipes {
 
 		addShapelessRecipe(new ItemStack(Items.dye, 1, 9), ModBlocks.PINK_PETALS.get());
 
-		addShapelessRecipe(ModBlocks.SOUL_SOIL.newItemStack(5), Blocks.dirt, Blocks.soul_sand, Blocks.soul_sand, Blocks.soul_sand, Blocks.soul_sand);
+		if (!ConfigExperiments.netherDimensionProvider) { //A way to get soul soil without new Nether
+			addShapelessRecipe(ModBlocks.SOUL_SOIL.newItemStack(5), Blocks.dirt, Blocks.soul_sand, Blocks.soul_sand, Blocks.soul_sand, Blocks.soul_sand);
+		}
 
 		registerModdedDeepslateOres();
 
