@@ -27,7 +27,7 @@ public class BannerPatternHandler extends TemplateRecipeHandler {
 
 	@Override
 	public String getOverlayIdentifier() {
-		return "etfuturum.banner";
+		return "crafting";
 	}
 
 	@Override

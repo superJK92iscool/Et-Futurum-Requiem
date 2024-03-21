@@ -25,7 +25,6 @@ public class IMCSenderGTNH {
 
 		if (ModBlocks.BANNER.isEnabled()) {
 			sendHandler("ganymedes01.etfuturum.compat.nei.BannerPatternHandler", "etfuturum:banner");
-			sendCatalyst("etfuturum.banner", "minecraft:crafting_table");
 		}
 
 		if (ModBlocks.COMPOSTER.isEnabled()) {
