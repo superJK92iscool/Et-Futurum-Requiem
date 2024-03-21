@@ -148,8 +148,6 @@ public class EtFuturum {
 		}
 	};
 
-	static final Map<ItemStack, Integer> DEFAULT_COMPOST_CHANCES = new LinkedHashMap<>();
-
 	@EventHandler
 	public void onConstruction(FMLConstructionEvent event) {
 		MCLib.init();

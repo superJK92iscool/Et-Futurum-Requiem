@@ -5,7 +5,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.*;
@@ -16,21 +15,21 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public class BlockLantern extends Block {
 
-	public BlockLantern() {
+	public BlockLantern(String name, int lightLevel) {
 		super(Material.iron);
 		float r = 0.0625F;
 		float f = 0.375F;
 		float f1 = f / 2.0F;
 		this.setHarvestLevel("pickaxe", 0);
-		this.setStepSound(ConfigSounds.newBlockSounds ? ModSounds.soundLantern : soundTypeMetal);
+		Utils.setBlockSound(this, ModSounds.soundLantern);
+		Utils.setLightLevel(this, lightLevel);
 		this.setHardness(3.5F);
 		this.setResistance(3.5F);
-		this.setLightLevel(1);
 		this.setLightOpacity(500);
 		this.setBlockBounds(0.5F - f1, r * 1, 0.5F - f1, 0.5F + f1, r * 7, 0.5F + f1);
-		this.setBlockName(Utils.getUnlocalisedName("lantern"));
-		this.setBlockTextureName("lantern");
 		this.setCreativeTab(EtFuturum.creativeTabBlocks);
+		this.setBlockName(Utils.getUnlocalisedName(name));
+		this.setBlockTextureName(name);
 	}
 
 	@Override
@@ -105,7 +104,7 @@ public class BlockLantern extends Block {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public String getItemIconName() {
-		return "lantern";
+		return getTextureName();
 	}
 
 	@Override

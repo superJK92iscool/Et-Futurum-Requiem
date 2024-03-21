@@ -571,6 +571,8 @@ tile.etfuturum.loom.name=Loom
 tile.etfuturum.grindstone.name=Grindstone
 tile.etfuturum.lectern.name=Lectern
 tile.etfuturum.lantern.name=Lantern
+tile.etfuturum.soul_lantern.name=Soul Lantern
+tile.etfuturum.soul_torch.name=Soul Torch
 
 tile.etfuturum.observer.name=Observer
 tile.etfuturum.target.name=Target

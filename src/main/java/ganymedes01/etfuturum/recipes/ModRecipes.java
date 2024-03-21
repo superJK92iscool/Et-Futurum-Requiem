@@ -690,9 +690,15 @@ public class ModRecipes {
 
 		if (!OreDictionary.getOres("nuggetIron").isEmpty()) {
 			addShapedRecipe(ModBlocks.LANTERN.newItemStack(), "xxx", "xix", "xxx", 'x', "nuggetIron", 'i', Blocks.torch);
+			addShapedRecipe(ModBlocks.SOUL_LANTERN.newItemStack(), "xxx", "xix", "xxx", 'x', "nuggetIron", 'i', ModBlocks.SOUL_TORCH.get());
 		} else {
 			addShapedRecipe(ModBlocks.LANTERN.newItemStack(), "i", "x", 'x', "ingotIron", 'i', Blocks.torch);
+			addShapedRecipe(ModBlocks.SOUL_LANTERN.newItemStack(), "i", "x", 'x', "ingotIron", 'i', ModBlocks.SOUL_TORCH.get());
 		}
+		addShapedRecipe(ModBlocks.SOUL_TORCH.newItemStack(), "i", "x", "s", 'x', "stickWood", 'i', "coal", 's', "soulSand");
+		addShapedRecipe(ModBlocks.SOUL_TORCH.newItemStack(), "i", "x", "s", 'x', "stickWood", 'i', "coal", 's', "soulSoil");
+		addShapedRecipe(ModBlocks.SOUL_TORCH.newItemStack(), "i", "x", "s", 'x', "stickWood", 'i', "charcoal", 's', "soulSand");
+		addShapedRecipe(ModBlocks.SOUL_TORCH.newItemStack(), "i", "x", "s", 'x', "stickWood", 'i', "charcoal", 's', "soulSoil");
 
 		addShapedRecipe(ModBlocks.BARREL.newItemStack(), "xsx", "x x", "xsx", 'x', "plankWood", 's', "slabWood");
 

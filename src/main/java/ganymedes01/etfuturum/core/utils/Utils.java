@@ -510,4 +510,8 @@ public class Utils {
 		List var2 = Items.potionitem.getEffects(p_hasEffect_1_);
 		return var2 != null && !var2.isEmpty();
 	}
+
+	public static void setLightLevel(Block block, int level) {
+		block.setLightLevel((float) level / 15F);
+	}
 }
