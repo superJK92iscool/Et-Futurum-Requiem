@@ -586,6 +586,8 @@ tile.etfuturum.loom.name=织布机
 tile.etfuturum.grindstone.name=砂轮
 tile.etfuturum.lectern.name=讲台
 tile.etfuturum.lantern.name=灯笼
+tile.etfuturum.soul_lantern.name=灵魂灯笼
+tile.etfuturum.soul_torch.name=灵魂火把
 
 tile.etfuturum.observer.name=侦测器
 tile.etfuturum.target.name=标靶
