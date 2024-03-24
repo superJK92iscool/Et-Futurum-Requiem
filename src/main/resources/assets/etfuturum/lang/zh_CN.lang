@@ -1803,6 +1803,18 @@ tile.etfuturum.bluepower.deepslate_ruby_ore.name=深层红宝石矿石
 tile.etfuturum.bluepower.deepslate_sapphire_ore.name=深层蓝宝石矿石
 tile.etfuturum.bluepower.deepslate_amethyst_ore.name=深层紫晶矿石
 
+tile.etfuturum.am2.deepslate_vinteum_ore.name=深层温特姆矿石
+tile.etfuturum.am2.deepslate_chimerite_ore.name=深层精灵矿石
+tile.etfuturum.am2.deepslate_blue_topaz_ore.name=深层蓝晶矿石
+
+tile.etfuturum.fiskheroes.deepslate_tutridium_ore.name=深层能源宝石矿石
+tile.etfuturum.fiskheroes.tutridium_deepslate.name=斑驳的能源深板岩
+tile.etfuturum.fiskheroes.deepslate_vibranium_ore.name=深层振金矿石
+tile.etfuturum.fiskheroes.deepslate_dwarf_star_ore.name=深层矮星矿石
+tile.etfuturum.fiskheroes.deepslate_olivine_ore.name=深层橄榄石矿石
+tile.etfuturum.fiskheroes.deepslate_eternium_ore.name=深层永恒金属矿石
+tile.etfuturum.fiskheroes.eternium_deepslate.name=灌注永恒之深板岩
+
 # Mod support items
 
 item.shulker_vanilla_iron_upgrade.name=升级：原版>铁质潜影盒
