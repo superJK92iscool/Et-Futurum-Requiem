@@ -752,6 +752,8 @@ tile.etfuturum.loom.name=Ткацкий станок
 tile.etfuturum.grindstone.name=Точило 
 tile.etfuturum.lectern.name=Кафедра
 tile.etfuturum.lantern.name=Фонарь
+tile.etfuturum.soul_lantern.name=Фонарь душ
+tile.etfuturum.soul_torch.name=Факел душ
 
 tile.etfuturum.white_concrete_powder.name=Белый цемент
 tile.etfuturum.orange_concrete_powder.name=Оранжевый цемент
@@ -1750,8 +1752,8 @@ tile.etfuturum.deepslate_zinc_ore.name=Глубинная цинковая ру�
 tile.etfuturum.deepslate_magnesium_ore.name=Глубинная магниевая руда
 tile.etfuturum.deepslate_boron_ore.name=Глубинная борная руда
 
-tile.etfuturum.ae2.deepslate_certus_quartz_ore.name=Глубинная руда истинного кварца
-tile.etfuturum.ae2.deepslate_charged_certus_quartz_ore.name=Глубинная заряженная руда истинного кварца
+tile.etfuturum.deepslate_certus_quartz_ore.name=Глубинная руда истинного кварца
+tile.etfuturum.deepslate_charged_certus_quartz_ore.name=Глубинная заряженная руда истинного кварца
 
 tile.etfuturum.draconic.deepslate_draconium_ore.name=Глубинная дракониевая руда
 
@@ -1781,6 +1783,21 @@ tile.etfuturum.bluepower.deepslate_teslatite_ore.name=Глубинная тес�
 tile.etfuturum.bluepower.deepslate_ruby_ore.name=Глубинная рубиновая руда
 tile.etfuturum.bluepower.deepslate_sapphire_ore.name=Глубинная сапфировая руда
 tile.etfuturum.bluepower.deepslate_amethyst_ore.name=Глубинная аметистовая руда
+
+tile.etfuturum.ae2.deepslate_certus_quartz_ore.name=Глубинная руда истинного кварца
+tile.etfuturum.ae2.deepslate_charged_certus_quartz_ore.name=Глубинная заряженная руда истинного кварца
+
+tile.etfuturum.am2.deepslate_vinteum_ore.name=Глубинная винтеумная руда
+tile.etfuturum.am2.deepslate_chimerite_ore.name=Глубинная химеритовая руда
+tile.etfuturum.am2.deepslate_blue_topaz_ore.name=Глубинная руда голубого топаза
+
+tile.etfuturum.fiskheroes.deepslate_tutridium_ore.name=Глубинная тутридиевая руда
+tile.etfuturum.fiskheroes.tutridium_deepslate.name=Покрытый тутридием глубинный сланец
+tile.etfuturum.fiskheroes.deepslate_vibranium_ore.name=Глубинная вибраниевая руда
+tile.etfuturum.fiskheroes.deepslate_dwarf_star_ore.name=Глубинная руда карликовой звезды
+tile.etfuturum.fiskheroes.deepslate_olivine_ore.name=Глубинная оливиновая руда
+tile.etfuturum.fiskheroes.deepslate_eternium_ore.name=Глубинная этерниевая руда
+tile.etfuturum.fiskheroes.eternium_deepslate.name=Наполненный этернием глубинный сланец
 
 # Поддержка модовых предметов (Mod support items)
 item.shulker_vanilla_iron_upgrade.name=Улучшение шалкерового ящика до железного шалкерового ящика
