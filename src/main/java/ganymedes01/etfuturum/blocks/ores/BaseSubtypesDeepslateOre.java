@@ -2,6 +2,7 @@ package ganymedes01.etfuturum.blocks.ores;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.blocks.BaseSubtypesBlock;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.lib.Reference;
@@ -11,6 +12,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.particle.EffectRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Vec3;
@@ -28,14 +30,14 @@ public abstract class BaseSubtypesDeepslateOre extends BaseSubtypesBlock {
 	}
 
 	@Override
-	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_) {
-		return checkDrop(getBase(p_149650_1_).getItemDropped(getBaseMeta(p_149650_1_), p_149650_2_, p_149650_3_), p_149650_1_);
+	public Item getItemDropped(int meta, Random rand, int fortune) {
+		return checkDrop(new ItemStack(getBase(meta).getItemDropped(getBaseMeta(meta), rand, fortune), 1, fortune), meta).getItem();
 	}
 
 	@Override
 	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
 		ArrayList<ItemStack> list = getBase(metadata).getDrops(world, x, y, z, getBaseMeta(metadata), fortune);
-		list.forEach(this::checkDrop);
+		list.forEach(itemStack -> this.checkDrop(itemStack, metadata));
 		return list;
 	}
 
@@ -104,6 +106,11 @@ public abstract class BaseSubtypesDeepslateOre extends BaseSubtypesBlock {
 	@Override
 	public void velocityToAddToEntity(World world, int x, int y, int z, Entity p_149640_5_, Vec3 p_149640_6_) {
 		getBase(world.getBlockMetadata(x, y, z)).velocityToAddToEntity(world, x, y, z, p_149640_5_, p_149640_6_);
+	}
+
+	@Override
+	public int getLightValue(IBlockAccess world, int x, int y, int z) {
+		return getBase(world.getBlockMetadata(x, y, z)).getLightValue();
 	}
 
 	/**
@@ -188,18 +195,19 @@ public abstract class BaseSubtypesDeepslateOre extends BaseSubtypesBlock {
 	 * Used to replace the base ore with the deepslate version in drop lists.
 	 * If it drops the base ore block, replace it with the base deepslate block (eg iron ore drop is swapped for deepslate iron ore drop)
 	 */
-	protected ItemStack checkDrop(ItemStack drop) {
-		drop.func_150996_a(checkDrop(drop.getItem(), drop.getItemDamage()));
-		return drop;
-	}
-
-	protected Item checkDrop(Item drop, int meta) {
-		Block droppedBlock = Block.getBlockFromItem(drop);
+	protected ItemStack checkDrop(ItemStack drop, int meta) {
+		Block droppedBlock = Block.getBlockFromItem(drop.getItem());
 		if (droppedBlock == getBase(meta)) {
 			Item thisAsItem = Item.getItemFromBlock(this);
 			if (thisAsItem != null) {
-				return thisAsItem;
+				drop.func_150996_a(thisAsItem);
+				drop.itemDamage = meta;
+				return drop;
 			}
+		} else if (droppedBlock == Blocks.stone) {
+			drop.func_150996_a(ModBlocks.DEEPSLATE.getItem());
+		} else if (droppedBlock == Blocks.cobblestone) {
+			drop.func_150996_a(ModBlocks.COBBLED_DEEPSLATE.getItem());
 		}
 		return drop;
 	}

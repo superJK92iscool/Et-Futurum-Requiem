@@ -1028,6 +1028,9 @@ public class ModRecipes {
 
 		registerModdedDeepslateOres();
 
+		addShapedRecipe(new ItemStack(ExternalContent.Blocks.FISK_NEXUS_BRICKS.get(), 8), "bob", "obo", "bob",
+				'b', ModBlocks.DEEPSLATE_BRICKS.newItemStack(1, OreDictionary.WILDCARD_VALUE), 'o', ModBlocks.DEEPSLATE_FISKHEROES_ORE.newItemStack(1, 6));
+
 		ItemStack result = null;
 		if (ModItems.COPPER_INGOT.isEnabled()) {
 			result = ModItems.COPPER_INGOT.newItemStack();
@@ -1147,9 +1150,9 @@ public class ModRecipes {
 				registerOre("oreDeepslateAmethyst", ModBlocks.DEEPSLATE_BLUEPOWER_ORE.newItemStack(1, 3));
 				registerOre("oreAmethyst", ModBlocks.DEEPSLATE_BLUEPOWER_ORE.newItemStack(1, 3));
 				DeepslateOreRegistry.addOre(ExternalContent.Blocks.BP_TESLATITE_ORE.get(), ModBlocks.DEEPSLATE_BLUEPOWER_ORE.get());
-				DeepslateOreRegistry.addOre(ExternalContent.Blocks.BP_RUBY_ORE.get(), 1, ModBlocks.DEEPSLATE_BLUEPOWER_ORE.get(), 1);
-				DeepslateOreRegistry.addOre(ExternalContent.Blocks.BP_SAPPHIRE_ORE.get(), 2, ModBlocks.DEEPSLATE_BLUEPOWER_ORE.get(), 2);
-				DeepslateOreRegistry.addOre(ExternalContent.Blocks.BP_AMETHYST_ORE.get(), 3, ModBlocks.DEEPSLATE_BLUEPOWER_ORE.get(), 3);
+				DeepslateOreRegistry.addOre(ExternalContent.Blocks.BP_RUBY_ORE.get(), 0, ModBlocks.DEEPSLATE_BLUEPOWER_ORE.get(), 1);
+				DeepslateOreRegistry.addOre(ExternalContent.Blocks.BP_SAPPHIRE_ORE.get(), 0, ModBlocks.DEEPSLATE_BLUEPOWER_ORE.get(), 2);
+				DeepslateOreRegistry.addOre(ExternalContent.Blocks.BP_AMETHYST_ORE.get(), 0, ModBlocks.DEEPSLATE_BLUEPOWER_ORE.get(), 3);
 			}
 			if (ModBlocks.DEEPSLATE_BOP_ORE.isEnabled()) {
 				registerOre("oreDeepslateRuby", ModBlocks.DEEPSLATE_BOP_ORE.newItemStack());
@@ -1189,6 +1192,25 @@ public class ModRecipes {
 				DeepslateOreRegistry.addOre(ExternalContent.Blocks.ARS_MAGICA_2_ORE.get(), ModBlocks.DEEPSLATE_AM2_ORE.get());
 				DeepslateOreRegistry.addOre(ExternalContent.Blocks.ARS_MAGICA_2_ORE.get(), 1, ModBlocks.DEEPSLATE_AM2_ORE.get(), 1);
 				DeepslateOreRegistry.addOre(ExternalContent.Blocks.ARS_MAGICA_2_ORE.get(), 2, ModBlocks.DEEPSLATE_AM2_ORE.get(), 2);
+			}
+			if (ModBlocks.DEEPSLATE_FISKHEROES_ORE.isEnabled()) {
+				registerOre("oreDeepslateTutridium", ModBlocks.DEEPSLATE_FISKHEROES_ORE.newItemStack());
+				registerOre("oreTutridium", ModBlocks.DEEPSLATE_FISKHEROES_ORE.newItemStack());
+				registerOre("oreDeepslateVibranium", ModBlocks.DEEPSLATE_FISKHEROES_ORE.newItemStack(1, 2));
+				registerOre("oreVibranium", ModBlocks.DEEPSLATE_FISKHEROES_ORE.newItemStack(1, 2));
+				registerOre("oreDeepslateDwarfStar", ModBlocks.DEEPSLATE_FISKHEROES_ORE.newItemStack(1, 3));
+				registerOre("oreDwarfStar", ModBlocks.DEEPSLATE_FISKHEROES_ORE.newItemStack(1, 3));
+				registerOre("oreDeepslateOlivine", ModBlocks.DEEPSLATE_FISKHEROES_ORE.newItemStack(1, 4));
+				registerOre("oreOlivine", ModBlocks.DEEPSLATE_FISKHEROES_ORE.newItemStack(1, 4));
+				registerOre("oreDeepslateEternium", ModBlocks.DEEPSLATE_FISKHEROES_ORE.newItemStack(1, 5));
+				registerOre("oreEternium", ModBlocks.DEEPSLATE_FISKHEROES_ORE.newItemStack(1, 5));
+				DeepslateOreRegistry.addOre(ExternalContent.Blocks.FISK_TUTRIDIUM_ORE.get(), ModBlocks.DEEPSLATE_FISKHEROES_ORE.get());
+				DeepslateOreRegistry.addOre(ExternalContent.Blocks.FISK_TUTRIDIUM_SPECKLED_STONE.get(), 0, ModBlocks.DEEPSLATE_FISKHEROES_ORE.get(), 1);
+				DeepslateOreRegistry.addOre(ExternalContent.Blocks.FISK_VIBRANIUM_ORE.get(), 0, ModBlocks.DEEPSLATE_FISKHEROES_ORE.get(), 2);
+				DeepslateOreRegistry.addOre(ExternalContent.Blocks.FISK_DWARF_STAR_ORE.get(), 0, ModBlocks.DEEPSLATE_FISKHEROES_ORE.get(), 3);
+				DeepslateOreRegistry.addOre(ExternalContent.Blocks.FISK_OLIVINE_ORE.get(), 0, ModBlocks.DEEPSLATE_FISKHEROES_ORE.get(), 4);
+				DeepslateOreRegistry.addOre(ExternalContent.Blocks.FISK_ETERNIUM_ORE.get(), 0, ModBlocks.DEEPSLATE_FISKHEROES_ORE.get(), 5);
+				DeepslateOreRegistry.addOre(ExternalContent.Blocks.FISK_ETERNIUM_INFUSED_STONE.get(), 0, ModBlocks.DEEPSLATE_FISKHEROES_ORE.get(), 6);
 			}
 		}
 	}

@@ -6,7 +6,6 @@ import ganymedes01.etfuturum.compat.ExternalContent;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.Block;
 import net.minecraft.util.IIcon;
-import net.minecraft.world.IBlockAccess;
 
 public class BlockDeepslateCertusQuartzOre extends BaseSubtypesDeepslateOre implements IEmissiveLayerBlock {
 
@@ -36,7 +35,7 @@ public class BlockDeepslateCertusQuartzOre extends BaseSubtypesDeepslateOre impl
 
 	//Not sure how to make this work rn
 	@Override
-	public int getEmissiveMinBrightness(IBlockAccess world, int x, int y, int z) {
+	public int getEmissiveMinBrightness(int meta) {
 		return 1;
 	}
 

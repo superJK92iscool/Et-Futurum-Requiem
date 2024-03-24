@@ -4,23 +4,21 @@ import com.gtnewhorizons.angelica.api.ThreadSafeISBRH;
 import ganymedes01.etfuturum.blocks.IEmissiveLayerBlock;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.EntityRenderer;
+import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
+import org.lwjgl.opengl.GL11;
+
+import javax.vecmath.Point2f;
 
 @ThreadSafeISBRH(perThread = false)
 public class BlockEmissiveLayerRenderer extends BlockModelBase {
 
-	/**
-	 * If the emissive layer should render above or below the main icon
-	 */
-	private final boolean emissiveLayerAbove;
-
-	public BlockEmissiveLayerRenderer(int modelID, boolean above) {
+	public BlockEmissiveLayerRenderer(int modelID) {
 		super(modelID);
-		emissiveLayerAbove = above;
 	}
 
 	@Override
@@ -34,6 +32,10 @@ public class BlockEmissiveLayerRenderer extends BlockModelBase {
 			return;
 		}
 
+		final Tessellator tessellator = Tessellator.instance;
+
+		boolean emissiveLayerAbove = ((IEmissiveLayerBlock) block).isEmissiveLayerAbove(meta);
+
 		renderStandardInventoryCubeEmissive(block, meta, modelId, renderer, !emissiveLayerAbove, minX, minY, minZ, maxX, maxY, maxZ);
 		renderStandardInventoryCubeEmissive(block, meta, modelId, renderer, emissiveLayerAbove, minX, minY, minZ, maxX, maxY, maxZ);
 	}
@@ -42,6 +44,8 @@ public class BlockEmissiveLayerRenderer extends BlockModelBase {
 	protected void renderStandardInventoryCubeEmissive(Block block, int meta, int modelId, RenderBlocks renderer, boolean emissive,
 													   double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
 		final Tessellator tessellator = Tessellator.instance;
+		tessellator.draw();
+		tessellator.startDrawingQuads();
 		if (emissive) {
 			int m = ((IEmissiveLayerBlock) block).getEmissiveLayerColor(meta);
 			float f = (float) (m >> 16 & 255) / 255.0F;
@@ -49,7 +53,13 @@ public class BlockEmissiveLayerRenderer extends BlockModelBase {
 			float f2 = (float) (m & 255) / 255.0F;
 
 			tessellator.setColorOpaque_F(f, f1, f2);
+			GL11.glEnable(GL11.GL_ALPHA_TEST);
+			if (((IEmissiveLayerBlock) block).itemBlockGlows(meta)) {
+				int brightness = ((IEmissiveLayerBlock) block).getEmissiveMinBrightness(meta);
+				setLighting(floorMixedBrightness(brightness, brightness));
+			}
 		}
+
 		renderer.setRenderBounds(minX, minY, minZ, maxX, maxY, maxZ);
 		tessellator.setNormal(0.0F, -1.0F, 0.0F);
 		renderer.renderFaceYNeg(block, 0.0D, 0.0D, 0.0D, getIconOrEmissiveLayerIcon(block, renderer, 0, meta, emissive));
@@ -63,7 +73,13 @@ public class BlockEmissiveLayerRenderer extends BlockModelBase {
 		renderer.renderFaceXNeg(block, 0.0D, 0.0D, 0.0D, getIconOrEmissiveLayerIcon(block, renderer, 4, meta, emissive));
 		tessellator.setNormal(1.0F, 0.0F, 0.0F);
 		renderer.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, getIconOrEmissiveLayerIcon(block, renderer, 5, meta, emissive));
-		tessellator.setColorOpaque_F(1, 1, 1);
+		tessellator.draw();
+		if (emissive) {
+			tessellator.setColorOpaque_F(1, 1, 1);
+			if (((IEmissiveLayerBlock) block).itemBlockGlows(meta)) {
+				resetLighting();
+			}
+		}
 	}
 
 	@Override
@@ -71,6 +87,8 @@ public class BlockEmissiveLayerRenderer extends BlockModelBase {
 		if (((IEmissiveLayerBlock) block).isMetaNormalBlock(world.getBlockMetadata(x, y, z))) {
 			return super.renderWorldBlock(world, x, y, z, block, modelId, renderer);
 		}
+
+		boolean emissiveLayerAbove = ((IEmissiveLayerBlock) block).isEmissiveLayerAbove(world.getBlockMetadata(x, y, z));
 
 		return renderStandardWorldCubeWithEmissiveness(world, x, y, z, block, modelId, renderer, !emissiveLayerAbove,
 				block.getBlockBoundsMinX(), block.getBlockBoundsMinY(), block.getBlockBoundsMinZ(),
@@ -100,6 +118,26 @@ public class BlockEmissiveLayerRenderer extends BlockModelBase {
 		renderFaceXNeg(renderer, block, x, y, z, ((IEmissiveLayerBlock) block).getEmissiveMinBrightness(world, x, y, z), getIconOrEmissiveLayerIcon(block, renderer, 4, meta, true), meta);
 		renderFaceXPos(renderer, block, x, y, z, ((IEmissiveLayerBlock) block).getEmissiveMinBrightness(world, x, y, z), getIconOrEmissiveLayerIcon(block, renderer, 5, meta, true), meta);
 		return true;
+	}
+
+	private static Point2f lastBrightness = new Point2f(0, 0);
+
+
+	public static void setLighting(int lighting) {
+		storeLighting();
+		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lighting % 65536.0F, lighting / 65536.0F);
+	}
+
+	public static void storeLighting() {
+		lastBrightness.set(OpenGlHelper.lastBrightnessX, OpenGlHelper.lastBrightnessY);
+	}
+
+	public static void resetLighting() {
+		Point2f p = lastBrightness;
+
+		if (p != null) {
+			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, p.x, p.y);
+		}
 	}
 
 	/**

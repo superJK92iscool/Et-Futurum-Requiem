@@ -9,7 +9,14 @@ public interface IEmissiveLayerBlock {
 	@SideOnly(Side.CLIENT)
 	IIcon getEmissiveLayerIcon(int side, int meta);
 
-	int getEmissiveMinBrightness(IBlockAccess world, int x, int y, int z);
+	default int getEmissiveMinBrightness(IBlockAccess world, int x, int y, int z) {
+		return getEmissiveMinBrightness(world.getBlockMetadata(x, y, z));
+	}
+
+	/**
+	 * For the ItemBlock
+	 */
+	int getEmissiveMinBrightness(int meta);
 
 	/**
 	 * Used by Thaumcraft ores so the amber and cinnibar deepslate ores render normally.
@@ -27,5 +34,13 @@ public interface IEmissiveLayerBlock {
 
 	default int getEmissiveLayerColor(int meta) {
 		return 0xFFFFFF;
+	}
+
+	default boolean isEmissiveLayerAbove(int meta) {
+		return false;
+	}
+
+	default boolean itemBlockGlows(int meta) {
+		return false;
 	}
 }

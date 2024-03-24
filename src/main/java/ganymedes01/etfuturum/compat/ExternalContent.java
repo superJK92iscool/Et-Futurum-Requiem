@@ -40,14 +40,25 @@ public class ExternalContent {
 		DRACONIUM_ORE(() -> GameRegistry.findBlock("DraconicEvolution", "draconiumOre")),
 
 		PROJECT_RED_ORE(() -> GameRegistry.findBlock("ProjRed|Exploration", "projectred.exploration.ore")),
-		
+
 		BR_YELLORITE_ORE(() -> GameRegistry.findBlock("BigReactors", "YelloriteOre")),
 
 		BP_TESLATITE_ORE(() -> GameRegistry.findBlock("bluepower", "teslatite_ore")),
 		BP_RUBY_ORE(() -> GameRegistry.findBlock("bluepower", "ruby_ore")),
 		BP_SAPPHIRE_ORE(() -> GameRegistry.findBlock("bluepower", "sapphire_ore")),
 		BP_AMETHYST_ORE(() -> GameRegistry.findBlock("bluepower", "amethyst_ore")),
-		/*BP_MALACHITE_ORE(() -> GameRegistry.findBlock("bluepower", "malachite_ore")), Unused malachite texture in files? I'll have this set up here in case a fork or something uses it*/;
+		/*BP_MALACHITE_ORE(() -> GameRegistry.findBlock("bluepower", "malachite_ore")), Unused malachite texture in files? I'll have this set up here in case a fork or something uses it*/
+
+		FISK_TUTRIDIUM_ORE(() -> GameRegistry.findBlock("fiskheroes", "tutridium_ore")),
+		FISK_TUTRIDIUM_SPECKLED_STONE(() -> GameRegistry.findBlock("fiskheroes", "tutridium_stone")),
+		FISK_VIBRANIUM_ORE(() -> GameRegistry.findBlock("fiskheroes", "vibranium_ore")),
+		FISK_DWARF_STAR_ORE(() -> GameRegistry.findBlock("fiskheroes", "dwarf_star_ore")),
+		FISK_OLIVINE_ORE(() -> GameRegistry.findBlock("fiskheroes", "olivine_ore")),
+		FISK_ETERNIUM_ORE(() -> GameRegistry.findBlock("fiskheroes", "eternium_ore")),
+		FISK_ETERNIUM_INFUSED_STONE(() -> GameRegistry.findBlock("fiskheroes", "eternium_stone")),
+
+		FISK_NEXUS_BRICKS(() -> GameRegistry.findBlock("fiskheroes", "nexus_bricks")),
+		;
 
 		private Block block;
 		private final Supplier<Block> blockSupplier;

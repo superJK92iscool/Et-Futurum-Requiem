@@ -472,6 +472,7 @@ public enum ModBlocks {
 	DEEPSLATE_BOP_ORE(enableModdedDeepslateOres(ModsList.BIOMES_O_PLENTY.isLoaded()), new BlockDeepslateBiomesOPlentyOre()),
 	DEEPSLATE_PROJRED_ORE(enableModdedDeepslateOres(ModsList.PROJECT_RED_EXPLORATION.isLoaded()), new BlockDeepslateProjectRedOre()),
 	DEEPSLATE_BLUEPOWER_ORE(enableModdedDeepslateOres(ModsList.BLUEPOWER.isLoaded()), new BlockDeepslateBluePowerOre()),
+	DEEPSLATE_FISKHEROES_ORE(enableModdedDeepslateOres(ModsList.FISKS_SUPERHEROES.isLoaded()), new BlockDeepslateFiskHeroOre()),
 	;
 
 	private static boolean enableModdedDeepslateOres() {

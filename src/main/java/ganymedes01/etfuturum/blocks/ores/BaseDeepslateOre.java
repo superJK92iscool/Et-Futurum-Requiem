@@ -2,6 +2,7 @@ package ganymedes01.etfuturum.blocks.ores;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.blocks.BaseBlock;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.lib.Reference;
@@ -11,6 +12,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.particle.EffectRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Vec3;
@@ -28,8 +30,8 @@ public abstract class BaseDeepslateOre extends BaseBlock {
 	}
 
 	@Override
-	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_) {
-		return checkDrop(getBase().getItemDropped(p_149650_1_, p_149650_2_, p_149650_3_));
+	public Item getItemDropped(int meta, Random rand, int fortune) {
+		return checkDrop(new ItemStack(getBase().getItemDropped(meta, rand, fortune), 1, fortune)).getItem();
 	}
 
 	@Override
@@ -93,6 +95,16 @@ public abstract class BaseDeepslateOre extends BaseBlock {
 	@Override
 	public void onBlockDestroyedByPlayer(World p_149664_1_, int p_149664_2_, int p_149664_3_, int p_149664_4_, int p_149664_5_) {
 		getBase().onBlockDestroyedByPlayer(p_149664_1_, p_149664_2_, p_149664_3_, p_149664_4_, p_149664_5_);
+	}
+
+	@Override
+	public int getLightValue() {
+		return getBase().getLightValue();
+	}
+
+	@Override
+	public int getLightValue(IBlockAccess world, int x, int y, int z) {
+		return getBase().getLightValue();
 	}
 
 	/**
@@ -193,22 +205,28 @@ public abstract class BaseDeepslateOre extends BaseBlock {
 		return getBase().getExplosionResistance(par1Entity, world, x, y, z, explosionX, explosionY, explosionZ);
 	}
 
+	@Override
+	protected void dropBlockAsItem(World p_149642_1_, int p_149642_2_, int p_149642_3_, int p_149642_4_, ItemStack p_149642_5_) {
+		super.dropBlockAsItem(p_149642_1_, p_149642_2_, p_149642_3_, p_149642_4_, p_149642_5_);
+	}
+
 	/**
 	 * Used to replace the base ore with the deepslate version in drop lists.
 	 * If it drops the base ore block, replace it with the base deepslate block (eg iron ore drop is swapped for deepslate iron ore drop)
 	 */
 	protected ItemStack checkDrop(ItemStack drop) {
-		drop.func_150996_a(checkDrop(drop.getItem()));
-		return drop;
-	}
-
-	protected Item checkDrop(Item drop) {
-		Block droppedBlock = Block.getBlockFromItem(drop);
+		Block droppedBlock = Block.getBlockFromItem(drop.getItem());
 		if (droppedBlock == getBase()) {
 			Item thisAsItem = Item.getItemFromBlock(this);
 			if (thisAsItem != null) {
-				return thisAsItem;
+				drop.func_150996_a(thisAsItem);
+				drop.itemDamage = 0;
+				return drop;
 			}
+		} else if (droppedBlock == Blocks.stone) {
+			drop.func_150996_a(ModBlocks.DEEPSLATE.getItem());
+		} else if (droppedBlock == Blocks.cobblestone) {
+			drop.func_150996_a(ModBlocks.COBBLED_DEEPSLATE.getItem());
 		}
 		return drop;
 	}

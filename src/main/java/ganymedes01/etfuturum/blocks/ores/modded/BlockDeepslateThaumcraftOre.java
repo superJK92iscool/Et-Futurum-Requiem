@@ -84,7 +84,7 @@ public class BlockDeepslateThaumcraftOre extends BaseSubtypesDeepslateOre implem
 	}
 
 	@Override
-	public int getEmissiveMinBrightness(IBlockAccess world, int x, int y, int z) {
+	public int getEmissiveMinBrightness(int meta) {
 		return 15;
 	}
 
