@@ -6,6 +6,7 @@ import ganymedes01.etfuturum.blocks.BlockComposter;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 
 @ThreadSafeISBRH(perThread = false)
@@ -71,8 +72,8 @@ public class BlockComposterRenderer extends BlockModelBase {
 					renderer.setOverrideBlockTexture(((BlockComposter) block).compostIcon);
 				}
 
-				double offset = 0.125D * Math.min(meta, BlockComposter.FULL_META);
-				if (meta > 0) {
+				double offset = 0.125D * MathHelper.clamp_int(meta, 1, BlockComposter.FULL_META);
+				if (meta >= 1) {
 					offset += 0.0625D;
 				}
 
