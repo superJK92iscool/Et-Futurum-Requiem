@@ -21,6 +21,11 @@ import net.minecraft.world.storage.WorldInfo;
 import java.io.File;
 import java.util.Map;
 
+/**
+ * Pulled from GregTech6 with permission from Greg, with modification to support fake block setting
+ *
+ * @author roadhog360 GregoriusT
+ */
 public class DummyWorld extends World {
 	public static class GT_IteratorRandom extends RandomXoshiro256StarStar {
 		private static final long serialVersionUID = 1L;
