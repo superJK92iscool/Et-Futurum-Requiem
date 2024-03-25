@@ -9,6 +9,7 @@ import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Items;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -23,6 +24,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.*;
+import java.util.function.Predicate;
 
 public class Utils {
 
@@ -513,5 +515,28 @@ public class Utils {
 
 	public static void setLightLevel(Block block, int level) {
 		block.setLightLevel((float) level / 15F);
+	}
+
+	/**
+	 * Gets the first instance of a tag that is a block and not an item. This is needed because stuff like raw ores uses "oreXXX" tags occasionally have items and not blocks like raw ores.
+	 * <p>
+	 * Used by the generic deepslate ore set to get the first block-based ore. Note that this returns the instances directly from the dictionary.
+	 * <p>
+	 * As such, if you need to transform or use this instance, you need to use .copy() or problems will arise.
+	 *
+	 * @param oreDictTag
+	 * @return The first BLOCK in the tags list. If none are found or the tags list is empty, returns null instead.
+	 */
+	public static ItemStack getFirstBlockFromTag(String oreDictTag) {
+		return getFirstFromTag(oreDictTag, itemStack -> itemStack.getItem() instanceof ItemBlock);
+	}
+
+	public static ItemStack getFirstFromTag(String oreDictTag, Predicate<ItemStack> predicate) {
+		for (ItemStack stack : OreDictionary.getOres(oreDictTag)) {
+			if (predicate.test(stack)) {
+				return stack;
+			}
+		}
+		return null;
 	}
 }

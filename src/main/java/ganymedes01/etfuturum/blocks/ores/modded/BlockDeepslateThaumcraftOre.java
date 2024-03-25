@@ -4,7 +4,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.blocks.IEmissiveLayerBlock;
 import ganymedes01.etfuturum.blocks.ores.BaseSubtypesDeepslateOre;
-import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.compat.ExternalContent;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.lib.RenderIDs;
@@ -26,9 +25,6 @@ public class BlockDeepslateThaumcraftOre extends BaseSubtypesDeepslateOre implem
 	public BlockDeepslateThaumcraftOre() {
 		super("deepslate_cinnabar_ore", "air_infused_deepslate", "fire_infused_deepslate", "water_infused_deepslate", "earth_infused_deepslate",
 				"order_infused_deepslate", "entropy_infused_deepslate", "amber_bearing_deepslate");
-		setBlockSound(ModSounds.soundDeepslate);
-		this.setResistance(5.0F);
-		setHardness(2.25F);
 	}
 
 	@Override

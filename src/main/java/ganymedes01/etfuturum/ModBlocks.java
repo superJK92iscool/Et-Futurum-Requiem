@@ -462,7 +462,9 @@ public enum ModBlocks {
 
 	//Mod support
 	MODDED_RAW_ORE_BLOCK(ConfigBlocksItems.enableRawOres && ConfigModCompat.moddedRawOres, new BlockModdedRawOre()),
-	MODDED_DEEPSLATE_ORE(enableModdedDeepslateOres(), new BlockModdedDeepslateOre()),
+	MODDED_DEEPSLATE_ORE(enableModdedDeepslateOres(), new BlockModdedDeepslateOre("deepslate_aluminum_ore", "deepslate_tin_ore", "deepslate_silver_ore", "deepslate_lead_ore",
+			"deepslate_nickel_ore", "deepslate_platinum_ore", "deepslate_mythril_ore", "deepslate_uranium_ore", "deepslate_thorium_ore", "deepslate_tungsten_ore", "deepslate_titanium_ore",
+			"deepslate_zinc_ore", "deepslate_magnesium_ore", "deepslate_boron_ore")),
 
 	DEEPSLATE_CERTUS_QUARTZ_ORE(enableModdedDeepslateOres(ModsList.APPLIED_ENERGISTICS_2.isLoaded()), new BlockDeepslateCertusQuartzOre()),
 	DEEPSLATE_DRACONIUM_ORE(enableModdedDeepslateOres(ModsList.DRACONIC_EVOLUTION.isLoaded()), new BlockDeepslateDraconiumOre()),
@@ -473,13 +475,14 @@ public enum ModBlocks {
 	DEEPSLATE_PROJRED_ORE(enableModdedDeepslateOres(ModsList.PROJECT_RED_EXPLORATION.isLoaded()), new BlockDeepslateProjectRedOre()),
 	DEEPSLATE_BLUEPOWER_ORE(enableModdedDeepslateOres(ModsList.BLUEPOWER.isLoaded()), new BlockDeepslateBluePowerOre()),
 	DEEPSLATE_FISKHEROES_ORE(enableModdedDeepslateOres(ModsList.FISKS_SUPERHEROES.isLoaded()), new BlockDeepslateFiskHeroOre()),
+	DEEPSLATE_DBC_ORE(enableModdedDeepslateOres(ModsList.DRAGON_BLOCK_C.isLoaded()), new BlockDeepslateDragonBlockOre()),
 	;
 
-	private static boolean enableModdedDeepslateOres() {
+	public static boolean enableModdedDeepslateOres() {
 		return enableModdedDeepslateOres(true);
 	}
 
-	private static boolean enableModdedDeepslateOres(boolean isModLoaded) { //Won't store as static variable to prevent accidental early initialization
+	public static boolean enableModdedDeepslateOres(boolean isModLoaded) { //Won't store as static variable to prevent accidental early initialization
 		return ConfigModCompat.moddedDeepslateOres && ConfigBlocksItems.enableDeepslate && ConfigBlocksItems.enableDeepslateOres && isModLoaded;
 	}
 

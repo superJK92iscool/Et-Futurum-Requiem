@@ -1072,25 +1072,27 @@ public class ModRecipes {
 			registerOre("oreDeepslateGold", ModBlocks.DEEPSLATE_GOLD_ORE.newItemStack());
 		}
 
-		if (ModBlocks.MODDED_DEEPSLATE_ORE.isEnabled() && ConfigBlocksItems.enableDeepslateOres) {
+		if (ModBlocks.enableModdedDeepslateOres()) {
 			//Insert alternate Mythril spelling to list. Yes I know "mithril" is technically the primary spelling but "mythril" is used by most mods, so "mithril" is secondary to it here.
-			for (int i = 0; i < BlockModdedDeepslateOre.ores.length; i++) {
-				String type = BlockModdedDeepslateOre.ores[i];
-				//This can run post-load, so don't register multiple tags if the deepslate ore already got one.
-				//We have to do this since it is impossible to remove OreDictionary entries.
-				//Well it's probably *technically* possible but I don't want to do it, PR an OD remover if you need EFR to do it.
-				//For now just restart your game to clear entries that would no longer get a tag.
-				for (int j = 0; j < 1; j++) { //If it's mythril, we'll run this once more, changing the spelling to mithril to account for both tags.
-					if (!OreDictionary.getOres(type).isEmpty()) { //Make sure an ore is present.
+			for (BlockModdedDeepslateOre block : BlockModdedDeepslateOre.loaded) { //Future-proofing in case I add more than one
+				for (int i = 0; i < block.ores.length; i++) {
+					String type = block.ores[i];
+					//This can run post-load, so don't register multiple tags if the deepslate ore already got one.
+					//We have to do this since it is impossible to remove OreDictionary entries.
+					//Well it's probably *technically* possible but I don't want to do it, PR an OD remover if you need EFR to do it.
+					//For now just restart your game to clear entries that would no longer get a tag.
+					for (int j = 0; j < 1; j++) { //If it's mythril, we'll run this once more, changing the spelling to mithril to account for both tags.
+						if (!OreDictionary.getOres(type).isEmpty()) { //Make sure an ore is present.
 //						registerOre(type, ModBlocks.MODDED_DEEPSLATE_ORE.newItemStack(1, i));
-						DeepslateOreRegistry.addOreByOreDict(type, ModBlocks.MODDED_DEEPSLATE_ORE.get(), i);
-						registerOre(type, ModBlocks.MODDED_DEEPSLATE_ORE.newItemStack(1, i));
-						registerOre(type.replace("ore", "oreDeepslate"), ModBlocks.MODDED_DEEPSLATE_ORE.newItemStack(1, i));
-					}
-					//We put this outside of the if statement so additional tags added with CT get added.
-					if (type.endsWith("Mythril")) {
-						type = type.replace("Mythril", "Mithril"); //Redoes it once more for mithril spelling
-						j = -1;
+							DeepslateOreRegistry.addOreByOreDict(type, ModBlocks.MODDED_DEEPSLATE_ORE.get(), i);
+							registerOre(type, ModBlocks.MODDED_DEEPSLATE_ORE.newItemStack(1, i));
+							registerOre(type.replace("ore", "oreDeepslate"), ModBlocks.MODDED_DEEPSLATE_ORE.newItemStack(1, i));
+						}
+						//We put this outside of the if statement so additional tags added with CT get added.
+						if (type.endsWith("Mythril")) {
+							type = type.replace("Mythril", "Mithril"); //Redoes it once more for mithril spelling
+							j = -1;
+						}
 					}
 				}
 			}
@@ -1211,6 +1213,12 @@ public class ModRecipes {
 				DeepslateOreRegistry.addOre(ExternalContent.Blocks.FISK_OLIVINE_ORE.get(), 0, ModBlocks.DEEPSLATE_FISKHEROES_ORE.get(), 4);
 				DeepslateOreRegistry.addOre(ExternalContent.Blocks.FISK_ETERNIUM_ORE.get(), 0, ModBlocks.DEEPSLATE_FISKHEROES_ORE.get(), 5);
 				DeepslateOreRegistry.addOre(ExternalContent.Blocks.FISK_ETERNIUM_INFUSED_STONE.get(), 0, ModBlocks.DEEPSLATE_FISKHEROES_ORE.get(), 6);
+			}
+			if (ModBlocks.DEEPSLATE_DBC_ORE.isEnabled()) {
+				DeepslateOreRegistry.addOre(ExternalContent.Blocks.DBC_WARENAI_ORE.get(), 0, ModBlocks.DEEPSLATE_DBC_ORE.get(), 0);
+				DeepslateOreRegistry.addOre(ExternalContent.Blocks.DBC_JJAY_ORE.get(), 0, ModBlocks.DEEPSLATE_DBC_ORE.get(), 1);
+				DeepslateOreRegistry.addOre(ExternalContent.Blocks.DBC_DLOG_ORE.get(), 0, ModBlocks.DEEPSLATE_DBC_ORE.get(), 2);
+				DeepslateOreRegistry.addOre(ExternalContent.Blocks.DBC_LEHNORI_ORE.get(), 0, ModBlocks.DEEPSLATE_DBC_ORE.get(), 3);
 			}
 		}
 	}

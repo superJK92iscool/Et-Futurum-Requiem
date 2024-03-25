@@ -1760,9 +1760,6 @@ tile.etfuturum.deepslate_zinc_ore.name=Deepslate Zinc Ore
 tile.etfuturum.deepslate_magnesium_ore.name=Deepslate Magnesium Ore
 tile.etfuturum.deepslate_boron_ore.name=Deepslate Boron Ore
 
-tile.etfuturum.deepslate_certus_quartz_ore.name=Deepslate Certus Quartz Ore
-tile.etfuturum.deepslate_charged_certus_quartz_ore.name=Deepslate Charged Certus Quartz Ore
-
 tile.etfuturum.draconic.deepslate_draconium_ore.name=Deepslate Draconium Ore
 
 tile.etfuturum.thaumcraft.deepslate_cinnabar_ore.name=Deepslate Cinnabar Ore
@@ -1806,6 +1803,11 @@ tile.etfuturum.fiskheroes.deepslate_dwarf_star_ore.name=Deepslate Dwarf Star Ore
 tile.etfuturum.fiskheroes.deepslate_olivine_ore.name=Deepslate Olivine Ore
 tile.etfuturum.fiskheroes.deepslate_eternium_ore.name=Deepslate Eternium Ore
 tile.etfuturum.fiskheroes.eternium_deepslate.name=Eternium-Infused Deepslate
+
+tile.etfuturum.dbc.deepslate_warenai_ore.name=Deepslate Warenai Ore
+tile.etfuturum.dbc.deepslate_jjay_ore.name=Deepslate JJay Ore
+tile.etfuturum.dbc.deepslate_dlog_ore.name=Deepslate Dlog Ore
+tile.etfuturum.dbc.deepslate_lehnori_ore.name=Deepslate Lehnori Ore
 
 # Mod support items
 

@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.blocks.ores.modded;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.blocks.IEmissiveLayerBlock;
 import ganymedes01.etfuturum.blocks.ores.BaseSubtypesDeepslateOre;
 import ganymedes01.etfuturum.compat.ExternalContent;
@@ -10,9 +8,6 @@ import net.minecraft.block.Block;
 import net.minecraft.util.IIcon;
 
 public class BlockDeepslateFiskHeroOre extends BaseSubtypesDeepslateOre implements IEmissiveLayerBlock {
-
-	@SideOnly(Side.CLIENT)
-	private IIcon vibraniumOreOverlay;
 
 	public BlockDeepslateFiskHeroOre() {
 		super("deepslate_tutridium_ore", "tutridium_deepslate", "deepslate_vibranium_ore", "deepslate_dwarf_star_ore", "deepslate_olivine_ore", "deepslate_eternium_ore", "eternium_deepslate");

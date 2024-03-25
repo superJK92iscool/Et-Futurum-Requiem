@@ -8,9 +8,6 @@ public class BlockDeepslateDraconiumOre extends BaseDeepslateOre {
 	public BlockDeepslateDraconiumOre() {
 		super();
 		setNames("deepslate_draconium_ore");
-		setHardness(15F);
-		setResistance(20.0f);
-		setHarvestLevel("pickaxe", 3);
 	}
 
 	@Override

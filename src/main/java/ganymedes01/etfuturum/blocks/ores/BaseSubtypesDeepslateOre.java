@@ -212,6 +212,16 @@ public abstract class BaseSubtypesDeepslateOre extends BaseSubtypesBlock {
 		return drop;
 	}
 
+	@Override
+	public boolean canHarvestBlock(EntityPlayer player, int meta) {
+		return getBase(meta).canHarvestBlock(player, getBaseMeta(meta));
+	}
+
+	@Override
+	public boolean canSilkHarvest(World world, EntityPlayer player, int x, int y, int z, int metadata) {
+		return getBase(metadata).canSilkHarvest(world, player, x, y, z, getBaseMeta(metadata));
+	}
+
 	protected abstract Block getBase(int meta);
 
 	protected int getBaseMeta(int meta) {

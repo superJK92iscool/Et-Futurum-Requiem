@@ -11,8 +11,6 @@ public class BlockDeepslateCertusQuartzOre extends BaseSubtypesDeepslateOre impl
 
 	public BlockDeepslateCertusQuartzOre() {
 		super("deepslate_certus_quartz_ore", "deepslate_charged_certus_quartz_ore");
-		setResistance(5.0F);
-		setHardness(4.5F);
 	}
 
 	@Override

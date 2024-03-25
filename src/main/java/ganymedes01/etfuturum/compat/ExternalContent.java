@@ -58,6 +58,11 @@ public class ExternalContent {
 		FISK_ETERNIUM_INFUSED_STONE(() -> GameRegistry.findBlock("fiskheroes", "eternium_stone")),
 
 		FISK_NEXUS_BRICKS(() -> GameRegistry.findBlock("fiskheroes", "nexus_bricks")),
+
+		DBC_WARENAI_ORE(() -> GameRegistry.findBlock("jinryuudragonblockc", "tile.BlockOreWrenai")),
+		DBC_JJAY_ORE(() -> GameRegistry.findBlock("jinryuudragonblockc", "tile.JJayore")),
+		DBC_DLOG_ORE(() -> GameRegistry.findBlock("jinryuudragonblockc", "tile.Dlogore")),
+		DBC_LEHNORI_ORE(() -> GameRegistry.findBlock("jinryuudragonblockc", "tile.Lehnoriore")),
 		;
 
 		private Block block;

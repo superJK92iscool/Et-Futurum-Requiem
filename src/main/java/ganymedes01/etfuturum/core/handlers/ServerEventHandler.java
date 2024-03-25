@@ -26,6 +26,7 @@ import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.configuration.configs.*;
 import ganymedes01.etfuturum.core.utils.ItemStackMap;
 import ganymedes01.etfuturum.core.utils.ItemStackSet;
+import ganymedes01.etfuturum.core.utils.Logger;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.elytra.IElytraEntityTrackerEntry;
 import ganymedes01.etfuturum.elytra.IElytraPlayer;
@@ -663,6 +664,12 @@ public class ServerEventHandler {
 				final Block oldBlock = world.getBlock(x, y, z);
 				final int meta = world.getBlockMetadata(x, y, z);
 				final int side = event.face;
+				if (!world.isRemote && event.action == Action.RIGHT_CLICK_BLOCK) {
+					Logger.info(event.action.toString());
+					Logger.info("Hardness: " + oldBlock.getBlockHardness(world, x, y, z));
+					Logger.info("Resistance: " + oldBlock.getExplosionResistance(player, world, x, y, z, x, y, z));
+					Logger.info("Harvest: " + oldBlock.getHarvestTool(meta) + " " + oldBlock.getHarvestLevel(meta));
+				}
 				if (player.canPlayerEdit(x, y, z, side, heldStack)) {
 					if (event.getResult() == event.useItem) {
 						//Eye of Ender place sounds

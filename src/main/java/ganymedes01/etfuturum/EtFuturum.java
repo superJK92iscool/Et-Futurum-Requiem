@@ -18,6 +18,7 @@ import ganymedes01.etfuturum.api.*;
 import ganymedes01.etfuturum.api.mappings.BasicMultiBlockSound;
 import ganymedes01.etfuturum.blocks.BlockSculk;
 import ganymedes01.etfuturum.blocks.BlockSculkCatalyst;
+import ganymedes01.etfuturum.blocks.ores.modded.BlockModdedDeepslateOre;
 import ganymedes01.etfuturum.client.BuiltInResourcePack;
 import ganymedes01.etfuturum.client.DynamicSoundsResourcePack;
 import ganymedes01.etfuturum.client.GrayscaleWaterResourcePack;
@@ -391,6 +392,10 @@ public class EtFuturum {
 		}
 
 		CompatMisc.runModHooksLoadComplete();
+
+		for (BlockModdedDeepslateOre block : BlockModdedDeepslateOre.loaded) {
+			block.init();
+		}
 
 		if (ConfigExperiments.netherDimensionProvider && !ModsList.NETHERLICIOUS.isLoaded()) {
 			DimensionProviderEFRNether.init();
