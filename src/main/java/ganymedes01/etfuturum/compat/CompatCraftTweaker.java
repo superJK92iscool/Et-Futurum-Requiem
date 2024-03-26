@@ -75,10 +75,10 @@ public class CompatCraftTweaker {
 	public static class ReloadEventHandler implements IEventHandler<MineTweakerImplementationAPI.ReloadEvent> {
 		@Override
 		public void handle(MineTweakerImplementationAPI.ReloadEvent event) {
-			ModRecipes.registerModdedDeepslateOres();
+			ModRecipes.registerGeneralDeepslateOres();
 
-			ModRecipes.unregisterModdedRawOres();
-			ModRecipes.registerModdedRawOres();
+			ModRecipes.unregisterGeneralRawOres();
+			ModRecipes.registerGeneralRawOres();
 
 			BlastFurnaceRecipes.smelting().setReloadingCT(true);
 			BlastFurnaceRecipes.smelting().clearLists();
