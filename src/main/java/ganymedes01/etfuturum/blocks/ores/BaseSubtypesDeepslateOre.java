@@ -3,8 +3,11 @@ package ganymedes01.etfuturum.blocks.ores;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModBlocks;
+import ganymedes01.etfuturum.api.mappings.RegistryMapping;
 import ganymedes01.etfuturum.blocks.BaseSubtypesBlock;
 import ganymedes01.etfuturum.client.sound.ModSounds;
+import ganymedes01.etfuturum.core.utils.DummyWorld;
+import ganymedes01.etfuturum.core.utils.IInitAction;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
@@ -23,10 +26,15 @@ import net.minecraft.world.World;
 import java.util.ArrayList;
 import java.util.Random;
 
-public abstract class BaseSubtypesDeepslateOre extends BaseSubtypesBlock {
+public abstract class BaseSubtypesDeepslateOre extends BaseSubtypesBlock implements IInitAction {
+	private final float[] hardnesses;
+	private final float[] resistances;
+
 	public BaseSubtypesDeepslateOre(String... types) {
 		super(Material.rock, types);
 		setBlockSound(ModSounds.soundDeepslate);
+		hardnesses = new float[types.length];
+		resistances = new float[types.length];
 	}
 
 	@Override
@@ -181,16 +189,6 @@ public abstract class BaseSubtypesDeepslateOre extends BaseSubtypesBlock {
 		return getBase(meta).addDestroyEffects(world, x, y, z, getBaseMeta(meta), effectRenderer);
 	}
 
-	@Override
-	public float getBlockHardness(World world, int x, int y, int z) {
-		return getBase(world.getBlockMetadata(x, y, z)).getBlockHardness(world, x, y, z) * 1.5F;
-	}
-
-	@Override
-	public float getExplosionResistance(Entity par1Entity, World world, int x, int y, int z, double explosionX, double explosionY, double explosionZ) {
-		return getBase(world.getBlockMetadata(x, y, z)).getExplosionResistance(par1Entity, world, x, y, z, explosionX, explosionY, explosionZ);
-	}
-
 	/**
 	 * Used to replace the base ore with the deepslate version in drop lists.
 	 * If it drops the base ore block, replace it with the base deepslate block (eg iron ore drop is swapped for deepslate iron ore drop)
@@ -241,5 +239,39 @@ public abstract class BaseSubtypesDeepslateOre extends BaseSubtypesBlock {
 	@Override
 	public int getDamageValue(World p_149643_1_, int p_149643_2_, int p_149643_3_, int p_149643_4_) {
 		return p_149643_1_.getBlockMetadata(p_149643_2_, p_149643_3_, p_149643_4_);
+	}
+
+
+	@Override
+	public float getBlockHardness(World world, int x, int y, int z) {
+		return hardnesses[Math.min(world.getBlockMetadata(x, y, z), hardnesses.length - 1)];
+	}
+
+	@Override
+	public float getExplosionResistance(Entity par1Entity, World world, int x, int y, int z, double explosionX, double explosionY, double explosionZ) {
+		return resistances[Math.min(world.getBlockMetadata(x, y, z), resistances.length - 1)];
+	}
+
+	@Override
+	public void onLoadAction() {
+		DummyWorld world = DummyWorld.GLOBAL_DUMMY_WORLD;
+		for (int i = 0; i < getTypes().length; i++) {
+			RegistryMapping<Block> mapping = new RegistryMapping<>(getBase(i), getBaseMeta(i));
+			Block block = mapping.getObject();
+			//See BlockGeneralModdedDeepslateOre for a comment on why we do this cursed stuff
+			world.setBlock(0, 0, 0, block, mapping.getMeta(), 0);
+			try {
+				if (block.getHarvestTool(mapping.getMeta()) != null) {
+					setHarvestLevel("pickaxe", block.getHarvestLevel(mapping.getMeta()), i);
+				}
+				hardnesses[i] = block.getBlockHardness(world, 0, 0, 0) * 1.5F;
+				resistances[i] = block.getExplosionResistance(null, world, 0, 0, 0, 0, 0, 0); //We don't need to divide because the base method we overrode won't be dividing
+			} catch (Exception e) {
+				setHarvestLevel("pickaxe", 1, i);
+				hardnesses[i] = Blocks.iron_ore.blockHardness * 1.5F;
+				resistances[i] = Blocks.iron_ore.blockResistance;
+			}
+		}
+		world.clearBlocksCache();
 	}
 }

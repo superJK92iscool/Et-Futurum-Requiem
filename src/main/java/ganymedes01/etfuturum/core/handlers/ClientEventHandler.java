@@ -26,6 +26,7 @@ import ganymedes01.etfuturum.client.sound.ElytraSound;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.configuration.configs.*;
+import ganymedes01.etfuturum.core.utils.DummyWorld;
 import ganymedes01.etfuturum.core.utils.Logger;
 import ganymedes01.etfuturum.core.utils.RandomXoshiro256StarStar;
 import ganymedes01.etfuturum.core.utils.Utils;
@@ -59,6 +60,7 @@ import net.minecraft.event.ClickEvent;
 import net.minecraft.event.ClickEvent.Action;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraft.util.*;
@@ -342,8 +344,20 @@ public class ClientEventHandler {
 		return null;
 	}
 
+	private DummyWorld dummyWorld = new DummyWorld();
 	@SubscribeEvent
 	public void toolTipEvent(ItemTooltipEvent event) {
+		if (event.itemStack.getItem() instanceof ItemBlock) {
+			try {
+				Block block = Block.getBlockFromItem(event.itemStack.getItem());
+				dummyWorld.setBlock(0, 0, 0, block, event.itemStack.itemDamage, 0);
+				event.toolTip.add("Hardness: " + block.getBlockHardness(dummyWorld, 0, 0, 0));
+				event.toolTip.add("Resistance: " + block.getExplosionResistance(null, dummyWorld, 0, 0, 0, 0, 0, 0));
+				event.toolTip.add("Harvest: " + block.getHarvestTool(event.itemStack.getItemDamage()) + " " + block.getHarvestLevel(event.itemStack.getItemDamage()));
+			} catch (Exception ignored) {
+				//It keeps crashing when I go to item search, I give up
+			}
+		}
 		if (ConfigFunctions.enableExtraF3HTooltips && event.showAdvancedItemTooltips) {
 			event.toolTip.add("\u00a78" + Item.itemRegistry.getNameForObject(event.itemStack.getItem()));
 			if (event.itemStack.stackTagCompound != null && !event.itemStack.stackTagCompound.hasNoTags()) {

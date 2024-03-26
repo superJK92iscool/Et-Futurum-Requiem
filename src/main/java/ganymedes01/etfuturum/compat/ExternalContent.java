@@ -3,6 +3,7 @@ package ganymedes01.etfuturum.compat;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 
 import java.util.function.Supplier;
 
@@ -63,6 +64,10 @@ public class ExternalContent {
 		DBC_JJAY_ORE(() -> GameRegistry.findBlock("jinryuudragonblockc", "tile.JJayore")),
 		DBC_DLOG_ORE(() -> GameRegistry.findBlock("jinryuudragonblockc", "tile.Dlogore")),
 		DBC_LEHNORI_ORE(() -> GameRegistry.findBlock("jinryuudragonblockc", "tile.Lehnoriore")),
+
+		SIMPLEORES_ADAMANTIUM_ORE(() -> GameRegistry.findBlock("simpleores", "adamantium_ore")),
+
+		SIMPLEORES_ADAMANTIUM_BLOCK(() -> GameRegistry.findBlock("simpleores", "adamantium_block")),
 		;
 
 		private Block block;
@@ -78,10 +83,25 @@ public class ExternalContent {
 			}
 			return block;
 		}
+
+		public ItemStack newItemStack() {
+			return newItemStack(1);
+		}
+
+		public ItemStack newItemStack(int count) {
+			return newItemStack(count, 0);
+		}
+
+		public ItemStack newItemStack(int count, int meta) {
+			return new ItemStack(this.get(), count, meta);
+		}
 	}
 
 	public enum Items {
-		EXTRAUTILS_WATERING_CAN(() -> GameRegistry.findItem("ExtraUtilities", "watering_can"));
+		EXTRAUTILS_WATERING_CAN(() -> GameRegistry.findItem("ExtraUtilities", "watering_can")),
+
+		SIMPLEORES_ADAMANTIUM_INGOT(() -> GameRegistry.findItem("simpleores", "adamantium_ingot")),
+		;
 
 		private Item item;
 		private final Supplier<Item> blockSupplier;
@@ -95,6 +115,18 @@ public class ExternalContent {
 				item = blockSupplier.get();
 			}
 			return item;
+		}
+
+		public ItemStack newItemStack() {
+			return newItemStack(1);
+		}
+
+		public ItemStack newItemStack(int count) {
+			return newItemStack(count, 0);
+		}
+
+		public ItemStack newItemStack(int count, int meta) {
+			return new ItemStack(this.get(), count, meta);
 		}
 	}
 }

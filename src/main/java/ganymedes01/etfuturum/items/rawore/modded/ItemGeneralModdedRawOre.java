@@ -1,8 +1,11 @@
-package ganymedes01.etfuturum.items;
+package ganymedes01.etfuturum.items.rawore.modded;
 
+import com.google.common.collect.Lists;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
+import ganymedes01.etfuturum.core.utils.IInitAction;
+import ganymedes01.etfuturum.items.BaseSubtypesItem;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -14,20 +17,15 @@ import java.util.List;
 /**
  * Modded raw ore class that doesn't add the raw ores to the Creative menu if there would be no ore for them to base off of.
  */
-public class ItemModdedRawOre extends BaseSubtypesItem {
+public class ItemGeneralModdedRawOre extends BaseSubtypesItem implements IInitAction {
+	public final String[] ores;
 
-	public static final String[] names = new String[]{"raw_aluminum", "raw_tin", "raw_silver", "raw_lead", "raw_nickel", "raw_platinum", "raw_mythril",
-			"raw_uranium", "raw_thorium", "raw_tungsten", "raw_titanium", "raw_zinc", "raw_magnesium", "raw_boron"};
-	public static final String[] ores = new String[names.length];
-
-	static {
+	public ItemGeneralModdedRawOre(String... names) {
+		super(names);
+		ores = new String[names.length];
 		for (int i = 0; i < names.length; i++) {
 			ores[i] = "ingot" + StringUtils.capitalize(names[i].replaceFirst("^raw_", ""));
 		}
-	}
-
-	public ItemModdedRawOre() {
-		super(names);
 		setNames("modded_raw_ore");
 	}
 
@@ -45,5 +43,13 @@ public class ItemModdedRawOre extends BaseSubtypesItem {
 	@Override
 	public String getTextureDomain() {
 		return Reference.MOD_ID;
+	}
+
+
+	public static final List<ItemGeneralModdedRawOre> loaded = Lists.newLinkedList();
+
+	@Override
+	public void postInitAction() {
+		loaded.add(this);
 	}
 }

@@ -40,6 +40,7 @@ public enum ModsList {
 
 	NOT_ENOUGH_IDS("neid"),
 	ENDLESS_IDS("endlessids"),
+	SIMPLEORES("simpleores"),
 	;
 
 	private final String modID;

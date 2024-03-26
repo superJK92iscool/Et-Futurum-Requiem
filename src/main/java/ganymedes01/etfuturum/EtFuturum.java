@@ -18,7 +18,6 @@ import ganymedes01.etfuturum.api.*;
 import ganymedes01.etfuturum.api.mappings.BasicMultiBlockSound;
 import ganymedes01.etfuturum.blocks.BlockSculk;
 import ganymedes01.etfuturum.blocks.BlockSculkCatalyst;
-import ganymedes01.etfuturum.blocks.ores.modded.BlockModdedDeepslateOre;
 import ganymedes01.etfuturum.client.BuiltInResourcePack;
 import ganymedes01.etfuturum.client.DynamicSoundsResourcePack;
 import ganymedes01.etfuturum.client.GrayscaleWaterResourcePack;
@@ -29,6 +28,7 @@ import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.configuration.configs.*;
 import ganymedes01.etfuturum.core.handlers.WorldEventHandler;
 import ganymedes01.etfuturum.core.proxy.CommonProxy;
+import ganymedes01.etfuturum.core.utils.IInitAction;
 import ganymedes01.etfuturum.entities.ModEntityList;
 import ganymedes01.etfuturum.items.ItemWoodSign;
 import ganymedes01.etfuturum.lib.Reference;
@@ -94,7 +94,6 @@ public class EtFuturum {
 		@SideOnly(Side.CLIENT)
 		@Override
 		public void displayAllReleventItems(List p_78018_1_) {
-			int j = 1;
 			for (byte i = 1; i <= 3; i++) {
 				ItemStack firework = new ItemStack(Items.fireworks);
 				NBTTagCompound nbt = new NBTTagCompound();
@@ -103,11 +102,9 @@ public class EtFuturum {
 				nbt.setTag("Fireworks", nbt2);
 				firework.setTagCompound(nbt);
 				p_78018_1_.add(firework);
-				j++;
 			}
 			for (int i : ModEntityList.eggIDs) {
 				p_78018_1_.add(new ItemStack(Items.spawn_egg, 1, i));
-				j++;
 			}
 			super.displayAllReleventItems(p_78018_1_);
 		}
@@ -176,6 +173,17 @@ public class EtFuturum {
 		} catch (Exception e) {
 			System.out.println("Failed to get Nether fortress loot table:");
 			e.printStackTrace();
+		}
+
+		for (ModBlocks block : ModBlocks.values()) {
+			if (block.isEnabled() && block.get() instanceof IInitAction) {
+				((IInitAction) block.get()).preInitAction();
+			}
+		}
+		for (ModItems item : ModItems.values()) {
+			if (item.isEnabled() && item.get() instanceof IInitAction) {
+				((IInitAction) item.get()).preInitAction();
+			}
 		}
 
 		ModBlocks.init();
@@ -247,6 +255,17 @@ public class EtFuturum {
 
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
+		for (ModBlocks block : ModBlocks.values()) {
+			if (block.isEnabled() && block.get() instanceof IInitAction) {
+				((IInitAction) block.get()).initAction();
+			}
+		}
+		for (ModItems item : ModItems.values()) {
+			if (item.isEnabled() && item.get() instanceof IInitAction) {
+				((IInitAction) item.get()).initAction();
+			}
+		}
+
 		if (ModsList.WAILA.isLoaded()) {
 			CompatWaila.register();
 		}
@@ -320,6 +339,17 @@ public class EtFuturum {
 			}
 		}
 
+		for (ModBlocks block : ModBlocks.values()) {
+			if (block.isEnabled() && block.get() instanceof IInitAction) {
+				((IInitAction) block.get()).postInitAction();
+			}
+		}
+		for (ModItems item : ModItems.values()) {
+			if (item.isEnabled() && item.get() instanceof IInitAction) {
+				((IInitAction) item.get()).postInitAction();
+			}
+		}
+
 		if (ConfigModCompat.elytraBaublesExpandedCompat > 0 && ModsList.BAUBLES_EXPANDED.isLoaded()) {
 			CompatBaublesExpanded.postInit();
 		}
@@ -342,6 +372,17 @@ public class EtFuturum {
 
 	@EventHandler
 	public void onLoadComplete(FMLLoadCompleteEvent e) {
+		for (ModBlocks block : ModBlocks.values()) {
+			if (block.isEnabled() && block.get() instanceof IInitAction) {
+				((IInitAction) block.get()).onLoadAction();
+			}
+		}
+		for (ModItems item : ModItems.values()) {
+			if (item.isEnabled() && item.get() instanceof IInitAction) {
+				((IInitAction) item.get()).onLoadAction();
+			}
+		}
+
 		ConfigBase.postInit();
 
 		EtFuturumWorldGenerator.INSTANCE.postInit();
@@ -392,10 +433,6 @@ public class EtFuturum {
 		}
 
 		CompatMisc.runModHooksLoadComplete();
-
-		for (BlockModdedDeepslateOre block : BlockModdedDeepslateOre.loaded) {
-			block.init();
-		}
 
 		if (ConfigExperiments.netherDimensionProvider && !ModsList.NETHERLICIOUS.isLoaded()) {
 			DimensionProviderEFRNether.init();

@@ -4,6 +4,8 @@ import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.compat.ModsList;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigModCompat;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
@@ -517,6 +519,10 @@ public class Utils {
 		block.setLightLevel((float) level / 15F);
 	}
 
+	public static ItemStack getFirstBlockFromTag(String oreDictTag) {
+		return getFirstBlockFromTag(oreDictTag, null);
+	}
+
 	/**
 	 * Gets the first instance of a tag that is a block and not an item. This is needed because stuff like raw ores uses "oreXXX" tags occasionally have items and not blocks like raw ores.
 	 * <p>
@@ -527,16 +533,43 @@ public class Utils {
 	 * @param oreDictTag
 	 * @return The first BLOCK in the tags list. If none are found or the tags list is empty, returns null instead.
 	 */
-	public static ItemStack getFirstBlockFromTag(String oreDictTag) {
-		return getFirstFromTag(oreDictTag, itemStack -> itemStack.getItem() instanceof ItemBlock);
+	public static ItemStack getFirstBlockFromTag(String oreDictTag, ItemStack fallback) {
+		return getFirstFromTagConditional(oreDictTag, itemStack -> itemStack.getItem() instanceof ItemBlock, fallback);
 	}
 
-	public static ItemStack getFirstFromTag(String oreDictTag, Predicate<ItemStack> predicate) {
+	public static ItemStack getFirstFromTagConditional(String oreDictTag, Predicate<ItemStack> predicate, ItemStack fallback) {
 		for (ItemStack stack : OreDictionary.getOres(oreDictTag)) {
 			if (predicate.test(stack)) {
 				return stack;
 			}
 		}
-		return null;
+		return fallback;
+	}
+
+	/**
+	 * Calls Utils.getFirstBlockFromTag. Used by deepslate
+	 *
+	 * @param oreDictTag
+	 * @return The first BLOCK in the tags list that isn't any kind of deepslate.
+	 */
+	public static ItemStack getFirstNonDeepslateBlockFromTag(String oreDictTag, ItemStack fallback) {
+		return getFirstFromTagConditional(oreDictTag, itemStack -> itemStack.getItem() instanceof ItemBlock
+				&& !(Block.getBlockFromItem(itemStack.getItem()).getClass().getName().toLowerCase().contains("deepslate")), fallback);
+	}
+
+	public static boolean enableModdedDeepslateOres() {
+		return enableModdedDeepslateOres(true);
+	}
+
+	public static boolean enableModdedDeepslateOres(boolean isModLoaded) { //Won't store as static variable to prevent accidental early initialization
+		return ConfigModCompat.moddedDeepslateOres && ConfigBlocksItems.enableDeepslate && ConfigBlocksItems.enableDeepslateOres && isModLoaded;
+	}
+
+	public static boolean enableModdedRawOres() {
+		return enableModdedDeepslateOres(true);
+	}
+
+	public static boolean enableModdedRawOres(boolean isModLoaded) { //Won't store as static variable to prevent accidental early initialization
+		return ConfigBlocksItems.enableRawOres && ConfigModCompat.moddedRawOres && isModLoaded;
 	}
 }

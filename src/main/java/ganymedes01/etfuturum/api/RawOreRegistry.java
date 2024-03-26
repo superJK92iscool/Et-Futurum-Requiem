@@ -4,7 +4,8 @@ import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.api.mappings.RawOreDropMapping;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
-import ganymedes01.etfuturum.items.ItemModdedRawOre;
+import ganymedes01.etfuturum.core.utils.Utils;
+import ganymedes01.etfuturum.items.rawore.modded.ItemGeneralModdedRawOre;
 import ganymedes01.etfuturum.recipes.ModRecipes;
 import net.minecraft.item.Item;
 import net.minecraftforge.oredict.OreDictionary;
@@ -106,13 +107,14 @@ public class RawOreRegistry {
 			addOre("oreIron", ModItems.RAW_ORE.get(), 1);
 			addOre("oreGold", ModItems.RAW_ORE.get(), 2);
 		}
-		if (ModItems.MODDED_RAW_ORE.isEnabled()) {
-			for (int i = 0; i < ItemModdedRawOre.names.length; i++) {
-				addOre(ItemModdedRawOre.ores[i].replace("ingot", "ore"), ModItems.MODDED_RAW_ORE.get(), i);
-				if (ItemModdedRawOre.ores[i].endsWith("Mythril")) {
-					addOre("oreMithril", ModItems.MODDED_RAW_ORE.get(), i);
+		if (Utils.enableModdedRawOres()) {
+			for (ItemGeneralModdedRawOre oreItem : ItemGeneralModdedRawOre.loaded)
+				for (int i = 0; i < oreItem.types.length; i++) {
+					addOre(oreItem.ores[i].replace("ingot", "ore"), ModItems.MODDED_RAW_ORE.get(), i);
+					if (oreItem.ores[i].endsWith("Mythril")) {
+						addOre("oreMithril", ModItems.MODDED_RAW_ORE.get(), i);
+					}
 				}
-			}
 		}
 	}
 }

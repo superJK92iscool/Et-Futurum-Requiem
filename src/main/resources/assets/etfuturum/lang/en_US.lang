@@ -1745,6 +1745,8 @@ tile.etfuturum.raw_zinc_block.name=Raw Zinc Block
 tile.etfuturum.raw_magnesium_block.name=Raw Magnesium Block
 tile.etfuturum.raw_boron_block.name=Raw Boron Block
 
+tile.etfuturum.simpleores.raw_adamantium_block.name=Raw Adamantium Block
+
 tile.etfuturum.deepslate_aluminum_ore.name=Deepslate Aluminum Ore
 tile.etfuturum.deepslate_tin_ore.name=Deepslate Tin Ore
 tile.etfuturum.deepslate_silver_ore.name=Deepslate Silver Ore
@@ -1760,7 +1762,12 @@ tile.etfuturum.deepslate_zinc_ore.name=Deepslate Zinc Ore
 tile.etfuturum.deepslate_magnesium_ore.name=Deepslate Magnesium Ore
 tile.etfuturum.deepslate_boron_ore.name=Deepslate Boron Ore
 
+tile.etfuturum.ae2.deepslate_certus_quartz_ore.name=Deepslate Certus Quartz Ore
+tile.etfuturum.ae2.deepslate_charged_certus_quartz_ore.name=Deepslate Charged Certus Quartz Ore
+
 tile.etfuturum.draconic.deepslate_draconium_ore.name=Deepslate Draconium Ore
+
+tile.etfuturum.simpleores.deepslate_adamantium_ore.name=Deepslate Adamantium Ore
 
 tile.etfuturum.thaumcraft.deepslate_cinnabar_ore.name=Deepslate Cinnabar Ore
 tile.etfuturum.thaumcraft.air_infused_deepslate.name=Air Infused Deepslate
@@ -1788,9 +1795,6 @@ tile.etfuturum.bluepower.deepslate_teslatite_ore.name=Deepslate Teslatite Ore
 tile.etfuturum.bluepower.deepslate_ruby_ore.name=Deepslate Ruby Ore
 tile.etfuturum.bluepower.deepslate_sapphire_ore.name=Deepslate Sapphire Ore
 tile.etfuturum.bluepower.deepslate_amethyst_ore.name=Deepslate Amethyst Ore
-
-tile.etfuturum.ae2.deepslate_certus_quartz_ore.name=Deepslate Certus Quartz Ore
-tile.etfuturum.ae2.deepslate_charged_certus_quartz_ore.name=Deepslate Charged Certus Quartz Ore
 
 tile.etfuturum.am2.deepslate_vinteum_ore.name=Deepslate Vinteum Ore
 tile.etfuturum.am2.deepslate_chimerite_ore.name=Deepslate Chimerite Ore
@@ -1835,3 +1839,5 @@ item.etfuturum.raw_titanium.name=Raw Titanium
 item.etfuturum.raw_zinc.name=Raw Zinc
 item.etfuturum.raw_magnesium.name=Raw Magnesium
 item.etfuturum.raw_boron.name=Raw Boron
+
+item.etfuturum.simpleores.raw_adamantium.name=Raw Adamantium

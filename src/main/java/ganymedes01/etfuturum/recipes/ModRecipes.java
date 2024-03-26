@@ -6,17 +6,19 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.api.DeepslateOreRegistry;
+import ganymedes01.etfuturum.api.RawOreRegistry;
 import ganymedes01.etfuturum.blocks.BaseSlab;
 import ganymedes01.etfuturum.blocks.IDegradable;
-import ganymedes01.etfuturum.blocks.ores.modded.BlockModdedDeepslateOre;
+import ganymedes01.etfuturum.blocks.ores.modded.BlockGeneralModdedDeepslateOre;
+import ganymedes01.etfuturum.blocks.rawore.modded.BlockGeneralModdedRawOre;
 import ganymedes01.etfuturum.compat.ExternalContent;
 import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.configuration.configs.*;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.entities.EntityNewBoat;
-import ganymedes01.etfuturum.items.ItemModdedRawOre;
 import ganymedes01.etfuturum.items.ItemNewBoat;
 import ganymedes01.etfuturum.items.ItemSuspiciousStew;
+import ganymedes01.etfuturum.items.rawore.modded.ItemGeneralModdedRawOre;
 import ganymedes01.etfuturum.lib.EnumColor;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.recipes.crafting.*;
@@ -42,6 +44,7 @@ import net.minecraftforge.oredict.RecipeSorter.Category;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -1026,7 +1029,24 @@ public class ModRecipes {
 			addShapelessRecipe(ModBlocks.SOUL_SOIL.newItemStack(5), Blocks.dirt, Blocks.soul_sand, Blocks.soul_sand, Blocks.soul_sand, Blocks.soul_sand);
 		}
 
-		registerModdedDeepslateOres();
+		if (ModBlocks.DEEPSLATE_COPPER_ORE.isEnabled()) {
+			DeepslateOreRegistry.addOreByOreDict("oreCopper", ModBlocks.DEEPSLATE_COPPER_ORE.get());
+			registerOre("oreCopper", ModBlocks.DEEPSLATE_COPPER_ORE.newItemStack());
+			registerOre("oreDeepslateCopper", ModBlocks.DEEPSLATE_COPPER_ORE.newItemStack());
+		}
+		if (ModBlocks.DEEPSLATE_IRON_ORE.isEnabled()) {
+			DeepslateOreRegistry.addOreByOreDict("oreIron", ModBlocks.DEEPSLATE_IRON_ORE.get());
+			registerOre("oreIron", ModBlocks.DEEPSLATE_IRON_ORE.newItemStack());
+			registerOre("oreDeepslateIron", ModBlocks.DEEPSLATE_IRON_ORE.newItemStack());
+		}
+		if (ModBlocks.DEEPSLATE_GOLD_ORE.isEnabled()) {
+			DeepslateOreRegistry.addOreByOreDict("oreGold", ModBlocks.DEEPSLATE_GOLD_ORE.get());
+			registerOre("oreGold", ModBlocks.DEEPSLATE_GOLD_ORE.newItemStack());
+			registerOre("oreDeepslateGold", ModBlocks.DEEPSLATE_GOLD_ORE.newItemStack());
+		}
+
+		registerGeneralDeepslateOres();
+		registerModSupportDeepslateOres();
 
 		addShapedRecipe(new ItemStack(ExternalContent.Blocks.FISK_NEXUS_BRICKS.get(), 8), "bob", "obo", "bob",
 				'b', ModBlocks.DEEPSLATE_BRICKS.newItemStack(1, OreDictionary.WILDCARD_VALUE), 'o', ModBlocks.DEEPSLATE_FISKHEROES_ORE.newItemStack(1, 6));
@@ -1052,29 +1072,14 @@ public class ModRecipes {
 		addShapedRecipe(ModItems.RAW_ORE.newItemStack(9, 2), "x", 'x', ModBlocks.RAW_ORE_BLOCK.newItemStack(1, 2));
 		addSmelting(ModItems.RAW_ORE.newItemStack(1, 2), new ItemStack(Items.gold_ingot, 1, 0), 0.7F);
 
-		registerModdedRawOres();
+		registerGeneralRawOres();
+		registerModSupportRawOres();
 	}
 
-	public static void registerModdedDeepslateOres() {
-		if (ModBlocks.DEEPSLATE_COPPER_ORE.isEnabled()) {
-			DeepslateOreRegistry.addOreByOreDict("oreCopper", ModBlocks.DEEPSLATE_COPPER_ORE.get());
-			registerOre("oreCopper", ModBlocks.DEEPSLATE_COPPER_ORE.newItemStack());
-			registerOre("oreDeepslateCopper", ModBlocks.DEEPSLATE_COPPER_ORE.newItemStack());
-		}
-		if (ModBlocks.DEEPSLATE_IRON_ORE.isEnabled()) {
-			DeepslateOreRegistry.addOreByOreDict("oreIron", ModBlocks.DEEPSLATE_IRON_ORE.get());
-			registerOre("oreIron", ModBlocks.DEEPSLATE_IRON_ORE.newItemStack());
-			registerOre("oreDeepslateIron", ModBlocks.DEEPSLATE_IRON_ORE.newItemStack());
-		}
-		if (ModBlocks.DEEPSLATE_GOLD_ORE.isEnabled()) {
-			DeepslateOreRegistry.addOreByOreDict("oreGold", ModBlocks.DEEPSLATE_GOLD_ORE.get());
-			registerOre("oreGold", ModBlocks.DEEPSLATE_GOLD_ORE.newItemStack());
-			registerOre("oreDeepslateGold", ModBlocks.DEEPSLATE_GOLD_ORE.newItemStack());
-		}
-
-		if (ModBlocks.enableModdedDeepslateOres()) {
+	public static void registerGeneralDeepslateOres() {
+		if (Utils.enableModdedDeepslateOres()) {
 			//Insert alternate Mythril spelling to list. Yes I know "mithril" is technically the primary spelling but "mythril" is used by most mods, so "mithril" is secondary to it here.
-			for (BlockModdedDeepslateOre block : BlockModdedDeepslateOre.loaded) { //Future-proofing in case I add more than one
+			for (BlockGeneralModdedDeepslateOre block : BlockGeneralModdedDeepslateOre.loaded) { //Future-proofing in case I add more than one
 				for (int i = 0; i < block.ores.length; i++) {
 					String type = block.ores[i];
 					//This can run post-load, so don't register multiple tags if the deepslate ore already got one.
@@ -1096,6 +1101,67 @@ public class ModRecipes {
 					}
 				}
 			}
+		}
+	}
+
+	public static void unregisterGeneralRawOres() {
+		Pair<List<ItemGeneralModdedRawOre>, List<BlockGeneralModdedRawOre>> pair = Pair.of(ItemGeneralModdedRawOre.loaded, BlockGeneralModdedRawOre.loaded);
+		for (int j = 0; j < pair.getLeft().size(); j++) {
+			ItemGeneralModdedRawOre oreItem = pair.getLeft().get(j);
+			BlockGeneralModdedRawOre oreBlock = pair.getRight().get(j);
+			for (int i = 0; i < oreItem.ores.length; i++) {
+				removeFirstRecipeFor(oreItem, i);
+				removeFirstRecipeFor(oreBlock, i);
+				ItemStack stack = new ItemStack(oreItem, 1, i);
+				Iterator<ItemStack> iterator = (Iterator<ItemStack>) FurnaceRecipes.smelting().getSmeltingList().keySet().iterator();
+				while (iterator.hasNext()) {
+					ItemStack smeltingInput = iterator.next();
+					if (stack.getItem() == smeltingInput.getItem() && stack.getItemDamage() == smeltingInput.getItemDamage()) {
+						iterator.remove();
+					}
+				}
+			}
+		}
+	}
+
+	public static void registerGeneralRawOres() {
+		//Future-proofing in case I add more of these. Also will have only the meta-combined versions when enabled for the eventual NEID/EID support
+		Pair<List<ItemGeneralModdedRawOre>, List<BlockGeneralModdedRawOre>> pair = Pair.of(ItemGeneralModdedRawOre.loaded, BlockGeneralModdedRawOre.loaded);
+		if (pair.getLeft().size() != pair.getRight().size()) {
+			throw new RuntimeException("Modded raw ore block count does not match modded raw ore item count!");
+		}
+		for (int k = 0; k < pair.getLeft().size(); k++) {
+			ItemGeneralModdedRawOre oreItem = pair.getLeft().get(k);
+			BlockGeneralModdedRawOre oreBlock = pair.getRight().get(k);
+			//Insert alternate Mythril spelling to list. Yes I know "mithril" is technically the primary spelling but "mythril" is used by most mods, so "mithril" is secondary to it here.
+			for (int i = 0; i < oreItem.ores.length; i++) {
+				String type = oreItem.ores[i];
+				//This can run post-load, so don't register multiple tags if the raw ore already got one.
+				//We have to do this since it is impossible to remove OreDictionary entries.
+				//Well it's probably *technically* possible but I don't want to do it, PR an OD remover if you need EFR to do it.
+				//For now just restart your game to clear entries that would no longer get a tag.
+				for (int j = 0; j < 1; j++) { //If it's mythril, we'll run this once more, changing the spelling to mithril to account for both tags.
+					if (!OreDictionary.getOres(type).isEmpty() && !OreDictionary.getOres(type.replace("ingot", "ore")).isEmpty()) { //Make sure an ingot AND ore is present
+						registerOre(type.replace("ingot", "raw"), new ItemStack(oreItem, 1, i));
+						registerOre(type.replace("ingot", "blockRaw"), new ItemStack(oreBlock, 1, i));
+						if (ConfigFunctions.registerRawItemAsOre) {
+							registerOre(type.replace("ingot", "ore"), new ItemStack(oreItem, 1, i));
+						}
+						addShapedRecipe(new ItemStack(oreBlock, 1, i), "xxx", "xxx", "xxx", 'x', new ItemStack(oreItem, 1, i));
+						addShapedRecipe(new ItemStack(oreItem, 9, i), "x", 'x', new ItemStack(oreBlock, 1, i));
+						addSmelting(new ItemStack(oreItem, 1, i), OreDictionary.getOres(oreItem.ores[i]).get(0), 0.7F);
+					}
+					if (type.endsWith("Mythril")) {
+						type = type.replace("Mythril", "Mithril"); //Redoes it once more for mithril spelling
+						j = -1;
+					}
+				}
+			}
+		}
+	}
+
+	private static void registerModSupportDeepslateOres() {
+		if (Utils.enableModdedDeepslateOres()) {
 			if (ModBlocks.DEEPSLATE_CERTUS_QUARTZ_ORE.isEnabled()) {
 				registerOre("oreCertus", ModBlocks.DEEPSLATE_CERTUS_QUARTZ_ORE.newItemStack());
 				registerOre("oreDeepslateCertus", ModBlocks.DEEPSLATE_CERTUS_QUARTZ_ORE.newItemStack());
@@ -1220,56 +1286,34 @@ public class ModRecipes {
 				DeepslateOreRegistry.addOre(ExternalContent.Blocks.DBC_DLOG_ORE.get(), 0, ModBlocks.DEEPSLATE_DBC_ORE.get(), 2);
 				DeepslateOreRegistry.addOre(ExternalContent.Blocks.DBC_LEHNORI_ORE.get(), 0, ModBlocks.DEEPSLATE_DBC_ORE.get(), 3);
 			}
-		}
-	}
-
-	public static void unregisterModdedRawOres() {
-		for (int i = 0; i < ItemModdedRawOre.ores.length; i++) {
-			removeFirstRecipeFor(ModItems.MODDED_RAW_ORE.get(), i);
-			removeFirstRecipeFor(ModBlocks.MODDED_RAW_ORE_BLOCK.get(), i);
-			ItemStack stack = ModItems.MODDED_RAW_ORE.newItemStack(1, i);
-			Iterator<ItemStack> iterator = (Iterator<ItemStack>) FurnaceRecipes.smelting().getSmeltingList().keySet().iterator();
-			while (iterator.hasNext()) {
-				ItemStack smeltingInput = iterator.next();
-				if (stack.getItem() == smeltingInput.getItem() && stack.getItemDamage() == smeltingInput.getItemDamage()) {
-					iterator.remove();
-				}
+			if (ModBlocks.DEEPSLATE_ADAMANTIUM_ORE.isEnabled()) {
+				registerOre("oreAdamantium", ModBlocks.DEEPSLATE_ADAMANTIUM_ORE.newItemStack());
+				registerOre("oreAdamantite", ModBlocks.DEEPSLATE_ADAMANTIUM_ORE.newItemStack());
+				registerOre("oreAdamantine", ModBlocks.DEEPSLATE_ADAMANTIUM_ORE.newItemStack());
+				registerOre("oreDeepslateAdamantium", ModBlocks.DEEPSLATE_ADAMANTIUM_ORE.newItemStack());
+				registerOre("oreDeepslateAdamantite", ModBlocks.DEEPSLATE_ADAMANTIUM_ORE.newItemStack());
+				registerOre("oreDeepslateAdamantine", ModBlocks.DEEPSLATE_ADAMANTIUM_ORE.newItemStack());
+				DeepslateOreRegistry.addOre(ExternalContent.Blocks.SIMPLEORES_ADAMANTIUM_ORE.get(), ModBlocks.DEEPSLATE_ADAMANTIUM_ORE.get());
 			}
 		}
 	}
 
-	public static void registerModdedRawOres() {
-		//Insert alternate Mythril spelling to list. Yes I know "mithril" is technically the primary spelling but "mythril" is used by most mods, so "mithril" is secondary to it here.
-		for (int i = 0; i < ItemModdedRawOre.ores.length; i++) {
-			String type = ItemModdedRawOre.ores[i];
-			//This can run post-load, so don't register multiple tags if the raw ore already got one.
-			//We have to do this since it is impossible to remove OreDictionary entries.
-			//Well it's probably *technically* possible but I don't want to do it, PR an OD remover if you need EFR to do it.
-			//For now just restart your game to clear entries that would no longer get a tag.
-			for (int j = 0; j < 1; j++) { //If it's mythril, we'll run this once more, changing the spelling to mithril to account for both tags.
-				if (!OreDictionary.getOres(type).isEmpty() && !OreDictionary.getOres(type.replace("ingot", "ore")).isEmpty()) { //Make sure an ingot AND ore is present
-					registerOre(type.replace("ingot", "raw"), ModItems.MODDED_RAW_ORE.newItemStack(1, i));
-					registerOre(type.replace("ingot", "blockRaw"), ModBlocks.MODDED_RAW_ORE_BLOCK.newItemStack(1, i));
-					if (ConfigFunctions.registerRawItemAsOre) {
-						registerOre(type.replace("ingot", "ore"), ModItems.MODDED_RAW_ORE.newItemStack(1, i));
-					}
-				}
-				if (type.endsWith("Mythril")) {
-					type = type.replace("Mythril", "Mithril"); //Redoes it once more for mithril spelling
-					j = -1;
-				}
-			}
-		}
-
-		for (int i = 0; i < ItemModdedRawOre.ores.length; i++) {
-			if (!OreDictionary.getOres(ItemModdedRawOre.ores[i]).isEmpty()) {
-				addShapedRecipe(ModBlocks.MODDED_RAW_ORE_BLOCK.newItemStack(1, i), "xxx", "xxx", "xxx", 'x', ModItems.MODDED_RAW_ORE.newItemStack(1, i));
-				addShapedRecipe(ModItems.MODDED_RAW_ORE.newItemStack(9, i), "x", 'x', ModBlocks.MODDED_RAW_ORE_BLOCK.newItemStack(1, i));
-				addSmelting(ModItems.MODDED_RAW_ORE.newItemStack(1, i), OreDictionary.getOres(ItemModdedRawOre.ores[i]).get(0), 0.7F);
-				if (ItemModdedRawOre.ores[i].endsWith("Mythril") && !OreDictionary.getOres("oreMithril").isEmpty()) {
-					addSmelting(ModItems.MODDED_RAW_ORE.newItemStack(1, i), OreDictionary.getOres("oreMithril").get(0), 0.7F);
-				}
-			}
+	private static void registerModSupportRawOres() {
+		if (ModItems.RAW_ADAMANTIUM.isEnabled() && ModBlocks.RAW_ADAMANTIUM_BLOCK.isEnabled()) {
+			registerOre("oreAdamantium", ModItems.RAW_ADAMANTIUM.newItemStack());
+			registerOre("oreAdamantite", ModItems.RAW_ADAMANTIUM.newItemStack());
+			registerOre("oreAdamantine", ModItems.RAW_ADAMANTIUM.newItemStack());
+			registerOre("rawAdamantium", ModItems.RAW_ADAMANTIUM.newItemStack());
+			registerOre("rawAdamantite", ModItems.RAW_ADAMANTIUM.newItemStack());
+			registerOre("rawAdamantine", ModItems.RAW_ADAMANTIUM.newItemStack());
+			registerOre("blockRawAdamantium", ModBlocks.RAW_ADAMANTIUM_BLOCK.newItemStack());
+			registerOre("blockRawAdamantite", ModBlocks.RAW_ADAMANTIUM_BLOCK.newItemStack());
+			registerOre("blockRawAdamantine", ModBlocks.RAW_ADAMANTIUM_BLOCK.newItemStack());
+			addShapedRecipe(ModBlocks.RAW_ADAMANTIUM_BLOCK.newItemStack(), "xxx", "xxx", "xxx", 'x', ModItems.RAW_ADAMANTIUM.newItemStack());
+			addShapedRecipe(ModItems.RAW_ADAMANTIUM.newItemStack(9), "x", 'x', ModBlocks.RAW_ADAMANTIUM_BLOCK.newItemStack());
+			addSmelting(ModItems.RAW_ADAMANTIUM.newItemStack(), ExternalContent.Items.SIMPLEORES_ADAMANTIUM_INGOT.newItemStack(),
+					ExternalContent.Items.SIMPLEORES_ADAMANTIUM_INGOT.get().getSmeltingExperience(ExternalContent.Items.SIMPLEORES_ADAMANTIUM_INGOT.newItemStack()));
+			RawOreRegistry.addOre("oreAdamantium", ModItems.RAW_ADAMANTIUM.get(), 0);
 		}
 	}
 
@@ -1375,14 +1419,14 @@ public class ModRecipes {
 	}
 
 	private static void removeFirstRecipeFor(Item item) {
-		removeFirstRecipeFor(item, -1);
+		removeFirstRecipeFor(item, OreDictionary.WILDCARD_VALUE);
 	}
 
 	private static void removeFirstRecipeFor(Item item, int meta) {
 		for (Object recipe : CraftingManager.getInstance().getRecipeList()) {
 			if (recipe != null) {
 				ItemStack stack = ((IRecipe) recipe).getRecipeOutput();
-				if (stack != null && stack.getItem() == item && (meta == -1 || meta == stack.getItemDamage())) {
+				if (stack != null && stack.getItem() != null && stack.getItem() == item && (meta == OreDictionary.WILDCARD_VALUE || meta == stack.getItemDamage())) {
 					CraftingManager.getInstance().getRecipeList().remove(recipe);
 					return;
 				}

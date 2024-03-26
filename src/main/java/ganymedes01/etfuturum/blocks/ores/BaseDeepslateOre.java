@@ -3,8 +3,11 @@ package ganymedes01.etfuturum.blocks.ores;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModBlocks;
+import ganymedes01.etfuturum.api.mappings.RegistryMapping;
 import ganymedes01.etfuturum.blocks.BaseBlock;
 import ganymedes01.etfuturum.client.sound.ModSounds;
+import ganymedes01.etfuturum.core.utils.DummyWorld;
+import ganymedes01.etfuturum.core.utils.IInitAction;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
@@ -23,7 +26,7 @@ import net.minecraft.world.World;
 import java.util.ArrayList;
 import java.util.Random;
 
-public abstract class BaseDeepslateOre extends BaseBlock {
+public abstract class BaseDeepslateOre extends BaseBlock implements IInitAction {
 	public BaseDeepslateOre() {
 		super(Material.rock);
 		setBlockSound(ModSounds.soundDeepslate);
@@ -196,16 +199,6 @@ public abstract class BaseDeepslateOre extends BaseBlock {
 	}
 
 	@Override
-	public float getBlockHardness(World p_149712_1_, int p_149712_2_, int p_149712_3_, int p_149712_4_) {
-		return getBase().getBlockHardness(p_149712_1_, p_149712_2_, p_149712_3_, p_149712_4_) * 1.5F;
-	}
-
-	@Override
-	public float getExplosionResistance(Entity par1Entity, World world, int x, int y, int z, double explosionX, double explosionY, double explosionZ) {
-		return getBase().getExplosionResistance(par1Entity, world, x, y, z, explosionX, explosionY, explosionZ);
-	}
-
-	@Override
 	protected void dropBlockAsItem(World p_149642_1_, int p_149642_2_, int p_149642_3_, int p_149642_4_, ItemStack p_149642_5_) {
 		super.dropBlockAsItem(p_149642_1_, p_149642_2_, p_149642_3_, p_149642_4_, p_149642_5_);
 	}
@@ -242,4 +235,29 @@ public abstract class BaseDeepslateOre extends BaseBlock {
 	}
 
 	protected abstract Block getBase();
+
+	protected int getBaseMeta() {
+		return 0;
+	}
+
+	@Override
+	public void onLoadAction() {
+		DummyWorld world = DummyWorld.GLOBAL_DUMMY_WORLD;
+		RegistryMapping<Block> mapping = new RegistryMapping<>(getBase(), getBaseMeta());
+		Block block = mapping.getObject();
+		//See BlockGeneralModdedDeepslateOre for a comment on why we do this cursed stuff
+		world.setBlock(0, 0, 0, block, mapping.getMeta(), 0);
+		try {
+			if (block.getHarvestTool(mapping.getMeta()) != null) {
+				setHarvestLevel("pickaxe", block.getHarvestLevel(mapping.getMeta()));
+			}
+			blockHardness = block.getBlockHardness(world, 0, 0, 0) * 1.5F;
+			blockResistance = block.getExplosionResistance(null, world, 0, 0, 0, 0, 0, 0) * 5; //Because the game divides it by 5 for some reason
+		} catch (Exception e) {
+			setHarvestLevel("pickaxe", 1);
+			blockHardness = Blocks.iron_ore.blockHardness * 1.5F;
+			blockResistance = Blocks.iron_ore.blockResistance;
+		}
+		world.clearBlocksCache();
+	}
 }

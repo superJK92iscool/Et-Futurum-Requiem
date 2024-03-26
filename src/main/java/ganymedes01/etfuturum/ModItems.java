@@ -4,8 +4,11 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.etfuturum.blocks.BlockWoodSign;
 import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.configuration.configs.*;
+import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.items.*;
 import ganymedes01.etfuturum.items.equipment.*;
+import ganymedes01.etfuturum.items.rawore.modded.BaseRawOre;
+import ganymedes01.etfuturum.items.rawore.modded.ItemGeneralModdedRawOre;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -88,7 +91,9 @@ public enum ModItems {
 	ITEM_SIGN_DARK_OAK(ConfigBlocksItems.enableSigns, new ItemWoodSign((BlockWoodSign) ModBlocks.SIGN_DARK_OAK.get())),
 
 	//Mod Support
-	MODDED_RAW_ORE(ConfigBlocksItems.enableRawOres, new ItemModdedRawOre()),
+	MODDED_RAW_ORE(Utils.enableModdedRawOres(), new ItemGeneralModdedRawOre("raw_aluminum", "raw_tin", "raw_silver", "raw_lead", "raw_nickel", "raw_platinum", "raw_mythril",
+			"raw_uranium", "raw_thorium", "raw_tungsten", "raw_titanium", "raw_zinc", "raw_magnesium", "raw_boron")),
+	RAW_ADAMANTIUM(Utils.enableModdedRawOres(ModsList.SIMPLEORES.isLoaded()), new BaseRawOre("simpleores", "adamantium")),
 
 	//Debug Item
 	DEBUGGING_TOOL(Reference.DEV_ENVIRONMENT, new DebugTestItem());
