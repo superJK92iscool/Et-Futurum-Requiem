@@ -72,7 +72,7 @@ public class BlockDeepslateThaumcraftOre extends BaseSubtypesDeepslateOre implem
 	}
 
 	@Override
-	public IIcon getEmissiveLayerIcon(int side, int meta) {
+	public IIcon getSecondLayerIcon(int side, int meta) {
 		if (meta > 0 && meta < 7) {
 			return infusedOverlay;
 		}

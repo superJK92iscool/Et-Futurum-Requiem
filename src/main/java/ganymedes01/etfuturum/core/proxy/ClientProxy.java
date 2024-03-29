@@ -104,7 +104,7 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityWoodSign.class, new TileEntityWoodSignRenderer());
 
 		if (ModBlocks.SLIME.isEnabled()) {
-			RenderingRegistry.registerBlockHandler(new BlockDoubleLayerRenderer(13, RenderIDs.SLIME_BLOCK));
+			RenderingRegistry.registerBlockHandler(new BlockDoubleCubeRenderer(13, RenderIDs.SLIME_BLOCK));
 		}
 
 		if (ConfigBlocksItems.enableDoors) {
@@ -188,7 +188,7 @@ public class ClientProxy extends CommonProxy {
 		}
 
 		if (ModBlocks.HONEY_BLOCK.isEnabled()) {
-			RenderingRegistry.registerBlockHandler(new BlockDoubleLayerRenderer(15, RenderIDs.HONEY_BLOCK));
+			RenderingRegistry.registerBlockHandler(new BlockDoubleCubeRenderer(15, RenderIDs.HONEY_BLOCK));
 		}
 
 		if (ModBlocks.CHAIN.isEnabled()) {

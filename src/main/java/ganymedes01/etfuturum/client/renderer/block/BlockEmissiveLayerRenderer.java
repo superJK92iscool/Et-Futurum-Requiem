@@ -34,7 +34,7 @@ public class BlockEmissiveLayerRenderer extends BlockModelBase {
 
 		final Tessellator tessellator = Tessellator.instance;
 
-		boolean emissiveLayerAbove = ((IEmissiveLayerBlock) block).isEmissiveLayerAbove(meta);
+		boolean emissiveLayerAbove = ((IEmissiveLayerBlock) block).isSecondLayerAbove(meta);
 
 		renderStandardInventoryCubeEmissive(block, meta, modelId, renderer, !emissiveLayerAbove, minX, minY, minZ, maxX, maxY, maxZ);
 		renderStandardInventoryCubeEmissive(block, meta, modelId, renderer, emissiveLayerAbove, minX, minY, minZ, maxX, maxY, maxZ);
@@ -88,7 +88,7 @@ public class BlockEmissiveLayerRenderer extends BlockModelBase {
 			return super.renderWorldBlock(world, x, y, z, block, modelId, renderer);
 		}
 
-		boolean emissiveLayerAbove = ((IEmissiveLayerBlock) block).isEmissiveLayerAbove(world.getBlockMetadata(x, y, z));
+		boolean emissiveLayerAbove = ((IEmissiveLayerBlock) block).isSecondLayerAbove(world.getBlockMetadata(x, y, z));
 
 		return renderStandardWorldCubeWithEmissiveness(world, x, y, z, block, modelId, renderer, !emissiveLayerAbove,
 				block.getBlockBoundsMinX(), block.getBlockBoundsMinY(), block.getBlockBoundsMinZ(),
@@ -381,6 +381,6 @@ public class BlockEmissiveLayerRenderer extends BlockModelBase {
 	}
 
 	private IIcon getIconOrEmissiveLayerIcon(Block block, RenderBlocks renderer, int side, int meta, boolean emissive) {
-		return emissive ? ((IEmissiveLayerBlock) block).getEmissiveLayerIcon(side, meta) : renderer.getBlockIconFromSideAndMetadata(block, 1, meta);
+		return emissive ? ((IEmissiveLayerBlock) block).getSecondLayerIcon(side, meta) : renderer.getBlockIconFromSideAndMetadata(block, side, meta);
 	}
 }

@@ -37,10 +37,11 @@ public enum ModsList {
 	DRACONIC_EVOLUTION("DraconicEvolution"),
 	BIG_REACTORS("BigReactors"),
 	FISKS_SUPERHEROES("fiskheroes"),
+	SIMPLEORES("simpleores"),
+	DRAGON_QUEST("DQMIIINext"),
 
 	NOT_ENOUGH_IDS("neid"),
 	ENDLESS_IDS("endlessids"),
-	SIMPLEORES("simpleores"),
 	;
 
 	private final String modID;

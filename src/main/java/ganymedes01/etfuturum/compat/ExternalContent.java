@@ -68,6 +68,24 @@ public class ExternalContent {
 		SIMPLEORES_ADAMANTIUM_ORE(() -> GameRegistry.findBlock("simpleores", "adamantium_ore")),
 
 		SIMPLEORES_ADAMANTIUM_BLOCK(() -> GameRegistry.findBlock("simpleores", "adamantium_block")),
+
+		DQ_ROCKBOMB_ORE(() -> GameRegistry.findBlock("DQMIIINext", "BlockOreBakudanisi")),
+		DQ_BRIGHTEN_ORE(() -> GameRegistry.findBlock("DQMIIINext", "BlockOreHikarinoisi")),
+		DQ_LUCIDA_ORE(() -> GameRegistry.findBlock("DQMIIINext", "BlockOreHosinokakera")),
+		DQ_RESURROCK_ORE(() -> GameRegistry.findBlock("DQMIIINext", "BlockOreInotinoisi")),
+		DQ_MIRRORSTONE_ORE(() -> GameRegistry.findBlock("DQMIIINext", "BlockOreKagaminoisi")),
+		DQ_ICE_CRYSTAL_ORE(() -> GameRegistry.findBlock("DQMIIINext", "BlockOreKoorinokessyou")),
+		DQ_MINIMEDAL_ORE(() -> GameRegistry.findBlock("DQMIIINext", "BlockOreLittlemedal")),
+		DQ_DENSINIUM_ORE(() -> GameRegistry.findBlock("DQMIIINext", "BlockOreMetaru")),
+		DQ_GLASS_FRIT_ORE(() -> GameRegistry.findBlock("DQMIIINext", "BlockOreMigakizuna")),
+		DQ_MYTHRIL_ORE(() -> GameRegistry.findBlock("DQMIIINext", "BlockOreMisuriru")),
+		DQ_LUNAR_DIAMOND_ORE(() -> GameRegistry.findBlock("DQMIIINext", "BlockOreMoon")),
+		DQ_PLATINUM_ORE(() -> GameRegistry.findBlock("DQMIIINext", "BlockOrePuratina")),
+		DQ_CORUNDUM_ORE(() -> GameRegistry.findBlock("DQMIIINext", "BlockOreRubi")),
+		DQ_SUNSTONE_ORE(() -> GameRegistry.findBlock("DQMIIINext", "BlockOreTaiyounoisi")),
+		DQ_ALLOYED_IRON_ORE(() -> GameRegistry.findBlock("DQMIIINext", "BlockOreTekkouseki")),
+		DQ_CHRONOCRYSTAL_ORE(() -> GameRegistry.findBlock("DQMIIINext", "BlockOreTokinosuisyou")),
+		DQ_VOLCANIC_ORE(() -> GameRegistry.findBlock("DQMIIINext", "BlockOreYougansekinokakera")),
 		;
 
 		private Block block;

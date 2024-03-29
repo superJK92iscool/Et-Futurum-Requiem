@@ -40,7 +40,7 @@ public class BlockDeepslateFiskHeroOre extends BaseSubtypesDeepslateOre implemen
 	}
 
 	@Override
-	public IIcon getEmissiveLayerIcon(int side, int meta) {
+	public IIcon getSecondLayerIcon(int side, int meta) {
 		return ExternalContent.Blocks.FISK_VIBRANIUM_ORE.get().getIcon(0, 0);
 	}
 
@@ -55,7 +55,7 @@ public class BlockDeepslateFiskHeroOre extends BaseSubtypesDeepslateOre implemen
 	}
 
 	@Override
-	public boolean isEmissiveLayerAbove(int meta) {
+	public boolean isSecondLayerAbove(int meta) {
 		return true;
 	}
 

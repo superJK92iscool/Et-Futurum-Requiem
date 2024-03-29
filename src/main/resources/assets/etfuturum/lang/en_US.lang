@@ -1813,6 +1813,24 @@ tile.etfuturum.dbc.deepslate_jjay_ore.name=Deepslate JJay Ore
 tile.etfuturum.dbc.deepslate_dlog_ore.name=Deepslate Dlog Ore
 tile.etfuturum.dbc.deepslate_lehnori_ore.name=Deepslate Lehnori Ore
 
+tile.etfuturum.dragonquest.deepslate_bakudanisi_ore.name=Deepslate Rockbomb Ore
+tile.etfuturum.dragonquest.deepslate_hikarinoisi_ore.name=Deepslate Brighten Ore
+tile.etfuturum.dragonquest.deepslate_hosinokakera_ore.name=Deepslate Lucida Ore
+tile.etfuturum.dragonquest.deepslate_inotinoisi_ore.name=Deepslate Resurrock Ore
+tile.etfuturum.dragonquest.deepslate_kagaminoisi_ore.name=Deepslate Mirrorstone Ore
+tile.etfuturum.dragonquest.deepslate_koorinokessyou_ore.name=Deepslate Ice Crystal Ore
+tile.etfuturum.dragonquest.deepslate_littlemedal_ore.name=Deepslate Mini-Medal Ore
+tile.etfuturum.dragonquest.deepslate_metaru_ore.name=Deepslate Densinium Ore
+tile.etfuturum.dragonquest.deepslate_migakizuna_ore.name=Deepslate Glass Frit Ore
+tile.etfuturum.dragonquest.deepslate_misuriru_ore.name=Deepslate Mythril Ore
+tile.etfuturum.dragonquest.deepslate_moon_ore.name=Deepslate Lunar Diamond Ore
+tile.etfuturum.dragonquest.deepslate_puratina_ore.name=Deepslate Platinum Ore
+tile.etfuturum.dragonquest.deepslate_rubi_ore.name=Deepslate Corundum Ore
+tile.etfuturum.dragonquest.deepslate_taiyounoisi_ore.name=Deepslate Sunstone Ore
+tile.etfuturum.dragonquest.deepslate_tekkouseki_ore.name=Deepslate Alloyed Iron Ore
+tile.etfuturum.dragonquest.deepslate_tokinosuisyou_ore.name=Deepslate Chronocrystal Ore
+tile.etfuturum.dragonquest.deepslate_yougansekinokakera_ore.name=Deepslate Volcanic Ore
+
 # Mod support items
 
 item.shulker_vanilla_iron_upgrade.name=Vanilla to Iron Shulker Box Upgrade

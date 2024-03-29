@@ -27,7 +27,7 @@ public class BlockDeepslateCertusQuartzOre extends BaseSubtypesDeepslateOre impl
 	}
 
 	@Override
-	public IIcon getEmissiveLayerIcon(int side, int meta) {
+	public IIcon getSecondLayerIcon(int side, int meta) {
 		return getBase(meta).getIcon(side, getBaseMeta(meta));
 	}
 

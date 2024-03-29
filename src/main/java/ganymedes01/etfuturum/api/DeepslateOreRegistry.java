@@ -46,6 +46,10 @@ public class DeepslateOreRegistry {
 		addOre(from, 0, to, 0);
 	}
 
+	public static void addOre(Block from, int fromMeta, Block to, int toMeta) {
+		addOre(from, fromMeta, to, toMeta, true);
+	}
+
 	/**
 	 * Adds a block/metadata to block/metadata pair to the deepslate mapping registry.
 	 * This is used when Et Futurum deepslate overwrites the specified block.
@@ -55,14 +59,18 @@ public class DeepslateOreRegistry {
 	 * @param to       The block deepslate changes it to
 	 * @param toMeta   The meta deepslate changes it to
 	 */
-	public static void addOre(Block from, int fromMeta, Block to, int toMeta) {
+	public static void addOre(Block from, int fromMeta, Block to, int toMeta, boolean putIfAbsent) {
 		if (from.hasTileEntity(fromMeta) || to.hasTileEntity(toMeta)) {
 			throw new IllegalArgumentException("Block Entities are not supported for the deepslate ore registry!");
 		}
 		if (!Utils.isMetaInBlockBoundsIgnoreWildcard(fromMeta) || !Utils.isMetaInBlockBoundsIgnoreWildcard(toMeta)) {
 			throw new IllegalArgumentException("Meta must be between " + Utils.getMinMetadata() + " and " + Utils.getMaxMetadata() + " (inclusive).");
 		}
-		deepslateOres.put(new RegistryMapping<>(from, fromMeta), new RegistryMapping<>(to, toMeta));
+		if (putIfAbsent) {
+			deepslateOres.putIfAbsent(new RegistryMapping<>(from, fromMeta), new RegistryMapping<>(to, toMeta));
+		} else {
+			deepslateOres.put(new RegistryMapping<>(from, fromMeta), new RegistryMapping<>(to, toMeta));
+		}
 	}
 
 	/**
@@ -83,7 +91,7 @@ public class DeepslateOreRegistry {
 			Block blockToAdd = Block.getBlockFromItem(ore.getItem());
 			if (blockToAdd != to && ModRecipes.validateItems(blockToAdd, to)) {
 				try {
-					addOre(blockToAdd, ore.getItemDamage(), to, toMeta);
+					addOre(blockToAdd, ore.getItemDamage(), to, toMeta, false);
 				} catch (IllegalArgumentException e) {
 //					ignoredEntries.putIfAbsent(Block.blockRegistry.getNameForObject(blockToAdd) + ":" + (ore.getItemDamage() == OreDictionary.WILDCARD_VALUE ? "*" : ore.getItemDamage()),
 //							Block.blockRegistry.getNameForObject(to) + ":" + (toMeta == OreDictionary.WILDCARD_VALUE ? "*" : toMeta) + " (" + (e.getMessage().contains("Block Entities") ? "is block entity" : "meta out of 0-15 range") + ")");
@@ -92,7 +100,7 @@ public class DeepslateOreRegistry {
 			}
 		}
 		if (/*!ignoredEntries.isEmpty()*/ hasBadEntry) {
-			Logger.warn(oreDict + " had one ore more entries which are either block entities or supplying a meta outside of 0-15. Check the contents of the OreDict tag for more info.");
+			Logger.warn(oreDict + " had one ore more entries which are either block entities or supplying a meta outside of " + Utils.getMinMetadata() + "-" + Utils.getMaxMetadata() + ". Check the contents of the OreDict tag for more info.");
 			Logger.warn("Ignoring those entries instead of crashing, since this could be an unintended side effect of adding by OreDict string.");
 //			StringBuilder builder = new StringBuilder();
 //			int i = 0;

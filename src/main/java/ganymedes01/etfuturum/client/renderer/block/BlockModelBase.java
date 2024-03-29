@@ -229,10 +229,15 @@ public abstract class BlockModelBase implements ISimpleBlockRenderingHandler {
 		this.renderFaceYNeg(renderer, block, dx, dy, dz, 0, 0, 0);
 	}
 
+	public void renderFaceYNeg(RenderBlocks renderer, Block block, double dx, double dy, double dz, double offx, double offy, double offz) {
+		renderFaceYNeg(renderer, block, dx, dy, dz, offx, offy, offz,
+				renderer.getBlockIcon(block, renderer.blockAccess, MathHelper.floor_double(dx), MathHelper.floor_double(dy), MathHelper.floor_double(dz), 0));
+	}
+
 	/**
 	 * Renders the YNeg face with proper shading like renderStandardBlock.
 	 */
-	public void renderFaceYNeg(RenderBlocks renderer, Block block, double dx, double dy, double dz, double offx, double offy, double offz) {
+	public void renderFaceYNeg(RenderBlocks renderer, Block block, double dx, double dy, double dz, double offx, double offy, double offz, IIcon icon) {
 		final Tessellator tessellator = Tessellator.instance;
 		renderer.enableAO = false;
 
@@ -256,10 +261,15 @@ public abstract class BlockModelBase implements ISimpleBlockRenderingHandler {
 		this.renderFaceYPos(renderer, block, dx, dy, dz, 0, 0, 0);
 	}
 
+	public void renderFaceYPos(RenderBlocks renderer, Block block, double dx, double dy, double dz, double offx, double offy, double offz) {
+		renderFaceYPos(renderer, block, dx, dy, dz, offx, offy, offz,
+				renderer.getBlockIcon(block, renderer.blockAccess, MathHelper.floor_double(dx), MathHelper.floor_double(dy), MathHelper.floor_double(dz), 1));
+	}
+
 	/**
 	 * Renders the YPos face with proper shading like renderStandardBlock.
 	 */
-	public void renderFaceYPos(RenderBlocks renderer, Block block, double dx, double dy, double dz, double offx, double offy, double offz) {
+	public void renderFaceYPos(RenderBlocks renderer, Block block, double dx, double dy, double dz, double offx, double offy, double offz, IIcon icon) {
 		final Tessellator tessellator = Tessellator.instance;
 		renderer.enableAO = false;
 
@@ -290,7 +300,7 @@ public abstract class BlockModelBase implements ISimpleBlockRenderingHandler {
 		if (renderer.renderAllFaces || block.shouldSideBeRendered(renderer.blockAccess, x, y + 1, z, 1)) {
 			tessellator.setBrightness(renderer.renderMaxY - Math.abs(offy) < 1.0D ? l : block.getMixedBrightnessForBlock(renderer.blockAccess, x, y + 1, z));
 			tessellator.setColorOpaque_F(f7, f8, f9);
-			renderer.renderFaceYPos(block, dx + offx, dy + offy, dz + offz, renderer.getBlockIcon(block, renderer.blockAccess, x, y, z, 1));
+			renderer.renderFaceYPos(block, dx + offx, dy + offy, dz + offz, icon);
 		}
 	}
 
@@ -301,10 +311,15 @@ public abstract class BlockModelBase implements ISimpleBlockRenderingHandler {
 		this.renderFaceZNeg(renderer, block, dx, dy, dz, 0, 0, 0);
 	}
 
+	public void renderFaceZNeg(RenderBlocks renderer, Block block, double dx, double dy, double dz, double offx, double offy, double offz) {
+		renderFaceZNeg(renderer, block, dx, dy, dz, offx, offy, offz,
+				renderer.getBlockIcon(block, renderer.blockAccess, MathHelper.floor_double(dx), MathHelper.floor_double(dy), MathHelper.floor_double(dz), 2));
+	}
+
 	/**
 	 * Renders the ZNeg face with proper shading like renderStandardBlock.
 	 */
-	public void renderFaceZNeg(RenderBlocks renderer, Block block, double dx, double dy, double dz, double offx, double offy, double offz) {
+	public void renderFaceZNeg(RenderBlocks renderer, Block block, double dx, double dy, double dz, double offx, double offy, double offz, IIcon icon) {
 		final Tessellator tessellator = Tessellator.instance;
 		renderer.enableAO = false;
 
@@ -318,7 +333,7 @@ public abstract class BlockModelBase implements ISimpleBlockRenderingHandler {
 		if (renderer.renderAllFaces || block.shouldSideBeRendered(renderer.blockAccess, x, y, z - 1, 2)) {
 			tessellator.setBrightness(renderer.renderMinZ + Math.abs(offz) > 0.0D ? l : block.getMixedBrightnessForBlock(renderer.blockAccess, x, y, z - 1));
 			tessellator.setColorOpaque_F(f5, f5, f5);
-			renderer.renderFaceZNeg(block, dx + offx, dy + offy, dz + offz, renderer.getBlockIcon(block, renderer.blockAccess, x, y, z, 2));
+			renderer.renderFaceZNeg(block, dx + offx, dy + offy, dz + offz, icon);
 		}
 	}
 
@@ -329,10 +344,15 @@ public abstract class BlockModelBase implements ISimpleBlockRenderingHandler {
 		this.renderFaceZPos(renderer, block, dx, dy, dz, 0, 0, 0);
 	}
 
+	public void renderFaceZPos(RenderBlocks renderer, Block block, double dx, double dy, double dz, double offx, double offy, double offz) {
+		renderFaceZPos(renderer, block, dx, dy, dz, offx, offy, offz,
+				renderer.getBlockIcon(block, renderer.blockAccess, MathHelper.floor_double(dx), MathHelper.floor_double(dy), MathHelper.floor_double(dz), 3));
+	}
+
 	/**
 	 * Renders the ZPos face with proper shading like renderStandardBlock.
 	 */
-	public void renderFaceZPos(RenderBlocks renderer, Block block, double dx, double dy, double dz, double offx, double offy, double offz) {
+	public void renderFaceZPos(RenderBlocks renderer, Block block, double dx, double dy, double dz, double offx, double offy, double offz, IIcon icon) {
 		final Tessellator tessellator = Tessellator.instance;
 		renderer.enableAO = false;
 
@@ -346,7 +366,7 @@ public abstract class BlockModelBase implements ISimpleBlockRenderingHandler {
 		if (renderer.renderAllFaces || block.shouldSideBeRendered(renderer.blockAccess, x, y, z + 1, 3)) {
 			tessellator.setBrightness(renderer.renderMaxZ - Math.abs(offz) < 1.0D ? l : block.getMixedBrightnessForBlock(renderer.blockAccess, x, y, z + 1));
 			tessellator.setColorOpaque_F(f5, f5, f5);
-			renderer.renderFaceZPos(block, dx + offx, dy + offy, dz + offz, renderer.getBlockIcon(block, renderer.blockAccess, x, y, z, 3));
+			renderer.renderFaceZPos(block, dx + offx, dy + offy, dz + offz, icon);
 		}
 	}
 
@@ -357,10 +377,15 @@ public abstract class BlockModelBase implements ISimpleBlockRenderingHandler {
 		this.renderFaceXNeg(renderer, block, dx, dy, dz, 0, 0, 0);
 	}
 
+	public void renderFaceXNeg(RenderBlocks renderer, Block block, double dx, double dy, double dz, double offx, double offy, double offz) {
+		renderFaceXNeg(renderer, block, dx, dy, dz, offx, offy, offz,
+				renderer.getBlockIcon(block, renderer.blockAccess, MathHelper.floor_double(dx), MathHelper.floor_double(dy), MathHelper.floor_double(dz), 4));
+	}
+
 	/**
 	 * Renders the XNeg face with proper shading like renderStandardBlock.
 	 */
-	public void renderFaceXNeg(RenderBlocks renderer, Block block, double dx, double dy, double dz, double offx, double offy, double offz) {
+	public void renderFaceXNeg(RenderBlocks renderer, Block block, double dx, double dy, double dz, double offx, double offy, double offz, IIcon icon) {
 		final Tessellator tessellator = Tessellator.instance;
 		renderer.enableAO = false;
 
@@ -375,7 +400,7 @@ public abstract class BlockModelBase implements ISimpleBlockRenderingHandler {
 		if (renderer.renderAllFaces || block.shouldSideBeRendered(renderer.blockAccess, x - 1, y, z, 4)) {
 			tessellator.setBrightness(renderer.renderMinX + Math.abs(offx) > 0.0D ? l : block.getMixedBrightnessForBlock(renderer.blockAccess, x - 1, y, z));
 			tessellator.setColorOpaque_F(f6, f6, f6);
-			renderer.renderFaceXNeg(block, dx + offx, dy + offy, dz + offz, renderer.getBlockIcon(block, renderer.blockAccess, x, y, z, 4));
+			renderer.renderFaceXNeg(block, dx + offx, dy + offy, dz + offz, icon);
 		}
 	}
 
@@ -386,10 +411,15 @@ public abstract class BlockModelBase implements ISimpleBlockRenderingHandler {
 		this.renderFaceXPos(renderer, block, dx, dy, dz, 0, 0, 0);
 	}
 
+	public void renderFaceXPos(RenderBlocks renderer, Block block, double dx, double dy, double dz, double offx, double offy, double offz) {
+		renderFaceXPos(renderer, block, dx, dy, dz, offx, offy, offz,
+				renderer.getBlockIcon(block, renderer.blockAccess, MathHelper.floor_double(dx), MathHelper.floor_double(dy), MathHelper.floor_double(dz), 5));
+	}
+
 	/**
 	 * Renders the XPos face with proper shading like renderStandardBlock.
 	 */
-	public void renderFaceXPos(RenderBlocks renderer, Block block, double dx, double dy, double dz, double offx, double offy, double offz) {
+	public void renderFaceXPos(RenderBlocks renderer, Block block, double dx, double dy, double dz, double offx, double offy, double offz, IIcon icon) {
 		final Tessellator tessellator = Tessellator.instance;
 		renderer.enableAO = false;
 
@@ -404,7 +434,7 @@ public abstract class BlockModelBase implements ISimpleBlockRenderingHandler {
 		if (renderer.renderAllFaces || block.shouldSideBeRendered(renderer.blockAccess, x + 1, y, z, 5)) {
 			tessellator.setBrightness(renderer.renderMaxX - Math.abs(offx) < 1.0D ? l : block.getMixedBrightnessForBlock(renderer.blockAccess, x + 1, y, z));
 			tessellator.setColorOpaque_F(f6, f6, f6);
-			renderer.renderFaceXPos(block, dx + offx, dy + offy, dz + offz, renderer.getBlockIcon(block, renderer.blockAccess, x, y, z, 5));
+			renderer.renderFaceXPos(block, dx + offx, dy + offy, dz + offz, icon);
 		}
 	}
 }
