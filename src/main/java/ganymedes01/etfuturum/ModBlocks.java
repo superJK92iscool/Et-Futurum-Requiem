@@ -480,8 +480,7 @@ public enum ModBlocks {
 	DEEPSLATE_BLUEPOWER_ORE(Utils.enableModdedDeepslateOres(ModsList.BLUEPOWER.isLoaded()), new BlockDeepslateBluePowerOre()),
 	DEEPSLATE_FISKHEROES_ORE(Utils.enableModdedDeepslateOres(ModsList.FISKS_SUPERHEROES.isLoaded()), new BlockDeepslateFiskHeroOre()),
 	DEEPSLATE_DBC_ORE(Utils.enableModdedDeepslateOres(ModsList.DRAGON_BLOCK_C.isLoaded()), new BlockDeepslateDragonBlockOre()),
-	DEEPSLATE_DQ_ORE_1(Utils.enableModdedDeepslateOres(ModsList.DRAGON_QUEST.isLoaded()), new BlockDeepslateDragonQuestOre(0)),
-	DEEPSLATE_DQ_ORE_2(Utils.enableModdedDeepslateOres(ModsList.DRAGON_QUEST.isLoaded()), new BlockDeepslateDragonQuestOre(1)),
+	DEEPSLATE_DQ_ORE(Utils.enableModdedDeepslateOres(ModsList.DRAGON_QUEST.isLoaded()), new BlockDeepslateDragonQuestOre()),
 	;
 
 	public static final ModBlocks[] DOORS = new ModBlocks[]{DOOR_SPRUCE, DOOR_BIRCH, DOOR_JUNGLE, DOOR_ACACIA, DOOR_DARK_OAK, CRIMSON_DOOR, WARPED_DOOR, MANGROVE_DOOR, CHERRY_DOOR, BAMBOO_DOOR};

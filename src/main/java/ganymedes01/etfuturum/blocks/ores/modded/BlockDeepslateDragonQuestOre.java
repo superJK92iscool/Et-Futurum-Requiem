@@ -5,16 +5,13 @@ import ganymedes01.etfuturum.compat.ExternalContent;
 import net.minecraft.block.Block;
 
 public class BlockDeepslateDragonQuestOre extends BaseSubtypesDeepslateOre {
-	private final int type;
-	private static final String[] ores1 = new String[]{
+	private static final String[] ores = new String[]{
 			"deepslate_bakudanisi_ore", "deepslate_hikarinoisi_ore", "deepslate_hosinokakera_ore", "deepslate_inotinoisi_ore", "deepslate_kagaminoisi_ore", "deepslate_koorinokessyou_ore",
-			"deepslate_littlemedal_ore", "deepslate_metaru_ore", "deepslate_migakizuna_ore", "deepslate_misuriru_ore", "deepslate_moon_ore", "deepslate_puratina_ore", "deepslate_rubi_ore",
-			"deepslate_taiyounoisi_ore", "deepslate_tekkouseki_ore", "deepslate_tokinosuisyou_ore"};
-	private static final String[] ores2 = new String[]{"deepslate_yougansekinokakera_ore"};
+			"deepslate_littlemedal_ore", "deepslate_metaru_ore", "deepslate_migakizuna_ore", /*"deepslate_misuriru_ore",*/ "deepslate_moon_ore",/* "deepslate_puratina_ore", */"deepslate_rubi_ore",
+			"deepslate_taiyounoisi_ore", "deepslate_tekkouseki_ore", "deepslate_tokinosuisyou_ore", "deepslate_yougansekinokakera_ore"};
 
-	public BlockDeepslateDragonQuestOre(int type) {
-		super(type == 0 ? ores1 : ores2);
-		this.type = type;
+	public BlockDeepslateDragonQuestOre() {
+		super(ores);
 	}
 
 	@Override
@@ -24,8 +21,7 @@ public class BlockDeepslateDragonQuestOre extends BaseSubtypesDeepslateOre {
 
 	@Override
 	protected Block getBase(int meta) {
-		if (type == 0) {
-			switch (meta) {
+		switch (meta) {
 				case 1:
 					return ExternalContent.Blocks.DQ_BRIGHTEN_ORE.get();
 				case 2:
@@ -41,26 +37,22 @@ public class BlockDeepslateDragonQuestOre extends BaseSubtypesDeepslateOre {
 				case 7:
 					return ExternalContent.Blocks.DQ_DENSINIUM_ORE.get();
 				case 8:
-					return ExternalContent.Blocks.DQ_MYTHRIL_ORE.get();
-				case 9:
 					return ExternalContent.Blocks.DQ_GLASS_FRIT_ORE.get();
-				case 10:
-					return ExternalContent.Blocks.DQ_LUNAR_DIAMOND_ORE.get();
-				case 11:
-					return ExternalContent.Blocks.DQ_PLATINUM_ORE.get();
-				case 12:
-					return ExternalContent.Blocks.DQ_CORUNDUM_ORE.get();
-				case 13:
-					return ExternalContent.Blocks.DQ_SUNSTONE_ORE.get();
-				case 14:
-					return ExternalContent.Blocks.DQ_ALLOYED_IRON_ORE.get();
-				case 15:
-					return ExternalContent.Blocks.DQ_CHRONOCRYSTAL_ORE.get();
-				default:
-				case 0:
-					return ExternalContent.Blocks.DQ_ROCKBOMB_ORE.get();
-			}
+			case 9:
+				return ExternalContent.Blocks.DQ_LUNAR_DIAMOND_ORE.get();
+			case 10:
+				return ExternalContent.Blocks.DQ_CORUNDUM_ORE.get();
+			case 11:
+				return ExternalContent.Blocks.DQ_SUNSTONE_ORE.get();
+			case 12:
+				return ExternalContent.Blocks.DQ_ALLOYED_IRON_ORE.get();
+			case 13:
+				return ExternalContent.Blocks.DQ_CHRONOCRYSTAL_ORE.get();
+			case 14:
+				return ExternalContent.Blocks.DQ_VOLCANIC_ORE.get();
+			default:
+			case 0:
+				return ExternalContent.Blocks.DQ_ROCKBOMB_ORE.get();
 		}
-		return ExternalContent.Blocks.DQ_VOLCANIC_ORE.get();
 	}
 }
