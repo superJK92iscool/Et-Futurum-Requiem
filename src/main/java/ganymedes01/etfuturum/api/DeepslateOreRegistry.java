@@ -47,7 +47,7 @@ public class DeepslateOreRegistry {
 	}
 
 	public static void addOre(Block from, int fromMeta, Block to, int toMeta) {
-		addOre(from, fromMeta, to, toMeta, true);
+		addOre(from, fromMeta, to, toMeta, false);
 	}
 
 	/**
@@ -91,7 +91,7 @@ public class DeepslateOreRegistry {
 			Block blockToAdd = Block.getBlockFromItem(ore.getItem());
 			if (blockToAdd != to && ModRecipes.validateItems(blockToAdd, to)) {
 				try {
-					addOre(blockToAdd, ore.getItemDamage(), to, toMeta, false);
+					addOre(blockToAdd, ore.getItemDamage(), to, toMeta, true);
 				} catch (IllegalArgumentException e) {
 //					ignoredEntries.putIfAbsent(Block.blockRegistry.getNameForObject(blockToAdd) + ":" + (ore.getItemDamage() == OreDictionary.WILDCARD_VALUE ? "*" : ore.getItemDamage()),
 //							Block.blockRegistry.getNameForObject(to) + ":" + (toMeta == OreDictionary.WILDCARD_VALUE ? "*" : toMeta) + " (" + (e.getMessage().contains("Block Entities") ? "is block entity" : "meta out of 0-15 range") + ")");
