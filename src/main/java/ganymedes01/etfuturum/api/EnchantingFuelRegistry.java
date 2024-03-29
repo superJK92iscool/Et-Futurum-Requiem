@@ -32,7 +32,7 @@ public class EnchantingFuelRegistry {
 			} else if (itemObj instanceof Block && Item.getItemFromBlock((Block) itemObj) != null) {
 				FUEL_REGISTRY.add(new ItemStack(Item.getItemFromBlock((Block) itemObj), 1, OreDictionary.WILDCARD_VALUE));
 			} else {
-				throw new IllegalArgumentException("Tried to add " + itemObj + "as an enchanting fuel, which is not an Itemstack, item, block or string.");
+				throw new IllegalArgumentException("Tried to add " + itemObj + " as an enchanting fuel, which is not an Itemstack, item, block or string.");
 			}
 		}
 	}
