@@ -566,7 +566,7 @@ public class Utils {
 	}
 
 	public static boolean enableModdedRawOres() {
-		return enableModdedDeepslateOres(true);
+		return enableModdedRawOres(true);
 	}
 
 	public static boolean enableModdedRawOres(boolean isModLoaded) { //Won't store as static variable to prevent accidental early initialization
