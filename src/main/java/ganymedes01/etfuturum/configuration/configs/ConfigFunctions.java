@@ -24,6 +24,7 @@ public class ConfigFunctions extends ConfigBase {
 	public static boolean enablePlayerSkinOverlay;
 	public static boolean enableAutoAddSmoker;
 	public static boolean enableAutoAddBlastFurnace;
+	public static boolean enableAutoAddComposter;
 	public static boolean enableMeltGear = false;
 	public static boolean enableRecipeForTotem;
 	public static boolean enableGamemodeSwitcher;
@@ -218,6 +219,7 @@ public class ConfigFunctions extends ConfigBase {
 		enableRecipeForPrismarine = getBoolean("enablePrismarineRecipes", catSettings, true, "Recipe for prismarine if you want it without the temples, or want it craftable alongside temples.");
 		enableAutoAddSmoker = getBoolean("enableAutoAddSmoker", catSettings, true, "Seeks all available edible foods from the furnace and adds them to the smoker, if it's off it will only smelt things specified from CraftTweaker.");
 		enableAutoAddBlastFurnace = getBoolean("enableAutoAddBlastFurnace", catSettings, true, "Seeks all available smeltable ores, metals, etc (using OreDict tags like \"ore\", \"cluster\", \"ingot\", etc) from the furnace and adds them to the Blast Furnace, if it's off it will only smelt things specified from CraftTweaker.");
+		enableAutoAddComposter = getBoolean("enableAutoAddComposter", catSettings, true, "Seeks compostable items like plants and leaves, and automatically adds them to the composter. If this is off it will only compost things specified from CraftTweaker and nothing by default.");
 		enableRecipeForTotem = getBoolean("enableRecipeForTotem", catSettings, false, "Recipe for totems since there's no other way to get them currently.");
 		shulkerBansString = getStringList("shulkerBans", catSettings, shulkerDefaultBans, "Things (namespaced:id) that should not go inside a Shulker Box. Used to ensure recursive storage, book banning and data overloads with certain items can be stopped. A default list is provided, but it might not cover everything so be sure to check with the mods you have. Be sure to check the default list for this frequently, it will be updated frequently.");
 		totemHealPercent = getInt("totemHealPercent", catSettings, 5, 5, 100, "Percentage of max health for totem to set you at if you die with it. (5% is 0.05, 20 * 0.05 = 1, 1 health is one half-heart)");

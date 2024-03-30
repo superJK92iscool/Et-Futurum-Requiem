@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.blocks.BlockComposter;
+import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.core.utils.ItemStackMap;
 import ganymedes01.etfuturum.core.utils.Logger;
 import ganymedes01.etfuturum.recipes.ModRecipes;
@@ -21,6 +22,9 @@ public class CompostingRegistry {
 	private static final ItemStackMap<Integer> COMPOSTING_REGISTRY = new ItemStackMap<>();
 
 	public static void init() {
+		if (!ConfigFunctions.enableAutoAddComposter) {
+			return;
+		}
 		registerCompostable(ImmutableList.of(
 				new ItemStack(Blocks.tallgrass, 1, 1),
 				new ItemStack(Blocks.leaves, 1, OreDictionary.WILDCARD_VALUE),

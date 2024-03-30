@@ -74,6 +74,7 @@ public class BlockEmissiveLayerRenderer extends BlockModelBase {
 		tessellator.setNormal(1.0F, 0.0F, 0.0F);
 		renderer.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, getIconOrEmissiveLayerIcon(block, renderer, 5, meta, emissive));
 		tessellator.draw();
+		tessellator.startDrawingQuads();
 		if (emissive) {
 			tessellator.setColorOpaque_F(1, 1, 1);
 			if (((IEmissiveLayerBlock) block).itemBlockGlows(meta)) {
