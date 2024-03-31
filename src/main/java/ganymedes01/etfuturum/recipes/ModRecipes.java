@@ -1077,27 +1077,25 @@ public class ModRecipes {
 	}
 
 	public static void registerGeneralDeepslateOres() {
-		if (Utils.enableModdedDeepslateOres()) {
-			//Insert alternate Mythril spelling to list. Yes I know "mithril" is technically the primary spelling but "mythril" is used by most mods, so "mithril" is secondary to it here.
-			for (BlockGeneralModdedDeepslateOre block : BlockGeneralModdedDeepslateOre.loaded) { //Future-proofing in case I add more than one
-				for (int i = 0; i < block.ores.length; i++) {
-					String type = block.ores[i];
-					//This can run post-load, so don't register multiple tags if the deepslate ore already got one.
-					//We have to do this since it is impossible to remove OreDictionary entries.
-					//Well it's probably *technically* possible but I don't want to do it, PR an OD remover if you need EFR to do it.
-					//For now just restart your game to clear entries that would no longer get a tag.
-					for (int j = 0; j < 1; j++) { //If it's mythril, we'll run this once more, changing the spelling to mithril to account for both tags.
-						if (!OreDictionary.getOres(type).isEmpty()) { //Make sure an ore is present.
+		//Insert alternate Mythril spelling to list. Yes I know "mithril" is technically the primary spelling but "mythril" is used by most mods, so "mithril" is secondary to it here.
+		for (BlockGeneralModdedDeepslateOre block : BlockGeneralModdedDeepslateOre.loaded) { //Future-proofing in case I add more than one
+			for (int i = 0; i < block.ores.length; i++) {
+				String type = block.ores[i];
+				//This can run post-load, so don't register multiple tags if the deepslate ore already got one.
+				//We have to do this since it is impossible to remove OreDictionary entries.
+				//Well it's probably *technically* possible but I don't want to do it, PR an OD remover if you need EFR to do it.
+				//For now just restart your game to clear entries that would no longer get a tag.
+				for (int j = 0; j < 1; j++) { //If it's mythril, we'll run this once more, changing the spelling to mithril to account for both tags.
+					if (!OreDictionary.getOres(type).isEmpty()) { //Make sure an ore is present.
 //						registerOre(type, ModBlocks.MODDED_DEEPSLATE_ORE.newItemStack(1, i));
-							DeepslateOreRegistry.addOreByOreDict(type, ModBlocks.MODDED_DEEPSLATE_ORE.get(), i);
-							registerOre(type, ModBlocks.MODDED_DEEPSLATE_ORE.newItemStack(1, i));
-							registerOre(type.replace("ore", "oreDeepslate"), ModBlocks.MODDED_DEEPSLATE_ORE.newItemStack(1, i));
-						}
-						//We put this outside of the if statement so additional tags added with CT get added.
-						if (type.endsWith("Mythril")) {
-							type = type.replace("Mythril", "Mithril"); //Redoes it once more for mithril spelling
-							j = -1;
-						}
+						DeepslateOreRegistry.addOreByOreDict(type, ModBlocks.MODDED_DEEPSLATE_ORE.get(), i);
+						registerOre(type, ModBlocks.MODDED_DEEPSLATE_ORE.newItemStack(1, i));
+						registerOre(type.replace("ore", "oreDeepslate"), ModBlocks.MODDED_DEEPSLATE_ORE.newItemStack(1, i));
+					}
+					//We put this outside of the if statement so additional tags added with CT get added.
+					if (type.endsWith("Mythril")) {
+						type = type.replace("Mythril", "Mithril"); //Redoes it once more for mithril spelling
+						j = -1;
 					}
 				}
 			}
@@ -1106,6 +1104,9 @@ public class ModRecipes {
 
 	public static void unregisterGeneralRawOres() {
 		Pair<List<ItemGeneralModdedRawOre>, List<BlockGeneralModdedRawOre>> pair = Pair.of(ItemGeneralModdedRawOre.loaded, BlockGeneralModdedRawOre.loaded);
+		if (pair.getLeft().size() == 0) {
+			return;
+		}
 		for (int j = 0; j < pair.getLeft().size(); j++) {
 			ItemGeneralModdedRawOre oreItem = pair.getLeft().get(j);
 			BlockGeneralModdedRawOre oreBlock = pair.getRight().get(j);
@@ -1130,6 +1131,9 @@ public class ModRecipes {
 		if (pair.getLeft().size() != pair.getRight().size()) {
 			throw new RuntimeException("Modded raw ore block count does not match modded raw ore item count!");
 		}
+		if (pair.getLeft().size() == 0) {
+			return;
+		}
 		for (int k = 0; k < pair.getLeft().size(); k++) {
 			ItemGeneralModdedRawOre oreItem = pair.getLeft().get(k);
 			BlockGeneralModdedRawOre oreBlock = pair.getRight().get(k);
@@ -1149,7 +1153,7 @@ public class ModRecipes {
 						}
 						addShapedRecipe(new ItemStack(oreBlock, 1, i), "xxx", "xxx", "xxx", 'x', new ItemStack(oreItem, 1, i));
 						addShapedRecipe(new ItemStack(oreItem, 9, i), "x", 'x', new ItemStack(oreBlock, 1, i));
-						addSmelting(new ItemStack(oreItem, 1, i), OreDictionary.getOres(oreItem.ores[i]).get(0), 0.7F);
+						addSmelting(new ItemStack(oreItem, 1, i), OreDictionary.getOres(type).get(0), 0.7F);
 					}
 					if (type.endsWith("Mythril")) {
 						type = type.replace("Mythril", "Mithril"); //Redoes it once more for mithril spelling
