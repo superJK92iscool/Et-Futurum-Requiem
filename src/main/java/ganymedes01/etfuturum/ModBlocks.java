@@ -478,7 +478,6 @@ public enum ModBlocks {
 	DEEPSLATE_BOP_ORE(Utils.enableModdedDeepslateOres(ModsList.BIOMES_O_PLENTY), new BlockDeepslateBiomesOPlentyOre()),
 	DEEPSLATE_PROJRED_ORE(Utils.enableModdedDeepslateOres(ModsList.PROJECT_RED_EXPLORATION), new BlockDeepslateProjectRedOre()),
 	DEEPSLATE_BLUEPOWER_ORE(Utils.enableModdedDeepslateOres(ModsList.BLUEPOWER), new BlockDeepslateBluePowerOre()),
-	DEEPSLATE_FISKHEROES_ORE(Utils.enableModdedDeepslateOres(ModsList.FISKS_SUPERHEROES), new BlockDeepslateFiskHeroOre()),
 	DEEPSLATE_DBC_ORE(Utils.enableModdedDeepslateOres(ModsList.DRAGON_BLOCK_C), new BlockDeepslateDragonBlockOre()),
 	DEEPSLATE_DQ_ORE(Utils.enableModdedDeepslateOres(ModsList.DRAGON_QUEST), new BlockDeepslateDragonQuestOre()),
 	;

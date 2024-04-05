@@ -1048,9 +1048,6 @@ public class ModRecipes {
 		registerGeneralDeepslateOres();
 		registerModSupportDeepslateOres();
 
-		addShapedRecipe(new ItemStack(ExternalContent.Blocks.FISK_NEXUS_BRICKS.get(), 8), "bob", "obo", "bob",
-				'b', ModBlocks.DEEPSLATE_BRICKS.newItemStack(1, OreDictionary.WILDCARD_VALUE), 'o', ModBlocks.DEEPSLATE_FISKHEROES_ORE.newItemStack(1, 6));
-
 		ItemStack result = null;
 		if (ModItems.COPPER_INGOT.isEnabled()) {
 			result = ModItems.COPPER_INGOT.newItemStack();
@@ -1236,20 +1233,6 @@ public class ModRecipes {
 				DeepslateOreRegistry.addOre(ExternalContent.Blocks.ARS_MAGICA_2_ORE.get(), ModBlocks.DEEPSLATE_AM2_ORE.get());
 				DeepslateOreRegistry.addOre(ExternalContent.Blocks.ARS_MAGICA_2_ORE.get(), 1, ModBlocks.DEEPSLATE_AM2_ORE.get(), 1);
 				DeepslateOreRegistry.addOre(ExternalContent.Blocks.ARS_MAGICA_2_ORE.get(), 2, ModBlocks.DEEPSLATE_AM2_ORE.get(), 2);
-			}
-			if (ModBlocks.DEEPSLATE_FISKHEROES_ORE.isEnabled()) {
-				addTagsAndDeepslate("Tutridium", ModBlocks.DEEPSLATE_FISKHEROES_ORE.newItemStack());
-				addTagsAndDeepslate("Vibranium", ModBlocks.DEEPSLATE_FISKHEROES_ORE.newItemStack(1, 2));
-				addTagsAndDeepslate("DwarfStar", ModBlocks.DEEPSLATE_FISKHEROES_ORE.newItemStack(1, 3));
-				addTagsAndDeepslate("Olivine", ModBlocks.DEEPSLATE_FISKHEROES_ORE.newItemStack(1, 4));
-				addTagsAndDeepslate("Eternium", ModBlocks.DEEPSLATE_FISKHEROES_ORE.newItemStack(1, 5));
-				DeepslateOreRegistry.addOre(ExternalContent.Blocks.FISK_TUTRIDIUM_ORE.get(), ModBlocks.DEEPSLATE_FISKHEROES_ORE.get());
-				DeepslateOreRegistry.addOre(ExternalContent.Blocks.FISK_TUTRIDIUM_SPECKLED_STONE.get(), 0, ModBlocks.DEEPSLATE_FISKHEROES_ORE.get(), 1);
-				DeepslateOreRegistry.addOre(ExternalContent.Blocks.FISK_VIBRANIUM_ORE.get(), 0, ModBlocks.DEEPSLATE_FISKHEROES_ORE.get(), 2);
-				DeepslateOreRegistry.addOre(ExternalContent.Blocks.FISK_DWARF_STAR_ORE.get(), 0, ModBlocks.DEEPSLATE_FISKHEROES_ORE.get(), 3);
-				DeepslateOreRegistry.addOre(ExternalContent.Blocks.FISK_OLIVINE_ORE.get(), 0, ModBlocks.DEEPSLATE_FISKHEROES_ORE.get(), 4);
-				DeepslateOreRegistry.addOre(ExternalContent.Blocks.FISK_ETERNIUM_ORE.get(), 0, ModBlocks.DEEPSLATE_FISKHEROES_ORE.get(), 5);
-				DeepslateOreRegistry.addOre(ExternalContent.Blocks.FISK_ETERNIUM_INFUSED_STONE.get(), 0, ModBlocks.DEEPSLATE_FISKHEROES_ORE.get(), 6);
 			}
 			if (ModBlocks.DEEPSLATE_DBC_ORE.isEnabled()) {
 				DeepslateOreRegistry.addOre(ExternalContent.Blocks.DBC_WARENAI_ORE.get(), 0, ModBlocks.DEEPSLATE_DBC_ORE.get(), 0);
