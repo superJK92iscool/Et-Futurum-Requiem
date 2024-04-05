@@ -1947,6 +1947,12 @@ public class ServerEventHandler {
 			NO_BURN_ITEMS.add(ModBlocks.WARPED_TRAPDOOR.newItemStack(1, OreDictionary.WILDCARD_VALUE));
 			NO_BURN_ITEMS.add(ModBlocks.CRIMSON_SIGN.newItemStack(1, OreDictionary.WILDCARD_VALUE));
 			NO_BURN_ITEMS.add(ModBlocks.WARPED_SIGN.newItemStack(1, OreDictionary.WILDCARD_VALUE));
+
+			for (ModBlocks bed : ModBlocks.BEDS) {
+				if (bed.isEnabled()) {
+					NO_BURN_ITEMS.add(bed.newItemStack());
+				}
+			}
 		}
 		if (NO_BURN_ITEMS.contains(e.fuel)) {
 			e.burnTime = 0;
