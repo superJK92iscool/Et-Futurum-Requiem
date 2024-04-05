@@ -59,6 +59,10 @@ public enum ModsList {
 		return isLoaded;
 	}
 
+	public String modID() {
+		return modID;
+	}
+
 	public String getVersion() {
 		if (isLoaded()) {
 			if (version == null) {

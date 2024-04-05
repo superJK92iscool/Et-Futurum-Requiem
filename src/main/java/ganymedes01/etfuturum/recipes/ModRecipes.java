@@ -1086,7 +1086,7 @@ public class ModRecipes {
 				//Well it's probably *technically* possible but I don't want to do it, PR an OD remover if you need EFR to do it.
 				//For now just restart your game to clear entries that would no longer get a tag.
 				for (int j = 0; j < 1; j++) { //If it's mythril, we'll run this once more, changing the spelling to mithril to account for both tags.
-					if (!OreDictionary.getOres(type).isEmpty()) { //Make sure an ore is present.
+					if (Utils.listGeneralModdedDeepslateOre(type)) { //Make sure an ore is present.
 //						registerOre(type, ModBlocks.MODDED_DEEPSLATE_ORE.newItemStack(1, i));
 						DeepslateOreRegistry.addOreByOreDict(type, ModBlocks.MODDED_DEEPSLATE_ORE.get(), i);
 						registerOre(type, ModBlocks.MODDED_DEEPSLATE_ORE.newItemStack(1, i));
@@ -1145,7 +1145,7 @@ public class ModRecipes {
 				//Well it's probably *technically* possible but I don't want to do it, PR an OD remover if you need EFR to do it.
 				//For now just restart your game to clear entries that would no longer get a tag.
 				for (int j = 0; j < 1; j++) { //If it's mythril, we'll run this once more, changing the spelling to mithril to account for both tags.
-					if (!OreDictionary.getOres(type).isEmpty() && !OreDictionary.getOres(type.replace("ingot", "ore")).isEmpty()) { //Make sure an ingot AND ore is present
+					if (Utils.listGeneralModdedRawOre(type)) { //Make sure an ingot AND ore is present
 						registerOre(type.replace("ingot", "raw"), new ItemStack(oreItem, 1, i));
 						registerOre(type.replace("ingot", "blockRaw"), new ItemStack(oreBlock, 1, i));
 						if (ConfigFunctions.registerRawItemAsOre) {

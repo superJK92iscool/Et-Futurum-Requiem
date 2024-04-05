@@ -558,18 +558,29 @@ public class Utils {
 	}
 
 	public static boolean enableModdedDeepslateOres() {
-		return enableModdedDeepslateOres(true);
+		return enableModdedDeepslateOres(null);
 	}
 
-	public static boolean enableModdedDeepslateOres(boolean isModLoaded) { //Won't store as static variable to prevent accidental early initialization
-		return ConfigModCompat.moddedDeepslateOres && ConfigBlocksItems.enableDeepslate && ConfigBlocksItems.enableDeepslateOres && isModLoaded;
+	public static boolean enableModdedDeepslateOres(ModsList mod) { //Won't store as static variable to prevent accidental early initialization
+		return ConfigModCompat.moddedDeepslateOres && ConfigBlocksItems.enableDeepslate && ConfigBlocksItems.enableDeepslateOres
+				&& (mod == null || (mod.isLoaded() && !ConfigModCompat.moddedDeepslateOresBlacklist.contains(mod.modID())));
 	}
 
 	public static boolean enableModdedRawOres() {
-		return enableModdedRawOres(true);
+		return enableModdedRawOres(null);
 	}
 
-	public static boolean enableModdedRawOres(boolean isModLoaded) { //Won't store as static variable to prevent accidental early initialization
-		return ConfigBlocksItems.enableRawOres && ConfigModCompat.moddedRawOres && isModLoaded;
+	public static boolean enableModdedRawOres(ModsList mod) { //Won't store as static variable to prevent accidental early initialization
+		return ConfigBlocksItems.enableRawOres && ConfigModCompat.moddedRawOres
+				&& (mod == null || (mod.isLoaded() && !ConfigModCompat.moddedRawOresBlacklist.contains(mod.modID())));
+	}
+
+	public static boolean listGeneralModdedDeepslateOre(String oreDict) {
+		return !ConfigModCompat.moddedDeepslateOresBlacklist.contains(oreDict) && !OreDictionary.getOres(oreDict).isEmpty();
+	}
+
+	public static boolean listGeneralModdedRawOre(String oreDict) {
+		return !ConfigModCompat.moddedRawOresBlacklist.contains(oreDict.replace("ingot", "ore"))
+				&& !OreDictionary.getOres(oreDict).isEmpty() && !OreDictionary.getOres(oreDict.replace("ingot", "ore")).isEmpty();
 	}
 }

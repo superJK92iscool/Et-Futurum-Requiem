@@ -1,9 +1,11 @@
 package ganymedes01.etfuturum.api;
 
 import cpw.mods.fml.common.registry.GameRegistry;
+import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.api.mappings.RegistryMapping;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigModCompat;
 import ganymedes01.etfuturum.core.utils.Logger;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.recipes.ModRecipes;
@@ -87,6 +89,9 @@ public class DeepslateOreRegistry {
 	public static void addOreByOreDict(String oreDict, Block to, int toMeta) {
 		boolean hasBadEntry = false;
 //		HashMap<String, String> ignoredEntries = Maps.newHashMap();
+		if (to == ModBlocks.MODDED_DEEPSLATE_ORE.get() && ConfigModCompat.moddedDeepslateOresBlacklist.contains(oreDict)) {
+			return;
+		}
 		for (ItemStack ore : OreDictionary.getOres(oreDict)) {
 			Block blockToAdd = Block.getBlockFromItem(ore.getItem());
 			if (blockToAdd != to && ModRecipes.validateItems(blockToAdd, to)) {

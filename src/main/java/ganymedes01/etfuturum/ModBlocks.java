@@ -463,24 +463,24 @@ public enum ModBlocks {
 	MODDED_RAW_ORE_BLOCK(Utils.enableModdedRawOres(), new BlockGeneralModdedRawOre(
 			"raw_aluminum_block", "raw_tin_block", "raw_silver_block", "raw_lead_block", "raw_nickel_block", "raw_platinum_block", "raw_mythril_block", "raw_uranium_block",
 			"raw_thorium_block", "raw_tungsten_block", "raw_titanium_block", "raw_zinc_block", "raw_magnesium_block", "raw_boron_block")),
-	RAW_ADAMANTIUM_BLOCK(Utils.enableModdedRawOres(ModsList.SIMPLEORES.isLoaded()), new BlockRawAdamantium()),
+	RAW_ADAMANTIUM_BLOCK(Utils.enableModdedRawOres(ModsList.SIMPLEORES), new BlockRawAdamantium()),
 
 	MODDED_DEEPSLATE_ORE(Utils.enableModdedDeepslateOres(), new BlockGeneralModdedDeepslateOre("deepslate_aluminum_ore", "deepslate_tin_ore", "deepslate_silver_ore", "deepslate_lead_ore",
 			"deepslate_nickel_ore", "deepslate_platinum_ore", "deepslate_mythril_ore", "deepslate_uranium_ore", "deepslate_thorium_ore", "deepslate_tungsten_ore", "deepslate_titanium_ore",
 			"deepslate_zinc_ore", "deepslate_magnesium_ore", "deepslate_boron_ore")),
 
-	DEEPSLATE_CERTUS_QUARTZ_ORE(Utils.enableModdedDeepslateOres(ModsList.APPLIED_ENERGISTICS_2.isLoaded()), new BlockDeepslateCertusQuartzOre()),
-	DEEPSLATE_DRACONIUM_ORE(Utils.enableModdedDeepslateOres(ModsList.DRACONIC_EVOLUTION.isLoaded()), new BlockDeepslateDraconiumOre()),
-	DEEPSLATE_ADAMANTIUM_ORE(Utils.enableModdedDeepslateOres(ModsList.SIMPLEORES.isLoaded()), new BlockDeepslateAdamantiumOre()),
+	DEEPSLATE_CERTUS_QUARTZ_ORE(Utils.enableModdedDeepslateOres(ModsList.APPLIED_ENERGISTICS_2), new BlockDeepslateCertusQuartzOre()),
+	DEEPSLATE_DRACONIUM_ORE(Utils.enableModdedDeepslateOres(ModsList.DRACONIC_EVOLUTION), new BlockDeepslateDraconiumOre()),
+	DEEPSLATE_ADAMANTIUM_ORE(Utils.enableModdedDeepslateOres(ModsList.SIMPLEORES), new BlockDeepslateAdamantiumOre()),
 
-	DEEPSLATE_AM2_ORE(Utils.enableModdedDeepslateOres(ModsList.ARS_MAGICA_2.isLoaded()), new BlockDeepslateArsMagicaOre()),
-	DEEPSLATE_THAUMCRAFT_ORE(Utils.enableModdedDeepslateOres(ModsList.THAUMCRAFT.isLoaded()), new BlockDeepslateThaumcraftOre()),
-	DEEPSLATE_BOP_ORE(Utils.enableModdedDeepslateOres(ModsList.BIOMES_O_PLENTY.isLoaded()), new BlockDeepslateBiomesOPlentyOre()),
-	DEEPSLATE_PROJRED_ORE(Utils.enableModdedDeepslateOres(ModsList.PROJECT_RED_EXPLORATION.isLoaded()), new BlockDeepslateProjectRedOre()),
-	DEEPSLATE_BLUEPOWER_ORE(Utils.enableModdedDeepslateOres(ModsList.BLUEPOWER.isLoaded()), new BlockDeepslateBluePowerOre()),
-	DEEPSLATE_FISKHEROES_ORE(Utils.enableModdedDeepslateOres(ModsList.FISKS_SUPERHEROES.isLoaded()), new BlockDeepslateFiskHeroOre()),
-	DEEPSLATE_DBC_ORE(Utils.enableModdedDeepslateOres(ModsList.DRAGON_BLOCK_C.isLoaded()), new BlockDeepslateDragonBlockOre()),
-	DEEPSLATE_DQ_ORE(Utils.enableModdedDeepslateOres(ModsList.DRAGON_QUEST.isLoaded()), new BlockDeepslateDragonQuestOre()),
+	DEEPSLATE_AM2_ORE(Utils.enableModdedDeepslateOres(ModsList.ARS_MAGICA_2), new BlockDeepslateArsMagicaOre()),
+	DEEPSLATE_THAUMCRAFT_ORE(Utils.enableModdedDeepslateOres(ModsList.THAUMCRAFT), new BlockDeepslateThaumcraftOre()),
+	DEEPSLATE_BOP_ORE(Utils.enableModdedDeepslateOres(ModsList.BIOMES_O_PLENTY), new BlockDeepslateBiomesOPlentyOre()),
+	DEEPSLATE_PROJRED_ORE(Utils.enableModdedDeepslateOres(ModsList.PROJECT_RED_EXPLORATION), new BlockDeepslateProjectRedOre()),
+	DEEPSLATE_BLUEPOWER_ORE(Utils.enableModdedDeepslateOres(ModsList.BLUEPOWER), new BlockDeepslateBluePowerOre()),
+	DEEPSLATE_FISKHEROES_ORE(Utils.enableModdedDeepslateOres(ModsList.FISKS_SUPERHEROES), new BlockDeepslateFiskHeroOre()),
+	DEEPSLATE_DBC_ORE(Utils.enableModdedDeepslateOres(ModsList.DRAGON_BLOCK_C), new BlockDeepslateDragonBlockOre()),
+	DEEPSLATE_DQ_ORE(Utils.enableModdedDeepslateOres(ModsList.DRAGON_QUEST), new BlockDeepslateDragonQuestOre()),
 	;
 
 	public static final ModBlocks[] DOORS = new ModBlocks[]{DOOR_SPRUCE, DOOR_BIRCH, DOOR_JUNGLE, DOOR_ACACIA, DOOR_DARK_OAK, CRIMSON_DOOR, WARPED_DOOR, MANGROVE_DOOR, CHERRY_DOOR, BAMBOO_DOOR};

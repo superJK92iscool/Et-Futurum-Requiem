@@ -108,13 +108,16 @@ public class RawOreRegistry {
 			addOre("oreGold", ModItems.RAW_ORE.get(), 2);
 		}
 		if (Utils.enableModdedRawOres()) {
-			for (ItemGeneralModdedRawOre oreItem : ItemGeneralModdedRawOre.loaded)
-				for (int i = 0; i < oreItem.types.length; i++) {
-					addOre(oreItem.ores[i].replace("ingot", "ore"), ModItems.MODDED_RAW_ORE.get(), i);
-					if (oreItem.ores[i].endsWith("Mythril")) {
-						addOre("oreMithril", ModItems.MODDED_RAW_ORE.get(), i);
+			for (ItemGeneralModdedRawOre oreItem : ItemGeneralModdedRawOre.loaded) {
+				for (int i = 0; i < oreItem.ores.length; i++) {
+					if (Utils.listGeneralModdedRawOre(oreItem.ores[i])) {
+						addOre(oreItem.ores[i].replace("ingot", "ore"), ModItems.MODDED_RAW_ORE.get(), i);
+						if (oreItem.ores[i].endsWith("Mythril")) {
+							addOre("oreMithril", ModItems.MODDED_RAW_ORE.get(), i);
+						}
 					}
 				}
+			}
 		}
 	}
 }

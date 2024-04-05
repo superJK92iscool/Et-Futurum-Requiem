@@ -3,8 +3,8 @@ package ganymedes01.etfuturum.items.rawore.modded;
 import com.google.common.collect.Lists;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.core.utils.IInitAction;
+import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.items.BaseSubtypesItem;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.creativetab.CreativeTabs;
@@ -34,7 +34,7 @@ public class ItemGeneralModdedRawOre extends BaseSubtypesItem implements IInitAc
 	public void getSubItems(Item item, CreativeTabs tabs, List list) {
 		for (int i = 0; i < ores.length; i++) {
 			ItemStack stack = new ItemStack(item, 1, i);
-			if (!EtFuturum.getOreStrings(stack).isEmpty()) {
+			if (Utils.listGeneralModdedRawOre(ores[i])) {
 				list.add(stack);
 			}
 		}

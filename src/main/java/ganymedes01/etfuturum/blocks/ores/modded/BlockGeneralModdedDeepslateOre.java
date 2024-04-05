@@ -3,7 +3,6 @@ package ganymedes01.etfuturum.blocks.ores.modded;
 import com.google.common.collect.Lists;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.blocks.BaseSubtypesBlock;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.core.utils.DummyWorld;
@@ -48,7 +47,7 @@ public class BlockGeneralModdedDeepslateOre extends BaseSubtypesBlock implements
 	public void getSubBlocks(Item item, CreativeTabs tabs, List list) {
 		for (int i = 0; i < ores.length; i++) {
 			ItemStack stack = new ItemStack(item, 1, i);
-			if (!EtFuturum.getOreStrings(stack).isEmpty()) {
+			if (Utils.listGeneralModdedDeepslateOre(ores[i])) {
 				list.add(stack);
 			}
 		}
