@@ -49,7 +49,7 @@ body:
   id: crash
   attributes:
     label: Crash Report
-    description: If your issue is a crash, upload a link to the report here. Any paste website that does not require an account/password to view is fine, but [GitHub Gist](https://gist.github.com) is preferred.
+    description: If your issue is a crash, upload a link to the report here. [GitHub Gist](https://gist.github.com) is preferred, but any non-PasteBin website is acceptable.
     placeholder: "https://gist.github.com/yourname/examplecore"
   validations:
     required: false
@@ -57,7 +57,7 @@ body:
   id: more
   attributes:
     label: Other Details
-    description: Additional details you think are important to provide, if it's a mod conflict, post the mods list here. If this is a worldgen issue, post seed, and coords here. Etc
+    description: Additional details you think are important to provide, if it's a mod conflict, post the mods list here. If this is a worldgen issue, post seed, and coords here. Etc. Please use [GitHub Gist](https://gist.github.com) or other non-PasteBin paste websites to upload logs.
     placeholder: "Insert logs, etc here."
   validations:
     required: false
