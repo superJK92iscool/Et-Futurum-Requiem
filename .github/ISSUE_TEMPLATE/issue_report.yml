@@ -49,8 +49,8 @@ body:
   id: crash
   attributes:
     label: Crash Report
-    description: If your issue is a crash, upload a link to the report here. Any paste website that does not require an account/password to view is fine, but GitHub Gists or https://rentry.co/ is preferred.
-    placeholder: "https://rentry.co/example"
+    description: If your issue is a crash, upload a link to the report here. Any paste website that does not require an account/password to view is fine, but [GitHub Gist](https://gist.github.com) is preferred.
+    placeholder: "https://gist.github.com/yourname/examplecore"
   validations:
     required: false
 - type: textarea
