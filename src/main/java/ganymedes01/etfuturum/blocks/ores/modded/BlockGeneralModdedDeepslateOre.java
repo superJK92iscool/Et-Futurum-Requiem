@@ -47,7 +47,7 @@ public class BlockGeneralModdedDeepslateOre extends BaseSubtypesBlock implements
 	public void getSubBlocks(Item item, CreativeTabs tabs, List list) {
 		for (int i = 0; i < ores.length; i++) {
 			ItemStack stack = new ItemStack(item, 1, i);
-			if (Utils.listGeneralModdedDeepslateOre(ores[i])) {
+			if (Utils.listGeneralModdedDeepslateOre(ores[i]) || Utils.listGeneralModdedDeepslateOre(ores[i].replace("Mythril", "Mithril"))) {
 				list.add(stack);
 			}
 		}

@@ -34,7 +34,7 @@ public class ItemGeneralModdedRawOre extends BaseSubtypesItem implements IInitAc
 	public void getSubItems(Item item, CreativeTabs tabs, List list) {
 		for (int i = 0; i < ores.length; i++) {
 			ItemStack stack = new ItemStack(item, 1, i);
-			if (Utils.listGeneralModdedRawOre(ores[i])) {
+			if (Utils.listGeneralModdedRawOre(ores[i]) || Utils.listGeneralModdedRawOre(ores[i].replace("Mythril", "Mithril"))) {
 				list.add(stack);
 			}
 		}

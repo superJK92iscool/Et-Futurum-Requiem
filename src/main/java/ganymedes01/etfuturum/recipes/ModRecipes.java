@@ -1108,8 +1108,8 @@ public class ModRecipes {
 			ItemGeneralModdedRawOre oreItem = pair.getLeft().get(j);
 			BlockGeneralModdedRawOre oreBlock = pair.getRight().get(j);
 			for (int i = 0; i < oreItem.ores.length; i++) {
-				removeFirstRecipeFor(oreItem, i);
-				removeFirstRecipeFor(oreBlock, i);
+				removeAllEFRRecipesFor(oreItem, i);
+				removeAllEFRRecipesFor(oreBlock, i);
 				ItemStack stack = new ItemStack(oreItem, 1, i);
 				Iterator<ItemStack> iterator = (Iterator<ItemStack>) FurnaceRecipes.smelting().getSmeltingList().keySet().iterator();
 				while (iterator.hasNext()) {
@@ -1141,6 +1141,7 @@ public class ModRecipes {
 				//We have to do this since it is impossible to remove OreDictionary entries.
 				//Well it's probably *technically* possible but I don't want to do it, PR an OD remover if you need EFR to do it.
 				//For now just restart your game to clear entries that would no longer get a tag.
+				boolean registeredRecipe = false;
 				for (int j = 0; j < 1; j++) { //If it's mythril, we'll run this once more, changing the spelling to mithril to account for both tags.
 					if (Utils.listGeneralModdedRawOre(type)) { //Make sure an ingot AND ore is present
 						registerOre(type.replace("ingot", "raw"), new ItemStack(oreItem, 1, i));
@@ -1148,8 +1149,11 @@ public class ModRecipes {
 						if (ConfigFunctions.registerRawItemAsOre) {
 							registerOre(type.replace("ingot", "ore"), new ItemStack(oreItem, 1, i));
 						}
-						addShapedRecipe(new ItemStack(oreBlock, 1, i), "xxx", "xxx", "xxx", 'x', new ItemStack(oreItem, 1, i));
-						addShapedRecipe(new ItemStack(oreItem, 9, i), "x", 'x', new ItemStack(oreBlock, 1, i));
+						if (!registeredRecipe) {
+							addShapedRecipe(new ItemStack(oreBlock, 1, i), "xxx", "xxx", "xxx", 'x', new ItemStack(oreItem, 1, i));
+							addShapedRecipe(new ItemStack(oreItem, 9, i), "x", 'x', new ItemStack(oreBlock, 1, i));
+							registeredRecipe = true;
+						}
 						addSmelting(new ItemStack(oreItem, 1, i), OreDictionary.getOres(type).get(0), 0.7F);
 					}
 					if (type.endsWith("Mythril")) {
@@ -1415,12 +1419,39 @@ public class ModRecipes {
 	}
 
 	private static void removeFirstRecipeFor(Item item, int meta) {
-		for (Object recipe : CraftingManager.getInstance().getRecipeList()) {
+		Iterator<IRecipe> iterator = (Iterator<IRecipe>) CraftingManager.getInstance().getRecipeList().iterator();
+		while (iterator.hasNext()) {
+			IRecipe recipe = iterator.next();
 			if (recipe != null) {
-				ItemStack stack = ((IRecipe) recipe).getRecipeOutput();
+				ItemStack stack = recipe.getRecipeOutput();
 				if (stack != null && stack.getItem() != null && stack.getItem() == item && (meta == OreDictionary.WILDCARD_VALUE || meta == stack.getItemDamage())) {
-					CraftingManager.getInstance().getRecipeList().remove(recipe);
+					iterator.remove();
 					return;
+				}
+			}
+		}
+	}
+
+	private static void removeAllEFRRecipesFor(Block block) {
+		removeAllEFRRecipesFor(Item.getItemFromBlock(block));
+	}
+
+	private static void removeAllEFRRecipesFor(Block block, int meta) {
+		removeAllEFRRecipesFor(Item.getItemFromBlock(block), meta);
+	}
+
+	private static void removeAllEFRRecipesFor(Item item) {
+		removeAllEFRRecipesFor(item, OreDictionary.WILDCARD_VALUE);
+	}
+
+	private static void removeAllEFRRecipesFor(Item item, int meta) {
+		Iterator<IRecipe> iterator = (Iterator<IRecipe>) CraftingManager.getInstance().getRecipeList().iterator();
+		while (iterator.hasNext()) {
+			IRecipe recipe = iterator.next();
+			if ((recipe instanceof ShapedEtFuturumRecipe || recipe instanceof ShapelessEtFuturumRecipe)) {
+				ItemStack stack = recipe.getRecipeOutput();
+				if (stack != null && stack.getItem() != null && stack.getItem() == item && (meta == OreDictionary.WILDCARD_VALUE || meta == stack.getItemDamage())) {
+					iterator.remove();
 				}
 			}
 		}
