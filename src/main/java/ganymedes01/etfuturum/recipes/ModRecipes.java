@@ -218,7 +218,7 @@ public class ModRecipes {
 			registerOre("pressurePlateWood", pressurePlate.get());
 		}
 
-		registerOre("treeSapling", ModBlocks.SAPLING.get());
+		registerOre("treeSapling", ModBlocks.SAPLING.newItemStack(1, OreDictionary.WILDCARD_VALUE));
 
 		for (int i = 0; i < modernWoodTypesEnabled.length; i++) {
 			if (modernWoodTypesEnabled[i]) {
