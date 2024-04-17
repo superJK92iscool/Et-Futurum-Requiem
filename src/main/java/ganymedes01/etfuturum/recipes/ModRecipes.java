@@ -218,6 +218,8 @@ public class ModRecipes {
 			registerOre("pressurePlateWood", pressurePlate.get());
 		}
 
+		registerOre("treeSapling", ModBlocks.SAPLING.get());
+
 		for (int i = 0; i < modernWoodTypesEnabled.length; i++) {
 			if (modernWoodTypesEnabled[i]) {
 				registerOre("plankWood", ModBlocks.WOOD_PLANKS.newItemStack(1, i));
