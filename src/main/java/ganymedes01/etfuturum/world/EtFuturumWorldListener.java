@@ -87,10 +87,11 @@ public class EtFuturumWorldListener implements IWorldAccess {
 
 	@Override
 	public void markBlockForUpdate(int x, int y, int z) {
-		handleBasaltFromLava(x, y, z);
 
-		if (replacements.isEmpty() || !world.blockExists(x, y, z))
+		if (replacements.isEmpty() || !world.blockExists(x, y, z) /*|| !world.getChunkFromBlockCoords(x, z).isChunkLoaded*/)
 			return;
+
+		handleBasaltFromLava(x, y, z);
 
 		Block replacement;
 		TileEntity tile;
