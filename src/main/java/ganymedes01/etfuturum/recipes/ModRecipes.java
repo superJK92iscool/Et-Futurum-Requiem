@@ -233,7 +233,6 @@ public class ModRecipes {
 		registerOre("stairWood", ModBlocks.MANGROVE_STAIRS.get());
 		registerOre("stairWood", ModBlocks.CHERRY_STAIRS.get());
 		registerOre("stairWood", ModBlocks.BAMBOO_STAIRS.get());
-		registerOre("stairWood", ModBlocks.BAMBOO_MOSAIC_STAIRS.get());
 
 		// Log / Bark Variations
 		for (int i = 0; i < 4; i++) {
