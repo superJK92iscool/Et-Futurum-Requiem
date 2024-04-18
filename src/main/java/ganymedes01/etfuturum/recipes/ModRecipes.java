@@ -231,7 +231,12 @@ public class ModRecipes {
 		registerOre("signWood", ModBlocks.CHERRY_SIGN.get());
 		registerOre("signWood", ModBlocks.BAMBOO_SIGN.get());
 
-		registerOre("treeSapling", ModBlocks.SAPLING.newItemStack(1, OreDictionary.WILDCARD_VALUE));
+		if (ConfigExperiments.enableMangroveBlocks) {
+			registerOre("treeSapling", ModBlocks.SAPLING.newItemStack(1, 0));
+		}
+		if (ConfigBlocksItems.enableCherryBlocks) {
+			registerOre("treeSapling", ModBlocks.SAPLING.newItemStack(1, 1));
+		}
 
 		for (int i = 0; i < modernWoodTypesEnabled.length; i++) {
 			if (modernWoodTypesEnabled[i]) {
