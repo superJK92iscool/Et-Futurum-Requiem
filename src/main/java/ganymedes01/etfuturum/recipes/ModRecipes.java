@@ -307,6 +307,16 @@ public class ModRecipes {
 		registerOre("buttonStone", ModBlocks.POLISHED_BLACKSTONE_BUTTON.get());
 		registerOre("pressurePlateStone", ModBlocks.POLISHED_BLACKSTONE_PRESSURE_PLATE.get());
 
+		for (Map.Entry<String, ItemNewBoat.BoatInfo> entry : ItemNewBoat.BOAT_INFO.entrySet()) {
+			String key = entry.getKey();
+			if (key == null) continue;
+			if (key.endsWith("_chest")) {
+				registerOre("boatChestWood", entry.getValue().getBoatItem());
+			} else {
+				registerOre("boatWood", entry.getValue().getBoatItem());
+			}
+		}
+
 		for (String waxString : IDegradable.waxStrings) {
 			registerOre(waxString, ModItems.HONEYCOMB.get());
 		}
@@ -893,7 +903,7 @@ public class ModRecipes {
 			}
 		}
 		if (!ConfigBlocksItems.replaceOldBoats) {
-			addShapelessRecipe(new ItemStack(Items.boat), ModItems.BOATS[0].get());
+			addShapelessRecipe(new ItemStack(Items.boat), "boatWood");
 			addShapelessRecipe(ModItems.BOATS[0].newItemStack(), Items.wooden_shovel, Items.boat);
 		}
 		for (int i = EntityNewBoat.Type.VALUES.length - 1; i >= 0; i--) {
