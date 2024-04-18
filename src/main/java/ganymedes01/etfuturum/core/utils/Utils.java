@@ -519,6 +519,13 @@ public class Utils {
 		block.setLightLevel((float) level / 15F);
 	}
 
+	public static ItemStack getFirstStackFromTag(String type) {
+		if (OreDictionary.getOres(type).isEmpty()) {
+			return null;
+		}
+		return OreDictionary.getOres(type).get(0).copy();
+	}
+
 	public static ItemStack getFirstBlockFromTag(String oreDictTag) {
 		return getFirstBlockFromTag(oreDictTag, null);
 	}

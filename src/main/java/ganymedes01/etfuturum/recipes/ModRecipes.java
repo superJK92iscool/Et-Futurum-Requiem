@@ -1077,11 +1077,11 @@ public class ModRecipes {
 		registerGeneralDeepslateOres();
 		registerModSupportDeepslateOres();
 
-		ItemStack result = null;
+		ItemStack result;
 		if (ModItems.COPPER_INGOT.isEnabled()) {
 			result = ModItems.COPPER_INGOT.newItemStack();
-		} else if (!OreDictionary.getOres("ingotCopper").isEmpty()) {
-			result = OreDictionary.getOres("ingotCopper").get(0);
+		} else {
+			result = Utils.getFirstStackFromTag("ingotCopper");
 		}
 
 		addShapedRecipe(ModBlocks.RAW_ORE_BLOCK.newItemStack(), "xxx", "xxx", "xxx", 'x', ModItems.RAW_ORE.newItemStack());
@@ -1183,7 +1183,7 @@ public class ModRecipes {
 							addShapedRecipe(new ItemStack(oreItem, 9, i), "x", 'x', new ItemStack(oreBlock, 1, i));
 							registeredRecipe = true;
 						}
-						addSmelting(new ItemStack(oreItem, 1, i), OreDictionary.getOres(type).get(0), 0.7F);
+						addSmelting(new ItemStack(oreItem, 1, i), Utils.getFirstStackFromTag(type), 0.7F);
 					}
 					if (type.endsWith("Mythril")) {
 						type = type.replace("Mythril", "Mithril"); //Redoes it once more for mithril spelling
