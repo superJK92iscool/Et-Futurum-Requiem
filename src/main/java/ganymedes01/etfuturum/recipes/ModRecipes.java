@@ -218,6 +218,19 @@ public class ModRecipes {
 			registerOre("pressurePlateWood", pressurePlate.get());
 		}
 
+		registerOre("signWood", Items.sign);
+		registerOre("signWood", ModItems.ITEM_SIGN_SPRUCE.get());
+		registerOre("signWood", ModItems.ITEM_SIGN_BIRCH.get());
+		registerOre("signWood", ModItems.ITEM_SIGN_JUNGLE.get());
+		registerOre("signWood", ModItems.ITEM_SIGN_ACACIA.get());
+		registerOre("signWood", ModItems.ITEM_SIGN_DARK_OAK.get());
+
+		registerOre("signWood", ModBlocks.CRIMSON_SIGN.get());
+		registerOre("signWood", ModBlocks.WARPED_SIGN.get());
+		registerOre("signWood", ModBlocks.MANGROVE_SIGN.get());
+		registerOre("signWood", ModBlocks.CHERRY_SIGN.get());
+		registerOre("signWood", ModBlocks.BAMBOO_SIGN.get());
+
 		registerOre("treeSapling", ModBlocks.SAPLING.newItemStack(1, OreDictionary.WILDCARD_VALUE));
 
 		for (int i = 0; i < modernWoodTypesEnabled.length; i++) {
