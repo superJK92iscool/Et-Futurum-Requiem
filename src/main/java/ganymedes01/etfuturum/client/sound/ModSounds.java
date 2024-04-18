@@ -133,6 +133,20 @@ public class ModSounds {
 			return Block.soundTypeGrass.getStepResourcePath();
 		}
 	}.setDisabledSound(Block.soundTypeGrass);
+	public static final SoundType soundPainting = new CustomSound("painting") {
+		@Override
+		public String getBreakSound() {
+			return Reference.MCAssetVer + ":entity.painting.break";
+		}
+		@Override
+		public String getStepResourcePath() {
+			return Block.soundTypeWood.getStepResourcePath();
+		}
+		@Override
+		public String func_150496_b() {
+			return Reference.MCAssetVer + ":entity.painting.place";
+		}
+	}.setDisabledSound(Block.soundTypeWood);
 
 	public static class CustomSound extends SoundType {
 
@@ -155,7 +169,7 @@ public class ModSounds {
 		}
 
 		public CustomSound(String name) {
-			this(name, 1, 1);
+			this(name, 1f, 1f);
 		}
 
 		@Override

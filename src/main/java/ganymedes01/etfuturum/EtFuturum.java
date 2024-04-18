@@ -401,6 +401,12 @@ public class EtFuturum {
 			Blocks.unpowered_comparator.setStepSound(Block.soundTypeStone);
 			Blocks.sponge.setStepSound(ModSounds.soundSponge);
 		}
+		if (ConfigSounds.paintingItemFramePlacing) {
+			Block block = GameRegistry.findBlock("torchLevers", "paintingDoor");
+			if(block != null) {
+				block.stepSound = ModSounds.soundPainting;
+			}
+		}
 		if (ConfigBlocksItems.enableDyedBeds) {
 			Blocks.bed.blockMaterial = Material.wood;
 			Blocks.bed.setStepSound(Block.soundTypeWood);
