@@ -218,6 +218,21 @@ public class ModRecipes {
 			registerOre("pressurePlateWood", pressurePlate.get());
 		}
 
+		registerOre("signWood", Items.sign);
+		registerOre("signWood", ModItems.ITEM_SIGN_SPRUCE.get());
+		registerOre("signWood", ModItems.ITEM_SIGN_BIRCH.get());
+		registerOre("signWood", ModItems.ITEM_SIGN_JUNGLE.get());
+		registerOre("signWood", ModItems.ITEM_SIGN_ACACIA.get());
+		registerOre("signWood", ModItems.ITEM_SIGN_DARK_OAK.get());
+
+		registerOre("signWood", ModBlocks.CRIMSON_SIGN.get());
+		registerOre("signWood", ModBlocks.WARPED_SIGN.get());
+		registerOre("signWood", ModBlocks.MANGROVE_SIGN.get());
+		registerOre("signWood", ModBlocks.CHERRY_SIGN.get());
+		registerOre("signWood", ModBlocks.BAMBOO_SIGN.get());
+
+		registerOre("treeSapling", ModBlocks.SAPLING.newItemStack(1, OreDictionary.WILDCARD_VALUE));
+
 		for (int i = 0; i < modernWoodTypesEnabled.length; i++) {
 			if (modernWoodTypesEnabled[i]) {
 				registerOre("plankWood", ModBlocks.WOOD_PLANKS.newItemStack(1, i));
@@ -231,7 +246,6 @@ public class ModRecipes {
 		registerOre("stairWood", ModBlocks.MANGROVE_STAIRS.get());
 		registerOre("stairWood", ModBlocks.CHERRY_STAIRS.get());
 		registerOre("stairWood", ModBlocks.BAMBOO_STAIRS.get());
-		registerOre("stairWood", ModBlocks.BAMBOO_MOSAIC_STAIRS.get());
 
 		// Log / Bark Variations
 		for (int i = 0; i < 4; i++) {
@@ -305,6 +319,16 @@ public class ModRecipes {
 		registerOre("cobblestone", ModBlocks.BLACKSTONE.get());
 		registerOre("buttonStone", ModBlocks.POLISHED_BLACKSTONE_BUTTON.get());
 		registerOre("pressurePlateStone", ModBlocks.POLISHED_BLACKSTONE_PRESSURE_PLATE.get());
+
+		for (Map.Entry<String, ItemNewBoat.BoatInfo> entry : ItemNewBoat.BOAT_INFO.entrySet()) {
+			String key = entry.getKey();
+			if (key == null) continue;
+			if (key.endsWith("_chest")) {
+				registerOre("boatChestWood", entry.getValue().getBoatItem());
+			} else {
+				registerOre("boatWood", entry.getValue().getBoatItem());
+			}
+		}
 
 		for (String waxString : IDegradable.waxStrings) {
 			registerOre(waxString, ModItems.HONEYCOMB.get());
@@ -698,10 +722,10 @@ public class ModRecipes {
 			addShapedRecipe(ModBlocks.LANTERN.newItemStack(), "i", "x", 'x', "ingotIron", 'i', Blocks.torch);
 			addShapedRecipe(ModBlocks.SOUL_LANTERN.newItemStack(), "i", "x", 'x', "ingotIron", 'i', ModBlocks.SOUL_TORCH.get());
 		}
-		addShapedRecipe(ModBlocks.SOUL_TORCH.newItemStack(), "i", "x", "s", 'x', "stickWood", 'i', "coal", 's', "soulSand");
-		addShapedRecipe(ModBlocks.SOUL_TORCH.newItemStack(), "i", "x", "s", 'x', "stickWood", 'i', "coal", 's', "soulSoil");
-		addShapedRecipe(ModBlocks.SOUL_TORCH.newItemStack(), "i", "x", "s", 'x', "stickWood", 'i', "charcoal", 's', "soulSand");
-		addShapedRecipe(ModBlocks.SOUL_TORCH.newItemStack(), "i", "x", "s", 'x', "stickWood", 'i', "charcoal", 's', "soulSoil");
+		addShapedRecipe(ModBlocks.SOUL_TORCH.newItemStack(4), "i", "x", "s", 'x', "stickWood", 'i', "coal", 's', "soulSand");
+		addShapedRecipe(ModBlocks.SOUL_TORCH.newItemStack(4), "i", "x", "s", 'x', "stickWood", 'i', "coal", 's', "soulSoil");
+		addShapedRecipe(ModBlocks.SOUL_TORCH.newItemStack(4), "i", "x", "s", 'x', "stickWood", 'i', "charcoal", 's', "soulSand");
+		addShapedRecipe(ModBlocks.SOUL_TORCH.newItemStack(4), "i", "x", "s", 'x', "stickWood", 'i', "charcoal", 's', "soulSoil");
 
 		addShapedRecipe(ModBlocks.BARREL.newItemStack(), "xsx", "x x", "xsx", 'x', "plankWood", 's', "slabWood");
 
@@ -892,7 +916,7 @@ public class ModRecipes {
 			}
 		}
 		if (!ConfigBlocksItems.replaceOldBoats) {
-			addShapelessRecipe(new ItemStack(Items.boat), ModItems.BOATS[0].get());
+			addShapelessRecipe(new ItemStack(Items.boat), "boatWood");
 			addShapelessRecipe(ModItems.BOATS[0].newItemStack(), Items.wooden_shovel, Items.boat);
 		}
 		for (int i = EntityNewBoat.Type.VALUES.length - 1; i >= 0; i--) {
