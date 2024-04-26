@@ -171,19 +171,19 @@ shadowJar {
 }
 
 task shadowJarNoMixin(type: Jar) {
-	dependsOn shadowJar
-	
-	classifier = ''
-	version += '-nomixin'
-	from(zipTree(tasks.shadowJar.archivePath)){
-		exclude "org/spongepowered/**"
-		exclude "META-INF/services/**"
-		exclude "mcmod.info" // we create a different mcmod.info in this task
-	}
-	from(sourceSets.main.resources.srcDirs) {
-		include "mcmod.info"
-		def metaNoMixin = meta.clone()
-		// add +nomixin to the end of the version in mcmod.info
+    dependsOn shadowJar
+
+    classifier = 'nomixin'
+    version += ''
+    from(zipTree(tasks.shadowJar.archivePath)) {
+        exclude "org/spongepowered/**"
+        exclude "META-INF/services/**"
+        exclude "mcmod.info" // we create a different mcmod.info in this task
+    }
+    from(sourceSets.main.resources.srcDirs) {
+        include "mcmod.info"
+        def metaNoMixin = meta.clone()
+        // add +nomixin to the end of the version in mcmod.info
         metaNoMixin['commitVersion'] = meta['commitVersion'] + '-nomixin'
 		expand metaNoMixin.collectEntries { k, v -> [k, v.replaceAll("\u00A7.", "")] } // strip formatting
 	}
@@ -201,16 +201,16 @@ task devJar(type: Jar) {
 }
 
 task devJarNoMixin(type: Jar) {
-	dependsOn devJar
-	
-	classifier = 'dev'
-    version += '-nomixin'
-	from zipTree(tasks.devJar.archivePath)
-	
-	exclude "org/spongepowered/**"
-	exclude "META-INF/services/**"
-	
-	manifest = tasks.shadowJar.manifest
+    dependsOn devJar
+
+    classifier = 'dev-nomixin'
+    version += ''
+    from zipTree(tasks.devJar.archivePath)
+
+    exclude "org/spongepowered/**"
+    exclude "META-INF/services/**"
+
+    manifest = tasks.shadowJar.manifest
 }
 
 if(buildAll) {
