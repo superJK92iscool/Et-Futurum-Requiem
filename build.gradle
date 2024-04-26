@@ -174,7 +174,7 @@ task shadowJarNoMixin(type: Jar) {
 	dependsOn shadowJar
 	
 	classifier = ''
-	version += '+nomixin'
+	version += '-nomixin'
 	from(zipTree(tasks.shadowJar.archivePath)){
 		exclude "org/spongepowered/**"
 		exclude "META-INF/services/**"
@@ -184,7 +184,7 @@ task shadowJarNoMixin(type: Jar) {
 		include "mcmod.info"
 		def metaNoMixin = meta.clone()
 		// add +nomixin to the end of the version in mcmod.info
-		metaNoMixin['commitVersion'] = meta['commitVersion'] + '+nomixin'
+        metaNoMixin['commitVersion'] = meta['commitVersion'] + '-nomixin'
 		expand metaNoMixin.collectEntries { k, v -> [k, v.replaceAll("\u00A7.", "")] } // strip formatting
 	}
 	manifest = tasks.shadowJar.manifest
@@ -204,7 +204,7 @@ task devJarNoMixin(type: Jar) {
 	dependsOn devJar
 	
 	classifier = 'dev'
-	version += '+nomixin'
+    version += '-nomixin'
 	from zipTree(tasks.devJar.archivePath)
 	
 	exclude "org/spongepowered/**"
