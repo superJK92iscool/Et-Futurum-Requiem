@@ -30,6 +30,7 @@ public class BlockLantern extends Block {
 		this.setCreativeTab(EtFuturum.creativeTabBlocks);
 		this.setBlockName(Utils.getUnlocalisedName(name));
 		this.setBlockTextureName(name);
+		this.setLightOpacity(0);
 	}
 
 	@Override
