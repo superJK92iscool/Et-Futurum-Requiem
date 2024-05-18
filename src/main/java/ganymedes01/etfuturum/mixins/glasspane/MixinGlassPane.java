@@ -6,6 +6,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -34,7 +35,14 @@ public abstract class MixinGlassPane extends Block {
 		boolean flag2 = this.canPaneConnectTo(worldIn, posX - 1, posY, posZ, WEST );
 		boolean flag3 = this.canPaneConnectTo(worldIn, posX + 1, posY, posZ, EAST );
 
-		if ((!flag2 || !flag3) && (flag2 || flag3 || flag || flag1))
+		if(!flag && !flag1 && !flag2 && !flag3){
+			this.setBlockBounds(0.4375F, 0.0F, 0.4375F, 0.5625F, 1.0F, 0.5625F);
+			super.addCollisionBoxesToList(worldIn, posX, posY, posZ, bb, boxList, entity);
+			ci.cancel();
+			return;
+		}
+
+		if (!flag2 || !flag3)
 		{
 			if (flag2)
 			{
@@ -87,7 +95,13 @@ public abstract class MixinGlassPane extends Block {
 		boolean flag2 = this.canPaneConnectToBlock(worldIn.getBlock(posX - 1, posY, posZ));
 		boolean flag3 = this.canPaneConnectToBlock(worldIn.getBlock(posX + 1, posY, posZ ));
 
-		if ((!flag2 || !flag3) && (flag2 || flag3 || flag || flag1))
+		if(!flag2 && !flag3 && !flag && !flag1){
+			this.setBlockBounds(f, 0.0F, f2, f1, 1.0F, f3);
+			ci.cancel();
+			return;
+		}
+
+		if (!flag2 || !flag3)
 		{
 			if (flag2)
 			{
@@ -135,4 +149,5 @@ public abstract class MixinGlassPane extends Block {
 	{
 		return blockIN.func_149730_j() || blockIN == this || blockIN == Blocks.glass || blockIN == Blocks.stained_glass || blockIN == Blocks.stained_glass_pane || blockIN instanceof BlockPane;
 	}
+
 }
