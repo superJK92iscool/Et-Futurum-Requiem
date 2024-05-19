@@ -1,4 +1,4 @@
-package ganymedes01.etfuturum.mixins.glasspane;
+package ganymedes01.etfuturum.mixins.thinpanes;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPane;
@@ -66,9 +66,5 @@ public abstract class MixinBlockPane extends Block {
 	}
 
 	@Shadow
-	public final boolean canPaneConnectToBlock(Block blockIN)
-	{
-		return blockIN.func_149730_j() || blockIN == this || blockIN == Blocks.glass || blockIN == Blocks.stained_glass || blockIN == Blocks.stained_glass_pane || blockIN instanceof BlockPane;
-	}
-
+	public final boolean canPaneConnectToBlock(Block blockIN) { return true; }
 }
