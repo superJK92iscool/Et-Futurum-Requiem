@@ -14,7 +14,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import static net.minecraftforge.common.util.ForgeDirection.*;
-import static net.minecraftforge.common.util.ForgeDirection.EAST;
 
 @Mixin(RenderBlocks.class)
 public abstract class MixinRenderBlocks {
@@ -29,8 +28,8 @@ public abstract class MixinRenderBlocks {
     private void remapCollisionsBoxes(BlockPane pane, int posX, int posY, int posZ, CallbackInfoReturnable<Boolean> cir) {
         boolean flag  = pane.canPaneConnectTo(this.blockAccess, posX, posY, posZ - 1, NORTH);
         boolean flag1 = pane.canPaneConnectTo(this.blockAccess, posX, posY, posZ + 1, SOUTH);
-        boolean flag2 = pane.canPaneConnectTo(this.blockAccess, posX - 1, posY, posZ, WEST );
-        boolean flag3 = pane.canPaneConnectTo(this.blockAccess, posX + 1, posY, posZ, EAST );
+        boolean flag2 = pane.canPaneConnectTo(this.blockAccess, posX - 1, posY, posZ, WEST);
+        boolean flag3 = pane.canPaneConnectTo(this.blockAccess, posX + 1, posY, posZ, EAST);
 
         // Not Connected to anything
         if(!flag && !flag1 && !flag2 && !flag3){
