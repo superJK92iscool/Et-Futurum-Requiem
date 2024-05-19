@@ -1,6 +1,5 @@
 package ganymedes01.etfuturum.mixins.glasspane;
 
-import ganymedes01.etfuturum.client.Temp;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPane;
 import net.minecraft.block.BlockStainedGlassPane;
