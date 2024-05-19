@@ -16,8 +16,6 @@ public class ConfigModCompat extends ConfigBase {
 	public static boolean moddedDeepslateOres;
 	public static List<String> moddedDeepslateOresBlacklist;
 
-	public static boolean upToDateCompat;
-
 	static final String catMisc = "misc";
 
 	public ConfigModCompat(File file) {
@@ -41,7 +39,6 @@ public class ConfigModCompat extends ConfigBase {
 		moddedDeepslateOres = getBoolean("moddedDeepslateOres", catMisc, true, "Deepslate ores for modded ores. Adds a set of \"general\" deepslate ores for common metals like \"oreAluminium\", \"oreTin\", etc, as well as explicit support for numerous mods.");
 		moddedDeepslateOresBlacklist = Lists.newArrayList(getStringList("moddedDeepslateOresBlacklist", catMisc, new String[0], "List of modded deepslate ores to disable. Add a ModID or ore dictionary tag. For example adding \"oreTin\" disables deepslate tin, and adding \"SimpleOres\" would disable deepslate adamantium ore. CaSe-SeNsItIvE!" +
 				"\nEach entry is separated by a new line. This only disables deepslate ores added from Et Futurum's end and will not affect deepslate ores from other mods."));
-
-		upToDateCompat = getBoolean("upToDateCompat", catMisc, true, "Enables features other configs would typically disable to help prevent block overlap. This option does nothing if Up To Date is not installed.\n[Stripped, Barks]");
+		System.out.println();
 	}
 }

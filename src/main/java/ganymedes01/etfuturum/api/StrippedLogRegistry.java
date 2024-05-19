@@ -2,9 +2,7 @@ package ganymedes01.etfuturum.api;
 
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.api.mappings.RegistryMapping;
-import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
-import ganymedes01.etfuturum.configuration.configs.ConfigModCompat;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -119,27 +117,26 @@ public class StrippedLogRegistry {
 			}
 		}
 
-		boolean upToDate = ModsList.UPTODATE.isLoaded() && ConfigModCompat.upToDateCompat;
 		if (ModBlocks.MANGROVE_LOG.isEnabled()) {
-			if (ConfigBlocksItems.enableStrippedLogs || upToDate) {
+			if (ConfigBlocksItems.enableStrippedLogs) {
 				addLog(ModBlocks.MANGROVE_LOG.get(), 0, ModBlocks.MANGROVE_LOG.get(), 2);
-				if (ConfigBlocksItems.enableBarkLogs || upToDate) {
+				if (ConfigBlocksItems.enableBarkLogs) {
 					addLog(ModBlocks.MANGROVE_LOG.get(), 1, ModBlocks.MANGROVE_LOG.get(), 3);
 				}
 			}
 		}
 
 		if (ModBlocks.CHERRY_LOG.isEnabled()) {
-			if (ConfigBlocksItems.enableStrippedLogs || upToDate) {
+			if (ConfigBlocksItems.enableStrippedLogs) {
 				addLog(ModBlocks.CHERRY_LOG.get(), 0, ModBlocks.CHERRY_LOG.get(), 2);
-				if (ConfigBlocksItems.enableBarkLogs || upToDate) {
+				if (ConfigBlocksItems.enableBarkLogs) {
 					addLog(ModBlocks.CHERRY_LOG.get(), 1, ModBlocks.CHERRY_LOG.get(), 3);
 				}
 			}
 		}
 
 		if (ModBlocks.BAMBOO_BLOCK.isEnabled()) {
-			if (ConfigBlocksItems.enableStrippedLogs || upToDate) {
+			if (ConfigBlocksItems.enableStrippedLogs) {
 				addLog(ModBlocks.BAMBOO_BLOCK.get(), 0, ModBlocks.BAMBOO_BLOCK.get(), 1);
 			}
 		}
