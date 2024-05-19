@@ -261,7 +261,9 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 
 		if (ConfigMixins.thinPanes) {
 			mixins.add("thinpanes.MixinBlockPane");
-			mixins.add("thinpanes.MixinRenderBlocks");
+			if (side == MixinEnvironment.Side.CLIENT) {
+				mixins.add("thinpanes.MixinRenderBlocks");
+			}
 		}
 
 		return mixins;
