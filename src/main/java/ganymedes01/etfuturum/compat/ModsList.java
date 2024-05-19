@@ -39,6 +39,7 @@ public enum ModsList {
 	FISKS_SUPERHEROES("fiskheroes"),
 	SIMPLEORES("simpleores"),
 	DRAGON_QUEST("DQMIIINext"),
+	UPTODATE("uptodate"),
 
 	NOT_ENOUGH_IDS("neid"),
 	ENDLESS_IDS("endlessids"),
