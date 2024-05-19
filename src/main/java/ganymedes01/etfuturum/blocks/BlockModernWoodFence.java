@@ -23,6 +23,9 @@ import java.util.List;
 
 public class BlockModernWoodFence extends BlockFence implements ISubBlocksBlock {
 
+	public static boolean renderCustom = false;
+
+	private IIcon[] bambooFence = new IIcon[3];
 	final BlockModernWoodPlanks basePlanks;
 	final String[] types;
 
@@ -45,12 +48,25 @@ public class BlockModernWoodFence extends BlockFence implements ISubBlocksBlock 
 	}
 
 	@Override
-	public IIcon getIcon(int p_149691_1_, int p_149691_2_) {
-		return basePlanks.getIcon(p_149691_1_, p_149691_2_);
+	public IIcon getIcon(int side, int meta) {
+		if(meta == 4){
+			if(renderCustom){
+				return bambooFence[2];
+			}
+			if(side < 2){
+				return bambooFence[1];
+			}
+			return bambooFence[0];
+		}
+		return basePlanks.getIcon(side, meta);
 	}
 
 	@Override
-	public void registerBlockIcons(IIconRegister ignored) {}
+	public void registerBlockIcons(IIconRegister registerIcon) {
+		bambooFence[0] = registerIcon.registerIcon("bamboo_fence");
+		bambooFence[1] = registerIcon.registerIcon("bamboo_fence_top");
+		bambooFence[2] = registerIcon.registerIcon("bamboo_fence_side");
+	}
 
 	@Override
 	public int getDamageValue(World p_149643_1_, int p_149643_2_, int p_149643_3_, int p_149643_4_) {
