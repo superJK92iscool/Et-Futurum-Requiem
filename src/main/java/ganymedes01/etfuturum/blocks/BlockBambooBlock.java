@@ -3,7 +3,9 @@ package ganymedes01.etfuturum.blocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.client.sound.ModSounds;
+import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigModCompat;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -26,7 +28,7 @@ public class BlockBambooBlock extends BaseLog {
 	@Override
 	public void getSubBlocks(Item p_149666_1_, CreativeTabs p_149666_2_, List p_149666_3_) {
 		p_149666_3_.add(new ItemStack(p_149666_1_, 1, 0));
-		if (ConfigBlocksItems.enableStrippedLogs) {
+		if (ConfigBlocksItems.enableStrippedLogs || (ModsList.UPTODATE.isLoaded() && ConfigModCompat.upToDateCompat)) {
 			p_149666_3_.add(new ItemStack(p_149666_1_, 1, 1));
 		}
 	}
