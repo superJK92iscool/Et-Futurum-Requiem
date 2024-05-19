@@ -6,7 +6,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -22,9 +21,9 @@ import static net.minecraftforge.common.util.ForgeDirection.*;
 import static net.minecraftforge.common.util.ForgeDirection.EAST;
 
 @Mixin(BlockPane.class)
-public abstract class MixinGlassPane extends Block {
+public abstract class MixinBlockPane extends Block {
 
-	protected MixinGlassPane(Material p_i45394_1_) {
+	protected MixinBlockPane(Material p_i45394_1_) {
 		super(p_i45394_1_);
 	}
 
@@ -39,48 +38,7 @@ public abstract class MixinGlassPane extends Block {
 			this.setBlockBounds(0.4375F, 0.0F, 0.4375F, 0.5625F, 1.0F, 0.5625F);
 			super.addCollisionBoxesToList(worldIn, posX, posY, posZ, bb, boxList, entity);
 			ci.cancel();
-			return;
 		}
-
-		if (!flag2 || !flag3)
-		{
-			if (flag2)
-			{
-				this.setBlockBounds(0.0F, 0.0F, 0.4375F, 0.5F, 1.0F, 0.5625F);
-				super.addCollisionBoxesToList(worldIn, posX, posY, posZ, bb, boxList, entity);
-			}
-			else if (flag3)
-			{
-				this.setBlockBounds(0.5F, 0.0F, 0.4375F, 1.0F, 1.0F, 0.5625F);
-				super.addCollisionBoxesToList(worldIn, posX, posY, posZ, bb, boxList, entity);
-			}
-		}
-		else
-		{
-			this.setBlockBounds(0.0F, 0.0F, 0.4375F, 1.0F, 1.0F, 0.5625F);
-			super.addCollisionBoxesToList(worldIn, posX, posY, posZ, bb, boxList, entity);
-		}
-
-		if ((!flag || !flag1) && (flag2 || flag3 || flag || flag1))
-		{
-			if (flag)
-			{
-				this.setBlockBounds(0.4375F, 0.0F, 0.0F, 0.5625F, 1.0F, 0.5F);
-				super.addCollisionBoxesToList(worldIn, posX, posY, posZ, bb, boxList, entity);
-			}
-			else if (flag1)
-			{
-				this.setBlockBounds(0.4375F, 0.0F, 0.5F, 0.5625F, 1.0F, 1.0F);
-				super.addCollisionBoxesToList(worldIn, posX, posY, posZ, bb, boxList, entity);
-			}
-		}
-		else
-		{
-			this.setBlockBounds(0.4375F, 0.0F, 0.0F, 0.5625F, 1.0F, 1.0F);
-			super.addCollisionBoxesToList(worldIn, posX, posY, posZ, bb, boxList, entity);
-		}
-
-		ci.cancel();
 	}
 
 	@Inject(method = "setBlockBoundsBasedOnState", at = @At("HEAD"), cancellable = true)
@@ -100,43 +58,6 @@ public abstract class MixinGlassPane extends Block {
 			ci.cancel();
 			return;
 		}
-
-		if (!flag2 || !flag3)
-		{
-			if (flag2)
-			{
-				f = 0.0F;
-			}
-			else if (flag3)
-			{
-				f1 = 1.0F;
-			}
-		}
-		else
-		{
-			f = 0.0F;
-			f1 = 1.0F;
-		}
-
-		if ((!flag || !flag1) && (flag2 || flag3 || flag || flag1))
-		{
-			if (flag)
-			{
-				f2 = 0.0F;
-			}
-			else if (flag1)
-			{
-				f3 = 1.0F;
-			}
-		}
-		else
-		{
-			f2 = 0.0F;
-			f3 = 1.0F;
-		}
-
-		this.setBlockBounds(f, 0.0F, f2, f1, 1.0F, f3);
-		ci.cancel();
 	}
 
 	@Shadow
