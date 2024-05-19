@@ -259,7 +259,7 @@ public class EtFuturumMixinPlugin implements IMixinConfigPlugin {
 			}
 		}
 
-		if (ConfigMixins.paneModel) {
+		if (ConfigMixins.thinPanes) {
 			mixins.add("glasspane.MixinBlockPane");
 			mixins.add("glasspane.MixinRenderBlocks");
 		}

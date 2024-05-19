@@ -43,7 +43,7 @@ public class ConfigMixins extends ConfigBase {
 	public static boolean interpolatedTextures;
 	public static boolean hideSingleLevelEnchants;
 	public static boolean fireproofItems;
-	public static boolean paneModel;
+	public static boolean thinPanes;
 
 	static final String catBackport = "backported features";
 	static final String catOptimization = "optimizations";
@@ -104,7 +104,7 @@ public class ConfigMixins extends ConfigBase {
 		betterPistons = getBoolean("betterPistons", catBackport, true, "A port of Back in Slime, similar to how the elytra is a port of Backlytra. Allows pistons to interact with slime blocks. The original author of this is DonBruce64: https://legacy.curseforge.com/minecraft/mc-mods/back-in-slime-slime-blocks-for-1-7.\nModified Classes: net.minecraft.block.BlockPistonBase");
 		soulFire = getBoolean("soulFire", catBackport, true, "Is not a new block, but rather a mixin for fire. Allows fire to stay ignited on soul soil. Does double damage when standing in it, and does not spread to other blocks.\nEven if this is off fire can still stay ignited on soul soil, but do be mindful that fire will spread from soul soil if this option is disabled.\nModified Classes: net.minecraft.block.BlockFire net.minecraft.entity.Entity\nModified Client Classes: net.minecraft.client.renderer.RenderBlocks");
 		fireproofItems = getBoolean("fireproofItems", catBackport, true, "Some items such as Netherite will not burn in fire and will float to the surface of lava.");
-		paneModel = getBoolean("paneModel", catBackport, true, "Panes [Iron Bars, Glass Panes, etc] are changed to a single post if they are not connected to any other blocks");
+		thinPanes = getBoolean("thinPanes", catBackport, true, "Panes [Iron Bars, Glass Panes, etc] are changed to a single post if they are not connected to any other blocks");
 
 		stepHeightFix = getBoolean("stepHeightFix", catFixes, true, "Makes the player able to step up even if a block would be above their head at the destination.\nModified classes: net.minecraft.entity.Entity");
 		arrowFallingFix = getBoolean("arrowFallingFix", catFixes, true, "Prevents arrows from falling off of blocks too easily\nModified classes: net.minecraft.entity.EntityArrow");
