@@ -3,7 +3,9 @@ package ganymedes01.etfuturum.blocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
+import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigModCompat;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.BlockLog;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -49,13 +51,15 @@ public class BaseLog extends BlockLog implements ISubBlocksBlock {
 
 	@Override
 	public void getSubBlocks(Item p_149666_1_, CreativeTabs p_149666_2_, List p_149666_3_) {
+		boolean upToDate = ModsList.UPTODATE.isLoaded() && ConfigModCompat.upToDateCompat;
+		
 		p_149666_3_.add(new ItemStack(p_149666_1_, 1, 0));
-		if (ConfigBlocksItems.enableBarkLogs) {
+		if (ConfigBlocksItems.enableBarkLogs || upToDate) {
 			p_149666_3_.add(new ItemStack(p_149666_1_, 1, 1));
 		}
-		if (ConfigBlocksItems.enableStrippedLogs) {
+		if (ConfigBlocksItems.enableStrippedLogs || upToDate) {
 			p_149666_3_.add(new ItemStack(p_149666_1_, 1, 2));
-			if (ConfigBlocksItems.enableBarkLogs) {
+			if (ConfigBlocksItems.enableBarkLogs || upToDate) {
 				p_149666_3_.add(new ItemStack(p_149666_1_, 1, 3));
 			}
 		}
