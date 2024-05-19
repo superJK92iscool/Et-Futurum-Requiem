@@ -101,16 +101,13 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerBlockHandler(new BlockExtendedCrossedSquaresRenderer());
 		RenderingRegistry.registerBlockHandler(new BlockNewFenceRenderer());
 		RenderingRegistry.registerBlockHandler(new BlockTrapDoorRenderer(RenderIDs.TRAPDOOR));
+		RenderingRegistry.registerBlockHandler(new BlockDoorRenderer(RenderIDs.DOOR));
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityWoodSign.class, new TileEntityWoodSignRenderer());
 
 		if (ModBlocks.SLIME.isEnabled()) {
 			RenderingRegistry.registerBlockHandler(new BlockDoubleCubeRenderer(13, RenderIDs.SLIME_BLOCK));
 		}
-
-		if (ConfigBlocksItems.enableDoors) {
-			RenderingRegistry.registerBlockHandler(new BlockDoorRenderer(RenderIDs.DOOR));
-		}
-
+		
 		if (ModBlocks.BANNER.isEnabled()) {
 			ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBanner.class, new TileEntityBannerRenderer());
 		}
