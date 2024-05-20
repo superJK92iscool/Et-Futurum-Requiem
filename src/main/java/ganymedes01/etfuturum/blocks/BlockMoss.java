@@ -18,7 +18,7 @@ import java.util.Random;
 public class BlockMoss extends BaseBlock implements IGrowable {
 
 	public BlockMoss() {
-		super(Material.plants);
+		super(Material.grass);
 		setHardness(0.1F);
 		setResistance(0.1F);
 		setNames("moss_block");
