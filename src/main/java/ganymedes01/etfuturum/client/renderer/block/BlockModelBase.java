@@ -250,7 +250,7 @@ public abstract class BlockModelBase implements ISimpleBlockRenderingHandler {
 		if (renderer.renderAllFaces || block.shouldSideBeRendered(renderer.blockAccess, x, y - 1, z, 0)) {
 			tessellator.setBrightness(renderer.renderMinY + Math.abs(offy) > 0.0D ? l : block.getMixedBrightnessForBlock(renderer.blockAccess, x, MathHelper.floor_double(y - 1), z));
 			tessellator.setColorOpaque_F(f3, f3, f3);
-			renderer.renderFaceYNeg(block, dx + offx, dy + offy, dz + offz, renderer.getBlockIcon(block, renderer.blockAccess, x, y, z, 0));
+			renderer.renderFaceYNeg(block, dx + offx, dy + offy, dz + offz, icon);
 		}
 	}
 
