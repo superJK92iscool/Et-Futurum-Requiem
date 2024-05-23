@@ -80,8 +80,8 @@ public enum ModItems {
 	MANGROVE_CHEST_BOAT(ConfigBlocksItems.enableNewBoats && ConfigExperiments.enableMangroveBlocks, new ItemNewBoat("minecraft", "mangrove", ModBlocks.WOOD_PLANKS::getItem, 2, true, false)),
 	CHERRY_BOAT(ConfigBlocksItems.enableNewBoats && ConfigBlocksItems.enableCherryBlocks, new ItemNewBoat("minecraft", "cherry", ModBlocks.WOOD_PLANKS::getItem, 3, false, false)),
 	CHERRY_CHEST_BOAT(ConfigBlocksItems.enableNewBoats && ConfigBlocksItems.enableCherryBlocks, new ItemNewBoat("minecraft", "cherry", ModBlocks.WOOD_PLANKS::getItem, 3, true, false)),
-//	BAMBOO_RAFT(ConfigBlocksItems.enableNewBoats, new ItemNewBoat("minecraft", "bamboo", ModBlocks.WOOD_PLANKS::getItem, 4, false, true)),
-//	BAMBOO_CHEST_RAFT(ConfigBlocksItems.enableNewBoats, new ItemNewBoat("minecraft", "bamboo", ModBlocks.WOOD_PLANKS::getItem, 4, true, true)),
+	BAMBOO_RAFT(ConfigBlocksItems.enableNewBoats, new ItemNewBoat("minecraft", "bamboo", ModBlocks.WOOD_PLANKS::getItem, 4, false, true)),
+	BAMBOO_CHEST_RAFT(ConfigBlocksItems.enableNewBoats, new ItemNewBoat("minecraft", "bamboo", ModBlocks.WOOD_PLANKS::getItem, 4, true, true)),
 
 	//legacy sign items -- new signs use their ItemBlock as the sign item instead
 	ITEM_SIGN_SPRUCE(ConfigBlocksItems.enableSigns, new ItemWoodSign((BlockWoodSign) ModBlocks.SIGN_SPRUCE.get())),

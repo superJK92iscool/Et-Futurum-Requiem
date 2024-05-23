@@ -158,8 +158,7 @@ public class EntityNewBoat extends Entity {
 	 * Returns the Y offset from the entity's position for any entity riding this one.
 	 */
 	public double getMountedYOffset() {
-		return 0;
-//        return -0.1D;
+		return isRaft() ? 0.3D : 0;
 	}
 
 	public double getYOffset() {

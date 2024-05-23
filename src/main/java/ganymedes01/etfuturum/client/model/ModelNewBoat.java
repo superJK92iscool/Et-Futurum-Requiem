@@ -8,8 +8,8 @@ import net.minecraft.util.MathHelper;
 import org.lwjgl.opengl.GL11;
 
 public class ModelNewBoat extends ModelBase {
-	public ModelRenderer[] boatSides = new ModelRenderer[5];
-	public ModelRenderer[] paddles = new ModelRenderer[2];
+	public final ModelRenderer[] boatSides;
+	public final ModelRenderer[] paddles;
 
 	/**
 	 * Part of the model rendered to make it seem like there's no water in the boat
@@ -17,6 +17,16 @@ public class ModelNewBoat extends ModelBase {
 	public ModelRenderer noWater;
 
 	public ModelNewBoat() {
+		this(new ModelRenderer[5], new ModelRenderer[2]);
+	}
+
+	public ModelNewBoat(ModelRenderer[] boatSides, ModelRenderer[] paddles) {
+		this.boatSides = boatSides;
+		this.paddles = paddles;
+		setupModel();
+	}
+
+	protected void setupModel() {
 		this.boatSides[0] = (new ModelRenderer(this, 0, 0)).setTextureSize(128, 64);
 		this.boatSides[1] = (new ModelRenderer(this, 0, 19)).setTextureSize(128, 64);
 		this.boatSides[2] = (new ModelRenderer(this, 0, 27)).setTextureSize(128, 64);
@@ -62,7 +72,7 @@ public class ModelNewBoat extends ModelBase {
 		EntityNewBoat entityboat = (EntityNewBoat) entityIn;
 		this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 
-		for (int i = 0; i < 5; ++i) {
+		for (int i = 0; i < boatSides.length; ++i) {
 			this.boatSides[i].render(scale);
 		}
 

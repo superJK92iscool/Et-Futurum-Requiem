@@ -14,7 +14,10 @@ public class ChestBoatRenderer extends NewBoatRenderer {
 		if (boat instanceof EntityNewBoatWithChest) {
 			GL11.glRotatef(180f, 0f, 1f, 0f);
 			GL11.glScalef(0.8f, 0.8f, 0.8f);
-			GL11.glTranslatef(-0.5f, ((EntityNewBoatWithChest) boat).getChestHeight(), -1.1f);
+			GL11.glTranslatef(
+					((EntityNewBoatWithChest) boat).getChestXOffset(),
+					((EntityNewBoatWithChest) boat).getChestHeight(),
+					((EntityNewBoatWithChest) boat).getChestZOffset());
 			TileEntityRendererDispatcher.instance.renderTileEntityAt(chest, 0, 0, 0, partialTicks);
 		}
 	}

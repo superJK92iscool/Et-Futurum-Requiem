@@ -195,10 +195,18 @@ public class EntityNewBoatWithChest extends EntityNewBoat implements IInventory 
 
 	@Override
 	protected float getDefaultRiderOffset() {
-		return -0.2f;
+		return 0.2f;
 	}
 
 	public float getChestHeight() {
-		return -0.2f;
+		return isRaft() ? 0.15625f : -0.2f;
+	}
+
+	public float getChestXOffset() {
+		return isRaft() ? -0.46875f : -0.5f;
+	}
+
+	public float getChestZOffset() {
+		return isRaft() ? -1.15f : -1.1f;
 	}
 }
