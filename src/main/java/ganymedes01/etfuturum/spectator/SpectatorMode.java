@@ -7,6 +7,7 @@ import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.relauncher.Side;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.core.utils.helpers.SafeEnumHelperClient;
+import ganymedes01.etfuturum.entities.EntityNewBoatWithChest;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.resources.I18n;
@@ -14,8 +15,10 @@ import net.minecraft.client.settings.GameSettings;
 import net.minecraft.command.IEntitySelector;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.inventory.IInvBasic;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -23,10 +26,7 @@ import net.minecraft.tileentity.TileEntityEnderChest;
 import net.minecraft.world.WorldSettings;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
-import net.minecraftforge.event.entity.player.AttackEntityEvent;
-import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.entity.player.*;
 import net.minecraftforge.event.world.BlockEvent;
 
 import java.util.Map;
@@ -70,7 +70,7 @@ public class SpectatorMode {
 		return player instanceof EntityPlayerMP && ((EntityPlayerMP) player).theItemInWorldManager.getGameType() == SPECTATOR_GAMETYPE;
 	}
 
-	@SubscribeEvent
+	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public void onInteract(PlayerInteractEvent event) {
 		if (isSpectator(event.entityPlayer)) {
 			if (event.action != PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) {
@@ -88,21 +88,21 @@ public class SpectatorMode {
 		}
 	}
 
-	@SubscribeEvent
+	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public void onInteract(BlockEvent.PlaceEvent event) {
 		if (isSpectator(event.player)) {
 			event.setCanceled(true);
 		}
 	}
 
-	@SubscribeEvent
+	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public void onItemPickup(EntityItemPickupEvent event) {
 		if (isSpectator(event.entityPlayer)) {
 			event.setCanceled(true);
 		}
 	}
 
-	@SubscribeEvent
+	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public void onInteract(AttackEntityEvent event) {
 		if (isSpectator(event.entityPlayer)) {
 			if (!SPECTATING_ENTITIES.containsKey(event.entityPlayer)) {
@@ -115,10 +115,41 @@ public class SpectatorMode {
 		}
 	}
 
+
+	@SubscribeEvent(priority = EventPriority.HIGHEST)
+	public void onInteract(EntityInteractEvent event) {
+		if (isSpectator(event.entityPlayer)) {
+			if (!event.entityPlayer.worldObj.isRemote && !(event.target instanceof EntityPlayer)) {
+				if (event.target instanceof IInvBasic || event.target instanceof IInventory) {
+					openInv(event.entityPlayer, event.target);
+				}
+			}
+			event.setCanceled(true);
+		}
+	}
+
+	private void openInv(EntityPlayer player, Entity target) {
+		boolean prevSneaking = player.isSneaking();
+		//Special cases for interacting with entities that perform a different action (eg sit)
+		//So we do things like make the game think the player is sneaking so it opens the inventory without having the spectator sneak.
+		if (target instanceof EntityNewBoatWithChest) {
+			player.setSneaking(true); //We need to be sneaking to open the GUI
+		} else if (target instanceof EntityHorse) {
+			if (((EntityHorse) target).isAdultHorse() && ((EntityHorse) target).isTame()) {
+				player.setSneaking(true); //We need to be sneaking to open the GUI
+			} else {
+				//You can't access the inventory of a non-tamed horse so we skip this one.
+				return;
+			}
+		}
+		target.interactFirst(player);
+		player.setSneaking(prevSneaking);
+	}
+
 	private final Map<EntityPlayer, Boolean> prevIsSpecClient = new WeakHashMap<>();
 	private final Map<EntityPlayer, Boolean> prevIsSpecServer = new WeakHashMap<>();
 
-	@SubscribeEvent
+	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public void onPlayerTick(TickEvent.PlayerTickEvent event) {
 		if (event.phase == TickEvent.Phase.START) {
 			/*
@@ -134,6 +165,10 @@ public class SpectatorMode {
 				event.player.noClip = true;
 				event.player.onGround = false;
 				event.player.setInvisible(true);
+				if (event.player.ridingEntity != null) {
+					event.player.dismountEntity(event.player.ridingEntity);
+					event.player.ridingEntity = null;
+				}
 			} else if (prevIsSpec.getOrDefault(event.player, false)) {
 				//Do it this way so we don't manage these states for non-spectators, so mods can change it freely.
 				event.player.noClip = false;
@@ -173,7 +208,7 @@ public class SpectatorMode {
 		}
 	}
 
-	@SubscribeEvent
+	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public void breakSpeed(PlayerEvent.BreakSpeed event) {
 		if (isSpectator(event.entityPlayer)) {
 			if (event.entityPlayer.worldObj.isRemote) {
