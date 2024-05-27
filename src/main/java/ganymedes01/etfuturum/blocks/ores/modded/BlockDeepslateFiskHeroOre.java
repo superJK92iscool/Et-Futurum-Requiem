@@ -19,7 +19,7 @@ public class BlockDeepslateFiskHeroOre extends BaseSubtypesDeepslateOre implemen
 	}
 
 	@Override
-	protected Block getBase(int meta) {
+	public Block getBase(int meta) {
 		switch (meta) {
 			case 1:
 				return ExternalContent.Blocks.FISK_TUTRIDIUM_SPECKLED_STONE.get();

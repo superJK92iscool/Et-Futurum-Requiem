@@ -16,7 +16,7 @@ public class BlockDeepslateDraconiumOre extends BaseDeepslateOre {
 	}
 
 	@Override
-	protected Block getBase() {
+	public Block getBase() {
 		return ExternalContent.Blocks.DRACONIUM_ORE.get();
 	}
 }

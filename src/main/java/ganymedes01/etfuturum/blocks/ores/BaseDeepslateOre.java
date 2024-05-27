@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.blocks.ores;
 
+import com.google.common.collect.Lists;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModBlocks;
@@ -24,6 +25,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public abstract class BaseDeepslateOre extends BaseBlock implements IInitAction {
@@ -234,10 +236,19 @@ public abstract class BaseDeepslateOre extends BaseBlock implements IInitAction 
 		return Reference.MOD_ID;
 	}
 
-	protected abstract Block getBase();
+	public abstract Block getBase();
 
-	protected int getBaseMeta() {
+	public int getBaseMeta() {
 		return 0;
+	}
+
+	public static final List<BaseDeepslateOre> loaded = Lists.newLinkedList();
+
+	@Override
+	public void postInitAction() {
+		if (!getBase().getClass().getName().contains("net.minecraft.block") && getBase() != ModBlocks.COPPER_ORE.get()) {
+			loaded.add(this);
+		}
 	}
 
 	@Override

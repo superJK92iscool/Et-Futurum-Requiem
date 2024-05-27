@@ -15,12 +15,12 @@ public class BlockDeepslateBiomesOPlentyOre extends BaseSubtypesDeepslateOre {
 	}
 
 	@Override
-	protected Block getBase(int meta) {
+	public Block getBase(int meta) {
 		return ExternalContent.Blocks.BOP_GEM_ORE.get();
 	}
 
 	@Override
-	protected int getBaseMeta(int meta) {
+	public int getBaseMeta(int meta) {
 		switch (meta) {
 			case 0:
 				return 2;

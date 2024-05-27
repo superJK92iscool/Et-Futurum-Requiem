@@ -16,7 +16,7 @@ public class BlockDeepslateAdamantiumOre extends BaseDeepslateOre {
 	}
 
 	@Override
-	protected Block getBase() {
+	public Block getBase() {
 		return ExternalContent.Blocks.SIMPLEORES_ADAMANTIUM_ORE.get();
 	}
 }

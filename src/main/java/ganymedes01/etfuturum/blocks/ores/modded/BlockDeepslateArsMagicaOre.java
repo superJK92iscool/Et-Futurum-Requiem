@@ -15,12 +15,12 @@ public class BlockDeepslateArsMagicaOre extends BaseSubtypesDeepslateOre {
 	}
 
 	@Override
-	protected Block getBase(int meta) {
+	public Block getBase(int meta) {
 		return ExternalContent.Blocks.ARS_MAGICA_2_ORE.get();
 	}
 
 	@Override
-	protected int getBaseMeta(int meta) {
+	public int getBaseMeta(int meta) {
 		return meta;
 	}
 }

@@ -59,7 +59,7 @@ public class BlockDeepslateOre extends BaseDeepslateOre {
 	}
 
 	@Override
-	protected Block getBase() {
+	public Block getBase() {
 		return base;
 	}
 

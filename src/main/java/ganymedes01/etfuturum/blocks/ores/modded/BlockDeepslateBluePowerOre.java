@@ -15,7 +15,7 @@ public class BlockDeepslateBluePowerOre extends BaseSubtypesDeepslateOre {
 	}
 
 	@Override
-	protected Block getBase(int meta) {
+	public Block getBase(int meta) {
 		switch (meta) {
 			case 1:
 				return ExternalContent.Blocks.BP_RUBY_ORE.get();

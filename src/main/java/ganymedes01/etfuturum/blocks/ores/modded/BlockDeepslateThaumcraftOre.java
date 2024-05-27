@@ -104,12 +104,12 @@ public class BlockDeepslateThaumcraftOre extends BaseSubtypesDeepslateOre implem
 	}
 
 	@Override
-	protected Block getBase(int meta) {
+	public Block getBase(int meta) {
 		return ExternalContent.Blocks.THAUMCRAFT_ORE.get();
 	}
 
 	@Override
-	protected int getBaseMeta(int meta) {
+	public int getBaseMeta(int meta) {
 		return meta;
 	}
 }

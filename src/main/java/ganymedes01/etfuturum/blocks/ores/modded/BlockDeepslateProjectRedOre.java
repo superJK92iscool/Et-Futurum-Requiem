@@ -15,12 +15,12 @@ public class BlockDeepslateProjectRedOre extends BaseSubtypesDeepslateOre {
 	}
 
 	@Override
-	protected Block getBase(int meta) {
+	public Block getBase(int meta) {
 		return ExternalContent.Blocks.PROJECT_RED_ORE.get();
 	}
 
 	@Override
-	protected int getBaseMeta(int meta) {
+	public int getBaseMeta(int meta) {
 		if (meta == 3) {
 			return 6;
 		}

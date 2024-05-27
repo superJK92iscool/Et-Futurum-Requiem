@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.blocks.ores;
 
+import com.google.common.collect.Lists;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModBlocks;
@@ -24,6 +25,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public abstract class BaseSubtypesDeepslateOre extends BaseSubtypesBlock implements IInitAction {
@@ -220,9 +222,9 @@ public abstract class BaseSubtypesDeepslateOre extends BaseSubtypesBlock impleme
 		return getBase(metadata).canSilkHarvest(world, player, x, y, z, getBaseMeta(metadata));
 	}
 
-	protected abstract Block getBase(int meta);
+	public abstract Block getBase(int meta);
 
-	protected int getBaseMeta(int meta) {
+	public int getBaseMeta(int meta) {
 		return 0;
 	}
 
@@ -250,6 +252,13 @@ public abstract class BaseSubtypesDeepslateOre extends BaseSubtypesBlock impleme
 	@Override
 	public float getExplosionResistance(Entity par1Entity, World world, int x, int y, int z, double explosionX, double explosionY, double explosionZ) {
 		return resistances[Math.min(world.getBlockMetadata(x, y, z), resistances.length - 1)];
+	}
+
+	public static final List<BaseSubtypesDeepslateOre> loaded = Lists.newLinkedList();
+
+	@Override
+	public void postInitAction() {
+		loaded.add(this);
 	}
 
 	@Override

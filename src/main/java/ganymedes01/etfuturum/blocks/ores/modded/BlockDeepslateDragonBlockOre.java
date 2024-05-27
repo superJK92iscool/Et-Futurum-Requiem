@@ -11,7 +11,7 @@ public class BlockDeepslateDragonBlockOre extends BaseSubtypesDeepslateOre {
 	}
 
 	@Override
-	protected Block getBase(int meta) {
+	public Block getBase(int meta) {
 		switch (meta) {
 			case 1:
 				return ExternalContent.Blocks.DBC_JJAY_ORE.get();

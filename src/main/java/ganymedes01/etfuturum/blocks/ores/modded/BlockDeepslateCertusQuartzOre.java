@@ -19,7 +19,7 @@ public class BlockDeepslateCertusQuartzOre extends BaseSubtypesDeepslateOre impl
 	}
 
 	@Override
-	protected Block getBase(int meta) {
+	public Block getBase(int meta) {
 		if (meta == 1) {
 			return ExternalContent.Blocks.AE2_CHARGED_CERTUS_QUARTZ_ORE.get();
 		}
