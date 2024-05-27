@@ -1068,6 +1068,7 @@ public class ModRecipes {
 			DeepslateOreRegistry.addOreByOreDict("oreCopper", ModBlocks.DEEPSLATE_COPPER_ORE.get());
 			DeepslateOreRegistry.addOreByOreDict("oreIron", ModBlocks.DEEPSLATE_IRON_ORE.get());
 			DeepslateOreRegistry.addOreByOreDict("oreGold", ModBlocks.DEEPSLATE_GOLD_ORE.get());
+			DeepslateOreRegistry.addOreByOreDict("oreRedstone", ModBlocks.DEEPSLATE_REDSTONE_ORE.get());
 		}
 
 		addTagsAndDeepslate("Coal", ModBlocks.DEEPSLATE_COAL_ORE.newItemStack());
@@ -1077,6 +1078,7 @@ public class ModRecipes {
 		addTagsAndDeepslate("Copper", ModBlocks.DEEPSLATE_COPPER_ORE.newItemStack());
 		addTagsAndDeepslate("Iron", ModBlocks.DEEPSLATE_IRON_ORE.newItemStack());
 		addTagsAndDeepslate("Gold", ModBlocks.DEEPSLATE_GOLD_ORE.newItemStack());
+		addTagsAndDeepslate("Redstone", ModBlocks.DEEPSLATE_REDSTONE_ORE.newItemStack());
 
 		registerGeneralDeepslateOres();
 		registerModSupportDeepslateOres();
