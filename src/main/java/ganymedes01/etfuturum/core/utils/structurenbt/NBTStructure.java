@@ -15,6 +15,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.World;
+import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraftforge.common.util.ForgeDirection;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
@@ -242,26 +243,34 @@ public class NBTStructure {
 	}
 
 	public final boolean placeStructure(World world, Random rand, int x, int y, int z, ForgeDirection facing, float integrity, int paletteIndex) {
+		return placeStructure(world, rand, x, y, z, facing, integrity, paletteIndex, null);
+	}
+
+	public final boolean placeStructure(World world, Random rand, int x, int y, int z, ForgeDirection facing, float integrity, int paletteIndex, StructureBoundingBox box) {
 		Map<BlockPos, BlockStateContainer> blockSet = buildMaps[paletteIndex][getIntFromFacing(facing)];
-		Map<BlockPos, BlockStateContainer> entitySet = new HashMap<>(); //Yes entities are stored in the BlockState class for simplicity because I don't want the map to use Object...
+		Map<BlockPos, BlockStateContainer> entitySet = new HashMap<>(); //Yes entities are stored in the BlockState class for simplicity.
 		for (Map.Entry<BlockPos, BlockStateContainer> entry : blockSet.entrySet()) {
-			if (entry.getValue().getType() == BlockStateContainer.BlockStateType.ENTITY) { //We want to do entities last
-				entitySet.put(entry.getKey(), entry.getValue());
+			if (entry.getValue().getType() == BlockStateContainer.BlockStateType.ENTITY) { //We want to do entities last, after all blocks are already placed
+				entitySet.put(entry.getKey(), entry.getValue()); //Put the entity in a list to place it later. This is so stuff like item frames or shulkers are less likely to pop off
 				continue;
 			}
 			BlockPos pos = entry.getKey();
-			setBlockState(world, rand, pos.getX() + x, pos.getY() + y, pos.getZ() + z, entry.getValue(), integrity);
+			if (box == null || box.isVecInside(pos.getX() + x, pos.getY() + y, pos.getZ() + z)) {
+				setBlockState(world, rand, pos.getX() + x, pos.getY() + y, pos.getZ() + z, entry.getValue(), integrity);
+			}
 		}
 		for (Map.Entry<BlockPos, BlockStateContainer> entry : entitySet.entrySet()) {
-			Entity entity = entry.getValue().createNewEntity(world);
 			BlockPos pos = entry.getKey();
-			entity.readFromNBT(entry.getValue().getCompound());
-			onEntityCreated(entity, entry.getValue().getCompound(), x, y, z, pos, facing);
-			world.spawnEntityInWorld(entity);
+			if (box == null || box.isVecInside(pos.getX() + x, pos.getY() + y, pos.getZ() + z)) {
+				Entity entity = entry.getValue().createNewEntity(world);
+				entity.readFromNBT(entry.getValue().getCompound());
+				onEntityCreated(entity, entry.getValue().getCompound(), x, y, z, pos, facing);
+				world.spawnEntityInWorld(entity);
 //			Logger.info(entity.posX + " " + entity.posY + " " + entity.posZ + " " + world.getBlock((int) entity.posX, (int) entity.posY, (int) entity.posZ).getUnlocalizedName());
 //			if (entity instanceof EntityShulker) {
 //				Logger.info(((EntityShulker) entity).getAttachmentPos().toString());
 //			}
+			}
 		}
 		return true;
 	}
@@ -474,7 +483,7 @@ public class NBTStructure {
 	}
 
 	/**
-	 * Ran four times for each direction, for each palette. This populates four different versions of the palette for the different rotations.
+	 * Ran four times for each direction, for each palette. This populates four different versions of the structure, for each palette, for the different rotations.
 	 * <p>
 	 * NOTE: If the palette entry is minecraft:structure_block it doesn't matter what you put here, it's handled later because they store special data.
 	 * I recommend you don't map it to anything, or just set it to null as it won't make a difference.
