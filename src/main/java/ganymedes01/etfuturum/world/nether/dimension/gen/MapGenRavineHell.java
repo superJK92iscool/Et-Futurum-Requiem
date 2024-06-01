@@ -13,7 +13,6 @@ import java.util.Random;
 public class MapGenRavineHell extends MapGenRavine {
 
 	private final float[] field_75046_d = new float[1024];
-	private static final String __OBFID = "CL_00000390";
 
 	/**
 	 * We have to replace the whole function because we need to change some loops inside to do 128 height instead of 256 height.
