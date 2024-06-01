@@ -1,17 +1,17 @@
 [
 {
   "modid": "etfuturum",
-  "name": "${name}",
-  "description": "${description}",
-  "version": "${commitVersion}",
-  "mcversion": "${mcversion}",
-  "url": "${url}",
+  "name": "${modName}",
+  "description": "§9Brings the future to now, for real this time.",
+  "version": "${modVersion}",
+  "mcversion": "${minecraftVersion}",
+  "url": "§7https://www.curseforge.com/minecraft/mc-mods/et-futurum-requiem",
   "updateUrl": "",
   "authorList": [
-    "${authorList}"
+    "§9ganymedes01", "§bRoadhog360", "§aembeddedt", "§ajss2a98aj", "§amakamys", "§aKryptonCaptain"
   ],
-  "credits": "${credits}",
-  "logoFile": "${logoFile}",
+  "credits": "§bDelirusCrux, AstroTibs",
+  "logoFile": "assets/etfuturum/logo.png",
   "screenshots": [],
   "dependencies": []
 }

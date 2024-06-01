@@ -9,8 +9,6 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 import java.util.Random;
 
 public class WorldGenSoulFire extends WorldGenerator {
-	private static final String __OBFID = "CL_00000412";
-
 	public WorldGenSoulFire() {
 	}
 

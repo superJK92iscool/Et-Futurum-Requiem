@@ -8,8 +8,6 @@ import java.util.LinkedList;
 import java.util.Random;
 
 public class StructureMesaMineshaftStart extends StructureMineshaftStart {
-	private static final String __OBFID = "CL_00000450";
-
 	public StructureMesaMineshaftStart() {
 	}
 
