@@ -24,9 +24,6 @@ The mod requires [UniMixins](https://modrinth.com/mod/unimixins), more specifica
 
 ## Contributing
 
-Mixin code will not work if you do not
-add `--tweakClass org.spongepowered.asm.launch.MixinTweaker --mixin mixins.etfuturum.json` to your program arguments.
-
 To enable incomplete test features, add `-Detfuturum.testing=true` to your JVM arguments. This also enables a debug item
 if you're running the game in a development environment.
 
@@ -37,6 +34,8 @@ The following flags can be added to the Gradle build command to modify the build
 * `-Pall`: build all variations of the mod: normal, dev, nomixin, and dev-nomixin.
 * `-PuseCommitHashInVersion`: include commit hash in version string. Used by the CI.
 
+*The below is legacy information and is only kept for documentation purposes.*
+
 ### About `nomixin` builds (Obsolete)
 
 From versions 2.4.1 to 2.6.0, the mod came in two flavors:
@@ -46,4 +45,6 @@ From versions 2.4.1 to 2.6.0, the mod came in two flavors:
 * The version marked with `nomixin` doesn't embed Mixin, which lets it avoid these problems. But it requires a
   separate [Mixin bootstrap mod](https://gist.github.com/makamys/7cb74cd71d93a4332d2891db2624e17c#mixin-bootstrap-mods)
   to be installed in order to run. If you have one installed already, getting this version is recommended.
-* *This is legacy information and is only kept for documentation purposes.*
+
+From those versions, mixin code will also not work if you do not
+add `--tweakClass org.spongepowered.asm.launch.MixinTweaker --mixin mixins.etfuturum.json` to your program arguments.
