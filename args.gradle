@@ -1,0 +1,5 @@
+minecraft { //Add your Java launch args here
+//     extraRunJvmArguments.add("-Detfuturum.testing=true")
+//     extraRunJvmArguments.add("--username Roadhog360") //I do it this way because I don't like doing it in settings.gradle; I don't want everyone to be me by default, doing it this way allows you to change it
+    extraRunJvmArguments.add("-Xmx2048m", "-Xms2048m")
+}

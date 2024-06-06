@@ -3,3 +3,9 @@
 plugins {
     id 'com.gtnewhorizons.gtnhconvention'
 }
+
+minecraft {
+    extraRunJvmArguments.add("-Detfuturum.testing=true")
+}
+
+apply from: 'args.gradle'

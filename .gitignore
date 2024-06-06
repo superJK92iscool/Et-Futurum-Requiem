@@ -85,3 +85,5 @@ logs/
 saves/
 options.txt
 usernamecache.json
+
+/*.kate-swp
