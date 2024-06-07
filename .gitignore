@@ -87,3 +87,4 @@ options.txt
 usernamecache.json
 
 /*.kate-swp
+addon.local.gradle
