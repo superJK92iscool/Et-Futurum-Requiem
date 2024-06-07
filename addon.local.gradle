@@ -1,0 +1,6 @@
+minecraft { //Add your Java launch args here
+    extraRunJvmArguments.add("-Detfuturum.testing=true")
+    extraRunJvmArguments.add("-Xmx2048m") //2GB by default because 6 is excessive
+    extraRunJvmArguments.add("-Xms2048m")
+    minecraft.username = "Roadhog360"
+}
