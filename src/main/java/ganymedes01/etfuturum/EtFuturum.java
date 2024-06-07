@@ -88,7 +88,10 @@ public class EtFuturum {
 	public static CreativeTabs creativeTabItems = new CreativeTabs(Reference.MOD_ID + ".items") {
 		@Override
 		public Item getTabIconItem() {
-			return ConfigBlocksItems.enableNetherite ? ModItems.NETHERITE_SCRAP.get() : ConfigBlocksItems.enablePrismarine ? ModItems.PRISMARINE_SHARD.get() : Items.magma_cream;
+			return  ModItems.RAW_ORE.isEnabled() ? ModItems.RAW_ORE.get()
+					: ModItems.NETHERITE_SCRAP.isEnabled() ? ModItems.NETHERITE_SCRAP.get()
+					: ModItems.PRISMARINE_SHARD.isEnabled() ? ModItems.PRISMARINE_SHARD.get()
+					: Items.magma_cream;
 		}
 
 		@SideOnly(Side.CLIENT)
@@ -113,7 +116,11 @@ public class EtFuturum {
 	public static CreativeTabs creativeTabBlocks = new CreativeTabs(Reference.MOD_ID + ".blocks") {
 		@Override
 		public Item getTabIconItem() {
-			return ConfigBlocksItems.enableSmoker ? Item.getItemFromBlock(ModBlocks.SMOKER.get()) : ConfigBlocksItems.enableChorusFruit ? Item.getItemFromBlock(ModBlocks.CHORUS_FLOWER.get()) : Item.getItemFromBlock(Blocks.ender_chest);
+			return ModBlocks.COPPER_BLOCK.isEnabled() ? ModBlocks.COPPER_BLOCK.getItem()
+					: ModBlocks.CHERRY_LOG.isEnabled() ? ModBlocks.CHERRY_LOG.getItem()
+					: ModBlocks.SMOKER.isEnabled() ? ModBlocks.SMOKER.getItem()
+					: ModBlocks.CHORUS_FLOWER.isEnabled() ? ModBlocks.CHORUS_FLOWER.getItem()
+					: Item.getItemFromBlock(Blocks.ender_chest);
 		}
 
 		@SideOnly(Side.CLIENT)
