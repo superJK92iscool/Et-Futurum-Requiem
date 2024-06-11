@@ -46,7 +46,7 @@ public class RegistryMapping<T> {
 
 	@Override
 	public int hashCode() {
-		return object.hashCode() + (meta == OreDictionary.WILDCARD_VALUE ? 0 : meta + 1);
+		return object.hashCode(); // Do not hash meta so wildcards and metas all get placed into the same bucket
 	}
 
 	/**
