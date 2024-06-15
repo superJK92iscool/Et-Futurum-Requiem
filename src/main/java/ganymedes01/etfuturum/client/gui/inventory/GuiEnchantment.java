@@ -28,7 +28,7 @@ import java.util.Random;
 @SideOnly(Side.CLIENT)
 public class GuiEnchantment extends GuiContainer {
 
-	private static final ResourceLocation field_147078_C = Utils.getResource(Reference.MOD_ID + ":textures/gui/container/enchanting_table.png");
+	private final ResourceLocation TEXTURE;
 	private static final ResourceLocation field_147070_D = Utils.getResource("textures/entity/enchanting_table_book.png");
 	private static final ModelBook field_147072_E = new ModelBook();
 	private final InventoryPlayer field_175379_F;
@@ -59,8 +59,12 @@ public class GuiEnchantment extends GuiContainer {
 		field_147075_G = (ContainerEnchantment) inventorySlots;
 		field_175380_I = p_i45502_3_;
 
+		TEXTURE = Utils.getResource(
+				field_147075_G.noFuel ? "textures/gui/container/enchanting_table.png" :
+						Reference.MOD_ID + ":textures/gui/container/enchanting_table.png");
+
 		displayStacks = new ArrayList<>(EnchantingFuelRegistry.getFuels().keySet());
-		if (!displayStacks.isEmpty()) {
+		if (displayStacks.size() > 1) {
 			for (int i = 1; i < displayStacks.size(); i++) {
 				ItemStack stack = displayStacks.get(i);
 				if (LAPIS.isItemEqual(stack)) {
@@ -69,8 +73,8 @@ public class GuiEnchantment extends GuiContainer {
 					break;
 				}
 			}
-			displayItem = displayStacks.get(0);
 		}
+		displayItem = field_147075_G.noFuel ? LAPIS : displayStacks.get(0);
 	}
 
 	/**
@@ -118,7 +122,7 @@ public class GuiEnchantment extends GuiContainer {
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
 		OpenGLHelper.colour(1, 1, 1);
-		mc.getTextureManager().bindTexture(field_147078_C);
+		mc.getTextureManager().bindTexture(TEXTURE);
 		int k = (width - xSize) / 2;
 		int l = (height - ySize) / 2;
 		drawTexturedModalRect(k, l, 0, 0, xSize, ySize);
@@ -182,7 +186,7 @@ public class GuiEnchantment extends GuiContainer {
 			byte var16 = 86;
 			String s = EnchantmentNameParts.instance.generateNewRandomName();
 			zLevel = 0.0F;
-			mc.getTextureManager().bindTexture(field_147078_C);
+			mc.getTextureManager().bindTexture(TEXTURE);
 			int j1 = field_147075_G.enchantLevels[i1];
 			OpenGLHelper.colour(1.0F, 1.0F, 1.0F);
 
@@ -237,7 +241,7 @@ public class GuiEnchantment extends GuiContainer {
 			if (func_146978_c(60, 14 + 19 * var6, 108, 17, mouseX, mouseY) && var7 > 0 && var8 >= 0) {
 				ArrayList<Object> var10 = Lists.newArrayList();
 				String var11;
-				if (Enchantment.enchantmentsList[var8 & 255] != null) {
+				if (Enchantment.enchantmentsList[var8 % Enchantment.enchantmentsList.length] != null) {
 					var11 = Enchantment.enchantmentsList[var8 & 255].getTranslatedName((var8 & 65280) >> 8);
 					var10.add(EnumChatFormatting.WHITE.toString() + EnumChatFormatting.ITALIC + I18n.format("container.enchant.clue", var11));
 				}
@@ -248,11 +252,7 @@ public class GuiEnchantment extends GuiContainer {
 					if (mc.thePlayer.experienceLevel < var7)
 						var10.add(EnumChatFormatting.RED + I18n.format("container.enchant.level.required") + ": " + field_147075_G.enchantLevels[var6]);
 					else {
-						var11 = "";
-
-						if (EnchantingFuelRegistry.getFuels().isEmpty()) {
-							var11 = StatCollector.translateToLocal("container.enchant.rusrs");
-						} else {
+						if (displayStacks.size() > 1) {
 							if (viewingTicks > 40) {
 								viewingTicks = 0;
 								ArrayList<ItemStack> tempList = new ArrayList<>(displayStacks);
@@ -260,30 +260,23 @@ public class GuiEnchantment extends GuiContainer {
 								displayItem = tempList.get(displayRand.nextInt(tempList.size()));
 								//We don't want to display the same item name twice in a row (because then it looks like it's being displayed for a longer time)
 							}
+						}
+						if (!field_147075_G.noFuel) {
+							String name;
 
-							String name = displayItem.getUnlocalizedName() + ".name";
-							String prefix = name.equals("container.enchant.lapis.one") ? "" : "%s ";
-							String text1 = prefix + StatCollector.translateToLocal(name);
-							String text2 = prefix + StatCollector.translateToLocal(name.equals("item.dyePowder.blue.name") ? "container.enchant.lapis.one" : name);
-
-							if (var9 == 1) {
-								var11 = String.format(text1, 1);
+							if (displayItem.isItemEqual(LAPIS)) {
+								name = StatCollector.translateToLocal("container.enchant.lapis." + (var9 > 1 ? "many" : "one"));
 							} else {
-								var11 = String.format(text2, var9);
+								name = "%s " + StatCollector.translateToLocal(displayItem.getUnlocalizedName() + ".name");
 							}
+
+							var11 = String.format(name, var9);
+							var10.add((var5 >= var9 ? EnumChatFormatting.GRAY : EnumChatFormatting.RED) + var11);
 						}
 
-						if (var5 >= var9)
-							var10.add(EnumChatFormatting.GRAY + "" + var11);
-						else
-							var10.add(EnumChatFormatting.RED + "" + var11);
+						var11 = I18n.format(var9 == 1 ? "container.enchant.level.one" : "container.enchant.level.many", var9);
 
-						if (var9 == 1)
-							var11 = I18n.format("container.enchant.level.one");
-						else
-							var11 = I18n.format("container.enchant.level.many", var9);
-
-						var10.add(EnumChatFormatting.GRAY + "" + var11);
+						var10.add(EnumChatFormatting.GRAY + var11);
 					}
 				}
 

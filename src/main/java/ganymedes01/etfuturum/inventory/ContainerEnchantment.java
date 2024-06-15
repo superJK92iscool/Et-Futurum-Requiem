@@ -20,7 +20,7 @@ import java.util.Random;
 
 public class ContainerEnchantment extends Container {
 
-	public static final Map<String, Integer> seeds = new HashMap<String, Integer>();
+	public static final Map<String, Integer> seeds = new HashMap<>();
 
 	/**
 	 * SlotEnchantmentTable object with ItemStack to be enchanted
@@ -44,15 +44,12 @@ public class ContainerEnchantment extends Container {
 	public int[] enchantLevels;
 	public int[] field_178151_h;
 
+	public final boolean noFuel;
+
 	public ContainerEnchantment(InventoryPlayer inventory, World world, int x, int y, int z) {
 		tableInventory = new InventoryBasic("Enchant", true, 2) {
 
-			@Override
-			public int getInventoryStackLimit() {
-				return 64;
-			}
-
-			@Override
+            @Override
 			public void markDirty() {
 				super.markDirty();
 				ContainerEnchantment.this.onCraftMatrixChanged(this);
@@ -66,33 +63,33 @@ public class ContainerEnchantment extends Container {
 		field_178151_h = new int[]{-1, -1, -1};
 		this.world = world;
 		enchantmentSeed = getEnchantSeed(inventory.player);
-		addSlotToContainer(new Slot(tableInventory, 0, 15, 47) {
+		noFuel = EnchantingFuelRegistry.getFuels().isEmpty();
+		addSlotToContainer(new Slot(tableInventory, 0, noFuel ? 25 : 15, 47) {
 
-			@Override
-			public boolean isItemValid(ItemStack stack) {
-				return true;
-			}
-
-			@Override
+            @Override
 			public int getSlotStackLimit() {
 				return 1;
 			}
 		});
-		addSlotToContainer(new Slot(tableInventory, 1, 35, 47) {
-
-			@Override
-			public boolean isItemValid(ItemStack stack) {
-				return EnchantingFuelRegistry.isFuel(stack);
-			}
-		});
+		if (!noFuel) {
+			addSlotToContainer(new Slot(tableInventory, 1, 35, 47) {
+				@Override
+				public boolean isItemValid(ItemStack stack) {
+					return EnchantingFuelRegistry.isFuel(stack);
+				}
+			});
+		}
 		int var4;
 
-		for (var4 = 0; var4 < 3; ++var4)
-			for (int var5 = 0; var5 < 9; ++var5)
+		for (var4 = 0; var4 < 3; ++var4) {
+			for (int var5 = 0; var5 < 9; ++var5) {
 				addSlotToContainer(new Slot(inventory, var5 + var4 * 9 + 9, 8 + var5 * 18, 84 + var4 * 18));
+			}
+		}
 
-		for (var4 = 0; var4 < 9; ++var4)
+		for (var4 = 0; var4 < 9; ++var4) {
 			addSlotToContainer(new Slot(inventory, var4, 8 + var4 * 18, 142));
+		}
 	}
 
 	private static void setEnchantSeed(EntityPlayer player, int seed) {
@@ -174,14 +171,14 @@ public class ContainerEnchantment extends Container {
 					for (j = -1; j <= 1; ++j)
 						for (int k = -1; k <= 1; ++k)
 							if ((j != 0 || k != 0) && world.isAirBlock(posX + k, posY, posZ + j) && world.isAirBlock(posX + k, posY + 1, posZ + j)) {
-								power += ForgeHooks.getEnchantPower(world, posX + k * 2, posY, posZ + j * 2);
-								power += ForgeHooks.getEnchantPower(world, posX + k * 2, posY + 1, posZ + j * 2);
+								power += (int) ForgeHooks.getEnchantPower(world, posX + k * 2, posY, posZ + j * 2);
+								power += (int) ForgeHooks.getEnchantPower(world, posX + k * 2, posY + 1, posZ + j * 2);
 
 								if (k != 0 && j != 0) {
-									power += ForgeHooks.getEnchantPower(world, posX + k * 2, posY, posZ + j);
-									power += ForgeHooks.getEnchantPower(world, posX + k * 2, posY + 1, posZ + j);
-									power += ForgeHooks.getEnchantPower(world, posX + k, posY, posZ + j * 2);
-									power += ForgeHooks.getEnchantPower(world, posX + k, posY + 1, posZ + j * 2);
+									power += (int) ForgeHooks.getEnchantPower(world, posX + k * 2, posY, posZ + j);
+									power += (int) ForgeHooks.getEnchantPower(world, posX + k * 2, posY + 1, posZ + j);
+									power += (int) ForgeHooks.getEnchantPower(world, posX + k, posY, posZ + j * 2);
+									power += (int) ForgeHooks.getEnchantPower(world, posX + k, posY + 1, posZ + j * 2);
 								}
 							}
 
@@ -278,7 +275,7 @@ public class ContainerEnchantment extends Container {
 
 	public int func_178147_e() {
 		ItemStack var1 = tableInventory.getStackInSlot(1);
-		return var1 == null ? 0 : var1.stackSize;
+		return var1 == null ? (noFuel ? Integer.MAX_VALUE : 0) : var1.stackSize;
 	}
 
 	/**
@@ -314,12 +311,12 @@ public class ContainerEnchantment extends Container {
 			var3 = var5.copy();
 
 			if (index == 0) {
+				if (!mergeItemStack(var5, 2, noFuel ? 37 : 38, true))
+					return null;
+			} else if (!noFuel && index == 1) {
 				if (!mergeItemStack(var5, 2, 38, true))
 					return null;
-			} else if (index == 1) {
-				if (!mergeItemStack(var5, 2, 38, true))
-					return null;
-			} else if (EnchantingFuelRegistry.isFuel(var5)) {
+			} else if (!noFuel && EnchantingFuelRegistry.isFuel(var5)) {
 				if (!mergeItemStack(var5, 1, 2, true))
 					return null;
 			} else {
