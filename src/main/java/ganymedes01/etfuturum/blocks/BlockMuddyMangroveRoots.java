@@ -8,6 +8,7 @@ import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.BlockRotatedPillar;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.EnumPlantType;
@@ -28,8 +29,8 @@ public class BlockMuddyMangroveRoots extends BlockRotatedPillar {
 	}
 
 	@Override
-	public boolean canSustainPlant(IBlockAccess world, int x, int y, int z, ForgeDirection direction, IPlantable plantable) {
-		return direction == ForgeDirection.UP && plantable.getPlantType(world, x, y, z) == EnumPlantType.Plains;
+	public boolean canSustainPlant(IBlockAccess world, int x, int y, int z, ForgeDirection direction, IPlantable plant) {
+		return Blocks.dirt.canSustainPlant(world, x, y, z, direction, plant);
 	}
 
 	@Override
