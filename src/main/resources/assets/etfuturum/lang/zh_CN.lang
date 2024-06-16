@@ -29,8 +29,6 @@ commands.etfuturum.fill.success=成功地填充了%d个方块
 
 # Containers/GUI
 container.etfuturum.banner=旗帜
-#This happens if someone removes lapis as a fuel with CT and does not add anything else
-container.enchant.rusrs=没有可用的燃料 ಠ_ಠ
 container.enchant.lapis.one=花费：1个青金石
 container.enchant.lapis.many=花费：%d个青金石
 container.enchant.level.required=等级要求
@@ -414,7 +412,6 @@ tile.etfuturum.chiseled_red_sandstone.name=錾制红砂岩
 tile.etfuturum.cut_red_sandstone.name=平滑红砂岩
 tile.etfuturum.red_sandstone_slab.name=红砂岩台阶
 tile.etfuturum.cut_red_sandstone_slab.name=切制红砂岩台阶
-tile.etfuturum.smooth_red_sandstone_slab.name=平滑红砂岩台阶
 tile.etfuturum.red_sandstone_stairs.name=红砂岩楼梯
 tile.etfuturum.red_mushroom.name=蘑菇
 tile.etfuturum.brown_mushroom.name=蘑菇
