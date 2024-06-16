@@ -28,8 +28,6 @@ commands.etfuturum.fill.outOfWorld=Cannot place blocks outside of world
 commands.etfuturum.fill.success=Successfully filled %d block(s)
 
 # Containers/GUI
-#This happens if someone removes lapis as a fuel with CT and does not add anything else				 
-container.enchant.rusrs=No fuels available ಠ_ಠ
 container.enchant.lapis.one=1 Lapis Lazuli
 container.enchant.lapis.many=%d Lapis Lazuli
 container.enchant.level.required=Level Requirement
@@ -405,7 +403,6 @@ tile.etfuturum.chiseled_red_sandstone.name=Chiseled Red Sandstone
 tile.etfuturum.cut_red_sandstone.name=Cut Red Sandstone
 tile.etfuturum.red_sandstone_slab.name=Red Sandstone Slab
 tile.etfuturum.cut_red_sandstone_slab.name=Cut Red Sandstone Slab
-tile.etfuturum.smooth_red_sandstone_slab.name=Smooth Red Sandstone Slab
 tile.etfuturum.red_sandstone_stairs.name=Red Sandstone Stairs
 tile.etfuturum.red_mushroom.name=Mushroom
 tile.etfuturum.brown_mushroom.name=Mushroom
