@@ -241,13 +241,16 @@ public class GuiEnchantment extends GuiContainer {
 			if (func_146978_c(60, 14 + 19 * var6, 108, 17, mouseX, mouseY) && var7 > 0 && var8 >= 0) {
 				ArrayList<Object> var10 = Lists.newArrayList();
 				String var11;
-				if (Enchantment.enchantmentsList[var8 % Enchantment.enchantmentsList.length] != null) {
-					var11 = Enchantment.enchantmentsList[var8 & 255].getTranslatedName((var8 & 65280) >> 8);
+				Enchantment ench = Enchantment.enchantmentsList[var8 % Enchantment.enchantmentsList.length];
+				if (ench != null) {
+					var11 = ench.getTranslatedName((var8) >> 8);
 					var10.add(EnumChatFormatting.WHITE.toString() + EnumChatFormatting.ITALIC + I18n.format("container.enchant.clue", var11));
 				}
 
 				if (!var4) {
-					var10.add("");
+					if(ench != null) {
+						var10.add("");
+					}
 
 					if (mc.thePlayer.experienceLevel < var7)
 						var10.add(EnumChatFormatting.RED + I18n.format("container.enchant.level.required") + ": " + field_147075_G.enchantLevels[var6]);
