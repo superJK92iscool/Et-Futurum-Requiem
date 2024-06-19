@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.blocks;
 
+import com.google.common.collect.Maps;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
@@ -10,12 +11,14 @@ import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 public class BaseSlab extends BlockSlab implements ISubBlocksBlock {
@@ -133,10 +136,7 @@ public class BaseSlab extends BlockSlab implements ISubBlocksBlock {
 	public String func_150002_b(int meta) {
 		String type = getTypes()[Math.max(0, (meta % 8) % getTypes().length)];
 		type = ("".equals(type) ? getUnlocalizedName().replace("tile.", "").replace("etfuturum.", "") : type);
-		if (type.toLowerCase().endsWith("bricks") || type.toLowerCase().endsWith("tiles")) {
-			type = type.substring(0, type.length() - 1);
-		}
-		return type + "_slab";
+		return type.replace("bricks", "brick").replace("tiles", "tile") + "_slab";
 	}
 
 	@Override
@@ -169,5 +169,42 @@ public class BaseSlab extends BlockSlab implements ISubBlocksBlock {
 	@Override
 	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_) {
 		return Item.getItemFromBlock(singleSlab);
+	}
+
+	private final Map<Integer, Float> hardnesses = Maps.newHashMap();
+	private final Map<Integer, Float> resistances = Maps.newHashMap();
+
+	@Override
+	public float getBlockHardness(World worldIn, int x, int y, int z) {
+		return hardnesses.getOrDefault(worldIn.getBlockMetadata(x, y, z), super.getBlockHardness(worldIn, x, y, z));
+	}
+
+	public BaseSlab setHardnessValues(float hardness, int... metas) {
+		if(metas.length == 0) {
+			setHardness(hardness);
+		} else for(int meta : metas) {
+			hardnesses.put(meta + 8, hardness);
+			hardnesses.put(meta, hardness);
+		}
+		return this;
+	}
+
+	@Override
+	public float getExplosionResistance(Entity par1Entity, World world, int x, int y, int z, double explosionX, double explosionY, double explosionZ) {
+		Float resistance = resistances.get(world.getBlockMetadata(x, y, z));
+		if(resistance != null) {
+			return resistance / 5.0F;
+		}
+		return super.getExplosionResistance(par1Entity, world, x, y, z, explosionX, explosionY, explosionZ);
+	}
+
+	public BaseSlab setResistanceValues(float resistance, int... metas) {
+		if(metas.length == 0) {
+			setResistance(resistance);
+		} else for(int meta : metas) {
+			resistances.put(meta + 8, resistance);
+			resistances.put(meta, resistance);
+		}
+		return this;
 	}
 }

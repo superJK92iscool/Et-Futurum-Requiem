@@ -6,6 +6,7 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockFarmland;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
@@ -70,6 +71,15 @@ public class BlockStonecutter extends Block {
 				break;
 		}
 		p_149689_1_.setBlockMetadataWithNotify(p_149689_2_, p_149689_3_, p_149689_4_, ordinal, 2);
+	}
+
+	@SideOnly(Side.CLIENT)
+	public boolean shouldSideBeRendered(IBlockAccess p_149646_1_, int p_149646_2_, int p_149646_3_, int p_149646_4_, int p_149646_5_) {
+		Block block = p_149646_1_.getBlock(p_149646_2_, p_149646_3_, p_149646_4_);
+		if (block instanceof BlockStonecutter && p_149646_5_ > 1) {
+			return false;
+		}
+		return super.shouldSideBeRendered(p_149646_1_, p_149646_2_, p_149646_3_, p_149646_4_, p_149646_5_);
 	}
 
 	@Override

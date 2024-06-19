@@ -16,6 +16,9 @@ public class ExternalContent {
 		CFB_SOUL_CAMPFIRE_BASE(() -> GameRegistry.findBlock("campfirebackport", "soul_campfire_base")),
 
 		TCON_GRAVEL_ORE(() -> GameRegistry.findBlock("TConstruct", "GravelOre")),
+		TCON_MULTIBRICK(() -> GameRegistry.findBlock("TConstruct", "decoration.multibrick")),
+		TCON_MULTIBRICK_FANCY(() -> GameRegistry.findBlock("TConstruct", "decoration.multibrickfancy")),
+		TCON_METAL(() -> GameRegistry.findBlock("TConstruct", "MetalBlock")),
 
 		NATURA_HEAT_SAND(() -> GameRegistry.findBlock("Natura", "heatsand")),
 		NATURA_TAINTED_SOIL(() -> GameRegistry.findBlock("Natura", "soil.tainted")),

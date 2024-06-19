@@ -607,6 +607,9 @@ public class ClientEventHandler {
 				}
 				return Reference.MCAssetVer + ":block.wooden_door." + closeOrOpen;
 			} else if (block.getMaterial() == Material.iron) {
+				if (block.stepSound == ModSounds.soundCopper) {
+					return Reference.MCAssetVer + ":block.copper_door." + closeOrOpen;
+				}
 				return Reference.MCAssetVer + ":block.iron_door." + closeOrOpen;
 			}
 		}
@@ -624,6 +627,9 @@ public class ClientEventHandler {
 				}
 				return Reference.MCAssetVer + ":block.wooden_trapdoor." + closeOrOpen;
 			} else if (block.getMaterial() == Material.iron) {
+				if (block.stepSound == ModSounds.soundCopper) {
+					return Reference.MCAssetVer + ":block.copper_trapdoor." + closeOrOpen;
+				}
 				return Reference.MCAssetVer + ":block.iron_trapdoor." + closeOrOpen;
 			}
 		}

@@ -17,25 +17,24 @@ import net.minecraft.world.World;
 
 import java.util.Random;
 
-public class BlockWoodDoor extends BlockDoor {
+public class BaseDoor extends BlockDoor {
 
-	public BlockWoodDoor(String type) {
-		super(Material.wood);
-
+	public BaseDoor(Material material, String type) {
+		super(material);
 		disableStats();
 		setHardness(3.0F);
 		setBlockTextureName(type + "_door");
 		setBlockName(Utils.getUnlocalisedName(type + "_door"));
 		setCreativeTab(EtFuturum.creativeTabBlocks);
-		if (type.equals("crimson") || type.equals("warped")) {
-			Utils.setBlockSound(this, ModSounds.soundNetherWood);
-		} else if (type.equals("cherry")) {
-			Utils.setBlockSound(this, ModSounds.soundCherryWood);
-		} else if (type.equals("bamboo")) {
-			Utils.setBlockSound(this, ModSounds.soundBambooWood);
-		} else {
-			setStepSound(Block.soundTypeWood);
-		}
+	}
+
+	public BaseDoor(String type) {
+		this(Material.wood, type);
+	}
+
+	public BaseDoor setBlockSound(SoundType type) {
+		Utils.setBlockSound(this, type);
+		return this;
 	}
 
 	@Override

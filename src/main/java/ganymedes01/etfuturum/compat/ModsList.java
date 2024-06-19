@@ -40,6 +40,7 @@ public enum ModsList {
 	SIMPLEORES("simpleores"),
 	DRAGON_QUEST("DQMIIINext"),
 
+	NOTFINE("notfine"),
 	NOT_ENOUGH_IDS("neid"),
 	ENDLESS_IDS("endlessids"),
 	MC_PATCHER_FORGE("mcpatcherforge"),

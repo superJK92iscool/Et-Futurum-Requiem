@@ -25,14 +25,6 @@ The mod requires [UniMixins](https://modrinth.com/mod/unimixins), more specifica
 ## Contributing
 
 To enable incomplete test features, add `-Detfuturum.testing=true` to your JVM arguments. This also enables a debug item
-if you're running the game in a development environment.
-
-### Build flags
-
-The following flags can be added to the Gradle build command to modify the build.
-
-* `-Pall`: build all variations of the mod: normal, dev, nomixin, and dev-nomixin.
-* `-PuseCommitHashInVersion`: include commit hash in version string. Used by the CI.
 
 *The below is legacy information and is only kept for documentation purposes.*
 

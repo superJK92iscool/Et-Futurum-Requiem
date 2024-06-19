@@ -28,6 +28,9 @@ public class MixinSoundManager_Attenuation {
 		CUSTOM_ATTENUATION_VALUES.put(Reference.MCAssetVer + ":entity.bee.loop_aggressive", 10F);
 		CUSTOM_ATTENUATION_VALUES.put(Reference.MCAssetVer + ":entity.bee.pollinate", 12F);
 
+		CUSTOM_ATTENUATION_VALUES.put(Reference.MCAssetVer + ":block.copper_bulb.turn_on", 6F);
+		CUSTOM_ATTENUATION_VALUES.put(Reference.MCAssetVer + ":block.copper_bulb.turn_off", 6F);
+
 		CUSTOM_ATTENUATION_VALUES.put("minecraft:portal.portal", 10F);
 	}
 

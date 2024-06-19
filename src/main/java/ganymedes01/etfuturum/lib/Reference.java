@@ -16,7 +16,7 @@ public class Reference {
 	public static final String CURSEFORGE_URL = "https://www.curseforge.com/minecraft/mc-mods/et-futurum-requiem";
 	public static final String GITHUB_URL = "https://github.com/Roadhog360/Et-Futurum-Requiem";
 
-	public static final String MCAssetVer = "minecraft_1.20.2";
+	public static final String MCAssetVer = "minecraft_1.21";
 
 	public static final String ITEM_BLOCK_TEXTURE_PATH = MOD_ID + ":";
 	public static final String ARMOUR_TEXTURE_PATH = ITEM_BLOCK_TEXTURE_PATH + "textures/models/armor/";

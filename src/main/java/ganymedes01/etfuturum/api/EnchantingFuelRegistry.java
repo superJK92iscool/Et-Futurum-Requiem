@@ -59,7 +59,7 @@ public class EnchantingFuelRegistry {
 	}
 
 	public static boolean isFuel(ItemStack fuel) {
-		return FUEL_REGISTRY.contains(fuel);
+		return FUEL_REGISTRY.isEmpty() || FUEL_REGISTRY.contains(fuel);
 	}
 
 	public static ItemStackSet getFuels() {

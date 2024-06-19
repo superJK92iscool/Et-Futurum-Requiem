@@ -1,15 +1,19 @@
 package ganymedes01.etfuturum.blocks;
 
+import com.google.common.collect.Maps;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.World;
 
 import java.util.List;
+import java.util.Map;
 
 public class BaseSubtypesBlock extends BaseBlock implements ISubBlocksBlock {
 	@SideOnly(Side.CLIENT)
@@ -80,5 +84,40 @@ public class BaseSubtypesBlock extends BaseBlock implements ISubBlocksBlock {
 					reg.registerIcon((getTextureDomain().isEmpty() ? "" : getTextureDomain() + ":")
 							+ (getTextureSubfolder().isEmpty() ? "" : getTextureSubfolder() + "/") + getTypes()[i]);
 		}
+	}
+
+	private final Map<Integer, Float> hardnesses = Maps.newHashMap();
+	private final Map<Integer, Float> resistances = Maps.newHashMap();
+
+	@Override
+	public float getBlockHardness(World worldIn, int x, int y, int z) {
+		return hardnesses.getOrDefault(worldIn.getBlockMetadata(x, y, z), super.getBlockHardness(worldIn, x, y, z));
+	}
+
+	public BaseSubtypesBlock setHardnessValues(float hardness, int... metas) {
+		if(metas.length == 0) {
+			setHardness(hardness);
+		} else for(int meta : metas) {
+			hardnesses.put(meta, hardness);
+		}
+		return this;
+	}
+
+	@Override
+	public float getExplosionResistance(Entity par1Entity, World world, int x, int y, int z, double explosionX, double explosionY, double explosionZ) {
+		Float resistance = resistances.get(world.getBlockMetadata(x, y, z));
+		if(resistance != null) {
+			return resistance / 5.0F;
+		}
+		return super.getExplosionResistance(par1Entity, world, x, y, z, explosionX, explosionY, explosionZ);
+	}
+
+	public BaseSubtypesBlock setResistanceValues(float resistance, int... metas) {
+		if(metas.length == 0) {
+			setResistance(resistance);
+		} else for(int meta : metas) {
+			resistances.put(meta, resistance);
+		}
+		return this;
 	}
 }

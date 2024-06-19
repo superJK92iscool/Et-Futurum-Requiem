@@ -25,18 +25,18 @@ public interface IDegradable {
 	 * 1:  Regular, Exposed
 	 * 2:  Regular, Weathered
 	 * 3:  Regular, Oxidized
-	 * 4:  Cut, No degredation
-	 * 5:  Cut, Exposed
-	 * 6:  Cut, Weathered
-	 * 7:  Cut, Oxidized
+	 * 4:  Variant, No degredation
+	 * 5:  Variant, Exposed
+	 * 6:  Variant, Weathered
+	 * 7:  Variant, Oxidized
 	 * 8:  Regular Waxed, No degredation
 	 * 9:  Regular Waxed, Exposed
 	 * 10: Regular Waxed, Weathered
 	 * 11: Regular Waxed, Oxidized
-	 * 12: Cut Waxed, No degredation
-	 * 13: Cut Waxed, Exposed
-	 * 14: Cut Waxed, Weathered
-	 * 15: Cut Waxed, Oxidized
+	 * 12: Variant Waxed, No degredation
+	 * 13: Variant Waxed, Exposed
+	 * 14: Variant Waxed, Weathered
+	 * 15: Variant Waxed, Oxidized
 	 *
 	 * @param meta World meta
 	 * @return A copper meta value from above.
@@ -201,6 +201,13 @@ public interface IDegradable {
 		return flag || flag2;
 	}
 
+	default void playSound(World world, double x, double y, double z, int type) {
+		int pitch = world.rand.nextInt(3);
+		world.playSound(x, y, z,
+				Reference.MCAssetVer + ":item." + (type == 0 ? "honeycomb.wax_on" : type == 1 ? "axe.wax_off" : "axe.scrape"),
+				1F, (float) ((pitch == 0 ? 0 : ((double) pitch / 10D)) + 0.9D), false);
+	}
+
 	/**
 	 * @param world
 	 * @param x
@@ -213,10 +220,7 @@ public interface IDegradable {
 			Random random = world.rand;
 			double d0 = 0.0625D;
 
-			int pitch = random.nextInt(3);
-			world.playSound((double) x + 0.5D, (double) y + 0.5D, (double) z + 0.5D,
-					Reference.MCAssetVer + ":item." + (type == 0 ? "honeycomb.wax_on" : type == 1 ? "axe.wax_off" : "axe.scrape"),
-					1F, (float) ((pitch == 0 ? 0 : ((double) pitch / 10D)) + 0.9D), false);
+			playSound(world, x + 0.5D, y + 0.5D, z + 0.5D, type);
 
 			for (int l = 0; l < 10; ++l) {
 				double d1 = x + random.nextFloat();

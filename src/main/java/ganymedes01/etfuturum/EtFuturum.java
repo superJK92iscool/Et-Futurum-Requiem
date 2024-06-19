@@ -445,22 +445,53 @@ public class EtFuturum {
 	}
 
 	private void setupMultiBlockSoundRegistry() {
-		{
-			BasicMultiBlockSound mbs = new BasicMultiBlockSound();
-			mbs.setTypes(6, ModSounds.soundNetherBricks);
-			mbs.setTypes(14, ModSounds.soundNetherBricks);
-			MultiBlockSoundRegistry.multiBlockSounds.put(Blocks.stone_slab, mbs);
-			MultiBlockSoundRegistry.multiBlockSounds.put(Blocks.double_stone_slab, mbs);
-		}
+		MultiBlockSoundRegistry.addBasic(Blocks.stone_slab, ModSounds.soundNetherBricks, 6, 14);
+		MultiBlockSoundRegistry.addBasic(Blocks.double_stone_slab, ModSounds.soundNetherBricks, 6, 14);
 
-		if (ModsList.TINKERS_CONSTRUCT.isLoaded()) {
-			{
-				BasicMultiBlockSound mbs = new BasicMultiBlockSound();
-				mbs.setTypes(2, ModSounds.soundNetherrack);
-				mbs.setTypes(9, ModSounds.soundBoneBlock);
-				MultiBlockSoundRegistry.multiBlockSounds.put(GameRegistry.findBlock("TConstruct", "decoration.multibrick"), mbs);
-				MultiBlockSoundRegistry.multiBlockSounds.put(GameRegistry.findBlock("TConstruct", "decoration.multibrickfancy"), mbs);
-			}
+		MultiBlockSoundRegistry.addBasic(ExternalContent.Blocks.TCON_MULTIBRICK.get(), ModSounds.soundNetherrack, 2);
+		MultiBlockSoundRegistry.addBasic(ExternalContent.Blocks.TCON_MULTIBRICK.get(), ModSounds.soundBoneBlock, 9);
+		MultiBlockSoundRegistry.addBasic(ExternalContent.Blocks.TCON_MULTIBRICK_FANCY.get(), ModSounds.soundNetherrack, 2);
+		MultiBlockSoundRegistry.addBasic(ExternalContent.Blocks.TCON_MULTIBRICK_FANCY.get(), ModSounds.soundBoneBlock, 9);
+
+		MultiBlockSoundRegistry.addBasic(ModBlocks.DEEPSLATE_BRICK_WALL.get(), ModSounds.soundDeepslateTiles, 1);
+		MultiBlockSoundRegistry.addBasic(ModBlocks.DEEPSLATE_BRICKS.get(), ModSounds.soundDeepslateTiles, 2, 3);
+		MultiBlockSoundRegistry.addBasic(ModBlocks.DEEPSLATE_BRICK_SLAB.get(), ModSounds.soundDeepslateTiles, 1, 9);
+
+		MultiBlockSoundRegistry.addBasic(ModBlocks.TUFF.get(), ModSounds.soundPolishedTuff, 1);
+		MultiBlockSoundRegistry.addBasic(ModBlocks.TUFF.get(), ModSounds.soundTuffBricks, 2, 4);
+		MultiBlockSoundRegistry.addBasic(ModBlocks.TUFF_WALL.get(), ModSounds.soundPolishedTuff, 1);
+		MultiBlockSoundRegistry.addBasic(ModBlocks.TUFF_WALL.get(), ModSounds.soundTuffBricks, 2);
+		MultiBlockSoundRegistry.addBasic(ModBlocks.TUFF_SLAB.get(), ModSounds.soundPolishedTuff, 1, 9);
+		MultiBlockSoundRegistry.addBasic(ModBlocks.TUFF_SLAB.get(), ModSounds.soundTuffBricks, 2, 10);
+		MultiBlockSoundRegistry.addBasic(ModBlocks.DOUBLE_TUFF_SLAB.get(), ModSounds.soundPolishedTuff, 1, 9);
+		MultiBlockSoundRegistry.addBasic(ModBlocks.DOUBLE_TUFF_SLAB.get(), ModSounds.soundTuffBricks, 2, 10);
+
+		MultiBlockSoundRegistry.addBasic(ModBlocks.AMETHYST_CLUSTER_1.get(), ModSounds.soundAmethystBudSmall, 0, 1, 2, 3, 4, 5, 6);
+		MultiBlockSoundRegistry.addBasic(ModBlocks.AMETHYST_CLUSTER_2.get(), ModSounds.soundAmethystBudLrg, 0, 1, 2, 3, 4, 5, 6);
+
+		MultiBlockSoundRegistry.addBasic(ModBlocks.SPONGE.get(), ModSounds.soundWetSponge, 1);
+		MultiBlockSoundRegistry.addBasic(Blocks.sponge, ModSounds.soundWetSponge, 1);
+
+		MultiBlockSoundRegistry.addBasic(ModBlocks.SAPLING.get(), ModSounds.soundCherrySapling, 1, 9);
+		MultiBlockSoundRegistry.addBasic(ModBlocks.LEAVES.get(), ModSounds.soundCherryLeaves, 1, 5, 9, 13);
+
+		MultiBlockSoundRegistry.addBasic(ModBlocks.WOOD_PLANKS.get(), ModSounds.soundNetherWood, 0, 1);
+		MultiBlockSoundRegistry.addBasic(ModBlocks.WOOD_PLANKS.get(), ModSounds.soundCherryWood, 3);
+		MultiBlockSoundRegistry.addBasic(ModBlocks.WOOD_PLANKS.get(), ModSounds.soundBambooWood, 4);
+		MultiBlockSoundRegistry.addBasic(ModBlocks.WOOD_FENCE.get(), ModSounds.soundNetherWood, 0, 1);
+		MultiBlockSoundRegistry.addBasic(ModBlocks.WOOD_FENCE.get(), ModSounds.soundCherryWood, 3);
+		MultiBlockSoundRegistry.addBasic(ModBlocks.WOOD_FENCE.get(), ModSounds.soundBambooWood, 4);
+
+		MultiBlockSoundRegistry.addBasic(ModBlocks.WOOD_SLAB.get(), ModSounds.soundNetherWood, 0, 1, 8, 9);
+		MultiBlockSoundRegistry.addBasic(ModBlocks.WOOD_SLAB.get(), ModSounds.soundCherryWood, 3, 11);
+		MultiBlockSoundRegistry.addBasic(ModBlocks.WOOD_SLAB.get(), ModSounds.soundBambooWood, 4, 12);
+		MultiBlockSoundRegistry.addBasic(ModBlocks.DOUBLE_WOOD_SLAB.get(), ModSounds.soundNetherWood, 0, 1, 8, 9);
+		MultiBlockSoundRegistry.addBasic(ModBlocks.DOUBLE_WOOD_SLAB.get(), ModSounds.soundCherryWood, 3, 11);
+		MultiBlockSoundRegistry.addBasic(ModBlocks.DOUBLE_WOOD_SLAB.get(), ModSounds.soundBambooWood, 4, 12);
+
+		MultiBlockSoundRegistry.addBasic(ModBlocks.PACKED_MUD.get(), ModSounds.soundMudBricks, 1);
+
+		if (ExternalContent.Blocks.TCON_METAL.get() != null) {
 			{
 				BasicMultiBlockSound mbs = new BasicMultiBlockSound() {
 					@Override
@@ -471,111 +502,10 @@ public class EtFuturum {
 						return 1;
 					}
 				};
-				mbs.setTypes(3, ModSounds.soundCopper);
-				mbs.setTypes(5, ModSounds.soundCopper);
-				MultiBlockSoundRegistry.multiBlockSounds.put(GameRegistry.findBlock("TConstruct", "MetalBlock"), mbs);
+				mbs.setTypes(ModSounds.soundCopper, 3);
+				mbs.setTypes(ModSounds.soundCopper, 5);
+				MultiBlockSoundRegistry.multiBlockSounds.put(ExternalContent.Blocks.TCON_METAL.get(), mbs);
 			}
-		}
-
-		if (ModBlocks.DEEPSLATE_BRICK_WALL.isEnabled()) {
-			BasicMultiBlockSound mbs = new BasicMultiBlockSound();
-			mbs.setTypes(1, ModSounds.soundDeepslateTiles);
-			MultiBlockSoundRegistry.multiBlockSounds.put(ModBlocks.DEEPSLATE_BRICK_WALL.get(), mbs);
-		}
-
-		if (ModBlocks.DEEPSLATE_BRICKS.isEnabled()) {
-			BasicMultiBlockSound mbs = new BasicMultiBlockSound();
-			mbs.setTypes(2, ModSounds.soundDeepslateTiles);
-			mbs.setTypes(3, ModSounds.soundDeepslateTiles);
-			MultiBlockSoundRegistry.multiBlockSounds.put(ModBlocks.DEEPSLATE_BRICKS.get(), mbs);
-		}
-
-		if (ModBlocks.DEEPSLATE_BRICK_SLAB.isEnabled()) {
-			BasicMultiBlockSound mbs = new BasicMultiBlockSound();
-			mbs.setTypes(1, ModSounds.soundDeepslateTiles);
-			mbs.setTypes(9, ModSounds.soundDeepslateTiles);
-			MultiBlockSoundRegistry.multiBlockSounds.put(ModBlocks.DEEPSLATE_BRICK_SLAB.get(), mbs);
-		}
-
-		if (ModBlocks.AMETHYST_CLUSTER_1.isEnabled()) {
-			BasicMultiBlockSound mbs = new BasicMultiBlockSound();
-			for (int i = 0; i < 6; i++) {
-				mbs.setTypes(i, ModSounds.soundAmethystBudSmall);
-			}
-			MultiBlockSoundRegistry.multiBlockSounds.put(ModBlocks.AMETHYST_CLUSTER_1.get(), mbs);
-		}
-
-		if (ModBlocks.AMETHYST_CLUSTER_2.isEnabled()) {
-			BasicMultiBlockSound mbs = new BasicMultiBlockSound();
-			for (int i = 0; i < 6; i++) {
-				mbs.setTypes(i, ModSounds.soundAmethystBudLrg);
-			}
-			MultiBlockSoundRegistry.multiBlockSounds.put(ModBlocks.AMETHYST_CLUSTER_2.get(), mbs);
-		}
-
-		if (ModBlocks.SPONGE.isEnabled()) {
-			BasicMultiBlockSound mbs = new BasicMultiBlockSound();
-			mbs.setTypes(1, ModSounds.soundWetSponge);
-			MultiBlockSoundRegistry.multiBlockSounds.put(ModBlocks.SPONGE.get(), mbs);
-		}
-
-		if (ModBlocks.SAPLING.isEnabled()) {
-			BasicMultiBlockSound mbs = new BasicMultiBlockSound();
-			mbs.setTypes(1, ModSounds.soundCherrySapling);
-			mbs.setTypes(9, ModSounds.soundCherrySapling);
-			MultiBlockSoundRegistry.multiBlockSounds.put(ModBlocks.SAPLING.get(), mbs);
-		}
-
-		if (ModBlocks.LEAVES.isEnabled()) {
-			BasicMultiBlockSound mbs = new BasicMultiBlockSound();
-			mbs.setTypes(1, ModSounds.soundCherryLeaves);
-			mbs.setTypes(5, ModSounds.soundCherryLeaves);
-			mbs.setTypes(9, ModSounds.soundCherryLeaves);
-			mbs.setTypes(13, ModSounds.soundCherryLeaves);
-			MultiBlockSoundRegistry.multiBlockSounds.put(ModBlocks.LEAVES.get(), mbs);
-		}
-
-		{
-			BasicMultiBlockSound mbs = new BasicMultiBlockSound();
-			mbs.setTypes(0, ModSounds.soundNetherWood);
-			mbs.setTypes(1, ModSounds.soundNetherWood);
-			mbs.setTypes(3, ModSounds.soundCherryWood);
-			mbs.setTypes(4, ModSounds.soundBambooWood);
-
-			if (ModBlocks.WOOD_PLANKS.isEnabled()) {
-				MultiBlockSoundRegistry.multiBlockSounds.put(ModBlocks.WOOD_PLANKS.get(), mbs);
-			}
-
-			if (ModBlocks.WOOD_FENCE.isEnabled()) {
-				MultiBlockSoundRegistry.multiBlockSounds.put(ModBlocks.WOOD_FENCE.get(), mbs);
-			}
-		}
-
-		{
-			BasicMultiBlockSound mbs = new BasicMultiBlockSound();
-			mbs.setTypes(0, ModSounds.soundNetherWood);
-			mbs.setTypes(1, ModSounds.soundNetherWood);
-			mbs.setTypes(3, ModSounds.soundCherryWood);
-			mbs.setTypes(4, ModSounds.soundBambooWood);
-
-			mbs.setTypes(8, ModSounds.soundNetherWood);
-			mbs.setTypes(9, ModSounds.soundNetherWood);
-			mbs.setTypes(11, ModSounds.soundCherryWood);
-			mbs.setTypes(12, ModSounds.soundBambooWood);
-
-			if (ModBlocks.WOOD_SLAB.isEnabled()) {
-				MultiBlockSoundRegistry.multiBlockSounds.put(ModBlocks.WOOD_SLAB.get(), mbs);
-			}
-
-			if (ModBlocks.DOUBLE_WOOD_SLAB.isEnabled()) {
-				MultiBlockSoundRegistry.multiBlockSounds.put(ModBlocks.DOUBLE_WOOD_SLAB.get(), mbs);
-			}
-		}
-
-		if (ModBlocks.PACKED_MUD.isEnabled()) {
-			BasicMultiBlockSound mbs = new BasicMultiBlockSound();
-			mbs.setTypes(1, ModSounds.soundMudBricks);
-			MultiBlockSoundRegistry.multiBlockSounds.put(ModBlocks.PACKED_MUD.get(), mbs);
 		}
 	}
 
@@ -989,6 +919,8 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "block.cherry_wood_fence_gate.close", "block");
 		config.addSoundEvent(ver, "block.bamboo_wood_fence_gate.open", "block");
 		config.addSoundEvent(ver, "block.bamboo_wood_fence_gate.close", "block");
+		config.addSoundEvent(ver, "block.copper_bulb.turn_on", "block");
+		config.addSoundEvent(ver, "block.copper_bulb.turn_off", "block");
 
 		config.addSoundEvent(ver, "block.wooden_door.open", "block");
 		config.addSoundEvent(ver, "block.wooden_door.close", "block");
@@ -1000,6 +932,8 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "block.bamboo_wood_door.close", "block");
 		config.addSoundEvent(ver, "block.iron_door.open", "block");
 		config.addSoundEvent(ver, "block.iron_door.close", "block");
+		config.addSoundEvent(ver, "block.copper_door.open", "block");
+		config.addSoundEvent(ver, "block.copper_door.close", "block");
 
 		config.addSoundEvent(ver, "block.wooden_trapdoor.open", "block");
 		config.addSoundEvent(ver, "block.wooden_trapdoor.close", "block");
@@ -1011,6 +945,8 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "block.bamboo_wood_trapdoor.close", "block");
 		config.addSoundEvent(ver, "block.iron_trapdoor.open", "block");
 		config.addSoundEvent(ver, "block.iron_trapdoor.close", "block");
+		config.addSoundEvent(ver, "block.copper_trapdoor.open", "block");
+		config.addSoundEvent(ver, "block.copper_trapdoor.close", "block");
 
 		config.addSoundEvent(ver, "block.wooden_button.click_off", "block");
 		config.addSoundEvent(ver, "block.wooden_button.click_on", "block");

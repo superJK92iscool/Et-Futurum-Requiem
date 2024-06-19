@@ -29,14 +29,10 @@ import java.util.List;
 import java.util.Random;
 
 public abstract class BaseSubtypesDeepslateOre extends BaseSubtypesBlock implements IInitAction {
-	private final float[] hardnesses;
-	private final float[] resistances;
 
 	public BaseSubtypesDeepslateOre(String... types) {
 		super(Material.rock, types);
 		setBlockSound(ModSounds.soundDeepslate);
-		hardnesses = new float[types.length];
-		resistances = new float[types.length];
 	}
 
 	@Override
@@ -243,17 +239,6 @@ public abstract class BaseSubtypesDeepslateOre extends BaseSubtypesBlock impleme
 		return p_149643_1_.getBlockMetadata(p_149643_2_, p_149643_3_, p_149643_4_);
 	}
 
-
-	@Override
-	public float getBlockHardness(World world, int x, int y, int z) {
-		return hardnesses[Math.min(world.getBlockMetadata(x, y, z), hardnesses.length - 1)];
-	}
-
-	@Override
-	public float getExplosionResistance(Entity par1Entity, World world, int x, int y, int z, double explosionX, double explosionY, double explosionZ) {
-		return resistances[Math.min(world.getBlockMetadata(x, y, z), resistances.length - 1)];
-	}
-
 	public static final List<BaseSubtypesDeepslateOre> loaded = Lists.newLinkedList();
 
 	@Override
@@ -273,12 +258,12 @@ public abstract class BaseSubtypesDeepslateOre extends BaseSubtypesBlock impleme
 				if (block.getHarvestTool(mapping.getMeta()) != null) {
 					setHarvestLevel("pickaxe", block.getHarvestLevel(mapping.getMeta()), i);
 				}
-				hardnesses[i] = block.getBlockHardness(world, 0, 0, 0) * 1.5F;
-				resistances[i] = block.getExplosionResistance(null, world, 0, 0, 0, 0, 0, 0); //We don't need to divide because the base method we overrode won't be dividing
+				setHardnessValues(block.getBlockHardness(world, 0, 0, 0) * 1.5F, i);
+				setResistanceValues(block.getExplosionResistance(null, world, 0, 0, 0, 0, 0, 0), i);
 			} catch (Exception e) {
 				setHarvestLevel("pickaxe", 1, i);
-				hardnesses[i] = Blocks.iron_ore.blockHardness * 1.5F;
-				resistances[i] = Blocks.iron_ore.blockResistance;
+				setHardnessValues(Blocks.iron_ore.blockHardness * 1.5F, i);
+				setResistanceValues(Blocks.iron_ore.blockResistance, i);
 			}
 		}
 		world.clearBlocksCache();

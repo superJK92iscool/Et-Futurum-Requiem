@@ -14,6 +14,7 @@ public class BlockBlackstone extends BaseSubtypesBlock {
 		super(Material.rock, "blackstone", "polished_blackstone", "polished_blackstone_bricks", "cracked_polished_blackstone_bricks", "chiseled_polished_blackstone");
 		setResistance(6.0F);
 		setHardness(1.5F);
+		setHardnessValues(2.0F, 1);
 	}
 
 	@Override
@@ -28,11 +29,6 @@ public class BlockBlackstone extends BaseSubtypesBlock {
 	public void registerBlockIcons(IIconRegister reg) {
 		super.registerBlockIcons(reg);
 		blackstoneTop = reg.registerIcon("blackstone_top");
-	}
-
-	@Override
-	public float getBlockHardness(World world, int x, int y, int z) {
-		return world.getBlockMetadata(x, y, z) == 1 ? 2.0F : blockHardness;
 	}
 
 	@Override

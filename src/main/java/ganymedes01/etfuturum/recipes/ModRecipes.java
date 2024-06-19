@@ -787,7 +787,7 @@ public class ModRecipes {
 		addSmelting(ModBlocks.COPPER_ORE.newItemStack(), ModItems.COPPER_INGOT.newItemStack(), .7F);
 
 		//Copper block to cut copper block
-		addShapedRecipe(ModBlocks.COPPER_BLOCK.newItemStack(4, 4), "xx", "xx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1));
+		addShapedRecipe(ModBlocks.COPPER_BLOCK.newItemStack(4, 4), "xx", "xx", 'x', ModBlocks.COPPER_BLOCK.newItemStack());
 		addShapedRecipe(ModBlocks.COPPER_BLOCK.newItemStack(4, 5), "xx", "xx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 1));
 		addShapedRecipe(ModBlocks.COPPER_BLOCK.newItemStack(4, 6), "xx", "xx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 2));
 		addShapedRecipe(ModBlocks.COPPER_BLOCK.newItemStack(4, 7), "xx", "xx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 3));
@@ -797,6 +797,42 @@ public class ModRecipes {
 		addShapedRecipe(ModBlocks.COPPER_BLOCK.newItemStack(4, 13), "xx", "xx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 9));
 		addShapedRecipe(ModBlocks.COPPER_BLOCK.newItemStack(4, 14), "xx", "xx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 10));
 		addShapedRecipe(ModBlocks.COPPER_BLOCK.newItemStack(4, 15), "xx", "xx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 11));
+
+		//Copper block to copper grate
+		addShapedRecipe(ModBlocks.COPPER_GRATE.newItemStack(4), " x ", "x x", " x ", 'x', ModBlocks.COPPER_BLOCK.newItemStack());
+		addShapedRecipe(ModBlocks.COPPER_GRATE.newItemStack(4, 1), " x ", "x x", " x ", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 1));
+		addShapedRecipe(ModBlocks.COPPER_GRATE.newItemStack(4, 2), " x ", "x x", " x ", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 2));
+		addShapedRecipe(ModBlocks.COPPER_GRATE.newItemStack(4, 3), " x ", "x x", " x ", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 3));
+
+		//Waxed copper block to waxed copper grate
+		addShapedRecipe(ModBlocks.COPPER_GRATE.newItemStack(4, 4), " x ", "x x", " x ", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 8));
+		addShapedRecipe(ModBlocks.COPPER_GRATE.newItemStack(4, 5), " x ", "x x", " x ", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 9));
+		addShapedRecipe(ModBlocks.COPPER_GRATE.newItemStack(4, 6), " x ", "x x", " x ", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 10));
+		addShapedRecipe(ModBlocks.COPPER_GRATE.newItemStack(4, 7), " x ", "x x", " x ", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 11));
+
+		//Copper block to copper grate
+		addShapedRecipe(ModBlocks.COPPER_BULB.newItemStack(4), " x ", "xbx", " r ", 'x', ModBlocks.COPPER_BLOCK.newItemStack(), 'b', Items.blaze_rod, 'r', "dustRedstone");
+		addShapedRecipe(ModBlocks.COPPER_BULB.newItemStack(4, 1), " x ", "xbx", " r ", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 1), 'b', Items.blaze_rod, 'r', "dustRedstone");
+		addShapedRecipe(ModBlocks.COPPER_BULB.newItemStack(4, 2), " x ", "xbx", " r ", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 2), 'b', Items.blaze_rod, 'r', "dustRedstone");
+		addShapedRecipe(ModBlocks.COPPER_BULB.newItemStack(4, 3), " x ", "xbx", " r ", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 3), 'b', Items.blaze_rod, 'r', "dustRedstone");
+
+		//Waxed copper block to waxed copper grate
+		addShapedRecipe(ModBlocks.COPPER_BULB.newItemStack(4, 8), " x ", "xbx", " r ", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 8), 'b', Items.blaze_rod, 'r', "dustRedstone");
+		addShapedRecipe(ModBlocks.COPPER_BULB.newItemStack(4, 9), " x ", "xbx", " r ", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 9), 'b', Items.blaze_rod, 'r', "dustRedstone");
+		addShapedRecipe(ModBlocks.COPPER_BULB.newItemStack(4, 10), " x ", "xbx", " r ", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 10), 'b', Items.blaze_rod, 'r', "dustRedstone");
+		addShapedRecipe(ModBlocks.COPPER_BULB.newItemStack(4, 11), " x ", "xbx", " r ", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 11), 'b', Items.blaze_rod, 'r', "dustRedstone");
+
+		//Copper block to copper grate
+		addShapedRecipe(ModBlocks.CHISELED_COPPER.newItemStack(), "x", "x", 'x', ModBlocks.CUT_COPPER_SLAB.newItemStack());
+		addShapedRecipe(ModBlocks.CHISELED_COPPER.newItemStack(1, 1), "x", "x", 'x', ModBlocks.CUT_COPPER_SLAB.newItemStack(1, 1));
+		addShapedRecipe(ModBlocks.CHISELED_COPPER.newItemStack(1, 2), "x", "x", 'x', ModBlocks.CUT_COPPER_SLAB.newItemStack(1, 2));
+		addShapedRecipe(ModBlocks.CHISELED_COPPER.newItemStack(1, 3), "x", "x", 'x', ModBlocks.CUT_COPPER_SLAB.newItemStack(1, 3));
+
+		//Waxed copper block to waxed copper grate
+		addShapedRecipe(ModBlocks.CHISELED_COPPER.newItemStack(1, 4), "x", "x", 'x', ModBlocks.CUT_COPPER_SLAB.newItemStack(1, 4));
+		addShapedRecipe(ModBlocks.CHISELED_COPPER.newItemStack(1, 5), "x", "x", 'x', ModBlocks.CUT_COPPER_SLAB.newItemStack(1, 5));
+		addShapedRecipe(ModBlocks.CHISELED_COPPER.newItemStack(1, 6), "x", "x", 'x', ModBlocks.CUT_COPPER_SLAB.newItemStack(1, 6));
+		addShapedRecipe(ModBlocks.CHISELED_COPPER.newItemStack(1, 7), "x", "x", 'x', ModBlocks.CUT_COPPER_SLAB.newItemStack(1, 7));
 
 		//Cut copper to cut copper slab
 		addShapedRecipe(ModBlocks.CUT_COPPER_SLAB.newItemStack(6), "xxx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 4));
@@ -822,6 +858,11 @@ public class ModRecipes {
 		addShapedRecipe(ModBlocks.WAXED_WEATHERED_CUT_COPPER_STAIRS.newItemStack(4), "x  ", "xx ", "xxx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 14));
 		addShapedRecipe(ModBlocks.WAXED_OXIDIZED_CUT_COPPER_STAIRS.newItemStack(4), "x  ", "xx ", "xxx", 'x', ModBlocks.COPPER_BLOCK.newItemStack(1, 15));
 
+		//Copper door/trapdoor
+		addShapedRecipe(ModBlocks.COPPER_DOOR.newItemStack(3), "xx", "xx", "xx", 'x', ModItems.COPPER_INGOT.newItemStack());
+		addShapedRecipe(ModBlocks.COPPER_TRAPDOOR.newItemStack(2), "xxX", "xxX", 'x', ModItems.COPPER_INGOT.newItemStack());
+
+
 		boolean slimeball = true;
 		for (int k = 0; k <= IDegradable.waxStrings.length; k++) {
 			String waxString;
@@ -836,24 +877,59 @@ public class ModRecipes {
 
 			if (OreDictionary.doesOreNameExist(waxString)) {
 				slimeball = false;
+				//Copper block to waxed copper block
 				addShapelessRecipe(ModBlocks.COPPER_BLOCK.newItemStack(1, 8), waxString, ModBlocks.COPPER_BLOCK.newItemStack(1));
 				addShapelessRecipe(ModBlocks.COPPER_BLOCK.newItemStack(1, 9), waxString, ModBlocks.COPPER_BLOCK.newItemStack(1, 1));
 				addShapelessRecipe(ModBlocks.COPPER_BLOCK.newItemStack(1, 10), waxString, ModBlocks.COPPER_BLOCK.newItemStack(1, 2));
 				addShapelessRecipe(ModBlocks.COPPER_BLOCK.newItemStack(1, 11), waxString, ModBlocks.COPPER_BLOCK.newItemStack(1, 3));
+
+				//Cut copper block to waxed cut copper blocks
 				addShapelessRecipe(ModBlocks.COPPER_BLOCK.newItemStack(1, 12), waxString, ModBlocks.COPPER_BLOCK.newItemStack(1, 4));
 				addShapelessRecipe(ModBlocks.COPPER_BLOCK.newItemStack(1, 13), waxString, ModBlocks.COPPER_BLOCK.newItemStack(1, 5));
 				addShapelessRecipe(ModBlocks.COPPER_BLOCK.newItemStack(1, 14), waxString, ModBlocks.COPPER_BLOCK.newItemStack(1, 6));
 				addShapelessRecipe(ModBlocks.COPPER_BLOCK.newItemStack(1, 15), waxString, ModBlocks.COPPER_BLOCK.newItemStack(1, 7));
 
+				//Copper grate to waxed copper grate
+				addShapelessRecipe(ModBlocks.COPPER_GRATE.newItemStack(1, 4), waxString, ModBlocks.COPPER_GRATE.newItemStack(1));
+				addShapelessRecipe(ModBlocks.COPPER_GRATE.newItemStack(1, 5), waxString, ModBlocks.COPPER_GRATE.newItemStack(1, 1));
+				addShapelessRecipe(ModBlocks.COPPER_GRATE.newItemStack(1, 6), waxString, ModBlocks.COPPER_GRATE.newItemStack(1, 2));
+				addShapelessRecipe(ModBlocks.COPPER_GRATE.newItemStack(1, 7), waxString, ModBlocks.COPPER_GRATE.newItemStack(1, 3));
+
+				//Copper grate to waxed copper grate
+				addShapelessRecipe(ModBlocks.CHISELED_COPPER.newItemStack(1, 4), waxString, ModBlocks.CHISELED_COPPER.newItemStack(1));
+				addShapelessRecipe(ModBlocks.CHISELED_COPPER.newItemStack(1, 5), waxString, ModBlocks.CHISELED_COPPER.newItemStack(1, 1));
+				addShapelessRecipe(ModBlocks.CHISELED_COPPER.newItemStack(1, 6), waxString, ModBlocks.CHISELED_COPPER.newItemStack(1, 2));
+				addShapelessRecipe(ModBlocks.CHISELED_COPPER.newItemStack(1, 7), waxString, ModBlocks.CHISELED_COPPER.newItemStack(1, 3));
+
+				//Cut copper block to waxed cut copper blocks
+				addShapelessRecipe(ModBlocks.COPPER_BULB.newItemStack(1, 12), waxString, ModBlocks.COPPER_BULB.newItemStack(1, 4));
+				addShapelessRecipe(ModBlocks.COPPER_BULB.newItemStack(1, 13), waxString, ModBlocks.COPPER_BULB.newItemStack(1, 5));
+				addShapelessRecipe(ModBlocks.COPPER_BULB.newItemStack(1, 14), waxString, ModBlocks.COPPER_BULB.newItemStack(1, 6));
+				addShapelessRecipe(ModBlocks.COPPER_BULB.newItemStack(1, 15), waxString, ModBlocks.COPPER_BULB.newItemStack(1, 7));
+
+				//Cut copper slabs to waxed cut copper slabs
 				addShapelessRecipe(ModBlocks.CUT_COPPER_SLAB.newItemStack(1, 4), waxString, ModBlocks.CUT_COPPER_SLAB.newItemStack(1));
 				addShapelessRecipe(ModBlocks.CUT_COPPER_SLAB.newItemStack(1, 5), waxString, ModBlocks.CUT_COPPER_SLAB.newItemStack(1, 1));
 				addShapelessRecipe(ModBlocks.CUT_COPPER_SLAB.newItemStack(1, 6), waxString, ModBlocks.CUT_COPPER_SLAB.newItemStack(1, 2));
 				addShapelessRecipe(ModBlocks.CUT_COPPER_SLAB.newItemStack(1, 7), waxString, ModBlocks.CUT_COPPER_SLAB.newItemStack(1, 3));
 
+				//Cut copper stairs to waxed cut copper stairs
 				addShapelessRecipe(ModBlocks.WAXED_CUT_COPPER_STAIRS.newItemStack(), waxString, ModBlocks.CUT_COPPER_STAIRS.newItemStack());
 				addShapelessRecipe(ModBlocks.WAXED_EXPOSED_CUT_COPPER_STAIRS.newItemStack(), waxString, ModBlocks.EXPOSED_CUT_COPPER_STAIRS.newItemStack());
 				addShapelessRecipe(ModBlocks.WAXED_WEATHERED_CUT_COPPER_STAIRS.newItemStack(), waxString, ModBlocks.WEATHERED_CUT_COPPER_STAIRS.newItemStack());
 				addShapelessRecipe(ModBlocks.WAXED_OXIDIZED_CUT_COPPER_STAIRS.newItemStack(), waxString, ModBlocks.OXIDIZED_CUT_COPPER_STAIRS.newItemStack());
+
+				//Copper door to waxed copper door
+				addShapelessRecipe(ModBlocks.WAXED_COPPER_DOOR.newItemStack(), waxString, ModBlocks.COPPER_DOOR.newItemStack());
+				addShapelessRecipe(ModBlocks.WAXED_EXPOSED_COPPER_DOOR.newItemStack(), waxString, ModBlocks.EXPOSED_COPPER_DOOR.newItemStack());
+				addShapelessRecipe(ModBlocks.WAXED_WEATHERED_COPPER_DOOR.newItemStack(), waxString, ModBlocks.WEATHERED_COPPER_DOOR.newItemStack());
+				addShapelessRecipe(ModBlocks.WAXED_OXIDIZED_COPPER_DOOR.newItemStack(), waxString, ModBlocks.OXIDIZED_COPPER_DOOR.newItemStack());
+
+				//Copper trapdoor to waxed cut copper trapdoor
+				addShapelessRecipe(ModBlocks.WAXED_COPPER_TRAPDOOR.newItemStack(), waxString, ModBlocks.COPPER_TRAPDOOR.newItemStack());
+				addShapelessRecipe(ModBlocks.WAXED_EXPOSED_COPPER_TRAPDOOR.newItemStack(), waxString, ModBlocks.EXPOSED_COPPER_TRAPDOOR.newItemStack());
+				addShapelessRecipe(ModBlocks.WAXED_WEATHERED_COPPER_TRAPDOOR.newItemStack(), waxString, ModBlocks.WEATHERED_COPPER_TRAPDOOR.newItemStack());
+				addShapelessRecipe(ModBlocks.WAXED_OXIDIZED_COPPER_TRAPDOOR.newItemStack(), waxString, ModBlocks.OXIDIZED_COPPER_TRAPDOOR.newItemStack());
 			}
 		}
 
@@ -866,6 +942,11 @@ public class ModRecipes {
 		addShapedRecipe(ModBlocks.DEEPSLATE_BRICKS.newItemStack(4, 2), "xx", "xx", 'x', ModBlocks.DEEPSLATE_BRICKS.newItemStack());
 		addShapedRecipe(ModBlocks.DEEPSLATE_BRICKS.newItemStack(1, 4), "x", "x", 'x', ModBlocks.DEEPSLATE_SLAB.newItemStack());
 
+		addShapedRecipe(ModBlocks.TUFF.newItemStack(4, 1), "xx", "xx", 'x', ModBlocks.TUFF.newItemStack());
+		addShapedRecipe(ModBlocks.TUFF.newItemStack(4, 2), "xx", "xx", 'x', ModBlocks.TUFF.newItemStack(1, 1));
+		addShapedRecipe(ModBlocks.TUFF.newItemStack(1, 3), "x", "x", 'x', ModBlocks.TUFF_SLAB.newItemStack());
+		addShapedRecipe(ModBlocks.TUFF.newItemStack(1, 4), "x", "x", 'x', ModBlocks.TUFF_SLAB.newItemStack(1, 2));
+		
 		addShapedRecipe(ModBlocks.COBBLED_DEEPSLATE_STAIRS.newItemStack(4), "x  ", "xx ", "xxx", 'x', ModBlocks.COBBLED_DEEPSLATE.newItemStack());
 		addShapedRecipe(ModBlocks.POLISHED_DEEPSLATE_STAIRS.newItemStack(4), "x  ", "xx ", "xxx", 'x', ModBlocks.POLISHED_DEEPSLATE.newItemStack());
 		addShapedRecipe(ModBlocks.DEEPSLATE_BRICK_STAIRS.newItemStack(4), "x  ", "xx ", "xxx", 'x', ModBlocks.DEEPSLATE_BRICKS.newItemStack());
@@ -878,6 +959,17 @@ public class ModRecipes {
 		addShapedRecipe(ModBlocks.DEEPSLATE_WALL.newItemStack(6, 1), "xxx", "xxx", 'x', ModBlocks.POLISHED_DEEPSLATE.newItemStack());
 		addShapedRecipe(ModBlocks.DEEPSLATE_BRICK_WALL.newItemStack(6), "xxx", "xxx", 'x', ModBlocks.DEEPSLATE_BRICKS.newItemStack());
 		addShapedRecipe(ModBlocks.DEEPSLATE_BRICK_WALL.newItemStack(6, 1), "xxx", "xxx", 'x', ModBlocks.DEEPSLATE_BRICKS.newItemStack(1, 2));
+
+		addShapedRecipe(ModBlocks.TUFF_STAIRS.newItemStack(4), "x  ", "xx ", "xxx", 'x', ModBlocks.TUFF.newItemStack());
+		addShapedRecipe(ModBlocks.POLISHED_TUFF_STAIRS.newItemStack(4), "x  ", "xx ", "xxx", 'x', ModBlocks.TUFF.newItemStack(1, 1));
+		addShapedRecipe(ModBlocks.TUFF_BRICK_STAIRS.newItemStack(4), "x  ", "xx ", "xxx", 'x', ModBlocks.TUFF.newItemStack(1, 2));
+		addShapedRecipe(ModBlocks.TUFF_SLAB.newItemStack(6), "xxx", 'x', ModBlocks.TUFF.newItemStack());
+		addShapedRecipe(ModBlocks.TUFF_SLAB.newItemStack(6, 1), "xxx", 'x', ModBlocks.TUFF.newItemStack(1, 1));
+		addShapedRecipe(ModBlocks.TUFF_SLAB.newItemStack(6, 2), "xxx", 'x', ModBlocks.TUFF.newItemStack(1, 2));
+		addShapedRecipe(ModBlocks.TUFF_WALL.newItemStack(6), "xxx", "xxx", 'x', ModBlocks.TUFF.newItemStack());
+		addShapedRecipe(ModBlocks.TUFF_WALL.newItemStack(6, 1), "xxx", "xxx", 'x', ModBlocks.TUFF.newItemStack(1, 1));
+		addShapedRecipe(ModBlocks.TUFF_WALL.newItemStack(6, 2), "xxx", "xxx", 'x', ModBlocks.TUFF.newItemStack(1, 2));
+
 
 		// Mud Recipes
 		addShapelessRecipe(ModBlocks.MUDDY_MANGROVE_ROOTS.newItemStack(1), ModBlocks.MUD.newItemStack(), ModBlocks.MANGROVE_ROOTS.newItemStack());

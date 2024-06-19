@@ -14,15 +14,12 @@ public class BaseStairs extends BlockStairs {
 		useNeighborBrightness = true;
 		meta = p_i45428_2_;
 		String name = p_i45428_1_.getUnlocalizedName().replace("tile.", "").replace("etfuturum.", "");
-		if (name.toLowerCase().endsWith("bricks") || name.toLowerCase().endsWith("tiles")) {
-			name = name.substring(0, name.length() - 1);
-		}
 		setUnlocalizedNameWithPrefix(name);
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
 	public BaseStairs setUnlocalizedNameWithPrefix(String name) {
-		setBlockName(Utils.getUnlocalisedName(name) + "_stairs");
+		setBlockName(Utils.getUnlocalisedName(name.replace("bricks", "brick").replace("tiles", "tile")) + "_stairs");
 		return this;
 	}
 

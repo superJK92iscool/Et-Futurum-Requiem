@@ -55,6 +55,8 @@ public class ModSounds {
 		}
 	}.setDisabledSound(Block.soundTypeStone);
 	public static final SoundType soundCopper = new CustomSound("copper").setDisabledSound(Block.soundTypeMetal);
+	public static final SoundType soundCopperGrate = new CustomSound("copper_grate").setDisabledSound(Block.soundTypeMetal);
+	public static final SoundType soundCopperBulb = new CustomSound("copper_bulb", true).setDisabledSound(Block.soundTypeMetal);
 	public static final SoundType soundBerryBush = new CustomSound("sweet_berry_bush", true) {
 		@Override
 		public String getStepResourcePath() {
@@ -65,6 +67,8 @@ public class ModSounds {
 	public static final SoundType soundDeepslateBricks = new CustomSound("deepslate_bricks");
 	public static final SoundType soundDeepslateTiles = new CustomSound("deepslate_tiles");
 	public static final SoundType soundTuff = new CustomSound("tuff");
+	public static final SoundType soundPolishedTuff = new CustomSound("polished_tuff");
+	public static final SoundType soundTuffBricks = new CustomSound("tuff_bricks");
 	public static final SoundType soundSculk = new CustomSound("sculk").setDisabledSound(soundSlime);
 	public static final SoundType soundSculkCatalyst = new CustomSound("sculk_catalyst");
 	public static final SoundType soundVines = new CustomSound("vine").setDisabledSound(Block.soundTypeGrass);

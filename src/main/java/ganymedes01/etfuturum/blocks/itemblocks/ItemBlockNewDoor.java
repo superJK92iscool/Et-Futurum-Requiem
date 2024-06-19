@@ -9,9 +9,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-public class ItemBlockWoodDoor extends ItemBlock {
+public class ItemBlockNewDoor extends ItemBlock {
 
-	public ItemBlockWoodDoor(Block block) {
+	public ItemBlockNewDoor(Block block) {
 		super(block);
 	}
 

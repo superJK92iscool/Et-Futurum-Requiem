@@ -66,23 +66,12 @@ public class BlockTarget extends BaseBlock {
 			double xDiff = Math.abs(fractionalPos(hit.hitVec.xCoord) - 0.5);
 			double yDiff = Math.abs(fractionalPos(hit.hitVec.yCoord) - 0.5);
 			double zDiff = Math.abs(fractionalPos(hit.hitVec.zCoord) - 0.5);
-			double finalDiff;
-			switch (hit.sideHit) {
-				default:
-				case 0:
-				case 1:
-					finalDiff = Math.max(xDiff, zDiff);
-					break;
-				case 2:
-				case 3:
-					finalDiff = Math.max(xDiff, yDiff);
-					break;
-				case 4:
-				case 5:
-					finalDiff = Math.max(yDiff, zDiff);
-					break;
-			}
-			return Math.max(1, MathHelper.ceiling_double_int(15.0 * MathHelper.clamp_double((0.5 - finalDiff) / 0.5, 0.0, 1.0)));
+			double finalDiff = switch (hit.sideHit) {
+                default -> Math.max(xDiff, zDiff);
+                case 2, 3 -> Math.max(xDiff, yDiff);
+                case 4, 5 -> Math.max(yDiff, zDiff);
+            };
+            return Math.max(1, MathHelper.ceiling_double_int(15.0 * MathHelper.clamp_double((0.5 - finalDiff) / 0.5, 0.0, 1.0)));
 		}
 		return 0;
 	}

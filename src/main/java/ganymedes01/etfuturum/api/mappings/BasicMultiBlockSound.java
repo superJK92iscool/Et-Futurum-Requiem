@@ -1,30 +1,33 @@
 package ganymedes01.etfuturum.api.mappings;
 
+import com.google.common.collect.Maps;
 import ganymedes01.etfuturum.api.MultiBlockSoundRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
 
+import java.util.Map;
+
 public class BasicMultiBlockSound extends MultiBlockSoundContainer {
 
-	private final Block.SoundType[] types = new Block.SoundType[16];
-
-	public void setTypes(int meta, Block.SoundType type) {
-		types[meta % 16] = type;
+	private final Map<Integer, Block.SoundType> types = Maps.newHashMap();
+	
+	public BasicMultiBlockSound setTypes(Block.SoundType type, int... metas) {
+		for(int meta : metas) {
+			types.put(meta, type);
+		}
+		return this;
 	}
 
 	@Override
 	public String getSound(World world, int x, int y, int z, String oldSoundIn, MultiBlockSoundRegistry.BlockSoundType type) {
-		Block.SoundType soundType = types[world.getBlockMetadata(x, y, z)];
+		Block.SoundType soundType = types.get(world.getBlockMetadata(x, y, z));
+		
 		if (soundType == null) return null;
-		switch (type) {
-			case WALK:
-			case HIT:
-				return soundType.getStepResourcePath();
-			case PLACE:
-				return soundType.func_150496_b();
-			default:
-			case BREAK:
-				return soundType.getBreakSound();
-		}
+
+        return switch (type) {
+            case WALK, HIT -> soundType.getStepResourcePath();
+            case PLACE -> soundType.func_150496_b();
+            default -> soundType.getBreakSound();
+        };
 	}
 }
