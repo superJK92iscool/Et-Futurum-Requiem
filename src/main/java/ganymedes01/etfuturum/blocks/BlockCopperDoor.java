@@ -67,13 +67,13 @@ public class BlockCopperDoor extends BaseDoor implements IDegradable {
 
     public Block getCopperBlockFromMeta(int i) {
         return switch (i) {
-            case 5 -> ModBlocks.EXPOSED_COPPER_DOOR.get();
-            case 6 -> ModBlocks.WEATHERED_COPPER_DOOR.get();
-            case 7 -> ModBlocks.OXIDIZED_COPPER_DOOR.get();
-            case 12 -> ModBlocks.WAXED_COPPER_DOOR.get();
-            case 13 -> ModBlocks.WAXED_EXPOSED_COPPER_DOOR.get();
-            case 14 -> ModBlocks.WAXED_WEATHERED_COPPER_DOOR.get();
-            case 15 -> ModBlocks.WAXED_OXIDIZED_COPPER_DOOR.get();
+            case 1 -> ModBlocks.EXPOSED_COPPER_DOOR.get();
+            case 2 -> ModBlocks.WEATHERED_COPPER_DOOR.get();
+            case 3 -> ModBlocks.OXIDIZED_COPPER_DOOR.get();
+            case 8 -> ModBlocks.WAXED_COPPER_DOOR.get();
+            case 9 -> ModBlocks.WAXED_EXPOSED_COPPER_DOOR.get();
+            case 10 -> ModBlocks.WAXED_WEATHERED_COPPER_DOOR.get();
+            case 11 -> ModBlocks.WAXED_OXIDIZED_COPPER_DOOR.get();
             default -> ModBlocks.COPPER_DOOR.get();
         };
     }

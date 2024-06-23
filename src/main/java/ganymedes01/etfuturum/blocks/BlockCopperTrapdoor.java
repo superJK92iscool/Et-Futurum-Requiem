@@ -51,13 +51,13 @@ public class BlockCopperTrapdoor extends BaseTrapdoor implements IDegradable {
 
     public Block getCopperBlockFromMeta(int i) {
         return switch (i) {
-            case 5 -> ModBlocks.EXPOSED_COPPER_TRAPDOOR.get();
-            case 6 -> ModBlocks.WEATHERED_COPPER_TRAPDOOR.get();
-            case 7 -> ModBlocks.OXIDIZED_COPPER_TRAPDOOR.get();
-            case 12 -> ModBlocks.WAXED_COPPER_TRAPDOOR.get();
-            case 13 -> ModBlocks.WAXED_EXPOSED_COPPER_TRAPDOOR.get();
-            case 14 -> ModBlocks.WAXED_WEATHERED_COPPER_TRAPDOOR.get();
-            case 15 -> ModBlocks.WAXED_OXIDIZED_COPPER_TRAPDOOR.get();
+            case 1 -> ModBlocks.EXPOSED_COPPER_TRAPDOOR.get();
+            case 2 -> ModBlocks.WEATHERED_COPPER_TRAPDOOR.get();
+            case 3 -> ModBlocks.OXIDIZED_COPPER_TRAPDOOR.get();
+            case 8 -> ModBlocks.WAXED_COPPER_TRAPDOOR.get();
+            case 9 -> ModBlocks.WAXED_EXPOSED_COPPER_TRAPDOOR.get();
+            case 10 -> ModBlocks.WAXED_WEATHERED_COPPER_TRAPDOOR.get();
+            case 11 -> ModBlocks.WAXED_OXIDIZED_COPPER_TRAPDOOR.get();
             default -> ModBlocks.COPPER_TRAPDOOR.get();
         };
     }
