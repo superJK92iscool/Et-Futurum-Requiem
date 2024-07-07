@@ -231,50 +231,39 @@ public class CommonProxy implements IGuiHandler {
 
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-		switch (ID) {
-			case GUIIDs.ENCHANTING_TABLE:
-				return new ContainerEnchantment(player.inventory, world, x, y, z);
-			case GUIIDs.ANVIL:
-				return new ContainerAnvil(player, world, x, y, z);
-			case GUIIDs.BREWING_STAND:
-				return new ContainerNewBrewingStand(player.inventory, (TileEntityNewBrewingStand) world.getTileEntity(x, y, z));
-			case GUIIDs.BARREL:
-				return new ContainerChest(player.inventory, (TileEntityBarrel) world.getTileEntity(x, y, z));
-			case GUIIDs.SMOKER:
-				return new ContainerSmoker(player.inventory, (TileEntitySmoker) world.getTileEntity(x, y, z));
-			case GUIIDs.BLAST_FURNACE:
-				return new ContainerBlastFurnace(player.inventory, (TileEntityBlastFurnace) world.getTileEntity(x, y, z));
-			case GUIIDs.SHULKER_BOX:
-				return new ContainerChestGeneric(player.inventory, (TileEntityShulkerBox) world.getTileEntity(x, y, z), ((TileEntityShulkerBox) world.getTileEntity(x, y, z)).getRowSize(), ((TileEntityShulkerBox) world.getTileEntity(x, y, z)).getSizeInventory() != 27);
-			case GUIIDs.SMITHING_TABLE:
-				return new ContainerSmithingTable(player.inventory, world);
-			default:
-				return null;
-		}
+        return switch (ID) {
+            case GUIIDs.ENCHANTING_TABLE -> new ContainerEnchantment(player.inventory, world, x, y, z);
+            case GUIIDs.ANVIL -> new ContainerAnvil(player, world, x, y, z);
+            case GUIIDs.BREWING_STAND ->
+                    new ContainerNewBrewingStand(player.inventory, (TileEntityNewBrewingStand) world.getTileEntity(x, y, z));
+            case GUIIDs.BARREL -> new ContainerChest(player.inventory, (TileEntityBarrel) world.getTileEntity(x, y, z));
+            case GUIIDs.SMOKER ->
+                    new ContainerSmoker(player.inventory, (TileEntitySmoker) world.getTileEntity(x, y, z));
+            case GUIIDs.BLAST_FURNACE ->
+                    new ContainerBlastFurnace(player.inventory, (TileEntityBlastFurnace) world.getTileEntity(x, y, z));
+            case GUIIDs.SHULKER_BOX ->
+                    new ContainerChestGeneric(player.inventory, (TileEntityShulkerBox) world.getTileEntity(x, y, z), ((TileEntityShulkerBox) world.getTileEntity(x, y, z)).getRowSize(), ((TileEntityShulkerBox) world.getTileEntity(x, y, z)).getSizeInventory() != 27);
+            case GUIIDs.SMITHING_TABLE -> new ContainerSmithingTable(player.inventory, world);
+            default -> null;
+        };
 	}
 
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-		switch (ID) {
-			case GUIIDs.ENCHANTING_TABLE:
-				return new GuiEnchantment(player.inventory, world, null);
-			case GUIIDs.ANVIL:
-				return new GuiAnvil(player, world, x, y, z);
-			case GUIIDs.BREWING_STAND:
-				return new GuiNewBrewingStand(player.inventory, (TileEntityNewBrewingStand) world.getTileEntity(x, y, z));
-			case GUIIDs.BARREL:
-				return new GuiChest(player.inventory, (TileEntityBarrel) world.getTileEntity(x, y, z));
-			case GUIIDs.SMOKER:
-				return new GuiSmoker(player.inventory, (TileEntitySmoker) world.getTileEntity(x, y, z));
-			case GUIIDs.BLAST_FURNACE:
-				return new GuiBlastFurnace(player.inventory, (TileEntityBlastFurnace) world.getTileEntity(x, y, z));
-			case GUIIDs.SHULKER_BOX:
-				return new GuiShulkerBox(player.inventory, (TileEntityShulkerBox) world.getTileEntity(x, y, z));
-			case GUIIDs.SMITHING_TABLE:
-				return new GuiSmithingTable(new ContainerSmithingTable(player.inventory, world));
-			default:
-				return null;
-		}
+        return switch (ID) {
+            case GUIIDs.ENCHANTING_TABLE -> new GuiEnchantment(player.inventory, world, null);
+            case GUIIDs.ANVIL -> new GuiAnvil(player, world, x, y, z);
+            case GUIIDs.BREWING_STAND ->
+                    new GuiNewBrewingStand(player.inventory, (TileEntityNewBrewingStand) world.getTileEntity(x, y, z));
+            case GUIIDs.BARREL -> new GuiChest(player.inventory, (TileEntityBarrel) world.getTileEntity(x, y, z));
+            case GUIIDs.SMOKER -> new GuiSmoker(player.inventory, (TileEntitySmoker) world.getTileEntity(x, y, z));
+            case GUIIDs.BLAST_FURNACE ->
+                    new GuiBlastFurnace(player.inventory, (TileEntityBlastFurnace) world.getTileEntity(x, y, z));
+            case GUIIDs.SHULKER_BOX ->
+                    new GuiShulkerBox(player.inventory, (TileEntityShulkerBox) world.getTileEntity(x, y, z));
+            case GUIIDs.SMITHING_TABLE -> new GuiSmithingTable(new ContainerSmithingTable(player.inventory, world));
+            default -> null;
+        };
 	}
 
 	public void registerRenderers() {

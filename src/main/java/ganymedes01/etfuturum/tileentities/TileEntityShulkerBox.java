@@ -2,6 +2,7 @@ package ganymedes01.etfuturum.tileentities;
 
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.blocks.BlockShulkerBox;
+import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockShulkerBox;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.configuration.configs.ConfigModCompat;
@@ -40,8 +41,6 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 	public ShulkerBoxType type;
 
 	private boolean firstTick = true;
-
-	public static final List<ItemStack> bannedItems = new ArrayList<ItemStack>();
 
 	public TileEntityShulkerBox() {
 		this.field_190599_i = TileEntityShulkerBox.AnimationStatus.CLOSED;
@@ -293,7 +292,7 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 	 */
 	@Override
 	public boolean isItemValidForSlot(int p_94041_1_, ItemStack p_94041_2_) {
-		return p_94041_2_ == null || !ConfigFunctions.shulkerBans.contains(p_94041_2_.getItem());
+		return !(p_94041_2_.getItem() instanceof ItemBlockShulkerBox || ConfigFunctions.shulkerBans.contains(p_94041_2_.getItem()));
 	}
 
 	/**
