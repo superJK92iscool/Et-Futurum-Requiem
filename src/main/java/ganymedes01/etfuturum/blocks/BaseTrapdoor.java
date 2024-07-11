@@ -17,6 +17,7 @@ public class BaseTrapdoor extends BlockTrapDoor {
 		setBlockName(Utils.getUnlocalisedName(type + "_trapdoor"));
 		setBlockTextureName(type + "_trapdoor");
 		setCreativeTab(EtFuturum.creativeTabBlocks);
+		setBlockSound(getMaterial() == Material.iron ? Block.soundTypeMetal : Block.soundTypeWood);
 	}
 
 	public BaseTrapdoor(String type) {

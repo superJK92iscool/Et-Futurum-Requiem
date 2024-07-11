@@ -26,6 +26,7 @@ public class BaseDoor extends BlockDoor {
 		setBlockTextureName(type + "_door");
 		setBlockName(Utils.getUnlocalisedName(type + "_door"));
 		setCreativeTab(EtFuturum.creativeTabBlocks);
+		setBlockSound(getMaterial() == Material.iron ? Block.soundTypeMetal : Block.soundTypeWood);
 	}
 
 	public BaseDoor(String type) {
