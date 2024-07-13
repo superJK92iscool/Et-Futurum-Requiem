@@ -30,7 +30,7 @@ public abstract class MixinBlockFalling extends Block implements IFallingDustCol
 				double d0 = (float) x + rand.nextFloat();
 				double d1 = (double) y - .05D;
 				double d2 = (float) z + rand.nextFloat();
-				CustomParticles.spawnFallingDustParticle(world, x, y, z, getDustColor(world.getBlockMetadata(x, y, z)));
+				CustomParticles.spawnFallingDustParticle(world, d0, d1, d2, getDustColor(world.getBlockMetadata(x, y, z)));
 			}
 		}
 	}
