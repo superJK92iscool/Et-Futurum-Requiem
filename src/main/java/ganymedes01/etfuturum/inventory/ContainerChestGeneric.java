@@ -112,7 +112,7 @@ public class ContainerChestGeneric extends Container {
 		while (!p_75135_4_ && k < p_75135_3_ || p_75135_4_ && k >= p_75135_2_) {
 			Slot slot = (Slot) this.inventorySlots.get(k);
 
-			if (slot instanceof SlotCustom && !slot.isItemValid(p_75135_1_)) {
+			if (!slot.isItemValid(p_75135_1_)) {
 				return false;
 			}
 
