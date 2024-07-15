@@ -1,5 +1,8 @@
 package ganymedes01.etfuturum.mixins.uninflammableitem;
 
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import ganymedes01.etfuturum.EtFuturum;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -52,6 +55,12 @@ public abstract class MixinEntityItem extends Entity {
 		}
 	}
 
+	/**
+	 * TODO: This should be changed to a WrapOperation
+	 * I've tried rearranging all of the motion values in every way I could think of.
+	 * Yet no matter what I do changing this to WrapOperation either causes no float or the item to sling out of and bounce on lava.
+	 * So this stays as a redirect for now until I can find some in-between
+	 */
 	@Redirect(method = "onUpdate", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/item/EntityItem;moveEntity(DDD)V"))
 	private void floatLava(EntityItem instance, double mx, double my, double mz) {
 		double buoyancy = 0;
@@ -66,8 +75,9 @@ public abstract class MixinEntityItem extends Entity {
 		moveEntity(mx, my + buoyancy, mz);
 	}
 
-	@Redirect(method = "onUpdate", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;getBlock(III)Lnet/minecraft/block/Block;"))
-	private Block noFizzBounce(World instance, int x, int y, int z) { //Returns AIR so the check for lava is false; we do this to remove the fizzing and bouncing
+	@WrapOperation(method = "onUpdate",
+			at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;getBlock(III)Lnet/minecraft/block/Block;"))
+	private Block noFizzBounce(World instance, int x, int y, int z, Operation<Block> original) { //Returns AIR so the check for lava is false; we do this to remove the fizzing and bouncing
 		return isImmuneToFire ? Blocks.air : worldObj.getBlock(x, y, z);
 	}
 

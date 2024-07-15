@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.mixins.floorceilbutton;
 
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockButton;
 import net.minecraft.block.material.Material;
@@ -87,38 +88,12 @@ public class MixinBlockButton extends Block {
 		}
 	}
 
-//	@Redirect(method = "onNeighborBlockChange", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;isSideSolid(IIILnet/minecraftforge/common/util/ForgeDirection;)Z"))
-//	public boolean captureVars(World instance, int x, int y, int z, ForgeDirection side) {
-//		return false;
-//	}
-
-	@Unique
-	private World etfuturum$nWorld;
-	@Unique
-	private int etfuturum$nMeta;
-	@Unique
-	private int etfuturum$nX;
-	@Unique
-	private int etfuturum$nY;
-	@Unique
-	private int etfuturum$nZ;
-
-	@Inject(method = "onNeighborBlockChange",
-			at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;isSideSolid(IIILnet/minecraftforge/common/util/ForgeDirection;)Z", shift = At.Shift.BEFORE, ordinal = 0),
-			locals = LocalCapture.CAPTURE_FAILHARD)
-	public void captureVars(World world, int x, int y, int z, Block block, CallbackInfo cir, int l) {
-		etfuturum$nWorld = world;
-		etfuturum$nMeta = l;
-		etfuturum$nX = x;
-		etfuturum$nY = y;
-		etfuturum$nZ = z;
-	}
-
 	@ModifyVariable(method = "onNeighborBlockChange",
 			at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;isSideSolid(IIILnet/minecraftforge/common/util/ForgeDirection;)Z", shift = At.Shift.BEFORE, ordinal = 0))
-	public boolean modifyFlag(boolean flag) {
-		return flag || (etfuturum$nMeta == 5 && !etfuturum$nWorld.isSideSolid(etfuturum$nX, etfuturum$nY - 1, etfuturum$nZ, ForgeDirection.UP)) ||
-				(etfuturum$nMeta == 0 && !etfuturum$nWorld.isSideSolid(etfuturum$nX, etfuturum$nY + 1, etfuturum$nZ, ForgeDirection.DOWN));
+	public boolean modifyFlag(boolean flag,
+							  @Local(name = "worldIn") World world, @Local(name = "x") int x, @Local(name = "y") int y, @Local(name = "z") int z, @Local(name = "l") int meta) {
+		return flag || (meta == 5 && !world.isSideSolid(x, y - 1, z, ForgeDirection.UP)) ||
+				(meta == 0 && !world.isSideSolid(x, y + 1, z, ForgeDirection.DOWN));
 	}
 
 	@Inject(method = "func_150043_b", at = @At(value = "TAIL"), locals = LocalCapture.CAPTURE_FAILHARD)
@@ -144,7 +119,7 @@ public class MixinBlockButton extends Block {
 	/*
 	 * Replaced this function to just call isProvidingWeakPower since it sets the power to 15 if the button is pressed, which is what we want.
 	 * The code that was originally here seemed to have a bunch of checks that are seemingly unnecessary since meta > 7 = pressed...?
-	 * Either way mixing into it is hell and the functionality here seems to already be what we want.
+	 * Either way mixing into it is hell and the functionality in isProvidingWeakPower seems to already be what we want.
 	 * So instead of mixing into ternary operator hell, we just redirect it to the function that already does what we want.
 	 */
 	@Inject(method = "isProvidingStrongPower", at = @At(value = "HEAD"), cancellable = true)

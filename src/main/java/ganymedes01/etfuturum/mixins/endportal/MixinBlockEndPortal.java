@@ -1,5 +1,7 @@
 package ganymedes01.etfuturum.mixins.endportal;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -8,10 +10,14 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(value = BlockEndPortal.class)
 public class MixinBlockEndPortal extends Block {
@@ -20,25 +26,26 @@ public class MixinBlockEndPortal extends Block {
 		super(p_i45394_1_);
 	}
 
-	@Overwrite
-	public void onBlockAdded(World p_149726_1_, int p_149726_2_, int p_149726_3_, int p_149726_4_) {
+	@Inject(method = "onBlockAdded", at = @At(value = "HEAD"), cancellable = true)
+	public void ignoreOnBlockAdded(World worldIn, int x, int y, int z, CallbackInfo ci) {
+		ci.cancel();
 	}
 
-	@Overwrite
-	public void setBlockBoundsBasedOnState(IBlockAccess p_149719_1_, int p_149719_2_, int p_149719_3_, int p_149719_4_) {
-		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, .75F, 1.0F);
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Overwrite
-	public Item getItem(World p_149694_1_, int p_149694_2_, int p_149694_3_, int p_149694_4_) {
-		return Item.getItemFromBlock(this);
+	@WrapOperation(method = "setBlockBoundsBasedOnState", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/BlockEndPortal;setBlockBounds(FFFFFF)V"))
+	public void setNewBlockBoundsBasedOnState(BlockEndPortal instance, float minX, float minY, float minZ, float maxX, float maxY, float maxZ, Operation<Void> original) {
+		original.call(instance, 0.0F, 0.0F, 0.0F, 1.0F, .75F, 1.0F);
 	}
 
 	@SideOnly(Side.CLIENT)
-	@Overwrite
-	public void registerBlockIcons(IIconRegister p_149651_1_) {
-		this.blockIcon = Blocks.obsidian.getIcon(0, 0);
+	@Inject(method = "getItem", at = @At(value = "HEAD"), cancellable = true)
+	public void getActualItem(World worldIn, int x, int y, int z, CallbackInfoReturnable<Item> cir) {
+		cir.setReturnValue(Item.getItemFromBlock(this));
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Redirect(method = "registerBlockIcons", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/texture/IIconRegister;registerIcon(Ljava/lang/String;)Lnet/minecraft/util/IIcon;"))
+	public IIcon registerObsidianIcon(IIconRegister instance, String s) {
+		return Blocks.obsidian.getIcon(0, 0);
 	}
 
 	@SideOnly(Side.CLIENT)

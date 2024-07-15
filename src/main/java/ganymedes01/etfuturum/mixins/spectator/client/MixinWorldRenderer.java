@@ -1,5 +1,7 @@
 package ganymedes01.etfuturum.mixins.spectator.client;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import ganymedes01.etfuturum.spectator.SpectatorMode;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -10,11 +12,11 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(WorldRenderer.class)
 public class MixinWorldRenderer {
-	@Redirect(method = "updateRenderer", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/Block;getRenderType()I", ordinal = 0))
-	private int skipInsideRenderForSpectator(Block instance) {
+	@WrapOperation(method = "updateRenderer", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/Block;getRenderType()I", ordinal = 0))
+	private int skipInsideRenderForSpectator(Block instance, Operation<Integer> original) {
 		if (SpectatorMode.isSpectator(Minecraft.getMinecraft().thePlayer)) {
 			return -1;
 		}
-		return instance.getRenderType();
+		return original.call(instance);
 	}
 }

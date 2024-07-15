@@ -1,5 +1,8 @@
 package ganymedes01.etfuturum.mixins.soulfire;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Local;
 import ganymedes01.etfuturum.ducks.ISoulFireInfo;
 import net.minecraft.block.BlockFire;
 import net.minecraft.client.renderer.RenderBlocks;
@@ -18,29 +21,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class MixinRenderBlocks {
 	@Shadow
 	public IBlockAccess blockAccess;
-	@Shadow
-	public double renderMaxZ;
-	@Unique
-	private int etfuturum$renderX;
-	@Unique
-	private int etfuturum$renderY;
-	@Unique
-	private int etfuturum$renderZ;
 
-	@Inject(method = "renderBlockFire", at = @At(value = "HEAD"))
-	private void captureRenderPos(BlockFire pot, int x, int y, int z, CallbackInfoReturnable<Boolean> cir) {
-		etfuturum$renderX = x;
-		etfuturum$renderY = y;
-		etfuturum$renderZ = z;
-	}
-
-	@Redirect(method = "renderBlockFire", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/BlockFire;getFireIcon(I)Lnet/minecraft/util/IIcon;"))
-	private IIcon getFireIcon(BlockFire instance, int p_149840_1_) {
+	@WrapOperation(method = "renderBlockFire", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/BlockFire;getFireIcon(I)Lnet/minecraft/util/IIcon;"))
+	private IIcon getFireIcon(BlockFire instance, int p_149840_1_, Operation<IIcon> original,
+							  @Local(ordinal = 0, argsOnly = true) int x, @Local(ordinal = 1, argsOnly = true) int y, @Local(ordinal = 2, argsOnly = true) int z) {
 		if (instance == Blocks.fire && instance instanceof ISoulFireInfo) { //Only apply to vanilla fires
-			if (((ISoulFireInfo) instance).isSoulFire(blockAccess, etfuturum$renderX, etfuturum$renderY, etfuturum$renderZ)) {
+			if (((ISoulFireInfo) instance).isSoulFire(blockAccess, x, y, z)) {
 				return ((ISoulFireInfo) instance).getSoulFireIcon(p_149840_1_);
 			}
 		}
-		return instance.getFireIcon(p_149840_1_);
+		return original.call(instance, p_149840_1_);
 	}
 }

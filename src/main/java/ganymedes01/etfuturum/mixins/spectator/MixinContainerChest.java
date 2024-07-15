@@ -1,5 +1,7 @@
 package ganymedes01.etfuturum.mixins.spectator;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import ganymedes01.etfuturum.spectator.SpectatorMode;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -15,15 +17,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ContainerChest.class)
 public abstract class MixinContainerChest extends Container {
 
-//  @Inject(method = "<init>", at = @At(value = "HEAD"))
-//  private void capturePlayerInventory(IInventory p_i1806_1_, IInventory p_i1806_2_, CallbackInfo ci) {
-//  }
-
-	@Redirect(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/inventory/IInventory;openInventory()V"))
-	//To capture the constructor params it requires me to have both IInventory args in the signature. chestInv == chestInvAgain
-	private void ignoreOpenInventoryInSpectator(IInventory chestInv, IInventory playerInv, IInventory chestInvAgain) {
+	@WrapOperation(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/inventory/IInventory;openInventory()V"))
+	private void ignoreOpenInventoryInSpectator(IInventory playerInv, Operation<Void> original) {
 		if (!(playerInv instanceof InventoryPlayer) || !SpectatorMode.isSpectator(((InventoryPlayer) playerInv).player)) {
-			chestInv.openInventory();
+			original.call(playerInv);
 		}
 	}
 

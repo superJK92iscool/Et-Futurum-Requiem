@@ -52,6 +52,7 @@ public abstract class MixinEntityPlayer extends EntityLivingBase {
 		return super.handleWaterMovement();
 	}
 
+	@Override
 	public ItemStack getEquipmentInSlot(int p_71124_1_) {
 		return SpectatorMode.isSpectator((EntityPlayer) (Object) this) ? null : p_71124_1_ == 0 ? this.inventory.getCurrentItem() : this.inventory.armorInventory[p_71124_1_ - 1];
 	}

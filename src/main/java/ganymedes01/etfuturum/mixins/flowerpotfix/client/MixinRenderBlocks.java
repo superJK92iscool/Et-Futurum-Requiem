@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.mixins.flowerpotfix.client;
 
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFlowerPot;
 import net.minecraft.client.renderer.RenderBlocks;
@@ -18,23 +19,11 @@ public abstract class MixinRenderBlocks {
 
 	@Shadow
 	public IBlockAccess blockAccess;
-	@Unique
-	private int etfuturum$renderX;
-	@Unique
-	private int etfuturum$renderY;
-	@Unique
-	private int etfuturum$renderZ;
-
-	@Inject(method = "renderBlockFlowerpot", at = @At(value = "INVOKE", shift = At.Shift.BEFORE, target = "Lnet/minecraft/client/renderer/RenderBlocks;getBlockIconFromSideAndMetadata(Lnet/minecraft/block/Block;II)Lnet/minecraft/util/IIcon;"))
-	private void captureRenderPos(BlockFlowerPot pot, int x, int y, int z, CallbackInfoReturnable<Boolean> cir) {
-		etfuturum$renderX = x;
-		etfuturum$renderY = y;
-		etfuturum$renderZ = z;
-	}
 
 
 	@Redirect(method = "renderBlockFlowerpot", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/RenderBlocks;getBlockIconFromSideAndMetadata(Lnet/minecraft/block/Block;II)Lnet/minecraft/util/IIcon;"))
-	private IIcon useProperIcon(RenderBlocks instance, Block block, int side, int meta) {
-		return block.getIcon(blockAccess, etfuturum$renderX, etfuturum$renderY, etfuturum$renderZ, side);
+	private IIcon useProperIcon(RenderBlocks instance, Block block, int side, int meta,
+								@Local(ordinal = 0, argsOnly = true) int x, @Local(ordinal = 1, argsOnly = true) int y, @Local(ordinal = 2, argsOnly = true) int z) {
+		return block.getIcon(blockAccess, x, y, z, side);
 	}
 }

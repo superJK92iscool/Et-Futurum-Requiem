@@ -6,6 +6,7 @@ import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Slice;
@@ -16,7 +17,8 @@ public class MixinEntity {
 	@Shadow
 	@Final
 	public AxisAlignedBB boundingBox;
-	private AxisAlignedBB etfu$savedBB;
+	@Unique
+	private AxisAlignedBB etfuturum$savedBB;
 
 	@Inject(method = "moveEntity",
 			at = @At(value = "INVOKE", target = "Lnet/minecraft/util/AxisAlignedBB;setBB(Lnet/minecraft/util/AxisAlignedBB;)V", ordinal = 0, shift = At.Shift.AFTER),
@@ -24,7 +26,7 @@ public class MixinEntity {
 	)
 	private void saveOldBoundingBox(double x, double y, double z, CallbackInfo ci) {
 		if (boundingBox != null) {
-			etfu$savedBB = this.boundingBox.copy();
+			etfuturum$savedBB = this.boundingBox.copy();
 			this.boundingBox.setBB(this.boundingBox.addCoord(x + 0.01D, 0, z - 0.01D));
 		}
 	}
@@ -35,10 +37,10 @@ public class MixinEntity {
 	)
 	private void restoreOldBoundingBox(double x, double y, double z, CallbackInfo ci) {
 		if (boundingBox != null) {
-			if (etfu$savedBB == null)
+			if (etfuturum$savedBB == null)
 				throw new IllegalStateException("A conflict has occured with another mod's transformer");
-			this.boundingBox.setBB(etfu$savedBB);
-			etfu$savedBB = null;
+			this.boundingBox.setBB(etfuturum$savedBB);
+			etfuturum$savedBB = null;
 		}
 	}
 }

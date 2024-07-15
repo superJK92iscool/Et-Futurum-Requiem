@@ -1,13 +1,16 @@
 package ganymedes01.etfuturum.mixins.sounds;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import ganymedes01.etfuturum.lib.Reference;
-import net.minecraft.block.Block;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(EntitySkeleton.class)
 public class MixinEntitySkeleton extends EntityMob {
@@ -16,24 +19,30 @@ public class MixinEntitySkeleton extends EntityMob {
 		super(p_i1738_1_);
 	}
 
-	@Overwrite
-	protected String getLivingSound() {
-		return getSkeletonType() == 1 ? Reference.MCAssetVer + ":entity.wither_skeleton.ambient" : "mob.skeleton.say";
+	@Inject(method = "getLivingSound", at = @At(value = "HEAD"), cancellable = true)
+	protected void getNewLivingSound(CallbackInfoReturnable<String> cir) {
+		if(getSkeletonType() == 1) {
+			cir.setReturnValue(Reference.MCAssetVer + ":entity.wither_skeleton.ambient");
+		}
 	}
 
-	@Overwrite
-	protected String getHurtSound() {
-		return getSkeletonType() == 1 ? Reference.MCAssetVer + ":entity.wither_skeleton.hurt" : "mob.skeleton.hurt";
+	@Inject(method = "getHurtSound", at = @At(value = "HEAD"), cancellable = true)
+	protected void getNewHurtSound(CallbackInfoReturnable<String> cir) {
+		if(getSkeletonType() == 1) {
+			cir.setReturnValue(Reference.MCAssetVer + ":entity.wither_skeleton.hurt");
+		}
 	}
 
-	@Overwrite
-	protected String getDeathSound() {
-		return getSkeletonType() == 1 ? Reference.MCAssetVer + ":entity.wither_skeleton.death" : "mob.skeleton.death";
+	@Inject(method = "getDeathSound", at = @At(value = "HEAD"), cancellable = true)
+	protected void getNewDeathSound(CallbackInfoReturnable<String> cir) {
+		if(getSkeletonType() == 1) {
+			cir.setReturnValue(Reference.MCAssetVer + ":entity.wither_skeleton.death");
+		}
 	}
 
-	@Overwrite
-	protected void func_145780_a(int p_145780_1_, int p_145780_2_, int p_145780_3_, Block p_145780_4_) {
-		this.playSound(getSkeletonType() == 1 ? Reference.MCAssetVer + ":entity.wither_skeleton.step" : "mob.skeleton.step", 0.15F, 1.0F);
+	@WrapOperation(method = "func_145780_a", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/monster/EntitySkeleton;playSound(Ljava/lang/String;FF)V"))
+	protected void func_145780_a_inject(EntitySkeleton instance, String s, float volume, float pitch, Operation<Void> original) {
+		original.call(instance, getSkeletonType() == 1 ? Reference.MCAssetVer + ":entity.wither_skeleton.step" : s, volume, pitch);
 	}
 
 	@Shadow

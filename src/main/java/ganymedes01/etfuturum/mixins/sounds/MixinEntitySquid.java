@@ -5,6 +5,9 @@ import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.entity.passive.EntityWaterMob;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(EntitySquid.class)
 public class MixinEntitySquid extends EntityWaterMob {
@@ -13,16 +16,19 @@ public class MixinEntitySquid extends EntityWaterMob {
 		super(p_i1695_1_);
 	}
 
-	protected String getHurtSound() {
-		return Reference.MCAssetVer + ":entity.squid.hurt";
+	@Inject(method = "getHurtSound", at = @At(value = "HEAD"), cancellable = true)
+	protected void getNewHurtSound(CallbackInfoReturnable<String> cir) {
+		cir.setReturnValue(Reference.MCAssetVer + ":entity.squid.hurt");
 	}
 
-	protected String getDeathSound() {
-		return Reference.MCAssetVer + ":entity.squid.death";
+	@Inject(method = "getDeathSound", at = @At(value = "HEAD"), cancellable = true)
+	protected void getNewDeathSound(CallbackInfoReturnable<String> cir) {
+		cir.setReturnValue(Reference.MCAssetVer + ":entity.squid.death");
 	}
 
-	protected String getLivingSound() {
-		return Reference.MCAssetVer + ":entity.squid.ambient";
+	@Inject(method = "getLivingSound", at = @At(value = "HEAD"), cancellable = true)
+	protected void getNewLivingSound(CallbackInfoReturnable<String> cir) {
+		cir.setReturnValue(Reference.MCAssetVer + ":entity.squid.ambient");
 	}
 
 }

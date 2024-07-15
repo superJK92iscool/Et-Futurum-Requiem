@@ -30,7 +30,7 @@ public abstract class MixinEntityPlayer extends EntityLivingBase {
 	@Unique
 	private DamageSource etfuturum$lastDamageSource;
 
-	@Inject(method = "damageEntity", at = @At("HEAD"), cancellable = true)
+	@Inject(method = "damageEntity", at = @At("HEAD"))
 	public void captureLastDamageSource(DamageSource p_70097_1_, float p_70097_2_, CallbackInfo ci) {
 		etfuturum$lastDamageSource = p_70097_1_;
 	}

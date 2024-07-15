@@ -3,39 +3,41 @@ package ganymedes01.etfuturum.mixins.backlytra.client;
 import ganymedes01.etfuturum.elytra.IClientElytraPlayer;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 
 @Mixin(AbstractClientPlayer.class)
 public class MixinAbstractClientPlayer implements IClientElytraPlayer {
 	@Override
 	public float getRotateElytraX() {
-		return rotateElytraX;
+		return etfuturum$rotateElytraX;
 	}
 
 	@Override
 	public void setRotateElytraX(float rotateElytraX) {
-		this.rotateElytraX = rotateElytraX;
+		this.etfuturum$rotateElytraX = rotateElytraX;
 	}
 
 	@Override
 	public float getRotateElytraY() {
-		return rotateElytraY;
+		return etfuturum$rotateElytraY;
 	}
 
 	@Override
 	public void setRotateElytraY(float rotateElytraY) {
-		this.rotateElytraY = rotateElytraY;
+		this.etfuturum$rotateElytraY = rotateElytraY;
 	}
 
 	@Override
 	public float getRotateElytraZ() {
-		return rotateElytraZ;
+		return etfuturum$rotateElytraZ;
 	}
 
 	@Override
 	public void setRotateElytraZ(float rotateElytraZ) {
-		this.rotateElytraZ = rotateElytraZ;
+		this.etfuturum$rotateElytraZ = rotateElytraZ;
 	}
 
-	float rotateElytraX, rotateElytraY, rotateElytraZ;
+	@Unique
+	float etfuturum$rotateElytraX, etfuturum$rotateElytraY, etfuturum$rotateElytraZ;
 
 }

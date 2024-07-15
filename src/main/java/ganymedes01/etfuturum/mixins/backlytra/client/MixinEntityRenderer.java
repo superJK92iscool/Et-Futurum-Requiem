@@ -20,7 +20,7 @@ public class MixinEntityRenderer {
 		if (this.mc.gameSettings.thirdPersonView > 0 && this.mc.renderViewEntity instanceof IElytraPlayer) {
 			if (((IElytraPlayer) this.mc.renderViewEntity).etfu$isElytraFlying()) {
 				/* Move the camera down 1.62 blocks to sit at the player's feet and then up by 0.4 blocks, like 1.12 does */
-				GL11.glTranslatef(0, 1.62f - 0.4f, 0f);
+				GL11.glTranslatef(0, 1.22f, 0f);
 			}
 		}
 	}

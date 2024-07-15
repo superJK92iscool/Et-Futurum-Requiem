@@ -50,7 +50,7 @@ public abstract class MixinEntity {
 					for (int i2 = i1; i2 < j1; ++i2) {
 						Block block = worldObj.getBlock(k1, l1, i2);
 
-						if (block == Blocks.fire && block instanceof ISoulFireInfo && ((ISoulFireInfo) block).isSoulFire(worldObj, k1, l1, i2)) {
+						if (block instanceof ISoulFireInfo && ((ISoulFireInfo) block).isSoulFire(worldObj, k1, l1, i2)) {
 							return true;
 						}
 					}

@@ -16,7 +16,8 @@ public class MixinBlockBed extends Block {
 
 	@Unique
 	private static final Map<Entity, Double> BED_BOUNCE_CACHE = new WeakHashMap<>();
-	private long lastBounceTick;
+	@Unique
+	private long etfuturum$lastBounceTick;
 
 	protected MixinBlockBed(Material p_i45394_1_) {
 		super(p_i45394_1_);
@@ -28,7 +29,7 @@ public class MixinBlockBed extends Block {
 			entity.fallDistance /= 2;
 			if (entity.motionY < 0) {
 				BED_BOUNCE_CACHE.put(entity, entity.motionY * -0.66);
-				lastBounceTick = world.getTotalWorldTime();
+				etfuturum$lastBounceTick = world.getTotalWorldTime();
 			}
 		}
 		super.onFallenUpon(world, x, y, z, entity, fallDistance);
@@ -36,7 +37,7 @@ public class MixinBlockBed extends Block {
 
 	@Override
 	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
-		if (lastBounceTick == world.getTotalWorldTime()) {
+		if (etfuturum$lastBounceTick == world.getTotalWorldTime()) {
 			Double bounce = BED_BOUNCE_CACHE.remove(entity);
 			if (bounce != null) {
 				entity.motionY = bounce;

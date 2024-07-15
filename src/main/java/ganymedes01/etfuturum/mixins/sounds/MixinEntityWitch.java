@@ -5,10 +5,10 @@ import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(EntityWitch.class)
 public class MixinEntityWitch extends EntityMob {
@@ -22,19 +22,19 @@ public class MixinEntityWitch extends EntityMob {
 		this.playSound(Reference.MCAssetVer + ":entity.witch.drink", getSoundVolume(), getSoundPitch());
 	}
 
-	@Overwrite
-	protected String getHurtSound() {
-		return Reference.MCAssetVer + ":entity.witch.hurt";
+	@Inject(method = "getHurtSound", at = @At(value = "HEAD"), cancellable = true)
+	protected void getNewHurtSound(CallbackInfoReturnable<String> cir) {
+		cir.setReturnValue(Reference.MCAssetVer + ":entity.witch.hurt");
 	}
 
-	@Overwrite
-	protected String getDeathSound() {
-		return Reference.MCAssetVer + ":entity.witch.death";
+	@Inject(method = "getDeathSound", at = @At(value = "HEAD"), cancellable = true)
+	protected void getNewDeathSound(CallbackInfoReturnable<String> cir) {
+		cir.setReturnValue(Reference.MCAssetVer + ":entity.witch.death");
 	}
 
-	@Overwrite
-	protected String getLivingSound() {
-		return Reference.MCAssetVer + ":entity.witch.ambient";
+	@Inject(method = "getLivingSound", at = @At(value = "HEAD"), cancellable = true)
+	protected void getNewLivingSound(CallbackInfoReturnable<String> cir) {
+		cir.setReturnValue(Reference.MCAssetVer + ":entity.witch.ambient");
 	}
 
 }
