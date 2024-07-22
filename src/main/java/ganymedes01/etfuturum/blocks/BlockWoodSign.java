@@ -10,6 +10,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockSign;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
@@ -27,7 +28,7 @@ public class BlockWoodSign extends BlockSign {
 
 	public final boolean standing;
 
-	public BlockWoodSign(Class<?> p_i45426_1_, boolean p_i45426_2_, String type, Block block, int meta) {
+	public BlockWoodSign(Class<? extends TileEntity> p_i45426_1_, boolean p_i45426_2_, String type, Block block, int meta) {
 		super(p_i45426_1_, p_i45426_2_);
 		this.meta = meta;
 		baseBlock = block;

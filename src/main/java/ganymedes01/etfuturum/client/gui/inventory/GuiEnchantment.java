@@ -239,7 +239,7 @@ public class GuiEnchantment extends GuiContainer {
 			int var9 = var6 + 1;
 
 			if (func_146978_c(60, 14 + 19 * var6, 108, 17, mouseX, mouseY) && var7 > 0 && var8 >= 0) {
-				ArrayList<Object> var10 = Lists.newArrayList();
+				ArrayList<String> var10 = Lists.newArrayList();
 				String var11;
 				Enchantment ench = Enchantment.enchantmentsList[var8 % Enchantment.enchantmentsList.length];
 				if (ench != null) {

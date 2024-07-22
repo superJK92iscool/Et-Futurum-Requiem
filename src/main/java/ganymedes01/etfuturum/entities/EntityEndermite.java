@@ -135,7 +135,7 @@ public class EntityEndermite extends EntityMob {
 		double radius = range / 2.0;
 		int tagetChance = 10;
 		if (rand.nextInt(tagetChance) != 0) {
-			List<EntityEnderman> list = worldObj.getEntitiesWithinAABBExcludingEntity(this, AxisAlignedBB.getBoundingBox(posX - radius, posY - 4, posZ - radius, posX + radius, posY + 4, posZ + radius), new IEntitySelector() {
+			List<Entity> list = worldObj.getEntitiesWithinAABBExcludingEntity(this, AxisAlignedBB.getBoundingBox(posX - radius, posY - 4, posZ - radius, posX + radius, posY + 4, posZ + radius), new IEntitySelector() {
 				@Override
 				public boolean isEntityApplicable(Entity entity) {
 					return entity instanceof EntityEnderman && ((EntityEnderman) entity).getEntityToAttack() == null;
@@ -143,9 +143,11 @@ public class EntityEndermite extends EntityMob {
 			});
 			list.sort(sorter);
 			if (!list.isEmpty()) {
-				for (EntityEnderman enderman : list) {
-					enderman.setTarget(this);
-					enderman.setScreaming(true);
+				for (Entity entity : list) {
+					if(entity instanceof EntityEnderman enderman) {
+						enderman.setTarget(this);
+						enderman.setScreaming(true);
+					}
 				}
 			}
 		}
