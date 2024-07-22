@@ -37,7 +37,7 @@ public class EntityPlacedEndCrystal extends EntityEnderCrystal {
 
 		if (worldObj.getWorldTime() % timer == 0 && isOnSuitablePlace()) {
 			timer = 20 + rand.nextInt(20);
-			List<EntityPlacedEndCrystal> crystals = worldObj.getEntitiesWithinAABB(getClass(), AxisAlignedBB.getBoundingBox(blockX - 6, blockY, blockZ - 6, blockX + 6, blockY + 1, blockZ + 6));
+			List<? extends EntityPlacedEndCrystal> crystals = worldObj.getEntitiesWithinAABB(getClass(), AxisAlignedBB.getBoundingBox(blockX - 6, blockY, blockZ - 6, blockX + 6, blockY + 1, blockZ + 6));
 			if (crystals.size() == 4) {
 				for (EntityPlacedEndCrystal crystal : crystals)
 					if (crystal.isDead || !crystal.isOnSuitablePlace())

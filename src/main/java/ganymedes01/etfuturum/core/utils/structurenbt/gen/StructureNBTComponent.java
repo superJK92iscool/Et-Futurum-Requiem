@@ -11,7 +11,7 @@ import java.util.Random;
 public abstract class StructureNBTComponent extends StructureComponent {
 
 	private final NBTStructure structure;
-	private final String pieceName;
+	public final String pieceName;
 
 	public StructureNBTComponent(NBTStructure structure, String name) {
 		this.structure = structure;

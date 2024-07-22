@@ -910,6 +910,13 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "block.beehive.work", "neutral");
 		config.addSoundEvent(ver, "block.beehive.shear", "player");
 		config.addSoundEvent(ver, "block.sponge.absorb", "block");
+		config.addSoundEvent(ver, "block.copper_bulb.turn_on", "block");
+		config.addSoundEvent(ver, "block.copper_bulb.turn_off", "block");
+		config.addSoundEvent(ver, "block.bubble_column.bubble_pop", "block");
+		config.addSoundEvent(ver, "block.bubble_column.upwards_ambient", "block");
+		config.addSoundEvent(ver, "block.bubble_column.upwards_inside", "neutral");
+		config.addSoundEvent(ver, "block.bubble_column.whirlpool_ambient", "block");
+		config.addSoundEvent(ver, "block.bubble_column.whirlpool_inside", "neutral");
 
 		config.addSoundEvent(ver, "block.fence_gate.open", "block");
 		config.addSoundEvent(ver, "block.fence_gate.close", "block");
@@ -919,8 +926,6 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "block.cherry_wood_fence_gate.close", "block");
 		config.addSoundEvent(ver, "block.bamboo_wood_fence_gate.open", "block");
 		config.addSoundEvent(ver, "block.bamboo_wood_fence_gate.close", "block");
-		config.addSoundEvent(ver, "block.copper_bulb.turn_on", "block");
-		config.addSoundEvent(ver, "block.copper_bulb.turn_off", "block");
 
 		config.addSoundEvent(ver, "block.wooden_door.open", "block");
 		config.addSoundEvent(ver, "block.wooden_door.close", "block");

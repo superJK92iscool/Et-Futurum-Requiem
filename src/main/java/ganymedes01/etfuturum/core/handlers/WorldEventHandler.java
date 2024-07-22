@@ -86,12 +86,12 @@ public class WorldEventHandler {
 		//If the mangrove swamp or cherry grove is added, it should be a 5% (.05F chance)
 		//If the meadow is added, it should be a 100% (1F chance)
 		for (BiomeGenBase biome : Utils.excludeBiomesFromTypesWithDefaults(
-				BiomeDictionary.getBiomesForType(BiomeDictionary.Type.FOREST),
+				BiomeDictionary.getBiomesForType(BiomeDictionary.Type.FOREST), BiomeDictionary.Type.CONIFEROUS,
 				BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.SPARSE, BiomeDictionary.Type.SNOWY, BiomeDictionary.Type.SANDY)) {
-			BEE_NEST_BIOMES.put(biome, .002F);//.2% chance to try to place a hive
+			BEE_NEST_BIOMES.put(biome, .002F);//.02% chance to try to place a hive
 		}
 		for (BiomeGenBase biome : Utils.excludeBiomesFromTypesWithDefaults(
-				BiomeDictionary.getBiomesForType(BiomeDictionary.Type.PLAINS),
+				BiomeDictionary.getBiomesForType(BiomeDictionary.Type.PLAINS), BiomeDictionary.Type.CONIFEROUS,
 				BiomeDictionary.Type.SAVANNA, BiomeDictionary.Type.SNOWY, BiomeDictionary.Type.SANDY)) {
 			BEE_NEST_BIOMES.put(biome, .05F);//5% chance to try to place a hive
 		}
