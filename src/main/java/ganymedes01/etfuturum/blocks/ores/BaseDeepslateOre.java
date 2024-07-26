@@ -254,13 +254,12 @@ public abstract class BaseDeepslateOre extends BaseBlock implements IInitAction 
 	@Override
 	public void onLoadAction() {
 		DummyWorld world = DummyWorld.GLOBAL_DUMMY_WORLD;
-		RegistryMapping<Block> mapping = new RegistryMapping<>(getBase(), getBaseMeta());
-		Block block = mapping.getObject();
+		Block block = getBase();
 		//See BlockGeneralModdedDeepslateOre for a comment on why we do this cursed stuff
-		world.setBlock(0, 0, 0, block, mapping.getMeta(), 0);
+		world.setBlock(0, 0, 0, block, getBaseMeta(), 0);
 		try {
-			if (block.getHarvestTool(mapping.getMeta()) != null) {
-				setHarvestLevel("pickaxe", block.getHarvestLevel(mapping.getMeta()));
+			if (block.getHarvestTool(getBaseMeta()) != null) {
+				setHarvestLevel("pickaxe", block.getHarvestLevel(getBaseMeta()));
 			}
 			blockHardness = block.getBlockHardness(world, 0, 0, 0) * 1.5F;
 			blockResistance = block.getExplosionResistance(null, world, 0, 0, 0, 0, 0, 0) * 5; //Because the game divides it by 5 for some reason

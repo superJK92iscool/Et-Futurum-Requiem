@@ -43,7 +43,7 @@ public class ConfigModCompat extends ConfigBase {
 		moddedDeepslateOresBlacklist = Lists.newArrayList(getStringList("moddedDeepslateOresBlacklist", catMisc, new String[0], "List of modded deepslate ores to disable. Add a ModID or ore dictionary tag. For example adding \"oreTin\" disables deepslate tin, and adding \"SimpleOres\" would disable deepslate adamantium ore. CaSe-SeNsItIvE!" +
 				"\nEach entry is separated by a new line. This only disables deepslate ores added from Et Futurum's end and will not affect deepslate ores from other mods."));
 
-		disableBaseBountifulStonesOnly = getBoolean("disableBaseBountifulStonesOnly", catMisc, true, "Disables just the andesite, granite, and diorite full blocks, but leaves their stairs and slabs, etc enabled.\nUseful if you have mods like Chisel or Botania which feature these same stones but not the stairs and other variants.");
-		disableCopperOreAndIngotOnly = getBoolean("disableCopperOreAndIngotOnly", catMisc, true, "Disables copper ingots and ores, but leaves the blocks and other stuff.\nUseful if you prefer another mod's copper, but want to use the oxidizing copper building blocks.");
+		disableBaseBountifulStonesOnly = getBoolean("disableBaseBountifulStonesOnly", catMisc, false, "Disables just the andesite, granite, and diorite full blocks, but leaves their stairs and slabs, etc enabled.\nUseful if you have mods like Chisel or Botania which feature these same stones but not the stairs and other variants.");
+		disableCopperOreAndIngotOnly = getBoolean("disableCopperOreAndIngotOnly", catMisc, false, "Disables copper ingots and ores, but leaves the blocks and other stuff.\nUseful if you prefer another mod's copper, but want to use the oxidizing copper building blocks.");
 	}
 }

@@ -112,7 +112,4 @@ public class BlockTarget extends BaseBlock {
 		return true;
 	}
 
-	public boolean isOpaqueCube() {
-		return true;
-	}
 }

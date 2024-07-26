@@ -20,10 +20,11 @@ public class BlockDeepslateCopperOre extends BlockDeepslateOre implements IInitA
 			//If EFR copper ore isn't enabled, find another mod copper to pull stats from. Fallback to EFR copper stats if nothing is available.
 			DummyWorld world = DummyWorld.GLOBAL_DUMMY_WORLD;
 			ItemStack stack = Utils.getFirstNonDeepslateBlockFromTag("oreCopper", ModBlocks.COPPER_ORE.newItemStack());
-			Block block = Block.getBlockFromItem(stack.getItem());
-			//See BlockGeneralModdedDeepslateOre for a comment on why we do this cursed stuff
-			world.setBlock(0, 0, 0, block, stack.getItemDamage(), 0);
 			try {
+				Block block = Block.getBlockFromItem(stack.getItem());
+				//See BlockGeneralModdedDeepslateOre for a comment on why we do this cursed stuff
+				world.setBlock(0, 0, 0, block, stack.getItemDamage(), 0);
+
 				if (block.getHarvestTool(stack.getItemDamage()) != null) {
 					setHarvestLevel("pickaxe", block.getHarvestLevel(stack.getItemDamage()));
 				}

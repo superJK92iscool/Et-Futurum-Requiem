@@ -250,13 +250,12 @@ public abstract class BaseSubtypesDeepslateOre extends BaseSubtypesBlock impleme
 	public void onLoadAction() {
 		DummyWorld world = DummyWorld.GLOBAL_DUMMY_WORLD;
 		for (int i = 0; i < getTypes().length; i++) {
-			RegistryMapping<Block> mapping = new RegistryMapping<>(getBase(i), getBaseMeta(i));
-			Block block = mapping.getObject();
+			Block block = getBase(i);
 			//See BlockGeneralModdedDeepslateOre for a comment on why we do this cursed stuff
-			world.setBlock(0, 0, 0, block, mapping.getMeta(), 0);
+			world.setBlock(0, 0, 0, block, getBaseMeta(i), 0);
 			try {
-				if (block.getHarvestTool(mapping.getMeta()) != null) {
-					setHarvestLevel("pickaxe", block.getHarvestLevel(mapping.getMeta()), i);
+				if (block.getHarvestTool(getBaseMeta(i)) != null) {
+					setHarvestLevel("pickaxe", block.getHarvestLevel(getBaseMeta(i)), i);
 				}
 				setHardnessValues(block.getBlockHardness(world, 0, 0, 0) * 1.5F, i);
 				setResistanceValues(block.getExplosionResistance(null, world, 0, 0, 0, 0, 0, 0), i);
