@@ -24,6 +24,7 @@ import ganymedes01.etfuturum.items.rawore.modded.ItemGeneralModdedRawOre;
 import ganymedes01.etfuturum.lib.EnumColor;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.recipes.crafting.*;
+import minetweaker.mc1710.recipes.MCRecipeManager;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -40,6 +41,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionHelper;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraftforge.common.ChestGenHooks;
+import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
@@ -1008,18 +1010,16 @@ public class ModRecipes {
 				ItemStack inputBoat = ItemNewBoat.BOAT_INFO.get(key.substring(0, key.indexOf("_chest"))).getBoatItem();
 				addShapelessRecipe(boat, "chestWood", inputBoat);
 			} else {
-				addShapedRecipe(boat,
-						(ConfigBlocksItems.replaceOldBoats ? "x x" : "xyx"), "xxx",
-						'x', isOak ? "plankWood" : entry.getValue().getPlank(),
-						'y', new ItemStack(Items.wooden_shovel, 1));
+				if(isOak) { //We're using the plankWood tag for this, so it needs to be in the vanilla sorter
+					GameRegistry.addRecipe(new ShapedOreRecipe(boat, (ConfigBlocksItems.replaceOldBoats ? "x x" : "xyx"), "xxx", 'x', "plankWood", 'y', new ItemStack(Items.wooden_shovel, 1)));
+				} else { //Not a tagged recipe, we sort this before vanilla recipes, so it takes precedent over them
+					addShapedRecipe(boat, (ConfigBlocksItems.replaceOldBoats ? "x x" : "xyx"), "xxx", 'x', entry.getValue().getPlank(), 'y', new ItemStack(Items.wooden_shovel, 1));
+				}
 			}
 		}
 		if (!ConfigBlocksItems.replaceOldBoats) {
 			addShapelessRecipe(new ItemStack(Items.boat), "boatWood");
 			addShapelessRecipe(ModItems.BOATS[0].newItemStack(), Items.wooden_shovel, Items.boat);
-		}
-		for (int i = EntityNewBoat.Type.VALUES.length - 1; i >= 0; i--) {
-			addShapedRecipe(ModItems.CHEST_BOATS[i].newItemStack(), "c", "b", 'b', i == 0 && ConfigBlocksItems.replaceOldBoats ? Items.boat : ModItems.BOATS[i].get(), 'c', Blocks.chest);
 		}
 
 		addShapedRecipe(ModBlocks.SHULKER_BOX.newItemStack(), "x", "c", "x", 'x', ModItems.SHULKER_SHELL.newItemStack(), 'c', new ItemStack(Blocks.chest));
@@ -1461,7 +1461,7 @@ public class ModRecipes {
 	}
 
 	private static void removeFirstRecipeFor(Item item, int meta) {
-		Iterator<IRecipe> iterator = (Iterator<IRecipe>) CraftingManager.getInstance().getRecipeList().iterator();
+		Iterator<IRecipe> iterator = CraftingManager.getInstance().getRecipeList().iterator();
 		while (iterator.hasNext()) {
 			IRecipe recipe = iterator.next();
 			if (recipe != null) {
@@ -1487,7 +1487,7 @@ public class ModRecipes {
 	}
 
 	private static void removeAllEFRRecipesFor(Item item, int meta) {
-		Iterator<IRecipe> iterator = (Iterator<IRecipe>) CraftingManager.getInstance().getRecipeList().iterator();
+		Iterator<IRecipe> iterator = CraftingManager.getInstance().getRecipeList().iterator();
 		while (iterator.hasNext()) {
 			IRecipe recipe = iterator.next();
 			if ((recipe instanceof ShapedEtFuturumRecipe || recipe instanceof ShapelessEtFuturumRecipe)) {
