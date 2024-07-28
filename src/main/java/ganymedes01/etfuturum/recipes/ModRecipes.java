@@ -50,10 +50,7 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ModRecipes {
 
@@ -753,10 +750,14 @@ public class ModRecipes {
 		addSmelting(ModBlocks.NETHER_GOLD_ORE.newItemStack(), new ItemStack(Items.gold_ingot), .1F);
 
 		addSmelting(new ItemStack(Blocks.stone), ModBlocks.SMOOTH_STONE.newItemStack(), .1F);
-		if (ModsList.BLUEPOWER.isLoaded()) {
-			Item stoneTile = GameRegistry.findItem("bluepower", "stone_tile");
+
+		if(ModBlocks.SMOOTH_STONE.isEnabled()) {
+			ItemStack stoneTile = ExternalContent.Items.BLUEPOWER_CIRCUIT_PLATE.isEnabled() ? ExternalContent.Items.BLUEPOWER_CIRCUIT_PLATE.newItemStack(2)
+					: ExternalContent.Items.PROJECTRED_CIRCUIT_PLATE.isEnabled() ? ExternalContent.Items.PROJECTRED_CIRCUIT_PLATE.newItemStack(2)
+					: null;
 			if (stoneTile != null) {
-				addShapedRecipe(new ItemStack(stoneTile, 4), "xx", 'x', ModBlocks.SMOOTH_STONE.newItemStack());
+				removeFurnaceRecipeFor(new ItemStack(Blocks.stone), stoneTile);
+				addShapedRecipe(stoneTile, "x", 'x', ModBlocks.SMOOTH_STONE.newItemStack());
 			}
 		}
 
@@ -1374,6 +1375,20 @@ public class ModRecipes {
 		list.add(ModBlocks.WITHER_ROSE.newItemStack());
 
 		return list;
+	}
+
+	private static void removeFurnaceRecipeFor(ItemStack input, ItemStack output) {
+		for(Map.Entry<ItemStack, ItemStack> set : FurnaceRecipes.smelting().getSmeltingList().entrySet()) {
+			ItemStack setInput = set.getKey();
+			ItemStack setOutput = set.getValue();
+			int wildcard = OreDictionary.WILDCARD_VALUE;
+			if(input.getItem() == setInput.getItem() && (input.getItemDamage() == wildcard || setInput.getItemDamage() == wildcard || (input.getItemDamage() == setInput.getItemDamage()))) {
+				if(output.getItem() == setOutput.getItem() && (output.getItemDamage() == wildcard || setOutput.getItemDamage() == wildcard || (output.getItemDamage() == setOutput.getItemDamage()))) {
+					FurnaceRecipes.smelting().getSmeltingList().remove(setInput, setOutput);
+					return;
+				}
+			}
+		}
 	}
 
 	private static void registerOre(String oreName, ItemStack ore) {

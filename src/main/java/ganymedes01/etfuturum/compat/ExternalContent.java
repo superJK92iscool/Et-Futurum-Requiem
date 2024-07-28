@@ -10,85 +10,85 @@ import java.util.function.Supplier;
 public class ExternalContent {
 
 	public enum Blocks {
-		CFB_CAMPFIRE(() -> GameRegistry.findBlock("campfirebackport", "campfire")),
-		CFB_SOUL_CAMPFIRE(() -> GameRegistry.findBlock("campfirebackport", "soul_campfire")),
-		CFB_CAMPFIRE_BASE(() -> GameRegistry.findBlock("campfirebackport", "campfire_base")),
-		CFB_SOUL_CAMPFIRE_BASE(() -> GameRegistry.findBlock("campfirebackport", "soul_campfire_base")),
+		CFB_CAMPFIRE("campfirebackport", "campfire"),
+		CFB_SOUL_CAMPFIRE("campfirebackport", "soul_campfire"),
+		CFB_CAMPFIRE_BASE("campfirebackport", "campfire_base"),
+		CFB_SOUL_CAMPFIRE_BASE("campfirebackport", "soul_campfire_base"),
 
-		TCON_GRAVEL_ORE(() -> GameRegistry.findBlock("TConstruct", "GravelOre")),
-		TCON_MULTIBRICK(() -> GameRegistry.findBlock("TConstruct", "decoration.multibrick")),
-		TCON_MULTIBRICK_FANCY(() -> GameRegistry.findBlock("TConstruct", "decoration.multibrickfancy")),
-		TCON_METAL(() -> GameRegistry.findBlock("TConstruct", "MetalBlock")),
+		TCON_GRAVEL_ORE("TConstruct", "GravelOre"),
+		TCON_MULTIBRICK("TConstruct", "decoration.multibrick"),
+		TCON_MULTIBRICK_FANCY("TConstruct", "decoration.multibrickfancy"),
+		TCON_METAL("TConstruct", "MetalBlock"),
 
-		NATURA_HEAT_SAND(() -> GameRegistry.findBlock("Natura", "heatsand")),
-		NATURA_TAINTED_SOIL(() -> GameRegistry.findBlock("Natura", "soil.tainted")),
+		NATURA_HEAT_SAND("Natura", "heatsand"),
+		NATURA_TAINTED_SOIL("Natura", "soil.tainted"),
 
-		NETHERLICIOUS_NETHER_GRAVEL(() -> GameRegistry.findBlock("netherlicious", "Nether_Gravel")),
-		NETHERLICIOUS_SOUL_SOIL(() -> GameRegistry.findBlock("netherlicious", "SoulSoil")),
-		NETHERLICIOUS_BONE_BLOCK(() -> GameRegistry.findBlock("netherlicious", "BoneBlock")),
+		NETHERLICIOUS_NETHER_GRAVEL("netherlicious", "Nether_Gravel"),
+		NETHERLICIOUS_SOUL_SOIL("netherlicious", "SoulSoil"),
+		NETHERLICIOUS_BONE_BLOCK("netherlicious", "BoneBlock"),
 
-		ENDERLICIOUS_END_ROCK(() -> GameRegistry.findBlock("enderlicious", "EndRock")),
-		ENDERLICIOUS_SAND(() -> GameRegistry.findBlock("enderlicious", "EndSand")),
+		ENDERLICIOUS_END_ROCK("enderlicious", "EndRock"),
+		ENDERLICIOUS_SAND("enderlicious", "EndSand"),
 
-		HEE_END_STONE(() -> GameRegistry.findBlock("HardcoreEnderExpansion", "end_stone_terrain")),
+		HEE_END_STONE("HardcoreEnderExpansion", "end_stone_terrain"),
 
-		AE2_CERTUS_QUARTZ_ORE(() -> GameRegistry.findBlock("appliedenergistics2", "tile.OreQuartz")),
-		AE2_CHARGED_CERTUS_QUARTZ_ORE(() -> GameRegistry.findBlock("appliedenergistics2", "tile.OreQuartzCharged")),
+		AE2_CERTUS_QUARTZ_ORE("appliedenergistics2", "tile.OreQuartz"),
+		AE2_CHARGED_CERTUS_QUARTZ_ORE("appliedenergistics2", "tile.OreQuartzCharged"),
 
-		ARS_MAGICA_2_ORE(() -> GameRegistry.findBlock("arsmagica2", "vinteumOre")),
+		ARS_MAGICA_2_ORE("arsmagica2", "vinteumOre"),
 
-		THAUMCRAFT_ORE(() -> GameRegistry.findBlock("Thaumcraft", "blockCustomOre")),
+		THAUMCRAFT_ORE("Thaumcraft", "blockCustomOre"),
 
-		BOP_GEM_ORE(() -> GameRegistry.findBlock("BiomesOPlenty", "gemOre")),
+		BOP_GEM_ORE("BiomesOPlenty", "gemOre"),
 
-		DRACONIUM_ORE(() -> GameRegistry.findBlock("DraconicEvolution", "draconiumOre")),
+		DRACONIUM_ORE("DraconicEvolution", "draconiumOre"),
 
-		PROJECT_RED_ORE(() -> GameRegistry.findBlock("ProjRed|Exploration", "projectred.exploration.ore")),
+		PROJECT_RED_ORE("ProjRed|Exploration", "projectred.exploration.ore"),
 
-		BR_YELLORITE_ORE(() -> GameRegistry.findBlock("BigReactors", "YelloriteOre")),
+		BR_YELLORITE_ORE("BigReactors", "YelloriteOre"),
 
-		BP_TESLATITE_ORE(() -> GameRegistry.findBlock("bluepower", "teslatite_ore")),
-		BP_RUBY_ORE(() -> GameRegistry.findBlock("bluepower", "ruby_ore")),
-		BP_SAPPHIRE_ORE(() -> GameRegistry.findBlock("bluepower", "sapphire_ore")),
-		BP_AMETHYST_ORE(() -> GameRegistry.findBlock("bluepower", "amethyst_ore")),
-		/*BP_MALACHITE_ORE(() -> GameRegistry.findBlock("bluepower", "malachite_ore")), Unused malachite texture in files? I'll have this set up here in case a fork or something uses it*/
+		BP_TESLATITE_ORE("bluepower", "teslatite_ore"),
+		BP_RUBY_ORE("bluepower", "ruby_ore"),
+		BP_SAPPHIRE_ORE("bluepower", "sapphire_ore"),
+		BP_AMETHYST_ORE("bluepower", "amethyst_ore"),
+		/*BP_MALACHITE_ORE("bluepower", "malachite_ore"), Unused malachite texture in files? I'll have this set up here in case a fork or something uses it*/
 
-		FISK_TUTRIDIUM_ORE(() -> GameRegistry.findBlock("fiskheroes", "tutridium_ore")),
-		FISK_TUTRIDIUM_SPECKLED_STONE(() -> GameRegistry.findBlock("fiskheroes", "tutridium_stone")),
-		FISK_VIBRANIUM_ORE(() -> GameRegistry.findBlock("fiskheroes", "vibranium_ore")),
-		FISK_DWARF_STAR_ORE(() -> GameRegistry.findBlock("fiskheroes", "dwarf_star_ore")),
-		FISK_OLIVINE_ORE(() -> GameRegistry.findBlock("fiskheroes", "olivine_ore")),
-		FISK_ETERNIUM_ORE(() -> GameRegistry.findBlock("fiskheroes", "eternium_ore")),
-		FISK_ETERNIUM_INFUSED_STONE(() -> GameRegistry.findBlock("fiskheroes", "eternium_stone")),
+		FISK_TUTRIDIUM_ORE("fiskheroes", "tutridium_ore"),
+		FISK_TUTRIDIUM_SPECKLED_STONE("fiskheroes", "tutridium_stone"),
+		FISK_VIBRANIUM_ORE("fiskheroes", "vibranium_ore"),
+		FISK_DWARF_STAR_ORE("fiskheroes", "dwarf_star_ore"),
+		FISK_OLIVINE_ORE("fiskheroes", "olivine_ore"),
+		FISK_ETERNIUM_ORE("fiskheroes", "eternium_ore"),
+		FISK_ETERNIUM_INFUSED_STONE("fiskheroes", "eternium_stone"),
 
-		FISK_NEXUS_BRICKS(() -> GameRegistry.findBlock("fiskheroes", "nexus_bricks")),
+		FISK_NEXUS_BRICKS("fiskheroes", "nexus_bricks"),
 
-		DBC_WARENAI_ORE(() -> GameRegistry.findBlock("jinryuudragonblockc", "tile.BlockOreWrenai")),
-		DBC_JJAY_ORE(() -> GameRegistry.findBlock("jinryuudragonblockc", "tile.JJayore")),
-		DBC_DLOG_ORE(() -> GameRegistry.findBlock("jinryuudragonblockc", "tile.Dlogore")),
-		DBC_LEHNORI_ORE(() -> GameRegistry.findBlock("jinryuudragonblockc", "tile.Lehnoriore")),
+		DBC_WARENAI_ORE("jinryuudragonblockc", "tile.BlockOreWrenai"),
+		DBC_JJAY_ORE("jinryuudragonblockc", "tile.JJayore"),
+		DBC_DLOG_ORE("jinryuudragonblockc", "tile.Dlogore"),
+		DBC_LEHNORI_ORE("jinryuudragonblockc", "tile.Lehnoriore"),
 
-		SIMPLEORES_ADAMANTIUM_ORE(() -> GameRegistry.findBlock("simpleores", "adamantium_ore")),
+		SIMPLEORES_ADAMANTIUM_ORE("simpleores", "adamantium_ore"),
 
-		SIMPLEORES_ADAMANTIUM_BLOCK(() -> GameRegistry.findBlock("simpleores", "adamantium_block")),
+		SIMPLEORES_ADAMANTIUM_BLOCK("simpleores", "adamantium_block"),
 
-		DQ_ROCKBOMB_ORE(() -> GameRegistry.findBlock("DQMIIINext", "BlockOreBakudanisi")),
-		DQ_BRIGHTEN_ORE(() -> GameRegistry.findBlock("DQMIIINext", "BlockOreHikarinoisi")),
-		DQ_LUCIDA_ORE(() -> GameRegistry.findBlock("DQMIIINext", "BlockOreHosinokakera")),
-		DQ_RESURROCK_ORE(() -> GameRegistry.findBlock("DQMIIINext", "BlockOreInotinoisi")),
-		DQ_MIRRORSTONE_ORE(() -> GameRegistry.findBlock("DQMIIINext", "BlockOreKagaminoisi")),
-		DQ_ICE_CRYSTAL_ORE(() -> GameRegistry.findBlock("DQMIIINext", "BlockOreKoorinokessyou")),
-		DQ_MINIMEDAL_ORE(() -> GameRegistry.findBlock("DQMIIINext", "BlockOreLittlemedal")),
-		DQ_DENSINIUM_ORE(() -> GameRegistry.findBlock("DQMIIINext", "BlockOreMetaru")),
-		DQ_GLASS_FRIT_ORE(() -> GameRegistry.findBlock("DQMIIINext", "BlockOreMigakizuna")),
-		DQ_MYTHRIL_ORE(() -> GameRegistry.findBlock("DQMIIINext", "BlockOreMisuriru")),
-		DQ_LUNAR_DIAMOND_ORE(() -> GameRegistry.findBlock("DQMIIINext", "BlockOreMoon")),
-		DQ_PLATINUM_ORE(() -> GameRegistry.findBlock("DQMIIINext", "BlockOrePuratina")),
-		DQ_CORUNDUM_ORE(() -> GameRegistry.findBlock("DQMIIINext", "BlockOreRubi")),
-		DQ_SUNSTONE_ORE(() -> GameRegistry.findBlock("DQMIIINext", "BlockOreTaiyounoisi")),
-		DQ_ALLOYED_IRON_ORE(() -> GameRegistry.findBlock("DQMIIINext", "BlockOreTekkouseki")),
-		DQ_CHRONOCRYSTAL_ORE(() -> GameRegistry.findBlock("DQMIIINext", "BlockOreTokinosuisyou")),
-		DQ_VOLCANIC_ORE(() -> GameRegistry.findBlock("DQMIIINext", "BlockOreYougansekinokakera")),
+		DQ_ROCKBOMB_ORE("DQMIIINext", "BlockOreBakudanisi"),
+		DQ_BRIGHTEN_ORE("DQMIIINext", "BlockOreHikarinoisi"),
+		DQ_LUCIDA_ORE("DQMIIINext", "BlockOreHosinokakera"),
+		DQ_RESURROCK_ORE("DQMIIINext", "BlockOreInotinoisi"),
+		DQ_MIRRORSTONE_ORE("DQMIIINext", "BlockOreKagaminoisi"),
+		DQ_ICE_CRYSTAL_ORE("DQMIIINext", "BlockOreKoorinokessyou"),
+		DQ_MINIMEDAL_ORE("DQMIIINext", "BlockOreLittlemedal"),
+		DQ_DENSINIUM_ORE("DQMIIINext", "BlockOreMetaru"),
+		DQ_GLASS_FRIT_ORE("DQMIIINext", "BlockOreMigakizuna"),
+		DQ_MYTHRIL_ORE("DQMIIINext", "BlockOreMisuriru"),
+		DQ_LUNAR_DIAMOND_ORE("DQMIIINext", "BlockOreMoon"),
+		DQ_PLATINUM_ORE("DQMIIINext", "BlockOrePuratina"),
+		DQ_CORUNDUM_ORE("DQMIIINext", "BlockOreRubi"),
+		DQ_SUNSTONE_ORE("DQMIIINext", "BlockOreTaiyounoisi"),
+		DQ_ALLOYED_IRON_ORE("DQMIIINext", "BlockOreTekkouseki"),
+		DQ_CHRONOCRYSTAL_ORE("DQMIIINext", "BlockOreTokinosuisyou"),
+		DQ_VOLCANIC_ORE("DQMIIINext", "BlockOreYougansekinokakera"),
 		;
 
 		private Block block;
@@ -96,6 +96,10 @@ public class ExternalContent {
 
 		Blocks(Supplier<Block> blockSupplier) {
 			this.blockSupplier = blockSupplier;
+		}
+		
+		Blocks(String modID, String blockID) {
+			this(() -> GameRegistry.findBlock(modID, blockID));
 		}
 
 		public Block get() {
@@ -116,12 +120,19 @@ public class ExternalContent {
 		public ItemStack newItemStack(int count, int meta) {
 			return new ItemStack(this.get(), count, meta);
 		}
+
+		public boolean isEnabled() {
+			return get() != null;
+		}
 	}
 
 	public enum Items {
-		EXTRAUTILS_WATERING_CAN(() -> GameRegistry.findItem("ExtraUtilities", "watering_can")),
+		EXTRAUTILS_WATERING_CAN("ExtraUtilities", "watering_can"),
 
-		SIMPLEORES_ADAMANTIUM_INGOT(() -> GameRegistry.findItem("simpleores", "adamantium_ingot")),
+		SIMPLEORES_ADAMANTIUM_INGOT("simpleores", "adamantium_ingot"),
+
+		BLUEPOWER_CIRCUIT_PLATE("bluepower", "stone_tile"),
+		PROJECTRED_CIRCUIT_PLATE("ProjRed|Core", "projectred.core.part"),
 		;
 
 		private Item item;
@@ -129,6 +140,10 @@ public class ExternalContent {
 
 		Items(Supplier<Item> blockSupplier) {
 			this.blockSupplier = blockSupplier;
+		}
+
+		Items(String modID, String itemID) {
+			this(() -> GameRegistry.findItem(modID, itemID));
 		}
 
 		public Item get() {
@@ -148,6 +163,10 @@ public class ExternalContent {
 
 		public ItemStack newItemStack(int count, int meta) {
 			return new ItemStack(this.get(), count, meta);
+		}
+
+		public boolean isEnabled() {
+			return get() != null;
 		}
 	}
 }
