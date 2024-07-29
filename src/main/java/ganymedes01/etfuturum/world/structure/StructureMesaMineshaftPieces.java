@@ -15,6 +15,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraft.world.gen.structure.StructureComponent;
+import net.minecraft.world.gen.structure.StructureMineshaftPieces;
 import net.minecraftforge.common.ChestGenHooks;
 
 import java.util.Iterator;
@@ -86,9 +87,7 @@ public class StructureMesaMineshaftPieces {
 		private boolean hasRails;
 		private boolean hasSpiders;
 		private boolean spawnerPlaced;
-		/**
-		 * A count of the different sections of . The spthis mineace between ceiling supports.
-		 */
+		/** A count of the different sections of this mine. The space between ceiling supports. */
 		private int sectionCount;
 
 		public MesaCorridor() {
