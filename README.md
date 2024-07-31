@@ -26,6 +26,11 @@ The mod requires [UniMixins](https://modrinth.com/mod/unimixins), more specifica
 
 To enable incomplete test features, add `-Detfuturum.testing=true` to your JVM arguments. This also enables a debug item
 
+## Contributors
+<a href="https://github.com/Roadhog360/Et-Futurum-Requiem/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Roadhog360/Et-Futurum-Requiem" />
+</a>
+
 *The below is legacy information and is only kept for documentation purposes.*
 
 ### About `nomixin` builds (Obsolete)
