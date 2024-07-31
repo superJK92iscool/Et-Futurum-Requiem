@@ -2,7 +2,7 @@ package ganymedes01.etfuturum.configuration.configs;
 
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
-import ganymedes01.etfuturum.EtFuturumMixinPlugin;
+import ganymedes01.etfuturum.mixinplugin.EtFuturumEarlyMixins;
 import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.core.utils.Logger;
@@ -191,7 +191,7 @@ public class ConfigFunctions extends ConfigBase {
 
 	@Override
 	protected void syncConfigOptions() {
-		if (EtFuturumMixinPlugin.side == MixinEnvironment.Side.CLIENT) {
+		if (EtFuturumEarlyMixins.side == MixinEnvironment.Side.CLIENT) {
 			enableUpdateChecker = getBoolean("enableUpdateChecker", catUpdateChecker, true, "Check and print a chat message in-game if there's a new update available?");
 
 			enableAttackedAtYawFix = getBoolean("enableAttackedAtYawFix", catChanges, true, "Adds a packet to send the attackedAtYaw field value to the client, which allows the screen to tilt based on where damage came from, and either left or right for direction-less sources like drowning or burning, instead of tilting to the left no matter what.");
@@ -265,7 +265,7 @@ public class ConfigFunctions extends ConfigBase {
 			}
 		}
 
-		if (EtFuturumMixinPlugin.side == MixinEnvironment.Side.CLIENT && ConfigFunctions.enablePlayerSkinOverlay) {
+		if (EtFuturumEarlyMixins.side == MixinEnvironment.Side.CLIENT && ConfigFunctions.enablePlayerSkinOverlay) {
 			if (ModsList.EARS.isLoaded() || ModsList.FOAMFIX.isLoaded() || ModsList.SKINPORT.isLoaded() || ModsList.MOREPLAYERMODELS.isLoaded()
 					|| ModsList.DRAGON_BLOCK_C.isLoaded() || FMLClientHandler.instance().hasOptifine()) {
 				ConfigFunctions.enablePlayerSkinOverlay = false;

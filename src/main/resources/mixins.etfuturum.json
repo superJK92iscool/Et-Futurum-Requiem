@@ -2,7 +2,6 @@
   "required": true,
   "minVersion": "0.7.11",
   "package": "ganymedes01.etfuturum.mixins",
-  "plugin": "ganymedes01.etfuturum.EtFuturumMixinPlugin",
   "refmap": "mixins.etfuturum.refmap.json",
   "target": "@env(DEFAULT)",
   "compatibilityLevel": "JAVA_8",

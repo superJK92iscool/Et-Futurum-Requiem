@@ -2,7 +2,7 @@ package ganymedes01.etfuturum.configuration;
 
 import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import ganymedes01.etfuturum.EtFuturumMixinPlugin;
+import ganymedes01.etfuturum.mixinplugin.EtFuturumEarlyMixins;
 import ganymedes01.etfuturum.configuration.configs.*;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.launchwrapper.Launch;
@@ -55,7 +55,7 @@ public abstract class ConfigBase extends Configuration {
 		syncConfigOptions();
 
 		for (ConfigCategory cat : configCats) {
-			if (EtFuturumMixinPlugin.side == MixinEnvironment.Side.SERVER) {
+			if (EtFuturumEarlyMixins.side == MixinEnvironment.Side.SERVER) {
 				if (cat.getName().toLowerCase().contains("client")) {
 					for (Property prop : cat.getOrderedValues()) {
 						cat.remove(prop.getName());

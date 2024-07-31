@@ -36,6 +36,7 @@ import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.event.terraingen.InitMapGenEvent;
 import net.minecraftforge.event.terraingen.SaplingGrowTreeEvent;
+import org.apache.commons.lang3.ArrayUtils;
 
 import java.lang.reflect.Constructor;
 import java.util.Map;
@@ -167,7 +168,8 @@ public class WorldEventHandler {
 		}
 	}
 
-	private static final ForgeDirection[] VALID_HIVE_DIRS = new ForgeDirection[]{ForgeDirection.SOUTH, ForgeDirection.EAST, ForgeDirection.WEST};
+	//Hives should always face south so we never want to generate them on the north face of a log, since the log would block the hive opening.
+	private static final ForgeDirection[] VALID_HIVE_DIRS = ArrayUtils.removeElements(Utils.FORGE_DIRECTIONS, ForgeDirection.NORTH);
 
 	/**
 	 * Tries to place a bee nest at the tree at this location. Basically "walks" up the tree we started at until there's a leaf block above the adjacent air from it.
@@ -175,20 +177,20 @@ public class WorldEventHandler {
 	public static void tryPlaceBeeNest(World world, int x, int y, int z, Random rand, int minBees) {
 		Block targetLog = world.getBlock(x, y, z);
 		int targetLogMeta = world.getBlockMetadata(x, y, z);
-		ForgeDirection hiveDir = VALID_HIVE_DIRS[rand.nextInt(VALID_HIVE_DIRS.length)];
-		//Hives should always face south so we never want to generate them on the north face of a log, since the log would block the hive opening.
-		if (targetLog instanceof BlockLog) {
+		ForgeDirection hiveDir = Utils.getRandom(VALID_HIVE_DIRS, rand);
+		if (targetLog.isWood(world, x, y, z)) {
 			int hiveX = x + hiveDir.offsetX;
 			int hiveZ = z + hiveDir.offsetZ;
 			if (world.getBlock(hiveX, y, hiveZ) == targetLog && world.getBlockMetadata(hiveX, y, hiveZ) == targetLogMeta) {
 				x += hiveDir.offsetX;
 				z += hiveDir.offsetZ;
 			}//If the block next to the log we started at is the same log, move the x or z we look for since this is probably a 2x2 tree. Or could just be an adjacent tree of the same species. That's fine too.
-			while (y < 254) { //Keep following the same log until there's a leaf block above the adjacent block we're checking. If we are checking above 254 then give up, we're not finding leaves there lol
+			while (y < world.getHeight() - 2) { //Keep following the same log until there's a leaf block above the adjacent block we're checking. If we are checking near world height then give up, we're not finding leaves there lol
 				if (world.getBlock(x, y, z) == targetLog && world.getBlockMetadata(x, y, z) == targetLogMeta) {
 					//If the beehive location is below leaves or the same species of log, we've found the spot for our buzzy friends to call home.
 					Block hiveHangingBlock = world.getBlock(hiveX, y + 1, hiveZ);
-					if (hiveHangingBlock instanceof BlockLeaves || (hiveHangingBlock == targetLog && world.getBlockMetadata(hiveX, y + 1, hiveZ) == targetLogMeta)) {
+					if (hiveHangingBlock.isLeaves(world, x, y + 1, z)
+							|| (hiveHangingBlock == targetLog && world.getBlockMetadata(hiveX, y + 1, hiveZ) == targetLogMeta)) {
 						//We just gotta make sure we're not also replacing a block that already exists, and there's nothing in front of where our nest will be.
 						if (world.getBlock(hiveX, y, hiveZ).getMaterial() == Material.air && world.getBlock(hiveX, y, hiveZ + 1).getMaterial() == Material.air) {
 							world.setBlock(hiveX, y, hiveZ, ModBlocks.BEE_NEST.get(), ForgeDirection.SOUTH.ordinal(), 2);
@@ -210,8 +212,8 @@ public class WorldEventHandler {
 		} else {
 			//Because mangrove trees never leave a log where the sapling actually grew, so we check for the first log and then try this function again
 			//We want to ensure we start at a log, so we can run the follow log and find leaves logic from there.
-			for (int i = 0; y + i < 254; ++i) {
-				if (world.getBlock(x, y + i, z) instanceof BlockLog) {
+			for (int i = 0; y + i < world.getHeight() - 2; ++i) {
+				if (world.getBlock(x, y + i, z).isWood(world, x, y + i, z)) {
 					tryPlaceBeeNest(world, x, y + i, z, rand, minBees);
 					return;
 				}

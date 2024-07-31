@@ -369,6 +369,14 @@ public class Utils {
 		return list.get(rand.nextInt(list.size()));
 	}
 
+	public static <T> T getRandom(T[] array, Random rand) {
+		return array[rand.nextInt(array.length)];
+	}
+	//TODO Do the other primitives for this
+	public static int getRandom(int[] array, Random rand) {
+		return array[rand.nextInt(array.length)];
+	}
+
 	public static void setBlockSound(Block block, Block.SoundType type) {
 		block.setStepSound(getSound(type));
 	}

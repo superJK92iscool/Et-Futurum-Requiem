@@ -1,6 +1,6 @@
 package ganymedes01.etfuturum.configuration.configs;
 
-import ganymedes01.etfuturum.EtFuturumMixinPlugin;
+import ganymedes01.etfuturum.mixinplugin.EtFuturumEarlyMixins;
 import ganymedes01.etfuturum.configuration.ConfigBase;
 import org.spongepowered.asm.mixin.MixinEnvironment;
 
@@ -64,7 +64,7 @@ public class ConfigMixins extends ConfigBase {
 
 	@Override
 	protected void syncConfigOptions() {
-		if (EtFuturumMixinPlugin.side == MixinEnvironment.Side.CLIENT) {
+		if (EtFuturumEarlyMixins.side == MixinEnvironment.Side.CLIENT) {
 			furnaceCrackle = getBoolean("furnaceCrackle", catBackport, true, "Allows vanilla furnaces to have crackling sounds.\nModified Client Classes: net.minecraft.block.BlockFurnace");
 			boundedBlockBreakingParticles = getBoolean("boundedBlockBreakingParticles", catBackport, true, "In 1.14+, when breaking a block, the block break particles stay within the outline, instead of always occupying the whole block space.\nMofified Client Classes: net.minecraft.client.particle.EffectRenderer");
 			adjustedAttenuation = getBoolean("adjustedAttenuation", catBackport, true, "Adjusts the attenuation distance of certain sounds. This needs to be a separate mixin due to the way it works.\nCurrently changes portal abience, and beacon ambience to have an attenuation distance of 8 blocks away, instead of 16.\nModified Client Classes: net.minecraft.client.audio.SoundManager");
