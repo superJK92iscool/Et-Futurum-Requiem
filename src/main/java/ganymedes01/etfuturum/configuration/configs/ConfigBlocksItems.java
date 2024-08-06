@@ -186,7 +186,7 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableCopper = getBoolean("enableCopper", catBlockNatural, true, "Copper ore and copper blocks, variants, and waxed variants. (Slime balls are used if no mod introduces wax and if honey is disabled)");
 		enableSweetBerryBushes = getBoolean("enableSweetBerryBushes", catBlockNatural, true, "");
 		enableDeepslate = getBoolean("enableDeepslate", catBlockNatural, true, "");
-		deepslateHardness = getInt("deepslateHardness", catBlockNatural, 3, 0, 100, "");
+		deepslateHardness = getInt("deepslateHardness", catBlockNatural, 3, 0, 100, "Set how hard deepslate is, in case you like the look of deepslate but don't want to deal with the additional hardness. Regular stone is 1.5.");
 		enableCalcite = getBoolean("enableCalcite", catBlockNatural, true, "");
 		enableTuff = getBoolean("enableTuff", catBlockNatural, true, "");
 		enableDeepslateOres = getBoolean("enableDeepslateOres", catBlockNatural, true, "Enable deepslate ores for copper ore and vanilla ores when deepslate generates over them.");
