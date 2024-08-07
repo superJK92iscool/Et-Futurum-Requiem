@@ -87,7 +87,7 @@ public class ConfigBlocksItems extends ConfigBase {
 	public static boolean enableCopper;
 	public static boolean enableCopperSubItems;
 	public static boolean enableDeepslate;
-	public static int deepslateHardness;
+	public static float deepslateHardness;
 	public static boolean enableDeepslateOres;
 	public static boolean enableCalcite;
 	public static boolean enableTuff;
