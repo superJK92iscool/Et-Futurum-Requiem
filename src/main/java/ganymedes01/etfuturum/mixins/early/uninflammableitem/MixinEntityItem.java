@@ -78,7 +78,7 @@ public abstract class MixinEntityItem extends Entity {
 	@WrapOperation(method = "onUpdate",
 			at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;getBlock(III)Lnet/minecraft/block/Block;"))
 	private Block noFizzBounce(World instance, int x, int y, int z, Operation<Block> original) { //Returns AIR so the check for lava is false; we do this to remove the fizzing and bouncing
-		return isImmuneToFire ? Blocks.air : worldObj.getBlock(x, y, z);
+		return isImmuneToFire ? Blocks.air : original.call(instance, x, y, z);
 	}
 
 	@Override
