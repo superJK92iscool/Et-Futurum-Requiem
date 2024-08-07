@@ -7,7 +7,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.client.sound.ModSounds;
-import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.world.EtFuturumLateWorldGenerator;
 import net.minecraft.block.Block;
@@ -28,7 +28,7 @@ public class BlockDeepslate extends BlockRotatedPillar {
 
 	public BlockDeepslate() {
 		super(Material.rock);
-		this.setHardness(ConfigBlocksItems.deepslateHardness * 1.2855f);
+		this.setHardness(ConfigFunctions.useStoneHardnessForDeepslate ? 1.5f : 3.0f);
 		this.setResistance(6);
 		this.setBlockName(Utils.getUnlocalisedName("deepslate"));
 		this.setBlockTextureName("deepslate");
