@@ -99,12 +99,12 @@ public enum ModBlocks {
 	LIGHTNING_ROD(ConfigExperiments.enableLightningRod, new BlockLightningRod()),
 	DEEPSLATE(ConfigBlocksItems.enableDeepslate, new BlockDeepslate()),
 	COBBLED_DEEPSLATE(ConfigBlocksItems.enableDeepslate, new BaseBlock(Material.rock).setNames("cobbled_deepslate")
-			.setBlockSound(ModSounds.soundDeepslate).setHardness(3.5F).setResistance(6).setCreativeTab(EtFuturum.creativeTabBlocks)),
+			.setBlockSound(ModSounds.soundDeepslate).setHardness(ConfigBlocksItems.deepslateHardness * 1.5f).setResistance(6).setCreativeTab(EtFuturum.creativeTabBlocks)),
 	POLISHED_DEEPSLATE(ConfigBlocksItems.enableDeepslate, new BaseBlock(Material.rock).setNames("polished_deepslate")
-			.setBlockSound(ModSounds.soundDeepslate).setHardness(3.5F).setResistance(6).setCreativeTab(EtFuturum.creativeTabBlocks)),
+			.setBlockSound(ModSounds.soundDeepslate).setHardness(ConfigBlocksItems.deepslateHardness * 1.5f).setResistance(6).setCreativeTab(EtFuturum.creativeTabBlocks)),
 	DEEPSLATE_BRICKS(ConfigBlocksItems.enableDeepslate, new BaseSubtypesBlock(Material.rock,
 			"deepslate_bricks", "cracked_deepslate_bricks", "deepslate_tiles", "cracked_deepslate_tiles", "chiseled_deepslate").setNames("deepslate_bricks")
-			.setBlockSound(ModSounds.soundDeepslateBricks).setHardness(3.5F).setResistance(6)),
+			.setBlockSound(ModSounds.soundDeepslateBricks).setHardness(ConfigBlocksItems.deepslateHardness * 1.5f).setResistance(6)),
 	TUFF(ConfigBlocksItems.enableTuff, new BlockTuff()),
 	RAW_ORE_BLOCK(ConfigBlocksItems.enableRawOres, new BlockRawOre()),
 	BASALT(ConfigBlocksItems.enableBasalt, new BlockBasalt()),
@@ -176,13 +176,13 @@ public enum ModBlocks {
 			.setResistance(9).setHardness(3.0F),
 			BaseSlabItemBlock.class),
 	DEEPSLATE_SLAB(ConfigBlocksItems.enableDeepslate, new BaseSlab(false, Material.rock, "cobbled_deepslate", "polished_deepslate").setNames("deepslate_slab")
-			.setBlockSound(ModSounds.soundDeepslate).setHardness(3.5F).setResistance(6)),
+			.setBlockSound(ModSounds.soundDeepslate).setHardness(ConfigBlocksItems.deepslateHardness * 1.5f).setResistance(6)),
 	DOUBLE_DEEPSLATE_SLAB(ConfigBlocksItems.enableDeepslate, new BaseSlab(true, Material.rock, "cobbled_deepslate", "polished_deepslate").setNames("deepslate_slab")
-			.setBlockSound(ModSounds.soundDeepslate).setHardness(3.5F).setResistance(6)),
+			.setBlockSound(ModSounds.soundDeepslate).setHardness(ConfigBlocksItems.deepslateHardness * 1.5f).setResistance(6)),
 	DEEPSLATE_BRICK_SLAB(ConfigBlocksItems.enableDeepslate, new BaseSlab(false, Material.rock, "deepslate_bricks", "deepslate_tiles")
-			.setBlockSound(ModSounds.soundDeepslateBricks).setHardness(3.5F).setResistance(6)),
+			.setBlockSound(ModSounds.soundDeepslateBricks).setHardness(ConfigBlocksItems.deepslateHardness * 1.5f).setResistance(6)),
 	DOUBLE_DEEPSLATE_BRICK_SLAB(ConfigBlocksItems.enableDeepslate, new BaseSlab(true, Material.rock, "deepslate_bricks", "deepslate_tiles")
-			.setBlockSound(ModSounds.soundDeepslateBricks).setHardness(3.5F).setResistance(6)),
+			.setBlockSound(ModSounds.soundDeepslateBricks).setHardness(ConfigBlocksItems.deepslateHardness * 1.5f).setResistance(6)),
 	TUFF_SLAB(ConfigBlocksItems.enableDeepslate, new BaseSlab(false, Material.rock, "tuff", "polished_tuff", "tuff_bricks")
 			.setBlockSound(ModSounds.soundTuff).setHardness(1.5F).setResistance(6)),
 	DOUBLE_TUFF_SLAB(ConfigBlocksItems.enableDeepslate, new BaseSlab(true, Material.rock, "tuff", "polished_tuff", "tuff_bricks")
@@ -249,9 +249,9 @@ public enum ModBlocks {
 	END_BRICK_WALL(ConfigBlocksItems.enableChorusFruit, new BaseWall(Material.rock, "end_bricks")
 			.setHardness(3.0F).setResistance(9.0F)),
 	DEEPSLATE_WALL(ConfigBlocksItems.enableDeepslate, new BaseWall(Material.rock, "cobbled_deepslate", "polished_deepslate")
-			.setHardness(3.5F).setResistance(6.0F)),
+			.setHardness(ConfigBlocksItems.deepslateHardness * 1.5f).setResistance(6.0F)),
 	DEEPSLATE_BRICK_WALL(ConfigBlocksItems.enableDeepslate, new BaseWall(Material.rock, "deepslate_bricks", "deepslate_tiles")
-			.setHardness(3.5F).setResistance(6.0F)),
+			.setHardness(ConfigBlocksItems.deepslateHardness * 1.5f).setResistance(6.0F)),
 	TUFF_WALL(ConfigBlocksItems.enableTuff, new BaseWall(Material.rock, "tuff", "polished_tuff", "tuff_bricks")
 			.setBlockSound(ModSounds.soundTuff).setHardness(1.5F).setResistance(6.0F)),
 	MUD_BRICK_WALL(ConfigBlocksItems.enableMud, new BaseWall(Material.rock, "mud_bricks").setBlockSound(ModSounds.soundMudBricks)

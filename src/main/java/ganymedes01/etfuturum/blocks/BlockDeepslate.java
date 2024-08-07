@@ -28,7 +28,7 @@ public class BlockDeepslate extends BlockRotatedPillar {
 
 	public BlockDeepslate() {
 		super(Material.rock);
-		this.setHardness(ConfigBlocksItems.deepslateHardness);
+		this.setHardness(ConfigBlocksItems.deepslateHardness * 1.2855f);
 		this.setResistance(6);
 		this.setBlockName(Utils.getUnlocalisedName("deepslate"));
 		this.setBlockTextureName("deepslate");
