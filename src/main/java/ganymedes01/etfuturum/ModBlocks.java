@@ -408,11 +408,11 @@ public enum ModBlocks {
 	BAMBOO_PRESSURE_PLATE(ConfigBlocksItems.enableBambooBlocks, new BlockWoodPressurePlate("bamboo", WOOD_PLANKS.get(), 4, true)),
 
 	//legacy fence gates
-	FENCE_GATE_SPRUCE(ConfigBlocksItems.enableFences, new BlockWoodFenceGate("spruce", Blocks.planks, 1, true)),
-	FENCE_GATE_BIRCH(ConfigBlocksItems.enableFences, new BlockWoodFenceGate("birch", Blocks.planks, 2, true)),
-	FENCE_GATE_JUNGLE(ConfigBlocksItems.enableFences, new BlockWoodFenceGate("jungle", Blocks.planks, 3, true)),
-	FENCE_GATE_ACACIA(ConfigBlocksItems.enableFences, new BlockWoodFenceGate("acacia", Blocks.planks, 4, true)),
-	FENCE_GATE_DARK_OAK(ConfigBlocksItems.enableFences, new BlockWoodFenceGate("dark_oak", Blocks.planks, 5, true)),
+	FENCE_GATE_SPRUCE(ConfigBlocksItems.enableGates, new BlockWoodFenceGate("spruce", Blocks.planks, 1, true)),
+	FENCE_GATE_BIRCH(ConfigBlocksItems.enableGates, new BlockWoodFenceGate("birch", Blocks.planks, 2, true)),
+	FENCE_GATE_JUNGLE(ConfigBlocksItems.enableGates, new BlockWoodFenceGate("jungle", Blocks.planks, 3, true)),
+	FENCE_GATE_ACACIA(ConfigBlocksItems.enableGates, new BlockWoodFenceGate("acacia", Blocks.planks, 4, true)),
+	FENCE_GATE_DARK_OAK(ConfigBlocksItems.enableGates, new BlockWoodFenceGate("dark_oak", Blocks.planks, 5, true)),
 
 	//new fence gates (different ID format)
 	CRIMSON_FENCE_GATE(ConfigExperiments.enableCrimsonBlocks, new BlockWoodFenceGate("crimson", WOOD_PLANKS.get(), 0, false)),
