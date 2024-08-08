@@ -5,6 +5,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.blocks.BaseSubtypesBlock;
 import ganymedes01.etfuturum.client.sound.ModSounds;
+import ganymedes01.etfuturum.config.ConfigFunctions;
 import ganymedes01.etfuturum.core.utils.DummyWorld;
 import ganymedes01.etfuturum.core.utils.IInitAction;
 import ganymedes01.etfuturum.core.utils.Utils;
@@ -37,7 +38,7 @@ public class BlockGeneralModdedDeepslateOre extends BaseSubtypesBlock implements
 		resistances = new float[ores.length];
 		setBlockName(Utils.getUnlocalisedName("modded_deepslate_ore"));
 		setBlockSound(ModSounds.soundDeepslate);
-		setHardness(4.5F);
+		setHardness(ConfigFunctions.useStoneHardnessForDeepslate ? 3.0F : 4.5F);
 		setResistance(3);
 		setHarvestLevel("pickaxe", 1);
 	}
