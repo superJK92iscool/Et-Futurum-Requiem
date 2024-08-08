@@ -90,11 +90,11 @@ public class BlockGeneralModdedDeepslateOre extends BaseSubtypesBlock implements
 				if (block.getHarvestTool(stack.getItemDamage()) != null) {
 					setHarvestLevel("pickaxe", block.getHarvestLevel(stack.getItemDamage()), i);
 				}
-				hardnesses[i] = block.getBlockHardness(world, 0, 0, 0) * 1.5F;
+				hardnesses[i] = ConfigFunctions.useStoneHardnessForDeepslate ? block.getBlockHardness(world, 0, 0, 0) : block.getBlockHardness(world, 0, 0, 0) * 1.5F;
 				resistances[i] = block.getExplosionResistance(null, world, 0, 0, 0, 0, 0, 0); //We don't need to divide because the base method we overrode won't be dividing
 			} catch (Exception e) {
 				setHarvestLevel("pickaxe", 1, i);
-				hardnesses[i] = Blocks.iron_ore.blockHardness * 1.5F;
+				hardnesses[i] = ConfigFunctions.useStoneHardnessForDeepslate ? Blocks.iron_ore.blockHardness : Blocks.iron_ore.blockHardness * 1.5F;
 				resistances[i] = Blocks.iron_ore.blockResistance;
 			}
 		}

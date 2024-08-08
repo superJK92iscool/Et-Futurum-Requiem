@@ -1,6 +1,7 @@
 package ganymedes01.etfuturum.blocks.ores;
 
 import ganymedes01.etfuturum.ModBlocks;
+import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.core.utils.DummyWorld;
 import ganymedes01.etfuturum.core.utils.IInitAction;
 import ganymedes01.etfuturum.core.utils.Utils;
@@ -28,11 +29,12 @@ public class BlockDeepslateCopperOre extends BlockDeepslateOre implements IInitA
 				if (block.getHarvestTool(stack.getItemDamage()) != null) {
 					setHarvestLevel("pickaxe", block.getHarvestLevel(stack.getItemDamage()));
 				}
-				blockHardness = block.getBlockHardness(world, 0, 0, 0) * 1.5F;
+				blockHardness = ConfigFunctions.useStoneHardnessForDeepslate ? block.getBlockHardness(world, 0, 0, 0) : block.getBlockHardness(world, 0, 0, 0) * 1.5F;
 				blockResistance = block.getExplosionResistance(null, world, 0, 0, 0, 0, 0, 0); //Because the game divides it by 5 for some reason
 			} catch (Exception ignored) {
 				setHarvestLevel("pickaxe", 1);
-				blockHardness = ModBlocks.COPPER_ORE.get().blockHardness * 1.5F;
+				
+				blockHardness = ConfigFunctions.useStoneHardnessForDeepslate ? ModBlocks.COPPER_ORE.get().blockHardness : ModBlocks.COPPER_ORE.get().blockHardness * 1.5F;
 				blockResistance = ModBlocks.COPPER_ORE.get().blockResistance;
 			}
 			world.clearBlocksCache();
