@@ -658,11 +658,13 @@ public class ModRecipes {
 			addShapedRecipe(ModBlocks.BAMBOO_SIGN.newItemStack(3), "xxx", "xxx", " y ", 'x', ModBlocks.WOOD_PLANKS.newItemStack(1, 4), 'y', "stickWood");
 		}
 
-		addShapedRecipe(ModBlocks.RED_SANDSTONE.newItemStack(), "xx", "xx", 'x', new ItemStack(Blocks.sand, 1, 1));
+		if (!isGtnh) {
+			addShapedRecipe(ModBlocks.RED_SANDSTONE.newItemStack(), "xx", "xx", 'x', new ItemStack(Blocks.sand, 1, 1));
+			addShapedRecipe(ModBlocks.RED_SANDSTONE_SLAB.newItemStack(6, 1), "xxx", 'x', ModBlocks.RED_SANDSTONE.newItemStack(1, 2));
+			addShapedRecipe(ModBlocks.RED_SANDSTONE_SLAB.newItemStack(6), "xxx", 'x', ModBlocks.RED_SANDSTONE.newItemStack(1, OreDictionary.WILDCARD_VALUE));
+		}
 		addShapedRecipe(ModBlocks.RED_SANDSTONE.newItemStack(1, 1), "x", "x", 'x', ModBlocks.RED_SANDSTONE_SLAB.newItemStack());
 		addShapedRecipe(ModBlocks.RED_SANDSTONE.newItemStack(4, 2), "xx", "xx", 'x', ModBlocks.RED_SANDSTONE.newItemStack());
-		addShapedRecipe(ModBlocks.RED_SANDSTONE_SLAB.newItemStack(6, 1), "xxx", 'x', ModBlocks.RED_SANDSTONE.newItemStack(1, 2));
-		addShapedRecipe(ModBlocks.RED_SANDSTONE_SLAB.newItemStack(6), "xxx", 'x', ModBlocks.RED_SANDSTONE.newItemStack(1, OreDictionary.WILDCARD_VALUE));
 		addShapedRecipe(ModBlocks.RED_SANDSTONE_STAIRS.newItemStack(4), "x  ", "xx ", "xxx", 'x', ModBlocks.RED_SANDSTONE.get());
 		addShapedRecipe(ModBlocks.RED_SANDSTONE_WALL.newItemStack(6), "xxx", "xxx", 'x', ModBlocks.RED_SANDSTONE.newItemStack());
 
@@ -689,7 +691,9 @@ public class ModRecipes {
 		addShapedRecipe(ModItems.BEETROOT_SOUP.newItemStack(), "xxx", "xxx", " y ", 'x', "cropBeetroot", 'y', "bowlWood");
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.dye, 1, 1), "cropBeetroot"));
 
-		addShapedRecipe(ModBlocks.END_BRICK_SLAB.newItemStack(6), "xxx", 'x', ModBlocks.END_BRICKS.get());
+		if (!isGtnh) {
+			addShapedRecipe(ModBlocks.END_BRICK_SLAB.newItemStack(6), "xxx", 'x', ModBlocks.END_BRICKS.get());
+		}
 		addShapedRecipe(ModBlocks.END_BRICK_STAIRS.newItemStack(4), "x  ", "xx ", "xxx", 'x', ModBlocks.END_BRICKS.get());
 		addShapedRecipe(ModBlocks.END_BRICK_WALL.newItemStack(6), "xxx", "xxx", 'x', ModBlocks.END_BRICKS.newItemStack());
 
@@ -739,27 +743,30 @@ public class ModRecipes {
 		addShapedRecipe(ModBlocks.RED_NETHERBRICK_STAIRS.newItemStack(4), "x  ", "xx ", "xxx", 'x', ModBlocks.RED_NETHERBRICK.newItemStack());
 		addShapedRecipe(ModBlocks.RED_NETHER_BRICK_WALL.newItemStack(6), "xxx", "xxx", 'x', ModBlocks.RED_NETHERBRICK.newItemStack());
 
-		addShapedRecipe(ModBlocks.NETHER_WART.newItemStack(), "xxx", "xxx", "xxx", 'x', Items.nether_wart);
-
 		if (!isGtnh) {
+			addShapedRecipe(ModBlocks.NETHER_WART.newItemStack(), "xxx", "xxx", "xxx", 'x', Items.nether_wart);
 			addShapedRecipe(ModBlocks.BONE.newItemStack(), "xxx", "xxx", "xxx", 'x', new ItemStack(Items.dye, 1, 15));
 		}
 		addShapelessRecipe(new ItemStack(Items.dye, 9, 15), ModBlocks.BONE.newItemStack());
 
-		for (int i = 0; i < ore_dyes.length; i++) {
-			int dye = ~i & 15;
-			addShapelessRecipe(ModBlocks.CONCRETE_POWDER.newItemStack(8, i),
-					ore_dyes[dye], new ItemStack(Blocks.sand, 1, 0), new ItemStack(Blocks.sand, 1, 0), new ItemStack(Blocks.sand, 1, 0),
-					new ItemStack(Blocks.sand, 1, 0), Blocks.gravel, Blocks.gravel, Blocks.gravel, Blocks.gravel);
-			addSmelting(new ItemStack(Blocks.stained_hardened_clay, 1, i), ModBlocks.TERRACOTTA[i].newItemStack(), 0.1F);
+		if (!isGtnh) {
+			for (int i = 0; i < ore_dyes.length; i++) {
+				int dye = ~i & 15;
+				addShapelessRecipe(ModBlocks.CONCRETE_POWDER.newItemStack(8, i),
+						ore_dyes[dye], new ItemStack(Blocks.sand, 1, 0), new ItemStack(Blocks.sand, 1, 0), new ItemStack(Blocks.sand, 1, 0),
+						new ItemStack(Blocks.sand, 1, 0), Blocks.gravel, Blocks.gravel, Blocks.gravel, Blocks.gravel);
+				addSmelting(new ItemStack(Blocks.stained_hardened_clay, 1, i), ModBlocks.TERRACOTTA[i].newItemStack(), 0.1F);
+			}
 		}
 
-		if (!OreDictionary.getOres("nuggetIron").isEmpty()) {
-			addShapedRecipe(ModBlocks.LANTERN.newItemStack(), "xxx", "xix", "xxx", 'x', "nuggetIron", 'i', Blocks.torch);
-			addShapedRecipe(ModBlocks.SOUL_LANTERN.newItemStack(), "xxx", "xix", "xxx", 'x', "nuggetIron", 'i', ModBlocks.SOUL_TORCH.get());
-		} else {
-			addShapedRecipe(ModBlocks.LANTERN.newItemStack(), "i", "x", 'x', "ingotIron", 'i', Blocks.torch);
-			addShapedRecipe(ModBlocks.SOUL_LANTERN.newItemStack(), "i", "x", 'x', "ingotIron", 'i', ModBlocks.SOUL_TORCH.get());
+		if (!isGtnh) {
+			if (!OreDictionary.getOres("nuggetIron").isEmpty()) {
+				addShapedRecipe(ModBlocks.LANTERN.newItemStack(), "xxx", "xix", "xxx", 'x', "nuggetIron", 'i', Blocks.torch);
+				addShapedRecipe(ModBlocks.SOUL_LANTERN.newItemStack(), "xxx", "xix", "xxx", 'x', "nuggetIron", 'i', ModBlocks.SOUL_TORCH.get());
+			} else {
+				addShapedRecipe(ModBlocks.LANTERN.newItemStack(), "i", "x", 'x', "ingotIron", 'i', Blocks.torch);
+				addShapedRecipe(ModBlocks.SOUL_LANTERN.newItemStack(), "i", "x", 'x', "ingotIron", 'i', ModBlocks.SOUL_TORCH.get());
+			}
 		}
 		addShapedRecipe(ModBlocks.SOUL_TORCH.newItemStack(4), "i", "x", "s", 'x', "stickWood", 'i', "coal", 's', "soulSand");
 		addShapedRecipe(ModBlocks.SOUL_TORCH.newItemStack(4), "i", "x", "s", 'x', "stickWood", 'i', "coal", 's', "soulSoil");
@@ -779,24 +786,26 @@ public class ModRecipes {
 		addSmelting(ModBlocks.ANCIENT_DEBRIS.get(), ModItems.NETHERITE_SCRAP.newItemStack(), 2F);
 		addShapelessRecipe(ModItems.NETHERITE_INGOT.newItemStack(), ModItems.NETHERITE_SCRAP.newItemStack(), ModItems.NETHERITE_SCRAP.newItemStack(),
 				ModItems.NETHERITE_SCRAP.newItemStack(), ModItems.NETHERITE_SCRAP.newItemStack(), "ingotGold", "ingotGold", "ingotGold", "ingotGold");
-		addShapedRecipe(ModBlocks.NETHERITE_BLOCK.newItemStack(), "xxx", "xxx", "xxx", 'x', ModItems.NETHERITE_INGOT.get());
+		if (!isGtnh) {
+			addShapedRecipe(ModBlocks.NETHERITE_BLOCK.newItemStack(), "xxx", "xxx", "xxx", 'x', ModItems.NETHERITE_INGOT.get());
+		}
 		addShapedRecipe(ModItems.NETHERITE_INGOT.newItemStack(9), "x", 'x', ModBlocks.NETHERITE_BLOCK.get());
 
 		addSmelting(ModBlocks.NETHER_GOLD_ORE.newItemStack(), new ItemStack(Items.gold_ingot), .1F);
 
-		addSmelting(new ItemStack(Blocks.stone), ModBlocks.SMOOTH_STONE.newItemStack(), .1F);
-
-		if(ModBlocks.SMOOTH_STONE.isEnabled() && !isGtnh) {
-			ItemStack stoneTile = ExternalContent.Items.BLUEPOWER_CIRCUIT_PLATE.isEnabled() ? ExternalContent.Items.BLUEPOWER_CIRCUIT_PLATE.newItemStack(2)
-					: ExternalContent.Items.PROJECTRED_CIRCUIT_PLATE.isEnabled() ? ExternalContent.Items.PROJECTRED_CIRCUIT_PLATE.newItemStack(2)
-					: null;
-			if (stoneTile != null) {
-				removeFurnaceRecipeFor(new ItemStack(Blocks.stone), stoneTile);
-				addShapedRecipe(stoneTile, "x", 'x', ModBlocks.SMOOTH_STONE.newItemStack());
-			}
-		}
-
 		if (!isGtnh) {
+			addSmelting(new ItemStack(Blocks.stone), ModBlocks.SMOOTH_STONE.newItemStack(), .1F);
+
+			if(ModBlocks.SMOOTH_STONE.isEnabled()) {
+				ItemStack stoneTile = ExternalContent.Items.BLUEPOWER_CIRCUIT_PLATE.isEnabled() ? ExternalContent.Items.BLUEPOWER_CIRCUIT_PLATE.newItemStack(2)
+						: ExternalContent.Items.PROJECTRED_CIRCUIT_PLATE.isEnabled() ? ExternalContent.Items.PROJECTRED_CIRCUIT_PLATE.newItemStack(2)
+						: null;
+				if (stoneTile != null) {
+					removeFurnaceRecipeFor(new ItemStack(Blocks.stone), stoneTile);
+					addShapedRecipe(stoneTile, "x", 'x', ModBlocks.SMOOTH_STONE.newItemStack());
+				}
+			}
+
 			addSmelting(new ItemStack(Blocks.sandstone, 1, 0), ModBlocks.SMOOTH_SANDSTONE.newItemStack(), .1F);
 			addShapedRecipe(ModBlocks.SMOOTH_SANDSTONE_SLAB.newItemStack(6), "xxx", 'x', ModBlocks.SMOOTH_SANDSTONE.newItemStack());
 			addSmelting(ModBlocks.RED_SANDSTONE.newItemStack(), ModBlocks.SMOOTH_RED_SANDSTONE.newItemStack(), .1F);
@@ -1030,7 +1039,9 @@ public class ModRecipes {
 		addShapedRecipe(ModBlocks.PACKED_MUD.newItemStack(4, 1), "xx", "xx", 'x', ModBlocks.PACKED_MUD.newItemStack(1, 0));
 
 		addShapedRecipe(ModBlocks.MUD_BRICK_STAIRS.newItemStack(4), "x  ", "xx ", "xxx", 'x', ModBlocks.PACKED_MUD.newItemStack(1, 1));
-		addShapedRecipe(ModBlocks.MUD_BRICK_SLAB.newItemStack(6, 0), "xxx", 'x', ModBlocks.PACKED_MUD.newItemStack(1, 1));
+		if (!isGtnh) {
+			addShapedRecipe(ModBlocks.MUD_BRICK_SLAB.newItemStack(6, 0), "xxx", 'x', ModBlocks.PACKED_MUD.newItemStack(1, 1));
+		}
 		addShapedRecipe(ModBlocks.MUD_BRICK_WALL.newItemStack(6, 0), "xxx", "xxx", 'x', ModBlocks.PACKED_MUD.newItemStack(1, 1));
 
 		addShapedRecipe(ModBlocks.MOSS_BLOCK.newItemStack(1, 0), "xxx", "xyx", "xxx", 'x', new ItemStack(Blocks.vine, 1), 'y', new ItemStack(Blocks.dirt, 1));
@@ -1050,28 +1061,30 @@ public class ModRecipes {
 			addShapelessRecipe(stew, Blocks.red_mushroom, Blocks.brown_mushroom, Items.bowl, getStewFlowers().get(i));
 		}
 
-		for (Map.Entry<String, ItemNewBoat.BoatInfo> entry : ItemNewBoat.BOAT_INFO.entrySet()) {
-			String key = entry.getKey();
-			if (key == null) continue;
-			boolean isOak = entry.getKey().equals("minecraft:oak");
-			ItemStack boat = (isOak && ConfigBlocksItems.replaceOldBoats ? new ItemStack(Items.boat) : entry.getValue().getBoatItem());
-			if (key.endsWith("_chest")) {
-				ItemStack inputBoat = ItemNewBoat.BOAT_INFO.get(key.substring(0, key.indexOf("_chest"))).getBoatItem();
-				addShapelessRecipe(boat, "chestWood", inputBoat);
-			} else {
-				if(isOak) { //We're using the plankWood tag for this, so it needs to be in the vanilla sorter
-					GameRegistry.addRecipe(new ShapedOreRecipe(boat, (ConfigBlocksItems.replaceOldBoats ? "x x" : "xyx"), "xxx", 'x', "plankWood", 'y', new ItemStack(Items.wooden_shovel, 1)));
-				} else { //Not a tagged recipe, we sort this before vanilla recipes, so it takes precedent over them
-					addShapedRecipe(boat, (ConfigBlocksItems.replaceOldBoats ? "x x" : "xyx"), "xxx", 'x', entry.getValue().getPlank(), 'y', new ItemStack(Items.wooden_shovel, 1));
+		if (!isGtnh) {
+			for (Map.Entry<String, ItemNewBoat.BoatInfo> entry : ItemNewBoat.BOAT_INFO.entrySet()) {
+				String key = entry.getKey();
+				if (key == null) continue;
+				boolean isOak = entry.getKey().equals("minecraft:oak");
+				ItemStack boat = (isOak && ConfigBlocksItems.replaceOldBoats ? new ItemStack(Items.boat) : entry.getValue().getBoatItem());
+				if (key.endsWith("_chest")) {
+					ItemStack inputBoat = ItemNewBoat.BOAT_INFO.get(key.substring(0, key.indexOf("_chest"))).getBoatItem();
+					addShapelessRecipe(boat, "chestWood", inputBoat);
+				} else {
+					if(isOak) { //We're using the plankWood tag for this, so it needs to be in the vanilla sorter
+						GameRegistry.addRecipe(new ShapedOreRecipe(boat, (ConfigBlocksItems.replaceOldBoats ? "x x" : "xyx"), "xxx", 'x', "plankWood", 'y', new ItemStack(Items.wooden_shovel, 1)));
+					} else { //Not a tagged recipe, we sort this before vanilla recipes, so it takes precedent over them
+						addShapedRecipe(boat, (ConfigBlocksItems.replaceOldBoats ? "x x" : "xyx"), "xxx", 'x', entry.getValue().getPlank(), 'y', new ItemStack(Items.wooden_shovel, 1));
+					}
 				}
 			}
-		}
-		if (!ConfigBlocksItems.replaceOldBoats && !isGtnh) {
-			addShapelessRecipe(new ItemStack(Items.boat), "boatWood");
-			addShapelessRecipe(ModItems.BOATS[0].newItemStack(), Items.wooden_shovel, Items.boat);
-		}
+			if (!ConfigBlocksItems.replaceOldBoats) {
+				addShapelessRecipe(new ItemStack(Items.boat), "boatWood");
+				addShapelessRecipe(ModItems.BOATS[0].newItemStack(), Items.wooden_shovel, Items.boat);
+			}
 
-		addShapedRecipe(ModBlocks.SHULKER_BOX.newItemStack(), "x", "c", "x", 'x', ModItems.SHULKER_SHELL.newItemStack(), 'c', new ItemStack(Blocks.chest));
+			addShapedRecipe(ModBlocks.SHULKER_BOX.newItemStack(), "x", "c", "x", 'x', ModItems.SHULKER_SHELL.newItemStack(), 'c', new ItemStack(Blocks.chest));
+		}
 		if (ModBlocks.SHULKER_BOX.isEnabled()) {
 			for (int i = ore_dyes.length - 1; i >= 0; i--) {//Dyed box recipes
 				ItemStack shulker = ModBlocks.SHULKER_BOX.newItemStack();
@@ -1132,7 +1145,9 @@ public class ModRecipes {
 
 		addShapedRecipe(ModBlocks.STONECUTTER.newItemStack(), " I ", "SSS", 'S', "stone", 'I', "ingotIron");
 
-		addShapedRecipe(ModBlocks.COMPOSTER.newItemStack(), "S S", "S S", "SSS", 'S', "slabWood");
+		if (!isGtnh) {
+			addShapedRecipe(ModBlocks.COMPOSTER.newItemStack(), "S S", "S S", "SSS", 'S', "slabWood");
+		}
 
 		addShapedRecipe(ModBlocks.CARTOGRAPHY_TABLE.newItemStack(), "pp", "PP", "PP", 'P', "plankWood", 'p', new ItemStack(Items.paper, 1, 0));
 
