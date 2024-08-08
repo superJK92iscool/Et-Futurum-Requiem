@@ -251,7 +251,6 @@ public class ConfigFunctions extends ConfigBase {
 
 	protected void initValues() {
 		ConfigFunctions.shulkerBans = new ArrayList<Item>();
-		System.err.println(ConfigFunctions.shulkerBansString);
 		for (String itemName : ConfigFunctions.shulkerBansString) {
 			String[] nameAndID;
 			if (itemName.contains(":") && (nameAndID = itemName.split(":")).length == 2) {
