@@ -377,7 +377,7 @@ public enum ModBlocks {
 
 	//new fence, this can just be one block, meta states are fine, the fences above were made by ganymedes01 and not me hence the lack of meta usage
 	// TODO: Fix Bamboo Fence Rendering
-	WOOD_FENCE(ConfigBlocksItems.woodVariants, new BlockModernWoodFence()),
+	WOOD_FENCE(ConfigBlocksItems.woodVariants && ConfigBlocksItems.enableNewFences, new BlockModernWoodFence()),
 
 	//legacy buttons
 	BUTTON_SPRUCE(ConfigBlocksItems.enableVanillaWoodRedstone, new BlockWoodButton("spruce", Blocks.planks, 1, true)),
