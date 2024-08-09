@@ -3,6 +3,7 @@ package ganymedes01.etfuturum.blocks.ores;
 import ganymedes01.etfuturum.api.DeepslateOreRegistry;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
+import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
 
@@ -45,13 +46,13 @@ public class BlockDeepslateOre extends BaseDeepslateOre {
 	@Deprecated
 	public static void setAttribs(Block to, Block from) {
 		Utils.copyAttribs(to, from);
-		to.setHardness(from.blockHardness * 1.5F);
+		to.setHardness(ConfigFunctions.useStoneHardnessForDeepslate ? from.blockHardness : from.blockHardness * 1.5F);
 		Utils.setBlockSound(to, ModSounds.soundDeepslate);
 	}
 
 	protected void copyAttribs(Block from) {
 		Utils.copyAttribs(this, from);
-		setHardness(from.blockHardness * 1.5F);
+		setHardness(ConfigFunctions.useStoneHardnessForDeepslate ? from.blockHardness : from.blockHardness * 1.5F);
 	}
 
 	protected void addDeepslateMappings() {

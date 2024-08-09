@@ -7,6 +7,7 @@ import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.api.mappings.RegistryMapping;
 import ganymedes01.etfuturum.blocks.BaseBlock;
 import ganymedes01.etfuturum.client.sound.ModSounds;
+import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.core.utils.DummyWorld;
 import ganymedes01.etfuturum.core.utils.IInitAction;
 import ganymedes01.etfuturum.lib.Reference;
@@ -261,11 +262,11 @@ public abstract class BaseDeepslateOre extends BaseBlock implements IInitAction 
 			if (block.getHarvestTool(getBaseMeta()) != null) {
 				setHarvestLevel("pickaxe", block.getHarvestLevel(getBaseMeta()));
 			}
-			blockHardness = block.getBlockHardness(world, 0, 0, 0) * 1.5F;
+			blockHardness = ConfigFunctions.useStoneHardnessForDeepslate ? block.getBlockHardness(world, 0, 0, 0) : block.getBlockHardness(world, 0, 0, 0) * 1.5F;
 			blockResistance = block.getExplosionResistance(null, world, 0, 0, 0, 0, 0, 0) * 5; //Because the game divides it by 5 for some reason
 		} catch (Exception e) {
 			setHarvestLevel("pickaxe", 1);
-			blockHardness = Blocks.iron_ore.blockHardness * 1.5F;
+			blockHardness = ConfigFunctions.useStoneHardnessForDeepslate ? Blocks.iron_ore.blockHardness : Blocks.iron_ore.blockHardness * 1.5F;
 			blockResistance = Blocks.iron_ore.blockResistance;
 		}
 		world.clearBlocksCache();
