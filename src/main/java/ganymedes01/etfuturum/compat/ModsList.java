@@ -44,6 +44,9 @@ public enum ModsList {
 	NOT_ENOUGH_IDS("neid"),
 	ENDLESS_IDS("endlessids"),
 	MC_PATCHER_FORGE("mcpatcherforge"),
+
+	GTNH("dreamcraft"),
+	LOTR("lotr"),
 	;
 
 	private final String modID;

@@ -1,6 +1,5 @@
 package ganymedes01.etfuturum.recipes;
 
-import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
@@ -93,7 +92,7 @@ public class ModRecipes {
 	}
 
 	private static void tweakRecipes() {
-		boolean isGtnh = Loader.isModLoaded("dreamcraft");
+		boolean isGtnh = ModsList.GTNH.isLoaded();
 
 		if (ConfigBlocksItems.enableExtraVanillaSlabs && !isGtnh) {
 			removeFirstRecipeFor(Blocks.stone_slab, 0);
@@ -371,7 +370,7 @@ public class ModRecipes {
 	}
 
 	private static void registerRecipes() {
-		boolean isGtnh = Loader.isModLoaded("dreamcraft");
+		boolean isGtnh = ModsList.GTNH.isLoaded();
 
 		if (!isGtnh) {
 			addShapedRecipe(ModBlocks.OLD_GRAVEL.newItemStack(4), "xy", "yx", 'x', ModBlocks.COARSE_DIRT.get(), 'y', Blocks.gravel);
@@ -1196,7 +1195,7 @@ public class ModRecipes {
 		addShapedRecipe(ModBlocks.BASALT.newItemStack(4, 1), "xx", "xx", 'x', ModBlocks.BASALT.newItemStack());
 		addSmelting(ModBlocks.BASALT.newItemStack(), ModBlocks.SMOOTH_BASALT.newItemStack(), 0.1F);
 
-		if (Loader.isModLoaded("lotr")) {//LoTR ores and ingots stupidly lack dictionary entries; let's add them so the code below can find them.
+		if (ModsList.LOTR.isLoaded()) {//LoTR ores and ingots stupidly lack dictionary entries; let's add them so the code below can find them.
 			if (ConfigModCompat.moddedRawOres) {
 				registerOre("oreCopper", GameRegistry.findBlock("lotr", "tile.oreCopper"));
 				registerOre("ingotCopper", GameRegistry.findItem("lotr", "item.copper"));
