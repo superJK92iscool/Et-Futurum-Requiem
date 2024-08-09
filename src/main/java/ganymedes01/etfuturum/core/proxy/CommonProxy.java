@@ -80,7 +80,7 @@ public class CommonProxy implements IGuiHandler {
 		if (ModBlocks.BLAST_FURNACE.isEnabled()) {
 			GameRegistry.registerTileEntity(TileEntityBlastFurnace.class, Utils.getUnlocalisedName("blast_furnace"));
 		}
-		if (ConfigBlocksItems.enableSigns) {
+		if (ConfigBlocksItems.enableVanillaSigns) {
 			GameRegistry.registerTileEntity(TileEntityWoodSign.class, Utils.getUnlocalisedName("sign"));
 		}
 		if (ModBlocks.SCULK_CATALYST.isEnabled()) {

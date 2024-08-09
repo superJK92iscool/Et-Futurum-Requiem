@@ -96,7 +96,7 @@ public class ModRecipes {
 			removeFirstRecipeFor(Blocks.stone_slab, 0);
 		}
 
-		if (ConfigBlocksItems.enableDoors) {
+		if (ConfigBlocksItems.enableVanillaDoors) {
 			Items.wooden_door.setMaxStackSize(64);
 			Items.iron_door.setMaxStackSize(64);
 		}
@@ -108,7 +108,7 @@ public class ModRecipes {
 			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Items.iron_door, 3), "xx", "xx", "xx", 'x', "ingotIron"));
 		}
 
-		if (ConfigBlocksItems.enableFences && !ModsList.GTNH.isLoaded()) {
+		if (ConfigBlocksItems.enableVanillaFences && !ModsList.GTNH.isLoaded()) {
 			removeFirstRecipeFor(Blocks.fence);
 			removeFirstRecipeFor(Blocks.nether_brick_fence);
 		}
@@ -663,7 +663,7 @@ public class ModRecipes {
 		addShapedRecipe(ModBlocks.RED_SANDSTONE_STAIRS.newItemStack(4), "x  ", "xx ", "xxx", 'x', ModBlocks.RED_SANDSTONE.get());
 		addShapedRecipe(ModBlocks.RED_SANDSTONE_WALL.newItemStack(6), "xxx", "xxx", 'x', ModBlocks.RED_SANDSTONE.newItemStack());
 
-		if (ConfigBlocksItems.enableFences && !ModsList.GTNH.isLoaded()) {
+		if (ConfigBlocksItems.enableVanillaFences && !ModsList.GTNH.isLoaded()) {
 			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Blocks.fence, 3), "xyx", "xyx", 'x', "plankWood", 'y', "stickWood"));
 			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Blocks.nether_brick_fence, 6), "xyx", "xyx", 'x', Blocks.nether_brick, 'y', "ingotBrickNether"));
 		}
