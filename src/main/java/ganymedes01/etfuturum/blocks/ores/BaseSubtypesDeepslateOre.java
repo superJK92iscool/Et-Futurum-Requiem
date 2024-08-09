@@ -7,6 +7,7 @@ import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.api.mappings.RegistryMapping;
 import ganymedes01.etfuturum.blocks.BaseSubtypesBlock;
 import ganymedes01.etfuturum.client.sound.ModSounds;
+import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.core.utils.DummyWorld;
 import ganymedes01.etfuturum.core.utils.IInitAction;
 import ganymedes01.etfuturum.lib.Reference;
@@ -257,11 +258,11 @@ public abstract class BaseSubtypesDeepslateOre extends BaseSubtypesBlock impleme
 				if (block.getHarvestTool(getBaseMeta(i)) != null) {
 					setHarvestLevel("pickaxe", block.getHarvestLevel(getBaseMeta(i)), i);
 				}
-				setHardnessValues(block.getBlockHardness(world, 0, 0, 0) * 1.5F, i);
+				setHardnessValues(ConfigFunctions.useStoneHardnessForDeepslate ? block.getBlockHardness(world, 0, 0, 0) : block.getBlockHardness(world, 0, 0, 0) * 1.5F, i);
 				setResistanceValues(block.getExplosionResistance(null, world, 0, 0, 0, 0, 0, 0), i);
 			} catch (Exception e) {
 				setHarvestLevel("pickaxe", 1, i);
-				setHardnessValues(Blocks.iron_ore.blockHardness * 1.5F, i);
+				setHardnessValues(ConfigFunctions.useStoneHardnessForDeepslate ? Blocks.iron_ore.blockHardness : Blocks.iron_ore.blockHardness * 1.5F, i);
 				setResistanceValues(Blocks.iron_ore.blockResistance, i);
 			}
 		}

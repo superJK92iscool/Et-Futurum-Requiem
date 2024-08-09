@@ -5,6 +5,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.blocks.BaseSubtypesBlock;
 import ganymedes01.etfuturum.client.sound.ModSounds;
+import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.core.utils.DummyWorld;
 import ganymedes01.etfuturum.core.utils.IInitAction;
 import ganymedes01.etfuturum.core.utils.Utils;
@@ -37,7 +38,7 @@ public class BlockGeneralModdedDeepslateOre extends BaseSubtypesBlock implements
 		resistances = new float[ores.length];
 		setBlockName(Utils.getUnlocalisedName("modded_deepslate_ore"));
 		setBlockSound(ModSounds.soundDeepslate);
-		setHardness(4.5F);
+		setHardness(ConfigFunctions.useStoneHardnessForDeepslate ? 3.0F : 4.5F);
 		setResistance(3);
 		setHarvestLevel("pickaxe", 1);
 	}
@@ -89,11 +90,11 @@ public class BlockGeneralModdedDeepslateOre extends BaseSubtypesBlock implements
 				if (block.getHarvestTool(stack.getItemDamage()) != null) {
 					setHarvestLevel("pickaxe", block.getHarvestLevel(stack.getItemDamage()), i);
 				}
-				hardnesses[i] = block.getBlockHardness(world, 0, 0, 0) * 1.5F;
+				hardnesses[i] = ConfigFunctions.useStoneHardnessForDeepslate ? block.getBlockHardness(world, 0, 0, 0) : block.getBlockHardness(world, 0, 0, 0) * 1.5F;
 				resistances[i] = block.getExplosionResistance(null, world, 0, 0, 0, 0, 0, 0); //We don't need to divide because the base method we overrode won't be dividing
 			} catch (Exception e) {
 				setHarvestLevel("pickaxe", 1, i);
-				hardnesses[i] = Blocks.iron_ore.blockHardness * 1.5F;
+				hardnesses[i] = ConfigFunctions.useStoneHardnessForDeepslate ? Blocks.iron_ore.blockHardness : Blocks.iron_ore.blockHardness * 1.5F;
 				resistances[i] = Blocks.iron_ore.blockResistance;
 			}
 		}
