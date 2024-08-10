@@ -36,13 +36,18 @@ public class ConfigBlocksItems extends ConfigBase {
 	public static boolean enableMutton;
 	public static boolean enableSponge;
 	public static boolean enablePrismarine;
-	public static boolean enableDoors;
-	public static boolean enableTrapdoors;
+	public static boolean enableVanillaDoors;
+	public static boolean enableNewDoors;
+	public static boolean enableVanillaTrapdoors;
+	public static boolean enableNewTrapdoors;
 	public static boolean enableInvertedDaylightSensor;
 	public static boolean enableOldBaseDaylightSensor;
 	public static boolean enableCoarseDirt;
 	public static boolean enableRedSandstone;
-	public static boolean enableFences;
+	public static boolean enableVanillaFences;
+	public static boolean enableNewFences;
+	public static boolean enableVanillaGates;
+	public static boolean enableNewGates;
 	public static boolean enableSlimeBlock;
 	public static boolean enableBeetroot;
 	public static boolean enableChorusFruit;
@@ -59,7 +64,8 @@ public class ConfigBlocksItems extends ConfigBase {
 	public static boolean enableBarrier;
 	public static boolean enableLightBlock;
 	public static boolean enableNetherGold;
-	public static boolean enableSigns;
+	public static boolean enableVanillaSigns;
+	public static boolean enableNewSigns;
 	public static boolean enableSmoothStone;
 	public static boolean enableSmoothSandstone;
 	public static boolean enableSmoothQuartz;
@@ -81,7 +87,8 @@ public class ConfigBlocksItems extends ConfigBase {
 	public static boolean enableTotemUndying;
 	public static boolean enableRawOres;
 	public static boolean enableNewDyes;
-	public static boolean enableWoodRedstone;
+	public static boolean enableVanillaWoodRedstone;
+	public static boolean enableNewWoodRedstone;
 	public static boolean enableStrippedLogs;
 	public static boolean enableBlueIce;
 	public static boolean enableCopper;
@@ -225,14 +232,18 @@ public class ConfigBlocksItems extends ConfigBase {
 		//Function Blocks
 		enableIronTrapdoor = getBoolean("enableIronTrapdoor", catBlockFunc, true, "");
 		enableSponge = getBoolean("enableSponge", catBlockFunc, true, "");
-		enableDoors = getBoolean("enableDoors", catBlockFunc, true, "Enables wood variant doors");
-		enableTrapdoors = getBoolean("enableTrapdoors", catBlockFunc, true, "Enables wood variant trapdoors");
+		enableVanillaDoors = getBoolean("enableVanillaDoors", catBlockFunc, true, "Enables variant doors for materials available natively in Minecraft 1.7");
+		enableNewDoors = getBoolean("enableNewDoors", catBlockFunc, true, "Enables variant doors for materials available in Minecraft after 1.7");
+		enableVanillaTrapdoors = getBoolean("enableVanillaTrapdoors", catBlockFunc, true, "Enables variant trapdoors for materials available natively in Minecraft 1.7");
+		enableNewTrapdoors = getBoolean("enableNewTrapdoors", catBlockFunc, true, "Enables variant trapdoors for materials available in Minecraft after 1.7");
 		enableSlimeBlock = getBoolean("enableSlimeBlock", catBlockFunc, true, "Just bouncy, does not pull blocks.");
-		enableWoodRedstone = getBoolean("enableWoodRedstone", catBlockFunc, true, "Enables wood variant buttons and pressure plates");
+		enableVanillaWoodRedstone = getBoolean("enableVanillaWoodRedstone", catBlockFunc, true, "Enables wood variant buttons and pressure plates for wood available natively in Minecraft 1.7");
+		enableNewWoodRedstone = getBoolean("enableNewWoodRedstone", catBlockFunc, true, "Enables wood variant buttons and pressure plates for wood available in Minecraft after 1.7");
 		enableBarrel = getBoolean("enableBarrel", catBlockFunc, true, "");
 		enableSmoker = getBoolean("enableSmoker", catBlockFunc, true, "Will attempt to seek and auto-add recipes to itself. Look at ConfigFunctions.cfg \"autoAddSmoker\" for more info.\nCompatible with CraftTweaker. In the same way that you'd use furnace.addRecipe or furnace.remove, you can use \"mods.etfuturum.smoker\" instead of \"furnace\".");
 		enableBlastFurnace = getBoolean("enableBlastFurnace", catBlockFunc, true, "Will attempt to seek and auto-add recipes to itself. Look at ConfigFunctions.cfg \"autoAddBlastFurance\" for more info.\nCompatible with CraftTweaker. In the same way that you'd use furnace.addRecipe or furnace.remove, you can use \"mods.etfuturum.blastFurnace\" instead of \"furnace\".");
-		enableSigns = getBoolean("enableSigns", catBlockFunc, true, "");
+		enableVanillaSigns = getBoolean("enableVanillaSigns", catBlockFunc, true, "Enables variant signs for materials available natively in Minecraft 1.7");
+		enableNewSigns = getBoolean("enableNewSigns", catBlockFunc, true, "Enables wood variant signs for materials available in Minecraft after 1.7");
 		enableLavaCauldrons = getBoolean("enableLavaCauldrons", catBlockFunc, true, "Allow lava buckets to fill cauldrons");
 		enableShulkerBoxes = getBoolean("enableShulkerBoxes", catBlockFunc, true, "If Shulkers are disabled, a custom recipe will be required to obtain Shulker shells.");
 		enablePotionCauldron = getBoolean("enablePotionCauldron", catBlockFunc, true, "A port of potion cauldrons from Bedrock Edition. Used to make tipped arrows and store potions.");
@@ -279,7 +290,10 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableTarget = getBoolean("enableTarget", catBlockFunc, true, "Enables target block from 1.16");
 
 		//Misc Blocks
-		enableFences = getBoolean("enableFences", catBlockMisc, true, "Enables wood variant fences and gates");
+		enableVanillaFences = getBoolean("enableVanillaFences", catBlockMisc, true, "Enables variant fences for materials available natively in Minecraft 1.7");
+		enableNewFences = getBoolean("enableNewFences", catBlockMisc, true, "Enables variant fences for materials available in Minecraft after 1.7");
+		enableVanillaGates = getBoolean("enableVanillaGates", catBlockMisc, true, "Enablesvariant gates for materials available natively in Minecraft 1.7");
+		enableNewGates = getBoolean("enableNewGates", catBlockMisc, true, "Enables variant gates for materials available in Minecraft after 1.7");
 		enableBanners = getBoolean("enableBanners", catBlockMisc, true, "");
 		enableConcrete = getBoolean("enableConcrete", catBlockMisc, true, "");
 		enableStrippedLogs = getBoolean("enableStrippedLogs", catBlockMisc, true, "Enables stripped log blocks");

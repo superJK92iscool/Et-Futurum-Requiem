@@ -727,7 +727,7 @@ public class StructureMesaMineshaftPieces {
 		}
 
 		protected int getPlankMeta() {
-			if (ConfigBlocksItems.enableFences) {
+			if (ConfigBlocksItems.enableVanillaFences) {
 				return 5;
 			}
 			return 0;
