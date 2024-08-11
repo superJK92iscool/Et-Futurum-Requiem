@@ -24,10 +24,7 @@ import java.util.List;
 
 public class BlockAzalea extends BlockBush implements ISubBlocksBlock {
 
-
-	@SideOnly(Side.CLIENT)
 	public IIcon[] sideIcons;
-	@SideOnly(Side.CLIENT)
 	public IIcon[] topIcons;
 	public int meta;
 

@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.blocks.itemblocks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -28,7 +26,6 @@ public class BasePotableItemBlock extends ItemBlock {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public boolean func_150936_a(World p_150936_1_, int p_150936_2_, int p_150936_3_, int p_150936_4_, int p_150936_5_, EntityPlayer p_150936_6_, ItemStack p_150936_7_) {
 		boolean flag = super.func_150936_a(p_150936_1_, p_150936_2_, p_150936_3_, p_150936_4_, p_150936_5_, p_150936_6_, p_150936_7_);
 		if (!flag && this.canPlacePot(p_150936_7_, p_150936_6_, p_150936_1_, p_150936_2_, p_150936_3_, p_150936_4_)) {

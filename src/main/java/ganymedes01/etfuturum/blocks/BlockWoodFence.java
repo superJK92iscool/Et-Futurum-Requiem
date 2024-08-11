@@ -47,7 +47,6 @@ public class BlockWoodFence extends BlockFence {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int _meta) {
 		return Blocks.planks.getIcon(side, this.meta);
 	}

@@ -32,14 +32,10 @@ import java.util.Random;
 
 public class BlockComposter extends Block implements FakeTileEntityProvider {
 
-	@SideOnly(Side.CLIENT)
 	private IIcon topIcon;
-	@SideOnly(Side.CLIENT)
 	private IIcon bottomIcon;
 
-	@SideOnly(Side.CLIENT)
 	public IIcon compostIcon;
-	@SideOnly(Side.CLIENT)
 	public IIcon fullCompostIcon;
 
 	public static int FULL_META = 7;
@@ -59,7 +55,6 @@ public class BlockComposter extends Block implements FakeTileEntityProvider {
 		this.useNeighborBrightness = true;
 	}
 
-	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int p_149691_1_, int p_149691_2_) {
 		return p_149691_1_ == 1 ? this.topIcon : p_149691_1_ == 0 ? bottomIcon : this.blockIcon;
 	}

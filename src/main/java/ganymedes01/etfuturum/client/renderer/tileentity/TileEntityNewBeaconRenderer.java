@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.client.renderer.tileentity;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.client.OpenGLHelper;
 import ganymedes01.etfuturum.tileentities.TileEntityNewBeacon;
 import ganymedes01.etfuturum.tileentities.TileEntityNewBeacon.BeamSegment;
@@ -15,7 +13,6 @@ import org.lwjgl.opengl.GL11;
 
 import java.util.List;
 
-@SideOnly(Side.CLIENT)
 public class TileEntityNewBeaconRenderer extends TileEntitySpecialRenderer {
 
 	private static final ResourceLocation BEAM_TEXTURE = new ResourceLocation("textures/entity/beacon_beam.png");

@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.client.renderer.entity;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.client.model.ModelRabbit;
 import ganymedes01.etfuturum.entities.EntityRabbit;
 import net.minecraft.client.renderer.entity.RenderLiving;
@@ -11,7 +9,6 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
-@SideOnly(Side.CLIENT)
 public class RabbitRenderer extends RenderLiving {
 
 	private static final ResourceLocation BROWN = new ResourceLocation("textures/entity/rabbit/brown.png");

@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Random;
 
 public class BaseSubtypesSand extends BlockFalling implements ISubBlocksBlock {
-	@SideOnly(Side.CLIENT)
+
 	private IIcon[] icons;
 	private final String[] types;
 
@@ -72,7 +72,6 @@ public class BaseSubtypesSand extends BlockFalling implements ISubBlocksBlock {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public void getSubBlocks(Item item, CreativeTabs tab, List<ItemStack> list) {
 		for (int i = startMeta; i < getTypes().length; i++) {
 			list.add(new ItemStack(item, 1, i));
@@ -80,7 +79,6 @@ public class BaseSubtypesSand extends BlockFalling implements ISubBlocksBlock {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta) {
 		return getIcons()[Math.max(startMeta, meta % icons.length)];
 	}

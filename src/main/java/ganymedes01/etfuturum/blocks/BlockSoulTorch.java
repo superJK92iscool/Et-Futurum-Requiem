@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.blocks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.client.particle.CustomParticles;
 import ganymedes01.etfuturum.core.utils.Utils;
@@ -25,7 +23,6 @@ public class BlockSoulTorch extends BlockTorch {
 	/**
 	 * A randomly called display update to be able to add particles or other items for display
 	 */
-	@SideOnly(Side.CLIENT)
 	public void randomDisplayTick(World world, int x, int y, int z, Random rand) {
 		int l = world.getBlockMetadata(x, y, z);
 		double d0 = (float) x + 0.5F;

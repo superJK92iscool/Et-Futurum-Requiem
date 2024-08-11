@@ -38,7 +38,6 @@ public class BaseDoor extends BlockDoor {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public Item getItem(World world, int x, int y, int z) {
 		return Item.getItemFromBlock(this);
 	}
@@ -54,7 +53,6 @@ public class BaseDoor extends BlockDoor {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public String getItemIconName() {
 		return getTextureName();
 	}

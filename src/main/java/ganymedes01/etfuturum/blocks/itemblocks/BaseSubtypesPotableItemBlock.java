@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.blocks.itemblocks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.blocks.ISubBlocksBlock;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
@@ -30,7 +28,6 @@ public class BaseSubtypesPotableItemBlock extends BasePotableItemBlock {
 		return meta % ((ISubBlocksBlock) field_150939_a).getTypes().length;
 	}
 
-	@SideOnly(Side.CLIENT)
 	public IIcon getIconFromDamage(int p_77617_1_) {
 		return field_150939_a.getIcon(2, p_77617_1_);
 	}

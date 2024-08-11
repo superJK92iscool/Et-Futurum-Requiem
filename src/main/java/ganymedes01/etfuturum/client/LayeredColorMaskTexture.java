@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.client;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.lib.EnumColor;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.client.renderer.texture.AbstractTexture;
@@ -19,7 +17,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-@SideOnly(Side.CLIENT)
 public class LayeredColorMaskTexture extends AbstractTexture {
 
 	private static final Logger field_174947_f = LogManager.getLogger();
@@ -87,7 +84,6 @@ public class LayeredColorMaskTexture extends AbstractTexture {
 		TextureUtil.uploadTextureImage(getGlTextureId(), bufferedimage);
 	}
 
-	@SideOnly(Side.CLIENT)
 	private int func_180188_d(int p_180188_0_, int p_180188_1_) {
 		int k = (p_180188_0_ & 16711680) >> 16;
 		int l = (p_180188_1_ & 16711680) >> 16;

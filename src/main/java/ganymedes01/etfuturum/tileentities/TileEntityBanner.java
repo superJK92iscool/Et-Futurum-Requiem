@@ -1,8 +1,6 @@
 package ganymedes01.etfuturum.tileentities;
 
 import com.google.common.collect.Lists;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.blocks.itemblocks.ItemBlockBanner;
 import ganymedes01.etfuturum.lib.EnumColor;
@@ -99,19 +97,16 @@ public class TileEntityBanner extends TileEntity {
 		return nbttagcompound != null && nbttagcompound.hasKey("Patterns") ? nbttagcompound.getTagList("Patterns", 10).tagCount() : 0;
 	}
 
-	@SideOnly(Side.CLIENT)
 	public List<EnumBannerPattern> getPatternList() {
 		initializeBannerData();
 		return patternList;
 	}
 
-	@SideOnly(Side.CLIENT)
 	public List<EnumColor> getColorList() {
 		initializeBannerData();
 		return colorList;
 	}
 
-	@SideOnly(Side.CLIENT)
 	public String func_175116_e() {
 		initializeBannerData();
 		return field_175121_j;
@@ -136,7 +131,6 @@ public class TileEntityBanner extends TileEntity {
 		}
 	}
 
-	@SideOnly(Side.CLIENT)
 	private void initializeBannerData() {
 		if (patternList == null || colorList == null || field_175121_j == null)
 			if (!field_175119_g)
@@ -242,7 +236,6 @@ public class TileEntityBanner extends TileEntity {
 			craftingLayers[2] = craftingBot;
 		}
 
-		@SideOnly(Side.CLIENT)
 		public String getPatternName() {
 			return patternName;
 		}
@@ -267,7 +260,6 @@ public class TileEntityBanner extends TileEntity {
 			return patternCraftingStack;
 		}
 
-		@SideOnly(Side.CLIENT)
 		public static EnumBannerPattern getPatternByID(String id) {
 			for (EnumBannerPattern pattern : EnumBannerPattern.values())
 				if (pattern.patternID.equals(id))

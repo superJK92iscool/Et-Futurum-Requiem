@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.inventory;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.recipes.SmokerRecipes;
 import ganymedes01.etfuturum.tileentities.TileEntitySmoker;
 import net.minecraft.entity.player.EntityPlayer;
@@ -74,7 +72,6 @@ public class ContainerSmoker extends Container {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public void updateProgressBar(int p_75137_1_, int p_75137_2_) {
 		if (p_75137_1_ == 0) {
 			this.tileFurnace.furnaceCookTime = p_75137_2_;

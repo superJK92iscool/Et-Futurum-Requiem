@@ -1,8 +1,6 @@
 package ganymedes01.etfuturum.entities;
 
 import com.google.common.collect.Lists;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.api.BeePlantRegistry;
 import ganymedes01.etfuturum.blocks.BlockBeeHive;
 import ganymedes01.etfuturum.blocks.BlockMagma;
@@ -446,7 +444,6 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		this.stayOutOfHiveCountdown = p_226450_1_;
 	}
 
-	@SideOnly(Side.CLIENT)
 	public float getBodyPitch(float p_226455_1_) {
 		return Utils.lerp(p_226455_1_, this.rollAmountO, this.rollAmount);
 	}

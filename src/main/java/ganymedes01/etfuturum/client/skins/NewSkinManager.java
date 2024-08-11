@@ -3,8 +3,6 @@ package ganymedes01.etfuturum.client.skins;
 import com.mojang.authlib.minecraft.MinecraftProfileTexture;
 import com.mojang.authlib.minecraft.MinecraftProfileTexture.Type;
 import com.mojang.authlib.minecraft.MinecraftSessionService;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.api.client.ISkinDownloadCallback;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.client.renderer.IImageBuffer;
@@ -19,7 +17,6 @@ import java.io.File;
 /**
  * Stolen from 1.8 and modified to work with 1.7.10
  */
-@SideOnly(Side.CLIENT)
 public class NewSkinManager extends SkinManager {
 
 	private final TextureManager textureManager;

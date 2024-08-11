@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.blocks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -38,7 +36,6 @@ public class BlockWitherRose extends BaseFlower {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public void randomDisplayTick(World p_149734_1_, int p_149734_2_, int p_149734_3_, int p_149734_4_, Random p_149734_5_) {
 		p_149734_1_.spawnParticle("smoke", p_149734_2_ + 0.5D, p_149734_3_ + 0.5D, p_149734_4_ + 0.5D, 0, 0, 0);
 	}

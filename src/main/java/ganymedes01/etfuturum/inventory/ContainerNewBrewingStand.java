@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.inventory;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.api.BrewingFuelRegistry;
 import ganymedes01.etfuturum.tileentities.TileEntityNewBrewingStand;
 import net.minecraft.entity.player.EntityPlayer;
@@ -57,7 +55,6 @@ public class ContainerNewBrewingStand extends Container {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public void updateProgressBar(int id, int value) {
 		if (id == 0)
 			tile.func_145938_d(value);

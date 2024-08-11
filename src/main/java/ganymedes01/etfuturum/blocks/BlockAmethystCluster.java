@@ -24,7 +24,6 @@ import java.util.Random;
 public class BlockAmethystCluster extends BlockAmethystBlock {
 
 	private final int type;
-	@SideOnly(Side.CLIENT)
 	private IIcon[] icons;
 
 	public BlockAmethystCluster(int type) {
@@ -184,7 +183,6 @@ public class BlockAmethystCluster extends BlockAmethystBlock {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int p_149691_1_, int p_149691_2_) {
 		return this.icons[p_149691_2_ < 6 ? 0 : 1];
 	}
@@ -204,7 +202,6 @@ public class BlockAmethystCluster extends BlockAmethystBlock {
 		super.registerBlockIcons(p_149651_1_);
 	}
 
-	@SideOnly(Side.CLIENT)
 	public void getSubBlocks(Item p_149666_1_, CreativeTabs p_149666_2_, List<ItemStack> p_149666_3_) {
 		p_149666_3_.add(new ItemStack(p_149666_1_, 1, 0));
 		p_149666_3_.add(new ItemStack(p_149666_1_, 1, 6));

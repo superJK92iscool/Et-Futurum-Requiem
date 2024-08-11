@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.entities;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -127,7 +125,6 @@ public class EntityNewBoatSeat extends Entity {
 		boat = null;
 	}
 
-	@SideOnly(Side.CLIENT)
 	public void setPositionAndRotation2(double p_70056_1_, double p_70056_3_, double p_70056_5_, float p_70056_7_, float p_70056_8_, int p_70056_9_) {
 		if (boat != null) {
 			copyLocationAndAnglesFrom(boat);
@@ -213,7 +210,6 @@ public class EntityNewBoatSeat extends Entity {
 
 	}
 
-	@SideOnly(Side.CLIENT)
 	@Deprecated
 	@Override
 	public boolean isInvisibleToPlayer(EntityPlayer p_98034_1_) {

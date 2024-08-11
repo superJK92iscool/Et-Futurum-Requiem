@@ -4,8 +4,6 @@ import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.model.ModelBiped;
@@ -19,7 +17,6 @@ public class SpectatorModeClient extends SpectatorMode {
 	private boolean doRefreshModel = false;
 	private boolean canSelect = false;
 
-	@SideOnly(Side.CLIENT)
 	private static void setBipedVisible(ModelBiped biped, boolean visible) {
 		biped.bipedHead.showModel = visible;
 		biped.bipedHeadwear.showModel = visible;
@@ -31,7 +28,6 @@ public class SpectatorModeClient extends SpectatorMode {
 	}
 
 	@SubscribeEvent
-	@SideOnly(Side.CLIENT)
 	public void onRenderPlayerPre(RenderPlayerEvent.Pre event) {
 		if (!SPECTATING_ENTITIES.containsKey(event.entityPlayer)) {
 			if (isSpectator(event.entityPlayer)) {
@@ -47,7 +43,6 @@ public class SpectatorModeClient extends SpectatorMode {
 	}
 
 	@SubscribeEvent
-	@SideOnly(Side.CLIENT)
 	public void onRenderPlayerArmor(RenderPlayerEvent.Specials.Pre event) {
 		if (isSpectator(event.entityPlayer)) {
 			event.setCanceled(true);
@@ -55,7 +50,6 @@ public class SpectatorModeClient extends SpectatorMode {
 	}
 
 	@SubscribeEvent
-	@SideOnly(Side.CLIENT)
 	public void onRenderEntity(RenderLivingEvent.Pre event) {
 		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
 		Entity entity2 = SPECTATING_ENTITIES.get(player);
@@ -67,7 +61,6 @@ public class SpectatorModeClient extends SpectatorMode {
 	private static boolean hadHeldItemTooltips;
 
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
-	@SideOnly(Side.CLIENT)
 	public void onOverlayRenderPre(RenderGameOverlayEvent.Pre event) {
 		if (isSpectator(Minecraft.getMinecraft().thePlayer)) {
 			if (event.type == RenderGameOverlayEvent.ElementType.HOTBAR || (event.type == RenderGameOverlayEvent.ElementType.CROSSHAIRS && !canSelect)) {
@@ -81,7 +74,6 @@ public class SpectatorModeClient extends SpectatorMode {
 	}
 
 	@SubscribeEvent(priority = EventPriority.LOWEST)
-	@SideOnly(Side.CLIENT)
 	public void onOverlayRenderPost(RenderGameOverlayEvent.Post event) {
 		if (isSpectator(Minecraft.getMinecraft().thePlayer)) {
 			if (event.type == RenderGameOverlayEvent.ElementType.ALL) {
@@ -91,7 +83,6 @@ public class SpectatorModeClient extends SpectatorMode {
 	}
 
 	@SubscribeEvent
-	@SideOnly(Side.CLIENT)
 	public void onHandRender(RenderHandEvent event) {
 		if (isSpectator(Minecraft.getMinecraft().thePlayer)) {
 			event.setCanceled(true);
@@ -105,7 +96,6 @@ public class SpectatorModeClient extends SpectatorMode {
 	}
 
 	@SubscribeEvent
-	@SideOnly(Side.CLIENT)
 	public void onFireRender(RenderBlockOverlayEvent event) {
 		if (isSpectator(Minecraft.getMinecraft().thePlayer)) {
 			event.setCanceled(true);
@@ -114,7 +104,6 @@ public class SpectatorModeClient extends SpectatorMode {
 
 	/* TODO look into increasing the distance instead of outright disabling it */
 	@SubscribeEvent
-	@SideOnly(Side.CLIENT)
 	public void onRenderFogDensity(EntityViewRenderEvent.FogDensity event) {
 		if (event.entity instanceof EntityPlayer) {
 			if (isSpectator((EntityPlayer) event.entity)) {
@@ -127,7 +116,6 @@ public class SpectatorModeClient extends SpectatorMode {
 	}
 
 	@SubscribeEvent
-	@SideOnly(Side.CLIENT)
 	public void onBlockHighlight(DrawBlockHighlightEvent event) {
 		if (isSpectator(event.player)) {
 			canSelect = SpectatorMode.canSpectatorSelect(Minecraft.getMinecraft().theWorld.getTileEntity(event.target.blockX, event.target.blockY, event.target.blockZ)) || (event.target.entityHit != null && !SPECTATING_ENTITIES.containsKey(event.player));
@@ -138,7 +126,6 @@ public class SpectatorModeClient extends SpectatorMode {
 	}
 
 	@SubscribeEvent
-	@SideOnly(Side.CLIENT)
 	public void onClientTick(TickEvent.ClientTickEvent event) {
 		EntityClientPlayerMP player = FMLClientHandler.instance().getClientPlayerEntity();
 		if (isSpectator(player)) {

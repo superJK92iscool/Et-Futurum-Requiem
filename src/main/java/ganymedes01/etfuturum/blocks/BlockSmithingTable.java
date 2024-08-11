@@ -14,11 +14,8 @@ import net.minecraft.world.World;
 
 public class BlockSmithingTable extends Block {
 
-	@SideOnly(Side.CLIENT)
 	private IIcon topIcon;
-	@SideOnly(Side.CLIENT)
 	private IIcon sideIcon;
-	@SideOnly(Side.CLIENT)
 	private IIcon bottomIcon;
 
 	public BlockSmithingTable() {
@@ -32,7 +29,6 @@ public class BlockSmithingTable extends Block {
 		this.setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
-	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int p_149691_1_, int p_149691_2_) {
 		return p_149691_1_ == 1 ? this.topIcon : (p_149691_1_ == 0 ? bottomIcon : (p_149691_1_ != 2 && p_149691_1_ != 3 ? this.blockIcon : this.sideIcon));
 	}

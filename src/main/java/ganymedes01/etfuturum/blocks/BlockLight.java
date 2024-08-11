@@ -17,7 +17,6 @@ import java.util.List;
 
 public class BlockLight extends BlockBarrier implements ISubBlocksBlock {
 
-	@SideOnly(Side.CLIENT)
 	private IIcon[] lightIcons;
 	private static final String[] types = new String[16];
 
@@ -85,13 +84,11 @@ public class BlockLight extends BlockBarrier implements ISubBlocksBlock {
 		blockIcon = lightIcons[0];
 	}
 
-	@SideOnly(Side.CLIENT)
 	@Override
 	public IIcon getIcon(int side, int meta) {
 		return lightIcons[meta % types.length];
 	}
 
-	@SideOnly(Side.CLIENT)
 	@Override
 	public IIcon getParticleName(int meta) {
 		return getIcon(2, meta);

@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.blocks.itemblocks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.lib.EnumColor;
 import ganymedes01.etfuturum.recipes.ModRecipes;
 import ganymedes01.etfuturum.tileentities.TileEntityBanner;
@@ -96,7 +94,6 @@ public class ItemBlockBanner extends ItemBlock {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
 		NBTTagCompound nbttagcompound = getSubTag(stack, "BlockEntityTag", false);
 
@@ -116,7 +113,6 @@ public class ItemBlockBanner extends ItemBlock {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public int getColorFromItemStack(ItemStack stack, int renderPass) {
 		if (renderPass == 0) {
 			return 0xFFFFFF;
@@ -126,7 +122,6 @@ public class ItemBlockBanner extends ItemBlock {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item, CreativeTabs tab, List<ItemStack> subItems) {
 		for (int i = 0; i < 16; i++) {
 			subItems.add(new ItemStack(item, 1, i));

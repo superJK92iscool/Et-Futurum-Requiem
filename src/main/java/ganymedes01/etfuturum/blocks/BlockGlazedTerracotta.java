@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.blocks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import ganymedes01.etfuturum.recipes.ModRecipes;
 import net.minecraft.block.material.MapColor;
@@ -17,7 +15,6 @@ import net.minecraft.world.World;
 public class BlockGlazedTerracotta extends BaseBlock {
 
 	private final int meta;
-	@SideOnly(Side.CLIENT)
 	private IIcon blockIconFlipped;
 
 	public BlockGlazedTerracotta(int meta) {
@@ -39,7 +36,6 @@ public class BlockGlazedTerracotta extends BaseBlock {
 		return MapColor.getMapColorForBlockColored(meta);
 	}
 
-	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta) {
 		switch (side) {
 			case 0:
@@ -65,7 +61,6 @@ public class BlockGlazedTerracotta extends BaseBlock {
 //  }
 //
 	@Override
-	@SideOnly(Side.CLIENT)
 	public int getRenderType() {
 		return RenderIDs.GLAZED_TERRACOTTA;
 	}

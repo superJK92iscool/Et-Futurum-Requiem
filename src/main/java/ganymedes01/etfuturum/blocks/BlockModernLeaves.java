@@ -1,8 +1,6 @@
 package ganymedes01.etfuturum.blocks;
 
 import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.client.particle.CustomParticles;
@@ -28,7 +26,6 @@ public class BlockModernLeaves extends BaseLeaves {
 	/**
 	 * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
 	 */
-	@SideOnly(Side.CLIENT)
 	public void getSubBlocks(Item p_149666_1_, CreativeTabs p_149666_2_, List<ItemStack> p_149666_3_) {
 		if (ConfigExperiments.enableMangroveBlocks) {
 			p_149666_3_.add(new ItemStack(p_149666_1_, 1, 0));
@@ -59,7 +56,6 @@ public class BlockModernLeaves extends BaseLeaves {
 		return ModBlocks.SAPLING.getItem();
 	}
 
-	@SideOnly(Side.CLIENT)
 	public int colorMultiplier(IBlockAccess p_149720_1_, int p_149720_2_, int p_149720_3_, int p_149720_4_) {
 		return p_149720_1_.getBlockMetadata(p_149720_2_, p_149720_3_, p_149720_4_) % 4 == 0 ? super.colorMultiplier(p_149720_1_, p_149720_2_, p_149720_3_, p_149720_4_) : 0xFFFFFF;
 	}

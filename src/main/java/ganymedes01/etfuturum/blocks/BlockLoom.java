@@ -18,11 +18,8 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public class BlockLoom extends Block {
 
-	@SideOnly(Side.CLIENT)
 	private IIcon topIcon;
-	@SideOnly(Side.CLIENT)
 	private IIcon sideIcon;
-	@SideOnly(Side.CLIENT)
 	private IIcon bottomIcon;
 
 	public BlockLoom() {
@@ -55,7 +52,6 @@ public class BlockLoom extends Block {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int p_149691_1_, int p_149691_2_) {
 		return p_149691_1_ == 1 ? this.topIcon : (p_149691_1_ == 0 ? this.bottomIcon : (p_149691_1_ != p_149691_2_ + 2 ? this.sideIcon : this.blockIcon));
 	}

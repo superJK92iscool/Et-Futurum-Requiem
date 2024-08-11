@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.blocks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -41,7 +39,6 @@ public abstract class BlockCauldronTileEntity extends BlockContainer {
 	/**
 	 * Gets an item for the block being called on. Args: world, x, y, z
 	 */
-	@SideOnly(Side.CLIENT)
 	public Item getItem(World p_149694_1_, int p_149694_2_, int p_149694_3_, int p_149694_4_) {
 		return Items.cauldron;
 	}

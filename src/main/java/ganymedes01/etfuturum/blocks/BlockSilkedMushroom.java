@@ -41,7 +41,6 @@ public class BlockSilkedMushroom extends Block {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta) {
 		return block.getIcon(side, 14);
 	}

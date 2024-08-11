@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.entities;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.network.ArmourStandInteractMessage;
@@ -86,7 +84,6 @@ public class EntityArmourStand extends EntityLiving {
 		return new ItemStack(ModItems.WOODEN_ARMORSTAND.get());
 	}
 
-	@SideOnly(Side.CLIENT)
 	public ItemStack getCurrentArmor(int slotIn) {
 		return getEquipmentInSlot(slotIn + 1);
 	}
@@ -535,22 +532,18 @@ public class EntityArmourStand extends EntityLiving {
 		return bodyRotation;
 	}
 
-	@SideOnly(Side.CLIENT)
 	public Rotations getLeftArmRotation() {
 		return leftArmRotation;
 	}
 
-	@SideOnly(Side.CLIENT)
 	public Rotations getRightArmRotation() {
 		return rightArmRotation;
 	}
 
-	@SideOnly(Side.CLIENT)
 	public Rotations getLeftLegRotation() {
 		return leftLegRotation;
 	}
 
-	@SideOnly(Side.CLIENT)
 	public Rotations getRightLegRotation() {
 		return rightLegRotation;
 	}

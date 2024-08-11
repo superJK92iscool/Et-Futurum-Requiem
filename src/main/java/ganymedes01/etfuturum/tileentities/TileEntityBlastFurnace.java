@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.tileentities;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.blocks.BlockBlastFurnace;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.Reference;
@@ -165,7 +163,6 @@ public class TileEntityBlastFurnace extends TileEntity implements ISidedInventor
 	 * Returns an integer between 0 and the passed value representing how close the current item is to being completely
 	 * cooked
 	 */
-	@SideOnly(Side.CLIENT)
 	public int getCookProgressScaled(int p_145953_1_) {
 		return this.furnaceCookTime * p_145953_1_ / 100;
 	}
@@ -174,7 +171,6 @@ public class TileEntityBlastFurnace extends TileEntity implements ISidedInventor
 	 * Returns an integer between 0 and the passed value representing how much burn time is left on the current fuel
 	 * item, where 0 means that the item is exhausted and the passed value means that the item is fresh
 	 */
-	@SideOnly(Side.CLIENT)
 	public int getBurnTimeRemainingScaled(int p_145955_1_) {
 		if (this.currentItemBurnTime == 0) {
 			this.currentItemBurnTime = 100;

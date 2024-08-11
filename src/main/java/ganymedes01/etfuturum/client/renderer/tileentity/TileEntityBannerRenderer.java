@@ -2,8 +2,6 @@ package ganymedes01.etfuturum.client.renderer.tileentity;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.client.LayeredColorMaskTexture;
 import ganymedes01.etfuturum.client.OpenGLHelper;
 import ganymedes01.etfuturum.client.model.ModelBanner;
@@ -21,7 +19,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-@SideOnly(Side.CLIENT)
 public class TileEntityBannerRenderer extends TileEntitySpecialRenderer {
 
 	private static final Map<String, TimedBannerTexture> CANVAS_TEXTURES = Maps.newHashMap();
@@ -71,7 +68,6 @@ public class TileEntityBannerRenderer extends TileEntitySpecialRenderer {
 		return texture.texture;
 	}
 
-	@SideOnly(Side.CLIENT)
 	static class TimedBannerTexture {
 
 		public long time;

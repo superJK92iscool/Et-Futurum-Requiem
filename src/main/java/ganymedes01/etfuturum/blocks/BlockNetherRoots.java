@@ -50,7 +50,6 @@ public class BlockNetherRoots extends BlockBush implements ISubBlocksBlock {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta) {
 		return icons[meta % icons.length];
 	}
@@ -75,7 +74,6 @@ public class BlockNetherRoots extends BlockBush implements ISubBlocksBlock {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public void getSubBlocks(Item item, CreativeTabs tab, List<ItemStack> list) {
 		if (ConfigExperiments.enableCrimsonBlocks) {
 			list.add(new ItemStack(item, 1, 0));

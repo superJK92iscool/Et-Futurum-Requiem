@@ -21,7 +21,7 @@ import org.apache.commons.lang3.mutable.MutableInt;
 import java.util.Random;
 
 public class BlockObserver extends Block implements IBlockObserver {
-	@SideOnly(Side.CLIENT)
+
 	private IIcon observerFront, observerBack, observerTop, observerBackLit;
 
 	private static final ThreadLocal<MutableInt> timesDisabled = ThreadLocal.withInitial(MutableInt::new);
@@ -37,7 +37,6 @@ public class BlockObserver extends Block implements IBlockObserver {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta) {
 		int k = BlockPistonBase.getPistonOrientation(meta);
 		boolean powered = (meta & 0x8) != 0;

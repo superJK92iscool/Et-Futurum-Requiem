@@ -1,8 +1,6 @@
 package ganymedes01.etfuturum.tileentities;
 
 import com.google.common.collect.Lists;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.recipes.ModRecipes;
 import net.minecraft.block.Block;
@@ -20,7 +18,6 @@ public class TileEntityNewBeacon extends TileEntityBeacon {
 	private final List<BeamSegment> segments = Lists.newArrayList();
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public AxisAlignedBB getRenderBoundingBox() {
 		return AxisAlignedBB.getBoundingBox(xCoord, yCoord, zCoord, xCoord + 1, Double.POSITIVE_INFINITY, zCoord + 1);
 	}

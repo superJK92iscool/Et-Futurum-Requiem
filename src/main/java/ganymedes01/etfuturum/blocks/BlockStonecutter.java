@@ -17,11 +17,8 @@ import net.minecraft.world.World;
 
 public class BlockStonecutter extends Block {
 
-	@SideOnly(Side.CLIENT)
 	private IIcon sideIcon;
-	@SideOnly(Side.CLIENT)
 	private IIcon bottomIcon;
-	@SideOnly(Side.CLIENT)
 	public IIcon sawIcon;
 
 	public BlockStonecutter() {
@@ -42,7 +39,6 @@ public class BlockStonecutter extends Block {
 		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5625F, 1.0F);
 	}
 
-	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int p_149691_1_, int p_149691_2_) {
 		return p_149691_1_ == 1 ? this.blockIcon : p_149691_1_ == 0 ? bottomIcon : this.sideIcon;
 	}
@@ -72,7 +68,6 @@ public class BlockStonecutter extends Block {
 		p_149689_1_.setBlockMetadataWithNotify(p_149689_2_, p_149689_3_, p_149689_4_, ordinal, 2);
 	}
 
-	@SideOnly(Side.CLIENT)
 	public boolean shouldSideBeRendered(IBlockAccess p_149646_1_, int p_149646_2_, int p_149646_3_, int p_149646_4_, int p_149646_5_) {
 		Block block = p_149646_1_.getBlock(p_149646_2_, p_149646_3_, p_149646_4_);
 		if (block instanceof BlockStonecutter && p_149646_5_ > 1) {

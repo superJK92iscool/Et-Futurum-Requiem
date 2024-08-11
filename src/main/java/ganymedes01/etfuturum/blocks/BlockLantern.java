@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.blocks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.client.sound.ModSounds;
@@ -103,7 +101,6 @@ public class BlockLantern extends Block {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public String getItemIconName() {
 		return getTextureName();
 	}

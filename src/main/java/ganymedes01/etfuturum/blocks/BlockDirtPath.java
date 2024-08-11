@@ -20,7 +20,6 @@ import java.util.Random;
 
 public class BlockDirtPath extends Block {
 
-	@SideOnly(Side.CLIENT)
 	private IIcon sideIcon;
 
 	public BlockDirtPath() {
@@ -65,7 +64,6 @@ public class BlockDirtPath extends Block {
 			world.setBlock(x, y, z, Blocks.dirt);
 	}
 
-	@SideOnly(Side.CLIENT)
 	public boolean shouldSideBeRendered(IBlockAccess p_149646_1_, int p_149646_2_, int p_149646_3_, int p_149646_4_, int p_149646_5_) {
 		Block block = p_149646_1_.getBlock(p_149646_2_, p_149646_3_, p_149646_4_);
 		if (block instanceof BlockDirtPath || block instanceof BlockFarmland) {
@@ -85,7 +83,6 @@ public class BlockDirtPath extends Block {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta) {
 		return side == 0 ? Blocks.dirt.getIcon(side, 0) : side == 1 ? blockIcon : sideIcon;
 	}

@@ -22,7 +22,6 @@ import java.util.Random;
 
 public class BlockChorusFlower extends Block {
 
-	@SideOnly(Side.CLIENT)
 	private IIcon deadIcon;
 
 	public BlockChorusFlower() {
@@ -54,7 +53,6 @@ public class BlockChorusFlower extends Block {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta) {
 		return meta >= 5 ? deadIcon : blockIcon;
 	}

@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.world.nether.dimension;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
@@ -81,7 +79,6 @@ public class NetherWorldChunkManager extends WorldChunkManager {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 
 	/**
 	 * Return an adjusted version of a given temperature based on the y height

@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.blocks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.core.utils.Utils;
@@ -26,7 +24,6 @@ public class BlockInfestedDeepslate extends BlockSilverfish {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int p_149691_1_, int p_149691_2_) {
 		return ModBlocks.DEEPSLATE.get().getBlockTextureFromSide(p_149691_1_);
 	}
@@ -50,7 +47,6 @@ public class BlockInfestedDeepslate extends BlockSilverfish {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public void getSubBlocks(Item p_149666_1_, CreativeTabs p_149666_2_, List<ItemStack> p_149666_3_) {
 		for (int i = 0; i < icon_names.length; ++i) {
 			p_149666_3_.add(new ItemStack(p_149666_1_, 1, i));

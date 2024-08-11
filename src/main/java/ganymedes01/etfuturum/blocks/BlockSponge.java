@@ -1,8 +1,6 @@
 package ganymedes01.etfuturum.blocks;
 
 import com.google.common.collect.Lists;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.client.sound.ModSounds;
@@ -105,7 +103,6 @@ public class BlockSponge extends BaseSubtypesBlock {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public void randomDisplayTick(World world, int x, int y, int z, Random rand) {
 		if (world.getBlockMetadata(x, y, z) == 1) {
 			ForgeDirection dir = getRandomDirection(rand);
@@ -145,7 +142,6 @@ public class BlockSponge extends BaseSubtypesBlock {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public void getSubBlocks(Item item, CreativeTabs tab, List<ItemStack> list) {
 		list.add(new ItemStack(item, 1, 1));
 	}
@@ -155,7 +151,6 @@ public class BlockSponge extends BaseSubtypesBlock {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public Item getItem(World world, int x, int y, int z) {
 		int meta = world.getBlockMetadata(x, y, z);
 		return Item.getItemFromBlock(ConfigWorld.tileReplacementMode == -1 || meta == 1 ? ModBlocks.SPONGE.get() : Blocks.sponge);

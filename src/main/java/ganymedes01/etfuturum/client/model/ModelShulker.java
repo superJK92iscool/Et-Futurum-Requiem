@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.client.model;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.entities.EntityShulker;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
@@ -9,7 +7,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.MathHelper;
 
-@SideOnly(Side.CLIENT)
 public class ModelShulker extends ModelBase {
 
 	public final ModelRenderer base;

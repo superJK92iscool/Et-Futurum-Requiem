@@ -35,7 +35,6 @@ import java.util.Map.Entry;
 
 public class ItemLingeringPotion extends ItemPotion {
 
-	@SideOnly(Side.CLIENT)
 	private IIcon bottle;
 
 	public ItemLingeringPotion() {
@@ -133,7 +132,6 @@ public class ItemLingeringPotion extends ItemPotion {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean isComplex) {
 		if (stack.getItemDamage() == 0)
 			return;
@@ -193,7 +191,6 @@ public class ItemLingeringPotion extends ItemPotion {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item, CreativeTabs tab, List<ItemStack> list) {
 		List<ItemStack> potions = new ArrayList<ItemStack>();
 		super.getSubItems(item, tab, potions);
@@ -204,7 +201,6 @@ public class ItemLingeringPotion extends ItemPotion {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public IIcon getIconFromDamage(int meta) {
 		return bottle;
 	}
@@ -217,7 +213,6 @@ public class ItemLingeringPotion extends ItemPotion {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public boolean hasEffect(ItemStack stack, int pass) {
 		return super.hasEffect(stack, pass) && pass == 0;
 	}

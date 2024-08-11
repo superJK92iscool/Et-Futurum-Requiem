@@ -10,7 +10,6 @@ import net.minecraft.util.IIcon;
 
 public class ItemLodestoneCompass extends Item {
 
-	@SideOnly(Side.CLIENT)
 	private IIcon[] frames;
 
 	@Override
@@ -23,7 +22,6 @@ public class ItemLodestoneCompass extends Item {
 		itemIcon = frames[0];
 	}
 
-	@SideOnly(Side.CLIENT)
 	public boolean hasEffect(ItemStack p_77636_1_) {
 		return true;
 	}

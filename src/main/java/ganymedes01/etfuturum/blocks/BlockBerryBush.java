@@ -28,7 +28,6 @@ import java.util.Random;
 
 public class BlockBerryBush extends BlockBush implements IGrowable {
 
-	@SideOnly(Side.CLIENT)
 	private IIcon[] icons;
 
 	public BlockBerryBush() {
@@ -84,7 +83,6 @@ public class BlockBerryBush extends BlockBush implements IGrowable {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta) {
 		if (meta > 3)
 			return icons[0];
@@ -92,7 +90,6 @@ public class BlockBerryBush extends BlockBush implements IGrowable {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public Item getItem(World p_149694_1_, int p_149694_2_, int p_149694_3_, int p_149694_4_) {
 		return ModItems.SWEET_BERRIES.get();
 	}

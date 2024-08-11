@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.client.renderer.entity.elytra;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.elytra.IClientElytraPlayer;
 import ganymedes01.etfuturum.elytra.IElytraPlayer;
 import net.minecraft.client.model.ModelBase;
@@ -12,7 +10,6 @@ import net.minecraft.util.Vec3;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-@SideOnly(Side.CLIENT)
 public class ModelElytra extends ModelBase {
 	private final ModelRenderer rightWing;
 	private final ModelRenderer leftWing = new ModelRenderer(this, 22, 0);

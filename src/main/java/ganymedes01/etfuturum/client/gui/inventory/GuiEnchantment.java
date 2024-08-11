@@ -1,8 +1,6 @@
 package ganymedes01.etfuturum.client.gui.inventory;
 
 import com.google.common.collect.Lists;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.api.EnchantingFuelRegistry;
 import ganymedes01.etfuturum.client.OpenGLHelper;
 import ganymedes01.etfuturum.core.utils.Utils;
@@ -25,7 +23,6 @@ import org.lwjgl.util.glu.Project;
 import java.util.ArrayList;
 import java.util.Random;
 
-@SideOnly(Side.CLIENT)
 public class GuiEnchantment extends GuiContainer {
 
 	private final ResourceLocation TEXTURE;

@@ -42,7 +42,6 @@ public class BlockDeepslate extends BlockRotatedPillar {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	protected IIcon getTopIcon(int p_150161_1_) {
 		return field_150164_N;
 	}

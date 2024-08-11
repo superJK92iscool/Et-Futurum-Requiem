@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.entities;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import ganymedes01.etfuturum.entities.ai.EntityAIMoveToBlock;
@@ -76,7 +74,6 @@ public class EntityRabbit extends EntityAnimal {
 		moveType = type;
 	}
 
-	@SideOnly(Side.CLIENT)
 	public float func_175521_o(float p_175521_1_) {
 		return field_175535_bn == 0 ? 0.0F : (field_175540_bm + p_175521_1_) / field_175535_bn;
 	}
@@ -331,7 +328,6 @@ public class EntityRabbit extends EntityAnimal {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public void handleHealthUpdate(byte id) {
 		if (id == 1) {
 			createRunningParticles();

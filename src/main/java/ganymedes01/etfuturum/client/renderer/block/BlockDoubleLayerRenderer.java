@@ -1,8 +1,6 @@
 package ganymedes01.etfuturum.client.renderer.block;
 
 import com.gtnewhorizons.angelica.api.ThreadSafeISBRH;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.blocks.IDoubleLayerBlock;
 import ganymedes01.etfuturum.blocks.IEmissiveLayerBlock;
 import net.minecraft.block.Block;
@@ -11,7 +9,6 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 
-@SideOnly(Side.CLIENT)
 @ThreadSafeISBRH(perThread = false)
 public class BlockDoubleLayerRenderer extends BlockModelBase {
 

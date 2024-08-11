@@ -34,7 +34,6 @@ public abstract class BaseLeaves extends BlockLeaves implements ISubBlocksBlock 
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public void getSubBlocks(Item item, CreativeTabs tab, List<ItemStack> list) {
 		for (int i = 0; i < getTypes().length; i++) {
 			list.add(new ItemStack(item, 1, i));

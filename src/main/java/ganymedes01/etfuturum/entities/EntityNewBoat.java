@@ -1,8 +1,6 @@
 package ganymedes01.etfuturum.entities;
 
 import com.google.common.collect.Lists;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
@@ -569,7 +567,6 @@ public class EntityNewBoat extends Entity {
 		this.dataWatcher.updateObject(DATA_ID_PADDLE[1], (byte) (p_184445_2_ ? 1 : 0));
 	}
 
-	@SideOnly(Side.CLIENT)
 	public float getRowingTime(int side, float limbSwing) {
 		return this.getPaddleState(side) ? (float) MathHelper.denormalizeClamp((double) this.paddlePositions[side] - 0.39269909262657166D, this.paddlePositions[side], limbSwing) : 0.0F;
 	}

@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.blocks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.api.HoeRegistry;
 import ganymedes01.etfuturum.client.sound.ModSounds;
@@ -28,7 +26,6 @@ public class BlockNetherwart extends BaseSubtypesBlock {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public void getSubBlocks(Item item, CreativeTabs tab, List<ItemStack> list) {
 		if (ConfigBlocksItems.enableNetherwartBlock) {
 			list.add(new ItemStack(item, 1, 0));

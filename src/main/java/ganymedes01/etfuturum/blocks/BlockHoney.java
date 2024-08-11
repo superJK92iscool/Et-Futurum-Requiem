@@ -21,9 +21,7 @@ import net.minecraft.world.World;
 
 public class BlockHoney extends BaseBlock {
 
-	@SideOnly(Side.CLIENT)
 	private IIcon bottomIcon;
-	@SideOnly(Side.CLIENT)
 	private IIcon topIcon;
 
 	public BlockHoney() {
@@ -127,7 +125,6 @@ public class BlockHoney extends BaseBlock {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta) {
 		return side == 0 ? bottomIcon : side == 1 ? topIcon : blockIcon;
 	}
@@ -150,7 +147,6 @@ public class BlockHoney extends BaseBlock {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public int getRenderBlockPass() {
 		return 1;
 	}

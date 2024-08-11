@@ -18,9 +18,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public class BlockPointedDripstone extends Block {
 
-	@SideOnly(Side.CLIENT)
 	private IIcon[] downIcons;
-	@SideOnly(Side.CLIENT)
 	private IIcon[] upIcons;
 	private static final int states = 5;
 
@@ -128,7 +126,6 @@ public class BlockPointedDripstone extends Block {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta) {
 		return meta < states ? downIcons[meta % states] : upIcons[meta % states];
 	}
@@ -145,7 +142,6 @@ public class BlockPointedDripstone extends Block {
 		return false;
 	}
 
-	@SideOnly(Side.CLIENT)
 	public String getItemIconName() {
 		return "pointed_dripstone";
 	}

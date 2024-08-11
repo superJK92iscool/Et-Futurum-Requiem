@@ -36,13 +36,10 @@ import java.util.List;
 import java.util.Random;
 
 public class BlockBeeHive extends BlockContainer {
-	@SideOnly(Side.CLIENT)
+
 	protected IIcon bottomIcon;
-	@SideOnly(Side.CLIENT)
 	protected IIcon topIcon;
-	@SideOnly(Side.CLIENT)
 	protected IIcon frontIcon;
-	@SideOnly(Side.CLIENT)
 	protected IIcon frontIconHoney;
 
 	protected boolean isNest;
@@ -139,7 +136,6 @@ public class BlockBeeHive extends BlockContainer {
 	/**
 	 * Gets the block's texture. Args: side, meta
 	 */
-	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta) {
 		switch (side) {
 			case 0:
@@ -242,7 +238,6 @@ public class BlockBeeHive extends BlockContainer {
 		hive.setHoneyLevel(0);
 	}
 
-	@SideOnly(Side.CLIENT)
 	public void randomDisplayTick(World world, int x, int y, int z, Random random) {
 		if (world.getBlockMetadata(x, y, z) > 5) {
 			if (!world.getBlock(x, y - 1, z).isOpaqueCube()) {

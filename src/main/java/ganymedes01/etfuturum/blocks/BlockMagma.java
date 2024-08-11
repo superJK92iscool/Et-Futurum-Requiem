@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.blocks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -34,7 +32,6 @@ public class BlockMagma extends BaseBlock {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public void randomDisplayTick(World world, int x, int y, int z, Random rand) {
 		Block block1 = world.getBlock(x, y + 1, z);
 		Block block2 = world.getBlock(x, y + 2, z);

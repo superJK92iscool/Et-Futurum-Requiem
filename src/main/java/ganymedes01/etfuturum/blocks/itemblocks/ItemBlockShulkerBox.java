@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.blocks.itemblocks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.core.utils.Utils;
@@ -80,7 +78,6 @@ public class ItemBlockShulkerBox extends ItemBlock {
 		return true;
 	}
 
-	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, EntityPlayer player, List<String> lore, boolean f3h) {
 		if (ConfigFunctions.shulkerBoxTooltipLines > 0 && stack.getTagCompound() != null && stack.getTagCompound().hasKey("Items")) {
 			NBTTagList tag = stack.getTagCompound().getTagList("Items", 10);

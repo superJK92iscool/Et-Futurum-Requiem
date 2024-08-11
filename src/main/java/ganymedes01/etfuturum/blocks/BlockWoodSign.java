@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.blocks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.client.sound.ModSounds;
@@ -60,7 +58,6 @@ public class BlockWoodSign extends BlockSign {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta) {
 		return baseBlock.getIcon(side, this.meta);
 	}
@@ -76,7 +73,6 @@ public class BlockWoodSign extends BlockSign {
 
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public Item getItem(World p_149694_1_, int p_149694_2_, int p_149694_3_, int p_149694_4_) {
 		return getItemDropped(0, null, 0);
 	}

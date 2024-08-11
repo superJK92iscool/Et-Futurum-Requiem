@@ -17,7 +17,6 @@ import java.util.Random;
 
 public class BlockFrostedIce extends BlockIce {
 
-	@SideOnly(Side.CLIENT)
 	private IIcon[] icons;
 
 	public BlockFrostedIce() {
@@ -67,7 +66,6 @@ public class BlockFrostedIce extends BlockIce {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta) {
 		if (meta < 0 || meta >= icons.length)
 			meta = 0;
@@ -88,7 +86,6 @@ public class BlockFrostedIce extends BlockIce {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public Item getItem(World p_149694_1_, int p_149694_2_, int p_149694_3_, int p_149694_4_) {
 		return Item.getItemFromBlock(Blocks.ice);
 	}

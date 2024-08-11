@@ -1,12 +1,9 @@
 package ganymedes01.etfuturum.client.model;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
-@SideOnly(Side.CLIENT)
 public class ModelElytra extends ModelBiped {
 
 	private final ModelRenderer wingRight;

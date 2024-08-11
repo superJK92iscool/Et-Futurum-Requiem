@@ -30,7 +30,6 @@ public class BlockModernSapling extends BlockSapling implements ISubBlocksBlock 
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
-	@SideOnly(Side.CLIENT)
 	public void getSubBlocks(Item p_149666_1_, CreativeTabs p_149666_2_, List<ItemStack> p_149666_3_) {
 		if (ConfigExperiments.enableMangroveBlocks) {
 			p_149666_3_.add(new ItemStack(p_149666_1_, 1, 0));
@@ -40,7 +39,6 @@ public class BlockModernSapling extends BlockSapling implements ISubBlocksBlock 
 		}
 	}
 
-	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int p_149691_1_, int p_149691_2_) {
 		return icons[(p_149691_2_ & 7) % icons.length];
 	}

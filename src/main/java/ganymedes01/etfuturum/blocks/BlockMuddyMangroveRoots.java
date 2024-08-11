@@ -33,7 +33,6 @@ public class BlockMuddyMangroveRoots extends BlockRotatedPillar {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	protected IIcon getSideIcon(int side) {
 		return blockIcon;
 	}

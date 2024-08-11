@@ -41,11 +41,8 @@ public class BlockBarrel extends BlockContainer {
 		this.setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
-	@SideOnly(Side.CLIENT)
 	private IIcon innerTopIcon;
-	@SideOnly(Side.CLIENT)
 	private IIcon bottomIcon;
-	@SideOnly(Side.CLIENT)
 	private IIcon topIcon;
 
 	@Override
@@ -54,7 +51,6 @@ public class BlockBarrel extends BlockContainer {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int p_149691_1_, int p_149691_2_) {
 		int k = BlockPistonBase.getPistonOrientation(p_149691_2_);
 		return (k) > 5 ? p_149691_2_ > 7 ? this.innerTopIcon : this.topIcon : (p_149691_1_ == k ? (p_149691_2_ > 7 ? this.innerTopIcon : this.topIcon) : (p_149691_1_ == Facing.oppositeSide[k] ? this.bottomIcon : this.blockIcon));

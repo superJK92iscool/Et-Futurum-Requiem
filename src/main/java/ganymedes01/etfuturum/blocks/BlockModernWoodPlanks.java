@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.blocks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigExperiments;
 import net.minecraft.block.material.Material;
@@ -22,7 +20,6 @@ public class BlockModernWoodPlanks extends BaseSubtypesBlock {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public void getSubBlocks(Item item, CreativeTabs tab, List<ItemStack> list) {
 		if (ConfigExperiments.enableCrimsonBlocks) {
 			list.add(new ItemStack(item, 1, 0));

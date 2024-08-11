@@ -45,7 +45,6 @@ import java.util.List;
 
 public class BlockShulkerBox extends BlockContainer {
 
-	//  @SideOnly(Side.CLIENT)
 	public IIcon[] colorIcons = new IIcon[17];
 
 	public BlockShulkerBox() {
@@ -111,7 +110,6 @@ public class BlockShulkerBox extends BlockContainer {
 		colorIcons[16] = i.registerIcon("black_shulker_box");
 	}
 
-	@SideOnly(Side.CLIENT)
 	@Override
 	public IIcon getIcon(IBlockAccess world, int x, int y, int z, int side) {
 		int meta = 0;
@@ -193,7 +191,6 @@ public class BlockShulkerBox extends BlockContainer {
 		return tileentity instanceof TileEntityShulkerBox ? ((TileEntityShulkerBox) tileentity).func_190584_a(((TileEntityShulkerBox) tileentity).facing).offset(x, y, z) : super.getCollisionBoundingBoxFromPool(world, x, y, z);
 	}
 
-	@SideOnly(Side.CLIENT)
 	public AxisAlignedBB getSelectedBoundingBoxFromPool(World p_149633_1_, int p_149633_2_, int p_149633_3_, int p_149633_4_) {
 		return this.getCollisionBoundingBoxFromPool(p_149633_1_, p_149633_2_, p_149633_3_, p_149633_4_);
 	}
@@ -370,7 +367,6 @@ public class BlockShulkerBox extends BlockContainer {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public void getSubBlocks(Item item, CreativeTabs tab, List<ItemStack> subItems) {
 		for (byte i = 0; i <= (ModsList.IRON_CHEST.isLoaded() && ConfigModCompat.shulkerBoxesIronChest ? 7 : 0); i++) {
 			for (byte j = 0; j <= (ConfigBlocksItems.enableDyedShulkerBoxes ? 16 : 0); j++) {

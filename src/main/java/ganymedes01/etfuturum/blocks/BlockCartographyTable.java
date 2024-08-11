@@ -14,11 +14,8 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public class BlockCartographyTable extends Block {
 
-	@SideOnly(Side.CLIENT)
 	private IIcon topIcon;
-	@SideOnly(Side.CLIENT)
 	private IIcon sideIcon;
-	@SideOnly(Side.CLIENT)
 	private IIcon bottomIcon;
 
 	public BlockCartographyTable() {
@@ -32,7 +29,6 @@ public class BlockCartographyTable extends Block {
 		this.setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
-	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int p_149691_1_, int p_149691_2_) {
 		return p_149691_1_ == 1 ? this.topIcon : (p_149691_1_ == 0 ? Blocks.planks.getIcon(0, 5) : (p_149691_1_ == 2 || p_149691_1_ == 5 ? this.bottomIcon : p_149691_1_ == 3 ? this.blockIcon : this.sideIcon));
 	}

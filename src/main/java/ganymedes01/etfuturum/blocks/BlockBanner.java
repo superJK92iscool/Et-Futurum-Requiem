@@ -146,7 +146,6 @@ public class BlockBanner extends BlockContainer {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta) {
 		return Blocks.planks.getBlockTextureFromSide(side);
 	}
@@ -163,7 +162,6 @@ public class BlockBanner extends BlockContainer {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z) {
 		setBlockBoundsBasedOnState(world, x, y, z);
 		return super.getSelectedBoundingBoxFromPool(world, x, y, z);

@@ -1,11 +1,8 @@
 package ganymedes01.etfuturum.client.renderer.item;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;
 
-@SideOnly(Side.CLIENT)
 public class ItemLodestoneCompassRenderer implements IItemRenderer {
 
 	@Override

@@ -1,8 +1,6 @@
 package ganymedes01.etfuturum.blocks;
 
 import com.google.common.collect.Lists;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.core.utils.IInitAction;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.Reference;
@@ -27,11 +25,8 @@ import java.util.Random;
 
 public class BlockBubbleColumn extends BaseBlock implements IInitAction {
 
-    @SideOnly(Side.CLIENT)
     public IIcon[] inner_icons;
-    @SideOnly(Side.CLIENT)
     public IIcon[] outer_icons;
-    @SideOnly(Side.CLIENT)
     public IIcon[] top_icons;
 
     public final List<Block> supportBlocks = Lists.newArrayList();

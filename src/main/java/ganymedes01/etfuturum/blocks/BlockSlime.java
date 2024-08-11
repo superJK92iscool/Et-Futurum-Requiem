@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.blocks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.material.Material;
@@ -69,7 +67,6 @@ public class BlockSlime extends BaseBlock {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public int getRenderBlockPass() {
 		return 1;
 	}

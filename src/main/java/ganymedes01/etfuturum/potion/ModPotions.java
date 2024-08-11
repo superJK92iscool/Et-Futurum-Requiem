@@ -93,7 +93,6 @@ public class ModPotions extends Potion {
 		return hasPacket() && !(entity instanceof EntityPlayer);
 	}
 
-	@SideOnly(Side.CLIENT)
 	public boolean hasStatusIcon() {
 		//This disables the default icon rendering.
 		return false;

@@ -18,7 +18,7 @@ import net.minecraft.world.World;
 import java.util.Random;
 
 public class BlockTarget extends BaseBlock {
-	@SideOnly(Side.CLIENT)
+
 	private IIcon topIcon;
 
 	public BlockTarget() {
@@ -38,7 +38,6 @@ public class BlockTarget extends BaseBlock {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta) {
 		return side == 1 ? topIcon : blockIcon;
 	}

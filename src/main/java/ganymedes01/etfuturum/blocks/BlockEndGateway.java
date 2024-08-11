@@ -38,7 +38,6 @@ public class BlockEndGateway extends BlockContainer {
 		Blocks.end_portal.setBlockName(Utils.getUnlocalisedName("end_portal"));
 	}
 
-	@SideOnly(Side.CLIENT)
 	public void getSubBlocks(Item p_149666_1_, CreativeTabs p_149666_2_, List<ItemStack> p_149666_3_) {
 		p_149666_3_.add(new ItemStack(Blocks.end_portal, 1, 0));
 		p_149666_3_.add(new ItemStack(p_149666_1_, 1, 0));
@@ -63,7 +62,6 @@ public class BlockEndGateway extends BlockContainer {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public String getItemIconName() {
 		return "end_gateway";
 	}
@@ -89,14 +87,12 @@ public class BlockEndGateway extends BlockContainer {
 		return -1;
 	}
 
-	@SideOnly(Side.CLIENT)
 	public boolean shouldSideBeRendered(IBlockAccess world, int x, int y, int z, int side) {
 		EnumFacing facing = EnumFacing.getFront(side);
 		Block block = world.getBlock(x + facing.getFrontOffsetX(), y + facing.getFrontOffsetY(), z + facing.getFrontOffsetZ());
 		return !block.isOpaqueCube() && block != this;
 	}
 
-	@SideOnly(Side.CLIENT)
 	public void randomDisplayTick(World worldIn, int x, int y, int z, Random rand) {
 
 		TileEntity tileentity = worldIn.getTileEntity(x, y, z);

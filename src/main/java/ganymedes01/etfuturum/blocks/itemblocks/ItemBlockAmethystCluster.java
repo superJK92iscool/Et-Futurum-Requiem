@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.blocks.itemblocks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.block.Block;
@@ -23,7 +21,6 @@ public class ItemBlockAmethystCluster extends ItemBlock {
 		return p_77647_1_ < 6 ? 0 : 6;
 	}
 
-	@SideOnly(Side.CLIENT)
 	public IIcon getIconFromDamage(int p_77617_1_) {
 		return field_150939_a.getIcon(0, p_77617_1_);
 	}

@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.blocks.ores;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.entity.Entity;
@@ -115,7 +113,6 @@ public class BlockDeepslateRedstoneOre extends BlockDeepslateOre {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public Item getItem(World p_149694_1_, int p_149694_2_, int p_149694_3_, int p_149694_4_) {
 		return Item.getItemFromBlock(ModBlocks.DEEPSLATE_REDSTONE_ORE.get());
 	}

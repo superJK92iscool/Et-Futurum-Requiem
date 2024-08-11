@@ -1,8 +1,6 @@
 package ganymedes01.etfuturum.blocks.ores;
 
 import com.google.common.collect.Lists;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.blocks.BaseSubtypesBlock;
 import ganymedes01.etfuturum.client.sound.ModSounds;
@@ -92,7 +90,6 @@ public abstract class BaseSubtypesDeepslateOre extends BaseSubtypesBlock impleme
 	 * A randomly called display update to be able to add particles or other items for display
 	 */
 	@Override
-	@SideOnly(Side.CLIENT)
 	public void randomDisplayTick(World world, int x, int y, int z, Random p_149734_5_) {
 		getBase(world.getBlockMetadata(x, y, z)).randomDisplayTick(world, x, y, z, p_149734_5_);
 	}
@@ -123,7 +120,6 @@ public abstract class BaseSubtypesDeepslateOre extends BaseSubtypesBlock impleme
 	 * How bright to render this block based on the light its receiving. Args: iBlockAccess, x, y, z
 	 */
 	@Override
-	@SideOnly(Side.CLIENT)
 	public int getMixedBrightnessForBlock(IBlockAccess world, int x, int y, int z) {
 		return getBase(world.getBlockMetadata(x, y, z)).getMixedBrightnessForBlock(world, x, y, z);
 	}

@@ -23,7 +23,6 @@ import java.util.Random;
 
 public class BaseSlab extends BlockSlab implements ISubBlocksBlock {
 
-	@SideOnly(Side.CLIENT)
 	private IIcon[] icons;
 	public final String[] types;
 	private final BaseSlab singleSlab;
@@ -140,7 +139,6 @@ public class BaseSlab extends BlockSlab implements ISubBlocksBlock {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public void getSubBlocks(Item p_149666_1_, CreativeTabs p_149666_2_, List<ItemStack> p_149666_3_) {
 		if (!field_150004_a) {
 			for (int i = 0; i < types.length; i++) {
@@ -150,13 +148,11 @@ public class BaseSlab extends BlockSlab implements ISubBlocksBlock {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta) {
 		return icons[(meta % 8) % icons.length];
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public Item getItem(World p_149694_1_, int p_149694_2_, int p_149694_3_, int p_149694_4_) {
 		return Item.getItemFromBlock(singleSlab);
 	}

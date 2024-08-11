@@ -41,7 +41,6 @@ public class BlockPotionCauldron extends BlockCauldronTileEntity {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public void randomDisplayTick(World world, int x, int y, int z, Random random) {
 		if (random.nextInt(30) == 0) {
 			int color = ((TileEntityCauldronColoredWater) world.getTileEntity(x, y, z)).getWaterColor();

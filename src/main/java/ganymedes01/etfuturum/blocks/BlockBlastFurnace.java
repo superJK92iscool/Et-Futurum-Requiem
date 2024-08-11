@@ -41,13 +41,11 @@ public class BlockBlastFurnace extends BlockFurnace {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int p_149691_1_, int p_149691_2_) {
 		return p_149691_1_ == 1 ? this.blockTop : (p_149691_1_ == 0 ? this.blockTop : (p_149691_1_ != p_149691_2_ ? (p_149691_1_ == 3 && p_149691_2_ == 0 ? this.blockFront : this.blockIcon) : this.blockFront));
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public void randomDisplayTick(World p_149734_1_, int p_149734_2_, int p_149734_3_, int p_149734_4_, Random p_149734_5_) {
 		if (this.isCooking) {
 			if (ConfigSounds.furnaceCrackling && p_149734_5_.nextDouble() < 0.1D) {
@@ -148,7 +146,6 @@ public class BlockBlastFurnace extends BlockFurnace {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public Item getItem(World p_149694_1_, int p_149694_2_, int p_149694_3_, int p_149694_4_) {
 		return Item.getItemFromBlock(ModBlocks.BLAST_FURNACE.get());
 	}

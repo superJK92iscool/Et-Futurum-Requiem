@@ -12,7 +12,6 @@ import net.minecraft.util.IIcon;
 
 public class BlockLodestone extends Block {
 
-	@SideOnly(Side.CLIENT)
 	private IIcon topIcon;
 
 	public BlockLodestone() {
@@ -27,7 +26,6 @@ public class BlockLodestone extends Block {
 		setTickRandomly(true);
 	}
 
-	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int p_149691_1_, int p_149691_2_) {
 		return p_149691_1_ > 1 ? blockIcon : topIcon;
 	}

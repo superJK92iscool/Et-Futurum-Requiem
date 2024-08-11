@@ -51,7 +51,6 @@ public class BlockNetherFungus extends BlockBush implements ISubBlocksBlock, IGr
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta) {
 		return icons[meta % icons.length];
 	}
@@ -67,7 +66,6 @@ public class BlockNetherFungus extends BlockBush implements ISubBlocksBlock, IGr
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public void getSubBlocks(Item item, CreativeTabs tab, List<ItemStack> list) {
 		if (ConfigExperiments.enableCrimsonBlocks) {
 			list.add(new ItemStack(item, 1, 0));

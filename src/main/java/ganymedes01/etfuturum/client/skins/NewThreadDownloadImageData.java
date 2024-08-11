@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.client.skins;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IImageBuffer;
 import net.minecraft.client.renderer.texture.DynamicTexture;
@@ -24,7 +22,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * Copied from vanilla and adapted to fit my needs
  */
-@SideOnly(Side.CLIENT)
 public class NewThreadDownloadImageData extends SimpleTexture {
 
 	static final Logger logger = LogManager.getLogger();

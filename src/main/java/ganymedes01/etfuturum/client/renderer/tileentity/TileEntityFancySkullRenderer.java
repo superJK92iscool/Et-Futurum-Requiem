@@ -3,8 +3,6 @@ package ganymedes01.etfuturum.client.renderer.tileentity;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.minecraft.MinecraftProfileTexture;
 import com.mojang.authlib.minecraft.MinecraftProfileTexture.Type;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.client.OpenGLHelper;
 import ganymedes01.etfuturum.client.model.ModelHead;
 import ganymedes01.etfuturum.core.utils.Utils;
@@ -19,7 +17,6 @@ import org.lwjgl.opengl.GL11;
 
 import java.util.Map;
 
-@SideOnly(Side.CLIENT)
 public class TileEntityFancySkullRenderer extends TileEntitySpecialRenderer {
 
 	private static final ResourceLocation skeleton_texture = Utils.getResource("textures/entity/skeleton/skeleton.png");

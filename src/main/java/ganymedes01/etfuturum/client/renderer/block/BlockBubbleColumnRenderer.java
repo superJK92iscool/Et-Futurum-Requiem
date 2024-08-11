@@ -1,8 +1,6 @@
 package ganymedes01.etfuturum.client.renderer.block;
 
 import com.gtnewhorizons.angelica.api.ThreadSafeISBRH;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.blocks.BlockBubbleColumn;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
@@ -10,7 +8,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.client.ForgeHooksClient;
 
-@SideOnly(Side.CLIENT)
 @ThreadSafeISBRH(perThread = false)
 public class BlockBubbleColumnRenderer extends BlockModelBase {
     public BlockBubbleColumnRenderer(int modelID) {

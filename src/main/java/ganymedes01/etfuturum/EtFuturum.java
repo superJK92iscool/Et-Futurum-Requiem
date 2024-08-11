@@ -13,7 +13,6 @@ import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.api.*;
 import ganymedes01.etfuturum.api.mappings.BasicMultiBlockSound;
 import ganymedes01.etfuturum.blocks.BlockSculk;
@@ -94,7 +93,6 @@ public class EtFuturum {
 					: Items.magma_cream;
 		}
 
-		@SideOnly(Side.CLIENT)
 		@Override
 		public void displayAllReleventItems(List<ItemStack> p_78018_1_) {
 			for (byte i = 1; i <= 3; i++) {
@@ -123,7 +121,6 @@ public class EtFuturum {
 					: Item.getItemFromBlock(Blocks.ender_chest);
 		}
 
-		@SideOnly(Side.CLIENT)
 		@Override
 		public void displayAllReleventItems(List<ItemStack> list) {
 			list.add(new ItemStack(Blocks.mob_spawner));

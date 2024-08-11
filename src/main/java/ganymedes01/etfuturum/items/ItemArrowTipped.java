@@ -30,7 +30,6 @@ import java.util.Map.Entry;
 
 public class ItemArrowTipped extends Item {
 
-	@SideOnly(Side.CLIENT)
 	private static final Map<List<PotionEffect>, Integer> field_77835_b = new LinkedHashMap<>();
 
 	private IIcon tipIcon;
@@ -99,7 +98,6 @@ public class ItemArrowTipped extends Item {
 		return list;
 	}
 
-	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item, CreativeTabs tab, List<ItemStack> list) {
 		int j;
 
@@ -145,12 +143,10 @@ public class ItemArrowTipped extends Item {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public boolean requiresMultipleRenderPasses() {
 		return true;
 	}
 
-	@SideOnly(Side.CLIENT)
 	public int getColorFromItemStack(ItemStack stack, int pass) {
 		if (pass == 0 && stack.getItemDamage() == 0 && stack.hasTagCompound() && stack.getTagCompound().hasKey("Potion", 10)) {
 			NBTTagCompound nbt = stack.getTagCompound().getCompoundTag("Potion");
@@ -163,7 +159,6 @@ public class ItemArrowTipped extends Item {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(ItemStack stack, int pass) {
 		return pass == 0 ? tipIcon : super.getIcon(stack, pass);
 	}
@@ -199,7 +194,6 @@ public class ItemArrowTipped extends Item {
 
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, EntityPlayer p_77624_2_, List<String> list, boolean p_77624_4_) {
 		List<PotionEffect> list1 = getEffects(stack);
 		HashMultimap<String, AttributeModifier> hashmultimap = HashMultimap.create();

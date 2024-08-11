@@ -59,7 +59,6 @@ public class BlockLavaCauldron extends BlockCauldron {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public void randomDisplayTick(World world, int x, int y, int z, Random random) {
 		float min = 0.125F;
 		float max = 0.875F;

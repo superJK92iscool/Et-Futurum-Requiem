@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.client.renderer.tileentity;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.tileentities.TileEntityGateway;
 import net.minecraft.client.Minecraft;
@@ -18,7 +16,6 @@ import org.lwjgl.opengl.GL11;
 import java.nio.FloatBuffer;
 import java.util.Random;
 
-@SideOnly(Side.CLIENT)
 public class TileEntityGatewayRenderer extends TileEntitySpecialRenderer {
 	private static final ResourceLocation END_SKY_TEXTURE = new ResourceLocation("textures/environment/end_sky.png");
 	private static final ResourceLocation END_PORTAL_TEXTURE = new ResourceLocation("textures/entity/end_portal.png");
