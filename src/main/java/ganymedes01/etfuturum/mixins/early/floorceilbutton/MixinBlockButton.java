@@ -88,7 +88,7 @@ public class MixinBlockButton extends Block {
 	}
 
 	@ModifyVariable(method = "onNeighborBlockChange",
-			at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;isSideSolid(IIILnet/minecraftforge/common/util/ForgeDirection;)Z", shift = At.Shift.BEFORE, ordinal = 0))
+			at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;isSideSolid(IIILnet/minecraftforge/common/util/ForgeDirection;)Z", remap = false, shift = At.Shift.BEFORE, ordinal = 0))
 	public boolean modifyFlag(boolean flag,
 							  @Local(name = "worldIn") World world, @Local(name = "x") int x, @Local(name = "y") int y, @Local(name = "z") int z, @Local(name = "l") int meta) {
 		return flag || (meta == 5 && !world.isSideSolid(x, y - 1, z, ForgeDirection.UP)) ||

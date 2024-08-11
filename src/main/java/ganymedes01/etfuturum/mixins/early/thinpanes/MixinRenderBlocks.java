@@ -127,7 +127,7 @@ public abstract class MixinRenderBlocks {
     }
 
     @SuppressWarnings("UnreachableCode")
-    @Inject(method = "renderBlockStainedGlassPane", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/BlockPane;canPaneConnectTo(Lnet/minecraft/world/IBlockAccess;IIILnet/minecraftforge/common/util/ForgeDirection;)Z", ordinal = 3, shift = At.Shift.BY, by = 2),
+    @Inject(method = "renderBlockStainedGlassPane", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/BlockPane;canPaneConnectTo(Lnet/minecraft/world/IBlockAccess;IIILnet/minecraftforge/common/util/ForgeDirection;)Z", ordinal = 3, remap = false, shift = At.Shift.BY, by = 2),
             cancellable = true)
     private void tweakStainedPaneRenderer(Block block, int posX, int posY, int posZ, CallbackInfoReturnable<Boolean> cir,
                                           @Local(name = "tessellator") Tessellator tessellator,
