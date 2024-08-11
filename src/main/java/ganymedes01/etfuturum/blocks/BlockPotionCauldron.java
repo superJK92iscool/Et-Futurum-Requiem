@@ -21,6 +21,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemPotion;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
@@ -77,7 +78,7 @@ public class BlockPotionCauldron extends BlockCauldronTileEntity {
 				boolean flag = false;
 				final int meta = world.getBlockMetadata(x, y, z);
 				final ItemStack bottle = new ItemStack(Items.glass_bottle);
-				final List effects = ((ItemPotion) item).getEffects(stack);
+				final List<PotionEffect> effects = ((ItemPotion) item).getEffects(stack);
 				if (effects == null || !effects.equals(((ItemPotion) potionCauldron.potion.getItem()).getEffects(potionCauldron.potion))) {
 					EnumCauldronFillAction.EVAPORATE.getAction(world, x, y, z, false);//TODO make this evaporate with buckets too
 					world.setBlock(x, y, z, Blocks.cauldron, 0, 3);

@@ -98,7 +98,7 @@ public class DebugTestItem extends BaseItem {
 	}
 
 	@Override
-	public void addInformation(ItemStack p_77624_1_, EntityPlayer p_77624_2_, List p_77624_3_, boolean p_77624_4_) {
+	public void addInformation(ItemStack p_77624_1_, EntityPlayer p_77624_2_, List<String> p_77624_3_, boolean p_77624_4_) {
 		if (canUse(p_77624_2_)) {
 			p_77624_3_.add("\u00a7b\u00a7oA debug item used to test mechanics certain code.");
 			p_77624_3_.add("\u00a7a\u00a7oAttack\u00a7a\u00a7o a block to change the test subject.");

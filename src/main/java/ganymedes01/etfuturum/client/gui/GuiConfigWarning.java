@@ -79,10 +79,10 @@ public class GuiConfigWarning extends GuiScreen {
 	}
 
 	private void renderCenteredSplitString(String text, int x, int y, int width, boolean shadow) {
-		List list = fontRendererObj.listFormattedStringToWidth(text, width);
+		List<String> list = fontRendererObj.listFormattedStringToWidth(text, width);
 
-		for (Iterator iterator = list.iterator(); iterator.hasNext(); yLevel = (y += fontRendererObj.FONT_HEIGHT)) {
-			String s1 = (String) iterator.next();
+		for (Iterator<String> iterator = list.iterator(); iterator.hasNext(); yLevel = (y += fontRendererObj.FONT_HEIGHT)) {
+			String s1 = iterator.next();
 			fontRendererObj.renderStringAligned(s1, x - (fontRendererObj.getStringWidth(s1) / 2), y, width, fontRendererObj.textColor, shadow);
 		}
 	}

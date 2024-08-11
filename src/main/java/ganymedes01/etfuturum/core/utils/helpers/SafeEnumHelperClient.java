@@ -4,7 +4,7 @@ import net.minecraft.world.WorldSettings;
 import net.minecraftforge.common.util.EnumHelper;
 
 public class SafeEnumHelperClient extends EnumHelper {
-	private static final Class[][] safeTypes =
+	private static final Class<?>[][] safeTypes =
 			{
 					{WorldSettings.GameType.class, int.class, String.class}
 			};

@@ -96,7 +96,7 @@ public class EtFuturum {
 
 		@SideOnly(Side.CLIENT)
 		@Override
-		public void displayAllReleventItems(List p_78018_1_) {
+		public void displayAllReleventItems(List<ItemStack> p_78018_1_) {
 			for (byte i = 1; i <= 3; i++) {
 				ItemStack firework = new ItemStack(Items.fireworks);
 				NBTTagCompound nbt = new NBTTagCompound();
@@ -125,7 +125,7 @@ public class EtFuturum {
 
 		@SideOnly(Side.CLIENT)
 		@Override
-		public void displayAllReleventItems(List list) {
+		public void displayAllReleventItems(List<ItemStack> list) {
 			list.add(new ItemStack(Blocks.mob_spawner));
 			super.displayAllReleventItems(list);
 
@@ -168,6 +168,7 @@ public class EtFuturum {
 	private Field fortressWeightedField;
 
 	@EventHandler
+	@SuppressWarnings("unchecked")
 	public void preInit(FMLPreInitializationEvent event) {
 		try {
 			Field chestInfo = ChestGenHooks.class.getDeclaredField("chestInfo");
@@ -285,6 +286,7 @@ public class EtFuturum {
 	}
 
 	@EventHandler
+	@SuppressWarnings("unchecked")
 	public void postInit(FMLPostInitializationEvent event) {
 		if (ConfigFunctions.enableUpdatedFoodValues) {
 			((ItemFood) Items.carrot).healAmount = 3;
@@ -366,6 +368,7 @@ public class EtFuturum {
 	}
 
 	@EventHandler
+	@SuppressWarnings("unchecked")
 	public void onLoadComplete(FMLLoadCompleteEvent e) {
 		for (ModBlocks block : ModBlocks.values()) {
 			if (block.isEnabled() && block.get() instanceof IInitAction) {

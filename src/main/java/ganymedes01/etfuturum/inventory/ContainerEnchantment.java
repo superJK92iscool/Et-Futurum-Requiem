@@ -262,7 +262,6 @@ public class ContainerEnchantment extends Container {
 			return false;
 	}
 
-	@SuppressWarnings("unchecked")
 	private List<EnchantmentData> func_178148_a(ItemStack stack, int seed, int level) {
 		rand.setSeed(enchantmentSeed + seed);
 		List<EnchantmentData> list = EnchantmentHelper.buildEnchantmentList(rand, stack, level);

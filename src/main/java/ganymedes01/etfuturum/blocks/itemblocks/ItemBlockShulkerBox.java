@@ -81,7 +81,7 @@ public class ItemBlockShulkerBox extends ItemBlock {
 	}
 
 	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, EntityPlayer player, List lore, boolean f3h) {
+	public void addInformation(ItemStack stack, EntityPlayer player, List<String> lore, boolean f3h) {
 		if (ConfigFunctions.shulkerBoxTooltipLines > 0 && stack.getTagCompound() != null && stack.getTagCompound().hasKey("Items")) {
 			NBTTagList tag = stack.getTagCompound().getTagList("Items", 10);
 			int items = 0;

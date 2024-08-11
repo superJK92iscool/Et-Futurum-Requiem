@@ -371,7 +371,7 @@ public class BlockShulkerBox extends BlockContainer {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubBlocks(Item item, CreativeTabs tab, List subItems) {
+	public void getSubBlocks(Item item, CreativeTabs tab, List<ItemStack> subItems) {
 		for (byte i = 0; i <= (ModsList.IRON_CHEST.isLoaded() && ConfigModCompat.shulkerBoxesIronChest ? 7 : 0); i++) {
 			for (byte j = 0; j <= (ConfigBlocksItems.enableDyedShulkerBoxes ? 16 : 0); j++) {
 

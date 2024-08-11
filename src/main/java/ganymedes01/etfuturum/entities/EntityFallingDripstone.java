@@ -90,12 +90,12 @@ public class EntityFallingDripstone extends EntityFallingBlock {
 			int i = MathHelper.ceiling_float_int(p_70069_1_ - 1.0F);
 
 			if (i > 0) {
-				ArrayList arraylist = new ArrayList(this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox));
+				ArrayList<Entity> arraylist = new ArrayList<>(this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox));
 				DamageSource damagesource = BlockPointedDripstone.STALACTITE_DAMAGE;
-				Iterator iterator = arraylist.iterator();
+				Iterator<Entity> iterator = arraylist.iterator();
 
 				while (iterator.hasNext()) {
-					Entity entity = (Entity) iterator.next();
+					Entity entity = iterator.next();
 					entity.attackEntityFrom(damagesource, (float) Math.min(MathHelper.floor_float((float) i * this.fallHurtAmount), this.fallHurtMax));
 				}
 			}

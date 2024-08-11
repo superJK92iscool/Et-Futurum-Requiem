@@ -39,7 +39,7 @@ public class StructureMesaMineshaftPieces {
 		MapGenStructureIO.registerStructure(StructureMesaMineshaftStart.class, "Mineshaft");
 	}
 
-	private static StructureComponent getRandomComponent(List p_78815_0_, Random p_78815_1_, int p_78815_2_, int p_78815_3_, int p_78815_4_, int p_78815_5_, int p_78815_6_) {
+	private static StructureComponent getRandomComponent(List<StructureComponent> p_78815_0_, Random p_78815_1_, int p_78815_2_, int p_78815_3_, int p_78815_4_, int p_78815_5_, int p_78815_6_) {
 		int j1 = p_78815_1_.nextInt(100);
 		StructureBoundingBox structureboundingbox;
 
@@ -66,7 +66,7 @@ public class StructureMesaMineshaftPieces {
 		return null;
 	}
 
-	protected static StructureComponent getNextMineShaftComponent(StructureComponent p_78817_0_, List p_78817_1_, Random p_78817_2_, int p_78817_3_, int p_78817_4_, int p_78817_5_, int p_78817_6_, int p_78817_7_) {
+	protected static StructureComponent getNextMineShaftComponent(StructureComponent p_78817_0_, List<StructureComponent> p_78817_1_, Random p_78817_2_, int p_78817_3_, int p_78817_4_, int p_78817_5_, int p_78817_6_, int p_78817_7_) {
 		if (p_78817_7_ > 8) {
 			return null;
 		} else if (Math.abs(p_78817_3_ - p_78817_0_.getBoundingBox().minX) <= 80 && Math.abs(p_78817_5_ - p_78817_0_.getBoundingBox().minZ) <= 80) {
@@ -121,7 +121,7 @@ public class StructureMesaMineshaftPieces {
 			}
 		}
 
-		public static StructureBoundingBox findValidPlacement(List p_74954_0_, Random p_74954_1_, int p_74954_2_, int p_74954_3_, int p_74954_4_, int p_74954_5_) {
+		public static StructureBoundingBox findValidPlacement(List<StructureComponent> p_74954_0_, Random p_74954_1_, int p_74954_2_, int p_74954_3_, int p_74954_4_, int p_74954_5_) {
 			StructureBoundingBox structureboundingbox = new StructureBoundingBox(p_74954_2_, p_74954_3_, p_74954_4_, p_74954_2_, p_74954_3_ + 2, p_74954_4_);
 			int i1;
 
@@ -157,7 +157,7 @@ public class StructureMesaMineshaftPieces {
 		/**
 		 * Initiates construction of the Structure Component picked, at the current Location of StructGen
 		 */
-		public void buildComponent(StructureComponent p_74861_1_, List p_74861_2_, Random p_74861_3_) {
+		public void buildComponent(StructureComponent p_74861_1_, List<StructureComponent> p_74861_2_, Random p_74861_3_) {
 			int i = this.getComponentType();
 			int j = p_74861_3_.nextInt(4);
 
@@ -375,7 +375,7 @@ public class StructureMesaMineshaftPieces {
 			this.isMultipleFloors = p_i2036_3_.getYSize() > 3;
 		}
 
-		public static StructureBoundingBox findValidPlacement(List p_74951_0_, Random p_74951_1_, int p_74951_2_, int p_74951_3_, int p_74951_4_, int p_74951_5_) {
+		public static StructureBoundingBox findValidPlacement(List<StructureComponent> p_74951_0_, Random p_74951_1_, int p_74951_2_, int p_74951_3_, int p_74951_4_, int p_74951_5_) {
 			StructureBoundingBox structureboundingbox = new StructureBoundingBox(p_74951_2_, p_74951_3_, p_74951_4_, p_74951_2_, p_74951_3_ + 2, p_74951_4_);
 
 			if (p_74951_1_.nextInt(4) == 0) {
@@ -410,7 +410,7 @@ public class StructureMesaMineshaftPieces {
 		/**
 		 * Initiates construction of the Structure Component picked, at the current Location of StructGen
 		 */
-		public void buildComponent(StructureComponent p_74861_1_, List p_74861_2_, Random p_74861_3_) {
+		public void buildComponent(StructureComponent p_74861_1_, List<StructureComponent> p_74861_2_, Random p_74861_3_) {
 			int i = this.getComponentType();
 
 			switch (this.corridorDirection) {
@@ -494,7 +494,7 @@ public class StructureMesaMineshaftPieces {
 		/**
 		 * List of other Mineshaft components linked to this room.
 		 */
-		private final List roomsLinkedToTheRoom = new LinkedList();
+		private final List<StructureBoundingBox> roomsLinkedToTheRoom = new LinkedList<>();
 
 		public MesaRoom() {
 		}
@@ -507,7 +507,7 @@ public class StructureMesaMineshaftPieces {
 		/**
 		 * Initiates construction of the Structure Component picked, at the current Location of StructGen
 		 */
-		public void buildComponent(StructureComponent p_74861_1_, List p_74861_2_, Random p_74861_3_) {
+		public void buildComponent(StructureComponent p_74861_1_, List<StructureComponent> p_74861_2_, Random p_74861_3_) {
 			int i = this.getComponentType();
 			int k = this.boundingBox.getYSize() - 3 - 1;
 
@@ -590,10 +590,10 @@ public class StructureMesaMineshaftPieces {
 			}
 			this.fillWithBlocks(p_74875_1_, p_74875_3_, this.boundingBox.minX, this.boundingBox.minY, this.boundingBox.minZ, this.boundingBox.maxX, this.boundingBox.minY, this.boundingBox.maxZ, Blocks.dirt, Blocks.air, true);
 			this.fillWithBlocks(p_74875_1_, p_74875_3_, this.boundingBox.minX, this.boundingBox.minY + 1, this.boundingBox.minZ, this.boundingBox.maxX, Math.min(this.boundingBox.minY + 3, this.boundingBox.maxY), this.boundingBox.maxZ, Blocks.air, Blocks.air, false);
-			Iterator iterator = this.roomsLinkedToTheRoom.iterator();
+			Iterator<StructureBoundingBox> iterator = this.roomsLinkedToTheRoom.iterator();
 
 			while (iterator.hasNext()) {
-				StructureBoundingBox structureboundingbox1 = (StructureBoundingBox) iterator.next();
+				StructureBoundingBox structureboundingbox1 = iterator.next();
 				this.fillWithBlocks(p_74875_1_, p_74875_3_, structureboundingbox1.minX, structureboundingbox1.maxY - 2, structureboundingbox1.minZ, structureboundingbox1.maxX, structureboundingbox1.maxY, structureboundingbox1.maxZ, Blocks.air, Blocks.air, false);
 			}
 
@@ -603,10 +603,10 @@ public class StructureMesaMineshaftPieces {
 
 		protected void func_143012_a(NBTTagCompound p_143012_1_) {
 			NBTTagList nbttaglist = new NBTTagList();
-			Iterator iterator = this.roomsLinkedToTheRoom.iterator();
+			Iterator<StructureBoundingBox> iterator = this.roomsLinkedToTheRoom.iterator();
 
 			while (iterator.hasNext()) {
-				StructureBoundingBox structureboundingbox = (StructureBoundingBox) iterator.next();
+				StructureBoundingBox structureboundingbox = iterator.next();
 				nbttaglist.appendTag(structureboundingbox.func_151535_h());
 			}
 
@@ -649,7 +649,7 @@ public class StructureMesaMineshaftPieces {
 		/**
 		 * Trys to find a valid place to put this component.
 		 */
-		public static StructureBoundingBox findValidPlacement(List p_74950_0_, Random p_74950_1_, int p_74950_2_, int p_74950_3_, int p_74950_4_, int p_74950_5_) {
+		public static StructureBoundingBox findValidPlacement(List<StructureComponent> p_74950_0_, Random p_74950_1_, int p_74950_2_, int p_74950_3_, int p_74950_4_, int p_74950_5_) {
 			StructureBoundingBox structureboundingbox = new StructureBoundingBox(p_74950_2_, p_74950_3_ - 5, p_74950_4_, p_74950_2_, p_74950_3_ + 2, p_74950_4_);
 
 			switch (p_74950_5_) {
@@ -676,7 +676,7 @@ public class StructureMesaMineshaftPieces {
 		/**
 		 * Initiates construction of the Structure Component picked, at the current Location of StructGen
 		 */
-		public void buildComponent(StructureComponent p_74861_1_, List p_74861_2_, Random p_74861_3_) {
+		public void buildComponent(StructureComponent p_74861_1_, List<StructureComponent> p_74861_2_, Random p_74861_3_) {
 			int i = this.getComponentType();
 
 			switch (this.coordBaseMode) {

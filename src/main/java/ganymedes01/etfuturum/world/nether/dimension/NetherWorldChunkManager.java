@@ -41,8 +41,7 @@ public class NetherWorldChunkManager extends WorldChunkManager {
 	 * Gets the list of valid biomes for the player to spawn in.
 	 */
 	@Override
-	@SuppressWarnings("rawtypes")
-	public List getBiomesToSpawnIn() {
+	public List<BiomeGenBase> getBiomesToSpawnIn() {
 		return biomesToSpawnIn;
 	}
 

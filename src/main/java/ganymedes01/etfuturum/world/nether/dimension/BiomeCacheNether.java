@@ -28,7 +28,6 @@ public class BiomeCacheNether {
 	/**
 	 * The list of cached BiomeCacheBlocks
 	 */
-	@SuppressWarnings("rawtypes")
 	private final List<BiomeCacheBlockNether> cache = Lists.newArrayList();
 
 	public BiomeCacheNether(NetherWorldChunkManager par1WorldChunkManager) {
@@ -38,7 +37,6 @@ public class BiomeCacheNether {
 	/**
 	 * Returns a biome cache block at location specified.
 	 */
-	@SuppressWarnings("unchecked")
 	public BiomeCacheBlockNether getBiomeCacheBlock(int par1, int par2) {
 		par1 >>= 4;
 		par2 >>= 4;

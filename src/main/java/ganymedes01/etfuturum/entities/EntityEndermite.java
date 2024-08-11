@@ -131,7 +131,8 @@ public class EntityEndermite extends EntityMob {
 		}
 	}
 
-	public void aggroEndermen(int range) {
+	@SuppressWarnings("unchecked")
+    public void aggroEndermen(int range) {
 		double radius = range / 2.0;
 		int tagetChance = 10;
 		if (rand.nextInt(tagetChance) != 0) {

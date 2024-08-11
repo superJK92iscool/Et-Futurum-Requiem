@@ -38,7 +38,6 @@ public class TileEntityFancySkullRenderer extends TileEntitySpecialRenderer {
 		instance = this;
 	}
 
-	@SuppressWarnings("unchecked")
 	public void renderSkull(float x, float y, float z, int meta, float rotation, int type, GameProfile profile) {
 		ModelHead model = model1;
 

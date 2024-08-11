@@ -324,11 +324,11 @@ public class ServerEventHandler {
 				EntityTippedArrow tippedArrow = (EntityTippedArrow) dmgSrc.getSourceOfDamage();
 				if (!tippedArrow.worldObj.isRemote && dmgSrc.getEntity() instanceof EntityLivingBase) {
 
-					List list = ((ItemArrowTipped) ModItems.TIPPED_ARROW.get()).getEffects(tippedArrow.getArrow());
-					Iterator iterator1 = list.iterator();
+					List<PotionEffect> list = ((ItemArrowTipped) ModItems.TIPPED_ARROW.get()).getEffects(tippedArrow.getArrow());
+					Iterator<PotionEffect> iterator1 = list.iterator();
 
 					while (iterator1.hasNext()) {
-						PotionEffect potioneffect = (PotionEffect) iterator1.next();
+						PotionEffect potioneffect = iterator1.next();
 						int i = potioneffect.getPotionID();
 
 						if (Potion.potionTypes[i].isInstant()) {
@@ -1883,6 +1883,7 @@ public class ServerEventHandler {
 	}
 
 	@SubscribeEvent
+	@SuppressWarnings("unchecked")
 	public void onPostWorldTick(TickEvent.WorldTickEvent e) {
 		if (ConfigMixins.enableElytra && e.phase == TickEvent.Phase.END && e.world instanceof WorldServer) {
 			WorldServer ws = (WorldServer) e.world;

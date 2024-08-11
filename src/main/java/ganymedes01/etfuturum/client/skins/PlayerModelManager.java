@@ -16,7 +16,7 @@ public class PlayerModelManager {
 
 	public static final String MODEL_KEY = Reference.MOD_ID + "_model";
 
-	public static Map<UUID, Boolean> alexCache = new WeakHashMap();
+	public static Map<UUID, Boolean> alexCache = new WeakHashMap<>();
 
 	public static boolean isPlayerModelAlex(EntityPlayer player) {
 		if (player == null || player.getUniqueID() == null)

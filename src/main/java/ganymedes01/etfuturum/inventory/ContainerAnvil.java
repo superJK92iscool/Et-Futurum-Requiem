@@ -36,7 +36,6 @@ public class ContainerAnvil extends ContainerRepair {
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
 	public void updateRepairOutput() {
 		ItemStack itemstack = inputSlots.getStackInSlot(0);
 		maximumCost = 1;

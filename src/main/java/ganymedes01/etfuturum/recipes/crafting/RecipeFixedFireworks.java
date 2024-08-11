@@ -87,7 +87,7 @@ public class RecipeFixedFireworks extends RecipeFireworks {
 				nbttagcompound = new NBTTagCompound();
 				nbttagcompound1 = new NBTTagCompound();
 				byte b0 = 0;
-				ArrayList arraylist = new ArrayList();
+				ArrayList<Integer> arraylist = new ArrayList<>();
 
 				for (int l1 = 0; l1 < p_77569_1_.getSizeInventory(); ++l1) {
 					ItemStack itemstack2 = p_77569_1_.getStackInSlot(l1);
@@ -123,7 +123,7 @@ public class RecipeFixedFireworks extends RecipeFireworks {
 				this.field_92102_a.setTagCompound(nbttagcompound);
 				return true;
 			} else if (j == 0 && i == 0 && l == 1 && k > 0 && k == i1) {
-				ArrayList arraylist1 = new ArrayList();
+				ArrayList<Integer> arraylist1 = new ArrayList<>();
 
 				for (int i2 = 0; i2 < p_77569_1_.getSizeInventory(); ++i2) {
 					ItemStack itemstack1 = p_77569_1_.getStackInSlot(i2);

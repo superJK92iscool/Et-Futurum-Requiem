@@ -76,7 +76,6 @@ public class ItemLingeringPotion extends ItemPotion {
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
 	public List<PotionEffect> getEffects(int meta) {
 		List<PotionEffect> effects = new ArrayList<PotionEffect>();
 		List<PotionEffect> effects2 = super.getEffects(meta);
@@ -135,8 +134,7 @@ public class ItemLingeringPotion extends ItemPotion {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	@SuppressWarnings({"rawtypes", "unchecked"})
-	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean isComplex) {
+	public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean isComplex) {
 		if (stack.getItemDamage() == 0)
 			return;
 
@@ -196,8 +194,7 @@ public class ItemLingeringPotion extends ItemPotion {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	@SuppressWarnings({"rawtypes", "unchecked"})
-	public void getSubItems(Item item, CreativeTabs tab, List list) {
+	public void getSubItems(Item item, CreativeTabs tab, List<ItemStack> list) {
 		List<ItemStack> potions = new ArrayList<ItemStack>();
 		super.getSubItems(item, tab, potions);
 

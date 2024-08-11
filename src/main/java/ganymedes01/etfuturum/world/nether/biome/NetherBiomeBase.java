@@ -7,7 +7,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
 
-import java.util.List;
 import java.util.Random;
 
 public class NetherBiomeBase extends BiomeGenBase {
@@ -47,6 +46,6 @@ public class NetherBiomeBase extends BiomeGenBase {
 	}
 
 	protected void removeMonster(Class<? extends Entity> entity) {
-		((List<SpawnListEntry>) spawnableMonsterList).removeIf(entry -> entry.entityClass == entity);
+		spawnableMonsterList.removeIf(entry -> entry.entityClass == entity);
 	}
 }

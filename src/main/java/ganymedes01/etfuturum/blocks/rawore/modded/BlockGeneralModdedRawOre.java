@@ -43,7 +43,7 @@ public class BlockGeneralModdedRawOre extends BaseSubtypesBlock implements IInit
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubBlocks(Item item, CreativeTabs tab, List list) {
+	public void getSubBlocks(Item item, CreativeTabs tab, List<ItemStack> list) {
 		ModItems.MODDED_RAW_ORE.get().getSubItems(item, tab, list);
 	}
 

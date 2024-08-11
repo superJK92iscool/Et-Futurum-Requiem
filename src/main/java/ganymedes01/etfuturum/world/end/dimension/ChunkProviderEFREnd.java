@@ -13,6 +13,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.BiomeGenBase.SpawnListEntry;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.NoiseGeneratorOctaves;
@@ -358,7 +359,7 @@ public class ChunkProviderEFREnd implements IChunkProvider {
 	/**
 	 * Returns a list of creatures of the specified type that can spawn at the given location.
 	 */
-	public List getPossibleCreatures(EnumCreatureType creatureType, int x, int p_73155_3_, int z) {
+	public List<SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, int x, int p_73155_3_, int z) {
 		return this.worldObj.getBiomeGenForCoords(x, z).getSpawnableList(creatureType);
 	}
 

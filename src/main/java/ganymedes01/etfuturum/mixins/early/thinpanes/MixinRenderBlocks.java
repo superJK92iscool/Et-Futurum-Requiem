@@ -212,7 +212,7 @@ public abstract class MixinRenderBlocks {
     private void loadReflectionData() {
         if (ModsList.MC_PATCHER_FORGE.isLoaded() && !populatedFields && !errorCaught) {
             try {
-                Class clss = Class.forName("com.prupe.mcpatcher.ctm.GlassPaneRenderer");
+                Class<?> clss = Class.forName("com.prupe.mcpatcher.ctm.GlassPaneRenderer");
                 skipTopEdgeRenderingField = clss.getDeclaredField("skipTopEdgeRendering");
                 skipBottomEdgeRenderingField = clss.getDeclaredField("skipBottomEdgeRendering");
                 setupPaneEdgesFunc = clss.getDeclaredMethod("setupPaneEdges", RenderBlocks.class, Block.class, int.class, int.class, int.class);

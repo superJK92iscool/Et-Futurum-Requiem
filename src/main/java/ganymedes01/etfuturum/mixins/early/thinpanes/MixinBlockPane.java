@@ -24,7 +24,7 @@ public abstract class MixinBlockPane extends Block {
 	}
 
 	@Inject(method = "addCollisionBoxesToList", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/block/BlockPane;canPaneConnectTo(Lnet/minecraft/world/IBlockAccess;IIILnet/minecraftforge/common/util/ForgeDirection;)Z", ordinal = 3, shift = At.Shift.AFTER), cancellable = true)
-	private void remapCollisionsBoxes(World worldIn, int posX, int posY, int posZ, AxisAlignedBB bb, List boxList, Entity entity, CallbackInfo ci,
+	private void remapCollisionsBoxes(World worldIn, int posX, int posY, int posZ, AxisAlignedBB bb, List<AxisAlignedBB> boxList, Entity entity, CallbackInfo ci,
 									  @Local(name = "flag") boolean flag, @Local(name = "flag1") boolean flag1,
 									  @Local(name = "flag2") boolean flag2, @Local(name = "flag3") boolean flag3) {
 		if(!flag && !flag1 && !flag2 && !flag3){

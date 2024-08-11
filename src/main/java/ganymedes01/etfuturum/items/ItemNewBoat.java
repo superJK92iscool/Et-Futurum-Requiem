@@ -75,11 +75,11 @@ public class ItemNewBoat extends BaseItem {
 		Vec3 vec32 = p_77659_3_.getLook(f);
 		boolean flag = false;
 		float f9 = 1.0F;
-		List list = p_77659_2_.getEntitiesWithinAABBExcludingEntity(p_77659_3_, p_77659_3_.boundingBox.addCoord(vec32.xCoord * d3, vec32.yCoord * d3, vec32.zCoord * d3).expand(f9, f9, f9));
+		List<Entity> list = p_77659_2_.getEntitiesWithinAABBExcludingEntity(p_77659_3_, p_77659_3_.boundingBox.addCoord(vec32.xCoord * d3, vec32.yCoord * d3, vec32.zCoord * d3).expand(f9, f9, f9));
 		int i;
 
 		for (i = 0; i < list.size(); ++i) {
-			Entity entity = (Entity) list.get(i);
+			Entity entity = list.get(i);
 
 			if (entity.canBeCollidedWith()) {
 				float f10 = entity.getCollisionBorderSize();

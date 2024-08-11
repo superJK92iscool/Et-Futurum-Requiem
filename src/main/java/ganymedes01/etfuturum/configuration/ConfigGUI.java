@@ -16,7 +16,8 @@ public class ConfigGUI extends GuiConfig {
 		super(parent, getElements(), Reference.MOD_ID, Reference.MOD_ID, false, false, GuiConfig.getAbridgedConfigPath(Launch.minecraftHome + "config" + File.separator + Reference.MOD_ID));
 	}
 
-	private static List<IConfigElement> getElements() {
+	@SuppressWarnings("rawtypes")
+    private static List<IConfigElement> getElements() {
 		List<IConfigElement> list = new ArrayList<IConfigElement>();
 //      for (String category : ConfigBase.usedCategories)
 //          list.add(new ConfigElement(ConfigBase.INSTANCE.cfg.getCategory(category)));

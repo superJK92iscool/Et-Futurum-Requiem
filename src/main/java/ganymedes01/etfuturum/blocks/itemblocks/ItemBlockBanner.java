@@ -97,7 +97,7 @@ public class ItemBlockBanner extends ItemBlock {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced) {
+	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
 		NBTTagCompound nbttagcompound = getSubTag(stack, "BlockEntityTag", false);
 
 		if (nbttagcompound != null && nbttagcompound.hasKey("Patterns")) {
@@ -127,7 +127,7 @@ public class ItemBlockBanner extends ItemBlock {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item item, CreativeTabs tab, List subItems) {
+	public void getSubItems(Item item, CreativeTabs tab, List<ItemStack> subItems) {
 		for (int i = 0; i < 16; i++) {
 			subItems.add(new ItemStack(item, 1, i));
 		}

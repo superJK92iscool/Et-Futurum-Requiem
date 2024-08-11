@@ -1225,7 +1225,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 	}
 
 	class StingGoal extends EntityAIAttackOnCollide {
-		StingGoal(EntityCreature creatureIn, Class classIn, double speedIn, boolean useLongMemory) {
+		StingGoal(EntityCreature creatureIn, Class<? extends Entity> classIn, double speedIn, boolean useLongMemory) {
 			super(creatureIn, classIn, speedIn, useLongMemory);
 		}
 

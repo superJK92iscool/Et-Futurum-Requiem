@@ -103,7 +103,7 @@ public class ItemArmorElytra extends BaseItem implements IBaubleExpanded {
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer player, List tooltip, boolean debug) {
+	public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean debug) {
 		if (Utils.badBetterFPSAlgorithm()) {
 			tooltip.add(I18n.format("efr.elytra.betterfps.warn1"));
 			tooltip.add(I18n.format("efr.elytra.betterfps.warn2"));

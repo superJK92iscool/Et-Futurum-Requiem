@@ -24,7 +24,6 @@ public class EntityPlacedEndCrystal extends EntityEnderCrystal {
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
 	public void onUpdate() {
 		prevPosX = posX;
 		prevPosY = posY;

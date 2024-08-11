@@ -17,6 +17,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.world.IBlockAccess;
@@ -525,7 +526,7 @@ public class Utils {
 
 	//STUPIDLY POINTLESSLY CLIENTSIDED FUNCTION STRIKES AGAIN AAAGH
 	public static boolean hasPotionEffect(ItemStack p_hasEffect_1_) {
-		List var2 = Items.potionitem.getEffects(p_hasEffect_1_);
+		List<PotionEffect> var2 = Items.potionitem.getEffects(p_hasEffect_1_);
 		return var2 != null && !var2.isEmpty();
 	}
 
