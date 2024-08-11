@@ -323,7 +323,6 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 
 		for (int i = 0; i < (chance < 1 ? 1 : chance); i++) {
 			if (chance > 1 || random.nextFloat() < chance) {
-				int heightRange = maxY - minY;
 				int xRand = (chunkX << 4) + random.nextInt(16);
 				int yRand = MathHelper.getRandomIntegerInRange(random, minY, maxY);
 				int zRand = (chunkZ << 4) + random.nextInt(16);

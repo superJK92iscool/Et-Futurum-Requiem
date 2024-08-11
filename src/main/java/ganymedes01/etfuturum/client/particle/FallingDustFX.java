@@ -10,7 +10,6 @@ public class FallingDustFX extends EtFuturumFXParticle {
 
 	public FallingDustFX(World world, double x, double y, double z, int color) {
 		super(world, x, y, z, 0, 0, 0, 60 + CustomParticles.rand.nextInt(12), 1, color, "textures/particle/particles.png", 8);
-		float f = 0.9F;
 		this.particleScale *= 0.75F;
 		this.particleScale *= 0.9F;
 		this.oSize = this.particleScale;

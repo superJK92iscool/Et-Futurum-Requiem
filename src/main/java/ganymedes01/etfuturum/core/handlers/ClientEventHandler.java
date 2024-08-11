@@ -477,8 +477,6 @@ public class ClientEventHandler {
 
 				// --- Wooden/Metal Pressure plate --- //
 				if (block instanceof BlockBasePressurePlate && event.name.equals("random.click")) {
-					String material = block.getMaterial() == Material.wood ? "wooden" : "metal";
-
 					String s = null;
 					if (block.stepSound == Block.soundTypeMetal) {
 						s = Reference.MCAssetVer + ":block.metal_pressure_plate.click";

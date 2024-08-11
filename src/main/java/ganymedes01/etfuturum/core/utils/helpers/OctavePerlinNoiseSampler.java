@@ -9,7 +9,7 @@ import java.util.*;
 import java.util.function.LongFunction;
 
 public class OctavePerlinNoiseSampler implements NoiseSampler {
-	private static final int field_31704 = 33554432;
+
 	private final PerlinNoiseSampler[] octaveSamplers;
 	private final TDoubleList amplitudes;
 	private final double persistence;

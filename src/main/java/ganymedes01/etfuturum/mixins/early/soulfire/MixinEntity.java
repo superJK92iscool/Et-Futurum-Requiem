@@ -3,7 +3,6 @@ package ganymedes01.etfuturum.mixins.early.soulfire;
 import ganymedes01.etfuturum.ducks.ISoulFireInfo;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;

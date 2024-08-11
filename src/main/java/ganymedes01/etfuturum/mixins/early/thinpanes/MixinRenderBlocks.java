@@ -5,7 +5,6 @@ import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.core.utils.Logger;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPane;
-import net.minecraft.block.BlockStainedGlassPane;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.IIcon;
@@ -15,12 +14,9 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-
-import static net.minecraftforge.common.util.ForgeDirection.*;
 
 @Mixin(value = RenderBlocks.class, priority = 5000)
 public abstract class MixinRenderBlocks {

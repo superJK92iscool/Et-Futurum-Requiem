@@ -5,7 +5,6 @@ import ganymedes01.etfuturum.blocks.BlockNylium;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.MathHelper;
-import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.MapGenRavine;
 
 import java.util.Random;
@@ -116,8 +115,6 @@ public class MapGenRavineHell extends MapGenRavine {
 								j3 = (k2 * 16 + l2) * 128 + i3;
 
 								if (i3 < 128) {
-									Block block = p_151540_5_[j3];
-
 									if (isOceanBlock(p_151540_5_, j3, k2, i3, l2, p_151540_3_, p_151540_4_)) {
 										flag2 = true;
 									}
@@ -144,8 +141,6 @@ public class MapGenRavineHell extends MapGenRavine {
 										double d11 = ((double) l3 + 0.5D - p_151540_8_) / d6;
 
 										if ((d13 * d13 + d14 * d14) * (double) this.field_75046_d[l3] + d11 * d11 / 6.0D < 1.0D) {
-											Block block1 = p_151540_5_[k3];
-
 											if (isTopBlock(p_151540_5_, k3, k2, l3, j3, p_151540_3_, p_151540_4_)) {
 												flag = true;
 											}

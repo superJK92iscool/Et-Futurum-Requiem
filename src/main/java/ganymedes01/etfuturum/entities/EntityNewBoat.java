@@ -796,9 +796,7 @@ public class EntityNewBoat extends Entity {
 			this.motionY += d1;
 
 			if (d2 > 0.0D) {
-				double d3 = 0.65D;
 				this.motionY += d2 * (-d0 / 0.65D);
-				double d4 = 0.75D;
 				this.motionY *= 0.75D;
 			}
 		}

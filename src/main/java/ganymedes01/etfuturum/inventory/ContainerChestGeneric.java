@@ -30,7 +30,6 @@ public class ContainerChestGeneric extends Container {
 		if (!(p_i1806_1_ instanceof InventoryPlayer) || !SpectatorMode.isSpectator(((InventoryPlayer) p_i1806_1_).player)) {
 			p_i1806_2_.openInventory();
 		}
-		int i = (numRows - 4) * 18;
 		int j;
 		int k;
 
@@ -38,8 +37,6 @@ public class ContainerChestGeneric extends Container {
 		int padT = slim ? 8 : 18; // padding on top
 		int sep1H = slim ? 4 : 13; // height of separator
 		int sep2H = 4; // height of separator
-
-		int width = rowSize * 18 + 2 * padL;
 
 		int slotStartXOff = 0;
 

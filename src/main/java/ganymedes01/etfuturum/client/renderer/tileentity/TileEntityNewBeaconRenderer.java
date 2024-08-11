@@ -28,7 +28,6 @@ public class TileEntityNewBeaconRenderer extends TileEntitySpecialRenderer {
 		OpenGLHelper.alphaFunc(GL11.GL_GREATER, 0.1F);
 
 		if (f1 > 0.0F) {
-			Tessellator tessellator = Tessellator.instance;
 			List<BeamSegment> list = beacon.getSegments();
 			int j = 0;
 
@@ -72,7 +71,6 @@ public class TileEntityNewBeaconRenderer extends TileEntitySpecialRenderer {
 		double d9 = 0.5D + Math.sin(d3 + 3.9269908169872414D) * p_188205_15_;
 		double d10 = 0.5D + Math.cos(d3 + 5.497787143782138D) * p_188205_15_;
 		double d11 = 0.5D + Math.sin(d3 + 5.497787143782138D) * p_188205_15_;
-		double d12 = 0.0D;
 		double d13 = 1.0D;
 		double d14 = -1.0D + d2;
 		double d15 = (double) height * shouldRender * (0.5D / p_188205_15_) + d14;
@@ -108,7 +106,6 @@ public class TileEntityNewBeaconRenderer extends TileEntitySpecialRenderer {
 		d9 = 0.5D + p_188205_17_;
 		d10 = 0.5D + p_188205_17_;
 		d11 = 0.0D;
-		d12 = 1.0D;
 		d13 = -1.0D + d2;
 		d14 = (double) height * shouldRender + d13;
 		tessellator.startDrawingQuads();

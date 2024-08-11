@@ -13,7 +13,6 @@ import net.minecraft.client.resources.IResourcePack;
 import net.minecraft.client.resources.SimpleReloadableResourceManager;
 import net.minecraft.client.resources.data.IMetadataSection;
 import net.minecraft.client.resources.data.IMetadataSerializer;
-import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 
 import java.awt.image.BufferedImage;
@@ -75,53 +74,11 @@ public class DynamicSoundsResourcePack implements IResourcePack {
 	public class JsonCreator {
 		private final JsonObject rootObject = new JsonObject();
 
-		private void setReplace(String cat) {
-			JsonObject soundCat = JsonUtil.getOrCreateObject(rootObject, cat);
-			soundCat.add("replace", new JsonPrimitive(true));
-		}
-
 		private void addSoundsToCategory(String cat, String... sounds) {
 			JsonObject soundCat = JsonUtil.getOrCreateObject(rootObject, cat);
 			JsonArray soundList = JsonUtil.getOrCreateArray(soundCat, "sounds");
 			for (String sound : sounds) {
 				soundList.add(new JsonPrimitive(sound));
-			}
-		}
-
-		private void addSoundEventsToCategory(String cat, String... sounds) {
-			addSoundsToCategoryWithSettings(cat, 1.0F, 1.0F, 1, false, true, sounds);
-		}
-
-		private void addSoundsToCategoryWithSettings(String cat, float volume, float pitch, String... sounds) {
-			addSoundsToCategoryWithSettings(cat, volume, pitch, 1, false, false, sounds);
-		}
-
-		private void addSoundsToCategoryWithSettings(String cat, float volume, float pitch, int weight, String... sounds) {
-			addSoundsToCategoryWithSettings(cat, volume, pitch, weight, false, false, sounds);
-		}
-
-		private void addSoundsToCategoryWithSettings(String cat, float volume, float pitch, int weight, boolean stream, boolean isEvent, String... sounds) {
-			JsonObject soundCat = JsonUtil.getOrCreateObject(rootObject, cat);
-			JsonArray soundList = JsonUtil.getOrCreateArray(soundCat, "sounds");
-			for (String sound : sounds) {
-				JsonObject soundObj = new JsonObject();
-				soundObj.add("name", new JsonPrimitive(sound));
-				if (volume != 1.0F) {
-					soundObj.add("volume", new JsonPrimitive(MathHelper.clamp_float(volume, 0, 1)));
-				}
-				if (pitch != 1.0F) {
-					soundObj.add("pitch", new JsonPrimitive(pitch));
-				}
-				if (weight > 1) {
-					soundObj.add("weight", new JsonPrimitive(weight));
-				}
-				if (stream) {
-					soundObj.add("stream", new JsonPrimitive(true));
-				}
-				if (isEvent) {
-					soundObj.add("type", new JsonPrimitive("event"));
-				}
-				soundList.add(soundObj);
 			}
 		}
 

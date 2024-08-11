@@ -3,7 +3,6 @@ package ganymedes01.etfuturum.core.utils.structurenbt.gen;
 import com.google.common.collect.Lists;
 import net.minecraft.world.gen.structure.MapGenStructure;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
-import net.minecraft.world.gen.structure.StructureComponent;
 
 import java.util.List;
 

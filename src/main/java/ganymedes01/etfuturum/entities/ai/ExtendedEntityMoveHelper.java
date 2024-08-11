@@ -59,10 +59,6 @@ public class ExtendedEntityMoveHelper extends EntityMoveHelper {
 			f4 = f1 / f4;
 			f2 = f2 * f4;
 			f3 = f3 * f4;
-			float f5 = MathHelper.sin(this.entity.rotationYaw * 0.017453292F);
-			float f6 = MathHelper.cos(this.entity.rotationYaw * 0.017453292F);
-			float f7 = f2 * f6 - f3 * f5;
-			float f8 = f3 * f6 + f2 * f5;
 			PathNavigate pathnavigate = this.entity.getNavigator();
 
 			if (pathnavigate != null) {

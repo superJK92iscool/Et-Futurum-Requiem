@@ -1369,9 +1369,6 @@ public class ServerEventHandler {
 
 	@SubscribeEvent
 	public void spawnEvent(EntityJoinWorldEvent event) {
-		int x = MathHelper.floor_double(event.entity.posX);
-		int y = MathHelper.floor_double(event.entity.posY);
-		int z = MathHelper.floor_double(event.entity.posZ);
 		if (event.entity instanceof EntityPig) {
 			EntityPig pig = (EntityPig) event.entity;
 			if (ModItems.BEETROOT.isEnabled()) {

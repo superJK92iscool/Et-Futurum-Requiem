@@ -608,10 +608,6 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		return this.getBeeFlag(2);
 	}
 
-	private void setNearTarget(boolean p_226452_1_) {
-		this.setBeeFlag(2, p_226452_1_);
-	}
-
 	private boolean isTooFar(BlockPos pos) {
 		return !this.isWithinDistance(pos, 48);
 	}
@@ -1297,7 +1293,6 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 				vec3d = getLook(0.0F);
 			}
 
-			int i = 8;
 			Vec3 vec3d2 = EntityVectorUtils.findAirTarget(EntityBee.this, 8, 7, vec3d, ((float) Math.PI / 2F), 2, 1);
 			return vec3d2 != null ? vec3d2 : EntityVectorUtils.findGroundTarget(EntityBee.this, 8, 4, -2, vec3d, (float) Math.PI / 2F);
 		}

@@ -32,8 +32,6 @@ public class BlockEmissiveLayerRenderer extends BlockModelBase {
 			return;
 		}
 
-		final Tessellator tessellator = Tessellator.instance;
-
 		boolean emissiveLayerAbove = ((IEmissiveLayerBlock) block).isSecondLayerAbove(meta);
 
 		renderStandardInventoryCubeEmissive(block, meta, modelId, renderer, !emissiveLayerAbove, minX, minY, minZ, maxX, maxY, maxZ);

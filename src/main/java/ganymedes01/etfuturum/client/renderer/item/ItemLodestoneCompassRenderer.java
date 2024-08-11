@@ -2,15 +2,11 @@ package ganymedes01.etfuturum.client.renderer.item;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;
 
 @SideOnly(Side.CLIENT)
 public class ItemLodestoneCompassRenderer implements IItemRenderer {
-
-	private final RenderItem renderItem = new RenderItem();
-	private int frameTimer;
 
 	@Override
 	public boolean handleRenderType(ItemStack stack, ItemRenderType type) {

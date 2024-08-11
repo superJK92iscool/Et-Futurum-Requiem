@@ -1,8 +1,5 @@
 package ganymedes01.etfuturum.mixins.early.fencewallconnect;
 
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFence;
 import net.minecraft.block.BlockFenceGate;
@@ -10,7 +7,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.world.IBlockAccess;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
-import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(value = BlockFence.class, priority = 0)
 public class MixinBlockFence {

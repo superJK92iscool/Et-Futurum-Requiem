@@ -46,7 +46,6 @@ public class NetherChunkProvider implements IChunkProvider {
 	private final NoiseGeneratorOctaves netherNoiseGen2;
 	private final NoiseGeneratorOctaves netherNoiseGen3;
 	private final NoiseGeneratorOctaves slowsandGravelNoiseGen;
-	private final NoiseGeneratorOctaves netherrackNoiseGen;
 	private final NoiseGeneratorOctaves netherrackExculsivityNoiseGen;
 	public NoiseGeneratorOctaves netherNoiseGen6;
 	public NoiseGeneratorOctaves netherNoiseGen7;
@@ -90,7 +89,6 @@ public class NetherChunkProvider implements IChunkProvider {
 		netherNoiseGen2 = new NoiseGeneratorOctaves(hellRNG, 16);
 		netherNoiseGen3 = new NoiseGeneratorOctaves(hellRNG, 8);
 		slowsandGravelNoiseGen = new NoiseGeneratorOctaves(hellRNG, 4);
-		netherrackNoiseGen = new NoiseGeneratorOctaves(hellRNG, 4);
 		netherrackExculsivityNoiseGen = new NoiseGeneratorOctaves(hellRNG, 4);
 		netherNoiseGen6 = new NoiseGeneratorOctaves(hellRNG, 10);
 		netherNoiseGen7 = new NoiseGeneratorOctaves(hellRNG, 16);
@@ -435,7 +433,6 @@ public class NetherChunkProvider implements IChunkProvider {
 					d3 = 1.0D;
 				}
 
-				double d4 = 0.0D;
 				double d5 = noiseData5[l1] / 8000.0D;
 
 				if (d5 < 0.0D) {

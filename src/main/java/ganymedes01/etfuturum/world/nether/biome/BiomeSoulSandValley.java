@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.world.nether.biome;
 
-import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.world.nether.biome.decorator.NetherBiomeDecorator;
 import ganymedes01.etfuturum.world.nether.biome.decorator.SoulSandValleyDecorator;
 import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.monster.EntityGhast;

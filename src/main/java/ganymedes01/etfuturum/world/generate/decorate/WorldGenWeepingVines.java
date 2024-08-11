@@ -1,7 +1,6 @@
 package ganymedes01.etfuturum.world.generate.decorate;
 
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockNetherrack;
 import net.minecraft.util.MathHelper;
@@ -73,9 +72,6 @@ public class WorldGenWeepingVines extends WorldGenerator {
 					if (rand.nextInt(5) == 0) {
 						j = 1;
 					}
-
-					int k = 17;
-					int l = 25;
 					placeWeepingVinesColumn(world, rand, xOff, yOff, zOff, j/*, 17, 25*/);
 				}
 			}

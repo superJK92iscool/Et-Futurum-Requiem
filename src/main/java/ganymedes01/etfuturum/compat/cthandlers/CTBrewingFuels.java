@@ -46,8 +46,6 @@ public class CTBrewingFuels {
 			return;
 		}
 
-		Object internal = getInternal(fuel);
-
 		final ItemStack[] toAdd = CompatCraftTweaker.getItemStacks(items);
 		MineTweakerAPI.apply(new AddAction(fuel, toAdd, count));
 	}

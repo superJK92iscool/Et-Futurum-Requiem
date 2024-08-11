@@ -20,8 +20,6 @@ import ganymedes01.etfuturum.tileentities.TileEntityBeeHive;
 import ganymedes01.etfuturum.world.structure.MapGenMesaMineshaft;
 import ganymedes01.etfuturum.world.structure.StructureMesaMineshaftPieces;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockLeaves;
-import net.minecraft.block.BlockLog;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.MathHelper;
@@ -43,8 +41,6 @@ import java.util.Map;
 import java.util.Random;
 
 public class WorldEventHandler {
-
-	private int prevSize;
 
 	public static final WorldEventHandler INSTANCE = new WorldEventHandler();
 

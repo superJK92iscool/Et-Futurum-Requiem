@@ -24,7 +24,6 @@ import java.util.Calendar;
 public class EntityStray extends EntitySkeleton {
 
 	private final EntityAIArrowAttack aiArrowAttack = new EntityAIArrowAttack(this, 1.0D, 20, 60, 15.0F);
-	private final EntityAIAttackOnCollide aiAttackOnCollide = new EntityAIAttackOnCollide(this, EntityPlayer.class, 1.2D, false);
 
 	public EntityStray(final World p_i1741_1_) {
 		super(p_i1741_1_);
