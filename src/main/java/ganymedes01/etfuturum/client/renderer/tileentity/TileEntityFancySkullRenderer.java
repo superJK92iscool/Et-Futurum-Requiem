@@ -54,9 +54,9 @@ public class TileEntityFancySkullRenderer extends TileEntitySpecialRenderer {
 				ResourceLocation texture = AbstractClientPlayer.locationStevePng;
 				if (profile != null) {
 					Minecraft minecraft = Minecraft.getMinecraft();
-					Map<Type, MinecraftProfileTexture> map = minecraft.func_152342_ad().func_152788_a(profile);
+					Map<Type, MinecraftProfileTexture> map = minecraft.func_152342_ad/*getSkinManager*/().func_152788_a/*loadSkinFromCache*/(profile);
 					if (map.containsKey(Type.SKIN))
-						texture = minecraft.func_152342_ad().func_152792_a(map.get(Type.SKIN), Type.SKIN);
+						texture = minecraft.func_152342_ad/*getSkinManager*/().func_152792_a/*loadSkin*/(map.get(Type.SKIN), Type.SKIN);
 				}
 				bindTexture(texture);
 				break;
@@ -98,6 +98,6 @@ public class TileEntityFancySkullRenderer extends TileEntitySpecialRenderer {
 	@Override
 	public void renderTileEntityAt(TileEntity tile, double x, double y, double z, float partialTick) {
 		TileEntitySkull skull = (TileEntitySkull) tile;
-		renderSkull((float) x, (float) y, (float) z, tile.getBlockMetadata() & 7, skull.func_145906_b() * 360 / 16.0F, skull.func_145904_a(), skull.func_152108_a());
+		renderSkull((float) x, (float) y, (float) z, tile.getBlockMetadata() & 7, skull.func_145906_b()/*getSkullRotation*/ * 360 / 16.0F, skull.func_145904_a()/*getSkullType*/, skull.func_152108_a());
 	}
 }

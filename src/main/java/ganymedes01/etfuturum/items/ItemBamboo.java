@@ -58,7 +58,7 @@ public class ItemBamboo extends BaseItem {
 			int j1 = bamboo.onBlockPlaced(world, x, y, z, side, p_77648_8_, p_77648_9_, p_77648_10_, i1);
 
 			if (placeBlockAt(stack, player, world, x, y, z, side, p_77648_8_, p_77648_9_, p_77648_10_, j1, bamboo)) {
-				world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F), bamboo.stepSound.func_150496_b(), (bamboo.stepSound.getVolume() + 1.0F) / 2.0F, bamboo.stepSound.getPitch() * 0.8F);
+				world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F), bamboo.stepSound.func_150496_b()/*getPlaceSound*/, (bamboo.stepSound.getVolume() + 1.0F) / 2.0F, bamboo.stepSound.getPitch() * 0.8F);
 				--stack.stackSize;
 
 				if (getBlock == ModBlocks.BAMBOO_SAPLING.get()) {

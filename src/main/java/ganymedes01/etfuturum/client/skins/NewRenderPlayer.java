@@ -55,6 +55,11 @@ public class NewRenderPlayer extends RenderPlayer {
 		return new ResourceLocation(Reference.MOD_ID, player.getLocationSkin().getResourcePath());
 	}
 
+	/**
+	 * Test if the entity name must be rendered
+	 * <p>
+	 * MCP name: {@code canRenderName}
+	 */
 	@Override
 	protected boolean func_110813_b(EntityLivingBase entity) {
 		boolean isGUiEnabled = Minecraft.isGuiEnabled();

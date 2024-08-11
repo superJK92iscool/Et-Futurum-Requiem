@@ -60,7 +60,7 @@ public class BlockTarget extends BaseBlock {
 	}
 
 	private static int determinePower(World world, int x, int y, int z, Entity e) {
-		MovingObjectPosition hit = world.func_147447_a(Vec3.createVectorHelper(e.posX, e.posY, e.posZ), Vec3.createVectorHelper(x + 0.5, y + 0.5, z + 0.5), true, false, false);
+		MovingObjectPosition hit = world.func_147447_a/*rayTraceBlocks*/(Vec3.createVectorHelper(e.posX, e.posY, e.posZ), Vec3.createVectorHelper(x + 0.5, y + 0.5, z + 0.5), true, false, false);
 		if (hit != null && hit.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
 			double xDiff = Math.abs(fractionalPos(hit.hitVec.xCoord) - 0.5);
 			double yDiff = Math.abs(fractionalPos(hit.hitVec.yCoord) - 0.5);

@@ -50,7 +50,7 @@ public class LayerBetterElytra {
 			 */
 //          GL11.glColor3f(1, 1, 1);
 
-			Minecraft.getMinecraft().renderEngine.bindTexture(player.func_152122_n() ? player.getLocationCape() : TEXTURE_ELYTRA);
+			Minecraft.getMinecraft().renderEngine.bindTexture(player.func_152122_n()/*hasCape*/ ? player.getLocationCape() : TEXTURE_ELYTRA);
 
 			GL11.glPushMatrix();
 			GL11.glTranslatef(0.0F, 0.0F, 0.125F);

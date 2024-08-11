@@ -36,7 +36,7 @@ public class NetherBiomeManager {
 		BiomeGenBase.hell.topBlock = Blocks.netherrack;
 		BiomeGenBase.hell.fillerBlock = Blocks.netherrack;
 //		BiomeGenBase.hell.biomeName = "Nether Wastes"; //Breaks some mods that stupidly check for the biome name "hell" instead of the fucking ID or tags...
-		BiomeGenBase.hell.field_76754_C = 0;
+		BiomeGenBase.hell.field_76754_C = 0; // fillerBlockMetadata
 		//Sets filler block meta to 0. Vanilla sets it to a ridiculous value for some reason.
 		//This value seems to be unused in vanilla as well.
 	}

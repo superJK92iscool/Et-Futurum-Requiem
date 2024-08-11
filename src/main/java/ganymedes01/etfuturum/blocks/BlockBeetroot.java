@@ -29,11 +29,17 @@ public class BlockBeetroot extends BlockCrops {
 		return icons[3];
 	}
 
+	/**
+	 * MCP name: {@code getSeed}
+	 */
 	@Override
 	protected Item func_149866_i() {
 		return ModItems.BEETROOT_SEEDS.get();
 	}
 
+	/**
+	 * MCP name: {@code getCrop}
+	 */
 	@Override
 	protected Item func_149865_P() {
 		return ModItems.BEETROOT.get();

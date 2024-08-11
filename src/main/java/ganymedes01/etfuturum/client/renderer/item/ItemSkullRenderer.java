@@ -57,7 +57,7 @@ public class ItemSkullRenderer implements IItemRenderer {
 		if (stack.hasTagCompound()) {
 			NBTTagCompound nbt = stack.getTagCompound();
 			if (nbt.hasKey("SkullOwner", Constants.NBT.TAG_COMPOUND))
-				profile = NBTUtil.func_152459_a(nbt.getCompoundTag("SkullOwner"));
+				profile = NBTUtil.func_152459_a(nbt.getCompoundTag("SkullOwner")); // readGameProfileFromNBT
 			else if (nbt.hasKey("SkullOwner", Constants.NBT.TAG_STRING))
 				profile = new GameProfile(null, nbt.getString("SkullOwner"));
 		}

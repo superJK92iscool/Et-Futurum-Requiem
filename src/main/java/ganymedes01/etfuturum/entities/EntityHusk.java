@@ -151,6 +151,9 @@ public class EntityHusk extends EntityZombie {
 		return Reference.MCAssetVer + ":entity.husk.death";
 	}
 
+	/**
+	 * MCP name: {@code playStepSound}
+	 */
 	@Override
 	protected void func_145780_a(final int x, final int y, final int z, final Block blockIn) {
 		this.playSound(Reference.MCAssetVer + ":entity.husk.step", 0.15f, 1.0f);

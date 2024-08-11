@@ -26,7 +26,7 @@ public class NewThreadDownloadImageData extends SimpleTexture {
 
 	static final Logger logger = LogManager.getLogger();
 	private static final AtomicInteger threadDownloadCounter = new AtomicInteger(0);
-	final File field_152434_e;
+	final File cacheFile;
 	final String imageUrl;
 	final IImageBuffer imageBuffer;
 	private BufferedImage bufferedImage;
@@ -37,7 +37,7 @@ public class NewThreadDownloadImageData extends SimpleTexture {
 
 	public NewThreadDownloadImageData(File file, String imageUrl, ResourceLocation texture, NewImageBufferDownload imgDownload, ResourceLocation resLocationOld, IImageBuffer imageBuffer) {
 		super(texture);
-		field_152434_e = file;
+		cacheFile = file;
 		this.imageUrl = imageUrl;
 		this.imgDownload = imgDownload;
 		this.resLocationOld = resLocationOld;
@@ -78,16 +78,16 @@ public class NewThreadDownloadImageData extends SimpleTexture {
 			super.loadTexture(p_110551_1_);
 
 		if (imageThread == null)
-			if (field_152434_e != null && field_152434_e.isFile()) {
-				logger.debug("Loading http texture from local cache ({})", field_152434_e);
+			if (cacheFile != null && cacheFile.isFile()) {
+				logger.debug("Loading http texture from local cache ({})", cacheFile);
 
 				try {
-					bufferedImage = ImageIO.read(field_152434_e);
+					bufferedImage = ImageIO.read(cacheFile);
 
 					if (imageBuffer != null)
 						setBufferedImage(imageBuffer.parseUserSkin(bufferedImage));
 				} catch (IOException ioexception) {
-					logger.error("Couldn't load skin " + field_152434_e, ioexception);
+					logger.error("Couldn't load skin " + cacheFile, ioexception);
 					func_152433_a();
 				}
 			} else
@@ -100,7 +100,7 @@ public class NewThreadDownloadImageData extends SimpleTexture {
 			@Override
 			public void run() {
 				HttpURLConnection httpurlconnection = null;
-				NewThreadDownloadImageData.logger.debug("Downloading http texture from {} to {}", imageUrl, field_152434_e);
+				NewThreadDownloadImageData.logger.debug("Downloading http texture from {} to {}", imageUrl, cacheFile);
 
 				try {
 					httpurlconnection = (HttpURLConnection) new URI(imageUrl).toURL().openConnection(Minecraft.getMinecraft().getProxy());
@@ -111,9 +111,9 @@ public class NewThreadDownloadImageData extends SimpleTexture {
 					if (httpurlconnection.getResponseCode() / 100 == 2) {
 						BufferedImage bufferedimage;
 
-						if (field_152434_e != null) {
-							FileUtils.copyInputStreamToFile(httpurlconnection.getInputStream(), field_152434_e);
-							bufferedimage = ImageIO.read(field_152434_e);
+						if (cacheFile != null) {
+							FileUtils.copyInputStreamToFile(httpurlconnection.getInputStream(), cacheFile);
+							bufferedimage = ImageIO.read(cacheFile);
 						} else
 							bufferedimage = ImageIO.read(httpurlconnection.getInputStream());
 

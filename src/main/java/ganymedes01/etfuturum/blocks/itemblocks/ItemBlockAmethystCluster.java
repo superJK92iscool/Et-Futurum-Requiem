@@ -10,7 +10,7 @@ import net.minecraft.util.IIcon;
 public class ItemBlockAmethystCluster extends ItemBlock {
 
 	private static final String[] item_names = new String[]{"small_amethyst_bud", "medium_amethyst_bud", "large_amethyst_bud", "amethyst_cluster"};
-	private final boolean secondCluster = field_150939_a == ModBlocks.AMETHYST_CLUSTER_2.get();
+	private final boolean secondCluster = field_150939_a/*blockInstance*/ == ModBlocks.AMETHYST_CLUSTER_2.get();
 
 	public ItemBlockAmethystCluster(Block p_i45328_1_) {
 		super(p_i45328_1_);
@@ -22,7 +22,7 @@ public class ItemBlockAmethystCluster extends ItemBlock {
 	}
 
 	public IIcon getIconFromDamage(int p_77617_1_) {
-		return field_150939_a.getIcon(0, p_77617_1_);
+		return field_150939_a/*blockInstance*/.getIcon(0, p_77617_1_);
 	}
 
 	public String getUnlocalizedName(ItemStack stack) {

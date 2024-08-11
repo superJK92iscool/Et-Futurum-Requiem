@@ -66,7 +66,7 @@ public class BlockPinkPetals extends BaseFlower implements IGrowable {
 		if (player.getHeldItem() != null && player.getHeldItem().getItem() == Item.getItemFromBlock(this)) {
 			int meta = world.getBlockMetadata(x, y, z);
 			if (meta % 4 < 3) {
-				world.playSound((float) x + 0.5F, (float) y + 0.5F, (float) z + 0.5F, stepSound.func_150496_b(), (stepSound.getVolume() + 1.0F) / 2.0F, stepSound.getPitch() * 0.8F, false);
+				world.playSound((float) x + 0.5F, (float) y + 0.5F, (float) z + 0.5F, stepSound.func_150496_b()/*getPlaceSound*/, (stepSound.getVolume() + 1.0F) / 2.0F, stepSound.getPitch() * 0.8F, false);
 				world.setBlockMetadataWithNotify(x, y, z, meta + 1, 3);
 				if (!player.capabilities.isCreativeMode) {
 					player.getHeldItem().stackSize--;
@@ -112,16 +112,25 @@ public class BlockPinkPetals extends BaseFlower implements IGrowable {
 		return RenderIDs.PINK_PETALS;
 	}
 
+	/**
+	 * MCP name: {@code canFertilize}
+	 */
 	@Override
 	public boolean func_149851_a(World world, int x, int y, int z, boolean isClient) {
 		return true;
 	}
 
+	/**
+	 * MCP name: {@code shouldFertilize}
+	 */
 	@Override
 	public boolean func_149852_a(World world, Random random, int x, int y, int z) {
 		return true;
 	}
 
+	/**
+	 * MCP name: {@code fertilize}
+	 */
 	@Override
 	public void func_149853_b(World world, Random random, int x, int y, int z) {
 		int meta = world.getBlockMetadata(x, y, z);

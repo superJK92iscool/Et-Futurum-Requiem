@@ -42,7 +42,7 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 	private boolean firstTick = true;
 
 	public TileEntityShulkerBox() {
-		this.field_190599_i = TileEntityShulkerBox.AnimationStatus.CLOSED;
+		this.animationStatus = TileEntityShulkerBox.AnimationStatus.CLOSED;
 		this.topStacks = new ItemStack[8];
 		type = ShulkerBoxType.VANILLA;
 	}
@@ -193,10 +193,10 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 
 	@Override
 	public void updateEntity() {
-		this.func_190583_o();
+		this.updateAnimation();
 
-		if (this.field_190599_i == TileEntityShulkerBox.AnimationStatus.OPENING || this.field_190599_i == TileEntityShulkerBox.AnimationStatus.CLOSING) {
-			this.func_190589_G();
+		if (this.animationStatus == TileEntityShulkerBox.AnimationStatus.OPENING || this.animationStatus == TileEntityShulkerBox.AnimationStatus.CLOSING) {
+			this.moveCollidedEntities();
 		}
 
 		++this.ticksSinceSync;
@@ -235,7 +235,7 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 		return this.customName != null && this.customName.length() > 0;
 	}
 
-	public void func_145976_a(String p_145976_1_) {
+	public void setCustomName(String p_145976_1_) {
 		this.customName = p_145976_1_;
 	}
 
@@ -245,11 +245,11 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 			this.numPlayersUsing = type;
 
 			if (type == 0) {
-				this.field_190599_i = TileEntityShulkerBox.AnimationStatus.CLOSING;
+				this.animationStatus = TileEntityShulkerBox.AnimationStatus.CLOSING;
 			}
 
 			if (type == 1) {
-				this.field_190599_i = TileEntityShulkerBox.AnimationStatus.OPENING;
+				this.animationStatus = TileEntityShulkerBox.AnimationStatus.OPENING;
 			}
 
 			return true;
@@ -353,71 +353,71 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 		return stack;
 	}
 
-	private float field_190600_j;
-	private float field_190601_k;
-	private TileEntityShulkerBox.AnimationStatus field_190599_i;
+	private float progress;
+	private float progressOld;
+	private TileEntityShulkerBox.AnimationStatus animationStatus;
 
-	public float func_190585_a(float p_190585_1_) {
-		return this.field_190601_k + (this.field_190600_j - this.field_190601_k) * p_190585_1_;
+	public float getProgress(float p_190585_1_) {
+		return this.progressOld + (this.progress - this.progressOld) * p_190585_1_;
 	}
 
-	protected void func_190583_o() {
-		this.field_190601_k = this.field_190600_j;
+	protected void updateAnimation() {
+		this.progressOld = this.progress;
 
-		switch (this.field_190599_i) {
+		switch (this.animationStatus) {
 			case CLOSED:
-				this.field_190600_j = 0.0F;
+				this.progress = 0.0F;
 				break;
 
 			case OPENING:
-				this.field_190600_j += 0.1F;
+				this.progress += 0.1F;
 
-				if (this.field_190600_j >= 1.0F) {
-					this.func_190589_G();
-					this.field_190599_i = TileEntityShulkerBox.AnimationStatus.OPENED;
-					this.field_190600_j = 1.0F;
+				if (this.progress >= 1.0F) {
+					this.moveCollidedEntities();
+					this.animationStatus = TileEntityShulkerBox.AnimationStatus.OPENED;
+					this.progress = 1.0F;
 				}
 
 				break;
 
 			case CLOSING:
-				this.field_190600_j -= 0.1F;
+				this.progress -= 0.1F;
 
-				if (this.field_190600_j <= 0.0F) {
-					this.field_190599_i = TileEntityShulkerBox.AnimationStatus.CLOSED;
-					this.field_190600_j = 0.0F;
+				if (this.progress <= 0.0F) {
+					this.animationStatus = TileEntityShulkerBox.AnimationStatus.CLOSED;
+					this.progress = 0.0F;
 				}
 
 				break;
 
 			case OPENED:
-				this.field_190600_j = 1.0F;
+				this.progress = 1.0F;
 		}
 	}
 
-	public TileEntityShulkerBox.AnimationStatus func_190591_p() {
-		return this.field_190599_i;
+	public TileEntityShulkerBox.AnimationStatus getAnimationStatus() {
+		return this.animationStatus;
 	}
 
-	public AxisAlignedBB func_190584_a(int facing) {
-		return this.func_190587_b(EnumFacing.getFront(facing));
+	public AxisAlignedBB getBoundingBox(int facing) {
+		return this.getBoundingBox(EnumFacing.getFront(facing));
 	}
 
-	public AxisAlignedBB func_190587_b(EnumFacing p_190587_1_) {
-		return AxisAlignedBB.getBoundingBox(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D).addCoord(0.5F * this.func_190585_a(1.0F) * (float) p_190587_1_.getFrontOffsetX(), 0.5F * this.func_190585_a(1.0F) * (float) p_190587_1_.getFrontOffsetY(), 0.5F * this.func_190585_a(1.0F) * (float) p_190587_1_.getFrontOffsetZ());
+	public AxisAlignedBB getBoundingBox(EnumFacing p_190587_1_) {
+		return AxisAlignedBB.getBoundingBox(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D).addCoord(0.5F * this.getProgress(1.0F) * (float) p_190587_1_.getFrontOffsetX(), 0.5F * this.getProgress(1.0F) * (float) p_190587_1_.getFrontOffsetY(), 0.5F * this.getProgress(1.0F) * (float) p_190587_1_.getFrontOffsetZ());
 	}
 
-	private AxisAlignedBB func_190588_c(EnumFacing p_190588_1_) {
+	private AxisAlignedBB getTopBoundingBox(EnumFacing p_190588_1_) {
 		int ordinal = p_190588_1_.ordinal();
 		int opposite = ordinal = ordinal % 2 == 0 ? ordinal + 1 : ordinal - 1;
 		EnumFacing enumfacing = EnumFacing.getFront(opposite);
-		return func_191195_a(this.func_190587_b(p_190588_1_), enumfacing.getFrontOffsetX(), enumfacing.getFrontOffsetY(), enumfacing.getFrontOffsetZ());
+		return contract(this.getBoundingBox(p_190588_1_), enumfacing.getFrontOffsetX(), enumfacing.getFrontOffsetY(), enumfacing.getFrontOffsetZ());
 	}
 
-	private void func_190589_G() {
+	private void moveCollidedEntities() {
 		if (getBlockType() instanceof BlockShulkerBox) {
 			EnumFacing enumfacing = EnumFacing.getFront(facing);
-			AxisAlignedBB axisalignedbb = this.func_190588_c(enumfacing).offset(xCoord, yCoord, zCoord);
+			AxisAlignedBB axisalignedbb = this.getTopBoundingBox(enumfacing).offset(xCoord, yCoord, zCoord);
 			List<Entity> list = this.worldObj.getEntitiesWithinAABBExcludingEntity(null, axisalignedbb);
 
 			if (!list.isEmpty()) {
@@ -463,7 +463,28 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 		}
 	}
 
-	public AxisAlignedBB func_191195_a(AxisAlignedBB bb, double p_191195_1_, double p_191195_3_, double p_191195_5_) {
+	
+	/**
+	 * Creates a new {@link AxisAlignedBB} that has been contracted by the given amount, with positive changes decreasing max values and negative changes increasing min values.
+	 * <br/>
+	 * If the amount to contract by is larger than the length of a side, then the side will wrap (still creating a valid AABB - see last sample).
+	 * 
+	 * <h3>Samples:</h3>
+	 * <table>
+	 * <tr><th>Input</th><th>Result</th></tr>
+	 * <tr><td><pre><code>new AxisAlignedBB(0, 0, 0, 4, 4, 4).contract(2, 2, 2)</code></pre></td><td><pre><samp>box[0.0, 0.0, 0.0 -> 2.0, 2.0, 2.0]</samp></pre></td></tr>
+	 * <tr><td><pre><code>new AxisAlignedBB(0, 0, 0, 4, 4, 4).contract(-2, -2, -2)</code></pre></td><td><pre><samp>box[2.0, 2.0, 2.0 -> 4.0, 4.0, 4.0]</samp></pre></td></tr>
+	 * <tr><td><pre><code>new AxisAlignedBB(5, 5, 5, 7, 7, 7).contract(0, 1, -1)</code></pre></td><td><pre><samp>box[5.0, 5.0, 6.0 -> 7.0, 6.0, 7.0]</samp></pre></td></tr>
+	 * <tr><td><pre><code>new AxisAlignedBB(-2, -2, -2, 2, 2, 2).contract(4, -4, 0)</code></pre></td><td><pre><samp>box[-8.0, 2.0, -2.0 -> -2.0, 8.0, 2.0]</samp></pre></td></tr>
+	 * </table>
+	 * 
+	 * @see {@link #expand(double, double, double)} - like this, except for expanding.</li>
+	 * @see {@link #grow(double, double, double)} and {@link #grow(double)} - expands in all directions.</li>
+	 * @see {@link #shrink(double)} - contracts in all directions (like {@link #grow(double)})</li>
+	 * 
+	 * @return A new modified bounding box.
+	 */
+	public AxisAlignedBB contract(AxisAlignedBB bb, double x, double y, double z) {
 		double d0 = bb.minX;
 		double d1 = bb.minY;
 		double d2 = bb.minZ;
@@ -471,22 +492,22 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 		double d4 = bb.maxY;
 		double d5 = bb.maxZ;
 
-		if (p_191195_1_ < 0.0D) {
-			d0 -= p_191195_1_;
-		} else if (p_191195_1_ > 0.0D) {
-			d3 -= p_191195_1_;
+		if (x < 0.0D) {
+			d0 -= x;
+		} else if (x > 0.0D) {
+			d3 -= x;
 		}
 
-		if (p_191195_3_ < 0.0D) {
-			d1 -= p_191195_3_;
-		} else if (p_191195_3_ > 0.0D) {
-			d4 -= p_191195_3_;
+		if (y < 0.0D) {
+			d1 -= y;
+		} else if (y > 0.0D) {
+			d4 -= y;
 		}
 
-		if (p_191195_5_ < 0.0D) {
-			d2 -= p_191195_5_;
-		} else if (p_191195_5_ > 0.0D) {
-			d5 -= p_191195_5_;
+		if (z < 0.0D) {
+			d2 -= z;
+		} else if (z > 0.0D) {
+			d5 -= z;
 		}
 
 		return AxisAlignedBB.getBoundingBox(d0, d1, d2, d3, d4, d5);
@@ -523,7 +544,7 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 
 	@Override
 	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
-		readFromNBT(pkt.func_148857_g());
+		readFromNBT(pkt.func_148857_g()); // getNbtCompound
 	}
 
 	@Override

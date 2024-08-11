@@ -128,9 +128,14 @@ public class BaseSlab extends BlockSlab implements ISubBlocksBlock {
 
 	@Override
 	public String getNameFor(ItemStack stack) {
-		return func_150002_b(stack.getItemDamage());
+		return func_150002_b(stack.getItemDamage()); // getFullSlabName
 	}
 
+	/**
+	 * Returns the slab block name with the type associated with it
+	 * <p>
+	 * MCP name: {@code getFullSlabName}
+	 */
 	@Override
 	public String func_150002_b(int meta) {
 		String type = getTypes()[Math.max(0, (meta % 8) % getTypes().length)];
@@ -140,7 +145,7 @@ public class BaseSlab extends BlockSlab implements ISubBlocksBlock {
 
 	@Override
 	public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
-		if (!field_150004_a) {
+		if (!field_150004_a) { // isFullBlock
 			for (int i = 0; i < types.length; i++) {
 				list.add(new ItemStack(itemIn, 1, i));
 			}

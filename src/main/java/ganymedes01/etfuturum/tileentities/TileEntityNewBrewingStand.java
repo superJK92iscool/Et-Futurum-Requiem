@@ -237,6 +237,9 @@ public class TileEntityNewBrewingStand extends TileEntityBrewingStand {
 			return stack.getItem() instanceof ItemPotion || stack.getItem() == Items.glass_bottle;
 	}
 
+	/**
+	 * MCP name: {@code setBrewTime}
+	 */
 	@Override
 	public void func_145938_d(int _brewTime) {
 		this.brewTime = _brewTime;

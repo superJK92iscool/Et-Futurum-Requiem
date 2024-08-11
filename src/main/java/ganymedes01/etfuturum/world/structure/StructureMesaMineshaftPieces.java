@@ -31,10 +31,10 @@ public class StructureMesaMineshaftPieces {
 	 */
 
 	public static void registerStructurePieces() {
-		MapGenStructureIO.func_143031_a(StructureMesaMineshaftPieces.MesaCorridor.class, "MSMesaCorridor");
-		MapGenStructureIO.func_143031_a(StructureMesaMineshaftPieces.MesaCross.class, "MSMesaCrossing");
-		MapGenStructureIO.func_143031_a(StructureMesaMineshaftPieces.MesaRoom.class, "MSMesaRoom");
-		MapGenStructureIO.func_143031_a(StructureMesaMineshaftPieces.MesaStairs.class, "MSMesaStairs");
+		MapGenStructureIO.func_143031_a/*registerStructureComponent*/(StructureMesaMineshaftPieces.MesaCorridor.class, "MSMesaCorridor");
+		MapGenStructureIO.func_143031_a/*registerStructureComponent*/(StructureMesaMineshaftPieces.MesaCross.class, "MSMesaCrossing");
+		MapGenStructureIO.func_143031_a/*registerStructureComponent*/(StructureMesaMineshaftPieces.MesaRoom.class, "MSMesaRoom");
+		MapGenStructureIO.func_143031_a/*registerStructureComponent*/(StructureMesaMineshaftPieces.MesaStairs.class, "MSMesaStairs");
 		MapGenStructureIO.registerStructure(StructureMesaMineshaftStart.class, "Mineshaft");
 	}
 
@@ -92,6 +92,11 @@ public class StructureMesaMineshaftPieces {
 		public MesaCorridor() {
 		}
 
+        /**
+         * (abstract) Helper method to write subclass data to NBT
+         * <p>
+         * MCP name: {@code writeStructureToNBT}
+         */
 		protected void func_143012_a(NBTTagCompound p_143012_1_) {
 			p_143012_1_.setBoolean("hr", this.hasRails);
 			p_143012_1_.setBoolean("sc", this.hasSpiders);
@@ -99,6 +104,11 @@ public class StructureMesaMineshaftPieces {
 			p_143012_1_.setInteger("Num", this.sectionCount);
 		}
 
+        /**
+         * (abstract) Helper method to read subclass data from NBT
+         * <p>
+         * MCP name: {@code readStructureFromNBT}
+         */
 		protected void func_143011_b(NBTTagCompound p_143011_1_) {
 			this.hasRails = p_143011_1_.getBoolean("hr");
 			this.hasSpiders = p_143011_1_.getBoolean("sc");
@@ -323,7 +333,7 @@ public class StructureMesaMineshaftPieces {
 				for (j = 0; j <= i; ++j) {
 					Block block = this.getBlockAtCurrentPosition(p_74875_1_, 1, -1, j, p_74875_3_);
 
-					if (block.getMaterial() != Material.air && block.func_149730_j()) {
+					if (block.getMaterial() != Material.air && block.func_149730_j()) { // isFullBlock
 						float f = skyLight(p_74875_1_, 1, 0, j, getBoundingBox()) > 8 ? 0.9F : 0.7F;
 						this.func_151552_a(p_74875_1_, p_74875_3_, p_74875_2_, f, 1, 0, j, Blocks.rail, this.getMetadataWithOffset(Blocks.rail, 0));
 					}
@@ -334,7 +344,7 @@ public class StructureMesaMineshaftPieces {
 		}
 
 		private void buildWoodenParts(World p_189921_1_, StructureBoundingBox p_189921_2_, int p_189921_3_, int p_189921_4_, int p_189921_5_, int p_189921_6_, int p_189921_7_, Random p_189921_8_) {
-			if (this.func_189918_a(p_189921_1_, p_189921_2_, p_189921_3_, p_189921_7_, p_189921_6_, p_189921_5_)) {
+			if (this.isSupportingBox(p_189921_1_, p_189921_2_, p_189921_3_, p_189921_7_, p_189921_6_, p_189921_5_)) {
 				this.fillWithMetadataBlocks(p_189921_1_, p_189921_2_, p_189921_3_, p_189921_4_, p_189921_5_, p_189921_3_, p_189921_6_ - 1, p_189921_5_, getFence(), getFenceMeta(), Blocks.air, 0, false);
 				this.fillWithMetadataBlocks(p_189921_1_, p_189921_2_, p_189921_7_, p_189921_4_, p_189921_5_, p_189921_7_, p_189921_6_ - 1, p_189921_5_, getFence(), getFenceMeta(), Blocks.air, 0, false);
 
@@ -357,11 +367,21 @@ public class StructureMesaMineshaftPieces {
 		public MesaCross() {
 		}
 
+        /**
+         * (abstract) Helper method to write subclass data to NBT
+         * <p>
+         * MCP name: {@code writeStructureToNBT}
+         */
 		protected void func_143012_a(NBTTagCompound p_143012_1_) {
 			p_143012_1_.setBoolean("tf", this.isMultipleFloors);
 			p_143012_1_.setInteger("D", this.corridorDirection);
 		}
 
+        /**
+         * (abstract) Helper method to read subclass data from NBT
+         * <p>
+         * MCP name: {@code readStructureFromNBT}
+         */
 		protected void func_143011_b(NBTTagCompound p_143011_1_) {
 			this.isMultipleFloors = p_143011_1_.getBoolean("tf");
 			this.corridorDirection = p_143011_1_.getInteger("D");
@@ -600,6 +620,11 @@ public class StructureMesaMineshaftPieces {
 			return true;
 		}
 
+		/**
+		 * (abstract) Helper method to write subclass data to NBT
+		 * <p>
+		 * MCP name: {@code writeStructureToNBT}
+		 */
 		protected void func_143012_a(NBTTagCompound p_143012_1_) {
 			NBTTagList nbttaglist = new NBTTagList();
 			Iterator<StructureBoundingBox> iterator = this.roomsLinkedToTheRoom.iterator();
@@ -612,11 +637,16 @@ public class StructureMesaMineshaftPieces {
 			p_143012_1_.setTag("Entrances", nbttaglist);
 		}
 
+		/**
+		 * (abstract) Helper method to read subclass data from NBT
+		 * <p>
+		 * MCP name: {@code readStructureFromNBT}
+		 */
 		protected void func_143011_b(NBTTagCompound p_143011_1_) {
 			NBTTagList nbttaglist = p_143011_1_.getTagList("Entrances", 11);
 
 			for (int i = 0; i < nbttaglist.tagCount(); ++i) {
-				this.roomsLinkedToTheRoom.add(new StructureBoundingBox(nbttaglist.func_150306_c(i)));
+				this.roomsLinkedToTheRoom.add(new StructureBoundingBox(nbttaglist.func_150306_c(i))); // getIntArrayAt
 			}
 		}
 
@@ -639,9 +669,19 @@ public class StructureMesaMineshaftPieces {
 			this.boundingBox = p_i2038_3_;
 		}
 
+		/**
+		 * (abstract) Helper method to write subclass data to NBT
+		 * <p>
+		 * MCP name: {@code writeStructureToNBT}
+		 */
 		protected void func_143012_a(NBTTagCompound p_143012_1_) {
 		}
 
+		/**
+		 * (abstract) Helper method to read subclass data from NBT
+		 * <p>
+		 * MCP name: {@code readStructureFromNBT}
+		 */
 		protected void func_143011_b(NBTTagCompound p_143011_1_) {
 		}
 
@@ -753,7 +793,7 @@ public class StructureMesaMineshaftPieces {
 			}
 		}
 
-		protected boolean func_189918_a(World p_189918_1_, StructureBoundingBox p_189918_2_, int p_189918_3_, int p_189918_4_, int p_189918_5_, int p_189918_6_) {
+		protected boolean isSupportingBox(World p_189918_1_, StructureBoundingBox p_189918_2_, int p_189918_3_, int p_189918_4_, int p_189918_5_, int p_189918_6_) {
 			for (int i = p_189918_3_; i <= p_189918_4_; ++i) {
 				if (this.getBlockAtCurrentPosition(p_189918_1_, i, p_189918_5_ + 1, p_189918_6_, p_189918_2_).getMaterial() == Material.air) {
 					return false;

@@ -134,8 +134,8 @@ public class TileEntityShulkerBoxRenderer extends TileEntitySpecialRenderer {
 		}
 
 		this.modelShulker.base.render(0.0625F);
-		GL11.glTranslatef(0.0F, -te.func_190585_a(partialTicks) * 0.5F, 0.0F);
-		GL11.glRotatef(270.0F * te.func_190585_a(partialTicks), 0.0F, 1.0F, 0.0F);
+		GL11.glTranslatef(0.0F, -te.getProgress(partialTicks) * 0.5F, 0.0F);
+		GL11.glRotatef(270.0F * te.getProgress(partialTicks), 0.0F, 1.0F, 0.0F);
 		this.modelShulker.lid.render(0.0625F);
 //        GlStateManager.enableCull();
 		GL11.glEnable(GL11.GL_CULL_FACE);
@@ -163,7 +163,7 @@ public class TileEntityShulkerBoxRenderer extends TileEntitySpecialRenderer {
 			GL11.glPushMatrix();
 			GL11.glDisable(GL11.GL_LIGHTING /* GL_LIGHTING */);
 			GL11.glTranslatef((float) x, (float) y, (float) z);
-			EntityItem customitem = new EntityItem(field_147501_a.field_147550_f);
+			EntityItem customitem = new EntityItem(field_147501_a.field_147550_f/*worldObj*/);
 			customitem.hoverStart = 0f;
 			for (ItemStack item : te.getTopItemStacks()) {
 				if (shift > shifts.length) {

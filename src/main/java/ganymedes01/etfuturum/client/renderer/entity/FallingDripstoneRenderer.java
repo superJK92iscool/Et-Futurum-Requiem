@@ -28,7 +28,7 @@ public class FallingDripstoneRenderer extends Render {
 	 * double d2, float f, float f1). But JAD is pre 1.5 so doesn't do that.
 	 */
 	public void doRender(EntityFallingDripstone p_76986_1_, double p_76986_2_, double p_76986_4_, double p_76986_6_, float p_76986_8_, float p_76986_9_) {
-		World world = p_76986_1_.func_145807_e();
+		World world = p_76986_1_.func_145807_e(); // getWorldObj
 		Block block = ModBlocks.POINTED_DRIPSTONE.get();
 		int i = MathHelper.floor_double(p_76986_1_.posX);
 		int j = MathHelper.floor_double(p_76986_1_.posY);

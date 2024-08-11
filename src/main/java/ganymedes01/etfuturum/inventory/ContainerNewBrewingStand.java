@@ -57,7 +57,7 @@ public class ContainerNewBrewingStand extends Container {
 	@Override
 	public void updateProgressBar(int id, int value) {
 		if (id == 0)
-			tile.func_145938_d(value);
+			tile.func_145938_d(value); // setBrewTime
 		else if (id == 1)
 			tile.setFuel(value);
 		else if (id == 2)

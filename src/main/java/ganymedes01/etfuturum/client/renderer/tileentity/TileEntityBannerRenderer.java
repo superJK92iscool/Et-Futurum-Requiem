@@ -26,7 +26,7 @@ public class TileEntityBannerRenderer extends TileEntitySpecialRenderer {
 	private final ModelBanner bannerModel = new ModelBanner();
 
 	private ResourceLocation getTexture(TileEntityBanner banner) {
-		String s = banner.func_175116_e();
+		String s = banner.getPatternResourceLocation();
 
 		if (s.isEmpty())
 			return null;

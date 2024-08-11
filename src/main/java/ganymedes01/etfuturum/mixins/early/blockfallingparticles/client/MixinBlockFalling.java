@@ -26,7 +26,7 @@ public abstract class MixinBlockFalling extends Block implements IFallingDustCol
 	@SideOnly(Side.CLIENT)
 	public void randomDisplayTick(World world, int x, int y, int z, Random rand) {
 		if (rand.nextInt(16) == 0) {
-			if (BlockFalling.func_149831_e(world, x, y - 1, z)) {
+			if (BlockFalling.func_149831_e(world, x, y - 1, z)) { // canFallBelow
 				double d0 = (float) x + rand.nextFloat();
 				double d1 = (double) y - .05D;
 				double d2 = (float) z + rand.nextFloat();

@@ -394,7 +394,7 @@ public class EntityNewBoat extends Entity {
 						this.worldObj.setBlockToAir(x, y, z);
 						this.isCollidedHorizontally = false;
 					} else if (block == Blocks.waterlily) {
-						this.worldObj.func_147480_a(x, y, z, true);
+						this.worldObj.func_147480_a(x, y, z, true); // breakBlock
 						this.isCollidedHorizontally = false;
 					}
 				}
@@ -473,7 +473,7 @@ public class EntityNewBoat extends Entity {
 			}
 		}
 
-		this.func_145775_I();
+		this.func_145775_I(); // doBlockCollisions
 		List<Entity> list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this,
 				this.boundingBox.expand(0.20000000298023224D, -0.009999999776482582D,
 						0.20000000298023224D)/* , EntitySelectors.<Entity>getTeamCollisionPredicate(this) */);
@@ -1024,11 +1024,11 @@ public class EntityNewBoat extends Entity {
 		ItemStack boatItem = boatInfo.getBoatItem();
 		if (ConfigBlocksItems.replaceOldBoats) {
 			if (boatItem.getItem() == ModItems.OAK_BOAT.get()) {
-				boatItem.func_150996_a(Items.boat);
+				boatItem.func_150996_a(Items.boat); // setItem
 			}
 		} else {
 			if (boatItem.getItem() == Items.boat) {
-				boatItem.func_150996_a(ModItems.OAK_BOAT.get());
+				boatItem.func_150996_a(ModItems.OAK_BOAT.get()); // setItem
 			}
 		}
 		return boatItem;

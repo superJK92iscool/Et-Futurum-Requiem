@@ -20,10 +20,13 @@ public class TileEntityBanner extends TileEntity {
 
 	private int baseColor;
 	private NBTTagList patterns;
-	private boolean field_175119_g;
+	private boolean patternDataSet;
 	private List<EnumBannerPattern> patternList;
 	private List<EnumColor> colorList;
-	private String field_175121_j;
+	/**
+	 * This is a String representation of this banners pattern and color lists, used for texture caching.
+	 */
+	private String patternResourceLocation;
 	public boolean isStanding;
 
 	public void setItemValues(ItemStack stack) {
@@ -44,8 +47,8 @@ public class TileEntityBanner extends TileEntity {
 
 		patternList = null;
 		colorList = null;
-		field_175121_j = "";
-		field_175119_g = true;
+		patternResourceLocation = "";
+		patternDataSet = true;
 	}
 
 	@Override
@@ -66,8 +69,8 @@ public class TileEntityBanner extends TileEntity {
 		patterns = nbt.getTagList("Patterns", 10);
 		patternList = null;
 		colorList = null;
-		field_175121_j = null;
-		field_175119_g = true;
+		patternResourceLocation = null;
+		patternDataSet = true;
 	}
 
 	@Override
@@ -79,8 +82,8 @@ public class TileEntityBanner extends TileEntity {
 
 	@Override
 	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
-		if (pkt.func_148853_f() == 0)
-			readFromNBT(pkt.func_148857_g());
+		if (pkt.func_148853_f() == 0) // getTileEntityType
+			readFromNBT(pkt.func_148857_g()); // getNbtCompound
 	}
 
 	public int getBaseColor() {
@@ -107,9 +110,9 @@ public class TileEntityBanner extends TileEntity {
 		return colorList;
 	}
 
-	public String func_175116_e() {
+	public String getPatternResourceLocation() {
 		initializeBannerData();
-		return field_175121_j;
+		return patternResourceLocation;
 	}
 
 	public static void removeBannerData(ItemStack stack) {
@@ -132,15 +135,15 @@ public class TileEntityBanner extends TileEntity {
 	}
 
 	private void initializeBannerData() {
-		if (patternList == null || colorList == null || field_175121_j == null)
-			if (!field_175119_g)
-				field_175121_j = "";
+		if (patternList == null || colorList == null || patternResourceLocation == null)
+			if (!patternDataSet)
+				patternResourceLocation = "";
 			else {
 				patternList = Lists.newArrayList();
 				colorList = Lists.newArrayList();
 				patternList.add(TileEntityBanner.EnumBannerPattern.BASE);
 				colorList.add(EnumColor.fromDamage(baseColor));
-				field_175121_j = "b" + baseColor;
+				patternResourceLocation = "b" + baseColor;
 
 				if (patterns != null)
 					for (int i = 0; i < patterns.tagCount(); i++) {
@@ -151,7 +154,7 @@ public class TileEntityBanner extends TileEntity {
 							patternList.add(pattern);
 							int j = nbttagcompound.getInteger("Color");
 							colorList.add(EnumColor.fromDamage(j));
-							field_175121_j = field_175121_j + pattern.getPatternID() + j;
+							patternResourceLocation = patternResourceLocation + pattern.getPatternID() + j;
 						}
 					}
 			}

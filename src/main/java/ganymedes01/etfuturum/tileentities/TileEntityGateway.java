@@ -120,10 +120,10 @@ public class TileEntityGateway extends TileEntity {
 
 	@Override
 	public Packet getDescriptionPacket() {
-		return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 8, this.func_189517_E_());
+		return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 8, this.getUpdateTag());
 	}
 
-	public NBTTagCompound func_189517_E_() {
+	public NBTTagCompound getUpdateTag() {
 		return this.write(new NBTTagCompound());
 	}
 

@@ -48,8 +48,6 @@ public class FlyingPathNavigator extends ExtendedPathNavigator {
 				}
 			}
 
-//          this.func_192876_m(); Empty Function
-
 			if (!this.noPath()) {
 				Vec3 Vec31 = this.currentPath.getPosition(this.theEntity);
 				this.theEntity.getMoveHelper().setMoveTo(Vec31.xCoord, Vec31.yCoord, Vec31.zCoord, this.speed);

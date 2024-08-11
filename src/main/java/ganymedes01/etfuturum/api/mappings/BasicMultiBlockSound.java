@@ -26,7 +26,7 @@ public class BasicMultiBlockSound extends MultiBlockSoundContainer {
 
         return switch (type) {
             case WALK, HIT -> soundType.getStepResourcePath();
-            case PLACE -> soundType.func_150496_b();
+            case PLACE -> soundType.func_150496_b(); // getPlaceSound
             default -> soundType.getBreakSound();
         };
 	}

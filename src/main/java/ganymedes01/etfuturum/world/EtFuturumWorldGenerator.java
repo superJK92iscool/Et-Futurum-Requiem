@@ -156,7 +156,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 
 		if (ModBlocks.MUD.isEnabled()) {
 			mudGen = new WorldGenClay(4);
-			((WorldGenClay) mudGen).field_150546_a = ModBlocks.MUD.get();
+			((WorldGenClay) mudGen).field_150546_a/*block*/ = ModBlocks.MUD.get();
 
 			if (ModsList.BIOMES_O_PLENTY.isLoaded()) { //BoP replaces vanilla swamps with a BoP version but forgets to tag them
 				BiomeDictionary.registerBiomeType(BiomeGenBase.getBiome(6), Type.SWAMP); //Gets biomes by ID so we get the BOP version

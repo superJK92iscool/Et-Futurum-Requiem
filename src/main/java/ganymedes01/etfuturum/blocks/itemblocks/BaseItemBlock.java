@@ -18,19 +18,19 @@ public class BaseItemBlock extends ItemBlock {
 
 	@Override
 	public String getUnlocalizedName(ItemStack stack) {
-		return addTilePrefix(((ISubBlocksBlock) field_150939_a).getNameFor(stack));
+		return addTilePrefix(((ISubBlocksBlock) field_150939_a/*blockInstance*/).getNameFor(stack));
 	}
 
 	private String addTilePrefix(String name) {
-		return name.startsWith("tile.") ? name : "tile." + ((ISubBlocksBlock) field_150939_a).getNameDomain() + "." + name;
+		return name.startsWith("tile.") ? name : "tile." + ((ISubBlocksBlock) field_150939_a/*blockInstance*/).getNameDomain() + "." + name;
 	}
 
 	@Override
 	public int getMetadata(int meta) {
-		return meta % ((ISubBlocksBlock) field_150939_a).getTypes().length;
+		return meta % ((ISubBlocksBlock) field_150939_a/*blockInstance*/).getTypes().length;
 	}
 
 	public IIcon getIconFromDamage(int p_77617_1_) {
-		return field_150939_a.getIcon(2, p_77617_1_);
+		return field_150939_a/*blockInstance*/.getIcon(2, p_77617_1_);
 	}
 }

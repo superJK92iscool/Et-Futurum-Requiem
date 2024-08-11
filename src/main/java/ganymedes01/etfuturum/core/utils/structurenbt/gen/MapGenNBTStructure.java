@@ -13,7 +13,7 @@ public abstract class MapGenNBTStructure extends MapGenStructure {
 	public MapGenNBTStructure() {
 		registerStructurePieces();
 		for(StructureNBTComponent struct : structurePieces) {
-			MapGenStructureIO.func_143031_a(struct.getClass(), struct.pieceName);
+			MapGenStructureIO.func_143031_a/*registerStructureComponent*/(struct.getClass(), struct.pieceName);
 		}
 	}
 

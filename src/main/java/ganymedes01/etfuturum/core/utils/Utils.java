@@ -128,7 +128,7 @@ public class Utils {
 		World world = p_188802_0_.worldObj;
 		Vec3 vec3d = Vec3.createVectorHelper(d0, d1, d2);
 		Vec3 vec3d1 = Vec3.createVectorHelper(d0 + d3, d1 + d4, d2 + d5);
-		MovingObjectPosition raytraceresult = world.func_147447_a(vec3d, vec3d1, false, true, false);
+		MovingObjectPosition raytraceresult = world.func_147447_a/*rayTraceBlocks*/(vec3d, vec3d1, false, true, false);
 
 		if (p_188802_1_) {
 			if (raytraceresult != null) {

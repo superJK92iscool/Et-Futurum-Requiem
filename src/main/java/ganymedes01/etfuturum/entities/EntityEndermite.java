@@ -73,6 +73,9 @@ public class EntityEndermite extends EntityMob {
 		return "mob.silverfish.kill";
 	}
 
+	/**
+	 * MCP name: {@code playStepSound}
+	 */
 	@Override
 	protected void func_145780_a(int x, int y, int z, Block block) {
 		playSound("mob.silverfish.step", 0.15F, 1.0F);

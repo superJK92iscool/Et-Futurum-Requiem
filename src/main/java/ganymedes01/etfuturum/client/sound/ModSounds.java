@@ -186,6 +186,9 @@ public class ModSounds {
 			return Reference.MCAssetVer + ":block." + soundName + ".step";
 		}
 
+		/**
+		 * MCP name: {@code getPlaceSound}
+		 */
 		@Override
 		public String func_150496_b() {
 			return placeSound ? Reference.MCAssetVer + ":block." + soundName + ".place" : this.getBreakSound();

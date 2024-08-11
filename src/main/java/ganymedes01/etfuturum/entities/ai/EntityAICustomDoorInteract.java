@@ -19,7 +19,7 @@ public abstract class EntityAICustomDoorInteract extends EntityAIBase {
 	protected int entityPosX;
 	protected int entityPosY;
 	protected int entityPosZ;
-	protected BlockDoor field_151504_e;
+	protected BlockDoor doorBlock;
 	boolean hasStoppedDoorInteraction;
 	float entityPositionX;
 	float entityPositionZ;
@@ -43,9 +43,9 @@ public abstract class EntityAICustomDoorInteract extends EntityAIBase {
 				entityPosZ = pathpoint.zCoord;
 
 				if (theEntity.getDistanceSq(entityPosX, theEntity.posY, entityPosZ) <= 2.25D) {
-					field_151504_e = func_151503_a(entityPosX, entityPosY, entityPosZ);
+					doorBlock = getWoodenDoorBlock(entityPosX, entityPosY, entityPosZ);
 
-					if (field_151504_e != null) {
+					if (doorBlock != null) {
 						return true;
 					}
 				}
@@ -54,8 +54,8 @@ public abstract class EntityAICustomDoorInteract extends EntityAIBase {
 			entityPosX = MathHelper.floor_double(theEntity.posX);
 			entityPosY = MathHelper.floor_double(theEntity.posY + 1.0D);
 			entityPosZ = MathHelper.floor_double(theEntity.posZ);
-			field_151504_e = func_151503_a(entityPosX, entityPosY, entityPosZ);
-			return field_151504_e != null;
+			doorBlock = getWoodenDoorBlock(entityPosX, entityPosY, entityPosZ);
+			return doorBlock != null;
 		}
 		return false;
 	}
@@ -82,7 +82,7 @@ public abstract class EntityAICustomDoorInteract extends EntityAIBase {
 			hasStoppedDoorInteraction = true;
 	}
 
-	private BlockDoor func_151503_a(int x, int y, int z) {
+	private BlockDoor getWoodenDoorBlock(int x, int y, int z) {
 		Block block = theEntity.worldObj.getBlock(x, y, z);
 		return block instanceof BlockDoor && canOpen((BlockDoor) block, x, y, z) ? (BlockDoor) block : null;
 	}

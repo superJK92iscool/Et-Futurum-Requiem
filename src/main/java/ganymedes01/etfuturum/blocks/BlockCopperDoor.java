@@ -31,7 +31,7 @@ public class BlockCopperDoor extends BaseDoor implements IDegradable {
     {
         int meta = world.getBlockMetadata(x, y, z);
         if(!tryWaxOnWaxOff(world, x, y + (meta < 8 ? 1 : 0), z, player)) {
-            int i1 = this.func_150012_g(world, x, y, z);
+            int i1 = this.func_150012_g(world, x, y, z); // getFullMetadata
             int j1 = i1 & 7;
             j1 ^= 4;
 

@@ -99,14 +99,23 @@ public class BlockNetherFungus extends BlockBush implements ISubBlocksBlock, IGr
 		return getTypes()[stack.getItemDamage() % types.length];
 	}
 
+	/**
+	 * MCP name: {@code canFertilize}
+	 */
 	public boolean func_149851_a(World world, int x, int y, int z, boolean isClient) {
 		return world.getBlock(x, y - 1, z) == ModBlocks.NYLIUM.get() && world.getBlockMetadata(x, y, z) == world.getBlockMetadata(x, y - 1, z);
 	}
 
+	/**
+	 * MCP name: {@code shouldFertilize}
+	 */
 	public boolean func_149852_a(World worldIn, Random random, int x, int y, int z) {
 		return (double) worldIn.rand.nextFloat() < 0.40D;
 	}
 
+	/**
+	 * MCP name: {@code fertilize}
+	 */
 	public void func_149853_b(World world, Random rand, int x, int y, int z) {
 		boolean crimson = world.getBlockMetadata(x, y, z) == 0;
 		WorldGenAbstractTree fungus = new WorldGenHugeFungus(true, 0, crimson ? 0 : 1,

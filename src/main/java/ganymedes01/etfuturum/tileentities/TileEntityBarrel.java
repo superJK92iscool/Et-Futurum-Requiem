@@ -188,7 +188,7 @@ public class TileEntityBarrel extends TileEntity implements IInventory {
 		return this.customName != null && this.customName.length() > 0;
 	}
 
-	public void func_145976_a(String p_145976_1_) {
+	public void setCustomName(String p_145976_1_) {
 		this.customName = p_145976_1_;
 	}
 

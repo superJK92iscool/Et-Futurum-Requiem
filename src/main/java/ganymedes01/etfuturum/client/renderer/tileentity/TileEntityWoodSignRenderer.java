@@ -11,7 +11,10 @@ import org.lwjgl.opengl.GL11;
 
 public class TileEntityWoodSignRenderer extends TileEntitySpecialRenderer {
 
-	private final ModelSign field_147514_c = new ModelSign();
+    /**
+     * The ModelSign instance for use in this renderer
+     */
+	private final ModelSign model = new ModelSign();
 
 	/*
 	 * The following code is derived from Mojang's original sign code as I had no other choice as there was
@@ -33,7 +36,7 @@ public class TileEntityWoodSignRenderer extends TileEntitySpecialRenderer {
 			GL11.glTranslatef((float) p_147500_2_ + 0.5F, (float) p_147500_4_ + 0.75F * f1, (float) p_147500_6_ + 0.5F);
 			float f2 = p_147500_1_.getBlockMetadata() * 360 / 16.0F;
 			GL11.glRotatef(-f2, 0.0F, 1.0F, 0.0F);
-			this.field_147514_c.signStick.showModel = true;
+			this.model.signStick.showModel = true;
 		} else {
 			int j = p_147500_1_.getBlockMetadata();
 			f3 = 0.0F;
@@ -53,12 +56,12 @@ public class TileEntityWoodSignRenderer extends TileEntitySpecialRenderer {
 			GL11.glTranslatef((float) p_147500_2_ + 0.5F, (float) p_147500_4_ + 0.75F * f1, (float) p_147500_6_ + 0.5F);
 			GL11.glRotatef(-f3, 0.0F, 1.0F, 0.0F);
 			GL11.glTranslatef(0.0F, -0.3125F, -0.4375F);
-			this.field_147514_c.signStick.showModel = false;
+			this.model.signStick.showModel = false;
 		}
 		bindTexture(new ResourceLocation("textures/entity/signs/" + block.type + ".png"));
 		GL11.glPushMatrix();
 		GL11.glScalef(f1, -f1, -f1);
-		this.field_147514_c.renderSign();
+		this.model.renderSign();
 		GL11.glPopMatrix();
 		FontRenderer fontrenderer = this.func_147498_b();
 		f3 = 0.016666668F * f1;

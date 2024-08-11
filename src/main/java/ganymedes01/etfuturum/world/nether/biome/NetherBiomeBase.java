@@ -20,7 +20,7 @@ public class NetherBiomeBase extends BiomeGenBase {
 		this.setDisableRain();
 		this.setTemperatureRainfall(2.0F, 0.0F);
 
-		field_150604_aj = field_76754_C = 0;
+		field_150604_aj/*topBlockMetadata*/ = field_76754_C/*fillerBlockMetadata*/ = 0;
 
 		BiomeDictionary.registerBiomeType(this, BiomeDictionary.Type.NETHER);
 

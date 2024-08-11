@@ -181,10 +181,10 @@ public class ItemLingeringPotion extends ItemPotion {
 					d1 = attributemodifier2.getAmount() * 100.0D;
 
 				if (d0 > 0.0D)
-					list.add(EnumChatFormatting.BLUE + StatCollector.translateToLocalFormatted("attribute.modifier.plus." + attributemodifier2.getOperation(), new Object[]{ItemStack.field_111284_a.format(d1), StatCollector.translateToLocal("attribute.name." + entry1.getKey())}));
+					list.add(EnumChatFormatting.BLUE + StatCollector.translateToLocalFormatted("attribute.modifier.plus." + attributemodifier2.getOperation(), new Object[]{ItemStack.field_111284_a/*DECIMALFORMAT*/.format(d1), StatCollector.translateToLocal("attribute.name." + entry1.getKey())}));
 				else if (d0 < 0.0D) {
 					d1 *= -1.0D;
-					list.add(EnumChatFormatting.RED + StatCollector.translateToLocalFormatted("attribute.modifier.take." + attributemodifier2.getOperation(), new Object[]{ItemStack.field_111284_a.format(d1), StatCollector.translateToLocal("attribute.name." + entry1.getKey())}));
+					list.add(EnumChatFormatting.RED + StatCollector.translateToLocalFormatted("attribute.modifier.take." + attributemodifier2.getOperation(), new Object[]{ItemStack.field_111284_a/*DECIMALFORMAT*/.format(d1), StatCollector.translateToLocal("attribute.name." + entry1.getKey())}));
 				}
 			}
 		}

@@ -78,7 +78,7 @@ public class MixinBlockButton extends Block {
 	}
 
 	@Inject(method = "func_150045_e", at = @At(value = "HEAD"), cancellable = true)
-	private void func_150045_e_up_down(World worldIn, int x, int y, int z, CallbackInfoReturnable<Integer> cir) {
+	private void findSolidSide_up_down(World worldIn, int x, int y, int z, CallbackInfoReturnable<Integer> cir) {
 		if (worldIn.isSideSolid(x, y - 1, z, UP)) {
 			cir.setReturnValue(5);
 		}
@@ -96,7 +96,7 @@ public class MixinBlockButton extends Block {
 	}
 
 	@Inject(method = "func_150043_b", at = @At(value = "TAIL"), locals = LocalCapture.CAPTURE_FAILHARD)
-	private void func_150043_b(int meta, CallbackInfo ci, int j, boolean flag, float f, float f1, float f2, float f3) {
+	private void setBlockBoundsFromMeta(int meta, CallbackInfo ci, int j, boolean flag, float f, float f1, float f2, float f3) {
 		if (j == 5) {
 			this.setBlockBounds(0.5F - f2, 0.0F, f, 0.5F + f2, f3, f1);
 		} else if (j == 0) {
@@ -105,7 +105,7 @@ public class MixinBlockButton extends Block {
 	}
 
 	@Inject(method = "func_150042_a", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;notifyBlocksOfNeighborChange(IIILnet/minecraft/block/Block;)V", ordinal = 5), cancellable = true)
-	private void func_150042_a(World world, int x, int y, int z, int buttonMeta, CallbackInfo ci) {
+	private void updateNeighbor(World world, int x, int y, int z, int buttonMeta, CallbackInfo ci) {
 		if (buttonMeta == 0) {
 			//Default is already to do a redstone update below, so we only need to add a check for up.
 			//This is also injected into the final "else" in the if chain

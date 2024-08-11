@@ -30,7 +30,7 @@ public class ItemBlockShulkerBox extends ItemBlock {
 
 	@Override
 	public int getMetadata(int i) {
-		return field_150939_a.damageDropped(i);
+		return field_150939_a/*blockInstance*/.damageDropped(i);
 	}
 
 	@Override
@@ -38,7 +38,7 @@ public class ItemBlockShulkerBox extends ItemBlock {
 		int type = stack.hasTagCompound() ? stack.getTagCompound().getByte("Type") : 0;
 		int color = stack.hasTagCompound() ? stack.getTagCompound().getByte("Color") : 0;
 
-		String string = field_150939_a.getUnlocalizedName().substring(15);
+		String string = field_150939_a/*blockInstance*/.getUnlocalizedName().substring(15);
 		if (type > 0 && type - 1 < TileEntityShulkerBox.tiers.length) {
 			string = TileEntityShulkerBox.tiers[type - 1] + "_" + string;
 		}
@@ -64,13 +64,13 @@ public class ItemBlockShulkerBox extends ItemBlock {
 	}
 
 	public boolean placeBlockAt(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int metadata) {
-		if (!world.setBlock(x, y, z, field_150939_a, metadata, 3)) {
+		if (!world.setBlock(x, y, z, field_150939_a/*blockInstance*/, metadata, 3)) {
 			return false;
 		}
 
-		if (world.getBlock(x, y, z) == field_150939_a) {
-			field_150939_a.onBlockPlacedBy(world, x, y, z, player, stack);
-			field_150939_a.onPostBlockPlaced(world, x, y, z, metadata);
+		if (world.getBlock(x, y, z) == field_150939_a) { // blockInstance
+			field_150939_a/*blockInstance*/.onBlockPlacedBy(world, x, y, z, player, stack);
+			field_150939_a/*blockInstance*/.onPostBlockPlaced(world, x, y, z, metadata);
 		}
 
 		TileEntityShulkerBox box = (TileEntityShulkerBox) world.getTileEntity(x, y, z);

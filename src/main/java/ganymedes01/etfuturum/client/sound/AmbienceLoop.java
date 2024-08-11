@@ -31,8 +31,8 @@ public class AmbienceLoop extends MovingSound {
 	public AmbienceLoop(String loc, int minAmbienceDelay, int maxAmbienceDelay) {
 		super(new ResourceLocation(Reference.MCAssetVer + ":ambient." + loc + ".loop"));
 		repeat = true;
-		field_147666_i = ISound.AttenuationType.NONE;
-		this.field_147665_h = 0;
+		field_147666_i = ISound.AttenuationType.NONE; // attenuationType
+		this.field_147665_h = 0; // repeatDelay
 		volume = 0.01F;
 		this.minAmbienceDelay = minAmbienceDelay;
 		this.maxAmbienceDelay = maxAmbienceDelay;

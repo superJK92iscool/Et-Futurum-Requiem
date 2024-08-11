@@ -87,7 +87,7 @@ public class ItemArmorStand extends BaseItem {
 	}
 
 	public void merge(NBTTagCompound nbt, NBTTagCompound other) {
-		Iterator<String> iterator = other.func_150296_c().iterator();
+		Iterator<String> iterator = other.func_150296_c().iterator(); // getKeySet
 
 		while (iterator.hasNext()) {
 			String s = iterator.next();

@@ -134,7 +134,7 @@ public class BlockBlastFurnace extends BlockFurnace {
 					}
 				}
 
-				worldIn.func_147453_f(x, y, z, blockBroken);
+				worldIn.func_147453_f(x, y, z, blockBroken); // updateNeighborsAboutBlockChange
 			}
 		}
 		worldIn.removeTileEntity(x, y, z);

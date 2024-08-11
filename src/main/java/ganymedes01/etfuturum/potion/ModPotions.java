@@ -102,7 +102,7 @@ public class ModPotions extends Potion {
 	public void renderInventoryEffect(int x, int y, PotionEffect effect, Minecraft mc) {
 		//Render our own icon. The image has to be really big (256x256) or it renders wrong for some reason.
 		mc.getTextureManager().bindTexture(icon);
-		Gui.func_146110_a(x + 6, y + 7, 0, 0, 18, 18, 18, 18);
+		Gui.func_146110_a(x + 6, y + 7, 0, 0, 18, 18, 18, 18); // drawModalRectWithCustomSizedTexture
 
 	}
 }

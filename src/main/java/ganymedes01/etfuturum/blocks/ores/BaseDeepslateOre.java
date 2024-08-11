@@ -210,14 +210,14 @@ public abstract class BaseDeepslateOre extends BaseBlock implements IInitAction 
 		if (droppedBlock == getBase()) {
 			Item thisAsItem = Item.getItemFromBlock(this);
 			if (thisAsItem != null) {
-				drop.func_150996_a(thisAsItem);
+				drop.func_150996_a(thisAsItem); // setItem
 				drop.itemDamage = 0;
 				return drop;
 			}
 		} else if (droppedBlock == Blocks.stone) {
-			drop.func_150996_a(ModBlocks.DEEPSLATE.getItem());
+			drop.func_150996_a(ModBlocks.DEEPSLATE.getItem()); // setItem
 		} else if (droppedBlock == Blocks.cobblestone) {
-			drop.func_150996_a(ModBlocks.COBBLED_DEEPSLATE.getItem());
+			drop.func_150996_a(ModBlocks.COBBLED_DEEPSLATE.getItem()); // setItem
 		}
 		return drop;
 	}

@@ -66,7 +66,7 @@ public class EntityArmourStand extends EntityLiving {
 		addRotationsToDataWatcher(24, DEFAULT_LEFTLEG_ROTATION);
 		addRotationsToDataWatcher(27, DEFAULT_RIGHTLEG_ROTATION);
 		dataWatcher.addObject(30, (byte) 0);
-		func_110163_bv();
+		func_110163_bv(); // enablePersistence
 	}
 
 	private void addRotationsToDataWatcher(int index, Rotations rotations) {

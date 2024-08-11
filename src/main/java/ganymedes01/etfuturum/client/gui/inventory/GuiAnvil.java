@@ -11,7 +11,7 @@ public class GuiAnvil extends GuiRepair {
 		super(player.inventory, world, x, y, z);
 
 		ContainerAnvil container = new ContainerAnvil(player, world, x, y, z);
-		field_147092_v = container;
+		field_147092_v = container; // anvil
 		inventorySlots = container;
 	}
 }

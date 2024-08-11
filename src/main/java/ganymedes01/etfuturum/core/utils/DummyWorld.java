@@ -183,6 +183,9 @@ public class DummyWorld extends World {
 		return true;
 	}
 
+	/**
+	 * MCP name: {@code getRenderDistanceChunks}
+	 */
 	@Override
 	protected int func_152379_p() {
 		return 0;

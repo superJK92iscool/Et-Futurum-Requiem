@@ -75,7 +75,7 @@ public class BlockChorusPlant extends Block {
 	@Override
 	public void updateTick(World world, int x, int y, int z, Random random) {
 		if (!this.canSurviveAt(world, x, y, z)) {
-			world.func_147480_a(x, y, z, true);
+			world.func_147480_a(x, y, z, true); // breakBlock
 		}
 	}
 

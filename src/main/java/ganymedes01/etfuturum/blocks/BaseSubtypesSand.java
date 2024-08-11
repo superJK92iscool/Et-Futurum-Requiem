@@ -98,7 +98,7 @@ public class BaseSubtypesSand extends BlockFalling implements ISubBlocksBlock {
 	 */
 	public void updateTick(World worldIn, int x, int y, int z, Random random) {
 		if (!worldIn.isRemote) {
-			this.func_149830_m(worldIn, x, y, z);
+			this.fallIfAble(worldIn, x, y, z);
 		}
 	}
 
@@ -106,20 +106,20 @@ public class BaseSubtypesSand extends BlockFalling implements ISubBlocksBlock {
 		return new EntityFallingBlock(world, x, y, z, block, meta);
 	}
 
-	private void func_149830_m(World p_149830_1_, int p_149830_2_, int p_149830_3_, int p_149830_4_) {
-		if (func_149831_e(p_149830_1_, p_149830_2_, p_149830_3_ - 1, p_149830_4_) && p_149830_3_ >= 0) {
+	private void fallIfAble(World p_149830_1_, int p_149830_2_, int p_149830_3_, int p_149830_4_) {
+		if (func_149831_e/*canFallBelow*/(p_149830_1_, p_149830_2_, p_149830_3_ - 1, p_149830_4_) && p_149830_3_ >= 0) {
 			byte b0 = 32;
 
 			if (!fallInstantly && p_149830_1_.checkChunksExist(p_149830_2_ - b0, p_149830_3_ - b0, p_149830_4_ - b0, p_149830_2_ + b0, p_149830_3_ + b0, p_149830_4_ + b0)) {
 				if (!p_149830_1_.isRemote) {
 					EntityFallingBlock entityfallingblock = getFallingBlock(p_149830_1_, (float) p_149830_2_ + 0.5F, (float) p_149830_3_ + 0.5F, (float) p_149830_4_ + 0.5F, this, p_149830_1_.getBlockMetadata(p_149830_2_, p_149830_3_, p_149830_4_));
-					this.func_149829_a(entityfallingblock);
+					this.func_149829_a(entityfallingblock); // onStartFalling
 					p_149830_1_.spawnEntityInWorld(entityfallingblock);
 				}
 			} else {
 				p_149830_1_.setBlockToAir(p_149830_2_, p_149830_3_, p_149830_4_);
 
-				while (func_149831_e(p_149830_1_, p_149830_2_, p_149830_3_ - 1, p_149830_4_) && p_149830_3_ > 0) {
+				while (func_149831_e/*canFallBelow*/(p_149830_1_, p_149830_2_, p_149830_3_ - 1, p_149830_4_) && p_149830_3_ > 0) {
 					--p_149830_3_;
 				}
 

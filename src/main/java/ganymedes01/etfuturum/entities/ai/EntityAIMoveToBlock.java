@@ -11,7 +11,7 @@ public abstract class EntityAIMoveToBlock extends EntityAIBase {
 	private final double movementSpeed;
 	protected int runDelay;
 	private int timeoutCounter;
-	private int field_179490_f;
+	private int maxStayTicks;
 	protected BlockPos destinationBlock;
 	private boolean isAboveDestination;
 	private final int searchLength;
@@ -36,14 +36,14 @@ public abstract class EntityAIMoveToBlock extends EntityAIBase {
 
 	@Override
 	public boolean continueExecuting() {
-		return timeoutCounter >= -field_179490_f && timeoutCounter <= 1200 && shouldMoveTo(theEntity.worldObj, destinationBlock);
+		return timeoutCounter >= -maxStayTicks && timeoutCounter <= 1200 && shouldMoveTo(theEntity.worldObj, destinationBlock);
 	}
 
 	@Override
 	public void startExecuting() {
 		theEntity.getNavigator().tryMoveToXYZ(destinationBlock.getX() + 0.5D, destinationBlock.getY() + 1, destinationBlock.getZ() + 0.5D, movementSpeed);
 		timeoutCounter = 0;
-		field_179490_f = theEntity.getRNG().nextInt(theEntity.getRNG().nextInt(1200) + 1200) + 1200;
+		maxStayTicks = theEntity.getRNG().nextInt(theEntity.getRNG().nextInt(1200) + 1200) + 1200;
 	}
 
 	@Override

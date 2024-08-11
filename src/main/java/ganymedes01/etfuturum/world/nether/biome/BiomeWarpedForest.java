@@ -12,7 +12,7 @@ public class BiomeWarpedForest extends NetherBiomeBase {
 		this.setColor(0x49907B);
 		fogSkyColor = 0x5700AF;
 		this.topBlock = ModBlocks.NYLIUM.get();
-		this.field_150604_aj = 1;
+		this.field_150604_aj = 1; // topBlockMetadata
 		this.fillerBlock = Blocks.netherrack;
 
 		spawnableMonsterList.clear();

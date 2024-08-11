@@ -646,7 +646,7 @@ public class ServerEventHandler {
 	@SubscribeEvent
 	public void onBoneMeal(BonemealEvent event) {
 		if (ConfigSounds.bonemealing && event.block instanceof IGrowable && !event.world.isRemote &&
-				((IGrowable) event.block).func_149851_a(event.world, event.x, event.y, event.z, false)) { //Last arg should always be false because it typically checks for isRemote
+				((IGrowable) event.block).func_149851_a/*canFertilize*/(event.world, event.x, event.y, event.z, false)) { //Last arg should always be false because it typically checks for isRemote
 			event.world.playSoundEffect(event.x + .5F, event.y + .5F, event.z + .5F, Reference.MCAssetVer + ":item.bone_meal.use", 1, 1);
 		}
 	}
@@ -831,7 +831,7 @@ public class ServerEventHandler {
 								if (block.canPlaceBlockAt(world, xMutable, yMutable, zMutable)) {
 									// Here is where item would be consumed and block would be set
 									// Block is successfully placed
-									world.playSoundEffect(xMutable + 0.5, yMutable + 0.5, zMutable + 0.5, block.stepSound.func_150496_b(), (block.stepSound.getVolume() + 1.0F) / 2.0F, block.stepSound.getPitch() * 0.8F);
+									world.playSoundEffect(xMutable + 0.5, yMutable + 0.5, zMutable + 0.5, block.stepSound.func_150496_b()/*getPlaceSound*/, (block.stepSound.getVolume() + 1.0F) / 2.0F, block.stepSound.getPitch() * 0.8F);
 									return;
 								}
 							}
@@ -847,12 +847,12 @@ public class ServerEventHandler {
 							if (world.getBlock(x, y, z).canSustainPlant(world, x, y, z, ForgeDirection.UP, (IPlantable) heldStack.getItem()) && world.isAirBlock(x, y + 1, z)) {
 								// Mundane seeds
 								if (oldBlock instanceof BlockFarmland) {
-									world.playSoundEffect(x + 0.5, y + 1F, z + 0.5, ModSounds.soundCrops.func_150496_b(), ModSounds.soundCrops.getVolume(), ModSounds.soundCrops.getPitch());
+									world.playSoundEffect(x + 0.5, y + 1F, z + 0.5, ModSounds.soundCrops.func_150496_b()/*getPlaceSound*/, ModSounds.soundCrops.getVolume(), ModSounds.soundCrops.getPitch());
 									return;
 								}
 								// Nether wart
 								else if (oldBlock instanceof BlockSoulSand) {
-									world.playSoundEffect(x + 0.5, y + 1F, z + 0.5, ModSounds.soundCropWarts.func_150496_b(), ModSounds.soundCropWarts.getVolume(), ModSounds.soundCropWarts.getPitch());
+									world.playSoundEffect(x + 0.5, y + 1F, z + 0.5, ModSounds.soundCropWarts.func_150496_b()/*getPlaceSound*/, ModSounds.soundCropWarts.getVolume(), ModSounds.soundCropWarts.getPitch());
 									return;
 								}
 							}
@@ -1396,7 +1396,7 @@ public class ServerEventHandler {
 					break;
 				}
 			}
-		} else if (ModBlocks.CONCRETE_POWDER.isEnabled() && event.entity instanceof EntityFallingBlock && ((EntityFallingBlock) event.entity).field_145811_e == ModBlocks.CONCRETE_POWDER.get()) {
+		} else if (ModBlocks.CONCRETE_POWDER.isEnabled() && event.entity instanceof EntityFallingBlock && ((EntityFallingBlock) event.entity).field_145811_e/*blockObj*/ == ModBlocks.CONCRETE_POWDER.get()) {
 			fallingConcreteBlocks.add((EntityFallingBlock) event.entity);
 		}
 	}
@@ -1467,7 +1467,7 @@ public class ServerEventHandler {
 
 	private void setAnimalInLove(EntityAnimal animal, EntityPlayer player, ItemStack stack) {
 		if (!animal.isInLove()) {
-			animal.func_146082_f(player);
+			animal.func_146082_f(player); // setInLove
 			if (!player.capabilities.isCreativeMode)
 				if (--stack.stackSize <= 0)
 					player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
@@ -1716,7 +1716,7 @@ public class ServerEventHandler {
 			event.ammount = 0;
 			entity.addPotionEffect(new PotionEffect(Potion.regeneration.id, 900, 1));
 			entity.addPotionEffect(new PotionEffect(Potion.fireResistance.id, 800, 1));
-			entity.addPotionEffect(new PotionEffect(Potion.field_76444_x.id, 100, 1));
+			entity.addPotionEffect(new PotionEffect(Potion.field_76444_x.id, 100, 1)); // absorption
 			//TODO: Make it respect a stack size
 
 			if (entity instanceof EntityLiving) {
@@ -1869,7 +1869,7 @@ public class ServerEventHandler {
 
 				for (int jOff = 0; jOff <= (block.motionY < -1.0 ? 1 : 0); jOff++) { // If it's moving downward faster than a threshold speed: 1 in this case
 					if (block.worldObj.getBlock(i, j - jOff, k).getMaterial() == Material.water) {
-						block.worldObj.setBlock(i, j - jOff, k, ModBlocks.CONCRETE.get(), block.field_145814_a, 3);
+						block.worldObj.setBlock(i, j - jOff, k, ModBlocks.CONCRETE.get(), block.field_145814_a, 3); // metadata
 						block.setDead();
 						iterator.remove();
 					}
@@ -1995,7 +1995,7 @@ public class ServerEventHandler {
 			d3 = ((EntityPlayerMP) playerIn).theItemInWorldManager.getBlockReachDistance();
 		}
 		Vec3 vec31 = vec3.addVector((double) f7 * d3, (double) f6 * d3, (double) f8 * d3);
-		return worldIn.func_147447_a(vec3, vec31, useLiquids, !useLiquids, false);
+		return worldIn.func_147447_a/*rayTraceBlocks*/(vec3, vec31, useLiquids, !useLiquids, false);
 	}
 
 

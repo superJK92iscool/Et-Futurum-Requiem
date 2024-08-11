@@ -12,8 +12,8 @@ public class StructureMesaMineshaftStart extends StructureMineshaftStart {
 	}
 
 	public StructureMesaMineshaftStart(World p_i2039_1_, Random p_i2039_2_, int p_i2039_3_, int p_i2039_4_) {
-		this.field_143024_c = p_i2039_3_;
-		this.field_143023_d = p_i2039_4_;
+		this.field_143024_c = p_i2039_3_; // chunkPosX
+		this.field_143023_d = p_i2039_4_; // chunkPosZ
 		StructureMesaMineshaftPieces.MesaRoom room = new StructureMesaMineshaftPieces.MesaRoom(0, p_i2039_2_, (p_i2039_3_ << 4) + 2, (p_i2039_4_ << 4) + 2);
 		this.components.add(room);
 		room.buildComponent(room, this.components, p_i2039_2_);

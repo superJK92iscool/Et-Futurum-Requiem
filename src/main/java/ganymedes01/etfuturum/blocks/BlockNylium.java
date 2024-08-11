@@ -107,6 +107,9 @@ public class BlockNylium extends BaseSubtypesBlock implements IGrowable {
 		blockIcon = Blocks.netherrack.getIcon(0, 0);
 	}
 
+	/**
+	 * MCP name: {@code canFertilize}
+	 */
 	@Override
 	public boolean func_149851_a(World world, int x, int y, int z, boolean isClient) {
 		if (world.getBlockMetadata(x, y, z) == 0 && !ConfigExperiments.enableCrimsonBlocks) {
@@ -118,6 +121,9 @@ public class BlockNylium extends BaseSubtypesBlock implements IGrowable {
 		return true;
 	}
 
+	/**
+	 * MCP name: {@code shouldFertilize}
+	 */
 	@Override
 	public boolean func_149852_a(World worldIn, Random random, int x, int y, int z) {
 		return true;
@@ -126,6 +132,9 @@ public class BlockNylium extends BaseSubtypesBlock implements IGrowable {
 	private final WorldGenerator crimsonGrass = new WorldGenNetherGrass(true);
 	private final WorldGenerator warpedGrass = new WorldGenNetherGrass(false);
 
+	/**
+	 * MCP name: {@code fertilize}
+	 */
 	@Override
 	public void func_149853_b(World world, Random rand, int x, int y, int z) {
 		if (world.getBlockMetadata(x, y, z) == 0) {

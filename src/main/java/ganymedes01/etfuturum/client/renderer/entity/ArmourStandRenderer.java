@@ -16,13 +16,13 @@ public class ArmourStandRenderer extends RenderBiped {
 	public ArmourStandRenderer() {
 		super(new ModelArmorStand(), 0.0F);
 		modelBipedMain = (ModelBiped) mainModel;
-		field_82423_g = new ModelArmorStandArmor(1.0F);
+		field_82423_g = new ModelArmorStandArmor(1.0F); // modelArmourChestplate
 		field_82425_h = new ModelArmorStandArmor(0.5F);
 	}
 
 	@Override
 	protected void func_82421_b() {
-		field_82423_g = new ModelArmorStandArmor(1.0F);
+		field_82423_g = new ModelArmorStandArmor(1.0F); // modelArmourChestplate
 		field_82425_h = new ModelArmorStandArmor(0.5F);
 	}
 

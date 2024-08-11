@@ -8,8 +8,8 @@ import org.lwjgl.opengl.GL11;
 public class ModelTechnobladeCrown extends ModelBase {
 
 	public ModelRenderer crown = new ModelRenderer(this, 0, 0);
-	protected float field_78145_g = 4.0F;
-	protected float field_78151_h = 4.0F;
+	protected float childYOffset = 4.0F;
+	protected float childZOffset = 4.0F;
 
 	public ModelTechnobladeCrown() {
 		this(6, 0);
@@ -27,7 +27,7 @@ public class ModelTechnobladeCrown extends ModelBase {
 		this.setRotationAngles(p_78088_2_, p_78088_3_, p_78088_4_, p_78088_5_, p_78088_6_, p_78088_7_, p_78088_1_);
 		if (this.isChild) {
 			GL11.glPushMatrix();
-			GL11.glTranslatef(0.0F, this.field_78145_g * p_78088_7_, this.field_78151_h * p_78088_7_);
+			GL11.glTranslatef(0.0F, this.childYOffset * p_78088_7_, this.childZOffset * p_78088_7_);
 			this.crown.render(p_78088_7_);
 			GL11.glPopMatrix();
 		} else {

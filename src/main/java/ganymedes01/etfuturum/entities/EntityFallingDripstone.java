@@ -41,7 +41,7 @@ public class EntityFallingDripstone extends EntityFallingBlock {
 		this.prevPosX = this.posX;
 		this.prevPosY = this.posY;
 		this.prevPosZ = this.posZ;
-		++this.field_145812_b;
+		++this.field_145812_b; // fallTime
 		this.motionY -= 0.03999999910593033D;
 		this.moveEntity(this.motionX, this.motionY, this.motionZ);
 		this.motionX *= 0.9800000190734863D;
@@ -51,13 +51,13 @@ public class EntityFallingDripstone extends EntityFallingBlock {
 		int i = MathHelper.floor_double(this.posX);
 		int j = MathHelper.floor_double(this.posY);
 		int k = MathHelper.floor_double(this.posZ);
-		if (this.field_145812_b == 1) {
-			field_145814_a = worldObj.getBlockMetadata(i, j, k);
+		if (this.field_145812_b == 1) { // fallTime
+			field_145814_a/*metadata*/ = worldObj.getBlockMetadata(i, j, k);
 		}
 
 		if (!this.worldObj.isRemote) {
 
-			if (this.field_145812_b == 1) {
+			if (this.field_145812_b == 1) { // fallTime
 				if (this.worldObj.getBlock(i, j, k) != block) {
 					this.setDead();
 					return;
@@ -72,12 +72,12 @@ public class EntityFallingDripstone extends EntityFallingBlock {
 				this.motionY *= -0.5D;
 				this.setDead();
 
-				if (this.field_145813_c) {
-					this.entityDropItem(new ItemStack(block, 1, block.damageDropped(this.field_145814_a)), 0.0F);
+				if (this.field_145813_c) { // shouldDropItem
+					this.entityDropItem(new ItemStack(block, 1, block.damageDropped(this.field_145814_a/*metadata*/)), 0.0F);
 				}
-			} else if (this.field_145812_b > 100 && !this.worldObj.isRemote && (j < 1 || j > 256) || this.field_145812_b > 600) {
-				if (this.field_145813_c) {
-					this.entityDropItem(new ItemStack(block, 1, block.damageDropped(this.field_145814_a)), 0.0F);
+			} else if (this.field_145812_b/*fallTime*/ > 100 && !this.worldObj.isRemote && (j < 1 || j > 256) || this.field_145812_b/*fallTime*/ > 600) {
+				if (this.field_145813_c) { // shouldDropItem
+					this.entityDropItem(new ItemStack(block, 1, block.damageDropped(this.field_145814_a/*metadata*/)), 0.0F);
 				}
 
 				this.setDead();

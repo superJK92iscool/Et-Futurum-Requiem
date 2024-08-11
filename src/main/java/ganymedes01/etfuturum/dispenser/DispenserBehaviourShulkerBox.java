@@ -14,7 +14,7 @@ import net.minecraft.util.EnumFacing;
 public class DispenserBehaviourShulkerBox extends BehaviorDefaultDispenseItem {
 
 	protected ItemStack dispenseStack(IBlockSource coords, ItemStack stack) {
-		EnumFacing enumfacing = BlockDispenser.func_149937_b(coords.getBlockMetadata());
+		EnumFacing enumfacing = BlockDispenser.func_149937_b(coords.getBlockMetadata()); // getFacingDirection
 		int x = coords.getXInt() + enumfacing.getFrontOffsetX();
 		int y = coords.getYInt() + enumfacing.getFrontOffsetY();
 		int z = coords.getZInt() + enumfacing.getFrontOffsetZ();
@@ -33,7 +33,7 @@ public class DispenserBehaviourShulkerBox extends BehaviorDefaultDispenseItem {
 				box.color = stack.getTagCompound().getByte("Color");
 
 				if (stack.hasDisplayName()) {
-					box.func_145976_a(stack.getDisplayName());
+					box.setCustomName(stack.getDisplayName()); // setCustomName
 				}
 			}
 			return stack;

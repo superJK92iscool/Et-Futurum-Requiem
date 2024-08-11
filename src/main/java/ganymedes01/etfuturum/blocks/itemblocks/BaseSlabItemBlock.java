@@ -10,16 +10,16 @@ public class BaseSlabItemBlock extends ItemSlab {
 
 	public BaseSlabItemBlock(Block block) {
 		super(block, ((BaseSlab) block).getSingleSlab(), ((BaseSlab) block).getDoubleSlab(), block == ((BaseSlab) block).getDoubleSlab());
-		this.setHasSubtypes(((ISubBlocksBlock) field_150939_a).getTypes().length > 1);
+		this.setHasSubtypes(((ISubBlocksBlock) field_150939_a/*blockInstance*/).getTypes().length > 1);
 	}
 
 	@Override
 	public String getUnlocalizedName(ItemStack stack) {
-		return addTilePrefix(((ISubBlocksBlock) field_150939_a).getNameFor(stack));
+		return addTilePrefix(((ISubBlocksBlock) field_150939_a/*blockInstance*/).getNameFor(stack));
 	}
 
 	private String addTilePrefix(String name) {
-		return name.startsWith("tile.") ? name : "tile." + ((ISubBlocksBlock) field_150939_a).getNameDomain() + "." + name;
+		return name.startsWith("tile.") ? name : "tile." + ((ISubBlocksBlock) field_150939_a/*blockInstance*/).getNameDomain() + "." + name;
 	}
 
 	@Override

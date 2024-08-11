@@ -161,16 +161,25 @@ public class BlockBerryBush extends BlockBush implements IGrowable {
 		return 60;
 	}
 
+	/**
+	 * MCP name: {@code canFertilize}
+	 */
 	@Override
 	public boolean func_149851_a(World worldIn, int x, int y, int z, boolean isClient) {
 		return worldIn.getBlockMetadata(x, y, z) < 3;
 	}
 
+	/**
+	 * MCP name: {@code shouldFertilize}
+	 */
 	@Override
 	public boolean func_149852_a(World worldIn, Random random, int x, int y, int z) {
 		return true;
 	}
 
+	/**
+	 * MCP name: {@code fertilize}
+	 */
 	@Override
 	public void func_149853_b(World world, Random rand, int x, int y, int z) {
 		int i = world.getBlockMetadata(x, y, z);

@@ -231,8 +231,8 @@ public class NetherChunkProvider implements IChunkProvider {
 					topBlock = biomegenbase.topBlock;
 					fillerBlock = biomegenbase.fillerBlock;
 				}
-				byte topMeta = (byte) biomegenbase.field_150604_aj;
-				byte fillerMeta = (byte) biomegenbase.field_76754_C;
+				byte topMeta = (byte) biomegenbase.field_150604_aj; // topBlockMetadata
+				byte fillerMeta = (byte) biomegenbase.field_76754_C; // fillerBlockMetadata
 
 				if (biomegenbase == BiomeGenBase.hell && ModsList.NATURA.isLoaded()) {
 					fillerBlock = ExternalContent.Blocks.NATURA_TAINTED_SOIL.get();
@@ -250,17 +250,17 @@ public class NetherChunkProvider implements IChunkProvider {
 
 							if (blocks[l1 + 1] == Blocks.netherrack) {
 								blocks[l1 + 1] = soulSoilFlag ? ModBlocks.SOUL_SOIL.get() : biomegenbase.fillerBlock;
-								metas[l1 + 1] = (byte) biomegenbase.field_76754_C;
+								metas[l1 + 1] = (byte) biomegenbase.field_76754_C; // fillerBlockMetadata
 							}
 
 							if (blocks[l1 + 2] == Blocks.netherrack) {
 								blocks[l1 + 2] = soulSoilFlag ? ModBlocks.SOUL_SOIL.get() : biomegenbase.fillerBlock;
-								metas[l1 + 2] = (byte) biomegenbase.field_76754_C;
+								metas[l1 + 2] = (byte) biomegenbase.field_76754_C; // fillerBlockMetadata
 							}
 
 							if (blocks[l1 + 3] == Blocks.netherrack) {
 								blocks[l1 + 3] = soulSoilFlag ? ModBlocks.SOUL_SOIL.get() : biomegenbase.fillerBlock;
-								metas[l1 + 3] = (byte) biomegenbase.field_76754_C;
+								metas[l1 + 3] = (byte) biomegenbase.field_76754_C; // fillerBlockMetadata
 							}
 						}
 
@@ -278,13 +278,13 @@ public class NetherChunkProvider implements IChunkProvider {
 										topBlock = biomegenbase.topBlock;
 										fillerBlock = biomegenbase.fillerBlock;
 									}
-									topMeta = (byte) biomegenbase.field_150604_aj;
+									topMeta = (byte) biomegenbase.field_150604_aj; // topBlockMetadata
 
 									if (biomegenbase == BiomeGenBase.hell && ModsList.NATURA.isLoaded()) {
 										fillerBlock = ExternalContent.Blocks.NATURA_TAINTED_SOIL.get();
 										fillerMeta = 0;
 									} else {
-										fillerMeta = (byte) biomegenbase.field_76754_C;
+										fillerMeta = (byte) biomegenbase.field_76754_C; // fillerBlockMetadata
 									}
 
 									if (gravelFlag) {
@@ -363,11 +363,11 @@ public class NetherChunkProvider implements IChunkProvider {
 				par2 * 16, 16, 16);
 		this.generateNetherTerrain(par1, par2, blocks, abyte, biomesForGeneration);
 		this.replaceBlocksForBiome(par1, par2, blocks, abyte, biomesForGeneration);
-		netherCaveGenerator.func_151539_a(this, worldObj, par1, par2, blocks);
+		netherCaveGenerator.func_151539_a(this, worldObj, par1, par2, blocks); // generate
 
-		netherRavineGenerator.func_151539_a(this, worldObj, par1, par2, blocks); //TODO: Make this available for the vanilla Nether as a separate mixin
+		netherRavineGenerator.func_151539_a(this, worldObj, par1, par2, blocks); //generate TODO: Make this available for the vanilla Nether as a separate mixin
 
-		genNetherBridge.func_151539_a(this, worldObj, par1, par2, blocks);
+		genNetherBridge.func_151539_a(this, worldObj, par1, par2, blocks); // generate
 		Chunk chunk = new Chunk(worldObj, blocks, abyte, par1, par2);
 		BiomeGenBase[] abiomegenbase = worldObj.getWorldChunkManager().loadBlockGeneratorData(null,
 				par1 * 16, par2 * 16, 16, 16);
@@ -690,13 +690,16 @@ public class NetherChunkProvider implements IChunkProvider {
 
 	@Override
 	public void recreateStructures(int par1, int par2) {
-		genNetherBridge.func_151539_a(this, worldObj, par1, par2, null);
+		genNetherBridge.func_151539_a(this, worldObj, par1, par2, null); // generate
 	}
 
 	@Override
 	public void saveExtraData() {
 	}
 
+	/**
+	 * MCP name: {@code findClosestStructure}
+	 */
 	@Override
 	public ChunkPosition func_147416_a(World par1World, String par2Str, int par3, int par4, int par5) {
 		return null;

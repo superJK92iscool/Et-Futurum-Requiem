@@ -65,7 +65,7 @@ public class BlastFurnaceRecipes {
 
 		if (!experienceListCache.containsKey(result)) {
 			if (!experienceList.containsKey(result)) {
-				float exp = FurnaceRecipes.smelting().func_151398_b(result);
+				float exp = FurnaceRecipes.smelting().func_151398_b(result); // getSmeltingExperience
 				if (!reloadingCT) experienceListCache.put(result, exp);
 				return exp;
 			}

@@ -75,7 +75,7 @@ public class ItemWoodSign extends Item {
 
 				//Disable the sound for continuity, so it doesn't play when the event-based player would not
 				if (ConfigSounds.fixSilentPlacing)
-					world.playSoundEffect((float) x + 0.5F, (float) y + 0.5F, (float) z + 0.5F, block.stepSound.func_150496_b(), (block.stepSound.getVolume() + 1.0F) / 2.0F, block.stepSound.getPitch() * 0.8F);
+					world.playSoundEffect((float) x + 0.5F, (float) y + 0.5F, (float) z + 0.5F, block.stepSound.func_150496_b()/*getPlaceSound*/, (block.stepSound.getVolume() + 1.0F) / 2.0F, block.stepSound.getPitch() * 0.8F);
 
 				--itemStack.stackSize;
 				TileEntityWoodSign tileentitysign = (TileEntityWoodSign) world.getTileEntity(x, y, z);

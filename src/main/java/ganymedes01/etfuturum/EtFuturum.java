@@ -677,7 +677,7 @@ public class EtFuturum {
 				case 0:
 					return new PotionEffect(Potion.nightVision.id, 100, 0);
 				case 1:
-					return new PotionEffect(Potion.field_76443_y.id, 7, 0);
+					return new PotionEffect(Potion.field_76443_y.id, 7, 0); // saturation
 				case 2:
 					return new PotionEffect(Potion.fireResistance.id, 80, 0);
 				case 3:
@@ -693,7 +693,7 @@ public class EtFuturum {
 		}
 
 		if (item == Item.getItemFromBlock(Blocks.yellow_flower)) {
-			return new PotionEffect(Potion.field_76443_y.id, 7, 0);
+			return new PotionEffect(Potion.field_76443_y.id, 7, 0); // saturation
 		}
 
 		if (item == Item.getItemFromBlock(ModBlocks.CORNFLOWER.get())) {
@@ -978,8 +978,8 @@ public class EtFuturum {
 			if (sound.getStepResourcePath().startsWith(Reference.MCAssetVer)) { //Step sound
 				config.addSoundEvent(ver, sound.getStepResourcePath().substring(Reference.MCAssetVer.length() + 1), "neutral");
 			}
-			if (sound.func_150496_b().startsWith(Reference.MCAssetVer)) { //Place sound
-				config.addSoundEvent(ver, sound.func_150496_b().substring(Reference.MCAssetVer.length() + 1), "block");
+			if (sound.func_150496_b/*getPlaceSound*/().startsWith(Reference.MCAssetVer)) { //Place sound
+				config.addSoundEvent(ver, sound.func_150496_b/*getPlaceSound*/().substring(Reference.MCAssetVer.length() + 1), "block");
 			}
 			if (sound.getBreakSound().startsWith(Reference.MCAssetVer)) { //Break sound
 				config.addSoundEvent(ver, sound.getBreakSound().substring(Reference.MCAssetVer.length() + 1), "block");

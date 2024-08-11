@@ -138,7 +138,7 @@ public class GuiGamemodeSwitcher extends GuiScreen {
 		mc.getTextureManager().bindTexture(TEXTURE);
 		int i = this.width / 2 - 62;
 		int j = this.height / 2 - 31 - 27;
-		func_146110_a(i, j, 0, 0, 125, 75, 128, 128);
+		func_146110_a(i, j, 0, 0, 125, 75, 128, 128); // drawModalRectWithCustomSizedTexture
 		super.drawScreen(mouseX, mouseY, delta);
 		if (this.gameMode != null) {
 			drawCenteredString(mc.fontRenderer, I18n.format("gameMode." + this.gameMode.getName()), this.width / 2, this.height / 2 - 31 - 20, -1);
@@ -194,9 +194,9 @@ public class GuiGamemodeSwitcher extends GuiScreen {
 			GL11.glEnable(GL11.GL_BLEND);
 			GL11.glDisable(GL12.GL_RESCALE_NORMAL);
 			mc.getTextureManager().bindTexture(TEXTURE);
-			func_146110_a(this.x, this.y, 0, 75, 26, 26, 128, 128);
+			func_146110_a(this.x, this.y, 0, 75, 26, 26, 128, 128); // drawModalRectWithCustomSizedTexture
 			if (isSelected) {
-				func_146110_a(this.x, this.y, 26, 75, 26, 26, 128, 128);
+				func_146110_a(this.x, this.y, 26, 75, 26, 26, 128, 128); // drawModalRectWithCustomSizedTexture
 			}
 			GL11.glDisable(GL11.GL_BLEND);
 			GL11.glEnable(GL11.GL_LIGHTING);

@@ -81,7 +81,7 @@ public class BlockShulkerBox extends BlockContainer {
 			box.color = stack.getTagCompound().getByte("Color");
 
 			if (stack.hasDisplayName()) {
-				box.func_145976_a(stack.getDisplayName());
+				box.setCustomName(stack.getDisplayName()); // setCustomName
 			}
 		} else {
 			box.chestContents = new ItemStack[ShulkerBoxType.VANILLA.getSize()];
@@ -146,7 +146,7 @@ public class BlockShulkerBox extends BlockContainer {
 			}
 			ForgeDirection dir = ForgeDirection.getOrientation(shulker.facing);
 			boolean flag;
-			if (shulker.func_190591_p() == TileEntityShulkerBox.AnimationStatus.CLOSED) {
+			if (shulker.getAnimationStatus() == TileEntityShulkerBox.AnimationStatus.CLOSED) {
 				AxisAlignedBB axisalignedbb = AxisAlignedBB.getBoundingBox(x, y, z, x + 1, y + 1, z + 1)
 						.addCoord(0.5F * (float) dir.offsetX, 0.5F * (float) dir.offsetY, 0.5F * (float) dir.offsetZ);
 				axisalignedbb.addCoord(-(double) dir.offsetX, -(double) dir.offsetY, -(double) dir.offsetZ);
@@ -180,15 +180,15 @@ public class BlockShulkerBox extends BlockContainer {
 //      
 //      this.setBlockBounds(0, 0, 0, 1, 1, 1);
 //       
-//      if(tileentity instanceof TileEntityShulkerBox && ((TileEntityShulkerBox)tileentity).func_190591_p() == TileEntityShulkerBox.AnimationStatus.CLOSED) {
-//          AxisAlignedBB bb = ((TileEntityShulkerBox)tileentity).func_190584_a(((TileEntityShulkerBox)tileentity).facing);
+//      if(tileentity instanceof TileEntityShulkerBox && ((TileEntityShulkerBox)tileentity).getAnimationStatus() == TileEntityShulkerBox.AnimationStatus.CLOSED) {
+//          AxisAlignedBB bb = ((TileEntityShulkerBox)tileentity).getBoundingBox(((TileEntityShulkerBox)tileentity).facing);
 //          setBlockBounds((float)bb.minX, (float)bb.minY, (float)bb.minZ, (float)bb.maxX, (float)bb.maxY, (float)bb.maxZ);
 //      }
 //  }
 
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
 		TileEntity tileentity = world.getTileEntity(x, y, z);
-		return tileentity instanceof TileEntityShulkerBox ? ((TileEntityShulkerBox) tileentity).func_190584_a(((TileEntityShulkerBox) tileentity).facing).offset(x, y, z) : super.getCollisionBoundingBoxFromPool(world, x, y, z);
+		return tileentity instanceof TileEntityShulkerBox ? ((TileEntityShulkerBox) tileentity).getBoundingBox(((TileEntityShulkerBox) tileentity).facing).offset(x, y, z) : super.getCollisionBoundingBoxFromPool(world, x, y, z);
 	}
 
 	public AxisAlignedBB getSelectedBoundingBoxFromPool(World worldIn, int x, int y, int z) {

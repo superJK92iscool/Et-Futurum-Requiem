@@ -93,6 +93,9 @@ public class EntityZombieVillager extends EntityZombie {
 		return Reference.MCAssetVer + ":entity.zombie_villager.death";
 	}
 
+	/**
+	 * MCP name: {@code playStepSound}
+	 */
 	protected void func_145780_a(int x, int y, int z, Block blockIn) {
 		this.playSound(Reference.MCAssetVer + ":entity.zombie_villager.step", 0.15F, 1.0F);
 	}

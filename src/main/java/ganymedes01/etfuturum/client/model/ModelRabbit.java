@@ -15,7 +15,7 @@ public class ModelRabbit extends ModelBase {
 	protected ModelRenderer rabbitBody, rabbitTail;
 	protected ModelRenderer rabbitLeftArm, rabbitRightArm;
 	protected ModelRenderer rabbitHead, rabbitRightEar, rabbitLeftEar, rabbitNose;
-	private float field_178701_m = 0.0F;
+	private float jumpRotation = 0.0F;
 
 	public ModelRabbit() {
 		setTextureOffset("head.main", 0, 0);
@@ -139,10 +139,10 @@ public class ModelRabbit extends ModelBase {
 		rabbitNose.rotateAngleY = rabbitHead.rotateAngleY = p_78087_4_ * 0.017453292F;
 		rabbitRightEar.rotateAngleY = rabbitNose.rotateAngleY - 0.2617994F;
 		rabbitLeftEar.rotateAngleY = rabbitNose.rotateAngleY + 0.2617994F;
-		field_178701_m = MathHelper.sin(entityrabbit.func_175521_o(f6) * (float) Math.PI);
-		rabbitLeftThigh.rotateAngleX = rabbitRightThigh.rotateAngleX = (field_178701_m * 50.0F - 21.0F) * 0.017453292F;
-		rabbitLeftFoot.rotateAngleX = rabbitRightFoot.rotateAngleX = field_178701_m * 50.0F * 0.017453292F;
-		rabbitLeftArm.rotateAngleX = rabbitRightArm.rotateAngleX = (field_178701_m * -40.0F - 11.0F) * 0.017453292F;
+		jumpRotation = MathHelper.sin(entityrabbit.getJumpCompletion(f6) * (float) Math.PI);
+		rabbitLeftThigh.rotateAngleX = rabbitRightThigh.rotateAngleX = (jumpRotation * 50.0F - 21.0F) * 0.017453292F;
+		rabbitLeftFoot.rotateAngleX = rabbitRightFoot.rotateAngleX = jumpRotation * 50.0F * 0.017453292F;
+		rabbitLeftArm.rotateAngleX = rabbitRightArm.rotateAngleX = (jumpRotation * -40.0F - 11.0F) * 0.017453292F;
 	}
 
 

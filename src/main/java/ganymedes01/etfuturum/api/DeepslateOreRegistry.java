@@ -223,7 +223,7 @@ public class DeepslateOreRegistry {
 //				}
 
 				if (FurnaceRecipes.smelting().getSmeltingResult(stackNorm) != null) {
-					GameRegistry.addSmelting(stackDeep, FurnaceRecipes.smelting().getSmeltingResult(stackNorm), FurnaceRecipes.smelting().func_151398_b(stackNorm));
+					GameRegistry.addSmelting(stackDeep, FurnaceRecipes.smelting().getSmeltingResult(stackNorm), FurnaceRecipes.smelting().func_151398_b/*getSmeltingExperience*/(stackNorm));
 				}
 			}
 		}

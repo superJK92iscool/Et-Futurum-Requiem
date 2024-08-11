@@ -68,7 +68,7 @@ public class TileEntityNewBeacon extends TileEntityBeacon {
 					break;
 				}
 
-				beamsegment.func_177262_a();
+				beamsegment.incrementHeight();
 				continue;
 			}
 
@@ -76,7 +76,7 @@ public class TileEntityNewBeacon extends TileEntityBeacon {
 				colors = new float[]{(beamsegment.getColor()[0] + colors[0]) / 2.0F, (beamsegment.getColor()[1] + colors[1]) / 2.0F, (beamsegment.getColor()[2] + colors[2]) / 2.0F};
 
 			if (Arrays.equals(colors, beamsegment.getColor()))
-				beamsegment.func_177262_a();
+				beamsegment.incrementHeight();
 			else {
 				beamsegment = new TileEntityNewBeacon.BeamSegment(colors);
 				segments.add(beamsegment);
@@ -93,15 +93,15 @@ public class TileEntityNewBeacon extends TileEntityBeacon {
 	public static class BeamSegment {
 
 		private final float[] colours;
-		private int field_177265_b;
+		private int height;
 
 		public BeamSegment(float[] colours) {
 			this.colours = colours;
-			field_177265_b = 1;
+			height = 1;
 		}
 
-		protected void func_177262_a() {
-			field_177265_b++;
+		protected void incrementHeight() {
+			height++;
 		}
 
 		public float[] getColor() {
@@ -109,7 +109,7 @@ public class TileEntityNewBeacon extends TileEntityBeacon {
 		}
 
 		public int getHeight() {
-			return field_177265_b;
+			return height;
 		}
 	}
 }

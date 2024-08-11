@@ -151,8 +151,8 @@ public class ClientProxy extends CommonProxy {
 		if (ConfigFunctions.enablePlayerSkinOverlay) {
 			TextureManager texManager = Minecraft.getMinecraft().renderEngine;
 			File skinFolder = new File(Minecraft.getMinecraft().fileAssets, "skins");
-			MinecraftSessionService sessionService = Minecraft.getMinecraft().func_152347_ac();
-			Minecraft.getMinecraft().field_152350_aA = new NewSkinManager(Minecraft.getMinecraft().func_152342_ad(), texManager, skinFolder, sessionService);
+			MinecraftSessionService sessionService = Minecraft.getMinecraft().func_152347_ac(); // getSessionService
+			Minecraft.getMinecraft().field_152350_aA/*skinManager*/ = new NewSkinManager(Minecraft.getMinecraft().func_152342_ad()/*getSkinManager*/, texManager, skinFolder, sessionService);
 
 			RenderManager.instance.entityRenderMap.put(EntityPlayer.class, new NewRenderPlayer());
 		}

@@ -11,7 +11,7 @@ import java.util.Random;
 
 public class MapGenRavineHell extends MapGenRavine {
 
-	private final float[] field_75046_d = new float[1024];
+	private final float[] rs = new float[1024];
 
 	/**
 	 * We have to replace the whole function because we need to change some loops inside to do 128 height instead of 256 height.
@@ -42,7 +42,7 @@ public class MapGenRavineHell extends MapGenRavine {
 				f5 = 1.0F + random.nextFloat() * random.nextFloat() * 1.0F;
 			}
 
-			this.field_75046_d[k1] = f5 * f5;
+			this.rs[k1] = f5 * f5;
 		}
 
 		for (; p_151540_15_ < p_151540_16_; ++p_151540_15_) {
@@ -140,7 +140,7 @@ public class MapGenRavineHell extends MapGenRavine {
 									for (int l3 = i2 - 1; l3 >= j4; --l3) {
 										double d11 = ((double) l3 + 0.5D - p_151540_8_) / d6;
 
-										if ((d13 * d13 + d14 * d14) * (double) this.field_75046_d[l3] + d11 * d11 / 6.0D < 1.0D) {
+										if ((d13 * d13 + d14 * d14) * (double) this.rs[l3] + d11 * d11 / 6.0D < 1.0D) {
 											if (isTopBlock(p_151540_5_, k3, k2, l3, j3, p_151540_3_, p_151540_4_)) {
 												flag = true;
 											}

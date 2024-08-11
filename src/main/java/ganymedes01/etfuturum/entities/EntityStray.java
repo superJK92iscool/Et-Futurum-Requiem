@@ -47,7 +47,7 @@ public class EntityStray extends EntitySkeleton {
 		this.addRandomArmor();
 		this.enchantEquipment();
 
-		this.setCanPickUpLoot(this.rand.nextFloat() < 0.55F * this.worldObj.func_147462_b(this.posX, this.posY, this.posZ));
+		this.setCanPickUpLoot(this.rand.nextFloat() < 0.55F * this.worldObj.func_147462_b/*getTensionFactorForBlock*/(this.posX, this.posY, this.posZ));
 
 		if (this.getEquipmentInSlot(4) == null) {
 			Calendar calendar = this.worldObj.getCurrentDate();
@@ -138,6 +138,9 @@ public class EntityStray extends EntitySkeleton {
 		return Reference.MCAssetVer + ":entity.stray.death";
 	}
 
+	/**
+	 * MCP name: {@code playStepSound}
+	 */
 	@Override
 	protected void func_145780_a(final int x, final int y, final int z, final Block blockIn) {
 		this.playSound(Reference.MCAssetVer + ":entity.stray.step", 0.15f, 1.0f);

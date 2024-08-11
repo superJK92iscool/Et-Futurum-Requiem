@@ -108,7 +108,7 @@ public class SpectatorMode {
 			if (!SPECTATING_ENTITIES.containsKey(event.entityPlayer)) {
 				SPECTATING_ENTITIES.put(event.entityPlayer, event.target);
 				if (event.entityPlayer.worldObj.isRemote && event.entityPlayer instanceof EntityClientPlayerMP) {
-					Minecraft.getMinecraft().ingameGUI.func_110326_a(I18n.format("mount.onboard", GameSettings.getKeyDisplayString(Minecraft.getMinecraft().gameSettings.keyBindSneak.getKeyCode())), false);
+					Minecraft.getMinecraft().ingameGUI.func_110326_a/*setRecordPlaying*/(I18n.format("mount.onboard", GameSettings.getKeyDisplayString(Minecraft.getMinecraft().gameSettings.keyBindSneak.getKeyCode())), false);
 				}
 			}
 			event.setCanceled(true);

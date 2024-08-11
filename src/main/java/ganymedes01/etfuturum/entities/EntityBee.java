@@ -643,6 +643,9 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		return isBreedingFlower(Block.getBlockFromItem(stack.getItem()), stack.getItemDamage());
 	}
 
+	/**
+	 * MCP name: {@code playStepSound}
+	 */
 	@Override
 	protected void func_145780_a(final int x, final int y, final int z, final Block blockIn) {
 	}
@@ -1048,7 +1051,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 					int y = (int) posY - i;
 					int z = (int) posZ;
 					Block block = worldObj.getBlock(x, y, z);
-					if (BeePlantRegistry.isCrop(block) && ((IGrowable) block).func_149851_a(worldObj, x, y, z, false) && ((IGrowable) block).func_149852_a(worldObj, worldObj.rand, x, y, z)) {
+					if (BeePlantRegistry.isCrop(block) && ((IGrowable) block).func_149851_a/*canFertilize*/(worldObj, x, y, z, false) && ((IGrowable) block).func_149852_a/*shouldFertilize*/(worldObj, worldObj.rand, x, y, z)) {
 						//BlockCrops, BlockStem and BlockBerryBush should use the next meta for growth stage. We can change this later if incrementing the meta doesn't work with mod crops.
 						//For now we'll just increment instead of using the IGrowable grow event, since that often adds several growth stages.
 						worldObj.setBlockMetadataWithNotify(x, y, z, worldObj.getBlockMetadata(x, y, z) + 1, 2);

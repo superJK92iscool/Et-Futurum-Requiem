@@ -30,7 +30,7 @@ public class BlockDeepslateRedstoneOre extends BlockDeepslateOre {
 	 */
 	@Override
 	public void onBlockClicked(World worldIn, int x, int y, int z, EntityPlayer player) {
-		this.func_150185_e(worldIn, x, y, z);
+		this.makeLit(worldIn, x, y, z);
 	}
 
 	/**
@@ -38,7 +38,7 @@ public class BlockDeepslateRedstoneOre extends BlockDeepslateOre {
 	 */
 	@Override
 	public void onEntityWalking(World worldIn, int x, int y, int z, Entity entityIn) {
-		this.func_150185_e(worldIn, x, y, z);
+		this.makeLit(worldIn, x, y, z);
 	}
 
 	/**
@@ -46,12 +46,12 @@ public class BlockDeepslateRedstoneOre extends BlockDeepslateOre {
 	 */
 	@Override
 	public boolean onBlockActivated(World worldIn, int x, int y, int z, EntityPlayer player, int side, float subX, float subY, float subZ) {
-		this.func_150185_e(worldIn, x, y, z);
+		this.makeLit(worldIn, x, y, z);
 		return false;
 	}
 
-	private void func_150185_e(World p_150185_1_, int p_150185_2_, int p_150185_3_, int p_150185_4_) {
-		this.func_150186_m(p_150185_1_, p_150185_2_, p_150185_3_, p_150185_4_);
+	private void makeLit(World p_150185_1_, int p_150185_2_, int p_150185_3_, int p_150185_4_) {
+		this.spawnParticles(p_150185_1_, p_150185_2_, p_150185_3_, p_150185_4_);
 
 		if (this == ModBlocks.DEEPSLATE_REDSTONE_ORE.get()) {
 			p_150185_1_.setBlock(p_150185_2_, p_150185_3_, p_150185_4_, ModBlocks.DEEPSLATE_LIT_REDSTONE_ORE.get());
@@ -68,7 +68,7 @@ public class BlockDeepslateRedstoneOre extends BlockDeepslateOre {
 		}
 	}
 
-	private void func_150186_m(World p_150186_1_, int p_150186_2_, int p_150186_3_, int p_150186_4_) {
+	private void spawnParticles(World p_150186_1_, int p_150186_2_, int p_150186_3_, int p_150186_4_) {
 		Random random = p_150186_1_.rand;
 		double d0 = 0.0625D;
 

@@ -21,7 +21,7 @@ public class TileEntityNewBeaconRenderer extends TileEntitySpecialRenderer {
 	public void renderTileEntityAt(TileEntity tile, double x, double y, double z, float partialTickTime) {
 		TileEntityNewBeacon beacon = (TileEntityNewBeacon) tile;
 
-		float f1 = beacon.func_146002_i();
+		float f1 = beacon.func_146002_i(); // shouldBeamRender
 		OpenGLHelper.alphaFunc(GL11.GL_GREATER, 0.1F);
 
 		if (f1 > 0.0F) {

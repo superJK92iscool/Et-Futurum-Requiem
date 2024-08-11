@@ -16,6 +16,6 @@ public abstract class MixinEntityThrowable extends Entity {
 
 	@Inject(method = "onUpdate", at = @At(value = "TAIL"))
 	public void checkCollide(CallbackInfo ci) {
-		func_145775_I();
+		func_145775_I(); // doBlockCollisions
 	}
 }

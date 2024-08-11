@@ -33,7 +33,7 @@ public class TileEntityBlastFurnace extends TileEntity implements ISidedInventor
 	 * The number of ticks that the current item has been cooking for
 	 */
 	public int furnaceCookTime;
-	private String field_145958_o;
+	private String furnaceCustomName;
 
 	/**
 	 * Returns the number of slots in the inventory.
@@ -107,7 +107,7 @@ public class TileEntityBlastFurnace extends TileEntity implements ISidedInventor
 	 */
 	@Override
 	public String getInventoryName() {
-		return this.hasCustomInventoryName() ? this.field_145958_o : "container." + Reference.MOD_ID + ".blast_furnace";
+		return this.hasCustomInventoryName() ? this.furnaceCustomName : "container." + Reference.MOD_ID + ".blast_furnace";
 	}
 
 	/**
@@ -115,11 +115,11 @@ public class TileEntityBlastFurnace extends TileEntity implements ISidedInventor
 	 */
 	@Override
 	public boolean hasCustomInventoryName() {
-		return this.field_145958_o != null && this.field_145958_o.length() > 0;
+		return this.furnaceCustomName != null && this.furnaceCustomName.length() > 0;
 	}
 
-	public void func_145951_a(String p_145951_1_) {
-		this.field_145958_o = p_145951_1_;
+	public void setCustomInventoryName(String p_145951_1_) {
+		this.furnaceCustomName = p_145951_1_;
 	}
 
 	@Override
@@ -134,7 +134,7 @@ public class TileEntityBlastFurnace extends TileEntity implements ISidedInventor
 		this.currentItemBurnTime = getItemBurnTime(this.furnaceItemStacks[1]);
 
 		if (compound.hasKey("CustomName", 8)) {
-			this.field_145958_o = compound.getString("CustomName");
+			this.furnaceCustomName = compound.getString("CustomName");
 		}
 	}
 
@@ -147,7 +147,7 @@ public class TileEntityBlastFurnace extends TileEntity implements ISidedInventor
 		compound.setTag("Items", Utils.writeItemStacksToNBT(this.furnaceItemStacks));
 
 		if (this.hasCustomInventoryName()) {
-			compound.setString("CustomName", this.field_145958_o);
+			compound.setString("CustomName", this.furnaceCustomName);
 		}
 	}
 

@@ -348,7 +348,7 @@ public class ClientEventHandler {
 		if (ConfigFunctions.enableExtraF3HTooltips && event.showAdvancedItemTooltips) {
 			event.toolTip.add("\u00a78" + Item.itemRegistry.getNameForObject(event.itemStack.getItem()));
 			if (event.itemStack.stackTagCompound != null && !event.itemStack.stackTagCompound.hasNoTags()) {
-				event.toolTip.add("\u00a78NBT: " + event.itemStack.stackTagCompound.func_150296_c().size() + " Tag(s)");
+				event.toolTip.add("\u00a78NBT: " + event.itemStack.stackTagCompound.func_150296_c/*getKeySet*/().size() + " Tag(s)");
 			}
 		}
 	}
@@ -396,7 +396,7 @@ public class ClientEventHandler {
 
 			final boolean hitSound = block.stepSound.getStepResourcePath().endsWith(event.name);
 			final boolean breakSound = block.stepSound.getBreakSound().endsWith(event.name);
-			final boolean placeSound = block.stepSound.func_150496_b().endsWith(event.name);
+			final boolean placeSound = block.stepSound.func_150496_b/*getPlaceSound*/().endsWith(event.name);
 
 			if (MultiBlockSoundRegistry.multiBlockSounds.containsKey(block) && (hitSound || breakSound || placeSound)) {
 				MultiBlockSoundContainer obj = MultiBlockSoundRegistry.multiBlockSounds.get(block);
@@ -498,7 +498,7 @@ public class ClientEventHandler {
 				Item item = Item.getItemFromBlock(blockBeneath);
 				if (item != null && item.getHasSubtypes()) {
 					try {
-						STORAGE_STACK.func_150996_a(item);
+						STORAGE_STACK.func_150996_a(item); // setItem
 						STORAGE_STACK.setItemDamage(world.getBlockMetadata(MathHelper.floor_float(soundX), MathHelper.floor_float(soundY), MathHelper.floor_float(soundZ)));
 						blockName = item.getUnlocalizedName(STORAGE_STACK).toLowerCase();
 					} catch (
@@ -560,7 +560,7 @@ public class ClientEventHandler {
 				if (musicOverride == null || !mc.getSoundHandler().isSoundPlaying(musicOverride)) {
 					String music = getAmbientMusicOverride();
 					if (music != null) {
-						musicOverride = PositionedSoundRecord.func_147673_a(new ResourceLocation(music));
+						musicOverride = PositionedSoundRecord.func_147673_a(new ResourceLocation(music)); // createPositionedSoundRecord
 						event.result = musicOverride;
 					}
 				} else {

@@ -58,7 +58,7 @@ public class ItemSweetBerries extends BaseFood {
 			int j1 = ModBlocks.SWEET_BERRY_BUSH.get().onBlockPlaced(p_77648_3_, p_77648_4_, p_77648_5_, p_77648_6_, p_77648_7_, p_77648_8_, p_77648_9_, p_77648_10_, 0);
 
 			if (placeBlockAt(p_77648_1_, p_77648_2_, p_77648_3_, p_77648_4_, p_77648_5_, p_77648_6_, p_77648_7_, p_77648_8_, p_77648_9_, p_77648_10_, j1)) {
-				p_77648_3_.playSoundEffect(p_77648_4_ + 0.5F, p_77648_5_ + 0.5F, p_77648_6_ + 0.5F, ModBlocks.SWEET_BERRY_BUSH.get().stepSound.func_150496_b(), (ModBlocks.SWEET_BERRY_BUSH.get().stepSound.getVolume() + 1.0F) / 2.0F, ModBlocks.SWEET_BERRY_BUSH.get().stepSound.getPitch() * 0.8F);
+				p_77648_3_.playSoundEffect(p_77648_4_ + 0.5F, p_77648_5_ + 0.5F, p_77648_6_ + 0.5F, ModBlocks.SWEET_BERRY_BUSH.get().stepSound.func_150496_b()/*getPlaceSound*/, (ModBlocks.SWEET_BERRY_BUSH.get().stepSound.getVolume() + 1.0F) / 2.0F, ModBlocks.SWEET_BERRY_BUSH.get().stepSound.getPitch() * 0.8F);
 				--p_77648_1_.stackSize;
 			}
 
