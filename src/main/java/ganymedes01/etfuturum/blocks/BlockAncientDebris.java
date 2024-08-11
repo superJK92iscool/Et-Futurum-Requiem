@@ -26,7 +26,7 @@ public class BlockAncientDebris extends Block {
 	}
 
 	@Override
-	public IIcon getIcon(int side, int p_149691_2_) {
+	public IIcon getIcon(int side, int meta) {
 		return side > 1 ? blockIcon : iconTop;
 	}
 

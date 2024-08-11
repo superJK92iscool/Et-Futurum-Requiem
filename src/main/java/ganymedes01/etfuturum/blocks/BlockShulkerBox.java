@@ -120,7 +120,7 @@ public class BlockShulkerBox extends BlockContainer {
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_) {
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float subX, float subY, float subZ) {
 		if (world.isRemote) {
 			return true;
 		}
@@ -166,12 +166,12 @@ public class BlockShulkerBox extends BlockContainer {
 	}
 
 	@Override
-	public void onBlockAdded(World p_149726_1_, int p_149726_2_, int p_149726_3_, int p_149726_4_) {
-		TileEntityShulkerBox shulker = (TileEntityShulkerBox) p_149726_1_.getTileEntity(p_149726_2_, p_149726_3_, p_149726_4_);
+	public void onBlockAdded(World worldIn, int x, int y, int z) {
+		TileEntityShulkerBox shulker = (TileEntityShulkerBox) worldIn.getTileEntity(x, y, z);
 		if (shulker.chestContents == null || shulker.chestContents.length != shulker.getSizeInventory()) {
 			shulker.chestContents = new ItemStack[shulker.getSizeInventory()];
 		}
-		super.onBlockAdded(p_149726_1_, p_149726_2_, p_149726_3_, p_149726_4_);
+		super.onBlockAdded(worldIn, x, y, z);
 	}
 
 //  public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z)
@@ -191,8 +191,8 @@ public class BlockShulkerBox extends BlockContainer {
 		return tileentity instanceof TileEntityShulkerBox ? ((TileEntityShulkerBox) tileentity).func_190584_a(((TileEntityShulkerBox) tileentity).facing).offset(x, y, z) : super.getCollisionBoundingBoxFromPool(world, x, y, z);
 	}
 
-	public AxisAlignedBB getSelectedBoundingBoxFromPool(World p_149633_1_, int p_149633_2_, int p_149633_3_, int p_149633_4_) {
-		return this.getCollisionBoundingBoxFromPool(p_149633_1_, p_149633_2_, p_149633_3_, p_149633_4_);
+	public AxisAlignedBB getSelectedBoundingBoxFromPool(World worldIn, int x, int y, int z) {
+		return this.getCollisionBoundingBoxFromPool(worldIn, x, y, z);
 	}
 
 	private boolean canOpen(AxisAlignedBB bb, World world, TileEntity tile) {
@@ -269,7 +269,7 @@ public class BlockShulkerBox extends BlockContainer {
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
+	public TileEntity createNewTileEntity(World worldIn, int meta) {
 		return new TileEntityShulkerBox();
 	}
 

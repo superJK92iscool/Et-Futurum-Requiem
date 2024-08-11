@@ -61,8 +61,8 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 	}
 
 	@Override
-	public boolean isUseableByPlayer(EntityPlayer p_70300_1_) {
-		return this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord) == this && p_70300_1_.getDistanceSq(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D) <= 64.0D;
+	public boolean isUseableByPlayer(EntityPlayer player) {
+		return this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord) == this && player.getDistanceSq(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D) <= 64.0D;
 	}
 
 	@Override
@@ -126,9 +126,9 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 	}
 
 	@Override
-	public ItemStack getStackInSlot(int p_70301_1_) {
+	public ItemStack getStackInSlot(int slotIn) {
 		inventoryTouched = true;
-		return this.chestContents[p_70301_1_];
+		return this.chestContents[slotIn];
 	}
 
 	/**
@@ -136,20 +136,20 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 	 * new stack.
 	 */
 	@Override
-	public ItemStack decrStackSize(int p_70298_1_, int p_70298_2_) {
-		if (this.chestContents[p_70298_1_] != null) {
+	public ItemStack decrStackSize(int index, int count) {
+		if (this.chestContents[index] != null) {
 			ItemStack itemstack;
 
-			if (this.chestContents[p_70298_1_].stackSize <= p_70298_2_) {
-				itemstack = this.chestContents[p_70298_1_];
-				this.chestContents[p_70298_1_] = null;
+			if (this.chestContents[index].stackSize <= count) {
+				itemstack = this.chestContents[index];
+				this.chestContents[index] = null;
 				this.markDirty();
 				return itemstack;
 			}
-			itemstack = this.chestContents[p_70298_1_].splitStack(p_70298_2_);
+			itemstack = this.chestContents[index].splitStack(count);
 
-			if (this.chestContents[p_70298_1_].stackSize == 0) {
-				this.chestContents[p_70298_1_] = null;
+			if (this.chestContents[index].stackSize == 0) {
+				this.chestContents[index] = null;
 			}
 
 			this.markDirty();
@@ -163,10 +163,10 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 	 * like when you close a workbench GUI.
 	 */
 	@Override
-	public ItemStack getStackInSlotOnClosing(int p_70304_1_) {
-		if (this.chestContents[p_70304_1_] != null) {
-			ItemStack itemstack = this.chestContents[p_70304_1_];
-			this.chestContents[p_70304_1_] = null;
+	public ItemStack getStackInSlotOnClosing(int index) {
+		if (this.chestContents[index] != null) {
+			ItemStack itemstack = this.chestContents[index];
+			this.chestContents[index] = null;
 			return itemstack;
 		}
 		return null;
@@ -181,11 +181,11 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 	 * Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections).
 	 */
 	@Override
-	public void setInventorySlotContents(int p_70299_1_, ItemStack p_70299_2_) {
-		this.chestContents[p_70299_1_] = p_70299_2_;
+	public void setInventorySlotContents(int index, ItemStack stack) {
+		this.chestContents[index] = stack;
 
-		if (p_70299_2_ != null && p_70299_2_.stackSize > this.getInventoryStackLimit()) {
-			p_70299_2_.stackSize = this.getInventoryStackLimit();
+		if (stack != null && stack.stackSize > this.getInventoryStackLimit()) {
+			stack.stackSize = this.getInventoryStackLimit();
 		}
 
 		this.markDirty();
@@ -290,8 +290,8 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 	 * Returns true if automation is allowed to insert the given stack (ignoring stack size) into the given slot.
 	 */
 	@Override
-	public boolean isItemValidForSlot(int p_94041_1_, ItemStack p_94041_2_) {
-		return !(p_94041_2_.getItem() instanceof ItemBlockShulkerBox || ConfigFunctions.shulkerBans.contains(p_94041_2_.getItem()));
+	public boolean isItemValidForSlot(int index, ItemStack stack) {
+		return !(stack.getItem() instanceof ItemBlockShulkerBox || ConfigFunctions.shulkerBans.contains(stack.getItem()));
 	}
 
 	/**

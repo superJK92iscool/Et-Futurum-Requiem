@@ -85,9 +85,9 @@ public class EntityFallingDripstone extends EntityFallingBlock {
 		}
 	}
 
-	protected void fall(float p_70069_1_) {
+	protected void fall(float distance) {
 		if (this.hurtEntities) {
-			int i = MathHelper.ceiling_float_int(p_70069_1_ - 1.0F);
+			int i = MathHelper.ceiling_float_int(distance - 1.0F);
 
 			if (i > 0) {
 				ArrayList<Entity> arraylist = new ArrayList<>(this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox));
@@ -102,17 +102,17 @@ public class EntityFallingDripstone extends EntityFallingBlock {
 		}
 	}
 
-	protected void writeEntityToNBT(NBTTagCompound p_70014_1_) {
-		super.writeEntityToNBT(p_70014_1_);
-		p_70014_1_.setBoolean("HurtEntities", this.hurtEntities);
-		p_70014_1_.setFloat("FallHurtAmount", this.fallHurtAmount);
-		p_70014_1_.setInteger("FallHurtMax", this.fallHurtMax);
+	protected void writeEntityToNBT(NBTTagCompound tagCompound) {
+		super.writeEntityToNBT(tagCompound);
+		tagCompound.setBoolean("HurtEntities", this.hurtEntities);
+		tagCompound.setFloat("FallHurtAmount", this.fallHurtAmount);
+		tagCompound.setInteger("FallHurtMax", this.fallHurtMax);
 	}
 
-	protected void readEntityFromNBT(NBTTagCompound p_70037_1_) {
-		super.readEntityFromNBT(p_70037_1_);
-		this.hurtEntities = p_70037_1_.getBoolean("HurtEntities");
-		this.fallHurtAmount = p_70037_1_.getFloat("FallHurtAmount");
-		this.fallHurtMax = p_70037_1_.getInteger("FallHurtMax");
+	protected void readEntityFromNBT(NBTTagCompound tagCompund) {
+		super.readEntityFromNBT(tagCompund);
+		this.hurtEntities = tagCompund.getBoolean("HurtEntities");
+		this.fallHurtAmount = tagCompund.getFloat("FallHurtAmount");
+		this.fallHurtMax = tagCompund.getInteger("FallHurtMax");
 	}
 }

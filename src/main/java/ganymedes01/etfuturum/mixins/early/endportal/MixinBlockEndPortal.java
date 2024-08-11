@@ -22,8 +22,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(value = BlockEndPortal.class)
 public class MixinBlockEndPortal extends Block {
 
-	protected MixinBlockEndPortal(Material p_i45394_1_) {
-		super(p_i45394_1_);
+	protected MixinBlockEndPortal(Material materialIn) {
+		super(materialIn);
 	}
 
 	@Inject(method = "onBlockAdded", at = @At(value = "HEAD"), cancellable = true)

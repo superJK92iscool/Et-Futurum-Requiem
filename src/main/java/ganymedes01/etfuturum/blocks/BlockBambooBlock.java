@@ -24,10 +24,10 @@ public class BlockBambooBlock extends BaseLog {
 	}
 
 	@Override
-	public void getSubBlocks(Item p_149666_1_, CreativeTabs p_149666_2_, List<ItemStack> p_149666_3_) {
-		p_149666_3_.add(new ItemStack(p_149666_1_, 1, 0));
+	public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
+		list.add(new ItemStack(itemIn, 1, 0));
 		if (ConfigBlocksItems.enableStrippedLogs) {
-			p_149666_3_.add(new ItemStack(p_149666_1_, 1, 1));
+			list.add(new ItemStack(itemIn, 1, 1));
 		}
 	}
 

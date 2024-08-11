@@ -19,9 +19,9 @@ public class TileEntityCauldronPotion extends TileEntityCauldronColoredWater {
 		return 0;
 	}
 
-	public void readFromNBT(NBTTagCompound p_145839_1_) {
-		super.readFromNBT(p_145839_1_);
-		this.potion = ItemStack.loadItemStackFromNBT(p_145839_1_.getCompoundTag("Potion"));
+	public void readFromNBT(NBTTagCompound compound) {
+		super.readFromNBT(compound);
+		this.potion = ItemStack.loadItemStackFromNBT(compound.getCompoundTag("Potion"));
 
 		if (potion == null || !(potion.getItem() instanceof ItemPotion)) {
 			System.err.println("Cauldron @ " + xCoord + " " + yCoord + " " + zCoord + " had an invalid potion ItemStack. Resetting to a normal cauldron.");
@@ -38,10 +38,10 @@ public class TileEntityCauldronPotion extends TileEntityCauldronColoredWater {
 		return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, nbt);
 	}
 
-	public void writeToNBT(NBTTagCompound p_145841_1_) {
-		super.writeToNBT(p_145841_1_);
+	public void writeToNBT(NBTTagCompound compound) {
+		super.writeToNBT(compound);
 		if (potion != null) {
-			p_145841_1_.setTag("Potion", this.potion.writeToNBT(new NBTTagCompound()));
+			compound.setTag("Potion", this.potion.writeToNBT(new NBTTagCompound()));
 		}
 	}
 }

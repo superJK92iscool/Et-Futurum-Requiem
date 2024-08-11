@@ -31,13 +31,13 @@ public class BlockWitherRose extends BaseFlower {
 	}
 
 	@Override
-	protected boolean canPlaceBlockOn(Block p_149854_1_) {
-		return p_149854_1_ == Blocks.grass || p_149854_1_ == Blocks.dirt || p_149854_1_ == Blocks.farmland || p_149854_1_ == Blocks.soul_sand || p_149854_1_ == Blocks.netherrack;
+	protected boolean canPlaceBlockOn(Block ground) {
+		return ground == Blocks.grass || ground == Blocks.dirt || ground == Blocks.farmland || ground == Blocks.soul_sand || ground == Blocks.netherrack;
 	}
 
 	@Override
-	public void randomDisplayTick(World p_149734_1_, int p_149734_2_, int p_149734_3_, int p_149734_4_, Random p_149734_5_) {
-		p_149734_1_.spawnParticle("smoke", p_149734_2_ + 0.5D, p_149734_3_ + 0.5D, p_149734_4_ + 0.5D, 0, 0, 0);
+	public void randomDisplayTick(World worldIn, int x, int y, int z, Random random) {
+		worldIn.spawnParticle("smoke", x + 0.5D, y + 0.5D, z + 0.5D, 0, 0, 0);
 	}
 
 	@Override

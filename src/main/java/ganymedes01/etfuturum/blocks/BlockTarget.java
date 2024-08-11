@@ -32,9 +32,9 @@ public class BlockTarget extends BaseBlock {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister p_149651_1_) {
-		this.blockIcon = p_149651_1_.registerIcon(getTextureName() + "_side");
-		topIcon = p_149651_1_.registerIcon(getTextureName() + "_top");
+	public void registerBlockIcons(IIconRegister reg) {
+		this.blockIcon = reg.registerIcon(getTextureName() + "_side");
+		topIcon = reg.registerIcon(getTextureName() + "_top");
 	}
 
 	@Override
@@ -76,8 +76,8 @@ public class BlockTarget extends BaseBlock {
 	}
 
 	@Override
-	public void updateTick(World p_149674_1_, int p_149674_2_, int p_149674_3_, int p_149674_4_, Random p_149674_5_) {
-		p_149674_1_.setBlockMetadataWithNotify(p_149674_2_, p_149674_3_, p_149674_4_, 0, 3);
+	public void updateTick(World worldIn, int x, int y, int z, Random random) {
+		worldIn.setBlockMetadataWithNotify(x, y, z, 0, 3);
 	}
 
 	@Override

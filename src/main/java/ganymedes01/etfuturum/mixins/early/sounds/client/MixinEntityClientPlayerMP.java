@@ -34,9 +34,9 @@ public class MixinEntityClientPlayerMP extends EntityPlayerSP {
 	}
 
 	@Override
-	public void playSound(String p_85030_1_, float p_85030_2_, float p_85030_3_) {
-		if (!p_85030_1_.equals("null")) {
-			super.playSound(p_85030_1_, p_85030_2_, p_85030_3_);
+	public void playSound(String name, float volume, float pitch) {
+		if (!name.equals("null")) {
+			super.playSound(name, volume, pitch);
 		}
 	}
 }

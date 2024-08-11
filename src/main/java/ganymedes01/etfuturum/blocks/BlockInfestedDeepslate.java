@@ -24,8 +24,8 @@ public class BlockInfestedDeepslate extends BlockSilverfish {
 	}
 
 	@Override
-	public IIcon getIcon(int p_149691_1_, int p_149691_2_) {
-		return ModBlocks.DEEPSLATE.get().getBlockTextureFromSide(p_149691_1_);
+	public IIcon getIcon(int side, int meta) {
+		return ModBlocks.DEEPSLATE.get().getBlockTextureFromSide(side);
 	}
 
 	public static boolean func_150196_a(Block p_150196_0_) {
@@ -37,19 +37,19 @@ public class BlockInfestedDeepslate extends BlockSilverfish {
 	}
 
 	@Override
-	protected ItemStack createStackedBlock(int p_149644_1_) {
+	protected ItemStack createStackedBlock(int meta) {
 		return ModBlocks.DEEPSLATE.newItemStack();
 	}
 
 	@Override
-	public int getDamageValue(World p_149643_1_, int p_149643_2_, int p_149643_3_, int p_149643_4_) {
+	public int getDamageValue(World worldIn, int x, int y, int z) {
 		return 0;
 	}
 
 	@Override
-	public void getSubBlocks(Item p_149666_1_, CreativeTabs p_149666_2_, List<ItemStack> p_149666_3_) {
+	public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
 		for (int i = 0; i < icon_names.length; ++i) {
-			p_149666_3_.add(new ItemStack(p_149666_1_, 1, i));
+			list.add(new ItemStack(itemIn, 1, i));
 		}
 	}
 }

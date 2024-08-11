@@ -19,8 +19,8 @@ public class MixinBlockBed extends Block {
 	@Unique
 	private long etfuturum$lastBounceTick;
 
-	protected MixinBlockBed(Material p_i45394_1_) {
-		super(p_i45394_1_);
+	protected MixinBlockBed(Material materialIn) {
+		super(materialIn);
 	}
 
 	@Override

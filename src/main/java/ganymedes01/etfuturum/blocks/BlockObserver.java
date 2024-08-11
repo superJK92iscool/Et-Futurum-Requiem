@@ -64,18 +64,18 @@ public class BlockObserver extends Block implements IBlockObserver {
 	}
 
 	@Override
-	public void onBlockPlacedBy(World p_149689_1_, int p_149689_2_, int p_149689_3_, int p_149689_4_, EntityLivingBase p_149689_5_, ItemStack p_149689_6_) {
-		int l = BlockPistonBase.determineOrientation(p_149689_1_, p_149689_2_, p_149689_3_, p_149689_4_, p_149689_5_);
-		p_149689_1_.setBlockMetadataWithNotify(p_149689_2_, p_149689_3_, p_149689_4_, Facing.oppositeSide[l], 2);
+	public void onBlockPlacedBy(World worldIn, int x, int y, int z, EntityLivingBase placer, ItemStack itemIn) {
+		int l = BlockPistonBase.determineOrientation(worldIn, x, y, z, placer);
+		worldIn.setBlockMetadataWithNotify(x, y, z, Facing.oppositeSide[l], 2);
 	}
 
 	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister p_149651_1_) {
-		this.blockIcon = p_149651_1_.registerIcon("observer_side");
-		this.observerFront = p_149651_1_.registerIcon("observer_front");
-		this.observerTop = p_149651_1_.registerIcon("observer_top");
-		this.observerBack = p_149651_1_.registerIcon("observer_back");
-		this.observerBackLit = p_149651_1_.registerIcon("observer_back_lit");
+	public void registerBlockIcons(IIconRegister reg) {
+		this.blockIcon = reg.registerIcon("observer_side");
+		this.observerFront = reg.registerIcon("observer_front");
+		this.observerTop = reg.registerIcon("observer_top");
+		this.observerBack = reg.registerIcon("observer_back");
+		this.observerBackLit = reg.registerIcon("observer_back_lit");
 	}
 
 	@Override
@@ -128,16 +128,16 @@ public class BlockObserver extends Block implements IBlockObserver {
 	}
 
 	@Override
-	public int isProvidingStrongPower(IBlockAccess p_149748_1_, int p_149748_2_, int p_149748_3_, int p_149748_4_, int p_149748_5_) {
-		return isProvidingWeakPower(p_149748_1_, p_149748_2_, p_149748_3_, p_149748_4_, p_149748_5_);
+	public int isProvidingStrongPower(IBlockAccess worldIn, int x, int y, int z, int side) {
+		return isProvidingWeakPower(worldIn, x, y, z, side);
 	}
 
 	@Override
-	public int isProvidingWeakPower(IBlockAccess p_149709_1_, int p_149709_2_, int p_149709_3_, int p_149709_4_, int p_149709_5_) {
-		int metadata = p_149709_1_.getBlockMetadata(p_149709_2_, p_149709_3_, p_149709_4_);
+	public int isProvidingWeakPower(IBlockAccess worldIn, int x, int y, int z, int side) {
+		int metadata = worldIn.getBlockMetadata(x, y, z);
 		if ((metadata & 8) == 0)
 			return 0;
-		return (BlockPistonBase.getPistonOrientation(metadata) == p_149709_5_) ? 15 : 0;
+		return (BlockPistonBase.getPistonOrientation(metadata) == side) ? 15 : 0;
 	}
 
 	public boolean isNormalCube(IBlockAccess world, int x, int y, int z) {

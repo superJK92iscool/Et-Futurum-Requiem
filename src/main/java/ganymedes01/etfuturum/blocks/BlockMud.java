@@ -26,8 +26,8 @@ public class BlockMud extends BaseBlock {
 		return Blocks.dirt.canSustainPlant(world, x, y, z, direction, plant);
 	}
 
-	public AxisAlignedBB getCollisionBoundingBoxFromPool(World p_149668_1_, int p_149668_2_, int p_149668_3_, int p_149668_4_) {
+	public AxisAlignedBB getCollisionBoundingBoxFromPool(World worldIn, int x, int y, int z) {
 		float f = 0.125F;
-		return AxisAlignedBB.getBoundingBox(p_149668_2_, p_149668_3_, p_149668_4_, p_149668_2_ + 1, p_149668_3_ + 1 - f, p_149668_4_ + 1);
+		return AxisAlignedBB.getBoundingBox(x, y, z, x + 1, y + 1 - f, z + 1);
 	}
 }

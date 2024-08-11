@@ -25,8 +25,8 @@ public class ItemBlockAmethystCluster extends ItemBlock {
 		return field_150939_a.getIcon(0, p_77617_1_);
 	}
 
-	public String getUnlocalizedName(ItemStack p_77667_1_) {
-		int damage = p_77667_1_.getItemDamage() < 6 ? 0 : 1;
+	public String getUnlocalizedName(ItemStack stack) {
+		int damage = stack.getItemDamage() < 6 ? 0 : 1;
 		if (secondCluster) {
 			damage += 2;
 		}

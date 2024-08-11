@@ -100,13 +100,13 @@ public abstract class MixinEntityPlayer extends EntityLivingBase implements IEly
 	}
 
 	@Inject(method = "writeEntityToNBT", at = @At("TAIL"))
-	private void writeElytra(NBTTagCompound p_70014_1_, CallbackInfo ci) {
-		p_70014_1_.setBoolean("FallFlying", etfu$isElytraFlying());
+	private void writeElytra(NBTTagCompound tagCompound, CallbackInfo ci) {
+		tagCompound.setBoolean("FallFlying", etfu$isElytraFlying());
 	}
 
 	@Inject(method = "readEntityFromNBT", at = @At("TAIL"))
-	private void readElytra(NBTTagCompound p_70014_1_, CallbackInfo ci) {
-		if (p_70014_1_.getBoolean("FallFlying"))
+	private void readElytra(NBTTagCompound tagCompound, CallbackInfo ci) {
+		if (tagCompound.getBoolean("FallFlying"))
 			etfu$setElytraFlying(true);
 	}
 }

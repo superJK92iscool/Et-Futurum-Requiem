@@ -20,8 +20,8 @@ public abstract class MixinEntityLivingBase extends Entity {
 
 	private static final DamageSource flyIntoWall = (new DamageSource("flyIntoWall")).setDamageBypassesArmor();
 
-	public MixinEntityLivingBase(World p_i1582_1_) {
-		super(p_i1582_1_);
+	public MixinEntityLivingBase(World worldIn) {
+		super(worldIn);
 	}
 
 	@Inject(method = "moveEntityWithHeading", at = @At("HEAD"), cancellable = true)

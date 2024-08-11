@@ -51,8 +51,8 @@ public class TileEntitySmoker extends TileEntity implements ISidedInventory {
 	 * Returns the stack in slot i
 	 */
 	@Override
-	public ItemStack getStackInSlot(int p_70301_1_) {
-		return this.furnaceItemStacks[p_70301_1_];
+	public ItemStack getStackInSlot(int slotIn) {
+		return this.furnaceItemStacks[slotIn];
 	}
 
 	/**
@@ -60,19 +60,19 @@ public class TileEntitySmoker extends TileEntity implements ISidedInventory {
 	 * new stack.
 	 */
 	@Override
-	public ItemStack decrStackSize(int p_70298_1_, int p_70298_2_) {
-		if (this.furnaceItemStacks[p_70298_1_] != null) {
+	public ItemStack decrStackSize(int index, int count) {
+		if (this.furnaceItemStacks[index] != null) {
 			ItemStack itemstack;
 
-			if (this.furnaceItemStacks[p_70298_1_].stackSize <= p_70298_2_) {
-				itemstack = this.furnaceItemStacks[p_70298_1_];
-				this.furnaceItemStacks[p_70298_1_] = null;
+			if (this.furnaceItemStacks[index].stackSize <= count) {
+				itemstack = this.furnaceItemStacks[index];
+				this.furnaceItemStacks[index] = null;
 				return itemstack;
 			}
-			itemstack = this.furnaceItemStacks[p_70298_1_].splitStack(p_70298_2_);
+			itemstack = this.furnaceItemStacks[index].splitStack(count);
 
-			if (this.furnaceItemStacks[p_70298_1_].stackSize == 0) {
-				this.furnaceItemStacks[p_70298_1_] = null;
+			if (this.furnaceItemStacks[index].stackSize == 0) {
+				this.furnaceItemStacks[index] = null;
 			}
 
 			return itemstack;
@@ -85,10 +85,10 @@ public class TileEntitySmoker extends TileEntity implements ISidedInventory {
 	 * like when you close a workbench GUI.
 	 */
 	@Override
-	public ItemStack getStackInSlotOnClosing(int p_70304_1_) {
-		if (this.furnaceItemStacks[p_70304_1_] != null) {
-			ItemStack itemstack = this.furnaceItemStacks[p_70304_1_];
-			this.furnaceItemStacks[p_70304_1_] = null;
+	public ItemStack getStackInSlotOnClosing(int index) {
+		if (this.furnaceItemStacks[index] != null) {
+			ItemStack itemstack = this.furnaceItemStacks[index];
+			this.furnaceItemStacks[index] = null;
 			return itemstack;
 		}
 		return null;
@@ -98,11 +98,11 @@ public class TileEntitySmoker extends TileEntity implements ISidedInventory {
 	 * Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections).
 	 */
 	@Override
-	public void setInventorySlotContents(int p_70299_1_, ItemStack p_70299_2_) {
-		this.furnaceItemStacks[p_70299_1_] = p_70299_2_;
+	public void setInventorySlotContents(int index, ItemStack stack) {
+		this.furnaceItemStacks[index] = stack;
 
-		if (p_70299_2_ != null && p_70299_2_.stackSize > this.getInventoryStackLimit()) {
-			p_70299_2_.stackSize = this.getInventoryStackLimit();
+		if (stack != null && stack.stackSize > this.getInventoryStackLimit()) {
+			stack.stackSize = this.getInventoryStackLimit();
 		}
 	}
 
@@ -127,31 +127,31 @@ public class TileEntitySmoker extends TileEntity implements ISidedInventory {
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound p_145839_1_) {
-		super.readFromNBT(p_145839_1_);
-		NBTTagList nbttaglist = p_145839_1_.getTagList("Items", 10);
+	public void readFromNBT(NBTTagCompound compound) {
+		super.readFromNBT(compound);
+		NBTTagList nbttaglist = compound.getTagList("Items", 10);
 		this.furnaceItemStacks = new ItemStack[this.getSizeInventory()];
 		Utils.loadItemStacksFromNBT(nbttaglist, this.furnaceItemStacks);
 
-		this.furnaceBurnTime = p_145839_1_.getShort("BurnTime");
-		this.furnaceCookTime = p_145839_1_.getShort("CookTime");
+		this.furnaceBurnTime = compound.getShort("BurnTime");
+		this.furnaceCookTime = compound.getShort("CookTime");
 		this.currentItemBurnTime = getItemBurnTime(this.furnaceItemStacks[1]);
 
-		if (p_145839_1_.hasKey("CustomName", 8)) {
-			this.field_145958_o = p_145839_1_.getString("CustomName");
+		if (compound.hasKey("CustomName", 8)) {
+			this.field_145958_o = compound.getString("CustomName");
 		}
 	}
 
 	@Override
-	public void writeToNBT(NBTTagCompound p_145841_1_) {
-		super.writeToNBT(p_145841_1_);
-		p_145841_1_.setShort("BurnTime", (short) this.furnaceBurnTime);
-		p_145841_1_.setShort("CookTime", (short) this.furnaceCookTime);
+	public void writeToNBT(NBTTagCompound compound) {
+		super.writeToNBT(compound);
+		compound.setShort("BurnTime", (short) this.furnaceBurnTime);
+		compound.setShort("CookTime", (short) this.furnaceCookTime);
 
-		p_145841_1_.setTag("Items", Utils.writeItemStacksToNBT(this.furnaceItemStacks));
+		compound.setTag("Items", Utils.writeItemStacksToNBT(this.furnaceItemStacks));
 
 		if (this.hasCustomInventoryName()) {
-			p_145841_1_.setString("CustomName", this.field_145958_o);
+			compound.setString("CustomName", this.field_145958_o);
 		}
 	}
 
@@ -290,8 +290,8 @@ public class TileEntitySmoker extends TileEntity implements ISidedInventory {
 	}
 
 	@Override
-	public boolean isUseableByPlayer(EntityPlayer p_70300_1_) {
-		return this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord) == this && p_70300_1_.getDistanceSq(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D) <= 64.0D;
+	public boolean isUseableByPlayer(EntityPlayer player) {
+		return this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord) == this && player.getDistanceSq(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D) <= 64.0D;
 	}
 
 	@Override
@@ -306,8 +306,8 @@ public class TileEntitySmoker extends TileEntity implements ISidedInventory {
 	 * Returns true if automation is allowed to insert the given stack (ignoring stack size) into the given slot.
 	 */
 	@Override
-	public boolean isItemValidForSlot(int p_94041_1_, ItemStack p_94041_2_) {
-		return p_94041_1_ != 2 && (p_94041_1_ != 1 || isItemFuel(p_94041_2_));
+	public boolean isItemValidForSlot(int index, ItemStack stack) {
+		return index != 2 && (index != 1 || isItemFuel(stack));
 	}
 
 	/**

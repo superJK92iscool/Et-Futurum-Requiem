@@ -94,7 +94,7 @@ public class ItemWoodSign extends Item {
 	}
 
 	@Override
-	public String getUnlocalizedName(ItemStack p_77667_1_) {
+	public String getUnlocalizedName(ItemStack stack) {
 		return getUnlocalizedName();
 	}
 

@@ -41,36 +41,36 @@ public class BlockBlastFurnace extends BlockFurnace {
 	}
 
 	@Override
-	public IIcon getIcon(int p_149691_1_, int p_149691_2_) {
-		return p_149691_1_ == 1 ? this.blockTop : (p_149691_1_ == 0 ? this.blockTop : (p_149691_1_ != p_149691_2_ ? (p_149691_1_ == 3 && p_149691_2_ == 0 ? this.blockFront : this.blockIcon) : this.blockFront));
+	public IIcon getIcon(int side, int meta) {
+		return side == 1 ? this.blockTop : (side == 0 ? this.blockTop : (side != meta ? (side == 3 && meta == 0 ? this.blockFront : this.blockIcon) : this.blockFront));
 	}
 
 	@Override
-	public void randomDisplayTick(World p_149734_1_, int p_149734_2_, int p_149734_3_, int p_149734_4_, Random p_149734_5_) {
+	public void randomDisplayTick(World worldIn, int x, int y, int z, Random random) {
 		if (this.isCooking) {
-			if (ConfigSounds.furnaceCrackling && p_149734_5_.nextDouble() < 0.1D) {
-				p_149734_1_.playSound(p_149734_2_ + .5D, p_149734_3_ + .5D, p_149734_4_ + .5D,
+			if (ConfigSounds.furnaceCrackling && random.nextDouble() < 0.1D) {
+				worldIn.playSound(x + .5D, y + .5D, z + .5D,
 						Reference.MCAssetVer + ":block.blastfurnace.fire_crackle", 1,
-						(p_149734_1_.rand.nextFloat() * 0.1F) + 0.9F, false);
+						(worldIn.rand.nextFloat() * 0.1F) + 0.9F, false);
 			}
 
-			int l = p_149734_1_.getBlockMetadata(p_149734_2_, p_149734_3_, p_149734_4_);
+			int l = worldIn.getBlockMetadata(x, y, z);
 			float r = .0625F;
-			float f = p_149734_2_ + (r * 8);
-			float f1 = p_149734_3_ + (r * 3) + p_149734_5_.nextFloat() * 5.0F / 16.0F;
-			float f2 = p_149734_4_ + (r * 8);
+			float f = x + (r * 8);
+			float f1 = y + (r * 3) + random.nextFloat() * 5.0F / 16.0F;
+			float f2 = z + (r * 8);
 			float f3 = r * 9;
-			float f4 = p_149734_5_.nextFloat() * 0.6F - 0.3F;
-			p_149734_1_.spawnParticle("smoke", f + (l == 4 ? -f3 : l == 5 ? f3 : f4), f1, f2 + (l == 3 ? f3 : l == 2 ? -f3 : f4), 0.0D, 0.0D, 0.0D);
+			float f4 = random.nextFloat() * 0.6F - 0.3F;
+			worldIn.spawnParticle("smoke", f + (l == 4 ? -f3 : l == 5 ? f3 : f4), f1, f2 + (l == 3 ? f3 : l == 2 ? -f3 : f4), 0.0D, 0.0D, 0.0D);
 		}
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister p_149651_1_) {
-		this.blockIcon = p_149651_1_.registerIcon("blast_furnace_side");
-		this.blockFront = p_149651_1_.registerIcon(isCooking ? "blast_furnace_front_on" : "blast_furnace_front");
-		this.blockTop = p_149651_1_.registerIcon("blast_furnace_top");
+	public void registerBlockIcons(IIconRegister reg) {
+		this.blockIcon = reg.registerIcon("blast_furnace_side");
+		this.blockFront = reg.registerIcon(isCooking ? "blast_furnace_front_on" : "blast_furnace_front");
+		this.blockTop = reg.registerIcon("blast_furnace_top");
 	}
 
 	/**
@@ -97,10 +97,10 @@ public class BlockBlastFurnace extends BlockFurnace {
 	}
 
 	@Override
-	public void breakBlock(World p_149749_1_, int p_149749_2_, int p_149749_3_, int p_149749_4_, Block p_149749_5_, int p_149749_6_) {
+	public void breakBlock(World worldIn, int x, int y, int z, Block blockBroken, int meta) {
 		Random random = new Random();
 		if (!field_149934_M) {
-			TileEntityBlastFurnace tileentityfurnace = (TileEntityBlastFurnace) p_149749_1_.getTileEntity(p_149749_2_, p_149749_3_, p_149749_4_);
+			TileEntityBlastFurnace tileentityfurnace = (TileEntityBlastFurnace) worldIn.getTileEntity(x, y, z);
 
 			if (tileentityfurnace != null) {
 				for (int i1 = 0; i1 < tileentityfurnace.getSizeInventory(); ++i1) {
@@ -119,7 +119,7 @@ public class BlockBlastFurnace extends BlockFurnace {
 							}
 
 							itemstack.stackSize -= j1;
-							EntityItem entityitem = new EntityItem(p_149749_1_, p_149749_2_ + f, p_149749_3_ + f1, p_149749_4_ + f2, new ItemStack(itemstack.getItem(), j1, itemstack.getItemDamage()));
+							EntityItem entityitem = new EntityItem(worldIn, x + f, y + f1, z + f2, new ItemStack(itemstack.getItem(), j1, itemstack.getItemDamage()));
 
 							if (itemstack.hasTagCompound()) {
 								entityitem.getEntityItem().setTagCompound((NBTTagCompound) itemstack.getTagCompound().copy());
@@ -129,34 +129,34 @@ public class BlockBlastFurnace extends BlockFurnace {
 							entityitem.motionX = (float) random.nextGaussian() * f3;
 							entityitem.motionY = (float) random.nextGaussian() * f3 + 0.2F;
 							entityitem.motionZ = (float) random.nextGaussian() * f3;
-							p_149749_1_.spawnEntityInWorld(entityitem);
+							worldIn.spawnEntityInWorld(entityitem);
 						}
 					}
 				}
 
-				p_149749_1_.func_147453_f(p_149749_2_, p_149749_3_, p_149749_4_, p_149749_5_);
+				worldIn.func_147453_f(x, y, z, blockBroken);
 			}
 		}
-		p_149749_1_.removeTileEntity(p_149749_2_, p_149749_3_, p_149749_4_);
+		worldIn.removeTileEntity(x, y, z);
 	}
 
 	@Override
-	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_) {
+	public Item getItemDropped(int meta, Random random, int fortune) {
 		return Item.getItemFromBlock(ModBlocks.BLAST_FURNACE.get());
 	}
 
 	@Override
-	public Item getItem(World p_149694_1_, int p_149694_2_, int p_149694_3_, int p_149694_4_) {
+	public Item getItem(World worldIn, int x, int y, int z) {
 		return Item.getItemFromBlock(ModBlocks.BLAST_FURNACE.get());
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
+	public TileEntity createNewTileEntity(World worldIn, int meta) {
 		return new TileEntityBlastFurnace();
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_) {
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float subX, float subY, float subZ) {
 		if (world.isRemote) {
 			return true;
 		}

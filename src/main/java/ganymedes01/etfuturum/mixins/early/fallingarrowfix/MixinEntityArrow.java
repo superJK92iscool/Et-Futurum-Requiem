@@ -27,8 +27,8 @@ public abstract class MixinEntityArrow extends Entity {
 	@Shadow
 	public abstract void onUpdate();
 
-	public MixinEntityArrow(World p_i1582_1_) {
-		super(p_i1582_1_);
+	public MixinEntityArrow(World worldIn) {
+		super(worldIn);
 	}
 
 	/**

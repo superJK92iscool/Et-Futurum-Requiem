@@ -35,8 +35,8 @@ public class MixinBlockPistonBase extends Block {
 		return false;
 	}
 
-	protected MixinBlockPistonBase(Material p_i45394_1_) {
-		super(p_i45394_1_);
+	protected MixinBlockPistonBase(Material materialIn) {
+		super(materialIn);
 	}
 
 	/**

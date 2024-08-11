@@ -27,7 +27,7 @@ public class BlockCopperDoor extends BaseDoor implements IDegradable {
         tickDegradation(world, x, y, z, rand);
     }
 
-    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float p_149727_7_, float p_149727_8_, float p_149727_9_)
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float subX, float subY, float subZ)
     {
         int meta = world.getBlockMetadata(x, y, z);
         if(!tryWaxOnWaxOff(world, x, y + (meta < 8 ? 1 : 0), z, player)) {

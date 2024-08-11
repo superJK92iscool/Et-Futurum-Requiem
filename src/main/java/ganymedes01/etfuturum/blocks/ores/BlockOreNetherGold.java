@@ -26,27 +26,27 @@ public class BlockOreNetherGold extends Block {
 	private final Random rand = new Random();
 
 	@Override
-	public int getExpDrop(IBlockAccess p_149690_1_, int p_149690_5_, int p_149690_7_) {
+	public int getExpDrop(IBlockAccess worldIn, int meta, int fortune) {
 		return MathHelper.getRandomIntegerInRange(rand, 2, 5);
 	}
 
 	@Override
-	public int quantityDropped(Random p_149745_1_) {
-		return 2 + p_149745_1_.nextInt(5);
+	public int quantityDropped(Random random) {
+		return 2 + random.nextInt(5);
 	}
 
 	@Override
-	public int quantityDroppedWithBonus(int fortune, Random p_149679_2_) {
+	public int quantityDroppedWithBonus(int fortune, Random random) {
 		if (fortune > 0) {
-			int j = p_149679_2_.nextInt(fortune + 2) - 1;
+			int j = random.nextInt(fortune + 2) - 1;
 
 			if (j < 0) {
 				j = 0;
 			}
 
-			return this.quantityDropped(p_149679_2_) * (j + 1);
+			return this.quantityDropped(random) * (j + 1);
 		}
-		return this.quantityDropped(p_149679_2_);
+		return this.quantityDropped(random);
 	}
 
 	@Override
@@ -55,7 +55,7 @@ public class BlockOreNetherGold extends Block {
 	}
 
 	@Override
-	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_) {
+	public Item getItemDropped(int meta, Random random, int fortune) {
 		return Items.gold_nugget;
 	}
 

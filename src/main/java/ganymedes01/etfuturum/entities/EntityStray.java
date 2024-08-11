@@ -139,7 +139,7 @@ public class EntityStray extends EntitySkeleton {
 	}
 
 	@Override
-	protected void func_145780_a(final int p_145780_1_, final int p_145780_2_, final int p_145780_3_, final Block p_145780_4_) {
+	protected void func_145780_a(final int x, final int y, final int z, final Block blockIn) {
 		this.playSound(Reference.MCAssetVer + ":entity.stray.step", 0.15f, 1.0f);
 	}
 

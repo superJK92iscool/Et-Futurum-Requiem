@@ -15,8 +15,8 @@ public class BaseBlock extends Block {
 
 	private Block mapColorBase;
 
-	public BaseBlock(Material p_i45394_1_) {
-		super(p_i45394_1_);
+	public BaseBlock(Material materialIn) {
+		super(materialIn);
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
@@ -60,8 +60,8 @@ public class BaseBlock extends Block {
 	}
 
 	@Override
-	public MapColor getMapColor(int p_149728_1_) {
-		return mapColorBase == null ? super.getMapColor(p_149728_1_) : mapColorBase.getMapColor(p_149728_1_);
+	public MapColor getMapColor(int meta) {
+		return mapColorBase == null ? super.getMapColor(meta) : mapColorBase.getMapColor(meta);
 	}
 
 	public String getTextureDomain() {

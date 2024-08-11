@@ -55,32 +55,32 @@ public class BlockComposter extends Block implements FakeTileEntityProvider {
 		this.useNeighborBrightness = true;
 	}
 
-	public IIcon getIcon(int p_149691_1_, int p_149691_2_) {
-		return p_149691_1_ == 1 ? this.topIcon : p_149691_1_ == 0 ? bottomIcon : this.blockIcon;
+	public IIcon getIcon(int side, int meta) {
+		return side == 1 ? this.topIcon : side == 0 ? bottomIcon : this.blockIcon;
 	}
 
 	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister p_149651_1_) {
-		this.blockIcon = p_149651_1_.registerIcon(this.getTextureName() + "_side");
-		this.bottomIcon = p_149651_1_.registerIcon(this.getTextureName() + "_bottom");
-		this.topIcon = p_149651_1_.registerIcon(this.getTextureName() + "_top");
+	public void registerBlockIcons(IIconRegister reg) {
+		this.blockIcon = reg.registerIcon(this.getTextureName() + "_side");
+		this.bottomIcon = reg.registerIcon(this.getTextureName() + "_bottom");
+		this.topIcon = reg.registerIcon(this.getTextureName() + "_top");
 
-		this.compostIcon = p_149651_1_.registerIcon(this.getTextureName() + "_compost");
-		this.fullCompostIcon = p_149651_1_.registerIcon(this.getTextureName() + "_ready");
+		this.compostIcon = reg.registerIcon(this.getTextureName() + "_compost");
+		this.fullCompostIcon = reg.registerIcon(this.getTextureName() + "_ready");
 	}
 
-	public void addCollisionBoxesToList(World p_149743_1_, int p_149743_2_, int p_149743_3_, int p_149743_4_, AxisAlignedBB p_149743_5_, List<AxisAlignedBB> p_149743_6_, Entity p_149743_7_) {
+	public void addCollisionBoxesToList(World worldIn, int x, int y, int z, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collider) {
 		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.125F, 1.0F);
-		super.addCollisionBoxesToList(p_149743_1_, p_149743_2_, p_149743_3_, p_149743_4_, p_149743_5_, p_149743_6_, p_149743_7_);
+		super.addCollisionBoxesToList(worldIn, x, y, z, mask, list, collider);
 		float f = 0.125F;
 		this.setBlockBounds(0.0F, 0.0F, 0.0F, f, 1.0F, 1.0F);
-		super.addCollisionBoxesToList(p_149743_1_, p_149743_2_, p_149743_3_, p_149743_4_, p_149743_5_, p_149743_6_, p_149743_7_);
+		super.addCollisionBoxesToList(worldIn, x, y, z, mask, list, collider);
 		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, f);
-		super.addCollisionBoxesToList(p_149743_1_, p_149743_2_, p_149743_3_, p_149743_4_, p_149743_5_, p_149743_6_, p_149743_7_);
+		super.addCollisionBoxesToList(worldIn, x, y, z, mask, list, collider);
 		this.setBlockBounds(1.0F - f, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
-		super.addCollisionBoxesToList(p_149743_1_, p_149743_2_, p_149743_3_, p_149743_4_, p_149743_5_, p_149743_6_, p_149743_7_);
+		super.addCollisionBoxesToList(worldIn, x, y, z, mask, list, collider);
 		this.setBlockBounds(0.0F, 0.0F, 1.0F - f, 1.0F, 1.0F, 1.0F);
-		super.addCollisionBoxesToList(p_149743_1_, p_149743_2_, p_149743_3_, p_149743_4_, p_149743_5_, p_149743_6_, p_149743_7_);
+		super.addCollisionBoxesToList(worldIn, x, y, z, mask, list, collider);
 		this.setBlockBoundsForItemRender();
 	}
 
@@ -246,7 +246,7 @@ public class BlockComposter extends Block implements FakeTileEntityProvider {
 			return !this.dirty && side == 1 && addToComposter(world, x, y, z, p_102007_2_);
 		}
 
-		public void setInventorySlotContents(int p_70299_1_, ItemStack p_70299_2_) {
+		public void setInventorySlotContents(int index, ItemStack stack) {
 			markDirty();
 		}
 	}

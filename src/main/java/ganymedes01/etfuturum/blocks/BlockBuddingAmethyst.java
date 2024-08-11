@@ -32,12 +32,12 @@ public class BlockBuddingAmethyst extends BlockAmethystBlock {
 		return ConfigWorld.buddingAmethystMode != 0;
 	}
 
-	public int quantityDropped(Random p_149745_1_) {
+	public int quantityDropped(Random random) {
 		return ConfigWorld.buddingAmethystMode == 2 ? 1 : 0;
 	}
 
-	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_) {
-		return ConfigWorld.buddingAmethystMode == 2 ? super.getItemDropped(p_149650_1_, p_149650_2_, p_149650_3_) : null;
+	public Item getItemDropped(int meta, Random random, int fortune) {
+		return ConfigWorld.buddingAmethystMode == 2 ? super.getItemDropped(meta, random, fortune) : null;
 	}
 
 	@Override

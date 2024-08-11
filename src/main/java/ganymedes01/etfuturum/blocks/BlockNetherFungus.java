@@ -44,10 +44,10 @@ public class BlockNetherFungus extends BlockBush implements ISubBlocksBlock, IGr
 		return EnumPlantType.Nether;
 	}
 
-	public boolean canBlockStay(World p_149718_1_, int p_149718_2_, int p_149718_3_, int p_149718_4_) {
-		Block block = p_149718_1_.getBlock(p_149718_2_, p_149718_3_ - 1, p_149718_4_);
-		return block == Blocks.mycelium || block.canSustainPlant(p_149718_1_, p_149718_2_, p_149718_3_ - 1, p_149718_4_, ForgeDirection.UP, this)
-				|| block.canSustainPlant(p_149718_1_, p_149718_2_, p_149718_3_ - 1, p_149718_4_, ForgeDirection.UP, Blocks.tallgrass);
+	public boolean canBlockStay(World worldIn, int x, int y, int z) {
+		Block block = worldIn.getBlock(x, y - 1, z);
+		return block == Blocks.mycelium || block.canSustainPlant(worldIn, x, y - 1, z, ForgeDirection.UP, this)
+				|| block.canSustainPlant(worldIn, x, y - 1, z, ForgeDirection.UP, Blocks.tallgrass);
 	}
 
 	@Override
@@ -56,13 +56,13 @@ public class BlockNetherFungus extends BlockBush implements ISubBlocksBlock, IGr
 	}
 
 	@Override
-	public int getDamageValue(World p_149643_1_, int p_149643_2_, int p_149643_3_, int p_149643_4_) {
-		return damageDropped(p_149643_1_.getBlockMetadata(p_149643_2_, p_149643_3_, p_149643_4_));
+	public int getDamageValue(World worldIn, int x, int y, int z) {
+		return damageDropped(worldIn.getBlockMetadata(x, y, z));
 	}
 
 	@Override
-	public int damageDropped(int p_149692_1_) {
-		return p_149692_1_;
+	public int damageDropped(int meta) {
+		return meta;
 	}
 
 	@Override
@@ -99,12 +99,12 @@ public class BlockNetherFungus extends BlockBush implements ISubBlocksBlock, IGr
 		return getTypes()[stack.getItemDamage() % types.length];
 	}
 
-	public boolean func_149851_a(World world, int x, int y, int z, boolean p_149851_5_) {
+	public boolean func_149851_a(World world, int x, int y, int z, boolean isClient) {
 		return world.getBlock(x, y - 1, z) == ModBlocks.NYLIUM.get() && world.getBlockMetadata(x, y, z) == world.getBlockMetadata(x, y - 1, z);
 	}
 
-	public boolean func_149852_a(World p_149852_1_, Random p_149852_2_, int p_149852_3_, int p_149852_4_, int p_149852_5_) {
-		return (double) p_149852_1_.rand.nextFloat() < 0.40D;
+	public boolean func_149852_a(World worldIn, Random random, int x, int y, int z) {
+		return (double) worldIn.rand.nextFloat() < 0.40D;
 	}
 
 	public void func_149853_b(World world, Random rand, int x, int y, int z) {

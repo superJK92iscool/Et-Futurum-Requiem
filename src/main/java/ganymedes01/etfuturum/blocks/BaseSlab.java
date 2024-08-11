@@ -90,8 +90,8 @@ public class BaseSlab extends BlockSlab implements ISubBlocksBlock {
 	}
 
 	@Override
-	public MapColor getMapColor(int p_149728_1_) {
-		return mapColorBase == null ? super.getMapColor(p_149728_1_ % 8) : mapColorBase.getMapColor(p_149728_1_ % 8);
+	public MapColor getMapColor(int meta) {
+		return mapColorBase == null ? super.getMapColor(meta % 8) : mapColorBase.getMapColor(meta % 8);
 	}
 
 	public BaseSlab getDoubleSlab() {
@@ -139,10 +139,10 @@ public class BaseSlab extends BlockSlab implements ISubBlocksBlock {
 	}
 
 	@Override
-	public void getSubBlocks(Item p_149666_1_, CreativeTabs p_149666_2_, List<ItemStack> p_149666_3_) {
+	public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
 		if (!field_150004_a) {
 			for (int i = 0; i < types.length; i++) {
-				p_149666_3_.add(new ItemStack(p_149666_1_, 1, i));
+				list.add(new ItemStack(itemIn, 1, i));
 			}
 		}
 	}
@@ -153,7 +153,7 @@ public class BaseSlab extends BlockSlab implements ISubBlocksBlock {
 	}
 
 	@Override
-	public Item getItem(World p_149694_1_, int p_149694_2_, int p_149694_3_, int p_149694_4_) {
+	public Item getItem(World worldIn, int x, int y, int z) {
 		return Item.getItemFromBlock(singleSlab);
 	}
 
@@ -162,7 +162,7 @@ public class BaseSlab extends BlockSlab implements ISubBlocksBlock {
 	 * If I could figure it out I likely won't need to store the single slab...
 	 */
 	@Override
-	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_) {
+	public Item getItemDropped(int meta, Random random, int fortune) {
 		return Item.getItemFromBlock(singleSlab);
 	}
 

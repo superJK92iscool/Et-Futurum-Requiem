@@ -21,9 +21,9 @@ public class MixinBlockFurnace {
 
 	@Inject(method = "randomDisplayTick(Lnet/minecraft/world/World;IIILjava/util/Random;)V",
 			at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;getBlockMetadata(III)I", shift = At.Shift.BEFORE))
-	private void randomDisplayTickMixin(World p_149734_1_, int p_149734_2_, int p_149734_3_, int p_149734_4_, Random p_149734_5_, CallbackInfo ci) {
-		if (p_149734_5_.nextDouble() < 0.1D) {
-			p_149734_1_.playSound(p_149734_2_ + .5D, p_149734_3_ + .5D, p_149734_4_ + .5D, Reference.MCAssetVer + ":block.furnace.fire_crackle", 1, 1, false);
+	private void randomDisplayTickMixin(World worldIn, int x, int y, int z, Random random, CallbackInfo ci) {
+		if (random.nextDouble() < 0.1D) {
+			worldIn.playSound(x + .5D, y + .5D, z + .5D, Reference.MCAssetVer + ":block.furnace.fire_crackle", 1, 1, false);
 		}
 	}
 }

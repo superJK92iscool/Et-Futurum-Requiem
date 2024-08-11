@@ -49,14 +49,14 @@ public class BlockGlazedTerracotta extends BaseBlock {
 	}
 
 	@Override
-	public void registerBlockIcons(IIconRegister p_149651_1_) {
-		super.registerBlockIcons(p_149651_1_);
+	public void registerBlockIcons(IIconRegister reg) {
+		super.registerBlockIcons(reg);
 		blockIconFlipped = new IconFlipped(blockIcon, true, false);
 	}
 
 	//  @Override
-//  public void registerBlockIcons(IIconRegister p_149651_1_) {
-//      super.registerBlockIcons(p_149651_1_);
+//  public void registerBlockIcons(IIconRegister reg) {
+//      super.registerBlockIcons(reg);
 //      blockIconFlipped = new IconFlipped(blockIcon, true, false);
 //  }
 //

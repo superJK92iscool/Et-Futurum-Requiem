@@ -43,21 +43,21 @@ public class BlockMossCarpet extends BaseBlock {
 		this.validateBlockBounds(0);
 	}
 
-	public AxisAlignedBB getCollisionBoundingBoxFromPool(World p_149668_1_, int p_149668_2_, int p_149668_3_, int p_149668_4_)
+	public AxisAlignedBB getCollisionBoundingBoxFromPool(World worldIn, int x, int y, int z)
 	{
 		byte b0 = 0;
 		float f = 0.0625F;
-		return AxisAlignedBB.getBoundingBox((double)p_149668_2_ + this.minX, (double)p_149668_3_ + this.minY, (double)p_149668_4_ + this.minZ, (double)p_149668_2_ + this.maxX, (double)((float)p_149668_3_ + (float)b0 * f), (double)p_149668_4_ + this.maxZ);
+		return AxisAlignedBB.getBoundingBox((double)x + this.minX, (double)y + this.minY, (double)z + this.minZ, (double)x + this.maxX, (double)((float)y + (float)b0 * f), (double)z + this.maxZ);
 	}
 
-	public boolean canPlaceBlockAt(World p_149742_1_, int p_149742_2_, int p_149742_3_, int p_149742_4_)
+	public boolean canPlaceBlockAt(World worldIn, int x, int y, int z)
 	{
-		return super.canPlaceBlockAt(p_149742_1_, p_149742_2_, p_149742_3_, p_149742_4_) && this.canBlockStay(p_149742_1_, p_149742_2_, p_149742_3_, p_149742_4_);
+		return super.canPlaceBlockAt(worldIn, x, y, z) && this.canBlockStay(worldIn, x, y, z);
 	}
 
-	public void onNeighborBlockChange(World p_149695_1_, int p_149695_2_, int p_149695_3_, int p_149695_4_, Block p_149695_5_)
+	public void onNeighborBlockChange(World worldIn, int x, int y, int z, Block neighbor)
 	{
-		this.validateLocation(p_149695_1_, p_149695_2_, p_149695_3_, p_149695_4_);
+		this.validateLocation(worldIn, x, y, z);
 	}
 
 	private boolean validateLocation(World p_150090_1_, int p_150090_2_, int p_150090_3_, int p_150090_4_)
@@ -74,19 +74,19 @@ public class BlockMossCarpet extends BaseBlock {
 		}
 	}
 
-	public boolean canBlockStay(World p_149718_1_, int p_149718_2_, int p_149718_3_, int p_149718_4_)
+	public boolean canBlockStay(World worldIn, int x, int y, int z)
 	{
-		return !p_149718_1_.isAirBlock(p_149718_2_, p_149718_3_ - 1, p_149718_4_);
+		return !worldIn.isAirBlock(x, y - 1, z);
 	}
 
-	public boolean shouldSideBeRendered(IBlockAccess p_149646_1_, int p_149646_2_, int p_149646_3_, int p_149646_4_, int p_149646_5_)
+	public boolean shouldSideBeRendered(IBlockAccess worldIn, int x, int y, int z, int side)
 	{
-		return p_149646_5_ == 1 ? true : super.shouldSideBeRendered(p_149646_1_, p_149646_2_, p_149646_3_, p_149646_4_, p_149646_5_);
+		return side == 1 ? true : super.shouldSideBeRendered(worldIn, x, y, z, side);
 	}
 
-	public void setBlockBoundsBasedOnState(IBlockAccess p_149719_1_, int p_149719_2_, int p_149719_3_, int p_149719_4_)
+	public void setBlockBoundsBasedOnState(IBlockAccess worldIn, int x, int y, int z)
 	{
-		this.validateBlockBounds(p_149719_1_.getBlockMetadata(p_149719_2_, p_149719_3_, p_149719_4_));
+		this.validateBlockBounds(worldIn.getBlockMetadata(x, y, z));
 	}
 
 	protected void validateBlockBounds(int input)

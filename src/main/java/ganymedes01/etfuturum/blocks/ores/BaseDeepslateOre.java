@@ -48,13 +48,13 @@ public abstract class BaseDeepslateOre extends BaseBlock implements IInitAction 
 	 * Returns the quantity of items to drop on block destruction.
 	 */
 	@Override
-	public int quantityDropped(Random p_149745_1_) {
-		return getBase().quantityDropped(p_149745_1_);
+	public int quantityDropped(Random random) {
+		return getBase().quantityDropped(random);
 	}
 
 	@Override
-	public int quantityDroppedWithBonus(int i, Random p_149745_1_) {
-		return getBase().quantityDroppedWithBonus(i, p_149745_1_);
+	public int quantityDroppedWithBonus(int i, Random random) {
+		return getBase().quantityDroppedWithBonus(i, random);
 	}
 
 	@Override
@@ -66,8 +66,8 @@ public abstract class BaseDeepslateOre extends BaseBlock implements IInitAction 
 	 * Determines the damage on the item the block drops. Used in cloth and wood.
 	 */
 	@Override
-	public int damageDropped(int p_149692_1_) {
-		return getBase().damageDropped(p_149692_1_);
+	public int damageDropped(int meta) {
+		return getBase().damageDropped(meta);
 	}
 
 	@Override
@@ -79,24 +79,24 @@ public abstract class BaseDeepslateOre extends BaseBlock implements IInitAction 
 	 * Called when a player hits the block. Args: world, x, y, z, player
 	 */
 	@Override
-	public void onBlockClicked(World p_149699_1_, int p_149699_2_, int p_149699_3_, int p_149699_4_, EntityPlayer p_149699_5_) {
-		getBase().onBlockClicked(p_149699_1_, p_149699_2_, p_149699_3_, p_149699_4_, p_149699_5_);
+	public void onBlockClicked(World worldIn, int x, int y, int z, EntityPlayer player) {
+		getBase().onBlockClicked(worldIn, x, y, z, player);
 	}
 
 	/**
 	 * A randomly called display update to be able to add particles or other items for display
 	 */
 	@Override
-	public void randomDisplayTick(World p_149734_1_, int p_149734_2_, int p_149734_3_, int p_149734_4_, Random p_149734_5_) {
-		getBase().randomDisplayTick(p_149734_1_, p_149734_2_, p_149734_3_, p_149734_4_, p_149734_5_);
+	public void randomDisplayTick(World worldIn, int x, int y, int z, Random random) {
+		getBase().randomDisplayTick(worldIn, x, y, z, random);
 	}
 
 	/**
 	 * Called right before the block is destroyed by a player.  Args: world, x, y, z, metaData
 	 */
 	@Override
-	public void onBlockDestroyedByPlayer(World p_149664_1_, int p_149664_2_, int p_149664_3_, int p_149664_4_, int p_149664_5_) {
-		getBase().onBlockDestroyedByPlayer(p_149664_1_, p_149664_2_, p_149664_3_, p_149664_4_, p_149664_5_);
+	public void onBlockDestroyedByPlayer(World worldIn, int x, int y, int z, int meta) {
+		getBase().onBlockDestroyedByPlayer(worldIn, x, y, z, meta);
 	}
 
 	@Override
@@ -113,82 +113,82 @@ public abstract class BaseDeepslateOre extends BaseBlock implements IInitAction 
 	 * Can add to the passed in vector for a movement vector to be applied to the entity. Args: x, y, z, entity, vec3d
 	 */
 	@Override
-	public void velocityToAddToEntity(World p_149640_1_, int p_149640_2_, int p_149640_3_, int p_149640_4_, Entity p_149640_5_, Vec3 p_149640_6_) {
-		getBase().velocityToAddToEntity(p_149640_1_, p_149640_2_, p_149640_3_, p_149640_4_, p_149640_5_, p_149640_6_);
+	public void velocityToAddToEntity(World worldIn, int x, int y, int z, Entity entityIn, Vec3 velocity) {
+		getBase().velocityToAddToEntity(worldIn, x, y, z, entityIn, velocity);
 	}
 
 	/**
 	 * How bright to render this block based on the light its receiving. Args: iBlockAccess, x, y, z
 	 */
 	@Override
-	public int getMixedBrightnessForBlock(IBlockAccess p_149677_1_, int p_149677_2_, int p_149677_3_, int p_149677_4_) {
-		return getBase().getMixedBrightnessForBlock(p_149677_1_, p_149677_2_, p_149677_3_, p_149677_4_);
+	public int getMixedBrightnessForBlock(IBlockAccess worldIn, int x, int y, int z) {
+		return getBase().getMixedBrightnessForBlock(worldIn, x, y, z);
 	}
 
 	/**
 	 * Returns whether this block is collideable based on the arguments passed in
 	 */
 	@Override
-	public boolean canCollideCheck(int p_149678_1_, boolean p_149678_2_) {
-		return getBase().canCollideCheck(p_149678_1_, p_149678_2_);
+	public boolean canCollideCheck(int meta, boolean includeLiquid) {
+		return getBase().canCollideCheck(meta, includeLiquid);
 	}
 
 	@Override
-	public void breakBlock(World p_149749_1_, int p_149749_2_, int p_149749_3_, int p_149749_4_, Block p_149749_5_, int p_149749_6_) {
-		getBase().breakBlock(p_149749_1_, p_149749_2_, p_149749_3_, p_149749_4_, p_149749_5_, p_149749_6_);
+	public void breakBlock(World worldIn, int x, int y, int z, Block blockBroken, int meta) {
+		getBase().breakBlock(worldIn, x, y, z, blockBroken, meta);
 	}
 
 	@Override
-	public MapColor getMapColor(int p_149728_1_) {
-		return getBase().getMapColor(p_149728_1_);
+	public MapColor getMapColor(int meta) {
+		return getBase().getMapColor(meta);
 	}
 
 	/**
 	 * Checks to see if its valid to put this block at the specified coordinates. Args: world, x, y, z
 	 */
 	@Override
-	public boolean canPlaceBlockAt(World p_149742_1_, int p_149742_2_, int p_149742_3_, int p_149742_4_) {
-		return getBase().canPlaceBlockAt(p_149742_1_, p_149742_2_, p_149742_3_, p_149742_4_);
+	public boolean canPlaceBlockAt(World worldIn, int x, int y, int z) {
+		return getBase().canPlaceBlockAt(worldIn, x, y, z);
 	}
 
 	/**
 	 * Called whenever the block is added into the world. Args: world, x, y, z
 	 */
 	@Override
-	public void onBlockAdded(World p_149726_1_, int p_149726_2_, int p_149726_3_, int p_149726_4_) {
-		getBase().onBlockAdded(p_149726_1_, p_149726_2_, p_149726_3_, p_149726_4_);
+	public void onBlockAdded(World worldIn, int x, int y, int z) {
+		getBase().onBlockAdded(worldIn, x, y, z);
 	}
 
 	/**
 	 * Called whenever an entity is walking on top of this block. Args: world, x, y, z, entity
 	 */
 	@Override
-	public void onEntityWalking(World p_149724_1_, int p_149724_2_, int p_149724_3_, int p_149724_4_, Entity p_149724_5_) {
-		getBase().onEntityWalking(p_149724_1_, p_149724_2_, p_149724_3_, p_149724_4_, p_149724_5_);
+	public void onEntityWalking(World worldIn, int x, int y, int z, Entity entityIn) {
+		getBase().onEntityWalking(worldIn, x, y, z, entityIn);
 	}
 
 	/**
 	 * Ticks the block if it's been scheduled
 	 */
 	@Override
-	public void updateTick(World p_149674_1_, int p_149674_2_, int p_149674_3_, int p_149674_4_, Random p_149674_5_) {
-		getBase().updateTick(p_149674_1_, p_149674_2_, p_149674_3_, p_149674_4_, p_149674_5_);
+	public void updateTick(World worldIn, int x, int y, int z, Random random) {
+		getBase().updateTick(worldIn, x, y, z, random);
 	}
 
 	/**
 	 * Called upon block activation (right click on the block.)
 	 */
 	@Override
-	public boolean onBlockActivated(World p_149727_1_, int p_149727_2_, int p_149727_3_, int p_149727_4_, EntityPlayer p_149727_5_, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_) {
-		return getBase().onBlockActivated(p_149727_1_, p_149727_2_, p_149727_3_, p_149727_4_, p_149727_5_, 0, 0.0F, 0.0F, 0.0F);
+	public boolean onBlockActivated(World worldIn, int x, int y, int z, EntityPlayer player, int side, float subX, float subY, float subZ) {
+		return getBase().onBlockActivated(worldIn, x, y, z, player, 0, 0.0F, 0.0F, 0.0F);
 	}
 
 	/**
 	 * Called upon the block being destroyed by an explosion
 	 */
 	@Override
-	public void onBlockDestroyedByExplosion(World p_149723_1_, int p_149723_2_, int p_149723_3_, int p_149723_4_, Explosion p_149723_5_) {
-		getBase().onBlockDestroyedByExplosion(p_149723_1_, p_149723_2_, p_149723_3_, p_149723_4_, p_149723_5_);
+	public void onBlockDestroyedByExplosion(World worldIn, int x, int y, int z, Explosion explosionIn) {
+		getBase().onBlockDestroyedByExplosion(worldIn, x, y, z, explosionIn);
 	}
 
 	@Override
@@ -197,8 +197,8 @@ public abstract class BaseDeepslateOre extends BaseBlock implements IInitAction 
 	}
 
 	@Override
-	protected void dropBlockAsItem(World p_149642_1_, int p_149642_2_, int p_149642_3_, int p_149642_4_, ItemStack p_149642_5_) {
-		super.dropBlockAsItem(p_149642_1_, p_149642_2_, p_149642_3_, p_149642_4_, p_149642_5_);
+	protected void dropBlockAsItem(World worldIn, int x, int y, int z, ItemStack itemIn) {
+		super.dropBlockAsItem(worldIn, x, y, z, itemIn);
 	}
 
 	/**

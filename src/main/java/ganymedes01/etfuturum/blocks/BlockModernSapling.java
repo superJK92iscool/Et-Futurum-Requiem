@@ -30,23 +30,23 @@ public class BlockModernSapling extends BlockSapling implements ISubBlocksBlock 
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
-	public void getSubBlocks(Item p_149666_1_, CreativeTabs p_149666_2_, List<ItemStack> p_149666_3_) {
+	public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
 		if (ConfigExperiments.enableMangroveBlocks) {
-			p_149666_3_.add(new ItemStack(p_149666_1_, 1, 0));
+			list.add(new ItemStack(itemIn, 1, 0));
 		}
 		if (ConfigBlocksItems.enableCherryBlocks) {
-			p_149666_3_.add(new ItemStack(p_149666_1_, 1, 1));
+			list.add(new ItemStack(itemIn, 1, 1));
 		}
 	}
 
-	public IIcon getIcon(int p_149691_1_, int p_149691_2_) {
-		return icons[(p_149691_2_ & 7) % icons.length];
+	public IIcon getIcon(int side, int meta) {
+		return icons[(meta & 7) % icons.length];
 	}
 
 	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister p_149651_1_) {
+	public void registerBlockIcons(IIconRegister reg) {
 		for (int i = 0; i < icons.length; ++i) {
-			icons[i] = p_149651_1_.registerIcon(types[i]);
+			icons[i] = reg.registerIcon(types[i]);
 		}
 	}
 

@@ -70,13 +70,13 @@ public class GuiGamemodeSwitcher extends GuiScreen {
 	}
 
 	@Override
-	protected void keyTyped(char p_73869_1_, int keycode) {
+	protected void keyTyped(char typedChar, int keycode) {
 		if (keycode == Keyboard.KEY_F4) {
 			this.mouseUsedForSelection = false;
 			this.gameMode = nextGameType(this.gameMode);
 			return;
 		}
-		super.keyTyped(p_73869_1_, keycode);
+		super.keyTyped(typedChar, keycode);
 	}
 
 	@Override

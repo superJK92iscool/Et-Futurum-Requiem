@@ -28,12 +28,12 @@ import static net.minecraftforge.common.util.ForgeDirection.UP;
 @Mixin(BlockButton.class)
 public class MixinBlockButton extends Block {
 
-	protected MixinBlockButton(Material p_i45394_1_) {
-		super(p_i45394_1_);
+	protected MixinBlockButton(Material materialIn) {
+		super(materialIn);
 	}
 
 	@Shadow
-	public int isProvidingWeakPower(IBlockAccess p_149709_1_, int p_149709_2_, int p_149709_3_, int p_149709_4_, int p_149709_5_) {
+	public int isProvidingWeakPower(IBlockAccess worldIn, int x, int y, int z, int side) {
 		return 0;
 	}
 
@@ -78,11 +78,11 @@ public class MixinBlockButton extends Block {
 	}
 
 	@Inject(method = "func_150045_e", at = @At(value = "HEAD"), cancellable = true)
-	private void func_150045_e_up_down(World p_150045_1_, int p_150045_2_, int p_150045_3_, int p_150045_4_, CallbackInfoReturnable<Integer> cir) {
-		if (p_150045_1_.isSideSolid(p_150045_2_, p_150045_3_ - 1, p_150045_4_, UP)) {
+	private void func_150045_e_up_down(World worldIn, int x, int y, int z, CallbackInfoReturnable<Integer> cir) {
+		if (worldIn.isSideSolid(x, y - 1, z, UP)) {
 			cir.setReturnValue(5);
 		}
-		if (p_150045_1_.isSideSolid(p_150045_2_, p_150045_3_ + 1, p_150045_4_, DOWN)) {
+		if (worldIn.isSideSolid(x, y + 1, z, DOWN)) {
 			cir.setReturnValue(0);
 		}
 	}

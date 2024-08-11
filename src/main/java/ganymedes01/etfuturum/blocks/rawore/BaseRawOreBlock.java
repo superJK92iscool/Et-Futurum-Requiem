@@ -10,8 +10,8 @@ import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 
 public abstract class BaseRawOreBlock extends BaseBlock implements IInitAction {
-	public BaseRawOreBlock(Material p_i45394_1_) {
-		super(p_i45394_1_);
+	public BaseRawOreBlock(Material materialIn) {
+		super(materialIn);
 	}
 
 	protected abstract Block getBase();

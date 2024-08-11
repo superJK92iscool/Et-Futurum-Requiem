@@ -16,8 +16,8 @@ public class EntityNewBoatSeat extends Entity {
 	private EntityNewBoat boat;
 	private UUID boatUUID;
 
-	public EntityNewBoatSeat(World p_i1582_1_) {
-		super(p_i1582_1_);
+	public EntityNewBoatSeat(World worldIn) {
+		super(worldIn);
 		this.setSize(0, 0);
 		this.width = 0;
 		this.height = 0;
@@ -25,8 +25,8 @@ public class EntityNewBoatSeat extends Entity {
 		this.noClip = true;
 	}
 
-	public EntityNewBoatSeat(World p_i1582_1_, EntityNewBoat boat) {
-		this(p_i1582_1_);
+	public EntityNewBoatSeat(World worldIn, EntityNewBoat boat) {
+		this(worldIn);
 		setBoat(boat);
 	}
 
@@ -125,7 +125,7 @@ public class EntityNewBoatSeat extends Entity {
 		boat = null;
 	}
 
-	public void setPositionAndRotation2(double p_70056_1_, double p_70056_3_, double p_70056_5_, float p_70056_7_, float p_70056_8_, int p_70056_9_) {
+	public void setPositionAndRotation2(double x, double y, double z, float yaw, float pitch, int rotationIncrements) {
 		if (boat != null) {
 			copyLocationAndAnglesFrom(boat);
 			prevRotationYaw = boat.prevRotationYaw;
@@ -151,7 +151,7 @@ public class EntityNewBoatSeat extends Entity {
 		return boat;
 	}
 
-	public boolean writeToNBTOptional(NBTTagCompound p_70039_1_) {
+	public boolean writeToNBTOptional(NBTTagCompound tagCompund) {
 		if (this.ridingEntity != null) {
 			ridingEntity.mountEntity(null);
 			ridingEntity = null;
@@ -187,7 +187,7 @@ public class EntityNewBoatSeat extends Entity {
 
 	@Deprecated
 	@Override
-	public void moveEntity(double p_70091_1_, double p_70091_3_, double p_70091_5_) {
+	public void moveEntity(double x, double y, double z) {
 
 	}
 
@@ -212,7 +212,7 @@ public class EntityNewBoatSeat extends Entity {
 
 	@Deprecated
 	@Override
-	public boolean isInvisibleToPlayer(EntityPlayer p_98034_1_) {
+	public boolean isInvisibleToPlayer(EntityPlayer player) {
 		return true;
 	}
 
@@ -230,7 +230,7 @@ public class EntityNewBoatSeat extends Entity {
 
 	@Deprecated
 	@Override
-	public boolean hitByEntity(Entity p_85031_1_) {
+	public boolean hitByEntity(Entity entityIn) {
 		return true;
 	}
 
@@ -242,13 +242,13 @@ public class EntityNewBoatSeat extends Entity {
 
 	@Deprecated
 	@Override
-	public AxisAlignedBB getCollisionBox(Entity p_70114_1_) {
+	public AxisAlignedBB getCollisionBox(Entity entityIn) {
 		return null;
 	}
 
 	@Deprecated
 	@Override
-	public void applyEntityCollision(Entity p_70108_1_) {
+	public void applyEntityCollision(Entity entityIn) {
 
 	}
 

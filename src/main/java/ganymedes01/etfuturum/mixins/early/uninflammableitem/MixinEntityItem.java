@@ -28,8 +28,8 @@ public abstract class MixinEntityItem extends Entity {
 	@Shadow
 	public abstract ItemStack getEntityItem();
 
-	public MixinEntityItem(World p_i1582_1_) {
-		super(p_i1582_1_);
+	public MixinEntityItem(World worldIn) {
+		super(worldIn);
 	}
 
 	private void makeImmuneToFire(ItemStack stack) {
@@ -86,8 +86,8 @@ public abstract class MixinEntityItem extends Entity {
 	}
 
 	@Inject(method = "attackEntityFrom", at = @At(value = "HEAD"), cancellable = true)
-	public void attackEntityFrom(DamageSource p_70097_1_, float p_70097_2_, CallbackInfoReturnable<Boolean> cir) {
-		if (isImmuneToFire && p_70097_1_.isFireDamage()) {
+	public void attackEntityFrom(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+		if (isImmuneToFire && source.isFireDamage()) {
 			cir.setReturnValue(false);
 		}
 	}

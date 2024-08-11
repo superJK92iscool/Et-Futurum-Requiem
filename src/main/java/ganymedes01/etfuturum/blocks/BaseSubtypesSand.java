@@ -96,9 +96,9 @@ public class BaseSubtypesSand extends BlockFalling implements ISubBlocksBlock {
 	/**
 	 * Ticks the block if it's been scheduled
 	 */
-	public void updateTick(World p_149674_1_, int p_149674_2_, int p_149674_3_, int p_149674_4_, Random p_149674_5_) {
-		if (!p_149674_1_.isRemote) {
-			this.func_149830_m(p_149674_1_, p_149674_2_, p_149674_3_, p_149674_4_);
+	public void updateTick(World worldIn, int x, int y, int z, Random random) {
+		if (!worldIn.isRemote) {
+			this.func_149830_m(worldIn, x, y, z);
 		}
 	}
 

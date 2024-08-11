@@ -137,8 +137,8 @@ public class BaseWall extends BlockWall implements ISubBlocksBlock {
 	}
 
 	@Override
-	public MapColor getMapColor(int p_149728_1_) {
-		return mapColorBase == null ? super.getMapColor(p_149728_1_) : mapColorBase.getMapColor(p_149728_1_);
+	public MapColor getMapColor(int meta) {
+		return mapColorBase == null ? super.getMapColor(meta) : mapColorBase.getMapColor(meta);
 	}
 
     private final Map<Integer, Float> hardnesses = Maps.newHashMap();

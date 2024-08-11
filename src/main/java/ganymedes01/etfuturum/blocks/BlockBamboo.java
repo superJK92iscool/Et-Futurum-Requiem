@@ -40,14 +40,14 @@ public class BlockBamboo extends BaseBlock implements IPlantable, IGrowable {
 	}
 
 	@Override
-	public float getPlayerRelativeBlockHardness(EntityPlayer player, World p_149737_2_, int p_149737_3_, int p_149737_4_, int p_149737_5_) {
+	public float getPlayerRelativeBlockHardness(EntityPlayer player, World worldIn, int x, int y, int z) {
 		if (player.getCurrentEquippedItem() != null) {
 			Set<String> classes = player.getCurrentEquippedItem().getItem().getToolClasses(player.getCurrentEquippedItem());
 			if (player.getCurrentEquippedItem().getItem() instanceof ItemSword || classes.contains("sword")) {
 				return Float.POSITIVE_INFINITY; //Insta-break regardless of mining fatigue
 			}
 		}
-		return super.getPlayerRelativeBlockHardness(player, p_149737_2_, p_149737_3_, p_149737_4_, p_149737_5_);
+		return super.getPlayerRelativeBlockHardness(player, worldIn, x, y, z);
 	}
 
 	@Override
@@ -109,32 +109,32 @@ public class BlockBamboo extends BaseBlock implements IPlantable, IGrowable {
 	/**
 	 * checks if the block can stay, if not drop as item
 	 */
-	protected void checkAndDropBlock(World p_149855_1_, int p_149855_2_, int p_149855_3_, int p_149855_4_) {
-		if (!this.canBlockStay(p_149855_1_, p_149855_2_, p_149855_3_, p_149855_4_)) {
-			this.dropBlockAsItem(p_149855_1_, p_149855_2_, p_149855_3_, p_149855_4_, p_149855_1_.getBlockMetadata(p_149855_2_, p_149855_3_, p_149855_4_), 0);
-			p_149855_1_.setBlockToAir(p_149855_2_, p_149855_3_, p_149855_4_);
+	protected void checkAndDropBlock(World worldIn, int x, int y, int z) {
+		if (!this.canBlockStay(worldIn, x, y, z)) {
+			this.dropBlockAsItem(worldIn, x, y, z, worldIn.getBlockMetadata(x, y, z), 0);
+			worldIn.setBlockToAir(x, y, z);
 		}
 	}
 
 	@Override
-	public int onBlockPlaced(World world, int x, int y, int z, int side, float p_149660_6_, float p_149660_7_, float p_149660_8_, int p_149660_9_) {
+	public int onBlockPlaced(World world, int x, int y, int z, int side, float subX, float subY, float subZ, int meta) {
 		if (world.getBlock(x, y - 1, z) == this) {
-			int meta = world.getBlockMetadata(x, y - 1, z);
+			int metaLower = world.getBlockMetadata(x, y - 1, z);
 			int bambooMeta = 0;
-			bambooMeta = setStalkSize(bambooMeta, getStalkSize(meta) == 1);
-			bambooMeta = setStage(bambooMeta, getStage(meta) == 1);
+			bambooMeta = setStalkSize(bambooMeta, getStalkSize(metaLower) == 1);
+			bambooMeta = setStage(bambooMeta, getStage(metaLower) == 1);
 			return bambooMeta;
 		}
-		return super.onBlockPlaced(world, x, y, z, side, p_149660_6_, p_149660_7_, p_149660_8_, p_149660_9_);
+		return super.onBlockPlaced(world, x, y, z, side, subX, subY, subZ, meta);
 	}
 
 	@Override
-	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_) {
+	public Item getItemDropped(int meta, Random random, int fortune) {
 		return ModItems.BAMBOO.get();
 	}
 
 	@Override
-	public Item getItem(World p_149694_1_, int p_149694_2_, int p_149694_3_, int p_149694_4_) {
+	public Item getItem(World worldIn, int x, int y, int z) {
 		return ModItems.BAMBOO.get();
 	}
 

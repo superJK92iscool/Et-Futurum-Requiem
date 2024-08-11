@@ -59,11 +59,11 @@ public class BaseDoor extends BlockDoor {
 
 
 	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister p_149651_1_) {
+	public void registerBlockIcons(IIconRegister reg) {
 		field_150017_a = new IIcon[2];
 		field_150016_b = new IIcon[2];
-		field_150017_a[0] = p_149651_1_.registerIcon(this.getTextureName() + "_top");
-		field_150016_b[0] = p_149651_1_.registerIcon(this.getTextureName() + "_bottom");
+		field_150017_a[0] = reg.registerIcon(this.getTextureName() + "_top");
+		field_150016_b[0] = reg.registerIcon(this.getTextureName() + "_bottom");
 		field_150017_a[1] = new IconFlipped(this.field_150017_a[0], true, false);
 		field_150016_b[1] = new IconFlipped(this.field_150016_b[0], true, false);
 	}

@@ -31,19 +31,19 @@ public class BlockBasalt extends BlockRotatedPillar implements ISubBlocksBlock {
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
-	public void getSubBlocks(Item p_149666_1_, CreativeTabs p_149666_2_, List<ItemStack> p_149666_3_) {
-		p_149666_3_.add(new ItemStack(p_149666_1_, 1, 0));
-		p_149666_3_.add(new ItemStack(p_149666_1_, 1, 1));
+	public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
+		list.add(new ItemStack(itemIn, 1, 0));
+		list.add(new ItemStack(itemIn, 1, 1));
 	}
 
 	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister p_149651_1_) {
+	public void registerBlockIcons(IIconRegister reg) {
 		sideIcons = new IIcon[2];
 		topIcons = new IIcon[2];
 
 		for (int i = 0; i < getTypes().length; ++i) {
-			sideIcons[i] = p_149651_1_.registerIcon(getTypes()[i] + "_side");
-			topIcons[i] = p_149651_1_.registerIcon(getTypes()[i] + "_top");
+			sideIcons[i] = reg.registerIcon(getTypes()[i] + "_side");
+			topIcons[i] = reg.registerIcon(getTypes()[i] + "_top");
 		}
 	}
 

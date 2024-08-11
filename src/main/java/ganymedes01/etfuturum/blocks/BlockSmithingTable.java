@@ -29,16 +29,16 @@ public class BlockSmithingTable extends Block {
 		this.setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
-	public IIcon getIcon(int p_149691_1_, int p_149691_2_) {
-		return p_149691_1_ == 1 ? this.topIcon : (p_149691_1_ == 0 ? bottomIcon : (p_149691_1_ != 2 && p_149691_1_ != 3 ? this.blockIcon : this.sideIcon));
+	public IIcon getIcon(int side, int meta) {
+		return side == 1 ? this.topIcon : (side == 0 ? bottomIcon : (side != 2 && side != 3 ? this.blockIcon : this.sideIcon));
 	}
 
 	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister p_149651_1_) {
-		this.blockIcon = p_149651_1_.registerIcon(this.getTextureName() + "_side");
-		this.topIcon = p_149651_1_.registerIcon(this.getTextureName() + "_top");
-		this.sideIcon = p_149651_1_.registerIcon(this.getTextureName() + "_front");
-		this.bottomIcon = p_149651_1_.registerIcon(this.getTextureName() + "_bottom");
+	public void registerBlockIcons(IIconRegister reg) {
+		this.blockIcon = reg.registerIcon(this.getTextureName() + "_side");
+		this.topIcon = reg.registerIcon(this.getTextureName() + "_top");
+		this.sideIcon = reg.registerIcon(this.getTextureName() + "_front");
+		this.bottomIcon = reg.registerIcon(this.getTextureName() + "_bottom");
 	}
 
 	@Override

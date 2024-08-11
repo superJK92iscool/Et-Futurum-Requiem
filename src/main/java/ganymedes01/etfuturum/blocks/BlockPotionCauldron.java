@@ -59,7 +59,7 @@ public class BlockPotionCauldron extends BlockCauldronTileEntity {
 
 
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityPlayer, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_) {
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityPlayer, int side, float subX, float subY, float subZ) {
 
 		final ItemStack stack = entityPlayer.getHeldItem();
 		if (stack != null) {
@@ -169,17 +169,17 @@ public class BlockPotionCauldron extends BlockCauldronTileEntity {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister p_149651_1_) {
-		blockIcon = p_149651_1_.registerIcon(GrayscaleWaterResourcePack.createGrayscaleName("water_still", GrayscaleType.TINT_INVERSE));
+	public void registerBlockIcons(IIconRegister reg) {
+		blockIcon = reg.registerIcon(GrayscaleWaterResourcePack.createGrayscaleName("water_still", GrayscaleType.TINT_INVERSE));
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
+	public TileEntity createNewTileEntity(World worldIn, int meta) {
 		return new TileEntityCauldronPotion();
 	}
 
-	static float getRenderLiquidLevel(int p_150025_0_) {
-		int j = MathHelper.clamp_int(p_150025_0_, 0, 3);
+	static float getRenderLiquidLevel(int meta) {
+		int j = MathHelper.clamp_int(meta, 0, 3);
 		return (float) (6 + 3 * j) / 16.0F;
 	}
 

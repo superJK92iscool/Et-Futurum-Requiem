@@ -65,22 +65,22 @@ public class ContainerChestGeneric extends Container {
 		return new SlotCustom(inventory, slotIndex, displayX, displayY);
 	}
 
-	public boolean canInteractWith(EntityPlayer p_75145_1_) {
-		return this.chestInventory.isUseableByPlayer(p_75145_1_);
+	public boolean canInteractWith(EntityPlayer player) {
+		return this.chestInventory.isUseableByPlayer(player);
 	}
 
 	/**
 	 * Called when a player shift-clicks on a slot. You must override this or you will crash when someone does that.
 	 */
-	public ItemStack transferStackInSlot(EntityPlayer p_82846_1_, int p_82846_2_) {
+	public ItemStack transferStackInSlot(EntityPlayer player, int index) {
 		ItemStack itemstack = null;
-		Slot slot = (Slot) this.inventorySlots.get(p_82846_2_);
+		Slot slot = (Slot) this.inventorySlots.get(index);
 
 		if (slot != null && slot.getHasStack()) {
 			ItemStack itemstack1 = slot.getStack();
 			itemstack = itemstack1.copy();
 
-			if (p_82846_2_ < this.chestInventory.getSizeInventory()) {
+			if (index < this.chestInventory.getSizeInventory()) {
 				if (!this.mergeItemStack(itemstack1, this.chestInventory.getSizeInventory(), this.inventorySlots.size(), true)) {
 					return null;
 				}

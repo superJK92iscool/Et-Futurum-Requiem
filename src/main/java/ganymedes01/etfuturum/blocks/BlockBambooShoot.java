@@ -30,17 +30,17 @@ public class BlockBambooShoot extends BlockBush implements IGrowable {
 	}
 
 	@Override
-	public Item getItem(World p_149694_1_, int p_149694_2_, int p_149694_3_, int p_149694_4_) {
+	public Item getItem(World worldIn, int x, int y, int z) {
 		return ModItems.BAMBOO.get();
 	}
 
 	@Override
-	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_) {
+	public Item getItemDropped(int meta, Random random, int fortune) {
 		return ModItems.BAMBOO.get();
 	}
 
 	@Override
-	public boolean func_149851_a(World world, int x, int y, int z, boolean p_149851_5_) {
+	public boolean func_149851_a(World world, int x, int y, int z, boolean isClient) {
 		return world.isAirBlock(x, y + 1, z);
 	}
 
@@ -50,7 +50,7 @@ public class BlockBambooShoot extends BlockBush implements IGrowable {
 	}
 
 	@Override
-	public void func_149853_b(World p_149853_1_, Random p_149853_2_, int p_149853_3_, int p_149853_4_, int p_149853_5_) {
-		updateTick(p_149853_1_, p_149853_3_, p_149853_4_, p_149853_5_, p_149853_2_);
+	public void func_149853_b(World worldIn, Random random, int x, int y, int z) {
+		updateTick(worldIn, x, y, z, random);
 	}
 }

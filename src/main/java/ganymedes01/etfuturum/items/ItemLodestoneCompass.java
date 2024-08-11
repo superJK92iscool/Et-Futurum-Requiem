@@ -14,10 +14,10 @@ public class ItemLodestoneCompass extends Item {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister p_149651_1_) {
+	public void registerIcons(IIconRegister reg) {
 		frames = new IIcon[32];
 		for (int i = 0; i < frames.length; i++) {
-			frames[i] = p_149651_1_.registerIcon(getIconString() + "_" + String.format("%02d", i));
+			frames[i] = reg.registerIcon(getIconString() + "_" + String.format("%02d", i));
 		}
 		itemIcon = frames[0];
 	}

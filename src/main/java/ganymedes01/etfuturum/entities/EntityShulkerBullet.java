@@ -314,9 +314,9 @@ public class EntityShulkerBullet extends Entity {
 		}
 	}
 
-	public void setPositionAndRotation2(double p_70056_1_, double p_70056_3_, double p_70056_5_, float p_70056_7_, float p_70056_8_, int p_70056_9_) {
-		this.setPosition(p_70056_1_, p_70056_3_, p_70056_5_);
-		this.setRotation(p_70056_7_, p_70056_8_);
+	public void setPositionAndRotation2(double x, double y, double z, float yaw, float pitch, int rotationIncrements) {
+		this.setPosition(x, y, z);
+		this.setRotation(yaw, pitch);
 	}
 
 	/**

@@ -84,10 +84,10 @@ public class BlockTwistingVines extends BaseBlock implements IShearable {
 		return canPlaceBlockAt(world, x, y, z);
 	}
 
-	public void onNeighborBlockChange(World p_149695_1_, int p_149695_2_, int p_149695_3_, int p_149695_4_, Block p_149695_5_) {
-		super.onNeighborBlockChange(p_149695_1_, p_149695_2_, p_149695_3_, p_149695_4_, p_149695_5_);
-		if (!canBlockStay(p_149695_1_, p_149695_2_, p_149695_3_, p_149695_4_)) {
-			setVineToAir(p_149695_1_, p_149695_2_, p_149695_3_, p_149695_4_);
+	public void onNeighborBlockChange(World worldIn, int x, int y, int z, Block neighbor) {
+		super.onNeighborBlockChange(worldIn, x, y, z, neighbor);
+		if (!canBlockStay(worldIn, x, y, z)) {
+			setVineToAir(worldIn, x, y, z);
 		}
 	}
 
@@ -98,7 +98,7 @@ public class BlockTwistingVines extends BaseBlock implements IShearable {
 		}
 	}
 
-	public AxisAlignedBB getCollisionBoundingBoxFromPool(World p_149668_1_, int p_149668_2_, int p_149668_3_, int p_149668_4_) {
+	public AxisAlignedBB getCollisionBoundingBoxFromPool(World worldIn, int x, int y, int z) {
 		return null;
 	}
 
@@ -129,9 +129,9 @@ public class BlockTwistingVines extends BaseBlock implements IShearable {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister p_149651_1_) {
-		blockIcon = p_149651_1_.registerIcon(getTextureName() + "_plant");
-		topIcon = p_149651_1_.registerIcon(getTextureName());
+	public void registerBlockIcons(IIconRegister reg) {
+		blockIcon = reg.registerIcon(getTextureName() + "_plant");
+		topIcon = reg.registerIcon(getTextureName());
 	}
 
 	@Override

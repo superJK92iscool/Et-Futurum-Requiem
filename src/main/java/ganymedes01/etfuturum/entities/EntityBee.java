@@ -644,7 +644,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 	}
 
 	@Override
-	protected void func_145780_a(final int p_145780_1_, final int p_145780_2_, final int p_145780_3_, final Block p_145780_4_) {
+	protected void func_145780_a(final int x, final int y, final int z, final Block blockIn) {
 	}
 
 	public int getTalkInterval() {
@@ -678,10 +678,10 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		return this.height * 0.5F;
 	}
 
-	protected void fall(float p_70069_1_) {
+	protected void fall(float distance) {
 	}
 
-	protected void updateFallState(double p_70064_1_, boolean p_70064_3_) {
+	protected void updateFallState(double distanceFallenThisTick, boolean isOnGround) {
 	}
 
 	public void onHoneyDelivered() {

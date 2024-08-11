@@ -18,8 +18,8 @@ import java.util.List;
 @Mixin(BlockPane.class)
 public abstract class MixinBlockPane extends Block {
 
-	protected MixinBlockPane(Material p_i45394_1_) {
-		super(p_i45394_1_);
+	protected MixinBlockPane(Material materialIn) {
+		super(materialIn);
 	}
 
 	@Inject(method = "addCollisionBoxesToList", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/block/BlockPane;canPaneConnectTo(Lnet/minecraft/world/IBlockAccess;IIILnet/minecraftforge/common/util/ForgeDirection;)Z", ordinal = 3, remap = false, shift = At.Shift.AFTER), cancellable = true)

@@ -23,7 +23,7 @@ public class CommandFill extends CommandBase {
 	}
 
 	@Override
-	public String getCommandUsage(ICommandSender p_71518_1_) {
+	public String getCommandUsage(ICommandSender sender) {
 		return "commands.etfuturum.fill.usage";
 	}
 

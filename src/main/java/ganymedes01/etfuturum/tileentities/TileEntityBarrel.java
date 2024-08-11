@@ -29,36 +29,36 @@ public class TileEntityBarrel extends TileEntity implements IInventory {
 	}
 
 	@Override
-	public boolean isUseableByPlayer(EntityPlayer p_70300_1_) {
-		return this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord) == this && p_70300_1_.getDistanceSq(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D) <= 64.0D;
+	public boolean isUseableByPlayer(EntityPlayer player) {
+		return this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord) == this && player.getDistanceSq(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D) <= 64.0D;
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound p_145839_1_) {
-		super.readFromNBT(p_145839_1_);
-		NBTTagList nbttaglist = p_145839_1_.getTagList("Items", 10);
+	public void readFromNBT(NBTTagCompound compound) {
+		super.readFromNBT(compound);
+		NBTTagList nbttaglist = compound.getTagList("Items", 10);
 		this.chestContents = new ItemStack[this.getSizeInventory()];
 		Utils.loadItemStacksFromNBT(nbttaglist, this.chestContents);
 
-		if (p_145839_1_.hasKey("CustomName", 8)) {
-			this.customName = p_145839_1_.getString("CustomName");
+		if (compound.hasKey("CustomName", 8)) {
+			this.customName = compound.getString("CustomName");
 		}
 	}
 
 	@Override
-	public void writeToNBT(NBTTagCompound p_145841_1_) {
-		super.writeToNBT(p_145841_1_);
+	public void writeToNBT(NBTTagCompound compound) {
+		super.writeToNBT(compound);
 
-		p_145841_1_.setTag("Items", Utils.writeItemStacksToNBT(this.chestContents));
+		compound.setTag("Items", Utils.writeItemStacksToNBT(this.chestContents));
 
 		if (this.hasCustomInventoryName()) {
-			p_145841_1_.setString("CustomName", this.customName);
+			compound.setString("CustomName", this.customName);
 		}
 	}
 
 	@Override
-	public ItemStack getStackInSlot(int p_70301_1_) {
-		return this.chestContents[p_70301_1_];
+	public ItemStack getStackInSlot(int slotIn) {
+		return this.chestContents[slotIn];
 	}
 
 	/**
@@ -66,20 +66,20 @@ public class TileEntityBarrel extends TileEntity implements IInventory {
 	 * new stack.
 	 */
 	@Override
-	public ItemStack decrStackSize(int p_70298_1_, int p_70298_2_) {
-		if (this.chestContents[p_70298_1_] != null) {
+	public ItemStack decrStackSize(int index, int count) {
+		if (this.chestContents[index] != null) {
 			ItemStack itemstack;
 
-			if (this.chestContents[p_70298_1_].stackSize <= p_70298_2_) {
-				itemstack = this.chestContents[p_70298_1_];
-				this.chestContents[p_70298_1_] = null;
+			if (this.chestContents[index].stackSize <= count) {
+				itemstack = this.chestContents[index];
+				this.chestContents[index] = null;
 				this.markDirty();
 				return itemstack;
 			}
-			itemstack = this.chestContents[p_70298_1_].splitStack(p_70298_2_);
+			itemstack = this.chestContents[index].splitStack(count);
 
-			if (this.chestContents[p_70298_1_].stackSize == 0) {
-				this.chestContents[p_70298_1_] = null;
+			if (this.chestContents[index].stackSize == 0) {
+				this.chestContents[index] = null;
 			}
 
 			this.markDirty();
@@ -93,10 +93,10 @@ public class TileEntityBarrel extends TileEntity implements IInventory {
 	 * like when you close a workbench GUI.
 	 */
 	@Override
-	public ItemStack getStackInSlotOnClosing(int p_70304_1_) {
-		if (this.chestContents[p_70304_1_] != null) {
-			ItemStack itemstack = this.chestContents[p_70304_1_];
-			this.chestContents[p_70304_1_] = null;
+	public ItemStack getStackInSlotOnClosing(int index) {
+		if (this.chestContents[index] != null) {
+			ItemStack itemstack = this.chestContents[index];
+			this.chestContents[index] = null;
 			return itemstack;
 		}
 		return null;
@@ -111,11 +111,11 @@ public class TileEntityBarrel extends TileEntity implements IInventory {
 	 * Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections).
 	 */
 	@Override
-	public void setInventorySlotContents(int p_70299_1_, ItemStack p_70299_2_) {
-		this.chestContents[p_70299_1_] = p_70299_2_;
+	public void setInventorySlotContents(int index, ItemStack stack) {
+		this.chestContents[index] = stack;
 
-		if (p_70299_2_ != null && p_70299_2_.stackSize > this.getInventoryStackLimit()) {
-			p_70299_2_.stackSize = this.getInventoryStackLimit();
+		if (stack != null && stack.stackSize > this.getInventoryStackLimit()) {
+			stack.stackSize = this.getInventoryStackLimit();
 		}
 
 		this.markDirty();
@@ -193,12 +193,12 @@ public class TileEntityBarrel extends TileEntity implements IInventory {
 	}
 
 	@Override
-	public boolean receiveClientEvent(int p_145842_1_, int p_145842_2_) {
-		if (p_145842_1_ == 1) {
-			this.numPlayersUsing = p_145842_2_;
+	public boolean receiveClientEvent(int id, int type) {
+		if (id == 1) {
+			this.numPlayersUsing = type;
 			return true;
 		}
-		return super.receiveClientEvent(p_145842_1_, p_145842_2_);
+		return super.receiveClientEvent(id, type);
 	}
 
 	@Override
@@ -227,7 +227,7 @@ public class TileEntityBarrel extends TileEntity implements IInventory {
 	 * Returns true if automation is allowed to insert the given stack (ignoring stack size) into the given slot.
 	 */
 	@Override
-	public boolean isItemValidForSlot(int p_94041_1_, ItemStack p_94041_2_) {
+	public boolean isItemValidForSlot(int index, ItemStack stack) {
 		return true;
 	}
 

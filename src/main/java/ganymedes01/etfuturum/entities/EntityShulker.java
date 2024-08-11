@@ -81,15 +81,15 @@ public class EntityShulker extends EntityGolem implements IMob {
 		return super.onSpawnWithEgg(p_110161_1_);
 	}
 
-	public void setLocationAndAngles(double p_70012_1_, double p_70012_3_, double p_70012_5_, float p_70012_7_, float p_70012_8_) {
-		super.setLocationAndAngles(p_70012_1_, p_70012_3_, p_70012_5_, p_70012_7_, p_70012_8_);
+	public void setLocationAndAngles(double x, double y, double z, float yaw, float pitch) {
+		super.setLocationAndAngles(x, y, z, yaw, pitch);
 		if (getAge() == 0) {
-			int x = MathHelper.floor_double(posX);
-			int y = MathHelper.floor_double(posY);
-			int z = MathHelper.floor_double(posZ);
-			this.setAttachmentPos(new BlockPos(x, y, z));
+			int xPos = MathHelper.floor_double(posX);
+			int yPos = MathHelper.floor_double(posY);
+			int zPos = MathHelper.floor_double(posZ);
+			this.setAttachmentPos(new BlockPos(xPos, yPos, zPos));
 			for (EnumFacing enumfacing1 : Utils.ENUM_FACING_VALUES) {
-				if (this.worldObj.isBlockNormalCubeDefault(x + enumfacing1.getFrontOffsetX(), y + enumfacing1.getFrontOffsetY(), z + enumfacing1.getFrontOffsetZ(), false)) {
+				if (this.worldObj.isBlockNormalCubeDefault(xPos + enumfacing1.getFrontOffsetX(), yPos + enumfacing1.getFrontOffsetY(), zPos + enumfacing1.getFrontOffsetZ(), false)) {
 					this.getDataWatcher().updateObject(ATTACHED_FACE, (byte) enumfacing1.ordinal());
 					break;
 				}
@@ -590,8 +590,8 @@ public class EntityShulker extends EntityGolem implements IMob {
 		return ModEntityList.getEggFromEntity(this);
 	}
 
-	public void travelToDimension(int p_71027_1_) {
-		super.travelToDimension(p_71027_1_);
+	public void travelToDimension(int dimensionId) {
+		super.travelToDimension(dimensionId);
 		this.setAttachmentPos(new BlockPos(this));
 	}
 

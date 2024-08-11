@@ -18,14 +18,14 @@ public class BlockRedSandstone extends BlockSandStone {
 	}
 
 	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister p_149651_1_) {
+	public void registerBlockIcons(IIconRegister reg) {
 		this.field_150158_M = new IIcon[3];
 
-		this.field_150158_M[0] = p_149651_1_.registerIcon(getTextureName());
-		this.field_150158_M[1] = p_149651_1_.registerIcon("chiseled_" + getTextureName());
-		this.field_150158_M[2] = p_149651_1_.registerIcon("cut_" + getTextureName());
+		this.field_150158_M[0] = reg.registerIcon(getTextureName());
+		this.field_150158_M[1] = reg.registerIcon("chiseled_" + getTextureName());
+		this.field_150158_M[2] = reg.registerIcon("cut_" + getTextureName());
 
-		this.field_150159_N = p_149651_1_.registerIcon(getTextureName() + "_top");
-		this.field_150160_O = p_149651_1_.registerIcon(getTextureName() + "_bottom");
+		this.field_150159_N = reg.registerIcon(getTextureName() + "_top");
+		this.field_150160_O = reg.registerIcon(getTextureName() + "_bottom");
 	}
 }

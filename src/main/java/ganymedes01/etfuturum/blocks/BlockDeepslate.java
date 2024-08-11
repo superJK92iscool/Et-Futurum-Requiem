@@ -48,9 +48,9 @@ public class BlockDeepslate extends BlockRotatedPillar {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister p_149651_1_) {
-		blockIcon = p_149651_1_.registerIcon(getTextureName());
-		field_150164_N = p_149651_1_.registerIcon(getTextureName() + "_top");
+	public void registerBlockIcons(IIconRegister reg) {
+		blockIcon = reg.registerIcon(getTextureName());
+		field_150164_N = reg.registerIcon(getTextureName() + "_top");
 	}
 
 	@Override

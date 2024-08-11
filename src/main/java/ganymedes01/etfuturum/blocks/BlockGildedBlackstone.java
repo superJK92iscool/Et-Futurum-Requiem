@@ -21,12 +21,12 @@ public class BlockGildedBlackstone extends BaseBlock {
 	}
 
 
-	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_) {
-		if (p_149650_3_ > 3) {
-			p_149650_3_ = 3;
+	public Item getItemDropped(int meta, Random random, int fortune) {
+		if (fortune > 3) {
+			fortune = 3;
 		}
 
-		return p_149650_2_.nextInt(10 - p_149650_3_ * 3) == 0 ? Items.gold_nugget : Item.getItemFromBlock(this);
+		return random.nextInt(10 - fortune * 3) == 0 ? Items.gold_nugget : Item.getItemFromBlock(this);
 	}
 
 	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {

@@ -36,25 +36,25 @@ public class BlockPointedDripstone extends Block {
 	}
 
 	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister p_149651_1_) {
+	public void registerBlockIcons(IIconRegister reg) {
 		downIcons = new IIcon[5];
-		downIcons[0] = p_149651_1_.registerIcon(getTextureName() + "_down_tip");
-		downIcons[1] = p_149651_1_.registerIcon(getTextureName() + "_down_frustum");
-		downIcons[2] = p_149651_1_.registerIcon(getTextureName() + "_down_middle");
-		downIcons[3] = p_149651_1_.registerIcon(getTextureName() + "_down_base");
-		downIcons[4] = p_149651_1_.registerIcon(getTextureName() + "_down_tip_merge");
+		downIcons[0] = reg.registerIcon(getTextureName() + "_down_tip");
+		downIcons[1] = reg.registerIcon(getTextureName() + "_down_frustum");
+		downIcons[2] = reg.registerIcon(getTextureName() + "_down_middle");
+		downIcons[3] = reg.registerIcon(getTextureName() + "_down_base");
+		downIcons[4] = reg.registerIcon(getTextureName() + "_down_tip_merge");
 
 		upIcons = new IIcon[5];
-		upIcons[0] = p_149651_1_.registerIcon(getTextureName() + "_up_tip");
-		upIcons[1] = p_149651_1_.registerIcon(getTextureName() + "_up_frustum");
-		upIcons[2] = p_149651_1_.registerIcon(getTextureName() + "_up_middle");
-		upIcons[3] = p_149651_1_.registerIcon(getTextureName() + "_up_base");
-		upIcons[4] = p_149651_1_.registerIcon(getTextureName() + "_up_tip_merge");
+		upIcons[0] = reg.registerIcon(getTextureName() + "_up_tip");
+		upIcons[1] = reg.registerIcon(getTextureName() + "_up_frustum");
+		upIcons[2] = reg.registerIcon(getTextureName() + "_up_middle");
+		upIcons[3] = reg.registerIcon(getTextureName() + "_up_base");
+		upIcons[4] = reg.registerIcon(getTextureName() + "_up_tip_merge");
 
 		this.blockIcon = downIcons[3];
 	}
 
-	public int onBlockPlaced(World world, int x, int y, int z, int side, float p_149660_6_, float p_149660_7_, float p_149660_8_, int p_149660_9_) {
+	public int onBlockPlaced(World world, int x, int y, int z, int side, float subX, float subY, float subZ, int meta) {
 		if (side < 2) {
 			return side * states;
 		}

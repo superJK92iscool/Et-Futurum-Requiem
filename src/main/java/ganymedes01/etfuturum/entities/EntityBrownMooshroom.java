@@ -96,17 +96,17 @@ public class EntityBrownMooshroom extends EntityMooshroom {
 	}
 
 	@Override
-	public void writeEntityToNBT(NBTTagCompound p_70014_1_) {
+	public void writeEntityToNBT(NBTTagCompound tagCompound) {
 		getEntityData().setByte("EffectId", this.effectID);
 		getEntityData().setInteger("EffectDuration", this.effectDuration);
-		super.writeEntityToNBT(p_70014_1_);
+		super.writeEntityToNBT(tagCompound);
 	}
 
 	@Override
-	public void readEntityFromNBT(NBTTagCompound p_70037_1_) {
+	public void readEntityFromNBT(NBTTagCompound tagCompund) {
 		this.effectID = getEntityData().getByte("EffectId");
 		this.effectDuration = getEntityData().getInteger("EffectDuration");
-		super.readEntityFromNBT(p_70037_1_);
+		super.readEntityFromNBT(tagCompund);
 	}
 
 	@Override

@@ -28,16 +28,16 @@ public class BlockLavaCauldron extends BlockCauldron {
 	}
 
 	@Override
-	public boolean onBlockActivated(World p_149727_1_, int p_149727_2_, int p_149727_3_, int p_149727_4_, EntityPlayer p_149727_5_, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_) {
+	public boolean onBlockActivated(World worldIn, int x, int y, int z, EntityPlayer player, int side, float subX, float subY, float subZ) {
 //      ItemStack item;
-//      if (p_149727_5_.getCurrentEquippedItem() != null) {
-//          item = p_149727_5_.getCurrentEquippedItem();
+//      if (player.getCurrentEquippedItem() != null) {
+//          item = player.getCurrentEquippedItem();
 //          if (item.getItem() instanceof ItemBucket) {
 //              // TODO Bucketing lava out of the cauldron
 //          }
 //      }
 //      return true;
-		return super.onBlockActivated(p_149727_1_, p_149727_2_, p_149727_3_, p_149727_4_, p_149727_5_, p_149727_6_, p_149727_7_, p_149727_8_, p_149727_9_);
+		return super.onBlockActivated(worldIn, x, y, z, player, side, subX, subY, subZ);
 	}
 
 	@Override
@@ -84,7 +84,7 @@ public class BlockLavaCauldron extends BlockCauldron {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister p_149651_1_) {
+	public void registerBlockIcons(IIconRegister reg) {
 		// Taking Icons from original Cauldron
 	}
 

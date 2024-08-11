@@ -178,8 +178,8 @@ public class EtFuturumWorldListener implements IWorldAccess {
 	}
 
 	@Override
-	public void playSound(String p_72704_1_, double p_72704_2_, double p_72704_4_, double p_72704_6_, float p_72704_8_,
-						  float p_72704_9_) {
+	public void playSound(String soundName, double x, double y, double z, float volume,
+						  float pitch) {
 		// TODO Auto-generated method stub
 
 	}

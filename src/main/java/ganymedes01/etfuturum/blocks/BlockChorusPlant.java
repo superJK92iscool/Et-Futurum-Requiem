@@ -80,7 +80,7 @@ public class BlockChorusPlant extends Block {
 	}
 
 	@Override
-	public void onNeighborBlockChange(World world, int x, int y, int z, Block p_149695_5_) {
+	public void onNeighborBlockChange(World world, int x, int y, int z, Block neighbor) {
 		if (!this.canSurviveAt(world, x, y, z)) {
 			world.scheduleBlockUpdate(x, y, z, this, 1);
 		}

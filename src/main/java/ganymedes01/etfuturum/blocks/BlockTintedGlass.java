@@ -24,7 +24,7 @@ public class BlockTintedGlass extends BlockGlass {
 	}
 
 	@Override
-	public int quantityDropped(Random p_149745_1_) {
+	public int quantityDropped(Random random) {
 		return 1;
 	}
 

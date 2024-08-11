@@ -40,12 +40,12 @@ public class ItemHoneyBottle extends BaseItem {
 		return 32;
 	}
 
-	public EnumAction getItemUseAction(ItemStack p_77661_1_) {
+	public EnumAction getItemUseAction(ItemStack stack) {
 		return EnumAction.drink;
 	}
 
-	public ItemStack onItemRightClick(ItemStack p_77659_1_, World p_77659_2_, EntityPlayer p_77659_3_) {
-		p_77659_3_.setItemInUse(p_77659_1_, this.getMaxItemUseDuration(p_77659_1_));
-		return p_77659_1_;
+	public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer player) {
+		player.setItemInUse(itemStackIn, this.getMaxItemUseDuration(itemStackIn));
+		return itemStackIn;
 	}
 }

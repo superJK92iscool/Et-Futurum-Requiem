@@ -29,7 +29,7 @@ public class BlockLight extends BlockBarrier implements ISubBlocksBlock {
 		}
 	}
 
-	public AxisAlignedBB getCollisionBoundingBoxFromPool(World p_149668_1_, int p_149668_2_, int p_149668_3_, int p_149668_4_) {
+	public AxisAlignedBB getCollisionBoundingBoxFromPool(World worldIn, int x, int y, int z) {
 		return null;
 	}
 
@@ -54,7 +54,7 @@ public class BlockLight extends BlockBarrier implements ISubBlocksBlock {
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_) {
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float subX, float subY, float subZ) {
 		if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == Item.getItemFromBlock(this)) {
 			world.setBlockMetadataWithNotify(x, y, z, (world.getBlockMetadata(x, y, z) + 1) % 16, 2);
 			return true;
@@ -68,9 +68,9 @@ public class BlockLight extends BlockBarrier implements ISubBlocksBlock {
 	}
 
 	@Override
-	public void getSubBlocks(Item p_149666_1_, CreativeTabs p_149666_2_, List<ItemStack> p_149666_3_) {
+	public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
 		for (int i = 0; i < 16; i++) {
-			p_149666_3_.add(new ItemStack(p_149666_1_, 1, i));
+			list.add(new ItemStack(itemIn, 1, i));
 		}
 	}
 
@@ -115,7 +115,7 @@ public class BlockLight extends BlockBarrier implements ISubBlocksBlock {
 	}
 
 	@Override
-	public boolean getBlocksMovement(IBlockAccess p_149655_1_, int p_149655_2_, int p_149655_3_, int p_149655_4_)
+	public boolean getBlocksMovement(IBlockAccess worldIn, int x, int y, int z)
 	{
 		return true;
 	}

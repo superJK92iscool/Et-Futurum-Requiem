@@ -18,8 +18,8 @@ import java.util.Random;
 @Mixin(BlockFalling.class)
 public abstract class MixinBlockFalling extends Block implements IFallingDustColor {
 
-	protected MixinBlockFalling(Material p_i45394_1_) {
-		super(p_i45394_1_);
+	protected MixinBlockFalling(Material materialIn) {
+		super(materialIn);
 	}
 
 	@Override
