@@ -56,7 +56,8 @@ public class BlockLoom extends Block {
 		return side == 1 ? this.topIcon : (side == 0 ? this.bottomIcon : (side != meta + 2 ? this.sideIcon : this.blockIcon));
 	}
 
-	@SideOnly(Side.CLIENT)
+	@Override
+    @SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister reg) {
 		this.blockIcon = reg.registerIcon(this.getTextureName() + "_front");
 		this.topIcon = reg.registerIcon(this.getTextureName() + "_top");
@@ -79,7 +80,8 @@ public class BlockLoom extends Block {
 		return 20;
 	}
 
-	public int getRenderType() {
+	@Override
+    public int getRenderType() {
 		return RenderIDs.LOOM;
 	}
 

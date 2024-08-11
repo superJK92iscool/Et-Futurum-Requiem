@@ -39,7 +39,8 @@ public class BlockDirtPath extends Block {
 	 * Returns a bounding box from the pool of bounding boxes (this means this box can change after the pool has been
 	 * cleared to be reused)
 	 */
-	public AxisAlignedBB getCollisionBoundingBoxFromPool(World worldIn, int x, int y, int z) {
+	@Override
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World worldIn, int x, int y, int z) {
 		return AxisAlignedBB.getBoundingBox((double) x + this.minX, (double) y + this.minY, (double) z + this.minZ, (double) x + this.maxX, (double) y + 1, (double) z + this.maxZ);
 	}
 
@@ -64,7 +65,8 @@ public class BlockDirtPath extends Block {
 			world.setBlock(x, y, z, Blocks.dirt);
 	}
 
-	public boolean shouldSideBeRendered(IBlockAccess worldIn, int x, int y, int z, int side) {
+	@Override
+    public boolean shouldSideBeRendered(IBlockAccess worldIn, int x, int y, int z, int side) {
 		Block block = worldIn.getBlock(x, y, z);
 		if (block instanceof BlockDirtPath || block instanceof BlockFarmland) {
 			return false;

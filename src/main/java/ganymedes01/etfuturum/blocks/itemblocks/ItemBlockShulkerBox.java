@@ -49,7 +49,8 @@ public class ItemBlockShulkerBox extends ItemBlock {
 		return "tile." + Utils.getUnlocalisedName(string);
 	}
 
-	public boolean onItemUse(ItemStack p_77648_1_, EntityPlayer p_77648_2_, World p_77648_3_, int p_77648_4_, int p_77648_5_, int p_77648_6_, int p_77648_7_, float p_77648_8_, float p_77648_9_, float p_77648_10_) {
+	@Override
+    public boolean onItemUse(ItemStack p_77648_1_, EntityPlayer p_77648_2_, World p_77648_3_, int p_77648_4_, int p_77648_5_, int p_77648_6_, int p_77648_7_, float p_77648_8_, float p_77648_9_, float p_77648_10_) {
 		Block block = p_77648_3_.getBlock(p_77648_4_, p_77648_5_, p_77648_6_);
 		int meta = p_77648_3_.getBlockMetadata(p_77648_4_, p_77648_5_, p_77648_6_);
 		if (block == Blocks.cauldron && meta > 0 && p_77648_1_.hasTagCompound() && p_77648_1_.getTagCompound().hasKey("Color")) {
@@ -63,7 +64,8 @@ public class ItemBlockShulkerBox extends ItemBlock {
 		return super.onItemUse(p_77648_1_, p_77648_2_, p_77648_3_, p_77648_4_, p_77648_5_, p_77648_6_, p_77648_7_, p_77648_8_, p_77648_9_, p_77648_10_);
 	}
 
-	public boolean placeBlockAt(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int metadata) {
+	@Override
+    public boolean placeBlockAt(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int metadata) {
 		if (!world.setBlock(x, y, z, field_150939_a/*blockInstance*/, metadata, 3)) {
 			return false;
 		}
@@ -78,7 +80,8 @@ public class ItemBlockShulkerBox extends ItemBlock {
 		return true;
 	}
 
-	public void addInformation(ItemStack stack, EntityPlayer player, List<String> lore, boolean f3h) {
+	@Override
+    public void addInformation(ItemStack stack, EntityPlayer player, List<String> lore, boolean f3h) {
 		if (ConfigFunctions.shulkerBoxTooltipLines > 0 && stack.getTagCompound() != null && stack.getTagCompound().hasKey("Items")) {
 			NBTTagList tag = stack.getTagCompound().getTagList("Items", 10);
 			int items = 0;

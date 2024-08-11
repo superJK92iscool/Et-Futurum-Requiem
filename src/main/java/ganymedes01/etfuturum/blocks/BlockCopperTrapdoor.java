@@ -21,6 +21,7 @@ public class BlockCopperTrapdoor extends BaseTrapdoor implements IDegradable {
         setBlockName(Utils.getUnlocalisedName(name + "_trapdoor"));
     }
 
+    @Override
     public boolean onBlockActivated(World worldIn, int x, int y, int z, EntityPlayer player, int side, float subX, float subY, float subZ)
     {
         if (!tryWaxOnWaxOff(worldIn, x, y, z, player)) {

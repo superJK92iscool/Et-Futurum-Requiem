@@ -27,7 +27,8 @@ public class TileEntityBeeHive extends TileEntity {
 	private BlockPos flowerPos = null;
 	private int honeyLevel = 0;
 
-	public void markDirty() {
+	@Override
+    public void markDirty() {
 		if (this.isNearFire()) {
 			this.angerBees(null, TileEntityBeeHive.State.EMERGENCY);
 		}
@@ -35,7 +36,8 @@ public class TileEntityBeeHive extends TileEntity {
 		super.markDirty();
 	}
 
-	public boolean shouldRefresh(Block oldBlock, Block newBlock, int oldMeta, int newMeta, World world, int x, int y, int z) {
+	@Override
+    public boolean shouldRefresh(Block oldBlock, Block newBlock, int oldMeta, int newMeta, World world, int x, int y, int z) {
 		return oldBlock != newBlock;
 	}
 
@@ -228,7 +230,8 @@ public class TileEntityBeeHive extends TileEntity {
 		}
 	}
 
-	public void updateEntity() {
+	@Override
+    public void updateEntity() {
 		if (!this.getWorldObj().isRemote) {
 			this.tickBees();
 			if (getBeeCount() > 0 && this.getWorldObj().rand.nextDouble() < 0.005D) {
@@ -239,7 +242,8 @@ public class TileEntityBeeHive extends TileEntity {
 		super.updateEntity();
 	}
 
-	public void readFromNBT(NBTTagCompound compound) {
+	@Override
+    public void readFromNBT(NBTTagCompound compound) {
 		this.bees.clear();
 		NBTTagList listnbt = compound.getTagList("Bees", 10);
 
@@ -259,7 +263,8 @@ public class TileEntityBeeHive extends TileEntity {
 		super.readFromNBT(compound);
 	}
 
-	public void writeToNBT(NBTTagCompound compound) {
+	@Override
+    public void writeToNBT(NBTTagCompound compound) {
 		compound.setTag("Bees", this.getBees());
 		if (this.hasFlowerPos()) {
 			compound.setTag("FlowerPos", BlockPos.writeToNBT(this.flowerPos));

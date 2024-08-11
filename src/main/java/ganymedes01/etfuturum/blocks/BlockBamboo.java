@@ -77,7 +77,8 @@ public class BlockBamboo extends BaseBlock implements IPlantable, IGrowable {
 	 * Lets the block know when one of its neighbor changes. Doesn't know which neighbor changed (coordinates passed are
 	 * their own) Args: x, y, z, neighbor Block
 	 */
-	public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
+	@Override
+    public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
 		super.onNeighborBlockChange(world, x, y, z, block);
 		this.checkAndDropBlock(world, x, y, z);
 
@@ -92,7 +93,8 @@ public class BlockBamboo extends BaseBlock implements IPlantable, IGrowable {
 	/**
 	 * Ticks the block if it's been scheduled
 	 */
-	public void updateTick(World world, int x, int y, int z, Random rand) {
+	@Override
+    public void updateTick(World world, int x, int y, int z, Random rand) {
 		this.checkAndDropBlock(world, x, y, z);
 
 		int meta = world.getBlockMetadata(x, y, z);

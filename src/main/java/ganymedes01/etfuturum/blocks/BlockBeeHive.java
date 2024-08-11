@@ -64,7 +64,8 @@ public class BlockBeeHive extends BlockContainer {
 		return this;
 	}
 
-	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack) {
+	@Override
+    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack) {
 		int ordinal = MathHelper.floor_double((double) (entity.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
 		switch (ordinal) {
 			case 0:
@@ -121,11 +122,13 @@ public class BlockBeeHive extends BlockContainer {
 		return new TileEntityBeeHive();
 	}
 
-	public boolean hasComparatorInputOverride() {
+	@Override
+    public boolean hasComparatorInputOverride() {
 		return true;
 	}
 
-	public int getComparatorInputOverride(World world, int x, int y, int z, int side) {
+	@Override
+    public int getComparatorInputOverride(World world, int x, int y, int z, int side) {
 		TileEntity tile = world.getTileEntity(x, y, z);
 		if (tile instanceof TileEntityBeeHive) {
 			return ((TileEntityBeeHive) tile).getHoneyLevel();
@@ -136,7 +139,8 @@ public class BlockBeeHive extends BlockContainer {
 	/**
 	 * Gets the block's texture. Args: side, meta
 	 */
-	public IIcon getIcon(int side, int meta) {
+	@Override
+    public IIcon getIcon(int side, int meta) {
 		switch (side) {
 			case 0:
 				return bottomIcon;
@@ -147,7 +151,8 @@ public class BlockBeeHive extends BlockContainer {
 		}
 	}
 
-	@SideOnly(Side.CLIENT)
+	@Override
+    @SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister reg) {
 		blockIcon = reg.registerIcon(getTextureName() + "_side");
 		frontIcon = reg.registerIcon(getTextureName() + "_front");
@@ -238,7 +243,8 @@ public class BlockBeeHive extends BlockContainer {
 		hive.setHoneyLevel(0);
 	}
 
-	public void randomDisplayTick(World world, int x, int y, int z, Random random) {
+	@Override
+    public void randomDisplayTick(World world, int x, int y, int z, Random random) {
 		if (world.getBlockMetadata(x, y, z) > 5) {
 			if (!world.getBlock(x, y - 1, z).isOpaqueCube()) {
 				for (int i = 0; i < random.nextInt(1) + 1; ++i) {
@@ -251,7 +257,8 @@ public class BlockBeeHive extends BlockContainer {
 		}
 	}
 
-	public void onBlockHarvested(World world, int x, int y, int z, int meta, EntityPlayer player) {
+	@Override
+    public void onBlockHarvested(World world, int x, int y, int z, int meta, EntityPlayer player) {
 		if (!world.isRemote) {
 			TileEntity tileentity = world.getTileEntity(x, y, z);
 			if (tileentity instanceof TileEntityBeeHive) {
@@ -276,7 +283,8 @@ public class BlockBeeHive extends BlockContainer {
 		super.onBlockHarvested(world, x, y, z, meta, player);
 	}
 
-	public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
+	@Override
+    public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
 		TileEntity te = world.getTileEntity(x, y, z);
 		if (te instanceof TileEntityBeeHive) {
 			((TileEntityBeeHive) te).angerBees(null, TileEntityBeeHive.State.EMERGENCY);
@@ -284,7 +292,8 @@ public class BlockBeeHive extends BlockContainer {
 		super.breakBlock(world, x, y, z, block, meta);
 	}
 
-	public void harvestBlock(World worldIn, EntityPlayer player, int x, int y, int z, int meta) {
+	@Override
+    public void harvestBlock(World worldIn, EntityPlayer player, int x, int y, int z, int meta) {
 	}
 
 	@Override
@@ -311,7 +320,8 @@ public class BlockBeeHive extends BlockContainer {
 		return itemStack;
 	}
 
-	public void onPostBlockPlaced(World world, int x, int y, int z, int meta) {
+	@Override
+    public void onPostBlockPlaced(World world, int x, int y, int z, int meta) {
 		TileEntity tileentity = world.getTileEntity(x, y, z);
 		if (tileentity instanceof TileEntityBeeHive) {
 			EnumFacing facing = EnumFacing.getFront(meta % 6);

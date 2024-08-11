@@ -22,12 +22,14 @@ public class BlockAzaleaLeaves extends BaseLeaves {
 		return ModBlocks.AZALEA.getItem();
 	}
 
-	@SideOnly(Side.CLIENT)
+	@Override
+    @SideOnly(Side.CLIENT)
 	public int colorMultiplier(IBlockAccess worldIn, int x, int y, int z) {
 		return 0xFFFFFF;
 	}
 
-	public int getRenderColor(int meta) {
+	@Override
+    public int getRenderColor(int meta) {
 		return 0xFFFFFF;
 	}
 }

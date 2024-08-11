@@ -15,7 +15,8 @@ public class WorldGenNetherGrass extends WorldGenerator {
 		this.crimson = crimson;
 	}
 
-	public boolean generate(World world, Random rand, int x, int y, int z) {
+	@Override
+    public boolean generate(World world, Random rand, int x, int y, int z) {
 		do {
 			if (!world.isAirBlock(x, y, z)) {
 				break;

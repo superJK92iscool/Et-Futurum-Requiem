@@ -24,33 +24,39 @@ public abstract class BlockCauldronTileEntity extends BlockContainer {
 		return Blocks.cauldron.getIcon(side, meta);
 	}
 
-	public void addCollisionBoxesToList(World worldIn, int x, int y, int z, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collider) {
+	@Override
+    public void addCollisionBoxesToList(World worldIn, int x, int y, int z, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collider) {
 		Blocks.cauldron.addCollisionBoxesToList(worldIn, x, y, z, mask, list, collider);
 	}
 
-	public void setBlockBoundsForItemRender() {
+	@Override
+    public void setBlockBoundsForItemRender() {
 		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
 	}
 
-	public Item getItemDropped(int meta, Random random, int fortune) {
+	@Override
+    public Item getItemDropped(int meta, Random random, int fortune) {
 		return Items.cauldron;
 	}
 
 	/**
 	 * Gets an item for the block being called on. Args: world, x, y, z
 	 */
-	public Item getItem(World worldIn, int x, int y, int z) {
+	@Override
+    public Item getItem(World worldIn, int x, int y, int z) {
 		return Items.cauldron;
 	}
 
-	public boolean isOpaqueCube() {
+	@Override
+    public boolean isOpaqueCube() {
 		return false;
 	}
 
 	/**
 	 * If this block doesn't render as an ordinary block it will return False (examples: signs, buttons, stairs, etc)
 	 */
-	public boolean renderAsNormalBlock() {
+	@Override
+    public boolean renderAsNormalBlock() {
 		return false;
 	}
 

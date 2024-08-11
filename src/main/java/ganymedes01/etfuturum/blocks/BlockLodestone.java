@@ -26,11 +26,13 @@ public class BlockLodestone extends Block {
 		setTickRandomly(true);
 	}
 
-	public IIcon getIcon(int side, int meta) {
+	@Override
+    public IIcon getIcon(int side, int meta) {
 		return side > 1 ? blockIcon : topIcon;
 	}
 
-	@SideOnly(Side.CLIENT)
+	@Override
+    @SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister reg) {
 		this.blockIcon = reg.registerIcon(this.getTextureName() + "_side");
 		this.topIcon = reg.registerIcon(this.getTextureName() + "_top");

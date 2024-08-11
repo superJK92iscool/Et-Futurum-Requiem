@@ -24,19 +24,23 @@ public class BlockBuddingAmethyst extends BlockAmethystBlock {
 		setTickRandomly(true);
 	}
 
-	public int getMobilityFlag() {
+	@Override
+    public int getMobilityFlag() {
 		return ConfigWorld.buddingAmethystMode == 0 ? 1 : 0;
 	}
 
-	public boolean canSilkHarvest(World world, EntityPlayer player, int x, int y, int z, int metadata) {
+	@Override
+    public boolean canSilkHarvest(World world, EntityPlayer player, int x, int y, int z, int metadata) {
 		return ConfigWorld.buddingAmethystMode != 0;
 	}
 
-	public int quantityDropped(Random random) {
+	@Override
+    public int quantityDropped(Random random) {
 		return ConfigWorld.buddingAmethystMode == 2 ? 1 : 0;
 	}
 
-	public Item getItemDropped(int meta, Random random, int fortune) {
+	@Override
+    public Item getItemDropped(int meta, Random random, int fortune) {
 		return ConfigWorld.buddingAmethystMode == 2 ? super.getItemDropped(meta, random, fortune) : null;
 	}
 

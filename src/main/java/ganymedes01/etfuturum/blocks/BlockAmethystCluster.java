@@ -37,20 +37,24 @@ public class BlockAmethystCluster extends BlockAmethystBlock {
 		this.type = type;
 	}
 
-	public int getMobilityFlag() {
+	@Override
+    public int getMobilityFlag() {
 		return 1;
 	}
 
-	public int getLightValue(IBlockAccess world, int x, int y, int z) {
+	@Override
+    public int getLightValue(IBlockAccess world, int x, int y, int z) {
 		int meta = world.getBlockMetadata(x, y, z);
 		return getLightValue() + (type * 3) + (meta / 6);
 	}
 
-	public Item getItemDropped(int meta, Random random, int fortune) {
+	@Override
+    public Item getItemDropped(int meta, Random random, int fortune) {
 		return ModItems.AMETHYST_SHARD.get();
 	}
 
-	protected ItemStack createStackedBlock(int meta) {
+	@Override
+    protected ItemStack createStackedBlock(int meta) {
 		int j = 0;
 		Item item = Item.getItemFromBlock(this);
 
@@ -61,15 +65,18 @@ public class BlockAmethystCluster extends BlockAmethystBlock {
 		return new ItemStack(item, 1, j);
 	}
 
-	protected boolean canSilkHarvest() {
+	@Override
+    protected boolean canSilkHarvest() {
 		return true;
 	}
 
-	public int getDamageValue(World worldIn, int x, int y, int z) {
+	@Override
+    public int getDamageValue(World worldIn, int x, int y, int z) {
 		return worldIn.getBlockMetadata(x, y, z) < 6 ? 0 : 6;
 	}
 
-	public int quantityDropped(int meta, int fortune, Random random) {
+	@Override
+    public int quantityDropped(int meta, int fortune, Random random) {
 		if (this == ModBlocks.AMETHYST_CLUSTER_2.get() && meta >= 6) {
 			int drop = quantityDropped(random);
 			if (fortune > 0 && harvestingWithPickaxe() && random.nextInt(2 + fortune) == 0) {
@@ -80,7 +87,8 @@ public class BlockAmethystCluster extends BlockAmethystBlock {
 		return 0;
 	}
 
-	public int quantityDropped(Random random) {
+	@Override
+    public int quantityDropped(Random random) {
 		if (harvestingWithPickaxe()) {
 			return 4;
 		}
@@ -202,7 +210,8 @@ public class BlockAmethystCluster extends BlockAmethystBlock {
 		super.registerBlockIcons(reg);
 	}
 
-	public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
+	@Override
+    public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
 		list.add(new ItemStack(itemIn, 1, 0));
 		list.add(new ItemStack(itemIn, 1, 6));
 	}

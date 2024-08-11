@@ -71,7 +71,8 @@ public class NewBoatRenderer extends Render {
 		GL11.glScalef(-1.0F, -1.0F, 1.0F);
 	}
 
-	protected ResourceLocation getEntityTexture(Entity entity) {
+	@Override
+    protected ResourceLocation getEntityTexture(Entity entity) {
 		ResourceLocation loc = DEFAULT_TEXTURE;
 		if (entity instanceof EntityNewBoat && ((EntityNewBoat) entity).getResourceLocation() != null) {
 			loc = ((EntityNewBoat) entity).getResourceLocation();

@@ -16,7 +16,8 @@ public class MapGenRavineHell extends MapGenRavine {
 	/**
 	 * We have to replace the whole function because we need to change some loops inside to do 128 height instead of 256 height.
 	 */
-	protected void func_151540_a(long p_151540_1_, int p_151540_3_, int p_151540_4_, Block[] p_151540_5_, double p_151540_6_, double p_151540_8_, double p_151540_10_, float p_151540_12_, float p_151540_13_, float p_151540_14_, int p_151540_15_, int p_151540_16_, double p_151540_17_) {
+	@Override
+    protected void func_151540_a(long p_151540_1_, int p_151540_3_, int p_151540_4_, Block[] p_151540_5_, double p_151540_6_, double p_151540_8_, double p_151540_10_, float p_151540_12_, float p_151540_13_, float p_151540_14_, int p_151540_15_, int p_151540_16_, double p_151540_17_) {
 		Random random = new Random(p_151540_1_);
 		double d4 = p_151540_3_ * 16 + 8;
 		double d5 = p_151540_4_ * 16 + 8;
@@ -167,11 +168,13 @@ public class MapGenRavineHell extends MapGenRavine {
 		return blocks[index] == worldObj.getBiomeGenForCoords(x + chunkX * 16, z + chunkZ * 16).topBlock;
 	}
 
-	protected boolean isOceanBlock(Block[] data, int index, int x, int y, int z, int chunkX, int chunkZ) {
+	@Override
+    protected boolean isOceanBlock(Block[] data, int index, int x, int y, int z, int chunkX, int chunkZ) {
 		return data[index] == Blocks.lava || data[index] == Blocks.flowing_lava;
 	}
 
-	protected void digBlock(Block[] data, int index, int x, int y, int z, int chunkX, int chunkZ, boolean foundTop) {
+	@Override
+    protected void digBlock(Block[] data, int index, int x, int y, int z, int chunkX, int chunkZ, boolean foundTop) {
 		Block block = data[index];
 
 		if (block == Blocks.netherrack || block instanceof BlockNylium || block == Blocks.soul_sand || block == ModBlocks.SOUL_SOIL.get() || block == ModBlocks.BLACKSTONE.get() || block == ModBlocks.BASALT.get()) {

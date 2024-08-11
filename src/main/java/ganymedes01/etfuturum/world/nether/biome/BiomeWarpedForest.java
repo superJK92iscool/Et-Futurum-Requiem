@@ -19,7 +19,8 @@ public class BiomeWarpedForest extends NetherBiomeBase {
 		this.spawnableMonsterList.add(new SpawnListEntry(EntityEnderman.class, 1, 1, 4));
 	}
 
-	public float getSpawningChance() {
+	@Override
+    public float getSpawningChance() {
 		return 0.035F;
 	}
 }

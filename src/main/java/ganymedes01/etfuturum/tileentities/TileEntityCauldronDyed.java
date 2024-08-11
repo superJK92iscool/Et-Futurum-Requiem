@@ -13,7 +13,8 @@ public class TileEntityCauldronDyed extends TileEntityCauldronColoredWater {
 		return dyeColor;
 	}
 
-	public void readFromNBT(NBTTagCompound compound) {
+	@Override
+    public void readFromNBT(NBTTagCompound compound) {
 		super.readFromNBT(compound);
 		dyeColor = compound.getInteger("dyeColor");
 	}
@@ -27,7 +28,8 @@ public class TileEntityCauldronDyed extends TileEntityCauldronColoredWater {
 		return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, nbt);
 	}
 
-	public void writeToNBT(NBTTagCompound compound) {
+	@Override
+    public void writeToNBT(NBTTagCompound compound) {
 		super.writeToNBT(compound);
 		compound.setInteger("dyeColor", Math.max(0, dyeColor));
 	}

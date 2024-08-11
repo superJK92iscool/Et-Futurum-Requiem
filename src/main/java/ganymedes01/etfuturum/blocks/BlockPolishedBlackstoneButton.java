@@ -19,7 +19,8 @@ public class BlockPolishedBlackstoneButton extends BlockButtonStone {
 	/**
 	 * Gets the block's texture. Args: side, meta
 	 */
-	public IIcon getIcon(int side, int meta) {
+	@Override
+    public IIcon getIcon(int side, int meta) {
 		return ModBlocks.BLACKSTONE.get().getIcon(0, 1);
 	}
 }

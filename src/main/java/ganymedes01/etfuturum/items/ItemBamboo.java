@@ -13,7 +13,8 @@ public class ItemBamboo extends BaseItem {
 		setFull3D();
 	}
 
-	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float p_77648_8_, float p_77648_9_, float p_77648_10_) {
+	@Override
+    public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float p_77648_8_, float p_77648_9_, float p_77648_10_) {
 		Block block = world.getBlock(x, y, z);
 
 		if (block == Blocks.snow_layer && (world.getBlockMetadata(x, y, z) & 7) < 1) {

@@ -249,7 +249,8 @@ public class ConfigFunctions extends ConfigBase {
 		subtitleBlacklist = getString("subtitleBlacklist", catClient, "^(dig\\.*)", "Regex of subtitles to blacklist");
 	}
 
-	protected void initValues() {
+	@Override
+    protected void initValues() {
 		ConfigFunctions.shulkerBans = new ArrayList<Item>();
 		for (String itemName : ConfigFunctions.shulkerBansString) {
 			String[] nameAndID;

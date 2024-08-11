@@ -35,15 +35,18 @@ public class BlockStonecutter extends Block {
 		this.useNeighborBrightness = true;
 	}
 
-	public void setBlockBoundsBasedOnState(IBlockAccess worldIn, int x, int y, int z) {
+	@Override
+    public void setBlockBoundsBasedOnState(IBlockAccess worldIn, int x, int y, int z) {
 		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5625F, 1.0F);
 	}
 
-	public IIcon getIcon(int side, int meta) {
+	@Override
+    public IIcon getIcon(int side, int meta) {
 		return side == 1 ? this.blockIcon : side == 0 ? bottomIcon : this.sideIcon;
 	}
 
-	@SideOnly(Side.CLIENT)
+	@Override
+    @SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister reg) {
 		this.blockIcon = reg.registerIcon(this.getTextureName() + "_top");
 		this.sideIcon = reg.registerIcon(this.getTextureName() + "_side");
@@ -68,7 +71,8 @@ public class BlockStonecutter extends Block {
 		worldIn.setBlockMetadataWithNotify(x, y, z, ordinal, 2);
 	}
 
-	public boolean shouldSideBeRendered(IBlockAccess worldIn, int x, int y, int z, int side) {
+	@Override
+    public boolean shouldSideBeRendered(IBlockAccess worldIn, int x, int y, int z, int side) {
 		Block block = worldIn.getBlock(x, y, z);
 		if (block instanceof BlockStonecutter && side > 1) {
 			return false;
@@ -86,7 +90,8 @@ public class BlockStonecutter extends Block {
 		return false;
 	}
 
-	public int getRenderType() {
+	@Override
+    public int getRenderType() {
 		return RenderIDs.STONECUTTER;
 	}
 

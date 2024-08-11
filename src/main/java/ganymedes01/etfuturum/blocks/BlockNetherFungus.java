@@ -44,7 +44,8 @@ public class BlockNetherFungus extends BlockBush implements ISubBlocksBlock, IGr
 		return EnumPlantType.Nether;
 	}
 
-	public boolean canBlockStay(World worldIn, int x, int y, int z) {
+	@Override
+    public boolean canBlockStay(World worldIn, int x, int y, int z) {
 		Block block = worldIn.getBlock(x, y - 1, z);
 		return block == Blocks.mycelium || block.canSustainPlant(worldIn, x, y - 1, z, ForgeDirection.UP, this)
 				|| block.canSustainPlant(worldIn, x, y - 1, z, ForgeDirection.UP, Blocks.tallgrass);

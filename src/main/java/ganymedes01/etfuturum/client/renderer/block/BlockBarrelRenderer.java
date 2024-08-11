@@ -13,7 +13,8 @@ public class BlockBarrelRenderer extends BlockModelBase {
 		super(modelID);
 	}
 
-	protected void renderStandardInventoryCube(Block block, int meta, int modelID, RenderBlocks renderer, double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
+	@Override
+    protected void renderStandardInventoryCube(Block block, int meta, int modelID, RenderBlocks renderer, double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
 		super.renderStandardInventoryCube(block, 1, modelID, renderer, minX, minY, minZ, maxX, maxY, maxZ);
 	}
 

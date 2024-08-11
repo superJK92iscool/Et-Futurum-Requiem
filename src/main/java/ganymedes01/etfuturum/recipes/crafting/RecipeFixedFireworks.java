@@ -12,7 +12,8 @@ import net.minecraft.world.World;
 import java.util.ArrayList;
 
 public class RecipeFixedFireworks extends RecipeFireworks {
-	public boolean matches(InventoryCrafting p_77569_1_, World p_77569_2_) {
+	@Override
+    public boolean matches(InventoryCrafting p_77569_1_, World p_77569_2_) {
 		this.field_92102_a = null;
 		int i = 0;
 		int j = 0;

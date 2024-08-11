@@ -54,13 +54,15 @@ public class EntityHusk extends EntityZombie {
 		return flag;
 	}
 
-	public void onLivingUpdate() {
+	@Override
+    public void onLivingUpdate() {
 		ignoreSunlight = true;
 		super.onLivingUpdate();
 		ignoreSunlight = false;
 	}
 
-	public float getBrightness(float p_70013_1_) {
+	@Override
+    public float getBrightness(float p_70013_1_) {
 		return ignoreSunlight ? 0F : super.getBrightness(p_70013_1_);
 	}
 	
@@ -159,7 +161,8 @@ public class EntityHusk extends EntityZombie {
 		this.playSound(Reference.MCAssetVer + ":entity.husk.step", 0.15f, 1.0f);
 	}
 
-	public ItemStack getPickedResult(MovingObjectPosition target) {
+	@Override
+    public ItemStack getPickedResult(MovingObjectPosition target) {
 		return ModEntityList.getEggFromEntity(this);
 	}
 }

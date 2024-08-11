@@ -29,11 +29,13 @@ public class BlockCartographyTable extends Block {
 		this.setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
-	public IIcon getIcon(int side, int meta) {
+	@Override
+    public IIcon getIcon(int side, int meta) {
 		return side == 1 ? this.topIcon : (side == 0 ? Blocks.planks.getIcon(0, 5) : (side == 2 || side == 5 ? this.bottomIcon : side == 3 ? this.blockIcon : this.sideIcon));
 	}
 
-	@SideOnly(Side.CLIENT)
+	@Override
+    @SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister reg) {
 		this.blockIcon = reg.registerIcon(this.getTextureName() + "_side1");
 		this.topIcon = reg.registerIcon(this.getTextureName() + "_top");

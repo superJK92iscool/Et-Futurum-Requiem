@@ -84,7 +84,8 @@ public class BlockTwistingVines extends BaseBlock implements IShearable {
 		return canPlaceBlockAt(world, x, y, z);
 	}
 
-	public void onNeighborBlockChange(World worldIn, int x, int y, int z, Block neighbor) {
+	@Override
+    public void onNeighborBlockChange(World worldIn, int x, int y, int z, Block neighbor) {
 		super.onNeighborBlockChange(worldIn, x, y, z, neighbor);
 		if (!canBlockStay(worldIn, x, y, z)) {
 			setVineToAir(worldIn, x, y, z);
@@ -98,15 +99,18 @@ public class BlockTwistingVines extends BaseBlock implements IShearable {
 		}
 	}
 
-	public AxisAlignedBB getCollisionBoundingBoxFromPool(World worldIn, int x, int y, int z) {
+	@Override
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World worldIn, int x, int y, int z) {
 		return null;
 	}
 
-	public boolean isOpaqueCube() {
+	@Override
+    public boolean isOpaqueCube() {
 		return false;
 	}
 
-	public boolean renderAsNormalBlock() {
+	@Override
+    public boolean renderAsNormalBlock() {
 		return false;
 	}
 

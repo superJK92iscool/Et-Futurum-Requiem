@@ -125,7 +125,8 @@ public class EntityNewBoatSeat extends Entity {
 		boat = null;
 	}
 
-	public void setPositionAndRotation2(double x, double y, double z, float yaw, float pitch, int rotationIncrements) {
+	@Override
+    public void setPositionAndRotation2(double x, double y, double z, float yaw, float pitch, int rotationIncrements) {
 		if (boat != null) {
 			copyLocationAndAnglesFrom(boat);
 			prevRotationYaw = boat.prevRotationYaw;
@@ -151,7 +152,8 @@ public class EntityNewBoatSeat extends Entity {
 		return boat;
 	}
 
-	public boolean writeToNBTOptional(NBTTagCompound tagCompund) {
+	@Override
+    public boolean writeToNBTOptional(NBTTagCompound tagCompund) {
 		if (this.ridingEntity != null) {
 			ridingEntity.mountEntity(null);
 			ridingEntity = null;

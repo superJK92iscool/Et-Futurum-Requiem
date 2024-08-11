@@ -12,7 +12,8 @@ public class BlockGlazedTerracottaRenderer extends BlockModelBase {
 		super(modelID);
 	}
 
-	protected void renderStandardInventoryCube(Block block, int meta, int modelID, RenderBlocks renderer, double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
+	@Override
+    protected void renderStandardInventoryCube(Block block, int meta, int modelID, RenderBlocks renderer, double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
 		renderer.uvRotateTop = 1;
 		renderer.uvRotateNorth = 2;
 		//renderer.uvRotateEast = 3;

@@ -118,7 +118,8 @@ public class EtFuturumFXParticle extends EntityFX {
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, prevTex);
 	}
 
-	public void setParticleTextureIndex(int p_70536_1_) {
+	@Override
+    public void setParticleTextureIndex(int p_70536_1_) {
 		if (!usesSheet) {
 			throw new RuntimeException("Invalid call to Particle.setMiscTex");
 		} else {

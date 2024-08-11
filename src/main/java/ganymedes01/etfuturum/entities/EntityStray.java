@@ -146,7 +146,8 @@ public class EntityStray extends EntitySkeleton {
 		this.playSound(Reference.MCAssetVer + ":entity.stray.step", 0.15f, 1.0f);
 	}
 
-	public ItemStack getPickedResult(MovingObjectPosition target) {
+	@Override
+    public ItemStack getPickedResult(MovingObjectPosition target) {
 		return ModEntityList.getEggFromEntity(this);
 	}
 }

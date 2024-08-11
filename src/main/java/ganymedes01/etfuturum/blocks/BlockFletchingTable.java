@@ -28,11 +28,13 @@ public class BlockFletchingTable extends Block {
 		this.setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
-	public IIcon getIcon(int side, int meta) {
+	@Override
+    public IIcon getIcon(int side, int meta) {
 		return side == 1 ? this.topIcon : (side == 0 ? Blocks.planks.getIcon(0, 2) : (side != 2 && side != 3 ? this.blockIcon : this.sideIcon));
 	}
 
-	@SideOnly(Side.CLIENT)
+	@Override
+    @SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister reg) {
 		this.blockIcon = reg.registerIcon(this.getTextureName() + "_side");
 		this.topIcon = reg.registerIcon(this.getTextureName() + "_top");

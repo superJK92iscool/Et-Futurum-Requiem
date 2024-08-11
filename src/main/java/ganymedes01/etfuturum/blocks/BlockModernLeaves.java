@@ -26,7 +26,8 @@ public class BlockModernLeaves extends BaseLeaves {
 	/**
 	 * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
 	 */
-	public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
+	@Override
+    public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
 		if (ConfigExperiments.enableMangroveBlocks) {
 			list.add(new ItemStack(itemIn, 1, 0));
 		}
@@ -56,11 +57,13 @@ public class BlockModernLeaves extends BaseLeaves {
 		return ModBlocks.SAPLING.getItem();
 	}
 
-	public int colorMultiplier(IBlockAccess worldIn, int x, int y, int z) {
+	@Override
+    public int colorMultiplier(IBlockAccess worldIn, int x, int y, int z) {
 		return worldIn.getBlockMetadata(x, y, z) % 4 == 0 ? super.colorMultiplier(worldIn, x, y, z) : 0xFFFFFF;
 	}
 
-	public int getRenderColor(int meta) {
+	@Override
+    public int getRenderColor(int meta) {
 		return meta % 4 == 0 ? 0x92C648 : 0xFFFFFF;
 	}
 

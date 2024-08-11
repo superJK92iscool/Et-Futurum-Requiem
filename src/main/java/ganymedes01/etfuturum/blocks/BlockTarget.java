@@ -89,7 +89,8 @@ public class BlockTarget extends BaseBlock {
 	 * For some reason, returning FALSE will do the power updates??
 	 * This function should be named shouldNOTCheckPower?!
 	 */
-	public boolean shouldCheckWeakPower(IBlockAccess world, int x, int y, int z, int side) {
+	@Override
+    public boolean shouldCheckWeakPower(IBlockAccess world, int x, int y, int z, int side) {
 		return false;
 	}
 
@@ -103,11 +104,13 @@ public class BlockTarget extends BaseBlock {
 		return world.getBlockMetadata(x, y, z);
 	}
 
-	public boolean isNormalCube(IBlockAccess world, int x, int y, int z) {
+	@Override
+    public boolean isNormalCube(IBlockAccess world, int x, int y, int z) {
 		return true;
 	}
 
-	public boolean isNormalCube() {
+	@Override
+    public boolean isNormalCube() {
 		return true;
 	}
 

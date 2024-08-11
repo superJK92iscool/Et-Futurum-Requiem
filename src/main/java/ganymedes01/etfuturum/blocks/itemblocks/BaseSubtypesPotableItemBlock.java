@@ -28,7 +28,8 @@ public class BaseSubtypesPotableItemBlock extends BasePotableItemBlock {
 		return meta % ((ISubBlocksBlock) field_150939_a/*blockInstance*/).getTypes().length;
 	}
 
-	public IIcon getIconFromDamage(int p_77617_1_) {
+	@Override
+    public IIcon getIconFromDamage(int p_77617_1_) {
 		return field_150939_a/*blockInstance*/.getIcon(2, p_77617_1_);
 	}
 }

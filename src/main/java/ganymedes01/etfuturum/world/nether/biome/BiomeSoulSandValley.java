@@ -20,7 +20,8 @@ public class BiomeSoulSandValley extends NetherBiomeBase {
 		this.spawnableMonsterList.add(new SpawnListEntry(EntityEnderman.class, 1, 1, 4));
 	}
 
-	public float getSpawningChance() {
+	@Override
+    public float getSpawningChance() {
 		return 0.075F;
 	}
 }

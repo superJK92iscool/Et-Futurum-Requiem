@@ -69,7 +69,8 @@ public class BlockShulkerBox extends BlockContainer {
 		return 1;
 	}
 
-	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack) {
+	@Override
+    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack) {
 		TileEntityShulkerBox box = (TileEntityShulkerBox) world.getTileEntity(x, y, z);
 		if (stack.hasTagCompound()) {
 			box.type = ShulkerBoxType.VALUES[stack.getTagCompound().getByte("Type")];
@@ -186,12 +187,14 @@ public class BlockShulkerBox extends BlockContainer {
 //      }
 //  }
 
-	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
+	@Override
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
 		TileEntity tileentity = world.getTileEntity(x, y, z);
 		return tileentity instanceof TileEntityShulkerBox ? ((TileEntityShulkerBox) tileentity).getBoundingBox(((TileEntityShulkerBox) tileentity).facing).offset(x, y, z) : super.getCollisionBoundingBoxFromPool(world, x, y, z);
 	}
 
-	public AxisAlignedBB getSelectedBoundingBoxFromPool(World worldIn, int x, int y, int z) {
+	@Override
+    public AxisAlignedBB getSelectedBoundingBoxFromPool(World worldIn, int x, int y, int z) {
 		return this.getCollisionBoundingBoxFromPool(worldIn, x, y, z);
 	}
 
@@ -273,7 +276,8 @@ public class BlockShulkerBox extends BlockContainer {
 		return new TileEntityShulkerBox();
 	}
 
-	public IIcon getIcon(int side, int metadata) {
+	@Override
+    public IIcon getIcon(int side, int metadata) {
 		/*
 		 * This icon is a mask (or something) for redstone wire.
 		 * We use it here because it renders an invisible icon.
@@ -391,7 +395,8 @@ public class BlockShulkerBox extends BlockContainer {
 		}
 	}
 
-	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z, EntityPlayer player) {
+	@Override
+    public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z, EntityPlayer player) {
 		ItemStack stack = new ItemStack(this);
 		TileEntityShulkerBox box = (TileEntityShulkerBox) world.getTileEntity(x, y, z);
 

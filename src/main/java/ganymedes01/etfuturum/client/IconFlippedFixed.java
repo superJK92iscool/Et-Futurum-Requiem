@@ -19,6 +19,7 @@ public class IconFlippedFixed extends IconFlipped {
         this.flipV = p_i1560_3_;
     }
 
+    @Override
     public float getMinV()
     {
         return this.flipV ? this.baseIcon.getMaxV() : this.baseIcon.getMinV();

@@ -17,7 +17,8 @@ public class BlockRedSandstone extends BlockSandStone {
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
-	@SideOnly(Side.CLIENT)
+	@Override
+    @SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister reg) {
 		this.field_150158_M = new IIcon[3];
 

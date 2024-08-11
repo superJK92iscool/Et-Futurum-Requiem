@@ -86,7 +86,8 @@ public class BlockLantern extends Block {
 		this.onNeighborBlockChange(world, x, y, z, block);
 	}
 
-	public void onNeighborBlockChange(World worldIn, int x, int y, int z, Block neighbor) {
+	@Override
+    public void onNeighborBlockChange(World worldIn, int x, int y, int z, Block neighbor) {
 		super.onNeighborBlockChange(worldIn, x, y, z, neighbor);
 		if (!canBlockStay(worldIn, x, y, z)) {
 			setLanternToAir(worldIn, x, y, z);

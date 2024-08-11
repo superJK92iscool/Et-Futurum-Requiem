@@ -35,7 +35,8 @@ public class BlockPointedDripstone extends Block {
 		this.setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
-	@SideOnly(Side.CLIENT)
+	@Override
+    @SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister reg) {
 		downIcons = new IIcon[5];
 		downIcons[0] = reg.registerIcon(getTextureName() + "_down_tip");
@@ -54,7 +55,8 @@ public class BlockPointedDripstone extends Block {
 		this.blockIcon = downIcons[3];
 	}
 
-	public int onBlockPlaced(World world, int x, int y, int z, int side, float subX, float subY, float subZ, int meta) {
+	@Override
+    public int onBlockPlaced(World world, int x, int y, int z, int side, float subX, float subY, float subZ, int meta) {
 		if (side < 2) {
 			return side * states;
 		}
@@ -64,12 +66,14 @@ public class BlockPointedDripstone extends Block {
 		return 0;
 	}
 
-	public boolean canPlaceBlockOnSide(World world, int x, int y, int z, int side) {
+	@Override
+    public boolean canPlaceBlockOnSide(World world, int x, int y, int z, int side) {
 		int checkY = side == 0 || world.isSideSolid(x, y + 1, z, ForgeDirection.DOWN) ? 1 : -1;
 		return canDripstoneStayHere(world, x, y, z, checkY);
 	}
 
-	public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
+	@Override
+    public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
 		if (!canBlockStay(world, x, y, z)) {
 			world.setBlockToAir(x, y, z);
 			this.dropBlockAsItem(world, x, y, z, 0, 0);
@@ -130,19 +134,23 @@ public class BlockPointedDripstone extends Block {
 		return meta < states ? downIcons[meta % states] : upIcons[meta % states];
 	}
 
-	public int getRenderType() {
+	@Override
+    public int getRenderType() {
 		return RenderIDs.POINTED_DRIPSTONE;
 	}
 
-	public boolean isOpaqueCube() {
+	@Override
+    public boolean isOpaqueCube() {
 		return false;
 	}
 
-	public boolean renderAsNormalBlock() {
+	@Override
+    public boolean renderAsNormalBlock() {
 		return false;
 	}
 
-	public String getItemIconName() {
+	@Override
+    public String getItemIconName() {
 		return "pointed_dripstone";
 	}
 

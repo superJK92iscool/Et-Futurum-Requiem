@@ -9,7 +9,8 @@ public abstract class TileEntityCauldronColoredWater extends TileEntity {
 
 	public abstract int getWaterColor();
 
-	public boolean canUpdate() {
+	@Override
+    public boolean canUpdate() {
 		return false;
 	}
 

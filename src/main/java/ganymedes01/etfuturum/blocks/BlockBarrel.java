@@ -132,11 +132,13 @@ public class BlockBarrel extends BlockContainer {
 
 	}
 
-	public boolean hasComparatorInputOverride() {
+	@Override
+    public boolean hasComparatorInputOverride() {
 		return true;
 	}
 
-	public int getComparatorInputOverride(World worldIn, int x, int y, int z, int side) {
+	@Override
+    public int getComparatorInputOverride(World worldIn, int x, int y, int z, int side) {
 		return Container.calcRedstoneFromInventory(this.getInventory(worldIn, x, y, z));
 	}
 

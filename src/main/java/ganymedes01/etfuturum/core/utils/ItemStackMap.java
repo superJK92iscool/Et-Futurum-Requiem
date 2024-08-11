@@ -162,11 +162,13 @@ public class ItemStackMap<T> extends AbstractMap<ItemStack, T> {
 			this(actualDamage(key), key.stackTagCompound);
 		}
 
-		public int hashCode() {
+		@Override
+        public int hashCode() {
 			return Objects.hashCode(damage, tag);
 		}
 
-		public boolean equals(Object o) {
+		@Override
+        public boolean equals(Object o) {
 			if (!(o instanceof StackMetaKey)) return false;
 			StackMetaKey t = (StackMetaKey) o;
 			return damage == t.damage && Objects.equal(tag, t.tag);

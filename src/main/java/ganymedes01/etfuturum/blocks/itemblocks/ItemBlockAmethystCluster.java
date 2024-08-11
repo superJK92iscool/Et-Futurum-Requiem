@@ -17,15 +17,18 @@ public class ItemBlockAmethystCluster extends ItemBlock {
 		setHasSubtypes(true);
 	}
 
-	public int getMetadata(int p_77647_1_) {
+	@Override
+    public int getMetadata(int p_77647_1_) {
 		return p_77647_1_ < 6 ? 0 : 6;
 	}
 
-	public IIcon getIconFromDamage(int p_77617_1_) {
+	@Override
+    public IIcon getIconFromDamage(int p_77617_1_) {
 		return field_150939_a/*blockInstance*/.getIcon(0, p_77617_1_);
 	}
 
-	public String getUnlocalizedName(ItemStack stack) {
+	@Override
+    public String getUnlocalizedName(ItemStack stack) {
 		int damage = stack.getItemDamage() < 6 ? 0 : 1;
 		if (secondCluster) {
 			damage += 2;

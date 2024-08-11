@@ -34,7 +34,8 @@ public abstract class MixinEntityArrow extends Entity {
 	@Shadow
 	private int inData;
 
-	@Shadow
+	@Override
+    @Shadow
 	public abstract void onUpdate();
 
 	public MixinEntityArrow(World worldIn) {

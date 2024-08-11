@@ -22,14 +22,16 @@ public class ItemLodestoneCompass extends Item {
 		itemIcon = frames[0];
 	}
 
-	public boolean hasEffect(ItemStack p_77636_1_) {
+	@Override
+    public boolean hasEffect(ItemStack p_77636_1_) {
 		return true;
 	}
 
 	/**
 	 * Return an item rarity from EnumRarity
 	 */
-	public EnumRarity getRarity(ItemStack p_77613_1_) {
+	@Override
+    public EnumRarity getRarity(ItemStack p_77613_1_) {
 		return EnumRarity.common;
 	}
 }

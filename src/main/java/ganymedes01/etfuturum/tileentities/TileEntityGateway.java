@@ -70,7 +70,8 @@ public class TileEntityGateway extends TileEntity {
 		this.exactTeleport = compound.getBoolean("ExactTeleport");
 	}
 
-	public double getMaxRenderDistanceSquared() {
+	@Override
+    public double getMaxRenderDistanceSquared() {
 		return 65536.0D;
 	}
 

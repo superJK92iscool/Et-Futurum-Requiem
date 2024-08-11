@@ -48,7 +48,8 @@ public class BlockConcretePowder extends BaseSubtypesSand {
 		return false;
 	}
 
-	public MapColor getMapColor(int meta) {
+	@Override
+    public MapColor getMapColor(int meta) {
 		return MapColor.getMapColorForBlockColored(meta);
 	}
 

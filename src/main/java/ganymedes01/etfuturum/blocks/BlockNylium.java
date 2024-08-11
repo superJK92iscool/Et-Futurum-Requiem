@@ -67,7 +67,8 @@ public class BlockNylium extends BaseSubtypesBlock implements IGrowable {
 		return plantable.getPlantType(world, x, y, z) == EnumPlantType.Nether || plantable instanceof BlockMushroom;
 	}
 
-	public void onPlantGrow(World world, int x, int y, int z, int sourceX, int sourceY, int sourceZ) {
+	@Override
+    public void onPlantGrow(World world, int x, int y, int z, int sourceX, int sourceY, int sourceZ) {
 		if (world.rand.nextBoolean()) {
 			world.setBlock(x, y, z, Blocks.netherrack, 0, 2);
 		}

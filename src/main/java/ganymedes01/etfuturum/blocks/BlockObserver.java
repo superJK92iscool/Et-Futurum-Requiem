@@ -69,7 +69,8 @@ public class BlockObserver extends Block implements IBlockObserver {
 		worldIn.setBlockMetadataWithNotify(x, y, z, Facing.oppositeSide[l], 2);
 	}
 
-	@SideOnly(Side.CLIENT)
+	@Override
+    @SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister reg) {
 		this.blockIcon = reg.registerIcon("observer_side");
 		this.observerFront = reg.registerIcon("observer_front");
@@ -140,7 +141,8 @@ public class BlockObserver extends Block implements IBlockObserver {
 		return (BlockPistonBase.getPistonOrientation(metadata) == side) ? 15 : 0;
 	}
 
-	public boolean isNormalCube(IBlockAccess world, int x, int y, int z) {
+	@Override
+    public boolean isNormalCube(IBlockAccess world, int x, int y, int z) {
 		return true;
 	}
 

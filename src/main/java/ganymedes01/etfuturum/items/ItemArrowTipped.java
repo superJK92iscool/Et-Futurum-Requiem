@@ -98,7 +98,8 @@ public class ItemArrowTipped extends Item {
 		return list;
 	}
 
-	public void getSubItems(Item item, CreativeTabs tab, List<ItemStack> list) {
+	@Override
+    public void getSubItems(Item item, CreativeTabs tab, List<ItemStack> list) {
 		int j;
 
 		if (field_77835_b.isEmpty()) {
@@ -147,7 +148,8 @@ public class ItemArrowTipped extends Item {
 		return true;
 	}
 
-	public int getColorFromItemStack(ItemStack stack, int pass) {
+	@Override
+    public int getColorFromItemStack(ItemStack stack, int pass) {
 		if (pass == 0 && stack.getItemDamage() == 0 && stack.hasTagCompound() && stack.getTagCompound().hasKey("Potion", 10)) {
 			NBTTagCompound nbt = stack.getTagCompound().getCompoundTag("Potion");
 			PotionEffect effect = PotionEffect.readCustomPotionEffectFromNBT(nbt);

@@ -19,7 +19,8 @@ public class TechnobladeCrownRenderer extends RenderPig {
 		super(new ModelPig(), new ModelPig(0.5F), 0.7F);
 	}
 
-	protected int shouldRenderPass(EntityPig p_77032_1_, int p_77032_2_, float p_77032_3_) {
+	@Override
+    protected int shouldRenderPass(EntityPig p_77032_1_, int p_77032_2_, float p_77032_3_) {
 		if ("Technoblade".equals(p_77032_1_.getCustomNameTag())) {
 			if (p_77032_2_ == 1) {
 				prevRenderPassModel = renderPassModel;

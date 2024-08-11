@@ -58,7 +58,8 @@ public class BaseDoor extends BlockDoor {
 	}
 
 
-	@SideOnly(Side.CLIENT)
+	@Override
+    @SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister reg) {
 		field_150017_a = new IIcon[2];
 		field_150016_b = new IIcon[2];

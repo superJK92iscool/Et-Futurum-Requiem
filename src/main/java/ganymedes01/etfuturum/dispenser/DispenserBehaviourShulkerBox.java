@@ -13,7 +13,8 @@ import net.minecraft.util.EnumFacing;
 
 public class DispenserBehaviourShulkerBox extends BehaviorDefaultDispenseItem {
 
-	protected ItemStack dispenseStack(IBlockSource coords, ItemStack stack) {
+	@Override
+    protected ItemStack dispenseStack(IBlockSource coords, ItemStack stack) {
 		EnumFacing enumfacing = BlockDispenser.func_149937_b(coords.getBlockMetadata()); // getFacingDirection
 		int x = coords.getXInt() + enumfacing.getFrontOffsetX();
 		int y = coords.getYInt() + enumfacing.getFrontOffsetY();

@@ -17,10 +17,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(EntityPlayer.class)
 public abstract class MixinEntityPlayer extends EntityLivingBase {
 
-	@Shadow
+	@Override
+    @Shadow
 	protected abstract String getDeathSound();
 
-	@Shadow
+	@Override
+    @Shadow
 	protected abstract String getHurtSound();
 
 	public MixinEntityPlayer(World p_i1594_1_) {

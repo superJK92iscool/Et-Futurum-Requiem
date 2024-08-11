@@ -75,6 +75,7 @@ public class BlockCopperBulb extends BlockCopper {
         return true;
     }
 
+    @Override
     public void onNeighborBlockChange(World world, int x, int y, int z, Block neighbor)
     {
         if (!world.isRemote)

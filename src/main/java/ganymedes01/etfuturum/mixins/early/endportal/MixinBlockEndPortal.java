@@ -48,7 +48,8 @@ public class MixinBlockEndPortal extends Block {
 		return Blocks.obsidian.getIcon(0, 0);
 	}
 
-	@SideOnly(Side.CLIENT)
+	@Override
+    @SideOnly(Side.CLIENT)
 	public String getItemIconName() {
 		return "end_portal";
 	}

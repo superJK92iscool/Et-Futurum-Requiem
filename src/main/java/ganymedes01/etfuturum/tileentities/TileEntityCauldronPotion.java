@@ -19,7 +19,8 @@ public class TileEntityCauldronPotion extends TileEntityCauldronColoredWater {
 		return 0;
 	}
 
-	public void readFromNBT(NBTTagCompound compound) {
+	@Override
+    public void readFromNBT(NBTTagCompound compound) {
 		super.readFromNBT(compound);
 		this.potion = ItemStack.loadItemStackFromNBT(compound.getCompoundTag("Potion"));
 
@@ -38,7 +39,8 @@ public class TileEntityCauldronPotion extends TileEntityCauldronColoredWater {
 		return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, nbt);
 	}
 
-	public void writeToNBT(NBTTagCompound compound) {
+	@Override
+    public void writeToNBT(NBTTagCompound compound) {
 		super.writeToNBT(compound);
 		if (potion != null) {
 			compound.setTag("Potion", this.potion.writeToNBT(new NBTTagCompound()));

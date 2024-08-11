@@ -32,7 +32,8 @@ public class BlockEndRod extends Block {
 		return !(entity instanceof EntityDragon);
 	}
 
-	public void randomDisplayTick(World world, int x, int y, int z, Random random) {
+	@Override
+    public void randomDisplayTick(World world, int x, int y, int z, Random random) {
 		AxisAlignedBB bb = getCollisionBoundingBoxFromPool(world, x, y, z);
 		double px = bb.minX + (random.nextDouble() * (bb.maxX - bb.minX));
 		double py = bb.minY + (random.nextDouble() * (bb.maxY - bb.minY));
@@ -95,7 +96,8 @@ public class BlockEndRod extends Block {
 		return RenderIDs.END_ROD;
 	}
 
-	public int getMobilityFlag() {
+	@Override
+    public int getMobilityFlag() {
 		return 0;
 	}
 }

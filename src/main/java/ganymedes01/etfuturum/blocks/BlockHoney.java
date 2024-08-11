@@ -129,7 +129,8 @@ public class BlockHoney extends BaseBlock {
 		return side == 0 ? bottomIcon : side == 1 ? topIcon : blockIcon;
 	}
 
-	@SideOnly(Side.CLIENT)
+	@Override
+    @SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister reg) {
 		this.blockIcon = reg.registerIcon(getTextureName() + "_side");
 		this.topIcon = reg.registerIcon(getTextureName() + "_top");

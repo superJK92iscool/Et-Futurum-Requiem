@@ -36,7 +36,8 @@ public class BlockGlazedTerracotta extends BaseBlock {
 		return MapColor.getMapColorForBlockColored(meta);
 	}
 
-	public IIcon getIcon(int side, int meta) {
+	@Override
+    public IIcon getIcon(int side, int meta) {
 		switch (side) {
 			case 0:
 				return blockIconFlipped;

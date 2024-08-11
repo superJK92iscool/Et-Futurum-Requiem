@@ -38,12 +38,14 @@ public class BlockEndGateway extends BlockContainer {
 		Blocks.end_portal.setBlockName(Utils.getUnlocalisedName("end_portal"));
 	}
 
-	public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
+	@Override
+    public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
 		list.add(new ItemStack(Blocks.end_portal, 1, 0));
 		list.add(new ItemStack(itemIn, 1, 0));
 	}
 
-	public AxisAlignedBB getCollisionBoundingBoxFromPool(World worldIn, int x, int y, int z) {
+	@Override
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World worldIn, int x, int y, int z) {
 		return null;
 	}
 
@@ -66,34 +68,41 @@ public class BlockEndGateway extends BlockContainer {
 		return "end_gateway";
 	}
 
-	@SideOnly(Side.CLIENT)
+	@Override
+    @SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister reg) {
 		this.blockIcon = Blocks.obsidian.getIcon(0, 0);
 	}
 
-	public boolean isOpaqueCube() {
+	@Override
+    public boolean isOpaqueCube() {
 		return false;
 	}
 
-	public int quantityDropped(Random random) {
+	@Override
+    public int quantityDropped(Random random) {
 		return 0;
 	}
 
-	public boolean renderAsNormalBlock() {
+	@Override
+    public boolean renderAsNormalBlock() {
 		return false;
 	}
 
-	public int getRenderType() {
+	@Override
+    public int getRenderType() {
 		return -1;
 	}
 
-	public boolean shouldSideBeRendered(IBlockAccess world, int x, int y, int z, int side) {
+	@Override
+    public boolean shouldSideBeRendered(IBlockAccess world, int x, int y, int z, int side) {
 		EnumFacing facing = EnumFacing.getFront(side);
 		Block block = world.getBlock(x + facing.getFrontOffsetX(), y + facing.getFrontOffsetY(), z + facing.getFrontOffsetZ());
 		return !block.isOpaqueCube() && block != this;
 	}
 
-	public void randomDisplayTick(World worldIn, int x, int y, int z, Random rand) {
+	@Override
+    public void randomDisplayTick(World worldIn, int x, int y, int z, Random rand) {
 
 		TileEntity tileentity = worldIn.getTileEntity(x, y, z);
 

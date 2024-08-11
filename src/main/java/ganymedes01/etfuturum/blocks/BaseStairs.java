@@ -32,7 +32,8 @@ public class BaseStairs extends BlockStairs {
 	}
 
 
-	@SideOnly(Side.CLIENT)
+	@Override
+    @SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister reg) {
 		field_150149_b.registerBlockIcons(reg); //We do this in case the base block isn't actually registered
 	}

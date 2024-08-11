@@ -29,7 +29,8 @@ public class WorldProviderEFRNether extends WorldProviderHell {
 		System.arraycopy(this.lightBrightnessTable, 0, new float[16], 0, 16);
 	}
 
-	public boolean getWorldHasVoidParticles() {
+	@Override
+    public boolean getWorldHasVoidParticles() {
 		return false;
 	}
 
