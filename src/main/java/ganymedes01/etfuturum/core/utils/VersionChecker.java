@@ -16,6 +16,7 @@ import net.minecraft.util.StatCollector;
 import org.apache.commons.io.IOUtils;
 
 import java.io.InputStream;
+import java.net.URI;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.LinkedList;
@@ -46,7 +47,7 @@ public class VersionChecker extends Thread {
 		InputStream in = null;
 
 		try {
-			URL url = new URL(Reference.VERSION_URL);
+			URL url = new URI(Reference.VERSION_URL).toURL();
 			in = url.openStream();
 		} catch (Exception e) {
 			if (!warnaboutfailure) {

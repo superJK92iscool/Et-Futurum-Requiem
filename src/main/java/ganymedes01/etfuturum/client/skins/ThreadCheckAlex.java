@@ -6,7 +6,7 @@ import com.google.gson.JsonObject;
 
 import java.io.BufferedInputStream;
 import java.io.InputStreamReader;
-import java.net.URL;
+import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.UUID;
@@ -26,7 +26,7 @@ public class ThreadCheckAlex extends Thread {
 		boolean isAlex;
 		try {
 			System.setProperty("https.protocols", "TLSv1,TLSv1.1,TLSv1.2");
-			JsonObject json = new Gson().fromJson(new InputStreamReader(new BufferedInputStream(new URL("https://sessionserver.mojang.com/session/minecraft/profile/" + uuid.toString().replaceAll("-", "")).openStream())),
+			JsonObject json = new Gson().fromJson(new InputStreamReader(new BufferedInputStream(new URI("https://sessionserver.mojang.com/session/minecraft/profile/" + uuid.toString().replaceAll("-", "")).toURL().openStream())),
 					JsonObject.class);
 			JsonArray jsonArray = json.getAsJsonArray("properties");
 

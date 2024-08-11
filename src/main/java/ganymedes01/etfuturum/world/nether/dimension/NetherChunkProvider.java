@@ -189,7 +189,7 @@ public class NetherChunkProvider implements IChunkProvider {
 	 * name based on ChunkProviderGenerate
 	 */
 	public void replaceBlocksForBiome(int x, int z, Block[] blocks, byte[] metas, BiomeGenBase[] par4ArrayOfBiomeGenBase) {
-		ChunkProviderEvent.ReplaceBiomeBlocks event = new ChunkProviderEvent.ReplaceBiomeBlocks(this, x, z, blocks, par4ArrayOfBiomeGenBase);
+		ChunkProviderEvent.ReplaceBiomeBlocks event = new ChunkProviderEvent.ReplaceBiomeBlocks(this, x, z, blocks, new byte[256], par4ArrayOfBiomeGenBase, null);
 		MinecraftForge.EVENT_BUS.post(event);
 		if (event.getResult() == Event.Result.DENY) {
 			return;
