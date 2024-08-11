@@ -79,11 +79,11 @@ public class TileEntityShulkerBoxRenderer extends TileEntitySpecialRenderer {
 
 		if (destroyStage >= 0) {
 			this.bindTexture(DESTROY_STAGES[destroyStage]);
-			GL11.glMatrixMode(5890);
+			GL11.glMatrixMode(GL11.GL_TEXTURE);
 //            GL11.glPushMatrix();
 			GL11.glScalef(4.0F, 4.0F, 1.0F);
 			GL11.glTranslatef(0.0625F, 0.0625F, 0.0625F);
-			GL11.glMatrixMode(5888);
+			GL11.glMatrixMode(GL11.GL_MODELVIEW);
 		} else {
 			this.bindTexture(ShulkerRenderer.SHULKER_ENDERGOLEM_TEXTURES[te.color % ShulkerRenderer.SHULKER_ENDERGOLEM_TEXTURES.length + (tier % (TileEntityShulkerBox.tiers.length + 1) * 17)]);
 		}
@@ -144,9 +144,9 @@ public class TileEntityShulkerBoxRenderer extends TileEntitySpecialRenderer {
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
 		if (destroyStage >= 0) {
-			GL11.glMatrixMode(5890);
+			GL11.glMatrixMode(GL11.GL_TEXTURE);
 			GL11.glPopMatrix();
-			GL11.glMatrixMode(5888);
+			GL11.glMatrixMode(GL11.GL_MODELVIEW);
 		}
 		if (te.hasWorldObj() && te.type.getIsClear() && te.getDistanceFrom(this.field_147501_a.field_147560_j, this.field_147501_a.field_147561_k, this.field_147501_a.field_147558_l) < 128d) {
 			random.setSeed(254L);
@@ -161,7 +161,7 @@ public class TileEntityShulkerBoxRenderer extends TileEntitySpecialRenderer {
 				blockScale = 0.85F;
 			}
 			GL11.glPushMatrix();
-			GL11.glDisable(2896 /* GL_LIGHTING */);
+			GL11.glDisable(GL11.GL_LIGHTING /* GL_LIGHTING */);
 			GL11.glTranslatef((float) x, (float) y, (float) z);
 			EntityItem customitem = new EntityItem(field_147501_a.field_147550_f);
 			customitem.hoverStart = 0f;
@@ -185,7 +185,7 @@ public class TileEntityShulkerBoxRenderer extends TileEntitySpecialRenderer {
 				itemRenderer.doRender(customitem, 0, 0, 0, 0, 0);
 				GL11.glPopMatrix();
 			}
-			GL11.glEnable(2896 /* GL_LIGHTING */);
+			GL11.glEnable(GL11.GL_LIGHTING /* GL_LIGHTING */);
 			GL11.glPopMatrix();
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		}
