@@ -186,6 +186,7 @@ public abstract class BuiltInResourcePack extends AbstractResourcePack {
 					}
 					langFile.add(currentLine.trim());
 				}
+				reader.close();
 
 
 				List<String> ignoredKeys = Lists.newArrayList(); //Ignore these keys under certain conditions
