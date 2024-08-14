@@ -6,7 +6,6 @@ import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockFarmland;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
@@ -18,11 +17,8 @@ import net.minecraft.world.World;
 
 public class BlockStonecutter extends Block {
 
-	@SideOnly(Side.CLIENT)
 	private IIcon sideIcon;
-	@SideOnly(Side.CLIENT)
 	private IIcon bottomIcon;
-	@SideOnly(Side.CLIENT)
 	public IIcon sawIcon;
 
 	public BlockStonecutter() {
@@ -39,26 +35,28 @@ public class BlockStonecutter extends Block {
 		this.useNeighborBrightness = true;
 	}
 
-	public void setBlockBoundsBasedOnState(IBlockAccess p_149719_1_, int p_149719_2_, int p_149719_3_, int p_149719_4_) {
+	@Override
+	public void setBlockBoundsBasedOnState(IBlockAccess worldIn, int x, int y, int z) {
 		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5625F, 1.0F);
 	}
 
-	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(int p_149691_1_, int p_149691_2_) {
-		return p_149691_1_ == 1 ? this.blockIcon : p_149691_1_ == 0 ? bottomIcon : this.sideIcon;
-	}
-
-	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister p_149651_1_) {
-		this.blockIcon = p_149651_1_.registerIcon(this.getTextureName() + "_top");
-		this.sideIcon = p_149651_1_.registerIcon(this.getTextureName() + "_side");
-		this.bottomIcon = p_149651_1_.registerIcon(this.getTextureName() + "_bottom");
-		this.sawIcon = p_149651_1_.registerIcon(this.getTextureName() + "_saw");
+	@Override
+	public IIcon getIcon(int side, int meta) {
+		return side == 1 ? this.blockIcon : side == 0 ? bottomIcon : this.sideIcon;
 	}
 
 	@Override
-	public void onBlockPlacedBy(World p_149689_1_, int p_149689_2_, int p_149689_3_, int p_149689_4_, EntityLivingBase p_149689_5_, ItemStack p_149689_6_) {
-		int ordinal = MathHelper.floor_double((double) (p_149689_5_.rotationYaw / 90.0F) + 0.5D) & 3;
+	@SideOnly(Side.CLIENT)
+	public void registerBlockIcons(IIconRegister reg) {
+		this.blockIcon = reg.registerIcon(this.getTextureName() + "_top");
+		this.sideIcon = reg.registerIcon(this.getTextureName() + "_side");
+		this.bottomIcon = reg.registerIcon(this.getTextureName() + "_bottom");
+		this.sawIcon = reg.registerIcon(this.getTextureName() + "_saw");
+	}
+
+	@Override
+	public void onBlockPlacedBy(World worldIn, int x, int y, int z, EntityLivingBase placer, ItemStack itemIn) {
+		int ordinal = MathHelper.floor_double((double) (placer.rotationYaw / 90.0F) + 0.5D) & 3;
 		switch (ordinal) {
 			case 1:
 				ordinal = 3;
@@ -70,16 +68,16 @@ public class BlockStonecutter extends Block {
 				ordinal = 2;
 				break;
 		}
-		p_149689_1_.setBlockMetadataWithNotify(p_149689_2_, p_149689_3_, p_149689_4_, ordinal, 2);
+		worldIn.setBlockMetadataWithNotify(x, y, z, ordinal, 2);
 	}
 
-	@SideOnly(Side.CLIENT)
-	public boolean shouldSideBeRendered(IBlockAccess p_149646_1_, int p_149646_2_, int p_149646_3_, int p_149646_4_, int p_149646_5_) {
-		Block block = p_149646_1_.getBlock(p_149646_2_, p_149646_3_, p_149646_4_);
-		if (block instanceof BlockStonecutter && p_149646_5_ > 1) {
+	@Override
+	public boolean shouldSideBeRendered(IBlockAccess worldIn, int x, int y, int z, int side) {
+		Block block = worldIn.getBlock(x, y, z);
+		if (block instanceof BlockStonecutter && side > 1) {
 			return false;
 		}
-		return super.shouldSideBeRendered(p_149646_1_, p_149646_2_, p_149646_3_, p_149646_4_, p_149646_5_);
+		return super.shouldSideBeRendered(worldIn, x, y, z, side);
 	}
 
 	@Override
@@ -92,6 +90,7 @@ public class BlockStonecutter extends Block {
 		return false;
 	}
 
+	@Override
 	public int getRenderType() {
 		return RenderIDs.STONECUTTER;
 	}

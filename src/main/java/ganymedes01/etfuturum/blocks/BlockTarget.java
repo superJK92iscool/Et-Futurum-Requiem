@@ -18,7 +18,7 @@ import net.minecraft.world.World;
 import java.util.Random;
 
 public class BlockTarget extends BaseBlock {
-	@SideOnly(Side.CLIENT)
+
 	private IIcon topIcon;
 
 	public BlockTarget() {
@@ -32,13 +32,12 @@ public class BlockTarget extends BaseBlock {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister p_149651_1_) {
-		this.blockIcon = p_149651_1_.registerIcon(getTextureName() + "_side");
-		topIcon = p_149651_1_.registerIcon(getTextureName() + "_top");
+	public void registerBlockIcons(IIconRegister reg) {
+		this.blockIcon = reg.registerIcon(getTextureName() + "_side");
+		topIcon = reg.registerIcon(getTextureName() + "_top");
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta) {
 		return side == 1 ? topIcon : blockIcon;
 	}
@@ -61,24 +60,24 @@ public class BlockTarget extends BaseBlock {
 	}
 
 	private static int determinePower(World world, int x, int y, int z, Entity e) {
-		MovingObjectPosition hit = world.func_147447_a(Vec3.createVectorHelper(e.posX, e.posY, e.posZ), Vec3.createVectorHelper(x + 0.5, y + 0.5, z + 0.5), true, false, false);
+		MovingObjectPosition hit = world.func_147447_a/*rayTraceBlocks*/(Vec3.createVectorHelper(e.posX, e.posY, e.posZ), Vec3.createVectorHelper(x + 0.5, y + 0.5, z + 0.5), true, false, false);
 		if (hit != null && hit.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
 			double xDiff = Math.abs(fractionalPos(hit.hitVec.xCoord) - 0.5);
 			double yDiff = Math.abs(fractionalPos(hit.hitVec.yCoord) - 0.5);
 			double zDiff = Math.abs(fractionalPos(hit.hitVec.zCoord) - 0.5);
 			double finalDiff = switch (hit.sideHit) {
-                default -> Math.max(xDiff, zDiff);
-                case 2, 3 -> Math.max(xDiff, yDiff);
-                case 4, 5 -> Math.max(yDiff, zDiff);
-            };
-            return Math.max(1, MathHelper.ceiling_double_int(15.0 * MathHelper.clamp_double((0.5 - finalDiff) / 0.5, 0.0, 1.0)));
+				default -> Math.max(xDiff, zDiff);
+				case 2, 3 -> Math.max(xDiff, yDiff);
+				case 4, 5 -> Math.max(yDiff, zDiff);
+			};
+			return Math.max(1, MathHelper.ceiling_double_int(15.0 * MathHelper.clamp_double((0.5 - finalDiff) / 0.5, 0.0, 1.0)));
 		}
 		return 0;
 	}
 
 	@Override
-	public void updateTick(World p_149674_1_, int p_149674_2_, int p_149674_3_, int p_149674_4_, Random p_149674_5_) {
-		p_149674_1_.setBlockMetadataWithNotify(p_149674_2_, p_149674_3_, p_149674_4_, 0, 3);
+	public void updateTick(World worldIn, int x, int y, int z, Random random) {
+		worldIn.setBlockMetadataWithNotify(x, y, z, 0, 3);
 	}
 
 	@Override
@@ -90,6 +89,7 @@ public class BlockTarget extends BaseBlock {
 	 * For some reason, returning FALSE will do the power updates??
 	 * This function should be named shouldNOTCheckPower?!
 	 */
+	@Override
 	public boolean shouldCheckWeakPower(IBlockAccess world, int x, int y, int z, int side) {
 		return false;
 	}
@@ -104,10 +104,12 @@ public class BlockTarget extends BaseBlock {
 		return world.getBlockMetadata(x, y, z);
 	}
 
+	@Override
 	public boolean isNormalCube(IBlockAccess world, int x, int y, int z) {
 		return true;
 	}
 
+	@Override
 	public boolean isNormalCube() {
 		return true;
 	}

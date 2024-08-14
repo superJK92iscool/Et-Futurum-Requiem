@@ -1,8 +1,6 @@
 package ganymedes01.etfuturum.tileentities;
 
 import com.google.common.collect.Lists;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.recipes.ModRecipes;
 import net.minecraft.block.Block;
@@ -20,7 +18,6 @@ public class TileEntityNewBeacon extends TileEntityBeacon {
 	private final List<BeamSegment> segments = Lists.newArrayList();
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public AxisAlignedBB getRenderBoundingBox() {
 		return AxisAlignedBB.getBoundingBox(xCoord, yCoord, zCoord, xCoord + 1, Double.POSITIVE_INFINITY, zCoord + 1);
 	}
@@ -71,7 +68,7 @@ public class TileEntityNewBeacon extends TileEntityBeacon {
 					break;
 				}
 
-				beamsegment.func_177262_a();
+				beamsegment.incrementHeight();
 				continue;
 			}
 
@@ -79,7 +76,7 @@ public class TileEntityNewBeacon extends TileEntityBeacon {
 				colors = new float[]{(beamsegment.getColor()[0] + colors[0]) / 2.0F, (beamsegment.getColor()[1] + colors[1]) / 2.0F, (beamsegment.getColor()[2] + colors[2]) / 2.0F};
 
 			if (Arrays.equals(colors, beamsegment.getColor()))
-				beamsegment.func_177262_a();
+				beamsegment.incrementHeight();
 			else {
 				beamsegment = new TileEntityNewBeacon.BeamSegment(colors);
 				segments.add(beamsegment);
@@ -96,15 +93,15 @@ public class TileEntityNewBeacon extends TileEntityBeacon {
 	public static class BeamSegment {
 
 		private final float[] colours;
-		private int field_177265_b;
+		private int height;
 
 		public BeamSegment(float[] colours) {
 			this.colours = colours;
-			field_177265_b = 1;
+			height = 1;
 		}
 
-		protected void func_177262_a() {
-			field_177265_b++;
+		protected void incrementHeight() {
+			height++;
 		}
 
 		public float[] getColor() {
@@ -112,7 +109,7 @@ public class TileEntityNewBeacon extends TileEntityBeacon {
 		}
 
 		public int getHeight() {
-			return field_177265_b;
+			return height;
 		}
 	}
 }

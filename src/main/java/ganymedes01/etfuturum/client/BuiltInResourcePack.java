@@ -99,9 +99,8 @@ public abstract class BuiltInResourcePack extends AbstractResourcePack {
 		return resourcesEnabled && langEnabled;
 	}
 
-	@SuppressWarnings("unchecked")
 	private static void inject(IResourcePack resourcePack) {
-		List defaultResourcePacks = ReflectionHelper.getPrivateValue(Minecraft.class, Minecraft.getMinecraft(), "defaultResourcePacks", "field_110449_ao");
+		List<IResourcePack> defaultResourcePacks = ReflectionHelper.getPrivateValue(Minecraft.class, Minecraft.getMinecraft(), "defaultResourcePacks", "field_110449_ao");
 		defaultResourcePacks.add(resourcePack);
 		IResourceManager resMan = Minecraft.getMinecraft().getResourceManager();
 		if (resMan instanceof SimpleReloadableResourceManager) {
@@ -187,6 +186,7 @@ public abstract class BuiltInResourcePack extends AbstractResourcePack {
 					}
 					langFile.add(currentLine.trim());
 				}
+				reader.close();
 
 
 				List<String> ignoredKeys = Lists.newArrayList(); //Ignore these keys under certain conditions

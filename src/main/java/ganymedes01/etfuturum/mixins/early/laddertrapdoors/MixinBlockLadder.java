@@ -9,8 +9,8 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
 @Mixin(BlockLadder.class)
 public class MixinBlockLadder extends Block {
-	protected MixinBlockLadder(Material p_i45394_1_) {
-		super(p_i45394_1_);
+	protected MixinBlockLadder(Material materialIn) {
+		super(materialIn);
 	}
 
 	@ModifyConstant(method = "func_149797_b", constant = @Constant(floatValue = 0.125F, ordinal = 0))

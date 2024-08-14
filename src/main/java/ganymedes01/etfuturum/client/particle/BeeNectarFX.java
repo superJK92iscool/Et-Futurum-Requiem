@@ -11,8 +11,8 @@ public class BeeNectarFX extends EntityFX {
 	private static final float green = (color >> 8 & 0xff) / 255F;
 	private static final float blue = (color & 0xff) / 255F;
 
-	public BeeNectarFX(World p_i1203_1_, double p_i1203_2_, double p_i1203_4_, double p_i1203_6_) {
-		super(p_i1203_1_, p_i1203_2_, p_i1203_4_, p_i1203_6_, 0, 0, 0);
+	public BeeNectarFX(World worldIn, double p_i1203_2_, double p_i1203_4_, double p_i1203_6_) {
+		super(worldIn, p_i1203_2_, p_i1203_4_, p_i1203_6_, 0, 0, 0);
 		rand = new RandomXoshiro256StarStar();
 		setRBGColorF(red, green, blue);
 		this.motionX = this.motionY = this.motionZ = 0.0D;
@@ -26,6 +26,7 @@ public class BeeNectarFX extends EntityFX {
 	/**
 	 * Called to update the entity's position/logic.
 	 */
+	@Override
 	public void onUpdate() {
 		super.onUpdate();
 		if (this.onGround) {

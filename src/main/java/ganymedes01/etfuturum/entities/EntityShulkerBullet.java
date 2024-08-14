@@ -1,8 +1,6 @@
 package ganymedes01.etfuturum.entities;
 
 import com.google.common.collect.Lists;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.client.particle.CustomParticles;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
@@ -88,6 +86,7 @@ public class EntityShulkerBullet extends Entity {
 	/**
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
+	@Override
 	protected void writeEntityToNBT(NBTTagCompound compound) {
 		if (this.owner != null) {
 			BlockPos blockpos = new BlockPos(this.owner);
@@ -120,6 +119,7 @@ public class EntityShulkerBullet extends Entity {
 	/**
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
+	@Override
 	protected void readEntityFromNBT(NBTTagCompound compound) {
 		this.steps = compound.getInteger("Steps");
 		this.targetDeltaX = compound.getDouble("TXD");
@@ -316,10 +316,10 @@ public class EntityShulkerBullet extends Entity {
 		}
 	}
 
-	@SideOnly(Side.CLIENT)
-	public void setPositionAndRotation2(double p_70056_1_, double p_70056_3_, double p_70056_5_, float p_70056_7_, float p_70056_8_, int p_70056_9_) {
-		this.setPosition(p_70056_1_, p_70056_3_, p_70056_5_);
-		this.setRotation(p_70056_7_, p_70056_8_);
+	@Override
+	public void setPositionAndRotation2(double x, double y, double z, float yaw, float pitch, int rotationIncrements) {
+		this.setPosition(x, y, z);
+		this.setRotation(yaw, pitch);
 	}
 
 	/**

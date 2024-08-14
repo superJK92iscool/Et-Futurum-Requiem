@@ -7,7 +7,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
 
-import java.util.List;
 import java.util.Random;
 
 public class NetherBiomeBase extends BiomeGenBase {
@@ -21,7 +20,7 @@ public class NetherBiomeBase extends BiomeGenBase {
 		this.setDisableRain();
 		this.setTemperatureRainfall(2.0F, 0.0F);
 
-		field_150604_aj = field_76754_C = 0;
+		field_150604_aj/*topBlockMetadata*/ = field_76754_C/*fillerBlockMetadata*/ = 0;
 
 		BiomeDictionary.registerBiomeType(this, BiomeDictionary.Type.NETHER);
 
@@ -47,6 +46,6 @@ public class NetherBiomeBase extends BiomeGenBase {
 	}
 
 	protected void removeMonster(Class<? extends Entity> entity) {
-		((List<SpawnListEntry>) spawnableMonsterList).removeIf(entry -> entry.entityClass == entity);
+		spawnableMonsterList.removeIf(entry -> entry.entityClass == entity);
 	}
 }

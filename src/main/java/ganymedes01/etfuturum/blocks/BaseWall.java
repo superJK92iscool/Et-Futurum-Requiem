@@ -4,7 +4,6 @@ import com.google.common.collect.Maps;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFenceGate;
 import net.minecraft.block.BlockWall;
@@ -24,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 public class BaseWall extends BlockWall implements ISubBlocksBlock {
-	@SideOnly(Side.CLIENT)
+
 	private IIcon[] icons;
 	private final String[] types;
 
@@ -67,16 +66,13 @@ public class BaseWall extends BlockWall implements ISubBlocksBlock {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	@SuppressWarnings({"unchecked", "rawtypes"})
-	public void getSubBlocks(Item item, CreativeTabs tab, List list) {
+	public void getSubBlocks(Item item, CreativeTabs tab, List<ItemStack> list) {
 		for (int i = 0; i < getTypes().length; i++) {
 			list.add(new ItemStack(item, 1, i));
 		}
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta) {
 		return getIcons()[meta % icons.length];
 	}
@@ -92,6 +88,7 @@ public class BaseWall extends BlockWall implements ISubBlocksBlock {
 		}
 	}
 
+	@Override
 	public boolean canConnectWallTo(IBlockAccess p_150091_1_, int p_150091_2_, int p_150091_3_, int p_150091_4_) {
 		Block block = p_150091_1_.getBlock(p_150091_2_, p_150091_3_, p_150091_4_);
 		return block instanceof BlockFenceGate || block instanceof BaseWall || super.canConnectWallTo(p_150091_1_, p_150091_2_, p_150091_3_, p_150091_4_);
@@ -141,11 +138,11 @@ public class BaseWall extends BlockWall implements ISubBlocksBlock {
 	}
 
 	@Override
-	public MapColor getMapColor(int p_149728_1_) {
-		return mapColorBase == null ? super.getMapColor(p_149728_1_) : mapColorBase.getMapColor(p_149728_1_);
+	public MapColor getMapColor(int meta) {
+		return mapColorBase == null ? super.getMapColor(meta) : mapColorBase.getMapColor(meta);
 	}
 
-    private final Map<Integer, Float> hardnesses = Maps.newHashMap();
+	private final Map<Integer, Float> hardnesses = Maps.newHashMap();
 	private final Map<Integer, Float> resistances = Maps.newHashMap();
 
 	@Override

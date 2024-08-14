@@ -40,26 +40,26 @@ public class BlockModernWoodFence extends BlockFence implements ISubBlocksBlock 
 	}
 
 	@Override
-	public void getSubBlocks(Item p_149666_1_, CreativeTabs p_149666_2_, List p_149666_3_) {
-		ModBlocks.WOOD_PLANKS.get().getSubBlocks(p_149666_1_, p_149666_2_, p_149666_3_);
+	public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
+		ModBlocks.WOOD_PLANKS.get().getSubBlocks(itemIn, tab, list);
 	}
 
 	@Override
-	public IIcon getIcon(int p_149691_1_, int p_149691_2_) {
-		return basePlanks.getIcon(p_149691_1_, p_149691_2_);
+	public IIcon getIcon(int side, int meta) {
+		return basePlanks.getIcon(side, meta);
 	}
 
 	@Override
 	public void registerBlockIcons(IIconRegister ignored) {}
 
 	@Override
-	public int getDamageValue(World p_149643_1_, int p_149643_2_, int p_149643_3_, int p_149643_4_) {
-		return damageDropped(p_149643_1_.getBlockMetadata(p_149643_2_, p_149643_3_, p_149643_4_));
+	public int getDamageValue(World worldIn, int x, int y, int z) {
+		return damageDropped(worldIn.getBlockMetadata(x, y, z));
 	}
 
 	@Override
-	public int damageDropped(int p_149692_1_) {
-		return p_149692_1_ % getTypes().length;
+	public int damageDropped(int meta) {
+		return meta % getTypes().length;
 	}
 
 	@Override

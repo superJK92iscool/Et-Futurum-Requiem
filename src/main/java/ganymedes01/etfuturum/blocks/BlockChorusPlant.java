@@ -36,6 +36,7 @@ public class BlockChorusPlant extends Block {
 		return !(entity instanceof EntityDragon);
 	}
 
+	@Override
 	public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z) {
 		float down = canConnectTo(world, x, y - 1, z) ? 0.0F : 0.1875F;
 		float up = canConnectTo(world, x, y + 1, z) ? 1.0F : 0.8125F;
@@ -75,12 +76,12 @@ public class BlockChorusPlant extends Block {
 	@Override
 	public void updateTick(World world, int x, int y, int z, Random random) {
 		if (!this.canSurviveAt(world, x, y, z)) {
-			world.func_147480_a(x, y, z, true);
+			world.func_147480_a(x, y, z, true); // breakBlock
 		}
 	}
 
 	@Override
-	public void onNeighborBlockChange(World world, int x, int y, int z, Block p_149695_5_) {
+	public void onNeighborBlockChange(World world, int x, int y, int z, Block neighbor) {
 		if (!this.canSurviveAt(world, x, y, z)) {
 			world.scheduleBlockUpdate(x, y, z, this, 1);
 		}

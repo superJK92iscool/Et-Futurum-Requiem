@@ -1,10 +1,7 @@
 package ganymedes01.etfuturum.blocks.ores;
 
 import com.google.common.collect.Lists;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.api.mappings.RegistryMapping;
 import ganymedes01.etfuturum.blocks.BaseSubtypesBlock;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
@@ -49,13 +46,13 @@ public abstract class BaseSubtypesDeepslateOre extends BaseSubtypesBlock impleme
 	}
 
 	//	@Override //TODO: Figure out how to capture meta in case a mod overrides these. Although it's unlikely this is needed so it's "FINE" for now
-//	public int quantityDropped(Random p_149745_1_) {
-//		return getBase().quantityDropped(p_149745_1_);
+//	public int quantityDropped(Random random) {
+//		return getBase().quantityDropped(random);
 //	}
 //
 //	@Override
-//	public int quantityDroppedWithBonus(int i, Random p_149745_1_) {
-//		return getBase().quantityDroppedWithBonus(i, p_149745_1_);
+//	public int quantityDroppedWithBonus(int i, Random random) {
+//		return getBase().quantityDroppedWithBonus(i, random);
 //	}
 
 	@Override
@@ -67,8 +64,8 @@ public abstract class BaseSubtypesDeepslateOre extends BaseSubtypesBlock impleme
 	 * Determines the damage on the item the block drops. Used in cloth and wood.
 	 */
 	@Override
-	public int damageDropped(int p_149692_1_) {
-		return getBase(p_149692_1_).damageDropped(getBaseMeta(p_149692_1_));
+	public int damageDropped(int meta) {
+		return getBase(meta).damageDropped(getBaseMeta(meta));
 	}
 
 	@Override
@@ -77,25 +74,24 @@ public abstract class BaseSubtypesDeepslateOre extends BaseSubtypesBlock impleme
 	}
 
 	@Override
-	public MapColor getMapColor(int p_149728_1_) {
-		return getBase(p_149728_1_).getMapColor(getBaseMeta(p_149728_1_));
+	public MapColor getMapColor(int meta) {
+		return getBase(meta).getMapColor(getBaseMeta(meta));
 	}
 
 	/**
 	 * Called when a player hits the block. Args: world, x, y, z, player
 	 */
 	@Override
-	public void onBlockClicked(World world, int x, int y, int z, EntityPlayer p_149699_5_) {
-		getBase(world.getBlockMetadata(x, y, z)).onBlockClicked(world, x, y, z, p_149699_5_);
+	public void onBlockClicked(World world, int x, int y, int z, EntityPlayer player) {
+		getBase(world.getBlockMetadata(x, y, z)).onBlockClicked(world, x, y, z, player);
 	}
 
 	/**
 	 * A randomly called display update to be able to add particles or other items for display
 	 */
 	@Override
-	@SideOnly(Side.CLIENT)
-	public void randomDisplayTick(World world, int x, int y, int z, Random p_149734_5_) {
-		getBase(world.getBlockMetadata(x, y, z)).randomDisplayTick(world, x, y, z, p_149734_5_);
+	public void randomDisplayTick(World world, int x, int y, int z, Random random) {
+		getBase(world.getBlockMetadata(x, y, z)).randomDisplayTick(world, x, y, z, random);
 	}
 
 	/**
@@ -111,8 +107,8 @@ public abstract class BaseSubtypesDeepslateOre extends BaseSubtypesBlock impleme
 	 * Can add to the passed in vector for a movement vector to be applied to the entity. Args: x, y, z, entity, vec3d
 	 */
 	@Override
-	public void velocityToAddToEntity(World world, int x, int y, int z, Entity p_149640_5_, Vec3 p_149640_6_) {
-		getBase(world.getBlockMetadata(x, y, z)).velocityToAddToEntity(world, x, y, z, p_149640_5_, p_149640_6_);
+	public void velocityToAddToEntity(World world, int x, int y, int z, Entity entityIn, Vec3 velocity) {
+		getBase(world.getBlockMetadata(x, y, z)).velocityToAddToEntity(world, x, y, z, entityIn, velocity);
 	}
 
 	@Override
@@ -124,14 +120,13 @@ public abstract class BaseSubtypesDeepslateOre extends BaseSubtypesBlock impleme
 	 * How bright to render this block based on the light its receiving. Args: iBlockAccess, x, y, z
 	 */
 	@Override
-	@SideOnly(Side.CLIENT)
 	public int getMixedBrightnessForBlock(IBlockAccess world, int x, int y, int z) {
 		return getBase(world.getBlockMetadata(x, y, z)).getMixedBrightnessForBlock(world, x, y, z);
 	}
 
 	@Override
-	public void breakBlock(World world, int x, int y, int z, Block p_149749_5_, int meta) {
-		getBase(meta).breakBlock(world, x, y, z, p_149749_5_, getBaseMeta(meta));
+	public void breakBlock(World world, int x, int y, int z, Block blockBroken, int meta) {
+		getBase(meta).breakBlock(world, x, y, z, blockBroken, getBaseMeta(meta));
 	}
 
 	/**
@@ -163,16 +158,16 @@ public abstract class BaseSubtypesDeepslateOre extends BaseSubtypesBlock impleme
 	 * Ticks the block if it's been scheduled
 	 */
 	@Override
-	public void updateTick(World world, int x, int y, int z, Random p_149674_5_) {
-		getBase(world.getBlockMetadata(x, y, z)).updateTick(world, x, y, z, p_149674_5_);
+	public void updateTick(World world, int x, int y, int z, Random random) {
+		getBase(world.getBlockMetadata(x, y, z)).updateTick(world, x, y, z, random);
 	}
 
 	/**
 	 * Called upon block activation (right click on the block.)
 	 */
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer p_149727_5_, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_) {
-		return getBase(world.getBlockMetadata(x, y, z)).onBlockActivated(world, x, y, z, p_149727_5_, 0, 0.0F, 0.0F, 0.0F);
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float subX, float subY, float subZ) {
+		return getBase(world.getBlockMetadata(x, y, z)).onBlockActivated(world, x, y, z, player, 0, 0.0F, 0.0F, 0.0F);
 	}
 
 	/**
@@ -197,14 +192,14 @@ public abstract class BaseSubtypesDeepslateOre extends BaseSubtypesBlock impleme
 		if (droppedBlock == getBase(meta)) {
 			Item thisAsItem = Item.getItemFromBlock(this);
 			if (thisAsItem != null) {
-				drop.func_150996_a(thisAsItem);
+				drop.func_150996_a(thisAsItem); // setItem
 				drop.itemDamage = meta;
 				return drop;
 			}
 		} else if (droppedBlock == Blocks.stone) {
-			drop.func_150996_a(ModBlocks.DEEPSLATE.getItem());
+			drop.func_150996_a(ModBlocks.DEEPSLATE.getItem()); // setItem
 		} else if (droppedBlock == Blocks.cobblestone) {
-			drop.func_150996_a(ModBlocks.COBBLED_DEEPSLATE.getItem());
+			drop.func_150996_a(ModBlocks.COBBLED_DEEPSLATE.getItem()); // setItem
 		}
 		return drop;
 	}
@@ -236,8 +231,8 @@ public abstract class BaseSubtypesDeepslateOre extends BaseSubtypesBlock impleme
 	}
 
 	@Override
-	public int getDamageValue(World p_149643_1_, int p_149643_2_, int p_149643_3_, int p_149643_4_) {
-		return p_149643_1_.getBlockMetadata(p_149643_2_, p_149643_3_, p_149643_4_);
+	public int getDamageValue(World worldIn, int x, int y, int z) {
+		return worldIn.getBlockMetadata(x, y, z);
 	}
 
 	public static final List<BaseSubtypesDeepslateOre> loaded = Lists.newLinkedList();

@@ -45,7 +45,6 @@ import java.util.List;
 
 public class BlockShulkerBox extends BlockContainer {
 
-	//  @SideOnly(Side.CLIENT)
 	public IIcon[] colorIcons = new IIcon[17];
 
 	public BlockShulkerBox() {
@@ -70,6 +69,7 @@ public class BlockShulkerBox extends BlockContainer {
 		return 1;
 	}
 
+	@Override
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack) {
 		TileEntityShulkerBox box = (TileEntityShulkerBox) world.getTileEntity(x, y, z);
 		if (stack.hasTagCompound()) {
@@ -82,7 +82,7 @@ public class BlockShulkerBox extends BlockContainer {
 			box.color = stack.getTagCompound().getByte("Color");
 
 			if (stack.hasDisplayName()) {
-				box.func_145976_a(stack.getDisplayName());
+				box.setCustomName(stack.getDisplayName()); // setCustomName
 			}
 		} else {
 			box.chestContents = new ItemStack[ShulkerBoxType.VANILLA.getSize()];
@@ -111,7 +111,6 @@ public class BlockShulkerBox extends BlockContainer {
 		colorIcons[16] = i.registerIcon("black_shulker_box");
 	}
 
-	@SideOnly(Side.CLIENT)
 	@Override
 	public IIcon getIcon(IBlockAccess world, int x, int y, int z, int side) {
 		int meta = 0;
@@ -122,7 +121,7 @@ public class BlockShulkerBox extends BlockContainer {
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_) {
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float subX, float subY, float subZ) {
 		if (world.isRemote) {
 			return true;
 		}
@@ -148,7 +147,7 @@ public class BlockShulkerBox extends BlockContainer {
 			}
 			ForgeDirection dir = ForgeDirection.getOrientation(shulker.facing);
 			boolean flag;
-			if (shulker.func_190591_p() == TileEntityShulkerBox.AnimationStatus.CLOSED) {
+			if (shulker.getAnimationStatus() == TileEntityShulkerBox.AnimationStatus.CLOSED) {
 				AxisAlignedBB axisalignedbb = AxisAlignedBB.getBoundingBox(x, y, z, x + 1, y + 1, z + 1)
 						.addCoord(0.5F * (float) dir.offsetX, 0.5F * (float) dir.offsetY, 0.5F * (float) dir.offsetZ);
 				axisalignedbb.addCoord(-(double) dir.offsetX, -(double) dir.offsetY, -(double) dir.offsetZ);
@@ -168,12 +167,12 @@ public class BlockShulkerBox extends BlockContainer {
 	}
 
 	@Override
-	public void onBlockAdded(World p_149726_1_, int p_149726_2_, int p_149726_3_, int p_149726_4_) {
-		TileEntityShulkerBox shulker = (TileEntityShulkerBox) p_149726_1_.getTileEntity(p_149726_2_, p_149726_3_, p_149726_4_);
+	public void onBlockAdded(World worldIn, int x, int y, int z) {
+		TileEntityShulkerBox shulker = (TileEntityShulkerBox) worldIn.getTileEntity(x, y, z);
 		if (shulker.chestContents == null || shulker.chestContents.length != shulker.getSizeInventory()) {
 			shulker.chestContents = new ItemStack[shulker.getSizeInventory()];
 		}
-		super.onBlockAdded(p_149726_1_, p_149726_2_, p_149726_3_, p_149726_4_);
+		super.onBlockAdded(worldIn, x, y, z);
 	}
 
 //  public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z)
@@ -182,20 +181,21 @@ public class BlockShulkerBox extends BlockContainer {
 //      
 //      this.setBlockBounds(0, 0, 0, 1, 1, 1);
 //       
-//      if(tileentity instanceof TileEntityShulkerBox && ((TileEntityShulkerBox)tileentity).func_190591_p() == TileEntityShulkerBox.AnimationStatus.CLOSED) {
-//          AxisAlignedBB bb = ((TileEntityShulkerBox)tileentity).func_190584_a(((TileEntityShulkerBox)tileentity).facing);
+//      if(tileentity instanceof TileEntityShulkerBox && ((TileEntityShulkerBox)tileentity).getAnimationStatus() == TileEntityShulkerBox.AnimationStatus.CLOSED) {
+//          AxisAlignedBB bb = ((TileEntityShulkerBox)tileentity).getBoundingBox(((TileEntityShulkerBox)tileentity).facing);
 //          setBlockBounds((float)bb.minX, (float)bb.minY, (float)bb.minZ, (float)bb.maxX, (float)bb.maxY, (float)bb.maxZ);
 //      }
 //  }
 
+	@Override
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
 		TileEntity tileentity = world.getTileEntity(x, y, z);
-		return tileentity instanceof TileEntityShulkerBox ? ((TileEntityShulkerBox) tileentity).func_190584_a(((TileEntityShulkerBox) tileentity).facing).offset(x, y, z) : super.getCollisionBoundingBoxFromPool(world, x, y, z);
+		return tileentity instanceof TileEntityShulkerBox ? ((TileEntityShulkerBox) tileentity).getBoundingBox(((TileEntityShulkerBox) tileentity).facing).offset(x, y, z) : super.getCollisionBoundingBoxFromPool(world, x, y, z);
 	}
 
-	@SideOnly(Side.CLIENT)
-	public AxisAlignedBB getSelectedBoundingBoxFromPool(World p_149633_1_, int p_149633_2_, int p_149633_3_, int p_149633_4_) {
-		return this.getCollisionBoundingBoxFromPool(p_149633_1_, p_149633_2_, p_149633_3_, p_149633_4_);
+	@Override
+	public AxisAlignedBB getSelectedBoundingBoxFromPool(World worldIn, int x, int y, int z) {
+		return this.getCollisionBoundingBoxFromPool(worldIn, x, y, z);
 	}
 
 	private boolean canOpen(AxisAlignedBB bb, World world, TileEntity tile) {
@@ -272,10 +272,11 @@ public class BlockShulkerBox extends BlockContainer {
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
+	public TileEntity createNewTileEntity(World worldIn, int meta) {
 		return new TileEntityShulkerBox();
 	}
 
+	@Override
 	public IIcon getIcon(int side, int metadata) {
 		/*
 		 * This icon is a mask (or something) for redstone wire.
@@ -370,8 +371,7 @@ public class BlockShulkerBox extends BlockContainer {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public void getSubBlocks(Item item, CreativeTabs tab, List subItems) {
+	public void getSubBlocks(Item item, CreativeTabs tab, List<ItemStack> subItems) {
 		for (byte i = 0; i <= (ModsList.IRON_CHEST.isLoaded() && ConfigModCompat.shulkerBoxesIronChest ? 7 : 0); i++) {
 			for (byte j = 0; j <= (ConfigBlocksItems.enableDyedShulkerBoxes ? 16 : 0); j++) {
 
@@ -395,6 +395,7 @@ public class BlockShulkerBox extends BlockContainer {
 		}
 	}
 
+	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z, EntityPlayer player) {
 		ItemStack stack = new ItemStack(this);
 		TileEntityShulkerBox box = (TileEntityShulkerBox) world.getTileEntity(x, y, z);

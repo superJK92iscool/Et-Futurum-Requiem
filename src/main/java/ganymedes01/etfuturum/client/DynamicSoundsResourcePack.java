@@ -75,11 +75,6 @@ public class DynamicSoundsResourcePack implements IResourcePack {
 	public class JsonCreator {
 		private final JsonObject rootObject = new JsonObject();
 
-		private void setReplace(String cat) {
-			JsonObject soundCat = JsonUtil.getOrCreateObject(rootObject, cat);
-			soundCat.add("replace", new JsonPrimitive(true));
-		}
-
 		private void addSoundsToCategory(String cat, String... sounds) {
 			JsonObject soundCat = JsonUtil.getOrCreateObject(rootObject, cat);
 			JsonArray soundList = JsonUtil.getOrCreateArray(soundCat, "sounds");

@@ -13,7 +13,6 @@ import java.util.List;
 
 public class BaseSubtypesItem extends BaseItem {
 
-	@SideOnly(Side.CLIENT)
 	protected IIcon[] icons;
 	public final String[] types;
 
@@ -29,15 +28,12 @@ public class BaseSubtypesItem extends BaseItem {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public IIcon getIconFromDamage(int meta) {
 		return icons[meta % icons.length];
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	@SuppressWarnings({"rawtypes", "unchecked"})
-	public void getSubItems(Item item, CreativeTabs tabs, List list) {
+	public void getSubItems(Item item, CreativeTabs tabs, List<ItemStack> list) {
 		for (int i = 0; i < types.length; i++) {
 			list.add(new ItemStack(item, 1, i));
 		}
@@ -52,10 +48,12 @@ public class BaseSubtypesItem extends BaseItem {
 		}
 	}
 
+	@Override
 	public String getTextureDomain() {
 		return "";
 	}
 
+	@Override
 	public String getNameDomain() {
 		return Reference.MOD_ID;
 	}

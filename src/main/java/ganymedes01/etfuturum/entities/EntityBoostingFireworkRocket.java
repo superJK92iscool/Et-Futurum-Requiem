@@ -28,7 +28,8 @@ public class EntityBoostingFireworkRocket extends EntityFireworkRocket {
 		this.boostedEntity = entityToBoost;
 	}
 
-	public boolean isInRangeToRenderDist(double p_70112_1_) {
+	@Override
+	public boolean isInRangeToRenderDist(double distance) {
 		return false;
 	}
 

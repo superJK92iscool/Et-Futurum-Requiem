@@ -54,20 +54,22 @@ public class EntityHusk extends EntityZombie {
 		return flag;
 	}
 
+	@Override
 	public void onLivingUpdate() {
 		ignoreSunlight = true;
 		super.onLivingUpdate();
 		ignoreSunlight = false;
 	}
 
+	@Override
 	public float getBrightness(float p_70013_1_) {
 		return ignoreSunlight ? 0F : super.getBrightness(p_70013_1_);
 	}
 	
 	/*
-	public boolean attackEntityFrom(DamageSource p_70097_1_, float p_70097_2_)
+	public boolean attackEntityFrom(DamageSource source, float amount)
 	{
-		if (!super.attackEntityFrom(p_70097_1_, p_70097_2_))
+		if (!super.attackEntityFrom(source, amount))
 		{
 			return false;
 		}
@@ -80,9 +82,9 @@ public class EntityHusk extends EntityZombie {
 				entitylivingbase = (EntityLivingBase)this.getEntityToAttack();
 			}
 
-			if (entitylivingbase == null && p_70097_1_.getEntity() instanceof EntityLivingBase)
+			if (entitylivingbase == null && source.getEntity() instanceof EntityLivingBase)
 			{
-				entitylivingbase = (EntityLivingBase)p_70097_1_.getEntity();
+				entitylivingbase = (EntityLivingBase)source.getEntity();
 			}
 
 
@@ -151,11 +153,15 @@ public class EntityHusk extends EntityZombie {
 		return Reference.MCAssetVer + ":entity.husk.death";
 	}
 
+	/**
+	 * MCP name: {@code playStepSound}
+	 */
 	@Override
-	protected void func_145780_a(final int p_145780_1_, final int p_145780_2_, final int p_145780_3_, final Block p_145780_4_) {
+	protected void func_145780_a(final int x, final int y, final int z, final Block blockIn) {
 		this.playSound(Reference.MCAssetVer + ":entity.husk.step", 0.15f, 1.0f);
 	}
 
+	@Override
 	public ItemStack getPickedResult(MovingObjectPosition target) {
 		return ModEntityList.getEggFromEntity(this);
 	}

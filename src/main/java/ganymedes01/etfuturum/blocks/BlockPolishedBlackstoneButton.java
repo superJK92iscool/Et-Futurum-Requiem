@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.blocks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.core.utils.Utils;
@@ -21,8 +19,8 @@ public class BlockPolishedBlackstoneButton extends BlockButtonStone {
 	/**
 	 * Gets the block's texture. Args: side, meta
 	 */
-	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(int p_149691_1_, int p_149691_2_) {
+	@Override
+	public IIcon getIcon(int side, int meta) {
 		return ModBlocks.BLACKSTONE.get().getIcon(0, 1);
 	}
 }

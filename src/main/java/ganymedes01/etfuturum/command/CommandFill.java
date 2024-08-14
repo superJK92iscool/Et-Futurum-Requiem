@@ -23,7 +23,7 @@ public class CommandFill extends CommandBase {
 	}
 
 	@Override
-	public String getCommandUsage(ICommandSender p_71518_1_) {
+	public String getCommandUsage(ICommandSender sender) {
 		return "commands.etfuturum.fill.usage";
 	}
 
@@ -34,12 +34,12 @@ public class CommandFill extends CommandBase {
 		}
 		EntityPlayerMP entityplayermp = getCommandSenderAsPlayer(sender);
 		int i = 0;
-		int fromX = MathHelper.floor_double(func_110666_a(sender, entityplayermp.posX, args[i++]));
-		int fromY = MathHelper.floor_double(func_110665_a(sender, entityplayermp.posY, args[i++], 0, 0));
-		int fromZ = MathHelper.floor_double(func_110666_a(sender, entityplayermp.posZ, args[i++]));
-		int toX = MathHelper.floor_double(func_110666_a(sender, entityplayermp.posX, args[i++]));
-		int toY = MathHelper.floor_double(func_110665_a(sender, entityplayermp.posY, args[i++], 0, 0));
-		int toZ = MathHelper.floor_double(func_110666_a(sender, entityplayermp.posZ, args[i++]));
+		int fromX = MathHelper.floor_double(func_110666_a/*clamp_coord*/(sender, entityplayermp.posX, args[i++]));
+		int fromY = MathHelper.floor_double(func_110665_a/*clamp_double*/(sender, entityplayermp.posY, args[i++], 0, 0));
+		int fromZ = MathHelper.floor_double(func_110666_a/*clamp_coord*/(sender, entityplayermp.posZ, args[i++]));
+		int toX = MathHelper.floor_double(func_110666_a/*clamp_coord*/(sender, entityplayermp.posX, args[i++]));
+		int toY = MathHelper.floor_double(func_110665_a/*clamp_double*/(sender, entityplayermp.posY, args[i++], 0, 0));
+		int toZ = MathHelper.floor_double(func_110666_a/*clamp_coord*/(sender, entityplayermp.posZ, args[i++]));
 		Block block = CommandBase.getBlockByText(sender, args[i++]);
 		int meta = 0;
 		if (i < args.length) {
@@ -81,6 +81,6 @@ public class CommandFill extends CommandBase {
 				}
 			}
 		}
-		func_152373_a(sender, this, "commands.etfuturum.fill.success", volume);
+		func_152373_a/*notifyOperators*/(sender, this, "commands.etfuturum.fill.success", volume);
 	}
 }

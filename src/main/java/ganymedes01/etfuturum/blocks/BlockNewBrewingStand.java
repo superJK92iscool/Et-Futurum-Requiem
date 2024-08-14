@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.blocks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.configuration.configs.ConfigWorld;
@@ -51,7 +49,6 @@ public class BlockNewBrewingStand extends BlockBrewingStand {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public Item getItem(World world, int x, int y, int z) {
 		if (ConfigWorld.tileReplacementMode == -1)
 			return Item.getItemFromBlock(ModBlocks.BREWING_STAND.get());
@@ -64,7 +61,6 @@ public class BlockNewBrewingStand extends BlockBrewingStand {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public String getItemIconName() {
 		return "brewing_stand";
 	}

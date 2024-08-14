@@ -11,7 +11,6 @@ import net.minecraft.util.IIcon;
 
 public class BlockBeetroot extends BlockCrops {
 
-	@SideOnly(Side.CLIENT)
 	private IIcon[] icons;
 
 	public BlockBeetroot() {
@@ -21,7 +20,6 @@ public class BlockBeetroot extends BlockCrops {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta) {
 		if (meta < 7) {
 			if (meta == 6)
@@ -31,11 +29,17 @@ public class BlockBeetroot extends BlockCrops {
 		return icons[3];
 	}
 
+	/**
+	 * MCP name: {@code getSeed}
+	 */
 	@Override
 	protected Item func_149866_i() {
 		return ModItems.BEETROOT_SEEDS.get();
 	}
 
+	/**
+	 * MCP name: {@code getCrop}
+	 */
 	@Override
 	protected Item func_149865_P() {
 		return ModItems.BEETROOT.get();

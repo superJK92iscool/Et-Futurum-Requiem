@@ -24,7 +24,6 @@ import java.util.Random;
 public class BlockAmethystCluster extends BlockAmethystBlock {
 
 	private final int type;
-	@SideOnly(Side.CLIENT)
 	private IIcon[] icons;
 
 	public BlockAmethystCluster(int type) {
@@ -38,38 +37,45 @@ public class BlockAmethystCluster extends BlockAmethystBlock {
 		this.type = type;
 	}
 
+	@Override
 	public int getMobilityFlag() {
 		return 1;
 	}
 
+	@Override
 	public int getLightValue(IBlockAccess world, int x, int y, int z) {
 		int meta = world.getBlockMetadata(x, y, z);
 		return getLightValue() + (type * 3) + (meta / 6);
 	}
 
-	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_) {
+	@Override
+	public Item getItemDropped(int meta, Random random, int fortune) {
 		return ModItems.AMETHYST_SHARD.get();
 	}
 
-	protected ItemStack createStackedBlock(int p_149644_1_) {
+	@Override
+	protected ItemStack createStackedBlock(int meta) {
 		int j = 0;
 		Item item = Item.getItemFromBlock(this);
 
 		if (item != null && item.getHasSubtypes()) {
-			j = p_149644_1_ < 6 ? 0 : 6;
+			j = meta < 6 ? 0 : 6;
 		}
 
 		return new ItemStack(item, 1, j);
 	}
 
+	@Override
 	protected boolean canSilkHarvest() {
 		return true;
 	}
 
-	public int getDamageValue(World p_149643_1_, int p_149643_2_, int p_149643_3_, int p_149643_4_) {
-		return p_149643_1_.getBlockMetadata(p_149643_2_, p_149643_3_, p_149643_4_) < 6 ? 0 : 6;
+	@Override
+	public int getDamageValue(World worldIn, int x, int y, int z) {
+		return worldIn.getBlockMetadata(x, y, z) < 6 ? 0 : 6;
 	}
 
+	@Override
 	public int quantityDropped(int meta, int fortune, Random random) {
 		if (this == ModBlocks.AMETHYST_CLUSTER_2.get() && meta >= 6) {
 			int drop = quantityDropped(random);
@@ -81,7 +87,8 @@ public class BlockAmethystCluster extends BlockAmethystBlock {
 		return 0;
 	}
 
-	public int quantityDropped(Random p_149745_1_) {
+	@Override
+	public int quantityDropped(Random random) {
 		if (harvestingWithPickaxe()) {
 			return 4;
 		}
@@ -156,17 +163,17 @@ public class BlockAmethystCluster extends BlockAmethystBlock {
 		}
 	}
 
-	protected void checkAndDropBlock(World p_149855_1_, int p_149855_2_, int p_149855_3_, int p_149855_4_) {
-		if (!this.canBlockStay(p_149855_1_, p_149855_2_, p_149855_3_, p_149855_4_)) {
-			this.dropBlockAsItem(p_149855_1_, p_149855_2_, p_149855_3_, p_149855_4_, p_149855_1_.getBlockMetadata(p_149855_2_, p_149855_3_, p_149855_4_), 0);
-			p_149855_1_.setBlockToAir(p_149855_2_, p_149855_3_, p_149855_4_);
+	protected void checkAndDropBlock(World worldIn, int x, int y, int z) {
+		if (!this.canBlockStay(worldIn, x, y, z)) {
+			this.dropBlockAsItem(worldIn, x, y, z, worldIn.getBlockMetadata(x, y, z), 0);
+			worldIn.setBlockToAir(x, y, z);
 		}
 	}
 
 	@Override
-	public void onNeighborBlockChange(World p_149695_1_, int p_149695_2_, int p_149695_3_, int p_149695_4_, Block p_149695_5_) {
-		super.onNeighborBlockChange(p_149695_1_, p_149695_2_, p_149695_3_, p_149695_4_, p_149695_5_);
-		this.checkAndDropBlock(p_149695_1_, p_149695_2_, p_149695_3_, p_149695_4_);
+	public void onNeighborBlockChange(World worldIn, int x, int y, int z, Block neighbor) {
+		super.onNeighborBlockChange(worldIn, x, y, z, neighbor);
+		this.checkAndDropBlock(worldIn, x, y, z);
 	}
 
 	@Override
@@ -184,30 +191,29 @@ public class BlockAmethystCluster extends BlockAmethystBlock {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(int p_149691_1_, int p_149691_2_) {
-		return this.icons[p_149691_2_ < 6 ? 0 : 1];
+	public IIcon getIcon(int side, int meta) {
+		return this.icons[meta < 6 ? 0 : 1];
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister p_149651_1_) {
+	public void registerBlockIcons(IIconRegister reg) {
 		icons = new IIcon[2];
 		if (type == 0) {
-			icons[0] = p_149651_1_.registerIcon("small_amethyst_bud");
-			icons[1] = p_149651_1_.registerIcon("medium_amethyst_bud");
+			icons[0] = reg.registerIcon("small_amethyst_bud");
+			icons[1] = reg.registerIcon("medium_amethyst_bud");
 		}
 		if (type == 1) {
-			icons[0] = p_149651_1_.registerIcon("large_amethyst_bud");
-			icons[1] = p_149651_1_.registerIcon(getTextureName());
+			icons[0] = reg.registerIcon("large_amethyst_bud");
+			icons[1] = reg.registerIcon(getTextureName());
 		}
-		super.registerBlockIcons(p_149651_1_);
+		super.registerBlockIcons(reg);
 	}
 
-	@SideOnly(Side.CLIENT)
-	public void getSubBlocks(Item p_149666_1_, CreativeTabs p_149666_2_, List p_149666_3_) {
-		p_149666_3_.add(new ItemStack(p_149666_1_, 1, 0));
-		p_149666_3_.add(new ItemStack(p_149666_1_, 1, 6));
+	@Override
+	public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
+		list.add(new ItemStack(itemIn, 1, 0));
+		list.add(new ItemStack(itemIn, 1, 6));
 	}
 
 	@Override

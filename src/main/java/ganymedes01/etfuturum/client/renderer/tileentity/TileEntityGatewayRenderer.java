@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.client.renderer.tileentity;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.tileentities.TileEntityGateway;
 import net.minecraft.client.Minecraft;
@@ -18,7 +16,6 @@ import org.lwjgl.opengl.GL11;
 import java.nio.FloatBuffer;
 import java.util.Random;
 
-@SideOnly(Side.CLIENT)
 public class TileEntityGatewayRenderer extends TileEntitySpecialRenderer {
 	private static final ResourceLocation END_SKY_TEXTURE = new ResourceLocation("textures/environment/end_sky.png");
 	private static final ResourceLocation END_PORTAL_TEXTURE = new ResourceLocation("textures/entity/end_portal.png");
@@ -32,7 +29,7 @@ public class TileEntityGatewayRenderer extends TileEntitySpecialRenderer {
 		GL11.glDisable(GL11.GL_FOG);
 
 		if (te.isSpawning() || te.isCoolingDown()) {
-			GL11.glAlphaFunc(516, 0.1F);
+			GL11.glAlphaFunc(GL11.GL_GREATER, 0.1F);
 			this.bindTexture(END_GATEWAY_BEAM_TEXTURE);
 			float f = te.isSpawning() ? te.getSpawnPercent() : te.getCooldownPercent();
 			double d0 = te.isSpawning() ? 256.0D - y : 25.0D;
@@ -45,8 +42,8 @@ public class TileEntityGatewayRenderer extends TileEntitySpecialRenderer {
 
 		GL11.glDisable(GL11.GL_LIGHTING);
 		RANDOM.setSeed(31100L);
-		GL11.glGetFloat(2982, MODELVIEW);
-		GL11.glGetFloat(2983, PROJECTION);
+		GL11.glGetFloat(GL11.GL_MODELVIEW_MATRIX, MODELVIEW);
+		GL11.glGetFloat(GL11.GL_PROJECTION_MATRIX, PROJECTION);
 		double d1 = x * x + y * y + z * z;
 		int i;
 
@@ -90,12 +87,12 @@ public class TileEntityGatewayRenderer extends TileEntitySpecialRenderer {
 				GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
 			}
 
-			GL11.glTexGeni(GL11.GL_S, GL11.GL_TEXTURE_GEN_MODE, 9216);
-			GL11.glTexGeni(GL11.GL_T, GL11.GL_TEXTURE_GEN_MODE, 9216);
-			GL11.glTexGeni(GL11.GL_R, GL11.GL_TEXTURE_GEN_MODE, 9216);
-			GL11.glTexGen(GL11.GL_S, 9474, this.func_147525_a(1.0F, 0.0F, 0.0F, 0.0F));
-			GL11.glTexGen(GL11.GL_T, 9474, this.func_147525_a(0.0F, 1.0F, 0.0F, 0.0F));
-			GL11.glTexGen(GL11.GL_R, 9474, this.func_147525_a(0.0F, 0.0F, 1.0F, 0.0F));
+			GL11.glTexGeni(GL11.GL_S, GL11.GL_TEXTURE_GEN_MODE, GL11.GL_EYE_LINEAR);
+			GL11.glTexGeni(GL11.GL_T, GL11.GL_TEXTURE_GEN_MODE, GL11.GL_EYE_LINEAR);
+			GL11.glTexGeni(GL11.GL_R, GL11.GL_TEXTURE_GEN_MODE, GL11.GL_EYE_LINEAR);
+			GL11.glTexGen(GL11.GL_S, GL11.GL_EYE_PLANE, this.func_147525_a(1.0F, 0.0F, 0.0F, 0.0F));
+			GL11.glTexGen(GL11.GL_T, GL11.GL_EYE_PLANE, this.func_147525_a(0.0F, 1.0F, 0.0F, 0.0F));
+			GL11.glTexGen(GL11.GL_R, GL11.GL_EYE_PLANE, this.func_147525_a(0.0F, 0.0F, 1.0F, 0.0F));
 			GL11.glEnable(GL11.GL_TEXTURE_GEN_S);
 			GL11.glEnable(GL11.GL_TEXTURE_GEN_T);
 			GL11.glEnable(GL11.GL_TEXTURE_GEN_R);
@@ -187,6 +184,7 @@ public class TileEntityGatewayRenderer extends TileEntitySpecialRenderer {
 		return this.buffer;
 	}
 
+	@Override
 	public void renderTileEntityAt(TileEntity p_147500_1_, double p_147500_2_, double p_147500_4_, double p_147500_6_, float p_147500_8_) {
 		this.renderTileEntityAt((TileEntityGateway) p_147500_1_, p_147500_2_, p_147500_4_, p_147500_6_, p_147500_8_);
 	}

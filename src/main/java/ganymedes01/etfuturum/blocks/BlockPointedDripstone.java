@@ -18,9 +18,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public class BlockPointedDripstone extends Block {
 
-	@SideOnly(Side.CLIENT)
 	private IIcon[] downIcons;
-	@SideOnly(Side.CLIENT)
 	private IIcon[] upIcons;
 	private static final int states = 5;
 
@@ -37,26 +35,28 @@ public class BlockPointedDripstone extends Block {
 		this.setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister p_149651_1_) {
+	public void registerBlockIcons(IIconRegister reg) {
 		downIcons = new IIcon[5];
-		downIcons[0] = p_149651_1_.registerIcon(getTextureName() + "_down_tip");
-		downIcons[1] = p_149651_1_.registerIcon(getTextureName() + "_down_frustum");
-		downIcons[2] = p_149651_1_.registerIcon(getTextureName() + "_down_middle");
-		downIcons[3] = p_149651_1_.registerIcon(getTextureName() + "_down_base");
-		downIcons[4] = p_149651_1_.registerIcon(getTextureName() + "_down_tip_merge");
+		downIcons[0] = reg.registerIcon(getTextureName() + "_down_tip");
+		downIcons[1] = reg.registerIcon(getTextureName() + "_down_frustum");
+		downIcons[2] = reg.registerIcon(getTextureName() + "_down_middle");
+		downIcons[3] = reg.registerIcon(getTextureName() + "_down_base");
+		downIcons[4] = reg.registerIcon(getTextureName() + "_down_tip_merge");
 
 		upIcons = new IIcon[5];
-		upIcons[0] = p_149651_1_.registerIcon(getTextureName() + "_up_tip");
-		upIcons[1] = p_149651_1_.registerIcon(getTextureName() + "_up_frustum");
-		upIcons[2] = p_149651_1_.registerIcon(getTextureName() + "_up_middle");
-		upIcons[3] = p_149651_1_.registerIcon(getTextureName() + "_up_base");
-		upIcons[4] = p_149651_1_.registerIcon(getTextureName() + "_up_tip_merge");
+		upIcons[0] = reg.registerIcon(getTextureName() + "_up_tip");
+		upIcons[1] = reg.registerIcon(getTextureName() + "_up_frustum");
+		upIcons[2] = reg.registerIcon(getTextureName() + "_up_middle");
+		upIcons[3] = reg.registerIcon(getTextureName() + "_up_base");
+		upIcons[4] = reg.registerIcon(getTextureName() + "_up_tip_merge");
 
 		this.blockIcon = downIcons[3];
 	}
 
-	public int onBlockPlaced(World world, int x, int y, int z, int side, float p_149660_6_, float p_149660_7_, float p_149660_8_, int p_149660_9_) {
+	@Override
+	public int onBlockPlaced(World world, int x, int y, int z, int side, float subX, float subY, float subZ, int meta) {
 		if (side < 2) {
 			return side * states;
 		}
@@ -66,11 +66,13 @@ public class BlockPointedDripstone extends Block {
 		return 0;
 	}
 
+	@Override
 	public boolean canPlaceBlockOnSide(World world, int x, int y, int z, int side) {
 		int checkY = side == 0 || world.isSideSolid(x, y + 1, z, ForgeDirection.DOWN) ? 1 : -1;
 		return canDripstoneStayHere(world, x, y, z, checkY);
 	}
 
+	@Override
 	public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
 		if (!canBlockStay(world, x, y, z)) {
 			world.setBlockToAir(x, y, z);
@@ -128,24 +130,26 @@ public class BlockPointedDripstone extends Block {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta) {
 		return meta < states ? downIcons[meta % states] : upIcons[meta % states];
 	}
 
+	@Override
 	public int getRenderType() {
 		return RenderIDs.POINTED_DRIPSTONE;
 	}
 
+	@Override
 	public boolean isOpaqueCube() {
 		return false;
 	}
 
+	@Override
 	public boolean renderAsNormalBlock() {
 		return false;
 	}
 
-	@SideOnly(Side.CLIENT)
+	@Override
 	public String getItemIconName() {
 		return "pointed_dripstone";
 	}

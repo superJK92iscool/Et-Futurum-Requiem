@@ -5,18 +5,18 @@ import ganymedes01.etfuturum.blocks.BlockNylium;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.MathHelper;
-import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.MapGenRavine;
 
 import java.util.Random;
 
 public class MapGenRavineHell extends MapGenRavine {
 
-	private final float[] field_75046_d = new float[1024];
+	private final float[] rs = new float[1024];
 
 	/**
 	 * We have to replace the whole function because we need to change some loops inside to do 128 height instead of 256 height.
 	 */
+	@Override
 	protected void func_151540_a(long p_151540_1_, int p_151540_3_, int p_151540_4_, Block[] p_151540_5_, double p_151540_6_, double p_151540_8_, double p_151540_10_, float p_151540_12_, float p_151540_13_, float p_151540_14_, int p_151540_15_, int p_151540_16_, double p_151540_17_) {
 		Random random = new Random(p_151540_1_);
 		double d4 = p_151540_3_ * 16 + 8;
@@ -43,7 +43,7 @@ public class MapGenRavineHell extends MapGenRavine {
 				f5 = 1.0F + random.nextFloat() * random.nextFloat() * 1.0F;
 			}
 
-			this.field_75046_d[k1] = f5 * f5;
+			this.rs[k1] = f5 * f5;
 		}
 
 		for (; p_151540_15_ < p_151540_16_; ++p_151540_15_) {
@@ -116,8 +116,6 @@ public class MapGenRavineHell extends MapGenRavine {
 								j3 = (k2 * 16 + l2) * 128 + i3;
 
 								if (i3 < 128) {
-									Block block = p_151540_5_[j3];
-
 									if (isOceanBlock(p_151540_5_, j3, k2, i3, l2, p_151540_3_, p_151540_4_)) {
 										flag2 = true;
 									}
@@ -143,9 +141,7 @@ public class MapGenRavineHell extends MapGenRavine {
 									for (int l3 = i2 - 1; l3 >= j4; --l3) {
 										double d11 = ((double) l3 + 0.5D - p_151540_8_) / d6;
 
-										if ((d13 * d13 + d14 * d14) * (double) this.field_75046_d[l3] + d11 * d11 / 6.0D < 1.0D) {
-											Block block1 = p_151540_5_[k3];
-
+										if ((d13 * d13 + d14 * d14) * (double) this.rs[l3] + d11 * d11 / 6.0D < 1.0D) {
 											if (isTopBlock(p_151540_5_, k3, k2, l3, j3, p_151540_3_, p_151540_4_)) {
 												flag = true;
 											}
@@ -172,10 +168,12 @@ public class MapGenRavineHell extends MapGenRavine {
 		return blocks[index] == worldObj.getBiomeGenForCoords(x + chunkX * 16, z + chunkZ * 16).topBlock;
 	}
 
+	@Override
 	protected boolean isOceanBlock(Block[] data, int index, int x, int y, int z, int chunkX, int chunkZ) {
 		return data[index] == Blocks.lava || data[index] == Blocks.flowing_lava;
 	}
 
+	@Override
 	protected void digBlock(Block[] data, int index, int x, int y, int z, int chunkX, int chunkZ, boolean foundTop) {
 		Block block = data[index];
 

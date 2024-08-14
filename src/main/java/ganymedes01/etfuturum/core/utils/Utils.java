@@ -9,14 +9,13 @@ import ganymedes01.etfuturum.configuration.configs.ConfigModCompat;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.world.IBlockAccess;
@@ -129,7 +128,7 @@ public class Utils {
 		World world = p_188802_0_.worldObj;
 		Vec3 vec3d = Vec3.createVectorHelper(d0, d1, d2);
 		Vec3 vec3d1 = Vec3.createVectorHelper(d0 + d3, d1 + d4, d2 + d5);
-		MovingObjectPosition raytraceresult = world.func_147447_a(vec3d, vec3d1, false, true, false);
+		MovingObjectPosition raytraceresult = world.func_147447_a/*rayTraceBlocks*/(vec3d, vec3d1, false, true, false);
 
 		if (p_188802_1_) {
 			if (raytraceresult != null) {
@@ -525,7 +524,7 @@ public class Utils {
 
 	//STUPIDLY POINTLESSLY CLIENTSIDED FUNCTION STRIKES AGAIN AAAGH
 	public static boolean hasPotionEffect(ItemStack p_hasEffect_1_) {
-		List var2 = Items.potionitem.getEffects(p_hasEffect_1_);
+		List<PotionEffect> var2 = Items.potionitem.getEffects(p_hasEffect_1_);
 		return var2 != null && !var2.isEmpty();
 	}
 

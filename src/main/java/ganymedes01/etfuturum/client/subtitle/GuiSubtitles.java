@@ -139,7 +139,6 @@ public class GuiSubtitles extends Gui {
 			j = j + mc.fontRenderer.getStringWidth("<") + mc.fontRenderer.getStringWidth(" ") + mc.fontRenderer.getStringWidth(">") + mc.fontRenderer.getStringWidth(" ");
 
 			for (Subtitle sub : this.subtitles) {
-				int k = 255;
 				String s = sub.getString();
 				Vec3 vec3d4 = sub.getLocation().subtract(vec3d).normalize();
 				double d0 = vec3d3.dotProduct(vec3d4);
@@ -149,7 +148,6 @@ public class GuiSubtitles extends Gui {
 				int l = j / 2;
 				int i1 = mc.fontRenderer.FONT_HEIGHT;
 				int j1 = i1 / 2;
-				float f = 1.0F;
 				int k1 = mc.fontRenderer.getStringWidth(s);
 				double timeFactorSlide = ((float) (Minecraft.getSystemTime() - sub.getStartTime()) / 3000.0F);
 				if (timeFactorSlide < 0)

@@ -88,12 +88,10 @@ public class SimplexNoiseSampler {
 	}
 
 	public double sample(double x, double y, double z) {
-		double d = 0.3333333333333333D;
 		double e = (x + y + z) * 0.3333333333333333D;
 		int i = MathHelper.floor_double(x + e);
 		int j = MathHelper.floor_double(y + e);
 		int k = MathHelper.floor_double(z + e);
-		double f = 0.16666666666666666D;
 		double g = (double) (i + j + k) * 0.16666666666666666D;
 		double h = (double) i - g;
 		double l = (double) j - g;

@@ -22,7 +22,6 @@ import java.util.Random;
 
 public class BlockChorusFlower extends Block {
 
-	@SideOnly(Side.CLIENT)
 	private IIcon deadIcon;
 
 	public BlockChorusFlower() {
@@ -38,7 +37,7 @@ public class BlockChorusFlower extends Block {
 	@Override
 	public void onEntityCollidedWithBlock(World w, int x, int y, int z, Entity ent) {
 		if (ent instanceof EntityArrow) {
-			w.func_147480_a(x, y, z, true);
+			w.func_147480_a(x, y, z, true); // breakBlock
 		}
 	}
 
@@ -54,7 +53,6 @@ public class BlockChorusFlower extends Block {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta) {
 		return meta >= 5 ? deadIcon : blockIcon;
 	}
@@ -76,7 +74,7 @@ public class BlockChorusFlower extends Block {
 			return;
 
 		if (!canBlockStay(world, x, y, z))
-			world.func_147480_a(x, y, z, true);
+			world.func_147480_a(x, y, z, true); // breakBlock
 		else if (world.isAirBlock(x, y + 1, z)) {
 			boolean canGrowUp = false;
 			boolean isSegmentOnEndstone = false;
@@ -140,7 +138,7 @@ public class BlockChorusFlower extends Block {
 	@Override
 	public void onNeighborBlockChange(World world, int x, int y, int z, Block neighbour) {
 		if (!canBlockStay(world, x, y, z))
-			world.func_147480_a(x, y, z, false);
+			world.func_147480_a(x, y, z, false); // breakBlock
 	}
 
 	@Override
@@ -212,7 +210,7 @@ public class BlockChorusFlower extends Block {
 			for (int k = 0; k < l; ++k) {
 				ForgeDirection[] horizontal = {ForgeDirection.NORTH, ForgeDirection.SOUTH, ForgeDirection.WEST, ForgeDirection.EAST};
 				ForgeDirection ForgeDirection = horizontal[rand.nextInt(horizontal.length)];
-//                BlockPos blockpos1 = bp1.up(i).offset(ForgeDirection);
+//				BlockPos blockpos1 = bp1.up(i).offset(ForgeDirection);
 				int bp1x = x + ForgeDirection.offsetX;
 				int bp1y = y + ForgeDirection.offsetY + i;
 				int bp1z = z + ForgeDirection.offsetZ;

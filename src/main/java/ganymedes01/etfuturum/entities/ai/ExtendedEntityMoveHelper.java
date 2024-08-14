@@ -18,10 +18,12 @@ public class ExtendedEntityMoveHelper extends EntityMoveHelper {
 		this.entity = entitylivingIn;
 	}
 
+	@Override
 	public boolean isUpdating() {
 		return this.action == ExtendedEntityMoveHelper.Action.MOVE_TO;
 	}
 
+	@Override
 	public double getSpeed() {
 		return this.speed;
 	}
@@ -29,6 +31,7 @@ public class ExtendedEntityMoveHelper extends EntityMoveHelper {
 	/**
 	 * Sets the speed and location to move to
 	 */
+	@Override
 	public void setMoveTo(double x, double y, double z, double speedIn) {
 		this.posX = x;
 		this.posY = y;
@@ -44,6 +47,7 @@ public class ExtendedEntityMoveHelper extends EntityMoveHelper {
 		this.speed = 0.25D;
 	}
 
+	@Override
 	public void onUpdateMoveHelper() {
 		if (this.action == ExtendedEntityMoveHelper.Action.STRAFE) {
 			float f = (float) this.entity.getEntityAttribute(SharedMonsterAttributes.movementSpeed).getAttributeValue();
@@ -59,10 +63,6 @@ public class ExtendedEntityMoveHelper extends EntityMoveHelper {
 			f4 = f1 / f4;
 			f2 = f2 * f4;
 			f3 = f3 * f4;
-			float f5 = MathHelper.sin(this.entity.rotationYaw * 0.017453292F);
-			float f6 = MathHelper.cos(this.entity.rotationYaw * 0.017453292F);
-			float f7 = f2 * f6 - f3 * f5;
-			float f8 = f3 * f6 + f2 * f5;
 			PathNavigate pathnavigate = this.entity.getNavigator();
 
 			if (pathnavigate != null) {

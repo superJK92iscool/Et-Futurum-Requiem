@@ -16,6 +16,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
+import net.minecraftforge.event.terraingen.TerrainGen;
 
 import java.util.List;
 import java.util.Random;
@@ -29,32 +30,37 @@ public class BlockModernSapling extends BlockSapling implements ISubBlocksBlock 
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
-	@SideOnly(Side.CLIENT)
-	public void getSubBlocks(Item p_149666_1_, CreativeTabs p_149666_2_, List p_149666_3_) {
+	@Override
+	public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
 		if (ConfigExperiments.enableMangroveBlocks) {
-			p_149666_3_.add(new ItemStack(p_149666_1_, 1, 0));
+			list.add(new ItemStack(itemIn, 1, 0));
 		}
 		if (ConfigBlocksItems.enableCherryBlocks) {
-			p_149666_3_.add(new ItemStack(p_149666_1_, 1, 1));
+			list.add(new ItemStack(itemIn, 1, 1));
 		}
 	}
 
-	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(int p_149691_1_, int p_149691_2_) {
-		return icons[(p_149691_2_ & 7) % icons.length];
+	@Override
+	public IIcon getIcon(int side, int meta) {
+		return icons[(meta & 7) % icons.length];
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister p_149651_1_) {
+	public void registerBlockIcons(IIconRegister reg) {
 		for (int i = 0; i < icons.length; ++i) {
-			icons[i] = p_149651_1_.registerIcon(types[i]);
+			icons[i] = reg.registerIcon(types[i]);
 		}
 	}
 
 	private static final WorldGenAbstractTree cherry = new WorldGenCherryTrees(true);
 
+	/**
+	 * MCP name: {@code growTree}
+	 */
+	@Override
 	public void func_149878_d(World p_149878_1_, int p_149878_2_, int p_149878_3_, int p_149878_4_, Random p_149878_5_) {
-		if (!net.minecraftforge.event.terraingen.TerrainGen.saplingGrowTree(p_149878_1_, p_149878_5_, p_149878_2_, p_149878_3_, p_149878_4_)) {
+		if (!TerrainGen.saplingGrowTree(p_149878_1_, p_149878_5_, p_149878_2_, p_149878_3_, p_149878_4_)) {
 			return;
 		}
 

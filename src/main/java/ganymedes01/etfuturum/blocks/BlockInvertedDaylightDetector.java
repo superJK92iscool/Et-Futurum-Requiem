@@ -52,7 +52,6 @@ public class BlockInvertedDaylightDetector extends BlockNewDaylightSensor {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta) {
 		return side == 1 ? blockIcon : Blocks.daylight_detector.getIcon(side, meta);
 	}

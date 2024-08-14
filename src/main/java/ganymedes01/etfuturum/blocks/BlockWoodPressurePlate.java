@@ -39,8 +39,8 @@ public class BlockWoodPressurePlate extends BlockPressurePlate {
 	}
 
 	@Override
-	public IIcon getIcon(int p_149691_1_, int p_149691_2_) {
-		return baseBlock.getIcon(p_149691_1_, this.meta);
+	public IIcon getIcon(int side, int meta) {
+		return baseBlock.getIcon(side, this.meta);
 	}
 
 	@Override

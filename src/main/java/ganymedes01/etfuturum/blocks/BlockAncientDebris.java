@@ -12,7 +12,6 @@ import net.minecraft.util.IIcon;
 
 public class BlockAncientDebris extends Block {
 
-	@SideOnly(Side.CLIENT)
 	public IIcon iconTop;
 
 	public BlockAncientDebris() {
@@ -27,8 +26,7 @@ public class BlockAncientDebris extends Block {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(int side, int p_149691_2_) {
+	public IIcon getIcon(int side, int meta) {
 		return side > 1 ? blockIcon : iconTop;
 	}
 

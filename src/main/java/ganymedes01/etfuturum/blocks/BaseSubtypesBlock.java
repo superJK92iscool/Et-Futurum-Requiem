@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 public class BaseSubtypesBlock extends BaseBlock implements ISubBlocksBlock {
-	@SideOnly(Side.CLIENT)
+
 	private IIcon[] icons;
 	private final String[] types;
 
@@ -61,16 +61,13 @@ public class BaseSubtypesBlock extends BaseBlock implements ISubBlocksBlock {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	@SuppressWarnings({"unchecked", "rawtypes"})
-	public void getSubBlocks(Item item, CreativeTabs tab, List list) {
+	public void getSubBlocks(Item item, CreativeTabs tab, List<ItemStack> list) {
 		for (int i = startMeta; i < getTypes().length; i++) {
 			list.add(new ItemStack(item, 1, i));
 		}
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta) {
 		return getIcons()[Math.max(startMeta, meta % icons.length)];
 	}

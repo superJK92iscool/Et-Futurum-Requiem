@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.client.renderer.item;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.client.OpenGLHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -15,7 +13,6 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
 
-@SideOnly(Side.CLIENT)
 public class ItemBowRenderer implements IItemRenderer {
 
 	private final RenderItem renderItem = new RenderItem();

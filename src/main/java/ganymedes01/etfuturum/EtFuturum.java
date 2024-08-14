@@ -13,7 +13,6 @@ import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.api.*;
 import ganymedes01.etfuturum.api.mappings.BasicMultiBlockSound;
 import ganymedes01.etfuturum.blocks.BlockSculk;
@@ -94,9 +93,8 @@ public class EtFuturum {
 					: Items.magma_cream;
 		}
 
-		@SideOnly(Side.CLIENT)
 		@Override
-		public void displayAllReleventItems(List p_78018_1_) {
+		public void displayAllReleventItems(List<ItemStack> p_78018_1_) {
 			for (byte i = 1; i <= 3; i++) {
 				ItemStack firework = new ItemStack(Items.fireworks);
 				NBTTagCompound nbt = new NBTTagCompound();
@@ -123,9 +121,8 @@ public class EtFuturum {
 					: Item.getItemFromBlock(Blocks.ender_chest);
 		}
 
-		@SideOnly(Side.CLIENT)
 		@Override
-		public void displayAllReleventItems(List list) {
+		public void displayAllReleventItems(List<ItemStack> list) {
 			list.add(new ItemStack(Blocks.mob_spawner));
 			super.displayAllReleventItems(list);
 
@@ -168,6 +165,7 @@ public class EtFuturum {
 	private Field fortressWeightedField;
 
 	@EventHandler
+	@SuppressWarnings("unchecked")
 	public void preInit(FMLPreInitializationEvent event) {
 		try {
 			Field chestInfo = ChestGenHooks.class.getDeclaredField("chestInfo");
@@ -285,6 +283,7 @@ public class EtFuturum {
 	}
 
 	@EventHandler
+	@SuppressWarnings("unchecked")
 	public void postInit(FMLPostInitializationEvent event) {
 		if (ConfigFunctions.enableUpdatedFoodValues) {
 			((ItemFood) Items.carrot).healAmount = 3;
@@ -366,6 +365,7 @@ public class EtFuturum {
 	}
 
 	@EventHandler
+	@SuppressWarnings("unchecked")
 	public void onLoadComplete(FMLLoadCompleteEvent e) {
 		for (ModBlocks block : ModBlocks.values()) {
 			if (block.isEnabled() && block.get() instanceof IInitAction) {
@@ -677,7 +677,7 @@ public class EtFuturum {
 				case 0:
 					return new PotionEffect(Potion.nightVision.id, 100, 0);
 				case 1:
-					return new PotionEffect(Potion.field_76443_y.id, 7, 0);
+					return new PotionEffect(Potion.field_76443_y.id, 7, 0); // saturation
 				case 2:
 					return new PotionEffect(Potion.fireResistance.id, 80, 0);
 				case 3:
@@ -693,7 +693,7 @@ public class EtFuturum {
 		}
 
 		if (item == Item.getItemFromBlock(Blocks.yellow_flower)) {
-			return new PotionEffect(Potion.field_76443_y.id, 7, 0);
+			return new PotionEffect(Potion.field_76443_y.id, 7, 0); // saturation
 		}
 
 		if (item == Item.getItemFromBlock(ModBlocks.CORNFLOWER.get())) {
@@ -978,8 +978,8 @@ public class EtFuturum {
 			if (sound.getStepResourcePath().startsWith(Reference.MCAssetVer)) { //Step sound
 				config.addSoundEvent(ver, sound.getStepResourcePath().substring(Reference.MCAssetVer.length() + 1), "neutral");
 			}
-			if (sound.func_150496_b().startsWith(Reference.MCAssetVer)) { //Place sound
-				config.addSoundEvent(ver, sound.func_150496_b().substring(Reference.MCAssetVer.length() + 1), "block");
+			if (sound.func_150496_b/*getPlaceSound*/().startsWith(Reference.MCAssetVer)) { //Place sound
+				config.addSoundEvent(ver, sound.func_150496_b/*getPlaceSound*/().substring(Reference.MCAssetVer.length() + 1), "block");
 			}
 			if (sound.getBreakSound().startsWith(Reference.MCAssetVer)) { //Break sound
 				config.addSoundEvent(ver, sound.getBreakSound().substring(Reference.MCAssetVer.length() + 1), "block");

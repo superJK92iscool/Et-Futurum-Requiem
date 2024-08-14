@@ -35,7 +35,6 @@ import java.util.Map.Entry;
 
 public class ItemLingeringPotion extends ItemPotion {
 
-	@SideOnly(Side.CLIENT)
 	private IIcon bottle;
 
 	public ItemLingeringPotion() {
@@ -76,7 +75,6 @@ public class ItemLingeringPotion extends ItemPotion {
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
 	public List<PotionEffect> getEffects(int meta) {
 		List<PotionEffect> effects = new ArrayList<PotionEffect>();
 		List<PotionEffect> effects2 = super.getEffects(meta);
@@ -134,9 +132,7 @@ public class ItemLingeringPotion extends ItemPotion {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	@SuppressWarnings({"rawtypes", "unchecked"})
-	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean isComplex) {
+	public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean isComplex) {
 		if (stack.getItemDamage() == 0)
 			return;
 
@@ -185,19 +181,17 @@ public class ItemLingeringPotion extends ItemPotion {
 					d1 = attributemodifier2.getAmount() * 100.0D;
 
 				if (d0 > 0.0D)
-					list.add(EnumChatFormatting.BLUE + StatCollector.translateToLocalFormatted("attribute.modifier.plus." + attributemodifier2.getOperation(), new Object[]{ItemStack.field_111284_a.format(d1), StatCollector.translateToLocal("attribute.name." + entry1.getKey())}));
+					list.add(EnumChatFormatting.BLUE + StatCollector.translateToLocalFormatted("attribute.modifier.plus." + attributemodifier2.getOperation(), new Object[]{ItemStack.field_111284_a/*DECIMALFORMAT*/.format(d1), StatCollector.translateToLocal("attribute.name." + entry1.getKey())}));
 				else if (d0 < 0.0D) {
 					d1 *= -1.0D;
-					list.add(EnumChatFormatting.RED + StatCollector.translateToLocalFormatted("attribute.modifier.take." + attributemodifier2.getOperation(), new Object[]{ItemStack.field_111284_a.format(d1), StatCollector.translateToLocal("attribute.name." + entry1.getKey())}));
+					list.add(EnumChatFormatting.RED + StatCollector.translateToLocalFormatted("attribute.modifier.take." + attributemodifier2.getOperation(), new Object[]{ItemStack.field_111284_a/*DECIMALFORMAT*/.format(d1), StatCollector.translateToLocal("attribute.name." + entry1.getKey())}));
 				}
 			}
 		}
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	@SuppressWarnings({"rawtypes", "unchecked"})
-	public void getSubItems(Item item, CreativeTabs tab, List list) {
+	public void getSubItems(Item item, CreativeTabs tab, List<ItemStack> list) {
 		List<ItemStack> potions = new ArrayList<ItemStack>();
 		super.getSubItems(item, tab, potions);
 
@@ -207,7 +201,6 @@ public class ItemLingeringPotion extends ItemPotion {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public IIcon getIconFromDamage(int meta) {
 		return bottle;
 	}
@@ -220,7 +213,6 @@ public class ItemLingeringPotion extends ItemPotion {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public boolean hasEffect(ItemStack stack, int pass) {
 		return super.hasEffect(stack, pass) && pass == 0;
 	}

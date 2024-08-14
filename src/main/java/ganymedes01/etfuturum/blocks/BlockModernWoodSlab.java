@@ -8,6 +8,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -26,8 +27,8 @@ public class BlockModernWoodSlab extends BaseSlab {
 	}
 
 	@Override
-	public void getSubBlocks(Item p_149666_1_, CreativeTabs p_149666_2_, List p_149666_3_) {
-		ModBlocks.WOOD_PLANKS.get().getSubBlocks(p_149666_1_, p_149666_2_, p_149666_3_);
+	public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
+		ModBlocks.WOOD_PLANKS.get().getSubBlocks(itemIn, tab, list);
 	}
 
 	@Override
@@ -36,8 +37,8 @@ public class BlockModernWoodSlab extends BaseSlab {
 	}
 
 	@Override
-	public IIcon getIcon(int p_149691_1_, int p_149691_2_) {
-		return basePlanks.getIcon(p_149691_1_, p_149691_2_ % 8);
+	public IIcon getIcon(int side, int meta) {
+		return basePlanks.getIcon(side, meta % 8);
 	}
 
 	@Override

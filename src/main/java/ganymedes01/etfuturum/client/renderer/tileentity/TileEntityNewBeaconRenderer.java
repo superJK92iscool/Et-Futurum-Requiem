@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.client.renderer.tileentity;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.client.OpenGLHelper;
 import ganymedes01.etfuturum.tileentities.TileEntityNewBeacon;
 import ganymedes01.etfuturum.tileentities.TileEntityNewBeacon.BeamSegment;
@@ -15,7 +13,6 @@ import org.lwjgl.opengl.GL11;
 
 import java.util.List;
 
-@SideOnly(Side.CLIENT)
 public class TileEntityNewBeaconRenderer extends TileEntitySpecialRenderer {
 
 	private static final ResourceLocation BEAM_TEXTURE = new ResourceLocation("textures/entity/beacon_beam.png");
@@ -24,11 +21,10 @@ public class TileEntityNewBeaconRenderer extends TileEntitySpecialRenderer {
 	public void renderTileEntityAt(TileEntity tile, double x, double y, double z, float partialTickTime) {
 		TileEntityNewBeacon beacon = (TileEntityNewBeacon) tile;
 
-		float f1 = beacon.func_146002_i();
+		float f1 = beacon.func_146002_i(); // shouldBeamRender
 		OpenGLHelper.alphaFunc(GL11.GL_GREATER, 0.1F);
 
 		if (f1 > 0.0F) {
-			Tessellator tessellator = Tessellator.instance;
 			List<BeamSegment> list = beacon.getSegments();
 			int j = 0;
 
@@ -72,7 +68,6 @@ public class TileEntityNewBeaconRenderer extends TileEntitySpecialRenderer {
 		double d9 = 0.5D + Math.sin(d3 + 3.9269908169872414D) * p_188205_15_;
 		double d10 = 0.5D + Math.cos(d3 + 5.497787143782138D) * p_188205_15_;
 		double d11 = 0.5D + Math.sin(d3 + 5.497787143782138D) * p_188205_15_;
-		double d12 = 0.0D;
 		double d13 = 1.0D;
 		double d14 = -1.0D + d2;
 		double d15 = (double) height * shouldRender * (0.5D / p_188205_15_) + d14;
@@ -108,7 +103,6 @@ public class TileEntityNewBeaconRenderer extends TileEntitySpecialRenderer {
 		d9 = 0.5D + p_188205_17_;
 		d10 = 0.5D + p_188205_17_;
 		d11 = 0.0D;
-		d12 = 1.0D;
 		d13 = -1.0D + d2;
 		d14 = (double) height * shouldRender + d13;
 		tessellator.startDrawingQuads();

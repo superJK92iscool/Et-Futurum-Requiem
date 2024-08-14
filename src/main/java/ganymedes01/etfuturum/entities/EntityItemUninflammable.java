@@ -18,14 +18,14 @@ public class EntityItemUninflammable extends EntityItem {
 		this.fireResistance = Integer.MAX_VALUE;
 	}
 
-	public EntityItemUninflammable(World p_149642_1_, double d, double e, double f, ItemStack p_149642_5_) {
-		super(p_149642_1_, d, e, f, p_149642_5_);
+	public EntityItemUninflammable(World worldIn, double d, double e, double f, ItemStack itemIn) {
+		super(worldIn, d, e, f, itemIn);
 		this.isImmuneToFire = true;
 		this.fireResistance = Integer.MAX_VALUE;
 	}
 
 	@Override
-	protected void dealFireDamage(int p_70081_1_) {
+	protected void dealFireDamage(int amount) {
 		//ignore
 	}
 
@@ -40,11 +40,11 @@ public class EntityItemUninflammable extends EntityItem {
 	}
 
 	@Override
-	public boolean attackEntityFrom(DamageSource p_70097_1_, float p_70097_2_) {
-		if (p_70097_1_ == DamageSource.inFire || p_70097_1_ == DamageSource.onFire || p_70097_1_ == DamageSource.lava)
+	public boolean attackEntityFrom(DamageSource source, float amount) {
+		if (source == DamageSource.inFire || source == DamageSource.onFire || source == DamageSource.lava)
 			return false;
 
-		return super.attackEntityFrom(p_70097_1_, p_70097_2_);
+		return super.attackEntityFrom(source, amount);
 	}
 
 }

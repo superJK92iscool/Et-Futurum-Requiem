@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.client.particle;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.core.utils.RandomXoshiro256StarStar;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.EntityFX;
@@ -10,7 +8,6 @@ import net.minecraft.world.World;
 
 import java.util.Random;
 
-@SideOnly(Side.CLIENT)
 public class CustomParticles {
 
 	protected static Random rand = new RandomXoshiro256StarStar();

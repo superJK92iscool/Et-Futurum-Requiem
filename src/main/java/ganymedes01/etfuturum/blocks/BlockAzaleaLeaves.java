@@ -18,16 +18,18 @@ public class BlockAzaleaLeaves extends BaseLeaves {
 	}
 
 	@Override
-	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_) {
+	public Item getItemDropped(int meta, Random random, int fortune) {
 		return ModBlocks.AZALEA.getItem();
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
-	public int colorMultiplier(IBlockAccess p_149720_1_, int p_149720_2_, int p_149720_3_, int p_149720_4_) {
+	public int colorMultiplier(IBlockAccess worldIn, int x, int y, int z) {
 		return 0xFFFFFF;
 	}
 
-	public int getRenderColor(int p_149741_1_) {
+	@Override
+	public int getRenderColor(int meta) {
 		return 0xFFFFFF;
 	}
 }

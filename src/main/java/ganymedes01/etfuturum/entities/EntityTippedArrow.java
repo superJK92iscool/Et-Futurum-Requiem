@@ -72,13 +72,14 @@ public class EntityTippedArrow extends EntityArrow implements IEntityAdditionalS
 		}
 	}
 
-	public void readEntityFromNBT(NBTTagCompound p_70037_1_) {
-		super.readEntityFromNBT(p_70037_1_);
+	@Override
+	public void readEntityFromNBT(NBTTagCompound tagCompund) {
+		super.readEntityFromNBT(tagCompund);
 
-		if (p_70037_1_.hasKey("Potion", 10)) {
-			this.arrow = ItemStack.loadItemStackFromNBT(p_70037_1_.getCompoundTag("Potion"));
+		if (tagCompund.hasKey("Potion", 10)) {
+			this.arrow = ItemStack.loadItemStackFromNBT(tagCompund.getCompoundTag("Potion"));
 		} else {
-			this.setPotionDamage(p_70037_1_.getInteger("potionValue"));
+			this.setPotionDamage(tagCompund.getInteger("potionValue"));
 		}
 
 		if (this.arrow == null) {
@@ -97,11 +98,12 @@ public class EntityTippedArrow extends EntityArrow implements IEntityAdditionalS
 	/**
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
-	public void writeEntityToNBT(NBTTagCompound p_70014_1_) {
-		super.writeEntityToNBT(p_70014_1_);
+	@Override
+	public void writeEntityToNBT(NBTTagCompound tagCompound) {
+		super.writeEntityToNBT(tagCompound);
 
 		if (this.arrow != null) {
-			p_70014_1_.setTag("Potion", this.arrow.writeToNBT(new NBTTagCompound()));
+			tagCompound.setTag("Potion", this.arrow.writeToNBT(new NBTTagCompound()));
 		}
 	}
 

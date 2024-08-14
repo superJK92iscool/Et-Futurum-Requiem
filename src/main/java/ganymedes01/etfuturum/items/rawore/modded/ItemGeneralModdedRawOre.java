@@ -1,8 +1,6 @@
 package ganymedes01.etfuturum.items.rawore.modded;
 
 import com.google.common.collect.Lists;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.core.utils.IInitAction;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.items.BaseSubtypesItem;
@@ -30,8 +28,7 @@ public class ItemGeneralModdedRawOre extends BaseSubtypesItem implements IInitAc
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item item, CreativeTabs tabs, List list) {
+	public void getSubItems(Item item, CreativeTabs tabs, List<ItemStack> list) {
 		for (int i = 0; i < ores.length; i++) {
 			ItemStack stack = new ItemStack(item, 1, i);
 			if (Utils.listGeneralModdedRawOre(ores[i]) || Utils.listGeneralModdedRawOre(ores[i].replace("Mythril", "Mithril"))) {

@@ -29,12 +29,12 @@ import java.util.*;
 import java.util.Map.Entry;
 
 public class ItemArrowTipped extends Item {
-	private static final Map field_77835_b = new LinkedHashMap();
 
-	@SideOnly(Side.CLIENT)
+	private static final Map<List<PotionEffect>, Integer> field_77835_b = new LinkedHashMap<>();
+
 	private IIcon tipIcon;
 
-	private final HashMap effectCache = new HashMap();
+	private final HashMap<Integer, List<PotionEffect>> effectCache = new HashMap<>();
 
 	public ItemArrowTipped() {
 		setHasSubtypes(true);
@@ -57,7 +57,7 @@ public class ItemArrowTipped extends Item {
 		return list;
 	}
 
-	public List getEffects(ItemStack stack) {
+	public List<PotionEffect> getEffects(ItemStack stack) {
 		if (stack.hasTagCompound()) {
 			if (stack.getTagCompound().hasKey("Potion", 10)) {
 				NBTTagCompound nbt = stack.getTagCompound().getCompoundTag("Potion");
@@ -70,12 +70,12 @@ public class ItemArrowTipped extends Item {
 //                  }
 //              }
 //              if(stack.hasTagCompound()) {
-				List list = new ArrayList();
+				List<PotionEffect> list = new ArrayList<>();
 				list.add(effect);
 				return list;
-//              }
+//			  }
 			} else if (stack.hasTagCompound() && stack.getTagCompound().hasKey("CustomPotionEffects", 9)) {
-				ArrayList arraylist = new ArrayList();
+				ArrayList<PotionEffect> arraylist = new ArrayList<>();
 				NBTTagList nbttaglist = stack.getTagCompound().getTagList("CustomPotionEffects", 10);
 
 				for (int i = 0; i < nbttaglist.tagCount(); ++i) {
@@ -90,7 +90,7 @@ public class ItemArrowTipped extends Item {
 				return arraylist;
 			}
 		}
-		List list = (List) this.effectCache.get(stack.getItemDamage());
+		List<PotionEffect> list = this.effectCache.get(stack.getItemDamage());
 		if (list == null) {
 			list = getPotionEffects(stack.getItemDamage(), false);
 			this.effectCache.put(stack.getItemDamage(), list);
@@ -98,8 +98,8 @@ public class ItemArrowTipped extends Item {
 		return list;
 	}
 
-	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item item, CreativeTabs tab, List list) {
+	@Override
+	public void getSubItems(Item item, CreativeTabs tab, List<ItemStack> list) {
 		int j;
 
 		if (field_77835_b.isEmpty()) {
@@ -118,7 +118,7 @@ public class ItemArrowTipped extends Item {
 							i1 = k | 64;
 						}
 					}
-					List list1 = getPotionEffects(i1, false);
+					List<PotionEffect> list1 = getPotionEffects(i1, false);
 
 					if (list1 != null && !list1.isEmpty()) {
 						field_77835_b.put(list1, i1);
@@ -127,10 +127,10 @@ public class ItemArrowTipped extends Item {
 			}
 		}
 
-		Iterator iterator = field_77835_b.values().iterator();
+		Iterator<Integer> iterator = field_77835_b.values().iterator();
 
 		while (iterator.hasNext()) {
-			j = (Integer) iterator.next();
+			j = iterator.next();
 			list.add(new ItemStack(item, 1, j));
 		}
 
@@ -144,12 +144,11 @@ public class ItemArrowTipped extends Item {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public boolean requiresMultipleRenderPasses() {
 		return true;
 	}
 
-	@SideOnly(Side.CLIENT)
+	@Override
 	public int getColorFromItemStack(ItemStack stack, int pass) {
 		if (pass == 0 && stack.getItemDamage() == 0 && stack.hasTagCompound() && stack.getTagCompound().hasKey("Potion", 10)) {
 			NBTTagCompound nbt = stack.getTagCompound().getCompoundTag("Potion");
@@ -162,7 +161,6 @@ public class ItemArrowTipped extends Item {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(ItemStack stack, int pass) {
 		return pass == 0 ? tipIcon : super.getIcon(stack, pass);
 	}
@@ -172,12 +170,12 @@ public class ItemArrowTipped extends Item {
 
 		String s = "item.etfuturum.tipped_arrow";
 
-		List list = getEffects(stack);
+		List<PotionEffect> list = getEffects(stack);
 		String s1;
 
 		if (list != null && !list.isEmpty()) {
 			if (stack.getItemDamage() > 0 || (stack.hasTagCompound() && stack.getTagCompound().hasKey("Potion", 10))) {
-				s1 = ((PotionEffect) list.get(0)).getEffectName();
+				s1 = list.get(0).getEffectName();
 				return s + "." + s1;
 			}
 		} else if (stack.getItemDamage() == 0) {
@@ -198,29 +196,28 @@ public class ItemArrowTipped extends Item {
 
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, EntityPlayer p_77624_2_, List list, boolean p_77624_4_) {
-		List list1 = getEffects(stack);
-		HashMultimap hashmultimap = HashMultimap.create();
-		Iterator iterator1;
+	public void addInformation(ItemStack stack, EntityPlayer p_77624_2_, List<String> list, boolean p_77624_4_) {
+		List<PotionEffect> list1 = getEffects(stack);
+		HashMultimap<String, AttributeModifier> hashmultimap = HashMultimap.create();
+		Iterator<PotionEffect> iterator1;
 
 		if (list1 != null && !list1.isEmpty()) {
 			iterator1 = list1.iterator();
 
 			while (iterator1.hasNext()) {
-				PotionEffect potioneffect = (PotionEffect) iterator1.next();
+				PotionEffect potioneffect = iterator1.next();
 				String s1 = StatCollector.translateToLocal(potioneffect.getEffectName()).trim();
 				Potion potion = Potion.potionTypes[potioneffect.getPotionID()];
-				Map map = potion.func_111186_k();
+				Map<IAttribute, AttributeModifier> map = potion.func_111186_k();
 
 				if (map != null && map.size() > 0) {
-					Iterator iterator = map.entrySet().iterator();
+					Iterator<Entry<IAttribute, AttributeModifier>> iterator = map.entrySet().iterator();
 
 					while (iterator.hasNext()) {
-						Entry entry = (Entry) iterator.next();
-						AttributeModifier attributemodifier = (AttributeModifier) entry.getValue();
+						Entry<IAttribute, AttributeModifier> entry = iterator.next();
+						AttributeModifier attributemodifier = entry.getValue();
 						AttributeModifier attributemodifier1 = new AttributeModifier(attributemodifier.getName(), potion.func_111183_a(potioneffect.getAmplifier(), attributemodifier), attributemodifier.getOperation());
-						hashmultimap.put(((IAttribute) entry.getKey()).getAttributeUnlocalizedName(), attributemodifier1);
+						hashmultimap.put( entry.getKey().getAttributeUnlocalizedName(), attributemodifier1);
 					}
 				}
 
@@ -246,11 +243,11 @@ public class ItemArrowTipped extends Item {
 		if (!hashmultimap.isEmpty()) {
 			list.add("");
 			list.add(EnumChatFormatting.DARK_PURPLE + StatCollector.translateToLocal("potion.effects.whenDrank"));
-			iterator1 = hashmultimap.entries().iterator();
+			Iterator<Entry<String, AttributeModifier>> iterator2 = hashmultimap.entries().iterator();
 
-			while (iterator1.hasNext()) {
-				Entry entry1 = (Entry) iterator1.next();
-				AttributeModifier attributemodifier2 = (AttributeModifier) entry1.getValue();
+			while (iterator2.hasNext()) {
+				Entry<String, AttributeModifier> entry1 = iterator2.next();
+				AttributeModifier attributemodifier2 = entry1.getValue();
 				double d0 = attributemodifier2.getAmount();
 				double d1;
 

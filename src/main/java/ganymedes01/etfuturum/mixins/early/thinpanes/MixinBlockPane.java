@@ -12,19 +12,18 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.util.List;
 
 @Mixin(BlockPane.class)
 public abstract class MixinBlockPane extends Block {
 
-	protected MixinBlockPane(Material p_i45394_1_) {
-		super(p_i45394_1_);
+	protected MixinBlockPane(Material materialIn) {
+		super(materialIn);
 	}
 
-	@Inject(method = "addCollisionBoxesToList", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/block/BlockPane;canPaneConnectTo(Lnet/minecraft/world/IBlockAccess;IIILnet/minecraftforge/common/util/ForgeDirection;)Z", ordinal = 3, shift = At.Shift.AFTER), cancellable = true)
-	private void remapCollisionsBoxes(World worldIn, int posX, int posY, int posZ, AxisAlignedBB bb, List boxList, Entity entity, CallbackInfo ci,
+	@Inject(method = "addCollisionBoxesToList", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/block/BlockPane;canPaneConnectTo(Lnet/minecraft/world/IBlockAccess;IIILnet/minecraftforge/common/util/ForgeDirection;)Z", ordinal = 3, remap = false, shift = At.Shift.AFTER), cancellable = true)
+	private void remapCollisionsBoxes(World worldIn, int posX, int posY, int posZ, AxisAlignedBB bb, List<AxisAlignedBB> boxList, Entity entity, CallbackInfo ci,
 									  @Local(name = "flag") boolean flag, @Local(name = "flag1") boolean flag1,
 									  @Local(name = "flag2") boolean flag2, @Local(name = "flag3") boolean flag3) {
 		if(!flag && !flag1 && !flag2 && !flag3){
@@ -34,7 +33,7 @@ public abstract class MixinBlockPane extends Block {
 		}
 	}
 
-	@Inject(method = "setBlockBoundsBasedOnState", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/block/BlockPane;canPaneConnectTo(Lnet/minecraft/world/IBlockAccess;IIILnet/minecraftforge/common/util/ForgeDirection;)Z", ordinal = 3, shift = At.Shift.AFTER), cancellable = true)
+	@Inject(method = "setBlockBoundsBasedOnState", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/block/BlockPane;canPaneConnectTo(Lnet/minecraft/world/IBlockAccess;IIILnet/minecraftforge/common/util/ForgeDirection;)Z", ordinal = 3, remap = false, shift = At.Shift.AFTER), cancellable = true)
 	public void setBlockBoundsBasedOnState(IBlockAccess worldIn, int posX, int posY, int posZ, CallbackInfo ci,
 										   @Local(name = "flag") boolean flag, @Local(name = "flag1") boolean flag1,
 										   @Local(name = "flag2") boolean flag2, @Local(name = "flag3") boolean flag3,

@@ -1,8 +1,6 @@
 package ganymedes01.etfuturum.entities;
 
 import com.google.common.collect.Lists;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
@@ -114,10 +112,12 @@ public class EntityNewBoat extends Entity {
 	 * returns if this entity triggers Block.onEntityWalking on the blocks they walk on. used for spiders and wolves to
 	 * prevent them from trampling crops
 	 */
+	@Override
 	protected boolean canTriggerWalking() {
 		return false;
 	}
 
+	@Override
 	protected void entityInit() {
 		this.dataWatcher.addObject(DATA_ID_LAST_HIT, 0);
 		this.dataWatcher.addObject(DATA_ID_FORWARD, 1);
@@ -136,6 +136,7 @@ public class EntityNewBoat extends Entity {
 	 * Returns a boundingBox used to collide the entity with other entities and blocks. This enables the entity to be
 	 * pushable on contact, like boats or minecarts.
 	 */
+	@Override
 	public AxisAlignedBB getCollisionBox(Entity entityIn) {
 		return entityIn instanceof EntityNewBoatSeat ? null : entityIn.boundingBox;
 	}
@@ -143,6 +144,7 @@ public class EntityNewBoat extends Entity {
 	/**
 	 * returns the bounding box for this entity
 	 */
+	@Override
 	public AxisAlignedBB getBoundingBox() {
 		return this.boundingBox;
 	}
@@ -150,6 +152,7 @@ public class EntityNewBoat extends Entity {
 	/**
 	 * Returns true if this entity should push and be pushed by other entities when colliding.
 	 */
+	@Override
 	public boolean canBePushed() {
 		return true;
 	}
@@ -157,10 +160,12 @@ public class EntityNewBoat extends Entity {
 	/**
 	 * Returns the Y offset from the entity's position for any entity riding this one.
 	 */
+	@Override
 	public double getMountedYOffset() {
 		return isRaft() ? 0.3D : 0;
 	}
 
+	@Override
 	public double getYOffset() {
 		return 0;
 	}
@@ -246,6 +251,7 @@ public class EntityNewBoat extends Entity {
 	/**
 	 * Called when the entity is attacked.
 	 */
+	@Override
 	public boolean attackEntityFrom(DamageSource source, float amount) {
 		if (this.isEntityInvulnerable()) {
 			return false;
@@ -280,6 +286,7 @@ public class EntityNewBoat extends Entity {
 		}
 	}
 
+	@Override
 	public void setDead() {
 		if (riddenByEntity instanceof EntityLivingBase) {
 			((EntityLivingBase) riddenByEntity).dismountEntity(this);
@@ -291,6 +298,7 @@ public class EntityNewBoat extends Entity {
 	/**
 	 * Applies a velocity to the entities, to push them away from eachother.
 	 */
+	@Override
 	public void applyEntityCollision(Entity entityIn) {
 		if (entityIn instanceof EntityNewBoat) {
 			if (entityIn.boundingBox.minY < this.boundingBox.maxY) {
@@ -306,6 +314,7 @@ public class EntityNewBoat extends Entity {
 	/**
 	 * Setups the entity to do the hurt animation. Only used by packets in multiplayer.
 	 */
+	@Override
 	public void performHurtAnimation() {
 		this.setForwardDirection(-this.getForwardDirection());
 		this.setTimeSinceHit(10);
@@ -315,6 +324,7 @@ public class EntityNewBoat extends Entity {
 	/**
 	 * Returns true if other Entities should be prevented from moving through this Entity.
 	 */
+	@Override
 	public boolean canBeCollidedWith() {
 		return !this.isDead;
 	}
@@ -351,6 +361,7 @@ public class EntityNewBoat extends Entity {
 		return true;
 	}
 
+	@Override
 	public void onEntityUpdate() {
 		super.onEntityUpdate();
 
@@ -396,7 +407,7 @@ public class EntityNewBoat extends Entity {
 						this.worldObj.setBlockToAir(x, y, z);
 						this.isCollidedHorizontally = false;
 					} else if (block == Blocks.waterlily) {
-						this.worldObj.func_147480_a(x, y, z, true);
+						this.worldObj.func_147480_a(x, y, z, true); // breakBlock
 						this.isCollidedHorizontally = false;
 					}
 				}
@@ -407,6 +418,7 @@ public class EntityNewBoat extends Entity {
 	/**
 	 * Called to update the entity's position/logic.
 	 */
+	@Override
 	public void onUpdate() {
 		this.previousStatus = this.status;
 		this.status = this.getBoatStatus();
@@ -475,7 +487,7 @@ public class EntityNewBoat extends Entity {
 			}
 		}
 
-		this.func_145775_I();
+		this.func_145775_I(); // doBlockCollisions
 		List<Entity> list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this,
 				this.boundingBox.expand(0.20000000298023224D, -0.009999999776482582D,
 						0.20000000298023224D)/* , EntitySelectors.<Entity>getTeamCollisionPredicate(this) */);
@@ -569,7 +581,6 @@ public class EntityNewBoat extends Entity {
 		this.dataWatcher.updateObject(DATA_ID_PADDLE[1], (byte) (p_184445_2_ ? 1 : 0));
 	}
 
-	@SideOnly(Side.CLIENT)
 	public float getRowingTime(int side, float limbSwing) {
 		return this.getPaddleState(side) ? (float) MathHelper.denormalizeClamp((double) this.paddlePositions[side] - 0.39269909262657166D, this.paddlePositions[side], limbSwing) : 0.0F;
 	}
@@ -796,9 +807,7 @@ public class EntityNewBoat extends Entity {
 			this.motionY += d1;
 
 			if (d2 > 0.0D) {
-				double d3 = 0.65D;
 				this.motionY += d2 * (-d0 / 0.65D);
-				double d4 = 0.75D;
 				this.motionY *= 0.75D;
 			}
 		}
@@ -1029,11 +1038,11 @@ public class EntityNewBoat extends Entity {
 		ItemStack boatItem = boatInfo.getBoatItem();
 		if (ConfigBlocksItems.replaceOldBoats) {
 			if (boatItem.getItem() == ModItems.OAK_BOAT.get()) {
-				boatItem.func_150996_a(Items.boat);
+				boatItem.func_150996_a(Items.boat); // setItem
 			}
 		} else {
 			if (boatItem.getItem() == Items.boat) {
-				boatItem.func_150996_a(ModItems.OAK_BOAT.get());
+				boatItem.func_150996_a(ModItems.OAK_BOAT.get()); // setItem
 			}
 		}
 		return boatItem;
@@ -1137,6 +1146,7 @@ public class EntityNewBoat extends Entity {
 			return this.metadata;
 		}
 
+		@Override
 		public String toString() {
 			return this.name;
 		}

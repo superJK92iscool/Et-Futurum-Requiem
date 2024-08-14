@@ -12,23 +12,34 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(EntityArrow.class)
 public abstract class MixinEntityArrow extends Entity {
+
+	/**
+	 * MCP name: {@code xTile}
+	 */
 	@Shadow
 	private int field_145791_d;
 
+	/**
+	 * MCP name: {@code yTile}
+	 */
 	@Shadow
 	private int field_145792_e;
 
+	/**
+	 * MCP name: {@code zTile}
+	 */
 	@Shadow
 	private int field_145789_f;
 
 	@Shadow
 	private int inData;
 
+	@Override
 	@Shadow
 	public abstract void onUpdate();
 
-	public MixinEntityArrow(World p_i1582_1_) {
-		super(p_i1582_1_);
+	public MixinEntityArrow(World worldIn) {
+		super(worldIn);
 	}
 
 	/**

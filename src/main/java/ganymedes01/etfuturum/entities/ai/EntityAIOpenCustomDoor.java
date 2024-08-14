@@ -7,35 +7,41 @@ import net.minecraft.entity.EntityLiving;
  */
 public class EntityAIOpenCustomDoor extends EntityAICustomDoorInteract {
 
-	boolean field_75361_i;
-	int field_75360_j;
+	/**
+	 * If the entity close the door
+	 */
+	boolean closeDoor;
+	/**
+	 * The temporisation before the entity close the door (in ticks, always 20 = 1 second)
+	 */
+	int closeDoorTemporisation;
 
 	public EntityAIOpenCustomDoor(EntityLiving p_i1644_1_, boolean p_i1644_2_) {
 		super(p_i1644_1_);
 		theEntity = p_i1644_1_;
-		field_75361_i = p_i1644_2_;
+		closeDoor = p_i1644_2_;
 	}
 
 	@Override
 	public boolean continueExecuting() {
-		return field_75361_i && field_75360_j > 0 && super.continueExecuting();
+		return closeDoor && closeDoorTemporisation > 0 && super.continueExecuting();
 	}
 
 	@Override
 	public void startExecuting() {
-		field_75360_j = 20;
-		field_151504_e.func_150014_a(theEntity.worldObj, entityPosX, entityPosY, entityPosZ, true);
+		closeDoorTemporisation = 20;
+		doorBlock.func_150014_a(theEntity.worldObj, entityPosX, entityPosY, entityPosZ, true);
 	}
 
 	@Override
 	public void resetTask() {
-		if (field_75361_i)
-			field_151504_e.func_150014_a(theEntity.worldObj, entityPosX, entityPosY, entityPosZ, false);
+		if (closeDoor)
+			doorBlock.func_150014_a(theEntity.worldObj, entityPosX, entityPosY, entityPosZ, false);
 	}
 
 	@Override
 	public void updateTask() {
-		--field_75360_j;
+		--closeDoorTemporisation;
 		super.updateTask();
 	}
 }

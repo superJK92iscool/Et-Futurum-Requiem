@@ -15,7 +15,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraft.world.gen.structure.StructureComponent;
-import net.minecraft.world.gen.structure.StructureMineshaftPieces;
 import net.minecraftforge.common.ChestGenHooks;
 
 import java.util.Iterator;
@@ -32,14 +31,14 @@ public class StructureMesaMineshaftPieces {
 	 */
 
 	public static void registerStructurePieces() {
-		MapGenStructureIO.func_143031_a(StructureMesaMineshaftPieces.MesaCorridor.class, "MSMesaCorridor");
-		MapGenStructureIO.func_143031_a(StructureMesaMineshaftPieces.MesaCross.class, "MSMesaCrossing");
-		MapGenStructureIO.func_143031_a(StructureMesaMineshaftPieces.MesaRoom.class, "MSMesaRoom");
-		MapGenStructureIO.func_143031_a(StructureMesaMineshaftPieces.MesaStairs.class, "MSMesaStairs");
+		MapGenStructureIO.func_143031_a/*registerStructureComponent*/(StructureMesaMineshaftPieces.MesaCorridor.class, "MSMesaCorridor");
+		MapGenStructureIO.func_143031_a/*registerStructureComponent*/(StructureMesaMineshaftPieces.MesaCross.class, "MSMesaCrossing");
+		MapGenStructureIO.func_143031_a/*registerStructureComponent*/(StructureMesaMineshaftPieces.MesaRoom.class, "MSMesaRoom");
+		MapGenStructureIO.func_143031_a/*registerStructureComponent*/(StructureMesaMineshaftPieces.MesaStairs.class, "MSMesaStairs");
 		MapGenStructureIO.registerStructure(StructureMesaMineshaftStart.class, "Mineshaft");
 	}
 
-	private static StructureComponent getRandomComponent(List p_78815_0_, Random p_78815_1_, int p_78815_2_, int p_78815_3_, int p_78815_4_, int p_78815_5_, int p_78815_6_) {
+	private static StructureComponent getRandomComponent(List<StructureComponent> p_78815_0_, Random p_78815_1_, int p_78815_2_, int p_78815_3_, int p_78815_4_, int p_78815_5_, int p_78815_6_) {
 		int j1 = p_78815_1_.nextInt(100);
 		StructureBoundingBox structureboundingbox;
 
@@ -66,7 +65,7 @@ public class StructureMesaMineshaftPieces {
 		return null;
 	}
 
-	protected static StructureComponent getNextMineShaftComponent(StructureComponent p_78817_0_, List p_78817_1_, Random p_78817_2_, int p_78817_3_, int p_78817_4_, int p_78817_5_, int p_78817_6_, int p_78817_7_) {
+	protected static StructureComponent getNextMineShaftComponent(StructureComponent p_78817_0_, List<StructureComponent> p_78817_1_, Random p_78817_2_, int p_78817_3_, int p_78817_4_, int p_78817_5_, int p_78817_6_, int p_78817_7_) {
 		if (p_78817_7_ > 8) {
 			return null;
 		} else if (Math.abs(p_78817_3_ - p_78817_0_.getBoundingBox().minX) <= 80 && Math.abs(p_78817_5_ - p_78817_0_.getBoundingBox().minZ) <= 80) {
@@ -93,6 +92,12 @@ public class StructureMesaMineshaftPieces {
 		public MesaCorridor() {
 		}
 
+		/**
+		 * (abstract) Helper method to write subclass data to NBT
+		 * <p>
+		 * MCP name: {@code writeStructureToNBT}
+		 */
+		@Override
 		protected void func_143012_a(NBTTagCompound p_143012_1_) {
 			p_143012_1_.setBoolean("hr", this.hasRails);
 			p_143012_1_.setBoolean("sc", this.hasSpiders);
@@ -100,6 +105,12 @@ public class StructureMesaMineshaftPieces {
 			p_143012_1_.setInteger("Num", this.sectionCount);
 		}
 
+		/**
+		 * (abstract) Helper method to read subclass data from NBT
+		 * <p>
+		 * MCP name: {@code readStructureFromNBT}
+		 */
+		@Override
 		protected void func_143011_b(NBTTagCompound p_143011_1_) {
 			this.hasRails = p_143011_1_.getBoolean("hr");
 			this.hasSpiders = p_143011_1_.getBoolean("sc");
@@ -121,7 +132,7 @@ public class StructureMesaMineshaftPieces {
 			}
 		}
 
-		public static StructureBoundingBox findValidPlacement(List p_74954_0_, Random p_74954_1_, int p_74954_2_, int p_74954_3_, int p_74954_4_, int p_74954_5_) {
+		public static StructureBoundingBox findValidPlacement(List<StructureComponent> p_74954_0_, Random p_74954_1_, int p_74954_2_, int p_74954_3_, int p_74954_4_, int p_74954_5_) {
 			StructureBoundingBox structureboundingbox = new StructureBoundingBox(p_74954_2_, p_74954_3_, p_74954_4_, p_74954_2_, p_74954_3_ + 2, p_74954_4_);
 			int i1;
 
@@ -157,7 +168,8 @@ public class StructureMesaMineshaftPieces {
 		/**
 		 * Initiates construction of the Structure Component picked, at the current Location of StructGen
 		 */
-		public void buildComponent(StructureComponent p_74861_1_, List p_74861_2_, Random p_74861_3_) {
+		@Override
+		public void buildComponent(StructureComponent p_74861_1_, List<StructureComponent> p_74861_2_, Random p_74861_3_) {
 			int i = this.getComponentType();
 			int j = p_74861_3_.nextInt(4);
 
@@ -233,6 +245,7 @@ public class StructureMesaMineshaftPieces {
 		/**
 		 * Used to generate chests with items in it. ex: Temple Chests, Village Blacksmith Chests, Mineshaft Chests.
 		 */
+		@Override
 		protected boolean generateStructureChestContents(World p_74879_1_, StructureBoundingBox p_74879_2_, Random p_74879_3_, int p_74879_4_, int p_74879_5_, int p_74879_6_, WeightedRandomChestContent[] p_74879_7_, int p_74879_8_) {
 			int i1 = this.getXWithOffset(p_74879_4_, p_74879_6_);
 			int j1 = this.getYWithOffset(p_74879_5_);
@@ -253,6 +266,7 @@ public class StructureMesaMineshaftPieces {
 		 * second Part of Structure generating, this for example places Spiderwebs, Mob Spawners, it closes
 		 * Mineshafts at the end, it adds Fences...
 		 */
+		@Override
 		public boolean addComponentParts(World p_74875_1_, Random p_74875_2_, StructureBoundingBox p_74875_3_) {
 			if (this.isLiquidInStructureBoundingBox(p_74875_1_, p_74875_3_)) {
 				return false;
@@ -324,7 +338,7 @@ public class StructureMesaMineshaftPieces {
 				for (j = 0; j <= i; ++j) {
 					Block block = this.getBlockAtCurrentPosition(p_74875_1_, 1, -1, j, p_74875_3_);
 
-					if (block.getMaterial() != Material.air && block.func_149730_j()) {
+					if (block.getMaterial() != Material.air && block.func_149730_j()) { // isFullBlock
 						float f = skyLight(p_74875_1_, 1, 0, j, getBoundingBox()) > 8 ? 0.9F : 0.7F;
 						this.func_151552_a(p_74875_1_, p_74875_3_, p_74875_2_, f, 1, 0, j, Blocks.rail, this.getMetadataWithOffset(Blocks.rail, 0));
 					}
@@ -335,7 +349,7 @@ public class StructureMesaMineshaftPieces {
 		}
 
 		private void buildWoodenParts(World p_189921_1_, StructureBoundingBox p_189921_2_, int p_189921_3_, int p_189921_4_, int p_189921_5_, int p_189921_6_, int p_189921_7_, Random p_189921_8_) {
-			if (this.func_189918_a(p_189921_1_, p_189921_2_, p_189921_3_, p_189921_7_, p_189921_6_, p_189921_5_)) {
+			if (this.isSupportingBox(p_189921_1_, p_189921_2_, p_189921_3_, p_189921_7_, p_189921_6_, p_189921_5_)) {
 				this.fillWithMetadataBlocks(p_189921_1_, p_189921_2_, p_189921_3_, p_189921_4_, p_189921_5_, p_189921_3_, p_189921_6_ - 1, p_189921_5_, getFence(), getFenceMeta(), Blocks.air, 0, false);
 				this.fillWithMetadataBlocks(p_189921_1_, p_189921_2_, p_189921_7_, p_189921_4_, p_189921_5_, p_189921_7_, p_189921_6_ - 1, p_189921_5_, getFence(), getFenceMeta(), Blocks.air, 0, false);
 
@@ -358,11 +372,23 @@ public class StructureMesaMineshaftPieces {
 		public MesaCross() {
 		}
 
+		/**
+		 * (abstract) Helper method to write subclass data to NBT
+		 * <p>
+		 * MCP name: {@code writeStructureToNBT}
+		 */
+		@Override
 		protected void func_143012_a(NBTTagCompound p_143012_1_) {
 			p_143012_1_.setBoolean("tf", this.isMultipleFloors);
 			p_143012_1_.setInteger("D", this.corridorDirection);
 		}
 
+		/**
+		 * (abstract) Helper method to read subclass data from NBT
+		 * <p>
+		 * MCP name: {@code readStructureFromNBT}
+		 */
+		@Override
 		protected void func_143011_b(NBTTagCompound p_143011_1_) {
 			this.isMultipleFloors = p_143011_1_.getBoolean("tf");
 			this.corridorDirection = p_143011_1_.getInteger("D");
@@ -375,7 +401,7 @@ public class StructureMesaMineshaftPieces {
 			this.isMultipleFloors = p_i2036_3_.getYSize() > 3;
 		}
 
-		public static StructureBoundingBox findValidPlacement(List p_74951_0_, Random p_74951_1_, int p_74951_2_, int p_74951_3_, int p_74951_4_, int p_74951_5_) {
+		public static StructureBoundingBox findValidPlacement(List<StructureComponent> p_74951_0_, Random p_74951_1_, int p_74951_2_, int p_74951_3_, int p_74951_4_, int p_74951_5_) {
 			StructureBoundingBox structureboundingbox = new StructureBoundingBox(p_74951_2_, p_74951_3_, p_74951_4_, p_74951_2_, p_74951_3_ + 2, p_74951_4_);
 
 			if (p_74951_1_.nextInt(4) == 0) {
@@ -410,7 +436,8 @@ public class StructureMesaMineshaftPieces {
 		/**
 		 * Initiates construction of the Structure Component picked, at the current Location of StructGen
 		 */
-		public void buildComponent(StructureComponent p_74861_1_, List p_74861_2_, Random p_74861_3_) {
+		@Override
+		public void buildComponent(StructureComponent p_74861_1_, List<StructureComponent> p_74861_2_, Random p_74861_3_) {
 			int i = this.getComponentType();
 
 			switch (this.corridorDirection) {
@@ -458,6 +485,7 @@ public class StructureMesaMineshaftPieces {
 		 * second Part of Structure generating, this for example places Spiderwebs, Mob Spawners, it closes
 		 * Mineshafts at the end, it adds Fences...
 		 */
+		@Override
 		public boolean addComponentParts(World p_74875_1_, Random p_74875_2_, StructureBoundingBox p_74875_3_) {
 			if (this.isLiquidInStructureBoundingBox(p_74875_1_, p_74875_3_)) {
 				return false;
@@ -494,7 +522,7 @@ public class StructureMesaMineshaftPieces {
 		/**
 		 * List of other Mineshaft components linked to this room.
 		 */
-		private final List roomsLinkedToTheRoom = new LinkedList();
+		private final List<StructureBoundingBox> roomsLinkedToTheRoom = new LinkedList<>();
 
 		public MesaRoom() {
 		}
@@ -507,7 +535,8 @@ public class StructureMesaMineshaftPieces {
 		/**
 		 * Initiates construction of the Structure Component picked, at the current Location of StructGen
 		 */
-		public void buildComponent(StructureComponent p_74861_1_, List p_74861_2_, Random p_74861_3_) {
+		@Override
+		public void buildComponent(StructureComponent p_74861_1_, List<StructureComponent> p_74861_2_, Random p_74861_3_) {
 			int i = this.getComponentType();
 			int k = this.boundingBox.getYSize() - 3 - 1;
 
@@ -584,16 +613,17 @@ public class StructureMesaMineshaftPieces {
 		 * second Part of Structure generating, this for example places Spiderwebs, Mob Spawners, it closes
 		 * Mineshafts at the end, it adds Fences...
 		 */
+		@Override
 		public boolean addComponentParts(World p_74875_1_, Random p_74875_2_, StructureBoundingBox p_74875_3_) {
 			if (this.isLiquidInStructureBoundingBox(p_74875_1_, p_74875_3_)) {
 				return false;
 			}
 			this.fillWithBlocks(p_74875_1_, p_74875_3_, this.boundingBox.minX, this.boundingBox.minY, this.boundingBox.minZ, this.boundingBox.maxX, this.boundingBox.minY, this.boundingBox.maxZ, Blocks.dirt, Blocks.air, true);
 			this.fillWithBlocks(p_74875_1_, p_74875_3_, this.boundingBox.minX, this.boundingBox.minY + 1, this.boundingBox.minZ, this.boundingBox.maxX, Math.min(this.boundingBox.minY + 3, this.boundingBox.maxY), this.boundingBox.maxZ, Blocks.air, Blocks.air, false);
-			Iterator iterator = this.roomsLinkedToTheRoom.iterator();
+			Iterator<StructureBoundingBox> iterator = this.roomsLinkedToTheRoom.iterator();
 
 			while (iterator.hasNext()) {
-				StructureBoundingBox structureboundingbox1 = (StructureBoundingBox) iterator.next();
+				StructureBoundingBox structureboundingbox1 = iterator.next();
 				this.fillWithBlocks(p_74875_1_, p_74875_3_, structureboundingbox1.minX, structureboundingbox1.maxY - 2, structureboundingbox1.minZ, structureboundingbox1.maxX, structureboundingbox1.maxY, structureboundingbox1.maxZ, Blocks.air, Blocks.air, false);
 			}
 
@@ -601,26 +631,39 @@ public class StructureMesaMineshaftPieces {
 			return true;
 		}
 
+		/**
+		 * (abstract) Helper method to write subclass data to NBT
+		 * <p>
+		 * MCP name: {@code writeStructureToNBT}
+		 */
+		@Override
 		protected void func_143012_a(NBTTagCompound p_143012_1_) {
 			NBTTagList nbttaglist = new NBTTagList();
-			Iterator iterator = this.roomsLinkedToTheRoom.iterator();
+			Iterator<StructureBoundingBox> iterator = this.roomsLinkedToTheRoom.iterator();
 
 			while (iterator.hasNext()) {
-				StructureBoundingBox structureboundingbox = (StructureBoundingBox) iterator.next();
+				StructureBoundingBox structureboundingbox = iterator.next();
 				nbttaglist.appendTag(structureboundingbox.func_151535_h());
 			}
 
 			p_143012_1_.setTag("Entrances", nbttaglist);
 		}
 
+		/**
+		 * (abstract) Helper method to read subclass data from NBT
+		 * <p>
+		 * MCP name: {@code readStructureFromNBT}
+		 */
+		@Override
 		protected void func_143011_b(NBTTagCompound p_143011_1_) {
 			NBTTagList nbttaglist = p_143011_1_.getTagList("Entrances", 11);
 
 			for (int i = 0; i < nbttaglist.tagCount(); ++i) {
-				this.roomsLinkedToTheRoom.add(new StructureBoundingBox(nbttaglist.func_150306_c(i)));
+				this.roomsLinkedToTheRoom.add(new StructureBoundingBox(nbttaglist.func_150306_c(i))); // getIntArrayAt
 			}
 		}
 
+		@Override
 		public void offset(int x, int y, int z) {
 			super.offset(x, y, z);
 			for (StructureBoundingBox bb : (List<StructureBoundingBox>) roomsLinkedToTheRoom) {
@@ -640,16 +683,28 @@ public class StructureMesaMineshaftPieces {
 			this.boundingBox = p_i2038_3_;
 		}
 
+		/**
+		 * (abstract) Helper method to write subclass data to NBT
+		 * <p>
+		 * MCP name: {@code writeStructureToNBT}
+		 */
+		@Override
 		protected void func_143012_a(NBTTagCompound p_143012_1_) {
 		}
 
+		/**
+		 * (abstract) Helper method to read subclass data from NBT
+		 * <p>
+		 * MCP name: {@code readStructureFromNBT}
+		 */
+		@Override
 		protected void func_143011_b(NBTTagCompound p_143011_1_) {
 		}
 
 		/**
 		 * Trys to find a valid place to put this component.
 		 */
-		public static StructureBoundingBox findValidPlacement(List p_74950_0_, Random p_74950_1_, int p_74950_2_, int p_74950_3_, int p_74950_4_, int p_74950_5_) {
+		public static StructureBoundingBox findValidPlacement(List<StructureComponent> p_74950_0_, Random p_74950_1_, int p_74950_2_, int p_74950_3_, int p_74950_4_, int p_74950_5_) {
 			StructureBoundingBox structureboundingbox = new StructureBoundingBox(p_74950_2_, p_74950_3_ - 5, p_74950_4_, p_74950_2_, p_74950_3_ + 2, p_74950_4_);
 
 			switch (p_74950_5_) {
@@ -676,7 +731,8 @@ public class StructureMesaMineshaftPieces {
 		/**
 		 * Initiates construction of the Structure Component picked, at the current Location of StructGen
 		 */
-		public void buildComponent(StructureComponent p_74861_1_, List p_74861_2_, Random p_74861_3_) {
+		@Override
+		public void buildComponent(StructureComponent p_74861_1_, List<StructureComponent> p_74861_2_, Random p_74861_3_) {
 			int i = this.getComponentType();
 
 			switch (this.coordBaseMode) {
@@ -698,6 +754,7 @@ public class StructureMesaMineshaftPieces {
 		 * second Part of Structure generating, this for example places Spiderwebs, Mob Spawners, it closes
 		 * Mineshafts at the end, it adds Fences...
 		 */
+		@Override
 		public boolean addComponentParts(World p_74875_1_, Random p_74875_2_, StructureBoundingBox p_74875_3_) {
 			if (this.isLiquidInStructureBoundingBox(p_74875_1_, p_74875_3_)) {
 				return false;
@@ -754,7 +811,7 @@ public class StructureMesaMineshaftPieces {
 			}
 		}
 
-		protected boolean func_189918_a(World p_189918_1_, StructureBoundingBox p_189918_2_, int p_189918_3_, int p_189918_4_, int p_189918_5_, int p_189918_6_) {
+		protected boolean isSupportingBox(World p_189918_1_, StructureBoundingBox p_189918_2_, int p_189918_3_, int p_189918_4_, int p_189918_5_, int p_189918_6_) {
 			for (int i = p_189918_3_; i <= p_189918_4_; ++i) {
 				if (this.getBlockAtCurrentPosition(p_189918_1_, i, p_189918_5_ + 1, p_189918_6_, p_189918_2_).getMaterial() == Material.air) {
 					return false;

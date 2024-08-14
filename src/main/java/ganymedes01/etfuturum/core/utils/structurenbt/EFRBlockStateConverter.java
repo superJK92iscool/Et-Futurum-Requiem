@@ -42,6 +42,7 @@ public class EFRBlockStateConverter extends BlockStateConverter {
 		return super.getMetaFromStateWithSubtypeAdditions(blockName, blockStates, dir);
 	}
 
+	@Override
 	public Block getBlockFromNamespace(String blockName, Map<String, String> blockStates) {
 		String truncatedName = blockName.substring(blockName.indexOf(":") + 1);
 		String nameToFind = truncatedName;

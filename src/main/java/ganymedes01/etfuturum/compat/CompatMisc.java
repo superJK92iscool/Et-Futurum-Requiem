@@ -64,7 +64,7 @@ public class CompatMisc {
 
 		if (ModsList.MULTIPART.isLoaded() && ModsList.MULTIPART.isVersionNewerOrEqual("1.4.2")) {
 			try {
-				Class button = ReflectionHelper.getClass(CLASSLOADER, "codechicken.multipart.minecraft.ButtonPart");
+				Class<?> button = ReflectionHelper.getClass(CLASSLOADER, "codechicken.multipart.minecraft.ButtonPart");
 
 				Field metaSideMapField = ReflectionHelper.findField(button, "metaSideMap");
 				metaSideMapField.setAccessible(true);
@@ -107,14 +107,15 @@ public class CompatMisc {
 		if (ModBlocks.SPONGE.isEnabled() && ModsList.BIOMES_O_PLENTY.isLoaded()) {
 			try {
 				Field featureMapField = Class.forName("biomesoplenty.common.world.generation.WorldGenFieldAssociation").getDeclaredField("featureMap");
-				Map featureMap = (Map) featureMapField.get(null); //Get the list of BOP world generators
+				@SuppressWarnings("unchecked")
+				Map<String, ?> featureMap = (Map<String, ?>) featureMapField.get(null); //Get the list of BOP world generators
 				Object feature = featureMap.get("generateSponge"); //Find the one for sponges; this is a container class, we get the value we want below
 
 				Field worldGeneratorField = feature.getClass().getDeclaredField("worldGenerator"); //Get the field from the container class
 				worldGeneratorField.setAccessible(true);
 				WorldGenerator worldGenerator = (WorldGenerator) worldGeneratorField.get(feature); //Pull the value to get the WorldGenerator we want
 
-				Class splotches = Class.forName("biomesoplenty.common.world.features.WorldGenSplotches"); //Get the fields for the block info in the world generator
+				Class<?> splotches = Class.forName("biomesoplenty.common.world.features.WorldGenSplotches"); //Get the fields for the block info in the world generator
 				Field splotchBlockField = splotches.getDeclaredField("splotchBlock");
 				Field splotchBlockMetaField = splotches.getDeclaredField("splotchBlockMeta");
 				splotchBlockField.setAccessible(true);

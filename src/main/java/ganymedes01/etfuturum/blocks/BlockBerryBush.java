@@ -28,7 +28,6 @@ import java.util.Random;
 
 public class BlockBerryBush extends BlockBush implements IGrowable {
 
-	@SideOnly(Side.CLIENT)
 	private IIcon[] icons;
 
 	public BlockBerryBush() {
@@ -84,7 +83,6 @@ public class BlockBerryBush extends BlockBush implements IGrowable {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta) {
 		if (meta > 3)
 			return icons[0];
@@ -92,14 +90,13 @@ public class BlockBerryBush extends BlockBush implements IGrowable {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public Item getItem(World p_149694_1_, int p_149694_2_, int p_149694_3_, int p_149694_4_) {
+	public Item getItem(World worldIn, int x, int y, int z) {
 		return ModItems.SWEET_BERRIES.get();
 	}
 
 	@Override
-	public void setBlockBoundsBasedOnState(IBlockAccess p_149719_1_, int p_149719_2_, int p_149719_3_, int p_149719_4_) {
-		if (p_149719_1_.getBlockMetadata(p_149719_2_, p_149719_3_, p_149719_4_) == 0) {
+	public void setBlockBoundsBasedOnState(IBlockAccess worldIn, int x, int y, int z) {
+		if (worldIn.getBlockMetadata(x, y, z) == 0) {
 			this.setBlockBounds(0.1875F, 0.0F, 0.1875F, 0.8125F, 0.5F, 0.8125F);
 		} else {
 			this.setBlockBounds(0.0625F, 0.0F, 0.0625F, .9375F, 1.0F, 0.9375F);
@@ -107,7 +104,7 @@ public class BlockBerryBush extends BlockBush implements IGrowable {
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_) {
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float subX, float subY, float subZ) {
 		int i = world.getBlockMetadata(x, y, z);
 		if (i > 1 && (i != 2 || player.getHeldItem() == null || player.getHeldItem().getItem() != Items.dye || player.getHeldItem().getItemDamage() != 15)) {
 			//We check for if the plant is in the first berried stage (meta 2, the plant has berries on meta 2 and 3) and if we're holding bone meal.
@@ -145,7 +142,7 @@ public class BlockBerryBush extends BlockBush implements IGrowable {
 
 
 	@Override
-	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_) {
+	public Item getItemDropped(int meta, Random random, int fortune) {
 		return ModItems.SWEET_BERRIES.get();
 	}
 
@@ -164,16 +161,25 @@ public class BlockBerryBush extends BlockBush implements IGrowable {
 		return 60;
 	}
 
+	/**
+	 * MCP name: {@code canFertilize}
+	 */
 	@Override
-	public boolean func_149851_a(World p_149851_1_, int p_149851_2_, int p_149851_3_, int p_149851_4_, boolean p_149851_5_) {
-		return p_149851_1_.getBlockMetadata(p_149851_2_, p_149851_3_, p_149851_4_) < 3;
+	public boolean func_149851_a(World worldIn, int x, int y, int z, boolean isClient) {
+		return worldIn.getBlockMetadata(x, y, z) < 3;
 	}
 
+	/**
+	 * MCP name: {@code shouldFertilize}
+	 */
 	@Override
-	public boolean func_149852_a(World p_149852_1_, Random p_149852_2_, int p_149852_3_, int p_149852_4_, int p_149852_5_) {
+	public boolean func_149852_a(World worldIn, Random random, int x, int y, int z) {
 		return true;
 	}
 
+	/**
+	 * MCP name: {@code fertilize}
+	 */
 	@Override
 	public void func_149853_b(World world, Random rand, int x, int y, int z) {
 		int i = world.getBlockMetadata(x, y, z);

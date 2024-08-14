@@ -45,8 +45,6 @@ public class CTEnchantingFuels {
 			return;
 		}
 
-		Object internal = getInternal(fuel);
-
 		final ItemStack[] toAdd = CompatCraftTweaker.getItemStacks(items);
 		MineTweakerAPI.apply(new AddAction(fuel, toAdd));
 	}

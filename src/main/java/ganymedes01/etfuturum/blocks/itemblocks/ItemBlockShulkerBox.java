@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.blocks.itemblocks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.core.utils.Utils;
@@ -32,7 +30,7 @@ public class ItemBlockShulkerBox extends ItemBlock {
 
 	@Override
 	public int getMetadata(int i) {
-		return field_150939_a.damageDropped(i);
+		return field_150939_a/*blockInstance*/.damageDropped(i);
 	}
 
 	@Override
@@ -40,7 +38,7 @@ public class ItemBlockShulkerBox extends ItemBlock {
 		int type = stack.hasTagCompound() ? stack.getTagCompound().getByte("Type") : 0;
 		int color = stack.hasTagCompound() ? stack.getTagCompound().getByte("Color") : 0;
 
-		String string = field_150939_a.getUnlocalizedName().substring(15);
+		String string = field_150939_a/*blockInstance*/.getUnlocalizedName().substring(15);
 		if (type > 0 && type - 1 < TileEntityShulkerBox.tiers.length) {
 			string = TileEntityShulkerBox.tiers[type - 1] + "_" + string;
 		}
@@ -51,6 +49,7 @@ public class ItemBlockShulkerBox extends ItemBlock {
 		return "tile." + Utils.getUnlocalisedName(string);
 	}
 
+	@Override
 	public boolean onItemUse(ItemStack p_77648_1_, EntityPlayer p_77648_2_, World p_77648_3_, int p_77648_4_, int p_77648_5_, int p_77648_6_, int p_77648_7_, float p_77648_8_, float p_77648_9_, float p_77648_10_) {
 		Block block = p_77648_3_.getBlock(p_77648_4_, p_77648_5_, p_77648_6_);
 		int meta = p_77648_3_.getBlockMetadata(p_77648_4_, p_77648_5_, p_77648_6_);
@@ -65,14 +64,15 @@ public class ItemBlockShulkerBox extends ItemBlock {
 		return super.onItemUse(p_77648_1_, p_77648_2_, p_77648_3_, p_77648_4_, p_77648_5_, p_77648_6_, p_77648_7_, p_77648_8_, p_77648_9_, p_77648_10_);
 	}
 
+	@Override
 	public boolean placeBlockAt(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int metadata) {
-		if (!world.setBlock(x, y, z, field_150939_a, metadata, 3)) {
+		if (!world.setBlock(x, y, z, field_150939_a/*blockInstance*/, metadata, 3)) {
 			return false;
 		}
 
-		if (world.getBlock(x, y, z) == field_150939_a) {
-			field_150939_a.onBlockPlacedBy(world, x, y, z, player, stack);
-			field_150939_a.onPostBlockPlaced(world, x, y, z, metadata);
+		if (world.getBlock(x, y, z) == field_150939_a) { // blockInstance
+			field_150939_a/*blockInstance*/.onBlockPlacedBy(world, x, y, z, player, stack);
+			field_150939_a/*blockInstance*/.onPostBlockPlaced(world, x, y, z, metadata);
 		}
 
 		TileEntityShulkerBox box = (TileEntityShulkerBox) world.getTileEntity(x, y, z);
@@ -80,8 +80,8 @@ public class ItemBlockShulkerBox extends ItemBlock {
 		return true;
 	}
 
-	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, EntityPlayer player, List lore, boolean f3h) {
+	@Override
+	public void addInformation(ItemStack stack, EntityPlayer player, List<String> lore, boolean f3h) {
 		if (ConfigFunctions.shulkerBoxTooltipLines > 0 && stack.getTagCompound() != null && stack.getTagCompound().hasKey("Items")) {
 			NBTTagList tag = stack.getTagCompound().getTagList("Items", 10);
 			int items = 0;

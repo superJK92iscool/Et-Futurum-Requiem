@@ -41,7 +41,7 @@ public class MixinEntitySkeleton extends EntityMob {
 	}
 
 	@WrapOperation(method = "func_145780_a", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/monster/EntitySkeleton;playSound(Ljava/lang/String;FF)V"))
-	protected void func_145780_a_inject(EntitySkeleton instance, String s, float volume, float pitch, Operation<Void> original) {
+	protected void playStepSound_inject(EntitySkeleton instance, String s, float volume, float pitch, Operation<Void> original) {
 		original.call(instance, getSkeletonType() == 1 ? Reference.MCAssetVer + ":entity.wither_skeleton.step" : s, volume, pitch);
 	}
 

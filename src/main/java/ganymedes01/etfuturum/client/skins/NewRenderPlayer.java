@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.client.skins;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.client.model.ModelPlayer;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.lib.Reference;
@@ -13,7 +11,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 
-@SideOnly(Side.CLIENT)
 public class NewRenderPlayer extends RenderPlayer {
 
 	private boolean cachedAlex;
@@ -58,6 +55,11 @@ public class NewRenderPlayer extends RenderPlayer {
 		return new ResourceLocation(Reference.MOD_ID, player.getLocationSkin().getResourcePath());
 	}
 
+	/**
+	 * Test if the entity name must be rendered
+	 * <p>
+	 * MCP name: {@code canRenderName}
+	 */
 	@Override
 	protected boolean func_110813_b(EntityLivingBase entity) {
 		boolean isGUiEnabled = Minecraft.isGuiEnabled();

@@ -18,11 +18,8 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public class BlockLoom extends Block {
 
-	@SideOnly(Side.CLIENT)
 	private IIcon topIcon;
-	@SideOnly(Side.CLIENT)
 	private IIcon sideIcon;
-	@SideOnly(Side.CLIENT)
 	private IIcon bottomIcon;
 
 	public BlockLoom() {
@@ -37,8 +34,8 @@ public class BlockLoom extends Block {
 	}
 
 	@Override
-	public void onBlockPlacedBy(World p_149689_1_, int p_149689_2_, int p_149689_3_, int p_149689_4_, EntityLivingBase p_149689_5_, ItemStack p_149689_6_) {
-		int ordinal = MathHelper.floor_double((double) (p_149689_5_.rotationYaw / 90.0F) + 0.5D) & 3;
+	public void onBlockPlacedBy(World worldIn, int x, int y, int z, EntityLivingBase placer, ItemStack itemIn) {
+		int ordinal = MathHelper.floor_double((double) (placer.rotationYaw / 90.0F) + 0.5D) & 3;
 		switch (ordinal) {
 			case 1:
 				ordinal = 3;
@@ -51,21 +48,21 @@ public class BlockLoom extends Block {
 				break;
 		}
 
-		p_149689_1_.setBlockMetadataWithNotify(p_149689_2_, p_149689_3_, p_149689_4_, ordinal, 2);
+		worldIn.setBlockMetadataWithNotify(x, y, z, ordinal, 2);
+	}
+
+	@Override
+	public IIcon getIcon(int side, int meta) {
+		return side == 1 ? this.topIcon : (side == 0 ? this.bottomIcon : (side != meta + 2 ? this.sideIcon : this.blockIcon));
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(int p_149691_1_, int p_149691_2_) {
-		return p_149691_1_ == 1 ? this.topIcon : (p_149691_1_ == 0 ? this.bottomIcon : (p_149691_1_ != p_149691_2_ + 2 ? this.sideIcon : this.blockIcon));
-	}
-
-	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister p_149651_1_) {
-		this.blockIcon = p_149651_1_.registerIcon(this.getTextureName() + "_front");
-		this.topIcon = p_149651_1_.registerIcon(this.getTextureName() + "_top");
-		this.sideIcon = p_149651_1_.registerIcon(this.getTextureName() + "_side");
-		this.bottomIcon = p_149651_1_.registerIcon(this.getTextureName() + "_bottom");
+	public void registerBlockIcons(IIconRegister reg) {
+		this.blockIcon = reg.registerIcon(this.getTextureName() + "_front");
+		this.topIcon = reg.registerIcon(this.getTextureName() + "_top");
+		this.sideIcon = reg.registerIcon(this.getTextureName() + "_side");
+		this.bottomIcon = reg.registerIcon(this.getTextureName() + "_bottom");
 	}
 
 	@Override
@@ -83,6 +80,7 @@ public class BlockLoom extends Block {
 		return 20;
 	}
 
+	@Override
 	public int getRenderType() {
 		return RenderIDs.LOOM;
 	}

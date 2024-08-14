@@ -34,26 +34,25 @@ public abstract class BaseLeaves extends BlockLeaves implements ISubBlocksBlock 
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	@SuppressWarnings({"unchecked", "rawtypes"})
-	public void getSubBlocks(Item item, CreativeTabs tab, List list) {
+	public void getSubBlocks(Item item, CreativeTabs tab, List<ItemStack> list) {
 		for (int i = 0; i < getTypes().length; i++) {
 			list.add(new ItemStack(item, 1, i));
 		}
 	}
 
 	@Override
-	public IIcon getIcon(int p_149691_1_, int p_149691_2_) {
-		return field_150129_M[isOpaqueCube() /*OptiFine compat*/ ? 1 : 0][(p_149691_2_ % 4) % types.length];
+	public IIcon getIcon(int side, int meta) {
+		return field_150129_M[isOpaqueCube() /*OptiFine compat*/ ? 1 : 0][(meta % 4) % types.length];
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister p_149651_1_) {
+	public void registerBlockIcons(IIconRegister reg) {
 		this.field_150129_M[0] = new IIcon[types.length];
 		this.field_150129_M[1] = new IIcon[types.length];
 		for (int i = 0; i < types.length; ++i) {
-			this.field_150129_M[0][i] = p_149651_1_.registerIcon(types[i]);
-			this.field_150129_M[1][i] = p_149651_1_.registerIcon(types[i] + "_opaque");
+			this.field_150129_M[0][i] = reg.registerIcon(types[i]);
+			this.field_150129_M[1][i] = reg.registerIcon(types[i] + "_opaque");
 		}
 	}
 
@@ -62,7 +61,8 @@ public abstract class BaseLeaves extends BlockLeaves implements ISubBlocksBlock 
 		return getTypes();
 	}
 
-	public abstract Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_);
+	@Override
+	public abstract Item getItemDropped(int meta, Random random, int fortune);
 
 	@Override
 	public boolean isOpaqueCube() { //OptiFine compat
@@ -70,8 +70,8 @@ public abstract class BaseLeaves extends BlockLeaves implements ISubBlocksBlock 
 	}
 
 	@Override
-	public boolean shouldSideBeRendered(IBlockAccess p_149646_1_, int p_149646_2_, int p_149646_3_, int p_149646_4_, int p_149646_5_) { //OptiFine compat
-		return Blocks.leaves.shouldSideBeRendered(p_149646_1_, p_149646_2_, p_149646_3_, p_149646_4_, p_149646_5_);
+	public boolean shouldSideBeRendered(IBlockAccess worldIn, int x, int y, int z, int side) { //OptiFine compat
+		return Blocks.leaves.shouldSideBeRendered(worldIn, x, y, z, side);
 	}
 
 	@Override
@@ -99,9 +99,10 @@ public abstract class BaseLeaves extends BlockLeaves implements ISubBlocksBlock 
 		return types[stack.getItemDamage() % types.length];
 	}
 
-	public void updateTick(World p_149674_1_, int p_149674_2_, int p_149674_3_, int p_149674_4_, Random p_149674_5_) {
-		if (!p_149674_1_.isRemote) {
-			int l = p_149674_1_.getBlockMetadata(p_149674_2_, p_149674_3_, p_149674_4_);
+	@Override
+	public void updateTick(World worldIn, int x, int y, int z, Random random) {
+		if (!worldIn.isRemote) {
+			int l = worldIn.getBlockMetadata(x, y, z);
 			int decayRange = getRange(l % 4);
 
 			if ((l & 8) != 0 && (l & 4) == 0) {
@@ -116,18 +117,18 @@ public abstract class BaseLeaves extends BlockLeaves implements ISubBlocksBlock 
 
 				int l1;
 
-				if (p_149674_1_.checkChunksExist(p_149674_2_ - i1, p_149674_3_ - i1, p_149674_4_ - i1, p_149674_2_ + i1, p_149674_3_ + i1, p_149674_4_ + i1)) {
+				if (worldIn.checkChunksExist(x - i1, y - i1, z - i1, x + i1, y + i1, z + i1)) {
 					int i2;
 					int j2;
 
 					for (l1 = -decayRange; l1 <= decayRange; ++l1) {
 						for (i2 = -decayRange; i2 <= decayRange; ++i2) {
 							for (j2 = -decayRange; j2 <= decayRange; ++j2) {
-								Block block = p_149674_1_.getBlock(p_149674_2_ + l1, p_149674_3_ + i2, p_149674_4_ + j2);
+								Block block = worldIn.getBlock(x + l1, y + i2, z + j2);
 
 								int i = (l1 + k1) * j1 + (i2 + k1) * b1 + j2 + k1;
-								if (!block.canSustainLeaves(p_149674_1_, p_149674_2_ + l1, p_149674_3_ + i2, p_149674_4_ + j2)) {
-									if (block.isLeaves(p_149674_1_, p_149674_2_ + l1, p_149674_3_ + i2, p_149674_4_ + j2)) {
+								if (!block.canSustainLeaves(worldIn, x + l1, y + i2, z + j2)) {
+									if (block.isLeaves(worldIn, x + l1, y + i2, z + j2)) {
 										this.field_150128_a[i] = -2;
 									} else {
 										this.field_150128_a[i] = -1;
@@ -183,9 +184,9 @@ public abstract class BaseLeaves extends BlockLeaves implements ISubBlocksBlock 
 				l1 = this.field_150128_a[k1 * j1 + k1 * b1 + k1];
 
 				if (l1 >= 0) {
-					p_149674_1_.setBlockMetadataWithNotify(p_149674_2_, p_149674_3_, p_149674_4_, l & -9, 4);
+					worldIn.setBlockMetadataWithNotify(x, y, z, l & -9, 4);
 				} else {
-					this.removeLeaves(p_149674_1_, p_149674_2_, p_149674_3_, p_149674_4_);
+					this.removeLeaves(worldIn, x, y, z);
 				}
 			}
 		}

@@ -13,6 +13,7 @@ public class BiomeDecoratorEFREnd extends BiomeEndDecorator {
 		this.spikeGen = new WorldGenSpikes(Blocks.end_stone);
 	}
 
+	@Override
 	protected void genDecorations(BiomeGenBase p_150513_1_) {
 		this.generateOres();
 

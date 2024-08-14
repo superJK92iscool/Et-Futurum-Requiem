@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Random;
 
 public class BaseSubtypesSand extends BlockFalling implements ISubBlocksBlock {
-	@SideOnly(Side.CLIENT)
+
 	private IIcon[] icons;
 	private final String[] types;
 
@@ -72,16 +72,13 @@ public class BaseSubtypesSand extends BlockFalling implements ISubBlocksBlock {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	@SuppressWarnings({"unchecked", "rawtypes"})
-	public void getSubBlocks(Item item, CreativeTabs tab, List list) {
+	public void getSubBlocks(Item item, CreativeTabs tab, List<ItemStack> list) {
 		for (int i = startMeta; i < getTypes().length; i++) {
 			list.add(new ItemStack(item, 1, i));
 		}
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta) {
 		return getIcons()[Math.max(startMeta, meta % icons.length)];
 	}
@@ -99,9 +96,10 @@ public class BaseSubtypesSand extends BlockFalling implements ISubBlocksBlock {
 	/**
 	 * Ticks the block if it's been scheduled
 	 */
-	public void updateTick(World p_149674_1_, int p_149674_2_, int p_149674_3_, int p_149674_4_, Random p_149674_5_) {
-		if (!p_149674_1_.isRemote) {
-			this.func_149830_m(p_149674_1_, p_149674_2_, p_149674_3_, p_149674_4_);
+	@Override
+	public void updateTick(World worldIn, int x, int y, int z, Random random) {
+		if (!worldIn.isRemote) {
+			this.fallIfAble(worldIn, x, y, z);
 		}
 	}
 
@@ -109,20 +107,20 @@ public class BaseSubtypesSand extends BlockFalling implements ISubBlocksBlock {
 		return new EntityFallingBlock(world, x, y, z, block, meta);
 	}
 
-	private void func_149830_m(World p_149830_1_, int p_149830_2_, int p_149830_3_, int p_149830_4_) {
-		if (func_149831_e(p_149830_1_, p_149830_2_, p_149830_3_ - 1, p_149830_4_) && p_149830_3_ >= 0) {
+	private void fallIfAble(World p_149830_1_, int p_149830_2_, int p_149830_3_, int p_149830_4_) {
+		if (func_149831_e/*canFallBelow*/(p_149830_1_, p_149830_2_, p_149830_3_ - 1, p_149830_4_) && p_149830_3_ >= 0) {
 			byte b0 = 32;
 
 			if (!fallInstantly && p_149830_1_.checkChunksExist(p_149830_2_ - b0, p_149830_3_ - b0, p_149830_4_ - b0, p_149830_2_ + b0, p_149830_3_ + b0, p_149830_4_ + b0)) {
 				if (!p_149830_1_.isRemote) {
 					EntityFallingBlock entityfallingblock = getFallingBlock(p_149830_1_, (float) p_149830_2_ + 0.5F, (float) p_149830_3_ + 0.5F, (float) p_149830_4_ + 0.5F, this, p_149830_1_.getBlockMetadata(p_149830_2_, p_149830_3_, p_149830_4_));
-					this.func_149829_a(entityfallingblock);
+					this.func_149829_a(entityfallingblock); // onStartFalling
 					p_149830_1_.spawnEntityInWorld(entityfallingblock);
 				}
 			} else {
 				p_149830_1_.setBlockToAir(p_149830_2_, p_149830_3_, p_149830_4_);
 
-				while (func_149831_e(p_149830_1_, p_149830_2_, p_149830_3_ - 1, p_149830_4_) && p_149830_3_ > 0) {
+				while (func_149831_e/*canFallBelow*/(p_149830_1_, p_149830_2_, p_149830_3_ - 1, p_149830_4_) && p_149830_3_ > 0) {
 					--p_149830_3_;
 				}
 

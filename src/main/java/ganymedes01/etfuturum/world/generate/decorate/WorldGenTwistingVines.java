@@ -1,7 +1,6 @@
 package ganymedes01.etfuturum.world.generate.decorate;
 
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockNetherrack;
 import net.minecraft.util.MathHelper;

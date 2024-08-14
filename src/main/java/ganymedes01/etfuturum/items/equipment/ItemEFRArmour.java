@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.items.equipment;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.core.utils.Utils;
@@ -41,7 +39,6 @@ public class ItemEFRArmour extends ItemArmor implements ISpecialArmor {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
 		String wearingType = "netherite";
 		return this.armorType == 2 ? "textures/models/armor/" + wearingType + "_layer_2.png" : "textures/models/armor/" + wearingType + "_layer_1.png";

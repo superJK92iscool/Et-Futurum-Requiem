@@ -67,6 +67,7 @@ public class BlockChain extends BaseBlock {
 		return false;
 	}
 
+	@Override
 	public boolean isNormalCube() {
 		return false;
 	}

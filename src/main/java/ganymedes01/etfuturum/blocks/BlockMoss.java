@@ -27,6 +27,9 @@ public class BlockMoss extends BaseBlock implements IGrowable {
 		setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
+	/**
+	 * MCP name: {@code canFertilize}
+	 */
 	@Override
 	public boolean func_149851_a(World world, int x, int y, int z, boolean isClient) {
 		// Implement your logic for whether the block can grow here.
@@ -34,6 +37,9 @@ public class BlockMoss extends BaseBlock implements IGrowable {
 		return true;
 	}
 
+	/**
+	 * MCP name: {@code shouldFertilize}
+	 */
 	@Override
 	public boolean func_149852_a(World world, Random rand, int x, int y, int z) {
 		// Implement your logic for the random chance of growth here.
@@ -49,6 +55,9 @@ public class BlockMoss extends BaseBlock implements IGrowable {
 	private static final int TALL_GRASS_WEIGHT = 7;
 	private static final int AIR_WEIGHT = 79;
 
+	/**
+	 * MCP name: {@code fertilize}
+	 */
 	@Override
 	public void func_149853_b(World world, Random rand, int xCoord, int yCoord, int zCoord) {
 		int l = 0;

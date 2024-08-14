@@ -32,14 +32,10 @@ import java.util.Random;
 
 public class BlockComposter extends Block implements FakeTileEntityProvider {
 
-	@SideOnly(Side.CLIENT)
 	private IIcon topIcon;
-	@SideOnly(Side.CLIENT)
 	private IIcon bottomIcon;
 
-	@SideOnly(Side.CLIENT)
 	public IIcon compostIcon;
-	@SideOnly(Side.CLIENT)
 	public IIcon fullCompostIcon;
 
 	public static int FULL_META = 7;
@@ -59,36 +55,39 @@ public class BlockComposter extends Block implements FakeTileEntityProvider {
 		this.useNeighborBrightness = true;
 	}
 
-	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(int p_149691_1_, int p_149691_2_) {
-		return p_149691_1_ == 1 ? this.topIcon : p_149691_1_ == 0 ? bottomIcon : this.blockIcon;
+	@Override
+	public IIcon getIcon(int side, int meta) {
+		return side == 1 ? this.topIcon : side == 0 ? bottomIcon : this.blockIcon;
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister p_149651_1_) {
-		this.blockIcon = p_149651_1_.registerIcon(this.getTextureName() + "_side");
-		this.bottomIcon = p_149651_1_.registerIcon(this.getTextureName() + "_bottom");
-		this.topIcon = p_149651_1_.registerIcon(this.getTextureName() + "_top");
+	public void registerBlockIcons(IIconRegister reg) {
+		this.blockIcon = reg.registerIcon(this.getTextureName() + "_side");
+		this.bottomIcon = reg.registerIcon(this.getTextureName() + "_bottom");
+		this.topIcon = reg.registerIcon(this.getTextureName() + "_top");
 
-		this.compostIcon = p_149651_1_.registerIcon(this.getTextureName() + "_compost");
-		this.fullCompostIcon = p_149651_1_.registerIcon(this.getTextureName() + "_ready");
+		this.compostIcon = reg.registerIcon(this.getTextureName() + "_compost");
+		this.fullCompostIcon = reg.registerIcon(this.getTextureName() + "_ready");
 	}
 
-	public void addCollisionBoxesToList(World p_149743_1_, int p_149743_2_, int p_149743_3_, int p_149743_4_, AxisAlignedBB p_149743_5_, List p_149743_6_, Entity p_149743_7_) {
+	@Override
+	public void addCollisionBoxesToList(World worldIn, int x, int y, int z, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collider) {
 		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.125F, 1.0F);
-		super.addCollisionBoxesToList(p_149743_1_, p_149743_2_, p_149743_3_, p_149743_4_, p_149743_5_, p_149743_6_, p_149743_7_);
+		super.addCollisionBoxesToList(worldIn, x, y, z, mask, list, collider);
 		float f = 0.125F;
 		this.setBlockBounds(0.0F, 0.0F, 0.0F, f, 1.0F, 1.0F);
-		super.addCollisionBoxesToList(p_149743_1_, p_149743_2_, p_149743_3_, p_149743_4_, p_149743_5_, p_149743_6_, p_149743_7_);
+		super.addCollisionBoxesToList(worldIn, x, y, z, mask, list, collider);
 		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, f);
-		super.addCollisionBoxesToList(p_149743_1_, p_149743_2_, p_149743_3_, p_149743_4_, p_149743_5_, p_149743_6_, p_149743_7_);
+		super.addCollisionBoxesToList(worldIn, x, y, z, mask, list, collider);
 		this.setBlockBounds(1.0F - f, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
-		super.addCollisionBoxesToList(p_149743_1_, p_149743_2_, p_149743_3_, p_149743_4_, p_149743_5_, p_149743_6_, p_149743_7_);
+		super.addCollisionBoxesToList(worldIn, x, y, z, mask, list, collider);
 		this.setBlockBounds(0.0F, 0.0F, 1.0F - f, 1.0F, 1.0F, 1.0F);
-		super.addCollisionBoxesToList(p_149743_1_, p_149743_2_, p_149743_3_, p_149743_4_, p_149743_5_, p_149743_6_, p_149743_7_);
+		super.addCollisionBoxesToList(worldIn, x, y, z, mask, list, collider);
 		this.setBlockBoundsForItemRender();
 	}
 
+	@Override
 	public void setBlockBoundsForItemRender() {
 		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
 	}
@@ -116,6 +115,7 @@ public class BlockComposter extends Block implements FakeTileEntityProvider {
 		return false;
 	}
 
+	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float clickX, float clickY, float clickZ) {
 		int meta = world.getBlockMetadata(x, y, z);
 		if (meta < FULL_META) {
@@ -148,6 +148,7 @@ public class BlockComposter extends Block implements FakeTileEntityProvider {
 		return false;
 	}
 
+	@Override
 	public void updateTick(World world, int x, int y, int z, Random rand) {
 		if (world.getBlockMetadata(x, y, z) == FULL_META) {
 			world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, Reference.MCAssetVer + ":block.composter.ready", 1, 1);
@@ -251,7 +252,8 @@ public class BlockComposter extends Block implements FakeTileEntityProvider {
 			return !this.dirty && side == 1 && addToComposter(world, x, y, z, p_102007_2_);
 		}
 
-		public void setInventorySlotContents(int p_70299_1_, ItemStack p_70299_2_) {
+		@Override
+		public void setInventorySlotContents(int index, ItemStack stack) {
 			markDirty();
 		}
 	}

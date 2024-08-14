@@ -16,6 +16,7 @@ public class ItemHoneyBottle extends BaseItem {
 		EntityXPOrb.getXPSplit(1);
 	}
 
+	@Override
 	public ItemStack onEaten(ItemStack p_77654_1_, World p_77654_2_, EntityPlayer p_77654_3_) {
 		if (!p_77654_3_.capabilities.isCreativeMode) {
 			--p_77654_1_.stackSize;
@@ -36,16 +37,19 @@ public class ItemHoneyBottle extends BaseItem {
 		return p_77654_1_;
 	}
 
+	@Override
 	public int getMaxItemUseDuration(ItemStack p_77626_1_) {
 		return 32;
 	}
 
-	public EnumAction getItemUseAction(ItemStack p_77661_1_) {
+	@Override
+	public EnumAction getItemUseAction(ItemStack stack) {
 		return EnumAction.drink;
 	}
 
-	public ItemStack onItemRightClick(ItemStack p_77659_1_, World p_77659_2_, EntityPlayer p_77659_3_) {
-		p_77659_3_.setItemInUse(p_77659_1_, this.getMaxItemUseDuration(p_77659_1_));
-		return p_77659_1_;
+	@Override
+	public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer player) {
+		player.setItemInUse(itemStackIn, this.getMaxItemUseDuration(itemStackIn));
+		return itemStackIn;
 	}
 }

@@ -1,8 +1,6 @@
 package ganymedes01.etfuturum.client.renderer.item;
 
 import com.mojang.authlib.GameProfile;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.client.OpenGLHelper;
 import ganymedes01.etfuturum.client.renderer.tileentity.TileEntityFancySkullRenderer;
 import net.minecraft.item.ItemStack;
@@ -11,7 +9,6 @@ import net.minecraft.nbt.NBTUtil;
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.common.util.Constants;
 
-@SideOnly(Side.CLIENT)
 public class ItemSkullRenderer implements IItemRenderer {
 
 	@Override
@@ -60,7 +57,7 @@ public class ItemSkullRenderer implements IItemRenderer {
 		if (stack.hasTagCompound()) {
 			NBTTagCompound nbt = stack.getTagCompound();
 			if (nbt.hasKey("SkullOwner", Constants.NBT.TAG_COMPOUND))
-				profile = NBTUtil.func_152459_a(nbt.getCompoundTag("SkullOwner"));
+				profile = NBTUtil.func_152459_a(nbt.getCompoundTag("SkullOwner")); // readGameProfileFromNBT
 			else if (nbt.hasKey("SkullOwner", Constants.NBT.TAG_STRING))
 				profile = new GameProfile(null, nbt.getString("SkullOwner"));
 		}

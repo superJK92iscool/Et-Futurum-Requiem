@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.blocks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.client.sound.ModSounds;
@@ -34,11 +32,11 @@ public class BlockLantern extends Block {
 	}
 
 	@Override
-	public void setBlockBoundsBasedOnState(IBlockAccess p_149719_1_, int p_149719_2_, int p_149719_3_, int p_149719_4_) {
+	public void setBlockBoundsBasedOnState(IBlockAccess worldIn, int x, int y, int z) {
 		float r = 0.0625F;
 		float f = 0.375F;
 		float f1 = f / 2.0F;
-		if (p_149719_1_.getBlockMetadata(p_149719_2_, p_149719_3_, p_149719_4_) == 0)
+		if (worldIn.getBlockMetadata(x, y, z) == 0)
 			this.setBlockBounds(0.5F - f1, 0.0F, 0.5F - f1, 0.5F + f1, r * 7, 0.5F + f1);
 		else
 			this.setBlockBounds(0.5F - f1, r * 1, 0.5F - f1, 0.5F + f1, r * 8, 0.5F + f1);
@@ -88,10 +86,11 @@ public class BlockLantern extends Block {
 		this.onNeighborBlockChange(world, x, y, z, block);
 	}
 
-	public void onNeighborBlockChange(World p_149695_1_, int p_149695_2_, int p_149695_3_, int p_149695_4_, Block p_149695_5_) {
-		super.onNeighborBlockChange(p_149695_1_, p_149695_2_, p_149695_3_, p_149695_4_, p_149695_5_);
-		if (!canBlockStay(p_149695_1_, p_149695_2_, p_149695_3_, p_149695_4_)) {
-			setLanternToAir(p_149695_1_, p_149695_2_, p_149695_3_, p_149695_4_);
+	@Override
+	public void onNeighborBlockChange(World worldIn, int x, int y, int z, Block neighbor) {
+		super.onNeighborBlockChange(worldIn, x, y, z, neighbor);
+		if (!canBlockStay(worldIn, x, y, z)) {
+			setLanternToAir(worldIn, x, y, z);
 		}
 	}
 
@@ -103,7 +102,6 @@ public class BlockLantern extends Block {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public String getItemIconName() {
 		return getTextureName();
 	}

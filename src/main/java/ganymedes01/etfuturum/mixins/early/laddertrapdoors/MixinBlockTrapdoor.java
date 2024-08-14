@@ -10,8 +10,8 @@ import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(BlockTrapDoor.class)
 public class MixinBlockTrapdoor extends Block {
-	protected MixinBlockTrapdoor(Material p_i45394_1_) {
-		super(p_i45394_1_);
+	protected MixinBlockTrapdoor(Material materialIn) {
+		super(materialIn);
 	}
 
 	@Override

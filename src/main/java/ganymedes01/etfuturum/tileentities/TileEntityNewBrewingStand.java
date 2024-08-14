@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.tileentities;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.api.BrewingFuelRegistry;
 import ganymedes01.etfuturum.core.utils.Utils;
@@ -239,8 +237,10 @@ public class TileEntityNewBrewingStand extends TileEntityBrewingStand {
 			return stack.getItem() instanceof ItemPotion || stack.getItem() == Items.glass_bottle;
 	}
 
+	/**
+	 * MCP name: {@code setBrewTime}
+	 */
 	@Override
-	@SideOnly(Side.CLIENT)
 	public void func_145938_d(int _brewTime) {
 		this.brewTime = _brewTime;
 	}

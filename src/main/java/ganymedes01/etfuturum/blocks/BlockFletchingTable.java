@@ -14,9 +14,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public class BlockFletchingTable extends Block {
 
-	@SideOnly(Side.CLIENT)
 	private IIcon topIcon;
-	@SideOnly(Side.CLIENT)
 	private IIcon sideIcon;
 
 	public BlockFletchingTable() {
@@ -30,16 +28,17 @@ public class BlockFletchingTable extends Block {
 		this.setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
-	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(int p_149691_1_, int p_149691_2_) {
-		return p_149691_1_ == 1 ? this.topIcon : (p_149691_1_ == 0 ? Blocks.planks.getIcon(0, 2) : (p_149691_1_ != 2 && p_149691_1_ != 3 ? this.blockIcon : this.sideIcon));
+	@Override
+	public IIcon getIcon(int side, int meta) {
+		return side == 1 ? this.topIcon : (side == 0 ? Blocks.planks.getIcon(0, 2) : (side != 2 && side != 3 ? this.blockIcon : this.sideIcon));
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister p_149651_1_) {
-		this.blockIcon = p_149651_1_.registerIcon(this.getTextureName() + "_side");
-		this.topIcon = p_149651_1_.registerIcon(this.getTextureName() + "_top");
-		this.sideIcon = p_149651_1_.registerIcon(this.getTextureName() + "_front");
+	public void registerBlockIcons(IIconRegister reg) {
+		this.blockIcon = reg.registerIcon(this.getTextureName() + "_side");
+		this.topIcon = reg.registerIcon(this.getTextureName() + "_top");
+		this.sideIcon = reg.registerIcon(this.getTextureName() + "_front");
 	}
 
 	@Override

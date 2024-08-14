@@ -29,7 +29,6 @@ public class BlockStoneSlab1 extends BaseSlab {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta) {
 		if ((meta % 8) % getIcons().length == 3) {
 			return Blocks.sandstone.getIcon(side, 2);

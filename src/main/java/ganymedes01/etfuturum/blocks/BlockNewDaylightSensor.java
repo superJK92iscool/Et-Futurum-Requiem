@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.blocks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModBlocks;
 import net.minecraft.block.BlockDaylightDetector;
 import net.minecraft.entity.player.EntityPlayer;
@@ -28,7 +26,6 @@ public class BlockNewDaylightSensor extends BlockDaylightDetector {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public Item getItem(World world, int x, int y, int z) {
 		return Item.getItemFromBlock(Blocks.daylight_detector);
 	}

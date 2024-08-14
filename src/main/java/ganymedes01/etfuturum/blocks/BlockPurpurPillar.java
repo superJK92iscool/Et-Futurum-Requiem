@@ -30,7 +30,6 @@ public class BlockPurpurPillar extends BlockRotatedPillar {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	protected IIcon getSideIcon(int side) {
 		return blockIcon;
 	}

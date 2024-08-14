@@ -46,8 +46,6 @@ public class CTComposting {
 			return;
 		}
 
-		Object internal = getInternal(stack);
-
 		final ItemStack[] toAdd = CompatCraftTweaker.getItemStacks(items);
 		MineTweakerAPI.apply(new AddAction(stack, toAdd, count));
 	}

@@ -21,6 +21,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemPotion;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
@@ -40,7 +41,6 @@ public class BlockPotionCauldron extends BlockCauldronTileEntity {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public void randomDisplayTick(World world, int x, int y, int z, Random random) {
 		if (random.nextInt(30) == 0) {
 			int color = ((TileEntityCauldronColoredWater) world.getTileEntity(x, y, z)).getWaterColor();
@@ -59,7 +59,7 @@ public class BlockPotionCauldron extends BlockCauldronTileEntity {
 
 
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityPlayer, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_) {
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityPlayer, int side, float subX, float subY, float subZ) {
 
 		final ItemStack stack = entityPlayer.getHeldItem();
 		if (stack != null) {
@@ -77,7 +77,7 @@ public class BlockPotionCauldron extends BlockCauldronTileEntity {
 				boolean flag = false;
 				final int meta = world.getBlockMetadata(x, y, z);
 				final ItemStack bottle = new ItemStack(Items.glass_bottle);
-				final List effects = ((ItemPotion) item).getEffects(stack);
+				final List<PotionEffect> effects = ((ItemPotion) item).getEffects(stack);
 				if (effects == null || !effects.equals(((ItemPotion) potionCauldron.potion.getItem()).getEffects(potionCauldron.potion))) {
 					EnumCauldronFillAction.EVAPORATE.getAction(world, x, y, z, false);//TODO make this evaporate with buckets too
 					world.setBlock(x, y, z, Blocks.cauldron, 0, 3);
@@ -169,17 +169,17 @@ public class BlockPotionCauldron extends BlockCauldronTileEntity {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister p_149651_1_) {
-		blockIcon = p_149651_1_.registerIcon(GrayscaleWaterResourcePack.createGrayscaleName("water_still", GrayscaleType.TINT_INVERSE));
+	public void registerBlockIcons(IIconRegister reg) {
+		blockIcon = reg.registerIcon(GrayscaleWaterResourcePack.createGrayscaleName("water_still", GrayscaleType.TINT_INVERSE));
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
+	public TileEntity createNewTileEntity(World worldIn, int meta) {
 		return new TileEntityCauldronPotion();
 	}
 
-	static float getRenderLiquidLevel(int p_150025_0_) {
-		int j = MathHelper.clamp_int(p_150025_0_, 0, 3);
+	static float getRenderLiquidLevel(int meta) {
+		int j = MathHelper.clamp_int(meta, 0, 3);
 		return (float) (6 + 3 * j) / 16.0F;
 	}
 

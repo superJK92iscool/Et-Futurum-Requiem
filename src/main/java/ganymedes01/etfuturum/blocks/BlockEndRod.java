@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.blocks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.client.particle.CustomParticles;
 import ganymedes01.etfuturum.core.utils.Utils;
@@ -34,7 +32,7 @@ public class BlockEndRod extends Block {
 		return !(entity instanceof EntityDragon);
 	}
 
-	@SideOnly(Side.CLIENT)
+	@Override
 	public void randomDisplayTick(World world, int x, int y, int z, Random random) {
 		AxisAlignedBB bb = getCollisionBoundingBoxFromPool(world, x, y, z);
 		double px = bb.minX + (random.nextDouble() * (bb.maxX - bb.minX));
@@ -98,6 +96,7 @@ public class BlockEndRod extends Block {
 		return RenderIDs.END_ROD;
 	}
 
+	@Override
 	public int getMobilityFlag() {
 		return 0;
 	}

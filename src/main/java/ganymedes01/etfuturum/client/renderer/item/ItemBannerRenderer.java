@@ -1,14 +1,11 @@
 package ganymedes01.etfuturum.client.renderer.item;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.client.OpenGLHelper;
 import ganymedes01.etfuturum.tileentities.TileEntityBanner;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;
 
-@SideOnly(Side.CLIENT)
 public class ItemBannerRenderer implements IItemRenderer {
 
 	private final TileEntityBanner banner = new TileEntityBanner();

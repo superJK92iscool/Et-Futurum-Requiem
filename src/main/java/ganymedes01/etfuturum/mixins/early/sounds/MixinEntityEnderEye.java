@@ -12,8 +12,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(EntityEnderEye.class)
 public abstract class MixinEntityEnderEye extends Entity {
 
-	public MixinEntityEnderEye(World p_i1582_1_) {
-		super(p_i1582_1_);
+	public MixinEntityEnderEye(World worldIn) {
+		super(worldIn);
 	}
 
 	@Inject(method = "onUpdate", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/item/EntityEnderEye;setDead()V"))

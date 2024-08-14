@@ -17,9 +17,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(EntityPlayer.class)
 public abstract class MixinEntityPlayer extends EntityLivingBase {
 
+	@Override
 	@Shadow
 	protected abstract String getDeathSound();
 
+	@Override
 	@Shadow
 	protected abstract String getHurtSound();
 
@@ -31,8 +33,8 @@ public abstract class MixinEntityPlayer extends EntityLivingBase {
 	private DamageSource etfuturum$lastDamageSource;
 
 	@Inject(method = "damageEntity", at = @At("HEAD"))
-	public void captureLastDamageSource(DamageSource p_70097_1_, float p_70097_2_, CallbackInfo ci) {
-		etfuturum$lastDamageSource = p_70097_1_;
+	public void captureLastDamageSource(DamageSource source, float amount, CallbackInfo ci) {
+		etfuturum$lastDamageSource = source;
 	}
 
 	@Unique
@@ -66,9 +68,9 @@ public abstract class MixinEntityPlayer extends EntityLivingBase {
 	}
 
 	@Inject(method = "playSound", at = @At("HEAD"), cancellable = true)
-	public void overrideDamageSound(String p_85030_1_, float p_85030_2_, float p_85030_3_, CallbackInfo ci) {
-		if (etfuturum$lastDamageSource != null && (p_85030_1_.equals(getHurtSound()) || p_85030_1_.equals(getDeathSound()))) {
-			this.worldObj.playSoundAtEntity(this, p_85030_1_, p_85030_2_, p_85030_3_);
+	public void overrideDamageSound(String name, float volume, float pitch, CallbackInfo ci) {
+		if (etfuturum$lastDamageSource != null && (name.equals(getHurtSound()) || name.equals(getDeathSound()))) {
+			this.worldObj.playSoundAtEntity(this, name, volume, pitch);
 			etfuturum$lastDamageSource = null;
 			ci.cancel();
 		}

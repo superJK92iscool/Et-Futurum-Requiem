@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.entities;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import ganymedes01.etfuturum.entities.ai.EntityAIMoveToBlock;
@@ -33,10 +31,10 @@ import java.util.List;
 
 public class EntityRabbit extends EntityAnimal {
 
-	private int field_175540_bm = 0;
-	private int field_175535_bn = 0;
+	private int jumpTicks = 0;
+	private int jumpDuration = 0;
 	boolean field_175536_bo = false;
-	private boolean field_175537_bp = false;
+	private boolean wasOnGround = false;
 	private int currentMoveTypeDuration = 0;
 	private EntityRabbit.EnumMoveType moveType;
 	int carrotTicks;
@@ -76,9 +74,8 @@ public class EntityRabbit extends EntityAnimal {
 		moveType = type;
 	}
 
-	@SideOnly(Side.CLIENT)
-	public float func_175521_o(float p_175521_1_) {
-		return field_175535_bn == 0 ? 0.0F : (field_175540_bm + p_175521_1_) / field_175535_bn;
+	public float getJumpCompletion(float p_175521_1_) {
+		return jumpDuration == 0 ? 0.0F : (jumpTicks + p_175521_1_) / jumpDuration;
 	}
 
 	public void setMovementSpeed(double newSpeed) {
@@ -102,8 +99,8 @@ public class EntityRabbit extends EntityAnimal {
 
 	public void doMovementAction(EntityRabbit.EnumMoveType movetype) {
 		setJumping(true, movetype);
-		field_175535_bn = movetype.func_180073_d();
-		field_175540_bm = 0;
+		jumpDuration = movetype.func_180073_d();
+		jumpTicks = 0;
 	}
 
 	@Override
@@ -165,9 +162,9 @@ public class EntityRabbit extends EntityAnimal {
 		}
 
 		if (onGround) {
-			if (!field_175537_bp) {
+			if (!wasOnGround) {
 				setJumping(false, EntityRabbit.EnumMoveType.NONE);
-				func_175517_cu();
+				checkLandingDelay();
 			}
 
 			EntityRabbit.RabbitJumpHelper rabbitjumphelper = getJumpHelper();
@@ -183,46 +180,46 @@ public class EntityRabbit extends EntityAnimal {
 					calculateRotationYaw(vec3.xCoord, vec3.zCoord);
 					doMovementAction(moveType);
 				}
-			} else if (!rabbitjumphelper.func_180065_d())
-				func_175518_cr();
+			} else if (!rabbitjumphelper.canJump())
+				enableJumpControl();
 		}
 
-		field_175537_bp = onGround;
+		wasOnGround = onGround;
 	}
 
 	private void calculateRotationYaw(double p_175533_1_, double p_175533_3_) {
 		rotationYaw = (float) (Math.atan2(p_175533_3_ - posZ, p_175533_1_ - posX) * 180.0D / Math.PI) - 90.0F;
 	}
 
-	private void func_175518_cr() {
-		getJumpHelper().func_180066_a(true);
+	private void enableJumpControl() {
+		getJumpHelper().setCanJump(true);
 	}
 
-	private void func_175520_cs() {
-		getJumpHelper().func_180066_a(false);
+	private void disableJumpControl() {
+		getJumpHelper().setCanJump(false);
 	}
 
 	private void updateMoveTypeDuration() {
 		currentMoveTypeDuration = getMoveTypeDuration();
 	}
 
-	private void func_175517_cu() {
+	private void checkLandingDelay() {
 		updateMoveTypeDuration();
-		func_175520_cs();
+		disableJumpControl();
 	}
 
 	@Override
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
 
-		if (field_175540_bm != field_175535_bn) {
-			if (field_175540_bm == 0 && !worldObj.isRemote)
+		if (jumpTicks != jumpDuration) {
+			if (jumpTicks == 0 && !worldObj.isRemote)
 				worldObj.setEntityState(this, (byte) 1);
 
-			field_175540_bm++;
-		} else if (field_175535_bn != 0) {
-			field_175540_bm = 0;
-			field_175535_bn = 0;
+			jumpTicks++;
+		} else if (jumpDuration != 0) {
+			jumpTicks = 0;
+			jumpDuration = 0;
 		}
 	}
 
@@ -331,12 +328,11 @@ public class EntityRabbit extends EntityAnimal {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public void handleHealthUpdate(byte id) {
 		if (id == 1) {
 			createRunningParticles();
-			field_175535_bn = 10;
-			field_175540_bm = 0;
+			jumpDuration = 10;
+			jumpTicks = 0;
 		} else
 			super.handleHealthUpdate(id);
 	}
@@ -347,7 +343,7 @@ public class EntityRabbit extends EntityAnimal {
 			super(EntityRabbit.this, EntityLivingBase.class, 1.4D, true);
 		}
 
-		protected double func_179512_a(EntityLivingBase attackTarget) {
+		protected double getAttackReachSqr(EntityLivingBase attackTarget) {
 			return 4.0F + attackTarget.width;
 		}
 	}
@@ -418,11 +414,11 @@ public class EntityRabbit extends EntityAnimal {
 			return isJumping;
 		}
 
-		public boolean func_180065_d() {
+		public boolean canJump() {
 			return field_180068_d;
 		}
 
-		public void func_180066_a(boolean p_180066_1_) {
+		public void setCanJump(boolean p_180066_1_) {
 			field_180068_d = p_180066_1_;
 		}
 
@@ -477,8 +473,8 @@ public class EntityRabbit extends EntityAnimal {
 
 	class AIRaidFarm extends EntityAIMoveToBlock {
 
-		private boolean field_179498_d;
-		private boolean field_179499_e = false;
+		private boolean wantsToRaid;
+		private boolean canRaid = false;
 
 		public AIRaidFarm() {
 			super(EntityRabbit.this, 0.699999988079071D, 16);
@@ -490,8 +486,8 @@ public class EntityRabbit extends EntityAnimal {
 				if (!worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing"))
 					return false;
 
-				field_179499_e = false;
-				field_179498_d = isCarrotEaten();
+				canRaid = false;
+				wantsToRaid = isCarrotEaten();
 			}
 
 			return super.shouldExecute();
@@ -499,7 +495,7 @@ public class EntityRabbit extends EntityAnimal {
 
 		@Override
 		public boolean continueExecuting() {
-			return field_179499_e && super.continueExecuting();
+			return canRaid && super.continueExecuting();
 		}
 
 		@Override
@@ -513,12 +509,12 @@ public class EntityRabbit extends EntityAnimal {
 				Block block = world.getBlock(blockpos.getX(), blockpos.getY(), blockpos.getZ());
 				int meta = world.getBlockMetadata(blockpos.getX(), blockpos.getY(), blockpos.getZ());
 
-				if (field_179499_e && block instanceof BlockCarrot && meta >= 7) {
-					world.func_147480_a(blockpos.getX(), blockpos.getY(), blockpos.getZ(), false);
+				if (canRaid && block instanceof BlockCarrot && meta >= 7) {
+					world.func_147480_a/*breakBlock*/(blockpos.getX(), blockpos.getY(), blockpos.getZ(), false);
 					carrotTicks = 100;
 				}
 
-				field_179499_e = false;
+				canRaid = false;
 				runDelay = 10;
 			}
 		}
@@ -529,8 +525,8 @@ public class EntityRabbit extends EntityAnimal {
 			Block block = world.getBlock(pos.getX(), pos.getY(), pos.getZ());
 			int meta = world.getBlockMetadata(pos.getX(), pos.getY(), pos.getZ());
 
-			if (block instanceof BlockCarrot && meta >= 7 && field_179498_d && !field_179499_e) {
-				field_179499_e = true;
+			if (block instanceof BlockCarrot && meta >= 7 && wantsToRaid && !canRaid) {
+				canRaid = true;
 				return true;
 			}
 
@@ -538,6 +534,7 @@ public class EntityRabbit extends EntityAnimal {
 		}
 	}
 
+	@Override
 	public ItemStack getPickedResult(MovingObjectPosition target) {
 		return ModEntityList.getEggFromEntity(this);
 	}

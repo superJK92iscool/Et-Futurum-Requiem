@@ -9,6 +9,7 @@ public abstract class TileEntityCauldronColoredWater extends TileEntity {
 
 	public abstract int getWaterColor();
 
+	@Override
 	public boolean canUpdate() {
 		return false;
 	}
@@ -19,6 +20,6 @@ public abstract class TileEntityCauldronColoredWater extends TileEntity {
 
 	@Override
 	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
-		readFromNBT(pkt.func_148857_g());
+		readFromNBT(pkt.func_148857_g()); // getNbtCompound
 	}
 }

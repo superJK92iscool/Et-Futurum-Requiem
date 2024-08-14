@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.client.model;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.entities.EntityShulker;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
@@ -9,7 +7,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.MathHelper;
 
-@SideOnly(Side.CLIENT)
 public class ModelShulker extends ModelBase {
 
 	public final ModelRenderer base;
@@ -30,6 +27,7 @@ public class ModelShulker extends ModelBase {
 		this.head.setRotationPoint(0.0F, 12.0F, 0.0F);
 	}
 
+	@Override
 	public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float p_78086_2_, float p_78086_3_, float partialTickTime) {
 	}
 
@@ -38,6 +36,7 @@ public class ModelShulker extends ModelBase {
 	 * and legs, where par1 represents the time(so that arms and legs swing back and forth) and par2 represents how
 	 * "far" arms and legs can swing at most.
 	 */
+	@Override
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
 		EntityShulker entityshulker = (EntityShulker) entityIn;
 		float f = ageInTicks - (float) entityshulker.ticksExisted;
@@ -64,6 +63,7 @@ public class ModelShulker extends ModelBase {
 	/**
 	 * Sets the models various rotation angles then renders the model.
 	 */
+	@Override
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 		this.base.render(scale);

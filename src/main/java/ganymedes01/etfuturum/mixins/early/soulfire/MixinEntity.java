@@ -3,7 +3,6 @@ package ganymedes01.etfuturum.mixins.early.soulfire;
 import ganymedes01.etfuturum.ducks.ISoulFireInfo;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
@@ -18,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 public abstract class MixinEntity {
 
 	@Shadow
-	public abstract boolean attackEntityFrom(DamageSource p_70097_1_, float p_70097_2_);
+	public abstract boolean attackEntityFrom(DamageSource source, float amount);
 
 	@Shadow
 	public World worldObj;
@@ -28,8 +27,8 @@ public abstract class MixinEntity {
 	public AxisAlignedBB boundingBox;
 
 	@ModifyArg(method = "dealFireDamage", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;attackEntityFrom(Lnet/minecraft/util/DamageSource;F)Z"), index = 1)
-	private float dealSoulFireDamage(float p_70097_2_) {
-		float damage = p_70097_2_;
+	private float dealSoulFireDamage(float amount) {
+		float damage = amount;
 		if (isInSoulFire(boundingBox.contract(0.001D, 0.001D, 0.001D))) {
 			damage *= 2;
 		}

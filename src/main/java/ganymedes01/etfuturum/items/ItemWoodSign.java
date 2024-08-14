@@ -1,12 +1,10 @@
 package ganymedes01.etfuturum.items;
 
 import ganymedes01.etfuturum.EtFuturum;
-import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.blocks.BlockWoodSign;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.network.WoodSignOpenMessage;
-import ganymedes01.etfuturum.recipes.ModRecipes;
 import ganymedes01.etfuturum.tileentities.TileEntityWoodSign;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
@@ -77,7 +75,7 @@ public class ItemWoodSign extends Item {
 
 				//Disable the sound for continuity, so it doesn't play when the event-based player would not
 				if (ConfigSounds.fixSilentPlacing)
-					world.playSoundEffect((float) x + 0.5F, (float) y + 0.5F, (float) z + 0.5F, block.stepSound.func_150496_b(), (block.stepSound.getVolume() + 1.0F) / 2.0F, block.stepSound.getPitch() * 0.8F);
+					world.playSoundEffect((float) x + 0.5F, (float) y + 0.5F, (float) z + 0.5F, block.stepSound.func_150496_b()/*getPlaceSound*/, (block.stepSound.getVolume() + 1.0F) / 2.0F, block.stepSound.getPitch() * 0.8F);
 
 				--itemStack.stackSize;
 				TileEntityWoodSign tileentitysign = (TileEntityWoodSign) world.getTileEntity(x, y, z);
@@ -96,7 +94,7 @@ public class ItemWoodSign extends Item {
 	}
 
 	@Override
-	public String getUnlocalizedName(ItemStack p_77667_1_) {
+	public String getUnlocalizedName(ItemStack stack) {
 		return getUnlocalizedName();
 	}
 

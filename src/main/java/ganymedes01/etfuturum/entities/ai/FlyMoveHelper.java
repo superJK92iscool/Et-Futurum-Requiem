@@ -23,6 +23,7 @@ public class FlyMoveHelper extends ExtendedEntityMoveHelper {
 		this.staysFloatingOnWait = staysFloatingOnWait;
 	}
 
+	@Override
 	public void onUpdateMoveHelper() {
 		if (action == ExtendedEntityMoveHelper.Action.MOVE_TO) {
 			action = ExtendedEntityMoveHelper.Action.WAIT;

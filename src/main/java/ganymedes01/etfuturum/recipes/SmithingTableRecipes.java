@@ -163,6 +163,7 @@ public class SmithingTableRecipes {
 				} else if (target instanceof ArrayList) {
 					boolean matched = false;
 
+					@SuppressWarnings("unchecked")
 					Iterator<ItemStack> itr = ((ArrayList<ItemStack>) target).iterator();
 					while (itr.hasNext() && !matched) {
 						matched = OreDictionary.itemMatches(itr.next(), slot, false);

@@ -24,10 +24,7 @@ import java.util.List;
 
 public class BlockAzalea extends BlockBush implements ISubBlocksBlock {
 
-
-	@SideOnly(Side.CLIENT)
 	public IIcon[] sideIcons;
-	@SideOnly(Side.CLIENT)
 	public IIcon[] topIcons;
 	public int meta;
 
@@ -59,11 +56,12 @@ public class BlockAzalea extends BlockBush implements ISubBlocksBlock {
 		return world.getBlock(x, y - 1, z).getMaterial() == Material.clay || super.canBlockStay(world, x, y, z);
 	}
 
-	public void addCollisionBoxesToList(World p_149743_1_, int p_149743_2_, int p_149743_3_, int p_149743_4_, AxisAlignedBB p_149743_5_, List p_149743_6_, Entity p_149743_7_) {
+	@Override
+	public void addCollisionBoxesToList(World worldIn, int x, int y, int z, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collider) {
 		setBlockBounds(0.0F, 0.5F, 0.0F, 1.0F, 1.0F, 1.0F);
-		super.addCollisionBoxesToList(p_149743_1_, p_149743_2_, p_149743_3_, p_149743_4_, p_149743_5_, p_149743_6_, p_149743_7_);
+		super.addCollisionBoxesToList(worldIn, x, y, z, mask, list, collider);
 		setBlockBounds(0.4375F, 0.5F, 0.4375F, 0.5625F, 1.0F, 0.5625F);
-		super.addCollisionBoxesToList(p_149743_1_, p_149743_2_, p_149743_3_, p_149743_4_, p_149743_5_, p_149743_6_, p_149743_7_);
+		super.addCollisionBoxesToList(worldIn, x, y, z, mask, list, collider);
 
 		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
 	}
@@ -79,7 +77,7 @@ public class BlockAzalea extends BlockBush implements ISubBlocksBlock {
 	}
 
 	@Override
-	public void getSubBlocks(Item item, CreativeTabs tab, List list) {
+	public void getSubBlocks(Item item, CreativeTabs tab, List<ItemStack> list) {
 		for (int i = 0; i < getTypes().length; i++) {
 			list.add(new ItemStack(item, 1, i));
 		}
@@ -96,20 +94,21 @@ public class BlockAzalea extends BlockBush implements ISubBlocksBlock {
 	}
 
 	@Override
-	public boolean shouldSideBeRendered(IBlockAccess p_149646_1_, int p_149646_2_, int p_149646_3_, int p_149646_4_, int p_149646_5_) {
-		return p_149646_5_ != 0 && super.shouldSideBeRendered(p_149646_1_, p_149646_2_, p_149646_3_, p_149646_4_, p_149646_5_);
+	public boolean shouldSideBeRendered(IBlockAccess worldIn, int x, int y, int z, int side) {
+		return side != 0 && super.shouldSideBeRendered(worldIn, x, y, z, side);
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister p_149651_1_) {
-		this.blockIcon = p_149651_1_.registerIcon(this.getTextureName() + "_plant");
+	public void registerBlockIcons(IIconRegister reg) {
+		this.blockIcon = reg.registerIcon(this.getTextureName() + "_plant");
 
 		sideIcons = new IIcon[2];
 		topIcons = new IIcon[2];
-		sideIcons[0] = p_149651_1_.registerIcon(this.getTextureName() + "_side");
-		sideIcons[1] = p_149651_1_.registerIcon("flowering_" + this.getTextureName() + "_side");
-		topIcons[0] = p_149651_1_.registerIcon(this.getTextureName() + "_top");
-		topIcons[1] = p_149651_1_.registerIcon("flowering_" + this.getTextureName() + "_top");
+		sideIcons[0] = reg.registerIcon(this.getTextureName() + "_side");
+		sideIcons[1] = reg.registerIcon("flowering_" + this.getTextureName() + "_side");
+		topIcons[0] = reg.registerIcon(this.getTextureName() + "_top");
+		topIcons[1] = reg.registerIcon("flowering_" + this.getTextureName() + "_top");
 	}
 
 	@Override
@@ -144,7 +143,7 @@ public class BlockAzalea extends BlockBush implements ISubBlocksBlock {
 	}
 
 	@Override
-	public MapColor getMapColor(int p_149728_1_) {
+	public MapColor getMapColor(int meta) {
 		return MapColor.grassColor;
 	}
 }

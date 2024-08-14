@@ -29,7 +29,6 @@ public class BlockSmoothSandstoneSlab extends BaseSlab {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta) {
 		return this.meta == 1 ? ModBlocks.SMOOTH_RED_SANDSTONE.get().getIcon(side, 2) : ModBlocks.SMOOTH_SANDSTONE.get().getIcon(side, 2);
 	}

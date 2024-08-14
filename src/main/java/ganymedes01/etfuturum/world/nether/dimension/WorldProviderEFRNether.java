@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.world.nether.dimension;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.WorldProviderHell;
@@ -31,7 +29,7 @@ public class WorldProviderEFRNether extends WorldProviderHell {
 		System.arraycopy(this.lightBrightnessTable, 0, new float[16], 0, 16);
 	}
 
-	@SideOnly(Side.CLIENT)
+	@Override
 	public boolean getWorldHasVoidParticles() {
 		return false;
 	}

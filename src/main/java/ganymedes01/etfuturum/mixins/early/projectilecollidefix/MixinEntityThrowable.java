@@ -10,12 +10,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(EntityThrowable.class)
 public abstract class MixinEntityThrowable extends Entity {
-	public MixinEntityThrowable(World p_i1582_1_) {
-		super(p_i1582_1_);
+	public MixinEntityThrowable(World worldIn) {
+		super(worldIn);
 	}
 
 	@Inject(method = "onUpdate", at = @At(value = "TAIL"))
 	public void checkCollide(CallbackInfo ci) {
-		func_145775_I();
+		func_145775_I(); // doBlockCollisions
 	}
 }

@@ -56,6 +56,7 @@ public class BeePlantRegistry {
 		return BEE_CROPS.contains(block);
 	}
 
+	@SuppressWarnings("unchecked")
 	public static void init() {
 		if (ConfigEntities.enableBees) {
 			for (Block block : (Iterable<Block>) Block.blockRegistry) {

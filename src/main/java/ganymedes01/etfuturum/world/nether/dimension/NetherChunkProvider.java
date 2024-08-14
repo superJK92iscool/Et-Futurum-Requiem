@@ -19,6 +19,7 @@ import net.minecraft.util.IProgressUpdate;
 import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.BiomeGenBase.SpawnListEntry;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.MapGenBase;
@@ -45,7 +46,6 @@ public class NetherChunkProvider implements IChunkProvider {
 	private final NoiseGeneratorOctaves netherNoiseGen2;
 	private final NoiseGeneratorOctaves netherNoiseGen3;
 	private final NoiseGeneratorOctaves slowsandGravelNoiseGen;
-	private final NoiseGeneratorOctaves netherrackNoiseGen;
 	private final NoiseGeneratorOctaves netherrackExculsivityNoiseGen;
 	public NoiseGeneratorOctaves netherNoiseGen6;
 	public NoiseGeneratorOctaves netherNoiseGen7;
@@ -89,7 +89,6 @@ public class NetherChunkProvider implements IChunkProvider {
 		netherNoiseGen2 = new NoiseGeneratorOctaves(hellRNG, 16);
 		netherNoiseGen3 = new NoiseGeneratorOctaves(hellRNG, 8);
 		slowsandGravelNoiseGen = new NoiseGeneratorOctaves(hellRNG, 4);
-		netherrackNoiseGen = new NoiseGeneratorOctaves(hellRNG, 4);
 		netherrackExculsivityNoiseGen = new NoiseGeneratorOctaves(hellRNG, 4);
 		netherNoiseGen6 = new NoiseGeneratorOctaves(hellRNG, 10);
 		netherNoiseGen7 = new NoiseGeneratorOctaves(hellRNG, 16);
@@ -190,6 +189,7 @@ public class NetherChunkProvider implements IChunkProvider {
 	 * name based on ChunkProviderGenerate
 	 */
 	public void replaceBlocksForBiome(int x, int z, Block[] blocks, byte[] metas, BiomeGenBase[] par4ArrayOfBiomeGenBase) {
+		@SuppressWarnings("deprecation")
 		ChunkProviderEvent.ReplaceBiomeBlocks event = new ChunkProviderEvent.ReplaceBiomeBlocks(this, x, z, blocks, par4ArrayOfBiomeGenBase);
 		MinecraftForge.EVENT_BUS.post(event);
 		if (event.getResult() == Event.Result.DENY) {
@@ -232,8 +232,8 @@ public class NetherChunkProvider implements IChunkProvider {
 					topBlock = biomegenbase.topBlock;
 					fillerBlock = biomegenbase.fillerBlock;
 				}
-				byte topMeta = (byte) biomegenbase.field_150604_aj;
-				byte fillerMeta = (byte) biomegenbase.field_76754_C;
+				byte topMeta = (byte) biomegenbase.field_150604_aj; // topBlockMetadata
+				byte fillerMeta = (byte) biomegenbase.field_76754_C; // fillerBlockMetadata
 
 				if (biomegenbase == BiomeGenBase.hell && ModsList.NATURA.isLoaded()) {
 					fillerBlock = ExternalContent.Blocks.NATURA_TAINTED_SOIL.get();
@@ -251,17 +251,17 @@ public class NetherChunkProvider implements IChunkProvider {
 
 							if (blocks[l1 + 1] == Blocks.netherrack) {
 								blocks[l1 + 1] = soulSoilFlag ? ModBlocks.SOUL_SOIL.get() : biomegenbase.fillerBlock;
-								metas[l1 + 1] = (byte) biomegenbase.field_76754_C;
+								metas[l1 + 1] = (byte) biomegenbase.field_76754_C; // fillerBlockMetadata
 							}
 
 							if (blocks[l1 + 2] == Blocks.netherrack) {
 								blocks[l1 + 2] = soulSoilFlag ? ModBlocks.SOUL_SOIL.get() : biomegenbase.fillerBlock;
-								metas[l1 + 2] = (byte) biomegenbase.field_76754_C;
+								metas[l1 + 2] = (byte) biomegenbase.field_76754_C; // fillerBlockMetadata
 							}
 
 							if (blocks[l1 + 3] == Blocks.netherrack) {
 								blocks[l1 + 3] = soulSoilFlag ? ModBlocks.SOUL_SOIL.get() : biomegenbase.fillerBlock;
-								metas[l1 + 3] = (byte) biomegenbase.field_76754_C;
+								metas[l1 + 3] = (byte) biomegenbase.field_76754_C; // fillerBlockMetadata
 							}
 						}
 
@@ -279,13 +279,13 @@ public class NetherChunkProvider implements IChunkProvider {
 										topBlock = biomegenbase.topBlock;
 										fillerBlock = biomegenbase.fillerBlock;
 									}
-									topMeta = (byte) biomegenbase.field_150604_aj;
+									topMeta = (byte) biomegenbase.field_150604_aj; // topBlockMetadata
 
 									if (biomegenbase == BiomeGenBase.hell && ModsList.NATURA.isLoaded()) {
 										fillerBlock = ExternalContent.Blocks.NATURA_TAINTED_SOIL.get();
 										fillerMeta = 0;
 									} else {
-										fillerMeta = (byte) biomegenbase.field_76754_C;
+										fillerMeta = (byte) biomegenbase.field_76754_C; // fillerBlockMetadata
 									}
 
 									if (gravelFlag) {
@@ -364,11 +364,11 @@ public class NetherChunkProvider implements IChunkProvider {
 				par2 * 16, 16, 16);
 		this.generateNetherTerrain(par1, par2, blocks, abyte, biomesForGeneration);
 		this.replaceBlocksForBiome(par1, par2, blocks, abyte, biomesForGeneration);
-		netherCaveGenerator.func_151539_a(this, worldObj, par1, par2, blocks);
+		netherCaveGenerator.func_151539_a(this, worldObj, par1, par2, blocks); // generate
 
-		netherRavineGenerator.func_151539_a(this, worldObj, par1, par2, blocks); //TODO: Make this available for the vanilla Nether as a separate mixin
+		netherRavineGenerator.func_151539_a(this, worldObj, par1, par2, blocks); //generate TODO: Make this available for the vanilla Nether as a separate mixin
 
-		genNetherBridge.func_151539_a(this, worldObj, par1, par2, blocks);
+		genNetherBridge.func_151539_a(this, worldObj, par1, par2, blocks); // generate
 		Chunk chunk = new Chunk(worldObj, blocks, abyte, par1, par2);
 		BiomeGenBase[] abiomegenbase = worldObj.getWorldChunkManager().loadBlockGeneratorData(null,
 				par1 * 16, par2 * 16, 16, 16);
@@ -434,7 +434,6 @@ public class NetherChunkProvider implements IChunkProvider {
 					d3 = 1.0D;
 				}
 
-				double d4 = 0.0D;
 				double d5 = noiseData5[l1] / 8000.0D;
 
 				if (d5 < 0.0D) {
@@ -678,7 +677,7 @@ public class NetherChunkProvider implements IChunkProvider {
 	 * location.
 	 */
 	@Override
-	public List getPossibleCreatures(EnumCreatureType par1EnumCreatureType, int par2, int par3, int par4) {
+	public List<SpawnListEntry> getPossibleCreatures(EnumCreatureType par1EnumCreatureType, int par2, int par3, int par4) {
 		if (par1EnumCreatureType == EnumCreatureType.monster && genNetherBridge.hasStructureAt(par2, par3, par4))
 			return genNetherBridge.getSpawnList();
 		BiomeGenBase biomegenbase = worldObj.getBiomeGenForCoords(par2, par4);
@@ -692,13 +691,16 @@ public class NetherChunkProvider implements IChunkProvider {
 
 	@Override
 	public void recreateStructures(int par1, int par2) {
-		genNetherBridge.func_151539_a(this, worldObj, par1, par2, null);
+		genNetherBridge.func_151539_a(this, worldObj, par1, par2, null); // generate
 	}
 
 	@Override
 	public void saveExtraData() {
 	}
 
+	/**
+	 * MCP name: {@code findClosestStructure}
+	 */
 	@Override
 	public ChunkPosition func_147416_a(World par1World, String par2Str, int par3, int par4, int par5) {
 		return null;

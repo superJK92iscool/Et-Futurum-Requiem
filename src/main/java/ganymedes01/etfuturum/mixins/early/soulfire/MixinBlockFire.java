@@ -35,7 +35,7 @@ public abstract class MixinBlockFire extends Block implements ISoulFireInfo {
 	}
 
 	@Inject(method = "updateTick", at = @At(value = "HEAD"), cancellable = true)
-	private void shouldSpread(World world, int x, int y, int z, Random p_149674_5_, CallbackInfo ci) {
+	private void shouldSpread(World world, int x, int y, int z, Random random, CallbackInfo ci) {
 		if (etfuturum$isVanillaFire() && isSoulFire(world, x, y, z)) { //Only want to do this to vanilla fire, not modded fire.
 			ci.cancel();
 		}

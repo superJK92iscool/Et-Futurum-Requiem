@@ -24,10 +24,10 @@ public class BasicMultiBlockSound extends MultiBlockSoundContainer {
 		
 		if (soundType == null) return null;
 
-        return switch (type) {
-            case WALK, HIT -> soundType.getStepResourcePath();
-            case PLACE -> soundType.func_150496_b();
-            default -> soundType.getBreakSound();
-        };
+		return switch (type) {
+			case WALK, HIT -> soundType.getStepResourcePath();
+			case PLACE -> soundType.func_150496_b(); // getPlaceSound
+			default -> soundType.getBreakSound();
+		};
 	}
 }

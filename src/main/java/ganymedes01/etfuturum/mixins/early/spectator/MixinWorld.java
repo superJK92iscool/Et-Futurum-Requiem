@@ -22,7 +22,7 @@ public class MixinWorld {
 	}
 
 	@Inject(method = "getClosestPlayer", at = @At("TAIL"), cancellable = true)
-	private void neverReturnSpectator(double p_72977_1_, double p_72977_3_, double p_72977_5_, double p_72977_7_, CallbackInfoReturnable<EntityPlayer> cir) {
+	private void neverReturnSpectator(double x, double y, double z, double distance, CallbackInfoReturnable<EntityPlayer> cir) {
 		if (cir.getReturnValue() != null && SpectatorMode.isSpectator(cir.getReturnValue())) {
 			cir.setReturnValue(null);
 		}

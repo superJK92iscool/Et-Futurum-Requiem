@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.world.nether.biome;
 
-import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.world.nether.biome.decorator.NetherBiomeDecorator;
 import ganymedes01.etfuturum.world.nether.biome.decorator.SoulSandValleyDecorator;
 import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.monster.EntityGhast;
@@ -22,6 +20,7 @@ public class BiomeSoulSandValley extends NetherBiomeBase {
 		this.spawnableMonsterList.add(new SpawnListEntry(EntityEnderman.class, 1, 1, 4));
 	}
 
+	@Override
 	public float getSpawningChance() {
 		return 0.075F;
 	}

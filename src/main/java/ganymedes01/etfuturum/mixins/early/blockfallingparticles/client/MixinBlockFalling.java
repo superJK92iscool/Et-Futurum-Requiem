@@ -18,15 +18,15 @@ import java.util.Random;
 @Mixin(BlockFalling.class)
 public abstract class MixinBlockFalling extends Block implements IFallingDustColor {
 
-	protected MixinBlockFalling(Material p_i45394_1_) {
-		super(p_i45394_1_);
+	protected MixinBlockFalling(Material materialIn) {
+		super(materialIn);
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void randomDisplayTick(World world, int x, int y, int z, Random rand) {
 		if (rand.nextInt(16) == 0) {
-			if (BlockFalling.func_149831_e(world, x, y - 1, z)) {
+			if (BlockFalling.func_149831_e(world, x, y - 1, z)) { // canFallBelow
 				double d0 = (float) x + rand.nextFloat();
 				double d1 = (double) y - .05D;
 				double d2 = (float) z + rand.nextFloat();

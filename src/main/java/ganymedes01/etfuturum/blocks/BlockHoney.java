@@ -21,9 +21,7 @@ import net.minecraft.world.World;
 
 public class BlockHoney extends BaseBlock {
 
-	@SideOnly(Side.CLIENT)
 	private IIcon bottomIcon;
-	@SideOnly(Side.CLIENT)
 	private IIcon topIcon;
 
 	public BlockHoney() {
@@ -127,16 +125,16 @@ public class BlockHoney extends BaseBlock {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta) {
 		return side == 0 ? bottomIcon : side == 1 ? topIcon : blockIcon;
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister p_149651_1_) {
-		this.blockIcon = p_149651_1_.registerIcon(getTextureName() + "_side");
-		this.topIcon = p_149651_1_.registerIcon(getTextureName() + "_top");
-		this.bottomIcon = p_149651_1_.registerIcon(getTextureName() + "_bottom");
+	public void registerBlockIcons(IIconRegister reg) {
+		this.blockIcon = reg.registerIcon(getTextureName() + "_side");
+		this.topIcon = reg.registerIcon(getTextureName() + "_top");
+		this.bottomIcon = reg.registerIcon(getTextureName() + "_bottom");
 	}
 
 	@Override
@@ -150,7 +148,6 @@ public class BlockHoney extends BaseBlock {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public int getRenderBlockPass() {
 		return 1;
 	}

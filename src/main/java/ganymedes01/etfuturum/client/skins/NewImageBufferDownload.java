@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.client.skins;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.ImageBufferDownload;
 
 import java.awt.*;
@@ -11,7 +9,6 @@ import java.awt.image.DataBufferInt;
 /**
  * Stolen from 1.8 and modified to work with 1.7.10
  */
-@SideOnly(Side.CLIENT)
 public class NewImageBufferDownload extends ImageBufferDownload {
 
 	private BufferedImage oldStyleImage;

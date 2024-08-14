@@ -1,14 +1,11 @@
 package ganymedes01.etfuturum.client.renderer.block;
 
 import com.gtnewhorizons.angelica.api.ThreadSafeISBRH;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.world.IBlockAccess;
 
-@SideOnly(Side.CLIENT)
 @ThreadSafeISBRH(perThread = false)
 public class BlockAzaleaRenderer extends BlockModelBase {
 
@@ -16,6 +13,7 @@ public class BlockAzaleaRenderer extends BlockModelBase {
 		super(modelID);
 	}
 
+	@Override
 	protected void renderInventoryModel(Block block, int meta, int modelId, RenderBlocks renderer, double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
 		final Tessellator tessellator = Tessellator.instance;
 		//We have to render each side manually because the bottom side gets rendered even though we set shouldSideBeRendered to false on side 0 (bottom)

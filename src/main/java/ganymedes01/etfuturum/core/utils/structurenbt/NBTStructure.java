@@ -45,6 +45,7 @@ public class NBTStructure {
 		this(loc, BlockStateConverter.DEFAULT_INSTANCE);
 	}
 
+	@SuppressWarnings("unchecked")
 	public NBTStructure(String loc, BlockStateConverter converter) {
 		this.converter = converter;
 		try {
@@ -406,11 +407,12 @@ public class NBTStructure {
 		return getProperties(getPaletteEntryFromIndex(paletteIndex, entryIndex));
 	}
 
+	@SuppressWarnings("unchecked")
 	public static Map<String, String> getProperties(NBTTagCompound compound) {
 		Map<String, String> map = new HashMap<>();
 		for (Map.Entry<String, NBTBase> props : (Set<Map.Entry<String, NBTBase>>) compound.getCompoundTag("Properties").tagMap.entrySet()) {
 			if (props.getValue().getId() == 8) {
-				map.put(props.getKey(), ((NBTTagString) props.getValue()).func_150285_a_());
+				map.put(props.getKey(), ((NBTTagString) props.getValue()).func_150285_a_()); // getString
 			}
 		}
 		return map;
@@ -446,7 +448,7 @@ public class NBTStructure {
 	protected static int getIntFromTagList(NBTTagList list, int index) {
 		if (index >= 0 && index < list.tagCount()) {
 			NBTBase nbtbase = (NBTBase) list.tagList.get(index);
-			return nbtbase.getId() == 3 ? ((NBTTagInt) nbtbase).func_150287_d() : 0; //Ignore error on this line, fake IntelliJ error
+			return nbtbase.getId() == 3 ? ((NBTTagInt) nbtbase).func_150287_d()/*getInt*/ : 0; //Ignore error on this line, fake IntelliJ error
 		} else {
 			return 0;
 		}

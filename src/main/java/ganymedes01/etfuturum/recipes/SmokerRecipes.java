@@ -65,7 +65,7 @@ public class SmokerRecipes {
 
 		if (!experienceListCache.containsKey(result)) {
 			if (!experienceList.containsKey(result)) {
-				float exp = FurnaceRecipes.smelting().func_151398_b(result);
+				float exp = FurnaceRecipes.smelting().func_151398_b(result); // getSmeltingExperience
 				if (!reloadingCT) experienceListCache.put(result, exp);
 				return exp;
 			}
@@ -94,7 +94,7 @@ public class SmokerRecipes {
 			// That was why DragonAPI somehow fixed a Bug in here, because Reika removes nulls from the List!
 			if (input != null && result != null) {
 				//If the result is a food, allow smelting.
-				return result.getItem() instanceof ItemFood && ((ItemFood) result.getItem()).func_150905_g(result) > 0;
+				return result.getItem() instanceof ItemFood && ((ItemFood) result.getItem()).func_150905_g/*getHealAmount*/(result) > 0;
 			}
 		}
 		return false;

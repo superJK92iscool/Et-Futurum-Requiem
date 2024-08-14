@@ -41,11 +41,8 @@ public class BlockBarrel extends BlockContainer {
 		this.setCreativeTab(EtFuturum.creativeTabBlocks);
 	}
 
-	@SideOnly(Side.CLIENT)
 	private IIcon innerTopIcon;
-	@SideOnly(Side.CLIENT)
 	private IIcon bottomIcon;
-	@SideOnly(Side.CLIENT)
 	private IIcon topIcon;
 
 	@Override
@@ -54,16 +51,15 @@ public class BlockBarrel extends BlockContainer {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(int p_149691_1_, int p_149691_2_) {
-		int k = BlockPistonBase.getPistonOrientation(p_149691_2_);
-		return (k) > 5 ? p_149691_2_ > 7 ? this.innerTopIcon : this.topIcon : (p_149691_1_ == k ? (p_149691_2_ > 7 ? this.innerTopIcon : this.topIcon) : (p_149691_1_ == Facing.oppositeSide[k] ? this.bottomIcon : this.blockIcon));
+	public IIcon getIcon(int side, int meta) {
+		int k = BlockPistonBase.getPistonOrientation(meta);
+		return (k) > 5 ? meta > 7 ? this.innerTopIcon : this.topIcon : (side == k ? (meta > 7 ? this.innerTopIcon : this.topIcon) : (side == Facing.oppositeSide[k] ? this.bottomIcon : this.blockIcon));
 	}
 
 	@Override
-	public void onBlockPlacedBy(World p_149689_1_, int p_149689_2_, int p_149689_3_, int p_149689_4_, EntityLivingBase p_149689_5_, ItemStack p_149689_6_) {
-		int l = BlockPistonBase.determineOrientation(p_149689_1_, p_149689_2_, p_149689_3_, p_149689_4_, p_149689_5_);
-		p_149689_1_.setBlockMetadataWithNotify(p_149689_2_, p_149689_3_, p_149689_4_, l, 2);
+	public void onBlockPlacedBy(World worldIn, int x, int y, int z, EntityLivingBase placer, ItemStack itemIn) {
+		int l = BlockPistonBase.determineOrientation(worldIn, x, y, z, placer);
+		worldIn.setBlockMetadataWithNotify(x, y, z, l, 2);
 	}
 
 	@Override
@@ -76,7 +72,7 @@ public class BlockBarrel extends BlockContainer {
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_) {
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float subX, float subY, float subZ) {
 		if (world.isRemote) {
 			return true;
 		}
@@ -84,7 +80,7 @@ public class BlockBarrel extends BlockContainer {
 		return true;
 	}
 
-	public IInventory func_149951_m(World p_149951_1_, int p_149951_2_, int p_149951_3_, int p_149951_4_) {
+	public IInventory getInventory(World p_149951_1_, int p_149951_2_, int p_149951_3_, int p_149951_4_) {
 		Object object = p_149951_1_.getTileEntity(p_149951_2_, p_149951_3_, p_149951_4_);
 
 		if (object == null)
@@ -93,7 +89,7 @@ public class BlockBarrel extends BlockContainer {
 		return (IInventory) object;
 	}
 
-	private final Random field_149955_b = new Random();
+	private final Random rand = new Random();
 
 	@Override
 	public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
@@ -104,12 +100,12 @@ public class BlockBarrel extends BlockContainer {
 				ItemStack itemstack = tileentitychest.getStackInSlot(i1);
 
 				if (itemstack != null) {
-					float f = this.field_149955_b.nextFloat() * 0.8F + 0.1F;
-					float f1 = this.field_149955_b.nextFloat() * 0.8F + 0.1F;
+					float f = this.rand.nextFloat() * 0.8F + 0.1F;
+					float f1 = this.rand.nextFloat() * 0.8F + 0.1F;
 					EntityItem entityitem;
 
-					for (float f2 = this.field_149955_b.nextFloat() * 0.8F + 0.1F; itemstack.stackSize > 0; world.spawnEntityInWorld(entityitem)) {
-						int j1 = this.field_149955_b.nextInt(21) + 10;
+					for (float f2 = this.rand.nextFloat() * 0.8F + 0.1F; itemstack.stackSize > 0; world.spawnEntityInWorld(entityitem)) {
+						int j1 = this.rand.nextInt(21) + 10;
 
 						if (j1 > itemstack.stackSize) {
 							j1 = itemstack.stackSize;
@@ -118,9 +114,9 @@ public class BlockBarrel extends BlockContainer {
 						itemstack.stackSize -= j1;
 						entityitem = new EntityItem(world, x + f, y + f1, z + f2, new ItemStack(itemstack.getItem(), j1, itemstack.getItemDamage()));
 						float f3 = 0.05F;
-						entityitem.motionX = (float) this.field_149955_b.nextGaussian() * f3;
-						entityitem.motionY = (float) this.field_149955_b.nextGaussian() * f3 + 0.2F;
-						entityitem.motionZ = (float) this.field_149955_b.nextGaussian() * f3;
+						entityitem.motionX = (float) this.rand.nextGaussian() * f3;
+						entityitem.motionY = (float) this.rand.nextGaussian() * f3 + 0.2F;
+						entityitem.motionZ = (float) this.rand.nextGaussian() * f3;
 
 						if (itemstack.hasTagCompound()) {
 							entityitem.getEntityItem().setTagCompound((NBTTagCompound) itemstack.getTagCompound().copy());
@@ -129,26 +125,28 @@ public class BlockBarrel extends BlockContainer {
 				}
 			}
 
-			world.func_147453_f(x, y, z, block);
+			world.func_147453_f(x, y, z, block); // updateNeighborsAboutBlockChange
 		}
 
 		super.breakBlock(world, x, y, z, block, meta);
 
 	}
 
+	@Override
 	public boolean hasComparatorInputOverride() {
 		return true;
 	}
 
-	public int getComparatorInputOverride(World p_149736_1_, int p_149736_2_, int p_149736_3_, int p_149736_4_, int p_149736_5_) {
-		return Container.calcRedstoneFromInventory(this.func_149951_m(p_149736_1_, p_149736_2_, p_149736_3_, p_149736_4_));
+	@Override
+	public int getComparatorInputOverride(World worldIn, int x, int y, int z, int side) {
+		return Container.calcRedstoneFromInventory(this.getInventory(worldIn, x, y, z));
 	}
 
 	/**
 	 * Returns a new instance of a block's tile entity class. Called on placing the block.
 	 */
 	@Override
-	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
+	public TileEntity createNewTileEntity(World worldIn, int meta) {
 		return new TileEntityBarrel();
 	}
 

@@ -71,9 +71,9 @@ public class GuiEditWoodSign extends GuiScreen {
 	}
 
 	@Override
-	protected void actionPerformed(GuiButton p_146284_1_) {
-		if (p_146284_1_.enabled) {
-			if (p_146284_1_.id == 0) {
+	protected void actionPerformed(GuiButton button) {
+		if (button.enabled) {
+			if (button.id == 0) {
 				this.tileSign.markDirty();
 				this.mc.displayGuiScreen(null);
 			}
@@ -84,24 +84,24 @@ public class GuiEditWoodSign extends GuiScreen {
 	 * Fired when a key is typed. This is the equivalent of KeyListener.keyTyped(KeyEvent e).
 	 */
 	@Override
-	protected void keyTyped(char p_73869_1_, int p_73869_2_) {
-		if (p_73869_2_ == 200) {
+	protected void keyTyped(char typedChar, int keyCode) {
+		if (keyCode == 200) {
 			this.editLine = this.editLine - 1 & 3;
 		}
 
-		if (p_73869_2_ == 208 || p_73869_2_ == 28 || p_73869_2_ == 156) {
+		if (keyCode == 208 || keyCode == 28 || keyCode == 156) {
 			this.editLine = this.editLine + 1 & 3;
 		}
 
-		if (p_73869_2_ == 14 && this.tileSign.signText[this.editLine].length() > 0) {
+		if (keyCode == 14 && this.tileSign.signText[this.editLine].length() > 0) {
 			this.tileSign.signText[this.editLine] = this.tileSign.signText[this.editLine].substring(0, this.tileSign.signText[this.editLine].length() - 1);
 		}
 
-		if (ChatAllowedCharacters.isAllowedCharacter(p_73869_1_) && this.tileSign.signText[this.editLine].length() < 15) {
-			this.tileSign.signText[this.editLine] = this.tileSign.signText[this.editLine] + p_73869_1_;
+		if (ChatAllowedCharacters.isAllowedCharacter(typedChar) && this.tileSign.signText[this.editLine].length() < 15) {
+			this.tileSign.signText[this.editLine] = this.tileSign.signText[this.editLine] + typedChar;
 		}
 
-		if (p_73869_2_ == 1) {
+		if (keyCode == 1) {
 			this.actionPerformed(this.doneBtn);
 		}
 	}
@@ -110,7 +110,7 @@ public class GuiEditWoodSign extends GuiScreen {
 	 * Draws the screen and all the components in it.
 	 */
 	@Override
-	public void drawScreen(int p_73863_1_, int p_73863_2_, float p_73863_3_) {
+	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		if (!(tileSign.getBlockType() instanceof BlockWoodSign))
 			return;
 		this.drawDefaultBackground();
@@ -153,6 +153,6 @@ public class GuiEditWoodSign extends GuiScreen {
 		TileEntityRendererDispatcher.instance.renderTileEntityAt(this.tileSign, -0.5D, -0.75D, -0.5D, 0.0F);
 		this.tileSign.lineBeingEdited = -1;
 		GL11.glPopMatrix();
-		super.drawScreen(p_73863_1_, p_73863_2_, p_73863_3_);
+		super.drawScreen(mouseX, mouseY, partialTicks);
 	}
 }

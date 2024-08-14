@@ -81,22 +81,30 @@ public class EntityZombieVillager extends EntityZombie {
 		return super.onSpawnWithEgg(data);
 	}
 
+	@Override
 	protected String getLivingSound() {
 		return Reference.MCAssetVer + ":entity.zombie_villager.ambient";
 	}
 
+	@Override
 	protected String getHurtSound() {
 		return Reference.MCAssetVer + ":entity.zombie_villager.hurt";
 	}
 
+	@Override
 	protected String getDeathSound() {
 		return Reference.MCAssetVer + ":entity.zombie_villager.death";
 	}
 
-	protected void func_145780_a(int p_145780_1_, int p_145780_2_, int p_145780_3_, Block p_145780_4_) {
+	/**
+	 * MCP name: {@code playStepSound}
+	 */
+	@Override
+	protected void func_145780_a(int x, int y, int z, Block blockIn) {
 		this.playSound(Reference.MCAssetVer + ":entity.zombie_villager.step", 0.15F, 1.0F);
 	}
 
+	@Override
 	public ItemStack getPickedResult(MovingObjectPosition target) {
 		return ModEntityList.getEggFromEntity(this);
 	}

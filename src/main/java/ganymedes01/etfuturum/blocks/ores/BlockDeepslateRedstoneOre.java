@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.blocks.ores;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.core.utils.Utils;
 import net.minecraft.entity.Entity;
@@ -31,29 +29,29 @@ public class BlockDeepslateRedstoneOre extends BlockDeepslateOre {
 	 * Called when a player hits the block. Args: world, x, y, z, player
 	 */
 	@Override
-	public void onBlockClicked(World p_149699_1_, int p_149699_2_, int p_149699_3_, int p_149699_4_, EntityPlayer p_149699_5_) {
-		this.func_150185_e(p_149699_1_, p_149699_2_, p_149699_3_, p_149699_4_);
+	public void onBlockClicked(World worldIn, int x, int y, int z, EntityPlayer player) {
+		this.makeLit(worldIn, x, y, z);
 	}
 
 	/**
 	 * Called whenever an entity is walking on top of this block. Args: world, x, y, z, entity
 	 */
 	@Override
-	public void onEntityWalking(World p_149724_1_, int p_149724_2_, int p_149724_3_, int p_149724_4_, Entity p_149724_5_) {
-		this.func_150185_e(p_149724_1_, p_149724_2_, p_149724_3_, p_149724_4_);
+	public void onEntityWalking(World worldIn, int x, int y, int z, Entity entityIn) {
+		this.makeLit(worldIn, x, y, z);
 	}
 
 	/**
 	 * Called upon block activation (right click on the block.)
 	 */
 	@Override
-	public boolean onBlockActivated(World p_149727_1_, int p_149727_2_, int p_149727_3_, int p_149727_4_, EntityPlayer p_149727_5_, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_) {
-		this.func_150185_e(p_149727_1_, p_149727_2_, p_149727_3_, p_149727_4_);
+	public boolean onBlockActivated(World worldIn, int x, int y, int z, EntityPlayer player, int side, float subX, float subY, float subZ) {
+		this.makeLit(worldIn, x, y, z);
 		return false;
 	}
 
-	private void func_150185_e(World p_150185_1_, int p_150185_2_, int p_150185_3_, int p_150185_4_) {
-		this.func_150186_m(p_150185_1_, p_150185_2_, p_150185_3_, p_150185_4_);
+	private void makeLit(World p_150185_1_, int p_150185_2_, int p_150185_3_, int p_150185_4_) {
+		this.spawnParticles(p_150185_1_, p_150185_2_, p_150185_3_, p_150185_4_);
 
 		if (this == ModBlocks.DEEPSLATE_REDSTONE_ORE.get()) {
 			p_150185_1_.setBlock(p_150185_2_, p_150185_3_, p_150185_4_, ModBlocks.DEEPSLATE_LIT_REDSTONE_ORE.get());
@@ -64,13 +62,13 @@ public class BlockDeepslateRedstoneOre extends BlockDeepslateOre {
 	 * Ticks the block if it's been scheduled
 	 */
 	@Override
-	public void updateTick(World p_149674_1_, int p_149674_2_, int p_149674_3_, int p_149674_4_, Random p_149674_5_) {
+	public void updateTick(World worldIn, int x, int y, int z, Random random) {
 		if (this == ModBlocks.DEEPSLATE_LIT_REDSTONE_ORE.get()) {
-			p_149674_1_.setBlock(p_149674_2_, p_149674_3_, p_149674_4_, ModBlocks.DEEPSLATE_REDSTONE_ORE.get());
+			worldIn.setBlock(x, y, z, ModBlocks.DEEPSLATE_REDSTONE_ORE.get());
 		}
 	}
 
-	private void func_150186_m(World p_150186_1_, int p_150186_2_, int p_150186_3_, int p_150186_4_) {
+	private void spawnParticles(World p_150186_1_, int p_150186_2_, int p_150186_3_, int p_150186_4_) {
 		Random random = p_150186_1_.rand;
 		double d0 = 0.0625D;
 
@@ -110,13 +108,12 @@ public class BlockDeepslateRedstoneOre extends BlockDeepslateOre {
 	}
 
 	@Override
-	protected ItemStack createStackedBlock(int p_149644_1_) {
+	protected ItemStack createStackedBlock(int meta) {
 		return ModBlocks.DEEPSLATE_REDSTONE_ORE.newItemStack();
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public Item getItem(World p_149694_1_, int p_149694_2_, int p_149694_3_, int p_149694_4_) {
+	public Item getItem(World worldIn, int x, int y, int z) {
 		return Item.getItemFromBlock(ModBlocks.DEEPSLATE_REDSTONE_ORE.get());
 	}
 }

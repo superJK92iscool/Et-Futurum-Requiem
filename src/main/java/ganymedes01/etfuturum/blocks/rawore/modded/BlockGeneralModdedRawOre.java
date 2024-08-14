@@ -1,8 +1,6 @@
 package ganymedes01.etfuturum.blocks.rawore.modded;
 
 import com.google.common.collect.Lists;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.ModItems;
 import ganymedes01.etfuturum.blocks.BaseSubtypesBlock;
 import ganymedes01.etfuturum.core.utils.DummyWorld;
@@ -42,8 +40,7 @@ public class BlockGeneralModdedRawOre extends BaseSubtypesBlock implements IInit
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public void getSubBlocks(Item item, CreativeTabs tab, List list) {
+	public void getSubBlocks(Item item, CreativeTabs tab, List<ItemStack> list) {
 		ModItems.MODDED_RAW_ORE.get().getSubItems(item, tab, list);
 	}
 

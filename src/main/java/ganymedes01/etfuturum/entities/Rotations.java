@@ -16,9 +16,9 @@ public class Rotations {
 	}
 
 	public Rotations(NBTTagList nbt) {
-		x = nbt.func_150308_e(0);
-		y = nbt.func_150308_e(1);
-		z = nbt.func_150308_e(2);
+		x = nbt.func_150308_e(0); // getFloatAt
+		y = nbt.func_150308_e(1); // getFloatAt
+		z = nbt.func_150308_e(2); // getFloatAt
 	}
 
 	public NBTTagList writeToNBT() {

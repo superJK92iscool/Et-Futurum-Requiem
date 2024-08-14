@@ -11,6 +11,8 @@ public interface ISkinDownloadCallback extends SkinAvailableCallback {
 
 	/**
 	 * Gets called when a 1.8 style skin is downloaded
+	 * <p>
+	 * MCP name: {@code onSkinAvailable}
 	 */
 	@Override
 	void func_152121_a(Type skinType, ResourceLocation resourceLocation);

@@ -42,14 +42,14 @@ public class ContainerEnchantment extends Container {
 	 * 3-member array storing the enchantment levels of each slot
 	 */
 	public int[] enchantLevels;
-	public int[] field_178151_h;
+	public int[] enchantmentIds;
 
 	public final boolean noFuel;
 
 	public ContainerEnchantment(InventoryPlayer inventory, World world, int x, int y, int z) {
 		tableInventory = new InventoryBasic("Enchant", true, 2) {
 
-            @Override
+			@Override
 			public void markDirty() {
 				super.markDirty();
 				ContainerEnchantment.this.onCraftMatrixChanged(this);
@@ -60,13 +60,13 @@ public class ContainerEnchantment extends Container {
 		posZ = z;
 		rand = new Random();
 		enchantLevels = new int[3];
-		field_178151_h = new int[]{-1, -1, -1};
+		enchantmentIds = new int[]{-1, -1, -1};
 		this.world = world;
 		enchantmentSeed = getEnchantSeed(inventory.player);
 		noFuel = EnchantingFuelRegistry.getFuels().isEmpty();
 		addSlotToContainer(new Slot(tableInventory, 0, noFuel ? 25 : 15, 47) {
 
-            @Override
+			@Override
 			public int getSlotStackLimit() {
 				return 1;
 			}
@@ -118,9 +118,9 @@ public class ContainerEnchantment extends Container {
 		p_75132_1_.sendProgressBarUpdate(this, 1, enchantLevels[1]);
 		p_75132_1_.sendProgressBarUpdate(this, 2, enchantLevels[2]);
 		p_75132_1_.sendProgressBarUpdate(this, 3, enchantmentSeed & -16);
-		p_75132_1_.sendProgressBarUpdate(this, 4, field_178151_h[0]);
-		p_75132_1_.sendProgressBarUpdate(this, 5, field_178151_h[1]);
-		p_75132_1_.sendProgressBarUpdate(this, 6, field_178151_h[2]);
+		p_75132_1_.sendProgressBarUpdate(this, 4, enchantmentIds[0]);
+		p_75132_1_.sendProgressBarUpdate(this, 5, enchantmentIds[1]);
+		p_75132_1_.sendProgressBarUpdate(this, 6, enchantmentIds[2]);
 	}
 
 	/**
@@ -136,9 +136,9 @@ public class ContainerEnchantment extends Container {
 			var2.sendProgressBarUpdate(this, 1, enchantLevels[1]);
 			var2.sendProgressBarUpdate(this, 2, enchantLevels[2]);
 			var2.sendProgressBarUpdate(this, 3, enchantmentSeed & -16);
-			var2.sendProgressBarUpdate(this, 4, field_178151_h[0]);
-			var2.sendProgressBarUpdate(this, 5, field_178151_h[1]);
-			var2.sendProgressBarUpdate(this, 6, field_178151_h[2]);
+			var2.sendProgressBarUpdate(this, 4, enchantmentIds[0]);
+			var2.sendProgressBarUpdate(this, 5, enchantmentIds[1]);
+			var2.sendProgressBarUpdate(this, 6, enchantmentIds[2]);
 		}
 	}
 
@@ -149,7 +149,7 @@ public class ContainerEnchantment extends Container {
 		else if (p_75137_1_ == 3)
 			enchantmentSeed = p_75137_2_;
 		else if (p_75137_1_ >= 4 && p_75137_1_ <= 6)
-			field_178151_h[p_75137_1_ - 4] = p_75137_2_;
+			enchantmentIds[p_75137_1_ - 4] = p_75137_2_;
 		else
 			super.updateProgressBar(p_75137_1_, p_75137_2_);
 	}
@@ -186,7 +186,7 @@ public class ContainerEnchantment extends Container {
 
 					for (j = 0; j < 3; ++j) {
 						enchantLevels[j] = EnchantmentHelper.calcItemStackEnchantability(rand, j, power, var2);
-						field_178151_h[j] = -1;
+						enchantmentIds[j] = -1;
 
 						if (enchantLevels[j] < j + 1)
 							enchantLevels[j] = 0;
@@ -194,11 +194,11 @@ public class ContainerEnchantment extends Container {
 
 					for (j = 0; j < 3; ++j)
 						if (enchantLevels[j] > 0) {
-							List<EnchantmentData> var7 = func_178148_a(var2, j, enchantLevels[j]);
+							List<EnchantmentData> var7 = getEnchantmentList(var2, j, enchantLevels[j]);
 
 							if (var7 != null && !var7.isEmpty()) {
 								EnchantmentData var6 = var7.get(rand.nextInt(var7.size()));
-								field_178151_h[j] = var6.enchantmentobj.effectId | var6.enchantmentLevel << 8;
+								enchantmentIds[j] = var6.enchantmentobj.effectId | var6.enchantmentLevel << 8;
 							}
 						}
 
@@ -207,7 +207,7 @@ public class ContainerEnchantment extends Container {
 			} else
 				for (power = 0; power < 3; ++power) {
 					enchantLevels[power] = 0;
-					field_178151_h[power] = -1;
+					enchantmentIds[power] = -1;
 				}
 		}
 	}
@@ -225,7 +225,7 @@ public class ContainerEnchantment extends Container {
 			return false;
 		} else if (enchantLevels[id] > 0 && slot0 != null && (player.experienceLevel >= var5 && player.experienceLevel >= enchantLevels[id] || player.capabilities.isCreativeMode)) {
 			if (!world.isRemote) {
-				List<EnchantmentData> var6 = func_178148_a(slot0, id, enchantLevels[id]);
+				List<EnchantmentData> var6 = getEnchantmentList(slot0, id, enchantLevels[id]);
 				boolean var7 = slot0.getItem() == Items.book;
 
 				if (var6 != null) {
@@ -233,7 +233,7 @@ public class ContainerEnchantment extends Container {
 					world.playSoundEffect(posX + 0.5F, posY + 0.5F, posZ + 0.5F, Reference.MCAssetVer + ":block.enchantment_table.use", 1.0F, world.rand.nextFloat() * 0.1F + 0.9F);
 
 					if (var7)
-						slot0.func_150996_a(Items.enchanted_book);
+						slot0.func_150996_a(Items.enchanted_book); // setItem
 
 					for (EnchantmentData var9 : var6) {
 						if (var7)
@@ -262,8 +262,7 @@ public class ContainerEnchantment extends Container {
 			return false;
 	}
 
-	@SuppressWarnings("unchecked")
-	private List<EnchantmentData> func_178148_a(ItemStack stack, int seed, int level) {
+	private List<EnchantmentData> getEnchantmentList(ItemStack stack, int seed, int level) {
 		rand.setSeed(enchantmentSeed + seed);
 		List<EnchantmentData> list = EnchantmentHelper.buildEnchantmentList(rand, stack, level);
 
@@ -273,7 +272,7 @@ public class ContainerEnchantment extends Container {
 		return list;
 	}
 
-	public int func_178147_e() {
+	public int getLapisAmount() {
 		ItemStack var1 = tableInventory.getStackInSlot(1);
 		return var1 == null ? (noFuel ? Integer.MAX_VALUE : 0) : var1.stackSize;
 	}

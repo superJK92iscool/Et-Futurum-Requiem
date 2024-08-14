@@ -48,21 +48,21 @@ public class EntityNewBoatWithChest extends EntityNewBoat implements IInventory 
 	}
 
 	@Override
-	public ItemStack getStackInSlotOnClosing(int p_70304_1_) {
-		if (boatItems[p_70304_1_] != null) {
-			ItemStack is = boatItems[p_70304_1_];
-			boatItems[p_70304_1_] = null;
+	public ItemStack getStackInSlotOnClosing(int index) {
+		if (boatItems[index] != null) {
+			ItemStack is = boatItems[index];
+			boatItems[index] = null;
 			return is;
 		}
 		return null;
 	}
 
 	@Override
-	public void setInventorySlotContents(int p_70299_1_, ItemStack p_70299_2_) {
-		this.boatItems[p_70299_1_] = p_70299_2_;
+	public void setInventorySlotContents(int index, ItemStack stack) {
+		this.boatItems[index] = stack;
 
-		if (p_70299_2_ != null && p_70299_2_.stackSize > this.getInventoryStackLimit()) {
-			p_70299_2_.stackSize = this.getInventoryStackLimit();
+		if (stack != null && stack.stackSize > this.getInventoryStackLimit()) {
+			stack.stackSize = this.getInventoryStackLimit();
 		}
 	}
 
@@ -86,8 +86,8 @@ public class EntityNewBoatWithChest extends EntityNewBoat implements IInventory 
 	}
 
 	@Override
-	public boolean isUseableByPlayer(EntityPlayer p_70300_1_) {
-		return !this.isDead && p_70300_1_.getDistanceSqToEntity(this) <= 64.0D;
+	public boolean isUseableByPlayer(EntityPlayer player) {
+		return !this.isDead && player.getDistanceSqToEntity(this) <= 64.0D;
 	}
 
 	@Override
@@ -99,18 +99,20 @@ public class EntityNewBoatWithChest extends EntityNewBoat implements IInventory 
 	}
 
 	@Override
-	public boolean isItemValidForSlot(int p_94041_1_, ItemStack p_94041_2_) {
+	public boolean isItemValidForSlot(int index, ItemStack stack) {
 		return true;
 	}
 
-	public void travelToDimension(int p_71027_1_) {
+	@Override
+	public void travelToDimension(int dimensionId) {
 		this.dropContentsWhenDead = false;
-		super.travelToDimension(p_71027_1_);
+		super.travelToDimension(dimensionId);
 	}
 
 	/**
 	 * Will get destroyed next tick.
 	 */
+	@Override
 	public void setDead() {
 		if (this.dropContentsWhenDead) {
 			for (int i = 0; i < this.getSizeInventory(); ++i) {
@@ -148,8 +150,9 @@ public class EntityNewBoatWithChest extends EntityNewBoat implements IInventory 
 		super.setDead();
 	}
 
-	protected void writeEntityToNBT(NBTTagCompound p_70014_1_) {
-		super.writeEntityToNBT(p_70014_1_);
+	@Override
+	protected void writeEntityToNBT(NBTTagCompound tagCompound) {
+		super.writeEntityToNBT(tagCompound);
 		NBTTagList nbttaglist = new NBTTagList();
 
 		for (int i = 0; i < this.boatItems.length; ++i) {
@@ -161,15 +164,16 @@ public class EntityNewBoatWithChest extends EntityNewBoat implements IInventory 
 			}
 		}
 
-		p_70014_1_.setTag("Items", nbttaglist);
+		tagCompound.setTag("Items", nbttaglist);
 	}
 
 	/**
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
-	protected void readEntityFromNBT(NBTTagCompound p_70037_1_) {
-		super.readEntityFromNBT(p_70037_1_);
-		NBTTagList nbttaglist = p_70037_1_.getTagList("Items", 10);
+	@Override
+	protected void readEntityFromNBT(NBTTagCompound tagCompund) {
+		super.readEntityFromNBT(tagCompund);
+		NBTTagList nbttaglist = tagCompund.getTagList("Items", 10);
 		this.boatItems = new ItemStack[this.getSizeInventory()];
 
 		for (int i = 0; i < nbttaglist.tagCount(); ++i) {
@@ -185,12 +189,13 @@ public class EntityNewBoatWithChest extends EntityNewBoat implements IInventory 
 	/**
 	 * First layer of player interaction
 	 */
-	public boolean interactFirst(EntityPlayer p_130002_1_) {
-		if (!this.worldObj.isRemote && p_130002_1_.isSneaking()) {
-			p_130002_1_.displayGUIChest(this);
+	@Override
+	public boolean interactFirst(EntityPlayer player) {
+		if (!this.worldObj.isRemote && player.isSneaking()) {
+			player.displayGUIChest(this);
 			return true;
 		}
-		return super.interactFirst(p_130002_1_);
+		return super.interactFirst(player);
 	}
 
 	@Override

@@ -48,15 +48,15 @@ public class BaseLog extends BlockLog implements ISubBlocksBlock {
 	}
 
 	@Override
-	public void getSubBlocks(Item p_149666_1_, CreativeTabs p_149666_2_, List p_149666_3_) {
-		p_149666_3_.add(new ItemStack(p_149666_1_, 1, 0));
+	public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
+		list.add(new ItemStack(itemIn, 1, 0));
 		if (ConfigBlocksItems.enableBarkLogs) {
-			p_149666_3_.add(new ItemStack(p_149666_1_, 1, 1));
+			list.add(new ItemStack(itemIn, 1, 1));
 		}
 		if (ConfigBlocksItems.enableStrippedLogs) {
-			p_149666_3_.add(new ItemStack(p_149666_1_, 1, 2));
+			list.add(new ItemStack(itemIn, 1, 2));
 			if (ConfigBlocksItems.enableBarkLogs) {
-				p_149666_3_.add(new ItemStack(p_149666_1_, 1, 3));
+				list.add(new ItemStack(itemIn, 1, 3));
 			}
 		}
 	}

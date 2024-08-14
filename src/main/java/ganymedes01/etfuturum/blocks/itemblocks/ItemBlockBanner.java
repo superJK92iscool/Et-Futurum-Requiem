@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.blocks.itemblocks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.lib.EnumColor;
 import ganymedes01.etfuturum.recipes.ModRecipes;
 import ganymedes01.etfuturum.tileentities.TileEntityBanner;
@@ -67,17 +65,17 @@ public class ItemBlockBanner extends ItemBlock {
 
 			if (!player.canPlayerEdit(x, y, z, side, stack)) {
 				return false;
-			} else if (!field_150939_a.canPlaceBlockAt(world, x, y, z)) {
+			} else if (!field_150939_a/*blockInstance*/.canPlaceBlockAt(world, x, y, z)) {
 				return false;
 			} else {
 				if (side == 1) {
 					int meta = MathHelper.floor_double((player.rotationYaw + 180.0F) * 16.0F / 360.0F + 0.5D) & 15;
-					world.setBlock(x, y, z, field_150939_a, meta, 3);
+					world.setBlock(x, y, z, field_150939_a/*blockInstance*/, meta, 3);
 				} else {
-					world.setBlock(x, y, z, field_150939_a, side, 3);
+					world.setBlock(x, y, z, field_150939_a/*blockInstance*/, side, 3);
 				}
 
-				world.playSoundEffect((float) x + 0.5F, (float) y + 0.5F, (float) z + 0.5F, field_150939_a.stepSound.func_150496_b(), (field_150939_a.stepSound.getVolume() + 1.0F) / 2.0F, field_150939_a.stepSound.getPitch() * 0.8F);
+				world.playSoundEffect((float) x + 0.5F, (float) y + 0.5F, (float) z + 0.5F, field_150939_a/*blockInstance*/.stepSound.func_150496_b()/*getPlaceSound*/, (field_150939_a/*blockInstance*/.stepSound.getVolume() + 1.0F) / 2.0F, field_150939_a/*blockInstance*/.stepSound.getPitch() * 0.8F);
 				stack.stackSize--;
 
 				TileEntityBanner banner = (TileEntityBanner) world.getTileEntity(x, y, z);
@@ -96,8 +94,7 @@ public class ItemBlockBanner extends ItemBlock {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced) {
+	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
 		NBTTagCompound nbttagcompound = getSubTag(stack, "BlockEntityTag", false);
 
 		if (nbttagcompound != null && nbttagcompound.hasKey("Patterns")) {
@@ -116,7 +113,6 @@ public class ItemBlockBanner extends ItemBlock {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public int getColorFromItemStack(ItemStack stack, int renderPass) {
 		if (renderPass == 0) {
 			return 0xFFFFFF;
@@ -126,8 +122,7 @@ public class ItemBlockBanner extends ItemBlock {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item item, CreativeTabs tab, List subItems) {
+	public void getSubItems(Item item, CreativeTabs tab, List<ItemStack> subItems) {
 		for (int i = 0; i < 16; i++) {
 			subItems.add(new ItemStack(item, 1, i));
 		}

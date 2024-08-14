@@ -17,7 +17,6 @@ import java.util.List;
 
 public class BlockLight extends BlockBarrier implements ISubBlocksBlock {
 
-	@SideOnly(Side.CLIENT)
 	private IIcon[] lightIcons;
 	private static final String[] types = new String[16];
 
@@ -30,10 +29,12 @@ public class BlockLight extends BlockBarrier implements ISubBlocksBlock {
 		}
 	}
 
-	public AxisAlignedBB getCollisionBoundingBoxFromPool(World p_149668_1_, int p_149668_2_, int p_149668_3_, int p_149668_4_) {
+	@Override
+	public AxisAlignedBB getCollisionBoundingBoxFromPool(World worldIn, int x, int y, int z) {
 		return null;
 	}
 
+	@Override
 	public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z) {
 		if (world instanceof World && ((World) world).isRemote) {
 			ItemStack stack = FMLClientHandler.instance().getClientPlayerEntity().getCurrentEquippedItem();
@@ -42,20 +43,23 @@ public class BlockLight extends BlockBarrier implements ISubBlocksBlock {
 		}
 	}
 
+	@Override
 	public boolean isReplaceable(IBlockAccess world, int x, int y, int z) {
 		return true;
 	}
 
+	@Override
 	public int getMobilityFlag() {
 		return 0;
 	}
 
+	@Override
 	public int getLightValue(IBlockAccess world, int x, int y, int z) {
 		return world.getBlockMetadata(x, y, z);
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_) {
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float subX, float subY, float subZ) {
 		if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == Item.getItemFromBlock(this)) {
 			world.setBlockMetadataWithNotify(x, y, z, (world.getBlockMetadata(x, y, z) + 1) % 16, 2);
 			return true;
@@ -69,9 +73,9 @@ public class BlockLight extends BlockBarrier implements ISubBlocksBlock {
 	}
 
 	@Override
-	public void getSubBlocks(Item p_149666_1_, CreativeTabs p_149666_2_, List p_149666_3_) {
+	public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
 		for (int i = 0; i < 16; i++) {
-			p_149666_3_.add(new ItemStack(p_149666_1_, 1, i));
+			list.add(new ItemStack(itemIn, 1, i));
 		}
 	}
 
@@ -85,13 +89,11 @@ public class BlockLight extends BlockBarrier implements ISubBlocksBlock {
 		blockIcon = lightIcons[0];
 	}
 
-	@SideOnly(Side.CLIENT)
 	@Override
 	public IIcon getIcon(int side, int meta) {
 		return lightIcons[meta % types.length];
 	}
 
-	@SideOnly(Side.CLIENT)
 	@Override
 	public IIcon getParticleName(int meta) {
 		return getIcon(2, meta);
@@ -118,7 +120,7 @@ public class BlockLight extends BlockBarrier implements ISubBlocksBlock {
 	}
 
 	@Override
-	public boolean getBlocksMovement(IBlockAccess p_149655_1_, int p_149655_2_, int p_149655_3_, int p_149655_4_)
+	public boolean getBlocksMovement(IBlockAccess worldIn, int x, int y, int z)
 	{
 		return true;
 	}

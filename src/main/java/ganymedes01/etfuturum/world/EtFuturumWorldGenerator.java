@@ -156,7 +156,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 
 		if (ModBlocks.MUD.isEnabled()) {
 			mudGen = new WorldGenClay(4);
-			((WorldGenClay) mudGen).field_150546_a = ModBlocks.MUD.get();
+			((WorldGenClay) mudGen).field_150546_a/*block*/ = ModBlocks.MUD.get();
 
 			if (ModsList.BIOMES_O_PLENTY.isLoaded()) { //BoP replaces vanilla swamps with a BoP version but forgets to tag them
 				BiomeDictionary.registerBiomeType(BiomeGenBase.getBiome(6), Type.SWAMP); //Gets biomes by ID so we get the BOP version
@@ -323,7 +323,6 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 
 		for (int i = 0; i < (chance < 1 ? 1 : chance); i++) {
 			if (chance > 1 || random.nextFloat() < chance) {
-				int heightRange = maxY - minY;
 				int xRand = (chunkX << 4) + random.nextInt(16);
 				int yRand = MathHelper.getRandomIntegerInRange(random, minY, maxY);
 				int zRand = (chunkZ << 4) + random.nextInt(16);

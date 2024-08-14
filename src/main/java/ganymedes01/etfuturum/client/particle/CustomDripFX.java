@@ -12,8 +12,8 @@ public class CustomDripFX extends EntityFX {
 	private boolean dripSoundPlayed;
 	private int bobTimer;
 
-	public CustomDripFX(World p_i1203_1_, double p_i1203_2_, double p_i1203_4_, double p_i1203_6_, String dripSound, int color, boolean splashes) {
-		super(p_i1203_1_, p_i1203_2_, p_i1203_4_, p_i1203_6_, 0, 0, 0);
+	public CustomDripFX(World worldIn, double p_i1203_2_, double p_i1203_4_, double p_i1203_6_, String dripSound, int color, boolean splashes) {
+		super(worldIn, p_i1203_2_, p_i1203_4_, p_i1203_6_, 0, 0, 0);
 		this.motionX = this.motionY = this.motionZ = 0.0D;
 		particleAlpha = (color >> 24 & 0xff) / 255F;
 		particleRed = (color >> 16 & 0xff) / 255F;
@@ -32,6 +32,7 @@ public class CustomDripFX extends EntityFX {
 	/**
 	 * Called to update the entity's position/logic.
 	 */
+	@Override
 	public void onUpdate() {
 		this.prevPosX = this.posX;
 		this.prevPosY = this.posY;

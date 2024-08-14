@@ -20,7 +20,7 @@ public abstract class MixinContainerEnchantment extends Container {
 	private int posX, posY, posZ;
 
 	@Inject(method = "enchantItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/EntityPlayer;addExperienceLevel(I)V"))
-	private void playEnchantSound(EntityPlayer p_75140_1_, int p_75140_2_, CallbackInfoReturnable<Boolean> cir) {
+	private void playEnchantSound(EntityPlayer player, int id, CallbackInfoReturnable<Boolean> cir) {
 		worldPointer.playSoundEffect(posX + 0.5F, posY + 0.5F, posZ + 0.5F, Reference.MCAssetVer + ":block.enchantment_table.use", 1.0F, worldPointer.rand.nextFloat() * 0.1F + 0.9F);
 	}
 }

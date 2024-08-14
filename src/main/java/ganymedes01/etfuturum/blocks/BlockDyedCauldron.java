@@ -18,7 +18,7 @@ public class BlockDyedCauldron extends BlockCauldronTileEntity {
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityPlayer, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_) {
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityPlayer, int side, float subX, float subY, float subZ) {
 
 		final ItemStack stack = entityPlayer.getHeldItem();
 		if (stack != null) {
@@ -39,7 +39,7 @@ public class BlockDyedCauldron extends BlockCauldronTileEntity {
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
+	public TileEntity createNewTileEntity(World worldIn, int meta) {
 		return new TileEntityCauldronDyed();
 	}
 

@@ -10,8 +10,6 @@
  */
 package ganymedes01.etfuturum.client.renderer.entity.elytra;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.items.equipment.ItemArmorElytra;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
@@ -20,7 +18,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
-@SideOnly(Side.CLIENT)
 public class LayerBetterElytra {
 
 	private static final ResourceLocation TEXTURE_ELYTRA = new ResourceLocation("textures/entity/elytra.png");
@@ -53,7 +50,7 @@ public class LayerBetterElytra {
 			 */
 //          GL11.glColor3f(1, 1, 1);
 
-			Minecraft.getMinecraft().renderEngine.bindTexture(player.func_152122_n() ? player.getLocationCape() : TEXTURE_ELYTRA);
+			Minecraft.getMinecraft().renderEngine.bindTexture(player.func_152122_n()/*hasCape*/ ? player.getLocationCape() : TEXTURE_ELYTRA);
 
 			GL11.glPushMatrix();
 			GL11.glTranslatef(0.0F, 0.0F, 0.125F);
@@ -72,32 +69,32 @@ public class LayerBetterElytra {
 		float f = entitylivingbaseIn.ticksExisted + partialTicks;
 		Minecraft.getMinecraft().renderEngine.bindTexture(ENCHANTED_ITEM_GLINT_RES);
 		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glDepthFunc(514);
+		GL11.glDepthFunc(GL11.GL_EQUAL);
 		GL11.glDepthMask(false);
 		float f1 = 0.5F;
 		GL11.glColor4f(f1, f1, f1, 1.0F);
 
 		for (int i = 0; i < 2; ++i) {
 			GL11.glDisable(GL11.GL_LIGHTING);
-			GL11.glBlendFunc(768, 1);
+			GL11.glBlendFunc(GL11.GL_SRC_COLOR, GL11.GL_ONE);
 			float f2 = 0.76F;
 			GL11.glColor4f(0.5F * f2, 0.25F * f2, 0.8F * f2, 1.0F);
-			GL11.glMatrixMode(5890);
+			GL11.glMatrixMode(GL11.GL_TEXTURE);
 			GL11.glLoadIdentity();
 			float f3 = 0.33333334F;
 			GL11.glScalef(f3, f3, f3);
 			GL11.glRotatef(30.0F - i * 60.0F, 0.0F, 0.0F, 1.0F);
 			GL11.glTranslatef(0.0F, f * (0.001F + i * 0.003F) * 20.0F, 0.0F);
-			GL11.glMatrixMode(5888);
+			GL11.glMatrixMode(GL11.GL_MODELVIEW);
 			modelbaseIn.render(entitylivingbaseIn, p_177183_3_, p_177183_4_, p_177183_6_, p_177183_7_, p_177183_8_, scale);
 		}
 
-		GL11.glMatrixMode(5890);
+		GL11.glMatrixMode(GL11.GL_TEXTURE);
 		GL11.glLoadIdentity();
-		GL11.glMatrixMode(5888);
+		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 		GL11.glEnable(GL11.GL_LIGHTING);
 		GL11.glDepthMask(true);
-		GL11.glDepthFunc(515);
+		GL11.glDepthFunc(GL11.GL_LEQUAL);
 		GL11.glDisable(GL11.GL_BLEND);
 	}
 }

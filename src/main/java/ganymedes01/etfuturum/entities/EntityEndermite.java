@@ -73,6 +73,9 @@ public class EntityEndermite extends EntityMob {
 		return "mob.silverfish.kill";
 	}
 
+	/**
+	 * MCP name: {@code playStepSound}
+	 */
 	@Override
 	protected void func_145780_a(int x, int y, int z, Block block) {
 		playSound("mob.silverfish.step", 0.15F, 1.0F);
@@ -131,6 +134,7 @@ public class EntityEndermite extends EntityMob {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public void aggroEndermen(int range) {
 		double radius = range / 2.0;
 		int tagetChance = 10;
@@ -173,6 +177,7 @@ public class EntityEndermite extends EntityMob {
 		return EnumCreatureAttribute.ARTHROPOD;
 	}
 
+	@Override
 	public ItemStack getPickedResult(MovingObjectPosition target) {
 		return ModEntityList.getEggFromEntity(this);
 	}

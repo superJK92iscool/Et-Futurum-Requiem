@@ -14,6 +14,7 @@ import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
 import minetweaker.api.item.IngredientStack;
 import minetweaker.api.liquid.ILiquidStack;
+import minetweaker.api.minecraft.MineTweakerMC;
 import minetweaker.api.oredict.IOreDictEntry;
 import minetweaker.util.IEventHandler;
 import net.minecraft.item.ItemStack;
@@ -43,7 +44,7 @@ public class CompatCraftTweaker {
 			if (iStack instanceof IOreDictEntry)
 				return ((IOreDictEntry) iStack).getName();
 			else if (iStack instanceof IItemStack)
-				return minetweaker.api.minecraft.MineTweakerMC.getItemStack((IItemStack) iStack);
+				return MineTweakerMC.getItemStack((IItemStack) iStack);
 			else if (iStack instanceof IngredientStack) {
 				IIngredient ingr = ReflectionHelper.getPrivateValue(IngredientStack.class, (IngredientStack) iStack, "ingredient");
 				return toObject(ingr);
@@ -53,15 +54,15 @@ public class CompatCraftTweaker {
 	}
 
 	public static FluidStack toFluidStack(ILiquidStack iStack) {
-		return minetweaker.api.minecraft.MineTweakerMC.getLiquidStack(iStack);
+		return MineTweakerMC.getLiquidStack(iStack);
 	}
 
 	public static ItemStack getItemStack(IItemStack item) {
-		return minetweaker.api.minecraft.MineTweakerMC.getItemStack(item);
+		return MineTweakerMC.getItemStack(item);
 	}
 
 	public static ItemStack[] getItemStacks(List<IItemStack> item) {
-		return minetweaker.api.minecraft.MineTweakerMC.getItemStacks(item);
+		return MineTweakerMC.getItemStacks(item);
 	}
 
 	public static Object getInternal(IIngredient pattern) {

@@ -1,7 +1,5 @@
 package ganymedes01.etfuturum.client;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.lib.EnumColor;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.client.renderer.texture.AbstractTexture;
@@ -19,21 +17,23 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-@SideOnly(Side.CLIENT)
 public class LayeredColorMaskTexture extends AbstractTexture {
 
-	private static final Logger field_174947_f = LogManager.getLogger();
+	/**
+	 * Access to the Logger, for all your logging needs.
+	 */
+	private static final Logger LOGGER = LogManager.getLogger();
 	/**
 	 * The location of the texture.
 	 */
 	private final ResourceLocation textureLocation;
-	private final List<String> field_174949_h;
-	private final List<EnumColor> field_174950_i;
+	private final List<String> listTextures;
+	private final List<EnumColor> listDyeColors;
 
 	public LayeredColorMaskTexture(ResourceLocation textureLocationIn, List<String> p_i46101_2_, List<EnumColor> p_i46101_3_) {
 		textureLocation = textureLocationIn;
-		field_174949_h = p_i46101_2_;
-		field_174950_i = p_i46101_3_;
+		listTextures = p_i46101_2_;
+		listDyeColors = p_i46101_3_;
 	}
 
 	@Override
@@ -52,9 +52,9 @@ public class LayeredColorMaskTexture extends AbstractTexture {
 			Graphics graphics = bufferedimage.getGraphics();
 			graphics.drawImage(bufferedimage1, 0, 0, null);
 
-			for (int j = 0; j < field_174949_h.size() && j < field_174950_i.size(); ++j) {
-				String s = field_174949_h.get(j);
-				MapColor mapcolor = field_174950_i.get(j).getMapColour();
+			for (int j = 0; j < listTextures.size() && j < listDyeColors.size(); ++j) {
+				String s = listTextures.get(j);
+				MapColor mapcolor = listDyeColors.get(j).getMapColour();
 
 				if (s != null) {
 					InputStream inputstream = resourceManager.getResource(new ResourceLocation(s)).getInputStream();
@@ -68,7 +68,7 @@ public class LayeredColorMaskTexture extends AbstractTexture {
 								if ((i1 & -16777216) != 0) {
 									int j1 = (i1 & 16711680) << 8 & -16777216;
 									int k1 = bufferedimage1.getRGB(l, k);
-									int l1 = func_180188_d(k1, mapcolor.colorValue) & 16777215;
+									int l1 = multiplyColor(k1, mapcolor.colorValue) & 16777215;
 									bufferedimage2.setRGB(l, k, j1 | l1);
 								}
 							}
@@ -80,15 +80,14 @@ public class LayeredColorMaskTexture extends AbstractTexture {
 				}
 			}
 		} catch (IOException ioexception) {
-			field_174947_f.error("Couldn't load layered image", ioexception);
+			LOGGER.error("Couldn't load layered image", ioexception);
 			return;
 		}
 
 		TextureUtil.uploadTextureImage(getGlTextureId(), bufferedimage);
 	}
 
-	@SideOnly(Side.CLIENT)
-	private int func_180188_d(int p_180188_0_, int p_180188_1_) {
+	private int multiplyColor(int p_180188_0_, int p_180188_1_) {
 		int k = (p_180188_0_ & 16711680) >> 16;
 		int l = (p_180188_1_ & 16711680) >> 16;
 		int i1 = (p_180188_0_ & 65280) >> 8;

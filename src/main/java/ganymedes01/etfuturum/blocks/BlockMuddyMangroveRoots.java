@@ -11,7 +11,6 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
-import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -34,7 +33,6 @@ public class BlockMuddyMangroveRoots extends BlockRotatedPillar {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	protected IIcon getSideIcon(int side) {
 		return blockIcon;
 	}

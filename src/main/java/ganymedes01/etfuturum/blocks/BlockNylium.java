@@ -53,7 +53,7 @@ public class BlockNylium extends BaseSubtypesBlock implements IGrowable {
 	}
 
 	@Override
-	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_) {
+	public Item getItemDropped(int meta, Random random, int fortune) {
 		return Item.getItemFromBlock(Blocks.netherrack);
 	}
 
@@ -67,6 +67,7 @@ public class BlockNylium extends BaseSubtypesBlock implements IGrowable {
 		return plantable.getPlantType(world, x, y, z) == EnumPlantType.Nether || plantable instanceof BlockMushroom;
 	}
 
+	@Override
 	public void onPlantGrow(World world, int x, int y, int z, int sourceX, int sourceY, int sourceZ) {
 		if (world.rand.nextBoolean()) {
 			world.setBlock(x, y, z, Blocks.netherrack, 0, 2);
@@ -74,8 +75,7 @@ public class BlockNylium extends BaseSubtypesBlock implements IGrowable {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public void getSubBlocks(Item item, CreativeTabs tab, List list) {
+	public void getSubBlocks(Item item, CreativeTabs tab, List<ItemStack> list) {
 		if (ConfigExperiments.enableCrimsonBlocks) {
 			list.add(new ItemStack(item, 1, 0));
 		}
@@ -85,7 +85,6 @@ public class BlockNylium extends BaseSubtypesBlock implements IGrowable {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta) {
 		switch (side) {
 			case 1:
@@ -109,8 +108,11 @@ public class BlockNylium extends BaseSubtypesBlock implements IGrowable {
 		blockIcon = Blocks.netherrack.getIcon(0, 0);
 	}
 
+	/**
+	 * MCP name: {@code canFertilize}
+	 */
 	@Override
-	public boolean func_149851_a(World world, int x, int y, int z, boolean p_149851_5_) {
+	public boolean func_149851_a(World world, int x, int y, int z, boolean isClient) {
 		if (world.getBlockMetadata(x, y, z) == 0 && !ConfigExperiments.enableCrimsonBlocks) {
 			return false;
 		}
@@ -120,14 +122,20 @@ public class BlockNylium extends BaseSubtypesBlock implements IGrowable {
 		return true;
 	}
 
+	/**
+	 * MCP name: {@code shouldFertilize}
+	 */
 	@Override
-	public boolean func_149852_a(World p_149852_1_, Random p_149852_2_, int p_149852_3_, int p_149852_4_, int p_149852_5_) {
+	public boolean func_149852_a(World worldIn, Random random, int x, int y, int z) {
 		return true;
 	}
 
 	private final WorldGenerator crimsonGrass = new WorldGenNetherGrass(true);
 	private final WorldGenerator warpedGrass = new WorldGenNetherGrass(false);
 
+	/**
+	 * MCP name: {@code fertilize}
+	 */
 	@Override
 	public void func_149853_b(World world, Random rand, int x, int y, int z) {
 		if (world.getBlockMetadata(x, y, z) == 0) {

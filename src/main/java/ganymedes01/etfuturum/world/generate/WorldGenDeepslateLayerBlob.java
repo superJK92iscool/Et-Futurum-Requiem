@@ -18,12 +18,10 @@ public class WorldGenDeepslateLayerBlob extends WorldGenMinable {
 	 * The number of blocks to generate.
 	 */
 	private final int numberOfBlocks;
-	private final boolean tuff;
 
 	public WorldGenDeepslateLayerBlob(int numberOfBlocks, boolean tuff) {
 		super(tuff ? ModBlocks.TUFF.get() : ModBlocks.DEEPSLATE.get(), numberOfBlocks);
 		this.numberOfBlocks = numberOfBlocks;
-		this.tuff = tuff;
 	}
 
 	@Override

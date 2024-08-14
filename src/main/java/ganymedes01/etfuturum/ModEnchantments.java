@@ -25,7 +25,7 @@ public class ModEnchantments {
 	public static Enchantment mending;
 	public static Enchantment swiftSneak;
 
-	private static final Map<EntityLivingBase, double[]> prevMoveCache = new WeakHashMap();
+	private static final Map<EntityLivingBase, double[]> prevMoveCache = new WeakHashMap<>();
 
 	public static void init() {
 		if (ConfigEnchantsPotions.enableFrostWalker)

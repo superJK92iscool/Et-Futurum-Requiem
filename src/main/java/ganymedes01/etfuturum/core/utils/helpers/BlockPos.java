@@ -196,34 +196,35 @@ public class BlockPos extends Vec3i {
 		return new Iterable<BlockPos>() {
 			public Iterator<BlockPos> iterator() {
 				return new AbstractIterator<BlockPos>() {
-					private boolean field_191534_b = true;
-					private int field_191535_c;
-					private int field_191536_d;
-					private int field_191537_e;
+					private boolean first = true;
+					private int lastPosX;
+					private int lastPosY;
+					private int lastPosZ;
 
+					@Override
 					protected BlockPos computeNext() {
-						if (this.field_191534_b) {
-							this.field_191534_b = false;
-							this.field_191535_c = startX;
-							this.field_191536_d = startY;
-							this.field_191537_e = startZ;
+						if (this.first) {
+							this.first = false;
+							this.lastPosX = startX;
+							this.lastPosY = startY;
+							this.lastPosZ = startZ;
 							return new BlockPos(startX, startY, startZ);
-						} else if (this.field_191535_c == endX && this.field_191536_d == endY
-								&& this.field_191537_e == endZ) {
+						} else if (this.lastPosX == endX && this.lastPosY == endY
+								&& this.lastPosZ == endZ) {
 							return this.endOfData();
 						} else {
-							if (this.field_191535_c < endX) {
-								++this.field_191535_c;
-							} else if (this.field_191536_d < endY) {
-								this.field_191535_c = startX;
-								++this.field_191536_d;
-							} else if (this.field_191537_e < endZ) {
-								this.field_191535_c = startX;
-								this.field_191536_d = startY;
-								++this.field_191537_e;
+							if (this.lastPosX < endX) {
+								++this.lastPosX;
+							} else if (this.lastPosY < endY) {
+								this.lastPosX = startX;
+								++this.lastPosY;
+							} else if (this.lastPosZ < endZ) {
+								this.lastPosX = startX;
+								this.lastPosY = startY;
+								++this.lastPosZ;
 							}
 
-							return new BlockPos(this.field_191535_c, this.field_191536_d, this.field_191537_e);
+							return new BlockPos(this.lastPosX, this.lastPosY, this.lastPosZ);
 						}
 					}
 				};
@@ -259,30 +260,37 @@ public class BlockPos extends Vec3i {
 			this.z = z_;
 		}
 
+		@Override
 		public BlockPos add(double x, double y, double z) {
 			return super.add(x, y, z).toImmutable();
 		}
 
+		@Override
 		public BlockPos add(int x, int y, int z) {
 			return super.add(x, y, z).toImmutable();
 		}
 
+		@Override
 		public BlockPos offset(EnumFacing facing, int n) {
 			return super.offset(facing, n).toImmutable();
 		}
 
+		@Override
 		public BlockPos offset(EnumFacing p_190942_1_) {
 			return super.offset(p_190942_1_).toImmutable();
 		}
 
+		@Override
 		public int getX() {
 			return this.x;
 		}
 
+		@Override
 		public int getY() {
 			return this.y;
 		}
 
+		@Override
 		public int getZ() {
 			return this.z;
 		}
@@ -330,6 +338,7 @@ public class BlockPos extends Vec3i {
 			this.y = yIn;
 		}
 
+		@Override
 		public BlockPos toImmutable() {
 			return new BlockPos(this);
 		}

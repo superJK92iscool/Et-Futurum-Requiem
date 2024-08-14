@@ -6,7 +6,7 @@ import net.minecraft.util.MathHelper;
 import java.util.Random;
 
 public final class PerlinNoiseSampler {
-	private static final float field_31701 = 1.0E-7F;
+
 	private final byte[] permutations;
 	public final double originX;
 	public final double originY;

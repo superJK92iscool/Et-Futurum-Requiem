@@ -24,7 +24,6 @@ import java.util.Calendar;
 public class EntityStray extends EntitySkeleton {
 
 	private final EntityAIArrowAttack aiArrowAttack = new EntityAIArrowAttack(this, 1.0D, 20, 60, 15.0F);
-	private final EntityAIAttackOnCollide aiAttackOnCollide = new EntityAIAttackOnCollide(this, EntityPlayer.class, 1.2D, false);
 
 	public EntityStray(final World p_i1741_1_) {
 		super(p_i1741_1_);
@@ -48,7 +47,7 @@ public class EntityStray extends EntitySkeleton {
 		this.addRandomArmor();
 		this.enchantEquipment();
 
-		this.setCanPickUpLoot(this.rand.nextFloat() < 0.55F * this.worldObj.func_147462_b(this.posX, this.posY, this.posZ));
+		this.setCanPickUpLoot(this.rand.nextFloat() < 0.55F * this.worldObj.func_147462_b/*getTensionFactorForBlock*/(this.posX, this.posY, this.posZ));
 
 		if (this.getEquipmentInSlot(4) == null) {
 			Calendar calendar = this.worldObj.getCurrentDate();
@@ -139,11 +138,15 @@ public class EntityStray extends EntitySkeleton {
 		return Reference.MCAssetVer + ":entity.stray.death";
 	}
 
+	/**
+	 * MCP name: {@code playStepSound}
+	 */
 	@Override
-	protected void func_145780_a(final int p_145780_1_, final int p_145780_2_, final int p_145780_3_, final Block p_145780_4_) {
+	protected void func_145780_a(final int x, final int y, final int z, final Block blockIn) {
 		this.playSound(Reference.MCAssetVer + ":entity.stray.step", 0.15f, 1.0f);
 	}
 
+	@Override
 	public ItemStack getPickedResult(MovingObjectPosition target) {
 		return ModEntityList.getEggFromEntity(this);
 	}
