@@ -113,6 +113,10 @@ public class EntityNewBoatSeat extends Entity {
 		copyLocationAndAnglesFrom(boat);
 	}
 
+	private void mountToBoat(Entity entity) {
+		boat.sitEntity(entity);
+	}
+
 	@Override
 	protected void kill() {
 		if (riddenByEntity != null) {

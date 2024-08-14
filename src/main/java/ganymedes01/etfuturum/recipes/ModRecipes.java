@@ -1551,8 +1551,16 @@ public class ModRecipes {
 		}
 	}
 
+	private static void removeAllEFRRecipesFor(Block block) {
+		removeAllEFRRecipesFor(Item.getItemFromBlock(block));
+	}
+
 	private static void removeAllEFRRecipesFor(Block block, int meta) {
 		removeAllEFRRecipesFor(Item.getItemFromBlock(block), meta);
+	}
+
+	private static void removeAllEFRRecipesFor(Item item) {
+		removeAllEFRRecipesFor(item, OreDictionary.WILDCARD_VALUE);
 	}
 
 	private static void removeAllEFRRecipesFor(Item item, int meta) {
