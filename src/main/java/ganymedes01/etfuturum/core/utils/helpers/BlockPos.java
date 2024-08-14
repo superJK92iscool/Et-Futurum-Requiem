@@ -202,7 +202,7 @@ public class BlockPos extends Vec3i {
 					private int lastPosZ;
 
 					@Override
-                    protected BlockPos computeNext() {
+					protected BlockPos computeNext() {
 						if (this.first) {
 							this.first = false;
 							this.lastPosX = startX;
@@ -261,37 +261,37 @@ public class BlockPos extends Vec3i {
 		}
 
 		@Override
-        public BlockPos add(double x, double y, double z) {
+		public BlockPos add(double x, double y, double z) {
 			return super.add(x, y, z).toImmutable();
 		}
 
 		@Override
-        public BlockPos add(int x, int y, int z) {
+		public BlockPos add(int x, int y, int z) {
 			return super.add(x, y, z).toImmutable();
 		}
 
 		@Override
-        public BlockPos offset(EnumFacing facing, int n) {
+		public BlockPos offset(EnumFacing facing, int n) {
 			return super.offset(facing, n).toImmutable();
 		}
 
 		@Override
-        public BlockPos offset(EnumFacing p_190942_1_) {
+		public BlockPos offset(EnumFacing p_190942_1_) {
 			return super.offset(p_190942_1_).toImmutable();
 		}
 
 		@Override
-        public int getX() {
+		public int getX() {
 			return this.x;
 		}
 
 		@Override
-        public int getY() {
+		public int getY() {
 			return this.y;
 		}
 
 		@Override
-        public int getZ() {
+		public int getZ() {
 			return this.z;
 		}
 
@@ -339,7 +339,7 @@ public class BlockPos extends Vec3i {
 		}
 
 		@Override
-        public BlockPos toImmutable() {
+		public BlockPos toImmutable() {
 			return new BlockPos(this);
 		}
 	}

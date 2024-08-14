@@ -32,7 +32,7 @@ public class ShulkerBulletRenderer extends Render {
 	 * Renders the desired {@code T} type Entity.
 	 */
 	@Override
-    public void doRender(Entity entity, double x, double y, double z, float entityYaw, float partialTicks) {
+	public void doRender(Entity entity, double x, double y, double z, float entityYaw, float partialTicks) {
 		GL11.glPushMatrix();
 		float f = this.rotLerp(entity.prevRotationYaw, entity.rotationYaw, partialTicks);
 		float f1 = entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks;
@@ -60,7 +60,7 @@ public class ShulkerBulletRenderer extends Render {
 	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
 	 */
 	@Override
-    protected ResourceLocation getEntityTexture(Entity entity) {
+	protected ResourceLocation getEntityTexture(Entity entity) {
 		return SHULKER_SPARK_TEXTURE;
 	}
 }

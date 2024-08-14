@@ -49,12 +49,12 @@ public class BaseSubtypesItem extends BaseItem {
 	}
 
 	@Override
-    public String getTextureDomain() {
+	public String getTextureDomain() {
 		return "";
 	}
 
 	@Override
-    public String getNameDomain() {
+	public String getNameDomain() {
 		return Reference.MOD_ID;
 	}
 }

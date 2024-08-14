@@ -7,9 +7,9 @@ import net.minecraft.entity.EntityLiving;
  */
 public class EntityAIOpenCustomDoor extends EntityAICustomDoorInteract {
 
-    /**
-     * If the entity close the door
-     */
+	/**
+	 * If the entity close the door
+	 */
 	boolean closeDoor;
 	/**
 	 * The temporisation before the entity close the door (in ticks, always 20 = 1 second)

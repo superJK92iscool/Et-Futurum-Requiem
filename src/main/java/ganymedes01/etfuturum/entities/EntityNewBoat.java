@@ -113,12 +113,12 @@ public class EntityNewBoat extends Entity {
 	 * prevent them from trampling crops
 	 */
 	@Override
-    protected boolean canTriggerWalking() {
+	protected boolean canTriggerWalking() {
 		return false;
 	}
 
 	@Override
-    protected void entityInit() {
+	protected void entityInit() {
 		this.dataWatcher.addObject(DATA_ID_LAST_HIT, 0);
 		this.dataWatcher.addObject(DATA_ID_FORWARD, 1);
 		this.dataWatcher.addObject(DATA_ID_DAMAGE_TAKEN, 0.0F);
@@ -137,7 +137,7 @@ public class EntityNewBoat extends Entity {
 	 * pushable on contact, like boats or minecarts.
 	 */
 	@Override
-    public AxisAlignedBB getCollisionBox(Entity entityIn) {
+	public AxisAlignedBB getCollisionBox(Entity entityIn) {
 		return entityIn instanceof EntityNewBoatSeat ? null : entityIn.boundingBox;
 	}
 
@@ -145,7 +145,7 @@ public class EntityNewBoat extends Entity {
 	 * returns the bounding box for this entity
 	 */
 	@Override
-    public AxisAlignedBB getBoundingBox() {
+	public AxisAlignedBB getBoundingBox() {
 		return this.boundingBox;
 	}
 
@@ -153,7 +153,7 @@ public class EntityNewBoat extends Entity {
 	 * Returns true if this entity should push and be pushed by other entities when colliding.
 	 */
 	@Override
-    public boolean canBePushed() {
+	public boolean canBePushed() {
 		return true;
 	}
 
@@ -161,12 +161,12 @@ public class EntityNewBoat extends Entity {
 	 * Returns the Y offset from the entity's position for any entity riding this one.
 	 */
 	@Override
-    public double getMountedYOffset() {
+	public double getMountedYOffset() {
 		return isRaft() ? 0.3D : 0;
 	}
 
 	@Override
-    public double getYOffset() {
+	public double getYOffset() {
 		return 0;
 	}
 
@@ -252,7 +252,7 @@ public class EntityNewBoat extends Entity {
 	 * Called when the entity is attacked.
 	 */
 	@Override
-    public boolean attackEntityFrom(DamageSource source, float amount) {
+	public boolean attackEntityFrom(DamageSource source, float amount) {
 		if (this.isEntityInvulnerable()) {
 			return false;
 		} else if (!this.worldObj.isRemote && !this.isDead) {
@@ -287,7 +287,7 @@ public class EntityNewBoat extends Entity {
 	}
 
 	@Override
-    public void setDead() {
+	public void setDead() {
 		if (riddenByEntity instanceof EntityLivingBase) {
 			((EntityLivingBase) riddenByEntity).dismountEntity(this);
 			riddenByEntity.ridingEntity = null;
@@ -299,7 +299,7 @@ public class EntityNewBoat extends Entity {
 	 * Applies a velocity to the entities, to push them away from eachother.
 	 */
 	@Override
-    public void applyEntityCollision(Entity entityIn) {
+	public void applyEntityCollision(Entity entityIn) {
 		if (entityIn instanceof EntityNewBoat) {
 			if (entityIn.boundingBox.minY < this.boundingBox.maxY) {
 				super.applyEntityCollision(entityIn);
@@ -315,7 +315,7 @@ public class EntityNewBoat extends Entity {
 	 * Setups the entity to do the hurt animation. Only used by packets in multiplayer.
 	 */
 	@Override
-    public void performHurtAnimation() {
+	public void performHurtAnimation() {
 		this.setForwardDirection(-this.getForwardDirection());
 		this.setTimeSinceHit(10);
 		this.setDamageTaken(this.getDamageTaken() * 11.0F);
@@ -325,7 +325,7 @@ public class EntityNewBoat extends Entity {
 	 * Returns true if other Entities should be prevented from moving through this Entity.
 	 */
 	@Override
-    public boolean canBeCollidedWith() {
+	public boolean canBeCollidedWith() {
 		return !this.isDead;
 	}
 
@@ -362,7 +362,7 @@ public class EntityNewBoat extends Entity {
 	}
 
 	@Override
-    public void onEntityUpdate() {
+	public void onEntityUpdate() {
 		super.onEntityUpdate();
 
 		//TODO add option for no passenger seat and don't run this code
@@ -419,7 +419,7 @@ public class EntityNewBoat extends Entity {
 	 * Called to update the entity's position/logic.
 	 */
 	@Override
-    public void onUpdate() {
+	public void onUpdate() {
 		this.previousStatus = this.status;
 		this.status = this.getBoatStatus();
 
@@ -1147,7 +1147,7 @@ public class EntityNewBoat extends Entity {
 		}
 
 		@Override
-        public String toString() {
+		public String toString() {
 			return this.name;
 		}
 

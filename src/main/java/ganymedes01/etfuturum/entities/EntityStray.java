@@ -147,7 +147,7 @@ public class EntityStray extends EntitySkeleton {
 	}
 
 	@Override
-    public ItemStack getPickedResult(MovingObjectPosition target) {
+	public ItemStack getPickedResult(MovingObjectPosition target) {
 		return ModEntityList.getEggFromEntity(this);
 	}
 }

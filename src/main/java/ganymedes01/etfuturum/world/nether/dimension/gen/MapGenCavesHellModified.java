@@ -159,7 +159,7 @@ public class MapGenCavesHellModified extends MapGenBase {
 	}
 
 	@Override
-    protected void func_151538_a(World worldIn, int p_151538_2_, int p_151538_3_, int p_151538_4_, int p_151538_5_, Block[] p_151538_6_) {
+	protected void func_151538_a(World worldIn, int p_151538_2_, int p_151538_3_, int p_151538_4_, int p_151538_5_, Block[] p_151538_6_) {
 		int i1 = this.rand.nextInt(this.rand.nextInt(this.rand.nextInt(10) + 1) + 1);
 		if (this.rand.nextInt(5) != 0) {
 			i1 = 0;

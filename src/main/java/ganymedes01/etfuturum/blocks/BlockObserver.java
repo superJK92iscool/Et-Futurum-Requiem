@@ -70,7 +70,7 @@ public class BlockObserver extends Block implements IBlockObserver {
 	}
 
 	@Override
-    @SideOnly(Side.CLIENT)
+	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister reg) {
 		this.blockIcon = reg.registerIcon("observer_side");
 		this.observerFront = reg.registerIcon("observer_front");
@@ -142,7 +142,7 @@ public class BlockObserver extends Block implements IBlockObserver {
 	}
 
 	@Override
-    public boolean isNormalCube(IBlockAccess world, int x, int y, int z) {
+	public boolean isNormalCube(IBlockAccess world, int x, int y, int z) {
 		return true;
 	}
 

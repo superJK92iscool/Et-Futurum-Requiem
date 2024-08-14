@@ -535,7 +535,7 @@ public class EntityRabbit extends EntityAnimal {
 	}
 
 	@Override
-    public ItemStack getPickedResult(MovingObjectPosition target) {
+	public ItemStack getPickedResult(MovingObjectPosition target) {
 		return ModEntityList.getEggFromEntity(this);
 	}
 

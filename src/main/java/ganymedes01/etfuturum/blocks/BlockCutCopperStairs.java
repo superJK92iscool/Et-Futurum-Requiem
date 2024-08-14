@@ -44,16 +44,16 @@ public class BlockCutCopperStairs extends BaseStairs implements IDegradable {
 	}
 
 	public Block getCopperBlockFromMeta(int i) {
-        return switch (i) {
-            case 5 -> ModBlocks.EXPOSED_CUT_COPPER_STAIRS.get();
-            case 6 -> ModBlocks.WEATHERED_CUT_COPPER_STAIRS.get();
-            case 7 -> ModBlocks.OXIDIZED_CUT_COPPER_STAIRS.get();
-            case 12 -> ModBlocks.WAXED_CUT_COPPER_STAIRS.get();
-            case 13 -> ModBlocks.WAXED_EXPOSED_CUT_COPPER_STAIRS.get();
-            case 14 -> ModBlocks.WAXED_WEATHERED_CUT_COPPER_STAIRS.get();
-            case 15 -> ModBlocks.WAXED_OXIDIZED_CUT_COPPER_STAIRS.get();
-            default -> ModBlocks.CUT_COPPER_STAIRS.get();
-        };
+		return switch (i) {
+			case 5 -> ModBlocks.EXPOSED_CUT_COPPER_STAIRS.get();
+			case 6 -> ModBlocks.WEATHERED_CUT_COPPER_STAIRS.get();
+			case 7 -> ModBlocks.OXIDIZED_CUT_COPPER_STAIRS.get();
+			case 12 -> ModBlocks.WAXED_CUT_COPPER_STAIRS.get();
+			case 13 -> ModBlocks.WAXED_EXPOSED_CUT_COPPER_STAIRS.get();
+			case 14 -> ModBlocks.WAXED_WEATHERED_CUT_COPPER_STAIRS.get();
+			case 15 -> ModBlocks.WAXED_OXIDIZED_CUT_COPPER_STAIRS.get();
+			default -> ModBlocks.CUT_COPPER_STAIRS.get();
+		};
 	}
 
 	@Override

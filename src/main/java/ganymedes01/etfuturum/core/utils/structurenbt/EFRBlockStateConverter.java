@@ -43,7 +43,7 @@ public class EFRBlockStateConverter extends BlockStateConverter {
 	}
 
 	@Override
-    public Block getBlockFromNamespace(String blockName, Map<String, String> blockStates) {
+	public Block getBlockFromNamespace(String blockName, Map<String, String> blockStates) {
 		String truncatedName = blockName.substring(blockName.indexOf(":") + 1);
 		String nameToFind = truncatedName;
 

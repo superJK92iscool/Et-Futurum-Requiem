@@ -14,7 +14,7 @@ public class BlockStonecutterRenderer extends BlockModelBase {
 	}
 
 	@Override
-    protected void renderStandardInventoryCube(Block block, int meta, int modelID, RenderBlocks renderer, double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
+	protected void renderStandardInventoryCube(Block block, int meta, int modelID, RenderBlocks renderer, double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
 		super.renderStandardInventoryCube(block, meta, modelID, renderer, minX, minY, minZ, maxX, maxY, maxZ);
 		renderer.setRenderBounds(0.0F, 0, 0.5F, 1.0F, 0.4375F, 0.5F);
 		renderer.renderFaceZNeg(block, 0, .5625D, 0, ((BlockStonecutter) block).sawIcon);

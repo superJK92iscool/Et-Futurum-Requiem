@@ -55,7 +55,7 @@ public class GuiConfigWarning extends GuiScreen {
 	}
 
 	@Override
-    public void onGuiClosed() {
+	public void onGuiClosed() {
 		config.getCategory("warned").get("configWarningShown").set(never);
 		config.save();
 	}

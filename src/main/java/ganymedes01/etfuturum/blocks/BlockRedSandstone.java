@@ -18,7 +18,7 @@ public class BlockRedSandstone extends BlockSandStone {
 	}
 
 	@Override
-    @SideOnly(Side.CLIENT)
+	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister reg) {
 		this.field_150158_M = new IIcon[3];
 

@@ -34,7 +34,7 @@ public class SoulFlameFX extends EtFuturumFXParticle {
 	}
 
 	@Override
-    public int getBrightnessForRender(float p_70070_1_) {
+	public int getBrightnessForRender(float p_70070_1_) {
 		float f1 = ((float) this.particleAge + p_70070_1_) / (float) this.particleMaxAge;
 
 		if (f1 < 0.0F) {
@@ -61,7 +61,7 @@ public class SoulFlameFX extends EtFuturumFXParticle {
 	 * Gets how bright this entity is.
 	 */
 	@Override
-    public float getBrightness(float p_70013_1_) {
+	public float getBrightness(float p_70013_1_) {
 		float f1 = ((float) this.particleAge + p_70013_1_) / (float) this.particleMaxAge;
 
 		if (f1 < 0.0F) {
@@ -80,7 +80,7 @@ public class SoulFlameFX extends EtFuturumFXParticle {
 	 * Called to update the entity's position/logic.
 	 */
 	@Override
-    public void onUpdate() {
+	public void onUpdate() {
 		this.prevPosX = this.posX;
 		this.prevPosY = this.posY;
 		this.prevPosZ = this.posZ;

@@ -44,7 +44,7 @@ public class BlockNetherRoots extends BlockBush implements ISubBlocksBlock {
 	}
 
 	@Override
-    public boolean canBlockStay(World worldIn, int x, int y, int z) {
+	public boolean canBlockStay(World worldIn, int x, int y, int z) {
 		Block block = worldIn.getBlock(x, y - 1, z);
 		return block == Blocks.mycelium || block.canSustainPlant(worldIn, x, y - 1, z, ForgeDirection.UP, this)
 				|| block.canSustainPlant(worldIn, x, y - 1, z, ForgeDirection.UP, Blocks.tallgrass);

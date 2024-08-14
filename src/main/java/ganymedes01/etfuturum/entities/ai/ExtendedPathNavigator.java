@@ -38,24 +38,24 @@ public abstract class ExtendedPathNavigator extends PathNavigate {
 	}
 
 	@Override
-    public boolean tryMoveToXYZ(double x, double y, double z, double speedIn) {
+	public boolean tryMoveToXYZ(double x, double y, double z, double speedIn) {
 		PathEntity pathentity = this.getPathToXYZ(MathHelper.floor_double(x), (int) y, MathHelper.floor_double(z));
 		return pathentity != null && this.setPath(pathentity, speedIn);
 	}
 
 	@Override
-    public boolean tryMoveToEntityLiving(Entity entityIn, double speedIn) {
+	public boolean tryMoveToEntityLiving(Entity entityIn, double speedIn) {
 		PathEntity pathentity = this.getPathToEntityLiving(entityIn);
 		return pathentity != null && this.setPath(pathentity, speedIn);
 	}
 
 	@Override
-    public PathEntity getPathToXYZ(double p_75488_1_, double p_75488_3_, double p_75488_5_) {
+	public PathEntity getPathToXYZ(double p_75488_1_, double p_75488_3_, double p_75488_5_) {
 		return !this.canNavigate() ? null : getEntityPathToXYZ(MathHelper.floor_double(p_75488_1_), (int) p_75488_3_, MathHelper.floor_double(p_75488_5_), this.getPathSearchRange(), this.canPassOpenWoodenDoors, this.getCanBreakDoors(), this.getAvoidsWater(), this.canSwim);
 	}
 
 	@Override
-    public PathEntity getPathToEntityLiving(Entity p_75494_1_) {
+	public PathEntity getPathToEntityLiving(Entity p_75494_1_) {
 		return !this.canNavigate() ? null : getPathEntityToEntity(p_75494_1_, this.getPathSearchRange(), this.canPassOpenWoodenDoors, this.getCanBreakDoors(), this.getAvoidsWater(), this.canSwim);
 	}
 
@@ -86,7 +86,7 @@ public abstract class ExtendedPathNavigator extends PathNavigate {
 	}
 
 	@Override
-    protected boolean canNavigate() {
+	protected boolean canNavigate() {
 		return theEntity instanceof INoGravityEntity || super.canNavigate();
 	}
 }

@@ -17,7 +17,7 @@ public class BeeRenderer extends RenderLiving {
 	}
 
 	@Override
-    public ResourceLocation getEntityTexture(Entity entity) {
+	public ResourceLocation getEntityTexture(Entity entity) {
 		return getBeeTexture((EntityBee) entity);
 	}
 

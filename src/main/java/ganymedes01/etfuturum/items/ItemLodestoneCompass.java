@@ -23,7 +23,7 @@ public class ItemLodestoneCompass extends Item {
 	}
 
 	@Override
-    public boolean hasEffect(ItemStack p_77636_1_) {
+	public boolean hasEffect(ItemStack p_77636_1_) {
 		return true;
 	}
 
@@ -31,7 +31,7 @@ public class ItemLodestoneCompass extends Item {
 	 * Return an item rarity from EnumRarity
 	 */
 	@Override
-    public EnumRarity getRarity(ItemStack p_77613_1_) {
+	public EnumRarity getRarity(ItemStack p_77613_1_) {
 		return EnumRarity.common;
 	}
 }

@@ -19,9 +19,9 @@ import java.util.List;
 
 public class LayeredColorMaskTexture extends AbstractTexture {
 
-    /**
-     * Access to the Logger, for all your logging needs.
-     */
+	/**
+	 * Access to the Logger, for all your logging needs.
+	 */
 	private static final Logger LOGGER = LogManager.getLogger();
 	/**
 	 * The location of the texture.

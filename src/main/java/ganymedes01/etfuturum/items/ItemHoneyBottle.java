@@ -17,7 +17,7 @@ public class ItemHoneyBottle extends BaseItem {
 	}
 
 	@Override
-    public ItemStack onEaten(ItemStack p_77654_1_, World p_77654_2_, EntityPlayer p_77654_3_) {
+	public ItemStack onEaten(ItemStack p_77654_1_, World p_77654_2_, EntityPlayer p_77654_3_) {
 		if (!p_77654_3_.capabilities.isCreativeMode) {
 			--p_77654_1_.stackSize;
 		}
@@ -38,17 +38,17 @@ public class ItemHoneyBottle extends BaseItem {
 	}
 
 	@Override
-    public int getMaxItemUseDuration(ItemStack p_77626_1_) {
+	public int getMaxItemUseDuration(ItemStack p_77626_1_) {
 		return 32;
 	}
 
 	@Override
-    public EnumAction getItemUseAction(ItemStack stack) {
+	public EnumAction getItemUseAction(ItemStack stack) {
 		return EnumAction.drink;
 	}
 
 	@Override
-    public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer player) {
+	public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer player) {
 		player.setItemInUse(itemStackIn, this.getMaxItemUseDuration(itemStackIn));
 		return itemStackIn;
 	}

@@ -57,7 +57,7 @@ public class BlockAzalea extends BlockBush implements ISubBlocksBlock {
 	}
 
 	@Override
-    public void addCollisionBoxesToList(World worldIn, int x, int y, int z, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collider) {
+	public void addCollisionBoxesToList(World worldIn, int x, int y, int z, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collider) {
 		setBlockBounds(0.0F, 0.5F, 0.0F, 1.0F, 1.0F, 1.0F);
 		super.addCollisionBoxesToList(worldIn, x, y, z, mask, list, collider);
 		setBlockBounds(0.4375F, 0.5F, 0.4375F, 0.5625F, 1.0F, 0.5625F);
@@ -99,7 +99,7 @@ public class BlockAzalea extends BlockBush implements ISubBlocksBlock {
 	}
 
 	@Override
-    @SideOnly(Side.CLIENT)
+	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister reg) {
 		this.blockIcon = reg.registerIcon(this.getTextureName() + "_plant");
 

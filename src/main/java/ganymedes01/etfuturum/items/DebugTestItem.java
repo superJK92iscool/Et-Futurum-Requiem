@@ -84,7 +84,7 @@ public class DebugTestItem extends BaseItem {
 	}
 
 	@Override
-    public String getItemStackDisplayName(ItemStack p_77653_1_) {
+	public String getItemStackDisplayName(ItemStack p_77653_1_) {
 		return "Debugging Item" + TestTypes.values()[p_77653_1_.getItemDamage() % TestTypes.values().length].getSuffix();
 	}
 
@@ -112,7 +112,7 @@ public class DebugTestItem extends BaseItem {
 	}
 
 	@Override
-    public float getDigSpeed(ItemStack itemstack, Block block, int metadata) {
+	public float getDigSpeed(ItemStack itemstack, Block block, int metadata) {
 		return 0;
 	}
 
@@ -130,7 +130,7 @@ public class DebugTestItem extends BaseItem {
 
 			final WorldGenFossil fossil = new WorldGenFossil() {
 				@Override
-                protected boolean canFossilGenerateHere(World world, int x, int y, int z, BlockPos corners) {
+				protected boolean canFossilGenerateHere(World world, int x, int y, int z, BlockPos corners) {
 					return true;
 				}
 			};
@@ -144,7 +144,7 @@ public class DebugTestItem extends BaseItem {
 
 			final WorldGenGeode fossil = new WorldGenGeode(ConfigWorld.amethystOuterBlock, ConfigWorld.amethystMiddleBlock) {
 				@Override
-                protected boolean isInvalidCorner(World world, int x, int y, int z) {
+				protected boolean isInvalidCorner(World world, int x, int y, int z) {
 					return false;
 				}
 			};

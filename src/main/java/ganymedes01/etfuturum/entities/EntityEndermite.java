@@ -135,7 +135,7 @@ public class EntityEndermite extends EntityMob {
 	}
 
 	@SuppressWarnings("unchecked")
-    public void aggroEndermen(int range) {
+	public void aggroEndermen(int range) {
 		double radius = range / 2.0;
 		int tagetChance = 10;
 		if (rand.nextInt(tagetChance) != 0) {
@@ -178,7 +178,7 @@ public class EntityEndermite extends EntityMob {
 	}
 
 	@Override
-    public ItemStack getPickedResult(MovingObjectPosition target) {
+	public ItemStack getPickedResult(MovingObjectPosition target) {
 		return ModEntityList.getEggFromEntity(this);
 	}
 }

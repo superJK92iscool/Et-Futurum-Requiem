@@ -89,7 +89,7 @@ public class WorldGenGeode extends WorldGenerator {
 	 * Some of them use a number provider to do .get to get a number in the range. If this would get two numbers I used nextBoolean() instead to be faster.
 	 */
 	@Override
-    public boolean generate(World world, Random random, int x, int y, int z) {
+	public boolean generate(World world, Random random, int x, int y, int z) {
 		BlockPos blockPos = new BlockPos(x, y, z);
 		List<Pair<BlockPos, Integer>> list = Lists.newLinkedList();
 		int distPoint = Utils.getRandom(distributionPoints, random);

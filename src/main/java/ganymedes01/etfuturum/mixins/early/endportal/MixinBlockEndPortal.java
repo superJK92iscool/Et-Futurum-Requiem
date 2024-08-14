@@ -49,7 +49,7 @@ public class MixinBlockEndPortal extends Block {
 	}
 
 	@Override
-    @SideOnly(Side.CLIENT)
+	@SideOnly(Side.CLIENT)
 	public String getItemIconName() {
 		return "end_portal";
 	}

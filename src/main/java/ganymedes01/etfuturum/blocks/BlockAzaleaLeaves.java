@@ -23,13 +23,13 @@ public class BlockAzaleaLeaves extends BaseLeaves {
 	}
 
 	@Override
-    @SideOnly(Side.CLIENT)
+	@SideOnly(Side.CLIENT)
 	public int colorMultiplier(IBlockAccess worldIn, int x, int y, int z) {
 		return 0xFFFFFF;
 	}
 
 	@Override
-    public int getRenderColor(int meta) {
+	public int getRenderColor(int meta) {
 		return 0xFFFFFF;
 	}
 }

@@ -29,7 +29,7 @@ public class EntityBoostingFireworkRocket extends EntityFireworkRocket {
 	}
 
 	@Override
-    public boolean isInRangeToRenderDist(double distance) {
+	public boolean isInRangeToRenderDist(double distance) {
 		return false;
 	}
 

@@ -25,22 +25,22 @@ public class BlockBuddingAmethyst extends BlockAmethystBlock {
 	}
 
 	@Override
-    public int getMobilityFlag() {
+	public int getMobilityFlag() {
 		return ConfigWorld.buddingAmethystMode == 0 ? 1 : 0;
 	}
 
 	@Override
-    public boolean canSilkHarvest(World world, EntityPlayer player, int x, int y, int z, int metadata) {
+	public boolean canSilkHarvest(World world, EntityPlayer player, int x, int y, int z, int metadata) {
 		return ConfigWorld.buddingAmethystMode != 0;
 	}
 
 	@Override
-    public int quantityDropped(Random random) {
+	public int quantityDropped(Random random) {
 		return ConfigWorld.buddingAmethystMode == 2 ? 1 : 0;
 	}
 
 	@Override
-    public Item getItemDropped(int meta, Random random, int fortune) {
+	public Item getItemDropped(int meta, Random random, int fortune) {
 		return ConfigWorld.buddingAmethystMode == 2 ? super.getItemDropped(meta, random, fortune) : null;
 	}
 

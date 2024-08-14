@@ -46,7 +46,7 @@ public class NBTStructure {
 	}
 
 	@SuppressWarnings("unchecked")
-    public NBTStructure(String loc, BlockStateConverter converter) {
+	public NBTStructure(String loc, BlockStateConverter converter) {
 		this.converter = converter;
 		try {
 			InputStream file = EtFuturum.class.getResourceAsStream(loc);
@@ -408,7 +408,7 @@ public class NBTStructure {
 	}
 
 	@SuppressWarnings("unchecked")
-    public static Map<String, String> getProperties(NBTTagCompound compound) {
+	public static Map<String, String> getProperties(NBTTagCompound compound) {
 		Map<String, String> map = new HashMap<>();
 		for (Map.Entry<String, NBTBase> props : (Set<Map.Entry<String, NBTBase>>) compound.getCompoundTag("Properties").tagMap.entrySet()) {
 			if (props.getValue().getId() == 8) {

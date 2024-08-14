@@ -35,7 +35,7 @@ public class EntityFallingDripstone extends EntityFallingBlock {
 	}
 
 	@Override
-    public void onUpdate() {
+	public void onUpdate() {
 
 		Block block = ModBlocks.POINTED_DRIPSTONE.get();
 
@@ -87,7 +87,7 @@ public class EntityFallingDripstone extends EntityFallingBlock {
 	}
 
 	@Override
-    protected void fall(float distance) {
+	protected void fall(float distance) {
 		if (this.hurtEntities) {
 			int i = MathHelper.ceiling_float_int(distance - 1.0F);
 
@@ -105,7 +105,7 @@ public class EntityFallingDripstone extends EntityFallingBlock {
 	}
 
 	@Override
-    protected void writeEntityToNBT(NBTTagCompound tagCompound) {
+	protected void writeEntityToNBT(NBTTagCompound tagCompound) {
 		super.writeEntityToNBT(tagCompound);
 		tagCompound.setBoolean("HurtEntities", this.hurtEntities);
 		tagCompound.setFloat("FallHurtAmount", this.fallHurtAmount);
@@ -113,7 +113,7 @@ public class EntityFallingDripstone extends EntityFallingBlock {
 	}
 
 	@Override
-    protected void readEntityFromNBT(NBTTagCompound tagCompund) {
+	protected void readEntityFromNBT(NBTTagCompound tagCompund) {
 		super.readEntityFromNBT(tagCompund);
 		this.hurtEntities = tagCompund.getBoolean("HurtEntities");
 		this.fallHurtAmount = tagCompund.getFloat("FallHurtAmount");

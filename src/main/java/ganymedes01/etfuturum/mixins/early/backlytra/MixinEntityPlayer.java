@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(EntityPlayer.class)
 public abstract class MixinEntityPlayer extends EntityLivingBase implements IElytraPlayer {
 	@Override
-    @Shadow
+	@Shadow
 	public abstract boolean isPlayerSleeping();
 
 	@Shadow

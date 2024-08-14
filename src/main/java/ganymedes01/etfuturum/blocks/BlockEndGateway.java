@@ -39,13 +39,13 @@ public class BlockEndGateway extends BlockContainer {
 	}
 
 	@Override
-    public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
+	public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
 		list.add(new ItemStack(Blocks.end_portal, 1, 0));
 		list.add(new ItemStack(itemIn, 1, 0));
 	}
 
 	@Override
-    public AxisAlignedBB getCollisionBoundingBoxFromPool(World worldIn, int x, int y, int z) {
+	public AxisAlignedBB getCollisionBoundingBoxFromPool(World worldIn, int x, int y, int z) {
 		return null;
 	}
 
@@ -69,40 +69,40 @@ public class BlockEndGateway extends BlockContainer {
 	}
 
 	@Override
-    @SideOnly(Side.CLIENT)
+	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister reg) {
 		this.blockIcon = Blocks.obsidian.getIcon(0, 0);
 	}
 
 	@Override
-    public boolean isOpaqueCube() {
+	public boolean isOpaqueCube() {
 		return false;
 	}
 
 	@Override
-    public int quantityDropped(Random random) {
+	public int quantityDropped(Random random) {
 		return 0;
 	}
 
 	@Override
-    public boolean renderAsNormalBlock() {
+	public boolean renderAsNormalBlock() {
 		return false;
 	}
 
 	@Override
-    public int getRenderType() {
+	public int getRenderType() {
 		return -1;
 	}
 
 	@Override
-    public boolean shouldSideBeRendered(IBlockAccess world, int x, int y, int z, int side) {
+	public boolean shouldSideBeRendered(IBlockAccess world, int x, int y, int z, int side) {
 		EnumFacing facing = EnumFacing.getFront(side);
 		Block block = world.getBlock(x + facing.getFrontOffsetX(), y + facing.getFrontOffsetY(), z + facing.getFrontOffsetZ());
 		return !block.isOpaqueCube() && block != this;
 	}
 
 	@Override
-    public void randomDisplayTick(World worldIn, int x, int y, int z, Random rand) {
+	public void randomDisplayTick(World worldIn, int x, int y, int z, Random rand) {
 
 		TileEntity tileentity = worldIn.getTileEntity(x, y, z);
 

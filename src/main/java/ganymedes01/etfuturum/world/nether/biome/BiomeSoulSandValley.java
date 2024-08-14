@@ -21,7 +21,7 @@ public class BiomeSoulSandValley extends NetherBiomeBase {
 	}
 
 	@Override
-    public float getSpawningChance() {
+	public float getSpawningChance() {
 		return 0.075F;
 	}
 }

@@ -56,12 +56,12 @@ public class BlockComposter extends Block implements FakeTileEntityProvider {
 	}
 
 	@Override
-    public IIcon getIcon(int side, int meta) {
+	public IIcon getIcon(int side, int meta) {
 		return side == 1 ? this.topIcon : side == 0 ? bottomIcon : this.blockIcon;
 	}
 
 	@Override
-    @SideOnly(Side.CLIENT)
+	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister reg) {
 		this.blockIcon = reg.registerIcon(this.getTextureName() + "_side");
 		this.bottomIcon = reg.registerIcon(this.getTextureName() + "_bottom");
@@ -72,7 +72,7 @@ public class BlockComposter extends Block implements FakeTileEntityProvider {
 	}
 
 	@Override
-    public void addCollisionBoxesToList(World worldIn, int x, int y, int z, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collider) {
+	public void addCollisionBoxesToList(World worldIn, int x, int y, int z, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collider) {
 		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.125F, 1.0F);
 		super.addCollisionBoxesToList(worldIn, x, y, z, mask, list, collider);
 		float f = 0.125F;
@@ -88,7 +88,7 @@ public class BlockComposter extends Block implements FakeTileEntityProvider {
 	}
 
 	@Override
-    public void setBlockBoundsForItemRender() {
+	public void setBlockBoundsForItemRender() {
 		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
 	}
 
@@ -116,7 +116,7 @@ public class BlockComposter extends Block implements FakeTileEntityProvider {
 	}
 
 	@Override
-    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float clickX, float clickY, float clickZ) {
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float clickX, float clickY, float clickZ) {
 		int meta = world.getBlockMetadata(x, y, z);
 		if (meta < FULL_META) {
 			ItemStack stack = player.getCurrentEquippedItem();
@@ -149,7 +149,7 @@ public class BlockComposter extends Block implements FakeTileEntityProvider {
 	}
 
 	@Override
-    public void updateTick(World world, int x, int y, int z, Random rand) {
+	public void updateTick(World world, int x, int y, int z, Random rand) {
 		if (world.getBlockMetadata(x, y, z) == FULL_META) {
 			world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, Reference.MCAssetVer + ":block.composter.ready", 1, 1);
 			world.setBlockMetadataWithNotify(x, y, z, HARVESTABLE_META, 3);
@@ -253,7 +253,7 @@ public class BlockComposter extends Block implements FakeTileEntityProvider {
 		}
 
 		@Override
-        public void setInventorySlotContents(int index, ItemStack stack) {
+		public void setInventorySlotContents(int index, ItemStack stack) {
 			markDirty();
 		}
 	}

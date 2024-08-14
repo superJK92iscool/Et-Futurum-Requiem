@@ -67,7 +67,7 @@ public class ModelNewBoat extends ModelBase {
 	 * Sets the models various rotation angles then renders the model.
 	 */
 	@Override
-    public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		GL11.glPushMatrix();
 		GL11.glRotatef(90.0F, 0.0F, 1.0F, 0.0F);
 		EntityNewBoat entityboat = (EntityNewBoat) entityIn;
@@ -97,7 +97,7 @@ public class ModelNewBoat extends ModelBase {
 	 * "far" arms and legs can swing at most.
 	 */
 	@Override
-    public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
+	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
 	}
 
 	ModelRenderer makePaddle(boolean p_187056_1_) {

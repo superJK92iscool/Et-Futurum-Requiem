@@ -12,7 +12,7 @@ public class PotionLevitation extends ModPotions {
 	}
 
 	@Override
-    public void performEffect(EntityLivingBase entity, int level) {
+	public void performEffect(EntityLivingBase entity, int level) {
 		if (!(entity instanceof EntityPlayer) || !((EntityPlayer) entity).capabilities.isFlying) {
 			entity.fallDistance = 0;
 			entity.addVelocity(0, (0.05D * (double) (level + 1) - entity.motionY) * 0.2D, 0);
@@ -22,7 +22,7 @@ public class PotionLevitation extends ModPotions {
 	}
 
 	@Override
-    public boolean isReady(int p_76397_1_, int p_76397_2_) {
+	public boolean isReady(int p_76397_1_, int p_76397_2_) {
 		return true;
 	}
 

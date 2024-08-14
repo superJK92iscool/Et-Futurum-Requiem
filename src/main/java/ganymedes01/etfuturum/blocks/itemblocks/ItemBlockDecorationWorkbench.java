@@ -15,7 +15,7 @@ public class ItemBlockDecorationWorkbench extends ItemBlock {
 	}
 
 	@Override
-    public void addInformation(ItemStack stack, EntityPlayer player, List<String> lore, boolean f3h) {
+	public void addInformation(ItemStack stack, EntityPlayer player, List<String> lore, boolean f3h) {
 		lore.add("\u00a7o" + StatCollector.translateToLocal("efr.decoration.only"));
 	}
 

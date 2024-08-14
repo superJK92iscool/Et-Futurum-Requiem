@@ -35,11 +35,11 @@ public class ModelRaft extends ModelNewBoat {
 	}
 
 	@Override
-    public void renderMultipass(Entity p_187054_1_, float p_187054_2_, float p_187054_3_, float p_187054_4_, float p_187054_5_, float p_187054_6_, float scale) {
+	public void renderMultipass(Entity p_187054_1_, float p_187054_2_, float p_187054_3_, float p_187054_4_, float p_187054_5_, float p_187054_6_, float scale) {
 	}
 
 	@Override
-    ModelRenderer makePaddle(boolean p_187056_1_) {
+	ModelRenderer makePaddle(boolean p_187056_1_) {
 		ModelRenderer modelrenderer = (new ModelRenderer(this, p_187056_1_ ? 0 : 40, 24)).setTextureSize(128, 64);
 		modelrenderer.addBox(-1.0F, 0.0F, -5.0F, 2, 2, 18);
 		modelrenderer.addBox(p_187056_1_ ? -1.001F : 0.01F, -3.0F, 8.0F, 1, 6, 7);

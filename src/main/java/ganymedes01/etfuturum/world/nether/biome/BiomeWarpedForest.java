@@ -20,7 +20,7 @@ public class BiomeWarpedForest extends NetherBiomeBase {
 	}
 
 	@Override
-    public float getSpawningChance() {
+	public float getSpawningChance() {
 		return 0.035F;
 	}
 }

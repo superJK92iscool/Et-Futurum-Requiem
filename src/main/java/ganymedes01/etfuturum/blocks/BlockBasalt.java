@@ -32,13 +32,13 @@ public class BlockBasalt extends BlockRotatedPillar implements ISubBlocksBlock {
 	}
 
 	@Override
-    public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
+	public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
 		list.add(new ItemStack(itemIn, 1, 0));
 		list.add(new ItemStack(itemIn, 1, 1));
 	}
 
 	@Override
-    @SideOnly(Side.CLIENT)
+	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister reg) {
 		sideIcons = new IIcon[2];
 		topIcons = new IIcon[2];
@@ -50,12 +50,12 @@ public class BlockBasalt extends BlockRotatedPillar implements ISubBlocksBlock {
 	}
 
 	@Override
-    protected IIcon getSideIcon(int p_150163_1_) {
+	protected IIcon getSideIcon(int p_150163_1_) {
 		return this.sideIcons[p_150163_1_ % this.sideIcons.length];
 	}
 
 	@Override
-    protected IIcon getTopIcon(int p_150161_1_) {
+	protected IIcon getTopIcon(int p_150161_1_) {
 		return this.topIcons[p_150161_1_ % this.topIcons.length];
 	}
 

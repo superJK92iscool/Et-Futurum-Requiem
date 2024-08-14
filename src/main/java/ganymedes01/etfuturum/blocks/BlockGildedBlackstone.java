@@ -22,7 +22,7 @@ public class BlockGildedBlackstone extends BaseBlock {
 
 
 	@Override
-    public Item getItemDropped(int meta, Random random, int fortune) {
+	public Item getItemDropped(int meta, Random random, int fortune) {
 		if (fortune > 3) {
 			fortune = 3;
 		}
@@ -31,7 +31,7 @@ public class BlockGildedBlackstone extends BaseBlock {
 	}
 
 	@Override
-    public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
+	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
 		ArrayList<ItemStack> ret = new ArrayList<>();
 
 		Item item = getItemDropped(metadata, world.rand, fortune);

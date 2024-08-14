@@ -66,7 +66,7 @@ public class ContainerChestGeneric extends Container {
 	}
 
 	@Override
-    public boolean canInteractWith(EntityPlayer player) {
+	public boolean canInteractWith(EntityPlayer player) {
 		return this.chestInventory.isUseableByPlayer(player);
 	}
 
@@ -74,7 +74,7 @@ public class ContainerChestGeneric extends Container {
 	 * Called when a player shift-clicks on a slot. You must override this or you will crash when someone does that.
 	 */
 	@Override
-    public ItemStack transferStackInSlot(EntityPlayer player, int index) {
+	public ItemStack transferStackInSlot(EntityPlayer player, int index) {
 		ItemStack itemstack = null;
 		Slot slot = (Slot) this.inventorySlots.get(index);
 
@@ -129,7 +129,7 @@ public class ContainerChestGeneric extends Container {
 	 * Called when the container is closed.
 	 */
 	@Override
-    public void onContainerClosed(EntityPlayer p_75134_1_) {
+	public void onContainerClosed(EntityPlayer p_75134_1_) {
 		if (!SpectatorMode.isSpectator(p_75134_1_)) {
 			super.onContainerClosed(p_75134_1_);
 			this.chestInventory.closeInventory();

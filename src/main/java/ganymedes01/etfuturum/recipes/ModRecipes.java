@@ -89,7 +89,7 @@ public class ModRecipes {
 	}
 
 	@SuppressWarnings("unchecked")
-    private static void tweakRecipes() {
+	private static void tweakRecipes() {
 		if (ConfigBlocksItems.enableExtraVanillaSlabs && !ModsList.GTNH.isLoaded()) {
 			removeFirstRecipeFor(Blocks.stone_slab, 0);
 		}

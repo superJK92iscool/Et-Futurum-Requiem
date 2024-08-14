@@ -553,7 +553,7 @@ public class TileEntityShulkerBox extends TileEntity implements IInventory {
 	}
 
 	@Override
-    public int getBlockMetadata() {
+	public int getBlockMetadata() {
 		if (this.blockMetadata == -1) {
 			if (ConfigModCompat.shulkerBoxesIronChest) {
 				this.blockMetadata = this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord);

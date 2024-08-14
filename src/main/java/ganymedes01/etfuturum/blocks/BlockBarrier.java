@@ -59,7 +59,7 @@ public class BlockBarrier extends BaseBlock implements IFloatingParticleBlock {
 	}
 
 	@Override
-    public int getMobilityFlag() {
+	public int getMobilityFlag() {
 		return 2;
 	}
 
@@ -99,7 +99,7 @@ public class BlockBarrier extends BaseBlock implements IFloatingParticleBlock {
 	}
 
 	@Override
-    public boolean canEntityDestroy(IBlockAccess world, int x, int y, int z, Entity entity) {
+	public boolean canEntityDestroy(IBlockAccess world, int x, int y, int z, Entity entity) {
 		return false;
 	}
 

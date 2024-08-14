@@ -71,7 +71,7 @@ public class TileEntityGateway extends TileEntity {
 	}
 
 	@Override
-    public double getMaxRenderDistanceSquared() {
+	public double getMaxRenderDistanceSquared() {
 		return 65536.0D;
 	}
 

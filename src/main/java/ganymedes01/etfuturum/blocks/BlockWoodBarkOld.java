@@ -36,7 +36,7 @@ public class BlockWoodBarkOld extends BlockOldLog implements ISubBlocksBlock {
 	}
 
 	@Override
-    @SideOnly(Side.CLIENT)
+	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister reg) {
 		this.field_150167_a = new IIcon[field_150168_M.length];
 		this.field_150166_b = new IIcon[field_150168_M.length];

@@ -73,7 +73,7 @@ public class EntityTippedArrow extends EntityArrow implements IEntityAdditionalS
 	}
 
 	@Override
-    public void readEntityFromNBT(NBTTagCompound tagCompund) {
+	public void readEntityFromNBT(NBTTagCompound tagCompund) {
 		super.readEntityFromNBT(tagCompund);
 
 		if (tagCompund.hasKey("Potion", 10)) {
@@ -99,7 +99,7 @@ public class EntityTippedArrow extends EntityArrow implements IEntityAdditionalS
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	@Override
-    public void writeEntityToNBT(NBTTagCompound tagCompound) {
+	public void writeEntityToNBT(NBTTagCompound tagCompound) {
 		super.writeEntityToNBT(tagCompound);
 
 		if (this.arrow != null) {

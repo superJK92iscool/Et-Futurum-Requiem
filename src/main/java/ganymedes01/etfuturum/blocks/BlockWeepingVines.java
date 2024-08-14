@@ -84,7 +84,7 @@ public class BlockWeepingVines extends BaseBlock implements IShearable {
 	}
 
 	@Override
-    public void onNeighborBlockChange(World worldIn, int x, int y, int z, Block neighbor) {
+	public void onNeighborBlockChange(World worldIn, int x, int y, int z, Block neighbor) {
 		super.onNeighborBlockChange(worldIn, x, y, z, neighbor);
 		if (!canBlockStay(worldIn, x, y, z)) {
 			setVineToAir(worldIn, x, y, z);
@@ -108,23 +108,23 @@ public class BlockWeepingVines extends BaseBlock implements IShearable {
 	}
 
 	@Override
-    public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z) {
+	public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z) {
 		setBlockBoundsBasedOnState(world, x, y, z);
 		return super.getSelectedBoundingBoxFromPool(world, x, y, z);
 	}
 
 	@Override
-    public AxisAlignedBB getCollisionBoundingBoxFromPool(World worldIn, int x, int y, int z) {
+	public AxisAlignedBB getCollisionBoundingBoxFromPool(World worldIn, int x, int y, int z) {
 		return null;
 	}
 
 	@Override
-    public boolean isOpaqueCube() {
+	public boolean isOpaqueCube() {
 		return false;
 	}
 
 	@Override
-    public boolean renderAsNormalBlock() {
+	public boolean renderAsNormalBlock() {
 		return false;
 	}
 

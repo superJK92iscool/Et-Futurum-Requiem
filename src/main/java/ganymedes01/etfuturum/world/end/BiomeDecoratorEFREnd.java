@@ -14,7 +14,7 @@ public class BiomeDecoratorEFREnd extends BiomeEndDecorator {
 	}
 
 	@Override
-    protected void genDecorations(BiomeGenBase p_150513_1_) {
+	protected void genDecorations(BiomeGenBase p_150513_1_) {
 		this.generateOres();
 
 		if (!ModsList.HARDCORE_ENDER_EXPANSION.isLoaded()) {

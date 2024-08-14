@@ -89,7 +89,7 @@ public class BaseWall extends BlockWall implements ISubBlocksBlock {
 	}
 
 	@Override
-    public boolean canConnectWallTo(IBlockAccess p_150091_1_, int p_150091_2_, int p_150091_3_, int p_150091_4_) {
+	public boolean canConnectWallTo(IBlockAccess p_150091_1_, int p_150091_2_, int p_150091_3_, int p_150091_4_) {
 		Block block = p_150091_1_.getBlock(p_150091_2_, p_150091_3_, p_150091_4_);
 		return block instanceof BlockFenceGate || block instanceof BaseWall || super.canConnectWallTo(p_150091_1_, p_150091_2_, p_150091_3_, p_150091_4_);
 	}
@@ -142,7 +142,7 @@ public class BaseWall extends BlockWall implements ISubBlocksBlock {
 		return mapColorBase == null ? super.getMapColor(meta) : mapColorBase.getMapColor(meta);
 	}
 
-    private final Map<Integer, Float> hardnesses = Maps.newHashMap();
+	private final Map<Integer, Float> hardnesses = Maps.newHashMap();
 	private final Map<Integer, Float> resistances = Maps.newHashMap();
 
 	@Override

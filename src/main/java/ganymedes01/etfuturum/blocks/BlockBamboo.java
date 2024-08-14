@@ -78,7 +78,7 @@ public class BlockBamboo extends BaseBlock implements IPlantable, IGrowable {
 	 * their own) Args: x, y, z, neighbor Block
 	 */
 	@Override
-    public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
+	public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
 		super.onNeighborBlockChange(world, x, y, z, block);
 		this.checkAndDropBlock(world, x, y, z);
 
@@ -94,7 +94,7 @@ public class BlockBamboo extends BaseBlock implements IPlantable, IGrowable {
 	 * Ticks the block if it's been scheduled
 	 */
 	@Override
-    public void updateTick(World world, int x, int y, int z, Random rand) {
+	public void updateTick(World world, int x, int y, int z, Random rand) {
 		this.checkAndDropBlock(world, x, y, z);
 
 		int meta = world.getBlockMetadata(x, y, z);

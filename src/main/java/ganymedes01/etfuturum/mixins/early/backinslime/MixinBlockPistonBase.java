@@ -107,7 +107,7 @@ public class MixinBlockPistonBase extends Block {
 	 * @reason
 	 */
 	@Override
-    @Overwrite
+	@Overwrite
 	public boolean onBlockEventReceived(World world, int x, int y, int z, int extend, int side) {
 		if (!world.isRemote) {
 			boolean hasPower = this.isIndirectlyPowered(world, x, y, z, side);

@@ -27,7 +27,7 @@ public class BeeNectarFX extends EntityFX {
 	 * Called to update the entity's position/logic.
 	 */
 	@Override
-    public void onUpdate() {
+	public void onUpdate() {
 		super.onUpdate();
 		if (this.onGround) {
 			this.setDead();

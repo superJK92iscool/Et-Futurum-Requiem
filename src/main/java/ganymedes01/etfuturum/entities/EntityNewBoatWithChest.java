@@ -104,7 +104,7 @@ public class EntityNewBoatWithChest extends EntityNewBoat implements IInventory 
 	}
 
 	@Override
-    public void travelToDimension(int dimensionId) {
+	public void travelToDimension(int dimensionId) {
 		this.dropContentsWhenDead = false;
 		super.travelToDimension(dimensionId);
 	}
@@ -113,7 +113,7 @@ public class EntityNewBoatWithChest extends EntityNewBoat implements IInventory 
 	 * Will get destroyed next tick.
 	 */
 	@Override
-    public void setDead() {
+	public void setDead() {
 		if (this.dropContentsWhenDead) {
 			for (int i = 0; i < this.getSizeInventory(); ++i) {
 				ItemStack itemstack = this.getStackInSlot(i);
@@ -151,7 +151,7 @@ public class EntityNewBoatWithChest extends EntityNewBoat implements IInventory 
 	}
 
 	@Override
-    protected void writeEntityToNBT(NBTTagCompound tagCompound) {
+	protected void writeEntityToNBT(NBTTagCompound tagCompound) {
 		super.writeEntityToNBT(tagCompound);
 		NBTTagList nbttaglist = new NBTTagList();
 
@@ -171,7 +171,7 @@ public class EntityNewBoatWithChest extends EntityNewBoat implements IInventory 
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	@Override
-    protected void readEntityFromNBT(NBTTagCompound tagCompund) {
+	protected void readEntityFromNBT(NBTTagCompound tagCompund) {
 		super.readEntityFromNBT(tagCompund);
 		NBTTagList nbttaglist = tagCompund.getTagList("Items", 10);
 		this.boatItems = new ItemStack[this.getSizeInventory()];
@@ -190,7 +190,7 @@ public class EntityNewBoatWithChest extends EntityNewBoat implements IInventory 
 	 * First layer of player interaction
 	 */
 	@Override
-    public boolean interactFirst(EntityPlayer player) {
+	public boolean interactFirst(EntityPlayer player) {
 		if (!this.worldObj.isRemote && player.isSneaking()) {
 			player.displayGUIChest(this);
 			return true;

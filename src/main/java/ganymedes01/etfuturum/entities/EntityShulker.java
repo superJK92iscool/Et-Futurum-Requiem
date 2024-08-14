@@ -62,7 +62,7 @@ public class EntityShulker extends EntityGolem implements IMob {
 	}
 
 	@Override
-    protected boolean canDespawn() {
+	protected boolean canDespawn() {
 		return !isNoDespawnRequired();
 	}
 
@@ -83,7 +83,7 @@ public class EntityShulker extends EntityGolem implements IMob {
 	}
 
 	@Override
-    public void setLocationAndAngles(double x, double y, double z, float yaw, float pitch) {
+	public void setLocationAndAngles(double x, double y, double z, float yaw, float pitch) {
 		super.setLocationAndAngles(x, y, z, yaw, pitch);
 		if (getAge() == 0) {
 			int xPos = MathHelper.floor_double(posX);
@@ -100,7 +100,7 @@ public class EntityShulker extends EntityGolem implements IMob {
 	}
 
 	@Override
-    protected void entityInit() {
+	protected void entityInit() {
 		super.entityInit();
 		this.getDataWatcher().addObject(ATTACHED_FACE, (byte) 0);
 		this.getDataWatcher().addObject(PEEK_TICK, (byte) 0);
@@ -119,17 +119,17 @@ public class EntityShulker extends EntityGolem implements IMob {
 	}
 
 	@Override
-    protected String getLivingSound() {
+	protected String getLivingSound() {
 		return Reference.MCAssetVer + ":entity.shulker.ambient";
 	}
 
 	@Override
-    protected String getHurtSound() {
+	protected String getHurtSound() {
 		return Reference.MCAssetVer + ":entity.shulker.hurt" + (isClosed() ? "_closed" : "");
 	}
 
 	@Override
-    protected String getDeathSound() {
+	protected String getDeathSound() {
 		return Reference.MCAssetVer + ":entity.shulker.death";
 	}
 
@@ -139,7 +139,7 @@ public class EntityShulker extends EntityGolem implements IMob {
 	}
 
 	@Override
-    public boolean canBeCollidedWith() {
+	public boolean canBeCollidedWith() {
 		return true;
 	}
 
@@ -165,7 +165,7 @@ public class EntityShulker extends EntityGolem implements IMob {
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	@Override
-    public void readEntityFromNBT(NBTTagCompound compound) {
+	public void readEntityFromNBT(NBTTagCompound compound) {
 		super.readEntityFromNBT(compound);
 		this.getDataWatcher().updateObject(ATTACHED_FACE, (byte) EnumFacing.getFront(compound.getByte("AttachFace")).ordinal());
 		this.getDataWatcher().updateObject(PEEK_TICK, compound.getByte("Peek"));
@@ -178,7 +178,7 @@ public class EntityShulker extends EntityGolem implements IMob {
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	@Override
-    public void writeEntityToNBT(NBTTagCompound compound) {
+	public void writeEntityToNBT(NBTTagCompound compound) {
 		super.writeEntityToNBT(compound);
 		compound.setByte("AttachFace", this.getDataWatcher().getWatchableObjectByte(ATTACHED_FACE));
 		compound.setByte("Peek", this.getDataWatcher().getWatchableObjectByte(PEEK_TICK));
@@ -197,7 +197,7 @@ public class EntityShulker extends EntityGolem implements IMob {
 	 * Called to update the entity's position/logic.
 	 */
 	@Override
-    public void onUpdate() {
+	public void onUpdate() {
 		super.onUpdate();
 		BlockPos blockpos = getAttachmentPos();
 
@@ -419,7 +419,7 @@ public class EntityShulker extends EntityGolem implements IMob {
 	}
 
 	@Override
-    public void func_145781_i(int key) {
+	public void func_145781_i(int key) {
 		if ((key == ATTACHED_X || key == ATTACHED_Y || key == ATTACHED_Z) && this.worldObj.isRemote && !this.isRiding()) {
 			BlockPos blockpos = this.getAttachmentPos();
 
@@ -483,7 +483,7 @@ public class EntityShulker extends EntityGolem implements IMob {
 	}
 
 	@Override
-    public AxisAlignedBB getCollisionBox(Entity entityIn) {
+	public AxisAlignedBB getCollisionBox(Entity entityIn) {
 		return null;
 	}
 
@@ -523,7 +523,7 @@ public class EntityShulker extends EntityGolem implements IMob {
 	}
 
 	@Override
-    public int getTotalArmorValue() {
+	public int getTotalArmorValue() {
 		return isClosed() ? 20 : super.getTotalArmorValue();
 	}
 
@@ -573,20 +573,20 @@ public class EntityShulker extends EntityGolem implements IMob {
 	}
 
 	@Override
-    protected Item getDropItem() {
+	protected Item getDropItem() {
 		return ModItems.SHULKER_SHELL.isEnabled() ? ModItems.SHULKER_SHELL.get() : null;
 	}
 
 
 	@Override
-    public void setRevengeTarget(EntityLivingBase p_70604_1_) {
+	public void setRevengeTarget(EntityLivingBase p_70604_1_) {
 		if (worldObj.difficultySetting != EnumDifficulty.PEACEFUL) {
 			super.setRevengeTarget(p_70604_1_);
 		}
 	}
 
 	@Override
-    protected void dropFewItems(boolean p_70628_1_, int p_70628_2_) {
+	protected void dropFewItems(boolean p_70628_1_, int p_70628_2_) {
 		Item item = this.getDropItem();
 
 		float chance = rand.nextFloat();
@@ -599,23 +599,23 @@ public class EntityShulker extends EntityGolem implements IMob {
 	}
 
 	@Override
-    protected boolean isAIEnabled() {
+	protected boolean isAIEnabled() {
 		return true;
 	}
 
 	@Override
-    public ItemStack getPickedResult(MovingObjectPosition target) {
+	public ItemStack getPickedResult(MovingObjectPosition target) {
 		return ModEntityList.getEggFromEntity(this);
 	}
 
 	@Override
-    public void travelToDimension(int dimensionId) {
+	public void travelToDimension(int dimensionId) {
 		super.travelToDimension(dimensionId);
 		this.setAttachmentPos(new BlockPos(this));
 	}
 
 	@Override
-    public void dismountEntity(Entity p_110145_1_) {
+	public void dismountEntity(Entity p_110145_1_) {
 		super.dismountEntity(p_110145_1_);
 		int y = (int) posY;
 		if (worldObj.isAirBlock(MathHelper.floor_double(posX), y - 1, MathHelper.floor_double(posZ))) {
@@ -625,7 +625,7 @@ public class EntityShulker extends EntityGolem implements IMob {
 	}
 
 	@Override
-    public boolean interact(EntityPlayer p_70085_1_) {
+	public boolean interact(EntityPlayer p_70085_1_) {
 		ItemStack stack = p_70085_1_.getCurrentEquippedItem();
 		if (ConfigTweaks.dyableShulkers && stack != null) {
 			if (stack.getItem() instanceof ItemBucket && ((ItemBucket) stack.getItem()).isFull == Blocks.flowing_water && getColor() != 16) {
@@ -653,24 +653,24 @@ public class EntityShulker extends EntityGolem implements IMob {
 		}
 
 		@Override
-        public boolean shouldExecute() {
+		public boolean shouldExecute() {
 			EntityLivingBase entitylivingbase = EntityShulker.this.getAttackTarget();
 			return entitylivingbase != null && entitylivingbase.isEntityAlive() && EntityShulker.this.worldObj.difficultySetting != EnumDifficulty.PEACEFUL;
 		}
 
 		@Override
-        public void startExecuting() {
+		public void startExecuting() {
 			this.attackTime = 20;
 			EntityShulker.this.updateArmorModifier(100);
 		}
 
 		@Override
-        public void resetTask() {
+		public void resetTask() {
 			EntityShulker.this.updateArmorModifier(0);
 		}
 
 		@Override
-        public void updateTask() {
+		public void updateTask() {
 			if (EntityShulker.this.worldObj.difficultySetting != EnumDifficulty.PEACEFUL) {
 				--this.attackTime;
 				EntityLivingBase entitylivingbase = EntityShulker.this.getAttackTarget();
@@ -700,7 +700,7 @@ public class EntityShulker extends EntityGolem implements IMob {
 		}
 
 		@Override
-        public boolean shouldExecute() {
+		public boolean shouldExecute() {
 			return EntityShulker.this.worldObj.difficultySetting != EnumDifficulty.PEACEFUL && super.shouldExecute();
 		}
 
@@ -723,7 +723,7 @@ public class EntityShulker extends EntityGolem implements IMob {
 		}
 
 		@Override
-        public boolean shouldExecute() {
+		public boolean shouldExecute() {
 			return this.taskOwner.getTeam() != null && super.shouldExecute();
 		}
 
@@ -740,30 +740,30 @@ public class EntityShulker extends EntityGolem implements IMob {
 		}
 
 		@Override
-        public boolean shouldExecute() {
+		public boolean shouldExecute() {
 			return EntityShulker.this.getAttackTarget() == null && EntityShulker.this.rand.nextInt(40) == 0;
 		}
 
 		@Override
-        public boolean continueExecuting() {
+		public boolean continueExecuting() {
 			return EntityShulker.this.getAttackTarget() == null && this.peekTime > 0;
 		}
 
 		@Override
-        public void startExecuting() {
+		public void startExecuting() {
 			this.peekTime = 20 * (1 + EntityShulker.this.rand.nextInt(3));
 			EntityShulker.this.updateArmorModifier(30);
 		}
 
 		@Override
-        public void resetTask() {
+		public void resetTask() {
 			if (EntityShulker.this.getAttackTarget() == null) {
 				EntityShulker.this.updateArmorModifier(0);
 			}
 		}
 
 		@Override
-        public void updateTask() {
+		public void updateTask() {
 			--this.peekTime;
 		}
 	}

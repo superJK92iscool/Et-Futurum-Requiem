@@ -16,7 +16,7 @@ public class WorldGenPinkPetals extends WorldGenerator {
 	}
 
 	@Override
-    public boolean generate(World p_76484_1_, Random p_76484_2_, int p_76484_3_, int p_76484_4_, int p_76484_5_) {
+	public boolean generate(World p_76484_1_, Random p_76484_2_, int p_76484_3_, int p_76484_4_, int p_76484_5_) {
 		int maxTries = p_76484_2_.nextInt(256) + 256;
 		for (int tries = 0; tries <= maxTries; ++tries) {
 			int x = p_76484_3_ + p_76484_2_.nextInt(8) - p_76484_2_.nextInt(8);

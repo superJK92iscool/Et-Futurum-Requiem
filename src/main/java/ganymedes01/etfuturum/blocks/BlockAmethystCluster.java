@@ -38,23 +38,23 @@ public class BlockAmethystCluster extends BlockAmethystBlock {
 	}
 
 	@Override
-    public int getMobilityFlag() {
+	public int getMobilityFlag() {
 		return 1;
 	}
 
 	@Override
-    public int getLightValue(IBlockAccess world, int x, int y, int z) {
+	public int getLightValue(IBlockAccess world, int x, int y, int z) {
 		int meta = world.getBlockMetadata(x, y, z);
 		return getLightValue() + (type * 3) + (meta / 6);
 	}
 
 	@Override
-    public Item getItemDropped(int meta, Random random, int fortune) {
+	public Item getItemDropped(int meta, Random random, int fortune) {
 		return ModItems.AMETHYST_SHARD.get();
 	}
 
 	@Override
-    protected ItemStack createStackedBlock(int meta) {
+	protected ItemStack createStackedBlock(int meta) {
 		int j = 0;
 		Item item = Item.getItemFromBlock(this);
 
@@ -66,17 +66,17 @@ public class BlockAmethystCluster extends BlockAmethystBlock {
 	}
 
 	@Override
-    protected boolean canSilkHarvest() {
+	protected boolean canSilkHarvest() {
 		return true;
 	}
 
 	@Override
-    public int getDamageValue(World worldIn, int x, int y, int z) {
+	public int getDamageValue(World worldIn, int x, int y, int z) {
 		return worldIn.getBlockMetadata(x, y, z) < 6 ? 0 : 6;
 	}
 
 	@Override
-    public int quantityDropped(int meta, int fortune, Random random) {
+	public int quantityDropped(int meta, int fortune, Random random) {
 		if (this == ModBlocks.AMETHYST_CLUSTER_2.get() && meta >= 6) {
 			int drop = quantityDropped(random);
 			if (fortune > 0 && harvestingWithPickaxe() && random.nextInt(2 + fortune) == 0) {
@@ -88,7 +88,7 @@ public class BlockAmethystCluster extends BlockAmethystBlock {
 	}
 
 	@Override
-    public int quantityDropped(Random random) {
+	public int quantityDropped(Random random) {
 		if (harvestingWithPickaxe()) {
 			return 4;
 		}
@@ -211,7 +211,7 @@ public class BlockAmethystCluster extends BlockAmethystBlock {
 	}
 
 	@Override
-    public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
+	public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
 		list.add(new ItemStack(itemIn, 1, 0));
 		list.add(new ItemStack(itemIn, 1, 6));
 	}

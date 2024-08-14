@@ -24,7 +24,7 @@ public class FlyMoveHelper extends ExtendedEntityMoveHelper {
 	}
 
 	@Override
-    public void onUpdateMoveHelper() {
+	public void onUpdateMoveHelper() {
 		if (action == ExtendedEntityMoveHelper.Action.MOVE_TO) {
 			action = ExtendedEntityMoveHelper.Action.WAIT;
 			((INoGravityEntity) entity).setNoGravity(true);

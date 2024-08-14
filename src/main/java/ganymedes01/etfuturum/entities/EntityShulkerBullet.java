@@ -87,7 +87,7 @@ public class EntityShulkerBullet extends Entity {
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	@Override
-    protected void writeEntityToNBT(NBTTagCompound compound) {
+	protected void writeEntityToNBT(NBTTagCompound compound) {
 		if (this.owner != null) {
 			BlockPos blockpos = new BlockPos(this.owner);
 			NBTTagCompound nbttagcompound = Utils.createUUIDTag(this.owner.getUniqueID());
@@ -120,7 +120,7 @@ public class EntityShulkerBullet extends Entity {
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	@Override
-    protected void readEntityFromNBT(NBTTagCompound compound) {
+	protected void readEntityFromNBT(NBTTagCompound compound) {
 		this.steps = compound.getInteger("Steps");
 		this.targetDeltaX = compound.getDouble("TXD");
 		this.targetDeltaY = compound.getDouble("TYD");
@@ -317,7 +317,7 @@ public class EntityShulkerBullet extends Entity {
 	}
 
 	@Override
-    public void setPositionAndRotation2(double x, double y, double z, float yaw, float pitch, int rotationIncrements) {
+	public void setPositionAndRotation2(double x, double y, double z, float yaw, float pitch, int rotationIncrements) {
 		this.setPosition(x, y, z);
 		this.setRotation(yaw, pitch);
 	}

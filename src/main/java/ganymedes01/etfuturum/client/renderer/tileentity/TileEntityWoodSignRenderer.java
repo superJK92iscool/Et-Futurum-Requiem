@@ -11,9 +11,9 @@ import org.lwjgl.opengl.GL11;
 
 public class TileEntityWoodSignRenderer extends TileEntitySpecialRenderer {
 
-    /**
-     * The ModelSign instance for use in this renderer
-     */
+	/**
+	 * The ModelSign instance for use in this renderer
+	 */
 	private final ModelSign model = new ModelSign();
 
 	/*

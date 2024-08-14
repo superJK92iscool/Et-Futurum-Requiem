@@ -36,7 +36,7 @@ public class BlockPointedDripstone extends Block {
 	}
 
 	@Override
-    @SideOnly(Side.CLIENT)
+	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister reg) {
 		downIcons = new IIcon[5];
 		downIcons[0] = reg.registerIcon(getTextureName() + "_down_tip");
@@ -56,7 +56,7 @@ public class BlockPointedDripstone extends Block {
 	}
 
 	@Override
-    public int onBlockPlaced(World world, int x, int y, int z, int side, float subX, float subY, float subZ, int meta) {
+	public int onBlockPlaced(World world, int x, int y, int z, int side, float subX, float subY, float subZ, int meta) {
 		if (side < 2) {
 			return side * states;
 		}
@@ -67,13 +67,13 @@ public class BlockPointedDripstone extends Block {
 	}
 
 	@Override
-    public boolean canPlaceBlockOnSide(World world, int x, int y, int z, int side) {
+	public boolean canPlaceBlockOnSide(World world, int x, int y, int z, int side) {
 		int checkY = side == 0 || world.isSideSolid(x, y + 1, z, ForgeDirection.DOWN) ? 1 : -1;
 		return canDripstoneStayHere(world, x, y, z, checkY);
 	}
 
 	@Override
-    public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
+	public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
 		if (!canBlockStay(world, x, y, z)) {
 			world.setBlockToAir(x, y, z);
 			this.dropBlockAsItem(world, x, y, z, 0, 0);
@@ -135,22 +135,22 @@ public class BlockPointedDripstone extends Block {
 	}
 
 	@Override
-    public int getRenderType() {
+	public int getRenderType() {
 		return RenderIDs.POINTED_DRIPSTONE;
 	}
 
 	@Override
-    public boolean isOpaqueCube() {
+	public boolean isOpaqueCube() {
 		return false;
 	}
 
 	@Override
-    public boolean renderAsNormalBlock() {
+	public boolean renderAsNormalBlock() {
 		return false;
 	}
 
 	@Override
-    public String getItemIconName() {
+	public String getItemIconName() {
 		return "pointed_dripstone";
 	}
 

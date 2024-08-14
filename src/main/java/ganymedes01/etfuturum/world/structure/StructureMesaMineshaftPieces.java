@@ -92,26 +92,26 @@ public class StructureMesaMineshaftPieces {
 		public MesaCorridor() {
 		}
 
-        /**
-         * (abstract) Helper method to write subclass data to NBT
-         * <p>
-         * MCP name: {@code writeStructureToNBT}
-         */
+		/**
+		 * (abstract) Helper method to write subclass data to NBT
+		 * <p>
+		 * MCP name: {@code writeStructureToNBT}
+		 */
 		@Override
-        protected void func_143012_a(NBTTagCompound p_143012_1_) {
+		protected void func_143012_a(NBTTagCompound p_143012_1_) {
 			p_143012_1_.setBoolean("hr", this.hasRails);
 			p_143012_1_.setBoolean("sc", this.hasSpiders);
 			p_143012_1_.setBoolean("hps", this.spawnerPlaced);
 			p_143012_1_.setInteger("Num", this.sectionCount);
 		}
 
-        /**
-         * (abstract) Helper method to read subclass data from NBT
-         * <p>
-         * MCP name: {@code readStructureFromNBT}
-         */
+		/**
+		 * (abstract) Helper method to read subclass data from NBT
+		 * <p>
+		 * MCP name: {@code readStructureFromNBT}
+		 */
 		@Override
-        protected void func_143011_b(NBTTagCompound p_143011_1_) {
+		protected void func_143011_b(NBTTagCompound p_143011_1_) {
 			this.hasRails = p_143011_1_.getBoolean("hr");
 			this.hasSpiders = p_143011_1_.getBoolean("sc");
 			this.spawnerPlaced = p_143011_1_.getBoolean("hps");
@@ -169,7 +169,7 @@ public class StructureMesaMineshaftPieces {
 		 * Initiates construction of the Structure Component picked, at the current Location of StructGen
 		 */
 		@Override
-        public void buildComponent(StructureComponent p_74861_1_, List<StructureComponent> p_74861_2_, Random p_74861_3_) {
+		public void buildComponent(StructureComponent p_74861_1_, List<StructureComponent> p_74861_2_, Random p_74861_3_) {
 			int i = this.getComponentType();
 			int j = p_74861_3_.nextInt(4);
 
@@ -246,7 +246,7 @@ public class StructureMesaMineshaftPieces {
 		 * Used to generate chests with items in it. ex: Temple Chests, Village Blacksmith Chests, Mineshaft Chests.
 		 */
 		@Override
-        protected boolean generateStructureChestContents(World p_74879_1_, StructureBoundingBox p_74879_2_, Random p_74879_3_, int p_74879_4_, int p_74879_5_, int p_74879_6_, WeightedRandomChestContent[] p_74879_7_, int p_74879_8_) {
+		protected boolean generateStructureChestContents(World p_74879_1_, StructureBoundingBox p_74879_2_, Random p_74879_3_, int p_74879_4_, int p_74879_5_, int p_74879_6_, WeightedRandomChestContent[] p_74879_7_, int p_74879_8_) {
 			int i1 = this.getXWithOffset(p_74879_4_, p_74879_6_);
 			int j1 = this.getYWithOffset(p_74879_5_);
 			int k1 = this.getZWithOffset(p_74879_4_, p_74879_6_);
@@ -267,7 +267,7 @@ public class StructureMesaMineshaftPieces {
 		 * Mineshafts at the end, it adds Fences...
 		 */
 		@Override
-        public boolean addComponentParts(World p_74875_1_, Random p_74875_2_, StructureBoundingBox p_74875_3_) {
+		public boolean addComponentParts(World p_74875_1_, Random p_74875_2_, StructureBoundingBox p_74875_3_) {
 			if (this.isLiquidInStructureBoundingBox(p_74875_1_, p_74875_3_)) {
 				return false;
 			}
@@ -372,24 +372,24 @@ public class StructureMesaMineshaftPieces {
 		public MesaCross() {
 		}
 
-        /**
-         * (abstract) Helper method to write subclass data to NBT
-         * <p>
-         * MCP name: {@code writeStructureToNBT}
-         */
+		/**
+		 * (abstract) Helper method to write subclass data to NBT
+		 * <p>
+		 * MCP name: {@code writeStructureToNBT}
+		 */
 		@Override
-        protected void func_143012_a(NBTTagCompound p_143012_1_) {
+		protected void func_143012_a(NBTTagCompound p_143012_1_) {
 			p_143012_1_.setBoolean("tf", this.isMultipleFloors);
 			p_143012_1_.setInteger("D", this.corridorDirection);
 		}
 
-        /**
-         * (abstract) Helper method to read subclass data from NBT
-         * <p>
-         * MCP name: {@code readStructureFromNBT}
-         */
+		/**
+		 * (abstract) Helper method to read subclass data from NBT
+		 * <p>
+		 * MCP name: {@code readStructureFromNBT}
+		 */
 		@Override
-        protected void func_143011_b(NBTTagCompound p_143011_1_) {
+		protected void func_143011_b(NBTTagCompound p_143011_1_) {
 			this.isMultipleFloors = p_143011_1_.getBoolean("tf");
 			this.corridorDirection = p_143011_1_.getInteger("D");
 		}
@@ -437,7 +437,7 @@ public class StructureMesaMineshaftPieces {
 		 * Initiates construction of the Structure Component picked, at the current Location of StructGen
 		 */
 		@Override
-        public void buildComponent(StructureComponent p_74861_1_, List<StructureComponent> p_74861_2_, Random p_74861_3_) {
+		public void buildComponent(StructureComponent p_74861_1_, List<StructureComponent> p_74861_2_, Random p_74861_3_) {
 			int i = this.getComponentType();
 
 			switch (this.corridorDirection) {
@@ -486,7 +486,7 @@ public class StructureMesaMineshaftPieces {
 		 * Mineshafts at the end, it adds Fences...
 		 */
 		@Override
-        public boolean addComponentParts(World p_74875_1_, Random p_74875_2_, StructureBoundingBox p_74875_3_) {
+		public boolean addComponentParts(World p_74875_1_, Random p_74875_2_, StructureBoundingBox p_74875_3_) {
 			if (this.isLiquidInStructureBoundingBox(p_74875_1_, p_74875_3_)) {
 				return false;
 			}
@@ -536,7 +536,7 @@ public class StructureMesaMineshaftPieces {
 		 * Initiates construction of the Structure Component picked, at the current Location of StructGen
 		 */
 		@Override
-        public void buildComponent(StructureComponent p_74861_1_, List<StructureComponent> p_74861_2_, Random p_74861_3_) {
+		public void buildComponent(StructureComponent p_74861_1_, List<StructureComponent> p_74861_2_, Random p_74861_3_) {
 			int i = this.getComponentType();
 			int k = this.boundingBox.getYSize() - 3 - 1;
 
@@ -614,7 +614,7 @@ public class StructureMesaMineshaftPieces {
 		 * Mineshafts at the end, it adds Fences...
 		 */
 		@Override
-        public boolean addComponentParts(World p_74875_1_, Random p_74875_2_, StructureBoundingBox p_74875_3_) {
+		public boolean addComponentParts(World p_74875_1_, Random p_74875_2_, StructureBoundingBox p_74875_3_) {
 			if (this.isLiquidInStructureBoundingBox(p_74875_1_, p_74875_3_)) {
 				return false;
 			}
@@ -637,7 +637,7 @@ public class StructureMesaMineshaftPieces {
 		 * MCP name: {@code writeStructureToNBT}
 		 */
 		@Override
-        protected void func_143012_a(NBTTagCompound p_143012_1_) {
+		protected void func_143012_a(NBTTagCompound p_143012_1_) {
 			NBTTagList nbttaglist = new NBTTagList();
 			Iterator<StructureBoundingBox> iterator = this.roomsLinkedToTheRoom.iterator();
 
@@ -655,7 +655,7 @@ public class StructureMesaMineshaftPieces {
 		 * MCP name: {@code readStructureFromNBT}
 		 */
 		@Override
-        protected void func_143011_b(NBTTagCompound p_143011_1_) {
+		protected void func_143011_b(NBTTagCompound p_143011_1_) {
 			NBTTagList nbttaglist = p_143011_1_.getTagList("Entrances", 11);
 
 			for (int i = 0; i < nbttaglist.tagCount(); ++i) {
@@ -664,7 +664,7 @@ public class StructureMesaMineshaftPieces {
 		}
 
 		@Override
-        public void offset(int x, int y, int z) {
+		public void offset(int x, int y, int z) {
 			super.offset(x, y, z);
 			for (StructureBoundingBox bb : (List<StructureBoundingBox>) roomsLinkedToTheRoom) {
 				bb.offset(x, y, z);
@@ -689,7 +689,7 @@ public class StructureMesaMineshaftPieces {
 		 * MCP name: {@code writeStructureToNBT}
 		 */
 		@Override
-        protected void func_143012_a(NBTTagCompound p_143012_1_) {
+		protected void func_143012_a(NBTTagCompound p_143012_1_) {
 		}
 
 		/**
@@ -698,7 +698,7 @@ public class StructureMesaMineshaftPieces {
 		 * MCP name: {@code readStructureFromNBT}
 		 */
 		@Override
-        protected void func_143011_b(NBTTagCompound p_143011_1_) {
+		protected void func_143011_b(NBTTagCompound p_143011_1_) {
 		}
 
 		/**
@@ -732,7 +732,7 @@ public class StructureMesaMineshaftPieces {
 		 * Initiates construction of the Structure Component picked, at the current Location of StructGen
 		 */
 		@Override
-        public void buildComponent(StructureComponent p_74861_1_, List<StructureComponent> p_74861_2_, Random p_74861_3_) {
+		public void buildComponent(StructureComponent p_74861_1_, List<StructureComponent> p_74861_2_, Random p_74861_3_) {
 			int i = this.getComponentType();
 
 			switch (this.coordBaseMode) {
@@ -755,7 +755,7 @@ public class StructureMesaMineshaftPieces {
 		 * Mineshafts at the end, it adds Fences...
 		 */
 		@Override
-        public boolean addComponentParts(World p_74875_1_, Random p_74875_2_, StructureBoundingBox p_74875_3_) {
+		public boolean addComponentParts(World p_74875_1_, Random p_74875_2_, StructureBoundingBox p_74875_3_) {
 			if (this.isLiquidInStructureBoundingBox(p_74875_1_, p_74875_3_)) {
 				return false;
 			}

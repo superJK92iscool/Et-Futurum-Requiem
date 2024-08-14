@@ -14,7 +14,7 @@ public class BlockAzaleaRenderer extends BlockModelBase {
 	}
 
 	@Override
-    protected void renderInventoryModel(Block block, int meta, int modelId, RenderBlocks renderer, double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
+	protected void renderInventoryModel(Block block, int meta, int modelId, RenderBlocks renderer, double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
 		final Tessellator tessellator = Tessellator.instance;
 		//We have to render each side manually because the bottom side gets rendered even though we set shouldSideBeRendered to false on side 0 (bottom)
 		renderer.setRenderBounds(0, 0, 0, 1, 1, 1);

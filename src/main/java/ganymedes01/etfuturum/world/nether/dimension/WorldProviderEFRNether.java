@@ -30,7 +30,7 @@ public class WorldProviderEFRNether extends WorldProviderHell {
 	}
 
 	@Override
-    public boolean getWorldHasVoidParticles() {
+	public boolean getWorldHasVoidParticles() {
 		return false;
 	}
 

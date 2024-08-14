@@ -57,8 +57,8 @@ public class GuiGamemodeSwitcher extends GuiScreen {
 				else
 					return WorldSettings.GameType.CREATIVE;
 			}
-            default:
-                return WorldSettings.GameType.CREATIVE;
+			default:
+				return WorldSettings.GameType.CREATIVE;
 		}
 	}
 

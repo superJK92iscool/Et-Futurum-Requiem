@@ -46,7 +46,7 @@ public abstract class BaseLeaves extends BlockLeaves implements ISubBlocksBlock 
 	}
 
 	@Override
-    @SideOnly(Side.CLIENT)
+	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister reg) {
 		this.field_150129_M[0] = new IIcon[types.length];
 		this.field_150129_M[1] = new IIcon[types.length];
@@ -62,7 +62,7 @@ public abstract class BaseLeaves extends BlockLeaves implements ISubBlocksBlock 
 	}
 
 	@Override
-    public abstract Item getItemDropped(int meta, Random random, int fortune);
+	public abstract Item getItemDropped(int meta, Random random, int fortune);
 
 	@Override
 	public boolean isOpaqueCube() { //OptiFine compat
@@ -100,7 +100,7 @@ public abstract class BaseLeaves extends BlockLeaves implements ISubBlocksBlock 
 	}
 
 	@Override
-    public void updateTick(World worldIn, int x, int y, int z, Random random) {
+	public void updateTick(World worldIn, int x, int y, int z, Random random) {
 		if (!worldIn.isRemote) {
 			int l = worldIn.getBlockMetadata(x, y, z);
 			int decayRange = getRange(l % 4);

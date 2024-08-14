@@ -24,7 +24,7 @@ public class BlockSoulTorch extends BlockTorch {
 	 * A randomly called display update to be able to add particles or other items for display
 	 */
 	@Override
-    public void randomDisplayTick(World world, int x, int y, int z, Random rand) {
+	public void randomDisplayTick(World world, int x, int y, int z, Random rand) {
 		int l = world.getBlockMetadata(x, y, z);
 		double d0 = (float) x + 0.5F;
 		double d1 = (float) y + 0.7F;

@@ -55,14 +55,14 @@ public class EntityHusk extends EntityZombie {
 	}
 
 	@Override
-    public void onLivingUpdate() {
+	public void onLivingUpdate() {
 		ignoreSunlight = true;
 		super.onLivingUpdate();
 		ignoreSunlight = false;
 	}
 
 	@Override
-    public float getBrightness(float p_70013_1_) {
+	public float getBrightness(float p_70013_1_) {
 		return ignoreSunlight ? 0F : super.getBrightness(p_70013_1_);
 	}
 	
@@ -162,7 +162,7 @@ public class EntityHusk extends EntityZombie {
 	}
 
 	@Override
-    public ItemStack getPickedResult(MovingObjectPosition target) {
+	public ItemStack getPickedResult(MovingObjectPosition target) {
 		return ModEntityList.getEggFromEntity(this);
 	}
 }

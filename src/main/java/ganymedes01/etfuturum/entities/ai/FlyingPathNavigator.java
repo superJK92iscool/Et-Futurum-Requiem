@@ -23,17 +23,17 @@ public class FlyingPathNavigator extends ExtendedPathNavigator {
 	 * If on ground or swimming and can swim
 	 */
 	@Override
-    protected boolean canNavigate() {
+	protected boolean canNavigate() {
 		return canSwim && this.isInLiquid() || !this.theEntity.isRiding();
 	}
 
 	@Override
-    public Vec3 getEntityPosition() {
+	public Vec3 getEntityPosition() {
 		return Vec3.createVectorHelper(this.theEntity.posX, this.theEntity.posY, this.theEntity.posZ);
 	}
 
 	@Override
-    public void onUpdateNavigation() {
+	public void onUpdateNavigation() {
 		++this.totalTicks;
 
 		if (tryUpdatePath) {
@@ -62,7 +62,7 @@ public class FlyingPathNavigator extends ExtendedPathNavigator {
 	 * Checks if the specified entity can safely walk to the specified location.
 	 */
 	@Override
-    protected boolean isDirectPathBetweenPoints(Vec3 posVec31, Vec3 posVec32, int sizeX, int sizeY, int sizeZ) {
+	protected boolean isDirectPathBetweenPoints(Vec3 posVec31, Vec3 posVec32, int sizeX, int sizeY, int sizeZ) {
 		int i = MathHelper.floor_double(posVec31.xCoord);
 		int j = MathHelper.floor_double(posVec31.yCoord);
 		int k = MathHelper.floor_double(posVec31.zCoord);
@@ -131,7 +131,7 @@ public class FlyingPathNavigator extends ExtendedPathNavigator {
 	}
 
 	@Override
-    public boolean isSafeToStandAt(int p_75483_1_, int p_75483_2_, int p_75483_3_, int p_75483_4_, int p_75483_5_, int p_75483_6_, Vec3 p_75483_7_, double p_75483_8_, double p_75483_10_) {
+	public boolean isSafeToStandAt(int p_75483_1_, int p_75483_2_, int p_75483_3_, int p_75483_4_, int p_75483_5_, int p_75483_6_, Vec3 p_75483_7_, double p_75483_8_, double p_75483_10_) {
 		int k1 = p_75483_1_ - p_75483_4_ / 2;
 		int l1 = p_75483_3_ - p_75483_6_ / 2;
 

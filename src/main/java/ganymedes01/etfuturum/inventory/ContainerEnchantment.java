@@ -49,7 +49,7 @@ public class ContainerEnchantment extends Container {
 	public ContainerEnchantment(InventoryPlayer inventory, World world, int x, int y, int z) {
 		tableInventory = new InventoryBasic("Enchant", true, 2) {
 
-            @Override
+			@Override
 			public void markDirty() {
 				super.markDirty();
 				ContainerEnchantment.this.onCraftMatrixChanged(this);
@@ -66,7 +66,7 @@ public class ContainerEnchantment extends Container {
 		noFuel = EnchantingFuelRegistry.getFuels().isEmpty();
 		addSlotToContainer(new Slot(tableInventory, 0, noFuel ? 25 : 15, 47) {
 
-            @Override
+			@Override
 			public int getSlotStackLimit() {
 				return 1;
 			}

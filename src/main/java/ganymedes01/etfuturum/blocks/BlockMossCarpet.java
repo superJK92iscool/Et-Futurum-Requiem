@@ -25,13 +25,13 @@ public class BlockMossCarpet extends BaseBlock {
 	}
 
 	@Override
-    public boolean isOpaqueCube()
+	public boolean isOpaqueCube()
 	{
 		return false;
 	}
 
 	@Override
-    public boolean renderAsNormalBlock()
+	public boolean renderAsNormalBlock()
 	{
 		return false;
 	}
@@ -41,13 +41,13 @@ public class BlockMossCarpet extends BaseBlock {
 	 * Sets the block's bounds for rendering it as an item
 	 */
 	@Override
-    public void setBlockBoundsForItemRender()
+	public void setBlockBoundsForItemRender()
 	{
 		this.validateBlockBounds(0);
 	}
 
 	@Override
-    public AxisAlignedBB getCollisionBoundingBoxFromPool(World worldIn, int x, int y, int z)
+	public AxisAlignedBB getCollisionBoundingBoxFromPool(World worldIn, int x, int y, int z)
 	{
 		byte b0 = 0;
 		float f = 0.0625F;
@@ -55,13 +55,13 @@ public class BlockMossCarpet extends BaseBlock {
 	}
 
 	@Override
-    public boolean canPlaceBlockAt(World worldIn, int x, int y, int z)
+	public boolean canPlaceBlockAt(World worldIn, int x, int y, int z)
 	{
 		return super.canPlaceBlockAt(worldIn, x, y, z) && this.canBlockStay(worldIn, x, y, z);
 	}
 
 	@Override
-    public void onNeighborBlockChange(World worldIn, int x, int y, int z, Block neighbor)
+	public void onNeighborBlockChange(World worldIn, int x, int y, int z, Block neighbor)
 	{
 		this.validateLocation(worldIn, x, y, z);
 	}
@@ -81,19 +81,19 @@ public class BlockMossCarpet extends BaseBlock {
 	}
 
 	@Override
-    public boolean canBlockStay(World worldIn, int x, int y, int z)
+	public boolean canBlockStay(World worldIn, int x, int y, int z)
 	{
 		return !worldIn.isAirBlock(x, y - 1, z);
 	}
 
 	@Override
-    public boolean shouldSideBeRendered(IBlockAccess worldIn, int x, int y, int z, int side)
+	public boolean shouldSideBeRendered(IBlockAccess worldIn, int x, int y, int z, int side)
 	{
 		return side == 1 ? true : super.shouldSideBeRendered(worldIn, x, y, z, side);
 	}
 
 	@Override
-    public void setBlockBoundsBasedOnState(IBlockAccess worldIn, int x, int y, int z)
+	public void setBlockBoundsBasedOnState(IBlockAccess worldIn, int x, int y, int z)
 	{
 		this.validateBlockBounds(worldIn.getBlockMetadata(x, y, z));
 	}

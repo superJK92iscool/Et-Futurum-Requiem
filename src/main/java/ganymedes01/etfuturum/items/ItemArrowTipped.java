@@ -73,7 +73,7 @@ public class ItemArrowTipped extends Item {
 				List<PotionEffect> list = new ArrayList<>();
 				list.add(effect);
 				return list;
-//              }
+//			  }
 			} else if (stack.hasTagCompound() && stack.getTagCompound().hasKey("CustomPotionEffects", 9)) {
 				ArrayList<PotionEffect> arraylist = new ArrayList<>();
 				NBTTagList nbttaglist = stack.getTagCompound().getTagList("CustomPotionEffects", 10);
@@ -99,7 +99,7 @@ public class ItemArrowTipped extends Item {
 	}
 
 	@Override
-    public void getSubItems(Item item, CreativeTabs tab, List<ItemStack> list) {
+	public void getSubItems(Item item, CreativeTabs tab, List<ItemStack> list) {
 		int j;
 
 		if (field_77835_b.isEmpty()) {
@@ -149,7 +149,7 @@ public class ItemArrowTipped extends Item {
 	}
 
 	@Override
-    public int getColorFromItemStack(ItemStack stack, int pass) {
+	public int getColorFromItemStack(ItemStack stack, int pass) {
 		if (pass == 0 && stack.getItemDamage() == 0 && stack.hasTagCompound() && stack.getTagCompound().hasKey("Potion", 10)) {
 			NBTTagCompound nbt = stack.getTagCompound().getCompoundTag("Potion");
 			PotionEffect effect = PotionEffect.readCustomPotionEffectFromNBT(nbt);

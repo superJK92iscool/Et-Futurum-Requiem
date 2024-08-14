@@ -37,7 +37,7 @@ public class BlockChorusPlant extends Block {
 	}
 
 	@Override
-    public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z) {
+	public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z) {
 		float down = canConnectTo(world, x, y - 1, z) ? 0.0F : 0.1875F;
 		float up = canConnectTo(world, x, y + 1, z) ? 1.0F : 0.8125F;
 		float west = canConnectTo(world, x - 1, y, z) ? 0.0F : 0.1875F;

@@ -18,11 +18,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class MixinEntityPlayer extends EntityLivingBase {
 
 	@Override
-    @Shadow
+	@Shadow
 	protected abstract String getDeathSound();
 
 	@Override
-    @Shadow
+	@Shadow
 	protected abstract String getHurtSound();
 
 	public MixinEntityPlayer(World p_i1594_1_) {

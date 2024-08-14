@@ -57,7 +57,7 @@ public class BeePlantRegistry {
 	}
 
 	@SuppressWarnings("unchecked")
-    public static void init() {
+	public static void init() {
 		if (ConfigEntities.enableBees) {
 			for (Block block : (Iterable<Block>) Block.blockRegistry) {
 				if (block instanceof BlockFlower || block instanceof BlockChorusFlower) {

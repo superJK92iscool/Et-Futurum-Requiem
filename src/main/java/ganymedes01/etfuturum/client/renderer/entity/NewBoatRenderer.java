@@ -72,7 +72,7 @@ public class NewBoatRenderer extends Render {
 	}
 
 	@Override
-    protected ResourceLocation getEntityTexture(Entity entity) {
+	protected ResourceLocation getEntityTexture(Entity entity) {
 		ResourceLocation loc = DEFAULT_TEXTURE;
 		if (entity instanceof EntityNewBoat && ((EntityNewBoat) entity).getResourceLocation() != null) {
 			loc = ((EntityNewBoat) entity).getResourceLocation();

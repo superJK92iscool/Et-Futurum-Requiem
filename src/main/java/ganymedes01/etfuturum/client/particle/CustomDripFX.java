@@ -33,7 +33,7 @@ public class CustomDripFX extends EntityFX {
 	 * Called to update the entity's position/logic.
 	 */
 	@Override
-    public void onUpdate() {
+	public void onUpdate() {
 		this.prevPosX = this.posX;
 		this.prevPosY = this.posY;
 		this.prevPosZ = this.posZ;

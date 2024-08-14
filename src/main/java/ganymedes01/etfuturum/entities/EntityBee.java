@@ -91,7 +91,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 			}
 
 			@Override
-            public void onUpdateNavigation() {
+			public void onUpdateNavigation() {
 				if (!EntityBee.this.pollinateGoal.isRunning()) {
 					super.onUpdateNavigation();
 				}
@@ -106,7 +106,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 	}
 
 	@Override
-    protected void entityInit() {
+	protected void entityInit() {
 		super.entityInit();
 		this.getDataWatcher().addObject(DATA_FLAGS_ID, (byte) 0);
 		this.getDataWatcher().addObject(ANGER_TIME, 0);
@@ -114,7 +114,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 	}
 
 	@Override
-    public float getBlockPathWeight(int x, int y, int z) {
+	public float getBlockPathWeight(int x, int y, int z) {
 		Block block = worldObj.getBlock(x, y, z);
 		if (block.getMaterial() == Material.air) {
 			return 10.0F;
@@ -126,7 +126,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 	}
 
 	@Override
-    protected boolean isAIEnabled() {
+	protected boolean isAIEnabled() {
 		return true;
 	}
 
@@ -152,7 +152,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 	}
 
 	@Override
-    public void writeEntityToNBT(NBTTagCompound compound) {
+	public void writeEntityToNBT(NBTTagCompound compound) {
 		super.writeEntityToNBT(compound);
 		compound.setBoolean("HasNoGravity", this.hasNoGravity());
 		if (this.hasHive()) {
@@ -177,7 +177,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 	}
 
 	@Override
-    public void readEntityFromNBT(NBTTagCompound compound) {
+	public void readEntityFromNBT(NBTTagCompound compound) {
 		this.hivePos = null;
 		if (compound.hasKey("HivePos")) {
 			this.hivePos = BlockPos.readFromNBT(compound.getCompoundTag("HivePos"));
@@ -215,7 +215,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 	}
 
 	@Override
-    public void moveEntityWithHeading(float moveForward, float moveStrafing) {
+	public void moveEntityWithHeading(float moveForward, float moveStrafing) {
 		double d0;
 		if (this.isInWater()) {
 			d0 = this.posY;
@@ -320,7 +320,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 	}
 
 	@Override
-    public void moveFlying(float moveForward, float moveStrafing, float varFloat) {
+	public void moveFlying(float moveForward, float moveStrafing, float varFloat) {
 		if (moveVertical != 0) {
 			float f3 = moveForward * moveForward + moveVertical * moveVertical + moveStrafing * moveStrafing;
 
@@ -347,7 +347,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 	}
 
 	@Override
-    public void knockBack(Entity p_70653_1_, float p_70653_2_, double p_70653_3_, double p_70653_5_) {
+	public void knockBack(Entity p_70653_1_, float p_70653_2_, double p_70653_3_, double p_70653_5_) {
 		if (this.rand.nextDouble() >= this.getEntityAttribute(SharedMonsterAttributes.knockbackResistance).getAttributeValue()) {
 			this.isAirBorne = true;
 			float f1 = MathHelper.sqrt_double(p_70653_3_ * p_70653_3_ + p_70653_5_ * p_70653_5_);
@@ -370,7 +370,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 	}
 
 	@Override
-    public boolean attackEntityAsMob(Entity entityIn) {
+	public boolean attackEntityAsMob(Entity entityIn) {
 		boolean flag = entityIn.attackEntityFrom(new EntityDamageSource("sting", this), (float) ((int) this.getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttributeValue()));
 		if (flag) {
 //          this.applyEnchantments(this, entityIn);
@@ -397,7 +397,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 	}
 
 	@Override
-    public void onLivingUpdate() {
+	public void onLivingUpdate() {
 		super.onLivingUpdate();
 		if (worldObj.isRemote && this.hasNectar() && this.getCropsGrownSincePollination() < 10 && this.rand.nextFloat() < 0.05F) {
 			for (int i = 0; i < this.rand.nextInt(2) + 1; ++i) {
@@ -469,7 +469,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 	}
 
 	@Override
-    public void setRevengeTarget(EntityLivingBase livingBase) {
+	public void setRevengeTarget(EntityLivingBase livingBase) {
 		super.setRevengeTarget(livingBase);
 		if (livingBase != null) {
 			this.lastHurtBy = livingBase.getUniqueID();
@@ -478,7 +478,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 	}
 
 	@Override
-    protected void updateAITick() {
+	protected void updateAITick() {
 		if (this.isInWater()) {
 			++this.underWaterTicks;
 		} else {
@@ -569,7 +569,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 	}
 
 	@Override
-    public void onUpdate() {
+	public void onUpdate() {
 		super.onUpdate();
 		if (!this.worldObj.isRemote) {
 			if (this.stayOutOfHiveCountdown > 0) {
@@ -645,7 +645,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 	}
 
 	@Override
-    protected void applyEntityAttributes() {
+	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
 		getAttributeMap().registerAttribute(EtFuturumEntityAttributes.flyingSpeed);
 		getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(10.0D);
@@ -655,7 +655,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 	}
 
 	@Override
-    public boolean isBreedingItem(ItemStack stack) {
+	public boolean isBreedingItem(ItemStack stack) {
 		return isBreedingFlower(Block.getBlockFromItem(stack.getItem()), stack.getItemDamage());
 	}
 
@@ -667,50 +667,50 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 	}
 
 	@Override
-    public int getTalkInterval() {
+	public int getTalkInterval() {
 		return 0;
 	}
 
 	@Override
-    public void playLivingSound() {
+	public void playLivingSound() {
 	}
 
 	@Override
-    protected String getLivingSound() {
+	protected String getLivingSound() {
 		return null;
 	}
 
 	@Override
-    protected String getHurtSound() {
+	protected String getHurtSound() {
 		return Reference.MCAssetVer + ":entity.bee.hurt";
 	}
 
 	@Override
-    protected String getDeathSound() {
+	protected String getDeathSound() {
 		return Reference.MCAssetVer + ":entity.bee.death";
 	}
 
 	@Override
-    protected float getSoundVolume() {
+	protected float getSoundVolume() {
 		return 0.4F;
 	}
 
 	@Override
-    public EntityBee createChild(EntityAgeable entity) {
+	public EntityBee createChild(EntityAgeable entity) {
 		return new EntityBee(entity.worldObj);
 	}
 
 	@Override
-    public float getEyeHeight() {
+	public float getEyeHeight() {
 		return this.height * 0.5F;
 	}
 
 	@Override
-    protected void fall(float distance) {
+	protected void fall(float distance) {
 	}
 
 	@Override
-    protected void updateFallState(double distanceFallenThisTick, boolean isOnGround) {
+	protected void updateFallState(double distanceFallenThisTick, boolean isOnGround) {
 	}
 
 	public void onHoneyDelivered() {
@@ -728,7 +728,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 	}
 
 	@Override
-    public boolean attackEntityFrom(DamageSource source, float amount) {
+	public boolean attackEntityFrom(DamageSource source, float amount) {
 		if (this.isEntityInvulnerable()) {
 			return false;
 		} else {
@@ -751,7 +751,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 	 * Get this Entity's EnumCreatureAttribute
 	 */
 	@Override
-    public EnumCreatureAttribute getCreatureAttribute() {
+	public EnumCreatureAttribute getCreatureAttribute() {
 		return EnumCreatureAttribute.ARTHROPOD;
 	}
 
@@ -779,7 +779,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		}
 
 		@Override
-        protected boolean isSuitableTarget(EntityLivingBase targetIn, boolean p_75296_2_) {
+		protected boolean isSuitableTarget(EntityLivingBase targetIn, boolean p_75296_2_) {
 			if (targetIn != null && this.taskOwner.canEntityBeSeen(targetIn) && (!(targetIn instanceof EntityPlayer) || !((EntityPlayer) targetIn).capabilities.isCreativeMode) && ((EntityBee) taskOwner).setBeeAttacker(targetIn)) {
 				taskOwner.setAttackTarget(targetIn);
 				return true;
@@ -794,12 +794,12 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		}
 
 		@Override
-        public boolean shouldExecute() {
+		public boolean shouldExecute() {
 			return this.canSting() && super.shouldExecute();
 		}
 
 		@Override
-        public boolean continueExecuting() {
+		public boolean continueExecuting() {
 			boolean flag = this.canSting();
 			if (flag && taskOwner.getAttackTarget() != null) {
 				return super.continueExecuting();
@@ -821,7 +821,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		}
 
 		@Override
-        public void onUpdateLook() {
+		public void onUpdateLook() {
 			if (!isAngry()) {
 				super.onUpdateLook();
 			}
@@ -881,7 +881,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		}
 
 		@Override
-        public boolean canBeeStart() {
+		public boolean canBeeStart() {
 			if (EntityBee.this.hasHive() && EntityBee.this.canEnterHive() && EntityBee.this.hivePos.isWithinDistance(new BlockPos(EntityBee.this), 2.0D)) {
 				TileEntity tileentity = getHivePos().getTileEntity(worldObj);
 				if (tileentity instanceof TileEntityBeeHive) {
@@ -898,12 +898,12 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		}
 
 		@Override
-        public boolean canBeeContinue() {
+		public boolean canBeeContinue() {
 			return false;
 		}
 
 		@Override
-        public void startExecuting() {
+		public void startExecuting() {
 			TileEntity tileentity = getHivePos().getTileEntity(worldObj);
 			if (tileentity instanceof TileEntityBeeHive) {
 				TileEntityBeeHive beehivetileentity = (TileEntityBeeHive) tileentity;
@@ -923,30 +923,30 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		}
 
 		@Override
-        public boolean canBeeStart() {
+		public boolean canBeeStart() {
 			return EntityBee.this.hivePos != null && !EntityBee.this.hasHome() && EntityBee.this.canEnterHive() && !this.isCloseEnough(EntityBee.this.hivePos) && getHivePos().getBlock(worldObj) instanceof BlockBeeHive;
 		}
 
 		@Override
-        public boolean canBeeContinue() {
+		public boolean canBeeContinue() {
 			return this.canBeeStart();
 		}
 
 		@Override
-        public void startExecuting() {
+		public void startExecuting() {
 			this.ticks = 0;
 			super.startExecuting();
 		}
 
 		@Override
-        public void resetTask() {
+		public void resetTask() {
 			this.ticks = 0;
 			EntityBee.this.getNavigator().clearPathEntity();
 //          EntityBee.this.getNavigator().resetRangeMultiplier();
 		}
 
 		@Override
-        public void updateTask() {
+		public void updateTask() {
 			if (EntityBee.this.hivePos != null) {
 				++this.ticks;
 				if (this.ticks > 600) {
@@ -1027,31 +1027,31 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		}
 
 		@Override
-        public boolean canBeeStart() {
+		public boolean canBeeStart() {
 			return EntityBee.this.savedFlowerPos != null && !EntityBee.this.hasHome() && this.shouldMoveToFlower() && isValidFlower(worldObj, savedFlowerPos.getX(), savedFlowerPos.getY(), savedFlowerPos.getZ())
 					&& !EntityBee.this.isWithinDistance(EntityBee.this.savedFlowerPos, 2);
 		}
 
 		@Override
-        public boolean canBeeContinue() {
+		public boolean canBeeContinue() {
 			return this.canBeeStart();
 		}
 
 		@Override
-        public void startExecuting() {
+		public void startExecuting() {
 			this.ticks = 0;
 			super.startExecuting();
 		}
 
 		@Override
-        public void resetTask() {
+		public void resetTask() {
 			this.ticks = 0;
 			EntityBee.this.getNavigator().clearPathEntity();
 //          EntityBee.this.getNavigator().resetRangeMultiplier();
 		}
 
 		@Override
-        public void updateTask() {
+		public void updateTask() {
 			if (EntityBee.this.savedFlowerPos != null) {
 				++this.ticks;
 				if (this.ticks > 600) {
@@ -1076,7 +1076,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		}
 
 		@Override
-        public boolean canBeeStart() {
+		public boolean canBeeStart() {
 			if (EntityBee.this.getCropsGrownSincePollination() >= 10) {
 				return false;
 			} else if (EntityBee.this.rand.nextFloat() < 0.3F) {
@@ -1087,12 +1087,12 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		}
 
 		@Override
-        public boolean canBeeContinue() {
+		public boolean canBeeContinue() {
 			return this.canBeeStart();
 		}
 
 		@Override
-        public void updateTask() {
+		public void updateTask() {
 			if (EntityBee.this.rand.nextInt(30) == 0) {
 				for (int i = 1; i <= 2; ++i) {
 					int x = (int) posX;
@@ -1119,12 +1119,12 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		public abstract boolean canBeeContinue();
 
 		@Override
-        public boolean shouldExecute() {
+		public boolean shouldExecute() {
 			return this.canBeeStart() && !EntityBee.this.isAngry();
 		}
 
 		@Override
-        public boolean continueExecuting() {
+		public boolean continueExecuting() {
 			return this.canBeeContinue() && !EntityBee.this.isAngry();
 		}
 	}
@@ -1141,7 +1141,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		}
 
 		@Override
-        public boolean canBeeStart() {
+		public boolean canBeeStart() {
 			if (EntityBee.this.remainingCooldownBeforeLocatingNewFlower > 0) {
 				return false;
 			} else if (EntityBee.this.hasNectar()) {
@@ -1163,7 +1163,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		}
 
 		@Override
-        public boolean canBeeContinue() {
+		public boolean canBeeContinue() {
 			if (!this.running) {
 				return false;
 			} else if (!EntityBee.this.hasFlower()) {
@@ -1193,7 +1193,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		}
 
 		@Override
-        public void startExecuting() {
+		public void startExecuting() {
 			this.pollinationTicks = 0;
 			this.ticks = 0;
 			this.lastPollinationTick = 0;
@@ -1202,7 +1202,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		}
 
 		@Override
-        public void resetTask() {
+		public void resetTask() {
 			if (this.completedPollination()) {
 				EntityBee.this.setHasNectar(true);
 			}
@@ -1213,7 +1213,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		}
 
 		@Override
-        public void updateTask() {
+		public void updateTask() {
 			BlockPos beePos = new BlockPos(EntityBee.this);
 			++this.ticks;
 			if (this.ticks > 600) {
@@ -1281,12 +1281,12 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		}
 
 		@Override
-        public boolean shouldExecute() {
+		public boolean shouldExecute() {
 			return super.shouldExecute() && EntityBee.this.isAngry() && !EntityBee.this.hasStung();
 		}
 
 		@Override
-        public boolean continueExecuting() {
+		public boolean continueExecuting() {
 			return super.continueExecuting() && EntityBee.this.isAngry() && !EntityBee.this.hasStung();
 		}
 	}
@@ -1296,17 +1296,17 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		}
 
 		@Override
-        public boolean canBeeStart() {
+		public boolean canBeeStart() {
 			return EntityBee.this.remainingCooldownBeforeLocatingNewHive == 0 && !EntityBee.this.hasHive() && EntityBee.this.canEnterHive();
 		}
 
 		@Override
-        public boolean canBeeContinue() {
+		public boolean canBeeContinue() {
 			return false;
 		}
 
 		@Override
-        public void startExecuting() {
+		public void startExecuting() {
 			EntityBee.this.remainingCooldownBeforeLocatingNewHive = 200;
 			List<BlockPos> list = getBlocksInRange(EntityBee.this::doesHiveHaveSpace, 20, false);
 			if (!list.isEmpty()) {
@@ -1329,17 +1329,17 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		}
 
 		@Override
-        public boolean shouldExecute() {
+		public boolean shouldExecute() {
 			return EntityBee.this.getNavigator().noPath() && EntityBee.this.rand.nextInt(10) == 0;
 		}
 
 		@Override
-        public boolean continueExecuting() {
+		public boolean continueExecuting() {
 			return !getNavigator().noPath();
 		}
 
 		@Override
-        public void startExecuting() {
+		public void startExecuting() {
 			Vec3 vec3d = this.getRandomLocation();
 			if (vec3d != null) {
 				EntityBee.this.getNavigator().setPath(EntityBee.this.getNavigator().getPathToXYZ(vec3d.xCoord, vec3d.yCoord, vec3d.zCoord), 1.0D);
@@ -1368,7 +1368,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		}
 
 		@Override
-        public boolean shouldExecute() {
+		public boolean shouldExecute() {
 			if (this.delayTemptCounter > 0) {
 				--this.delayTemptCounter;
 				return false;

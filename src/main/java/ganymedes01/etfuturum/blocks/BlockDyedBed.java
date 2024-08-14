@@ -28,17 +28,17 @@ public class BlockDyedBed extends BlockBed {
 	}
 
 	@Override
-    public boolean isBed(IBlockAccess world, int x, int y, int z, EntityLivingBase player) {
+	public boolean isBed(IBlockAccess world, int x, int y, int z, EntityLivingBase player) {
 		return true;
 	}
 
 	@Override
-    public Item getItemDropped(int meta, Random random, int fortune) {
+	public Item getItemDropped(int meta, Random random, int fortune) {
 		return isBlockHeadOfBed(meta) ? Item.getItemById(0) : Item.getItemFromBlock(this);
 	}
 
 	@Override
-    public Item getItem(World worldIn, int x, int y, int z) {
+	public Item getItem(World worldIn, int x, int y, int z) {
 		return Item.getItemFromBlock(this);
 	}
 

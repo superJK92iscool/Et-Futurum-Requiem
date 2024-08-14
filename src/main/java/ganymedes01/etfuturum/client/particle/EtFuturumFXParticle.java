@@ -119,7 +119,7 @@ public class EtFuturumFXParticle extends EntityFX {
 	}
 
 	@Override
-    public void setParticleTextureIndex(int p_70536_1_) {
+	public void setParticleTextureIndex(int p_70536_1_) {
 		if (!usesSheet) {
 			throw new RuntimeException("Invalid call to Particle.setMiscTex");
 		} else {

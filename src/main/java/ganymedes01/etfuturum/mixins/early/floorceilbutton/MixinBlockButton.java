@@ -33,7 +33,7 @@ public class MixinBlockButton extends Block {
 	}
 
 	@Override
-    @Shadow
+	@Shadow
 	public int isProvidingWeakPower(IBlockAccess worldIn, int x, int y, int z, int side) {
 		return 0;
 	}

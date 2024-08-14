@@ -30,12 +30,12 @@ public class BlockLight extends BlockBarrier implements ISubBlocksBlock {
 	}
 
 	@Override
-    public AxisAlignedBB getCollisionBoundingBoxFromPool(World worldIn, int x, int y, int z) {
+	public AxisAlignedBB getCollisionBoundingBoxFromPool(World worldIn, int x, int y, int z) {
 		return null;
 	}
 
 	@Override
-    public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z) {
+	public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z) {
 		if (world instanceof World && ((World) world).isRemote) {
 			ItemStack stack = FMLClientHandler.instance().getClientPlayerEntity().getCurrentEquippedItem();
 			int hitBoxUpperBounds = stack != null && stack.getItem() == Item.getItemFromBlock(this) ? 1 : 0;
@@ -44,17 +44,17 @@ public class BlockLight extends BlockBarrier implements ISubBlocksBlock {
 	}
 
 	@Override
-    public boolean isReplaceable(IBlockAccess world, int x, int y, int z) {
+	public boolean isReplaceable(IBlockAccess world, int x, int y, int z) {
 		return true;
 	}
 
 	@Override
-    public int getMobilityFlag() {
+	public int getMobilityFlag() {
 		return 0;
 	}
 
 	@Override
-    public int getLightValue(IBlockAccess world, int x, int y, int z) {
+	public int getLightValue(IBlockAccess world, int x, int y, int z) {
 		return world.getBlockMetadata(x, y, z);
 	}
 

@@ -8,7 +8,7 @@ public class BaseLeavesItemBlock extends BaseItemBlock {
 	}
 
 	@Override
-    public int getMetadata(int p_77647_1_) {
+	public int getMetadata(int p_77647_1_) {
 		return p_77647_1_ | 4;
 	}
 }

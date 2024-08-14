@@ -23,7 +23,7 @@ public class CherryLeafFX extends EtFuturumFXParticle {
 	}
 
 	@Override
-    protected ResourceLocation[] loadTextures(World world, double x, double y, double z, ResourceLocation texture) {
+	protected ResourceLocation[] loadTextures(World world, double x, double y, double z, ResourceLocation texture) {
 		return new ResourceLocation[]{texture};
 	}
 

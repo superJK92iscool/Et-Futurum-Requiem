@@ -82,17 +82,17 @@ public class EntityZombieVillager extends EntityZombie {
 	}
 
 	@Override
-    protected String getLivingSound() {
+	protected String getLivingSound() {
 		return Reference.MCAssetVer + ":entity.zombie_villager.ambient";
 	}
 
 	@Override
-    protected String getHurtSound() {
+	protected String getHurtSound() {
 		return Reference.MCAssetVer + ":entity.zombie_villager.hurt";
 	}
 
 	@Override
-    protected String getDeathSound() {
+	protected String getDeathSound() {
 		return Reference.MCAssetVer + ":entity.zombie_villager.death";
 	}
 
@@ -100,12 +100,12 @@ public class EntityZombieVillager extends EntityZombie {
 	 * MCP name: {@code playStepSound}
 	 */
 	@Override
-    protected void func_145780_a(int x, int y, int z, Block blockIn) {
+	protected void func_145780_a(int x, int y, int z, Block blockIn) {
 		this.playSound(Reference.MCAssetVer + ":entity.zombie_villager.step", 0.15F, 1.0F);
 	}
 
 	@Override
-    public ItemStack getPickedResult(MovingObjectPosition target) {
+	public ItemStack getPickedResult(MovingObjectPosition target) {
 		return ModEntityList.getEggFromEntity(this);
 	}
 }

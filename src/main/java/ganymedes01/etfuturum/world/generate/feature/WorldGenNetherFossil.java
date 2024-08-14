@@ -31,7 +31,7 @@ public class WorldGenNetherFossil extends WorldGenFossil {
 	}
 
 	@Override
-    protected boolean canFossilGenerateHere(World world, int x, int y, int z, BlockPos corners) {
+	protected boolean canFossilGenerateHere(World world, int x, int y, int z, BlockPos corners) {
 		int air = 0;
 		if (!validCorner(world, x, y, z)) {
 			air++;

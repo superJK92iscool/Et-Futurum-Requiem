@@ -108,7 +108,7 @@ public class CompatMisc {
 			try {
 				Field featureMapField = Class.forName("biomesoplenty.common.world.generation.WorldGenFieldAssociation").getDeclaredField("featureMap");
 				@SuppressWarnings("unchecked")
-                Map<String, ?> featureMap = (Map<String, ?>) featureMapField.get(null); //Get the list of BOP world generators
+				Map<String, ?> featureMap = (Map<String, ?>) featureMapField.get(null); //Get the list of BOP world generators
 				Object feature = featureMap.get("generateSponge"); //Find the one for sponges; this is a container class, we get the value we want below
 
 				Field worldGeneratorField = feature.getClass().getDeclaredField("worldGenerator"); //Get the field from the container class

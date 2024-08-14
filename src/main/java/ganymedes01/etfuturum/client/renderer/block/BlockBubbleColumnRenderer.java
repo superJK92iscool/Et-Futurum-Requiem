@@ -10,35 +10,35 @@ import net.minecraftforge.client.ForgeHooksClient;
 
 @ThreadSafeISBRH(perThread = false)
 public class BlockBubbleColumnRenderer extends BlockModelBase {
-    public BlockBubbleColumnRenderer(int modelID) {
-        super(modelID);
-        set2DInventory();
-    }
+	public BlockBubbleColumnRenderer(int modelID) {
+		super(modelID);
+		set2DInventory();
+	}
 
-    @Override
-    public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
-        if(ForgeHooksClient.getWorldRenderPass() == 1) {
-            return renderer.renderBlockLiquid(Blocks.water, x, y, z);
-        } else {
-            boolean liquidOnTop = world.getBlock(x, y + 1, z).getMaterial().isLiquid();
-            double topHeight = liquidOnTop ? 1 : 0.90625;
-            renderer.setRenderBounds(0.0625, 0, 0.0625, 0.9375, topHeight, 0.9375);
-            renderFaceXNeg(renderer, block, x, y, z);
-            renderFaceXPos(renderer, block, x, y, z);
-            renderFaceZNeg(renderer, block, x, y, z);
-            renderFaceZPos(renderer, block, x, y, z);
-            ((BlockBubbleColumn) block).renderingInner.set(true);
-            renderer.setRenderBounds(0.375, 0, 0.375, 0.625, topHeight, 0.625);
-            renderFaceXNeg(renderer, block, x, y, z);
-            renderFaceXPos(renderer, block, x, y, z);
-            renderFaceZNeg(renderer, block, x, y, z);
-            renderFaceZPos(renderer, block, x, y, z);
-            ((BlockBubbleColumn) block).renderingInner.set(false);
-            if (!liquidOnTop) {
-                renderer.setRenderBounds(0, 1, 0, 1, topHeight, 1);
-                renderFaceYPos(renderer, block, x, y, z);
-            }
-        }
-        return true;
-    }
+	@Override
+	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
+		if(ForgeHooksClient.getWorldRenderPass() == 1) {
+			return renderer.renderBlockLiquid(Blocks.water, x, y, z);
+		} else {
+			boolean liquidOnTop = world.getBlock(x, y + 1, z).getMaterial().isLiquid();
+			double topHeight = liquidOnTop ? 1 : 0.90625;
+			renderer.setRenderBounds(0.0625, 0, 0.0625, 0.9375, topHeight, 0.9375);
+			renderFaceXNeg(renderer, block, x, y, z);
+			renderFaceXPos(renderer, block, x, y, z);
+			renderFaceZNeg(renderer, block, x, y, z);
+			renderFaceZPos(renderer, block, x, y, z);
+			((BlockBubbleColumn) block).renderingInner.set(true);
+			renderer.setRenderBounds(0.375, 0, 0.375, 0.625, topHeight, 0.625);
+			renderFaceXNeg(renderer, block, x, y, z);
+			renderFaceXPos(renderer, block, x, y, z);
+			renderFaceZNeg(renderer, block, x, y, z);
+			renderFaceZPos(renderer, block, x, y, z);
+			((BlockBubbleColumn) block).renderingInner.set(false);
+			if (!liquidOnTop) {
+				renderer.setRenderBounds(0, 1, 0, 1, topHeight, 1);
+				renderFaceYPos(renderer, block, x, y, z);
+			}
+		}
+		return true;
+	}
 }

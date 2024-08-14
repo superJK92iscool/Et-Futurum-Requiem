@@ -19,7 +19,7 @@ public class FlyingPathFinder extends PathFinder {
 	}
 
 	@Override
-    public int findPathOptions(Entity entity, PathPoint currentPoint, PathPoint offsetPoint/*no idea what this is*/, PathPoint targetPoint, float maxDistance) {
+	public int findPathOptions(Entity entity, PathPoint currentPoint, PathPoint offsetPoint/*no idea what this is*/, PathPoint targetPoint, float maxDistance) {
 		int i = 0;
 		PathPoint pathpoint = openPointFlying(entity, targetPoint.xCoord, targetPoint.yCoord, targetPoint.zCoord + 1);
 		if (this.hasNotVisited(pathpoint)) {

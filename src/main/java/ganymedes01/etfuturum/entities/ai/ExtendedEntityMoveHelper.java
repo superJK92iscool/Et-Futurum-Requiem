@@ -19,12 +19,12 @@ public class ExtendedEntityMoveHelper extends EntityMoveHelper {
 	}
 
 	@Override
-    public boolean isUpdating() {
+	public boolean isUpdating() {
 		return this.action == ExtendedEntityMoveHelper.Action.MOVE_TO;
 	}
 
 	@Override
-    public double getSpeed() {
+	public double getSpeed() {
 		return this.speed;
 	}
 
@@ -32,7 +32,7 @@ public class ExtendedEntityMoveHelper extends EntityMoveHelper {
 	 * Sets the speed and location to move to
 	 */
 	@Override
-    public void setMoveTo(double x, double y, double z, double speedIn) {
+	public void setMoveTo(double x, double y, double z, double speedIn) {
 		this.posX = x;
 		this.posY = y;
 		this.posZ = z;
@@ -48,7 +48,7 @@ public class ExtendedEntityMoveHelper extends EntityMoveHelper {
 	}
 
 	@Override
-    public void onUpdateMoveHelper() {
+	public void onUpdateMoveHelper() {
 		if (this.action == ExtendedEntityMoveHelper.Action.STRAFE) {
 			float f = (float) this.entity.getEntityAttribute(SharedMonsterAttributes.movementSpeed).getAttributeValue();
 			float f1 = (float) this.speed * f;
