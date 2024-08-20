@@ -125,7 +125,7 @@ public class EtFuturumWorldGenerator implements IWorldGenerator {
 			}
 		}
 
-		if (ModBlocks.BAMBOO.isEnabled() && ConfigWorld.enableBambooWorldgen) {
+		if (ModBlocks.BAMBOO.isEnabled() && ConfigWorld.bambooWorldgen) {
 			if (ModsList.BIOMES_O_PLENTY.isLoaded()) { //BoP replaces vanilla jungles with a BoP version but forgets to tag them
 				BiomeDictionary.registerBiomeType(BiomeGenBase.getBiome(21), Type.JUNGLE); //Gets biomes by ID so we get the BOP version
 				BiomeDictionary.registerBiomeType(BiomeGenBase.getBiome(22), Type.JUNGLE);
