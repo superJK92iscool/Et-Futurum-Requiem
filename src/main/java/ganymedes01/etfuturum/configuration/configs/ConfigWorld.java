@@ -55,6 +55,7 @@ public class ConfigWorld extends ConfigBase {
 	public static int[] amethystDimensionBlacklist;
 	public static boolean amethystDimensionBlacklistAsWhitelist;
 	public static int cherryTreeRarity;
+	public static boolean bambooWorldgen;
 
 	public static int crimsonForestID;
 	public static int warpedForestID;
@@ -169,6 +170,7 @@ public class ConfigWorld extends ConfigBase {
 		amethystRarity = getInt("amethystRarity", catGeneration, 53, 1, Byte.MAX_VALUE, "How rare should amethyst geodes be? 1/x chance per chunk, 1 means a geode attempts to appear every chunk");
 		amethystMaxY = getInt("amethystMaxY", catGeneration, 46, 6, 245, "Max Y level amethyst geodes should attempt to generate at");
 		cherryTreeRarity = getInt("cherryTreeRarity", catGeneration, 72, 0, Byte.MAX_VALUE, "How rare should cherry trees be? 1/x chance per chunk, 1 means a tree attempts to appear every chunk. 0 = no cherry trees. They will spawn in mountain-type biomes.");
+		bambooWorldgen = getBoolean("bambooWorldgen", catGeneration, true, "Whether bamboo should naturally spawn in the overworld. Turning this off allows you to use bamboo based blocks without bamboo world gen for mod compatability.");
 
 		crimsonForestID = getInt("crimsonForestID", catBiomes, 200, -1, 65536, "Set to -1 to disable the generation of Crimson Forests. To use an ID above 255, EndlessIDs is required.");
 		warpedForestID = getInt("warpedForestID", catBiomes, 201, -1, 65536, "Set to -1 to disable the generation of Warped Forests. To use an ID above 255, EndlessIDs is required.");
