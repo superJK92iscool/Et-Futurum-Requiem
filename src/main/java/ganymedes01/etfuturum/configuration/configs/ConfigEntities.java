@@ -19,6 +19,7 @@ public class ConfigEntities extends ConfigBase {
 	public static boolean enableNetherEndermen;
 	public static boolean enableShearableSnowGolems;
 	public static boolean enableBees;
+	public static boolean enableSquidInk;
 
 	static final String catHostile = "hostile";
 	static final String catNeutral = "neutral";
@@ -63,6 +64,7 @@ public class ConfigEntities extends ConfigBase {
 		enableVillagerTurnsIntoWitch = getBoolean("enableVillagerTurnsIntoWitch", catMisc, true, "Villagers turn into Witches when struck by lightning");
 		enableDragonRespawn = getBoolean("enableDragonRespawn", catMisc, true, "Crude implementation of respawning the dragon using four End crystals.");
 		enableNetherEndermen = getBoolean("enableNetherEndermen", catMisc, true, "Allow endermen to rarely spawn in the Nether");
+		enableSquidInk = getBoolean("enableSquidInk", catMisc, true, "Squid now produce a cloud of floating black ink particles when attacked.");
 	}
 
 }

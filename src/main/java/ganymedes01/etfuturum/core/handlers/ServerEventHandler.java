@@ -150,17 +150,29 @@ public class ServerEventHandler {
 			}
 		}
 
-		if (ConfigMixins.stepHeightFix && event.entity.stepHeight == .5F) {
-			event.entity.stepHeight = .6F;
+		if (ConfigMixins.stepHeightFix && entity.stepHeight == .5F) {
+			entity.stepHeight = .6F;
 		}
 
 		if (ConfigMixins.enableElytra && entity instanceof IElytraPlayer) {
 			((IElytraPlayer) entity).tickElytra();
 		}
 
+		if (EntitySquid.class.equals(entity.getClass())) {
+			EntitySquid sq = (EntitySquid) entity;
 
-		if (ConfigSounds.armorEquip && !event.entity.worldObj.isRemote && event.entity instanceof EntityPlayer && !(event.entity instanceof FakePlayer)) {
-			EntityPlayer player = (EntityPlayer) event.entity;
+			if (ConfigEntities.enableSquidInk && "Nelly".equals(sq.getCustomNameTag())) {
+				Vec3 a = sq.getLookVec().normalize();
+				sq.fallDistance = 0.0f;
+				sq.addVelocity(a.xCoord * 0.08, 0.08, a.zCoord * 0.08);
+				sq.motionY = 0.08;
+				sq.velocityChanged = true;
+			}
+		}
+
+
+		if (ConfigSounds.armorEquip && !entity.worldObj.isRemote && entity instanceof EntityPlayer && !(entity instanceof FakePlayer)) {
+			EntityPlayer player = (EntityPlayer) entity;
 
 			if (!SpectatorMode.isSpectator(player)) {
 				if (!armorTracker.containsKey(player)) {
@@ -1585,7 +1597,7 @@ public class ServerEventHandler {
 
 	@SubscribeEvent
 	public void livingHurtEvent(LivingHurtEvent event) {
-		Entity targetEntity = event.entity;
+		EntityLivingBase targetEntity = event.entityLiving;
 		if (targetEntity == null) return;
 		if (ConfigFunctions.enableHayBaleFalls
 				&& targetEntity.worldObj.getBlock(MathHelper.floor_double(targetEntity.posX), MathHelper.floor_double(targetEntity.posY - 0.20000000298023224D - targetEntity.yOffset), MathHelper.floor_double(targetEntity.posZ)) == Blocks.hay_block
@@ -1606,9 +1618,7 @@ public class ServerEventHandler {
 					float attackDamage = (float) playerSource.getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttributeValue();
 					float enchantmentDamage = 0.0F;
 
-					if (targetEntity instanceof EntityLivingBase) {
-						enchantmentDamage = EnchantmentHelper.getEnchantmentModifierLiving(playerSource, (EntityLivingBase) targetEntity);
-					}
+					enchantmentDamage = EnchantmentHelper.getEnchantmentModifierLiving(playerSource, targetEntity);
 
 					if (attackDamage > 0.0F || enchantmentDamage > 0.0F) {
 						boolean isStrongAttack = playerSource.getHeldItem() != null && event.ammount >= ConfigSounds.combatSoundStrongThreshold;
@@ -1658,14 +1668,46 @@ public class ServerEventHandler {
 			}
 		}
 
-
-		if (!(targetEntity instanceof EntityLivingBase)) {
-			return;
-		}
-		EntityLivingBase livingEntity = (EntityLivingBase) targetEntity;
-
 		if (ConfigBlocksItems.enableTotemUndying) {
-			handleTotemCheck(livingEntity, event);
+			handleTotemCheck(targetEntity, event);
+		}
+		
+		if (EntitySquid.class.equals(targetEntity.getClass())) {
+			World w = targetEntity.worldObj;
+			Random r = w.rand;
+			doInk: if (ConfigEntities.enableSquidInk && r.nextDouble() < 0.15 && w instanceof WorldServer serverWorld && targetEntity.isInWater()) {
+				AxisAlignedBB eBox = targetEntity.boundingBox;
+				double cx = eBox.maxX - 0.5 * (eBox.maxX - eBox.minX);
+				double cy = eBox.maxY - 0.5 * (eBox.maxY - eBox.minY);
+				double cz = eBox.maxZ - 0.5 * (eBox.maxZ - eBox.minZ);
+				
+				AxisAlignedBB box = AxisAlignedBB.getBoundingBox(-1.5, -1.5, -1.5, 1.5, 1.5, 1.5).offset(cx, cy, cz);
+				List<EntityLivingBase> around = w.getEntitiesWithinAABB(EntityLivingBase.class, box);
+
+				if (around.isEmpty()) {
+					break doInk;
+				}
+
+				EntityLivingBase target = around.get(r.nextInt(around.size()));
+				if (target != null && target != targetEntity) {
+					serverWorld.func_147487_a("largesmoke", cx, cy, cz, 5, 0.0, 0.0, 0.0, 0.08);
+					if (ConfigMixins.newMobSounds) {
+						float pitch = (r.nextFloat() - r.nextFloat()) * 0.2F + (target.isChild() ? 1.5F : 1.0F);
+						w.playSoundAtEntity(target, Reference.MCAssetVer + ":entity.squid.squirt", 0.4F, pitch);
+					}
+					if (target.isInWater()) {
+						PotionEffect activeEff = target.getActivePotionEffect(Potion.blindness);
+						int time = 20 + r.nextInt(300);
+						if (activeEff != null) {
+							if (activeEff.getAmplifier() > 0) {
+								break doInk;
+							}
+							time += activeEff.getDuration();
+						}
+						target.addPotionEffect(new PotionEffect(Potion.blindness.id, time));
+					}
+				}
+			}
 		}
 
 		// If the attacker is a player spawn the hearts aligned and facing it
