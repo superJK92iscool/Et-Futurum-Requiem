@@ -1717,7 +1717,7 @@ public class ServerEventHandler {
 						((WorldServer) w).func_147487_a("largesmoke", cx, cy, cz, 5, 0.0, 0.0, 0.0, 0.08);
 					}
 					if (ConfigSounds.squidSounds) {
-						playSoundAtEntityRng("entity.squid.shoot", target);
+						playSoundAtEntityRng("entity.squid.squirt", target);
 					}
 					if (target.isInWater()) {
 						PotionEffect activeEff = target.getActivePotionEffect(Potion.blindness);
