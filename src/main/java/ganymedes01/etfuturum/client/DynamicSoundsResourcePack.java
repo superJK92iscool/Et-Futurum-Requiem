@@ -130,6 +130,31 @@ public class DynamicSoundsResourcePack implements IResourcePack {
 						Reference.MCAssetVer + ":ambient/cave/cave18",
 						Reference.MCAssetVer + ":ambient/cave/cave19");
 			}
+
+			if (ConfigSounds.squidSounds) {
+			    addSoundsToCategory("entity.squid.say",
+						Reference.MCAssetVer + ":entity/squid/ambient1",
+						Reference.MCAssetVer + ":entity/squid/ambient2",
+						Reference.MCAssetVer + ":entity/squid/ambient3",
+						Reference.MCAssetVer + ":entity/squid/ambient4",
+						Reference.MCAssetVer + ":entity/squid/ambient5");
+
+			    addSoundsToCategory("entity.squid.hurt",
+						Reference.MCAssetVer + ":entity/squid/hurt1",
+						Reference.MCAssetVer + ":entity/squid/hurt2",
+						Reference.MCAssetVer + ":entity/squid/hurt3",
+						Reference.MCAssetVer + ":entity/squid/hurt4");
+
+			    addSoundsToCategory("entity.squid.death",
+						Reference.MCAssetVer + ":entity/squid/death1",
+						Reference.MCAssetVer + ":entity/squid/death2",
+						Reference.MCAssetVer + ":entity/squid/death3");
+
+			    addSoundsToCategory("entity.squid.shoot",
+						Reference.MCAssetVer + ":entity/squid/squirt1",
+						Reference.MCAssetVer + ":entity/squid/squirt2",
+						Reference.MCAssetVer + ":entity/squid/squirt3");
+			}
 			return rootObject;
 		}
 	}

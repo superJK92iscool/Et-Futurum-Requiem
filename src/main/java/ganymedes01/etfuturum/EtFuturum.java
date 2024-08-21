@@ -970,6 +970,27 @@ public class EtFuturum {
 		config.addSoundEvent(ver, "block.cherry_wood_pressure_plate.click_on", "block");
 		config.addSoundEvent(ver, "block.metal_pressure_plate.click_off", "block");
 		config.addSoundEvent(ver, "block.metal_pressure_plate.click_on", "block");
+		
+		if (ConfigSounds.squidSounds) {
+			config.addObject(ver, "minecraft/sounds/entity/squid/ambient1.ogg");
+			config.addObject(ver, "minecraft/sounds/entity/squid/ambient2.ogg");
+			config.addObject(ver, "minecraft/sounds/entity/squid/ambient3.ogg");
+			config.addObject(ver, "minecraft/sounds/entity/squid/ambient4.ogg");
+			config.addObject(ver, "minecraft/sounds/entity/squid/ambient5.ogg");
+
+			config.addObject(ver, "minecraft/sounds/entity/squid/hurt1.ogg");
+			config.addObject(ver, "minecraft/sounds/entity/squid/hurt2.ogg");
+			config.addObject(ver, "minecraft/sounds/entity/squid/hurt3.ogg");
+			config.addObject(ver, "minecraft/sounds/entity/squid/hurt4.ogg");
+
+			config.addObject(ver, "minecraft/sounds/entity/squid/death1.ogg");
+			config.addObject(ver, "minecraft/sounds/entity/squid/death2.ogg");
+			config.addObject(ver, "minecraft/sounds/entity/squid/death3.ogg");
+
+			config.addObject(ver, "minecraft/sounds/entity/squid/squirt1.ogg");
+			config.addObject(ver, "minecraft/sounds/entity/squid/squirt2.ogg");
+			config.addObject(ver, "minecraft/sounds/entity/squid/squirt3.ogg");
+		}
 
 		//Automatically register block sounds for AssetDirector, but only if they contain the MC version (which means it needs to be registered here)
 		//Then we remove the mc version prefix and register that sound.
