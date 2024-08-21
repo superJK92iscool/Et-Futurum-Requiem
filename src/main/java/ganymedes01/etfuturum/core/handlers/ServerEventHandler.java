@@ -168,10 +168,6 @@ public class ServerEventHandler {
 				sq.motionY = 0.08;
 				sq.velocityChanged = true;
 			}
-			
-			if (ConfigSounds.squidSounds && sq.livingSoundTime == 0 && sq.isInWater() && entity.worldObj.rand.nextDouble() < 0.05) {
-				playSoundAtEntityRng("entity.squid.say", sq);
-			}
 		}
 
 
@@ -237,22 +233,6 @@ public class ServerEventHandler {
 				armorTracker.remove(player);
 			}
 		}
-	}
-	
-	@SubscribeEvent
-	public void onLivingDeathEvent(LivingDeathEvent event) {
-		EntityLivingBase entity = event.entityLiving;
-		if (!entity.worldObj.isRemote && ConfigSounds.squidSounds && EntitySquid.class.equals(entity.getClass())) {
-			playSoundAtEntityRng("entity.squid.death", entity);
-		}
-	}
-
-	private static void playSoundAtEntityRng(String soundName, EntityLivingBase e) {
-		Random r = e.worldObj.rand;
-		float v = e.isChild() ? 1.5F : 1.0F;
-		float pitch = (r.nextFloat() - r.nextFloat()) * 0.2F + v;
-
-		e.worldObj.playSoundAtEntity(e, soundName, 0.4F, pitch);
 	}
 
 	@SubscribeEvent
@@ -1693,9 +1673,6 @@ public class ServerEventHandler {
 		}
 		
 		if (EntitySquid.class.equals(targetEntity.getClass())) {
-			if (ConfigSounds.squidSounds) {
-				playSoundAtEntityRng("entity.squid.hurt", targetEntity);
-			}
 			World w = targetEntity.worldObj;
 			Random r = w.rand;
 			doInk: if (ConfigEntities.enableSquidInk && r.nextDouble() < 0.15 && w instanceof WorldServer serverWorld && targetEntity.isInWater()) {
@@ -1713,11 +1690,10 @@ public class ServerEventHandler {
 
 				EntityLivingBase target = around.get(r.nextInt(around.size()));
 				if (target != null && target != targetEntity) {
-					if (w instanceof WorldServer) {
-						((WorldServer) w).func_147487_a("largesmoke", cx, cy, cz, 5, 0.0, 0.0, 0.0, 0.08);
-					}
-					if (ConfigSounds.squidSounds) {
-						playSoundAtEntityRng("entity.squid.squirt", target);
+					serverWorld.func_147487_a("largesmoke", cx, cy, cz, 5, 0.0, 0.0, 0.0, 0.08);
+					if (ConfigMixins.newMobSounds) {
+						float pitch = (r.nextFloat() - r.nextFloat()) * 0.2F + (target.isChild() ? 1.5F : 1.0F);
+						w.playSoundAtEntity(target, Reference.MCAssetVer + ":entity.squid.squirt", 0.4F, pitch);
 					}
 					if (target.isInWater()) {
 						PotionEffect activeEff = target.getActivePotionEffect(Potion.blindness);

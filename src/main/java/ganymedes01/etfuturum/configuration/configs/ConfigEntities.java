@@ -47,7 +47,6 @@ public class ConfigEntities extends ConfigBase {
 		//passive
 		enableRabbit = getBoolean("enableRabbits", catPassive, true, "");
 		enableBrownMooshroom = getBoolean("enableBrownMooshroom", catPassive, true, "Brown mooshroom variant, the red mooshrooms turn into then when they are hit by lightning.");
-		enableSquidInk = getBoolean("enableSquidInk", catPassive, true, "Squid now produce a cloud of floating black ink particles when attacked.");
 
 		//neutral
 		enableBees = getBoolean("enableBees", catNeutral, true, "");
@@ -65,6 +64,7 @@ public class ConfigEntities extends ConfigBase {
 		enableVillagerTurnsIntoWitch = getBoolean("enableVillagerTurnsIntoWitch", catMisc, true, "Villagers turn into Witches when struck by lightning");
 		enableDragonRespawn = getBoolean("enableDragonRespawn", catMisc, true, "Crude implementation of respawning the dragon using four End crystals.");
 		enableNetherEndermen = getBoolean("enableNetherEndermen", catMisc, true, "Allow endermen to rarely spawn in the Nether");
+		enableSquidInk = getBoolean("enableSquidInk", catMisc, true, "Squid now produce a cloud of floating black ink particles when attacked.");
 	}
 
 }
