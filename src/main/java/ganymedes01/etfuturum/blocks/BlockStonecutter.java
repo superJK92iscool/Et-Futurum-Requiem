@@ -3,13 +3,16 @@ package ganymedes01.etfuturum.blocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.EtFuturum;
+import ganymedes01.etfuturum.configuration.configs.ConfigTweaks;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
@@ -93,6 +96,18 @@ public class BlockStonecutter extends Block {
 	@Override
 	public int getRenderType() {
 		return RenderIDs.STONECUTTER;
+	}
+
+	//NON-VANILLA TWEAK CODE
+
+	public static final DamageSource STONECUTTER = (new DamageSource("stonecutter")).setFireDamage();
+
+	@Override
+	public void onEntityCollidedWithBlock(World worldIn, int x, int y, int z, Entity entityIn) {
+		if(!worldIn.isRemote && ConfigTweaks.stonecutterSawHurts) {
+			entityIn.attackEntityFrom(STONECUTTER, 1);
+		}
+		super.onEntityCollidedWithBlock(worldIn, x, y, z, entityIn);
 	}
 
 }

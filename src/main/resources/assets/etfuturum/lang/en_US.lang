@@ -966,6 +966,8 @@ death.attack.flyIntoWall.player=%1$s experienced kinetic energy whilst trying to
 death.attack.sting=%1$s was stung to death
 death.attack.sting.item=%1$s was stung to death by %2$s using %3$s
 death.attack.sting.player=%1$s was stung to death by %2$s
+death.attack.stonecutter=%1$s discovered why OSHA guidelines were created
+death.attack.stonecutter.player=%2$s pushed %1$s into a live saw blade
 
 # Banners
 item.banner.black.name=Black Banner
