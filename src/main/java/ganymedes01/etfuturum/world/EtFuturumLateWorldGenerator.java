@@ -130,9 +130,9 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 		final int chunkMultiplierX = chunk.xPosition << 4;
 		final int chunkMultiplierZ = chunk.zPosition << 4;
 
-		boolean shouldDimBeJustDeepslate = Arrays.stream(ConfigWorld.replaceAllStoneWithDeepslateDimensionWhitelist).anyMatch(id -> id == chunk.worldObj.provider.dimensionId); //Calculated outside the loops for the sake of performance.
-
-        for (int y = 0; y <= Math.min((shouldDimBeJustDeepslate?255:ConfigWorld.deepslateMaxY), chunk.worldObj.getHeight()); y++) {
+		boolean shouldDimBeJustDeepslate = ArrayUtils.contains(ConfigWorld.replaceAllStoneWithDeepslateDimensionWhitelist,chunk.worldObj.provider.dimensionId);
+		int replaceUnderY = (shouldDimBeJustDeepslate ? chunk.worldObj.getActualHeight() : ConfigWorld.deepslateMaxY);
+        for (int y = 0; y <= Math.min(replaceUnderY, chunk.worldObj.getHeight()); y++) {
 			ExtendedBlockStorage array = chunk.getBlockStorageArray()[y >> 4];
 			for (int x = 0; x < 16; x++) {
 				for (int z = 0; z < 16; z++) {
