@@ -45,6 +45,7 @@ public class ConfigWorld extends ConfigBase {
 	public static boolean enableOceanMonuments;
 	public static int[] deepslateLayerDimensionBlacklist;
 	public static boolean deepslateLayerDimensionBlacklistAsWhitelist;
+	public static int[] replaceAllStoneWithDeepslateDimensionWhitelist;
 	public static boolean enableExtraMesaGold;
 	public static boolean enableMesaMineshaft;
 	public static boolean enableCoarseDirtReplacement;
@@ -157,6 +158,9 @@ public class ConfigWorld extends ConfigBase {
 		deepslateBlacklistProp.comment = "The dimensions the deepslate layer (deepslate generation mode 0) should not spawn in. Does nothing if other deepslate generation modes are used.";
 		deepslateLayerDimensionBlacklist = deepslateBlacklistProp.getIntList();
 		deepslateLayerDimensionBlacklistAsWhitelist = getBoolean("deepslateLayerDimensionBlacklistAsWhitelist", catGeneration, false, "Treat the deepslate layer dimension blacklist as a whitelist instead, so it will ONLY generate in those dimensions, instead of excluding those dimensions from generation.");
+		Property replaceAllStoneWithDeepslateDimensionWhitelistProp = get(catGeneration,"replaceAllStoneWithDeepslateDimensionWhitelist",new int[]{});
+		replaceAllStoneWithDeepslateDimensionWhitelistProp.comment="The dimensions the deepslate layer (deepslate generation mode 0) should replace ALL stone in, rather than adhering to the deepslateMaxY limit. Does nothing if other deepslate generation modes are used. Useful if you have a mod that adds more \"layers\" to the overworld, for example.";
+		replaceAllStoneWithDeepslateDimensionWhitelist = replaceAllStoneWithDeepslateDimensionWhitelistProp.getIntList();
 		maxTuffPerCluster = getInt("tuffClusterSize", catGeneration, 32, 0, 64, "Max vein size for tuff blocks in a cluster");
 		enableExtraMesaGold = getBoolean("enableExtraMesaGold", catGeneration, true, "Generate 20 more veins of gold ore from Y 32 to Y 80 in any Mesa biome.");
 		enableMesaMineshaft = getBoolean("enableMesaMineshaft", catGeneration, true, "Generates extra mineshafts in mesa biomes up to y80. If fences are enabled, dark oak wood is used.");
