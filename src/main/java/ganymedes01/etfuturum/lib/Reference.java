@@ -7,7 +7,7 @@ public class Reference {
 
 	public static final String MOD_ID = "etfuturum";
 	public static final String MOD_NAME = "Et Futurum Requiem";
-	public static final String DEPENDENCIES = "required-after:Forge@[10.13.4.1558,);after:Thaumcraft@[4.2.3.5,);after:TwilightForest;after:HardcoreEnderExpansion;after:bluepower;after:MineTweaker3;before:TConstruct;";
+	public static final String DEPENDENCIES = "required-after:Forge@[10.13.4.1558,);after:Thaumcraft@[4.2.3.5,);after:TwilightForest;after:HardcoreEnderExpansion;after:bluepower;after:MineTweaker3;after:TConstruct;";
 	public static final String VERSION_NUMBER = Tags.VERSION;
 	public static final boolean TESTING = Boolean.getBoolean("etfuturum.testing");
 	public static final boolean DEV_ENVIRONMENT = (Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");

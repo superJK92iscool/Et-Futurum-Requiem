@@ -28,7 +28,22 @@ public class CompatTinkersConstruct {
 			RawOreDropMapping mapping = kvp.getValue();
 			ItemStack melting = new ItemStack(mapping.getObject(), 1, mapping.getMeta());
 			List<ItemStack> allOres = OreDictionary.getOres(oreDictName);
+			List<ItemStack> rawOreBlocks = OreDictionary.getOres(oreDictName.replace("ore", "blockRaw"));
 			ItemStack oreBlock = null;
+			ItemStack rawOreBlock = null;
+
+			// Find an item stack that is a block.
+			for (ItemStack ore : rawOreBlocks) {
+				if (ore.getItem() instanceof ItemBlock) {
+					ItemBlock itemBlock = (ItemBlock)ore.getItem();
+					Block block = Block.getBlockFromItem(itemBlock);
+
+					if (block != null && block != Blocks.air) {
+						rawOreBlock = ore;
+						break;
+					}
+				}
+			}
 
 			// Find an item stack that is a block.
 			for (ItemStack ore : allOres) {
@@ -38,6 +53,9 @@ public class CompatTinkersConstruct {
 
 					if (block != null && block != Blocks.air) {
 						oreBlock = ore;
+						if(rawOreBlock == null) {
+							rawOreBlock = oreBlock;
+						}
 						break;
 					}
 				}
@@ -47,8 +65,8 @@ public class CompatTinkersConstruct {
 				// Collect some infos for the existing block
 				FluidStack liquid = Smeltery.getSmelteryResult(oreBlock);
 				int temperature = Smeltery.getLiquifyTemperature(oreBlock);
-				Block renderBlock = Blocks.air;
-				int renderBlockMeta = 0;
+				Block renderBlock = Block.getBlockFromItem(rawOreBlock.getItem());
+				int renderBlockMeta = rawOreBlock.getItemDamage();
 
 				// Add the melting recipe
 				if (liquid != null) {
