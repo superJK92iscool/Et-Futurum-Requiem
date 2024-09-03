@@ -18,6 +18,7 @@ import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 import org.apache.commons.lang3.ArrayUtils;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -129,11 +130,13 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 		final int chunkMultiplierX = chunk.xPosition << 4;
 		final int chunkMultiplierZ = chunk.zPosition << 4;
 
-		for (int y = 0; y <= Math.min(ConfigWorld.deepslateMaxY, chunk.worldObj.getHeight()); y++) {
+		boolean shouldDimBeJustDeepslate = ArrayUtils.contains(ConfigWorld.replaceAllStoneWithDeepslateDimensionWhitelist,chunk.worldObj.provider.dimensionId);
+		int replaceUnderY = (shouldDimBeJustDeepslate ? chunk.worldObj.getActualHeight() : ConfigWorld.deepslateMaxY);
+        for (int y = 0; y <= Math.min(replaceUnderY, chunk.worldObj.getHeight()); y++) {
 			ExtendedBlockStorage array = chunk.getBlockStorageArray()[y >> 4];
 			for (int x = 0; x < 16; x++) {
 				for (int z = 0; z < 16; z++) {
-					if (ConfigWorld.deepslateMaxY >= 255 || y < ConfigWorld.deepslateMaxY - 4 || y <= ConfigWorld.deepslateMaxY - chunk.worldObj.rand.nextInt(4)) {
+					if (ConfigWorld.deepslateMaxY >= 255 || shouldDimBeJustDeepslate || y < ConfigWorld.deepslateMaxY - 4 || y <= ConfigWorld.deepslateMaxY - chunk.worldObj.rand.nextInt(4)) {
 						worldX = x + chunkMultiplierX;
 						worldZ = z + chunkMultiplierZ;
 
