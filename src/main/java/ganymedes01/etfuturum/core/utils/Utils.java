@@ -475,15 +475,8 @@ public class Utils {
 		if (maxMeta == null) {
 			if (ModsList.NOT_ENOUGH_IDS.isLoaded() && ModsList.NOT_ENOUGH_IDS.isVersionNewerOrEqual("2.0.0")) {
 				maxMeta = (int) Short.MAX_VALUE;
-			} else if (ModsList.ENDLESS_IDS.isLoaded() && ModsList.ENDLESS_IDS.isVersionNewerOrEqual("1.5-alpha0001")) {
-				try {
-					if (ReflectionHelper.findField(Class.forName("com.falsepattern.endlessids.config.GeneralConfig"), "extendBlockItem").getBoolean(null)) {
-						maxMeta = 65536;
-					}
-				} catch (Exception e) {
-					maxMeta = 15;
-					throw new RuntimeException(e.getMessage());
-				}
+			} else if (ModsList.ENDLESS_IDS_BLOCKITEM.isLoaded()) {
+				maxMeta = 65536;
 			} else {
 				maxMeta = 15;
 			}

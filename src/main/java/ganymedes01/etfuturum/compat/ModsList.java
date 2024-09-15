@@ -39,14 +39,19 @@ public enum ModsList {
 	FISKS_SUPERHEROES("fiskheroes"),
 	SIMPLEORES("simpleores"),
 	DRAGON_QUEST("DQMIIINext"),
+	LOTR("lotr"),
 
 	NOTFINE("notfine"),
 	NOT_ENOUGH_IDS("neid"),
 	ENDLESS_IDS("endlessids"),
+	ENDLESS_IDS_BLOCKITEM("endlessids_blockitem"),
+	ENDLESS_IDS_DATAWATCHER("endlessids_datawatcher"),
+	ENDLESS_IDS_BIOME("endlessids_biome"),
+	ENDLESS_IDS_POTION("endlessids_potion"),
+	ENDLESS_IDS_ENCHANTMENT("endlessids_enchantment"),
 	MC_PATCHER_FORGE("mcpatcherforge"),
 
 	GTNH("dreamcraft"),
-	LOTR("lotr"),
 	;
 
 	private final String modID;
