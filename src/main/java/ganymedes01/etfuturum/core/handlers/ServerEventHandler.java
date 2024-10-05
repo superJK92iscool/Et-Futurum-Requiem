@@ -105,6 +105,7 @@ import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @SuppressWarnings("deprecation")
 public class ServerEventHandler {
@@ -1950,67 +1951,74 @@ public class ServerEventHandler {
 		}
 	}
 
-	private final ItemStackSet NO_BURN_ITEMS = new ItemStackSet();
-	private final ItemStackMap<Integer> BURN_TIME_REMAPPING = new ItemStackMap<>();
+	private final ItemStackSet noBurnItems = new ItemStackSet();
+	private final ItemStackMap<Integer> burnTimeRemappings = new ItemStackMap<>();
 
 	@SubscribeEvent
 	public void fuelBurnTime(FuelBurnTimeEvent e) {
 		if (e.fuel == null || e.fuel.getItem() == null || Item.itemRegistry.getNameForObject(e.fuel.getItem()) == null)
 			return;
 
-		if (NO_BURN_ITEMS.isEmpty()) {
-			NO_BURN_ITEMS.add(ModBlocks.WOOD_PLANKS.newItemStack(1, 0));
-			NO_BURN_ITEMS.add(ModBlocks.WOOD_PLANKS.newItemStack(1, 1));
-			NO_BURN_ITEMS.add(ModBlocks.WOOD_FENCE.newItemStack(1, 0));
-			NO_BURN_ITEMS.add(ModBlocks.WOOD_FENCE.newItemStack(1, 1));
+		initFurnaceModifiers();
 
-			NO_BURN_ITEMS.add(ModBlocks.WOOD_SLAB.newItemStack(1, 0));
-			NO_BURN_ITEMS.add(ModBlocks.WOOD_SLAB.newItemStack(1, 1));
-			NO_BURN_ITEMS.add(ModBlocks.WOOD_SLAB.newItemStack(1, 8));
-			NO_BURN_ITEMS.add(ModBlocks.WOOD_SLAB.newItemStack(1, 9));
-
-			NO_BURN_ITEMS.add(ModBlocks.DOUBLE_WOOD_SLAB.newItemStack(1, 0));
-			NO_BURN_ITEMS.add(ModBlocks.DOUBLE_WOOD_SLAB.newItemStack(1, 1));
-			NO_BURN_ITEMS.add(ModBlocks.DOUBLE_WOOD_SLAB.newItemStack(1, 8));
-			NO_BURN_ITEMS.add(ModBlocks.DOUBLE_WOOD_SLAB.newItemStack(1, 9));
-
-			NO_BURN_ITEMS.add(ModBlocks.CRIMSON_STEM.newItemStack(1, OreDictionary.WILDCARD_VALUE));
-			NO_BURN_ITEMS.add(ModBlocks.WARPED_STEM.newItemStack(1, OreDictionary.WILDCARD_VALUE));
-			NO_BURN_ITEMS.add(ModBlocks.CRIMSON_STAIRS.newItemStack(1, OreDictionary.WILDCARD_VALUE));
-			NO_BURN_ITEMS.add(ModBlocks.WARPED_STAIRS.newItemStack(1, OreDictionary.WILDCARD_VALUE));
-			NO_BURN_ITEMS.add(ModBlocks.CRIMSON_FENCE_GATE.newItemStack(1, OreDictionary.WILDCARD_VALUE));
-			NO_BURN_ITEMS.add(ModBlocks.WARPED_FENCE_GATE.newItemStack(1, OreDictionary.WILDCARD_VALUE));
-			NO_BURN_ITEMS.add(ModBlocks.CRIMSON_BUTTON.newItemStack(1, OreDictionary.WILDCARD_VALUE));
-			NO_BURN_ITEMS.add(ModBlocks.WARPED_BUTTON.newItemStack(1, OreDictionary.WILDCARD_VALUE));
-			NO_BURN_ITEMS.add(ModBlocks.CRIMSON_PRESSURE_PLATE.newItemStack(1, OreDictionary.WILDCARD_VALUE));
-			NO_BURN_ITEMS.add(ModBlocks.WARPED_PRESSURE_PLATE.newItemStack(1, OreDictionary.WILDCARD_VALUE));
-			NO_BURN_ITEMS.add(ModBlocks.CRIMSON_DOOR.newItemStack(1, OreDictionary.WILDCARD_VALUE));
-			NO_BURN_ITEMS.add(ModBlocks.WARPED_DOOR.newItemStack(1, OreDictionary.WILDCARD_VALUE));
-			NO_BURN_ITEMS.add(ModBlocks.CRIMSON_TRAPDOOR.newItemStack(1, OreDictionary.WILDCARD_VALUE));
-			NO_BURN_ITEMS.add(ModBlocks.WARPED_TRAPDOOR.newItemStack(1, OreDictionary.WILDCARD_VALUE));
-			NO_BURN_ITEMS.add(ModBlocks.CRIMSON_SIGN.newItemStack(1, OreDictionary.WILDCARD_VALUE));
-			NO_BURN_ITEMS.add(ModBlocks.WARPED_SIGN.newItemStack(1, OreDictionary.WILDCARD_VALUE));
-
-			for (ModBlocks bed : ModBlocks.BEDS) {
-				if (bed.isEnabled()) {
-					NO_BURN_ITEMS.add(bed.newItemStack());
-				}
-			}
-		}
-		if (NO_BURN_ITEMS.contains(e.fuel)) {
+		if (noBurnItems.contains(e.fuel)) {
 			e.burnTime = 0;
 			e.setResult(Result.DENY);
 			return;
 		}
 
-		if (BURN_TIME_REMAPPING.isEmpty()) {
-			BURN_TIME_REMAPPING.put(ModItems.BAMBOO.newItemStack(1, OreDictionary.WILDCARD_VALUE), 50);
-		}
-
-		Integer time = BURN_TIME_REMAPPING.get(e.fuel);
+		Integer time = burnTimeRemappings.get(e.fuel);
 		if (time != null) {
 			e.burnTime = time;
 			e.setResult(Result.ALLOW);
+		}
+	}
+
+	private final AtomicBoolean initNoBurnItems = new AtomicBoolean(false);
+	private final AtomicBoolean initBurnTimeRemappings = new AtomicBoolean(false);
+	private void initFurnaceModifiers() {
+		if (!initNoBurnItems.getAndSet(true)) {
+			noBurnItems.add(ModBlocks.WOOD_PLANKS.newItemStack(1, 0));
+			noBurnItems.add(ModBlocks.WOOD_PLANKS.newItemStack(1, 1));
+			noBurnItems.add(ModBlocks.WOOD_FENCE.newItemStack(1, 0));
+			noBurnItems.add(ModBlocks.WOOD_FENCE.newItemStack(1, 1));
+
+			noBurnItems.add(ModBlocks.WOOD_SLAB.newItemStack(1, 0));
+			noBurnItems.add(ModBlocks.WOOD_SLAB.newItemStack(1, 1));
+			noBurnItems.add(ModBlocks.WOOD_SLAB.newItemStack(1, 8));
+			noBurnItems.add(ModBlocks.WOOD_SLAB.newItemStack(1, 9));
+
+			noBurnItems.add(ModBlocks.DOUBLE_WOOD_SLAB.newItemStack(1, 0));
+			noBurnItems.add(ModBlocks.DOUBLE_WOOD_SLAB.newItemStack(1, 1));
+			noBurnItems.add(ModBlocks.DOUBLE_WOOD_SLAB.newItemStack(1, 8));
+			noBurnItems.add(ModBlocks.DOUBLE_WOOD_SLAB.newItemStack(1, 9));
+
+			noBurnItems.add(ModBlocks.CRIMSON_STEM.newItemStack(1, OreDictionary.WILDCARD_VALUE));
+			noBurnItems.add(ModBlocks.WARPED_STEM.newItemStack(1, OreDictionary.WILDCARD_VALUE));
+			noBurnItems.add(ModBlocks.CRIMSON_STAIRS.newItemStack(1, OreDictionary.WILDCARD_VALUE));
+			noBurnItems.add(ModBlocks.WARPED_STAIRS.newItemStack(1, OreDictionary.WILDCARD_VALUE));
+			noBurnItems.add(ModBlocks.CRIMSON_FENCE_GATE.newItemStack(1, OreDictionary.WILDCARD_VALUE));
+			noBurnItems.add(ModBlocks.WARPED_FENCE_GATE.newItemStack(1, OreDictionary.WILDCARD_VALUE));
+			noBurnItems.add(ModBlocks.CRIMSON_BUTTON.newItemStack(1, OreDictionary.WILDCARD_VALUE));
+			noBurnItems.add(ModBlocks.WARPED_BUTTON.newItemStack(1, OreDictionary.WILDCARD_VALUE));
+			noBurnItems.add(ModBlocks.CRIMSON_PRESSURE_PLATE.newItemStack(1, OreDictionary.WILDCARD_VALUE));
+			noBurnItems.add(ModBlocks.WARPED_PRESSURE_PLATE.newItemStack(1, OreDictionary.WILDCARD_VALUE));
+			noBurnItems.add(ModBlocks.CRIMSON_DOOR.newItemStack(1, OreDictionary.WILDCARD_VALUE));
+			noBurnItems.add(ModBlocks.WARPED_DOOR.newItemStack(1, OreDictionary.WILDCARD_VALUE));
+			noBurnItems.add(ModBlocks.CRIMSON_TRAPDOOR.newItemStack(1, OreDictionary.WILDCARD_VALUE));
+			noBurnItems.add(ModBlocks.WARPED_TRAPDOOR.newItemStack(1, OreDictionary.WILDCARD_VALUE));
+			noBurnItems.add(ModBlocks.CRIMSON_SIGN.newItemStack(1, OreDictionary.WILDCARD_VALUE));
+			noBurnItems.add(ModBlocks.WARPED_SIGN.newItemStack(1, OreDictionary.WILDCARD_VALUE));
+
+			for (ModBlocks bed : ModBlocks.BEDS) {
+				if (bed.isEnabled()) {
+					noBurnItems.add(bed.newItemStack());
+				}
+			}
+		}
+
+		if (!initBurnTimeRemappings.getAndSet(true)) {
+			burnTimeRemappings.put(ModItems.BAMBOO.newItemStack(1, OreDictionary.WILDCARD_VALUE), 50);
 		}
 	}
 

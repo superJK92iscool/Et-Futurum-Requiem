@@ -26,10 +26,15 @@ public class ConfigExperiments extends ConfigBase {
 	public ConfigExperiments(File file) {
 		super(file);
 		setCategoryComment(catExperiments,
-				"Unfinished features. Handle with care! To automatically enable all of these at once, use \"-Detfuturum.testing=true\" in your program arguments." +
-						"\nFor the safety of people playing any packs that include these features, a chat message will be issued when any of them are enabled." +
-						"\nNote that when a config option has no comment at all, not even saying what the default value is, that means the option was removed." +
-						"\nIn that case check the regular configs as it was likely moved there.");
+                """
+                        Unfinished features. Handle with care! To automatically enable all of these at once, use "-Detfuturum.testing=true" in your program arguments.
+                        For the safety of people playing any packs that include these features, a chat message will be issued when any of them are enabled.
+                        These features are not finished, may cause breakages and are subject to receive major changes at any time.
+                        This can also include breaking changes, and even changed IDs.
+                        
+                        Note that when a config option has no comment at all, not even saying what the default value is, that means the option was removed.
+                        In that case check the regular configs as it was likely moved there.
+                        """);
 
 		configCats.add(getCategory(catExperiments));
 	}
