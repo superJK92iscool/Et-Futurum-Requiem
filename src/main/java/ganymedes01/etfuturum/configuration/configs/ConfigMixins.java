@@ -43,6 +43,7 @@ public class ConfigMixins extends ConfigBase {
 	public static boolean hideSingleLevelEnchants;
 	public static boolean fireproofItems;
 	public static boolean thinPanes;
+	public static boolean colorGrassBlockItemSides;
 
 	static final String catBackport = "backported features";
 	static final String catOptimization = "optimizations";
@@ -104,6 +105,8 @@ public class ConfigMixins extends ConfigBase {
 		fireproofItems = getBoolean("fireproofItems", catBackport, true, "Some items such as Netherite will not burn in fire and will float to the surface of lava.");
 		thinPanes = getBoolean("thinPanes", catBackport, true, "Panes [Iron Bars, Glass Panes, etc] are changed to a single post if they are not connected to any other blocks" +
 				"\nModified Classes: net.minecraft.block.BlockPane" +
+				"\nModified Client Classes: net.minecraft.client.renderer.RenderBlocks");
+		colorGrassBlockItemSides = getBoolean("colorGrassBlockItemSides", catBackport, true, "Grass block sides are colored in the player's inventory" +
 				"\nModified Client Classes: net.minecraft.client.renderer.RenderBlocks");
 
 		stepHeightFix = getBoolean("stepHeightFix", catFixes, true, "Makes the player able to step up even if a block would be above their head at the destination.\nModified classes: net.minecraft.entity.Entity");
