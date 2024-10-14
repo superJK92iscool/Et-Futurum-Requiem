@@ -253,6 +253,10 @@ public class EtFuturumEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoade
 			if (ConfigMixins.flowerPotFixes) {
 				mixins.add("flowerpotfix.client.MixinRenderBlocks");
 			}
+
+			if (ConfigMixins.colorGrassBlockItemSides) {
+				mixins.add("coloredgrassitem.client.MixinRenderBlocks");
+			}
 		}
 
 		if (ConfigMixins.thinPanes) {
