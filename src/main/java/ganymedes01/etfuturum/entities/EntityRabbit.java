@@ -61,13 +61,13 @@ public class EntityRabbit extends EntityAnimal {
 	}
 
 	@Override
-	public RabbitMoveHelper getMoveHelper() {
-		return (RabbitMoveHelper) super.getMoveHelper();
+	public EntityMoveHelper getMoveHelper() {
+		return super.getMoveHelper();
 	}
 
 	@Override
-	public RabbitJumpHelper getJumpHelper() {
-		return (RabbitJumpHelper) super.getJumpHelper();
+	public EntityJumpHelper getJumpHelper() {
+		return super.getJumpHelper();
 	}
 
 	public void setMoveType(EntityRabbit.EnumMoveType type) {
@@ -80,7 +80,7 @@ public class EntityRabbit extends EntityAnimal {
 
 	public void setMovementSpeed(double newSpeed) {
 		getNavigator().setSpeed(newSpeed);
-		getMoveHelper().setMoveTo(getMoveHelper().getX(), getMoveHelper().getY(), getMoveHelper().getZ(), newSpeed);
+		getMoveHelper().setMoveTo(getMoveHelper().posX, getMoveHelper().posY, getMoveHelper().posZ, newSpeed);
 	}
 
 	public void setJumping(boolean jump, EntityRabbit.EnumMoveType moveTypeIn) {
@@ -167,21 +167,24 @@ public class EntityRabbit extends EntityAnimal {
 				checkLandingDelay();
 			}
 
-			EntityRabbit.RabbitJumpHelper rabbitjumphelper = getJumpHelper();
+			EntityJumpHelper jumpHelper = getJumpHelper();
 
-			if (!rabbitjumphelper.getIsJumping()) {
-				if (!getNavigator().noPath() && currentMoveTypeDuration == 0) {
-					PathEntity pathentity = getNavigator().getPath();
-					Vec3 vec3 = Vec3.createVectorHelper(getMoveHelper().getX(), getMoveHelper().getY(), getMoveHelper().getZ());
+            if (jumpHelper instanceof RabbitJumpHelper rabbitJumpHelper) {
+                if (!rabbitJumpHelper.getIsJumping()) {
+                    if (!getNavigator().noPath() && currentMoveTypeDuration == 0) {
+                        PathEntity pathentity = getNavigator().getPath();
+                        Vec3 vec3 = Vec3.createVectorHelper(getMoveHelper().posX, getMoveHelper().posY, getMoveHelper().posZ);
 
-					if (pathentity != null && pathentity.getCurrentPathIndex() < pathentity.getCurrentPathLength())
-						vec3 = pathentity.getPosition(this);
+                        if (pathentity != null && pathentity.getCurrentPathIndex() < pathentity.getCurrentPathLength())
+                            vec3 = pathentity.getPosition(this);
 
-					calculateRotationYaw(vec3.xCoord, vec3.zCoord);
-					doMovementAction(moveType);
-				}
-			} else if (!rabbitjumphelper.canJump())
-				enableJumpControl();
+                        calculateRotationYaw(vec3.xCoord, vec3.zCoord);
+                        doMovementAction(moveType);
+                    }
+                } else if (!rabbitJumpHelper.canJump()) {
+                    enableJumpControl();
+                }
+            }
 		}
 
 		wasOnGround = onGround;
@@ -192,11 +195,15 @@ public class EntityRabbit extends EntityAnimal {
 	}
 
 	private void enableJumpControl() {
-		getJumpHelper().setCanJump(true);
+		if(getJumpHelper() instanceof RabbitJumpHelper rabbitJumpHelper) {
+			rabbitJumpHelper.setCanJump(true);
+		}
 	}
 
 	private void disableJumpControl() {
-		getJumpHelper().setCanJump(false);
+		if(getJumpHelper() instanceof RabbitJumpHelper rabbitJumpHelper) {
+			rabbitJumpHelper.setCanJump(false);
+		}
 	}
 
 	private void updateMoveTypeDuration() {
