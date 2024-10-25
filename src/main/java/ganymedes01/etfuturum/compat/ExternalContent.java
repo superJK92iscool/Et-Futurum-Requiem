@@ -11,9 +11,17 @@ public class ExternalContent {
 
 	public enum Blocks {
 		CFB_CAMPFIRE("campfirebackport", "campfire"),
-		CFB_SOUL_CAMPFIRE("campfirebackport", "soul_campfire"),
 		CFB_CAMPFIRE_BASE("campfirebackport", "campfire_base"),
+		CFB_SOUL_CAMPFIRE("campfirebackport", "soul_campfire"),
 		CFB_SOUL_CAMPFIRE_BASE("campfirebackport", "soul_campfire_base"),
+		CFB_FOXFIRE_CAMPFIRE("campfirebackport", "foxfire_campfire"),
+		CFB_FOXFIRE_CAMPFIRE_BASE("campfirebackport", "foxfire_campfire_base"),
+		CFB_SHADOW_CAMPFIRE("campfirebackport", "shadow_campfire"),
+		CFB_SHADOW_CAMPFIRE_BASE("campfirebackport", "shadow_campfire_base"),
+
+		BAMBOO_CAMPFIRE("BambooMod", "campfire"),
+
+		ECRU_LEAVES_FIRE("mod_ecru_MapleTree", "ecru_BlockFallenLeavesFire"),
 
 		TCON_GRAVEL_ORE("TConstruct", "GravelOre"),
 		TCON_MULTIBRICK("TConstruct", "decoration.multibrick"),
@@ -38,6 +46,7 @@ public class ExternalContent {
 		ARS_MAGICA_2_ORE("arsmagica2", "vinteumOre"),
 
 		THAUMCRAFT_ORE("Thaumcraft", "blockCustomOre"),
+		THAUMCRAFT_AIRY("Thaumcraft", "blockAiry"),
 
 		BOP_GEM_ORE("BiomesOPlenty", "gemOre"),
 

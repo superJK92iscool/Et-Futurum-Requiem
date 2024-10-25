@@ -1,12 +1,16 @@
 package ganymedes01.etfuturum.tileentities;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
+import ganymedes01.etfuturum.api.mappings.RegistryMapping;
 import ganymedes01.etfuturum.blocks.BlockBeeHive;
 import ganymedes01.etfuturum.compat.ExternalContent;
 import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import ganymedes01.etfuturum.entities.EntityBee;
 import ganymedes01.etfuturum.lib.Reference;
+import ganymedes01.etfuturum.recipes.ModRecipes;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -18,14 +22,28 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class TileEntityBeeHive extends TileEntity {
 	private final List<TileEntityBeeHive.Bee> bees = Lists.newArrayList();
 	private BlockPos flowerPos = null;
 	private int honeyLevel = 0;
+
+	public TileEntityBeeHive() {
+		addSmokeBlock(ExternalContent.Blocks.CFB_CAMPFIRE.get());
+		addSmokeBlock(ExternalContent.Blocks.CFB_SOUL_CAMPFIRE.get());
+		addSmokeBlock(ExternalContent.Blocks.CFB_FOXFIRE_CAMPFIRE.get());
+		addSmokeBlock(ExternalContent.Blocks.CFB_SHADOW_CAMPFIRE.get());
+
+		addSmokeBlock(ExternalContent.Blocks.BAMBOO_CAMPFIRE.get());
+		addSmokeBlock(ExternalContent.Blocks.ECRU_LEAVES_FIRE.get());
+		addSmokeBlock(ExternalContent.Blocks.THAUMCRAFT_AIRY.get());
+	}
 
 	@Override
 	public void markDirty() {
@@ -109,19 +127,31 @@ public class TileEntityBeeHive extends TileEntity {
 	}
 
 	public static boolean isLitCampfireBelow(World world, int x, int y, int z, int spacing) {
-		List<Block> fires = Lists.newArrayList();
-		if (ModsList.CAMPFIRE_BACKPORT.isLoaded()) {
-			fires.add(ExternalContent.Blocks.CFB_CAMPFIRE.get());
-			fires.add(ExternalContent.Blocks.CFB_SOUL_CAMPFIRE.get());
-		}
 		for (int i = 1; i <= spacing; i++) {
 			Block block = world.getBlock(x, y - i, z);
 			if (block.isOpaqueCube()) break;
-			if (fires.contains(block) || (fires.isEmpty() && block.getMaterial() == Material.fire)) {
+			int meta = world.getBlockMetadata(x, y - i, z);
+			if ((TEMPORARY_FIRES_LIST.isEmpty() && block.getMaterial() == Material.fire) || TEMPORARY_FIRES_LIST.contains(RegistryMapping.getKeyFor(block, meta))) {
 				return true;
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * Will be replaced when HogUtils exists and has tags. Has an adder func so people can add fires, will redirect to using the tag when HogUtils gets them.
+	 * Don't reflect into this directly, please use the adder. This set will be removed in a future version.
+	 */
+	private static final Set<RegistryMapping<Block>> TEMPORARY_FIRES_LIST = Sets.newHashSet();
+
+	public static void addSmokeBlock(Block block) {
+		addSmokeBlock(block, OreDictionary.WILDCARD_VALUE);
+	}
+
+	public static void addSmokeBlock(Block block, int meta) {
+		if(ModRecipes.validateItems(block)) {
+			TEMPORARY_FIRES_LIST.add(new RegistryMapping<>(block, meta));
+		}
 	}
 
 	public void tryEnterHive(Entity p_226962_1_, boolean p_226962_2_, int p_226962_3_) {
