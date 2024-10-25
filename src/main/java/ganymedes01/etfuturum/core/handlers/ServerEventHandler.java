@@ -1676,7 +1676,8 @@ public class ServerEventHandler {
 		if (EntitySquid.class.equals(targetEntity.getClass())) {
 			World w = targetEntity.worldObj;
 			Random r = w.rand;
-			doInk: if (ConfigEntities.enableSquidInk && r.nextDouble() < 0.15 && w instanceof WorldServer serverWorld && targetEntity.isInWater()) {
+			boolean inkSound = ConfigEntities.enableSquidInk || ConfigTweaks.squidsBlindPlayers;
+			doInk: if (inkSound && r.nextDouble() < 0.15 && w instanceof WorldServer serverWorld && targetEntity.isInWater()) {
 				AxisAlignedBB eBox = targetEntity.boundingBox;
 				double cx = eBox.maxX - 0.5 * (eBox.maxX - eBox.minX);
 				double cy = eBox.maxY - 0.5 * (eBox.maxY - eBox.minY);
@@ -1691,12 +1692,14 @@ public class ServerEventHandler {
 
 				EntityLivingBase target = around.get(r.nextInt(around.size()));
 				if (target != null && target != targetEntity) {
-					serverWorld.func_147487_a("largesmoke", cx, cy, cz, 5, 0.0, 0.0, 0.0, 0.08);
+					if(ConfigEntities.enableSquidInk) {
+						serverWorld.func_147487_a("largesmoke", cx, cy, cz, 5, 0.0, 0.0, 0.0, 0.08);
+					}
 					if (ConfigMixins.newMobSounds) {
 						float pitch = (r.nextFloat() - r.nextFloat()) * 0.2F + (target.isChild() ? 1.5F : 1.0F);
 						w.playSoundAtEntity(target, Reference.MCAssetVer + ":entity.squid.squirt", 0.4F, pitch);
 					}
-					if (target.isInWater()) {
+					if (target.isInWater() && ConfigTweaks.squidsBlindPlayers) {
 						PotionEffect activeEff = target.getActivePotionEffect(Potion.blindness);
 						int time = 20 + r.nextInt(300);
 						if (activeEff != null) {
