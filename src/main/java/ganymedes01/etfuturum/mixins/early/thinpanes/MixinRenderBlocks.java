@@ -30,15 +30,15 @@ public abstract class MixinRenderBlocks {
 	@Unique
 	private static volatile boolean etfuturum$errorCaught;
 	@Unique
-	private static volatile  boolean etfuturum$populatedFields;
+	private static volatile boolean etfuturum$populatedFields;
 	@Unique
-	private static volatile  Field etfuturum$skipTopEdgeRenderingField;
+	private static volatile Field etfuturum$skipTopEdgeRenderingField;
 	@Unique
-	private static volatile  Field etfuturum$skipBottomEdgeRenderingField;
+	private static volatile Field etfuturum$skipBottomEdgeRenderingField;
 	@Unique
-	private static volatile  Method etfuturum$setupPaneEdgesFunc;
+	private static volatile Method etfuturum$setupPaneEdgesFunc;
 	@Unique
-	private static volatile  Method etfuturum$setupIconsFunc;
+	private static volatile Method etfuturum$setupIconsFunc;
 //	private Method renderThickFunc;
 //	private Method renderThinFunc;
 
