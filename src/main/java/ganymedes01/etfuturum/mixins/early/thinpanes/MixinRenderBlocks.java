@@ -11,6 +11,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -26,12 +27,18 @@ public abstract class MixinRenderBlocks {
 	@Shadow
 	public IIcon overrideBlockTexture;
 
-	private boolean errorCaught;
-	private boolean populatedFields;
-	private Field skipTopEdgeRenderingField;
-	private Field skipBottomEdgeRenderingField;
-	private Method setupPaneEdgesFunc;
-	private Method setupIconsFunc;
+	@Unique
+	private static volatile boolean etfuturum$errorCaught;
+	@Unique
+	private static volatile  boolean etfuturum$populatedFields;
+	@Unique
+	private static volatile  Field etfuturum$skipTopEdgeRenderingField;
+	@Unique
+	private static volatile  Field etfuturum$skipBottomEdgeRenderingField;
+	@Unique
+	private static volatile  Method etfuturum$setupPaneEdgesFunc;
+	@Unique
+	private static volatile  Method etfuturum$setupIconsFunc;
 //	private Method renderThickFunc;
 //	private Method renderThinFunc;
 
@@ -59,16 +66,16 @@ public abstract class MixinRenderBlocks {
 			boolean skipBottom = false;
 			boolean skipTop = false;
 			loadReflectionData();
-			if (populatedFields && !errorCaught) {
+			if (etfuturum$populatedFields && !etfuturum$errorCaught) {
 				try {
 //					renderThinField.invoke(null, (RenderBlocks) (Object)this, block, iicon, posX, posY, posZ, flag, flag1, flag2, flag3);
-					if ((boolean) setupIconsFunc.invoke(null, (RenderBlocks) (Object) this, block, iicon, posX, posY, posZ)) {
-						skipBottom = skipBottomEdgeRenderingField.getBoolean(null);
-						skipTop = skipTopEdgeRenderingField.getBoolean(null);
+					if ((boolean) etfuturum$setupIconsFunc.invoke(null, (RenderBlocks) (Object) this, block, iicon, posX, posY, posZ)) {
+						skipBottom = etfuturum$skipBottomEdgeRenderingField.getBoolean(null);
+						skipTop = etfuturum$skipTopEdgeRenderingField.getBoolean(null);
 					}
 				} catch (Exception e) {
-					skipBottom = skipTop = populatedFields = false;
-					errorCaught = true;
+					skipBottom = skipTop = etfuturum$populatedFields = false;
+					etfuturum$errorCaught = true;
 					Logger.error("MCPF compat for glass panes threw an error. Pretending it's off for now (rendering may look wonky!)");
 					e.printStackTrace();
 				}
@@ -144,17 +151,17 @@ public abstract class MixinRenderBlocks {
 			boolean skipBottom = false;
 			boolean skipTop = false;
 			loadReflectionData();
-			if (populatedFields && !errorCaught) {
+			if (etfuturum$populatedFields && !etfuturum$errorCaught) {
 				try {
 //					renderThickField.invoke(null, (RenderBlocks) (Object)this, block, iicon, posX, posY, posZ, flag, flag1, flag2, flag3);
-					if ((boolean) setupIconsFunc.invoke(null, (RenderBlocks) (Object) this, block, iicon, posX, posY, posZ)) {
-						setupPaneEdgesFunc.invoke(null, (RenderBlocks) (Object) this, block, posX, posY, posZ);
-						skipBottom = skipBottomEdgeRenderingField.getBoolean(null);
-						skipTop = skipTopEdgeRenderingField.getBoolean(null);
+					if ((boolean) etfuturum$setupIconsFunc.invoke(null, (RenderBlocks) (Object) this, block, iicon, posX, posY, posZ)) {
+						etfuturum$setupPaneEdgesFunc.invoke(null, (RenderBlocks) (Object) this, block, posX, posY, posZ);
+						skipBottom = etfuturum$skipBottomEdgeRenderingField.getBoolean(null);
+						skipTop = etfuturum$skipTopEdgeRenderingField.getBoolean(null);
 					}
 				} catch (Exception e) {
-					skipBottom = skipTop = populatedFields = false;
-					errorCaught = true;
+					skipBottom = skipTop = etfuturum$populatedFields = false;
+					etfuturum$errorCaught = true;
 					Logger.error("MCPF compat for glass panes threw an error. Pretending it's off for now (rendering may look wonky!)");
 					e.printStackTrace();
 				}
@@ -206,21 +213,21 @@ public abstract class MixinRenderBlocks {
 	}
 
 	private void loadReflectionData() {
-		if (ModsList.MC_PATCHER_FORGE.isLoaded() && !populatedFields && !errorCaught) {
+		if (ModsList.MC_PATCHER_FORGE.isLoaded() && !etfuturum$populatedFields && !etfuturum$errorCaught) {
 			try {
 				Class<?> clss = Class.forName("com.prupe.mcpatcher.ctm.GlassPaneRenderer");
-				skipTopEdgeRenderingField = clss.getDeclaredField("skipTopEdgeRendering");
-				skipBottomEdgeRenderingField = clss.getDeclaredField("skipBottomEdgeRendering");
-				setupPaneEdgesFunc = clss.getDeclaredMethod("setupPaneEdges", RenderBlocks.class, Block.class, int.class, int.class, int.class);
-				setupIconsFunc = clss.getDeclaredMethod("setupIcons", RenderBlocks.class, Block.class, IIcon.class, int.class, int.class, int.class);
-				setupPaneEdgesFunc.setAccessible(true);
-				setupIconsFunc.setAccessible(true);
+				etfuturum$skipTopEdgeRenderingField = clss.getDeclaredField("skipTopEdgeRendering");
+				etfuturum$skipBottomEdgeRenderingField = clss.getDeclaredField("skipBottomEdgeRendering");
+				etfuturum$setupPaneEdgesFunc = clss.getDeclaredMethod("setupPaneEdges", RenderBlocks.class, Block.class, int.class, int.class, int.class);
+				etfuturum$setupIconsFunc = clss.getDeclaredMethod("setupIcons", RenderBlocks.class, Block.class, IIcon.class, int.class, int.class, int.class);
+				etfuturum$setupPaneEdgesFunc.setAccessible(true);
+				etfuturum$setupIconsFunc.setAccessible(true);
 //				renderThickField = clss.getDeclaredMethod("renderThick", RenderBlocks.class, Block.class, IIcon.class, int.class, int.class, int.class, boolean.class, boolean.class, boolean.class, boolean.class);
 //				renderThinField = clss.getDeclaredMethod("renderThin", RenderBlocks.class, Block.class, IIcon.class, int.class, int.class, int.class, boolean.class, boolean.class, boolean.class, boolean.class);
-				populatedFields = true;
+				etfuturum$populatedFields = true;
 			} catch (Exception e) {
-				populatedFields = false;
-				errorCaught = true;
+				etfuturum$populatedFields = false;
+				etfuturum$errorCaught = true;
 				Logger.error("MCPF compat failed to set up for stained glass panes. Pretending it's off for now (rendering may look wonky!)");
 				e.printStackTrace();
 			}
