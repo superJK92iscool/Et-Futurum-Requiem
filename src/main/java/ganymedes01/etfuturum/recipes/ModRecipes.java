@@ -519,8 +519,8 @@ public class ModRecipes {
 			//New stripped logs to new stripped bark
 			addShapedRecipe(ModBlocks.CRIMSON_STEM.newItemStack(3, 3), "xx", "xx", 'x', ModBlocks.CRIMSON_STEM.newItemStack(2, 2));
 			addShapedRecipe(ModBlocks.WARPED_STEM.newItemStack(3, 3), "xx", "xx", 'x', ModBlocks.WARPED_STEM.newItemStack(2, 2));
-			addShapedRecipe(ModBlocks.MANGROVE_LOG.newItemStack(3, 3), "xx", "xx", 'x', ModBlocks.MANGROVE_LOG.newItemStack(2, 3));
-			addShapedRecipe(ModBlocks.CHERRY_LOG.newItemStack(3, 3), "xx", "xx", 'x', ModBlocks.CHERRY_LOG.newItemStack(2, 4));
+			addShapedRecipe(ModBlocks.MANGROVE_LOG.newItemStack(3, 3), "xx", "xx", 'x', ModBlocks.MANGROVE_LOG.newItemStack(2, 2));
+			addShapedRecipe(ModBlocks.CHERRY_LOG.newItemStack(3, 3), "xx", "xx", 'x', ModBlocks.CHERRY_LOG.newItemStack(2, 2));
 		}
 
 		if (ConfigBlocksItems.enableBarkLogs) {
