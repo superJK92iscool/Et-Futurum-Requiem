@@ -32,6 +32,7 @@ import ganymedes01.etfuturum.elytra.IElytraPlayer;
 import ganymedes01.etfuturum.entities.*;
 import ganymedes01.etfuturum.entities.ai.EntityAIOpenCustomDoor;
 import ganymedes01.etfuturum.gamerule.DoWeatherCycle;
+import ganymedes01.etfuturum.gamerule.PlayersSleepingPercentage;
 import ganymedes01.etfuturum.gamerule.RandomTickSpeed;
 import ganymedes01.etfuturum.items.ItemArrowTipped;
 import ganymedes01.etfuturum.lib.Reference;
@@ -1781,6 +1782,10 @@ public class ServerEventHandler {
 
 		if (ConfigMixins.enableDoWeatherCycle) {
 			DoWeatherCycle.registerGamerule(event.world);
+		}
+
+		if (ConfigMixins.enablePlayersSleepingPecentageGamerule) {
+			PlayersSleepingPercentage.registerGamerule(event.world);
 		}
 		
 		if(ConfigMixins.enableRandomTickSpeed) {
