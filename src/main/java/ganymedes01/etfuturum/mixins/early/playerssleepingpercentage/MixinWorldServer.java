@@ -1,10 +1,9 @@
 package ganymedes01.etfuturum.mixins.early.playerssleepingpercentage;
 
 import ganymedes01.etfuturum.spectator.SpectatorMode;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.profiler.Profiler;
-import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.WorldServer;
@@ -56,7 +55,7 @@ public abstract class MixinWorldServer extends World {
 
             if (!INSTANCE.sleepyPlayers.isEmpty()) {
                 for (EntityPlayer paypiggy : this.playerEntities) {
-                    paypiggy.addChatMessage(new ChatComponentText(I18n.format("sleep.players_sleeping", INSTANCE.sleepyPlayers.size(), cap)));
+                    paypiggy.addChatMessage(new ChatComponentTranslation("sleep.players_sleeping", INSTANCE.sleepyPlayers.size(), cap));
                 }
             }
             ctx.cancel();
@@ -71,7 +70,7 @@ public abstract class MixinWorldServer extends World {
     @Inject(method = "wakeAllPlayers", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/EntityPlayer;wakeUpPlayer(ZZZ)V"), locals = LocalCapture.CAPTURE_FAILHARD)
     public void broadcast(CallbackInfo ctx, Iterator iterator, EntityPlayer player) {
         if (!this.getGameRules().getGameRuleStringValue(GAMERULE_NAME).equals("101")) {
-            player.addChatMessage(new ChatComponentText(I18n.format("sleep.skipping_night")));
+            player.addChatMessage(new ChatComponentTranslation("sleep.skipping_night"));
         }
     }
 }
