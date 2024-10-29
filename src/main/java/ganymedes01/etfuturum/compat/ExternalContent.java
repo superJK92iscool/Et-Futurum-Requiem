@@ -10,6 +10,8 @@ import java.util.function.Supplier;
 public class ExternalContent {
 
 	public enum Blocks {
+		GREGTECH_MACHINE("Gregtech", "gt.blockmachines"),
+
 		CFB_CAMPFIRE("campfirebackport", "campfire"),
 		CFB_CAMPFIRE_BASE("campfirebackport", "campfire_base"),
 		CFB_SOUL_CAMPFIRE("campfirebackport", "soul_campfire"),
@@ -27,6 +29,8 @@ public class ExternalContent {
 		TCON_MULTIBRICK("TConstruct", "decoration.multibrick"),
 		TCON_MULTIBRICK_FANCY("TConstruct", "decoration.multibrickfancy"),
 		TCON_METAL("TConstruct", "MetalBlock"),
+		TCON_SMELTERY("TConstruct", "Smeltery"),
+		TCON_SEARED_BLOCK("TConstruct", "SearedBlock"),
 
 		NATURA_HEAT_SAND("Natura", "heatsand"),
 		NATURA_TAINTED_SOIL("Natura", "soil.tainted"),
@@ -47,6 +51,7 @@ public class ExternalContent {
 
 		THAUMCRAFT_ORE("Thaumcraft", "blockCustomOre"),
 		THAUMCRAFT_AIRY("Thaumcraft", "blockAiry"),
+		THAUMCRAFT_TABLE("Thaumcraft", "blockTable"),
 
 		BOP_GEM_ORE("BiomesOPlenty", "gemOre"),
 
