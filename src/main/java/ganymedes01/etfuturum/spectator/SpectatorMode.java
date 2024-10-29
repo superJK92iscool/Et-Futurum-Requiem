@@ -93,9 +93,7 @@ public class SpectatorMode {
 					return;
 				}
 				TileEntity te = event.world.getTileEntity(event.x, event.y, event.z);
-				if (!canSpectatorSelect(te)) {
-					event.setCanceled(true);
-				} else if(SPECTATOR_INTERACT_BLACKLIST.contains(event.world.getBlock(event.x, event.y, event.z))) {
+				if (!canSpectatorSelect(te) || SPECTATOR_INTERACT_BLACKLIST.contains(event.world.getBlock(event.x, event.y, event.z))) {
 					event.setCanceled(true);
 				}
 			}
