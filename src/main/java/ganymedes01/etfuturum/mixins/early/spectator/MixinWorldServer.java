@@ -1,4 +1,5 @@
 package ganymedes01.etfuturum.mixins.early.spectator;
+import ganymedes01.etfuturum.core.utils.Utils;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -27,16 +28,6 @@ public abstract class MixinWorldServer extends World {
     }
 
     /**
-     * Filters spectators out of the provided list.
-     * @param list
-     * @return
-     */
-    @Unique
-    private static List<EntityPlayer> etfuturum$getListWithoutSpectators(List<EntityPlayer> list) {
-        return list.stream().filter(entity -> !SpectatorMode.isSpectator(entity)).collect(Collectors.toList());
-    }
-
-    /**
      * Filters spectators out of the playerEntities list before it is checked by areAllPlayersAsleep.
      * Uses original.call to create the iterator to maintain compatibility with any other mixins
      * @param instance
@@ -45,7 +36,7 @@ public abstract class MixinWorldServer extends World {
      */
     @WrapOperation(method = "areAllPlayersAsleep", at = @At(value = "INVOKE", target = "Ljava/util/List;iterator()Ljava/util/Iterator;"))
     private Iterator<EntityPlayer> dontCountSpectatorsForSleepListCheck(List<EntityPlayer> instance, Operation<Iterator<EntityPlayer>> original) {
-        return original.call(etfuturum$getListWithoutSpectators(instance));
+        return original.call(Utils.getListWithoutSpectators(instance));
     }
 
     /**
@@ -58,7 +49,7 @@ public abstract class MixinWorldServer extends World {
     @WrapOperation(method = "updateAllPlayersSleepingFlag", at = @At(value = "INVOKE", target = "Ljava/util/List;isEmpty()Z"))
     private boolean filterSleepList(List<EntityPlayer> instance, Operation<Boolean> original,
                                     @Share("nonSpectatingPlayers") LocalRef<List<EntityPlayer>> nonSpectatingPlayers) {
-        List<EntityPlayer> list = etfuturum$getListWithoutSpectators(instance);
+        List<EntityPlayer> list = Utils.getListWithoutSpectators(instance);
         nonSpectatingPlayers.set(list);
         return original.call(list);
     }

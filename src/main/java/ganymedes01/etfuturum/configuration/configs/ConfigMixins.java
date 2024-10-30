@@ -44,6 +44,7 @@ public class ConfigMixins extends ConfigBase {
 	public static boolean fireproofItems;
 	public static boolean thinPanes;
 	public static boolean colorGrassBlockItemSides;
+	public static boolean enablePlayersSleepingPecentageGamerule;
 
 	static final String catBackport = "backported features";
 	static final String catOptimization = "optimizations";
@@ -113,5 +114,6 @@ public class ConfigMixins extends ConfigBase {
 		arrowFallingFix = getBoolean("arrowFallingFix", catFixes, true, "Prevents arrows from falling off of blocks too easily\nModified classes: net.minecraft.entity.EntityArrow");
 		collidedThrowableFix = getBoolean("collidedThrowableFix", catFixes, true, "Fixes EntityThrowable entities not calling onEntityCollidedWithBlock, causing them to not trigger target blocks or chime amethyst.\nModified classes: net.minecraft.entity.projectile.EntityThrowable");
 		hideSingleLevelEnchants = getBoolean("hideSingleLevelEnchants", catFixes, true, "Fixes enchantments with only one possible level displaying a level in their name. E.G. \"Silk Touch I\" becomes \"Silk Touch\".\nModified Classes: net.minecraft.enchantment.Enchantment");
+		enablePlayersSleepingPecentageGamerule = getBoolean("enablePlayersSleepingPecentageGamerule", catBackport, true, "You nappa, you get slappa");
 	}
 }

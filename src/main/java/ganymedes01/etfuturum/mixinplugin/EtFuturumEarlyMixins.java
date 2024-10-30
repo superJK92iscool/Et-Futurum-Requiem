@@ -267,6 +267,10 @@ public class EtFuturumEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoade
 			}
 		}
 
+		if (ConfigMixins.enablePlayersSleepingPecentageGamerule) {
+			mixins.add("playerssleepingpercentage.MixinWorldServer");
+		}
+
 		return mixins;
 	}
 
