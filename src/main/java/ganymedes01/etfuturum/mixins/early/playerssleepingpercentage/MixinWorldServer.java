@@ -1,7 +1,6 @@
 package ganymedes01.etfuturum.mixins.early.playerssleepingpercentage;
 
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.spectator.SpectatorMode;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.profiler.Profiler;
 import net.minecraft.util.ChatComponentTranslation;
@@ -17,8 +16,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
-import scala.tools.cmd.Spec;
 
 import java.util.Iterator;
 import java.util.List;
@@ -38,14 +37,14 @@ public abstract class MixinWorldServer extends World {
 
     @Inject(method = "updateAllPlayersSleepingFlag", at = @At("HEAD"), cancellable = true)
     public void hhheheheheeh(CallbackInfo ctx) {
-        int percentrillo = Integer.parseInt(this.getGameRules().getGameRuleStringValue(GAMERULE_NAME));
-        if (percentrillo > 100) {
+        INSTANCE.percentrillo = Integer.parseInt(this.getGameRules().getGameRuleStringValue(GAMERULE_NAME));
+        if (INSTANCE.percentrillo > 100) {
             this.allPlayersSleeping = false;
             ctx.cancel(/* /r/nosleep, vanilla behaviour */);
-        } else if (percentrillo < 100) {
+        } else if (INSTANCE.percentrillo < 100) {
             INSTANCE.sleepyPlayers.clear();
             List<EntityPlayer> real = Utils.getListWithoutSpectators(this.playerEntities);
-            int cap = (int) Math.ceil(real.size() * percentrillo * 0.015f);
+            int cap = (int) Math.ceil(real.size() * INSTANCE.percentrillo * 0.01f);
             for (EntityPlayer player : this.playerEntities) {
                 if (player.isPlayerSleeping()) {
                     INSTANCE.sleepyPlayers.add(player);
@@ -70,10 +69,14 @@ public abstract class MixinWorldServer extends World {
         return INSTANCE.sleepyPlayers;
     }
 
+    @Inject(method = "areAllPlayersAsleep", at = @At(value = "INVOKE", target = "Ljava/util/List;iterator()Ljava/util/Iterator;"), cancellable = true)
+    public void turbofast(CallbackInfoReturnable<Boolean> ctx) {
+        if (INSTANCE.percentrillo < 1) ctx.setReturnValue(true);
+    }
+
     @Inject(method = "wakeAllPlayers", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/EntityPlayer;wakeUpPlayer(ZZZ)V"), locals = LocalCapture.CAPTURE_FAILHARD)
     public void broadcast(CallbackInfo ctx, Iterator iterator, EntityPlayer player) {
-        int rule = Integer.parseInt(this.getGameRules().getGameRuleStringValue(GAMERULE_NAME));
-        if (rule > 0 && rule < 101) {
+        if (INSTANCE.percentrillo > 0 && INSTANCE.percentrillo < 101) {
             player.addChatMessage(new ChatComponentTranslation("sleep.skipping_night"));
         }
     }

@@ -11,6 +11,7 @@ public class PlayersSleepingPercentage {
     public static final String GAMERULE_NAME = "playersSleepingPercentage";
     public static final String DEFAULT_VALUE = "100";
 
+    public int percentrillo = 100;
     public List<EntityPlayer> sleepyPlayers = new ArrayList<>();
 
     public static void registerGamerule(World world) {
