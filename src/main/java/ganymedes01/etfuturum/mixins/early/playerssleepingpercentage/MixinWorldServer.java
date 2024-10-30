@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.mixins.early.playerssleepingpercentage;
 
+import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.spectator.SpectatorMode;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.profiler.Profiler;
@@ -17,6 +18,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
+import scala.tools.cmd.Spec;
 
 import java.util.Iterator;
 import java.util.List;
@@ -42,18 +44,19 @@ public abstract class MixinWorldServer extends World {
             ctx.cancel(/* /r/nosleep, vanilla behaviour */);
         } else if (percentrillo < 100) {
             INSTANCE.sleepyPlayers.clear();
-            int cap = (int) (this.playerEntities.size() * Math.ceil(percentrillo * 0.01f));
+            List<EntityPlayer> real = Utils.getListWithoutSpectators(this.playerEntities);
+            int cap = (int) Math.ceil(real.size() * percentrillo * 0.015f);
             for (EntityPlayer player : this.playerEntities) {
-                if (player.isPlayerSleeping() || SpectatorMode.isSpectator(player)) {
+                if (player.isPlayerSleeping()) {
                     INSTANCE.sleepyPlayers.add(player);
-                    if (INSTANCE.sleepyPlayers.size() >= cap) {
+                    if (INSTANCE.sleepyPlayers.size() >= real.size()) {
                         this.allPlayersSleeping = true;
                         break;
                     }
                 }
             }
 
-            if (!INSTANCE.sleepyPlayers.isEmpty()) {
+            if (!INSTANCE.sleepyPlayers.isEmpty() && cap > 0) {
                 for (EntityPlayer paypiggy : this.playerEntities) {
                     paypiggy.addChatMessage(new ChatComponentTranslation("sleep.players_sleeping", INSTANCE.sleepyPlayers.size(), cap));
                 }
@@ -69,7 +72,8 @@ public abstract class MixinWorldServer extends World {
 
     @Inject(method = "wakeAllPlayers", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/EntityPlayer;wakeUpPlayer(ZZZ)V"), locals = LocalCapture.CAPTURE_FAILHARD)
     public void broadcast(CallbackInfo ctx, Iterator iterator, EntityPlayer player) {
-        if (!this.getGameRules().getGameRuleStringValue(GAMERULE_NAME).equals("101")) {
+        int rule = Integer.parseInt(this.getGameRules().getGameRuleStringValue(GAMERULE_NAME));
+        if (rule > 0 && rule < 101) {
             player.addChatMessage(new ChatComponentTranslation("sleep.skipping_night"));
         }
     }

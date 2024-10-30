@@ -8,8 +8,10 @@ import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigModCompat;
 import ganymedes01.etfuturum.configuration.configs.ConfigSounds;
 import ganymedes01.etfuturum.lib.Reference;
+import ganymedes01.etfuturum.spectator.SpectatorMode;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -28,6 +30,7 @@ import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.*;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class Utils {
 
@@ -595,5 +598,14 @@ public class Utils {
 	public static boolean listGeneralModdedRawOre(String oreDict) {
 		return !ConfigModCompat.moddedRawOresBlacklist.contains(oreDict.replace("ingot", "ore"))
 				&& !OreDictionary.getOres(oreDict).isEmpty() && !OreDictionary.getOres(oreDict.replace("ingot", "ore")).isEmpty();
+	}
+
+	/**
+	 * Filters spectators out of the provided list.
+	 * @param list
+	 * @return
+	 */
+	public static List<EntityPlayer> getListWithoutSpectators(List<EntityPlayer> list) {
+		return list.stream().filter(entity -> !SpectatorMode.isSpectator(entity)).collect(Collectors.toList());
 	}
 }

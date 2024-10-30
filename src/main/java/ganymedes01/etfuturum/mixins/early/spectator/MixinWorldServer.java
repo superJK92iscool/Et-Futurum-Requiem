@@ -19,19 +19,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static ganymedes01.etfuturum.core.utils.Utils.getListWithoutSpectators;
+
 @Mixin(WorldServer.class)
 public abstract class MixinWorldServer extends World {
     public MixinWorldServer(ISaveHandler p_i45368_1_, String p_i45368_2_, WorldProvider p_i45368_3_, WorldSettings p_i45368_4_, Profiler p_i45368_5_) {
         super(p_i45368_1_, p_i45368_2_, p_i45368_3_, p_i45368_4_, p_i45368_5_);
-    }
-
-    /**
-     * Filters spectators out of the provided list.
-     * @param list
-     * @return
-     */
-    private static List<EntityPlayer> getListWithoutSpectators(List<EntityPlayer> list) {
-        return list.stream().filter(entity -> !SpectatorMode.isSpectator(entity)).collect(Collectors.toList());
     }
 
     /**
