@@ -13,6 +13,7 @@ import net.minecraft.world.WorldServer;
 import net.minecraft.world.WorldSettings;
 import net.minecraft.world.storage.ISaveHandler;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 
 import java.util.Iterator;
@@ -30,7 +31,8 @@ public abstract class MixinWorldServer extends World {
      * @param list
      * @return
      */
-    private static List<EntityPlayer> getListWithoutSpectators(List<EntityPlayer> list) {
+    @Unique
+    private static List<EntityPlayer> etfuturum$getListWithoutSpectators(List<EntityPlayer> list) {
         return list.stream().filter(entity -> !SpectatorMode.isSpectator(entity)).collect(Collectors.toList());
     }
 
@@ -43,7 +45,7 @@ public abstract class MixinWorldServer extends World {
      */
     @WrapOperation(method = "areAllPlayersAsleep", at = @At(value = "INVOKE", target = "Ljava/util/List;iterator()Ljava/util/Iterator;"))
     private Iterator<EntityPlayer> dontCountSpectatorsForSleepListCheck(List<EntityPlayer> instance, Operation<Iterator<EntityPlayer>> original) {
-        return original.call(getListWithoutSpectators(instance));
+        return original.call(etfuturum$getListWithoutSpectators(instance));
     }
 
     /**
@@ -56,7 +58,7 @@ public abstract class MixinWorldServer extends World {
     @WrapOperation(method = "updateAllPlayersSleepingFlag", at = @At(value = "INVOKE", target = "Ljava/util/List;isEmpty()Z"))
     private boolean filterSleepList(List<EntityPlayer> instance, Operation<Boolean> original,
                                     @Share("nonSpectatingPlayers") LocalRef<List<EntityPlayer>> nonSpectatingPlayers) {
-        List<EntityPlayer> list = getListWithoutSpectators(instance);
+        List<EntityPlayer> list = etfuturum$getListWithoutSpectators(instance);
         nonSpectatingPlayers.set(list);
         return original.call(list);
     }
