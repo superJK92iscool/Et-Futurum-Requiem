@@ -85,7 +85,8 @@ public enum ModsList {
 	}
 
 	public int compareVersion(String compareTo) {
-		return new ComparableVersion(getVersion()).compareTo(new ComparableVersion(compareTo));
+		String cleanedString = compareTo.replaceAll("§.", ""); //Remove folor code values
+		return new ComparableVersion(getVersion()).compareTo(new ComparableVersion(cleanedString));
 	}
 
 	public boolean isVersionNewer(String compareTo) {
