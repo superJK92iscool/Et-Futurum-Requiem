@@ -1884,12 +1884,10 @@ public class ServerEventHandler {
 
 	@SubscribeEvent
 	public void onPreWorldTick(TickEvent.WorldTickEvent e) {
-
-		if (!e.world.isRemote && ModBlocks.CONCRETE_POWDER.isEnabled() && ModBlocks.CONCRETE.isEnabled()) {
-			doConcreteTracking();
-		}
-
 		if (ConfigMixins.enableDoWeatherCycle && e.phase == TickEvent.Phase.START && e.side == Side.SERVER) {
+			if (ModBlocks.CONCRETE_POWDER.isEnabled() && ModBlocks.CONCRETE.isEnabled()) {
+				doConcreteTracking();
+			}
 			DoWeatherCycle.INSTANCE.isWorldTickInProgress = true;
 			DoWeatherCycle.INSTANCE.isCommandInProgress = false;
 		}

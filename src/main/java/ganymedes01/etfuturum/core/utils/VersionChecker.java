@@ -82,7 +82,7 @@ public class VersionChecker extends Thread {
 
 		isLatestVersion = new ComparableVersion(Reference.VERSION_NUMBER).compareTo(new ComparableVersion(latestVersion)) >= 0;
 
-		if (!this.isLatestVersion() && !latestVersion.equals("") && !latestVersion.equals(null)) {
+		if (!this.isLatestVersion() && !latestVersion.isEmpty()) {
 			Logger.info("This version of " + Reference.MOD_NAME + " (" + Reference.VERSION_NUMBER + ") differs from the latest version: " + latestVersion);
 		}
 
@@ -107,7 +107,7 @@ public class VersionChecker extends Thread {
 	public void onPlayerTickEvent(PlayerTickEvent event) {
 		// Used to repeat the version check
 		if (
-				(latestVersion == null || latestVersion.equals(""))
+				(latestVersion == null || latestVersion.isEmpty())
 						&& !warnaboutfailure // Skip the "run" if a failure was detected
 						&& !hasThreadStarted
 		) {
@@ -135,10 +135,7 @@ public class VersionChecker extends Thread {
 						&& !quitChecking
 		) {
 			// Ordinary version checker
-			if (
-					!latestVersion.equals(null)
-							&& !latestVersion.equals("")
-			) {
+			if (latestVersion != null && !latestVersion.isEmpty()) {
 				quitChecking = true;
 
 				if (!instance.isLatestVersion()) {
