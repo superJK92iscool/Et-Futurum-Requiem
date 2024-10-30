@@ -49,7 +49,7 @@ public abstract class MixinWorldServer extends World {
             for (EntityPlayer player : this.playerEntities) {
                 if (player.isPlayerSleeping()) {
                     INSTANCE.sleepyPlayers.add(player);
-                    if (INSTANCE.sleepyPlayers.size() >= real.size()) {
+                    if (INSTANCE.sleepyPlayers.size() >= cap) {
                         this.allPlayersSleeping = true;
                         break;
                     }
