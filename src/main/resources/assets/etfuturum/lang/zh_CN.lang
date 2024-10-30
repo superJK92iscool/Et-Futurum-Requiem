@@ -563,6 +563,9 @@ tile.etfuturum.chiseled_tuff_bricks.name=錾制凝灰岩砖
 tile.etfuturum.tuff_stairs.name=凝灰岩楼梯
 tile.etfuturum.polished_tuff_stairs.name=磨制凝灰岩楼梯
 tile.etfuturum.tuff_brick_stairs.name=凝灰岩砖楼梯
+tile.etfuturum.tuff_wall.name=凝灰岩墙
+tile.etfuturum.polished_tuff_wall.name=磨制凝灰岩墙
+tile.etfuturum.tuff_brick_wall.name=凝灰岩砖墙
 tile.etfuturum.tuff_slab.name=凝灰岩台阶
 tile.etfuturum.polished_tuff_slab.name=磨制凝灰岩台阶
 tile.etfuturum.tuff_brick_slab.name=凝灰岩砖台阶
@@ -1825,14 +1828,14 @@ tile.etfuturum.draconic.deepslate_draconium_ore.name=深层龙矿
 
 tile.etfuturum.simpleores.deepslate_adamantium_ore.name=深层精金矿石
 
-tile.etfuturum.deepslate_cinnabar_ore.name=深层朱砂矿石
-tile.etfuturum.air_infused_deepslate.name=风之蕴魔深板岩
-tile.etfuturum.fire_infused_deepslate.name=火之蕴魔深板岩
-tile.etfuturum.water_infused_deepslate.name=水之蕴魔深板岩
-tile.etfuturum.earth_infused_deepslate.name=地之蕴魔深板岩
-tile.etfuturum.order_infused_deepslate.name=秩序蕴魔深板岩
-tile.etfuturum.entropy_infused_deepslate.name=混沌蕴魔深板岩
-tile.etfuturum.amber_bearing_deepslate.name=深层琥珀矿石
+tile.etfuturum.thaumcraft.deepslate_cinnabar_ore.name=深层朱砂矿石
+tile.etfuturum.thaumcraft.air_infused_deepslate.name=风之蕴魔深板岩
+tile.etfuturum.thaumcraft.fire_infused_deepslate.name=火之蕴魔深板岩
+tile.etfuturum.thaumcraft.water_infused_deepslate.name=水之蕴魔深板岩
+tile.etfuturum.thaumcraft.earth_infused_deepslate.name=地之蕴魔深板岩
+tile.etfuturum.thaumcraft.order_infused_deepslate.name=秩序蕴魔深板岩
+tile.etfuturum.thaumcraft.entropy_infused_deepslate.name=混沌蕴魔深板岩
+tile.etfuturum.thaumcraft.amber_bearing_deepslate.name=深层琥珀矿石
 
 tile.etfuturum.bop.deepslate_ruby_ore.name=深层红宝石矿石
 tile.etfuturum.bop.deepslate_peridot_ore.name=深层橄榄石矿石

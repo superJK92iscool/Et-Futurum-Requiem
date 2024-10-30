@@ -1,4 +1,5 @@
 package ganymedes01.etfuturum.mixins.early.spectator;
+import ganymedes01.etfuturum.core.utils.Utils;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -13,13 +14,12 @@ import net.minecraft.world.WorldServer;
 import net.minecraft.world.WorldSettings;
 import net.minecraft.world.storage.ISaveHandler;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static ganymedes01.etfuturum.core.utils.Utils.getListWithoutSpectators;
 
 @Mixin(WorldServer.class)
 public abstract class MixinWorldServer extends World {
@@ -36,7 +36,7 @@ public abstract class MixinWorldServer extends World {
      */
     @WrapOperation(method = "areAllPlayersAsleep", at = @At(value = "INVOKE", target = "Ljava/util/List;iterator()Ljava/util/Iterator;"))
     private Iterator<EntityPlayer> dontCountSpectatorsForSleepListCheck(List<EntityPlayer> instance, Operation<Iterator<EntityPlayer>> original) {
-        return original.call(getListWithoutSpectators(instance));
+        return original.call(Utils.getListWithoutSpectators(instance));
     }
 
     /**
@@ -49,7 +49,7 @@ public abstract class MixinWorldServer extends World {
     @WrapOperation(method = "updateAllPlayersSleepingFlag", at = @At(value = "INVOKE", target = "Ljava/util/List;isEmpty()Z"))
     private boolean filterSleepList(List<EntityPlayer> instance, Operation<Boolean> original,
                                     @Share("nonSpectatingPlayers") LocalRef<List<EntityPlayer>> nonSpectatingPlayers) {
-        List<EntityPlayer> list = getListWithoutSpectators(instance);
+        List<EntityPlayer> list = Utils.getListWithoutSpectators(instance);
         nonSpectatingPlayers.set(list);
         return original.call(list);
     }

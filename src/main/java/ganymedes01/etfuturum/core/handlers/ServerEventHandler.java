@@ -1394,7 +1394,8 @@ public class ServerEventHandler {
 					break;
 				}
 			}
-		} else if (ModBlocks.CONCRETE_POWDER.isEnabled() && event.entity instanceof EntityFallingBlock && ((EntityFallingBlock) event.entity).field_145811_e/*blockObj*/ == ModBlocks.CONCRETE_POWDER.get()) {
+		} else if (!event.world.isRemote && ModBlocks.CONCRETE_POWDER.isEnabled()
+				&& event.entity instanceof EntityFallingBlock && ((EntityFallingBlock) event.entity).field_145811_e/*blockObj*/ == ModBlocks.CONCRETE_POWDER.get()) {
 			fallingConcreteBlocks.add((EntityFallingBlock) event.entity);
 		}
 	}
@@ -1884,7 +1885,7 @@ public class ServerEventHandler {
 	@SubscribeEvent
 	public void onPreWorldTick(TickEvent.WorldTickEvent e) {
 
-		if (ModBlocks.CONCRETE_POWDER.isEnabled() && ModBlocks.CONCRETE.isEnabled()) {
+		if (!e.world.isRemote && ModBlocks.CONCRETE_POWDER.isEnabled() && ModBlocks.CONCRETE.isEnabled()) {
 			doConcreteTracking();
 		}
 
