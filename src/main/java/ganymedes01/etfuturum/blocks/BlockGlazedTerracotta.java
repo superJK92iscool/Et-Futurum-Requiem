@@ -37,7 +37,7 @@ public class BlockGlazedTerracotta extends BaseBlock {
 	}
 
 	@Override
-    public IIcon getIcon(int side, int meta) {
+	public IIcon getIcon(int side, int meta) {
 		switch (side) {
 			case 0:
 				return blockIconFlipped;

@@ -123,27 +123,27 @@ public class WorldGenGeode extends WorldGenerator {
 
 		if (generateCrack) {
 			s = distPoint * 2 + 1;
-			switch(random.nextInt(4)) {
+			switch (random.nextInt(4)) {
 				case 0:
 					list2.add(blockPos.add(s, 7, 0));
 					list2.add(blockPos.add(s, 5, 0));
 					list2.add(blockPos.add(s, 1, 0));
-				break;
+					break;
 				case 1:
 					list2.add(blockPos.add(0, 7, s));
 					list2.add(blockPos.add(0, 5, s));
 					list2.add(blockPos.add(0, 1, s));
-				break;
+					break;
 				case 2:
 					list2.add(blockPos.add(s, 7, s));
 					list2.add(blockPos.add(s, 5, s));
 					list2.add(blockPos.add(s, 1, s));
-				break;
+					break;
 				case 3:
 					list2.add(blockPos.add(0, 7, 0));
 					list2.add(blockPos.add(0, 5, 0));
 					list2.add(blockPos.add(0, 1, 0));
-				break;
+					break;
 			}
 		}
 

@@ -36,7 +36,7 @@ public class SculkEventHandler {
 	private TileEntitySculkCatalyst findNearbyCatalyst(Entity entity) {
 		TileEntitySculkCatalyst candidate = null;
 		double distance = 8 * 8;
-		for (TileEntity te : (List<TileEntity>) entity.worldObj.loadedTileEntityList) {
+		for (TileEntity te : entity.worldObj.loadedTileEntityList) {
 			if (!(te instanceof TileEntitySculkCatalyst))
 				continue;
 			double thisDistance = te.getDistanceFrom(entity.posX, entity.posY, entity.posZ);

@@ -26,7 +26,7 @@ public class BlockTuff extends BaseSubtypesBlock {
 
 	@Override
 	public IIcon getIcon(int side, int meta) {
-		if(side <= 1) {
+		if (side <= 1) {
 			if (meta == 3) {
 				return chiseledTuffTop;
 			}
@@ -47,7 +47,7 @@ public class BlockTuff extends BaseSubtypesBlock {
 	@Override
 	public boolean isReplaceableOreGen(World world, int x, int y, int z, Block target) {
 		boolean flag = this == target;
-		if(world.getBlockMetadata(x, y, z) == 0 && world.getBlock(x, y, z) == this) {
+		if (world.getBlockMetadata(x, y, z) == 0 && world.getBlock(x, y, z) == this) {
 			flag |= target == Blocks.stone || target == ModBlocks.DEEPSLATE.get();
 			if (flag) {
 				BlockDeepslate.doDeepslateRedoCheck(world, x, y, z);

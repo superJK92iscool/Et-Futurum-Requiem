@@ -17,7 +17,7 @@ public class BlockBubbleColumnRenderer extends BlockModelBase {
 
 	@Override
 	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
-		if(ForgeHooksClient.getWorldRenderPass() == 1) {
+		if (ForgeHooksClient.getWorldRenderPass() == 1) {
 			return renderer.renderBlockLiquid(Blocks.water, x, y, z);
 		} else {
 			boolean liquidOnTop = world.getBlock(x, y + 1, z).getMaterial().isLiquid();

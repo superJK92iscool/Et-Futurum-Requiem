@@ -115,7 +115,7 @@ public class RecipeFixedFireworks extends RecipeFireworks {
 				int[] aint1 = new int[arraylist.size()];
 
 				for (int l2 = 0; l2 < aint1.length; ++l2) {
-					aint1[l2] = ((Integer) arraylist.get(l2)).intValue();
+					aint1[l2] = arraylist.get(l2).intValue();
 				}
 
 				nbttagcompound1.setIntArray("Colors", aint1);
@@ -142,7 +142,7 @@ public class RecipeFixedFireworks extends RecipeFireworks {
 				int[] aint = new int[arraylist1.size()];
 
 				for (int j2 = 0; j2 < aint.length; ++j2) {
-					aint[j2] = ((Integer) arraylist1.get(j2)).intValue();
+					aint[j2] = arraylist1.get(j2).intValue();
 				}
 
 				if (this.field_92102_a != null && this.field_92102_a.hasTagCompound()) {

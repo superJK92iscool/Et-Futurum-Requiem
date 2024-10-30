@@ -25,9 +25,8 @@ public class TileEntityWoodSignRenderer extends TileEntitySpecialRenderer {
 	 */
 	@Override
 	public void renderTileEntityAt(TileEntity p_147500_1_, double p_147500_2_, double p_147500_4_, double p_147500_6_, float p_147500_8_) {
-		if (!(p_147500_1_.getBlockType() instanceof BlockWoodSign))
+		if (!(p_147500_1_.getBlockType() instanceof BlockWoodSign block))
 			return;
-		BlockWoodSign block = (BlockWoodSign) p_147500_1_.getBlockType();
 		GL11.glPushMatrix();
 		float f1 = 0.6666667F;
 		float f3;

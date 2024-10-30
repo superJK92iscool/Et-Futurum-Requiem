@@ -142,10 +142,12 @@ public class ModSounds {
 		public String getBreakSound() {
 			return Reference.MCAssetVer + ":entity.painting.break";
 		}
+
 		@Override
 		public String getStepResourcePath() {
 			return Block.soundTypeWood.getStepResourcePath();
 		}
+
 		@Override
 		public String func_150496_b() {
 			return Reference.MCAssetVer + ":entity.painting.place";

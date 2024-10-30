@@ -68,8 +68,7 @@ public class ModelElytra extends ModelBase {
 		this.leftWing.rotationPointX = 5.0F;
 		this.leftWing.rotationPointY = f2;
 
-		if (entityIn instanceof IClientElytraPlayer) {
-			IClientElytraPlayer cep = (IClientElytraPlayer) entityIn;
+		if (entityIn instanceof IClientElytraPlayer cep) {
 			cep.setRotateElytraX((float) (cep.getRotateElytraX() + (f - cep.getRotateElytraX()) * 0.1D));
 			cep.setRotateElytraY((float) (cep.getRotateElytraY() + (f3 - cep.getRotateElytraY()) * 0.1D));
 			cep.setRotateElytraZ((float) (cep.getRotateElytraZ() + (f1 - cep.getRotateElytraZ()) * 0.1D));

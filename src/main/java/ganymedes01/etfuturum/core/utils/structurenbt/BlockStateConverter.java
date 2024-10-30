@@ -794,36 +794,36 @@ public class BlockStateConverter {
 						meta = 5;
 					}
 				}
-				case "orange_wool", "orange_carpet", "orange_stained_glass", "orange_stained_glass_pane", "orange_terracotta" ->
-						meta = 1;
-				case "magenta_wool", "magenta_carpet", "magenta_stained_glass", "magenta_stained_glass_pane", "magenta_terracotta" ->
-						meta = 2;
-				case "light_blue_wool", "light_blue_carpet", "light_blue_stained_glass", "light_blue_stained_glass_pane", "light_blue_terracotta" ->
-						meta = 3;
-				case "yellow_wool", "yellow_carpet", "yellow_stained_glass", "yellow_stained_glass_pane", "yellow_terracotta" ->
-						meta = 4;
+				case "orange_wool", "orange_carpet", "orange_stained_glass", "orange_stained_glass_pane",
+					 "orange_terracotta" -> meta = 1;
+				case "magenta_wool", "magenta_carpet", "magenta_stained_glass", "magenta_stained_glass_pane",
+					 "magenta_terracotta" -> meta = 2;
+				case "light_blue_wool", "light_blue_carpet", "light_blue_stained_glass",
+					 "light_blue_stained_glass_pane", "light_blue_terracotta" -> meta = 3;
+				case "yellow_wool", "yellow_carpet", "yellow_stained_glass", "yellow_stained_glass_pane",
+					 "yellow_terracotta" -> meta = 4;
 				case "lime_wool", "lime_carpet", "lime_stained_glass", "lime_stained_glass_pane", "lime_terracotta" ->
 						meta = 5;
 				case "pink_wool", "pink_carpet", "pink_stained_glass", "pink_stained_glass_pane", "pink_terracotta" ->
 						meta = 6;
 				case "gray_wool", "gray_carpet", "gray_stained_glass", "gray_stained_glass_pane", "gray_terracotta" ->
 						meta = 7;
-				case "light_gray_wool", "light_gray_carpet", "light_gray_stained_glass", "light_gray_stained_glass_pane", "light_gray_terracotta" ->
-						meta = 8;
+				case "light_gray_wool", "light_gray_carpet", "light_gray_stained_glass",
+					 "light_gray_stained_glass_pane", "light_gray_terracotta" -> meta = 8;
 				case "cyan_wool", "cyan_carpet", "cyan_stained_glass", "cyan_stained_glass_pane", "cyan_terracotta" ->
 						meta = 9;
-				case "purple_wool", "purple_carpet", "purple_stained_glass", "purple_stained_glass_pane", "purple_terracotta" ->
-						meta = 10;
+				case "purple_wool", "purple_carpet", "purple_stained_glass", "purple_stained_glass_pane",
+					 "purple_terracotta" -> meta = 10;
 				case "blue_wool", "blue_carpet", "blue_stained_glass", "blue_stained_glass_pane", "blue_terracotta" ->
 						meta = 11;
-				case "brown_wool", "brown_carpet", "brown_stained_glass", "brown_stained_glass_pane", "brown_terracotta" ->
-						meta = 12;
-				case "green_wool", "green_carpet", "green_stained_glass", "green_stained_glass_pane", "green_terracotta" ->
-						meta = 13;
+				case "brown_wool", "brown_carpet", "brown_stained_glass", "brown_stained_glass_pane",
+					 "brown_terracotta" -> meta = 12;
+				case "green_wool", "green_carpet", "green_stained_glass", "green_stained_glass_pane",
+					 "green_terracotta" -> meta = 13;
 				case "red_wool", "red_carpet", "red_stained_glass", "red_stained_glass_pane", "red_terracotta" ->
 						meta = 14;
-				case "black_wool", "black_carpet", "black_stained_glass", "black_stained_glass_pane", "black_terracotta" ->
-						meta = 15;
+				case "black_wool", "black_carpet", "black_stained_glass", "black_stained_glass_pane",
+					 "black_terracotta" -> meta = 15;
 				default -> {
 				}
 			}

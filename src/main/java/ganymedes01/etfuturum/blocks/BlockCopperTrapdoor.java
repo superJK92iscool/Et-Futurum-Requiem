@@ -22,8 +22,7 @@ public class BlockCopperTrapdoor extends BaseTrapdoor implements IDegradable {
 	}
 
 	@Override
-	public boolean onBlockActivated(World worldIn, int x, int y, int z, EntityPlayer player, int side, float subX, float subY, float subZ)
-	{
+	public boolean onBlockActivated(World worldIn, int x, int y, int z, EntityPlayer player, int side, float subX, float subY, float subZ) {
 		if (!tryWaxOnWaxOff(worldIn, x, y, z, player)) {
 			int i1 = worldIn.getBlockMetadata(x, y, z);
 			worldIn.setBlockMetadataWithNotify(x, y, z, i1 ^ 4, 2);

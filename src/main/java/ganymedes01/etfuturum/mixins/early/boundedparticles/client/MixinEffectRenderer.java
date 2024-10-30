@@ -53,7 +53,7 @@ public class MixinEffectRenderer {
 			//In that case this just falls back to code similar to the old one which only bounds it by the block's selection bounding box.
 			if (list.isEmpty()) {
 				AxisAlignedBB aabb = block.getSelectedBoundingBoxFromPool(worldObj, x, y, z);
-				if(aabb != null) {
+				if (aabb != null) {
 					list.add(aabb);
 				} else {
 					//This will skip the callbackinfo return at the end, which will cause the original code to run.

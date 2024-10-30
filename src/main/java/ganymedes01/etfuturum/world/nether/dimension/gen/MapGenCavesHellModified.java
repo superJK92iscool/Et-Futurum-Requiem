@@ -39,7 +39,7 @@ public class MapGenCavesHellModified extends MapGenBase {
 		int k1 = random.nextInt(p_151543_16_ / 2) + p_151543_16_ / 4;
 
 		for (boolean flag = random.nextInt(6) == 0; p_151543_15_ < p_151543_16_; ++p_151543_15_) {
-			double d6 = 1.5 + (double) (MathHelper.sin((float) p_151543_15_ * (float)Math.PI / (float) p_151543_16_) * p_151543_12_ * 1.0F);
+			double d6 = 1.5 + (double) (MathHelper.sin((float) p_151543_15_ * (float) Math.PI / (float) p_151543_16_) * p_151543_12_ * 1.0F);
 			double d7 = d6 * p_151543_17_;
 			float f5 = MathHelper.cos(p_151543_14_);
 			float f6 = MathHelper.sin(p_151543_14_);
@@ -59,8 +59,8 @@ public class MapGenCavesHellModified extends MapGenBase {
 			f4 += (random.nextFloat() - random.nextFloat()) * random.nextFloat() * 2.0F;
 			f3 += (random.nextFloat() - random.nextFloat()) * random.nextFloat() * 4.0F;
 			if (!flag1 && p_151543_15_ == k1 && p_151543_12_ > 1.0F) {
-				this.func_151543_a(random.nextLong(), p_151543_3_, p_151543_4_, p_151543_5_, p_151543_6_, p_151543_8_, p_151543_10_, random.nextFloat() * 0.5F + 0.5F, p_151543_13_ - ((float)Math.PI / 2F), p_151543_14_ / 3.0F, p_151543_15_, p_151543_16_, 1.0);
-				this.func_151543_a(random.nextLong(), p_151543_3_, p_151543_4_, p_151543_5_, p_151543_6_, p_151543_8_, p_151543_10_, random.nextFloat() * 0.5F + 0.5F, p_151543_13_ + ((float)Math.PI / 2F), p_151543_14_ / 3.0F, p_151543_15_, p_151543_16_, 1.0);
+				this.func_151543_a(random.nextLong(), p_151543_3_, p_151543_4_, p_151543_5_, p_151543_6_, p_151543_8_, p_151543_10_, random.nextFloat() * 0.5F + 0.5F, p_151543_13_ - ((float) Math.PI / 2F), p_151543_14_ / 3.0F, p_151543_15_, p_151543_16_, 1.0);
+				this.func_151543_a(random.nextLong(), p_151543_3_, p_151543_4_, p_151543_5_, p_151543_6_, p_151543_8_, p_151543_10_, random.nextFloat() * 0.5F + 0.5F, p_151543_13_ + ((float) Math.PI / 2F), p_151543_14_ / 3.0F, p_151543_15_, p_151543_16_, 1.0);
 				return;
 			}
 
@@ -176,7 +176,7 @@ public class MapGenCavesHellModified extends MapGenBase {
 			}
 
 			for (int l1 = 0; l1 < k1; ++l1) {
-				float f = this.rand.nextFloat() * (float)Math.PI * 2.0F;
+				float f = this.rand.nextFloat() * (float) Math.PI * 2.0F;
 				float f1 = (this.rand.nextFloat() - 0.5F) * 2.0F / 8.0F;
 				float f2 = this.rand.nextFloat() * 2.0F + this.rand.nextFloat();
 				this.func_151543_a(this.rand.nextLong(), p_151538_4_, p_151538_5_, p_151538_6_, d0, d1, d2, f2 * 2.0F, f, f1, 0, 0, 0.5);

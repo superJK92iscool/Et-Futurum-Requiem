@@ -24,10 +24,10 @@ public class BlockCopper extends BaseSubtypesBlock implements IDegradable {
 
 	public BlockCopper(String... types) {
 		super(Material.iron, types);
-		if(types.length % 4 != 0) {
+		if (types.length % 4 != 0) {
 			throw new IllegalArgumentException("Copper variants count must be a multiple of 4.");
 		}
-		if(types.length < 8) {
+		if (types.length < 8) {
 			throw new IllegalArgumentException("Copper must have at least 8 variants! (4 waxable and 4 regular)");
 		}
 		setHardness(3);

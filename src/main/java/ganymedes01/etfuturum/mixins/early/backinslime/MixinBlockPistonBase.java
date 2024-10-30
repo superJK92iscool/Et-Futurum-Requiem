@@ -81,8 +81,7 @@ public class MixinBlockPistonBase extends Block {
 				block = world.getBlock(x + xoffset2, y + yoffset2, z + zoffset2);
 				tileentity1 = world.getTileEntity(x + xoffset2, y + yoffset2, z + zoffset2);
 
-				if (block == Blocks.piston_extension && tileentity1 instanceof TileEntityPiston) {
-					TileEntityPiston tileentitypiston = (TileEntityPiston) tileentity1;
+				if (block == Blocks.piston_extension && tileentity1 instanceof TileEntityPiston tileentitypiston) {
 
 					if (tileentitypiston.getPistonOrientation() == side && tileentitypiston.isExtending()) {
 						Block storedBlock = tileentitypiston.getStoredBlockID();
@@ -256,9 +255,9 @@ public class MixinBlockPistonBase extends Block {
 	 * Also launches entities if needed
 	 *
 	 * @param world     World
-	 * @param pistonX      X-Coordinate of the piston head.
-	 * @param pistonY      Y-Coordinate of the piston head.
-	 * @param pistonZ      Z-Coordinate of the piston head.
+	 * @param pistonX   X-Coordinate of the piston head.
+	 * @param pistonY   Y-Coordinate of the piston head.
+	 * @param pistonZ   Z-Coordinate of the piston head.
 	 * @param side      Side the block is moving towards.
 	 * @param extending Whether the piston is extending or retracting
 	 */
@@ -355,13 +354,13 @@ public class MixinBlockPistonBase extends Block {
 			}
 
 			if (extending && PistonBehaviorRegistry.bouncesEntities(block, blockMeta)) {
-				for (Entity o : (List<Entity>) world.getEntitiesWithinAABBExcludingEntity(null, this.getCollisionBoundingBoxFromPool(world, blockX, blockY, blockZ))) {
+				for (Entity o : world.getEntitiesWithinAABBExcludingEntity(null, this.getCollisionBoundingBoxFromPool(world, blockX, blockY, blockZ))) {
 					if (!launchedEntityList.contains(o)) {
 						launchedEntityList.add(o);
 					}
 				}
 			} else if (side > 1 && PistonBehaviorRegistry.pullsEntities(block, blockMeta)) {
-				for (Entity o : (List<Entity>) world.getEntitiesWithinAABBExcludingEntity(null, this.getCollisionBoundingBoxFromPool(world, blockX, blockY, blockZ))) {
+				for (Entity o : world.getEntitiesWithinAABBExcludingEntity(null, this.getCollisionBoundingBoxFromPool(world, blockX, blockY, blockZ))) {
 					if (!pulledEntityList.contains(o)) {
 						pulledEntityList.add(o);
 					}

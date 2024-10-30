@@ -24,8 +24,7 @@ public class NewBoatRenderer extends Render {
 	@Override
 	public void doRender(Entity uncastedentity, double x, double y, double z, float entityYaw,
 						 float partialTicks) {
-		if (!(uncastedentity instanceof EntityNewBoat)) return;
-		EntityNewBoat entity = (EntityNewBoat) uncastedentity;
+		if (!(uncastedentity instanceof EntityNewBoat entity)) return;
 		GL11.glPushMatrix();
 		this.setupTranslation(x, y, z);
 		this.setupRotation(entity, entityYaw, partialTicks);

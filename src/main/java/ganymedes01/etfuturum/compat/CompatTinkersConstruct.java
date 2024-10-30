@@ -1,9 +1,5 @@
 package ganymedes01.etfuturum.compat;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import ganymedes01.etfuturum.api.RawOreRegistry;
 import ganymedes01.etfuturum.api.mappings.RawOreDropMapping;
 import net.minecraft.block.Block;
@@ -13,6 +9,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 import tconstruct.library.crafting.Smeltery;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class CompatTinkersConstruct {
 
@@ -34,8 +34,7 @@ public class CompatTinkersConstruct {
 
 			// Find an item stack that is a block.
 			for (ItemStack ore : rawOreBlocks) {
-				if (ore.getItem() instanceof ItemBlock) {
-					ItemBlock itemBlock = (ItemBlock)ore.getItem();
+				if (ore.getItem() instanceof ItemBlock itemBlock) {
 					Block block = Block.getBlockFromItem(itemBlock);
 
 					if (block != null && block != Blocks.air) {
@@ -47,13 +46,12 @@ public class CompatTinkersConstruct {
 
 			// Find an item stack that is a block.
 			for (ItemStack ore : allOres) {
-				if (ore.getItem() instanceof ItemBlock) {
-					ItemBlock itemBlock = (ItemBlock)ore.getItem();
+				if (ore.getItem() instanceof ItemBlock itemBlock) {
 					Block block = Block.getBlockFromItem(itemBlock);
 
 					if (block != null && block != Blocks.air) {
 						oreBlock = ore;
-						if(rawOreBlock == null) {
+						if (rawOreBlock == null) {
 							rawOreBlock = oreBlock;
 						}
 						break;

@@ -26,7 +26,7 @@ public abstract class MixinBlockPane extends Block {
 	private void remapCollisionsBoxes(World worldIn, int posX, int posY, int posZ, AxisAlignedBB bb, List<AxisAlignedBB> boxList, Entity entity, CallbackInfo ci,
 									  @Local(name = "flag") boolean flag, @Local(name = "flag1") boolean flag1,
 									  @Local(name = "flag2") boolean flag2, @Local(name = "flag3") boolean flag3) {
-		if(!flag && !flag1 && !flag2 && !flag3){
+		if (!flag && !flag1 && !flag2 && !flag3) {
 			this.setBlockBounds(0.4375F, 0.0F, 0.4375F, 0.5625F, 1.0F, 0.5625F);
 			super.addCollisionBoxesToList(worldIn, posX, posY, posZ, bb, boxList, entity);
 			ci.cancel();
@@ -38,9 +38,8 @@ public abstract class MixinBlockPane extends Block {
 										   @Local(name = "flag") boolean flag, @Local(name = "flag1") boolean flag1,
 										   @Local(name = "flag2") boolean flag2, @Local(name = "flag3") boolean flag3,
 										   @Local(name = "f") float f, @Local(name = "f1") float f1,
-										   @Local(name = "f2") float f2, @Local(name = "f3") float f3)
-	{
-		if(!flag2 && !flag3 && !flag && !flag1){
+										   @Local(name = "f2") float f2, @Local(name = "f3") float f3) {
+		if (!flag2 && !flag3 && !flag && !flag1) {
 			this.setBlockBounds(f, 0.0F, f2, f1, 1.0F, f3);
 			ci.cancel();
 		}

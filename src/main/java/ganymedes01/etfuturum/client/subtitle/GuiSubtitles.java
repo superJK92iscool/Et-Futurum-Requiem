@@ -40,7 +40,7 @@ public class GuiSubtitles extends Gui {
 		Matcher matcher = MOB_SOUND.matcher(key);
 		if (matcher.matches()) {
 			String mobId = ENTITY_SOUND_NAME_TRANSLATION_MAP.computeIfAbsent(matcher.group(1), id -> {
-				for (String possible : (Set<String>) EntityList.stringToClassMapping.keySet()) {
+				for (String possible : EntityList.stringToClassMapping.keySet()) {
 					if (id.equalsIgnoreCase(possible)) {
 						return possible;
 					}

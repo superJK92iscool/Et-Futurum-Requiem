@@ -18,12 +18,12 @@ public class BlockCopperBulb extends BlockCopper {
 	protected final boolean powered;
 
 	public BlockCopperBulb(boolean powered) {
-		super(powered ? new String[] {
+		super(powered ? new String[]{
 				"copper_bulb_powered", "exposed_copper_bulb_powered", "weathered_copper_bulb_powered", "oxidized_copper_bulb_powered",
 				"copper_bulb_lit_powered", "exposed_copper_bulb_lit_powered", "weathered_copper_bulb_lit_powered", "oxidized_copper_bulb_lit_powered",
 				"waxed_copper_bulb_powered", "waxed_exposed_copper_bulb_powered", "waxed_weathered_copper_bulb_powered", "waxed_oxidized_copper_bulb_powered",
 				"waxed_copper_bulb_lit_powered", "waxed_exposed_copper_bulb_lit_powered", "waxed_weathered_copper_bulb_lit_powered", "waxed_oxidized_copper_bulb_lit"
-		} : new String[] {
+		} : new String[]{
 				"copper_bulb", "exposed_copper_bulb", "weathered_copper_bulb", "oxidized_copper_bulb",
 				"copper_bulb_lit", "exposed_copper_bulb_lit", "weathered_copper_bulb_lit", "oxidized_copper_bulb_lit",
 				"waxed_copper_bulb", "waxed_exposed_copper_bulb", "waxed_weathered_copper_bulb", "waxed_oxidized_copper_bulb",
@@ -76,10 +76,8 @@ public class BlockCopperBulb extends BlockCopper {
 	}
 
 	@Override
-	public void onNeighborBlockChange(World world, int x, int y, int z, Block neighbor)
-	{
-		if (!world.isRemote)
-		{
+	public void onNeighborBlockChange(World world, int x, int y, int z, Block neighbor) {
+		if (!world.isRemote) {
 			boolean poweredByRedstone = world.isBlockIndirectlyGettingPowered(x, y, z);
 			if ((!powered && poweredByRedstone) || (powered && !poweredByRedstone)) {
 				switchBulbState(world, x, y, z);
@@ -98,12 +96,11 @@ public class BlockCopperBulb extends BlockCopper {
 //			switchBulbState(world, x, y, z);
 //		}
 //	}
-
 	private void switchBulbState(World world, int x, int y, int z) {
 		int meta = world.getBlockMetadata(x, y, z);
 		boolean lit = isLit(world, x, y, z, meta);
-		if(!powered) {
-			world.playSoundEffect(x, y, z,Reference.MCAssetVer + ":block.copper_bulb.turn_" + (lit ? "off" : "on"), 1, 1);
+		if (!powered) {
+			world.playSoundEffect(x, y, z, Reference.MCAssetVer + ":block.copper_bulb.turn_" + (lit ? "off" : "on"), 1, 1);
 			if (lit) {
 				meta -= 4;
 			} else {

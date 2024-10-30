@@ -49,7 +49,7 @@ public abstract class MixinRenderBlocks {
 								   @Local(name = "tessellator") Tessellator tessellator,
 								   @Local(name = "iicon") IIcon iicon, @Local(name = "iicon") IIcon iicon1,
 								   @Local(name = "d21") double d21, @Local(name = "d2") double d2,
-								   @Local(name = "d3")double d3, @Local(name = "d4") double d4, @Local(name = "d5") double d5,
+								   @Local(name = "d3") double d3, @Local(name = "d4") double d4, @Local(name = "d5") double d5,
 								   @Local(name = "d10") double d10, @Local(name = "d13") double d13, @Local(name = "d15") double d15,
 								   @Local(name = "d16") double d16, @Local(name = "d17") double d17, @Local(name = "d18") double d18,
 								   @Local(name = "flag") boolean flag, @Local(name = "flag1") boolean flag1,
@@ -57,7 +57,7 @@ public abstract class MixinRenderBlocks {
 								   @Local(name = "flag4") boolean flag4, @Local(name = "flag5") boolean flag5) {
 
 		// Not Connected to anything
-		if(!flag && !flag1 && !flag2 && !flag3){
+		if (!flag && !flag1 && !flag2 && !flag3) {
 			double d00 = iicon.getInterpolatedU(7.0D);
 			double d01 = iicon.getInterpolatedU(9.0D);
 			double d000 = iicon1.getInterpolatedV(7.0D);
@@ -69,7 +69,7 @@ public abstract class MixinRenderBlocks {
 			if (etfuturum$populatedFields && !etfuturum$errorCaught) {
 				try {
 //					renderThinField.invoke(null, (RenderBlocks) (Object)this, block, iicon, posX, posY, posZ, flag, flag1, flag2, flag3);
-					if ((boolean) etfuturum$setupIconsFunc.invoke(null, (RenderBlocks) (Object) this, block, iicon, posX, posY, posZ)) {
+					if ((boolean) etfuturum$setupIconsFunc.invoke(null, (Object) this, block, iicon, posX, posY, posZ)) {
 						skipBottom = etfuturum$skipBottomEdgeRenderingField.getBoolean(null);
 						skipTop = etfuturum$skipTopEdgeRenderingField.getBoolean(null);
 					}
@@ -139,7 +139,7 @@ public abstract class MixinRenderBlocks {
 	private void tweakStainedPaneRenderer(Block block, int posX, int posY, int posZ, CallbackInfoReturnable<Boolean> cir,
 										  @Local(name = "tessellator") Tessellator tessellator,
 										  @Local(name = "iicon") IIcon iicon, @Local(name = "iicon") IIcon iicon1,
-										  @Local(name = "d0") double d0, @Local(name = "d1") double d1, @Local(name = "d3")double d3,
+										  @Local(name = "d0") double d0, @Local(name = "d1") double d1, @Local(name = "d3") double d3,
 										  @Local(name = "d4") double d4, @Local(name = "d5") double d5, @Local(name = "d6") double d6,
 										  @Local(name = "d9") double d9, @Local(name = "d10") double d10, @Local(name = "d15") double d15,
 										  @Local(name = "d16") double d16, @Local(name = "d17") double d17, @Local(name = "d18") double d18,
@@ -147,15 +147,15 @@ public abstract class MixinRenderBlocks {
 										  @Local(name = "flag2") boolean flag2, @Local(name = "flag3") boolean flag3) {
 
 		// Not Connected to Anything
-		if(!flag && !flag1 && !flag2 && !flag3){
+		if (!flag && !flag1 && !flag2 && !flag3) {
 			boolean skipBottom = false;
 			boolean skipTop = false;
 			loadReflectionData();
 			if (etfuturum$populatedFields && !etfuturum$errorCaught) {
 				try {
 //					renderThickField.invoke(null, (RenderBlocks) (Object)this, block, iicon, posX, posY, posZ, flag, flag1, flag2, flag3);
-					if ((boolean) etfuturum$setupIconsFunc.invoke(null, (RenderBlocks) (Object) this, block, iicon, posX, posY, posZ)) {
-						etfuturum$setupPaneEdgesFunc.invoke(null, (RenderBlocks) (Object) this, block, posX, posY, posZ);
+					if ((boolean) etfuturum$setupIconsFunc.invoke(null, (Object) this, block, iicon, posX, posY, posZ)) {
+						etfuturum$setupPaneEdgesFunc.invoke(null, (Object) this, block, posX, posY, posZ);
 						skipBottom = etfuturum$skipBottomEdgeRenderingField.getBoolean(null);
 						skipTop = etfuturum$skipTopEdgeRenderingField.getBoolean(null);
 					}
@@ -167,45 +167,45 @@ public abstract class MixinRenderBlocks {
 				}
 			}
 
-			double d00 = (double)posX + 0.4375F;
+			double d00 = (double) posX + 0.4375F;
 			double d01 = posX + (1 - 0.4375F);
-			double d000 = (double)posZ + 0.4375F;
+			double d000 = (double) posZ + 0.4375F;
 			double d001 = posZ + (1 - 0.4375F);
 
-			tessellator.addVertexWithUV(d00, (double)posY + 0.999D, d17, d0, d3);
-			tessellator.addVertexWithUV(d00, (double)posY + 0.001D, d17, d0, d4);
-			tessellator.addVertexWithUV(d00, (double)posY + 0.001D, d18, d1, d4);
-			tessellator.addVertexWithUV(d00, (double)posY + 0.999D, d18, d1, d3);
+			tessellator.addVertexWithUV(d00, (double) posY + 0.999D, d17, d0, d3);
+			tessellator.addVertexWithUV(d00, (double) posY + 0.001D, d17, d0, d4);
+			tessellator.addVertexWithUV(d00, (double) posY + 0.001D, d18, d1, d4);
+			tessellator.addVertexWithUV(d00, (double) posY + 0.999D, d18, d1, d3);
 
-			tessellator.addVertexWithUV(d01, (double)posY + 0.999D, d18, d0, d3);
-			tessellator.addVertexWithUV(d01, (double)posY + 0.001D, d18, d0, d4);
-			tessellator.addVertexWithUV(d01, (double)posY + 0.001D, d17, d1, d4);
-			tessellator.addVertexWithUV(d01, (double)posY + 0.999D, d17, d1, d3);
+			tessellator.addVertexWithUV(d01, (double) posY + 0.999D, d18, d0, d3);
+			tessellator.addVertexWithUV(d01, (double) posY + 0.001D, d18, d0, d4);
+			tessellator.addVertexWithUV(d01, (double) posY + 0.001D, d17, d1, d4);
+			tessellator.addVertexWithUV(d01, (double) posY + 0.999D, d17, d1, d3);
 
-			tessellator.addVertexWithUV(d16, (double)posY + 0.999D, d000, d1, d3);
-			tessellator.addVertexWithUV(d16, (double)posY + 0.001D, d000, d1, d4);
-			tessellator.addVertexWithUV(d15, (double)posY + 0.001D, d000, d0, d4);
-			tessellator.addVertexWithUV(d15, (double)posY + 0.999D, d000, d0, d3);
+			tessellator.addVertexWithUV(d16, (double) posY + 0.999D, d000, d1, d3);
+			tessellator.addVertexWithUV(d16, (double) posY + 0.001D, d000, d1, d4);
+			tessellator.addVertexWithUV(d15, (double) posY + 0.001D, d000, d0, d4);
+			tessellator.addVertexWithUV(d15, (double) posY + 0.999D, d000, d0, d3);
 
-			tessellator.addVertexWithUV(d15, (double)posY + 0.999D, d001, d0, d3);
-			tessellator.addVertexWithUV(d15, (double)posY + 0.001D, d001, d0, d4);
-			tessellator.addVertexWithUV(d16, (double)posY + 0.001D, d001, d1, d4);
-			tessellator.addVertexWithUV(d16, (double)posY + 0.999D, d001, d1, d3);
+			tessellator.addVertexWithUV(d15, (double) posY + 0.999D, d001, d0, d3);
+			tessellator.addVertexWithUV(d15, (double) posY + 0.001D, d001, d0, d4);
+			tessellator.addVertexWithUV(d16, (double) posY + 0.001D, d001, d1, d4);
+			tessellator.addVertexWithUV(d16, (double) posY + 0.999D, d001, d1, d3);
 
 			if (!skipTop) {
 				// Top
-				tessellator.addVertexWithUV(d16, (double)posY + 0.999D, d17, d6, d9);
-				tessellator.addVertexWithUV(d15, (double)posY + 0.999D, d17, d5, d9);
-				tessellator.addVertexWithUV(d15, (double)posY + 0.999D, d18, d5, d10);
-				tessellator.addVertexWithUV(d16, (double)posY + 0.999D, d18, d6, d10);
+				tessellator.addVertexWithUV(d16, (double) posY + 0.999D, d17, d6, d9);
+				tessellator.addVertexWithUV(d15, (double) posY + 0.999D, d17, d5, d9);
+				tessellator.addVertexWithUV(d15, (double) posY + 0.999D, d18, d5, d10);
+				tessellator.addVertexWithUV(d16, (double) posY + 0.999D, d18, d6, d10);
 			}
 
 			if (!skipBottom) {
 				// Bottom
-				tessellator.addVertexWithUV(d15, (double)posY + 0.001D, d17, d5, d9);
-				tessellator.addVertexWithUV(d16, (double)posY + 0.001D, d17, d6, d9);
-				tessellator.addVertexWithUV(d16, (double)posY + 0.001D, d18, d6, d10);
-				tessellator.addVertexWithUV(d15, (double)posY + 0.001D, d18, d5, d10);
+				tessellator.addVertexWithUV(d15, (double) posY + 0.001D, d17, d5, d9);
+				tessellator.addVertexWithUV(d16, (double) posY + 0.001D, d17, d6, d9);
+				tessellator.addVertexWithUV(d16, (double) posY + 0.001D, d18, d6, d10);
+				tessellator.addVertexWithUV(d15, (double) posY + 0.001D, d18, d5, d10);
 			}
 
 			cir.setReturnValue(true);

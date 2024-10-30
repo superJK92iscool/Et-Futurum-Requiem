@@ -214,8 +214,7 @@ public class EntityArmourStand extends EntityLiving {
 			byte b0 = 0;
 			ItemStack itemstack = player.getCurrentEquippedItem();
 			if (itemstack != null) {
-				if (itemstack.getItem() instanceof ItemArmor) {
-					ItemArmor itemarmor = (ItemArmor) itemstack.getItem();
+				if (itemstack.getItem() instanceof ItemArmor itemarmor) {
 
 					if (itemarmor.armorType == 3)
 						b0 = 1;

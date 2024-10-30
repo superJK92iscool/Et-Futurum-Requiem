@@ -50,7 +50,8 @@ public class BlockModernWoodFence extends BlockFence implements ISubBlocksBlock 
 	}
 
 	@Override
-	public void registerBlockIcons(IIconRegister ignored) {}
+	public void registerBlockIcons(IIconRegister ignored) {
+	}
 
 	@Override
 	public int getDamageValue(World worldIn, int x, int y, int z) {

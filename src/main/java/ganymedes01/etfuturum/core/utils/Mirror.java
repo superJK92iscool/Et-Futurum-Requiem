@@ -9,9 +9,9 @@ public enum Mirror {
 	FRONT_BACK("mirror_front_back");
 
 	private final String name;
-	private static String[] mirrorNames = new String[values().length];
+	private static final String[] mirrorNames = new String[values().length];
 
-	private Mirror(String nameIn) {
+	Mirror(String nameIn) {
 		this.name = nameIn;
 	}
 

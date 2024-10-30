@@ -126,8 +126,7 @@ public class BlockShulkerBox extends BlockContainer {
 			return true;
 		}
 
-		if (world.getTileEntity(x, y, z) instanceof TileEntityShulkerBox) {
-			TileEntityShulkerBox shulker = (TileEntityShulkerBox) world.getTileEntity(x, y, z);
+		if (world.getTileEntity(x, y, z) instanceof TileEntityShulkerBox shulker) {
 
 			if (!player.isSneaking() && player.getHeldItem() != null && player.getHeldItem().getItem() == ModItems.SHULKER_BOX_UPGRADE.get()) {
 				ItemStack stack = player.getHeldItem();

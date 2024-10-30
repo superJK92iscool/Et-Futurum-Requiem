@@ -219,7 +219,7 @@ public class ClientEventHandler {
 	private final AmbienceLoop defaultNetherAmbienceLoop = new AmbienceLoop("nether_wastes", 40, 80);
 	private final List<String> netherAmbienceLoopNames = ImmutableList.of("nether_wastes", "crimson_forest", "warped_forest", "soul_sand_valley", "basalt_deltas");
 
-	private Map<BiomeGenBase, AmbienceLoop> netherAmbienceLoops;
+	private final Map<BiomeGenBase, AmbienceLoop> netherAmbienceLoops;
 	private AmbienceLoop netherAmbienceLoop;
 	private BiomeGenBase prevAmbientBiome;
 	private BiomeGenBase currentBiome;
@@ -539,8 +539,7 @@ public class ClientEventHandler {
 
 
 			// --- Book page turn --- //
-			if (mc.currentScreen instanceof GuiScreenBook && event.name.equals("gui.button.press")) {
-				GuiScreenBook gui = (GuiScreenBook) mc.currentScreen;
+			if (mc.currentScreen instanceof GuiScreenBook gui && event.name.equals("gui.button.press")) {
 				// If there is a disagreement on page, play the page-turning sound
 				if (gui.currPage != this.currPage) {
 					this.currPage = gui.currPage;
@@ -665,8 +664,7 @@ public class ClientEventHandler {
 			return;//This is the only code I want to run if !isRemote
 		}
 
-		if (entity instanceof EntityPlayer && event.name.equals("random.drink")) {
-			EntityPlayer player = (EntityPlayer) entity;
+		if (entity instanceof EntityPlayer player && event.name.equals("random.drink")) {
 			if (player.isUsingItem() && player.getHeldItem() != null && player.getHeldItem().getItem() instanceof ItemHoneyBottle) {
 				entity.playSound(Reference.MCAssetVer + ":item.honey_bottle.drink" + ignore_suffix, 1, 1);
 				event.setCanceled(true);

@@ -120,8 +120,7 @@ public class BlockLight extends BlockBarrier implements ISubBlocksBlock {
 	}
 
 	@Override
-	public boolean getBlocksMovement(IBlockAccess worldIn, int x, int y, int z)
-	{
+	public boolean getBlocksMovement(IBlockAccess worldIn, int x, int y, int z) {
 		return true;
 	}
 }

@@ -70,8 +70,7 @@ public class CommandFill extends CommandBase {
 			for (int y = fromY; y <= toY; y++) {
 				for (int x = fromX; x <= toX; x++) {
 					TileEntity te = world.getTileEntity(x, y, z);
-					if (te instanceof IInventory) {
-						IInventory inv = ((IInventory) te);
+					if (te instanceof IInventory inv) {
 						int size = inv.getSizeInventory();
 						for (int slot = 0; slot < size; slot++) {
 							inv.setInventorySlotContents(slot, null);

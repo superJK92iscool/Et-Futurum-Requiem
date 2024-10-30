@@ -169,22 +169,22 @@ public class EntityRabbit extends EntityAnimal {
 
 			EntityJumpHelper jumpHelper = getJumpHelper();
 
-            if (jumpHelper instanceof RabbitJumpHelper rabbitJumpHelper) {
-                if (!rabbitJumpHelper.getIsJumping()) {
-                    if (!getNavigator().noPath() && currentMoveTypeDuration == 0) {
-                        PathEntity pathentity = getNavigator().getPath();
-                        Vec3 vec3 = Vec3.createVectorHelper(getMoveHelper().posX, getMoveHelper().posY, getMoveHelper().posZ);
+			if (jumpHelper instanceof RabbitJumpHelper rabbitJumpHelper) {
+				if (!rabbitJumpHelper.getIsJumping()) {
+					if (!getNavigator().noPath() && currentMoveTypeDuration == 0) {
+						PathEntity pathentity = getNavigator().getPath();
+						Vec3 vec3 = Vec3.createVectorHelper(getMoveHelper().posX, getMoveHelper().posY, getMoveHelper().posZ);
 
-                        if (pathentity != null && pathentity.getCurrentPathIndex() < pathentity.getCurrentPathLength())
-                            vec3 = pathentity.getPosition(this);
+						if (pathentity != null && pathentity.getCurrentPathIndex() < pathentity.getCurrentPathLength())
+							vec3 = pathentity.getPosition(this);
 
-                        calculateRotationYaw(vec3.xCoord, vec3.zCoord);
-                        doMovementAction(moveType);
-                    }
-                } else if (!rabbitJumpHelper.canJump()) {
-                    enableJumpControl();
-                }
-            }
+						calculateRotationYaw(vec3.xCoord, vec3.zCoord);
+						doMovementAction(moveType);
+					}
+				} else if (!rabbitJumpHelper.canJump()) {
+					enableJumpControl();
+				}
+			}
 		}
 
 		wasOnGround = onGround;
@@ -195,13 +195,13 @@ public class EntityRabbit extends EntityAnimal {
 	}
 
 	private void enableJumpControl() {
-		if(getJumpHelper() instanceof RabbitJumpHelper rabbitJumpHelper) {
+		if (getJumpHelper() instanceof RabbitJumpHelper rabbitJumpHelper) {
 			rabbitJumpHelper.setCanJump(true);
 		}
 	}
 
 	private void disableJumpControl() {
-		if(getJumpHelper() instanceof RabbitJumpHelper rabbitJumpHelper) {
+		if (getJumpHelper() instanceof RabbitJumpHelper rabbitJumpHelper) {
 			rabbitJumpHelper.setCanJump(false);
 		}
 	}

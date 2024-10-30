@@ -83,8 +83,8 @@ public class DeepslateOreRegistry {
 	 * CraftTweaker OreDictionary additions/removals may not work. For best results, please restart the game before reporting issues.
 	 *
 	 * @param oreDict The oreDict tag to overwrite
-	 * @param to   The block deepslate changes it to
-	 * @param toMeta   The metadata deepslate changes it to
+	 * @param to      The block deepslate changes it to
+	 * @param toMeta  The metadata deepslate changes it to
 	 */
 	public static void addOreByOreDict(String oreDict, Block to, int toMeta) {
 		boolean hasBadEntry = false;

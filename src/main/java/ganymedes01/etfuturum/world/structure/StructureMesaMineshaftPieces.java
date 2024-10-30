@@ -86,7 +86,9 @@ public class StructureMesaMineshaftPieces {
 		private boolean hasRails;
 		private boolean hasSpiders;
 		private boolean spawnerPlaced;
-		/** A count of the different sections of this mine. The space between ceiling supports. */
+		/**
+		 * A count of the different sections of this mine. The space between ceiling supports.
+		 */
 		private int sectionCount;
 
 		public MesaCorridor() {
@@ -666,7 +668,7 @@ public class StructureMesaMineshaftPieces {
 		@Override
 		public void offset(int x, int y, int z) {
 			super.offset(x, y, z);
-			for (StructureBoundingBox bb : (List<StructureBoundingBox>) roomsLinkedToTheRoom) {
+			for (StructureBoundingBox bb : roomsLinkedToTheRoom) {
 				bb.offset(x, y, z);
 			}
 		}

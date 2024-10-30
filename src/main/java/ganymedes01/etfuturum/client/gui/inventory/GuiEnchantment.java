@@ -260,7 +260,7 @@ public class GuiEnchantment extends GuiContainer {
 				}
 
 				if (!var4) {
-					if(ench != null) {
+					if (ench != null) {
 						var10.add("");
 					}
 

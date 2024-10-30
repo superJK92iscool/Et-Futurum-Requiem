@@ -57,7 +57,7 @@ public class NetherChunkProvider implements IChunkProvider {
 	private BiomeGenBase[] biomesForGeneration;
 	private double[] netherrackExclusivityNoise = new double[256];
 	private MapGenBase netherCaveGenerator = new MapGenCavesHellModified();
-	private MapGenBase netherRavineGenerator = new MapGenRavineHell();
+	private final MapGenBase netherRavineGenerator = new MapGenRavineHell();
 	double[] noiseData1;
 	double[] noiseData2;
 	double[] noiseData3;
@@ -540,8 +540,7 @@ public class NetherChunkProvider implements IChunkProvider {
 		int k1;
 		int l1;
 
-		if (biome instanceof NetherBiomeBase) {
-			NetherBiomeBase Netherbiome = (NetherBiomeBase) biome;
+		if (biome instanceof NetherBiomeBase Netherbiome) {
 			Netherbiome.populate(worldObj, this.hellRNG, par2 * 16, par3 * 16);
 		}
 

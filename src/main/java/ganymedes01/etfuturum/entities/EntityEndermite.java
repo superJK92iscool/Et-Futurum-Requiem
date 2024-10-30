@@ -148,7 +148,7 @@ public class EntityEndermite extends EntityMob {
 			list.sort(sorter);
 			if (!list.isEmpty()) {
 				for (Entity entity : list) {
-					if(entity instanceof EntityEnderman enderman) {
+					if (entity instanceof EntityEnderman enderman) {
 						enderman.setTarget(this);
 						enderman.setScreaming(true);
 					}

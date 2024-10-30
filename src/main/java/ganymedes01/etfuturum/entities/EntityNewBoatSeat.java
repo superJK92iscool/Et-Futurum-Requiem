@@ -72,7 +72,7 @@ public class EntityNewBoatSeat extends Entity {
 
 		if (boat == null && !worldObj.isRemote) {
 			if (boatID == 0 && boatUUID != null) {
-				for (Entity entity : (List<Entity>) worldObj.loadedEntityList) {
+				for (Entity entity : worldObj.loadedEntityList) {
 					if (entity == null || entity.getPersistentID() == null)
 						continue;
 					if (entity.getPersistentID().equals(boatUUID) && entity instanceof EntityNewBoat && !entity.isDead) {

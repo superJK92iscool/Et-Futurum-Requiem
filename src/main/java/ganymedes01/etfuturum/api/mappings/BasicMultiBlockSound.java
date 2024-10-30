@@ -10,9 +10,9 @@ import java.util.Map;
 public class BasicMultiBlockSound extends MultiBlockSoundContainer {
 
 	private final Map<Integer, Block.SoundType> types = Maps.newHashMap();
-	
+
 	public BasicMultiBlockSound setTypes(Block.SoundType type, int... metas) {
-		for(int meta : metas) {
+		for (int meta : metas) {
 			types.put(meta, type);
 		}
 		return this;
@@ -21,7 +21,7 @@ public class BasicMultiBlockSound extends MultiBlockSoundContainer {
 	@Override
 	public String getSound(World world, int x, int y, int z, String oldSoundIn, MultiBlockSoundRegistry.BlockSoundType type) {
 		Block.SoundType soundType = types.get(world.getBlockMetadata(x, y, z));
-		
+
 		if (soundType == null) return null;
 
 		return switch (type) {

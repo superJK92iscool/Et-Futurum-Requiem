@@ -261,8 +261,7 @@ public class BlockBeeHive extends BlockContainer {
 	public void onBlockHarvested(World world, int x, int y, int z, int meta, EntityPlayer player) {
 		if (!world.isRemote) {
 			TileEntity tileentity = world.getTileEntity(x, y, z);
-			if (tileentity instanceof TileEntityBeeHive) {
-				TileEntityBeeHive beehivetileentity = (TileEntityBeeHive) tileentity;
+			if (tileentity instanceof TileEntityBeeHive beehivetileentity) {
 				boolean silk = EnchantmentHelper.getSilkTouchModifier(player);
 				int fortune = EnchantmentHelper.getFortuneModifier(player);
 				boolean empty = beehivetileentity.hasNoBees() && beehivetileentity.getHoneyLevel() == 0;

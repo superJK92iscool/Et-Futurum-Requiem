@@ -61,14 +61,14 @@ public class BlockBubbleColumn extends BaseBlock implements IInitAction {
 		outer_icons = new IIcon[outerIconCount()];
 		top_icons = new IIcon[topIconCount()];
 		int i = 0;
-		for(char a = 'a'; i < largest && a < 'z'; a++, i++) {
-			if(i < innerIconCount()) {
+		for (char a = 'a'; i < largest && a < 'z'; a++, i++) {
+			if (i < innerIconCount()) {
 				inner_icons[i] = reg.registerIcon(getTextureName() + "_inner_" + (char) (a + (isUp ? innerIconCount() : 0)));
 			}
-			if(i < outerIconCount()) {
+			if (i < outerIconCount()) {
 				outer_icons[i] = reg.registerIcon(getTextureName() + "_outer_" + (char) (a + (isUp ? outerIconCount() : 0)));
 			}
-			if(i < topIconCount()) {
+			if (i < topIconCount()) {
 				top_icons[i] = reg.registerIcon(getTextureName() + "_" + (isUp ? "up" : "down") + "_top_" + a);
 			}
 		}
@@ -84,7 +84,7 @@ public class BlockBubbleColumn extends BaseBlock implements IInitAction {
 	@Override
 	public IIcon getIcon(IBlockAccess worldIn, int x, int y, int z, int side) {
 		int pseudoRand = (int) Utils.cantor(x, z);
-		if(side < 2) {
+		if (side < 2) {
 			return top_icons[pseudoRand % top_icons.length];
 		} else {
 			return renderingInner.get() ? inner_icons[pseudoRand % inner_icons.length] : outer_icons[pseudoRand % outer_icons.length];
@@ -94,7 +94,7 @@ public class BlockBubbleColumn extends BaseBlock implements IInitAction {
 	@Override
 	public void randomDisplayTick(World worldIn, int x, int y, int z, Random random) {
 		super.randomDisplayTick(worldIn, x, y, z, random);
-		if(random.nextInt(256) == 0) {
+		if (random.nextInt(256) == 0) {
 			worldIn.playSound(x + random.nextFloat(), y + random.nextFloat(), z + random.nextFloat(),
 					getBubblingNoise(worldIn, x, y, z, random), 1, 1, false);
 		}
@@ -126,7 +126,7 @@ public class BlockBubbleColumn extends BaseBlock implements IInitAction {
 
 	protected void manageColumn(World world, int x, int y, int z) {
 		Block below = world.getBlock(x, y - 1, z);
-		if(below != this && !supportBlocks.contains(below)) {
+		if (below != this && !supportBlocks.contains(below)) {
 			world.setBlock(x, y, z, Blocks.water);
 		} else if (isFullVanillaWater(world.getBlock(x, y + 1, z), world.getBlockMetadata(x, y + 1, z))) {
 			world.setBlock(x, y + 1, z, this, 0, 3);
@@ -154,7 +154,7 @@ public class BlockBubbleColumn extends BaseBlock implements IInitAction {
 
 	@Override
 	public void postInitAction() {
-		if(ModRecipes.validateItems(this)) {
+		if (ModRecipes.validateItems(this)) {
 			supportBlocks.stream().filter(ModRecipes::validateItems).forEach(block -> EtFuturumWorldListener.bubbleColumnMap.put(block, this));
 		}
 	}

@@ -111,7 +111,7 @@ public class ExternalContent {
 		Blocks(Supplier<Block> blockSupplier) {
 			this.blockSupplier = blockSupplier;
 		}
-		
+
 		Blocks(String modID, String blockID) {
 			this(() -> GameRegistry.findBlock(modID, blockID));
 		}

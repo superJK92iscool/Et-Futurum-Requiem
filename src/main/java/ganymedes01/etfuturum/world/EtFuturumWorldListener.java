@@ -95,7 +95,7 @@ public class EtFuturumWorldListener implements IWorldAccess {
 			return;
 
 		handleBasaltFromLava(x, y, z);
-		for(ForgeDirection dir : Utils.FORGE_DIRECTIONS) {
+		for (ForgeDirection dir : Utils.FORGE_DIRECTIONS) {
 			handleBubbleColumnCreation(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ);
 		}
 
@@ -109,8 +109,7 @@ public class EtFuturumWorldListener implements IWorldAccess {
 		NBTTagCompound nbt = new NBTTagCompound();
 		if (tile != null) {
 			tile.writeToNBT(nbt);
-			if (tile instanceof IInventory) {
-				IInventory invt = (IInventory) tile;
+			if (tile instanceof IInventory invt) {
 				for (int j = 0; j < invt.getSizeInventory(); j++) {
 					invt.setInventorySlotContents(j, null);
 				}
@@ -154,8 +153,8 @@ public class EtFuturumWorldListener implements IWorldAccess {
 	 * The column itself handles the creation of the remainder of the column, as well as destroying itself.
 	 */
 	private void handleBubbleColumnCreation(int x, int y, int z) {
-		if(!bubbleColumnMap.isEmpty() && world.blockExists(x, y, z)) {
-			if(BlockBubbleColumn.isFullVanillaWater(world.getBlock(x, y + 1, z), world.getBlockMetadata(x, y + 1, z))) {
+		if (!bubbleColumnMap.isEmpty() && world.blockExists(x, y, z)) {
+			if (BlockBubbleColumn.isFullVanillaWater(world.getBlock(x, y + 1, z), world.getBlockMetadata(x, y + 1, z))) {
 				Block block = bubbleColumnMap.get(world.getBlock(x, y, z));
 				if (block != null) {
 					world.setBlock(x, y + 1, z, block, 0, 3);

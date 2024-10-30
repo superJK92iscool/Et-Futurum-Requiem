@@ -28,10 +28,9 @@ public class BlockCopperDoor extends BaseDoor implements IDegradable {
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float subX, float subY, float subZ)
-	{
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float subX, float subY, float subZ) {
 		int meta = world.getBlockMetadata(x, y, z);
-		if(!tryWaxOnWaxOff(world, x, y + (meta < 8 ? 1 : 0), z, player)) {
+		if (!tryWaxOnWaxOff(world, x, y + (meta < 8 ? 1 : 0), z, player)) {
 			int i1 = this.func_150012_g(world, x, y, z); // getFullMetadata
 			int j1 = i1 & 7;
 			j1 ^= 4;
@@ -85,13 +84,14 @@ public class BlockCopperDoor extends BaseDoor implements IDegradable {
 
 	public void setCopperBlock(Block newBlock, int newMeta, World world, int x, int y, int z) {
 		IDegradable.super.setCopperBlock(newBlock, newMeta, world, x, y, z);
-		if(newBlock != world.getBlock(x, y - 1, z)) {
+		if (newBlock != world.getBlock(x, y - 1, z)) {
 			world.setBlock(x, y - 1, z, newBlock, world.getBlockMetadata(x, y - 1, z), 2);
 		}
 	}
 
 	/**
 	 * Only evaluate the top half of the door for copper oxidation speed calc
+	 *
 	 * @param meta
 	 * @param world
 	 * @param x
@@ -104,11 +104,11 @@ public class BlockCopperDoor extends BaseDoor implements IDegradable {
 		return IDegradable.super.countTowardsDegredation(meta, world, x, y, z) && world.getBlockMetadata(x, y, z) > 7;
 	}
 
-	private ThreadLocal<Boolean> playSound = ThreadLocal.withInitial(() -> true);
+	private final ThreadLocal<Boolean> playSound = ThreadLocal.withInitial(() -> true);
 
 	@Override
 	public void playSound(World world, double x, double y, double z, int type) {
-		if(playSound.get()) {
+		if (playSound.get()) {
 			IDegradable.super.playSound(world, x, y + 0.5D, z, type);
 		}
 	}

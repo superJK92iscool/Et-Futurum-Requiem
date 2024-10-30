@@ -21,21 +21,21 @@ public class MixinEntitySkeleton extends EntityMob {
 
 	@Inject(method = "getLivingSound", at = @At(value = "HEAD"), cancellable = true)
 	protected void getNewLivingSound(CallbackInfoReturnable<String> cir) {
-		if(getSkeletonType() == 1) {
+		if (getSkeletonType() == 1) {
 			cir.setReturnValue(Reference.MCAssetVer + ":entity.wither_skeleton.ambient");
 		}
 	}
 
 	@Inject(method = "getHurtSound", at = @At(value = "HEAD"), cancellable = true)
 	protected void getNewHurtSound(CallbackInfoReturnable<String> cir) {
-		if(getSkeletonType() == 1) {
+		if (getSkeletonType() == 1) {
 			cir.setReturnValue(Reference.MCAssetVer + ":entity.wither_skeleton.hurt");
 		}
 	}
 
 	@Inject(method = "getDeathSound", at = @At(value = "HEAD"), cancellable = true)
 	protected void getNewDeathSound(CallbackInfoReturnable<String> cir) {
-		if(getSkeletonType() == 1) {
+		if (getSkeletonType() == 1) {
 			cir.setReturnValue(Reference.MCAssetVer + ":entity.wither_skeleton.death");
 		}
 	}

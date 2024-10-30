@@ -119,7 +119,7 @@ public class BlockEmissiveLayerRenderer extends BlockModelBase {
 		return true;
 	}
 
-	private static Point2f lastBrightness = new Point2f(0, 0);
+	private static final Point2f lastBrightness = new Point2f(0, 0);
 
 
 	public static void setLighting(int lighting) {

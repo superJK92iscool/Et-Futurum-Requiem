@@ -33,7 +33,7 @@ public class BlockDeepslateCopperOre extends BlockDeepslateOre implements IInitA
 				blockResistance = block.getExplosionResistance(null, world, 0, 0, 0, 0, 0, 0); //Because the game divides it by 5 for some reason
 			} catch (Exception ignored) {
 				setHarvestLevel("pickaxe", 1);
-				
+
 				blockHardness = ConfigFunctions.useStoneHardnessForDeepslate ? ModBlocks.COPPER_ORE.get().blockHardness : ModBlocks.COPPER_ORE.get().blockHardness * 1.5F;
 				blockResistance = ModBlocks.COPPER_ORE.get().blockResistance;
 			}

@@ -77,7 +77,7 @@ public class ClientProxy extends CommonProxy {
 		MinecraftForgeClient.registerItemRenderer(Items.skull, new ItemSkullRenderer());
 		MinecraftForgeClient.registerItemRenderer(Items.bow, new ItemBowRenderer());
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.SHULKER_BOX.get()), new ItemShulkerBoxRenderer());
-		if(ConfigFunctions.inventoryBedModels) {
+		if (ConfigFunctions.inventoryBedModels) {
 			MinecraftForgeClient.registerItemRenderer(Items.bed, new Item3DBedRenderer((BlockBed) Blocks.bed));
 			for (ModBlocks bed : ModBlocks.BEDS) {
 				if (bed.isEnabled()) {

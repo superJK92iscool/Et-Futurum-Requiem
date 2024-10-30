@@ -200,7 +200,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		if (!s.isEmpty()) {
 			this.lastHurtBy = UUID.fromString(s);
 			EntityPlayer playerentity = null;
-			for (EntityPlayer player : (List<EntityPlayer>) worldObj.playerEntities) {
+			for (EntityPlayer player : worldObj.playerEntities) {
 				if (lastHurtBy.equals(player.getUniqueID())) {
 					playerentity = player;
 					break;
@@ -888,8 +888,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		public boolean canBeeStart() {
 			if (EntityBee.this.hasHive() && EntityBee.this.canEnterHive() && EntityBee.this.hivePos.isWithinDistance(new BlockPos(EntityBee.this), 2.0D)) {
 				TileEntity tileentity = getHivePos().getTileEntity(worldObj);
-				if (tileentity instanceof TileEntityBeeHive) {
-					TileEntityBeeHive beehivetileentity = (TileEntityBeeHive) tileentity;
+				if (tileentity instanceof TileEntityBeeHive beehivetileentity) {
 					if (!beehivetileentity.isFullOfBees()) {
 						return true;
 					}
@@ -909,8 +908,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 		@Override
 		public void startExecuting() {
 			TileEntity tileentity = getHivePos().getTileEntity(worldObj);
-			if (tileentity instanceof TileEntityBeeHive) {
-				TileEntityBeeHive beehivetileentity = (TileEntityBeeHive) tileentity;
+			if (tileentity instanceof TileEntityBeeHive beehivetileentity) {
 				beehivetileentity.tryEnterHive(EntityBee.this, EntityBee.this.hasNectar());
 			}
 

@@ -31,9 +31,8 @@ public class Rotations {
 
 	@Override
 	public boolean equals(Object p_equals_1_) {
-		if (!(p_equals_1_ instanceof Rotations))
+		if (!(p_equals_1_ instanceof Rotations rotations))
 			return false;
-		Rotations rotations = (Rotations) p_equals_1_;
 		return x == rotations.x && y == rotations.y && z == rotations.z;
 	}
 

@@ -64,7 +64,7 @@ public class BlockStateContainer {
 		if (type != BlockStateType.ENTITY) {
 			throw new IllegalArgumentException("Tried to get entity instance from a block in a BlockState object!");
 		}
-		return EntityList.createEntityByName((String) EntityList.classToStringMapping.get(theObject), world);
+		return EntityList.createEntityByName(EntityList.classToStringMapping.get(theObject), world);
 	}
 
 	public BlockStateType getType() {

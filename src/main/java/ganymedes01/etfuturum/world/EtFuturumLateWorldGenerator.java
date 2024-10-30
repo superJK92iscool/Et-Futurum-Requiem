@@ -18,7 +18,6 @@ import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 import org.apache.commons.lang3.ArrayUtils;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -130,9 +129,9 @@ public class EtFuturumLateWorldGenerator extends EtFuturumWorldGenerator {
 		final int chunkMultiplierX = chunk.xPosition << 4;
 		final int chunkMultiplierZ = chunk.zPosition << 4;
 
-		boolean shouldDimBeJustDeepslate = ArrayUtils.contains(ConfigWorld.replaceAllStoneWithDeepslateDimensionWhitelist,chunk.worldObj.provider.dimensionId);
+		boolean shouldDimBeJustDeepslate = ArrayUtils.contains(ConfigWorld.replaceAllStoneWithDeepslateDimensionWhitelist, chunk.worldObj.provider.dimensionId);
 		int replaceUnderY = (shouldDimBeJustDeepslate ? chunk.worldObj.getActualHeight() : ConfigWorld.deepslateMaxY);
-        for (int y = 0; y <= Math.min(replaceUnderY, chunk.worldObj.getHeight()); y++) {
+		for (int y = 0; y <= Math.min(replaceUnderY, chunk.worldObj.getHeight()); y++) {
 			ExtendedBlockStorage array = chunk.getBlockStorageArray()[y >> 4];
 			for (int x = 0; x < 16; x++) {
 				for (int z = 0; z < 16; z++) {

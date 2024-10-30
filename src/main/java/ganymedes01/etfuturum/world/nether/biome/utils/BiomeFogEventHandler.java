@@ -24,8 +24,7 @@ public class BiomeFogEventHandler {
 
 	@SubscribeEvent
 	public void onGetFogColor(final EntityViewRenderEvent.FogColors event) {
-		if (event.entity.worldObj.provider instanceof WorldProviderEFRNether && event.entity instanceof EntityPlayer) {
-			final EntityPlayer player = (EntityPlayer) event.entity;
+		if (event.entity.worldObj.provider instanceof WorldProviderEFRNether && event.entity instanceof EntityPlayer player) {
 			final World world = player.worldObj;
 			final int x = MathHelper.floor_double(player.posX);
 			final int y = MathHelper.floor_double(player.posY);

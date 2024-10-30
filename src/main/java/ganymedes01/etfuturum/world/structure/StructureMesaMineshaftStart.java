@@ -23,7 +23,7 @@ public class StructureMesaMineshaftStart extends StructureMineshaftStart {
 		int j = 63 - this.boundingBox.maxY + this.boundingBox.getYSize() / 2 - -5;
 		this.boundingBox.offset(0, j, 0);
 
-		for (StructureComponent structurecomponent : (LinkedList<StructureComponent>) this.components) {
+		for (StructureComponent structurecomponent : this.components) {
 			if (structurecomponent instanceof StructureMesaMineshaftPieces.Piece) {
 				((StructureMesaMineshaftPieces.Piece) structurecomponent).offset(0, j, 0);
 			}

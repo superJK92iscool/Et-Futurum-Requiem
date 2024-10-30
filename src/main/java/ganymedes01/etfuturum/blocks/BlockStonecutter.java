@@ -104,7 +104,7 @@ public class BlockStonecutter extends Block {
 
 	@Override
 	public void onEntityCollidedWithBlock(World worldIn, int x, int y, int z, Entity entityIn) {
-		if(!worldIn.isRemote && ConfigTweaks.stonecutterSawHurts) {
+		if (!worldIn.isRemote && ConfigTweaks.stonecutterSawHurts) {
 			entityIn.attackEntityFrom(STONECUTTER, 1);
 		}
 		super.onEntityCollidedWithBlock(worldIn, x, y, z, entityIn);

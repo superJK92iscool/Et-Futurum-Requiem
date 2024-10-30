@@ -180,9 +180,9 @@ public class BaseSlab extends BlockSlab implements ISubBlocksBlock {
 	}
 
 	public BaseSlab setHardnessValues(float hardness, int... metas) {
-		if(metas.length == 0) {
+		if (metas.length == 0) {
 			setHardness(hardness);
-		} else for(int meta : metas) {
+		} else for (int meta : metas) {
 			hardnesses.put(meta + 8, hardness);
 			hardnesses.put(meta, hardness);
 		}
@@ -192,16 +192,16 @@ public class BaseSlab extends BlockSlab implements ISubBlocksBlock {
 	@Override
 	public float getExplosionResistance(Entity par1Entity, World world, int x, int y, int z, double explosionX, double explosionY, double explosionZ) {
 		Float resistance = resistances.get(world.getBlockMetadata(x, y, z));
-		if(resistance != null) {
+		if (resistance != null) {
 			return resistance / 5.0F;
 		}
 		return super.getExplosionResistance(par1Entity, world, x, y, z, explosionX, explosionY, explosionZ);
 	}
 
 	public BaseSlab setResistanceValues(float resistance, int... metas) {
-		if(metas.length == 0) {
+		if (metas.length == 0) {
 			setResistance(resistance);
-		} else for(int meta : metas) {
+		} else for (int meta : metas) {
 			resistances.put(meta + 8, resistance);
 			resistances.put(meta, resistance);
 		}

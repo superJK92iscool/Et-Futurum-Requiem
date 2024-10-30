@@ -1,9 +1,8 @@
 package ganymedes01.etfuturum.gamerule;
 
-import org.apache.commons.lang3.StringUtils;
-
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
+import org.apache.commons.lang3.StringUtils;
 
 public class RandomTickSpeed {
 

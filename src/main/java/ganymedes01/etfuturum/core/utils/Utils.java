@@ -1,7 +1,6 @@
 package ganymedes01.etfuturum.core.utils;
 
 import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.relauncher.ReflectionHelper;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
@@ -374,6 +373,7 @@ public class Utils {
 	public static <T> T getRandom(T[] array, Random rand) {
 		return array[rand.nextInt(array.length)];
 	}
+
 	//TODO Do the other primitives for this
 	public static int getRandom(int[] array, Random rand) {
 		return array[rand.nextInt(array.length)];
@@ -602,6 +602,7 @@ public class Utils {
 
 	/**
 	 * Filters spectators out of the provided list.
+	 *
 	 * @param list
 	 * @return
 	 */

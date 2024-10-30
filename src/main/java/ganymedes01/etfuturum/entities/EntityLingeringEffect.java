@@ -53,9 +53,8 @@ public class EntityLingeringEffect extends Entity implements IEntityAdditionalSp
 
 	@Override
 	public void applyEntityCollision(Entity e) {
-		if (!(e instanceof EntityLivingBase))
+		if (!(e instanceof EntityLivingBase entity))
 			return;
-		EntityLivingBase entity = (EntityLivingBase) e;
 		List<PotionEffect> effects = ((ItemLingeringPotion) ModItems.LINGERING_POTION.get()).getEffects(stack);
 		boolean addedEffect = false;
 

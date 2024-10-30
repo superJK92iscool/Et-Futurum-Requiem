@@ -163,6 +163,7 @@ public class DebugTestItem extends BaseItem {
 		},
 		NBT_STRUCTURE_TEST("NBT Structure Test", true) {
 			private final WorldGenNBTStructureTesting struct = new WorldGenNBTStructureTesting();
+
 			@Override
 			protected boolean runAction(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
 				boolean run = struct.generate(world, world.rand, x, y, z);

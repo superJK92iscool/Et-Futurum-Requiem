@@ -116,10 +116,7 @@ public class BlockNylium extends BaseSubtypesBlock implements IGrowable {
 		if (world.getBlockMetadata(x, y, z) == 0 && !ConfigExperiments.enableCrimsonBlocks) {
 			return false;
 		}
-		if (world.getBlockMetadata(x, y, z) == 1 && !ConfigExperiments.enableWarpedBlocks) {
-			return false;
-		}
-		return true;
+		return world.getBlockMetadata(x, y, z) != 1 || ConfigExperiments.enableWarpedBlocks;
 	}
 
 	/**

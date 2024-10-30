@@ -41,9 +41,8 @@ public class WorldCoord implements Comparable<WorldCoord> {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (!(obj instanceof WorldCoord))
+		if (!(obj instanceof WorldCoord wc))
 			return false;
-		WorldCoord wc = (WorldCoord) obj;
 
 		return x == wc.x && y == wc.y && z == wc.z;
 	}

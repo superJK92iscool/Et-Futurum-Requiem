@@ -183,7 +183,7 @@ public class BlockBamboo extends BaseBlock implements IPlantable, IGrowable {
 		return meta | (large ? 0x1 : 0);
 	}
 
-	private static Vec3 OFFSET_VEC = Vec3.createVectorHelper(0.5D, 0D, 0.5D);
+	private static final Vec3 OFFSET_VEC = Vec3.createVectorHelper(0.5D, 0D, 0.5D);
 
 	public static Vec3 getOffset(int x, int z) {
 		OFFSET_VEC.xCoord = 0.1875D + ((double) (Math.abs(Utils.cantor(x * 2654435761L, z * -2654435761L)) % 41) * 0.015625D);
@@ -233,8 +233,6 @@ public class BlockBamboo extends BaseBlock implements IPlantable, IGrowable {
 	public boolean isOpaqueCube() {
 		return false;
 	}
-
-	;
 
 	@Override
 	public boolean isFlammable(IBlockAccess world, int x, int y, int z, ForgeDirection face) {

@@ -97,7 +97,7 @@ public class CompatMisc {
 			Item stoneTile = GameRegistry.findItem("bluepower", "stone_tile");
 			if (stoneTile != null) {
 				Item stoneItem = Item.getItemFromBlock(Blocks.stone);
-				FurnaceRecipes.smelting().getSmeltingList().entrySet().removeIf((Predicate<Map.Entry<ItemStack, ItemStack>>) recipe -> recipe.getValue() != null && recipe.getValue().getItem() == stoneTile && recipe.getKey() != null && recipe.getKey().getItem() == stoneItem);
+				FurnaceRecipes.smelting().getSmeltingList().entrySet().removeIf(recipe -> recipe.getValue() != null && recipe.getValue().getItem() == stoneTile && recipe.getKey() != null && recipe.getKey().getItem() == stoneItem);
 			}
 		}
 	}

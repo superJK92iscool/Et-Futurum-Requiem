@@ -5,7 +5,7 @@ import ganymedes01.etfuturum.client.sound.ModSounds;
 import net.minecraft.block.material.Material;
 import net.minecraft.world.World;
 
-public class BlockPackedMud extends BaseSubtypesBlock  {
+public class BlockPackedMud extends BaseSubtypesBlock {
 
 	public BlockPackedMud() {
 		super(Material.rock, "packed_mud", "mud_bricks");

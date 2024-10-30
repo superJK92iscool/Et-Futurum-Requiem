@@ -239,7 +239,7 @@ public class EntityShulkerBullet extends Entity {
 			super.onUpdate();
 			if (!this.worldObj.isRemote) {
 				if (this.target == null && this.targetUniqueId != null) {
-					for (EntityLivingBase entitylivingbase : (List<EntityLivingBase>) this.worldObj.getEntitiesWithinAABB(EntityLivingBase.class, BlockPos.getBB(this.targetBlockPos.add(-2, -2, -2), this.targetBlockPos.add(2, 2, 2)))) {
+					for (EntityLivingBase entitylivingbase : this.worldObj.getEntitiesWithinAABB(EntityLivingBase.class, BlockPos.getBB(this.targetBlockPos.add(-2, -2, -2), this.targetBlockPos.add(2, 2, 2)))) {
 						if (entitylivingbase.getUniqueID().equals(this.targetUniqueId)) {
 							this.target = entitylivingbase;
 							break;
@@ -250,7 +250,7 @@ public class EntityShulkerBullet extends Entity {
 				}
 
 				if (this.owner == null && this.ownerUniqueId != null) {
-					for (EntityLivingBase entitylivingbase1 : (List<EntityLivingBase>) this.worldObj.getEntitiesWithinAABB(EntityLivingBase.class, BlockPos.getBB(this.ownerBlockPos.add(-2, -2, -2), this.ownerBlockPos.add(2, 2, 2)))) {
+					for (EntityLivingBase entitylivingbase1 : this.worldObj.getEntitiesWithinAABB(EntityLivingBase.class, BlockPos.getBB(this.ownerBlockPos.add(-2, -2, -2), this.ownerBlockPos.add(2, 2, 2)))) {
 						if (entitylivingbase1.getUniqueID().equals(this.ownerUniqueId)) {
 							this.owner = entitylivingbase1;
 							break;

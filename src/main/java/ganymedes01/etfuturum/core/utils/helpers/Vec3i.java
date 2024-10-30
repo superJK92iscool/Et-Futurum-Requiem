@@ -30,9 +30,8 @@ public class Vec3i implements Comparable<Vec3i> {
 	public boolean equals(Object p_equals_1_) {
 		if (this == p_equals_1_)
 			return true;
-		if (!(p_equals_1_ instanceof Vec3i))
+		if (!(p_equals_1_ instanceof Vec3i vec3i))
 			return false;
-		Vec3i vec3i = (Vec3i) p_equals_1_;
 		return getX() == vec3i.getX() && getY() == vec3i.getY() && getZ() == vec3i.getZ();
 	}
 

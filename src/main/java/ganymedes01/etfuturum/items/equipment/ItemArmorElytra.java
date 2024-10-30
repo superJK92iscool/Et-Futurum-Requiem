@@ -108,14 +108,14 @@ public class ItemArmorElytra extends BaseItem implements IBaubleExpanded {
 		} else if (ModsList.BAUBLES_EXPANDED.isLoaded()) {
 			String[] slots;
 			switch (ConfigModCompat.elytraBaublesExpandedCompat) {
-				default:
-					slots = new String[]{"chestplate"};
-					break;
 				case 1:
 					slots = new String[]{"chestplate", "wings"};
 					break;
 				case 2:
 					slots = new String[]{"wings"};
+					break;
+				default:
+					slots = new String[]{"chestplate"};
 					break;
 			}
 			BaubleItemHelper.addSlotInformation(tooltip, slots);

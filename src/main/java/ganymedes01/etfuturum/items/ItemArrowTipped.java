@@ -217,7 +217,7 @@ public class ItemArrowTipped extends Item {
 						Entry<IAttribute, AttributeModifier> entry = iterator.next();
 						AttributeModifier attributemodifier = entry.getValue();
 						AttributeModifier attributemodifier1 = new AttributeModifier(attributemodifier.getName(), potion.func_111183_a(potioneffect.getAmplifier(), attributemodifier), attributemodifier.getOperation());
-						hashmultimap.put( entry.getKey().getAttributeUnlocalizedName(), attributemodifier1);
+						hashmultimap.put(entry.getKey().getAttributeUnlocalizedName(), attributemodifier1);
 					}
 				}
 

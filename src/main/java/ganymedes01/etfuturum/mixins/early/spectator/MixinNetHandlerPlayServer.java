@@ -25,7 +25,7 @@ public class MixinNetHandlerPlayServer {
 			ci.cancel();
 			ArrayList<ItemStack> arraylist = new ArrayList<>();
 			for (int i = 0; i < this.playerEntity.openContainer.inventorySlots.size(); ++i) {
-				arraylist.add(((Slot) this.playerEntity.openContainer.inventorySlots.get(i)).getStack());
+				arraylist.add(this.playerEntity.openContainer.inventorySlots.get(i).getStack());
 			}
 			this.playerEntity.sendContainerAndContentsToPlayer(this.playerEntity.openContainer, arraylist);
 		}

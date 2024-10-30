@@ -14,7 +14,7 @@ public class MultiBlockSoundRegistry {
 	public static final Map<Block, MultiBlockSoundContainer> multiBlockSounds = new HashMap<>();
 
 	public static void addBasic(Block block, Block.SoundType type, int... metas) {
-		if(ModRecipes.validateItems(block)) {
+		if (ModRecipes.validateItems(block)) {
 			MultiBlockSoundContainer mbs = multiBlockSounds.getOrDefault(block, new BasicMultiBlockSound());
 			if (mbs instanceof BasicMultiBlockSound) {
 				((BasicMultiBlockSound) mbs).setTypes(Utils.getSound(type), metas);

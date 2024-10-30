@@ -46,7 +46,10 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 public class ModRecipes {
 
@@ -789,7 +792,7 @@ public class ModRecipes {
 		if (!ModsList.GTNH.isLoaded()) {
 			addSmelting(new ItemStack(Blocks.stone), ModBlocks.SMOOTH_STONE.newItemStack(), .1F);
 
-			if(ModBlocks.SMOOTH_STONE.isEnabled()) {
+			if (ModBlocks.SMOOTH_STONE.isEnabled()) {
 				ItemStack stoneTile = ExternalContent.Items.BLUEPOWER_CIRCUIT_PLATE.isEnabled() ? ExternalContent.Items.BLUEPOWER_CIRCUIT_PLATE.newItemStack(2)
 						: ExternalContent.Items.PROJECTRED_CIRCUIT_PLATE.isEnabled() ? ExternalContent.Items.PROJECTRED_CIRCUIT_PLATE.newItemStack(2)
 						: null;
@@ -995,7 +998,7 @@ public class ModRecipes {
 		addShapedRecipe(ModBlocks.TUFF.newItemStack(4, 2), "xx", "xx", 'x', ModBlocks.TUFF.newItemStack(1, 1));
 		addShapedRecipe(ModBlocks.TUFF.newItemStack(1, 3), "x", "x", 'x', ModBlocks.TUFF_SLAB.newItemStack());
 		addShapedRecipe(ModBlocks.TUFF.newItemStack(1, 4), "x", "x", 'x', ModBlocks.TUFF_SLAB.newItemStack(1, 2));
-		
+
 		addShapedRecipe(ModBlocks.COBBLED_DEEPSLATE_STAIRS.newItemStack(4), "x  ", "xx ", "xxx", 'x', ModBlocks.COBBLED_DEEPSLATE.newItemStack());
 		addShapedRecipe(ModBlocks.POLISHED_DEEPSLATE_STAIRS.newItemStack(4), "x  ", "xx ", "xxx", 'x', ModBlocks.POLISHED_DEEPSLATE.newItemStack());
 		addShapedRecipe(ModBlocks.DEEPSLATE_BRICK_STAIRS.newItemStack(4), "x  ", "xx ", "xxx", 'x', ModBlocks.DEEPSLATE_BRICKS.newItemStack());
@@ -1064,7 +1067,7 @@ public class ModRecipes {
 					ItemStack inputBoat = ItemNewBoat.BOAT_INFO.get(key.substring(0, key.indexOf("_chest"))).getBoatItem();
 					addShapelessRecipe(boat, "chestWood", inputBoat);
 				} else {
-					if(isOak) { //We're using the plankWood tag for this, so it needs to be in the vanilla sorter
+					if (isOak) { //We're using the plankWood tag for this, so it needs to be in the vanilla sorter
 						GameRegistry.addRecipe(new ShapedOreRecipe(boat, (ConfigBlocksItems.replaceOldBoats ? "x x" : "xyx"), "xxx", 'x', "plankWood", 'y', new ItemStack(Items.wooden_shovel, 1)));
 					} else { //Not a tagged recipe, we sort this before vanilla recipes, so it takes precedent over them
 						addShapedRecipe(boat, (ConfigBlocksItems.replaceOldBoats ? "x x" : "xyx"), "xxx", 'x', entry.getValue().getPlank(), 'y', new ItemStack(Items.wooden_shovel, 1));
@@ -1301,7 +1304,7 @@ public class ModRecipes {
 				removeAllEFRRecipesFor(oreItem, i);
 				removeAllEFRRecipesFor(oreBlock, i);
 				ItemStack stack = new ItemStack(oreItem, 1, i);
-				Iterator<ItemStack> iterator = (Iterator<ItemStack>) FurnaceRecipes.smelting().getSmeltingList().keySet().iterator();
+				Iterator<ItemStack> iterator = FurnaceRecipes.smelting().getSmeltingList().keySet().iterator();
 				while (iterator.hasNext()) {
 					ItemStack smeltingInput = iterator.next();
 					if (stack.getItem() == smeltingInput.getItem() && stack.getItemDamage() == smeltingInput.getItemDamage()) {
@@ -1440,12 +1443,12 @@ public class ModRecipes {
 	}
 
 	private static void removeFurnaceRecipeFor(ItemStack input, ItemStack output) {
-		for(Map.Entry<ItemStack, ItemStack> set : FurnaceRecipes.smelting().getSmeltingList().entrySet()) {
+		for (Map.Entry<ItemStack, ItemStack> set : FurnaceRecipes.smelting().getSmeltingList().entrySet()) {
 			ItemStack setInput = set.getKey();
 			ItemStack setOutput = set.getValue();
 			int wildcard = OreDictionary.WILDCARD_VALUE;
-			if(input.getItem() == setInput.getItem() && (input.getItemDamage() == wildcard || setInput.getItemDamage() == wildcard || (input.getItemDamage() == setInput.getItemDamage()))) {
-				if(output.getItem() == setOutput.getItem() && (output.getItemDamage() == wildcard || setOutput.getItemDamage() == wildcard || (output.getItemDamage() == setOutput.getItemDamage()))) {
+			if (input.getItem() == setInput.getItem() && (input.getItemDamage() == wildcard || setInput.getItemDamage() == wildcard || (input.getItemDamage() == setInput.getItemDamage()))) {
+				if (output.getItem() == setOutput.getItem() && (output.getItemDamage() == wildcard || setOutput.getItemDamage() == wildcard || (output.getItemDamage() == setOutput.getItemDamage()))) {
 					FurnaceRecipes.smelting().getSmeltingList().remove(setInput, setOutput);
 					return;
 				}

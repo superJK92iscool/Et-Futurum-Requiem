@@ -13,6 +13,7 @@ public class IconFlippedFixed extends IconFlipped {
 	//Too lazy to AT the super fields atm
 	private final IIcon baseIcon;
 	private final boolean flipV;
+
 	public IconFlippedFixed(IIcon p_i1560_1_, boolean p_i1560_2_, boolean p_i1560_3_) {
 		super(p_i1560_1_, p_i1560_2_, p_i1560_3_);
 		this.baseIcon = p_i1560_1_;
@@ -20,8 +21,7 @@ public class IconFlippedFixed extends IconFlipped {
 	}
 
 	@Override
-	public float getMinV()
-	{
+	public float getMinV() {
 		return this.flipV ? this.baseIcon.getMaxV() : this.baseIcon.getMinV();
 	}
 }

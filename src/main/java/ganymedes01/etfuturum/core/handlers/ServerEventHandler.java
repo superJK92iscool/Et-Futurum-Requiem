@@ -177,8 +177,7 @@ public class ServerEventHandler {
 		}
 
 
-		if (ConfigSounds.armorEquip && !entity.worldObj.isRemote && entity instanceof EntityPlayer && !(entity instanceof FakePlayer)) {
-			EntityPlayer player = (EntityPlayer) entity;
+		if (ConfigSounds.armorEquip && !entity.worldObj.isRemote && entity instanceof EntityPlayer player && !(entity instanceof FakePlayer)) {
 
 			if (!SpectatorMode.isSpectator(player)) {
 				if (!armorTracker.containsKey(player)) {
@@ -245,8 +244,7 @@ public class ServerEventHandler {
 	public void onAttackEntityEvent(AttackEntityEvent event) { //Fires when a player presses the attack button on an entity
 		if (!event.target.worldObj.isRemote) {
 			// --- Left-click an item frame --- //
-			if (ConfigSounds.paintingItemFramePlacing && event.target instanceof EntityItemFrame) {
-				EntityItemFrame itemframe = (EntityItemFrame) event.target;
+			if (ConfigSounds.paintingItemFramePlacing && event.target instanceof EntityItemFrame itemframe) {
 				if (itemframe.getDisplayedItem() != null) {
 					event.target.playSound(Reference.MCAssetVer + ":entity.item_frame.remove_item", 1.0F, 1.0F);
 				} else {
@@ -337,10 +335,8 @@ public class ServerEventHandler {
 			return;
 		}
 
-		if (event.source instanceof EntityDamageSourceIndirect) {
-			EntityDamageSourceIndirect dmgSrc = (EntityDamageSourceIndirect) event.source;
-			if (dmgSrc.getSourceOfDamage() instanceof EntityTippedArrow) {
-				EntityTippedArrow tippedArrow = (EntityTippedArrow) dmgSrc.getSourceOfDamage();
+		if (event.source instanceof EntityDamageSourceIndirect dmgSrc) {
+			if (dmgSrc.getSourceOfDamage() instanceof EntityTippedArrow tippedArrow) {
 				if (!tippedArrow.worldObj.isRemote && dmgSrc.getEntity() instanceof EntityLivingBase) {
 
 					List<PotionEffect> list = ((ItemArrowTipped) ModItems.TIPPED_ARROW.get()).getEffects(tippedArrow.getArrow());
@@ -448,7 +444,7 @@ public class ServerEventHandler {
 			} catch (IOException ignore) {
 				// NO-OP
 			}
-        }
+		}
 	}
 
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
@@ -732,8 +728,7 @@ public class ServerEventHandler {
 								if (flag) {
 									for (WorldServer worldserver : FMLCommonHandler.instance().getMinecraftServerInstance().worldServers) {
 										for (Object playerobj : worldserver.playerEntities) {
-											if (playerobj instanceof EntityPlayerMP) {
-												EntityPlayerMP playermp = (EntityPlayerMP) playerobj;
+											if (playerobj instanceof EntityPlayerMP playermp) {
 												playermp.playerNetServerHandler.sendPacket(new S29PacketSoundEffect(Reference.MCAssetVer + ":block.end_portal.spawn",
 														playermp.posX, playermp.lastTickPosY, playermp.posZ, 1F, 1F));
 											}
@@ -1223,8 +1218,7 @@ public class ServerEventHandler {
 		int z = MathHelper.floor_double(event.z);
 		World world = event.world;
 		EntityLivingBase entity = event.entityLiving;
-		if (event.entityLiving instanceof EntityShulker) {
-			EntityShulker shulker = ((EntityShulker) event.entityLiving);
+		if (event.entityLiving instanceof EntityShulker shulker) {
 			shulker.persistenceRequired = false;
 			if (ConfigTweaks.spawnAnywhereShulkerColors) {
 				for (EnumFacing facing : Utils.ENUM_FACING_VALUES) {
@@ -1368,24 +1362,19 @@ public class ServerEventHandler {
 
 	@SubscribeEvent
 	public void spawnEvent(EntityJoinWorldEvent event) {
-		if (event.entity instanceof EntityPig) {
-			EntityPig pig = (EntityPig) event.entity;
+		if (event.entity instanceof EntityPig pig) {
 			if (ModItems.BEETROOT.isEnabled()) {
 				pig.tasks.addTask(4, new EntityAITempt(pig, 1.2, ModItems.BEETROOT.get(), false));
 			}
-		} else if (event.entity instanceof EntityChicken) {
-			EntityChicken chicken = (EntityChicken) event.entity;
+		} else if (event.entity instanceof EntityChicken chicken) {
 			if (ModItems.BEETROOT.isEnabled()) {
 				chicken.tasks.addTask(3, new EntityAITempt(chicken, 1.0D, ModItems.BEETROOT_SEEDS.get(), false));
 			}
-		} else if (ConfigEntities.enableRabbit && event.entity instanceof EntityWolf) {
-			EntityWolf wolf = (EntityWolf) event.entity;
+		} else if (ConfigEntities.enableRabbit && event.entity instanceof EntityWolf wolf) {
 			wolf.targetTasks.addTask(4, new EntityAITargetNonTamed(wolf, EntityRabbit.class, 200, false));
-		} else if (ConfigEntities.enableEndermite && event.entity instanceof EntityEnderman) {
-			EntityEnderman enderman = (EntityEnderman) event.entity;
+		} else if (ConfigEntities.enableEndermite && event.entity instanceof EntityEnderman enderman) {
 			enderman.targetTasks.addTask(3, new EntityAINearestAttackableTarget(enderman, EntityEndermite.class, 100, false));
-		} else if (event.entity instanceof EntityVillager) {
-			EntityVillager villager = (EntityVillager) event.entity;
+		} else if (event.entity instanceof EntityVillager villager) {
 			for (Object obj : villager.tasks.taskEntries) {
 				EntityAITaskEntry entry = (EntityAITaskEntry) obj;
 				if (entry.action instanceof EntityAIOpenDoor) {
@@ -1420,8 +1409,7 @@ public class ServerEventHandler {
 			}
 
 			//Sheep dying with modded dyes
-			if (animal instanceof EntitySheep && stack.getItem() != Items.dye && !animal.worldObj.isRemote) {
-				EntitySheep sheep = ((EntitySheep) animal);
+			if (animal instanceof EntitySheep sheep && stack.getItem() != Items.dye && !animal.worldObj.isRemote) {
 				for (int oreID : OreDictionary.getOreIDs(stack)) {
 					int fleeceColour = ~ArrayUtils.indexOf(ModRecipes.ore_dyes, OreDictionary.getOreName(oreID)) & 15;
 					if (ArrayUtils.contains(ModRecipes.ore_dyes, OreDictionary.getOreName(oreID)) && sheep.getFleeceColor() != fleeceColour
@@ -1446,8 +1434,7 @@ public class ServerEventHandler {
 		}
 
 
-		if (ConfigSounds.paintingItemFramePlacing && target instanceof EntityItemFrame) { // --- Add/Rotate within Item Frame --- //
-			EntityItemFrame itemframe = (EntityItemFrame) target;
+		if (ConfigSounds.paintingItemFramePlacing && target instanceof EntityItemFrame itemframe) { // --- Add/Rotate within Item Frame --- //
 
 			if (stack != null && itemframe.getDisplayedItem() == null) // This frame is empty and is getting an item placed inside.
 			{
@@ -1550,8 +1537,7 @@ public class ServerEventHandler {
 
 	@SubscribeEvent
 	public void entityStruckByLightning(EntityStruckByLightningEvent event) {
-		if (ConfigEntities.enableVillagerTurnsIntoWitch && event.entity instanceof EntityVillager) {
-			EntityVillager villager = (EntityVillager) event.entity;
+		if (ConfigEntities.enableVillagerTurnsIntoWitch && event.entity instanceof EntityVillager villager) {
 			if (!villager.worldObj.isRemote) {
 				EntityWitch witch = new EntityWitch(villager.worldObj);
 				witch.copyLocationAndAnglesFrom(villager);
@@ -1658,17 +1644,18 @@ public class ServerEventHandler {
 		if (ConfigBlocksItems.enableTotemUndying) {
 			handleTotemCheck(targetEntity, event);
 		}
-		
+
 		if (EntitySquid.class.equals(targetEntity.getClass())) {
 			World w = targetEntity.worldObj;
 			Random r = w.rand;
 			boolean inkSound = ConfigEntities.enableSquidInk || ConfigTweaks.squidsBlindPlayers;
-			doInk: if (inkSound && r.nextDouble() < 0.15 && w instanceof WorldServer serverWorld && targetEntity.isInWater()) {
+			doInk:
+			if (inkSound && r.nextDouble() < 0.15 && w instanceof WorldServer serverWorld && targetEntity.isInWater()) {
 				AxisAlignedBB eBox = targetEntity.boundingBox;
 				double cx = eBox.maxX - 0.5 * (eBox.maxX - eBox.minX);
 				double cy = eBox.maxY - 0.5 * (eBox.maxY - eBox.minY);
 				double cz = eBox.maxZ - 0.5 * (eBox.maxZ - eBox.minZ);
-				
+
 				AxisAlignedBB box = AxisAlignedBB.getBoundingBox(-1.5, -1.5, -1.5, 1.5, 1.5, 1.5).offset(cx, cy, cz);
 				List<EntityLivingBase> around = w.getEntitiesWithinAABB(EntityLivingBase.class, box);
 
@@ -1678,7 +1665,7 @@ public class ServerEventHandler {
 
 				EntityLivingBase target = around.get(r.nextInt(around.size()));
 				if (target != null && target != targetEntity) {
-					if(ConfigEntities.enableSquidInk) {
+					if (ConfigEntities.enableSquidInk) {
 						serverWorld.func_147487_a("largesmoke", cx, cy, cz, 5, 0.0, 0.0, 0.0, 0.08);
 					}
 					if (ConfigMixins.newMobSounds) {
@@ -1710,8 +1697,7 @@ public class ServerEventHandler {
 				if (amount > 0) {
 					EntityDamageSource src = (EntityDamageSource) event.source;
 					Entity attacker = src.getSourceOfDamage();
-					if (attacker instanceof EntityPlayer && !(attacker instanceof FakePlayer)) {
-						EntityPlayer player = (EntityPlayer) attacker;
+					if (attacker instanceof EntityPlayer player && !(attacker instanceof FakePlayer)) {
 						Vec3 look = player.getLookVec();
 						look.rotateAroundY((float) Math.PI / 2);
 						for (int i = 0; i < amount; i++) {
@@ -1788,8 +1774,8 @@ public class ServerEventHandler {
 		if (ConfigMixins.enablePlayersSleepingPecentageGamerule) {
 			PlayersSleepingPercentage.registerGamerule(event.world);
 		}
-		
-		if(ConfigMixins.enableRandomTickSpeed) {
+
+		if (ConfigMixins.enableRandomTickSpeed) {
 			RandomTickSpeed.registerGamerule(event.world);
 		}
 	}
@@ -1851,8 +1837,7 @@ public class ServerEventHandler {
 
 	@SubscribeEvent
 	public void onExplosion(ExplosionEvent kaboom) {
-		if (ConfigBlocksItems.enableLingeringPotions && !kaboom.world.isRemote && kaboom.explosion.exploder instanceof EntityCreeper) {
-			EntityCreeper creeper = (EntityCreeper) kaboom.explosion.exploder;
+		if (ConfigBlocksItems.enableLingeringPotions && !kaboom.world.isRemote && kaboom.explosion.exploder instanceof EntityCreeper creeper) {
 			Collection<PotionEffect> collection = creeper.getActivePotionEffects();
 			if (!collection.isEmpty()) {
 				ItemStack potion = new ItemStack(ModItems.LINGERING_POTION.get());
@@ -1884,7 +1869,7 @@ public class ServerEventHandler {
 
 	@SubscribeEvent
 	public void onPreWorldTick(TickEvent.WorldTickEvent e) {
-		if(e.phase == TickEvent.Phase.START && e.side == Side.SERVER) {
+		if (e.phase == TickEvent.Phase.START && e.side == Side.SERVER) {
 			if (ModBlocks.CONCRETE_POWDER.isEnabled() && ModBlocks.CONCRETE.isEnabled()) {
 				doConcreteTracking();
 			}
@@ -1919,11 +1904,9 @@ public class ServerEventHandler {
 	@SubscribeEvent
 	@SuppressWarnings("unchecked")
 	public void onPostWorldTick(TickEvent.WorldTickEvent e) {
-		if (ConfigMixins.enableElytra && e.phase == TickEvent.Phase.END && e.world instanceof WorldServer) {
-			WorldServer ws = (WorldServer) e.world;
+		if (ConfigMixins.enableElytra && e.phase == TickEvent.Phase.END && e.world instanceof WorldServer ws) {
 			for (EntityTrackerEntry ete : (Set<EntityTrackerEntry>) ws.getEntityTracker().trackedEntities) {
-				if (ete != null && ete.myEntity instanceof IElytraPlayer) {
-					IElytraPlayer elb = (IElytraPlayer) ete.myEntity;
+				if (ete != null && ete.myEntity instanceof IElytraPlayer elb) {
 					boolean flying = elb.etfu$isElytraFlying();
 					if (!flying && ((IElytraEntityTrackerEntry) ete).etfu$getWasSendingVelUpdates()) {
 						ete.sendVelocityUpdates = false;
@@ -1967,6 +1950,7 @@ public class ServerEventHandler {
 
 	private final AtomicBoolean initNoBurnItems = new AtomicBoolean(false);
 	private final AtomicBoolean initBurnTimeRemappings = new AtomicBoolean(false);
+
 	private void initFurnaceModifiers() {
 		if (!initNoBurnItems.getAndSet(true)) {
 			noBurnItems.add(ModBlocks.WOOD_PLANKS.newItemStack(1, 0));

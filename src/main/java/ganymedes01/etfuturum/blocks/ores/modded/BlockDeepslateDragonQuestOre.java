@@ -22,22 +22,22 @@ public class BlockDeepslateDragonQuestOre extends BaseSubtypesDeepslateOre {
 	@Override
 	public Block getBase(int meta) {
 		switch (meta) {
-				case 1:
-					return ExternalContent.Blocks.DQ_BRIGHTEN_ORE.get();
-				case 2:
-					return ExternalContent.Blocks.DQ_LUCIDA_ORE.get();
-				case 3:
-					return ExternalContent.Blocks.DQ_RESURROCK_ORE.get();
-				case 4:
-					return ExternalContent.Blocks.DQ_MIRRORSTONE_ORE.get();
-				case 5:
-					return ExternalContent.Blocks.DQ_ICE_CRYSTAL_ORE.get();
-				case 6:
-					return ExternalContent.Blocks.DQ_MINIMEDAL_ORE.get();
-				case 7:
-					return ExternalContent.Blocks.DQ_DENSINIUM_ORE.get();
-				case 8:
-					return ExternalContent.Blocks.DQ_GLASS_FRIT_ORE.get();
+			case 1:
+				return ExternalContent.Blocks.DQ_BRIGHTEN_ORE.get();
+			case 2:
+				return ExternalContent.Blocks.DQ_LUCIDA_ORE.get();
+			case 3:
+				return ExternalContent.Blocks.DQ_RESURROCK_ORE.get();
+			case 4:
+				return ExternalContent.Blocks.DQ_MIRRORSTONE_ORE.get();
+			case 5:
+				return ExternalContent.Blocks.DQ_ICE_CRYSTAL_ORE.get();
+			case 6:
+				return ExternalContent.Blocks.DQ_MINIMEDAL_ORE.get();
+			case 7:
+				return ExternalContent.Blocks.DQ_DENSINIUM_ORE.get();
+			case 8:
+				return ExternalContent.Blocks.DQ_GLASS_FRIT_ORE.get();
 			case 9:
 				return ExternalContent.Blocks.DQ_LUNAR_DIAMOND_ORE.get();
 			case 10:

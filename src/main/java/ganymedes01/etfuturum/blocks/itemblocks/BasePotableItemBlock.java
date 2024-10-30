@@ -37,9 +37,8 @@ public class BasePotableItemBlock extends ItemBlock {
 	}
 
 	private boolean canPlacePot(ItemStack heldStack, EntityPlayer entityPlayer, World world, int x, int y, int z) {
-		if (world.getBlock(x, y, z) == Blocks.flower_pot && !entityPlayer.isSneaking() && world.getTileEntity(x, y, z) instanceof TileEntityFlowerPot) {
+		if (world.getBlock(x, y, z) == Blocks.flower_pot && !entityPlayer.isSneaking() && world.getTileEntity(x, y, z) instanceof TileEntityFlowerPot potTile) {
 
-			TileEntityFlowerPot potTile = (TileEntityFlowerPot) world.getTileEntity(x, y, z);
 			Item potableItem = heldStack.getItem();
 			int potableMeta = heldStack.getItemDamage();
 

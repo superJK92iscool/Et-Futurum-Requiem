@@ -90,8 +90,7 @@ public class ItemStackMap<T> extends AbstractMap<ItemStack, T> {
 
 	@Override
 	public T get(Object key) {
-		if (!(key instanceof ItemStack)) return null;
-		ItemStack stack = ((ItemStack) key);
+		if (!(key instanceof ItemStack stack)) return null;
 		if (stack.getItem() == null) return null;
 		DetailMap map = itemMap.get(stack.getItem());
 		return map == null ? null : map.get(stack);
@@ -105,8 +104,7 @@ public class ItemStackMap<T> extends AbstractMap<ItemStack, T> {
 
 	@Override
 	public T remove(Object key) {
-		if (!(key instanceof ItemStack)) return null;
-		ItemStack stack = ((ItemStack) key);
+		if (!(key instanceof ItemStack stack)) return null;
 		if (stack.getItem() == null) return null;
 		DetailMap map = itemMap.get(stack.getItem());
 		return map == null ? null : map.remove(stack);
@@ -114,8 +112,7 @@ public class ItemStackMap<T> extends AbstractMap<ItemStack, T> {
 
 	@Override
 	public boolean containsKey(Object key) {
-		if (!(key instanceof ItemStack)) return false;
-		ItemStack stack = ((ItemStack) key);
+		if (!(key instanceof ItemStack stack)) return false;
 		if (stack.getItem() == null) return false;
 		DetailMap map = itemMap.get(stack.getItem());
 		return map != null && map.get(stack) != null;
@@ -169,8 +166,7 @@ public class ItemStackMap<T> extends AbstractMap<ItemStack, T> {
 
 		@Override
 		public boolean equals(Object o) {
-			if (!(o instanceof StackMetaKey)) return false;
-			StackMetaKey t = (StackMetaKey) o;
+			if (!(o instanceof StackMetaKey t)) return false;
 			return damage == t.damage && Objects.equal(tag, t.tag);
 		}
 	}
@@ -523,8 +519,7 @@ public class ItemStackMap<T> extends AbstractMap<ItemStack, T> {
 
 		@Override
 		public boolean contains(Object o) {
-			if (!(o instanceof Map.Entry)) return false;
-			Map.Entry<?, ?> entry = (Map.Entry<?, ?>) o;
+			if (!(o instanceof Map.Entry<?, ?> entry)) return false;
 			return java.util.Objects.equals(get(entry.getKey()), entry.getValue());
 		}
 
@@ -536,8 +531,7 @@ public class ItemStackMap<T> extends AbstractMap<ItemStack, T> {
 
 		@Override
 		public boolean remove(Object o) {
-			if (!(o instanceof Map.Entry)) return false;
-			Map.Entry<?, ?> entry = (Map.Entry<?, ?>) o;
+			if (!(o instanceof Map.Entry<?, ?> entry)) return false;
 			return ItemStackMap.this.remove(entry.getKey(), entry.getValue());
 		}
 

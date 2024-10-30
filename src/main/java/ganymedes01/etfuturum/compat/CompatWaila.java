@@ -114,8 +114,7 @@ public class CompatWaila {
 		@Override
 		public ItemStack getWailaStack(IWailaDataAccessor accessor, IWailaConfigHandler config) {
 			ItemStack stack = accessor.getStack();
-			if (accessor.getTileEntity() instanceof TileEntityShulkerBox) {
-				TileEntityShulkerBox box = (TileEntityShulkerBox) accessor.getTileEntity();
+			if (accessor.getTileEntity() instanceof TileEntityShulkerBox box) {
 				if (!stack.hasTagCompound()) {
 					stack.setTagCompound(new NBTTagCompound());
 				}

@@ -9,7 +9,7 @@ public class DoWeatherCycle {
 
 	public static final String GAMERULE_NAME = "doWeatherCycle";
 	public static final String DEFAULT_VALUE = "true";
-	
+
 	public boolean isWorldTickInProgress;
 	public boolean isCommandInProgress;
 
@@ -18,9 +18,9 @@ public class DoWeatherCycle {
 	}
 
 	public static void registerGamerule(World world) {
-		 if(!world.isRemote && !world.getGameRules().hasRule(GAMERULE_NAME)) {
-			 world.getGameRules().addGameRule(GAMERULE_NAME, DEFAULT_VALUE);
-		 }
+		if (!world.isRemote && !world.getGameRules().hasRule(GAMERULE_NAME)) {
+			world.getGameRules().addGameRule(GAMERULE_NAME, DEFAULT_VALUE);
+		}
 	}
 
 }
