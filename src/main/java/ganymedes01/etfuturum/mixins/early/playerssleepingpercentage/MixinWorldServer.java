@@ -66,7 +66,7 @@ public abstract class MixinWorldServer extends World {
 
 	@Redirect(method = "areAllPlayersAsleep", at = @At(value = "FIELD", target = "Lnet/minecraft/world/WorldServer;playerEntities:Ljava/util/List;", opcode = Opcodes.GETFIELD))
 	public List<EntityPlayer> baited(WorldServer instance) {
-		return INSTANCE.sleepyPlayers;
+		return INSTANCE.sleepyPlayers.isEmpty() ? this.playerEntities : INSTANCE.sleepyPlayers;
 	}
 
 	@Inject(method = "areAllPlayersAsleep", at = @At(value = "INVOKE", target = "Ljava/util/List;iterator()Ljava/util/Iterator;"), cancellable = true)
@@ -76,7 +76,7 @@ public abstract class MixinWorldServer extends World {
 
 	@Inject(method = "wakeAllPlayers", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/EntityPlayer;wakeUpPlayer(ZZZ)V"), locals = LocalCapture.CAPTURE_FAILHARD)
 	public void broadcast(CallbackInfo ctx, Iterator iterator, EntityPlayer player) {
-		if (INSTANCE.percentrillo > 0 && INSTANCE.percentrillo < 101) {
+		if (INSTANCE.percentrillo > 0 && INSTANCE.percentrillo < 100) {
 			player.addChatMessage(new ChatComponentTranslation("sleep.skipping_night"));
 		}
 	}
