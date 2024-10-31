@@ -45,7 +45,7 @@ jobs:
       with:
         name: ${{ github.repository_id }}-build-libs
         path: build/libs/
-        retention-days: 31
+        retention-days: 90
 
     - name: Attach gradle reports
       if: failure() && steps.build_mod.conclusion == 'failure'
