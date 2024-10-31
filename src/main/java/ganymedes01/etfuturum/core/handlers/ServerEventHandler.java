@@ -1880,27 +1880,6 @@ public class ServerEventHandler {
 		}
 	}
 
-	private void doConcreteTracking() {
-		for (Iterator<EntityFallingBlock> iterator = fallingConcreteBlocks.iterator(); iterator.hasNext(); ) {
-			EntityFallingBlock block = iterator.next();
-			if (!block.isDead) {
-				int i = MathHelper.floor_double(block.posX);
-				int j = MathHelper.floor_double(block.posY);
-				int k = MathHelper.floor_double(block.posZ);
-
-				for (int jOff = 0; jOff <= (block.motionY < -1.0 ? 1 : 0); jOff++) { // If it's moving downward faster than a threshold speed: 1 in this case
-					if (block.worldObj.getBlock(i, j - jOff, k).getMaterial() == Material.water) {
-						block.worldObj.setBlock(i, j - jOff, k, ModBlocks.CONCRETE.get(), block.field_145814_a, 3); // metadata
-						block.setDead();
-						iterator.remove();
-					}
-				}
-			} else {
-				iterator.remove();
-			}
-		}
-	}
-
 	@SubscribeEvent
 	@SuppressWarnings("unchecked")
 	public void onPostWorldTick(TickEvent.WorldTickEvent e) {
@@ -1922,6 +1901,27 @@ public class ServerEventHandler {
 
 		if (ConfigMixins.enableDoWeatherCycle && e.phase == TickEvent.Phase.END && e.side == Side.SERVER) {
 			DoWeatherCycle.INSTANCE.isWorldTickInProgress = false;
+		}
+	}
+
+	private void doConcreteTracking() {
+		for (Iterator<EntityFallingBlock> iterator = fallingConcreteBlocks.iterator(); iterator.hasNext(); ) {
+			EntityFallingBlock block = iterator.next();
+			if (!block.isDead) {
+				int i = MathHelper.floor_double(block.posX);
+				int j = MathHelper.floor_double(block.posY);
+				int k = MathHelper.floor_double(block.posZ);
+
+				for (int jOff = 0; jOff <= (block.motionY < -1.0 ? 1 : 0); jOff++) { // If it's moving downward faster than a threshold speed: 1 in this case
+					if (block.worldObj.getBlock(i, j - jOff, k).getMaterial() == Material.water) {
+						block.worldObj.setBlock(i, j - jOff, k, ModBlocks.CONCRETE.get(), block.field_145814_a, 3); // metadata
+						block.setDead();
+						iterator.remove();
+					}
+				}
+			} else {
+				iterator.remove();
+			}
 		}
 	}
 
