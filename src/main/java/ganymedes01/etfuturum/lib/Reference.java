@@ -11,7 +11,7 @@ public class Reference {
 	public static final String VERSION_NUMBER = Tags.VERSION;
 	public static final boolean TESTING = Boolean.getBoolean("etfuturum.testing");
 	public static final boolean DEV_ENVIRONMENT = (Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");
-	public static final String VERSION_URL = System.getProperty("etfuturum.versionUrl", "https://raw.githubusercontent.com/Roadhog360/Et-Futurum-Requiem/master/LATEST_VERSION");
+	public static final String VERSION_URL = System.getProperty("etfuturum.versionUrl", "https://raw.githubusercontent.com/Roadhog360/Et-Futurum-Requiem/master/updatejson/update.json");
 	public static final String MODRINTH_URL = "https://modrinth.com/mod/etfuturum";
 	public static final String CURSEFORGE_URL = "https://www.curseforge.com/minecraft/mc-mods/et-futurum-requiem";
 	public static final String GITHUB_URL = "https://github.com/Roadhog360/Et-Futurum-Requiem";

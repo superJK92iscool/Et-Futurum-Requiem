@@ -169,7 +169,6 @@ public class ConfigFunctions extends ConfigBase {
 	public static String subtitleBlacklist;
 	public static String[] extraDropRawOres = new String[]{"oreCopper", "oreTin"};
 
-	static final String catUpdateChecker = "update_checker";
 	static final String catChanges = "changes";
 	static final String catSettings = "settings";
 	static final String catClient = "client";
@@ -177,13 +176,11 @@ public class ConfigFunctions extends ConfigBase {
 
 	public ConfigFunctions(File file) {
 		super(file);
-		setCategoryComment(catUpdateChecker, "Category solely for the update checker, to make it easier to find and disable for those who don't want it.");
 		setCategoryComment(catChanges, "Changes to existing content.");
 		setCategoryComment(catSettings, "Settings for Et Futurum content.");
 		setCategoryComment(catCommands, "New commands");
 		setCategoryComment(catClient, "Client-side settings or changes.");
 
-		configCats.add(getCategory(catUpdateChecker));
 		configCats.add(getCategory(catChanges));
 		configCats.add(getCategory(catSettings));
 		configCats.add(getCategory(catCommands));
@@ -193,8 +190,6 @@ public class ConfigFunctions extends ConfigBase {
 	@Override
 	protected void syncConfigOptions() {
 		if (EtFuturumEarlyMixins.side == MixinEnvironment.Side.CLIENT) {
-			enableUpdateChecker = getBoolean("enableUpdateChecker", catUpdateChecker, true, "Check and print a chat message in-game if there's a new update available?");
-
 			enableAttackedAtYawFix = getBoolean("enableAttackedAtYawFix", catChanges, true, "Adds a packet to send the attackedAtYaw field value to the client, which allows the screen to tilt based on where damage came from, and either left or right for direction-less sources like drowning or burning, instead of tilting to the left no matter what.");
 		}
 

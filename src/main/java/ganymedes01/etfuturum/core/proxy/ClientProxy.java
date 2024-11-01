@@ -17,7 +17,6 @@ import ganymedes01.etfuturum.client.subtitle.GuiSubtitles;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.core.handlers.ClientEventHandler;
-import ganymedes01.etfuturum.core.utils.VersionChecker;
 import ganymedes01.etfuturum.entities.*;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.lib.RenderIDs;
@@ -56,10 +55,6 @@ public class ClientProxy extends CommonProxy {
 		if (ConfigFunctions.enableSubtitles) {
 			GuiSubtitles.INSTANCE = new GuiSubtitles(FMLClientHandler.instance().getClient());
 			MinecraftForge.EVENT_BUS.register(GuiSubtitles.INSTANCE);
-		}
-
-		if (ConfigFunctions.enableUpdateChecker && !Reference.SNAPSHOT_BUILD && !Reference.DEV_ENVIRONMENT) {
-			FMLCommonHandler.instance().bus().register(VersionChecker.instance);
 		}
 
 		MinecraftForge.EVENT_BUS.register(BiomeFogEventHandler.INSTANCE);

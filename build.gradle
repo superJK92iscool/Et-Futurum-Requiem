@@ -5,7 +5,7 @@ plugins {
 }
 
 // The planned name of the next release
-def NEXT_VERSION = "2.6.1"
+def NEXT_VERSION = "2.6.2"
 version = NEXT_VERSION
 
 // Append to the version as needed. If the variables look a bit strange, that's because they are -
