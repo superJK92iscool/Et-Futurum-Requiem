@@ -229,7 +229,6 @@ public class EtFuturum {
 		networkWrapper.registerMessage(AttackYawHandler.class, AttackYawMessage.class, 7, Side.CLIENT);
 
 		String buildVer = event.getModMetadata().version;
-		Reference.SNAPSHOT_BUILD = buildVer.toLowerCase().contains("snapshot") || buildVer.contains("alpha") || buildVer.toLowerCase().contains("beta") || buildVer.toLowerCase().contains("rc");
 		if (!Reference.SNAPSHOT_BUILD && !Reference.DEV_ENVIRONMENT) {
 			MCLibModules.updateCheckAPI.submitModTask(Reference.MOD_ID, Reference.VERSION_URL);
 		}

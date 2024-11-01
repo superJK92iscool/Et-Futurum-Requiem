@@ -23,5 +23,5 @@ public class Reference {
 	public static final String ENTITY_TEXTURE_PATH = ITEM_BLOCK_TEXTURE_PATH + "textures/entities/";
 
 	public static boolean launchConfigWarning;
-	public static boolean SNAPSHOT_BUILD = false;
+	public static boolean SNAPSHOT_BUILD = Tags.VERSION.toLowerCase().contains("snapshot") || Tags.VERSION.toLowerCase().contains("nightly") || Tags.VERSION.toLowerCase().contains("alpha") || Tags.VERSION.toLowerCase().contains("beta") || Tags.VERSION.toLowerCase().contains("rc");
 }
