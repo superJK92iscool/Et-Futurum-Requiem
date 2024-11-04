@@ -28,6 +28,7 @@ import ganymedes01.etfuturum.configuration.configs.*;
 import ganymedes01.etfuturum.core.handlers.WorldEventHandler;
 import ganymedes01.etfuturum.core.proxy.CommonProxy;
 import ganymedes01.etfuturum.core.utils.IInitAction;
+import ganymedes01.etfuturum.core.utils.Logger;
 import ganymedes01.etfuturum.entities.ModEntityList;
 import ganymedes01.etfuturum.items.ItemWoodSign;
 import ganymedes01.etfuturum.lib.Reference;
@@ -141,7 +142,7 @@ public class EtFuturum {
 			//Add the sign items back but in a way so they are sorted by their block ID instead of their item ID.
 			//This allows them to be in the correct place instead of always at the bottom of the block ID list, since item IDs are always above block IDs
 			for (ModItems sign : ModItems.OLD_SIGN_ITEMS) {
-				for (ItemStack stack : (List<ItemStack>) list) {
+				for (ItemStack stack : list) {
 					if (Item.getIdFromItem(stack.getItem()) > Block.getIdFromBlock(((ItemWoodSign) sign.get()).getSignBlock())) {
 						list.add(list.indexOf(stack), sign.newItemStack());
 						break;
@@ -153,6 +154,8 @@ public class EtFuturum {
 
 	@EventHandler
 	public void onConstruction(FMLConstructionEvent event) {
+		Logger.info(Reference.MOD_ID + " is in snapshot mode. Disabling update checker... Other features may also be different.");
+
 		MCLib.init();
 
 		ADConfig config = new ADConfig();
@@ -228,9 +231,8 @@ public class EtFuturum {
 		networkWrapper.registerMessage(StartElytraFlyingHandler.class, StartElytraFlyingMessage.class, 6, Side.SERVER);
 		networkWrapper.registerMessage(AttackYawHandler.class, AttackYawMessage.class, 7, Side.CLIENT);
 
-		String buildVer = event.getModMetadata().version;
 		if (!Reference.SNAPSHOT_BUILD && !Reference.DEV_ENVIRONMENT) {
-			MCLibModules.updateCheckAPI.submitModTask(Reference.MOD_ID, Reference.VERSION_URL);
+			MCLibModules.updateCheckAPI.submitModTask(Reference.MOD_ID, Reference.VERSION_NUMBER, Reference.VERSION_URL);
 		}
 
 		CompatMisc.runModHooksPreInit();

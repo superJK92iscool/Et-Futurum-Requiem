@@ -2,11 +2,11 @@
 
 plugins {
     id 'com.gtnewhorizons.gtnhconvention'
+    id 'com.palantir.git-version'
 }
 
 // The planned name of the next release
-def NEXT_VERSION = "2.6.2"
-version = NEXT_VERSION
+def NEXT_VERSION = ext.modVersion
 
 // Append to the version as needed. If the variables look a bit strange, that's because they are -
 // git-version doesn't expose a ton of useful functions, we need to extract them indirectly.
@@ -17,11 +17,19 @@ def details = versionDetails()
 def isPlainTag = details.getCommitDistance() == 0
 def noCommitHash = providers.gradleProperty("noCommitHash").isPresent()
 if (!isPlainTag && !noCommitHash) {
-    version += "-nightly-" + details.gitHash
+    NEXT_VERSION += "-nightly-" + details.gitHash
 }
 
 // If we have uncommitted changes, say so.
 def isDirty = gitVersion().endsWith(".dirty")
 if (isDirty && !noCommitHash) {
-    version += "-dirty"
+    NEXT_VERSION += "-dirty"
+}
+
+//Set the mod and jar version to the info we just collected.
+version = NEXT_VERSION
+
+minecraft {
+    //Creates a tag in Tags with the above generated mod version, instead of the "clean" one
+    injectedTags.put("RAW_VERSION", NEXT_VERSION)
 }

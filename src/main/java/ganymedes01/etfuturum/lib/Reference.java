@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum.lib;
 
+import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.Tags;
 import net.minecraft.launchwrapper.Launch;
 
@@ -23,5 +24,18 @@ public class Reference {
 	public static final String ENTITY_TEXTURE_PATH = ITEM_BLOCK_TEXTURE_PATH + "textures/entities/";
 
 	public static boolean launchConfigWarning;
-	public static boolean SNAPSHOT_BUILD = Tags.VERSION.toLowerCase().contains("snapshot") || Tags.VERSION.toLowerCase().contains("nightly") || Tags.VERSION.toLowerCase().contains("alpha") || Tags.VERSION.toLowerCase().contains("beta") || Tags.VERSION.toLowerCase().contains("rc");
+	public static final boolean SNAPSHOT_BUILD = isSnapshotBuild(Tags.RAW_VERSION);
+
+	/**
+	 * TODO move to HogUtils once that exists
+	 */
+	private static boolean isSnapshotBuild(String version) {
+		version = version.toLowerCase();
+		return version.contains("snapshot")
+				|| version.contains("nightly")
+				|| version.contains("alpha")
+				|| version.contains("beta")
+				|| version.contains("rc")
+				|| (version.contains("release") && version.contains("candidate"));
+	}
 }
