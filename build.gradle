@@ -32,4 +32,5 @@ version = NEXT_VERSION
 minecraft {
     //Creates a tag in Tags with the above generated mod version, instead of the "clean" one
     injectedTags.put("RAW_VERSION", NEXT_VERSION)
+    injectedTags.put("MOD_ID", project.modId)
 }
