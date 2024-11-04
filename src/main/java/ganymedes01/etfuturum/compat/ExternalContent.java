@@ -147,6 +147,9 @@ public class ExternalContent {
 
 		BLUEPOWER_CIRCUIT_PLATE("bluepower", "stone_tile"),
 		PROJECTRED_CIRCUIT_PLATE("ProjRed|Core", "projectred.core.part"),
+
+		THAUMCRAFT_EARTHMOVER_SHOVEL("Thaumcraft", "ItemShovelElemental"),
+		BOTANIA_MANASTEEL_SHOVEL("Botania", "manasteelShovel"),
 		;
 
 		private Item item;

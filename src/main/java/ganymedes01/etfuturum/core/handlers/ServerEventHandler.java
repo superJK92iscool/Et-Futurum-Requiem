@@ -981,7 +981,10 @@ public class ServerEventHandler {
 						//This is nested into the same function since they use similar checks
 						if (heldStack != null) {
 							Set<String> toolClasses = heldStack.getItem().getToolClasses(heldStack);
-							if (toolClasses != null) {
+							if (toolClasses != null
+									//TODO dirty solution, make this a list, maybe a HogUtils tag `#etfuturum:no_till_shovels`?
+									&& heldStack.getItem() != ExternalContent.Items.BOTANIA_MANASTEEL_SHOVEL.get()
+									&& heldStack.getItem() != ExternalContent.Items.THAUMCRAFT_EARTHMOVER_SHOVEL.get()) {
 								if (ConfigBlocksItems.enableGrassPath && toolClasses.contains("shovel") && !world.getBlock(x, y + 1, z).getMaterial().isSolid() && (oldBlock == Blocks.grass || oldBlock == Blocks.dirt || oldBlock == Blocks.mycelium)) {
 									player.swingItem();
 									if (!world.isRemote) {
