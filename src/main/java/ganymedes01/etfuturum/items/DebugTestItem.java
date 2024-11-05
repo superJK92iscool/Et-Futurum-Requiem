@@ -21,6 +21,7 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * Used while in the dev environment to run random code and test certain features such as structure placement.
@@ -77,8 +78,8 @@ public class DebugTestItem extends BaseItem {
 	private boolean canUse(EntityPlayer player) {
 		if (player.worldObj.isRemote) {
 			return FMLClientHandler.instance().getClientPlayerEntity().capabilities.isCreativeMode;
-		} else if (player instanceof EntityPlayerMP) {
-			return ((EntityPlayerMP) player).theItemInWorldManager.isCreative();
+		} else if (player instanceof EntityPlayerMP entityPlayerMP) {
+			return entityPlayerMP.theItemInWorldManager.isCreative();
 		}
 		return false;
 	}
@@ -128,30 +129,40 @@ public class DebugTestItem extends BaseItem {
 		NONE(null, false),
 		FOSSIL("Fossil", true) {
 
-			final WorldGenFossil fossil = new WorldGenFossil() {
-				@Override
-				protected boolean canFossilGenerateHere(World world, int x, int y, int z, BlockPos corners) {
-					return true;
-				}
-			};
+			private final Supplier<WorldGenFossil> fossilSupplier = () -> new WorldGenFossil() {
+						@Override
+						protected boolean canFossilGenerateHere (World world,int x, int y, int z, BlockPos corners){
+							return true;
+						}
+					};
+
+			private WorldGenFossil fossil;
 
 			@Override
 			protected boolean runAction(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+				if(fossil == null) {
+					fossil = fossilSupplier.get();
+				}
 				return fossil.generate(world, world.rand, x, y, z);
 			}
 		},
 		GEODE("Geode", true) {
 
-			final WorldGenGeode fossil = new WorldGenGeode(ConfigWorld.amethystOuterBlock, ConfigWorld.amethystMiddleBlock) {
+			private final Supplier<WorldGenGeode> geodeSupplier = () -> new WorldGenGeode(ConfigWorld.amethystOuterBlock, ConfigWorld.amethystMiddleBlock) {
 				@Override
 				protected boolean isInvalidCorner(World world, int x, int y, int z) {
 					return false;
 				}
 			};
 
+			private WorldGenGeode geode;
+
 			@Override
 			protected boolean runAction(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
-				return fossil.generate(world, world.rand, x, y, z);
+				if(geode == null) {
+					geode = geodeSupplier.get();
+				}
+				return geode.generate(world, world.rand, x, y, z);
 			}
 		},
 		BEE_NEST("Bee Nest", true) {
