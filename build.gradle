@@ -57,4 +57,6 @@ minecraft {
                 || NEXT_VERSION.contains("beta")
                 || NEXT_VERSION.contains("rc")
                 || (NEXT_VERSION.contains("release") && NEXT_VERSION.contains("candidate")))
+
+    injectedTags.put("MC_ASSET_VER", "minecraft_1.21")
 }
