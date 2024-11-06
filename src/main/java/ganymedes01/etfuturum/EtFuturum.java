@@ -72,16 +72,16 @@ import java.util.*;
 		modid = Reference.MOD_ID,
 		name = Reference.MOD_NAME,
 		version = Reference.VERSION_NUMBER,
-		dependencies = Reference.DEPENDENCIES,
-		guiFactory = "ganymedes01.etfuturum.configuration.ConfigGuiFactory"
+		dependencies = Reference.DEPENDENCIES
+//		guiFactory = Tags.MOD_GROUP + ".configuration.ConfigGuiFactory"
 )
 
 public class EtFuturum {
 
-	@Instance("etfuturum")
+	@Instance(Tags.MOD_ID)
 	public static EtFuturum instance;
 
-	@SidedProxy(clientSide = "ganymedes01.etfuturum.core.proxy.ClientProxy", serverSide = "ganymedes01.etfuturum.core.proxy.CommonProxy")
+	@SidedProxy(clientSide = Tags.MOD_GROUP + ".core.proxy.ClientProxy", serverSide = Tags.MOD_GROUP + ".core.proxy.CommonProxy")
 	public static CommonProxy proxy;
 
 	public static SimpleNetworkWrapper networkWrapper;
