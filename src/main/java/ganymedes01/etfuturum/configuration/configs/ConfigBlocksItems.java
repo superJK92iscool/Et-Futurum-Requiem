@@ -92,7 +92,6 @@ public class ConfigBlocksItems extends ConfigBase {
 	public static boolean enableStrippedLogs;
 	public static boolean enableBlueIce;
 	public static boolean enableCopper;
-	public static boolean enableCopperSubItems;
 	public static boolean enableDeepslate;
 	public static boolean enableDeepslateOres;
 	public static boolean enableCalcite;
@@ -309,7 +308,6 @@ public class ConfigBlocksItems extends ConfigBase {
 		enableExtraVanillaSlabs = getBoolean("enableExtraVanillaSlabs", catBlockMisc, true, "Slabs for vanilla blocks: stone, mossy stone brick, mossy cobble, cut sandstone");
 		enableExtraVanillaStairs = getBoolean("enableExtraVanillaStairs", catBlockMisc, true, "Stairs for vanilla blocks: stone, mossy stone brick, mossy cobble");
 		enableExtraVanillaWalls = getBoolean("enableExtraVanillaWalls", catBlockMisc, true, "Stairs for vanilla blocks: stone brick, mossy stone brick, sandstone, brick, nether brick");
-		enableCopperSubItems = getBoolean("enableCopperSubItems", catBlockMisc, true, "Copper sub-blocks and items. Disable copper but keep this on if you want the new copper items and blocks made of it, without the main ingot, ore or copper block itself.");
 		enableGlazedTerracotta = getBoolean("enableGlazedTerracotta", catBlockMisc, true, "");
 		enableBarrier = getBoolean("enableBarrier", catBlockMisc, true, "A solid, indestructible and invisible block. Can be seen when holding it in Creative mode.");
 		enableLightBlock = getBoolean("enableLightBlock", catBlockMisc, true, "Invisible light blocks. Only has a selection box when held, right click to change light level. Otherwise functionally identical to air and can be replaced by placing blocks into it. Invisible, but can be seen when holding it in Creative mode.");
