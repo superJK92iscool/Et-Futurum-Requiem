@@ -51,6 +51,8 @@ public enum ModsList {
 	ENDLESS_IDS_ENCHANTMENT("endlessids_enchantment"),
 	MC_PATCHER_FORGE("mcpatcherforge"),
 
+	RPLE("rple"),
+
 	GTNH("dreamcraft"),
 	;
 

@@ -111,7 +111,7 @@ public class BlockCopperBulb extends BlockCopper {
 	}
 
 	protected boolean isLit(World world, int x, int y, int z, int meta) {
-		return meta % 6 > 3;
+		return meta % 8 > 3;
 	}
 
 	protected Block getOppositeState() {

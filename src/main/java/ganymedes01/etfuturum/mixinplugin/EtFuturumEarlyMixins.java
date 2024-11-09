@@ -212,6 +212,9 @@ public class EtFuturumEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoade
 
 		if (ConfigMixins.soulFire) {
 			mixins.add("soulfire.MixinBlockFire");
+			if(loadedCoreMods.stream().anyMatch(name -> name.contains("rple"))) { //RPLE compat
+				mixins.add("soulfire.MixinBlockFireRPLE");
+			}
 			mixins.add("soulfire.MixinEntity");
 			if (side == MixinEnvironment.Side.CLIENT) {
 				mixins.add("soulfire.MixinRenderBlocks");

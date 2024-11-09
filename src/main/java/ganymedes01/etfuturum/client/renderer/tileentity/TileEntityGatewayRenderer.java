@@ -35,7 +35,7 @@ public class TileEntityGatewayRenderer extends TileEntitySpecialRenderer {
 			double d0 = te.isSpawning() ? 256.0D - y : 25.0D;
 			f = MathHelper.sin(f * (float) Math.PI);
 			int j = MathHelper.floor_double((double) f * d0);
-			float[] afloat = te.isSpawning() ? EntitySheep.fleeceColorTable[ConfigBlocksItems.endGatewaySpawnColor] : EntitySheep.fleeceColorTable[ConfigBlocksItems.endGatewayEntryColor];
+			float[] afloat = EntitySheep.fleeceColorTable[te.isSpawning() ? ConfigBlocksItems.endGatewaySpawnColor : ConfigBlocksItems.endGatewayEntryColor];
 			TileEntityNewBeaconRenderer.renderBeamSegment(x, y, z, destroyStage, f, (double) te.getWorldObj().getTotalWorldTime(), 0, j, afloat, 0.15D, 0.175D);
 			TileEntityNewBeaconRenderer.renderBeamSegment(x, y, z, destroyStage, f, (double) te.getWorldObj().getTotalWorldTime(), 0, -j, afloat, 0.15D, 0.175D);
 		}

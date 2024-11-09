@@ -236,6 +236,10 @@ public class EtFuturum {
 		}
 
 		CompatMisc.runModHooksPreInit();
+
+		if(ModsList.RPLE.isLoaded()) {
+			CompatRPLEEventHandler.registerRPLECompat();
+		}
 	}
 
 	@EventHandler
