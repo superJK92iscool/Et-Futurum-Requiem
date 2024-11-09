@@ -10,6 +10,7 @@ import ganymedes01.etfuturum.configuration.configs.ConfigModCompat;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.items.BaseSubtypesItem;
 import ganymedes01.etfuturum.lib.GUIIDs;
+import ganymedes01.etfuturum.spectator.SpectatorMode;
 import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox;
 import ganymedes01.etfuturum.tileentities.TileEntityShulkerBox.ShulkerBoxType;
 import net.minecraft.block.Block;
@@ -151,7 +152,7 @@ public class BlockShulkerBox extends BlockContainer {
 						.addCoord(0.5F * (float) dir.offsetX, 0.5F * (float) dir.offsetY, 0.5F * (float) dir.offsetZ);
 				axisalignedbb.addCoord(-(double) dir.offsetX, -(double) dir.offsetY, -(double) dir.offsetZ);
 
-				flag = canOpen(axisalignedbb, world, shulker);
+				flag = canOpen(axisalignedbb, world, shulker, player);
 			} else {
 				flag = true;
 			}
@@ -197,8 +198,11 @@ public class BlockShulkerBox extends BlockContainer {
 		return this.getCollisionBoundingBoxFromPool(worldIn, x, y, z);
 	}
 
-	private boolean canOpen(AxisAlignedBB bb, World world, TileEntity tile) {
-		List<AxisAlignedBB> boxes = new ArrayList<AxisAlignedBB>();
+	private boolean canOpen(AxisAlignedBB bb, World world, TileEntity tile, EntityPlayer player) {
+		if(SpectatorMode.isSpectator(player)) {
+			return true;
+		}
+		List<AxisAlignedBB> boxes = new ArrayList<>();
 		int i = MathHelper.floor_double(bb.minX);
 		int j = MathHelper.floor_double(bb.maxX + 1.0D);
 		int k = MathHelper.floor_double(bb.minY);
