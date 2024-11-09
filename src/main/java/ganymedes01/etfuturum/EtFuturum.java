@@ -487,6 +487,10 @@ public class EtFuturum {
 
 		MultiBlockSoundRegistry.addBasic(ModBlocks.PACKED_MUD.get(), ModSounds.soundMudBricks, 1);
 
+		if(ModsList.IRON_CHEST.isVersionNewerOrEqual("6.0.78")) { // Version netherite chests were added in
+			MultiBlockSoundRegistry.addBasic(ExternalContent.Blocks.IRON_CHEST.get(), ModSounds.soundNetherite, 8);
+		}
+
 		if (ExternalContent.Blocks.TCON_METAL.get() != null) {
 			{
 				BasicMultiBlockSound mbs = new BasicMultiBlockSound() {

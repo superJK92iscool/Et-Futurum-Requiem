@@ -3,6 +3,7 @@ package ganymedes01.etfuturum.mixinplugin;
 import com.gtnewhorizon.gtnhmixins.IEarlyMixinLoader;
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
 import ganymedes01.etfuturum.EtFuturum;
+import ganymedes01.etfuturum.Tags;
 import ganymedes01.etfuturum.compat.CompatMisc;
 import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.configuration.configs.ConfigEnchantsPotions;
@@ -57,13 +58,9 @@ public class EtFuturumEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoade
 		CompatMisc.doLwjgl3ifyCompat();
 	}
 
-	private boolean doesClassExist(String path) {
-		return EtFuturum.class.getResource("/" + path + ".class") != null;
-	}
-
 	@Override
 	public String getMixinConfig() {
-		return "mixins.etfuturum.early.json";
+		return "mixins." + Tags.MOD_ID + ".early.json";
 	}
 
 	@Override
@@ -111,7 +108,7 @@ public class EtFuturumEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoade
 			mixins.add("backlytra.MixinEntityLivingBase");
 			mixins.add("backlytra.MixinNetHandlerPlayServer");
 			mixins.add("backlytra.MixinEntityTrackerEntry");
-			if (doesClassExist("thaumcraft/common/lib/events/EventHandlerEntity")) {
+			if (loadedCoreMods.stream().anyMatch(name -> name.contains("thaumcraft"))) {
 				mixins.add("backlytra.thaumcraft.MixinEventHandlerEntity");
 			}
 			if (side == MixinEnvironment.Side.CLIENT) {

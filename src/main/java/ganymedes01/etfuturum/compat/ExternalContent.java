@@ -47,6 +47,8 @@ public class ExternalContent {
 		AE2_CERTUS_QUARTZ_ORE("appliedenergistics2", "tile.OreQuartz"),
 		AE2_CHARGED_CERTUS_QUARTZ_ORE("appliedenergistics2", "tile.OreQuartzCharged"),
 
+		IRON_CHEST("IronChest", "BlockIronChest"),
+
 		ARS_MAGICA_2_ORE("arsmagica2", "vinteumOre"),
 
 		THAUMCRAFT_ORE("Thaumcraft", "blockCustomOre"),
