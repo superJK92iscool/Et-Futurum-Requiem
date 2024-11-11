@@ -78,7 +78,7 @@ public class ContainerAnvil extends ContainerRepair {
 
 					stackSizeToBeUsedInRepair = k;
 				} else {
-					if (!flag7 && (itemstack1.getItem() != itemstack2.getItem() || !itemstack1.isItemStackDamageable())) {
+					if (!flag7 && (itemstack1.getItem() != itemstack2.getItem() || !itemstack1.isItemStackDamageable() || itemstack1.getHasSubtypes())) {
 						outputSlot.setInventorySlotContents(0, null);
 						maximumCost = 0;
 						return;
