@@ -2,7 +2,7 @@ package ganymedes01.etfuturum.mixins.early.soulfire;
 
 import com.falsepattern.rple.api.common.block.RPLEBlock;
 import com.falsepattern.rple.api.common.block.RPLECustomBlockBrightness;
-import ganymedes01.etfuturum.compat.CompatRPLEEventHandler;
+import ganymedes01.etfuturum.configuration.configs.ConfigModCompat;
 import ganymedes01.etfuturum.ducks.ISoulFireInfo;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFire;
@@ -37,7 +37,7 @@ public abstract class MixinBlockFireRPLE extends Block implements ISoulFireInfo,
 	@Override
 	public short rple$getCustomBrightnessColor(@NotNull IBlockAccess world, int blockMeta, int posX, int posY, int posZ) {
 		if(etfuturum$isVanillaFire() && isSoulFire(world, posX, posY, posZ)) {
-			return CompatRPLEEventHandler.SOUL_FIRE;
+			return ConfigModCompat.soulFireColor;
 		}
 		return rple$getCustomBrightnessColor(blockMeta);
 	}
