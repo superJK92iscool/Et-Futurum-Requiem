@@ -14,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.oredict.OreDictionary;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -182,21 +183,11 @@ public class DeepslateOreRegistry {
 		return deepslateOres.get(RegistryMapping.getKeyFor(block, meta));
 	}
 
-	/**
-	 * @return The entire deepslate ore mapping, where the hash for a metadata/block pair is the key.
-	 * The key's return value is of the class BlockAndMetadataMapping, which just store
-	 * a Block instance, and a metadata value.
-	 * <p>
-	 * Hashes are used so we don't have to create hundreds of BlockAndMetadataMapping
-	 * instances just to compare each block we replace.
-	 * <p>
-	 * The hash is {@code block.hashCode() + meta}.
-	 * <p>
-	 * Do not use this to add or get items from the map this way,
-	 * in case the key changes.
-	 */
+	/// @return The entire deepslate ore mapping, where a [RegistryMapping<Block>] is the key.
+	/// The key's return value is of the class [RegistryMapping<Block>], which just store a Block instance, and a metadata value.
+	/// The map is not modifiable, please use the registry helper functions to add/remove entries.
 	public static Map<RegistryMapping<Block>, RegistryMapping<Block>> getOreMap() {
-		return deepslateOres;
+		return Collections.unmodifiableMap(deepslateOres);
 	}
 
 	public static void init() {
@@ -205,7 +196,10 @@ public class DeepslateOreRegistry {
 
 				Block oreNorm = entry.getKey().getObject();
 				Block oreDeep = entry.getValue().getObject();
-//				if (!ModRecipes.validateItems(oreNorm, oreDeep)) continue;
+				if (!ModRecipes.validateItems(oreNorm, oreDeep)) {
+					Logger.error("INVALID FURNACE RECIPE DETECTED: " + entry);
+					Logger.error("This means that a mod added INVALID items to the furnace registry!");
+				}
 
 				boolean saltyModOre = oreDeep.getClass().getName().toLowerCase().contains("saltymod");
 

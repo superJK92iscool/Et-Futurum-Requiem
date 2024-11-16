@@ -275,7 +275,7 @@ public class Utils {
 		long i = Double.doubleToRawLongBits(p_181161_0_);
 		i = 6910469410427058090L - (i >> 1);
 		p_181161_0_ = Double.longBitsToDouble(i);
-		p_181161_0_ = p_181161_0_ * (1.5D - d0 * p_181161_0_ * p_181161_0_);
+		p_181161_0_ *= 1.5D - d0 * p_181161_0_ * p_181161_0_;
 		return p_181161_0_;
 	}
 
