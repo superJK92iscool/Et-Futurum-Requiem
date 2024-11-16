@@ -243,7 +243,7 @@ public class Utils {
 			p_181159_0_ = d1;
 		}
 
-		double d9 = fastInvSqrt(d0);
+		double d9 = invSqrt(d0);
 		p_181159_2_ = p_181159_2_ * d9;
 		p_181159_0_ = p_181159_0_ * d9;
 		double d2 = FRAC_BIAS + p_181159_0_;
@@ -270,13 +270,12 @@ public class Utils {
 		return d8;
 	}
 
-	public static double fastInvSqrt(double p_181161_0_) {
-		double d0 = 0.5D * p_181161_0_;
-		long i = Double.doubleToRawLongBits(p_181161_0_);
-		i = 6910469410427058090L - (i >> 1);
-		p_181161_0_ = Double.longBitsToDouble(i);
-		p_181161_0_ *= 1.5D - d0 * p_181161_0_ * p_181161_0_;
-		return p_181161_0_;
+	public static float invSqrt(float num) {
+		return 1 / (float) Math.sqrt(num);
+	}
+
+	public static double invSqrt(double num) {
+		return 1 / Math.sqrt(num);
 	}
 
 	public static double perlinFade(double value) {
@@ -346,24 +345,6 @@ public class Utils {
 	public static long lfloor(double value) {
 		long l = (long) value;
 		return value < (double) l ? l - 1L : l;
-	}
-
-	public static float fastInverseSqrt(float x) {
-		float f = 0.5F * x;
-		int i = Float.floatToIntBits(x);
-		i = 1597463007 - (i >> 1);
-		x = Float.intBitsToFloat(i);
-		x *= 1.5F - f * x * x;
-		return x;
-	}
-
-	public static double fastInverseSqrt(double x) {
-		double d = 0.5D * x;
-		long l = Double.doubleToRawLongBits(x);
-		l = 6910469410427058090L - (l >> 1);
-		x = Double.longBitsToDouble(l);
-		x *= 1.5D - d * x * x;
-		return x;
 	}
 
 	public static <T> T getRandom(List<T> list, Random rand) {

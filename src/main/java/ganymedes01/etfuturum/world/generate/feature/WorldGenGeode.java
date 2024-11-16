@@ -182,13 +182,13 @@ public class WorldGenGeode extends WorldGenerator {
 
 				Iterator<Pair<BlockPos, Integer>> var40;
 				Pair<BlockPos, Integer> pair;
-				for (var40 = list.iterator(); var40.hasNext(); currentLayerSqrt += Utils.fastInverseSqrt(blockPos3.getSquaredDistance(pair.getLeft()) + (double) pair.getRight()) + t) {
+				for (var40 = list.iterator(); var40.hasNext(); currentLayerSqrt += Utils.invSqrt(blockPos3.getSquaredDistance(pair.getLeft()) + (double) pair.getRight()) + t) {
 					pair = var40.next();
 				} //Almost deleted this code for being unused, but the variable in the for loop is vital to later parts of the code.
 
 				BlockPos blockPos4;
 				Iterator<BlockPos> var41;
-				for (var41 = list2.iterator(); var41.hasNext(); v += Utils.fastInverseSqrt(blockPos3.getSquaredDistance(blockPos4) + (double) crackPointOffset) + t) {
+				for (var41 = list2.iterator(); var41.hasNext(); v += Utils.invSqrt(blockPos3.getSquaredDistance(blockPos4) + (double) crackPointOffset) + t) {
 					blockPos4 = var41.next();
 				} //Almost deleted this code for being unused, but the variable in the for loop is vital to later parts of the code.
 			} while (currentLayerSqrt < outerLayerSqrt);
