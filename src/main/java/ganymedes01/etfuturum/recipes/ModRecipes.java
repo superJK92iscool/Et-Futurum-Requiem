@@ -45,6 +45,7 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
+import roadhog360.hogutils.api.utils.RecipeHelper;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -1301,8 +1302,8 @@ public class ModRecipes {
 			ItemGeneralModdedRawOre oreItem = pair.getLeft().get(j);
 			BlockGeneralModdedRawOre oreBlock = pair.getRight().get(j);
 			for (int i = 0; i < oreItem.ores.length; i++) {
-				removeAllEFRRecipesFor(oreItem, i);
-				removeAllEFRRecipesFor(oreBlock, i);
+				RecipeHelper.removeAllRecipesWithOutput(oreItem, i, false);
+				RecipeHelper.removeAllRecipesWithOutput(oreBlock, i, false);
 				ItemStack stack = new ItemStack(oreItem, 1, i);
 				Iterator<ItemStack> iterator = FurnaceRecipes.smelting().getSmeltingList().keySet().iterator();
 				while (iterator.hasNext()) {
@@ -1370,7 +1371,7 @@ public class ModRecipes {
 						registerOre(tag, stack);
 					}
 				}
-				if (validateItems(ore)) {
+				if (RecipeHelper.validateItems(ore)) {
 					DeepslateOreRegistry.addOre(ore.getBase(), ore.getBaseMeta(), ore, 0);
 				}
 			}
@@ -1385,7 +1386,7 @@ public class ModRecipes {
 							registerOre(tag, stack);
 						}
 					}
-					if (validateItems(ore)) {
+					if (RecipeHelper.validateItems(ore)) {
 						DeepslateOreRegistry.addOre(ore.getBase(i), ore.getBaseMeta(i), ore, i);
 					}
 				}
@@ -1457,75 +1458,51 @@ public class ModRecipes {
 	}
 
 	private static void registerOre(String oreName, ItemStack ore) {
-		if (validateItems(ore)) {
+		if (RecipeHelper.validateItems(ore)) {
 			OreDictionary.registerOre(oreName, ore);
 		}
 	}
 
 	private static void registerOre(String oreName, Item ore) {
-		if (validateItems(ore)) {
+		if (RecipeHelper.validateItems(ore)) {
 			OreDictionary.registerOre(oreName, ore);
 		}
 	}
 
 	private static void registerOre(String oreName, Block ore) {
-		if (validateItems(ore)) {
+		if (RecipeHelper.validateItems(ore)) {
 			OreDictionary.registerOre(oreName, ore);
 		}
 	}
 
 	private static void addSmelting(Item input, ItemStack output, float exp) {
-		if (validateItems(input) && validateItems(output)) {
+		if (RecipeHelper.validateItems(input) && RecipeHelper.validateItems(output)) {
 			GameRegistry.addSmelting(input, output, exp);
 		}
 	}
 
 	private static void addSmelting(Block input, ItemStack output, float exp) {
-		if (validateItems(input) && validateItems(output)) {
+		if (RecipeHelper.validateItems(input) && RecipeHelper.validateItems(output)) {
 			GameRegistry.addSmelting(input, output, exp);
 		}
 	}
 
 	private static void addSmelting(ItemStack input, ItemStack output, float exp) {
-		if (validateItems(input) && validateItems(output)) {
+		if (RecipeHelper.validateItems(input) && RecipeHelper.validateItems(output)) {
 			GameRegistry.addSmelting(input, output, exp);
 		}
 	}
 
 	private static void addShapedRecipe(ItemStack output, Object... objects) {
-		if (validateItems(output) && validateItems(objects)) {
+		if (RecipeHelper.validateItems(output) && RecipeHelper.validateItems(objects)) {
 			GameRegistry.addRecipe(new ShapedEtFuturumRecipe(output, objects));
 		}
 	}
 
 	private static void addShapelessRecipe(ItemStack output, Object... objects) {
-		if (validateItems(output) && validateItems(objects)) {
+		if (RecipeHelper.validateItems(output) && RecipeHelper.validateItems(objects)) {
 			GameRegistry.addRecipe(new ShapelessEtFuturumRecipe(output, objects));
 		}
-	}
-
-	public static boolean validateItems(Object... objects) {
-		for (Object object : objects) {
-			if (object == null || object == Blocks.air) return false;
-			if (object instanceof String) continue;
-
-			if (object instanceof ItemStack) {
-				if (((ItemStack) object).getItem() == null || Item.itemRegistry.getNameForObject(((ItemStack) object).getItem()) == null) {
-					return false;
-				}
-			}
-			if (object instanceof Item) {
-				if (Item.itemRegistry.getNameForObject(object) == null) {
-					return false;
-				}
-			}
-			if (object instanceof Block) {
-				if (Block.blockRegistry.getNameForObject(object) == null) {
-					return false;
-				}
-			}
-		}
-		return true;
 	}
 
 	private static void removeFirstRecipeFor(Block block) {
@@ -1549,31 +1526,6 @@ public class ModRecipes {
 				if (stack != null && stack.getItem() != null && stack.getItem() == item && (meta == OreDictionary.WILDCARD_VALUE || meta == stack.getItemDamage())) {
 					iterator.remove();
 					return;
-				}
-			}
-		}
-	}
-
-	private static void removeAllEFRRecipesFor(Block block) {
-		removeAllEFRRecipesFor(Item.getItemFromBlock(block));
-	}
-
-	private static void removeAllEFRRecipesFor(Block block, int meta) {
-		removeAllEFRRecipesFor(Item.getItemFromBlock(block), meta);
-	}
-
-	private static void removeAllEFRRecipesFor(Item item) {
-		removeAllEFRRecipesFor(item, OreDictionary.WILDCARD_VALUE);
-	}
-
-	private static void removeAllEFRRecipesFor(Item item, int meta) {
-		Iterator<IRecipe> iterator = CraftingManager.getInstance().getRecipeList().iterator();
-		while (iterator.hasNext()) {
-			IRecipe recipe = iterator.next();
-			if ((recipe instanceof ShapedEtFuturumRecipe || recipe instanceof ShapelessEtFuturumRecipe)) {
-				ItemStack stack = recipe.getRecipeOutput();
-				if (stack != null && stack.getItem() != null && stack.getItem() == item && (meta == OreDictionary.WILDCARD_VALUE || meta == stack.getItemDamage())) {
-					iterator.remove();
 				}
 			}
 		}

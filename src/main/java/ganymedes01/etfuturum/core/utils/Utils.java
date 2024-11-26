@@ -26,6 +26,8 @@ import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.oredict.OreDictionary;
 import org.apache.commons.lang3.ArrayUtils;
+import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.Unique;
 
 import java.util.*;
 import java.util.function.Predicate;
@@ -201,73 +203,57 @@ public class Utils {
 				+ (p_188803_0_.rotationYaw - p_188803_0_.prevRotationYaw) * p_188803_1_;
 	}
 
-	// Copied from 1.9 MathHelper
-	public static double atan2(double p_181159_0_, double p_181159_2_) {
+	private static final double optimizationsAndTweaks$frac_bias = Double.longBitsToDouble(4805340802404319232L);
+	private static final double[] optimizationsAndTweaks$asine_tab = new double[257];
+	private static final double[] optimizationsAndTweaks$cos_tab = new double[257];
 
-		final double FRAC_BIAS = Double.longBitsToDouble(4805340802404319232L);
-		final double[] ASINE_TAB;
-		final double[] COS_TAB;
-		ASINE_TAB = new double[257];
-		COS_TAB = new double[257];
-
-		for (int j = 0; j < 257; ++j) {
-			double d0 = (double) j / 256.0D;
-			double d1 = Math.asin(d0);
-			COS_TAB[j] = Math.cos(d1);
-			ASINE_TAB[j] = d1;
-		}
-
-		double d0 = p_181159_2_ * p_181159_2_ + p_181159_0_ * p_181159_0_;
-
-		if (Double.isNaN(d0)) {
+	public static double atan2(double y, double x) {
+		// Check if any of the values ​​are NaN (Not a Number) and return NaN if so.
+		if (Double.isNaN(x) || Double.isNaN(y)) {
 			return Double.NaN;
 		}
 
-		boolean flag = p_181159_0_ < 0.0D;
+		// Handle cases where the values ​​are negative by reversing the signs if necessary
+		boolean isNegativeY = y < 0.0;
+		if (isNegativeY) y = -y;
 
-		if (flag) {
-			p_181159_0_ = -p_181159_0_;
+		boolean isNegativeX = x < 0.0;
+		if (isNegativeX) x = -x;
+
+		// Determine if y is greater than x
+		boolean isYGreaterThanX = y > x;
+		if (isYGreaterThanX) {
+			double temp = x;
+			x = y;
+			y = temp;
 		}
 
-		boolean flag1 = p_181159_2_ < 0.0D;
+		// Calculate magnitude and normalize components
+		double magnitudeSquared = x * x + y * y;
+		double invMagnitude = invSqrt(magnitudeSquared);
+		x *= invMagnitude;
+		y *= invMagnitude;
 
-		if (flag1) {
-			p_181159_2_ = -p_181159_2_;
-		}
+		// Use the pre-calculated sine and cosine tables to find the angle
+		double angle = optimizationsAndTweaks$getAngle(y, x);
 
-		boolean flag2 = p_181159_0_ > p_181159_2_;
+		// Adjust angle based on initial signs
+		if (isYGreaterThanX) angle = (Math.PI / 2) - angle;
+		if (isNegativeX) angle = Math.PI - angle;
+		if (isNegativeY) angle = -angle;
 
-		if (flag2) {
-			double d1 = p_181159_2_;
-			p_181159_2_ = p_181159_0_;
-			p_181159_0_ = d1;
-		}
+		return angle;
+	}
 
-		double d9 = invSqrt(d0);
-		p_181159_2_ = p_181159_2_ * d9;
-		p_181159_0_ = p_181159_0_ * d9;
-		double d2 = FRAC_BIAS + p_181159_0_;
-		int i = (int) Double.doubleToRawLongBits(d2);
-		double d3 = ASINE_TAB[i];
-		double d4 = COS_TAB[i];
-		double d5 = d2 - FRAC_BIAS;
-		double d6 = p_181159_0_ * d4 - p_181159_2_ * d5;
-		double d7 = (6.0D + d6 * d6) * d6 * 0.16666666666666666D;
-		double d8 = d3 + d7;
-
-		if (flag2) {
-			d8 = (Math.PI / 2D) - d8;
-		}
-
-		if (flag1) {
-			d8 = Math.PI - d8;
-		}
-
-		if (flag) {
-			d8 = -d8;
-		}
-
-		return d8;
+	private static double optimizationsAndTweaks$getAngle(double y, double x) {
+		double biasedY = optimizationsAndTweaks$frac_bias + y;
+		int index = (int) Double.doubleToRawLongBits(biasedY);
+		double asinValue = optimizationsAndTweaks$asine_tab[index];
+		double cosValue = optimizationsAndTweaks$cos_tab[index];
+		double deltaY = biasedY - optimizationsAndTweaks$frac_bias;
+		double delta = y * cosValue - x * deltaY;
+		double correctionTerm = (6.0 + delta * delta) * delta * 0.16666666666666666;
+		return asinValue + correctionTerm;
 	}
 
 	public static float invSqrt(float num) {

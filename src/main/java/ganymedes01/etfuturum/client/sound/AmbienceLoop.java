@@ -1,19 +1,19 @@
 package ganymedes01.etfuturum.client.sound;
 
 import cpw.mods.fml.client.FMLClientHandler;
-import ganymedes01.etfuturum.core.utils.RandomXoshiro256StarStar;
 import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.MovingSound;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
+import roadhog360.hogutils.api.utils.FastRandom;
 
 import java.util.Random;
 
 public class AmbienceLoop extends MovingSound {
 
-	private final Random rand = new RandomXoshiro256StarStar();
+	private final Random rand = new FastRandom();
 	private final String name;
 
 	public boolean isStopping;

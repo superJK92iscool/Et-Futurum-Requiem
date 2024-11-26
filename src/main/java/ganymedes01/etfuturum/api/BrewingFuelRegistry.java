@@ -2,12 +2,12 @@ package ganymedes01.etfuturum.api;
 
 import ganymedes01.etfuturum.core.utils.ItemStackMap;
 import ganymedes01.etfuturum.core.utils.Logger;
-import ganymedes01.etfuturum.recipes.ModRecipes;
 import net.minecraft.block.Block;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
+import roadhog360.hogutils.api.utils.RecipeHelper;
 
 import java.util.List;
 
@@ -24,7 +24,7 @@ public class BrewingFuelRegistry {
 			throw new IllegalArgumentException("Tried to add a brewing fuel with " + count + " cycles??? It must be able to at least brew 1 set of potions...");
 		}
 
-		if (ModRecipes.validateItems(itemObj)) {
+		if (RecipeHelper.validateItems(itemObj)) {
 			if (itemObj instanceof ItemStack) {
 				FUEL_REGISTRY.put(((ItemStack) itemObj).copy(), count);
 			} else if (itemObj instanceof String) {

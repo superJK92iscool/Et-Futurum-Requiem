@@ -17,6 +17,7 @@ import net.minecraft.world.chunk.storage.IChunkLoader;
 import net.minecraft.world.storage.IPlayerFileData;
 import net.minecraft.world.storage.ISaveHandler;
 import net.minecraft.world.storage.WorldInfo;
+import roadhog360.hogutils.api.utils.FastRandom;
 
 import java.io.File;
 import java.util.Map;
@@ -27,9 +28,7 @@ import java.util.Map;
  * @author roadhog360 GregoriusT
  */
 public class DummyWorld extends World {
-	public static class GT_IteratorRandom extends RandomXoshiro256StarStar {
-		private static final long serialVersionUID = 1L;
-
+	public static class GT_IteratorRandom extends FastRandom {
 		public int mIterationStep = Integer.MAX_VALUE;
 
 		@Override

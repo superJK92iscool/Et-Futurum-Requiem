@@ -25,7 +25,6 @@ import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.ConfigBase;
 import ganymedes01.etfuturum.configuration.configs.*;
 import ganymedes01.etfuturum.core.utils.Logger;
-import ganymedes01.etfuturum.core.utils.RandomXoshiro256StarStar;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.elytra.IElytraPlayer;
 import ganymedes01.etfuturum.entities.EntityBee;
@@ -76,6 +75,7 @@ import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import org.apache.commons.lang3.tuple.MutablePair;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
+import roadhog360.hogutils.api.utils.FastRandom;
 
 import java.io.File;
 import java.util.*;
@@ -86,7 +86,7 @@ public class ClientEventHandler {
 
 	public static final ClientEventHandler INSTANCE = new ClientEventHandler();
 	private final Minecraft mc = FMLClientHandler.instance().getClient();
-	private final Random rand = new RandomXoshiro256StarStar();
+	private final Random rand = new FastRandom();
 	private boolean showedDebugWarning;
 	private int currPage;
 	/**

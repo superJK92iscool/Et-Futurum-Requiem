@@ -5,7 +5,6 @@ import ganymedes01.etfuturum.core.utils.IInitAction;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.lib.RenderIDs;
-import ganymedes01.etfuturum.recipes.ModRecipes;
 import ganymedes01.etfuturum.world.EtFuturumWorldListener;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -17,6 +16,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.ForgeHooksClient;
+import roadhog360.hogutils.api.utils.RecipeHelper;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -154,8 +154,8 @@ public class BlockBubbleColumn extends BaseBlock implements IInitAction {
 
 	@Override
 	public void postInitAction() {
-		if (ModRecipes.validateItems(this)) {
-			supportBlocks.stream().filter(ModRecipes::validateItems).forEach(block -> EtFuturumWorldListener.bubbleColumnMap.put(block, this));
+		if (RecipeHelper.validateItems(this)) {
+			supportBlocks.stream().filter(RecipeHelper::validateItems).forEach(block -> EtFuturumWorldListener.bubbleColumnMap.put(block, this));
 		}
 	}
 

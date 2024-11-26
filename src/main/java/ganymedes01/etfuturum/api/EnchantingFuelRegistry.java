@@ -2,12 +2,12 @@ package ganymedes01.etfuturum.api;
 
 import ganymedes01.etfuturum.core.utils.ItemStackSet;
 import ganymedes01.etfuturum.core.utils.Logger;
-import ganymedes01.etfuturum.recipes.ModRecipes;
 import net.minecraft.block.Block;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
+import roadhog360.hogutils.api.utils.RecipeHelper;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ public class EnchantingFuelRegistry {
 	}
 
 	public static void registerFuel(Object itemObj) {
-		if (ModRecipes.validateItems(itemObj)) {
+		if (RecipeHelper.validateItems(itemObj)) {
 			if (itemObj instanceof ItemStack) {
 				FUEL_REGISTRY.add(((ItemStack) itemObj).copy());
 			} else if (itemObj instanceof String) {
