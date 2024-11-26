@@ -1,9 +1,9 @@
 package ganymedes01.etfuturum.tileentities;
 
 import ganymedes01.etfuturum.ModItems;
+import ganymedes01.etfuturum.Tags;
 import ganymedes01.etfuturum.api.BrewingFuelRegistry;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -158,7 +158,7 @@ public class TileEntityNewBrewingStand extends TileEntityBrewingStand {
 
 			fuel--;
 			ForgeEventFactory.onPotionBrewed(new ItemStack[]{inventory[0], inventory[1], inventory[2], inventory[3]});
-			worldObj.playSound(xCoord, yCoord, zCoord, Reference.MCAssetVer + ":block.brewing_stand.brew", 1.0F, 1.0F, true);
+			worldObj.playSound(xCoord, yCoord, zCoord, Tags.MC_ASSET_VER + ":block.brewing_stand.brew", 1.0F, 1.0F, true);
 		}
 	}
 

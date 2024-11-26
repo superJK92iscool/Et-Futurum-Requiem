@@ -2,7 +2,6 @@ package ganymedes01.etfuturum.mixinplugin;
 
 import com.gtnewhorizon.gtnhmixins.IEarlyMixinLoader;
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
-import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.Tags;
 import ganymedes01.etfuturum.compat.CompatMisc;
 import ganymedes01.etfuturum.configuration.ConfigBase;
@@ -27,7 +26,7 @@ public class EtFuturumEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoade
 	public static final MixinEnvironment.Side side = MixinEnvironment.getCurrentEnvironment().getSide();
 
 	public void initConfigs() {
-		final String configDir = "config" + File.separator + Reference.MOD_ID;
+		final String configDir = "config" + File.separator + Tags.MOD_ID;
 
 //	  File from before Et Futurum Requiem (Not in a subdirectory)
 		File olderFile = new File(Launch.minecraftHome, "config" + File.separator + "etfuturum.cfg");

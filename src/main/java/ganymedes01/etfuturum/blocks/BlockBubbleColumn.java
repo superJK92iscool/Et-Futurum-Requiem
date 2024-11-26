@@ -1,9 +1,9 @@
 package ganymedes01.etfuturum.blocks;
 
 import com.google.common.collect.Lists;
+import ganymedes01.etfuturum.Tags;
 import ganymedes01.etfuturum.core.utils.IInitAction;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.lib.RenderIDs;
 import ganymedes01.etfuturum.world.EtFuturumWorldListener;
 import net.minecraft.block.Block;
@@ -101,7 +101,7 @@ public class BlockBubbleColumn extends BaseBlock implements IInitAction {
 	}
 
 	protected String getBubblingNoise(World world, int x, int y, int z, Random random) {
-		return Reference.MCAssetVer + ":" + "block.bubble_column." + (isUp ? "upwards" : "whirlpool") + "_ambient";
+		return Tags.MC_ASSET_VER + ":" + "block.bubble_column." + (isUp ? "upwards" : "whirlpool") + "_ambient";
 	}
 
 	@Override

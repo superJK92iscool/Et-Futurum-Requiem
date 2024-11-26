@@ -1,6 +1,7 @@
 package ganymedes01.etfuturum.core.utils;
 
 import cpw.mods.fml.common.Loader;
+import ganymedes01.etfuturum.Tags;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
@@ -26,8 +27,6 @@ import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.oredict.OreDictionary;
 import org.apache.commons.lang3.ArrayUtils;
-import org.spongepowered.asm.mixin.Overwrite;
-import org.spongepowered.asm.mixin.Unique;
 
 import java.util.*;
 import java.util.function.Predicate;
@@ -45,7 +44,7 @@ public class Utils {
 	public static final float SQRT_2 = MathHelper.sqrt_float(2.0F);
 
 	public static String getUnlocalisedName(String name) {
-		return Reference.MOD_ID + "." + name;
+		return Tags.MOD_ID + "." + name;
 	}
 
 	public static String getBlockTexture(String name) {
@@ -61,7 +60,7 @@ public class Utils {
 	}
 
 	public static String getConainerName(String name) {
-		return "container." + Reference.MOD_ID + "." + name;
+		return "container." + Tags.MOD_ID + "." + name;
 	}
 
 	public static String getModContainer() {

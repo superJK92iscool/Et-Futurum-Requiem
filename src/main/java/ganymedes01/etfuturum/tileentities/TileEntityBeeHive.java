@@ -3,10 +3,8 @@ package ganymedes01.etfuturum.tileentities;
 import com.google.common.collect.Lists;
 import ganymedes01.etfuturum.Tags;
 import ganymedes01.etfuturum.blocks.BlockBeeHive;
-import ganymedes01.etfuturum.compat.ExternalContent;
 import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import ganymedes01.etfuturum.entities.EntityBee;
-import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -156,7 +154,7 @@ public class TileEntityBeeHive extends TileEntity {
 				//We don't want trees to make a loud bee pop, and since "fake" bees never spawn addedToChunk will be false for them, so that's why we do this.
 				if (beeentity.addedToChunk) {
 					this.getWorldObj().playSoundEffect(xCoord + 0.5, yCoord + 0.5, zCoord + 0.5,
-							Reference.MCAssetVer + ":block.beehive.enter", 1.0F, 1.0F);
+							Tags.MC_ASSET_VER + ":block.beehive.enter", 1.0F, 1.0F);
 				}
 			}
 
@@ -207,7 +205,7 @@ public class TileEntityBeeHive extends TileEntity {
 					}
 
 					this.getWorldObj().playSoundEffect(xCoord + 0.5, yCoord + 0.5, zCoord + 0.5,
-							Reference.MCAssetVer + ":block.beehive.exit", 1.0F, 1.0F);
+							Tags.MC_ASSET_VER + ":block.beehive.exit", 1.0F, 1.0F);
 					getWorldObj().spawnEntityInWorld(beeentity);
 				}
 				return true;
@@ -246,7 +244,7 @@ public class TileEntityBeeHive extends TileEntity {
 			this.tickBees();
 			if (getBeeCount() > 0 && this.getWorldObj().rand.nextDouble() < 0.005D) {
 				this.getWorldObj().playSoundEffect(xCoord + 0.5, yCoord + 0.5, zCoord + 0.5,
-						Reference.MCAssetVer + ":block.beehive.work", 1.0F, 1.0F);
+						Tags.MC_ASSET_VER + ":block.beehive.work", 1.0F, 1.0F);
 			}
 		}
 		super.updateEntity();

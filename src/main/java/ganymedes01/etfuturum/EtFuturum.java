@@ -3,7 +3,6 @@ package ganymedes01.etfuturum;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.ModMetadata;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.*;
 import cpw.mods.fml.common.event.FMLInterModComms.IMCEvent;
@@ -69,9 +68,9 @@ import java.lang.reflect.Field;
 import java.util.*;
 
 @Mod(
-		modid = Reference.MOD_ID,
-		name = Reference.MOD_NAME,
-		version = Reference.VERSION_NUMBER,
+		modid = Tags.MOD_ID,
+		name = Tags.MOD_NAME,
+		version = Tags.VERSION,
 		dependencies = Reference.DEPENDENCIES
 //		guiFactory = Tags.MOD_GROUP + ".configuration.ConfigGuiFactory"
 )
@@ -86,7 +85,7 @@ public class EtFuturum {
 
 	public static SimpleNetworkWrapper networkWrapper;
 
-	public static CreativeTabs creativeTabItems = new CreativeTabs(Reference.MOD_ID + ".items") {
+	public static CreativeTabs creativeTabItems = new CreativeTabs(Tags.MOD_ID + ".items") {
 		@Override
 		public Item getTabIconItem() {
 			return  ModItems.RAW_ORE.isEnabled() ? ModItems.RAW_ORE.get()
@@ -113,7 +112,7 @@ public class EtFuturum {
 		}
 	};
 
-	public static CreativeTabs creativeTabBlocks = new CreativeTabs(Reference.MOD_ID + ".blocks") {
+	public static CreativeTabs creativeTabBlocks = new CreativeTabs(Tags.MOD_ID + ".blocks") {
 		@Override
 		public Item getTabIconItem() {
 			return ModBlocks.COPPER_BLOCK.isEnabled() ? ModBlocks.COPPER_BLOCK.getItem()
@@ -154,7 +153,7 @@ public class EtFuturum {
 
 	@EventHandler
 	public void onConstruction(FMLConstructionEvent event) {
-		Logger.info(Reference.MOD_ID + " is in snapshot mode. Disabling update checker... Other features may also be different.");
+		Logger.info(Tags.MOD_ID + " is in snapshot mode. Disabling update checker... Other features may also be different.");
 
 		MCLib.init();
 
@@ -222,7 +221,7 @@ public class EtFuturum {
 		OceanMonument.makeMap();
 
 		NetworkRegistry.INSTANCE.registerGuiHandler(instance, proxy);
-		networkWrapper = NetworkRegistry.INSTANCE.newSimpleChannel(Reference.MOD_ID);
+		networkWrapper = NetworkRegistry.INSTANCE.newSimpleChannel(Tags.MOD_ID);
 		networkWrapper.registerMessage(ArmourStandInteractHandler.class, ArmourStandInteractMessage.class, 0, Side.SERVER);
 		networkWrapper.registerMessage(BlackHeartParticlesHandler.class, BlackHeartParticlesMessage.class, 1, Side.CLIENT);
 		networkWrapper.registerMessage(WoodSignOpenHandler.class, WoodSignOpenMessage.class, 3, Side.CLIENT);
@@ -232,7 +231,7 @@ public class EtFuturum {
 		networkWrapper.registerMessage(AttackYawHandler.class, AttackYawMessage.class, 7, Side.CLIENT);
 
 		if (!Reference.SNAPSHOT_BUILD && !Reference.DEV_ENVIRONMENT) {
-			MCLibModules.updateCheckAPI.submitModTask(Reference.MOD_ID, Reference.VERSION_NUMBER, Reference.VERSION_URL);
+			MCLibModules.updateCheckAPI.submitModTask(Tags.MOD_ID, Tags.VERSION, Reference.VERSION_URL);
 		}
 
 		CompatMisc.runModHooksPreInit();
@@ -711,7 +710,7 @@ public class EtFuturum {
 	}
 
 	private static void getSounds(ADConfig config) {
-		String ver = Reference.MCAssetVer.split("_")[1];
+		String ver = Tags.MC_ASSET_VER.split("_")[1];
 		config.addObject(ver, "minecraft/sounds/ambient/cave/cave14.ogg");
 		config.addObject(ver, "minecraft/sounds/ambient/cave/cave15.ogg");
 		config.addObject(ver, "minecraft/sounds/ambient/cave/cave16.ogg");
@@ -975,14 +974,14 @@ public class EtFuturum {
 		//Then we remove the mc version prefix and register that sound.
 
 		for (ModSounds.CustomSound sound : ModSounds.getSounds()) {
-			if (sound.getStepResourcePath().startsWith(Reference.MCAssetVer)) { //Step sound
-				config.addSoundEvent(ver, sound.getStepResourcePath().substring(Reference.MCAssetVer.length() + 1), "neutral");
+			if (sound.getStepResourcePath().startsWith(Tags.MC_ASSET_VER)) { //Step sound
+				config.addSoundEvent(ver, sound.getStepResourcePath().substring(Tags.MC_ASSET_VER.length() + 1), "neutral");
 			}
-			if (sound.func_150496_b/*getPlaceSound*/().startsWith(Reference.MCAssetVer)) { //Place sound
-				config.addSoundEvent(ver, sound.func_150496_b/*getPlaceSound*/().substring(Reference.MCAssetVer.length() + 1), "block");
+			if (sound.func_150496_b/*getPlaceSound*/().startsWith(Tags.MC_ASSET_VER)) { //Place sound
+				config.addSoundEvent(ver, sound.func_150496_b/*getPlaceSound*/().substring(Tags.MC_ASSET_VER.length() + 1), "block");
 			}
-			if (sound.getBreakSound().startsWith(Reference.MCAssetVer)) { //Break sound
-				config.addSoundEvent(ver, sound.getBreakSound().substring(Reference.MCAssetVer.length() + 1), "block");
+			if (sound.getBreakSound().startsWith(Tags.MC_ASSET_VER)) { //Break sound
+				config.addSoundEvent(ver, sound.getBreakSound().substring(Tags.MC_ASSET_VER.length() + 1), "block");
 			}
 		}
 	}

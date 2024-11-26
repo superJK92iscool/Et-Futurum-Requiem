@@ -1,6 +1,7 @@
 package ganymedes01.etfuturum.entities;
 
 import com.google.common.collect.Lists;
+import ganymedes01.etfuturum.Tags;
 import ganymedes01.etfuturum.api.BeePlantRegistry;
 import ganymedes01.etfuturum.blocks.BlockBeeHive;
 import ganymedes01.etfuturum.blocks.BlockMagma;
@@ -11,7 +12,6 @@ import ganymedes01.etfuturum.core.utils.helpers.BlockPos;
 import ganymedes01.etfuturum.entities.ai.FlyMoveHelper;
 import ganymedes01.etfuturum.entities.ai.FlyingPathNavigator;
 import ganymedes01.etfuturum.entities.attributes.EtFuturumEntityAttributes;
-import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.tileentities.TileEntityBeeHive;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
@@ -390,7 +390,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 
 			this.setHasStung(true);
 			this.setAttackTarget(null);
-			this.playSound(Reference.MCAssetVer + ":entity.bee.sting", 1.0F, 1.0F);
+			this.playSound(Tags.MC_ASSET_VER + ":entity.bee.sting", 1.0F, 1.0F);
 		}
 
 		return flag;
@@ -686,12 +686,12 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 
 	@Override
 	protected String getHurtSound() {
-		return Reference.MCAssetVer + ":entity.bee.hurt";
+		return Tags.MC_ASSET_VER + ":entity.bee.hurt";
 	}
 
 	@Override
 	protected String getDeathSound() {
-		return Reference.MCAssetVer + ":entity.bee.death";
+		return Tags.MC_ASSET_VER + ":entity.bee.death";
 	}
 
 	@Override
@@ -1252,7 +1252,7 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 						++this.pollinationTicks;
 						if (EntityBee.this.rand.nextFloat() < 0.05F && this.pollinationTicks > this.lastPollinationTick + 60) {
 							this.lastPollinationTick = this.pollinationTicks;
-							EntityBee.this.playSound(Reference.MCAssetVer + ":entity.bee.pollinate", 1.0F, 1.0F);
+							EntityBee.this.playSound(Tags.MC_ASSET_VER + ":entity.bee.pollinate", 1.0F, 1.0F);
 						}
 					}
 				}

@@ -1,11 +1,11 @@
 package ganymedes01.etfuturum.client.gui.inventory;
 
 import com.google.common.collect.Lists;
+import ganymedes01.etfuturum.Tags;
 import ganymedes01.etfuturum.api.EnchantingFuelRegistry;
 import ganymedes01.etfuturum.client.OpenGLHelper;
 import ganymedes01.etfuturum.core.utils.Utils;
 import ganymedes01.etfuturum.inventory.ContainerEnchantment;
-import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -73,7 +73,7 @@ public class GuiEnchantment extends GuiContainer {
 
 		TEXTURE = Utils.getResource(
 				container.noFuel ? "textures/gui/container/enchanting_table.png" :
-						Reference.MOD_ID + ":textures/gui/container/enchanting_table.png");
+						Tags.MOD_ID + ":textures/gui/container/enchanting_table.png");
 
 		displayStacks = new ArrayList<>(EnchantingFuelRegistry.getFuels().keySet());
 		if (displayStacks.size() > 1) {

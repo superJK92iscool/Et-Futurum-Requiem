@@ -2,11 +2,11 @@ package ganymedes01.etfuturum.blocks.rawore.modded;
 
 import com.google.common.collect.Lists;
 import ganymedes01.etfuturum.ModItems;
+import ganymedes01.etfuturum.Tags;
 import ganymedes01.etfuturum.blocks.BaseSubtypesBlock;
 import ganymedes01.etfuturum.core.utils.DummyWorld;
 import ganymedes01.etfuturum.core.utils.IInitAction;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
@@ -46,7 +46,7 @@ public class BlockGeneralModdedRawOre extends BaseSubtypesBlock implements IInit
 
 	@Override
 	public String getTextureDomain() {
-		return Reference.MOD_ID;
+		return Tags.MOD_ID;
 	}
 
 	@Override

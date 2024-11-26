@@ -2,12 +2,12 @@ package ganymedes01.etfuturum.blocks.ores;
 
 import com.google.common.collect.Lists;
 import ganymedes01.etfuturum.ModBlocks;
+import ganymedes01.etfuturum.Tags;
 import ganymedes01.etfuturum.blocks.BaseBlock;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.core.utils.DummyWorld;
 import ganymedes01.etfuturum.core.utils.IInitAction;
-import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -229,7 +229,7 @@ public abstract class BaseDeepslateOre extends BaseBlock implements IInitAction 
 
 	@Override
 	public String getTextureDomain() {
-		return Reference.MOD_ID;
+		return Tags.MOD_ID;
 	}
 
 	public abstract Block getBase();

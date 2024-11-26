@@ -1,8 +1,8 @@
 package ganymedes01.etfuturum.inventory;
 
 import ganymedes01.etfuturum.ModBlocks;
+import ganymedes01.etfuturum.Tags;
 import ganymedes01.etfuturum.api.EnchantingFuelRegistry;
-import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.storage.EtFuturumPlayer;
 import net.minecraft.enchantment.EnchantmentData;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -224,7 +224,7 @@ public class ContainerEnchantment extends Container {
 
 				if (var6 != null) {
 					chargeForEnchant(player, rand, var5);
-					world.playSoundEffect(posX + 0.5F, posY + 0.5F, posZ + 0.5F, Reference.MCAssetVer + ":block.enchantment_table.use", 1.0F, world.rand.nextFloat() * 0.1F + 0.9F);
+					world.playSoundEffect(posX + 0.5F, posY + 0.5F, posZ + 0.5F, Tags.MC_ASSET_VER + ":block.enchantment_table.use", 1.0F, world.rand.nextFloat() * 0.1F + 0.9F);
 
 					if (var7)
 						slot0.func_150996_a(Items.enchanted_book); // setItem

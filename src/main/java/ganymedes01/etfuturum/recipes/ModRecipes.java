@@ -4,6 +4,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.etfuturum.EtFuturum;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.ModItems;
+import ganymedes01.etfuturum.Tags;
 import ganymedes01.etfuturum.api.DeepslateOreRegistry;
 import ganymedes01.etfuturum.api.RawOreRegistry;
 import ganymedes01.etfuturum.blocks.BaseSlab;
@@ -20,7 +21,6 @@ import ganymedes01.etfuturum.items.ItemNewBoat;
 import ganymedes01.etfuturum.items.ItemSuspiciousStew;
 import ganymedes01.etfuturum.items.rawore.modded.ItemGeneralModdedRawOre;
 import ganymedes01.etfuturum.lib.EnumColor;
-import ganymedes01.etfuturum.lib.Reference;
 import ganymedes01.etfuturum.recipes.crafting.*;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -62,11 +62,11 @@ public class ModRecipes {
 
 	public static void init() {
 		if (ConfigBlocksItems.enableBanners) {
-			RecipeSorter.register(Reference.MOD_ID + ".RecipeDuplicatePattern", RecipeDuplicatePattern.class, Category.SHAPELESS, "after:minecraft:shapeless");
-			RecipeSorter.register(Reference.MOD_ID + ".RecipeAddPattern", RecipeAddPattern.class, Category.SHAPED, "after:minecraft:shaped");
+			RecipeSorter.register(Tags.MOD_ID + ".RecipeDuplicatePattern", RecipeDuplicatePattern.class, Category.SHAPELESS, "after:minecraft:shapeless");
+			RecipeSorter.register(Tags.MOD_ID + ".RecipeAddPattern", RecipeAddPattern.class, Category.SHAPED, "after:minecraft:shaped");
 		}
-		RecipeSorter.register(Reference.MOD_ID + ":shaped", ShapedEtFuturumRecipe.class, RecipeSorter.Category.SHAPED, "before:minecraft:shaped");
-		RecipeSorter.register(Reference.MOD_ID + ":shapeless", ShapelessEtFuturumRecipe.class, RecipeSorter.Category.SHAPELESS, "before:minecraft:shapeless");
+		RecipeSorter.register(Tags.MOD_ID + ":shaped", ShapedEtFuturumRecipe.class, RecipeSorter.Category.SHAPED, "before:minecraft:shaped");
+		RecipeSorter.register(Tags.MOD_ID + ":shapeless", ShapelessEtFuturumRecipe.class, RecipeSorter.Category.SHAPELESS, "before:minecraft:shapeless");
 
 		modernWoodTypesEnabled[0] = ConfigExperiments.enableCrimsonBlocks;
 		modernWoodTypesEnabled[1] = ConfigExperiments.enableWarpedBlocks;
@@ -714,7 +714,7 @@ public class ModRecipes {
 		addShapedRecipe(ModBlocks.ROSE.newItemStack(12), "xx", 'x', new ItemStack(Blocks.double_plant, 1, 4));
 
 		if (ModItems.TIPPED_ARROW.isEnabled() && ModItems.LINGERING_POTION.isEnabled()) {
-			RecipeSorter.register(Reference.MOD_ID + ".RecipeTippedArrow", RecipeTippedArrow.class, Category.SHAPED, "after:minecraft:shaped");
+			RecipeSorter.register(Tags.MOD_ID + ".RecipeTippedArrow", RecipeTippedArrow.class, Category.SHAPED, "after:minecraft:shaped");
 			GameRegistry.addRecipe(new RecipeTippedArrow(ModItems.TIPPED_ARROW.newItemStack(), "xxx", "xyx", "xxx", 'x', Items.arrow, 'y', ModItems.LINGERING_POTION.newItemStack(1, OreDictionary.WILDCARD_VALUE)));
 		}
 
