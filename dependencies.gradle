@@ -38,7 +38,7 @@ dependencies {
     compileOnly "com.falsepattern:rple-mc1.7.10:1.1.0"
 
     //My core mod
-    compileOnly files('libs/hogutils-761afe03ec-dirty-dev.jar')
+    api files('libs/hogutils-e2e466d3b1-dirty-dev.jar')
 
     // Can use `compileOnly` instead of `compile` if you want to require it at build time,
     // but not require it in `runClient`/`runServer`

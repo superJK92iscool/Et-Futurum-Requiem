@@ -18,7 +18,6 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 import roadhog360.hogutils.api.hogtags.HogTagsHelper;
-import roadhog360.hogutils.api.hogtags.mappings.BlockTagMapping;
 
 import java.util.Iterator;
 import java.util.List;
@@ -112,10 +111,13 @@ public class TileEntityBeeHive extends TileEntity {
 	public static boolean isLitCampfireBelow(World world, int x, int y, int z, int spacing) {
 		for (int i = 1; i <= spacing; i++) {
 			Block block = world.getBlock(x, y - i, z);
+
 			if (block.isOpaqueCube()) break;
+			if (block.isAir(world, x, y - i, z)) continue;
+
 			int meta = world.getBlockMetadata(x, y - i, z);
-			List<BlockTagMapping> blocks = HogTagsHelper.BlockTags.getInTag(Tags.MOD_ID + ":bee_hive_fumigators");
-			if ((blocks.isEmpty() && block.getMaterial() == Material.fire) || blocks.contains(BlockTagMapping.of(block, meta))) {
+			if ((HogTagsHelper.BlockTags.getInTag(Tags.MOD_ID + ":bee_hive_fumigator").isEmpty() && block.getMaterial() == Material.fire)
+					|| HogTagsHelper.BlockTags.hasAnyTag(block, meta, Tags.MOD_ID + ":bee_hive_fumigator")) {
 				return true;
 			}
 		}
@@ -129,7 +131,7 @@ public class TileEntityBeeHive extends TileEntity {
 
 	@Deprecated
 	public static void addSmokeBlock(Block block, int meta) {
-		HogTagsHelper.BlockTags.addTags(block, meta, Tags.MOD_ID + ":bee_hive_fumigators");
+		HogTagsHelper.BlockTags.addTags(block, meta, Tags.MOD_ID + ":bee_hive_fumigator");
 	}
 
 	public void tryEnterHive(Entity p_226962_1_, boolean p_226962_2_, int p_226962_3_) {

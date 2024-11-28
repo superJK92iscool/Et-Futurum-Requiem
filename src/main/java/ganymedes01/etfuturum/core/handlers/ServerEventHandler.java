@@ -10,7 +10,6 @@ import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import cpw.mods.fml.relauncher.Side;
 import ganymedes01.etfuturum.*;
-import ganymedes01.etfuturum.api.HoeRegistry;
 import ganymedes01.etfuturum.api.RawOreRegistry;
 import ganymedes01.etfuturum.api.StrippedLogRegistry;
 import ganymedes01.etfuturum.api.mappings.RawOreDropMapping;
@@ -97,6 +96,7 @@ import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.oredict.OreDictionary;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.mutable.MutableFloat;
+import roadhog360.hogutils.api.hogtags.HogTagsHelper;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -505,47 +505,24 @@ public class ServerEventHandler {
 		boolean flag = false;
 		float toolSpeed = 0;
 		float speedModifier = 0;
-		if (ConfigFunctions.enableHoeMining && HoeRegistry.hoeArrayHas(event.block)) {
-			ItemStack stack = event.entityPlayer.getHeldItem();
-			if (stack != null && stack.getItem() instanceof ItemHoe) {
-				try {
-					Item hoe = stack.getItem();
-					toolSpeed = getHoeSpeed(hoe);
-					speedModifier = this.speedModifier(event.entityPlayer, event.block, event.metadata, toolSpeed);
-					flag = true;
-				} catch (IllegalArgumentException e) {
-					e.printStackTrace();
+		if (ConfigFunctions.enableHoeMining) {
+			boolean result = HogTagsHelper.BlockTags.hasAnyTag(event.block, event.metadata, "minecraft:mineable/hoe");
+			if (result) {
+				ItemStack stack = event.entityPlayer.getHeldItem();
+				if (stack != null && stack.getItem() instanceof ItemHoe hoe) {
+					try {
+						toolSpeed = hoe.theToolMaterial.getEfficiencyOnProperMaterial();
+						speedModifier = this.speedModifier(event.entityPlayer, event.block, event.metadata, toolSpeed);
+						flag = true;
+					} catch (IllegalArgumentException e) {
+						e.printStackTrace();
+					}
 				}
-			}
 
+			}
 		}
 		if (flag)
 			event.newSpeed = event.originalSpeed + toolSpeed + speedModifier;
-	}
-
-	/**
-	 * Return 0 if the input is not a tool.
-	 * Gets private tool speed value from tool material.
-	 * Now cleaned up and uses Access Transformers for better performance!
-	 *
-	 * @param item
-	 */
-	public float getHoeSpeed(Item item) {
-		float returnValue = 0;
-		try {
-			if (item instanceof ItemHoe || item instanceof ItemTool) {
-				Item.ToolMaterial theToolMaterial;
-				if (item instanceof ItemTool) {
-					theToolMaterial = ((ItemTool) item).toolMaterial;
-				} else {
-					theToolMaterial = ((ItemHoe) item).theToolMaterial;
-				}
-				returnValue = theToolMaterial.getEfficiencyOnProperMaterial();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return returnValue;
 	}
 
 	public float speedModifier(EntityPlayer entity, Block block, int meta, float digSpeed) {
@@ -557,7 +534,10 @@ public class ServerEventHandler {
 		if (i > 0 && itemstack != null) {
 			float f1 = i * i + 1;
 
-			//boolean canHarvest = ForgeHooks.canToolHarvestBlock(block, meta, itemstack); // TODO Do you even care if it is harvestable? Tbh not sure of what to slash the speed by if it isn't
+			//boolean canHarvest = ForgeHooks.canToolHarvestBlock(block, meta, itemstack);
+			// TODO Do you even care if it is harvestable? Tbh not sure of what to slash the speed by if it isn't
+			// Not sure who wrote this, but the answer is NO. If a block is flagged as hoe mineable we're
+			// assuming it should be mined at harvest speed, harvestable or not.
 			moddedDigSpeed += f1;
 		}
 
