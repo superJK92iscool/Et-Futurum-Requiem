@@ -680,11 +680,6 @@ public class EntityBee extends EntityAnimal implements INoGravityEntity {
 	}
 
 	@Override
-	protected String getLivingSound() {
-		return null;
-	}
-
-	@Override
 	protected String getHurtSound() {
 		return Reference.MCAssetVer + ":entity.bee.hurt";
 	}

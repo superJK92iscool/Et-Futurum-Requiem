@@ -176,9 +176,9 @@ public class Utils {
 		double d1 = p_188803_0_.motionY;
 		double d2 = p_188803_0_.motionZ;
 		float f = MathHelper.sqrt_double(d0 * d0 + d2 * d2);
-		p_188803_0_.rotationYaw = (float) (atan2(d2, d0) * (180D / Math.PI)) + 90.0F;
+		p_188803_0_.rotationYaw = (float) (Math.atan2(d2, d0) * (180D / Math.PI)) + 90.0F;
 
-		for (p_188803_0_.rotationPitch = (float) (atan2(f, d1) * (180D / Math.PI))
+		for (p_188803_0_.rotationPitch = (float) (Math.atan2(f, d1) * (180D / Math.PI))
 				- 90.0F; p_188803_0_.rotationPitch
 					 - p_188803_0_.prevRotationPitch < -180.0F; p_188803_0_.prevRotationPitch -= 360.0F) {
 		}
@@ -199,75 +199,6 @@ public class Utils {
 				+ (p_188803_0_.rotationPitch - p_188803_0_.prevRotationPitch) * p_188803_1_;
 		p_188803_0_.rotationYaw = p_188803_0_.prevRotationYaw
 				+ (p_188803_0_.rotationYaw - p_188803_0_.prevRotationYaw) * p_188803_1_;
-	}
-
-	// Copied from 1.9 MathHelper
-	public static double atan2(double p_181159_0_, double p_181159_2_) {
-
-		final double FRAC_BIAS = Double.longBitsToDouble(4805340802404319232L);
-		final double[] ASINE_TAB;
-		final double[] COS_TAB;
-		ASINE_TAB = new double[257];
-		COS_TAB = new double[257];
-
-		for (int j = 0; j < 257; ++j) {
-			double d0 = (double) j / 256.0D;
-			double d1 = Math.asin(d0);
-			COS_TAB[j] = Math.cos(d1);
-			ASINE_TAB[j] = d1;
-		}
-
-		double d0 = p_181159_2_ * p_181159_2_ + p_181159_0_ * p_181159_0_;
-
-		if (Double.isNaN(d0)) {
-			return Double.NaN;
-		}
-
-		boolean flag = p_181159_0_ < 0.0D;
-
-		if (flag) {
-			p_181159_0_ = -p_181159_0_;
-		}
-
-		boolean flag1 = p_181159_2_ < 0.0D;
-
-		if (flag1) {
-			p_181159_2_ = -p_181159_2_;
-		}
-
-		boolean flag2 = p_181159_0_ > p_181159_2_;
-
-		if (flag2) {
-			double d1 = p_181159_2_;
-			p_181159_2_ = p_181159_0_;
-			p_181159_0_ = d1;
-		}
-
-		double d9 = invSqrt(d0);
-		p_181159_2_ = p_181159_2_ * d9;
-		p_181159_0_ = p_181159_0_ * d9;
-		double d2 = FRAC_BIAS + p_181159_0_;
-		int i = (int) Double.doubleToRawLongBits(d2);
-		double d3 = ASINE_TAB[i];
-		double d4 = COS_TAB[i];
-		double d5 = d2 - FRAC_BIAS;
-		double d6 = p_181159_0_ * d4 - p_181159_2_ * d5;
-		double d7 = (6.0D + d6 * d6) * d6 * 0.16666666666666666D;
-		double d8 = d3 + d7;
-
-		if (flag2) {
-			d8 = (Math.PI / 2D) - d8;
-		}
-
-		if (flag1) {
-			d8 = Math.PI - d8;
-		}
-
-		if (flag) {
-			d8 = -d8;
-		}
-
-		return d8;
 	}
 
 	public static float invSqrt(float num) {
