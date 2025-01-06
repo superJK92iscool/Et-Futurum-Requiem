@@ -21,7 +21,7 @@ public class MixinGameType {
 		if (etfuturum$isSpectator()) {
 			ci.cancel();
 			caps.allowFlying = true;
-			caps.isCreativeMode = true;
+			caps.isCreativeMode = false;
 			caps.disableDamage = true;
 			caps.allowEdit = false;
 			caps.isFlying = true;

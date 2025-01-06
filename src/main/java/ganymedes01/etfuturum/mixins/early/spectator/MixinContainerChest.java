@@ -7,9 +7,9 @@ import ganymedes01.etfuturum.spectator.SpectatorMode;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ContainerBeacon;
 import net.minecraft.inventory.ContainerChest;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.InventoryBasic;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -20,7 +20,7 @@ public abstract class MixinContainerChest extends Container {
 	@WrapOperation(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/inventory/IInventory;openInventory()V"))
 	private void ignoreOpenInventoryInSpectator(IInventory chestInv, Operation<Void> original,
 												@Local(ordinal = 0, argsOnly = true) IInventory playerInv) {
-		if (!(playerInv instanceof InventoryPlayer) || !SpectatorMode.isSpectator(((InventoryPlayer) playerInv).player)) {
+		if (!(playerInv instanceof InventoryPlayer inv) || !SpectatorMode.isSpectator(inv.player)) {
 			original.call(chestInv);
 		}
 	}
