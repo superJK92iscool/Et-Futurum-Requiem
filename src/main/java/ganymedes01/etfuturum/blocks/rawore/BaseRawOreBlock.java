@@ -1,10 +1,10 @@
 package ganymedes01.etfuturum.blocks.rawore;
 
+import ganymedes01.etfuturum.Tags;
 import ganymedes01.etfuturum.api.mappings.RegistryMapping;
 import ganymedes01.etfuturum.blocks.BaseBlock;
 import ganymedes01.etfuturum.core.utils.DummyWorld;
 import ganymedes01.etfuturum.core.utils.IInitAction;
-import ganymedes01.etfuturum.lib.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
@@ -27,7 +27,7 @@ public abstract class BaseRawOreBlock extends BaseBlock implements IInitAction {
 
 	@Override
 	public String getTextureDomain() {
-		return Reference.MOD_ID;
+		return Tags.MOD_ID;
 	}
 
 	@Override

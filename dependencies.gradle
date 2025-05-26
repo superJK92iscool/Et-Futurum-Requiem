@@ -37,6 +37,9 @@ dependencies {
 //Change to "implementation" to test RPLE in dev; change it back when you're done please!
     compileOnly "com.falsepattern:rple-mc1.7.10:1.1.0"
 
+    //My core mod
+    api files('libs/hogutils-e2e466d3b1-dirty-dev.jar')
+
     // Can use `compileOnly` instead of `compile` if you want to require it at build time,
     // but not require it in `runClient`/`runServer`
     compileOnly "thaumcraft:Thaumcraft:1.7.10-4.2.3.5:dev"

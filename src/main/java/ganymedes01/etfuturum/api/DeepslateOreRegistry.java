@@ -8,11 +8,11 @@ import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigModCompat;
 import ganymedes01.etfuturum.core.utils.Logger;
 import ganymedes01.etfuturum.core.utils.Utils;
-import ganymedes01.etfuturum.recipes.ModRecipes;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.oredict.OreDictionary;
+import roadhog360.hogutils.api.utils.RecipeHelper;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -95,13 +95,15 @@ public class DeepslateOreRegistry {
 		}
 		for (ItemStack ore : OreDictionary.getOres(oreDict)) {
 			Block blockToAdd = Block.getBlockFromItem(ore.getItem());
-			if (blockToAdd != to && ModRecipes.validateItems(blockToAdd, to)) {
-				try {
-					addOre(blockToAdd, ore.getItemDamage(), to, toMeta, true);
-				} catch (IllegalArgumentException e) {
-//					ignoredEntries.putIfAbsent(Block.blockRegistry.getNameForObject(blockToAdd) + ":" + (ore.getItemDamage() == OreDictionary.WILDCARD_VALUE ? "*" : ore.getItemDamage()),
-//							Block.blockRegistry.getNameForObject(to) + ":" + (toMeta == OreDictionary.WILDCARD_VALUE ? "*" : toMeta) + " (" + (e.getMessage().contains("Block Entities") ? "is block entity" : "meta out of 0-15 range") + ")");
-					hasBadEntry = true;
+			if (blockToAdd != to) {
+				if (RecipeHelper.validateItems(blockToAdd, to)) {
+					try {
+						addOre(blockToAdd, ore.getItemDamage(), to, toMeta, true);
+					} catch (IllegalArgumentException e) {
+	//					ignoredEntries.putIfAbsent(Block.blockRegistry.getNameForObject(blockToAdd) + ":" + (ore.getItemDamage() == OreDictionary.WILDCARD_VALUE ? "*" : ore.getItemDamage()),
+	//							Block.blockRegistry.getNameForObject(to) + ":" + (toMeta == OreDictionary.WILDCARD_VALUE ? "*" : toMeta) + " (" + (e.getMessage().contains("Block Entities") ? "is block entity" : "meta out of 0-15 range") + ")");
+						hasBadEntry = true;
+					}
 				}
 			}
 		}
@@ -196,7 +198,7 @@ public class DeepslateOreRegistry {
 
 				Block oreNorm = entry.getKey().getObject();
 				Block oreDeep = entry.getValue().getObject();
-				if (!ModRecipes.validateItems(oreNorm, oreDeep)) {
+				if (!RecipeHelper.validateItems(oreNorm, oreDeep)) {
 					Logger.error("INVALID FURNACE RECIPE DETECTED: " + entry);
 					Logger.error("This means that a mod added INVALID items to the furnace registry!");
 				}

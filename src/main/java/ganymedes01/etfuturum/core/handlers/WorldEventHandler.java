@@ -6,7 +6,6 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.api.BeePlantRegistry;
 import ganymedes01.etfuturum.api.event.PostTreeGenerateEvent;
 import ganymedes01.etfuturum.api.mappings.RegistryMapping;
 import ganymedes01.etfuturum.compat.ModsList;
@@ -35,6 +34,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.event.terraingen.InitMapGenEvent;
 import net.minecraftforge.event.terraingen.SaplingGrowTreeEvent;
 import org.apache.commons.lang3.ArrayUtils;
+import roadhog360.hogutils.api.hogtags.HogTagsHelper;
 
 import java.lang.reflect.Constructor;
 import java.util.Map;
@@ -139,7 +139,7 @@ public class WorldEventHandler {
 				if (z1 != 0 || x1 != 0) {
 					Block block = world.getBlock(x + x1, y, z + z1);
 					int meta = world.getBlockMetadata(x + x1, y, z + z1);
-					if (BeePlantRegistry.isFlower(block, meta)) {
+					if (HogTagsHelper.BlockTags.hasAnyTag(block, meta, "minecraft:bee_attractive")) {
 						return true;
 					}
 				}

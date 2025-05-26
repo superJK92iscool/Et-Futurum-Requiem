@@ -2,7 +2,7 @@ package ganymedes01.etfuturum.compat.nei;
 
 import cpw.mods.fml.common.event.FMLInterModComms;
 import ganymedes01.etfuturum.ModBlocks;
-import ganymedes01.etfuturum.lib.Reference;
+import ganymedes01.etfuturum.Tags;
 import net.minecraft.nbt.NBTTagCompound;
 
 public class IMCSenderGTNH {
@@ -45,8 +45,8 @@ public class IMCSenderGTNH {
 	private static void sendHandler(String aName, String aBlock, int maxRecipesPerPage) {
 		NBTTagCompound aNBT = new NBTTagCompound();
 		aNBT.setString("handler", aName);
-		aNBT.setString("modName", Reference.MOD_NAME);
-		aNBT.setString("modId", Reference.MOD_ID);
+		aNBT.setString("modName", Tags.MOD_NAME);
+		aNBT.setString("modId", Tags.MOD_ID);
 		aNBT.setBoolean("modRequired", true);
 		aNBT.setString("itemName", aBlock);
 		aNBT.setInteger("handlerHeight", 65);
