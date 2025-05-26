@@ -192,7 +192,8 @@ public class SpectatorMode {
 
 			Entity entityToSpectate = SPECTATING_ENTITIES.get(event.player);
 			if (entityToSpectate != null) {
-				if (entityToSpectate.isDead || event.player.isSneaking()) {
+				if ((entityToSpectate instanceof EntityPlayer spectatingPlayer && isSpectator(spectatingPlayer))
+						|| entityToSpectate.isDead || event.player.isSneaking()) {
 					SPECTATING_ENTITIES.remove(event.player);
 					return;
 				}

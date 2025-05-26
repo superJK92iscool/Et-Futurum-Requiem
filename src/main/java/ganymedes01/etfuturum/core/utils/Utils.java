@@ -177,9 +177,9 @@ public class Utils {
 		double d1 = p_188803_0_.motionY;
 		double d2 = p_188803_0_.motionZ;
 		float f = MathHelper.sqrt_double(d0 * d0 + d2 * d2);
-		p_188803_0_.rotationYaw = (float) (atan2(d2, d0) * (180D / Math.PI)) + 90.0F;
+		p_188803_0_.rotationYaw = (float) (Math.atan2(d2, d0) * (180D / Math.PI)) + 90.0F;
 
-		for (p_188803_0_.rotationPitch = (float) (atan2(f, d1) * (180D / Math.PI))
+		for (p_188803_0_.rotationPitch = (float) (Math.atan2(f, d1) * (180D / Math.PI))
 				- 90.0F; p_188803_0_.rotationPitch
 					 - p_188803_0_.prevRotationPitch < -180.0F; p_188803_0_.prevRotationPitch -= 360.0F) {
 		}
@@ -200,59 +200,6 @@ public class Utils {
 				+ (p_188803_0_.rotationPitch - p_188803_0_.prevRotationPitch) * p_188803_1_;
 		p_188803_0_.rotationYaw = p_188803_0_.prevRotationYaw
 				+ (p_188803_0_.rotationYaw - p_188803_0_.prevRotationYaw) * p_188803_1_;
-	}
-
-	private static final double optimizationsAndTweaks$frac_bias = Double.longBitsToDouble(4805340802404319232L);
-	private static final double[] optimizationsAndTweaks$asine_tab = new double[257];
-	private static final double[] optimizationsAndTweaks$cos_tab = new double[257];
-
-	public static double atan2(double y, double x) {
-		// Check if any of the values ​​are NaN (Not a Number) and return NaN if so.
-		if (Double.isNaN(x) || Double.isNaN(y)) {
-			return Double.NaN;
-		}
-
-		// Handle cases where the values ​​are negative by reversing the signs if necessary
-		boolean isNegativeY = y < 0.0;
-		if (isNegativeY) y = -y;
-
-		boolean isNegativeX = x < 0.0;
-		if (isNegativeX) x = -x;
-
-		// Determine if y is greater than x
-		boolean isYGreaterThanX = y > x;
-		if (isYGreaterThanX) {
-			double temp = x;
-			x = y;
-			y = temp;
-		}
-
-		// Calculate magnitude and normalize components
-		double magnitudeSquared = x * x + y * y;
-		double invMagnitude = invSqrt(magnitudeSquared);
-		x *= invMagnitude;
-		y *= invMagnitude;
-
-		// Use the pre-calculated sine and cosine tables to find the angle
-		double angle = optimizationsAndTweaks$getAngle(y, x);
-
-		// Adjust angle based on initial signs
-		if (isYGreaterThanX) angle = (Math.PI / 2) - angle;
-		if (isNegativeX) angle = Math.PI - angle;
-		if (isNegativeY) angle = -angle;
-
-		return angle;
-	}
-
-	private static double optimizationsAndTweaks$getAngle(double y, double x) {
-		double biasedY = optimizationsAndTweaks$frac_bias + y;
-		int index = (int) Double.doubleToRawLongBits(biasedY);
-		double asinValue = optimizationsAndTweaks$asine_tab[index];
-		double cosValue = optimizationsAndTweaks$cos_tab[index];
-		double deltaY = biasedY - optimizationsAndTweaks$frac_bias;
-		double delta = y * cosValue - x * deltaY;
-		double correctionTerm = (6.0 + delta * delta) * delta * 0.16666666666666666;
-		return asinValue + correctionTerm;
 	}
 
 	public static float invSqrt(float num) {

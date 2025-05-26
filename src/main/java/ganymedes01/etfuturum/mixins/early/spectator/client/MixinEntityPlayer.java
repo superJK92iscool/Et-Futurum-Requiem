@@ -12,7 +12,7 @@ public class MixinEntityPlayer {
 	@Inject(method = "isInvisibleToPlayer", at = @At("HEAD"), cancellable = true)
 	public void isInvisibleToPlayer(EntityPlayer player, CallbackInfoReturnable<Boolean> cir) {
 		if (SpectatorMode.isSpectator(player)) {
-			cir.setReturnValue(false);
+			cir.setReturnValue(false); //TODO: Make it so spectators can see each other
 		}
 	}
 }

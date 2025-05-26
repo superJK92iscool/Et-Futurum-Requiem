@@ -92,7 +92,7 @@ public class ExtendedEntityMoveHelper extends EntityMoveHelper {
 				return;
 			}
 
-			float f9 = (float) (Utils.atan2(d1, d0) * (180D / Math.PI)) - 90.0F;
+			float f9 = (float) (Math.atan2(d1, d0) * (180D / Math.PI)) - 90.0F;
 			this.entity.rotationYaw = this.limitAngle(this.entity.rotationYaw, f9, 90.0F);
 			this.entity.setAIMoveSpeed((float) (this.speed * this.entity.getEntityAttribute(SharedMonsterAttributes.movementSpeed).getAttributeValue()));
 
