@@ -10,10 +10,10 @@ public class RandomTickSpeed {
 
 	public static final String GAMERULE_NAME = "randomTickSpeed";
 	public static final String DEFAULT_VALUE = "3";
-	public Integer CURRENT_VALUE = null;
+	public int CURRENT_VALUE = -1;
 
 	public int getRandomTickSpeed(GameRules gameRulesInstance) {
-		if (RandomTickSpeed.INSTANCE.CURRENT_VALUE == null) {
+		if (RandomTickSpeed.INSTANCE.CURRENT_VALUE == -1) {
 			RandomTickSpeed.INSTANCE.CURRENT_VALUE = Integer.parseInt(StringUtils.defaultIfEmpty(gameRulesInstance.getGameRuleStringValue(GAMERULE_NAME), DEFAULT_VALUE));
 		}
 		return RandomTickSpeed.INSTANCE.CURRENT_VALUE;

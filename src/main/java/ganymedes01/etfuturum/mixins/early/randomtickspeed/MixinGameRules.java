@@ -14,7 +14,7 @@ public class MixinGameRules {
     private void onGameRuleChanged(String ruleName, String value, CallbackInfo ci) {
         // Your code here to handle gamerule changes
         if (ruleName.equals("randomTickSpeed")) {
-            RandomTickSpeed.INSTANCE.CURRENT_VALUE = null;
+            RandomTickSpeed.INSTANCE.CURRENT_VALUE = -1;
         }
     }
 }
