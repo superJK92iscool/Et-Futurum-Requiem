@@ -31,7 +31,6 @@ import ganymedes01.etfuturum.gamerule.DoWeatherCycle;
 import ganymedes01.etfuturum.gamerule.PlayersSleepingPercentage;
 import ganymedes01.etfuturum.gamerule.RandomTickSpeed;
 import ganymedes01.etfuturum.items.ItemArrowTipped;
-import ganymedes01.etfuturum.mixins.early.accessors.WorldAccessor;
 import ganymedes01.etfuturum.network.AttackYawMessage;
 import ganymedes01.etfuturum.network.BlackHeartParticlesMessage;
 import ganymedes01.etfuturum.recipes.ModRecipes;
@@ -1166,7 +1165,7 @@ public class ServerEventHandler {
 		if (entity instanceof EntityPlayerMP) {
 			if (ConfigEntities.enableEndermite && entity.getRNG().nextFloat() < 0.05F) {
 				boolean doMobSpawning = entity.worldObj.getGameRules().getGameRuleBooleanValue("doMobSpawning");
-				boolean spawnHostileMobs = ((WorldAccessor) entity.worldObj).isSpawnHostileMobs();
+				boolean spawnHostileMobs = entity.worldObj.spawnHostileMobs;
 				if (doMobSpawning && spawnHostileMobs) {
 					EntityEndermite entityendermite = new EntityEndermite(entity.worldObj);
 					entityendermite.setLocationAndAngles(event.targetX, event.targetY, event.targetZ, entity.rotationYaw, entity.rotationPitch);
