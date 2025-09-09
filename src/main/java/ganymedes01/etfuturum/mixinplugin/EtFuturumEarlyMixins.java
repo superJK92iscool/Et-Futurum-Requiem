@@ -24,6 +24,11 @@ import java.util.Set;
 @IFMLLoadingPlugin.MCVersion("1.7.10")
 public class EtFuturumEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoader {
 
+	static
+	{
+
+	}
+
 	public static final MixinEnvironment.Side side = MixinEnvironment.getCurrentEnvironment().getSide();
 
 	public void initConfigs() {
@@ -272,6 +277,8 @@ public class EtFuturumEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoade
 		if (ConfigMixins.enablePlayersSleepingPecentageGamerule) {
 			mixins.add("playerssleepingpercentage.MixinWorldServer");
 		}
+
+		mixins.add("deepslateores.MixinChunk");
 
 		return mixins;
 	}
