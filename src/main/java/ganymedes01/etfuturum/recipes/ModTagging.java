@@ -93,32 +93,32 @@ public class ModTagging {
 		BlockTags.addTags(Blocks.double_plant, 4, "minecraft:bee_attractive");
 		BlockTags.addTags(Blocks.double_plant, 5, "minecraft:bee_attractive");
 
-		ItemTags.addTags(ModBlocks.AZALEA.getItem(), 0, "minecraft:bee_food");
+		ItemTags.addTags(ModBlocks.AZALEA.newItemStack(1, 1), "minecraft:bee_food");
 		BlockTags.addTags(ModBlocks.AZALEA.get(), 1, "minecraft:bee_attractive");
 		BlockTags.addTags(ModBlocks.AZALEA.get(), 9, "minecraft:bee_attractive");
 
-		ItemTags.addTags(ModBlocks.AZALEA_LEAVES.getItem(), 1, "minecraft:bee_food");
+		ItemTags.addTags(ModBlocks.AZALEA_LEAVES.newItemStack(1, 1), "minecraft:bee_food");
 		BlockTags.addTags(ModBlocks.AZALEA_LEAVES.get(), 1, "minecraft:bee_attractive");
 		BlockTags.addTags(ModBlocks.AZALEA_LEAVES.get(), 5, "minecraft:bee_attractive");
 		BlockTags.addTags(ModBlocks.AZALEA_LEAVES.get(), 9, "minecraft:bee_attractive");
 		BlockTags.addTags(ModBlocks.AZALEA_LEAVES.get(), 13, "minecraft:bee_attractive");
 
 		//Mangrove propagule
-		ItemTags.addTags(ModBlocks.SAPLING.getItem(), 0, "minecraft:bee_food");
+		ItemTags.addTags(ModBlocks.SAPLING.newItemStack(), "minecraft:bee_food");
 		BlockTags.addTags(ModBlocks.SAPLING.get(), 0, "minecraft:bee_attractive");
 		BlockTags.addTags(ModBlocks.SAPLING.get(), 8, "minecraft:bee_attractive");
 
 		//Cherry leaves
-		ItemTags.addTags(ModBlocks.LEAVES.getItem(), 1, "minecraft:bee_food");
+		ItemTags.addTags(ModBlocks.LEAVES.newItemStack(1, 1), "minecraft:bee_food");
 		BlockTags.addTags(ModBlocks.LEAVES.get(), 1, "minecraft:bee_attractive");
 		BlockTags.addTags(ModBlocks.LEAVES.get(), 5, "minecraft:bee_attractive");
 		BlockTags.addTags(ModBlocks.LEAVES.get(), 9, "minecraft:bee_attractive");
 		BlockTags.addTags(ModBlocks.LEAVES.get(), 13, "minecraft:bee_attractive");
 
-		ItemTags.addTags(ModBlocks.PINK_PETALS.getItem(), "minecraft:bee_food");
+		ItemTags.addTags(ModBlocks.PINK_PETALS.newItemStack(), "minecraft:bee_food");
 		BlockTags.addTags(ModBlocks.PINK_PETALS.get(), "minecraft:bee_attractive");
 
-		ItemTags.addTags(ModBlocks.CHORUS_FLOWER.getItem(), "minecraft:bee_food");
+		ItemTags.addTags(ModBlocks.CHORUS_FLOWER.newItemStack(), "minecraft:bee_food");
 		BlockTags.addTags(ModBlocks.CHORUS_FLOWER.get(), "minecraft:bee_attractive");
 
 		BlockTags.addTagsByID("campfirebackport", "campfire", "minecraft:campfires");
