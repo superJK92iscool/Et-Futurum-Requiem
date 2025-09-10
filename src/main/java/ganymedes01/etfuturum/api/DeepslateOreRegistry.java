@@ -204,6 +204,7 @@ public class DeepslateOreRegistry {
 		return Collections.unmodifiableMap(deepslateOres);
 	}
 
+	@ApiStatus.Internal
 	public static void init() {
 		if (ConfigBlocksItems.enableDeepslateOres) { //Copy block settings from deepslate base blocks
 			for (Entry<BlockMetaPair, BlockMetaPair> entry : getOreMap().entrySet()) {
@@ -211,8 +212,8 @@ public class DeepslateOreRegistry {
 				Block oreNorm = entry.getKey().get();
 				Block oreDeep = entry.getValue().get();
 				if (!RecipeHelper.validateItems(oreNorm, oreDeep)) {
-					Logger.error("INVALID FURNACE RECIPE DETECTED: " + entry);
-					Logger.error("This means that a mod added INVALID items to the furnace registry!");
+					Logger.error("INVALID DEEPSLATE ENTRY DETECTED: " + entry);
+					Logger.error("This means that a mod added INVALID items to the deepslate registry!");
 					continue;
 				}
 				if(oreDeep == ModBlocks.DEEPSLATE.get()) {
