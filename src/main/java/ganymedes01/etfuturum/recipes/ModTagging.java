@@ -74,10 +74,10 @@ public class ModTagging {
 		BlockTags.addTags(ModBlocks.DEEPSLATE.get(), "minecraft:deepslate_ore_replaceables");
 		BlockTags.addTags(ModBlocks.TUFF.get(), 0, "minecraft:deepslate_ore_replaceables");
 
-		BlockTags.addTagsByID("Gregtech", "gt.blockmachines", "etfuturum:spectators_cannot_interact");
-		BlockTags.addTagsByID("TConstruct", "SearedBlock", "etfuturum:spectators_cannot_interact");
-		BlockTags.addTagsByID("TConstruct", "Smeltery", "etfuturum:spectators_cannot_interact");
-//		BlockTags.addTagsByID("Thaumcraft", "blockTable", "etfuturum:spectators_cannot_interact"); //Found no interaction faults, keeping as a comment for note-taking purposes
+		BlockTags.addTagsByID("Gregtech", "gt.blockmachines", Tags.MOD_ID + ":spectators_cannot_interact");
+		BlockTags.addTagsByID("TConstruct", "SearedBlock", Tags.MOD_ID + ":spectators_cannot_interact");
+		BlockTags.addTagsByID("TConstruct", "Smeltery", Tags.MOD_ID + ":spectators_cannot_interact");
+//		BlockTags.addTagsByID("Thaumcraft", "blockTable", Tags.MOD_ID + ":spectators_cannot_interact"); //Found no interaction faults, keeping as a comment for note-taking purposes
 
 		doBeeTags();
 		doPistonTags();
@@ -135,9 +135,7 @@ public class ModTagging {
 		BlockTags.addTags(ModBlocks.SLIME.get(), Tags.MOD_ID + ":piston_slime_blocks");
 		BlockTags.addTags(ModBlocks.HONEY_BLOCK.get(), Tags.MOD_ID + ":piston_honey_blocks");
 		for (ModBlocks mb : ModBlocks.TERRACOTTA) {
-			if (mb.isEnabled()) {
-				BlockTags.addTags(mb.get(), Tags.MOD_ID + ":piston_slick_blocks");
-			}
+			BlockTags.addTags(mb.get(), Tags.MOD_ID + ":piston_slick_blocks");
 		}
 
 		//Begin mod blocks
@@ -147,6 +145,7 @@ public class ModTagging {
 		BlockTags.addTagsByID("VillageNames", "glazedTerracotta4", Tags.MOD_ID + ":piston_slick_blocks");
 
 		for (String color : GenericUtils.Constants.MODERN_COLORS_SNAKE_CASE) {
+			//TODO Make sure this actually works
 			BlockTags.addTagsByID("uptodate", "glazed_terracotta_" + color, Tags.MOD_ID + ":piston_slick_blocks");
 		}
 

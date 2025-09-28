@@ -3,8 +3,6 @@ package ganymedes01.etfuturum.world.generate;
 import ganymedes01.etfuturum.ModBlocks;
 import ganymedes01.etfuturum.api.DeepslateOreRegistry;
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenMinable;
@@ -62,15 +60,8 @@ public class WorldGenDeepslateLayerBlob extends WorldGenMinable {
 								double d14 = (z + 0.5D - d8) / (d10 / 2.0D);
 
 								if (d12 * d12 + d13 * d13 + d14 * d14 < 1.0D) {
-									block = world.getBlock(x, y, z);
-
-									if(block.getMaterial() != Material.air && block != ModBlocks.TUFF.get()) {
-										if (block.isReplaceableOreGen(world, x, y, z, Blocks.stone)) {
-											world.setBlock(x, y, z, block, 0, 0);
-										} else {
-											DeepslateOreRegistry.setBlockDeepslate(world.getChunkFromBlockCoords(x, z), x & 15, y, z & 15);
-										}
-									}
+									DeepslateOreRegistry.setBlockDeepslate(world.getChunkFromBlockCoords(x, z),
+											x & 15, y, z & 15, field_150519_a, 0);
 								}
 							}
 						}
