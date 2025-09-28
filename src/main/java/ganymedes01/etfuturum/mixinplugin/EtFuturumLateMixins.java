@@ -3,7 +3,9 @@ package ganymedes01.etfuturum.mixinplugin;
 import com.gtnewhorizon.gtnhmixins.ILateMixinLoader;
 import com.gtnewhorizon.gtnhmixins.LateMixin;
 import ganymedes01.etfuturum.Tags;
+import ganymedes01.etfuturum.configuration.configs.ConfigBlocksItems;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
+import ganymedes01.etfuturum.configuration.configs.ConfigModCompat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +29,9 @@ public class EtFuturumLateMixins implements ILateMixinLoader {
 			if (loadedMods.contains("appliedenergistics2")) {
 				mixins.add("spectator.MixinPacketInventoryAction");
 			}
+		}
+		if(ConfigBlocksItems.enableDeepslateOres && ConfigModCompat.moddedDeepslateOres && !ConfigModCompat.moddedDeepslateOresBlacklist.contains("appliedenergistics2") && loadedMods.contains("appliedenergistics2")) {
+			mixins.add("deepslateores.MixinRenderQuartzOre");
 		}
 
 		return mixins;
