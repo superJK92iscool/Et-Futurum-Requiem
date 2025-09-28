@@ -145,7 +145,7 @@ public class BlockBubbleColumn extends BaseBlock implements IInitAction {
     }
 
     protected String getBubblingNoise(World world, int x, int y, int z, Random random) {
-        return Reference.MCAssetVer + ":" + "block.bubble_column." + (isUp ? "upwards" : "whirlpool") + "_ambient";
+        return Tags.MC_ASSET_VER + ":" + "block.bubble_column." + (isUp ? "upwards" : "whirlpool") + "_ambient";
     }
 
     @Override
