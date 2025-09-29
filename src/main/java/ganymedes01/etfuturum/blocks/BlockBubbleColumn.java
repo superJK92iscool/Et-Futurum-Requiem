@@ -1,6 +1,5 @@
 package ganymedes01.etfuturum.blocks;
 
-import com.google.common.collect.Lists;
 import ganymedes01.etfuturum.Tags;
 import ganymedes01.etfuturum.core.utils.IInitAction;
 import ganymedes01.etfuturum.core.utils.Utils;
@@ -17,10 +16,10 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import roadhog360.hogutils.api.hogtags.helpers.BlockTags;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 import java.util.Random;
 
 public class BlockBubbleColumn extends BaseBlock implements IInitAction {
@@ -29,17 +28,23 @@ public class BlockBubbleColumn extends BaseBlock implements IInitAction {
     public IIcon[] outer_icons;
     public IIcon[] top_icons;
 
-    public final List<Block> supportBlocks = Lists.newArrayList();
     protected final boolean isUp;
+	private final String supportingBlockTag;
 
-    public BlockBubbleColumn(boolean up, Block... blocks) {
+	/// Second argument is the block tag that can create and support this column block.
+    public BlockBubbleColumn(boolean up, String tag) {
         super(Material.water);
-        supportBlocks.addAll(Arrays.asList(blocks));
+		supportingBlockTag = tag;
         isUp = up;
-        setLightOpacity(Blocks.water.getLightOpacity());
+        setLightOpacity(getBaseFluid().getLightOpacity());
         setBlockName("bubble_column_" + (up ? "up" : "down"));
         setBlockTextureName("bubble_column");
         setBlockBounds(0, 0, 0, 0, 0, 0);
+        addColumnMapping();
+    }
+
+    protected void addColumnMapping() {
+        EtFuturumWorldListener.BUBBLE_COLUMN_TAGS.put(getSupportTag(), this);
     }
 
     protected int innerIconCount() {
@@ -170,16 +175,28 @@ public class BlockBubbleColumn extends BaseBlock implements IInitAction {
 
     protected void manageColumn(World world, int x, int y, int z) {
         Block below = world.getBlock(x, y - 1, z);
-        if (below != this && !supportBlocks.contains(below)) {
-            world.setBlock(x, y, z, Blocks.water);
-        } else if (isFullVanillaWater(world.getBlock(x, y + 1, z), world.getBlockMetadata(x, y + 1, z))) {
+        if (below != this && !BlockTags.hasTag(below, world.getBlockMetadata(x, y - 1, z), supportingBlockTag)) {
+            world.setBlock(x, y, z, getBaseFluid());
+        } else if (isCompatibleWater(world.getBlock(x, y + 1, z), world.getBlockMetadata(x, y + 1, z))) {
             world.setBlock(x, y + 1, z, this, 0, 3);
         }
     }
 
-    public static boolean isFullVanillaWater(Block block, int meta) {
-        return meta == 0 && (block == Blocks.water || block == Blocks.flowing_water);
+    public boolean isCompatibleWater(Block block, int meta) {
+        return meta == 0 && (block == getBaseFluid() || block == getBaseFlowingFluid());
     }
+
+    public Block getBaseFlowingFluid() {
+        return Blocks.flowing_water;
+    }
+
+	public Block getBaseFluid() {
+		return Blocks.water;
+	}
+
+	public String getSupportTag() {
+		return supportingBlockTag;
+	}
 
     @Override
     public boolean canRenderInPass(int pass) {
@@ -202,14 +219,7 @@ public class BlockBubbleColumn extends BaseBlock implements IInitAction {
     }
 
     @Override
-    public void postInitAction() {
-        if (ModRecipes.validateItems(this)) {
-            supportBlocks.stream().filter(ModRecipes::validateItems).forEach(block -> EtFuturumWorldListener.bubbleColumnMap.put(block, this));
-        }
-    }
-
-    @Override
     public Item getItem(World worldIn, int x, int y, int z) {
-        return Item.getItemFromBlock(Blocks.water);
+        return Item.getItemFromBlock(getBaseFluid());
     }
 }

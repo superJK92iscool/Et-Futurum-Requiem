@@ -79,6 +79,9 @@ public class ModTagging {
 		BlockTags.addTagsByID("TConstruct", "Smeltery", Tags.MOD_ID + ":spectators_cannot_interact");
 //		BlockTags.addTagsByID("Thaumcraft", "blockTable", Tags.MOD_ID + ":spectators_cannot_interact"); //Found no interaction faults, keeping as a comment for note-taking purposes
 
+		BlockTags.addTags(ModBlocks.MAGMA.get(), Tags.MOD_ID + ":downward_bubble_column_support_blocks");
+		BlockTags.addTags(Blocks.soul_sand, Tags.MOD_ID + ":upward_bubble_column_support_blocks");
+
 		doBeeTags();
 		doPistonTags();
 	}
@@ -137,6 +140,8 @@ public class ModTagging {
 		for (ModBlocks mb : ModBlocks.TERRACOTTA) {
 			BlockTags.addTags(mb.get(), Tags.MOD_ID + ":piston_slick_blocks");
 		}
+
+		BlockTags.addTagsByID("bis", "SlimeBlock", Tags.MOD_ID + ":piston_slime_blocks");
 
 		//Begin mod blocks
 		BlockTags.addTagsByID("VillageNames", "glazedTerracotta", Tags.MOD_ID + ":piston_slick_blocks");
