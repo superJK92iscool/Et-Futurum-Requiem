@@ -10,12 +10,14 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import roadhog360.hogutils.api.hogtags.helpers.BlockTags;
 
 import java.util.Arrays;
@@ -99,9 +101,11 @@ public class BlockBubbleColumn extends BaseBlock implements IInitAction {
     @Override
     public void randomDisplayTick(World worldIn, int x, int y, int z, Random random) {
         super.randomDisplayTick(worldIn, x, y, z, random);
-        if (random.nextInt(256) == 0) {
-            worldIn.playSound(x + random.nextFloat(), y + random.nextFloat(), z + random.nextFloat(),
-                    getBubblingNoise(worldIn, x, y, z, random), 1, 1, false);
+        String sound = getBubblingNoise(worldIn, x, y, z, random);
+        if(sound != null) {
+            if (random.nextInt(256) == 0) {
+                worldIn.playSound(x + 0.5D, y + 0.5D, z + 0.5D, sound, 1, 1, false);
+            }
         }
     }
 
@@ -141,16 +145,24 @@ public class BlockBubbleColumn extends BaseBlock implements IInitAction {
             }
         } else {
             if (isUp) {
-                entityIn.motionY = Math.min(0.7D, entityIn.motionY + 0.6D);
+                entityIn.motionY = Math.min(0.7D, entityIn.motionY + 0.06D);
             } else {
-                entityIn.motionY = Math.max(-0.3D, entityIn.motionY - 0.3D);
+                entityIn.motionY = Math.max(-0.3D, entityIn.motionY - 0.03D);
             }
             entityIn.fallDistance = 0;
         }
     }
 
-    protected String getBubblingNoise(World world, int x, int y, int z, Random random) {
+    protected @Nullable String getBubblingNoise(World world, int x, int y, int z, Random random) {
         return Tags.MC_ASSET_VER + ":" + "block.bubble_column." + (isUp ? "upwards" : "whirlpool") + "_ambient";
+    }
+
+    public @Nullable String getEnterNoise(EntityLivingBase entity) {
+        return Tags.MC_ASSET_VER + ":" + "block.bubble_column." + (isUp ? "upwards" : "whirlpool") + "_inside";
+    }
+
+    public @Nullable String getExitNoise(EntityLivingBase entity) {
+        return null;
     }
 
     @Override

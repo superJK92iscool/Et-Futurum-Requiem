@@ -17,6 +17,7 @@ import ganymedes01.etfuturum.client.subtitle.GuiSubtitles;
 import ganymedes01.etfuturum.compat.ModsList;
 import ganymedes01.etfuturum.configuration.configs.ConfigFunctions;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
+import ganymedes01.etfuturum.core.handlers.BubbleColumnSoundEventHandler;
 import ganymedes01.etfuturum.core.handlers.ClientEventHandler;
 import ganymedes01.etfuturum.entities.*;
 import ganymedes01.etfuturum.lib.RenderIDs;
@@ -58,6 +59,8 @@ public class ClientProxy extends CommonProxy {
 		}
 
 		MinecraftForge.EVENT_BUS.register(BiomeFogEventHandler.INSTANCE);
+
+		FMLCommonHandler.instance().bus().register(BubbleColumnSoundEventHandler.INSTANCE);
 	}
 
 	@Override
