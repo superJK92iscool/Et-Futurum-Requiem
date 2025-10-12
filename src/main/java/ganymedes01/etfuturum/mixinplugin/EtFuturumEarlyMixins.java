@@ -10,12 +10,12 @@ import ganymedes01.etfuturum.configuration.configs.ConfigEntities;
 import ganymedes01.etfuturum.configuration.configs.ConfigMixins;
 import ganymedes01.etfuturum.configuration.configs.ConfigTweaks;
 import ganymedes01.etfuturum.lib.Reference;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.launchwrapper.Launch;
 import org.spongepowered.asm.mixin.MixinEnvironment;
 
 import java.io.File;
 import java.nio.file.Files;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -73,7 +73,7 @@ public class EtFuturumEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoade
 
 		initConfigs();
 
-		List<String> mixins = new ArrayList<>();
+		List<String> mixins = new ObjectArrayList<>();
 
 		if (ConfigMixins.endPortalFix) {
 			mixins.add("endportal.MixinBlockEndPortal");
@@ -115,9 +115,6 @@ public class EtFuturumEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoade
 			mixins.add("backlytra.MixinEntityLivingBase");
 			mixins.add("backlytra.MixinNetHandlerPlayServer");
 			mixins.add("backlytra.MixinEntityTrackerEntry");
-			if (loadedCoreMods.stream().anyMatch(name -> name.contains("thaumcraft"))) {
-				mixins.add("backlytra.thaumcraft.MixinEventHandlerEntity");
-			}
 			if (side == MixinEnvironment.Side.CLIENT) {
 				mixins.add("backlytra.client.MixinAbstractClientPlayer");
 				mixins.add("backlytra.client.MixinEntityPlayerSP");
